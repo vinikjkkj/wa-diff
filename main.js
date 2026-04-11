@@ -17,7 +17,7 @@ function sleep(ms) {
 }
 
 function runCommand(command, args, name, options = {}) {
-    console.log(`Executando: ${command} ${args.join(' ')}`)
+    console.log(`Running: ${command} ${args.join(' ')}`)
 
     return new Promise((resolve, reject) => {
         const child = spawn(command, args, {
@@ -29,7 +29,7 @@ function runCommand(command, args, name, options = {}) {
 
         child.on('error', (error) => {
             if (error && error.code === 'ENOENT') {
-                reject(new Error(`Comando nao encontrado para ${name}: ${command}`))
+                reject(new Error(`Command not found for ${name}: ${command}`))
                 return
             }
 
@@ -42,7 +42,7 @@ function runCommand(command, args, name, options = {}) {
                 return
             }
 
-            reject(new Error(`${name} finalizou com codigo ${code}`))
+            reject(new Error(`${name} finished with exit code ${code}`))
         })
     })
 }
@@ -90,7 +90,7 @@ async function waitForUrls(page, fetchScript) {
         if (urls.length > 0) return urls
 
         const elapsedSeconds = Math.floor((Date.now() - startedAt) / 1000)
-        console.log(`[${elapsedSeconds}s] aguardando WhatsApp carregar/login...`)
+        console.log(`[${elapsedSeconds}s] waiting for WhatsApp to load/login...`)
         await sleep(POLL_INTERVAL_MS)
     }
 
@@ -115,22 +115,22 @@ async function main() {
 
         await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(urls, null, 4)}\n`, 'utf8')
 
-        console.log(`Total de URLs encontradas: ${urls.length}`)
-        console.log(`Arquivo salvo em: ${OUTPUT_PATH}`)
+        console.log(`Total URLs found: ${urls.length}`)
+        console.log(`Saved file: ${OUTPUT_PATH}`)
 
         if (urls.length === 0) {
             console.log(
-                'Nenhuma URL encontrada. Se o QR code estiver na tela, faça login no WhatsApp Web e rode novamente.'
+                'No URLs found. If a QR code is visible, log in to WhatsApp Web and run again.'
             )
             return
         }
 
         await runWaExport()
-        console.log(`Exportacao finalizada em: ${EXPORT_DIR}`)
+        console.log(`Export finished at: ${EXPORT_DIR}`)
         await runPrettier()
-        console.log(`Prettier finalizado em: ${EXPORT_DIR}`)
+        console.log(`Prettier finished for: ${EXPORT_DIR}`)
 
-        console.log('Primeiras 10 URLs:')
+        console.log('First 10 URLs:')
         urls.slice(0, 10).forEach((url) => console.log(url))
     } finally {
         await browser.close()
@@ -138,6 +138,6 @@ async function main() {
 }
 
 main().catch((error) => {
-    console.error('Erro ao executar coleta de URLs:', error)
+    console.error('Error while running URL collection:', error)
     process.exitCode = 1
 })
