@@ -1,0 +1,341 @@
+__d(
+  "VideoPlayerOzImplementationEngineExtrasAPI",
+  [
+    "VideoPlayerOzWWWGlobalConfig",
+    "emptyFunction",
+    "gkx",
+    "handleVideoPlayerLatencyLevelChange",
+    "oz-player/networks/OzBandwidthEstimator",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = r("emptyFunction");
+    function s(e) {
+      var t;
+      return (t = e.getSelectedVideoQuality()) != null ? t : "";
+    }
+    function u(e) {
+      var t = e.getCurrentPlayingAudioTrackID();
+      return t == null ? null : t;
+    }
+    function c(e) {
+      var t = e.getCurrentVideoRepresentation();
+      return t == null ? "" : t.getDisplayLabel();
+    }
+    function d(e) {
+      var t,
+        n = e.getIsVideoQualityAdaptationEnabled()
+          ? "auto"
+          : (t = e.getSelectedVideoQuality()) != null
+            ? t
+            : "auto";
+      return n;
+    }
+    function m(e) {
+      return e.getTargetAudioTrack();
+    }
+    function p(e) {
+      var t, n;
+      return (t =
+        (n = e.getMpd()) == null ? void 0 : n.getCustomField("fbProjection")) !=
+        null
+        ? t
+        : null;
+    }
+    function _(e, t) {
+      var n = d(e);
+      if (t === "notselected" || t === n) return !1;
+      if (t === "auto") return (e.enableVideoQualityAdaptation(), !0);
+      if (t !== e.getSelectedVideoQuality()) {
+        var r = t;
+        return (e.switchToVideoQuality(r), !0);
+      } else return !1;
+    }
+    function f(e, t) {
+      var n = t;
+      e.switchToVideoVariant(n);
+    }
+    function g(e) {
+      var t = e.getConfig,
+        n = e.getOzPlayer,
+        o = e.getVideoElementAPI,
+        a = {
+          getApproximateFBLSToPlayerDisplayLatency: function () {
+            var e, t;
+            return (e =
+              (t = n()) == null
+                ? void 0
+                : t.getApproximateFBLSToPlayerDisplayLatency()) != null
+              ? e
+              : null;
+          },
+          getAvailableAudioTracks: function () {
+            var e,
+              t = (e = n()) == null ? void 0 : e.getAudioTracks();
+            if (!t) return [];
+            var r = t.map(function (e) {
+              return {
+                displayLabel: e.displayLabel,
+                id: e.id,
+                lang: e.lang,
+                mimeCodecs: e.mimeCodecs,
+                role: e.role,
+                variantKey: e.variantKey,
+              };
+            });
+            return r;
+          },
+          getAvailableVideoQualities: function () {
+            var e, t;
+            return (e = (t = n()) == null ? void 0 : t.getVideoQualities()) !=
+              null
+              ? e
+              : [];
+          },
+          getAvailableVideoTracks: function () {
+            var e,
+              t = (e = n()) == null ? void 0 : e.getVideoTracks();
+            if (!t) return [];
+            var r = t.map(function (e) {
+              return {
+                codec: e.codec,
+                codecFamily: e.codecFamily,
+                displayLabel: e.displayLabel,
+                height: e.height,
+                id: e.id,
+                lang: e.lang,
+                mimeCodecs: e.mimeCodecs,
+                qualityLabel: e.qualityLabel,
+                role: e.role,
+                variantKey: e.variantKey,
+                width: e.width,
+              };
+            });
+            return r;
+          },
+          getCurrentAudioRepresentation: function () {
+            var e, t;
+            return (e =
+              (t = n()) == null ? void 0 : t.getCurrentAudioRepresentation()) !=
+              null
+              ? e
+              : null;
+          },
+          getCurrentPlayingAudioRepresentationID: function () {
+            var e = n();
+            return e ? u(e) : null;
+          },
+          getCurrentPlayingAudioTrackID: function () {
+            var e = n();
+            return e ? u(e) : null;
+          },
+          getCurrentPlayingVideoQuality: function () {
+            var e = n();
+            return e ? c(e) : "";
+          },
+          getCurrentPlayingVideoRepresentationID: function () {
+            var e, t;
+            return (e =
+              (t = n()) == null ||
+              (t = t.getCurrentVideoRepresentation()) == null
+                ? void 0
+                : t.getID()) != null
+              ? e
+              : null;
+          },
+          getCurrentTargetVideoQuality: function () {
+            var e = n();
+            return e ? s(e) : "";
+          },
+          getCurrentVideoRepresentation: function () {
+            var e, t;
+            return (e =
+              (t = n()) == null ? void 0 : t.getCurrentVideoRepresentation()) !=
+              null
+              ? e
+              : null;
+          },
+          getEstimatedBandwidth: function () {
+            return r("oz-player/networks/OzBandwidthEstimator").getBandwidth(
+              r("VideoPlayerOzWWWGlobalConfig"),
+            );
+          },
+          getInbandCaptionsAutogeneratedFromManifest: function () {
+            var e,
+              t = (e = n()) == null ? void 0 : e.getMpd();
+            return !!(
+              t != null &&
+              t.getCustomField("hasInbandCaptionsFromUsingASRCaptions")
+            );
+          },
+          getInbandCaptionsExpectedFromManifest: function () {
+            var e,
+              t = (e = n()) == null ? void 0 : e.getMpd();
+            return (
+              !!(
+                t != null &&
+                t.getCustomField("hasInbandCaptionsFromUsingASRCaptions")
+              ) ||
+              !!(
+                t != null &&
+                t.getCustomField("hasInbandCaptionsFromAccessibility")
+              )
+            );
+          },
+          getManifestIdentifier: function () {
+            var e,
+              t =
+                (e = n()) == null || (e = e.getMpd()) == null
+                  ? void 0
+                  : e.getCustomField("fbManifestIdentifier");
+            return t != null ? String(t) : null;
+          },
+          getMpdValidationErrors: function () {
+            var e,
+              t =
+                (e = n()) == null || (e = e.getMpd()) == null
+                  ? void 0
+                  : e.getCustomField("validationErrors");
+            return t != null ? String(t) : null;
+          },
+          getPerfLoggerProvider: function () {
+            var e = n();
+            return e ? e.getPerfLoggerProvider() : null;
+          },
+          getRepresentationCaptionsExpectedFromManifest: function () {
+            var e,
+              t = (e = n()) == null ? void 0 : e.getMpd();
+            return !!(
+              t != null && t.getCustomField("hasVTTRepresentationCaptions")
+            );
+          },
+          getStreamType: function () {
+            return "dash";
+          },
+          getTargetAudioTrack: function () {
+            var e = n();
+            return e ? m(e) : null;
+          },
+          getUserSelectedVideoQuality: function () {
+            var e = n();
+            return e ? d(e) : "";
+          },
+          getUserSelectedVideoVariant: function () {
+            var e,
+              t = n();
+            return (e = t == null ? void 0 : t.getTargetVideoVariant()) != null
+              ? e
+              : null;
+          },
+          getVideoProjectionType: function () {
+            var e = n();
+            return e != null ? p(e) : null;
+          },
+          getVideoRepresentations: function () {
+            var e, t;
+            return (e =
+              (t = n()) == null || (t = t.getMpd()) == null
+                ? void 0
+                : t.getVideoRepresentations()) != null
+              ? e
+              : null;
+          },
+          isDrm: function () {
+            var e;
+            return !!((e = n()) != null && e.isDrm());
+          },
+          isFBIsLiveTemplated: function () {
+            var e,
+              t = (e = n()) == null ? void 0 : e.getMpd();
+            return !!(t != null && t.getCustomField("isLiveTemplated"));
+          },
+          isFBMS: function () {
+            var e,
+              t = (e = n()) == null ? void 0 : e.getMpd();
+            return !!(t != null && t.getCustomField("isFBMS"));
+          },
+          isFBWasLive: function () {
+            var e,
+              t = (e = n()) == null ? void 0 : e.getMpd();
+            return !!(t != null && t.getCustomField("isFBWasLive"));
+          },
+          isLiveRewindAvailable: function () {
+            var e,
+              t,
+              r =
+                (e = (t = n()) == null ? void 0 : t.getMpdUrl()) != null
+                  ? e
+                  : "";
+            try {
+              var o, a;
+              return (o =
+                (a = new URL(r).searchParams.get("ms")) == null
+                  ? void 0
+                  : a.includes("m_CT")) != null
+                ? o
+                : !1;
+            } catch (e) {}
+            return !1;
+          },
+          isMixedCodecManifest: function () {
+            var e,
+              t,
+              r,
+              o,
+              a = (e = n()) == null ? void 0 : e.getMpd();
+            if (a == null) return null;
+            var i = (t = a.getVideoRepresentations()) != null ? t : [],
+              l = new Set(
+                i.map(function (e) {
+                  return /codecs=\"([^\".]+)/i.exec(e.getMimeCodecs());
+                }),
+              ),
+              s =
+                (r =
+                  (o = n()) == null || (o = o.getMpd()) == null
+                    ? void 0
+                    : o.getAudioRepresentations()) != null
+                  ? r
+                  : [],
+              u = new Set(
+                s.map(function (e) {
+                  return /codecs=\"([^\".]+)/i.exec(e.getMimeCodecs());
+                }),
+              );
+            return l.size > 1 || u.size > 1;
+          },
+          isPredictiveDash: function () {
+            var e,
+              t,
+              r =
+                (e =
+                  (t = n()) == null || (t = t.getMpd()) == null
+                    ? void 0
+                    : t.getVideoRepresentations()[0]) != null
+                  ? e
+                  : null;
+            return r !== null && r.canPredict();
+          },
+          setDimensions: function (t) {},
+          setEnableLiveheadCatchup: function (t) {
+            var e = n();
+            e != null && e.setEnableLiveheadCatchup(t);
+          },
+          setLatencyLevel: function (a) {
+            r("handleVideoPlayerLatencyLevelChange")(t(), o(), n(), a);
+          },
+          setUserSelectedVideoQuality: function (t) {
+            var e = n();
+            e != null && _(e, t);
+          },
+          setUserSelectedVideoVariant: function (t) {
+            var e = n();
+            e != null && t != null && f(e, t);
+          },
+        };
+      return a;
+    }
+    l.createVideoPlayerOzImplementationEngineExtrasAPI = g;
+  },
+  98,
+);

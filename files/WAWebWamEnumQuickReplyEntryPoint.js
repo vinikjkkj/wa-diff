@@ -1,0 +1,18 @@
+__d(
+  "WAWebWamEnumQuickReplyEntryPoint",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      QUICK_REPLY_ENTRY_POINT_KEYBOARD: 1,
+      QUICK_REPLY_ENTRY_POINT_ATTACHMENT_PANEL: 2,
+      QUICK_REPLY_ENTRY_POINT_SETTINGS_MENU: 3,
+      QUICK_REPLY_ENTRY_POINT_BANNERS: 4,
+      QUICK_REPLY_ENTRY_POINT_NUX: 5,
+      QUICK_REPLY_ENTRY_POINT_ACTION_BAR: 6,
+      QUICK_REPLY_ENTRY_POINT_DEEPLINK: 7,
+      QUICK_REPLY_ENTRY_POINT_MESSAGE_BUBBLE: 8,
+    });
+    i.QUICK_REPLY_ENTRY_POINT = e;
+  },
+  66,
+);

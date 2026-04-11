@@ -1,0 +1,58 @@
+__d(
+  "WAWebProtobufsAdv.pb",
+  ["$InternalEnum", "WAProtoConst"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = n("$InternalEnum")({ E2EE: 0, HOSTED: 1 }),
+      u = {},
+      c = {},
+      d = {},
+      m = {},
+      p = {};
+    ((u.internalDefaults = { accountType: s.E2EE }),
+      (u.name = "ADVKeyIndexList"),
+      (u.internalSpec = {
+        rawId: [1, (e = o("WAProtoConst")).TYPES.UINT32],
+        timestamp: [2, e.TYPES.UINT64],
+        currentIndex: [3, e.TYPES.UINT32],
+        validIndexes: [4, e.FLAGS.REPEATED | e.FLAGS.PACKED | e.TYPES.UINT32],
+        accountType: [5, e.TYPES.ENUM, s],
+      }),
+      (c.name = "ADVSignedKeyIndexList"),
+      (c.internalSpec = {
+        details: [1, e.TYPES.BYTES],
+        accountSignature: [2, e.TYPES.BYTES],
+        accountSignatureKey: [3, e.TYPES.BYTES],
+      }),
+      (d.internalDefaults = { accountType: s.E2EE, deviceType: s.E2EE }),
+      (d.name = "ADVDeviceIdentity"),
+      (d.internalSpec = {
+        rawId: [1, e.TYPES.UINT32],
+        timestamp: [2, e.TYPES.UINT64],
+        keyIndex: [3, e.TYPES.UINT32],
+        accountType: [4, e.TYPES.ENUM, s],
+        deviceType: [5, e.TYPES.ENUM, s],
+      }),
+      (m.name = "ADVSignedDeviceIdentity"),
+      (m.internalSpec = {
+        details: [1, e.TYPES.BYTES],
+        accountSignatureKey: [2, e.TYPES.BYTES],
+        accountSignature: [3, e.TYPES.BYTES],
+        deviceSignature: [4, e.TYPES.BYTES],
+      }),
+      (p.internalDefaults = { accountType: s.E2EE }),
+      (p.name = "ADVSignedDeviceIdentityHMAC"),
+      (p.internalSpec = {
+        details: [1, e.TYPES.BYTES],
+        hmac: [2, e.TYPES.BYTES],
+        accountType: [3, e.TYPES.ENUM, s],
+      }),
+      (l.ADVEncryptionType = s),
+      (l.ADVKeyIndexListSpec = u),
+      (l.ADVSignedKeyIndexListSpec = c),
+      (l.ADVDeviceIdentitySpec = d),
+      (l.ADVSignedDeviceIdentitySpec = m),
+      (l.ADVSignedDeviceIdentityHMACSpec = p));
+  },
+  98,
+);

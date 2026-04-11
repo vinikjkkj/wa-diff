@@ -1,0 +1,122 @@
+__d(
+  "WAWebStatusItemViewWamEvent",
+  [
+    "WAWebWamCodegenUtils",
+    "WAWebWamEnumInlineVideoType",
+    "WAWebWamEnumMediaType",
+    "WAWebWamEnumPairedMediaType",
+    "WAWebWamEnumPsaLinkOpenResult",
+    "WAWebWamEnumReshareSource",
+    "WAWebWamEnumStatusCategory",
+    "WAWebWamEnumStatusItemViewResult",
+    "WAWebWamEnumStatusPairedMediaQuality",
+    "WAWebWamEnumStatusPosterContactType",
+    "WAWebWamEnumStatusRowSection",
+    "WAWebWamEnumStatusType",
+    "WAWebWamEnumUrlStatusClicked",
+    "WAWebWamEnumUrlStatusType",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = (e = o("WAWebWamCodegenUtils")).defineEvents(
+        {
+          StatusItemView: [
+            1658,
+            {
+              bytesDownloadedStartView: [47, e.TYPES.NUMBER],
+              estimatedBandwidth: [48, e.TYPES.NUMBER],
+              externalSourceDomainType: [
+                34,
+                o("WAWebWamEnumInlineVideoType").INLINE_VIDEO_TYPE,
+              ],
+              isAlreadyDownloaded: [35, e.TYPES.BOOLEAN],
+              isForwardable: [44, e.TYPES.BOOLEAN],
+              isForwarded: [45, e.TYPES.BOOLEAN],
+              isPosterBiz: [23, e.TYPES.BOOLEAN],
+              isPosterInAddressBook: [25, e.TYPES.BOOLEAN],
+              isResharable: [37, e.TYPES.BOOLEAN],
+              isReshare: [40, e.TYPES.BOOLEAN],
+              isSubscribed: [52, e.TYPES.BOOLEAN],
+              isViewedInLandscape: [29, e.TYPES.BOOLEAN],
+              mediaFileSize: [49, e.TYPES.INTEGER],
+              mediaType: [4, o("WAWebWamEnumMediaType").MEDIA_TYPE],
+              musicBlocked: [32, e.TYPES.BOOLEAN],
+              pairedMediaType: [
+                38,
+                o("WAWebWamEnumPairedMediaType").PAIRED_MEDIA_TYPE,
+              ],
+              psaCampaignId: [17, e.TYPES.STRING],
+              psaCampaignItemIndex: [18, e.TYPES.INTEGER],
+              psaLinkAvailable: [19, e.TYPES.BOOLEAN],
+              psaLinkClick: [22, e.TYPES.BOOLEAN],
+              psaLinkLoadTime: [21, e.TYPES.TIMER],
+              psaLinkOpenResult: [
+                20,
+                o("WAWebWamEnumPsaLinkOpenResult").PSA_LINK_OPEN_RESULT,
+              ],
+              reshareSource: [
+                41,
+                o("WAWebWamEnumReshareSource").RESHARE_SOURCE,
+              ],
+              statusCategory: [
+                46,
+                o("WAWebWamEnumStatusCategory").STATUS_CATEGORY,
+              ],
+              statusContainsMusic: [30, e.TYPES.BOOLEAN],
+              statusContainsQuestion: [51, e.TYPES.BOOLEAN],
+              statusContainsReactionSticker: [56, e.TYPES.BOOLEAN],
+              statusId: [53, e.TYPES.STRING],
+              statusItem3sViewCount: [31, e.TYPES.INTEGER],
+              statusItemImpressionCount: [14, e.TYPES.INTEGER],
+              statusItemIndex: [16, e.TYPES.INTEGER],
+              statusItemLength: [7, e.TYPES.TIMER],
+              statusItemLoadTime: [5, e.TYPES.TIMER],
+              statusItemReplied: [8, e.TYPES.INTEGER],
+              statusItemUnread: [9, e.TYPES.BOOLEAN],
+              statusItemViewCount: [10, e.TYPES.INTEGER],
+              statusItemViewResult: [
+                3,
+                o("WAWebWamEnumStatusItemViewResult").STATUS_ITEM_VIEW_RESULT,
+              ],
+              statusItemViewTime: [6, e.TYPES.TIMER],
+              statusMediaHeight: [42, e.TYPES.INTEGER],
+              statusMediaWidth: [43, e.TYPES.INTEGER],
+              statusPairedMediaQuality: [
+                39,
+                o("WAWebWamEnumStatusPairedMediaQuality")
+                  .STATUS_PAIRED_MEDIA_QUALITY,
+              ],
+              statusPosterContactType: [
+                57,
+                o("WAWebWamEnumStatusPosterContactType")
+                  .STATUS_POSTER_CONTACT_TYPE,
+              ],
+              statusRowIndex: [2, e.TYPES.INTEGER],
+              statusRowSection: [
+                11,
+                o("WAWebWamEnumStatusRowSection").STATUS_ROW_SECTION,
+              ],
+              statusType: [36, o("WAWebWamEnumStatusType").STATUS_TYPE],
+              statusViewerSessionId: [1, e.TYPES.INTEGER],
+              traceIdInt: [58, e.TYPES.INTEGER],
+              unifiedSessionId: [54, e.TYPES.STRING],
+              updatesTabSessionId: [55, e.TYPES.INTEGER],
+              urlStatusClicked: [
+                26,
+                o("WAWebWamEnumUrlStatusClicked").URL_STATUS_CLICKED,
+              ],
+              urlStatusType: [
+                27,
+                o("WAWebWamEnumUrlStatusType").URL_STATUS_TYPE,
+              ],
+            },
+            [1, 1, 1],
+            "regular",
+          ],
+        },
+        { StatusItemView: [] },
+      );
+    l.StatusItemViewWamEvent = s;
+  },
+  98,
+);

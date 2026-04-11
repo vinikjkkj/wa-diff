@@ -1,0 +1,58 @@
+__d(
+  "WASmaxInPrivacyEnums",
+  ["WAJids"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = {
+        all: "all",
+        contact_blacklist: "contact_blacklist",
+        contacts: "contacts",
+        none: "none",
+      },
+      u = { all: "all", contacts: "contacts" },
+      c = { all: "all", contacts: "contacts", known: "known" },
+      d = { all: "all", contacts: "contacts", none: "none" },
+      m = { all: "all", match_last_seen: "match_last_seen" },
+      p = { all: "all", none: "none" },
+      _ = {
+        calladd: "calladd",
+        cover_photo: "cover_photo",
+        defense: "defense",
+        dependentaccountmessages: "dependentaccountmessages",
+        groupadd: "groupadd",
+        groupcreation: "groupcreation",
+        last: "last",
+        linked_profiles: "linked_profiles",
+        messages: "messages",
+        online: "online",
+        pix: "pix",
+        profile: "profile",
+        readreceipts: "readreceipts",
+        status: "status",
+        stickers: "stickers",
+      },
+      f = { contacts: "contacts", none: "none" },
+      g = { off: "off", on_standard: "on_standard" },
+      h = {
+        validators: [(e = o("WAJids")).validateDomainJid, e.validateUserJid],
+        typeName: "DomainJid|UserJid",
+      },
+      y = {
+        validators: [e.validateUserJid, e.validateUserJid],
+        typeName: "UserJid|UserJid",
+      };
+    ((l.ENUM_ALL_CONTACTBLACKLIST_CONTACTS_NONE = s),
+      (l.ENUM_ALL_CONTACTS = u),
+      (l.ENUM_ALL_CONTACTS_KNOWN = c),
+      (l.ENUM_ALL_CONTACTS_NONE = d),
+      (l.ENUM_ALL_MATCHLASTSEEN = m),
+      (l.ENUM_ALL_NONE = p),
+      (l.ENUM_CALLADD_COVERPHOTO_DEFENSE_DEPENDENTACCOUNTMESSAGES_GROUPADD_GROUPCREATION_LAST_LINKEDPROFILES_MESSAGES_ONLINE_PIX_PROFILE_READRECEIPTS_STATUS_STICKERS =
+        _),
+      (l.ENUM_CONTACTS_NONE = f),
+      (l.ENUM_OFF_ONSTANDARD = g),
+      (l.DOMAINJID_USERJID = h),
+      (l.USERJID_USERJID = y));
+  },
+  98,
+);

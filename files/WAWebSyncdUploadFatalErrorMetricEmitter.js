@@ -1,0 +1,82 @@
+__d(
+  "WAWebSyncdUploadFatalErrorMetricEmitter",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = null;
+    function l(t) {
+      e = t;
+    }
+    function s(
+      t,
+      n,
+      r,
+      o,
+      a,
+      i,
+      l,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _,
+      f,
+      g,
+      h,
+      y,
+      C,
+      b,
+      v,
+      S,
+      R,
+      L,
+      E,
+      k,
+      I,
+      T,
+      D,
+      x,
+      $,
+    ) {
+      e == null ||
+        e(
+          t,
+          n,
+          r,
+          o,
+          a,
+          i,
+          l,
+          s,
+          u,
+          c,
+          d,
+          m,
+          p,
+          _,
+          f,
+          g,
+          h,
+          y,
+          C,
+          b,
+          v,
+          S,
+          R,
+          L,
+          E,
+          k,
+          I,
+          T,
+          D,
+          x,
+          $,
+        );
+    }
+    ((i.listenForUploadFatalErrorMetric = l),
+      (i.emitUploadFatalErrorMetric = s));
+  },
+  66,
+);

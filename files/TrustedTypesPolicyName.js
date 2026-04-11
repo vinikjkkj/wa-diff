@@ -1,0 +1,38 @@
+__d(
+  "TrustedTypesPolicyName",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum")({
+        DEFAULT: "default",
+        NOOP_DO_NOT_USE: "noop-do-not-use",
+        UNSAFE_FUNCTION_DO_NOT_USE: "unsafe-function-do-not-use",
+        DDS_INLINE_STYLE: "dds-inline-style",
+        GHL_PLUS_HTML: "ghl-plus-html",
+        LINK_TAG_HTML: "link-tag-html",
+        BOOTLOADER_DATA_URI: "bootloader-data-uri",
+        OC_URI_SCRIPT_URL: "oc-uri-script-urls",
+        FB_URI_SCRIPT_URL: "fb-uri-script-urls",
+        META_URI_SCRIPT_URL: "meta-uri-script-urls",
+        RL_TEALIUM_CDN_URI: "rl-tealium-cdn-uri",
+        SAME_ORIGIN_SCRIPT_URL: "same-origin-script-urls",
+        WEB_WORKER_URL: "web-worker-url",
+        YOUTUBE_IFRAME_URL: "youtube-iframe-uri",
+        IORG_WEB_WORKER_POLICY: "iorg-web-worker-policy",
+        BIG_PIPE_MARKUP: "big-pipe-markup",
+        GOOGLE_ANALYTICS_URL: "google-analytics-url",
+        FBQ_SCRIPT_URL: "fbq-script-url",
+        CBQ_SCRIPT_URL: "cbq-script-url",
+        DOM_IE_FIX: "dom-ie-fix",
+        OZ_PLAYER_XML: "oz-player-xml",
+        CHROMECAST_EXTENSION_URI: "chromecast-extension-uri",
+        TRANSLATED_CMS_HTML: "translated-cms-html",
+        XHP_HTML: "xhp-html",
+        GSAP_SPLIT_TEXT: "gsap-split-test",
+        MARKDOWN_HTML: "markdown-html",
+        BT_MANIFEST: "bt-manifest",
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

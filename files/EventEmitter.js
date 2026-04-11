@@ -1,0 +1,14 @@
+__d(
+  "EventEmitter",
+  ["BaseEventEmitter"],
+  function (t, n, r, o, a, i, l) {
+    var e = (function (e) {
+      function t() {
+        return e.apply(this, arguments) || this;
+      }
+      return (babelHelpers.inheritsLoose(t, e), t);
+    })(r("BaseEventEmitter"));
+    l.default = e;
+  },
+  98,
+);

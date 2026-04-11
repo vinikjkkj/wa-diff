@@ -1,0 +1,57 @@
+__d(
+  "WAWebJumpToButtons.stylex",
+  [],
+  function (t, n, r, o, a, i, l) {
+    var e = {
+      boxShadow: { boxShadow: "xhji94x", $$css: !0 },
+      incomingRefreshed: {
+        alignItems: "x6s0dn4",
+        backgroundColor: "x1ew7x2d",
+        borderStartStartRadius: "xt8t1vi",
+        borderStartEndRadius: "x1xc408v",
+        borderEndEndRadius: "x129tdwq",
+        borderEndStartRadius: "x15urzxu",
+        display: "x78zum5",
+        flexDirection: "xdt5ytf",
+        justifyContent: "xl56j7k",
+        position: "x1n2onr6",
+        rowGap: "x1qvou4u",
+        $$css: !0,
+      },
+      unreadRefreshed: {
+        height: "x1qx5ct2",
+        insetInlineEnd: "xpa5qit",
+        left: null,
+        right: null,
+        position: "x10l6tqk",
+        top: "xjibb99",
+        $$css: !0,
+      },
+      incoming: {
+        alignItems: "x6s0dn4",
+        backgroundColor: "x1ew7x2d",
+        borderStartStartRadius: "xt8t1vi",
+        borderStartEndRadius: "x1xc408v",
+        borderEndEndRadius: "x129tdwq",
+        borderEndStartRadius: "x15urzxu",
+        boxShadow: "xhji94x",
+        display: "x78zum5",
+        height: "x1vqgdyp",
+        justifyContent: "xl56j7k",
+        width: "x100vrsf",
+        $$css: !0,
+      },
+      unread: {
+        insetInlineStart: "x1765b1",
+        left: null,
+        right: null,
+        position: "x10l6tqk",
+        top: "xjibb99",
+        $$css: !0,
+      },
+      iconColor: { color: "xhslqc4", $$css: !0 },
+    };
+    l.styles = e;
+  },
+  98,
+);

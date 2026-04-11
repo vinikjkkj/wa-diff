@@ -1,0 +1,18 @@
+__d(
+  "WAWebWamEnumBugReportEntryPointName",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      BUG_REPORT_ENTRY_POINT_SETTINGS: 1,
+      BUG_REPORT_ENTRY_POINT_HELP: 2,
+      BUG_REPORT_ENTRY_POINT_RAGE_SHAKE: 3,
+      BUG_REPORT_ENTRY_POINT_REPORT_MESSAGE: 4,
+      BUG_REPORT_ENTRY_POINT_VOIP_BUGNUB: 5,
+      BUG_REPORT_ENTRY_POINT_VOIP_CALL_MENU: 6,
+      BUG_REPORT_ENTRY_POINT_BLOKS: 7,
+      BUG_REPORT_ENTRY_POINT_SIDEBAR_BUGNUB: 8,
+    });
+    i.BUG_REPORT_ENTRY_POINT_NAME = e;
+  },
+  66,
+);

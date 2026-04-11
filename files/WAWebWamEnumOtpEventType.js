@@ -1,0 +1,28 @@
+__d(
+  "WAWebWamEnumOtpEventType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      CLICK: 0,
+      IMPRESSION: 1,
+      OTP_CODE_REQUESTED: 2,
+      OTP_CODE_SENT: 3,
+      MESSAGE_RECEIVED: 4,
+      MESSAGE_READ: 5,
+      MESSAGE_DELETED: 6,
+      ZERO_TAP_ENABLED: 7,
+      ZERO_TAP_DISABLED: 8,
+      ZERO_TAP_NOTICE_VIEWED: 9,
+      CLEAR_CHAT: 10,
+      ZERO_TAP_SEND_CODE_STARTED: 11,
+      ZERO_TAP_SEND_CODE_COMPLETED: 12,
+      ZERO_TAP_SEND_CODE_FAILED: 13,
+      OTP_CONF_OPT_ZERO_TAP_FLAG_ENABLED: 14,
+      OTP_CONF_OPT_ZERO_TAP_FLAG_DISABLED: 15,
+      HANDSHAKE_CONFIRMATION_SENT: 16,
+      FEEDBACK_BUTTON_CLICK: 17,
+    });
+    i.OTP_EVENT_TYPE = e;
+  },
+  66,
+);

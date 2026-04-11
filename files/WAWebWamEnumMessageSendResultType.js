@@ -1,0 +1,28 @@
+__d(
+  "WAWebWamEnumMessageSendResultType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      OK: 1,
+      ERROR_UNKNOWN: 3,
+      ERROR_NETWORK: 4,
+      ERROR_EXPIRED: 5,
+      ERROR_CANCELLED: 6,
+      ERROR_UPLOAD: 7,
+      ERROR_BACKFILL_USYNC_FAILED: 8,
+      ERROR_PAYLOAD_TOO_BIG: 9,
+      ERROR_LOCATION: 10,
+      ERROR_INVALID_MESSAGE: 11,
+      ERROR_E2EE: 12,
+      ERROR_INVALID_PROTOBUF: 13,
+      SERVER_ERROR: 14,
+      EPHEMERALLY_EXPIRED: 15,
+      MEDIA_UPLOAD_FAILED: 16,
+      ERROR_CLIENT_OUT_OF_MEMORY: 17,
+      ERROR_UPLOAD_CANCELLED_MANUALLY: 18,
+      ERROR_UPLOAD_CANCELLED_AUTOMATIC: 19,
+    });
+    i.MESSAGE_SEND_RESULT_TYPE = e;
+  },
+  66,
+);

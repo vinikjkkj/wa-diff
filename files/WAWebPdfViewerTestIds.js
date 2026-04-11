@@ -1,0 +1,43 @@
+__d(
+  "WAWebPdfViewerTestIds",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("$InternalEnum")({
+        CONTAINER: "pdf-viewer-container",
+        EDIT_COLOR_SELECTOR: "webtp-pdf-color-selector",
+        EDIT_DONE: "webtp-pdf-done",
+        EDIT_DRAW: "webtp-pdf-draw",
+        EDIT_HIGHLIGHT: "webtp-pdf-highlight",
+        EDIT_IN_ACROBAT: "webtp-pdf-edit-in-acrobat",
+        EDIT_INLINE_IFRAME: "pdf-edit-inline-iframe",
+        EDIT_MODAL_IFRAME: "pdf-edit-modal-iframe",
+        EDIT_REDO: "webtp-pdf-redo",
+        EDIT_STRIKETHROUGH: "webtp-pdf-strikethrough",
+        EDIT_THICKNESS: "webtp-pdf-thickness",
+        EDIT_UNDERLINE: "webtp-pdf-underline",
+        EDIT_UNDO: "webtp-pdf-undo",
+        ERROR_CONTAINER: "pdf-viewer-error",
+        ERROR_DOWNLOAD_BUTTON: "pdf-viewer-error-download",
+        FLOATING_PANEL: "pdf-viewer-floating-panel",
+        IFRAME: "pdf-viewer-iframe",
+        LOADING_SPINNER: "pdf-viewer-loading",
+        NEXT_PAGE_BUTTON: "pdf-viewer-next-page",
+        PAGE_INPUT: "pdf-viewer-page-input",
+        PAGE_TOTAL: "pdf-viewer-page-total",
+        PASSWORD_DIALOG: "pdf-password-dialog",
+        PASSWORD_ERROR: "pdf-password-error",
+        PASSWORD_INPUT: "pdf-password-input",
+        PASSWORD_PROTECTED_LABEL: "webtp-password-protected-label",
+        PASSWORD_SUBMIT: "pdf-password-submit",
+        POWERED_BY: "webtp-powered-by",
+        PREV_PAGE_BUTTON: "pdf-viewer-prev-page",
+        THUMBNAIL_IFRAME: "webtp-iframe-thumbnail",
+        ZOOM_IN_BUTTON: "pdf-viewer-zoom-in",
+        ZOOM_OUT_BUTTON: "pdf-viewer-zoom-out",
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

@@ -1,0 +1,21 @@
+__d(
+  "WAWebWamEnumReactionUserJourneyEntryPoint",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      MESSAGE_HOLD: 1,
+      MESSAGE_DOUBLE_TAP: 2,
+      MEDIA_VIEWER_REACTION_CTA: 3,
+      EXISTING_REACTION_CTA: 4,
+      MACOS_MESSAGE_REACTION_BUTTON: 5,
+      MACOS_MESSAGE_MENU_ITEM_REACTION: 6,
+      MACOS_LAST_MESSAGE_REACT_SHORTCUT: 7,
+      VOICE_CHAT_REACTION_BUTTON: 8,
+      VOICE_CHAT_MINI_PLAYER_HOLD: 9,
+      MESSAGE_REACTION_BUTTON: 10,
+      MESSAGE_MENU_ITEM_REACTION: 11,
+    });
+    i.REACTION_USER_JOURNEY_ENTRY_POINT = e;
+  },
+  66,
+);

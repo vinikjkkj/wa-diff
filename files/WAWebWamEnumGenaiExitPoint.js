@@ -1,0 +1,26 @@
+__d(
+  "WAWebWamEnumGenaiExitPoint",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      CANCEL_FULL_SHEET: 1,
+      CANCEL_HALF_SHEET: 2,
+      DISMISS_FULL_SHEET: 3,
+      DISMISS_HALF_SHEET: 4,
+      INACTIVITY_FULL_SHEET: 5,
+      INACTIVITY_HALF_SHEET: 6,
+      KEYBOARD_FULL_SHEET: 7,
+      KEYBOARD_HALF_SHEET: 8,
+      CAMERA_FULL_SHEET: 9,
+      CAMERA_HALF_SHEET: 10,
+      BACKGROUNDED_FULL_SHEET: 11,
+      BACKGROUNDED_HALF_SHEET: 12,
+      HALF_SHEET_DIRECT_TO_SETTING: 13,
+      FULL_SHEET_DIRECT_TO_SETTING: 14,
+      EXIT_MM_SURFACE: 15,
+      COMPOSER_TRANSITION: 16,
+    });
+    i.GENAI_EXIT_POINT = e;
+  },
+  66,
+);

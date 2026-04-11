@@ -1,0 +1,16 @@
+__d(
+  "WASmaxOutSpamStatusContentTypeTextMixin",
+  ["WASmaxJsx", "WASmaxMixins"],
+  function (t, n, r, o, a, i, l) {
+    function e() {
+      var e = o("WASmaxJsx").smax("status", { type: "text" });
+      return e;
+    }
+    function s(t) {
+      var n = e();
+      return o("WASmaxMixins").mergeStanzas(t, n);
+    }
+    l.mergeStatusContentTypeTextMixin = s;
+  },
+  98,
+);

@@ -1,0 +1,55 @@
+__d(
+  "WAWebMediaEditPdfButtonStyles",
+  [],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e = {
+      customButton: {
+        alignItems: "x6s0dn4",
+        backgroundColor: "x1280gxy x1ubxc9n",
+        borderTopColor: "xnj1f2r",
+        borderInlineEndColor: "x2uibgs",
+        borderBottomColor: "xkveyfu",
+        borderInlineStartColor: "x12llq9",
+        borderStartStartRadius: "xt8t1vi",
+        borderStartEndRadius: "x1xc408v",
+        borderEndEndRadius: "x129tdwq",
+        borderEndStartRadius: "x15urzxu",
+        borderTopStyle: "x13fuv20",
+        borderInlineEndStyle: "x18b5jzi",
+        borderBottomStyle: "x1q0q8m5",
+        borderInlineStartStyle: "x1t7ytsu",
+        borderTopWidth: "x178xt8z",
+        borderInlineEndWidth: "x1lun4ml",
+        borderBottomWidth: "xso031l",
+        borderInlineStartWidth: "xpilrb4",
+        columnGap: "x1s70e7g",
+        cursor: "x1ypdohk x1s07b3s",
+        display: "x78zum5",
+        flexShrink: "x2lah0s",
+        opacity: "x1hc1fzr x1lfpgzf",
+        paddingTop: "x16ovd2e",
+        paddingBottom: "x12xbjc7",
+        paddingInlineStart: "xdx6fka",
+        paddingInlineEnd: "xvtqlqk",
+        paddingLeft: null,
+        paddingRight: null,
+        whiteSpace: "xuxw1ft",
+        $$css: !0,
+      },
+      unifiedButtonMargin: {
+        marginInlineStart: "x150mmf0",
+        marginInlineEnd: "xqf2s3x",
+        $$css: !0,
+      },
+      buttonIcon: {
+        color: "x14ug900",
+        height: "x1qx5ct2",
+        width: "xw4jnvo",
+        $$css: !0,
+      },
+    };
+    l.default = e;
+  },
+  98,
+);

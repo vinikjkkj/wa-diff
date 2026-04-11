@@ -1,0 +1,36 @@
+__d(
+  "WAFlowsDocumentPickerAllowedMIMEType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+        PDF: "application/pdf",
+        PNG: "image/png",
+        JPG_JPEG: "image/jpeg",
+        AVIF: "image/avif",
+        HEIC: "image/heic",
+        HEIF: "image/heif",
+        GIF: "image/gif",
+        TIF_TIFF: "image/tiff",
+        WEBP: "image/webp",
+        ZIP: "application/zip",
+        GZ: "application/gzip",
+        X7Z: "application/x-7z-compressed",
+        DOC: "application/msword",
+        DOCX: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ODP: "application/vnd.oasis.opendocument.presentation",
+        ODS: "application/vnd.oasis.opendocument.spreadsheet",
+        ODT: "application/vnd.oasis.opendocument.text",
+        MP4: "video/mp4",
+        MPEG: "video/mpeg",
+        PPT: "application/vnd.ms-powerpoint",
+        PPTX: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+        TXT: "text/plain",
+        XLS: "application/vnd.ms-excel",
+        XLSX: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        XML: "application/xml",
+      }),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

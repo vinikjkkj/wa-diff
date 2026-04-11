@@ -1,0 +1,31 @@
+__d(
+  "WASmaxOutGroupsCancelGroupMembershipRequestsRequest",
+  ["WASmaxChildren", "WASmaxJsx", "WASmaxOutGroupsBaseSetGroupMixin", "WAWap"],
+  function (t, n, r, o, a, i, l) {
+    function e(e) {
+      var t = e.participantJid,
+        n = o("WASmaxJsx").smax("participant", { jid: o("WAWap").USER_JID(t) });
+      return n;
+    }
+    function s(t) {
+      var n = t.participantArgs,
+        r = o("WASmaxOutGroupsBaseSetGroupMixin").mergeBaseSetGroupMixin(
+          o("WASmaxJsx").smax(
+            "iq",
+            null,
+            o("WASmaxJsx").smax(
+              "cancel_membership_requests",
+              null,
+              o("WASmaxChildren").REPEATED_CHILD(e, n, 1, 19999),
+            ),
+          ),
+          t,
+        );
+      return r;
+    }
+    ((l.makeCancelGroupMembershipRequestsRequestCancelMembershipRequestsParticipant =
+      e),
+      (l.makeCancelGroupMembershipRequestsRequest = s));
+  },
+  98,
+);

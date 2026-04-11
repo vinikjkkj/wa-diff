@@ -1,0 +1,23 @@
+__d(
+  "WAWebWamEnumCommunityCreationCurrentScreenType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      CHATS_TAB: 1,
+      COMMUNITIES_TAB: 2,
+      COMMUNITY_NUX: 3,
+      COMMUNITY_INFO: 4,
+      COMMUNITY_GROUPS_SUMMARY: 5,
+      DEEP_LINK: 6,
+      BANNER: 7,
+      GROUP_INFO: 8,
+      LINK_GROUP_CONFIRMATION: 9,
+      GROUP_INFO_NEW_OR_EXISTING_COMMUNITY: 10,
+      ADD_GROUP_TO_EXISTING_COMMUNITY: 11,
+      ADD_GROUP_TO_EXISTING_COMMUNITY_AS_CADMIN_CONFIRMATION: 12,
+      SUGGEST_GROUP_TO_EXISTING_COMMUNITY_CONFIRMATION: 14,
+    });
+    i.COMMUNITY_CREATION_CURRENT_SCREEN_TYPE = e;
+  },
+  66,
+);

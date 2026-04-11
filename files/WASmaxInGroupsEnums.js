@@ -1,0 +1,98 @@
+__d(
+  "WASmaxInGroupsEnums",
+  ["WAJids"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = { 304: "304", 419: "419" },
+      u = { 403: "403", 404: "404", 406: "406", 419: "419" },
+      c = { 404: "404", 406: "406" },
+      d = { 404: "404", 419: "419" },
+      m = { 406: "406", 500: "500" },
+      p = {
+        accept: "accept",
+        auto_add: "auto_add",
+        default_sub_group_admin_add: "default_sub_group_admin_add",
+        general_chat_auto_add: "general_chat_auto_add",
+        invite: "invite",
+        invite_auto_add: "invite_auto_add",
+        linked_group_join: "linked_group_join",
+        sub_group_suggestion_approved: "sub_group_suggestion_approved",
+      },
+      _ = {
+        accept: "accept",
+        auto_add: "auto_add",
+        default_sub_group_promote: "default_sub_group_promote",
+        invite: "invite",
+        invite_auto_add: "invite_auto_add",
+        linked_group_join: "linked_group_join",
+      },
+      f = { admin: "admin", creator: "creator" },
+      g = { admin: "admin", superadmin: "superadmin" },
+      h = {
+        approved: "approved",
+        cancelled: "cancelled",
+        rejected: "rejected",
+      },
+      y = {
+        deactivate_general_chat: "deactivate_general_chat",
+        delete_capi: "delete_capi",
+        delete_parent: "delete_parent",
+        integrity_delete_parent: "integrity_delete_parent",
+      },
+      C = {
+        deactivate_group: "deactivate_group",
+        delete_parent: "delete_parent",
+        integrity_delete_parent: "integrity_delete_parent",
+        unlink_group: "unlink_group",
+      },
+      b = { e2ee_migration: "e2ee_migration", regular: "regular", rtc: "rtc" },
+      v = { false: "false", true: "true" },
+      S = { group: "group", user: "user" },
+      R = { image: "image", preview: "preview" },
+      L = {
+        invite_link: "invite_link",
+        linked_group_join: "linked_group_join",
+        non_admin_add: "non_admin_add",
+      },
+      E = { lid: "lid", pn: "pn" },
+      k = {
+        parent_group: "parent_group",
+        sibling_group: "sibling_group",
+        sub_group: "sub_group",
+      },
+      I = {
+        validators: [(e = o("WAJids")).validateDomainJid, e.validateGroupJid],
+        typeName: "DomainJid|GroupJid",
+      },
+      T = {
+        validators: [e.validateUserJid, e.validateUserJid],
+        typeName: "UserJid|UserJid",
+      };
+    ((l.ENUM_304_419 = s),
+      (l.ENUM_403_404_406_419 = u),
+      (l.ENUM_404_406 = c),
+      (l.ENUM_404_419 = d),
+      (l.ENUM_406_500 = m),
+      (l.ENUM_ACCEPT_AUTOADD_DEFAULTSUBGROUPADMINADD_GENERALCHATAUTOADD_INVITE_INVITEAUTOADD_LINKEDGROUPJOIN_SUBGROUPSUGGESTIONAPPROVED =
+        p),
+      (l.ENUM_ACCEPT_AUTOADD_DEFAULTSUBGROUPPROMOTE_INVITE_INVITEAUTOADD_LINKEDGROUPJOIN =
+        _),
+      (l.ENUM_ADMIN_CREATOR = f),
+      (l.ENUM_ADMIN_SUPERADMIN = g),
+      (l.ENUM_APPROVED_CANCELLED_REJECTED = h),
+      (l.ENUM_DEACTIVATEGENERALCHAT_DELETECAPI_DELETEPARENT_INTEGRITYDELETEPARENT =
+        y),
+      (l.ENUM_DEACTIVATEGROUP_DELETEPARENT_INTEGRITYDELETEPARENT_UNLINKGROUP =
+        C),
+      (l.ENUM_E2EEMIGRATION_REGULAR_RTC = b),
+      (l.ENUM_FALSE_TRUE = v),
+      (l.ENUM_GROUP_USER = S),
+      (l.ENUM_IMAGE_PREVIEW = R),
+      (l.ENUM_INVITELINK_LINKEDGROUPJOIN_NONADMINADD = L),
+      (l.ENUM_LID_PN = E),
+      (l.ENUM_PARENTGROUP_SIBLINGGROUP_SUBGROUP = k),
+      (l.DOMAINJID_GROUPJID = I),
+      (l.USERJID_USERJID = T));
+  },
+  98,
+);

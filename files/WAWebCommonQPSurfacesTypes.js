@@ -1,0 +1,50 @@
+__d(
+  "WAWebCommonQPSurfacesTypes",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = { result: !0 },
+      l = { reason: "actionLimitRuleValidator: dissmiss limit reached" },
+      s = { reason: "actionLimitRuleValidator: primary click limit reached" },
+      u = { reason: "actionLimitRuleValidator: impression limit reached" },
+      c = { reason: "clientTtlRuleValidator: promotion too old" },
+      d = { reason: "contentRuleValidator: missing action link" },
+      m = { reason: "enabledTimeRuleValidator: start time in future" },
+      p = { reason: "enabledTimeRuleValidator: end time in past" },
+      _ = { reason: "filtersRuleValidator: filter check failed" },
+      f = { reason: "filtersRuleValidator: filter check exception" },
+      g = {
+        reason: "filtersRuleValidator: unknown filter failed default check",
+      },
+      h = {
+        reason:
+          "filtersRuleValidator: seconds since last impression check failed",
+      },
+      y = {
+        reason: "filtersRuleValidator: other promotion event check failed",
+      },
+      C = { reason: "holdoutRuleValidator: in holdout" },
+      b = { reason: "surfaceDelayRuleValidator: surface recently used" },
+      v = { reason: "surfaceDelayRuleValidator: outside eligibility duration" },
+      S = { reason: "surfaceRuleValidator: incorrect surface" },
+      R = { reason: "clientSideDryRunRuleValidator: is dry run" };
+    ((i.RESULT_TRUE = e),
+      (i.RESULT_FALSE_ACTION_LIMIT_DISMISS_LIMIT_REACHED = l),
+      (i.RESULT_FALSE_ACTION_LIMIT_PRIMARY_CLICK_LIMIT_REACHED = s),
+      (i.RESULT_FALSE_ACTION_LIMIT_IMPRESSION_LIMIT_REACHED = u),
+      (i.RESULT_FALSE_CLIENT_TTL_PROMOTION_TOO_OLD = c),
+      (i.RESULT_FALSE_CONTENT_MISSING_ACTION_LINK = d),
+      (i.RESULT_FALSE_ENABLED_TIME_START_TIME_IN_FUTURE = m),
+      (i.RESULT_FALSE_ENABLED_TIME_END_TIME_IN_PAST = p),
+      (i.RESULT_FALSE_FILTERS_CHECK_FAILED = _),
+      (i.RESULT_FALSE_FILTERS_CHECK_EXCEPTION = f),
+      (i.RESULT_FALSE_FILTERS_UNKNOWN = g),
+      (i.RESULT_FALSE_FILTERS_SECONDS_SINCE_LAST_IMPRESSION = h),
+      (i.RESULT_FALSE_FILTERS_OTHER_PROMOTION_EVENT = y),
+      (i.RESULT_FALSE_HOLDOUT_IN_HOLDOUT = C),
+      (i.RESULT_FALSE_SURFACE_DELAY_RECENTLY_USED = b),
+      (i.RESULT_FALSE_SURFACE_DELAY_OUTSIDE_ELIGIBILITY_DURATION = v),
+      (i.RESULT_FALSE_SURFACE_INCORRECT_SURFACE = S),
+      (i.RESULT_FALSE_CLIENT_SIDE_DRY_RUN_IS_DRY_RUN = R));
+  },
+  66,
+);

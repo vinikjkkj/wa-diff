@@ -1,0 +1,25 @@
+__d(
+  "WAWebWamEnumFavoritesUpdateEntryPoint",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      CONTACT_INFO: 1,
+      GROUP_INFO: 2,
+      CHAT_MORE_OPTIONS: 3,
+      CHAT_LONG_PRESS_OPTIONS: 4,
+      MESSAGE_FAVORITES_CONTACT_PICKER: 5,
+      FAVORITE_SETTINGS: 6,
+      FILTER_CONTEXT_MENU: 7,
+      FILTER_EMPTY_STATE_ACTION: 8,
+      FILTER_MANAGE_FAVORITE_ACTION: 9,
+      CALLING_TAB_FAVORITE_PICKER: 10,
+      CALLING_TAB_FAVORITE_EDIT: 11,
+      CHAT_CONTEXT_MENU: 12,
+      CHAT_HEADER_CONTEXT_MENU: 13,
+      CALL_LOG_LONG_PRESS_OPTIONS: 14,
+      CALL_LOG_MORE_OPTIONS: 15,
+    });
+    i.FAVORITES_UPDATE_ENTRY_POINT = e;
+  },
+  66,
+);

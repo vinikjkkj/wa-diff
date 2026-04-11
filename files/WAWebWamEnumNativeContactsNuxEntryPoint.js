@@ -1,0 +1,35 @@
+__d(
+  "WAWebWamEnumNativeContactsNuxEntryPoint",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      UNKNOWN: 0,
+      NEW_CONTACT: 1,
+      CONTACT_HEADER: 2,
+      GROUP: 3,
+      SHARED_CONTACT: 4,
+      CONTACT_SETTINGS: 5,
+      CHANGE_NUMBER_BANNER: 6,
+      MESSAGE_SENDER: 7,
+      SPAM_PROMPT: 8,
+      CONVERSATION_ROW: 9,
+      CHAT_SEARCH: 10,
+      CHAT: 11,
+      CALL_HISTORY: 12,
+      STATUS: 13,
+      BROADCAST_PART_LIST: 14,
+      PRODUCT: 15,
+      BLACKLIST: 16,
+      NEW_CHAT_SEARCH: 17,
+      CALL_GRID: 18,
+      CALL_HISTORY_NEW_CALL: 19,
+      CONTACT_LIST: 20,
+      DIALER: 21,
+      CONTACT_QR_CODE: 22,
+      APP_STARTUP: 23,
+      DEPENDENT_MESSAGE_REQUEST_ACTION: 24,
+    });
+    i.NATIVE_CONTACTS_NUX_ENTRY_POINT = e;
+  },
+  66,
+);

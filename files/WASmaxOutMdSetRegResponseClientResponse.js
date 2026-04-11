@@ -1,0 +1,35 @@
+__d(
+  "WASmaxOutMdSetRegResponseClientResponse",
+  [
+    "WASmaxJsx",
+    "WASmaxOutMdRegularCompanionSetRegResponseBundleMixin",
+    "WASmaxParseReference",
+    "WASmaxParseUtils",
+    "WASmaxParsingFailure",
+    "WAWap",
+  ],
+  function (t, n, r, o, a, i, l) {
+    function e(e, t) {
+      var n = o("WASmaxParseReference").attrFromReference(
+        o("WASmaxParseUtils").attrStanzaId,
+        t,
+        ["id"],
+      );
+      if (!n.success)
+        throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(n.error);
+      var r = o(
+        "WASmaxOutMdRegularCompanionSetRegResponseBundleMixin",
+      ).mergeRegularCompanionSetRegResponseBundleMixin(
+        o("WASmaxJsx").smax("iq", {
+          id: o("WAWap").STANZA_ID(n.value),
+          to: o("WAWap").S_WHATSAPP_NET,
+          type: "result",
+        }),
+        e,
+      );
+      return r;
+    }
+    l.makeSetRegResponseClientResponse = e;
+  },
+  98,
+);

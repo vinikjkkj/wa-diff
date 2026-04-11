@@ -1,0 +1,232 @@
+__d(
+  "WAWebNativeMLModelQuery.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "client_capability_metadata",
+        },
+        t = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "model_request_metadatas",
+        },
+        n = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "name",
+          storageKey: null,
+        },
+        r = [
+          {
+            alias: null,
+            args: [
+              {
+                kind: "Variable",
+                name: "client_capability_metadata",
+                variableName: "client_capability_metadata",
+              },
+              {
+                kind: "Variable",
+                name: "model_request_metadatas",
+                variableName: "model_request_metadatas",
+              },
+            ],
+            concreteType: "AIMModelManifest",
+            kind: "LinkedField",
+            name: "aim_model_batched_manifest",
+            plural: !1,
+            selections: [
+              {
+                alias: null,
+                args: null,
+                concreteType: "NativeMLModelMetadata",
+                kind: "LinkedField",
+                name: "models",
+                plural: !0,
+                selections: [
+                  n,
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "version",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    concreteType: "NativeMLModelAssetMetadata",
+                    kind: "LinkedField",
+                    name: "assets",
+                    plural: !0,
+                    selections: [
+                      n,
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "id",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "cache_key",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "source_content_hash",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "md5_hash",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "asset_handle",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "creation_time",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "url",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "filesize_bytes",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "compression_type",
+                        storageKey: null,
+                      },
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "asset_type",
+                        storageKey: null,
+                      },
+                    ],
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    concreteType: "Pair",
+                    kind: "LinkedField",
+                    name: "properties",
+                    plural: !0,
+                    selections: [
+                      n,
+                      {
+                        alias: null,
+                        args: null,
+                        kind: "ScalarField",
+                        name: "value",
+                        storageKey: null,
+                      },
+                    ],
+                    storageKey: null,
+                  },
+                ],
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "entry_point",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "asset_count",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "model_count",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "status",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "status_details",
+                storageKey: null,
+              },
+            ],
+            storageKey: null,
+          },
+        ];
+      return {
+        fragment: {
+          argumentDefinitions: [e, t],
+          kind: "Fragment",
+          metadata: null,
+          name: "WAWebNativeMLModelQuery",
+          selections: r,
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: [t, e],
+          kind: "Operation",
+          name: "WAWebNativeMLModelQuery",
+          selections: r,
+        },
+        params: {
+          id: "32743078615336512",
+          metadata: {},
+          name: "WAWebNativeMLModelQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

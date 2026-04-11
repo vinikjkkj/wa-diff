@@ -1,0 +1,86 @@
+__d(
+  "react-relay",
+  [
+    "react-relay/ReactRelayContext",
+    "react-relay/ReactRelayFragmentContainer",
+    "react-relay/ReactRelayLocalQueryRenderer",
+    "react-relay/ReactRelayPaginationContainer",
+    "react-relay/ReactRelayQueryRenderer",
+    "react-relay/ReactRelayRefetchContainer",
+    "react-relay/relay-hooks/EntryPointContainer.react",
+    "react-relay/relay-hooks/ProfilerContext",
+    "react-relay/relay-hooks/RelayEnvironmentProvider",
+    "react-relay/relay-hooks/loadEntryPoint",
+    "react-relay/relay-hooks/loadQuery",
+    "react-relay/relay-hooks/useClientQuery",
+    "react-relay/relay-hooks/useEntryPointLoader",
+    "react-relay/relay-hooks/useFragment",
+    "react-relay/relay-hooks/useLazyLoadQuery",
+    "react-relay/relay-hooks/useMutation",
+    "react-relay/relay-hooks/usePaginationFragment",
+    "react-relay/relay-hooks/usePrefetchableForwardPaginationFragment",
+    "react-relay/relay-hooks/usePreloadedQuery",
+    "react-relay/relay-hooks/useQueryLoader",
+    "react-relay/relay-hooks/useRefetchableFragment",
+    "react-relay/relay-hooks/useRelayEnvironment",
+    "react-relay/relay-hooks/useSubscribeToInvalidationState",
+    "react-relay/relay-hooks/useSubscription",
+    "relay-runtime",
+  ],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e,
+      l = n("react-relay/relay-hooks/loadQuery").loadQuery;
+    a.exports = {
+      ConnectionHandler: (e = n("relay-runtime")).ConnectionHandler,
+      QueryRenderer: n("react-relay/ReactRelayQueryRenderer"),
+      LocalQueryRenderer: n("react-relay/ReactRelayLocalQueryRenderer"),
+      MutationTypes: e.MutationTypes,
+      RangeOperations: e.RangeOperations,
+      ReactRelayContext: n("react-relay/ReactRelayContext"),
+      applyOptimisticMutation: e.applyOptimisticMutation,
+      commitLocalUpdate: e.commitLocalUpdate,
+      commitMutation: e.commitMutation,
+      createFragmentContainer: n("react-relay/ReactRelayFragmentContainer")
+        .createContainer,
+      createPaginationContainer: n("react-relay/ReactRelayPaginationContainer")
+        .createContainer,
+      createRefetchContainer: n("react-relay/ReactRelayRefetchContainer")
+        .createContainer,
+      fetchQuery_DEPRECATED: e.fetchQuery_DEPRECATED,
+      graphql: e.graphql,
+      readInlineData: e.readInlineData,
+      requestSubscription: e.requestSubscription,
+      EntryPointContainer: n(
+        "react-relay/relay-hooks/EntryPointContainer.react",
+      ),
+      RelayEnvironmentProvider: n(
+        "react-relay/relay-hooks/RelayEnvironmentProvider",
+      ),
+      ProfilerContext: n("react-relay/relay-hooks/ProfilerContext"),
+      fetchQuery: e.fetchQuery,
+      loadQuery: l,
+      loadEntryPoint: n("react-relay/relay-hooks/loadEntryPoint"),
+      useClientQuery: n("react-relay/relay-hooks/useClientQuery"),
+      useFragment: n("react-relay/relay-hooks/useFragment"),
+      useLazyLoadQuery: n("react-relay/relay-hooks/useLazyLoadQuery"),
+      useEntryPointLoader: n("react-relay/relay-hooks/useEntryPointLoader"),
+      useQueryLoader: n("react-relay/relay-hooks/useQueryLoader"),
+      useMutation: n("react-relay/relay-hooks/useMutation"),
+      usePaginationFragment: n("react-relay/relay-hooks/usePaginationFragment"),
+      usePreloadedQuery: n("react-relay/relay-hooks/usePreloadedQuery"),
+      useRefetchableFragment: n(
+        "react-relay/relay-hooks/useRefetchableFragment",
+      ),
+      usePrefetchableForwardPaginationFragment: n(
+        "react-relay/relay-hooks/usePrefetchableForwardPaginationFragment",
+      ),
+      useRelayEnvironment: n("react-relay/relay-hooks/useRelayEnvironment"),
+      useSubscribeToInvalidationState: n(
+        "react-relay/relay-hooks/useSubscribeToInvalidationState",
+      ),
+      useSubscription: n("react-relay/relay-hooks/useSubscription"),
+    };
+  },
+  null,
+);

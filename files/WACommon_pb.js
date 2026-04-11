@@ -1,0 +1,57 @@
+__d(
+  "WACommon.pb",
+  ["WAProtoConst"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = { EVERYONE: 1, SILENT: 2, AI: 3, AI_IMAGINE: 4 },
+      u = { PROFILE: 0 },
+      c = { PLACEHOLDER: 0, NO_PLACEHOLDER: 1, IGNORE: 2 },
+      d = {},
+      m = {},
+      p = {},
+      _ = {},
+      f = {};
+    ((d.name = "MessageKey"),
+      (d.internalSpec = {
+        remoteJid: [1, (e = o("WAProtoConst")).TYPES.STRING],
+        fromMe: [2, e.TYPES.BOOL],
+        id: [3, e.TYPES.STRING],
+        participant: [4, e.TYPES.STRING],
+      }),
+      (m.name = "Command"),
+      (m.internalSpec = {
+        commandType: [1, e.TYPES.ENUM, s],
+        offset: [2, e.TYPES.UINT32],
+        length: [3, e.TYPES.UINT32],
+        validationToken: [4, e.TYPES.STRING],
+      }),
+      (p.name = "Mention"),
+      (p.internalSpec = {
+        mentionType: [1, e.TYPES.ENUM, u],
+        mentionedJid: [2, e.TYPES.STRING],
+        offset: [3, e.TYPES.UINT32],
+        length: [4, e.TYPES.UINT32],
+      }),
+      (_.name = "MessageText"),
+      (_.internalSpec = {
+        text: [1, e.TYPES.STRING],
+        mentionedJid: [2, e.FLAGS.REPEATED | e.TYPES.STRING],
+        commands: [3, e.FLAGS.REPEATED | e.TYPES.MESSAGE, m],
+        mentions: [4, e.FLAGS.REPEATED | e.TYPES.MESSAGE, p],
+      }),
+      (f.name = "SubProtocol"),
+      (f.internalSpec = {
+        payload: [1, e.TYPES.BYTES],
+        version: [2, e.TYPES.INT32],
+      }),
+      (l.COMMAND_COMMAND_TYPE = s),
+      (l.MENTION_MENTION_TYPE = u),
+      (l.FUTURE_PROOF_BEHAVIOR = c),
+      (l.MessageKeySpec = d),
+      (l.CommandSpec = m),
+      (l.MentionSpec = p),
+      (l.MessageTextSpec = _),
+      (l.SubProtocolSpec = f));
+  },
+  98,
+);

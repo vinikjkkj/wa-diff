@@ -1,0 +1,28 @@
+__d(
+  "WAWebWamEnumChatLockActionType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      CHAT_INFO_IMPRESSION: 0,
+      LOCK_CHAT_SCREEN_IMPRESSION: 1,
+      AUTH_INITIATED: 2,
+      AUTH_SUCCEEDED: 3,
+      SET_UP_AUTH_IMPRESSION: 4,
+      ADD_CHAT_LOCK: 5,
+      REMOVE_CHAT_LOCK: 6,
+      CLEAR_AND_UNLOCK_IMPRESSION: 7,
+      CLEAR_AND_UNLOCK_SUCCESS: 8,
+      CLEAR_AND_UNLOCK_FAILURE: 9,
+      AUTH_FAILURE: 10,
+      BOTTOM_SHEET_IMPRESSION: 11,
+      BOTTOM_SHEET_CONTINUE_CLICK: 12,
+      BOTTOM_SHEET_LEARN_MORE_CLICK: 13,
+      FOLDER_OPEN: 14,
+      FORGOT_SECRET_CODE: 15,
+      UNLOCK_AND_CLEAR_WARNING: 16,
+      USE_SECRET_CODE_AUTH: 17,
+    });
+    i.CHAT_LOCK_ACTION_TYPE = e;
+  },
+  66,
+);

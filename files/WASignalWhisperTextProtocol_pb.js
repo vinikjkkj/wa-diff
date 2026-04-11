@@ -1,0 +1,62 @@
+__d(
+  "WASignalWhisperTextProtocol.pb",
+  ["WAProtoConst"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = {},
+      u = {},
+      c = {},
+      d = {},
+      m = {},
+      p = {};
+    ((s.name = "SignalMessage"),
+      (s.internalSpec = {
+        ratchetKey: [1, (e = o("WAProtoConst")).TYPES.BYTES],
+        counter: [2, e.TYPES.UINT32],
+        previousCounter: [3, e.TYPES.UINT32],
+        ciphertext: [4, e.TYPES.BYTES],
+      }),
+      (u.name = "PreKeySignalMessage"),
+      (u.internalSpec = {
+        registrationId: [5, e.TYPES.UINT32],
+        preKeyId: [1, e.TYPES.UINT32],
+        signedPreKeyId: [6, e.TYPES.UINT32],
+        baseKey: [2, e.TYPES.BYTES],
+        identityKey: [3, e.TYPES.BYTES],
+        message: [4, e.TYPES.BYTES],
+      }),
+      (c.name = "KeyExchangeMessage"),
+      (c.internalSpec = {
+        id: [1, e.TYPES.UINT32],
+        baseKey: [2, e.TYPES.BYTES],
+        ratchetKey: [3, e.TYPES.BYTES],
+        identityKey: [4, e.TYPES.BYTES],
+        baseKeySignature: [5, e.TYPES.BYTES],
+      }),
+      (d.name = "SenderKeyMessage"),
+      (d.internalSpec = {
+        id: [1, e.TYPES.UINT32],
+        iteration: [2, e.TYPES.UINT32],
+        ciphertext: [3, e.TYPES.BYTES],
+      }),
+      (m.name = "SenderKeyDistributionMessage"),
+      (m.internalSpec = {
+        id: [1, e.TYPES.UINT32],
+        iteration: [2, e.TYPES.UINT32],
+        chainKey: [3, e.TYPES.BYTES],
+        signingKey: [4, e.TYPES.BYTES],
+      }),
+      (p.name = "DeviceConsistencyCodeMessage"),
+      (p.internalSpec = {
+        generation: [1, e.TYPES.UINT32],
+        signature: [2, e.TYPES.BYTES],
+      }),
+      (l.SignalMessageSpec = s),
+      (l.PreKeySignalMessageSpec = u),
+      (l.KeyExchangeMessageSpec = c),
+      (l.SenderKeyMessageSpec = d),
+      (l.SenderKeyDistributionMessageSpec = m),
+      (l.DeviceConsistencyCodeMessageSpec = p));
+  },
+  98,
+);

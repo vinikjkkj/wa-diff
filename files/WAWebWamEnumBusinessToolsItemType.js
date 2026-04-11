@@ -1,0 +1,38 @@
+__d(
+  "WAWebWamEnumBusinessToolsItemType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      OVERFLOW: 0,
+      PROFILE: 1,
+      CATALOG: 2,
+      AWAY_MESSAGE: 3,
+      GREETING_MESSAGE: 4,
+      QUICK_REPLIES: 5,
+      LABELS: 6,
+      LINKED_ACCOUNTS: 7,
+      SHORT_LINK: 8,
+      STATISTICS: 9,
+      CREATE_ACCOUNT_LINK: 10,
+      MANAGE_CTA: 11,
+      CREATE_AD: 12,
+      CONTINUE_PROMPT: 13,
+      ADVERTISE_LIST_ITEM: 14,
+      SHOPS: 15,
+      DISABLED_CATALOG: 16,
+      BANNED_SHOP: 17,
+      PREMIUM_TOOLS: 18,
+      BUSINESS_DIRECTORY: 19,
+      MANAGE_ADS: 20,
+      META_VERIFIED: 21,
+      AI_FROM_META: 22,
+      ORDERS: 23,
+      MARKETING_MESSAGES: 24,
+      BUSINESS_BROADCAST: 25,
+      PAYMENTS_HOME: 26,
+      MISSED_CALL_FOLLOWUP: 27,
+    });
+    i.BUSINESS_TOOLS_ITEM_TYPE = e;
+  },
+  66,
+);

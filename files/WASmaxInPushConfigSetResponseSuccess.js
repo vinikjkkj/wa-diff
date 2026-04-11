@@ -1,0 +1,16 @@
+__d(
+  "WASmaxInPushConfigSetResponseSuccess",
+  ["WASmaxInPushConfigIQResultResponseMixin", "WASmaxParseUtils"],
+  function (t, n, r, o, a, i, l) {
+    function e(e, t) {
+      var n = o("WASmaxParseUtils").assertTag(e, "iq");
+      if (!n.success) return n;
+      var r = o(
+        "WASmaxInPushConfigIQResultResponseMixin",
+      ).parseIQResultResponseMixin(e, t);
+      return (r.success, r);
+    }
+    l.parseSetResponseSuccess = e;
+  },
+  98,
+);

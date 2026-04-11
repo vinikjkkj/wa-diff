@@ -1,0 +1,35 @@
+__d(
+  "WASmaxInMdEnums",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = {
+        0: "0",
+        1: "1",
+        2: "2",
+        3: "3",
+        4: "4",
+        5: "5",
+        6: "6",
+        7: "7",
+        8: "8",
+        9: "9",
+        a: "a",
+        b: "b",
+        c: "c",
+        d: "d",
+        e: "e",
+        f: "f",
+        g: "g",
+        h: "h",
+        i: "i",
+        j: "j",
+        k: "k",
+        l: "l",
+        m: "m",
+      },
+      l = { false: "false", true: "true" };
+    ((i.ENUM_0_1_2_3_4_5_6_7_8_9_A_B_C_D_E_F_G_H_I_J_K_L_M = e),
+      (i.ENUM_FALSE_TRUE = l));
+  },
+  66,
+);

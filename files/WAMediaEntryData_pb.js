@@ -1,0 +1,48 @@
+__d(
+  "WAMediaEntryData.pb",
+  ["WAProtoConst"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = {},
+      u = {},
+      c = {};
+    ((s.name = "MediaEntry"),
+      (s.internalSpec = {
+        fileSha256: [1, (e = o("WAProtoConst")).TYPES.BYTES],
+        mediaKey: [2, e.TYPES.BYTES],
+        fileEncSha256: [3, e.TYPES.BYTES],
+        directPath: [4, e.TYPES.STRING],
+        mediaKeyTimestamp: [5, e.TYPES.INT64],
+        serverMediaType: [6, e.TYPES.STRING],
+        uploadToken: [7, e.TYPES.BYTES],
+        validatedTimestamp: [8, e.TYPES.BYTES],
+        sidecar: [9, e.TYPES.BYTES],
+        objectId: [10, e.TYPES.STRING],
+        fbid: [11, e.TYPES.STRING],
+        downloadableThumbnail: [12, e.TYPES.MESSAGE, c],
+        handle: [13, e.TYPES.STRING],
+        filename: [14, e.TYPES.STRING],
+        progressiveJpegDetails: [15, e.TYPES.MESSAGE, u],
+        size: [16, e.TYPES.INT64],
+        lastDownloadAttemptTimestamp: [17, e.TYPES.INT64],
+      }),
+      (u.name = "MediaEntry$ProgressiveJpegDetails"),
+      (u.internalSpec = {
+        scanLengths: [1, e.FLAGS.REPEATED | e.TYPES.UINT32],
+        sidecar: [2, e.TYPES.BYTES],
+      }),
+      (c.name = "MediaEntry$DownloadableThumbnail"),
+      (c.internalSpec = {
+        fileSha256: [1, e.TYPES.BYTES],
+        fileEncSha256: [2, e.TYPES.BYTES],
+        directPath: [3, e.TYPES.STRING],
+        mediaKey: [4, e.TYPES.BYTES],
+        mediaKeyTimestamp: [5, e.TYPES.INT64],
+        objectId: [6, e.TYPES.STRING],
+      }),
+      (l.MediaEntrySpec = s),
+      (l.MediaEntry$ProgressiveJpegDetailsSpec = u),
+      (l.MediaEntry$DownloadableThumbnailSpec = c));
+  },
+  98,
+);

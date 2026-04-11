@@ -1,0 +1,35 @@
+{
+    "name": "wa-diff",
+    "version": "1.0.0",
+    "description": "Tool to version WhatsApp Web JavaScript bundles and analyze diffs across releases.",
+    "private": true,
+    "packageManager": "npm@11.12.1",
+    "main": "main.js",
+    "type": "commonjs",
+    "engines": {
+        "node": ">=20.0.0",
+        "npm": ">=10.0.0"
+    },
+    "scripts": {
+        "start": "node main.js",
+        "fetch": "node main.js",
+        "check": "node --check main.js && node --check fetch.js",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
+    },
+    "keywords": [
+        "whatsapp",
+        "whatsapp-web",
+        "reverse-engineering",
+        "bundles",
+        "diff",
+        "deobfuscation"
+    ],
+    "author": "Vinicius",
+    "license": "ISC",
+    "dependencies": {
+        "prettier": "^3.8.2",
+        "puppeteer-real-browser": "^1.4.4",
+        "wa-modules-loader": "github:vinikjkkj/wa-modules-loader"
+    }
+}

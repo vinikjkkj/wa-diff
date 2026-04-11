@@ -1,0 +1,144 @@
+__d(
+  "WAWebLocaleNamesLocaleEL_GR",
+  ["FBLocaleIDEnum"],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = new Map([
+        [
+          (e = r("FBLocaleIDEnum")).AF_ZA,
+          "\u0391\u03C6\u03C1\u03B9\u03BA\u03AC\u03B1\u03BD\u03C2",
+        ],
+        [e.AR_AR, "\u0391\u03C1\u03B1\u03B2\u03B9\u03BA\u03AC"],
+        [
+          e.AZ_AZ,
+          "\u0391\u03B6\u03B5\u03C1\u03BC\u03C0\u03B1\u03CA\u03C4\u03B6\u03B1\u03BD\u03B9\u03BA\u03AC",
+        ],
+        [
+          e.BG_BG,
+          "\u0392\u03BF\u03C5\u03BB\u03B3\u03B1\u03C1\u03B9\u03BA\u03AC",
+        ],
+        [e.BN_IN, "\u0392\u03B5\u03B3\u03B3\u03B1\u03BB\u03B9\u03BA\u03AC"],
+        [
+          e.CA_ES,
+          "\u039A\u03B1\u03C4\u03B1\u03BB\u03B1\u03BD\u03B9\u03BA\u03AC",
+        ],
+        [e.CS_CZ, "\u03A4\u03C3\u03B5\u03C7\u03B9\u03BA\u03AC"],
+        [e.DA_DK, "\u0394\u03B1\u03BD\u03B9\u03BA\u03AC"],
+        [e.DE_DE, "\u0393\u03B5\u03C1\u03BC\u03B1\u03BD\u03B9\u03BA\u03AC"],
+        [e.EL_GR, "\u0395\u03BB\u03BB\u03B7\u03BD\u03B9\u03BA\u03AC"],
+        [
+          e.EN_US,
+          "\u0391\u03B3\u03B3\u03BB\u03B9\u03BA\u03AC \u0391\u03BC\u03B5\u03C1\u03B9\u03BA\u03AE\u03C2",
+        ],
+        [
+          e.EN_GB,
+          "\u0391\u03B3\u03B3\u03BB\u03B9\u03BA\u03AC \u0392\u03C1\u03B5\u03C4\u03B1\u03BD\u03AF\u03B1\u03C2",
+        ],
+        [e.ES_LA, "\u0399\u03C3\u03C0\u03B1\u03BD\u03B9\u03BA\u03AC"],
+        [e.ET_EE, "\u0395\u03C3\u03B8\u03BF\u03BD\u03B9\u03BA\u03AC"],
+        [e.FA_IR, "\u03A0\u03B5\u03C1\u03C3\u03B9\u03BA\u03AC"],
+        [
+          e.FI_FI,
+          "\u03A6\u03B9\u03BD\u03BB\u03B1\u03BD\u03B4\u03B9\u03BA\u03AC",
+        ],
+        [e.FR_FR, "\u0393\u03B1\u03BB\u03BB\u03B9\u03BA\u03AC"],
+        [
+          e.GU_IN,
+          "\u0393\u03BA\u03BF\u03C5\u03C4\u03B6\u03B1\u03C1\u03B1\u03C4\u03B9\u03BA\u03AC",
+        ],
+        [e.HE_IL, "\u0395\u03B2\u03C1\u03B1\u03CA\u03BA\u03AC"],
+        [e.HI_IN, "\u03A7\u03AF\u03BD\u03C4\u03B9"],
+        [e.HR_HR, "\u039A\u03C1\u03BF\u03B1\u03C4\u03B9\u03BA\u03AC"],
+        [e.HU_HU, "\u039F\u03C5\u03B3\u03B3\u03C1\u03B9\u03BA\u03AC"],
+        [
+          e.ID_ID,
+          "\u0399\u03BD\u03B4\u03BF\u03BD\u03B7\u03C3\u03B9\u03B1\u03BA\u03AC",
+        ],
+        [e.IT_IT, "\u0399\u03C4\u03B1\u03BB\u03B9\u03BA\u03AC"],
+        [e.JA_JP, "\u0399\u03B1\u03C0\u03C9\u03BD\u03B9\u03BA\u03AC"],
+        [e.KK_KZ, "\u039A\u03B1\u03B6\u03B1\u03BA\u03B9\u03BA\u03AC"],
+        [e.KN_IN, "\u039A\u03B1\u03BD\u03AC\u03BD\u03C4\u03B1"],
+        [e.KO_KR, "\u039A\u03BF\u03C1\u03B5\u03B1\u03C4\u03B9\u03BA\u03AC"],
+        [
+          e.LT_LT,
+          "\u039B\u03B9\u03B8\u03BF\u03C5\u03B1\u03BD\u03B9\u03BA\u03AC",
+        ],
+        [e.LV_LV, "\u039B\u03B5\u03C4\u03BF\u03BD\u03B9\u03BA\u03AC"],
+        [
+          e.MK_MK,
+          "\u03A3\u03BB\u03B1\u03B2\u03BF\u03BC\u03B1\u03BA\u03B5\u03B4\u03BF\u03BD\u03B9\u03BA\u03AC",
+        ],
+        [
+          e.ML_IN,
+          "\u039C\u03B1\u03BB\u03B1\u03B3\u03B9\u03B1\u03BB\u03B1\u03BC\u03B9\u03BA\u03AC",
+        ],
+        [e.MR_IN, "\u039C\u03B1\u03C1\u03B1\u03B8\u03B9\u03BA\u03AC"],
+        [
+          e.MS_MY,
+          "\u039C\u03B1\u03BB\u03B1\u03B9\u03C3\u03B9\u03B1\u03BD\u03AC",
+        ],
+        [
+          e.NB_NO,
+          "\u039D\u03BF\u03C1\u03B2\u03B7\u03B3\u03B9\u03BA\u03AC \u039C\u03C0\u03BF\u03BA\u03BC\u03AC\u03BB",
+        ],
+        [e.NL_NL, "\u039F\u03BB\u03BB\u03B1\u03BD\u03B4\u03B9\u03BA\u03AC"],
+        [
+          e.PA_IN,
+          "\u03A0\u03B1\u03BD\u03C4\u03B6\u03B1\u03C0\u03B9\u03BA\u03AC",
+        ],
+        [e.PL_PL, "\u03A0\u03BF\u03BB\u03C9\u03BD\u03B9\u03BA\u03AC"],
+        [
+          e.PT_BR,
+          "\u03A0\u03BF\u03C1\u03C4\u03BF\u03B3\u03B1\u03BB\u03B9\u03BA\u03AC \u0392\u03C1\u03B1\u03B6\u03B9\u03BB\u03AF\u03B1\u03C2",
+        ],
+        [
+          e.PT_PT,
+          "\u03A0\u03BF\u03C1\u03C4\u03BF\u03B3\u03B1\u03BB\u03B9\u03BA\u03AC \u0395\u03C5\u03C1\u03CE\u03C0\u03B7\u03C2",
+        ],
+        [e.RO_RO, "\u03A1\u03BF\u03C5\u03BC\u03B1\u03BD\u03B9\u03BA\u03AC"],
+        [e.RU_RU, "\u03A1\u03C9\u03C3\u03B9\u03BA\u03AC"],
+        [e.SK_SK, "\u03A3\u03BB\u03BF\u03B2\u03B1\u03BA\u03B9\u03BA\u03AC"],
+        [e.SL_SI, "\u03A3\u03BB\u03BF\u03B2\u03B5\u03BD\u03B9\u03BA\u03AC"],
+        [e.SQ_AL, "\u0391\u03BB\u03B2\u03B1\u03BD\u03B9\u03BA\u03AC"],
+        [e.SR_RS, "\u03A3\u03B5\u03C1\u03B2\u03B9\u03BA\u03AC"],
+        [e.SV_SE, "\u03A3\u03BF\u03C5\u03B7\u03B4\u03B9\u03BA\u03AC"],
+        [e.SW_KE, "\u03A3\u03BF\u03C5\u03B1\u03C7\u03AF\u03BB\u03B9"],
+        [e.TA_IN, "\u03A4\u03B1\u03BC\u03B9\u03BB\u03B9\u03BA\u03AC"],
+        [e.TE_IN, "\u03A4\u03B5\u03BB\u03BF\u03CD\u03B3\u03BA\u03BF\u03C5"],
+        [
+          e.TH_TH,
+          "\u03A4\u03B1\u03CA\u03BB\u03B1\u03BD\u03B4\u03B9\u03BA\u03AC",
+        ],
+        [e.TL_PH, "\u03A4\u03AC\u03B3\u03BA\u03B1\u03BB\u03BF\u03B3\u03BA"],
+        [e.TR_TR, "\u03A4\u03BF\u03C5\u03C1\u03BA\u03B9\u03BA\u03AC"],
+        [e.UK_UA, "\u039F\u03C5\u03BA\u03C1\u03B1\u03BD\u03B9\u03BA\u03AC"],
+        [e.UR_PK, "\u039F\u03CD\u03C1\u03BD\u03C4\u03BF\u03C5"],
+        [
+          e.UZ_UZ,
+          "\u039F\u03C5\u03B6\u03BC\u03C0\u03B5\u03BA\u03B9\u03BA\u03AC",
+        ],
+        [
+          e.VI_VN,
+          "\u0392\u03B9\u03B5\u03C4\u03BD\u03B1\u03BC\u03B9\u03BA\u03AC",
+        ],
+        [
+          e.ZH_CN,
+          "\u0391\u03C0\u03BB\u03BF\u03C0\u03BF\u03B9\u03B7\u03BC\u03AD\u03BD\u03B1 \u039A\u03B9\u03BD\u03B5\u03B6\u03B9\u03BA\u03AC",
+        ],
+        [
+          e.ZH_HK,
+          "\u03A0\u03B1\u03C1\u03B1\u03B4\u03BF\u03C3\u03B9\u03B1\u03BA\u03AC \u039A\u03B9\u03BD\u03B5\u03B6\u03B9\u03BA\u03AC",
+        ],
+        [
+          e.ZH_TW,
+          "\u039A\u03B9\u03BD\u03B5\u03B6\u03B9\u03BA\u03AC (\u03A4\u03B1\u03CA\u03B2\u03AC\u03BD)",
+        ],
+        [e.JV_ID, "\u0399\u03B1\u03B2\u03B1\u03BD\u03B9\u03BA\u03AC"],
+        [e.YI_DE, "\u0393\u03AF\u03BD\u03C4\u03B9\u03C2"],
+      ]),
+      u = s;
+    l.default = u;
+  },
+  98,
+);

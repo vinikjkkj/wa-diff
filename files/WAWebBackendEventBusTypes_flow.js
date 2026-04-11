@@ -1,0 +1,36 @@
+__d(
+  "WAWebBackendEventBusTypes.flow",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = {
+      APP_STATE_SYNC_COMPLETED: "app_state_sync_completed",
+      LOGOUT: "logout",
+      REFRESH_QR: "refresh_qr",
+      STARTING_LOGOUT: "starting_logout",
+      ON_INITIAL_CHAT_SYNCED: "on_initial_chat_synced",
+      ON_RECENT_CHAT_HISTORY_SYNCED: "on_recent_chat_history_synced",
+      ON_FULL_CHAT_HISTORY_SYNCED: "on_full_chat_history_synced",
+      ON_CRITICAL_SYNC_DONE: "on_critical_sync_done",
+      NEW_HISTORY_SYNC_CHUNK_PROCESSED: "new_history_sync_chunk_processed",
+      STORAGE_INITIALIZATION_ERROR: "storage_initialization_error",
+      SOCKET_STREAM_DISCONNECTED: "socket_stream_disconnected",
+      OPEN_SOCKET_STREAM: "open_socket_stream",
+      RECONNECT_SOCKET: "reconnect_socket",
+      SET_SOCKET_STATE: "set_socket_state",
+      UPDATE_STATUS_PRIVACY_SETTINGS: "update_status_privacy_settings",
+      ACCOUNT_TEMPORARILY_BANNED: "account_temporarily_banned",
+      ACCOUNT_SYNC_FOR_PRIVACY: "account_sync_for_privacy",
+      UNEXPECTED_LOGOUT_MODAL: "unexpected_logout_modal",
+      INITIAL_LOAD_READY: "initial_load_ready",
+      MAIN_STREAM_MODE_READY: "main_stream_mode_ready",
+      SERVICE_UNAVAILABLE_503: "service_unavailable_503",
+      OFFLINE_PROCESS_READY: "offline_process_ready",
+      OFFLINE_DELIVERY_END: "offline_delivery_end",
+      OFFLINE_DELIVERY_STATE_RESET: "offline_delivery_state_reset",
+      ON_AB_PROPS_UPDATE: "on_ab_props_update",
+      AB_PROPS_LOADED: "ab_props_loaded",
+    };
+    i.BackendEvent = e;
+  },
+  66,
+);

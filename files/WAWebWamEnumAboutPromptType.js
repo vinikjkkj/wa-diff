@@ -1,0 +1,38 @@
+__d(
+  "WAWebWamEnumAboutPromptType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      SHARE_A_THOUGHT: 1,
+      MONDAY_MOTIVATION: 2,
+      WHATS_HAPPENING: 3,
+      CURRENT_MOOD: 4,
+      DONT_FORGET_ABOUT: 5,
+      SHARE_THOUGHT_ABOUT: 6,
+      SHARE_UP_TO: 7,
+      THOUGHTS_MOOD_PLANS: 8,
+      NEW_DAY_NEW: 9,
+      TIME_FOR_NEW: 10,
+      TODAY_THINKING: 11,
+      MIDWEEK_MOOD: 12,
+      FRIDAY_PLANS: 13,
+      UNWINDING: 14,
+      BREWING_MORNING: 15,
+      IM_FEELING: 16,
+      DROP_THOUGHT: 17,
+      RIGHT_NOW: 18,
+      WHATS_GOING_ON: 19,
+      EMOJIS_TODAY: 20,
+      EXPRESS_EMOJIS: 21,
+      SONG_REPEAT: 22,
+      PLAYLIST: 23,
+      TODAY_FEELS_LIKE: 24,
+      EASTER_HAPPY: 25,
+      EASTER_PLANS: 26,
+      EASTER_FEELS: 27,
+      EASTER_TIME_FOR: 28,
+    });
+    i.ABOUT_PROMPT_TYPE = e;
+  },
+  66,
+);

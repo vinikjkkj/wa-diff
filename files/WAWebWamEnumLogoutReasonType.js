@@ -1,0 +1,31 @@
+__d(
+  "WAWebWamEnumLogoutReasonType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      UNKNOWN: 0,
+      NETWORK_BLOCKED: 1,
+      WRITING_STANZA_ERROR: 2,
+      READING_STANZA_ERROR_IO: 3,
+      READING_STANZA_READING_IS_OVER: 4,
+      READING_STANZA_ERROR_CORRUPT_STREAM: 5,
+      PUSH_WITH_SAME_SESSION_ID: 6,
+      SCHEDULED_LOGOUT: 7,
+      CLIENT_PING_TIMEOUT: 8,
+      RECEIPT_TIMEOUT: 9,
+      ACTIVE_CONNECTION_TIMEOUT: 10,
+      NETWORK_CHANGED: 11,
+      SWITCH_ACCOUNT: 12,
+      DELETE_ACCOUNT: 13,
+      CHANGE_NUMBER: 14,
+      MBS_MIGRATION: 15,
+      REGISTRATION_RELATED: 16,
+      ROADBLOCKED_DETAIL: 17,
+      SERVER_ACK_KICK: 18,
+      SERVER_PING_KICK: 19,
+      CONNECTION_RESET: 20,
+    });
+    i.LOGOUT_REASON_TYPE = e;
+  },
+  66,
+);

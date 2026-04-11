@@ -1,0 +1,24 @@
+__d(
+  "WAWebWamEnumGroupMemberUpdatesActionName",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      VIEW: 0,
+      CLICK_PAST_MEMBER_UPDATE: 1,
+      CLICK_USERNAME_UPDATE: 2,
+      CLICK_INFO_OPTION: 3,
+      CLICK_MESSAGE_OPTION: 4,
+      CLICK_AUDIO_OPTION: 5,
+      CLICK_VIDEO_OPTION: 6,
+      CLICK_USERNAME_UPSELL_OPTION: 7,
+      CLICK_EDIT_CONTACT_INFO: 8,
+      FETCH_MEMBER_UPDATES_SUCCESS: 9,
+      FETCH_MEMBER_UPDATES_FAILURE: 10,
+      FETCH_MEMBER_UPDATES_EMPTY: 11,
+      VIEW_USERNAME_UPSELL_BUTTON: 12,
+      CLICK_ADD_TO_CONTACTS: 13,
+    });
+    i.GROUP_MEMBER_UPDATES_ACTION_NAME = e;
+  },
+  66,
+);

@@ -1,0 +1,182 @@
+__d(
+  "WAWebBizAdCreationSummaryContentQuery.graphql",
+  ["WAWebBizAdCreationSummaryContentQuery_facebookRelayOperation"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "asset_id" },
+          { defaultValue: null, kind: "LocalArgument", name: "budget" },
+        ],
+        t = [{ kind: "Variable", name: "asset_id", variableName: "asset_id" }],
+        r = [{ kind: "Variable", name: "budget", variableName: "budget" }],
+        o = [
+          {
+            alias: "formattedAmount",
+            args: null,
+            kind: "ScalarField",
+            name: "formatted_amount",
+            storageKey: null,
+          },
+        ];
+      return {
+        fragment: {
+          argumentDefinitions: e,
+          kind: "Fragment",
+          metadata: null,
+          name: "WAWebBizAdCreationSummaryContentQuery",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "billable_account_by_asset_id",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: r,
+                  concreteType: "XFBBillableAccountBillingInfo",
+                  kind: "LinkedField",
+                  name: "billing_info",
+                  plural: !1,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBBillableAccountEstimatedTaxes",
+                      kind: "LinkedField",
+                      name: "estimated_tax",
+                      plural: !1,
+                      selections: [
+                        {
+                          args: null,
+                          kind: "FragmentSpread",
+                          name: "WAWebBizAdCreationSummaryTotalsLineItems_estimatedTax",
+                        },
+                        {
+                          args: null,
+                          kind: "FragmentSpread",
+                          name: "WAWebBizAdCreationSummaryTotalAmountRow_estimatedTax",
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: e,
+          kind: "Operation",
+          name: "WAWebBizAdCreationSummaryContentQuery",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "billable_account_by_asset_id",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "__typename",
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: r,
+                  concreteType: "XFBBillableAccountBillingInfo",
+                  kind: "LinkedField",
+                  name: "billing_info",
+                  plural: !1,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBBillableAccountEstimatedTaxes",
+                      kind: "LinkedField",
+                      name: "estimated_tax",
+                      plural: !1,
+                      selections: [
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType:
+                            "XFBBillableAccountEstimatedTaxLineItem",
+                          kind: "LinkedField",
+                          name: "taxes",
+                          plural: !0,
+                          selections: [
+                            {
+                              alias: "taxName",
+                              args: null,
+                              kind: "ScalarField",
+                              name: "tax_name",
+                              storageKey: null,
+                            },
+                            {
+                              alias: "taxAmount",
+                              args: null,
+                              concreteType: "CurrencyAmount",
+                              kind: "LinkedField",
+                              name: "tax_amount",
+                              plural: !1,
+                              selections: o,
+                              storageKey: null,
+                            },
+                          ],
+                          storageKey: null,
+                        },
+                        {
+                          alias: null,
+                          args: null,
+                          concreteType: "CurrencyAmount",
+                          kind: "LinkedField",
+                          name: "total",
+                          plural: !1,
+                          selections: o,
+                          storageKey: null,
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "id",
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+        },
+        params: {
+          id: n("WAWebBizAdCreationSummaryContentQuery_facebookRelayOperation"),
+          metadata: {},
+          name: "WAWebBizAdCreationSummaryContentQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

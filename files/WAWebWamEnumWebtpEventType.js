@@ -1,0 +1,31 @@
+__d(
+  "WAWebWamEnumWebtpEventType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      OPEN: 1,
+      CLOSE: 2,
+      DOWNLOAD_DOCUMENT_CLICK: 3,
+      EDIT_MENU_CLICK: 4,
+      ERROR: 5,
+      TELEMETRY: 6,
+      APP_PERF_DATA: 7,
+      PDF_SHARER_OPEN: 8,
+      PDF_SHARER_CANCEL: 9,
+      PDF_SHARER_CONTINUE: 10,
+      PDF_SHARER_SUCCESS: 11,
+      PDF_SHARER_ERROR: 12,
+      PDF_SHARER_UNSUPPORTED: 13,
+      PDF_RECEIVER_OPEN: 14,
+      PDF_RECEIVER_SUCCESS: 15,
+      PDF_RECEIVER_ERROR: 16,
+      PDF_RECEIVER_CANCEL: 17,
+      PDF_RECEIVER_CONTINUE: 18,
+      PDF_RECEIVER_FILE_FORWARDED: 19,
+      PDF_SHARER_AUTO_PROCEED_CHECKBOX: 20,
+      PDF_SHARER_CONTINUE_AUTO_PROCEED: 21,
+    });
+    i.WEBTP_EVENT_TYPE = e;
+  },
+  66,
+);

@@ -1,0 +1,22 @@
+__d(
+  "WAWebWamEnumUsernameCreationEntrypoint",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      USERNAME_UPSELL: 1,
+      PROFILE_SETTING: 2,
+      PIN_UPSELL_INTEGRITY_BANNER: 3,
+      USERNAME_ACTIVATION_BANNER: 4,
+      USERNAME_UPSELL_CREATION_BANNER_WA: 5,
+      USERNAME_UPSELL_RESERVATION_BANNER_WA: 6,
+      SMB_FB_USERNAME_RESERVATION: 7,
+      ACTIVATION_APP_FOREGROUND: 8,
+      DEEP_LINK: 9,
+      FB_PAGE_WA_DEEPLINK: 10,
+      IG_WA_DEEPLINK: 11,
+      USERNAME_UPSELL_SYS_MSG: 12,
+    });
+    i.USERNAME_CREATION_ENTRYPOINT = e;
+  },
+  66,
+);

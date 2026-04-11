@@ -1,0 +1,20 @@
+__d(
+  "WAWebFailureErrorCodes",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = {
+      REASON_GENERIC_FAILURE: 400,
+      REASON_NOT_AUTHORIZED: 401,
+      REASON_TEMP_BANNED: 402,
+      REASON_LOCKED: 403,
+      REASON_CLIENT_TOO_OLD: 405,
+      REASON_BANNED: 406,
+      REASON_BAD_USER_AGENT: 409,
+      REASON_INTERNAL_SERVER_ERROR: 500,
+      REASON_EXPERIMENTAL: 501,
+      REASON_SERVICE_UNAVAILABLE: 503,
+    };
+    i.FAILURE_REASON = e;
+  },
+  66,
+);

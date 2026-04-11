@@ -1,0 +1,31 @@
+__d(
+  "WAWebWamEnumCommunityCreationActionTakenType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      ENTER: 1,
+      GET_STARTED: 2,
+      DISMISS: 3,
+      NEXT: 4,
+      CREATE_GROUP: 5,
+      LINK_GROUP: 6,
+      CREATE_COMMUNITY: 7,
+      EXIT: 8,
+      UNLINK_GROUP: 9,
+      CREATE_COMMUNITY_SUCCESS: 10,
+      CREATE_COMMUNITY_FAIL: 11,
+      HELP_ICON_CLICK: 12,
+      LINK_GROUP_CONFIRMATION_OK: 13,
+      LINK_GROUP_CONFIRMATION_CANCEL: 14,
+      NEW_COMMUNITY: 15,
+      EXISTING_COMMUNITY: 16,
+      ADD_SUBGROUP_AS_CADMIN: 17,
+      SUGGEST_SUBGROUP_AS_MEMBER: 19,
+      CANCEL: 20,
+      ADD_GROUP_TO_EXISTING_COMMUNITY_FAIL: 21,
+      ADD_GROUP_TO_EXISTING_COMMUNITY_SUCCESS: 22,
+    });
+    i.COMMUNITY_CREATION_ACTION_TAKEN_TYPE = e;
+  },
+  66,
+);

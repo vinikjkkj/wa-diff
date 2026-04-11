@@ -1,0 +1,78 @@
+__d(
+  "WAWebMediaPanelHeader.styles",
+  [],
+  function (t, n, r, o, a, i, l) {
+    var e = "x1pilc4c-B",
+      s = {
+        mediaPanelHeader: {
+          zIndex: "x16uhe5s",
+          display: "x78zum5",
+          flex: "x1okw0bk",
+          flexDirection: "x15zctf7",
+          alignItems: "x6s0dn4",
+          height: "xng8ra",
+          backgroundColor: "x1280gxy",
+          transition: "xqu7myx",
+          $$css: !0,
+        },
+        mediaPanelHeaderHidden: {
+          visibility: "xlshs6z",
+          opacity: "xg01cxk",
+          $$css: !0,
+        },
+        mediaPanelTools: {
+          order: "x9ek82g",
+          marginRight: "xzj7eog",
+          marginInlineStart: null,
+          marginInlineEnd: null,
+          $$css: !0,
+        },
+        viewCount: { color: "x14ug900", $$css: !0 },
+        info: {
+          flex: "x12lumcd",
+          order: "x14yy4lh",
+          marginRight: "xl89s6",
+          marginLeft: "xd8780z",
+          marginInlineStart: null,
+          marginInlineEnd: null,
+          overflowX: "x6ikm8r",
+          overflowY: "x10wlt62",
+          $$css: !0,
+        },
+        voIcon: { width: "xvy4d1p", height: "xxk0z11", $$css: !0 },
+        highlightClose: {
+          animationName: "x1lkjnxq",
+          animationDuration: "x1ykxiw6",
+          animationIterationCount: "xuij49y",
+          animationDirection: "xpz12be",
+          $$css: !0,
+        },
+        author: { minWidth: "x1pshirs", $$css: !0 },
+        dot: {
+          marginTop: "xdj266r",
+          marginInlineEnd: "x7g7pl8",
+          marginBottom: "xat24cr",
+          marginInlineStart: "x1wbi8v6",
+          $$css: !0,
+        },
+        filename: {
+          display: "x1rg5ohu",
+          maxWidth: "x256u9z",
+          overflowX: "x6ikm8r",
+          overflowY: "x10wlt62",
+          textOverflow: "xlyipyv",
+          whiteSpace: "xuxw1ft",
+          verticalAlign: "x3ajldb",
+          $$css: !0,
+        },
+        mediaPanelHeaderBorderBottom: {
+          borderBottomWidth: "xso031l",
+          borderBottomStyle: "x1q0q8m5",
+          borderBottomColor: "xkveyfu",
+          $$css: !0,
+        },
+      };
+    l.default = s;
+  },
+  98,
+);

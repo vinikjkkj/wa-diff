@@ -1,0 +1,36 @@
+__d(
+  "WAWebWamEnumWebcMenuItemLabel",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      NEW_GROUP: 1,
+      CREATE_A_ROOM: 2,
+      PROFILE: 3,
+      CATALOG: 4,
+      ARCHIVED: 5,
+      STARRED: 6,
+      LABELS: 7,
+      SETTINGS: 8,
+      LOG_OUT: 9,
+      CONTACT_INFO: 10,
+      SELECT_MESSAGES: 11,
+      CLOSE_CHAT: 12,
+      MUTE_NOTIFICATIONS: 13,
+      CLEAR_MESSAGES: 14,
+      DELETE_CHAT: 15,
+      REPORT_BUSINESS: 16,
+      BLOCK: 17,
+      SETTINGS_NOTIFICATIONS: 18,
+      SETTINGS_THEME: 19,
+      SETTINGS_CHAT_WALLPAPER: 20,
+      SETTINGS_BLOCKED: 21,
+      SETTINGS_HELP: 22,
+      OPEN: 23,
+      CLOSE: 24,
+      BUSINESS_TOOLS: 25,
+      APP_LOCK: 26,
+    });
+    i.WEBC_MENU_ITEM_LABEL = e;
+  },
+  66,
+);

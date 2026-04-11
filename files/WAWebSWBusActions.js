@@ -1,0 +1,28 @@
+__d(
+  "WAWebSWBusActions",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = {
+        REQUEST_STREAMING_INFO: "GET_STREAMING_INFO",
+        REQUEST_RMR: "REQUEST_RMR",
+        SEND_STREAMING_CHUNK: "SEND_STREAMING_CHUNK",
+        EXP_BACKOFF: "EXP_BACKOFF",
+        LOG: "LOG",
+        UPLOAD_LOGS: "UPLOAD_LOGS",
+        SET_L10N: "SET_L10N",
+        STREAMING_SUPPORTED: "STREAMING_SUPPORTED",
+        REMOVE_PP: "REMOVE_PP",
+        LOGOUT: "LOGOUT",
+        CLEAN_ASSETS: "CLEAN_ASSETS",
+        ACTIVE_TAB: "ACTIVE_TAB",
+        STOP_COMMS: "STOP_COMMS",
+        HEARTBEAT: "HEARTBEAT",
+        WAM_UPLOAD: "WAM_UPLOAD",
+        HANDLE_CALL_NOTIFICATION: "HANDLE_CALL_NOTIFICATION",
+        CLEAR_CALL_NOTIFICATION: "CLEAR_CALL_NOTIFICATION",
+      },
+      l = e;
+    i.default = l;
+  },
+  66,
+);

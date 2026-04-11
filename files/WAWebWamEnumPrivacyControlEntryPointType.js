@@ -1,0 +1,22 @@
+__d(
+  "WAWebWamEnumPrivacyControlEntryPointType",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      PRIVACY_SETTINGS: 0,
+      PROFILE_PHOTO_JIT: 1,
+      SETTINGS_SEARCH: 2,
+      DEEP_LINK: 3,
+      PRIVACY_CHECKUP_BANNER: 4,
+      PRIVACY_CHECKUP_DEEP_LINK: 5,
+      PRIVACY_CHECKUP_WA_CHAT: 6,
+      PRIVACY_CHECKUP_SETTINGS_SEARCH: 7,
+      DEFENSE_MODE_LOCKED_INTERSTITIAL: 8,
+      STICKER_INFO_SHEET: 9,
+      DEFENSE_MODE_QUARANTINED_INTERSTITIAL: 10,
+      DEFENSE_MODE_SETTINGS_REMINDER_BANNER: 11,
+    });
+    i.PRIVACY_CONTROL_ENTRY_POINT_TYPE = e;
+  },
+  66,
+);

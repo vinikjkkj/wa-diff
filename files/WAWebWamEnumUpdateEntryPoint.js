@@ -1,0 +1,37 @@
+__d(
+  "WAWebWamEnumUpdateEntryPoint",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      CONTACT_INFO: 1,
+      GROUP_INFO: 2,
+      CHAT_MORE_OPTIONS: 3,
+      CHAT_LONG_PRESS_OPTIONS: 4,
+      FILTER_CONTEXT_MENU: 5,
+      ADD_LIST_FILTER: 6,
+      LIST_SETTINGS: 7,
+      LIST_NUX: 8,
+      DEEPLINK: 9,
+      PIN_ALERT: 10,
+      AE_SYSTEM_MESSAGE: 11,
+      BIZ_TOOLS: 12,
+      CHAT_LIST_SWIPE_MORE_MENU: 13,
+      CHAT_HEADER: 14,
+      MESSAGE_CONTEXT_MENU: 15,
+      CHAT_LIST_CONTEXT_MENU: 16,
+      BROADCAST_LIST_CHAT_OVERFLOW: 17,
+      BROADCAST_LIST_CHAT_INFO_OVERFLOW: 18,
+      CHAT_LIST_FILTER_MANAGE: 19,
+      QP_BIZ_TOOLS: 20,
+      CHAT_LIST_FILTER_EMPTY: 21,
+      CHAT_FILTER_PILL: 22,
+      CREATE_CUSTOM_LIST: 23,
+      LIST_TOAST: 24,
+      EDIT_LIST_VIEW: 25,
+      LIST_DETAIL_VIEW: 26,
+      AUTO_CREATED: 27,
+    });
+    i.UPDATE_ENTRY_POINT = e;
+  },
+  66,
+);
