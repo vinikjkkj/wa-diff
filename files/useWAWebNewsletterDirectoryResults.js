@@ -4,7 +4,6 @@ __d(
     "WAWebNetworkStatus",
     "WAWebNewsletterDirectorySearchAction",
     "react",
-    "react-compiler-runtime",
     "useWAWebEventTargetValue",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,183 +27,118 @@ __d(
         return e;
       };
     function p(e) {
-      var t = o("react-compiler-runtime").c(30),
-        n = e.category,
-        a = e.chatEntryPoint,
-        i = e.countryCode,
-        l = e.listView,
-        s = e.newsletterDirectoryFunnelLogger,
-        u = e.searchText,
+      var t = e.category,
+        n = e.chatEntryPoint,
+        a = e.countryCode,
+        i = e.listView,
+        l = e.newsletterDirectoryFunnelLogger,
+        s = e.searchText,
         p = e.skipSubscribedNewsletters,
-        f = c(""),
-        g = c(!1),
-        h;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = []), (t[0] = h))
-        : (h = t[0]);
-      var y = d(h),
-        C = y[0],
-        b = y[1],
-        v = d(!1),
-        S = v[0],
-        R = v[1],
-        L = d(!1),
-        E = L[0],
-        k = L[1],
-        I;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = []), (t[1] = I))
-        : (I = t[1]);
-      var T = d(I),
+        _ = c(""),
+        f = c(!1),
+        g = d([]),
+        h = g[0],
+        y = g[1],
+        C = d(!1),
+        b = C[0],
+        v = C[1],
+        S = d(!1),
+        R = S[0],
+        L = S[1],
+        E = d([]),
+        k = E[0],
+        I = E[1],
+        T = d(!1),
         D = T[0],
         x = T[1],
-        $ = d(!1),
-        P = $[0],
-        N = $[1],
-        M = r("useWAWebEventTargetValue")(
+        $ = r("useWAWebEventTargetValue")(
           r("WAWebNetworkStatus"),
           "change:online",
-          _,
+          function () {
+            return !r("WAWebNetworkStatus").online;
+          },
         ),
-        w;
-      t[2] !== n ||
-      t[3] !== a ||
-      t[4] !== i ||
-      t[5] !== l ||
-      t[6] !== s ||
-      t[7] !== u ||
-      t[8] !== p
-        ? ((w = function () {
-            var e = u.trim(),
-              t = e !== "";
+        P = u(
+          function () {
+            var e = s.trim(),
+              r = e !== "";
             return (
-              s.setSearchMode(t),
+              l.setSearchMode(r),
               o("WAWebNewsletterDirectorySearchAction")
                 .fetchNewsletterDirectories({
-                  countryCodes: i === "" ? [] : [i],
+                  countryCodes: a === "" ? [] : [a],
                   searchText: e,
-                  view: l,
-                  cursorToken: f.current,
-                  categories: n == null ? [] : [n.type],
+                  view: i,
+                  cursorToken: _.current,
+                  categories: t == null ? [] : [t.type],
                   skipSubscribedNewsletters: p,
                 })
                 .then(function (e) {
                   var t,
-                    n = e.newsletters,
-                    r = e.pageInfo,
-                    o = e.subscribedNewsletters;
-                  ((f.current =
-                    (t = r == null ? void 0 : r.endCursor) != null ? t : ""),
-                    (g.current = (r == null ? void 0 : r.hasNextPage) === !0));
-                  var i = m(n, a, s),
-                    l = m(o, a, s);
-                  return [i, l];
+                    r = e.newsletters,
+                    o = e.pageInfo,
+                    a = e.subscribedNewsletters;
+                  ((_.current =
+                    (t = o == null ? void 0 : o.endCursor) != null ? t : ""),
+                    (f.current = (o == null ? void 0 : o.hasNextPage) === !0));
+                  var i = m(r, n, l),
+                    s = m(a, n, l);
+                  return [i, s];
                 })
                 .catch(function (e) {
-                  throw (s.logServerError(), e);
+                  throw (l.logServerError(), e);
                 })
             );
-          }),
-          (t[2] = n),
-          (t[3] = a),
-          (t[4] = i),
-          (t[5] = l),
-          (t[6] = s),
-          (t[7] = u),
-          (t[8] = p),
-          (t[9] = w))
-        : (w = t[9]);
-      var A = w,
-        F;
-      t[10] !== A || t[11] !== M || t[12] !== S
-        ? ((F = function () {
-            !M &&
-              !S &&
-              (N(!0),
-              (f.current = ""),
-              (g.current = !1),
-              A()
+          },
+          [s, l, a, i, t, p, n],
+        ),
+        N = u(
+          function () {
+            !$ &&
+              !b &&
+              (x(!0),
+              (_.current = ""),
+              (f.current = !1),
+              P()
                 .then(function (e) {
                   var t = e[0],
                     n = e[1];
-                  (b(t), x(n));
+                  (y(t), I(n));
                 })
                 .catch(function () {
-                  R(!0);
+                  v(!0);
                 })
                 .finally(function () {
-                  N(!1);
+                  x(!1);
                 }));
-          }),
-          (t[10] = A),
-          (t[11] = M),
-          (t[12] = S),
-          (t[13] = F))
-        : (F = t[13]);
-      var O = F,
-        B;
-      t[14] !== A || t[15] !== C || t[16] !== D
-        ? ((B = function () {
-            (k(!0),
-              A()
+          },
+          [$, b, P],
+        ),
+        M = u(
+          function () {
+            (L(!0),
+              P()
                 .then(function (e) {
                   var t = e[0],
                     n = e[1];
-                  (b([].concat(C, t)), x([].concat(D, n)));
+                  (y([].concat(h, t)), I([].concat(k, n)));
                 })
                 .finally(function () {
-                  k(!1);
+                  L(!1);
                 }));
-          }),
-          (t[14] = A),
-          (t[15] = C),
-          (t[16] = D),
-          (t[17] = B))
-        : (B = t[17]);
-      var W = B,
-        q;
-      t[18] !== E
-        ? ((q = function () {
-            return g.current === !0 && !E;
-          }),
-          (t[18] = E),
-          (t[19] = q))
-        : (q = t[19]);
-      var U = q,
-        V;
-      t[20] === Symbol.for("react.memo_cache_sentinel")
-        ? ((V = function () {
-            return g.current;
-          }),
-          (t[20] = V))
-        : (V = t[20]);
-      var H = V,
-        G;
-      return (
-        t[21] !== P ||
-        t[22] !== E ||
-        t[23] !== W ||
-        t[24] !== C ||
-        t[25] !== S ||
-        t[26] !== U ||
-        t[27] !== D ||
-        t[28] !== O
-          ? ((G = [C, U, O, W, H, P, E, S, R, D]),
-            (t[21] = P),
-            (t[22] = E),
-            (t[23] = W),
-            (t[24] = C),
-            (t[25] = S),
-            (t[26] = U),
-            (t[27] = D),
-            (t[28] = O),
-            (t[29] = G))
-          : (G = t[29]),
-        G
-      );
-    }
-    function _() {
-      return !r("WAWebNetworkStatus").online;
+          },
+          [P, h, k],
+        ),
+        w = u(
+          function () {
+            return f.current === !0 && !R;
+          },
+          [R],
+        ),
+        A = u(function () {
+          return f.current;
+        }, []);
+      return [h, w, N, M, A, D, R, b, v, k];
     }
     l.useNewsletterDirectoryResults = p;
   },

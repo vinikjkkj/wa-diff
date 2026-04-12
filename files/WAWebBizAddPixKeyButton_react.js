@@ -11,37 +11,13 @@ __d(
     "WDSButton.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c() {
-      var e = o("react-compiler-runtime").c(1),
-        t = d,
-        n;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = u.jsx(r("WDSButton.react"), {
-              label: s._(/*BTDS*/ "Add Pix key"),
-              onPress: function () {
-                t();
-              },
-              variant: "filled",
-              size: "medium",
-              widthMode: "flexible",
-            })),
-            (e[0] = n))
-          : (n = e[0]),
-        n
-      );
-    }
-    function d() {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+      var e = (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = new (o("WAWebBannerEventWamEvent").BannerEventWamEvent)({
             bannerOperation: o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS
               .CLICK,
@@ -61,11 +37,22 @@ __d(
                 ),
                 { transition: "modal-flow" },
               ));
-        })),
-        m.apply(this, arguments)
-      );
+        });
+        return function () {
+          return e.apply(this, arguments);
+        };
+      })();
+      return u.jsx(r("WDSButton.react"), {
+        label: s._(/*BTDS*/ "Add Pix key"),
+        onPress: function () {
+          e();
+        },
+        variant: "filled",
+        size: "medium",
+        widthMode: "flexible",
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

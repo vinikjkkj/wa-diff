@@ -7,7 +7,6 @@ __d(
     "WAWebMediaVideoLinkPreview.react",
     "WAWebMsgGetters",
     "react",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,64 +16,36 @@ __d(
       c = u.memo,
       d = u.useEffect;
     function m(e) {
-      var t = o("react-compiler-runtime").c(15),
-        n = e.msg,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [
-            o("WAWebMsgGetters").getT,
-            o("WAWebMsgGetters").getThumbnailHQ,
-            o("WAWebFrontendMsgGetters").getAsUrl,
-            o("WAWebMsgGetters").getIsSentByMe,
-          ]),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebMsgValues").useMsgValues(e.msg.id, a),
-        l = i[0],
-        u = i[1],
-        c = i[2],
-        m = i[3],
-        p;
-      t[1] !== c || t[2] !== n || t[3] !== l
-        ? ((p = function () {
-            var e = c;
+      var t = e.msg,
+        n = o("useWAWebMsgValues").useMsgValues(e.msg.id, [
+          o("WAWebMsgGetters").getT,
+          o("WAWebMsgGetters").getThumbnailHQ,
+          o("WAWebFrontendMsgGetters").getAsUrl,
+          o("WAWebMsgGetters").getIsSentByMe,
+        ]),
+        a = n[0],
+        i = n[1],
+        l = n[2],
+        u = n[3];
+      return (
+        d(
+          function () {
+            var e = l;
             e &&
-              !o("WAWebMediaLinkPreviewUtils").hqLinkPreviewExpired(l) &&
+              !o("WAWebMediaLinkPreviewUtils").hqLinkPreviewExpired(a) &&
               !e.thumbnailHQ &&
               r("WAWebMediaDownloadMmsThumbnail")({
-                chat: o("WAWebFrontendMsgGetters").getChat(n),
+                chat: o("WAWebFrontendMsgGetters").getChat(t),
                 msg: e,
                 isPreload: !1,
               });
-          }),
-          (t[1] = c),
-          (t[2] = n),
-          (t[3] = l),
-          (t[4] = p))
-        : (p = t[4]);
-      var _;
-      (t[5] !== c || t[6] !== m || t[7] !== n || t[8] !== l || t[9] !== u
-        ? ((_ = [c, l, u, m, n]),
-          (t[5] = c),
-          (t[6] = m),
-          (t[7] = n),
-          (t[8] = l),
-          (t[9] = u),
-          (t[10] = _))
-        : (_ = t[10]),
-        d(p, _));
-      var f;
-      t[11] !== n ? ((f = n.unsafe()), (t[11] = n), (t[12] = f)) : (f = t[12]);
-      var g;
-      return (
-        t[13] !== f
-          ? ((g = s.jsx(r("WAWebMediaVideoLinkPreview.react"), { msg: f })),
-            (t[13] = f),
-            (t[14] = g))
-          : (g = t[14]),
-        g
+          },
+          [l, a, i, u, t],
+        ),
+        s.jsx(r("WAWebMediaVideoLinkPreview.react"), { msg: t.unsafe() })
       );
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     var p = c(m);
     l.default = p;
   },

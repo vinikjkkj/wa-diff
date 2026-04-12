@@ -3,7 +3,6 @@ __d(
   [
     "WANullthrows",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebDebouncedCallback",
     "useWAWebListener",
@@ -176,33 +175,26 @@ __d(
       return (i.splice(c, 0, a), i);
     }
     function f(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n,
-        r;
-      (t[0] !== e
-        ? ((n = function () {
-            if (e) {
-              var t = document,
-                n = t.body;
-              if (n != null) {
-                var r = document.createElement("div");
-                return (
-                  (r.className =
-                    "xi9pz9s xixxii4 x13vifvy x1o0tod xh8yej3 x5yr21d x1lfen1e"),
-                  n.appendChild(r),
-                  function () {
-                    r.remove();
-                  }
-                );
-              }
+      c(
+        function () {
+          if (e) {
+            var t = document,
+              n = t.body;
+            if (n != null) {
+              var r = document.createElement("div");
+              return (
+                (r.className =
+                  "xi9pz9s xixxii4 x13vifvy x1o0tod xh8yej3 x5yr21d x1lfen1e"),
+                n.appendChild(r),
+                function () {
+                  r.remove();
+                }
+              );
             }
-          }),
-          (r = [e]),
-          (t[0] = e),
-          (t[1] = n),
-          (t[2] = r))
-        : ((n = t[1]), (r = t[2])),
-        c(n, r));
+          }
+        },
+        [e],
+      );
     }
     l.default = p;
   },

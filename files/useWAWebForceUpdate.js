@@ -6,12 +6,12 @@ __d(
     var e,
       s = (e || (e = o("react"))).useReducer;
     function u() {
-      var e = s(c, 0),
-        t = e[1];
-      return t;
-    }
-    function c(e) {
-      return e + 1;
+      var e = s(function (e) {
+          return e + 1;
+        }, 0),
+        t = e[0],
+        n = e[1];
+      return n;
     }
     l.useForceUpdateDONOTUSE = u;
   },

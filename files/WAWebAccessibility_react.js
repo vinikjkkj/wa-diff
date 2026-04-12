@@ -1,6 +1,6 @@
 __d(
   "WAWebAccessibility.react",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -8,16 +8,10 @@ __d(
       c = u.useEffect,
       d = u.useState;
     function m(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.children,
-        r;
-      return (
-        t[0] !== n
-          ? ((r = s.jsx("span", { "aria-label": n })), (t[0] = n), (t[1] = r))
-          : (r = t[1]),
-        r
-      );
+      var t = e.children;
+      return s.jsx("span", { "aria-label": t });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       var t = e.assertive,
         n = t === void 0 ? !1 : t,

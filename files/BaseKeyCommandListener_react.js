@@ -13,7 +13,6 @@ __d(
     "useGetComposingState",
     "useGlobalEventListener",
     "useUnsafeRef_DEPRECATED",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -36,9 +35,8 @@ __d(
     function y(t) {
       var n = t.children,
         a = t.observersEnabled,
-        i = t.xstyle;
-      r("vulture")("KlxlAXLGiUu3dHEQJJR3xGwCrhc=");
-      var l = f(null),
+        i = t.xstyle,
+        l = f(null),
         u = f(null),
         d = f(new Set()),
         y = p(r("CometGlobalKeyCommandWidget").Context),

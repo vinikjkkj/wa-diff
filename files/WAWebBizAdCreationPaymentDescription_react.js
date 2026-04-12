@@ -11,7 +11,6 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -47,78 +46,53 @@ __d(
     _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       var t,
-        a = o("react-compiler-runtime").c(13),
-        i = e.openBillingWizard,
-        l = e.paymentSectionRef,
-        s = o("CometRelay").useFragment(p, l),
-        c = m(r("WAWebBizAdCreationLoggerContext")),
-        d = m(r("WAWebBizAdCreationSpecContext")),
+        a = e.openBillingWizard,
+        i = e.paymentSectionRef,
+        l = o("CometRelay").useFragment(p, i),
+        s = m(r("WAWebBizAdCreationLoggerContext")),
+        c = m(r("WAWebBizAdCreationSpecContext")),
         f =
-          d == null ||
-          (t = d.currentValue) == null ||
+          c == null ||
+          (t = c.currentValue) == null ||
           (t = t.adAccountData) == null
             ? void 0
             : t.id,
-        g;
-      a[0] !== f || a[1] !== c || a[2] !== i
-        ? ((g = (function () {
+        g = d(
+          (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                (c != null &&
+                (s != null &&
                   r("WAWebBizAdLogger").log({
                     event: "click_change_payment_link",
-                    loggerContext: c,
+                    loggerContext: s,
                     adAccountID: f,
                   }),
-                  yield i(e));
+                  yield a(e));
               },
             );
-            return function (n) {
+            return function (t) {
               return e.apply(this, arguments);
             };
-          })()),
-          (a[0] = f),
-          (a[1] = c),
-          (a[2] = i),
-          (a[3] = g))
-        : (g = a[3]);
-      var h = g;
-      if (s.description == null) return null;
-      var y;
-      a[4] !== s.description || a[5] !== s.descriptionAx
-        ? ((y = u.jsx("span", {
-            "aria-label": s.descriptionAx,
-            children: s.description,
-          })),
-          (a[4] = s.description),
-          (a[5] = s.descriptionAx),
-          (a[6] = y))
-        : (y = a[6]);
-      var C;
-      a[7] !== s.inlineAction || a[8] !== h
-        ? ((C = _(s.inlineAction, h)),
-          (a[7] = s.inlineAction),
-          (a[8] = h),
-          (a[9] = C))
-        : (C = a[9]);
-      var b;
-      return (
-        a[10] !== y || a[11] !== C
-          ? ((b = u.jsx(o("WAWebFlex.react").FlexRow, {
-              children: u.jsxs(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDeemphasized",
-                children: [y, C],
-              }),
-            })),
-            (a[10] = y),
-            (a[11] = C),
-            (a[12] = b))
-          : (b = a[12]),
-        b
-      );
+          })(),
+          [f, s, a],
+        );
+      return l.description == null
+        ? null
+        : u.jsx(o("WAWebFlex.react").FlexRow, {
+            children: u.jsxs(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDeemphasized",
+              children: [
+                u.jsx("span", {
+                  "aria-label": l.descriptionAx,
+                  children: l.description,
+                }),
+                _(l.inlineAction, g),
+              ],
+            }),
+          });
     }
-    l.default = f;
+    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
   },
   98,
 );

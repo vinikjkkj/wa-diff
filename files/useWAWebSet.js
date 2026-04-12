@@ -1,6 +1,6 @@
 __d(
   "useWAWebSet",
-  ["Promise", "react", "react-compiler-runtime"],
+  ["Promise", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -8,77 +8,51 @@ __d(
       c = u.useCallback,
       d = u.useState;
     function m(t) {
-      var r = o("react-compiler-runtime").c(9),
-        a;
-      r[0] !== t ? ((a = t ? t() : p), (r[0] = t), (r[1] = a)) : (a = r[1]);
-      var i = d(a),
-        l = i[0],
-        s = i[1],
-        u;
-      r[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = function (r) {
-            return new (e || (e = n("Promise")))(function (e) {
-              s(function (t) {
-                var n = new Set(t);
-                return (n.add(r), e(n), n);
-              });
+      var r = d(
+          t
+            ? t()
+            : function () {
+                return new Set();
+              },
+        ),
+        o = r[0],
+        a = r[1],
+        i = c(function (t) {
+          return new (e || (e = n("Promise")))(function (e) {
+            a(function (n) {
+              var r = new Set(n);
+              return (r.add(t), e(r), r);
             });
-          }),
-          (r[2] = u))
-        : (u = r[2]);
-      var c = u,
-        m;
-      r[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = function (r) {
-            return new (e || (e = n("Promise")))(function (e) {
-              s(function (t) {
-                var n = new Set(t);
-                return (n.delete(r), e(n), n);
-              });
+          });
+        }, []),
+        l = c(function (t) {
+          return new (e || (e = n("Promise")))(function (e) {
+            a(function (n) {
+              var r = new Set(n);
+              return (r.delete(t), e(r), r);
             });
-          }),
-          (r[3] = m))
-        : (m = r[3]);
-      var _ = m,
-        f;
-      r[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = function (r) {
-            return new (e || (e = n("Promise")))(function (e) {
-              s(function (t) {
-                var n = new Set(t);
-                return (n.has(r) ? n.delete(r) : n.add(r), e(n), n);
-              });
+          });
+        }, []),
+        s = c(function (t) {
+          return new (e || (e = n("Promise")))(function (e) {
+            a(function (n) {
+              var r = new Set(n);
+              return (r.has(t) ? r.delete(t) : r.add(t), e(r), r);
             });
-          }),
-          (r[4] = f))
-        : (f = r[4]);
-      var g = f,
-        h;
-      r[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = function (r) {
-            var t = r === void 0 ? [] : r;
-            return new (e || (e = n("Promise")))(function (e) {
-              s(function () {
+          });
+        }, []),
+        u = c(function (t) {
+          return (
+            t === void 0 && (t = []),
+            new (e || (e = n("Promise")))(function (e) {
+              a(function () {
                 var n = new Set(t);
                 return (e(n), n);
               });
-            });
-          }),
-          (r[5] = h))
-        : (h = r[5]);
-      var y = h,
-        C;
-      r[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = { add: c, remove: _, toggle: g, clear: y }), (r[6] = C))
-        : (C = r[6]);
-      var b;
-      return (
-        r[7] !== l ? ((b = [l, C]), (r[7] = l), (r[8] = b)) : (b = r[8]),
-        b
-      );
-    }
-    function p() {
-      return new Set();
+            })
+          );
+        }, []);
+      return [o, { add: i, remove: l, toggle: s, clear: u }];
     }
     l.useSet = m;
   },

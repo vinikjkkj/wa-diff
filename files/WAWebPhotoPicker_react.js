@@ -70,7 +70,6 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:5981",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebDefaultProfileColors",
     "useWAWebIsKeyboardUser",
@@ -92,26 +91,19 @@ __d(
           : n("cr:5981").InternalStatusWarningImageOverlay,
       y = { iconBg: { backgroundColor: "x1od0jb8", $$css: !0 } };
     function C() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = d.jsx(
-              "hr",
-              babelHelpers.extends(
-                {},
-                (u || (u = r("stylex"))).props(
-                  o("WAWebPhotoPickerStyle").styles.separator,
-                  o("WAWebUISpacing").uiMargin.vert4,
-                  o("WAWebUISpacing").uiMargin.horiz1,
-                ),
-              ),
-            )),
-            (e[0] = t))
-          : (t = e[0]),
-        t
+      return d.jsx(
+        "hr",
+        babelHelpers.extends(
+          {},
+          (u || (u = r("stylex"))).props(
+            o("WAWebPhotoPickerStyle").styles.separator,
+            o("WAWebUISpacing").uiMargin.vert4,
+            o("WAWebUISpacing").uiMargin.horiz1,
+          ),
+        ),
       );
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b(t) {
       var a = t.HoverIcon,
         i = t.attachToChat,

@@ -5,7 +5,6 @@ __d(
     "SetActiveLayerIfAttached.react",
     "react",
     "react-compiler-runtime",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -14,9 +13,8 @@ __d(
     function u(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.children,
-        a = e.debugName;
-      r("vulture")("mZ45GT846Je7MBaVaAI9vER3_Nk=");
-      var i;
+        a = e.debugName,
+        i;
       t[0] !== a
         ? ((i = s.jsx(r("SetActiveLayerIfAttached.react"), { debugName: a })),
           (t[0] = a),

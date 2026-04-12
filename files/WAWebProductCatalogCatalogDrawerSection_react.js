@@ -17,7 +17,6 @@ __d(
     "WAWebStateUtils",
     "WAWebUnstyledButton.react",
     "react",
-    "react-compiler-runtime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -111,185 +110,114 @@ __d(
         chevron: { color: "xhslqc4", $$css: !0 },
       };
     function f(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.catalogEntryLabel,
-        r = e.onClick;
-      if (n == null) return null;
-      var a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = { className: "x1k70j0n x14z9mp xat24cr x1lziwak x2b8uid" }),
-          (t[0] = a))
-        : (a = t[0]);
-      var i;
-      return (
-        t[1] !== n || t[2] !== r
-          ? ((i = u.jsx(
-              "div",
-              babelHelpers.extends({}, a, {
-                children: u.jsx(o("WAWebButton.react").Button, {
-                  testid: void 0,
-                  type: "secondary",
-                  onClick: r,
-                  children: n,
-                }),
-              }),
-            )),
-            (t[1] = n),
-            (t[2] = r),
-            (t[3] = i))
-          : (i = t[3]),
-        i
-      );
+      var t = e.catalogEntryLabel,
+        n = e.onClick;
+      return t == null
+        ? null
+        : u.jsx("div", {
+            className: "x1k70j0n x14z9mp xat24cr x1lziwak x2b8uid",
+            children: u.jsx(o("WAWebButton.react").Button, {
+              testid: void 0,
+              type: "secondary",
+              onClick: n,
+              children: t,
+            }),
+          });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g() {
-      var e = o("react-compiler-runtime").c(1);
-      r("vulture")("6o3eqfKJBJ6dUqeW3Ia2sjaYDA4=");
-      var t;
       return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = u.jsx("div", {
-              className: "xav9cv8 x2b8uid",
-              children: u.jsx(o("WAWebFbshopsIcon.react").FbshopsIcon, {
-                displayInline: !0,
-              }),
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
+        r("vulture")("6o3eqfKJBJ6dUqeW3Ia2sjaYDA4="),
+        u.jsx("div", {
+          className: "xav9cv8 x2b8uid",
+          children: u.jsx(o("WAWebFbshopsIcon.react").FbshopsIcon, {
+            displayInline: !0,
+          }),
+        })
       );
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = o("react-compiler-runtime").c(17),
-        n = e.catalog,
-        a = e.filterProductId,
-        i = e.hideIncompleteRows,
-        l = e.onProductImageClick,
-        c = e.onProductThumbClick,
-        d = e.productsToShow,
-        m = e.seeMoreOverlay,
-        f = e.showProductPlaceholders,
+      var t = e.catalog,
+        n = e.filterProductId,
+        a = e.hideIncompleteRows,
+        i = e.onProductImageClick,
+        l = e.onProductThumbClick,
+        c = e.productsToShow,
+        d = e.seeMoreOverlay,
+        m = e.showProductPlaceholders,
+        f,
         g,
-        h,
-        y;
-      if (
-        t[0] !== n ||
-        t[1] !== a ||
-        t[2] !== i ||
-        t[3] !== l ||
-        t[4] !== c ||
-        t[5] !== d ||
-        t[6] !== m ||
-        t[7] !== f
-      ) {
-        y = Symbol.for("react.early_return_sentinel");
-        e: {
-          var C,
-            b = d;
-          if (n != null) {
-            g = n.productCollection;
-            var v = n.productCollection.getProductModels();
-            i && v.length > p && (b = Math.min(d, v.length - (v.length % p)));
-            var S;
-            (t[11] !== a
-              ? ((S = function (t) {
-                  var e = t.id.toString();
-                  return e !== a;
-                }),
-                (t[11] = a),
-                (t[12] = S))
-              : (S = t[12]),
-              (C = v
-                .slice(0, b + 1)
-                .filter(S)
-                .map(function (e, t) {
-                  var r,
-                    a =
-                      (r = e.getPreviewImage()) == null ? void 0 : r.mediaData;
-                  if (!a) return u.jsx(u.Fragment, {});
-                  var i;
-                  m === !0 &&
-                    t === b - 1 &&
-                    n.productCollection.length > b - 1 &&
-                    (i = s._(/*BTDS*/ "See more"));
-                  var l = u.jsx(
-                    o("WAWebProductCatalogProductThumb.react").ProductThumb,
-                    {
-                      onClick: function () {
-                        return c(i != null, e);
-                      },
-                      mediaData: a,
-                      overlayContent: i,
-                      theme: "largeGallerySpacing",
-                    },
-                    e.id.toString(),
-                  );
-                  return l;
-                })
-                .slice(0, b)));
-          } else
-            t[13] === Symbol.for("react.memo_cache_sentinel")
-              ? ((g = new (o("WAWebProductCollection").ProductCollection)()),
-                g.add({ id: "_ph" }),
-                (t[13] = g))
-              : (g = t[13]);
-          if ((C == null || C.length === 0) && f !== !0) {
-            y = null;
-            break e;
-          }
-          var R = _.addIcon,
-            L = [];
-          if (f === !0)
-            for (
-              var E = (k = (I = C) == null ? void 0 : I.length) != null ? k : 0;
-              E < b;
-              E++
-            ) {
-              var k, I;
-              (L.push(
-                u.jsx(
-                  r("WAWebUnstyledButton.react"),
-                  {
-                    onClick: l,
-                    title: s._(/*BTDS*/ "Add product"),
-                    xstyle: [R, _.largeGallerySpacing],
-                    children: u.jsx(u.Fragment, {}),
+        h = c;
+      if (t != null) {
+        g = t.productCollection;
+        var y = t.productCollection.getProductModels();
+        (a && y.length > p && (h = Math.min(c, y.length - (y.length % p))),
+          (f = y
+            .slice(0, h + 1)
+            .filter(function (e) {
+              var t = e.id.toString();
+              return t !== n;
+            })
+            .map(function (e, n) {
+              var r,
+                a = (r = e.getPreviewImage()) == null ? void 0 : r.mediaData;
+              if (!a) return u.jsx(u.Fragment, {});
+              var i;
+              d === !0 &&
+                n === h - 1 &&
+                t.productCollection.length > h - 1 &&
+                (i = s._(/*BTDS*/ "See more"));
+              var c = u.jsx(
+                o("WAWebProductCatalogProductThumb.react").ProductThumb,
+                {
+                  onClick: function () {
+                    return l(i != null, e);
                   },
-                  "_ph" + E,
-                ),
-              ),
-                (R = _.placeholderThumb));
-            }
-          h = C != null ? [].concat(C, L) : L;
+                  mediaData: a,
+                  overlayContent: i,
+                  theme: "largeGallerySpacing",
+                },
+                e.id.toString(),
+              );
+              return c;
+            })
+            .slice(0, h)));
+      } else
+        ((g = new (o("WAWebProductCollection").ProductCollection)()),
+          g.add({ id: "_ph" }));
+      if ((f == null || f.length === 0) && m !== !0) return null;
+      var C = _.addIcon,
+        b = [];
+      if (m === !0)
+        for (
+          var v = (S = (R = f) == null ? void 0 : R.length) != null ? S : 0;
+          v < h;
+          v++
+        ) {
+          var S, R;
+          (b.push(
+            u.jsx(
+              r("WAWebUnstyledButton.react"),
+              {
+                onClick: i,
+                title: s._(/*BTDS*/ "Add product"),
+                xstyle: [C, _.largeGallerySpacing],
+                children: u.jsx(u.Fragment, {}),
+              },
+              "_ph" + v,
+            ),
+          ),
+            (C = _.placeholderThumb));
         }
-        ((t[0] = n),
-          (t[1] = a),
-          (t[2] = i),
-          (t[3] = l),
-          (t[4] = c),
-          (t[5] = d),
-          (t[6] = m),
-          (t[7] = f),
-          (t[8] = g),
-          (t[9] = h),
-          (t[10] = y));
-      } else ((g = t[8]), (h = t[9]), (y = t[10]));
-      if (y !== Symbol.for("react.early_return_sentinel")) return y;
-      var T = h,
-        D;
-      return (
-        t[14] !== g || t[15] !== T
-          ? ((D = u.jsx(o("WAWebMediaGalleryView.react").MediaGalleryView, {
-              productMedias: T,
-              mediaCollection: g,
-              justify: "space-between",
-            })),
-            (t[14] = g),
-            (t[15] = T),
-            (t[16] = D))
-          : (D = t[16]),
-        D
-      );
+      var L = f != null ? [].concat(f, b) : b;
+      return u.jsx(o("WAWebMediaGalleryView.react").MediaGalleryView, {
+        productMedias: L,
+        mediaCollection: g,
+        justify: "space-between",
+      });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
       var t = e.animation,
         n = e.catalog,

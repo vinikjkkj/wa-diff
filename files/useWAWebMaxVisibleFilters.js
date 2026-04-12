@@ -1,6 +1,6 @@
 __d(
   "useWAWebMaxVisibleFilters",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -17,114 +17,81 @@ __d(
       C = 100,
       b = 50;
     function v(e, t) {
-      var n = o("react-compiler-runtime").c(15),
-        r = m(h),
-        a = r[0],
-        i = r[1],
+      var n = m(h),
+        r = n[0],
+        o = n[1],
+        a = d(null),
+        i = d([]),
         l = d(null),
-        s;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = []), (n[0] = s))
-        : (s = n[0]);
-      var u = d(s),
-        v = d(null),
-        S = d(0),
-        R;
-      n[1] !== e
-        ? ((R = function () {
+        s = d(0),
+        v = u(
+          function () {
             var t = e.current,
-              n = l.current;
+              n = a.current;
             if (!(t == null || n == null)) {
               var r = t.offsetWidth;
               if (!(r < C)) {
                 for (
-                  var o = r - p - _ - g - f, a = 0, s = 0, c = 0;
-                  c < u.current.length;
+                  var l = r - p - _ - g - f, s = 0, u = 0, c = 0;
+                  c < i.current.length;
                   c++
                 ) {
-                  var d = u.current[c];
+                  var d = i.current[c];
                   if (d != null) {
                     var m = d.offsetWidth,
                       h = c === 0 ? m : m + f;
-                    if (a + h <= o) ((a = a + h), s++);
+                    if (s + h <= l) ((s += h), u++);
                     else break;
                   }
                 }
-                var b = Math.max(s, y);
-                i(b);
+                var b = Math.max(u, y);
+                o(b);
               }
             }
-          }),
-          (n[1] = e),
-          (n[2] = R))
-        : (R = n[2]);
-      var L = R,
-        E,
-        k;
-      (n[3] !== L || n[4] !== e
-        ? ((E = function () {
+          },
+          [e],
+        );
+      return (
+        c(
+          function () {
             var t = e.current;
             if (t != null) {
               var n = function () {
                   var e = Date.now(),
-                    t = e - S.current;
-                  (v.current != null && window.clearTimeout(v.current),
-                    t >= b && ((S.current = e), L()),
-                    (v.current = window.setTimeout(function () {
-                      ((S.current = Date.now()), L());
+                    t = e - s.current;
+                  (l.current != null && window.clearTimeout(l.current),
+                    t >= b && ((s.current = e), v()),
+                    (l.current = window.setTimeout(function () {
+                      ((s.current = Date.now()), v());
                     }, b)));
                 },
                 r = new ResizeObserver(n);
               r.observe(t);
               var o = window.requestAnimationFrame(function () {
-                L();
+                v();
               });
               return function () {
                 (r.disconnect(),
-                  v.current != null && window.clearTimeout(v.current),
+                  l.current != null && window.clearTimeout(l.current),
                   window.cancelAnimationFrame(o));
               };
             }
-          }),
-          (k = [e, L]),
-          (n[3] = L),
-          (n[4] = e),
-          (n[5] = E),
-          (n[6] = k))
-        : ((E = n[5]), (k = n[6])),
-        c(E, k));
-      var I;
-      n[7] !== L || n[8] !== t.length
-        ? ((I = function () {
-            u.current = u.current.slice(0, t.length);
+          },
+          [e, v],
+        ),
+        c(
+          function () {
+            i.current = i.current.slice(0, t.length);
             var e = window.requestAnimationFrame(function () {
-              L();
+              v();
             });
             return function () {
               window.cancelAnimationFrame(e);
             };
-          }),
-          (n[7] = L),
-          (n[8] = t.length),
-          (n[9] = I))
-        : (I = n[9]);
-      var T;
-      (n[10] !== L || n[11] !== t
-        ? ((T = [t, L]), (n[10] = L), (n[11] = t), (n[12] = T))
-        : (T = n[12]),
-        c(I, T));
-      var D;
-      return (
-        n[13] !== a
-          ? ((D = {
-              maxVisibleCount: a,
-              measurementContainerRef: l,
-              pillRefs: u,
-            }),
-            (n[13] = a),
-            (n[14] = D))
-          : (D = n[14]),
-        D
+          },
+          [t, v],
+        ),
+        { maxVisibleCount: r, measurementContainerRef: a, pillRefs: i }
       );
     }
     l.default = v;

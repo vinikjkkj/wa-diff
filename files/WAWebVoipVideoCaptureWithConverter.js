@@ -185,60 +185,69 @@ __d(
         (a.startVideoCapture = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t,
-              a = this,
+              a,
               i,
-              l,
-              s = e.height,
-              y = e.maxFps,
-              C = e.onVideoDataFnType,
-              b = e.stream,
-              v = e.width;
+              l = this,
+              s,
+              y,
+              C = e.height,
+              b = e.maxFps,
+              v = e.onVideoDataFnType,
+              S = e.stream,
+              R = e.width;
             ((this.isStopped = !1),
               (this.isCaptureInProgress = !1),
               (this.lastCaptureTime = 0),
               (this.$2 = 0),
               (this.$3 = 0),
               o("WAWebVoipEncodeTargetFpsState").resetEncodeTargetFps(),
-              yield this.__initVideoCapture({ width: v, height: s }));
-            var S = b.getVideoTracks()[0],
-              R =
-                S == null ||
-                S.getSettings == null ||
-                (t = S.getSettings()) == null
+              yield this.__initVideoCapture({ width: R, height: C }));
+            var L = S.getVideoTracks()[0],
+              E =
+                L == null ||
+                L.getSettings == null ||
+                (t = L.getSettings()) == null
                   ? void 0
                   : t.facingMode;
-            this.$1 = R === "environment";
-            var L = v,
-              E = s,
-              k = r("nullthrows")(this.converter).getConverterName(),
-              I = "voip: [AV:startVideoCapture (" + k + ")]";
-            (o("WALogger").LOG(
+            this.$1 = E === "environment";
+            var k = R,
+              I = C,
+              T = r("nullthrows")(this.converter).getConverterName(),
+              D = "voip: [AV:startVideoCapture (" + T + ")]";
+            o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "",
                   " facingMode=",
                   "",
                 ])),
-              I,
-              R != null ? R : "unknown",
-            ),
-              (this.mediaCaptureStream = {
-                mediaStream: b,
-                videoElement: document.createElement("video"),
-              }));
-            var T = this.mediaCaptureStream.videoElement;
-            ((T.srcObject = b),
-              (T.autoplay = !0),
-              (T.muted = !0),
-              (T.playsInline = !0),
-              T.addEventListener(
+              D,
+              E != null ? E : "unknown",
+            );
+            var x =
+              (a =
+                (i = o("WAWebVoipPopoutWindowState").getPopoutWindow()) == null
+                  ? void 0
+                  : i.document) != null
+                ? a
+                : document;
+            this.mediaCaptureStream = {
+              mediaStream: S,
+              videoElement: x.createElement("video"),
+            };
+            var $ = this.mediaCaptureStream.videoElement;
+            (($.srcObject = S),
+              ($.autoplay = !0),
+              ($.muted = !0),
+              ($.playsInline = !0),
+              $.addEventListener(
                 "loadedmetadata",
                 function () {
-                  ((a.$2 = o("WAWebVoipMediaEnums").detectSensorOffset(
-                    L,
-                    E,
-                    T.videoWidth,
-                    T.videoHeight,
+                  ((l.$2 = o("WAWebVoipMediaEnums").detectSensorOffset(
+                    k,
+                    I,
+                    $.videoWidth,
+                    $.videoHeight,
                   )),
                     o("WALogger").LOG(
                       c ||
@@ -251,109 +260,109 @@ __d(
                           "x",
                           "",
                         ])),
+                      D,
+                      l.$2,
+                      k,
                       I,
-                      a.$2,
-                      L,
-                      E,
-                      T.videoWidth,
-                      T.videoHeight,
+                      $.videoWidth,
+                      $.videoHeight,
                     ));
                 },
                 { once: !0 },
               ),
-              yield (i = this.mediaCaptureStream) == null
+              yield (s = this.mediaCaptureStream) == null
                 ? void 0
-                : i.videoElement.play(),
+                : s.videoElement.play(),
               o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
                     "",
                     " video element ready",
                   ])),
-                I,
+                D,
               ));
-            var D = Math.floor(this.width * this.height * 1.5),
-              x = yield q(D);
+            var P = Math.floor(this.width * this.height * 1.5),
+              N = yield q(P);
             if (this.isStopped) {
-              yield V(x);
+              yield V(N);
               return;
             }
-            this.videoBuffer = x;
-            var $ =
-                (l = this.mediaCaptureStream) == null ? void 0 : l.videoElement,
-              P =
+            this.videoBuffer = N;
+            var M =
+                (y = this.mediaCaptureStream) == null ? void 0 : y.videoElement,
+              W =
                 yield o("WAWebBackendApi").frontendSendAndReceive(
                   "initializeVoipWasm",
                 ),
-              N =
+              U =
                 o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_dynamic_fps_throttle",
                 ) === !0,
-              M = (function () {
+              H = (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    if (!a.isCaptureInProgress) {
-                      a.isCaptureInProgress = !0;
-                      var t = a.width,
-                        n = a.height,
-                        i = 1e3 / y;
+                    if (!l.isCaptureInProgress) {
+                      l.isCaptureInProgress = !0;
+                      var t = l.width,
+                        n = l.height,
+                        a = 1e3 / b;
                       try {
-                        if (a.isStopped) return;
-                        if (!a.mediaCaptureStream || !$ || !a.converter) {
+                        if (l.isStopped) return;
+                        if (!l.mediaCaptureStream || !M || !l.converter) {
                           o("WALogger").ERROR(
                             m ||
                               (m = babelHelpers.taggedTemplateLiteralLoose([
                                 "",
                                 ": Video capture not ready, canceling frame capture",
                               ])),
-                            I,
+                            D,
                           );
                           return;
                         }
-                        if ($.readyState < $.HAVE_CURRENT_DATA) {
+                        if (M.readyState < M.HAVE_CURRENT_DATA) {
                           (o("WALogger").WARN(
                             p ||
                               (p = babelHelpers.taggedTemplateLiteralLoose([
                                 "",
                                 " Video not ready yet, skipping frame capture",
                               ])),
-                            I,
+                            D,
                           ),
-                            e(i));
+                            e(a));
                           return;
                         }
                         if (
-                          $.readyState < 2 ||
-                          $.videoWidth === 0 ||
-                          $.videoHeight === 0
+                          M.readyState < 2 ||
+                          M.videoWidth === 0 ||
+                          M.videoHeight === 0
                         )
                           throw r("err")("Video element not ready for capture");
-                        if (N) {
-                          var l = o(
+                        if (U) {
+                          var i = o(
                             "WAWebVoipEncodeTargetFpsState",
                           ).getEncodeTargetFps();
-                          if (l > 0) {
-                            var s = Math.max(w, Math.min(A, l + F)),
+                          if (i > 0) {
+                            var s = Math.max(w, Math.min(A, i + F)),
                               u = (1e3 / s) * O,
                               c = self.performance.now(),
-                              d = c - a.lastCaptureTime;
+                              d = c - l.lastCaptureTime;
                             if (d < u) {
-                              e(i);
+                              e(a);
                               return;
                             }
-                            a.lastCaptureTime = c;
+                            l.lastCaptureTime = c;
                           }
                         }
-                        var b = $;
+                        var y = M;
                         try {
-                          if ($.videoWidth !== t || $.videoHeight !== n)
+                          if (M.videoWidth !== t || M.videoHeight !== n)
                             if (
-                              B($.videoWidth) === t &&
-                              B($.videoHeight) === n
+                              B(M.videoWidth) === t &&
+                              B(M.videoHeight) === n
                             ) {
                               if (
-                                ((b = yield createImageBitmap($, 0, 0, t, n)),
-                                a.isStopped || !a.converter)
+                                ((y = yield createImageBitmap(M, 0, 0, t, n)),
+                                l.isStopped || !l.converter)
                               )
                                 return;
                             } else {
@@ -366,26 +375,26 @@ __d(
                                     "x",
                                     ", skip",
                                   ])),
-                                $.videoWidth,
-                                $.videoHeight,
+                                M.videoWidth,
+                                M.videoHeight,
                                 t,
                                 n,
                               ),
-                                yield a.__initVideoCapture({
-                                  width: $.videoWidth,
-                                  height: $.videoHeight,
+                                yield l.__initVideoCapture({
+                                  width: M.videoWidth,
+                                  height: M.videoHeight,
                                 }),
-                                e(i));
+                                e(a));
                               return;
                             }
-                          if (!a.converter) return;
-                          var v = yield a.converter.convertVideoToNV12(b),
+                          if (!l.converter) return;
+                          var C = yield l.converter.convertVideoToNV12(y),
                             S = o(
                               "WAWebVoipMediaEnums",
-                            ).computeVideoOrientation(a.$2, a.$1);
-                          if (a.$3 < 3) {
+                            ).computeVideoOrientation(l.$2, l.$1);
+                          if (l.$3 < 3) {
                             var R;
-                            a.$3++;
+                            l.$3++;
                             var L =
                               (R = globalThis.screen) == null ||
                               (R = R.orientation) == null
@@ -404,25 +413,25 @@ __d(
                                   "x",
                                   "",
                                 ])),
-                              I,
-                              a.$3,
+                              D,
+                              l.$3,
                               String(L),
                               S,
-                              a.$2,
-                              String(a.$1),
+                              l.$2,
+                              String(l.$1),
                               t,
                               n,
                             );
                           }
-                          if (a.videoBuffer != null) {
-                            var E = a.videoBuffer;
-                            (P.GROWABLE_HEAP_U8().set(v, E),
-                              P[C](
+                          if (l.videoBuffer != null) {
+                            var E = l.videoBuffer;
+                            (W.GROWABLE_HEAP_U8().set(C, E),
+                              W[v](
                                 E,
-                                v.length,
+                                C.length,
                                 t,
                                 n,
-                                y,
+                                b,
                                 o("WAWebVoipMediaEnums").WAWebVoipVideoFormat
                                   .NV12,
                                 S,
@@ -435,7 +444,7 @@ __d(
                                     "",
                                     " video buffer not initialized",
                                   ])),
-                                I,
+                                D,
                               )
                               .sendLogs(
                                 "voip: wasm: video buffer not initialized",
@@ -444,7 +453,7 @@ __d(
                             "WAWebVoipVideoRendererRegistry",
                           ).videoRendererRegistry.onVideoFrameWasmToJs(
                             o("WAWebVoipVideoRendererInterface").selfPreviewJid,
-                            v.buffer,
+                            C.buffer,
                             t,
                             n,
                             S,
@@ -452,9 +461,9 @@ __d(
                             0,
                             !1,
                           ),
-                            e(i));
+                            e(a));
                         } finally {
-                          b instanceof ImageBitmap && b.close();
+                          y instanceof ImageBitmap && y.close();
                         }
                       } catch (t) {
                         (o("WALogger").ERROR(
@@ -464,15 +473,15 @@ __d(
                               " video processing error: ",
                               "",
                             ])),
-                          I,
+                          D,
                           t,
                         ),
-                          !a.isStopped &&
-                            a.mediaCaptureStream != null &&
-                            a.converter != null &&
-                            e(i));
+                          !l.isStopped &&
+                            l.mediaCaptureStream != null &&
+                            l.converter != null &&
+                            e(a));
                       } finally {
-                        a.isCaptureInProgress = !1;
+                        l.isCaptureInProgress = !1;
                       }
                     }
                   },
@@ -481,15 +490,15 @@ __d(
                   return e.apply(this, arguments);
                 };
               })();
-            $ && $.readyState >= $.HAVE_CURRENT_DATA
+            M && M.readyState >= M.HAVE_CURRENT_DATA
               ? window.setTimeout(function () {
-                  return a.$4(M);
+                  return l.$4(H);
                 }, 0)
-              : $ &&
-                $.addEventListener(
+              : M &&
+                M.addEventListener(
                   "loadeddata",
                   function () {
-                    return a.$4(M);
+                    return l.$4(H);
                   },
                   { once: !0 },
                 );

@@ -19,7 +19,6 @@ __d(
     "WDSIconWdsIcNewChannel.react",
     "WDSMenuBarItem.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebFocusOnMount",
     "useWAWebModelValues",
   ],
@@ -28,231 +27,127 @@ __d(
       u = e || (e = o("react")),
       c = { drawer: { backgroundColor: "x1280gxy", $$css: !0 } };
     function d(e) {
-      var t = o("react-compiler-runtime").c(41),
-        n = e.initialScrollTop,
-        a = e.newsletters,
-        i = e.onBack,
-        l = e.onCreateNewsletter,
-        d = e.onNewsletterDirectorySearch,
-        m = e.ref,
-        p = e.setScrollTop,
-        _;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = ["stage"]), (t[0] = _))
-        : (_ = t[0]);
-      var f = o("useWAWebModelValues").useModelValues(
+      var t = e.initialScrollTop,
+        n = e.newsletters,
+        a = e.onBack,
+        i = e.onCreateNewsletter,
+        l = e.onNewsletterDirectorySearch,
+        d = e.ref,
+        m = e.setScrollTop,
+        p = o("useWAWebModelValues").useModelValues(
           o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStageManager,
-          _,
+          ["stage"],
         ),
-        g = f.stage,
-        h,
-        y;
-      if (t[1] !== l || t[2] !== d || t[3] !== h) {
+        _ = p.stage,
+        f,
+        g = [];
+      if (
+        o("WAWebNewsletterGatingUtils").isNewsletterCreationEnabled() ||
+        o("WAWebNewsletterGatingUtils").isNewsletterDirectoryEnabled()
+      ) {
         if (
-          ((y = []),
-          o("WAWebNewsletterGatingUtils").isNewsletterCreationEnabled() ||
-            o("WAWebNewsletterGatingUtils").isNewsletterDirectoryEnabled())
+          o(
+            "WAWebNewsletterGatingUtils",
+          ).getChannelCreationFromDirectoryMode() !== 0
         ) {
-          if (
-            o(
-              "WAWebNewsletterGatingUtils",
-            ).getChannelCreationFromDirectoryMode() !== 0
-          ) {
-            var C;
-            t[6] === Symbol.for("react.memo_cache_sentinel")
-              ? ((C = s._(/*BTDS*/ "Create channel")), (t[6] = C))
-              : (C = t[6]);
-            var b = C,
-              v =
-                o(
-                  "WAWebNewsletterGatingUtils",
-                ).getChannelCreationFromDirectoryMode() === 1
-                  ? o("WAWebIcAddCircleIcon.react").IcAddCircleIcon
-                  : r("WDSIconWdsIcNewChannel.react"),
-              S;
-            t[7] !== l
-              ? ((S = u.jsx(r("WDSMenuBarItem.react"), {
-                  tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
-                  testid: void 0,
-                  icon: v,
-                  title: b,
-                  onClick: l,
-                })),
-                (t[7] = l),
-                (t[8] = S))
-              : (S = t[8]);
-            var R = S,
-              L;
-            t[9] === Symbol.for("react.memo_cache_sentinel")
-              ? ((L = s._(/*BTDS*/ "Directory")), (t[9] = L))
-              : (L = t[9]);
-            var E = L,
-              k;
-            t[10] !== d
-              ? ((k = u.jsx(r("WDSMenuBarItem.react"), {
-                  tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
-                  testid: void 0,
-                  icon: o("WAWebIdGridViewIcon.react").IdGridViewIcon,
-                  title: E,
-                  onClick: function () {
-                    return d(
-                      o("WAWebWamEnumChannelDirectoryEntryPoint")
-                        .CHANNEL_DIRECTORY_ENTRY_POINT
-                        .EXPLORE_SECTION_HEADER_BUTTON,
-                    );
-                  },
-                })),
-                (t[10] = d),
-                (t[11] = k))
-              : (k = t[11]);
-            var I = k;
-            y.push(R, I);
-          } else {
-            var T;
-            t[12] === Symbol.for("react.memo_cache_sentinel")
-              ? ((T = s._(/*BTDS*/ "Menu")), (t[12] = T))
-              : (T = t[12]);
-            var D = T,
-              x;
-            (t[13] !== l || t[14] !== d
-              ? ((x = u.jsx(r("WDSMenuBarItem.react"), {
-                  tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
-                  testid: void 0,
-                  icon: o("WAWebNewRoundRefreshedIcon.react")
-                    .NewRoundRefreshedIcon,
-                  title: D,
-                  wdsMenuToRender: u.jsx(
-                    r("WAWebNewsletterTabMenuDropdown.react"),
-                    { onCreateNewsletter: l, onNewsletterDirectorySearch: d },
-                  ),
-                })),
-                (t[13] = l),
-                (t[14] = d),
-                (t[15] = x))
-              : (x = t[15]),
-              (h = x));
-          }
-          y.push(h);
+          var h = s._(/*BTDS*/ "Create channel"),
+            y =
+              o(
+                "WAWebNewsletterGatingUtils",
+              ).getChannelCreationFromDirectoryMode() === 1
+                ? o("WAWebIcAddCircleIcon.react").IcAddCircleIcon
+                : r("WDSIconWdsIcNewChannel.react"),
+            C = u.jsx(r("WDSMenuBarItem.react"), {
+              tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
+              testid: void 0,
+              icon: y,
+              title: h,
+              onClick: i,
+            }),
+            b = s._(/*BTDS*/ "Directory"),
+            v = u.jsx(r("WDSMenuBarItem.react"), {
+              tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
+              testid: void 0,
+              icon: o("WAWebIdGridViewIcon.react").IdGridViewIcon,
+              title: b,
+              onClick: function () {
+                return l(
+                  o("WAWebWamEnumChannelDirectoryEntryPoint")
+                    .CHANNEL_DIRECTORY_ENTRY_POINT
+                    .EXPLORE_SECTION_HEADER_BUTTON,
+                );
+              },
+            });
+          g.push(C, v);
+        } else {
+          var S = s._(/*BTDS*/ "Menu");
+          f = u.jsx(r("WDSMenuBarItem.react"), {
+            tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
+            testid: void 0,
+            icon: o("WAWebNewRoundRefreshedIcon.react").NewRoundRefreshedIcon,
+            title: S,
+            wdsMenuToRender: u.jsx(r("WAWebNewsletterTabMenuDropdown.react"), {
+              onCreateNewsletter: i,
+              onNewsletterDirectorySearch: l,
+            }),
+          });
         }
-        ((t[1] = l), (t[2] = d), (t[3] = h), (t[4] = y), (t[5] = h));
-      } else ((y = t[4]), (h = t[5]));
-      var $ = null;
-      e: switch (g) {
+        g.push(f);
+      }
+      var R = null;
+      switch (_) {
         case o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
           .Failed: {
-          var P;
-          (t[16] === Symbol.for("react.memo_cache_sentinel")
-            ? ((P = u.jsx(r("WAWebNewsletterFailures.react"), {})), (t[16] = P))
-            : (P = t[16]),
-            ($ = P));
-          break e;
+          R = u.jsx(r("WAWebNewsletterFailures.react"), {});
+          break;
         }
         case o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
           .Loading: {
-          var N;
-          (t[17] !== a.length
-            ? ((N = u.jsx(r("WAWebNewsletterTabDrawerLoadingShimmer.react"), {
-                newsletterCount: a.length,
-              })),
-              (t[17] = a.length),
-              (t[18] = N))
-            : (N = t[18]),
-            ($ = N));
-          break e;
+          R = u.jsx(r("WAWebNewsletterTabDrawerLoadingShimmer.react"), {
+            newsletterCount: n.length,
+          });
+          break;
         }
         case o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
           .None:
         case o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
           .Finished: {
-          var M;
-          (t[19] !== n ||
-          t[20] !== a ||
-          t[21] !== l ||
-          t[22] !== d ||
-          t[23] !== p
-            ? ((M = u.jsx(r("WAWebNewsletterTabDrawerContent.react"), {
-                initialScrollTop: n,
-                newsletters: a,
-                setScrollTop: p,
-                onNewsletterDirectorySearch: d,
-                onCreateNewsletter: l,
-              })),
-              (t[19] = n),
-              (t[20] = a),
-              (t[21] = l),
-              (t[22] = d),
-              (t[23] = p),
-              (t[24] = M))
-            : (M = t[24]),
-            ($ = M));
+          R = u.jsx(r("WAWebNewsletterTabDrawerContent.react"), {
+            initialScrollTop: t,
+            newsletters: n,
+            setScrollTop: m,
+            onNewsletterDirectorySearch: l,
+            onCreateNewsletter: i,
+          });
+          break;
         }
       }
-      var w = r("useWAWebFocusOnMount")(),
-        A;
-      t[25] === Symbol.for("react.memo_cache_sentinel")
-        ? ((A = s._(/*BTDS*/ "Channel tab drawer")), (t[25] = A))
-        : (A = t[25]);
-      var F;
-      t[26] === Symbol.for("react.memo_cache_sentinel")
-        ? ((F = { surface: "channel-updates-home" }), (t[26] = F))
-        : (F = t[26]);
-      var O;
-      t[27] === Symbol.for("react.memo_cache_sentinel")
-        ? ((O = s._(/*BTDS*/ "Channels")), (t[27] = O))
-        : (O = t[27]);
-      var B;
-      t[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((B = { className: "x78zum5 x1qvou4u x1s70e7g" }), (t[28] = B))
-        : (B = t[28]);
-      var W;
-      t[29] !== y
-        ? ((W = u.jsx("div", babelHelpers.extends({}, B, { children: y }))),
-          (t[29] = y),
-          (t[30] = W))
-        : (W = t[30]);
-      var q;
-      t[31] !== i || t[32] !== W
-        ? ((q = u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            title: O,
-            type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.TAB,
-            onBack: i,
-            children: W,
-          })),
-          (t[31] = i),
-          (t[32] = W),
-          (t[33] = q))
-        : (q = t[33]);
-      var U;
-      t[34] !== $ || t[35] !== m || t[36] !== q
-        ? ((U = u.jsxs(r("WAWebDrawer.react"), {
-            ref: m,
-            xstyle: c.drawer,
-            testid: void 0,
-            tsNavigationData: F,
-            children: [q, $],
-          })),
-          (t[34] = $),
-          (t[35] = m),
-          (t[36] = q),
-          (t[37] = U))
-        : (U = t[37]);
-      var V;
-      return (
-        t[38] !== w || t[39] !== U
-          ? ((V = u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-              ref: w,
-              "aria-label": A,
-              "data-testid": void 0,
-              children: U,
-            })),
-            (t[38] = w),
-            (t[39] = U),
-            (t[40] = V))
-          : (V = t[40]),
-        V
-      );
+      var L = r("useWAWebFocusOnMount")();
+      return u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+        ref: L,
+        "aria-label": s._(/*BTDS*/ "Channel tab drawer"),
+        "data-testid": void 0,
+        children: u.jsxs(r("WAWebDrawer.react"), {
+          ref: d,
+          xstyle: c.drawer,
+          testid: void 0,
+          tsNavigationData: { surface: "channel-updates-home" },
+          children: [
+            u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+              title: s._(/*BTDS*/ "Channels"),
+              type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.TAB,
+              onBack: a,
+              children: u.jsx("div", {
+                className: "x78zum5 x1qvou4u x1s70e7g",
+                children: g,
+              }),
+            }),
+            R,
+          ],
+        }),
+      });
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   226,
 );

@@ -10,7 +10,6 @@ __d(
     "WAWebText.react",
     "justknobx",
     "react",
-    "react-compiler-runtime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -30,38 +29,21 @@ __d(
       o("WAWebModalManager").ModalManager.open(u.jsx(S, {}));
     }
     function b(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.children,
-        a = e.url;
-      r("vulture")("56t4Vkt65MD_3BbcGDwAe0FDlWU=");
-      var i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = "x1ypdohk"), (t[0] = i))
-        : (i = t[0]);
-      var l;
-      t[1] !== a
-        ? ((l = function () {
-            return o("WAWebExternalLink.react").openExternalLink(a);
-          }),
-          (t[1] = a),
-          (t[2] = l))
-        : (l = t[2]);
-      var s;
+      var t = e.children,
+        n = e.url;
       return (
-        t[3] !== n || t[4] !== l
-          ? ((s = u.jsx(o("WAWebCopyPasteSelectable.react").SelectableLink, {
-              className: i,
-              selectable: !0,
-              onClick: l,
-              children: n,
-            })),
-            (t[3] = n),
-            (t[4] = l),
-            (t[5] = s))
-          : (s = t[5]),
-        s
+        r("vulture")("56t4Vkt65MD_3BbcGDwAe0FDlWU="),
+        u.jsx(o("WAWebCopyPasteSelectable.react").SelectableLink, {
+          className: "x1ypdohk",
+          selectable: !0,
+          onClick: function () {
+            return o("WAWebExternalLink.react").openExternalLink(n);
+          },
+          children: t,
+        })
       );
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     var v = function () {
         return u.jsxs(o("WAWebFlex.react").FlexColumn, {
           children: [

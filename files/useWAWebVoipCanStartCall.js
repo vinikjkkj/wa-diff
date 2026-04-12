@@ -9,70 +9,41 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebVoipEventConstants",
     "WAWebVoipGatingUtils",
-    "react-compiler-runtime",
     "useWAWebEventTargetValue",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = o("WAWebVoipEventConstants").getChangeEvent(
-            o("WAWebVoipEventConstants").VoipCallCollectionEvents.ACTIVE_CALL,
-          )),
-          (t[0] = n))
-        : (n = t[0]);
-      var a;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [r("WAWebCallCollection").activeCall]), (t[1] = a))
-        : (a = t[1]);
-      var i = r("useWAWebEventTargetValue")(r("WAWebCallCollection"), n, u, a),
-        l;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = o("WAWebVoipEventConstants").getChangeEvent(
-            o("WAWebVoipEventConstants").VoipStreamEvents.DISPLAY_INFO,
-          )),
-          (t[2] = l))
-        : (l = t[2]);
-      var c;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = [o("WAWebStreamModel").Stream.displayInfo]), (t[3] = c))
-        : (c = t[3]);
-      var d = r("useWAWebEventTargetValue")(
-          o("WAWebStreamModel").Stream,
-          l,
-          s,
-          c,
+      var t,
+        n = r("useWAWebEventTargetValue")(
+          r("WAWebCallCollection"),
+          (t = o("WAWebVoipEventConstants")).getChangeEvent(
+            t.VoipCallCollectionEvents.ACTIVE_CALL,
+          ),
+          function () {
+            return r("WAWebCallCollection").activeCall != null;
+          },
+          [r("WAWebCallCollection").activeCall],
         ),
-        m;
+        a = r("useWAWebEventTargetValue")(
+          o("WAWebStreamModel").Stream,
+          t.getChangeEvent(t.VoipStreamEvents.DISPLAY_INFO),
+          function () {
+            return (
+              o("WAWebStreamModel").Stream.displayInfo ===
+              o("WAWebStreamModel").StreamInfo.NORMAL
+            );
+          },
+          [o("WAWebStreamModel").Stream.displayInfo],
+        );
       return (
-        t[4] !== e || t[5] !== i || t[6] !== d
-          ? ((m =
-              !i &&
-              !o("WAWebChatGroupUtils").shouldBlockCall(e) &&
-              !o("WAWebFrontendContactGetters").getIsContactBlocked(
-                e.contact,
-              ) &&
-              d),
-            (t[4] = e),
-            (t[5] = i),
-            (t[6] = d),
-            (t[7] = m))
-          : (m = t[7]),
-        m
+        !n &&
+        !o("WAWebChatGroupUtils").shouldBlockCall(e) &&
+        !o("WAWebFrontendContactGetters").getIsContactBlocked(e.contact) &&
+        a
       );
     }
-    function s() {
-      return (
-        o("WAWebStreamModel").Stream.displayInfo ===
-        o("WAWebStreamModel").StreamInfo.NORMAL
-      );
-    }
-    function u() {
-      return r("WAWebCallCollection").activeCall != null;
-    }
-    function c(e) {
+    function s(e) {
       return !o(
         "WAWebUserPrefsMultiDevice",
       ).getIsHostedMeAccountFromLocalStorage() ||
@@ -83,7 +54,7 @@ __d(
             o("WAWebDBCAPIPermissions").CloudAPICallingPermissionType.ALLOW;
     }
     ((l.useWAWebVoipCanStartCall = e),
-      (l.useWAWebVoipIsCapiCallingPermissionAllowed = c));
+      (l.useWAWebVoipIsCapiCallingPermissionAllowed = s));
   },
   98,
 );

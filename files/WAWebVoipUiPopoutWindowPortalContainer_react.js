@@ -103,25 +103,34 @@ __d(
         }),
         F = L(null),
         O = L(null),
-        B = r("useWAWebStableCallback")(function () {
+        B = L(!1),
+        W = r("useWAWebStableCallback")(function () {
           F.current != null &&
             (window.clearInterval(F.current), (F.current = null));
         }),
-        W = r("useWAWebStableCallback")(function () {
+        q = r("useWAWebStableCallback")(function () {
           O.current != null && (O.current(), (O.current = null));
         }),
-        q = L(null),
         U = o("useWAWebTimeout").useManualTimeout(function () {
-          (B(),
-            W(),
-            o("WAWebVoipPopoutWindowState").setIsCallActiveInPopoutWindow(!1),
+          (W(), q());
+          var e = o(
+            "WAWebVoipPopoutWindowState",
+          ).getIsCallActiveInPopoutWindow();
+          (o("WAWebVoipPopoutWindowState").setIsCallActiveInPopoutWindow(!1),
             o("WAWebVoipPopoutWindowState").setPopoutWindow(null),
+            e &&
+              o(
+                "WAWebVoipPopoutWindowState",
+              ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
+                "popoutWindowVisibilityChanged",
+                "hidden",
+              ),
             o("WAWebVelocityBackgroundTimer").toggleSmoothBackgroundAnimations(
               !1,
             ),
             T.clear(),
             a == null || a.removeEventListener("visibilitychange", A),
-            q.current == null && (a == null || a.close()),
+            a == null || a.close(),
             o(
               "WAWebVoipPopoutWindowState",
             ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
@@ -137,19 +146,20 @@ __d(
           var a,
             l = t.callLogMsg,
             y = t.popoutWindow;
+          l != null && (B.current = !1);
+          var C = o(
+            "WAWebVoipPopoutWindowState",
+          ).getIsCallActiveInPopoutWindow();
           if (
             ($(l),
             i(y),
-            l != null &&
-            !o("WAWebVoipPopoutWindowState").getIsCallActiveInPopoutWindow()
+            l != null && !C
               ? o("WAWebVoipActivityTracker").trackUiActivity(
                   o("WAWebVoipActivityTracker").VoipUiActivity
                     .VOIP_WINDOW_MOVE_TO_POPOUT,
                 )
               : l == null &&
-                o(
-                  "WAWebVoipPopoutWindowState",
-                ).getIsCallActiveInPopoutWindow() &&
+                C &&
                 o("WAWebVoipActivityTracker").trackUiActivity(
                   o("WAWebVoipActivityTracker").VoipUiActivity
                     .VOIP_WINDOW_MOVE_FROM_POPOUT,
@@ -168,11 +178,11 @@ __d(
             ),
             (a = o("WAWebVoipPopoutWindowState").getPopoutWindow()) == null ||
               a.addEventListener("visibilitychange", A),
-            l == null && (T.clear(), B(), W()),
+            l == null && (T.clear(), W(), q()),
             l != null &&
               o("WAWebUA").UA.isSafari &&
               y != null &&
-              (B(),
+              (W(),
               (F.current = window.setInterval(function () {
                 try {
                   y.closed &&
@@ -182,7 +192,7 @@ __d(
                           "voip: Safari popout close polling: detected window closed",
                         ])),
                     ),
-                    B(),
+                    W(),
                     o(
                       "WAWebVoipPopoutWindowState",
                     ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
@@ -198,7 +208,7 @@ __d(
                       ])),
                     String(e),
                   ),
-                    B(),
+                    W(),
                     o(
                       "WAWebVoipPopoutWindowState",
                     ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
@@ -209,19 +219,19 @@ __d(
               }, N))),
             l != null && o("WAWebUA").UA.isSafari && y != null)
           ) {
-            var C = r("WAWebCallCollection").activeCall,
-              b =
-                (C == null ? void 0 : C.selfVideoState) ===
+            var b = r("WAWebCallCollection").activeCall,
+              v =
+                (b == null ? void 0 : b.selfVideoState) ===
                 o("WAWebVoipWaCallEnums").VideoState.Enabled,
-              v = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
-            if (b || v != null) {
+              S = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
+            if (v || S != null) {
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: Safari popout open: setting up stream re-acquisition",
                   ])),
               );
-              var S = (function () {
+              var R = (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
                       try {
@@ -230,12 +240,12 @@ __d(
                         ).getVoipStackInterface();
                         if (e != null && e.type === "web") {
                           if (
-                            (b &&
+                            (v &&
                               (o("WAWebUA").UA.isFirefox ||
                                 o("WAWebUA").UA.isSafari) &&
                               (yield e.setCallVideoMute(!0),
                               yield e.setCallVideoMute(!1)),
-                            v != null)
+                            S != null)
                           ) {
                             var t = yield Promise.resolve().then(function () {
                                 return J(
@@ -243,7 +253,7 @@ __d(
                                 );
                               }),
                               n = t.switchAudioInputDevice,
-                              a = yield n(v, y, !0);
+                              a = yield n(S, y, !0);
                             a
                               ? o("WALogger").LOG(
                                   c ||
@@ -283,20 +293,20 @@ __d(
                     return e.apply(this, arguments);
                   };
                 })(),
-                R = !1,
                 L = !1,
-                E = [],
-                k = function () {
-                  (E.forEach(function (e) {
+                E = !1,
+                k = [],
+                I = function () {
+                  (k.forEach(function (e) {
                     e();
                   }),
-                    (E.length = 0),
-                    O.current === k && (O.current = null));
+                    (k.length = 0),
+                    O.current === I && (O.current = null));
                 },
-                I = function (t) {
-                  if (!R) {
+                D = function (t) {
+                  if (!L) {
                     var e = !1,
-                      n = L,
+                      n = E,
                       a = !1;
                     try {
                       var i = y.document;
@@ -329,8 +339,8 @@ __d(
                       String(n),
                     ),
                       !(!a || !e || !n) &&
-                        ((R = !0),
-                        k(),
+                        ((L = !0),
+                        I(),
                         o("WALogger").LOG(
                           g ||
                             (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -339,41 +349,41 @@ __d(
                             ])),
                           t,
                         ),
-                        S()));
+                        R()));
                   }
                 },
-                D = function () {
-                  I("load");
+                x = function () {
+                  D("load");
                 };
-              (y.addEventListener("load", D),
-                E.push(function () {
-                  y.removeEventListener("load", D);
-                }));
-              var x = function () {
-                ((L = !0), I("focus"));
-              };
-              (y.addEventListener("focus", x),
-                E.push(function () {
-                  y.removeEventListener("focus", x);
+              (y.addEventListener("load", x),
+                k.push(function () {
+                  y.removeEventListener("load", x);
                 }));
               var P = function () {
-                I("visibilitychange");
+                ((E = !0), D("focus"));
+              };
+              (y.addEventListener("focus", P),
+                k.push(function () {
+                  y.removeEventListener("focus", P);
+                }));
+              var U = function () {
+                D("visibilitychange");
               };
               try {
-                (y.document.addEventListener("visibilitychange", P),
-                  E.push(function () {
+                (y.document.addEventListener("visibilitychange", U),
+                  k.push(function () {
                     try {
-                      y.document.removeEventListener("visibilitychange", P);
+                      y.document.removeEventListener("visibilitychange", U);
                     } catch (e) {}
                   }));
               } catch (e) {}
-              var q = window.setInterval(function () {
-                I("poll");
+              var V = window.setInterval(function () {
+                D("poll");
               }, M);
-              E.push(function () {
-                window.clearInterval(q);
+              k.push(function () {
+                window.clearInterval(V);
               });
-              var U = window.setTimeout(function () {
+              var H = window.setTimeout(function () {
                 var e = "unknown";
                 try {
                   var t = y.document;
@@ -397,14 +407,14 @@ __d(
                     ])),
                   e,
                 ),
-                  I("timeout"),
-                  k());
+                  D("timeout"),
+                  I());
               }, w);
-              (E.push(function () {
-                window.clearTimeout(U);
+              (k.push(function () {
+                window.clearTimeout(H);
               }),
-                (O.current = k),
-                I("initial"));
+                (O.current = I),
+                D("initial"));
               try {
                 y.document.hasFocus() || y.focus();
               } catch (e) {}
@@ -418,147 +428,112 @@ __d(
           function (e) {
             var t = e.callEnded,
               a = e.surveyInteracted;
-            if (t) {
-              var i = q.current;
-              if (i != null) {
-                q.current = null;
-                try {
-                  i.close();
-                } catch (e) {}
-              }
-            }
-            var l = P();
-            if (!t && l.length > 0) {
-              var s = l.some(function (e) {
-                return e.type === "desktop";
-              });
-              if (
-                s &&
-                (o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari)
-              ) {
-                var u = (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      var e = yield o(
-                        "WAWebVoipStackInterface",
-                      ).getVoipStackInterface();
-                      (e == null ? void 0 : e.type) === "web" &&
-                        (yield e.stopScreenShare());
-                    },
-                  );
-                  return function () {
-                    return e.apply(this, arguments);
-                  };
-                })();
-                u();
-              }
-              if (
-                s &&
-                !o("WAWebUA").UA.isFirefox &&
-                !o("WAWebUA").UA.isSafari
-              ) {
-                var c = o("WAWebVoipPopoutWindowState").getPopoutWindow();
-                if (c != null) {
-                  q.current = c;
-                  var d = l.find(function (e) {
-                      return e.type === "desktop";
-                    }),
-                    m = d == null ? void 0 : d.stream.getVideoTracks()[0];
-                  if (m != null) {
-                    var p = function () {
-                      var e = q.current;
-                      q.current = null;
-                      try {
-                        e == null || e.close();
-                      } catch (e) {}
-                    };
-                    m.readyState === "ended"
-                      ? p()
-                      : m.addEventListener("ended", p, { once: !0 });
-                  }
-                }
-              }
-              var _ = r("WAWebCallCollection").activeCall,
-                f =
-                  (_ == null ? void 0 : _.selfVideoState) ===
-                  o("WAWebVoipWaCallEnums").VideoState.Enabled;
-              if (
-                f &&
-                (o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari)
-              ) {
-                var g = (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      try {
+            if (!B.current) {
+              B.current = !0;
+              var i = P();
+              if (!t && i.length > 0) {
+                var l = i.some(function (e) {
+                  return e.type === "desktop";
+                });
+                if (l) {
+                  var s = (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* () {
                         var e = yield o(
                           "WAWebVoipStackInterface",
                         ).getVoipStackInterface();
-                        e != null &&
-                          e.type === "web" &&
-                          (yield e.setCallVideoMute(!0),
-                          yield e.setCallVideoMute(!1));
-                      } catch (e) {}
-                    },
-                  );
-                  return function () {
-                    return e.apply(this, arguments);
-                  };
-                })();
-                if (document.hasFocus()) g();
-                else {
-                  var h = function () {
-                    (window.removeEventListener("focus", h), g());
-                  };
-                  (window.addEventListener("focus", h, { once: !0 }),
-                    window.focus());
-                }
-              }
-            }
-            if (!t && (o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari)) {
-              var b = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
-              if (b != null) {
-                o("WALogger").LOG(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: ",
-                      " popout close: setting up audio re-acquisition",
-                    ])),
-                  o("WAWebUA").UA.isFirefox ? "Firefox" : "Safari",
-                );
-                var v = function () {
-                  r("WAWebCallCollection").activeCall != null &&
-                    o(
-                      "WAWebVoipPopoutWindowState",
-                    ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
-                      "requestAudioReacquisition",
-                      { deviceId: b, targetWindow: window },
+                        (e == null ? void 0 : e.type) === "web" &&
+                          (yield e.stopScreenShare());
+                      },
                     );
-                };
-                if (document.hasFocus()) v();
-                else {
-                  var S = 1e4,
-                    R = function () {
-                      (window.clearTimeout(L),
-                        window.removeEventListener("focus", R),
-                        o("WALogger").LOG(
-                          C ||
-                            (C = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: ",
-                              " popout close: main window focused, re-acquiring audio",
-                            ])),
-                          o("WAWebUA").UA.isFirefox ? "Firefox" : "Safari",
-                        ),
-                        v());
-                    },
-                    L = window.setTimeout(function () {
-                      window.removeEventListener("focus", R);
-                    }, S);
-                  (window.addEventListener("focus", R), window.focus());
+                    return function () {
+                      return e.apply(this, arguments);
+                    };
+                  })();
+                  s();
+                }
+                var u = r("WAWebCallCollection").activeCall,
+                  c =
+                    (u == null ? void 0 : u.selfVideoState) ===
+                    o("WAWebVoipWaCallEnums").VideoState.Enabled;
+                if (c) {
+                  var d = (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* () {
+                        try {
+                          var e = yield o(
+                            "WAWebVoipStackInterface",
+                          ).getVoipStackInterface();
+                          e != null &&
+                            e.type === "web" &&
+                            (yield e.setCallVideoMute(!0),
+                            yield e.setCallVideoMute(!1));
+                        } catch (e) {}
+                      },
+                    );
+                    return function () {
+                      return e.apply(this, arguments);
+                    };
+                  })();
+                  if (document.hasFocus()) d();
+                  else {
+                    var m = function () {
+                      (window.removeEventListener("focus", m), d());
+                    };
+                    (window.addEventListener("focus", m, { once: !0 }),
+                      window.focus());
+                  }
                 }
               }
+              if (
+                !t &&
+                (o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari)
+              ) {
+                var p = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
+                if (p != null) {
+                  o("WALogger").LOG(
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: ",
+                        " popout close: setting up audio re-acquisition",
+                      ])),
+                    o("WAWebUA").UA.isFirefox ? "Firefox" : "Safari",
+                  );
+                  var _ = function () {
+                    r("WAWebCallCollection").activeCall != null &&
+                      o(
+                        "WAWebVoipPopoutWindowState",
+                      ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
+                        "requestAudioReacquisition",
+                        { deviceId: p, targetWindow: window },
+                      );
+                  };
+                  if (document.hasFocus()) _();
+                  else {
+                    var f = 1e4,
+                      g = function () {
+                        (window.clearTimeout(h),
+                          window.removeEventListener("focus", g),
+                          o("WALogger").LOG(
+                            C ||
+                              (C = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: ",
+                                " popout close: main window focused, re-acquiring audio",
+                              ])),
+                            o("WAWebUA").UA.isFirefox ? "Firefox" : "Safari",
+                          ),
+                          _());
+                      },
+                      h = window.setTimeout(function () {
+                        window.removeEventListener("focus", g);
+                      }, f);
+                    (window.addEventListener("focus", g), window.focus());
+                  }
+                }
+              }
+              var b = t && !a;
+              V(b ? I : 0);
             }
-            var E = t && !a;
-            V(E ? I : 0);
           },
         ));
       var H = R(

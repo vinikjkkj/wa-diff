@@ -7,7 +7,6 @@ __d(
     "WAWebUISpacing",
     "err",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -34,100 +33,68 @@ __d(
         loadingText: { color: "xxr6tci", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(9),
-        a = t.fetchState;
-      switch (a) {
+      var n = t.fetchState;
+      switch (n) {
         case "NONE":
         case "SUCCESS":
           return null;
-        case "PENDING": {
-          var i, l;
-          n[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((i = (e || (e = r("stylex"))).props(
+        case "PENDING":
+          return c.jsxs(
+            "div",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
                 d.loadingContainer,
                 o("WAWebUISpacing").uiPadding.all8,
-              )),
-              (l = c.jsx(o("WAWebSpinner.react").Spinner, {
-                size: 14,
-                color: "highlight",
-              })),
-              (n[0] = i),
-              (n[1] = l))
-            : ((i = n[0]), (l = n[1]));
-          var u;
-          return (
-            n[2] === Symbol.for("react.memo_cache_sentinel")
-              ? ((u = c.jsxs(
-                  "div",
-                  babelHelpers.extends({}, i, {
-                    children: [
-                      l,
-                      c.jsx(o("WAWebText.react").WAWebTextSmall, {
-                        as: "span",
-                        xstyle: [
-                          d.text,
-                          o("WAWebUISpacing").uiMargin.horiz10,
-                          d.loadingText,
-                        ],
-                        children: s._(/*BTDS*/ "Waiting for network"),
-                      }),
-                    ],
+              ),
+              {
+                children: [
+                  c.jsx(o("WAWebSpinner.react").Spinner, {
+                    size: 14,
+                    color: "highlight",
                   }),
-                )),
-                (n[2] = u))
-              : (u = n[2]),
-            u
+                  c.jsx(o("WAWebText.react").WAWebTextSmall, {
+                    as: "span",
+                    xstyle: [
+                      d.text,
+                      o("WAWebUISpacing").uiMargin.horiz10,
+                      d.loadingText,
+                    ],
+                    children: s._(/*BTDS*/ "Waiting for network"),
+                  }),
+                ],
+              },
+            ),
           );
-        }
         case "TOKEN_RECOVERY_REQUIRED":
         case "NOT_FOUND":
-        case "ERROR": {
-          var m;
-          n[3] === Symbol.for("react.memo_cache_sentinel")
-            ? ((m = (e || (e = r("stylex"))).props(
+        case "ERROR":
+          return c.jsx(
+            "div",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
                 d.loadingContainer,
                 o("WAWebUISpacing").uiPadding.all8,
-              )),
-              (n[3] = m))
-            : (m = n[3]);
-          var p;
-          n[4] === Symbol.for("react.memo_cache_sentinel")
-            ? ((p = [d.text, o("WAWebUISpacing").uiMargin.horiz10]), (n[4] = p))
-            : (p = n[4]);
-          var _;
-          n[5] !== a
-            ? ((_ =
-                a === "NOT_FOUND"
-                  ? s._(/*BTDS*/ "This product or service has been removed")
-                  : s._(/*BTDS*/ "Something went wrong")),
-              (n[5] = a),
-              (n[6] = _))
-            : (_ = n[6]);
-          var f;
-          return (
-            n[7] !== _
-              ? ((f = c.jsx(
-                  "div",
-                  babelHelpers.extends({}, m, {
-                    children: c.jsx(o("WAWebText.react").WAWebTextSmall, {
-                      as: "span",
-                      xstyle: p,
-                      color: "critical",
-                      children: _,
-                    }),
-                  }),
-                )),
-                (n[7] = _),
-                (n[8] = f))
-              : (f = n[8]),
-            f
+              ),
+              {
+                children: c.jsx(o("WAWebText.react").WAWebTextSmall, {
+                  as: "span",
+                  xstyle: [d.text, o("WAWebUISpacing").uiMargin.horiz10],
+                  color: "critical",
+                  children:
+                    n === "NOT_FOUND"
+                      ? s._(/*BTDS*/ "This product or service has been removed")
+                      : s._(/*BTDS*/ "Something went wrong"),
+                }),
+              },
+            ),
           );
-        }
         default:
-          throw r("err")("invalid fetchState " + a);
+          throw r("err")("invalid fetchState " + n);
       }
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

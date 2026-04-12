@@ -5,7 +5,6 @@ __d(
     "WAWebUimContext",
     "WAWebUimUtils",
     "react",
-    "react-compiler-runtime",
     "useStable",
     "useWAWebOnUnmount",
     "useWAWebStableCallback",
@@ -108,56 +107,31 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = r("useWAWebUnmountSignal")(),
-        a = g(!1),
-        i = g(null),
-        l;
-      t[0] !== e
-        ? ((l = function () {
-            e &&
-              (h && self.clearTimeout(h),
-              (i.current = h =
-                self.setTimeout(function () {
-                  (e(), (i.current = h = null));
-                }, 0)));
-          }),
-          (t[0] = e),
-          (t[1] = l))
-        : (l = t[1]);
-      var s = l,
-        u;
-      t[2] !== s || t[3] !== e || t[4] !== n
-        ? ((u = function () {
-            e && !n.aborted ? s() : (a.current = !0);
-          }),
-          (t[2] = s),
-          (t[3] = e),
-          (t[4] = n),
-          (t[5] = u))
-        : (u = t[5]);
-      var c = r("useWAWebStableCallback")(u),
-        d = m(s),
-        p;
-      t[6] !== d
-        ? ((p = function () {
-            return (
-              a.current && d(),
-              function () {
-                h && i.current === h && (self.clearTimeout(h), (h = null));
-              }
-            );
-          }),
-          (t[6] = d),
-          (t[7] = p))
-        : (p = t[7]);
-      var f;
+      var t = r("useWAWebUnmountSignal")(),
+        n = g(!1),
+        o = g(null),
+        a = function () {
+          e &&
+            (h && self.clearTimeout(h),
+            (o.current = h =
+              self.setTimeout(function () {
+                (e(), (o.current = h = null));
+              }, 0)));
+        },
+        i = r("useWAWebStableCallback")(function () {
+          e && !t.aborted ? a() : (n.current = !0);
+        }),
+        l = m(a);
       return (
-        t[8] === Symbol.for("react.memo_cache_sentinel")
-          ? ((f = []), (t[8] = f))
-          : (f = t[8]),
-        _(p, f),
-        c
+        _(function () {
+          return (
+            n.current && l(),
+            function () {
+              h && o.current === h && (self.clearTimeout(h), (h = null));
+            }
+          );
+        }, []),
+        i
       );
     }
     l.UIE = y;

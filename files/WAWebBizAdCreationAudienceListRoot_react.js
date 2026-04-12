@@ -5,7 +5,6 @@ __d(
     "WAWebBizAdCreationAudienceRadioGroup.react",
     "WAWebFlex.react",
     "react",
-    "react-compiler-runtime",
     "withWAWebBizAdCreationSpecContext",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,86 +24,59 @@ __d(
       },
       d = 5;
     function m() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      if (e[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var n;
-        ((t = s.jsxs(o("WAWebFlex.react").FlexColumn, {
-          xstyle: c.shimmerContainer,
-          children: [
-            s.jsx(
-              (n = o("WAWebBaseShimmerComponents.react")).RectangleShimmer,
-              { height: 20, width: 100 },
-            ),
-            s.jsx(n.RectangleShimmer, { height: 100, width: "100%" }),
-            s.jsx(n.RectangleShimmer, { height: 20, width: 185 }),
-            s.jsx(n.RectangleShimmer, { height: 20, width: 120 }),
-          ],
-        })),
-          (e[0] = t));
-      } else t = e[0];
-      return t;
+      var e;
+      return s.jsxs(o("WAWebFlex.react").FlexColumn, {
+        xstyle: c.shimmerContainer,
+        children: [
+          s.jsx((e = o("WAWebBaseShimmerComponents.react")).RectangleShimmer, {
+            height: 20,
+            width: 100,
+          }),
+          s.jsx(e.RectangleShimmer, { height: 100, width: "100%" }),
+          s.jsx(e.RectangleShimmer, { height: 20, width: 185 }),
+          s.jsx(e.RectangleShimmer, { height: 20, width: 120 }),
+        ],
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e.audienceData,
-        a = e.lwiAudiences,
-        i = e.savedAudiences,
-        l;
-      e: {
-        if (a == null) {
-          l = null;
-          break e;
-        }
-        var u;
-        if (t[0] !== n.audienceID || t[1] !== a || t[2] !== i) {
-          ((u = new Map()),
-            Object.values(a).forEach(function (e) {
-              u.set(e.audienceID, e);
-            }));
-          var c = n.audienceID,
-            p = i.find(function (e) {
-              return e.audienceID === c;
-            }),
-            _ = i.slice(0, d);
-          (p != null &&
-            !_.some(function (e) {
-              return e.audienceID === c;
-            }) &&
-            (_ = [].concat(_.slice(0, d - 1), [p])),
-            _.length > 0 &&
-              _.forEach(function (e) {
-                u.set(e.audienceID, e);
+      var t = e.audienceData,
+        n = e.lwiAudiences,
+        o = e.savedAudiences,
+        a = u(
+          function () {
+            if (n == null) return null;
+            var e = new Map();
+            Object.values(n).forEach(function (t) {
+              e.set(t.audienceID, t);
+            });
+            var r = t.audienceID,
+              a = o.find(function (e) {
+                return e.audienceID === r;
               }),
-            (t[0] = n.audienceID),
-            (t[1] = a),
-            (t[2] = i),
-            (t[3] = u));
-        } else u = t[3];
-        l = u;
-      }
-      var f = l;
-      if (f == null) {
-        var g;
-        return (
-          t[4] === Symbol.for("react.memo_cache_sentinel")
-            ? ((g = s.jsx(m, {})), (t[4] = g))
-            : (g = t[4]),
-          g
+              i = o.slice(0, d);
+            return (
+              a != null &&
+                !i.some(function (e) {
+                  return e.audienceID === r;
+                }) &&
+                (i = [].concat(i.slice(0, d - 1), [a])),
+              i.length > 0 &&
+                i.forEach(function (t) {
+                  e.set(t.audienceID, t);
+                }),
+              e
+            );
+          },
+          [n, t.audienceID, o],
         );
-      }
-      var h;
-      return (
-        t[5] !== f
-          ? ((h = s.jsx(r("WAWebBizAdCreationAudienceRadioGroup.react"), {
-              audienceMap: f,
-            })),
-            (t[5] = f),
-            (t[6] = h))
-          : (h = t[6]),
-        h
-      );
+      return a == null
+        ? s.jsx(m, {})
+        : s.jsx(r("WAWebBizAdCreationAudienceRadioGroup.react"), {
+            audienceMap: a,
+          });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     var _ = r("withWAWebBizAdCreationSpecContext")(p, function (e) {
       var t;
       return {

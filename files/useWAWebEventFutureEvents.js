@@ -4,7 +4,6 @@ __d(
     "WAWebEventUtils",
     "WAWebFrontendMsgGetters",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebModelValues",
     "useWAWebUnmountSignal",
@@ -36,42 +35,27 @@ __d(
       return t;
     }
     function p(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["msgs"]), (t[0] = n))
-        : (n = t[0]);
-      var a = o("useWAWebModelValues").useModelValues(e, n),
-        i = a.msgs,
-        l;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = []), (t[1] = l))
-        : (l = t[1]);
-      var s = d(l),
-        u = s[0],
-        p = s[1],
-        _ = r("useWAWebUnmountSignal")(),
-        f;
-      t[2] !== i || t[3] !== _.aborted
-        ? ((f = function () {
-            var e = m(i);
-            _.aborted || p(e);
-          }),
-          (t[2] = i),
-          (t[3] = _.aborted),
-          (t[4] = f))
-        : (f = t[4]);
-      var g = f,
-        h;
-      (t[5] !== g ? ((h = [g]), (t[5] = g), (t[6] = h)) : (h = t[6]), c(g, h));
-      var y;
+      var t = o("useWAWebModelValues").useModelValues(e, ["msgs"]),
+        n = t.msgs,
+        a = d([]),
+        i = a[0],
+        l = a[1],
+        s = r("useWAWebUnmountSignal")(),
+        p = u(
+          function () {
+            var e = m(n);
+            s.aborted || l(e);
+          },
+          [n, s],
+        );
       return (
-        t[7] === Symbol.for("react.memo_cache_sentinel")
-          ? ((y = ["remove_msgs", "insert_msgs", "bulk_add", "change:last"]),
-            (t[7] = y))
-          : (y = t[7]),
-        o("useWAWebListener").useListener(i, y, g),
-        u
+        c(p, [p]),
+        o("useWAWebListener").useListener(
+          n,
+          ["remove_msgs", "insert_msgs", "bulk_add", "change:last"],
+          p,
+        ),
+        i
       );
     }
     l.useFutureEvents = p;

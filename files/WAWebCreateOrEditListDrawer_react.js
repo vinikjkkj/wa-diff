@@ -65,7 +65,6 @@ __d(
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebNux",
   ],
@@ -573,141 +572,76 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(25),
-        n = e.chat,
-        a = e.onRemove,
-        i = e.showRemove,
-        l;
-      t[0] !== n || t[1] !== a
-        ? ((l = function () {
-            a(n);
-          }),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = l))
-        : (l = t[2]);
-      var c = l,
-        m;
-      t[3] !== n.id
-        ? ((m = d.jsx(o("WAWebDetailImage.react").DetailImage, {
-            id: n.id,
-            size: 40,
-            waitIdle: !0,
-          })),
-          (t[3] = n.id),
-          (t[4] = m))
-        : (m = t[4]);
-      var p = m,
-        _;
-      t[5] !== n || t[6] !== p
-        ? ((_ = o("WAWebChatGetters").getIsGroup(n)
-            ? d.jsx(r("WAWebGroupChatImage.react"), {
-                chat: n,
-                regularChatImage: p,
-                showCommunityInfo: !1,
-                size: 40,
-                theme: o("WAWebStackedCirclesImage.react").SubgroupImageTheme
-                  .CHAT_LIST,
-              })
-            : p),
-          (t[5] = n),
-          (t[6] = p),
-          (t[7] = _))
-        : (_ = t[7]);
-      var f = _,
-        g;
-      t[8] !== n
-        ? ((g = o("WAWebChatGetters").getIsGroup(n)
-            ? d.jsx(o("WAWebName.react").Name, {
-                chat: n,
-                ellipsify: !0,
-                titlify: !0,
-              })
-            : d.jsx(o("WAWebName.react").Name, {
-                contact: n.contact,
-                ellipsify: !0,
-                showBusinessCheckmark: o(
-                  "WAWebContactGetters",
-                ).getShowBusinessCheckmarkAsPrimary(n.contact),
-                titlify: !0,
-                you: !0,
-              })),
-          (t[8] = n),
-          (t[9] = g))
-        : (g = t[9]);
-      var y = g,
-        C;
-      t[10] !== f
-        ? ((C = d.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
-            name: "chat-cell-image",
-            children: f,
-          })),
-          (t[10] = f),
-          (t[11] = C))
-        : (C = t[11]);
-      var b;
-      t[12] !== y
-        ? ((b = d.jsx(o("WAWebText.react").WAWebTextTitle, { children: y })),
-          (t[12] = y),
-          (t[13] = b))
-        : (b = t[13]);
-      var v;
-      t[14] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = (u || (u = r("stylex"))).props(
-            h.mutedTextColor,
-            o("WDSFontTokenStyles").WDSFontTokenStyles.Body2,
-          )),
-          (t[14] = v))
-        : (v = t[14]);
-      var S;
-      t[15] !== n
-        ? ((S = d.jsx(
-            "span",
-            babelHelpers.extends({}, v, {
-              children: d.jsx(r("WAWebChatstateInfo.react"), { chat: n }),
-            }),
-          )),
-          (t[15] = n),
-          (t[16] = S))
-        : (S = t[16]);
-      var R;
-      t[17] !== c || t[18] !== i
-        ? ((R = i
-            ? d.jsx(r("WDSButton.react"), {
-                Icon: r("WDSIconIcDelete.react"),
-                variant: "borderless",
-                size: "small",
-                type: "destructive",
-                onPress: c,
-                "aria-label": s._(/*BTDS*/ "Remove from list"),
-                testid: void 0,
-              })
-            : null),
-          (t[17] = c),
-          (t[18] = i),
-          (t[19] = R))
-        : (R = t[19]);
-      var L;
-      return (
-        t[20] !== C || t[21] !== b || t[22] !== S || t[23] !== R
-          ? ((L = d.jsx(r("WAWebCellV2.react"), {
-              size: "medium",
-              interactive: !1,
-              detailLeft: C,
-              primary: b,
-              secondary: S,
-              detailRight: R,
-            })),
-            (t[20] = C),
-            (t[21] = b),
-            (t[22] = S),
-            (t[23] = R),
-            (t[24] = L))
-          : (L = t[24]),
-        L
-      );
+      var t = e.chat,
+        n = e.onRemove,
+        a = e.showRemove,
+        i = function () {
+          n(t);
+        },
+        l = 40,
+        c = d.jsx(o("WAWebDetailImage.react").DetailImage, {
+          id: t.id,
+          size: l,
+          waitIdle: !0,
+        }),
+        m = o("WAWebChatGetters").getIsGroup(t)
+          ? d.jsx(r("WAWebGroupChatImage.react"), {
+              chat: t,
+              regularChatImage: c,
+              showCommunityInfo: !1,
+              size: l,
+              theme: o("WAWebStackedCirclesImage.react").SubgroupImageTheme
+                .CHAT_LIST,
+            })
+          : c,
+        p = o("WAWebChatGetters").getIsGroup(t)
+          ? d.jsx(o("WAWebName.react").Name, {
+              chat: t,
+              ellipsify: !0,
+              titlify: !0,
+            })
+          : d.jsx(o("WAWebName.react").Name, {
+              contact: t.contact,
+              ellipsify: !0,
+              showBusinessCheckmark: o(
+                "WAWebContactGetters",
+              ).getShowBusinessCheckmarkAsPrimary(t.contact),
+              titlify: !0,
+              you: !0,
+            });
+      return d.jsx(r("WAWebCellV2.react"), {
+        size: "medium",
+        interactive: !1,
+        detailLeft: d.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+          name: "chat-cell-image",
+          children: m,
+        }),
+        primary: d.jsx(o("WAWebText.react").WAWebTextTitle, { children: p }),
+        secondary: d.jsx(
+          "span",
+          babelHelpers.extends(
+            {},
+            (u || (u = r("stylex"))).props(
+              h.mutedTextColor,
+              o("WDSFontTokenStyles").WDSFontTokenStyles.Body2,
+            ),
+            { children: d.jsx(r("WAWebChatstateInfo.react"), { chat: t }) },
+          ),
+        ),
+        detailRight: a
+          ? d.jsx(r("WDSButton.react"), {
+              Icon: r("WDSIconIcDelete.react"),
+              variant: "borderless",
+              size: "small",
+              type: "destructive",
+              onPress: i,
+              "aria-label": s._(/*BTDS*/ "Remove from list"),
+              testid: void 0,
+            })
+          : null,
+      });
     }
-    l.default = y;
+    ((C.displayName = C.name + " [from " + i.id + "]"), (l.default = y));
   },
   226,
 );

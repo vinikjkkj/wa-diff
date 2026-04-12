@@ -7,7 +7,6 @@ __d(
     "WAWebUA",
     "cr:13920",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -22,28 +21,19 @@ __d(
         cursorMove: { cursor: "xv5twrn", $$css: !0 },
       };
     function p(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.defaultSizeScale,
-        a = e.isDragging,
-        i = c(o("WAWebMediaIncrementalZoom").MediaIncrementalZoomCtx),
-        l = i.currentImageScale,
-        s = n != null && l > n,
-        u = s,
-        d = u && a,
-        p = o("WAWebUA").UA.os.toLocaleLowerCase() === "windows",
-        _ = r("WAWebEnvironment").isWindows,
-        f = p || _,
-        g = f ? m.cursorMove : m.cursorGrab,
-        h = f ? m.cursorMove : m.cursorGrabbing,
-        y = u && g,
-        C = d && h,
-        b;
-      return (
-        t[0] !== y || t[1] !== C
-          ? ((b = [y, C]), (t[0] = y), (t[1] = C), (t[2] = b))
-          : (b = t[2]),
-        b
-      );
+      var t = e.defaultSizeScale,
+        n = e.isDragging,
+        a = c(o("WAWebMediaIncrementalZoom").MediaIncrementalZoomCtx),
+        i = a.currentImageScale,
+        l = t != null && i > t,
+        s = l,
+        u = s && n,
+        d = o("WAWebUA").UA.os.toLocaleLowerCase() === "windows",
+        p = r("WAWebEnvironment").isWindows,
+        _ = d || p,
+        f = _ ? m.cursorMove : m.cursorGrab,
+        g = _ ? m.cursorMove : m.cursorGrabbing;
+      return [s && f, u && g];
     }
     var _ = 115;
     function f(e) {
@@ -74,88 +64,62 @@ __d(
       );
     }
     function g(e) {
-      var t = o("react-compiler-runtime").c(13),
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = o("WAWebABProps").getABPropConfigValue(
-            "hybrid_incremental_zooming_simple_enabled",
-          )),
-          (t[0] = r))
-        : (r = t[0]);
-      var a = r,
-        i;
-      t[1] !== e
-        ? ((i = function () {
+      var t = o("WAWebABProps").getABPropConfigValue(
+          "hybrid_incremental_zooming_simple_enabled",
+        ),
+        r = u(
+          function () {
             return e == null ? void 0 : e.current;
-          }),
-          (t[1] = e),
-          (t[2] = i))
-        : (i = t[2]);
-      var l = i,
-        s;
-      t[3] !== l
-        ? ((s = function (t) {
-            var e = t.key,
-              n = l();
-            !h(t) ||
-              !o("WAWebMediaIncrementalZoom").ZOOM_KEYS.includes(e) ||
+          },
+          [e],
+        ),
+        a = u(
+          function (e) {
+            var t = e.key,
+              n = r();
+            !h(e) ||
+              !o("WAWebMediaIncrementalZoom").ZOOM_KEYS.includes(t) ||
               !n ||
-              t.preventDefault();
-          }),
-          (t[3] = l),
-          (t[4] = s))
-        : (s = t[4]);
-      var u = s,
-        c;
-      t[5] !== l
-        ? ((c = function (t) {
-            var e = l(),
-              n = t.target;
-            !e || !(n instanceof Node) || !e.contains(n) || t.preventDefault();
-          }),
-          (t[5] = l),
-          (t[6] = c))
-        : (c = t[6]);
-      var m = c,
-        p,
-        _;
-      (t[7] !== m
-        ? ((p = function () {
-            if (a)
+              e.preventDefault();
+          },
+          [r],
+        ),
+        i = u(
+          function (e) {
+            var t = r(),
+              n = e.target;
+            !t || !(n instanceof Node) || !t.contains(n) || e.preventDefault();
+          },
+          [r],
+        );
+      (d(
+        function () {
+          if (t)
+            return (
+              document.addEventListener("wheel", i, { passive: !1 }),
+              function () {
+                document.removeEventListener("wheel", i);
+              }
+            );
+        },
+        [t, i],
+      ),
+        d(
+          function () {
+            if (t) {
+              var e = n("cr:13920");
               return (
-                document.addEventListener("wheel", m, { passive: !1 }),
+                e == null || e.setIsHybridAppZoomingEnabled(!1),
+                document.addEventListener("keydown", a),
                 function () {
-                  document.removeEventListener("wheel", m);
+                  (document.removeEventListener("keydown", a),
+                    e == null || e.setIsHybridAppZoomingEnabled(!0));
                 }
               );
-          }),
-          (_ = [a, m]),
-          (t[7] = m),
-          (t[8] = p),
-          (t[9] = _))
-        : ((p = t[8]), (_ = t[9])),
-        d(p, _));
-      var f, g;
-      (t[10] !== u
-        ? ((f = function () {
-            if (a)
-              return (
-                n("cr:13920") == null ||
-                  n("cr:13920").setIsHybridAppZoomingEnabled(!1),
-                document.addEventListener("keydown", u),
-                function () {
-                  (document.removeEventListener("keydown", u),
-                    n("cr:13920") == null ||
-                      n("cr:13920").setIsHybridAppZoomingEnabled(!0));
-                }
-              );
-          }),
-          (g = [a, u]),
-          (t[10] = u),
-          (t[11] = f),
-          (t[12] = g))
-        : ((f = t[11]), (g = t[12])),
-        d(f, g));
+            }
+          },
+          [t, a],
+        ));
     }
     var h = function (t) {
         return o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC

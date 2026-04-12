@@ -13,7 +13,6 @@ __d(
     "WAWebModalManager",
     "WAWebSettingsGetters",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebSettingsValues",
   ],
@@ -31,92 +30,62 @@ __d(
       };
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.plugins,
-        r;
-      t[0] !== n
-        ? ((r = n == null ? c() : n), (t[0] = n), (t[1] = r))
-        : (r = t[1]);
-      var a = r,
-        i = a.defaultPlugin,
-        l = a.triggeredPlugins,
-        u;
-      return (
-        t[2] !== i || t[3] !== l
-          ? ((u = s.jsx(o("WAWebModal.react").Modal, {
-              type: o("WAWebModal.react").ModalTheme.CommandPaletteV2,
-              children: s.jsx(
-                o("WAWebCommandPaletteController").CommandPalette,
-                { defaultPlugin: i, triggeredPlugins: l },
-              ),
-            })),
-            (t[2] = i),
-            (t[3] = l),
-            (t[4] = u))
-          : (u = t[4]),
-        u
-      );
+      var t = e.plugins,
+        n = t == null ? c() : t,
+        r = n.defaultPlugin,
+        a = n.triggeredPlugins;
+      return s.jsx(o("WAWebModal.react").Modal, {
+        type: o("WAWebModal.react").ModalTheme.CommandPaletteV2,
+        children: s.jsx(o("WAWebCommandPaletteController").CommandPalette, {
+          defaultPlugin: r,
+          triggeredPlugins: a,
+        }),
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
       o("WAWebModalManager").ModalManager.open(s.jsx(d, { plugins: e }));
     }
     function p() {
-      var e = o("react-compiler-runtime").c(3),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = [o("WAWebSettingsGetters").getShowArchiveV2]), (e[0] = t))
-        : (t = e[0]);
-      var n = o("useWAWebSettingsValues").useSettingsValues(t),
-        a = n[0],
-        i;
-      return (
-        e[1] !== a
-          ? ((i = s.jsx(o("WAWebModal.react").Modal, {
-              type: o("WAWebModal.react").ModalTheme.CommandPalette,
-              children: s.jsx(
-                o("WAWebChatlistPanelFunctional.react").ChatlistPanelFunctional,
-                {
-                  showArchiveV2: a,
-                  mode: r("WAWebChatlistPanelMode").CommandPalette,
-                },
-              ),
-            })),
-            (e[1] = a),
-            (e[2] = i))
-          : (i = e[2]),
-        i
-      );
+      var e = o("useWAWebSettingsValues").useSettingsValues([
+          o("WAWebSettingsGetters").getShowArchiveV2,
+        ]),
+        t = e[0];
+      return s.jsx(o("WAWebModal.react").Modal, {
+        type: o("WAWebModal.react").ModalTheme.CommandPalette,
+        children: s.jsx(
+          o("WAWebChatlistPanelFunctional.react").ChatlistPanelFunctional,
+          {
+            showArchiveV2: t,
+            mode: r("WAWebChatlistPanelMode").CommandPalette,
+          },
+        ),
+      });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _() {
-      var e = o("react-compiler-runtime").c(2),
-        t;
-      (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = []), (e[0] = t))
-        : (t = e[0]),
-        u(g, t),
+      return (
+        u(function () {
+          return (
+            o("WAWebCommandPaletteUtils").setIsCommandPaletteOpen(!0),
+            function () {
+              o("WAWebCommandPaletteUtils").setIsCommandPaletteOpen(!1);
+            }
+          );
+        }, []),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
           "close_command_palette",
-          f,
-        ));
-      var n;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(p, {})), (e[1] = n))
-          : (n = e[1]),
-        n
+          function () {
+            return o("WAWebModalManager").ModalManager.close();
+          },
+        ),
+        s.jsx(p, {})
       );
     }
-    function f() {
-      return o("WAWebModalManager").ModalManager.close();
-    }
-    function g() {
-      return (o("WAWebCommandPaletteUtils").setIsCommandPaletteOpen(!0), h);
-    }
-    function h() {
-      o("WAWebCommandPaletteUtils").setIsCommandPaletteOpen(!1);
-    }
-    ((l.openCommandPaletteV2Modal = m), (l.CommandPaletteModal = _));
+    ((_.displayName = _.name + " [from " + i.id + "]"),
+      (l.openCommandPaletteV2Modal = m),
+      (l.CommandPaletteModal = _));
   },
   98,
 );

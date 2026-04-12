@@ -6,7 +6,6 @@ __d(
     "Promise",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationSendEmailVerificationCodeMutation.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -37,54 +36,44 @@ __d(
                   : "GENERIC_ERROR";
     }
     function p() {
-      var e = o("react-compiler-runtime").c(5),
-        t = o("CometRelay").useMutation(d),
-        a = t[0],
-        i = t[1],
-        l;
-      e[0] !== a
-        ? ((l = function (t) {
-            return new (s || (s = n("Promise")))(function (e) {
-              a({
-                variables: { input: { email: { sensitive_string_value: t } } },
-                onCompleted: function (n, r) {
+      var e = o("CometRelay").useMutation(d),
+        t = e[0],
+        a = e[1],
+        i = c(
+          function (e) {
+            return new (s || (s = n("Promise")))(function (n) {
+              t({
+                variables: { input: { email: { sensitive_string_value: e } } },
+                onCompleted: function (t, r) {
                   if (r != null && r.length > 0) {
-                    e({ success: !1, error: "GENERIC_ERROR" });
+                    n({ success: !1, error: "GENERIC_ERROR" });
                     return;
                   }
-                  var t =
-                    n == null
+                  var e =
+                    t == null
                       ? void 0
-                      : n.wa_ad_account_send_email_verification_code;
-                  (t == null ? void 0 : t.email_sent) === !0
-                    ? e({ success: !0 })
-                    : e({
+                      : t.wa_ad_account_send_email_verification_code;
+                  (e == null ? void 0 : e.email_sent) === !0
+                    ? n({ success: !0 })
+                    : n({
                         success: !1,
-                        error: m(t == null ? void 0 : t.failure_reason),
+                        error: m(e == null ? void 0 : e.failure_reason),
                       });
                 },
-                onError: function (n) {
+                onError: function (t) {
                   (r("FBLogger")("wa_ctwa_web")
-                    .catching(r("getErrorSafe")(n))
+                    .catching(r("getErrorSafe")(t))
                     .mustfix(
                       "Send email verification code mutation failed in useWAWebBizAdCreationSendEmailVerificationCode",
                     ),
-                    e({ success: !1, error: "GENERIC_ERROR" }));
+                    n({ success: !1, error: "GENERIC_ERROR" }));
                 },
               });
             });
-          }),
-          (e[0] = a),
-          (e[1] = l))
-        : (l = e[1]);
-      var u = l,
-        c;
-      return (
-        e[2] !== i || e[3] !== u
-          ? ((c = [u, i]), (e[2] = i), (e[3] = u), (e[4] = c))
-          : (c = e[4]),
-        c
-      );
+          },
+          [t],
+        );
+      return [i, a];
     }
     l.default = p;
   },

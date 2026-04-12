@@ -54,7 +54,6 @@ __d(
     "asyncToGeneratorRuntime",
     "fbs",
     "react",
-    "react-compiler-runtime",
     "useWAWebContactValues",
     "useWAWebFlow",
     "useWAWebUnmountSignal",
@@ -109,38 +108,8 @@ __d(
       ],
       R = {
         textEmojiContainer: { width: "xh8yej3", $$css: !0 },
-        textStatusContainer: { width: "xh8yej3", $$css: !0 },
         moodIcon: { color: "x1v5yvga", $$css: !0 },
         grayColor: { color: "xhslqc4", $$css: !0 },
-        footer: {
-          display: "x78zum5",
-          alignItems: "x6s0dn4",
-          paddingTop: "x1p57kb1",
-          paddingBottom: "xvpt6g3",
-          paddingInlineEnd: "xvtqlqk",
-          paddingInlineStart: "x1m4z3lf",
-          backgroundColor: "x1od0jb8",
-          $$css: !0,
-        },
-        confirmButton: { marginInlineStart: "xvc5jky", $$css: !0 },
-        contentPadding: {
-          paddingInlineStart: "xb0esv5",
-          paddingInlineEnd: "xyo0t3i",
-          paddingLeft: null,
-          paddingRight: null,
-          $$css: !0,
-        },
-        suggestionItem: {
-          display: "x78zum5",
-          alignItems: "x6s0dn4",
-          justifyContent: "x1qughib",
-          cursor: "x1ypdohk",
-          paddingTop: "x16ovd2e",
-          paddingInlineStart: "xb0esv5",
-          ":hover_backgroundColor": "xs723ss",
-          $$css: !0,
-        },
-        paddingEnd: { paddingInlineEnd: "x1uc92m", $$css: !0 },
         timerIcon: {
           minWidth: "x1fns5xo",
           height: "x1vqgdyp",
@@ -150,71 +119,10 @@ __d(
           paddingInlineEnd: "x1uc92m",
           $$css: !0,
         },
-        emojiStatusAlign: { marginBottom: "xdqhqc9", $$css: !0 },
-        emojiButton: {
-          display: "x78zum5",
-          alignItems: "x6s0dn4",
-          justifyContent: "xl56j7k",
-          width: "x100vrsf",
-          height: "x1vqgdyp",
-          borderStartStartRadius: "xyi3aci",
-          borderStartEndRadius: "xwf5gio",
-          borderEndEndRadius: "x1p453bz",
-          borderEndStartRadius: "x1suzm8a",
-          borderTopColor: "xnj1f2r",
-          borderInlineEndColor: "x2uibgs",
-          borderBottomColor: "xkveyfu",
-          borderInlineStartColor: "x12llq9",
-          borderTopStyle: "x13fuv20",
-          borderInlineEndStyle: "x18b5jzi",
-          borderBottomStyle: "x1q0q8m5",
-          borderInlineStartStyle: "x1t7ytsu",
-          borderTopWidth: "x178xt8z",
-          borderInlineEndWidth: "x1lun4ml",
-          borderBottomWidth: "xso031l",
-          borderInlineStartWidth: "xpilrb4",
-          backgroundColor: "xjbqb8w",
-          cursor: "x1ypdohk",
-          $$css: !0,
-        },
         paddingTop: { paddingTop: "x1sk1jro", $$css: !0 },
         customDateTimeRow: {
           paddingInlineStart: "x1g7keqi",
           paddingTop: "x1p57kb1",
-          $$css: !0,
-        },
-        expiryInfo: {
-          paddingInlineStart: "x16zwnhg",
-          paddingTop: "x16ovd2e",
-          $$css: !0,
-        },
-        paddingStart: { paddingInlineStart: "x12w63v0", $$css: !0 },
-        suggestionEmojiBox: {
-          display: "x78zum5",
-          alignItems: "x6s0dn4",
-          justifyContent: "xl56j7k",
-          width: "x100vrsf",
-          height: "x1vqgdyp",
-          flexShrink: "x2lah0s",
-          $$css: !0,
-        },
-        suggestionsPaddingTop: { paddingTop: "x1xrf6ya", $$css: !0 },
-        suggestionsList: {
-          height: "x2gs1ea",
-          overflowY: "x1odjw0f",
-          $$css: !0,
-        },
-        presetsSeparator: {
-          paddingTop: "x16ovd2e",
-          paddingBottom: "x12xbjc7",
-          $$css: !0,
-        },
-        privacyInfo: {
-          display: "x78zum5",
-          alignItems: "x6s0dn4",
-          paddingTop: "x1tiyuxx",
-          fontSize: "x1nxh6w3",
-          color: "xhslqc4",
           $$css: !0,
         },
         privacyIcon: {
@@ -226,320 +134,171 @@ __d(
           paddingInlineEnd: "xvtqlqk",
           $$css: !0,
         },
-        privacyValue: { display: "x3nfvp2", alignItems: "x6s0dn4", $$css: !0 },
         privacyChevron: { flexShrink: "x2lah0s", color: "xo1mcw5", $$css: !0 },
-        editContent: { backgroundColor: "x1280gxy", $$css: !0 },
-        privacyDrawerContainer: {
-          position: "x1n2onr6",
-          height: "x16nrsnc",
-          $$css: !0,
-        },
       };
     function L(e) {
-      var t = o("react-compiler-runtime").c(17),
-        n = e.emoji,
-        a = e.onSave,
-        i,
-        l = h(!1),
-        s = l[0],
-        u = l[1],
-        c = g(),
-        d;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = function () {
-            u(!0);
-          }),
-          (t[0] = d))
-        : (d = t[0]);
-      var m = d;
-      if (n != null) {
-        var _;
-        t[1] !== n
-          ? ((_ = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(n)),
-            (t[1] = n),
-            (t[2] = _))
-          : (_ = t[2]);
-        var f = _;
-        if (f != null) {
-          var y;
-          (t[3] !== f
-            ? ((y = p.jsx(r("WAWebEmoji.react"), { emoji: f }, "low-res")),
-              (t[3] = f),
-              (t[4] = y))
-            : (y = t[4]),
-            (i = y));
-        }
+      var t = e.emoji,
+        n = e.onSave,
+        a,
+        i = h(!1),
+        l = i[0],
+        s = i[1],
+        u = g(),
+        c = function () {
+          s(!0);
+        };
+      if (t != null) {
+        var d = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(t);
+        d != null &&
+          (a = p.jsx(r("WAWebEmoji.react"), { emoji: d }, "low-res"));
       }
-      var C, b;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = { className: "x1uc92m xdqhqc9" }),
-          (b = {
+      return p.jsxs("div", {
+        className: "x1uc92m xdqhqc9",
+        children: [
+          p.jsx("button", {
             className:
               "x78zum5 x6s0dn4 xl56j7k x100vrsf x1vqgdyp xyi3aci xwf5gio x1p453bz x1suzm8a xnj1f2r x2uibgs xkveyfu x12llq9 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 xjbqb8w x1ypdohk",
+            onClick: c,
+            ref: u,
+            children:
+              a || p.jsx(r("WDSIconIcMood.react"), { xstyle: R.moodIcon }),
           }),
-          (t[5] = C),
-          (t[6] = b))
-        : ((C = t[5]), (b = t[6]));
-      var v;
-      t[7] !== i
-        ? ((v = i || p.jsx(r("WDSIconIcMood.react"), { xstyle: R.moodIcon })),
-          (t[7] = i),
-          (t[8] = v))
-        : (v = t[8]);
-      var S;
-      t[9] !== v
-        ? ((S = p.jsx(
-            "button",
-            babelHelpers.extends({}, b, { onClick: m, ref: c, children: v }),
-          )),
-          (t[9] = v),
-          (t[10] = S))
-        : (S = t[10]);
-      var L;
-      t[11] !== a || t[12] !== s
-        ? ((L =
-            s &&
+          l &&
             p.jsx(
               o("WAWebEditGroupProfileDrawerEmojiStickerPanelPopup.react")
                 .EmojiPanelPopup,
               {
-                anchorRef: c,
+                anchorRef: u,
                 onClose: function () {
-                  u(!1);
+                  s(!1);
                 },
                 onSelect: function (t) {
-                  (a(t), u(!1));
+                  (n(t), s(!1));
                 },
               },
-            )),
-          (t[11] = a),
-          (t[12] = s),
-          (t[13] = L))
-        : (L = t[13]);
-      var E;
-      return (
-        t[14] !== S || t[15] !== L
-          ? ((E = p.jsxs(
-              "div",
-              babelHelpers.extends({}, C, { children: [S, L] }),
-            )),
-            (t[14] = S),
-            (t[15] = L),
-            (t[16] = E))
-          : (E = t[16]),
-        E
-      );
+            ),
+        ],
+      });
     }
+    L.displayName = L.name + " [from " + i.id + "]";
     function E(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.onClear,
-        a = e.onSave,
-        i = e.promptKey,
-        l = e.text,
-        s;
-      t[0] !== i
-        ? ((s = function () {
-            return i != null
-              ? o("WAWebAboutPrompts").getAboutPromptText(i)
-              : o("WAWebAboutPrompts").getRandomAboutPrompt();
-          }),
-          (t[0] = i),
-          (t[1] = s))
-        : (s = t[1]);
-      var u = h(s),
-        c = u[0],
-        d;
-      t[2] !== a
-        ? ((d = function (t) {
-            a(t);
-          }),
-          (t[2] = a),
-          (t[3] = d))
-        : (d = t[3]);
-      var m = d,
-        _;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = { className: "xh8yej3" }), (t[4] = _))
-        : (_ = t[4]);
-      var f = l != null ? l : "",
-        g;
-      return (
-        t[5] !== m || t[6] !== c || t[7] !== n || t[8] !== f
-          ? ((g = p.jsx(
-              "div",
-              babelHelpers.extends({}, _, {
-                children: p.jsx(r("WDSTextField.react"), {
-                  EndIcon: r("WDSIconIcClose.react"),
-                  label: c,
-                  value: f,
-                  onEndIconClick: n,
-                  onValueChange: m,
-                  maxCharacterCount: C,
-                  testid: void 0,
-                }),
-              }),
-            )),
-            (t[5] = m),
-            (t[6] = c),
-            (t[7] = n),
-            (t[8] = f),
-            (t[9] = g))
-          : (g = t[9]),
-        g
-      );
+      var t = e.onClear,
+        n = e.onSave,
+        a = e.promptKey,
+        i = e.text,
+        l = h(function () {
+          return a != null
+            ? o("WAWebAboutPrompts").getAboutPromptText(a)
+            : o("WAWebAboutPrompts").getRandomAboutPrompt();
+        }),
+        s = l[0],
+        u = function (t) {
+          n(t);
+        };
+      return p.jsx("div", {
+        className: "xh8yej3",
+        children: p.jsx(r("WDSTextField.react"), {
+          EndIcon: r("WDSIconIcClose.react"),
+          label: s,
+          value: i != null ? i : "",
+          onEndIconClick: t,
+          onValueChange: u,
+          maxCharacterCount: C,
+          testid: void 0,
+        }),
+      });
     }
+    E.displayName = E.name + " [from " + i.id + "]";
     function k(e) {
       var t,
-        a = o("react-compiler-runtime").c(18),
-        i = e.onClick,
-        l;
-      a[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = o("WAWebUserPrefsGeneral").getUserPrivacySettings()),
-          (a[0] = l))
-        : (l = a[0]);
-      var u = l,
-        c =
-          (t = u.about) != null ? t : o("WAWebPrivacySettings").VISIBILITY.all,
-        d = h(0),
-        m = d[0],
-        _ = d[1],
-        g,
-        y;
-      (a[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = function () {
-            if (c === o("WAWebPrivacySettings").VISIBILITY.contact_blacklist) {
-              var e = !1;
-              return (
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  var t = yield o(
-                    "WAWebApiPrivacyDisallowedList",
-                  ).queryDisallowedLists();
-                  if (!e) {
-                    var n, r;
-                    _(
-                      (n =
-                        (r = t.about) == null
-                          ? void 0
-                          : r.disallowedList.length) != null
-                        ? n
-                        : 0,
-                    );
-                  }
-                })(),
-                function () {
-                  e = !0;
+        a = e.onClick,
+        i = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
+        l =
+          (t = i.about) != null ? t : o("WAWebPrivacySettings").VISIBILITY.all,
+        u = h(0),
+        c = u[0],
+        d = u[1];
+      f(
+        function () {
+          if (l === o("WAWebPrivacySettings").VISIBILITY.contact_blacklist) {
+            var e = !1;
+            return (
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var t = yield o(
+                  "WAWebApiPrivacyDisallowedList",
+                ).queryDisallowedLists();
+                if (!e) {
+                  var n, r;
+                  d(
+                    (n =
+                      (r = t.about) == null
+                        ? void 0
+                        : r.disallowedList.length) != null
+                      ? n
+                      : 0,
+                  );
                 }
-              );
-            }
-          }),
-          (y = [c]),
-          (a[1] = g),
-          (a[2] = y))
-        : ((g = a[1]), (y = a[2])),
-        f(g, y));
-      var C;
-      a[3] !== m
-        ? ((C =
-            c === o("WAWebPrivacySettings").VISIBILITY.all
-              ? s._(/*BTDS*/ "Everyone")
-              : c === o("WAWebPrivacySettings").VISIBILITY.contacts
-                ? s._(/*BTDS*/ "My contacts")
-                : c === o("WAWebPrivacySettings").VISIBILITY.contact_blacklist
-                  ? s._(/*BTDS*/ "My contacts except {excluded_count}", [
-                      s._param("excluded_count", m),
-                    ])
-                  : c === o("WAWebPrivacySettings").VISIBILITY.none
-                    ? s._(/*BTDS*/ "Nobody")
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            c,
-                        );
-                      })()),
-          (a[3] = m),
-          (a[4] = C))
-        : (C = a[4]);
-      var b = C,
-        v;
-      a[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = { className: "x3nfvp2 x6s0dn4" }), (a[5] = v))
-        : (v = a[5]);
-      var S;
-      a[6] !== b
-        ? ((S = p.jsx(r("WDSText.react"), {
-            type: "Body3Emphasized",
-            colorName: "contentActionEmphasized",
-            children: b,
-          })),
-          (a[6] = b),
-          (a[7] = S))
-        : (S = a[7]);
-      var L;
-      a[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = p.jsx(r("WDSIconIcChevronRight.react"), {
-            height: 20,
-            width: 20,
-            xstyle: R.privacyChevron,
-          })),
-          (a[8] = L))
-        : (L = a[8]);
-      var E;
-      a[9] !== S
-        ? ((E = p.jsxs(
-            "span",
-            babelHelpers.extends({}, v, { children: [S, L] }),
-          )),
-          (a[9] = S),
-          (a[10] = E))
-        : (E = a[10]);
-      var k = E,
-        I;
-      a[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = { className: "x78zum5 x6s0dn4 x1tiyuxx x1nxh6w3 xhslqc4" }),
-          (a[11] = I))
-        : (I = a[11]);
-      var T;
-      a[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = p.jsx(r("WDSIconIcLock.react"), {
-            iconXstyle: R.grayColor,
-            xstyle: R.privacyIcon,
-          })),
-          (a[12] = T))
-        : (T = a[12]);
-      var D;
-      a[13] !== k
-        ? ((D = p.jsxs(
-            "div",
-            babelHelpers.extends({}, I, {
-              "data-testid": void 0,
-              children: [
-                T,
-                p.jsx("span", {
-                  children: s._(
-                    /*BTDS*/ "Visible in chats to: {privacy_setting}",
-                    [s._param("privacy_setting", k)],
-                  ),
-                }),
-              ],
-            }),
-          )),
-          (a[13] = k),
-          (a[14] = D))
-        : (D = a[14]);
-      var x;
-      return (
-        a[15] !== i || a[16] !== D
-          ? ((x = p.jsx(o("WAWebClickable.react").Clickable, {
-              onClick: i,
-              children: D,
-            })),
-            (a[15] = i),
-            (a[16] = D),
-            (a[17] = x))
-          : (x = a[17]),
-        x
+              })(),
+              function () {
+                e = !0;
+              }
+            );
+          }
+        },
+        [l],
       );
+      var m =
+          l === o("WAWebPrivacySettings").VISIBILITY.all
+            ? s._(/*BTDS*/ "Everyone")
+            : l === o("WAWebPrivacySettings").VISIBILITY.contacts
+              ? s._(/*BTDS*/ "My contacts")
+              : l === o("WAWebPrivacySettings").VISIBILITY.contact_blacklist
+                ? s._(/*BTDS*/ "My contacts except {excluded_count}", [
+                    s._param("excluded_count", c),
+                  ])
+                : l === o("WAWebPrivacySettings").VISIBILITY.none
+                  ? s._(/*BTDS*/ "Nobody")
+                  : (function () {
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          l,
+                      );
+                    })(),
+        _ = p.jsxs("span", {
+          className: "x3nfvp2 x6s0dn4",
+          children: [
+            p.jsx(r("WDSText.react"), {
+              type: "Body3Emphasized",
+              colorName: "contentActionEmphasized",
+              children: m,
+            }),
+            p.jsx(r("WDSIconIcChevronRight.react"), {
+              height: 20,
+              width: 20,
+              xstyle: R.privacyChevron,
+            }),
+          ],
+        });
+      return p.jsx(o("WAWebClickable.react").Clickable, {
+        onClick: a,
+        children: p.jsxs("div", {
+          className: "x78zum5 x6s0dn4 x1tiyuxx x1nxh6w3 xhslqc4",
+          "data-testid": void 0,
+          children: [
+            p.jsx(r("WDSIconIcLock.react"), {
+              iconXstyle: R.grayColor,
+              xstyle: R.privacyIcon,
+            }),
+            p.jsx("span", {
+              children: s._(/*BTDS*/ "Visible in chats to: {privacy_setting}", [
+                s._param("privacy_setting", _),
+              ]),
+            }),
+          ],
+        }),
+      });
     }
+    k.displayName = k.name + " [from " + i.id + "]";
     var I = "custom",
       T = 30,
       D = function () {
@@ -552,135 +311,70 @@ __d(
       return Math.max(0, n.diff(r("WAWeb-moment")(), "seconds"));
     }
     function $(e) {
-      var t = o("react-compiler-runtime").c(42),
-        n = e.duration,
-        a = e.onSave,
-        i = o(
+      var t = e.duration,
+        n = e.onSave,
+        a = o(
           "WAWebEphemeralAboutDurationsUtils",
         ).getTextStatusEphemeralityDurations(),
-        l = h(!1),
-        u = l[0],
-        c = l[1],
-        d = h(M),
-        m = d[0],
-        _ = d[1],
-        f = h(N),
-        g = f[0],
-        y = f[1],
-        C;
-      t[0] !== m || t[1] !== g || t[2] !== a
-        ? ((C = function (t) {
-            t === I ? (c(!0), a(x(m, g))) : (c(!1), a(Number(t)));
+        i = h(!1),
+        l = i[0],
+        u = i[1],
+        c = h(function () {
+          return r("WAWeb-moment")().add(1, "day").format("YYYY-MM-DD");
+        }),
+        d = c[0],
+        m = c[1],
+        _ = h(function () {
+          return r("WAWeb-moment")().format("HH:mm");
+        }),
+        f = _[0],
+        g = _[1],
+        y = function (t) {
+          t === I ? (u(!0), n(x(d, f))) : (u(!1), n(Number(t)));
+        },
+        C = function (t) {
+          (m(t), n(x(t, f)));
+        },
+        b = function (t) {
+          (g(t), n(x(d, t)));
+        };
+      return p.jsxs(p.Fragment, {
+        children: [
+          p.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            xstyle: R.paddingTop,
+            children: [
+              p.jsx(o("WAWebStatusClockIcon.react").StatusClockIcon, {
+                iconXstyle: R.grayColor,
+                xstyle: R.timerIcon,
+              }),
+              p.jsxs(o("WAWebSelect.react").Select, {
+                defaultLabel: s._(/*BTDS*/ "Select expiry duration"),
+                initialSelection: t.toString(),
+                label: s._(/*BTDS*/ "Duration"),
+                onChange: y,
+                testid: void 0,
+                theme: "about-20-screen",
+                width: "100%",
+                children: [
+                  a.map(function (e) {
+                    return p.jsx(
+                      o("WAWebSelectMenuItem.react").SelectMenuItem,
+                      { optionId: "" + e.value, primary: e.label.toString() },
+                      "duration-" + e.value,
+                    );
+                  }),
+                  p.jsx(r("WAWebDropdownItemSeparator.react"), {}),
+                  p.jsx(
+                    o("WAWebSelectMenuItem.react").SelectMenuItem,
+                    { optionId: I, primary: s._(/*BTDS*/ "Custom").toString() },
+                    "duration-custom",
+                  ),
+                ],
+              }),
+            ],
           }),
-          (t[0] = m),
-          (t[1] = g),
-          (t[2] = a),
-          (t[3] = C))
-        : (C = t[3]);
-      var b = C,
-        v;
-      t[4] !== g || t[5] !== a
-        ? ((v = function (t) {
-            (_(t), a(x(t, g)));
-          }),
-          (t[4] = g),
-          (t[5] = a),
-          (t[6] = v))
-        : (v = t[6]);
-      var S = v,
-        L;
-      t[7] !== m || t[8] !== a
-        ? ((L = function (t) {
-            (y(t), a(x(m, t)));
-          }),
-          (t[7] = m),
-          (t[8] = a),
-          (t[9] = L))
-        : (L = t[9]);
-      var E = L,
-        k = o("WAWebFlex.react").FlexRow,
-        T = "center",
-        $ = R,
-        w;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = p.jsx(o("WAWebStatusClockIcon.react").StatusClockIcon, {
-            iconXstyle: R.grayColor,
-            xstyle: R.timerIcon,
-          })),
-          (t[10] = w))
-        : (w = t[10]);
-      var A = o("WAWebSelect.react").Select,
-        F;
-      t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((F = s._(/*BTDS*/ "Select expiry duration")), (t[11] = F))
-        : (F = t[11]);
-      var O;
-      t[12] !== n
-        ? ((O = n.toString()), (t[12] = n), (t[13] = O))
-        : (O = t[13]);
-      var B;
-      t[14] === Symbol.for("react.memo_cache_sentinel")
-        ? ((B = s._(/*BTDS*/ "Duration")), (t[14] = B))
-        : (B = t[14]);
-      var W = "text-status-ephemeral-durations-dropdown",
-        q = "about-20-screen",
-        U = "100%",
-        V = i.map(P),
-        H;
-      t[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((H = p.jsx(r("WAWebDropdownItemSeparator.react"), {})), (t[15] = H))
-        : (H = t[15]);
-      var G;
-      t[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((G = p.jsx(
-            o("WAWebSelectMenuItem.react").SelectMenuItem,
-            { optionId: I, primary: s._(/*BTDS*/ "Custom").toString() },
-            "duration-custom",
-          )),
-          (t[16] = G))
-        : (G = t[16]);
-      var z;
-      t[17] !== A ||
-      t[18] !== b ||
-      t[19] !== V ||
-      t[20] !== F ||
-      t[21] !== O ||
-      t[22] !== B
-        ? ((z = p.jsxs(A, {
-            defaultLabel: F,
-            initialSelection: O,
-            label: B,
-            onChange: b,
-            testid: void 0,
-            theme: q,
-            width: U,
-            children: [V, H, G],
-          })),
-          (t[17] = A),
-          (t[18] = b),
-          (t[19] = V),
-          (t[20] = F),
-          (t[21] = O),
-          (t[22] = B),
-          (t[23] = z))
-        : (z = t[23]);
-      var j;
-      t[24] !== k || t[25] !== z || t[26] !== $.paddingTop || t[27] !== w
-        ? ((j = p.jsxs(k, {
-            align: T,
-            xstyle: $.paddingTop,
-            children: [w, z],
-          })),
-          (t[24] = k),
-          (t[25] = z),
-          (t[26] = $.paddingTop),
-          (t[27] = w),
-          (t[28] = j))
-        : (j = t[28]);
-      var K;
-      t[29] !== m || t[30] !== g || t[31] !== S || t[32] !== E || t[33] !== u
-        ? ((K =
-            u &&
+          l &&
             p.jsxs(o("WAWebFlex.react").FlexRow, {
               xstyle: R.customDateTimeRow,
               dir: "ltr",
@@ -691,8 +385,8 @@ __d(
                   basis: 0,
                   children: p.jsx(o("WAWebDateInput.react").DateInput, {
                     name: "about-custom-date",
-                    value: m,
-                    onChange: S,
+                    value: d,
+                    onChange: C,
                     getDateBoundaries: D,
                     theme: "about",
                     label: s._(/*BTDS*/ "Date"),
@@ -703,25 +397,15 @@ __d(
                   basis: 0,
                   children: p.jsx(o("WAWebTimeInput.react").TimeInput, {
                     name: "about-custom-time",
-                    value: g,
-                    onChange: E,
+                    value: f,
+                    onChange: b,
                     theme: "about",
                     label: s._(/*BTDS*/ "Time"),
                   }),
                 }),
               ],
-            })),
-          (t[29] = m),
-          (t[30] = g),
-          (t[31] = S),
-          (t[32] = E),
-          (t[33] = u),
-          (t[34] = K))
-        : (K = t[34]);
-      var Q;
-      t[35] !== n || t[36] !== u
-        ? ((Q =
-            !u &&
+            }),
+          !l &&
             p.jsx("div", {
               className: "x16zwnhg x16ovd2e",
               "data-testid": void 0,
@@ -730,244 +414,122 @@ __d(
                 colorName: "contentDeemphasized",
                 children: o("WAWebClock").Clock.textStatusExpiryStr(
                   o("WATimeUtils").castToUnixTime(
-                    o("WATimeUtils").unixTime() + n,
+                    o("WATimeUtils").unixTime() + t,
                   ),
                 ),
               }),
-            })),
-          (t[35] = n),
-          (t[36] = u),
-          (t[37] = Q))
-        : (Q = t[37]);
-      var X;
-      return (
-        t[38] !== j || t[39] !== K || t[40] !== Q
-          ? ((X = p.jsxs(p.Fragment, { children: [j, K, Q] })),
-            (t[38] = j),
-            (t[39] = K),
-            (t[40] = Q),
-            (t[41] = X))
-          : (X = t[41]),
-        X
-      );
+            }),
+        ],
+      });
     }
+    $.displayName = $.name + " [from " + i.id + "]";
     function P(e) {
-      return p.jsx(
-        o("WAWebSelectMenuItem.react").SelectMenuItem,
-        { optionId: "" + e.value, primary: e.label.toString() },
-        "duration-" + e.value,
-      );
+      var t = e.emojiKey,
+        n = e.isDeletable,
+        a = e.onDelete,
+        i = e.onSelect,
+        l = e.textVal,
+        u = g(null),
+        c = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(
+          t != null ? t : "",
+        ),
+        d = p.jsxs(r("WDSMenu.react"), {
+          children: [
+            p.jsx(r("WDSMenuItem.react"), {
+              Icon: r("WDSIconIcCheck.react"),
+              title: s._(/*BTDS*/ "Select"),
+              onPress: i,
+              testid: void 0,
+            }),
+            n === !0 &&
+              p.jsx(r("WDSMenuItem.react"), {
+                Icon: r("WDSIconIcDelete.react"),
+                title: s._(/*BTDS*/ "Delete"),
+                onPress: a,
+                destructive: !0,
+                testid: void 0,
+              }),
+          ],
+        }),
+        m = r("useWDSMenu")({
+          targetRef: u,
+          menu: d,
+          contextMenuArea: !0,
+          enableUIM: !1,
+        }),
+        _ = m.menuPortal,
+        f = m.openMenu,
+        h = function (t) {
+          (t.preventDefault(), t.stopPropagation(), f(t));
+        };
+      return p.jsxs("div", {
+        ref: u,
+        className: "x78zum5 x6s0dn4 x1qughib x1ypdohk x16ovd2e xb0esv5 xs723ss",
+        onClick: i,
+        onContextMenu: h,
+        onKeyDown: function (t) {
+          t.key === "Enter" && i();
+        },
+        role: "button",
+        tabIndex: 0,
+        children: [
+          p.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            children: [
+              p.jsx("div", {
+                className: "x78zum5 x6s0dn4 xl56j7k x100vrsf x1vqgdyp x2lah0s",
+                children:
+                  c != null
+                    ? p.jsx(r("WAWebEmoji.react"), { emoji: c }, "low-res")
+                    : p.jsx(r("WDSIconIcMood.react"), {
+                        height: 20,
+                        width: 20,
+                        xstyle: R.moodIcon,
+                      }),
+              }),
+              p.jsx("span", { className: "x12w63v0", children: l }),
+            ],
+          }),
+          _,
+        ],
+      });
     }
     P.displayName = P.name + " [from " + i.id + "]";
-    function N() {
-      return r("WAWeb-moment")().format("HH:mm");
-    }
-    function M() {
-      return r("WAWeb-moment")().add(1, "day").format("YYYY-MM-DD");
-    }
-    function w(e) {
-      var t = o("react-compiler-runtime").c(33),
-        n = e.emojiKey,
-        a = e.isDeletable,
-        i = e.onDelete,
-        l = e.onSelect,
-        u = e.textVal,
-        c = g(null),
-        d;
-      t[0] !== n
-        ? ((d = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(
-            n != null ? n : "",
-          )),
-          (t[0] = n),
-          (t[1] = d))
-        : (d = t[1]);
-      var m = d,
-        _;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = s._(/*BTDS*/ "Select")), (t[2] = _))
-        : (_ = t[2]);
-      var f;
-      t[3] !== l
-        ? ((f = p.jsx(r("WDSMenuItem.react"), {
-            Icon: r("WDSIconIcCheck.react"),
-            title: _,
-            onPress: l,
-            testid: void 0,
-          })),
-          (t[3] = l),
-          (t[4] = f))
-        : (f = t[4]);
-      var h;
-      t[5] !== a || t[6] !== i
-        ? ((h =
-            a === !0 &&
-            p.jsx(r("WDSMenuItem.react"), {
-              Icon: r("WDSIconIcDelete.react"),
-              title: s._(/*BTDS*/ "Delete"),
-              onPress: i,
-              destructive: !0,
-              testid: void 0,
-            })),
-          (t[5] = a),
-          (t[6] = i),
-          (t[7] = h))
-        : (h = t[7]);
-      var y;
-      t[8] !== f || t[9] !== h
-        ? ((y = p.jsxs(r("WDSMenu.react"), { children: [f, h] })),
-          (t[8] = f),
-          (t[9] = h),
-          (t[10] = y))
-        : (y = t[10]);
-      var C = y,
-        b;
-      t[11] !== C
-        ? ((b = { targetRef: c, menu: C, contextMenuArea: !0, enableUIM: !1 }),
-          (t[11] = C),
-          (t[12] = b))
-        : (b = t[12]);
-      var v = r("useWDSMenu")(b),
-        S = v.menuPortal,
-        L = v.openMenu,
-        E;
-      t[13] !== L
-        ? ((E = function (t) {
-            (t.preventDefault(), t.stopPropagation(), L(t));
-          }),
-          (t[13] = L),
-          (t[14] = E))
-        : (E = t[14]);
-      var k = E,
-        I;
-      t[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = {
-            className:
-              "x78zum5 x6s0dn4 x1qughib x1ypdohk x16ovd2e xb0esv5 xs723ss",
-          }),
-          (t[15] = I))
-        : (I = t[15]);
-      var T;
-      t[16] !== l
-        ? ((T = function (t) {
-            t.key === "Enter" && l();
-          }),
-          (t[16] = l),
-          (t[17] = T))
-        : (T = t[17]);
-      var D;
-      t[18] === Symbol.for("react.memo_cache_sentinel")
-        ? ((D = {
-            className: "x78zum5 x6s0dn4 xl56j7k x100vrsf x1vqgdyp x2lah0s",
-          }),
-          (t[18] = D))
-        : (D = t[18]);
-      var x;
-      t[19] !== m
-        ? ((x = p.jsx(
-            "div",
-            babelHelpers.extends({}, D, {
-              children:
-                m != null
-                  ? p.jsx(r("WAWebEmoji.react"), { emoji: m }, "low-res")
-                  : p.jsx(r("WDSIconIcMood.react"), {
-                      height: 20,
-                      width: 20,
-                      xstyle: R.moodIcon,
-                    }),
-            }),
-          )),
-          (t[19] = m),
-          (t[20] = x))
-        : (x = t[20]);
-      var $;
-      t[21] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = { className: "x12w63v0" }), (t[21] = $))
-        : ($ = t[21]);
-      var P;
-      t[22] !== u
-        ? ((P = p.jsx("span", babelHelpers.extends({}, $, { children: u }))),
-          (t[22] = u),
-          (t[23] = P))
-        : (P = t[23]);
-      var N;
-      t[24] !== x || t[25] !== P
-        ? ((N = p.jsxs(o("WAWebFlex.react").FlexRow, {
-            align: "center",
-            children: [x, P],
-          })),
-          (t[24] = x),
-          (t[25] = P),
-          (t[26] = N))
-        : (N = t[26]);
-      var M;
-      return (
-        t[27] !== k || t[28] !== S || t[29] !== l || t[30] !== N || t[31] !== T
-          ? ((M = p.jsxs(
-              "div",
-              babelHelpers.extends({ ref: c }, I, {
-                onClick: l,
-                onContextMenu: k,
-                onKeyDown: T,
-                role: "button",
-                tabIndex: 0,
-                children: [N, S],
-              }),
-            )),
-            (t[27] = k),
-            (t[28] = S),
-            (t[29] = l),
-            (t[30] = N),
-            (t[31] = T),
-            (t[32] = M))
-          : (M = t[32]),
-        M
-      );
-    }
-    function A(e) {
-      var t = o("react-compiler-runtime").c(14),
-        n = e.handleDeleteSuggestion,
-        a = e.onSave,
-        i = e.suggestions,
-        l = i.length > v,
-        s,
-        u,
-        c;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = { className: "x1xrf6ya" }),
-          (u = p.jsx(r("WAWebDivider.react"), { direction: "horizontal" })),
-          (c = { className: "x2gs1ea x1odjw0f" }),
-          (t[0] = s),
-          (t[1] = u),
-          (t[2] = c))
-        : ((s = t[0]), (u = t[1]), (c = t[2]));
-      var d;
-      if (t[3] !== n || t[4] !== l || t[5] !== a || t[6] !== i) {
-        var m;
-        (t[8] !== n || t[9] !== l || t[10] !== a
-          ? ((m = function (t, o) {
-              var e = t.emoji,
-                i = t.text;
+    function N(e) {
+      var t = e.handleDeleteSuggestion,
+        n = e.onSave,
+        o = e.suggestions,
+        a = o.length > v;
+      return p.jsxs("div", {
+        className: "x1xrf6ya",
+        children: [
+          p.jsx(r("WAWebDivider.react"), { direction: "horizontal" }),
+          p.jsx("div", {
+            className: "x2gs1ea x1odjw0f",
+            children: o.map(function (e, o) {
+              var i = e.emoji,
+                l = e.text;
               return p.jsxs(
                 p.Fragment,
                 {
                   children: [
                     o === v &&
-                      l &&
+                      a &&
                       p.jsx("div", {
                         className: "x16ovd2e x12xbjc7",
                         children: p.jsx(r("WAWebDivider.react"), {
                           direction: "horizontal",
                         }),
                       }),
-                    p.jsx(w, {
-                      emojiKey: e,
+                    p.jsx(P, {
+                      emojiKey: i,
                       isDeletable: o >= v,
-                      textVal: i,
+                      textVal: l,
                       onSelect: function () {
-                        return a(e, i);
+                        return n(i, l);
                       },
                       onDelete: function () {
-                        n(o);
+                        t(o);
                       },
                     }),
                   ],
@@ -975,37 +537,12 @@ __d(
                 o,
               );
             }),
-            (t[8] = n),
-            (t[9] = l),
-            (t[10] = a),
-            (t[11] = m))
-          : (m = t[11]),
-          (d = i.map(m)),
-          (t[3] = n),
-          (t[4] = l),
-          (t[5] = a),
-          (t[6] = i),
-          (t[7] = d));
-      } else d = t[7];
-      var _;
-      return (
-        t[12] !== d
-          ? ((_ = p.jsxs(
-              "div",
-              babelHelpers.extends({}, s, {
-                children: [
-                  u,
-                  p.jsx("div", babelHelpers.extends({}, c, { children: d })),
-                ],
-              }),
-            )),
-            (t[12] = d),
-            (t[13] = _))
-          : (_ = t[13]),
-        _
-      );
+          }),
+        ],
+      });
     }
-    function F(t) {
+    N.displayName = N.name + " [from " + i.id + "]";
+    function M(t) {
       var a,
         i,
         l,
@@ -1022,10 +559,10 @@ __d(
         D = r("useWAWebUnmountSignal")(),
         x = h([]),
         P = x[0],
-        N = x[1],
-        M = function (t) {
+        M = x[1],
+        w = function (t) {
           if (t == null || t.length === 0) {
-            N(b);
+            M(b);
             return;
           }
           var e = new Set(
@@ -1047,10 +584,10 @@ __d(
                   ((r = t.text) != null ? r : "");
               return e.has(o) ? !1 : (e.add(o), !0);
             });
-          N([].concat(b, n));
+          M([].concat(b, n));
         },
-        w = o("WAWebUserPrefsMeUser").getMeUser(),
-        F = o("WAWebContactCollection").ContactCollection.assertGet(w),
+        A = o("WAWebUserPrefsMeUser").getMeUser(),
+        F = o("WAWebContactCollection").ContactCollection.assertGet(A),
         O = o("useWAWebContactValues").useContactValues(F.id, [
           (_ = o("WAWebFrontendContactGetters")).getTextStatusString,
           _.getTextStatusEmoji,
@@ -1094,7 +631,7 @@ __d(
               )
             ) {
               var e = yield o("WAWebTextStatusAction").getSuggestions();
-              D.aborted || M(e);
+              D.aborted || w(e);
             }
           })();
         },
@@ -1225,7 +762,7 @@ __d(
               t.splice(e, 1);
               try {
                 var n = t.slice(v);
-                (yield o("WAWebTextStatusAction").setSuggestions(n), M(n));
+                (yield o("WAWebTextStatusAction").setSuggestions(n), w(n));
               } catch (e) {
                 o("WALogger").WARN(
                   c ||
@@ -1328,7 +865,7 @@ __d(
                         p.jsx($, { duration: ee, onSave: ce }),
                       ],
                     }),
-                    p.jsx(A, {
+                    p.jsx(N, {
                       handleDeleteSuggestion: ge,
                       onSave: pe,
                       suggestions: P,
@@ -1398,7 +935,7 @@ __d(
                 );
               })();
     }
-    ((F.displayName = F.name + " [from " + i.id + "]"), (l.default = F));
+    ((M.displayName = M.name + " [from " + i.id + "]"), (l.default = M));
   },
   226,
 );

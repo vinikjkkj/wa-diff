@@ -1,40 +1,27 @@
 __d(
   "WAWebOnEnterPlugin",
-  [
-    "Lexical",
-    "LexicalComposerContext",
-    "react-compiler-runtime",
-    "useWAWebLexicalEvent",
-  ],
+  ["Lexical", "LexicalComposerContext", "useWAWebLexicalEvent"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.enterIsNewLine,
-        r = e.onEnter,
-        a = o("LexicalComposerContext").useLexicalComposerContext(),
-        i = a[0],
-        l;
+      var t = e.enterIsNewLine,
+        n = e.onEnter,
+        r = o("LexicalComposerContext").useLexicalComposerContext(),
+        a = r[0];
       return (
-        t[0] !== n || t[1] !== r
-          ? ((l = function (t) {
-              if (!t) return !1;
-              var e = t.ctrlKey || t.altKey || t.shiftKey;
-              return n
-                ? !e && !t.metaKey
-                  ? !1
-                  : (r == null || r(t), !0)
-                : e
-                  ? !1
-                  : (r == null || r(t), !0);
-            }),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = l))
-          : (l = t[2]),
         o("useWAWebLexicalEvent").useLexicalCommandListener(
-          i,
+          a,
           o("Lexical").KEY_ENTER_COMMAND,
-          l,
+          function (e) {
+            if (!e) return !1;
+            var r = e.ctrlKey || e.altKey || e.shiftKey;
+            return t
+              ? !r && !e.metaKey
+                ? !1
+                : (n == null || n(e), !0)
+              : r
+                ? !1
+                : (n == null || n(e), !0);
+          },
           o("Lexical").COMMAND_PRIORITY_NORMAL,
         ),
         null

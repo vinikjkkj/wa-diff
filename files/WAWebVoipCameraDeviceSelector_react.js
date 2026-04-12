@@ -26,7 +26,6 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "react",
-    "react-compiler-runtime",
     "useWAWebAsync",
     "useWAWebDebouncedCallback",
     "useWAWebStableCallback",
@@ -506,44 +505,32 @@ __d(
     }
     $.displayName = $.name + " [from " + i.id + "]";
     function P() {
-      var e = o("react-compiler-runtime").c(5),
-        t = T(null),
-        a = t[0],
-        i = t[1],
-        l = r("useWAWebStableCallback")(i),
-        s;
-      e[0] !== a || e[1] !== l
-        ? ((s = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (
-                !(navigator === void 0 || !navigator.permissions || a != null)
-              ) {
-                var e = function () {
-                    l(null);
-                  },
-                  t = yield navigator.permissions.query({ name: "camera" });
-                return (
-                  l(t.state),
-                  (t.onchange = e),
-                  function () {
-                    t.onchange = null;
-                  }
-                );
-              }
-            });
-            return function () {
-              return e.apply(this, arguments);
-            };
-          })()),
-          (e[0] = a),
-          (e[1] = l),
-          (e[2] = s))
-        : (s = e[2]);
-      var u;
+      var e = T(null),
+        t = e[0],
+        o = e[1],
+        a = r("useWAWebStableCallback")(o);
       return (
-        e[3] !== a ? ((u = [a]), (e[3] = a), (e[4] = u)) : (u = e[4]),
-        r("useWAWebAsync")(s, u),
-        a
+        r("useWAWebAsync")(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            if (
+              !(navigator === void 0 || !navigator.permissions || t != null)
+            ) {
+              var e = function () {
+                  a(null);
+                },
+                n = yield navigator.permissions.query({ name: "camera" });
+              return (
+                a(n.state),
+                (n.onchange = e),
+                function () {
+                  n.onchange = null;
+                }
+              );
+            }
+          }),
+          [t],
+        ),
+        t
       );
     }
     l.default = $;

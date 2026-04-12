@@ -14,7 +14,6 @@ __d(
     "WAWebModalManager",
     "WAWebSmbUpsellBusinessInfoWithUpsellModal.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -40,89 +39,59 @@ __d(
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.contact,
-        a = e.onClick,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = u.jsx(o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon, {
-            iconXstyle: c.bannerSvg,
-            displayInline: !0,
-          })),
-          (t[0] = i))
-        : (i = t[0]);
-      var l = i,
-        s;
-      t[1] !== n ? ((s = d(n)), (t[1] = n), (t[2] = s)) : (s = t[2]);
-      var m;
-      return (
-        t[3] !== a || t[4] !== s
-          ? ((m = u.jsx(r("WAWebDrawerBlock.react"), {
-              testid: void 0,
-              xstyle: c.businessTitle,
-              onClick: a,
-              multiline: !0,
-              side: l,
-              children: s,
-            })),
-            (t[3] = a),
-            (t[4] = s),
-            (t[5] = m))
-          : (m = t[5]),
-        m
-      );
+      var t = e.contact,
+        n = e.onClick,
+        a = u.jsx(o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon, {
+          iconXstyle: c.bannerSvg,
+          displayInline: !0,
+        });
+      return u.jsx(r("WAWebDrawerBlock.react"), {
+        testid: void 0,
+        xstyle: c.businessTitle,
+        onClick: n,
+        multiline: !0,
+        side: a,
+        children: d(t),
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.contact,
-        a;
-      t[0] !== n
-        ? ((a = function () {
-            if (
-              o("WAWebBotBaseGating").isBotEnabled() &&
-              o("WAWebContactGetters").getId(n).isBot()
-            ) {
-              if (
-                o("WAWebBotUtils").isBotChannelFBID(
-                  o("WAWebContactGetters").getId(n),
-                )
-              ) {
-                var e = o("WAWebBotUtils").isHatchBot(
-                  o("WAWebContactGetters").getId(n),
-                )
-                  ? o("WAWebFaqUrl").getHatchLearnMoreUrl()
-                  : o("WAWebFaqUrl").getManusLearnMoreUrl();
-                o("WAWebExternalLink.react").openExternalLink(e);
-              } else
-                o("WAWebModalManager").ModalManager.open(
-                  u.jsx(r("WAWebBotLearnMore.react"), { fromInvoke: !1 }),
-                );
-              return;
-            }
+      var t = e.contact;
+      function n() {
+        if (
+          o("WAWebBotBaseGating").isBotEnabled() &&
+          o("WAWebContactGetters").getId(t).isBot()
+        ) {
+          if (
+            o("WAWebBotUtils").isBotChannelFBID(
+              o("WAWebContactGetters").getId(t),
+            )
+          ) {
+            var e = o("WAWebBotUtils").isHatchBot(
+              o("WAWebContactGetters").getId(t),
+            )
+              ? o("WAWebFaqUrl").getHatchLearnMoreUrl()
+              : o("WAWebFaqUrl").getManusLearnMoreUrl();
+            o("WAWebExternalLink.react").openExternalLink(e);
+          } else
             o("WAWebModalManager").ModalManager.open(
-              u.jsx(r("WAWebSmbUpsellBusinessInfoWithUpsellModal.react"), {
-                contact: n,
-              }),
+              u.jsx(r("WAWebBotLearnMore.react"), { fromInvoke: !1 }),
             );
+          return;
+        }
+        o("WAWebModalManager").ModalManager.open(
+          u.jsx(r("WAWebSmbUpsellBusinessInfoWithUpsellModal.react"), {
+            contact: t,
           }),
-          (t[0] = n),
-          (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      if (t[2] !== n || t[3] !== i) {
-        var s = u.jsx(m, { contact: n, onClick: i });
-        ((l = u.jsx(r("WAWebDrawerSection.react"), {
-          xstyle: c.businessAccount,
-          children: s,
-        })),
-          (t[2] = n),
-          (t[3] = i),
-          (t[4] = l));
-      } else l = t[4];
-      return l;
+        );
+      }
+      var a = u.jsx(m, { contact: t, onClick: n });
+      return u.jsx(r("WAWebDrawerSection.react"), {
+        xstyle: c.businessAccount,
+        children: a,
+      });
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

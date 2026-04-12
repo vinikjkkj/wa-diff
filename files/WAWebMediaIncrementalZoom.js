@@ -12,7 +12,6 @@ __d(
     "WDSMenuBarItem.react",
     "justknobx",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebLegacyZoom",
     "useWAWebModelValues",
@@ -149,105 +148,60 @@ __d(
         return { scale: d, centerX: _, centerY: f, zoomLevel: m };
       };
     function A(e) {
-      var t = o("react-compiler-runtime").c(19),
-        n = h(0),
-        r = y(!1),
-        a = r[0],
-        i = r[1],
-        l = y(1),
-        s = l[0],
-        u = l[1],
-        d = y(1),
-        m = d[0],
-        p = d[1],
-        _ = y(!1),
-        f = _[0],
-        g = _[1],
+      var t = h(0),
+        n = y(!1),
+        r = n[0],
+        a = n[1],
+        i = y(1),
+        l = i[0],
+        s = i[1],
+        u = y(1),
+        d = u[0],
+        m = u[1],
+        p = y(!1),
+        _ = p[0],
+        f = p[1],
         C = h(null),
-        b;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = ["type"]), (t[0] = b))
-        : (b = t[0]);
-      var v = o("useWAWebModelValues").useModelValues(e.activeMsg.mediaData, b),
-        S;
-      t[1] !== v.type
-        ? ((S =
-            v.type === "image" &&
-            o("WAWebABProps").getABPropConfigValue(
-              "hybrid_incremental_zooming_simple_enabled",
-            )),
-          (t[1] = v.type),
-          (t[2] = S))
-        : (S = t[2]);
-      var R = S,
-        L;
-      t[3] !== e.activeMsg
-        ? ((L = o("WAWebMsgGetters").getId(e.activeMsg).toString()),
-          (t[3] = e.activeMsg),
-          (t[4] = L))
-        : (L = t[4]);
-      var E, k, I, T;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = function () {
-            return n.current;
-          }),
-          (k = function (t) {
-            n.current = t;
-          }),
-          (I = function () {
-            return C.current;
-          }),
-          (T = function (t) {
-            C.current = t;
-          }),
-          (t[5] = E),
-          (t[6] = k),
-          (t[7] = I),
-          (t[8] = T))
-        : ((E = t[5]), (k = t[6]), (I = t[7]), (T = t[8]));
-      var D;
-      t[9] !== s ||
-      t[10] !== m ||
-      t[11] !== f ||
-      t[12] !== R ||
-      t[13] !== a ||
-      t[14] !== L
-        ? ((D = {
-            msgId: L,
-            isZoomedIn: a,
-            setIsZoomedIn: i,
-            isEnabled: R,
-            currentImageScale: s,
-            setCurrentImageScale: u,
-            currentZoomLevel: m,
-            setCurrentZoomLevel: p,
-            hasOverflownThumbnailSection: f,
-            setHasOverflownThumbnailSection: g,
-            getCaptionHeight: E,
-            setCaptionHeight: k,
-            getHandler: I,
-            setHandler: T,
-          }),
-          (t[9] = s),
-          (t[10] = m),
-          (t[11] = f),
-          (t[12] = R),
-          (t[13] = a),
-          (t[14] = L),
-          (t[15] = D))
-        : (D = t[15]);
-      var x = D,
-        $;
-      return (
-        t[16] !== e.children || t[17] !== x
-          ? (($ = c.jsx(F.Provider, { value: x, children: e.children })),
-            (t[16] = e.children),
-            (t[17] = x),
-            (t[18] = $))
-          : ($ = t[18]),
-        $
-      );
+        b = o("useWAWebModelValues").useModelValues(e.activeMsg.mediaData, [
+          "type",
+        ]),
+        v =
+          b.type === "image" &&
+          o("WAWebABProps").getABPropConfigValue(
+            "hybrid_incremental_zooming_simple_enabled",
+          ),
+        S = g(
+          function () {
+            return {
+              msgId: o("WAWebMsgGetters").getId(e.activeMsg).toString(),
+              isZoomedIn: r,
+              setIsZoomedIn: a,
+              isEnabled: v,
+              currentImageScale: l,
+              setCurrentImageScale: s,
+              currentZoomLevel: d,
+              setCurrentZoomLevel: m,
+              hasOverflownThumbnailSection: _,
+              setHasOverflownThumbnailSection: f,
+              getCaptionHeight: function () {
+                return t.current;
+              },
+              setCaptionHeight: function (n) {
+                t.current = n;
+              },
+              getHandler: function () {
+                return C.current;
+              },
+              setHandler: function (t) {
+                C.current = t;
+              },
+            };
+          },
+          [l, d, _, v, r, e.activeMsg],
+        );
+      return c.jsx(F.Provider, { value: S, children: e.children });
     }
+    A.displayName = A.name + " [from " + i.id + "]";
     var F = c.createContext({
       msgId: "",
       isEnabled: !1,
@@ -694,61 +648,31 @@ __d(
     O.displayName = O.name + " [from " + i.id + "]";
     var B = n("$InternalEnum")({ IN: "in", OUT: "out" });
     function W(e) {
-      var t = o("react-compiler-runtime").c(14),
-        n = e.direction,
-        a = p(F),
-        i =
-          (n === B.OUT && a.currentZoomLevel === D) ||
-          (n === B.IN && a.currentZoomLevel === x),
-        l;
-      t[0] !== n || t[1] !== i
-        ? ((l = q(n, i)), (t[0] = n), (t[1] = i), (t[2] = l))
-        : (l = t[2]);
-      var u = l,
-        d;
-      t[3] !== n
-        ? ((d =
-            n === B.IN ? s._(/*BTDS*/ "Zoom in") : s._(/*BTDS*/ "Zoom out")),
-          (t[3] = n),
-          (t[4] = d))
-        : (d = t[4]);
-      var m = d,
-        _ = n === B.IN ? "media-zoom-in-button" : "media-zoom-out-button",
-        f;
-      t[5] !== n || t[6] !== a
-        ? ((f = function () {
-            var e = a.getHandler();
-            if (e) {
-              var t =
-                n === B.IN ? a.currentZoomLevel + 1 : a.currentZoomLevel - 1;
-              e.performZoom(t);
-            }
-          }),
-          (t[5] = n),
-          (t[6] = a),
-          (t[7] = f))
-        : (f = t[7]);
-      var g = f,
-        h;
-      return (
-        t[8] !== u || t[9] !== i || t[10] !== g || t[11] !== _ || t[12] !== m
-          ? ((h = c.jsx(r("WDSMenuBarItem.react"), {
-              disabled: i,
-              icon: u,
-              title: m,
-              onClick: g,
-              testid: void 0,
-            })),
-            (t[8] = u),
-            (t[9] = i),
-            (t[10] = g),
-            (t[11] = _),
-            (t[12] = m),
-            (t[13] = h))
-          : (h = t[13]),
-        h
-      );
+      var t = e.direction,
+        n = p(F),
+        o =
+          (t === B.OUT && n.currentZoomLevel === D) ||
+          (t === B.IN && n.currentZoomLevel === x),
+        a = q(t, o),
+        i = t === B.IN ? s._(/*BTDS*/ "Zoom in") : s._(/*BTDS*/ "Zoom out"),
+        l = t === B.IN ? "media-zoom-in-button" : "media-zoom-out-button",
+        u = function () {
+          var e = n.getHandler();
+          if (e) {
+            var r =
+              t === B.IN ? n.currentZoomLevel + 1 : n.currentZoomLevel - 1;
+            e.performZoom(r);
+          }
+        };
+      return c.jsx(r("WDSMenuBarItem.react"), {
+        disabled: o,
+        icon: a,
+        title: i,
+        onClick: u,
+        testid: void 0,
+      });
     }
+    W.displayName = W.name + " [from " + i.id + "]";
     function q(e, t) {
       var n = { iconXstyle: [t ? S.zoomIconDisabled : null] },
         o =

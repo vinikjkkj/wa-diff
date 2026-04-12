@@ -21,7 +21,6 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "useWAWebAsyncSaving",
     "useWAWebBeforeUnload",
     "useWAWebOnScreen",
@@ -107,98 +106,65 @@ __d(
         },
       };
     function C(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.contact,
-        r = e.noteAsyncState,
-        a;
-      if (t[0] !== n.id) {
-        var i, l;
-        ((a = o("WAJids").validateChatJid(
-          (i = (l = n.id) == null ? void 0 : l.toJid()) != null ? i : "",
-        )),
-          (t[0] = n.id),
-          (t[1] = a));
-      } else a = t[1];
-      var s = a;
-      if (s == null) return null;
-      var c;
-      return (
-        t[2] !== s || t[3] !== n || t[4] !== r
-          ? ((c = u.jsx(b, { contact: n, chatJid: s, noteAsyncState: r })),
-            (t[2] = s),
-            (t[3] = n),
-            (t[4] = r),
-            (t[5] = c))
-          : (c = t[5]),
-        c
-      );
+      var t,
+        n,
+        r = e.contact,
+        a = e.noteAsyncState,
+        i = o("WAJids").validateChatJid(
+          (t = (n = r.id) == null ? void 0 : n.toJid()) != null ? t : "",
+        );
+      return i == null
+        ? null
+        : u.jsx(b, { contact: r, chatJid: i, noteAsyncState: a });
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
       var t,
-        a = o("react-compiler-runtime").c(12),
-        i = e.chatJid,
-        l = e.contact,
-        s = e.noteAsyncState,
-        c = s.value,
-        d = (t = c == null ? void 0 : c.content) != null ? t : "",
-        m;
-      a[0] !== i || a[1] !== l || a[2] !== c || a[3] !== d
-        ? ((m = (function () {
+        a = e.chatJid,
+        i = e.contact,
+        l = e.noteAsyncState,
+        s = l.value,
+        c = (t = s == null ? void 0 : s.content) != null ? t : "",
+        m = d(
+          (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                if (e !== d)
+                if (e !== c)
                   return (
-                    o("WAWebNotesLogEvents").logNoteSaved(l, {
-                      content_existed: d !== "",
+                    o("WAWebNotesLogEvents").logNoteSaved(i, {
+                      content_existed: c !== "",
                       has_content: e !== "",
                       length: e.length,
-                      previous_length: d.length,
+                      previous_length: c.length,
                     }),
-                    c == null
-                      ? o("WAWebNoteAction").noteAddAction("unstructured", i, e)
+                    s == null
+                      ? o("WAWebNoteAction").noteAddAction("unstructured", a, e)
                       : o("WAWebNoteAction").noteEditAction(
-                          c.id,
+                          s.id,
                           "unstructured",
-                          i,
+                          a,
                           e,
-                          c.createdAt,
+                          s.createdAt,
                         )
                   );
               },
             );
-            return function (n) {
+            return function (t) {
               return e.apply(this, arguments);
             };
-          })()),
-          (a[0] = i),
-          (a[1] = l),
-          (a[2] = c),
-          (a[3] = d),
-          (a[4] = m))
-        : (m = a[4]);
-      var p = m,
-        _ = r("useWAWebAsyncSaving")(p),
-        f = _[1];
-      if (s.error != null || s.loading) return null;
-      var g;
-      a[5] !== l || a[6] !== d || a[7] !== f
-        ? ((g = u.jsx(v, { contact: l, noteContent: d, saveNote: f })),
-          (a[5] = l),
-          (a[6] = d),
-          (a[7] = f),
-          (a[8] = g))
-        : (g = a[8]);
-      var h;
-      return (
-        a[9] !== l || a[10] !== g
-          ? ((h = u.jsx(R, { contact: l, children: g })),
-            (a[9] = l),
-            (a[10] = g),
-            (a[11] = h))
-          : (h = a[11]),
-        h
-      );
+          })(),
+          [a, i, s, c],
+        ),
+        p = r("useWAWebAsyncSaving")(m),
+        _ = p[1];
+      return l.error != null || l.loading
+        ? null
+        : u.jsx(R, {
+            contact: i,
+            children: u.jsx(v, { contact: i, noteContent: c, saveNote: _ }),
+          });
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
       var t = e.contact,
         n = e.noteContent,
@@ -447,68 +413,44 @@ __d(
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S(e, t) {
-      var n = o("react-compiler-runtime").c(5),
-        r = _(!1),
-        a,
-        i;
-      (n[0] !== t
-        ? ((a = function () {
-            t && (r.current = !1);
-          }),
-          (i = [t]),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i))
-        : ((a = n[1]), (i = n[2])),
-        m(a, i));
-      var l;
-      n[3] !== e
-        ? ((l = function (n) {
-            r.current ||
-              (o("WAWebNotesLogEvents").logStartedTypingNote(e, {
-                content_existed: n,
-              }),
-              (r.current = !0));
-          }),
-          (n[3] = e),
-          (n[4] = l))
-        : (l = n[4]);
-      var s = l;
-      return s;
+      var n = _(!1);
+      m(
+        function () {
+          t && (n.current = !1);
+        },
+        [t],
+      );
+      var r = d(
+        function (t) {
+          n.current ||
+            (o("WAWebNotesLogEvents").logStartedTypingNote(e, {
+              content_existed: t,
+            }),
+            (n.current = !0));
+        },
+        [e],
+      );
+      return r;
     }
     function R(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.children,
-        a = e.contact,
-        i = _(!1),
-        l = _(),
-        s = r("useWAWebOnScreen")(l, r("WAWebNoop")),
-        c,
-        d;
-      (t[0] !== a || t[1] !== s
-        ? ((c = function () {
-            s &&
-              !i.current &&
-              (o("WAWebNotesLogEvents").logNoteViewed(a), (i.current = !0));
-          }),
-          (d = [a, s]),
-          (t[0] = a),
-          (t[1] = s),
-          (t[2] = c),
-          (t[3] = d))
-        : ((c = t[2]), (d = t[3])),
-        m(c, d));
-      var p;
+      var t = e.children,
+        n = e.contact,
+        a = _(!1),
+        i = _(),
+        l = r("useWAWebOnScreen")(i, r("WAWebNoop"));
       return (
-        t[4] !== n
-          ? ((p = u.jsx("span", { ref: l, children: n })),
-            (t[4] = n),
-            (t[5] = p))
-          : (p = t[5]),
-        p
+        m(
+          function () {
+            l &&
+              !a.current &&
+              (o("WAWebNotesLogEvents").logNoteViewed(n), (a.current = !0));
+          },
+          [n, l],
+        ),
+        u.jsx("span", { ref: i, children: t })
       );
     }
-    l.default = C;
+    ((R.displayName = R.name + " [from " + i.id + "]"), (l.default = C));
   },
   226,
 );

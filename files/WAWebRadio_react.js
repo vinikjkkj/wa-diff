@@ -6,7 +6,6 @@ __d(
     "WAWebText.react",
     "WDSBaseRadio.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -133,95 +132,50 @@ __d(
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = o("react-compiler-runtime").c(20),
-        n = e.ariaLabel,
-        r = e.checkedValue,
-        a = e.name,
-        i = e.onChange,
-        l = e.options,
-        s = e.tabIndex,
-        u = e.testid,
-        d = e.theme,
-        m = !r,
-        p;
-      t[0] !== i
-        ? ((p = function (t, n) {
-            (t != null && t(n.value), i != null && i(n.value));
-          }),
-          (t[0] = i),
-          (t[1] = p))
-        : (p = t[1]);
-      var f = p,
-        g;
-      if (
-        t[2] !== r ||
-        t[3] !== f ||
-        t[4] !== a ||
-        t[5] !== m ||
-        t[6] !== l ||
-        t[7] !== d
-      ) {
-        var h;
-        (t[9] !== r || t[10] !== f || t[11] !== a || t[12] !== m || t[13] !== d
-          ? ((h = function (t, n) {
-              var e = r === t.value;
-              return c.jsx(
-                _,
-                {
-                  value: t.value,
-                  label: t.label,
-                  name: a,
-                  checked: e,
-                  tabIndex: e || (m && n === 0) ? 0 : -1,
-                  secondaryLabel: t.secondaryLabel,
-                  disabled: t.disabled === !0 && !e,
-                  onDisabledClick: t.onDisabledClick,
-                  testid: void 0,
-                  xstyle: t.xstyle,
-                  onChange: function () {
-                    return f(t.onChange, t);
-                  },
-                  theme: d,
-                },
-                t.value,
-              );
-            }),
-            (t[9] = r),
-            (t[10] = f),
-            (t[11] = a),
-            (t[12] = m),
-            (t[13] = d),
-            (t[14] = h))
-          : (h = t[14]),
-          (g = l.map(h)),
-          (t[2] = r),
-          (t[3] = f),
-          (t[4] = a),
-          (t[5] = m),
-          (t[6] = l),
-          (t[7] = d),
-          (t[8] = g));
-      } else g = t[8];
-      var y;
-      return (
-        t[15] !== n || t[16] !== g || t[17] !== s || t[18] !== u
-          ? ((y = c.jsx(o("WAWebFlex.react").FlexColumn, {
+      var t = e.ariaLabel,
+        n = e.checkedValue,
+        r = e.name,
+        a = e.onChange,
+        i = e.options,
+        l = e.tabIndex,
+        s = e.testid,
+        u = e.theme,
+        d = !n,
+        m = function (t, n) {
+          (t != null && t(n.value), a != null && a(n.value));
+        };
+      return c.jsx(o("WAWebFlex.react").FlexColumn, {
+        testid: void 0,
+        role: "radiogroup",
+        "aria-label": t,
+        tabIndex: l,
+        children: i.map(function (e, t) {
+          var o = n === e.value;
+          return c.jsx(
+            _,
+            {
+              value: e.value,
+              label: e.label,
+              name: r,
+              checked: o,
+              tabIndex: o || (d && t === 0) ? 0 : -1,
+              secondaryLabel: e.secondaryLabel,
+              disabled: e.disabled === !0 && !o,
+              onDisabledClick: e.onDisabledClick,
               testid: void 0,
-              role: "radiogroup",
-              "aria-label": n,
-              tabIndex: s,
-              children: g,
-            })),
-            (t[15] = n),
-            (t[16] = g),
-            (t[17] = s),
-            (t[18] = u),
-            (t[19] = y))
-          : (y = t[19]),
-        y
-      );
+              xstyle: e.xstyle,
+              onChange: function () {
+                return m(e.onChange, e);
+              },
+              theme: u,
+            },
+            e.value,
+          );
+        }),
+      });
     }
-    ((l.RadioWithLabelThemeEnum = p),
+    ((f.displayName = f.name + " [from " + i.id + "]"),
+      (l.RadioWithLabelThemeEnum = p),
       (l.RadioWithLabel = _),
       (l.RadioGroup = f));
   },

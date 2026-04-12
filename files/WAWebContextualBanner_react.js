@@ -10,7 +10,6 @@ __d(
     "WAWebXIcon.react",
     "WDSButton.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,36 +59,20 @@ __d(
         },
       };
     function p(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.name;
-      switch (n) {
-        case "experiment": {
-          var r;
-          return (
-            t[0] === Symbol.for("react.memo_cache_sentinel")
-              ? ((r = c.jsx(o("WAWebExperimentIcon.react").ExperimentIcon, {
-                  width: d,
-                })),
-                (t[0] = r))
-              : (r = t[0]),
-            r
-          );
-        }
-        default: {
-          var a;
-          return (
-            t[1] === Symbol.for("react.memo_cache_sentinel")
-              ? ((a = c.jsx(o("WAWebIcLightbulbIcon.react").IcLightbulbIcon, {
-                  width: d,
-                  height: d,
-                })),
-                (t[1] = a))
-              : (a = t[1]),
-            a
-          );
-        }
+      var t = e.name;
+      switch (t) {
+        case "experiment":
+          return c.jsx(o("WAWebExperimentIcon.react").ExperimentIcon, {
+            width: d,
+          });
+        default:
+          return c.jsx(o("WAWebIcLightbulbIcon.react").IcLightbulbIcon, {
+            width: d,
+            height: d,
+          });
       }
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
       var n = t.ref,
         a = babelHelpers.objectWithoutPropertiesLoose(t, e),

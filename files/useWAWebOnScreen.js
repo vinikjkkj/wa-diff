@@ -1,6 +1,6 @@
 __d(
   "useWAWebOnScreen",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -15,40 +15,29 @@ __d(
               (e.intersectionRect.height > 0 || e.intersectionRect.width > 0));
     }
     function p(e, t) {
-      var n = o("react-compiler-runtime").c(5),
-        r = d(!1),
-        a = r[0],
-        i = r[1],
-        l;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = new IntersectionObserver(function (e) {
+      var n = d(!1),
+        r = n[0],
+        o = n[1],
+        a = c(function () {
+          return new IntersectionObserver(function (e) {
             var t = e[0];
-            return i(m(t));
-          })),
-          (n[0] = l))
-        : (l = n[0]);
-      var s = l,
-        c,
-        p;
+            return o(m(t));
+          });
+        }, []);
       return (
-        n[1] !== t || n[2] !== e
-          ? ((c = function () {
-              if (!(e == null || e.current == null))
-                return (
-                  s.observe(e.current),
-                  function () {
-                    (t(), s.disconnect());
-                  }
-                );
-            }),
-            (p = [e, s, t]),
-            (n[1] = t),
-            (n[2] = e),
-            (n[3] = c),
-            (n[4] = p))
-          : ((c = n[3]), (p = n[4])),
-        u(c, p),
-        a
+        u(
+          function () {
+            if (!(e == null || e.current == null))
+              return (
+                a.observe(e.current),
+                function () {
+                  (t(), a.disconnect());
+                }
+              );
+          },
+          [e, a, t],
+        ),
+        r
       );
     }
     l.default = p;

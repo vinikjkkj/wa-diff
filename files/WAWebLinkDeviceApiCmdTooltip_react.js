@@ -1,14 +1,6 @@
 __d(
   "WAWebLinkDeviceApiCmdTooltip.react",
-  [
-    "fbt",
-    "WAWebApi",
-    "WAWebFbtAppName",
-    "WAWebUISpacing",
-    "react",
-    "react-compiler-runtime",
-    "stylex",
-  ],
+  ["fbt", "WAWebApi", "WAWebFbtAppName", "WAWebUISpacing", "react", "stylex"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
@@ -52,96 +44,54 @@ __d(
         },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(4),
-        a,
-        i;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = {
-            className:
-              "x10l6tqk x10w3d4m xbudbmw xvue9z xo5owp6 x1plvlek xryxfnj x2b8uid",
-          }),
-          (i = (e || (e = r("stylex"))).props(
-            d.tooltip,
-            o("WAWebUISpacing").uiPadding.vert15,
-            o("WAWebUISpacing").uiPadding.horiz20,
-          )),
-          (n[0] = a),
-          (n[1] = i))
-        : ((a = n[0]), (i = n[1]));
-      var l;
-      return (
-        n[2] !== t.tip
-          ? ((l = c.jsx(
-              "div",
-              babelHelpers.extends({}, a, {
-                children: c.jsx(
-                  "div",
-                  babelHelpers.extends({}, i, { children: t.tip }),
-                ),
-              }),
-            )),
-            (n[2] = t.tip),
-            (n[3] = l))
-          : (l = n[3]),
-        l
-      );
+      return c.jsx("div", {
+        className:
+          "x10l6tqk x10w3d4m xbudbmw xvue9z xo5owp6 x1plvlek xryxfnj x2b8uid",
+        children: c.jsx(
+          "div",
+          babelHelpers.extends(
+            {},
+            (e || (e = r("stylex"))).props(
+              d.tooltip,
+              o("WAWebUISpacing").uiPadding.vert15,
+              o("WAWebUISpacing").uiPadding.horiz20,
+            ),
+            { children: t.tip },
+          ),
+        ),
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.apiCmd;
-      if (n)
-        switch (n.resultType) {
-          case o("WAWebApi").APICmd.GROUP_INVITE: {
-            var r;
-            return (
-              t[0] === Symbol.for("react.memo_cache_sentinel")
-                ? ((r = c.jsx(m, {
-                    tip: s._(
-                      /*BTDS*/ "Log into {=m1} to join this WhatsApp group",
-                      [
-                        s._implicitParam(
-                          "=m1",
-                          c.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
-                            children: s._(/*BTDS*/ ""),
-                          }),
-                        ),
-                      ],
-                    ),
-                  })),
-                  (t[0] = r))
-                : (r = t[0]),
-              r
-            );
-          }
-          case o("WAWebApi").APICmd.MSG_SEND: {
-            var a;
-            return (
-              t[1] === Symbol.for("react.memo_cache_sentinel")
-                ? ((a = c.jsx(m, {
-                    tip: s._(/*BTDS*/ "Log into {=m1} to share", [
-                      s._implicitParam(
-                        "=m1",
-                        c.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
-                          children: s._(/*BTDS*/ ""),
-                        }),
-                      ),
-                    ]),
-                  })),
-                  (t[1] = a))
-                : (a = t[1]),
-              a
-            );
-          }
+      var t = e.apiCmd;
+      if (t)
+        switch (t.resultType) {
+          case o("WAWebApi").APICmd.GROUP_INVITE:
+            return c.jsx(m, {
+              tip: s._(/*BTDS*/ "Log into {=m1} to join this WhatsApp group", [
+                s._implicitParam(
+                  "=m1",
+                  c.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]),
+            });
+          case o("WAWebApi").APICmd.MSG_SEND:
+            return c.jsx(m, {
+              tip: s._(/*BTDS*/ "Log into {=m1} to share", [
+                s._implicitParam(
+                  "=m1",
+                  c.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]),
+            });
         }
-      var i;
-      return (
-        t[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((i = c.jsx(c.Fragment, {})), (t[2] = i))
-          : (i = t[2]),
-        i
-      );
+      return c.jsx(c.Fragment, {});
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

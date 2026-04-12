@@ -9,7 +9,6 @@ __d(
     "WAWebUISpacing",
     "WDSFocusStateStyles",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebIsKeyboardUser",
     "useWAWebStaticButtonA11y",
@@ -107,258 +106,128 @@ __d(
         },
       };
     function p(e) {
-      var t = o("react-compiler-runtime").c(22),
-        n = e.direction,
-        r = e.theme,
-        a;
-      if (e.placeholder === !0) {
-        var i;
-        (t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((i = u.jsx("div", {
-              className:
-                "x78zum5 x1iyjqo2 x6s0dn4 xl56j7k x1yrsyyn x6ikm8r x10wlt62 x1f6kntn xfjzk2p x1fc57z9 xo1mcw5 x2b8uid xlyipyv xuxw1ft xh8yej3 xa0aww2",
-              children: "\u200B",
-            })),
-            (t[0] = i))
-          : (i = t[0]),
-          (a = i));
-      } else {
-        var l;
-        (t[1] !== e
-          ? ((l = e.items.map(function (t, n) {
-              return u.createElement(
-                _,
-                babelHelpers.extends({}, e, { index: n, key: n }),
-              );
-            })),
-            (t[1] = e),
-            (t[2] = l))
-          : (l = t[2]),
-          (a = l));
-      }
-      var s = r === d.POLL_RECEIVER || r === d.POLL_SENDER,
-        c = r === d.EVENT_CREATION,
-        p = e.direction || "horizontal",
-        f;
-      t[3] !== r
-        ? ((f =
-            r === d.STICKER_PACK
-              ? [m.stickerPackContainer, o("WAWebUISpacing").uiPadding.bottom4]
-              : m.container),
-          (t[3] = r),
-          (t[4] = f))
-        : (f = t[4]);
-      var g;
-      t[5] !== c
-        ? ((g = c
+      var t = e.direction,
+        n = e.theme,
+        r;
+      e.placeholder === !0
+        ? (r = u.jsx("div", {
+            className:
+              "x78zum5 x1iyjqo2 x6s0dn4 xl56j7k x1yrsyyn x6ikm8r x10wlt62 x1f6kntn xfjzk2p x1fc57z9 xo1mcw5 x2b8uid xlyipyv xuxw1ft xh8yej3 xa0aww2",
+            children: "\u200B",
+          }))
+        : (r = e.items.map(function (t, n) {
+            return u.createElement(
+              _,
+              babelHelpers.extends({}, e, { index: n, key: n }),
+            );
+          }));
+      var a = n === d.POLL_RECEIVER || n === d.POLL_SENDER,
+        i = n === d.EVENT_CREATION;
+      return u.jsx(o("WAWebFlex.react").FlexContainer, {
+        direction: e.direction || "horizontal",
+        xstyle: [
+          n === d.STICKER_PACK
+            ? [m.stickerPackContainer, o("WAWebUISpacing").uiPadding.bottom4]
+            : m.container,
+          i
             ? [
                 o("WAWebUISpacing").uiMargin.start0,
                 o("WAWebUISpacing").uiMargin.end0,
                 o("WAWebUISpacing").uiMargin.top5,
               ]
-            : o("WAWebUISpacing").uiMargin.top10),
-          (t[5] = c),
-          (t[6] = g))
-        : (g = t[6]);
-      var h = s && m.pollActionsContainer,
-        y = r === d.NO_DIVIDER && n !== "vertical" && m.noDividerContainer,
-        C = s && m.containerPolls,
-        b;
-      t[7] !== r
-        ? ((b = r === d.FORWARDED_NEWSLETTER && [
+            : o("WAWebUISpacing").uiMargin.top10,
+          a && m.pollActionsContainer,
+          n === d.NO_DIVIDER && t !== "vertical" && m.noDividerContainer,
+          a && m.containerPolls,
+          n === d.FORWARDED_NEWSLETTER && [
             o("WAWebUISpacing").uiMargin.horiz0,
             o("WAWebUISpacing").uiMargin.top3,
-          ]),
-          (t[7] = r),
-          (t[8] = b))
-        : (b = t[8]);
-      var v = r === d.ALBUM && m.containerAlbum,
-        S = r === d.MEDIA_DOCUMENT && m.mediaDocumentContainer,
-        R;
-      t[9] !== f ||
-      t[10] !== g ||
-      t[11] !== h ||
-      t[12] !== y ||
-      t[13] !== C ||
-      t[14] !== b ||
-      t[15] !== v ||
-      t[16] !== S
-        ? ((R = [f, g, h, y, C, b, v, S]),
-          (t[9] = f),
-          (t[10] = g),
-          (t[11] = h),
-          (t[12] = y),
-          (t[13] = C),
-          (t[14] = b),
-          (t[15] = v),
-          (t[16] = S),
-          (t[17] = R))
-        : (R = t[17]);
-      var L;
-      return (
-        t[18] !== a || t[19] !== p || t[20] !== R
-          ? ((L = u.jsx(o("WAWebFlex.react").FlexContainer, {
-              direction: p,
-              xstyle: R,
-              align: "center",
-              justify: "evenly",
-              children: a,
-            })),
-            (t[18] = a),
-            (t[19] = p),
-            (t[20] = R),
-            (t[21] = L))
-          : (L = t[21]),
-        L
-      );
+          ],
+          n === d.ALBUM && m.containerAlbum,
+          n === d.MEDIA_DOCUMENT && m.mediaDocumentContainer,
+        ],
+        align: "center",
+        justify: "evenly",
+        children: r,
+      });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
       var n,
-        a = o("react-compiler-runtime").c(30),
-        i = t.direction,
-        l = t.index,
-        s = t.items,
-        p = t.theme,
-        _ = s[l],
-        g = r("useWAWebIsKeyboardUser")(),
-        h = g.isKeyboardUser,
-        y = c(!1),
-        C = y[0],
-        b = y[1],
-        v;
-      a[0] !== _.disabled
-        ? ((v = { disabled: _.disabled }), (a[0] = _.disabled), (a[1] = v))
-        : (v = a[1]);
-      var S = r("useWAWebStaticButtonA11y")(
-          _.disabled === !0 ? void 0 : _.onClick,
-          v,
+        a = t.direction,
+        i = t.index,
+        l = t.items,
+        s = t.theme,
+        p = l[i],
+        _ = r("useWAWebIsKeyboardUser")(),
+        g = _.isKeyboardUser,
+        h = c(!1),
+        y = h[0],
+        C = h[1],
+        b = r("useWAWebStaticButtonA11y")(
+          p.disabled === !0 ? void 0 : p.onClick,
+          { disabled: p.disabled },
         ),
-        R = S[0],
-        L = S[1],
-        E = "";
-      _.disabled !== !0 &&
+        v = b[0],
+        S = b[1],
+        R = "";
+      p.disabled !== !0 &&
         !o("WAWebMiscGatingUtils").messageListA11yRedesignEnabled() &&
-        (E = o(
+        (R = o(
           "WAWebKeyboardListHotKeys.react",
         ).LIST_FOCUSABLE_ITEM_CLASS_NAME);
-      var k;
-      a[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = function (t) {
-            b(!0);
-          }),
-          (a[2] = k))
-        : (k = a[2]);
-      var I = k,
-        T;
-      a[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = function (t) {
-            b(!1);
-          }),
-          (a[3] = T))
-        : (T = a[3]);
-      var D = T,
-        x = p === d.POLL_RECEIVER || p === d.POLL_SENDER,
-        $ = _.Icon,
-        P = _.testid,
-        N;
-      a[4] !== i ||
-      a[5] !== l ||
-      a[6] !== x ||
-      a[7] !== _.disabled ||
-      a[8] !== _.xstyle ||
-      a[9] !== s.length ||
-      a[10] !== E ||
-      a[11] !== p
-        ? ((N = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            (e || (e = r("stylex")))(
-              m.actionsBtn,
-              x && m.pollActionsItem,
-              p === d.FORWARDED_NEWSLETTER && m.channelActionsItem,
-              _.disabled === !0 && f(p),
-              i === "vertical" && l < s.length - 1 && m.notLastActionBtn,
-              p === d.NO_DIVIDER &&
-                (l === 0 || i !== "vertical") &&
-                m.noDividerItem,
-              _.xstyle,
-            ),
-            E,
-          )),
-          (a[4] = i),
-          (a[5] = l),
-          (a[6] = x),
-          (a[7] = _.disabled),
-          (a[8] = _.xstyle),
-          (a[9] = s.length),
-          (a[10] = E),
-          (a[11] = p),
-          (a[12] = N))
-        : (N = a[12]);
-      var M = (n = _.title) != null ? n : _.label,
-        w =
-          C &&
-          h &&
-          o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocusPersistent,
-        A;
-      a[13] !== w
-        ? ((A = [o("WAWebUISpacing").uiMargin.all4, w]),
-          (a[13] = w),
-          (a[14] = A))
-        : (A = a[14]);
-      var F;
-      a[15] !== $
-        ? ((F = $ ? u.jsx($, { xstyle: m.icon }) : null),
-          (a[15] = $),
-          (a[16] = F))
-        : (F = a[16]);
-      var O;
-      a[17] !== _.label || a[18] !== A || a[19] !== F
-        ? ((O = u.jsxs(o("WAWebFlex.react").FlexRow, {
-            xstyle: A,
-            align: "center",
-            children: [F, _.label],
-          })),
-          (a[17] = _.label),
-          (a[18] = A),
-          (a[19] = F),
-          (a[20] = O))
-        : (O = a[20]);
-      var B;
-      return (
-        a[21] !== L ||
-        a[22] !== R ||
-        a[23] !== l ||
-        a[24] !== _.disabled ||
-        a[25] !== _.testid ||
-        a[26] !== N ||
-        a[27] !== M ||
-        a[28] !== O
-          ? ((B = u.jsx(
-              "button",
-              babelHelpers.extends(
-                {
-                  ref: R,
-                  "data-testid": void 0,
-                  className: N,
-                  "aria-disabled": _.disabled,
-                },
-                L,
-                { onFocus: I, onBlur: D, title: M, children: O },
+      var L = function (t) {
+          C(!0);
+        },
+        E = function (t) {
+          C(!1);
+        },
+        k = s === d.POLL_RECEIVER || s === d.POLL_SENDER,
+        I = p.Icon;
+      return u.jsx(
+        "button",
+        babelHelpers.extends(
+          {
+            ref: v,
+            "data-testid": void 0,
+            className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+              (e || (e = r("stylex")))(
+                m.actionsBtn,
+                k && m.pollActionsItem,
+                s === d.FORWARDED_NEWSLETTER && m.channelActionsItem,
+                p.disabled === !0 && f(s),
+                a === "vertical" && i < l.length - 1 && m.notLastActionBtn,
+                s === d.NO_DIVIDER &&
+                  (i === 0 || a !== "vertical") &&
+                  m.noDividerItem,
+                p.xstyle,
               ),
-              l,
-            )),
-            (a[21] = L),
-            (a[22] = R),
-            (a[23] = l),
-            (a[24] = _.disabled),
-            (a[25] = _.testid),
-            (a[26] = N),
-            (a[27] = M),
-            (a[28] = O),
-            (a[29] = B))
-          : (B = a[29]),
-        B
+              R,
+            ),
+            "aria-disabled": p.disabled,
+          },
+          S,
+          {
+            onFocus: L,
+            onBlur: E,
+            title: (n = p.title) != null ? n : p.label,
+            children: u.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: [
+                o("WAWebUISpacing").uiMargin.all4,
+                y &&
+                  g &&
+                  o("WDSFocusStateStyles").WDSFocusStateStyles
+                    .genericFocusPersistent,
+              ],
+              align: "center",
+              children: [I ? u.jsx(I, { xstyle: m.icon }) : null, p.label],
+            }),
+          },
+        ),
+        i,
       );
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       if (!e) return m.disabledActionsBtn;
       switch (e) {

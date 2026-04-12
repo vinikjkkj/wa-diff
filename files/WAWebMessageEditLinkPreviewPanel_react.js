@@ -6,7 +6,6 @@ __d(
     "WAWebUimUie.react",
     "WAWebXIcon.react",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebDebouncedCallback",
     "useWAWebLinkPreview",
@@ -35,85 +34,56 @@ __d(
         linkPreview: { flexGrow: "x1iyjqo2", flexShrink: "xs83m0k", $$css: !0 },
       };
     function y(e) {
-      var t = o("react-compiler-runtime").c(15),
-        n = e.linkPreview,
-        a = e.onOmit,
-        i = e.ref,
-        l = m(),
-        u = r("useWAWebStaticButtonA11y")(a),
-        c = u[0],
-        p = u[1],
-        _;
-      (t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = function () {
-            return {
-              getElement: function () {
-                return l.current;
-              },
-            };
-          }),
-          (t[0] = _))
-        : (_ = t[0]),
-        d(i, _));
-      var f = n.description,
-        g = n.inviteGrpType,
-        y = n.matchedText,
-        C = n.thumbnail,
-        b = n.title,
-        v;
-      t[1] !== f || t[2] !== g || t[3] !== y || t[4] !== C || t[5] !== b
-        ? ((v = s.jsx(r("WAWebMediaLinkPreview.react"), {
-            title: b,
-            matchedText: y,
-            description: f,
-            thumbnailJpeg: C,
-            inviteGrpType: g,
+      var t = e.linkPreview,
+        n = e.onOmit,
+        a = e.ref,
+        i = m(),
+        l = r("useWAWebStaticButtonA11y")(n),
+        u = l[0],
+        c = l[1];
+      d(a, function () {
+        return {
+          getElement: function () {
+            return i.current;
+          },
+        };
+      });
+      var p = t.description,
+        _ = t.inviteGrpType,
+        f = t.matchedText,
+        g = t.thumbnail,
+        y = t.title;
+      return s.jsxs(o("WAWebFlex.react").FlexRow, {
+        ref: i,
+        xstyle: h.container,
+        align: "center",
+        children: [
+          s.jsx(r("WAWebMediaLinkPreview.react"), {
+            title: y,
+            matchedText: f,
+            description: p,
+            thumbnailJpeg: g,
+            inviteGrpType: _,
             containerXstyle: h.linkPreview,
             compose: !0,
             isLoading: !1,
-          })),
-          (t[1] = f),
-          (t[2] = g),
-          (t[3] = y),
-          (t[4] = C),
-          (t[5] = b),
-          (t[6] = v))
-        : (v = t[6]);
-      var S;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = "x78zum5 x6s0dn4 xl56j7k x1guw455 x16wdlz0 xefazk8 x2lah0s"),
-          (t[7] = S))
-        : (S = t[7]);
-      var R;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = s.jsx(o("WAWebXIcon.react").XIcon, {})), (t[8] = R))
-        : (R = t[8]);
-      var L;
-      t[9] !== p || t[10] !== c
-        ? ((L = s.jsx(
+          }),
+          s.jsx(
             "div",
-            babelHelpers.extends({ ref: c, className: S }, p, { children: R }),
-          )),
-          (t[9] = p),
-          (t[10] = c),
-          (t[11] = L))
-        : (L = t[11]);
-      var E;
-      return (
-        t[12] !== v || t[13] !== L
-          ? ((E = s.jsxs(o("WAWebFlex.react").FlexRow, {
-              ref: l,
-              xstyle: h.container,
-              align: "center",
-              children: [v, L],
-            })),
-            (t[12] = v),
-            (t[13] = L),
-            (t[14] = E))
-          : (E = t[14]),
-        E
-      );
+            babelHelpers.extends(
+              {
+                ref: u,
+                className:
+                  "x78zum5 x6s0dn4 xl56j7k x1guw455 x16wdlz0 xefazk8 x2lah0s",
+              },
+              c,
+              { children: s.jsx(o("WAWebXIcon.react").XIcon, {}) },
+            ),
+          ),
+        ],
+      });
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     var C = "x1pf78ng-B",
       b = "x15cgrjh-B";
     function v(e) {

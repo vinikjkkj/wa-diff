@@ -5,7 +5,6 @@ __d(
     "WAWebTextMutatorComponentUtils",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,56 +21,50 @@ __d(
         },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(4),
-        a = t.children,
+      var n = t.children,
+        a = n === void 0 ? "" : n,
         i = t.inline,
-        l = t.largerIndentation,
-        s = t.quoted,
-        d = a === void 0 ? "" : a,
-        m = i === void 0 ? !1 : i,
-        p = l === void 0 ? !1 : l,
-        _ = s === void 0 ? !1 : s;
-      if (m) return d;
-      var f;
+        l = i === void 0 ? !1 : i,
+        s = t.largerIndentation,
+        d = s === void 0 ? !1 : s,
+        m = t.quoted,
+        p = m === void 0 ? !1 : m;
+      if (l) return a;
+      var _ = [];
       return (
-        n[0] !== d || n[1] !== p || n[2] !== _
-          ? ((f = []),
-            o("WAWebTextMutatorComponentUtils")
-              .groupListChildren(d)
-              .forEach(function (t, n) {
-                t.isList
-                  ? f.push(
-                      u.jsx(
-                        "ol",
-                        babelHelpers.extends(
-                          {},
-                          (e || (e = r("stylex"))).props(
-                            c.ol,
-                            o("WAWebUISpacing").uiMargin.start30,
-                            !_ && o("WAWebUISpacing").uiMargin.vert4,
-                            p
-                              ? o("WAWebUISpacing").uiMargin.start30
-                              : o("WAWebUISpacing").uiMargin.start20,
-                          ),
-                          {
-                            dir: r("WAWebL10N").isRTL() ? "rtl" : "ltr",
-                            children: t.children,
-                          },
-                        ),
-                        n,
+        o("WAWebTextMutatorComponentUtils")
+          .groupListChildren(a)
+          .forEach(function (t, n) {
+            t.isList
+              ? _.push(
+                  u.jsx(
+                    "ol",
+                    babelHelpers.extends(
+                      {},
+                      (e || (e = r("stylex"))).props(
+                        c.ol,
+                        o("WAWebUISpacing").uiMargin.start30,
+                        !p && o("WAWebUISpacing").uiMargin.vert4,
+                        d
+                          ? o("WAWebUISpacing").uiMargin.start30
+                          : o("WAWebUISpacing").uiMargin.start20,
                       ),
-                    )
-                  : f.push(t.children);
-              }),
-            (n[0] = d),
-            (n[1] = p),
-            (n[2] = _),
-            (n[3] = f))
-          : (f = n[3]),
-        f
+                      {
+                        dir: r("WAWebL10N").isRTL() ? "rtl" : "ltr",
+                        children: t.children,
+                      },
+                    ),
+                    n,
+                  ),
+                )
+              : _.push(t.children);
+          }),
+        _
       );
     }
-    ((d.displayName = "NumberedList"), (l.default = d));
+    ((d.displayName = d.name + " [from " + i.id + "]"),
+      (d.displayName = "NumberedList"),
+      (l.default = d));
   },
   98,
 );

@@ -14,7 +14,6 @@ __d(
     "WAWebWamEnumCallFromUi",
     "WAWebWamEnumLobbyEntryPointType",
     "react",
-    "react-compiler-runtime",
     "useWAWebActiveSelection",
   ],
   function (t, n, r, o, a, i, l) {
@@ -56,111 +55,51 @@ __d(
           : null;
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(27),
-        n = e.active,
-        a = e.disableHover,
+      var t = e.active,
+        n = e.disableHover,
+        a = n === void 0 ? !1 : n,
         i = e.favoriteItem,
         l = e.isEditing,
-        d = e.onClick,
+        d = l === void 0 ? !1 : l,
+        m = e.onClick,
         p = e.photoSize,
-        _ = e.testid,
-        f = a === void 0 ? !1 : a,
-        g = l === void 0 ? !1 : l,
-        h = p === void 0 ? 49 : p,
-        y = i.chat,
-        C = i.contact,
-        b = i.wid,
-        v;
-      t[0] !== b ? ((v = b.toString()), (t[0] = b), (t[1] = v)) : (v = t[1]);
-      var S = r("useWAWebActiveSelection")(n, v),
-        R = S[0],
-        L = S[1],
-        E = m,
-        k;
-      t[2] !== d
-        ? ((k = function () {
-            d && d();
+        _ = p === void 0 ? 49 : p,
+        f = e.testid,
+        g = i.chat,
+        h = i.contact,
+        y = i.wid,
+        C = r("useWAWebActiveSelection")(t, y.toString()),
+        b = C[0],
+        v = C[1],
+        S = function (t) {
+          (t.stopPropagation(), t.preventDefault());
+        },
+        R = function () {
+          m && m();
+        },
+        L = { enter: R, space: R },
+        E = !d && g != null ? u(g) : null;
+      return s.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+        handlers: L,
+        onFocus: S,
+        ref: b,
+        children: s.jsx(r("WAWebChatCell.react"), {
+          contextEnabled: o("WAWebBoolFunc").returnFalse,
+          active: v,
+          idle: a,
+          image: s.jsx(o("WAWebDetailImage.react").DetailImage, {
+            id: y,
+            size: _,
           }),
-          (t[2] = d),
-          (t[3] = k))
-        : (k = t[3]);
-      var I = k,
-        T;
-      t[4] !== I
-        ? ((T = { enter: I, space: I }), (t[4] = I), (t[5] = T))
-        : (T = t[5]);
-      var D = T,
-        x;
-      t[6] !== y || t[7] !== g
-        ? ((x = !g && y != null ? u(y) : null),
-          (t[6] = y),
-          (t[7] = g),
-          (t[8] = x))
-        : (x = t[8]);
-      var $ = x,
-        P;
-      t[9] !== h || t[10] !== b
-        ? ((P = s.jsx(o("WAWebDetailImage.react").DetailImage, {
-            id: b,
-            size: h,
-          })),
-          (t[9] = h),
-          (t[10] = b),
-          (t[11] = P))
-        : (P = t[11]);
-      var N;
-      t[12] !== y || t[13] !== C
-        ? ((N = c(y, C)), (t[12] = y), (t[13] = C), (t[14] = N))
-        : (N = t[14]);
-      var M;
-      t[15] !== $ ||
-      t[16] !== f ||
-      t[17] !== I ||
-      t[18] !== L ||
-      t[19] !== P ||
-      t[20] !== N ||
-      t[21] !== _
-        ? ((M = s.jsx(r("WAWebChatCell.react"), {
-            contextEnabled: o("WAWebBoolFunc").returnFalse,
-            active: L,
-            idle: f,
-            image: P,
-            primary: N,
-            secondary: null,
-            detail: $,
-            onClick: I,
-            testid: void 0,
-          })),
-          (t[15] = $),
-          (t[16] = f),
-          (t[17] = I),
-          (t[18] = L),
-          (t[19] = P),
-          (t[20] = N),
-          (t[21] = _),
-          (t[22] = M))
-        : (M = t[22]);
-      var w;
-      return (
-        t[23] !== D || t[24] !== R || t[25] !== M
-          ? ((w = s.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-              handlers: D,
-              onFocus: E,
-              ref: R,
-              children: M,
-            })),
-            (t[23] = D),
-            (t[24] = R),
-            (t[25] = M),
-            (t[26] = w))
-          : (w = t[26]),
-        w
-      );
+          primary: c(g, h),
+          secondary: null,
+          detail: E,
+          onClick: R,
+          testid: void 0,
+        }),
+      });
     }
-    function m(e) {
-      (e.stopPropagation(), e.preventDefault());
-    }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

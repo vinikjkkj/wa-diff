@@ -9,7 +9,6 @@ __d(
     "WAWebUISpacing",
     "WDSButton.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -49,146 +48,75 @@ __d(
         NoMarginSmallGutter: "no-margin-small-gutter",
       });
     function m(e) {
-      var t = o("react-compiler-runtime").c(33),
-        n = e.Icon,
-        a = e.content,
-        i = e.disabled,
-        l = e.editPencilXstyle,
-        m = e.emptyText,
-        p = e.fieldName,
-        _ = e.onEdit,
-        f = e.svgXstyle,
-        g = e.testid,
-        h = e.theme,
-        y = e.type,
+      var t = e.Icon,
+        n = e.content,
+        a = e.disabled,
+        i = e.editPencilXstyle,
+        l = e.emptyText,
+        m = e.fieldName,
+        p = e.onEdit,
+        _ = e.svgXstyle,
+        f = e.testid,
+        g = e.theme,
+        h = e.type,
+        y = h === void 0 ? "field" : h,
         C = e.xstyle,
-        b = y === void 0 ? "field" : y,
-        v;
-      t[0] !== l || t[1] !== p || t[2] !== _ || t[3] !== g
-        ? ((v = _
-            ? u.jsx("div", {
-                "data-testid": void 0,
-                children: u.jsx(r("WDSButton.react"), {
-                  Icon: o("WAWebPencilRefreshedIcon.react").PencilRefreshedIcon,
-                  xstyle: [c.editPencil, l],
-                  onPress: _,
-                  variant: "borderless",
-                  directional: !0,
-                  "aria-label": s._(/*BTDS*/ "Click to edit {fieldName}", [
-                    s._param("fieldName", p),
-                  ]),
-                }),
-              })
-            : void 0),
-          (t[0] = l),
-          (t[1] = p),
-          (t[2] = _),
-          (t[3] = g),
-          (t[4] = v))
-        : (v = t[4]);
-      var S = v,
-        R = m != null && !a,
-        L = R ? m : a,
-        E;
-      t[5] !== n || t[6] !== f
-        ? ((E = n
-            ? u.jsx(n, { iconXstyle: [c.sectionPrimaryIconSvg, f] })
-            : null),
-          (t[5] = n),
-          (t[6] = f),
-          (t[7] = E))
-        : (E = t[7]);
-      var k = E,
-        I = h === d.SmallMargin && o("WAWebUISpacing").uiMargin.top16,
-        T =
-          (h === d.NoMargin || h === d.NoMarginSmallGutter) &&
-          o("WAWebUISpacing").uiMargin.top0,
-        D;
-      t[8] !== I || t[9] !== T
-        ? ((D = [o("WAWebUISpacing").uiMargin.top32, I, T]),
-          (t[8] = I),
-          (t[9] = T),
-          (t[10] = D))
-        : (D = t[10]);
-      var x = g != null ? g + "-icon" : void 0,
-        $ = b === "field" && o("WAWebUISpacing").uiMargin.top6,
-        P = h === d.NoMarginSmallGutter && o("WAWebUISpacing").uiMargin.end7,
-        N;
-      t[11] !== $ || t[12] !== P || t[13] !== C
-        ? ((N = [
-            c.sectionPrimaryIcon,
-            o("WAWebUISpacing").uiMargin.end28,
-            $,
-            P,
-            C,
-          ]),
-          (t[11] = $),
-          (t[12] = P),
-          (t[13] = C),
-          (t[14] = N))
-        : (N = t[14]);
-      var M;
-      t[15] !== k || t[16] !== N || t[17] !== x
-        ? ((M = u.jsx(o("WAWebFlex.react").FlexItem, {
+        b = p
+          ? u.jsx("div", {
+              "data-testid": void 0,
+              children: u.jsx(r("WDSButton.react"), {
+                Icon: o("WAWebPencilRefreshedIcon.react").PencilRefreshedIcon,
+                xstyle: [c.editPencil, i],
+                onPress: p,
+                variant: "borderless",
+                directional: !0,
+                "aria-label": s._(/*BTDS*/ "Click to edit {fieldName}", [
+                  s._param("fieldName", m),
+                ]),
+              }),
+            })
+          : void 0,
+        v = l != null && !n,
+        S = v ? l : n,
+        R = t ? u.jsx(t, { iconXstyle: [c.sectionPrimaryIconSvg, _] }) : null;
+      return u.jsxs(o("WAWebFlex.react").FlexRow, {
+        xstyle: [
+          o("WAWebUISpacing").uiMargin.top32,
+          g === d.SmallMargin && o("WAWebUISpacing").uiMargin.top16,
+          (g === d.NoMargin || g === d.NoMarginSmallGutter) &&
+            o("WAWebUISpacing").uiMargin.top0,
+        ],
+        children: [
+          u.jsx(o("WAWebFlex.react").FlexItem, {
             testid: void 0,
-            xstyle: N,
-            children: k,
-          })),
-          (t[15] = k),
-          (t[16] = N),
-          (t[17] = x),
-          (t[18] = M))
-        : (M = t[18]);
-      var w = g != null ? g + "-content" : void 0,
-        A = b === "container" && o("WAWebUISpacing").uiMargin.top4,
-        F = R && c.sectionEmptyText,
-        O = R && o("WAWebStylesEnv").isOSMac && c.fontSmoothing,
-        B = i === !0 && c.disabled,
-        W;
-      t[19] !== A || t[20] !== F || t[21] !== O || t[22] !== B
-        ? ((W = [
-            c.sectionMain,
-            o("WAWebUISpacing").uiPadding.end2,
-            A,
-            F,
-            O,
-            B,
-          ]),
-          (t[19] = A),
-          (t[20] = F),
-          (t[21] = O),
-          (t[22] = B),
-          (t[23] = W))
-        : (W = t[23]);
-      var q;
-      t[24] !== L || t[25] !== w || t[26] !== W
-        ? ((q = u.jsx(o("WAWebFlex.react").FlexItem, {
+            xstyle: [
+              c.sectionPrimaryIcon,
+              o("WAWebUISpacing").uiMargin.end28,
+              y === "field" && o("WAWebUISpacing").uiMargin.top6,
+              g === d.NoMarginSmallGutter && o("WAWebUISpacing").uiMargin.end7,
+              C,
+            ],
+            children: R,
+          }),
+          u.jsx(o("WAWebFlex.react").FlexItem, {
             testid: void 0,
-            xstyle: W,
-            children: L,
-          })),
-          (t[24] = L),
-          (t[25] = w),
-          (t[26] = W),
-          (t[27] = q))
-        : (q = t[27]);
-      var U;
-      return (
-        t[28] !== S || t[29] !== M || t[30] !== q || t[31] !== D
-          ? ((U = u.jsxs(o("WAWebFlex.react").FlexRow, {
-              xstyle: D,
-              children: [M, q, S],
-            })),
-            (t[28] = S),
-            (t[29] = M),
-            (t[30] = q),
-            (t[31] = D),
-            (t[32] = U))
-          : (U = t[32]),
-        U
-      );
+            xstyle: [
+              c.sectionMain,
+              o("WAWebUISpacing").uiPadding.end2,
+              y === "container" && o("WAWebUISpacing").uiMargin.top4,
+              v && c.sectionEmptyText,
+              v && o("WAWebStylesEnv").isOSMac && c.fontSmoothing,
+              a === !0 && c.disabled,
+            ],
+            children: S,
+          }),
+          b,
+        ],
+      });
     }
-    ((l.IconSectionTheme = d), (l.IconSection = m));
+    ((m.displayName = m.name + " [from " + i.id + "]"),
+      (l.IconSectionTheme = d),
+      (l.IconSection = m));
   },
   226,
 );

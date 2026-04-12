@@ -15,7 +15,6 @@ __d(
     "WAWebWamEnumUsernameCreationCurrentScreen",
     "WAWebWamEnumUsernameCreationFlowType",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -44,17 +43,18 @@ __d(
         paddingStart24: { paddingInlineStart: "xb0esv5", $$css: !0 },
       };
     function p(t) {
-      var n = o("react-compiler-runtime").c(13),
-        a = t.contactId,
-        i = t.dropdownItem,
-        l = t.label,
-        s = t.onBack,
-        u = t.optionId,
-        p = t.username,
-        _;
-      n[0] !== a || n[1] !== i || n[2] !== s || n[3] !== p
-        ? ((_ = function () {
-            i === d.CHANGE
+      var n = t.contactId,
+        a = t.dropdownItem,
+        i = t.label,
+        l = t.onBack,
+        s = t.optionId,
+        u = t.username;
+      return c.jsx(
+        o("WAWebDropdownItem.react").DropdownItem,
+        {
+          testid: void 0,
+          action: function () {
+            a === d.CHANGE
               ? (o(
                   "WAWebUsernameCreationActionLogger",
                 ).UsernameCreationActionLogger.log({
@@ -70,8 +70,8 @@ __d(
                 }),
                 o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
                   c.jsx(r("WAWebEditUsernameDrawer.react"), {
-                    contactUsername: p,
-                    contactId: a,
+                    contactUsername: u,
+                    contactId: n,
                   }),
                 ))
               : (o(
@@ -89,112 +89,54 @@ __d(
                 }),
                 o("WAWebModalManager").ModalManager.open(
                   c.jsx(r("WAWebUsernameDeleteModal.react"), {
-                    onDeleteUsername: s,
+                    onDeleteUsername: l,
                   }),
                 ));
-          }),
-          (n[0] = a),
-          (n[1] = i),
-          (n[2] = s),
-          (n[3] = p),
-          (n[4] = _))
-        : (_ = n[4]);
-      var f;
-      n[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = (e || (e = r("stylex")))([
-            m.paddingVert8,
-            m.paddingEnd32,
-            m.paddingStart24,
-            m.option,
-          ])),
-          (n[5] = f))
-        : (f = n[5]);
-      var g = i === d.DELETE ? "critical" : "primary",
-        h;
-      n[6] !== l || n[7] !== g
-        ? ((h = c.jsx(o("WAWebFlex.react").FlexRow, {
-            className: f,
+          },
+          children: c.jsx(o("WAWebFlex.react").FlexRow, {
+            className: (e || (e = r("stylex")))([
+              m.paddingVert8,
+              m.paddingEnd32,
+              m.paddingStart24,
+              m.option,
+            ]),
             children: c.jsx(o("WAWebText.react").WAWebTextSmall, {
-              color: g,
+              color: a === d.DELETE ? "critical" : "primary",
               xstyle: m.marginStart8,
-              children: l,
+              children: i,
             }),
-          })),
-          (n[6] = l),
-          (n[7] = g),
-          (n[8] = h))
-        : (h = n[8]);
-      var y;
-      return (
-        n[9] !== u || n[10] !== _ || n[11] !== h
-          ? ((y = c.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              { testid: void 0, action: _, children: h },
-              u,
-            )),
-            (n[9] = u),
-            (n[10] = _),
-            (n[11] = h),
-            (n[12] = y))
-          : (y = n[12]),
-        y
+          }),
+        },
+        s,
       );
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.contactId,
-        r = e.onBack,
-        a = e.username,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = s._(/*BTDS*/ "Change username")), (t[0] = i))
-        : (i = t[0]);
-      var l;
-      t[1] !== n || t[2] !== r || t[3] !== a
-        ? ((l = c.jsx(p, {
-            contactId: n,
-            onBack: r,
-            username: a,
+      var t = e.contactId,
+        n = e.onBack,
+        r = e.username;
+      return c.jsxs(c.Fragment, {
+        children: [
+          c.jsx(p, {
+            contactId: t,
+            onBack: n,
+            username: r,
             optionId: "option_change_username",
             dropdownItem: d.CHANGE,
-            label: i,
-          })),
-          (t[1] = n),
-          (t[2] = r),
-          (t[3] = a),
-          (t[4] = l))
-        : (l = t[4]);
-      var u;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = s._(/*BTDS*/ "Delete username")), (t[5] = u))
-        : (u = t[5]);
-      var m;
-      t[6] !== n || t[7] !== r || t[8] !== a
-        ? ((m = c.jsx(p, {
-            contactId: n,
-            onBack: r,
-            username: a,
+            label: s._(/*BTDS*/ "Change username"),
+          }),
+          c.jsx(p, {
+            contactId: t,
+            onBack: n,
+            username: r,
             dropdownItem: d.DELETE,
             optionId: "option_delete_username",
-            label: u,
-          })),
-          (t[6] = n),
-          (t[7] = r),
-          (t[8] = a),
-          (t[9] = m))
-        : (m = t[9]);
-      var _;
-      return (
-        t[10] !== l || t[11] !== m
-          ? ((_ = c.jsxs(c.Fragment, { children: [l, m] })),
-            (t[10] = l),
-            (t[11] = m),
-            (t[12] = _))
-          : (_ = t[12]),
-        _
-      );
+            label: s._(/*BTDS*/ "Delete username"),
+          }),
+        ],
+      });
     }
-    l.default = _;
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );

@@ -6,7 +6,6 @@ __d(
     "WDSIconIcInfo.react",
     "isStringNullOrEmpty",
     "react",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,47 +17,31 @@ __d(
         paddingTop8: { paddingTop: "x16ovd2e", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.msg,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [o("WAWebMsgGetters").getBotMessageDisclaimerText]), (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebMsgValues").useMsgValues(n.id, a),
-        l = i[0];
-      if (r("isStringNullOrEmpty")(l)) return null;
-      var c, d, m;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = [u.container, u.paddingTop8]),
-          (d = s.jsx(r("WDSIconIcInfo.react"), {
-            width: 16,
-            height: 16,
-            xstyle: u.icon,
-          })),
-          (m = { className: "x1n2onr6 x1f6kntn x1k4tb9n" }),
-          (t[1] = c),
-          (t[2] = d),
-          (t[3] = m))
-        : ((c = t[1]), (d = t[2]), (m = t[3]));
-      var p;
-      return (
-        t[4] !== l
-          ? ((p = s.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              columnGap: 8,
-              xstyle: c,
-              children: [
-                d,
-                s.jsx("span", babelHelpers.extends({}, m, { children: l })),
-              ],
-            })),
-            (t[4] = l),
-            (t[5] = p))
-          : (p = t[5]),
-        p
-      );
+      var t = e.msg,
+        n = o("useWAWebMsgValues").useMsgValues(t.id, [
+          o("WAWebMsgGetters").getBotMessageDisclaimerText,
+        ]),
+        a = n[0];
+      return r("isStringNullOrEmpty")(a)
+        ? null
+        : s.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            columnGap: 8,
+            xstyle: [u.container, u.paddingTop8],
+            children: [
+              s.jsx(r("WDSIconIcInfo.react"), {
+                width: 16,
+                height: 16,
+                xstyle: u.icon,
+              }),
+              s.jsx("span", {
+                className: "x1n2onr6 x1f6kntn x1k4tb9n",
+                children: a,
+              }),
+            ],
+          });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

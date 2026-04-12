@@ -18,7 +18,6 @@ __d(
     "WDSIconWdsIcDisappearingMessages.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -97,45 +96,23 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n = e.msg;
-      if (n.subtype === "encrypt" || n.subtype === "encrypt_now") {
-        var r;
-        return (
-          t[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((r = s.jsx("div", {
-                className: "x1rg5ohu x1gslohp x2fvf9 x16dsc37 xhslqc4",
-                children: s.jsx(
-                  o("WAWebLockSmallIcon.react").LockSmallIcon,
-                  {},
-                ),
-              })),
-              (t[0] = r))
-            : (r = t[0]),
-          r
-        );
-      }
+      var t = e.msg;
+      if (t.subtype === "encrypt" || t.subtype === "encrypt_now")
+        return s.jsx("div", {
+          className: "x1rg5ohu x1gslohp x2fvf9 x16dsc37 xhslqc4",
+          children: s.jsx(o("WAWebLockSmallIcon.react").LockSmallIcon, {}),
+        });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n = e.msg;
-      if (n.subtype === "group_transition_to_tee_bot_group") {
-        var r;
-        return (
-          t[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((r = s.jsx("div", {
-                className: "x1rg5ohu x1gslohp x2fvf9 x16dsc37 xhslqc4",
-                children: s.jsx(
-                  o("WAWebLockSmallIcon.react").LockSmallIcon,
-                  {},
-                ),
-              })),
-              (t[0] = r))
-            : (r = t[0]),
-          r
-        );
-      }
+      var t = e.msg;
+      if (t.subtype === "group_transition_to_tee_bot_group")
+        return s.jsx("div", {
+          className: "x1rg5ohu x1gslohp x2fvf9 x16dsc37 xhslqc4",
+          children: s.jsx(o("WAWebLockSmallIcon.react").LockSmallIcon, {}),
+        });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     var f = new Set(
       [
         "blue_msg_bsp_fb_unverified",

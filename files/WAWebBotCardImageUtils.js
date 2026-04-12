@@ -5,7 +5,6 @@ __d(
     "asyncToGeneratorRuntime",
     "isStringNotNullAndNotWhitespaceOnly",
     "react",
-    "react-compiler-runtime",
     "useWAWebUnmountSignal",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,65 +14,56 @@ __d(
       u = s.useEffect,
       c = s.useState;
     function d(e) {
-      var t = o("react-compiler-runtime").c(6),
-        a = e.height,
-        i = e.imageUrl,
-        l = e.width,
-        s = c(null),
-        d = s[0],
-        m = s[1],
-        p = c(i),
-        _ = p[0],
-        f = p[1];
-      i !== _ && (f(i), r("isStringNotNullAndNotWhitespaceOnly")(i) || m(null));
-      var g = r("useWAWebUnmountSignal")(),
-        h,
-        y;
+      var t = e.height,
+        a = e.imageUrl,
+        i = e.width,
+        l = c(null),
+        s = l[0],
+        d = l[1],
+        m = c(a),
+        p = m[0],
+        _ = m[1];
+      a !== p && (_(a), r("isStringNotNullAndNotWhitespaceOnly")(a) || d(null));
+      var f = r("useWAWebUnmountSignal")();
       return (
-        t[0] !== a || t[1] !== i || t[2] !== g || t[3] !== l
-          ? ((h = function () {
-              if (r("isStringNotNullAndNotWhitespaceOnly")(i)) {
-                var e = !1,
-                  t = (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* () {
-                        var t = [
-                            {
-                              width: l,
-                              height: a,
-                              imageFormat: "image/jpeg",
-                              imageFormatOptions: 1,
-                            },
-                          ],
-                          n = yield o(
-                            "WAWebMediaDataUtils",
-                          ).getResizedThumbData(i, t),
-                          r = n[0];
-                        !e && !g.aborted && m(r == null ? void 0 : r.dataUrl);
-                      },
-                    );
-                    return function () {
-                      return t.apply(this, arguments);
-                    };
-                  })();
-                return (
-                  t(),
-                  function () {
-                    e = !0;
-                  }
-                );
-              }
-            }),
-            (y = [i, l, a, g]),
-            (t[0] = a),
-            (t[1] = i),
-            (t[2] = g),
-            (t[3] = l),
-            (t[4] = h),
-            (t[5] = y))
-          : ((h = t[4]), (y = t[5])),
-        u(h, y),
-        d
+        u(
+          function () {
+            if (r("isStringNotNullAndNotWhitespaceOnly")(a)) {
+              var e = !1,
+                l = (function () {
+                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* () {
+                      var n = [
+                          {
+                            width: i,
+                            height: t,
+                            imageFormat: "image/jpeg",
+                            imageFormatOptions: 1,
+                          },
+                        ],
+                        r = yield o("WAWebMediaDataUtils").getResizedThumbData(
+                          a,
+                          n,
+                        ),
+                        l = r[0];
+                      !e && !f.aborted && d(l == null ? void 0 : l.dataUrl);
+                    },
+                  );
+                  return function () {
+                    return r.apply(this, arguments);
+                  };
+                })();
+              return (
+                l(),
+                function () {
+                  e = !0;
+                }
+              );
+            }
+          },
+          [a, i, t, f],
+        ),
+        s
       );
     }
     function m(e) {

@@ -7,7 +7,6 @@ __d(
     "WAWebThemeContext",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,42 +28,34 @@ __d(
       m = "https://www.whatsapp.com/business/download",
       p = "#122e31";
     function _() {
-      var t = o("react-compiler-runtime").c(2),
-        n = c(o("WAWebThemeContext").ThemeContext),
-        a = n.theme,
-        i;
-      return (
-        t[0] !== a
-          ? ((i = u.jsx(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "center",
-              xstyle: o("WAWebUISpacing").uiMargin.vert15,
-              children: u.jsx(r("WAWebQRCode.react"), {
-                data: m,
-                colorDark: p,
-                size: o("WAWebFrontendConstants").QR_EDGE / 2,
-                children: function (n) {
-                  return u.jsx(
-                    "div",
-                    babelHelpers.extends(
-                      { ref: n },
-                      (e || (e = r("stylex"))).props(
-                        a === "dark" && d.codeDarkMode,
-                        d.code,
-                        o("WAWebUISpacing").uiPadding.all12,
-                      ),
-                      { children: u.jsx(f, { theme: a }) },
-                    ),
-                  );
-                },
-              }),
-            })),
-            (t[0] = a),
-            (t[1] = i))
-          : (i = t[1]),
-        i
-      );
+      var t = c(o("WAWebThemeContext").ThemeContext),
+        n = t.theme;
+      return u.jsx(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        justify: "center",
+        xstyle: o("WAWebUISpacing").uiMargin.vert15,
+        children: u.jsx(r("WAWebQRCode.react"), {
+          data: m,
+          colorDark: p,
+          size: o("WAWebFrontendConstants").QR_EDGE / 2,
+          children: function (a) {
+            return u.jsx(
+              "div",
+              babelHelpers.extends(
+                { ref: a },
+                (e || (e = r("stylex"))).props(
+                  n === "dark" && d.codeDarkMode,
+                  d.code,
+                  o("WAWebUISpacing").uiPadding.all12,
+                ),
+                { children: u.jsx(f, { theme: n }) },
+              ),
+            );
+          },
+        }),
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f() {
       return u.jsx("div", {
         className:

@@ -5,7 +5,6 @@ __d(
     "LexicalContentEditable",
     "WAWebStylesEnv",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
   ],
@@ -142,39 +141,26 @@ __d(
       },
     };
     function C(t) {
-      var n = o("react-compiler-runtime").c(6),
-        a = t.testid,
-        i = t.text,
-        l = t.xstyle,
-        s;
-      n[0] !== l
-        ? ((s = (e || (e = r("stylex"))).props(
+      var n = t.testid,
+        a = t.text,
+        i = t.xstyle;
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          { "data-testid": void 0 },
+          (e || (e = r("stylex"))).props(
             y.container,
             y.containerRefreshed,
             o("WAWebStylesEnv").isOSMac && y.fontSmoothing,
-            l,
-          )),
-          (n[0] = l),
-          (n[1] = s))
-        : (s = n[1]);
-      var c;
-      return (
-        n[2] !== s || n[3] !== a || n[4] !== i
-          ? ((c = u.jsx(
-              "div",
-              babelHelpers.extends({ "data-testid": void 0 }, s, {
-                children: i,
-              }),
-            )),
-            (n[2] = s),
-            (n[3] = a),
-            (n[4] = i),
-            (n[5] = c))
-          : (c = n[5]),
-        c
+            i,
+          ),
+          { children: a },
+        ),
       );
     }
-    ((l.MIN_FONT_SIZE = _), (l.InputContentEditable = h));
+    ((C.displayName = C.name + " [from " + i.id + "]"),
+      (l.MIN_FONT_SIZE = _),
+      (l.InputContentEditable = h));
   },
   98,
 );

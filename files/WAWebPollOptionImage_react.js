@@ -7,7 +7,6 @@ __d(
     "WAWebUnstyledButton.react",
     "WAWebWamEnumWebcRmrReasonCode",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -37,131 +36,63 @@ __d(
         placeholderIcon: { width: "xh8yej3", height: "x5yr21d", $$css: !0 },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(5),
-        a = t.src,
-        i = t.xstyle,
-        l;
-      n[0] !== i
-        ? ((l = (e || (e = r("stylex")))(i)), (n[0] = i), (n[1] = l))
-        : (l = n[1]);
-      var s;
-      return (
-        n[2] !== a || n[3] !== l
-          ? ((s = u.jsx(r("WAWebImg.react"), {
-              className: l,
-              src: a,
-              disableContextMenu: !0,
-            })),
-            (n[2] = a),
-            (n[3] = l),
-            (n[4] = s))
-          : (s = n[4]),
-        s
-      );
+      var n = t.src,
+        o = t.xstyle;
+      return u.jsx(r("WAWebImg.react"), {
+        className: (e || (e = r("stylex")))(o),
+        src: n,
+        disableContextMenu: !0,
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(t) {
-      var n = o("react-compiler-runtime").c(7),
+      var n,
         a = t.mediaData,
-        i = t.xstyle,
-        l;
-      n[0] !== i
-        ? ((l = (e || (e = r("stylex")))(i)), (n[0] = i), (n[1] = l))
-        : (l = n[1]);
-      var s;
-      if (n[2] !== a) {
-        var c;
-        ((s =
-          (c = o("WAWebMediaDataUtils").getHighestQualityThumbnailUrl(a)) !=
+        i = t.xstyle;
+      return u.jsx(r("WAWebImg.react"), {
+        className: (e || (e = r("stylex")))(i),
+        src:
+          (n = o("WAWebMediaDataUtils").getHighestQualityThumbnailUrl(a)) !=
           null
-            ? c
-            : ""),
-          (n[2] = a),
-          (n[3] = s));
-      } else s = n[3];
-      var d;
-      return (
-        n[4] !== l || n[5] !== s
-          ? ((d = u.jsx(r("WAWebImg.react"), { className: l, src: s })),
-            (n[4] = l),
-            (n[5] = s),
-            (n[6] = d))
-          : (d = n[6]),
-        d
-      );
+            ? n
+            : "",
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(16),
-        n = e.msg,
-        a = e.onClick,
-        i = e.size,
-        l = n.mediaData,
-        s = i === "small" ? c.small : c.large,
-        p;
-      t[0] !== n
-        ? ((p = function () {
-            return n.downloadMedia({
-              downloadEvenIfExpensive: !0,
-              rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
-                .MSG_RENDER,
-              isUserInitiated: !0,
-            });
-          }),
-          (t[0] = n),
-          (t[1] = p))
-        : (p = t[1]);
-      var _ = p,
-        f;
-      t[2] !== l || t[3] !== s
-        ? ((f = function () {
+      var t = e.msg,
+        n = e.onClick,
+        a = e.size,
+        i = t.mediaData,
+        l = a === "small" ? c.small : c.large,
+        s = function () {
+          return t.downloadMedia({
+            downloadEvenIfExpensive: !0,
+            rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+              .MSG_RENDER,
+            isUserInitiated: !0,
+          });
+        };
+      return u.jsx(r("WAWebUnstyledButton.react"), {
+        xstyle: l,
+        onClick: n,
+        children: u.jsx(r("WAWebMediaUrlProvider"), {
+          mediaData: i,
+          placeholderRenderer: function () {
             return u.jsx(m, {
-              xstyle: [c.thumbContainer, s, c.thumb, c.placeholderIcon],
-              mediaData: l,
+              xstyle: [c.thumbContainer, l, c.thumb, c.placeholderIcon],
+              mediaData: i,
             });
-          }),
-          (t[2] = l),
-          (t[3] = s),
-          (t[4] = f))
-        : (f = t[4]);
-      var g;
-      t[5] !== s
-        ? ((g = function (t) {
-            return u.jsx(d, { xstyle: [c.thumbContainer, s, c.thumb], src: t });
-          }),
-          (t[5] = s),
-          (t[6] = g))
-        : (g = t[6]);
-      var h;
-      t[7] !== _ || t[8] !== l || t[9] !== f || t[10] !== g
-        ? ((h = u.jsx(r("WAWebMediaUrlProvider"), {
-            mediaData: l,
-            placeholderRenderer: f,
-            downloadMedia: _,
-            renderProgressively: !0,
-            children: g,
-          })),
-          (t[7] = _),
-          (t[8] = l),
-          (t[9] = f),
-          (t[10] = g),
-          (t[11] = h))
-        : (h = t[11]);
-      var y;
-      return (
-        t[12] !== a || t[13] !== s || t[14] !== h
-          ? ((y = u.jsx(r("WAWebUnstyledButton.react"), {
-              xstyle: s,
-              onClick: a,
-              children: h,
-            })),
-            (t[12] = a),
-            (t[13] = s),
-            (t[14] = h),
-            (t[15] = y))
-          : (y = t[15]),
-        y
-      );
+          },
+          downloadMedia: s,
+          renderProgressively: !0,
+          children: function (t) {
+            return u.jsx(d, { xstyle: [c.thumbContainer, l, c.thumb], src: t });
+          },
+        }),
+      });
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

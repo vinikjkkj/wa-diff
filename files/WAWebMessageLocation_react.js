@@ -24,7 +24,6 @@ __d(
     "WAWebUISpacing",
     "WAWebURLUtils",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebMsgValues",
   ],
@@ -301,114 +300,68 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(22),
-        n = e.isUntrusted,
-        a = e.loc,
-        i = e.msg,
-        l = e.pageUrl,
+      var t = e.isUntrusted,
+        n = e.loc,
+        a = e.msg,
+        i = e.pageUrl,
+        l,
         u,
-        d,
-        m;
-      t[0] !== l
-        ? ((m = r("WAWebURLUtils").hostname(l)), (t[0] = l), (t[1] = m))
-        : (m = t[1]);
-      var p = m,
-        _;
-      t[2] !== n || t[3] !== p
-        ? ((_ = n
-            ? c.jsx("span", {
-                className: "x1ncwhqj x1d3mw78 xthy82k",
-                children: p,
+        d = r("WAWebURLUtils").hostname(i),
+        m = t
+          ? c.jsx("span", {
+              className: "x1ncwhqj x1d3mw78 xthy82k",
+              children: d,
+            })
+          : null;
+      if (
+        (!t &&
+          n &&
+          !i.includes("javascript") &&
+          (l = n.name
+            ? c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                xstyle: h.title,
+                href: i,
+                children: n.name,
               })
             : null),
-          (t[2] = n),
-          (t[3] = p),
-          (t[4] = _))
-        : (_ = t[4]);
-      var f = _;
-      if (!n && a && !l.includes("javascript")) {
-        var g;
-        (t[5] !== a.name || t[6] !== l
-          ? ((g = a.name
-              ? c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                  xstyle: h.title,
-                  href: l,
-                  children: a.name,
-                })
-              : null),
-            (t[5] = a.name),
-            (t[6] = l),
-            (t[7] = g))
-          : (g = t[7]),
-          (u = g));
+        n)
+      ) {
+        var p,
+          _ = { 0: "x1pg5gke", 1: "x1pg5gke x1lliihq" }[!!m << 0];
+        u =
+          ((p = n.addr) != null ? p : "") !== ""
+            ? c.jsx(o("WAWebCopyPasteSelectable.react").SelectableDiv, {
+                className: _,
+                selectable: !0,
+                title: n.addr,
+                children: n.addr,
+              })
+            : null;
       }
-      if (a) {
-        var y;
-        t[8] !== f
-          ? ((y = { 0: "x1pg5gke", 1: "x1pg5gke x1lliihq" }[!!f << 0]),
-            (t[8] = f),
-            (t[9] = y))
-          : (y = t[9]);
-        var C = y,
-          b;
-        if (t[10] !== C || t[11] !== a.addr) {
-          var v;
-          ((b =
-            ((v = a.addr) != null ? v : "") !== ""
-              ? c.jsx(o("WAWebCopyPasteSelectable.react").SelectableDiv, {
-                  className: C,
-                  selectable: !0,
-                  title: a.addr,
-                  children: a.addr,
-                })
-              : null),
-            (t[10] = C),
-            (t[11] = a.addr),
-            (t[12] = b));
-        } else b = t[12];
-        d = b;
-      }
-      var S;
-      t[13] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = (s || (s = r("stylex"))).props(
+      return c.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (s || (s = r("stylex"))).props(
             h.text,
             o("WAWebUISpacing").uiPadding.top7,
             o("WAWebUISpacing").uiPadding.end4,
             o("WAWebUISpacing").uiPadding.bottom4,
             o("WAWebUISpacing").uiPadding.start6,
-          )),
-          (t[13] = S))
-        : (S = t[13]);
-      var R;
-      t[14] !== i ? ((R = i.unsafe()), (t[14] = i), (t[15] = R)) : (R = t[15]);
-      var L;
-      return (
-        t[16] !== d ||
-        t[17] !== i.id ||
-        t[18] !== R ||
-        t[19] !== u ||
-        t[20] !== f
-          ? ((L = c.jsx(
-              "div",
-              babelHelpers.extends({}, S, {
-                children: c.jsxs(r("WAWebMessageSpacerText.react"), {
-                  msg: R,
-                  "data-id": i.id,
-                  children: [u, d, f],
-                }),
-              }),
-            )),
-            (t[16] = d),
-            (t[17] = i.id),
-            (t[18] = R),
-            (t[19] = u),
-            (t[20] = f),
-            (t[21] = L))
-          : (L = t[21]),
-        L
+          ),
+          {
+            children: c.jsxs(r("WAWebMessageSpacerText.react"), {
+              msg: a.unsafe(),
+              "data-id": a.id,
+              children: [l, u, m],
+            }),
+          },
+        ),
       );
     }
-    ((l.PREVIEW_HEIGHT = d), (l.Location = y));
+    ((C.displayName = C.name + " [from " + i.id + "]"),
+      (l.PREVIEW_HEIGHT = d),
+      (l.Location = y));
   },
   98,
 );

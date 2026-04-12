@@ -17,7 +17,6 @@ __d(
     "WAWebWamEnumChatFilterActionTypes",
     "WAWebWamEnumSurfaceType",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebDebouncedCallback",
   ],
@@ -32,74 +31,45 @@ __d(
       f = o("WAWebChat.react").ChatFactory(),
       g = o("WAWebModalsListModal.react").ListModalFactory();
     function h(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.active,
-        r = e.chat,
-        a = e.mode,
-        i = e.onClick,
-        l = e.showSpeakerForCag,
-        s = e.subtitle,
-        u = e.type,
+      var t = e.active,
+        n = e.chat,
+        r = e.mode,
+        a = e.onClick,
+        i = e.showSpeakerForCag,
+        l = e.subtitle,
+        s = e.type,
+        u,
         c,
-        m,
-        p = typeof s != "boolean";
-      p && ((c = s), (m = "group-modal"));
-      var _;
-      t[0] !== r || t[1] !== p || t[2] !== i || t[3] !== u
-        ? ((_ = function () {
-            p ||
-              (u === "subgroup_switcher" &&
-                new (o(
-                  "WAWebCommunityGroupJourneyEventImpl",
-                ).CommunityGroupJourneyEvent)({
-                  action: o("WAWebWamEnumChatFilterActionTypes")
-                    .CHAT_FILTER_ACTION_TYPES.GROUP_NAVIGATION,
-                  surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                    .COMMUNITY_NAV_SHEET,
-                  chat: r,
-                }).commit(),
-              i.call(null, r));
-          }),
-          (t[0] = r),
-          (t[1] = p),
-          (t[2] = i),
-          (t[3] = u),
-          (t[4] = _))
-        : (_ = t[4]);
-      var g = _,
-        h;
-      return (
-        t[5] !== n ||
-        t[6] !== r ||
-        t[7] !== g ||
-        t[8] !== a ||
-        t[9] !== c ||
-        t[10] !== l ||
-        t[11] !== m
-          ? ((h = d.jsx(f, {
-              chat: r,
-              mode: a,
-              active: n,
-              secondary: c,
-              noContext: !0,
-              theme: m,
-              onClick: g,
-              overrideCommunityAnnouncementGroupName: !0,
-              hiddenSubgroupIcon: "chat-list",
-              showSpeakerForCag: l,
-            })),
-            (t[5] = n),
-            (t[6] = r),
-            (t[7] = g),
-            (t[8] = a),
-            (t[9] = c),
-            (t[10] = l),
-            (t[11] = m),
-            (t[12] = h))
-          : (h = t[12]),
-        h
-      );
+        m = typeof l != "boolean";
+      m && ((u = l), (c = "group-modal"));
+      var p = function () {
+        m ||
+          (s === "subgroup_switcher" &&
+            new (o(
+              "WAWebCommunityGroupJourneyEventImpl",
+            ).CommunityGroupJourneyEvent)({
+              action: o("WAWebWamEnumChatFilterActionTypes")
+                .CHAT_FILTER_ACTION_TYPES.GROUP_NAVIGATION,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .COMMUNITY_NAV_SHEET,
+              chat: n,
+            }).commit(),
+          a.call(null, n));
+      };
+      return d.jsx(f, {
+        chat: n,
+        mode: r,
+        active: t,
+        secondary: u,
+        noContext: !0,
+        theme: c,
+        onClick: p,
+        overrideCommunityAnnouncementGroupName: !0,
+        hiddenSubgroupIcon: "chat-list",
+        showSpeakerForCag: i,
+      });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     function y(t) {
       var a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e),

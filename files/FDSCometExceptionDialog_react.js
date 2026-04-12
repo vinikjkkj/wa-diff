@@ -12,7 +12,6 @@ __d(
     "react",
     "react-compiler-runtime",
     "useToggle",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -26,9 +25,8 @@ __d(
         l = e.errorSummary,
         c = e.onClose,
         d = e.testid,
-        m = e.withCloseButton;
-      r("vulture")("RPmD3gRyOY7s0PZ_HhWvsOCs-FE=");
-      var p = r("useToggle")(!1),
+        m = e.withCloseButton,
+        p = r("useToggle")(!1),
         _ = p[0],
         f = p[1],
         g;

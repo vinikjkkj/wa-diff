@@ -1,48 +1,44 @@
 __d(
   "useWAWebNewsletterInboxSearch",
-  ["WAWebChatGetters", "WAWebFuzzySearch", "react", "react-compiler-runtime"],
+  ["WAWebChatGetters", "WAWebFuzzySearch", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useCallback;
     function u(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.filteredText,
-        r;
-      t[0] !== n
-        ? ((r = function (t) {
-            var e = n.trim() !== "";
-            return t
-              .filter(function (t) {
-                if (!o("WAWebChatGetters").getIsNewsletter(t) || t == null)
+      var t = e.filteredText,
+        n = s(
+          function (e) {
+            var n = t.trim() !== "";
+            return e
+              .filter(function (e) {
+                if (!o("WAWebChatGetters").getIsNewsletter(e) || e == null)
                   return !1;
-                if (e) {
+                if (n) {
                   var r,
                     a =
-                      n == null || (r = n.toLocaleLowerCase()) == null
+                      t == null || (r = t.toLocaleLowerCase()) == null
                         ? void 0
                         : r.trim();
-                  return d(t, a);
+                  return d(e, a);
                 }
                 return !0;
               })
-              .sort(function (t, r) {
+              .sort(function (e, r) {
                 var o;
                 return c({
-                  channelA: t,
+                  channelA: e,
                   channelB: r,
-                  hasSearchText: e,
+                  hasSearchText: n,
                   searchText:
-                    n == null || (o = n.toLocaleLowerCase()) == null
+                    t == null || (o = t.toLocaleLowerCase()) == null
                       ? void 0
                       : o.trim(),
                 });
               });
-          }),
-          (t[0] = n),
-          (t[1] = r))
-        : (r = t[1]);
-      var a = r;
-      return a;
+          },
+          [t],
+        );
+      return n;
     }
     function c(e) {
       var t,

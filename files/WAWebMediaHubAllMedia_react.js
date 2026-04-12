@@ -30,7 +30,6 @@ __d(
     "WDSText.react",
     "chunkArray",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useHoverState",
     "useWAWebFTS",
@@ -369,241 +368,121 @@ __d(
       notFocused: { position: "x1n2onr6", $$css: !0 },
     };
     function y(e) {
-      var t = o("react-compiler-runtime").c(59),
-        n = e.colIndex,
-        a = e.collection,
-        i = e.msg,
-        l = e.rowIndex,
-        s = e.searchType,
-        c = o("WAWebMediaHubContextProvider").useWAWebMediaHubContext(),
-        d = c.contextMenuMsg,
-        _ = c.getMultiSelection,
-        f = c.isSelectMode,
-        g = c.onMessageSelect,
-        y = c.searchQuery,
-        C = c.setContextMenuMsg,
-        b = c.sortOrder,
-        v = r("useHoverState")(),
-        S = v.isHovered,
-        R = v.onMouseEnter,
-        L = v.onMouseLeave,
-        E = v.setIsHovered,
-        k = r("useWAWebFocusState")(),
-        I = k[0],
-        T = k[1],
-        D = m(null),
-        x;
-      (t[0] !== a || t[1] !== i
-        ? ((x = function () {
-            a.remove(i);
-          }),
-          (t[0] = a),
-          (t[1] = i),
-          (t[2] = x))
-        : (x = t[2]),
-        o("useWAWebListener").useListener(i, "revoked", x));
-      var $;
-      t[3] !== f || t[4] !== i || t[5] !== g
-        ? (($ = function () {
-            if (f) g(i);
-            else {
-              var e;
-              (e = D.current) == null || e.click();
-            }
-          }),
-          (t[3] = f),
-          (t[4] = i),
-          (t[5] = g),
-          (t[6] = $))
-        : ($ = t[6]);
-      var P = $,
-        N;
-      t[7] !== g
-        ? ((N = function (t, n, r) {
-            g(t, r);
-          }),
-          (t[7] = g),
-          (t[8] = N))
-        : (N = t[8]);
-      var M = N,
-        w;
-      t[9] !== i.id
-        ? ((w = i.id.toString()), (t[9] = i.id), (t[10] = w))
-        : (w = t[10]);
-      var A;
-      t[11] !== i || t[12] !== s || t[13] !== C
-        ? ((A = function (t) {
-            (t.preventDefault(), C({ msg: i, searchType: s, event: t }));
-          }),
-          (t[11] = i),
-          (t[12] = s),
-          (t[13] = C),
-          (t[14] = A))
-        : (A = t[14]);
-      var F;
-      t[15] !== P
-        ? ((F = { enter: P, space: P }), (t[15] = P), (t[16] = F))
-        : (F = t[16]);
-      var O;
-      t[17] !== L
-        ? ((O = function (t) {
-            t.relatedTarget != null && L(t);
-          }),
-          (t[17] = L),
-          (t[18] = O))
-        : (O = t[18]);
-      var B, W;
-      t[19] !== E
-        ? ((B = function () {
-            return E(!0);
-          }),
-          (W = function (t) {
-            var e,
-              n = t.relatedTarget;
-            (n instanceof HTMLElement &&
-              (e = D.current) != null &&
-              e.contains(n)) ||
-              E(!1);
-          }),
-          (t[19] = E),
-          (t[20] = B),
-          (t[21] = W))
-        : ((B = t[20]), (W = t[21]));
-      var q = T ? h.focused : h.notFocused,
-        U;
-      t[22] !== q
-        ? ((U = [o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus, q]),
-          (t[22] = q),
-          (t[23] = U))
-        : (U = t[23]);
-      var V =
-          S ||
-          ((d == null ? void 0 : d.msg) === i &&
-            (d == null ? void 0 : d.searchType) === s),
-        H;
-      t[24] !== i || t[25] !== s || t[26] !== E || t[27] !== V
-        ? ((H = u.jsx(
-            o("WAWebMediaHubMessageDropdownMenu.react")
-              .WAWebMediaHubMessageDropdownMenu,
-            { isHover: V, msg: i, isForMedia: !0, onHover: E, searchType: s },
-          )),
-          (t[24] = i),
-          (t[25] = s),
-          (t[26] = E),
-          (t[27] = V),
-          (t[28] = H))
-        : (H = t[28]);
-      var G;
-      t[29] !== i.id
-        ? ((G = i.id.toString()), (t[29] = i.id), (t[30] = G))
-        : (G = t[30]);
-      var z = f || void 0,
-        j;
-      t[31] !== _ ? ((j = _()), (t[31] = _), (t[32] = j)) : (j = t[32]);
-      var K = b === "fileSizeDesc",
-        Q;
-      t[33] !== M ||
-      t[34] !== S ||
-      t[35] !== f ||
-      t[36] !== i ||
-      t[37] !== y ||
-      t[38] !== G ||
-      t[39] !== z ||
-      t[40] !== j ||
-      t[41] !== K
-        ? ((Q = u.jsx(
-            r("WAWebMediaGalleryMediaCanvas.react"),
-            {
-              refForMedia: D,
-              shouldForceHover: S,
-              aspectRatio: 1,
-              msg: i,
-              hoverEvent: z,
-              selectable: f,
-              selectedMessages: j,
-              onMessageSelect: M,
-              theme: "mediaHub",
-              hideableSecondRow: !1,
-              isRefreshed: !0,
-              shouldShowSize: K,
-              highlightText: y,
-            },
-            G,
-          )),
-          (t[33] = M),
-          (t[34] = S),
-          (t[35] = f),
-          (t[36] = i),
-          (t[37] = y),
-          (t[38] = G),
-          (t[39] = z),
-          (t[40] = j),
-          (t[41] = K),
-          (t[42] = Q))
-        : (Q = t[42]);
-      var X;
-      t[43] !== n ||
-      t[44] !== I ||
-      t[45] !== R ||
-      t[46] !== l ||
-      t[47] !== U ||
-      t[48] !== H ||
-      t[49] !== Q ||
-      t[50] !== A ||
-      t[51] !== F ||
-      t[52] !== O ||
-      t[53] !== B ||
-      t[54] !== W
-        ? ((X = u.jsxs(o("WAWebKeyboardHotKeys.react").HotKeys, {
-            ref: I,
-            role: "gridcell",
-            "aria-colindex": n,
-            "aria-rowindex": l,
-            onContextMenu: A,
-            handlers: F,
-            onMouseEnter: R,
-            onMouseLeave: O,
-            onFocus: B,
-            onBlur: W,
-            "data-tab": o("WAWebTabOrder").TAB_ORDER.TAB_HEADER,
-            xstyle: U,
-            "data-focusid": "media-hub-cell-item",
-            tabIndex: -1,
-            children: [H, Q],
-          })),
-          (t[43] = n),
-          (t[44] = I),
-          (t[45] = R),
-          (t[46] = l),
-          (t[47] = U),
-          (t[48] = H),
-          (t[49] = Q),
-          (t[50] = A),
-          (t[51] = F),
-          (t[52] = O),
-          (t[53] = B),
-          (t[54] = W),
-          (t[55] = X))
-        : (X = t[55]);
-      var Y;
-      return (
-        t[56] !== X || t[57] !== w
-          ? ((Y = u.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
-              name: "media-hub-list-item",
-              children: u.jsx(
-                r("WAWebBox.react"),
-                { xstyle: p.item, testid: void 0, children: X },
-                w,
-              ),
-            })),
-            (t[56] = X),
-            (t[57] = w),
-            (t[58] = Y))
-          : (Y = t[58]),
-        Y
-      );
+      var t = e.colIndex,
+        n = e.collection,
+        a = e.msg,
+        i = e.rowIndex,
+        l = e.searchType,
+        s = o("WAWebMediaHubContextProvider").useWAWebMediaHubContext(),
+        c = s.contextMenuMsg,
+        d = s.getMultiSelection,
+        _ = s.isSelectMode,
+        f = s.onMessageSelect,
+        g = s.searchQuery,
+        y = s.setContextMenuMsg,
+        C = s.sortOrder,
+        b = r("useHoverState")(),
+        v = b.isHovered,
+        S = b.onMouseEnter,
+        R = b.onMouseLeave,
+        L = b.setIsHovered,
+        E = r("useWAWebFocusState")(),
+        k = E[0],
+        I = E[1],
+        T = m(null);
+      o("useWAWebListener").useListener(a, "revoked", function () {
+        n.remove(a);
+      });
+      var D = function () {
+          if (_) f(a);
+          else {
+            var e;
+            (e = T.current) == null || e.click();
+          }
+        },
+        x = function (t, n, r) {
+          f(t, r);
+        };
+      return u.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+        name: "media-hub-list-item",
+        children: u.jsx(
+          r("WAWebBox.react"),
+          {
+            xstyle: p.item,
+            testid: void 0,
+            children: u.jsxs(o("WAWebKeyboardHotKeys.react").HotKeys, {
+              ref: k,
+              role: "gridcell",
+              "aria-colindex": t,
+              "aria-rowindex": i,
+              onContextMenu: function (t) {
+                (t.preventDefault(), y({ msg: a, searchType: l, event: t }));
+              },
+              handlers: { enter: D, space: D },
+              onMouseEnter: S,
+              onMouseLeave: function (t) {
+                t.relatedTarget != null && R(t);
+              },
+              onFocus: function () {
+                return L(!0);
+              },
+              onBlur: function (t) {
+                var e,
+                  n = t.relatedTarget;
+                (n instanceof HTMLElement &&
+                  (e = T.current) != null &&
+                  e.contains(n)) ||
+                  L(!1);
+              },
+              "data-tab": o("WAWebTabOrder").TAB_ORDER.TAB_HEADER,
+              xstyle: [
+                o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+                I ? h.focused : h.notFocused,
+              ],
+              "data-focusid": "media-hub-cell-item",
+              tabIndex: -1,
+              children: [
+                u.jsx(
+                  o("WAWebMediaHubMessageDropdownMenu.react")
+                    .WAWebMediaHubMessageDropdownMenu,
+                  {
+                    isHover:
+                      v ||
+                      ((c == null ? void 0 : c.msg) === a &&
+                        (c == null ? void 0 : c.searchType) === l),
+                    msg: a,
+                    isForMedia: !0,
+                    onHover: L,
+                    searchType: l,
+                  },
+                ),
+                u.jsx(
+                  r("WAWebMediaGalleryMediaCanvas.react"),
+                  {
+                    refForMedia: T,
+                    shouldForceHover: v,
+                    aspectRatio: 1,
+                    msg: a,
+                    hoverEvent: _ || void 0,
+                    selectable: _,
+                    selectedMessages: d(),
+                    onMessageSelect: x,
+                    theme: "mediaHub",
+                    hideableSecondRow: !1,
+                    isRefreshed: !0,
+                    shouldShowSize: C === "fileSizeDesc",
+                    highlightText: g,
+                  },
+                  a.id.toString(),
+                ),
+              ],
+            }),
+          },
+          a.id.toString(),
+        ),
+      });
     }
-    l.default = g;
+    ((y.displayName = y.name + " [from " + i.id + "]"), (l.default = g));
   },
   98,
 );

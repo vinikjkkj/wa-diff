@@ -1,6 +1,7 @@
 __d(
   "WAWebAudioDeviceManager",
   [
+    "Promise",
     "WALogger",
     "WAWebAudioDeviceEvents",
     "WAWebBackendApi",
@@ -40,10 +41,20 @@ __d(
       N,
       M,
       w,
-      A = null;
-    function F(t) {
-      A !== t &&
-        ((A = t),
+      A,
+      F,
+      O,
+      B,
+      W,
+      q,
+      U,
+      V,
+      H,
+      G,
+      z = null;
+    function j(t) {
+      z !== t &&
+        ((z = t),
         t != null &&
           (o("WAWebAudioDeviceEvents").AudioDeviceEvents.trigger(
             "deviceSelectionChanged",
@@ -58,13 +69,13 @@ __d(
             t,
           )));
     }
-    function O() {
-      return A;
+    function K() {
+      return z;
     }
-    var B = null;
-    function W(e) {
-      B !== e &&
-        ((B = e),
+    var Q = null;
+    function X(e) {
+      Q !== e &&
+        ((Q = e),
         e != null &&
           (o("WAWebAudioDeviceEvents").AudioDeviceEvents.trigger(
             "speakerDeviceSelectionChanged",
@@ -79,19 +90,19 @@ __d(
             e,
           )));
     }
-    function q() {
-      return B != null
-        ? B
+    function Y() {
+      return Q != null
+        ? Q
         : o("WAWebUserPrefsVoip").getSelectedAudioOutputDevice();
     }
-    function U(e) {
-      return V.apply(this, arguments);
+    function J(e) {
+      return Z.apply(this, arguments);
     }
-    function V() {
+    function Z() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var t = yield Q(e);
+            var t = yield ae(e);
             if (t.length === 0)
               return (
                 o("WALogger").ERROR(
@@ -102,7 +113,7 @@ __d(
                 ),
                 null
               );
-            var n = B;
+            var n = Q;
             if (n != null) {
               var r = t.find(function (e) {
                 return e.deviceId === n;
@@ -117,7 +128,7 @@ __d(
                   n,
                 ),
                 (n = null),
-                W(null));
+                X(null));
             }
             var a = o("WAWebUserPrefsVoip").getSelectedAudioOutputDevice();
             if (a != null && n !== a) {
@@ -126,9 +137,9 @@ __d(
               });
               i && (n = a);
             }
-            if ((n != null && n !== B && W(n), B == null && t.length > 0)) {
+            if ((n != null && n !== Q && X(n), Q == null && t.length > 0)) {
               var l;
-              (W(t[0].deviceId),
+              (X(t[0].deviceId),
                 o("WALogger").LOG(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -138,7 +149,7 @@ __d(
                   (l = t[0].label) != null ? l : "unknown",
                 ));
             }
-            return B != null ? B : null;
+            return Q != null ? Q : null;
           } catch (e) {
             return (
               o("WALogger")
@@ -157,209 +168,214 @@ __d(
             );
           }
         })),
-        V.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function H(e, t, n) {
-      return G.apply(this, arguments);
+    function ee(e, t, n) {
+      return te.apply(this, arguments);
     }
-    function G() {
+    function te() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          try {
-            var r = yield j(e, t, n);
-            if (r.length === 0)
-              return (
-                o("WALogger").ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV] No audio input devices found",
-                    ])),
-                ),
-                null
-              );
-            var a = A;
-            if (a != null) {
-              var i = r.find(function (e) {
-                return e.deviceId === a;
-              });
-              i ||
-                ((a = null),
-                F(null),
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV] Current selected device is no longer available,\n          clearing selection",
-                    ])),
-                ));
-            }
-            var l = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
-            if (l != null && a !== l) {
-              var s = r.find(function (e) {
-                return e.deviceId === l;
-              });
-              s && (a = l);
-            }
-            if (a != null && a !== A) {
-              var u = r.find(function (e) {
-                return e.deviceId === a;
-              });
-              if (u) {
-                var c;
-                (F(a),
-                  o("WALogger").LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV] Using selected audio device:\n          ",
-                        "",
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            try {
+              var r = yield re(e, t, n);
+              if (r.length === 0)
+                return (
+                  o("WALogger").ERROR(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV] No audio input devices found",
                       ])),
-                    (c = u.label) != null ? c : "unknown",
+                  ),
+                  null
+                );
+              var a = z;
+              if (a != null) {
+                var i = r.find(function (e) {
+                  return e.deviceId === a;
+                });
+                i ||
+                  ((a = null),
+                  j(null),
+                  o("WALogger").LOG(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV] Current selected device is no longer available,\n          clearing selection",
+                      ])),
                   ));
               }
+              var l = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
+              if (l != null && a !== l) {
+                var s = r.find(function (e) {
+                  return e.deviceId === l;
+                });
+                s && (a = l);
+              }
+              if (a != null && a !== z) {
+                var u = r.find(function (e) {
+                  return e.deviceId === a;
+                });
+                if (u) {
+                  var c;
+                  (j(a),
+                    o("WALogger").LOG(
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV] Using selected audio device:\n          ",
+                          "",
+                        ])),
+                      (c = u.label) != null ? c : "unknown",
+                    ));
+                }
+              }
+              if (z == null) {
+                var d;
+                (j(r[0].deviceId),
+                  o("WALogger").LOG(
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV] Using fallback audio device:\n        ",
+                        "",
+                      ])),
+                    (d = r[0].label) != null ? d : "unknown",
+                  ));
+              }
+              var m = K();
+              return m != null ? m : null;
+            } catch (e) {
+              return (
+                o("WALogger")
+                  .ERROR(
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV] Error selecting audio device: ",
+                        "",
+                      ])),
+                    e,
+                  )
+                  .sendLogs("voip: [AV] Error selecting audio device: ${e}"),
+                null
+              );
             }
-            if (A == null) {
-              var d;
-              (F(r[0].deviceId),
-                o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV] Using fallback audio device:\n        ",
-                      "",
-                    ])),
-                  (d = r[0].label) != null ? d : "unknown",
-                ));
-            }
-            var m = O();
-            return m != null ? m : null;
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV] Error selecting audio device: ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs("voip: [AV] Error selecting audio device: ${e}"),
-              null
-            );
-          }
-        })),
-        G.apply(this, arguments)
+          },
+        )),
+        te.apply(this, arguments)
       );
     }
-    function z(e) {
+    function ne(e) {
       return e.sort(function (e, t) {
         var n = e.deviceId === "default",
           r = t.deviceId === "default";
         return n && !r ? -1 : !n && r ? 1 : 0;
       });
     }
-    function j(e, t, n) {
-      return K.apply(this, arguments);
+    function re(e, t, n) {
+      return oe.apply(this, arguments);
     }
-    function K() {
+    function oe() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          try {
-            var r,
-              a,
-              i =
-                (r =
-                  e == null || (a = e.navigator) == null
-                    ? void 0
-                    : a.mediaDevices) != null
-                  ? r
-                  : navigator.mediaDevices;
-            if (!(i != null && i.enumerateDevices))
+        (oe = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n) {
+            try {
+              var r,
+                a,
+                i =
+                  (r =
+                    e == null || (a = e.navigator) == null
+                      ? void 0
+                      : a.mediaDevices) != null
+                    ? r
+                    : navigator.mediaDevices;
+              if (!(i != null && i.enumerateDevices))
+                return (
+                  o("WALogger").ERROR(
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:getAvailableAudioDevices] mediaDevices API not supported",
+                      ])),
+                  ),
+                  []
+                );
+              var l = t === !0 || (o("WAWebUA").UA.isSafari && n === !0);
+              if (!l) {
+                var s = yield o(
+                    "WAWebMediaPermissionsUtils",
+                  ).checkMediaPermissionState("microphone"),
+                  u = s.granted;
+                if (!u)
+                  try {
+                    var c = yield i.getUserMedia({ audio: !0 });
+                    c.getTracks().forEach(function (e) {
+                      return e.stop();
+                    });
+                  } catch (e) {
+                    if (n !== !0)
+                      throw (
+                        o("WALogger").WARN(
+                          C ||
+                            (C = babelHelpers.taggedTemplateLiteralLoose([
+                              "voip: [AV:getAvailableAudioDevices] microphone permission denied",
+                            ])),
+                        ),
+                        e
+                      );
+                  }
+              }
+              var d = yield i.enumerateDevices(),
+                m = ne(
+                  d
+                    .filter(function (e) {
+                      return e.kind === "audioinput";
+                    })
+                    .map(function (e) {
+                      return {
+                        deviceId: e.deviceId,
+                        label:
+                          e.label || "Microphone " + e.deviceId.slice(0, 8),
+                      };
+                    }),
+                );
               return (
-                o("WALogger").ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:getAvailableAudioDevices] mediaDevices API not supported",
-                    ])),
-                ),
-                []
-              );
-            var l = t === !0 || (o("WAWebUA").UA.isSafari && n === !0);
-            if (!l) {
-              var s = yield o(
-                  "WAWebMediaPermissionsUtils",
-                ).checkMediaPermissionState("microphone"),
-                u = s.granted;
-              if (!u)
-                try {
-                  var c = yield i.getUserMedia({ audio: !0 });
-                  c.getTracks().forEach(function (e) {
-                    return e.stop();
-                  });
-                } catch (e) {
-                  if (n !== !0)
-                    throw (
-                      o("WALogger").WARN(
-                        C ||
-                          (C = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:getAvailableAudioDevices] microphone permission denied",
-                          ])),
-                      ),
-                      e
-                    );
-                }
-            }
-            var d = yield i.enumerateDevices(),
-              m = z(
-                d
-                  .filter(function (e) {
-                    return e.kind === "audioinput";
-                  })
-                  .map(function (e) {
-                    return {
-                      deviceId: e.deviceId,
-                      label: e.label || "Microphone " + e.deviceId.slice(0, 8),
-                    };
-                  }),
-              );
-            return (
-              o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [AV:getAvailableAudioDevices] loaded ",
-                    " devices: ",
-                    "",
-                  ])),
-                m.length,
-                m.map(function (e) {
-                  return e.label + " (" + e.deviceId.slice(0, 8) + ")";
-                }),
-              ),
-              m
-            );
-          } catch (e) {
-            return (
-              (!(e instanceof Error) || !e.name.includes("NotAllowed")) &&
-                o("WALogger").ERROR(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:getAvailableAudioDevices] error loading devices: ",
+                o("WALogger").LOG(
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:getAvailableAudioDevices] loaded ",
+                      " devices: ",
                       "",
                     ])),
-                  e,
+                  m.length,
+                  m.map(function (e) {
+                    return e.label + " (" + e.deviceId.slice(0, 8) + ")";
+                  }),
                 ),
-              []
-            );
-          }
-        })),
-        K.apply(this, arguments)
+                m
+              );
+            } catch (e) {
+              return (
+                (!(e instanceof Error) || !e.name.includes("NotAllowed")) &&
+                  o("WALogger").ERROR(
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:getAvailableAudioDevices] error loading devices: ",
+                        "",
+                      ])),
+                    e,
+                  ),
+                []
+              );
+            }
+          },
+        )),
+        oe.apply(this, arguments)
       );
     }
-    function Q(e, t) {
-      return X.apply(this, arguments);
+    function ae(e, t) {
+      return ie.apply(this, arguments);
     }
-    function X() {
+    function ie() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ie = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n,
               r,
@@ -399,7 +415,7 @@ __d(
                   return n.indexOf(e) === t;
                 }),
             );
-            var s = z(
+            var s = ne(
               l
                 .filter(function (e) {
                   return e.kind === "audiooutput";
@@ -440,15 +456,15 @@ __d(
             );
           }
         })),
-        X.apply(this, arguments)
+        ie.apply(this, arguments)
       );
     }
-    function Y(e) {
-      return J.apply(this, arguments);
+    function le(e) {
+      return se.apply(this, arguments);
     }
-    function J() {
+    function se() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (se = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             k ||
               (k = babelHelpers.taggedTemplateLiteralLoose([
@@ -468,7 +484,7 @@ __d(
                 { type: "microphone", selectedDeviceId: e.deviceId, params: t },
               );
             return n
-              ? (F(e.deviceId),
+              ? (j(e.deviceId),
                 o("WAWebUserPrefsVoip").setSelectedAudioInputDevice(e.deviceId),
                 e.onStreamUpdate(n),
                 o("WALogger").LOG(
@@ -503,20 +519,192 @@ __d(
             );
           }
         })),
-        J.apply(this, arguments)
+        se.apply(this, arguments)
       );
     }
-    function Z(e, t) {
-      return ee.apply(this, arguments);
+    function ue(e, t, n) {
+      return ce.apply(this, arguments);
     }
-    function ee() {
+    function ce() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (ce = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, r) {
+            if (typeof e.setSinkId != "function")
+              return (
+                o("WALogger").WARN(
+                  x ||
+                    (x = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [",
+                      "] setSinkId not available, output will use browser default",
+                    ])),
+                  r,
+                ),
+                !1
+              );
+            try {
+              return (
+                yield e.setSinkId(t),
+                o("WALogger").LOG(
+                  $ ||
+                    ($ = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [",
+                      "] output device set to ",
+                      "",
+                    ])),
+                  r,
+                  t.slice(0, 8),
+                ),
+                !0
+              );
+            } catch (e) {
+              var a = e instanceof Error ? e.name : String(e);
+              o("WALogger").WARN(
+                P ||
+                  (P = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [",
+                    "] setSinkId initial attempt failed for ",
+                    ": ",
+                    "",
+                  ])),
+                r,
+                t.slice(0, 8),
+                a,
+              );
+            }
+            for (
+              var i = [200, 500, 1e3],
+                l = function* () {
+                  var a = i[u];
+                  (o("WALogger").LOG(
+                    M ||
+                      (M = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [",
+                        "] retrying setSinkId in ",
+                        "ms (attempt ",
+                        "/",
+                        ")",
+                      ])),
+                    r,
+                    a,
+                    u + 2,
+                    i.length + 1,
+                  ),
+                    yield new (G || (G = n("Promise")))(function (e) {
+                      return window.setTimeout(e, a);
+                    }));
+                  try {
+                    return (
+                      yield e.setSinkId(t),
+                      o("WALogger").LOG(
+                        w ||
+                          (w = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [",
+                            "] setSinkId succeeded on attempt ",
+                            " for ",
+                            "",
+                          ])),
+                        r,
+                        u + 2,
+                        t.slice(0, 8),
+                      ),
+                      { v: !0 }
+                    );
+                  } catch (e) {
+                    var l = e instanceof Error ? e.name : String(e);
+                    o("WALogger").WARN(
+                      A ||
+                        (A = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [",
+                          "] setSinkId attempt ",
+                          " failed for ",
+                          ": ",
+                          "",
+                        ])),
+                      r,
+                      u + 2,
+                      t.slice(0, 8),
+                      l,
+                    );
+                  }
+                },
+                s,
+                u = 0;
+              u < i.length;
+              u++
+            )
+              if (((s = yield* l()), s)) return s.v;
+            return (
+              o("WALogger").ERROR(
+                N ||
+                  (N = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [",
+                    "] setSinkId failed after ",
+                    " attempts for ",
+                    "",
+                  ])),
+                r,
+                i.length + 1,
+                t.slice(0, 8),
+              ),
+              !1
+            );
+          },
+        )),
+        ce.apply(this, arguments)
+      );
+    }
+    function de(e, t) {
+      return me.apply(this, arguments);
+    }
+    function me() {
+      return (
+        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = Y();
+          if (
+            (o("WALogger").LOG(
+              F ||
+                (F = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [",
+                  "] applying output device preference: ",
+                  "",
+                ])),
+              t,
+              n != null ? n : "(none)",
+            ),
+            n != null)
+          ) {
+            var r = yield ue(e, n, t);
+            if (r) return !0;
+          }
+          var a = yield J();
+          return a != null && a !== n
+            ? (o("WALogger").LOG(
+                O ||
+                  (O = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [",
+                    "] preferred device failed, falling back to ",
+                    "",
+                  ])),
+                t,
+                a.slice(0, 8),
+              ),
+              ue(e, a, t))
+            : !1;
+        })),
+        me.apply(this, arguments)
+      );
+    }
+    function pe(e, t) {
+      return _e.apply(this, arguments);
+    }
+    function _e() {
+      return (
+        (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n, r, a;
           if (
             (o("WALogger").LOG(
-              x ||
-                (x = babelHelpers.taggedTemplateLiteralLoose([
+              B ||
+                (B = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [AV:switchAudioOutputDeviceInternal] switching to device: ",
                   ", browser=",
                   "/",
@@ -532,8 +720,8 @@ __d(
           )
             return (
               o("WALogger").WARN(
-                $ ||
-                  ($ = babelHelpers.taggedTemplateLiteralLoose([
+                W ||
+                  (W = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchAudioOutputDeviceInternal] playback audio element not initialized, saving preference only",
                   ])),
               ),
@@ -544,10 +732,10 @@ __d(
             var i,
               l = typeof t.setSinkId == "function",
               s = (i = t.sinkId) != null ? i : "(unknown)";
-            return (
-              o("WALogger").LOG(
-                P ||
-                  (P = babelHelpers.taggedTemplateLiteralLoose([
+            if (
+              (o("WALogger").LOG(
+                q ||
+                  (q = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:switchAudioOutputDeviceInternal] setSinkId supported=",
                     ", currentSinkId=",
                     "",
@@ -555,46 +743,51 @@ __d(
                 String(l),
                 s,
               ),
-              l
-                ? (yield t.setSinkId(e),
-                  o("WAWebUserPrefsVoip").setSelectedAudioOutputDevice(e),
-                  o("WAWebAudioDeviceEvents").AudioDeviceEvents.trigger(
-                    "speakerDeviceSelectionChanged",
-                    [e],
-                  ),
-                  o("WALogger").LOG(
-                    M ||
-                      (M = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:switchAudioOutputDeviceInternal] successfully switched to device: ",
-                        "",
-                      ])),
-                    e.slice(0, 8),
-                  ),
-                  !0)
-                : (o("WALogger").WARN(
-                    N ||
-                      (N = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:switchAudioOutputDeviceInternal] HTMLAudioElement.setSinkId not supported in this browser, saving preference only",
-                      ])),
-                  ),
-                  o("WAWebUserPrefsVoip").setSelectedAudioOutputDevice(e),
-                  !1)
+              !l)
+            )
+              return (
+                o("WALogger").WARN(
+                  U ||
+                    (U = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:switchAudioOutputDeviceInternal] HTMLAudioElement.setSinkId not supported in this browser, saving preference only",
+                    ])),
+                ),
+                o("WAWebUserPrefsVoip").setSelectedAudioOutputDevice(e),
+                !1
+              );
+            var u = yield ue(t, e, "AV:switchAudioOutputDeviceInternal");
+            return (
+              u &&
+                (o("WAWebUserPrefsVoip").setSelectedAudioOutputDevice(e),
+                o("WAWebAudioDeviceEvents").AudioDeviceEvents.trigger(
+                  "speakerDeviceSelectionChanged",
+                  [e],
+                ),
+                o("WALogger").LOG(
+                  V ||
+                    (V = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:switchAudioOutputDeviceInternal] successfully switched to device: ",
+                      "",
+                    ])),
+                  e.slice(0, 8),
+                )),
+              u
             );
           } catch (t) {
-            var u = t instanceof Error ? t.name : String(t),
-              c = t instanceof Error ? t.message : "";
+            var c = t instanceof Error ? t.name : String(t),
+              d = t instanceof Error ? t.message : "";
             return (
               o("WALogger")
                 .ERROR(
-                  w ||
-                    (w = babelHelpers.taggedTemplateLiteralLoose([
+                  H ||
+                    (H = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:switchAudioOutputDeviceInternal] setSinkId failed: name=",
                       ", message=",
                       ", targetDevice=",
                       "",
                     ])),
-                  u,
                   c,
+                  d,
                   e.slice(0, 8),
                 )
                 .sendLogs(
@@ -604,18 +797,20 @@ __d(
             );
           }
         })),
-        ee.apply(this, arguments)
+        _e.apply(this, arguments)
       );
     }
     ((l.AudioDeviceEvents = o("WAWebAudioDeviceEvents").AudioDeviceEvents),
-      (l.getCurrentSelectedAudioDevice = O),
-      (l.getCurrentSelectedAudioOutputDevice = q),
-      (l.selectAudioOutputDevice = U),
-      (l.selectAudioDevice = H),
-      (l.getAvailableAudioDevices = j),
-      (l.getAvailableAudioOutputDevices = Q),
-      (l.switchAudioInputDeviceInternal = Y),
-      (l.switchAudioOutputDeviceInternal = Z));
+      (l.getCurrentSelectedAudioDevice = K),
+      (l.getCurrentSelectedAudioOutputDevice = Y),
+      (l.selectAudioOutputDevice = J),
+      (l.selectAudioDevice = ee),
+      (l.getAvailableAudioDevices = re),
+      (l.getAvailableAudioOutputDevices = ae),
+      (l.switchAudioInputDeviceInternal = le),
+      (l.setSinkIdWithRetry = ue),
+      (l.applyPreferredAudioOutputDevice = de),
+      (l.switchAudioOutputDeviceInternal = pe));
   },
   98,
 );

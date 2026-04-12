@@ -9,7 +9,6 @@ __d(
     "WDSButton.react",
     "WDSIconWdsIcChannels.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -17,72 +16,48 @@ __d(
     function c(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(9),
-        i = e.onNewsletterSelected,
-        l = e.selectedNewsletterWid,
-        c = e.type,
-        d;
-      a[0] !== i || a[1] !== l
-        ? ((d = function () {
-            o("WAWebModalManager").ModalManager.open(
-              u.jsx(o("WAWebModal.react").Modal, {
-                type: o("WAWebModal.react").ModalTheme.Tower,
-                children: u.jsx(
-                  o("WAWebNewsletterStatusSelectorDrawerLoadable")
-                    .NewsletterStatusSelectorDrawerLoadable,
-                  {
-                    selectedNewsletterWid: l,
-                    onNewsletterSelected: function (t) {
-                      (i(t), o("WAWebModalManager").ModalManager.close());
-                    },
-                    onClose: o("WAWebModalManager").closeModalManager,
+        a = e.onNewsletterSelected,
+        i = e.selectedNewsletterWid,
+        l = e.type,
+        c = function () {
+          o("WAWebModalManager").ModalManager.open(
+            u.jsx(o("WAWebModal.react").Modal, {
+              type: o("WAWebModal.react").ModalTheme.Tower,
+              children: u.jsx(
+                o("WAWebNewsletterStatusSelectorDrawerLoadable")
+                  .NewsletterStatusSelectorDrawerLoadable,
+                {
+                  selectedNewsletterWid: i,
+                  onNewsletterSelected: function (t) {
+                    (a(t), o("WAWebModalManager").ModalManager.close());
                   },
-                ),
-              }),
-            );
-          }),
-          (a[0] = i),
-          (a[1] = l),
-          (a[2] = d))
-        : (d = a[2]);
-      var m = d,
-        p = c === "text" ? "media" : "default",
-        _ =
-          l != null &&
+                  onClose: o("WAWebModalManager").closeModalManager,
+                },
+              ),
+            }),
+          );
+        },
+        d = l === "text" ? "media" : "default",
+        m =
+          i != null &&
           (t =
-            (n = r("WAWebNewsletterCollection").get(l)) == null ||
+            (n = r("WAWebNewsletterCollection").get(i)) == null ||
             (n = n.newsletterMetadata) == null
               ? void 0
               : n.name) != null
             ? t
             : null,
-        f;
-      a[3] !== _
-        ? ((f = _ != null ? _ : s._(/*BTDS*/ "Select channel")),
-          (a[3] = _),
-          (a[4] = f))
-        : (f = a[4]);
-      var g = f,
-        h;
-      return (
-        a[5] !== p || a[6] !== m || a[7] !== g
-          ? ((h = u.jsx(r("WDSButton.react"), {
-              variant: "outline",
-              type: p,
-              Icon: r("WDSIconWdsIcChannels.react"),
-              label: g,
-              onPress: m,
-              testid: void 0,
-            })),
-            (a[5] = p),
-            (a[6] = m),
-            (a[7] = g),
-            (a[8] = h))
-          : (h = a[8]),
-        h
-      );
+        p = m != null ? m : s._(/*BTDS*/ "Select channel");
+      return u.jsx(r("WDSButton.react"), {
+        variant: "outline",
+        type: d,
+        Icon: r("WDSIconWdsIcChannels.react"),
+        label: p,
+        onPress: c,
+        testid: void 0,
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

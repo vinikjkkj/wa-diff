@@ -7,7 +7,6 @@ __d(
     "WDSMenu.react",
     "WDSMenuItem.react",
     "react",
-    "react-compiler-runtime",
     "useWDSMenu",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -68,94 +67,55 @@ __d(
       return t != null ? t.label() : p[0].label();
     }
     function f(e) {
-      var t = o("react-compiler-runtime").c(21),
-        n = e.onSelectRange,
-        a = e.selectedRange,
-        i = e.testid,
-        l = m(null),
-        s;
-      t[0] !== n || t[1] !== a
-        ? ((s = p.map(function (e) {
-            var t;
+      var t = e.onSelectRange,
+        n = e.selectedRange,
+        o = e.testid,
+        a = m(null),
+        i = u.jsx(r("WDSMenu.react"), {
+          children: p.map(function (e) {
+            var o;
             return u.jsx(
               r("WDSMenuItem.react"),
               {
                 isToggleable: !0,
                 onPress: function () {
-                  return n(e.value);
+                  return t(e.value);
                 },
                 testid: void 0,
                 title: e.label(),
-                toggled: e.value === a,
+                toggled: e.value === n,
               },
-              (t = e.value) != null ? t : "all",
+              (o = e.value) != null ? o : "all",
             );
-          })),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = s))
-        : (s = t[2]);
-      var c;
-      t[3] !== s
-        ? ((c = u.jsx(r("WDSMenu.react"), { children: s })),
-          (t[3] = s),
-          (t[4] = c))
-        : (c = t[4]);
-      var d = c,
-        f;
-      t[5] !== d
-        ? ((f = { targetRef: l, menu: d, dismissable: !0 }),
-          (t[5] = d),
-          (t[6] = f))
-        : (f = t[6]);
-      var g = r("useWDSMenu")(f),
-        h = g.closeMenu,
-        y = g.isMenuOpen,
-        C = g.menuPortal,
-        b = g.openMenu,
-        v;
-      t[7] !== h || t[8] !== y || t[9] !== b
-        ? ((v = function () {
-            y ? h() : b();
           }),
-          (t[7] = h),
-          (t[8] = y),
-          (t[9] = b),
-          (t[10] = v))
-        : (v = t[10]);
-      var S = v,
-        R;
-      t[11] !== a ? ((R = _(a)), (t[11] = a), (t[12] = R)) : (R = t[12]);
-      var L = i != null ? i : "customer-manager-last-message-filter",
-        E;
-      t[13] !== S || t[14] !== y || t[15] !== R || t[16] !== L
-        ? ((E = u.jsx(r("WDSChip.react"), {
+        }),
+        l = r("useWDSMenu")({ targetRef: a, menu: i, dismissable: !0 }),
+        s = l.closeMenu,
+        c = l.isMenuOpen,
+        f = l.menuPortal,
+        g = l.openMenu,
+        h = d(
+          function () {
+            c ? s() : g();
+          },
+          [s, c, g],
+        );
+      return u.jsxs(u.Fragment, {
+        children: [
+          u.jsx(r("WDSChip.react"), {
             Icon: r("WDSIconIcCalendarMonth.react"),
-            "aria-pressed": y,
-            label: R,
-            onPress: S,
-            ref: l,
+            "aria-pressed": c,
+            label: _(n),
+            onPress: h,
+            ref: a,
             showEndDropdownIcon: !0,
             testid: void 0,
-          })),
-          (t[13] = S),
-          (t[14] = y),
-          (t[15] = R),
-          (t[16] = L),
-          (t[17] = E))
-        : (E = t[17]);
-      var k;
-      return (
-        t[18] !== C || t[19] !== E
-          ? ((k = u.jsxs(u.Fragment, { children: [E, C] })),
-            (t[18] = C),
-            (t[19] = E),
-            (t[20] = k))
-          : (k = t[20]),
-        k
-      );
+          }),
+          f,
+        ],
+      });
     }
-    l.default = f;
+    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
   },
   226,
 );

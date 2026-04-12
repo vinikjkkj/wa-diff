@@ -8,7 +8,6 @@ __d(
     "WAWebUnstyledButton.react",
     "WDSFocusStateStyles",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -70,77 +69,43 @@ __d(
         },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(12),
+      var n,
         a = t.onClick,
         i = t.testid,
         l = i === void 0 ? "add-item" : i,
-        u;
-      n[0] !== t.theme
-        ? ((u = (e || (e = r("stylex")))(
-            d.addItemButton,
-            t.theme === "default" && o("WAWebUISpacing").uiPadding.vert15,
-            t.theme === "default" && o("WAWebUISpacing").uiMargin.top8,
-            t.theme === "in-list" && o("WAWebUISpacing").uiPadding.vert8,
-            t.theme === "in-list" && o("WAWebUISpacing").uiPadding.horiz15,
-            t.theme === "collections" && d.themeCollections,
-            t.theme === "collections" && o("WAWebUISpacing").uiPadding.vert8,
-            t.theme === "collections" && o("WAWebUISpacing").uiPadding.horiz15,
-            t.theme === "collections" && o("WAWebUISpacing").uiMargin.bottom1,
-          )),
-          (n[0] = t.theme),
-          (n[1] = u))
-        : (u = n[1]);
-      var m = u,
-        p;
-      n[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = s._(/*BTDS*/ "Add new item")), (n[2] = p))
-        : (p = n[2]);
-      var _;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = c.jsx(r("WAWebUnstyledButton.react"), {
-            title: p,
-            onClick: r("WAWebNoop"),
-            xstyle: [
-              d.addIcon,
-              o("WAWebUISpacing").uiMargin.start12,
-              o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-            ],
-            children: c.jsx(c.Fragment, {}),
-          })),
-          (n[3] = _))
-        : (_ = n[3]);
-      var f = _,
-        g;
-      if (n[4] !== t.title) {
-        var h;
-        ((g = (h = t.title) != null ? h : s._(/*BTDS*/ "Add new item")),
-          (n[4] = t.title),
-          (n[5] = g));
-      } else g = n[5];
-      var y;
-      return (
-        n[6] !== m || n[7] !== a || n[8] !== t.idle || n[9] !== g || n[10] !== l
-          ? ((y = c.jsx(r("WAWebCellFrame.react"), {
-              theme: "add-item",
-              image: f,
-              customImage: !0,
-              primary: g,
-              className: m,
-              onClick: a,
-              idle: t.idle,
-              testid: void 0,
-            })),
-            (n[6] = m),
-            (n[7] = a),
-            (n[8] = t.idle),
-            (n[9] = g),
-            (n[10] = l),
-            (n[11] = y))
-          : (y = n[11]),
-        y
-      );
+        u = (e || (e = r("stylex")))(
+          d.addItemButton,
+          t.theme === "default" && o("WAWebUISpacing").uiPadding.vert15,
+          t.theme === "default" && o("WAWebUISpacing").uiMargin.top8,
+          t.theme === "in-list" && o("WAWebUISpacing").uiPadding.vert8,
+          t.theme === "in-list" && o("WAWebUISpacing").uiPadding.horiz15,
+          t.theme === "collections" && d.themeCollections,
+          t.theme === "collections" && o("WAWebUISpacing").uiPadding.vert8,
+          t.theme === "collections" && o("WAWebUISpacing").uiPadding.horiz15,
+          t.theme === "collections" && o("WAWebUISpacing").uiMargin.bottom1,
+        ),
+        m = c.jsx(r("WAWebUnstyledButton.react"), {
+          title: s._(/*BTDS*/ "Add new item"),
+          onClick: r("WAWebNoop"),
+          xstyle: [
+            d.addIcon,
+            o("WAWebUISpacing").uiMargin.start12,
+            o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+          ],
+          children: c.jsx(c.Fragment, {}),
+        });
+      return c.jsx(r("WAWebCellFrame.react"), {
+        theme: "add-item",
+        image: m,
+        customImage: !0,
+        primary: (n = t.title) != null ? n : s._(/*BTDS*/ "Add new item"),
+        className: u,
+        onClick: a,
+        idle: t.idle,
+        testid: void 0,
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

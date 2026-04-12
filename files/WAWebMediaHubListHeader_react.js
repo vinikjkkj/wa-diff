@@ -1,12 +1,6 @@
 __d(
   "WAWebMediaHubListHeader.react",
-  [
-    "WAWebFlex.react",
-    "WAWebMediaHubContextProvider",
-    "WDSText.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebFlex.react", "WAWebMediaHubContextProvider", "WDSText.react", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -31,48 +25,43 @@ __d(
         selectMode: { width: "xvy4d1p", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(15),
-        n = e.firstColumnLabel,
-        a = e.secondColumnLabel,
-        i = e.thirdColumnLabel,
-        l = o("WAWebMediaHubContextProvider").useWAWebMediaHubContext(),
-        c = l.isSelectMode,
-        d;
-      t[0] !== c
-        ? ((d =
-            c &&
-            s.jsx(o("WAWebFlex.react").FlexRow, {
-              xstyle: u.selectMode,
-              marginEnd: 8,
-            })),
-          (t[0] = c),
-          (t[1] = d))
-        : (d = t[1]);
-      var m;
-      t[2] !== n
-        ? ((m = s.jsx(r("WDSText.react"), {
-            type: "Body2Emphasized",
-            colorName: "contentDefault",
-            children: n,
-          })),
-          (t[2] = n),
-          (t[3] = m))
-        : (m = t[3]);
-      var p;
-      t[4] !== d || t[5] !== m
-        ? ((p = s.jsxs(o("WAWebFlex.react").FlexRow, {
+      var t = e.firstColumnLabel,
+        n = e.secondColumnLabel,
+        a = e.thirdColumnLabel,
+        i = o("WAWebMediaHubContextProvider").useWAWebMediaHubContext(),
+        l = i.isSelectMode;
+      return s.jsxs(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        gap: 40,
+        xstyle: u.headerRow,
+        children: [
+          s.jsxs(o("WAWebFlex.react").FlexRow, {
             gap: 8,
             grow: 3,
             basis: 0,
-            children: [d, m],
-          })),
-          (t[4] = d),
-          (t[5] = m),
-          (t[6] = p))
-        : (p = t[6]);
-      var _;
-      t[7] !== a
-        ? ((_ = s.jsx(o("WAWebFlex.react").FlexRow, {
+            children: [
+              l &&
+                s.jsx(o("WAWebFlex.react").FlexRow, {
+                  xstyle: u.selectMode,
+                  marginEnd: 8,
+                }),
+              s.jsx(r("WDSText.react"), {
+                type: "Body2Emphasized",
+                colorName: "contentDefault",
+                children: t,
+              }),
+            ],
+          }),
+          s.jsx(o("WAWebFlex.react").FlexRow, {
+            grow: 2,
+            basis: 0,
+            children: s.jsx(r("WDSText.react"), {
+              type: "Body2Emphasized",
+              colorName: "contentDefault",
+              children: n,
+            }),
+          }),
+          s.jsx(o("WAWebFlex.react").FlexRow, {
             grow: 2,
             basis: 0,
             children: s.jsx(r("WDSText.react"), {
@@ -80,42 +69,11 @@ __d(
               colorName: "contentDefault",
               children: a,
             }),
-          })),
-          (t[7] = a),
-          (t[8] = _))
-        : (_ = t[8]);
-      var f;
-      t[9] !== i
-        ? ((f = s.jsx(o("WAWebFlex.react").FlexRow, {
-            grow: 2,
-            basis: 0,
-            children: s.jsx(r("WDSText.react"), {
-              type: "Body2Emphasized",
-              colorName: "contentDefault",
-              children: i,
-            }),
-          })),
-          (t[9] = i),
-          (t[10] = f))
-        : (f = t[10]);
-      var g;
-      return (
-        t[11] !== p || t[12] !== _ || t[13] !== f
-          ? ((g = s.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              gap: 40,
-              xstyle: u.headerRow,
-              children: [p, _, f],
-            })),
-            (t[11] = p),
-            (t[12] = _),
-            (t[13] = f),
-            (t[14] = g))
-          : (g = t[14]),
-        g
-      );
+          }),
+        ],
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

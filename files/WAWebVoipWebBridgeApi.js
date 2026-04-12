@@ -913,17 +913,21 @@ __d(
           var n = o("WAWebUserPrefsMeUser").isMeAccount(t.sharer_jid);
           n &&
             t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped &&
+            (o("WAWebVoipUiPopoutWindowPortalContainer.react").setMediaStream(
+              "desktop",
+              null,
+            ),
             t.reason ===
               o("WAWebVoipWaCallEnums").ScreenShareEndReason.TakeOver &&
-            (e.setSelfScreenShareRejected(!0),
-            o("WAWebToastManager").ToastManager.open(
-              V.jsx(o("WAWebToast.react").Toast, {
-                msg: s._(
-                  /*BTDS*/ "Another participant is already sharing their screen",
-                ),
-                duration: 5e3,
-              }),
-            ));
+              (e.setSelfScreenShareRejected(!0),
+              o("WAWebToastManager").ToastManager.open(
+                V.jsx(o("WAWebToast.react").Toast, {
+                  msg: s._(
+                    /*BTDS*/ "Another participant is already sharing their screen",
+                  ),
+                  duration: 5e3,
+                }),
+              )));
         }
       },
       handleCallEndingForSurvey: function (t) {

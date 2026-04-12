@@ -13,7 +13,6 @@ __d(
     "WAWebSendCommentMessageAction",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebModelValues",
   ],
@@ -87,211 +86,137 @@ __d(
         },
       };
     function p(t) {
-      var n = o("react-compiler-runtime").c(32),
-        a = t.parent,
-        i = d(!1),
-        l = i[0],
-        u = i[1],
-        p = d(),
-        f = p[0],
-        g = p[1],
-        h;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = function (t) {
-            var e = t.trim();
-            u(e.length > 0);
-          }),
-          (n[0] = h))
-        : (h = n[0]);
-      var y = h,
-        C;
-      n[1] !== f
-        ? ((C = function (t, n) {
-            f == null || f.replaceSelection(t, n);
-          }),
-          (n[1] = f),
-          (n[2] = C))
-        : (C = n[2]);
-      var b = C,
-        v,
-        S;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = r("WAWebChatPreferenceCollection").getDefault()),
-          (S = ["spellcheck", "transformTextEmoji", "enterIsSend"]),
-          (n[3] = v),
-          (n[4] = S))
-        : ((v = n[3]), (S = n[4]));
-      var R = o("useWAWebModelValues").useModelValues(v, S),
-        L;
-      n[5] !== a || n[6] !== f
-        ? ((L = function () {
-            if (f != null) {
-              var e = f.getTextContent();
-              if (e != null) {
-                var t = e.trim();
-                t.length > 0 &&
-                  (o("WAWebSendCommentMessageAction")
-                    .sendCommentMessage(a, t)
-                    .finally(_),
-                  f.setTextContent(""),
-                  u(!1));
-              }
+      var n = t.parent,
+        a = d(!1),
+        i = a[0],
+        l = a[1],
+        u = d(),
+        p = u[0],
+        _ = u[1],
+        f = function (t) {
+          var e = t.trim();
+          l(e.length > 0);
+        },
+        g = function (t, n) {
+          p == null || p.replaceSelection(t, n);
+        },
+        h = o("useWAWebModelValues").useModelValues(
+          r("WAWebChatPreferenceCollection").getDefault(),
+          ["spellcheck", "transformTextEmoji", "enterIsSend"],
+        ),
+        y = function () {
+          if (p != null) {
+            var e = p.getTextContent();
+            if (e != null) {
+              var t = e.trim();
+              t.length > 0 &&
+                (o("WAWebSendCommentMessageAction")
+                  .sendCommentMessage(n, t)
+                  .finally(function () {
+                    o(
+                      "WAWebCommentModalActions",
+                    ).CommentModalActions.scrollReplyModalToBottom();
+                  }),
+                p.setTextContent(""),
+                l(!1));
             }
-          }),
-          (n[5] = a),
-          (n[6] = f),
-          (n[7] = L))
-        : (L = n[7]);
-      var E = L,
-        k,
-        I;
-      n[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = (e || (e = r("stylex"))).props(
+          }
+        },
+        C = null;
+      return c.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props(
             m.blockCompose,
             o("WAWebUISpacing").uiPadding.vert5,
             o("WAWebUISpacing").uiPadding.horiz15,
-          )),
-          (I = { className: "x78zum5 x1isitws xuk3077" }),
-          (n[8] = k),
-          (n[9] = I))
-        : ((k = n[8]), (I = n[9]));
-      var T;
-      n[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = (e || (e = r("stylex"))).props(
-            m.inputContainer,
-            o("WAWebUISpacing").uiPadding.vert9,
-            o("WAWebUISpacing").uiPadding.horiz12,
-            o("WAWebUISpacing").uiMargin.vert5,
-            o("WAWebUISpacing").uiMargin.horiz8,
-          )),
-          (n[10] = T))
-        : (T = n[10]);
-      var D, x;
-      n[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((x = s._(/*BTDS*/ "Add a reply")),
-          (D = function (t) {
-            y(t.parsableText);
-          }),
-          (n[11] = D),
-          (n[12] = x))
-        : ((D = n[11]), (x = n[12]));
-      var $ = R.enterIsSend ? E : r("WAWebNoop"),
-        P;
-      n[13] !== R.transformTextEmoji
-        ? ((P = c.jsx(r("WAWebRichTextInputPlugins.react"), {
-            transformTextEmoji: R.transformTextEmoji,
-            textFormatEnabled: !0,
-            bulletPointsEnabled: !0,
-            numberedListEnabled: !0,
-            inlineCodeEnabled: !0,
-            blockQuoteEnabled: !0,
-            phoneNumbersEnabled: !0,
-            floatingToolbarEnabled: !0,
-          })),
-          (n[13] = R.transformTextEmoji),
-          (n[14] = P))
-        : (P = n[14]);
-      var N;
-      n[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((N = c.jsx(r("WAWebEmojiPickerPlugin"), {})), (n[15] = N))
-        : (N = n[15]);
-      var M;
-      n[16] !== R.spellcheck || n[17] !== $ || n[18] !== P
-        ? ((M = c.jsxs(r("WAWebRichTextInput.react"), {
-            ref: g,
-            placeholder: x,
-            onChange: D,
-            spellCheck: R.spellcheck,
-            onEnter: $,
-            multiline: !0,
-            children: [P, N],
-          })),
-          (n[16] = R.spellcheck),
-          (n[17] = $),
-          (n[18] = P),
-          (n[19] = M))
-        : (M = n[19]);
-      var w;
-      n[20] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = [m.emojiButton, o("WAWebUISpacing").uiMargin.start8]),
-          (n[20] = w))
-        : (w = n[20]);
-      var A;
-      n[21] !== b
-        ? ((A = c.jsx(o("WAWebMessageEditComposer.react").EmojiButton, {
-            xstyle: w,
-            onEmoji: b,
-          })),
-          (n[21] = b),
-          (n[22] = A))
-        : (A = n[22]);
-      var F;
-      n[23] !== M || n[24] !== A
-        ? ((F = c.jsxs(
-            "div",
-            babelHelpers.extends({}, T, { children: [M, A] }),
-          )),
-          (n[23] = M),
-          (n[24] = A),
-          (n[25] = F))
-        : (F = n[25]);
-      var O;
-      n[26] !== E || n[27] !== l
-        ? ((O = l
-            ? c.jsx(
-                "div",
-                babelHelpers.extends(
-                  {},
-                  (e || (e = r("stylex"))).props(
-                    m.sendButtonContainer,
-                    m.childPadding,
-                    o("WAWebUISpacing").uiPadding.vert5,
-                    o("WAWebUISpacing").uiPadding.horiz0,
-                  ),
-                  {
-                    children: c.jsx(
-                      o("WAWebComposeBoxSendButton.react").SendButton,
-                      {
-                        supportsPtt: !1,
-                        onClickSend: E,
-                        hasText: l,
-                        recordingSession: null,
-                        onStartRecording: r("WAWebNoop"),
-                      },
-                    ),
-                  },
-                ),
-              )
-            : null),
-          (n[26] = E),
-          (n[27] = l),
-          (n[28] = O))
-        : (O = n[28]);
-      var B;
-      return (
-        n[29] !== F || n[30] !== O
-          ? ((B = c.jsx(
-              "div",
-              babelHelpers.extends({}, k, {
-                children: c.jsxs(
+          ),
+          {
+            children: c.jsxs("div", {
+              className: "x78zum5 x1isitws xuk3077",
+              children: [
+                C,
+                c.jsxs(
                   "div",
-                  babelHelpers.extends({}, I, { children: [null, F, O] }),
+                  babelHelpers.extends(
+                    {},
+                    e.props(
+                      m.inputContainer,
+                      o("WAWebUISpacing").uiPadding.vert9,
+                      o("WAWebUISpacing").uiPadding.horiz12,
+                      o("WAWebUISpacing").uiMargin.vert5,
+                      o("WAWebUISpacing").uiMargin.horiz8,
+                    ),
+                    {
+                      children: [
+                        c.jsxs(r("WAWebRichTextInput.react"), {
+                          ref: _,
+                          placeholder: s._(/*BTDS*/ "Add a reply"),
+                          onChange: function (t) {
+                            f(t.parsableText);
+                          },
+                          spellCheck: h.spellcheck,
+                          onEnter: h.enterIsSend ? y : r("WAWebNoop"),
+                          multiline: !0,
+                          children: [
+                            c.jsx(r("WAWebRichTextInputPlugins.react"), {
+                              transformTextEmoji: h.transformTextEmoji,
+                              textFormatEnabled: !0,
+                              bulletPointsEnabled: !0,
+                              numberedListEnabled: !0,
+                              inlineCodeEnabled: !0,
+                              blockQuoteEnabled: !0,
+                              phoneNumbersEnabled: !0,
+                              floatingToolbarEnabled: !0,
+                            }),
+                            c.jsx(r("WAWebEmojiPickerPlugin"), {}),
+                          ],
+                        }),
+                        c.jsx(o("WAWebMessageEditComposer.react").EmojiButton, {
+                          xstyle: [
+                            m.emojiButton,
+                            o("WAWebUISpacing").uiMargin.start8,
+                          ],
+                          onEmoji: g,
+                        }),
+                      ],
+                    },
+                  ),
                 ),
-              }),
-            )),
-            (n[29] = F),
-            (n[30] = O),
-            (n[31] = B))
-          : (B = n[31]),
-        B
+                i
+                  ? c.jsx(
+                      "div",
+                      babelHelpers.extends(
+                        {},
+                        (e || (e = r("stylex"))).props(
+                          m.sendButtonContainer,
+                          m.childPadding,
+                          o("WAWebUISpacing").uiPadding.vert5,
+                          o("WAWebUISpacing").uiPadding.horiz0,
+                        ),
+                        {
+                          children: c.jsx(
+                            o("WAWebComposeBoxSendButton.react").SendButton,
+                            {
+                              supportsPtt: !1,
+                              onClickSend: y,
+                              hasText: i,
+                              recordingSession: null,
+                              onStartRecording: r("WAWebNoop"),
+                            },
+                          ),
+                        },
+                      ),
+                    )
+                  : null,
+              ],
+            }),
+          },
+        ),
       );
     }
-    function _() {
-      o(
-        "WAWebCommentModalActions",
-      ).CommentModalActions.scrollReplyModalToBottom();
-    }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

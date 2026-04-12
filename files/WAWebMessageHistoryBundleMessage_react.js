@@ -19,7 +19,6 @@ __d(
     "WDSSpinner.react",
     "fbs",
     "react",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -42,111 +41,58 @@ __d(
         cta: { display: "x78zum5", alignItems: "x6s0dn4", $$css: !0 },
       };
     function p(e) {
-      var t = o("react-compiler-runtime").c(25),
-        n = e.msg,
-        a = e.ref,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = [o("WAWebMsgGetters").getGroupHistoryBundleMetadata]),
-          (t[0] = i))
-        : (i = t[0]);
-      var l = o("useWAWebMsgValues").useMsgValues(n.id, i),
-        s = l[0],
-        u = s == null ? void 0 : s.processState,
-        p,
-        f;
-      (t[1] !== n || t[2] !== u
-        ? ((p = function () {
+      var t = e.msg,
+        n = e.ref,
+        a = o("useWAWebMsgValues").useMsgValues(t.id, [
+          o("WAWebMsgGetters").getGroupHistoryBundleMetadata,
+        ]),
+        i = a[0],
+        l = i == null ? void 0 : i.processState;
+      return (
+        d(
+          function () {
             var e;
-            u !==
+            l !==
               o("WAWebGroupHistoryMsgData.flow")
                 .MessageHistoryBundleProcessState.NONE ||
-              !o("WAWebMsgModelPropUtils").isTrusted(n.unsafe()) ||
-              ((e = n.id) != null && e.fromMe) ||
-              r("WAWebDownloadHistoryBundleAction")(n, u, {
+              !o("WAWebMsgModelPropUtils").isTrusted(t.unsafe()) ||
+              ((e = t.id) != null && e.fromMe) ||
+              r("WAWebDownloadHistoryBundleAction")(t, l, {
                 downloadEvenIfExpensive: !1,
                 rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
                   .WEBC_RMR_REASON_CODE.MSG_RENDER,
                 isUserInitiated: !1,
               });
-          }),
-          (f = [n, u]),
-          (t[1] = n),
-          (t[2] = u),
-          (t[3] = p),
-          (t[4] = f))
-        : ((p = t[3]), (f = t[4])),
-        d(p, f));
-      var g =
-          u ===
-            o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState
-              .FAILED && m.error,
-        C;
-      t[5] !== g
-        ? ((C = [m.messageBody, g]), (t[5] = g), (t[6] = C))
-        : (C = t[6]);
-      var b;
-      t[7] !== n || t[8] !== u
-        ? ((b = o(
-            "WAWebFormatMessageHistoryBundleBody",
-          ).formatMessageHistoryBundleBody(n, u)),
-          (t[7] = n),
-          (t[8] = u),
-          (t[9] = b))
-        : (b = t[9]);
-      var v;
-      t[10] !== n.id.fromMe || t[11] !== u
-        ? ((v = h(u, n.id.fromMe)),
-          (t[10] = n.id.fromMe),
-          (t[11] = u),
-          (t[12] = v))
-        : (v = t[12]);
-      var S;
-      t[13] !== u ? ((S = y(u)), (t[13] = u), (t[14] = S)) : (S = t[14]);
-      var R;
-      t[15] !== n || t[16] !== u
-        ? ((R = n.id.fromMe
-            ? null
-            : function () {
-                _(n, u);
-              }),
-          (t[15] = n),
-          (t[16] = u),
-          (t[17] = R))
-        : (R = t[17]);
-      var L;
-      return (
-        t[18] !== a ||
-        t[19] !== C ||
-        t[20] !== b ||
-        t[21] !== v ||
-        t[22] !== S ||
-        t[23] !== R
-          ? ((L = c.jsx(
-              o("WAWebSystemMessageWithSingleCTA.react")
-                .SystemMessageWithSingleCTA,
-              {
-                xstyle: C,
-                bodyText: b,
-                ctaText: v,
-                ctaXstyle: m.cta,
-                icon: S,
-                onClick: R,
-                onclickRef: a,
-                testid: void 0,
-              },
-            )),
-            (t[18] = a),
-            (t[19] = C),
-            (t[20] = b),
-            (t[21] = v),
-            (t[22] = S),
-            (t[23] = R),
-            (t[24] = L))
-          : (L = t[24]),
-        L
+          },
+          [t, l],
+        ),
+        c.jsx(
+          o("WAWebSystemMessageWithSingleCTA.react").SystemMessageWithSingleCTA,
+          {
+            xstyle: [
+              m.messageBody,
+              l ===
+                o("WAWebGroupHistoryMsgData.flow")
+                  .MessageHistoryBundleProcessState.FAILED && m.error,
+            ],
+            bodyText: o(
+              "WAWebFormatMessageHistoryBundleBody",
+            ).formatMessageHistoryBundleBody(t, l),
+            ctaText: h(l, t.id.fromMe),
+            ctaXstyle: m.cta,
+            icon: y(l),
+            onClick: t.id.fromMe
+              ? null
+              : function () {
+                  _(t, l);
+                },
+            onclickRef: n,
+            testid: void 0,
+          },
+        )
       );
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e, t) {
       return t ===
         o("WAWebGroupHistoryMsgData.flow").MessageHistoryBundleProcessState

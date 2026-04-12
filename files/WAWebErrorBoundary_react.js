@@ -16,7 +16,6 @@ __d(
     "asyncToGeneratorRuntime",
     "gkx",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -52,155 +51,106 @@ __d(
         },
       };
     function f(e) {
-      var t = o("react-compiler-runtime").c(13),
-        a = e.boundaryName,
-        i = e.error,
-        l;
-      t[0] !== i
-        ? ((l = i != null ? i : {}), (t[0] = i), (t[1] = l))
-        : (l = t[1]);
-      var u = l,
-        d = u.stack,
-        p;
-      t[2] !== d
-        ? ((p = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              d != null &&
-                (yield navigator.clipboard.writeText(d),
-                o("WAWebToastManager").ToastManager.open(
-                  m.jsx(o("WAWebToast.react").Toast, { msg: "Stack copied" }),
-                ));
-            });
-            return function () {
-              return e.apply(this, arguments);
-            };
-          })()),
-          (t[2] = d),
-          (t[3] = p))
-        : (p = t[3]);
-      var f = p,
-        g;
-      t[4] !== a
-        ? ((g = function () {
-            var e = "Uncaught render error at " + a;
-            o("WAWebCmd").Cmd.trigger("trigger_bugreport_v2", e);
-          }),
-          (t[4] = a),
-          (t[5] = g))
-        : (g = t[5]);
-      var h = g,
-        y = "Error stack from " + a,
-        C;
-      t[6] !== f || t[7] !== h || t[8] !== d
-        ? ((C =
-            d != null
-              ? m.jsxs(m.Fragment, {
-                  children: [
-                    m.jsx(
-                      "div",
-                      babelHelpers.extends(
-                        {},
-                        (c || (c = r("stylex"))).props([
-                          _.codeContainer,
-                          o("WAWebUISpacing").uiPadding.all10,
-                        ]),
-                        { children: m.jsx("code", { children: d }) },
-                      ),
+      var t = e.boundaryName,
+        a = e.error,
+        i = a != null ? a : {},
+        l = i.stack,
+        u = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            l != null &&
+              (yield navigator.clipboard.writeText(l),
+              o("WAWebToastManager").ToastManager.open(
+                m.jsx(o("WAWebToast.react").Toast, { msg: "Stack copied" }),
+              ));
+          });
+          return function () {
+            return e.apply(this, arguments);
+          };
+        })(),
+        d = function () {
+          var e = "Uncaught render error at " + t;
+          o("WAWebCmd").Cmd.trigger("trigger_bugreport_v2", e);
+        };
+      return m.jsx(o("WAWebModal.react").Modal, {
+        title: "Error stack from " + t,
+        type: o("WAWebModal.react").ModalTheme.Multiline,
+        children:
+          l != null
+            ? m.jsxs(m.Fragment, {
+                children: [
+                  m.jsx(
+                    "div",
+                    babelHelpers.extends(
+                      {},
+                      (c || (c = r("stylex"))).props([
+                        _.codeContainer,
+                        o("WAWebUISpacing").uiPadding.all10,
+                      ]),
+                      { children: m.jsx("code", { children: l }) },
                     ),
-                    m.jsxs(
-                      "div",
-                      babelHelpers.extends(
-                        {},
-                        (c || (c = r("stylex"))).props(
-                          o("WAWebUISpacing").uiPadding.vert10,
-                        ),
-                        {
-                          children: [
-                            m.jsx(o("WAWebText.react").WAWebTextSmall, {
-                              xstyle: o("WAWebUISpacing").uiPadding.bottom10,
-                              children: s._(
-                                /*BTDS*/ "Check the console for more information",
+                  ),
+                  m.jsxs(
+                    "div",
+                    babelHelpers.extends(
+                      {},
+                      (c || (c = r("stylex"))).props(
+                        o("WAWebUISpacing").uiPadding.vert10,
+                      ),
+                      {
+                        children: [
+                          m.jsx(o("WAWebText.react").WAWebTextSmall, {
+                            xstyle: o("WAWebUISpacing").uiPadding.bottom10,
+                            children: s._(
+                              /*BTDS*/ "Check the console for more information",
+                            ),
+                          }),
+                          m.jsxs(o("WAWebFlex.react").FlexRow, {
+                            columnGap: 8,
+                            justify: "end",
+                            marginTop: 16,
+                            children: [
+                              m.jsx(
+                                o("WAWebButton.react").WAWebButtonSecondary,
+                                {
+                                  onClick: u,
+                                  children: s._(/*BTDS*/ "Copy error stack"),
+                                },
                               ),
-                            }),
-                            m.jsxs(o("WAWebFlex.react").FlexRow, {
-                              columnGap: 8,
-                              justify: "end",
-                              marginTop: 16,
-                              children: [
-                                m.jsx(
-                                  o("WAWebButton.react").WAWebButtonSecondary,
-                                  {
-                                    onClick: f,
-                                    children: s._(/*BTDS*/ "Copy error stack"),
-                                  },
-                                ),
-                                m.jsx(
-                                  o("WAWebButton.react").WAWebButtonSecondary,
-                                  {
-                                    onClick: h,
-                                    children: s._(/*BTDS*/ "Report this bug"),
-                                  },
-                                ),
-                              ],
-                            }),
-                          ],
-                        },
-                      ),
+                              m.jsx(
+                                o("WAWebButton.react").WAWebButtonSecondary,
+                                {
+                                  onClick: d,
+                                  children: s._(/*BTDS*/ "Report this bug"),
+                                },
+                              ),
+                            ],
+                          }),
+                        ],
+                      },
                     ),
-                  ],
-                })
-              : "No error stack found, check console"),
-          (t[6] = f),
-          (t[7] = h),
-          (t[8] = d),
-          (t[9] = C))
-        : (C = t[9]);
-      var b;
-      return (
-        t[10] !== y || t[11] !== C
-          ? ((b = m.jsx(o("WAWebModal.react").Modal, {
-              title: y,
-              type: o("WAWebModal.react").ModalTheme.Multiline,
-              children: C,
-            })),
-            (t[10] = y),
-            (t[11] = C),
-            (t[12] = b))
-          : (b = t[12]),
-        b
-      );
+                  ),
+                ],
+              })
+            : "No error stack found, check console",
+      });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.boundaryName,
-        a = e.handleClick;
-      if (!r("gkx")("26258")) {
-        var i;
-        t[0] !== n
-          ? ((i = s._(
-              /*BTDS*/ "Uncaught error at {boundaryName} [Click for more info]",
-              [s._param("boundaryName", n)],
-            )),
-            (t[0] = n),
-            (t[1] = i))
-          : (i = t[1]);
-        var l;
-        return (
-          t[2] !== a || t[3] !== i
-            ? ((l = m.jsx(r("WAWebUnstyledButton.react"), {
-                xstyle: _.redBox,
-                onClick: a,
-                testid: void 0,
-                children: i,
-              })),
-              (t[2] = a),
-              (t[3] = i),
-              (t[4] = l))
-            : (l = t[4]),
-          l
-        );
-      }
+      var t = e.boundaryName,
+        n = e.error,
+        o = e.handleClick;
+      if (!r("gkx")("26258"))
+        return m.jsx(r("WAWebUnstyledButton.react"), {
+          xstyle: _.redBox,
+          onClick: o,
+          testid: void 0,
+          children: s._(
+            /*BTDS*/ "Uncaught error at {boundaryName} [Click for more info]",
+            [s._param("boundaryName", t)],
+          ),
+        });
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     var h = (function (t) {
       function n() {
         for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)

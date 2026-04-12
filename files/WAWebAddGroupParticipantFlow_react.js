@@ -42,7 +42,6 @@ __d(
     "asyncToGeneratorRuntime",
     "nullthrows",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebFilteredContacts",
     "useWAWebFilteredOutContacts",
@@ -601,27 +600,14 @@ __d(
     }
     S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.onClick,
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = s._(/*BTDS*/ "Edit group permissions")), (t[0] = r))
-        : (r = t[0]);
-      var a;
-      return (
-        t[1] !== n
-          ? ((a = p.jsx(o("WAWebText.react").WAWebClickableText, {
-              onClick: n,
-              color: "green",
-              children: r,
-            })),
-            (t[1] = n),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.onClick;
+      return p.jsx(o("WAWebText.react").WAWebClickableText, {
+        onClick: t,
+        color: "green",
+        children: s._(/*BTDS*/ "Edit group permissions"),
+      });
     }
-    l.default = S;
+    ((R.displayName = R.name + " [from " + i.id + "]"), (l.default = S));
   },
   226,
 );

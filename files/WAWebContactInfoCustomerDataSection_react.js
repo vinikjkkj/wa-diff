@@ -34,7 +34,6 @@ __d(
     "WDSIconIcSyncAlt.react",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebContactValues",
     "useWAWebCustomerDataForContact",
     "useWAWebNoteValues",
@@ -89,742 +88,369 @@ __d(
       },
     };
     function f(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.contact;
-      if (
-        !o("WAWebCustomerManagerGating").customerManagerEnabled() ||
-        !o("WAWebCustomerManagerGating").isEligibleForCustomerFields(n)
-      )
-        return null;
-      var r;
-      return (
-        t[0] !== n
-          ? ((r = u.jsx(g, { contact: n })), (t[0] = n), (t[1] = r))
-          : (r = t[1]),
-        r
-      );
+      var t = e.contact;
+      return !o("WAWebCustomerManagerGating").customerManagerEnabled() ||
+        !o("WAWebCustomerManagerGating").isEligibleForCustomerFields(t)
+        ? null
+        : u.jsx(g, { contact: t });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = o("react-compiler-runtime").c(76),
-        n = e.contact,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [o("WAWebContactGetters").getLabels]), (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebContactValues").useContactValues(n.id, a),
-        l = i[0],
-        c = r("useWAWebCustomerDataForContact")(n.id),
-        d;
-      if (t[1] !== n.id) {
-        var m, f;
-        ((d = o("WAJids").validateChatJid(
-          (m = (f = n.id) == null ? void 0 : f.toJid()) != null ? m : "",
-        )),
-          (t[1] = n.id),
-          (t[2] = d));
-      } else d = t[2];
-      var g = d,
-        R = r("useWAWebNoteValues")(g),
-        L;
-      t[3] !== c || t[4] !== g
-        ? ((L = function (t, n) {
-            g != null &&
+      var t,
+        n,
+        a,
+        i = e.contact,
+        l = o("useWAWebContactValues").useContactValues(i.id, [
+          o("WAWebContactGetters").getLabels,
+        ]),
+        c = l[0],
+        m = r("useWAWebCustomerDataForContact")(i.id),
+        f = o("WAJids").validateChatJid(
+          (t = (n = i.id) == null ? void 0 : n.toJid()) != null ? t : "",
+        ),
+        g = r("useWAWebNoteValues")(f),
+        R = d(
+          function (e, t) {
+            f != null &&
               o("WAWebCustomerDataFieldSaver").handleLeadStageTransition(
-                g,
-                c,
+                f,
+                m,
+                e,
                 t,
-                n,
               );
-          }),
-          (t[3] = c),
-          (t[4] = g),
-          (t[5] = L))
-        : (L = t[5]);
-      var E = L;
-      if (g == null) return null;
-      var k = g,
-        I,
-        T,
-        D,
-        x,
-        $;
-      if (t[6] !== c || t[7] !== R.value) {
-        var P = o("WAWebCustomerDataLastUpdated").getLastUpdatedTimestamp(
-          c,
-          R.value,
+          },
+          [m, f],
         );
-        ((x = "contact-info-customer-data-section"),
-          t[13] === Symbol.for("react.memo_cache_sentinel")
-            ? (($ = u.jsx(r("WAWebGroupInfoSeparator.react"), { padding: !0 })),
-              (I = { className: "x16ovd2e x1nbhmlj xdx6fka xvtqlqk" }),
-              (t[13] = I),
-              (t[14] = $))
-            : ((I = t[13]), ($ = t[14])),
-          t[15] === Symbol.for("react.memo_cache_sentinel")
-            ? ((T = u.jsx(r("WDSText.react"), {
+      if (f == null) return null;
+      var L = f,
+        E = o("WAWebCustomerDataLastUpdated").getLastUpdatedTimestamp(
+          m,
+          g.value,
+        );
+      return u.jsxs("div", {
+        "data-testid": void 0,
+        children: [
+          u.jsx(r("WAWebGroupInfoSeparator.react"), { padding: !0 }),
+          u.jsxs("div", {
+            className: "x16ovd2e x1nbhmlj xdx6fka xvtqlqk",
+            children: [
+              u.jsx(r("WDSText.react"), {
                 type: "Body2",
                 colorName: "contentDeemphasized",
                 children: s._(/*BTDS*/ "Customer info"),
-              })),
-              (t[15] = T))
-            : (T = t[15]),
-          (D =
-            P != null &&
-            u.jsx(r("WDSText.react"), {
-              type: "Body3",
-              colorName: "contentDeemphasized",
-              xstyle: _.lastUpdatedText,
-              children: s._(/*BTDS*/ "Last updated {timeAgo}", [
-                s._param(
-                  "timeAgo",
-                  o("WAWebCustomerDataLastUpdated").formatTimeAgo(P),
-                ),
-              ]),
-            })),
-          (t[6] = c),
-          (t[7] = R.value),
-          (t[8] = I),
-          (t[9] = T),
-          (t[10] = D),
-          (t[11] = x),
-          (t[12] = $));
-      } else ((I = t[8]), (T = t[9]), (D = t[10]), (x = t[11]), ($ = t[12]));
-      var N;
-      t[16] !== I || t[17] !== T || t[18] !== D
-        ? ((N = u.jsxs(
-            "div",
-            babelHelpers.extends({}, I, { children: [T, D] }),
-          )),
-          (t[16] = I),
-          (t[17] = T),
-          (t[18] = D),
-          (t[19] = N))
-        : (N = t[19]);
-      var M;
-      t[20] !== c || t[21] !== E
-        ? ((M = u.jsx(r("WAWebContactInfoLeadStageRow.react"), {
-            customer: c,
-            onStageChange: E,
-          })),
-          (t[20] = c),
-          (t[21] = E),
-          (t[22] = M))
-        : (M = t[22]);
-      var w;
-      t[23] !== n || t[24] !== R
-        ? ((w =
-            o("WAWebNotesUtils").shouldEnableNotesForWid(n.id) &&
-            u.jsx(r("WAWebCustomerProfileNotesField.react"), {
-              contact: n,
-              noteAsyncState: R,
-            })),
-          (t[23] = n),
-          (t[24] = R),
-          (t[25] = w))
-        : (w = t[25]);
-      var A;
-      t[26] !== n
-        ? ((A = u.jsx(y, { contact: n })), (t[26] = n), (t[27] = A))
-        : (A = t[27]);
-      var F = "email-" + String(k),
-        O;
-      t[28] !== k || t[29] !== c || t[30] !== F
-        ? ((O = u.jsx(C, { chatJid: k, customerData: c }, F)),
-          (t[28] = k),
-          (t[29] = c),
-          (t[30] = F),
-          (t[31] = O))
-        : (O = t[31]);
-      var B = "address-" + String(k),
-        W;
-      t[32] !== k || t[33] !== c || t[34] !== B
-        ? ((W = u.jsx(b, { chatJid: k, customerData: c }, B)),
-          (t[32] = k),
-          (t[33] = c),
-          (t[34] = B),
-          (t[35] = W))
-        : (W = t[35]);
-      var q = "birthday-" + String(k),
-        U;
-      t[36] !== k || t[37] !== c || t[38] !== q
-        ? ((U = u.jsx(v, { chatJid: k, customerData: c }, q)),
-          (t[36] = k),
-          (t[37] = c),
-          (t[38] = q),
-          (t[39] = U))
-        : (U = t[39]);
-      var V;
-      t[40] !== n || t[41] !== l
-        ? ((V = u.jsx(h, { contact: n, labels: l })),
-          (t[40] = n),
-          (t[41] = l),
-          (t[42] = V))
-        : (V = t[42]);
-      var H, G;
-      t[43] === Symbol.for("react.memo_cache_sentinel")
-        ? ((H = u.jsx(r("WAWebGroupInfoSeparator.react"), { padding: !0 })),
-          (G = { className: "x16ovd2e x1nbhmlj xdx6fka xvtqlqk" }),
-          (t[43] = H),
-          (t[44] = G))
-        : ((H = t[43]), (G = t[44]));
-      var z;
-      t[45] === Symbol.for("react.memo_cache_sentinel")
-        ? ((z = u.jsx(
-            "div",
-            babelHelpers.extends({}, G, {
-              children: u.jsx(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDeemphasized",
-                children: s._(/*BTDS*/ "Activity"),
               }),
+              E != null &&
+                u.jsx(r("WDSText.react"), {
+                  type: "Body3",
+                  colorName: "contentDeemphasized",
+                  xstyle: _.lastUpdatedText,
+                  children: s._(/*BTDS*/ "Last updated {timeAgo}", [
+                    s._param(
+                      "timeAgo",
+                      o("WAWebCustomerDataLastUpdated").formatTimeAgo(E),
+                    ),
+                  ]),
+                }),
+            ],
+          }),
+          u.jsx(r("WAWebContactInfoLeadStageRow.react"), {
+            customer: m,
+            onStageChange: R,
+          }),
+          o("WAWebNotesUtils").shouldEnableNotesForWid(i.id) &&
+            u.jsx(r("WAWebCustomerProfileNotesField.react"), {
+              contact: i,
+              noteAsyncState: g,
             }),
-          )),
-          (t[45] = z))
-        : (z = t[45]);
-      var j = "lastOrder-" + String(k),
-        K;
-      t[46] !== k || t[47] !== c || t[48] !== j
-        ? ((K = u.jsx(S, { chatJid: k, customerData: c }, j)),
-          (t[46] = k),
-          (t[47] = c),
-          (t[48] = j),
-          (t[49] = K))
-        : (K = t[49]);
-      var Q;
-      t[50] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Q = u.jsx(r("WDSIconIcSyncAlt.react"), { width: 24, height: 24 })),
-          (t[50] = Q))
-        : (Q = t[50]);
-      var X;
-      t[51] === Symbol.for("react.memo_cache_sentinel")
-        ? ((X = s._(/*BTDS*/ "Acquisition source")), (t[51] = X))
-        : (X = t[51]);
-      var Y;
-      if (t[52] !== c) {
-        var J;
-        ((Y =
-          (J =
-            (c == null ? void 0 : c.acquisitionSource) != null
-              ? o(
-                  "WAWebAcquisitionSourceNames",
-                ).getAcquisitionSourceDisplayName(c.acquisitionSource)
-              : null) != null
-            ? J
-            : o(
-                "WAWebAcquisitionSourceNames",
-              ).getUnknownAcquisitionSourceLabel()),
-          (t[52] = c),
-          (t[53] = Y));
-      } else Y = t[53];
-      var Z = String(Y),
-        ee;
-      t[54] !== Z
-        ? ((ee = u.jsx(r("WAWebBusinessProfileTextField.react"), {
-            icon: Q,
+          u.jsx(y, { contact: i }),
+          u.jsx(C, { chatJid: L, customerData: m }, "email-" + String(L)),
+          u.jsx(b, { chatJid: L, customerData: m }, "address-" + String(L)),
+          u.jsx(v, { chatJid: L, customerData: m }, "birthday-" + String(L)),
+          u.jsx(h, { contact: i, labels: c }),
+          u.jsx(r("WAWebGroupInfoSeparator.react"), { padding: !0 }),
+          u.jsx("div", {
+            className: "x16ovd2e x1nbhmlj xdx6fka xvtqlqk",
+            children: u.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDeemphasized",
+              children: s._(/*BTDS*/ "Activity"),
+            }),
+          }),
+          u.jsx(S, { chatJid: L, customerData: m }, "lastOrder-" + String(L)),
+          u.jsx(r("WAWebBusinessProfileTextField.react"), {
+            icon: u.jsx(r("WDSIconIcSyncAlt.react"), { width: 24, height: 24 }),
             editable: !1,
-            label: X,
-            value: Z,
+            label: s._(/*BTDS*/ "Acquisition source"),
+            value: String(
+              (a =
+                (m == null ? void 0 : m.acquisitionSource) != null
+                  ? o(
+                      "WAWebAcquisitionSourceNames",
+                    ).getAcquisitionSourceDisplayName(m.acquisitionSource)
+                  : null) != null
+                ? a
+                : o(
+                    "WAWebAcquisitionSourceNames",
+                  ).getUnknownAcquisitionSourceLabel(),
+            ),
             xstyle: _.readOnlyRow,
-          })),
-          (t[54] = Z),
-          (t[55] = ee))
-        : (ee = t[55]);
-      var te;
-      t[56] === Symbol.for("react.memo_cache_sentinel")
-        ? ((te = u.jsx(r("WDSIconIcPersonAdd.react"), {
-            width: 24,
-            height: 24,
-          })),
-          (t[56] = te))
-        : (te = t[56]);
-      var ne;
-      t[57] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ne = s._(/*BTDS*/ "Acquisition date")), (t[57] = ne))
-        : (ne = t[57]);
-      var re;
-      t[58] !== c
-        ? ((re =
-            (c == null ? void 0 : c.createdAt) != null
-              ? p(c.createdAt)
-              : String(s._(/*BTDS*/ "Unknown"))),
-          (t[58] = c),
-          (t[59] = re))
-        : (re = t[59]);
-      var oe;
-      t[60] !== re
-        ? ((oe = u.jsx(r("WAWebBusinessProfileTextField.react"), {
-            icon: te,
+          }),
+          u.jsx(r("WAWebBusinessProfileTextField.react"), {
+            icon: u.jsx(r("WDSIconIcPersonAdd.react"), {
+              width: 24,
+              height: 24,
+            }),
             editable: !1,
-            label: ne,
-            value: re,
+            label: s._(/*BTDS*/ "Acquisition date"),
+            value:
+              (m == null ? void 0 : m.createdAt) != null
+                ? p(m.createdAt)
+                : String(s._(/*BTDS*/ "Unknown")),
             xstyle: _.readOnlyRow,
-          })),
-          (t[60] = re),
-          (t[61] = oe))
-        : (oe = t[61]);
-      var ae;
-      return (
-        t[62] !== M ||
-        t[63] !== w ||
-        t[64] !== A ||
-        t[65] !== O ||
-        t[66] !== W ||
-        t[67] !== U ||
-        t[68] !== V ||
-        t[69] !== K ||
-        t[70] !== ee ||
-        t[71] !== oe ||
-        t[72] !== x ||
-        t[73] !== $ ||
-        t[74] !== N
-          ? ((ae = u.jsxs("div", {
-              "data-testid": void 0,
-              children: [$, N, M, w, A, O, W, U, V, H, z, K, ee, oe],
-            })),
-            (t[62] = M),
-            (t[63] = w),
-            (t[64] = A),
-            (t[65] = O),
-            (t[66] = W),
-            (t[67] = U),
-            (t[68] = V),
-            (t[69] = K),
-            (t[70] = ee),
-            (t[71] = oe),
-            (t[72] = x),
-            (t[73] = $),
-            (t[74] = N),
-            (t[75] = ae))
-          : (ae = t[75]),
-        ae
-      );
+          }),
+        ],
+      });
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = o("react-compiler-runtime").c(16),
+      var t,
         n = e.contact,
         a = e.labels,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = o("WAWebListsGatingUtils").isListsEnabled()), (t[0] = i))
-        : (i = t[0]);
-      var l = i,
-        c;
-      t[1] !== n.id
-        ? ((c = function () {
+        i = o("WAWebListsGatingUtils").isListsEnabled(),
+        l = d(
+          function () {
             var e = o("WAWebChatCollection").ChatCollection.get(n.id);
             e != null &&
               o(
                 "WAWebChatContextMenuItemEditLabel.react",
               ).checkDataSharingOrHandleLabelAction(e);
-          }),
-          (t[1] = n.id),
-          (t[2] = c))
-        : (c = t[2]);
-      var d = c,
-        m;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = {
-            className:
-              "xlr9sxt xvvg52n xwd4zgb xq8v1ta x150mmf0 xqf2s3x x85wx34 x1ubxc9n xi52gnm",
-          }),
-          (t[3] = m))
-        : (m = t[3]);
-      var p, f;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = u.jsx(o("WAWebFlex.react").FlexItem, {
-            align: "center",
-            justify: "center",
-            xstyle: _.iconContainer,
-            children: l
-              ? u.jsx(
-                  o("WAWebListPeopleRefreshedIcon.react")
-                    .ListPeopleRefreshedIcon,
-                  {},
-                )
-              : u.jsx(o("WAWebLabelOutlineIcon.react").LabelOutlineIcon, {}),
-          })),
-          (f = { className: "x98rzlu xeuugli" }),
-          (t[4] = p),
-          (t[5] = f))
-        : ((p = t[4]), (f = t[5]));
-      var g;
-      if (t[6] !== a) {
-        var h;
-        ((g = u.jsx(
-          "div",
-          babelHelpers.extends({}, f, {
-            children:
-              ((h = a == null ? void 0 : a.length) != null ? h : 0) > 0
-                ? u.jsx(r("WAWebLabelsInfoDrawerLabelWell.react"), {
-                    labels: a,
-                    theme: "standalone",
-                  })
-                : u.jsx(r("WDSText.react"), {
-                    type: "Body2",
-                    colorName: "contentDeemphasized",
-                    children: l
-                      ? s._(/*BTDS*/ "Add to lists")
-                      : s._(/*BTDS*/ "Add labels"),
-                  }),
-          }),
-        )),
-          (t[6] = a),
-          (t[7] = g));
-      } else g = t[7];
-      var y;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = {
-            className:
-              "x6s0dn4 x11g6tue x1v8p93f x16stqrj x1ejq31n x1sy0etr x972fbf x1qhh985 xv5lvn5 x1o3jo1z xstzfhl x18oe1m7 x14e42zd x10w94by xt8t1vi x1xc408v x129tdwq x15urzxu xhslqc4 x1ypdohk x78zum5 xzpcc6d xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1xephfl x1nsvvxn",
-          }),
-          (t[8] = y))
-        : (y = t[8]);
-      var C, b;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = s._(/*BTDS*/ "Edit labels")),
-          (b = u.jsx(r("WDSIconIcEdit.react"), { width: 20, height: 20 })),
-          (t[9] = C),
-          (t[10] = b))
-        : ((C = t[9]), (b = t[10]));
-      var v;
-      t[11] !== d
-        ? ((v = u.jsx(o("WAWebFlex.react").FlexItem, {
-            align: "center",
-            justify: "center",
-            xstyle: _.editButtonContainer,
-            children: u.jsx(
-              "button",
-              babelHelpers.extends({}, y, {
-                onClick: d,
-                "aria-label": C,
-                children: b,
-              }),
-            ),
-          })),
-          (t[11] = d),
-          (t[12] = v))
-        : (v = t[12]);
-      var S;
-      return (
-        t[13] !== v || t[14] !== g
-          ? ((S = u.jsx(
-              "div",
-              babelHelpers.extends({}, m, {
-                children: u.jsxs(o("WAWebFlex.react").FlexRow, {
-                  align: "center",
-                  gap: 12,
-                  xstyle: _.labelsRow,
-                  children: [p, g, v],
+          },
+          [n.id],
+        );
+      return u.jsx("div", {
+        className:
+          "xlr9sxt xvvg52n xwd4zgb xq8v1ta x150mmf0 xqf2s3x x85wx34 x1ubxc9n xi52gnm",
+        children: u.jsxs(o("WAWebFlex.react").FlexRow, {
+          align: "center",
+          gap: 12,
+          xstyle: _.labelsRow,
+          children: [
+            u.jsx(o("WAWebFlex.react").FlexItem, {
+              align: "center",
+              justify: "center",
+              xstyle: _.iconContainer,
+              children: i
+                ? u.jsx(
+                    o("WAWebListPeopleRefreshedIcon.react")
+                      .ListPeopleRefreshedIcon,
+                    {},
+                  )
+                : u.jsx(o("WAWebLabelOutlineIcon.react").LabelOutlineIcon, {}),
+            }),
+            u.jsx("div", {
+              className: "x98rzlu xeuugli",
+              children:
+                ((t = a == null ? void 0 : a.length) != null ? t : 0) > 0
+                  ? u.jsx(r("WAWebLabelsInfoDrawerLabelWell.react"), {
+                      labels: a,
+                      theme: "standalone",
+                    })
+                  : u.jsx(r("WDSText.react"), {
+                      type: "Body2",
+                      colorName: "contentDeemphasized",
+                      children: i
+                        ? s._(/*BTDS*/ "Add to lists")
+                        : s._(/*BTDS*/ "Add labels"),
+                    }),
+            }),
+            u.jsx(o("WAWebFlex.react").FlexItem, {
+              align: "center",
+              justify: "center",
+              xstyle: _.editButtonContainer,
+              children: u.jsx("button", {
+                className:
+                  "x6s0dn4 x11g6tue x1v8p93f x16stqrj x1ejq31n x1sy0etr x972fbf x1qhh985 xv5lvn5 x1o3jo1z xstzfhl x18oe1m7 x14e42zd x10w94by xt8t1vi x1xc408v x129tdwq x15urzxu xhslqc4 x1ypdohk x78zum5 xzpcc6d xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1xephfl x1nsvvxn",
+                onClick: l,
+                "aria-label": s._(/*BTDS*/ "Edit labels"),
+                children: u.jsx(r("WDSIconIcEdit.react"), {
+                  width: 20,
+                  height: 20,
                 }),
               }),
-            )),
-            (t[13] = v),
-            (t[14] = g),
-            (t[15] = S))
-          : (S = t[15]),
-        S
-      );
+            }),
+          ],
+        }),
+      });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.contact,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [o("WAWebFrontendContactGetters").getFormattedPhoneAndType]),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebContactValues").useContactValues(n.id, a),
-        l = i[0],
-        c = l.displayName;
-      if (!c) return null;
-      var d;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = u.jsx(r("WDSIconIcCall.react"), { width: 24, height: 24 })),
-          (t[1] = d))
-        : (d = t[1]);
-      var m;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = s._(/*BTDS*/ "Phone number")), (t[2] = m))
-        : (m = t[2]);
-      var p;
-      return (
-        t[3] !== c
-          ? ((p = u.jsx(r("WAWebBusinessProfileTextField.react"), {
-              icon: d,
-              editable: !1,
-              label: m,
-              value: c,
-              xstyle: _.readOnlyRow,
-            })),
-            (t[3] = c),
-            (t[4] = p))
-          : (p = t[4]),
-        p
-      );
+      var t = e.contact,
+        n = o("useWAWebContactValues").useContactValues(t.id, [
+          o("WAWebFrontendContactGetters").getFormattedPhoneAndType,
+        ]),
+        a = n[0],
+        i = a.displayName;
+      return i
+        ? u.jsx(r("WAWebBusinessProfileTextField.react"), {
+            icon: u.jsx(r("WDSIconIcCall.react"), { width: 24, height: 24 }),
+            editable: !1,
+            label: s._(/*BTDS*/ "Phone number"),
+            value: i,
+            xstyle: _.readOnlyRow,
+          })
+        : null;
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
       var t,
-        n = o("react-compiler-runtime").c(9),
-        a = e.chatJid,
-        i = e.customerData,
-        l = m((t = i == null ? void 0 : i.email) != null ? t : ""),
-        c = l[0],
-        d = l[1],
-        p = m(i == null ? void 0 : i.email),
+        n = e.chatJid,
+        a = e.customerData,
+        i = m((t = a == null ? void 0 : a.email) != null ? t : ""),
+        l = i[0],
+        c = i[1],
+        p = m(a == null ? void 0 : a.email),
         _ = p[0],
         f = p[1];
-      if ((i == null ? void 0 : i.email) !== _) {
+      if ((a == null ? void 0 : a.email) !== _) {
         var g;
-        (f(i == null ? void 0 : i.email),
-          d((g = i == null ? void 0 : i.email) != null ? g : ""));
+        (f(a == null ? void 0 : a.email),
+          c((g = a == null ? void 0 : a.email) != null ? g : ""));
       }
-      var h;
-      n[0] !== a || n[1] !== i
-        ? ((h = function (t) {
-            (d(t),
-              o("WAWebCustomerDataFieldSaver").saveCustomerDataField(a, i, {
-                email: t,
-              }));
-          }),
-          (n[0] = a),
-          (n[1] = i),
-          (n[2] = h))
-        : (h = n[2]);
-      var y = h,
-        C,
-        b,
-        v;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = u.jsx(r("WDSIconIcMail.react"), { width: 24, height: 24 })),
-          (b = s._(/*BTDS*/ "Email")),
-          (v = s._(/*BTDS*/ "Add email")),
-          (n[3] = C),
-          (n[4] = b),
-          (n[5] = v))
-        : ((C = n[3]), (b = n[4]), (v = n[5]));
-      var S;
-      return (
-        n[6] !== c || n[7] !== y
-          ? ((S = u.jsx(r("WAWebCustomerProfileEditableField.react"), {
-              icon: C,
-              label: b,
-              placeholder: v,
-              value: c,
-              onSave: y,
-            })),
-            (n[6] = c),
-            (n[7] = y),
-            (n[8] = S))
-          : (S = n[8]),
-        S
+      var h = d(
+        function (e) {
+          (c(e),
+            o("WAWebCustomerDataFieldSaver").saveCustomerDataField(n, a, {
+              email: e,
+            }));
+        },
+        [n, a],
       );
+      return u.jsx(r("WAWebCustomerProfileEditableField.react"), {
+        icon: u.jsx(r("WDSIconIcMail.react"), { width: 24, height: 24 }),
+        label: s._(/*BTDS*/ "Email"),
+        placeholder: s._(/*BTDS*/ "Add email"),
+        value: l,
+        onSave: h,
+      });
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
       var t,
-        n = o("react-compiler-runtime").c(9),
-        a = e.chatJid,
-        i = e.customerData,
-        l = m((t = i == null ? void 0 : i.address) != null ? t : ""),
-        c = l[0],
-        d = l[1],
-        p = m(i == null ? void 0 : i.address),
+        n = e.chatJid,
+        a = e.customerData,
+        i = m((t = a == null ? void 0 : a.address) != null ? t : ""),
+        l = i[0],
+        c = i[1],
+        p = m(a == null ? void 0 : a.address),
         _ = p[0],
         f = p[1];
-      if ((i == null ? void 0 : i.address) !== _) {
+      if ((a == null ? void 0 : a.address) !== _) {
         var g;
-        (f(i == null ? void 0 : i.address),
-          d((g = i == null ? void 0 : i.address) != null ? g : ""));
+        (f(a == null ? void 0 : a.address),
+          c((g = a == null ? void 0 : a.address) != null ? g : ""));
       }
-      var h;
-      n[0] !== a || n[1] !== i
-        ? ((h = function (t) {
-            (d(t),
-              o("WAWebCustomerDataFieldSaver").saveCustomerDataField(a, i, {
-                address: t,
-              }));
-          }),
-          (n[0] = a),
-          (n[1] = i),
-          (n[2] = h))
-        : (h = n[2]);
-      var y = h,
-        C,
-        b,
-        v;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = u.jsx(r("WDSIconIcLocationOn.react"), {
-            width: 24,
-            height: 24,
-          })),
-          (b = s._(/*BTDS*/ "Address")),
-          (v = s._(/*BTDS*/ "Add address")),
-          (n[3] = C),
-          (n[4] = b),
-          (n[5] = v))
-        : ((C = n[3]), (b = n[4]), (v = n[5]));
-      var S;
-      return (
-        n[6] !== c || n[7] !== y
-          ? ((S = u.jsx(r("WAWebCustomerProfileEditableField.react"), {
-              icon: C,
-              label: b,
-              placeholder: v,
-              value: c,
-              onSave: y,
-            })),
-            (n[6] = c),
-            (n[7] = y),
-            (n[8] = S))
-          : (S = n[8]),
-        S
+      var h = d(
+        function (e) {
+          (c(e),
+            o("WAWebCustomerDataFieldSaver").saveCustomerDataField(n, a, {
+              address: e,
+            }));
+        },
+        [n, a],
       );
+      return u.jsx(r("WAWebCustomerProfileEditableField.react"), {
+        icon: u.jsx(r("WDSIconIcLocationOn.react"), { width: 24, height: 24 }),
+        label: s._(/*BTDS*/ "Address"),
+        placeholder: s._(/*BTDS*/ "Add address"),
+        value: l,
+        onSave: h,
+      });
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.chatJid,
-        a = e.customerData,
-        i;
-      t[0] !== a
-        ? ((i =
-            (a == null ? void 0 : a.birthday) != null
-              ? new Date(a.birthday * 1e3)
-              : null),
-          (t[0] = a),
-          (t[1] = i))
-        : (i = t[1]);
-      var l = m(i),
-        c = l[0],
-        d = l[1],
-        p = m(a == null ? void 0 : a.birthday),
-        _ = p[0],
-        f = p[1];
-      (a == null ? void 0 : a.birthday) !== _ &&
-        (f(a == null ? void 0 : a.birthday),
-        d(
-          (a == null ? void 0 : a.birthday) != null
-            ? new Date(a.birthday * 1e3)
+      var t = e.chatJid,
+        n = e.customerData,
+        a = m(
+          (n == null ? void 0 : n.birthday) != null
+            ? new Date(n.birthday * 1e3)
+            : null,
+        ),
+        i = a[0],
+        l = a[1],
+        c = m(n == null ? void 0 : n.birthday),
+        p = c[0],
+        _ = c[1];
+      (n == null ? void 0 : n.birthday) !== p &&
+        (_(n == null ? void 0 : n.birthday),
+        l(
+          (n == null ? void 0 : n.birthday) != null
+            ? new Date(n.birthday * 1e3)
             : null,
         ));
-      var g;
-      t[2] !== n || t[3] !== a
-        ? ((g = function (t) {
-            d(t);
-            var e =
-              t != null
-                ? o("WATimeUtils").castToUnixTime(Math.floor(t.getTime() / 1e3))
-                : void 0;
-            o("WAWebCustomerDataFieldSaver").saveCustomerDataField(n, a, {
-              birthday: e,
-            });
-          }),
-          (t[2] = n),
-          (t[3] = a),
-          (t[4] = g))
-        : (g = t[4]);
-      var h = g,
-        y,
-        C,
-        b;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = u.jsx(r("WDSIconIcCake.react"), { width: 24, height: 24 })),
-          (C = s._(/*BTDS*/ "Birthday")),
-          (b = s._(/*BTDS*/ "Add birthday")),
-          (t[5] = y),
-          (t[6] = C),
-          (t[7] = b))
-        : ((y = t[5]), (C = t[6]), (b = t[7]));
-      var v;
-      return (
-        t[8] !== c || t[9] !== h
-          ? ((v = u.jsx(r("WAWebCustomerProfileDateField.react"), {
-              icon: y,
-              label: C,
-              placeholder: b,
-              value: c,
-              onSave: h,
-            })),
-            (t[8] = c),
-            (t[9] = h),
-            (t[10] = v))
-          : (v = t[10]),
-        v
+      var f = d(
+        function (e) {
+          l(e);
+          var r =
+            e != null
+              ? o("WATimeUtils").castToUnixTime(Math.floor(e.getTime() / 1e3))
+              : void 0;
+          o("WAWebCustomerDataFieldSaver").saveCustomerDataField(t, n, {
+            birthday: r,
+          });
+        },
+        [t, n],
       );
+      return u.jsx(r("WAWebCustomerProfileDateField.react"), {
+        icon: u.jsx(r("WDSIconIcCake.react"), { width: 24, height: 24 }),
+        label: s._(/*BTDS*/ "Birthday"),
+        placeholder: s._(/*BTDS*/ "Add birthday"),
+        value: i,
+        onSave: f,
+      });
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.chatJid,
-        a = e.customerData,
-        i;
-      t[0] !== a
-        ? ((i =
-            (a == null ? void 0 : a.lastOrder) != null
-              ? new Date(a.lastOrder * 1e3)
-              : null),
-          (t[0] = a),
-          (t[1] = i))
-        : (i = t[1]);
-      var l = m(i),
-        c = l[0],
-        d = l[1],
-        p = m(a == null ? void 0 : a.lastOrder),
-        _ = p[0],
-        f = p[1];
-      (a == null ? void 0 : a.lastOrder) !== _ &&
-        (f(a == null ? void 0 : a.lastOrder),
-        d(
-          (a == null ? void 0 : a.lastOrder) != null
-            ? new Date(a.lastOrder * 1e3)
+      var t = e.chatJid,
+        n = e.customerData,
+        a = m(
+          (n == null ? void 0 : n.lastOrder) != null
+            ? new Date(n.lastOrder * 1e3)
+            : null,
+        ),
+        i = a[0],
+        l = a[1],
+        c = m(n == null ? void 0 : n.lastOrder),
+        p = c[0],
+        _ = c[1];
+      (n == null ? void 0 : n.lastOrder) !== p &&
+        (_(n == null ? void 0 : n.lastOrder),
+        l(
+          (n == null ? void 0 : n.lastOrder) != null
+            ? new Date(n.lastOrder * 1e3)
             : null,
         ));
-      var g;
-      t[2] !== n || t[3] !== a
-        ? ((g = function (t) {
-            d(t);
-            var e =
-              t != null
-                ? o("WATimeUtils").castToUnixTime(Math.floor(t.getTime() / 1e3))
-                : void 0;
-            o("WAWebCustomerDataFieldSaver").saveCustomerDataField(n, a, {
-              lastOrder: e,
-            });
-          }),
-          (t[2] = n),
-          (t[3] = a),
-          (t[4] = g))
-        : (g = t[4]);
-      var h = g,
-        y,
-        C,
-        b;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = u.jsx(r("WDSIconIcShoppingBag.react"), {
-            width: 24,
-            height: 24,
-          })),
-          (C = s._(/*BTDS*/ "Last order")),
-          (b = s._(/*BTDS*/ "Add last order date")),
-          (t[5] = y),
-          (t[6] = C),
-          (t[7] = b))
-        : ((y = t[5]), (C = t[6]), (b = t[7]));
-      var v;
-      return (
-        t[8] !== h || t[9] !== c
-          ? ((v = u.jsx(r("WAWebCustomerProfileDateField.react"), {
-              icon: y,
-              label: C,
-              placeholder: b,
-              value: c,
-              onSave: h,
-            })),
-            (t[8] = h),
-            (t[9] = c),
-            (t[10] = v))
-          : (v = t[10]),
-        v
+      var f = d(
+        function (e) {
+          l(e);
+          var r =
+            e != null
+              ? o("WATimeUtils").castToUnixTime(Math.floor(e.getTime() / 1e3))
+              : void 0;
+          o("WAWebCustomerDataFieldSaver").saveCustomerDataField(t, n, {
+            lastOrder: r,
+          });
+        },
+        [t, n],
       );
+      return u.jsx(r("WAWebCustomerProfileDateField.react"), {
+        icon: u.jsx(r("WDSIconIcShoppingBag.react"), { width: 24, height: 24 }),
+        label: s._(/*BTDS*/ "Last order"),
+        placeholder: s._(/*BTDS*/ "Add last order date"),
+        value: i,
+        onSave: f,
+      });
     }
-    l.default = f;
+    ((S.displayName = S.name + " [from " + i.id + "]"), (l.default = f));
   },
   226,
 );

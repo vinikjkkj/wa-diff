@@ -1,35 +1,20 @@
 __d(
   "WAWebPhoneNumberMutatorComponent.react",
-  [
-    "WAWebPhoneNumberWrapperMutatorComponent.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebPhoneNumberWrapperMutatorComponent.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.fromMe,
-        a = e.phoneNumber,
-        i = e.selectable,
-        l;
-      return (
-        t[0] !== n || t[1] !== a || t[2] !== i
-          ? ((l = s.jsx(r("WAWebPhoneNumberWrapperMutatorComponent.react"), {
-              selectable: i,
-              phoneNumber: a,
-              fromMe: n,
-            })),
-            (t[0] = n),
-            (t[1] = a),
-            (t[2] = i),
-            (t[3] = l))
-          : (l = t[3]),
-        l
-      );
+      var t = e.fromMe,
+        n = e.phoneNumber,
+        o = e.selectable;
+      return s.jsx(r("WAWebPhoneNumberWrapperMutatorComponent.react"), {
+        selectable: o,
+        phoneNumber: n,
+        fromMe: t,
+      });
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

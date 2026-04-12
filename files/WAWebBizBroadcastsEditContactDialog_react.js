@@ -16,7 +16,6 @@ __d(
     "WDSTextField.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -65,95 +64,45 @@ __d(
       return { status: n.status, type: n.type };
     }
     function v(e) {
-      var t = o("react-compiler-runtime").c(9),
+      var t = e.defaultValue,
+        n = e.entryPoint,
+        a = e.errorMessage,
+        i = e.onValueChange;
+      return u.jsx(r("WDSTextField.react"), {
+        label: s._(/*BTDS*/ "Name"),
+        defaultValue: t,
+        onValueChange: i,
+        onFocus: function () {
+          o(
+            "WAWebBusinessBroadcastUserJourneyLogger",
+          ).BusinessBroadcastUserJourneyLogger.contactNameEntered(n);
+        },
+        error: a != null,
+        errorText: a,
+      });
+    }
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S(e) {
+      var t = e.contactVerificationStatus,
         n = e.defaultValue,
         a = e.entryPoint,
-        i = e.errorMessage,
+        i = e.isDuplicate,
         l = e.onValueChange,
-        c;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = s._(/*BTDS*/ "Name")), (t[0] = c))
-        : (c = t[0]);
-      var d;
-      t[1] !== a
-        ? ((d = function () {
-            o(
-              "WAWebBusinessBroadcastUserJourneyLogger",
-            ).BusinessBroadcastUserJourneyLogger.contactNameEntered(a);
-          }),
-          (t[1] = a),
-          (t[2] = d))
-        : (d = t[2]);
-      var m = i != null,
-        p;
-      return (
-        t[3] !== n || t[4] !== i || t[5] !== l || t[6] !== d || t[7] !== m
-          ? ((p = u.jsx(r("WDSTextField.react"), {
-              label: c,
-              defaultValue: n,
-              onValueChange: l,
-              onFocus: d,
-              error: m,
-              errorText: i,
-            })),
-            (t[3] = n),
-            (t[4] = i),
-            (t[5] = l),
-            (t[6] = d),
-            (t[7] = m),
-            (t[8] = p))
-          : (p = t[8]),
-        p
-      );
+        c = C(t, i);
+      return u.jsx(r("WDSTextField.react"), {
+        label: s._(/*BTDS*/ "Phone Number"),
+        defaultValue: n,
+        onValueChange: l,
+        onFocus: function () {
+          o(
+            "WAWebBusinessBroadcastUserJourneyLogger",
+          ).BusinessBroadcastUserJourneyLogger.phoneNumberEntered(a);
+        },
+        error: c != null,
+        errorText: c,
+      });
     }
-    function S(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n = e.contactVerificationStatus,
-        a = e.defaultValue,
-        i = e.entryPoint,
-        l = e.isDuplicate,
-        c = e.onValueChange,
-        d;
-      t[0] !== n || t[1] !== l
-        ? ((d = C(n, l)), (t[0] = n), (t[1] = l), (t[2] = d))
-        : (d = t[2]);
-      var m = d,
-        p;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = s._(/*BTDS*/ "Phone Number")), (t[3] = p))
-        : (p = t[3]);
-      var _;
-      t[4] !== i
-        ? ((_ = function () {
-            o(
-              "WAWebBusinessBroadcastUserJourneyLogger",
-            ).BusinessBroadcastUserJourneyLogger.phoneNumberEntered(i);
-          }),
-          (t[4] = i),
-          (t[5] = _))
-        : (_ = t[5]);
-      var f = m != null,
-        g;
-      return (
-        t[6] !== a || t[7] !== m || t[8] !== c || t[9] !== _ || t[10] !== f
-          ? ((g = u.jsx(r("WDSTextField.react"), {
-              label: p,
-              defaultValue: a,
-              onValueChange: c,
-              onFocus: _,
-              error: f,
-              errorText: m,
-            })),
-            (t[6] = a),
-            (t[7] = m),
-            (t[8] = c),
-            (t[9] = _),
-            (t[10] = f),
-            (t[11] = g))
-          : (g = t[11]),
-        g
-      );
-    }
+    S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
       var t = e.entryPoint,
         a = e.item,

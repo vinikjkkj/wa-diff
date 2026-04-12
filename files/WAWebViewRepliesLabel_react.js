@@ -11,7 +11,6 @@ __d(
     "WAWebViewRepliesThreadsModal.react",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebIsRootMessage",
     "useWAWebViewAllRepliesReplyCount",
     "useWAWebViewRepliesThreads",
@@ -34,92 +33,57 @@ __d(
       };
     function _(e) {
       var t,
-        n = o("react-compiler-runtime").c(13),
-        a = e.msg,
-        i,
-        l;
-      n[0] !== a
-        ? ((l = a.unsafe()),
-          (i = o("WAWebFrontendMsgGetters").getChat(l)),
-          (n[0] = a),
-          (n[1] = i),
-          (n[2] = l))
-        : ((i = n[1]), (l = n[2]));
-      var c = i;
-      r("useWAWebViewRepliesThreads")(c);
-      var d =
-          (t = c == null ? void 0 : c.viewRepliesThreads) != null ? t : null,
-        _ = r("useWAWebIsRootMessage")(l, d),
-        f = r("useWAWebViewAllRepliesReplyCount")(c, _),
-        g;
-      n[3] !== c || n[4] !== _
-        ? ((g = function () {
-            c != null &&
-              _ != null &&
+        n = e.msg,
+        a = n.unsafe(),
+        i = o("WAWebFrontendMsgGetters").getChat(a);
+      r("useWAWebViewRepliesThreads")(i);
+      var l =
+          (t = i == null ? void 0 : i.viewRepliesThreads) != null ? t : null,
+        c = r("useWAWebIsRootMessage")(a, l),
+        _ = r("useWAWebViewAllRepliesReplyCount")(i, c),
+        f = d(
+          function () {
+            i != null &&
+              c != null &&
               o("WAWebModalManager").ModalManager.open(
                 u.jsx(r("WAWebViewRepliesThreadsModal.react"), {
-                  chat: c,
-                  threadId: _,
+                  chat: i,
+                  threadId: c,
                 }),
               );
-          }),
-          (n[3] = c),
-          (n[4] = _),
-          (n[5] = g))
-        : (g = n[5]);
-      var h = g,
-        y = m(r("WAWebIsInThreadsViewContext"));
-      if (
-        y ||
-        c == null ||
-        f < 2 ||
-        !o("WAWebThreadsGating").isViewRepliesEntryPointEnabled(c)
-      )
-        return null;
-      var C;
-      n[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = [p.container, p.clickable]), (n[6] = C))
-        : (C = n[6]);
-      var b;
-      n[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = u.jsx(o("WAWebFollowUpReplyIcon.react").FollowUpReplyIcon, {
-            width: 15,
-            height: 15,
-          })),
-          (n[7] = b))
-        : (b = n[7]);
-      var v;
-      n[8] !== f
-        ? ((v = u.jsx(r("WDSText.react"), {
-            type: "Body2Emphasized",
-            colorName: "contentActionEmphasized",
-            children: s._(/*BTDS*/ '_j{"*":"{count} replies","_1":"1 reply"}', [
-              s._plural(f, "count"),
-            ]),
-          })),
-          (n[8] = f),
-          (n[9] = v))
-        : (v = n[9]);
-      var S;
-      return (
-        n[10] !== h || n[11] !== v
-          ? ((S = u.jsxs(o("WAWebFlexBox.react").FlexRow, {
-              xstyle: C,
-              align: "center",
-              columnGap: 4,
-              onClick: h,
-              role: "button",
-              tabIndex: 0,
-              children: [b, v],
-            })),
-            (n[10] = h),
-            (n[11] = v),
-            (n[12] = S))
-          : (S = n[12]),
-        S
-      );
+          },
+          [i, c],
+        ),
+        g = m(r("WAWebIsInThreadsViewContext"));
+      return g ||
+        i == null ||
+        _ < 2 ||
+        !o("WAWebThreadsGating").isViewRepliesEntryPointEnabled(i)
+        ? null
+        : u.jsxs(o("WAWebFlexBox.react").FlexRow, {
+            xstyle: [p.container, p.clickable],
+            align: "center",
+            columnGap: 4,
+            onClick: f,
+            role: "button",
+            tabIndex: 0,
+            children: [
+              u.jsx(o("WAWebFollowUpReplyIcon.react").FollowUpReplyIcon, {
+                width: 15,
+                height: 15,
+              }),
+              u.jsx(r("WDSText.react"), {
+                type: "Body2Emphasized",
+                colorName: "contentActionEmphasized",
+                children: s._(
+                  /*BTDS*/ '_j{"*":"{count} replies","_1":"1 reply"}',
+                  [s._plural(_, "count")],
+                ),
+              }),
+            ],
+          });
     }
-    l.default = _;
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );

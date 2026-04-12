@@ -1,13 +1,6 @@
 __d(
   "WAWebRegister.react",
-  [
-    "WAWebEventEmitter",
-    "err",
-    "react",
-    "react-compiler-runtime",
-    "useWAWebListener",
-    "useWAWebPrevious",
-  ],
+  ["WAWebEventEmitter", "err", "react", "useWAWebListener", "useWAWebPrevious"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -29,21 +22,12 @@ __d(
     function y() {
       var e = c();
       function t(t) {
-        var n = o("react-compiler-runtime").c(3),
-          r;
-        return (
-          n[0] !== t.children || n[1] !== t.registerRef
-            ? ((r = s.jsx(e.Provider, {
-                value: t.registerRef,
-                children: t.children,
-              })),
-              (n[0] = t.children),
-              (n[1] = t.registerRef),
-              (n[2] = r))
-            : (r = n[2]),
-          r
-        );
+        return s.jsx(e.Provider, {
+          value: t.registerRef,
+          children: t.children,
+        });
       }
+      t.displayName = t.name + " [from " + i.id + "]";
       function n(e) {
         var t,
           n = f(function () {

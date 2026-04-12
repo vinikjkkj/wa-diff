@@ -31,7 +31,6 @@ __d(
     "WDSIconIcAddCircle.react",
     "WDSMenuBarItem.react",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useMergeRefs",
     "useWAWebCallbackOnce",
@@ -63,16 +62,9 @@ __d(
     }
     var y = { drawer: { backgroundColor: "x1280gxy", $$css: !0 } };
     function C() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = c.jsx(r("WAWebGroupInfoSeparator.react"), { animation: !1 })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return c.jsx(r("WAWebGroupInfoSeparator.react"), { animation: !1 });
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     var b = function (t) {
         var e,
           n,

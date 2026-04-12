@@ -1,6 +1,6 @@
 __d(
   "useWAWebGroupColors",
-  ["WALogger", "WAWebThemeContext", "react-compiler-runtime"],
+  ["WALogger", "WAWebThemeContext"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = "var(--wds-emerald-400)",
@@ -124,31 +124,14 @@ __d(
       );
     }
     function H(e, t) {
-      var n = o("react-compiler-runtime").c(4),
-        r = o("WAWebThemeContext").useTheme(),
-        a = r.theme,
-        i;
-      return (
-        n[0] !== e || n[1] !== a || n[2] !== t
-          ? ((i = V(e, t, a)), (n[0] = e), (n[1] = a), (n[2] = t), (n[3] = i))
-          : (i = n[3]),
-        i
-      );
+      var n = o("WAWebThemeContext").useTheme(),
+        r = n.theme;
+      return V(e, t, r);
     }
     function G(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = o("WAWebThemeContext").useTheme(),
-        r = n.theme,
-        a;
-      return (
-        t[0] !== e || t[1] !== r
-          ? ((a = r === "light" ? z(e) : j(e)),
-            (t[0] = e),
-            (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = o("WAWebThemeContext").useTheme(),
+        n = t.theme;
+      return n === "light" ? z(e) : j(e);
     }
     function z(e) {
       return e === 1

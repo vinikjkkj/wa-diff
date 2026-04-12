@@ -5,7 +5,6 @@ __d(
     "LexicalComposerContext",
     "WAWebMentionNode",
     "react",
-    "react-compiler-runtime",
     "useWAWebLexicalEvent",
     "useWAWebStableCallback",
   ],
@@ -66,92 +65,58 @@ __d(
       );
     }
     function p(e) {
-      var t = o("react-compiler-runtime").c(14),
-        n = e.onBlur,
-        a = e.onChange,
-        i = e.onFocus,
-        l = o("LexicalComposerContext").useLexicalComposerContext(),
-        s = l[0],
-        d = c(),
-        p;
-      t[0] !== a
-        ? ((p = function (t, n) {
-            a && a(m(t), t, n);
-          }),
-          (t[0] = a),
-          (t[1] = p))
-        : (p = t[1]);
-      var g = r("useWAWebStableCallback")(p),
-        h,
-        y;
-      (t[2] !== s || t[3] !== g
-        ? ((h = function () {
-            if (s) {
-              var e = s.getEditorState().read(f);
-              ((d.current = e), g(s.getEditorState(), !0));
+      var t = e.onBlur,
+        n = e.onChange,
+        a = e.onFocus,
+        i = o("LexicalComposerContext").useLexicalComposerContext(),
+        l = i[0],
+        s = c(),
+        d = r("useWAWebStableCallback")(function (e, t) {
+          n && n(m(e), e, t);
+        });
+      return (
+        u(
+          function () {
+            if (l) {
+              var e = l.getEditorState().read(function () {
+                return o("Lexical").$getRoot().getTextContent();
+              });
+              ((s.current = e), d(l.getEditorState(), !0));
             }
-          }),
-          (y = [s, g]),
-          (t[2] = s),
-          (t[3] = g),
-          (t[4] = h),
-          (t[5] = y))
-        : ((h = t[4]), (y = t[5])),
-        u(h, y));
-      var C, b;
-      (t[6] !== s || t[7] !== g
-        ? ((C = function () {
-            if (s)
-              return s.registerUpdateListener(function (e) {
+          },
+          [l, d],
+        ),
+        u(
+          function () {
+            if (l)
+              return l.registerUpdateListener(function (e) {
                 var t = e.editorState;
-                if (!s.isComposing()) {
-                  var n = t.read(_);
-                  d.current !== n && ((d.current = n), g(t, !1));
+                if (!l.isComposing()) {
+                  var n = t.read(function () {
+                    return o("Lexical").$getRoot().getTextContent();
+                  });
+                  s.current !== n && ((s.current = n), d(t, !1));
                 }
               });
-          }),
-          (b = [s, g]),
-          (t[6] = s),
-          (t[7] = g),
-          (t[8] = C),
-          (t[9] = b))
-        : ((C = t[8]), (b = t[9])),
-        u(C, b));
-      var v;
-      (t[10] !== n
-        ? ((v = function (t) {
-            return (n == null || n(t), !1);
-          }),
-          (t[10] = n),
-          (t[11] = v))
-        : (v = t[11]),
+          },
+          [l, d],
+        ),
         o("useWAWebLexicalEvent").useLexicalCommandListener(
-          s,
+          l,
           o("Lexical").BLUR_COMMAND,
-          v,
-        ));
-      var S;
-      return (
-        t[12] !== i
-          ? ((S = function (t) {
-              return (i == null || i(t), !1);
-            }),
-            (t[12] = i),
-            (t[13] = S))
-          : (S = t[13]),
+          function (e) {
+            return (t == null || t(e), !1);
+          },
+        ),
         o("useWAWebLexicalEvent").useLexicalCommandListener(
-          s,
+          l,
           o("Lexical").FOCUS_COMMAND,
-          S,
+          function (e) {
+            return (a == null || a(e), !1);
+          },
         ),
         null
       );
-    }
-    function _() {
-      return o("Lexical").$getRoot().getTextContent();
-    }
-    function f() {
-      return o("Lexical").$getRoot().getTextContent();
     }
     l.default = p;
   },

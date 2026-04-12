@@ -7,7 +7,6 @@ __d(
     "WAWebPhotoPickerConstants",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "react-loadable",
   ],
   function (t, n, r, o, a, i, l) {
@@ -64,71 +63,24 @@ __d(
       _ = "cover-photo-picker",
       f = "profile-pic-picker";
     function g(e) {
-      var t = o("react-compiler-runtime").c(8);
       switch (e.type) {
         case o("WAWebPhotoPickerConstants").PhotoPickerType.NEWSLETTER:
         case o("WAWebPhotoPickerConstants").PhotoPickerType.GROUP:
         case o("WAWebPhotoPickerConstants").PhotoPickerType
           .DEFAULT_ANNOUNCEMENT_GROUP:
-        case o("WAWebPhotoPickerConstants").PhotoPickerType.GENERAL_GROUP: {
-          var n;
-          return (
-            t[0] !== e
-              ? ((n = s.jsx(
-                  d,
-                  babelHelpers.extends({}, e, { testid: void 0 }),
-                )),
-                (t[0] = e),
-                (t[1] = n))
-              : (n = t[1]),
-            n
-          );
-        }
-        case o("WAWebPhotoPickerConstants").PhotoPickerType.COMMUNITY: {
-          var r;
-          return (
-            t[2] !== e
-              ? ((r = s.jsx(
-                  m,
-                  babelHelpers.extends({}, e, { testid: void 0 }),
-                )),
-                (t[2] = e),
-                (t[3] = r))
-              : (r = t[3]),
-            r
-          );
-        }
-        case o("WAWebPhotoPickerConstants").PhotoPickerType.PROFILE: {
-          var a;
-          return (
-            t[4] !== e
-              ? ((a = s.jsx(
-                  c,
-                  babelHelpers.extends({}, e, { testid: void 0 }),
-                )),
-                (t[4] = e),
-                (t[5] = a))
-              : (a = t[5]),
-            a
-          );
-        }
-        case o("WAWebPhotoPickerConstants").PhotoPickerType.COVER_PHOTO: {
-          var i;
-          return (
-            t[6] !== e
-              ? ((i = s.jsx(
-                  p,
-                  babelHelpers.extends({}, e, { testid: void 0 }),
-                )),
-                (t[6] = e),
-                (t[7] = i))
-              : (i = t[7]),
-            i
-          );
-        }
+        case o("WAWebPhotoPickerConstants").PhotoPickerType.GENERAL_GROUP:
+          return s.jsx(d, babelHelpers.extends({}, e, { testid: void 0 }));
+        case o("WAWebPhotoPickerConstants").PhotoPickerType.COMMUNITY:
+          return s.jsx(m, babelHelpers.extends({}, e, { testid: void 0 }));
+        case o("WAWebPhotoPickerConstants").PhotoPickerType.PROFILE:
+          return s.jsx(c, babelHelpers.extends({}, e, { testid: void 0 }));
+        case o("WAWebPhotoPickerConstants").PhotoPickerType.COVER_PHOTO:
+          return s.jsx(p, babelHelpers.extends({}, e, { testid: void 0 }));
       }
     }
-    ((l.requireBundle = u), (l.PhotoPickerLoadable = g));
+    ((g.displayName = g.name + " [from " + i.id + "]"),
+      (l.requireBundle = u),
+      (l.PhotoPickerLoadable = g));
   },
   98,
 );

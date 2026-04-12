@@ -16,7 +16,6 @@ __d(
     "WAWebUISpacing",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebForceUpdate",
     "useWAWebListener",
@@ -162,247 +161,135 @@ __d(
         : o("WAWebLabelCollection").LabelCollection.get(t);
     }
     function _(t) {
-      var n = o("react-compiler-runtime").c(49),
-        a = t.color,
-        i = t.iconXstyle,
-        l = t.isListsFeatureEnabled,
-        s = t.name,
-        c = t.renderAsCircle,
+      var n = t.color,
+        a = t.iconXstyle,
+        i = t.isListsFeatureEnabled,
+        l = t.name,
+        s = t.renderAsCircle,
+        c = s === void 0 ? !1 : s,
         m = t.theme,
-        p = t.unreadCount,
-        _ = c === void 0 ? !1 : c;
+        p = t.unreadCount;
       if (
         o("WAWebABProps").getABPropConfigValue("wds_web_chip") &&
         m === "label-pill"
-      ) {
-        var f, g;
-        n[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((f = { className: "x2lah0s x16dsc37 x3nfvp2 x6s0dn4" }),
-            (g = {
+      )
+        return u.jsxs("div", {
+          className: "x2lah0s x16dsc37 x3nfvp2 x6s0dn4",
+          children: [
+            u.jsx("span", {
               className: "x78zum5 x2lah0s x6s0dn4 xl56j7k xw4jnvo x1qx5ct2",
+              children:
+                i === !0
+                  ? u.jsx(r("WAWebListIcon.react"), {
+                      color: n,
+                      xstyle: d.listIcon,
+                    })
+                  : u.jsx(o("WAWebIcLabelFilledIcon.react").IcLabelFilledIcon, {
+                      width: 18,
+                      height: 18,
+                      style: n != null ? { color: n } : {},
+                      iconXstyle: a,
+                      xstyle: l != null && d.containerFullCircleIcon,
+                    }),
             }),
-            (n[0] = f),
-            (n[1] = g))
-          : ((f = n[0]), (g = n[1]));
-        var h;
-        n[2] !== a || n[3] !== i || n[4] !== l || n[5] !== s
-          ? ((h = u.jsx(
-              "span",
-              babelHelpers.extends({}, g, {
-                children:
-                  l === !0
-                    ? u.jsx(r("WAWebListIcon.react"), {
-                        color: a,
-                        xstyle: d.listIcon,
-                      })
-                    : u.jsx(
-                        o("WAWebIcLabelFilledIcon.react").IcLabelFilledIcon,
-                        {
-                          width: 18,
-                          height: 18,
-                          style: a != null ? { color: a } : {},
-                          iconXstyle: i,
-                          xstyle: s != null && d.containerFullCircleIcon,
-                        },
-                      ),
-              }),
-            )),
-            (n[2] = a),
-            (n[3] = i),
-            (n[4] = l),
-            (n[5] = s),
-            (n[6] = h))
-          : (h = n[6]);
-        var y;
-        n[7] !== s
-          ? ((y = u.jsx(r("WDSText.react"), {
+            u.jsx(r("WDSText.react"), {
               type: "Body2Emphasized",
               colorName: "accentEmphasized",
               xstyle: d.nameWdsChip,
-              children: s,
-            })),
-            (n[7] = s),
-            (n[8] = y))
-          : (y = n[8]);
-        var C;
-        return (
-          n[9] !== h || n[10] !== y
-            ? ((C = u.jsxs(
-                "div",
-                babelHelpers.extends({}, f, { children: [h, y] }),
-              )),
-              (n[9] = h),
-              (n[10] = y),
-              (n[11] = C))
-            : (C = n[11]),
-          C
-        );
-      }
-      var b;
-      n[12] !== l || n[13] !== s || n[14] !== t.theme
-        ? ((b =
-            s != null
-              ? u.jsx(
-                  "span",
-                  babelHelpers.extends(
-                    {},
-                    (e || (e = r("stylex"))).props(
-                      d.name,
-                      o("WAWebUISpacing").uiMargin.start3,
-                      (t.theme === "label-filter" ||
-                        t.theme === "label-pill") &&
-                        d.labelFilterName,
-                      t.theme === "label-pill" && d.labelFilterPillName,
-                      (t.theme === "label-filter" ||
-                        t.theme === "label-pill") &&
-                        o("WAWebUISpacing").uiMargin.start8,
-                      t.theme === "drawer-title" && d.drawerTitleName,
-                      t.theme === "drawer-title" &&
-                        o("WAWebUISpacing").uiMargin.start0,
-                      t.theme === "user-profile" && d.elipsifyName,
-                      l === !0 && o("WAWebUISpacing").uiMargin.start8,
-                    ),
-                    {
-                      children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
-                        text: s,
-                      }),
-                    },
+              children: l,
+            }),
+          ],
+        });
+      var _ =
+          l != null
+            ? u.jsx(
+                "span",
+                babelHelpers.extends(
+                  {},
+                  (e || (e = r("stylex"))).props(
+                    d.name,
+                    o("WAWebUISpacing").uiMargin.start3,
+                    (t.theme === "label-filter" || t.theme === "label-pill") &&
+                      d.labelFilterName,
+                    t.theme === "label-pill" && d.labelFilterPillName,
+                    (t.theme === "label-filter" || t.theme === "label-pill") &&
+                      o("WAWebUISpacing").uiMargin.start8,
+                    t.theme === "drawer-title" && d.drawerTitleName,
+                    t.theme === "drawer-title" &&
+                      o("WAWebUISpacing").uiMargin.start0,
+                    t.theme === "user-profile" && d.elipsifyName,
+                    i === !0 && o("WAWebUISpacing").uiMargin.start8,
                   ),
-                )
-              : null),
-          (n[12] = l),
-          (n[13] = s),
-          (n[14] = t.theme),
-          (n[15] = b))
-        : (b = n[15]);
-      var v = b,
-        S = m === "label-filter" && l === !0 && p != null && p > 0,
-        R;
-      n[16] !== s || n[17] !== _ || n[18] !== S || n[19] !== m
-        ? ((R = (e || (e = r("stylex")))(
-            s == null && !_ && d.container,
-            _ && d.containerFull,
-            s != null && !_ && d.containerFull,
-            m === "label-filter" && d.labelFilter,
-            m === "drawer-title" && d.drawerTitle,
-            S && d.labelFilterWithCount,
-          )),
-          (n[16] = s),
-          (n[17] = _),
-          (n[18] = S),
-          (n[19] = m),
-          (n[20] = R))
-        : (R = n[20]);
-      var L = R,
-        E;
-      n[21] !== a || n[22] !== _
-        ? ((E = _ && a != null ? { backgroundColor: a } : {}),
-          (n[21] = a),
-          (n[22] = _),
-          (n[23] = E))
-        : (E = n[23]);
-      var k = E,
-        I;
-      n[24] !== a || n[25] !== i || n[26] !== l || n[27] !== s
-        ? ((I =
-            l === !0
-              ? u.jsx(r("WAWebListIcon.react"), {
-                  color: a,
-                  xstyle: d.listIcon,
-                })
-              : u.jsx(o("WAWebIcLabelFilledIcon.react").IcLabelFilledIcon, {
-                  width: 18,
-                  height: 18,
-                  style: a != null ? { color: a } : {},
-                  iconXstyle: i,
-                  xstyle: s != null && d.containerFullCircleIcon,
-                })),
-          (n[24] = a),
-          (n[25] = i),
-          (n[26] = l),
-          (n[27] = s),
-          (n[28] = I))
-        : (I = n[28]);
-      var T = I,
-        D;
-      n[29] !== a || n[30] !== l
-        ? ((D =
-            l === !0
-              ? u.jsx(r("WAWebListIcon.react"), {
-                  color: a,
-                  xstyle: d.listIcon,
-                  size: 16,
-                })
-              : u.jsx(o("WAWebLabelFilledIcon.react").LabelFilledIcon, {
-                  xstyle: d.circleIcon,
-                  iconXstyle: d.circleIconSVG,
-                })),
-          (n[29] = a),
-          (n[30] = l),
-          (n[31] = D))
-        : (D = n[31]);
-      var x = D,
-        $ = _ ? x : T,
-        P = l === !0 ? null : "label-icon",
-        N;
-      n[32] !== l || n[33] !== _ || n[34] !== m
-        ? ((N = (e || (e = r("stylex")))(
-            _ && l !== !0 && d.circleIconContainer,
-            _ && l === !0 && d.listIconCircleContainer,
-            m === "drawer-title" && d.drawerTitleIconContainer,
-            m === "drawer-title" && o("WAWebUISpacing").uiMargin.end20,
-            m === "drawer-title" && o("WAWebUISpacing").uiMargin.start4,
-            (m === "label-filter" || m === "label-pill") &&
-              d.labelFilterIconContainer,
-            m === "label-pill" && d.labelFilterPillIconContainer,
-          )),
-          (n[32] = l),
-          (n[33] = _),
-          (n[34] = m),
-          (n[35] = N))
-        : (N = n[35]);
-      var M = l === !0 ? void 0 : k,
-        w;
-      n[36] !== $ || n[37] !== P || n[38] !== N || n[39] !== M
-        ? ((w = u.jsx("div", {
+                  {
+                    children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
+                      text: l,
+                    }),
+                  },
+                ),
+              )
+            : null,
+        f = m === "label-filter" && i === !0 && p != null && p > 0,
+        g = (e || (e = r("stylex")))(
+          l == null && !c && d.container,
+          c && d.containerFull,
+          l != null && !c && d.containerFull,
+          m === "label-filter" && d.labelFilter,
+          m === "drawer-title" && d.drawerTitle,
+          f && d.labelFilterWithCount,
+        ),
+        h = c && n != null ? { backgroundColor: n } : {},
+        y =
+          i === !0
+            ? u.jsx(r("WAWebListIcon.react"), { color: n, xstyle: d.listIcon })
+            : u.jsx(o("WAWebIcLabelFilledIcon.react").IcLabelFilledIcon, {
+                width: 18,
+                height: 18,
+                style: n != null ? { color: n } : {},
+                iconXstyle: a,
+                xstyle: l != null && d.containerFullCircleIcon,
+              }),
+        C =
+          i === !0
+            ? u.jsx(r("WAWebListIcon.react"), {
+                color: n,
+                xstyle: d.listIcon,
+                size: 16,
+              })
+            : u.jsx(o("WAWebLabelFilledIcon.react").LabelFilledIcon, {
+                xstyle: d.circleIcon,
+                iconXstyle: d.circleIconSVG,
+              }),
+        b = c ? C : y;
+      return u.jsxs("div", {
+        className: g,
+        children: [
+          u.jsx("div", {
             "data-testid": void 0,
-            className: N,
-            style: M,
-            children: $,
-          })),
-          (n[36] = $),
-          (n[37] = P),
-          (n[38] = N),
-          (n[39] = M),
-          (n[40] = w))
-        : (w = n[40]);
-      var A;
-      n[41] !== S || n[42] !== p
-        ? ((A =
-            S &&
+            className: e(
+              c && i !== !0 && d.circleIconContainer,
+              c && i === !0 && d.listIconCircleContainer,
+              m === "drawer-title" && d.drawerTitleIconContainer,
+              m === "drawer-title" && o("WAWebUISpacing").uiMargin.end20,
+              m === "drawer-title" && o("WAWebUISpacing").uiMargin.start4,
+              (m === "label-filter" || m === "label-pill") &&
+                d.labelFilterIconContainer,
+              m === "label-pill" && d.labelFilterPillIconContainer,
+            ),
+            style: i === !0 ? void 0 : h,
+            children: b,
+          }),
+          _,
+          f &&
             u.jsx(r("WDSText.react"), {
               type: "Body2Emphasized",
               colorName: "accentEmphasized",
               xstyle: d.unreadCount,
               children: p,
-            })),
-          (n[41] = S),
-          (n[42] = p),
-          (n[43] = A))
-        : (A = n[43]);
-      var F;
-      return (
-        n[44] !== L || n[45] !== v || n[46] !== A || n[47] !== w
-          ? ((F = u.jsxs("div", { className: L, children: [w, v, A] })),
-            (n[44] = L),
-            (n[45] = v),
-            (n[46] = A),
-            (n[47] = w),
-            (n[48] = F))
-          : (F = n[48]),
-        F
-      );
+            }),
+        ],
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       "use no forget";
       var t = e.iconXstyle,

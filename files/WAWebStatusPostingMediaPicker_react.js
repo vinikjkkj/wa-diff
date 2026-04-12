@@ -14,7 +14,6 @@ __d(
     "WAWebStatusPostingMediaView.react",
     "WAWebWamEnumMediaPickerOriginType",
     "react",
-    "react-compiler-runtime",
     "useWAWebUIM",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,44 +27,29 @@ __d(
       _ = p.useEffect,
       f = p.useMemo;
     function g(t) {
-      var n = o("react-compiler-runtime").c(18),
-        a = t.mediaPickerRef,
-        i = t.newsletterWid,
-        l;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = new (o(
+      var n = t.mediaPickerRef,
+        a = t.newsletterWid,
+        i = f(function () {
+          return new (o(
             "WAWebLogStatusPosterActions",
-          ).StatusPosterActionsLogger)()),
-          (n[0] = l))
-        : (l = n[0]);
-      var d = l,
-        p,
-        f;
-      (n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = function () {
-            (o("WAWebCmd").Cmd.onStatusPostingFlow(),
-              d.logMediaPickerImp(
-                o("WAWebLogStatusPosterActions").STATUS_CREATION_ENTRY_POINT
-                  .STATUS_TAB_CAMERA,
-              ));
-          }),
-          (f = [d]),
-          (n[1] = p),
-          (n[2] = f))
-        : ((p = n[1]), (f = n[2])),
-        _(p, f));
-      var g = r("useWAWebUIM")(),
-        v;
-      n[3] !== i
-        ? ((v =
-            i != null
-              ? r("WAWebNewsletterCollection").get(i)
-              : o("WAWebStatusJidUtils").getStatusChat()),
-          (n[3] = i),
-          (n[4] = v))
-        : (v = n[4]);
-      var S = v;
-      if (i != null && S == null)
+          ).StatusPosterActionsLogger)();
+        }, []);
+      _(
+        function () {
+          (o("WAWebCmd").Cmd.onStatusPostingFlow(),
+            i.logMediaPickerImp(
+              o("WAWebLogStatusPosterActions").STATUS_CREATION_ENTRY_POINT
+                .STATUS_TAB_CAMERA,
+            ));
+        },
+        [i],
+      );
+      var l = r("useWAWebUIM")(),
+        d =
+          a != null
+            ? r("WAWebNewsletterCollection").get(a)
+            : o("WAWebStatusJidUtils").getStatusChat();
+      if (a != null && d == null)
         return (
           o("WALogger")
             .ERROR(
@@ -77,7 +61,7 @@ __d(
             .sendLogs("status-media-picker-newsletter-not-found"),
           null
         );
-      if (S == null)
+      if (d == null)
         return (
           o("WALogger").WARN(
             s ||
@@ -87,132 +71,96 @@ __d(
           ),
           null
         );
-      var R;
-      n[5] !== S || n[6] !== i || n[7] !== t.isNewsletterStatus
-        ? ((R = function (n) {
-            var e = n.attachments,
-              a = n.onCancel,
-              l = n.onSend,
-              s = function () {
-                var t = S.attachMediaContents;
-                if (!t) {
-                  o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "StatusPostMediaPicker: attachMediaContents uninitialized",
-                      ])),
-                  );
-                  return;
-                }
-                if (e && e.length > 0)
-                  t.processAttachmentsForChat(
-                    e,
-                    o("WAWebWamEnumMediaPickerOriginType")
-                      .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_CAMERA_PHOTO_LIBRARY,
-                    S,
-                  );
-                else {
-                  o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "StatusPostMediaPicker: receive empty attachments",
-                      ])),
-                  );
-                  return;
-                }
-              };
-            S.attachMediaContents ||
-              S.setAttachMediaContents(
-                new (r("WAWebAttachMediaCollection"))({
-                  chatParticipantCount: S.getParticipantCount(),
-                }),
-              );
-            var p = r("WANullthrows")(S.attachMediaContents),
-              _ = m.jsx(r("WAWebStatusPostingMediaView.react"), {
-                chat: S,
-                onRender: s,
-                onComplete: b,
-                onSend: l,
-                onCancel: a,
-                mediaCollection: p,
-                statusPosterActionsLogger: d,
-                newsletterWid: i,
-                isNewsletterStatus: t.isNewsletterStatus,
-              });
-            o("WAWebModalManager").ModalManager.openMedia(_, {
-              transition: "status-modal",
+      var p = function (n) {
+          var e = n.attachments,
+            l = n.onCancel,
+            s = n.onSend,
+            p = function () {
+              var t = d.attachMediaContents;
+              if (!t) {
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "StatusPostMediaPicker: attachMediaContents uninitialized",
+                    ])),
+                );
+                return;
+              }
+              if (e && e.length > 0)
+                t.processAttachmentsForChat(
+                  e,
+                  o("WAWebWamEnumMediaPickerOriginType")
+                    .MEDIA_PICKER_ORIGIN_TYPE.STATUS_TAB_CAMERA_PHOTO_LIBRARY,
+                  d,
+                );
+              else {
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "StatusPostMediaPicker: receive empty attachments",
+                    ])),
+                );
+                return;
+              }
+            };
+          d.attachMediaContents ||
+            d.setAttachMediaContents(
+              new (r("WAWebAttachMediaCollection"))({
+                chatParticipantCount: d.getParticipantCount(),
+              }),
+            );
+          var _ = r("WANullthrows")(d.attachMediaContents),
+            f = m.jsx(r("WAWebStatusPostingMediaView.react"), {
+              chat: d,
+              onRender: p,
+              onComplete: function (t, n) {},
+              onSend: s,
+              onCancel: l,
+              mediaCollection: _,
+              statusPosterActionsLogger: i,
+              newsletterWid: a,
+              isNewsletterStatus: t.isNewsletterStatus,
             });
-          }),
-          (n[5] = S),
-          (n[6] = i),
-          (n[7] = t.isNewsletterStatus),
-          (n[8] = R))
-        : (R = n[8]);
-      var L = R,
-        E;
-      n[9] !== g
-        ? ((E = function () {
-            g == null || g.requestDismiss();
-          }),
-          (n[9] = g),
-          (n[10] = E))
-        : (E = n[10]);
-      var k = E,
-        I;
-      n[11] !== k || n[12] !== L
-        ? ((I = function (t) {
-            var e;
-            if (!t) {
-              k();
-              return;
-            }
-            t.stopPropagation();
-            var n = Array.from((e = t.target.files) != null ? e : []);
-            (k(),
-              n.length &&
-                (L({ attachments: n.map(C), onSend: y, onCancel: h }),
-                d.logMediaPickerMediaSelected(
-                  o("WAWebLogStatusPosterActions").STATUS_CONTENT_SOURCE
-                    .GALLERY,
-                )));
-          }),
-          (n[11] = k),
-          (n[12] = L),
-          (n[13] = I))
-        : (I = n[13]);
-      var T = I,
-        D;
-      n[14] === Symbol.for("react.memo_cache_sentinel")
-        ? ((D = [
-            o("WAWebMimeTypes").IMAGE_MIMES,
-            o("WAWebMimeTypes").VIDEO_MIMES,
-          ]),
-          (n[14] = D))
-        : (D = n[14]);
-      var x = D.join(","),
-        $;
-      return (
-        n[15] !== T || n[16] !== a
-          ? (($ = m.jsx(r("WAWebFilePicker.react"), {
-              ref: a,
-              mimes: x,
-              onChange: T,
-              multiple: !0,
-            })),
-            (n[15] = T),
-            (n[16] = a),
-            (n[17] = $))
-          : ($ = n[17]),
-        $
-      );
+          o("WAWebModalManager").ModalManager.openMedia(f, {
+            transition: "status-modal",
+          });
+        },
+        g = function () {
+          l == null || l.requestDismiss();
+        },
+        h = function (t) {
+          var e;
+          if (!t) {
+            g();
+            return;
+          }
+          t.stopPropagation();
+          var n = Array.from((e = t.target.files) != null ? e : []);
+          (g(),
+            n.length &&
+              (p({
+                attachments: n.map(function (e) {
+                  return { file: e };
+                }),
+                onSend: function () {},
+                onCancel: function () {},
+              }),
+              i.logMediaPickerMediaSelected(
+                o("WAWebLogStatusPosterActions").STATUS_CONTENT_SOURCE.GALLERY,
+              )));
+        },
+        y = [
+          o("WAWebMimeTypes").IMAGE_MIMES,
+          o("WAWebMimeTypes").VIDEO_MIMES,
+        ].join(",");
+      return m.jsx(r("WAWebFilePicker.react"), {
+        ref: n,
+        mimes: y,
+        onChange: h,
+        multiple: !0,
+      });
     }
-    function h() {}
-    function y() {}
-    function C(e) {
-      return { file: e };
-    }
-    function b(e, t) {}
-    l.default = g;
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   98,
 );

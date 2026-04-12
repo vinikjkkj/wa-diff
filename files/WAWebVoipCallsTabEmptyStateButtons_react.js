@@ -28,7 +28,6 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -79,60 +78,37 @@ __d(
         },
       };
     function _(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.Icon,
-        a = e.onClick,
-        i = e.text,
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = [
-            p.button,
-            o("WDSColorStyles.stylex").WDSBackgroundColorStyles.surfaceDefault,
-          ]),
-          (t[0] = l))
-        : (l = t[0]);
-      var s;
-      t[1] !== n || t[2] !== a
-        ? ((s = m.jsx(r("WDSButton.react"), {
-            Icon: n,
-            onPress: a,
-            xstyle: l,
+      var t = e.Icon,
+        n = e.onClick,
+        a = e.text;
+      return m.jsxs(o("WAWebFlex.react").FlexColumn, {
+        align: "center",
+        xstyle: p.columnContainer,
+        children: [
+          m.jsx(r("WDSButton.react"), {
+            Icon: t,
+            onPress: n,
+            xstyle: [
+              p.button,
+              o("WDSColorStyles.stylex").WDSBackgroundColorStyles
+                .surfaceDefault,
+            ],
             variant: "borderless",
-          })),
-          (t[1] = n),
-          (t[2] = a),
-          (t[3] = s))
-        : (s = t[3]);
-      var u;
-      t[4] !== i
-        ? ((u = m.jsx(o("WAWebFlex.react").FlexItem, {
+          }),
+          m.jsx(o("WAWebFlex.react").FlexItem, {
             xstyle: p.textContainer,
             align: "center",
             children: m.jsx(r("WDSText.react"), {
               type: "Body2Emphasized",
               colorName: "contentDefault",
               maxLines: 1,
-              children: i,
+              children: a,
             }),
-          })),
-          (t[4] = i),
-          (t[5] = u))
-        : (u = t[5]);
-      var c;
-      return (
-        t[6] !== s || t[7] !== u
-          ? ((c = m.jsxs(o("WAWebFlex.react").FlexColumn, {
-              align: "center",
-              xstyle: p.columnContainer,
-              children: [s, u],
-            })),
-            (t[6] = s),
-            (t[7] = u),
-            (t[8] = c))
-          : (c = t[8]),
-        c
-      );
+          }),
+        ],
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f() {
       var t = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

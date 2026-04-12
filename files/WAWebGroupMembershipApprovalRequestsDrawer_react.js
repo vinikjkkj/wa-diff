@@ -23,7 +23,6 @@ __d(
     "WAWebUnstyledButton.react",
     "WAWebUserPrefsMeUser",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebGroupParticipantStatus",
     "useWAWebModelValues",
@@ -285,37 +284,23 @@ __d(
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = o("react-compiler-runtime").c(4),
+      var t,
         n = e.children,
-        a = e.title,
-        i;
-      if (t[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var l;
-        ((i = [
-          (l = o("WAWebUISpacing")).uiMargin.bottom0,
-          l.uiPadding.horiz16,
-          l.uiPadding.top24,
-          l.uiPadding.bottom12,
-        ]),
-          (t[0] = i));
-      } else i = t[0];
-      var s;
-      return (
-        t[1] !== n || t[2] !== a
-          ? ((s = c.jsx(r("WAWebDrawerSection.react"), {
-              title: a,
-              animation: !1,
-              xstyle: o("WAWebUISpacing").uiMargin.bottom0,
-              titleXStyle: i,
-              children: n,
-            })),
-            (t[1] = n),
-            (t[2] = a),
-            (t[3] = s))
-          : (s = t[3]),
-        s
-      );
+        a = e.title;
+      return c.jsx(r("WAWebDrawerSection.react"), {
+        title: a,
+        animation: !1,
+        xstyle: (t = o("WAWebUISpacing")).uiMargin.bottom0,
+        titleXStyle: [
+          t.uiMargin.bottom0,
+          t.uiPadding.horiz16,
+          t.uiPadding.top24,
+          t.uiPadding.bottom12,
+        ],
+        children: n,
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e, t) {
       return e.reduce(
         function (e, n) {

@@ -26,7 +26,6 @@ __d(
     "WAWebStateUtils",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
     "useWAWebDocumentMediaType",
     "useWAWebModelValues",
     "useWAWebMsgValues",
@@ -102,145 +101,65 @@ __d(
         },
       };
     function _() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = u.jsx("span", {
-              className:
-                "x1rg5ohu x6ikm8r x10wlt62 xlyipyv xuxw1ft xwcf1sq xdj266r x7g7pl8 xat24cr x1wbi8v6",
-              children: "\u2022",
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return u.jsx("span", {
+        className:
+          "x1rg5ohu x6ikm8r x10wlt62 xlyipyv xuxw1ft xwcf1sq xdj266r x7g7pl8 xat24cr x1wbi8v6",
+        children: "\u2022",
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.size;
-      if (n == null || n <= 0) return null;
-      var r;
-      t[0] !== n
-        ? ((r = o("WAWebL10nFilesize").getL10nFilesize(n)),
-          (t[0] = n),
-          (t[1] = r))
-        : (r = t[1]);
-      var a = r,
-        i;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = {
+      var t = e.size;
+      if (t == null || t <= 0) return null;
+      var n = o("WAWebL10nFilesize").getL10nFilesize(t);
+      return u.jsxs(u.Fragment, {
+        children: [
+          u.jsx("span", {
             className: "x1rg5ohu x6ikm8r x10wlt62 xlyipyv xuxw1ft xwcf1sq",
+            title: n,
+            children: n,
           }),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
-      t[3] !== a
-        ? ((l = u.jsx(
-            "span",
-            babelHelpers.extends({}, i, { title: a, children: a }),
-          )),
-          (t[3] = a),
-          (t[4] = l))
-        : (l = t[4]);
-      var s;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = u.jsx(_, {})), (t[5] = s))
-        : (s = t[5]);
-      var c;
-      return (
-        t[6] !== l
-          ? ((c = u.jsxs(u.Fragment, { children: [l, s] })),
-            (t[6] = l),
-            (t[7] = c))
-          : (c = t[7]),
-        c
-      );
+          u.jsx(_, {}),
+        ],
+      });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.count;
-      if (n == null || n <= 0) return null;
-      var r;
-      t[0] !== n
-        ? ((r = s._(/*BTDS*/ '_j{"*":"{count} pages","_1":"1 page"}', [
-            s._plural(n, "count"),
-          ])),
-          (t[0] = n),
-          (t[1] = r))
-        : (r = t[1]);
-      var a = r,
-        i;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = {
+      var t = e.count;
+      if (t == null || t <= 0) return null;
+      var n = s._(/*BTDS*/ '_j{"*":"{count} pages","_1":"1 page"}', [
+        s._plural(t, "count"),
+      ]);
+      return u.jsxs(u.Fragment, {
+        children: [
+          u.jsx("span", {
             className: "x1rg5ohu x6ikm8r x10wlt62 xlyipyv xuxw1ft xwcf1sq",
+            title: n,
+            children: n,
           }),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
-      t[3] !== a
-        ? ((l = u.jsx(
-            "span",
-            babelHelpers.extends({}, i, { title: a, children: a }),
-          )),
-          (t[3] = a),
-          (t[4] = l))
-        : (l = t[4]);
-      var c;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = u.jsx(_, {})), (t[5] = c))
-        : (c = t[5]);
-      var d;
-      return (
-        t[6] !== l
-          ? ((d = u.jsxs(u.Fragment, { children: [l, c] })),
-            (t[6] = l),
-            (t[7] = d))
-          : (d = t[7]),
-        d
-      );
+          u.jsx(_, {}),
+        ],
+      });
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.ext;
-      if (n == null) return null;
-      var r;
-      t[0] !== n ? ((r = n.toUpperCase()), (t[0] = n), (t[1] = r)) : (r = t[1]);
-      var a = r,
-        i;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = {
+      var t = e.ext;
+      if (t == null) return null;
+      var n = t.toUpperCase();
+      return u.jsxs(u.Fragment, {
+        children: [
+          u.jsx("span", {
+            "data-meta-key": "type",
+            "data-testid": void 0,
             className: "x1rg5ohu x6ikm8r x10wlt62 xlyipyv xuxw1ft xwcf1sq",
+            title: n,
+            children: n,
           }),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
-      t[3] !== a
-        ? ((l = u.jsx(
-            "span",
-            babelHelpers.extends(
-              { "data-meta-key": "type", "data-testid": void 0 },
-              i,
-              { title: a, children: a },
-            ),
-          )),
-          (t[3] = a),
-          (t[4] = l))
-        : (l = t[4]);
-      var s;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = u.jsx(_, {})), (t[5] = s))
-        : (s = t[5]);
-      var c;
-      return (
-        t[6] !== l
-          ? ((c = u.jsxs(u.Fragment, { children: [l, s] })),
-            (t[6] = l),
-            (t[7] = c))
-          : (c = t[7]),
-        c
-      );
+          u.jsx(_, {}),
+        ],
+      });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
       var t,
         n,

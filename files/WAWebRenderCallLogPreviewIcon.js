@@ -7,7 +7,6 @@ __d(
     "WAWebFlex.react",
     "WAWebMsgGetters",
     "react",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,83 +17,44 @@ __d(
         paddingEnd2: { paddingInlineEnd: "x1j8ymqv", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(14),
+      var t,
         n = e.msg,
-        r;
-      if (t[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var a;
-        ((r = [
-          (a = o("WAWebMsgGetters")).getIsVideoCall,
-          a.getIsMissedCall,
-          a.getIsSentByMe,
-          a.getIsCallLink,
-          a.getCallOutcome,
-          a.getFinalCallOutcome,
-          a.getCallParticipants,
+        r = o("useWAWebMsgValues").useMsgValues(n.id, [
+          (t = o("WAWebMsgGetters")).getIsVideoCall,
+          t.getIsMissedCall,
+          t.getIsSentByMe,
+          t.getIsCallLink,
+          t.getCallOutcome,
+          t.getFinalCallOutcome,
+          t.getCallParticipants,
         ]),
-          (t[0] = r));
-      } else r = t[0];
-      var i = o("useWAWebMsgValues").useMsgValues(n.id, r),
-        l = i[0],
-        c = i[1],
-        d = i[2],
-        m = i[3],
-        p = i[4],
-        _ = i[5],
-        f = i[6],
-        g =
-          p === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
-          _ !== o("WAWebCallLogMsgData.flow").CallOutcome.Completed,
-        h;
-      if (t[1] !== p || t[2] !== f || t[3] !== _ || t[4] !== c || t[5] !== d) {
-        var y = o("WAWebCallLogUtils").getIsSelfConnected(f);
-        ((h = o("WAWebCallLogUtils").getIsMissedCallOrNotConnected(
-          c,
-          y,
-          d,
-          p,
-          _,
-        )),
-          (t[1] = p),
-          (t[2] = f),
-          (t[3] = _),
-          (t[4] = c),
-          (t[5] = d),
-          (t[6] = h));
-      } else h = t[6];
-      var C = h,
-        b;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = [u.container, u.paddingEnd2]), (t[7] = b))
-        : (b = t[7]);
-      var v = m != null ? m : !1,
-        S;
-      return (
-        t[8] !== C || t[9] !== g || t[10] !== d || t[11] !== l || t[12] !== v
-          ? ((S = s.jsx(o("WAWebFlex.react").FlexColumn, {
-              xstyle: b,
-              align: "center",
-              justify: "center",
-              children: s.jsx(o("WAWebCallLogEntryCell.react").CallLogIcon, {
-                iconHeight: 16,
-                isMissedCall: C,
-                isVideoCall: l,
-                isFromMe: d,
-                isCallLink: v,
-                isOngoingCall: g,
-              }),
-            })),
-            (t[8] = C),
-            (t[9] = g),
-            (t[10] = d),
-            (t[11] = l),
-            (t[12] = v),
-            (t[13] = S))
-          : (S = t[13]),
-        S
-      );
+        a = r[0],
+        i = r[1],
+        l = r[2],
+        c = r[3],
+        d = r[4],
+        m = r[5],
+        p = r[6],
+        _ =
+          d === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
+          m !== o("WAWebCallLogMsgData.flow").CallOutcome.Completed,
+        f = o("WAWebCallLogUtils").getIsSelfConnected(p),
+        g = o("WAWebCallLogUtils").getIsMissedCallOrNotConnected(i, f, l, d, m);
+      return s.jsx(o("WAWebFlex.react").FlexColumn, {
+        xstyle: [u.container, u.paddingEnd2],
+        align: "center",
+        justify: "center",
+        children: s.jsx(o("WAWebCallLogEntryCell.react").CallLogIcon, {
+          iconHeight: 16,
+          isMissedCall: g,
+          isVideoCall: a,
+          isFromMe: l,
+          isCallLink: c != null ? c : !1,
+          isOngoingCall: _,
+        }),
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

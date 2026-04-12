@@ -5,7 +5,6 @@ __d(
     "LWICometDefaultTargetingSpec",
     "jsonParseSafe",
     "nullthrows",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationAudienceSpec_boostedComponentWrapper.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,64 +23,34 @@ __d(
         i,
         l,
         u,
-        c = o("react-compiler-runtime").c(11),
-        d = o("CometRelay").useFragment(s, e),
-        m = d.spec,
-        p = m == null || (t = m.audience) == null ? void 0 : t.audience_option,
-        _;
-      c[0] !== p
-        ? ((_ = r("nullthrows")(p, "Audience Option should not be empty")),
-          (c[0] = p),
-          (c[1] = _))
-        : (_ = c[1]);
-      var f = _,
-        g = String(
-          m == null || (n = m.audience) == null ? void 0 : n.audience_key,
+        c = o("CometRelay").useFragment(s, e),
+        d = c.spec,
+        m = r("nullthrows")(
+          d == null || (t = d.audience) == null ? void 0 : t.audience_option,
+          "Audience Option should not be empty",
         ),
-        h = !!(!(m == null || (a = m.audience) == null) && a.client_editable),
-        y = String(m == null || (i = m.audience) == null ? void 0 : i.name),
-        C = !!(!(m == null || (l = m.audience) == null) && l.subject_to_dsa),
-        b = String(
-          m == null || (u = m.audience) == null
-            ? void 0
-            : u.target_spec_string_without_placements,
+        p = String(
+          d == null || (n = d.audience) == null ? void 0 : n.audience_key,
+        );
+      return {
+        audienceID: p,
+        audienceOption: m,
+        clientEditable: !!(
+          !(d == null || (a = d.audience) == null) && a.client_editable
         ),
-        v;
-      c[2] !== b
-        ? ((v = r("jsonParseSafe")(
-            b,
-            o("LWICometDefaultTargetingSpec").DEFAULT_TARGETING_SPEC,
-          )),
-          (c[2] = b),
-          (c[3] = v))
-        : (v = c[3]);
-      var S = v,
-        R;
-      return (
-        c[4] !== g ||
-        c[5] !== f ||
-        c[6] !== h ||
-        c[7] !== y ||
-        c[8] !== C ||
-        c[9] !== S
-          ? ((R = {
-              audienceID: g,
-              audienceOption: f,
-              clientEditable: h,
-              name: y,
-              subjectToDSA: C,
-              targetSpec: S,
-            }),
-            (c[4] = g),
-            (c[5] = f),
-            (c[6] = h),
-            (c[7] = y),
-            (c[8] = C),
-            (c[9] = S),
-            (c[10] = R))
-          : (R = c[10]),
-        R
-      );
+        name: String(d == null || (i = d.audience) == null ? void 0 : i.name),
+        subjectToDSA: !!(
+          !(d == null || (l = d.audience) == null) && l.subject_to_dsa
+        ),
+        targetSpec: r("jsonParseSafe")(
+          String(
+            d == null || (u = d.audience) == null
+              ? void 0
+              : u.target_spec_string_without_placements,
+          ),
+          o("LWICometDefaultTargetingSpec").DEFAULT_TARGETING_SPEC,
+        ),
+      };
     }
     l.default = u;
   },

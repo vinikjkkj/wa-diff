@@ -21,44 +21,43 @@ __d(
         o("WAWebGalaxyFlowMediaEditorCollection")
           .GalaxyFlowMediaEditorCollection,
         "mediaStageChanged",
-        u,
+        function (e) {
+          var t = e.collectionId,
+            n = e.maxFileSizeBytes,
+            a = e.mediaId,
+            i = e.stage,
+            l = document.getElementById(
+              o("WAWebGalaxyFlowsDrawerUtils").FLOWS_IFRAME_ID,
+            );
+          if (!(!(l instanceof HTMLIFrameElement) || !l.contentWindow)) {
+            var s = o(
+                "WAWebGalaxyFlowMediaEditorCollection",
+              ).GalaxyFlowMediaEditorCollection.getMsgs(t),
+              u = s.find(function (e) {
+                return e.id === a;
+              });
+            u &&
+              y(t, u, i, n).then(function (e) {
+                if (e) {
+                  var t = e.data,
+                    n = e.eventName;
+                  r("SecurePostMessage").sendMessageToSpecificOrigin(
+                    l.contentWindow,
+                    JSON.stringify({ eventName: n, payload: t }),
+                    o("WAWebGalaxyFlowsDrawerUtils").FLOWS_URL,
+                  );
+                }
+              });
+          }
+        },
       );
     }
-    function u(e) {
-      var t = e.collectionId,
-        n = e.maxFileSizeBytes,
-        a = e.mediaId,
-        i = e.stage,
-        l = document.getElementById(
-          o("WAWebGalaxyFlowsDrawerUtils").FLOWS_IFRAME_ID,
-        );
-      if (!(!(l instanceof HTMLIFrameElement) || !l.contentWindow)) {
-        var s = o(
-            "WAWebGalaxyFlowMediaEditorCollection",
-          ).GalaxyFlowMediaEditorCollection.getMsgs(t),
-          u = s.find(function (e) {
-            return e.id === a;
-          });
-        u &&
-          C(t, u, i, n).then(function (e) {
-            if (e) {
-              var t = e.data,
-                n = e.eventName;
-              r("SecurePostMessage").sendMessageToSpecificOrigin(
-                l.contentWindow,
-                JSON.stringify({ eventName: n, payload: t }),
-                o("WAWebGalaxyFlowsDrawerUtils").FLOWS_URL,
-              );
-            }
-          });
-      }
+    function u(e, t) {
+      return c.apply(this, arguments);
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a,
@@ -78,20 +77,20 @@ __d(
             iv: o("WABase64").encodeB64(t.iv),
           };
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebMmsMediaTypes").getMsgMediaType(t),
             a = t.mediaKey;
           if (a == null) return null;
           var i = yield r("WAWebCryptoCreateMediaKeys")(n, a),
-            l = yield c(t, i),
+            l = yield u(t, i),
             s = {
               collection_id: e,
               media_id: t.id.id,
@@ -107,10 +106,10 @@ __d(
             };
           return { eventName: "media_picker:status", data: s };
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function _(e, t, n, r) {
+    function p(e, t, n, r) {
       (n === void 0 && (n = !1), r === void 0 && (r = 0));
       var o = {
         collection_id: e,
@@ -121,7 +120,7 @@ __d(
       };
       return { eventName: "media_picker:status", data: o };
     }
-    function f(e, t) {
+    function _(e, t) {
       var n,
         o = t.mimetype.split("/")[1],
         a = r("isStringNullOrEmpty")(t.mediaData.filename)
@@ -138,7 +137,7 @@ __d(
         };
       return { eventName: "media_picker:add", data: i };
     }
-    function g(e, t) {
+    function f(e, t) {
       var n =
           t.mediaData.loadedSize != null &&
           t.mediaData.size != null &&
@@ -154,40 +153,40 @@ __d(
         };
       return { eventName: "media_picker:status", data: r };
     }
-    function h(e, t) {
+    function g(e, t) {
       return (
         e === o("WAWebMediaTypes").MediaDataStage.NEED_UPLOAD ||
         e === o("WAWebMediaTypes").MediaDataStage.REMOTE_NEED_UPLOAD ||
         o("WAWebMsgGetters").getIsFailed(t)
       );
     }
-    function y(e) {
+    function h(e) {
       return (
         e === o("WAWebMediaTypes").MediaDataStage.PREPARING ||
         e === o("WAWebMediaTypes").MediaDataStage.RESOLVED
       );
     }
-    function C(e, t, n, r) {
-      return b.apply(this, arguments);
+    function y(e, t, n, r) {
+      return C.apply(this, arguments);
     }
-    function b() {
+    function C() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, r, a) {
             return n.deprecatedMms3Url
               ? n.mediaData.size > a
-                ? _(t, n, !1, e.FILE_SIZE_LIMIT_EXCEEDED)
-                : m(t, n)
-              : h(r, n)
-                ? _(t, n, !0)
-                : y(r)
-                  ? f(t, n)
+                ? p(t, n, !1, e.FILE_SIZE_LIMIT_EXCEEDED)
+                : d(t, n)
+              : g(r, n)
+                ? p(t, n, !0)
+                : h(r)
+                  ? _(t, n)
                   : r === o("WAWebMediaTypes").MediaDataStage.UPLOADING
-                    ? g(t, n)
+                    ? f(t, n)
                     : null;
           },
         )),
-        b.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
     l.useWAWebGalaxyFlowAttachMediaListener = s;

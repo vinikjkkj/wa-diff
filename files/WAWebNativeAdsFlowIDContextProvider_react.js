@@ -1,11 +1,6 @@
 __d(
   "WAWebNativeAdsFlowIDContextProvider.react",
-  [
-    "WAWebNativeAdsFlowIDContext",
-    "WAWebPonyfillsCryptoRandomUUID",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebNativeAdsFlowIDContext", "WAWebPonyfillsCryptoRandomUUID", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -15,50 +10,33 @@ __d(
       d = u.useMemo,
       m = u.useState;
     function p(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e.children,
-        a = e.initialAdCreationFlowID,
-        i = e.manageAdsFlowID,
-        l = m(a),
-        u = l[0],
-        c = l[1],
-        d;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = function () {
-            var e = r("WAWebPonyfillsCryptoRandomUUID")();
-            return (c(e), e);
-          }),
-          (t[0] = d))
-        : (d = t[0]);
-      var p = d,
-        _;
-      t[1] !== u || t[2] !== i
-        ? ((_ = {
-            manageAdsFlowID: i,
-            adCreationFlowID: u,
-            regenerateAdCreationFlowID: p,
-            setAdCreationFlowID: c,
-          }),
-          (t[1] = u),
-          (t[2] = i),
-          (t[3] = _))
-        : (_ = t[3]);
-      var f = _,
-        g;
-      return (
-        t[4] !== n || t[5] !== f
-          ? ((g = s.jsx(r("WAWebNativeAdsFlowIDContext").Provider, {
-              value: f,
-              children: n,
-            })),
-            (t[4] = n),
-            (t[5] = f),
-            (t[6] = g))
-          : (g = t[6]),
-        g
-      );
+      var t = e.children,
+        n = e.initialAdCreationFlowID,
+        o = e.manageAdsFlowID,
+        a = m(n),
+        i = a[0],
+        l = a[1],
+        u = c(function () {
+          var e = r("WAWebPonyfillsCryptoRandomUUID")();
+          return (l(e), e);
+        }, []),
+        p = d(
+          function () {
+            return {
+              manageAdsFlowID: o,
+              adCreationFlowID: i,
+              regenerateAdCreationFlowID: u,
+              setAdCreationFlowID: l,
+            };
+          },
+          [o, i, u],
+        );
+      return s.jsx(r("WAWebNativeAdsFlowIDContext").Provider, {
+        value: p,
+        children: t,
+      });
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

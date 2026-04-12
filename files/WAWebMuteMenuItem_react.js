@@ -10,7 +10,6 @@ __d(
     "WDSMenu.react",
     "WDSMenuItem.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebABPropConfigValue",
     "useWAWebModelValues",
     "useWAWebSettingsValues",
@@ -20,12 +19,11 @@ __d(
       u = e || (e = o("react")),
       c = function () {};
     function d(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.onMuteWithDuration,
-        a;
-      t[0] !== n
-        ? ((a = o("WAWebMuteExpirations").ALL_MUTE_DURATIONS.map(function (e) {
-            var t = e.duration,
+      var t = e.onMuteWithDuration;
+      return u.jsx(r("WDSMenu.react"), {
+        children: o("WAWebMuteExpirations").ALL_MUTE_DURATIONS.map(
+          function (e) {
+            var n = e.duration,
               o = e.getLabel,
               a = e.radioId;
             return u.jsx(
@@ -33,131 +31,63 @@ __d(
               {
                 title: o(),
                 onPress: function () {
-                  return n(t);
+                  return t(n);
                 },
                 testid: void 0,
               },
               a,
             );
-          })),
-          (t[0] = n),
-          (t[1] = a))
-        : (a = t[1]);
-      var i;
-      return (
-        t[2] !== a
-          ? ((i = u.jsx(r("WDSMenu.react"), { children: a })),
-            (t[2] = a),
-            (t[3] = i))
-          : (i = t[3]),
-        i
-      );
+          },
+        ),
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = o("react-compiler-runtime").c(22),
-        n = e.disabled,
-        a = e.isMuted,
-        i = e.onMuteWithDuration,
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = ["archive", "muteExpiration"]), (t[0] = l))
-        : (l = t[0]);
-      var m = o("useWAWebModelValues").useModelValues(e.chat, l),
-        p;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = [o("WAWebSettingsGetters").getShowArchiveV2]), (t[1] = p))
-        : (p = t[1]);
-      var _ = o("useWAWebSettingsValues").useSettingsValues(p),
-        f = _[0],
-        g = o("useWAWebABPropConfigValue").useABPropConfigValue(
+      var t = e.disabled,
+        n = e.isMuted,
+        a = e.onMuteWithDuration,
+        i = o("useWAWebModelValues").useModelValues(e.chat, [
+          "archive",
+          "muteExpiration",
+        ]),
+        l = o("useWAWebSettingsValues").useSettingsValues([
+          o("WAWebSettingsGetters").getShowArchiveV2,
+        ]),
+        m = l[0],
+        p = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "wds_web_submenus",
         ),
-        h;
-      t[2] !== a || t[3] !== e.onMute
-        ? ((h = e.onMute.bind(null, !a)),
-          (t[2] = a),
-          (t[3] = e.onMute),
-          (t[4] = h))
-        : (h = t[4]);
-      var y = h,
-        C,
-        b;
-      if (m.archive && f) {
-        C = c;
-        var v;
-        (t[5] === Symbol.for("react.memo_cache_sentinel")
-          ? ((v = s._(/*BTDS*/ "Unmute notifications")), (t[5] = v))
-          : (v = t[5]),
-          (b = v));
-      } else {
-        var S;
-        (t[6] !== a
-          ? ((S = a
-              ? s._(/*BTDS*/ "Unmute notifications")
-              : s._(/*BTDS*/ "Mute notifications")),
-            (t[6] = a),
-            (t[7] = S))
-          : (S = t[7]),
-          (b = S),
-          (C = y));
-      }
-      var R = !a && i != null && g,
-        L;
-      t[8] !== m.muteExpiration || t[9] !== a
-        ? ((L =
-            a && m.muteExpiration
-              ? o("WAWebClock").Clock.mutedUntilStr(m.muteExpiration)
-              : void 0),
-          (t[8] = m.muteExpiration),
-          (t[9] = a),
-          (t[10] = L))
-        : (L = t[10]);
-      var E = L,
-        k = r(
-          a
+        _ = e.onMute.bind(null, !n),
+        f,
+        g;
+      i.archive && m
+        ? ((f = c), (g = s._(/*BTDS*/ "Unmute notifications")))
+        : ((g = n
+            ? s._(/*BTDS*/ "Unmute notifications")
+            : s._(/*BTDS*/ "Mute notifications")),
+          (f = _));
+      var h = !n && a != null && p,
+        y =
+          n && i.muteExpiration
+            ? o("WAWebClock").Clock.mutedUntilStr(i.muteExpiration)
+            : void 0;
+      return u.jsx(r("WDSMenuItem.react"), {
+        Icon: r(
+          n
             ? "WDSIconIcNotifications.react"
             : "WDSIconIcNotificationsOff.react",
         ),
-        I = R ? c : C,
-        T;
-      t[11] !== i || t[12] !== R
-        ? ((T = R && i != null ? u.jsx(d, { onMuteWithDuration: i }) : null),
-          (t[11] = i),
-          (t[12] = R),
-          (t[13] = T))
-        : (T = t[13]);
-      var D;
-      return (
-        t[14] !== n ||
-        t[15] !== E ||
-        t[16] !== R ||
-        t[17] !== k ||
-        t[18] !== I ||
-        t[19] !== T ||
-        t[20] !== b
-          ? ((D = u.jsx(r("WDSMenuItem.react"), {
-              Icon: k,
-              title: b,
-              subtitle: E,
-              onPress: I,
-              testid: void 0,
-              disabled: n,
-              hasSubmenu: R,
-              submenuContent: T,
-            })),
-            (t[14] = n),
-            (t[15] = E),
-            (t[16] = R),
-            (t[17] = k),
-            (t[18] = I),
-            (t[19] = T),
-            (t[20] = b),
-            (t[21] = D))
-          : (D = t[21]),
-        D
-      );
+        title: g,
+        subtitle: y,
+        onPress: h ? c : f,
+        testid: void 0,
+        disabled: t,
+        hasSubmenu: h,
+        submenuContent:
+          h && a != null ? u.jsx(d, { onMuteWithDuration: a }) : null,
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

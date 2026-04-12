@@ -16,7 +16,6 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:9565",
     "react",
-    "react-compiler-runtime",
     "useWAWebABPropConfigValue",
     "useWAWebAsync",
     "useWAWebListener",
@@ -107,15 +106,7 @@ __d(
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "on_ab_props_update_from_bridge",
-        h,
-      );
-    }
-    function h() {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o(
               "WAWebUserPrefsGeneral",
             ).getWhatsAppWebExternalBetaJoinedIdb(),
@@ -131,39 +122,33 @@ __d(
                 ])),
             ),
             yield o("WAWebExternalBetaOptInAction").setOptInBetaAction(!1));
-        })),
-        y.apply(this, arguments)
+        }),
       );
     }
-    function C() {
-      var e = o("react-compiler-runtime").c(1),
-        t = f(),
-        n = t[0],
-        a = o(
+    function h() {
+      var e = f(),
+        t = e[0],
+        n = o(
           "WAWebDesktopUpsellPlatformAwareHooks",
         ).useWAWebDesktopUpsellPlatformCheck(),
-        i = o("useWAWebABPropConfigValue").useABPropConfigValue(
+        a = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "web_mac_beta_upsell",
         ),
-        l;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = o("WAWebDesktopUpsellUtils").getUserDesktopOs()), (e[0] = l))
-        : (l = e[0]);
-      var s = l,
-        u = !1;
+        i = o("WAWebDesktopUpsellUtils").getUserDesktopOs(),
+        l = !1;
       return (
-        i &&
-          (u =
+        a &&
+          (l =
             r("WAWebEnvironment").isWeb &&
-            n &&
-            s === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS &&
-            a),
-        u
+            t &&
+            i === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS &&
+            n),
+        l
       );
     }
     ((l.useExternalBetaOptIn = f),
       (l.useExternalBetaValidator = g),
-      (l.useMacBetaUpsellOnWeb = C));
+      (l.useMacBetaUpsellOnWeb = h));
   },
   226,
 );

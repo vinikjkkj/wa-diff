@@ -9,7 +9,6 @@ __d(
     "WAWebMimeTypes",
     "WDSButton.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -56,105 +55,60 @@ __d(
         },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(17),
-        n = e.onClose,
-        a = e.onRemoveMedia,
-        i = e.selectedDocumentData,
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l =
-            "x1280gxy x1vb5itz x1t7ytsu xpilrb4 xhslqc4 x1r8uery x1iyjqo2 xs83m0k x5yr21d x1bifzbx x1htk8sl xh8yej3"),
-          (t[0] = l))
-        : (l = t[0]);
-      var c;
-      t[1] !== n ||
-      t[2] !== i.fileExt ||
-      t[3] !== i.fileName ||
-      t[4] !== i.fileSize ||
-      t[5] !== i.mimetype ||
-      t[6] !== i.pageCount ||
-      t[7] !== i.previewSize ||
-      t[8] !== i.previewUrl
-        ? ((c =
-            o("WAWebMimeTypes").previewType(i.mimetype) === "pdf"
+      var t = e.onClose,
+        n = e.onRemoveMedia,
+        a = e.selectedDocumentData;
+      return s.jsx(o("WAWebFlex.react").FlexColumn, {
+        xstyle: u.documentModalContainer,
+        children: s.jsxs(o("WAWebFlex.react").FlexColumn, {
+          grow: 1,
+          className:
+            "x1280gxy x1vb5itz x1t7ytsu xpilrb4 xhslqc4 x1r8uery x1iyjqo2 xs83m0k x5yr21d x1bifzbx x1htk8sl xh8yej3",
+          align: "stretch",
+          children: [
+            o("WAWebMimeTypes").previewType(a.mimetype) === "pdf"
               ? s.jsx(r("WAWebMediaEditorPreviewPdf.react"), {
                   captionInput: o(
                     "WAWebBizBroadcastMessageAttachmentSection.react",
                   ).renderEmptyCaptionInput(),
-                  documentPageCount: i.pageCount,
-                  fileSize: i.fileSize,
-                  filename: i.fileName,
-                  fileExt: i.fileExt,
-                  fullPreview: i.previewUrl,
-                  fullPreviewSize: i.previewSize,
-                  mimetype: i.mimetype,
-                  onClose: n,
+                  documentPageCount: a.pageCount,
+                  fileSize: a.fileSize,
+                  filename: a.fileName,
+                  fileExt: a.fileExt,
+                  fullPreview: a.previewUrl,
+                  fullPreviewSize: a.previewSize,
+                  mimetype: a.mimetype,
+                  onClose: t,
                 })
               : s.jsx(r("WAWebMediaEditorPreviewFile.react"), {
-                  mimeType: i.mimetype,
-                  filesize: i.fileSize,
-                  filename: i.fileName,
-                  fileExt: i.fileExt,
-                  onClose: n,
+                  mimeType: a.mimetype,
+                  filesize: a.fileSize,
+                  filename: a.fileName,
+                  fileExt: a.fileExt,
+                  onClose: t,
                   captionInput: o(
                     "WAWebBizBroadcastMessageAttachmentSection.react",
                   ).renderEmptyCaptionInput(),
-                })),
-          (t[1] = n),
-          (t[2] = i.fileExt),
-          (t[3] = i.fileName),
-          (t[4] = i.fileSize),
-          (t[5] = i.mimetype),
-          (t[6] = i.pageCount),
-          (t[7] = i.previewSize),
-          (t[8] = i.previewUrl),
-          (t[9] = c))
-        : (c = t[9]);
-      var d;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = o(
-            "WAWebBizBroadcastsCreationStrings",
-          ).getDocumentPreviewRemoveDocumentLabel()),
-          (t[10] = d))
-        : (d = t[10]);
-      var m;
-      t[11] !== n || t[12] !== a
-        ? ((m = s.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: u.documentModalFooter,
-            children: s.jsx(r("WDSButton.react"), {
-              variant: "outline",
-              size: "medium",
-              type: "destructive",
-              label: d,
-              onPress: function () {
-                (a(), n());
-              },
-            }),
-          })),
-          (t[11] = n),
-          (t[12] = a),
-          (t[13] = m))
-        : (m = t[13]);
-      var p;
-      return (
-        t[14] !== c || t[15] !== m
-          ? ((p = s.jsx(o("WAWebFlex.react").FlexColumn, {
-              xstyle: u.documentModalContainer,
-              children: s.jsxs(o("WAWebFlex.react").FlexColumn, {
-                grow: 1,
-                className: l,
-                align: "stretch",
-                children: [c, m],
+                }),
+            s.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: u.documentModalFooter,
+              children: s.jsx(r("WDSButton.react"), {
+                variant: "outline",
+                size: "medium",
+                type: "destructive",
+                label: o(
+                  "WAWebBizBroadcastsCreationStrings",
+                ).getDocumentPreviewRemoveDocumentLabel(),
+                onPress: function () {
+                  (n(), t());
+                },
               }),
-            })),
-            (t[14] = c),
-            (t[15] = m),
-            (t[16] = p))
-          : (p = t[16]),
-        p
-      );
+            }),
+          ],
+        }),
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

@@ -22,7 +22,6 @@ __d(
     "WAWebStopEvent",
     "WAWebWamEnumMessageBodyTypeEnum",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebConversationPanelCanCompose",
     "useWAWebMeasureTimeOnScreen",
@@ -285,101 +284,55 @@ __d(
       });
     }
     function R(e, t) {
-      var n = o("react-compiler-runtime").c(2),
-        a;
-      n[0] !== t
-        ? ((a = function (n) {
-            return o(
-              "WAWebInteractiveMessageCarouselLogEvents",
-            ).logViewCarousel(o("WAWebStateUtils").unproxy(t.unsafe()), n);
-          }),
-          (n[0] = t),
-          (n[1] = a))
-        : (a = n[1]);
-      var i = a;
-      r("useWAWebMeasureTimeOnScreen")(e, i);
+      var n = p(
+        function (e) {
+          return o("WAWebInteractiveMessageCarouselLogEvents").logViewCarousel(
+            o("WAWebStateUtils").unproxy(t.unsafe()),
+            e,
+          );
+        },
+        [t],
+      );
+      r("useWAWebMeasureTimeOnScreen")(e, n);
     }
     function L(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.children,
-        a = e.msg,
-        i = e.visibilityRef,
-        l = y(),
-        s;
-      t[0] !== a
-        ? ((s = function (t) {
+      var t = e.children,
+        n = e.msg,
+        a = e.visibilityRef,
+        i = y(),
+        l = p(
+          function (e) {
             return o(
               "WAWebInteractiveMessageCarouselLogEvents",
-            ).logViewCarouselCard(o("WAWebStateUtils").unproxy(a.unsafe()), t);
-          }),
-          (t[0] = a),
-          (t[1] = s))
-        : (s = t[1]);
-      var u = s;
-      r("useWAWebMeasureTimeOnScreen")(l, u);
-      var c;
-      t[2] !== i
-        ? ((c = function () {
-            return i(!1);
-          }),
-          (t[2] = i),
-          (t[3] = c))
-        : (c = t[3]);
-      var m = r("useWAWebOnScreen")(l, c),
-        p,
-        f;
-      (t[4] !== m || t[5] !== i
-        ? ((p = function () {
-            i(m);
-          }),
-          (f = [m, i]),
-          (t[4] = m),
-          (t[5] = i),
-          (t[6] = p),
-          (t[7] = f))
-        : ((p = t[6]), (f = t[7])),
-        _(p, f));
-      var g;
+            ).logViewCarouselCard(o("WAWebStateUtils").unproxy(n.unsafe()), e);
+          },
+          [n],
+        );
+      r("useWAWebMeasureTimeOnScreen")(i, l);
+      var s = r("useWAWebOnScreen")(i, function () {
+        return a(!1);
+      });
       return (
-        t[8] !== n
-          ? ((g = d.jsx("span", { ref: l, children: n })),
-            (t[8] = n),
-            (t[9] = g))
-          : (g = t[9]),
-        g
+        _(
+          function () {
+            a(s);
+          },
+          [s, a],
+        ),
+        d.jsx("span", { ref: i, children: t })
       );
     }
+    L.displayName = L.name + " [from " + i.id + "]";
     function E() {
-      var e = o("react-compiler-runtime").c(4),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = []), (e[0] = t))
-        : (t = e[0]);
-      var n = y(t),
-        r;
-      e[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = function (t, r) {
-            n.current[t] = babelHelpers.extends({}, n.current[t], r);
-          }),
-          (e[1] = r))
-        : (r = e[1]);
-      var a = r,
-        i;
-      e[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = function (t) {
-            var e;
-            return (e = n.current[t]) != null ? e : {};
-          }),
-          (e[2] = i))
-        : (i = e[2]);
-      var l = i,
-        s;
-      return (
-        e[3] === Symbol.for("react.memo_cache_sentinel")
-          ? ((s = [l, a]), (e[3] = s))
-          : (s = e[3]),
-        s
-      );
+      var e = y([]),
+        t = p(function (t, n) {
+          e.current[t] = babelHelpers.extends({}, e.current[t], n);
+        }, []),
+        n = p(function (t) {
+          var n;
+          return (n = e.current[t]) != null ? n : {};
+        }, []);
+      return [n, t];
     }
     l.default = v;
   },

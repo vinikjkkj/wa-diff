@@ -5,7 +5,6 @@ __d(
     "WAWebMsgType",
     "WAWebPollsPollVoteCollection",
     "react",
-    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebModelValues",
   ],
@@ -13,49 +12,26 @@ __d(
     var e,
       s = (e || (e = o("react"))).useEffect;
     function u(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["id"]), (t[0] = n))
-        : (n = t[0]);
-      var a = o("useWAWebModelValues").useModelValues(e, n),
-        i = a.id,
-        l;
-      t[1] !== i
-        ? ((l = o(
-            "WAWebPollsPollVoteCollection",
-          ).PollVoteCollection.getForParentAddressingModeInsensitive([i])),
-          (t[1] = i),
-          (t[2] = l))
-        : (l = t[2]);
-      var u = l,
-        c = u[0],
-        d;
-      t[3] !== c
-        ? ((d = function () {
-            return c.getVoteCount();
-          }),
-          (t[3] = c),
-          (t[4] = d))
-        : (d = t[4]);
-      var m = r("useWAWebEventTargetValue")(c, "add remove reset", d),
-        p,
-        _;
+      var t = o("useWAWebModelValues").useModelValues(e, ["id"]),
+        n = t.id,
+        a = o(
+          "WAWebPollsPollVoteCollection",
+        ).PollVoteCollection.getForParentAddressingModeInsensitive([n]),
+        i = a[0],
+        l = r("useWAWebEventTargetValue")(i, "add remove reset", function () {
+          return i.getVoteCount();
+        });
       return (
-        t[5] !== i
-          ? ((p = function () {
-              o("WAWebAddonHydrationUtils").hydrateAddons({
-                ids: [i],
-                hydrationType: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
-              });
-            }),
-            (_ = [i]),
-            (t[5] = i),
-            (t[6] = p),
-            (t[7] = _))
-          : ((p = t[6]), (_ = t[7])),
-        s(p, _),
-        m
+        s(
+          function () {
+            o("WAWebAddonHydrationUtils").hydrateAddons({
+              ids: [n],
+              hydrationType: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
+            });
+          },
+          [n],
+        ),
+        l
       );
     }
     l.useVoteCount = u;

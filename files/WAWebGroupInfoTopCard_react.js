@@ -40,7 +40,6 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebABPropConfigValue",
     "useWAWebChatValues",
@@ -69,233 +68,128 @@ __d(
     function _(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(46),
-        i = e.chat,
-        l = e.focusGroupSubjectOnMount,
-        u = e.onAddParticipant,
+        a = e.chat,
+        i = e.focusGroupSubjectOnMount,
+        l = e.onAddParticipant,
+        u = e.onAdminSetting,
         d = e.onClickParticipantsCount,
         _ = e.onSearchMsgs,
         h = e.showHiddenSubgroupIcon,
-        y;
-      a[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = [o("WAWebChatGetters").getLabels]), (a[0] = y))
-        : (y = a[0]);
-      var C = o("useWAWebChatValues").useChatValues(i.id, y),
-        b = C[0],
-        v;
-      a[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = [
-            "size",
-            "creation",
-            "groupType",
-            "participants",
-            "hiddenSubgroup",
-            "isInternal",
-          ]),
-          (a[1] = v))
-        : (v = a[1]);
-      var S = o("useWAWebModelValues").useOptionalModelValues(
-          i.groupMetadata,
-          v,
-        ),
-        R = S == null ? void 0 : S.groupType,
-        L = o("useWAWebABPropConfigValue").useABPropConfigValue(
+        y = o("useWAWebChatValues").useChatValues(a.id, [
+          o("WAWebChatGetters").getLabels,
+        ]),
+        C = y[0],
+        b = o("useWAWebModelValues").useOptionalModelValues(a.groupMetadata, [
+          "size",
+          "creation",
+          "groupType",
+          "participants",
+          "hiddenSubgroup",
+          "isInternal",
+        ]),
+        v = b == null ? void 0 : b.groupType,
+        S = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "internal_group_indicator",
         ),
-        E = (S == null ? void 0 : S.isInternal) === !0,
-        k = S == null ? void 0 : S.participants,
-        I = (t = k == null ? void 0 : k.length) != null ? t : 0,
-        T = (n = S == null ? void 0 : S.size) != null ? n : 0,
-        D;
-      a[2] !== k || a[3] !== I || a[4] !== T
-        ? ((D = k != null && k.iAmAdmin() ? I : T),
-          (a[2] = k),
-          (a[3] = I),
-          (a[4] = T),
-          (a[5] = D))
-        : (D = a[5]);
-      var x = D,
-        $;
-      if (a[6] !== S || a[7] !== R) {
-        var P = S == null ? void 0 : S.getParentGroupChat(),
-          N;
-        if (
-          (a[9] === Symbol.for("react.memo_cache_sentinel")
-            ? ((N = s._(/*BTDS*/ "Group")), (a[9] = N))
-            : (N = a[9]),
-          ($ = N),
-          R === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP)
-        ) {
-          var M;
-          (a[10] === Symbol.for("react.memo_cache_sentinel")
-            ? ((M = s._(/*BTDS*/ "Announcements")), (a[10] = M))
-            : (M = a[10]),
-            ($ = M));
-        } else
-          P != null &&
-            ((S == null ? void 0 : S.hiddenSubgroup) === !0
-              ? ($ = s._(/*BTDS*/ "Group hidden in {community-name}", [
-                  s._param(
-                    "community-name",
-                    P == null ? void 0 : P.formattedTitle,
-                  ),
-                ]))
-              : ($ = s._(/*BTDS*/ "Group in {community-name}", [
-                  s._param(
-                    "community-name",
-                    P == null ? void 0 : P.formattedTitle,
-                  ),
-                ])));
-        ((a[6] = S), (a[7] = R), (a[8] = $));
-      } else $ = a[8];
-      var w =
-          R === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ? x : I,
-        A;
-      a[11] !== w
-        ? ((A = s._(/*BTDS*/ '_j{"*":"{number} members","_1":"1 member"}', [
-            s._plural(w, "number"),
-          ])),
-          (a[11] = w),
-          (a[12] = A))
-        : (A = a[12]);
-      var F = A,
-        O;
-      a[13] !== S || a[14] !== d || a[15] !== w || a[16] !== F
-        ? ((O =
-            (S != null && S.isSuspendedOrTerminated()) || w === 0
-              ? null
-              : m.jsxs(m.Fragment, {
-                  children: [
-                    r("WAWebL10N").isRTL() ? " - " : " \xB7 ",
-                    m.jsx(r("WAWebUnstyledButton.react"), {
-                      onClick: d,
-                      xstyle: p.participantCount,
-                      children: F,
-                    }),
-                  ],
-                })),
-          (a[13] = S),
-          (a[14] = d),
-          (a[15] = w),
-          (a[16] = F),
-          (a[17] = O))
-        : (O = a[17]);
-      var B = O,
-        W;
-      a[18] === Symbol.for("react.memo_cache_sentinel")
-        ? ((W = (c || (c = r("stylex"))).props(
-            o("WDSFlex.stylex").wdsFlex.flexColumnCenter,
-          )),
-          (a[18] = W))
-        : (W = a[18]);
-      var q;
-      a[19] !== i || a[20] !== h
-        ? ((q = m.jsx(r("WAWebGroupInfoPhoto.react"), {
-            chat: i,
-            xstyle: o("WAWebUISpacing").uiMargin.bottom10,
-            showAddIconOverlay: !0,
-            showHiddenSubgroupIcon: h,
-          })),
-          (a[19] = i),
-          (a[20] = h),
-          (a[21] = q))
-        : (q = a[21]);
-      var U;
-      a[22] !== i || a[23] !== l
-        ? ((U = m.jsx(f, {
-            chat: i,
-            focusOnMount: l,
-            xstyle: o("WAWebUISpacing").uiMargin.bottom6,
-          })),
-          (a[22] = i),
-          (a[23] = l),
-          (a[24] = U))
-        : (U = a[24]);
-      var V;
-      a[25] === Symbol.for("react.memo_cache_sentinel")
-        ? ((V = { className: "x1evy7pa x1kgmq87 x2b8uid" }), (a[25] = V))
-        : (V = a[25]);
-      var H;
-      a[26] !== $ || a[27] !== B
-        ? ((H = m.jsx(
-            "div",
-            babelHelpers.extends({ "data-testid": void 0 }, V, {
-              children: m.jsxs(r("WDSText.react"), {
-                type: "Body1",
-                colorName: "contentDeemphasized",
-                selectable: !0,
-                dir: "auto",
-                children: [$, " ", B],
-              }),
-            }),
-          )),
-          (a[26] = $),
-          (a[27] = B),
-          (a[28] = H))
-        : (H = a[28]);
-      var G;
-      a[29] !== E || a[30] !== L
-        ? ((G =
-            L === !0 &&
-            E &&
-            m.jsx(o("WAWebTag.react").Tag, {
-              testid: void 0,
-              theme: o("WAWebTag.react").TagTheme.Secondary,
-              xstyle: p.internalBadge,
-              children: s._(/*BTDS*/ "INTERNAL"),
-            })),
-          (a[29] = E),
-          (a[30] = L),
-          (a[31] = G))
-        : (G = a[31]);
-      var z;
-      a[32] !== b
-        ? ((z =
-            o("WAWebBizGatingUtils").canDisplayLabel() &&
-            m.jsx(r("WAWebLabelsInfoDrawerLabelWell.react"), { labels: b })),
-          (a[32] = b),
-          (a[33] = z))
-        : (z = a[33]);
-      var j;
-      a[34] !== i || a[35] !== S || a[36] !== u || a[37] !== _
-        ? ((j = m.jsx(g, {
-            chat: i,
-            groupMetadata: S,
-            onAddParticipant: u,
-            onSearchMsgs: _,
-          })),
-          (a[34] = i),
-          (a[35] = S),
-          (a[36] = u),
-          (a[37] = _),
-          (a[38] = j))
-        : (j = a[38]);
-      var K;
-      return (
-        a[39] !== H ||
-        a[40] !== G ||
-        a[41] !== z ||
-        a[42] !== j ||
-        a[43] !== q ||
-        a[44] !== U
-          ? ((K = m.jsx(r("WAWebDrawerSection.react"), {
-              theme: "refresh-new",
-              children: m.jsxs(
-                "div",
-                babelHelpers.extends({}, W, { children: [q, U, H, G, z, j] }),
-              ),
-            })),
-            (a[39] = H),
-            (a[40] = G),
-            (a[41] = z),
-            (a[42] = j),
-            (a[43] = q),
-            (a[44] = U),
-            (a[45] = K))
-          : (K = a[45]),
-        K
-      );
+        R = (b == null ? void 0 : b.isInternal) === !0,
+        L = b == null ? void 0 : b.participants,
+        E = (t = L == null ? void 0 : L.length) != null ? t : 0,
+        k = (n = b == null ? void 0 : b.size) != null ? n : 0,
+        I = L != null && L.iAmAdmin() ? E : k,
+        T = b == null ? void 0 : b.getParentGroupChat(),
+        D = s._(/*BTDS*/ "Group");
+      v === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
+        ? (D = s._(/*BTDS*/ "Announcements"))
+        : T != null &&
+          ((b == null ? void 0 : b.hiddenSubgroup) === !0
+            ? (D = s._(/*BTDS*/ "Group hidden in {community-name}", [
+                s._param(
+                  "community-name",
+                  T == null ? void 0 : T.formattedTitle,
+                ),
+              ]))
+            : (D = s._(/*BTDS*/ "Group in {community-name}", [
+                s._param(
+                  "community-name",
+                  T == null ? void 0 : T.formattedTitle,
+                ),
+              ])));
+      var x =
+          v === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP ? I : E,
+        $ = s._(/*BTDS*/ '_j{"*":"{number} members","_1":"1 member"}', [
+          s._plural(x, "number"),
+        ]),
+        P =
+          (b != null && b.isSuspendedOrTerminated()) || x === 0
+            ? null
+            : m.jsxs(m.Fragment, {
+                children: [
+                  r("WAWebL10N").isRTL() ? " - " : " \xB7 ",
+                  m.jsx(r("WAWebUnstyledButton.react"), {
+                    onClick: d,
+                    xstyle: p.participantCount,
+                    children: $,
+                  }),
+                ],
+              });
+      return m.jsx(r("WAWebDrawerSection.react"), {
+        theme: "refresh-new",
+        children: m.jsxs(
+          "div",
+          babelHelpers.extends(
+            {},
+            (c || (c = r("stylex"))).props(
+              o("WDSFlex.stylex").wdsFlex.flexColumnCenter,
+            ),
+            {
+              children: [
+                m.jsx(r("WAWebGroupInfoPhoto.react"), {
+                  chat: a,
+                  xstyle: o("WAWebUISpacing").uiMargin.bottom10,
+                  showAddIconOverlay: !0,
+                  showHiddenSubgroupIcon: h,
+                }),
+                m.jsx(f, {
+                  chat: a,
+                  focusOnMount: i,
+                  xstyle: o("WAWebUISpacing").uiMargin.bottom6,
+                }),
+                m.jsx("div", {
+                  "data-testid": void 0,
+                  className: "x1evy7pa x1kgmq87 x2b8uid",
+                  children: m.jsxs(r("WDSText.react"), {
+                    type: "Body1",
+                    colorName: "contentDeemphasized",
+                    selectable: !0,
+                    dir: "auto",
+                    children: [D, " ", P],
+                  }),
+                }),
+                S === !0 &&
+                  R &&
+                  m.jsx(o("WAWebTag.react").Tag, {
+                    testid: void 0,
+                    theme: o("WAWebTag.react").TagTheme.Secondary,
+                    xstyle: p.internalBadge,
+                    children: s._(/*BTDS*/ "INTERNAL"),
+                  }),
+                o("WAWebBizGatingUtils").canDisplayLabel() &&
+                  m.jsx(r("WAWebLabelsInfoDrawerLabelWell.react"), {
+                    labels: C,
+                  }),
+                m.jsx(g, {
+                  chat: a,
+                  groupMetadata: b,
+                  onAddParticipant: l,
+                  onSearchMsgs: _,
+                }),
+              ],
+            },
+          ),
+        ),
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(t) {
       var a = t.chat,
         i = t.focusOnMount,

@@ -18,7 +18,6 @@ __d(
     "WDSSearchBar.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "useWAWebTimeout",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -50,138 +49,69 @@ __d(
       y = 15,
       C = 5;
     function b(e) {
-      var t = o("react-compiler-runtime").c(15),
-        n = e.displayLocation,
-        a = e.onFocusUp,
-        i = e.onSearchChange,
-        l = e.onSearchDownKey,
-        u = e.onSearchEnterKey,
-        c = e.searchInputRef,
-        m = e.searchText,
-        p = e.transitionName,
-        _;
-      t[0] !== n
-        ? ((_ =
-            n === o("WAWebPanelsDisplayLocation").DisplayLocation.Reactions
-              ? s._(/*BTDS*/ "Search reaction")
-              : s._(/*BTDS*/ "Search emoji")),
-          (t[0] = n),
-          (t[1] = _))
-        : (_ = t[1]);
-      var f = _,
-        g;
-      t[2] !== a || t[3] !== l
-        ? ((g = function (t) {
-            if (t.key === "ArrowUp") return (a(), !1);
-            if (t.key === "ArrowDown") return (l(), !1);
-          }),
-          (t[2] = a),
-          (t[3] = l),
-          (t[4] = g))
-        : (g = t[4]);
-      var y = g,
-        C;
-      t[5] !== y ||
-      t[6] !== i ||
-      t[7] !== u ||
-      t[8] !== c ||
-      t[9] !== f ||
-      t[10] !== m
-        ? ((C = d.jsx(r("WDSSearchBar.react"), {
-            hintText: f,
-            onValueChange: i,
-            onKeyDown: y,
-            onEnter: u,
-            ref: c,
-            value: m,
-            xstyle: h.searchBarWrapper,
-          })),
-          (t[5] = y),
-          (t[6] = i),
-          (t[7] = u),
-          (t[8] = c),
-          (t[9] = f),
-          (t[10] = m),
-          (t[11] = C))
-        : (C = t[11]);
-      var b;
-      return (
-        t[12] !== C || t[13] !== p
-          ? ((b = d.jsx(r("WAWebVelocityTransitionGroup"), {
-              transitionName: p,
-              xstyle: h.search,
-              children: C,
-            })),
-            (t[12] = C),
-            (t[13] = p),
-            (t[14] = b))
-          : (b = t[14]),
-        b
-      );
+      var t = e.displayLocation,
+        n = e.onFocusUp,
+        a = e.onSearchChange,
+        i = e.onSearchDownKey,
+        l = e.onSearchEnterKey,
+        u = e.searchInputRef,
+        c = e.searchText,
+        m = e.transitionName,
+        p =
+          t === o("WAWebPanelsDisplayLocation").DisplayLocation.Reactions
+            ? s._(/*BTDS*/ "Search reaction")
+            : s._(/*BTDS*/ "Search emoji"),
+        _ = function (t) {
+          if (t.key === "ArrowUp") return (n(), !1);
+          if (t.key === "ArrowDown") return (i(), !1);
+        };
+      return d.jsx(r("WAWebVelocityTransitionGroup"), {
+        transitionName: m,
+        xstyle: h.search,
+        children: d.jsx(r("WDSSearchBar.react"), {
+          hintText: p,
+          onValueChange: a,
+          onKeyDown: _,
+          onEnter: l,
+          ref: u,
+          value: c,
+          xstyle: h.searchBarWrapper,
+        }),
+      });
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.data,
-        r = e.displayLocation,
-        a = e.onEmoji,
-        i = e.onEmojiFocus,
-        l = e.onSearchResultsFocusAbove,
-        s = e.searchResultsRef,
-        u = e.targetWindow,
-        c = e.width,
-        m;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = {
-            className: "x1n2onr6 xupqr0c x1iyjqo2 xs83m0k x1r8uery x2lwn1j",
-          }),
-          (t[0] = m))
-        : (m = t[0]);
-      var p;
-      return (
-        t[1] !== n ||
-        t[2] !== r ||
-        t[3] !== a ||
-        t[4] !== i ||
-        t[5] !== l ||
-        t[6] !== s ||
-        t[7] !== u ||
-        t[8] !== c
-          ? ((p = d.jsx(
-              "div",
-              babelHelpers.extends({}, m, {
-                children: d.jsx(
-                  o("WAWebEmojiPanelContentSectionScrollList.react")
-                    .EmojiSectionScrollList,
-                  {
-                    data: n,
-                    width: c,
-                    initialScrollTop: 0,
-                    searchInputVisible: !0,
-                    focusAbove: l,
-                    onFocusUp: l,
-                    onEmoji: a,
-                    onEmojiFocus: i,
-                    ref: s,
-                    showTitles: !1,
-                    displayLocation: r,
-                    targetWindow: u,
-                  },
-                ),
-              }),
-            )),
-            (t[1] = n),
-            (t[2] = r),
-            (t[3] = a),
-            (t[4] = i),
-            (t[5] = l),
-            (t[6] = s),
-            (t[7] = u),
-            (t[8] = c),
-            (t[9] = p))
-          : (p = t[9]),
-        p
-      );
+      var t = e.data,
+        n = e.displayLocation,
+        r = e.onEmoji,
+        a = e.onEmojiFocus,
+        i = e.onSearchResultsFocusAbove,
+        l = e.searchResultsRef,
+        s = e.targetWindow,
+        u = e.width;
+      return d.jsx("div", {
+        className: "x1n2onr6 xupqr0c x1iyjqo2 xs83m0k x1r8uery x2lwn1j",
+        children: d.jsx(
+          o("WAWebEmojiPanelContentSectionScrollList.react")
+            .EmojiSectionScrollList,
+          {
+            data: t,
+            width: u,
+            initialScrollTop: 0,
+            searchInputVisible: !0,
+            focusAbove: i,
+            onFocusUp: i,
+            onEmoji: r,
+            onEmojiFocus: a,
+            ref: l,
+            showTitles: !1,
+            displayLocation: n,
+            targetWindow: s,
+          },
+        ),
+      });
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(t) {
       var a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e),

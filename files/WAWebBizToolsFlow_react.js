@@ -76,7 +76,6 @@ __d(
     "getErrorSafe",
     "gkx",
     "react",
-    "react-compiler-runtime",
     "useWAWebAudienceImportIsFeatureSupported",
     "useWAWebFlow",
     "useWAWebFocusOnMount",
@@ -257,14 +256,14 @@ __d(
                 )
               : S.push(t);
         },
-        D = function () {
+        x = function () {
           S.pop();
         },
         $ = function (n) {
           if (!(n == null || n === "not-linked"))
             return m.jsx(
               o("WAWebAdsManagementDrawer.react").AdsManagementDrawer,
-              { onBack: D, activeAccountInfo: n, isInitialStep: !1, ref: t },
+              { onBack: x, activeAccountInfo: n, isInitialStep: !1, ref: t },
             );
         },
         P = o("WAWebTextStatusCollection").TextStatusCollection.assertGet(k),
@@ -276,7 +275,7 @@ __d(
         A;
       switch (I) {
         case o("WAWebBizToolsFlowSteps").BizToolsSteps.Tools:
-          A = m.jsx(x, {
+          A = m.jsx(D, {
             isBizProfileVisible: w,
             isCatalogVisible:
               d &&
@@ -314,7 +313,7 @@ __d(
           break;
         case o("WAWebBizToolsFlowSteps").BizToolsSteps.QuickReplies:
           A = m.jsx(r("WAWebBizQuickRepliesDrawer.react"), {
-            onBack: D,
+            onBack: x,
             isInitialStep: !1,
           });
           break;
@@ -330,163 +329,94 @@ __d(
     }
     k.displayName = k.name + " [from " + i.id + "]";
     function I(e) {
-      var t = o("react-compiler-runtime").c(17),
-        n = e.adsAccountInfo,
-        r = e.ctaText,
-        a = e.entryPoint,
-        i = e.refreshedIcon,
+      var t = e.adsAccountInfo,
+        n = e.ctaText,
+        r = e.entryPoint,
+        a = e.refreshedIcon,
+        i = a === void 0 ? !1 : a,
         l = e.supplementaryCtaText,
-        u = i === void 0 ? !1 : i,
-        c;
-      t[0] !== n || t[1] !== a
-        ? ((c = function () {
-            (o("WAWebBizToolsUtils").logBizToolsClick(
-              a,
-              o("WAWebWamEnumBusinessToolsItemType").BUSINESS_TOOLS_ITEM_TYPE
-                .ADVERTISE_LIST_ITEM,
-            ),
-              o("WAWebChatlistUtils").handleAdCreation({
-                adCreationUrlInput: {
-                  activeAccountInfo: n,
-                  sourceAdCreation: "whatsapp_smb_web_business_tools_list_item",
-                },
-                lwiEntryPoint: o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
-                  .SMB_BUSINESS_TOOLS_ADVERTISE_LIST_ITEM,
-              }));
-          }),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = c))
-        : (c = t[2]);
-      var d = c,
-        p,
-        f;
-      (t[3] !== n
-        ? ((p = function () {
-            o("WAWebAdCreationLogger").logAdCreationImpression(
-              o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
+        u = function () {
+          (o("WAWebBizToolsUtils").logBizToolsClick(
+            r,
+            o("WAWebWamEnumBusinessToolsItemType").BUSINESS_TOOLS_ITEM_TYPE
+              .ADVERTISE_LIST_ITEM,
+          ),
+            o("WAWebChatlistUtils").handleAdCreation({
+              adCreationUrlInput: {
+                activeAccountInfo: t,
+                sourceAdCreation: "whatsapp_smb_web_business_tools_list_item",
+              },
+              lwiEntryPoint: o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
                 .SMB_BUSINESS_TOOLS_ADVERTISE_LIST_ITEM,
-              n !== "not-linked" && n.hasFacebookPage,
-            );
-          }),
-          (f = [n]),
-          (t[3] = n),
-          (t[4] = p),
-          (t[5] = f))
-        : ((p = t[4]), (f = t[5])),
-        _(p, f));
-      var g;
-      t[6] !== r
-        ? ((g = r != null ? r : s._(/*BTDS*/ "Advertise")),
-          (t[6] = r),
-          (t[7] = g))
-        : (g = t[7]);
-      var h = g,
-        C;
-      t[8] !== l
-        ? ((C =
-            l != null ? l : s._(/*BTDS*/ "Create ads that lead to WhatsApp")),
-          (t[8] = l),
-          (t[9] = C))
-        : (C = t[9]);
-      var b = C,
-        v;
-      t[10] !== u
-        ? ((v = u
-            ? m.jsx(
-                o("WAWebMegaphoneRefreshedIcon.react").MegaphoneRefreshedIcon,
-                { directional: !0, iconXstyle: y.icon },
-              )
-            : m.jsx(
-                o("WAWebBusinessAdvertiseOutlineIcon.react")
-                  .BusinessAdvertiseOutlineIcon,
-                { width: 26, height: 26, iconXstyle: y.icon },
-              )),
-          (t[10] = u),
-          (t[11] = v))
-        : (v = t[11]);
-      var S;
-      return (
-        t[12] !== h || t[13] !== d || t[14] !== b || t[15] !== v
-          ? ((S = m.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
-              testid: void 0,
-              theme: "biz-tools",
-              divider: !1,
-              secondaryChildren: b,
-              icon: v,
-              active: !1,
-              onClick: d,
-              children: h,
-            })),
-            (t[12] = h),
-            (t[13] = d),
-            (t[14] = b),
-            (t[15] = v),
-            (t[16] = S))
-          : (S = t[16]),
-        S
+            }));
+        };
+      _(
+        function () {
+          o("WAWebAdCreationLogger").logAdCreationImpression(
+            o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
+              .SMB_BUSINESS_TOOLS_ADVERTISE_LIST_ITEM,
+            t !== "not-linked" && t.hasFacebookPage,
+          );
+        },
+        [t],
       );
+      var c = n != null ? n : s._(/*BTDS*/ "Advertise"),
+        d = l != null ? l : s._(/*BTDS*/ "Create ads that lead to WhatsApp");
+      return m.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+        testid: void 0,
+        theme: "biz-tools",
+        divider: !1,
+        secondaryChildren: d,
+        icon: i
+          ? m.jsx(
+              o("WAWebMegaphoneRefreshedIcon.react").MegaphoneRefreshedIcon,
+              { directional: !0, iconXstyle: y.icon },
+            )
+          : m.jsx(
+              o("WAWebBusinessAdvertiseOutlineIcon.react")
+                .BusinessAdvertiseOutlineIcon,
+              { width: 26, height: 26, iconXstyle: y.icon },
+            ),
+        active: !1,
+        onClick: u,
+        children: c,
+      });
     }
+    I.displayName = I.name + " [from " + i.id + "]";
     function T(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.adsAccountInfo,
-        r = e.onClick,
-        a;
-      if (
-        (t[0] !== n ? ((a = [n]), (t[0] = n), (t[1] = a)) : (a = t[1]),
-        _(D, a),
-        n === "not-linked" || n.hasCreatedAd !== !0)
-      )
-        return null;
-      var i, l;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = s._(/*BTDS*/ "See all your ads in one place")),
-          (l = m.jsx(o("WAWebAdsStackIcon.react").AdsStackIcon, {
-            width: 24,
-            height: 24,
-          })),
-          (t[2] = i),
-          (t[3] = l))
-        : ((i = t[2]), (l = t[3]));
-      var u;
-      t[4] !== n || t[5] !== r
-        ? ((u = function () {
-            return L(n, r);
-          }),
-          (t[4] = n),
-          (t[5] = r),
-          (t[6] = u))
-        : (u = t[6]);
-      var c;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = s._(/*BTDS*/ "Manage ads")), (t[7] = c))
-        : (c = t[7]);
-      var d;
+      var t = e.adsAccountInfo,
+        n = e.onClick;
       return (
-        t[8] !== u
-          ? ((d = m.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+        _(
+          function () {
+            o("WAWebAdCreationLogger").logManageAdsEntryPointImpression(
+              o("WAWebWamEnumManageAdsEntryPoint").MANAGE_ADS_ENTRY_POINT
+                .SMB_BUSINESS_TOOLS_MANAGE_ADS_LIST_ITEM,
+            );
+          },
+          [t],
+        ),
+        t === "not-linked" || t.hasCreatedAd !== !0
+          ? null
+          : m.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
               testid: void 0,
               theme: "biz-tools",
               divider: !1,
-              secondaryChildren: i,
-              icon: l,
+              secondaryChildren: s._(/*BTDS*/ "See all your ads in one place"),
+              icon: m.jsx(o("WAWebAdsStackIcon.react").AdsStackIcon, {
+                width: 24,
+                height: 24,
+              }),
               active: !1,
-              onClick: u,
-              children: c,
-            })),
-            (t[8] = u),
-            (t[9] = d))
-          : (d = t[9]),
-        d
+              onClick: function () {
+                return L(t, n);
+              },
+              children: s._(/*BTDS*/ "Manage ads"),
+            })
       );
     }
-    function D() {
-      o("WAWebAdCreationLogger").logManageAdsEntryPointImpression(
-        o("WAWebWamEnumManageAdsEntryPoint").MANAGE_ADS_ENTRY_POINT
-          .SMB_BUSINESS_TOOLS_MANAGE_ADS_LIST_ITEM,
-      );
-    }
-    function x(t) {
+    T.displayName = T.name + " [from " + i.id + "]";
+    function D(t) {
       var a = t.ref,
         l = babelHelpers.objectWithoutPropertiesLoose(t, c),
         u = l.entryPoint,
@@ -504,7 +434,7 @@ __d(
         [u],
       );
       var D = g(!1),
-        x = D[0],
+        $ = D[0],
         P = D[1],
         N = o(
           "useWAWebAudienceImportIsFeatureSupported",
@@ -603,7 +533,7 @@ __d(
         (H = m.jsxs(r("WAWebBizToolsDrawerBodySection.react"), {
           headerText: s._(/*BTDS*/ "Reach more customers"),
           children: [
-            x ? m.jsx(r("WAWebMetaVerifiedListItem.react"), {}) : null,
+            $ ? m.jsx(r("WAWebMetaVerifiedListItem.react"), {}) : null,
             q && R != null
               ? m.jsx(I, {
                   adsAccountInfo: R,
@@ -637,7 +567,7 @@ __d(
                     o(
                       "WAWebBusinessBroadcastUserJourneyLogger",
                     ).BusinessBroadcastUserJourneyLogger.toolsEntryPointClicked(),
-                    $());
+                    x());
                 },
                 children: o(
                   "WAWebBizBroadcastsToolsEntryStrings",
@@ -854,8 +784,8 @@ __d(
         })
       );
     }
-    x.displayName = x.name + " [from " + i.id + "]";
-    function $() {
+    D.displayName = D.name + " [from " + i.id + "]";
+    function x() {
       o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
         m.jsx(r("WAWebBusinessBroadcastHomeFlow.react"), {
           entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.BUSINESS_HOME,

@@ -1,13 +1,6 @@
 __d(
   "useWAWebListener",
-  [
-    "WAHash",
-    "WAWebNoop",
-    "WAWebUIListener",
-    "react",
-    "react-compiler-runtime",
-    "useWAWebStableCallback",
-  ],
+  ["WAHash", "WAWebNoop", "WAWebUIListener", "react", "useWAWebStableCallback"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -68,41 +61,21 @@ __d(
       );
     }
     function f() {
-      var e = o("react-compiler-runtime").c(5),
-        t = m(),
-        n;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = function (n, r, o, a) {
-            t.current = g(n, r, o, babelHelpers.extends({}, a, { once: !0 }));
-          }),
-          (e[0] = n))
-        : (n = e[0]);
-      var r = n,
-        a;
-      e[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = function () {
-            t.current == null || t.current();
-          }),
-          (e[1] = a))
-        : (a = e[1]);
-      var i = a,
-        l,
-        s;
-      (e[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = function () {
-            return i;
-          }),
-          (s = [i]),
-          (e[2] = l),
-          (e[3] = s))
-        : ((l = e[2]), (s = e[3])),
-        c(l, s));
-      var u;
+      var e = m(),
+        t = u(function (t, n, r, o) {
+          e.current = g(t, n, r, babelHelpers.extends({}, o, { once: !0 }));
+        }, []),
+        n = u(function () {
+          e.current == null || e.current();
+        }, []);
       return (
-        e[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((u = [r, i]), (e[4] = u))
-          : (u = e[4]),
-        u
+        c(
+          function () {
+            return n;
+          },
+          [n],
+        ),
+        [t, n]
       );
     }
     function g(e, t, n, a) {

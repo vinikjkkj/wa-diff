@@ -1,6 +1,6 @@
 __d(
   "useWAWebInMemoryMediaBlobCache",
-  ["WAWebMediaInMemoryBlobCache", "react", "react-compiler-runtime"],
+  ["WAWebMediaInMemoryBlobCache", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -14,59 +14,41 @@ __d(
       );
     }
     function _(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n;
-      t[0] !== e
-        ? ((n = function () {
+      var t = u(
+          function () {
             return o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(
               e,
             );
-          }),
-          (t[0] = e),
-          (t[1] = n))
-        : (n = t[1]);
-      var r = n,
-        a = m(p, r),
-        i;
-      e: {
-        if (a) {
-          o(
-            "WAWebMediaInMemoryBlobCache",
-          ).InMemoryMediaBlobCache.increaseUsageCount(e);
-          var l;
-          (t[2] !== e
-            ? ((l = o(
-                "WAWebMediaInMemoryBlobCache",
-              ).InMemoryMediaBlobCache.getOrCreateURL(e)),
-              (t[2] = e),
-              (t[3] = l))
-            : (l = t[3]),
-            (i = l));
-          break e;
-        }
-        i = null;
-      }
-      var s = i,
-        u,
-        d;
+          },
+          [e],
+        ),
+        n = m(p, t),
+        r = d(
+          function () {
+            return n
+              ? (o(
+                  "WAWebMediaInMemoryBlobCache",
+                ).InMemoryMediaBlobCache.increaseUsageCount(e),
+                o(
+                  "WAWebMediaInMemoryBlobCache",
+                ).InMemoryMediaBlobCache.getOrCreateURL(e))
+              : null;
+          },
+          [e, n],
+        );
       return (
-        t[4] !== s || t[5] !== e
-          ? ((u = function () {
-              return function () {
-                s != null &&
-                  o(
-                    "WAWebMediaInMemoryBlobCache",
-                  ).InMemoryMediaBlobCache.decreaseUsageCount(e);
-              };
-            }),
-            (d = [e, s]),
-            (t[4] = s),
-            (t[5] = e),
-            (t[6] = u),
-            (t[7] = d))
-          : ((u = t[6]), (d = t[7])),
-        c(u, d),
-        s
+        c(
+          function () {
+            return function () {
+              r != null &&
+                o(
+                  "WAWebMediaInMemoryBlobCache",
+                ).InMemoryMediaBlobCache.decreaseUsageCount(e);
+            };
+          },
+          [e, r],
+        ),
+        r
       );
     }
     l.default = _;

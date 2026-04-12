@@ -18,7 +18,6 @@ __d(
     "asyncToGeneratorRuntime",
     "qex",
     "react",
-    "react-compiler-runtime",
     "requireDeferred",
     "useWAWebDesktopUpsellQRCodeBannerType",
     "useWAWebLinkDeviceAutoLogout",
@@ -254,29 +253,22 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.apiCmd,
-        a = e.upsellBannerType,
-        i;
-      if (t[0] !== n || t[1] !== a) {
-        var l = [C.upsellBannerContainer];
-        ((i =
-          a ===
-            o("useWAWebDesktopUpsellQRCodeBannerType")
-              .WAWebDesktopUpsellQRCodeBannerType.SLIM &&
-          u.jsx("div", {
-            className: "x1lliihq xh8yej3",
-            children: u.jsx(r("WAWebDesktopUpsellQRCodeSlimBanner.react"), {
-              apiCmd: n,
-            }),
-          })),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i));
-      } else i = t[2];
-      return i;
+      var t = e.apiCmd,
+        n = e.upsellBannerType,
+        a = [C.upsellBannerContainer];
+      return (
+        n ===
+          o("useWAWebDesktopUpsellQRCodeBannerType")
+            .WAWebDesktopUpsellQRCodeBannerType.SLIM &&
+        u.jsx("div", {
+          className: "x1lliihq xh8yej3",
+          children: u.jsx(r("WAWebDesktopUpsellQRCodeSlimBanner.react"), {
+            apiCmd: t,
+          }),
+        })
+      );
     }
-    l.default = b;
+    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = b));
   },
   98,
 );

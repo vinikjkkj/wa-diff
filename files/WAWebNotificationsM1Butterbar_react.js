@@ -7,7 +7,6 @@ __d(
     "WDSIconIcNotificationsOff.react",
     "WDSIconIcUnread.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -44,104 +43,42 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = o("react-compiler-runtime").c(16),
-        n = e.bannerVariant,
-        a = e.onAction,
-        i = e.onDismiss,
-        l = e.ref,
+      var t = e.bannerVariant,
+        n = e.onAction,
+        a = e.onDismiss,
+        i = e.ref,
+        l,
         s,
-        h,
-        y;
-      if (n === 1) {
-        var C;
-        (t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((C = c()), (t[0] = C))
-          : (C = t[0]),
-          (s = C));
-        var b;
-        (t[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((b = m()), (t[1] = b))
-          : (b = t[1]),
-          (h = b),
-          (y = r("WDSIconIcUnread.react")));
-      } else if (n === 2) {
-        var v;
-        (t[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((v = c()), (t[2] = v))
-          : (v = t[2]),
-          (s = v));
-        var S;
-        (t[3] === Symbol.for("react.memo_cache_sentinel")
-          ? ((S = p()), (t[3] = S))
-          : (S = t[3]),
-          (h = S),
-          (y = r("WDSIconIcUnread.react")));
-      } else if (n === 3) {
-        s = null;
-        var R;
-        (t[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((R = _()), (t[4] = R))
-          : (R = t[4]),
-          (h = R),
-          (y = r("WDSIconIcNotificationsOff.react")));
-      } else {
-        var L;
-        (t[5] === Symbol.for("react.memo_cache_sentinel")
-          ? ((L = f()), (t[5] = L))
-          : (L = t[5]),
-          (s = L));
-        var E;
-        (t[6] === Symbol.for("react.memo_cache_sentinel")
-          ? ((E = g()), (t[6] = E))
-          : (E = t[6]),
-          (h = E),
-          (y = r("WDSIconIcNotificationsOff.react")));
-      }
-      var k;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = { className: "x1380le5 x14mko6t xefnzgg x1uvdrpn" }),
-          (t[7] = k))
-        : (k = t[7]);
-      var I;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = d()), (t[8] = I))
-        : (I = t[8]);
-      var T;
+        h;
       return (
-        t[9] !== y ||
-        t[10] !== a ||
-        t[11] !== i ||
-        t[12] !== l ||
-        t[13] !== h ||
-        t[14] !== s
-          ? ((T = u.jsx(
-              "div",
-              babelHelpers.extends({}, k, {
-                children: u.jsx(r("WDSBanner.react"), {
-                  ref: l,
-                  actionText: I,
-                  onAction: a,
-                  title: s,
-                  body: h,
-                  type: "default",
-                  onDismiss: i,
-                  icon: y,
-                  tabOrder: o("WAWebTabOrder").TAB_ORDER.BUTTER_BAR,
-                }),
-              }),
-            )),
-            (t[9] = y),
-            (t[10] = a),
-            (t[11] = i),
-            (t[12] = l),
-            (t[13] = h),
-            (t[14] = s),
-            (t[15] = T))
-          : (T = t[15]),
-        T
+        t === 1
+          ? ((l = c()), (s = m()), (h = r("WDSIconIcUnread.react")))
+          : t === 2
+            ? ((l = c()), (s = p()), (h = r("WDSIconIcUnread.react")))
+            : t === 3
+              ? ((l = null),
+                (s = _()),
+                (h = r("WDSIconIcNotificationsOff.react")))
+              : ((l = f()),
+                (s = g()),
+                (h = r("WDSIconIcNotificationsOff.react"))),
+        u.jsx("div", {
+          className: "x1380le5 x14mko6t xefnzgg x1uvdrpn",
+          children: u.jsx(r("WDSBanner.react"), {
+            ref: i,
+            actionText: d(),
+            onAction: n,
+            title: l,
+            body: s,
+            type: "default",
+            onDismiss: a,
+            icon: h,
+            tabOrder: o("WAWebTabOrder").TAB_ORDER.BUTTER_BAR,
+          }),
+        })
       );
     }
-    l.default = h;
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
   },
   226,
 );

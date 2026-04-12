@@ -15,7 +15,6 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -54,191 +53,141 @@ __d(
         },
       };
     function g(t) {
-      var a = o("react-compiler-runtime").c(17),
-        i = t.entryPoint,
-        l = t.onCardPress,
-        u = _(!0),
-        d = u[0],
-        m = u[1],
+      var a = t.entryPoint,
+        i = t.onCardPress,
+        l = _(!0),
+        u = l[0],
+        d = l[1],
         g = _(null),
-        v = g[0],
-        S = g[1],
-        R,
-        L;
-      (a[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = function () {
-            var e = !1;
-            return (
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield (s || (s = n("Promise"))).all(
-                  o("WAWebSuggestedAudienceCards").SUGGESTED_AUDIENCE_CARDS.map(
-                    b,
-                  ),
-                );
-                e || S(new Set(t.filter(C).map(y)));
-              })(),
-              function () {
-                e = !0;
-              }
+        h = g[0],
+        y = g[1];
+      p(function () {
+        var e = !1;
+        return (
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var t = yield (s || (s = n("Promise"))).all(
+              o("WAWebSuggestedAudienceCards").SUGGESTED_AUDIENCE_CARDS.map(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = yield o(
+                          "WAWebSuggestedAudienceCards",
+                        ).resolveCardExpression(e),
+                        n = yield o(
+                          "WAWebBizBroadcastsRecipientUtils",
+                        ).isPredicateEligibleForSuggestedCard(t);
+                      return { eligible: n, id: e.id };
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              ),
             );
-          }),
-          (L = []),
-          (a[0] = R),
-          (a[1] = L))
-        : ((R = a[0]), (L = a[1])),
-        p(R, L));
-      var E;
-      a[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = function () {
-            m(h);
-          }),
-          (a[2] = E))
-        : (E = a[2]);
-      var k = E,
-        I,
-        T;
+            e ||
+              y(
+                new Set(
+                  t
+                    .filter(function (e) {
+                      return e.eligible;
+                    })
+                    .map(function (e) {
+                      return e.id;
+                    }),
+                ),
+              );
+          })(),
+          function () {
+            e = !0;
+          }
+        );
+      }, []);
+      var C = m(function () {
+        d(function (e) {
+          return !e;
+        });
+      }, []);
       if (
-        (a[3] !== v || a[4] !== i
-          ? ((I = function () {
-              v != null &&
-                o(
-                  "WAWebBusinessBroadcastUserJourneyLogger",
-                ).BusinessBroadcastUserJourneyLogger.suggestedAudienceCardsViewed(
-                  v.size,
-                  i,
-                  o("WAWebWamEnumSurfaceType").SURFACE_TYPE.BB_HOME,
-                );
-            }),
-            (T = [v, i]),
-            (a[3] = v),
-            (a[4] = i),
-            (a[5] = I),
-            (a[6] = T))
-          : ((I = a[5]), (T = a[6])),
-        p(I, T),
-        v == null || v.size === 0)
+        (p(
+          function () {
+            h != null &&
+              o(
+                "WAWebBusinessBroadcastUserJourneyLogger",
+              ).BusinessBroadcastUserJourneyLogger.suggestedAudienceCardsViewed(
+                h.size,
+                a,
+                o("WAWebWamEnumSurfaceType").SURFACE_TYPE.BB_HOME,
+              );
+          },
+          [h, a],
+        ),
+        h == null || h.size === 0)
       )
         return null;
-      var D;
-      if (a[7] !== v || a[8] !== d || a[9] !== l) {
-        var x;
-        a[11] !== v
-          ? ((x = function (t) {
-              return v.has(t.id);
-            }),
-            (a[11] = v),
-            (a[12] = x))
-          : (x = a[12]);
-        var $ = o(
-            "WAWebSuggestedAudienceCards",
-          ).SUGGESTED_AUDIENCE_CARDS.filter(x),
-          P = $.length === 4 ? f.gridTwoColumns : f.gridThreeColumns,
-          N;
-        a[13] === Symbol.for("react.memo_cache_sentinel")
-          ? ((N = c.jsx(r("WDSText.react"), {
-              type: "Body1Emphasized",
-              colorName: "contentDefault",
-              children: o(
-                "WAWebBizBroadcastsAudienceStrings",
-              ).getSuggestedAudiencesSectionTitle(),
-            })),
-            (a[13] = N))
-          : (N = a[13]);
-        var M;
-        a[14] === Symbol.for("react.memo_cache_sentinel")
-          ? ((M = c.jsxs(o("WAWebFlex.react").FlexColumn, {
-              grow: 1,
-              children: [
-                N,
-                c.jsx(r("WDSText.react"), {
-                  type: "Body2",
-                  colorName: "contentDeemphasized",
-                  children: o(
-                    "WAWebBizBroadcastsAudienceStrings",
-                  ).getSuggestedAudiencesSectionSubtitle(),
-                }),
-              ],
-            })),
-            (a[14] = M))
-          : (M = a[14]);
-        var w = r(
-            d ? "WDSIconIcExpandLess.react" : "WDSIconIcExpandMore.react",
-          ),
-          A;
-        (a[15] !== w
-          ? ((A = c.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              xstyle: f.header,
-              children: [
-                M,
-                c.jsx(r("WDSButton.react"), {
-                  Icon: w,
-                  onPress: k,
-                  size: "small",
-                  variant: "tonal",
-                }),
-              ],
-            })),
-            (a[15] = w),
-            (a[16] = A))
-          : (A = a[16]),
-          (D = c.jsxs("div", {
-            "data-testid": void 0,
+      var b = o("WAWebSuggestedAudienceCards").SUGGESTED_AUDIENCE_CARDS.filter(
+          function (e) {
+            return h.has(e.id);
+          },
+        ),
+        v = b.length === 4 ? f.gridTwoColumns : f.gridThreeColumns;
+      return c.jsxs("div", {
+        "data-testid": void 0,
+        children: [
+          c.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            xstyle: f.header,
             children: [
-              A,
-              d &&
-                c.jsx(
-                  "div",
-                  babelHelpers.extends(
-                    {},
-                    (e || (e = r("stylex"))).props(f.cardsContainer, P),
-                    {
-                      children: $.map(function (e) {
-                        return c.jsx(
-                          r("WAWebSuggestedAudienceCard.react"),
-                          { card: e, onPress: l },
-                          e.id,
-                        );
-                      }),
-                    },
-                  ),
+              c.jsxs(o("WAWebFlex.react").FlexColumn, {
+                grow: 1,
+                children: [
+                  c.jsx(r("WDSText.react"), {
+                    type: "Body1Emphasized",
+                    colorName: "contentDefault",
+                    children: o(
+                      "WAWebBizBroadcastsAudienceStrings",
+                    ).getSuggestedAudiencesSectionTitle(),
+                  }),
+                  c.jsx(r("WDSText.react"), {
+                    type: "Body2",
+                    colorName: "contentDeemphasized",
+                    children: o(
+                      "WAWebBizBroadcastsAudienceStrings",
+                    ).getSuggestedAudiencesSectionSubtitle(),
+                  }),
+                ],
+              }),
+              c.jsx(r("WDSButton.react"), {
+                Icon: r(
+                  u ? "WDSIconIcExpandLess.react" : "WDSIconIcExpandMore.react",
                 ),
+                onPress: C,
+                size: "small",
+                variant: "tonal",
+              }),
             ],
-          })),
-          (a[7] = v),
-          (a[8] = d),
-          (a[9] = l),
-          (a[10] = D));
-      } else D = a[10];
-      return D;
-    }
-    function h(e) {
-      return !e;
-    }
-    function y(e) {
-      return e.id;
-    }
-    function C(e) {
-      return e.eligible;
-    }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSuggestedAudienceCards").resolveCardExpression(
-              e,
+          }),
+          u &&
+            c.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                (e || (e = r("stylex"))).props(f.cardsContainer, v),
+                {
+                  children: b.map(function (e) {
+                    return c.jsx(
+                      r("WAWebSuggestedAudienceCard.react"),
+                      { card: e, onPress: i },
+                      e.id,
+                    );
+                  }),
+                },
+              ),
             ),
-            n = yield o(
-              "WAWebBizBroadcastsRecipientUtils",
-            ).isPredicateEligibleForSuggestedCard(t);
-          return { eligible: n, id: e.id };
-        })),
-        v.apply(this, arguments)
-      );
+        ],
+      });
     }
-    l.default = g;
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   98,
 );

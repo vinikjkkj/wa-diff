@@ -25,7 +25,6 @@ __d(
     "err",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -372,124 +371,55 @@ __d(
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.lastSeenChoice,
-        a = e.lastSeenWamIfLocked,
-        i = e.onClick,
-        l = e.text,
-        s = e.visibility,
-        u = a != null,
-        c = n === s,
-        m = u && !c,
-        p = "last-seen-" + s,
-        _;
-      t[0] !== a || t[1] !== s
-        ? ((_ = function () {
-            a != null &&
-              o(
-                "WAWebDefenseModeLockedInterstitial.react",
-              ).openDefenseModeLockedInterstitialGlobal(a, s);
-          }),
-          (t[0] = a),
-          (t[1] = s),
-          (t[2] = _))
-        : (_ = t[2]);
-      var f;
-      t[3] !== i || t[4] !== s
-        ? ((f = function () {
-            i(s);
-          }),
-          (t[3] = i),
-          (t[4] = s),
-          (t[5] = f))
-        : (f = t[5]);
-      var g;
-      return (
-        t[6] !== c ||
-        t[7] !== m ||
-        t[8] !== p ||
-        t[9] !== _ ||
-        t[10] !== f ||
-        t[11] !== l
-          ? ((g = d.jsx(r("WAWebPrivacyVisibilityOption.react"), {
-              text: l,
-              selected: c,
-              disabled: m,
-              testid: void 0,
-              onDisabledClick: _,
-              onClick: f,
-            })),
-            (t[6] = c),
-            (t[7] = m),
-            (t[8] = p),
-            (t[9] = _),
-            (t[10] = f),
-            (t[11] = l),
-            (t[12] = g))
-          : (g = t[12]),
-        g
-      );
+      var t = e.lastSeenChoice,
+        n = e.lastSeenWamIfLocked,
+        a = e.onClick,
+        i = e.text,
+        l = e.visibility,
+        s = n != null,
+        u = t === l;
+      return d.jsx(r("WAWebPrivacyVisibilityOption.react"), {
+        text: i,
+        selected: u,
+        disabled: s && !u,
+        testid: void 0,
+        onDisabledClick: function () {
+          n != null &&
+            o(
+              "WAWebDefenseModeLockedInterstitial.react",
+            ).openDefenseModeLockedInterstitialGlobal(n, l);
+        },
+        onClick: function () {
+          a(l);
+        },
+      });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.onClick,
-        a = e.onlineChoice,
-        i = e.onlineWamIfLocked,
-        l = e.text,
-        s = e.visibility,
-        u = i != null,
-        c = a === s,
-        m = "online-" + s,
-        p = u && !c,
-        _;
-      t[0] !== i || t[1] !== s
-        ? ((_ = function () {
-            i != null &&
-              o(
-                "WAWebDefenseModeLockedInterstitial.react",
-              ).openDefenseModeLockedInterstitialGlobal(i, s);
-          }),
-          (t[0] = i),
-          (t[1] = s),
-          (t[2] = _))
-        : (_ = t[2]);
-      var f;
-      t[3] !== n || t[4] !== s
-        ? ((f = function () {
-            n(s);
-          }),
-          (t[3] = n),
-          (t[4] = s),
-          (t[5] = f))
-        : (f = t[5]);
-      var g;
-      return (
-        t[6] !== c ||
-        t[7] !== m ||
-        t[8] !== p ||
-        t[9] !== _ ||
-        t[10] !== f ||
-        t[11] !== l
-          ? ((g = d.jsx(r("WAWebPrivacyVisibilityOption.react"), {
-              text: l,
-              selected: c,
-              testid: void 0,
-              disabled: p,
-              onDisabledClick: _,
-              onClick: f,
-            })),
-            (t[6] = c),
-            (t[7] = m),
-            (t[8] = p),
-            (t[9] = _),
-            (t[10] = f),
-            (t[11] = l),
-            (t[12] = g))
-          : (g = t[12]),
-        g
-      );
+      var t = e.onClick,
+        n = e.onlineChoice,
+        a = e.onlineWamIfLocked,
+        i = e.text,
+        l = e.visibility,
+        s = a != null,
+        u = n === l;
+      return d.jsx(r("WAWebPrivacyVisibilityOption.react"), {
+        text: i,
+        selected: u,
+        testid: void 0,
+        disabled: s && !u,
+        onDisabledClick: function () {
+          a != null &&
+            o(
+              "WAWebDefenseModeLockedInterstitial.react",
+            ).openDefenseModeLockedInterstitialGlobal(a, l);
+        },
+        onClick: function () {
+          t(l);
+        },
+      });
     }
-    l.default = _;
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );

@@ -1,11 +1,6 @@
 __d(
   "VideoPlayerViewabilityProvider.react",
-  [
-    "VideoPlayerViewabilityContexts",
-    "react",
-    "react-compiler-runtime",
-    "vulture",
-  ],
+  ["VideoPlayerViewabilityContexts", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -13,45 +8,44 @@ __d(
     function u(e) {
       var t = o("react-compiler-runtime").c(9),
         n = e.children,
-        a = e.isDesktopPictureInPicture,
-        i = e.isFullscreen,
-        l = e.videoPlayerPassiveViewabilityInfo;
-      r("vulture")("OJhKvSb4ZIFTWHnE3YjaNyqqcyo=");
-      var u;
-      t[0] !== n || t[1] !== i
-        ? ((u = s.jsx(
+        r = e.isDesktopPictureInPicture,
+        a = e.isFullscreen,
+        i = e.videoPlayerPassiveViewabilityInfo,
+        l;
+      t[0] !== n || t[1] !== a
+        ? ((l = s.jsx(
             o("VideoPlayerViewabilityContexts").VideoPlayerFullscreenContext
               .Provider,
-            { value: i, children: n },
+            { value: a, children: n },
           )),
           (t[0] = n),
-          (t[1] = i),
-          (t[2] = u))
-        : (u = t[2]);
-      var c;
-      t[3] !== a || t[4] !== u
-        ? ((c = s.jsx(
+          (t[1] = a),
+          (t[2] = l))
+        : (l = t[2]);
+      var u;
+      t[3] !== r || t[4] !== l
+        ? ((u = s.jsx(
             o("VideoPlayerViewabilityContexts")
               .VideoPlayerDesktopPictureInPictureContext.Provider,
-            { value: a, children: u },
+            { value: r, children: l },
           )),
-          (t[3] = a),
-          (t[4] = u),
-          (t[5] = c))
-        : (c = t[5]);
-      var d;
+          (t[3] = r),
+          (t[4] = l),
+          (t[5] = u))
+        : (u = t[5]);
+      var c;
       return (
-        t[6] !== c || t[7] !== l
-          ? ((d = s.jsx(
+        t[6] !== u || t[7] !== i
+          ? ((c = s.jsx(
               o("VideoPlayerViewabilityContexts")
                 .VideoPlayerPassiveViewabilityInfoContext.Provider,
-              { value: l, children: c },
+              { value: i, children: u },
             )),
-            (t[6] = c),
-            (t[7] = l),
-            (t[8] = d))
-          : (d = t[8]),
-        d
+            (t[6] = u),
+            (t[7] = i),
+            (t[8] = c))
+          : (c = t[8]),
+        c
       );
     }
     l.default = u;

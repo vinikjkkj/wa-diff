@@ -34,135 +34,88 @@ __d(
     "WDSVars.stylex",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
       s,
       u = s || (s = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(41),
-        n = e.onABProps,
-        a = e.onDebugCommands,
-        i = e.onGroupABProps,
-        l = e.onNuxManager,
-        s = e.onSimulateNativeANR,
-        c = e.onVoipUiDebug,
-        d = e.onVoipWasmSamples,
-        _;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = u.jsx(o("WAWebMenuItems.react").MenuHeading, {
-            children: "Common",
-          })),
-          (t[0] = _))
-        : (_ = t[0]);
-      var h;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = u.jsx(
-            o("WAWebDeveloperMenuDeveloperMenuIcons.react").ABPropsIcon,
-            {},
-          )),
-          (t[1] = h))
-        : (h = t[1]);
-      var C;
-      t[2] !== n
-        ? ((C = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+      var t = e.onABProps,
+        n = e.onDebugCommands,
+        a = e.onGroupABProps,
+        i = e.onNuxManager,
+        l = e.onSimulateNativeANR,
+        s = e.onVoipUiDebug,
+        c = e.onVoipWasmSamples;
+      return u.jsxs(o("WAWebMenu.react").WAWebMenu, {
+        size: "medium",
+        colorScheme: "default",
+        material: !0,
+        children: [
+          u.jsx(o("WAWebMenuItems.react").MenuHeading, { children: "Common" }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "ab-props",
             testid: void 0,
-            detailLeft: h,
-            onSelect: n,
+            detailLeft: u.jsx(
+              o("WAWebDeveloperMenuDeveloperMenuIcons.react").ABPropsIcon,
+              {},
+            ),
+            onSelect: t,
             primary: "ABProps",
             searchCriteria: "ABProps",
-          })),
-          (t[2] = n),
-          (t[3] = C))
-        : (C = t[3]);
-      var L;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = u.jsx(
-            o("WAWebDeveloperMenuDeveloperMenuIcons.react").ABPropsIcon,
-            {},
-          )),
-          (t[4] = L))
-        : (L = t[4]);
-      var E;
-      t[5] !== i
-        ? ((E = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "group-ab-props",
             testid: void 0,
-            detailLeft: L,
-            onSelect: i,
+            detailLeft: u.jsx(
+              o("WAWebDeveloperMenuDeveloperMenuIcons.react").ABPropsIcon,
+              {},
+            ),
+            onSelect: a,
             primary: "Group ABProps",
             searchCriteria: "Group ABProps",
-          })),
-          (t[5] = i),
-          (t[6] = E))
-        : (E = t[6]);
-      var k;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = u.jsx(
+          }),
+          u.jsx(
             o("WAWebDeveloperMenuPromotedDebugCommands.react").DebugCommands,
             {},
-          )),
-          (t[7] = k))
-        : (k = t[7]);
-      var I;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = u.jsx(o("WAWebBusinessIcon.react").BusinessIcon, {})),
-          (t[8] = I))
-        : (I = t[8]);
-      var T;
-      t[9] !== a
-        ? ((T = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          ),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "debug-drawer",
             testid: void 0,
-            detailLeft: I,
-            onSelect: a,
+            detailLeft: u.jsx(o("WAWebBusinessIcon.react").BusinessIcon, {}),
+            onSelect: n,
             primary: "Debug Commands Explorer",
             searchCriteria: "Debug Commands Explorer",
-          })),
-          (t[9] = a),
-          (t[10] = T))
-        : (T = t[10]);
-      var D, x, $, P;
-      if (t[11] === Symbol.for("react.memo_cache_sentinel")) {
-        var N;
-        ((P = u.jsx(
-          (N = o("WAWebDeveloperMenuPromotedDebugCommands.react")).ErrorToast,
-          {},
-        )),
-          (D = u.jsx(N.ShowHiddenBotChats, {})),
-          (x = u.jsx(N.E2EDebugMode, {})),
-          ($ = u.jsx(N.VPVOverlay, {})),
-          (t[11] = D),
-          (t[12] = x),
-          (t[13] = $),
-          (t[14] = P));
-      } else ((D = t[11]), (x = t[12]), ($ = t[13]), (P = t[14]));
-      var M;
-      t[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((M = u.jsx(
-            o("WAWebDeveloperMenuDeveloperMenuIcons.react").NUXManagerIcon,
+          }),
+          u.jsx(
+            o("WAWebDeveloperMenuPromotedDebugCommands.react").ErrorToast,
             {},
-          )),
-          (t[15] = M))
-        : (M = t[15]);
-      var w;
-      t[16] !== l
-        ? ((w = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          ),
+          u.jsx(
+            o("WAWebDeveloperMenuPromotedDebugCommands.react")
+              .ShowHiddenBotChats,
+            {},
+          ),
+          u.jsx(
+            o("WAWebDeveloperMenuPromotedDebugCommands.react").E2EDebugMode,
+            {},
+          ),
+          u.jsx(
+            o("WAWebDeveloperMenuPromotedDebugCommands.react").VPVOverlay,
+            {},
+          ),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "nux-manager",
             testid: void 0,
-            detailLeft: M,
-            onSelect: l,
+            detailLeft: u.jsx(
+              o("WAWebDeveloperMenuDeveloperMenuIcons.react").NUXManagerIcon,
+              {},
+            ),
+            onSelect: i,
             primary: "NUX Manager",
             searchCriteria: "NUX Manager",
-          })),
-          (t[16] = l),
-          (t[17] = w))
-        : (w = t[17]);
-      var A;
-      t[18] === Symbol.for("react.memo_cache_sentinel")
-        ? ((A = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "svg-components",
             testid: void 0,
             detailLeft: u.jsx(o("WAWebImageIcon.react").ImageIcon, {
@@ -172,36 +125,24 @@ __d(
             onSelect: f,
             primary: "SVG Components",
             searchCriteria: "SVG Components",
-          })),
-          (t[18] = A))
-        : (A = t[18]);
-      var F;
-      t[19] === Symbol.for("react.memo_cache_sentinel")
-        ? ((F = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "showroom",
             testid: void 0,
             detailLeft: u.jsx(r("WDSIconIcStore.react"), {}),
             onSelect: g,
             primary: "UI Showroom",
             searchCriteria: "UI Showroom",
-          })),
-          (t[19] = F))
-        : (F = t[19]);
-      var O;
-      t[20] === Symbol.for("react.memo_cache_sentinel")
-        ? ((O = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "message-bubble-showroom",
             testid: void 0,
             detailLeft: u.jsx(r("WDSIconWdsIcChat.react"), {}),
             onSelect: y,
             primary: "Message Bubble Showroom",
             searchCriteria: "Message Bubble Showroom",
-          })),
-          (t[20] = O))
-        : (O = t[20]);
-      var B, W;
-      t[21] === Symbol.for("react.memo_cache_sentinel")
-        ? ((B = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "work-contact-sync",
             testid: void 0,
             detailLeft: u.jsx(r("WDSText.react"), {
@@ -212,51 +153,32 @@ __d(
             onSelect: v,
             primary: "Work Contact Sync",
             searchCriteria: "Work Contact Sync",
-          })),
-          (W = u.jsx(o("WAWebMenuItems.react").MenuHeading, {
-            children: "Infra",
-          })),
-          (t[21] = B),
-          (t[22] = W))
-        : ((B = t[21]), (W = t[22]));
-      var q;
-      t[23] === Symbol.for("react.memo_cache_sentinel")
-        ? ((q = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").MenuHeading, { children: "Infra" }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "md-debug",
             testid: void 0,
             detailLeft: u.jsx(o("WAWebSettingsIcon.react").SettingsIcon, {}),
             onSelect: b,
             primary: "Infra Settings",
             searchCriteria: "Infra Settings",
-          })),
-          (t[23] = q))
-        : (q = t[23]);
-      var U;
-      t[24] === Symbol.for("react.memo_cache_sentinel")
-        ? ((U = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "mex-playground",
             testid: void 0,
             detailLeft: u.jsx(o("WAWebE2EStatusIcon.react").E2EStatusIcon, {}),
             onSelect: p,
             primary: "MEX Playground",
-          })),
-          (t[24] = U))
-        : (U = t[24]);
-      var V;
-      t[25] === Symbol.for("react.memo_cache_sentinel")
-        ? ((V = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "trace-log",
             testid: void 0,
             detailLeft: u.jsx(r("WDSIconIcDescription.react"), {}),
             onSelect: S,
             primary: "Trace Log",
             searchCriteria: "Trace Log",
-          })),
-          (t[25] = V))
-        : (V = t[25]);
-      var H, G, z, j;
-      t[26] === Symbol.for("react.memo_cache_sentinel")
-        ? ((H = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "www-settings",
             testid: void 0,
             detailLeft: u.jsx(r("WDSText.react"), {
@@ -267,37 +189,23 @@ __d(
             onSelect: R,
             primary: "Canonical",
             searchCriteria: "Canonical",
-          })),
-          (G = u.jsx(o("WAWebMenuItems.react").MenuHeading, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").MenuHeading, {
             children: "Localization",
-          })),
-          (z = u.jsx(
-            o("WAWebDeveloperMenuPromotedDebugCommands.react").RTL,
-            {},
-          )),
-          (j = u.jsx(o("WAWebMenuItems.react").MenuHeading, {
+          }),
+          u.jsx(o("WAWebDeveloperMenuPromotedDebugCommands.react").RTL, {}),
+          u.jsx(o("WAWebMenuItems.react").MenuHeading, {
             children: "Performance",
-          })),
-          (t[26] = H),
-          (t[27] = G),
-          (t[28] = z),
-          (t[29] = j))
-        : ((H = t[26]), (G = t[27]), (z = t[28]), (j = t[29]));
-      var K;
-      t[30] === Symbol.for("react.memo_cache_sentinel")
-        ? ((K = u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
+          }),
+          u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "stats",
             testid: void 0,
             detailLeft: u.jsx(o("WAWebInfoAltIcon.react").InfoAltIcon, {}),
             onSelect: m,
             primary: "Model Stats",
             searchCriteria: "Model Stats",
-          })),
-          (t[30] = K))
-        : (K = t[30]);
-      var Q;
-      t[31] !== s || t[32] !== c || t[33] !== d
-        ? ((Q = o("WAWebVoipGatingUtils").isCallingEnabled()
+          }),
+          o("WAWebVoipGatingUtils").isCallingEnabled()
             ? u.jsxs(u.Fragment, {
                 children: [
                   u.jsx(o("WAWebMenuItems.react").MenuHeading, {
@@ -315,7 +223,7 @@ __d(
                       o("WAWebRecalledIcon.react").RecalledIcon,
                       {},
                     ),
-                    onSelect: s,
+                    onSelect: l,
                     primary: "Simulate Native ANR",
                     searchCriteria: "Simulate Native ANR",
                   }),
@@ -336,7 +244,7 @@ __d(
                       o("WAWebCallNewRefreshedIcon.react").CallNewRefreshedIcon,
                       {},
                     ),
-                    onSelect: c,
+                    onSelect: s,
                     primary: "VoIP UI Debug",
                     searchCriteria: "VoIP UI Debug",
                   }),
@@ -347,141 +255,56 @@ __d(
                       o("WAWebCallNewRefreshedIcon.react").CallNewRefreshedIcon,
                       {},
                     ),
-                    onSelect: d,
+                    onSelect: c,
                     primary: "VoIP WASM Samples",
                     searchCriteria: "VoIP WASM Samples",
                   }),
                 ],
               })
-            : null),
-          (t[31] = s),
-          (t[32] = c),
-          (t[33] = d),
-          (t[34] = Q))
-        : (Q = t[34]);
-      var X;
-      return (
-        t[35] !== w || t[36] !== Q || t[37] !== C || t[38] !== E || t[39] !== T
-          ? ((X = u.jsxs(o("WAWebMenu.react").WAWebMenu, {
-              size: "medium",
-              colorScheme: "default",
-              material: !0,
-              children: [
-                _,
-                C,
-                E,
-                k,
-                T,
-                P,
-                D,
-                x,
-                $,
-                w,
-                A,
-                F,
-                O,
-                B,
-                W,
-                q,
-                U,
-                V,
-                H,
-                G,
-                z,
-                j,
-                K,
-                Q,
-              ],
-            })),
-            (t[35] = w),
-            (t[36] = Q),
-            (t[37] = C),
-            (t[38] = E),
-            (t[39] = T),
-            (t[40] = X))
-          : (X = t[40]),
-        X
-      );
+            : null,
+        ],
+      });
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(t) {
-      var n = o("react-compiler-runtime").c(18),
-        a,
-        i;
-      n[0] !== t
-        ? ((i = t.ref),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i))
-        : ((a = n[1]), (i = n[2]));
-      var l = a,
-        s = l.onABProps,
-        d = l.onBack,
-        m = l.onCancel,
-        p = l.onDebugCommands,
-        _ = l.onGroupABProps,
-        f = l.onNuxManager,
-        g = l.onSimulateNativeANR,
-        h = l.onVoipUiDebug,
-        y = l.onVoipWasmSamples,
-        C;
-      n[3] !== d || n[4] !== m
-        ? ((C = u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+      var n = t.ref,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = a.onABProps,
+        l = a.onBack,
+        s = a.onCancel,
+        d = a.onDebugCommands,
+        m = a.onGroupABProps,
+        p = a.onNuxManager,
+        _ = a.onSimulateNativeANR,
+        f = a.onVoipUiDebug,
+        g = a.onVoipWasmSamples;
+      return u.jsxs(r("WAWebDrawer.react"), {
+        ref: n,
+        theme: "settings",
+        testid: void 0,
+        children: [
+          u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
             title: "Developer",
-            onBack: d,
-            onCancel: m,
+            onBack: l,
+            onCancel: s,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
             focusBackOrCancel: !0,
-          })),
-          (n[3] = d),
-          (n[4] = m),
-          (n[5] = C))
-        : (C = n[5]);
-      var b;
-      n[6] !== s ||
-      n[7] !== p ||
-      n[8] !== _ ||
-      n[9] !== f ||
-      n[10] !== g ||
-      n[11] !== h ||
-      n[12] !== y
-        ? ((b = u.jsx(r("WAWebDrawerBody.react"), {
+          }),
+          u.jsx(r("WAWebDrawerBody.react"), {
             children: u.jsx(c, {
-              onABProps: s,
-              onGroupABProps: _,
-              onNuxManager: f,
-              onDebugCommands: p,
-              onVoipUiDebug: h,
-              onVoipWasmSamples: y,
-              onSimulateNativeANR: g,
+              onABProps: i,
+              onGroupABProps: m,
+              onNuxManager: p,
+              onDebugCommands: d,
+              onVoipUiDebug: f,
+              onVoipWasmSamples: g,
+              onSimulateNativeANR: _,
             }),
-          })),
-          (n[6] = s),
-          (n[7] = p),
-          (n[8] = _),
-          (n[9] = f),
-          (n[10] = g),
-          (n[11] = h),
-          (n[12] = y),
-          (n[13] = b))
-        : (b = n[13]);
-      var v;
-      return (
-        n[14] !== i || n[15] !== C || n[16] !== b
-          ? ((v = u.jsxs(r("WAWebDrawer.react"), {
-              ref: i,
-              theme: "settings",
-              testid: void 0,
-              children: [C, b],
-            })),
-            (n[14] = i),
-            (n[15] = C),
-            (n[16] = b),
-            (n[17] = v))
-          : (v = n[17]),
-        v
-      );
+          }),
+        ],
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m() {
       o("WAWebModalManager").ModalManager.open(
         u.jsx(r("WAWebModelStatsModal.react"), {}),

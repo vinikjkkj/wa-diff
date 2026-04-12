@@ -4,7 +4,6 @@ __d(
     "WAWebBotModeSelectionTypes",
     "WAWebMaybeGetBotModeSelection",
     "react",
-    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,39 +14,28 @@ __d(
       c = s.useSyncExternalStore,
       d = [o("WAWebBotModeSelectionTypes").BotUserSelectionMode.Default];
     function m(e, t) {
-      var n = o("react-compiler-runtime").c(4),
-        r;
-      if (n[0] !== e || n[1] !== t) {
-        var a;
-        ((r =
-          t != null ? ((a = e.aiThreads) == null ? void 0 : a.get(t)) : null),
-          (n[0] = e),
-          (n[1] = t),
-          (n[2] = r));
-      } else r = n[2];
-      var i = r,
-        l;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = ["botModeSelection"]), (n[3] = l))
-        : (l = n[3]);
-      var s = o("useWAWebModelValues").useOptionalModelValues(i, l),
-        u = p,
-        m = c(
+      var n,
+        r = t != null ? ((n = e.aiThreads) == null ? void 0 : n.get(t)) : null,
+        a = o("useWAWebModelValues").useOptionalModelValues(r, [
+          "botModeSelection",
+        ]),
+        i = u(function () {
+          var e;
+          return (e = o(
+            "WAWebMaybeGetBotModeSelection",
+          ).getInMemoryBotMode()) != null
+            ? e
+            : d;
+        }, []),
+        l = c(
           o("WAWebMaybeGetBotModeSelection").subscribeToBotModeSelection,
-          u,
+          i,
         );
-      return t != null && (s == null ? void 0 : s.botModeSelection) != null
-        ? s.botModeSelection
-        : m != null
-          ? m
+      return t != null && (a == null ? void 0 : a.botModeSelection) != null
+        ? a.botModeSelection
+        : l != null
+          ? l
           : d;
-    }
-    function p() {
-      var e;
-      return (e = o("WAWebMaybeGetBotModeSelection").getInMemoryBotMode()) !=
-        null
-        ? e
-        : d;
     }
     l.useWAWebBotModeSelection = m;
   },

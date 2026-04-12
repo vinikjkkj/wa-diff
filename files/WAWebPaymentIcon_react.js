@@ -6,7 +6,6 @@ __d(
     "WAWebPaymentSendIcon.react",
     "WAWebProtobufsWeb.pb",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,99 +29,57 @@ __d(
         iconPending: { color: "x1bjprs3", $$css: !0 },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(24),
-        a = t.ariaHidden,
+      var n = t.ariaHidden,
+        a = n === void 0 ? !1 : n,
         i = t.currency,
         l = t.isCompact,
-        s = t.paymentStatus,
-        d = t.paymentTxnStatus,
-        _ = t.subtype,
-        f = a === void 0 ? !1 : a,
-        g = l === void 0 ? !1 : l,
-        h;
-      n[0] !== i
-        ? ((h = o("WAWebCurrencyUtils").formatLocalSymbol(i)),
-          (n[0] = i),
-          (n[1] = h))
-        : (h = n[1]);
-      var y = h,
-        C,
-        b,
-        v;
-      if (n[2] !== f || n[3] !== g || n[4] !== s || n[5] !== d || n[6] !== _) {
-        var S = d != null ? p(d) : m(s),
-          R;
-        (n[10] !== f || n[11] !== g || n[12] !== _
-          ? ((R =
-              _ === "send"
-                ? u.jsx(o("WAWebPaymentSendIcon.react").PaymentSendIcon, {
-                    iconXstyle: g && c.iconCompactSvg,
-                    "aria-hidden": f,
-                  })
-                : u.jsx(o("WAWebPaymentRequestIcon.react").PaymentRequestIcon, {
-                    iconXstyle: g && c.iconCompactSvg,
-                    "aria-hidden": f,
-                  })),
-            (n[10] = f),
-            (n[11] = g),
-            (n[12] = _),
-            (n[13] = R))
-          : (R = n[13]),
-          (C = R),
-          (b = "payment-icon-container"),
-          (v = (e || (e = r("stylex"))).props(c.icon, S, g && c.iconCompact)),
-          (n[2] = f),
-          (n[3] = g),
-          (n[4] = s),
-          (n[5] = d),
-          (n[6] = _),
-          (n[7] = C),
-          (n[8] = b),
-          (n[9] = v));
-      } else ((C = n[7]), (b = n[8]), (v = n[9]));
-      var L;
-      n[14] !== g
-        ? ((L = {
-            0: {
-              className:
-                "x10l6tqk x13vifvy x1o0tod x42zw1d xh8yej3 x5yr21d x1f6kntn x19v9tvf x17t9dm2 x2b8uid",
-            },
-            1: {
-              className:
-                "x10l6tqk x13vifvy x1o0tod x42zw1d xh8yej3 x5yr21d x17t9dm2 x2b8uid x1pg5gke x1fc57z9",
-            },
-          }[!!g << 0]),
-          (n[14] = g),
-          (n[15] = L))
-        : (L = n[15]);
-      var E;
-      n[16] !== y || n[17] !== L
-        ? ((E = u.jsx(
-            "div",
-            babelHelpers.extends({ "data-testid": void 0 }, L, { children: y }),
-          )),
-          (n[16] = y),
-          (n[17] = L),
-          (n[18] = E))
-        : (E = n[18]);
-      var k;
-      return (
-        n[19] !== C || n[20] !== b || n[21] !== v || n[22] !== E
-          ? ((k = u.jsxs(
-              "div",
-              babelHelpers.extends({ "data-testid": void 0 }, v, {
-                children: [E, C],
-              }),
-            )),
-            (n[19] = C),
-            (n[20] = b),
-            (n[21] = v),
-            (n[22] = E),
-            (n[23] = k))
-          : (k = n[23]),
-        k
+        s = l === void 0 ? !1 : l,
+        d = t.paymentStatus,
+        _ = t.paymentTxnStatus,
+        f = t.subtype,
+        g = o("WAWebCurrencyUtils").formatLocalSymbol(i),
+        h = _ != null ? p(_) : m(d),
+        y =
+          f === "send"
+            ? u.jsx(o("WAWebPaymentSendIcon.react").PaymentSendIcon, {
+                iconXstyle: s && c.iconCompactSvg,
+                "aria-hidden": a,
+              })
+            : u.jsx(o("WAWebPaymentRequestIcon.react").PaymentRequestIcon, {
+                iconXstyle: s && c.iconCompactSvg,
+                "aria-hidden": a,
+              });
+      return u.jsxs(
+        "div",
+        babelHelpers.extends(
+          { "data-testid": void 0 },
+          (e || (e = r("stylex"))).props(c.icon, h, s && c.iconCompact),
+          {
+            children: [
+              u.jsx(
+                "div",
+                babelHelpers.extends(
+                  { "data-testid": void 0 },
+                  {
+                    0: {
+                      className:
+                        "x10l6tqk x13vifvy x1o0tod x42zw1d xh8yej3 x5yr21d x1f6kntn x19v9tvf x17t9dm2 x2b8uid",
+                    },
+                    1: {
+                      className:
+                        "x10l6tqk x13vifvy x1o0tod x42zw1d xh8yej3 x5yr21d x17t9dm2 x2b8uid x1pg5gke x1fc57z9",
+                    },
+                  }[!!s << 0],
+                  { children: g },
+                ),
+              ),
+              y,
+            ],
+          },
+        ),
       );
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
       switch (
         e != null

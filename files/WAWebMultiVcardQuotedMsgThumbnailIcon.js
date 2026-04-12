@@ -5,43 +5,21 @@ __d(
     "WAWebProfileImage.react",
     "WAWebQuotedMsgUtils",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = { className: "xk1v102" }), (t[0] = n))
-        : (n = t[0]);
-      var a;
-      t[1] !== e.theme
-        ? ((a = o("WAWebQuotedMsgUtils").getImageSize(e.theme)),
-          (t[1] = e.theme),
-          (t[2] = a))
-        : (a = t[2]);
-      var i;
-      return (
-        t[3] !== a
-          ? ((i = s.jsx(
-              "div",
-              babelHelpers.extends({}, n, {
-                children: s.jsx(r("WAWebProfileImage.react"), {
-                  size: a,
-                  shape: o("WAWebDetailImage.react").DetailImageShape.Square,
-                  quoted: !0,
-                }),
-              }),
-            )),
-            (t[3] = a),
-            (t[4] = i))
-          : (i = t[4]),
-        i
-      );
+      return s.jsx("div", {
+        className: "xk1v102",
+        children: s.jsx(r("WAWebProfileImage.react"), {
+          size: o("WAWebQuotedMsgUtils").getImageSize(e.theme),
+          shape: o("WAWebDetailImage.react").DetailImageShape.Square,
+          quoted: !0,
+        }),
+      });
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

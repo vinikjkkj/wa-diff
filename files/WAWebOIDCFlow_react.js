@@ -15,7 +15,6 @@ __d(
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -63,73 +62,69 @@ __d(
       );
     }
     function _(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.onSuccess,
-        a,
-        i;
+      var t = e.onSuccess,
+        n = "wa_web_oidc_flow_complete",
+        a = "wa_web_oidc_channel";
       return (
-        t[0] !== n
-          ? ((a = function () {
-              var e = function (t) {
-                  var e = t.data;
-                  if (
-                    typeof e == "object" &&
-                    e != null &&
-                    e.message === "wa_web_oidc_flow_complete" &&
-                    t.origin === window.location.origin
-                  ) {
-                    var a = e.code,
-                      i = e.state;
-                    typeof a == "string" &&
-                      a &&
-                      typeof i == "string" &&
-                      r("WAWebGetAccessTokenFromOIDCCode")(a, i)
-                        .then(function (e) {
-                          var t = o("WAWebCommonAdsTypes").asAdAccountToken(
-                            e.token,
-                            e.bp_id,
-                            "FB",
-                          );
-                          (o("WAWebUserPrefsCTWA").setFbIdentity(t),
-                            o(
-                              "WAWebResolveAccountTypeAndAdPage",
-                            ).clearSavedOIDCLoginPreference(t),
-                            n != null && n());
-                        })
-                        .catch(f);
-                  }
-                },
-                t = new BroadcastChannel("wa_web_oidc_channel");
-              return (
-                t.addEventListener("message", e),
-                function () {
-                  (t.removeEventListener("message", e), t.close());
+        d(
+          function () {
+            var e = function (a) {
+                var e = a.data;
+                if (
+                  typeof e == "object" &&
+                  e != null &&
+                  e.message === n &&
+                  a.origin === window.location.origin
+                ) {
+                  var i = e.code,
+                    l = e.state;
+                  typeof i == "string" &&
+                    i &&
+                    typeof l == "string" &&
+                    r("WAWebGetAccessTokenFromOIDCCode")(i, l)
+                      .then(function (e) {
+                        var n = o("WAWebCommonAdsTypes").asAdAccountToken(
+                          e.token,
+                          e.bp_id,
+                          "FB",
+                        );
+                        (o("WAWebUserPrefsCTWA").setFbIdentity(n),
+                          o(
+                            "WAWebResolveAccountTypeAndAdPage",
+                          ).clearSavedOIDCLoginPreference(n),
+                          t != null && t());
+                      })
+                      .catch(function (e) {
+                        (r("FBLogger")("wa_ctwa_web")
+                          .catching(r("getErrorSafe")(e))
+                          .mustfix("OIDC flow failed to get access token"),
+                          o("WAWebToastManager").ToastManager.open(
+                            c.jsx(o("WAWebToast.react").Toast, {
+                              msg: s._(
+                                /*BTDS*/ "Unable to get access token, please try again later",
+                              ),
+                            }),
+                            o("WAWebToastManager").ToastPosition.LEFT,
+                          ));
+                      });
                 }
-              );
-            }),
-            (i = [n]),
-            (t[0] = n),
-            (t[1] = a),
-            (t[2] = i))
-          : ((a = t[1]), (i = t[2])),
-        d(a, i),
+              },
+              i = new BroadcastChannel(a);
+            return (
+              i.addEventListener("message", e),
+              function () {
+                (i.removeEventListener("message", e), i.close());
+              }
+            );
+          },
+          [t],
+        ),
         null
       );
     }
-    function f(e) {
-      (r("FBLogger")("wa_ctwa_web")
-        .catching(r("getErrorSafe")(e))
-        .mustfix("OIDC flow failed to get access token"),
-        o("WAWebToastManager").ToastManager.open(
-          c.jsx(o("WAWebToast.react").Toast, {
-            msg: s._(
-              /*BTDS*/ "Unable to get access token, please try again later",
-            ),
-          }),
-          o("WAWebToastManager").ToastPosition.LEFT,
-        ));
-    }
-    ((l.launchOIDCFlow = m), (l.OIDCEventListener = _));
+    ((_.displayName = _.name + " [from " + i.id + "]"),
+      (l.launchOIDCFlow = m),
+      (l.OIDCEventListener = _));
   },
   226,
 );

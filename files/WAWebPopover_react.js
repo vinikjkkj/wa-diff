@@ -13,7 +13,6 @@ __d(
     "WAWebVelocityTransition",
     "err",
     "react",
-    "react-compiler-runtime",
     "useWAWebTimeout",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,17 +30,10 @@ __d(
       y = 24,
       C = "wa-popovers-bucket";
     function b(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.id,
-        r = n != null ? n : C,
-        a;
-      return (
-        t[0] !== r
-          ? ((a = c.jsx("div", { id: r })), (t[0] = r), (t[1] = a))
-          : (a = t[1]),
-        a
-      );
+      var t = e.id;
+      return c.jsx("div", { id: t != null ? t : C });
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v(e, t) {
       return (
         e.addEventListener("click", t),

@@ -27,7 +27,6 @@ __d(
     "asyncToGeneratorRuntime",
     "fbs",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebEventTargetValue",
   ],
@@ -35,55 +34,27 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.data,
-        r = e.onClick,
-        a = e.onDelete,
-        i = n.blocklist,
-        l,
-        s,
-        c;
-      if (t[0] !== i) {
-        var d = i.contact();
-        ((l = o("WAWebChatContact.react").Contact),
-          (s = d),
-          (c = d.id.toString()),
-          (t[0] = i),
-          (t[1] = l),
-          (t[2] = s),
-          (t[3] = c));
-      } else ((l = t[1]), (s = t[2]), (c = t[3]));
-      var m;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = o("WAWebBlocklistMigration").isBlocklistMigrated()), (t[4] = m))
-        : (m = t[4]);
-      var p;
-      return (
-        t[5] !== l || t[6] !== r || t[7] !== a || t[8] !== s || t[9] !== c
-          ? ((p = u.jsx(
-              l,
-              {
-                contact: s,
-                onClick: r,
-                onDelete: a,
-                showInactiveFlag: m,
-                waitIdle: !0,
-                tabIndex: -1,
-                allowFocusEventPropagation: !0,
-                role: "button",
-              },
-              c,
-            )),
-            (t[5] = l),
-            (t[6] = r),
-            (t[7] = a),
-            (t[8] = s),
-            (t[9] = c),
-            (t[10] = p))
-          : (p = t[10]),
-        p
+      var t = e.data,
+        n = e.onClick,
+        r = e.onDelete,
+        a = t.blocklist,
+        i = a.contact();
+      return u.jsx(
+        o("WAWebChatContact.react").Contact,
+        {
+          contact: i,
+          onClick: n,
+          onDelete: r,
+          showInactiveFlag: o("WAWebBlocklistMigration").isBlocklistMigrated(),
+          waitIdle: !0,
+          tabIndex: -1,
+          allowFocusEventPropagation: !0,
+          role: "button",
+        },
+        i.id.toString(),
       );
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
       var t = e.onClose,
         a = e.ref,

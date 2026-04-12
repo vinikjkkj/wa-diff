@@ -4,7 +4,6 @@ __d(
     "WATimeUtils",
     "WAWebChatGetters",
     "react",
-    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebDebouncedCallback",
   ],
@@ -28,59 +27,36 @@ __d(
     function m(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(12),
-        i;
-      a[0] !== e
-        ? ((i = e.values().next()), (a[0] = e), (a[1] = i))
-        : (i = a[1]);
-      var l = i.value,
-        s =
+        a = e.values().next().value,
+        i =
           (t = o("useWAWebChatValues").useOptionalChatValues(
-            l == null ? void 0 : l.id,
+            a == null ? void 0 : a.id,
             [o("WAWebChatGetters").getDraftMessage],
           )) != null
             ? t
             : [],
-        u = s[0],
-        m = c((n = u == null ? void 0 : u.text) != null ? n : ""),
-        p = m[0],
-        _ = m[1],
-        f = r("useWAWebDebouncedCallback")(d, 200),
-        g;
-      a[2] !== l || a[3] !== f || a[4] !== e.size
-        ? ((g = function (n) {
-            (_(n), e.size === 1 && f(l, n));
-          }),
-          (a[2] = l),
-          (a[3] = f),
-          (a[4] = e.size),
-          (a[5] = g))
-        : (g = a[5]);
-      var h = g,
-        y;
-      a[6] !== l
-        ? ((y = function () {
-            l == null ||
-              l.setComposeContents({
+        l = i[0],
+        s = c((n = l == null ? void 0 : l.text) != null ? n : ""),
+        m = s[0],
+        p = s[1],
+        _ = r("useWAWebDebouncedCallback")(d, 200),
+        f = u(
+          function (t) {
+            (p(t), e.size === 1 && _(a, t));
+          },
+          [e.size, _, a],
+        ),
+        g = u(
+          function () {
+            a == null ||
+              a.setComposeContents({
                 text: "",
                 timestamp: o("WATimeUtils").unixTime(),
               });
-          }),
-          (a[6] = l),
-          (a[7] = y))
-        : (y = a[7]);
-      var C = y,
-        b;
-      return (
-        a[8] !== C || a[9] !== p || a[10] !== h
-          ? ((b = { clearDraftMessage: C, message: p, onMessageChange: h }),
-            (a[8] = C),
-            (a[9] = p),
-            (a[10] = h),
-            (a[11] = b))
-          : (b = a[11]),
-        b
-      );
+          },
+          [a],
+        );
+      return { clearDraftMessage: g, message: m, onMessageChange: f };
     }
     l.default = m;
   },

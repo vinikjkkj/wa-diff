@@ -16,7 +16,6 @@ __d(
     "WDSIconIcCampaignMegaphone.react",
     "WDSIconIcCampaignMegaphoneFilled.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebNativeAdsMvpEligibility",
     "useWAWebServerGatedAdEntryPoint",
   ],
@@ -34,122 +33,81 @@ __d(
         },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(18),
-        n = e.activeNavBarItem,
-        a = o("WAWebActiveAccountInfoContext.react").useActiveAccountInfo(),
-        i = o("useWAWebNativeAdsMvpEligibility").useNativeAdsMvpEligibility(),
-        l = i.isQE2Eligible,
-        m = o("useWAWebServerGatedAdEntryPoint").useServerGatedAdEntryPoint(
+      var t = e.activeNavBarItem,
+        n = o("WAWebActiveAccountInfoContext.react").useActiveAccountInfo(),
+        a = o("useWAWebNativeAdsMvpEligibility").useNativeAdsMvpEligibility(),
+        i = a.isQE2Eligible,
+        l = o("useWAWebServerGatedAdEntryPoint").useServerGatedAdEntryPoint(
           "whatsapp_smb_web_ad_creation_home_screen_icon",
-          a,
+          n,
         ),
-        p = m[0],
-        _;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = s._(/*BTDS*/ "Advertise")), (t[0] = _))
-        : (_ = t[0]);
-      var f = _,
-        g;
-      t[1] !== a || t[2] !== p || t[3] !== l
-        ? ((g =
-            o("WAWebMobilePlatforms").isSMB() &&
-            a != null &&
-            !p &&
-            (a !== "not-linked" ||
-              o("WAWebNativeAdsGatingUtils").isNativeAdsMvpEntrypointEligible(
-                l,
-              )) &&
-            o("WAWebBizGatingUtils").shouldShowAdCreationIcon()),
-          (t[1] = a),
-          (t[2] = p),
-          (t[3] = l),
-          (t[4] = g))
-        : (g = t[4]);
-      var h = g,
-        y,
-        C;
-      (t[5] !== a || t[6] !== h
-        ? ((y = function () {
-            if (h) {
-              var e;
-              o("WAWebAdCreationLogger").logAdCreationImpression(
-                o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
+        m = l[0],
+        p = s._(/*BTDS*/ "Advertise"),
+        _ =
+          o("WAWebMobilePlatforms").isSMB() &&
+          n != null &&
+          !m &&
+          (n !== "not-linked" ||
+            o("WAWebNativeAdsGatingUtils").isNativeAdsMvpEntrypointEligible(
+              i,
+            )) &&
+          o("WAWebBizGatingUtils").shouldShowAdCreationIcon();
+      c(
+        function () {
+          if (_) {
+            var e;
+            o("WAWebAdCreationLogger").logAdCreationImpression(
+              o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
+                .SMB_HOME_SCREEN_ICON,
+              (e =
+                n !== "not-linked" &&
+                (n == null ? void 0 : n.hasFacebookPage)) != null
+                ? e
+                : !1,
+            );
+          }
+        },
+        [_, n],
+      );
+      var f = function () {
+          t !== o("WAWebNavBarTypes").NavBarItems.AdCreation &&
+            (n != null &&
+              o("WAWebChatlistUtils").handleAdCreation({
+                adCreationUrlInput: {
+                  activeAccountInfo: n,
+                  sourceAdCreation:
+                    "whatsapp_smb_web_ad_creation_home_screen_icon",
+                },
+                lwiEntryPoint: o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
                   .SMB_HOME_SCREEN_ICON,
-                (e =
-                  a !== "not-linked" &&
-                  (a == null ? void 0 : a.hasFacebookPage)) != null
-                  ? e
-                  : !1,
-              );
-            }
-          }),
-          (C = [h, a]),
-          (t[5] = a),
-          (t[6] = h),
-          (t[7] = y),
-          (t[8] = C))
-        : ((y = t[7]), (C = t[8])),
-        c(y, C));
-      var b;
-      t[9] !== a || t[10] !== n
-        ? ((b = function () {
-            n !== o("WAWebNavBarTypes").NavBarItems.AdCreation &&
-              (a != null &&
-                o("WAWebChatlistUtils").handleAdCreation({
-                  adCreationUrlInput: {
-                    activeAccountInfo: a,
-                    sourceAdCreation:
-                      "whatsapp_smb_web_ad_creation_home_screen_icon",
-                  },
-                  lwiEntryPoint: o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
-                    .SMB_HOME_SCREEN_ICON,
-                }),
-              o("WAWebNavBarLogEvents").logNavBarEvent(
-                o("WAWebWamEnumWebcNavbarItemLabel").WEBC_NAVBAR_ITEM_LABEL
-                  .ADS_CREATION,
-              ));
-          }),
-          (t[9] = a),
-          (t[10] = n),
-          (t[11] = b))
-        : (b = t[11]);
-      var v = b,
-        S;
-      t[12] !== n
-        ? ((S =
-            n === o("WAWebNavBarTypes").NavBarItems.AdCreation
-              ? u.jsx(r("WDSIconIcCampaignMegaphoneFilled.react"), {
-                  height: 24,
-                  width: 24,
-                })
-              : u.jsx(r("WDSIconIcCampaignMegaphone.react"), {
-                  height: 24,
-                  width: 24,
-                })),
-          (t[12] = n),
-          (t[13] = S))
-        : (S = t[13]);
-      var R = S,
-        L = n === o("WAWebNavBarTypes").NavBarItems.AdCreation,
-        E;
-      t[14] !== R || t[15] !== v || t[16] !== L
-        ? ((E = u.jsx(o("WAWebNavBarItem.react").NavBarItem, {
-            icon: R,
-            title: f,
-            testid: void 0,
-            isActive: L,
-            onClick: v,
-            spacingXstyle: d.paddingAll8,
-          })),
-          (t[14] = R),
-          (t[15] = v),
-          (t[16] = L),
-          (t[17] = E))
-        : (E = t[17]);
-      var k = E;
-      return h ? k : null;
+              }),
+            o("WAWebNavBarLogEvents").logNavBarEvent(
+              o("WAWebWamEnumWebcNavbarItemLabel").WEBC_NAVBAR_ITEM_LABEL
+                .ADS_CREATION,
+            ));
+        },
+        g =
+          t === o("WAWebNavBarTypes").NavBarItems.AdCreation
+            ? u.jsx(r("WDSIconIcCampaignMegaphoneFilled.react"), {
+                height: 24,
+                width: 24,
+              })
+            : u.jsx(r("WDSIconIcCampaignMegaphone.react"), {
+                height: 24,
+                width: 24,
+              }),
+        h = u.jsx(o("WAWebNavBarItem.react").NavBarItem, {
+          icon: g,
+          title: p,
+          testid: void 0,
+          isActive: t === o("WAWebNavBarTypes").NavBarItems.AdCreation,
+          onClick: f,
+          spacingXstyle: d.paddingAll8,
+        });
+      return _ ? h : null;
     }
-    l.BizAdCreationNavBarItem = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"),
+      (l.BizAdCreationNavBarItem = m));
   },
   226,
 );

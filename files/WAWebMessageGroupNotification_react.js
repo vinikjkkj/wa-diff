@@ -72,7 +72,6 @@ __d(
     "WAWebWidFormat",
     "WDSIconWdsIcDisappearingMessages.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebForceUpdate",
     "useWAWebIsKeyboardUser",
     "useWAWebListener",
@@ -671,50 +670,30 @@ __d(
       iconDisappearingSvg: { width: "x1kky2od", height: "xlup9mm", $$css: !0 },
     };
     function S(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.clickable,
-        a = e.subtype,
-        i = e.type,
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = p.jsx(
-            o("WAWebMegaphoneRefreshedIcon.react").MegaphoneRefreshedIcon,
-            { directional: !0, height: 16, width: 16 },
-          )),
-          (t[0] = l))
-        : (l = t[0]);
-      var s = l;
-      if (i === "gp2") {
-        if (a === "announce") {
-          var u;
-          return (
-            t[1] === Symbol.for("react.memo_cache_sentinel")
-              ? ((u = p.jsx("div", {
-                  className: "x1rg5ohu xm7witj x7g7pl8 xg49k01",
-                  children: s,
-                })),
-                (t[1] = u))
-              : (u = t[1]),
-            u
-          );
-        } else if (a === "ephemeral" && n) {
-          var c;
-          return (
-            t[2] === Symbol.for("react.memo_cache_sentinel")
-              ? ((c = p.jsx("div", {
-                  className: "x1rg5ohu xm7witj x7g7pl8 xg49k01",
-                  children: p.jsx(r("WDSIconWdsIcDisappearingMessages.react"), {
-                    iconXstyle: v.iconDisappearingSvg,
-                  }),
-                })),
-                (t[2] = c))
-              : (c = t[2]),
-            c
-          );
+      var t = e.clickable,
+        n = e.subtype,
+        a = e.type,
+        i = p.jsx(
+          o("WAWebMegaphoneRefreshedIcon.react").MegaphoneRefreshedIcon,
+          { directional: !0, height: 16, width: 16 },
+        );
+      if (a === "gp2") {
+        if (n === "announce")
+          return p.jsx("div", {
+            className: "x1rg5ohu xm7witj x7g7pl8 xg49k01",
+            children: i,
+          });
+        if (n === "ephemeral" && t) {
+          var l = r("WDSIconWdsIcDisappearingMessages.react");
+          return p.jsx("div", {
+            className: "x1rg5ohu xm7witj x7g7pl8 xg49k01",
+            children: p.jsx(l, { iconXstyle: v.iconDisappearingSvg }),
+          });
         }
       }
       return null;
     }
+    S.displayName = S.name + " [from " + i.id + "]";
     function R(t) {
       "use no forget";
       var n,

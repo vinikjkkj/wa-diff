@@ -1,22 +1,16 @@
 __d(
   "useWAWebStatusVisibilityLogger",
-  [
-    "WAWebMerlinImpressionManager",
-    "react",
-    "react-compiler-runtime",
-    "useVPVDImpression",
-  ],
+  ["WAWebMerlinImpressionManager", "react", "useVPVDImpression"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = (e || (e = o("react"))).useCallback;
     function u(e) {
-      var t = o("react-compiler-runtime").c(33),
-        n = e.encryptedStatusIdPromise,
-        a = e.entryMethod,
-        i = e.isCloseSharingPost,
-        l = e.isFirstView,
-        s = e.isPosterBiz,
+      var t = e.encryptedStatusIdPromise,
+        n = e.entryMethod,
+        a = e.isCloseSharingPost,
+        i = e.isFirstView,
+        l = e.isPosterBiz,
         u = e.isSelfView,
         c = e.isSubImpression,
         d = e.isSuccessfulView,
@@ -42,48 +36,18 @@ __d(
         $ = e.urlStatusType,
         P = e.userRidPromise,
         N = e.viewSequenceIndex,
-        M;
-      t[0] !== n ||
-      t[1] !== a ||
-      t[2] !== i ||
-      t[3] !== l ||
-      t[4] !== s ||
-      t[5] !== u ||
-      t[6] !== c ||
-      t[7] !== d ||
-      t[8] !== m ||
-      t[9] !== p ||
-      t[10] !== _ ||
-      t[11] !== f ||
-      t[12] !== g ||
-      t[13] !== h ||
-      t[14] !== y ||
-      t[15] !== C ||
-      t[16] !== b ||
-      t[17] !== v ||
-      t[18] !== S ||
-      t[19] !== R ||
-      t[20] !== L ||
-      t[21] !== k ||
-      t[22] !== I ||
-      t[23] !== E ||
-      t[24] !== T ||
-      t[25] !== D ||
-      t[26] !== x ||
-      t[27] !== $ ||
-      t[28] !== P ||
-      t[29] !== N
-        ? ((M = function (t) {
-            var e = t.hiddenTime,
-              r = t.visibleDuration,
-              M = t.visibleTime;
+        M = s(
+          function (e) {
+            var r = e.hiddenTime,
+              s = e.visibleDuration,
+              M = e.visibleTime;
             o("WAWebMerlinImpressionManager").logStatusVisibility({
               enter_ts: M,
-              exit_ts: e,
-              statusViewTime: r,
+              exit_ts: r,
+              statusViewTime: s,
               itemId: m,
               visibilityData: {
-                encryptedStatusIdPromise: n,
+                encryptedStatusIdPromise: t,
                 userRidPromise: P,
                 statusPosterIdPromise: E,
                 statusGroupIdPromise: v,
@@ -91,8 +55,8 @@ __d(
                 mediaType: p,
                 isSelfView: u,
                 isSubImpression: c,
-                isFirstView: l,
-                isCloseSharingPost: i,
+                isFirstView: i,
+                isCloseSharingPost: a,
                 statusContainsMusic: y,
                 musicBlocked: _,
                 statusViewEntrypoint: T,
@@ -106,55 +70,49 @@ __d(
                 psaLinkAvailable: g,
                 statusLoadTime: R,
                 urlStatusType: $,
-                isPosterBiz: s,
+                isPosterBiz: l,
                 statusContainsQuestion: C,
                 isSuccessfulView: d,
                 statusItemViewResult: S,
-                entryMethod: a,
+                entryMethod: n,
                 viewSequenceIndex: N,
               },
             });
-          }),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i),
-          (t[3] = l),
-          (t[4] = s),
-          (t[5] = u),
-          (t[6] = c),
-          (t[7] = d),
-          (t[8] = m),
-          (t[9] = p),
-          (t[10] = _),
-          (t[11] = f),
-          (t[12] = g),
-          (t[13] = h),
-          (t[14] = y),
-          (t[15] = C),
-          (t[16] = b),
-          (t[17] = v),
-          (t[18] = S),
-          (t[19] = R),
-          (t[20] = L),
-          (t[21] = k),
-          (t[22] = I),
-          (t[23] = E),
-          (t[24] = T),
-          (t[25] = D),
-          (t[26] = x),
-          (t[27] = $),
-          (t[28] = P),
-          (t[29] = N),
-          (t[30] = M))
-        : (M = t[30]);
-      var w = M,
-        A;
-      return (
-        t[31] !== w
-          ? ((A = { onVPVDEnd: w }), (t[31] = w), (t[32] = A))
-          : (A = t[32]),
-        r("useVPVDImpression")(A)
-      );
+          },
+          [
+            m,
+            t,
+            P,
+            E,
+            v,
+            b,
+            p,
+            u,
+            c,
+            i,
+            a,
+            y,
+            _,
+            T,
+            x,
+            D,
+            L,
+            k,
+            h,
+            I,
+            f,
+            g,
+            R,
+            $,
+            l,
+            C,
+            d,
+            S,
+            n,
+            N,
+          ],
+        );
+      return r("useVPVDImpression")({ onVPVDEnd: M });
     }
     l.default = u;
   },

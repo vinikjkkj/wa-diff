@@ -57,7 +57,6 @@ __d(
     "WDSText.react",
     "isStringNullOrEmpty",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebContactValues",
     "useWAWebFlow",
@@ -105,36 +104,29 @@ __d(
         },
       };
     function E(e) {
-      var t = o("react-compiler-runtime").c(58),
-        n = e.aboutPromptKey,
-        a = e.conn,
-        i = e.contact,
-        l = e.entryPoint,
-        s = e.isInitialStep,
-        d = e.onClose,
-        m = e.profilePicThumb,
-        p = e.ref,
-        f = e.status,
-        g = C(),
-        h = g[0],
-        y = g[1],
-        b = C(),
-        v = b[0],
-        S = b[1],
-        L = r("useWAWebFocusOnMount")(),
-        E;
-      t[0] !== d
-        ? ((E = {
-            transitions: o("useWAWebFlow").FlowTransitions.None,
-            onEnd: d,
-          }),
-          (t[0] = d),
-          (t[1] = E))
-        : (E = t[1]);
-      var k = o("useWAWebFlow").useFlow(R.Profile, E),
-        I = k[0],
-        T = k[1];
-      if (T.step == null)
+      var t = e.aboutPromptKey,
+        n = e.conn,
+        a = e.contact,
+        i = e.entryPoint,
+        l = e.isInitialStep,
+        s = e.onClose,
+        d = e.profilePicThumb,
+        m = e.ref,
+        p = e.status,
+        f = C(),
+        g = f[0],
+        h = f[1],
+        y = C(),
+        b = y[0],
+        v = y[1],
+        S = r("useWAWebFocusOnMount")(),
+        L = o("useWAWebFlow").useFlow(R.Profile, {
+          transitions: o("useWAWebFlow").FlowTransitions.None,
+          onEnd: s,
+        }),
+        E = L[0],
+        k = L[1];
+      if (k.step == null)
         return (
           o("WALogger").ERROR(
             u ||
@@ -144,140 +136,72 @@ __d(
           ),
           null
         );
-      var x;
-      e: switch (T.step) {
+      var I;
+      switch (k.step) {
         case R.Profile: {
-          var $;
-          t[2] !== T
-            ? (($ = function () {
-                T.push(R.MerchantDetails);
-              }),
-              (t[2] = T),
-              (t[3] = $))
-            : ($ = t[3]);
-          var P = $,
-            N;
-          t[4] !== T
-            ? ((N = function (t) {
-                (o("WAWebUtilsLogQplEvents").qplStartCatalogCollectionsView(
-                  "Profile",
-                ),
-                  o(
-                    "WAWebCatalogManagementFlowLoadable",
-                  ).createCatalogManagementFlowObject(function (e, n, r) {
-                    r === !0 && !n
-                      ? o(
-                          "WAWebCatalogManagementFlowLoadable",
-                        ).showSelfCatalogLoadErrorToast()
-                      : (y(e), S(t), T.push(R.CatalogManagement));
-                  }));
-              }),
-              (t[4] = T),
-              (t[5] = N))
-            : (N = t[5]);
-          var M = N,
-            w;
-          t[6] !== T
-            ? ((w = function () {
-                (o(
-                  "WAWebUsernameCreationActionLogger",
-                ).UsernameCreationActionLogger.resetSessionId(),
-                  T.push(R.UsernameCreationInfo));
-              }),
-              (t[6] = T),
-              (t[7] = w))
-            : (w = t[7]);
-          var A = w,
-            F;
-          t[8] !== T
-            ? ((F = function () {
-                (o(
-                  "WAWebUsernameCreationActionLogger",
-                ).UsernameCreationActionLogger.resetSessionId(),
-                  T.push(R.EditUsername));
-              }),
-              (t[8] = T),
-              (t[9] = F))
-            : (F = t[9]);
-          var O = F,
-            B;
-          t[10] !== T
-            ? ((B = function () {
-                return T.pop();
-              }),
-              (t[10] = T),
-              (t[11] = B))
-            : (B = t[11]);
-          var W;
-          (t[12] !== n ||
-          t[13] !== a ||
-          t[14] !== i ||
-          t[15] !== l ||
-          t[16] !== s ||
-          t[17] !== M ||
-          t[18] !== A ||
-          t[19] !== O ||
-          t[20] !== P ||
-          t[21] !== m ||
-          t[22] !== f ||
-          t[23] !== B
-            ? ((W = _.jsx(D, {
-                aboutPromptKey: n,
-                openMerchantDetailsForm: P,
-                openCatalogDetailsForm: M,
-                openCreateUsernameDrawer: A,
-                openEditUsernameDrawer: O,
-                conn: a,
-                contact: i,
-                profilePicThumb: m,
-                entryPoint: l,
-                status: f,
-                onClose: B,
-                isInitialStep: s,
-              })),
-              (t[12] = n),
-              (t[13] = a),
-              (t[14] = i),
-              (t[15] = l),
-              (t[16] = s),
-              (t[17] = M),
-              (t[18] = A),
-              (t[19] = O),
-              (t[20] = P),
-              (t[21] = m),
-              (t[22] = f),
-              (t[23] = B),
-              (t[24] = W))
-            : (W = t[24]),
-            (x = W));
-          break e;
+          var T = function () {
+              k.push(R.MerchantDetails);
+            },
+            x = function (t) {
+              (o("WAWebUtilsLogQplEvents").qplStartCatalogCollectionsView(
+                "Profile",
+              ),
+                o(
+                  "WAWebCatalogManagementFlowLoadable",
+                ).createCatalogManagementFlowObject(function (e, n, r) {
+                  r === !0 && !n
+                    ? o(
+                        "WAWebCatalogManagementFlowLoadable",
+                      ).showSelfCatalogLoadErrorToast()
+                    : (h(e), v(t), k.push(R.CatalogManagement));
+                }));
+            },
+            $ = function () {
+              (o(
+                "WAWebUsernameCreationActionLogger",
+              ).UsernameCreationActionLogger.resetSessionId(),
+                k.push(R.UsernameCreationInfo));
+            },
+            P = function () {
+              (o(
+                "WAWebUsernameCreationActionLogger",
+              ).UsernameCreationActionLogger.resetSessionId(),
+                k.push(R.EditUsername));
+            };
+          I = _.jsx(D, {
+            aboutPromptKey: t,
+            openMerchantDetailsForm: T,
+            openCatalogDetailsForm: x,
+            openCreateUsernameDrawer: $,
+            openEditUsernameDrawer: P,
+            conn: n,
+            contact: a,
+            profilePicThumb: d,
+            entryPoint: i,
+            status: p,
+            onClose: function () {
+              return k.pop();
+            },
+            isInitialStep: l,
+          });
+          break;
         }
         case R.MerchantDetails: {
-          var q;
-          t[25] === Symbol.for("react.memo_cache_sentinel")
-            ? ((q = o("WAWebUserPrefsMeUser").getMeUser()), (t[25] = q))
-            : (q = t[25]);
-          var U = q,
-            V;
-          (t[26] !== T
-            ? ((V = _.jsx(
-                o("WAWebMerchantDetailsFormFlowLoadable")
-                  .MerchantDetailsFormFlowLoadable,
-                {
-                  contactId: U,
-                  onBack: function () {
-                    return T.pop();
-                  },
-                },
-              )),
-              (t[26] = T),
-              (t[27] = V))
-            : (V = t[27]),
-            (x = V));
-          break e;
+          var N = o("WAWebUserPrefsMeUser").getMeUser();
+          I = _.jsx(
+            o("WAWebMerchantDetailsFormFlowLoadable")
+              .MerchantDetailsFormFlowLoadable,
+            {
+              contactId: N,
+              onBack: function () {
+                return k.pop();
+              },
+            },
+          );
+          break;
         }
-        case R.CatalogManagement: {
-          if (!h)
+        case R.CatalogManagement:
+          if (!g)
             return (
               o("WALogger").ERROR(
                 c ||
@@ -287,31 +211,21 @@ __d(
               ),
               null
             );
-          var H;
-          t[28] !== T
-            ? ((H = function () {
-                return T.pop();
-              }),
-              (t[28] = T),
-              (t[29] = H))
-            : (H = t[29]);
-          var G;
-          (t[30] !== v || t[31] !== H || t[32] !== h
-            ? ((G = _.jsx(
-                o("WAWebCatalogManagementFlowLoadable")
-                  .CatalogManagementFlowLoadable,
-                { catalogId: h, product: v, onBack: H, isInitialStep: !1 },
-              )),
-              (t[30] = v),
-              (t[31] = H),
-              (t[32] = h),
-              (t[33] = G))
-            : (G = t[33]),
-            (x = G));
-          break e;
-        }
-        case R.UsernameCreationInfo: {
-          o(
+          I = _.jsx(
+            o("WAWebCatalogManagementFlowLoadable")
+              .CatalogManagementFlowLoadable,
+            {
+              catalogId: g,
+              product: b,
+              onBack: function () {
+                return k.pop();
+              },
+              isInitialStep: !1,
+            },
+          );
+          break;
+        case R.UsernameCreationInfo:
+          (o(
             "WAWebUsernameCreationActionLogger",
           ).UsernameCreationActionLogger.log({
             usernameCreationCurrentScreen: o(
@@ -322,11 +236,10 @@ __d(
             ).USERNAME_CREATION_ACTION_NAME.VIEW,
             usernameCreationFlowType: o("WAWebWamEnumUsernameCreationFlowType")
               .USERNAME_CREATION_FLOW_TYPE.CREATION,
-          });
-          var z, j;
-          t[34] !== T
-            ? ((z = function () {
-                (T.push(R.CreateUsername),
+          }),
+            (I = _.jsx(r("WAWebUsernameCreationInfoDrawer.react"), {
+              onContinue: function () {
+                (k.push(R.CreateUsername),
                   o(
                     "WAWebUsernameCreationActionLogger",
                   ).UsernameCreationActionLogger.log({
@@ -340,9 +253,9 @@ __d(
                       "WAWebWamEnumUsernameCreationFlowType",
                     ).USERNAME_CREATION_FLOW_TYPE.CREATION,
                   }));
-              }),
-              (j = function () {
-                (T.pop(),
+              },
+              onBack: function () {
+                (k.pop(),
                   o(
                     "WAWebUsernameCreationActionLogger",
                   ).UsernameCreationActionLogger.logBackClicked(
@@ -351,109 +264,53 @@ __d(
                     o("WAWebWamEnumUsernameCreationFlowType")
                       .USERNAME_CREATION_FLOW_TYPE.CREATION,
                   ));
-              }),
-              (t[34] = T),
-              (t[35] = z),
-              (t[36] = j))
-            : ((z = t[35]), (j = t[36]));
-          var K;
-          (t[37] !== p || t[38] !== z || t[39] !== j
-            ? ((K = _.jsx(r("WAWebUsernameCreationInfoDrawer.react"), {
-                onContinue: z,
-                onBack: j,
-                ref: p,
-              })),
-              (t[37] = p),
-              (t[38] = z),
-              (t[39] = j),
-              (t[40] = K))
-            : (K = t[40]),
-            (x = K));
-          break e;
-        }
-        case R.CreateUsername: {
-          var Q;
-          t[41] !== T
-            ? ((Q = function () {
-                (T.pop(),
-                  o(
-                    "WAWebUsernameCreationActionLogger",
-                  ).UsernameCreationActionLogger.logBackClicked(
-                    o("WAWebWamEnumUsernameCreationCurrentScreen")
-                      .USERNAME_CREATION_CURRENT_SCREEN.USERNAME_EDUCATION,
-                    o("WAWebWamEnumUsernameCreationFlowType")
-                      .USERNAME_CREATION_FLOW_TYPE.CREATION,
-                  ));
-              }),
-              (t[41] = T),
-              (t[42] = Q))
-            : (Q = t[42]);
-          var X;
-          (t[43] !== i.id || t[44] !== p || t[45] !== Q
-            ? ((X = _.jsx(r("WAWebCreateUsernameDrawer.react"), {
-                contactId: i.id,
-                ref: p,
-                onBack: Q,
-              })),
-              (t[43] = i.id),
-              (t[44] = p),
-              (t[45] = Q),
-              (t[46] = X))
-            : (X = t[46]),
-            (x = X));
-          break e;
-        }
-        case R.EditUsername: {
-          var Y;
-          (t[47] !== i || t[48] !== T
-            ? ((Y =
-                (i == null ? void 0 : i.username) != null
-                  ? _.jsx(r("WAWebUsernameManagementDrawer.react"), {
-                      contactId: i.id,
-                      username: i.username,
-                      onBack: function () {
-                        (o(
-                          "WAWebUsernameCreationActionLogger",
-                        ).UsernameCreationActionLogger.logBackClicked(
-                          o("WAWebWamEnumUsernameCreationCurrentScreen")
-                            .USERNAME_CREATION_CURRENT_SCREEN.USERNAME_MANAGE,
-                          o("WAWebWamEnumUsernameCreationFlowType")
-                            .USERNAME_CREATION_FLOW_TYPE.MANAGEMENT,
-                        ),
-                          T.pop());
-                      },
-                    })
-                  : null),
-              (t[47] = i),
-              (t[48] = T),
-              (t[49] = Y))
-            : (Y = t[49]),
-            (x = Y));
-        }
+              },
+              ref: m,
+            })));
+          break;
+        case R.CreateUsername:
+          I = _.jsx(r("WAWebCreateUsernameDrawer.react"), {
+            contactId: a.id,
+            ref: m,
+            onBack: function () {
+              (k.pop(),
+                o(
+                  "WAWebUsernameCreationActionLogger",
+                ).UsernameCreationActionLogger.logBackClicked(
+                  o("WAWebWamEnumUsernameCreationCurrentScreen")
+                    .USERNAME_CREATION_CURRENT_SCREEN.USERNAME_EDUCATION,
+                  o("WAWebWamEnumUsernameCreationFlowType")
+                    .USERNAME_CREATION_FLOW_TYPE.CREATION,
+                ));
+            },
+          });
+          break;
+        case R.EditUsername:
+          I =
+            (a == null ? void 0 : a.username) != null
+              ? _.jsx(r("WAWebUsernameManagementDrawer.react"), {
+                  contactId: a.id,
+                  username: a.username,
+                  onBack: function () {
+                    (o(
+                      "WAWebUsernameCreationActionLogger",
+                    ).UsernameCreationActionLogger.logBackClicked(
+                      o("WAWebWamEnumUsernameCreationCurrentScreen")
+                        .USERNAME_CREATION_CURRENT_SCREEN.USERNAME_MANAGE,
+                      o("WAWebWamEnumUsernameCreationFlowType")
+                        .USERNAME_CREATION_FLOW_TYPE.MANAGEMENT,
+                    ),
+                      k.pop());
+                  },
+                })
+              : null;
       }
-      var J;
-      t[50] !== I || t[51] !== x || t[52] !== T || t[53] !== p
-        ? ((J = _.jsx(I, { ref: p, flow: T, children: x })),
-          (t[50] = I),
-          (t[51] = x),
-          (t[52] = T),
-          (t[53] = p),
-          (t[54] = J))
-        : (J = t[54]);
-      var Z;
-      return (
-        t[55] !== L || t[56] !== J
-          ? ((Z = _.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-              ref: L,
-              children: J,
-            })),
-            (t[55] = L),
-            (t[56] = J),
-            (t[57] = Z))
-          : (Z = t[57]),
-        Z
-      );
+      return _.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+        ref: S,
+        children: _.jsx(E, { ref: m, flow: k, children: I }),
+      });
     }
+    E.displayName = E.name + " [from " + i.id + "]";
     var k = {
       ellipsify: !0,
       multiline: !0,
@@ -635,46 +492,26 @@ __d(
     }
     I.displayName = I.name + " [from " + i.id + "]";
     function T(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.profilePicThumb;
-      if (o("WAWebSettingGatingUtils").isMeTabEnabled()) {
-        var a;
-        return (
-          t[0] !== n
-            ? ((a = _.jsx(r("WAWebProfileDrawerCoverPhoto.react"), {
-                profilePicThumb: n,
-              })),
-              (t[0] = n),
-              (t[1] = a))
-            : (a = t[1]),
-          a
-        );
-      }
-      var i;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = (m || (m = r("stylex"))).props(
-            o("WAWebUISpacing").uiMargin.vert28,
-            L.photoPickerWrapper,
-          )),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
-      return (
-        t[3] !== n
-          ? ((l = _.jsx(
-              "div",
-              babelHelpers.extends({}, i, {
+      var t = e.profilePicThumb;
+      return o("WAWebSettingGatingUtils").isMeTabEnabled()
+        ? _.jsx(r("WAWebProfileDrawerCoverPhoto.react"), { profilePicThumb: t })
+        : _.jsx(
+            "div",
+            babelHelpers.extends(
+              {},
+              (m || (m = r("stylex"))).props(
+                o("WAWebUISpacing").uiMargin.vert28,
+                L.photoPickerWrapper,
+              ),
+              {
                 children: _.jsx(r("WAWebProfilePicPicker.react"), {
-                  profilePicThumb: n,
+                  profilePicThumb: t,
                 }),
-              }),
-            )),
-            (t[3] = n),
-            (t[4] = l))
-          : (l = t[4]),
-        l
-      );
+              },
+            ),
+          );
     }
+    T.displayName = T.name + " [from " + i.id + "]";
     function D(t) {
       var n = t.ref,
         a = babelHelpers.objectWithoutPropertiesLoose(t, e),

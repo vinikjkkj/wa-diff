@@ -1,11 +1,6 @@
 __d(
   "VideoPlayerTracePolicyProvider.react",
-  [
-    "VideoPlayerTracePolicyContext",
-    "react",
-    "react-compiler-runtime",
-    "vulture",
-  ],
+  ["VideoPlayerTracePolicyContext", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -13,31 +8,30 @@ __d(
     function u(e) {
       var t = o("react-compiler-runtime").c(6),
         n = e.children,
-        a = e.initialTracePolicy,
-        i = e.routeTracePolicy;
-      r("vulture")("tE4AkUaeYLCtci933AY8dJOvXfY=");
-      var l = a,
-        u = i,
-        c;
-      t[0] !== l || t[1] !== u
-        ? ((c = { initialTracePolicy: l, routeTracePolicy: u }),
-          (t[0] = l),
-          (t[1] = u),
-          (t[2] = c))
-        : (c = t[2]);
-      var d;
+        r = e.initialTracePolicy,
+        a = e.routeTracePolicy,
+        i = r,
+        l = a,
+        u;
+      t[0] !== i || t[1] !== l
+        ? ((u = { initialTracePolicy: i, routeTracePolicy: l }),
+          (t[0] = i),
+          (t[1] = l),
+          (t[2] = u))
+        : (u = t[2]);
+      var c;
       return (
-        t[3] !== n || t[4] !== c
-          ? ((d = s.jsx(
+        t[3] !== n || t[4] !== u
+          ? ((c = s.jsx(
               o("VideoPlayerTracePolicyContext").VideoPlayerTracePolicyContext
                 .Provider,
-              { value: c, children: n },
+              { value: u, children: n },
             )),
             (t[3] = n),
-            (t[4] = c),
-            (t[5] = d))
-          : (d = t[5]),
-        d
+            (t[4] = u),
+            (t[5] = c))
+          : (c = t[5]),
+        c
       );
     }
     l.default = u;

@@ -13,7 +13,6 @@ __d(
     "WDSIconWdsIcCurrencyReal.react",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -137,51 +136,32 @@ __d(
         },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(38),
-        n = e.amount1000,
-        a = e.chat,
-        i = e.currency,
-        l = e.displayType,
-        d = e.isPaymentRequest,
-        m = e.isSentByMe,
-        p = e.msg,
-        _ = e.orderId,
-        f = e.orderPaymentStatus,
-        g = e.payIcons,
-        h = e.xstyle,
-        y = a.contact,
-        C;
-      t[0] !== y
-        ? ((C =
-            y.verifiedName ||
-            y.name ||
-            o("WAWebFrontendContactGetters").getDisplayName(y)),
-          (t[0] = y),
-          (t[1] = C))
-        : (C = t[1]);
-      var b = C,
-        v = m ? c.bubbleOut : c.bubbleIn,
-        S;
-      t[2] !== v || t[3] !== h
-        ? ((S = [c.container, v, h]), (t[2] = v), (t[3] = h), (t[4] = S))
-        : (S = t[4]);
-      var R = f === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Failed,
-        L;
-      t[5] !== n || t[6] !== i || t[7] !== R
-        ? ((L = u.jsx(r("WAWebPaymentAmountDisplay.react"), {
-            amount1000: n,
-            currency: i,
-            isStrikethrough: R,
-          })),
-          (t[5] = n),
-          (t[6] = i),
-          (t[7] = R),
-          (t[8] = L))
-        : (L = t[8]);
-      var E;
-      t[9] !== b || t[10] !== _ || t[11] !== f
-        ? ((E =
-            f === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
+      var t = e.amount1000,
+        n = e.chat,
+        a = e.currency,
+        i = e.displayType,
+        l = e.isPaymentRequest,
+        d = e.isSentByMe,
+        m = e.msg,
+        p = e.orderId,
+        _ = e.orderPaymentStatus,
+        f = e.payIcons,
+        g = e.xstyle,
+        h = n.contact,
+        y =
+          h.verifiedName ||
+          h.name ||
+          o("WAWebFrontendContactGetters").getDisplayName(h);
+      return u.jsxs(o("WAWebFlex.react").FlexColumn, {
+        xstyle: [c.container, d ? c.bubbleOut : c.bubbleIn, g],
+        children: [
+          u.jsx(r("WAWebPaymentAmountDisplay.react"), {
+            amount1000: t,
+            currency: a,
+            isStrikethrough:
+              _ === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Failed,
+          }),
+          _ === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
             u.jsxs(o("WAWebFlex.react").FlexRow, {
               children: [
                 u.jsx(o("WAWebWebIcCheckIcon.react").WebIcCheckIcon, {
@@ -196,7 +176,7 @@ __d(
                     u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
                       xstyle: c.sendToText,
                       children: s._(/*BTDS*/ "Sent to {merchant-name}", [
-                        s._param("merchant-name", b),
+                        s._param("merchant-name", y),
                       ]),
                     }),
                     u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
@@ -206,16 +186,8 @@ __d(
                   ],
                 }),
               ],
-            })),
-          (t[9] = b),
-          (t[10] = _),
-          (t[11] = f),
-          (t[12] = E))
-        : (E = t[12]);
-      var k;
-      t[13] !== b || t[14] !== _ || t[15] !== f
-        ? ((k =
-            f === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Failed &&
+            }),
+          _ === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Failed &&
             u.jsxs(o("WAWebFlex.react").FlexRow, {
               children: [
                 u.jsx(r("WDSIconWdsIcCurrencyReal.react"), {
@@ -230,7 +202,7 @@ __d(
                     u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
                       xstyle: c.sendToText,
                       children: s._(/*BTDS*/ "Send to {merchant-name}", [
-                        s._param("merchant-name", b),
+                        s._param("merchant-name", y),
                       ]),
                     }),
                     u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
@@ -240,16 +212,8 @@ __d(
                   ],
                 }),
               ],
-            })),
-          (t[13] = b),
-          (t[14] = _),
-          (t[15] = f),
-          (t[16] = k))
-        : (k = t[16]);
-      var I;
-      t[17] !== b || t[18] !== _ || t[19] !== f
-        ? ((I =
-            f === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Pending &&
+            }),
+          _ === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Pending &&
             u.jsxs(o("WAWebFlex.react").FlexRow, {
               children: [
                 u.jsx(r("WDSIconWdsIcCurrencyReal.react"), {
@@ -264,7 +228,7 @@ __d(
                     u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
                       xstyle: c.sendToText,
                       children: s._(/*BTDS*/ "Send to {merchant-name}", [
-                        s._param("merchant-name", b),
+                        s._param("merchant-name", y),
                       ]),
                     }),
                     u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
@@ -274,31 +238,16 @@ __d(
                   ],
                 }),
               ],
-            })),
-          (t[17] = b),
-          (t[18] = _),
-          (t[19] = f),
-          (t[20] = I))
-        : (I = t[20]);
-      var T;
-      t[21] !== f || t[22] !== g
-        ? ((T =
-            g != null &&
-            (g == null ? void 0 : g.length) > 0 &&
-            f == null &&
+            }),
+          f != null &&
+            (f == null ? void 0 : f.length) > 0 &&
+            _ == null &&
             u.jsx(r("WAWebPaymentPayWithRow.react"), {
               label: s._(/*BTDS*/ "Pay with"),
               testid: void 0,
-              children: g,
-            })),
-          (t[21] = f),
-          (t[22] = g),
-          (t[23] = T))
-        : (T = t[23]);
-      var D;
-      t[24] !== l || t[25] !== d || t[26] !== m || t[27] !== b || t[28] !== p
-        ? ((D =
-            d &&
+              children: f,
+            }),
+          l &&
             u.jsxs(o("WAWebFlex.react").FlexRow, {
               xstyle: c.subtitle,
               justify: "all",
@@ -311,52 +260,23 @@ __d(
                   xstyle: c.requestedByText,
                   children: s._(
                     /*BTDS*/ "{merchant-name} requested a payment",
-                    [s._param("merchant-name", m ? "You" : b)],
+                    [s._param("merchant-name", d ? "You" : y)],
                   ),
                 }),
                 u.jsx(o("WAWebFlex.react").FlexRow, {
                   xstyle: c.meta,
                   justify: "end",
                   children: u.jsx(o("WAWebMessageMeta.react").Meta, {
-                    msg: p,
-                    displayType: l,
+                    msg: m,
+                    displayType: i,
                   }),
                 }),
               ],
-            })),
-          (t[24] = l),
-          (t[25] = d),
-          (t[26] = m),
-          (t[27] = b),
-          (t[28] = p),
-          (t[29] = D))
-        : (D = t[29]);
-      var x;
-      return (
-        t[30] !== D ||
-        t[31] !== S ||
-        t[32] !== L ||
-        t[33] !== E ||
-        t[34] !== k ||
-        t[35] !== I ||
-        t[36] !== T
-          ? ((x = u.jsxs(o("WAWebFlex.react").FlexColumn, {
-              xstyle: S,
-              children: [L, E, k, I, T, D],
-            })),
-            (t[30] = D),
-            (t[31] = S),
-            (t[32] = L),
-            (t[33] = E),
-            (t[34] = k),
-            (t[35] = I),
-            (t[36] = T),
-            (t[37] = x))
-          : (x = t[37]),
-        x
-      );
+            }),
+        ],
+      });
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   226,
 );

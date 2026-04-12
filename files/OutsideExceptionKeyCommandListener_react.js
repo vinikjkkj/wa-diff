@@ -5,7 +5,6 @@ __d(
     "CometLayerKeyCommandWrapper.react",
     "react",
     "react-compiler-runtime",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -13,9 +12,8 @@ __d(
       s = e || (e = o("react"));
     function u(e) {
       var t = o("react-compiler-runtime").c(2),
-        n = e.children;
-      r("vulture")("y3ysjuiQ1BLh0BlF9A2EFBmw5h4=");
-      var a;
+        n = e.children,
+        a;
       return (
         t[0] !== n
           ? ((a = s.jsx(r("BaseKeyCommandListener.react"), {

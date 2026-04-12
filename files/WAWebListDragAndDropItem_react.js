@@ -4,7 +4,6 @@ __d(
     "WAWebListUseDragAndAutoScrollForSafari",
     "WAWebUA",
     "react",
-    "react-compiler-runtime",
     "react-dnd-cjs",
     "react-dnd-html5-backend-cjs",
   ],
@@ -83,66 +82,37 @@ __d(
     g.displayName = g.name + " [from " + i.id + "]";
     var h = d(g);
     function y(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.children,
-        a = e.containerRef,
-        i = o(
+      var t = e.children,
+        n = e.containerRef,
+        a = o(
           "WAWebListUseDragAndAutoScrollForSafari",
-        ).useDragAndAutoScrollForSafari(a),
-        l;
-      t[0] !== n
-        ? ((l = s.jsx(o("react-dnd-cjs").DndProvider, {
-            backend: r("react-dnd-html5-backend-cjs").default,
-            children: n,
-          })),
-          (t[0] = n),
-          (t[1] = l))
-        : (l = t[1]);
-      var u;
-      return (
-        t[2] !== i || t[3] !== l
-          ? ((u = s.jsx(f.Provider, { value: i, children: l })),
-            (t[2] = i),
-            (t[3] = l),
-            (t[4] = u))
-          : (u = t[4]),
-        u
-      );
+        ).useDragAndAutoScrollForSafari(n);
+      return s.jsx(f.Provider, {
+        value: a,
+        children: s.jsx(o("react-dnd-cjs").DndProvider, {
+          backend: r("react-dnd-html5-backend-cjs").default,
+          children: t,
+        }),
+      });
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.children,
-        a = e.containerRef;
-      if (o("WAWebUA").UA.isSafari && a) {
-        var i;
-        return (
-          t[0] !== n || t[1] !== a
-            ? ((i = s.jsx(y, { containerRef: a, children: n })),
-              (t[0] = n),
-              (t[1] = a),
-              (t[2] = i))
-            : (i = t[2]),
-          i
-        );
-      }
-      var l;
-      return (
-        t[3] !== n
-          ? ((l = s.jsx(f.Provider, {
-              value: o("WAWebListUseDragAndAutoScrollForSafari")
-                .EMPTY_SCROLL_EVENTS,
-              children: s.jsx(o("react-dnd-cjs").DndProvider, {
-                backend: r("react-dnd-html5-backend-cjs").default,
-                children: n,
-              }),
-            })),
-            (t[3] = n),
-            (t[4] = l))
-          : (l = t[4]),
-        l
-      );
+      var t = e.children,
+        n = e.containerRef;
+      return o("WAWebUA").UA.isSafari && n
+        ? s.jsx(y, { containerRef: n, children: t })
+        : s.jsx(f.Provider, {
+            value: o("WAWebListUseDragAndAutoScrollForSafari")
+              .EMPTY_SCROLL_EVENTS,
+            children: s.jsx(o("react-dnd-cjs").DndProvider, {
+              backend: r("react-dnd-html5-backend-cjs").default,
+              children: t,
+            }),
+          });
     }
-    ((l.DragAndDropItem = h), (l.DragAndDropWrapper = C));
+    ((C.displayName = C.name + " [from " + i.id + "]"),
+      (l.DragAndDropItem = h),
+      (l.DragAndDropWrapper = C));
   },
   98,
 );

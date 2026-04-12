@@ -36,7 +36,6 @@ __d(
     "WAWebWamEnumLandingSurface",
     "gkx",
     "react",
-    "react-compiler-runtime",
     "useWAWebChatLockRestriction",
     "useWAWebListener",
     "useWAWebOpenChat",
@@ -102,146 +101,105 @@ __d(
         return t != null && n instanceof HTMLElement;
       };
     function C(e) {
-      var t = o("react-compiler-runtime").c(49),
+      var t,
         n = e.entryPoint,
         a = e.focusOnMount,
-        i = e.onClose,
-        l = e.ref,
-        c = e.unlockEntryPoint,
-        m = a === void 0 ? !0 : a,
-        C = o("useWAWebSearchModel").useSearchModel(v),
-        S = C.query,
-        R = C.results,
-        L = o("useWAWebOpenChat").useOpenChat(),
-        E = L.openedChat,
-        k = _(!1),
-        I = k[0],
-        T = k[1],
-        D = R == null ? void 0 : R.query.searchText,
-        x = D != null && D !== "",
-        $;
-      (t[0] !== D ||
-      t[1] !== S ||
-      t[2] !== (R == null ? void 0 : R.query.options)
-        ? (($ = function () {
-            S(D != null ? D : "", R == null ? void 0 : R.query.options);
-          }),
-          (t[0] = D),
-          (t[1] = S),
-          (t[2] = R == null ? void 0 : R.query.options),
-          (t[3] = $))
-        : ($ = t[3]),
-        o("useWAWebListener").useListener(
-          o("WAWebChatCollection").ChatCollection,
-          "change add remove",
-          $,
-        ));
-      var P;
-      t[4] !== n || t[5] !== c
-        ? ((P = {
-            id: "locked-chats-drawer",
-            condition: "always",
-            entryPoint: n,
-            unlockEntryPoint: c,
-            landingSurface: o("WAWebWamEnumLandingSurface").LANDING_SURFACE
-              .FOLDER,
-          }),
-          (t[4] = n),
-          (t[5] = c),
-          (t[6] = P))
-        : (P = t[6]);
-      var N = o("useWAWebChatLockRestriction").useChatLockRestriction(P),
-        M,
-        w;
-      (t[7] !== n || t[8] !== N
-        ? ((M = function () {
-            N &&
-              o("WAWebChatLockWAMUtils").chatLockActionWAMEvent({
-                actionEntryPoint: n,
-                chatLockActionType: o("WAWebWamEnumChatLockActionType")
-                  .CHAT_LOCK_ACTION_TYPE.FOLDER_OPEN,
-              });
-          }),
-          (w = [N, n]),
-          (t[7] = n),
-          (t[8] = N),
-          (t[9] = M),
-          (t[10] = w))
-        : ((M = t[9]), (w = t[10])),
-        d(M, w));
-      var A;
-      if (t[11] !== (R == null ? void 0 : R.results)) {
-        var F;
-        ((A = (F = R == null ? void 0 : R.results.map(b)) != null ? F : []),
-          (t[11] = R == null ? void 0 : R.results),
-          (t[12] = A));
-      } else A = t[12];
-      var O = A,
-        B;
-      t[13] === Symbol.for("react.memo_cache_sentinel")
-        ? ((B = s._(/*BTDS*/ "Search locked chats")), (t[13] = B))
-        : (B = t[13]);
-      var W = B,
-        q;
-      t[14] === Symbol.for("react.memo_cache_sentinel")
-        ? ((q = o("WAWebMiscGatingUtils").isPrivacyNarrativeV1Enabled()
-            ? u.jsx(
-                o("WAWebPrivacyNarrativeE2EMessage.react").E2eMessageChatList,
-                { tabOrder: o("WAWebTabOrder").TAB_ORDER.DRAWER_FOOTER },
-              )
-            : null),
-          (t[14] = q))
-        : (q = t[14]);
-      var U = q,
-        V = p(null),
-        H = p(null),
-        G;
-      t[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((G = new Map()), (t[15] = G))
-        : (G = t[15]);
-      var z = p(G),
-        j;
-      t[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((j = function (t, n) {
-            t ? z.current.set(n, t) : z.current.delete(n);
-          }),
-          (t[16] = j))
-        : (j = t[16]);
-      var K = j,
-        Q;
-      t[17] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Q = { index: 0, id: "" }), (t[17] = Q))
-        : (Q = t[17]);
-      var X = _(Q),
-        Y = X[0],
-        J = X[1],
-        Z,
-        ee;
-      if (t[18] !== Y || t[19] !== O) {
-        var te = function (t) {
-          if (O.length !== 0) {
-            var e = Y.index + (t === "up" ? -1 : 1);
-            e >= O.length ? (e = 0) : e < 0 && (e = O.length - 1);
-            var n = O[e];
+        i = a === void 0 ? !0 : a,
+        l = e.onClose,
+        c = e.ref,
+        C = e.unlockEntryPoint,
+        b = o("useWAWebSearchModel").useSearchModel(function () {
+          return new (o("WAWebChatSearchModel").LockedChatSearch)();
+        }),
+        v = b.query,
+        S = b.results,
+        R = o("useWAWebOpenChat").useOpenChat(),
+        L = R.openedChat,
+        E = _(!1),
+        k = E[0],
+        I = E[1],
+        T = S == null ? void 0 : S.query.searchText,
+        D = T != null && T !== "";
+      o("useWAWebListener").useListener(
+        o("WAWebChatCollection").ChatCollection,
+        "change add remove",
+        function () {
+          v(T != null ? T : "", S == null ? void 0 : S.query.options);
+        },
+      );
+      var x = o("useWAWebChatLockRestriction").useChatLockRestriction({
+        id: "locked-chats-drawer",
+        condition: "always",
+        entryPoint: n,
+        unlockEntryPoint: C,
+        landingSurface: o("WAWebWamEnumLandingSurface").LANDING_SURFACE.FOLDER,
+      });
+      d(
+        function () {
+          x &&
+            o("WAWebChatLockWAMUtils").chatLockActionWAMEvent({
+              actionEntryPoint: n,
+              chatLockActionType: o("WAWebWamEnumChatLockActionType")
+                .CHAT_LOCK_ACTION_TYPE.FOLDER_OPEN,
+            });
+        },
+        [x, n],
+      );
+      var $ =
+          (t =
+            S == null
+              ? void 0
+              : S.results.map(function (e) {
+                  return babelHelpers.extends(
+                    {},
+                    o("WAWebChatListMenuItem.react").getFlatListConfigFromChat(
+                      e.data,
+                      { showCommunityInfo: !0 },
+                    ),
+                  );
+                })) != null
+            ? t
+            : [],
+        P = s._(/*BTDS*/ "Search locked chats"),
+        N = o("WAWebMiscGatingUtils").isPrivacyNarrativeV1Enabled()
+          ? u.jsx(
+              o("WAWebPrivacyNarrativeE2EMessage.react").E2eMessageChatList,
+              { tabOrder: o("WAWebTabOrder").TAB_ORDER.DRAWER_FOOTER },
+            )
+          : null,
+        M = p(null),
+        w = p(null),
+        A = p(new Map()),
+        F = function (t, n) {
+          t ? A.current.set(n, t) : A.current.delete(n);
+        },
+        O = _({ index: 0, id: "" }),
+        B = O[0],
+        W = O[1],
+        q = function (t) {
+          if ($.length !== 0) {
+            var e = B.index + (t === "up" ? -1 : 1);
+            e >= $.length ? (e = 0) : e < 0 && (e = $.length - 1);
+            var n = $[e];
             if (n) {
               var r = h(n.chat);
-              (J({ id: r, index: e }), Z == null || Z(r));
+              (W({ id: r, index: e }), V == null || V(r));
             }
           }
-        };
-        ((ee = {
+        },
+        U = {
           up: function () {
-            return te("up");
+            return q("up");
           },
           down: function () {
-            return te("down");
+            return q("down");
           },
           enter: function (t) {
             var e = t.target;
-            if (!(Y.index < 0)) {
-              var n = z.current.get(Y.id);
+            if (!(B.index < 0)) {
+              var n = A.current.get(B.id);
               if (n === e) {
-                var r = O[Y.index].chat;
+                var r = $[B.index].chat;
                 r &&
                   o("WAWebCmd")
                     .Cmd.openChatBottom({ chat: r })
@@ -253,197 +211,122 @@ __d(
               }
             }
           },
-        }),
-          (Z = function (t) {
-            if (t != null) {
-              var e = z.current.get(t);
-              e && r("WAWebFocusTracer").focus(e);
+        },
+        V = function (t) {
+          if (t != null) {
+            var e = A.current.get(t);
+            e && r("WAWebFocusTracer").focus(e);
+          }
+        },
+        H = function (t) {
+          var e = M.current,
+            n = t.relatedTarget;
+          !y(e, n) ||
+            (e != null && e.contains(n)) ||
+            k ||
+            W({ index: -1, id: "" });
+        },
+        G = function (t) {
+          var e = t.target,
+            n = M.current;
+          if (!(!y(n, e) || e !== n)) {
+            var r = 0;
+            if (L != null) {
+              var o = $.findIndex(function (e) {
+                return h(e.chat) === h(L);
+              });
+              o !== -1 && (r = o);
             }
-          }),
-          (t[18] = Y),
-          (t[19] = O),
-          (t[20] = Z),
-          (t[21] = ee));
-      } else ((Z = t[20]), (ee = t[21]));
-      var ne;
-      t[22] !== I
-        ? ((ne = function (t) {
-            var e = V.current,
-              n = t.relatedTarget;
-            !y(e, n) ||
-              (e != null && e.contains(n)) ||
-              I ||
-              J({ index: -1, id: "" });
-          }),
-          (t[22] = I),
-          (t[23] = ne))
-        : (ne = t[23]);
-      var re = ne,
-        oe;
-      t[24] !== Z || t[25] !== O || t[26] !== E
-        ? ((oe = function (t) {
-            var e = t.target,
-              n = V.current;
-            if (!(!y(n, e) || e !== n)) {
-              var r = 0;
-              if (E != null) {
-                var o = O.findIndex(function (e) {
-                  return h(e.chat) === h(E);
-                });
-                o !== -1 && (r = o);
-              }
-              var a = O[r];
-              if (a) {
-                var i = h(a.chat);
-                (J({ id: i, index: r }), Z(i));
-              }
+            var a = $[r];
+            if (a) {
+              var i = h(a.chat);
+              (W({ id: i, index: r }), V(i));
             }
+          }
+        },
+        z = m(function () {
+          return new (r("WAWebFlatListController"))();
+        }, []);
+      return u.jsxs(r("WAWebDrawer.react"), {
+        ref: c,
+        theme: "archived",
+        testid: void 0,
+        tsNavigationData: f,
+        children: [
+          u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+            title: s._(/*BTDS*/ "Locked chats"),
+            onBack: l,
+            type:
+              l == null
+                ? o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.TAB
+                : o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
           }),
-          (t[24] = Z),
-          (t[25] = O),
-          (t[26] = E),
-          (t[27] = oe))
-        : (oe = t[27]);
-      var ae = oe,
-        ie;
-      t[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ie = new (r("WAWebFlatListController"))()), (t[28] = ie))
-        : (ie = t[28]);
-      var le = ie,
-        se;
-      t[29] === Symbol.for("react.memo_cache_sentinel")
-        ? ((se = s._(/*BTDS*/ "Locked chats")), (t[29] = se))
-        : (se = t[29]);
-      var ue =
-          i == null
-            ? o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.TAB
-            : o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-        ce;
-      t[30] !== i || t[31] !== ue
-        ? ((ce = u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            title: se,
-            onBack: i,
-            type: ue,
-          })),
-          (t[30] = i),
-          (t[31] = ue),
-          (t[32] = ce))
-        : (ce = t[32]);
-      var de;
-      t[33] !== Y ||
-      t[34] !== re ||
-      t[35] !== ae ||
-      t[36] !== ee ||
-      t[37] !== x ||
-      t[38] !== O ||
-      t[39] !== E
-        ? ((de =
-            O.length === 0
-              ? u.jsx(o("WAWebEmptyState.react").Empty, {
-                  title: x
-                    ? s._(/*BTDS*/ "No locked chats found")
-                    : s._(/*BTDS*/ "You have no locked chats"),
-                })
-              : u.jsx("div", {
-                  "data-testid": void 0,
-                  children: u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-                    ref: V,
-                    handlers: ee,
-                    onFocus: ae,
-                    onBlur: re,
-                    "data-tab": o("WAWebTabOrder").TAB_ORDER.DRAWER_CONTENT,
-                    children: u.jsx(r("WAWebFlatListContainer.react"), {
-                      flatListControllers: [le],
-                      className: "x1rife3k x1plvlek x1hm9lzh x1sa5p1d",
-                      children: u.jsx(o("WAWebFlatList.react").FlatList, {
-                        ref: H,
-                        data: O,
-                        renderItem: function (t) {
-                          return u.jsx(
-                            r("WAWebChatCellV2.react"),
-                            {
-                              size: "large",
-                              ref: function (n) {
-                                K(n, h(t.chat));
-                              },
-                              onClick: function () {
-                                o("WAWebCmd").Cmd.openChatBottom({
-                                  chat: t.chat,
-                                });
-                              },
-                              active: h(t.chat) === Y.id,
-                              applyFocusStyles: !1,
-                              chat: t.chat,
-                              contextMenuItems: g(t.chat),
-                              forceActive: E != null && h(E) === h(t.chat),
-                              showCommunityInfo: !0,
-                              onContextMenuToggle: T,
-                            },
-                            t.itemKey,
-                          );
-                        },
-                        direction: "vertical",
-                        flatListController: le,
-                        disablePointerEventsOnScroll: !1,
-                      }),
-                    }),
-                  }),
-                })),
-          (t[33] = Y),
-          (t[34] = re),
-          (t[35] = ae),
-          (t[36] = ee),
-          (t[37] = x),
-          (t[38] = O),
-          (t[39] = E),
-          (t[40] = de))
-        : (de = t[40]);
-      var me;
-      t[41] !== m || t[42] !== S || t[43] !== de
-        ? ((me = u.jsx(r("WAWebDrawerBody.react"), {
+          u.jsx(r("WAWebDrawerBody.react"), {
             children: u.jsxs(o("WAWebSearchInput").DrawerSearchInput, {
               tabOrder: o("WAWebTabOrder").TAB_ORDER.DRAWER_CONTENT,
-              onSearch: S,
-              focusOnMount: m,
-              placeholder: W,
-              children: [de, U],
+              onSearch: v,
+              focusOnMount: i,
+              placeholder: P,
+              children: [
+                $.length === 0
+                  ? u.jsx(o("WAWebEmptyState.react").Empty, {
+                      title: D
+                        ? s._(/*BTDS*/ "No locked chats found")
+                        : s._(/*BTDS*/ "You have no locked chats"),
+                    })
+                  : u.jsx("div", {
+                      "data-testid": void 0,
+                      children: u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+                        ref: M,
+                        handlers: U,
+                        onFocus: G,
+                        onBlur: H,
+                        "data-tab": o("WAWebTabOrder").TAB_ORDER.DRAWER_CONTENT,
+                        children: u.jsx(r("WAWebFlatListContainer.react"), {
+                          flatListControllers: [z],
+                          className: "x1rife3k x1plvlek x1hm9lzh x1sa5p1d",
+                          children: u.jsx(o("WAWebFlatList.react").FlatList, {
+                            ref: w,
+                            data: $,
+                            renderItem: function (t) {
+                              return u.jsx(
+                                r("WAWebChatCellV2.react"),
+                                {
+                                  size: "large",
+                                  ref: function (n) {
+                                    F(n, h(t.chat));
+                                  },
+                                  onClick: function () {
+                                    o("WAWebCmd").Cmd.openChatBottom({
+                                      chat: t.chat,
+                                    });
+                                  },
+                                  active: h(t.chat) === B.id,
+                                  applyFocusStyles: !1,
+                                  chat: t.chat,
+                                  contextMenuItems: g(t.chat),
+                                  forceActive: L != null && h(L) === h(t.chat),
+                                  showCommunityInfo: !0,
+                                  onContextMenuToggle: I,
+                                },
+                                t.itemKey,
+                              );
+                            },
+                            direction: "vertical",
+                            flatListController: z,
+                            disablePointerEventsOnScroll: !1,
+                          }),
+                        }),
+                      }),
+                    }),
+                N,
+              ],
             }),
-          })),
-          (t[41] = m),
-          (t[42] = S),
-          (t[43] = de),
-          (t[44] = me))
-        : (me = t[44]);
-      var pe;
-      return (
-        t[45] !== l || t[46] !== ce || t[47] !== me
-          ? ((pe = u.jsxs(r("WAWebDrawer.react"), {
-              ref: l,
-              theme: "archived",
-              testid: void 0,
-              tsNavigationData: f,
-              children: [ce, me],
-            })),
-            (t[45] = l),
-            (t[46] = ce),
-            (t[47] = me),
-            (t[48] = pe))
-          : (pe = t[48]),
-        pe
-      );
+          }),
+        ],
+      });
     }
-    function b(e) {
-      return babelHelpers.extends(
-        {},
-        o("WAWebChatListMenuItem.react").getFlatListConfigFromChat(e.data, {
-          showCommunityInfo: !0,
-        }),
-      );
-    }
-    function v() {
-      return new (o("WAWebChatSearchModel").LockedChatSearch)();
-    }
-    l.default = C;
+    ((C.displayName = C.name + " [from " + i.id + "]"), (l.default = C));
   },
   226,
 );

@@ -11,7 +11,9 @@ __d(
     var e,
       s = (e || (e = o("react"))).useMemo;
     function u(e, t) {
-      var n = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+      var n = s(function () {
+          return o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+        }, []),
         r = !!o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
           n,
         ),

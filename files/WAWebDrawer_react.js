@@ -6,7 +6,6 @@ __d(
     "WAWebDrawerViewType",
     "WAWebTimeSpentLoggingNavigation",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,147 +59,80 @@ __d(
       };
     function p(t) {
       var n,
-        a = o("react-compiler-runtime").c(23),
-        i,
-        l;
-      a[0] !== t
-        ? ((l = t.ref),
-          (i = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (a[0] = t),
-          (a[1] = i),
-          (a[2] = l))
-        : ((i = a[1]), (l = a[2]));
-      var u = i,
-        p = u.children,
-        _ = u.onDragChange,
-        f = u.onDrop,
-        g = u.testid,
-        h = u.theme,
-        y = d(null),
-        C;
-      a[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = function (t) {
-            var e;
-            (e = y.current) == null || e.onDragOver(t);
-          }),
-          (a[3] = C))
-        : (C = a[3]);
-      var b = C,
-        v;
-      a[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = function (t) {
-            var e;
-            (e = y.current) == null || e.onDragStart(t);
-          }),
-          (a[4] = v))
-        : (v = a[4]);
-      var S = v,
-        R;
-      a[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = function (t) {
-            var e;
-            (e = y.current) == null || e.onDragEnd(t);
-          }),
-          (a[5] = R))
-        : (R = a[5]);
-      var L = R,
-        E;
-      a[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = function (t) {
-            var e;
-            (e = y.current) == null || e.onDragLeave(t);
-          }),
-          (a[6] = E))
-        : (E = a[6]);
-      var k = E,
-        I;
-      if (a[7] !== i.tsNavigationData) {
-        var T;
-        ((I = (T = i.tsNavigationData) != null ? T : { surface: "unknown" }),
-          (a[7] = i.tsNavigationData),
-          (a[8] = I));
-      } else I = a[8];
-      var D = I;
-      (i.disableNavigationLogging === !0 && (D = void 0),
-        o("WAWebTimeSpentLoggingNavigation").useTsNavigation(D));
-      var x = (n = i.viewType) != null ? n : r("WAWebDrawerViewType").DRAWER,
-        $;
-      a[9] !== i.xstyle || a[10] !== h || a[11] !== x
-        ? (($ = (s || (s = r("stylex")))(
-            m.drawer,
-            x === r("WAWebDrawerViewType").FLYOUT && m.flyout,
-            (h === "white-bg" ||
-              h === "invite" ||
-              h === "products" ||
-              h === "labels" ||
-              h === "settings" ||
-              h === "archived" ||
-              h === "biz-tools-drawer" ||
-              h === "sticker-store") &&
-              m.white,
-            (h === "capture-contain" || h === "capture-cover") &&
-              m.drawerCapture,
-            h === "edit" && m.drawerEdit,
-            h === "media" && m.drawerMedia,
-            h === "gallery" && m.drawerGallery,
-            h === "catalog" && m.drawerCatalog,
-            h === "striped" && m.striped,
-            (h === "capture-contain" || h === "media") && m.belowHeader,
-            h === "biz-tools-drawer" && m.allowVerticalScroll,
-            h === "starred" && m.drawerStarred,
-            i.xstyle,
-          )),
-          (a[9] = i.xstyle),
-          (a[10] = h),
-          (a[11] = x),
-          (a[12] = $))
-        : ($ = a[12]);
-      var P = $,
-        N;
-      a[13] !== _ || a[14] !== f
-        ? ((N =
-            f &&
+        a,
+        i = t.ref,
+        l = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        u = l.children,
+        p = l.onDragChange,
+        _ = l.onDrop,
+        f = l.testid,
+        g = l.theme,
+        h = d(null),
+        y = function (t) {
+          var e;
+          (e = h.current) == null || e.onDragOver(t);
+        },
+        C = function (t) {
+          var e;
+          (e = h.current) == null || e.onDragStart(t);
+        },
+        b = function (t) {
+          var e;
+          (e = h.current) == null || e.onDragEnd(t);
+        },
+        v = function (t) {
+          var e;
+          (e = h.current) == null || e.onDragLeave(t);
+        },
+        S = (n = l.tsNavigationData) != null ? n : { surface: "unknown" };
+      (l.disableNavigationLogging === !0 && (S = void 0),
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation(S));
+      var R = (a = l.viewType) != null ? a : r("WAWebDrawerViewType").DRAWER,
+        L = (s || (s = r("stylex")))(
+          m.drawer,
+          R === r("WAWebDrawerViewType").FLYOUT && m.flyout,
+          (g === "white-bg" ||
+            g === "invite" ||
+            g === "products" ||
+            g === "labels" ||
+            g === "settings" ||
+            g === "archived" ||
+            g === "biz-tools-drawer" ||
+            g === "sticker-store") &&
+            m.white,
+          (g === "capture-contain" || g === "capture-cover") && m.drawerCapture,
+          g === "edit" && m.drawerEdit,
+          g === "media" && m.drawerMedia,
+          g === "gallery" && m.drawerGallery,
+          g === "catalog" && m.drawerCatalog,
+          g === "striped" && m.striped,
+          (g === "capture-contain" || g === "media") && m.belowHeader,
+          g === "biz-tools-drawer" && m.allowVerticalScroll,
+          g === "starred" && m.drawerStarred,
+          l.xstyle,
+        );
+      return c.jsxs(r("WAWebCopyPasteCopyableArea.react"), {
+        ref: i,
+        className: L,
+        style: l.style,
+        onDragOver: y,
+        onDragStart: C,
+        onDragEnd: b,
+        onDragLeave: v,
+        testid: void 0,
+        children: [
+          _ &&
             c.jsx(r("WAWebDragAndDrop.react"), {
-              ref: y,
+              ref: h,
               disableFromWithin: !0,
-              onDragChange: _,
-              onDrop: f,
-            })),
-          (a[13] = _),
-          (a[14] = f),
-          (a[15] = N))
-        : (N = a[15]);
-      var M;
-      return (
-        a[16] !== p ||
-        a[17] !== P ||
-        a[18] !== i.style ||
-        a[19] !== l ||
-        a[20] !== N ||
-        a[21] !== g
-          ? ((M = c.jsxs(r("WAWebCopyPasteCopyableArea.react"), {
-              ref: l,
-              className: P,
-              style: i.style,
-              onDragOver: b,
-              onDragStart: S,
-              onDragEnd: L,
-              onDragLeave: k,
-              testid: void 0,
-              children: [N, p],
-            })),
-            (a[16] = p),
-            (a[17] = P),
-            (a[18] = i.style),
-            (a[19] = l),
-            (a[20] = N),
-            (a[21] = g),
-            (a[22] = M))
-          : (M = a[22]),
-        M
-      );
+              onDragChange: p,
+              onDrop: _,
+            }),
+          u,
+        ],
+      });
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

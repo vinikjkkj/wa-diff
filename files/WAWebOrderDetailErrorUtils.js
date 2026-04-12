@@ -8,41 +8,33 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
       c = e.useEffect;
     function d(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n,
-        r;
-      (t[0] !== e
-        ? ((n = function () {
-            for (var t in e) {
-              var n = e[t];
-              n != null &&
-                o("WAWebToastManager").ToastManager.open(
-                  u.jsx(o("WAWebToast.react").Toast, {
-                    duration: 1e4,
-                    id: t + n.toString(),
-                    msg: n,
-                    action: {
-                      actionText: s._(/*BTDS*/ "OK"),
-                      dismiss: !0,
-                      theme: "success",
-                    },
-                  }),
-                );
-            }
-          }),
-          (r = [e]),
-          (t[0] = e),
-          (t[1] = n),
-          (t[2] = r))
-        : ((n = t[1]), (r = t[2])),
-        c(n, r));
+      c(
+        function () {
+          for (var t in e) {
+            var n = e[t];
+            n != null &&
+              o("WAWebToastManager").ToastManager.open(
+                u.jsx(o("WAWebToast.react").Toast, {
+                  duration: 1e4,
+                  id: t + n.toString(),
+                  msg: n,
+                  action: {
+                    actionText: s._(/*BTDS*/ "OK"),
+                    dismiss: !0,
+                    theme: "success",
+                  },
+                }),
+              );
+          }
+        },
+        [e],
+      );
     }
     function m() {
       return s._(/*BTDS*/ "Enter a valid number");

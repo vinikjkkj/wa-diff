@@ -16,37 +16,31 @@ __d(
     "WDSIconWdsIcNewChannel.react",
     "WDSMenuBarItem.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(17),
-        n = e.directoryNewsletters,
-        a = e.handleSelectNewsletter,
-        i = e.listData,
-        l = e.loadingDirectory,
-        c = e.newsletters,
-        d = e.onCreateNewsletter,
-        m = e.onNewsletterDirectorySearch,
-        p = e.scrollListIntoFocusedItem,
-        _ = e.searchText,
-        f = e.selectionRef,
-        g = e.setListData,
-        h = e.tryFetchDirectoryNewsletters,
-        y;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = ["stage"]), (t[0] = y))
-        : (y = t[0]);
-      var C = o("useWAWebModelValues").useModelValues(
+      var t = e.directoryNewsletters,
+        n = e.handleSelectNewsletter,
+        a = e.listData,
+        i = e.loadingDirectory,
+        l = e.newsletters,
+        c = e.onCreateNewsletter,
+        d = e.onNewsletterDirectorySearch,
+        m = e.scrollListIntoFocusedItem,
+        p = e.searchText,
+        _ = e.selectionRef,
+        f = e.setListData,
+        g = e.tryFetchDirectoryNewsletters,
+        h = o("useWAWebModelValues").useModelValues(
           o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStageManager,
-          y,
+          ["stage"],
         ),
-        b = C.stage,
-        v,
-        S = [];
+        y = h.stage,
+        C,
+        b = [];
       if (
         o("WAWebNewsletterGatingUtils").isNewsletterCreationEnabled() ||
         o("WAWebNewsletterGatingUtils").isNewsletterDirectoryEnabled()
@@ -56,129 +50,92 @@ __d(
             "WAWebNewsletterGatingUtils",
           ).getChannelCreationFromDirectoryMode() !== 0
         ) {
-          var R = s._(/*BTDS*/ "Create channel"),
-            L =
+          var v = s._(/*BTDS*/ "Create channel"),
+            S =
               o(
                 "WAWebNewsletterGatingUtils",
               ).getChannelCreationFromDirectoryMode() === 1
                 ? o("WAWebIcAddCircleIcon.react").IcAddCircleIcon
                 : r("WDSIconWdsIcNewChannel.react"),
+            R = u.jsx(r("WDSMenuBarItem.react"), {
+              tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
+              testid: void 0,
+              icon: S,
+              title: v,
+              onClick: c,
+            }),
+            L = s._(/*BTDS*/ "Directory"),
             E = u.jsx(r("WDSMenuBarItem.react"), {
               tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
               testid: void 0,
-              icon: L,
-              title: R,
-              onClick: d,
-            }),
-            k = s._(/*BTDS*/ "Directory"),
-            I = u.jsx(r("WDSMenuBarItem.react"), {
-              tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
-              testid: void 0,
               icon: o("WAWebIdGridViewIcon.react").IdGridViewIcon,
-              title: k,
+              title: L,
               onClick: function () {
-                return m(
+                return d(
                   o("WAWebWamEnumChannelDirectoryEntryPoint")
                     .CHANNEL_DIRECTORY_ENTRY_POINT
                     .EXPLORE_SECTION_HEADER_BUTTON,
                 );
               },
             });
-          S.push(E, I);
+          b.push(R, E);
         } else {
-          var T = s._(/*BTDS*/ "Menu");
-          v = u.jsx(r("WDSMenuBarItem.react"), {
+          var k = s._(/*BTDS*/ "Menu");
+          C = u.jsx(r("WDSMenuBarItem.react"), {
             tabOrder: o("WAWebTabOrder").TAB_ORDER.NEWSLETTER_TAB_HEADER,
             testid: void 0,
             icon: o("WAWebNewRoundRefreshedIcon.react").NewRoundRefreshedIcon,
-            title: T,
+            title: k,
             wdsMenuToRender: u.jsx(r("WAWebNewsletterTabMenuDropdown.react"), {
-              onCreateNewsletter: d,
-              onNewsletterDirectorySearch: m,
+              onCreateNewsletter: c,
+              onNewsletterDirectorySearch: d,
             }),
           });
         }
-        S.push(v);
+        b.push(C);
       }
-      var D = null;
-      e: switch (b) {
+      var I = null;
+      switch (y) {
         case o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
           .Failed: {
-          var x;
-          (t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((x = u.jsx(r("WAWebNewsletterFailures.react"), {})), (t[1] = x))
-            : (x = t[1]),
-            (D = x));
-          break e;
+          I = u.jsx(r("WAWebNewsletterFailures.react"), {});
+          break;
         }
         case o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
           .Loading: {
-          var $;
-          (t[2] !== c.length
-            ? (($ = u.jsx(r("WAWebNewsletterTabDrawerLoadingShimmer.react"), {
-                newsletterCount: c.length,
-              })),
-              (t[2] = c.length),
-              (t[3] = $))
-            : ($ = t[3]),
-            (D = $));
-          break e;
+          I = u.jsx(r("WAWebNewsletterTabDrawerLoadingShimmer.react"), {
+            newsletterCount: l.length,
+          });
+          break;
         }
         case o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
           .None:
         case o("WAWebNewsletterLoadingStageManager").NewsletterLoadingStage
           .Finished: {
-          var P;
-          (t[4] !== n ||
-          t[5] !== a ||
-          t[6] !== i ||
-          t[7] !== l ||
-          t[8] !== c ||
-          t[9] !== d ||
-          t[10] !== m ||
-          t[11] !== p ||
-          t[12] !== _ ||
-          t[13] !== f ||
-          t[14] !== g ||
-          t[15] !== h
-            ? ((P = u.jsx(
-                o("WAWebUpdatesTabDrawerNewsletterContent.react")
-                  .WAWebUpdatesTabDrawerNewsletterContent,
-                {
-                  newsletters: c,
-                  onNewsletterDirectorySearch: m,
-                  onCreateNewsletter: d,
-                  selectionRef: f,
-                  listData: i,
-                  setListData: g,
-                  handleSelectNewsletter: a,
-                  searchText: _,
-                  loadingDirectory: l,
-                  tryFetchDirectoryNewsletters: h,
-                  directoryNewsletters: n,
-                  scrollListIntoFocusedItem: p,
-                },
-              )),
-              (t[4] = n),
-              (t[5] = a),
-              (t[6] = i),
-              (t[7] = l),
-              (t[8] = c),
-              (t[9] = d),
-              (t[10] = m),
-              (t[11] = p),
-              (t[12] = _),
-              (t[13] = f),
-              (t[14] = g),
-              (t[15] = h),
-              (t[16] = P))
-            : (P = t[16]),
-            (D = P));
+          I = u.jsx(
+            o("WAWebUpdatesTabDrawerNewsletterContent.react")
+              .WAWebUpdatesTabDrawerNewsletterContent,
+            {
+              newsletters: l,
+              onNewsletterDirectorySearch: d,
+              onCreateNewsletter: c,
+              selectionRef: _,
+              listData: a,
+              setListData: f,
+              handleSelectNewsletter: n,
+              searchText: p,
+              loadingDirectory: i,
+              tryFetchDirectoryNewsletters: g,
+              directoryNewsletters: t,
+              scrollListIntoFocusedItem: m,
+            },
+          );
+          break;
         }
       }
-      return D;
+      return I;
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

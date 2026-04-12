@@ -19,7 +19,6 @@ __d(
     "err",
     "lodash",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
@@ -34,9 +33,9 @@ __d(
       g = 1,
       h = "#52F818";
     function y(e) {
-      var t = o("react-compiler-runtime").c(51),
-        n = e.canEditBackground,
-        r = e.canEditLayer,
+      var t = e.canEditBackground,
+        n = e.canEditLayer,
+        r = e.canvasContextRef,
         a = e.currentlyEditingTextLayer,
         i = e.data,
         l = e.dragging,
@@ -50,282 +49,7 @@ __d(
         g = e.onDragEnd,
         h = e.onDragMove,
         y = e.onDragStart,
-        S = e.onPointsChange,
-        L = e.onSelect,
-        E = e.onTransformEnd,
-        k = e.onTransformStart,
-        I = e.scale,
-        T = e.selectedGroupRef,
-        D = e.selectedNodeRef,
-        x = e.transformerRef,
-        $;
-      t[0] !== r ||
-      t[1] !== a ||
-      t[2] !== i ||
-      t[3] !== l ||
-      t[4] !== s ||
-      t[5] !== c ||
-      t[6] !== d ||
-      t[7] !== m ||
-      t[8] !== _ ||
-      t[9] !== f ||
-      t[10] !== g ||
-      t[11] !== h ||
-      t[12] !== y ||
-      t[13] !== S ||
-      t[14] !== L ||
-      t[15] !== E ||
-      t[16] !== k ||
-      t[17] !== I ||
-      t[18] !== T ||
-      t[19] !== D ||
-      t[20] !== x
-        ? (($ = {
-            data: i,
-            scale: I,
-            dragging: l,
-            canEditLayer: r,
-            hoveredFilter: s,
-            inFilterMode: c,
-            inOutlineMode: d,
-            inPaintMode: m,
-            currentlyEditingTextLayer: a,
-            lineArrowGroupRef: _,
-            selectedGroupRef: T,
-            selectedNodeRef: D,
-            transformerRef: x,
-            onPointsChange: S,
-            onSelect: L,
-            onDoubleClick: f,
-            onDragMove: h,
-            onDragStart: y,
-            onDragEnd: g,
-            onTransformStart: k,
-            onTransformEnd: E,
-          }),
-          (t[0] = r),
-          (t[1] = a),
-          (t[2] = i),
-          (t[3] = l),
-          (t[4] = s),
-          (t[5] = c),
-          (t[6] = d),
-          (t[7] = m),
-          (t[8] = _),
-          (t[9] = f),
-          (t[10] = g),
-          (t[11] = h),
-          (t[12] = y),
-          (t[13] = S),
-          (t[14] = L),
-          (t[15] = E),
-          (t[16] = k),
-          (t[17] = I),
-          (t[18] = T),
-          (t[19] = D),
-          (t[20] = x),
-          (t[21] = $))
-        : ($ = t[21]);
-      var P = $,
-        N;
-      t[22] !== i
-        ? ((N = i.getBackground()), (t[22] = i), (t[23] = N))
-        : (N = t[23]);
-      var M = N,
-        w;
-      t[24] !== M || t[25] !== n || t[26] !== p || t[27] !== P
-        ? ((w =
-            n &&
-            M &&
-            u.jsx(R, babelHelpers.extends({ layer: M, hidden: !p() }, P))),
-          (t[24] = M),
-          (t[25] = n),
-          (t[26] = p),
-          (t[27] = P),
-          (t[28] = w))
-        : (w = t[28]);
-      var A;
-      t[29] !== i || t[30] !== p || t[31] !== P
-        ? ((A =
-            !p() &&
-            i
-              .getLayers()
-              .filter(v)
-              .map(function (e) {
-                return u.jsx(
-                  R,
-                  babelHelpers.extends({ layer: e, hidden: !1 }, P),
-                  String(e.getId()),
-                );
-              })),
-          (t[29] = i),
-          (t[30] = p),
-          (t[31] = P),
-          (t[32] = A))
-        : (A = t[32]);
-      var F;
-      t[33] !== i || t[34] !== p || t[35] !== P
-        ? ((F =
-            !p() &&
-            i
-              .getLayers()
-              .filter(b)
-              .map(function (e) {
-                return u.jsx(
-                  R,
-                  babelHelpers.extends({ layer: e, hidden: !1 }, P),
-                  String(e.getId()),
-                );
-              })),
-          (t[33] = i),
-          (t[34] = p),
-          (t[35] = P),
-          (t[36] = F))
-        : (F = t[36]);
-      var O;
-      t[37] !== i || t[38] !== P
-        ? ((O =
-            i.getPaintLayer() &&
-            u.jsx(
-              R,
-              babelHelpers.extends({ layer: i.getPaintLayer(), hidden: !1 }, P),
-            )),
-          (t[37] = i),
-          (t[38] = P),
-          (t[39] = O))
-        : (O = t[39]);
-      var B;
-      if (t[40] !== i || t[41] !== P) {
-        var W;
-        (t[43] !== P
-          ? ((W = function (t) {
-              return u.jsx(
-                R,
-                babelHelpers.extends({ layer: t, hidden: !1 }, P),
-                String(t.getId()),
-              );
-            }),
-            (t[43] = P),
-            (t[44] = W))
-          : (W = t[44]),
-          (B = i.getLayers().filter(C).map(W)),
-          (t[40] = i),
-          (t[41] = P),
-          (t[42] = B));
-      } else B = t[42];
-      var q;
-      return (
-        t[45] !== w || t[46] !== A || t[47] !== F || t[48] !== O || t[49] !== B
-          ? ((q = u.jsxs(u.Fragment, { children: [w, A, F, O, B] })),
-            (t[45] = w),
-            (t[46] = A),
-            (t[47] = F),
-            (t[48] = O),
-            (t[49] = B),
-            (t[50] = q))
-          : (q = t[50]),
-        q
-      );
-    }
-    function C(e) {
-      return !(e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer);
-    }
-    function b(e) {
-      return (
-        e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer && !e.isBlur()
-      );
-    }
-    function v(e) {
-      return (
-        e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer && e.isBlur()
-      );
-    }
-    function S(e) {
-      var t = o("react-compiler-runtime").c(16),
-        n = e.getStage,
-        r = e.guides,
-        a = e.guidesLayerRef,
-        i = e.scale,
-        l = r.horizontal,
-        s = r.vertical;
-      if (!s && !l) return null;
-      var c, d, m, p, _;
-      if (t[0] !== n || t[1] !== a || t[2] !== l || t[3] !== i || t[4] !== s) {
-        var f = n();
-        ((c = o("ReactKonva").Layer),
-          (d = "guides"),
-          (m = a),
-          (p =
-            s &&
-            u.jsx(
-              o("ReactKonva").Line,
-              {
-                x: s.position / i.x,
-                y: 0,
-                points: [0, 0, 0, f.height() / i.y],
-                stroke: h,
-                strokeWidth: g,
-                strokeScaleEnabled: !1,
-              },
-              "vertical",
-            )),
-          (_ =
-            l &&
-            u.jsx(
-              o("ReactKonva").Line,
-              {
-                x: 0,
-                y: l.position / i.y,
-                points: [0, 0, f.width() / i.x, 0],
-                stroke: h,
-                strokeWidth: g,
-                strokeScaleEnabled: !1,
-              },
-              "horizontal",
-            )),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = l),
-          (t[3] = i),
-          (t[4] = s),
-          (t[5] = c),
-          (t[6] = d),
-          (t[7] = m),
-          (t[8] = p),
-          (t[9] = _));
-      } else ((c = t[5]), (d = t[6]), (m = t[7]), (p = t[8]), (_ = t[9]));
-      var y;
-      return (
-        t[10] !== c || t[11] !== d || t[12] !== m || t[13] !== p || t[14] !== _
-          ? ((y = u.jsxs(c, { ref: m, children: [p, _] }, d)),
-            (t[10] = c),
-            (t[11] = d),
-            (t[12] = m),
-            (t[13] = p),
-            (t[14] = _),
-            (t[15] = y))
-          : (y = t[15]),
-        y
-      );
-    }
-    function R(e) {
-      var t = o("react-compiler-runtime").c(51),
-        n = e.canEditLayer,
-        a = e.currentlyEditingTextLayer,
-        i = e.data,
-        l = e.dragging,
-        s = e.hidden,
-        c = e.hoveredFilter,
-        d = e.inFilterMode,
-        m = e.inOutlineMode,
-        p = e.inPaintMode,
-        _ = e.layer,
-        f = e.lineArrowGroupRef,
-        g = e.onDoubleClick,
-        h = e.onDragEnd,
-        y = e.onDragMove,
-        C = e.onDragStart,
-        b = e.onPointsChange,
+        C = e.onPointsChange,
         v = e.onSelect,
         S = e.onTransformEnd,
         R = e.onTransformStart,
@@ -333,212 +57,224 @@ __d(
         E = e.selectedGroupRef,
         k = e.selectedNodeRef,
         I = e.transformerRef,
-        T = i.getScreenWidth() * L.x,
-        D = i.getScreenHeight() * L.y,
-        x;
-      t[0] !== n ||
-      t[1] !== a ||
-      t[2] !== d ||
-      t[3] !== m ||
-      t[4] !== p ||
-      t[5] !== _
-        ? ((x = _.getEditable() && n && !d && !m && !p && !a),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = d),
-          (t[3] = m),
-          (t[4] = p),
-          (t[5] = _),
-          (t[6] = x))
-        : (x = t[6]);
-      var $ = x,
-        P;
-      t[7] !== $ || t[8] !== a || t[9] !== i || t[10] !== _
-        ? ((P = i.getSelectedLayer() === _ && a !== _ && $),
-          (t[7] = $),
-          (t[8] = a),
-          (t[9] = i),
-          (t[10] = _),
-          (t[11] = P))
-        : (P = t[11]);
-      var N = P,
-        M;
-      t[12] !== i || t[13] !== c
-        ? ((M = c != null ? c : i.getActiveFilter()),
-          (t[12] = i),
-          (t[13] = c),
-          (t[14] = M))
-        : (M = t[14]);
-      var w;
-      t[15] !== _ ? ((w = _.getId()), (t[15] = _), (t[16] = w)) : (w = t[16]);
-      var A = String(w),
-        F;
-      t[17] !== i
-        ? ((F = i.getRotation()), (t[17] = i), (t[18] = F))
-        : (F = t[18]);
-      var O = !l,
-        B = a === _,
-        W;
-      t[19] !== i
-        ? ((W = i.getSending()), (t[19] = i), (t[20] = W))
-        : (W = t[20]);
-      var q;
-      t[21] !== E
-        ? ((q = function (t) {
+        T = !1,
+        D = {
+          data: i,
+          scale: L,
+          dragging: l,
+          canEditLayer: n,
+          hoveredFilter: s,
+          inFilterMode: c,
+          inOutlineMode: d,
+          inPaintMode: m,
+          currentlyEditingTextLayer: a,
+          lineArrowGroupRef: _,
+          selectedGroupRef: E,
+          selectedNodeRef: k,
+          transformerRef: I,
+          onPointsChange: C,
+          onSelect: v,
+          onDoubleClick: f,
+          onDragMove: h,
+          onDragStart: y,
+          onDragEnd: g,
+          onTransformStart: R,
+          onTransformEnd: S,
+        },
+        x = i.getBackground();
+      return u.jsxs(u.Fragment, {
+        children: [
+          t &&
+            x &&
+            u.jsx(b, babelHelpers.extends({ layer: x, hidden: !p() }, D)),
+          !p() &&
+            i
+              .getLayers()
+              .filter(function (e) {
+                return (
+                  e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
+                  e.isBlur()
+                );
+              })
+              .map(function (e) {
+                return u.jsx(
+                  b,
+                  babelHelpers.extends({ layer: e, hidden: T }, D),
+                  String(e.getId()),
+                );
+              }),
+          !p() &&
+            i
+              .getLayers()
+              .filter(function (e) {
+                return (
+                  e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
+                  !e.isBlur()
+                );
+              })
+              .map(function (e) {
+                return u.jsx(
+                  b,
+                  babelHelpers.extends({ layer: e, hidden: T }, D),
+                  String(e.getId()),
+                );
+              }),
+          i.getPaintLayer() &&
+            u.jsx(
+              b,
+              babelHelpers.extends({ layer: i.getPaintLayer(), hidden: T }, D),
+            ),
+          i
+            .getLayers()
+            .filter(function (e) {
+              return !(
+                e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer
+              );
+            })
+            .map(function (e) {
+              return u.jsx(
+                b,
+                babelHelpers.extends({ layer: e, hidden: T }, D),
+                String(e.getId()),
+              );
+            }),
+        ],
+      });
+    }
+    y.displayName = y.name + " [from " + i.id + "]";
+    function C(e) {
+      var t = e.getStage,
+        n = e.guides,
+        r = e.guidesLayerRef,
+        a = e.scale,
+        i = n.horizontal,
+        l = n.vertical;
+      if (!l && !i) return null;
+      var s = t();
+      return u.jsxs(
+        o("ReactKonva").Layer,
+        {
+          ref: r,
+          children: [
+            l &&
+              u.jsx(
+                o("ReactKonva").Line,
+                {
+                  x: l.position / a.x,
+                  y: 0,
+                  points: [0, 0, 0, s.height() / a.y],
+                  stroke: h,
+                  strokeWidth: g,
+                  strokeScaleEnabled: !1,
+                },
+                "vertical",
+              ),
+            i &&
+              u.jsx(
+                o("ReactKonva").Line,
+                {
+                  x: 0,
+                  y: i.position / a.y,
+                  points: [0, 0, s.width() / a.x, 0],
+                  stroke: h,
+                  strokeWidth: g,
+                  strokeScaleEnabled: !1,
+                },
+                "horizontal",
+              ),
+          ],
+        },
+        "guides",
+      );
+    }
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e) {
+      var t = e.canEditLayer,
+        n = e.currentlyEditingTextLayer,
+        o = e.data,
+        a = e.dragging,
+        i = e.hidden,
+        l = e.hoveredFilter,
+        s = e.inFilterMode,
+        c = e.inOutlineMode,
+        d = e.inPaintMode,
+        m = e.layer,
+        p = e.lineArrowGroupRef,
+        _ = e.onDoubleClick,
+        f = e.onDragEnd,
+        g = e.onDragMove,
+        h = e.onDragStart,
+        y = e.onPointsChange,
+        C = e.onSelect,
+        b = e.onTransformEnd,
+        v = e.onTransformStart,
+        S = e.scale,
+        R = e.selectedGroupRef,
+        L = e.selectedNodeRef,
+        E = e.transformerRef,
+        k = o.getScreenWidth() * S.x,
+        I = o.getScreenHeight() * S.y,
+        T = m.getEditable() && t && !s && !c && !d && !n,
+        D = o.getSelectedLayer() === m && n !== m && T;
+      return u.jsx(
+        r("WAWebMediaEditorCanvasLayer.react"),
+        {
+          activeFilter: l != null ? l : o.getActiveFilter(),
+          layer: m,
+          scale: S,
+          canvasRotation: o.getRotation(),
+          textBackgroundShadow: !a,
+          editable: T,
+          editing: n === m,
+          selected: D,
+          sending: o.getSending(),
+          stageHeight: I,
+          stageWidth: k,
+          lineArrowGroupRef: p,
+          selectedGroupRef: function (t) {
+            R.current = t;
+          },
+          selectedNodeRef: L,
+          transformerRef: function (t) {
             E.current = t;
-          }),
-          (t[21] = E),
-          (t[22] = q))
-        : (q = t[22]);
-      var U;
-      t[23] !== I
-        ? ((U = function (t) {
-            I.current = t;
-          }),
-          (t[23] = I),
-          (t[24] = U))
-        : (U = t[24]);
-      var V;
-      return (
-        t[25] !== $ ||
-        t[26] !== s ||
-        t[27] !== N ||
-        t[28] !== _ ||
-        t[29] !== f ||
-        t[30] !== g ||
-        t[31] !== h ||
-        t[32] !== y ||
-        t[33] !== C ||
-        t[34] !== b ||
-        t[35] !== v ||
-        t[36] !== S ||
-        t[37] !== R ||
-        t[38] !== L ||
-        t[39] !== k ||
-        t[40] !== D ||
-        t[41] !== T ||
-        t[42] !== q ||
-        t[43] !== U ||
-        t[44] !== M ||
-        t[45] !== A ||
-        t[46] !== F ||
-        t[47] !== O ||
-        t[48] !== B ||
-        t[49] !== W
-          ? ((V = u.jsx(
-              r("WAWebMediaEditorCanvasLayer.react"),
-              {
-                activeFilter: M,
-                layer: _,
-                scale: L,
-                canvasRotation: F,
-                textBackgroundShadow: O,
-                editable: $,
-                editing: B,
-                selected: N,
-                sending: W,
-                stageHeight: D,
-                stageWidth: T,
-                lineArrowGroupRef: f,
-                selectedGroupRef: q,
-                selectedNodeRef: k,
-                transformerRef: U,
-                onPointsChange: b,
-                onSelect: v,
-                onDoubleClick: g,
-                onDragMove: y,
-                onDragStart: C,
-                onDragEnd: h,
-                onTransformStart: R,
-                onTransformEnd: S,
-                hidden: s,
-              },
-              A,
-            )),
-            (t[25] = $),
-            (t[26] = s),
-            (t[27] = N),
-            (t[28] = _),
-            (t[29] = f),
-            (t[30] = g),
-            (t[31] = h),
-            (t[32] = y),
-            (t[33] = C),
-            (t[34] = b),
-            (t[35] = v),
-            (t[36] = S),
-            (t[37] = R),
-            (t[38] = L),
-            (t[39] = k),
-            (t[40] = D),
-            (t[41] = T),
-            (t[42] = q),
-            (t[43] = U),
-            (t[44] = M),
-            (t[45] = A),
-            (t[46] = F),
-            (t[47] = O),
-            (t[48] = B),
-            (t[49] = W),
-            (t[50] = V))
-          : (V = t[50]),
-        V
+          },
+          onPointsChange: y,
+          onSelect: C,
+          onDoubleClick: _,
+          onDragMove: g,
+          onDragStart: h,
+          onDragEnd: f,
+          onTransformStart: v,
+          onTransformEnd: b,
+          hidden: i,
+        },
+        String(m.getId()),
       );
     }
-    function L(e) {
-      var t = o("react-compiler-runtime").c(14),
-        n = e.data,
-        a = e.draftTextLayer,
-        i = e.editableTextRef,
-        l = e.onLayerUnselect,
-        s = e.onTextInputOutsideClick,
-        c = e.onTextSave,
-        d = e.scale;
-      if (!a) return null;
-      var m;
-      t[0] !== n || t[1] !== a
-        ? ((m = n.toScreenPoint(a.getFrame().getCenter())),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = m))
-        : (m = t[2]);
-      var p = m,
-        _;
-      t[3] !== a ? ((_ = a.getText()), (t[3] = a), (t[4] = _)) : (_ = t[4]);
-      var f;
-      return (
-        t[5] !== a ||
-        t[6] !== i ||
-        t[7] !== p ||
-        t[8] !== l ||
-        t[9] !== s ||
-        t[10] !== c ||
-        t[11] !== d ||
-        t[12] !== _
-          ? ((f = u.jsx(r("WAWebMediaEditorCanvasEditableText.react"), {
-              ref: i,
-              layer: a,
-              layerCenter: p,
-              text: _,
-              scale: d,
-              onSave: c,
-              onUnselect: l,
-              onOutsideClick: s,
-            })),
-            (t[5] = a),
-            (t[6] = i),
-            (t[7] = p),
-            (t[8] = l),
-            (t[9] = s),
-            (t[10] = c),
-            (t[11] = d),
-            (t[12] = _),
-            (t[13] = f))
-          : (f = t[13]),
-        f
-      );
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v(e) {
+      var t = e.data,
+        n = e.draftTextLayer,
+        o = e.editableTextRef,
+        a = e.onLayerUnselect,
+        i = e.onTextInputOutsideClick,
+        l = e.onTextSave,
+        s = e.scale;
+      if (!n) return null;
+      var c = t.toScreenPoint(n.getFrame().getCenter());
+      return u.jsx(r("WAWebMediaEditorCanvasEditableText.react"), {
+        ref: o,
+        layer: n,
+        layerCenter: c,
+        text: n.getText(),
+        scale: s,
+        onSave: l,
+        onUnselect: a,
+        onOutsideClick: i,
+      });
     }
-    function E(t) {
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S(t) {
       var n,
         a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e),
@@ -547,11 +283,11 @@ __d(
         c = i.inFilterMode,
         g = c === void 0 ? !1 : c,
         h = i.inOutlineMode,
-        C = h === void 0 ? !1 : h,
-        b = i.inPaintMode,
-        v = b === void 0 ? !1 : b,
-        R = i.paintColor,
-        E = R === void 0 ? o("WAWebMediaEditorUtilsColor").Color.White : R,
+        b = h === void 0 ? !1 : h,
+        S = i.inPaintMode,
+        R = S === void 0 ? !1 : S,
+        L = i.paintColor,
+        E = L === void 0 ? o("WAWebMediaEditorUtilsColor").Color.White : L,
         k = i.paintThickness,
         I =
           k === void 0
@@ -780,7 +516,7 @@ __d(
           return (Te || $e) && ue.getSelectedLayer() === ue.getBackground();
         },
         Ze = function () {
-          return v ? "none" : C ? Me : "default";
+          return R ? "none" : b ? Me : "default";
         };
       m(a, function () {
         return {
@@ -873,8 +609,8 @@ __d(
                         canEditLayer: $,
                         dragging: Te,
                         hoveredFilter: s,
-                        inPaintMode: v,
-                        inOutlineMode: C,
+                        inPaintMode: R,
+                        inOutlineMode: b,
                         inFilterMode: g,
                         currentlyEditingTextLayer: F,
                         lineArrowGroupRef: de,
@@ -893,13 +629,13 @@ __d(
                     },
                     "edits",
                   ),
-                  u.jsx(S, {
+                  u.jsx(C, {
                     guides: Se,
                     scale: se,
                     guidesLayerRef: _e,
                     getStage: Ve,
                   }),
-                  v &&
+                  R &&
                     u.jsx(r("WAWebMediaEditorCanvasPaintOverlay.react"), {
                       ref: ge,
                       width: ue.getScreenWidth(),
@@ -914,7 +650,7 @@ __d(
                       data: ue,
                       onDrawEnd: re,
                     }),
-                  C &&
+                  b &&
                     u.jsx(r("WAWebMediaEditorCanvasOutlineOverlay.react"), {
                       ref: he,
                       width: ue.getScreenWidth(),
@@ -930,7 +666,7 @@ __d(
               },
             ),
           }),
-          u.jsx(L, {
+          u.jsx(v, {
             draftTextLayer: B,
             data: ue,
             editableTextRef: ye,
@@ -942,7 +678,7 @@ __d(
         ],
       });
     }
-    ((E.displayName = E.name + " [from " + i.id + "]"), (l.default = E));
+    ((S.displayName = S.name + " [from " + i.id + "]"), (l.default = S));
   },
   98,
 );

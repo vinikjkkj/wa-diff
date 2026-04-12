@@ -1,6 +1,6 @@
 __d(
   "WAWebTriangle.react",
-  ["react", "react-compiler-runtime", "stylex"],
+  ["react", "stylex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -40,81 +40,45 @@ __d(
         arrowRight: { transform: "xz03xr6", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(17),
-        a = t.borderRadius,
-        i = t.direction,
+      var n = t.borderRadius,
+        o = n === void 0 ? "4px" : n,
+        a = t.direction,
+        i = a === void 0 ? "down" : a,
         l = t.width,
         s = t.xstyle,
-        m = a === void 0 ? "4px" : a,
-        p = i === void 0 ? "down" : i,
-        _;
-      n[0] !== p || n[1] !== l
-        ? ((_ =
-            p === "up" || p === "down"
-              ? { width: l + "px", height: l / 2 + "px" }
-              : { height: l + "px", width: l / 2 + "px" }),
-          (n[0] = p),
-          (n[1] = l),
-          (n[2] = _))
-        : (_ = n[2]);
-      var f = _,
-        g;
-      e: switch (p) {
-        case "up": {
-          g = d.arrowUp;
-          break e;
-        }
-        case "down": {
-          g = d.arrowDown;
-          break e;
-        }
-        case "left": {
-          g = d.arrowLeft;
-          break e;
-        }
+        m =
+          i === "up" || i === "down"
+            ? { width: l + "px", height: l / 2 + "px" }
+            : { height: l + "px", width: l / 2 + "px" },
+        p;
+      switch (i) {
+        case "up":
+          p = d.arrowUp;
+          break;
+        case "down":
+          p = d.arrowDown;
+          break;
+        case "left":
+          p = d.arrowLeft;
+          break;
         case "right":
-          g = d.arrowRight;
+          p = d.arrowRight;
+          break;
       }
-      var h;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = "x1n2onr6 x6ikm8r x10wlt62"), (n[3] = h))
-        : (h = n[3]);
-      var y = l / c + "px",
-        C = l / c + "px",
-        b;
-      n[4] !== m || n[5] !== y || n[6] !== C
-        ? ((b = { width: y, height: C, borderBottomLeftRadius: m }),
-          (n[4] = m),
-          (n[5] = y),
-          (n[6] = C),
-          (n[7] = b))
-        : (b = n[7]);
-      var v;
-      n[8] !== g || n[9] !== s
-        ? ((v = (e || (e = r("stylex")))(d.arrow, g, s)),
-          (n[8] = g),
-          (n[9] = s),
-          (n[10] = v))
-        : (v = n[10]);
-      var S;
-      n[11] !== b || n[12] !== v
-        ? ((S = u.jsx("div", { style: b, className: v })),
-          (n[11] = b),
-          (n[12] = v),
-          (n[13] = S))
-        : (S = n[13]);
-      var R;
-      return (
-        n[14] !== f || n[15] !== S
-          ? ((R = u.jsx("div", { style: f, className: h, children: S })),
-            (n[14] = f),
-            (n[15] = S),
-            (n[16] = R))
-          : (R = n[16]),
-        R
-      );
+      return u.jsx("div", {
+        style: m,
+        className: "x1n2onr6 x6ikm8r x10wlt62",
+        children: u.jsx("div", {
+          style: {
+            width: l / c + "px",
+            height: l / c + "px",
+            borderBottomLeftRadius: o,
+          },
+          className: (e || (e = r("stylex")))(d.arrow, p, s),
+        }),
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

@@ -8,51 +8,31 @@ __d(
     "WAWebLogoutReason",
     "WAWebLogoutReasonConstants",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n;
-      if (t[0] !== e.reason) {
-        var a;
-        ((n =
-          (a = o("WAWebLogoutReason").getPrevLogoutReasonCode()) != null
-            ? a
-            : e.reason),
-          (t[0] = e.reason),
-          (t[1] = n));
-      } else n = t[1];
-      var i = n;
-      if (i == null) return null;
-      var l;
-      t[2] !== i ? ((l = d(i)), (t[2] = i), (t[3] = l)) : (l = t[3]);
-      var s = l;
-      if (s == null) return null;
-      var c = s.category,
-        m = s.header,
-        p = s.link,
-        _ = s.text,
-        f;
-      return (
-        t[4] !== c || t[5] !== m || t[6] !== p || t[7] !== _
-          ? ((f = u.jsx(r("WAWebLoggedOutBanner.react"), {
-              header: m,
-              text: _,
-              link: p,
-              category: c,
-            })),
-            (t[4] = c),
-            (t[5] = m),
-            (t[6] = p),
-            (t[7] = _),
-            (t[8] = f))
-          : (f = t[8]),
-        f
-      );
+      var t,
+        n =
+          (t = o("WAWebLogoutReason").getPrevLogoutReasonCode()) != null
+            ? t
+            : e.reason;
+      if (n == null) return null;
+      var a = d(n);
+      if (a == null) return null;
+      var i = a.category,
+        l = a.header,
+        s = a.link,
+        c = a.text;
+      return u.jsx(r("WAWebLoggedOutBanner.react"), {
+        header: l,
+        text: c,
+        link: s,
+        category: i,
+      });
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
       var t = o("WAWebLogoutReason").getPrevCustomLogoutMessage();
       switch (e) {

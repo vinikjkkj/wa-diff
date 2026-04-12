@@ -114,7 +114,6 @@ __d(
     "gkx",
     "justknobx",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useForceUpdate",
     "useLazyRef",
@@ -1532,36 +1531,28 @@ __d(
     M.displayName = M.name + " [from " + i.id + "]";
     var w = M;
     function A(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.chat,
-        r = e.handleFocus,
-        a;
-      t[0] !== n.id
-        ? ((a = n.id.toString()), (t[0] = n.id), (t[1] = a))
-        : (a = t[1]);
-      var i = a;
-      (o("useWAWebListener").useListener(
-        o("WAWebComposeBoxActions").ComposeBoxActions,
-        "focus_" + i,
-        r,
-      ),
+      var t = e.chat,
+        n = e.handleFocus,
+        r = t.id.toString();
+      return (
+        o("useWAWebListener").useListener(
+          o("WAWebComposeBoxActions").ComposeBoxActions,
+          "focus_" + r,
+          n,
+        ),
         o("useWAWebListener").useListener(
           o("WAWebComposeBoxActions").ComposeBoxActions,
           "focus",
-          r,
-        ));
-      var l;
-      return (
-        t[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((l = C.jsx(o("WAWebUimUie.react").UIE, {
-              displayName: "PlaceholderComposeBox",
-            })),
-            (t[2] = l))
-          : (l = t[2]),
-        l
+          n,
+        ),
+        C.jsx(o("WAWebUimUie.react").UIE, {
+          displayName: "PlaceholderComposeBox",
+        })
       );
     }
-    ((l.ComposeBox = w), (l.PlaceholderComposeBox = A));
+    ((A.displayName = A.name + " [from " + i.id + "]"),
+      (l.ComposeBox = w),
+      (l.PlaceholderComposeBox = A));
   },
   226,
 );

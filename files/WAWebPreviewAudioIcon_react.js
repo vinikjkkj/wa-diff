@@ -1,6 +1,6 @@
 __d(
   "WAWebPreviewAudioIcon.react",
-  ["WAWebSvgComponentBase", "react", "react-compiler-runtime", "stylex"],
+  ["WAWebSvgComponentBase", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e = ["height", "iconXstyle", "name", "viewBox", "width"],
       s,
@@ -8,152 +8,87 @@ __d(
       c = u || (u = o("react")),
       d = "preview-audio";
     function m(t) {
-      var n = o("react-compiler-runtime").c(28),
-        a,
-        i,
-        l,
-        u,
-        m,
+      var n = t.height,
+        a = t.iconXstyle,
+        i = t.name,
+        l = t.viewBox,
+        u = t.width,
+        m = babelHelpers.objectWithoutPropertiesLoose(t, e),
         p;
-      n[0] !== t
-        ? ((a = t.height),
-          (l = t.iconXstyle),
-          (i = t.name),
-          (m = t.viewBox),
-          (p = t.width),
-          (u = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i),
-          (n[3] = l),
-          (n[4] = u),
-          (n[5] = m),
-          (n[6] = p))
-        : ((a = n[1]),
-          (i = n[2]),
-          (l = n[3]),
-          (u = n[4]),
-          (m = n[5]),
-          (p = n[6]));
-      var _;
-      if (m) {
-        var f = m,
-          g = f.height,
-          h = f.width,
-          y = f.x,
-          C = f.y,
-          b = g === void 0 ? 0 : g,
-          v = h === void 0 ? 0 : h,
-          S = y === void 0 ? 0 : y,
-          R = C === void 0 ? 0 : C,
-          L;
-        (n[7] !== b || n[8] !== v || n[9] !== S || n[10] !== R
-          ? ((L = [S, R, v, b]),
-            (n[7] = b),
-            (n[8] = v),
-            (n[9] = S),
-            (n[10] = R),
-            (n[11] = L))
-          : (L = n[11]),
-          (_ = L.join(" ")));
+      if (l) {
+        var _ = l.height,
+          f = _ === void 0 ? 0 : _,
+          g = l.width,
+          h = g === void 0 ? 0 : g,
+          y = l.x,
+          C = y === void 0 ? 0 : y,
+          b = l.y,
+          v = b === void 0 ? 0 : b;
+        p = [C, v, h, f].join(" ");
       }
-      var E = 112,
-        k = 88;
-      (a != null || p != null) && ((E = a), (k = p));
-      var I = i != null ? i : d,
-        T = _ != null ? _ : "0 0 88 112",
-        D = E,
-        x = k,
-        $;
-      n[12] !== l
-        ? (($ = (s || (s = r("stylex")))(l)), (n[12] = l), (n[13] = $))
-        : ($ = n[13]);
-      var P = i != null ? i : d,
-        N;
-      n[14] !== P
-        ? ((N = c.jsx("title", { children: P })), (n[14] = P), (n[15] = N))
-        : (N = n[15]);
-      var M;
-      n[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((M = c.jsx("defs", {
-            children: c.jsx("path", {
-              d: "M3 0h56.928a5 5 0 0 1 3.536 1.464l15.072 15.072A5 5 0 0 1 80 20.07V101a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3z",
-              id: "a",
-            }),
-          })),
-          (n[16] = M))
-        : (M = n[16]);
-      var w;
-      n[17] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = c.jsxs("g", {
-            fill: "none",
-            fillRule: "evenodd",
-            children: [
-              c.jsxs("g", {
-                transform: "translate(4 3)",
-                children: [
-                  c.jsx("use", {
-                    fill: "#000",
-                    filter: "url(#filter-3)",
-                    xlinkHref: "#a",
-                  }),
-                  c.jsx("use", { fill: "#FFF", xlinkHref: "#a" }),
-                  c.jsx("path", {
-                    strokeOpacity: 0.08,
-                    stroke: "#000",
-                    d: "M3-.5h56.929a5.5 5.5 0 0 1 3.889 1.61l15.071 15.072a5.5 5.5 0 0 1 1.611 3.89V101a3.5 3.5 0 0 1-3.5 3.5H3A3.5 3.5 0 0 1-.5 101V3A3.5 3.5 0 0 1 3-.5z",
-                    fill: "url(#linearGradient-1)",
-                  }),
-                ],
-              }),
-              c.jsx("path", {
-                d: "M59 41v26.246a.501.501 0 0 1-.014.119A5 5 0 1 1 54 62.745c.19 0 .398.022.62.065A2 2 0 0 0 57 60.847V49.113a1 1 0 0 0-1.12-.993l-19 2.28a1 1 0 0 0-.88.993v18.853a.501.501 0 0 1-.014.119A5 5 0 1 1 31 65.745c.316 0 .676.06 1.08.178a1.5 1.5 0 0 0 1.92-1.44V43.52a2 2 0 0 1 1.762-1.986l21-2.52A2 2 0 0 1 59 41z",
-                fillOpacity: 0.2,
-                fill: "#000",
-              }),
-              c.jsx("path", {
-                d: "M65.5 3.5v15a3 3 0 0 0 3 3h15",
-                strokeOpacity: 0.12,
-                stroke: "#000",
-                fill: "#FFF",
-              }),
-            ],
-          })),
-          (n[17] = w))
-        : (w = n[17]);
-      var A;
-      n[18] !== E || n[19] !== k || n[20] !== T || n[21] !== $ || n[22] !== N
-        ? ((A = c.jsxs("svg", {
-            viewBox: T,
-            height: D,
-            width: x,
-            preserveAspectRatio: "xMidYMid meet",
-            className: $,
-            children: [N, M, w],
-          })),
-          (n[18] = E),
-          (n[19] = k),
-          (n[20] = T),
-          (n[21] = $),
-          (n[22] = N),
-          (n[23] = A))
-        : (A = n[23]);
-      var F;
+      var S = 112,
+        R = 88;
       return (
-        n[24] !== u || n[25] !== I || n[26] !== A
-          ? ((F = c.jsx(
-              o("WAWebSvgComponentBase").BaseSvgSpan,
-              babelHelpers.extends({ name: I }, u, { children: A }),
-            )),
-            (n[24] = u),
-            (n[25] = I),
-            (n[26] = A),
-            (n[27] = F))
-          : (F = n[27]),
-        F
+        (n != null || u != null) && ((S = n), (R = u)),
+        c.jsx(
+          o("WAWebSvgComponentBase").BaseSvgSpan,
+          babelHelpers.extends({ name: i != null ? i : d }, m, {
+            children: c.jsxs("svg", {
+              viewBox: p != null ? p : "0 0 88 112",
+              height: S,
+              width: R,
+              preserveAspectRatio: "xMidYMid meet",
+              className: (s || (s = r("stylex")))(a),
+              children: [
+                c.jsx("title", { children: i != null ? i : d }),
+                c.jsx("defs", {
+                  children: c.jsx("path", {
+                    d: "M3 0h56.928a5 5 0 0 1 3.536 1.464l15.072 15.072A5 5 0 0 1 80 20.07V101a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3z",
+                    id: "a",
+                  }),
+                }),
+                c.jsxs("g", {
+                  fill: "none",
+                  fillRule: "evenodd",
+                  children: [
+                    c.jsxs("g", {
+                      transform: "translate(4 3)",
+                      children: [
+                        c.jsx("use", {
+                          fill: "#000",
+                          filter: "url(#filter-3)",
+                          xlinkHref: "#a",
+                        }),
+                        c.jsx("use", { fill: "#FFF", xlinkHref: "#a" }),
+                        c.jsx("path", {
+                          strokeOpacity: 0.08,
+                          stroke: "#000",
+                          d: "M3-.5h56.929a5.5 5.5 0 0 1 3.889 1.61l15.071 15.072a5.5 5.5 0 0 1 1.611 3.89V101a3.5 3.5 0 0 1-3.5 3.5H3A3.5 3.5 0 0 1-.5 101V3A3.5 3.5 0 0 1 3-.5z",
+                          fill: "url(#linearGradient-1)",
+                        }),
+                      ],
+                    }),
+                    c.jsx("path", {
+                      d: "M59 41v26.246a.501.501 0 0 1-.014.119A5 5 0 1 1 54 62.745c.19 0 .398.022.62.065A2 2 0 0 0 57 60.847V49.113a1 1 0 0 0-1.12-.993l-19 2.28a1 1 0 0 0-.88.993v18.853a.501.501 0 0 1-.014.119A5 5 0 1 1 31 65.745c.316 0 .676.06 1.08.178a1.5 1.5 0 0 0 1.92-1.44V43.52a2 2 0 0 1 1.762-1.986l21-2.52A2 2 0 0 1 59 41z",
+                      fillOpacity: 0.2,
+                      fill: "#000",
+                    }),
+                    c.jsx("path", {
+                      d: "M65.5 3.5v15a3 3 0 0 0 3 3h15",
+                      strokeOpacity: 0.12,
+                      stroke: "#000",
+                      fill: "#FFF",
+                    }),
+                  ],
+                }),
+              ],
+            }),
+          }),
+        )
       );
     }
-    l.PreviewAudioIcon = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"),
+      (l.PreviewAudioIcon = m));
   },
   98,
 );

@@ -11,7 +11,6 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdDeleteMutation",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -69,25 +68,19 @@ __d(
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m(e, t) {
-      var n = o("react-compiler-runtime").c(4),
-        r = o("CometRelay").useRelayEnvironment(),
-        a;
-      n[0] !== e || n[1] !== t || n[2] !== r
-        ? ((a = function () {
+      var n = o("CometRelay").useRelayEnvironment(),
+        r = c(
+          function () {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(o("CometRelay").RelayEnvironmentProvider, {
-                environment: r,
+                environment: n,
                 children: u.jsx(d, { boostId: e, onComplete: t }),
               }),
             );
-          }),
-          (n[0] = e),
-          (n[1] = t),
-          (n[2] = r),
-          (n[3] = a))
-        : (a = n[3]);
-      var i = a;
-      return i;
+          },
+          [e, t, n],
+        );
+      return r;
     }
     l.default = m;
   },

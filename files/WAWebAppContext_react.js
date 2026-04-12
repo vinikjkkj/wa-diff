@@ -1,6 +1,6 @@
 __d(
   "WAWebAppContext.react",
-  ["WALogger", "WAWebNavBarTypes", "react", "react-compiler-runtime"],
+  ["WALogger", "WAWebNavBarTypes", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -15,29 +15,13 @@ __d(
       },
       f = d(_);
     function g(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.activeNavBarItem,
-        r = e.children,
-        a = e.rightDrawerOpen,
-        i;
-      t[0] !== n || t[1] !== a
-        ? ((i = { rightDrawerOpen: a, activeNavBarItem: n }),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i))
-        : (i = t[2]);
-      var l = i,
-        s;
-      return (
-        t[3] !== r || t[4] !== l
-          ? ((s = u.jsx(f.Provider, { value: l, children: r })),
-            (t[3] = r),
-            (t[4] = l),
-            (t[5] = s))
-          : (s = t[5]),
-        s
-      );
+      var t = e.activeNavBarItem,
+        n = e.children,
+        r = e.rightDrawerOpen,
+        o = { rightDrawerOpen: r, activeNavBarItem: t };
+      return u.jsx(f.Provider, { value: o, children: n });
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h() {
       var t = m(f);
       return (

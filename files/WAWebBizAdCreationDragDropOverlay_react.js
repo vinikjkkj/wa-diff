@@ -13,7 +13,6 @@ __d(
     "err",
     "getWAWebBizAdCreationCreativeCarouselReducer",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationSpecDispatcherContext",
     "waWebBizAdCreationMediaCollectionReducer",
     "withWAWebBizAdCreationSpecContext",
@@ -57,68 +56,56 @@ __d(
       };
     function h(t) {
       var a,
-        i = o("react-compiler-runtime").c(24),
-        l = t.adAccountID,
-        u = t.children,
-        d = t.currentLocallyUploadedMediaCollection,
-        m = f(!1),
-        h = m[0],
-        C = m[1],
-        b = f(!1),
-        v = b[1],
+        i = t.adAccountID,
+        l = t.children,
+        u = t.currentLocallyUploadedMediaCollection,
+        d = f(!1),
+        h = d[0],
+        y = d[1],
+        C = f(!1),
+        b = C[0],
+        v = C[1],
         S = _(0),
         R = p(r("WAWebBizAdCreationConfigContext")),
         L = (a = R == null ? void 0 : R.pageID) != null ? a : "",
-        E;
-      i[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = [
-            r("getWAWebBizAdCreationCreativeCarouselReducer"),
-            r("waWebBizAdCreationMediaCollectionReducer"),
-          ]),
-          (i[0] = E))
-        : (E = i[0]);
-      var k = r("useWAWebBizAdCreationSpecDispatcherContext")(E),
-        I;
-      i[1] !== k
-        ? ((I = function () {
-            k({
+        E = r("useWAWebBizAdCreationSpecDispatcherContext")([
+          r("getWAWebBizAdCreationCreativeCarouselReducer"),
+          r("waWebBizAdCreationMediaCollectionReducer"),
+        ]),
+        k = m(
+          function () {
+            E({
               type: "media_collection_reducer.revert_to_last_successfully_uploaded_media_collection",
             });
-          }),
-          (i[1] = k),
-          (i[2] = I))
-        : (I = i[2]);
-      var T = I,
-        D;
-      i[3] !== k
-        ? ((D = function (t) {
-            k({
-              mediaCollection: t,
+          },
+          [E],
+        ),
+        I = m(
+          function (e) {
+            E({
+              mediaCollection: e,
               type: "media_collection_reducer.update_media_collection",
             });
-          }),
-          (i[3] = k),
-          (i[4] = D))
-        : (D = i[4]);
-      var x = D,
-        $;
-      i[5] !== l || i[6] !== k || i[7] !== T || i[8] !== L
-        ? (($ = function (o) {
+          },
+          [E],
+        ),
+        T = m(
+          function (t) {
             (e || (e = n("Promise")))
               .all([
-                r("WAWebBizAdCreationLWIMediaUpload")(o, L, l),
-                r("WAWebBizAdCreationLinkWAMediaToStatus")(o),
+                r("WAWebBizAdCreationLWIMediaUpload")(t, L, i),
+                r("WAWebBizAdCreationLinkWAMediaToStatus")(t),
               ])
               .then(function (e) {
                 var t = e[0];
-                k({
+                E({
                   carouselCardsData: t,
                   type: "creative_carousel_reducer.set_carousel_cards",
                 });
               })
               .catch(function (e) {
                 throw (
-                  T(),
+                  k(),
                   r("err")(
                     "Media upload mutation failure: " +
                       e +
@@ -126,68 +113,49 @@ __d(
                   )
                 );
               });
-          }),
-          (i[5] = l),
-          (i[6] = k),
-          (i[7] = T),
-          (i[8] = L),
-          (i[9] = $))
-        : ($ = i[9]);
-      var P = $,
-        N;
-      i[10] !== d || i[11] !== P || i[12] !== T || i[13] !== x
-        ? ((N = function (t) {
-            (t.preventDefault(), t.stopPropagation(), (S.current = 0), C(!1));
-            var e = new (r("WAWebDataTransfer"))(t.dataTransfer);
-            e.hasType("Files") &&
+          },
+          [i, E, k, L],
+        ),
+        D = m(
+          function (e) {
+            (e.preventDefault(), e.stopPropagation(), (S.current = 0), y(!1));
+            var t = new (r("WAWebDataTransfer"))(e.dataTransfer);
+            t.hasType("Files") &&
               o("WAWebBizAdCreationStage1WAUploadUtils").handleFileDrop(
-                t,
-                d,
-                P,
+                e,
+                u,
                 T,
-                x,
+                k,
+                I,
                 v,
               );
-          }),
-          (i[10] = d),
-          (i[11] = P),
-          (i[12] = T),
-          (i[13] = x),
-          (i[14] = N))
-        : (N = i[14]);
-      var M = N,
-        w = y,
-        A;
-      i[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((A = function (t) {
-            (t.preventDefault(),
-              t.stopPropagation(),
-              (S.current = S.current + 1));
-            var e = new (r("WAWebDataTransfer"))(t.dataTransfer);
-            e.hasType("Files") && C(!0);
-          }),
-          (i[15] = A))
-        : (A = i[15]);
-      var F = A,
-        O;
-      i[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((O = function (t) {
-            (t.preventDefault(),
-              t.stopPropagation(),
-              (S.current = S.current - 1),
-              S.current === 0 && C(!1));
-          }),
-          (i[16] = O))
-        : (O = i[16]);
-      var B = O,
-        W;
-      i[17] === Symbol.for("react.memo_cache_sentinel")
-        ? ((W = s._(/*BTDS*/ "Drop zone for media files")), (i[17] = W))
-        : (W = i[17]);
-      var q;
-      i[18] !== h
-        ? ((q =
-            h &&
+          },
+          [u, T, k, I],
+        ),
+        x = m(function (e) {
+          (e.preventDefault(), e.stopPropagation());
+        }, []),
+        $ = m(function (e) {
+          (e.preventDefault(), e.stopPropagation(), (S.current += 1));
+          var t = new (r("WAWebDataTransfer"))(e.dataTransfer);
+          t.hasType("Files") && y(!0);
+        }, []),
+        P = m(function (e) {
+          (e.preventDefault(),
+            e.stopPropagation(),
+            (S.current -= 1),
+            S.current === 0 && y(!1));
+        }, []);
+      return c.jsxs("div", {
+        onDragEnter: $,
+        onDragOver: x,
+        onDragLeave: P,
+        onDrop: D,
+        role: "region",
+        "aria-label": s._(/*BTDS*/ "Drop zone for media files"),
+        children: [
+          l,
+          h &&
             c.jsx("div", {
               className:
                 "xixxii4 x1bkdxzg x13vifvy x1o0tod xh8yej3 x5yr21d x1280gxy x1sk1jro x1evaxtz x1ci70gm x1m4z3lf x9f619",
@@ -208,41 +176,19 @@ __d(
                   }),
                 ],
               }),
-            })),
-          (i[18] = h),
-          (i[19] = q))
-        : (q = i[19]);
-      var U;
-      return (
-        i[20] !== u || i[21] !== M || i[22] !== q
-          ? ((U = c.jsxs("div", {
-              onDragEnter: F,
-              onDragOver: w,
-              onDragLeave: B,
-              onDrop: M,
-              role: "region",
-              "aria-label": W,
-              children: [u, q],
-            })),
-            (i[20] = u),
-            (i[21] = M),
-            (i[22] = q),
-            (i[23] = U))
-          : (U = i[23]),
-        U
-      );
+            }),
+        ],
+      });
     }
-    function y(e) {
-      (e.preventDefault(), e.stopPropagation());
-    }
-    var C = r("withWAWebBizAdCreationSpecContext")(h, function (e) {
+    h.displayName = h.name + " [from " + i.id + "]";
+    var y = r("withWAWebBizAdCreationSpecContext")(h, function (e) {
       return {
         currentLocallyUploadedMediaCollection:
           e.currentLocallyUploadedMediaCollection,
         adAccountID: e.adAccountData.legacyAccountID,
       };
     });
-    l.default = C;
+    l.default = y;
   },
   226,
 );

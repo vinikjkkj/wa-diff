@@ -1,12 +1,6 @@
 __d(
   "WAWebLinkIconContained.react",
-  [
-    "WAWebBox.react",
-    "WAWebThemeContext",
-    "WDSIconIcLink.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebBox.react", "WAWebThemeContext", "WDSIconIcLink.react", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -47,40 +41,23 @@ __d(
         boxBackgroundColor: { backgroundColor: "x4wrhlh", $$css: !0 },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.backgroundXstyle,
-        a = e.icon,
-        i = u(o("WAWebThemeContext").ThemeContext),
-        l = n != null ? n : c.boxBackgroundColor,
-        d;
-      t[0] !== l ? ((d = [c.box, l]), (t[0] = l), (t[1] = d)) : (d = t[1]);
-      var m;
-      t[2] !== i || t[3] !== a
-        ? ((m =
-            a != null
-              ? a
-              : s.jsx(r("WDSIconIcLink.react"), {
-                  testid: void 0,
-                  width: 16,
-                  height: 16,
-                  iconXstyle: [c.text, i.theme === "dark" && c.textDark],
-                })),
-          (t[2] = i),
-          (t[3] = a),
-          (t[4] = m))
-        : (m = t[4]);
-      var p;
-      return (
-        t[5] !== d || t[6] !== m
-          ? ((p = s.jsx(r("WAWebBox.react"), { xstyle: d, children: m })),
-            (t[5] = d),
-            (t[6] = m),
-            (t[7] = p))
-          : (p = t[7]),
-        p
-      );
+      var t = e.backgroundXstyle,
+        n = e.icon,
+        a = u(o("WAWebThemeContext").ThemeContext);
+      return s.jsx(r("WAWebBox.react"), {
+        xstyle: [c.box, t != null ? t : c.boxBackgroundColor],
+        children:
+          n != null
+            ? n
+            : s.jsx(r("WDSIconIcLink.react"), {
+                testid: void 0,
+                width: 16,
+                height: 16,
+                iconXstyle: [c.text, a.theme === "dark" && c.textDark],
+              }),
+      });
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

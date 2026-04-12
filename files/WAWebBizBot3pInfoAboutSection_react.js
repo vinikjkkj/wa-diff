@@ -5,7 +5,6 @@ __d(
     "WAWebChatInfoDrawerSection.react",
     "WAWebText.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebModelValues",
     "vulture",
   ],
@@ -14,41 +13,26 @@ __d(
       u = e || (e = o("react"));
     function c(e) {
       var t,
-        n = o("react-compiler-runtime").c(3),
-        a = e.businessProfile;
+        n = e.businessProfile;
       r("vulture")("OBkCofhl7A7hMcuCxUnYNxYg7uc=");
-      var i =
-          (t = o("useWAWebModelValues").useModelValues(a, ["description"])) !=
+      var a =
+          (t = o("useWAWebModelValues").useModelValues(n, ["description"])) !=
           null
             ? t
             : {},
-        l = i.description;
-      if (l == null) return null;
-      var c;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = s._(/*BTDS*/ "About")), (n[0] = c))
-        : (c = n[0]);
-      var d;
-      return (
-        n[1] !== l
-          ? ((d = u.jsx(
-              o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerSection,
-              {
-                titleTestId: "section-about",
-                title: c,
-                children: u.jsx(o("WAWebText.react").WAWebTextTitle, {
-                  as: "span",
-                  children: l,
-                }),
-              },
-            )),
-            (n[1] = l),
-            (n[2] = d))
-          : (d = n[2]),
-        d
-      );
+        i = a.description;
+      return i == null
+        ? null
+        : u.jsx(o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerSection, {
+            titleTestId: "section-about",
+            title: s._(/*BTDS*/ "About"),
+            children: u.jsx(o("WAWebText.react").WAWebTextTitle, {
+              as: "span",
+              children: i,
+            }),
+          });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

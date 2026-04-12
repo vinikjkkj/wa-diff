@@ -8,7 +8,6 @@ __d(
     "WAWebCopyPasteCopyable.react",
     "WAWebFrontendContactGetters",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebContactValues",
     "useWAWebModelValues",
@@ -24,73 +23,35 @@ __d(
         : n;
     }
     function d(t) {
-      var n = o("react-compiler-runtime").c(16),
-        a = t.children,
-        i = t.className,
-        l = t.contact,
-        s = t.msg,
-        d = t.onClick,
-        m = t.style,
-        p = t.xstyle,
-        _;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = [
-            o("WAWebFrontendContactGetters").getFormattedUser,
-            o("WAWebContactGetters").getIsMe,
-          ]),
-          (n[0] = _))
-        : (_ = n[0]);
-      var f = o("useWAWebContactValues").useContactValues(l.id, _),
-        g = f[0],
-        h = f[1],
-        y;
-      n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = ["senderObj", "t"]), (n[1] = y))
-        : (y = n[1]);
-      var C = o("useWAWebModelValues").useModelValues(s, y),
-        b = C.t,
-        v;
-      n[2] !== b
-        ? ((v = o("WAWebClock").Clock.timeStr(b)), (n[2] = b), (n[3] = v))
-        : (v = n[3]);
-      var S = v,
-        R;
-      n[4] !== g || n[5] !== h
-        ? ((R = c(h, g)), (n[4] = g), (n[5] = h), (n[6] = R))
-        : (R = n[6]);
-      var L = R,
-        E;
-      n[7] !== i || n[8] !== p
-        ? ((E = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            i,
-            (e || (e = r("stylex")))(p),
-          )),
-          (n[7] = i),
-          (n[8] = p),
-          (n[9] = E))
-        : (E = n[9]);
-      var k = "[" + S + "] " + L + ": ",
-        I;
-      return (
-        n[10] !== a || n[11] !== d || n[12] !== m || n[13] !== E || n[14] !== k
-          ? ((I = u.jsx(o("WAWebCopyPasteCopyable.react").CopyableDiv, {
-              className: E,
-              onClick: d,
-              prePlainText: k,
-              style: m,
-              children: a,
-            })),
-            (n[10] = a),
-            (n[11] = d),
-            (n[12] = m),
-            (n[13] = E),
-            (n[14] = k),
-            (n[15] = I))
-          : (I = n[15]),
-        I
-      );
+      var n = t.children,
+        a = t.className,
+        i = t.contact,
+        l = t.msg,
+        s = t.onClick,
+        d = t.style,
+        m = t.xstyle,
+        p = o("useWAWebContactValues").useContactValues(i.id, [
+          o("WAWebFrontendContactGetters").getFormattedUser,
+          o("WAWebContactGetters").getIsMe,
+        ]),
+        _ = p[0],
+        f = p[1],
+        g = o("useWAWebModelValues").useModelValues(l, ["senderObj", "t"]),
+        h = g.t,
+        y = o("WAWebClock").Clock.timeStr(h),
+        C = c(f, _);
+      return u.jsx(o("WAWebCopyPasteCopyable.react").CopyableDiv, {
+        className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          a,
+          (e || (e = r("stylex")))(m),
+        ),
+        onClick: s,
+        prePlainText: "[" + y + "] " + C + ": ",
+        style: d,
+        children: n,
+      });
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

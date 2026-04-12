@@ -1,12 +1,6 @@
 __d(
   "WAWebSMBTable.react",
-  [
-    "WAWebFlex.react",
-    "WAWebSpinner.react",
-    "WDSText.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebFlex.react", "WAWebSpinner.react", "WDSText.react", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -148,37 +142,30 @@ __d(
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = o("react-compiler-runtime").c(46),
-        n = e.columns,
-        r = e.getItemKey,
+      var t = e.columns,
+        n = e.getItemKey,
         a = e.hasMore,
         i = e.isLoadingMore,
         l = e.items,
         u = e.onLoadMore,
-        c = e.onRowClick,
-        _ = e.pinnedItems,
-        g = e.renderRow,
-        y = e.selectedKey,
-        C = m(null),
-        b;
-      t[0] !== a || t[1] !== i || t[2] !== u
-        ? ((b = function (t) {
-            var e,
-              n = t[0],
-              r = (e = n.isIntersecting) != null ? e : n.intersectionRatio > 0;
+        g = e.onRowClick,
+        h = e.pinnedItems,
+        y = e.renderRow,
+        C = e.selectedKey,
+        b = m(null),
+        v = c(
+          function (e) {
+            var t,
+              n = e[0],
+              r = (t = n.isIntersecting) != null ? t : n.intersectionRatio > 0;
             r && a === !0 && i !== !0 && (u == null || u());
-          }),
-          (t[0] = a),
-          (t[1] = i),
-          (t[2] = u),
-          (t[3] = b))
-        : (b = t[3]);
-      var v = b,
-        S,
-        R;
-      (t[4] !== v || t[5] !== u
-        ? ((S = function () {
-            var e = C.current;
+          },
+          [a, i, u],
+        );
+      return (
+        d(
+          function () {
+            var e = b.current;
             if (!(e == null || u == null)) {
               var t = new IntersectionObserver(v, { rootMargin: "100px" });
               return (
@@ -188,163 +175,74 @@ __d(
                 }
               );
             }
-          }),
-          (R = [v, u]),
-          (t[4] = v),
-          (t[5] = u),
-          (t[6] = S),
-          (t[7] = R))
-        : ((S = t[6]), (R = t[7])),
-        d(S, R));
-      var L;
-      t[8] !== n ? ((L = n.map(h)), (t[8] = n), (t[9] = L)) : (L = t[9]);
-      var E;
-      t[10] !== L
-        ? ((E = s.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: p.headerRow,
-            children: L,
-          })),
-          (t[10] = L),
-          (t[11] = E))
-        : (E = t[11]);
-      var k;
-      t[12] !== n ||
-      t[13] !== r ||
-      t[14] !== l.length ||
-      t[15] !== c ||
-      t[16] !== _ ||
-      t[17] !== g ||
-      t[18] !== y
-        ? ((k =
-            _ != null &&
-            _.map(function (e, t) {
-              var o;
-              return f(
-                e,
-                t,
-                ((o = _ == null ? void 0 : _.length) != null ? o : 0) +
-                  l.length,
-                n,
-                r,
-                c,
-                g,
-                y,
-              );
-            })),
-          (t[12] = n),
-          (t[13] = r),
-          (t[14] = l.length),
-          (t[15] = c),
-          (t[16] = _),
-          (t[17] = g),
-          (t[18] = y),
-          (t[19] = k))
-        : (k = t[19]);
-      var I;
-      if (
-        t[20] !== n ||
-        t[21] !== r ||
-        t[22] !== l ||
-        t[23] !== c ||
-        t[24] !== (_ == null ? void 0 : _.length) ||
-        t[25] !== g ||
-        t[26] !== y
-      ) {
-        var T;
-        (t[28] !== n ||
-        t[29] !== r ||
-        t[30] !== l.length ||
-        t[31] !== c ||
-        t[32] !== (_ == null ? void 0 : _.length) ||
-        t[33] !== g ||
-        t[34] !== y
-          ? ((T = function (t, o) {
-              var e,
-                a = (e = _ == null ? void 0 : _.length) != null ? e : 0;
-              return f(t, o + a, a + l.length, n, r, c, g, y);
+          },
+          [v, u],
+        ),
+        s.jsxs(o("WAWebFlex.react").FlexColumn, {
+          xstyle: p.table,
+          children: [
+            s.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: p.headerRow,
+              children: t.map(function (e) {
+                return s.jsx(
+                  o("WAWebFlex.react").FlexColumn,
+                  {
+                    xstyle: [
+                      p.cell,
+                      p.headerCells,
+                      e.header != null && p.headerCellsHoverable,
+                    ],
+                    style: _(e.width),
+                    children:
+                      e.renderHeader != null
+                        ? e.renderHeader()
+                        : e.header != null
+                          ? s.jsx("div", {
+                              className: "x193iq5w",
+                              children: s.jsx(r("WDSText.react"), {
+                                maxLines: 1,
+                                type: "Body2Emphasized",
+                                colorName: "contentDeemphasized",
+                                children: e.header,
+                              }),
+                            })
+                          : null,
+                  },
+                  e.key,
+                );
+              }),
             }),
-            (t[28] = n),
-            (t[29] = r),
-            (t[30] = l.length),
-            (t[31] = c),
-            (t[32] = _ == null ? void 0 : _.length),
-            (t[33] = g),
-            (t[34] = y),
-            (t[35] = T))
-          : (T = t[35]),
-          (I = l.map(T)),
-          (t[20] = n),
-          (t[21] = r),
-          (t[22] = l),
-          (t[23] = c),
-          (t[24] = _ == null ? void 0 : _.length),
-          (t[25] = g),
-          (t[26] = y),
-          (t[27] = I));
-      } else I = t[27];
-      var D;
-      t[36] !== i
-        ? ((D =
+            h != null &&
+              h.map(function (e, r) {
+                var o;
+                return f(
+                  e,
+                  r,
+                  ((o = h == null ? void 0 : h.length) != null ? o : 0) +
+                    l.length,
+                  t,
+                  n,
+                  g,
+                  y,
+                  C,
+                );
+              }),
+            l.map(function (e, r) {
+              var o,
+                a = (o = h == null ? void 0 : h.length) != null ? o : 0;
+              return f(e, r + a, a + l.length, t, n, g, y, C);
+            }),
             i === !0 &&
-            s.jsx("div", {
-              className: "x78zum5 xl56j7k x6s0dn4 x1p57kb1 xvpt6g3 xh8yej3",
-              children: s.jsx(o("WAWebSpinner.react").Spinner, { size: 24 }),
-            })),
-          (t[36] = i),
-          (t[37] = D))
-        : (D = t[37]);
-      var x;
-      t[38] !== a
-        ? ((x = a === !0 && s.jsx("div", { ref: C, className: "xjm9jq1" })),
-          (t[38] = a),
-          (t[39] = x))
-        : (x = t[39]);
-      var $;
-      return (
-        t[40] !== E || t[41] !== k || t[42] !== I || t[43] !== D || t[44] !== x
-          ? (($ = s.jsxs(o("WAWebFlex.react").FlexColumn, {
-              xstyle: p.table,
-              children: [E, k, I, D, x],
-            })),
-            (t[40] = E),
-            (t[41] = k),
-            (t[42] = I),
-            (t[43] = D),
-            (t[44] = x),
-            (t[45] = $))
-          : ($ = t[45]),
-        $
-      );
-    }
-    function h(e) {
-      return s.jsx(
-        o("WAWebFlex.react").FlexColumn,
-        {
-          xstyle: [
-            p.cell,
-            p.headerCells,
-            e.header != null && p.headerCellsHoverable,
+              s.jsx("div", {
+                className: "x78zum5 xl56j7k x6s0dn4 x1p57kb1 xvpt6g3 xh8yej3",
+                children: s.jsx(o("WAWebSpinner.react").Spinner, { size: 24 }),
+              }),
+            a === !0 && s.jsx("div", { ref: b, className: "xjm9jq1" }),
           ],
-          style: _(e.width),
-          children:
-            e.renderHeader != null
-              ? e.renderHeader()
-              : e.header != null
-                ? s.jsx("div", {
-                    className: "x193iq5w",
-                    children: s.jsx(r("WDSText.react"), {
-                      maxLines: 1,
-                      type: "Body2Emphasized",
-                      colorName: "contentDeemphasized",
-                      children: e.header,
-                    }),
-                  })
-                : null,
-        },
-        e.key,
+        })
       );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = g));
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   98,
 );

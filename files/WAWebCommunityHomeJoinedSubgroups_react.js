@@ -23,7 +23,6 @@ __d(
     "WAWebWamEnumChatFilterActionTypes",
     "WAWebWamEnumSurfaceType",
     "react",
-    "react-compiler-runtime",
     "useWAWebActiveSelection",
     "useWAWebCommunitySubgroups",
     "useWAWebEventTargetValue",
@@ -168,115 +167,53 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(26),
-        n = e.data,
-        a = n.groupType,
-        i = n.subChat,
-        l = e.mini,
-        c = e.active,
-        m;
-      t[0] !== i.id
-        ? ((m = i.id.toString()), (t[0] = i.id), (t[1] = m))
-        : (m = t[1]);
-      var p = r("useWAWebActiveSelection")(c, m),
-        _ = p[0],
-        f = p[1],
-        g;
-      t[2] !== i.formattedTitle
-        ? ((g = s._(/*BTDS*/ "{subgroup-name}", [
-            s._param("subgroup-name", i.formattedTitle),
-          ])),
-          (t[2] = i.formattedTitle),
-          (t[3] = g))
-        : (g = t[3]);
-      var h = g,
-        y;
-      t[4] !== e.type || t[5] !== i
-        ? ((y = function (n) {
-            (n.preventDefault(), d(i, e.type));
-          }),
-          (t[4] = e.type),
-          (t[5] = i),
-          (t[6] = y))
-        : (y = t[6]);
-      var C = y,
-        b;
-      t[7] !== C
-        ? ((b = o("WAWebCommunityCells.react").mapHandlers(C)),
-          (t[7] = C),
-          (t[8] = b))
-        : (b = t[8]);
-      var v;
-      t[9] !== h ? ((v = h.toString()), (t[9] = h), (t[10] = v)) : (v = t[10]);
-      var S;
-      t[11] !== i.id
-        ? ((S = i.id.toString()), (t[11] = i.id), (t[12] = S))
-        : (S = t[12]);
-      var R = !l,
-        L = a === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP,
-        E;
-      t[13] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = o("WAWebABProps").getABPropConfigValue(
-            "wa_web_show_status_ring_for_no_unread",
-          )),
-          (t[13] = E))
-        : (E = t[13]);
-      var k;
-      t[14] !== f ||
-      t[15] !== C ||
-      t[16] !== i ||
-      t[17] !== S ||
-      t[18] !== R ||
-      t[19] !== L
-        ? ((k = u.jsx(
-            o("WAWebChat.react").Chat,
-            {
-              chat: i,
-              theme: "subgroup",
-              mode: o("WAWebChat.react").Mode.LAST,
-              ephemeralIcon: "chat-list",
-              hiddenSubgroupIcon: "chat-list",
-              onClick: C,
-              noContext: !0,
-              smallUnread: R,
-              hidePin: !0,
-              fakePin: L,
-              hideArchivedIcon: !0,
-              forceActive: f,
-              overrideCommunityAnnouncementGroupName: !0,
-              showSpeakerForCag: !0,
-              showStatusRingAroundProfilePhoto: E,
-            },
-            S,
-          )),
-          (t[14] = f),
-          (t[15] = C),
-          (t[16] = i),
-          (t[17] = S),
-          (t[18] = R),
-          (t[19] = L),
-          (t[20] = k))
-        : (k = t[20]);
-      var I;
-      return (
-        t[21] !== _ || t[22] !== k || t[23] !== b || t[24] !== v
-          ? ((I = u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-              ref: _,
-              handlers: b,
-              "aria-label": v,
-              role: "button",
-              children: k,
-            })),
-            (t[21] = _),
-            (t[22] = k),
-            (t[23] = b),
-            (t[24] = v),
-            (t[25] = I))
-          : (I = t[25]),
-        I
-      );
+      var t = e.data,
+        n = t.groupType,
+        a = t.subChat,
+        i = e.mini,
+        l = r("useWAWebActiveSelection")(e.active, a.id.toString()),
+        c = l[0],
+        m = l[1],
+        p = s._(/*BTDS*/ "{subgroup-name}", [
+          s._param("subgroup-name", a.formattedTitle),
+        ]),
+        _ = function (n) {
+          (n.preventDefault(), d(a, e.type));
+        };
+      return u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+        ref: c,
+        handlers: o("WAWebCommunityCells.react").mapHandlers(_),
+        "aria-label": p.toString(),
+        role: "button",
+        children: u.jsx(
+          o("WAWebChat.react").Chat,
+          {
+            chat: a,
+            theme: "subgroup",
+            mode: o("WAWebChat.react").Mode.LAST,
+            ephemeralIcon: "chat-list",
+            hiddenSubgroupIcon: "chat-list",
+            onClick: _,
+            noContext: !0,
+            smallUnread: !i,
+            hidePin: !0,
+            fakePin:
+              n === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP,
+            hideArchivedIcon: !0,
+            forceActive: m,
+            overrideCommunityAnnouncementGroupName: !0,
+            showSpeakerForCag: !0,
+            showStatusRingAroundProfilePhoto: o(
+              "WAWebABProps",
+            ).getABPropConfigValue("wa_web_show_status_ring_for_no_unread"),
+          },
+          a.id.toString(),
+        ),
+      });
     }
-    ((l.handleJoinedSubgroupClick = d), (l.CommunityHomeJoinedSubgroups = m));
+    ((p.displayName = p.name + " [from " + i.id + "]"),
+      (l.handleJoinedSubgroupClick = d),
+      (l.CommunityHomeJoinedSubgroups = m));
   },
   226,
 );

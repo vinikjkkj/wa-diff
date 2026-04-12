@@ -19,7 +19,6 @@ __d(
     "WAWebWebcNativeUpsellCtaWamEvent",
     "cr:23046",
     "react",
-    "react-compiler-runtime",
     "useWAWebDesktopUpsellWamImpression",
     "useWAWebExternalBetaOptIn",
     "useWAWebListener",
@@ -32,154 +31,96 @@ __d(
       d = u.useState,
       m = { textWrapper: { lineHeight: "xo5v014", $$css: !0 } };
     function p() {
-      var e = o("react-compiler-runtime").c(18),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = o("WAWebDesktopUpsellUtils").getUserDesktopOs()), (e[0] = t))
-        : (t = e[0]);
-      var a = t,
-        i = o(
+      var e,
+        t = o("WAWebDesktopUpsellUtils").getUserDesktopOs(),
+        a = o(
           "WAWebDesktopUpsellPlatformAwareHooks",
         ).useWAWebDesktopUpsellPlatformCheck(),
-        l;
-      if (e[1] === Symbol.for("react.memo_cache_sentinel")) {
-        var u;
-        ((l =
-          (u =
+        i =
+          (e =
             n("cr:23046") == null
               ? void 0
               : n("cr:23046").isWindowsHybridEnabled()) != null
-            ? u
-            : !1),
-          (e[1] = l));
-      } else l = e[1];
-      var p = l,
-        g = !p && i,
-        h = o("useWAWebExternalBetaOptIn").useExternalBetaOptIn(),
+            ? e
+            : !1,
+        l = !i && a,
+        u = o("useWAWebExternalBetaOptIn").useExternalBetaOptIn(),
+        p = u[0],
+        g = o("useWAWebExternalBetaOptIn").useMacBetaUpsellOnWeb(),
+        h = d(!0),
         y = h[0],
-        C = o("useWAWebExternalBetaOptIn").useMacBetaUpsellOnWeb(),
-        b = d(!0),
-        v = b[0],
-        S = b[1],
-        R;
-      (e[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = function (t) {
-            o("WAWebABProps").getABPropConfigValue(
-              "wa_web_reduce_cascading_updates_chat_open",
-            )
-              ? c(function () {
-                  S(t.conversationPanelVisible);
-                })
-              : S(t.conversationPanelVisible);
-          }),
-          (e[2] = R))
-        : (R = e[2]),
-        o("useWAWebListener").useListener(
-          o("WAWebDesktopUpsellEvents").WAWebDesktopUpsellEvents,
-          "conversation_panel_ui_change",
-          R,
-        ));
-      var L;
-      e[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = _()), (e[3] = L))
-        : (L = e[3]);
-      var E = L,
-        k = g === !0 && a != null && !E && !C,
-        I = o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.BUTTERBAR,
-        T = k && !C,
-        D;
-      if (
-        (e[4] !== y || e[5] !== C || e[6] !== T
-          ? ((D = { isCtaVisible: T, source: I, isBeta: C, isBetaUser: y }),
-            (e[4] = y),
-            (e[5] = C),
-            (e[6] = T),
-            (e[7] = D))
-          : (D = e[7]),
+        C = h[1];
+      o("useWAWebListener").useListener(
+        o("WAWebDesktopUpsellEvents").WAWebDesktopUpsellEvents,
+        "conversation_panel_ui_change",
+        function (e) {
+          o("WAWebABProps").getABPropConfigValue(
+            "wa_web_reduce_cascading_updates_chat_open",
+          )
+            ? c(function () {
+                C(e.conversationPanelVisible);
+              })
+            : C(e.conversationPanelVisible);
+        },
+      );
+      var b = _(),
+        v = l === !0 && t != null && !b && !g,
+        S = o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
+          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.BUTTERBAR;
+      return (
         o(
           "useWAWebDesktopUpsellWamImpression",
-        ).useWAWebDesktopUpsellWamImpression(D),
-        C)
-      ) {
-        var x;
-        return (
-          e[8] === Symbol.for("react.memo_cache_sentinel")
-            ? ((x = s.jsx(r("WAWebMacBetaUpsellToastbar.react"), {
-                sourceType: I,
-              })),
-              (e[8] = x))
-            : (x = e[8]),
-          x
-        );
-      }
-      if (!k) return null;
-      var $ = !v,
-        P,
-        N;
-      e[9] !== y
-        ? ((P = function () {
-            o(
-              "WAWebDesktopUpsellStoreOpener",
-            ).openExternalWhatsAppDesktopDownloadUrl({
-              ctaSource: I,
-              isBetaUser: y,
-            });
-          }),
-          (N = function () {
-            (f(),
-              new (o(
-                "WAWebWebcNativeUpsellCtaWamEvent",
-              ).WebcNativeUpsellCtaWamEvent)({
-                webcNativeUpsellCtaEventType: o(
-                  "WAWebWamEnumWebcNativeUpsellCtaEventType",
-                ).WEBC_NATIVE_UPSELL_CTA_EVENT_TYPE.CTA_DISMISS,
-                webcNativeUpsellCtaSource: I,
-                webcNativeUpsellCtaReleaseChannel: o(
-                  "WAWebWamEnumWebcNativeUpsellCtaReleaseChannel",
-                ).WEBC_NATIVE_UPSELL_CTA_RELEASE_CHANNEL.PRODUCTION,
-                webcNativeUpsellCtaIsBetaUser: y,
-              }).commit());
-          }),
-          (e[9] = y),
-          (e[10] = P),
-          (e[11] = N))
-        : ((P = e[10]), (N = e[11]));
-      var M;
-      e[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((M = s.jsx(r("WAWebDesktopUpsellWASquareIcon.react"), {})),
-          (e[12] = M))
-        : (M = e[12]);
-      var w;
-      e[13] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = s.jsx(o("WAWebText.react").WAWebTextTitle, {
-            as: "span",
-            color: "teal",
-            xstyle: m.textWrapper,
-            children: o(
-              "WAWebDesktopUpsellCommonStrings",
-            ).getDesktopUpsellToastbarLabel(!1),
-          })),
-          (e[13] = w))
-        : (w = e[13]);
-      var A;
-      return (
-        e[14] !== $ || e[15] !== P || e[16] !== N
-          ? ((A = s.jsxs(r("WAWebToastbar.react"), {
-              hidden: $,
-              dismissible: !0,
-              onClick: P,
-              onDismiss: N,
-              children: [M, w],
-            })),
-            (e[14] = $),
-            (e[15] = P),
-            (e[16] = N),
-            (e[17] = A))
-          : (A = e[17]),
-        A
+        ).useWAWebDesktopUpsellWamImpression({
+          isCtaVisible: v && !g,
+          source: S,
+          isBeta: g,
+          isBetaUser: p,
+        }),
+        g
+          ? s.jsx(r("WAWebMacBetaUpsellToastbar.react"), { sourceType: S })
+          : v
+            ? s.jsxs(r("WAWebToastbar.react"), {
+                hidden: !y,
+                dismissible: !0,
+                onClick: function () {
+                  o(
+                    "WAWebDesktopUpsellStoreOpener",
+                  ).openExternalWhatsAppDesktopDownloadUrl({
+                    ctaSource: S,
+                    isBetaUser: p,
+                  });
+                },
+                onDismiss: function () {
+                  (f(),
+                    new (o(
+                      "WAWebWebcNativeUpsellCtaWamEvent",
+                    ).WebcNativeUpsellCtaWamEvent)({
+                      webcNativeUpsellCtaEventType: o(
+                        "WAWebWamEnumWebcNativeUpsellCtaEventType",
+                      ).WEBC_NATIVE_UPSELL_CTA_EVENT_TYPE.CTA_DISMISS,
+                      webcNativeUpsellCtaSource: S,
+                      webcNativeUpsellCtaReleaseChannel: o(
+                        "WAWebWamEnumWebcNativeUpsellCtaReleaseChannel",
+                      ).WEBC_NATIVE_UPSELL_CTA_RELEASE_CHANNEL.PRODUCTION,
+                      webcNativeUpsellCtaIsBetaUser: p,
+                    }).commit());
+                },
+                children: [
+                  s.jsx(r("WAWebDesktopUpsellWASquareIcon.react"), {}),
+                  s.jsx(o("WAWebText.react").WAWebTextTitle, {
+                    as: "span",
+                    color: "teal",
+                    xstyle: m.textWrapper,
+                    children: o(
+                      "WAWebDesktopUpsellCommonStrings",
+                    ).getDesktopUpsellToastbarLabel(!1),
+                  }),
+                ],
+              })
+            : null
       );
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _() {
       var e = r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS

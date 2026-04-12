@@ -13,7 +13,6 @@ __d(
     "WAWebNuxQuickPromotionChatListBanner.react",
     "WAWebUserPrefsNuxPreferences",
     "react",
-    "react-compiler-runtime",
     "useWAWebBestQuickPromotionForSurface",
     "useWAWebForceUpdate",
     "useWAWebListener",
@@ -91,17 +90,9 @@ __d(
     }
     c.displayName = c.name + " [from " + i.id + "]";
     function d() {
-      var e = o("react-compiler-runtime").c(1);
-      if (!o("WAWebConnModel").Conn.isSMB) return null;
-      var t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s.jsx(c, {})), (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return o("WAWebConnModel").Conn.isSMB ? s.jsx(c, {}) : null;
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

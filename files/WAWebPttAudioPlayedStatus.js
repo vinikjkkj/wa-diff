@@ -9,7 +9,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebPttStatusIcon.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -24,65 +23,34 @@ __d(
         icon: "_akb0",
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(11),
+      var t,
         n = e.msg,
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = [
-            o("WAWebMsgGetters").getAck,
-            o("WAWebMsgGetters").getIsSentByMe,
-            o("WAWebFrontendMsgGetters").getAsPttLike,
-          ]),
-          (t[0] = r))
-        : (r = t[0]);
-      var a = o("useWAWebMsgValues").useMsgValues(e.msg.id, r),
-        i = a[0],
-        l = a[1],
-        s = a[2],
-        d = i === o("WAWebAck").ACK.PLAYED,
-        p;
-      if (t[1] !== l || t[2] !== d) {
-        var _;
-        ((p = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+        r = o("useWAWebMsgValues").useMsgValues(e.msg.id, [
+          o("WAWebMsgGetters").getAck,
+          o("WAWebMsgGetters").getIsSentByMe,
+          o("WAWebFrontendMsgGetters").getAsPttLike,
+        ]),
+        a = r[0],
+        i = r[1],
+        l = r[2],
+        s = a === o("WAWebAck").ACK.PLAYED,
+        d = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
           c.icon,
-          m({ played: d, isOutgoingMsg: l }),
-          ((_ = {}), (_[c.outgoing] = l), (_[c.incoming] = !l), _),
-        )),
-          (t[1] = l),
-          (t[2] = d),
-          (t[3] = p));
-      } else p = t[3];
-      var f = p,
-        g;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = { className: "xexx8yu xrw5ot4 x18d9i69 x7coems" }), (t[4] = g))
-        : (g = t[4]);
-      var h;
-      t[5] !== s || t[6] !== n.type
-        ? ((h =
-            n.type === "ptt" || s
+          m({ played: s, isOutgoingMsg: i }),
+          ((t = {}), (t[c.outgoing] = i), (t[c.incoming] = !i), t),
+        );
+      return u.jsx("div", {
+        className: "xexx8yu xrw5ot4 x18d9i69 x7coems",
+        children: u.jsx("div", {
+          className: d,
+          children:
+            n.type === "ptt" || l
               ? u.jsx(o("WAWebPttStatusIcon.react").PttStatusIcon, {})
-              : u.jsx(o("WAWebAudioStatusIcon.react").AudioStatusIcon, {})),
-          (t[5] = s),
-          (t[6] = n.type),
-          (t[7] = h))
-        : (h = t[7]);
-      var y;
-      return (
-        t[8] !== f || t[9] !== h
-          ? ((y = u.jsx(
-              "div",
-              babelHelpers.extends({}, g, {
-                children: u.jsx("div", { className: f, children: h }),
-              }),
-            )),
-            (t[8] = f),
-            (t[9] = h),
-            (t[10] = y))
-          : (y = t[10]),
-        y
-      );
+              : u.jsx(o("WAWebAudioStatusIcon.react").AudioStatusIcon, {}),
+        }),
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
       var t = e.isOutgoingMsg,
         n = e.played;

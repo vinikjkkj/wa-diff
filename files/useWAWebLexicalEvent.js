@@ -1,12 +1,6 @@
 __d(
   "useWAWebLexicalEvent",
-  [
-    "Lexical",
-    "react",
-    "react-compiler-runtime",
-    "useWAWebListener",
-    "useWAWebStableCallback",
-  ],
+  ["Lexical", "react", "useWAWebListener", "useWAWebStableCallback"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useEffect;
@@ -22,38 +16,22 @@ __d(
       );
     }
     function c(e, t, n, a) {
-      var i = o("react-compiler-runtime").c(8),
-        l = a === void 0 ? o("Lexical").COMMAND_PRIORITY_HIGH : a,
-        u;
-      i[0] !== n
-        ? ((u = function (t, r) {
-            var e = n(t, r);
-            return (
-              e &&
-                t instanceof KeyboardEvent &&
-                (t.preventDefault(), t.stopPropagation()),
-              e
-            );
-          }),
-          (i[0] = n),
-          (i[1] = u))
-        : (u = i[1]);
-      var c = r("useWAWebStableCallback")(u),
-        d,
-        m;
-      (i[2] !== t || i[3] !== e || i[4] !== c || i[5] !== l
-        ? ((d = function () {
-            if (e) return e.registerCommand(t, c, l);
-          }),
-          (m = [e, t, c, l]),
-          (i[2] = t),
-          (i[3] = e),
-          (i[4] = c),
-          (i[5] = l),
-          (i[6] = d),
-          (i[7] = m))
-        : ((d = i[6]), (m = i[7])),
-        s(d, m));
+      a === void 0 && (a = o("Lexical").COMMAND_PRIORITY_HIGH);
+      var i = r("useWAWebStableCallback")(function (e, t) {
+        var r = n(e, t);
+        return (
+          r &&
+            e instanceof KeyboardEvent &&
+            (e.preventDefault(), e.stopPropagation()),
+          r
+        );
+      });
+      s(
+        function () {
+          if (e) return e.registerCommand(t, i, a);
+        },
+        [e, t, i, a],
+      );
     }
     ((l.useLexicalKeydownEvent = u), (l.useLexicalCommandListener = c));
   },

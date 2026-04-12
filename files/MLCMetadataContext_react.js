@@ -1,6 +1,6 @@
 __d(
   "MLCMetadataContext.react",
-  ["react", "vulture"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -12,15 +12,14 @@ __d(
     function p(e) {
       var t = e.children,
         n = e.contentID,
-        o = e.surface;
-      r("vulture")("MdVM3kc-XzhP1VD9ZUtXsI1SWxk=");
-      var a = d(
-        function () {
-          return { contentID: n, surface: o };
-        },
-        [n, o],
-      );
-      return s.jsx(m.Provider, { value: a, children: t });
+        r = e.surface,
+        o = d(
+          function () {
+            return { contentID: n, surface: r };
+          },
+          [n, r],
+        );
+      return s.jsx(m.Provider, { value: o, children: t });
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _() {

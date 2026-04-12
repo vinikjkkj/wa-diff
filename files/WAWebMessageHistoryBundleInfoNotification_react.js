@@ -9,7 +9,6 @@ __d(
     "WDSText.react",
     "WDSTextualLink.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -38,160 +37,129 @@ __d(
       },
       g = o("WAWebFaqUrl").getGroupHistoryFAQUrl();
     function h(e) {
-      var t = o("react-compiler-runtime").c(18),
-        n = e.authorName,
-        a = e.firstBundleMsgElement,
-        i = _(!1),
-        l = i[0],
-        c = i[1],
-        h = p(null),
-        C = d(
+      var t = e.authorName,
+        n = e.firstBundleMsgElement,
+        a = _(!1),
+        i = a[0],
+        l = a[1],
+        c = p(null),
+        h = d(
           o("WAWebGroupHistoryBundleInfoContext")
             .WAWebGroupHistoryBundleInfoContext,
         ),
-        b = C.setVisibleGroupHistoryBundleSenders,
-        v,
-        S;
-      (t[0] !== n || t[1] !== a || t[2] !== b
-        ? ((v = function () {
-            var e = h.current;
+        y = h.setVisibleGroupHistoryBundleSenders;
+      return (
+        m(
+          function () {
+            var e = c.current;
             if (e != null) {
-              var t = !1,
-                r = !1,
+              var r = !1,
                 o = !1,
+                a = !1,
                 i = function () {
-                  var e = r && !o,
-                    a = t || e;
-                  (c(e),
-                    b(function (e) {
-                      var t = e.has(n);
-                      if (a === t) return e;
-                      var r = new Set(e);
-                      return (a ? r.add(n) : r.delete(n), r);
+                  var e = o && !a,
+                    n = r || e;
+                  (l(e),
+                    y(function (e) {
+                      var r = e.has(t);
+                      if (n === r) return e;
+                      var o = new Set(e);
+                      return (n ? o.add(t) : o.delete(t), o);
                     }));
                 },
-                l = y,
-                s = new IntersectionObserver(function (e) {
-                  var n = e[e.length - 1];
-                  ((t = n.intersectionRatio > 0), (r = l(n)), i());
-                }),
+                s = function (t) {
+                  var e,
+                    n,
+                    r =
+                      (e = (n = t.rootBounds) == null ? void 0 : n.height) !=
+                      null
+                        ? e
+                        : 0;
+                  return (
+                    t.intersectionRatio === 0 &&
+                    t.boundingClientRect.top > r / 2
+                  );
+                },
                 u = new IntersectionObserver(function (e) {
                   var t = e[e.length - 1];
-                  ((o = l(t)), i());
+                  ((r = t.intersectionRatio > 0), (o = s(t)), i());
+                }),
+                d = new IntersectionObserver(function (e) {
+                  var t = e[e.length - 1];
+                  ((a = s(t)), i());
                 });
               return (
-                s.observe(e),
-                a != null && u.observe(a),
+                u.observe(e),
+                n != null && d.observe(n),
                 function () {
-                  (s.disconnect(),
-                    u.disconnect(),
-                    b(function (e) {
-                      if (!e.has(n)) return e;
-                      var t = new Set(e);
-                      return (t.delete(n), t);
+                  (u.disconnect(),
+                    d.disconnect(),
+                    y(function (e) {
+                      if (!e.has(t)) return e;
+                      var n = new Set(e);
+                      return (n.delete(t), n);
                     }));
                 }
               );
             }
-          }),
-          (S = [n, a, b]),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = b),
-          (t[3] = v),
-          (t[4] = S))
-        : ((v = t[3]), (S = t[4])),
-        m(v, S));
-      var R;
-      t[5] !== n
-        ? ((R = s._(/*BTDS*/ "Message history sent by {authorName}", [
-            s._param("authorName", n),
-          ])),
-          (t[5] = n),
-          (t[6] = R))
-        : (R = t[6]);
-      var L;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = u.jsx(r("WDSTextualLink.react"), {
-            href: g,
-            children: s._(/*BTDS*/ "Learn more"),
-          })),
-          (t[7] = L))
-        : (L = t[7]);
-      var E;
-      t[8] !== R
-        ? ((E = u.jsx(r("WAWebWrapperSystemBubble.react"), {
-            testid: void 0,
-            ref: h,
-            isFocusable: !1,
-            groupHistoryBackground: !0,
-            xstyle: f.staticBundleInfo,
-            children: u.jsxs(r("WDSText.react"), {
-              type: "Body3Emphasized",
-              xstyle: f.historyInfoBubble,
-              colorName: "contentDefault",
-              children: [R, ".", " ", L],
+          },
+          [t, n, y],
+        ),
+        u.jsxs(u.Fragment, {
+          children: [
+            u.jsx(r("WAWebWrapperSystemBubble.react"), {
+              testid: void 0,
+              ref: c,
+              isFocusable: !1,
+              groupHistoryBackground: !0,
+              xstyle: f.staticBundleInfo,
+              children: u.jsxs(r("WDSText.react"), {
+                type: "Body3Emphasized",
+                xstyle: f.historyInfoBubble,
+                colorName: "contentDefault",
+                children: [
+                  s._(/*BTDS*/ "Message history sent by {authorName}", [
+                    s._param("authorName", t),
+                  ]),
+                  ".",
+                  " ",
+                  u.jsx(r("WDSTextualLink.react"), {
+                    href: g,
+                    children: s._(/*BTDS*/ "Learn more"),
+                  }),
+                ],
+              }),
             }),
-          })),
-          (t[8] = R),
-          (t[9] = E))
-        : (E = t[9]);
-      var k;
-      t[10] !== n || t[11] !== l
-        ? ((k = l
-            ? u.jsx(r("WAWebWrapperSystemBubble.react"), {
-                isFocusable: !1,
-                children: u.jsxs(r("WDSText.react"), {
-                  type: "Body3Emphasized",
-                  xstyle: f.historyInfoBubble,
-                  colorName: "contentDefault",
-                  children: [
-                    s._(/*BTDS*/ "Message history sent by {authorName}", [
-                      s._param("authorName", n),
-                    ]),
-                    ".",
-                    " ",
-                    u.jsx(r("WDSTextualLink.react"), {
-                      href: g,
-                      children: s._(/*BTDS*/ "Learn more"),
+            u.jsx(r("WAWebVelocityTransitionGroup"), {
+              xstyle: f.transitionGroup,
+              transitionName: "group-history-info",
+              children: i
+                ? u.jsx(r("WAWebWrapperSystemBubble.react"), {
+                    isFocusable: !1,
+                    children: u.jsxs(r("WDSText.react"), {
+                      type: "Body3Emphasized",
+                      xstyle: f.historyInfoBubble,
+                      colorName: "contentDefault",
+                      children: [
+                        s._(/*BTDS*/ "Message history sent by {authorName}", [
+                          s._param("authorName", t),
+                        ]),
+                        ".",
+                        " ",
+                        u.jsx(r("WDSTextualLink.react"), {
+                          href: g,
+                          children: s._(/*BTDS*/ "Learn more"),
+                        }),
+                      ],
                     }),
-                  ],
-                }),
-              })
-            : null),
-          (t[10] = n),
-          (t[11] = l),
-          (t[12] = k))
-        : (k = t[12]);
-      var I;
-      t[13] !== k
-        ? ((I = u.jsx(r("WAWebVelocityTransitionGroup"), {
-            xstyle: f.transitionGroup,
-            transitionName: "group-history-info",
-            children: k,
-          })),
-          (t[13] = k),
-          (t[14] = I))
-        : (I = t[14]);
-      var T;
-      return (
-        t[15] !== E || t[16] !== I
-          ? ((T = u.jsxs(u.Fragment, { children: [E, I] })),
-            (t[15] = E),
-            (t[16] = I),
-            (t[17] = T))
-          : (T = t[17]),
-        T
+                  })
+                : null,
+            }),
+          ],
+        })
       );
     }
-    function y(e) {
-      var t,
-        n,
-        r =
-          (t = (n = e.rootBounds) == null ? void 0 : n.height) != null ? t : 0;
-      return e.intersectionRatio === 0 && e.boundingClientRect.top > r / 2;
-    }
-    l.default = h;
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
   },
   226,
 );

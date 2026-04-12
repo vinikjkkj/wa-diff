@@ -1,32 +1,17 @@
 __d(
   "useWAWebABPropConfigValue",
-  [
-    "WAWebABProps",
-    "WAWebCmd",
-    "react-compiler-runtime",
-    "useWAWebEventTargetValue",
-  ],
+  ["WAWebABProps", "WAWebCmd", "useWAWebEventTargetValue"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n,
-        a;
-      t[0] !== e
-        ? ((n = function () {
-            return o("WAWebABProps").getABPropConfigValue(e);
-          }),
-          (a = [e]),
-          (t[0] = e),
-          (t[1] = n),
-          (t[2] = a))
-        : ((n = t[1]), (a = t[2]));
-      var i = r("useWAWebEventTargetValue")(
+      var t = r("useWAWebEventTargetValue")(
         o("WAWebCmd").Cmd,
         "on_ab_props_update_from_bridge",
-        n,
-        a,
+        function () {
+          return o("WAWebABProps").getABPropConfigValue(e);
+        },
+        [e],
       );
-      return i;
+      return t;
     }
     l.useABPropConfigValue = e;
   },

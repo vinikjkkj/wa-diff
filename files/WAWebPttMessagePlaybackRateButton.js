@@ -6,7 +6,6 @@ __d(
     "WAWebUnstyledButton.react",
     "WDSFocusStateStyles",
     "react",
-    "react-compiler-runtime",
     "useWAWebIsKeyboardUser",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -25,64 +24,34 @@ __d(
         },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(15),
-        n = e.onClick,
-        a = e.playbackRate,
-        i = e.playbackRateButtonIsVisible,
-        l = r("useWAWebIsKeyboardUser")(),
-        s = l.isKeyboardUser,
-        d;
-      t[0] !== n
-        ? ((d = function () {
-            (o("WAWebPttPrefs").PttPrefs.delayClearPlaybackRateControl(), n());
-          }),
-          (t[0] = n),
-          (t[1] = d))
-        : (d = t[1]);
-      var p = d,
-        _ = -1;
-      i && (_ = 0);
-      var f = !i,
-        g = s && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-        h;
-      t[2] !== g ? ((h = [c.wrapper, g]), (t[2] = g), (t[3] = h)) : (h = t[3]);
-      var y = _,
-        C;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = {
+      var t = e.onClick,
+        n = e.playbackRate,
+        a = e.playbackRateButtonIsVisible,
+        i = r("useWAWebIsKeyboardUser")(),
+        l = i.isKeyboardUser,
+        s = function () {
+          (o("WAWebPttPrefs").PttPrefs.delayClearPlaybackRateControl(), t());
+        },
+        d = -1;
+      return (
+        a && (d = 0),
+        u.jsx(r("WAWebUnstyledButton.react"), {
+          "aria-hidden": !a,
+          xstyle: [
+            c.wrapper,
+            l && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+          ],
+          tabIndex: d,
+          onClick: s,
+          children: u.jsx("div", {
             className:
               "x9f619 x900493 x1nn3v0j x1gabggj x1120s5i xaso8d8 x1nxh6w3 xk50ysn xp9159e x2b8uid xlhzguj x1142k65 x9okykr x3hdh8v xr0m5pc x1muecih",
+            children: m(n),
           }),
-          (t[4] = C))
-        : (C = t[4]);
-      var b;
-      t[5] !== a ? ((b = m(a)), (t[5] = a), (t[6] = b)) : (b = t[6]);
-      var v;
-      t[7] !== b
-        ? ((v = u.jsx("div", babelHelpers.extends({}, C, { children: b }))),
-          (t[7] = b),
-          (t[8] = v))
-        : (v = t[8]);
-      var S;
-      return (
-        t[9] !== p || t[10] !== f || t[11] !== h || t[12] !== v || t[13] !== _
-          ? ((S = u.jsx(r("WAWebUnstyledButton.react"), {
-              "aria-hidden": f,
-              xstyle: h,
-              tabIndex: y,
-              onClick: p,
-              children: v,
-            })),
-            (t[9] = p),
-            (t[10] = f),
-            (t[11] = h),
-            (t[12] = v),
-            (t[13] = _),
-            (t[14] = S))
-          : (S = t[14]),
-        S
+        })
       );
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
       switch (e) {
         case 1:

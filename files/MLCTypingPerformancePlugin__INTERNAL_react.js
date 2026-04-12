@@ -40,9 +40,8 @@ __d(
       var t = e.format__DEPRECATED,
         n = e.surface,
         a = e.typingPerformanceID,
-        i = a === void 0 ? "" : a;
-      r("vulture")("pImwDlcDCi8IS0kJqI1DhC9LUN0=");
-      var l = o("LexicalComposerContext").useLexicalComposerContext(),
+        i = a === void 0 ? "" : a,
+        l = o("LexicalComposerContext").useLexicalComposerContext(),
         s = l[0];
       return (
         u(

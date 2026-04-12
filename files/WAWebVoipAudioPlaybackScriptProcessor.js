@@ -16,11 +16,7 @@ __d(
       c,
       d,
       m,
-      p,
-      _,
-      f,
-      g,
-      h = (function () {
+      p = (function () {
         function t() {
           ((this.playbackScriptProcessor = null),
             (this.playbackRingBuffer = null),
@@ -40,33 +36,33 @@ __d(
                   a = t.channels,
                   i = t.framesPerChunk,
                   l = t.playbackBuffer,
-                  g = t.sampleRate;
+                  m = t.sampleRate;
                 ((this.playbackBuffer = l),
                   (this.playbackParams = {
-                    sampleRate: g,
+                    sampleRate: m,
                     channels: a,
                     framesPerChunk: i,
                   }));
-                var h = 256,
-                  y =
+                var p = 256,
+                  _ =
                     yield o("WAWebBackendApi").frontendSendAndReceive(
                       "initializeVoipWasm",
                     );
                 this.playbackRingBuffer = new (o(
                   "WAWebAudioRingBuffer",
-                ).WAWebAudioRingBuffer)(h, i, "Playback");
-                var C = r.destination.channelCount;
-                this.playbackScriptProcessor = r.createScriptProcessor(h, 1, C);
-                var b = this.playbackScriptProcessor,
-                  v = this.playbackRingBuffer,
-                  S = this.playbackBuffer,
-                  R = i * 4;
-                (b != null &&
-                  (b.onaudioprocess = function (t) {
+                ).WAWebAudioRingBuffer)(p, i, "Playback");
+                var f = r.destination.channelCount;
+                this.playbackScriptProcessor = r.createScriptProcessor(p, 1, f);
+                var g = this.playbackScriptProcessor,
+                  h = this.playbackRingBuffer,
+                  y = this.playbackBuffer,
+                  C = i * 4;
+                (g != null &&
+                  (g.onaudioprocess = function (t) {
                     try {
                       var r, a;
                       if (!n.isActive) return;
-                      if (S == null) {
+                      if (y == null) {
                         o("WALogger").ERROR(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -78,20 +74,20 @@ __d(
                       var i = t.outputBuffer,
                         l = i.length,
                         d =
-                          (r = v == null ? void 0 : v.getDataLength()) != null
+                          (r = h == null ? void 0 : h.getDataLength()) != null
                             ? r
                             : 0,
                         m = l,
                         p = l * 2;
-                      if (d < m && S != null) {
-                        var _ = S;
-                        y.requestAudioDataFromWasmVoip(_, R);
-                        var f = Math.floor(_ / 4),
-                          g = R / 4,
-                          h = y.GROWABLE_HEAP_F32().subarray(f, f + g),
-                          C = d + h.length > p;
-                        !C && v != null
-                          ? v.write(h)
+                      if (d < m && y != null) {
+                        var f = y;
+                        _.requestAudioDataFromWasmVoip(f, C);
+                        var g = Math.floor(f / 4),
+                          b = C / 4,
+                          v = _.GROWABLE_HEAP_F32().subarray(g, g + b),
+                          S = d + v.length > p;
+                        !S && h != null
+                          ? h.write(v)
                           : o("WALogger").ERROR(
                               s ||
                                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -100,22 +96,22 @@ __d(
                                   ", max=",
                                   "",
                                 ])),
-                              h.length,
+                              v.length,
                               d,
                               p,
                             );
                       }
                       for (
-                        var b =
-                            (a = v == null ? void 0 : v.read(l)) != null
+                        var R =
+                            (a = h == null ? void 0 : h.read(l)) != null
                               ? a
                               : new Float32Array(0),
                           L = 0;
                         L < i.numberOfChannels;
                         L++
                       )
-                        i.getChannelData(L).set(b);
-                      b.length < l &&
+                        i.getChannelData(L).set(R);
+                      R.length < l &&
                         o("WALogger").WARN(
                           u ||
                             (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -124,7 +120,7 @@ __d(
                               "",
                             ])),
                           l,
-                          b.length,
+                          R.length,
                         );
                     } catch (e) {
                       o("WALogger").ERROR(
@@ -156,55 +152,15 @@ __d(
                         ])),
                       e,
                     );
-                  }));
-                var L = o(
-                  "WAWebAudioDeviceManager",
-                ).getCurrentSelectedAudioOutputDevice();
-                if (
-                  (o("WALogger").LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:ScriptProcessor:Playback] applying saved output device preference: ",
-                        "",
-                      ])),
-                    L != null ? L : "(none)",
-                  ),
-                  L != null && this.playbackAudioElement != null)
-                ) {
-                  var E = this.playbackAudioElement;
-                  if (typeof E.setSinkId == "function")
-                    try {
-                      (yield E.setSinkId(L),
-                        o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: [AV:ScriptProcessor:Playback] output device set successfully to ",
-                              "",
-                            ])),
-                          L.slice(0, 8),
-                        ));
-                    } catch (e) {
-                      var k = e instanceof Error ? e.name : String(e);
-                      o("WALogger").WARN(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:ScriptProcessor:Playback] setSinkId failed for saved device ",
-                            ": ",
-                            "",
-                          ])),
-                        L.slice(0, 8),
-                        k,
-                      );
-                    }
-                  else
-                    o("WALogger").WARN(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:ScriptProcessor:Playback] setSinkId not available, output will use browser default",
-                        ])),
-                    );
-                }
-                this.isActive = !0;
+                  }),
+                  this.playbackAudioElement != null &&
+                    (yield o(
+                      "WAWebAudioDeviceManager",
+                    ).applyPreferredAudioOutputDevice(
+                      this.playbackAudioElement,
+                      "AV:ScriptProcessor:Playback",
+                    )),
+                  (this.isActive = !0));
               },
             );
             function r(e) {
@@ -237,8 +193,8 @@ __d(
                   (this.playbackParams = null));
               } catch (e) {
                 o("WALogger").ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:ScriptProcessor:Playback] cleanup error: ",
                       "",
                     ])),
@@ -257,7 +213,7 @@ __d(
           t
         );
       })();
-    l.WAWebVoipAudioPlaybackScriptProcessor = h;
+    l.WAWebVoipAudioPlaybackScriptProcessor = p;
   },
   98,
 );

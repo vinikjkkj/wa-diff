@@ -10,7 +10,6 @@ __d(
     "WAWebWrapperSystemBubble.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -23,124 +22,79 @@ __d(
         marginBottom2: { marginBottom: "x13m54ha", $$css: !0 },
       };
     function _() {
-      var e = o("react-compiler-runtime").c(7),
-        t = m(null),
-        a = t[0],
-        i = t[1],
-        l,
-        c;
+      var e = m(null),
+        t = e[0],
+        a = e[1];
       if (
-        (e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((l = function () {
-              var e = (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    var e = yield o(
-                      "WAWebCommonNewsletterIntegrityStrings",
-                    ).getGeosuspendedInYourCountryString({ isPreview: !1 });
-                    i(e);
-                  },
-                );
-                function t() {
-                  return e.apply(this, arguments);
-                }
-                return t;
-              })();
-              e();
-            }),
-            (c = []),
-            (e[0] = l),
-            (e[1] = c))
-          : ((l = e[0]), (c = e[1])),
-        d(l, c),
-        a != null)
-      ) {
-        var _;
-        e[2] !== a
-          ? ((_ = u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-              ariaLabel: a,
-              testid: void 0,
-              children: a,
-            })),
-            (e[2] = a),
-            (e[3] = _))
-          : (_ = e[3]);
-        var f;
-        e[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((f = u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-              children: s._(/*BTDS*/ "Click to learn more"),
-            })),
-            (e[4] = f))
-          : (f = e[4]);
-        var h;
-        return (
-          e[5] !== _
-            ? ((h = u.jsx(r("WAWebWrapperSystemBubble.react"), {
-                theme: "center",
-                children: u.jsxs(r("WAWebClickableLink.react"), {
-                  testid: void 0,
-                  onClick: g,
-                  xstyle: p.linkColor,
-                  children: [_, f],
-                }),
+        (d(function () {
+          function e() {
+            return t.apply(this, arguments);
+          }
+          function t() {
+            return (
+              (t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var e = yield o(
+                  "WAWebCommonNewsletterIntegrityStrings",
+                ).getGeosuspendedInYourCountryString({ isPreview: !1 });
+                a(e);
               })),
-              (e[5] = _),
-              (e[6] = h))
-            : (h = e[6]),
-          h
-        );
-      }
-    }
-    function f(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.isAdminOrOwner,
-        a = e.isGeosuspended;
-      if (a) {
-        var i;
-        return (
-          t[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((i = u.jsx(_, {})), (t[0] = i))
-            : (i = t[0]),
-          i
-        );
-      }
-      var l;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = u.jsx(o("WAWebText_DONOTUSE.react").TextHeader, {
-            level: "2",
-            size: "16",
-            weight: "bold",
-            xstyle: p.marginBottom2,
+              t.apply(this, arguments)
+            );
+          }
+          e();
+        }, []),
+        t != null)
+      )
+        return u.jsx(r("WAWebWrapperSystemBubble.react"), {
+          theme: "center",
+          children: u.jsxs(r("WAWebClickableLink.react"), {
             testid: void 0,
-            children: s._(/*BTDS*/ "This channel is no longer available"),
-          })),
-          (t[1] = l))
-        : (l = t[1]);
-      var c;
-      return (
-        t[2] !== n
-          ? ((c = u.jsxs(r("WAWebWrapperSystemBubble.react"), {
-              theme: "center",
-              children: [
-                l,
-                u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-                  testid: void 0,
-                  children: n
-                    ? s._(
-                        /*BTDS*/ "Followers can't see channel history and new updates can't be shared.",
-                      )
-                    : s._(
-                        /*BTDS*/ "You can't see channel history and new updates aren't available.",
-                      ),
-                }),
-              ],
-            })),
-            (t[2] = n),
-            (t[3] = c))
-          : (c = t[3]),
-        c
-      );
+            onClick: g,
+            xstyle: p.linkColor,
+            children: [
+              u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
+                ariaLabel: t,
+                testid: void 0,
+                children: t,
+              }),
+              u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
+                children: s._(/*BTDS*/ "Click to learn more"),
+              }),
+            ],
+          }),
+        });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
+    function f(e) {
+      var t = e.isAdminOrOwner,
+        n = e.isGeosuspended;
+      return n
+        ? u.jsx(_, {})
+        : u.jsxs(r("WAWebWrapperSystemBubble.react"), {
+            theme: "center",
+            children: [
+              u.jsx(o("WAWebText_DONOTUSE.react").TextHeader, {
+                level: "2",
+                size: "16",
+                weight: "bold",
+                xstyle: p.marginBottom2,
+                testid: void 0,
+                children: s._(/*BTDS*/ "This channel is no longer available"),
+              }),
+              u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
+                testid: void 0,
+                children: t
+                  ? s._(
+                      /*BTDS*/ "Followers can't see channel history and new updates can't be shared.",
+                    )
+                  : s._(
+                      /*BTDS*/ "You can't see channel history and new updates aren't available.",
+                    ),
+              }),
+            ],
+          });
+    }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g() {
       o("WAWebExternalLink.react").openExternalLink(
         o("WAWebFaqUrl").getNewsletterGeosuspendFaqUrl(),

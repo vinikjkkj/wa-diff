@@ -1,12 +1,6 @@
 __d(
   "WAWebBotPluginCarouselChevronBtn.react",
-  [
-    "WAWebChevronButton.react",
-    "WAWebL10N",
-    "react",
-    "react-compiler-runtime",
-    "stylex",
-  ],
+  ["WAWebChevronButton.react", "WAWebL10N", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -34,73 +28,52 @@ __d(
         },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(17),
-        a = t.displayType,
-        i = t.onClick,
-        l = t.theme,
-        s = t.type,
-        d =
-          a ===
+      var n = t.displayType,
+        a = t.onClick,
+        i = t.theme,
+        l = t.type,
+        s =
+          n ===
           o("WAWebChevronButton.react").ChevronButtonDisplayType
             .BotPluginCarousel,
-        _ = s === o("WAWebChevronButton.react").ButtonType.Prev && d,
-        f = s === o("WAWebChevronButton.react").ButtonType.Next && d,
-        g;
-      n[0] !== f || n[1] !== _
-        ? ((g = {
+        d = l === o("WAWebChevronButton.react").ButtonType.Prev && s,
+        _ = l === o("WAWebChevronButton.react").ButtonType.Next && s;
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          {
             0: {},
             2: { className: "x10l6tqk x13vifvy xvt47uu x187nhsf x11uqc5h" },
             1: { className: "x10l6tqk x13vifvy xtijo5x xvt47uu x187nhsf" },
             3: {
               className: "x11uqc5h x10l6tqk x13vifvy xtijo5x xvt47uu x187nhsf",
             },
-          }[(!!_ << 1) | (!!f << 0)]),
-          (n[0] = f),
-          (n[1] = _),
-          (n[2] = g))
-        : (g = n[2]);
-      var h;
-      n[3] !== d || n[4] !== f || n[5] !== _
-        ? ((h = (e || (e = r("stylex"))).props(
-            d && c.btnContainer,
-            _ && m(),
-            f && p(),
-          )),
-          (n[3] = d),
-          (n[4] = f),
-          (n[5] = _),
-          (n[6] = h))
-        : (h = n[6]);
-      var y;
-      n[7] !== i || n[8] !== l || n[9] !== s
-        ? ((y = u.jsx(o("WAWebChevronButton.react").ChevronButton, {
-            type: s,
-            onClick: i,
-            theme: l,
-          })),
-          (n[7] = i),
-          (n[8] = l),
-          (n[9] = s),
-          (n[10] = y))
-        : (y = n[10]);
-      var C;
-      n[11] !== h || n[12] !== y
-        ? ((C = u.jsx("div", babelHelpers.extends({}, h, { children: y }))),
-          (n[11] = h),
-          (n[12] = y),
-          (n[13] = C))
-        : (C = n[13]);
-      var b;
-      return (
-        n[14] !== g || n[15] !== C
-          ? ((b = u.jsx("div", babelHelpers.extends({}, g, { children: C }))),
-            (n[14] = g),
-            (n[15] = C),
-            (n[16] = b))
-          : (b = n[16]),
-        b
+          }[(!!d << 1) | (!!_ << 0)],
+          {
+            children: u.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                (e || (e = r("stylex"))).props(
+                  s && c.btnContainer,
+                  d && m(),
+                  _ && p(),
+                ),
+                {
+                  children: u.jsx(o("WAWebChevronButton.react").ChevronButton, {
+                    type: l,
+                    onClick: a,
+                    theme: i,
+                  }),
+                },
+              ),
+            ),
+          },
+        ),
       );
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m() {
       return r("WAWebL10N").isRTL()
         ? c.btnContainerBackgroundPrevRTL

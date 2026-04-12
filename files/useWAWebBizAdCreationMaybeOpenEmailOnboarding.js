@@ -8,7 +8,6 @@ __d(
     "WAWebBizAdCreationSpecContext",
     "WAWebModalManager",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationMaybeOpenEmailOnboarding_query.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,72 +29,78 @@ __d(
     function g(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(7),
-        i = m(r("WAWebBizAdCreationIdentityContext")),
-        l = i == null ? void 0 : i.accountType,
-        s = o("CometRelay").useFragment(f, e),
-        c =
-          s == null || (t = s.wa_ad_account_onboarding_data) == null
+        a = m(r("WAWebBizAdCreationIdentityContext")),
+        i = a == null ? void 0 : a.accountType,
+        l = o("CometRelay").useFragment(f, e),
+        s =
+          l == null || (t = l.wa_ad_account_onboarding_data) == null
             ? void 0
             : t.email,
-        d = l === "WAA" && !c,
-        g = _(d),
-        h,
-        y;
-      (a[0] !== d
-        ? ((h = function () {
-            g.current = d;
-          }),
-          (y = [d]),
-          (a[0] = d),
-          (a[1] = h),
-          (a[2] = y))
-        : ((h = a[1]), (y = a[2])),
-        p(h, y));
-      var C = o("CometRelay").useRelayEnvironment(),
-        b = m(r("WAWebBizAdCreationLoggerContext")),
-        v = m(r("WAWebBizAdCreationSpecContext")),
-        S =
-          v == null ||
-          (n = v.currentValue) == null ||
+        c = i === "WAA" && !s,
+        g = _(c);
+      p(
+        function () {
+          g.current = c;
+        },
+        [c],
+      );
+      var h = o("CometRelay").useRelayEnvironment(),
+        y = m(r("WAWebBizAdCreationLoggerContext")),
+        C = m(r("WAWebBizAdCreationSpecContext")),
+        b =
+          C == null ||
+          (n = C.currentValue) == null ||
           (n = n.adAccountData) == null
             ? void 0
-            : n.id,
-        R;
-      return (
-        a[3] !== S || a[4] !== C || a[5] !== b
-          ? ((R = function (t, n) {
-              if (!g.current) {
-                t();
-                return;
-              }
-              o("WAWebModalManager").ModalManager.open(
-                u.jsx(o("CometRelay").RelayEnvironmentProvider, {
-                  environment: C,
-                  children: u.jsx(
-                    r("WAWebBizAdCreationEmailOnboardingFlow.react"),
-                    {
-                      adAccountID: S,
-                      loggerContext: b,
-                      onCancel: function () {
-                        (o("WAWebModalManager").closeModalManager(),
-                          n == null || n());
-                      },
-                      onComplete: function () {
-                        (o("WAWebModalManager").closeModalManager(), t());
-                      },
-                    },
-                  ),
-                }),
-                { blockClose: !0 },
-              );
+            : n.id;
+      return d(
+        function (e, t) {
+          if (!g.current) {
+            e();
+            return;
+          }
+          o("WAWebModalManager").ModalManager.open(
+            u.jsx(o("CometRelay").RelayEnvironmentProvider, {
+              environment: h,
+              children: u.jsx(
+                r("WAWebBizAdCreationEmailOnboardingFlow.react"),
+                {
+                  adAccountID: b,
+                  loggerContext: y,
+                  onCancel: (function (e) {
+                    function t() {
+                      return e.apply(this, arguments);
+                    }
+                    return (
+                      (t.toString = function () {
+                        return e.toString();
+                      }),
+                      t
+                    );
+                  })(function () {
+                    (o("WAWebModalManager").closeModalManager(),
+                      t == null || t());
+                  }),
+                  onComplete: (function (e) {
+                    function t() {
+                      return e.apply(this, arguments);
+                    }
+                    return (
+                      (t.toString = function () {
+                        return e.toString();
+                      }),
+                      t
+                    );
+                  })(function () {
+                    (o("WAWebModalManager").closeModalManager(), e());
+                  }),
+                },
+              ),
             }),
-            (a[3] = S),
-            (a[4] = C),
-            (a[5] = b),
-            (a[6] = R))
-          : (R = a[6]),
-        R
+            { blockClose: !0 },
+          );
+        },
+        [h, y, b],
       );
     }
     l.default = g;

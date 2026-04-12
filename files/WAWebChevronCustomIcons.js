@@ -1,6 +1,6 @@
 __d(
   "WAWebChevronCustomIcons",
-  ["WAWebChevronIcon.react", "react", "react-compiler-runtime"],
+  ["WAWebChevronIcon.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -10,66 +10,27 @@ __d(
         rotatedDown: { display: "x1rg5ohu", rotate: "xq77vm1", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n;
-      t[0] !== e.xstyle
-        ? ((n = [e.xstyle, u.reversed]), (t[0] = e.xstyle), (t[1] = n))
-        : (n = t[1]);
-      var r;
-      return (
-        t[2] !== e || t[3] !== n
-          ? ((r = s.jsx(
-              o("WAWebChevronIcon.react").ChevronIcon,
-              babelHelpers.extends({}, e, { xstyle: n }),
-            )),
-            (t[2] = e),
-            (t[3] = n),
-            (t[4] = r))
-          : (r = t[4]),
-        r
+      return s.jsx(
+        o("WAWebChevronIcon.react").ChevronIcon,
+        babelHelpers.extends({}, e, { xstyle: [e.xstyle, u.reversed] }),
       );
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n;
-      t[0] !== e.xstyle
-        ? ((n = [e.xstyle, u.rotatedUp]), (t[0] = e.xstyle), (t[1] = n))
-        : (n = t[1]);
-      var r;
-      return (
-        t[2] !== e || t[3] !== n
-          ? ((r = s.jsx(
-              o("WAWebChevronIcon.react").ChevronIcon,
-              babelHelpers.extends({}, e, { xstyle: n }),
-            )),
-            (t[2] = e),
-            (t[3] = n),
-            (t[4] = r))
-          : (r = t[4]),
-        r
+      return s.jsx(
+        o("WAWebChevronIcon.react").ChevronIcon,
+        babelHelpers.extends({}, e, { xstyle: [e.xstyle, u.rotatedUp] }),
       );
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n;
-      t[0] !== e.xstyle
-        ? ((n = [e.xstyle, u.rotatedDown]), (t[0] = e.xstyle), (t[1] = n))
-        : (n = t[1]);
-      var r;
-      return (
-        t[2] !== e || t[3] !== n
-          ? ((r = s.jsx(
-              o("WAWebChevronIcon.react").ChevronIcon,
-              babelHelpers.extends({}, e, { xstyle: n }),
-            )),
-            (t[2] = e),
-            (t[3] = n),
-            (t[4] = r))
-          : (r = t[4]),
-        r
+      return s.jsx(
+        o("WAWebChevronIcon.react").ChevronIcon,
+        babelHelpers.extends({}, e, { xstyle: [e.xstyle, u.rotatedDown] }),
       );
     }
-    ((l.ChevronLeftCustomIcon = c),
+    ((m.displayName = m.name + " [from " + i.id + "]"),
+      (l.ChevronLeftCustomIcon = c),
       (l.ChevronUpCustomIcon = d),
       (l.ChevronDownCustomIcon = m));
   },

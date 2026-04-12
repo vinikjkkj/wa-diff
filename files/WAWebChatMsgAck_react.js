@@ -8,7 +8,6 @@ __d(
     "WAWebStatusCheckIcon.react",
     "WAWebStatusDblcheckIcon.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebMsgValues",
   ],
@@ -31,78 +30,56 @@ __d(
         marginEnd2: { marginInlineEnd: "x16q7b9a", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(10),
-        a = t.associatedMessages,
-        i = t.msg,
-        l;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = [o("WAWebMsgGetters").getAck, o("WAWebMsgGetters").getType]),
-          (n[0] = l))
-        : (l = n[0]);
-      var s = o("useWAWebMsgValues").useMsgValues(i.id, l),
-        c = s[0],
-        m = s[1],
-        p = c != null ? c : o("WAWebAck").ACK.CLOCK,
-        _ = o("WAWebMessageAssociationUIUtils").getLowestAckState(p, m, a),
-        f,
-        g;
-      if (_ < o("WAWebAck").ACK.SENT) {
-        var h;
-        (n[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((h = u.jsx(
+      var n = t.associatedMessages,
+        a = t.msg,
+        i = o("useWAWebMsgValues").useMsgValues(a.id, [
+          o("WAWebMsgGetters").getAck,
+          o("WAWebMsgGetters").getType,
+        ]),
+        l = i[0],
+        s = i[1],
+        m = l != null ? l : o("WAWebAck").ACK.CLOCK,
+        p = c(
+          function () {
+            return o("WAWebMessageAssociationUIUtils").getLowestAckState(
+              m,
+              s,
+              n,
+            );
+          },
+          [m, n, s],
+        ),
+        _,
+        f;
+      return (
+        p < o("WAWebAck").ACK.SENT
+          ? (_ = u.jsx(
               o("WAWebIcChatlistClockIcon.react").IcChatlistClockIcon,
               {},
-            )),
-            (n[1] = h))
-          : (h = n[1]),
-          (f = h));
-      } else if (_ === o("WAWebAck").ACK.SENT) {
-        var y;
-        (n[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((y = u.jsx(o("WAWebStatusCheckIcon.react").StatusCheckIcon, {})),
-            (n[2] = y))
-          : (y = n[2]),
-          (f = y));
-      } else if (_ === o("WAWebAck").ACK.RECEIVED) {
-        var C;
-        (n[3] === Symbol.for("react.memo_cache_sentinel")
-          ? ((C = u.jsx(
-              o("WAWebStatusDblcheckIcon.react").StatusDblcheckIcon,
-              {},
-            )),
-            (n[3] = C))
-          : (C = n[3]),
-          (f = C));
-      } else {
-        var b;
-        (n[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((b = u.jsx(
-              o("WAWebStatusDblcheckIcon.react").StatusDblcheckIcon,
-              {},
-            )),
-            (n[4] = b))
-          : (b = n[4]),
-          (f = b),
-          (g = d.ackBlue));
-      }
-      var v;
-      n[5] !== g
-        ? ((v = (e || (e = r("stylex"))).props(d.ack, g, d.marginEnd2)),
-          (n[5] = g),
-          (n[6] = v))
-        : (v = n[6]);
-      var S;
-      return (
-        n[7] !== f || n[8] !== v
-          ? ((S = u.jsx("div", babelHelpers.extends({}, v, { children: f }))),
-            (n[7] = f),
-            (n[8] = v),
-            (n[9] = S))
-          : (S = n[9]),
-        S
+            ))
+          : p === o("WAWebAck").ACK.SENT
+            ? (_ = u.jsx(o("WAWebStatusCheckIcon.react").StatusCheckIcon, {}))
+            : p === o("WAWebAck").ACK.RECEIVED
+              ? (_ = u.jsx(
+                  o("WAWebStatusDblcheckIcon.react").StatusDblcheckIcon,
+                  {},
+                ))
+              : ((_ = u.jsx(
+                  o("WAWebStatusDblcheckIcon.react").StatusDblcheckIcon,
+                  {},
+                )),
+                (f = d.ackBlue)),
+        u.jsx(
+          "div",
+          babelHelpers.extends(
+            {},
+            (e || (e = r("stylex"))).props(d.ack, f, d.marginEnd2),
+            { children: _ },
+          ),
+        )
       );
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

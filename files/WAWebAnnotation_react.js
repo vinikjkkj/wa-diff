@@ -18,7 +18,6 @@ __d(
     "WAWebUimUieTooltip.react",
     "WAWebWamEnumTsSurface",
     "react",
-    "react-compiler-runtime",
     "useWAWebDebouncedCallback",
     "useWAWebForceUpdate",
   ],
@@ -232,181 +231,101 @@ __d(
       }
     }
     function E(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.annotation,
-        a = e.onClick,
-        i;
-      t[0] !== n ? ((i = v(n)), (t[0] = n), (t[1] = i)) : (i = t[1]);
-      var l = i,
-        s;
-      t[2] !== n || t[3] !== a
-        ? ((s = function () {
-            (L(n), a());
-          }),
-          (t[2] = n),
-          (t[3] = a),
-          (t[4] = s))
-        : (s = t[4]);
-      var c = s,
-        d;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = "x1lliihq x1tiyuxx xyri2b x1nbhmlj x1c1uobl x18ihxl1"),
-          (t[5] = d))
-        : (d = t[5]);
-      var m;
-      return (
-        t[6] !== c || t[7] !== l
-          ? ((m = u.jsx(r("WAWebClickableLink.react"), {
-              className: d,
-              onClick: c,
-              children: l,
-            })),
-            (t[6] = c),
-            (t[7] = l),
-            (t[8] = m))
-          : (m = t[8]),
-        m
-      );
+      var t = e.annotation,
+        n = e.onClick,
+        o = v(t),
+        a = function () {
+          (L(t), n());
+        };
+      return u.jsx(r("WAWebClickableLink.react"), {
+        className: "x1lliihq x1tiyuxx xyri2b x1nbhmlj x1c1uobl x18ihxl1",
+        onClick: a,
+        children: o,
+      });
     }
+    E.displayName = E.name + " [from " + i.id + "]";
     function k(e) {
-      var t = o("react-compiler-runtime").c(23),
-        n = e.onTooltipDismiss,
-        a = e.onTooltipDisplay,
-        i = Array.from(e.annotations).reverse(),
-        l = p(null),
-        s = l[0],
-        c = l[1],
-        d;
-      t[0] !== n
-        ? ((d = function () {
-            (c(null), n && n());
-          }),
-          (t[0] = n),
-          (t[1] = d))
-        : (d = t[1]);
-      var m = d,
-        _;
-      if (t[2] !== m || t[3] !== a) {
-        var f = function (t, n, r) {
-          if (!(n == null && r == null)) {
-            var e = u.jsx(E, { annotation: t, onClick: m }),
+      var t = e.onTooltipDismiss,
+        n = e.onTooltipDisplay,
+        a = Array.from(e.annotations).reverse(),
+        i = p(null),
+        l = i[0],
+        s = i[1],
+        c = function () {
+          (s(null), t && t());
+        },
+        d = function (t, r, a) {
+          if (!(r == null && a == null)) {
+            var e = u.jsx(E, { annotation: t, onClick: c }),
               i = {
                 menu: e,
                 type: o("WAWebDropdown.react").MenuType.Tooltip,
                 dirX: o("WAWebDropdown.react").DirX.RIGHT,
                 dirY: o("WAWebDropdown.react").DirY.TOP,
               };
-            (n != null
+            (r != null
               ? (i = babelHelpers.extends({}, i, {
-                  event: n,
+                  event: r,
                   autoFocus: !1,
                   offsetX: 0,
                   offsetY: 0,
                 }))
-              : (i = babelHelpers.extends({}, i, { anchor: r, autoFocus: !0 })),
-              c(i),
-              a && a());
+              : (i = babelHelpers.extends({}, i, { anchor: a, autoFocus: !0 })),
+              s(i),
+              n && n());
           }
-        };
-        ((_ = function (t, n, r) {
-          t.shouldSkipConfirmation === !0 ? L(t) : f(t, n, r);
-        }),
-          (t[2] = m),
-          (t[3] = a),
-          (t[4] = _));
-      } else _ = t[4];
-      var y = _,
-        C;
-      t[5] !== y
-        ? ((C = function (t, n) {
-            (t.stopPropagation(), y(n, t));
-          }),
-          (t[5] = y),
-          (t[6] = C))
-        : (C = t[6]);
-      var v = C,
-        S;
-      t[7] !== y
-        ? ((S = function (t, n) {
-            (t.key === " " || t.key === "Enter") &&
-              (t.preventDefault(), y(n, null, t.target));
-          }),
-          (t[7] = y),
-          (t[8] = S))
-        : (S = t[8]);
-      var R = S,
-        k;
-      t[9] !== m
-        ? ((k = function () {
-            m();
-          }),
-          (t[9] = m),
-          (t[10] = k))
-        : (k = t[10]);
-      var I = r("useWAWebDebouncedCallback")(k, 100);
-      if (!i.length) return null;
-      var T;
-      t[11] !== m || t[12] !== s
-        ? ((T =
-            s &&
-            u.jsx(o("WAWebUimUie.react").UIE, {
-              displayName: "InteractiveAnnotationTooltip",
-              popable: !0,
-              escapable: !0,
-              dismissOnWindowResize: !0,
-              requestDismiss: m,
-              requestRecentFocusOnUnmount: !1,
-              children: u.jsx(r("WAWebUimUieTooltip.react"), { tooltip: s }),
-            })),
-          (t[11] = m),
-          (t[12] = s),
-          (t[13] = T))
-        : (T = t[13]);
-      var D = T,
-        x;
-      t[14] !== R || t[15] !== v
-        ? ((x = function (t) {
+        },
+        m = function (t, n, r) {
+          t.shouldSkipConfirmation === !0 ? L(t) : d(t, n, r);
+        },
+        _ = function (t, n) {
+          (t.stopPropagation(), m(n, t));
+        },
+        f = function (t, n) {
+          (t.key === " " || t.key === "Enter") &&
+            (t.preventDefault(), m(n, null, t.target));
+        },
+        y = r("useWAWebDebouncedCallback")(function () {
+          c();
+        }, 100);
+      if (!a.length) return null;
+      var C =
+        l &&
+        u.jsx(o("WAWebUimUie.react").UIE, {
+          displayName: "InteractiveAnnotationTooltip",
+          popable: !0,
+          escapable: !0,
+          dismissOnWindowResize: !0,
+          requestDismiss: c,
+          requestRecentFocusOnUnmount: !1,
+          children: u.jsx(r("WAWebUimUieTooltip.react"), { tooltip: l }),
+        });
+      return u.jsxs(u.Fragment, {
+        children: [
+          a.map(function (e) {
             return (
-              g(t) &&
+              g(e) &&
               u.jsx(
                 b,
                 {
-                  annotation: t,
+                  annotation: e,
                   onClick: function (n) {
-                    return v(n, t);
+                    return _(n, e);
                   },
                   onKeyDown: function (n) {
-                    return R(n, t);
+                    return f(n, e);
                   },
                 },
-                h(t),
+                h(e),
               )
             );
           }),
-          (t[14] = R),
-          (t[15] = v),
-          (t[16] = x))
-        : (x = t[16]);
-      var $ = i.map(x),
-        P;
-      t[17] !== I
-        ? ((P = u.jsx(r("WAWebResizeObserver.react"), { onResize: I })),
-          (t[17] = I),
-          (t[18] = P))
-        : (P = t[18]);
-      var N;
-      return (
-        t[19] !== $ || t[20] !== P || t[21] !== D
-          ? ((N = u.jsxs(u.Fragment, { children: [$, D, P] })),
-            (t[19] = $),
-            (t[20] = P),
-            (t[21] = D),
-            (t[22] = N))
-          : (N = t[22]),
-        N
-      );
+          C,
+          u.jsx(r("WAWebResizeObserver.react"), { onResize: y }),
+        ],
+      });
     }
-    l.default = k;
+    ((k.displayName = k.name + " [from " + i.id + "]"), (l.default = k));
   },
   226,
 );

@@ -18,7 +18,6 @@ __d(
     "WAWebThemeContext",
     "WAWebWamEnumUserNoticeEvent",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebModelValues",
     "vulture",
@@ -33,34 +32,26 @@ __d(
       _ = d.useState,
       f = function () {};
     function g(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.btn,
-        a = e.onClick,
-        i = e.primary,
-        l = i === void 0 ? !1 : i;
-      if ((r("vulture")("uWZEmAvc4naYpmaXHBE6X1DSDtI="), n == null))
+      var t = e.btn,
+        n = e.onClick,
+        a = e.primary,
+        i = a === void 0 ? !1 : a;
+      if ((r("vulture")("uWZEmAvc4naYpmaXHBE6X1DSDtI="), t == null))
         return null;
-      var s = "UserNoticeModalPopup-" + n.action + "Btn",
-        u = "popup-controls-" + n.action,
-        d = l ? "primary" : "secondary",
-        m;
-      return (
-        t[0] !== n.label || t[1] !== s || t[2] !== a || t[3] !== d || t[4] !== u
-          ? ((m = c.jsx(
-              o("WAWebButton.react").Button,
-              { testid: void 0, type: d, onClick: a, children: n.label },
-              s,
-            )),
-            (t[0] = n.label),
-            (t[1] = s),
-            (t[2] = a),
-            (t[3] = d),
-            (t[4] = u),
-            (t[5] = m))
-          : (m = t[5]),
-        m
+      var l = "UserNoticeModalPopup-" + t.action + "Btn",
+        s = "popup-controls-" + t.action;
+      return c.jsx(
+        o("WAWebButton.react").Button,
+        {
+          testid: void 0,
+          type: i ? "primary" : "secondary",
+          onClick: n,
+          children: t.label,
+        },
+        l,
       );
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(t) {
       var n = t.notice;
       r("vulture")("t5LxBqm1BDH3qEDaR9-gEEnERk0=");

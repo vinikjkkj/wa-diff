@@ -31,7 +31,6 @@ __d(
     "asyncToGeneratorRuntime",
     "gkx",
     "react",
-    "react-compiler-runtime",
     "useVisibility",
     "useWAWebAsync",
     "useWAWebCountries",
@@ -355,30 +354,22 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.children;
-      if (o("WAWebHybridRegGating").isHybridRegEnabled()) {
-        var a;
-        return (
-          t[0] !== n
-            ? ((a = d.jsx(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDeemphasized",
-                children: n,
-              })),
-              (t[0] = n),
-              (t[1] = a))
-            : (a = t[1]),
-          a
-        );
-      }
-      return n;
+      var t = e.children;
+      return o("WAWebHybridRegGating").isHybridRegEnabled()
+        ? d.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDeemphasized",
+            children: t,
+          })
+        : t;
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S() {
-      var e = o("react-compiler-runtime").c(2),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = d.jsx(o("WAWebFlex.react").FlexRow, {
+      return d.jsxs(o("WAWebFlex.react").FlexColumn, {
+        rowGap: 2,
+        xstyle: h.subtitle,
+        children: [
+          d.jsx(o("WAWebFlex.react").FlexRow, {
             alignSelf: "center",
             align: "center",
             wrap: "wrap",
@@ -388,94 +379,69 @@ __d(
                 /*BTDS*/ "We'll send an SMS to your phone, where you can download WhatsApp and register your account.",
               ),
             }),
-          })),
-          (e[0] = t))
-        : (t = e[0]);
-      var n;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = d.jsxs(o("WAWebFlex.react").FlexColumn, {
-              rowGap: 2,
-              xstyle: h.subtitle,
-              children: [
-                t,
-                d.jsx(o("WAWebFlex.react").FlexRow, {
-                  alignSelf: "center",
-                  align: "center",
-                  wrap: "wrap",
-                  justify: "center",
-                  children: d.jsx(v, {
-                    children: s._(
-                      /*BTDS*/ 'Message and data rates may apply. Read our\u00a0{privacy_policy_link}. Click "Continue" to accept the\u00a0{terms_of_service_link}.',
-                      [
-                        s._param(
-                          "privacy_policy_link",
-                          d.jsx(
-                            o("WAWebLinkDeviceCommonInstructions.react")
-                              .ExternalHelpLink,
-                            {
-                              isBold: o(
-                                "WAWebHybridRegGating",
-                              ).isHybridRegEnabled(),
-                              text: s._(/*BTDS*/ "Privacy Policy"),
-                              url: "https://www.whatsapp.com/legal/privacy-policy",
-                              showArrow: !1,
-                              showUnderline: o(
-                                "WAWebHybridRegGating",
-                              ).isHybridRegEnabled()
-                                ? !1
-                                : void 0,
-                            },
-                          ),
-                        ),
-                        s._param(
-                          "terms_of_service_link",
-                          d.jsx(
-                            o("WAWebLinkDeviceCommonInstructions.react")
-                              .ExternalHelpLink,
-                            {
-                              isBold: o(
-                                "WAWebHybridRegGating",
-                              ).isHybridRegEnabled(),
-                              text: s._(/*BTDS*/ "Terms of Service"),
-                              url: "https://www.whatsapp.com/legal/terms-of-service",
-                              showArrow: !1,
-                              showUnderline: o(
-                                "WAWebHybridRegGating",
-                              ).isHybridRegEnabled()
-                                ? !1
-                                : void 0,
-                            },
-                          ),
-                        ),
-                      ],
+          }),
+          d.jsx(o("WAWebFlex.react").FlexRow, {
+            alignSelf: "center",
+            align: "center",
+            wrap: "wrap",
+            justify: "center",
+            children: d.jsx(v, {
+              children: s._(
+                /*BTDS*/ 'Message and data rates may apply. Read our\u00a0{privacy_policy_link}. Click "Continue" to accept the\u00a0{terms_of_service_link}.',
+                [
+                  s._param(
+                    "privacy_policy_link",
+                    d.jsx(
+                      o("WAWebLinkDeviceCommonInstructions.react")
+                        .ExternalHelpLink,
+                      {
+                        isBold: o("WAWebHybridRegGating").isHybridRegEnabled(),
+                        text: s._(/*BTDS*/ "Privacy Policy"),
+                        url: "https://www.whatsapp.com/legal/privacy-policy",
+                        showArrow: !1,
+                        showUnderline: o(
+                          "WAWebHybridRegGating",
+                        ).isHybridRegEnabled()
+                          ? !1
+                          : void 0,
+                      },
                     ),
-                  }),
-                }),
-              ],
-            })),
-            (e[1] = n))
-          : (n = e[1]),
-        n
-      );
+                  ),
+                  s._param(
+                    "terms_of_service_link",
+                    d.jsx(
+                      o("WAWebLinkDeviceCommonInstructions.react")
+                        .ExternalHelpLink,
+                      {
+                        isBold: o("WAWebHybridRegGating").isHybridRegEnabled(),
+                        text: s._(/*BTDS*/ "Terms of Service"),
+                        url: "https://www.whatsapp.com/legal/terms-of-service",
+                        showArrow: !1,
+                        showUnderline: o(
+                          "WAWebHybridRegGating",
+                        ).isHybridRegEnabled()
+                          ? !1
+                          : void 0,
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            }),
+          }),
+        ],
+      });
     }
+    S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.errorReason,
-        r;
-      return (
-        t[0] !== n
-          ? ((r = d.jsx(o("WAWebFlex.react").FlexRow, {
-              alignSelf: "center",
-              xstyle: h.error,
-              children: n,
-            })),
-            (t[0] = n),
-            (t[1] = r))
-          : (r = t[1]),
-        r
-      );
+      var t = e.errorReason;
+      return d.jsx(o("WAWebFlex.react").FlexRow, {
+        alignSelf: "center",
+        xstyle: h.error,
+        children: t,
+      });
     }
+    R.displayName = R.name + " [from " + i.id + "]";
     var L = n("$InternalEnum")({ WEB: 1, WWW: 2, WINDOWS: 3 });
     function E(e) {
       return k.apply(this, arguments);

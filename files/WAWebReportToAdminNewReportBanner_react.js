@@ -19,7 +19,6 @@ __d(
     "WAWebUISpacing",
     "WAWebUimUie.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebModelValues",
     "useWAWebUIM",
   ],
@@ -32,67 +31,50 @@ __d(
         iconRefreshed: { color: "xhslqc4", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(14),
-        a,
-        i;
-      n[0] !== t
-        ? ((i = t.ref),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i))
-        : ((a = n[1]), (i = n[2]));
-      var l = a,
-        u = l.chat,
-        m = l.onClose,
-        p = r("useWAWebUIM")(),
-        _;
-      n[3] !== u || n[4] !== m || n[5] !== i || n[6] !== p
-        ? ((_ = function () {
-            (o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-              c.jsx(
-                r("WAWebSentForAdminReviewFlow.react"),
-                {
-                  chat: o("WAWebStateUtils").unproxy(u),
-                  ref: i,
-                  onClose: o("WAWebDrawerManager").closeDrawerRight,
-                },
-                "rta-" + u.id.toString(),
-              ),
+      var n = t.ref,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = a.chat,
+        l = a.onClose,
+        u = r("useWAWebUIM")(),
+        m = function () {
+          (o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+            c.jsx(
+              r("WAWebSentForAdminReviewFlow.react"),
               {
-                transition: "slide-left",
-                uim: p,
-                focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+                chat: o("WAWebStateUtils").unproxy(i),
+                ref: n,
+                onClose: o("WAWebDrawerManager").closeDrawerRight,
               },
+              "rta-" + i.id.toString(),
             ),
-              m());
-          }),
-          (n[3] = u),
-          (n[4] = m),
-          (n[5] = i),
-          (n[6] = p),
-          (n[7] = _))
-        : (_ = n[7]);
-      var f = _,
-        g;
-      n[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = c.jsx(r("WAWebFlexItem.react"), {
-            xstyle: o("WAWebUISpacing").uiPadding.end20,
-            children: c.jsx(
-              o("WAWebMessageReportRefreshedIcon.react")
-                .MessageReportRefreshedIcon,
-              { iconXstyle: d.iconRefreshed },
-            ),
-          })),
-          (n[8] = g))
-        : (g = n[8]);
-      var h;
-      n[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            {
+              transition: "slide-left",
+              uim: u,
+              focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+            },
+          ),
+            l());
+        };
+      return c.jsx(o("WAWebUimUie.react").UIE, {
+        displayName: "ReportToAdminNewReportBanner",
+        escapable: !0,
+        children: c.jsx(r("WAWebConversationBanner.react"), {
+          ref: n,
+          xstyle: d.banner,
+          onClick: m,
+          onClose: l,
+          children: c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: o("WAWebUISpacing").uiMargin.top6,
             align: "center",
             children: [
-              g,
+              c.jsx(r("WAWebFlexItem.react"), {
+                xstyle: o("WAWebUISpacing").uiPadding.end20,
+                children: c.jsx(
+                  o("WAWebMessageReportRefreshedIcon.react")
+                    .MessageReportRefreshedIcon,
+                  { iconXstyle: d.iconRefreshed },
+                ),
+              }),
               c.jsx(r("WAWebFlexItem.react"), {
                 xstyle: o("WAWebUISpacing").uiMargin.bottom6,
                 children: c.jsx(o("WAWebText.react").WAWebTextMuted, {
@@ -110,101 +92,46 @@ __d(
                 }),
               }),
             ],
-          })),
-          (n[9] = h))
-        : (h = n[9]);
-      var y;
-      return (
-        n[10] !== f || n[11] !== m || n[12] !== i
-          ? ((y = c.jsx(o("WAWebUimUie.react").UIE, {
-              displayName: "ReportToAdminNewReportBanner",
-              escapable: !0,
-              children: c.jsx(r("WAWebConversationBanner.react"), {
-                ref: i,
-                xstyle: d.banner,
-                onClick: f,
-                onClose: m,
-                children: h,
-              }),
-            })),
-            (n[10] = f),
-            (n[11] = m),
-            (n[12] = i),
-            (n[13] = y))
-          : (y = n[13]),
-        y
-      );
+          }),
+        }),
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["groupMetadata"]), (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebModelValues").useModelValues(e, n),
-        a;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = ["lastReportToAdminTimestamp"]), (t[1] = a))
-        : (a = t[1]);
-      var i = o("useWAWebModelValues").useOptionalModelValues(
-          r.groupMetadata,
-          a,
-        ),
-        l = i == null ? void 0 : i.lastReportToAdminTimestamp;
-      if (l == null) return !1;
-      var s =
+      var t = o("useWAWebModelValues").useModelValues(e, ["groupMetadata"]),
+        n = o("useWAWebModelValues").useOptionalModelValues(t.groupMetadata, [
+          "lastReportToAdminTimestamp",
+        ]),
+        r = n == null ? void 0 : n.lastReportToAdminTimestamp;
+      if (r == null) return !1;
+      var a =
           o("WAWebRevokeMsgConstants").REVOKE_WINDOW +
           o("WAWebRevokeMsgConstants").REVOKE_WINDOW_RECEIVER_MARGIN,
-        u = o("WATimeUtils").unixTime() - l <= s;
-      return u;
+        i = o("WATimeUtils").unixTime() - r <= a;
+      return i;
     }
     function _(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["reportToAdminMode"]), (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebModelValues").useOptionalModelValues(
-          e.groupMetadata,
-          n,
-        ),
-        a;
+      var t = o("useWAWebModelValues").useOptionalModelValues(e.groupMetadata, [
+        "reportToAdminMode",
+      ]);
       return (
-        t[1] !== (r == null ? void 0 : r.reportToAdminMode)
-          ? ((a =
-              o("WAWebABProps").getABPropConfigValue(
-                "report_to_admin_kill_switch",
-              ) && (r == null ? void 0 : r.reportToAdminMode) === !0),
-            (t[1] = r == null ? void 0 : r.reportToAdminMode),
-            (t[2] = a))
-          : (a = t[2]),
-        a
+        o("WAWebABProps").getABPropConfigValue("report_to_admin_kill_switch") &&
+        (t == null ? void 0 : t.reportToAdminMode) === !0
       );
     }
     function f(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["id", "groupMetadata"]), (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebModelValues").useModelValues(e, n),
-        a = p(r),
-        i = _(r) && a,
-        l;
-      t[1] !== r
-        ? ((l = function () {
-            o("WAWebSendForAdminReviewUtils").clearLastReportTimestamp(r);
-          }),
-          (t[1] = r),
-          (t[2] = l))
-        : (l = t[2]);
-      var s;
-      return (
-        t[3] !== i || t[4] !== l
-          ? ((s = [i, l]), (t[3] = i), (t[4] = l), (t[5] = s))
-          : (s = t[5]),
-        s
-      );
+      var t = o("useWAWebModelValues").useModelValues(e, [
+          "id",
+          "groupMetadata",
+        ]),
+        n = p(t),
+        r = _(t) && n;
+      return [
+        r,
+        function () {
+          o("WAWebSendForAdminReviewUtils").clearLastReportTimestamp(t);
+        },
+      ];
     }
     ((l.ReportToAdminNewReportBanner = m),
       (l.useReportToAdminNewReportBanner = f));

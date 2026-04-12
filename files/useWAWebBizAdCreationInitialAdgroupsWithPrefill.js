@@ -2,7 +2,6 @@ __d(
   "useWAWebBizAdCreationInitialAdgroupsWithPrefill",
   [
     "CometRelay",
-    "react-compiler-runtime",
     "useLWICometInitialAdgroups",
     "useWAWebBizAdCreationAdAccountSpec",
     "useWAWebBizAdCreationInitialAdgroupsWithPrefill_boostedComponentWrapper.graphql",
@@ -20,45 +19,29 @@ __d(
     function u(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(8),
-        i = o("CometRelay").useFragment(s, e),
-        l = i.contextSpec,
-        u = i.spec,
-        c = r("useWAWebBizAdCreationAdAccountSpec")(i),
-        d = l == null || (t = l.page) == null ? void 0 : t.url,
-        m;
-      a[0] !== c.legacyAccountID || a[1] !== u || a[2] !== d
-        ? ((m = {
-            adAccountID: c.legacyAccountID,
-            pageURL: d,
-            spec: u,
-            useAFS: !0,
-          }),
-          (a[0] = c.legacyAccountID),
-          (a[1] = u),
-          (a[2] = d),
-          (a[3] = m))
-        : (m = a[3]);
-      var p = r("useLWICometInitialAdgroups")(m),
-        _ = p[0],
-        f = p[1],
-        g =
-          f != null
-            ? (n = _[f]) == null
+        a = o("CometRelay").useFragment(s, e),
+        i = a.contextSpec,
+        l = a.spec,
+        u = r("useWAWebBizAdCreationAdAccountSpec")(a),
+        c = r("useLWICometInitialAdgroups")({
+          adAccountID: u.legacyAccountID,
+          pageURL: i == null || (t = i.page) == null ? void 0 : t.url,
+          spec: l,
+          useAFS: !0,
+        }),
+        d = c[0],
+        m = c[1],
+        p =
+          m != null
+            ? (n = d[m]) == null
               ? void 0
               : n.assetFeedSpecPlus
             : null,
-        h = r("useWAWebBizAdCreationPrefillMediaCollection")(
-          g,
-          c.legacyAccountID,
-        ),
-        y;
-      return (
-        a[4] !== _ || a[5] !== h || a[6] !== f
-          ? ((y = [_, f, h]), (a[4] = _), (a[5] = h), (a[6] = f), (a[7] = y))
-          : (y = a[7]),
-        y
-      );
+        _ = r("useWAWebBizAdCreationPrefillMediaCollection")(
+          p,
+          u.legacyAccountID,
+        );
+      return [d, m, _];
     }
     l.default = u;
   },

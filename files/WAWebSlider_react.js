@@ -1,13 +1,6 @@
 __d(
   "WAWebSlider.react",
-  [
-    "$InternalEnum",
-    "WAWebFlex.react",
-    "WAWebUISpacing",
-    "react",
-    "react-compiler-runtime",
-    "stylex",
-  ],
+  ["$InternalEnum", "WAWebFlex.react", "WAWebUISpacing", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e = ["displayValue", "theme", "width"],
       s,
@@ -106,100 +99,48 @@ __d(
       },
       f = n("$InternalEnum").Mirrored(["Default", "Crescendo"]);
     function g(t) {
-      var n = o("react-compiler-runtime").c(27),
-        a,
-        i,
-        l,
-        u;
-      n[0] !== t
-        ? ((i = t.displayValue),
-          (l = t.theme),
-          (u = t.width),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i),
-          (n[3] = l),
-          (n[4] = u))
-        : ((a = n[1]), (i = n[2]), (l = n[3]), (u = n[4]));
-      var d = i === void 0 ? !1 : i,
-        g = l === void 0 ? f.Default : l,
-        h = u === void 0 ? 128 : u,
-        y = m(!1),
-        C = p(a.value),
-        b = C[0],
-        v = C[1],
-        S;
-      n[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = function (t) {
-            y.current = !0;
-          }),
-          (n[5] = S))
-        : (S = n[5]);
-      var R = S,
-        L;
-      n[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = function (t) {
-            y.current = !1;
-          }),
-          (n[6] = L))
-        : (L = n[6]);
-      var E = L,
-        k;
-      n[7] !== a
-        ? ((k = function (t) {
-            (t.preventDefault(),
-              a.onChange(parseInt(t.target.value, 10), y.current),
-              v(parseInt(t.target.value, 10)),
-              (y.current = !1));
-          }),
-          (n[7] = a),
-          (n[8] = k))
-        : (k = n[8]);
-      var I = k,
-        T = g === f.Crescendo && _.crescendoBarContainer,
-        D;
-      n[9] !== g
-        ? ((D = (s || (s = r("stylex")))([
-            g === f.Default && _.bar,
-            g === f.Crescendo && _.crescendoBar,
-          ])),
-          (n[9] = g),
-          (n[10] = D))
-        : (D = n[10]);
-      var x;
-      n[11] !== h
-        ? ((x = { width: h }), (n[11] = h), (n[12] = x))
-        : (x = n[12]);
-      var $;
-      n[13] !== b ||
-      n[14] !== I ||
-      n[15] !== a.max ||
-      n[16] !== a.min ||
-      n[17] !== D ||
-      n[18] !== x
-        ? (($ = c.jsx("input", {
+      var n = t.displayValue,
+        a = n === void 0 ? !1 : n,
+        i = t.theme,
+        l = i === void 0 ? f.Default : i,
+        u = t.width,
+        d = u === void 0 ? 128 : u,
+        g = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        h = m(!1),
+        y = p(g.value),
+        C = y[0],
+        b = y[1],
+        v = function (t) {
+          h.current = !0;
+        },
+        S = function (t) {
+          h.current = !1;
+        },
+        R = function (t) {
+          (t.preventDefault(),
+            g.onChange(parseInt(t.target.value, 10), h.current),
+            b(parseInt(t.target.value, 10)),
+            (h.current = !1));
+        };
+      return c.jsxs(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        xstyle: l === f.Crescendo && _.crescendoBarContainer,
+        children: [
+          c.jsx("input", {
             type: "range",
-            className: D,
-            style: x,
-            min: a.min,
-            max: a.max,
-            value: b,
-            onMouseDown: R,
-            onMouseUp: E,
-            onChange: I,
-          })),
-          (n[13] = b),
-          (n[14] = I),
-          (n[15] = a.max),
-          (n[16] = a.min),
-          (n[17] = D),
-          (n[18] = x),
-          (n[19] = $))
-        : ($ = n[19]);
-      var P;
-      n[20] !== b || n[21] !== d
-        ? ((P = d
+            className: (s || (s = r("stylex")))([
+              l === f.Default && _.bar,
+              l === f.Crescendo && _.crescendoBar,
+            ]),
+            style: { width: d },
+            min: g.min,
+            max: g.max,
+            value: C,
+            onMouseDown: v,
+            onMouseUp: S,
+            onChange: R,
+          }),
+          a
             ? c.jsx(
                 "span",
                 babelHelpers.extends(
@@ -209,31 +150,16 @@ __d(
                     o("WAWebUISpacing").uiMargin.start10,
                     o("WAWebUISpacing").uiMargin.bottom1,
                   ]),
-                  { children: b },
+                  { children: C },
                 ),
               )
-            : null),
-          (n[20] = b),
-          (n[21] = d),
-          (n[22] = P))
-        : (P = n[22]);
-      var N;
-      return (
-        n[23] !== $ || n[24] !== P || n[25] !== T
-          ? ((N = c.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              xstyle: T,
-              children: [$, P],
-            })),
-            (n[23] = $),
-            (n[24] = P),
-            (n[25] = T),
-            (n[26] = N))
-          : (N = n[26]),
-        N
-      );
+            : null,
+        ],
+      });
     }
-    ((l.SliderTheme = f), (l.Slider = g));
+    ((g.displayName = g.name + " [from " + i.id + "]"),
+      (l.SliderTheme = f),
+      (l.Slider = g));
   },
   98,
 );

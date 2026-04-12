@@ -7,7 +7,6 @@ __d(
     "WAWebUISpacing",
     "dompurify",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -18,49 +17,24 @@ __d(
         openStatus: { color: "x1anpt5t", fontSize: "x1f6kntn", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(9),
-        a = t.hours,
-        i,
-        l;
-      if (n[0] !== a) {
-        l = Symbol.for("react.early_return_sentinel");
-        e: {
-          var s = o("WAWebBusinessProfileUtils").getBusinessOpenState(a),
-            u = _(s);
-          if (u == null) {
-            l = null;
-            break e;
-          }
-          i = r("dompurify").sanitize(u.toString());
-        }
-        ((n[0] = a), (n[1] = i), (n[2] = l));
-      } else ((i = n[1]), (l = n[2]));
-      if (l !== Symbol.for("react.early_return_sentinel")) return l;
-      var m = i,
-        p;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = (e || (e = r("stylex"))).props([
+      var n = t.hours,
+        a = o("WAWebBusinessProfileUtils").getBusinessOpenState(n),
+        i = _(a);
+      if (i == null) return null;
+      var l = r("dompurify").sanitize(i.toString());
+      return c.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props([
             d.openStatus,
             o("WAWebUISpacing").uiMargin.bottom5,
-          ])),
-          (n[3] = p))
-        : (p = n[3]);
-      var f;
-      n[4] !== m ? ((f = { __html: m }), (n[4] = m), (n[5] = f)) : (f = n[5]);
-      var g;
-      return (
-        n[6] !== p || n[7] !== f
-          ? ((g = c.jsx(
-              "div",
-              babelHelpers.extends({}, p, { dangerouslySetInnerHTML: f }),
-            )),
-            (n[6] = p),
-            (n[7] = f),
-            (n[8] = g))
-          : (g = n[8]),
-        g
+          ]),
+          { dangerouslySetInnerHTML: { __html: l } },
+        ),
       );
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       return e == null
         ? ""

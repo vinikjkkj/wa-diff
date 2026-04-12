@@ -4,50 +4,29 @@ __d(
     "WAWebMenu.react",
     "WAWebPerformantMenu.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebLexicalMenuController",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = o("useWAWebLexicalMenuController").useLexicalMenuController(),
-        r;
-      return (
-        t[0] !== n || t[1] !== e
-          ? ((r = s.jsx(
-              o("WAWebMenu.react").WAWebMenu,
-              babelHelpers.extends({}, e, {
-                size: "medium",
-                menuControllerRef: n,
-              }),
-            )),
-            (t[0] = n),
-            (t[1] = e),
-            (t[2] = r))
-          : (r = t[2]),
-        r
+      var t = o("useWAWebLexicalMenuController").useLexicalMenuController();
+      return s.jsx(
+        o("WAWebMenu.react").WAWebMenu,
+        babelHelpers.extends({}, e, { size: "medium", menuControllerRef: t }),
       );
     }
+    u.displayName = u.name + " [from " + i.id + "]";
     function c(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = o("useWAWebLexicalMenuController").useLexicalMenuController(),
-        r;
-      return (
-        t[0] !== n || t[1] !== e
-          ? ((r = s.jsx(
-              o("WAWebPerformantMenu.react").WDSPerformantMenu,
-              babelHelpers.extends({}, e, { menuControllerRef: n }),
-            )),
-            (t[0] = n),
-            (t[1] = e),
-            (t[2] = r))
-          : (r = t[2]),
-        r
+      var t = o("useWAWebLexicalMenuController").useLexicalMenuController();
+      return s.jsx(
+        o("WAWebPerformantMenu.react").WDSPerformantMenu,
+        babelHelpers.extends({}, e, { menuControllerRef: t }),
       );
     }
-    ((l.LexicalWAWebMenu = u), (l.LexicalWAWebPerformantMenu = c));
+    ((c.displayName = c.name + " [from " + i.id + "]"),
+      (l.LexicalWAWebMenu = u),
+      (l.LexicalWAWebPerformantMenu = c));
   },
   98,
 );

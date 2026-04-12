@@ -6,7 +6,6 @@ __d(
     "Promise",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationConfirmEmailOnboardingMutation.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -37,26 +36,24 @@ __d(
                   : "GENERIC_ERROR";
     }
     function p() {
-      var e = o("react-compiler-runtime").c(5),
-        t = o("CometRelay").useMutation(d),
-        a = t[0],
-        i = t[1],
-        l;
-      e[0] !== a
-        ? ((l = function (t, o, i) {
-            return new (s || (s = n("Promise")))(function (e) {
-              a({
+      var e = o("CometRelay").useMutation(d),
+        t = e[0],
+        a = e[1],
+        i = c(
+          function (e, o, a) {
+            return new (s || (s = n("Promise")))(function (n) {
+              t({
                 variables: {
                   input: {
-                    email: { sensitive_string_value: t },
+                    email: { sensitive_string_value: e },
                     code: { sensitive_string_value: o },
-                    silent_nonce: { sensitive_string_value: i },
+                    silent_nonce: { sensitive_string_value: a },
                   },
                 },
                 updater: function (n, r) {
-                  var e =
+                  var t =
                     r == null ? void 0 : r.wa_ad_account_upsert_onboarding_data;
-                  if ((e == null ? void 0 : e.success) === !0) {
+                  if ((t == null ? void 0 : t.success) === !0) {
                     var o = n.getRoot(),
                       a = o.getLinkedRecord("wa_ad_account_onboarding_data");
                     (a == null &&
@@ -65,55 +62,47 @@ __d(
                         "WAAdAccountOnboardingAPI",
                       )),
                       o.setLinkedRecord(a, "wa_ad_account_onboarding_data")),
-                      a.setValue(t, "email"));
+                      a.setValue(e, "email"));
                   }
                 },
                 onCompleted: function (r, o) {
                   if (o != null && o.length > 0) {
-                    e({ success: !1, error: "GENERIC_ERROR" });
+                    n({ success: !1, error: "GENERIC_ERROR" });
                     return;
                   }
-                  var n =
+                  var t =
                     r == null ? void 0 : r.wa_ad_account_upsert_onboarding_data;
-                  if ((n == null ? void 0 : n.success) === !0) {
+                  if ((t == null ? void 0 : t.success) === !0) {
                     var a,
                       i,
                       l =
                         (a =
-                          n == null || (i = n.onboarding_data) == null
+                          t == null || (i = t.onboarding_data) == null
                             ? void 0
                             : i.email) != null
                           ? a
-                          : t;
-                    e({ success: !0, email: l });
+                          : e;
+                    n({ success: !0, email: l });
                   } else
-                    e({
+                    n({
                       success: !1,
-                      error: m(n == null ? void 0 : n.failure_reason),
+                      error: m(t == null ? void 0 : t.failure_reason),
                     });
                 },
-                onError: function (n) {
+                onError: function (t) {
                   (r("FBLogger")("wa_ctwa_web")
-                    .catching(r("getErrorSafe")(n))
+                    .catching(r("getErrorSafe")(t))
                     .mustfix(
                       "Email onboarding confirm mutation failed in useWAWebBizAdCreationConfirmEmailOnboarding",
                     ),
-                    e({ success: !1, error: "GENERIC_ERROR" }));
+                    n({ success: !1, error: "GENERIC_ERROR" }));
                 },
               });
             });
-          }),
-          (e[0] = a),
-          (e[1] = l))
-        : (l = e[1]);
-      var u = l,
-        c;
-      return (
-        e[2] !== u || e[3] !== i
-          ? ((c = [u, i]), (e[2] = u), (e[3] = i), (e[4] = c))
-          : (c = e[4]),
-        c
-      );
+          },
+          [t],
+        );
+      return [i, a];
     }
     l.default = p;
   },

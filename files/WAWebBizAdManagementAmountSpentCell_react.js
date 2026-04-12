@@ -1,12 +1,6 @@
 __d(
   "WAWebBizAdManagementAmountSpentCell.react",
-  [
-    "fbt",
-    "WAWebFlex.react",
-    "WDSText.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["fbt", "WAWebFlex.react", "WDSText.react", "react"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
@@ -31,55 +25,31 @@ __d(
                 : null;
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.budgetType,
-        a = e.formattedBudget,
-        i = e.formattedSpent,
-        l = i !== "" ? i : "\u2014",
-        s;
-      t[0] !== n || t[1] !== a
-        ? ((s = c(n, a)), (t[0] = n), (t[1] = a), (t[2] = s))
-        : (s = t[2]);
-      var d = s,
-        m;
-      t[3] !== l
-        ? ((m = u.jsx(r("WDSText.react"), {
+      var t = e.budgetType,
+        n = e.formattedBudget,
+        a = e.formattedSpent,
+        i = a !== "" ? a : "\u2014",
+        l = c(t, n);
+      return u.jsxs(o("WAWebFlex.react").FlexColumn, {
+        align: "start",
+        children: [
+          u.jsx(r("WDSText.react"), {
             type: "Body1",
             colorName: "contentDefault",
             maxLines: 1,
-            children: l,
-          })),
-          (t[3] = l),
-          (t[4] = m))
-        : (m = t[4]);
-      var p;
-      t[5] !== d
-        ? ((p =
-            d != null &&
+            children: i,
+          }),
+          l != null &&
             u.jsx(r("WDSText.react"), {
               type: "Body2",
               colorName: "contentDeemphasized",
               maxLines: 1,
-              children: d,
-            })),
-          (t[5] = d),
-          (t[6] = p))
-        : (p = t[6]);
-      var _;
-      return (
-        t[7] !== m || t[8] !== p
-          ? ((_ = u.jsxs(o("WAWebFlex.react").FlexColumn, {
-              align: "start",
-              children: [m, p],
-            })),
-            (t[7] = m),
-            (t[8] = p),
-            (t[9] = _))
-          : (_ = t[9]),
-        _
-      );
+              children: l,
+            }),
+        ],
+      });
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   226,
 );

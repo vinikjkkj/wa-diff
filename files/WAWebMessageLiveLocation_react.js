@@ -19,7 +19,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebMsgValues",
   ],
@@ -79,68 +78,70 @@ __d(
       y = 474,
       C = p + f + g;
     function b(t) {
-      var n = o("react-compiler-runtime").c(56),
-        a = t.displayAuthor,
-        i = t.msg,
-        l = t.quotedMsg,
-        u = t.trusted,
-        f;
-      if (n[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var g;
-        ((f = [
-          (g = o("WAWebMsgGetters")).getComment,
-          o("WAWebFrontendMsgGetters").getDir,
-          g.getFinalLat,
-          g.getFinalLng,
-          g.getIsGroupMsg,
-          g.getIsPSA,
-          g.getIsSentByMe,
-          g.getLat,
-          g.getLng,
-          o("WAWebFrontendMsgGetters").getRtl,
-          o("WAWebFrontendMsgGetters").getSenderObj,
-          g.getSender,
-          g.getShareDuration,
-          g.getT,
+      var n,
+        a,
+        i = t.displayAuthor,
+        l = t.msg,
+        u = t.quotedMsg,
+        f = t.trusted,
+        g = o("useWAWebMsgValues").useMsgValues(t.msg.id, [
+          (n = o("WAWebMsgGetters")).getComment,
+          (a = o("WAWebFrontendMsgGetters")).getDir,
+          n.getFinalLat,
+          n.getFinalLng,
+          n.getIsGroupMsg,
+          n.getIsPSA,
+          n.getIsSentByMe,
+          n.getLat,
+          n.getLng,
+          a.getRtl,
+          a.getSenderObj,
+          n.getSender,
+          n.getShareDuration,
+          n.getT,
         ]),
-          (n[0] = f));
-      } else f = n[0];
-      var C = o("useWAWebMsgValues").useMsgValues(t.msg.id, f),
-        b = C[0],
-        S = C[2],
-        R = C[3],
-        L = C[7],
-        E = C[8],
-        k = C[10],
-        I = C[11],
-        T = C[12],
-        D = C[13],
-        x = o("WAWebFrontendMsgGetters").getChat(t.msg.unsafe()),
-        $ = d(!1),
-        P = $[0],
-        N = $[1],
-        M = v,
-        w;
-      n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = function () {
-            N(!0);
-          }),
-          (n[1] = w))
-        : (w = n[1]);
-      var A = w,
-        F;
-      n[2] !== T || n[3] !== D
-        ? ((F = function () {
-            return T == null ? D : D + T;
-          }),
-          (n[2] = T),
-          (n[3] = D),
-          (n[4] = F))
-        : (F = n[4]);
-      var O = F,
-        B = !!b,
-        W = o("WAWebDisplayType").isWideDisplay(t.displayType),
-        q = a
+        C = g[0],
+        b = g[1],
+        v = g[2],
+        S = g[3],
+        R = g[4],
+        L = g[5],
+        E = g[6],
+        k = g[7],
+        I = g[8],
+        T = g[9],
+        D = g[10],
+        x = g[11],
+        $ = g[12],
+        P = g[13],
+        N = a.getChat(t.msg.unsafe()),
+        M = d(!1),
+        w = M[0],
+        A = M[1],
+        F = function () {
+          o("WAWebModalManager").ModalManager.open(
+            c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              tsNavigationData: {
+                surface: "unknown",
+                viewName: "live-location",
+              },
+              okText: r("WAWebFbtCommon")("OK"),
+              onOK: o("WAWebModalManager").closeModalManager,
+              children: s._(
+                /*BTDS*/ "Live location is not available on this device. View location on your phone.",
+              ),
+            }),
+          );
+        },
+        O = function () {
+          A(!0);
+        },
+        B = function () {
+          return $ == null ? P : P + $;
+        },
+        W = !!C,
+        q = o("WAWebDisplayType").isWideDisplay(t.displayType),
+        U = i
           ? c.jsx(
               "div",
               babelHelpers.extends(
@@ -149,52 +150,37 @@ __d(
                   m.author,
                   o("WAWebUISpacing").uiPadding.top3,
                   o("WAWebUISpacing").uiPadding.bottom5,
-                  o("WAWebElevatedPushNamesFlag").elevatedPushNamesEnabled(x) &&
+                  o("WAWebElevatedPushNamesFlag").elevatedPushNamesEnabled(N) &&
                     m.authorElevatedPushNames,
                 ),
                 {
                   children: c.jsx(r("WAWebMessageAuthor.react"), {
-                    msg: i,
-                    contact: k,
+                    msg: l,
+                    contact: D,
                     displayType: t.displayType,
                   }),
                 },
               ),
             )
           : null,
-        U;
-      n[5] !== l
-        ? ((U = l ? c.jsx("div", { className: "xahult9", children: l }) : null),
-          (n[5] = l),
-          (n[6] = U))
-        : (U = n[6]);
-      var V = U,
-        H = o("WATimeUtils").unixTime() >= O(),
-        G = H && S !== void 0 && R !== void 0,
-        z = L,
-        j = E;
-      G && ((z = S), (j = R));
-      var K = M,
-        Q = W ? y : _,
-        X = W ? h : p,
-        Y;
-      n[7] !== X ? ((Y = { height: X }), (n[7] = X), (n[8] = Y)) : (Y = n[8]);
-      var J = Y,
-        Z;
-      n[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Z =
-            "x1n2onr6 x78zum5 x6s0dn4 xl56j7k x6ikm8r x10wlt62 xaejkm2 x1uuy6ko"),
-          (n[9] = Z))
-        : (Z = n[9]);
-      var ee;
-      n[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ee = { className: "x1n2onr6" }), (n[10] = ee))
-        : (ee = n[10]);
-      var te;
-      n[11] !== X || n[12] !== z || n[13] !== j || n[14] !== Q
-        ? ((te = c.jsx(
-            "div",
-            babelHelpers.extends({}, ee, {
+        V = u ? c.jsx("div", { className: "xahult9", children: u }) : null,
+        H = o("WATimeUtils").unixTime() >= B(),
+        G = H && v !== void 0 && S !== void 0,
+        z = k,
+        j = I;
+      G && ((z = v), (j = S));
+      var K = F,
+        Q = q ? y : _,
+        X = q ? h : p,
+        Y = { height: X },
+        J = c.jsxs("div", {
+          className:
+            "x1n2onr6 x78zum5 x6s0dn4 xl56j7k x6ikm8r x10wlt62 xaejkm2 x1uuy6ko",
+          onClick: K,
+          style: Y,
+          children: [
+            c.jsx("div", {
+              className: "x1n2onr6",
               children: c.jsx(r("WAWebMap.react"), {
                 lat: z,
                 lng: j,
@@ -203,98 +189,45 @@ __d(
                 xstyle: m.thumbBody,
                 linkify: !1,
                 showMarker: !1,
-                onLoad: A,
+                onLoad: O,
               }),
             }),
-          )),
-          (n[11] = X),
-          (n[12] = z),
-          (n[13] = j),
-          (n[14] = Q),
-          (n[15] = te))
-        : (te = n[15]);
-      var ne;
-      n[16] !== P
-        ? ((ne = (e || (e = r("stylex"))).props(
-            m.avatar,
-            o("WAWebUISpacing").uiMargin.allAuto,
-            !P && m.hidden,
-          )),
-          (n[16] = P),
-          (n[17] = ne))
-        : (ne = n[17]);
-      var re;
-      n[18] !== I
-        ? ((re = c.jsx(o("WAWebDetailImage.react").DetailImage, {
-            id: I,
-            size: 40,
-            border: !0,
-          })),
-          (n[18] = I),
-          (n[19] = re))
-        : (re = n[19]);
-      var oe;
-      n[20] !== ne || n[21] !== re
-        ? ((oe = c.jsx("div", babelHelpers.extends({}, ne, { children: re }))),
-          (n[20] = ne),
-          (n[21] = re),
-          (n[22] = oe))
-        : (oe = n[22]);
-      var ae;
-      n[23] !== H
-        ? ((ae =
+            c.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                (e || (e = r("stylex"))).props(
+                  m.avatar,
+                  o("WAWebUISpacing").uiMargin.allAuto,
+                  !w && m.hidden,
+                ),
+                {
+                  children: c.jsx(o("WAWebDetailImage.react").DetailImage, {
+                    id: x,
+                    size: 40,
+                    border: !0,
+                  }),
+                },
+              ),
+            ),
             H &&
-            c.jsx("div", {
-              className:
-                "x10l6tqk x13vifvy x1ey2m1c xu96u03 xh8yej3 x5yr21d x1lliihq x143bgyd",
-            })),
-          (n[23] = H),
-          (n[24] = ae))
-        : (ae = n[24]);
-      var ie;
-      n[25] !== J || n[26] !== oe || n[27] !== ae || n[28] !== te
-        ? ((ie = c.jsxs("div", {
-            className: Z,
-            onClick: K,
-            style: J,
-            children: [te, oe, ae],
-          })),
-          (n[25] = J),
-          (n[26] = oe),
-          (n[27] = ae),
-          (n[28] = te),
-          (n[29] = ie))
-        : (ie = n[29]);
-      var le = ie,
-        se;
-      n[30] === Symbol.for("react.memo_cache_sentinel")
-        ? ((se = s._(/*BTDS*/ "Live location not available")), (n[30] = se))
-        : (se = n[30]);
-      var ue = se,
-        ce;
-      n[31] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ce = {
-            className:
-              "x1n2onr6 x1ey2m1c xu96u03 x1gnnpzl xexx8yu x1im30kd x18d9i69 x1djpfga x1cmjdxs xqfj769 x1gfim23 xdpxx8g",
-          }),
-          (n[31] = ce))
-        : (ce = n[31]);
-      var de;
-      n[32] === Symbol.for("react.memo_cache_sentinel")
-        ? ((de = c.jsx(
-            "div",
-            babelHelpers.extends({}, ce, {
-              onClick: K,
-              children: c.jsx("span", {
-                className: "x1n2onr6 xndqk7f x1pg5gke xhslqc4 xxymvpz",
-                children: ue,
+              c.jsx("div", {
+                className:
+                  "x10l6tqk x13vifvy x1ey2m1c xu96u03 xh8yej3 x5yr21d x1lliihq x143bgyd",
               }),
-            }),
-          )),
-          (n[32] = de))
-        : (de = n[32]);
-      var me = de,
-        pe = B
+          ],
+        }),
+        Z = s._(/*BTDS*/ "Live location not available"),
+        ee = c.jsx("div", {
+          className:
+            "x1n2onr6 x1ey2m1c xu96u03 x1gnnpzl xexx8yu x1im30kd x18d9i69 x1djpfga x1cmjdxs xqfj769 x1gfim23 xdpxx8g",
+          onClick: K,
+          children: c.jsx("span", {
+            className: "x1n2onr6 xndqk7f x1pg5gke xhslqc4 xxymvpz",
+            children: Z,
+          }),
+        }),
+        te = W
           ? c.jsx(
               "div",
               babelHelpers.extends(
@@ -305,106 +238,43 @@ __d(
                   o("WAWebUISpacing").uiPadding.end4,
                   o("WAWebUISpacing").uiPadding.bottom5,
                   o("WAWebUISpacing").uiPadding.start6,
-                  W && m.captionAnnouncement,
+                  q && m.captionAnnouncement,
                 ),
                 {
                   children: c.jsx(r("WAWebMessageCaption.react"), {
-                    msg: i.unsafe(),
-                    trusted: u,
+                    msg: l.unsafe(),
+                    trusted: f,
                   }),
                 },
               ),
             )
           : null,
-        _e = B && m.metaWithCaption,
-        fe;
-      n[33] !== B
-        ? ((fe = !B && [
-            o("WAWebUISpacing").uiPadding.horiz3,
-            o("WAWebUISpacing").uiPadding.top3,
-          ]),
-          (n[33] = B),
-          (n[34] = fe))
-        : (fe = n[34]);
-      var ge;
-      n[35] !== _e || n[36] !== fe
-        ? ((ge = [_e, fe]), (n[35] = _e), (n[36] = fe), (n[37] = ge))
-        : (ge = n[37]);
-      var he;
-      n[38] !== i
-        ? ((he = c.jsx(o("WAWebMessageMeta.react").Meta, { msg: i })),
-          (n[38] = i),
-          (n[39] = he))
-        : (he = n[39]);
-      var ye;
-      n[40] !== ge || n[41] !== he
-        ? ((ye = c.jsx(o("WAWebFlex.react").FlexRow, {
-            justify: "end",
-            xstyle: ge,
-            children: he,
-          })),
-          (n[40] = ge),
-          (n[41] = he),
-          (n[42] = ye))
-        : (ye = n[42]);
-      var Ce = ye,
-        be = r("WAWebMessageBubbleHiddenText.react"),
-        ve = (e || (e = r("stylex")))(
+        ne = c.jsx(o("WAWebFlex.react").FlexRow, {
+          justify: "end",
+          xstyle: [
+            W && m.metaWithCaption,
+            !W && [
+              o("WAWebUISpacing").uiPadding.horiz3,
+              o("WAWebUISpacing").uiPadding.top3,
+            ],
+          ],
+          children: c.jsx(o("WAWebMessageMeta.react").Meta, { msg: l }),
+        });
+      return c.jsxs(r("WAWebMessageBubbleHiddenText.react"), {
+        className: e(
           m.container,
           o("WAWebUISpacing").uiPadding.all3,
-          W && m.containerAnnouncement,
+          q && m.containerAnnouncement,
           !!K && m.clickable,
         ),
-        Se;
-      n[43] !== i
-        ? ((Se = i.unsafe()), (n[43] = i), (n[44] = Se))
-        : (Se = n[44]);
-      var Re;
-      return (
-        n[45] !== be ||
-        n[46] !== q ||
-        n[47] !== pe ||
-        n[48] !== le ||
-        n[49] !== Ce ||
-        n[50] !== V ||
-        n[51] !== k ||
-        n[52] !== me ||
-        n[53] !== ve ||
-        n[54] !== Se
-          ? ((Re = c.jsxs(be, {
-              className: ve,
-              contact: k,
-              msg: Se,
-              children: [q, V, le, me, pe, Ce],
-            })),
-            (n[45] = be),
-            (n[46] = q),
-            (n[47] = pe),
-            (n[48] = le),
-            (n[49] = Ce),
-            (n[50] = V),
-            (n[51] = k),
-            (n[52] = me),
-            (n[53] = ve),
-            (n[54] = Se),
-            (n[55] = Re))
-          : (Re = n[55]),
-        Re
-      );
+        contact: D,
+        msg: l.unsafe(),
+        children: [U, V, J, ee, te, ne],
+      });
     }
-    function v() {
-      o("WAWebModalManager").ModalManager.open(
-        c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          tsNavigationData: { surface: "unknown", viewName: "live-location" },
-          okText: r("WAWebFbtCommon")("OK"),
-          onOK: o("WAWebModalManager").closeModalManager,
-          children: s._(
-            /*BTDS*/ "Live location is not available on this device. View location on your phone.",
-          ),
-        }),
-      );
-    }
-    ((l.MSG_HEIGHT = C), (l.LiveLocation = b));
+    ((b.displayName = b.name + " [from " + i.id + "]"),
+      (l.MSG_HEIGHT = C),
+      (l.LiveLocation = b));
   },
   226,
 );

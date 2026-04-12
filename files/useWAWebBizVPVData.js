@@ -13,7 +13,6 @@ __d(
     "WAWebWamEnumMessageBodyTypeEnum",
     "WAWebWamEnumQbmFlag",
     "react",
-    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebContactValues",
     "useWAWebMsgValues",
@@ -26,151 +25,90 @@ __d(
       var t,
         n,
         r,
-        a = o("react-compiler-runtime").c(20),
-        i;
-      a[0] !== e
-        ? ((i = o("WAWebFrontendMsgGetters").getChat(e)),
-          (a[0] = e),
-          (a[1] = i))
-        : (i = a[1]);
-      var l = i,
-        s = (t = e.id) == null ? void 0 : t.id,
-        u =
+        a = o("WAWebFrontendMsgGetters").getChat(e),
+        i = (t = e.id) == null ? void 0 : t.id,
+        l =
           o("WAWebABProps").getABPropConfigValue(
             "biz_vpv_impression_logging_enabled",
           ) === !0,
-        c = l == null ? void 0 : l.id,
-        d = e.from,
-        m;
-      if (a[2] === Symbol.for("react.memo_cache_sentinel")) {
-        var p;
-        ((m = [
-          (p = o("WAWebChatGetters")).getIsNewsletter,
-          p.getIsGroup,
-          p.getArchive,
-          p.getMuteExpiration,
+        u = a == null ? void 0 : a.id,
+        c = e.from,
+        d = o("useWAWebChatValues").useChatValues(u, [
+          o("WAWebChatGetters").getIsNewsletter,
+          o("WAWebChatGetters").getIsGroup,
+          o("WAWebChatGetters").getArchive,
+          o("WAWebChatGetters").getMuteExpiration,
         ]),
-          (a[2] = m));
-      } else m = a[2];
-      var _ = o("useWAWebChatValues").useChatValues(c, m),
-        f = _[0],
-        g = _[1],
-        h = _[2],
-        y = _[3],
-        C;
-      a[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = [
-            o("WAWebContactGetters").getIsEnterprise,
-            o("WAWebContactGetters").getIsHosted,
-          ]),
-          (a[3] = C))
-        : (C = a[3]);
-      var b = o("useWAWebContactValues").useOptionalContactValues(d, C),
-        v = (n = b == null ? void 0 : b[0]) != null ? n : !1,
-        S = (r = b == null ? void 0 : b[1]) != null ? r : !1,
-        R;
-      if (a[4] === Symbol.for("react.memo_cache_sentinel")) {
-        var L;
-        ((R = [
-          (L = o("WAWebMsgGetters")).getHsmTag,
-          L.getT,
-          L.getClientReceivedTsMillis,
-          L.getBizSource,
+        m = d[0],
+        p = d[1],
+        _ = d[2],
+        f = d[3],
+        g = o("useWAWebContactValues").useOptionalContactValues(c, [
+          o("WAWebContactGetters").getIsEnterprise,
+          o("WAWebContactGetters").getIsHosted,
         ]),
-          (a[4] = R));
-      } else R = a[4];
-      var E = o("useWAWebMsgValues").useMsgValues(e.id, R),
-        k = E[0],
-        I = E[1],
-        T = E[2],
-        D = E[3],
-        x = o("WAWebBizVPVEligibility").isEligibleForBizVPV(
+        h = (n = g == null ? void 0 : g[0]) != null ? n : !1,
+        y = (r = g == null ? void 0 : g[1]) != null ? r : !1,
+        C = o("useWAWebMsgValues").useMsgValues(e.id, [
+          o("WAWebMsgGetters").getHsmTag,
+          o("WAWebMsgGetters").getT,
+          o("WAWebMsgGetters").getClientReceivedTsMillis,
+          o("WAWebMsgGetters").getBizSource,
+        ]),
+        b = C[0],
+        v = C[1],
+        S = C[2],
+        R = C[3],
+        L = o("WAWebBizVPVEligibility").isEligibleForBizVPV(
           e,
-          v,
-          S,
-          g != null ? g : !1,
+          h,
+          y,
+          p != null ? p : !1,
         ),
-        $ = u && !f && s != null && c != null && x,
-        P;
-      e: {
-        if (!$ || s == null || c == null) {
-          P = null;
-          break e;
-        }
-        var N = o("WAWebMsgGetters").isBizSourceFromMarketingMessage(D)
-            ? o("WAWebWamEnumQbmFlag").QBM_FLAG.MARKETING_MESSAGE_SMB
-            : k === "UTILITY"
-              ? o("WAWebWamEnumQbmFlag").QBM_FLAG.TRANSACTIONAL
-              : k === "MARKETING"
-                ? o("WAWebWamEnumQbmFlag").QBM_FLAG.PROMOTIONAL
-                : k === "AUTHENTICATION"
-                  ? o("WAWebWamEnumQbmFlag").QBM_FLAG.OTP
-                  : o("WAWebWamEnumQbmFlag").QBM_FLAG.OTHER,
-          M;
-        a[5] !== e
-          ? ((M = o(
+        E = l && !m && i != null && u != null && L;
+      return s(
+        function () {
+          if (!E || i == null || u == null) return null;
+          var t = o("WAWebMsgGetters").isBizSourceFromMarketingMessage(R)
+              ? o("WAWebWamEnumQbmFlag").QBM_FLAG.MARKETING_MESSAGE_SMB
+              : b === "UTILITY"
+                ? o("WAWebWamEnumQbmFlag").QBM_FLAG.TRANSACTIONAL
+                : b === "MARKETING"
+                  ? o("WAWebWamEnumQbmFlag").QBM_FLAG.PROMOTIONAL
+                  : b === "AUTHENTICATION"
+                    ? o("WAWebWamEnumQbmFlag").QBM_FLAG.OTP
+                    : o("WAWebWamEnumQbmFlag").QBM_FLAG.OTHER,
+            n = o(
               "WAWebBizMessageAttributionFields",
-            ).extractBizMessageAttribution(e)),
-            (a[5] = e),
-            (a[6] = M))
-          : (M = a[6]);
-        var w = M,
-          A;
-        a[7] !== c ? ((A = c.toString()), (a[7] = c), (a[8] = A)) : (A = a[8]);
-        var F = v
-            ? o("WAWebWamEnumContactType").CONTACT_TYPE.ENTERPRISE
-            : o("WAWebWamEnumContactType").CONTACT_TYPE.SMB,
-          O = h
-            ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED
-            : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.INBOX,
-          B = y > 0,
-          W;
-        (a[9] !== w ||
-        a[10] !== T ||
-        a[11] !== k ||
-        a[12] !== N ||
-        a[13] !== I ||
-        a[14] !== s ||
-        a[15] !== A ||
-        a[16] !== F ||
-        a[17] !== O ||
-        a[18] !== B
-          ? ((W = babelHelpers.extends(
-              {
-                messageId: s,
-                chatId: A,
-                qbmFlag: N,
-                contactType: F,
-                hsmTagStr: k,
-                readReceiptsEnabled: !0,
-                chatsFolderType: O,
-                isMuted: B,
-                isBroadcastMessage: !1,
-                isInsubContact: !1,
-                serverTimestamp: I,
-                clientReceivedTsMillis: T,
-              },
-              w,
-              {
-                messageBodyType: o("WAWebWamEnumMessageBodyTypeEnum")
-                  .MESSAGE_BODY_TYPE_ENUM.MESSAGE,
-              },
-            )),
-            (a[9] = w),
-            (a[10] = T),
-            (a[11] = k),
-            (a[12] = N),
-            (a[13] = I),
-            (a[14] = s),
-            (a[15] = A),
-            (a[16] = F),
-            (a[17] = O),
-            (a[18] = B),
-            (a[19] = W))
-          : (W = a[19]),
-          (P = W));
-      }
-      return P;
+            ).extractBizMessageAttribution(e);
+          return babelHelpers.extends(
+            {
+              messageId: i,
+              chatId: u.toString(),
+              qbmFlag: t,
+              contactType: h
+                ? o("WAWebWamEnumContactType").CONTACT_TYPE.ENTERPRISE
+                : o("WAWebWamEnumContactType").CONTACT_TYPE.SMB,
+              hsmTagStr: b,
+              readReceiptsEnabled: !0,
+              chatsFolderType: _
+                ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED
+                : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.INBOX,
+              isMuted: f > 0,
+              isBroadcastMessage: !1,
+              isInsubContact: !1,
+              serverTimestamp: v,
+              clientReceivedTsMillis: S,
+            },
+            n,
+            {
+              messageBodyType: o("WAWebWamEnumMessageBodyTypeEnum")
+                .MESSAGE_BODY_TYPE_ENUM.MESSAGE,
+            },
+          );
+        },
+        [_, R, u, S, b, h, e, f, v, E, i],
+      );
     }
     l.default = u;
   },

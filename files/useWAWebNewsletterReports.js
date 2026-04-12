@@ -7,7 +7,6 @@ __d(
     "WAWebNewsletterReportCollection",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebUnmountSignal",
   ],
@@ -24,71 +23,47 @@ __d(
         "ERROR",
       ]);
     function p() {
-      var e = o("react-compiler-runtime").c(10),
-        t = r("useWAWebUnmountSignal")(),
-        a = d(m.FETCHING),
-        i = a[0],
-        l = a[1],
-        s;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = ["add", "remove", "change", "reset"]), (e[0] = s))
-        : (s = e[0]);
-      var u = r("useWAWebEventTargetValue")(
+      var e = r("useWAWebUnmountSignal")(),
+        t = d(m.FETCHING),
+        a = t[0],
+        i = t[1],
+        l = r("useWAWebEventTargetValue")(
           o("WAWebNewsletterReportCollection").NewsletterReportCollection,
-          s,
-          _,
+          ["add", "remove", "change", "reset"],
+          function () {
+            return o(
+              "WAWebNewsletterReportCollection",
+            ).NewsletterReportCollection.toArray();
+          },
         ),
-        p;
-      e[1] !== t.aborted
-        ? ((p = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (!t.aborted) {
-                if ((l(m.FETCHING), !r("WAWebNetworkStatus").online)) {
-                  l(m.OFFLINE);
-                  return;
-                }
-                try {
-                  (yield o(
-                    "WAWebNewsletterGetReportsAction",
-                  ).getNewsletterReportsAction(),
-                    l(m.SUCCESS));
-                } catch (e) {
-                  l(m.ERROR);
-                }
+        s = u(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            if (!e.aborted) {
+              if ((i(m.FETCHING), !r("WAWebNetworkStatus").online)) {
+                i(m.OFFLINE);
+                return;
               }
-            });
-            return function () {
-              return e.apply(this, arguments);
-            };
-          })()),
-          (e[1] = t.aborted),
-          (e[2] = p))
-        : (p = e[2]);
-      var f = p,
-        g,
-        h;
-      (e[3] !== f
-        ? ((g = function () {
-            f();
+              try {
+                (yield o(
+                  "WAWebNewsletterGetReportsAction",
+                ).getNewsletterReportsAction(),
+                  i(m.SUCCESS));
+              } catch (e) {
+                i(m.ERROR);
+              }
+            }
           }),
-          (h = [f]),
-          (e[3] = f),
-          (e[4] = g),
-          (e[5] = h))
-        : ((g = e[4]), (h = e[5])),
-        c(g, h));
-      var y;
+          [e],
+        );
       return (
-        e[6] !== i || e[7] !== f || e[8] !== u
-          ? ((y = [i, f, u]), (e[6] = i), (e[7] = f), (e[8] = u), (e[9] = y))
-          : (y = e[9]),
-        y
+        c(
+          function () {
+            s();
+          },
+          [s],
+        ),
+        [a, s, l]
       );
-    }
-    function _() {
-      return o(
-        "WAWebNewsletterReportCollection",
-      ).NewsletterReportCollection.toArray();
     }
     ((l.FetchReportStatus = m), (l.useNewsletterReports = p));
   },

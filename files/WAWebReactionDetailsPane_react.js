@@ -18,7 +18,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "lodash",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useLazyRef",
     "useWAWebIsKeyboardUser",
@@ -75,19 +74,21 @@ __d(
         return e.concat.apply(e, o);
       };
     function C(t) {
-      var n = o("react-compiler-runtime").c(11),
-        a = t.tab,
-        i = a.emoji,
-        l = a.reactions,
-        u;
-      n[0] !== i || n[1] !== l.length
-        ? ((u =
-            i === g
+      var n = t.tab,
+        a = n.emoji,
+        i = n.reactions;
+      return c.jsx(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        justify: "center",
+        children: c.jsxs(r("WAWebFlexItem.react"), {
+          xstyle: f.willChange,
+          children: [
+            a === g
               ? c.jsx("div", {
                   className:
                     "xdj266r xat24cr x1lziwak x1rg5ohu xt7dq6l x6prxxf x1fc57z9 x14ug900 xbelrpt",
                   children: c.jsx(o("WAWebEmojiText.react").EmojiText, {
-                    text: s._(/*BTDS*/ '_j{"*":"All"}', [s._plural(l.length)]),
+                    text: s._(/*BTDS*/ '_j{"*":"All"}', [s._plural(i.length)]),
                   }),
                 })
               : c.jsx(
@@ -102,54 +103,22 @@ __d(
                     {
                       children: c.jsx(
                         o("WAWebReactionEmoji.react").ReactionEmoji,
-                        { reaction: i },
+                        { reaction: a },
                       ),
                     },
                   ),
-                )),
-          (n[0] = i),
-          (n[1] = l.length),
-          (n[2] = u))
-        : (u = n[2]);
-      var d;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = {
-            className:
-              "xdj266r xat24cr x1lziwak x1rg5ohu xt7dq6l x6prxxf x1fc57z9 xhslqc4 xmpx0yj",
-          }),
-          (n[3] = d))
-        : (d = n[3]);
-      var m;
-      n[4] !== l.length
-        ? ((m = r("WAWebL10N").n(l.length)), (n[4] = l.length), (n[5] = m))
-        : (m = n[5]);
-      var p;
-      n[6] !== m
-        ? ((p = c.jsx(
-            "div",
-            babelHelpers.extends({ "data-testid": void 0 }, d, { children: m }),
-          )),
-          (n[6] = m),
-          (n[7] = p))
-        : (p = n[7]);
-      var _;
-      return (
-        n[8] !== u || n[9] !== p
-          ? ((_ = c.jsx(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "center",
-              children: c.jsxs(r("WAWebFlexItem.react"), {
-                xstyle: f.willChange,
-                children: [u, p],
-              }),
-            })),
-            (n[8] = u),
-            (n[9] = p),
-            (n[10] = _))
-          : (_ = n[10]),
-        _
-      );
+                ),
+            c.jsx("div", {
+              "data-testid": void 0,
+              className:
+                "xdj266r xat24cr x1lziwak x1rg5ohu xt7dq6l x6prxxf x1fc57z9 xhslqc4 xmpx0yj",
+              children: r("WAWebL10N").n(i.length),
+            }),
+          ],
+        }),
+      });
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
       var t = _(0),
         n = t[0],

@@ -1,6 +1,6 @@
 __d(
   "WAWebBubbleAnimationWrapper.react",
-  ["WAWebBotGating", "react", "react-compiler-runtime"],
+  ["WAWebBotGating", "react"],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
       s,
@@ -21,42 +21,18 @@ __d(
     }
     c.displayName = c.name + " [from " + i.id + "]";
     function d(t) {
-      var n = o("react-compiler-runtime").c(9),
-        r,
-        a;
-      n[0] !== t
-        ? ((a = t.ref),
-          (r = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = r),
-          (n[2] = a))
-        : ((r = n[1]), (a = n[2]));
-      var i = r,
-        l = i.animationProps,
-        s = i.children,
-        c = i.componentClass,
-        d;
-      return (
-        n[3] !== l.key ||
-        n[4] !== l.style ||
-        n[5] !== s ||
-        n[6] !== c ||
-        n[7] !== a
-          ? ((d = u.jsx(
-              "div",
-              { style: l.style, className: c, ref: a, children: s },
-              l.key,
-            )),
-            (n[3] = l.key),
-            (n[4] = l.style),
-            (n[5] = s),
-            (n[6] = c),
-            (n[7] = a),
-            (n[8] = d))
-          : (d = n[8]),
-        d
+      var n = t.ref,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        o = r.animationProps,
+        a = r.children,
+        i = r.componentClass;
+      return u.jsx(
+        "div",
+        { style: o.style, className: i, ref: n, children: a },
+        o.key,
       );
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e, t) {
       var n,
         r,

@@ -1,30 +1,20 @@
 __d(
   "WAWebItalicMutatorComponent.react",
-  ["WAWebCopyPasteSelectable.react", "react", "react-compiler-runtime"],
+  ["WAWebCopyPasteSelectable.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        r = e.selectable,
-        a = n === void 0 ? "" : n,
-        i;
-      return (
-        t[0] !== a || t[1] !== r
-          ? ((i = s.jsx(o("WAWebCopyPasteSelectable.react").SelectableEm, {
-              selectable: r,
-              appTextTemplate: "_${appText}_",
-              children: a,
-            })),
-            (t[0] = a),
-            (t[1] = r),
-            (t[2] = i))
-          : (i = t[2]),
-        i
-      );
+      var t = e.children,
+        n = t === void 0 ? "" : t,
+        r = e.selectable;
+      return s.jsx(o("WAWebCopyPasteSelectable.react").SelectableEm, {
+        selectable: r,
+        appTextTemplate: "_${appText}_",
+        children: n,
+      });
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

@@ -8,7 +8,6 @@ __d(
     "WAWebStatusText.react",
     "WAWebWid",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -75,190 +74,117 @@ __d(
           };
     }
     function m(t) {
-      var n = o("react-compiler-runtime").c(19),
-        a = t.msg,
-        i = t.size,
-        l = t.thumbnailStyles,
-        s = l.sizeXstyle,
-        d = l.statusImageXstyle,
-        m = i === "large" ? "status-carousel" : "status-thumbnail",
-        p;
-      n[0] !== s || n[1] !== d
-        ? ((p = (e || (e = r("stylex"))).props(c.statusImage, d, s)),
-          (n[0] = s),
-          (n[1] = d),
-          (n[2] = p))
-        : (p = n[2]);
-      var _;
-      n[3] !== a
-        ? ((_ = o("WAWebMsgGetters").getStatusCanvasColor(a)),
-          (n[3] = a),
-          (n[4] = _))
-        : (_ = n[4]);
-      var f;
-      n[5] !== _
-        ? ((f = { backgroundColor: _ }), (n[5] = _), (n[6] = f))
-        : (f = n[6]);
-      var g;
-      n[7] !== s
-        ? ((g = (e || (e = r("stylex"))).props(c.textThumb, s)),
-          (n[7] = s),
-          (n[8] = g))
-        : (g = n[8]);
-      var h;
-      n[9] !== a || n[10] !== m
-        ? ((h = u.jsx(r("WAWebStatusText.react"), { msg: a, theme: m })),
-          (n[9] = a),
-          (n[10] = m),
-          (n[11] = h))
-        : (h = n[11]);
-      var y;
-      n[12] !== g || n[13] !== h
-        ? ((y = u.jsx("div", babelHelpers.extends({}, g, { children: h }))),
-          (n[12] = g),
-          (n[13] = h),
-          (n[14] = y))
-        : (y = n[14]);
-      var C;
-      return (
-        n[15] !== p || n[16] !== f || n[17] !== y
-          ? ((C = u.jsx(
-              "div",
-              babelHelpers.extends({}, p, { style: f, children: y }),
-            )),
-            (n[15] = p),
-            (n[16] = f),
-            (n[17] = y),
-            (n[18] = C))
-          : (C = n[18]),
-        C
-      );
-    }
-    function p(t) {
-      var n = o("react-compiler-runtime").c(13),
-        a = t.msg,
+      var n = t.msg,
+        a = t.size,
         i = t.thumbnailStyles,
         l = i.sizeXstyle,
         s = i.statusImageXstyle,
-        d;
-      n[0] !== l || n[1] !== s
-        ? ((d = (e || (e = r("stylex"))).props(c.statusImage, s, l)),
-          (n[0] = l),
-          (n[1] = s),
-          (n[2] = d))
-        : (d = n[2]);
-      var m;
-      n[3] !== a
-        ? ((m = o("WAWebMsgGetters").getStatusCanvasColor(a)),
-          (n[3] = a),
-          (n[4] = m))
-        : (m = n[4]);
-      var p;
-      n[5] !== m
-        ? ((p = { backgroundColor: m }), (n[5] = m), (n[6] = p))
-        : (p = n[6]);
-      var _;
-      n[7] !== l
-        ? ((_ = u.jsx(o("WAWebAudioWaveThumbIcon.react").AudioWaveThumbIcon, {
-            iconXstyle: l,
-          })),
-          (n[7] = l),
-          (n[8] = _))
-        : (_ = n[8]);
-      var f;
-      return (
-        n[9] !== d || n[10] !== p || n[11] !== _
-          ? ((f = u.jsx(
+        d = a === "large" ? "status-carousel" : "status-thumbnail";
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props(c.statusImage, s, l),
+          {
+            style: {
+              backgroundColor: o("WAWebMsgGetters").getStatusCanvasColor(n),
+            },
+            children: u.jsx(
               "div",
-              babelHelpers.extends({}, d, { style: p, children: _ }),
-            )),
-            (n[9] = d),
-            (n[10] = p),
-            (n[11] = _),
-            (n[12] = f))
-          : (f = n[12]),
-        f
+              babelHelpers.extends({}, e.props(c.textThumb, l), {
+                children: u.jsx(r("WAWebStatusText.react"), {
+                  msg: n,
+                  theme: d,
+                }),
+              }),
+            ),
+          },
+        ),
       );
     }
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p(t) {
+      var n = t.msg,
+        a = t.thumbnailStyles,
+        i = a.sizeXstyle,
+        l = a.statusImageXstyle;
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props(c.statusImage, l, i),
+          {
+            style: {
+              backgroundColor: o("WAWebMsgGetters").getStatusCanvasColor(n),
+            },
+            children: u.jsx(
+              o("WAWebAudioWaveThumbIcon.react").AudioWaveThumbIcon,
+              { iconXstyle: i },
+            ),
+          },
+        ),
+      );
+    }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
-      var n = o("react-compiler-runtime").c(7),
-        a = t.msg,
-        i = t.size,
-        l = t.thumbnailPlaceholder,
-        s,
-        _;
-      if (n[0] !== a || n[1] !== i || n[2] !== l) {
-        _ = Symbol.for("react.early_return_sentinel");
-        e: {
-          var f = d(i),
-            g = f.sizeXstyle,
-            h = f.statusImageXstyle,
-            y = f.thumbContainerXstyle;
-          if (a) {
-            if (r("WAWebWid").isPSA(o("WAWebMsgGetters").getSender(a))) {
-              _ = u.jsx(
-                "div",
-                babelHelpers.extends(
-                  {},
-                  (e || (e = r("stylex"))).props(
-                    c.thumbContainer,
-                    c.statusImageFallbackBackground,
-                    y,
-                    g,
-                  ),
-                  { children: l },
-                ),
-              );
-              break e;
-            }
-            var C = u.jsx(r("WAWebMediaThumbnail.react"), {
-              containerClassName: (e || (e = r("stylex")))(
+      var n = t.msg,
+        a = t.size,
+        i = t.thumbnailPlaceholder,
+        l = d(a),
+        s = l.sizeXstyle,
+        _ = l.statusImageXstyle,
+        f = l.thumbContainerXstyle;
+      if (n) {
+        if (r("WAWebWid").isPSA(o("WAWebMsgGetters").getSender(n)))
+          return u.jsx(
+            "div",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
                 c.thumbContainer,
                 c.statusImageFallbackBackground,
-                y,
-                g,
+                f,
+                s,
               ),
-              childClassName: e(c.statusImage, h, g),
-              msg: a,
-              thumbnailPlaceholder: l,
-            });
-            switch (a.type) {
-              case o("WAWebMsgType").MSG_TYPE.CHAT: {
-                _ = u.jsx(m, { msg: a, size: i, thumbnailStyles: f });
-                break e;
-              }
-              case o("WAWebMsgType").MSG_TYPE.PTT:
-              case o("WAWebMsgType").MSG_TYPE.AUDIO: {
-                _ = u.jsx(p, { msg: a, thumbnailStyles: f });
-                break e;
-              }
-              default: {
-                _ = C;
-                break e;
-              }
-            }
-          }
-          s = (e || (e = r("stylex"))).props(
+              { children: i },
+            ),
+          );
+        var g = u.jsx(r("WAWebMediaThumbnail.react"), {
+          containerClassName: (e || (e = r("stylex")))(
+            c.thumbContainer,
+            c.statusImageFallbackBackground,
+            f,
+            s,
+          ),
+          childClassName: e(c.statusImage, _, s),
+          msg: n,
+          thumbnailPlaceholder: i,
+        });
+        switch (n.type) {
+          case o("WAWebMsgType").MSG_TYPE.CHAT:
+            return u.jsx(m, { msg: n, size: a, thumbnailStyles: l });
+          case o("WAWebMsgType").MSG_TYPE.PTT:
+          case o("WAWebMsgType").MSG_TYPE.AUDIO:
+            return u.jsx(p, { msg: n, thumbnailStyles: l });
+          default:
+            return g;
+        }
+      }
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props(
             c.statusImage,
             c.statusImageFallbackBackground,
-            h,
-            g,
-          );
-        }
-        ((n[0] = a), (n[1] = i), (n[2] = l), (n[3] = s), (n[4] = _));
-      } else ((s = n[3]), (_ = n[4]));
-      if (_ !== Symbol.for("react.early_return_sentinel")) return _;
-      var b;
-      return (
-        n[5] !== s
-          ? ((b = u.jsx("div", babelHelpers.extends({}, s))),
-            (n[5] = s),
-            (n[6] = b))
-          : (b = n[6]),
-        b
+            _,
+            s,
+          ),
+        ),
       );
     }
-    l.StatusMsgThumbnail = _;
+    ((_.displayName = _.name + " [from " + i.id + "]"),
+      (l.StatusMsgThumbnail = _));
   },
   98,
 );
