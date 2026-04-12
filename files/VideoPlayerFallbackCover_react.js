@@ -5,7 +5,6 @@ __d(
     "VideoPlayerFallbackCoverImplWithoutRetry.react",
     "react",
     "react-compiler-runtime",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -17,9 +16,8 @@ __d(
         a = e.debugError,
         i = e.message,
         l = e.showDebugWithoutError,
-        c = e.showLearnMoreLink;
-      r("vulture")("l6r5Y-0I9BBofIGePgWCOaUN4fo=");
-      var d;
+        c = e.showLearnMoreLink,
+        d;
       t[0] !== i
         ? ((d =
             i != null

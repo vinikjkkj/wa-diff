@@ -12,12 +12,11 @@ __d(
     "WAWebSendTextFlow.react",
     "WAWebSvgButton.react",
     "WAWebTextBoxReadonly.react",
-    "WAWebToast.react",
-    "WAWebToastManager",
     "WAWebUserPrefsMeUser",
     "WAWebVoipEventConstants",
     "WAWebVoipNewGroupCallContactPicker.react",
     "WAWebVoipStackInterface",
+    "WAWebVoipUiContext",
     "WDSButton.react",
     "WDSColorStyles.stylex",
     "WDSIconIcPersonAdd.react",
@@ -38,10 +37,11 @@ __d(
       d = c || (c = o("react")),
       m = c,
       p = m.useCallback,
-      _ = m.useEffect,
-      f = m.useState,
-      g = 280,
-      h = {
+      _ = m.useContext,
+      f = m.useEffect,
+      g = m.useState,
+      h = 280,
+      y = {
         container: {
           width: "x1dz1jew",
           height: "x5yr21d",
@@ -81,17 +81,17 @@ __d(
         },
         fullWidthButton: { width: "xh8yej3", $$css: !0 },
       };
-    function y(e) {
+    function C(e) {
       var t = e.callLinkToken;
       if (t == null || t === "") return null;
       var n = e.isVideo ? "video" : "voice";
       return "https://call.whatsapp.com/" + n + "/" + t;
     }
-    function C(t) {
+    function b(t) {
       var a = t.call,
         i = t.surface,
         l = i === void 0 ? "standalone" : i,
-        c = y(a),
+        c = C(a),
         m = r("useWAWebVoipModalManager")(),
         _ = m.closeModal,
         f = m.openModal,
@@ -107,10 +107,10 @@ __d(
               : !1;
           },
         ),
-        C =
+        h =
           a.callLinkCreatorJid != null &&
           o("WAWebUserPrefsMeUser").isMeAccount(a.callLinkCreatorJid),
-        v = p(function (e) {
+        b = p(function (e) {
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
               var t = yield o(
@@ -154,7 +154,7 @@ __d(
           {},
           (u || (u = r("stylex"))).props(
             L && o("WDSThemes").WDSDarkTheme,
-            L ? h.container : h.sidebarContainer,
+            L ? y.container : y.sidebarContainer,
             L &&
               o("WDSColorStyles.stylex").WDSColorStyles.persistentAlwaysWhite,
             L &&
@@ -171,12 +171,12 @@ __d(
               }),
               d.jsx(o("WAWebFlex.react").FlexColumn, {
                 align: "stretch",
-                xstyle: h.linkContainer,
+                xstyle: y.linkContainer,
                 children: d.jsx(r("WAWebTextBoxReadonly.react"), {
-                  addOnAfter: d.jsx(b, { textToCopy: c }),
+                  addOnAfter: d.jsx(v, { textToCopy: c }),
                   ariaLabel: r("fbs")._(/*BTDS*/ "Call link"),
                   text: c,
-                  xstyle: h.textBox,
+                  xstyle: y.textBox,
                 }),
               }),
               d.jsx(r("WDSButton.react"), {
@@ -187,7 +187,7 @@ __d(
                 label: s._(/*BTDS*/ "Send link via WhatsApp"),
                 onPress: R,
                 size: "small",
-                xstyle: h.fullWidthButton,
+                xstyle: y.fullWidthButton,
               }),
               L &&
                 d.jsx("div", {
@@ -210,12 +210,12 @@ __d(
                         );
                     },
                     size: "small",
-                    xstyle: h.fullWidthButton,
+                    xstyle: y.fullWidthButton,
                   }),
                 }),
               L &&
                 a.isCallLink &&
-                C &&
+                h &&
                 d.jsxs(d.Fragment, {
                   children: [
                     d.jsx("div", {
@@ -238,7 +238,7 @@ __d(
                             ? s._(/*BTDS*/ "Turn off")
                             : s._(/*BTDS*/ "Turn on"),
                           onPress: function () {
-                            return v(!g);
+                            return b(!g);
                           },
                         }),
                       ],
@@ -250,14 +250,16 @@ __d(
         ),
       );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
-    function b(e) {
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v(e) {
       var t = e.textToCopy,
-        n = f(!1),
+        n = g(!1),
         a = n[0],
-        i = n[1];
+        i = n[1],
+        l = _(r("WAWebVoipUiContext")),
+        u = l.showCenteredToast;
       return (
-        _(
+        f(
           function () {
             var e = new AbortController();
             return (
@@ -266,12 +268,7 @@ __d(
                   .copyTextToClipboard(t)
                   .then(function () {
                     e.signal.aborted ||
-                      (i(!1),
-                      o("WAWebToastManager").ToastManager.open(
-                        d.jsx(o("WAWebToast.react").Toast, {
-                          msg: s._(/*BTDS*/ "Link copied"),
-                        }),
-                      ));
+                      (i(!1), u == null || u(s._(/*BTDS*/ "Link copied")));
                   })
                   .catch(function () {
                     e.signal.aborted || i(!1);
@@ -281,7 +278,7 @@ __d(
               }
             );
           },
-          [a, t],
+          [a, u, t],
         ),
         d.jsx(r("WAWebSvgButton.react"), {
           Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
@@ -292,7 +289,7 @@ __d(
         })
       );
     }
-    ((b.displayName = b.name + " [from " + i.id + "]"), (l.default = C));
+    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = b));
   },
   226,
 );
