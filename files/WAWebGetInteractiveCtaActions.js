@@ -107,6 +107,12 @@ __d(
             index: t,
             data: { label: u.display_text, copyCode: u.copy_code },
           };
+        case r("WAWebInteractiveMessagesNativeFlowName").CTA_APP:
+          return {
+            name: "cta_app",
+            index: t,
+            data: { label: u.display_text, url: u.url, buttonParamsJson: l },
+          };
         case r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW:
           return o("WAWebGetGalaxyFlowCtaButton").getGalaxyFlowCtaButton(
             l,

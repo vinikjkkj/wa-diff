@@ -9,6 +9,7 @@ __d(
     "WAWebInAppSignupConfirmation",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebMmSignalSharingGatingUtils",
     "WAWebMsgType",
     "WAWebOrderDetails",
     "WAWebOrderPaymentStatus",
@@ -130,47 +131,55 @@ __d(
                                     : e.nativeFlowName ===
                                         r(
                                           "WAWebInteractiveMessagesNativeFlowName",
-                                        ).CTA_FLOW
+                                        ).CTA_APP
                                       ? o(
-                                          "WAWebGalaxyFlowFeatureSupport",
-                                        ).isFlowSupported(e, null, a)
+                                          "WAWebMmSignalSharingGatingUtils",
+                                        ).isMmSignalSharingAppCtaEnabled() &&
+                                        u(e) != null
                                       : e.nativeFlowName ===
                                           r(
                                             "WAWebInteractiveMessagesNativeFlowName",
-                                          ).CALL_PERMISSION_REQUEST
+                                          ).CTA_FLOW
                                         ? o(
-                                            "WAWebVoipGatingUtils",
-                                          ).isCoexCallingPermissionsEnabled()
+                                            "WAWebGalaxyFlowFeatureSupport",
+                                          ).isFlowSupported(e, null, a)
                                         : e.nativeFlowName ===
                                             r(
                                               "WAWebInteractiveMessagesNativeFlowName",
-                                            ).PAYMENT_REQUEST
+                                            ).CALL_PERMISSION_REQUEST
                                           ? o(
-                                              "WAWebBrPaymentRequest",
-                                            ).getPaymentRequestInfo(e) != null
+                                              "WAWebVoipGatingUtils",
+                                            ).isCoexCallingPermissionsEnabled()
                                           : e.nativeFlowName ===
                                               r(
                                                 "WAWebInteractiveMessagesNativeFlowName",
-                                              ).API_SIGNUP
-                                            ? !0
+                                              ).PAYMENT_REQUEST
+                                            ? o(
+                                                "WAWebBrPaymentRequest",
+                                              ).getPaymentRequestInfo(e) != null
                                             : e.nativeFlowName ===
                                                 r(
                                                   "WAWebInteractiveMessagesNativeFlowName",
-                                                ).INAPP_SIGNUP
-                                              ? o(
-                                                  "WAWebSignupGating",
-                                                ).isSignupAGMEnabled() &&
-                                                o(
-                                                  "WAWebInAppSignupConfirmation",
-                                                ).getInAppSignupConfirmationInfo(
-                                                  e,
-                                                ) != null
-                                              : (function () {
-                                                  throw Error(
-                                                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                      e.nativeFlowName,
-                                                  );
-                                                })();
+                                                ).API_SIGNUP
+                                              ? !0
+                                              : e.nativeFlowName ===
+                                                  r(
+                                                    "WAWebInteractiveMessagesNativeFlowName",
+                                                  ).INAPP_SIGNUP
+                                                ? o(
+                                                    "WAWebSignupGating",
+                                                  ).isSignupAGMEnabled() &&
+                                                  o(
+                                                    "WAWebInAppSignupConfirmation",
+                                                  ).getInAppSignupConfirmationInfo(
+                                                    e,
+                                                  ) != null
+                                                : (function () {
+                                                    throw Error(
+                                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                        e.nativeFlowName,
+                                                    );
+                                                  })();
     }
     function s(e) {
       if (o("WAWebBizGatingUtils").isMessageWithLinkNfmEnabled()) {

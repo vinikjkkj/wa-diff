@@ -64,64 +64,66 @@ __d(
         n = e.bizProfileValues,
         a = e.businessHours,
         i = e.categories,
-        l = e.latitude,
-        u = e.longitude,
-        _ = e.onFieldChange,
-        f = e.onLocationSelect,
-        g = e.onSave,
-        h = o("useWAWebModelValues").useModelValues(o("WAWebConnModel").Conn, [
+        l = e.isAgentProfileLocked,
+        u = e.latitude,
+        _ = e.longitude,
+        f = e.onFieldChange,
+        g = e.onLocationSelect,
+        h = e.onLockedFieldClick,
+        y = e.onSave,
+        C = o("useWAWebModelValues").useModelValues(o("WAWebConnModel").Conn, [
           "pushname",
         ]),
-        y = o("WAWebContactCollection").ContactCollection.getMeContact(),
-        C =
-          y != null &&
-          o("WAWebContactGetters").getShowBusinessCheckmarkInChatlist(y),
-        b = null;
-      C &&
-        (b = o("WAWebMiscGatingUtils").isBlueEnabled()
+        b = o("WAWebContactCollection").ContactCollection.getMeContact(),
+        v =
+          b != null &&
+          o("WAWebContactGetters").getShowBusinessCheckmarkInChatlist(b),
+        S = null;
+      v &&
+        (S = o("WAWebMiscGatingUtils").isBlueEnabled()
           ? s.jsx(o("WAWebPsaVerifiedBlueIcon.react").PsaVerifiedBlueIcon, {})
           : s.jsx(o("WAWebPsaVerifiedIcon.react").PsaVerifiedIcon, {}));
-      var v = m(l != null && u != null ? { latitude: l, longitude: u } : null),
-        S = v[0],
-        R = v[1],
-        L = c(
+      var R = m(u != null && _ != null ? { latitude: u, longitude: _ } : null),
+        L = R[0],
+        E = R[1],
+        k = c(
           function (e) {
-            (R({ latitude: e.latitude, longitude: e.longitude }),
-              f != null && f(e));
+            (E({ latitude: e.latitude, longitude: e.longitude }),
+              g != null && g(e));
+          },
+          [g],
+        ),
+        I = c(
+          function (e, t) {
+            (e === "address" && E(null), f != null && f(e, t));
           },
           [f],
         ),
-        E = c(
-          function (e, t) {
-            (e === "address" && R(null), _ != null && _(e, t));
-          },
-          [_],
-        ),
-        k = function () {
+        T = function () {
           var e = n.description != null && n.description.trim() !== "";
           o(
             "WAWebBusinessProfileSMBUserJourneyLogger",
           ).BusinessProfileUserJourneyLogger.clickDescription(e);
         },
-        I = function () {
+        D = function () {
           var e = n.address != null && n.address.trim() !== "";
           o(
             "WAWebBusinessProfileSMBUserJourneyLogger",
           ).BusinessProfileUserJourneyLogger.clickAddress(e);
         },
-        T = o("WAWebBizGatingUtils").businessProfileRefreshV2Enabled(),
-        D = d(
+        x = o("WAWebBizGatingUtils").businessProfileRefreshV2Enabled(),
+        $ = d(
           function () {
-            return S != null
-              ? S
+            return L != null
+              ? L
               : o("WAWebCountryCenterCoordinates").getDefaultCenter();
           },
-          [S],
+          [L],
         ),
-        x = s.jsx(r("WAWebBizProfileAddressFieldMap.react"), {
+        P = s.jsx(r("WAWebBizProfileAddressFieldMap.react"), {
           value: n.address,
-          latitude: D.latitude,
-          longitude: D.longitude,
+          latitude: $.latitude,
+          longitude: $.longitude,
           serviceAreaRadius:
             n.serviceAreaRadius != null ? Number(n.serviceAreaRadius) : void 0,
         });
@@ -166,9 +168,9 @@ __d(
                         s.jsx(r("WDSText.react"), {
                           type: "Body2",
                           colorName: "contentDefault",
-                          children: (t = h.pushname) != null ? t : "",
+                          children: (t = C.pushname) != null ? t : "",
                         }),
-                        b,
+                        S,
                       ],
                     }),
                   ],
@@ -184,24 +186,33 @@ __d(
               {},
             ),
             label: o("WAWebBusinessProfileLabels").getDescriptionLabel(),
+            locked: l,
             value: n.description,
-            onChange: _,
-            onClick: k,
+            onChange: f,
+            onClick: T,
+            onLockedClick:
+              l === !0 && h != null
+                ? function () {
+                    return h(
+                      o("WAWebBusinessProfileLabels").getDescriptionLabel(),
+                    );
+                  }
+                : void 0,
           }),
           s.jsxs(o("WAWebFlex.react").FlexColumn, {
             xstyle: p.addressContainer,
             children: [
-              T
+              x
                 ? s.jsx(r("WAWebBizProfileAddressAutocomplete.react"), {
                     defaultValue: n.address,
                     fieldName: "address",
-                    initialLatitude: S == null ? void 0 : S.latitude,
-                    initialLongitude: S == null ? void 0 : S.longitude,
+                    initialLatitude: L == null ? void 0 : L.latitude,
+                    initialLongitude: L == null ? void 0 : L.longitude,
                     label: o("WAWebBusinessProfileLabels").getLocationLabel(),
                     locationNotesValue: n.locationNotes,
-                    onChange: E,
-                    onClick: I,
-                    onLocationSelect: L,
+                    onChange: I,
+                    onClick: D,
+                    onLocationSelect: k,
                     serviceAreaRadiusValue: n.serviceAreaRadius,
                   })
                 : s.jsxs(o("WAWebFlex.react").FlexRow, {
@@ -238,8 +249,8 @@ __d(
                       }),
                     ],
                   }),
-              x,
-              !T &&
+              P,
+              !x &&
                 s.jsx(o("WAWebFlex.react").FlexRow, {
                   align: "center",
                   gap: 12,
@@ -258,11 +269,23 @@ __d(
             s.jsx(r("WAWebBusinessHoursField.react"), {
               businessHours: a,
               label: o("WAWebBusinessProfileLabels").getBusinessHoursLabel(),
-              saveBusinessProfile: g,
+              saveBusinessProfile: y,
             }),
           s.jsx(
             o("WAWebBusinessCategoryField.react").WAWebBusinessCategoryField,
-            { categories: i, saveBusinessProfile: g },
+            {
+              categories: i,
+              locked: l,
+              onLockedClick:
+                l === !0 && h != null
+                  ? function () {
+                      return h(
+                        o("WAWebBusinessProfileLabels").getCategoryLabel(),
+                      );
+                    }
+                  : void 0,
+              saveBusinessProfile: y,
+            },
           ),
         ],
       });

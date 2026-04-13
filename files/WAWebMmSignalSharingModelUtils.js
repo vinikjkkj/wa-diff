@@ -50,13 +50,23 @@ __d(
         ).isMmSignalSharingDisclosureEnabled()
       )
         return r;
-      if (s(n, i) && a) {
+      if (
+        o(
+          "WAWebMmSignalSharingGatingUtils",
+        ).isMmSignalSharingReplacingShimmedLinksEnabled()
+      ) {
         var l,
           u = (l = S(i, t)) != null ? l : {},
-          c = u.consentedUrl,
-          d = u.originalUrl,
-          m = u.unconsentedUrl;
-        return b(n, c, m, d, r);
+          c = u.originalUrl;
+        return c != null ? c : r;
+      }
+      if (s(n, i) && a) {
+        var d,
+          m = (d = S(i, t)) != null ? d : {},
+          p = m.consentedUrl,
+          _ = m.originalUrl,
+          f = m.unconsentedUrl;
+        return b(n, p, f, _, r);
       }
       return r;
     }
@@ -71,7 +81,11 @@ __d(
         ).isMmSignalSharingDisclosureEnabled()
       )
         return { link: n, index: 0 };
-      if (s(t, a) && r) {
+      if (
+        o(
+          "WAWebMmSignalSharingGatingUtils",
+        ).isMmSignalSharingReplacingShimmedLinksEnabled()
+      ) {
         var i = 0;
         for (var l of (u =
           (c = a.mmSignalSharing) == null
@@ -81,11 +95,27 @@ __d(
           : []) {
           var u,
             c,
-            d = l.consentedUsersUrl,
-            m = l.originalUrl,
-            p = l.unconsentedUsersUrl;
-          if (v(m) === v(n)) return { link: b(t, d, p, m, n), index: i };
+            d = l.originalUrl;
+          if (v(d) === v(n)) return { link: d != null ? d : n, index: i };
           i++;
+        }
+        return { link: n, index: void 0 };
+      }
+      if (s(t, a) && r) {
+        var m = 0;
+        for (var p of (_ =
+          (f = a.mmSignalSharing) == null
+            ? void 0
+            : f.urlTrackingMapElements) != null
+          ? _
+          : []) {
+          var _,
+            f,
+            g = p.consentedUsersUrl,
+            h = p.originalUrl,
+            y = p.unconsentedUsersUrl;
+          if (v(h) === v(n)) return { link: b(t, g, y, h, n), index: m };
+          m++;
         }
       }
       return { link: n, index: void 0 };
@@ -99,6 +129,9 @@ __d(
         switch (e) {
           case o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
             .CTA_URL_CLICK:
+            return S(t, n);
+          case o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
+            .CTA_APP_CLICK:
             return S(t, n);
           case o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
             .BODY_URL_CLICK:

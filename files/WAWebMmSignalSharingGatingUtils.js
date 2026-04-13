@@ -189,6 +189,26 @@ __d(
           )
         : !1;
     }
+    function k() {
+      return c()
+        ? o("WAWebABProps").getABPropConfigValue(
+            "mm_optimized_delivery_replacing_shimmed_links_enabled",
+          )
+        : !1;
+    }
+    function I() {
+      return c()
+        ? o("WAWebABProps").getABPropConfigValue(
+            "mm_optimized_delivery_app_cta_enabled",
+          )
+        : !1;
+    }
+    function T(e, t) {
+      var n = y(),
+        r = n.consented_types_allowlist,
+        o = n.non_consented_types_allowlist;
+      return t ? r.includes(e) : o.includes(e);
+    }
     ((l.isMmSignalSharingDisclosureEnabled = c),
       (l.isMmSignalSharingDisclosureEnabledFromCompanionHistorySync = d),
       (l.getMmSignalSharingCollectionWindow = m),
@@ -206,7 +226,10 @@ __d(
       (l.isMmSignalSharingVerificationNewSignalTypeOriginEnabled = R),
       (l.isCCIComplianceEnabled = L),
       (l.isMmDataSharingDisclosureEnabledAdditionalTransparencyLargeScreens =
-        E));
+        E),
+      (l.isMmSignalSharingReplacingShimmedLinksEnabled = k),
+      (l.isMmSignalSharingAppCtaEnabled = I),
+      (l.isSignalTypeAllowlisted = T));
   },
   98,
 );

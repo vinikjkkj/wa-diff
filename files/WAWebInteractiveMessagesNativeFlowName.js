@@ -20,6 +20,7 @@ __d(
         CTA_COPY_CODE: "cta_copy",
         MIXED: "mixed",
         CTA_FLOW: "galaxy_message",
+        CTA_APP: "cta_app",
         CALL_PERMISSION_REQUEST: "call_permission_request",
         PAYMENT_REQUEST: "payment_request",
         API_SIGNUP: "api_signup",

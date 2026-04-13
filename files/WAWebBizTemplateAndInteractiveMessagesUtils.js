@@ -23,6 +23,7 @@ __d(
         e.PAYMENT_REQUEST,
         e.API_SIGNUP,
         e.INAPP_SIGNUP,
+        e.CTA_APP,
       ];
     function c(e) {
       return e === "review_and_pay"
@@ -91,7 +92,11 @@ __d(
                                                 ? r(
                                                     "WAWebInteractiveMessagesNativeFlowName",
                                                   ).INAPP_SIGNUP
-                                                : void 0;
+                                                : e === "cta_app"
+                                                  ? r(
+                                                      "WAWebInteractiveMessagesNativeFlowName",
+                                                    ).CTA_APP
+                                                  : void 0;
     }
     function d(e, t, n) {
       return o("WAWebMsgGetters").isBizSourceFromMarketingMessage(n)
