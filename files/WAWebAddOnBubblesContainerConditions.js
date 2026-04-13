@@ -6,15 +6,21 @@ __d(
     "WAWebMsgActionCapability",
     "WAWebMsgKey",
     "WAWebNewsletterGatingUtils",
+    "react-compiler-runtime",
     "useWAWebCommentMessages",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = o("useWAWebCommentMessages").useHydrateAndAggregateComments([
-        r("WAWebMsgKey").from(e[0]),
-      ]);
-      return t.length > 0;
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] !== e[0]
+        ? ((n = r("WAWebMsgKey").from(e[0])), (t[0] = e[0]), (t[1] = n))
+        : (n = t[1]);
+      var a;
+      t[2] !== n ? ((a = [n]), (t[2] = n), (t[3] = a)) : (a = t[3]);
+      var i = o("useWAWebCommentMessages").useHydrateAndAggregateComments(a);
+      return i.length > 0;
     }
     function s(e, t) {
       return e === 0 || !t;

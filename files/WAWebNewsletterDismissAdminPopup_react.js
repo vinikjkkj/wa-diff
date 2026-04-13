@@ -22,6 +22,7 @@ __d(
     "WAWebWamEnumTsSurface",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebToggle",
   ],
@@ -105,83 +106,130 @@ __d(
       );
     }
     function _(t) {
-      var a = t.contact,
-        i = t.isMe,
-        l = t.newsletter,
-        u = r("useWAWebToggle")(!1),
-        p = u[0],
-        _ = u[1],
-        f = i
-          ? s._(/*BTDS*/ "Dismiss yourself as channel admin?")
-          : s._(
-              /*BTDS*/ "Dismiss {admin-dismissal-contact-first-name} as admin?",
-              [
-                s._param(
-                  "admin-dismissal-contact-first-name",
-                  o("WAWebParticipantListUtils").getFirstNameForContact(a),
-                ),
-              ],
-            ),
-        g = i
-          ? s._(
-              /*BTDS*/ "You won't be able to send updates or change the channel's profile and settings.",
-            )
-          : s._(
-              /*BTDS*/ "They won't be able to send updates or change the channel's profile and settings. They will remain a follower.",
-            ),
-        h = d(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            yield m({
-              isMe: i,
-              newsletter: l,
-              contact: a,
-              shouldUnfollowNewsletter: p,
-            });
-          }),
-          [l, a, i, p],
-        ),
-        y = i
-          ? c.jsxs(o("WAWebFlex.react").FlexRow, {
-              columnGap: 8,
-              paddingTop: 16,
-              paddingBottom: 16,
-              xstyle: o("WAWebUISpacing").uiMargin.start3,
-              alignSelf: "start",
-              align: "center",
-              children: [
-                c.jsx(o("WAWebCheckBox.react").CheckBox, {
-                  id: "admin-dismissal-unfollow-checkbox",
-                  testid: void 0,
-                  checked: p,
-                  onChange: _,
-                }),
-                c.jsx(o("WAWebText_DONOTUSE.react").TextLabel, {
-                  htmlFor: "admin-dismissal-unfollow-checkbox",
-                  size: "16",
-                  className: (e || (e = r("stylex")))(
-                    o("WAWebUISpacing").uiMargin.horiz10,
+      var a = o("react-compiler-runtime").c(21),
+        i = t.contact,
+        l = t.isMe,
+        u = t.newsletter,
+        d = r("useWAWebToggle")(!1),
+        p = d[0],
+        _ = d[1],
+        f;
+      a[0] !== i || a[1] !== l
+        ? ((f = l
+            ? s._(/*BTDS*/ "Dismiss yourself as channel admin?")
+            : s._(
+                /*BTDS*/ "Dismiss {admin-dismissal-contact-first-name} as admin?",
+                [
+                  s._param(
+                    "admin-dismissal-contact-first-name",
+                    o("WAWebParticipantListUtils").getFirstNameForContact(i),
                   ),
-                  children: o(
-                    "WAWebCommonNewsletterStrings",
-                  ).getUnfollowNewsletterText(),
-                }),
-              ],
-            })
-          : null;
-      return c.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        title: f,
-        onOK: h,
-        onCancel: o("WAWebModalManager").closeModalManager,
-        children: [
-          c.jsx(o("WAWebText.react").WAWebTextTitle, {
+                ],
+              )),
+          (a[0] = i),
+          (a[1] = l),
+          (a[2] = f))
+        : (f = a[2]);
+      var g = f,
+        h;
+      a[3] !== l
+        ? ((h = l
+            ? s._(
+                /*BTDS*/ "You won't be able to send updates or change the channel's profile and settings.",
+              )
+            : s._(
+                /*BTDS*/ "They won't be able to send updates or change the channel's profile and settings. They will remain a follower.",
+              )),
+          (a[3] = l),
+          (a[4] = h))
+        : (h = a[4]);
+      var y = h,
+        C;
+      a[5] !== i || a[6] !== l || a[7] !== u || a[8] !== p
+        ? ((C = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              yield m({
+                isMe: l,
+                newsletter: u,
+                contact: i,
+                shouldUnfollowNewsletter: p,
+              });
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (a[5] = i),
+          (a[6] = l),
+          (a[7] = u),
+          (a[8] = p),
+          (a[9] = C))
+        : (C = a[9]);
+      var b = C,
+        v;
+      a[10] !== l || a[11] !== p || a[12] !== _
+        ? ((v = l
+            ? c.jsxs(o("WAWebFlex.react").FlexRow, {
+                columnGap: 8,
+                paddingTop: 16,
+                paddingBottom: 16,
+                xstyle: o("WAWebUISpacing").uiMargin.start3,
+                alignSelf: "start",
+                align: "center",
+                children: [
+                  c.jsx(o("WAWebCheckBox.react").CheckBox, {
+                    id: "admin-dismissal-unfollow-checkbox",
+                    testid: void 0,
+                    checked: p,
+                    onChange: _,
+                  }),
+                  c.jsx(o("WAWebText_DONOTUSE.react").TextLabel, {
+                    htmlFor: "admin-dismissal-unfollow-checkbox",
+                    size: "16",
+                    className: (e || (e = r("stylex")))(
+                      o("WAWebUISpacing").uiMargin.horiz10,
+                    ),
+                    children: o(
+                      "WAWebCommonNewsletterStrings",
+                    ).getUnfollowNewsletterText(),
+                  }),
+                ],
+              })
+            : null),
+          (a[10] = l),
+          (a[11] = p),
+          (a[12] = _),
+          (a[13] = v))
+        : (v = a[13]);
+      var S = v,
+        R;
+      a[14] !== y
+        ? ((R = c.jsx(o("WAWebText.react").WAWebTextTitle, {
             color: "secondary",
-            children: g,
-          }),
-          y,
-        ],
-      });
+            children: y,
+          })),
+          (a[14] = y),
+          (a[15] = R))
+        : (R = a[15]);
+      var L;
+      return (
+        a[16] !== b || a[17] !== R || a[18] !== g || a[19] !== S
+          ? ((L = c.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              title: g,
+              onOK: b,
+              onCancel: o("WAWebModalManager").closeModalManager,
+              children: [R, S],
+            })),
+            (a[16] = b),
+            (a[17] = R),
+            (a[18] = g),
+            (a[19] = S),
+            (a[20] = L))
+          : (L = a[20]),
+        L
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   226,
 );

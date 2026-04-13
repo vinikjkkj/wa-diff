@@ -10,6 +10,7 @@ __d(
     "WAWebStorageUtilizationSnapshot",
     "gkx",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -98,20 +99,35 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.storageSnapshotData;
-      return f.jsx(
-        o("WAWebStorageRecoveryPopup.react").WAWebStorageLogoutHandler,
-        {
-          bugReportDescription: S(t),
-          reason: o("WAWebLogoutReasonConstants").LogoutReason
-            .StorageQuotaExceeded,
-          children: s._(
+      var t = o("react-compiler-runtime").c(5),
+        n = e.storageSnapshotData,
+        r;
+      t[0] !== n ? ((r = S(n)), (t[0] = n), (t[1] = r)) : (r = t[1]);
+      var a;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = s._(
             /*BTDS*/ "Your computer does not have enough space for WhatsApp to run. Please create more storage by deleting unused files from your computer, then log in again.",
-          ),
-        },
+          )),
+          (t[2] = a))
+        : (a = t[2]);
+      var i;
+      return (
+        t[3] !== r
+          ? ((i = f.jsx(
+              o("WAWebStorageRecoveryPopup.react").WAWebStorageLogoutHandler,
+              {
+                bugReportDescription: r,
+                reason: o("WAWebLogoutReasonConstants").LogoutReason
+                  .StorageQuotaExceeded,
+                children: a,
+              },
+            )),
+            (t[3] = r),
+            (t[4] = i))
+          : (i = t[4]),
+        i
       );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
       var t = "";
       if (e != null)

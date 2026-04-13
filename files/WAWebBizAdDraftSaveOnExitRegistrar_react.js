@@ -8,6 +8,7 @@ __d(
     "asyncToGeneratorRuntime",
     "convertWAWebSpecToLWIVariables",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdCreateDraftMutation",
     "useWAWebBizAdEditDraftMutation",
   ],
@@ -18,66 +19,83 @@ __d(
       u = s.useContext,
       c = s.useEffect;
     function d(e) {
-      var t = e.spec,
-        o = u(r("WAWebBizAdDraftSaveCallbackContext")),
-        a = o.saveCallbackRef,
-        i = u(r("WAWebBizAdCreationDraftIDContext")),
-        l = u(r("WAWebBizAdCreationConfigContext")),
-        s = r("useWAWebBizAdCreateDraftMutation")(),
-        d = s[0],
-        m = r("useWAWebBizAdEditDraftMutation")(),
-        p = m[0];
+      var t = o("react-compiler-runtime").c(8),
+        a = e.spec,
+        i = u(r("WAWebBizAdDraftSaveCallbackContext")),
+        l = i.saveCallbackRef,
+        s = u(r("WAWebBizAdCreationDraftIDContext")),
+        d = u(r("WAWebBizAdCreationConfigContext")),
+        m = r("useWAWebBizAdCreateDraftMutation")(),
+        p = m[0],
+        _ = r("useWAWebBizAdEditDraftMutation")(),
+        f = _[0],
+        g,
+        h;
       return (
-        c(
-          function () {
-            return (
-              (a.current = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* () {
-                  if (l == null)
-                    return (
-                      r("FBLogger")("wa_ctwa_web").warn(
-                        "Draft save failed: configContext is null",
-                      ),
-                      { success: !1 }
-                    );
-                  var e = l.flowID,
-                    n = l.pageID,
-                    o = l.product,
-                    a = r("convertWAWebSpecToLWIVariables")(t, e, n, o),
-                    s = a.input.creation_spec,
-                    u = i.draftID;
-                  if (u != null) {
-                    var c = yield p({ draft_id: u, flow_id: e, spec: s });
+        t[0] !== d ||
+        t[1] !== p ||
+        t[2] !== s ||
+        t[3] !== f ||
+        t[4] !== l ||
+        t[5] !== a
+          ? ((g = function () {
+              return (
+                (l.current = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* () {
+                    if (d == null)
+                      return (
+                        r("FBLogger")("wa_ctwa_web").warn(
+                          "Draft save failed: configContext is null",
+                        ),
+                        { success: !1 }
+                      );
+                    var e = d.flowID,
+                      t = d.pageID,
+                      n = d.product,
+                      o = r("convertWAWebSpecToLWIVariables")(a, e, t, n),
+                      i = o.input.creation_spec,
+                      l = s.draftID;
+                    if (l != null) {
+                      var u = yield f({ draft_id: l, flow_id: e, spec: i });
+                      return u.success
+                        ? { success: !0, draftID: l }
+                        : (r("FBLogger")("wa_ctwa_web").warn(
+                            "Draft edit mutation failed",
+                          ),
+                          { success: !1 });
+                    }
+                    var c = yield p({
+                      flow_id: e,
+                      page_id: t,
+                      product: n,
+                      spec: i,
+                      use_case: "WA_WEB",
+                    });
                     return c.success
-                      ? { success: !0, draftID: u }
+                      ? (s.setDraftID(c.draftID),
+                        { success: !0, draftID: c.draftID })
                       : (r("FBLogger")("wa_ctwa_web").warn(
-                          "Draft edit mutation failed",
+                          "Draft create mutation failed",
                         ),
                         { success: !1 });
-                  }
-                  var m = yield d({
-                    flow_id: e,
-                    page_id: n,
-                    product: o,
-                    spec: s,
-                    use_case: "WA_WEB",
-                  });
-                  return m.success
-                    ? (i.setDraftID(m.draftID),
-                      { success: !0, draftID: m.draftID })
-                    : (r("FBLogger")("wa_ctwa_web").warn(
-                        "Draft create mutation failed",
-                      ),
-                      { success: !1 });
-                },
-              )),
-              function () {
-                a.current = null;
-              }
-            );
-          },
-          [a, i, l, t, d, p],
-        ),
+                  },
+                )),
+                function () {
+                  l.current = null;
+                }
+              );
+            }),
+            (h = [l, s, d, a, p, f]),
+            (t[0] = d),
+            (t[1] = p),
+            (t[2] = s),
+            (t[3] = f),
+            (t[4] = l),
+            (t[5] = a),
+            (t[6] = g),
+            (t[7] = h))
+          : ((g = t[6]), (h = t[7])),
+        c(g, h),
         null
       );
     }

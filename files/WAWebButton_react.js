@@ -9,6 +9,7 @@ __d(
     "WAWebUISpacing",
     "WDSButton.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
     "useWAWebFocusState",
@@ -108,84 +109,142 @@ __d(
       stretch: { display: "x1lliihq", width: "xh8yej3", $$css: !0 },
     };
     function v(t) {
-      var n = t.ref,
-        a = t.themeStyles,
-        i = t.ariaLabel,
-        l = t.ariaRoleDescription,
-        s = t.borderStyles,
-        u = t.buttonType,
-        c = t.children,
-        d = t.disabled,
-        m = t.icon,
-        p = t.iconXstyle,
-        _ = t.nowrap,
-        f = _ === void 0 ? !0 : _,
+      var n = o("react-compiler-runtime").c(27),
+        a = t.ref,
+        i = t.themeStyles,
+        l = t.ariaLabel,
+        s = t.ariaRoleDescription,
+        u = t.borderStyles,
+        c = t.buttonType,
+        d = t.children,
+        m = t.disabled,
+        p = t.icon,
+        _ = t.iconXstyle,
+        f = t.nowrap,
         h = t.onClick,
         C = t.paddingStyles,
         v = t.shadowOnHover,
-        S = v === void 0 ? !0 : v,
-        R = t.spinner,
-        L = t.stretch,
-        E = t.testid,
-        k = t.width,
-        I = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        T = r("useWAWebFocusState")(),
-        D = T[0],
-        x = T[1],
-        $ = r("useMergeRefs")(n, D),
-        P = o("WAWebFlexStyles").getFlexStyles(I);
-      return y.jsx("button", {
-        disabled: d,
-        "aria-disabled": d,
-        "data-testid": void 0,
-        onClick: h,
-        className: (g || (g = r("stylex")))([
+        S = t.spinner,
+        R = t.stretch,
+        L = t.testid,
+        E = t.width,
+        k = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        I = f === void 0 ? !0 : f,
+        T = v === void 0 ? !0 : v,
+        D = r("useWAWebFocusState")(),
+        x = D[0],
+        $ = D[1],
+        P = r("useMergeRefs")(a, x),
+        N = o("WAWebFlexStyles").getFlexStyles(k),
+        M = (g || (g = r("stylex")))([
           o("WAWebUISpacing").uiPadding.vert10,
           o("WAWebUISpacing").uiPadding.horiz24,
-          [b.button, a.button, a.buttonRefreshed],
-          P.xstyle,
-          x === !0 && [b.focused, a.focused],
-          d === !0 && b.disabled,
-          f === !0 && b.nowrap,
-          L === !0 && b.stretch,
-          S === !0 && b.hover,
-          s,
+          [b.button, i.button, i.buttonRefreshed],
+          N.xstyle,
+          $ === !0 && [b.focused, i.focused],
+          m === !0 && b.disabled,
+          I === !0 && b.nowrap,
+          R === !0 && b.stretch,
+          T === !0 && b.hover,
+          u,
           C,
         ]),
-        ref: $,
-        style: babelHelpers.extends({}, P.inline, { width: k }),
-        type: u,
-        "aria-label": i,
-        "aria-roledescription": l,
-        children: y.jsxs(o("WAWebFlex.react").FlexRow, {
-          align: "center",
-          justify: "center",
-          children: [
-            y.jsxs(o("WAWebFlex.react").FlexRow, {
+        w;
+      n[0] !== N.inline || n[1] !== E
+        ? ((w = babelHelpers.extends({}, N.inline, { width: E })),
+          (n[0] = N.inline),
+          (n[1] = E),
+          (n[2] = w))
+        : (w = n[2]);
+      var A;
+      n[3] !== p || n[4] !== _
+        ? ((A = p != null && y.jsx(p, { height: 16, iconXstyle: _ })),
+          (n[3] = p),
+          (n[4] = _),
+          (n[5] = A))
+        : (A = n[5]);
+      var F;
+      n[6] !== d || n[7] !== A
+        ? ((F = y.jsxs(o("WAWebFlex.react").FlexRow, {
+            testid: void 0,
+            justify: "center",
+            align: "center",
+            gap: 8,
+            grow: 1,
+            children: [A, d],
+          })),
+          (n[6] = d),
+          (n[7] = A),
+          (n[8] = F))
+        : (F = n[8]);
+      var O;
+      n[9] !== m || n[10] !== S || n[11] !== i.spinner
+        ? ((O =
+            S === !0 &&
+            y.jsx(r("WAWebFlexItem.react"), {
               testid: void 0,
-              justify: "center",
-              align: "center",
-              gap: 8,
-              grow: 1,
-              children: [
-                m != null && y.jsx(m, { height: 16, iconXstyle: p }),
-                c,
-              ],
-            }),
-            R === !0 &&
-              y.jsx(r("WAWebFlexItem.react"), {
-                testid: void 0,
-                xstyle: o("WAWebUISpacing").uiPadding.start8,
-                children: y.jsx(o("WAWebSpinner.react").Spinner, {
-                  color: d === !0 ? "default" : a.spinner,
-                  size: 16,
-                }),
+              xstyle: o("WAWebUISpacing").uiPadding.start8,
+              children: y.jsx(o("WAWebSpinner.react").Spinner, {
+                color: m === !0 ? "default" : i.spinner,
+                size: 16,
               }),
-          ],
-        }),
-      });
+            })),
+          (n[9] = m),
+          (n[10] = S),
+          (n[11] = i.spinner),
+          (n[12] = O))
+        : (O = n[12]);
+      var B;
+      n[13] !== F || n[14] !== O
+        ? ((B = y.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "center",
+            children: [F, O],
+          })),
+          (n[13] = F),
+          (n[14] = O),
+          (n[15] = B))
+        : (B = n[15]);
+      var W;
+      return (
+        n[16] !== l ||
+        n[17] !== s ||
+        n[18] !== c ||
+        n[19] !== m ||
+        n[20] !== P ||
+        n[21] !== h ||
+        n[22] !== M ||
+        n[23] !== w ||
+        n[24] !== B ||
+        n[25] !== L
+          ? ((W = y.jsx("button", {
+              disabled: m,
+              "aria-disabled": m,
+              "data-testid": void 0,
+              onClick: h,
+              className: M,
+              ref: P,
+              style: w,
+              type: c,
+              "aria-label": l,
+              "aria-roledescription": s,
+              children: B,
+            })),
+            (n[16] = l),
+            (n[17] = s),
+            (n[18] = c),
+            (n[19] = m),
+            (n[20] = P),
+            (n[21] = h),
+            (n[22] = M),
+            (n[23] = w),
+            (n[24] = B),
+            (n[25] = L),
+            (n[26] = W))
+          : (W = n[26]),
+        W
+      );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(e, t, n) {
       var r = n.ariaLabel,
         o = n.ariaRoleDescription,
@@ -228,14 +287,31 @@ __d(
     }
     function R(e) {
       function t(t) {
-        var n = t.ref,
-          r = babelHelpers.objectWithoutPropertiesLoose(t, u);
-        return y.jsx(
-          v,
-          babelHelpers.extends({}, r, { ref: n, themeStyles: e }),
+        var n = o("react-compiler-runtime").c(6),
+          r,
+          a;
+        n[0] !== t
+          ? ((a = t.ref),
+            (r = babelHelpers.objectWithoutPropertiesLoose(t, u)),
+            (n[0] = t),
+            (n[1] = r),
+            (n[2] = a))
+          : ((r = n[1]), (a = n[2]));
+        var i;
+        return (
+          n[3] !== r || n[4] !== a
+            ? ((i = y.jsx(
+                v,
+                babelHelpers.extends({}, r, { ref: a, themeStyles: e }),
+              )),
+              (n[3] = r),
+              (n[4] = a),
+              (n[5] = i))
+            : (i = n[5]),
+          i
         );
       }
-      return ((t.displayName = t.name + " [from " + i.id + "]"), t);
+      return t;
     }
     var L = {
       button: {
@@ -251,17 +327,49 @@ __d(
       spinner: { stroke: "x1upul9f", $$css: !0 },
     };
     function E(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, c),
-        o = S("medium", "default", n);
-      return o
-        ? y.jsx(
-            r("WDSButton.react"),
-            babelHelpers.extends({ variant: "filled", ref: t }, o),
-          )
-        : y.jsx(v, babelHelpers.extends({}, n, { ref: t, themeStyles: L }));
+      var t = o("react-compiler-runtime").c(10),
+        n,
+        a,
+        i;
+      t[0] !== e
+        ? ((a = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, c)),
+          (i = S("medium", "default", n)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = i))
+        : ((n = t[1]), (a = t[2]), (i = t[3]));
+      var l = i;
+      if (l) {
+        var s;
+        return (
+          t[4] !== l || t[5] !== a
+            ? ((s = y.jsx(
+                r("WDSButton.react"),
+                babelHelpers.extends({ variant: "filled", ref: a }, l),
+              )),
+              (t[4] = l),
+              (t[5] = a),
+              (t[6] = s))
+            : (s = t[6]),
+          s
+        );
+      }
+      var u;
+      return (
+        t[7] !== n || t[8] !== a
+          ? ((u = y.jsx(
+              v,
+              babelHelpers.extends({}, n, { ref: a, themeStyles: L }),
+            )),
+            (t[7] = n),
+            (t[8] = a),
+            (t[9] = u))
+          : (u = t[9]),
+        u
+      );
     }
-    E.displayName = E.name + " [from " + i.id + "]";
     var k = {
         button: {
           color: "x1pse0pq x1f47i5p",
@@ -300,17 +408,49 @@ __d(
         spinner: { stroke: "x94ds6z", $$css: !0 },
       };
     function D(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, d),
-        o = S("medium", "default", n);
-      return o
-        ? y.jsx(
-            r("WDSButton.react"),
-            babelHelpers.extends({ variant: "outline", ref: t }, o),
-          )
-        : y.jsx(v, babelHelpers.extends({}, n, { ref: t, themeStyles: T }));
+      var t = o("react-compiler-runtime").c(10),
+        n,
+        a,
+        i;
+      t[0] !== e
+        ? ((a = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, d)),
+          (i = S("medium", "default", n)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = i))
+        : ((n = t[1]), (a = t[2]), (i = t[3]));
+      var l = i;
+      if (l) {
+        var s;
+        return (
+          t[4] !== l || t[5] !== a
+            ? ((s = y.jsx(
+                r("WDSButton.react"),
+                babelHelpers.extends({ variant: "outline", ref: a }, l),
+              )),
+              (t[4] = l),
+              (t[5] = a),
+              (t[6] = s))
+            : (s = t[6]),
+          s
+        );
+      }
+      var u;
+      return (
+        t[7] !== n || t[8] !== a
+          ? ((u = y.jsx(
+              v,
+              babelHelpers.extends({}, n, { ref: a, themeStyles: T }),
+            )),
+            (t[7] = n),
+            (t[8] = a),
+            (t[9] = u))
+          : (u = t[9]),
+        u
+      );
     }
-    D.displayName = D.name + " [from " + i.id + "]";
     var x = {
         button: {
           color: "xhslqc4",
@@ -355,17 +495,49 @@ __d(
         spinner: { stroke: "x94ds6z", $$css: !0 },
       };
     function w(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, m),
-        o = S("medium", "default", n);
-      return o
-        ? y.jsx(
-            r("WDSButton.react"),
-            babelHelpers.extends({ variant: "borderless", ref: t }, o),
-          )
-        : y.jsx(v, babelHelpers.extends({}, n, { ref: t, themeStyles: M }));
+      var t = o("react-compiler-runtime").c(10),
+        n,
+        a,
+        i;
+      t[0] !== e
+        ? ((a = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, m)),
+          (i = S("medium", "default", n)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = i))
+        : ((n = t[1]), (a = t[2]), (i = t[3]));
+      var l = i;
+      if (l) {
+        var s;
+        return (
+          t[4] !== l || t[5] !== a
+            ? ((s = y.jsx(
+                r("WDSButton.react"),
+                babelHelpers.extends({ variant: "borderless", ref: a }, l),
+              )),
+              (t[4] = l),
+              (t[5] = a),
+              (t[6] = s))
+            : (s = t[6]),
+          s
+        );
+      }
+      var u;
+      return (
+        t[7] !== n || t[8] !== a
+          ? ((u = y.jsx(
+              v,
+              babelHelpers.extends({}, n, { ref: a, themeStyles: M }),
+            )),
+            (t[7] = n),
+            (t[8] = a),
+            (t[9] = u))
+          : (u = t[9]),
+        u
+      );
     }
-    w.displayName = w.name + " [from " + i.id + "]";
     var A = {
       button: {
         color: "xowaa7l",
@@ -379,17 +551,49 @@ __d(
       spinner: { stroke: "x1ukulop", $$css: !0 },
     };
     function F(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, p),
-        o = S("medium", "destructive", n);
-      return o
-        ? y.jsx(
-            r("WDSButton.react"),
-            babelHelpers.extends({ variant: "filled", ref: t }, o),
-          )
-        : y.jsx(v, babelHelpers.extends({}, n, { ref: t, themeStyles: A }));
+      var t = o("react-compiler-runtime").c(10),
+        n,
+        a,
+        i;
+      t[0] !== e
+        ? ((a = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, p)),
+          (i = S("medium", "destructive", n)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = i))
+        : ((n = t[1]), (a = t[2]), (i = t[3]));
+      var l = i;
+      if (l) {
+        var s;
+        return (
+          t[4] !== l || t[5] !== a
+            ? ((s = y.jsx(
+                r("WDSButton.react"),
+                babelHelpers.extends({ variant: "filled", ref: a }, l),
+              )),
+              (t[4] = l),
+              (t[5] = a),
+              (t[6] = s))
+            : (s = t[6]),
+          s
+        );
+      }
+      var u;
+      return (
+        t[7] !== n || t[8] !== a
+          ? ((u = y.jsx(
+              v,
+              babelHelpers.extends({}, n, { ref: a, themeStyles: A }),
+            )),
+            (t[7] = n),
+            (t[8] = a),
+            (t[9] = u))
+          : (u = t[9]),
+        u
+      );
     }
-    F.displayName = F.name + " [from " + i.id + "]";
     var O = {
       button: {
         color: "x30a034",
@@ -411,17 +615,49 @@ __d(
       spinner: { stroke: "x17alv2p", $$css: !0 },
     };
     function B(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, _),
-        o = S("medium", "destructive", n);
-      return o
-        ? y.jsx(
-            r("WDSButton.react"),
-            babelHelpers.extends({ variant: "outline", ref: t }, o),
-          )
-        : y.jsx(v, babelHelpers.extends({}, n, { ref: t, themeStyles: O }));
+      var t = o("react-compiler-runtime").c(10),
+        n,
+        a,
+        i;
+      t[0] !== e
+        ? ((a = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, _)),
+          (i = S("medium", "destructive", n)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = i))
+        : ((n = t[1]), (a = t[2]), (i = t[3]));
+      var l = i;
+      if (l) {
+        var s;
+        return (
+          t[4] !== l || t[5] !== a
+            ? ((s = y.jsx(
+                r("WDSButton.react"),
+                babelHelpers.extends({ variant: "outline", ref: a }, l),
+              )),
+              (t[4] = l),
+              (t[5] = a),
+              (t[6] = s))
+            : (s = t[6]),
+          s
+        );
+      }
+      var u;
+      return (
+        t[7] !== n || t[8] !== a
+          ? ((u = y.jsx(
+              v,
+              babelHelpers.extends({}, n, { ref: a, themeStyles: O }),
+            )),
+            (t[7] = n),
+            (t[8] = a),
+            (t[9] = u))
+          : (u = t[9]),
+        u
+      );
     }
-    B.displayName = B.name + " [from " + i.id + "]";
     var W = {
         button: {
           color: "xowaa7l",
@@ -437,52 +673,97 @@ __d(
         vertical: { rowGap: "x1f0uite", $$css: !0 },
       };
     function V(e) {
-      var t = e.direction,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, f),
+      var t = o("react-compiler-runtime").c(7),
+        n,
         r;
-      switch (t) {
+      t[0] !== e
+        ? ((n = e.direction),
+          (r = babelHelpers.objectWithoutPropertiesLoose(e, f)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r))
+        : ((n = t[1]), (r = t[2]));
+      var a;
+      e: switch (n) {
         case "horizontal":
-        case "horizontalReverse":
-          r = U.horizontal;
-          break;
+        case "horizontalReverse": {
+          a = U.horizontal;
+          break e;
+        }
         case "vertical":
         case "verticalReverse":
-          r = U.vertical;
-          break;
+          a = U.vertical;
       }
-      return y.jsx(
-        o("WAWebFlex.react").FlexContainer,
-        babelHelpers.extends({ xstyle: r, direction: t }, n),
+      var i;
+      return (
+        t[3] !== n || t[4] !== r || t[5] !== a
+          ? ((i = y.jsx(
+              o("WAWebFlex.react").FlexContainer,
+              babelHelpers.extends({ xstyle: a, direction: n }, r),
+            )),
+            (t[3] = n),
+            (t[4] = r),
+            (t[5] = a),
+            (t[6] = i))
+          : (i = t[6]),
+        i
       );
     }
-    V.displayName = V.name + " [from " + i.id + "]";
     function H(e) {
-      var t = e.buttonType,
-        n = e.children,
-        r = e.disabled,
-        o = e.nowrap,
-        a = e.onClick,
-        i = e.ref,
-        l = e.spinner,
-        s = e.stretch,
-        u = e.testid,
-        c = e.type,
-        d = c === void 0 ? "primary" : c,
-        m = C(d);
-      return y.jsx(m, {
-        ref: i,
-        testid: void 0,
-        children: n,
-        disabled: r,
-        onClick: a,
-        nowrap: o,
-        spinner: l,
-        stretch: s,
-        buttonType: t,
-      });
+      var t = o("react-compiler-runtime").c(13),
+        n = e.buttonType,
+        r = e.children,
+        a = e.disabled,
+        i = e.nowrap,
+        l = e.onClick,
+        s = e.ref,
+        u = e.spinner,
+        c = e.stretch,
+        d = e.testid,
+        m = e.type,
+        p = m === void 0 ? "primary" : m,
+        _;
+      t[0] !== p ? ((_ = C(p)), (t[0] = p), (t[1] = _)) : (_ = t[1]);
+      var f = _,
+        g;
+      return (
+        t[2] !== f ||
+        t[3] !== n ||
+        t[4] !== r ||
+        t[5] !== a ||
+        t[6] !== i ||
+        t[7] !== l ||
+        t[8] !== s ||
+        t[9] !== u ||
+        t[10] !== c ||
+        t[11] !== d
+          ? ((g = y.jsx(f, {
+              ref: s,
+              testid: void 0,
+              children: r,
+              disabled: a,
+              onClick: l,
+              nowrap: i,
+              spinner: u,
+              stretch: c,
+              buttonType: n,
+            })),
+            (t[2] = f),
+            (t[3] = n),
+            (t[4] = r),
+            (t[5] = a),
+            (t[6] = i),
+            (t[7] = l),
+            (t[8] = s),
+            (t[9] = u),
+            (t[10] = c),
+            (t[11] = d),
+            (t[12] = g))
+          : (g = t[12]),
+        g
+      );
     }
-    ((H.displayName = H.name + " [from " + i.id + "]"),
-      (l.WAWebButtonPrimary = E),
+    ((l.WAWebButtonPrimary = E),
       (l.WAWebButtonPrimaryCompact = I),
       (l.WAWebButtonSecondary = D),
       (l.WAWebButtonPlainWhite = $),

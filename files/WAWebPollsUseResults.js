@@ -12,6 +12,7 @@ __d(
     "WAWebPollsPollVoteCollection",
     "WAWebUserPrefsMeUser",
     "react",
+    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebModelValues",
   ],
@@ -21,54 +22,84 @@ __d(
       u = s.useEffect,
       c = s.useMemo;
     function d(e) {
-      var t = o("useWAWebModelValues").useModelValues(e, ["id", "pollOptions"]),
-        n = t.id,
-        a = t.pollOptions,
-        i = o(
-          "WAWebPollsPollVoteCollection",
-        ).PollVoteCollection.getForParentAddressingModeInsensitive([n]),
-        l = i[0],
-        s = r("useWAWebEventTargetValue")(l, "add remove reset", function () {
-          return l.toArray();
-        }),
-        d = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead();
-      return (
-        u(
-          function () {
+      var t = o("react-compiler-runtime").c(15),
+        n;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = ["id", "pollOptions"]), (t[0] = n))
+        : (n = t[0]);
+      var a = o("useWAWebModelValues").useModelValues(e, n),
+        i = a.id,
+        l = a.pollOptions,
+        s;
+      t[1] !== i
+        ? ((s = o(
+            "WAWebPollsPollVoteCollection",
+          ).PollVoteCollection.getForParentAddressingModeInsensitive([i])),
+          (t[1] = i),
+          (t[2] = s))
+        : (s = t[2]);
+      var c = s,
+        d = c[0],
+        f;
+      t[3] !== d
+        ? ((f = function () {
+            return d.toArray();
+          }),
+          (t[3] = d),
+          (t[4] = f))
+        : (f = t[4]);
+      var g = r("useWAWebEventTargetValue")(d, "add remove reset", f),
+        h = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead(),
+        y,
+        C;
+      (t[5] !== i
+        ? ((y = function () {
             o("WAWebAddonHydrationUtils").hydrateAddons({
-              ids: [n],
+              ids: [i],
               hydrationType: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
             });
-          },
-          [n],
-        ),
-        u(
-          function () {
+          }),
+          (C = [i]),
+          (t[5] = i),
+          (t[6] = y),
+          (t[7] = C))
+        : ((y = t[6]), (C = t[7])),
+        u(y, C));
+      var b, v;
+      (t[8] !== h || t[9] !== g
+        ? ((b = function () {
             if (o("WAWebPollsGatingUtils").arePollsNotificationsEnabled()) {
-              var e = s.filter(function (e) {
-                return !e.read;
-              });
+              var e = g.filter(p);
               e.length !== 0 &&
-                d({
+                h({
                   addOnType: o("WAWebMessageAddOnType").MessageAddOnType
                     .PollVote,
-                  addOns: e.map(function (e) {
-                    return { msgKey: e.msgKey, sender: e.sender.toString() };
-                  }),
+                  addOns: e.map(m),
                 });
             }
-          },
-          [s, d],
-        ),
-        c(
-          function () {
-            return m(s, a);
-          },
-          [s, a],
-        )
+          }),
+          (v = [g, h]),
+          (t[8] = h),
+          (t[9] = g),
+          (t[10] = b),
+          (t[11] = v))
+        : ((b = t[10]), (v = t[11])),
+        u(b, v));
+      var S;
+      return (
+        t[12] !== l || t[13] !== g
+          ? ((S = _(g, l)), (t[12] = l), (t[13] = g), (t[14] = S))
+          : (S = t[14]),
+        S
       );
     }
-    function m(e, t) {
+    function m(e) {
+      return { msgKey: e.msgKey, sender: e.sender.toString() };
+    }
+    function p(e) {
+      return !e.read;
+    }
+    function _(e, t) {
       var n = new Map(),
         a = 0,
         i = 0;
@@ -112,7 +143,7 @@ __d(
           (p.count = p.votes.length));
       return n;
     }
-    function p(e) {
+    function f(e) {
       return Array.from(e.entries())
         .map(function (e) {
           var t = e[0],
@@ -129,7 +160,7 @@ __d(
         })
         .join(", ");
     }
-    ((l.useResults = d), (l.aggregateVotes = m), (l.getOptionWithCount = p));
+    ((l.useResults = d), (l.aggregateVotes = _), (l.getOptionWithCount = f));
   },
   98,
 );

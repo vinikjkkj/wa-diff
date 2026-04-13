@@ -6,6 +6,7 @@ __d(
     "WAWebLogoutReasonConstants",
     "WAWebSocketModel",
     "react",
+    "react-compiler-runtime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -17,21 +18,41 @@ __d(
         );
       };
     function d(e) {
-      var t = e.children,
-        n = e.description;
+      var t = o("react-compiler-runtime").c(6),
+        n = e.children,
+        a = e.description;
+      r("vulture")("MlkJVMcCE94cT-gWlBtnPNYGXOE=");
+      var i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = { surface: "unknown", viewName: "tos" }), (t[0] = i))
+        : (i = t[0]);
+      var l;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(/*BTDS*/ "Log out")), (t[1] = l))
+        : (l = t[1]);
+      var d;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = s._(/*BTDS*/ "Log in")), (t[2] = d))
+        : (d = t[2]);
+      var m;
       return (
-        r("vulture")("MlkJVMcCE94cT-gWlBtnPNYGXOE="),
-        u.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          tsNavigationData: { surface: "unknown", viewName: "tos" },
-          cover: !0,
-          cancelText: s._(/*BTDS*/ "Log out"),
-          onCancel: c,
-          okText: s._(/*BTDS*/ "Log in"),
-          children: [n, "\xA0", t],
-        })
+        t[3] !== n || t[4] !== a
+          ? ((m = u.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              tsNavigationData: i,
+              cover: !0,
+              cancelText: l,
+              onCancel: c,
+              okText: d,
+              children: [a, "\xA0", n],
+            })),
+            (t[3] = n),
+            (t[4] = a),
+            (t[5] = m))
+          : (m = t[5]),
+        m
       );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   226,
 );

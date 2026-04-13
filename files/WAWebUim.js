@@ -133,9 +133,8 @@ __d(
         (n.activate = function () {
           this.setState(this.$1);
         }),
-        (n.branch = function (n) {
-          var e = new t(n, this);
-          return (this.children.push(e), t.pprint(), e);
+        (n.register = function () {
+          (this.parent !== this && this.parent.children.push(this), t.pprint());
         }),
         (n.pop = function (n, o) {
           var e = this;

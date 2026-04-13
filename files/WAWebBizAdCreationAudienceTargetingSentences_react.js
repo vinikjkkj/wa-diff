@@ -5,6 +5,7 @@ __d(
     "WAWebBizAdCreationAudienceTargetingSentencesQuery.graphql",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -13,57 +14,88 @@ __d(
       u = s || (s = o("react"));
     function c(t) {
       var a,
-        i = t.legacyAccountID,
-        l = t.locationOnly,
-        s = t.option,
-        c = t.targetingSpec,
-        d = {
-          ad_account_id: i,
-          audience_option: s,
-          location_only: l,
-          targeting_spec_string: JSON.stringify(c),
+        i = o("react-compiler-runtime").c(5),
+        l = t.legacyAccountID,
+        s = t.locationOnly,
+        c = t.option,
+        _ = t.targetingSpec,
+        f = {
+          ad_account_id: l,
+          audience_option: c,
+          location_only: s,
+          targeting_spec_string: JSON.stringify(_),
         },
-        m = o("CometRelay").useLazyLoadQuery(
+        g = o("CometRelay").useLazyLoadQuery(
           e !== void 0
             ? e
             : (e = n(
                 "WAWebBizAdCreationAudienceTargetingSentencesQuery.graphql",
               )),
-          d,
+          f,
         ),
-        p =
-          m == null ||
-          (a = m.lwi) == null ||
-          (a = a.targeting_sentences) == null
-            ? void 0
-            : a.filter(function (e) {
-                var t, n;
-                return (
-                  ((t = e.category_string) == null
-                    ? void 0
-                    : t.includes("Advantage+")) !== !0 &&
-                  ((n = e.category_string) == null
-                    ? void 0
-                    : n.includes("Optimize locations")) !== !0
-                );
-              });
-      if (p == null) return null;
-      var _ = p.map(function (e) {
-          return { category: e.category_string, values: e.values };
-        }),
-        f = _.map(function (e) {
-          var t;
-          return (
-            ((t = e.category) != null ? t : "") + ": " + e.values.join(", ")
-          );
-        }).join("\n");
-      return u.jsx(r("WDSText.react"), {
-        type: "Body2",
-        colorName: "contentDefault",
-        children: f,
-      });
+        h,
+        y;
+      if (
+        i[0] !==
+        (g == null || (a = g.lwi) == null ? void 0 : a.targeting_sentences)
+      ) {
+        var C;
+        y = Symbol.for("react.early_return_sentinel");
+        e: {
+          var b,
+            v =
+              g == null ||
+              (b = g.lwi) == null ||
+              (b = b.targeting_sentences) == null
+                ? void 0
+                : b.filter(p);
+          if (v == null) {
+            y = null;
+            break e;
+          }
+          var S = v.map(m);
+          h = S.map(d).join("\n");
+        }
+        ((i[0] =
+          g == null || (C = g.lwi) == null ? void 0 : C.targeting_sentences),
+          (i[1] = h),
+          (i[2] = y));
+      } else ((h = i[1]), (y = i[2]));
+      if (y !== Symbol.for("react.early_return_sentinel")) return y;
+      var R = h,
+        L;
+      return (
+        i[3] !== R
+          ? ((L = u.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              children: R,
+            })),
+            (i[3] = R),
+            (i[4] = L))
+          : (L = i[4]),
+        L
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    function d(e) {
+      var t;
+      return ((t = e.category) != null ? t : "") + ": " + e.values.join(", ");
+    }
+    function m(e) {
+      return { category: e.category_string, values: e.values };
+    }
+    function p(e) {
+      var t, n;
+      return (
+        ((t = e.category_string) == null
+          ? void 0
+          : t.includes("Advantage+")) !== !0 &&
+        ((n = e.category_string) == null
+          ? void 0
+          : n.includes("Optimize locations")) !== !0
+      );
+    }
+    l.default = c;
   },
   98,
 );

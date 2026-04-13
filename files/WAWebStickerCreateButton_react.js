@@ -6,6 +6,7 @@ __d(
     "WAWebUISpacing",
     "WAWebUnstyledButton.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -62,39 +63,65 @@ __d(
         },
       };
     function m(t) {
-      var n = t.onClick,
-        a = t.theme,
-        i = function (t) {
-          n == null || n(t);
-        };
-      return c.jsx(r("WAWebUnstyledButton.react"), {
-        xstyle: d.button,
-        onClick: i,
-        children: c.jsxs(
-          "div",
-          babelHelpers.extends(
-            {},
-            (e || (e = r("stylex"))).props(
-              d.container,
-              a === "stickerExpressionsPanel" && d.containerExpressionPanels,
-              a !== "stickerExpressionsPanel" &&
-                o("WAWebUISpacing").uiMargin.top25,
-              a !== "stickerExpressionsPanel" &&
-                o("WAWebUISpacing").uiMargin.bottom20,
-            ),
-            {
-              children: [
-                c.jsx(o("WAWebPlusIcon.react").PlusIcon, {
-                  xstyle: o("WAWebUISpacing").uiMargin.bottom4,
-                }),
-                c.jsx("span", { children: s._(/*BTDS*/ "Create") }),
-              ],
-            },
-          ),
-        ),
-      });
+      var n = o("react-compiler-runtime").c(11),
+        a = t.onClick,
+        i = t.theme,
+        l;
+      n[0] !== a
+        ? ((l = function (t) {
+            a == null || a(t);
+          }),
+          (n[0] = a),
+          (n[1] = l))
+        : (l = n[1]);
+      var u = l,
+        m;
+      n[2] !== i
+        ? ((m = (e || (e = r("stylex"))).props(
+            d.container,
+            i === "stickerExpressionsPanel" && d.containerExpressionPanels,
+            i !== "stickerExpressionsPanel" &&
+              o("WAWebUISpacing").uiMargin.top25,
+            i !== "stickerExpressionsPanel" &&
+              o("WAWebUISpacing").uiMargin.bottom20,
+          )),
+          (n[2] = i),
+          (n[3] = m))
+        : (m = n[3]);
+      var p, _;
+      n[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = c.jsx(o("WAWebPlusIcon.react").PlusIcon, {
+            xstyle: o("WAWebUISpacing").uiMargin.bottom4,
+          })),
+          (_ = c.jsx("span", { children: s._(/*BTDS*/ "Create") })),
+          (n[4] = p),
+          (n[5] = _))
+        : ((p = n[4]), (_ = n[5]));
+      var f;
+      n[6] !== m
+        ? ((f = c.jsxs(
+            "div",
+            babelHelpers.extends({}, m, { children: [p, _] }),
+          )),
+          (n[6] = m),
+          (n[7] = f))
+        : (f = n[7]);
+      var g;
+      return (
+        n[8] !== u || n[9] !== f
+          ? ((g = c.jsx(r("WAWebUnstyledButton.react"), {
+              xstyle: d.button,
+              onClick: u,
+              children: f,
+            })),
+            (n[8] = u),
+            (n[9] = f),
+            (n[10] = g))
+          : (g = n[10]),
+        g
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

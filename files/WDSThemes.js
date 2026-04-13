@@ -1366,7 +1366,29 @@ __d(
       nr = { xoeyzqq: "xp0ndqa xoeyzqq", $$css: !0 },
       rr = { xoeyzqq: "x1w02frb xoeyzqq", $$css: !0 },
       or = { xoeyzqq: "xil36hz xoeyzqq", $$css: !0 },
-      ar = { xoeyzqq: "xtz455u xoeyzqq", $$css: !0 };
+      ar = { xoeyzqq: "xtz455u xoeyzqq", $$css: !0 },
+      ir = babelHelpers.extends({}, Kn, {
+        "--WDS-accent": wn.warmGray900,
+        "--WDS-accent-deemphasized": wn.warmGray100,
+        "--WDS-accent-deemphasized-RGB": An.warmGray100,
+        "--WDS-accent-emphasized": wn.warmGray800,
+        "--WDS-accent-emphasized-RGB": An.warmGray800,
+        "--WDS-accent-RGB": An.warmGray900,
+        "--WDS-components-filter-surface-selected": wn.warmGray200,
+        "--WDS-components-filter-surface-selected-RGB": An.warmGray200,
+      }),
+      lr = babelHelpers.extends({}, Qn, {
+        "--WDS-accent": wn.neutralGray50,
+        "--WDS-accent-deemphasized": wn.neutralGray800,
+        "--WDS-accent-deemphasized-RGB": An.neutralGray800,
+        "--WDS-accent-emphasized": wn.neutralGray75,
+        "--WDS-accent-emphasized-RGB": An.neutralGray75,
+        "--WDS-accent-RGB": An.neutralGray50,
+        "--WDS-components-filter-surface-selected": wn.neutralGray700,
+        "--WDS-components-filter-surface-selected-RGB": An.neutralGray700,
+      }),
+      sr = { xoeyzqq: "x1yhjbm xoeyzqq", $$css: !0 },
+      ur = { xoeyzqq: "x1rdq2oz xoeyzqq", $$css: !0 };
     ((l.WDSSystemTheme = Xn),
       (l.WDSLightTheme = Yn),
       (l.WDSDarkTheme = Jn),
@@ -1376,7 +1398,9 @@ __d(
       (l.WDSLightThemeIOS = nr),
       (l.WDSDarkThemeIOS = rr),
       (l.WDSLightThemeAndroid = or),
-      (l.WDSDarkThemeAndroid = ar));
+      (l.WDSDarkThemeAndroid = ar),
+      (l.WDSSMBLightThemeAndroid = sr),
+      (l.WDSSMBDarkThemeAndroid = ur));
   },
   98,
 );

@@ -14,6 +14,7 @@ __d(
     "WDSIconIcShield.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -111,34 +112,58 @@ __d(
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = e.icon,
-        n = e.testid,
-        a = e.text;
-      return u.jsxs(o("WAWebFlex.react").FlexRow, {
-        xstyle: d.bulletRow,
-        marginBottom: 8,
-        paddingBottom: 4,
-        paddingStart: 8,
-        paddingTop: 4,
-        testid: void 0,
-        children: [
-          u.jsx(o("WAWebFlex.react").FlexColumn, {
+      var t = o("react-compiler-runtime").c(9),
+        n = e.icon,
+        a = e.testid,
+        i = e.text,
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [d.bulletIcon, d.iconColor]), (t[0] = l))
+        : (l = t[0]);
+      var s;
+      t[1] !== n
+        ? ((s = u.jsx(o("WAWebFlex.react").FlexColumn, {
             align: "start",
             shrink: 0,
-            xstyle: [d.bulletIcon, d.iconColor],
-            children: t,
-          }),
-          u.jsx(o("WAWebFlex.react").FlexColumn, {
+            xstyle: l,
+            children: n,
+          })),
+          (t[1] = n),
+          (t[2] = s))
+        : (s = t[2]);
+      var c;
+      t[3] !== i
+        ? ((c = u.jsx(o("WAWebFlex.react").FlexColumn, {
             children: u.jsx(r("WDSText.react"), {
               type: "Body2",
               colorName: "contentDefault",
-              children: a,
+              children: i,
             }),
-          }),
-        ],
-      });
+          })),
+          (t[3] = i),
+          (t[4] = c))
+        : (c = t[4]);
+      var m;
+      return (
+        t[5] !== s || t[6] !== c || t[7] !== a
+          ? ((m = u.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: d.bulletRow,
+              marginBottom: 8,
+              paddingBottom: 4,
+              paddingStart: 8,
+              paddingTop: 4,
+              testid: void 0,
+              children: [s, c],
+            })),
+            (t[5] = s),
+            (t[6] = c),
+            (t[7] = a),
+            (t[8] = m))
+          : (m = t[8]),
+        m
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

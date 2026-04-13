@@ -13,6 +13,7 @@ __d(
     "WDSIconIcCall.react",
     "WDSIconIcVideocam.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -108,30 +109,52 @@ __d(
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = e.icon,
-        n = e.text;
-      return c.jsxs(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        justify: "start",
-        children: [
-          c.jsx(o("WAWebFlex.react").FlexItem, { children: t }),
-          c.jsx(o("WAWebFlex.react").FlexItem, {
-            xstyle: [
-              o("WAWebUISpacing").uiPadding.vert12,
-              o("WAWebUISpacing").uiMargin.start8,
-            ],
+      var t = o("react-compiler-runtime").c(8),
+        n = e.icon,
+        r = e.text,
+        a;
+      t[0] !== n
+        ? ((a = c.jsx(o("WAWebFlex.react").FlexItem, { children: n })),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [
+            o("WAWebUISpacing").uiPadding.vert12,
+            o("WAWebUISpacing").uiMargin.start8,
+          ]),
+          (t[2] = i))
+        : (i = t[2]);
+      var l;
+      t[3] !== r
+        ? ((l = c.jsx(o("WAWebFlex.react").FlexItem, {
+            xstyle: i,
             align: "start",
             children: c.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
               color: "primary",
-              children: n,
+              children: r,
             }),
-          }),
-        ],
-      });
+          })),
+          (t[3] = r),
+          (t[4] = l))
+        : (l = t[4]);
+      var s;
+      return (
+        t[5] !== a || t[6] !== l
+          ? ((s = c.jsxs(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "start",
+              children: [a, l],
+            })),
+            (t[5] = a),
+            (t[6] = l),
+            (t[7] = s))
+          : (s = t[7]),
+        s
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"),
-      (l.CallLinkType = m),
-      (l.WAWebVoipCallLinksPopupTypeDropDown = p));
+    ((l.CallLinkType = m), (l.WAWebVoipCallLinksPopupTypeDropDown = p));
   },
   226,
 );

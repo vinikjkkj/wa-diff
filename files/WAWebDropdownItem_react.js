@@ -15,6 +15,7 @@ __d(
     "WAWebUISpacing",
     "WDSFocusStateStyles",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebUIM",
   ],
@@ -226,78 +227,138 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = e.action,
-        n = e.children,
-        a = e.disabled,
-        i = e.icon,
-        l = e.testid,
-        s = e.theme,
-        c = e.tooltip,
-        m = e.xstyle;
-      return d.jsx(
-        "div",
-        babelHelpers.extends(
-          {},
-          { 0: {}, 1: { className: "xti2d7y x1h6gzvc" } }[(a === !0) << 0],
-          {
-            children: d.jsx(y, {
-              testid: void 0,
-              action: a === !0 ? r("WAWebNoop") : t,
-              tooltip: c,
-              theme: s,
-              children: d.jsxs(o("WAWebFlex.react").FlexRow, {
-                align: "center",
-                xstyle: f.container,
-                children: [
-                  d.jsx(o("WAWebFlex.react").FlexRow, {
-                    justify: "center",
-                    xstyle: [
-                      f.icon,
-                      o("WAWebUISpacing").uiMargin.start8,
-                      o("WAWebUISpacing").uiMargin.end10,
-                      m,
-                    ],
-                    children: i,
-                  }),
-                  d.jsx(
-                    "span",
-                    babelHelpers.extends(
-                      {},
-                      (u || (u = r("stylex"))).props(
-                        f.text,
-                        o("WAWebUISpacing").uiMargin.end24,
-                        m,
-                      ),
-                      { children: n },
-                    ),
-                  ),
-                ],
-              }),
-            }),
-          },
-        ),
+      var t = o("react-compiler-runtime").c(24),
+        n = e.action,
+        a = e.children,
+        i = e.disabled,
+        l = e.icon,
+        s = e.testid,
+        c = e.theme,
+        m = e.tooltip,
+        p = e.xstyle,
+        _;
+      t[0] !== i
+        ? ((_ = { 0: {}, 1: { className: "xti2d7y x1h6gzvc" } }[
+            (i === !0) << 0
+          ]),
+          (t[0] = i),
+          (t[1] = _))
+        : (_ = t[1]);
+      var g = i === !0 ? r("WAWebNoop") : n,
+        h;
+      t[2] !== p
+        ? ((h = [
+            f.icon,
+            o("WAWebUISpacing").uiMargin.start8,
+            o("WAWebUISpacing").uiMargin.end10,
+            p,
+          ]),
+          (t[2] = p),
+          (t[3] = h))
+        : (h = t[3]);
+      var C;
+      t[4] !== l || t[5] !== h
+        ? ((C = d.jsx(o("WAWebFlex.react").FlexRow, {
+            justify: "center",
+            xstyle: h,
+            children: l,
+          })),
+          (t[4] = l),
+          (t[5] = h),
+          (t[6] = C))
+        : (C = t[6]);
+      var b;
+      t[7] !== p
+        ? ((b = (u || (u = r("stylex"))).props(
+            f.text,
+            o("WAWebUISpacing").uiMargin.end24,
+            p,
+          )),
+          (t[7] = p),
+          (t[8] = b))
+        : (b = t[8]);
+      var v;
+      t[9] !== a || t[10] !== b
+        ? ((v = d.jsx("span", babelHelpers.extends({}, b, { children: a }))),
+          (t[9] = a),
+          (t[10] = b),
+          (t[11] = v))
+        : (v = t[11]);
+      var S;
+      t[12] !== C || t[13] !== v
+        ? ((S = d.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            xstyle: f.container,
+            children: [C, v],
+          })),
+          (t[12] = C),
+          (t[13] = v),
+          (t[14] = S))
+        : (S = t[14]);
+      var R;
+      t[15] !== g || t[16] !== S || t[17] !== s || t[18] !== c || t[19] !== m
+        ? ((R = d.jsx(y, {
+            testid: void 0,
+            action: g,
+            tooltip: m,
+            theme: c,
+            children: S,
+          })),
+          (t[15] = g),
+          (t[16] = S),
+          (t[17] = s),
+          (t[18] = c),
+          (t[19] = m),
+          (t[20] = R))
+        : (R = t[20]);
+      var L;
+      return (
+        t[21] !== _ || t[22] !== R
+          ? ((L = d.jsx("div", babelHelpers.extends({}, _, { children: R }))),
+            (t[21] = _),
+            (t[22] = R),
+            (t[23] = L))
+          : (L = t[23]),
+        L
       );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b(t) {
-      var n = t.icon,
-        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
-      return n
-        ? d.jsx(C, {
-            action: r.action,
-            disabled: r.disabled,
-            icon: n,
-            testid: void 0,
-            tooltip: r.tooltip,
-            theme: r.theme,
-            xstyle: r.xstyle,
-            children: r.children,
-          })
-        : d.jsx(y, babelHelpers.extends({}, r, { children: r.children }));
+      var n = o("react-compiler-runtime").c(6),
+        r,
+        a;
+      n[0] !== t
+        ? ((a = t.icon),
+          (r = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = r),
+          (n[2] = a))
+        : ((r = n[1]), (a = n[2]));
+      var i;
+      return (
+        n[3] !== r || n[4] !== a
+          ? ((i = a
+              ? d.jsx(C, {
+                  action: r.action,
+                  disabled: r.disabled,
+                  icon: a,
+                  testid: void 0,
+                  tooltip: r.tooltip,
+                  theme: r.theme,
+                  xstyle: r.xstyle,
+                  children: r.children,
+                })
+              : d.jsx(
+                  y,
+                  babelHelpers.extends({}, r, { children: r.children }),
+                )),
+            (n[3] = r),
+            (n[4] = a),
+            (n[5] = i))
+          : (i = n[5]),
+        i
+      );
     }
-    ((b.displayName = b.name + " [from " + i.id + "]"),
-      (l.DropdownItemThemeType = g),
-      (l.DropdownItem = b));
+    ((l.DropdownItemThemeType = g), (l.DropdownItem = b));
   },
   98,
 );

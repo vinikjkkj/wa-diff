@@ -13,6 +13,7 @@ __d(
     "WDSButtonGroup.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
@@ -163,27 +164,46 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = e.disabled,
-        n = t === void 0 ? !1 : t,
+      var t = o("react-compiler-runtime").c(8),
+        n = e.disabled,
         r = e.onClick,
         a = e.primary,
-        i = a === void 0 ? !1 : a,
-        l = e.spinner,
-        s = e.text,
-        u = e.type,
-        c = function (t) {
-          (t.stopPropagation(), t.preventDefault(), r());
-        };
-      return d.jsx(o("WAWebButton.react").Button, {
-        testid: void 0,
-        type: u != null ? u : i ? "primary" : "secondary",
-        onClick: c,
-        disabled: n,
-        spinner: l,
-        children: s,
-      });
+        i = e.spinner,
+        l = e.text,
+        s = e.type,
+        u = n === void 0 ? !1 : n,
+        c = a === void 0 ? !1 : a,
+        m;
+      t[0] !== r
+        ? ((m = function (t) {
+            (t.stopPropagation(), t.preventDefault(), r());
+          }),
+          (t[0] = r),
+          (t[1] = m))
+        : (m = t[1]);
+      var p = m,
+        _ = s != null ? s : c ? "primary" : "secondary",
+        f;
+      return (
+        t[2] !== u || t[3] !== p || t[4] !== i || t[5] !== _ || t[6] !== l
+          ? ((f = d.jsx(o("WAWebButton.react").Button, {
+              testid: void 0,
+              type: _,
+              onClick: p,
+              disabled: u,
+              spinner: i,
+              children: l,
+            })),
+            (t[2] = u),
+            (t[3] = p),
+            (t[4] = i),
+            (t[5] = _),
+            (t[6] = l),
+            (t[7] = f))
+          : (f = t[7]),
+        f
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
       return f.apply(this, arguments);
     }

@@ -1092,6 +1092,12 @@ __d(
         "smb_web_category_search_via_graph_enabled",
       );
     }
+    function yn() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings")
+      );
+    }
     ((l.canDisplayLabel = u),
       (l.canEditLabelAssociation = c),
       (l.canSendQuickReply = d),
@@ -1259,7 +1265,8 @@ __d(
       (l.getCTWALearnMoreHyperLinkForCCICompliantUI = _n),
       (l.showCTWA3pdDataSharingDisclosureOnThreadEntry = fn),
       (l.isBloksWidgetEnabled = gn),
-      (l.isCategorySearchViaGraphEnabled = hn));
+      (l.isCategorySearchViaGraphEnabled = hn),
+      (l.isBizAIToolsSettingsEnabled = yn));
   },
   98,
 );

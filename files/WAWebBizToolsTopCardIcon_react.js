@@ -1,6 +1,12 @@
 __d(
   "WAWebBizToolsTopCardIcon.react",
-  ["WAWebSvgComponentBase", "WAWebThemeContext", "react", "stylex"],
+  [
+    "WAWebSvgComponentBase",
+    "WAWebThemeContext",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = ["height", "iconXstyle", "viewBox", "width"],
       s,
@@ -9,15 +15,20 @@ __d(
       d = "biz-tools-top-card-icon-light",
       m = "biz-tools-top-card-icon-dark";
     function p() {
-      return c.jsxs(c.Fragment, {
-        children: [
-          c.jsx("rect", {
+      var e = o("react-compiler-runtime").c(5),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = c.jsx("rect", {
             width: "48",
             height: "48",
             rx: "24",
             fill: "#E2FEF2",
-          }),
-          c.jsxs("g", {
+          })),
+          (e[0] = t))
+        : (t = e[0]);
+      var n, r, a;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = c.jsxs("g", {
             clipPath: "url(#clip0_53_18631)",
             children: [
               c.jsx("path", {
@@ -41,40 +52,61 @@ __d(
                 fill: "#05A884",
               }),
             ],
-          }),
-          c.jsx("path", {
+          })),
+          (r = c.jsx("path", {
             d: "M20.6665 18L21.9198 15.24L24.6665 14L21.9198 12.76L20.6665 10L19.4398 12.76L16.6665 14L19.4398 15.24L20.6665 18Z",
             fill: "#05A884",
-          }),
-          c.jsx("path", {
+          })),
+          (a = c.jsx("path", {
             d: "M12.3333 22.6667L13 20L15.6667 19.3333L13 18.6667L12.3333 16L11.6667 18.6667L9 19.3333L11.6667 20L12.3333 22.6667Z",
             fill: "#05A884",
-          }),
-          c.jsx("defs", {
-            children: c.jsx("clipPath", {
-              id: "clip0_53_18631",
-              children: c.jsx("rect", {
-                width: "24",
-                height: "24",
-                fill: "white",
-                transform: "translate(15 13)",
-              }),
-            }),
-          }),
-        ],
-      });
+          })),
+          (e[1] = n),
+          (e[2] = r),
+          (e[3] = a))
+        : ((n = e[1]), (r = e[2]), (a = e[3]));
+      var i;
+      return (
+        e[4] === Symbol.for("react.memo_cache_sentinel")
+          ? ((i = c.jsxs(c.Fragment, {
+              children: [
+                t,
+                n,
+                r,
+                a,
+                c.jsx("defs", {
+                  children: c.jsx("clipPath", {
+                    id: "clip0_53_18631",
+                    children: c.jsx("rect", {
+                      width: "24",
+                      height: "24",
+                      fill: "white",
+                      transform: "translate(15 13)",
+                    }),
+                  }),
+                }),
+              ],
+            })),
+            (e[4] = i))
+          : (i = e[4]),
+        i
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _() {
-      return c.jsxs(c.Fragment, {
-        children: [
-          c.jsx("rect", {
+      var e = o("react-compiler-runtime").c(3),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = c.jsx("rect", {
             width: "48",
             height: "48",
             rx: "24",
             fill: "#05A884",
-          }),
-          c.jsxs("g", {
+          })),
+          (e[0] = t))
+        : (t = e[0]);
+      var n;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = c.jsxs("g", {
             clipPath: "url(#clip0_53_18975)",
             children: [
               c.jsx("rect", {
@@ -112,73 +144,140 @@ __d(
                 fill: "#182229",
               }),
             ],
-          }),
-          c.jsx("defs", {
-            children: c.jsx("clipPath", {
-              id: "clip0_53_18975",
-              children: c.jsx("rect", {
-                width: "24",
-                height: "24",
-                fill: "white",
-                transform: "translate(12 12)",
-              }),
-            }),
-          }),
-        ],
-      });
-    }
-    _.displayName = _.name + " [from " + i.id + "]";
-    function f(t) {
-      var n = o("WAWebThemeContext").useIsDarkTheme(),
-        a = n ? m : d,
-        i = t.height,
-        l = t.iconXstyle,
-        u = t.viewBox,
-        f = t.width,
-        g = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        h;
-      if (u) {
-        var y = u.height,
-          C = y === void 0 ? 0 : y,
-          b = u.width,
-          v = b === void 0 ? 0 : b,
-          S = u.x,
-          R = S === void 0 ? 0 : S,
-          L = u.y,
-          E = L === void 0 ? 0 : L;
-        h = [R, E, v, C].join(" ");
-      }
-      var k = 48,
-        I = 48;
+          })),
+          (e[1] = n))
+        : (n = e[1]);
+      var r;
       return (
-        (i != null || f != null) && ((k = i), (I = f)),
-        c.jsx(
-          o("WAWebSvgComponentBase").BaseSvgSpan,
-          babelHelpers.extends({ name: a }, g, {
-            children: c.jsxs(
-              "svg",
-              babelHelpers.extends(
-                {
-                  viewBox: h != null ? h : "0 0 48 48",
-                  height: k,
-                  width: I,
-                  preserveAspectRatio: "xMidYMid meet",
-                },
-                (s || (s = r("stylex"))).props(l),
-                {
-                  fill: "none",
-                  children: [
-                    c.jsx("title", { children: a }),
-                    n ? c.jsx(_, {}) : c.jsx(p, {}),
-                  ],
-                },
-              ),
-            ),
-          }),
-        )
+        e[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((r = c.jsxs(c.Fragment, {
+              children: [
+                t,
+                n,
+                c.jsx("defs", {
+                  children: c.jsx("clipPath", {
+                    id: "clip0_53_18975",
+                    children: c.jsx("rect", {
+                      width: "24",
+                      height: "24",
+                      fill: "white",
+                      transform: "translate(12 12)",
+                    }),
+                  }),
+                }),
+              ],
+            })),
+            (e[2] = r))
+          : (r = e[2]),
+        r
       );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    function f(t) {
+      var n = o("react-compiler-runtime").c(28),
+        a = o("WAWebThemeContext").useIsDarkTheme(),
+        i = a ? m : d,
+        l,
+        u,
+        f,
+        g,
+        h;
+      n[0] !== t
+        ? ((l = t.height),
+          (u = t.iconXstyle),
+          (g = t.viewBox),
+          (h = t.width),
+          (f = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = l),
+          (n[2] = u),
+          (n[3] = f),
+          (n[4] = g),
+          (n[5] = h))
+        : ((l = n[1]), (u = n[2]), (f = n[3]), (g = n[4]), (h = n[5]));
+      var y;
+      if (g) {
+        var C = g,
+          b = C.height,
+          v = C.width,
+          S = C.x,
+          R = C.y,
+          L = b === void 0 ? 0 : b,
+          E = v === void 0 ? 0 : v,
+          k = S === void 0 ? 0 : S,
+          I = R === void 0 ? 0 : R,
+          T;
+        (n[6] !== L || n[7] !== E || n[8] !== k || n[9] !== I
+          ? ((T = [k, I, E, L]),
+            (n[6] = L),
+            (n[7] = E),
+            (n[8] = k),
+            (n[9] = I),
+            (n[10] = T))
+          : (T = n[10]),
+          (y = T.join(" ")));
+      }
+      var D = 48,
+        x = 48;
+      (l != null || h != null) && ((D = l), (x = h));
+      var $ = y != null ? y : "0 0 48 48",
+        P = D,
+        N = x,
+        M;
+      n[11] !== u
+        ? ((M = (s || (s = r("stylex"))).props(u)), (n[11] = u), (n[12] = M))
+        : (M = n[12]);
+      var w;
+      n[13] !== i
+        ? ((w = c.jsx("title", { children: i })), (n[13] = i), (n[14] = w))
+        : (w = n[14]);
+      var A;
+      n[15] !== a
+        ? ((A = a ? c.jsx(_, {}) : c.jsx(p, {})), (n[15] = a), (n[16] = A))
+        : (A = n[16]);
+      var F;
+      n[17] !== D ||
+      n[18] !== x ||
+      n[19] !== $ ||
+      n[20] !== M ||
+      n[21] !== w ||
+      n[22] !== A
+        ? ((F = c.jsxs(
+            "svg",
+            babelHelpers.extends(
+              {
+                viewBox: $,
+                height: P,
+                width: N,
+                preserveAspectRatio: "xMidYMid meet",
+              },
+              M,
+              { fill: "none", children: [w, A] },
+            ),
+          )),
+          (n[17] = D),
+          (n[18] = x),
+          (n[19] = $),
+          (n[20] = M),
+          (n[21] = w),
+          (n[22] = A),
+          (n[23] = F))
+        : (F = n[23]);
+      var O;
+      return (
+        n[24] !== i || n[25] !== f || n[26] !== F
+          ? ((O = c.jsx(
+              o("WAWebSvgComponentBase").BaseSvgSpan,
+              babelHelpers.extends({ name: i }, f, { children: F }),
+            )),
+            (n[24] = i),
+            (n[25] = f),
+            (n[26] = F),
+            (n[27] = O))
+          : (O = n[27]),
+        O
+      );
+    }
+    l.default = f;
   },
   98,
 );

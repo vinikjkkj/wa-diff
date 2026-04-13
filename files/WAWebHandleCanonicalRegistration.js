@@ -7,10 +7,13 @@ __d(
     "WACryptoHkdfSync",
     "WAJids",
     "WALogger",
+    "WAWebAdvSignatureApi",
     "WAWebCanonicalEntRecoveryWam",
     "WAWebCanonicalGating",
     "WAWebCanonicalTokenExchange",
+    "WAWebCanonicalUtils",
     "WAWebODS",
+    "WAWebUserPrefsGeneral",
     "WAWebUserPrefsInfoStore",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -30,25 +33,27 @@ __d(
       h,
       y,
       C,
-      b = 5e3;
-    function v(e, t) {
-      return S.apply(this, arguments);
+      b,
+      v,
+      S = 5e3;
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            var n = E(t),
+            var n = I(t),
               a = n.data,
               i = n.iv,
               l = n.tag,
               s = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.get(),
               c = r("nullthrows")(s).staticKeyPair.pubKey,
-              d = L(
+              d = k(
                 new Uint8Array(o("WABase64").decodeB64(e)),
                 new Uint8Array(c),
               ),
-              m = k(a, l);
+              m = T(a, l);
             return yield o("WACryptoAesGcm").gcmDecrypt(d, i, m);
           } catch (e) {
             return (
@@ -66,10 +71,10 @@ __d(
             );
           }
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R(t) {
+    function E(t) {
       try {
         var n = new TextDecoder("utf-8").decode(t),
           r = JSON.parse(n),
@@ -107,7 +112,7 @@ __d(
         );
       }
     }
-    function L(e, t) {
+    function k(e, t) {
       return o("WACryptoHkdfSync").hkdf(
         e,
         t,
@@ -117,23 +122,24 @@ __d(
         32,
       );
     }
-    function E(e) {
+    function I(e) {
       var t = e.encryptedKeyElementValue,
         n = e.nonceElementValue,
         r = e.authTagElementValue,
         o = e.encryptedDataElementValue;
       return { key: t, iv: n, tag: r, data: o };
     }
-    function k(e, t) {
+    function T(e, t) {
       var n = new Uint8Array(e.length + t.length);
       return (n.set(e), n.set(t, e.length), n);
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    function D(e, t, n) {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a = null;
           try {
             if (!o("WAWebCanonicalGating").isCanonicalEnabled()) {
               o("WALogger").LOG(
@@ -165,9 +171,9 @@ __d(
                 ));
               return;
             }
-            var a = o("WAJids").extractDeviceId(n);
+            var i = o("WAJids").extractDeviceId(n);
             if (
-              (o("WAWebCanonicalEntRecoveryWam").setDeviceId(String(a)),
+              (o("WAWebCanonicalEntRecoveryWam").setDeviceId(String(i)),
               o("WAWebCanonicalEntRecoveryWam").logCompanionRegistered(),
               t == null)
             ) {
@@ -182,8 +188,8 @@ __d(
                 ));
               return;
             }
-            var i = yield v(e, t);
-            if (i == null) {
+            var l = yield R(e, t);
+            if (l == null) {
               (o("WALogger").LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -198,8 +204,8 @@ __d(
                 ));
               return;
             }
-            var l = R(i);
-            if (l == null) {
+            var s = E(l);
+            if (s == null) {
               (o("WALogger").LOG(
                 f ||
                   (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -214,20 +220,18 @@ __d(
                 ));
               return;
             }
-            var s = yield o(
-              "WAWebCanonicalTokenExchange",
-            ).exchangeNonceForToken(
+            a = yield o("WAWebCanonicalTokenExchange").exchangeNonceForToken(
               {
-                userId: l.fbid,
-                deviceId: a,
-                nonce: l.nonce,
-                accessToken: l.accessToken,
+                userId: s.fbid,
+                deviceId: i,
+                nonce: s.nonce,
+                accessToken: s.accessToken,
               },
-              b,
+              S,
             );
             e: {
               if (
-                s ===
+                a ===
                 o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
               ) {
                 (o("WALogger").LOG(
@@ -240,7 +244,7 @@ __d(
                 break e;
               }
               if (
-                s ===
+                a ===
                 o("WAWebCanonicalTokenExchange").TokenExchangeResult.TIMEOUT
               ) {
                 (o("WALogger").LOG(
@@ -255,7 +259,7 @@ __d(
                 break e;
               }
               if (
-                s ===
+                a ===
                 o("WAWebCanonicalTokenExchange").TokenExchangeResult.FAILED
               ) {
                 (o("WALogger").LOG(
@@ -271,7 +275,7 @@ __d(
               }
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  s,
+                  a,
               );
             }
           } catch (e) {
@@ -292,15 +296,57 @@ __d(
                 "registration_unexpected_error",
                 String(e),
               ));
+          } finally {
+            yield $(a);
           }
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    ((l.COMPANION_REG_EXCHANGE_NONCE_TIMEOUT_MS = b),
-      (l.decryptNonce = v),
-      (l.parseNoncePayload = R),
-      (l.handleCanonicalRegistration = I));
+    function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (o("WAWebCanonicalGating").isCanonicalAppReloadEnabled()) {
+            var t =
+              self.location.pathname === "/login" ||
+              e ===
+                o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS;
+            if (!t) {
+              o("WALogger").LOG(
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "[canonical][reload] omit reload, token exchange did not succeed",
+                  ])),
+              );
+              return;
+            }
+            (o("WAWebCanonicalUtils").setCanonicalAppReloadPending(!0),
+              yield o("WAWebAdvSignatureApi").clearADVSecretKey(),
+              yield o("WAWebUserPrefsGeneral").resetLoginCounter(),
+              window.setTimeout(function () {
+                (o("WALogger").LOG(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "[canonical] reloading after canonical reg",
+                    ])),
+                ),
+                  o("WAWebCanonicalUtils").markCredentialsStoredForPostReload(
+                    o("WAWebCanonicalUtils").CanonicalReloadReason.REGISTRATION,
+                  ),
+                  self.location.reload());
+              }, 0));
+          }
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    ((l.COMPANION_REG_EXCHANGE_NONCE_TIMEOUT_MS = S),
+      (l.decryptNonce = R),
+      (l.parseNoncePayload = E),
+      (l.handleCanonicalRegistration = D));
   },
   98,
 );

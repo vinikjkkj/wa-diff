@@ -11,6 +11,7 @@ __d(
     "WAWebToastManager",
     "WAWebWamEnumChannelAdminAction",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebModelValues",
   ],
@@ -87,65 +88,106 @@ __d(
       );
     }
     function g(e) {
-      var t = e.HoverIcon,
-        n = e.adminFunnelLogger,
-        a = e.chat,
-        i = e.readOnly,
-        l = e.showAddIconOverlay,
-        s = l === void 0 ? !0 : l,
+      var t = o("react-compiler-runtime").c(21),
+        n = e.HoverIcon,
+        a = e.adminFunnelLogger,
+        i = e.chat,
+        l = e.readOnly,
+        s = e.showAddIconOverlay,
         c = e.showOutline,
         m = e.size,
-        g = e.testId,
-        h = e.xstyle,
+        p = e.testId,
+        g = e.xstyle,
+        h = s === void 0 ? !0 : s,
         y = _(!1),
         C = y[0],
         b = y[1],
-        v = o("useWAWebModelValues").useModelValues(a.contact, [
-          "id",
-          "profilePicThumb",
-        ]),
-        S = o("useWAWebModelValues").useOptionalModelValues(
-          a.contact.profilePicThumb,
-          ["imgFull"],
+        v;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = ["id", "profilePicThumb"]), (t[0] = v))
+        : (v = t[0]);
+      var S = o("useWAWebModelValues").useModelValues(i.contact, v),
+        R;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((R = ["imgFull"]), (t[1] = R))
+        : (R = t[1]);
+      var L = o("useWAWebModelValues").useOptionalModelValues(
+          i.contact.profilePicThumb,
+          R,
         ),
-        R = p(
-          function (e, t, r) {
-            (n.logImageSetEvent(r),
-              n.logEvent(
+        E;
+      t[2] !== a || t[3] !== i
+        ? ((E = function (t, n, r) {
+            (a.logImageSetEvent(r),
+              a.logEvent(
                 o("WAWebWamEnumChannelAdminAction").CHANNEL_ADMIN_ACTION
                   .CHANNEL_ADMIN_FLOW_CONFIRMATION_TAP,
               ),
               b(!0),
-              f(a, t, n).finally(function () {
+              f(i, n, a).finally(function () {
                 b(!1);
               }));
-          },
-          [a, n],
-        );
-      return d.jsx(
-        "div",
-        babelHelpers.extends({}, (u || (u = r("stylex"))).props(h), {
-          children: d.jsx(
-            o("WAWebPhotoPickerLoadable.react").PhotoPickerLoadable,
-            {
-              testid: void 0,
-              type: o("WAWebPhotoPickerConstants").PhotoPickerType.NEWSLETTER,
-              id: v.id,
-              attachToChat: !0,
-              startImage: S == null ? void 0 : S.imgFull,
-              readOnly: i,
-              onImageSet: R,
-              pending: C,
-              HoverIcon: t,
-              showAddIconOverlay: s,
-              size: m,
-              showOutline: c,
-            },
-          ),
-        }),
+          }),
+          (t[2] = a),
+          (t[3] = i),
+          (t[4] = E))
+        : (E = t[4]);
+      var k = E,
+        I;
+      t[5] !== g
+        ? ((I = (u || (u = r("stylex"))).props(g)), (t[5] = g), (t[6] = I))
+        : (I = t[6]);
+      var T = p != null ? p : "newsletter-photo-picker",
+        D = L == null ? void 0 : L.imgFull,
+        x;
+      t[7] !== n ||
+      t[8] !== S.id ||
+      t[9] !== k ||
+      t[10] !== C ||
+      t[11] !== l ||
+      t[12] !== h ||
+      t[13] !== c ||
+      t[14] !== m ||
+      t[15] !== T ||
+      t[16] !== D
+        ? ((x = d.jsx(o("WAWebPhotoPickerLoadable.react").PhotoPickerLoadable, {
+            testid: void 0,
+            type: o("WAWebPhotoPickerConstants").PhotoPickerType.NEWSLETTER,
+            id: S.id,
+            attachToChat: !0,
+            startImage: D,
+            readOnly: l,
+            onImageSet: k,
+            pending: C,
+            HoverIcon: n,
+            showAddIconOverlay: h,
+            size: m,
+            showOutline: c,
+          })),
+          (t[7] = n),
+          (t[8] = S.id),
+          (t[9] = k),
+          (t[10] = C),
+          (t[11] = l),
+          (t[12] = h),
+          (t[13] = c),
+          (t[14] = m),
+          (t[15] = T),
+          (t[16] = D),
+          (t[17] = x))
+        : (x = t[17]);
+      var $;
+      return (
+        t[18] !== I || t[19] !== x
+          ? (($ = d.jsx("div", babelHelpers.extends({}, I, { children: x }))),
+            (t[18] = I),
+            (t[19] = x),
+            (t[20] = $))
+          : ($ = t[20]),
+        $
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    l.default = g;
   },
   226,
 );

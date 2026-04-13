@@ -1,6 +1,12 @@
 __d(
   "WAWebVoipDocPipSelfPreviewNotice.react",
-  ["fbt", "WAWebFlex.react", "WDSIconIcBackToTab.react", "react"],
+  [
+    "fbt",
+    "WAWebFlex.react",
+    "WDSIconIcBackToTab.react",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
@@ -26,28 +32,37 @@ __d(
         icon: { color: "x14ug900", $$css: !0 },
       };
     function d() {
-      return u.jsxs(o("WAWebFlex.react").FlexColumn, {
-        align: "center",
-        justify: "center",
-        role: "status",
-        xstyle: c.container,
-        children: [
-          u.jsx(o("WAWebFlex.react").FlexItem, {
-            xstyle: c.icon,
-            children: u.jsx(r("WDSIconIcBackToTab.react"), {
-              height: 24,
-              width: 24,
-            }),
-          }),
-          u.jsx("span", {
-            className: "x14ug900 x1f6kntn x2b8uid x1mzt3pk x193iq5w",
-            children: s._(/*BTDS*/ "Open WhatsApp to see your video preview"),
-          }),
-        ],
-      });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+              align: "center",
+              justify: "center",
+              role: "status",
+              xstyle: c.container,
+              children: [
+                u.jsx(o("WAWebFlex.react").FlexItem, {
+                  xstyle: c.icon,
+                  children: u.jsx(r("WDSIconIcBackToTab.react"), {
+                    height: 24,
+                    width: 24,
+                  }),
+                }),
+                u.jsx("span", {
+                  className: "x14ug900 x1f6kntn x2b8uid x1mzt3pk x193iq5w",
+                  children: s._(
+                    /*BTDS*/ "Open WhatsApp to see your video preview",
+                  ),
+                }),
+              ],
+            })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"),
-      (l.WAWebVoipDocPipSelfPreviewNotice = d));
+    l.WAWebVoipDocPipSelfPreviewNotice = d;
   },
   226,
 );

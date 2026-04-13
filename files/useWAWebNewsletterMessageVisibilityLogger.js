@@ -1,38 +1,63 @@
 __d(
   "useWAWebNewsletterMessageVisibilityLogger",
-  ["WAWebMerlinImpressionManager", "react", "useVPVDImpression"],
+  [
+    "WAWebMerlinImpressionManager",
+    "react",
+    "react-compiler-runtime",
+    "useVPVDImpression",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = (e || (e = o("react"))).useCallback;
     function u(e) {
-      var t = e.channelUserType,
-        n = e.cid,
-        a = e.isStarredPost,
-        i = e.isVpvImpression,
-        l = e.mediaData,
+      var t = o("react-compiler-runtime").c(9),
+        n = e.channelUserType,
+        a = e.cid,
+        i = e.isStarredPost,
+        l = e.isVpvImpression,
+        s = e.mediaData,
         u = e.postId,
-        c = s(
-          function (e) {
-            var r = e.hiddenTime,
-              s = e.visibleTime;
+        c;
+      t[0] !== n ||
+      t[1] !== a ||
+      t[2] !== i ||
+      t[3] !== l ||
+      t[4] !== s ||
+      t[5] !== u
+        ? ((c = function (t) {
+            var e = t.hiddenTime,
+              r = t.visibleTime;
             o("WAWebMerlinImpressionManager").logNewsletterMessageVisibility({
-              enter_ts: s,
-              exit_ts: r,
+              enter_ts: r,
+              exit_ts: e,
               itemId: u,
               visibilityData: {
-                cid: n,
-                isStarredPost: a,
-                isVpvImpression: i,
+                cid: a,
+                isStarredPost: i,
+                isVpvImpression: l,
                 postId: u,
-                mediaData: l,
-                channelUserType: t,
+                mediaData: s,
+                channelUserType: n,
               },
             });
-          },
-          [u, n, a, i, l, t],
-        );
-      return r("useVPVDImpression")({ onVPVDEnd: c });
+          }),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = i),
+          (t[3] = l),
+          (t[4] = s),
+          (t[5] = u),
+          (t[6] = c))
+        : (c = t[6]);
+      var d = c,
+        m;
+      return (
+        t[7] !== d
+          ? ((m = { onVPVDEnd: d }), (t[7] = d), (t[8] = m))
+          : (m = t[8]),
+        r("useVPVDImpression")(m)
+      );
     }
     l.default = u;
   },

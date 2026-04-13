@@ -12,6 +12,7 @@ __d(
     "WAWebParticipantListUtils",
     "WAWebUserPrefsMeUser",
     "react",
+    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -30,97 +31,127 @@ __d(
       };
     function d(e) {
       var t,
-        n = e.callLogMsg,
-        r = e.filterPreset,
-        a = e.isCallInfoHeader,
-        i = a === void 0 ? !1 : a,
-        l = n.displayName(),
-        d = o("useWAWebMsgValues").useMsgValues(n.id, [
-          o("WAWebMsgGetters").getLabels,
-          o("WAWebMsgGetters").getCallParticipants,
-          o("WAWebMsgGetters").getIsCallLink,
-          o("WAWebMsgGetters").getCallOutcome,
-          o("WAWebMsgGetters").getIsSentByMe,
+        n = o("react-compiler-runtime").c(11),
+        r = e.callLogMsg,
+        a = e.filterPreset,
+        i = e.isCallInfoHeader,
+        l = i === void 0 ? !1 : i,
+        d = r.displayName(),
+        _;
+      if (n[0] === Symbol.for("react.memo_cache_sentinel")) {
+        var f;
+        ((_ = [
+          (f = o("WAWebMsgGetters")).getLabels,
+          f.getCallParticipants,
+          f.getIsCallLink,
+          f.getCallOutcome,
+          f.getIsSentByMe,
         ]),
-        m = d[0],
-        p = d[1],
-        _ = d[2],
-        f = d[3],
-        g = d[4],
-        h =
-          (t =
-            p == null
-              ? void 0
-              : p.some(function (e) {
-                  return e.participant.isLid();
-                })) != null
-            ? t
-            : !1,
-        y = h
+          (n[0] = _));
+      } else _ = n[0];
+      var g = o("useWAWebMsgValues").useMsgValues(r.id, _),
+        h = g[0],
+        y = g[1],
+        C = g[2],
+        b = g[3],
+        v = g[4],
+        S = (t = y == null ? void 0 : y.some(p)) != null ? t : !1,
+        R = S
           ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
           : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        C =
-          p == null
+        L =
+          y == null
             ? void 0
-            : p.filter(function (e) {
-                return !e.participant.equals(y);
+            : y.filter(function (e) {
+                return !e.participant.equals(R);
               }),
-        b = o("WAWebFrontendMsgGetters").getChat(n);
-      if (C != null && !b.id.isGroup()) {
-        var v = o("WAWebCallLogUtils").sortCallParticipantWids(
-            C.map(function (e) {
-              return e.participant;
-            }),
-            n,
-          ),
-          S = o("WAWebParticipantListUtils").formatParticipantWidsPreserveOrder(
-            v,
+        E = o("WAWebFrontendMsgGetters").getChat(r);
+      if (L != null && !E.id.isGroup()) {
+        var k = o("WAWebCallLogUtils").sortCallParticipantWids(L.map(m), r),
+          I = o("WAWebParticipantListUtils").formatParticipantWidsPreserveOrder(
+            k,
             !0,
           ),
-          R;
+          T;
+        if (b !== o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing) T = I;
+        else if (C != null && C)
+          if (L.length === 0) {
+            var D;
+            (n[1] === Symbol.for("react.memo_cache_sentinel")
+              ? ((D = s._(/*BTDS*/ "Waiting for others...")), (n[1] = D))
+              : (D = n[1]),
+              (T = D));
+          } else
+            T = v
+              ? s._(/*BTDS*/ "Your call")
+              : s
+                  ._(/*BTDS*/ "{call-link-creator-name}'s call", [
+                    s._param("call-link-creator-name", d),
+                  ])
+                  .toString();
+        else
+          L.length > 1
+            ? (T = v
+                ? s._(/*BTDS*/ "Your group call")
+                : s
+                    ._(/*BTDS*/ "{call-creator-name}'s group call", [
+                      s._param("call-creator-name", d),
+                    ])
+                    .toString())
+            : (T = I);
+        var x = l ? c.headerTitle : void 0,
+          $;
         return (
-          f !== o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing
-            ? (R = S)
-            : _ != null && _
-              ? C.length === 0
-                ? (R = s._(/*BTDS*/ "Waiting for others..."))
-                : (R = g
-                    ? s._(/*BTDS*/ "Your call")
-                    : s
-                        ._(/*BTDS*/ "{call-link-creator-name}'s call", [
-                          s._param("call-link-creator-name", l),
-                        ])
-                        .toString())
-              : C.length > 1
-                ? (R = g
-                    ? s._(/*BTDS*/ "Your group call")
-                    : s
-                        ._(/*BTDS*/ "{call-creator-name}'s group call", [
-                          s._param("call-creator-name", l),
-                        ])
-                        .toString())
-                : (R = S),
-          u.jsx(o("WAWebEmojiText.react").EmojiText, {
-            text: R,
-            titlify: !0,
-            ellipsify: !0,
-            direction: "auto",
-            inlineblock: !0,
-            xstyle: i ? c.headerTitle : void 0,
-          })
+          n[2] !== T || n[3] !== x
+            ? (($ = u.jsx(o("WAWebEmojiText.react").EmojiText, {
+                text: T,
+                titlify: !0,
+                ellipsify: !0,
+                direction: "auto",
+                inlineblock: !0,
+                xstyle: x,
+              })),
+              (n[2] = T),
+              (n[3] = x),
+              (n[4] = $))
+            : ($ = n[4]),
+          $
         );
       }
-      return u.jsx(o("WAWebName.react").Name, {
-        chat: b,
-        labels: m,
-        firstLabel: r == null ? void 0 : r.label,
-        showLabelIcon: o("WAWebBizGatingUtils").canDisplayLabel(),
-        titlify: !0,
-        ellipsify: !0,
-        xstyle: i ? c.headerTitle : void 0,
-      });
+      var P = a == null ? void 0 : a.label,
+        N;
+      n[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((N = o("WAWebBizGatingUtils").canDisplayLabel()), (n[5] = N))
+        : (N = n[5]);
+      var M = l ? c.headerTitle : void 0,
+        w;
+      return (
+        n[6] !== E || n[7] !== h || n[8] !== P || n[9] !== M
+          ? ((w = u.jsx(o("WAWebName.react").Name, {
+              chat: E,
+              labels: h,
+              firstLabel: P,
+              showLabelIcon: N,
+              titlify: !0,
+              ellipsify: !0,
+              xstyle: M,
+            })),
+            (n[6] = E),
+            (n[7] = h),
+            (n[8] = P),
+            (n[9] = M),
+            (n[10] = w))
+          : (w = n[10]),
+        w
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    function m(e) {
+      return e.participant;
+    }
+    function p(e) {
+      return e.participant.isLid();
+    }
+    l.default = d;
   },
   226,
 );

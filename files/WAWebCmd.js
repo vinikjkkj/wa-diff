@@ -321,6 +321,9 @@ __d(
           (i.openNewsletterProfile = function (t, n) {
             this.trigger("open_newsletter_profile", t, n);
           }),
+          (i.newsletterMuteToggle = function (t, n, r) {
+            this.trigger("newsletter:mute_toggle", t, n, r);
+          }),
           (i.editNewsletterDescription = function () {
             this.trigger("edit_newsletter_description");
           }),

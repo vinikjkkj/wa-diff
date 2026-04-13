@@ -3,6 +3,7 @@ __d(
   [
     "$InternalEnum",
     "Promise",
+    "VultureJSDeadComponent.react",
     "WACustomError",
     "WALogger",
     "WAWebChatGetters",
@@ -87,11 +88,9 @@ __d(
           if (l != null)
             return (
               i(
-                d.jsx(
-                  o("WAWebKeepInChatWarningKicExitedModal")
-                    .WarningKICMeUserExitedModal,
-                  { action: "keep", message: l },
-                ),
+                d.jsx(r("VultureJSDeadComponent.react"), {
+                  name: "WarningKICMeUserExitedModal",
+                }),
               ),
               (u || (u = n("Promise"))).reject(new p(m.EXITED_ME_USER))
             );
@@ -311,17 +310,9 @@ __d(
               };
             if (h != null)
               c(
-                d.jsx(
-                  o("WAWebKeepInChatWarningKicExitedModal")
-                    .WarningKICMeUserExitedModal,
-                  {
-                    action: "unkeep",
-                    onClose: function () {
-                      return i(new p(m.EXITED_ME_USER));
-                    },
-                    message: h,
-                  },
-                ),
+                d.jsx(r("VultureJSDeadComponent.react"), {
+                  name: "WarningKICMeUserExitedModal",
+                }),
               );
             else if (y != null)
               c(

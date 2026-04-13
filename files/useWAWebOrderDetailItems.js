@@ -7,6 +7,7 @@ __d(
     "WAWebOrderItemModel",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebCatalog",
     "useWAWebUnmountSignal",
   ],
@@ -18,80 +19,123 @@ __d(
       d = u.useEffect,
       m = u.useState;
     function p(t, a) {
-      var i = r("useWAWebCatalog")(a),
-        l = m([]),
-        s = l[0],
-        u = l[1],
-        p = m(!0),
-        _ = p[0],
-        f = p[1],
-        g = r("useWAWebUnmountSignal")(),
-        h = c(
-          function () {
-            return i == null
+      var i = o("react-compiler-runtime").c(25),
+        l = r("useWAWebCatalog")(a),
+        s;
+      i[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = []), (i[0] = s))
+        : (s = i[0]);
+      var u = m(s),
+        c = u[0],
+        p = u[1],
+        f = m(!0),
+        g = f[0],
+        h = f[1],
+        y = r("useWAWebUnmountSignal")(),
+        C;
+      i[1] !== l
+        ? ((C = function () {
+            return l == null
               ? new Map()
-              : i.productCollection.getProductModels().reduce(function (e, t) {
-                  var n;
-                  return e.set(
-                    t.id.toString(),
-                    (n = t.getPreviewImage()) == null ? void 0 : n.mediaUrl,
-                  );
-                }, new Map());
-          },
-          [i],
-        ),
-        y = c(
-          function (r) {
-            if (i == null) return (e || (e = n("Promise"))).resolve([]);
-            var a = t.items.reduce(function (e, t) {
-              if (t.isCustomItem || r.get(t.id) != null) return e;
+              : l.productCollection.getProductModels().reduce(_, new Map());
+          }),
+          (i[1] = l),
+          (i[2] = C))
+        : (C = i[2]);
+      var b = C,
+        v;
+      i[3] !== l || i[4] !== t.items
+        ? ((v = function (a) {
+            if (l == null) return (e || (e = n("Promise"))).resolve([]);
+            var r = t.items.reduce(function (e, t) {
+              if (t.isCustomItem || a.get(t.id) != null) return e;
               var n = o("WAWebCatalogCollection").CatalogCollection.findProduct(
-                { catalogWid: i.id, productId: t.id },
+                { catalogWid: l.id, productId: t.id },
               );
               return (e.push(n), e);
             }, []);
-            return (e || (e = n("Promise"))).all(a);
-          },
-          [i, t.items],
-        ),
-        C = c(
-          function (e, n) {
-            var a;
+            return (e || (e = n("Promise"))).all(r);
+          }),
+          (i[3] = l),
+          (i[4] = t.items),
+          (i[5] = v))
+        : (v = i[5]);
+      var S = v,
+        R;
+      i[6] !== t.currency
+        ? ((R = function (n, a) {
+            var e;
             return new (r("WAWebOrderItemModel"))(
-              babelHelpers.extends({}, e, {
+              babelHelpers.extends({}, n, {
                 currency: t.currency,
                 price:
-                  ((a = e.amount) != null ? a : 0) *
+                  ((e = n.amount) != null ? e : 0) *
                   o("WAWebOrderDetailMath").DEFAULT_OFFSET,
-                thumbnailUrl: n.get(e.id),
+                thumbnailUrl: a.get(n.id),
               }),
             );
-          },
-          [t.currency],
-        ),
-        b = c(
-          function (e) {
-            return t.items.map(function (t) {
-              return C(t, e);
+          }),
+          (i[6] = t.currency),
+          (i[7] = R))
+        : (R = i[7]);
+      var L = R,
+        E;
+      i[8] !== L || i[9] !== t.items
+        ? ((E = function (n) {
+            return t.items.map(function (e) {
+              return L(e, n);
             });
-          },
-          [t.items, C],
-        );
-      return (
-        d(
-          function () {
+          }),
+          (i[8] = L),
+          (i[9] = t.items),
+          (i[10] = E))
+        : (E = i[10]);
+      var k = E,
+        I;
+      i[11] !== S || i[12] !== b || i[13] !== k || i[14] !== y.aborted
+        ? ((I = function () {
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = h();
-              if ((f(!0), yield y(e), !g.aborted)) {
-                f(!1);
-                var t = h();
-                u(b(t));
+              var e = b();
+              if ((h(!0), yield S(e), !y.aborted)) {
+                h(!1);
+                var t = b();
+                p(k(t));
               }
             })();
-          },
-          [i, g, y, h, b],
-        ),
-        { isLoading: _, orderItems: s }
+          }),
+          (i[11] = S),
+          (i[12] = b),
+          (i[13] = k),
+          (i[14] = y.aborted),
+          (i[15] = I))
+        : (I = i[15]);
+      var T;
+      (i[16] !== l || i[17] !== S || i[18] !== b || i[19] !== k || i[20] !== y
+        ? ((T = [l, y, S, b, k]),
+          (i[16] = l),
+          (i[17] = S),
+          (i[18] = b),
+          (i[19] = k),
+          (i[20] = y),
+          (i[21] = T))
+        : (T = i[21]),
+        d(I, T));
+      var D;
+      return (
+        i[22] !== g || i[23] !== c
+          ? ((D = { isLoading: g, orderItems: c }),
+            (i[22] = g),
+            (i[23] = c),
+            (i[24] = D))
+          : (D = i[24]),
+        D
+      );
+    }
+    function _(e, t) {
+      var n;
+      return e.set(
+        t.id.toString(),
+        (n = t.getPreviewImage()) == null ? void 0 : n.mediaUrl,
       );
     }
     l.default = p;

@@ -12,6 +12,7 @@ __d(
     "WAWebWidFactory",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "useWAWebContactValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -19,45 +20,84 @@ __d(
       u = e || (e = o("react"));
     function c(e) {
       var t,
-        n,
+        n = o("react-compiler-runtime").c(14),
         a = e.msg,
         i = e.onClick,
-        l = (t = a.templateParams) != null ? t : [],
-        s = typeof l[0] == "string" ? l[0] : "",
-        c = typeof l[1] == "string" ? l[1] : "",
-        m = l[2],
-        p = null;
-      m != null && m instanceof r("WAWebWid")
-        ? (p = m)
-        : typeof m == "string" &&
-          (p = o("WAWebWidFactory").createUserWidOrThrow(m));
-      var _ =
-          p != null
-            ? o("WAWebContactCollection").ContactCollection.get(p)
+        l;
+      if (n[0] !== a.templateParams) {
+        var s;
+        ((l = (s = a.templateParams) != null ? s : []),
+          (n[0] = a.templateParams),
+          (n[1] = l));
+      } else l = n[1];
+      var c = l,
+        m = typeof c[0] == "string" ? c[0] : "",
+        p = typeof c[1] == "string" ? c[1] : "",
+        _ = c[2],
+        f = null;
+      if (_ != null && _ instanceof r("WAWebWid")) f = _;
+      else if (typeof _ == "string") {
+        var g;
+        (n[2] !== _
+          ? ((g = o("WAWebWidFactory").createUserWidOrThrow(_)),
+            (n[2] = _),
+            (n[3] = g))
+          : (g = n[3]),
+          (f = g));
+      }
+      var h =
+          f != null
+            ? o("WAWebContactCollection").ContactCollection.get(f)
             : null,
-        f = (n = _ == null ? void 0 : _.id) != null ? n : p,
-        g = o("useWAWebContactValues").useContactValues(
-          f != null ? f : a.id.remote,
-          [o("WAWebContactGetters").getId],
+        y = (t = h == null ? void 0 : h.id) != null ? t : f,
+        C;
+      n[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = [o("WAWebContactGetters").getId]), (n[4] = C))
+        : (C = n[4]);
+      var b = o("useWAWebContactValues").useContactValues(
+          y != null ? y : a.id.remote,
+          C,
         ),
-        h = g[0],
-        y;
-      _ != null
-        ? (y = o("WAWebFrontendContactGetters").getFormattedName(_))
-        : (y = "@" + s);
-      var C = d(y, s, c),
-        b = o("WAWebClock").Clock.pastParticipantOnDateAtTime(a.t, "");
-      return u.jsx(r("WAWebCellFrame.react"), {
-        image:
-          h != null
-            ? u.jsx(o("WAWebDetailImage.react").DetailImage, { id: h })
-            : null,
-        primary: C,
-        secondary: b,
-        onClick: i,
-      });
+        v = b[0],
+        S;
+      h != null
+        ? (S = o("WAWebFrontendContactGetters").getFormattedName(h))
+        : (S = "@" + m);
+      var R = d(S, m, p),
+        L;
+      n[5] !== a.t
+        ? ((L = o("WAWebClock").Clock.pastParticipantOnDateAtTime(a.t, "")),
+          (n[5] = a.t),
+          (n[6] = L))
+        : (L = n[6]);
+      var E = L,
+        k;
+      n[7] !== v
+        ? ((k =
+            v != null
+              ? u.jsx(o("WAWebDetailImage.react").DetailImage, { id: v })
+              : null),
+          (n[7] = v),
+          (n[8] = k))
+        : (k = n[8]);
+      var I;
+      return (
+        n[9] !== i || n[10] !== R || n[11] !== E || n[12] !== k
+          ? ((I = u.jsx(r("WAWebCellFrame.react"), {
+              image: k,
+              primary: R,
+              secondary: E,
+              onClick: i,
+            })),
+            (n[9] = i),
+            (n[10] = R),
+            (n[11] = E),
+            (n[12] = k),
+            (n[13] = I))
+          : (I = n[13]),
+        I
+      );
     }
-    c.displayName = c.name + " [from " + i.id + "]";
     function d(e, t, n) {
       return r("isStringNullOrEmpty")(t) && !r("isStringNullOrEmpty")(n)
         ? s._(/*BTDS*/ "{name} created the username \u0040{username}", [

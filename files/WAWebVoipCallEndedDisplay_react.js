@@ -8,6 +8,7 @@ __d(
     "WAWebVoipWaCallEnums",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -50,40 +51,61 @@ __d(
     function m() {
       var e,
         t,
-        n = r("WAWebCallCollection").lastActiveCall,
-        a = n == null ? void 0 : n.callFailedReason,
-        i = n == null ? void 0 : n.callLogResult,
-        l = (e = n == null ? void 0 : n.outgoing) != null ? e : !1,
-        m =
-          (t = n == null ? void 0 : n.displayWaitingRoomDenied) != null
+        n = o("react-compiler-runtime").c(4),
+        a = r("WAWebCallCollection").lastActiveCall,
+        i = a == null ? void 0 : a.callFailedReason,
+        l = a == null ? void 0 : a.callLogResult,
+        m = (e = a == null ? void 0 : a.outgoing) != null ? e : !1,
+        p =
+          (t = a == null ? void 0 : a.displayWaitingRoomDenied) != null
             ? t
             : !1,
-        p;
-      return (
-        m
-          ? (p = s._(
+        _;
+      if (p) {
+        var f;
+        (n[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((f = s._(
               /*BTDS*/ "Your request to join the call was not approved.",
-            ))
-          : a != null
-            ? (p = d(a))
-            : (p = o("WAWebCallLogUtils").getCallResultText(i, l)),
-        u.jsx(o("WAWebFlex.react").FlexItem, {
-          xstyle: c.callEndedContainer,
-          children: u.jsx(o("WAWebFlex.react").FlexColumn, {
-            align: "center",
-            justify: "center",
-            xstyle: c.callEndedTextContainer,
-            children: u.jsx(r("WDSText.react"), {
-              type: "Body1",
-              colorName: "persistentAlwaysWhite",
-              selectable: !1,
-              children: p,
-            }),
-          }),
-        })
+            )),
+            (n[0] = f))
+          : (f = n[0]),
+          (_ = f));
+      } else if (i != null) {
+        var g;
+        (n[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((g = d(i)), (n[1] = g))
+          : (g = n[1]),
+          (_ = g));
+      } else {
+        var h;
+        (n[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((h = o("WAWebCallLogUtils").getCallResultText(l, m)), (n[2] = h))
+          : (h = n[2]),
+          (_ = h));
+      }
+      var y;
+      return (
+        n[3] === Symbol.for("react.memo_cache_sentinel")
+          ? ((y = u.jsx(o("WAWebFlex.react").FlexItem, {
+              xstyle: c.callEndedContainer,
+              children: u.jsx(o("WAWebFlex.react").FlexColumn, {
+                align: "center",
+                justify: "center",
+                xstyle: c.callEndedTextContainer,
+                children: u.jsx(r("WDSText.react"), {
+                  type: "Body1",
+                  colorName: "persistentAlwaysWhite",
+                  selectable: !1,
+                  children: _,
+                }),
+              }),
+            })),
+            (n[3] = y))
+          : (y = n[3]),
+        y
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

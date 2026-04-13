@@ -16,6 +16,7 @@ __d(
     "WAWebUISpacing",
     "WAWebUnstyledButton.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebEventMyRSVPStatus",
     "useWAWebMsgValues",
@@ -72,155 +73,297 @@ __d(
       };
     function m(t) {
       var n,
-        a,
+        a = o("react-compiler-runtime").c(53),
         i = t.eventMsg,
         l = t.fullWidth,
-        u = l === void 0 ? !1 : l,
-        m = t.onClick,
-        p = o("useWAWebMsgValues").useMsgValues(i.id, [
-          o("WAWebMsgGetters").getEventName,
-          o("WAWebMsgGetters").getEventStartTime,
-          o("WAWebMsgGetters").getEventEndTime,
-          o("WAWebMsgGetters").getEventLocation,
-          o("WAWebMsgGetters").getIsSentByMe,
+        u = t.onClick,
+        m = l === void 0 ? !1 : l,
+        p;
+      if (a[0] === Symbol.for("react.memo_cache_sentinel")) {
+        var _;
+        ((p = [
+          (_ = o("WAWebMsgGetters")).getEventName,
+          _.getEventStartTime,
+          _.getEventEndTime,
+          _.getEventLocation,
+          _.getIsSentByMe,
         ]),
-        _ = p[0],
-        f = p[1],
-        g = p[2],
-        h = p[3],
-        y = p[4],
-        C = o("useWAWebEventMyRSVPStatus").useEventMyRSVPStatus(i),
-        b =
-          o("WAWebTextSizeUtils").getWAWebTextSizeStyles().pollQuestionTextSize,
-        v = _.slice(
+          (a[0] = p));
+      } else p = a[0];
+      var f = o("useWAWebMsgValues").useMsgValues(i.id, p),
+        g = f[0],
+        h = f[1],
+        y = f[2],
+        C = f[3],
+        b = f[4],
+        v = o("useWAWebEventMyRSVPStatus").useEventMyRSVPStatus(i),
+        S;
+      a[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = o("WAWebTextSizeUtils").getWAWebTextSizeStyles()), (a[1] = S))
+        : (S = a[1]);
+      var R = S.pollQuestionTextSize,
+        L;
+      if (a[2] !== g) {
+        var E;
+        ((L = g.slice(
           0,
-          (n = o("WAWebEventsGatingUtils").getEventsNameLengthLimit()) != null
-            ? n
+          (E = o("WAWebEventsGatingUtils").getEventsNameLengthLimit()) != null
+            ? E
             : 100,
-        ),
-        S = c.jsx(o("WAWebFlex.react").FlexRow, {
-          xstyle: [d.eventNameContainer, o("WAWebUISpacing").uiPadding.vert2],
-          grow: 0,
-          children: c.jsx(o("WAWebEmojiText.react").EmojiText, {
-            text: v,
-            dirMismatch:
-              o("WAWebFrontendMsgGetters").getRtl(i) !== r("WAWebL10N").isRTL(),
-            direction: o("WAWebFrontendMsgGetters").getDir(i),
-            inferLinesDirection: !0,
-            selectable: !0,
-            xstyle: [d.eventNameText, b],
-            ellipsify: !0,
-          }),
-        }),
-        R = o("WAWebFormatEventDateString").getEventDateStringFor(f, g),
-        L =
-          f != null
-            ? c.jsx(
-                "div",
-                babelHelpers.extends(
-                  {},
-                  (e || (e = r("stylex"))).props([
-                    d.eventDetailText,
-                    o("WAWebUISpacing").uiMargin.vert1,
-                  ]),
-                  {
-                    children: s._(/*BTDS*/ "{Event-starttime-string}", [
-                      s._param("Event-starttime-string", R),
+        )),
+          (a[2] = g),
+          (a[3] = L));
+      } else L = a[3];
+      var k = L,
+        I;
+      a[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = [d.eventNameContainer, o("WAWebUISpacing").uiPadding.vert2]),
+          (a[4] = I))
+        : (I = a[4]);
+      var T;
+      a[5] !== i
+        ? ((T = o("WAWebFrontendMsgGetters").getRtl(i)), (a[5] = i), (a[6] = T))
+        : (T = a[6]);
+      var D;
+      a[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = r("WAWebL10N").isRTL()), (a[7] = D))
+        : (D = a[7]);
+      var x = T !== D,
+        $;
+      a[8] !== i
+        ? (($ = o("WAWebFrontendMsgGetters").getDir(i)), (a[8] = i), (a[9] = $))
+        : ($ = a[9]);
+      var P;
+      a[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((P = [d.eventNameText, R]), (a[10] = P))
+        : (P = a[10]);
+      var N;
+      a[11] !== x || a[12] !== $ || a[13] !== k
+        ? ((N = c.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: I,
+            grow: 0,
+            children: c.jsx(o("WAWebEmojiText.react").EmojiText, {
+              text: k,
+              dirMismatch: x,
+              direction: $,
+              inferLinesDirection: !0,
+              selectable: !0,
+              xstyle: P,
+              ellipsify: !0,
+            }),
+          })),
+          (a[11] = x),
+          (a[12] = $),
+          (a[13] = k),
+          (a[14] = N))
+        : (N = a[14]);
+      var M = N,
+        w;
+      a[15] !== y || a[16] !== h
+        ? ((w = o("WAWebFormatEventDateString").getEventDateStringFor(h, y)),
+          (a[15] = y),
+          (a[16] = h),
+          (a[17] = w))
+        : (w = a[17]);
+      var A = w,
+        F;
+      a[18] !== A || a[19] !== h
+        ? ((F =
+            h != null
+              ? c.jsx(
+                  "div",
+                  babelHelpers.extends(
+                    {},
+                    (e || (e = r("stylex"))).props([
+                      d.eventDetailText,
+                      o("WAWebUISpacing").uiMargin.vert1,
                     ]),
-                  },
-                ),
-              )
-            : null,
-        E,
-        k =
-          (a = h == null ? void 0 : h.name) != null
-            ? a
-            : h == null
+                    {
+                      children: s._(/*BTDS*/ "{Event-starttime-string}", [
+                        s._param("Event-starttime-string", A),
+                      ]),
+                    },
+                  ),
+                )
+              : null),
+          (a[18] = A),
+          (a[19] = h),
+          (a[20] = F))
+        : (F = a[20]);
+      var O = F,
+        B,
+        W =
+          (n = C == null ? void 0 : C.name) != null
+            ? n
+            : C == null
               ? void 0
-              : h.address;
-      k != null &&
-        (E = c.jsx(
-          "div",
-          babelHelpers.extends(
-            {},
-            (e || (e = r("stylex"))).props([
+              : C.address;
+      if (W != null) {
+        var q;
+        a[21] === Symbol.for("react.memo_cache_sentinel")
+          ? ((q = (e || (e = r("stylex"))).props([
               d.eventDetailText,
               o("WAWebUISpacing").uiMargin.vert1,
-            ]),
-            {
-              children: s._(/*BTDS*/ "{event-location}", [
-                s._param("event-location", k),
-              ]),
-            },
-          ),
-        ));
-      var I = null;
-      return (
-        y
-          ? (I = c.jsx(o("WAWebTag.react").Tag, {
+            ])),
+            (a[21] = q))
+          : (q = a[21]);
+        var U;
+        a[22] !== W
+          ? ((U = s._(/*BTDS*/ "{event-location}", [
+              s._param("event-location", W),
+            ])),
+            (a[22] = W),
+            (a[23] = U))
+          : (U = a[23]);
+        var V;
+        (a[24] !== q || a[25] !== U
+          ? ((V = c.jsx("div", babelHelpers.extends({}, q, { children: U }))),
+            (a[24] = q),
+            (a[25] = U),
+            (a[26] = V))
+          : (V = a[26]),
+          (B = V));
+      }
+      var H = null;
+      if (b) {
+        var G;
+        a[27] === Symbol.for("react.memo_cache_sentinel")
+          ? ((G = [d.tag, o("WAWebUISpacing").uiMargin.startAuto]), (a[27] = G))
+          : (G = a[27]);
+        var z;
+        (a[28] === Symbol.for("react.memo_cache_sentinel")
+          ? ((z = c.jsx(o("WAWebTag.react").Tag, {
               theme: o("WAWebTag.react").TagTheme.Primary,
-              xstyle: [d.tag, o("WAWebUISpacing").uiMargin.startAuto],
+              xstyle: G,
               testid: void 0,
               children: s._(/*BTDS*/ "Creator"),
-            }))
-          : C ===
-              o("WAWebProtobufsE2E.pb")
-                .Message$EventResponseMessage$EventResponseType.GOING
-            ? (I = c.jsx(o("WAWebTag.react").Tag, {
-                theme: o("WAWebTag.react").TagTheme.Primary,
-                xstyle: [d.tag, o("WAWebUISpacing").uiMargin.startAuto],
-                testid: void 0,
-                children: s._(/*BTDS*/ "Going"),
-              }))
-            : C ===
-                o("WAWebProtobufsE2E.pb")
-                  .Message$EventResponseMessage$EventResponseType.MAYBE &&
-              (I = c.jsx(o("WAWebTag.react").Tag, {
-                theme: o("WAWebTag.react").TagTheme.Secondary,
-                xstyle: [d.tag, o("WAWebUISpacing").uiMargin.startAuto],
-                testid: void 0,
-                children: s._(/*BTDS*/ "Maybe"),
-              })),
-        c.jsx(r("WAWebUnstyledButton.react"), {
-          xstyle: [d.eventPreviewBlock].concat(
-            u
+            })),
+            (a[28] = z))
+          : (z = a[28]),
+          (H = z));
+      } else if (
+        v ===
+        o("WAWebProtobufsE2E.pb").Message$EventResponseMessage$EventResponseType
+          .GOING
+      ) {
+        var j;
+        a[29] === Symbol.for("react.memo_cache_sentinel")
+          ? ((j = [d.tag, o("WAWebUISpacing").uiMargin.startAuto]), (a[29] = j))
+          : (j = a[29]);
+        var K;
+        (a[30] === Symbol.for("react.memo_cache_sentinel")
+          ? ((K = c.jsx(o("WAWebTag.react").Tag, {
+              theme: o("WAWebTag.react").TagTheme.Primary,
+              xstyle: j,
+              testid: void 0,
+              children: s._(/*BTDS*/ "Going"),
+            })),
+            (a[30] = K))
+          : (K = a[30]),
+          (H = K));
+      } else if (
+        v ===
+        o("WAWebProtobufsE2E.pb").Message$EventResponseMessage$EventResponseType
+          .MAYBE
+      ) {
+        var Q;
+        a[31] === Symbol.for("react.memo_cache_sentinel")
+          ? ((Q = [d.tag, o("WAWebUISpacing").uiMargin.startAuto]), (a[31] = Q))
+          : (Q = a[31]);
+        var X;
+        (a[32] === Symbol.for("react.memo_cache_sentinel")
+          ? ((X = c.jsx(o("WAWebTag.react").Tag, {
+              theme: o("WAWebTag.react").TagTheme.Secondary,
+              xstyle: Q,
+              testid: void 0,
+              children: s._(/*BTDS*/ "Maybe"),
+            })),
+            (a[32] = X))
+          : (X = a[32]),
+          (H = X));
+      }
+      var Y;
+      a[33] !== m
+        ? ((Y = [d.eventPreviewBlock].concat(
+            m
               ? [d.containerFullWidth]
               : [
                   o("WAWebUISpacing").uiMargin.all2,
                   o("WAWebUISpacing").uiMargin.end12,
                 ],
-          ),
-          onClick: m,
-          tabIndex: 0,
-          children: c.jsxs(o("WAWebFlex.react").FlexContainer, {
-            xstyle: [d.container].concat(u ? [d.containerFullWidth] : []),
+          )),
+          (a[33] = m),
+          (a[34] = Y))
+        : (Y = a[34]);
+      var J;
+      a[35] !== m
+        ? ((J = [d.container].concat(m ? [d.containerFullWidth] : [])),
+          (a[35] = m),
+          (a[36] = J))
+        : (J = a[36]);
+      var Z;
+      a[37] !== h
+        ? ((Z = c.jsx(o("WAWebFlex.react").FlexColumn, {
+            align: "center",
+            justify: "center",
+            padding: 2,
+            shrink: 0,
+            children: c.jsx(r("WAWebEventDateBlock.react"), {
+              eventStartTime: h,
+            }),
+          })),
+          (a[37] = h),
+          (a[38] = Z))
+        : (Z = a[38]);
+      var ee;
+      a[39] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ee = [d.eventDetailColumn, o("WAWebUISpacing").uiPadding.start8]),
+          (a[39] = ee))
+        : (ee = a[39]);
+      var te;
+      a[40] !== B || a[41] !== M || a[42] !== O
+        ? ((te = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            xstyle: ee,
+            padding: 2,
+            children: [M, O, B],
+          })),
+          (a[40] = B),
+          (a[41] = M),
+          (a[42] = O),
+          (a[43] = te))
+        : (te = a[43]);
+      var ne;
+      a[44] !== J || a[45] !== Z || a[46] !== te || a[47] !== H
+        ? ((ne = c.jsxs(o("WAWebFlex.react").FlexContainer, {
+            xstyle: J,
             direction: "horizontal",
             padding: 12,
-            children: [
-              c.jsx(o("WAWebFlex.react").FlexColumn, {
-                align: "center",
-                justify: "center",
-                padding: 2,
-                shrink: 0,
-                children: c.jsx(r("WAWebEventDateBlock.react"), {
-                  eventStartTime: f,
-                }),
-              }),
-              c.jsxs(o("WAWebFlex.react").FlexColumn, {
-                xstyle: [
-                  d.eventDetailColumn,
-                  o("WAWebUISpacing").uiPadding.start8,
-                ],
-                padding: 2,
-                children: [S, L, E],
-              }),
-              I,
-            ],
-          }),
-        })
+            children: [Z, te, H],
+          })),
+          (a[44] = J),
+          (a[45] = Z),
+          (a[46] = te),
+          (a[47] = H),
+          (a[48] = ne))
+        : (ne = a[48]);
+      var re;
+      return (
+        a[49] !== u || a[50] !== Y || a[51] !== ne
+          ? ((re = c.jsx(r("WAWebUnstyledButton.react"), {
+              xstyle: Y,
+              onClick: u,
+              tabIndex: 0,
+              children: ne,
+            })),
+            (a[49] = u),
+            (a[50] = Y),
+            (a[51] = ne),
+            (a[52] = re))
+          : (re = a[52]),
+        re
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

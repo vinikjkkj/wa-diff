@@ -22,6 +22,7 @@ __d(
     "WAWebTextSizeUtils",
     "WDSBanner.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebMsgValues",
     "useWAWebNewsletterPollsResults",
@@ -43,41 +44,77 @@ __d(
         },
       };
     function _(e) {
-      var t = e.associatedMessages,
-        n = e.msg,
-        r = e.onClose,
-        a = e.onViewAllVotes,
-        i = e.ref,
-        l = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(n);
-      return d.jsx(g, {
-        ref: i,
-        mode: "newsletter",
-        msg: n,
-        associatedMessages: t,
-        optionsToResults: l,
-        onClose: r,
-        onViewAllVotes: a,
-      });
+      var t = o("react-compiler-runtime").c(7),
+        n = e.associatedMessages,
+        r = e.msg,
+        a = e.onClose,
+        i = e.onViewAllVotes,
+        l = e.ref,
+        s = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(r),
+        u;
+      return (
+        t[0] !== n ||
+        t[1] !== r ||
+        t[2] !== a ||
+        t[3] !== i ||
+        t[4] !== s ||
+        t[5] !== l
+          ? ((u = d.jsx(g, {
+              ref: l,
+              mode: "newsletter",
+              msg: r,
+              associatedMessages: n,
+              optionsToResults: s,
+              onClose: a,
+              onViewAllVotes: i,
+            })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a),
+            (t[3] = i),
+            (t[4] = s),
+            (t[5] = l),
+            (t[6] = u))
+          : (u = t[6]),
+        u
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = e.associatedMessages,
-        n = e.msg,
-        r = e.onClose,
-        a = e.onViewAllVotes,
-        i = e.ref,
-        l = o("WAWebPollsUseResults").useResults(n);
-      return d.jsx(g, {
-        mode: "e2ee",
-        ref: i,
-        msg: n,
-        associatedMessages: t,
-        optionsToResults: l,
-        onClose: r,
-        onViewAllVotes: a,
-      });
+      var t = o("react-compiler-runtime").c(7),
+        n = e.associatedMessages,
+        r = e.msg,
+        a = e.onClose,
+        i = e.onViewAllVotes,
+        l = e.ref,
+        s = o("WAWebPollsUseResults").useResults(r),
+        u;
+      return (
+        t[0] !== n ||
+        t[1] !== r ||
+        t[2] !== a ||
+        t[3] !== i ||
+        t[4] !== s ||
+        t[5] !== l
+          ? ((u = d.jsx(g, {
+              mode: "e2ee",
+              ref: l,
+              msg: r,
+              associatedMessages: n,
+              optionsToResults: s,
+              onClose: a,
+              onViewAllVotes: i,
+            })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a),
+            (t[3] = i),
+            (t[4] = s),
+            (t[5] = l),
+            (t[6] = u))
+          : (u = t[6]),
+        u
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       var t,
         n,
@@ -229,13 +266,29 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(t) {
-      var n = t.ref,
-        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
-      return o("WAWebMsgGetters").getIsNewsletterMsg(r.msg)
-        ? d.jsx(_, babelHelpers.extends({}, r, { ref: n }))
-        : d.jsx(f, babelHelpers.extends({}, r, { ref: n }));
+      var n = o("react-compiler-runtime").c(6),
+        r,
+        a;
+      n[0] !== t
+        ? ((a = t.ref),
+          (r = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = r),
+          (n[2] = a))
+        : ((r = n[1]), (a = n[2]));
+      var i;
+      return (
+        n[3] !== r || n[4] !== a
+          ? ((i = o("WAWebMsgGetters").getIsNewsletterMsg(r.msg)
+              ? d.jsx(_, babelHelpers.extends({}, r, { ref: a }))
+              : d.jsx(f, babelHelpers.extends({}, r, { ref: a }))),
+            (n[3] = r),
+            (n[4] = a),
+            (n[5] = i))
+          : (i = n[5]),
+        i
+      );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     var y = h;
     l.DetailsDrawer = y;
   },

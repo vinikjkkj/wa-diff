@@ -37,6 +37,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WDSIconIcEdit.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebForceUpdate",
     "useWAWebListener",
@@ -150,277 +151,330 @@ __d(
           });
     };
     function g(e, t, n) {
-      var a = m(null),
-        i = a[0],
-        l = a[1],
-        u = function (n, r) {
-          if (n.isAdmin) {
-            r && o("WAWebModalManager").ModalManager.close();
-            return;
-          }
-          (n.contact.pendingAction++,
-            o("WAWebModifyParticipantsGroupAction")
-              .promoteParticipants(e, [n])
-              .finally(function () {
-                n.contact.pendingAction--;
-              }),
-            r && o("WAWebModalManager").ModalManager.close());
-        },
-        c = function (n, r) {
-          (n.contact.pendingAction++,
-            o("WAWebModifyParticipantsGroupAction")
-              .removeParticipants(e, [n])
-              .finally(function () {
-                n.contact.pendingAction--;
-              }),
-            r && o("WAWebModalManager").ModalManager.close());
-        },
-        _ = function (n) {
-          n.isAdmin &&
-            (n.contact.pendingAction++,
-            o("WAWebModifyParticipantsGroupAction")
-              .demoteParticipants(e, [n])
-              .finally(function () {
-                n.contact.pendingAction--;
-              }));
-        },
-        g = function (i, m) {
-          var a = r("WANullthrows")(e.groupMetadata).participants,
-            g = a.assertGet(m.id.toString()),
-            h = [],
-            y = o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(e);
-          if (o("WAWebMemberLabelsFrontendUtils").canEditMemberLabel(m, e)) {
-            var C = function () {
-              o("WAWebModalManager").ModalManager.open(
-                d.jsx(
-                  o("WAWebMemberLabelCreateUpdateModal.react")
-                    .MemberLabelCreateUpdateModal,
-                  {
-                    chat: e,
-                    entryPoint: o("WAWebGroupMemberTagUpdateLogger")
-                      .GroupMemberTagUpdateLogger.ENTRY_POINT.MEMBER_LIST,
-                  },
-                ),
-              );
-            };
-            h.push(
-              d.jsx(
-                o("WAWebDropdownItem.react").DropdownItem,
-                {
-                  testid: void 0,
-                  action: C,
-                  icon: d.jsx(r("WDSIconIcEdit.react"), {}),
-                  children: s._(/*BTDS*/ "Edit member tag"),
-                },
-                "edit-member-label",
-              ),
-            );
-          }
-          if (a.canPromote(g)) {
-            var b = d.jsx(
-                o("WAWebPersonShieldCheckIcon.react").PersonShieldCheckIcon,
-                {},
-              ),
-              v;
-            if (y) {
-              var S;
-              v = s._(/*BTDS*/ "Make admin");
-              var R =
-                (S = e.groupMetadata) == null ? void 0 : S.getParentGroupChat();
-              h.push(
+      var a = o("react-compiler-runtime").c(19),
+        i = m(null),
+        l = i[0],
+        u = i[1],
+        c;
+      a[0] !== e
+        ? ((c = function (n, r) {
+            if (n.isAdmin) {
+              r && o("WAWebModalManager").ModalManager.close();
+              return;
+            }
+            ((n.contact.pendingAction = n.contact.pendingAction + 1),
+              o("WAWebModifyParticipantsGroupAction")
+                .promoteParticipants(e, [n])
+                .finally(function () {
+                  n.contact.pendingAction = n.contact.pendingAction - 1;
+                }),
+              r && o("WAWebModalManager").ModalManager.close());
+          }),
+          (a[0] = e),
+          (a[1] = c))
+        : (c = a[1]);
+      var _ = c,
+        g;
+      a[2] !== e
+        ? ((g = function (n, r) {
+            ((n.contact.pendingAction = n.contact.pendingAction + 1),
+              o("WAWebModifyParticipantsGroupAction")
+                .removeParticipants(e, [n])
+                .finally(function () {
+                  n.contact.pendingAction = n.contact.pendingAction - 1;
+                }),
+              r && o("WAWebModalManager").ModalManager.close());
+          }),
+          (a[2] = e),
+          (a[3] = g))
+        : (g = a[3]);
+      var h = g,
+        y;
+      a[4] !== e
+        ? ((y = function (n) {
+            n.isAdmin &&
+              ((n.contact.pendingAction = n.contact.pendingAction + 1),
+              o("WAWebModifyParticipantsGroupAction")
+                .demoteParticipants(e, [n])
+                .finally(function () {
+                  n.contact.pendingAction = n.contact.pendingAction - 1;
+                }));
+          }),
+          (a[4] = e),
+          (a[5] = y))
+        : (y = a[5]);
+      var C = y,
+        b;
+      a[6] !== e ||
+      a[7] !== C ||
+      a[8] !== n ||
+      a[9] !== t ||
+      a[10] !== _ ||
+      a[11] !== h
+        ? ((b = function (i, l) {
+            var a = r("WANullthrows")(e.groupMetadata).participants,
+              c = a.assertGet(l.id.toString()),
+              m = [],
+              g = o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(e);
+            if (o("WAWebMemberLabelsFrontendUtils").canEditMemberLabel(l, e)) {
+              var y = function () {
+                o("WAWebModalManager").ModalManager.open(
+                  d.jsx(
+                    o("WAWebMemberLabelCreateUpdateModal.react")
+                      .MemberLabelCreateUpdateModal,
+                    {
+                      chat: e,
+                      entryPoint: o("WAWebGroupMemberTagUpdateLogger")
+                        .GroupMemberTagUpdateLogger.ENTRY_POINT.MEMBER_LIST,
+                    },
+                  ),
+                );
+              };
+              m.push(
                 d.jsx(
                   o("WAWebDropdownItem.react").DropdownItem,
                   {
                     testid: void 0,
-                    action: function () {
-                      o(
-                        "WAWebOpenCommunityParticipantPromoteConfirmation",
-                      ).openCommunityParticipantPromoteConfirmation(
-                        R,
-                        g,
-                        a,
-                        g.contact,
-                      );
-                    },
-                    icon: b,
-                    children: v,
+                    action: y,
+                    icon: d.jsx(r("WDSIconIcEdit.react"), {}),
+                    children: s._(/*BTDS*/ "Edit member tag"),
                   },
-                  "promote",
+                  "edit-member-label",
                 ),
               );
-            } else
-              ((v = s._(/*BTDS*/ "Make group admin")),
-                h.push(
+            }
+            if (a.canPromote(c)) {
+              var b = d.jsx(
+                  o("WAWebPersonShieldCheckIcon.react").PersonShieldCheckIcon,
+                  {},
+                ),
+                v;
+              if (g) {
+                var S;
+                v = s._(/*BTDS*/ "Make admin");
+                var R =
+                  (S = e.groupMetadata) == null
+                    ? void 0
+                    : S.getParentGroupChat();
+                m.push(
                   d.jsx(
                     o("WAWebDropdownItem.react").DropdownItem,
                     {
                       testid: void 0,
                       action: function () {
-                        return u(g, !1);
+                        o(
+                          "WAWebOpenCommunityParticipantPromoteConfirmation",
+                        ).openCommunityParticipantPromoteConfirmation(
+                          R,
+                          c,
+                          a,
+                          c.contact,
+                        );
                       },
                       icon: b,
                       children: v,
                     },
                     "promote",
                   ),
-                ));
-          }
-          if (a.canRemove(g)) {
-            var L = function () {
-                return c(g, !1);
-              },
-              E = s._(/*BTDS*/ "Remove");
-            h.push(
-              d.jsx(
-                o("WAWebDropdownItem.react").DropdownItem,
-                {
-                  testid: void 0,
-                  action: L,
-                  icon: d.jsx(
-                    o("WAWebClearRefreshedIcon.react").ClearRefreshedIcon,
-                    {},
-                  ),
-                  children: E,
+                );
+              } else
+                ((v = s._(/*BTDS*/ "Make group admin")),
+                  m.push(
+                    d.jsx(
+                      o("WAWebDropdownItem.react").DropdownItem,
+                      {
+                        testid: void 0,
+                        action: function () {
+                          return _(c, !1);
+                        },
+                        icon: b,
+                        children: v,
+                      },
+                      "promote",
+                    ),
+                  ));
+            }
+            if (a.canRemove(c)) {
+              var L = function () {
+                  return h(c, !1);
                 },
-                "remove",
-              ),
-            );
-          }
-          if (a.canDemote(g)) {
-            var k = function () {
-                return _(g);
-              },
-              I = s._(/*BTDS*/ "Dismiss as admin"),
-              T = d.jsx(
-                o("WAWebPersonShieldRemoveIcon.react").PersonShieldRemoveIcon,
-                {},
-              );
-            if (y) {
-              var D,
-                x =
-                  (D = e.groupMetadata) == null
-                    ? void 0
-                    : D.getParentGroupChat();
-              h.push(
+                E = s._(/*BTDS*/ "Remove");
+              m.push(
                 d.jsx(
                   o("WAWebDropdownItem.react").DropdownItem,
                   {
                     testid: void 0,
-                    action: function () {
-                      return o(
-                        "WAWebOpenCommunityParticipantDemoteConfirmation",
-                      ).openCommunityParticipantDemoteConfirmation(g, x);
-                    },
-                    icon: T,
-                    children: I,
+                    action: L,
+                    icon: d.jsx(
+                      o("WAWebClearRefreshedIcon.react").ClearRefreshedIcon,
+                      {},
+                    ),
+                    children: E,
                   },
-                  "demote-admin",
+                  "remove",
                 ),
               );
-            } else
-              h.push(
+            }
+            if (a.canDemote(c)) {
+              var k = function () {
+                  return C(c);
+                },
+                I = s._(/*BTDS*/ "Dismiss as admin"),
+                T = d.jsx(
+                  o("WAWebPersonShieldRemoveIcon.react").PersonShieldRemoveIcon,
+                  {},
+                );
+              if (g) {
+                var D,
+                  x =
+                    (D = e.groupMetadata) == null
+                      ? void 0
+                      : D.getParentGroupChat();
+                m.push(
+                  d.jsx(
+                    o("WAWebDropdownItem.react").DropdownItem,
+                    {
+                      testid: void 0,
+                      action: function () {
+                        return o(
+                          "WAWebOpenCommunityParticipantDemoteConfirmation",
+                        ).openCommunityParticipantDemoteConfirmation(c, x);
+                      },
+                      icon: T,
+                      children: I,
+                    },
+                    "demote-admin",
+                  ),
+                );
+              } else
+                m.push(
+                  d.jsx(
+                    o("WAWebDropdownItem.react").DropdownItem,
+                    { testid: void 0, action: k, icon: T, children: I },
+                    "demote-admin",
+                  ),
+                );
+            }
+            if (n) {
+              var $ = function () {
+                var e = o(
+                  "WAWebGroupParticipantsFlow.react",
+                ).getOneToOneContact(l);
+                e && (o("WAWebModalManager").ModalManager.close(), n(e));
+              };
+              m.push(
                 d.jsx(
                   o("WAWebDropdownItem.react").DropdownItem,
-                  { testid: void 0, action: k, icon: T, children: I },
-                  "demote-admin",
-                ),
-              );
-          }
-          if (n) {
-            var $ = function () {
-              var e = o("WAWebGroupParticipantsFlow.react").getOneToOneContact(
-                m,
-              );
-              e && (o("WAWebModalManager").ModalManager.close(), n(e));
-            };
-            h.push(
-              d.jsx(
-                o("WAWebDropdownItem.react").DropdownItem,
-                {
-                  testid: void 0,
-                  action: $,
-                  icon: d.jsx(
-                    o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon,
-                    {},
-                  ),
-                  children: s._(/*BTDS*/ "Contact info"),
-                },
-                "contact-info",
-              ),
-            );
-          }
-          if (a.canVerifyIdentity(g)) {
-            var P = function () {
-                (o("WAWebModalManager").ModalManager.close(),
-                  t == null || t(g.contact));
-              },
-              N = s._(/*BTDS*/ "Verify security code");
-            h.push(
-              d.jsx(
-                o("WAWebDropdownItem.react").DropdownItem,
-                {
-                  testid: void 0,
-                  action: P,
-                  icon: d.jsx(o("WAWebNumbersIcon.react").NumbersIcon, {}),
-                  children: N,
-                },
-                "verify-identity",
-              ),
-            );
-          }
-          var M = o("WAWebUserPrefsMeUser").isMeAccount(g.contact.id),
-            w = M
-              ? s._(/*BTDS*/ "Message yourself")
-              : s._(/*BTDS*/ "Message {author}", [
-                  s._param(
-                    "author",
-                    o("WAWebFrontendContactGetters").getFormattedShortName(
-                      g.contact,
+                  {
+                    testid: void 0,
+                    action: $,
+                    icon: d.jsx(
+                      o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon,
+                      {},
                     ),
-                  ),
-                ]);
-          h.push(
-            d.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                ariaLabel: w,
-                action: f.bind(null, g.contact.id),
-                addSpacing: !0,
-                icon: d.jsx(
-                  o("WAWebChatRefreshedIcon.react").ChatRefreshedIcon,
-                  { directional: !0 },
+                    children: s._(/*BTDS*/ "Contact info"),
+                  },
+                  "contact-info",
                 ),
-                children: d.jsx(o("WAWebEmojiText.react").EmojiText, {
-                  text: w,
-                  xstyle: p.dropdownText,
-                }),
-              },
-              "message author",
-            ),
-          );
-          var A = i.type === "click" ? void 0 : i.target;
-          l({
-            contactId: m.id,
-            menu: h,
-            anchor: A,
-            event: i.anchor ? void 0 : i,
-          });
-        },
-        h = function () {
-          l(null);
-        },
-        y;
+              );
+            }
+            if (a.canVerifyIdentity(c)) {
+              var P = function () {
+                  (o("WAWebModalManager").ModalManager.close(),
+                    t == null || t(c.contact));
+                },
+                N = s._(/*BTDS*/ "Verify security code");
+              m.push(
+                d.jsx(
+                  o("WAWebDropdownItem.react").DropdownItem,
+                  {
+                    testid: void 0,
+                    action: P,
+                    icon: d.jsx(o("WAWebNumbersIcon.react").NumbersIcon, {}),
+                    children: N,
+                  },
+                  "verify-identity",
+                ),
+              );
+            }
+            var M = o("WAWebUserPrefsMeUser").isMeAccount(c.contact.id),
+              w = M
+                ? s._(/*BTDS*/ "Message yourself")
+                : s._(/*BTDS*/ "Message {author}", [
+                    s._param(
+                      "author",
+                      o("WAWebFrontendContactGetters").getFormattedShortName(
+                        c.contact,
+                      ),
+                    ),
+                  ]);
+            m.push(
+              d.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                {
+                  ariaLabel: w,
+                  action: f.bind(null, c.contact.id),
+                  addSpacing: !0,
+                  icon: d.jsx(
+                    o("WAWebChatRefreshedIcon.react").ChatRefreshedIcon,
+                    { directional: !0 },
+                  ),
+                  children: d.jsx(o("WAWebEmojiText.react").EmojiText, {
+                    text: w,
+                    xstyle: p.dropdownText,
+                  }),
+                },
+                "message author",
+              ),
+            );
+            var A = i.type === "click" ? void 0 : i.target;
+            u({
+              contactId: l.id,
+              menu: m,
+              anchor: A,
+              event: i.anchor ? void 0 : i,
+            });
+          }),
+          (a[6] = e),
+          (a[7] = C),
+          (a[8] = n),
+          (a[9] = t),
+          (a[10] = _),
+          (a[11] = h),
+          (a[12] = b))
+        : (b = a[12]);
+      var v = b,
+        S;
+      a[13] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = function () {
+            u(null);
+          }),
+          (a[13] = S))
+        : (S = a[13]);
+      var R = S,
+        L;
+      if (l) {
+        var E;
+        (a[14] !== l
+          ? ((E = d.jsx(o("WAWebUimUie.react").UIE, {
+              displayName: "ChatContextMenu",
+              escapable: !0,
+              popable: !0,
+              dismissOnWindowResize: !0,
+              requestDismiss: R,
+              children: d.jsx(r("WAWebUimUieMenu.react"), { contextMenu: l }),
+            })),
+            (a[14] = l),
+            (a[15] = E))
+          : (E = a[15]),
+          (L = E));
+      }
+      var k;
       return (
-        i &&
-          (y = d.jsx(o("WAWebUimUie.react").UIE, {
-            displayName: "ChatContextMenu",
-            escapable: !0,
-            popable: !0,
-            dismissOnWindowResize: !0,
-            requestDismiss: h,
-            children: d.jsx(r("WAWebUimUieMenu.react"), { contextMenu: i }),
-          })),
-        [y, g]
+        a[16] !== v || a[17] !== L
+          ? ((k = [L, v]), (a[16] = v), (a[17] = L), (a[18] = k))
+          : (k = a[18]),
+        k
       );
     }
     l.default = _;

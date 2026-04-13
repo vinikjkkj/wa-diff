@@ -7,6 +7,7 @@ __d(
     "WAWebUserPrefsVoip",
     "WAWebVoipCallsTabPanelManager",
     "react",
+    "react-compiler-runtime",
     "useWAWebDebouncedCallback",
     "useWAWebListener",
   ],
@@ -29,40 +30,63 @@ __d(
       );
     }
     function m() {
-      var e = c(d),
-        t = e[0],
-        n = e[1],
-        a = u(function () {
-          n(d());
-        }, []),
-        i = r("useWAWebDebouncedCallback")(a, 500, { maxWait: 1e3 });
+      var e = o("react-compiler-runtime").c(7),
+        t = c(d),
+        n = t[0],
+        a = t[1],
+        i;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = function () {
+            a(d());
+          }),
+          (e[0] = i))
+        : (i = e[0]);
+      var l = i,
+        s;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = { maxWait: 1e3 }), (e[1] = s))
+        : (s = e[1]);
+      var u = r("useWAWebDebouncedCallback")(l, 500, s);
       (o("useWAWebListener").useListener(
         r("WAWebVoipCallsTabPanelManager"),
         "onWriteCallLogMessage",
-        a,
+        l,
       ),
         o("useWAWebListener").useListener(
           o("WAWebChatCollection").ChatCollection,
           "add remove change:msgsLength",
-          i,
+          u,
         ));
-      var l = u(
-        function () {
-          (o("WAWebUserPrefsVoip").setCallsTabLastSeenTimestamp(),
-            i.cancel(),
-            n(0),
-            o(
-              "WAWebNotificationController",
-            ).WANotificationController.map.forEach(function (e, t) {
-              t.startsWith("missed_call:") &&
-                o(
-                  "WAWebNotificationController",
-                ).WANotificationController.closeOrCancelNotification(t);
-            }));
-        },
-        [i],
+      var m;
+      e[2] !== u
+        ? ((m = function () {
+            (o("WAWebUserPrefsVoip").setCallsTabLastSeenTimestamp(),
+              u.cancel(),
+              a(0),
+              o(
+                "WAWebNotificationController",
+              ).WANotificationController.map.forEach(p));
+          }),
+          (e[2] = u),
+          (e[3] = m))
+        : (m = e[3]);
+      var _ = m,
+        f;
+      return (
+        e[4] !== _ || e[5] !== n
+          ? ((f = { missedCallCount: n, clearMissedCallCount: _ }),
+            (e[4] = _),
+            (e[5] = n),
+            (e[6] = f))
+          : (f = e[6]),
+        f
       );
-      return { missedCallCount: t, clearMissedCallCount: l };
+    }
+    function p(e, t) {
+      t.startsWith("missed_call:") &&
+        o(
+          "WAWebNotificationController",
+        ).WANotificationController.closeOrCancelNotification(t);
     }
     l.useWAWebMissedCallCount = m;
   },

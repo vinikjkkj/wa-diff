@@ -10,6 +10,7 @@ __d(
     "WAWebPollsVoterSectionHeader",
     "WAWebUISpacing",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -26,61 +27,98 @@ __d(
       m = 5,
       p = 68;
     function _(t) {
-      var n = t.associatedMsg,
-        a = t.flatListController,
-        i = t.hideVoterNames,
-        l = i === void 0 ? !1 : i,
+      var n = o("react-compiler-runtime").c(27),
+        a = t.associatedMsg,
+        i = t.flatListController,
+        l = t.hideVoterNames,
         u = t.isCorrectOption,
         _ = t.isPollFromMe,
         f = t.links,
         y = t.onViewAllVotes,
         C = t.option,
         b = t.result,
-        v = b.count,
-        S = b.isCurrentLeader,
-        R = b.percentageOfAll,
-        L = b.votes,
-        E = t.testid,
-        k = t.trusted,
-        I = k === void 0 ? !1 : k,
-        T = t.withSectioning,
-        D = T === void 0 ? !1 : T,
-        x = v - m,
-        $ = L.length;
-      y && ($ = x === 1 ? L.length : m);
-      var P = g(t.result, D, $);
-      return c.jsxs(r("WAWebDrawerSection.react"), {
-        theme: "no-padding",
-        testid: void 0,
-        children: [
-          c.jsx(r("WAWebPollsOptionMetadataRow"), {
-            associatedMsg: n,
+        v = t.testid,
+        S = t.trusted,
+        R = t.withSectioning,
+        L = l === void 0 ? !1 : l,
+        E = b.count,
+        k = b.isCurrentLeader,
+        I = b.percentageOfAll,
+        T = b.votes,
+        D = S === void 0 ? !1 : S,
+        x = R === void 0 ? !1 : R,
+        $ = E - m,
+        P = T.length;
+      y && (P = $ === 1 ? T.length : m);
+      var N;
+      n[0] !== P || n[1] !== t.result || n[2] !== x
+        ? ((N = g(t.result, x, P)),
+          (n[0] = P),
+          (n[1] = t.result),
+          (n[2] = x),
+          (n[3] = N))
+        : (N = n[3]);
+      var M = N,
+        w = I * 100,
+        A;
+      n[4] !== a ||
+      n[5] !== u ||
+      n[6] !== k ||
+      n[7] !== _ ||
+      n[8] !== f ||
+      n[9] !== C.name ||
+      n[10] !== w ||
+      n[11] !== D ||
+      n[12] !== E
+        ? ((A = c.jsx(r("WAWebPollsOptionMetadataRow"), {
+            associatedMsg: a,
             name: C.name,
-            isCurrentLeader: S,
-            percentage: R * 100,
-            voteCount: v,
+            isCurrentLeader: k,
+            percentage: w,
+            voteCount: E,
             isPollFromMe: _,
             links: f,
-            trusted: I,
+            trusted: D,
             isCorrectOption: u,
-          }),
-          !l &&
-            P.length > 0 &&
+          })),
+          (n[4] = a),
+          (n[5] = u),
+          (n[6] = k),
+          (n[7] = _),
+          (n[8] = f),
+          (n[9] = C.name),
+          (n[10] = w),
+          (n[11] = D),
+          (n[12] = E),
+          (n[13] = A))
+        : (A = n[13]);
+      var F;
+      n[14] !== i ||
+      n[15] !== L ||
+      n[16] !== P ||
+      n[17] !== y ||
+      n[18] !== t.mode ||
+      n[19] !== $ ||
+      n[20] !== E ||
+      n[21] !== M
+        ? ((F =
+            !L &&
+            M.length > 0 &&
             c.jsxs(
               "div",
               babelHelpers.extends({}, (e || (e = r("stylex"))).props(null), {
                 children: [
                   c.jsx(o("WAWebFlatList.react").FlatList, {
-                    flatListController: a,
+                    flatListController: i,
                     direction: "vertical",
-                    data: P,
+                    data: M,
                     renderItem: h,
                     defaultItemHeight: p,
                     reorderAnimationsEnabled: !1,
                   }),
-                  v > m &&
+                  E > m &&
                     y != null &&
-                    $ < v &&
+                    P < E &&
                     c.jsx(
                       "div",
                       babelHelpers.extends(
@@ -105,7 +143,7 @@ __d(
                                       /*BTDS*/ '_j{"*":"See all ({leftover_votes_details_view} more)","_1":"See all (1 more)"}',
                                       [
                                         s._plural(
-                                          x,
+                                          $,
                                           "leftover_votes_details_view",
                                         ),
                                       ],
@@ -118,11 +156,33 @@ __d(
                     ),
                 ],
               }),
-            ),
-        ],
-      });
+            )),
+          (n[14] = i),
+          (n[15] = L),
+          (n[16] = P),
+          (n[17] = y),
+          (n[18] = t.mode),
+          (n[19] = $),
+          (n[20] = E),
+          (n[21] = M),
+          (n[22] = F))
+        : (F = n[22]);
+      var O;
+      return (
+        n[23] !== A || n[24] !== F || n[25] !== v
+          ? ((O = c.jsxs(r("WAWebDrawerSection.react"), {
+              theme: "no-padding",
+              testid: void 0,
+              children: [A, F],
+            })),
+            (n[23] = A),
+            (n[24] = F),
+            (n[25] = v),
+            (n[26] = O))
+          : (O = n[26]),
+        O
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       return { itemKey: e.id.toString(), vote: e, kind: "vote" };
     }

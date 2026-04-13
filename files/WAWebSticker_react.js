@@ -23,6 +23,7 @@ __d(
     "WAWebStickerUtils",
     "WAWebUnstyledButton.react",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebModelValues",
     "useWAWebUnmountSignal",
@@ -36,61 +37,114 @@ __d(
       _ = d.useRef,
       f = d.useState;
     function g(e) {
-      var t = e.ref,
-        n = e.className,
-        o = e.controlledAnimatedStickerimageRef,
-        a = e.downloadMedia,
-        i = e.label,
-        l = e.loopAnimation,
-        s = e.mediaData,
-        u = e.onClick,
-        d = e.onEnter,
-        m = e.renderPreview,
-        p = e.startAnimation,
-        _ = e.stickerImgRef,
-        f = function (t) {
-          if (t.key === "Enter") return d == null ? void 0 : d(t);
-        };
-      return s.animationDuration > 0 && !l
-        ? c.jsx(r("WAWebControlledAnimatedSticker.react"), {
-            className: n,
-            mediaData: s,
-            startAnimation: p,
-            onClick: u,
-            onEnter: f,
-            placeholderRenderer: m,
-            downloadMedia: a,
-            ref: t,
-            label: i,
-            imageRef: o,
-          })
-        : c.jsx(r("WAWebMediaUrlProvider"), {
-            mediaData: s,
-            placeholderRenderer: m,
-            downloadMedia: a,
-            children: function (t) {
-              return u != null
-                ? c.jsx(r("WAWebUnstyledButton.react"), {
-                    onClick: u,
-                    children: c.jsx("img", {
-                      ref: _,
-                      className: n,
-                      draggable: "false",
-                      src: t,
-                      alt: i,
-                    }),
-                  })
-                : c.jsx("img", {
-                    ref: _,
-                    className: n,
+      var t = o("react-compiler-runtime").c(23),
+        n = e.ref,
+        a = e.className,
+        i = e.controlledAnimatedStickerimageRef,
+        l = e.downloadMedia,
+        s = e.label,
+        u = e.loopAnimation,
+        d = e.mediaData,
+        m = e.onClick,
+        p = e.onEnter,
+        _ = e.renderPreview,
+        f = e.startAnimation,
+        g = e.stickerImgRef,
+        h;
+      t[0] !== p
+        ? ((h = function (t) {
+            if (t.key === "Enter") return p == null ? void 0 : p(t);
+          }),
+          (t[0] = p),
+          (t[1] = h))
+        : (h = t[1]);
+      var y = h;
+      if (d.animationDuration > 0 && !u) {
+        var C;
+        return (
+          t[2] !== a ||
+          t[3] !== i ||
+          t[4] !== l ||
+          t[5] !== y ||
+          t[6] !== s ||
+          t[7] !== d ||
+          t[8] !== m ||
+          t[9] !== n ||
+          t[10] !== _ ||
+          t[11] !== f
+            ? ((C = c.jsx(r("WAWebControlledAnimatedSticker.react"), {
+                className: a,
+                mediaData: d,
+                startAnimation: f,
+                onClick: m,
+                onEnter: y,
+                placeholderRenderer: _,
+                downloadMedia: l,
+                ref: n,
+                label: s,
+                imageRef: i,
+              })),
+              (t[2] = a),
+              (t[3] = i),
+              (t[4] = l),
+              (t[5] = y),
+              (t[6] = s),
+              (t[7] = d),
+              (t[8] = m),
+              (t[9] = n),
+              (t[10] = _),
+              (t[11] = f),
+              (t[12] = C))
+            : (C = t[12]),
+          C
+        );
+      }
+      var b;
+      t[13] !== a || t[14] !== s || t[15] !== m || t[16] !== g
+        ? ((b = function (t) {
+            return m != null
+              ? c.jsx(r("WAWebUnstyledButton.react"), {
+                  onClick: m,
+                  children: c.jsx("img", {
+                    ref: g,
+                    className: a,
                     draggable: "false",
                     src: t,
-                    alt: i,
-                  });
-            },
-          });
+                    alt: s,
+                  }),
+                })
+              : c.jsx("img", {
+                  ref: g,
+                  className: a,
+                  draggable: "false",
+                  src: t,
+                  alt: s,
+                });
+          }),
+          (t[13] = a),
+          (t[14] = s),
+          (t[15] = m),
+          (t[16] = g),
+          (t[17] = b))
+        : (b = t[17]);
+      var v;
+      return (
+        t[18] !== l || t[19] !== d || t[20] !== _ || t[21] !== b
+          ? ((v = c.jsx(r("WAWebMediaUrlProvider"), {
+              mediaData: d,
+              placeholderRenderer: _,
+              downloadMedia: l,
+              children: b,
+            })),
+            (t[18] = l),
+            (t[19] = d),
+            (t[20] = _),
+            (t[21] = b),
+            (t[22] = v))
+          : (v = t[22]),
+        v
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
       var t = e.className,
         n = e.controlledAnimatedStickerimageRef,
@@ -136,43 +190,92 @@ __d(
     }
     h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(16),
         n = e.className,
         a = e.isCreateButton,
         i = e.mediaData,
         l = e.onClick,
         s = e.theme,
         d = i.preview,
-        m = d instanceof r("WAWebMediaOpaqueData") ? d.url() : null,
-        p = (t = i.emojis) == null ? void 0 : t.join(" "),
-        _ =
-          p != null && p !== ""
-            ? u._(/*BTDS*/ "Sticker with: {emojis}", [u._param("emojis", p)])
-            : u._(/*BTDS*/ "Sticker with no label");
-      return m == null
-        ? a === !0
-          ? c.jsx(r("WAWebStickerCreateButton.react"), {
+        m;
+      t[0] !== d
+        ? ((m = d instanceof r("WAWebMediaOpaqueData") ? d.url() : null),
+          (t[0] = d),
+          (t[1] = m))
+        : (m = t[1]);
+      var p = m,
+        _;
+      if (t[2] !== i.emojis) {
+        var f,
+          g = (f = i.emojis) == null ? void 0 : f.join(" ");
+        ((_ =
+          g != null && g !== ""
+            ? u._(/*BTDS*/ "Sticker with: {emojis}", [u._param("emojis", g)])
+            : u._(/*BTDS*/ "Sticker with no label")),
+          (t[2] = i.emojis),
+          (t[3] = _));
+      } else _ = t[3];
+      var h = _;
+      if (p == null) {
+        if (a === !0) {
+          var y =
+              s === "stickerExpressionsPanel"
+                ? "stickerExpressionsPanel"
+                : void 0,
+            C;
+          return (
+            t[4] !== l || t[5] !== y
+              ? ((C = c.jsx(r("WAWebStickerCreateButton.react"), {
+                  onClick: l,
+                  theme: y,
+                })),
+                (t[4] = l),
+                (t[5] = y),
+                (t[6] = C))
+              : (C = t[6]),
+            C
+          );
+        }
+        var b;
+        t[7] !== n
+          ? ((b = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+              "_ajxc",
+              n,
+            )),
+            (t[7] = n),
+            (t[8] = b))
+          : (b = t[8]);
+        var v;
+        return (
+          t[9] !== b
+            ? ((v = c.jsx(r("WAWebStickerLikeMsgPlaceholder.react"), {
+                className: b,
+              })),
+              (t[9] = b),
+              (t[10] = v))
+            : (v = t[10]),
+          v
+        );
+      }
+      var S;
+      return (
+        t[11] !== h || t[12] !== n || t[13] !== l || t[14] !== p
+          ? ((S = c.jsx("img", {
+              className: n,
+              draggable: "false",
               onClick: l,
-              theme:
-                s === "stickerExpressionsPanel"
-                  ? "stickerExpressionsPanel"
-                  : void 0,
-            })
-          : c.jsx(r("WAWebStickerLikeMsgPlaceholder.react"), {
-              className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-                "_ajxc",
-                n,
-              ),
-            })
-        : c.jsx("img", {
-            className: n,
-            draggable: "false",
-            onClick: l,
-            src: m,
-            alt: _,
-          });
+              src: p,
+              alt: h,
+            })),
+            (t[11] = h),
+            (t[12] = n),
+            (t[13] = l),
+            (t[14] = p),
+            (t[15] = S))
+          : (S = t[15]),
+        S
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
       var t,
         n = e.animateOnView,

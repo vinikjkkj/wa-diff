@@ -42,6 +42,7 @@ __d(
     "WAWebWamEnumOrderDetailsCreationAction",
     "WAWebWidFactory",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useLazyRef",
   ],
@@ -57,170 +58,319 @@ __d(
       g = _.useState,
       h = { defaultBg: { backgroundColor: "x1280gxy", $$css: !0 } };
     function y(e) {
-      var t = e.chat,
-        n = e.onChange,
-        a = e.onSubmit,
-        i = e.value;
-      return p.jsx(
-        "div",
-        babelHelpers.extends(
-          {},
-          (d || (d = r("stylex"))).props(
+      var t = o("react-compiler-runtime").c(7),
+        n = e.chat,
+        a = e.onChange,
+        i = e.onSubmit,
+        l = e.value,
+        u;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = (d || (d = r("stylex"))).props(
             o("WAWebUISpacing").uiPadding.vert0,
             o("WAWebUISpacing").uiPadding.horiz18,
-          ),
-          {
-            children: p.jsx(r("WAWebOrderDetailTextComposer"), {
-              chat: t,
-              onChange: n,
-              onSubmit: a,
-              value: i,
-              placeholder: s._(/*BTDS*/ "Add a cancellation note"),
-            }),
-          },
-        ),
+          )),
+          (t[0] = u))
+        : (u = t[0]);
+      var c;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = s._(/*BTDS*/ "Add a cancellation note")), (t[1] = c))
+        : (c = t[1]);
+      var m;
+      return (
+        t[2] !== n || t[3] !== a || t[4] !== i || t[5] !== l
+          ? ((m = p.jsx(
+              "div",
+              babelHelpers.extends({}, u, {
+                children: p.jsx(r("WAWebOrderDetailTextComposer"), {
+                  chat: n,
+                  onChange: a,
+                  onSubmit: i,
+                  value: l,
+                  placeholder: c,
+                }),
+              }),
+            )),
+            (t[2] = n),
+            (t[3] = a),
+            (t[4] = i),
+            (t[5] = l),
+            (t[6] = m))
+          : (m = t[6]),
+        m
       );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = e.onCreateOrderClick,
-        n = e.onDeclineOrderClick,
-        a = e.sellerJid,
-        i = o("WAWebWidFactory").createUserWidOrThrow(a),
-        l = o("WAWebUserPrefsMeUser").isMePnUser(i);
-      return l
-        ? p.jsxs(p.Fragment, {
-            children: [
-              p.jsx(r("WAWebDrawerSection.react"), {
-                children: p.jsx(
-                  o("WAWebDrawerButton.react").DrawerButtonSimple,
-                  {
-                    testid: void 0,
-                    color: "dark",
-                    onClick: t,
-                    children: s._(/*BTDS*/ "Create order"),
-                  },
-                ),
-              }),
-              p.jsx(r("WAWebDrawerSection.react"), {
-                children: p.jsx(
-                  o("WAWebDrawerButton.react").DrawerButtonSimple,
-                  {
-                    testid: void 0,
-                    color: "dark",
-                    onClick: n,
-                    children: s._(/*BTDS*/ "Decline order"),
-                  },
-                ),
-              }),
-            ],
-          })
-        : null;
+      var t = o("react-compiler-runtime").c(9),
+        n = e.onCreateOrderClick,
+        a = e.onDeclineOrderClick,
+        i = e.sellerJid,
+        l = o("WAWebWidFactory").createUserWidOrThrow(i),
+        u = o("WAWebUserPrefsMeUser").isMePnUser(l);
+      if (!u) return null;
+      var c;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = s._(/*BTDS*/ "Create order")), (t[0] = c))
+        : (c = t[0]);
+      var d;
+      t[1] !== n
+        ? ((d = p.jsx(r("WAWebDrawerSection.react"), {
+            children: p.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+              testid: void 0,
+              color: "dark",
+              onClick: n,
+              children: c,
+            }),
+          })),
+          (t[1] = n),
+          (t[2] = d))
+        : (d = t[2]);
+      var m;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = s._(/*BTDS*/ "Decline order")), (t[3] = m))
+        : (m = t[3]);
+      var _;
+      t[4] !== a
+        ? ((_ = p.jsx(r("WAWebDrawerSection.react"), {
+            children: p.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+              testid: void 0,
+              color: "dark",
+              onClick: a,
+              children: m,
+            }),
+          })),
+          (t[4] = a),
+          (t[5] = _))
+        : (_ = t[5]);
+      var f;
+      return (
+        t[6] !== d || t[7] !== _
+          ? ((f = p.jsxs(p.Fragment, { children: [d, _] })),
+            (t[6] = d),
+            (t[7] = _),
+            (t[8] = f))
+          : (f = t[8]),
+        f
+      );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
-      var t = e.cancellationMessage,
-        n = e.chat,
-        a = e.fetchState,
-        i = e.flatListController,
-        l = e.isLoading,
-        u = e.onOrderCancel,
-        c = e.onOrderCreate,
-        m = e.onProductDetail,
-        _ = e.order,
-        f = e.ownerHasReviewed,
-        g = e.sellerJid,
-        b = e.sendCancelMessage,
-        v = e.setCancellationMessage;
-      if (l || _ == null)
-        return p.jsx(r("WAWebProductCatalogFetchStateTopBar.react"), {
-          fetchState: a,
-        });
-      var S = "";
-      _.products.length > 0
-        ? (S = s._(/*BTDS*/ '_j{"*":"{count} items","_1":"1 item"}', [
-            s._plural(
-              o("WAWebOrderGetters").getTotalItemCount(_) || 0,
-              "count",
-            ),
-          ]))
-        : (S = s._(/*BTDS*/ "No items"));
-      var R = p.jsx(o("WAWebText.react").WAWebTextTitle, { children: S }),
-        L = null,
-        E = _.products.reduce(function (e, t) {
-          return t.price == null ? e : (e || 0) + t.price * t.quantity;
-        }, null),
-        k = _.products.reduce(function (e, t) {
-          return t.currency == null ? e : t.currency;
-        }, null);
-      E != null && k != null
-        ? (L = s._(/*BTDS*/ "{subtotal} (estimated)", [
+      var t = o("react-compiler-runtime").c(51),
+        n = e.cancellationMessage,
+        a = e.chat,
+        i = e.fetchState,
+        l = e.flatListController,
+        u = e.isLoading,
+        c = e.onOrderCancel,
+        m = e.onOrderCreate,
+        _ = e.onProductDetail,
+        f = e.order,
+        g = e.ownerHasReviewed,
+        b = e.sellerJid,
+        R = e.sendCancelMessage,
+        L = e.setCancellationMessage;
+      if (u || f == null) {
+        var E;
+        return (
+          t[0] !== i
+            ? ((E = p.jsx(r("WAWebProductCatalogFetchStateTopBar.react"), {
+                fetchState: i,
+              })),
+              (t[0] = i),
+              (t[1] = E))
+            : (E = t[1]),
+          E
+        );
+      }
+      var k;
+      if (f.products.length > 0) {
+        var I;
+        (t[2] !== f
+          ? ((I = s._(/*BTDS*/ '_j{"*":"{count} items","_1":"1 item"}', [
+              s._plural(
+                o("WAWebOrderGetters").getTotalItemCount(f) || 0,
+                "count",
+              ),
+            ])),
+            (t[2] = f),
+            (t[3] = I))
+          : (I = t[3]),
+          (k = I));
+      } else {
+        var T;
+        (t[4] === Symbol.for("react.memo_cache_sentinel")
+          ? ((T = s._(/*BTDS*/ "No items")), (t[4] = T))
+          : (T = t[4]),
+          (k = T));
+      }
+      var D;
+      t[5] !== k
+        ? ((D = p.jsx(o("WAWebText.react").WAWebTextTitle, { children: k })),
+          (t[5] = k),
+          (t[6] = D))
+        : (D = t[6]);
+      var x = D,
+        $;
+      if (t[7] !== f.products) {
+        var P = f.products.reduce(S, null),
+          N = f.products.reduce(v, null);
+        if (P != null && N != null)
+          $ = s._(/*BTDS*/ "{subtotal} (estimated)", [
             s._param(
               "subtotal",
-              o("WAWebCurrencyUtils").formatAmount1000(k, E),
+              o("WAWebCurrencyUtils").formatAmount1000(N, P),
             ),
-          ]))
-        : (L = s._(/*BTDS*/ "No price entered"));
-      var I = p.jsx(o("WAWebText.react").WAWebTextSmall, {
-          as: "div",
-          children: L,
-        }),
-        T = null;
-      if (_.createdAt != null) {
-        var D = o("WAWebClock").Clock.timeStr(_.createdAt);
-        T = p.jsx(o("WAWebText.react").WAWebTextSmall, { children: "" + D });
+          ]);
+        else {
+          var M;
+          (t[9] === Symbol.for("react.memo_cache_sentinel")
+            ? ((M = s._(/*BTDS*/ "No price entered")), (t[9] = M))
+            : (M = t[9]),
+            ($ = M));
+        }
+        ((t[7] = f.products), (t[8] = $));
+      } else $ = t[8];
+      var w;
+      t[10] !== $
+        ? ((w = p.jsx(o("WAWebText.react").WAWebTextSmall, {
+            as: "div",
+            children: $,
+          })),
+          (t[10] = $),
+          (t[11] = w))
+        : (w = t[11]);
+      var A = w,
+        F = null;
+      if (f.createdAt != null) {
+        var O;
+        t[12] !== f.createdAt
+          ? ((O = o("WAWebClock").Clock.timeStr(f.createdAt)),
+            (t[12] = f.createdAt),
+            (t[13] = O))
+          : (O = t[13]);
+        var B = O,
+          W = "" + B,
+          q;
+        (t[14] !== W
+          ? ((q = p.jsx(o("WAWebText.react").WAWebTextSmall, { children: W })),
+            (t[14] = W),
+            (t[15] = q))
+          : (q = t[15]),
+          (F = q));
       }
-      return p.jsxs(p.Fragment, {
-        children: [
-          p.jsxs(r("WAWebDrawerSection.react"), {
-            children: [
-              p.jsx(r("WAWebProductCatalogFetchStateTopBar.react"), {
-                fetchState: a,
-              }),
-              p.jsxs(
-                "div",
-                babelHelpers.extends(
-                  {},
-                  (d || (d = r("stylex"))).props(
-                    h.defaultBg,
-                    o("WAWebUISpacing").uiPadding.all18,
-                  ),
-                  { children: [R, I] },
-                ),
-              ),
-              p.jsx(r("WAWebOrderProductList.react"), {
-                flatListController: i,
-                onProductDetail: m,
-                order: _,
-                sellerJid: g,
-              }),
-              p.jsx(
-                "div",
-                babelHelpers.extends(
-                  {},
-                  d.props(h.defaultBg, o("WAWebUISpacing").uiPadding.all18),
-                  { children: T },
-                ),
-              ),
-              f
-                ? p.jsx(y, { chat: n, value: t, onSubmit: b, onChange: v })
-                : null,
-            ],
-          }),
-          o("WAWebBizGatingUtils").orderDetailsFromCartEnabled() && !f
-            ? p.jsx(C, {
-                sellerJid: g,
-                onCreateOrderClick: function () {
-                  return c(r("WANullthrows")(_));
-                },
-                onDeclineOrderClick: u,
-              })
-            : null,
-        ],
-      });
+      var U;
+      t[16] !== i
+        ? ((U = p.jsx(r("WAWebProductCatalogFetchStateTopBar.react"), {
+            fetchState: i,
+          })),
+          (t[16] = i),
+          (t[17] = U))
+        : (U = t[17]);
+      var V;
+      t[18] === Symbol.for("react.memo_cache_sentinel")
+        ? ((V = (d || (d = r("stylex"))).props(
+            h.defaultBg,
+            o("WAWebUISpacing").uiPadding.all18,
+          )),
+          (t[18] = V))
+        : (V = t[18]);
+      var H;
+      t[19] !== x || t[20] !== A
+        ? ((H = p.jsxs(
+            "div",
+            babelHelpers.extends({}, V, { children: [x, A] }),
+          )),
+          (t[19] = x),
+          (t[20] = A),
+          (t[21] = H))
+        : (H = t[21]);
+      var G;
+      t[22] !== l || t[23] !== _ || t[24] !== f || t[25] !== b
+        ? ((G = p.jsx(r("WAWebOrderProductList.react"), {
+            flatListController: l,
+            onProductDetail: _,
+            order: f,
+            sellerJid: b,
+          })),
+          (t[22] = l),
+          (t[23] = _),
+          (t[24] = f),
+          (t[25] = b),
+          (t[26] = G))
+        : (G = t[26]);
+      var z;
+      t[27] === Symbol.for("react.memo_cache_sentinel")
+        ? ((z = (d || (d = r("stylex"))).props(
+            h.defaultBg,
+            o("WAWebUISpacing").uiPadding.all18,
+          )),
+          (t[27] = z))
+        : (z = t[27]);
+      var j;
+      t[28] !== F
+        ? ((j = p.jsx("div", babelHelpers.extends({}, z, { children: F }))),
+          (t[28] = F),
+          (t[29] = j))
+        : (j = t[29]);
+      var K;
+      t[30] !== n || t[31] !== a || t[32] !== g || t[33] !== R || t[34] !== L
+        ? ((K = g
+            ? p.jsx(y, { chat: a, value: n, onSubmit: R, onChange: L })
+            : null),
+          (t[30] = n),
+          (t[31] = a),
+          (t[32] = g),
+          (t[33] = R),
+          (t[34] = L),
+          (t[35] = K))
+        : (K = t[35]);
+      var Q;
+      t[36] !== U || t[37] !== H || t[38] !== G || t[39] !== j || t[40] !== K
+        ? ((Q = p.jsxs(r("WAWebDrawerSection.react"), {
+            children: [U, H, G, j, K],
+          })),
+          (t[36] = U),
+          (t[37] = H),
+          (t[38] = G),
+          (t[39] = j),
+          (t[40] = K),
+          (t[41] = Q))
+        : (Q = t[41]);
+      var X;
+      t[42] !== c || t[43] !== m || t[44] !== f || t[45] !== g || t[46] !== b
+        ? ((X =
+            o("WAWebBizGatingUtils").orderDetailsFromCartEnabled() && !g
+              ? p.jsx(C, {
+                  sellerJid: b,
+                  onCreateOrderClick: function () {
+                    return m(r("WANullthrows")(f));
+                  },
+                  onDeclineOrderClick: c,
+                })
+              : null),
+          (t[42] = c),
+          (t[43] = m),
+          (t[44] = f),
+          (t[45] = g),
+          (t[46] = b),
+          (t[47] = X))
+        : (X = t[47]);
+      var Y;
+      return (
+        t[48] !== Q || t[49] !== X
+          ? ((Y = p.jsxs(p.Fragment, { children: [Q, X] })),
+            (t[48] = Q),
+            (t[49] = X),
+            (t[50] = Y))
+          : (Y = t[50]),
+        Y
+      );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
-    function v(t) {
+    function v(e, t) {
+      return t.currency == null ? e : t.currency;
+    }
+    function S(e, t) {
+      return t.price == null ? e : (e || 0) + t.price * t.quantity;
+    }
+    function R(t) {
       var n = t.ref,
         a = babelHelpers.objectWithoutPropertiesLoose(t, c),
         i = a.chat,
@@ -387,7 +537,7 @@ __d(
         ],
       });
     }
-    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = v));
+    ((R.displayName = R.name + " [from " + i.id + "]"), (l.default = R));
   },
   226,
 );

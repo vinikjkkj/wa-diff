@@ -27,6 +27,7 @@ __d(
     "WDSIconIcLabel.react",
     "qpl",
     "react",
+    "react-compiler-runtime",
     "useWAWebForceUpdate",
     "useWAWebListener",
     "useWAWebStableCallback",
@@ -209,24 +210,46 @@ __d(
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = e.Icon,
-        n = e.customIcon,
+      var t = o("react-compiler-runtime").c(10),
+        n = e.Icon,
         r = e.directional,
-        o = e.disabled,
-        a = e.onClick,
-        i = e.testid,
-        l = e.title,
-        s = e.wdsIcon;
-      return d.jsx("button", {
-        "data-testid": void 0,
-        className: "_akar",
-        title: l,
-        onClick: a,
-        disabled: o === !0,
-        children: s != null ? s : t != null && d.jsx(t, { directional: r }),
-      });
+        a = e.disabled,
+        i = e.onClick,
+        l = e.testid,
+        s = e.title,
+        u = e.wdsIcon,
+        c = l != null ? l : "btn-icon",
+        m = a === !0,
+        p;
+      t[0] !== n || t[1] !== r || t[2] !== u
+        ? ((p = u != null ? u : n != null && d.jsx(n, { directional: r })),
+          (t[0] = n),
+          (t[1] = r),
+          (t[2] = u),
+          (t[3] = p))
+        : (p = t[3]);
+      var _;
+      return (
+        t[4] !== i || t[5] !== c || t[6] !== m || t[7] !== p || t[8] !== s
+          ? ((_ = d.jsx("button", {
+              "data-testid": void 0,
+              className: "_akar",
+              title: s,
+              onClick: i,
+              disabled: m,
+              children: p,
+            })),
+            (t[4] = i),
+            (t[5] = c),
+            (t[6] = m),
+            (t[7] = p),
+            (t[8] = s),
+            (t[9] = _))
+          : (_ = t[9]),
+        _
+      );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   226,
 );

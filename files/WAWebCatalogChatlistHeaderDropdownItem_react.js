@@ -20,56 +20,67 @@ __d(
     "WDSIconIcGridOn.react",
     "WDSMenuItem.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c() {
-      var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        t = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-          e,
-        );
-      if (
-        !(
-          o("WAWebMobilePlatforms").isSMB() &&
-          !o(
-            "WAWebBizGatingUtils",
-          ).blockCatalogCreationECommerceComplianceIndia(t) &&
-          !o(
+      var e = o("react-compiler-runtime").c(6),
+        t,
+        n,
+        a,
+        i;
+      if (e[0] === Symbol.for("react.memo_cache_sentinel")) {
+        i = Symbol.for("react.early_return_sentinel");
+        e: {
+          var l = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
+          if (
+            ((t = o(
+              "WAWebBusinessProfileCollection",
+            ).BusinessProfileCollection.get(l)),
+            !(
+              o("WAWebMobilePlatforms").isSMB() &&
+              !o(
+                "WAWebBizGatingUtils",
+              ).blockCatalogCreationECommerceComplianceIndia(t) &&
+              !o(
+                "WAWebProductCatalogMetaLinkingGatingUtils",
+              ).shouldDisableCatalogDueToMetaLinkingForSelf()
+            ))
+          ) {
+            i = null;
+            break e;
+          }
+          ((n = o(
             "WAWebProductCatalogMetaLinkingGatingUtils",
-          ).shouldDisableCatalogDueToMetaLinkingForSelf()
-        )
-      )
-        return null;
-      var n = o(
-          "WAWebProductCatalogMetaLinkingGatingUtils",
-        ).shouldShowMetaLinkedDisabledCatalogTooltipForSelf(),
-        a = o("WAWebBusinessProfileUtils").hasShop(t),
-        i = function () {
+          ).shouldShowMetaLinkedDisabledCatalogTooltipForSelf()),
+            (a = o("WAWebBusinessProfileUtils").hasShop(t)));
+        }
+        ((e[0] = t), (e[1] = n), (e[2] = a), (e[3] = i));
+      } else ((t = e[0]), (n = e[1]), (a = e[2]), (i = e[3]));
+      if (i !== Symbol.for("react.early_return_sentinel")) return i;
+      var c = a,
+        m;
+      if (e[4] === Symbol.for("react.memo_cache_sentinel")) {
+        var p = function () {
           (o("WAWebBusinessProfileUtils").goToCommerceManager(t),
             o("WAWebShopsLog").logShopsManagementEvent(
               o("WAWebWamEnumShopsManagementAction").SHOPS_MANAGEMENT_ACTION
                 .ACTION_CLICK_COMMERCE_MANAGER_IN_CATALOG_SETTING,
             ));
-        },
-        l = function (n) {
-          if ((n == null || n.preventDefault(), a)) {
+        };
+        ((m = function (n) {
+          if ((n == null || n.preventDefault(), c)) {
             var e =
               o("WAWebBizGatingUtils").bannedShopsEnabled() &&
               o("WAWebBusinessProfileUtils").isShopBanned(t);
             (o("WAWebModalManager").ModalManager.open(
               u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                 title: s._(/*BTDS*/ "Catalog disabled"),
-                onOK: i,
+                onOK: p,
                 okText: s._(/*BTDS*/ "Commerce Manager"),
-                onCancel: function () {
-                  (o("WAWebModalManager").ModalManager.close(),
-                    o("WAWebShopsLog").logShopsManagementEvent(
-                      o("WAWebWamEnumShopsManagementAction")
-                        .SHOPS_MANAGEMENT_ACTION
-                        .ACTION_CLICK_CANCEL_IN_CATALOG_SETTING,
-                    ));
-                },
+                onCancel: d,
                 children: e
                   ? s._(
                       /*BTDS*/ "You can't restore your catalog at this time because we have disabled your shop for not complying with our policies. Learn more in Commerce Manager.",
@@ -97,20 +108,34 @@ __d(
               o("WAWebChatlistHeaderDropdownLogEvents").logMenuEvent(
                 o("WAWebWamEnumWebcMenuItemLabel").WEBC_MENU_ITEM_LABEL.CATALOG,
               ));
-        },
-        c = a
+        }),
+          (e[4] = m));
+      } else m = e[4];
+      var _ = m,
+        f;
+      if (e[5] === Symbol.for("react.memo_cache_sentinel")) {
+        var g = c
           ? s._(/*BTDS*/ "Catalog (temporarily disabled)")
-          : s._(/*BTDS*/ "Catalog"),
-        d = "mi-catalog menu-item";
-      return u.jsx(r("WDSMenuItem.react"), {
-        testid: void 0,
-        Icon: r("WDSIconIcGridOn.react"),
-        onPress: l,
-        title: c,
-        disabled: n,
-      });
+          : s._(/*BTDS*/ "Catalog");
+        ((f = u.jsx(r("WDSMenuItem.react"), {
+          testid: void 0,
+          Icon: r("WDSIconIcGridOn.react"),
+          onPress: _,
+          title: g,
+          disabled: n,
+        })),
+          (e[5] = f));
+      } else f = e[5];
+      return f;
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    function d() {
+      (o("WAWebModalManager").ModalManager.close(),
+        o("WAWebShopsLog").logShopsManagementEvent(
+          o("WAWebWamEnumShopsManagementAction").SHOPS_MANAGEMENT_ACTION
+            .ACTION_CLICK_CANCEL_IN_CATALOG_SETTING,
+        ));
+    }
+    l.default = c;
   },
   226,
 );

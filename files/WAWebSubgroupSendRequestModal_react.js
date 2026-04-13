@@ -18,6 +18,7 @@ __d(
     "WAWebWamEnumChatFilterActionTypes",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -27,33 +28,58 @@ __d(
       m = d.useRef,
       p = d.useState;
     function _(e) {
-      var t = e.requestReason,
-        n = e.setRequestReason,
-        a = m(null),
-        i = s._(/*BTDS*/ "Reason for request").toString(),
-        l = function (t) {
-          var e = t.text;
-          n(e.trim());
-        };
-      return c.jsx("div", {
-        className: "x1h678fw",
-        children: c.jsx(o("WAWebRichTextField.react").RichTextField, {
-          ref: a,
-          placeholder: i,
-          value: t,
-          showRemaining: !0,
-          maxLength: r("WAWebConstantsDeprecated").MAX_TXT_MSG_SIZE,
-          onChange: l,
-          theme: "request-reason",
-          multiline: !0,
-          textFormatEnabled: !0,
-          selectOnMount: !0,
-          maxVisibleLines: 3,
-          minVisibleLines: 3,
-        }),
-      });
+      var t = o("react-compiler-runtime").c(7),
+        n = e.requestReason,
+        a = e.setRequestReason,
+        i = m(null),
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(/*BTDS*/ "Reason for request").toString()), (t[0] = l))
+        : (l = t[0]);
+      var u = l,
+        d;
+      t[1] !== a
+        ? ((d = function (t) {
+            var e = t.text;
+            a(e.trim());
+          }),
+          (t[1] = a),
+          (t[2] = d))
+        : (d = t[2]);
+      var p = d,
+        _;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = { className: "x1h678fw" }), (t[3] = _))
+        : (_ = t[3]);
+      var f;
+      return (
+        t[4] !== p || t[5] !== n
+          ? ((f = c.jsx(
+              "div",
+              babelHelpers.extends({}, _, {
+                children: c.jsx(o("WAWebRichTextField.react").RichTextField, {
+                  ref: i,
+                  placeholder: u,
+                  value: n,
+                  showRemaining: !0,
+                  maxLength: r("WAWebConstantsDeprecated").MAX_TXT_MSG_SIZE,
+                  onChange: p,
+                  theme: "request-reason",
+                  multiline: !0,
+                  textFormatEnabled: !0,
+                  selectOnMount: !0,
+                  maxVisibleLines: 3,
+                  minVisibleLines: 3,
+                }),
+              }),
+            )),
+            (t[4] = p),
+            (t[5] = n),
+            (t[6] = f))
+          : (f = t[6]),
+        f
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(t) {
       var a = t.adminContact,
         i = t.participants,

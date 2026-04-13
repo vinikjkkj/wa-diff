@@ -1,6 +1,12 @@
 __d(
   "WAWebPDFNAnimation.react",
-  ["WAWebLottieAnimationLoadable", "WAWebPDFNUtils", "react", "vulture"],
+  [
+    "WAWebLottieAnimationLoadable",
+    "WAWebPDFNUtils",
+    "react",
+    "react-compiler-runtime",
+    "vulture",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -14,20 +20,28 @@ __d(
         },
       };
     function d(e) {
-      var t = e.icon;
+      var t = o("react-compiler-runtime").c(2),
+        n = e.icon;
       r("vulture")("2N3VkUBZRFjNiHnD4OHHkRZByAM=");
-      var n = u(null),
-        a = o("WAWebPDFNUtils").usePDFNThemedIcon(t);
-      return a == null
-        ? null
-        : s.jsx(o("WAWebLottieAnimationLoadable").LottieAnimation, {
-            ref: n,
-            autoplay: !0,
-            path: a,
-            xstyle: c.lottieComponent,
-          });
+      var a = u(null),
+        i = o("WAWebPDFNUtils").usePDFNThemedIcon(n);
+      if (i == null) return null;
+      var l;
+      return (
+        t[0] !== i
+          ? ((l = s.jsx(o("WAWebLottieAnimationLoadable").LottieAnimation, {
+              ref: a,
+              autoplay: !0,
+              path: i,
+              xstyle: c.lottieComponent,
+            })),
+            (t[0] = i),
+            (t[1] = l))
+          : (l = t[1]),
+        l
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   98,
 );

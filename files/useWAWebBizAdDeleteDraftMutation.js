@@ -6,6 +6,7 @@ __d(
     "Promise",
     "getErrorSafe",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdDeleteDraftMutation.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,45 +18,55 @@ __d(
       d =
         e !== void 0 ? e : (e = n("useWAWebBizAdDeleteDraftMutation.graphql"));
     function m() {
-      var e = o("CometRelay").useMutation(d),
-        t = e[0],
-        a = e[1],
-        i = c(
-          function (e) {
-            return new (s || (s = n("Promise")))(function (n) {
-              t({
-                variables: { input: { draft_id: e } },
-                onCompleted: function (t, o) {
+      var e = o("react-compiler-runtime").c(5),
+        t = o("CometRelay").useMutation(d),
+        a = t[0],
+        i = t[1],
+        l;
+      e[0] !== a
+        ? ((l = function (t) {
+            return new (s || (s = n("Promise")))(function (e) {
+              a({
+                variables: { input: { draft_id: t } },
+                onCompleted: function (n, o) {
                   if (o != null && o.length > 0) {
                     (r("FBLogger")("wa_ctwa_web")
                       .catching(r("getErrorSafe")(o[0]))
                       .warn("Draft delete mutation returned errors"),
-                      n({ success: !1, error: "mutation_failed" }));
+                      e({ success: !1, error: "mutation_failed" }));
                     return;
                   }
-                  if ((t == null ? void 0 : t.delete_ads_ctwa_draft) !== !0) {
+                  if ((n == null ? void 0 : n.delete_ads_ctwa_draft) !== !0) {
                     (r("FBLogger")("wa_ctwa_web").warn(
                       "Draft delete mutation returned non-true response",
                     ),
-                      n({ success: !1, error: "mutation_failed" }));
+                      e({ success: !1, error: "mutation_failed" }));
                     return;
                   }
-                  n({ success: !0 });
+                  e({ success: !0 });
                 },
-                onError: function (t) {
+                onError: function (n) {
                   (r("FBLogger")("wa_ctwa_web")
-                    .catching(r("getErrorSafe")(t))
+                    .catching(r("getErrorSafe")(n))
                     .warn(
                       "Draft delete mutation failed in useWAWebBizAdDeleteDraftMutation",
                     ),
-                    n({ success: !1, error: "mutation_failed" }));
+                    e({ success: !1, error: "mutation_failed" }));
                 },
               });
             });
-          },
-          [t],
-        );
-      return [i, a];
+          }),
+          (e[0] = a),
+          (e[1] = l))
+        : (l = e[1]);
+      var u = l,
+        c;
+      return (
+        e[2] !== u || e[3] !== i
+          ? ((c = [u, i]), (e[2] = u), (e[3] = i), (e[4] = c))
+          : (c = e[4]),
+        c
+      );
     }
     l.default = m;
   },

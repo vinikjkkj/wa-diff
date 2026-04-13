@@ -62,6 +62,7 @@ __d(
     "WDSIconIcPersonAddFilled.react",
     "WDSIconIcSearch.react",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebEventTargetValue",
     "useWAWebForceUpdate",
@@ -95,76 +96,182 @@ __d(
         flatListRefreshed: { backgroundColor: "xjbqb8w", $$css: !0 },
       };
     function C(t) {
-      var n = t.active,
-        a = t.contextMenu,
-        i = t.data,
-        l = t.elevatedPushNamesEnabled,
-        s = l === void 0 ? !1 : l,
+      var n = o("react-compiler-runtime").c(40),
+        a = t.active,
+        i = t.contextMenu,
+        l = t.data,
+        s = t.elevatedPushNamesEnabled,
         u = t.handleParticipantClick,
         d = t.handleParticipantMenu,
         m = t.menuEnabled,
         p = t.participants,
         _ = t.showMemberLabel,
-        f = _ === void 0 ? !1 : _,
-        g = t.sourceChat,
-        h = i.id,
-        y = p.get(h);
-      if (!y)
-        throw (
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "UnknownDataError: WAWebGroupInfoParticipantsSection",
-              ])),
-          ),
-          new (o("WAWebFlatList.react").UnknownDataError)(i)
-        );
-      var C = y.contact,
-        b = !!a && r("WAWebWid").equals(C.id, a.contactId),
-        v = o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(C.id),
-        S = v
-          ? o("WAWebBotFrontendUtils").getMetaAiTEEBotDisplayName(C.id, {
-              includePrivateProcessing: !0,
-            })
-          : void 0;
-      return c.jsx(
-        r("WAWebChatParticipant.react"),
-        {
-          active: n,
-          contact: C,
-          contextEnabled: function () {
-            return m(C);
-          },
-          contextMenu: b,
-          elevatedPushNamesEnabled: s,
-          nameOverride: S,
-          showTeeLockBadge: v,
-          onClick: function (t) {
+        f = t.sourceChat,
+        g = s === void 0 ? !1 : s,
+        h = _ === void 0 ? !1 : _,
+        y = l.id,
+        C,
+        b,
+        v,
+        S,
+        R,
+        L,
+        E,
+        k,
+        I,
+        T,
+        D;
+      if (
+        n[0] !== a ||
+        n[1] !== i ||
+        n[2] !== l ||
+        n[3] !== g ||
+        n[4] !== y ||
+        n[5] !== m ||
+        n[6] !== p
+      ) {
+        if (((S = p.get(y)), !S))
+          throw (
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "UnknownDataError: WAWebGroupInfoParticipantsSection",
+                ])),
+            ),
+            new (o("WAWebFlatList.react").UnknownDataError)(l)
+          );
+        b = S.contact;
+        var x = !!i && r("WAWebWid").equals(b.id, i.contactId);
+        ((v = o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(b.id)),
+          (D = v
+            ? o("WAWebBotFrontendUtils").getMetaAiTEEBotDisplayName(b.id, {
+                includePrivateProcessing: !0,
+              })
+            : void 0),
+          (C = r("WAWebChatParticipant.react")),
+          (R = a),
+          (L = b),
+          (E = function () {
+            return m(b);
+          }),
+          (k = x),
+          (I = g),
+          (T = S.id.toString()),
+          (n[0] = a),
+          (n[1] = i),
+          (n[2] = l),
+          (n[3] = g),
+          (n[4] = y),
+          (n[5] = m),
+          (n[6] = p),
+          (n[7] = C),
+          (n[8] = b),
+          (n[9] = v),
+          (n[10] = S),
+          (n[11] = R),
+          (n[12] = L),
+          (n[13] = E),
+          (n[14] = k),
+          (n[15] = I),
+          (n[16] = T),
+          (n[17] = D));
+      } else
+        ((C = n[7]),
+          (b = n[8]),
+          (v = n[9]),
+          (S = n[10]),
+          (R = n[11]),
+          (L = n[12]),
+          (E = n[13]),
+          (k = n[14]),
+          (I = n[15]),
+          (T = n[16]),
+          (D = n[17]));
+      var $;
+      n[18] !== b.id || n[19] !== u
+        ? (($ = function (t) {
             var e = o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
-              C.id,
+              b.id,
               "group_info_participant_section_click",
             );
             e != null &&
               (u == null ||
                 u(t, o("WAWebContactCollection").ContactCollection.gadd(e)));
-          },
-          onContext: function (t) {
-            return d(t, C);
-          },
-          participant: y,
-          participantCollection: p,
-          showMemberLabel: f,
-          showNotifyName: !0,
-          showStatusRingAroundProfilePhoto: !0,
-          sourceChat: g,
-          theme: "refresh",
-          truncateName: !0,
-          waitIdle: !0,
-        },
-        y.id.toString(),
+          }),
+          (n[18] = b.id),
+          (n[19] = u),
+          (n[20] = $))
+        : ($ = n[20]);
+      var P;
+      n[21] !== b || n[22] !== d
+        ? ((P = function (t) {
+            return d(t, b);
+          }),
+          (n[21] = b),
+          (n[22] = d),
+          (n[23] = P))
+        : (P = n[23]);
+      var N;
+      return (
+        n[24] !== C ||
+        n[25] !== v ||
+        n[26] !== S ||
+        n[27] !== p ||
+        n[28] !== h ||
+        n[29] !== f ||
+        n[30] !== P ||
+        n[31] !== R ||
+        n[32] !== L ||
+        n[33] !== E ||
+        n[34] !== k ||
+        n[35] !== I ||
+        n[36] !== T ||
+        n[37] !== $ ||
+        n[38] !== D
+          ? ((N = c.jsx(
+              C,
+              {
+                active: R,
+                contact: L,
+                contextEnabled: E,
+                contextMenu: k,
+                elevatedPushNamesEnabled: I,
+                nameOverride: D,
+                showTeeLockBadge: v,
+                onClick: $,
+                onContext: P,
+                participant: S,
+                participantCollection: p,
+                showMemberLabel: h,
+                showNotifyName: !0,
+                showStatusRingAroundProfilePhoto: !0,
+                sourceChat: f,
+                theme: "refresh",
+                truncateName: !0,
+                waitIdle: !0,
+              },
+              T,
+            )),
+            (n[24] = C),
+            (n[25] = v),
+            (n[26] = S),
+            (n[27] = p),
+            (n[28] = h),
+            (n[29] = f),
+            (n[30] = P),
+            (n[31] = R),
+            (n[32] = L),
+            (n[33] = E),
+            (n[34] = k),
+            (n[35] = I),
+            (n[36] = T),
+            (n[37] = $),
+            (n[38] = D),
+            (n[39] = N))
+          : (N = n[39]),
+        N
       );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
       "use no forget";
       var t,

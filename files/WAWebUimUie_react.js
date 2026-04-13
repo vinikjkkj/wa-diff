@@ -5,8 +5,8 @@ __d(
     "WAWebUimContext",
     "WAWebUimUtils",
     "react",
+    "react-compiler-runtime",
     "useStable",
-    "useWAWebOnUnmount",
     "useWAWebStableCallback",
     "useWAWebUIM",
     "useWAWebUnmountSignal",
@@ -30,20 +30,20 @@ __d(
         l = i === void 0 ? o("WAWebUim").UIMState.ACTIVE : i,
         s = a.requestRecentFocusOnUnmount,
         c = s === void 0 ? !0 : s,
-        m = a.popable,
-        h = m === void 0 ? !1 : m,
-        y = a.escapable,
-        b = y === void 0 ? !1 : y,
-        v = a.displayName,
-        S = a.children,
-        R = a.dismissOnWindowResize,
-        L = R === void 0 ? !1 : R,
-        E = r("useWAWebUIM")(),
-        k = C(a.requestFocus),
-        I = r("useWAWebStableCallback")(a.requestDismiss),
-        T = g(null),
-        D = p(function () {
-          var e = T.current;
+        h = a.popable,
+        y = h === void 0 ? !1 : h,
+        b = a.escapable,
+        v = b === void 0 ? !1 : b,
+        S = a.displayName,
+        R = a.children,
+        L = a.dismissOnWindowResize,
+        E = L === void 0 ? !1 : L,
+        k = r("useWAWebUIM")(),
+        I = C(a.requestFocus),
+        T = r("useWAWebStableCallback")(a.requestDismiss),
+        D = g(null),
+        x = p(function () {
+          var e = D.current;
           if (e != null)
             return o("WAWebUimUtils").isCrossWindowHTMLElement(e) ||
               e instanceof HTMLElement
@@ -52,44 +52,49 @@ __d(
                 ? void 0
                 : e.getElement();
         }, []),
-        x = r("useStable")(function () {
-          var e,
-            t = {
-              displayName: v,
-              popable: h,
-              escapable: b,
-              uimState: l,
-              requestFocus: k,
-              requestDismiss: I,
-              getNode: D,
-              dismissOnWindowResize: L,
-            };
-          return (e = E == null ? void 0 : E.branch(t)) != null
-            ? e
-            : new (o("WAWebUim").UIM)(t);
+        $ = r("useStable")(function () {
+          var e = {
+            displayName: S,
+            popable: y,
+            escapable: v,
+            uimState: l,
+            requestFocus: I,
+            requestDismiss: T,
+            getNode: x,
+            dismissOnWindowResize: E,
+          };
+          return k != null
+            ? new (o("WAWebUim").UIM)(e, k)
+            : new (o("WAWebUim").UIM)(e);
+        }),
+        P = m(function () {
+          $.pop(o("WAWebUim").DismissReason.LIFECYCLE, c);
         });
       if (
         (_(
           function () {
-            x.setState(l);
+            return ($.register(), P);
           },
-          [l, x],
+          [$],
         ),
-        r("useWAWebOnUnmount")(function () {
-          x.pop(o("WAWebUim").DismissReason.LIFECYCLE, c);
-        }),
+        _(
+          function () {
+            $.setState(l);
+          },
+          [l, $],
+        ),
         f(n, function () {
           return {
             activate: function () {
-              x.activate();
+              $.activate();
             },
-            getElement: D,
+            getElement: x,
           };
         }),
-        !S)
+        !R)
       )
         return null;
-      var $ = function (t) {
+      var N = function (t) {
           var e,
             n =
               (e =
@@ -98,40 +103,65 @@ __d(
                   : t.getComponent()) != null
                 ? e
                 : t;
-          T.current = n;
-          var r = S.ref;
+          D.current = n;
+          var r = R.ref;
           r && (typeof r == "function" ? r(n) : (r.current = n));
         },
-        P = d(S, { ref: $ });
-      return u.jsx(r("WAWebUimContext").Provider, { value: x, children: P });
+        M = d(R, { ref: N });
+      return u.jsx(r("WAWebUimContext").Provider, { value: $, children: M });
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = r("useWAWebUnmountSignal")(),
-        n = g(!1),
-        o = g(null),
-        a = function () {
-          e &&
-            (h && self.clearTimeout(h),
-            (o.current = h =
-              self.setTimeout(function () {
-                (e(), (o.current = h = null));
-              }, 0)));
-        },
-        i = r("useWAWebStableCallback")(function () {
-          e && !t.aborted ? a() : (n.current = !0);
-        }),
-        l = m(a);
+      var t = o("react-compiler-runtime").c(9),
+        n = r("useWAWebUnmountSignal")(),
+        a = g(!1),
+        i = g(null),
+        l;
+      t[0] !== e
+        ? ((l = function () {
+            e &&
+              (h && self.clearTimeout(h),
+              (i.current = h =
+                self.setTimeout(function () {
+                  (e(), (i.current = h = null));
+                }, 0)));
+          }),
+          (t[0] = e),
+          (t[1] = l))
+        : (l = t[1]);
+      var s = l,
+        u;
+      t[2] !== s || t[3] !== e || t[4] !== n
+        ? ((u = function () {
+            e && !n.aborted ? s() : (a.current = !0);
+          }),
+          (t[2] = s),
+          (t[3] = e),
+          (t[4] = n),
+          (t[5] = u))
+        : (u = t[5]);
+      var c = r("useWAWebStableCallback")(u),
+        d = m(s),
+        p;
+      t[6] !== d
+        ? ((p = function () {
+            return (
+              a.current && d(),
+              function () {
+                h && i.current === h && (self.clearTimeout(h), (h = null));
+              }
+            );
+          }),
+          (t[6] = d),
+          (t[7] = p))
+        : (p = t[7]);
+      var f;
       return (
-        _(function () {
-          return (
-            n.current && l(),
-            function () {
-              h && o.current === h && (self.clearTimeout(h), (h = null));
-            }
-          );
-        }, []),
-        i
+        t[8] === Symbol.for("react.memo_cache_sentinel")
+          ? ((f = []), (t[8] = f))
+          : (f = t[8]),
+        _(p, f),
+        c
       );
     }
     l.UIE = y;

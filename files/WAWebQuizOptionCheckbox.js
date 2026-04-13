@@ -11,6 +11,7 @@ __d(
     "WDSIconIcCheckCircle.react",
     "WDSIconIcCheckCircleFilled.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -40,59 +41,122 @@ __d(
         },
       };
     function p(e) {
-      var t = e.animationPromise,
-        n = e.checked,
-        a = e.count,
-        i = e.hideResults,
-        l = e.id,
-        u = e.isAdminOrOwner,
-        d = e.isCorrectOption,
-        p = e.msgId,
-        f = e.onOptionToggle,
-        g = e.option,
-        h = e.testid,
-        y = g.localId,
-        C = g.name,
-        b = s._(
-          /*BTDS*/ '_j{"*":"{option} {responses} responses","_1":"{option} 1 response"}',
-          [s._plural(a, "responses"), s._param("option", C)],
+      var t = o("react-compiler-runtime").c(22),
+        n = e.animationPromise,
+        a = e.checked,
+        i = e.count,
+        l = e.hideResults,
+        u = e.id,
+        d = e.isAdminOrOwner,
+        p = e.isCorrectOption,
+        f = e.msgId,
+        g = e.onOptionToggle,
+        h = e.option,
+        y = e.testid,
+        C = h.localId,
+        b = h.name,
+        v;
+      t[0] !== i || t[1] !== b
+        ? ((v = s._(
+            /*BTDS*/ '_j{"*":"{option} {responses} responses","_1":"{option} 1 response"}',
+            [s._plural(i, "responses"), s._param("option", b)],
+          )),
+          (t[0] = i),
+          (t[1] = b),
+          (t[2] = v))
+        : (v = t[2]);
+      var S = v;
+      if (l) {
+        var R;
+        t[3] !== n || t[4] !== p || t[5] !== C || t[6] !== f || t[7] !== g
+          ? ((R = function () {
+              (p
+                ? _(n)
+                : o("WAWebCmd").Cmd.trigger(
+                    "animate_message_bubble",
+                    f,
+                    m.shake,
+                  ),
+                g(C));
+            }),
+            (t[3] = n),
+            (t[4] = p),
+            (t[5] = C),
+            (t[6] = f),
+            (t[7] = g),
+            (t[8] = R))
+          : (R = t[8]);
+        var L;
+        return (
+          t[9] !== a || t[10] !== u || t[11] !== S || t[12] !== R || t[13] !== y
+            ? ((L = c.jsx(o("WAWebCheckBox.react").CheckBox, {
+                ariaLabel: S,
+                checked: a,
+                id: u,
+                onChange: R,
+                testid: void 0,
+                theme: o("WAWebCheckBox.react").CheckboxTheme.POLLS_RECEIVER,
+              })),
+              (t[9] = a),
+              (t[10] = u),
+              (t[11] = S),
+              (t[12] = R),
+              (t[13] = y),
+              (t[14] = L))
+            : (L = t[14]),
+          L
         );
-      if (i)
-        return c.jsx(o("WAWebCheckBox.react").CheckBox, {
-          ariaLabel: b,
-          checked: n,
-          id: l,
-          onChange: function () {
-            (d
-              ? _(t)
-              : o("WAWebCmd").Cmd.trigger("animate_message_bubble", p, m.shake),
-              f(y));
-          },
-          testid: void 0,
-          theme: o("WAWebCheckBox.react").CheckboxTheme.POLLS_RECEIVER,
-        });
-      var v = { width: 24, height: 24 };
-      return d
-        ? u || n
-          ? c.jsx(
-              r("WDSIconIcCheckCircleFilled.react"),
-              babelHelpers.extends({}, v, { colorName: "accent" }),
-            )
-          : c.jsx(
-              r("WDSIconIcCheckCircle.react"),
-              babelHelpers.extends({}, v, { colorName: "accent" }),
-            )
-        : n && !u
-          ? c.jsx(
-              r("WDSIconIcCancelFilled.react"),
-              babelHelpers.extends({}, v, { colorName: "secondaryNegative" }),
-            )
-          : c.jsx(
-              r("WDSIconIcCancel.react"),
-              babelHelpers.extends({}, v, { colorName: "contentDeemphasized" }),
-            );
+      }
+      var E;
+      t[15] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = { width: 24, height: 24 }), (t[15] = E))
+        : (E = t[15]);
+      var k = E;
+      if (p) {
+        var I;
+        return (
+          t[16] !== a || t[17] !== d
+            ? ((I =
+                d || a
+                  ? c.jsx(
+                      r("WDSIconIcCheckCircleFilled.react"),
+                      babelHelpers.extends({}, k, { colorName: "accent" }),
+                    )
+                  : c.jsx(
+                      r("WDSIconIcCheckCircle.react"),
+                      babelHelpers.extends({}, k, { colorName: "accent" }),
+                    )),
+              (t[16] = a),
+              (t[17] = d),
+              (t[18] = I))
+            : (I = t[18]),
+          I
+        );
+      }
+      var T;
+      return (
+        t[19] !== a || t[20] !== d
+          ? ((T =
+              a && !d
+                ? c.jsx(
+                    r("WDSIconIcCancelFilled.react"),
+                    babelHelpers.extends({}, k, {
+                      colorName: "secondaryNegative",
+                    }),
+                  )
+                : c.jsx(
+                    r("WDSIconIcCancel.react"),
+                    babelHelpers.extends({}, k, {
+                      colorName: "contentDeemphasized",
+                    }),
+                  )),
+            (t[19] = a),
+            (t[20] = d),
+            (t[21] = T))
+          : (T = t[21]),
+        T
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
       t == null ||
         t

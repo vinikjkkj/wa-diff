@@ -1,24 +1,43 @@
 __d(
   "useWAWebNewsletterHasProfilePictureDeletionAlerts",
-  ["useWAWebEventTargetValue", "useWAWebModelValues"],
+  ["react-compiler-runtime", "useWAWebEventTargetValue", "useWAWebModelValues"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("useWAWebModelValues").useModelValues(e, [
-          "newsletterMetadata",
-        ]),
-        n = r("useWAWebEventTargetValue")(
-          t.newsletterMetadata,
-          ["change:hasProfilePictureDeletionAlerts"],
-          function () {
-            var e;
-            return (
-              ((e = t.newsletterMetadata) == null
-                ? void 0
-                : e.hasProfilePictureDeletionAlerts) === !0
-            );
-          },
-        );
-      return n;
+      var t,
+        n = o("react-compiler-runtime").c(4),
+        a;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = ["newsletterMetadata"]), (n[0] = a))
+        : (a = n[0]);
+      var i = o("useWAWebModelValues").useModelValues(e, a),
+        l;
+      n[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = ["change:hasProfilePictureDeletionAlerts"]), (n[1] = l))
+        : (l = n[1]);
+      var s;
+      if (
+        n[2] !==
+        ((t = i.newsletterMetadata) == null
+          ? void 0
+          : t.hasProfilePictureDeletionAlerts)
+      ) {
+        var u;
+        ((s = function () {
+          var e;
+          return (
+            ((e = i.newsletterMetadata) == null
+              ? void 0
+              : e.hasProfilePictureDeletionAlerts) === !0
+          );
+        }),
+          (n[2] =
+            (u = i.newsletterMetadata) == null
+              ? void 0
+              : u.hasProfilePictureDeletionAlerts),
+          (n[3] = s));
+      } else s = n[3];
+      var c = r("useWAWebEventTargetValue")(i.newsletterMetadata, l, s);
+      return c;
     }
     l.useWAWebNewsletterHasProfilePictureDeletionAlerts = e;
   },

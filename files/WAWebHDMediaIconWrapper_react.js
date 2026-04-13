@@ -7,6 +7,7 @@ __d(
     "WAWebMsgVideoIcon.react",
     "WAWebWdsIcHdFilledIcon.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -21,33 +22,60 @@ __d(
         },
       };
     function c(e) {
-      var t = e.height,
-        n = e.type,
-        r = e.width,
-        a = e.xstyle;
-      switch (n) {
+      var t = o("react-compiler-runtime").c(5),
+        n = e.height,
+        r = e.type,
+        a = e.width,
+        i = e.xstyle;
+      e: switch (r) {
         case o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE: {
           if (
-            o("WAWebHDMediaUtils").isHdPhoto(t, r) &&
+            o("WAWebHDMediaUtils").isHdPhoto(n, a) &&
             o("WAWebMediaGatingUtils").isReceiveHQPhotoEnabled()
-          )
-            return s.jsx(o("WAWebWdsIcHdFilledIcon.react").WdsIcHdFilledIcon, {
-              xstyle: a,
-              iconXstyle: u.icon,
-            });
-          break;
+          ) {
+            var l;
+            return (
+              t[0] !== i
+                ? ((l = s.jsx(
+                    o("WAWebWdsIcHdFilledIcon.react").WdsIcHdFilledIcon,
+                    { xstyle: i, iconXstyle: u.icon },
+                  )),
+                  (t[0] = i),
+                  (t[1] = l))
+                : (l = t[1]),
+              l
+            );
+          }
+          break e;
         }
-        case o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO:
-          return o("WAWebHDMediaUtils").isHdVideo(t, r)
-            ? s.jsx(o("WAWebWdsIcHdFilledIcon.react").WdsIcHdFilledIcon, {
-                xstyle: a,
-                iconXstyle: u.icon,
-              })
-            : s.jsx(o("WAWebMsgVideoIcon.react").MsgVideoIcon, {});
+        case o("WAWebMediaTypes").OUTWARD_TYPES.VIDEO: {
+          if (o("WAWebHDMediaUtils").isHdVideo(n, a)) {
+            var c;
+            return (
+              t[2] !== i
+                ? ((c = s.jsx(
+                    o("WAWebWdsIcHdFilledIcon.react").WdsIcHdFilledIcon,
+                    { xstyle: i, iconXstyle: u.icon },
+                  )),
+                  (t[2] = i),
+                  (t[3] = c))
+                : (c = t[3]),
+              c
+            );
+          }
+          var d;
+          return (
+            t[4] === Symbol.for("react.memo_cache_sentinel")
+              ? ((d = s.jsx(o("WAWebMsgVideoIcon.react").MsgVideoIcon, {})),
+                (t[4] = d))
+              : (d = t[4]),
+            d
+          );
+        }
       }
       return null;
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

@@ -17,6 +17,7 @@ __d(
     "WAWebUnjoinedSubgroupMetadataCollection",
     "WAWebWidFactory",
     "react",
+    "react-compiler-runtime",
     "useWAWebLexicalEvent",
   ],
   function (t, n, r, o, a, i, l) {
@@ -84,36 +85,36 @@ __d(
             d = l.jid,
             m = l.lastEndIndex,
             p = l.length,
-            f = l.type,
-            g = s - m,
+            _ = l.type,
+            f = s - m,
             h = void 0,
             y = void 0;
-          if (g === 0) {
+          if (f === 0) {
             var C = i.splitText(p);
             ((h = C[0]), (y = C[1]));
           } else {
-            var b = i.splitText(g, g + p);
+            var b = i.splitText(f, f + p);
             ((h = b[1]), (y = b[2]));
           }
           i = y;
           var v = void 0;
-          if (f === o("WAWebMentionNode").MentionTypeEnum.CONTACT) {
+          if (_ === o("WAWebMentionNode").MentionTypeEnum.CONTACT) {
             var S = o("WAWebContactCollection").ContactCollection.get(d);
             if (S != null) {
               var R = !o("WAWebContactGetters").getIsMe(S) && c(t, d);
               if (R || n) {
                 var L = S.id.toString(),
                   E = o("WAWebMentionNode").$createMentionNode(
-                    _(S, t),
+                    g(S, t),
                     L,
                     o("WAWebMentionNode").MentionTypeEnum.CONTACT,
                   );
                 (h.replace(E), (v = E));
               } else
-                ((v = new (o("Lexical").TextNode)("@" + _(S))), h.replace(v));
+                ((v = new (o("Lexical").TextNode)("@" + g(S))), h.replace(v));
             }
           }
-          if (f === o("WAWebMentionNode").MentionTypeEnum.GROUP) {
+          if (_ === o("WAWebMentionNode").MentionTypeEnum.GROUP) {
             var k =
                 r("WAWebUnjoinedSubgroupMetadataCollection").get(d) ||
                 r("WAWebGroupMetadataCollection").get(d),
@@ -170,57 +171,70 @@ __d(
       }
     }
     function p(e) {
-      var t = e.botInvokeEnabled,
-        n = e.groupMetadata,
-        r = o("LexicalComposerContext").useLexicalComposerContext(),
-        a = r[0];
-      return (
-        s(
-          function () {
-            var e = a.registerNodeTransform(
+      var t = o("react-compiler-runtime").c(7),
+        n = e.botInvokeEnabled,
+        r = e.groupMetadata,
+        a = o("LexicalComposerContext").useLexicalComposerContext(),
+        i = a[0],
+        l,
+        u;
+      (t[0] !== n || t[1] !== i || t[2] !== r
+        ? ((l = function () {
+            var e = i.registerNodeTransform(
                 o("Lexical").TextNode,
                 function (e) {
-                  d(e, n, t);
+                  d(e, r, n);
                 },
               ),
-              r = a.registerNodeTransform(
-                o("WAWebMentionNode").MentionNode,
-                function (e) {
-                  m(e);
-                },
-              );
+              t = i.registerNodeTransform(o("WAWebMentionNode").MentionNode, f);
             return function () {
-              (e(), r());
+              (e(), t());
             };
-          },
-          [a, n, t],
-        ),
+          }),
+          (u = [i, r, n]),
+          (t[0] = n),
+          (t[1] = i),
+          (t[2] = r),
+          (t[3] = l),
+          (t[4] = u))
+        : ((l = t[3]), (u = t[4])),
+        s(l, u));
+      var c;
+      return (
+        t[5] !== i
+          ? ((c = function () {
+              var e = i.getEditorState().read(_);
+              return e
+                ? (i.update(function () {
+                    return e.remove();
+                  }),
+                  !0)
+                : !1;
+            }),
+            (t[5] = i),
+            (t[6] = c))
+          : (c = t[6]),
         o("useWAWebLexicalEvent").useLexicalCommandListener(
-          a,
+          i,
           o("Lexical").KEY_BACKSPACE_COMMAND,
-          function () {
-            var e = a.getEditorState().read(function () {
-              var e = o("WAWebLexicalUtils").$getRangeSelection();
-              if (!(!e || !e.isCollapsed())) {
-                var t = e.anchor,
-                  n = t.getNode(),
-                  r = t.offset === t.getNode().getTextContentSize();
-                if (r && n instanceof o("WAWebMentionNode").MentionNode)
-                  return n;
-              }
-            });
-            return e
-              ? (a.update(function () {
-                  return e.remove();
-                }),
-                !0)
-              : !1;
-          },
+          c,
         ),
         null
       );
     }
-    function _(e, t) {
+    function _() {
+      var e = o("WAWebLexicalUtils").$getRangeSelection();
+      if (!(!e || !e.isCollapsed())) {
+        var t = e.anchor,
+          n = t.getNode(),
+          r = t.offset === t.getNode().getTextContentSize();
+        if (r && n instanceof o("WAWebMentionNode").MentionNode) return n;
+      }
+    }
+    function f(e) {
+      m(e);
+    }
+    function g(e, t) {
       var n;
       if (
         o("WAWebMiscGatingUtils").isDropLastNameEnabled() &&

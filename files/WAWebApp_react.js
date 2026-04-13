@@ -92,6 +92,7 @@ __d(
     "cr:17219",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l, s, u, c) {
@@ -1194,9 +1195,15 @@ __d(
       })(A),
       ee = o("WAWebListenerHoc_DEPRECATED").ListenerHOC(Z);
     function te() {
-      return M.jsx(ee, {});
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = M.jsx(ee, {})), (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    te.displayName = te.name + " [from " + i.id + "]";
     function ne() {
       return re.apply(this, arguments);
     }

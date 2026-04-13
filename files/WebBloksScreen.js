@@ -69,6 +69,7 @@ __d(
           (this.value = { state: "loading" }),
           (this.stateChangeListener = new (o("WebBloksUtils").EventEmitter)()),
           (this.dismissed = !1),
+          (this.savedScrollY = 0),
           (this.objectSet = e),
           (this.options = t),
           (this.params = n),

@@ -30,6 +30,7 @@ __d(
     "WAWebToastManager",
     "WAWebWidToJid",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizBroadcastBillingInfo",
     "useWAWebBizBroadcastCheckout",
     "useWAWebBizBroadcastDraftMessage",
@@ -435,36 +436,63 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.entryPoint,
-        n = e.onBack,
-        r = e.onOpenExistingAudiences,
-        a = e.onOpenImportAudience,
-        i = e.onOpenUpsertAudience,
-        l = e.onSendSuccess,
-        s = e.ref,
-        u = e.selectedChats,
-        c = e.setSelectedChats,
-        d = e.title;
-      return m.jsx(
-        o("WAWebBizBroadcastBusinessInfoContext.react")
-          .WAWebBizBroadcastBusinessInfoProvider,
-        {
-          children: m.jsx(b, {
-            entryPoint: t,
-            innerRef: s,
-            onBack: n,
-            onOpenExistingAudiences: r,
-            onOpenImportAudience: a,
-            onOpenUpsertAudience: i,
-            onSendSuccess: l,
-            selectedChats: u,
-            setSelectedChats: c,
-            title: d,
-          }),
-        },
+      var t = o("react-compiler-runtime").c(11),
+        n = e.entryPoint,
+        r = e.onBack,
+        a = e.onOpenExistingAudiences,
+        i = e.onOpenImportAudience,
+        l = e.onOpenUpsertAudience,
+        s = e.onSendSuccess,
+        u = e.ref,
+        c = e.selectedChats,
+        d = e.setSelectedChats,
+        p = e.title,
+        _;
+      return (
+        t[0] !== n ||
+        t[1] !== r ||
+        t[2] !== a ||
+        t[3] !== i ||
+        t[4] !== l ||
+        t[5] !== s ||
+        t[6] !== u ||
+        t[7] !== c ||
+        t[8] !== d ||
+        t[9] !== p
+          ? ((_ = m.jsx(
+              o("WAWebBizBroadcastBusinessInfoContext.react")
+                .WAWebBizBroadcastBusinessInfoProvider,
+              {
+                children: m.jsx(b, {
+                  entryPoint: n,
+                  innerRef: u,
+                  onBack: r,
+                  onOpenExistingAudiences: a,
+                  onOpenImportAudience: i,
+                  onOpenUpsertAudience: l,
+                  onSendSuccess: s,
+                  selectedChats: c,
+                  setSelectedChats: d,
+                  title: p,
+                }),
+              },
+            )),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a),
+            (t[3] = i),
+            (t[4] = l),
+            (t[5] = s),
+            (t[6] = u),
+            (t[7] = c),
+            (t[8] = d),
+            (t[9] = p),
+            (t[10] = _))
+          : (_ = t[10]),
+        _
       );
     }
-    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = v));
+    l.default = v;
   },
   226,
 );

@@ -25,6 +25,7 @@ __d(
       ai_chat_meta_ai_banner_m2_enabled: [18784, "bool", !1, !0],
       ai_chat_meta_ai_glasses_banner_enabled: [20405, "bool", !1, !0],
       ai_genai_straw_hat: [28268, "bool", !1, !1],
+      ai_gizmo_integration_enabled: [28584, "bool", !1, !0],
       ai_group_call_add_in_call_ahgc_enabled: [24654, "bool", !1, !1],
       ai_group_call_max_version_by_country: [24656, "int", 0, 0],
       ai_group_call_max_version_by_platform: [24655, "int", 0, 0],
@@ -125,6 +126,7 @@ __d(
       ],
       device_switching_enabled: [3205, "bool", !1, !1],
       disable_libaom_registration: [23836, "bool", !1, !1],
+      disable_raise_hand_1on1: [27177, "bool", !1, !1],
       disclosure_for_the_marketing_message_body_links_enabled: [
         12994,
         "bool",
@@ -171,6 +173,7 @@ __d(
       enable_rate_app_prompt: [19894, "bool", !1, !1],
       enable_ring_for_gc_on_offer_expire: [10103, "bool", !1, !1],
       enable_schedule_call_from_calls_tab: [15213, "bool", !1, !1],
+      enable_setup_error_result_check: [28689, "bool", !1, !1],
       enable_sharing_files_from_web_windows_hybrid: [21184, "bool", !1, !0],
       enable_silent_offer: [3235, "bool", !1, !0],
       enable_tooltip_for_media_hub: [21535, "bool", !1, !1],
@@ -285,6 +288,7 @@ __d(
         !1,
         !0,
       ],
+      mm_disclosure_handle_tos_failures_enabled: [28572, "bool", !1, !1],
       mm_disclosure_learn_more_article_id: [
         25021,
         "string",
@@ -292,6 +296,12 @@ __d(
         "263784176043634",
       ],
       mm_optimized_delivery_app_cta_enabled: [22776, "bool", !1, !1],
+      mm_optimized_delivery_archive_signal_sharing_enabled: [
+        28558,
+        "bool",
+        !1,
+        !1,
+      ],
       mm_optimized_delivery_replacing_shimmed_links_enabled: [
         21782,
         "bool",

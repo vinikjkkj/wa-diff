@@ -12,6 +12,7 @@ __d(
     "WDSGlobalContext",
     "WDSIconIcAdd.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -165,163 +166,217 @@ __d(
         E.staggerRight5,
       ];
     function T(t) {
-      var n = t.disableAutoFocus,
-        a = n === void 0 ? !1 : n,
+      var n = o("react-compiler-runtime").c(28),
+        a = t.disableAutoFocus,
         i = t.isParentMsgSentByMe,
-        l = i === void 0 ? !1 : i,
-        u = t.reactions,
-        d = t.selectedCallback,
-        y = t.selectedIndex,
-        C = t.showMoreOption,
-        b = C === void 0 ? !1 : C,
+        l = t.reactions,
+        u = t.selectedCallback,
+        d = t.selectedIndex,
+        m = t.showMoreOption,
+        y = a === void 0 ? !1 : a,
+        C = i === void 0 ? !1 : i,
+        b = m === void 0 ? !1 : m,
         S = f(null),
         R = p(o("WDSGlobalContext").WDSContext),
         T = R.closeAllMenus,
-        D = o("WAWebReactionGatingUtils").isReactionsMotionV2Enabled(),
-        x = r("WAWebL10N").isRTL() ? l : !l,
-        $ = g(!1),
-        P = $[0],
-        N = $[1],
-        M = f(null);
-      _(
-        function () {
-          if (a !== !0) {
-            var e;
-            (e = S.current) == null || e.focusFirst();
-          }
-        },
-        [a],
-      );
-      var w = {
-          "shift+tab": function (t) {
-            (t.preventDefault(), t.stopPropagation());
-          },
-          tab: function (t) {
-            (t.preventDefault(), t.stopPropagation());
-          },
-        },
-        A = function () {
-          (o(
-            "WAWebReactionUserJourneyLogger",
-          ).ReactionUserJourneyLogger.searchOpen(),
-            T(),
-            d(h));
-        },
-        F = m(
-          function (e) {
-            var t = M.current;
-            t != null &&
-              e.animationName === v.toString() &&
-              ((M.current = null), d(t));
-          },
-          [d],
-        );
-      return c.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-        handlers: w,
-        tabIndex: null,
-        children: c.jsx(r("WAWebKeyboardRotateFocusArrows.react"), {
-          ref: S,
-          children: c.jsxs(
-            "div",
-            babelHelpers.extends(
-              { "data-menu-content": !0 },
-              (e || (e = r("stylex"))).props(
-                L.trayContainer,
-                D
-                  ? [
-                      L.trayContainerBackground,
-                      x
-                        ? L.trayContainerAnimateLeft
-                        : L.trayContainerAnimateRight,
-                      P && L.trayClosing,
-                    ]
-                  : L.trayContainerStatic,
-              ),
-              {
-                onAnimationEnd: P ? F : void 0,
-                children: [
-                  u.map(function (t, n) {
-                    var o,
-                      a = function () {
-                        if ((T(), D)) {
-                          ((M.current = t), N(!0));
-                          return;
-                        }
-                        d(t);
-                      },
-                      i = y != null && n === y,
-                      l = x ? k : I;
-                    return c.jsx(
-                      "div",
-                      babelHelpers.extends(
-                        {},
-                        D
-                          ? (e || (e = r("stylex"))).props(
-                              E.emojiItem,
-                              (o = l[n]) != null ? o : l[l.length - 1],
-                            )
-                          : void 0,
-                        {
-                          "data-testid": void 0,
-                          children: c.jsx(
-                            r("WDSButton.react"),
-                            {
-                              Icon: r("WAWebCreateEmojiIcon")(t),
-                              variant: "borderless",
-                              onPress: a,
-                              testid: void 0,
-                              "aria-pressed": i,
-                              xstyle: i && L.selectedButton,
-                            },
-                            n,
-                          ),
-                        },
-                      ),
-                      n,
-                    );
-                  }),
-                  b &&
-                    (D
-                      ? c.jsx(
-                          "div",
-                          babelHelpers.extends(
-                            {},
-                            {
-                              0: {
-                                className:
-                                  "xg01cxk x10e4vud x1x7npyb x1e3411s x1ci4q39 x1ooo47y",
-                              },
-                              1: {
-                                className:
-                                  "xg01cxk x10e4vud x1fbm1x7 x1e3411s x1ci4q39 x1ooo47y",
-                              },
-                            }[!!x << 0],
-                            {
-                              children: c.jsx(r("WDSButton.react"), {
-                                Icon: r("WDSIconIcAdd.react"),
-                                variant: "borderless",
-                                onPress: A,
-                                "aria-label": s._(/*BTDS*/ "More reactions"),
-                                testid: void 0,
-                              }),
-                            },
-                          ),
-                        )
-                      : c.jsx(r("WDSButton.react"), {
-                          Icon: r("WDSIconIcAdd.react"),
-                          variant: "borderless",
-                          onPress: A,
-                          "aria-label": s._(/*BTDS*/ "More reactions"),
-                          testid: void 0,
-                        })),
-                ],
+        $;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = o("WAWebReactionGatingUtils").isReactionsMotionV2Enabled()),
+          (n[0] = $))
+        : ($ = n[0]);
+      var P = $,
+        N = r("WAWebL10N").isRTL() ? C : !C,
+        M = g(!1),
+        w = M[0],
+        A = M[1],
+        F = f(null),
+        O,
+        B;
+      (n[1] !== y
+        ? ((O = function () {
+            if (y !== !0) {
+              var e;
+              (e = S.current) == null || e.focusFirst();
+            }
+          }),
+          (B = [y]),
+          (n[1] = y),
+          (n[2] = O),
+          (n[3] = B))
+        : ((O = n[2]), (B = n[3])),
+        _(O, B));
+      var W;
+      n[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((W = { "shift+tab": x, tab: D }), (n[4] = W))
+        : (W = n[4]);
+      var q = W,
+        U;
+      n[5] !== T || n[6] !== u
+        ? ((U = function () {
+            (o(
+              "WAWebReactionUserJourneyLogger",
+            ).ReactionUserJourneyLogger.searchOpen(),
+              T(),
+              u(h));
+          }),
+          (n[5] = T),
+          (n[6] = u),
+          (n[7] = U))
+        : (U = n[7]);
+      var V = U,
+        H;
+      n[8] !== u
+        ? ((H = function (t) {
+            var e = F.current;
+            e != null &&
+              t.animationName === v.toString() &&
+              ((F.current = null), u(e));
+          }),
+          (n[8] = u),
+          (n[9] = H))
+        : (H = n[9]);
+      var G = H,
+        z;
+      n[10] !== N || n[11] !== w
+        ? ((z = (e || (e = r("stylex"))).props(
+            L.trayContainer,
+            P
+              ? [
+                  L.trayContainerBackground,
+                  N ? L.trayContainerAnimateLeft : L.trayContainerAnimateRight,
+                  w && L.trayClosing,
+                ]
+              : L.trayContainerStatic,
+          )),
+          (n[10] = N),
+          (n[11] = w),
+          (n[12] = z))
+        : (z = n[12]);
+      var j = w ? G : void 0,
+        K;
+      n[13] !== N || n[14] !== T || n[15] !== l || n[16] !== u || n[17] !== d
+        ? ((K = l.map(function (t, n) {
+            var o,
+              a = function () {
+                if ((T(), P)) {
+                  ((F.current = t), A(!0));
+                  return;
+                }
+                u(t);
               },
-            ),
-          ),
-        }),
-      });
+              i = d != null && n === d,
+              l = N ? k : I;
+            return c.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                P
+                  ? (e || (e = r("stylex"))).props(
+                      E.emojiItem,
+                      (o = l[n]) != null ? o : l[l.length - 1],
+                    )
+                  : void 0,
+                {
+                  "data-testid": void 0,
+                  children: c.jsx(
+                    r("WDSButton.react"),
+                    {
+                      Icon: r("WAWebCreateEmojiIcon")(t),
+                      variant: "borderless",
+                      onPress: a,
+                      testid: void 0,
+                      "aria-pressed": i,
+                      xstyle: i && L.selectedButton,
+                    },
+                    n,
+                  ),
+                },
+              ),
+              n,
+            );
+          })),
+          (n[13] = N),
+          (n[14] = T),
+          (n[15] = l),
+          (n[16] = u),
+          (n[17] = d),
+          (n[18] = K))
+        : (K = n[18]);
+      var Q;
+      n[19] !== N || n[20] !== V || n[21] !== b
+        ? ((Q =
+            b &&
+            (P
+              ? c.jsx(
+                  "div",
+                  babelHelpers.extends(
+                    {},
+                    {
+                      0: {
+                        className:
+                          "xg01cxk x10e4vud x1x7npyb x1e3411s x1ci4q39 x1ooo47y",
+                      },
+                      1: {
+                        className:
+                          "xg01cxk x10e4vud x1fbm1x7 x1e3411s x1ci4q39 x1ooo47y",
+                      },
+                    }[!!N << 0],
+                    {
+                      children: c.jsx(r("WDSButton.react"), {
+                        Icon: r("WDSIconIcAdd.react"),
+                        variant: "borderless",
+                        onPress: V,
+                        "aria-label": s._(/*BTDS*/ "More reactions"),
+                        testid: void 0,
+                      }),
+                    },
+                  ),
+                )
+              : c.jsx(r("WDSButton.react"), {
+                  Icon: r("WDSIconIcAdd.react"),
+                  variant: "borderless",
+                  onPress: V,
+                  "aria-label": s._(/*BTDS*/ "More reactions"),
+                  testid: void 0,
+                }))),
+          (n[19] = N),
+          (n[20] = V),
+          (n[21] = b),
+          (n[22] = Q))
+        : (Q = n[22]);
+      var X;
+      return (
+        n[23] !== z || n[24] !== j || n[25] !== K || n[26] !== Q
+          ? ((X = c.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+              handlers: q,
+              tabIndex: null,
+              children: c.jsx(r("WAWebKeyboardRotateFocusArrows.react"), {
+                ref: S,
+                children: c.jsxs(
+                  "div",
+                  babelHelpers.extends({ "data-menu-content": !0 }, z, {
+                    onAnimationEnd: j,
+                    children: [K, Q],
+                  }),
+                ),
+              }),
+            })),
+            (n[23] = z),
+            (n[24] = j),
+            (n[25] = K),
+            (n[26] = Q),
+            (n[27] = X))
+          : (X = n[27]),
+        X
+      );
     }
-    ((T.displayName = T.name + " [from " + i.id + "]"), (l.default = T));
+    function D(e) {
+      (e.preventDefault(), e.stopPropagation());
+    }
+    function x(e) {
+      (e.preventDefault(), e.stopPropagation());
+    }
+    l.default = T;
   },
   226,
 );

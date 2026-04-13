@@ -4,20 +4,19 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = s || (s = r("react")),
-      c = (e || (e = o("react"))).useContext,
-      d = "x1wwg65c-B",
-      m = "x1vm5b0x-B",
-      p = "x1xe9l1o-B",
-      _ = "x1jn504y-B",
-      f = 260,
-      g = { maxWidth: "xf68679", $$css: !0 },
-      h = { minWidth: "xkj4a21", $$css: !0 },
-      y = { minHeight: "x82snj4", $$css: !0 },
-      C = { maxHeight: "x1jols5v", $$css: !0 },
-      b = { transformOrigin: "xf6vlc6", $$css: !0 },
-      v = {
+      s = e || (e = o("react")),
+      u = e.useContext,
+      c = "x1wwg65c-B",
+      d = "x1vm5b0x-B",
+      m = "x1xe9l1o-B",
+      p = "x1jn504y-B",
+      _ = 260,
+      f = { maxWidth: "xf68679", $$css: !0 },
+      g = { minWidth: "xkj4a21", $$css: !0 },
+      h = { minHeight: "x82snj4", $$css: !0 },
+      y = { maxHeight: "x1jols5v", $$css: !0 },
+      C = { transformOrigin: "xf6vlc6", $$css: !0 },
+      b = {
         container: {
           display: "x78zum5",
           flexDirection: "xdt5ytf",
@@ -55,7 +54,7 @@ __d(
         },
         containerMaxWidth: function (t) {
           return [
-            g,
+            f,
             {
               "--x-maxWidth": (function (e) {
                 return typeof e == "number" ? e + "px" : e != null ? e : void 0;
@@ -65,7 +64,7 @@ __d(
         },
         containerMinWidth: function (t) {
           return [
-            h,
+            g,
             {
               "--x-minWidth": (function (e) {
                 return typeof e == "number" ? e + "px" : e != null ? e : void 0;
@@ -75,7 +74,7 @@ __d(
         },
         containerMinHeight: function (t) {
           return [
-            y,
+            h,
             {
               "--x-minHeight": (function (e) {
                 return typeof e == "number" ? e + "px" : e != null ? e : void 0;
@@ -85,7 +84,7 @@ __d(
         },
         containerMaxHeight: function (t) {
           return [
-            C,
+            y,
             {
               "--x-maxHeight": (function (e) {
                 return typeof e == "number" ? e + "px" : e != null ? e : void 0;
@@ -97,7 +96,7 @@ __d(
         positionBelow: { animationName: "x65gd29", $$css: !0 },
         transformOrigin: function (t, n) {
           return [
-            b,
+            C,
             {
               "--x-transformOrigin": (function (e) {
                 return typeof e == "number" ? e + "px" : e != null ? e : void 0;
@@ -132,25 +131,25 @@ __d(
           $$css: !0,
         },
       },
-      S = function (t) {
+      v = function (t) {
         (t.preventDefault(), t.stopPropagation());
       };
-    function R(e) {
+    function S(e) {
       var t = e.children,
         n = e.isContainer,
         a = n === void 0 ? !1 : n,
         i = e.isHorizontalMenu,
         l = i === void 0 ? !1 : i,
-        s = e.maxHeight,
+        c = e.maxHeight,
         d = e.maxWidth,
         m = e.minHeight,
         p = e.minWidth,
-        _ = e.testid,
+        f = e.testid,
         g = e.useMaxWidth,
         h = g === void 0 ? !0 : g,
-        y = c(o("WDSMenuContext").WDSMenuAnimationContext),
+        y = u(o("WDSMenuContext").WDSMenuAnimationContext),
         C = y.align,
-        b = y.isClosing,
+        S = y.isClosing,
         R = y.position,
         L = "center";
       C === "start" ? (L = "left") : C === "end" && (L = "right");
@@ -158,43 +157,43 @@ __d(
       return (
         R === "above" ? (E = "bottom") : R === "below" && (E = "top"),
         l
-          ? u.jsx(o("react-strict-dom").html.div, {
-              onContextMenu: S,
+          ? s.jsx(o("react-strict-dom").html.div, {
+              onContextMenu: v,
               role: "menu",
               style: [
-                v.container,
-                v.containerHorizontal,
-                d != null && v.containerMaxWidth(d),
-                v.transformOrigin(L, E),
-                R === "above" && v.positionAbove,
-                R === "below" && v.positionBelow,
-                b && v.containerExiting,
+                b.container,
+                b.containerHorizontal,
+                d != null && b.containerMaxWidth(d),
+                b.transformOrigin(L, E),
+                R === "above" && b.positionAbove,
+                R === "below" && b.positionBelow,
+                S && b.containerExiting,
               ],
               "data-testid": void 0,
               children: t,
             })
-          : u.jsx(o("react-strict-dom").html.div, {
-              onContextMenu: S,
-              children: u.jsx(r("BaseMenu.react"), {
+          : s.jsx(o("react-strict-dom").html.div, {
+              onContextMenu: v,
+              children: s.jsx(r("BaseMenu.react"), {
                 testid: void 0,
                 minMaxHeight: 360,
                 useKeyCommands: !1,
                 variant: {
                   xstyleConfig: {
                     container: [
-                      v.container,
-                      h && d == null && v.containerMaxWidth(f),
-                      d != null && v.containerMaxWidth(d),
-                      p != null && v.containerMinWidth(p),
-                      m != null && v.containerMinHeight(m),
-                      s != null && v.containerMaxHeight(s),
-                      s != null && v.scrollableAreaWithMaxHeight,
-                      v.transformOrigin(L, E),
-                      R === "above" && v.positionAbove,
-                      R === "below" && v.positionBelow,
-                      b && v.containerExiting,
+                      b.container,
+                      h && d == null && b.containerMaxWidth(_),
+                      d != null && b.containerMaxWidth(d),
+                      p != null && b.containerMinWidth(p),
+                      m != null && b.containerMinHeight(m),
+                      c != null && b.containerMaxHeight(c),
+                      c != null && b.scrollableAreaWithMaxHeight,
+                      b.transformOrigin(L, E),
+                      R === "above" && b.positionAbove,
+                      R === "below" && b.positionBelow,
+                      S && b.containerExiting,
                     ],
-                    scrollableArea: v.scrollableArea,
+                    scrollableArea: b.scrollableArea,
                   },
                 },
                 children: t,
@@ -202,7 +201,7 @@ __d(
             })
       );
     }
-    ((R.displayName = R.name + " [from " + i.id + "]"), (l.default = R));
+    ((S.displayName = S.name + " [from " + i.id + "]"), (l.default = S));
   },
   98,
 );

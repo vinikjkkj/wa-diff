@@ -11,6 +11,7 @@ __d(
     "WAWebUserPrefsTypes",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -93,21 +94,21 @@ __d(
       }
     }
     function m() {
-      var e = function () {
-          o("WAWebModalManager").ModalManager.open(
-            u.jsx(
-              o("WAWebReachoutTimelockRestrictedModalLoadable")
-                .ReachoutTimelockRestrictedModalLoadable,
-              {},
-            ),
+      var e = o("react-compiler-runtime").c(2),
+        t = p,
+        n,
+        a;
+      if (e[0] === Symbol.for("react.memo_cache_sentinel")) {
+        a = Symbol.for("react.early_return_sentinel");
+        e: {
+          var i = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+            o("WAWebReachoutTimelockUtils").REACHOUT_TIMELOCK_IDB_KEY,
           );
-        },
-        t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-          o("WAWebReachoutTimelockUtils").REACHOUT_TIMELOCK_IDB_KEY,
-        );
-      return t == null
-        ? null
-        : u.jsx(o("WAWebFlex.react").FlexRow, {
+          if (i == null) {
+            a = null;
+            break e;
+          }
+          n = u.jsx(o("WAWebFlex.react").FlexRow, {
             testid: void 0,
             justify: "start",
             align: "center",
@@ -115,12 +116,24 @@ __d(
             children: u.jsx(r("WDSText.react"), {
               type: "Body2",
               colorName: "contentDeemphasized",
-              children: d(t.enforcement_type, e),
+              children: d(i.enforcement_type, t),
             }),
           });
+        }
+        ((e[0] = n), (e[1] = a));
+      } else ((n = e[0]), (a = e[1]));
+      return a !== Symbol.for("react.early_return_sentinel") ? a : n;
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"),
-      (l.ReachoutTimelockComposeBar = m));
+    function p() {
+      o("WAWebModalManager").ModalManager.open(
+        u.jsx(
+          o("WAWebReachoutTimelockRestrictedModalLoadable")
+            .ReachoutTimelockRestrictedModalLoadable,
+          {},
+        ),
+      );
+    }
+    l.ReachoutTimelockComposeBar = m;
   },
   226,
 );

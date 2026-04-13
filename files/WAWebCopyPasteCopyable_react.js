@@ -8,6 +8,7 @@ __d(
     "WAWebURLUtils",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,67 +47,206 @@ __d(
       });
     }
     function k(e) {
-      return m.jsx("code", babelHelpers.extends({}, F(e)));
-    }
-    k.displayName = k.name + " [from " + i.id + "]";
-    function I(e) {
-      return m.jsx("del", babelHelpers.extends({}, F(e)));
-    }
-    I.displayName = I.name + " [from " + i.id + "]";
-    function T(e) {
-      return m.jsx("div", babelHelpers.extends({}, F(e)));
-    }
-    T.displayName = T.name + " [from " + i.id + "]";
-    function D(e) {
-      return m.jsx("em", babelHelpers.extends({}, F(e)));
-    }
-    D.displayName = D.name + " [from " + i.id + "]";
-    function x(t) {
-      var n,
-        r = t.ref,
-        o = t.forwardedRef,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        i = F(a);
-      return m.jsx(
-        "img",
-        babelHelpers.extends({ ref: o != null ? o : r }, i, {
-          tabIndex: i.onClick ? 0 : -1,
-          alt: (n = i.alt) != null ? n : "",
-        }),
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] !== e ? ((n = F(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var r;
+      return (
+        t[2] !== n
+          ? ((r = m.jsx("code", babelHelpers.extends({}, n))),
+            (t[2] = n),
+            (t[3] = r))
+          : (r = t[3]),
+        r
       );
     }
-    x.displayName = x.name + " [from " + i.id + "]";
+    function I(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] !== e ? ((n = F(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var r;
+      return (
+        t[2] !== n
+          ? ((r = m.jsx("del", babelHelpers.extends({}, n))),
+            (t[2] = n),
+            (t[3] = r))
+          : (r = t[3]),
+        r
+      );
+    }
+    function T(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] !== e ? ((n = F(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var r;
+      return (
+        t[2] !== n
+          ? ((r = m.jsx("div", babelHelpers.extends({}, n))),
+            (t[2] = n),
+            (t[3] = r))
+          : (r = t[3]),
+        r
+      );
+    }
+    function D(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] !== e ? ((n = F(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var r;
+      return (
+        t[2] !== n
+          ? ((r = m.jsx("em", babelHelpers.extends({}, n))),
+            (t[2] = n),
+            (t[3] = r))
+          : (r = t[3]),
+        r
+      );
+    }
+    function x(t) {
+      var n,
+        r = o("react-compiler-runtime").c(9),
+        a,
+        i,
+        l;
+      if (r[0] !== t) {
+        var s = t.ref,
+          u = t.forwardedRef,
+          c = babelHelpers.objectWithoutPropertiesLoose(t, e);
+        ((i = s),
+          (a = u),
+          (l = F(c)),
+          (r[0] = t),
+          (r[1] = a),
+          (r[2] = i),
+          (r[3] = l));
+      } else ((a = r[1]), (i = r[2]), (l = r[3]));
+      var d = l,
+        p = a != null ? a : i,
+        _ = d.onClick ? 0 : -1,
+        f = (n = d.alt) != null ? n : "",
+        g;
+      return (
+        r[4] !== d || r[5] !== p || r[6] !== _ || r[7] !== f
+          ? ((g = m.jsx(
+              "img",
+              babelHelpers.extends({ ref: p }, d, { tabIndex: _, alt: f }),
+            )),
+            (r[4] = d),
+            (r[5] = p),
+            (r[6] = _),
+            (r[7] = f),
+            (r[8] = g))
+          : (g = r[8]),
+        g
+      );
+    }
     function $(e) {
-      var t = F(e),
-        n = t.href;
-      return !r("isStringNullOrEmpty")(n) &&
-        !r("WAWebURLUtils").hasValidUrlScheme(n)
-        ? m.jsx("span", {})
-        : m.jsx(
-            o("WAWebExternalLink.react").ExternalLinkEl,
-            babelHelpers.extends({}, t),
-          );
+      var t = o("react-compiler-runtime").c(6),
+        n,
+        a;
+      if (t[0] !== e) {
+        n = F(e);
+        var i = n.href;
+        ((a =
+          !r("isStringNullOrEmpty")(i) &&
+          !r("WAWebURLUtils").hasValidUrlScheme(i)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = a));
+      } else ((n = t[1]), (a = t[2]));
+      if (a) {
+        var l;
+        return (
+          t[3] === Symbol.for("react.memo_cache_sentinel")
+            ? ((l = m.jsx("span", {})), (t[3] = l))
+            : (l = t[3]),
+          l
+        );
+      }
+      var s;
+      return (
+        t[4] !== n
+          ? ((s = m.jsx(
+              o("WAWebExternalLink.react").ExternalLinkEl,
+              babelHelpers.extends({}, n),
+            )),
+            (t[4] = n),
+            (t[5] = s))
+          : (s = t[5]),
+        s
+      );
     }
-    $.displayName = $.name + " [from " + i.id + "]";
     function P(e) {
-      return m.jsx("span", babelHelpers.extends({}, F(e)));
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] !== e ? ((n = F(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var r;
+      return (
+        t[2] !== n
+          ? ((r = m.jsx("span", babelHelpers.extends({}, n))),
+            (t[2] = n),
+            (t[3] = r))
+          : (r = t[3]),
+        r
+      );
     }
-    P.displayName = P.name + " [from " + i.id + "]";
     function N(e) {
-      return m.jsx("strong", babelHelpers.extends({}, F(e)));
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] !== e ? ((n = F(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var r;
+      return (
+        t[2] !== n
+          ? ((r = m.jsx("strong", babelHelpers.extends({}, n))),
+            (t[2] = n),
+            (t[3] = r))
+          : (r = t[3]),
+        r
+      );
     }
-    N.displayName = N.name + " [from " + i.id + "]";
     function M(e) {
-      return m.jsx("blockquote", babelHelpers.extends({}, F(e)));
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] !== e ? ((n = F(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var r;
+      return (
+        t[2] !== n
+          ? ((r = m.jsx("blockquote", babelHelpers.extends({}, n))),
+            (t[2] = n),
+            (t[3] = r))
+          : (r = t[3]),
+        r
+      );
     }
-    M.displayName = M.name + " [from " + i.id + "]";
     function w(e) {
-      var t = e.element,
-        n = e.ref,
-        r = babelHelpers.objectWithoutPropertiesLoose(e, s);
-      return m.jsx(t, babelHelpers.extends({}, F(r), { ref: n }));
+      var t = o("react-compiler-runtime").c(8),
+        n,
+        r,
+        a;
+      if (t[0] !== e) {
+        var i = e.element,
+          l = e.ref,
+          u = babelHelpers.objectWithoutPropertiesLoose(e, s);
+        ((r = l),
+          (n = i),
+          (a = F(u)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r),
+          (t[3] = a));
+      } else ((n = t[1]), (r = t[2]), (a = t[3]));
+      var c;
+      return (
+        t[4] !== n || t[5] !== r || t[6] !== a
+          ? ((c = m.jsx(n, babelHelpers.extends({}, a, { ref: r }))),
+            (t[4] = n),
+            (t[5] = r),
+            (t[6] = a),
+            (t[7] = c))
+          : (c = t[7]),
+        c
+      );
     }
-    w.displayName = w.name + " [from " + i.id + "]";
     var A = w;
     function F(e) {
       var t = e.appTextTemplate,

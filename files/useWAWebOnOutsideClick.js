@@ -1,6 +1,6 @@
 __d(
   "useWAWebOnOutsideClick",
-  ["react"],
+  ["react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -12,61 +12,71 @@ __d(
       return (p(t, e), t);
     }
     function p(e, t) {
-      var n = c(!1),
-        r = d(!1),
-        o = r[0],
-        a = r[1];
-      u(
-        function () {
-          if (t == null || o) return;
-          function r(t) {
-            var n = e.current;
-            return n ? t instanceof Node && !n.contains(t) : !1;
-          }
-          function i(e) {
-            if (e.isPrimary) {
-              var t = r(e.target);
-              n.current = t;
+      var n = o("react-compiler-runtime").c(5),
+        r = c(!1),
+        a = d(!1),
+        i = a[0],
+        l = a[1],
+        s,
+        m;
+      (n[0] !== e || n[1] !== i || n[2] !== t
+        ? ((s = function () {
+            if (!(t == null || i)) {
+              var n = function (n) {
+                  var t = e.current;
+                  return t ? n instanceof Node && !t.contains(n) : !1;
+                },
+                o = function (t) {
+                  if (t.isPrimary) {
+                    var e = n(t.target);
+                    r.current = e;
+                  }
+                },
+                a = function (t) {
+                  (t.pointerType === "touch" || t.pointerType === "pen") &&
+                    (r.current = !1);
+                },
+                s = function (o) {
+                  var e = n(o.target);
+                  (r.current &&
+                    e &&
+                    o.isPrimary &&
+                    t(o, function () {
+                      return l(!0);
+                    }),
+                    (r.current = !1));
+                },
+                u = function (r) {
+                  n(r.target) &&
+                    t(r, function () {
+                      return l(!0);
+                    });
+                },
+                c = "PointerEvent" in window;
+              return (
+                c
+                  ? (document.addEventListener("pointerdown", o),
+                    document.addEventListener("pointermove", a),
+                    document.addEventListener("pointerup", s))
+                  : document.addEventListener("click", u),
+                function () {
+                  c
+                    ? (document.removeEventListener("pointerdown", o),
+                      document.removeEventListener("pointermove", a),
+                      document.removeEventListener("pointerup", s))
+                    : document.removeEventListener("click", u);
+                }
+              );
             }
-          }
-          function l(e) {
-            (e.pointerType === "touch" || e.pointerType === "pen") &&
-              (n.current = !1);
-          }
-          function s(e) {
-            var o = r(e.target);
-            (n.current &&
-              o &&
-              e.isPrimary &&
-              t(e, function () {
-                return a(!0);
-              }),
-              (n.current = !1));
-          }
-          function u(e) {
-            r(e.target) &&
-              t(e, function () {
-                return a(!0);
-              });
-          }
-          var c = "PointerEvent" in window;
-          return (
-            c
-              ? (document.addEventListener("pointerdown", i),
-                document.addEventListener("pointermove", l),
-                document.addEventListener("pointerup", s))
-              : document.addEventListener("click", u),
-            function () {
-              c
-                ? (document.removeEventListener("pointerdown", i),
-                  document.removeEventListener("pointermove", l),
-                  document.removeEventListener("pointerup", s))
-                : document.removeEventListener("click", u);
-            }
-          );
-        },
-        [t, e, o],
-      );
+          }),
+          (m = [t, e, i]),
+          (n[0] = e),
+          (n[1] = i),
+          (n[2] = t),
+          (n[3] = s),
+          (n[4] = m))
+        : ((s = n[3]), (m = n[4])),
+        u(s, m));
     }
     ((l.useOnOutsideClickRef = m), (l.useOnOutsideClick = p));
   },

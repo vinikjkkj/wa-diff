@@ -7,6 +7,7 @@ __d(
     "WAWebL10N",
     "WAWebRoundXInvIcon.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -21,39 +22,67 @@ __d(
         },
       };
     function d(e) {
-      var t = r("WAWebL10N").isRTL();
-      return u.jsx("div", {
-        className:
-          "x1xrf6ya xcldk2z xa0aww2 x1phvje8 x178xt8z x13fuv20 xx42vgk",
-        children: u.jsx(o("WAWebFlex.react").FlexRow, {
-          align: "start",
-          justify: "start",
-          wrap: "wrap",
-          children: e.categories.map(function (n) {
-            var a = function () {
-              return e.onRemoveItem(n.id);
+      var t = o("react-compiler-runtime").c(6),
+        n;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = r("WAWebL10N").isRTL()), (t[0] = n))
+        : (n = t[0]);
+      var a = n,
+        i;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = {
+            className:
+              "x1xrf6ya xcldk2z xa0aww2 x1phvje8 x178xt8z x13fuv20 xx42vgk",
+          }),
+          (t[1] = i))
+        : (i = t[1]);
+      var l;
+      t[2] !== e
+        ? ((l = e.categories.map(function (t) {
+            var n = function () {
+              return e.onRemoveItem(t.id);
             };
             return u.jsx(
               r("WAWebChipButton.react"),
               {
                 "aria-label": s._(/*BTDS*/ "Unselect category"),
-                onClick: a,
-                label: n.localized_display_name,
-                PostfixIcon: t
+                onClick: n,
+                label: t.localized_display_name,
+                PostfixIcon: a
                   ? void 0
                   : o("WAWebRoundXInvIcon.react").RoundXInvIcon,
-                PrefixIcon: t
+                PrefixIcon: a
                   ? o("WAWebRoundXInvIcon.react").RoundXInvIcon
                   : void 0,
                 xstyle: c.chip,
               },
-              n.id.toString(),
+              t.id.toString(),
             );
-          }),
-        }),
-      });
+          })),
+          (t[2] = e),
+          (t[3] = l))
+        : (l = t[3]);
+      var d;
+      return (
+        t[4] !== l
+          ? ((d = u.jsx(
+              "div",
+              babelHelpers.extends({}, i, {
+                children: u.jsx(o("WAWebFlex.react").FlexRow, {
+                  align: "start",
+                  justify: "start",
+                  wrap: "wrap",
+                  children: l,
+                }),
+              }),
+            )),
+            (t[4] = l),
+            (t[5] = d))
+          : (d = t[5]),
+        d
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   226,
 );

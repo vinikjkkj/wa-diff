@@ -17,6 +17,7 @@ __d(
     "WDSColorStyles.stylex",
     "WDSIconWdsIcPipExitTopRightToBottomLeft.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebEventTargetValue",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -60,157 +61,229 @@ __d(
         n,
         a,
         i,
-        l = e.msg,
-        p = l != null ? o("WAWebFrontendMsgGetters").getChat(l) : null,
-        _ =
+        l = o("react-compiler-runtime").c(27),
+        c = e.msg,
+        p;
+      l[0] !== c
+        ? ((p = c != null ? o("WAWebFrontendMsgGetters").getChat(c) : null),
+          (l[0] = c),
+          (l[1] = p))
+        : (p = l[1]);
+      var g = p,
+        h =
           (t = r("WAWebCallCollection").activeCall) == null
             ? void 0
             : t.callLinkCreatorJid,
-        f =
+        y =
           (n =
             (a = r("WAWebCallCollection").activeCall) == null
               ? void 0
               : a.isCallLink) != null
             ? n
             : !1,
-        g = c(
-          function () {
-            if (!f || _ == null) return null;
-            var e = o("WAWebContactCollection").ContactCollection.get(_);
-            return e != null
-              ? o("WAWebFrontendContactGetters").getDisplayName(e)
-              : null;
-          },
-          [f, _],
-        ),
-        h = r("useWAWebEventTargetValue")(
+        C;
+      e: {
+        if (!y || h == null) {
+          C = null;
+          break e;
+        }
+        var b;
+        if (l[2] === Symbol.for("react.memo_cache_sentinel")) {
+          var v = o("WAWebContactCollection").ContactCollection.get(h);
+          ((b =
+            v != null
+              ? o("WAWebFrontendContactGetters").getDisplayName(v)
+              : null),
+            (l[2] = b));
+        } else b = l[2];
+        C = b;
+      }
+      var S = C,
+        R = r("useWAWebEventTargetValue")(
           r("WAWebCallCollection").activeCall,
           "change:state",
-          function () {
-            var e;
-            return (e = r("WAWebCallCollection").activeCall) == null
-              ? void 0
-              : e.getState();
-          },
+          f,
         ),
-        y =
-          h === o("WAWebVoipWaCallEnums").CallState.Calling ||
-          h === o("WAWebVoipWaCallEnums").CallState.PreacceptReceived,
-        C = r("useWAWebEventTargetValue")(
-          r("WAWebCallCollection").activeCall,
-          o("WAWebVoipEventConstants").getChangeEvent(
+        L =
+          R === o("WAWebVoipWaCallEnums").CallState.Calling ||
+          R === o("WAWebVoipWaCallEnums").CallState.PreacceptReceived,
+        E;
+      l[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = o("WAWebVoipEventConstants").getChangeEvent(
             o("WAWebVoipEventConstants").VoipCallModelEvents
               .GROUP_CALL_PARTICIPANT_STATES,
-          ),
-          function () {
-            var e, t;
-            return [
-              (e =
-                (t = r("WAWebCallCollection").activeCall) == null
-                  ? void 0
-                  : t.groupCallParticipants) != null
-                ? e
-                : [],
-            ];
-          },
+          )),
+          (l[3] = E))
+        : (E = l[3]);
+      var k = r("useWAWebEventTargetValue")(
+          r("WAWebCallCollection").activeCall,
+          E,
+          _,
         ),
-        b = C[0],
-        v = c(
-          function () {
-            return o(
-              "WAWebOutgoingGroupCallUtils",
-            ).getOutgoingGroupCallNameOverride(y, b);
-          },
-          [y, b],
-        ),
-        S = c(
-          function () {
-            return o(
-              "WAWebOutgoingGroupCallUtils",
-            ).getOutgoingGroupCallParticipants(y, b);
-          },
-          [y, b],
-        ),
-        R = c(
-          function () {
-            return o(
-              "WAWebOutgoingGroupCallUtils",
-            ).getAdHocGroupCallNameOverride(b);
-          },
-          [b],
-        ),
-        L = c(
-          function () {
-            return o(
-              "WAWebOutgoingGroupCallUtils",
-            ).getAdHocGroupCallParticipants(b);
-          },
-          [b],
-        ),
-        E = v != null ? v : R,
-        k = S != null ? S : L,
-        I = s._(/*BTDS*/ "Viewing in another window"),
-        T = (i = p == null ? void 0 : p.id) != null ? i : f ? _ : null,
-        D =
-          f && g != null
-            ? s._(/*BTDS*/ "{name}'s link", [s._param("name", g)])
-            : null,
+        I = k[0],
+        T;
+      l[4] !== I || l[5] !== L
+        ? ((T = o(
+            "WAWebOutgoingGroupCallUtils",
+          ).getOutgoingGroupCallNameOverride(L, I)),
+          (l[4] = I),
+          (l[5] = L),
+          (l[6] = T))
+        : (T = l[6]);
+      var D = T,
         x;
-      return (
-        k != null && k.length > 1
-          ? (x = u.jsx(r("WAWebOutgoingGroupCallParticipantInfo.react"), {
-              callStateText: I,
+      l[7] !== I || l[8] !== L
+        ? ((x = o(
+            "WAWebOutgoingGroupCallUtils",
+          ).getOutgoingGroupCallParticipants(L, I)),
+          (l[7] = I),
+          (l[8] = L),
+          (l[9] = x))
+        : (x = l[9]);
+      var $ = x,
+        P;
+      l[10] !== I
+        ? ((P = o("WAWebOutgoingGroupCallUtils").getAdHocGroupCallNameOverride(
+            I,
+          )),
+          (l[10] = I),
+          (l[11] = P))
+        : (P = l[11]);
+      var N = P,
+        M;
+      l[12] !== I
+        ? ((M = o("WAWebOutgoingGroupCallUtils").getAdHocGroupCallParticipants(
+            I,
+          )),
+          (l[12] = I),
+          (l[13] = M))
+        : (M = l[13]);
+      var w = M,
+        A = D != null ? D : N,
+        F = $ != null ? $ : w,
+        O;
+      l[14] === Symbol.for("react.memo_cache_sentinel")
+        ? ((O = s._(/*BTDS*/ "Viewing in another window")), (l[14] = O))
+        : (O = l[14]);
+      var B = O,
+        W = (i = g == null ? void 0 : g.id) != null ? i : y ? h : null,
+        q;
+      l[15] === Symbol.for("react.memo_cache_sentinel")
+        ? ((q =
+            y && S != null
+              ? s._(/*BTDS*/ "{name}'s link", [s._param("name", S)])
+              : null),
+          (l[15] = q))
+        : (q = l[15]);
+      var U = q,
+        V;
+      if (F != null && F.length > 1) {
+        var H;
+        (l[16] !== F || l[17] !== A
+          ? ((H = u.jsx(r("WAWebOutgoingGroupCallParticipantInfo.react"), {
+              callStateText: B,
               compact: !0,
-              nameText: E,
-              participantWids: k,
-            }))
-          : T != null
-            ? (x = u.jsx(r("WAWebCallParticipantInfo.react"), {
-                userId: T,
-                compact: !0,
-                imageSize: "small",
-                callStateText: I,
-                xstyle: d.fullWidth,
-                audioLevelType: "peer",
-                nameOverride: D != null ? D : E,
-              }))
-            : (x = u.jsx(r("WAWebCallParticipantInfo.react"), {
-                showCallStateTextOnly: !0,
-                callStateText: I,
-                compact: !0,
-                xstyle: d.fullWidth,
-              })),
-        u.jsx(o("WAWebFlex.react").FlexItem, {
-          align: "center",
-          xstyle: [
+              nameText: A,
+              participantWids: F,
+            })),
+            (l[16] = F),
+            (l[17] = A),
+            (l[18] = H))
+          : (H = l[18]),
+          (V = H));
+      } else if (W != null) {
+        var G = U != null ? U : A,
+          z;
+        (l[19] !== G || l[20] !== W
+          ? ((z = u.jsx(r("WAWebCallParticipantInfo.react"), {
+              userId: W,
+              compact: !0,
+              imageSize: "small",
+              callStateText: B,
+              xstyle: d.fullWidth,
+              audioLevelType: "peer",
+              nameOverride: G,
+            })),
+            (l[19] = G),
+            (l[20] = W),
+            (l[21] = z))
+          : (z = l[21]),
+          (V = z));
+      } else {
+        var j;
+        (l[22] === Symbol.for("react.memo_cache_sentinel")
+          ? ((j = u.jsx(r("WAWebCallParticipantInfo.react"), {
+              showCallStateTextOnly: !0,
+              callStateText: B,
+              compact: !0,
+              xstyle: d.fullWidth,
+            })),
+            (l[22] = j))
+          : (j = l[22]),
+          (V = j));
+      }
+      var K;
+      l[23] === Symbol.for("react.memo_cache_sentinel")
+        ? ((K = [
             d.moveCallHereContainer,
             d.surfaceElevated,
             o("WDSColorStyles.stylex").WDSBackgroundColorStyles
               .surfaceElevatedEmphasized,
-          ],
-          children: u.jsxs(o("WAWebFlex.react").FlexRow, {
-            padding: 8,
-            gap: 16,
-            align: "center",
-            children: [
-              x,
-              u.jsx(r("WDSButton.react"), {
-                size: "small",
-                Icon: r("WDSIconWdsIcPipExitTopRightToBottomLeft.react"),
-                label: s._(/*BTDS*/ "Move here"),
-                xstyle: [
-                  d.moveCallHereButton,
-                  o("WDSColorStyles.stylex").WDSBackgroundColorStyles
-                    .persistentAlwaysWhite,
-                ],
-                onPress: m,
-              }),
+          ]),
+          (l[23] = K))
+        : (K = l[23]);
+      var Q;
+      l[24] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Q = u.jsx(r("WDSButton.react"), {
+            size: "small",
+            Icon: r("WDSIconWdsIcPipExitTopRightToBottomLeft.react"),
+            label: s._(/*BTDS*/ "Move here"),
+            xstyle: [
+              d.moveCallHereButton,
+              o("WDSColorStyles.stylex").WDSBackgroundColorStyles
+                .persistentAlwaysWhite,
             ],
-          }),
-        })
+            onPress: m,
+          })),
+          (l[24] = Q))
+        : (Q = l[24]);
+      var X;
+      return (
+        l[25] !== V
+          ? ((X = u.jsx(o("WAWebFlex.react").FlexItem, {
+              align: "center",
+              xstyle: K,
+              children: u.jsxs(o("WAWebFlex.react").FlexRow, {
+                padding: 8,
+                gap: 16,
+                align: "center",
+                children: [V, Q],
+              }),
+            })),
+            (l[25] = V),
+            (l[26] = X))
+          : (X = l[26]),
+        X
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    function _() {
+      var e, t;
+      return [
+        (e =
+          (t = r("WAWebCallCollection").activeCall) == null
+            ? void 0
+            : t.groupCallParticipants) != null
+          ? e
+          : [],
+      ];
+    }
+    function f() {
+      var e;
+      return (e = r("WAWebCallCollection").activeCall) == null
+        ? void 0
+        : e.getState();
+    }
+    l.default = p;
   },
   226,
 );

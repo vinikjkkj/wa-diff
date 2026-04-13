@@ -18,6 +18,7 @@ __d(
     "WAWebStateUtils",
     "WAWebUISpacing",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebMsgValues",
   ],
@@ -96,78 +97,114 @@ __d(
       }
     }
     function _(t) {
-      var n,
+      var n = o("react-compiler-runtime").c(13),
         a = t.msg,
-        i = o("useWAWebMsgValues").useMsgValues(a.id, [
-          o("WAWebMsgGetters").getSubtype,
-          o("WAWebMsgGetters").getTemplateParams,
-        ]),
-        l = i[0],
-        s = i[1],
-        u = r("WAWebNewsletterCollection").get(a.id.remote),
-        _ = p({ subtype: l, templateParams: s, chat: u }),
-        f = c.jsx(
-          "div",
-          babelHelpers.extends(
-            {},
-            (e || (e = r("stylex"))).props([
-              d.channelsIcon,
-              o("WAWebUISpacing").uiMargin.top3,
-              o("WAWebUISpacing").uiMargin.end4,
-            ]),
-            {
-              children: c.jsx(
-                o("WAWebNewsletterSystemMessageIcon.react")
-                  .NewsletterSystemMessageIcon,
-                { width: 14, height: 14 },
+        i;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [
+            o("WAWebMsgGetters").getSubtype,
+            o("WAWebMsgGetters").getTemplateParams,
+          ]),
+          (n[0] = i))
+        : (i = n[0]);
+      var l = o("useWAWebMsgValues").useMsgValues(a.id, i),
+        s = l[0],
+        u = l[1],
+        _,
+        f;
+      if (n[1] !== a.id.remote || n[2] !== s || n[3] !== u) {
+        var g,
+          h = r("WAWebNewsletterCollection").get(a.id.remote),
+          y = p({ subtype: s, templateParams: u, chat: h }),
+          C;
+        n[6] === Symbol.for("react.memo_cache_sentinel")
+          ? ((C = c.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                (e || (e = r("stylex"))).props([
+                  d.channelsIcon,
+                  o("WAWebUISpacing").uiMargin.top3,
+                  o("WAWebUISpacing").uiMargin.end4,
+                ]),
+                {
+                  children: c.jsx(
+                    o("WAWebNewsletterSystemMessageIcon.react")
+                      .NewsletterSystemMessageIcon,
+                    { width: 14, height: 14 },
+                  ),
+                },
               ),
-            },
-          ),
-        ),
-        g = c.jsx("span", {
-          children:
-            l === "newsletter_privacy"
-              ? c.jsxs(c.Fragment, {
-                  children: [
-                    f,
-                    c.jsx(o("WAWebEmojiText.react").EmojiText, {
+            )),
+            (n[6] = C))
+          : (C = n[6]);
+        var b = C,
+          v;
+        n[7] !== s || n[8] !== u
+          ? ((v = c.jsx("span", {
+              children:
+                s === "newsletter_privacy"
+                  ? c.jsxs(c.Fragment, {
+                      children: [
+                        b,
+                        c.jsx(o("WAWebEmojiText.react").EmojiText, {
+                          breakWord: !0,
+                          text: m({ subtype: s, templateParams: u }),
+                        }),
+                      ],
+                    })
+                  : c.jsx(o("WAWebEmojiText.react").EmojiText, {
                       breakWord: !0,
-                      text: m({ subtype: l, templateParams: s }),
+                      inlineblock: !0,
+                      text: m({ subtype: s, templateParams: u }),
                     }),
-                  ],
-                })
-              : c.jsx(o("WAWebEmojiText.react").EmojiText, {
-                  breakWord: !0,
-                  inlineblock: !0,
-                  text: m({ subtype: l, templateParams: s }),
-                }),
-        }),
-        h =
-          _ != null
+            })),
+            (n[7] = s),
+            (n[8] = u),
+            (n[9] = v))
+          : (v = n[9]);
+        var S = v;
+        ((_ =
+          y != null
             ? c.jsx(r("WAWebClickableLink.react"), {
-                onClick: _,
+                onClick: y,
                 xstyle: d.linkColor,
-                children: g,
+                children: S,
               })
-            : g,
-        y =
-          l === "newsletter_admin_context_card" &&
-          u != null &&
-          o("WAWebNewsletterGatingUtils").isNewsletterAdminContextCardEnabled(
-            (n = o("WAWebStateUtils").unproxy(u).newsletterMetadata) == null
-              ? void 0
-              : n.membershipType,
-          )
-            ? c.jsx(r("WAWebNewsletterMessageAdminContextCard.react"), {
-                chat: u,
-              })
-            : null;
-      return c.jsx("div", {
-        "data-testid": void 0,
-        children: y != null ? y : h,
-      });
+            : S),
+          (f =
+            s === "newsletter_admin_context_card" &&
+            h != null &&
+            o("WAWebNewsletterGatingUtils").isNewsletterAdminContextCardEnabled(
+              (g = o("WAWebStateUtils").unproxy(h).newsletterMetadata) == null
+                ? void 0
+                : g.membershipType,
+            )
+              ? c.jsx(r("WAWebNewsletterMessageAdminContextCard.react"), {
+                  chat: h,
+                })
+              : null),
+          (n[1] = a.id.remote),
+          (n[2] = s),
+          (n[3] = u),
+          (n[4] = _),
+          (n[5] = f));
+      } else ((_ = n[4]), (f = n[5]));
+      var R = f,
+        L = s ? "subtype-" + s : null,
+        E = R != null ? R : _,
+        k;
+      return (
+        n[10] !== L || n[11] !== E
+          ? ((k = c.jsx("div", { "data-testid": void 0, children: E })),
+            (n[10] = L),
+            (n[11] = E),
+            (n[12] = k))
+          : (k = n[12]),
+        k
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   226,
 );

@@ -31,8 +31,7 @@ __d(
             r("WAWebODS").incr("web.app.canonical.recovery.reload_disabled"));
           return;
         }
-        (o("WAWebCanonicalUtils").markCredentialsStoredForPostReload(),
-          o("WAWebCanonicalUtils").setCanonicalAppReloadPending(!0),
+        (o("WAWebCanonicalUtils").setCanonicalAppReloadPending(!0),
           r("WAWebODS").incr("web.app.canonical.recovery.reload_scheduled"),
           o("WALogger").LOG(
             s ||
@@ -91,21 +90,11 @@ __d(
       }
     }
     function y(e) {
-      if (
-        (o("WALogger").LOG(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
-              "[canonical] reload after canonical recovery trigger=",
-              "",
-            ])),
-          e,
-        ),
-        o("WAWebCanonicalUtils").isCurrentUserLoggedIn())
-      ) {
+      if (o("WAWebCanonicalUtils").isCurrentUserLoggedIn()) {
         (o("WAWebCanonicalUtils").setCanonicalAppReloadPending(!1),
           o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "[canonical] user logged in, skip reload",
               ])),
           ));
@@ -117,6 +106,17 @@ __d(
           : r("WAWebODS").incr(
               "web.app.canonical.recovery.reload_trigger_timeout",
             ),
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[canonical][reload] reload after canonical recovery trigger=",
+              "",
+            ])),
+          e,
+        ),
+        o("WAWebCanonicalUtils").markCredentialsStoredForPostReload(
+          o("WAWebCanonicalUtils").CanonicalReloadReason.RECOVERY,
+        ),
         o("WAWebUpdater").Updater.restart());
     }
     ((l.isCanonicalAppReloadPending = o(

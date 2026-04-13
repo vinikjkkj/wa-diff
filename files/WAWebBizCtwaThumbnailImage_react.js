@@ -11,6 +11,7 @@ __d(
     "WAWebWarningOutlineIcon.react",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -42,83 +43,145 @@ __d(
         errorIconInThumbnailBubbleIn: { color: "x1pse0pq", $$css: !0 },
       };
     function _(t) {
-      var n = t.alt,
-        a = t.businessWid,
-        i = t.context,
-        l = t.fromMe,
-        s = t.isThumbnail,
-        c = s === void 0 ? !1 : s,
-        _ = t.xstyle,
+      var n = o("react-compiler-runtime").c(25),
+        a = t.alt,
+        i = t.businessWid,
+        l = t.context,
+        s = t.fromMe,
+        c = t.isThumbnail,
+        d = t.xstyle,
+        _ = c === void 0 ? !1 : c,
         f = m(!1),
         g = f[0],
         h = f[1],
         y;
-      c &&
-        (y = g
-          ? o("WAWebBizCtwaContextThumbImage.react").generateThumbSrcFromData(i)
-          : o("WAWebBizCtwaContextThumbImage.react").getInitialThumbSource(i));
-      var C = c ? y : i == null ? void 0 : i.originalImageUrl,
-        b = d(
-          function () {
-            (i != null &&
+      if (_) {
+        var C;
+        (n[0] !== l || n[1] !== g
+          ? ((C = g
+              ? o(
+                  "WAWebBizCtwaContextThumbImage.react",
+                ).generateThumbSrcFromData(l)
+              : o("WAWebBizCtwaContextThumbImage.react").getInitialThumbSource(
+                  l,
+                )),
+            (n[0] = l),
+            (n[1] = g),
+            (n[2] = C))
+          : (C = n[2]),
+          (y = C));
+      }
+      var b = _ ? y : l == null ? void 0 : l.originalImageUrl,
+        v;
+      n[3] !== i || n[4] !== l || n[5] !== s
+        ? ((v = function () {
+            (l != null &&
               o("WAWebCtwaLogger").logAGMOperation({
                 operationType:
                   o("WAWebCtwaLogger").AGM_OPERATION_TYPE
                     .agm_bottom_sheet_image_error,
-                fromBusiness: l,
-                agmPayload: o("WAWebCtwaAGMUtils").extractAGMPayload(i),
-                businessWid: a,
-                adId: i == null ? void 0 : i.sourceId,
+                fromBusiness: s,
+                agmPayload: o("WAWebCtwaAGMUtils").extractAGMPayload(l),
+                businessWid: i,
+                adId: l == null ? void 0 : l.sourceId,
               }),
               h(!0));
-          },
-          [a, i, l],
-        );
-      if (g || r("isStringNullOrEmpty")(C)) {
-        var v = o("WAWebBizCtwaAGMUtils").getAdImgError(),
-          S = l
+          }),
+          (n[3] = i),
+          (n[4] = l),
+          (n[5] = s),
+          (n[6] = v))
+        : (v = n[6]);
+      var S = v;
+      if (g || r("isStringNullOrEmpty")(b)) {
+        var R;
+        n[7] === Symbol.for("react.memo_cache_sentinel")
+          ? ((R = o("WAWebBizCtwaAGMUtils").getAdImgError()), (n[7] = R))
+          : (R = n[7]);
+        var L = R,
+          E = s
             ? p.errorIconInThumbnailBubbleOut
-            : p.errorIconInThumbnailBubbleIn;
-        return u.jsx(o("WAWebFlex.react").FlexColumn, {
-          grow: 1,
-          shrink: 0,
-          basis: "auto",
-          align: "center",
-          justify: "center",
-          gap: 8,
-          xstyle: [p.errorContainer, c && p.errorInThumbnail, _],
-          children: c
-            ? u.jsx(o("WAWebWarningIcon.react").WarningIcon, { xstyle: S })
-            : u.jsxs(u.Fragment, {
-                children: [
-                  u.jsx(o("WAWebWarningOutlineIcon.react").WarningOutlineIcon, {
-                    xstyle: p.errorIcon,
-                  }),
-                  u.jsx("div", {
-                    className: "x1iglcvg x1f6kntn x1fc57z9 xf4yft",
-                    title: v,
-                    children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
-                      text: v,
+            : p.errorIconInThumbnailBubbleIn,
+          k = _ && p.errorInThumbnail,
+          I;
+        n[8] !== k || n[9] !== d
+          ? ((I = [p.errorContainer, k, d]),
+            (n[8] = k),
+            (n[9] = d),
+            (n[10] = I))
+          : (I = n[10]);
+        var T;
+        n[11] !== _ || n[12] !== E
+          ? ((T = _
+              ? u.jsx(o("WAWebWarningIcon.react").WarningIcon, { xstyle: E })
+              : u.jsxs(u.Fragment, {
+                  children: [
+                    u.jsx(
+                      o("WAWebWarningOutlineIcon.react").WarningOutlineIcon,
+                      { xstyle: p.errorIcon },
+                    ),
+                    u.jsx("div", {
+                      className: "x1iglcvg x1f6kntn x1fc57z9 xf4yft",
+                      title: L,
+                      children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
+                        text: L,
+                      }),
                     }),
-                  }),
-                ],
-              }),
-        });
+                  ],
+                })),
+            (n[11] = _),
+            (n[12] = E),
+            (n[13] = T))
+          : (T = n[13]);
+        var D;
+        return (
+          n[14] !== I || n[15] !== T
+            ? ((D = u.jsx(o("WAWebFlex.react").FlexColumn, {
+                grow: 1,
+                shrink: 0,
+                basis: "auto",
+                align: "center",
+                justify: "center",
+                gap: 8,
+                xstyle: I,
+                children: T,
+              })),
+              (n[14] = I),
+              (n[15] = T),
+              (n[16] = D))
+            : (D = n[16]),
+          D
+        );
       }
-      return u.jsx(
-        "img",
-        babelHelpers.extends(
-          { onError: b, alt: n != null ? n : "" },
-          (e || (e = r("stylex"))).props(
+      var x = a != null ? a : "",
+        $;
+      n[17] !== (l == null ? void 0 : l.thumbnailUrl) || n[18] !== d
+        ? (($ = (e || (e = r("stylex"))).props(
             p.image,
-            (i == null ? void 0 : i.thumbnailUrl) == null && p.imageBlur,
-            _,
-          ),
-          { src: C },
-        ),
+            (l == null ? void 0 : l.thumbnailUrl) == null && p.imageBlur,
+            d,
+          )),
+          (n[17] = l == null ? void 0 : l.thumbnailUrl),
+          (n[18] = d),
+          (n[19] = $))
+        : ($ = n[19]);
+      var P;
+      return (
+        n[20] !== S || n[21] !== b || n[22] !== x || n[23] !== $
+          ? ((P = u.jsx(
+              "img",
+              babelHelpers.extends({ onError: S, alt: x }, $, { src: b }),
+            )),
+            (n[20] = S),
+            (n[21] = b),
+            (n[22] = x),
+            (n[23] = $),
+            (n[24] = P))
+          : (P = n[24]),
+        P
       );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   98,
 );

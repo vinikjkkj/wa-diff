@@ -44,6 +44,7 @@ __d(
     "WAWebUtilsLogQplEvents",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebListener",
   ],
@@ -66,136 +67,261 @@ __d(
       },
       v = { surface: "catalog-cart" };
     function S(e) {
-      var t = e.cart,
-        n = t.itemCount;
-      return n == null || n === 0
-        ? null
-        : p.jsx(o("WAWebText.react").WAWebTextTitle, {
-            children: s._(
-              /*BTDS*/ '_j{"*":"{cart-number-of-items} items","_1":"1 item"}',
-              [s._plural(n, "cart-number-of-items")],
-            ),
-          });
+      var t = o("react-compiler-runtime").c(2),
+        n = e.cart,
+        r = n.itemCount;
+      if (r == null || r === 0) return null;
+      var a;
+      return (
+        t[0] !== r
+          ? ((a = p.jsx(o("WAWebText.react").WAWebTextTitle, {
+              children: s._(
+                /*BTDS*/ '_j{"*":"{cart-number-of-items} items","_1":"1 item"}',
+                [s._plural(r, "cart-number-of-items")],
+              ),
+            })),
+            (t[0] = r),
+            (t[1] = a))
+          : (a = t[1]),
+        a
+      );
     }
-    S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
-      var t = e.cart,
-        n = e.cartFlatListController,
-        a = e.cartProductItems,
-        i = e.isDarkTheme,
-        l = e.isDirectConnection,
-        s = e.onProductCatalog,
-        u = e.onProductDetail,
-        c = e.onSend,
-        d = e.sellerJid,
-        m = o(
-          "WAWebBizMatchCartItemsToProductsAction",
-        ).getSavingsFromCartItemsAndProducts(a);
-      return p.jsxs(p.Fragment, {
-        children: [
-          p.jsx(E, { cart: t, onProductCatalog: s }),
-          p.jsx(r("WAWebCartProductList.react"), {
-            flatListController: n,
-            onProductDetail: u,
-            cart: t,
-            sellerJid: d,
-            cartProductItems: a,
-          }),
-          p.jsx(
-            "div",
-            babelHelpers.extends(
-              {},
-              {
-                0: { className: "x1280gxy x9f619 x1n2onr6 xhtitgo" },
-                1: { className: "x9f619 x1n2onr6 xhtitgo x1m8r95a" },
-              }[!!i << 0],
-              {
-                children: p.jsx(r("WAWebCartDetailDrawerFooter.react"), {
-                  savings: m,
-                  cart: t,
-                  onSend: c,
-                  isDirectConnection: l,
-                }),
-              },
-            ),
-          ),
-        ],
-      });
+      var t = o("react-compiler-runtime").c(25),
+        n = e.cart,
+        a = e.cartFlatListController,
+        i = e.cartProductItems,
+        l = e.isDarkTheme,
+        s = e.isDirectConnection,
+        u = e.onProductCatalog,
+        c = e.onProductDetail,
+        d = e.onSend,
+        m = e.sellerJid,
+        _;
+      t[0] !== i
+        ? ((_ = o(
+            "WAWebBizMatchCartItemsToProductsAction",
+          ).getSavingsFromCartItemsAndProducts(i)),
+          (t[0] = i),
+          (t[1] = _))
+        : (_ = t[1]);
+      var f = _,
+        g;
+      t[2] !== n || t[3] !== u
+        ? ((g = p.jsx(E, { cart: n, onProductCatalog: u })),
+          (t[2] = n),
+          (t[3] = u),
+          (t[4] = g))
+        : (g = t[4]);
+      var h;
+      t[5] !== n || t[6] !== a || t[7] !== i || t[8] !== c || t[9] !== m
+        ? ((h = p.jsx(r("WAWebCartProductList.react"), {
+            flatListController: a,
+            onProductDetail: c,
+            cart: n,
+            sellerJid: m,
+            cartProductItems: i,
+          })),
+          (t[5] = n),
+          (t[6] = a),
+          (t[7] = i),
+          (t[8] = c),
+          (t[9] = m),
+          (t[10] = h))
+        : (h = t[10]);
+      var y;
+      t[11] !== l
+        ? ((y = {
+            0: { className: "x1280gxy x9f619 x1n2onr6 xhtitgo" },
+            1: { className: "x9f619 x1n2onr6 xhtitgo x1m8r95a" },
+          }[!!l << 0]),
+          (t[11] = l),
+          (t[12] = y))
+        : (y = t[12]);
+      var C;
+      t[13] !== n || t[14] !== s || t[15] !== d || t[16] !== f
+        ? ((C = p.jsx(r("WAWebCartDetailDrawerFooter.react"), {
+            savings: f,
+            cart: n,
+            onSend: d,
+            isDirectConnection: s,
+          })),
+          (t[13] = n),
+          (t[14] = s),
+          (t[15] = d),
+          (t[16] = f),
+          (t[17] = C))
+        : (C = t[17]);
+      var b;
+      t[18] !== y || t[19] !== C
+        ? ((b = p.jsx("div", babelHelpers.extends({}, y, { children: C }))),
+          (t[18] = y),
+          (t[19] = C),
+          (t[20] = b))
+        : (b = t[20]);
+      var v;
+      return (
+        t[21] !== g || t[22] !== h || t[23] !== b
+          ? ((v = p.jsxs(p.Fragment, { children: [g, h, b] })),
+            (t[21] = g),
+            (t[22] = h),
+            (t[23] = b),
+            (t[24] = v))
+          : (v = t[24]),
+        v
+      );
     }
-    R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
-      var t = e.onProductCatalog;
-      return p.jsx(o("WAWebButton.react").WAWebButtonSecondary, {
-        testid: void 0,
-        onClick: t,
-        children: s._(/*BTDS*/ "Add more"),
-      });
+      var t = o("react-compiler-runtime").c(3),
+        n = e.onProductCatalog,
+        r;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = s._(/*BTDS*/ "Add more")), (t[0] = r))
+        : (r = t[0]);
+      var a;
+      return (
+        t[1] !== n
+          ? ((a = p.jsx(o("WAWebButton.react").WAWebButtonSecondary, {
+              testid: void 0,
+              onClick: n,
+              children: r,
+            })),
+            (t[1] = n),
+            (t[2] = a))
+          : (a = t[2]),
+        a
+      );
     }
-    L.displayName = L.name + " [from " + i.id + "]";
     function E(e) {
-      var t = e.cart,
-        n = e.onProductCatalog;
-      return p.jsxs(o("WAWebFlex.react").FlexRow, {
-        justify: "all",
-        align: "center",
-        xstyle: [o("WAWebUISpacing").uiPadding.all16, b.contentBackground],
-        children: [p.jsx(S, { cart: t }), p.jsx(L, { onProductCatalog: n })],
-      });
+      var t = o("react-compiler-runtime").c(8),
+        n = e.cart,
+        r = e.onProductCatalog,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = [o("WAWebUISpacing").uiPadding.all16, b.contentBackground]),
+          (t[0] = a))
+        : (a = t[0]);
+      var i;
+      t[1] !== n
+        ? ((i = p.jsx(S, { cart: n })), (t[1] = n), (t[2] = i))
+        : (i = t[2]);
+      var l;
+      t[3] !== r
+        ? ((l = p.jsx(L, { onProductCatalog: r })), (t[3] = r), (t[4] = l))
+        : (l = t[4]);
+      var s;
+      return (
+        t[5] !== i || t[6] !== l
+          ? ((s = p.jsxs(o("WAWebFlex.react").FlexRow, {
+              justify: "all",
+              align: "center",
+              xstyle: a,
+              children: [i, l],
+            })),
+            (t[5] = i),
+            (t[6] = l),
+            (t[7] = s))
+          : (s = t[7]),
+        s
+      );
     }
-    E.displayName = E.name + " [from " + i.id + "]";
     function k(e) {
-      var t = e.businessProfile,
-        n = e.onProductCatalog;
-      return p.jsxs("div", {
-        className:
-          "x6s0dn4 x1280gxy x78zum5 xdt5ytf x5yr21d x13crsa5 xx281p9 x1rxj1xn x67w97k",
-        children: [
-          p.jsx(
+      var t = o("react-compiler-runtime").c(10),
+        n = e.businessProfile,
+        r = e.onProductCatalog,
+        a,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = {
+            className:
+              "x6s0dn4 x1280gxy x78zum5 xdt5ytf x5yr21d x13crsa5 xx281p9 x1rxj1xn x67w97k",
+          }),
+          (i = p.jsx(
             o("WAWebShoppingCartEmptyIcon.react").ShoppingCartEmptyIcon,
             {},
-          ),
-          p.jsx(o("WAWebText.react").WAWebTextLarge, {
+          )),
+          (t[0] = a),
+          (t[1] = i))
+        : ((a = t[0]), (i = t[1]));
+      var l;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = p.jsx(o("WAWebText.react").WAWebTextLarge, {
             xstyle: [
               o("WAWebUISpacing").uiMargin.top30,
               o("WAWebUISpacing").uiMargin.bottom15,
             ],
             children: s._(/*BTDS*/ "Add items to your cart"),
-          }),
-          p.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
-            xstyle: [b.emptyCardText, o("WAWebUISpacing").uiPadding.bottom30],
+          })),
+          (t[2] = l))
+        : (l = t[2]);
+      var u;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = [b.emptyCardText, o("WAWebUISpacing").uiPadding.bottom30]),
+          (t[3] = u))
+        : (u = t[3]);
+      var c;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = p.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+            xstyle: u,
             theme: "plain",
             children: s._(
               /*BTDS*/ "Collect all the items you're interested in here and then send them to the business. Use your cart to ask about buying, customizing, delivery, or anything you want.",
             ),
-          }),
-          o("WAWebBusinessProfileUtils").hasCatalog(t) &&
+          })),
+          (t[4] = c))
+        : (c = t[4]);
+      var d;
+      t[5] !== n || t[6] !== r
+        ? ((d =
+            o("WAWebBusinessProfileUtils").hasCatalog(n) &&
             p.jsx(o("WAWebButton.react").WAWebButtonPrimary, {
-              onClick: n,
+              onClick: r,
               children: s._(/*BTDS*/ "View catalog"),
-            }),
-        ],
-      });
+            })),
+          (t[5] = n),
+          (t[6] = r),
+          (t[7] = d))
+        : (d = t[7]);
+      var m;
+      return (
+        t[8] !== d
+          ? ((m = p.jsxs(
+              "div",
+              babelHelpers.extends({}, a, { children: [i, l, c, d] }),
+            )),
+            (t[8] = d),
+            (t[9] = m))
+          : (m = t[9]),
+        m
+      );
     }
-    k.displayName = k.name + " [from " + i.id + "]";
     var I = n("$InternalEnum")({
       LOADING: "loading",
       READY_EMPTY: "readyEmpty",
       READY_CONTENT: "readyContent",
     });
     function T(e) {
-      var t = e.children,
-        n = e.drawerState,
-        o = e.emptyContent;
-      switch (n) {
+      var t = o("react-compiler-runtime").c(1),
+        n = e.children,
+        a = e.drawerState,
+        i = e.emptyContent;
+      switch (a) {
         case I.READY_EMPTY:
-          return o;
+          return i;
         case I.READY_CONTENT:
-          return t;
-        case I.LOADING:
-          return p.jsx(r("WAWebFlatListLoadingSpinnerItem.react"), {});
+          return n;
+        case I.LOADING: {
+          var l;
+          return (
+            t[0] === Symbol.for("react.memo_cache_sentinel")
+              ? ((l = p.jsx(r("WAWebFlatListLoadingSpinnerItem.react"), {})),
+                (t[0] = l))
+              : (l = t[0]),
+            l
+          );
+        }
       }
     }
-    T.displayName = T.name + " [from " + i.id + "]";
     function D(t) {
       var a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, c),

@@ -6,6 +6,7 @@ __d(
     "WAWebMediaLinkPreviewImageLayout.react",
     "WDSIconIcLink.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -98,86 +99,170 @@ __d(
         noThumbIcon: { color: "xqa0p2g", $$css: !0 },
       };
     function m(t) {
-      var n = t.displayType,
-        a = t.isCompose,
-        i = t.isFullPreview,
-        l = t.isHighQualityLayout,
-        s = t.isInvite,
-        c = t.isStatus,
-        m = t.theme,
-        p = t.thumbnail,
-        _ = t.thumbnailJpeg,
-        f = t.thumbnailJpegDirectPath,
-        g = t.thumbnailJpegHeight,
-        h = t.thumbnailJpegHQ,
-        y = t.thumbnailJpegWidth,
-        C = t.withoutDescription,
-        b =
-          a &&
-          h != null &&
-          y != null &&
-          y > 240 &&
-          o("WAWebMediaGatingUtils").shouldUseLargeHQPreviewInComposer(),
-        v = m === "bot_plugin_link",
-        S = m === "support_citations_link",
-        R = (e || (e = r("stylex")))([
-          v && d.botPluginLinkMedia,
-          S && d.supportCitationsLinkMedia,
-          !v && d.media,
-          !v && !S && (b ? d.composeMediaHQ : d.mediaLQ),
-          c && d.statusMedia,
-          l && d.highQualityLayoutMedia,
-          i && !l && d.fullPreviewNotHighQualityLayoutMedia,
-          i &&
-            !l &&
-            C &&
-            d.fullPreviewNotHighQualityLayoutMediaWithoutDescription,
-          s && d.isInviteMedia,
-          a && !b && d.composeMedia,
-        ]),
-        L = n === o("WAWebDisplayType").DISPLAY_TYPE.GALLERY;
-      if (p != null && p !== "")
-        return u.jsx("div", {
-          "data-testid": void 0,
-          className: R,
-          children: p,
-        });
-      if ((_ != null && _ !== "") || (h != null && h !== "")) {
-        var E = h != null && h !== "" && !L ? h : _;
-        if (E != null)
-          return u.jsx(r("WAWebMediaLinkPreviewImageLayout.react"), {
-            thumbnailJpegDirectPath: f,
-            thumbnailJpegHQ: h,
-            height: g,
-            width: y,
-            galleryView: L,
-            isStatus: c,
-            isComposerHightQualityLayout: b,
-            displayType: n,
-            isHighQualityLayout: l,
-            children: u.jsx("img", {
-              "data-testid": void 0,
-              alt: "",
-              className: R,
-              src: "data:image/jpeg;base64," + E,
-            }),
-          });
+      var n = o("react-compiler-runtime").c(32),
+        a = t.displayType,
+        i = t.isCompose,
+        l = t.isFullPreview,
+        s = t.isHighQualityLayout,
+        c = t.isInvite,
+        m = t.isStatus,
+        p = t.theme,
+        _ = t.thumbnail,
+        f = t.thumbnailJpeg,
+        g = t.thumbnailJpegDirectPath,
+        h = t.thumbnailJpegHeight,
+        y = t.thumbnailJpegHQ,
+        C = t.thumbnailJpegWidth,
+        b = t.withoutDescription,
+        v;
+      n[0] !== i || n[1] !== y || n[2] !== C
+        ? ((v =
+            i &&
+            y != null &&
+            C != null &&
+            C > 240 &&
+            o("WAWebMediaGatingUtils").shouldUseLargeHQPreviewInComposer()),
+          (n[0] = i),
+          (n[1] = y),
+          (n[2] = C),
+          (n[3] = v))
+        : (v = n[3]);
+      var S = v,
+        R = p === "bot_plugin_link",
+        L = p === "support_citations_link",
+        E;
+      n[4] !== R ||
+      n[5] !== i ||
+      n[6] !== l ||
+      n[7] !== S ||
+      n[8] !== s ||
+      n[9] !== c ||
+      n[10] !== m ||
+      n[11] !== L ||
+      n[12] !== b
+        ? ((E = (e || (e = r("stylex")))([
+            R && d.botPluginLinkMedia,
+            L && d.supportCitationsLinkMedia,
+            !R && d.media,
+            !R && !L && (S ? d.composeMediaHQ : d.mediaLQ),
+            m && d.statusMedia,
+            s && d.highQualityLayoutMedia,
+            l && !s && d.fullPreviewNotHighQualityLayoutMedia,
+            l &&
+              !s &&
+              b &&
+              d.fullPreviewNotHighQualityLayoutMediaWithoutDescription,
+            c && d.isInviteMedia,
+            i && !S && d.composeMedia,
+          ])),
+          (n[4] = R),
+          (n[5] = i),
+          (n[6] = l),
+          (n[7] = S),
+          (n[8] = s),
+          (n[9] = c),
+          (n[10] = m),
+          (n[11] = L),
+          (n[12] = b),
+          (n[13] = E))
+        : (E = n[13]);
+      var k = E,
+        I = a === o("WAWebDisplayType").DISPLAY_TYPE.GALLERY;
+      if (_ != null && _ !== "") {
+        var T;
+        return (
+          n[14] !== k || n[15] !== _
+            ? ((T = u.jsx("div", {
+                "data-testid": void 0,
+                className: k,
+                children: _,
+              })),
+              (n[14] = k),
+              (n[15] = _),
+              (n[16] = T))
+            : (T = n[16]),
+          T
+        );
       }
-      return L
-        ? u.jsx("div", {
-            "data-testid": void 0,
-            className:
-              "x1n2onr6 x78zum5 x1c4vz4f x2lah0s xdl72j9 x6s0dn4 xl56j7k x1hcvz70 xkzwgj6 x6ikm8r x10wlt62 x1280gxy",
-            children: u.jsx(r("WDSIconIcLink.react"), {
-              testid: void 0,
-              xstyle: d.noThumbIcon,
-              width: 32,
-              height: 32,
-            }),
-          })
-        : null;
+      if ((f != null && f !== "") || (y != null && y !== "")) {
+        var D = y != null && y !== "" && !I ? y : f;
+        if (D != null) {
+          var x = "data:image/jpeg;base64," + D,
+            $;
+          n[17] !== k || n[18] !== x
+            ? (($ = u.jsx("img", {
+                "data-testid": void 0,
+                alt: "",
+                className: k,
+                src: x,
+              })),
+              (n[17] = k),
+              (n[18] = x),
+              (n[19] = $))
+            : ($ = n[19]);
+          var P;
+          return (
+            n[20] !== a ||
+            n[21] !== I ||
+            n[22] !== S ||
+            n[23] !== s ||
+            n[24] !== m ||
+            n[25] !== $ ||
+            n[26] !== g ||
+            n[27] !== y ||
+            n[28] !== h ||
+            n[29] !== C
+              ? ((P = u.jsx(r("WAWebMediaLinkPreviewImageLayout.react"), {
+                  thumbnailJpegDirectPath: g,
+                  thumbnailJpegHQ: y,
+                  height: h,
+                  width: C,
+                  galleryView: I,
+                  isStatus: m,
+                  isComposerHightQualityLayout: S,
+                  displayType: a,
+                  isHighQualityLayout: s,
+                  children: $,
+                })),
+                (n[20] = a),
+                (n[21] = I),
+                (n[22] = S),
+                (n[23] = s),
+                (n[24] = m),
+                (n[25] = $),
+                (n[26] = g),
+                (n[27] = y),
+                (n[28] = h),
+                (n[29] = C),
+                (n[30] = P))
+              : (P = n[30]),
+            P
+          );
+        }
+      }
+      if (I) {
+        var N;
+        return (
+          n[31] === Symbol.for("react.memo_cache_sentinel")
+            ? ((N = u.jsx("div", {
+                "data-testid": void 0,
+                className:
+                  "x1n2onr6 x78zum5 x1c4vz4f x2lah0s xdl72j9 x6s0dn4 xl56j7k x1hcvz70 xkzwgj6 x6ikm8r x10wlt62 x1280gxy",
+                children: u.jsx(r("WDSIconIcLink.react"), {
+                  testid: void 0,
+                  xstyle: d.noThumbIcon,
+                  width: 32,
+                  height: 32,
+                }),
+              })),
+              (n[31] = N))
+            : (N = n[31]),
+          N
+        );
+      }
+      return null;
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   98,
 );

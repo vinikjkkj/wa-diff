@@ -1,31 +1,51 @@
 __d(
   "WAWebCreateTextStatusFlow.react",
-  ["WAWebStatusPostingTextView.react", "WAWebUimUie.react", "react"],
+  [
+    "WAWebStatusPostingTextView.react",
+    "WAWebUimUie.react",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = e.useRef;
     function c(e) {
-      var t = e.isNewsletterStatus,
-        n = t === void 0 ? !1 : t,
+      var t = o("react-compiler-runtime").c(4),
+        n = e.isNewsletterStatus,
         a = e.newsletterWid,
-        i = u(),
-        l = function (t) {
-          var e;
-          (e = i.current) == null || e.handleRequestDismiss(t);
-        };
-      return s.jsx(o("WAWebUimUie.react").UIE, {
-        displayName: "CreateTextStatusFlow",
-        escapable: !0,
-        requestDismiss: l,
-        children: s.jsx(r("WAWebStatusPostingTextView.react"), {
-          ref: i,
-          newsletterWid: a,
-          isNewsletterStatus: n,
-        }),
-      });
+        i = n === void 0 ? !1 : n,
+        l = u(),
+        c;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = function (t) {
+            var e;
+            (e = l.current) == null || e.handleRequestDismiss(t);
+          }),
+          (t[0] = c))
+        : (c = t[0]);
+      var d = c,
+        m;
+      return (
+        t[1] !== i || t[2] !== a
+          ? ((m = s.jsx(o("WAWebUimUie.react").UIE, {
+              displayName: "CreateTextStatusFlow",
+              escapable: !0,
+              requestDismiss: d,
+              children: s.jsx(r("WAWebStatusPostingTextView.react"), {
+                ref: l,
+                newsletterWid: a,
+                isNewsletterStatus: i,
+              }),
+            })),
+            (t[1] = i),
+            (t[2] = a),
+            (t[3] = m))
+          : (m = t[3]),
+        m
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

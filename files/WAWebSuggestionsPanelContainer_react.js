@@ -7,6 +7,7 @@ __d(
     "WAWebUimUieMenu.react",
     "WAWebVelocityTransitionGroup",
     "react",
+    "react-compiler-runtime",
     "useWAWebLexicalFocusState",
     "useWAWebStableCallback",
   ],
@@ -35,77 +36,130 @@ __d(
         "Menu",
       ]);
     function f(e) {
-      var t = e.children,
-        n = e.editor,
-        a = e.kind,
-        i = e.onDismiss,
-        l = e.onHide,
-        u = e.onToggleVisibility,
-        c = m(!0),
-        d = c[0],
-        f = c[1],
-        h = r("useWAWebStableCallback")(function (e) {
-          if (e) {
-            if ((u == null ? void 0 : u(!0)) === !1) return;
-            self.setTimeout(function () {
-              return f(!0);
-            });
-          } else {
-            if ((u == null ? void 0 : u(!1)) === !1) return;
-            (f(!1), l == null || l());
-          }
-        });
-      o("useWAWebLexicalFocusState").useLexicalFocusStateListener(n, h);
-      var y = r("useWAWebStableCallback")(function () {
-          n.focus();
-        }),
-        C = function () {
-          (i(), l == null || l());
-        };
-      return a === _.Menu
-        ? s.jsx(g, { requestDismiss: i, requestFocus: y, children: t })
-        : s.jsx(r("WAWebVelocityTransitionGroup"), {
-            component: "div",
-            xstyle: p.container,
-            transitionName: "slide-up",
-            children:
-              d && t != null
-                ? s.jsx(o("WAWebUimUie.react").UIE, {
-                    displayName: "RichTextInputSuggestions",
-                    escapable: !0,
-                    requestDismiss: C,
-                    requestFocus: y,
-                    requestRecentFocusOnUnmount: !1,
-                    children: s.jsxs(
-                      "div",
-                      babelHelpers.extends(
-                        {},
-                        {
-                          0: {
-                            className:
-                              "x10l6tqk x1ey2m1c x1o0tod x9f619 xh8yej3 xhjsbib x188jz7k x4py3vj",
-                          },
-                          1: {
-                            className:
-                              "x10l6tqk x1ey2m1c x1o0tod x9f619 xh8yej3 xhjsbib x188jz7k x67bb7w xrlxcrs x7g1fbw x1sr759z",
-                          },
-                        }[(a === _.MediaEditorCaption) << 0],
-                        {
-                          children: [
-                            t,
-                            s.jsx("div", {
-                              className:
-                                "x10l6tqk x13vifvy xtijo5x x1ey2m1c x1o0tod xhtitgo x47corl x14obwa1 xcj5v2p",
-                            }),
-                          ],
+      var t = o("react-compiler-runtime").c(20),
+        n = e.children,
+        a = e.editor,
+        i = e.kind,
+        l = e.onDismiss,
+        u = e.onHide,
+        c = e.onToggleVisibility,
+        d = m(!0),
+        f = d[0],
+        h = d[1],
+        y;
+      t[0] !== u || t[1] !== c
+        ? ((y = function (t) {
+            if (t) {
+              if ((c == null ? void 0 : c(!0)) === !1) return;
+              self.setTimeout(function () {
+                return h(!0);
+              });
+            } else {
+              if ((c == null ? void 0 : c(!1)) === !1) return;
+              (h(!1), u == null || u());
+            }
+          }),
+          (t[0] = u),
+          (t[1] = c),
+          (t[2] = y))
+        : (y = t[2]);
+      var C = r("useWAWebStableCallback")(y);
+      o("useWAWebLexicalFocusState").useLexicalFocusStateListener(a, C);
+      var b;
+      t[3] !== a
+        ? ((b = function () {
+            a.focus();
+          }),
+          (t[3] = a),
+          (t[4] = b))
+        : (b = t[4]);
+      var v = r("useWAWebStableCallback")(b),
+        S;
+      t[5] !== l || t[6] !== u
+        ? ((S = function () {
+            (l(), u == null || u());
+          }),
+          (t[5] = l),
+          (t[6] = u),
+          (t[7] = S))
+        : (S = t[7]);
+      var R = S;
+      if (i === _.Menu) {
+        var L;
+        return (
+          t[8] !== n || t[9] !== v || t[10] !== l
+            ? ((L = s.jsx(g, {
+                requestDismiss: l,
+                requestFocus: v,
+                children: n,
+              })),
+              (t[8] = n),
+              (t[9] = v),
+              (t[10] = l),
+              (t[11] = L))
+            : (L = t[11]),
+          L
+        );
+      }
+      var E;
+      t[12] !== n || t[13] !== R || t[14] !== v || t[15] !== i || t[16] !== f
+        ? ((E =
+            f && n != null
+              ? s.jsx(o("WAWebUimUie.react").UIE, {
+                  displayName: "RichTextInputSuggestions",
+                  escapable: !0,
+                  requestDismiss: R,
+                  requestFocus: v,
+                  requestRecentFocusOnUnmount: !1,
+                  children: s.jsxs(
+                    "div",
+                    babelHelpers.extends(
+                      {},
+                      {
+                        0: {
+                          className:
+                            "x10l6tqk x1ey2m1c x1o0tod x9f619 xh8yej3 xhjsbib x188jz7k x4py3vj",
                         },
-                      ),
+                        1: {
+                          className:
+                            "x10l6tqk x1ey2m1c x1o0tod x9f619 xh8yej3 xhjsbib x188jz7k x67bb7w xrlxcrs x7g1fbw x1sr759z",
+                        },
+                      }[(i === _.MediaEditorCaption) << 0],
+                      {
+                        children: [
+                          n,
+                          s.jsx("div", {
+                            className:
+                              "x10l6tqk x13vifvy xtijo5x x1ey2m1c x1o0tod xhtitgo x47corl x14obwa1 xcj5v2p",
+                          }),
+                        ],
+                      },
                     ),
-                  })
-                : null,
-          });
+                  ),
+                })
+              : null),
+          (t[12] = n),
+          (t[13] = R),
+          (t[14] = v),
+          (t[15] = i),
+          (t[16] = f),
+          (t[17] = E))
+        : (E = t[17]);
+      var k;
+      return (
+        t[18] !== E
+          ? ((k = s.jsx(r("WAWebVelocityTransitionGroup"), {
+              component: "div",
+              xstyle: p.container,
+              transitionName: "slide-up",
+              children: E,
+            })),
+            (t[18] = E),
+            (t[19] = k))
+          : (k = t[19]),
+        k
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       var t,
         n = e.children,
@@ -143,25 +197,34 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = e.initialChildren,
-        n = e.ref,
-        r = m(t),
-        o = r[0],
-        a = r[1];
+      var t = o("react-compiler-runtime").c(4),
+        n = e.initialChildren,
+        r = e.ref,
+        a = m(n),
+        i = a[0],
+        l = a[1],
+        u;
+      (t[0] !== i
+        ? ((u = function () {
+            return {
+              setChildren: function (t) {
+                t !== i && l(t);
+              },
+            };
+          }),
+          (t[0] = i),
+          (t[1] = u))
+        : (u = t[1]),
+        c(r, u));
+      var d;
       return (
-        c(n, function () {
-          return {
-            setChildren: function (t) {
-              t !== o && a(t);
-            },
-          };
-        }),
-        s.jsx(s.Fragment, { children: o })
+        t[2] !== i
+          ? ((d = s.jsx(s.Fragment, { children: i })), (t[2] = i), (t[3] = d))
+          : (d = t[3]),
+        d
       );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"),
-      (l.SuggestionsPanelKind = _),
-      (l.SuggestionsPanelContainer = f));
+    ((l.SuggestionsPanelKind = _), (l.SuggestionsPanelContainer = f));
   },
   98,
 );

@@ -36,6 +36,7 @@ __d(
     "WAWebFormatVideoMsgText",
     "WAWebPollsFormatPollAddOptionDecryptedMsgText",
     "WAWebPollsFormatPollMessageText",
+    "WAWebStatusMentionFormatMsgText",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -296,12 +297,12 @@ __d(
         {
           type: "protocol",
           subtype: "status_group_mention_message",
-          formatMsgText: null,
+          formatMsgText: r("WAWebStatusMentionFormatMsgText"),
         },
         {
           type: "protocol",
           subtype: "status_mention_message",
-          formatMsgText: null,
+          formatMsgText: r("WAWebStatusMentionFormatMsgText"),
         },
         {
           type: "ptt",

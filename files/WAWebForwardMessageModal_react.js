@@ -61,6 +61,7 @@ __d(
     "WDSMenuBarItem.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebNux",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -427,62 +428,150 @@ __d(
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = e.handleAppendMessage,
-        n = e.handleRemoveCaption,
-        a = e.includeCaption,
-        i = e.mediaMsgsWithCaption,
-        l = e.msgs,
-        u = e.onEditClick,
-        c = e.showEditIcon,
-        d =
-          l.length === 1 &&
-          o("WAWebMsgGetters").getIsMedia(l[0]) &&
-          !l[0].caption,
-        m = o("WAWebMsgActionCapability").canForwardMsgToMetaAi(l);
-      if (l.length === 0) return null;
-      var p = l[0],
-        f = o("WAWebFrontendMsgGetters").getMaybeChat(p);
-      return f != null && o("WAWebChatGetters").getIsNewsletter(f)
-        ? null
-        : i.length > 0
-          ? _.jsx("div", {
+      var t = o("react-compiler-runtime").c(33),
+        n = e.handleAppendMessage,
+        a = e.handleRemoveCaption,
+        i = e.includeCaption,
+        l = e.mediaMsgsWithCaption,
+        u = e.msgs,
+        c = e.onEditClick,
+        d = e.showEditIcon,
+        m =
+          u.length === 1 &&
+          o("WAWebMsgGetters").getIsMedia(u[0]) &&
+          !u[0].caption,
+        p = o("WAWebMsgActionCapability").canForwardMsgToMetaAi(u);
+      if (u.length === 0) return null;
+      var f = u[0],
+        g = o("WAWebFrontendMsgGetters").getMaybeChat(f);
+      if (g != null && o("WAWebChatGetters").getIsNewsletter(g)) return null;
+      if (l.length > 0) {
+        var h;
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((h = {
               className: "x11uqc5h xv32h1t xh8yej3 x1od0jb8 x9f619 xpx74rz",
-              children: _.jsx(r("WAWebForwardWithCaptionPreview.react"), {
-                msgs: i,
-                displayCaptionText: a,
-                onRemoveCaptionSelect: n,
-                onAppendMessage: t,
-                allMsgs: l,
-                onEditClick: u,
-                showEditIcon: c,
-              }),
-            })
-          : d
-            ? _.jsx("div", {
-                className: "x11uqc5h xv32h1t xh8yej3 x1od0jb8 x9f619 xpx74rz",
-                children: _.jsx(r("WAWebForwardWithCaptionPreview.react"), {
-                  msgs: l,
-                  displayCaptionText: a,
-                  onRemoveCaptionSelect: n,
-                  onAppendMessage: t,
-                  onEditClick: u,
-                  showEditIcon: c,
-                }),
-              })
-            : m
-              ? _.jsx("div", {
-                  className: "x11uqc5h xng8ra xh8yej3 xtl5do8 x9f619 xpx74rz",
-                  children: _.jsx(r("WAWebForwardWithCaptionPreview.react"), {
-                    msgs: l,
-                    displayCaptionText: a,
-                    onRemoveCaptionSelect: n,
-                    onAppendMessage: t,
-                    captionPlaceholderText: s._(/*BTDS*/ "Ask a question"),
-                  }),
-                })
-              : null;
+            }),
+            (t[0] = h))
+          : (h = t[0]);
+        var y;
+        t[1] !== n ||
+        t[2] !== a ||
+        t[3] !== i ||
+        t[4] !== l ||
+        t[5] !== u ||
+        t[6] !== c ||
+        t[7] !== d
+          ? ((y = _.jsx(r("WAWebForwardWithCaptionPreview.react"), {
+              msgs: l,
+              displayCaptionText: i,
+              onRemoveCaptionSelect: a,
+              onAppendMessage: n,
+              allMsgs: u,
+              onEditClick: c,
+              showEditIcon: d,
+            })),
+            (t[1] = n),
+            (t[2] = a),
+            (t[3] = i),
+            (t[4] = l),
+            (t[5] = u),
+            (t[6] = c),
+            (t[7] = d),
+            (t[8] = y))
+          : (y = t[8]);
+        var C;
+        return (
+          t[9] !== h || t[10] !== y
+            ? ((C = _.jsx("div", babelHelpers.extends({}, h, { children: y }))),
+              (t[9] = h),
+              (t[10] = y),
+              (t[11] = C))
+            : (C = t[11]),
+          C
+        );
+      }
+      if (m) {
+        var b;
+        t[12] === Symbol.for("react.memo_cache_sentinel")
+          ? ((b = {
+              className: "x11uqc5h xv32h1t xh8yej3 x1od0jb8 x9f619 xpx74rz",
+            }),
+            (t[12] = b))
+          : (b = t[12]);
+        var v;
+        t[13] !== n ||
+        t[14] !== a ||
+        t[15] !== i ||
+        t[16] !== u ||
+        t[17] !== c ||
+        t[18] !== d
+          ? ((v = _.jsx(r("WAWebForwardWithCaptionPreview.react"), {
+              msgs: u,
+              displayCaptionText: i,
+              onRemoveCaptionSelect: a,
+              onAppendMessage: n,
+              onEditClick: c,
+              showEditIcon: d,
+            })),
+            (t[13] = n),
+            (t[14] = a),
+            (t[15] = i),
+            (t[16] = u),
+            (t[17] = c),
+            (t[18] = d),
+            (t[19] = v))
+          : (v = t[19]);
+        var S;
+        return (
+          t[20] !== b || t[21] !== v
+            ? ((S = _.jsx("div", babelHelpers.extends({}, b, { children: v }))),
+              (t[20] = b),
+              (t[21] = v),
+              (t[22] = S))
+            : (S = t[22]),
+          S
+        );
+      }
+      if (p) {
+        var R;
+        t[23] === Symbol.for("react.memo_cache_sentinel")
+          ? ((R = {
+              className: "x11uqc5h xng8ra xh8yej3 xtl5do8 x9f619 xpx74rz",
+            }),
+            (t[23] = R))
+          : (R = t[23]);
+        var L;
+        t[24] === Symbol.for("react.memo_cache_sentinel")
+          ? ((L = s._(/*BTDS*/ "Ask a question")), (t[24] = L))
+          : (L = t[24]);
+        var E;
+        t[25] !== n || t[26] !== a || t[27] !== i || t[28] !== u
+          ? ((E = _.jsx(r("WAWebForwardWithCaptionPreview.react"), {
+              msgs: u,
+              displayCaptionText: i,
+              onRemoveCaptionSelect: a,
+              onAppendMessage: n,
+              captionPlaceholderText: L,
+            })),
+            (t[25] = n),
+            (t[26] = a),
+            (t[27] = i),
+            (t[28] = u),
+            (t[29] = E))
+          : (E = t[29]);
+        var k;
+        return (
+          t[30] !== R || t[31] !== E
+            ? ((k = _.jsx("div", babelHelpers.extends({}, R, { children: E }))),
+              (t[30] = R),
+              (t[31] = E),
+              (t[32] = k))
+            : (k = t[32]),
+          k
+        );
+      }
+      return null;
     }
-    S.displayName = S.name + " [from " + i.id + "]";
     var R = {
       title: function (t, n) {
         return o("WAWebMsgGetters").getIsNewsletterMsg(n)

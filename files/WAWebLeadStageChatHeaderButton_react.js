@@ -15,6 +15,7 @@ __d(
     "WDSMenuItem.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebCustomerDataForContact",
     "useWAWebWindowSize",
     "useWDSMenu",
@@ -66,100 +67,172 @@ __d(
       };
     function f(e) {
       var t,
-        n,
+        n = o("react-compiler-runtime").c(34),
         a = e.chat,
         i = r("useWAWebWindowSize")(),
         l = i.width < o("WAWebScreenWidthThresholds").NARROW_SCREEN_THRESHOLD,
         c = (t = a.contact) == null ? void 0 : t.id,
-        f = r("useWAWebCustomerDataForContact")(c != null ? c : a.id),
-        g =
-          (n = o("WAWebLeadStage").getLeadStageFromNumber(
-            f == null ? void 0 : f.leadStage,
+        d = r("useWAWebCustomerDataForContact")(c != null ? c : a.id),
+        m;
+      if (n[0] !== (d == null ? void 0 : d.leadStage)) {
+        var f;
+        ((m =
+          (f = o("WAWebLeadStage").getLeadStageFromNumber(
+            d == null ? void 0 : d.leadStage,
           )) != null
-            ? n
-            : o("WAWebLeadStage").LeadStage.NONE,
-        h = o("WAJids").unsafeCoerceToChatJid(a.id.toString()),
-        y = d(
-          function (e) {
+            ? f
+            : o("WAWebLeadStage").LeadStage.NONE),
+          (n[0] = d == null ? void 0 : d.leadStage),
+          (n[1] = m));
+      } else m = n[1];
+      var g = m,
+        h;
+      n[2] !== a.id
+        ? ((h = o("WAJids").unsafeCoerceToChatJid(a.id.toString())),
+          (n[2] = a.id),
+          (n[3] = h))
+        : (h = n[3]);
+      var y = h,
+        C;
+      n[4] !== y || n[5] !== g || n[6] !== d
+        ? ((C = function (t) {
             o("WAWebCustomerDataFieldSaver").handleLeadStageTransition(
-              h,
-              f,
-              e,
+              y,
+              d,
+              t,
               g,
             );
-          },
-          [h, g, f],
-        ),
-        C = p(null),
-        b = m(
-          function () {
-            return u.jsx(r("WDSMenu.react"), {
-              children: o("WAWebLeadStage").LEAD_STAGE_ORDER_WITH_NONE.map(
-                function (e) {
-                  return u.jsx(
-                    r("WDSMenuItem.react"),
-                    {
-                      isToggleable: !0,
-                      onPress: function () {
-                        return y(e);
-                      },
-                      testid: void 0,
-                      title: o("WAWebLeadStageNames").getLeadStageName(e),
-                      toggled: g === e,
-                    },
-                    e,
-                  );
-                },
-              ),
-            });
-          },
-          [g, y],
-        ),
-        v = r("useWDSMenu")({ targetRef: C, menu: b }),
-        S = v.closeMenu,
-        R = v.isMenuOpen,
-        L = v.menuPortal,
-        E = v.openMenu,
-        k = d(
-          function (e) {
-            (e.preventDefault(), e.stopPropagation(), R ? S() : E());
-          },
-          [S, R, E],
-        ),
-        I =
-          g !== o("WAWebLeadStage").LeadStage.NONE
-            ? o("WAWebLeadStageNames").getLeadStageName(g)
-            : s._(/*BTDS*/ "Lead stage");
-      return u.jsxs(u.Fragment, {
-        children: [
-          u.jsx("div", {
-            className: "x150mmf0",
-            children: u.jsxs(r("WAWebUnstyledButton.react"), {
-              ref: C,
-              dataTab: o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
-              xstyle: _.button,
-              onClick: k,
-              "aria-label": s._(/*BTDS*/ "Lead stage"),
-              children: [
-                u.jsx(r("WDSIconIcSort.react"), { iconXstyle: _.icon }),
-                !l &&
-                  u.jsx(r("WDSText.react"), {
-                    type: "Body2Emphasized",
-                    textAlign: "center",
-                    colorName: "contentDefault",
-                    children: I,
-                  }),
-                u.jsx(r("WDSIconIcArrowDropDown.react"), {
-                  iconXstyle: _.icon,
-                }),
-              ],
-            }),
           }),
-          L,
-        ],
-      });
+          (n[4] = y),
+          (n[5] = g),
+          (n[6] = d),
+          (n[7] = C))
+        : (C = n[7]);
+      var b = C,
+        v = p(null),
+        S;
+      n[8] !== g || n[9] !== b
+        ? ((S = o("WAWebLeadStage").LEAD_STAGE_ORDER_WITH_NONE.map(
+            function (e) {
+              return u.jsx(
+                r("WDSMenuItem.react"),
+                {
+                  isToggleable: !0,
+                  onPress: function () {
+                    return b(e);
+                  },
+                  testid: void 0,
+                  title: o("WAWebLeadStageNames").getLeadStageName(e),
+                  toggled: g === e,
+                },
+                e,
+              );
+            },
+          )),
+          (n[8] = g),
+          (n[9] = b),
+          (n[10] = S))
+        : (S = n[10]);
+      var R;
+      n[11] !== S
+        ? ((R = u.jsx(r("WDSMenu.react"), { children: S })),
+          (n[11] = S),
+          (n[12] = R))
+        : (R = n[12]);
+      var L = R,
+        E;
+      n[13] !== L
+        ? ((E = { targetRef: v, menu: L }), (n[13] = L), (n[14] = E))
+        : (E = n[14]);
+      var k = r("useWDSMenu")(E),
+        I = k.closeMenu,
+        T = k.isMenuOpen,
+        D = k.menuPortal,
+        x = k.openMenu,
+        $;
+      n[15] !== I || n[16] !== T || n[17] !== x
+        ? (($ = function (t) {
+            (t.preventDefault(), t.stopPropagation(), T ? I() : x());
+          }),
+          (n[15] = I),
+          (n[16] = T),
+          (n[17] = x),
+          (n[18] = $))
+        : ($ = n[18]);
+      var P = $,
+        N;
+      n[19] !== g
+        ? ((N =
+            g !== o("WAWebLeadStage").LeadStage.NONE
+              ? o("WAWebLeadStageNames").getLeadStageName(g)
+              : s._(/*BTDS*/ "Lead stage")),
+          (n[19] = g),
+          (n[20] = N))
+        : (N = n[20]);
+      var M = N,
+        w;
+      n[21] === Symbol.for("react.memo_cache_sentinel")
+        ? ((w = { className: "x150mmf0" }), (n[21] = w))
+        : (w = n[21]);
+      var A, F;
+      n[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((A = s._(/*BTDS*/ "Lead stage")),
+          (F = u.jsx(r("WDSIconIcSort.react"), { iconXstyle: _.icon })),
+          (n[22] = A),
+          (n[23] = F))
+        : ((A = n[22]), (F = n[23]));
+      var O;
+      n[24] !== M || n[25] !== l
+        ? ((O =
+            !l &&
+            u.jsx(r("WDSText.react"), {
+              type: "Body2Emphasized",
+              textAlign: "center",
+              colorName: "contentDefault",
+              children: M,
+            })),
+          (n[24] = M),
+          (n[25] = l),
+          (n[26] = O))
+        : (O = n[26]);
+      var B;
+      n[27] === Symbol.for("react.memo_cache_sentinel")
+        ? ((B = u.jsx(r("WDSIconIcArrowDropDown.react"), {
+            iconXstyle: _.icon,
+          })),
+          (n[27] = B))
+        : (B = n[27]);
+      var W;
+      n[28] !== P || n[29] !== O
+        ? ((W = u.jsx(
+            "div",
+            babelHelpers.extends({}, w, {
+              children: u.jsxs(r("WAWebUnstyledButton.react"), {
+                ref: v,
+                dataTab: o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
+                xstyle: _.button,
+                onClick: P,
+                "aria-label": A,
+                children: [F, O, B],
+              }),
+            }),
+          )),
+          (n[28] = P),
+          (n[29] = O),
+          (n[30] = W))
+        : (W = n[30]);
+      var q;
+      return (
+        n[31] !== D || n[32] !== W
+          ? ((q = u.jsxs(u.Fragment, { children: [W, D] })),
+            (n[31] = D),
+            (n[32] = W),
+            (n[33] = q))
+          : (q = n[33]),
+        q
+      );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    l.default = f;
   },
   226,
 );

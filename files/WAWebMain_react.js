@@ -661,7 +661,7 @@ __d(
                 longtask: { enabled: r("justknobx")._("4665") },
                 longAnimationFrame: { enabled: !1 },
               }),
-            o("WAWebCanonicalUtils").logPageLoadAuthStatus());
+            o("WAWebCanonicalUtils").logCanonicalPageLoadMetrics());
         }, []),
         v(function () {
           o("WAWebABProps").getABPropConfigValue(

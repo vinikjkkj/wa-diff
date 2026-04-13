@@ -1,30 +1,40 @@
 __d(
   "useWAWebDevicePixelRatio",
-  ["err", "once", "react"],
+  ["err", "once", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = s.useEffect,
       c = s.useState;
     function d() {
-      var e = c(function () {
-          return m().getValue();
-        }),
-        t = e[0],
-        n = e[1];
+      var e = o("react-compiler-runtime").c(2),
+        t = c(m),
+        n = t[0],
+        r = t[1],
+        a,
+        i;
       return (
-        u(function () {
-          return m().subscribe(function (e) {
-            n(e);
-          });
-        }, []),
-        t
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((a = function () {
+              return p().subscribe(function (e) {
+                r(e);
+              });
+            }),
+            (i = []),
+            (e[0] = a),
+            (e[1] = i))
+          : ((a = e[0]), (i = e[1])),
+        u(a, i),
+        n
       );
     }
-    var m = r("once")(function () {
-        return new p();
+    function m() {
+      return p().getValue();
+    }
+    var p = r("once")(function () {
+        return new _();
       }),
-      p = (function () {
+      _ = (function () {
         function e() {
           this.$1 = new Set();
         }

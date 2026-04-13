@@ -65,6 +65,7 @@ __d(
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "sumBy",
     "useWAWebContactValues",
@@ -160,286 +161,450 @@ __d(
       }),
       b = 2e3;
     function v(e) {
-      var t = e.chat,
-        n = e.message,
-        a = e.onClose,
-        i = e.openRequestTimestamp,
-        l = e.orderStatusButton,
-        u = g(
-          function () {
-            return o("WAWebOrderStatus").getMergedOrderStatus(t, l);
-          },
-          [t, l],
-        ),
-        c = u.drawerButton,
-        d = u.lastMessage,
-        m = c.order.links,
-        _ = m === void 0 ? [] : m,
-        f = h(null),
-        y = f[0],
-        C = f[1],
-        v = function (t) {
-          C({
-            menu: _.map(function (e) {
-              var t = e.url,
-                n = e.url_label;
-              return p.jsx(
-                o("WAWebDropdownItem.react").DropdownItem,
-                {
-                  icon: p.jsx(r("WDSIconIcOpenInNew.react"), {}),
-                  action: function () {
-                    (o("WAWebExternalLink.react").openExternalLink(t), C(null));
+      var t = o("react-compiler-runtime").c(28),
+        n = e.chat,
+        a = e.message,
+        i = e.onClose,
+        l = e.openRequestTimestamp,
+        u = e.orderStatusButton,
+        c;
+      t[0] !== n || t[1] !== u
+        ? ((c = o("WAWebOrderStatus").getMergedOrderStatus(n, u)),
+          (t[0] = n),
+          (t[1] = u),
+          (t[2] = c))
+        : (c = t[2]);
+      var d = c,
+        m = d.drawerButton,
+        _ = d.lastMessage,
+        f = m.order,
+        g = f.links,
+        y;
+      t[3] !== g
+        ? ((y = g === void 0 ? [] : g), (t[3] = g), (t[4] = y))
+        : (y = t[4]);
+      var C = y,
+        v = h(null),
+        R = v[0],
+        E = v[1],
+        k;
+      t[5] !== C
+        ? ((k = function (t) {
+            E({
+              menu: C.map(function (e) {
+                var t = e.url,
+                  n = e.url_label;
+                return p.jsx(
+                  o("WAWebDropdownItem.react").DropdownItem,
+                  {
+                    icon: p.jsx(r("WDSIconIcOpenInNew.react"), {}),
+                    action: function () {
+                      (o("WAWebExternalLink.react").openExternalLink(t),
+                        E(null));
+                    },
+                    children: n,
                   },
-                  children: n,
-                },
-                t,
-              );
-            }),
-            anchor: t == null ? void 0 : t.target,
-          });
-        },
-        R = function () {
-          C(null);
-        },
-        k = s._(/*BTDS*/ "Links"),
-        T = n === d,
-        D = Math.max(0, T ? 0 : b - (Date.now() - i)),
-        x = h(D > 0),
-        $ = x[0],
-        P = x[1];
-      return (
-        o("useWAWebTimeout").useTimeout(
-          function () {
-            return P(!1);
-          },
-          D,
-          { immediate: !0 },
-        ),
-        p.jsxs(r("WAWebDrawer.react"), {
-          tsNavigationData: {
-            surface: "unknown",
-            viewName: "biz-order-status",
-          },
-          children: [
-            p.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-              type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-              onCancel: a,
-              title: s._(/*BTDS*/ "Order details"),
-              rightActionElement:
-                _.length > 0
-                  ? p.jsx(o("WAWebMenuBar.react").MenuBarItem, {
-                      icon: p.jsx(r("WDSIconIcMoreVert.react"), {}),
-                      title: k,
-                      onClick: v,
-                    })
-                  : null,
-            }),
-            $
-              ? p.jsx(r("WAWebDrawerBody.react"), {
-                  children: p.jsxs(o("WAWebFlex.react").FlexColumn, {
-                    align: "center",
-                    justify: "center",
-                    grow: 1,
-                    xstyle: o("WAWebUISpacing").uiPadding.vert40,
-                    children: [
-                      p.jsx(o("WAWebSpinner.react").Spinner, {
-                        size: 32,
-                        stroke: 4,
-                        color: "default",
-                      }),
-                      p.jsx(o("WAWebText.react").WAWebTextMutedRefreshed, {
-                        xstyle: o("WAWebUISpacing").uiPadding.top16,
-                        children: s._(/*BTDS*/ "Fetching order details..."),
-                      }),
-                    ],
-                  }),
+                  t,
+                );
+              }),
+              anchor: t == null ? void 0 : t.target,
+            });
+          }),
+          (t[5] = C),
+          (t[6] = k))
+        : (k = t[6]);
+      var T = k,
+        x;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = function () {
+            E(null);
+          }),
+          (t[7] = x))
+        : (x = t[7]);
+      var $ = x,
+        P;
+      t[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((P = s._(/*BTDS*/ "Links")), (t[8] = P))
+        : (P = t[8]);
+      var N = P,
+        M = a === _,
+        w = Math.max(0, M ? 0 : b - (Date.now() - l)),
+        A = h(w > 0),
+        F = A[0],
+        O = A[1],
+        B;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((B = function () {
+            return O(!1);
+          }),
+          (t[9] = B))
+        : (B = t[9]);
+      var W;
+      (t[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((W = { immediate: !0 }), (t[10] = W))
+        : (W = t[10]),
+        o("useWAWebTimeout").useTimeout(B, w, W));
+      var q;
+      t[11] === Symbol.for("react.memo_cache_sentinel")
+        ? ((q = { surface: "unknown", viewName: "biz-order-status" }),
+          (t[11] = q))
+        : (q = t[11]);
+      var U;
+      t[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((U = s._(/*BTDS*/ "Order details")), (t[12] = U))
+        : (U = t[12]);
+      var V;
+      t[13] !== C.length || t[14] !== T
+        ? ((V =
+            C.length > 0
+              ? p.jsx(o("WAWebMenuBar.react").MenuBarItem, {
+                  icon: p.jsx(r("WDSIconIcMoreVert.react"), {}),
+                  title: N,
+                  onClick: T,
                 })
-              : p.jsxs(p.Fragment, {
+              : null),
+          (t[13] = C.length),
+          (t[14] = T),
+          (t[15] = V))
+        : (V = t[15]);
+      var H;
+      t[16] !== i || t[17] !== V
+        ? ((H = p.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+            type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
+            onCancel: i,
+            title: U,
+            rightActionElement: V,
+          })),
+          (t[16] = i),
+          (t[17] = V),
+          (t[18] = H))
+        : (H = t[18]);
+      var G;
+      t[19] !== n || t[20] !== F || t[21] !== m || t[22] !== R || t[23] !== a
+        ? ((G = F
+            ? p.jsx(r("WAWebDrawerBody.react"), {
+                children: p.jsxs(o("WAWebFlex.react").FlexColumn, {
+                  align: "center",
+                  justify: "center",
+                  grow: 1,
+                  xstyle: o("WAWebUISpacing").uiPadding.vert40,
                   children: [
-                    p.jsx(r("WAWebDrawerBody.react"), {
-                      children: p.jsxs(o("WAWebFlex.react").FlexColumn, {
-                        align: "stretch",
-                        xstyle: o("WAWebUISpacing").uiPadding.top4,
-                        children: [
-                          p.jsx(S, {
-                            chat: t,
-                            orderStatusButton: c,
-                            message: n,
-                          }),
-                          p.jsx(r("WAWebGroupInfoSeparator.react"), {
-                            animation: !1,
-                          }),
-                          p.jsx(L, {
-                            chat: t,
-                            orderStatusButton: c,
-                            message: n,
-                          }),
-                          p.jsx(r("WAWebGroupInfoSeparator.react"), {
-                            animation: !1,
-                          }),
-                          p.jsx(E, {
-                            chat: t,
-                            orderStatusButton: c,
-                            message: n,
-                          }),
-                        ],
-                      }),
+                    p.jsx(o("WAWebSpinner.react").Spinner, {
+                      size: 32,
+                      stroke: 4,
+                      color: "default",
                     }),
-                    p.jsx(I, { chat: t, orderStatusButton: c, message: n }),
-                    y &&
-                      p.jsx(o("WAWebUimUie.react").UIE, {
-                        displayName: k.toString(),
-                        escapable: !0,
-                        popable: !0,
-                        dismissOnWindowResize: !0,
-                        requestDismiss: R,
-                        children: p.jsx(r("WAWebUimUieMenu.react"), {
-                          contextMenu: y,
-                        }),
-                      }),
+                    p.jsx(o("WAWebText.react").WAWebTextMutedRefreshed, {
+                      xstyle: o("WAWebUISpacing").uiPadding.top16,
+                      children: s._(/*BTDS*/ "Fetching order details..."),
+                    }),
                   ],
                 }),
-          ],
-        })
+              })
+            : p.jsxs(p.Fragment, {
+                children: [
+                  p.jsx(r("WAWebDrawerBody.react"), {
+                    children: p.jsxs(o("WAWebFlex.react").FlexColumn, {
+                      align: "stretch",
+                      xstyle: o("WAWebUISpacing").uiPadding.top4,
+                      children: [
+                        p.jsx(S, { chat: n, orderStatusButton: m, message: a }),
+                        p.jsx(r("WAWebGroupInfoSeparator.react"), {
+                          animation: !1,
+                        }),
+                        p.jsx(L, { chat: n, orderStatusButton: m, message: a }),
+                        p.jsx(r("WAWebGroupInfoSeparator.react"), {
+                          animation: !1,
+                        }),
+                        p.jsx(I, { chat: n, orderStatusButton: m, message: a }),
+                      ],
+                    }),
+                  }),
+                  p.jsx(D, { chat: n, orderStatusButton: m, message: a }),
+                  R &&
+                    p.jsx(o("WAWebUimUie.react").UIE, {
+                      displayName: N.toString(),
+                      escapable: !0,
+                      popable: !0,
+                      dismissOnWindowResize: !0,
+                      requestDismiss: $,
+                      children: p.jsx(r("WAWebUimUieMenu.react"), {
+                        contextMenu: R,
+                      }),
+                    }),
+                ],
+              })),
+          (t[19] = n),
+          (t[20] = F),
+          (t[21] = m),
+          (t[22] = R),
+          (t[23] = a),
+          (t[24] = G))
+        : (G = t[24]);
+      var z;
+      return (
+        t[25] !== H || t[26] !== G
+          ? ((z = p.jsxs(r("WAWebDrawer.react"), {
+              tsNavigationData: q,
+              children: [H, G],
+            })),
+            (t[25] = H),
+            (t[26] = G),
+            (t[27] = z))
+          : (z = t[27]),
+        z
       );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = e.chat,
-        n = e.message,
-        a = e.orderStatusButton,
-        i = o("useWAWebContactValues").useContactValues(t.contact.id, [
-          o("WAWebContactGetters").getIsMe,
-          o("WAWebContactGetters").getShowBusinessCheckmarkAsPrimary,
-          o("WAWebContactGetters").getShowBusinessCheckmarkAsSecondary,
-          o("WAWebFrontendContactGetters")
-            .getShowBiz3pBotVerifiedNameAsSecondary,
-        ]),
-        l = i[0],
-        u = i[1],
-        c = i[2],
-        d = i[3],
-        m = a.order,
-        _ = m.items,
-        f = m.order_date,
-        h = x(_),
-        y = g(
-          function () {
-            var e = f != null ? C.format(Number(f) * 1e3) : null,
-              t =
-                e != null
-                  ? s
-                      ._(/*BTDS*/ "Placed on {order_date}", [
-                        s._param("order_date", e),
-                      ])
-                      .toString()
-                  : null;
-            return h != null || t != null
-              ? [h, t].filter(Boolean).join(" \u2022 ")
-              : s._(/*BTDS*/ "Business account").toString();
-          },
-          [h, f],
-        );
-      return p.jsx(r("WAWebCellV2.react"), {
-        size: "medium",
-        onClick: function () {
-          o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-            p.jsx(o("WAWebInfoFlowLoadable").InfoFlowLoadable, {
-              chat: t,
-              initialStep: o("WAWebInfoFlowStep").InfoFlowStep.ContactInfo,
-              onBack: function () {
-                return o(
-                  "WAWebBizOpenOrderStatusDrawer.react",
-                ).openOrderStatusDrawer(a, t, n);
-              },
-            }),
-            { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
-          );
-        },
-        primary: p.jsx(o("WAWebName.react").Name, {
-          chat: t,
-          ellipsify: !0,
-          showBusinessCheckmark: u || c || d,
-          showMessageYourselfName: l,
-          testid: void 0,
-        }),
-        secondary: p.jsx(o("WAWebEmojiText.react").EmojiText, {
-          text: y,
-          className: "x1c4vz4f xisnujt x1nxh6w3 x1fc57z9 xhslqc4",
-          direction: "auto",
-          titlify: !0,
-        }),
-        detailLeft: p.jsx(o("WAWebDetailImage.react").DetailImage, {
-          id: t.id,
-          size: 64,
-          quality: o("WAWebDetailImage.react").DetailImageQuality.High,
-        }),
-        isRefresh: !0,
-      });
-    }
-    S.displayName = S.name + " [from " + i.id + "]";
-    function R(e) {
-      var t = e.description,
-        n = e.icon,
-        a = e.onClick,
-        i = e.onCopyClick,
-        l = e.title;
-      return p.jsx(r("WAWebDrawerBlock.react"), {
-        multiline: !0,
-        isRefresh: !0,
-        separator: !1,
-        blockXstyle: o("WAWebUISpacing").uiPadding.end0,
-        xstyle: [
-          o("WAWebUISpacing").uiPadding.horiz20,
-          o("WAWebUISpacing").uiPadding.vert10,
-        ],
-        side:
-          i &&
-          p.jsx(o("WAWebFlex.react").FlexRow, {
-            justify: "end",
-            shrink: 0,
-            children: p.jsx(o("WAWebText.react").WAWebTextMutedRefreshed, {
-              flex: !0,
-              children: p.jsx(r("WDSButton.react"), {
-                Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
-                onPress: i,
-                variant: "borderless",
-                "aria-label": s._(/*BTDS*/ "Copy to clipboard"),
+      var t = o("react-compiler-runtime").c(27),
+        n = e.chat,
+        a = e.message,
+        i = e.orderStatusButton,
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [
+            o("WAWebContactGetters").getIsMe,
+            o("WAWebContactGetters").getShowBusinessCheckmarkAsPrimary,
+            o("WAWebContactGetters").getShowBusinessCheckmarkAsSecondary,
+            o("WAWebFrontendContactGetters")
+              .getShowBiz3pBotVerifiedNameAsSecondary,
+          ]),
+          (t[0] = l))
+        : (l = t[0]);
+      var u = o("useWAWebContactValues").useContactValues(n.contact.id, l),
+        c = u[0],
+        d = u[1],
+        m = u[2],
+        _ = u[3],
+        f = i.order,
+        g = f.items,
+        h = f.order_date,
+        y;
+      t[1] !== g ? ((y = P(g)), (t[1] = g), (t[2] = y)) : (y = t[2]);
+      var b = y,
+        v;
+      e: {
+        var S;
+        if (t[3] !== h) {
+          var R = h != null ? C.format(Number(h) * 1e3) : null;
+          ((S =
+            R != null
+              ? s
+                  ._(/*BTDS*/ "Placed on {order_date}", [
+                    s._param("order_date", R),
+                  ])
+                  .toString()
+              : null),
+            (t[3] = h),
+            (t[4] = S));
+        } else S = t[4];
+        var L = S;
+        if (b != null || L != null) {
+          var E;
+          (t[5] !== b || t[6] !== L
+            ? ((E = [b, L].filter(Boolean)), (t[5] = b), (t[6] = L), (t[7] = E))
+            : (E = t[7]),
+            (v = E.join(" \u2022 ")));
+          break e;
+        }
+        var k;
+        (t[8] === Symbol.for("react.memo_cache_sentinel")
+          ? ((k = s._(/*BTDS*/ "Business account").toString()), (t[8] = k))
+          : (k = t[8]),
+          (v = k));
+      }
+      var I = v,
+        T;
+      t[9] !== n || t[10] !== a || t[11] !== i
+        ? ((T = function () {
+            o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+              p.jsx(o("WAWebInfoFlowLoadable").InfoFlowLoadable, {
+                chat: n,
+                initialStep: o("WAWebInfoFlowStep").InfoFlowStep.ContactInfo,
+                onBack: function () {
+                  return o(
+                    "WAWebBizOpenOrderStatusDrawer.react",
+                  ).openOrderStatusDrawer(i, n, a);
+                },
               }),
-            }),
+              { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
+            );
           }),
-        onClick: a,
-        children: p.jsxs(o("WAWebFlex.react").FlexRow, {
-          align: "center",
-          xstyle: y.listItemContentWrapper,
-          children: [
+          (t[9] = n),
+          (t[10] = a),
+          (t[11] = i),
+          (t[12] = T))
+        : (T = t[12]);
+      var D = d || m || _,
+        x;
+      t[13] !== n || t[14] !== c || t[15] !== D
+        ? ((x = p.jsx(o("WAWebName.react").Name, {
+            chat: n,
+            ellipsify: !0,
+            showBusinessCheckmark: D,
+            showMessageYourselfName: c,
+            testid: void 0,
+          })),
+          (t[13] = n),
+          (t[14] = c),
+          (t[15] = D),
+          (t[16] = x))
+        : (x = t[16]);
+      var $;
+      t[17] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = "x1c4vz4f xisnujt x1nxh6w3 x1fc57z9 xhslqc4"), (t[17] = $))
+        : ($ = t[17]);
+      var N;
+      t[18] !== I
+        ? ((N = p.jsx(o("WAWebEmojiText.react").EmojiText, {
+            text: I,
+            className: $,
+            direction: "auto",
+            titlify: !0,
+          })),
+          (t[18] = I),
+          (t[19] = N))
+        : (N = t[19]);
+      var M;
+      t[20] !== n.id
+        ? ((M = p.jsx(o("WAWebDetailImage.react").DetailImage, {
+            id: n.id,
+            size: 64,
+            quality: o("WAWebDetailImage.react").DetailImageQuality.High,
+          })),
+          (t[20] = n.id),
+          (t[21] = M))
+        : (M = t[21]);
+      var w;
+      return (
+        t[22] !== M || t[23] !== T || t[24] !== x || t[25] !== N
+          ? ((w = p.jsx(r("WAWebCellV2.react"), {
+              size: "medium",
+              onClick: T,
+              primary: x,
+              secondary: N,
+              detailLeft: M,
+              isRefresh: !0,
+            })),
+            (t[22] = M),
+            (t[23] = T),
+            (t[24] = x),
+            (t[25] = N),
+            (t[26] = w))
+          : (w = t[26]),
+        w
+      );
+    }
+    function R(e) {
+      var t = o("react-compiler-runtime").c(19),
+        n = e.description,
+        a = e.icon,
+        i = e.onClick,
+        l = e.onCopyClick,
+        u = e.title,
+        c;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = [
+            o("WAWebUISpacing").uiPadding.horiz20,
+            o("WAWebUISpacing").uiPadding.vert10,
+          ]),
+          (t[0] = c))
+        : (c = t[0]);
+      var d;
+      t[1] !== l
+        ? ((d =
+            l &&
             p.jsx(o("WAWebFlex.react").FlexRow, {
-              xstyle: o("WAWebUISpacing").uiPadding.all8,
-              align: "center",
-              justify: "center",
+              justify: "end",
               shrink: 0,
               children: p.jsx(o("WAWebText.react").WAWebTextMutedRefreshed, {
-                children: n,
+                flex: !0,
+                children: p.jsx(r("WDSButton.react"), {
+                  Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+                  onPress: l,
+                  variant: "borderless",
+                  "aria-label": s._(/*BTDS*/ "Copy to clipboard"),
+                }),
               }),
+            })),
+          (t[1] = l),
+          (t[2] = d))
+        : (d = t[2]);
+      var m;
+      t[3] !== a
+        ? ((m = p.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: o("WAWebUISpacing").uiPadding.all8,
+            align: "center",
+            justify: "center",
+            shrink: 0,
+            children: p.jsx(o("WAWebText.react").WAWebTextMutedRefreshed, {
+              children: a,
             }),
-            p.jsxs(o("WAWebFlex.react").FlexColumn, {
-              grow: 1,
-              children: [
-                p.jsx(o("WAWebText.react").WAWebTextTitleRefreshed, {
-                  children: l,
-                }),
-                p.jsx(o("WAWebText.react").WAWebTextMutedRefreshed, {
-                  children: t,
-                }),
-              ],
-            }),
-          ],
-        }),
-      });
+          })),
+          (t[3] = a),
+          (t[4] = m))
+        : (m = t[4]);
+      var _;
+      t[5] !== u
+        ? ((_ = p.jsx(o("WAWebText.react").WAWebTextTitleRefreshed, {
+            children: u,
+          })),
+          (t[5] = u),
+          (t[6] = _))
+        : (_ = t[6]);
+      var f;
+      t[7] !== n
+        ? ((f = p.jsx(o("WAWebText.react").WAWebTextMutedRefreshed, {
+            children: n,
+          })),
+          (t[7] = n),
+          (t[8] = f))
+        : (f = t[8]);
+      var g;
+      t[9] !== _ || t[10] !== f
+        ? ((g = p.jsxs(o("WAWebFlex.react").FlexColumn, {
+            grow: 1,
+            children: [_, f],
+          })),
+          (t[9] = _),
+          (t[10] = f),
+          (t[11] = g))
+        : (g = t[11]);
+      var h;
+      t[12] !== m || t[13] !== g
+        ? ((h = p.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            xstyle: y.listItemContentWrapper,
+            children: [m, g],
+          })),
+          (t[12] = m),
+          (t[13] = g),
+          (t[14] = h))
+        : (h = t[14]);
+      var C;
+      return (
+        t[15] !== i || t[16] !== d || t[17] !== h
+          ? ((C = p.jsx(r("WAWebDrawerBlock.react"), {
+              multiline: !0,
+              isRefresh: !0,
+              separator: !1,
+              blockXstyle: o("WAWebUISpacing").uiPadding.end0,
+              xstyle: c,
+              side: d,
+              onClick: i,
+              children: h,
+            })),
+            (t[15] = i),
+            (t[16] = d),
+            (t[17] = h),
+            (t[18] = C))
+          : (C = t[18]),
+        C
+      );
     }
-    R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
-      var t = e.chat,
+      var t = o("react-compiler-runtime").c(29),
+        n = e.chat,
         a = e.message,
         i = e.orderStatusButton,
         l = i.order,
@@ -447,53 +612,65 @@ __d(
         c = l.shipping_method,
         d = l.status,
         m = l.tracking,
-        _ = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              n === void 0 && (n = o("WAWebToastManager").ToastPosition.RIGHT);
-              var r = yield o("WAWebCopyToClipboard").copyTextToClipboard(e);
-              if (!r)
-                return o("WAWebToastManager").ToastManager.open(
-                  p.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Unable to copy"),
-                  }),
-                  n,
-                );
-              o("WAWebToastManager").ToastManager.open(
-                p.jsx(o("WAWebToast.react").Toast, { msg: t }),
-                n,
-              );
-            },
-          );
-          return function (n, r, o) {
-            return e.apply(this, arguments);
-          };
-        })();
-      return p.jsxs(p.Fragment, {
-        children: [
-          p.jsx(o("WAWebFlex.react").FlexColumn, {
+        _ = E,
+        f;
+      t[0] !== d
+        ? ((f = o("WAWebBizFormatInteractiveMsg").getOrderStatusButtonBodyTitle(
+            d,
+          )),
+          (t[0] = d),
+          (t[1] = f))
+        : (f = t[1]);
+      var g;
+      t[2] !== f
+        ? ((g = p.jsx(o("WAWebFlex.react").FlexColumn, {
             xstyle: y.sectionTitle,
             shrink: 0,
-            children: o(
-              "WAWebBizFormatInteractiveMsg",
-            ).getOrderStatusButtonBodyTitle(d),
+            children: f,
+          })),
+          (t[2] = f),
+          (t[3] = g))
+        : (g = t[3]);
+      var h;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = s._(/*BTDS*/ "Order number")), (t[4] = h))
+        : (h = t[4]);
+      var C;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = p.jsx(o("WAWebIcNumbersIcon.react").IcNumbersIcon, {
+            height: 24,
+          })),
+          (t[5] = C))
+        : (C = t[5]);
+      var b;
+      t[6] !== a || t[7] !== i.reference_id
+        ? ((b = function () {
+            (o("WAWebRichOrderStatusLogger").logRichOrderStatusInteraction(
+              a.unsafe(),
+              o("WAWebRichOrderStatusLogger").RichOrderStatusActionType
+                .ORDER_NUMBER_COPY,
+            ),
+              _(i.reference_id, s._(/*BTDS*/ "Order number copied")));
           }),
-          p.jsx(R, {
-            title: s._(/*BTDS*/ "Order number"),
+          (t[6] = a),
+          (t[7] = i.reference_id),
+          (t[8] = b))
+        : (b = t[8]);
+      var v;
+      t[9] !== i.reference_id || t[10] !== b
+        ? ((v = p.jsx(R, {
+            title: h,
             description: i.reference_id,
-            icon: p.jsx(o("WAWebIcNumbersIcon.react").IcNumbersIcon, {
-              height: 24,
-            }),
-            onCopyClick: function () {
-              (o("WAWebRichOrderStatusLogger").logRichOrderStatusInteraction(
-                a.unsafe(),
-                o("WAWebRichOrderStatusLogger").RichOrderStatusActionType
-                  .ORDER_NUMBER_COPY,
-              ),
-                _(i.reference_id, s._(/*BTDS*/ "Order number copied")));
-            },
-          }),
-          m
+            icon: C,
+            onCopyClick: b,
+          })),
+          (t[9] = i.reference_id),
+          (t[10] = b),
+          (t[11] = v))
+        : (v = t[11]);
+      var S;
+      t[12] !== a || t[13] !== c || t[14] !== m
+        ? ((S = m
             ? p.jsx(R, {
                 title: m.courier_name,
                 description: m.tracking_ref,
@@ -521,8 +698,16 @@ __d(
                   o("WAWebIcLocalShippingIcon.react").IcLocalShippingIcon,
                   { height: 24 },
                 ),
-              }),
-          o("WAWebOrderStatus").shouldShowTrackingInfo(i) &&
+              })),
+          (t[12] = a),
+          (t[13] = c),
+          (t[14] = m),
+          (t[15] = S))
+        : (S = t[15]);
+      var L;
+      t[16] !== n || t[17] !== i || t[18] !== m
+        ? ((L =
+            o("WAWebOrderStatus").shouldShowTrackingInfo(i) &&
             (m == null ? void 0 : m.tracking_url) &&
             p.jsx(R, {
               title: s._(/*BTDS*/ "Forward delivery updates"),
@@ -532,13 +717,21 @@ __d(
               ),
               onClick: function () {
                 o("WAWebModalManager").ModalManager.open(
-                  p.jsx(D, { chat: t, tracking: m }),
+                  p.jsx($, { chat: n, tracking: m }),
                 );
               },
-            }),
-          ((u == null ? void 0 : u.email) != null ||
-            (u == null ? void 0 : u.phone_number) != null ||
-            (u == null ? void 0 : u.support_url) != null) &&
+            })),
+          (t[16] = n),
+          (t[17] = i),
+          (t[18] = m),
+          (t[19] = L))
+        : (L = t[19]);
+      var k;
+      t[20] !== n || t[21] !== u
+        ? ((k =
+            ((u == null ? void 0 : u.email) != null ||
+              (u == null ? void 0 : u.phone_number) != null ||
+              (u == null ? void 0 : u.support_url) != null) &&
             p.jsx(R, {
               title: s._(/*BTDS*/ "I need help with my order"),
               icon: p.jsx(o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon, {
@@ -546,21 +739,58 @@ __d(
               }),
               onClick: function () {
                 o("WAWebModalManager").ModalManager.open(
-                  p.jsx(T, {
+                  p.jsx(x, {
                     contactInfo: u,
-                    chat: t,
+                    chat: n,
                     onCopyClick: function (t, n) {
                       _(t, n, o("WAWebToastManager").ToastPosition.CENTER);
                     },
                   }),
                 );
               },
-            }),
-        ],
-      });
+            })),
+          (t[20] = n),
+          (t[21] = u),
+          (t[22] = k))
+        : (k = t[22]);
+      var I;
+      return (
+        t[23] !== k || t[24] !== g || t[25] !== v || t[26] !== S || t[27] !== L
+          ? ((I = p.jsxs(p.Fragment, { children: [g, v, S, L, k] })),
+            (t[23] = k),
+            (t[24] = g),
+            (t[25] = v),
+            (t[26] = S),
+            (t[27] = L),
+            (t[28] = I))
+          : (I = t[28]),
+        I
+      );
     }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E(e) {
+    function E(e, t, n) {
+      return k.apply(this, arguments);
+    }
+    function k() {
+      return (
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = n === void 0 ? o("WAWebToastManager").ToastPosition.RIGHT : n,
+            a = yield o("WAWebCopyToClipboard").copyTextToClipboard(e);
+          if (!a)
+            return o("WAWebToastManager").ToastManager.open(
+              p.jsx(o("WAWebToast.react").Toast, {
+                msg: s._(/*BTDS*/ "Unable to copy"),
+              }),
+              r,
+            );
+          o("WAWebToastManager").ToastManager.open(
+            p.jsx(o("WAWebToast.react").Toast, { msg: t }),
+            r,
+          );
+        })),
+        k.apply(this, arguments)
+      );
+    }
+    function I(e) {
       var t = e.chat,
         n = e.message,
         a = e.orderStatusButton,
@@ -579,7 +809,7 @@ __d(
           },
           [m],
         ),
-        f = x(u);
+        f = P(u);
       return p.jsxs(p.Fragment, {
         children: [
           p.jsx(o("WAWebFlex.react").FlexColumn, {
@@ -635,7 +865,7 @@ __d(
                                   xstyle: y.imageContainer,
                                   shrink: 0,
                                   children: [
-                                    p.jsx(k, { item: e }),
+                                    p.jsx(T, { item: e }),
                                     e.quantity > 1 &&
                                       p.jsx(o("WAWebFlex.react").FlexColumn, {
                                         align: "center",
@@ -719,7 +949,7 @@ __d(
                             ),
                               o("WAWebExternalLink.react").openExternalLink(c));
                           },
-                          children: $(t),
+                          children: N(t),
                         },
                       ),
                     }),
@@ -785,36 +1015,45 @@ __d(
         ],
       });
     }
-    E.displayName = E.name + " [from " + i.id + "]";
-    function k(t) {
-      var n = t.item,
-        a = n.image,
-        i = a.jpeg_thumbnail,
-        l = a.media_key,
-        s = a.media_key_timestamp,
-        u = a.mimetype,
-        c = a.thumbnail_direct_path,
-        d = a.thumbnail_enc_sha256,
-        m = a.thumbnail_sha256,
-        _ = a.url,
-        g = h(null),
-        y = g[0],
-        C = g[1],
-        b = h(!0),
-        v = b[0],
-        S = b[1];
-      return (
-        f(
-          function () {
-            var t = m,
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T(t) {
+      var n = o("react-compiler-runtime").c(15),
+        a = t.item,
+        i = a.image,
+        l = i.jpeg_thumbnail,
+        s = i.media_key,
+        u = i.media_key_timestamp,
+        c = i.mimetype,
+        d = i.thumbnail_direct_path,
+        m = i.thumbnail_enc_sha256,
+        _ = i.thumbnail_sha256,
+        g = i.url,
+        y = h(null),
+        C = y[0],
+        b = y[1],
+        v = h(!0),
+        S = v[0],
+        R = v[1],
+        L,
+        E;
+      (n[0] !== g ||
+      n[1] !== d ||
+      n[2] !== m ||
+      n[3] !== l ||
+      n[4] !== s ||
+      n[5] !== u ||
+      n[6] !== c ||
+      n[7] !== _
+        ? ((L = function () {
+            var t = _,
               n = o("WAWebMediaStorage").getOrCreateMediaObject(t),
               a = {
                 debugHint: "setMediaObjectValues",
-                deprecatedMms3Url: _,
-                directPath: c,
-                encFilehash: d,
-                mediaKey: l,
-                mediaKeyTimestamp: s,
+                deprecatedMms3Url: g,
+                directPath: d,
+                encFilehash: m,
+                mediaKey: s,
+                mediaKeyTimestamp: u,
                 type: o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
               };
             (n.entries.addEntry(a),
@@ -832,7 +1071,7 @@ __d(
                   mediaObject: n,
                   mediaType:
                     o("WAWebMmsMediaTypes").MEDIA_TYPES.THUMBNAIL_IMAGE,
-                  mimetype: u,
+                  mimetype: c,
                   rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
                     .WEBC_RMR_REASON_CODE.MSG_RENDER,
                   shouldThrow: !0,
@@ -851,7 +1090,7 @@ __d(
                         (a instanceof r("WAWebMediaOpaqueData")
                           ? a.url()
                           : URL.createObjectURL(a));
-                    i != null && C(i);
+                    i != null && b(i);
                   },
                   function (t) {
                     (o("WALogger")
@@ -863,90 +1102,146 @@ __d(
                       )
                       .catching(t)
                       .sendLogs("order_status:item_image_download_failed"),
-                      C("data:image/jpeg;base64," + i));
+                      b("data:image/jpeg;base64," + l));
                   },
                 )
                 .finally(function () {
-                  S(!1);
+                  R(!1);
                 }));
-          },
-          [_, c, d, l, s, u, m, i],
-        ),
-        p.jsx("div", {
-          className: "x1dmp6jm xwzfr38",
-          children: v
-            ? p.jsx(o("WAWebSpinner.react").Spinner, {
-                size: 24,
-                stroke: 3,
-                color: "default",
-              })
-            : p.jsx("img", {
-                src: y,
-                alt: n.name,
-                className:
-                  "xh8yej3 x5yr21d xl1xv1r xrlxcrs x7g1fbw xxl59ln xmw6rta",
+          }),
+          (E = [g, d, m, s, u, c, _, l]),
+          (n[0] = g),
+          (n[1] = d),
+          (n[2] = m),
+          (n[3] = l),
+          (n[4] = s),
+          (n[5] = u),
+          (n[6] = c),
+          (n[7] = _),
+          (n[8] = L),
+          (n[9] = E))
+        : ((L = n[8]), (E = n[9])),
+        f(L, E));
+      var k;
+      n[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = { className: "x1dmp6jm xwzfr38" }), (n[10] = k))
+        : (k = n[10]);
+      var I;
+      return (
+        n[11] !== C || n[12] !== a.name || n[13] !== S
+          ? ((I = p.jsx(
+              "div",
+              babelHelpers.extends({}, k, {
+                children: S
+                  ? p.jsx(o("WAWebSpinner.react").Spinner, {
+                      size: 24,
+                      stroke: 3,
+                      color: "default",
+                    })
+                  : p.jsx("img", {
+                      src: C,
+                      alt: a.name,
+                      className:
+                        "xh8yej3 x5yr21d xl1xv1r xrlxcrs x7g1fbw xxl59ln xmw6rta",
+                    }),
               }),
-        })
+            )),
+            (n[11] = C),
+            (n[12] = a.name),
+            (n[13] = S),
+            (n[14] = I))
+          : (I = n[14]),
+        I
       );
     }
-    k.displayName = k.name + " [from " + i.id + "]";
-    function I(e) {
-      var t = e.chat,
-        n = e.message,
-        a = e.orderStatusButton,
-        i = a.order,
-        l = i.order_url,
-        u = i.status,
-        c = i.tracking,
-        d = o("WAWebOrderStatus").shouldShowTrackingInfo(a),
-        m = g(
-          function () {
-            return d
-              ? u === o("WAWebOrderStatus").OrderStatus.Complete ||
-                u === o("WAWebOrderStatus").OrderStatus.Delivered
-                ? s._(/*BTDS*/ "Delivery info")
-                : s._(/*BTDS*/ "Track order")
-              : $(t);
-          },
-          [u, d, t],
-        );
-      return l == null && c == null
-        ? null
-        : p.jsx(o("WAWebFlex.react").FlexColumn, {
-            xstyle: [o("WAWebUISpacing").uiPadding.all16, y.footer],
-            shrink: 0,
-            align: "stretch",
-            children: p.jsx(o("WAWebButton.react").WAWebButtonPrimary, {
-              icon: r("WDSIconIcOpenInNew.react"),
-              onClick: function () {
-                c != null && d
-                  ? (o(
-                      "WAWebRichOrderStatusLogger",
-                    ).logRichOrderStatusInteraction(
-                      n.unsafe(),
-                      o("WAWebRichOrderStatusLogger").RichOrderStatusActionType
-                        .ORDER_TRACKING_URL_CLICK,
-                    ),
-                    o("WAWebExternalLink.react").openExternalLink(
-                      c.tracking_url,
-                    ))
-                  : l != null &&
-                    (o(
-                      "WAWebRichOrderStatusLogger",
-                    ).logRichOrderStatusInteraction(
-                      n.unsafe(),
-                      o("WAWebRichOrderStatusLogger").RichOrderStatusActionType
-                        .VIEW_ORDER_PRIMARY_CLICK,
-                    ),
-                    o("WAWebExternalLink.react").openExternalLink(l));
-              },
-              stretch: !0,
-              children: m,
-            }),
-          });
+    function D(e) {
+      var t = o("react-compiler-runtime").c(15),
+        n = e.chat,
+        a = e.message,
+        i = e.orderStatusButton,
+        l = i.order,
+        u = l.order_url,
+        c = l.status,
+        d = l.tracking,
+        m;
+      t[0] !== i
+        ? ((m = o("WAWebOrderStatus").shouldShowTrackingInfo(i)),
+          (t[0] = i),
+          (t[1] = m))
+        : (m = t[1]);
+      var _ = m,
+        f;
+      e: {
+        if (_) {
+          var g;
+          (t[2] !== c
+            ? ((g =
+                c === o("WAWebOrderStatus").OrderStatus.Complete ||
+                c === o("WAWebOrderStatus").OrderStatus.Delivered
+                  ? s._(/*BTDS*/ "Delivery info")
+                  : s._(/*BTDS*/ "Track order")),
+              (t[2] = c),
+              (t[3] = g))
+            : (g = t[3]),
+            (f = g));
+          break e;
+        }
+        var h;
+        (t[4] !== n ? ((h = N(n)), (t[4] = n), (t[5] = h)) : (h = t[5]),
+          (f = h));
+      }
+      var C = f;
+      if (u == null && d == null) return null;
+      var b;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = [o("WAWebUISpacing").uiPadding.all16, y.footer]), (t[6] = b))
+        : (b = t[6]);
+      var v;
+      t[7] !== a || t[8] !== u || t[9] !== _ || t[10] !== d
+        ? ((v = function () {
+            d != null && _
+              ? (o("WAWebRichOrderStatusLogger").logRichOrderStatusInteraction(
+                  a.unsafe(),
+                  o("WAWebRichOrderStatusLogger").RichOrderStatusActionType
+                    .ORDER_TRACKING_URL_CLICK,
+                ),
+                o("WAWebExternalLink.react").openExternalLink(d.tracking_url))
+              : u != null &&
+                (o("WAWebRichOrderStatusLogger").logRichOrderStatusInteraction(
+                  a.unsafe(),
+                  o("WAWebRichOrderStatusLogger").RichOrderStatusActionType
+                    .VIEW_ORDER_PRIMARY_CLICK,
+                ),
+                o("WAWebExternalLink.react").openExternalLink(u));
+          }),
+          (t[7] = a),
+          (t[8] = u),
+          (t[9] = _),
+          (t[10] = d),
+          (t[11] = v))
+        : (v = t[11]);
+      var S;
+      return (
+        t[12] !== C || t[13] !== v
+          ? ((S = p.jsx(o("WAWebFlex.react").FlexColumn, {
+              xstyle: b,
+              shrink: 0,
+              align: "stretch",
+              children: p.jsx(o("WAWebButton.react").WAWebButtonPrimary, {
+                icon: r("WDSIconIcOpenInNew.react"),
+                onClick: v,
+                stretch: !0,
+                children: C,
+              }),
+            })),
+            (t[12] = C),
+            (t[13] = v),
+            (t[14] = S))
+          : (S = t[14]),
+        S
+      );
     }
-    I.displayName = I.name + " [from " + i.id + "]";
-    function T(e) {
+    function x(e) {
       var t = e.chat,
         n = e.contactInfo,
         a = e.onCopyClick;
@@ -961,7 +1256,7 @@ __d(
             p.jsx(o("WAWebName.react").Name, { chat: t }),
           ),
         ]),
-        onOK: P,
+        onOK: M,
         tsNavigationData: {
           surface: "unknown",
           viewName: "biz-order-contact-info",
@@ -1085,8 +1380,8 @@ __d(
         }),
       });
     }
-    T.displayName = T.name + " [from " + i.id + "]";
-    function D(e) {
+    x.displayName = x.name + " [from " + i.id + "]";
+    function $(e) {
       var t = e.chat,
         a = e.tracking,
         i = a.tracking_url,
@@ -1152,8 +1447,8 @@ __d(
         }),
       });
     }
-    D.displayName = D.name + " [from " + i.id + "]";
-    function x(e) {
+    $.displayName = $.name + " [from " + i.id + "]";
+    function P(e) {
       if (e == null || e.length === 0) return null;
       var t = r("sumBy")(e, function (e) {
         return e.quantity;
@@ -1164,7 +1459,7 @@ __d(
         ])
         .toString();
     }
-    function $(e) {
+    function N(e) {
       var t = e.formattedTitle;
       return t.length <= 15
         ? s._(/*BTDS*/ "View on {business_name}", [
@@ -1172,7 +1467,7 @@ __d(
           ])
         : s._(/*BTDS*/ "View on website");
     }
-    function P() {
+    function M() {
       o("WAWebModalManager").ModalManager.close();
     }
     l.default = v;

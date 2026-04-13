@@ -42,6 +42,7 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebToggle",
   ],
@@ -75,31 +76,48 @@ __d(
         paddingTop28: { paddingTop: "xv8gdss", $$css: !0 },
       };
     function y(e) {
-      var t = e.pinChannel,
-        n = e.togglePinning;
-      return d.jsxs(o("WAWebFlex.react").FlexRow, {
-        justify: "start",
-        align: "center",
-        children: [
-          d.jsx(o("WAWebFlex.react").FlexColumn, {
+      var t = o("react-compiler-runtime").c(6),
+        n = e.pinChannel,
+        a = e.togglePinning,
+        i;
+      t[0] !== n || t[1] !== a
+        ? ((i = d.jsx(o("WAWebFlex.react").FlexColumn, {
             children: d.jsx(r("WDSBaseCheckbox.react"), {
-              value: t,
-              onChange: n,
+              value: n,
+              onChange: a,
               testid: void 0,
             }),
-          }),
-          d.jsx(o("WAWebFlex.react").FlexColumn, {
+          })),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = i))
+        : (i = t[2]);
+      var l;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = d.jsx(o("WAWebFlex.react").FlexColumn, {
             padding: 16,
             children: d.jsx(r("WDSText.react"), {
               type: "Body2",
               colorName: "contentDefault",
               children: s._(/*BTDS*/ "Pin channel so it's easy to find"),
             }),
-          }),
-        ],
-      });
+          })),
+          (t[3] = l))
+        : (l = t[3]);
+      var u;
+      return (
+        t[4] !== i
+          ? ((u = d.jsxs(o("WAWebFlex.react").FlexRow, {
+              justify: "start",
+              align: "center",
+              children: [i, l],
+            })),
+            (t[4] = i),
+            (t[5] = u))
+          : (u = t[5]),
+        u
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(t) {
       var a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e),

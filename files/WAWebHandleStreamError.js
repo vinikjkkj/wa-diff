@@ -6,6 +6,7 @@ __d(
     "WADeprecatedWapParser",
     "WALogger",
     "WAWebBackendEventBus",
+    "WAWebCanonicalUtils",
     "WAWebCompanionRegUtils",
     "WAWebCoreActionsODS",
     "WAWebJestE2ELogUtils",
@@ -78,14 +79,15 @@ __d(
             );
           var a = t.success;
           if (a.type === "code" && a.code >= 500 && a.code < 600) {
-            if (a.code === 515) {
-              o("WAComms").stopComms();
-              var i = yield o("WAWebCompanionRegUtils").startLogin();
+            if (a.code === 515)
               return (
-                i || o("WAWebStartBackend").startBackend(),
+                o("WAComms").stopComms(),
+                o("WAWebCanonicalUtils").isCanonicalAppReloadPending() ||
+                  (yield o("WAWebCompanionRegUtils").startLogin(),
+                  o("WAWebStartBackend").startBackend()),
                 (p || (p = n("Promise"))).resolve("NO_ACK")
               );
-            } else if (a.code === 516)
+            if (a.code === 516)
               return (
                 o("WAComms").stopComms(),
                 o("WAWebCoreActionsODS").isPageLoadComplete() ||

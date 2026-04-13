@@ -17,6 +17,7 @@ __d(
     "WAWebTabs.react",
     "WAWebUimUie.react",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebDebouncedSearch",
   ],
@@ -59,55 +60,167 @@ __d(
       }),
       C = [y.MEDIA, y.DOCS];
     function b(e) {
+      var t = o("react-compiler-runtime").c(44);
       switch (e.selectedTab) {
-        case y.MEDIA:
-          return c.jsx(r("WAWebMediaGallery.react"), {
-            chat: e.chat,
-            mediaMsgs: e.chat.getMediaMsgs(),
-            selectable: e.selectable,
-            onMessageSelect: e.onMessageSelect,
-            selectedMessages: e.selectedMessages,
-            fullCollection: !0,
-            isFilterEnabled: e.isFilterEnabled,
-            filterText: e.filterText,
-            threadId: e.threadId,
-          });
-        case y.LINKS:
-          return c.jsx(r("WAWebLinkGallery.react"), {
-            chat: e.chat,
-            linkMsgs: e.chat.getLinkMsgs(),
-            selectable: e.selectable,
-            onMessageSelect: e.onMessageSelect,
-            selectedMessages: e.selectedMessages,
-            isFilterEnabled: e.isFilterEnabled,
-            filterText: e.filterText,
-            threadId: e.threadId,
-          });
-        case y.DOCS:
-          return c.jsx(r("WAWebDocGallery.react"), {
-            chat: e.chat,
-            docMsgs: e.chat.getDocMsgs(),
-            selectable: e.selectable,
-            onMessageSelect: e.onMessageSelect,
-            selectedMessages: e.selectedMessages,
-            isFilterEnabled: e.isFilterEnabled,
-            filterText: e.filterText,
-            threadId: e.threadId,
-          });
-        case y.PRODUCTS:
-          return c.jsx(r("WAWebProductGallery.react"), {
-            chat: e.chat,
-            productMsgs: e.chat.getProductMsgs(),
-            selectable: e.selectable,
-            onMessageSelect: e.onMessageSelect,
-            selectedMessages: e.selectedMessages,
-            onProductDetail: e.onProductDetail,
-            setScrollOffset: e.setScrollOffset,
-            scrollOffset: e.scrollOffset,
-          });
+        case y.MEDIA: {
+          var n = e.chat,
+            a;
+          t[0] !== e.chat
+            ? ((a = e.chat.getMediaMsgs()), (t[0] = e.chat), (t[1] = a))
+            : (a = t[1]);
+          var i;
+          return (
+            t[2] !== e.chat ||
+            t[3] !== e.filterText ||
+            t[4] !== e.isFilterEnabled ||
+            t[5] !== e.onMessageSelect ||
+            t[6] !== e.selectable ||
+            t[7] !== e.selectedMessages ||
+            t[8] !== e.threadId ||
+            t[9] !== a
+              ? ((i = c.jsx(r("WAWebMediaGallery.react"), {
+                  chat: n,
+                  mediaMsgs: a,
+                  selectable: e.selectable,
+                  onMessageSelect: e.onMessageSelect,
+                  selectedMessages: e.selectedMessages,
+                  fullCollection: !0,
+                  isFilterEnabled: e.isFilterEnabled,
+                  filterText: e.filterText,
+                  threadId: e.threadId,
+                })),
+                (t[2] = e.chat),
+                (t[3] = e.filterText),
+                (t[4] = e.isFilterEnabled),
+                (t[5] = e.onMessageSelect),
+                (t[6] = e.selectable),
+                (t[7] = e.selectedMessages),
+                (t[8] = e.threadId),
+                (t[9] = a),
+                (t[10] = i))
+              : (i = t[10]),
+            i
+          );
+        }
+        case y.LINKS: {
+          var l = e.chat,
+            s;
+          t[11] !== e.chat
+            ? ((s = e.chat.getLinkMsgs()), (t[11] = e.chat), (t[12] = s))
+            : (s = t[12]);
+          var u;
+          return (
+            t[13] !== e.chat ||
+            t[14] !== e.filterText ||
+            t[15] !== e.isFilterEnabled ||
+            t[16] !== e.onMessageSelect ||
+            t[17] !== e.selectable ||
+            t[18] !== e.selectedMessages ||
+            t[19] !== e.threadId ||
+            t[20] !== s
+              ? ((u = c.jsx(r("WAWebLinkGallery.react"), {
+                  chat: l,
+                  linkMsgs: s,
+                  selectable: e.selectable,
+                  onMessageSelect: e.onMessageSelect,
+                  selectedMessages: e.selectedMessages,
+                  isFilterEnabled: e.isFilterEnabled,
+                  filterText: e.filterText,
+                  threadId: e.threadId,
+                })),
+                (t[13] = e.chat),
+                (t[14] = e.filterText),
+                (t[15] = e.isFilterEnabled),
+                (t[16] = e.onMessageSelect),
+                (t[17] = e.selectable),
+                (t[18] = e.selectedMessages),
+                (t[19] = e.threadId),
+                (t[20] = s),
+                (t[21] = u))
+              : (u = t[21]),
+            u
+          );
+        }
+        case y.DOCS: {
+          var d = e.chat,
+            m;
+          t[22] !== e.chat
+            ? ((m = e.chat.getDocMsgs()), (t[22] = e.chat), (t[23] = m))
+            : (m = t[23]);
+          var p;
+          return (
+            t[24] !== e.chat ||
+            t[25] !== e.filterText ||
+            t[26] !== e.isFilterEnabled ||
+            t[27] !== e.onMessageSelect ||
+            t[28] !== e.selectable ||
+            t[29] !== e.selectedMessages ||
+            t[30] !== e.threadId ||
+            t[31] !== m
+              ? ((p = c.jsx(r("WAWebDocGallery.react"), {
+                  chat: d,
+                  docMsgs: m,
+                  selectable: e.selectable,
+                  onMessageSelect: e.onMessageSelect,
+                  selectedMessages: e.selectedMessages,
+                  isFilterEnabled: e.isFilterEnabled,
+                  filterText: e.filterText,
+                  threadId: e.threadId,
+                })),
+                (t[24] = e.chat),
+                (t[25] = e.filterText),
+                (t[26] = e.isFilterEnabled),
+                (t[27] = e.onMessageSelect),
+                (t[28] = e.selectable),
+                (t[29] = e.selectedMessages),
+                (t[30] = e.threadId),
+                (t[31] = m),
+                (t[32] = p))
+              : (p = t[32]),
+            p
+          );
+        }
+        case y.PRODUCTS: {
+          var _ = e.chat,
+            f;
+          t[33] !== e.chat
+            ? ((f = e.chat.getProductMsgs()), (t[33] = e.chat), (t[34] = f))
+            : (f = t[34]);
+          var g;
+          return (
+            t[35] !== e.chat ||
+            t[36] !== e.onMessageSelect ||
+            t[37] !== e.onProductDetail ||
+            t[38] !== e.scrollOffset ||
+            t[39] !== e.selectable ||
+            t[40] !== e.selectedMessages ||
+            t[41] !== e.setScrollOffset ||
+            t[42] !== f
+              ? ((g = c.jsx(r("WAWebProductGallery.react"), {
+                  chat: _,
+                  productMsgs: f,
+                  selectable: e.selectable,
+                  onMessageSelect: e.onMessageSelect,
+                  selectedMessages: e.selectedMessages,
+                  onProductDetail: e.onProductDetail,
+                  setScrollOffset: e.setScrollOffset,
+                  scrollOffset: e.scrollOffset,
+                })),
+                (t[35] = e.chat),
+                (t[36] = e.onMessageSelect),
+                (t[37] = e.onProductDetail),
+                (t[38] = e.scrollOffset),
+                (t[39] = e.selectable),
+                (t[40] = e.selectedMessages),
+                (t[41] = e.setScrollOffset),
+                (t[42] = f),
+                (t[43] = g))
+              : (g = t[43]),
+            g
+          );
+        }
       }
     }
-    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
       switch (e) {
         case y.MEDIA:

@@ -5,6 +5,7 @@ __d(
     "WAWebPrivacyModeContext",
     "WAWebPrivacyModeGating",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,77 +19,113 @@ __d(
       _ = "blur(0px)",
       f = "filter 200ms ease-in-out";
     function g(e) {
-      var t = e.category,
-        n = e.children,
-        r = e.containerRef,
-        a = e.eventContainerRef,
-        i = e.forceReveal,
-        l = o("WAWebPrivacyModeContext").usePrivacyMode(),
-        u = l.getBlurForCategory,
-        c = l.isPrivacyModeEnabled,
-        g = d(p),
-        h = c && !g,
-        y = u(
-          t != null ? t : o("WAWebPrivacyModeBlurConfig").BlurCategory.General,
-        ),
-        C = "blur(" + y + "px)";
+      var t = o("react-compiler-runtime").c(12),
+        n = e.category,
+        r = e.children,
+        a = e.containerRef,
+        i = e.eventContainerRef,
+        l = e.forceReveal,
+        u = o("WAWebPrivacyModeContext").usePrivacyMode(),
+        c = u.getBlurForCategory,
+        g = u.isPrivacyModeEnabled,
+        h = d(p),
+        y = g && !h,
+        C =
+          n != null ? n : o("WAWebPrivacyModeBlurConfig").BlurCategory.General,
+        b;
+      t[0] !== c || t[1] !== C
+        ? ((b = c(C)), (t[0] = c), (t[1] = C), (t[2] = b))
+        : (b = t[2]);
+      var v = b,
+        S = "blur(" + v + "px)",
+        R,
+        L;
+      if (
+        (t[3] !== S || t[4] !== a || t[5] !== i || t[6] !== l || t[7] !== y
+          ? ((R = function () {
+              var e,
+                t = a.current;
+              if (!(!t || !y)) {
+                ((t.style.transition = f),
+                  (t.style.filter = l === !0 ? _ : S),
+                  (t.style.userSelect = l === !0 ? "" : "none"));
+                var n = function () {
+                    ((t.style.filter = _), (t.style.userSelect = ""));
+                  },
+                  r = function () {
+                    l !== !0 &&
+                      ((t.style.filter = S), (t.style.userSelect = "none"));
+                  },
+                  o = (e = i == null ? void 0 : i.current) != null ? e : t;
+                return (
+                  o.addEventListener("mouseenter", n),
+                  o.addEventListener("mouseleave", r),
+                  o.addEventListener("focusin", n),
+                  o.addEventListener("focusout", r),
+                  function () {
+                    ((t.style.transition = ""),
+                      (t.style.filter = ""),
+                      (t.style.userSelect = ""),
+                      o.removeEventListener("mouseenter", n),
+                      o.removeEventListener("mouseleave", r),
+                      o.removeEventListener("focusin", n),
+                      o.removeEventListener("focusout", r));
+                  }
+                );
+              }
+            }),
+            (L = [a, i, y, l, S]),
+            (t[3] = S),
+            (t[4] = a),
+            (t[5] = i),
+            (t[6] = l),
+            (t[7] = y),
+            (t[8] = R),
+            (t[9] = L))
+          : ((R = t[8]), (L = t[9])),
+        m(R, L),
+        !y)
+      )
+        return r;
+      var E;
       return (
-        m(
-          function () {
-            var e,
-              t = r.current;
-            if (!(!t || !h)) {
-              ((t.style.transition = f),
-                (t.style.filter = i === !0 ? _ : C),
-                (t.style.userSelect = i === !0 ? "" : "none"));
-              var n = function () {
-                  ((t.style.filter = _), (t.style.userSelect = ""));
-                },
-                o = function () {
-                  i !== !0 &&
-                    ((t.style.filter = C), (t.style.userSelect = "none"));
-                },
-                l = (e = a == null ? void 0 : a.current) != null ? e : t;
-              return (
-                l.addEventListener("mouseenter", n),
-                l.addEventListener("mouseleave", o),
-                l.addEventListener("focusin", n),
-                l.addEventListener("focusout", o),
-                function () {
-                  ((t.style.transition = ""),
-                    (t.style.filter = ""),
-                    (t.style.userSelect = ""),
-                    l.removeEventListener("mouseenter", n),
-                    l.removeEventListener("mouseleave", o),
-                    l.removeEventListener("focusin", n),
-                    l.removeEventListener("focusout", o));
-                }
-              );
-            }
-          },
-          [r, a, h, i, C],
-        ),
-        h ? s.jsx(p.Provider, { value: !0, children: n }) : n
+        t[10] !== r
+          ? ((E = s.jsx(p.Provider, { value: !0, children: r })),
+            (t[10] = r),
+            (t[11] = E))
+          : (E = t[11]),
+        E
       );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = e.category,
-        n = e.children,
-        r = e.containerRef,
-        a = e.eventContainerRef,
-        i = e.forceReveal;
-      return o("WAWebPrivacyModeGating").isPrivacyScreenEnabled()
-        ? s.jsx(g, {
-            containerRef: r,
-            eventContainerRef: a,
-            forceReveal: i,
-            category: t,
-            children: n,
-          })
-        : n;
+      var t = o("react-compiler-runtime").c(6),
+        n = e.category,
+        r = e.children,
+        a = e.containerRef,
+        i = e.eventContainerRef,
+        l = e.forceReveal;
+      if (!o("WAWebPrivacyModeGating").isPrivacyScreenEnabled()) return r;
+      var u;
+      return (
+        t[0] !== n || t[1] !== r || t[2] !== a || t[3] !== i || t[4] !== l
+          ? ((u = s.jsx(g, {
+              containerRef: a,
+              eventContainerRef: i,
+              forceReveal: l,
+              category: n,
+              children: r,
+            })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a),
+            (t[3] = i),
+            (t[4] = l),
+            (t[5] = u))
+          : (u = t[5]),
+        u
+      );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
+    l.default = h;
   },
   98,
 );

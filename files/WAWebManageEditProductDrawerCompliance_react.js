@@ -24,6 +24,7 @@ __d(
     "fbs",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -44,60 +45,78 @@ __d(
         },
       };
     function g(t) {
-      var n = t.handleComplianceInfoImporterToggleChange,
-        a = t.importerInformationNotApplicableEnabled;
-      return c.jsxs(
-        "div",
-        babelHelpers.extends(
-          {},
-          (e || (e = r("stylex"))).props(o("WAWebUISpacing").uiMargin.top40),
-          {
-            children: [
-              c.jsx(o("WAWebCheckBox.react").CheckBox, {
-                id: "importer-information-not-applicable-check",
-                onChange: n,
-                checked: a,
-                testid: void 0,
-              }),
-              c.jsx(
-                "label",
-                babelHelpers.extends(
-                  {},
-                  e.props([
-                    f.notApplicableLabel,
-                    o("WAWebUISpacing").uiMargin.start10,
-                  ]),
-                  {
-                    htmlFor: "importer-information-not-applicable-check",
-                    children: s._(
-                      /*BTDS*/ "Importer information not applicable",
-                    ),
-                  },
+      var n = o("react-compiler-runtime").c(9),
+        a = t.handleComplianceInfoImporterToggleChange,
+        i = t.importerInformationNotApplicableEnabled,
+        l;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = (e || (e = r("stylex"))).props(
+            o("WAWebUISpacing").uiMargin.top40,
+          )),
+          (n[0] = l))
+        : (l = n[0]);
+      var u;
+      n[1] !== a || n[2] !== i
+        ? ((u = c.jsx(o("WAWebCheckBox.react").CheckBox, {
+            id: "importer-information-not-applicable-check",
+            onChange: a,
+            checked: i,
+            testid: void 0,
+          })),
+          (n[1] = a),
+          (n[2] = i),
+          (n[3] = u))
+        : (u = n[3]);
+      var d;
+      n[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = (e || (e = r("stylex"))).props([
+            f.notApplicableLabel,
+            o("WAWebUISpacing").uiMargin.start10,
+          ])),
+          (n[4] = d))
+        : (d = n[4]);
+      var m, p;
+      n[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = c.jsx(
+            "label",
+            babelHelpers.extends({}, d, {
+              htmlFor: "importer-information-not-applicable-check",
+              children: s._(/*BTDS*/ "Importer information not applicable"),
+            }),
+          )),
+          (p = c.jsx(
+            "div",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props([
+                f.notApplicableDescr,
+                o("WAWebUISpacing").uiMargin.top5,
+                o("WAWebUISpacing").uiMargin.bottom30,
+                o("WAWebUISpacing").uiMargin.start28,
+              ]),
+              {
+                children: s._(
+                  /*BTDS*/ "Item is a service or non-physical good",
                 ),
-              ),
-              c.jsx(
-                "div",
-                babelHelpers.extends(
-                  {},
-                  e.props([
-                    f.notApplicableDescr,
-                    o("WAWebUISpacing").uiMargin.top5,
-                    o("WAWebUISpacing").uiMargin.bottom30,
-                    o("WAWebUISpacing").uiMargin.start28,
-                  ]),
-                  {
-                    children: s._(
-                      /*BTDS*/ "Item is a service or non-physical good",
-                    ),
-                  },
-                ),
-              ),
-            ],
-          },
-        ),
+              },
+            ),
+          )),
+          (n[5] = m),
+          (n[6] = p))
+        : ((m = n[5]), (p = n[6]));
+      var _;
+      return (
+        n[7] !== u
+          ? ((_ = c.jsxs(
+              "div",
+              babelHelpers.extends({}, l, { children: [u, m, p] }),
+            )),
+            (n[7] = u),
+            (n[8] = _))
+          : (_ = n[8]),
+        _
       );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
       var t = e.complianceInfo,
         n = e.countriesMap,

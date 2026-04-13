@@ -11,22 +11,21 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = s || (s = o("react")),
-      c = e || (e = r("react")),
-      d = u.useCallback,
-      m = u.useContext,
-      p = u.useEffect,
-      _ = u.useId,
-      f = u.useMemo,
-      g = u.useRef,
-      h = u.useState,
-      y = {
+      s = e || (e = o("react")),
+      u = e,
+      c = u.useCallback,
+      d = u.useContext,
+      m = u.useEffect,
+      p = u.useId,
+      _ = u.useMemo,
+      f = u.useRef,
+      g = u.useState,
+      h = {
         menu: { zIndex: "xoz0ns6", $$css: !0 },
         menuOffset: { marginTop: "x1gslohp", $$css: !0 },
       },
-      C = { LEFT: 0, RIGHT: 2 };
-    function b(e, t) {
+      y = { LEFT: 0, RIGHT: 2 };
+    function C(e, t) {
       var n = document.createElement("div");
       return (
         (n.style.position = "fixed"),
@@ -38,13 +37,13 @@ __d(
         n
       );
     }
-    function v() {
-      var e = h(null),
+    function b() {
+      var e = g(null),
         t = e[0],
         n = e[1],
-        r = g(null),
-        o = d(function (e, t) {
-          var o = b(e, t);
+        r = f(null),
+        o = c(function (e, t) {
+          var o = C(e, t);
           return (
             document.body && document.body.appendChild(o),
             (r.current = o),
@@ -52,23 +51,23 @@ __d(
             o
           );
         }, []),
-        a = d(function () {
+        a = c(function () {
           var e = r.current;
           (e != null && (document.body.removeChild(e), (r.current = null)),
             n(null));
         }, []);
       return { virtualElement: t, createAndMount: o, cleanup: a };
     }
-    function S(e) {
+    function v(e) {
       e === void 0 && (e = {});
       var t = e,
         n = t.align,
         a = t.contextMenuArea,
         i = a === void 0 ? !1 : a,
         l = t.dismissable,
-        s = l === void 0 ? !0 : l,
-        u = t.enableUIM,
-        b = u === void 0 ? !0 : u,
+        u = l === void 0 ? !0 : l,
+        C = t.enableUIM,
+        v = C === void 0 ? !0 : C,
         S = t.isContainer,
         R = S === void 0 ? !1 : S,
         L = t.menu,
@@ -78,30 +77,30 @@ __d(
         T = t.positionOnAnyClick,
         D = T === void 0 ? !1 : T,
         x = t.targetRef,
-        $ = _(),
-        P = m(o("WDSGlobalContext").WDSContext),
+        $ = p(),
+        P = d(o("WDSGlobalContext").WDSContext),
         N = P.closeAllMenus,
         M = P.registerMenu,
         w = P.unregisterMenu,
-        A = h(!1),
+        A = g(!1),
         F = A[0],
         O = A[1],
-        B = h(!1),
+        B = g(!1),
         W = B[0],
         q = B[1],
-        U = g(null),
-        V = g(null),
-        H = v(),
+        U = f(null),
+        V = f(null),
+        H = b(),
         G = H.cleanup,
         z = H.createAndMount,
         j = H.virtualElement;
       function K(e) {
         return (
-          e.button === C.RIGHT ||
-          (e.button === C.LEFT && (e.ctrlKey === !0 || e.metaKey === !0))
+          e.button === y.RIGHT ||
+          (e.button === y.LEFT && (e.ctrlKey === !0 || e.metaKey === !0))
         );
       }
-      var Q = d(
+      var Q = c(
           function (e) {
             if (e == null) return null;
             var t = K(e);
@@ -113,7 +112,7 @@ __d(
           },
           [D],
         ),
-        X = d(
+        X = c(
           function () {
             W ||
               (O(function (e) {
@@ -127,7 +126,7 @@ __d(
           },
           [$, E, w, W, G],
         ),
-        Y = d(
+        Y = c(
           function (e) {
             (q(!0),
               O(!1),
@@ -142,7 +141,7 @@ __d(
           },
           [G, z, k],
         ),
-        J = d(
+        J = c(
           function (e) {
             (z(e.x, e.y),
               q(!1),
@@ -152,7 +151,7 @@ __d(
           },
           [z, M, $, X, k],
         ),
-        Z = d(
+        Z = c(
           function () {
             (q(!1),
               O(function (e) {
@@ -161,7 +160,7 @@ __d(
           },
           [M, $, X, k],
         ),
-        ee = d(
+        ee = c(
           function (e) {
             if (!W) {
               var t = Q(e),
@@ -178,7 +177,7 @@ __d(
           },
           [W, Q, F, Y, N, J, Z, x],
         ),
-        te = d(function (e) {
+        te = c(function (e) {
           if (!(e instanceof Node)) return !1;
           var t = U.current;
           return t && t.contains(e)
@@ -187,9 +186,9 @@ __d(
               ? e.closest("[data-menu-content]") != null
               : !1;
         }, []);
-      p(
+      m(
         function () {
-          if (F && s) {
+          if (F && u) {
             var e = function (t) {
                 return (
                   (x == null ? void 0 : x.current) != null &&
@@ -200,7 +199,7 @@ __d(
               t = function (n) {
                 var t = n.target,
                   r = n != null && K(n),
-                  o = n.button === C.LEFT;
+                  o = n.button === y.LEFT;
                 if (r) {
                   if (te(t)) {
                     (n.preventDefault(), n.stopPropagation());
@@ -219,12 +218,12 @@ __d(
             );
           }
         },
-        [F, s, X, x, i, te],
+        [F, u, X, x, i, te],
       );
-      var ne = d(function (e) {
+      var ne = c(function (e) {
           (e.stopPropagation(), e.preventDefault());
         }, []),
-        re = d(
+        re = c(
           function (e) {
             var t = e.key.toLowerCase(),
               n = e.ctrlKey || e.metaKey || e.altKey;
@@ -248,11 +247,11 @@ __d(
           },
           [ne, X, R],
         ),
-        oe = d(function (e) {
+        oe = c(function (e) {
           e.preventDefault();
         }, []),
         ae = j ? { current: j } : x,
-        ie = f(
+        ie = _(
           function () {
             return {
               isClosing: W,
@@ -263,19 +262,19 @@ __d(
           [W, I, n],
         ),
         le = F
-          ? c.jsx(r("BaseContextualLayer.react"), {
+          ? s.jsx(r("BaseContextualLayer.react"), {
               contextRef: ae,
               imperativeRef: V,
-              xstyle: [y.menu, y.menuOffset],
+              xstyle: [h.menu, h.menuOffset],
               align: n != null ? n : "start",
               position: I != null ? I : "below",
               containFocus: !0,
-              children: c.jsx(o("react-strict-dom").html.div, {
+              children: s.jsx(o("react-strict-dom").html.div, {
                 ref: U,
                 "data-menu-content": !0,
                 onContextMenu: oe,
                 onKeyDown: re,
-                children: c.jsx(
+                children: s.jsx(
                   o("WDSMenuContext").WDSMenuAnimationContext.Provider,
                   { value: ie, children: L },
                 ),
@@ -283,8 +282,8 @@ __d(
             })
           : null,
         se =
-          b && le != null
-            ? c.jsx(o("WAWebUimUie.react").UIE, {
+          v && le != null
+            ? s.jsx(o("WAWebUimUie.react").UIE, {
                 displayName: "WDSMenu",
                 escapable: !0,
                 popable: !R,
@@ -292,7 +291,7 @@ __d(
                 requestDismiss: function (t, n) {
                   (n instanceof MouseEvent && te(n.target)) || X();
                 },
-                children: c.jsx("div", { children: le }),
+                children: s.jsx("div", { children: le }),
               })
             : le;
       return {
@@ -303,7 +302,7 @@ __d(
         menuRef: U,
       };
     }
-    l.default = S;
+    l.default = v;
   },
   98,
 );

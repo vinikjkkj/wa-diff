@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
     "WATimeUtils",
+    "WAWaitForComms",
     "WAWebPDFNTypes",
     "WAWebSetUserDisclosureStageJob",
     "WAWebTos",
@@ -50,56 +51,60 @@ __d(
     function h() {
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAExponentialBackoff").exponentialBackoff(
-            c,
-            (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  try {
-                    var n = o("WATimeUtils").unixTime(),
-                      a = yield o(
-                        "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
-                      ).sendGetDisclosureStageByIdsRPC({
-                        getDisclosureStageByIdArgs: [
-                          {
-                            getDisclosureStageByIdId: Number(s),
-                            getDisclosureStageByIdT: n,
-                          },
-                        ],
-                      });
-                    if (
-                      a.name === "GetDisclosureStageByIdsResponseClientSuccess"
-                    ) {
-                      var i = a.value.notice.find(function (e) {
-                        return e.id === Number(s);
-                      });
-                      i != null &&
-                        (i.stage === u ||
-                          i.stage ===
-                            o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED) &&
-                        f();
+          (yield o("WAWaitForComms").waitForComms(),
+            yield o("WAExponentialBackoff").exponentialBackoff(
+              c,
+              (function () {
+                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (t) {
+                    try {
+                      var n = o("WATimeUtils").unixTime(),
+                        a = yield o(
+                          "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
+                        ).sendGetDisclosureStageByIdsRPC({
+                          getDisclosureStageByIdArgs: [
+                            {
+                              getDisclosureStageByIdId: Number(s),
+                              getDisclosureStageByIdT: n,
+                            },
+                          ],
+                        });
+                      if (
+                        a.name ===
+                        "GetDisclosureStageByIdsResponseClientSuccess"
+                      ) {
+                        var i = a.value.notice.find(function (e) {
+                          return e.id === Number(s);
+                        });
+                        i != null &&
+                          (i.stage === u ||
+                            i.stage ===
+                              o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED) &&
+                          f();
+                      }
+                    } catch (n) {
+                      return (
+                        o("WALogger")
+                          .WARN(
+                            e ||
+                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                                "[business-broadcast-tos-sync-error] biz broadcast tos sync error",
+                              ])),
+                          )
+                          .catching(
+                            n instanceof Error ? n : r("err")(String(n)),
+                          )
+                          .sendLogs("business-broadcast-tos-sync-error"),
+                        t(n instanceof Error ? n : r("err")(String(n)))
+                      );
                     }
-                  } catch (n) {
-                    return (
-                      o("WALogger")
-                        .WARN(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[business-broadcast-tos-sync-error] biz broadcast tos sync error",
-                            ])),
-                        )
-                        .catching(n instanceof Error ? n : r("err")(String(n)))
-                        .sendLogs("business-broadcast-tos-sync-error"),
-                      t(n instanceof Error ? n : r("err")(String(n)))
-                    );
-                  }
-                },
-              );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })(),
-          );
+                  },
+                );
+                return function (e) {
+                  return t.apply(this, arguments);
+                };
+              })(),
+            ));
         })),
         h.apply(this, arguments)
       );

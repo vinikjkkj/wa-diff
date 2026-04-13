@@ -1,6 +1,12 @@
 __d(
   "useWAWebFilteredContacts",
-  ["WAWebContactCollection", "react", "shallowArrayEqual", "useWAWebListener"],
+  [
+    "WAWebContactCollection",
+    "react",
+    "react-compiler-runtime",
+    "shallowArrayEqual",
+    "useWAWebListener",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useState;
@@ -13,27 +19,40 @@ __d(
       );
     }
     function c(e) {
-      var t = s(function () {
-          return u(e);
-        }),
-        n = t[0],
-        a = t[1],
-        i = s(e),
-        l = i[0],
-        c = i[1];
-      if (e !== l) {
-        var d = u(e);
-        r("shallowArrayEqual")(n, d) || (c(e), a(d));
+      var t = o("react-compiler-runtime").c(4),
+        n;
+      t[0] !== e
+        ? ((n = function () {
+            return u(e);
+          }),
+          (t[0] = e),
+          (t[1] = n))
+        : (n = t[1]);
+      var a = s(n),
+        i = a[0],
+        l = a[1],
+        c = s(e),
+        d = c[0],
+        m = c[1];
+      if (e !== d) {
+        var p = u(e);
+        r("shallowArrayEqual")(i, p) || (m(e), l(p));
       }
+      var _;
       return (
+        t[2] !== e
+          ? ((_ = function () {
+              l(u(e));
+            }),
+            (t[2] = e),
+            (t[3] = _))
+          : (_ = t[3]),
         o("useWAWebListener").useListener(
           o("WAWebContactCollection").ContactCollection,
           "add remove reset change",
-          function () {
-            a(u(e));
-          },
+          _,
         ),
-        n
+        i
       );
     }
     l.default = c;

@@ -10,6 +10,7 @@ __d(
     "WAWebSpinner.react",
     "WAWebStylesEnv",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
   ],
@@ -75,118 +76,224 @@ __d(
         themeChatInfo: { color: "xnv7mtq", $$css: !0 },
       };
     function _() {
-      return d.jsx("div", {
-        className: "x1n2onr6 xa1il55 xqtp20y x1bryted x1hmdwey x1gk22k6",
-      });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = d.jsx("div", {
+              className: "x1n2onr6 xa1il55 xqtp20y x1bryted x1hmdwey x1gk22k6",
+            })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(t) {
-      var n = t.ref,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        i = a.chat,
-        l = a.fullCollection,
-        s = a.isRefresh,
-        c = s === void 0 ? !1 : s,
-        f = a.justify,
-        h = a.mediaCollection,
-        y = a.onScroll,
-        C = a.medias || a.productMedias,
-        b = a.theme === "chat-info",
-        v = h.length === 0,
-        S = m(null),
-        R = m(null),
-        L = r("useMergeRefs")(n, S);
-      if (!C) return null;
-      var E = (u || (u = r("stylex")))(
-          c ? [p.containerRefreshed, p.containerRefreshedPadding] : p.container,
-          !!l && p.drawer,
-          v && p.galleryEmpty,
-          v && o("WAWebStylesEnv").isOSMac && p.fontSmoothing,
-          f === "space-between" && p.justifySpaceBetween,
-          b && v && p.themeChatInfo,
-        ),
-        k = [].concat(C);
-      if (h.queryMediaBefore != null && (l || k.length < 6)) {
-        var I = {
-          0: "x78zum5 x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 xa1il55 x1sa5p1d xyorhqc x1hmdwey x1gk22k6",
-          4: "x78zum5 x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1brnrfz x9f619 xccv8h0",
-          2: "x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 xa1il55 x1sa5p1d xyorhqc x1hmdwey x1gk22k6 x1s85apg x1axa3pm xze2x15",
-          6: "x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1brnrfz x9f619 xccv8h0 x1s85apg x1axa3pm xze2x15",
-          1: "x78zum5 x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 xa1il55 x1hmdwey x1gk22k6 xqvfhly xdj266r x14z9mp xat24cr x1lziwak",
-          5: "x78zum5 x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1brnrfz x9f619 xccv8h0 xqvfhly xdj266r x14z9mp xat24cr x1lziwak",
-          3: "x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 xa1il55 x1hmdwey x1gk22k6 x1s85apg x1axa3pm xze2x15 xqvfhly xdj266r x14z9mp xat24cr x1lziwak",
-          7: "x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1brnrfz x9f619 xccv8h0 x1s85apg x1axa3pm xze2x15 xqvfhly xdj266r x14z9mp xat24cr x1lziwak",
-        }[(!!c << 2) | ((!l && k.length >= 3) << 1) | ((h.length === 0) << 0)];
-        k.push(
-          d.jsxs(
-            "div",
-            {
-              className: I,
-              children: [
-                d.jsx("span", { className: "x1etwn82 x1ukowes x14obwa1" }),
-                d.jsx(o("WAWebSpinner.react").Spinner, { stroke: 6, size: 24 }),
+      var n = o("react-compiler-runtime").c(34),
+        a,
+        i;
+      n[0] !== t
+        ? ((i = t.ref),
+          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i))
+        : ((a = n[1]), (i = n[2]));
+      var l = a,
+        s = l.chat,
+        c = l.fullCollection,
+        f = l.isRefresh,
+        h = l.justify,
+        y = l.mediaCollection,
+        C = l.onScroll,
+        b = f === void 0 ? !1 : f,
+        v = a.medias || a.productMedias,
+        S = a.theme === "chat-info",
+        R = y.length === 0,
+        L = m(null),
+        E = m(null),
+        k = r("useMergeRefs")(i, L);
+      if (!v) return null;
+      var I, T, D;
+      if (
+        n[3] !== s ||
+        n[4] !== S ||
+        n[5] !== c ||
+        n[6] !== R ||
+        n[7] !== b ||
+        n[8] !== h ||
+        n[9] !== y.hasMediaBefore ||
+        n[10] !== y.length ||
+        n[11] !== y.queryMediaBefore ||
+        n[12] !== v
+      ) {
+        D = Symbol.for("react.early_return_sentinel");
+        e: {
+          if (
+            ((I = (u || (u = r("stylex")))(
+              b
+                ? [p.containerRefreshed, p.containerRefreshedPadding]
+                : p.container,
+              !!c && p.drawer,
+              R && p.galleryEmpty,
+              R && o("WAWebStylesEnv").isOSMac && p.fontSmoothing,
+              h === "space-between" && p.justifySpaceBetween,
+              S && R && p.themeChatInfo,
+            )),
+            (T = [].concat(v)),
+            y.queryMediaBefore != null && (c || T.length < 6))
+          ) {
+            var x = {
+                0: "x78zum5 x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 xa1il55 x1sa5p1d xyorhqc x1hmdwey x1gk22k6",
+                4: "x78zum5 x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1brnrfz x9f619 xccv8h0",
+                2: "x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 xa1il55 x1sa5p1d xyorhqc x1hmdwey x1gk22k6 x1s85apg x1axa3pm xze2x15",
+                6: "x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1brnrfz x9f619 xccv8h0 x1s85apg x1axa3pm xze2x15",
+                1: "x78zum5 x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 xa1il55 x1hmdwey x1gk22k6 xqvfhly xdj266r x14z9mp xat24cr x1lziwak",
+                5: "x78zum5 x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1brnrfz x9f619 xccv8h0 xqvfhly xdj266r x14z9mp xat24cr x1lziwak",
+                3: "x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1n2onr6 xa1il55 x1hmdwey x1gk22k6 x1s85apg x1axa3pm xze2x15 xqvfhly xdj266r x14z9mp xat24cr x1lziwak",
+                7: "x6s0dn4 xl56j7k xexx8yu xyri2b x18d9i69 x1c1uobl x1brnrfz x9f619 xccv8h0 x1s85apg x1axa3pm xze2x15 xqvfhly xdj266r x14z9mp xat24cr x1lziwak",
+              }[
+                (!!b << 2) |
+                  ((!c && T.length >= 3) << 1) |
+                  ((y.length === 0) << 0)
               ],
-            },
-            "spinner",
-          ),
-        );
-      }
-      if (C.length === 0) {
-        if (l) {
-          if (h.queryMediaBefore != null)
-            return d.jsx("div", {
-              className:
-                "x9orja2 xbaz6xv x162tt16 x1xnnf8n x14z9mp x1n2onr6 xhtitgo x78zum5 x1iyjqo2 xdt5ytf x6ikm8r x1odjw0f x1hc1fzr",
-              children: d.jsx(o("WAWebEmptyState.react").Loading, {}),
-            });
-          if (h.hasMediaBefore !== !0)
-            return d.jsx(
-              o("WAWebMediaHubEmptyGalleryEntryPoint.react")
-                .WAWebMediaHubEmptyGalleryEntryPoint,
-              {
-                tabName: o("WAWebMediaHubEmptyGalleryEntryPoint.react")
-                  .MediaHubTabs.MEDIA,
-              },
-            );
-        }
-        if (b) return null;
-        h.queryMediaBefore == null &&
-          h.hasMediaBefore !== !0 &&
-          ((E = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            E,
-            {
-              0: "xqvfhly xexx8yu xr1496l x1f6kntn x1i47q4g x12lhmx5",
-              1: "xqvfhly xexx8yu xr1496l x1f6kntn x1i47q4g x12lhmx5 xvmahel xlh3980",
-            }[!!o("WAWebStylesEnv").isOSMac << 0],
-          )),
-          (k = [
-            g(
-              Math.max(i ? i.docCount : 0, 0),
-              Math.max(i ? i.linkCount : 0, 0),
-              Math.max(i ? i.productCount : 0, 0),
-            ),
-          ]));
-      } else for (var T = 0; T < 6; T++) k.push(d.jsx(_, {}, "empty" + T));
-      return d.jsx(r("WAWebKeyboardRotateFocusArrows.react"), {
-        ref: R,
-        customSelector: "[role='listitem']",
-        children: d.jsx("div", {
-          ref: L,
-          tabIndex: 0,
-          onFocus: function () {
-            if (document.activeElement === S.current) {
-              var e;
-              (e = R.current) == null || e.focusFirst();
+              $,
+              P;
+            n[16] === Symbol.for("react.memo_cache_sentinel")
+              ? (($ = d.jsx("span", {
+                  className: "x1etwn82 x1ukowes x14obwa1",
+                })),
+                (P = d.jsx(o("WAWebSpinner.react").Spinner, {
+                  stroke: 6,
+                  size: 24,
+                })),
+                (n[16] = $),
+                (n[17] = P))
+              : (($ = n[16]), (P = n[17]));
+            var N;
+            (n[18] !== x
+              ? ((N = d.jsxs(
+                  "div",
+                  { className: x, children: [$, P] },
+                  "spinner",
+                )),
+                (n[18] = x),
+                (n[19] = N))
+              : (N = n[19]),
+              T.push(N));
+          }
+          if (v.length === 0) {
+            if (c) {
+              if (y.queryMediaBefore != null) {
+                var M;
+                (n[20] === Symbol.for("react.memo_cache_sentinel")
+                  ? ((M = d.jsx("div", {
+                      className:
+                        "x9orja2 xbaz6xv x162tt16 x1xnnf8n x14z9mp x1n2onr6 xhtitgo x78zum5 x1iyjqo2 xdt5ytf x6ikm8r x1odjw0f x1hc1fzr",
+                      children: d.jsx(o("WAWebEmptyState.react").Loading, {}),
+                    })),
+                    (n[20] = M))
+                  : (M = n[20]),
+                  (D = M));
+                break e;
+              } else if (y.hasMediaBefore !== !0) {
+                var w;
+                (n[21] === Symbol.for("react.memo_cache_sentinel")
+                  ? ((w = d.jsx(
+                      o("WAWebMediaHubEmptyGalleryEntryPoint.react")
+                        .WAWebMediaHubEmptyGalleryEntryPoint,
+                      {
+                        tabName: o("WAWebMediaHubEmptyGalleryEntryPoint.react")
+                          .MediaHubTabs.MEDIA,
+                      },
+                    )),
+                    (n[21] = w))
+                  : (w = n[21]),
+                  (D = w));
+                break e;
+              }
             }
-          },
-          onScroll: y,
-          "data-testid": void 0,
-          className: E,
-          children: k,
-        }),
-      });
+            if (S) {
+              D = null;
+              break e;
+            }
+            if (y.queryMediaBefore == null && y.hasMediaBefore !== !0) {
+              I = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+                I,
+                {
+                  0: "xqvfhly xexx8yu xr1496l x1f6kntn x1i47q4g x12lhmx5",
+                  1: "xqvfhly xexx8yu xr1496l x1f6kntn x1i47q4g x12lhmx5 xvmahel xlh3980",
+                }[!!o("WAWebStylesEnv").isOSMac << 0],
+              );
+              var A = Math.max(s ? s.docCount : 0, 0),
+                F = Math.max(s ? s.linkCount : 0, 0),
+                O = Math.max(s ? s.productCount : 0, 0),
+                B;
+              n[22] !== A || n[23] !== F || n[24] !== O
+                ? ((B = g(A, F, O)),
+                  (n[22] = A),
+                  (n[23] = F),
+                  (n[24] = O),
+                  (n[25] = B))
+                : (B = n[25]);
+              var W;
+              (n[26] !== B
+                ? ((W = [B]), (n[26] = B), (n[27] = W))
+                : (W = n[27]),
+                (T = W));
+            }
+          } else for (var q = 0; q < 6; q++) T.push(d.jsx(_, {}, "empty" + q));
+        }
+        ((n[3] = s),
+          (n[4] = S),
+          (n[5] = c),
+          (n[6] = R),
+          (n[7] = b),
+          (n[8] = h),
+          (n[9] = y.hasMediaBefore),
+          (n[10] = y.length),
+          (n[11] = y.queryMediaBefore),
+          (n[12] = v),
+          (n[13] = I),
+          (n[14] = T),
+          (n[15] = D));
+      } else ((I = n[13]), (T = n[14]), (D = n[15]));
+      if (D !== Symbol.for("react.early_return_sentinel")) return D;
+      var U;
+      n[28] === Symbol.for("react.memo_cache_sentinel")
+        ? ((U = function () {
+            if (document.activeElement === L.current) {
+              var e;
+              (e = E.current) == null || e.focusFirst();
+            }
+          }),
+          (n[28] = U))
+        : (U = n[28]);
+      var V;
+      return (
+        n[29] !== I || n[30] !== T || n[31] !== k || n[32] !== C
+          ? ((V = d.jsx(r("WAWebKeyboardRotateFocusArrows.react"), {
+              ref: E,
+              customSelector: "[role='listitem']",
+              children: d.jsx("div", {
+                ref: k,
+                tabIndex: 0,
+                onFocus: U,
+                onScroll: C,
+                "data-testid": void 0,
+                className: I,
+                children: T,
+              }),
+            })),
+            (n[29] = I),
+            (n[30] = T),
+            (n[31] = k),
+            (n[32] = C),
+            (n[33] = V))
+          : (V = n[33]),
+        V
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e, t, n) {
       var o = [];
       return (

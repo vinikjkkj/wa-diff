@@ -6,6 +6,7 @@ __d(
     "WAWebStarOutlineIcon.react",
     "WAWebUnstyledButton.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -90,75 +91,170 @@ __d(
         },
       };
     function d() {
-      return s.jsx(r("WAWebBox.react"), {
-        xstyle: c.dot,
-        children: s.jsx(r("WAWebBox.react"), { xstyle: c.dotInner }),
-      });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = s.jsx(r("WAWebBox.react"), {
+              xstyle: c.dot,
+              children: s.jsx(r("WAWebBox.react"), { xstyle: c.dotInner }),
+            })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = e.currentRating,
-        n = e.hoveredRating,
-        r = e.value;
-      return n >= r || t >= r
-        ? s.jsx(o("WAWebStarIcon.react").StarIcon, { width: 35, height: 35 })
-        : t > 0 && r > t
-          ? s.jsx(d, {})
-          : s.jsx(o("WAWebStarOutlineIcon.react").StarOutlineIcon, {
-              iconXstyle: c.starIconOutline,
-            });
-    }
-    m.displayName = m.name + " [from " + i.id + "]";
-    function p(e) {
-      var t = e.ariaLabel,
+      var t = o("react-compiler-runtime").c(3),
         n = e.currentRating,
-        o = e.hoveredRating,
-        a = e.onClick,
-        i = e.onHover,
-        l = e.onHoverEnd,
-        d = e.testid,
-        p = e.value,
-        _ = u(!1),
-        f = _[0],
-        g = _[1],
-        h = function () {
-          a(p);
-        },
-        y = function () {
-          (g(!0), i && i(p));
-        },
-        C = function () {
-          (g(!1), l && l());
-        },
-        b = n >= p || o >= p;
-      return s.jsx(r("WAWebUnstyledButton.react"), {
-        type: "button",
-        onClick: h,
-        testid: void 0,
-        "aria-label": t,
-        tabIndex: -1,
-        xstyle: [c.starButton, b ? c.starButtonActive : c.starButtonInactive],
-        onMouseEnter: y,
-        onMouseLeave: C,
-        children: s.jsxs(r("WAWebBox.react"), {
-          xstyle: c.buttonWrapper,
-          children: [
-            s.jsx(r("WAWebBox.react"), {
-              xstyle: [c.hoverCircle, f && c.hoverCircleVisible],
-            }),
-            s.jsx(r("WAWebBox.react"), {
-              xstyle: c.starContent,
-              children: s.jsx(m, {
-                currentRating: n,
-                hoveredRating: o,
-                value: p,
-              }),
-            }),
-          ],
-        }),
-      });
+        r = e.hoveredRating,
+        a = e.value;
+      if (r >= a || n >= a) {
+        var i;
+        return (
+          t[0] === Symbol.for("react.memo_cache_sentinel")
+            ? ((i = s.jsx(o("WAWebStarIcon.react").StarIcon, {
+                width: 35,
+                height: 35,
+              })),
+              (t[0] = i))
+            : (i = t[0]),
+          i
+        );
+      }
+      if (n > 0 && a > n) {
+        var l;
+        return (
+          t[1] === Symbol.for("react.memo_cache_sentinel")
+            ? ((l = s.jsx(d, {})), (t[1] = l))
+            : (l = t[1]),
+          l
+        );
+      }
+      var u;
+      return (
+        t[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((u = s.jsx(o("WAWebStarOutlineIcon.react").StarOutlineIcon, {
+              iconXstyle: c.starIconOutline,
+            })),
+            (t[2] = u))
+          : (u = t[2]),
+        u
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    function p(e) {
+      var t = o("react-compiler-runtime").c(27),
+        n = e.ariaLabel,
+        a = e.currentRating,
+        i = e.hoveredRating,
+        l = e.onClick,
+        d = e.onHover,
+        p = e.onHoverEnd,
+        _ = e.testid,
+        f = e.value,
+        g = u(!1),
+        h = g[0],
+        y = g[1],
+        C;
+      t[0] !== l || t[1] !== f
+        ? ((C = function () {
+            l(f);
+          }),
+          (t[0] = l),
+          (t[1] = f),
+          (t[2] = C))
+        : (C = t[2]);
+      var b = C,
+        v;
+      t[3] !== d || t[4] !== f
+        ? ((v = function () {
+            (y(!0), d && d(f));
+          }),
+          (t[3] = d),
+          (t[4] = f),
+          (t[5] = v))
+        : (v = t[5]);
+      var S = v,
+        R;
+      t[6] !== p
+        ? ((R = function () {
+            (y(!1), p && p());
+          }),
+          (t[6] = p),
+          (t[7] = R))
+        : (R = t[7]);
+      var L = R,
+        E = a >= f || i >= f,
+        k = E ? c.starButtonActive : c.starButtonInactive,
+        I;
+      t[8] !== k
+        ? ((I = [c.starButton, k]), (t[8] = k), (t[9] = I))
+        : (I = t[9]);
+      var T = h && c.hoverCircleVisible,
+        D;
+      t[10] !== T
+        ? ((D = s.jsx(r("WAWebBox.react"), { xstyle: [c.hoverCircle, T] })),
+          (t[10] = T),
+          (t[11] = D))
+        : (D = t[11]);
+      var x;
+      t[12] !== a || t[13] !== i || t[14] !== f
+        ? ((x = s.jsx(r("WAWebBox.react"), {
+            xstyle: c.starContent,
+            children: s.jsx(m, {
+              currentRating: a,
+              hoveredRating: i,
+              value: f,
+            }),
+          })),
+          (t[12] = a),
+          (t[13] = i),
+          (t[14] = f),
+          (t[15] = x))
+        : (x = t[15]);
+      var $;
+      t[16] !== D || t[17] !== x
+        ? (($ = s.jsxs(r("WAWebBox.react"), {
+            xstyle: c.buttonWrapper,
+            children: [D, x],
+          })),
+          (t[16] = D),
+          (t[17] = x),
+          (t[18] = $))
+        : ($ = t[18]);
+      var P;
+      return (
+        t[19] !== n ||
+        t[20] !== b ||
+        t[21] !== S ||
+        t[22] !== L ||
+        t[23] !== I ||
+        t[24] !== $ ||
+        t[25] !== _
+          ? ((P = s.jsx(r("WAWebUnstyledButton.react"), {
+              type: "button",
+              onClick: b,
+              testid: void 0,
+              "aria-label": n,
+              tabIndex: -1,
+              xstyle: I,
+              onMouseEnter: S,
+              onMouseLeave: L,
+              children: $,
+            })),
+            (t[19] = n),
+            (t[20] = b),
+            (t[21] = S),
+            (t[22] = L),
+            (t[23] = I),
+            (t[24] = $),
+            (t[25] = _),
+            (t[26] = P))
+          : (P = t[26]),
+        P
+      );
+    }
+    l.default = p;
   },
   98,
 );

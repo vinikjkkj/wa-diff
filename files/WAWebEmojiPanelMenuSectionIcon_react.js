@@ -12,6 +12,7 @@ __d(
     "WDSIconIcMood.react",
     "WDSIconIcSchedule.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -51,11 +52,16 @@ __d(
         )),
         e);
     function d(e) {
-      var t = e.sectionId,
-        n = c[t];
-      return u.jsx(n, {});
+      var t = o("react-compiler-runtime").c(2),
+        n = e.sectionId,
+        r = c[n],
+        a;
+      return (
+        t[0] !== r ? ((a = u.jsx(r, {})), (t[0] = r), (t[1] = a)) : (a = t[1]),
+        a
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   98,
 );

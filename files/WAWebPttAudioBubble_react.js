@@ -19,6 +19,7 @@ __d(
     "WAWebPttPrefs",
     "WAWebShowForwardedNewsletterMessageIndicator",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebModelValues",
     "useWAWebMsgValues",
@@ -60,28 +61,37 @@ __d(
         a,
         i,
         l,
-        s,
+        s = o("react-compiler-runtime").c(64),
         u = t.msg,
-        d = o("useWAWebMsgValues").useMsgValues(u.id, [
-          o("WAWebMsgGetters").getId,
-          o("WAWebMsgGetters").getAck,
-          o("WAWebMsgGetters").getIsSentByMe,
-          o("WAWebFrontendMsgGetters").getAsPttLike,
-        ]),
-        m = d[0],
-        _ = d[1],
-        f = d[2],
-        g = d[3],
-        h = o("WAWebFrontendMsgGetters").getChat(u.unsafe()),
-        y = r("WAWebL10N").isRTL() ? !f : f,
-        C = t.author != null,
-        b = o("WAWebElevatedPushNamesFlag").elevatedPushNamesEnabled(h),
-        v = t.quotedMsg != null,
-        S = o("WAWebMsgSelectors").showForwarded(u),
-        R = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+        d;
+      s[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = [
+            o("WAWebMsgGetters").getId,
+            o("WAWebMsgGetters").getAck,
+            o("WAWebMsgGetters").getIsSentByMe,
+            o("WAWebFrontendMsgGetters").getAsPttLike,
+          ]),
+          (s[0] = d))
+        : (d = s[0]);
+      var m = o("useWAWebMsgValues").useMsgValues(u.id, d),
+        _ = m[0],
+        f = m[1],
+        g = m[2],
+        h = m[3],
+        y = o("WAWebFrontendMsgGetters").getChat(u.unsafe()),
+        C;
+      s[1] !== g
+        ? ((C = r("WAWebL10N").isRTL() ? !g : g), (s[1] = g), (s[2] = C))
+        : (C = s[2]);
+      var b = C,
+        v = t.author != null,
+        S = o("WAWebElevatedPushNamesFlag").elevatedPushNamesEnabled(y),
+        R = t.quotedMsg != null,
+        L = o("WAWebMsgSelectors").showForwarded(u),
+        E = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
           ((n = {}),
-          (n._ak49 = !y),
-          (n._ak4a = y),
+          (n._ak49 = !b),
+          (n._ak4a = b),
           (n._ak4e =
             t.displayType === o("WAWebDisplayType").DISPLAY_TYPE.STARRED_MSGS ||
             t.displayType === o("WAWebDisplayType").DISPLAY_TYPE.GALLERY),
@@ -95,17 +105,23 @@ __d(
             t.author != null &&
               o("WAWebDisplayType").isWideDisplay(t.displayType) &&
               p.hasAuthorAnnouncement,
-            C && p.hasAuthor,
-            C && b && p.hasAuthorElevatedPushNames,
-            v && p.hasQuote,
+            v && p.hasAuthor,
+            v && S && p.hasAuthorElevatedPushNames,
+            R && p.hasQuote,
             p.bubble,
           ),
         ),
-        L = t.status
-          ? c.jsx("div", { className: "_ak4g", children: t.status })
-          : null,
-        E = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          ((a = {}), (a._ak4c = b), (a._ak4h = !0), a),
+        k;
+      s[3] !== t.status
+        ? ((k = t.status
+            ? c.jsx("div", { className: "_ak4g", children: t.status })
+            : null),
+          (s[3] = t.status),
+          (s[4] = k))
+        : (k = s[4]);
+      var I = k,
+        T = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          ((a = {}), (a._ak4c = S), (a._ak4h = !0), a),
           {
             0: "x1e8r7jv xiqdezl",
             8: "x1n2onr6 x1ngbm5e x1tvzbhf xyqdw3p x1djpfga x1e8r7jv xiqdezl",
@@ -124,29 +140,42 @@ __d(
             7: "xiqdezl xh8yej3 x10b6aqq x4tra6z x1o0tod",
             15: "x1n2onr6 x1ngbm5e xyqdw3p xiqdezl xh8yej3 x10b6aqq x4tra6z x1o0tod",
           }[
-            (!!v << 3) |
-              (!!S << 2) |
+            (!!R << 3) |
+              (!!L << 2) |
               (!!o("WAWebDisplayType").isWideDisplay(t.displayType) << 1) |
-              (!!b << 0)
+              (!!S << 0)
           ],
         ),
-        k =
+        D =
           t.author != null
-            ? c.jsx("div", { className: E, children: t.author })
+            ? c.jsx("div", { className: T, children: t.author })
             : null,
-        I = o("WAWebMsgSelectors").showForwarded(u)
-          ? c.jsx(r("WAWebMessageForwardedIndicator.react"), {
-              msg: u.unsafe(),
-              xstyle: [
-                p.forwardedIndicator,
-                C && p.hasAuthorForwardedIndicator,
-              ],
-            })
-          : null,
-        T = c.jsx(r("WAWebMessagePaidPartnershipDisclaimerText.react"), {
-          msg: u,
-        }),
-        D = o(
+        x;
+      s[5] !== v || s[6] !== u
+        ? ((x = o("WAWebMsgSelectors").showForwarded(u)
+            ? c.jsx(r("WAWebMessageForwardedIndicator.react"), {
+                msg: u.unsafe(),
+                xstyle: [
+                  p.forwardedIndicator,
+                  v && p.hasAuthorForwardedIndicator,
+                ],
+              })
+            : null),
+          (s[5] = v),
+          (s[6] = u),
+          (s[7] = x))
+        : (x = s[7]);
+      var $ = x,
+        P;
+      s[8] !== u
+        ? ((P = c.jsx(r("WAWebMessagePaidPartnershipDisclaimerText.react"), {
+            msg: u,
+          })),
+          (s[8] = u),
+          (s[9] = P))
+        : (P = s[9]);
+      var N = P,
+        M = o(
           "WAWebShowForwardedNewsletterMessageIndicator",
         ).showForwardedNewsletterMessageIndicator(
           u.forwardedNewsletterMessageInfo,
@@ -154,92 +183,204 @@ __d(
           o("WAWebNewsletterGatingUtils")
             .isNewsletterForwardBottomButtonEnabled,
         ),
-        x = t.quotedMsg
-          ? c.jsx(
-              "div",
-              babelHelpers.extends(
-                {},
-                {
-                  0: { className: "xdj266r x18faa90 x1e56ztr x4h0osi" },
-                  1: { className: "x18faa90 x1e56ztr x4h0osi x1ok221b" },
-                }[!!C << 0],
-                { children: t.quotedMsg },
-              ),
-            )
-          : null,
-        $ = o("useWAWebModelValues").useModelValues(
+        w;
+      s[10] !== v || s[11] !== t.quotedMsg
+        ? ((w = t.quotedMsg
+            ? c.jsx(
+                "div",
+                babelHelpers.extends(
+                  {},
+                  {
+                    0: { className: "xdj266r x18faa90 x1e56ztr x4h0osi" },
+                    1: { className: "x18faa90 x1e56ztr x4h0osi x1ok221b" },
+                  }[!!v << 0],
+                  { children: t.quotedMsg },
+                ),
+              )
+            : null),
+          (s[10] = v),
+          (s[11] = t.quotedMsg),
+          (s[12] = w))
+        : (w = s[12]);
+      var A = w,
+        F;
+      s[13] === Symbol.for("react.memo_cache_sentinel")
+        ? ((F = ["playbackRate", "playbackControlMessageId"]), (s[13] = F))
+        : (F = s[13]);
+      var O = o("useWAWebModelValues").useModelValues(
           o("WAWebPttPrefs").PttPrefs,
-          ["playbackRate", "playbackControlMessageId"],
+          F,
         ),
-        P = $.playbackControlMessageId,
-        N = $.playbackRate,
-        M = g != null,
-        w,
-        A = !1;
-      if (M) {
-        var F;
-        A = P === m.toString();
-        var O = function () {
-            o("WAWebPttPrefs").PttPrefs.advancePlaybackRateFor(m);
-          },
-          B = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            ((F = {}), (F._ak4l = A), (F._ak4k = !0), F),
-          );
-        w = c.jsx("div", {
-          className: B,
-          children: c.jsx(r("WAWebPttMessagePlaybackRateButton"), {
-            playbackRate: N,
-            onClick: O,
-            isSentByMe: f,
-            played: _ === o("WAWebAck").ACK.PLAYED,
-            playbackRateButtonIsVisible: A,
-          }),
-        });
+        B = O.playbackControlMessageId,
+        W = O.playbackRate,
+        q = h != null,
+        U,
+        V = !1;
+      if (q) {
+        var H;
+        (s[14] !== _
+          ? ((H = _.toString()), (s[14] = _), (s[15] = H))
+          : (H = s[15]),
+          (V = B === H));
+        var G;
+        s[16] !== _
+          ? ((G = function () {
+              o("WAWebPttPrefs").PttPrefs.advancePlaybackRateFor(_);
+            }),
+            (s[16] = _),
+            (s[17] = G))
+          : (G = s[17]);
+        var z = G,
+          j;
+        if (s[18] !== V) {
+          var K;
+          ((j = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+            ((K = {}), (K._ak4l = V), (K._ak4k = !0), K),
+          )),
+            (s[18] = V),
+            (s[19] = j));
+        } else j = s[19];
+        var Q = j,
+          X = f === o("WAWebAck").ACK.PLAYED,
+          Y;
+        s[20] !== z || s[21] !== g || s[22] !== W || s[23] !== V || s[24] !== X
+          ? ((Y = c.jsx(r("WAWebPttMessagePlaybackRateButton"), {
+              playbackRate: W,
+              onClick: z,
+              isSentByMe: g,
+              played: X,
+              playbackRateButtonIsVisible: V,
+            })),
+            (s[20] = z),
+            (s[21] = g),
+            (s[22] = W),
+            (s[23] = V),
+            (s[24] = X),
+            (s[25] = Y))
+          : (Y = s[25]);
+        var J;
+        (s[26] !== Q || s[27] !== Y
+          ? ((J = c.jsx("div", { className: Q, children: Y })),
+            (s[26] = Q),
+            (s[27] = Y),
+            (s[28] = J))
+          : (J = s[28]),
+          (U = J));
       }
-      var W = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          ((i = {}), (i._ak4n = !A), (i._ak4m = !0), i),
+      var Z = !V,
+        ee;
+      if (s[29] !== Z) {
+        var te;
+        ((ee = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          ((te = {}), (te._ak4n = Z), (te._ak4m = !0), te),
+        )),
+          (s[29] = Z),
+          (s[30] = ee));
+      } else ee = s[30];
+      var ne = ee,
+        re = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          ((i = {}), (i._ak4c = S), (i._ak4o = !0), i),
         ),
-        q = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          ((l = {}), (l._ak4c = b), (l._ak4o = !0), l),
-        ),
-        U = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          ((s = {}), (s._ak4s = !0), s),
+        oe = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          ((l = {}), (l._ak4s = !0), l),
           { 0: "", 2: "xbfrwjf", 1: "x1ua38it", 3: "x1ua38it" }[
-            (!D << 1) | (!!D << 0)
+            (!M << 1) | (!!M << 0)
           ],
-        );
-      return c.jsxs("div", {
-        className: R,
-        children: [
-          k,
-          I,
-          T,
-          x,
-          c.jsx(r("WAWebBizCtwaContext.react"), {
-            msg: u.unsafe(),
-            wrapperClass: "x1198e8h x18faa90 xahult9 x4h0osi",
-          }),
-          c.jsxs("div", {
-            className: q,
-            children: [
-              c.jsx("div", { className: "_ak4q", children: t.player }),
-              c.jsxs("div", {
-                className: "x1n2onr6",
-                children: [
-                  w,
-                  c.jsxs("div", { className: W, children: [t.avatar, L] }),
-                ],
-              }),
-            ],
-          }),
-          c.jsx("div", {
-            className: U,
-            children: c.jsx(o("WAWebMessageMeta.react").Meta, { msg: u }),
-          }),
-        ],
-      });
+        ),
+        ae;
+      s[31] !== u
+        ? ((ae = u.unsafe()), (s[31] = u), (s[32] = ae))
+        : (ae = s[32]);
+      var ie;
+      s[33] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ie = "x1198e8h x18faa90 xahult9 x4h0osi"), (s[33] = ie))
+        : (ie = s[33]);
+      var le;
+      s[34] !== ae
+        ? ((le = c.jsx(r("WAWebBizCtwaContext.react"), {
+            msg: ae,
+            wrapperClass: ie,
+          })),
+          (s[34] = ae),
+          (s[35] = le))
+        : (le = s[35]);
+      var se;
+      s[36] !== t.player
+        ? ((se = c.jsx("div", { className: "_ak4q", children: t.player })),
+          (s[36] = t.player),
+          (s[37] = se))
+        : (se = s[37]);
+      var ue;
+      s[38] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ue = { className: "x1n2onr6" }), (s[38] = ue))
+        : (ue = s[38]);
+      var ce;
+      s[39] !== ne || s[40] !== t.avatar || s[41] !== I
+        ? ((ce = c.jsxs("div", { className: ne, children: [t.avatar, I] })),
+          (s[39] = ne),
+          (s[40] = t.avatar),
+          (s[41] = I),
+          (s[42] = ce))
+        : (ce = s[42]);
+      var de;
+      s[43] !== U || s[44] !== ce
+        ? ((de = c.jsxs(
+            "div",
+            babelHelpers.extends({}, ue, { children: [U, ce] }),
+          )),
+          (s[43] = U),
+          (s[44] = ce),
+          (s[45] = de))
+        : (de = s[45]);
+      var me;
+      s[46] !== re || s[47] !== se || s[48] !== de
+        ? ((me = c.jsxs("div", { className: re, children: [se, de] })),
+          (s[46] = re),
+          (s[47] = se),
+          (s[48] = de),
+          (s[49] = me))
+        : (me = s[49]);
+      var pe;
+      s[50] !== u
+        ? ((pe = c.jsx(o("WAWebMessageMeta.react").Meta, { msg: u })),
+          (s[50] = u),
+          (s[51] = pe))
+        : (pe = s[51]);
+      var _e;
+      s[52] !== oe || s[53] !== pe
+        ? ((_e = c.jsx("div", { className: oe, children: pe })),
+          (s[52] = oe),
+          (s[53] = pe),
+          (s[54] = _e))
+        : (_e = s[54]);
+      var fe;
+      return (
+        s[55] !== D ||
+        s[56] !== E ||
+        s[57] !== $ ||
+        s[58] !== N ||
+        s[59] !== A ||
+        s[60] !== le ||
+        s[61] !== me ||
+        s[62] !== _e
+          ? ((fe = c.jsxs("div", {
+              className: E,
+              children: [D, $, N, A, le, me, _e],
+            })),
+            (s[55] = D),
+            (s[56] = E),
+            (s[57] = $),
+            (s[58] = N),
+            (s[59] = A),
+            (s[60] = le),
+            (s[61] = me),
+            (s[62] = _e),
+            (s[63] = fe))
+          : (fe = s[63]),
+        fe
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   98,
 );

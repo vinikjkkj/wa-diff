@@ -126,7 +126,9 @@ __d(
                           n.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
                           n.subtype !== "ephemeral_setting" &&
                           n.subtype !== "share_phone_number" &&
-                          n.subtype !== "event_edit_decrypted"
+                          n.subtype !== "event_edit_decrypted" &&
+                          n.subtype !== "status_mention_message" &&
+                          n.subtype !== "status_group_mention_message"
                         )
                           switch (n.subtype) {
                             case "admin_revoke": {

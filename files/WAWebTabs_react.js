@@ -5,6 +5,7 @@ __d(
     "WAWebText.react",
     "WDSFocusStateStyles",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useHoverState",
   ],
@@ -47,142 +48,235 @@ __d(
         },
       };
     function m(t) {
-      var n = t.activateTabOnKeyboardNavigation,
-        a = n === void 0 ? !1 : n,
+      var n = o("react-compiler-runtime").c(6),
+        a = t.activateTabOnKeyboardNavigation,
         i = t.getTitleProps,
         l = t.hoveredXStyle,
         s = t.onSelect,
         m = t.selectedId,
-        _ = t.selectedXStyle,
-        f = t.tabConfigs,
-        g = t.tabXstyle,
-        h = t.testIdPrefix,
-        y = t.wrapperXstyle,
-        C = t.xstyle,
-        b = c(m),
-        v = c([]),
-        S = f.map(function (e) {
-          var t = e.id;
-          return t;
-        }),
-        R = S.length - 1,
-        L = {
+        f = t.selectedXStyle,
+        g = t.tabConfigs,
+        h = t.tabXstyle,
+        y = t.testIdPrefix,
+        C = t.wrapperXstyle,
+        b = t.xstyle,
+        v = a === void 0 ? !1 : a,
+        S = c(m),
+        R;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((R = []), (n[0] = R))
+        : (R = n[0]);
+      var L = c(R),
+        E = g.map(p),
+        k = E.length - 1,
+        I = {
           right: function () {
-            var e = S.indexOf(b.current),
-              t = e === R ? 0 : e + 1,
-              n = v.current[t];
-            (n && n.focus(), a && s(S[t]));
+            var e = E.indexOf(S.current),
+              t = e === k ? 0 : e + 1,
+              n = L.current[t];
+            (n && n.focus(), v && s(E[t]));
           },
           left: function () {
-            var e = S.indexOf(b.current),
-              t = e === 0 ? R : e - 1,
-              n = v.current[t];
-            (n && n.focus(), a && s(S[t]));
+            var e = E.indexOf(S.current),
+              t = e === 0 ? k : e - 1,
+              n = L.current[t];
+            (n && n.focus(), v && s(E[t]));
           },
-        };
-      return u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-        handlers: L,
-        xstyle: y,
-        children: u.jsx(
-          "div",
-          babelHelpers.extends(
-            { role: "tablist" },
-            (e || (e = r("stylex"))).props(d.tabContainer, C),
+        },
+        T = "tablist",
+        D;
+      n[1] !== b
+        ? ((D = (e || (e = r("stylex"))).props(d.tabContainer, b)),
+          (n[1] = b),
+          (n[2] = D))
+        : (D = n[2]);
+      var x = g.map(function (e, t) {
+          var n = e.id,
+            r = e.title;
+          return u.jsx(
+            _,
             {
-              children: f.map(function (e, t) {
-                var n = e.id,
-                  r = e.title;
-                return u.jsx(
-                  p,
-                  {
-                    getTitleProps: i,
-                    ref: function (n) {
-                      v.current[t] = n;
-                    },
-                    selected: n === m,
-                    onSelect: function () {
-                      return s(n);
-                    },
-                    onFocus: function () {
-                      b.current = n;
-                    },
-                    xstyle: g,
-                    testid: void 0,
-                    hoveredXStyle: l,
-                    selectedXStyle: _,
-                    children: r,
-                  },
-                  n,
-                );
-              }),
+              getTitleProps: i,
+              ref: function (n) {
+                L.current[t] = n;
+              },
+              selected: n === m,
+              onSelect: function () {
+                return s(n);
+              },
+              onFocus: function () {
+                S.current = n;
+              },
+              xstyle: h,
+              testid: void 0,
+              hoveredXStyle: l,
+              selectedXStyle: f,
+              children: r,
             },
-          ),
-        ),
-      });
-    }
-    m.displayName = m.name + " [from " + i.id + "]";
-    function p(t) {
-      var n = t.children,
-        a = t.getTitleProps,
-        i = t.hoveredXStyle,
-        l = t.onFocus,
-        s = t.onSelect,
-        c = t.ref,
-        m = t.selected,
-        p = t.selectedXStyle,
-        _ = t.testid,
-        f = t.xstyle,
-        g = r("useHoverState")(),
-        h = g.isHovered,
-        y = g.onMouseEnter,
-        C = g.onMouseLeave,
-        b = g.setIsHovered,
-        v = function () {
-          m || s();
-        };
-      return u.jsx(
-        "button",
-        babelHelpers.extends(
-          {
-            ref: c,
-            role: "tab",
-            tabIndex: m ? 0 : -1,
-            "aria-selected": !!m,
-            title: n,
-          },
-          (e || (e = r("stylex"))).props(
-            d.tab,
-            m && d.selected,
-            m && d.selectedRefreshed,
-            o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-            f,
-            h && !m && i,
-            m && p,
-          ),
-          {
-            onClick: v,
-            onFocus: function () {
-              (l(), b(!0));
-            },
-            onBlur: function () {
-              b(!1);
-            },
-            onMouseEnter: y,
-            onMouseLeave: C,
-            "data-testid": void 0,
-            children: u.jsx(
-              o("WAWebText.react").WAWebTextTitleRefreshed,
-              babelHelpers.extends(
-                { color: m ? "wdsAccent" : "secondary" },
-                a == null ? void 0 : a(m, h),
-                { children: n },
-              ),
-            ),
-          },
-        ),
+            n,
+          );
+        }),
+        $;
+      return (
+        n[3] !== D || n[4] !== x
+          ? (($ = u.jsx(
+              "div",
+              babelHelpers.extends({ role: T }, D, { children: x }),
+            )),
+            (n[3] = D),
+            (n[4] = x),
+            (n[5] = $))
+          : ($ = n[5]),
+        u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+          handlers: I,
+          xstyle: C,
+          children: $,
+        })
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p(e) {
+      var t = e.id;
+      return t;
+    }
+    function _(t) {
+      var n = o("react-compiler-runtime").c(35),
+        a = t.children,
+        i = t.getTitleProps,
+        l = t.hoveredXStyle,
+        s = t.onFocus,
+        c = t.onSelect,
+        m = t.ref,
+        p = t.selected,
+        _ = t.selectedXStyle,
+        f = t.testid,
+        g = t.xstyle,
+        h = r("useHoverState")(),
+        y = h.isHovered,
+        C = h.onMouseEnter,
+        b = h.onMouseLeave,
+        v = h.setIsHovered,
+        S;
+      n[0] !== c || n[1] !== p
+        ? ((S = function () {
+            p || c();
+          }),
+          (n[0] = c),
+          (n[1] = p),
+          (n[2] = S))
+        : (S = n[2]);
+      var R = S,
+        L = p ? 0 : -1,
+        E = !!p,
+        k;
+      n[3] !== l || n[4] !== y || n[5] !== p || n[6] !== _ || n[7] !== g
+        ? ((k = (e || (e = r("stylex"))).props(
+            d.tab,
+            p && d.selected,
+            p && d.selectedRefreshed,
+            o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+            g,
+            y && !p && l,
+            p && _,
+          )),
+          (n[3] = l),
+          (n[4] = y),
+          (n[5] = p),
+          (n[6] = _),
+          (n[7] = g),
+          (n[8] = k))
+        : (k = n[8]);
+      var I;
+      n[9] !== s || n[10] !== v
+        ? ((I = function () {
+            (s(), v(!0));
+          }),
+          (n[9] = s),
+          (n[10] = v),
+          (n[11] = I))
+        : (I = n[11]);
+      var T;
+      n[12] !== v
+        ? ((T = function () {
+            v(!1);
+          }),
+          (n[12] = v),
+          (n[13] = T))
+        : (T = n[13]);
+      var D = p ? "wdsAccent" : "secondary",
+        x;
+      n[14] !== i || n[15] !== y || n[16] !== p
+        ? ((x = i == null ? void 0 : i(p, y)),
+          (n[14] = i),
+          (n[15] = y),
+          (n[16] = p),
+          (n[17] = x))
+        : (x = n[17]);
+      var $;
+      n[18] !== a || n[19] !== D || n[20] !== x
+        ? (($ = u.jsx(
+            o("WAWebText.react").WAWebTextTitleRefreshed,
+            babelHelpers.extends({ color: D }, x, { children: a }),
+          )),
+          (n[18] = a),
+          (n[19] = D),
+          (n[20] = x),
+          (n[21] = $))
+        : ($ = n[21]);
+      var P;
+      return (
+        n[22] !== a ||
+        n[23] !== C ||
+        n[24] !== b ||
+        n[25] !== m ||
+        n[26] !== R ||
+        n[27] !== L ||
+        n[28] !== E ||
+        n[29] !== k ||
+        n[30] !== I ||
+        n[31] !== T ||
+        n[32] !== $ ||
+        n[33] !== f
+          ? ((P = u.jsx(
+              "button",
+              babelHelpers.extends(
+                {
+                  ref: m,
+                  role: "tab",
+                  tabIndex: L,
+                  "aria-selected": E,
+                  title: a,
+                },
+                k,
+                {
+                  onClick: R,
+                  onFocus: I,
+                  onBlur: T,
+                  onMouseEnter: C,
+                  onMouseLeave: b,
+                  "data-testid": void 0,
+                  children: $,
+                },
+              ),
+            )),
+            (n[22] = a),
+            (n[23] = C),
+            (n[24] = b),
+            (n[25] = m),
+            (n[26] = R),
+            (n[27] = L),
+            (n[28] = E),
+            (n[29] = k),
+            (n[30] = I),
+            (n[31] = T),
+            (n[32] = $),
+            (n[33] = f),
+            (n[34] = P))
+          : (P = n[34]),
+        P
+      );
+    }
+    l.default = m;
   },
   98,
 );

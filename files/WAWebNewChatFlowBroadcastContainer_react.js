@@ -24,6 +24,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebABPropConfigValue",
   ],
   function (t, n, r, o, a, i, l) {
@@ -63,69 +64,60 @@ __d(
         );
     }
     function _(e) {
-      var t = e.onBack,
-        a = e.onCloseEntireFlow,
-        i = e.ref,
-        l = e.viewType,
-        u = c(
-          function (e) {
-            (a == null || a(), p(e));
-          },
-          [a],
-        ),
-        m = c(function (e, t, n) {
-          (n === void 0 && (n = !0),
-            o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(),
-            n && p(e));
-          var r = o("WAWebWidFactory").createWid(e.broadcastJid),
-            a = o("WAWebChatCollection").ChatCollection.get(r);
-          o("WAWebBizBroadcastsAudienceUtils").showCreateAudienceSuccessToast(
-            e,
-            t,
-            function () {
-              (o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(),
-                a != null && o("WAWebCmd").Cmd.closeChat(a));
-            },
-          );
-        }, []),
-        _ = c(
-          function (e) {
-            m(e, "create", !1);
-          },
-          [m],
-        ),
-        f = c(function (e) {
-          (o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(), p(e));
-        }, []),
-        g = c(
-          function (e) {
-            m(e, "import");
-          },
-          [m],
-        ),
-        h = c(
-          function () {
+      var t = o("react-compiler-runtime").c(21),
+        a = e.onBack,
+        i = e.onCloseEntireFlow,
+        l = e.ref,
+        u = e.viewType,
+        c;
+      t[0] !== i
+        ? ((c = function (t) {
+            (i == null || i(), p(t));
+          }),
+          (t[0] = i),
+          (t[1] = c))
+        : (c = t[1]);
+      var d = c,
+        m = v,
+        _;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = function (t) {
+            m(t, "create", !1);
+          }),
+          (t[2] = _))
+        : (_ = t[2]);
+      var S = _,
+        R = b,
+        L;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = function (t) {
+            m(t, "import");
+          }),
+          (t[3] = L))
+        : (L = t[3]);
+      var E = L,
+        k;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = function () {
             (o("WAWebDrawerManager").closeDrawerLeft(),
               o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
                 s.jsx(r("WAWebBizBroadcastsUpsertAudienceScreen.react"), {
                   chat: null,
                   entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
-                  onBack: function () {
-                    return o(
-                      "WAWebDrawerManager",
-                    ).DrawerManager.closeDrawerFullscreen();
-                  },
-                  onNewAudienceSuccess: _,
-                  onSendBroadcast: f,
+                  onBack: C,
+                  onNewAudienceSuccess: S,
+                  onSendBroadcast: R,
                   suggestedAudienceData: null,
                 }),
                 { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
               ));
-          },
-          [_, f],
-        ),
-        y = c(
-          function (e, t) {
+          }),
+          (t[4] = k))
+        : (k = t[4]);
+      var I = k,
+        T;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((T = function (t, n) {
             (o("WAWebDrawerManager").closeDrawerLeft(),
               o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
                 s.jsx(
@@ -134,23 +126,21 @@ __d(
                   {
                     entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
                       .CHAT_HOME,
-                    errorList: t,
-                    onClose: function () {
-                      return o(
-                        "WAWebDrawerManager",
-                      ).DrawerManager.closeDrawerFullscreen();
-                    },
-                    onCreateAudienceSuccess: g,
-                    validContactsData: e,
+                    errorList: n,
+                    onClose: y,
+                    onCreateAudienceSuccess: E,
+                    validContactsData: t,
                   },
                 ),
                 { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
               ));
-          },
-          [g],
-        ),
-        C = c(
-          function () {
+          }),
+          (t[5] = T))
+        : (T = t[5]);
+      var D = T,
+        x;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = function () {
             (o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.importAudienceClicked(
@@ -163,73 +153,66 @@ __d(
                   {
                     entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
                       .CHAT_HOME,
-                    onCancel: function (t, n) {
-                      (n === void 0 && (n = !1),
-                        o("WAWebModalManager").ModalManager.close(),
-                        n !== !0 &&
-                          o(
-                            "WAWebBusinessBroadcastUserJourneyLogger",
-                          ).BusinessBroadcastUserJourneyLogger.contactImportCancelClicked(
-                            o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
-                          ));
-                    },
-                    onUploadSuccess: y,
+                    onCancel: h,
+                    onUploadSuccess: D,
                   },
                 ),
               ));
-          },
-          [y],
-        ),
-        b = c(
-          function () {
-            t == null || t();
-          },
-          [t],
-        ),
-        v = d(function () {
-          return o(
+          }),
+          (t[6] = x))
+        : (x = t[6]);
+      var $ = x,
+        P;
+      t[7] !== a
+        ? ((P = function () {
+            a == null || a();
+          }),
+          (t[7] = a),
+          (t[8] = P))
+        : (P = t[8]);
+      var N = P,
+        M;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((M = o(
             "WAWebBizBroadcastsAudienceUtils",
-          ).getBroadcastChatsAsAudiences();
-        }, []),
-        S =
+          ).getBroadcastChatsAsAudiences()),
+          (t[9] = M))
+        : (M = t[9]);
+      var w = M,
+        A =
           o("useWAWebABPropConfigValue").useABPropConfigValue(
             "suggested_audiences_wa_web",
           ) === !0,
-        R = c(
-          function (e) {
+        F;
+      t[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((F = function (t) {
             n("asyncToGeneratorRuntime")
               .asyncToGenerator(function* () {
-                var t = yield o(
+                var e = yield o(
                     "WAWebSuggestedAudienceCards",
-                  ).resolveCardExpression(e),
+                  ).resolveCardExpression(t),
                   n = yield o(
                     "WAWebAudienceResolver",
-                  ).resolveAudienceExpression(t);
+                  ).resolveAudienceExpression(e);
                 o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.suggestedAudienceCardClicked(
-                  e.id,
-                  t.predicateType,
+                  t.id,
+                  e.predicateType,
                   n.length,
                   o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
                 );
-                var a = n.map(function (e) {
-                    return e.split("@")[0];
-                  }),
-                  i = { initialRecipientIds: a, suggestedAudienceCardId: e.id };
+                var a = n.map(g),
+                  i = { initialRecipientIds: a, suggestedAudienceCardId: t.id };
                 (o("WAWebDrawerManager").closeDrawerLeft(),
                   o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
                     s.jsx(r("WAWebBizBroadcastsUpsertAudienceScreen.react"), {
                       chat: null,
                       entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
                         .CHAT_HOME,
-                      onBack: function () {
-                        return o(
-                          "WAWebDrawerManager",
-                        ).DrawerManager.closeDrawerFullscreen();
-                      },
-                      onNewAudienceSuccess: _,
-                      onSendBroadcast: f,
+                      onBack: f,
+                      onNewAudienceSuccess: S,
+                      onSendBroadcast: R,
                       suggestedAudienceData: i,
                     }),
                     {
@@ -238,28 +221,95 @@ __d(
                   ));
               })()
               .catch(r("WAWebNoop"));
-          },
-          [_, f],
-        );
-      return s.jsx(r("WAWebBizBroadcastsEligibilityGate.react"), {
-        entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
-        onClose: b,
-        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
-        children: s.jsx(r("WAWebNewChatFlowBroadcastAudienceDrawer.react"), {
-          ref: i,
-          audiences: v,
-          onBack: b,
-          onCancel: l === r("WAWebDrawerViewType").MODAL ? b : void 0,
-          onCreateAudience: h,
-          onImportAudience: C,
-          onSelectAudience: u,
-          onSuggestedCardPress: R,
-          suggestedAudiencesEnabled: S,
-          viewType: l,
-        }),
-      });
+          }),
+          (t[10] = F))
+        : (F = t[10]);
+      var O = F,
+        B = u === r("WAWebDrawerViewType").MODAL ? N : void 0,
+        W;
+      t[11] !== N ||
+      t[12] !== d ||
+      t[13] !== l ||
+      t[14] !== A ||
+      t[15] !== B ||
+      t[16] !== u
+        ? ((W = s.jsx(r("WAWebNewChatFlowBroadcastAudienceDrawer.react"), {
+            ref: l,
+            audiences: w,
+            onBack: N,
+            onCancel: B,
+            onCreateAudience: I,
+            onImportAudience: $,
+            onSelectAudience: d,
+            onSuggestedCardPress: O,
+            suggestedAudiencesEnabled: A,
+            viewType: u,
+          })),
+          (t[11] = N),
+          (t[12] = d),
+          (t[13] = l),
+          (t[14] = A),
+          (t[15] = B),
+          (t[16] = u),
+          (t[17] = W))
+        : (W = t[17]);
+      var q;
+      return (
+        t[18] !== N || t[19] !== W
+          ? ((q = s.jsx(r("WAWebBizBroadcastsEligibilityGate.react"), {
+              entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
+              onClose: N,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
+              children: W,
+            })),
+            (t[18] = N),
+            (t[19] = W),
+            (t[20] = q))
+          : (q = t[20]),
+        q
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    function f() {
+      return o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen();
+    }
+    function g(e) {
+      return e.split("@")[0];
+    }
+    function h(e, t) {
+      var n = t === void 0 ? !1 : t;
+      (o("WAWebModalManager").ModalManager.close(),
+        n !== !0 &&
+          o(
+            "WAWebBusinessBroadcastUserJourneyLogger",
+          ).BusinessBroadcastUserJourneyLogger.contactImportCancelClicked(
+            o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
+          ));
+    }
+    function y() {
+      return o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen();
+    }
+    function C() {
+      return o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen();
+    }
+    function b(e) {
+      (o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(), p(e));
+    }
+    function v(e, t, n) {
+      var r = n === void 0 ? !0 : n;
+      (o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(),
+        r && p(e));
+      var a = o("WAWebWidFactory").createWid(e.broadcastJid),
+        i = o("WAWebChatCollection").ChatCollection.get(a);
+      o("WAWebBizBroadcastsAudienceUtils").showCreateAudienceSuccessToast(
+        e,
+        t,
+        function () {
+          (o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(),
+            i != null && o("WAWebCmd").Cmd.closeChat(i));
+        },
+      );
+    }
+    l.default = _;
   },
   98,
 );

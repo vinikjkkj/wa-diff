@@ -1,6 +1,10 @@
 __d(
   "WAWebMessagePluginRenderMsgRegistry",
-  ["WAWebCommentRenderMsg", "WAWebContactInfoCardRenderMsg.react"],
+  [
+    "WAWebCommentRenderMsg",
+    "WAWebContactInfoCardRenderMsg.react",
+    "WAWebStatusMentionRenderMsg.react",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = [
       { type: "album", subtype: void 0, renderMsg: null },
@@ -117,9 +121,13 @@ __d(
       {
         type: "protocol",
         subtype: "status_group_mention_message",
-        renderMsg: null,
+        renderMsg: r("WAWebStatusMentionRenderMsg.react"),
       },
-      { type: "protocol", subtype: "status_mention_message", renderMsg: null },
+      {
+        type: "protocol",
+        subtype: "status_mention_message",
+        renderMsg: r("WAWebStatusMentionRenderMsg.react"),
+      },
       { type: "ptt", subtype: void 0, renderMsg: null },
       { type: "ptv", subtype: void 0, renderMsg: null },
       { type: "quarantined", subtype: void 0, renderMsg: null },

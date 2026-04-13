@@ -6,6 +6,7 @@ __d(
     "WDSIconIcWarning.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -23,25 +24,47 @@ __d(
       },
       p = { error: "secondaryNegative", warning: "secondaryWarning" };
     function _(e) {
-      var t = e.message,
-        n = e.type,
-        a = n === void 0 ? "error" : n,
-        i = m[a],
-        l = p[a];
-      return s.jsxs(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        xstyle: u.container,
-        children: [
-          s.jsx(i, { height: d, width: d, xstyle: c[a] }),
-          s.jsx(r("WDSText.react"), {
+      var t = o("react-compiler-runtime").c(9),
+        n = e.message,
+        a = e.type,
+        i = a === void 0 ? "error" : a,
+        l = m[i],
+        _ = p[i],
+        f = c[i],
+        g;
+      t[0] !== l || t[1] !== f
+        ? ((g = s.jsx(l, { height: d, width: d, xstyle: f })),
+          (t[0] = l),
+          (t[1] = f),
+          (t[2] = g))
+        : (g = t[2]);
+      var h;
+      t[3] !== _ || t[4] !== n
+        ? ((h = s.jsx(r("WDSText.react"), {
             type: "Body2",
-            colorName: l,
-            children: t,
-          }),
-        ],
-      });
+            colorName: _,
+            children: n,
+          })),
+          (t[3] = _),
+          (t[4] = n),
+          (t[5] = h))
+        : (h = t[5]);
+      var y;
+      return (
+        t[6] !== g || t[7] !== h
+          ? ((y = s.jsxs(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              xstyle: u.container,
+              children: [g, h],
+            })),
+            (t[6] = g),
+            (t[7] = h),
+            (t[8] = y))
+          : (y = t[8]),
+        y
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   98,
 );

@@ -20,6 +20,7 @@ __d(
     "WAWebWidFactory",
     "WAWebiFrameWrapper.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebGalaxyFlowAttachMediaListener",
     "useWAWebGalaxyFlowsData",
     "useWAWebGalaxyFlowsResponseViewer",
@@ -230,15 +231,28 @@ __d(
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = e.fileRef;
-      return s.jsx("a", {
-        href: "#",
-        ref: t,
-        className: "x1s85apg",
-        children: "\xA0",
-      });
+      var t = o("react-compiler-runtime").c(3),
+        n = e.fileRef,
+        r;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = { className: "x1s85apg" }), (t[0] = r))
+        : (r = t[0]);
+      var a;
+      return (
+        t[1] !== n
+          ? ((a = s.jsx(
+              "a",
+              babelHelpers.extends({ href: "#", ref: n }, r, {
+                children: "\xA0",
+              }),
+            )),
+            (t[1] = n),
+            (t[2] = a))
+          : (a = t[2]),
+        a
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = f));
+    l.default = f;
   },
   98,
 );

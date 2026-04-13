@@ -6,6 +6,7 @@ __d(
     "WAWebKeyboardIsKeyActivation",
     "WDSFocusStateStyles",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
     "useWAWebIsKeyboardUser",
@@ -182,90 +183,161 @@ __d(
         },
       };
     function m(t) {
-      var n = t.ariaPressed,
-        a = t.children,
-        i = t.className,
-        l = t.dataTab,
-        s = t.disabled,
-        m = t.hideBackground,
-        p = t.inverted,
-        _ = t.label,
-        f = t.large,
-        g = t.medium,
-        h = t.onClick,
-        y = t.onContextMenu,
-        C = t.onKeyDown,
-        b = t.ref,
-        v = t.small,
-        S = t.tabIndex,
-        R = t.testid,
-        L = t.theme,
-        E = t.title,
-        k = t.xstyle,
-        I = r("useWAWebIsKeyboardUser")(),
-        T = I.isKeyboardUser,
-        D = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          i,
-          (e || (e = r("stylex")))(
-            d.btn,
-            (f === !0 || L === c.Large) && d.large,
-            (g === !0 || L === c.Medium) && d.medium,
-            (v === !0 || L === c.Small) && d.small,
-            L === c.XSmall && d.xsmall,
-            (p === !0 || L === c.Inverted) && d.inverted,
-            (p === !0 || L === c.Inverted) && d.invertedRefreshed,
-            m === !0 && d.hideBackground,
-            (s === !0 || L === c.Disabled) && d.disabled,
-            L === c.NoShadow && d.noShadow,
-            L === c.SVGGrayButton && d.svgGrayButton,
-            L === c.ReactionPickerButton && d.reactionPickerButton,
-            L === c.Approve && d.approveRefreshed,
-            L === c.Reject && d.rejectRefreshed,
-            L === c.QuickAction && d.quickAction,
-            L === c.QuickActionRefreshed && d.quickActionRefreshed,
-            L === c.DrawerFooter && s === !0 && d.drawerFooter,
-            L === c.Error && d.error,
-            !1,
-            !1,
-            T && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-            k,
-          ),
-        ),
-        x = function (t) {
-          (h == null || h(t), t.preventDefault());
-        },
-        $ = r("useWAWebStaticButtonA11y")(x, { disabled: s }),
-        P = $[0],
-        N = $[1],
-        M = r("useMergeRefs")(P, b),
-        w = C
-          ? function (e) {
-              r("WAWebKeyboardIsKeyActivation")(e) &&
-                (e.preventDefault(), s !== !0 && C(e));
-            }
-          : N.onKeyPress,
-        A = S != null ? S : C != null || h != null ? 0 : -1;
-      return u.jsx(
-        "div",
-        babelHelpers.extends({}, N, {
-          "data-testid": void 0,
-          role: "button",
-          "aria-pressed": n,
-          "aria-label": _,
-          tabIndex: A,
-          className: D,
-          onKeyDown: w,
-          ref: M,
-          title: E,
-          "data-tab": l,
-          onContextMenu: y,
-          children: a,
-        }),
+      var n = o("react-compiler-runtime").c(32),
+        a = t.ariaPressed,
+        i = t.children,
+        l = t.className,
+        s = t.dataTab,
+        m = t.disabled,
+        p = t.hideBackground,
+        _ = t.inverted,
+        f = t.label,
+        g = t.large,
+        h = t.medium,
+        y = t.onClick,
+        C = t.onContextMenu,
+        b = t.onKeyDown,
+        v = t.ref,
+        S = t.small,
+        R = t.tabIndex,
+        L = t.testid,
+        E = t.theme,
+        k = t.title,
+        I = t.xstyle,
+        T = r("useWAWebIsKeyboardUser")(),
+        D = T.isKeyboardUser,
+        x;
+      n[0] !== l ||
+      n[1] !== m ||
+      n[2] !== p ||
+      n[3] !== _ ||
+      n[4] !== D ||
+      n[5] !== g ||
+      n[6] !== h ||
+      n[7] !== S ||
+      n[8] !== E ||
+      n[9] !== I
+        ? ((x = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+            l,
+            (e || (e = r("stylex")))(
+              d.btn,
+              (g === !0 || E === c.Large) && d.large,
+              (h === !0 || E === c.Medium) && d.medium,
+              (S === !0 || E === c.Small) && d.small,
+              E === c.XSmall && d.xsmall,
+              (_ === !0 || E === c.Inverted) && d.inverted,
+              (_ === !0 || E === c.Inverted) && d.invertedRefreshed,
+              p === !0 && d.hideBackground,
+              (m === !0 || E === c.Disabled) && d.disabled,
+              E === c.NoShadow && d.noShadow,
+              E === c.SVGGrayButton && d.svgGrayButton,
+              E === c.ReactionPickerButton && d.reactionPickerButton,
+              E === c.Approve && d.approveRefreshed,
+              E === c.Reject && d.rejectRefreshed,
+              E === c.QuickAction && d.quickAction,
+              E === c.QuickActionRefreshed && d.quickActionRefreshed,
+              E === c.DrawerFooter && m === !0 && d.drawerFooter,
+              E === c.Error && d.error,
+              !1,
+              !1,
+              D && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+              I,
+            ),
+          )),
+          (n[0] = l),
+          (n[1] = m),
+          (n[2] = p),
+          (n[3] = _),
+          (n[4] = D),
+          (n[5] = g),
+          (n[6] = h),
+          (n[7] = S),
+          (n[8] = E),
+          (n[9] = I),
+          (n[10] = x))
+        : (x = n[10]);
+      var $ = x,
+        P;
+      n[11] !== y
+        ? ((P = function (t) {
+            (y == null || y(t), t.preventDefault());
+          }),
+          (n[11] = y),
+          (n[12] = P))
+        : (P = n[12]);
+      var N = P,
+        M;
+      n[13] !== m
+        ? ((M = { disabled: m }), (n[13] = m), (n[14] = M))
+        : (M = n[14]);
+      var w = r("useWAWebStaticButtonA11y")(N, M),
+        A = w[0],
+        F = w[1],
+        O = r("useMergeRefs")(A, v),
+        B;
+      n[15] !== m || n[16] !== b || n[17] !== F
+        ? ((B = b
+            ? function (e) {
+                r("WAWebKeyboardIsKeyActivation")(e) &&
+                  (e.preventDefault(), m !== !0 && b(e));
+              }
+            : F.onKeyPress),
+          (n[15] = m),
+          (n[16] = b),
+          (n[17] = F),
+          (n[18] = B))
+        : (B = n[18]);
+      var W = B,
+        q = R != null ? R : b != null || y != null ? 0 : -1,
+        U;
+      return (
+        n[19] !== a ||
+        n[20] !== $ ||
+        n[21] !== i ||
+        n[22] !== q ||
+        n[23] !== s ||
+        n[24] !== W ||
+        n[25] !== f ||
+        n[26] !== O ||
+        n[27] !== C ||
+        n[28] !== F ||
+        n[29] !== L ||
+        n[30] !== k
+          ? ((U = u.jsx(
+              "div",
+              babelHelpers.extends({}, F, {
+                "data-testid": void 0,
+                role: "button",
+                "aria-pressed": a,
+                "aria-label": f,
+                tabIndex: q,
+                className: $,
+                onKeyDown: W,
+                ref: O,
+                title: k,
+                "data-tab": s,
+                onContextMenu: C,
+                children: i,
+              }),
+            )),
+            (n[19] = a),
+            (n[20] = $),
+            (n[21] = i),
+            (n[22] = q),
+            (n[23] = s),
+            (n[24] = W),
+            (n[25] = f),
+            (n[26] = O),
+            (n[27] = C),
+            (n[28] = F),
+            (n[29] = L),
+            (n[30] = k),
+            (n[31] = U))
+          : (U = n[31]),
+        U
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"),
-      (l.RoundTheme = c),
-      (l.Round = m));
+    ((l.RoundTheme = c), (l.Round = m));
   },
   98,
 );

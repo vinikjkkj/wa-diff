@@ -79,8 +79,15 @@ __d(
                 );
             }),
         o("WAWebBackendWorkerClient").startBackendWorker(),
-        u(),
-        c());
+        u());
+      try {
+        n("cr:37102") == null || n("cr:37102").run();
+      } catch (e) {
+        r("FBLogger")("JSSelfProfiler")
+          .catching(r("getErrorSafe")(e))
+          .warn("failed to run JSSPWAWebConfigInit");
+      }
+      c();
       var a = n("WAWebMain.react");
       return {
         MainComponent: a.MainComponent,
@@ -94,8 +101,7 @@ __d(
         var e = r("justknobx")._("3988");
         window.setTimeout(function () {
           try {
-            (n("cr:37102") == null || n("cr:37102").run(),
-              n("cr:13598") == null || n("cr:13598").init("wa.idle"));
+            n("cr:13598") == null || n("cr:13598").init("wa.idle");
           } catch (e) {
             r("FBLogger")("JSSelfProfiler")
               .catching(r("getErrorSafe")(e))

@@ -6,6 +6,7 @@ __d(
     "WAWebUISpacing",
     "WDSIconIcVisibilityOffFilled.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -28,19 +29,23 @@ __d(
         },
       };
     function m(t) {
-      var n = t.isSingleOptionPoll;
-      return c.jsxs(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        xstyle: o("WAWebUISpacing").uiPadding.all4,
-        testid: void 0,
-        children: [
-          c.jsx(r("WDSIconIcVisibilityOffFilled.react"), {
+      var n = o("react-compiler-runtime").c(5),
+        a = t.isSingleOptionPoll,
+        i = a ? void 0 : d.iconContainer,
+        l;
+      n[0] !== i
+        ? ((l = c.jsx(r("WDSIconIcVisibilityOffFilled.react"), {
             width: 12,
             height: 12,
-            xstyle: n ? void 0 : d.iconContainer,
+            xstyle: i,
             colorName: "contentDeemphasized",
-          }),
-          c.jsx(
+          })),
+          (n[0] = i),
+          (n[1] = l))
+        : (l = n[1]);
+      var u;
+      n[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = c.jsx(
             "span",
             babelHelpers.extends(
               {},
@@ -50,11 +55,25 @@ __d(
               ),
               { children: s._(/*BTDS*/ "Voter names hidden") },
             ),
-          ),
-        ],
-      });
+          )),
+          (n[2] = u))
+        : (u = n[2]);
+      var m;
+      return (
+        n[3] !== l
+          ? ((m = c.jsxs(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              xstyle: o("WAWebUISpacing").uiPadding.all4,
+              testid: void 0,
+              children: [l, u],
+            })),
+            (n[3] = l),
+            (n[4] = m))
+          : (m = n[4]),
+        m
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

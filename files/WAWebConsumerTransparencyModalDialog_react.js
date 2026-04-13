@@ -19,6 +19,7 @@ __d(
     "WAWebWdsPictoMetaDataChevronIcon.react",
     "WDSIconIcVisibilityOff.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -32,35 +33,65 @@ __d(
       o("WAWebModalManager").ModalManager.open(u.jsx(_, {}));
     }
     function p() {
-      var e = u.jsx(
-          o("WAWebSingleChevronInCircleIcon.react").SingleChevronInCircleIcon,
-          { height: 24, width: 24, xstyle: d.bulletIconColorNew },
-        ),
-        t = e,
-        n = u.jsx(r("WDSIconIcVisibilityOff.react"), {
-          height: 24,
-          width: 24,
-          xstyle: d.bulletIconColorNew,
-        }),
-        a = u.jsx(
-          o("WAWebWdsPictoMetaDataChevronIcon.react")
-            .WdsPictoMetaDataChevronIcon,
-          { width: 88, height: 88 },
-        ),
-        i = s._(
-          /*BTDS*/ "This icon means Meta receives limited info, like the number and types of interactions with a business chat",
-        ),
-        l =
-          o("WAWebBizGatingUtils").isCTWATosFilteringEnabled() &&
-          o("WAWebBizGatingUtils").showCTWACCICompliantUI();
-      return u.jsxs(o("WAWebFlex.react").FlexColumn, {
-        children: [
-          u.jsx(o("WAWebFlex.react").FlexRow, {
+      var e = o("react-compiler-runtime").c(13),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = u.jsx(
+            o("WAWebSingleChevronInCircleIcon.react").SingleChevronInCircleIcon,
+            { height: 24, width: 24, xstyle: d.bulletIconColorNew },
+          )),
+          (e[0] = t))
+        : (t = e[0]);
+      var n = t,
+        a = n,
+        i;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = u.jsx(r("WDSIconIcVisibilityOff.react"), {
+            height: 24,
+            width: 24,
+            xstyle: d.bulletIconColorNew,
+          })),
+          (e[1] = i))
+        : (i = e[1]);
+      var l = i,
+        c;
+      e[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = u.jsx(
+            o("WAWebWdsPictoMetaDataChevronIcon.react")
+              .WdsPictoMetaDataChevronIcon,
+            { width: 88, height: 88 },
+          )),
+          (e[2] = c))
+        : (c = e[2]);
+      var m = c,
+        p;
+      e[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = s._(
+            /*BTDS*/ "This icon means Meta receives limited info, like the number and types of interactions with a business chat",
+          )),
+          (e[3] = p))
+        : (p = e[3]);
+      var _ = p,
+        f;
+      e[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f =
+            o("WAWebBizGatingUtils").isCTWATosFilteringEnabled() &&
+            o("WAWebBizGatingUtils").showCTWACCICompliantUI()),
+          (e[4] = f))
+        : (f = e[4]);
+      var g = f,
+        h;
+      e[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = u.jsx(o("WAWebFlex.react").FlexRow, {
             justify: "center",
             xstyle: [d.fullWidth, o("WAWebUISpacing").uiMargin.bottom8],
-            children: a,
-          }),
-          u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+            children: m,
+          })),
+          (e[5] = h))
+        : (h = e[5]);
+      var y;
+      e[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
             size: "20",
             color: "dark",
             weight: "medium",
@@ -68,8 +99,12 @@ __d(
             children: s._(
               /*BTDS*/ "About chats that start from Facebook or Instagram ads",
             ),
-          }),
-          u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+          })),
+          (e[6] = y))
+        : (y = e[6]);
+      var C;
+      e[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
             size: "16",
             weight: "normal",
             color: "dark",
@@ -86,100 +121,142 @@ __d(
                 ),
               ],
             ),
-          }),
-          u.jsxs(o("WAWebFlex.react").FlexRow, {
+          })),
+          (e[7] = C))
+        : (C = e[7]);
+      var b;
+      e[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = s._(
+            /*BTDS*/ "WhatsApp never shares your message content or calls",
+          )),
+          (e[8] = b))
+        : (b = e[8]);
+      var v;
+      e[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = u.jsxs(o("WAWebFlex.react").FlexRow, {
             justify: "center",
             align: "center",
             xstyle: o("WAWebUISpacing").uiMargin.top36,
             children: [
-              n,
+              l,
               u.jsxs(o("WAWebText_DONOTUSE.react").TextSpan, {
                 size: "13",
                 color: "dark",
                 xstyle: o("WAWebUISpacing").uiMargin.start24,
-                children: [
-                  s._(
-                    /*BTDS*/ "WhatsApp never shares your message content or calls",
-                  ),
-                  l && ".",
-                ],
+                children: [b, g && "."],
               }),
             ],
-          }),
-          u.jsxs(o("WAWebFlex.react").FlexRow, {
+          })),
+          (e[9] = v))
+        : (v = e[9]);
+      var S;
+      e[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = u.jsxs(o("WAWebFlex.react").FlexRow, {
             justify: "center",
             align: "center",
             xstyle: o("WAWebUISpacing").uiMargin.top20,
             children: [
-              t,
+              a,
               u.jsxs(o("WAWebText_DONOTUSE.react").TextSpan, {
                 size: "13",
                 color: "dark",
                 xstyle: o("WAWebUISpacing").uiMargin.start24,
-                children: [i, l && "."],
+                children: [_, g && "."],
               }),
             ],
-          }),
-          u.jsxs(o("WAWebFlex.react").FlexRow, {
-            justify: "center",
-            align: "center",
-            xstyle: o("WAWebUISpacing").uiMargin.top20,
-            children: [
-              u.jsx(o("WAWebSettingsSecurityIcon.react").SettingsSecurityIcon, {
-                height: 24,
-                width: 24,
-                xstyle: d.bulletIconColorNew,
-              }),
-              u.jsxs(o("WAWebText_DONOTUSE.react").TextSpan, {
-                size: "13",
-                color: "dark",
-                xstyle: o("WAWebUISpacing").uiMargin.start24,
-                children: [
-                  s._(
-                    /*BTDS*/ "You can always stop chatting with a business or block them",
-                  ),
-                  l &&
-                    u.jsxs(u.Fragment, {
+          })),
+          (e[10] = S))
+        : (S = e[10]);
+      var R;
+      e[11] === Symbol.for("react.memo_cache_sentinel")
+        ? ((R = u.jsx(
+            o("WAWebSettingsSecurityIcon.react").SettingsSecurityIcon,
+            { height: 24, width: 24, xstyle: d.bulletIconColorNew },
+          )),
+          (e[11] = R))
+        : (R = e[11]);
+      var L;
+      return (
+        e[12] === Symbol.for("react.memo_cache_sentinel")
+          ? ((L = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+              children: [
+                h,
+                y,
+                C,
+                v,
+                S,
+                u.jsxs(o("WAWebFlex.react").FlexRow, {
+                  justify: "center",
+                  align: "center",
+                  xstyle: o("WAWebUISpacing").uiMargin.top20,
+                  children: [
+                    R,
+                    u.jsxs(o("WAWebText_DONOTUSE.react").TextSpan, {
+                      size: "13",
+                      color: "dark",
+                      xstyle: o("WAWebUISpacing").uiMargin.start24,
                       children: [
-                        ". ",
                         s._(
-                          /*BTDS*/ "After you block a business, Meta will no longer receive limited info.",
+                          /*BTDS*/ "You can always stop chatting with a business or block them",
                         ),
+                        g &&
+                          u.jsxs(u.Fragment, {
+                            children: [
+                              ". ",
+                              s._(
+                                /*BTDS*/ "After you block a business, Meta will no longer receive limited info.",
+                              ),
+                            ],
+                          }),
                       ],
                     }),
-                ],
-              }),
-            ],
-          }),
-        ],
-      });
-    }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _() {
-      return (
-        c(function () {
-          new (o(
-            "WAWebCtwaConsumerDisclosureWamEvent",
-          ).CtwaConsumerDisclosureWamEvent)({
-            ctwaConsumerDisclosureVersion: 1,
-            disclosureAction: o("WAWebWamEnumDisclosureAction")
-              .DISCLOSURE_ACTION.SCREEN_VIEW,
-            disclosureType: o("WAWebWamEnumDisclosureType").DISCLOSURE_TYPE
-              .INFO,
-          }).commit();
-        }, []),
-        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          testid: void 0,
-          type: o("WAWebModal.react").ModalTheme.UpdatedDataSharing,
-          onOK: o("WAWebModalManager").closeModalManager,
-          okText: s._(/*BTDS*/ "Close"),
-          onOverlayClick: o("WAWebModalManager").closeModalManager,
-          children: u.jsx(p, {}),
-        })
+                  ],
+                }),
+              ],
+            })),
+            (e[12] = L))
+          : (L = e[12]),
+        L
       );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"),
-      (l.showConsumerTransparencyModalDialog = m),
+    function _() {
+      var e = o("react-compiler-runtime").c(3),
+        t;
+      (e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = []), (e[0] = t))
+        : (t = e[0]),
+        c(f, t));
+      var n;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = s._(/*BTDS*/ "Close")), (e[1] = n))
+        : (n = e[1]);
+      var r;
+      return (
+        e[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((r = u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              testid: void 0,
+              type: o("WAWebModal.react").ModalTheme.UpdatedDataSharing,
+              onOK: o("WAWebModalManager").closeModalManager,
+              okText: n,
+              onOverlayClick: o("WAWebModalManager").closeModalManager,
+              children: u.jsx(p, {}),
+            })),
+            (e[2] = r))
+          : (r = e[2]),
+        r
+      );
+    }
+    function f() {
+      new (o(
+        "WAWebCtwaConsumerDisclosureWamEvent",
+      ).CtwaConsumerDisclosureWamEvent)({
+        ctwaConsumerDisclosureVersion: 1,
+        disclosureAction: o("WAWebWamEnumDisclosureAction").DISCLOSURE_ACTION
+          .SCREEN_VIEW,
+        disclosureType: o("WAWebWamEnumDisclosureType").DISCLOSURE_TYPE.INFO,
+      }).commit();
+    }
+    ((l.showConsumerTransparencyModalDialog = m),
       (l.ConsumerTransparencyModalDialog = _));
   },
   226,

@@ -19,6 +19,7 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebListener",
   ],
@@ -93,75 +94,121 @@ __d(
         },
       };
     function h(e) {
-      var t = e.call,
-        n = e.initialParticipantStates,
-        a = e.initialParticipantsWithoutSelf,
-        i = e.onClose,
-        l = e.onRingParticipant,
-        u = e.participantDataEmitter,
-        c = f(n),
-        d = c[0],
-        p = c[1],
-        _ = f(a),
-        h = _[0],
-        C = _[1];
-      return (
-        o("useWAWebListener").useListener(u, "update", function (e) {
-          (p(e.participantStates), C(e.participantsWithoutSelf));
-        }),
-        m.jsx(o("WAWebModal.react").Modal, {
-          type: o("WAWebModal.react").ModalTheme.Box,
-          onOverlayClick: i,
-          children: m.jsxs(o("WAWebFlex.react").FlexColumn, {
+      var t = o("react-compiler-runtime").c(20),
+        n = e.call,
+        a = e.initialParticipantStates,
+        i = e.initialParticipantsWithoutSelf,
+        l = e.onClose,
+        u = e.onRingParticipant,
+        c = e.participantDataEmitter,
+        d = f(a),
+        p = d[0],
+        _ = d[1],
+        h = f(i),
+        C = h[0],
+        b = h[1],
+        v;
+      (t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = function (t) {
+            (_(t.participantStates), b(t.participantsWithoutSelf));
+          }),
+          (t[0] = v))
+        : (v = t[0]),
+        o("useWAWebListener").useListener(c, "update", v));
+      var S;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = s._(/*BTDS*/ "Close")), (t[1] = S))
+        : (S = t[1]);
+      var R;
+      t[2] !== l
+        ? ((R = m.jsx(r("WDSButton.react"), {
+            testid: void 0,
+            variant: "borderless",
+            type: "default",
+            size: "small",
+            Icon: r("WDSIconIcClose.react"),
+            onPress: l,
+            "aria-label": S,
+          })),
+          (t[2] = l),
+          (t[3] = R))
+        : (R = t[3]);
+      var L;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = m.jsx(o("WAWebFlex.react").FlexRow, {
+            grow: 1,
+            children: m.jsx(r("WDSText.react"), {
+              type: "Headline2",
+              colorName: "contentDefault",
+              children: s._(/*BTDS*/ "Participants"),
+            }),
+          })),
+          (t[4] = L))
+        : (L = t[4]);
+      var E;
+      t[5] !== R
+        ? ((E = m.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "all",
+            xstyle: g.header,
+            columnGap: 16,
+            children: [R, L],
+          })),
+          (t[5] = R),
+          (t[6] = E))
+        : (E = t[6]);
+      var k;
+      t[7] !== n
+        ? ((k = m.jsx(y, { call: n })), (t[7] = n), (t[8] = k))
+        : (k = t[8]);
+      var I;
+      t[9] !== u || t[10] !== p || t[11] !== C
+        ? ((I = m.jsx(o("WAWebFlex.react").FlexColumn, {
+            xstyle: g.panelContainer,
+            children: m.jsx(r("WAWebVoipUiParticipantPanel.react"), {
+              arePeersActive: !0,
+              onRingParticipant: u,
+              participantStates: p,
+              participantsWithoutSelf: C,
+              showActionButton: !0,
+              showConnectedIndicator: !1,
+              transparentBackground: !0,
+            }),
+          })),
+          (t[9] = u),
+          (t[10] = p),
+          (t[11] = C),
+          (t[12] = I))
+        : (I = t[12]);
+      var T;
+      t[13] !== E || t[14] !== k || t[15] !== I
+        ? ((T = m.jsxs(o("WAWebFlex.react").FlexColumn, {
             rowGap: 8,
             align: "stretch",
             justify: "all",
             xstyle: g.container,
-            children: [
-              m.jsxs(o("WAWebFlex.react").FlexRow, {
-                align: "center",
-                justify: "all",
-                xstyle: g.header,
-                columnGap: 16,
-                children: [
-                  m.jsx(r("WDSButton.react"), {
-                    testid: void 0,
-                    variant: "borderless",
-                    type: "default",
-                    size: "small",
-                    Icon: r("WDSIconIcClose.react"),
-                    onPress: i,
-                    "aria-label": s._(/*BTDS*/ "Close"),
-                  }),
-                  m.jsx(o("WAWebFlex.react").FlexRow, {
-                    grow: 1,
-                    children: m.jsx(r("WDSText.react"), {
-                      type: "Headline2",
-                      colorName: "contentDefault",
-                      children: s._(/*BTDS*/ "Participants"),
-                    }),
-                  }),
-                ],
-              }),
-              m.jsx(y, { call: t }),
-              m.jsx(o("WAWebFlex.react").FlexColumn, {
-                xstyle: g.panelContainer,
-                children: m.jsx(r("WAWebVoipUiParticipantPanel.react"), {
-                  arePeersActive: !0,
-                  onRingParticipant: l,
-                  participantStates: d,
-                  participantsWithoutSelf: h,
-                  showActionButton: !0,
-                  showConnectedIndicator: !1,
-                  transparentBackground: !0,
-                }),
-              }),
-            ],
-          }),
-        })
+            children: [E, k, I],
+          })),
+          (t[13] = E),
+          (t[14] = k),
+          (t[15] = I),
+          (t[16] = T))
+        : (T = t[16]);
+      var D;
+      return (
+        t[17] !== l || t[18] !== T
+          ? ((D = m.jsx(o("WAWebModal.react").Modal, {
+              type: o("WAWebModal.react").ModalTheme.Box,
+              onOverlayClick: l,
+              children: T,
+            })),
+            (t[17] = l),
+            (t[18] = T),
+            (t[19] = D))
+          : (D = t[19]),
+        D
       );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     function y(t) {
       var a = t.call,
         i = r("useWAWebEventTargetValue")(

@@ -9,6 +9,7 @@ __d(
     "WAWebUISpacing",
     "WDSTextField.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
   ],
@@ -195,38 +196,71 @@ __d(
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = e.formattedInputValue,
-        n = e.placeholder,
-        r = n.split(/(_+)/).map(function (e, t) {
-          var n = t % 2 === 1;
-          return u.jsx(
-            "span",
-            babelHelpers.extends(
-              {},
-              {
-                0: {},
-                2: { className: "x1rg5ohu x1qcr5yj xahfe03" },
-                1: { className: "x1rg5ohu xtf6cww xkivrog" },
-                3: { className: "x1rg5ohu xtf6cww xkivrog" },
-              }[
-                (!!(n && o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.WINDOWS) <<
-                  1) |
-                  (!!(n && o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC) <<
-                    0)
-              ],
-              { children: e },
-            ),
-            t + ":" + e,
-          );
-        });
-      return u.jsxs("div", {
-        className:
-          "x10l6tqk xs7f9wi xu96u03 xiqmkuo x126k92a x87ps6o x1jchvi3 xss6m8b",
-        "aria-hidden": "true",
-        children: [u.jsx("span", { className: "x19co3pv", children: t }), r],
-      });
+      var t = o("react-compiler-runtime").c(9),
+        n = e.formattedInputValue,
+        r = e.placeholder,
+        a;
+      t[0] !== r
+        ? ((a = r.split(/(_+)/).map(h)), (t[0] = r), (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = {
+            className:
+              "x10l6tqk xs7f9wi xu96u03 xiqmkuo x126k92a x87ps6o x1jchvi3 xss6m8b",
+          }),
+          (t[2] = l))
+        : (l = t[2]);
+      var s;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = { className: "x19co3pv" }), (t[3] = s))
+        : (s = t[3]);
+      var c;
+      t[4] !== n
+        ? ((c = u.jsx("span", babelHelpers.extends({}, s, { children: n }))),
+          (t[4] = n),
+          (t[5] = c))
+        : (c = t[5]);
+      var d;
+      return (
+        t[6] !== i || t[7] !== c
+          ? ((d = u.jsxs(
+              "div",
+              babelHelpers.extends({}, l, {
+                "aria-hidden": "true",
+                children: [c, i],
+              }),
+            )),
+            (t[6] = i),
+            (t[7] = c),
+            (t[8] = d))
+          : (d = t[8]),
+        d
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = f));
+    function h(e, t) {
+      var n = t % 2 === 1;
+      return u.jsx(
+        "span",
+        babelHelpers.extends(
+          {},
+          {
+            0: {},
+            2: { className: "x1rg5ohu x1qcr5yj xahfe03" },
+            1: { className: "x1rg5ohu xtf6cww xkivrog" },
+            3: { className: "x1rg5ohu xtf6cww xkivrog" },
+          }[
+            (!!(n && o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.WINDOWS) <<
+              1) |
+              (!!(n && o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC) << 0)
+          ],
+          { children: e },
+        ),
+        t + ":" + e,
+      );
+    }
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = f));
   },
   98,
 );

@@ -1,6 +1,13 @@
 __d(
   "WAWebQuickRepliesPluginResult.react",
-  ["WAWebUISpacing", "WDSText.react", "react", "stylex", "useWAWebModelValues"],
+  [
+    "WAWebUISpacing",
+    "WDSText.react",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+    "useWAWebModelValues",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -24,65 +31,120 @@ __d(
         },
       };
     function d(t) {
-      var n = o("useWAWebModelValues").useModelValues(t.quickReply, [
-          "shortcut",
-          "message",
-        ]),
-        a = n.message,
-        i = n.shortcut,
-        l = t.onMouseDown,
-        s = t.onMouseEnter,
-        d = t.onMouseUp,
-        m = t.query,
-        p = t.selected,
-        _ = i.slice(m.length),
-        f = [
+      var n = o("react-compiler-runtime").c(26),
+        a;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = ["shortcut", "message"]), (n[0] = a))
+        : (a = n[0]);
+      var i = o("useWAWebModelValues").useModelValues(t.quickReply, a),
+        l = i.message,
+        s = i.shortcut,
+        d = t.onMouseDown,
+        m = t.onMouseEnter,
+        p = t.onMouseUp,
+        _ = t.query,
+        f = t.selected,
+        g;
+      n[1] !== _.length || n[2] !== s
+        ? ((g = s.slice(_.length)), (n[1] = _.length), (n[2] = s), (n[3] = g))
+        : (g = n[3]);
+      var h = g,
+        y;
+      if (n[4] !== f) {
+        var C = [
           c.quickReplyResult,
           o("WAWebUISpacing").uiPadding.vert10,
           o("WAWebUISpacing").uiPadding.horiz8,
         ];
-      return (
-        p === !0 && f.push(c.quickReplyResultSelected),
-        u.jsx(
-          "div",
-          babelHelpers.extends({}, (e || (e = r("stylex"))).props(f), {
-            onMouseDown: l,
-            onMouseUp: d,
-            onMouseEnter: s,
+        (f === !0 && C.push(c.quickReplyResultSelected),
+          (y = (e || (e = r("stylex"))).props(C)),
+          (n[4] = f),
+          (n[5] = y));
+      } else y = n[5];
+      var b, v;
+      n[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = { className: "x78zum5 xeuugli xdt5ytf xh8yej3" }),
+          (v = { className: "x78zum5 x6s0dn4" }),
+          (n[6] = b),
+          (n[7] = v))
+        : ((b = n[6]), (v = n[7]));
+      var S;
+      n[8] !== _
+        ? ((S = u.jsx(r("WDSText.react"), {
+            type: "Body1",
+            colorName: "contentDefault",
+            children: _,
+          })),
+          (n[8] = _),
+          (n[9] = S))
+        : (S = n[9]);
+      var R;
+      n[10] !== h
+        ? ((R = u.jsx(r("WDSText.react"), {
+            type: "Body1",
+            colorName: "contentDefault",
+            children: h,
+          })),
+          (n[10] = h),
+          (n[11] = R))
+        : (R = n[11]);
+      var L;
+      n[12] !== S || n[13] !== R
+        ? ((L = u.jsxs(
+            "div",
+            babelHelpers.extends({}, v, { children: [S, R] }),
+          )),
+          (n[12] = S),
+          (n[13] = R),
+          (n[14] = L))
+        : (L = n[14]);
+      var E;
+      n[15] !== l
+        ? ((E = u.jsx("div", {
             "data-testid": void 0,
-            children: u.jsxs("div", {
-              className: "x78zum5 xeuugli xdt5ytf xh8yej3",
-              children: [
-                u.jsxs("div", {
-                  className: "x78zum5 x6s0dn4",
-                  children: [
-                    u.jsx(r("WDSText.react"), {
-                      type: "Body1",
-                      colorName: "contentDefault",
-                      children: m,
-                    }),
-                    u.jsx(r("WDSText.react"), {
-                      type: "Body1",
-                      colorName: "contentDefault",
-                      children: _,
-                    }),
-                  ],
-                }),
-                u.jsx("div", {
-                  "data-testid": void 0,
-                  children: u.jsx(r("WDSText.react"), {
-                    type: "Body2",
-                    colorName: "contentDeemphasized",
-                    children: a,
-                  }),
-                }),
-              ],
+            children: u.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDeemphasized",
+              children: l,
             }),
-          }),
-        )
+          })),
+          (n[15] = l),
+          (n[16] = E))
+        : (E = n[16]);
+      var k;
+      n[17] !== L || n[18] !== E
+        ? ((k = u.jsxs(
+            "div",
+            babelHelpers.extends({}, b, { children: [L, E] }),
+          )),
+          (n[17] = L),
+          (n[18] = E),
+          (n[19] = k))
+        : (k = n[19]);
+      var I;
+      return (
+        n[20] !== d || n[21] !== m || n[22] !== p || n[23] !== y || n[24] !== k
+          ? ((I = u.jsx(
+              "div",
+              babelHelpers.extends({}, y, {
+                onMouseDown: d,
+                onMouseUp: p,
+                onMouseEnter: m,
+                "data-testid": void 0,
+                children: k,
+              }),
+            )),
+            (n[20] = d),
+            (n[21] = m),
+            (n[22] = p),
+            (n[23] = y),
+            (n[24] = k),
+            (n[25] = I))
+          : (I = n[25]),
+        I
       );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   98,
 );

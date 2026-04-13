@@ -11,6 +11,7 @@ __d(
     "WAWebXAltIcon.react",
     "WDSFocusStateStyles",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "uniqueID",
     "useLazyRef",
@@ -125,25 +126,38 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = e.buttonText,
-        n = e.onClick,
-        a = e.ref,
-        i = e.theme;
-      return c.jsx(
-        "button",
-        babelHelpers.extends(
-          {},
-          (s || (s = r("stylex"))).props(
+      var t = o("react-compiler-runtime").c(7),
+        n = e.buttonText,
+        a = e.onClick,
+        i = e.ref,
+        l = e.theme,
+        u;
+      t[0] !== l
+        ? ((u = (s || (s = r("stylex"))).props(
             g.button,
             o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
             o("WAWebUISpacing").uiMargin.start15,
-            i === "success" && g.btnSuccess,
-          ),
-          { onClick: n, ref: a, children: t },
-        ),
+            l === "success" && g.btnSuccess,
+          )),
+          (t[0] = l),
+          (t[1] = u))
+        : (u = t[1]);
+      var d;
+      return (
+        t[2] !== n || t[3] !== a || t[4] !== i || t[5] !== u
+          ? ((d = c.jsx(
+              "button",
+              babelHelpers.extends({}, u, { onClick: a, ref: i, children: n }),
+            )),
+            (t[2] = n),
+            (t[3] = a),
+            (t[4] = i),
+            (t[5] = u),
+            (t[6] = d))
+          : (d = t[6]),
+        d
       );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
       var t = e.buttonText,
         n = e.onClick,
@@ -168,68 +182,95 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.actionButtons,
-        n = e.actionText,
-        a = e.dismissButton,
-        i = e.focusButtonRef,
-        l = e.toastPosition;
-      m(
-        function () {
-          var e = i == null ? void 0 : i.current;
-          e instanceof HTMLButtonElement && e.focus();
-        },
-        [n, i],
-      );
-      var u = _(null),
-        d = function (t) {
-          if (
-            t.key === o("WAWebKeyboardConstants").KEYBOARD_EVENT_KEY_VALUE.TAB
-          ) {
-            var e = u.current;
-            if (e != null && e.contains(document.activeElement)) {
-              var n = o("WAWebKeyboardTabUtils").getNextTabbableElement(
-                e,
-                t.shiftKey
-                  ? o("WAWebKeyboardTabUtils").TabDirection.BACKWARD
-                  : o("WAWebKeyboardTabUtils").TabDirection.FORWARD,
-                o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
-              );
-              n != null &&
-                (t.stopPropagation(),
-                t.preventDefault(),
-                r("WAWebFocusTracer").focus(n));
+      var t = o("react-compiler-runtime").c(16),
+        n = e.actionButtons,
+        a = e.actionText,
+        i = e.dismissButton,
+        l = e.focusButtonRef,
+        u = e.toastPosition,
+        d;
+      t[0] !== l
+        ? ((d = function () {
+            var e = l == null ? void 0 : l.current;
+            e instanceof HTMLButtonElement && e.focus();
+          }),
+          (t[0] = l),
+          (t[1] = d))
+        : (d = t[1]);
+      var p;
+      (t[2] !== a || t[3] !== l
+        ? ((p = [a, l]), (t[2] = a), (t[3] = l), (t[4] = p))
+        : (p = t[4]),
+        m(d, p));
+      var f = _(null),
+        h;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = function (t) {
+            if (
+              t.key === o("WAWebKeyboardConstants").KEYBOARD_EVENT_KEY_VALUE.TAB
+            ) {
+              var e = f.current;
+              if (e != null && e.contains(document.activeElement)) {
+                var n = o("WAWebKeyboardTabUtils").getNextTabbableElement(
+                  e,
+                  t.shiftKey
+                    ? o("WAWebKeyboardTabUtils").TabDirection.BACKWARD
+                    : o("WAWebKeyboardTabUtils").TabDirection.FORWARD,
+                  o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+                );
+                n != null &&
+                  (t.stopPropagation(),
+                  t.preventDefault(),
+                  r("WAWebFocusTracer").focus(n));
+              }
             }
-          }
-        };
-      return c.jsxs(
-        "div",
-        babelHelpers.extends(
-          {},
-          (s || (s = r("stylex"))).props(
+          }),
+          (t[5] = h))
+        : (h = t[5]);
+      var y = h,
+        C;
+      t[6] !== u
+        ? ((C = (s || (s = r("stylex"))).props(
             g.toast,
             o("WAWebUISpacing").uiPadding.vert12,
             o("WAWebUISpacing").uiPadding.horiz16,
-            l === "RIGHT" && g.right,
-          ),
-          {
-            ref: u,
-            tabIndex: 0,
-            onKeyDown: d,
-            "data-testid": void 0,
-            children: [
-              n,
-              t,
-              a,
-              c.jsx(o("WAWebAccessibility.react").InvisibleAnnouncement, {
-                text: n,
-                assertive: !0,
+            u === "RIGHT" && g.right,
+          )),
+          (t[6] = u),
+          (t[7] = C))
+        : (C = t[7]);
+      var b;
+      t[8] !== a
+        ? ((b = c.jsx(o("WAWebAccessibility.react").InvisibleAnnouncement, {
+            text: a,
+            assertive: !0,
+          })),
+          (t[8] = a),
+          (t[9] = b))
+        : (b = t[9]);
+      var v;
+      return (
+        t[10] !== n || t[11] !== a || t[12] !== i || t[13] !== C || t[14] !== b
+          ? ((v = c.jsxs(
+              "div",
+              babelHelpers.extends({}, C, {
+                ref: f,
+                tabIndex: 0,
+                onKeyDown: y,
+                "data-testid": void 0,
+                children: [a, n, i, b],
               }),
-            ],
-          },
-        ),
+            )),
+            (t[10] = n),
+            (t[11] = a),
+            (t[12] = i),
+            (t[13] = C),
+            (t[14] = b),
+            (t[15] = v))
+          : (v = t[15]),
+        v
       );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
       var t = e.action,
         n = e.msg,

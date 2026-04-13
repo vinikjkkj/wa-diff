@@ -1,6 +1,6 @@
 __d(
   "useWAWebMeasureTimeOnScreen",
-  ["react", "useWAWebOnScreen"],
+  ["react", "react-compiler-runtime", "useWAWebOnScreen"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -8,23 +8,34 @@ __d(
       c = s.useEffect,
       d = s.useRef;
     function m(e, t) {
-      var n = d(null),
-        o = u(
-          function () {
-            var e = n.current;
-            e != null && (t(Date.now() - e), (n.current = null));
-          },
-          [t],
-        ),
-        a = r("useWAWebOnScreen")(e, o);
-      c(
-        function () {
-          var e = n.current;
-          (a && e == null && (n.current = Date.now()),
-            !a && e != null && (t(Date.now() - e), (n.current = null)));
-        },
-        [t, a],
-      );
+      var n = o("react-compiler-runtime").c(6),
+        a = d(null),
+        i;
+      n[0] !== t
+        ? ((i = function () {
+            var e = a.current;
+            e != null && (t(Date.now() - e), (a.current = null));
+          }),
+          (n[0] = t),
+          (n[1] = i))
+        : (i = n[1]);
+      var l = i,
+        s = r("useWAWebOnScreen")(e, l),
+        u,
+        m;
+      (n[2] !== t || n[3] !== s
+        ? ((u = function () {
+            var e = a.current;
+            (s && e == null && (a.current = Date.now()),
+              !s && e != null && (t(Date.now() - e), (a.current = null)));
+          }),
+          (m = [t, s]),
+          (n[2] = t),
+          (n[3] = s),
+          (n[4] = u),
+          (n[5] = m))
+        : ((u = n[4]), (m = n[5])),
+        c(u, m));
     }
     l.default = m;
   },

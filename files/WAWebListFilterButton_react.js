@@ -11,6 +11,7 @@ __d(
     "WDSChip.react",
     "WDSFocusStateStyles",
     "react",
+    "react-compiler-runtime",
     "useWDSMenu",
   ],
   function (t, n, r, o, a, i, l) {
@@ -64,141 +65,172 @@ __d(
         drawerHeaderDark: { backgroundColor: "xjbqb8w", $$css: !0 },
       };
     function m(t) {
-      var n = t.ref,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        i = a.count,
-        l = a.disabled,
-        s = a.endIcon,
-        m = a.id,
-        p = a.label,
-        _ = a.listId,
-        f = a.listType,
-        g = a.onClick,
-        h = a.onFocus,
-        y = a.restrictSize,
-        C = a.selected,
-        b = a.startIcon,
-        v = a.tabOrder,
-        S = a.testIdSuffix,
-        R = a.theme,
-        L = R === void 0 ? "list-filter" : R,
-        E = o("WAWebThemeContext").useIsDarkTheme(),
-        k = c(null),
-        I = o(
+      var n = o("react-compiler-runtime").c(13),
+        a = t.ref,
+        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        l = i.count,
+        s = i.disabled,
+        m = i.endIcon,
+        p = i.id,
+        _ = i.label,
+        f = i.listId,
+        g = i.listType,
+        h = i.onClick,
+        y = i.onFocus,
+        C = i.restrictSize,
+        b = i.selected,
+        v = i.startIcon,
+        S = i.tabOrder,
+        R = i.testIdSuffix,
+        L = i.theme,
+        E = L === void 0 ? "list-filter" : L,
+        k = o("WAWebThemeContext").useIsDarkTheme(),
+        I = c(null),
+        T = o(
           "WAWebListChatListFilterRightClickMenu.react",
-        ).allowToDisplayListFilterPillContextMenu(f),
-        T = I
+        ).allowToDisplayListFilterPillContextMenu(g),
+        D = T
           ? o(
               "WAWebListChatListFilterRightClickMenu.react",
-            ).buildFilterPillContextMenu(f, _)
+            ).buildFilterPillContextMenu(g, f)
           : null,
-        D = r("useWDSMenu")({ targetRef: k, menu: T, enableUIM: !1 }),
-        x = D.menuPortal,
-        $ = D.openMenu,
-        P = function (t) {
-          !I || T == null || (t.preventDefault(), $(t));
+        x = r("useWDSMenu")({ targetRef: I, menu: D, enableUIM: !1 }),
+        $ = x.menuPortal,
+        P = x.openMenu,
+        N = function (t) {
+          !T || D == null || (t.preventDefault(), P(t));
         },
-        N = i == null ? 0 : i,
-        M = N > 0 ? { endNumber: N } : {};
+        M = l == null ? 0 : l,
+        w;
+      n[0] !== M
+        ? ((w = M > 0 ? { endNumber: M } : {}), (n[0] = M), (n[1] = w))
+        : (w = n[1]);
+      var A = w;
       if (
         o("WAWebABProps").getABPropConfigValue("wds_web_chip") &&
-        s == null &&
-        !!b == !!a.startWDSIcon
+        m == null &&
+        !!v == !!i.startWDSIcon
       )
         return u.jsxs(u.Fragment, {
           children: [
             u.jsx("div", {
-              ref: k,
+              ref: I,
               "data-testid": void 0,
               role: "none",
-              onContextMenu: I ? P : void 0,
+              onContextMenu: T ? N : void 0,
               children: u.jsx(
                 r("WDSChip.react"),
                 babelHelpers.extends(
                   {
-                    tabOrder: Number(a.tabIndex) >= 0 ? v : void 0,
+                    tabOrder: Number(i.tabIndex) >= 0 ? S : void 0,
                     truncateText: !0,
-                    ref: n,
-                    id: m,
-                    isDisabled: l,
-                    label: p,
+                    ref: a,
+                    id: p,
+                    isDisabled: s,
+                    label: _,
                   },
-                  M,
+                  A,
                   {
-                    isSelected: C,
+                    isSelected: b,
                     onPress: function (t) {
-                      g == null || g(t);
+                      h == null || h(t);
                     },
-                    onFocus: h != null ? h : r("WAWebNoop"),
-                    role: a.role,
-                    "aria-selected": a["aria-selected"],
-                    "aria-controls": a["aria-controls"],
-                    Icon: a.startWDSIcon,
-                    showEndDropdownIcon: a.showEndDropdownIcon,
+                    onFocus: y != null ? y : r("WAWebNoop"),
+                    role: i.role,
+                    "aria-selected": i["aria-selected"],
+                    "aria-controls": i["aria-controls"],
+                    Icon: i.startWDSIcon,
+                    showEndDropdownIcon: i.showEndDropdownIcon,
                     testid: void 0,
                   },
                 ),
               ),
             }),
-            x,
+            $,
           ],
         });
-      var w = [
+      var F = [
         o("WAWebUISpacing").uiPadding.vert6,
         o("WAWebUISpacing").uiPadding.horiz12,
       ];
-      (w.push(
-        d.filterRefreshed,
-        o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-      ),
-        C ? w.push(d.selectedRefreshed) : w.push(d.filterHoverRefreshed),
-        L === "drawer-header" &&
-          w.push(E ? [d.drawerHeader, d.drawerHeaderDark] : d.drawerHeader));
-      var A = i != null && i > 0 ? " " + i : "";
-      return u.jsxs(u.Fragment, {
-        children: [
-          u.jsx(r("WAWebUnstyledButton.react"), {
-            ref: n,
-            testid: void 0,
-            dataTab: v,
-            onClick: g,
-            onFocus: h,
-            onContextMenu: I ? P : null,
-            "aria-pressed": C,
-            disabled: l,
-            xstyle: w,
-            id: a.id,
-            role: a.role,
-            "aria-selected": a["aria-selected"],
-            "aria-controls": a["aria-controls"],
-            tabIndex: a.tabIndex,
-            children: u.jsxs(o("WAWebFlex.react").FlexRow, {
-              columnGap: 8,
-              align: "center",
-              children: [
-                b,
-                u.jsxs(
-                  "div",
-                  babelHelpers.extends(
-                    { "data-testid": void 0 },
-                    {
-                      0: {},
-                      1: {
-                        className: "x6ikm8r x10wlt62 xuxw1ft xlyipyv x1qh4rir",
-                      },
-                    }[!!y << 0],
-                    { children: [p, A] },
-                  ),
-                ),
-                s,
-              ],
+      if (
+        (F.push(
+          d.filterRefreshed,
+          o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+        ),
+        b ? F.push(d.selectedRefreshed) : F.push(d.filterHoverRefreshed),
+        E === "drawer-header")
+      ) {
+        var O;
+        (n[2] !== k
+          ? ((O = k ? [d.drawerHeader, d.drawerHeaderDark] : d.drawerHeader),
+            (n[2] = k),
+            (n[3] = O))
+          : (O = n[3]),
+          F.push(O));
+      }
+      var B = l != null && l > 0 ? " " + l : "",
+        W = i.id,
+        q = i.role,
+        U = i["aria-selected"],
+        V = i["aria-controls"],
+        H = i.tabIndex,
+        G = o("WAWebFlex.react").FlexRow,
+        z = 8,
+        j = "center",
+        K = "list-filter-button-text",
+        Q = {
+          0: {},
+          1: { className: "x6ikm8r x10wlt62 xuxw1ft xlyipyv x1qh4rir" },
+        }[!!C << 0],
+        X;
+      n[4] !== B || n[5] !== _ || n[6] !== Q
+        ? ((X = u.jsxs(
+            "div",
+            babelHelpers.extends({ "data-testid": void 0 }, Q, {
+              children: [_, B],
             }),
-          }),
-          x,
-        ],
-      });
+          )),
+          (n[4] = B),
+          (n[5] = _),
+          (n[6] = Q),
+          (n[7] = X))
+        : (X = n[7]);
+      var Y;
+      return (
+        n[8] !== G || n[9] !== m || n[10] !== v || n[11] !== X
+          ? ((Y = u.jsxs(G, { columnGap: z, align: j, children: [v, X, m] })),
+            (n[8] = G),
+            (n[9] = m),
+            (n[10] = v),
+            (n[11] = X),
+            (n[12] = Y))
+          : (Y = n[12]),
+        u.jsxs(u.Fragment, {
+          children: [
+            u.jsx(r("WAWebUnstyledButton.react"), {
+              ref: a,
+              testid: void 0,
+              dataTab: S,
+              onClick: h,
+              onFocus: y,
+              onContextMenu: T ? N : null,
+              "aria-pressed": b,
+              disabled: s,
+              xstyle: F,
+              id: W,
+              role: q,
+              "aria-selected": U,
+              "aria-controls": V,
+              tabIndex: H,
+              children: Y,
+            }),
+            $,
+          ],
+        })
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebNativeAdsExperimentInfoContext.react",
-  ["FBLogger", "Promise", "react"],
+  ["FBLogger", "Promise", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -33,32 +33,37 @@ __d(
       return (e || (e = n("Promise"))).resolve(null);
     }
     function b(e) {
-      var t = e.children;
+      var t = o("react-compiler-runtime").c(1),
+        n = e.children,
+        r;
       return (
-        d(function () {
-          C()
-            .then(function (e) {
-              e != null && h(e);
-            })
-            .catch(function (e) {
-              r("FBLogger")("wa_ctwa_web")
-                .catching(e)
-                .warn(
-                  "WAWebNativeAdsExperimentInfoContext: could not fetch native ads experiment info",
-                );
-            });
-        }, []),
-        t
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((r = []), (t[0] = r))
+          : (r = t[0]),
+        d(v, r),
+        n
       );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
     function v() {
+      C().then(R).catch(S);
+    }
+    function S(e) {
+      r("FBLogger")("wa_ctwa_web")
+        .catching(e)
+        .warn(
+          "WAWebNativeAdsExperimentInfoContext: could not fetch native ads experiment info",
+        );
+    }
+    function R(e) {
+      e != null && h(e);
+    }
+    function L() {
       return m(f, y);
     }
     ((l.setNativeAdsExperimentInfo = h),
       (l.getNativeAdsExperimentInfo = y),
       (l.NativeAdsExperimentInfoProvider = b),
-      (l.useNativeAdsExperimentInfo = v));
+      (l.useNativeAdsExperimentInfo = L));
   },
   98,
 );

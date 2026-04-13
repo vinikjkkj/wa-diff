@@ -21,6 +21,7 @@ __d(
     "WAWebWamEnumInteractionSurface",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -41,40 +42,62 @@ __d(
         header: { textAlign: "x2b8uid", lineHeight: "x1evy7pa", $$css: !0 },
       };
     function g(e) {
-      var t = e.isDisabled,
-        n = e.onSubmit,
-        r = e.submittingReview;
-      return d.jsx(o("WAWebFlex.react").FlexRow, {
-        xstyle: o("WAWebUISpacing").uiMargin.all20,
-        align: "center",
-        justify: "center",
-        children: d.jsx(o("WAWebButton.react").WAWebButtonPrimary, {
-          testid: void 0,
-          onClick: n,
-          disabled: t,
-          spinner: r,
-          children: o(
+      var t = o("react-compiler-runtime").c(5),
+        n = e.isDisabled,
+        r = e.onSubmit,
+        a = e.submittingReview,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = o(
             "WAWebCommonNewsletterIntegrityStrings",
-          ).getRequestAppealButtonText(),
-        }),
-      });
+          ).getRequestAppealButtonText()),
+          (t[0] = i))
+        : (i = t[0]);
+      var l;
+      return (
+        t[1] !== n || t[2] !== r || t[3] !== a
+          ? ((l = d.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: o("WAWebUISpacing").uiMargin.all20,
+              align: "center",
+              justify: "center",
+              children: d.jsx(o("WAWebButton.react").WAWebButtonPrimary, {
+                testid: void 0,
+                onClick: r,
+                disabled: n,
+                spinner: a,
+                children: i,
+              }),
+            })),
+            (t[1] = n),
+            (t[2] = r),
+            (t[3] = a),
+            (t[4] = l))
+          : (l = t[4]),
+        l
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h() {
-      return d.jsx(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        justify: "center",
-        children: d.jsx(o("WAWebText.react").WAWebTextLarge, {
-          weight: "medium",
-          xstyle: f.header,
-          padding: 16,
-          alignSelf: "center",
-          color: "primary",
-          children: s._(/*BTDS*/ "Why do you want a review?"),
-        }),
-      });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = d.jsx(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "center",
+              children: d.jsx(o("WAWebText.react").WAWebTextLarge, {
+                weight: "medium",
+                xstyle: f.header,
+                padding: 16,
+                alignSelf: "center",
+                color: "primary",
+                children: s._(/*BTDS*/ "Why do you want a review?"),
+              }),
+            })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     function y(t) {
       var a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, u),

@@ -11,6 +11,7 @@ __d(
     "WAWebNonEmptyString",
     "lodash",
     "react",
+    "react-compiler-runtime",
     "uniqueID",
     "useWAWebStableCallback",
     "useWAWebUiIdle",
@@ -37,25 +38,32 @@ __d(
         }
       };
     function h(e, t) {
-      var a = r("useWAWebUiIdle")(),
-        i = _(null),
+      var a = o("react-compiler-runtime").c(43),
+        i = r("useWAWebUiIdle")(),
         l = _(null),
         u = _(null),
-        d = _(!1),
-        h = _(null),
-        y = _(0),
-        C = f(void 0),
-        b = C[0],
-        v = C[1],
-        S = f(!1),
-        R = S[0],
-        L = S[1],
-        E = f(null),
-        k = E[0],
-        I = E[1],
-        T = f(function () {
-          return g(e);
-        }),
+        d = _(null),
+        m = _(!1),
+        p = _(null),
+        h = _(0),
+        y = f(void 0),
+        C = y[0],
+        b = y[1],
+        v = f(!1),
+        S = v[0],
+        R = v[1],
+        L = f(null),
+        E = L[0],
+        k = L[1],
+        I;
+      a[0] !== e
+        ? ((I = function () {
+            return g(e);
+          }),
+          (a[0] = e),
+          (a[1] = I))
+        : (I = a[1]);
+      var T = f(I),
         D = T[0],
         x = T[1],
         $ = f(void 0),
@@ -76,55 +84,56 @@ __d(
         z = f(o("WAWebKeyboardTabUtils").FocusType.CUSTOM),
         j = z[0],
         K = z[1],
-        Q = m(
-          function (n, i) {
-            var s = i === void 0 ? {} : i,
-              m = s.transition,
-              p = m === void 0 ? g(e) : m,
-              _ = s.uim,
-              f = s.noFocus,
-              C = s.onEnterAnimationComplete,
-              S = s.newDrawerContext,
-              R =
-                S === void 0
+        Q;
+      a[2] !== e || a[3] !== C || a[4] !== t || a[5] !== i
+        ? ((Q = function (a, l) {
+            var n = l === void 0 ? {} : l,
+              s = n.transition,
+              _ = n.uim,
+              f = n.noFocus,
+              y = n.onEnterAnimationComplete,
+              v = n.newDrawerContext,
+              S = n.focusType,
+              L = n.disableRotateFocus,
+              E = n.focusOnUnMount,
+              I = n.onGuardProceed,
+              T = n.onGuardReject,
+              D = s === void 0 ? g(e) : s,
+              $ =
+                v === void 0
                   ? o("WAWebDrawerContext").undefinedDrawerContext
-                  : S,
-              E = s.focusType,
-              k = s.disableRotateFocus,
-              T = s.focusOnUnMount,
-              D = T === void 0 ? !1 : T,
-              $ = s.onGuardProceed,
-              P = s.onGuardReject,
+                  : v,
+              P = E === void 0 ? !1 : E,
               M;
-            n != null && typeof n == "object" && "descriptorType" in n
-              ? (M = c.jsx(r("WAWebDrawerResolver.react"), { descriptor: n }))
-              : (M = n);
+            a != null && typeof a == "object" && "descriptorType" in a
+              ? (M = c.jsx(r("WAWebDrawerResolver.react"), { descriptor: a }))
+              : (M = a);
             var w = o("WAWebNonEmptyString").asMaybeNonEmptyString(
                 r("uniqueID")("DrawerManager" + e),
               ),
               F = null;
-            (D && (F = document.activeElement), (l.current = F));
+            (P && (F = document.activeElement), (u.current = F));
             var O = function () {
-              (v(M), I(w), x(p), N(_), A(f), U(C), G(R), K(E), B(k), L(D));
+              (b(M), k(w), x(D), N(_), A(f), U(y), G($), K(S), B(L), R(P));
             };
-            if (!d.current && b) {
-              if (b.key != null && r("lodash").isEqual(b.key, M.key)) return !0;
+            if (!m.current && C) {
+              if (C.key != null && r("lodash").isEqual(C.key, M.key)) return !0;
               var W = function () {
                   (t && t("updated"),
-                    (u.current = o("WAWebDrawerManager.react").Transition.NONE),
+                    (d.current = o("WAWebDrawerManager.react").Transition.NONE),
                     O(),
-                    a(function () {
-                      u.current = p;
+                    i(function () {
+                      d.current = D;
                     }));
                 },
-                q = h.current;
+                q = p.current;
               if (q != null) {
-                var V = ++y.current;
+                var V = (h.current = h.current + 1);
                 return (
                   q("replace").then(function (e) {
-                    e && y.current === V
-                      ? ((h.current = null), W(), $ == null || $())
-                      : e || P == null || P();
+                    e && h.current === V
+                      ? ((p.current = null), W(), I == null || I())
+                      : e || T == null || T();
                   }),
                   !1
                 );
@@ -132,168 +141,244 @@ __d(
               W();
             } else (t && t("opened"), O());
             return !0;
-          },
-          [e, b, t, a],
-        ),
-        X = m(
-          function (e) {
+          }),
+          (a[2] = e),
+          (a[3] = C),
+          (a[4] = t),
+          (a[5] = i),
+          (a[6] = Q))
+        : (Q = a[6]);
+      var X = Q,
+        Y;
+      a[7] !== S || a[8] !== t || a[9] !== i
+        ? ((Y = function (n) {
             if (t) {
-              var n =
-                e != null && e.isConflictingDrawerOpening
+              var e =
+                n != null && n.isConflictingDrawerOpening
                   ? "replaced"
                   : "closed";
-              t(n);
+              t(e);
             }
             if (
-              ((d.current = !0),
-              v(void 0),
+              ((m.current = !0),
+              b(void 0),
               G(o("WAWebDrawerContext").undefinedDrawerContext),
-              a(function () {
-                d.current = !1;
+              i(function () {
+                m.current = !1;
               }),
-              R)
+              S)
             ) {
-              var i = l == null ? void 0 : l.current;
-              i && r("WAWebFocusTracer").focus(i);
+              var a = u == null ? void 0 : u.current;
+              a && r("WAWebFocusTracer").focus(a);
             }
-          },
-          [t, R, a],
-        ),
-        Y = r("useWAWebStableCallback")(X),
-        J = m(
-          function (e, t) {
-            if ((e != null && k !== e) || !b) return !0;
-            var n = h.current;
-            if (n != null) {
+          }),
+          (a[7] = S),
+          (a[8] = t),
+          (a[9] = i),
+          (a[10] = Y))
+        : (Y = a[10]);
+      var J = Y,
+        Z = r("useWAWebStableCallback")(J),
+        ee;
+      a[11] !== C || a[12] !== E || a[13] !== J || a[14] !== Z
+        ? ((ee = function (t, n) {
+            if ((t != null && E !== t) || !C) return !0;
+            var e = p.current;
+            if (e != null) {
               var r =
-                  (t == null ? void 0 : t.isConflictingDrawerOpening) === !0
+                  (n == null ? void 0 : n.isConflictingDrawerOpening) === !0
                     ? "conflict"
                     : "close",
-                o = ++y.current;
+                o = (h.current = h.current + 1);
               return (
-                n(r).then(function (e) {
-                  e && y.current === o
-                    ? ((h.current = null),
-                      Y(t),
-                      t == null ||
-                        t.onGuardProceed == null ||
-                        t.onGuardProceed())
+                e(r).then(function (e) {
+                  e && h.current === o
+                    ? ((p.current = null),
+                      Z(n),
+                      n == null ||
+                        n.onGuardProceed == null ||
+                        n.onGuardProceed())
                     : e ||
-                      t == null ||
-                      t.onGuardReject == null ||
-                      t.onGuardReject();
+                      n == null ||
+                      n.onGuardReject == null ||
+                      n.onGuardReject();
                 }),
                 !1
               );
             }
-            return (X(t), !0);
-          },
-          [b, k, X, Y],
-        ),
-        Z = m(function () {
-          var e,
-            t = (e = i.current) == null ? void 0 : e.getElement();
-          if (t) {
-            var n = o("WAWebKeyboardTabUtils").getNextTabbableElement(t);
-            n && r("WAWebFocusTracer").focus(n);
-          }
-        }, []),
-        ee = m(
-          function () {
-            J(k);
-          },
-          [J, k],
-        ),
-        te = m(function (e) {
-          return (
-            (h.current = e),
-            function () {
-              h.current === e && (h.current = null);
+            return (J(n), !0);
+          }),
+          (a[11] = C),
+          (a[12] = E),
+          (a[13] = J),
+          (a[14] = Z),
+          (a[15] = ee))
+        : (ee = a[15]);
+      var te = ee,
+        ne;
+      a[16] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ne = function () {
+            var e,
+              t = (e = l.current) == null ? void 0 : e.getElement();
+            if (t) {
+              var n = o("WAWebKeyboardTabUtils").getNextTabbableElement(t);
+              n && r("WAWebFocusTracer").focus(n);
             }
-          );
-        }, []),
-        ne = m(function () {
-          return h.current != null;
-        }, []),
-        re = _(null),
-        oe = m(function () {
-          re.current != null && (re.current(!1), (re.current = null));
-        }, []),
-        ae = m(
-          function (e, t) {
+          }),
+          (a[16] = ne))
+        : (ne = a[16]);
+      var re = ne,
+        oe;
+      a[17] !== te || a[18] !== E
+        ? ((oe = function () {
+            te(E);
+          }),
+          (a[17] = te),
+          (a[18] = E),
+          (a[19] = oe))
+        : (oe = a[19]);
+      var ae = oe,
+        ie;
+      a[20] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ie = function (t) {
             return (
-              oe(),
-              new (s || (s = n("Promise")))(function (n) {
-                var r = Q(
-                  e,
-                  babelHelpers.extends({}, t, {
+              (p.current = t),
+              function () {
+                p.current === t && (p.current = null);
+              }
+            );
+          }),
+          (a[20] = ie))
+        : (ie = a[20]);
+      var le = ie,
+        se;
+      a[21] === Symbol.for("react.memo_cache_sentinel")
+        ? ((se = function () {
+            return p.current != null;
+          }),
+          (a[21] = se))
+        : (se = a[21]);
+      var ue = se,
+        ce = _(null),
+        de;
+      a[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((de = function () {
+            ce.current != null && (ce.current(!1), (ce.current = null));
+          }),
+          (a[22] = de))
+        : (de = a[22]);
+      var me = de,
+        pe;
+      a[23] !== X
+        ? ((pe = function (t, r) {
+            return (
+              me(),
+              new (s || (s = n("Promise")))(function (e) {
+                var n = X(
+                  t,
+                  babelHelpers.extends({}, r, {
                     onGuardProceed: function () {
-                      ((re.current = null), n(!0));
+                      ((ce.current = null), e(!0));
                     },
                     onGuardReject: function () {
-                      ((re.current = null), n(!1));
+                      ((ce.current = null), e(!1));
                     },
                   }),
                 );
-                r ? n(!0) : (re.current = n);
+                n ? e(!0) : (ce.current = e);
               })
             );
-          },
-          [oe, Q],
-        ),
-        ie = m(
-          function (e, t) {
+          }),
+          (a[23] = X),
+          (a[24] = pe))
+        : (pe = a[24]);
+      var _e = pe,
+        fe;
+      a[25] !== te
+        ? ((fe = function (t, r) {
             return (
-              oe(),
-              new (s || (s = n("Promise")))(function (n) {
-                var r = J(
-                  e != null ? e : null,
-                  babelHelpers.extends({}, t, {
+              me(),
+              new (s || (s = n("Promise")))(function (e) {
+                var n = te(
+                  t != null ? t : null,
+                  babelHelpers.extends({}, r, {
                     onGuardProceed: function () {
-                      ((re.current = null), n(!0));
+                      ((ce.current = null), e(!0));
                     },
                     onGuardReject: function () {
-                      ((re.current = null), n(!1));
+                      ((ce.current = null), e(!1));
                     },
                   }),
                 );
-                r ? n(!0) : (re.current = n);
+                n ? e(!0) : (ce.current = e);
               })
             );
-          },
-          [oe, J],
-        ),
-        le = m(
-          function () {
-            return d.current === !0 ? !1 : !!b;
-          },
-          [b],
-        );
-      return p(
-        function () {
-          return {
-            drawer: b,
-            drawerId: k,
-            transition: D,
-            uim: P,
-            noFocus: w,
-            onEnterAnimationComplete: q,
-            drawerContext: H,
-            focusType: j,
-            disableRotateFocus: O,
-            uieRef: i,
-            blockTransitionRef: u,
-            handleRequestDismiss: ee,
-            openDrawer: ae,
-            closeDrawer: ie,
-            existsDrawer: le,
-            focusDrawer: Z,
-            updateContext: G,
-            registerCloseGuard: te,
-            hasCloseGuard: ne,
-          };
-        },
-        [O, b, H, k, j, ee, w, q, D, P, le, Z, G, te, ne, ae, ie],
+          }),
+          (a[25] = te),
+          (a[26] = fe))
+        : (fe = a[26]);
+      var ge = fe,
+        he;
+      a[27] !== C
+        ? ((he = function () {
+            return m.current === !0 ? !1 : !!C;
+          }),
+          (a[27] = C),
+          (a[28] = he))
+        : (he = a[28]);
+      var ye = he,
+        Ce;
+      return (
+        a[29] !== ge ||
+        a[30] !== O ||
+        a[31] !== C ||
+        a[32] !== H ||
+        a[33] !== E ||
+        a[34] !== ye ||
+        a[35] !== j ||
+        a[36] !== ae ||
+        a[37] !== w ||
+        a[38] !== q ||
+        a[39] !== _e ||
+        a[40] !== D ||
+        a[41] !== P
+          ? ((Ce = {
+              drawer: C,
+              drawerId: E,
+              transition: D,
+              uim: P,
+              noFocus: w,
+              onEnterAnimationComplete: q,
+              drawerContext: H,
+              focusType: j,
+              disableRotateFocus: O,
+              uieRef: l,
+              blockTransitionRef: d,
+              handleRequestDismiss: ae,
+              openDrawer: _e,
+              closeDrawer: ge,
+              existsDrawer: ye,
+              focusDrawer: re,
+              updateContext: G,
+              registerCloseGuard: le,
+              hasCloseGuard: ue,
+            }),
+            (a[29] = ge),
+            (a[30] = O),
+            (a[31] = C),
+            (a[32] = H),
+            (a[33] = E),
+            (a[34] = ye),
+            (a[35] = j),
+            (a[36] = ae),
+            (a[37] = w),
+            (a[38] = q),
+            (a[39] = _e),
+            (a[40] = D),
+            (a[41] = P),
+            (a[42] = Ce))
+          : (Ce = a[42]),
+        Ce
       );
     }
     l.useDrawerManagerEvents = h;

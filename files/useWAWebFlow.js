@@ -6,6 +6,7 @@ __d(
     "WAWebUimUie.react",
     "WAWebVelocityTransitionGroup",
     "react",
+    "react-compiler-runtime",
     "useWAWebStableCallback",
     "useWAWebUIM",
   ],
@@ -35,41 +36,86 @@ __d(
       };
     function h() {
       function t(t) {
-        var n = t.ref,
-          a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-          i = a.children,
-          l = a.displayName,
-          s = l === void 0 ? "FlowDrawer" : l,
-          c = a.flow,
-          d = c.activeKey,
-          m = c.pop,
-          p = c.transition;
-        if (i == null) return null;
-        var _ = function () {
-            a.requestFocus && a.requestFocus();
-          },
-          f = function (t) {
-            a.requestDismiss ? a.requestDismiss(t) : m();
-          };
-        return u.jsx(r("WAWebVelocityTransitionGroup"), {
-          ref: n,
-          transitionName: p,
-          xstyle: g.container,
-          displayName: s + "-" + d,
-          children: u.jsx(
-            o("WAWebUimUie.react").UIE,
-            {
-              displayName: s + "-" + d,
-              escapable: !0,
-              requestFocus: _,
-              requestDismiss: f,
-              children: i,
-            },
-            d,
-          ),
-        });
+        var n = o("react-compiler-runtime").c(19),
+          a,
+          i;
+        n[0] !== t
+          ? ((i = t.ref),
+            (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+            (n[0] = t),
+            (n[1] = a),
+            (n[2] = i))
+          : ((a = n[1]), (i = n[2]));
+        var l = a,
+          s = l.children,
+          c = l.displayName,
+          d = l.flow,
+          m = c === void 0 ? "FlowDrawer" : c,
+          p = d.activeKey,
+          _ = d.pop,
+          f = d.transition;
+        if (s == null) return null;
+        var h;
+        n[3] !== a
+          ? ((h = function () {
+              a.requestFocus && a.requestFocus();
+            }),
+            (n[3] = a),
+            (n[4] = h))
+          : (h = n[4]);
+        var y = h,
+          C;
+        n[5] !== _ || n[6] !== a
+          ? ((C = function (t) {
+              a.requestDismiss ? a.requestDismiss(t) : _();
+            }),
+            (n[5] = _),
+            (n[6] = a),
+            (n[7] = C))
+          : (C = n[7]);
+        var b = C,
+          v = m + "-" + p,
+          S = m + "-" + p,
+          R;
+        n[8] !== p || n[9] !== s || n[10] !== b || n[11] !== y || n[12] !== S
+          ? ((R = u.jsx(
+              o("WAWebUimUie.react").UIE,
+              {
+                displayName: S,
+                escapable: !0,
+                requestFocus: y,
+                requestDismiss: b,
+                children: s,
+              },
+              p,
+            )),
+            (n[8] = p),
+            (n[9] = s),
+            (n[10] = b),
+            (n[11] = y),
+            (n[12] = S),
+            (n[13] = R))
+          : (R = n[13]);
+        var L;
+        return (
+          n[14] !== i || n[15] !== v || n[16] !== R || n[17] !== f
+            ? ((L = u.jsx(r("WAWebVelocityTransitionGroup"), {
+                ref: i,
+                transitionName: f,
+                xstyle: g.container,
+                displayName: v,
+                children: R,
+              })),
+              (n[14] = i),
+              (n[15] = v),
+              (n[16] = R),
+              (n[17] = f),
+              (n[18] = L))
+            : (L = n[18]),
+          L
+        );
       }
-      return ((t.displayName = t.name + " [from " + i.id + "]"), t);
+      return t;
     }
     var y = n("$InternalEnum").Mirrored([
       "DrawerLeft",

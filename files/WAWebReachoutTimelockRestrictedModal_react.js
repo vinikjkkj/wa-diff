@@ -26,6 +26,7 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useVisibility",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -399,206 +400,226 @@ __d(
       }
     }
     function C() {
-      var e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+      var e = o("react-compiler-runtime").c(5),
+        t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
           o("WAWebReachoutTimelockUtils").REACHOUT_TIMELOCK_IDB_KEY,
         ),
-        t = r("useVisibility")({
+        a = r("useVisibility")({
           onVisible: function () {
-            function t() {
-              return r.apply(this, arguments);
-            }
-            function r() {
-              return (
-                (r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    if (e != null) {
-                      var t =
-                          e.state !==
-                          o("WAWebUserPrefsTypes").ReachoutTimelockState
-                            .VISIBLE,
-                        n = e.time_enforcement_ends,
-                        r = o("WATimeUtils").unixTime() * 1e3,
-                        a = r >= n;
-                      if (
-                        (t &&
-                          new (o(
-                            "WAWebReachoutTimelockEnforcementSheetInfoWamEvent",
-                          ).ReachoutTimelockEnforcementSheetInfoWamEvent)({
-                            wasSheetSeenForFirstTime: !0,
-                            reachoutTimelockEventSource: o(
-                              "WAWebWamEnumReachoutTimelockEventSource",
-                            ).REACHOUT_TIMELOCK_EVENT_SOURCE.BOTTOM_SHEET,
-                            reachoutTimelockAction: o(
-                              "WAWebWamEnumReachoutTimelockAction",
-                            ).REACHOUT_TIMELOCK_ACTION.IMPRESSION,
-                          }).commit(),
-                        a)
-                      ) {
-                        var i = r - n;
+            var e = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  if (t != null) {
+                    var e =
+                        t.state !==
+                        o("WAWebUserPrefsTypes").ReachoutTimelockState.VISIBLE,
+                      n = t.time_enforcement_ends,
+                      r = o("WATimeUtils").unixTime() * 1e3,
+                      a = r >= n;
+                    if (
+                      (e &&
                         new (o(
                           "WAWebReachoutTimelockEnforcementSheetInfoWamEvent",
                         ).ReachoutTimelockEnforcementSheetInfoWamEvent)({
-                          timeSinceEnforcemeentEndAndSheetSeenMs: i,
+                          wasSheetSeenForFirstTime: !0,
                           reachoutTimelockEventSource: o(
                             "WAWebWamEnumReachoutTimelockEventSource",
                           ).REACHOUT_TIMELOCK_EVENT_SOURCE.BOTTOM_SHEET,
                           reachoutTimelockAction: o(
                             "WAWebWamEnumReachoutTimelockAction",
                           ).REACHOUT_TIMELOCK_ACTION.IMPRESSION,
-                        }).commit();
-                      }
-                      t &&
-                        (yield o(
-                          "WAWebUserPrefsIndexedDBStorage",
-                        ).userPrefsIdb.set(
-                          o("WAWebReachoutTimelockUtils")
-                            .REACHOUT_TIMELOCK_IDB_KEY,
-                          babelHelpers.extends({}, e, {
-                            state: o("WAWebUserPrefsTypes")
-                              .ReachoutTimelockState.VISIBLE,
-                          }),
-                        ),
-                        o("WAWebCmd").Cmd.reachoutTimelockStateChange());
+                        }).commit(),
+                      a)
+                    ) {
+                      var i = r - n;
+                      new (o(
+                        "WAWebReachoutTimelockEnforcementSheetInfoWamEvent",
+                      ).ReachoutTimelockEnforcementSheetInfoWamEvent)({
+                        timeSinceEnforcemeentEndAndSheetSeenMs: i,
+                        reachoutTimelockEventSource: o(
+                          "WAWebWamEnumReachoutTimelockEventSource",
+                        ).REACHOUT_TIMELOCK_EVENT_SOURCE.BOTTOM_SHEET,
+                        reachoutTimelockAction: o(
+                          "WAWebWamEnumReachoutTimelockAction",
+                        ).REACHOUT_TIMELOCK_ACTION.IMPRESSION,
+                      }).commit();
                     }
-                  },
-                )),
-                r.apply(this, arguments)
+                    e &&
+                      (yield o(
+                        "WAWebUserPrefsIndexedDBStorage",
+                      ).userPrefsIdb.set(
+                        o("WAWebReachoutTimelockUtils")
+                          .REACHOUT_TIMELOCK_IDB_KEY,
+                        babelHelpers.extends({}, t, {
+                          state: o("WAWebUserPrefsTypes").ReachoutTimelockState
+                            .VISIBLE,
+                        }),
+                      ),
+                      o("WAWebCmd").Cmd.reachoutTimelockStateChange());
+                  }
+                },
               );
-            }
-            t();
+              function r() {
+                return e.apply(this, arguments);
+              }
+              return r;
+            })();
+            e();
           },
         }),
-        a = t[0];
-      if (e == null) return null;
-      var i = [
-        {
-          icon: u.jsx("span", {
-            className:
-              "x1rg5ohu xt8t1vi x1xc408v x129tdwq x15urzxu xjbqb8w x1ktv7sr x142x0oa xv7zg05 x12dgle5 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x1uebkx7 xp93uhy x1yepkla x19mw7rs xhslqc4 x1120s5i",
-            children: u.jsx(o("WAWebCheckmarkIcon.react").CheckmarkIcon, {
-              width: 20,
-              height: 18,
+        i = a[0];
+      if (t == null) return null;
+      var l = [
+          {
+            icon: u.jsx("span", {
+              className:
+                "x1rg5ohu xt8t1vi x1xc408v x129tdwq x15urzxu xjbqb8w x1ktv7sr x142x0oa xv7zg05 x12dgle5 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x1uebkx7 xp93uhy x1yepkla x19mw7rs xhslqc4 x1120s5i",
+              children: u.jsx(o("WAWebCheckmarkIcon.react").CheckmarkIcon, {
+                width: 20,
+                height: 18,
+              }),
             }),
-          }),
-          text: function () {
-            return h(e.enforcement_type);
+            text: function () {
+              return h(t.enforcement_type);
+            },
+            testid: "reachout-timelock-restricted-modal-bullet-1",
           },
-          testid: "reachout-timelock-restricted-modal-bullet-1",
-        },
-        {
-          icon: u.jsx(r("WDSIconIcBlock.react"), {
-            width: 24,
-            height: 24,
-            xstyle: _.bulletIcon,
-          }),
-          text: function () {
-            return s._(
-              /*BTDS*/ "You won't be able to start new chats and use some other features for now.",
-            );
+          {
+            icon: u.jsx(r("WDSIconIcBlock.react"), {
+              width: 24,
+              height: 24,
+              xstyle: _.bulletIcon,
+            }),
+            text: S,
+            testid: "reachout-timelock-restricted-modal-bullet-2",
           },
-          testid: "reachout-timelock-restricted-modal-bullet-2",
-        },
-        {
-          icon: u.jsx(
-            o("WAWebUnmuteNotificationsRefreshedIcon.react")
-              .UnmuteNotificationsRefreshedIcon,
-            { width: 24, height: 24, xstyle: _.bulletIcon },
-          ),
-          text: function () {
-            return s._(
-              /*BTDS*/ "We'll let you know when restrictions are lifted.",
-            );
+          {
+            icon: u.jsx(
+              o("WAWebUnmuteNotificationsRefreshedIcon.react")
+                .UnmuteNotificationsRefreshedIcon,
+              { width: 24, height: 24, xstyle: _.bulletIcon },
+            ),
+            text: v,
+            testid: "reachout-timelock-restricted-modal-bullet-3",
           },
-          testid: "reachout-timelock-restricted-modal-bullet-3",
-        },
-      ];
-      return u.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "reachout-timelock-restricted",
-        },
-        type: o("WAWebModal.react").ModalTheme.ReachoutTimelock,
-        contentRef: a,
-        okText: s._(/*BTDS*/ "Close"),
-        okButtonType: "secondary",
-        onOK: o("WAWebModalManager").closeModalManager,
-        children: [
-          u.jsx(o("WAWebFlex.react").FlexRow, {
-            justify: "center",
-            children: u.jsx(f, { enforcementEndTs: e.time_enforcement_ends }),
-          }),
-          u.jsx(o("WAWebFlex.react").FlexRow, {
-            align: "center",
-            justify: "center",
-            paddingBottom: 16,
-            paddingStart: 24,
-            paddingEnd: 24,
-            children: u.jsx(r("WDSText.react"), {
-              type: "Headline1",
-              colorName: "contentDefault",
-              textAlign: "center",
-              testid: void 0,
-              children: g(e.enforcement_type),
-            }),
-          }),
-          u.jsx(o("WAWebFlex.react").FlexRow, {
-            align: "center",
-            justify: "center",
-            paddingBottom: 16,
-            paddingStart: 24,
-            paddingEnd: 24,
-            children: u.jsx(r("WDSText.react"), {
-              type: "Body2",
-              colorName: "contentDeemphasized",
-              testid: void 0,
-              textAlign: "center",
-              children: y(e.enforcement_type),
-            }),
-          }),
-          u.jsx(o("WAWebFlex.react").FlexColumn, {
-            align: "start",
-            justify: "start",
-            children: i.map(function (e) {
-              var t = e.icon,
-                n = e.testid,
-                a = e.text;
-              return u.jsxs(
-                o("WAWebFlex.react").FlexRow,
-                {
-                  testid: void 0,
-                  paddingStart: 8,
-                  paddingTop: 4,
-                  paddingBottom: 4,
-                  marginBottom: 8,
-                  columnGap: 24,
-                  align: "center",
-                  children: [
-                    u.jsx(o("WAWebFlex.react").FlexColumn, {
-                      justify: "center",
-                      align: "center",
-                      shrink: 0,
-                      xstyle: _.bulletIconContainer,
-                      children: t,
-                    }),
-                    u.jsx(o("WAWebFlex.react").FlexColumn, {
-                      align: "center",
-                      alignSelf: "center",
-                      children: u.jsx(r("WDSText.react"), {
-                        type: "Body2",
-                        colorName: "contentDefault",
-                        children: a(),
-                      }),
-                    }),
-                  ],
-                },
-                n,
-              );
-            }),
-          }),
         ],
-      });
+        c;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = {
+            surface: "unknown",
+            viewName: "reachout-timelock-restricted",
+          }),
+          (e[0] = c))
+        : (c = e[0]);
+      var d;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = s._(/*BTDS*/ "Close")), (e[1] = d))
+        : (d = e[1]);
+      var m = o("WAWebFlex.react").FlexColumn,
+        p = "start",
+        C = "start",
+        R = l.map(b),
+        L;
+      return (
+        e[2] !== m || e[3] !== R
+          ? ((L = u.jsx(m, { align: p, justify: C, children: R })),
+            (e[2] = m),
+            (e[3] = R),
+            (e[4] = L))
+          : (L = e[4]),
+        u.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
+          tsNavigationData: c,
+          type: o("WAWebModal.react").ModalTheme.ReachoutTimelock,
+          contentRef: i,
+          okText: d,
+          okButtonType: "secondary",
+          onOK: o("WAWebModalManager").closeModalManager,
+          children: [
+            u.jsx(o("WAWebFlex.react").FlexRow, {
+              justify: "center",
+              children: u.jsx(f, { enforcementEndTs: t.time_enforcement_ends }),
+            }),
+            u.jsx(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "center",
+              paddingBottom: 16,
+              paddingStart: 24,
+              paddingEnd: 24,
+              children: u.jsx(r("WDSText.react"), {
+                type: "Headline1",
+                colorName: "contentDefault",
+                textAlign: "center",
+                testid: void 0,
+                children: g(t.enforcement_type),
+              }),
+            }),
+            u.jsx(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "center",
+              paddingBottom: 16,
+              paddingStart: 24,
+              paddingEnd: 24,
+              children: u.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDeemphasized",
+                testid: void 0,
+                textAlign: "center",
+                children: y(t.enforcement_type),
+              }),
+            }),
+            L,
+          ],
+        })
+      );
     }
-    ((C.displayName = C.name + " [from " + i.id + "]"),
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e) {
+      var t = e.icon,
+        n = e.testid,
+        a = e.text;
+      return u.jsxs(
+        o("WAWebFlex.react").FlexRow,
+        {
+          testid: void 0,
+          paddingStart: 8,
+          paddingTop: 4,
+          paddingBottom: 4,
+          marginBottom: 8,
+          columnGap: 24,
+          align: "center",
+          children: [
+            u.jsx(o("WAWebFlex.react").FlexColumn, {
+              justify: "center",
+              align: "center",
+              shrink: 0,
+              xstyle: _.bulletIconContainer,
+              children: t,
+            }),
+            u.jsx(o("WAWebFlex.react").FlexColumn, {
+              align: "center",
+              alignSelf: "center",
+              children: u.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDefault",
+                children: a(),
+              }),
+            }),
+          ],
+        },
+        n,
+      );
+    }
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v() {
+      return s._(/*BTDS*/ "We'll let you know when restrictions are lifted.");
+    }
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S() {
+      return s._(
+        /*BTDS*/ "You won't be able to start new chats and use some other features for now.",
+      );
+    }
+    ((S.displayName = S.name + " [from " + i.id + "]"),
       (l.ReachoutTimelockRestrictedModal = C));
   },
   226,

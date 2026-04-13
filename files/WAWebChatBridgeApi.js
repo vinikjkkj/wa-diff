@@ -23,7 +23,7 @@ __d(
     var e,
       s,
       u,
-      c = ["id"],
+      c = ["id", "integritySignalsPromise"],
       d,
       m = {
         getChat: function (t) {
@@ -75,9 +75,10 @@ __d(
           var e = t.updates;
           e.forEach(function (e) {
             var t = e.id,
-              n = babelHelpers.objectWithoutPropertiesLoose(e, c),
-              r = o("WAWebChatCollection").ChatCollection.get(t);
-            r && r.set(n);
+              n = e.integritySignalsPromise,
+              r = babelHelpers.objectWithoutPropertiesLoose(e, c),
+              a = o("WAWebChatCollection").ChatCollection.get(t);
+            a && (a.set(r), n != null && (a.promises.integritySignals = n));
           });
         },
         updateChatReadStatus: (function () {

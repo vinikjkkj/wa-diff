@@ -5,6 +5,7 @@ __d(
     "WAWebFlexBox.react",
     "WAWebModal.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -34,27 +35,43 @@ __d(
         },
       };
     function c(e) {
-      var t = e.children,
-        n = e.headerContent,
-        r = e.xstyle,
-        a = r === void 0 ? null : r;
-      return s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        type: o("WAWebModal.react").ModalTheme.Auto,
-        children: s.jsxs(o("WAWebFlexBox.react").FlexColumn, {
-          align: "stretch",
-          xstyle: [a, u.root],
-          children: [
-            s.jsx(o("WAWebFlexBox.react").FlexRow, {
-              xstyle: u.header,
-              align: "center",
-              children: n,
-            }),
-            t,
-          ],
-        }),
-      });
+      var t = o("react-compiler-runtime").c(8),
+        n = e.children,
+        r = e.headerContent,
+        a = e.xstyle,
+        i = a === void 0 ? null : a,
+        l;
+      t[0] !== i ? ((l = [i, u.root]), (t[0] = i), (t[1] = l)) : (l = t[1]);
+      var c;
+      t[2] !== r
+        ? ((c = s.jsx(o("WAWebFlexBox.react").FlexRow, {
+            xstyle: u.header,
+            align: "center",
+            children: r,
+          })),
+          (t[2] = r),
+          (t[3] = c))
+        : (c = t[3]);
+      var d;
+      return (
+        t[4] !== n || t[5] !== l || t[6] !== c
+          ? ((d = s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              type: o("WAWebModal.react").ModalTheme.Auto,
+              children: s.jsxs(o("WAWebFlexBox.react").FlexColumn, {
+                align: "stretch",
+                xstyle: l,
+                children: [c, n],
+              }),
+            })),
+            (t[4] = n),
+            (t[5] = l),
+            (t[6] = c),
+            (t[7] = d))
+          : (d = t[7]),
+        d
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

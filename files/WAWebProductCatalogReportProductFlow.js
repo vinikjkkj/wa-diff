@@ -14,6 +14,7 @@ __d(
     "WAWebToastManager",
     "qpl",
     "react",
+    "react-compiler-runtime",
     "useWAWebFlow",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -23,109 +24,165 @@ __d(
       d = n("$InternalEnum").Mirrored(["ReportProductChoice", "TellUsMore"]),
       m = r("qpl")._(774782053, "3437");
     function p(t) {
-      var n = o("useWAWebFlow").useFlow(d.ReportProductChoice),
-        a = n[0],
-        i = n[1];
-      if (i.step == null) return null;
-      var l = function (n) {
-          var e = t.product;
-          return o("WAWebBizProductCatalogAction").reportProduct(
-            e.catalogWid,
-            e.id.toString(),
-            n,
-          );
-        },
-        u = function () {
-          i.end();
-        },
-        p = function (r, a) {
-          a === void 0 && (a = o("WAWebActionToast.react").genId());
-          var n = t.product,
-            i = t.sessionId,
-            d = l(r),
-            _ = new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Reporting product"),
-            ),
-            f = d
-              .then(function () {
-                return (
-                  o("WAWebProductCatalogLogEvents").logReportProductSuccess({
-                    product: o("WAWebStateUtils").unproxy(n),
-                    catalogSessionId: i,
-                    reason: r || "",
-                  }),
-                  o("WAWebQplFlowWrapper").QPL.markerEnd(m, 2),
-                  new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Thanks for your feedback").toString() +
-                      ". " +
-                      s
-                        ._(/*BTDS*/ "Your report has now been submitted.")
-                        .toString(),
-                  )
-                );
-              })
-              .catch(function (t) {
-                return (
-                  o("WAWebProductCatalogLogEvents").logReportProductFailure({
-                    product: o("WAWebStateUtils").unproxy(n),
-                    catalogSessionId: i,
-                    reason: r || "",
-                  }),
-                  o("WAWebQplFlowWrapper").QPL.markerEnd(m, 3),
-                  o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "error submitting product report",
-                      ])),
-                  ),
-                  new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't report product"),
-                    {
-                      actionText: s._(/*BTDS*/ "Retry"),
-                      actionHandler: function () {
-                        return p(r, a);
+      var n = o("react-compiler-runtime").c(22),
+        a = o("useWAWebFlow").useFlow(d.ReportProductChoice),
+        i = a[0],
+        l = a[1];
+      if (l.step == null) return null;
+      var u;
+      n[0] !== t
+        ? ((u = function (n) {
+            var e = t.product;
+            return o("WAWebBizProductCatalogAction").reportProduct(
+              e.catalogWid,
+              e.id.toString(),
+              n,
+            );
+          }),
+          (n[0] = t),
+          (n[1] = u))
+        : (u = n[1]);
+      var p = u,
+        _;
+      n[2] !== l
+        ? ((_ = function () {
+            l.end();
+          }),
+          (n[2] = l),
+          (n[3] = _))
+        : (_ = n[3]);
+      var f = _,
+        g;
+      n[4] !== f || n[5] !== t || n[6] !== p
+        ? ((g = function (r, a) {
+            var n = a === void 0 ? o("WAWebActionToast.react").genId() : a,
+              i = t.product,
+              l = t.sessionId,
+              u = p(r),
+              d = new (o("WAWebActionToast.react").ActionType)(
+                s._(/*BTDS*/ "Reporting product"),
+              ),
+              _ = u
+                .then(function () {
+                  return (
+                    o("WAWebProductCatalogLogEvents").logReportProductSuccess({
+                      product: o("WAWebStateUtils").unproxy(i),
+                      catalogSessionId: l,
+                      reason: r || "",
+                    }),
+                    o("WAWebQplFlowWrapper").QPL.markerEnd(m, 2),
+                    new (o("WAWebActionToast.react").ActionType)(
+                      s._(/*BTDS*/ "Thanks for your feedback").toString() +
+                        ". " +
+                        s
+                          ._(/*BTDS*/ "Your report has now been submitted.")
+                          .toString(),
+                    )
+                  );
+                })
+                .catch(function (t) {
+                  return (
+                    o("WAWebProductCatalogLogEvents").logReportProductFailure({
+                      product: o("WAWebStateUtils").unproxy(i),
+                      catalogSessionId: l,
+                      reason: r || "",
+                    }),
+                    o("WAWebQplFlowWrapper").QPL.markerEnd(m, 3),
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "error submitting product report",
+                        ])),
+                    ),
+                    new (o("WAWebActionToast.react").ActionType)(
+                      s._(/*BTDS*/ "Couldn't report product"),
+                      {
+                        actionText: s._(/*BTDS*/ "Retry"),
+                        actionHandler: function () {
+                          return g(r, n);
+                        },
                       },
-                    },
-                  )
-                );
-              });
-          return (
-            o("WAWebToastManager").ToastManager.open(
-              c.jsx(o("WAWebActionToast.react").ActionToast, {
-                id: a,
-                initialAction: _,
-                pendingAction: f,
-              }),
-            ),
-            u(),
-            d
-          );
-        },
-        _ = function () {
-          i.push(d.TellUsMore);
-        },
-        f = function (t) {
-          (o("WAWebQplFlowWrapper").QPL.markerStart(m), p(t));
-        },
-        g = null;
-      switch (i.step) {
-        case d.ReportProductChoice:
-          g = c.jsx(r("WAWebProductCatalogReportProductChoicePopup.react"), {
-            onReport: _,
-            onPopupCancel: u,
-            onCancel: u,
-          });
-          break;
-        case d.TellUsMore:
-          g = c.jsx(r("WAWebProductCatalogReportProductReasonPopup.react"), {
-            onTellUsMoreSubmit: f,
-            onCancel: u,
-          });
-          break;
+                    )
+                  );
+                });
+            return (
+              o("WAWebToastManager").ToastManager.open(
+                c.jsx(o("WAWebActionToast.react").ActionToast, {
+                  id: n,
+                  initialAction: d,
+                  pendingAction: _,
+                }),
+              ),
+              f(),
+              u
+            );
+          }),
+          (n[4] = f),
+          (n[5] = t),
+          (n[6] = p),
+          (n[7] = g))
+        : (g = n[7]);
+      var h;
+      n[8] !== l
+        ? ((h = function () {
+            l.push(d.TellUsMore);
+          }),
+          (n[8] = l),
+          (n[9] = h))
+        : (h = n[9]);
+      var y = h,
+        C;
+      n[10] !== g
+        ? ((C = function (t) {
+            (o("WAWebQplFlowWrapper").QPL.markerStart(m), g(t));
+          }),
+          (n[10] = g),
+          (n[11] = C))
+        : (C = n[11]);
+      var b = C,
+        v = null;
+      e: switch (l.step) {
+        case d.ReportProductChoice: {
+          var S;
+          (n[12] !== f || n[13] !== y
+            ? ((S = c.jsx(
+                r("WAWebProductCatalogReportProductChoicePopup.react"),
+                { onReport: y, onPopupCancel: f, onCancel: f },
+              )),
+              (n[12] = f),
+              (n[13] = y),
+              (n[14] = S))
+            : (S = n[14]),
+            (v = S));
+          break e;
+        }
+        case d.TellUsMore: {
+          var R;
+          (n[15] !== f || n[16] !== b
+            ? ((R = c.jsx(
+                r("WAWebProductCatalogReportProductReasonPopup.react"),
+                { onTellUsMoreSubmit: b, onCancel: f },
+              )),
+              (n[15] = f),
+              (n[16] = b),
+              (n[17] = R))
+            : (R = n[17]),
+            (v = R));
+        }
       }
-      return c.jsx(a, { flow: i, children: g });
+      var L;
+      return (
+        n[18] !== i || n[19] !== v || n[20] !== l
+          ? ((L = c.jsx(i, { flow: l, children: v })),
+            (n[18] = i),
+            (n[19] = v),
+            (n[20] = l),
+            (n[21] = L))
+          : (L = n[21]),
+        L
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

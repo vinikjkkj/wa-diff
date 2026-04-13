@@ -9,6 +9,7 @@ __d(
     "WAWebVelocityTransitionGroup",
     "WDSFocusStateStyles",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebIsKeyboardUser",
   ],
@@ -59,91 +60,169 @@ __d(
         iconPathFillSecondary: { color: "xhslqc4", $$css: !0 },
       };
     function g(t) {
-      var n = t.ariaLabel,
-        a = t.checked,
-        i = t.disabled,
-        l = t.hover,
-        s = t.onClick,
-        c = t.radio,
+      var n = o("react-compiler-runtime").c(32),
+        a = t.ariaLabel,
+        i = t.checked,
+        l = t.disabled,
+        s = t.hover,
+        c = t.onClick,
+        d = t.radio,
         g = t.systemUncheckedColor,
         h = t.testid,
         y = p(null),
         C = p(!0),
         b = _(!1),
         v = b[0],
-        S = b[1];
-      m(
-        function () {
-          (C.current === !1 &&
-            a === !0 &&
-            r("WAWebFocusTracer").focus(y.current),
-            (C.current = !1));
-        },
-        [a],
-      );
-      var R = function (t) {
-          i !== !0 && (t && t.stopPropagation(), s());
-        },
-        L,
-        E;
-      a
-        ? (c === !0
-            ? (E = o(
+        S = b[1],
+        R,
+        L;
+      (n[0] !== i
+        ? ((R = function () {
+            (C.current === !1 &&
+              i === !0 &&
+              r("WAWebFocusTracer").focus(y.current),
+              (C.current = !1));
+          }),
+          (L = [i]),
+          (n[0] = i),
+          (n[1] = R),
+          (n[2] = L))
+        : ((R = n[1]), (L = n[2])),
+        m(R, L));
+      var E;
+      n[3] !== l || n[4] !== c
+        ? ((E = function (t) {
+            l !== !0 && (t && t.stopPropagation(), c());
+          }),
+          (n[3] = l),
+          (n[4] = c),
+          (n[5] = E))
+        : (E = n[5]);
+      var k = E,
+        I,
+        T;
+      i
+        ? (d === !0
+            ? (T = o(
                 "WAWebCheckboxRoundRadioCheckedIcon.react",
               ).CheckboxRoundRadioCheckedIcon)
-            : (E = o(
+            : (T = o(
                 "WAWebCheckboxRoundCheckedIcon.react",
               ).CheckboxRoundCheckedIcon),
-          (L = "checked"))
-        : ((L = "unchecked"),
-          (E = l
+          (I = "checked"))
+        : ((I = "unchecked"),
+          (T = s
             ? o("WAWebCheckboxRoundUncheckedIcon.react")
                 .CheckboxRoundUncheckedIcon
             : o("WAWebCheckboxRoundPassiveIcon.react")
                 .CheckboxRoundPassiveIcon));
-      var k = a
-          ? [f.checkedSvgStyle, i === !0 && f.disabledCheckedSvgStyle]
-          : [
-              f.uncheckedSvgStyle,
-              g === !0 ? f.iconPathFillSecondary : f.iconPathFillWhite,
-              v && g !== !0 && f.uncheckedSvgHoverStyle,
-            ],
-        I = d(function () {
-          return S(!0);
-        }, []),
-        T = d(function () {
-          return S(!1);
-        }, []),
-        D = r("useWAWebIsKeyboardUser")(),
-        x = D.isKeyboardUser;
-      return u.jsx(r("WAWebVelocityTransitionGroup"), {
-        xstyle: [f.container, i === !0 && f.disabledContainer],
-        transitionName: "pop",
-        children: u.createElement(
-          "button",
-          babelHelpers.extends(
-            { ref: y, role: c === !0 ? "radio" : "checkbox" },
-            (e || (e = r("stylex"))).props(
-              f.roundIcon,
-              x && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-            ),
-            {
-              "aria-checked": a,
-              "aria-label": n || "",
-              key: L,
-              onClick: R,
-              onMouseEnter: I,
-              onFocus: I,
-              onMouseLeave: T,
-              onBlur: T,
+      var D;
+      n[6] !== i || n[7] !== l || n[8] !== v || n[9] !== g
+        ? ((D = i
+            ? [f.checkedSvgStyle, l === !0 && f.disabledCheckedSvgStyle]
+            : [
+                f.uncheckedSvgStyle,
+                g === !0 ? f.iconPathFillSecondary : f.iconPathFillWhite,
+                v && g !== !0 && f.uncheckedSvgHoverStyle,
+              ]),
+          (n[6] = i),
+          (n[7] = l),
+          (n[8] = v),
+          (n[9] = g),
+          (n[10] = D))
+        : (D = n[10]);
+      var x = D,
+        $;
+      n[11] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = function () {
+            return S(!0);
+          }),
+          (n[11] = $))
+        : ($ = n[11]);
+      var P = $,
+        N;
+      n[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((N = function () {
+            return S(!1);
+          }),
+          (n[12] = N))
+        : (N = n[12]);
+      var M = N,
+        w = r("useWAWebIsKeyboardUser")(),
+        A = w.isKeyboardUser,
+        F = l === !0 && f.disabledContainer,
+        O;
+      n[13] !== F
+        ? ((O = [f.container, F]), (n[13] = F), (n[14] = O))
+        : (O = n[14]);
+      var B = d === !0 ? "radio" : "checkbox",
+        W;
+      n[15] !== A
+        ? ((W = (e || (e = r("stylex"))).props(
+            f.roundIcon,
+            A && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+          )),
+          (n[15] = A),
+          (n[16] = W))
+        : (W = n[16]);
+      var q = a || "",
+        U;
+      n[17] !== T || n[18] !== x
+        ? ((U = u.jsx(T, { iconXstyle: x })),
+          (n[17] = T),
+          (n[18] = x),
+          (n[19] = U))
+        : (U = n[19]);
+      var V;
+      n[20] !== i ||
+      n[21] !== k ||
+      n[22] !== I ||
+      n[23] !== W ||
+      n[24] !== q ||
+      n[25] !== U ||
+      n[26] !== B ||
+      n[27] !== h
+        ? ((V = u.createElement(
+            "button",
+            babelHelpers.extends({ ref: y, role: B }, W, {
+              "aria-checked": i,
+              "aria-label": q,
+              key: I,
+              onClick: k,
+              onMouseEnter: P,
+              onFocus: P,
+              onMouseLeave: M,
+              onBlur: M,
               "data-testid": void 0,
-            },
-          ),
-          u.jsx(E, { iconXstyle: k }),
-        ),
-      });
+            }),
+            U,
+          )),
+          (n[20] = i),
+          (n[21] = k),
+          (n[22] = I),
+          (n[23] = W),
+          (n[24] = q),
+          (n[25] = U),
+          (n[26] = B),
+          (n[27] = h),
+          (n[28] = V))
+        : (V = n[28]);
+      var H;
+      return (
+        n[29] !== V || n[30] !== O
+          ? ((H = u.jsx(r("WAWebVelocityTransitionGroup"), {
+              xstyle: O,
+              transitionName: "pop",
+              children: V,
+            })),
+            (n[29] = V),
+            (n[30] = O),
+            (n[31] = H))
+          : (H = n[31]),
+        H
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    l.default = g;
   },
   98,
 );

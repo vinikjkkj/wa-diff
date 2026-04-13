@@ -1,6 +1,12 @@
 __d(
   "WAWebUsernameKeyInput.react",
-  ["WAWebKeyboardConstants", "WDSFontTokenStyles", "react", "stylex"],
+  [
+    "WAWebKeyboardConstants",
+    "WDSFontTokenStyles",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -42,80 +48,116 @@ __d(
         },
       };
     function m(t) {
-      var n = t.invalidKeyError,
-        a = t.numberOfKeyDigits,
-        i = t.setInvalidKeyError,
-        l = t.setUsernameKeyInput,
-        s = t.usernameKeyInput,
-        m = c([]),
-        p = function (t, r) {
-          if ((n && i(!1), /^\d?$/.test(r))) {
-            var e = [].concat(s.split(""));
-            if (((e[t] = r), l(e.join("")), r && t < a - 1)) {
-              var o;
-              (o = m.current[t + 1]) == null || o.focus();
+      var n = o("react-compiler-runtime").c(8),
+        a = t.invalidKeyError,
+        i = t.numberOfKeyDigits,
+        l = t.setInvalidKeyError,
+        s = t.setUsernameKeyInput,
+        m = t.usernameKeyInput,
+        p;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = []), (n[0] = p))
+        : (p = n[0]);
+      var _ = c(p),
+        f;
+      if (n[1] !== a || n[2] !== i || n[3] !== l || n[4] !== s || n[5] !== m) {
+        var g = function (t, n) {
+            if ((a && l(!1), /^\d?$/.test(n))) {
+              var e = [].concat(m.split(""));
+              if (((e[t] = n), s(e.join("")), n && t < i - 1)) {
+                var r;
+                (r = _.current[t + 1]) == null || r.focus();
+              }
             }
-          }
-        },
-        _ = function (t, n) {
-          if (
-            n.key ===
-              o("WAWebKeyboardConstants").KEYBOARD_EVENT_KEY_VALUE.BACKSPACE &&
-            !s[t] &&
-            t > 0
-          ) {
-            var e;
-            (e = m.current[t - 1]) == null || e.focus();
-          }
-        };
-      return u.jsx("div", {
-        className: "x78zum5 xrdqr27",
-        children: Array.from({ length: a }).map(function (t, a) {
-          return u.jsx(
+          },
+          h = function (t, n) {
+            if (
+              n.key ===
+                o("WAWebKeyboardConstants").KEYBOARD_EVENT_KEY_VALUE
+                  .BACKSPACE &&
+              !m[t] &&
+              t > 0
+            ) {
+              var e;
+              (e = _.current[t - 1]) == null || e.focus();
+            }
+          },
+          y;
+        (n[7] === Symbol.for("react.memo_cache_sentinel")
+          ? ((y = { className: "x78zum5 xrdqr27" }), (n[7] = y))
+          : (y = n[7]),
+          (f = u.jsx(
             "div",
-            {
-              className:
-                "x78zum5 x100vrsf xy75621 x1h678fw xv6tirj xdt5ytf x1cy8zhl",
-              children: u.jsx(
-                "input",
-                babelHelpers.extends(
-                  {},
-                  (e || (e = r("stylex"))).props([
-                    d.input,
-                    o("WDSFontTokenStyles").WDSFontTokenStyles.Body1,
-                    n ? d.errorKeyInputColor : d.defaultKeyInputColour,
-                  ]),
+            babelHelpers.extends({}, y, {
+              children: Array.from({ length: i }).map(function (t, n) {
+                return u.jsx(
+                  "div",
                   {
-                    type: "text",
-                    inputMode: "numeric",
-                    maxLength: 1,
-                    value: a <= s.length - 1 ? s[a] : "",
-                    onChange: function (t) {
-                      return p(a, t.currentTarget.value);
-                    },
-                    onKeyDown: function (t) {
-                      return _(a, t);
-                    },
-                    ref: function (t) {
-                      return (m.current[a] = t);
-                    },
+                    className:
+                      "x78zum5 x100vrsf xy75621 x1h678fw xv6tirj xdt5ytf x1cy8zhl",
+                    children: u.jsx(
+                      "input",
+                      babelHelpers.extends(
+                        {},
+                        (e || (e = r("stylex"))).props([
+                          d.input,
+                          o("WDSFontTokenStyles").WDSFontTokenStyles.Body1,
+                          a ? d.errorKeyInputColor : d.defaultKeyInputColour,
+                        ]),
+                        {
+                          type: "text",
+                          inputMode: "numeric",
+                          maxLength: 1,
+                          value: n <= m.length - 1 ? m[n] : "",
+                          onChange: function (t) {
+                            return g(n, t.currentTarget.value);
+                          },
+                          onKeyDown: function (t) {
+                            return h(n, t);
+                          },
+                          ref: function (t) {
+                            return (_.current[n] = t);
+                          },
+                        },
+                      ),
+                    ),
                   },
-                ),
-              ),
-            },
-            a,
-          );
-        }),
-      });
+                  n,
+                );
+              }),
+            }),
+          )),
+          (n[1] = a),
+          (n[2] = i),
+          (n[3] = l),
+          (n[4] = s),
+          (n[5] = m),
+          (n[6] = f));
+      } else f = n[6];
+      return f;
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      return u.jsx("div", {
-        className: "x78zum5 xdt5ytf x6s0dn4 xkh2ocl",
-        children: u.jsx(m, babelHelpers.extends({}, e)),
-      });
+      var t = o("react-compiler-runtime").c(3),
+        n;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = { className: "x78zum5 xdt5ytf x6s0dn4 xkh2ocl" }), (t[0] = n))
+        : (n = t[0]);
+      var r;
+      return (
+        t[1] !== e
+          ? ((r = u.jsx(
+              "div",
+              babelHelpers.extends({}, n, {
+                children: u.jsx(m, babelHelpers.extends({}, e)),
+              }),
+            )),
+            (t[1] = e),
+            (t[2] = r))
+          : (r = t[2]),
+        r
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   98,
 );

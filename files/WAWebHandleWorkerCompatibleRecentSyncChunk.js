@@ -10,7 +10,6 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebABPropsCache",
-    "WAWebApiChatBulkGetByHistory",
     "WAWebApiHistorySyncNotification",
     "WAWebBackendEventBus",
     "WAWebBackendWorkerClient",
@@ -275,15 +274,16 @@ __d(
                 "WAWebPreprocessHistorySyncProto",
               ).preprocessHistorySyncProto(N, M),
               W = B.associatedMsgs,
-              q = B.chatsWithRecentOrFullSyncMsgs,
-              U = B.lastMsgs,
-              V = B.missingParentsCache,
-              H = B.recentOrFullSyncMsgs,
-              G = B.threadMsgs,
-              z = B.totalChunkMsgCount,
-              j = B.unifiedAddons;
+              q = B.chatRows,
+              U = B.chatsWithRecentOrFullSyncMsgs,
+              V = B.lastMsgs,
+              H = B.missingParentsCache,
+              G = B.recentOrFullSyncMsgs,
+              z = B.threadMsgs,
+              j = B.totalChunkMsgCount,
+              K = B.unifiedAddons;
             (l ||
-              ((I.mdBootstrapMessagesCount = z),
+              ((I.mdBootstrapMessagesCount = j),
               (I.mdBootstrapChatsCount = N.conversations.length),
               o(
                 "WAWebHistorySyncNotificationUtils",
@@ -299,19 +299,19 @@ __d(
                   .MESSAGE_PREPROCESSED,
                 t.chunkOrder,
               ),
-              H.length !== 0
+              G.length !== 0
                 ? yield o(
                     "WAWebHandleHistorySyncMsg",
                   ).handleProgressiveHistorySyncMsgs(
-                    H,
-                    Array.from(q),
-                    j,
-                    U,
+                    G,
+                    Array.from(U),
+                    K,
+                    V,
                     t.syncType,
                     t.chunkOrder,
                     W,
-                    V,
-                    G,
+                    H,
+                    z,
                   )
                 : o("WALogger").LOG(
                     g ||
@@ -321,7 +321,7 @@ __d(
                   ),
               o(
                 "WAWebUserPrefsHistorySync",
-              ).setHistorySyncTotalProcessedMessageCount(z),
+              ).setHistorySyncTotalProcessedMessageCount(j),
               yield o("WAWebUserPrefsHistorySync").setLastHistorySyncedChunk(
                 t.syncType,
                 t.chunkOrder,
@@ -332,17 +332,10 @@ __d(
                 "WAWebApiHistorySyncNotification",
               ).updateCurrentlyProcessed(t.msgKey, t.syncType, t.chunkOrder));
             for (
-              var K = o(
+              var Q = o(
                   "WAWebUserPrefsHistorySync",
                 ).getHistoryInitialSyncBoundary(),
-                Q = new Set(),
-                X = yield o(
-                  "WAWebApiChatBulkGetByHistory",
-                ).bulkGetChatsMaybeByHistory(
-                  N.conversations.map(function (e) {
-                    return e.id;
-                  }),
-                ),
+                X = new Set(),
                 Y = [],
                 J = 0;
               J < N.conversations.length;
@@ -350,13 +343,13 @@ __d(
             ) {
               var Z = N.conversations[J],
                 ee = o("WAWebWidFactory").createWid(Z.id),
-                te = X[J],
+                te = q[J],
                 ne =
                   (te == null ? void 0 : te.id) != null
                     ? o("WAWebWidFactory").createWid(te.id)
                     : ee;
-              Q.add(ne.toString());
-              var re = (K == null ? void 0 : K[Z.id]) != null;
+              X.add(ne.toString());
+              var re = (Q == null ? void 0 : Q[Z.id]) != null;
               if (re) {
                 var oe = Z.endOfHistoryTransferType;
                 oe != null &&
@@ -370,7 +363,7 @@ __d(
             (yield (v || (v = n("Promise"))).all(Y),
               o(
                 "WAWebBackendEventBus",
-              ).BackendEventBus.triggerHistorySyncChunkProcessed(Q),
+              ).BackendEventBus.triggerHistorySyncChunkProcessed(X),
               o(
                 "WAWebHistorySyncNotificationUtils",
               ).commitHistoryDataAppliedMetric({
@@ -392,8 +385,8 @@ __d(
                   ])),
                 o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(
                   t,
-                  z,
-                  q.length,
+                  j,
+                  U.length,
                 ),
               ));
           } catch (e) {

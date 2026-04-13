@@ -8,6 +8,7 @@ __d(
     "WAWebText.react",
     "WAWebUISpacing",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -26,29 +27,46 @@ __d(
       );
     }
     function c(e) {
-      var t = e.content,
-        n = e.icon,
-        r = e.testId;
-      return s.jsxs(o("WAWebFlex.react").FlexRow, {
-        justify: "center",
-        align: "center",
-        xstyle: [
-          o("WAWebUISpacing").uiMargin.horiz15,
-          o("WAWebUISpacing").uiMargin.top15,
-        ],
-        testid: void 0,
-        children: [
-          n,
-          s.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
+      var t = o("react-compiler-runtime").c(7),
+        n = e.content,
+        r = e.icon,
+        a = e.testId,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [
+            o("WAWebUISpacing").uiMargin.horiz15,
+            o("WAWebUISpacing").uiMargin.top15,
+          ]),
+          (t[0] = i))
+        : (i = t[0]);
+      var l;
+      t[1] !== n
+        ? ((l = s.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
             color: "primary",
-            children: t,
-          }),
-        ],
-      });
+            children: n,
+          })),
+          (t[1] = n),
+          (t[2] = l))
+        : (l = t[2]);
+      var u;
+      return (
+        t[3] !== r || t[4] !== l || t[5] !== a
+          ? ((u = s.jsxs(o("WAWebFlex.react").FlexRow, {
+              justify: "center",
+              align: "center",
+              xstyle: i,
+              testid: void 0,
+              children: [r, l],
+            })),
+            (t[3] = r),
+            (t[4] = l),
+            (t[5] = a),
+            (t[6] = u))
+          : (u = t[6]),
+        u
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"),
-      (l.getLeaveGroupString = u),
-      (l.SuspendedModalBodyParagraph = c));
+    ((l.getLeaveGroupString = u), (l.SuspendedModalBodyParagraph = c));
   },
   98,
 );

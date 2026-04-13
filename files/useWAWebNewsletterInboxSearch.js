@@ -1,44 +1,48 @@
 __d(
   "useWAWebNewsletterInboxSearch",
-  ["WAWebChatGetters", "WAWebFuzzySearch", "react"],
+  ["WAWebChatGetters", "WAWebFuzzySearch", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useCallback;
     function u(e) {
-      var t = e.filteredText,
-        n = s(
-          function (e) {
-            var n = t.trim() !== "";
-            return e
-              .filter(function (e) {
-                if (!o("WAWebChatGetters").getIsNewsletter(e) || e == null)
+      var t = o("react-compiler-runtime").c(2),
+        n = e.filteredText,
+        r;
+      t[0] !== n
+        ? ((r = function (t) {
+            var e = n.trim() !== "";
+            return t
+              .filter(function (t) {
+                if (!o("WAWebChatGetters").getIsNewsletter(t) || t == null)
                   return !1;
-                if (n) {
+                if (e) {
                   var r,
                     a =
-                      t == null || (r = t.toLocaleLowerCase()) == null
+                      n == null || (r = n.toLocaleLowerCase()) == null
                         ? void 0
                         : r.trim();
-                  return d(e, a);
+                  return d(t, a);
                 }
                 return !0;
               })
-              .sort(function (e, r) {
+              .sort(function (t, r) {
                 var o;
                 return c({
-                  channelA: e,
+                  channelA: t,
                   channelB: r,
-                  hasSearchText: n,
+                  hasSearchText: e,
                   searchText:
-                    t == null || (o = t.toLocaleLowerCase()) == null
+                    n == null || (o = n.toLocaleLowerCase()) == null
                       ? void 0
                       : o.trim(),
                 });
               });
-          },
-          [t],
-        );
-      return n;
+          }),
+          (t[0] = n),
+          (t[1] = r))
+        : (r = t[1]);
+      var a = r;
+      return a;
     }
     function c(e) {
       var t,

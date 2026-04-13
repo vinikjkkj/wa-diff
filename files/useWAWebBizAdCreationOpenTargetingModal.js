@@ -11,6 +11,7 @@ __d(
     "err",
     "jsonParseSafe",
     "react",
+    "react-compiler-runtime",
     "requireDeferred",
     "useWAWebBizAdCreationOpenTargetingModalDSAQuery.graphql",
     "useWAWebBizAdCreationSpecDispatcherContext",
@@ -38,48 +39,58 @@ __d(
           ? e
           : (e = n("useWAWebBizAdCreationOpenTargetingModalDSAQuery.graphql"));
     function h(e) {
-      var t = e.adAccountID,
-        n = e.audienceData,
-        a = e.currency,
-        i = e.dailyBudget,
-        l = e.legacyAccountID,
-        s = e.legacyAdAccountID,
-        d = e.mode,
-        h = e.selectedPublisherPlatforms,
-        y = e.templateTargetSpecString,
-        C = o("CometRelay").useRelayEnvironment(),
-        b = p(r("WAWebBizAdCreationLoggerContext")),
-        v = r("useWAWebBizAdCreationSpecDispatcherContext")([
-          r("waWebBizAdCreationAudienceReducer"),
-        ]),
-        S = m(
-          function (e) {
-            var a = babelHelpers.extends({}, (u(e), e)),
-              i = a.audienceName,
-              s = a.callback,
-              c = a.onError,
-              m = a.targetingSpec;
-            if (d === "create")
-              (l == null && r("err")("legacyAccountID is null"),
+      var t = o("react-compiler-runtime").c(38),
+        n = e.adAccountID,
+        a = e.audienceData,
+        i = e.currency,
+        l = e.dailyBudget,
+        s = e.legacyAccountID,
+        d = e.legacyAdAccountID,
+        m = e.mode,
+        _ = e.selectedPublisherPlatforms,
+        h = e.templateTargetSpecString,
+        y = o("CometRelay").useRelayEnvironment(),
+        C = p(r("WAWebBizAdCreationLoggerContext")),
+        b;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = [r("waWebBizAdCreationAudienceReducer")]), (t[0] = b))
+        : (b = t[0]);
+      var v = r("useWAWebBizAdCreationSpecDispatcherContext")(b),
+        S;
+      t[1] !== n ||
+      t[2] !== a ||
+      t[3] !== v ||
+      t[4] !== y ||
+      t[5] !== s ||
+      t[6] !== C ||
+      t[7] !== m
+        ? ((S = function (t) {
+            var e = babelHelpers.extends({}, (u(t), t)),
+              i = e.audienceName,
+              l = e.callback,
+              c = e.onError,
+              d = e.targetingSpec;
+            if (m === "create")
+              (s == null && r("err")("legacyAccountID is null"),
                 o("WAWebBizAdCreationAudienceUtils").createSavedAudience(
-                  t,
-                  l,
-                  m,
+                  n,
+                  s,
+                  d,
                   i,
-                  C,
+                  y,
                   function (e) {
                     (v({
                       audienceData: e,
                       type: "audience_reducer.select_audience",
                     }),
-                      s());
+                      l());
                   },
                   function (e) {
-                    (b != null &&
+                    (C != null &&
                       r("WAWebBizAdLogger").log({
                         event: "save_audience_error",
-                        loggerContext: b,
-                        adAccountID: t,
+                        loggerContext: C,
+                        adAccountID: n,
                         extra: {
                           error_message: e.message,
                           operation: "create",
@@ -89,17 +100,17 @@ __d(
                   },
                 ));
             else {
-              if (n == null)
+              if (a == null)
                 throw r("err")("audienceData or option should not be empty");
-              var p = n.audienceOption,
+              var p = a.audienceOption,
                 _ = function (t) {
                   (v({
-                    editedAudience: n,
-                    targetingSpec: m,
+                    editedAudience: a,
+                    targetingSpec: d,
                     type: "audience_reducer.set_lwi_audience_targeting_spec",
                   }),
                     v({
-                      editedAudience: n,
+                      editedAudience: a,
                       name: i,
                       type: "audience_reducer.set_lwi_audience_name",
                     }),
@@ -108,50 +119,50 @@ __d(
                         subjectToDSA: t.subjectToDSA,
                         type: "audience_reducer.set_lwi_audience_subject_to_dsa",
                       }),
-                    s());
+                    l());
                 };
               p === "SAVED_AUDIENCE"
                 ? o("WAWebBizAdCreationAudienceUtils").editAudience({
                     audienceName: i,
-                    savedAudienceID: n.audienceID,
-                    targetingSpec: m,
+                    savedAudienceID: a.audienceID,
+                    targetingSpec: d,
                     callback: _,
-                    onError: function (o) {
-                      if (b != null) {
+                    onError: function (t) {
+                      if (C != null) {
                         var e;
                         r("WAWebBizAdLogger").log({
                           event: "save_audience_error",
-                          loggerContext: b,
-                          adAccountID: t,
+                          loggerContext: C,
+                          adAccountID: n,
                           extra: {
                             error_message:
-                              (e = o == null ? void 0 : o.message) != null
+                              (e = t == null ? void 0 : t.message) != null
                                 ? e
                                 : "Unknown error",
                             operation: "edit",
-                            audience_id: n.audienceID,
+                            audience_id: a.audienceID,
                           },
                         });
                       }
                       c == null || c();
                     },
-                    relayEnvironment: C,
+                    relayEnvironment: y,
                   })
                 : (_(),
                   o("CometRelay")
-                    .fetchQuery(C, g, {
-                      adAccountID: t,
-                      targetSpecString: JSON.stringify(m),
+                    .fetchQuery(y, g, {
+                      adAccountID: n,
+                      targetSpecString: JSON.stringify(d),
                     })
                     .subscribe({
-                      error: function (n) {
-                        b != null &&
+                      error: function (t) {
+                        C != null &&
                           r("WAWebBizAdLogger").log({
                             event: "save_audience_error",
-                            loggerContext: b,
-                            adAccountID: t,
+                            loggerContext: C,
+                            adAccountID: n,
                             extra: {
-                              error_message: n.message,
+                              error_message: t.message,
                               operation: "fetch_subject_to_dsa",
                             },
                           });
@@ -168,62 +179,135 @@ __d(
                       },
                     }));
             }
-          },
-          [d, l, t, C, v, n, b],
-        ),
-        R = _(
-          function () {
-            if (d === "create") {
-              var e = y,
-                t =
-                  e != null
-                    ? r("jsonParseSafe")(
-                        String(e),
-                        o("LWICometDefaultTargetingSpec")
-                          .DEFAULT_TARGETING_SPEC,
-                      )
-                    : o("LWICometDefaultTargetingSpec").DEFAULT_TARGETING_SPEC;
-              return {
-                adAccountID: l,
+          }),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = v),
+          (t[4] = y),
+          (t[5] = s),
+          (t[6] = C),
+          (t[7] = m),
+          (t[8] = S))
+        : (S = t[8]);
+      var R = S,
+        L;
+      e: {
+        if (m === "create") {
+          var E = h,
+            k;
+          t[9] !== E
+            ? ((k =
+                E != null
+                  ? r("jsonParseSafe")(
+                      String(E),
+                      o("LWICometDefaultTargetingSpec").DEFAULT_TARGETING_SPEC,
+                    )
+                  : o("LWICometDefaultTargetingSpec").DEFAULT_TARGETING_SPEC),
+              (t[9] = E),
+              (t[10] = k))
+            : (k = t[10]);
+          var I = k,
+            T;
+          t[11] === Symbol.for("react.memo_cache_sentinel")
+            ? ((T = o("LWICometTargetingUtils").DEFAULT_AUDIENCE_NAME.toJSON()),
+              (t[11] = T))
+            : (T = t[11]);
+          var D;
+          (t[12] !== i ||
+          t[13] !== l ||
+          t[14] !== I ||
+          t[15] !== y ||
+          t[16] !== s ||
+          t[17] !== d ||
+          t[18] !== m ||
+          t[19] !== R ||
+          t[20] !== _
+            ? ((D = {
+                adAccountID: s,
                 audienceOption: "SAVED_AUDIENCE",
-                dailyBudget: i,
-                currency: a,
-                environment: C,
-                initialAudienceName: o(
-                  "LWICometTargetingUtils",
-                ).DEFAULT_AUDIENCE_NAME.toJSON(),
-                legacyAdAccountID: s,
-                onSaveAudience: S,
-                selectedPublisherPlatforms: h,
-                targetingSpec: t,
-                mode: d,
-              };
-            }
-            if (n == null || n.targetSpec == null)
-              throw r("err")(
-                "audienceData or targetingSpec should not be empty",
-              );
-            return {
-              adAccountID: l,
-              audienceID: n.audienceID,
-              audienceOption: n.audienceOption,
-              dailyBudget: i,
-              currency: a,
-              environment: C,
-              initialAudienceName: n.name,
-              legacyAdAccountID: s,
-              onSaveAudience: S,
-              selectedPublisherPlatforms: h,
-              targetingSpec: n.targetSpec,
-              mode: d,
-            };
-          },
-          [n, i, a, C, l, s, d, S, h, y],
-        ),
-        L = r("useWAWebBizAdsCreationOpenModal")();
-      return function () {
-        L(c.jsx(f, babelHelpers.extends({}, R)));
-      };
+                dailyBudget: l,
+                currency: i,
+                environment: y,
+                initialAudienceName: T,
+                legacyAdAccountID: d,
+                onSaveAudience: R,
+                selectedPublisherPlatforms: _,
+                targetingSpec: I,
+                mode: m,
+              }),
+              (t[12] = i),
+              (t[13] = l),
+              (t[14] = I),
+              (t[15] = y),
+              (t[16] = s),
+              (t[17] = d),
+              (t[18] = m),
+              (t[19] = R),
+              (t[20] = _),
+              (t[21] = D))
+            : (D = t[21]),
+            (L = D));
+          break e;
+        }
+        if (a == null || a.targetSpec == null)
+          throw r("err")("audienceData or targetingSpec should not be empty");
+        var x;
+        (t[22] !== a.audienceID ||
+        t[23] !== a.audienceOption ||
+        t[24] !== a.name ||
+        t[25] !== a.targetSpec ||
+        t[26] !== i ||
+        t[27] !== l ||
+        t[28] !== y ||
+        t[29] !== s ||
+        t[30] !== d ||
+        t[31] !== m ||
+        t[32] !== R ||
+        t[33] !== _
+          ? ((x = {
+              adAccountID: s,
+              audienceID: a.audienceID,
+              audienceOption: a.audienceOption,
+              dailyBudget: l,
+              currency: i,
+              environment: y,
+              initialAudienceName: a.name,
+              legacyAdAccountID: d,
+              onSaveAudience: R,
+              selectedPublisherPlatforms: _,
+              targetingSpec: a.targetSpec,
+              mode: m,
+            }),
+            (t[22] = a.audienceID),
+            (t[23] = a.audienceOption),
+            (t[24] = a.name),
+            (t[25] = a.targetSpec),
+            (t[26] = i),
+            (t[27] = l),
+            (t[28] = y),
+            (t[29] = s),
+            (t[30] = d),
+            (t[31] = m),
+            (t[32] = R),
+            (t[33] = _),
+            (t[34] = x))
+          : (x = t[34]),
+          (L = x));
+      }
+      var $ = L,
+        P = r("useWAWebBizAdsCreationOpenModal")(),
+        N;
+      return (
+        t[35] !== $ || t[36] !== P
+          ? ((N = function () {
+              P(c.jsx(f, babelHelpers.extends({}, $)));
+            }),
+            (t[35] = $),
+            (t[36] = P),
+            (t[37] = N))
+          : (N = t[37]),
+        N
+      );
     }
     l.default = h;
   },

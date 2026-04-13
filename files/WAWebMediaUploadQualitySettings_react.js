@@ -9,6 +9,7 @@ __d(
     "WAWebText.react",
     "WAWebUISpacing",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebModelValues",
     "useWAWebSettingSync",
@@ -59,61 +60,96 @@ __d(
         },
       ];
     function m() {
-      var e = o("useWAWebModelValues").useModelValues(
-          r("WAWebChatPreferenceCollection").getDefault(),
-          ["hdMediaEnabled"],
-        ),
-        t = o("useWAWebSettingSync").useSettingSync(
-          "mediaUploadQuality",
-          function (t) {
-            e.set(
+      var e = o("react-compiler-runtime").c(12),
+        t,
+        n;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = r("WAWebChatPreferenceCollection").getDefault()),
+          (n = ["hdMediaEnabled"]),
+          (e[0] = t),
+          (e[1] = n))
+        : ((t = e[0]), (n = e[1]));
+      var a = o("useWAWebModelValues").useModelValues(t, n),
+        i;
+      e[2] !== a
+        ? ((i = function (t) {
+            a.set(
               "hdMediaEnabled",
               t ===
                 o("WAWebProtobufSyncAction.pb")
                   .SyncActionValue$SettingsSyncAction$MediaQualitySetting.HD,
             );
-          },
-        ),
-        n = function (n) {
-          var e =
-            n === "hd"
-              ? o("WAWebProtobufSyncAction.pb")
-                  .SyncActionValue$SettingsSyncAction$MediaQualitySetting.HD
-              : o("WAWebProtobufSyncAction.pb")
-                  .SyncActionValue$SettingsSyncAction$MediaQualitySetting
-                  .STANDARD;
-          t(e);
-        },
-        a = e.hdMediaEnabled ? "hd" : "sd";
-      return c.jsx(r("WAWebDrawerSection.react"), {
-        animation: !1,
-        xstyle: [
-          o("WAWebUISpacing").uiPadding.horiz30,
-          o("WAWebUISpacing").uiPadding.vert20,
-        ],
-        children: c.jsx("div", {
-          role: "radiogroup",
-          "aria-label": "Media upload quality",
-          children: d.map(function (e) {
+          }),
+          (e[2] = a),
+          (e[3] = i))
+        : (i = e[3]);
+      var l = o("useWAWebSettingSync").useSettingSync("mediaUploadQuality", i),
+        s;
+      e[4] !== l
+        ? ((s = function (t) {
+            var e =
+              t === "hd"
+                ? o("WAWebProtobufSyncAction.pb")
+                    .SyncActionValue$SettingsSyncAction$MediaQualitySetting.HD
+                : o("WAWebProtobufSyncAction.pb")
+                    .SyncActionValue$SettingsSyncAction$MediaQualitySetting
+                    .STANDARD;
+            l(e);
+          }),
+          (e[4] = l),
+          (e[5] = s))
+        : (s = e[5]);
+      var u = s,
+        m = a.hdMediaEnabled ? "hd" : "sd",
+        p;
+      e[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = [
+            o("WAWebUISpacing").uiPadding.horiz30,
+            o("WAWebUISpacing").uiPadding.vert20,
+          ]),
+          (e[6] = p))
+        : (p = e[6]);
+      var _;
+      e[7] !== m || e[8] !== u
+        ? ((_ = d.map(function (e) {
             var t = e.label,
-              o = e.value;
+              n = e.value;
             return c.jsx(
               r("WAWebPrivacyVisibilityOption.react"),
               {
                 text: t(),
-                selected: a === o,
+                selected: m === n,
                 testid: void 0,
                 onClick: function () {
-                  return n(o);
+                  return u(n);
                 },
               },
-              o,
+              n,
             );
-          }),
-        }),
-      });
+          })),
+          (e[7] = m),
+          (e[8] = u),
+          (e[9] = _))
+        : (_ = e[9]);
+      var f;
+      return (
+        e[10] !== _
+          ? ((f = c.jsx(r("WAWebDrawerSection.react"), {
+              animation: !1,
+              xstyle: p,
+              children: c.jsx("div", {
+                role: "radiogroup",
+                "aria-label": "Media upload quality",
+                children: _,
+              }),
+            })),
+            (e[10] = _),
+            (e[11] = f))
+          : (f = e[11]),
+        f
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

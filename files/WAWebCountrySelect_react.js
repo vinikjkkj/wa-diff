@@ -10,6 +10,7 @@ __d(
     "WAWebPerformantSelect.react",
     "WAWebText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s, u) {
     var e,
@@ -67,49 +68,80 @@ __d(
       });
     }
     function _(e) {
-      var t = e.countries,
-        n = e.initialActiveOptionId,
-        r = e.onChange,
-        a = e.testid,
-        i = e.theme,
-        l = e.width,
-        u = i === "link-devices-screen" || i === "link-devices-screen-wds",
-        m = d(
-          function () {
-            return p({ countries: t });
-          },
-          [t],
-        ),
-        _ = function (t) {
-          var e = m.find(function (e) {
-            return e.itemKey === t;
-          });
-          return e != null
-            ? c.jsxs(o("WAWebText.react").WAWebTextMuted, {
-                align: "center",
-                color: u ? "forcedPrimary" : null,
-                flex: !0,
-                gap: 8,
-                children: [e.menuItem.detailLeft, " ", e.menuItem.primary],
-              })
-            : null;
-        };
-      return c.jsx(o("WAWebPerformantSelect.react").Select, {
-        customLabel: _,
-        defaultLabel: s._(/*BTDS*/ "Select country"),
-        includeSearchInput: !0,
-        initialSelection: n,
-        items: m,
-        menuMaxHeight: 270,
-        menuMinWidth: 300,
-        onChange: r,
-        testid: void 0,
-        theme: i,
-        width: l,
-      });
+      var t = o("react-compiler-runtime").c(14),
+        n = e.countries,
+        r = e.initialActiveOptionId,
+        a = e.onChange,
+        i = e.testid,
+        l = e.theme,
+        u = e.width,
+        d = l === "link-devices-screen" || l === "link-devices-screen-wds",
+        m;
+      t[0] !== n
+        ? ((m = p({ countries: n })), (t[0] = n), (t[1] = m))
+        : (m = t[1]);
+      var _ = m,
+        f;
+      t[2] !== _ || t[3] !== d
+        ? ((f = function (t) {
+            var e = _.find(function (e) {
+              return e.itemKey === t;
+            });
+            return e != null
+              ? c.jsxs(o("WAWebText.react").WAWebTextMuted, {
+                  align: "center",
+                  color: d ? "forcedPrimary" : null,
+                  flex: !0,
+                  gap: 8,
+                  children: [e.menuItem.detailLeft, " ", e.menuItem.primary],
+                })
+              : null;
+          }),
+          (t[2] = _),
+          (t[3] = d),
+          (t[4] = f))
+        : (f = t[4]);
+      var g = f,
+        h;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = s._(/*BTDS*/ "Select country")), (t[5] = h))
+        : (h = t[5]);
+      var y = i != null ? i : "country-selector",
+        C;
+      return (
+        t[6] !== _ ||
+        t[7] !== g ||
+        t[8] !== r ||
+        t[9] !== a ||
+        t[10] !== y ||
+        t[11] !== l ||
+        t[12] !== u
+          ? ((C = c.jsx(o("WAWebPerformantSelect.react").Select, {
+              customLabel: g,
+              defaultLabel: h,
+              includeSearchInput: !0,
+              initialSelection: r,
+              items: _,
+              menuMaxHeight: 270,
+              menuMinWidth: 300,
+              onChange: a,
+              testid: void 0,
+              theme: l,
+              width: u,
+            })),
+            (t[6] = _),
+            (t[7] = g),
+            (t[8] = r),
+            (t[9] = a),
+            (t[10] = y),
+            (t[11] = l),
+            (t[12] = u),
+            (t[13] = C))
+          : (C = t[13]),
+        C
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"),
-      (l.getCountryFlagEmoji = m),
+    ((l.getCountryFlagEmoji = m),
       (l.getCountryDropdownItems = p),
       (l.CountrySelect = _));
   },

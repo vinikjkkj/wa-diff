@@ -5,6 +5,7 @@ __d(
     "WAWebFlex.react",
     "WAWebOrderPaymentStatus",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -26,20 +27,42 @@ __d(
       }
     }
     function d(e) {
-      var t = e.orderPaymentStatusInfo,
-        n =
-          t === void 0
+      var t = o("react-compiler-runtime").c(9),
+        n = e.orderPaymentStatusInfo,
+        r =
+          n === void 0
             ? o("WAWebOrderPaymentStatus").OrderPaymentStatus.Pending
-            : t,
-        r = o("WAWebBizPaymentStatusLabels").getWAWebBizOrderPaymentStatusLabel(
-          n,
-        );
-      return s.jsx(o("WAWebFlex.react").FlexRow, {
-        xstyle: [u.orderStatusLabel, c(n)],
-        children: r,
-      });
+            : n,
+        a;
+      t[0] !== r
+        ? ((a = o(
+            "WAWebBizPaymentStatusLabels",
+          ).getWAWebBizOrderPaymentStatusLabel(r)),
+          (t[0] = r),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] !== r ? ((l = c(r)), (t[2] = r), (t[3] = l)) : (l = t[3]);
+      var d;
+      t[4] !== l
+        ? ((d = [u.orderStatusLabel, l]), (t[4] = l), (t[5] = d))
+        : (d = t[5]);
+      var m;
+      return (
+        t[6] !== i || t[7] !== d
+          ? ((m = s.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: d,
+              children: i,
+            })),
+            (t[6] = i),
+            (t[7] = d),
+            (t[8] = m))
+          : (m = t[8]),
+        m
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   98,
 );

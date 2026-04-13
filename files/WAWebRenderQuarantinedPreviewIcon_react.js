@@ -1,16 +1,25 @@
 __d(
   "WAWebRenderQuarantinedPreviewIcon.react",
-  ["WAWebDocumentRefreshedThinIcon.react", "react"],
+  ["WAWebDocumentRefreshedThinIcon.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      return s.jsx(
-        o("WAWebDocumentRefreshedThinIcon.react").DocumentRefreshedThinIcon,
-        {},
+      var t = o("react-compiler-runtime").c(1),
+        n;
+      return (
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((n = s.jsx(
+              o("WAWebDocumentRefreshedThinIcon.react")
+                .DocumentRefreshedThinIcon,
+              {},
+            )),
+            (t[0] = n))
+          : (n = t[0]),
+        n
       );
     }
-    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
+    l.default = u;
   },
   98,
 );

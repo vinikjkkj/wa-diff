@@ -6,6 +6,7 @@ __d(
     "WAWebMediaEditorGeometryRect",
     "lodash",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -14,63 +15,96 @@ __d(
       c = u.useImperativeHandle,
       d = u.useRef;
     function m(e) {
-      var t = e.layer,
-        n = e.ref,
-        a = d(),
-        i = d();
-      c(n, function () {
-        return {
-          show: function () {
-            var e;
-            (e = a.current) == null || e.show();
-          },
-          hide: function () {
-            var e;
-            (e = a.current) == null || e.hide();
-          },
-          getBoundingRect: function () {
-            var e = i.current;
-            if (e) {
-              var n = e.getClientRect(),
-                o = n.height,
-                a = n.width,
-                l = n.x,
-                s = n.y;
-              return r("WAWebMediaEditorGeometryRect").create({
-                x: l,
-                y: s,
-                width: a,
-                height: o,
-                rotation: t.getRotation(),
-                scale: t.getScale(),
-              });
-            }
-          },
-        };
-      });
-      var l = r("lodash").flatMap(t.getAllPoints(), function (e) {
-        return [e.getX(), e.getY()];
-      });
-      return s.jsx(o("ReactKonva").Group, {
-        ref: a,
-        width: t.getWidth(),
-        height: t.getHeight(),
-        visible: !1,
-        children: s.jsx(o("ReactKonva").Line, {
-          ref: i,
-          points: l,
-          closed: !0,
-          fill: "white",
-          lineCap: "round",
-          lineJoin: "round",
-          tension: o("WAWebMediaConstants").MEDIA_EDITOR_OUTLINE_TENSION,
-          globalCompositeOperation: "destination-in",
-        }),
-      });
+      var t = o("react-compiler-runtime").c(14),
+        n = e.layer,
+        a = e.ref,
+        i = d(),
+        l = d(),
+        u;
+      (t[0] !== n
+        ? ((u = function () {
+            return {
+              show: function () {
+                var e;
+                (e = i.current) == null || e.show();
+              },
+              hide: function () {
+                var e;
+                (e = i.current) == null || e.hide();
+              },
+              getBoundingRect: function () {
+                var e = l.current;
+                if (e) {
+                  var t = e.getClientRect(),
+                    o = t.height,
+                    a = t.width,
+                    i = t.x,
+                    s = t.y;
+                  return r("WAWebMediaEditorGeometryRect").create({
+                    x: i,
+                    y: s,
+                    width: a,
+                    height: o,
+                    rotation: n.getRotation(),
+                    scale: n.getScale(),
+                  });
+                }
+              },
+            };
+          }),
+          (t[0] = n),
+          (t[1] = u))
+        : (u = t[1]),
+        c(a, u));
+      var m;
+      t[2] !== n
+        ? ((m = r("lodash").flatMap(n.getAllPoints(), p)),
+          (t[2] = n),
+          (t[3] = m))
+        : (m = t[3]);
+      var _ = m,
+        f;
+      t[4] !== n ? ((f = n.getWidth()), (t[4] = n), (t[5] = f)) : (f = t[5]);
+      var g;
+      t[6] !== n ? ((g = n.getHeight()), (t[6] = n), (t[7] = g)) : (g = t[7]);
+      var h;
+      t[8] !== _
+        ? ((h = s.jsx(o("ReactKonva").Line, {
+            ref: l,
+            points: _,
+            closed: !0,
+            fill: "white",
+            lineCap: "round",
+            lineJoin: "round",
+            tension: o("WAWebMediaConstants").MEDIA_EDITOR_OUTLINE_TENSION,
+            globalCompositeOperation: "destination-in",
+          })),
+          (t[8] = _),
+          (t[9] = h))
+        : (h = t[9]);
+      var y;
+      return (
+        t[10] !== f || t[11] !== g || t[12] !== h
+          ? ((y = s.jsx(o("ReactKonva").Group, {
+              ref: i,
+              width: f,
+              height: g,
+              visible: !1,
+              children: h,
+            })),
+            (t[10] = f),
+            (t[11] = g),
+            (t[12] = h),
+            (t[13] = y))
+          : (y = t[13]),
+        y
+      );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
-    var p = m;
-    l.Outline = p;
+    function p(e) {
+      return [e.getX(), e.getY()];
+    }
+    var _ = m;
+    l.Outline = _;
   },
   98,
 );

@@ -24,6 +24,7 @@ __d(
     "WDSIconWdsIcDisappearingMessages.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebNux",
   ],
@@ -96,12 +97,24 @@ __d(
       });
     }
     function f(e) {
-      return [
-        p(e),
-        function (t) {
-          return _(e, t);
-        },
-      ];
+      var t = o("react-compiler-runtime").c(7),
+        n;
+      t[0] !== e ? ((n = p(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
+      var r;
+      t[2] !== e
+        ? ((r = function (n) {
+            return _(e, n);
+          }),
+          (t[2] = e),
+          (t[3] = r))
+        : (r = t[3]);
+      var a;
+      return (
+        t[4] !== n || t[5] !== r
+          ? ((a = [n, r]), (t[4] = n), (t[5] = r), (t[6] = a))
+          : (a = t[6]),
+        a
+      );
     }
     function g(e) {
       var t = e.chat,
@@ -227,31 +240,47 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = e.Icon,
-        n = e.children;
-      return c.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
-        xstyle: m.container,
-        children: [
-          c.jsx(t, {
+      var t = o("react-compiler-runtime").c(7),
+        n = e.Icon,
+        r = e.children,
+        a;
+      t[0] !== n
+        ? ((a = c.jsx(n, {
             "aria-hidden": !0,
             displayInline: !0,
             width: 24,
             height: 24,
             xstyle: m.icon,
-          }),
-          c.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+          })),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i;
+      t[2] !== r
+        ? ((i = c.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
             xstyle: m.body,
             children: c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-              children: n,
+              children: r,
             }),
-          }),
-        ],
-      });
+          })),
+          (t[2] = r),
+          (t[3] = i))
+        : (i = t[3]);
+      var l;
+      return (
+        t[4] !== a || t[5] !== i
+          ? ((l = c.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
+              xstyle: m.container,
+              children: [a, i],
+            })),
+            (t[4] = a),
+            (t[5] = i),
+            (t[6] = l))
+          : (l = t[6]),
+        l
+      );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"),
-      (l.shouldShowKicNux = p),
-      (l.openKicNux = _),
-      (l.useKicNux = f));
+    ((l.shouldShowKicNux = p), (l.openKicNux = _), (l.useKicNux = f));
   },
   226,
 );

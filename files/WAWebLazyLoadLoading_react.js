@@ -7,6 +7,7 @@ __d(
     "WAWebSpinner.react",
     "WAWebUISpacing",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -19,32 +20,41 @@ __d(
         text: { lineHeight: "xggjnk3", color: "x1v5yvga", $$css: !0 },
       };
     function p(e) {
-      var t = e.text;
-      return d.jsxs("div", {
-        children: [
-          d.jsx("div", {
+      var t = o("react-compiler-runtime").c(4),
+        n = e.text,
+        a,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = d.jsx("div", {
             className:
               "x1pju0fl x10wjd1d x1d12jij xwodta0 x1idq3uh x396r2g xdj266r x11t971q x98jqk3 xvc5jky xue55m6 x17t9dm2 x2b8uid x1c9tyrk xeusxvb x1pahc9y x1ertn4p xilfgz5",
             children: d.jsx(o("WAWebRefreshIcon.react").RefreshIcon, {
               iconXstyle: m.circleSvg,
             }),
-          }),
-          d.jsx(
-            "div",
-            babelHelpers.extends(
-              {},
-              (u || (u = r("stylex"))).props(
-                m.text,
-                o("WAWebUISpacing").uiMargin.vert0,
-                o("WAWebUISpacing").uiMargin.horiz20,
-              ),
-              { children: t },
-            ),
-          ),
-        ],
-      });
+          })),
+          (i = (u || (u = r("stylex"))).props(
+            m.text,
+            o("WAWebUISpacing").uiMargin.vert0,
+            o("WAWebUISpacing").uiMargin.horiz20,
+          )),
+          (t[0] = a),
+          (t[1] = i))
+        : ((a = t[0]), (i = t[1]));
+      var l;
+      return (
+        t[2] !== n
+          ? ((l = d.jsxs("div", {
+              children: [
+                a,
+                d.jsx("div", babelHelpers.extends({}, i, { children: n })),
+              ],
+            })),
+            (t[2] = n),
+            (t[3] = l))
+          : (l = t[3]),
+        l
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
       var n = t.error,
         r = t.text,

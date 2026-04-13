@@ -31,6 +31,16 @@ __d(
           "is_expand_fmx_enabled_non_auto_expose",
         ) &&
         o("WAWebABProps").getABPropConfigValue(
+          "is_individual_suspicious_fmx_enabled",
+        )
+      );
+    }
+    function m() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "is_expand_fmx_enabled_non_auto_expose",
+        ) &&
+        o("WAWebABProps").getABPropConfigValue(
           "is_expand_fmx_account_age_bolded_non_auto_expose",
         )
       );
@@ -39,7 +49,8 @@ __d(
       (l.fmxLoggingEnabled = s),
       (l.isExpandFmxMexEnabled = u),
       (l.isExpandFmxAccountAgeUiEnabled = c),
-      (l.isExpandFmxAccountAgeBoldedEnabled = d));
+      (l.isSuspiciousFmxEnabled = d),
+      (l.isExpandFmxAccountAgeBoldedEnabled = m));
   },
   98,
 );

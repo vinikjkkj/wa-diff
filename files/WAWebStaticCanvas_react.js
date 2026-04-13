@@ -1,16 +1,25 @@
 __d(
   "WAWebStaticCanvas.react",
-  ["react"],
+  ["react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = e.memo;
     function c(e) {
-      var t = e.className,
-        n = e.ref;
-      return s.jsx("canvas", { className: t, ref: n });
+      var t = o("react-compiler-runtime").c(3),
+        n = e.className,
+        r = e.ref,
+        a;
+      return (
+        t[0] !== n || t[1] !== r
+          ? ((a = s.jsx("canvas", { className: n, ref: r })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a))
+          : (a = t[2]),
+        a
+      );
     }
-    c.displayName = c.name + " [from " + i.id + "]";
     var d = u(c, function (t, n) {
       return t.className === n.className;
     });

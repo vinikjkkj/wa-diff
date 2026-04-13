@@ -9,6 +9,7 @@ __d(
     "WAWebModalManager",
     "WAWebMsgType",
     "react",
+    "react-compiler-runtime",
     "useWAWebUIM",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,31 +30,37 @@ __d(
       ]);
     function g(e) {
       var t,
-        n = e.customCloseMediaModal,
-        a = e.customOpenMediaModal,
-        i = e.mediaPayload,
-        l = e.onSend,
-        u = r("useWAWebUIM")(),
+        n = o("react-compiler-runtime").c(15),
+        a = e.customCloseMediaModal,
+        i = e.customOpenMediaModal,
+        l = e.mediaPayload,
+        u = e.onSend,
+        c = r("useWAWebUIM")(),
         g = m(),
-        h = (t = i.maxItems) != null ? t : p,
-        y = c(
-          function (e) {
-            var t = e.attachments,
-              u = new (r("WAWebAttachMediaCollection"))({
+        y = (t = l.maxItems) != null ? t : p,
+        C;
+      n[0] !== a ||
+      n[1] !== i ||
+      n[2] !== y ||
+      n[3] !== l.maxFileSizeBytes ||
+      n[4] !== u
+        ? ((C = function (t) {
+            var e = t.attachments,
+              n = new (r("WAWebAttachMediaCollection"))({
                 chatParticipantCount: 1,
               }),
               c = function () {
-                u.processAttachments(t, void 0, f, h);
+                n.processAttachments(e, void 0, f, y);
               },
               d = s.jsx(r("WAWebBugReportFlowMediaView.react"), {
                 onRender: c,
-                mediaCollection: u,
+                mediaCollection: n,
                 suportedMediaTypes: f,
                 mediaMimeTypes: _,
-                maxItems: h,
-                maxFileSizeBytes: i.maxFileSizeBytes,
-                onSend: l,
-                customCloseMediaModal: n,
+                maxItems: y,
+                maxFileSizeBytes: l.maxFileSizeBytes,
+                onSend: u,
+                customCloseMediaModal: a,
               }),
               m = {
                 transition: "status-modal",
@@ -62,51 +69,75 @@ __d(
                   type: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
                 },
               };
-            a != null
-              ? a(d, m)
+            i != null
+              ? i(d, m)
               : o("WAWebModalManager").ModalManager.openMedia(d, m);
-          },
-          [n, a, h, i, l],
-        ),
-        C = c(
-          function () {
-            u == null || u.requestDismiss();
-          },
-          [u],
-        ),
-        b = c(
-          function (e) {
-            var t;
-            if (!e) {
-              C();
+          }),
+          (n[0] = a),
+          (n[1] = i),
+          (n[2] = y),
+          (n[3] = l.maxFileSizeBytes),
+          (n[4] = u),
+          (n[5] = C))
+        : (C = n[5]);
+      var b = C,
+        v;
+      n[6] !== c
+        ? ((v = function () {
+            c == null || c.requestDismiss();
+          }),
+          (n[6] = c),
+          (n[7] = v))
+        : (v = n[7]);
+      var S = v,
+        R;
+      n[8] !== S || n[9] !== b
+        ? ((R = function (t) {
+            var e;
+            if (!t) {
+              S();
               return;
             }
-            e.stopPropagation();
-            var n = Array.from((t = e.target.files) != null ? t : []);
-            (C(),
-              n.length &&
-                y({
-                  attachments: n.map(function (e) {
-                    return { file: e };
-                  }),
-                }));
-          },
-          [C, y],
-        );
+            t.stopPropagation();
+            var n = Array.from((e = t.target.files) != null ? e : []);
+            (S(), n.length && b({ attachments: n.map(h) }));
+          }),
+          (n[8] = S),
+          (n[9] = b),
+          (n[10] = R))
+        : (R = n[10]);
+      var L = R,
+        E,
+        k;
+      (n[11] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = function () {
+            var e;
+            (e = g.current) == null || e.open();
+          }),
+          (k = []),
+          (n[11] = E),
+          (n[12] = k))
+        : ((E = n[11]), (k = n[12])),
+        d(E, k));
+      var I;
       return (
-        d(function () {
-          var e;
-          (e = g.current) == null || e.open();
-        }, []),
-        s.jsx(r("WAWebFilePicker.react"), {
-          ref: g,
-          mimes: _,
-          onChange: b,
-          multiple: !0,
-        })
+        n[13] !== L
+          ? ((I = s.jsx(r("WAWebFilePicker.react"), {
+              ref: g,
+              mimes: _,
+              onChange: L,
+              multiple: !0,
+            })),
+            (n[13] = L),
+            (n[14] = I))
+          : (I = n[14]),
+        I
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    function h(e) {
+      return { file: e };
+    }
+    l.default = g;
   },
   98,
 );

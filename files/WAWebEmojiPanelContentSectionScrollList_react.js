@@ -23,6 +23,7 @@ __d(
     "err",
     "gkx",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
   ],
   function (t, n, r, o, a, i, l, s, u) {
@@ -80,42 +81,87 @@ __d(
       R = 6,
       L = 3;
     function E(e) {
-      var t = e.displayLocation,
-        n = e.focusAbove,
-        a = e.focusBelow,
-        i = e.numColumns,
-        l = e.onEmoji,
-        s = e.onEmojiFocus,
-        u = e.onRef,
-        c = e.row;
-      switch (c.kind) {
-        case "title":
-          return p.jsx("div", {
-            className: "x1xrf6ya x12xbjc7 xdx6fka xvtqlqk",
-            children: p.jsx(r("WDSText.react"), {
-              type: "Body2Emphasized",
-              colorName: "contentDeemphasized",
-              children: c.title,
-            }),
-          });
-        case "emojis":
-          return p.jsx(o("WAWebEmojiPanelContentEmojiRow.react").EmojiRow, {
-            emojis: c.emojis,
-            focusAbove: n,
-            focusBelow: a,
-            numColumns: i,
-            onEmoji: l,
-            onEmojiFocus: s,
-            ref: u,
-            allowVariantPrompt:
-              c.sectionId !== o("WAWebEmojiPanelEmojiSections").SECTIONS.RECENT,
-            displayLocation: t,
-          });
+      var t = o("react-compiler-runtime").c(13),
+        n = e.displayLocation,
+        a = e.focusAbove,
+        i = e.focusBelow,
+        l = e.numColumns,
+        s = e.onEmoji,
+        u = e.onEmojiFocus,
+        c = e.onRef,
+        d = e.row;
+      switch (d.kind) {
+        case "title": {
+          var m;
+          t[0] === Symbol.for("react.memo_cache_sentinel")
+            ? ((m = { className: "x1xrf6ya x12xbjc7 xdx6fka xvtqlqk" }),
+              (t[0] = m))
+            : (m = t[0]);
+          var _;
+          return (
+            t[1] !== d.title
+              ? ((_ = p.jsx(
+                  "div",
+                  babelHelpers.extends({}, m, {
+                    children: p.jsx(r("WDSText.react"), {
+                      type: "Body2Emphasized",
+                      colorName: "contentDeemphasized",
+                      children: d.title,
+                    }),
+                  }),
+                )),
+                (t[1] = d.title),
+                (t[2] = _))
+              : (_ = t[2]),
+            _
+          );
+        }
+        case "emojis": {
+          var f =
+              d.sectionId !== o("WAWebEmojiPanelEmojiSections").SECTIONS.RECENT,
+            g;
+          return (
+            t[3] !== n ||
+            t[4] !== a ||
+            t[5] !== i ||
+            t[6] !== l ||
+            t[7] !== s ||
+            t[8] !== u ||
+            t[9] !== c ||
+            t[10] !== d.emojis ||
+            t[11] !== f
+              ? ((g = p.jsx(
+                  o("WAWebEmojiPanelContentEmojiRow.react").EmojiRow,
+                  {
+                    emojis: d.emojis,
+                    focusAbove: a,
+                    focusBelow: i,
+                    numColumns: l,
+                    onEmoji: s,
+                    onEmojiFocus: u,
+                    ref: c,
+                    allowVariantPrompt: f,
+                    displayLocation: n,
+                  },
+                )),
+                (t[3] = n),
+                (t[4] = a),
+                (t[5] = i),
+                (t[6] = l),
+                (t[7] = s),
+                (t[8] = u),
+                (t[9] = c),
+                (t[10] = d.emojis),
+                (t[11] = f),
+                (t[12] = g))
+              : (g = t[12]),
+            g
+          );
+        }
         default:
-          throw (c.kind, r("err")("Invalid row kind: " + c.kind));
+          throw r("err")("Invalid row kind: " + d.kind);
       }
     }
-    E.displayName = E.name + " [from " + i.id + "]";
     function k(t) {
       var a,
         i = t.ref,

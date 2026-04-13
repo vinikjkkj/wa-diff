@@ -31,6 +31,7 @@ __d(
     "cr:5981",
     "gkx",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebChatInternalStatusHookWrapper",
     "useWAWebChatValues",
@@ -70,16 +71,26 @@ __d(
         inputBoxShadow: { boxShadow: "xkfubxc", $$css: !0 },
       };
     function g(e) {
-      var t = e.chat,
-        n = e.onClickDismissSpam,
-        o = e.onClickNotSpam;
-      return u.jsx(r("WAWebConversationSpam.react"), {
-        chat: t,
-        onClickNotSpam: o,
-        onClickDismissSpam: n,
-      });
+      var t = o("react-compiler-runtime").c(4),
+        n = e.chat,
+        a = e.onClickDismissSpam,
+        i = e.onClickNotSpam,
+        l;
+      return (
+        t[0] !== n || t[1] !== a || t[2] !== i
+          ? ((l = u.jsx(r("WAWebConversationSpam.react"), {
+              chat: n,
+              onClickNotSpam: i,
+              onClickDismissSpam: a,
+            })),
+            (t[0] = n),
+            (t[1] = a),
+            (t[2] = i),
+            (t[3] = l))
+          : (l = t[3]),
+        l
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
       var t = e.getComposeBlockWidth,
         n = e.onEmoji,
@@ -193,144 +204,300 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = e.isTopmostPanel,
-        n = e.questionReplyQuotedMessage,
-        a = e.ref;
-      return u.jsx(o("WAWebUimUie.react").UIE, {
-        ref: a,
-        displayName: "QuestionReplyQuotedMsg",
-        escapable: !1,
-        children: u.jsx(r("WAWebComposeBoxPopupPanel.react"), {
-          onOmit: r("WAWebNoop"),
-          isTopmostPanel: t,
-          questionType: o("WAWebQuestions.flow").QuestionType.Reply,
-          showCloseButton: !1,
-          children: u.jsx(r("WAWebQuestionReplyQuotedMessage.react"), {
-            questionReplyQuotedMessage: n,
-          }),
-        }),
-      });
-    }
-    C.displayName = C.name + " [from " + i.id + "]";
-    function b(e) {
-      var t = e.chat,
-        n = e.questionType,
-        a = e.quotedGroupJid,
+      var t = o("react-compiler-runtime").c(8),
+        n = e.isTopmostPanel,
+        a = e.questionReplyQuotedMessage,
         i = e.ref,
-        l = e.restoreFocus,
-        s = o("useWAWebSetModelValue").useSetModelValue(
-          t,
+        l;
+      t[0] !== a
+        ? ((l = u.jsx(r("WAWebQuestionReplyQuotedMessage.react"), {
+            questionReplyQuotedMessage: a,
+          })),
+          (t[0] = a),
+          (t[1] = l))
+        : (l = t[1]);
+      var s;
+      t[2] !== n || t[3] !== l
+        ? ((s = u.jsx(r("WAWebComposeBoxPopupPanel.react"), {
+            onOmit: r("WAWebNoop"),
+            isTopmostPanel: n,
+            questionType: o("WAWebQuestions.flow").QuestionType.Reply,
+            showCloseButton: !1,
+            children: l,
+          })),
+          (t[2] = n),
+          (t[3] = l),
+          (t[4] = s))
+        : (s = t[4]);
+      var c;
+      return (
+        t[5] !== i || t[6] !== s
+          ? ((c = u.jsx(o("WAWebUimUie.react").UIE, {
+              ref: i,
+              displayName: "QuestionReplyQuotedMsg",
+              escapable: !1,
+              children: s,
+            })),
+            (t[5] = i),
+            (t[6] = s),
+            (t[7] = c))
+          : (c = t[7]),
+        c
+      );
+    }
+    function b(e) {
+      var t = o("react-compiler-runtime").c(18),
+        n = e.chat,
+        a = e.questionType,
+        i = e.quotedGroupJid,
+        l = e.ref,
+        s = e.restoreFocus,
+        c = o("useWAWebSetModelValue").useSetModelValue(
+          n,
           "quotedMsgAdminGroupJid",
         ),
-        c = function (t) {
-          (t === void 0 && (t = o("WAWebUim").DismissReason.UIM_INTERACTION),
-            t !== o("WAWebUim").DismissReason.LIFECYCLE && s(null));
-        };
-      return u.jsx(o("WAWebUimUie.react").UIE, {
-        ref: i,
-        displayName: "QuotedMsgAdminGroupName",
-        escapable: !0,
-        requestFocus: l,
-        requestDismiss: c,
-        children: u.jsx(r("WAWebComposeBoxPopupPanel.react"), {
-          questionType: n,
-          onOmit: c,
-          isTopmostPanel: !0,
-          children: u.jsx(
+        d;
+      t[0] !== c
+        ? ((d = function (t) {
+            var e =
+              t === void 0 ? o("WAWebUim").DismissReason.UIM_INTERACTION : t;
+            e !== o("WAWebUim").DismissReason.LIFECYCLE && c(null);
+          }),
+          (t[0] = c),
+          (t[1] = d))
+        : (d = t[1]);
+      var m = d,
+        p =
+          n.quotedMsgAdminGroupSubject != null
+            ? n.quotedMsgAdminParentGroupJid
+            : void 0,
+        _ = n.quotedMsgAdminGroupSubject,
+        f;
+      t[2] !== i ? ((f = i.toString()), (t[2] = i), (t[3] = f)) : (f = t[3]);
+      var g;
+      t[4] !== n.quotedMsgAdminGroupSubject ||
+      t[5] !== i ||
+      t[6] !== p ||
+      t[7] !== f
+        ? ((g = u.jsx(
             o("WAWebQuotedMsgAdminGroupName.react").QuotedMsgAdminGroupName,
             {
               isComposePreview: !0,
-              quotedGroupJid: a,
-              quotedParentGroupJid:
-                t.quotedMsgAdminGroupSubject != null
-                  ? t.quotedMsgAdminParentGroupJid
-                  : void 0,
-              quotedGroupSubject: t.quotedMsgAdminGroupSubject,
+              quotedGroupJid: i,
+              quotedParentGroupJid: p,
+              quotedGroupSubject: _,
             },
-            a.toString(),
-          ),
-        }),
-      });
+            f,
+          )),
+          (t[4] = n.quotedMsgAdminGroupSubject),
+          (t[5] = i),
+          (t[6] = p),
+          (t[7] = f),
+          (t[8] = g))
+        : (g = t[8]);
+      var h;
+      t[9] !== m || t[10] !== a || t[11] !== g
+        ? ((h = u.jsx(r("WAWebComposeBoxPopupPanel.react"), {
+            questionType: a,
+            onOmit: m,
+            isTopmostPanel: !0,
+            children: g,
+          })),
+          (t[9] = m),
+          (t[10] = a),
+          (t[11] = g),
+          (t[12] = h))
+        : (h = t[12]);
+      var y;
+      return (
+        t[13] !== m || t[14] !== l || t[15] !== s || t[16] !== h
+          ? ((y = u.jsx(o("WAWebUimUie.react").UIE, {
+              ref: l,
+              displayName: "QuotedMsgAdminGroupName",
+              escapable: !0,
+              requestFocus: s,
+              requestDismiss: m,
+              children: h,
+            })),
+            (t[13] = m),
+            (t[14] = l),
+            (t[15] = s),
+            (t[16] = h),
+            (t[17] = y))
+          : (y = t[17]),
+        y
+      );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.isTopmostPanel,
-        n = e.linkPreviewData,
-        a = e.links,
-        i = e.omitLinkPreview,
-        l = e.questionType,
-        s = e.ref,
-        c = n.description,
-        d = n.inviteGrpType,
-        m = n.isLoading,
-        p = n.matchedText,
-        _ = n.thumbnail,
-        f = n.thumbnailHeight,
-        g = n.thumbnailHQ,
-        h = n.thumbnailWidth,
-        y = n.title,
-        C = o("WAWebMediaLinkPreviewContainer.react").getHostnameForUrl(p),
-        b = o(
-          "PaymentLinkPreviewWithAmountFeature",
-        ).isPaymentLinkPreviewWithAmountEnabled(n, a);
-      return u.jsx(o("WAWebUimUie.react").UIE, {
-        ref: s,
-        displayName: "ComposeBoxLinkPreview",
-        escapable: !0,
-        requestDismiss: i,
-        children: u.jsx("div", {
-          "data-testid": void 0,
-          className: "x6ikm8r",
-          children: u.jsx(r("WAWebComposeBoxPopupPanel.react"), {
-            onOmit: i,
-            bodyBackground: !1,
-            isTopmostPanel: t,
-            questionType: l,
-            showCloseButton: !b,
-            children: u.jsx(r("WAWebMediaLinkPreview.react"), {
-              title: y,
-              compose: !0,
-              thumbnailJpegHQ: g,
-              matchedText: C != null ? C : p,
-              description: c,
-              thumbnailJpeg: _,
-              inviteGrpType: d,
-              isLoading: m,
-              thumbnailJpegWidth: h,
-              thumbnailJpegHeight: f,
-              linkPreviewData: n,
-              links: a,
-            }),
-          }),
-        }),
-      });
-    }
-    v.displayName = v.name + " [from " + i.id + "]";
-    function S(e) {
-      var t = e.ctwaContextData,
-        n = e.ctwaContextLinkData,
-        a = e.isTopmostPanel,
-        i = e.omitCtwa,
-        l = e.questionType,
-        s = e.ref;
-      return u.jsx(o("WAWebUimUie.react").UIE, {
-        ref: s,
-        displayName: "ComposeBoxCtwaContextPreview",
-        escapable: !0,
-        requestDismiss: i,
-        children: u.jsx(r("WAWebComposeBoxPopupPanel.react"), {
-          onOmit: i,
-          questionType: l,
-          isTopmostPanel: a,
-          children: u.jsx(r("WAWebBizCtwaContextImagePreview.react"), {
-            context: t,
-            sourceUrl: n.sourceUrl,
+      var t = o("react-compiler-runtime").c(28),
+        n = e.isTopmostPanel,
+        a = e.linkPreviewData,
+        i = e.links,
+        l = e.omitLinkPreview,
+        s = e.questionType,
+        c = e.ref,
+        d = a.description,
+        m = a.inviteGrpType,
+        p = a.isLoading,
+        _ = a.matchedText,
+        f = a.thumbnail,
+        g = a.thumbnailHeight,
+        h = a.thumbnailHQ,
+        y = a.thumbnailWidth,
+        C = a.title,
+        b;
+      t[0] !== _
+        ? ((b = o("WAWebMediaLinkPreviewContainer.react").getHostnameForUrl(_)),
+          (t[0] = _),
+          (t[1] = b))
+        : (b = t[1]);
+      var v = b,
+        S;
+      t[2] !== a || t[3] !== i
+        ? ((S = o(
+            "PaymentLinkPreviewWithAmountFeature",
+          ).isPaymentLinkPreviewWithAmountEnabled(a, i)),
+          (t[2] = a),
+          (t[3] = i),
+          (t[4] = S))
+        : (S = t[4]);
+      var R = S,
+        L;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = { className: "x6ikm8r" }), (t[5] = L))
+        : (L = t[5]);
+      var E = !R,
+        k = v != null ? v : _,
+        I;
+      t[6] !== d ||
+      t[7] !== m ||
+      t[8] !== p ||
+      t[9] !== a ||
+      t[10] !== i ||
+      t[11] !== k ||
+      t[12] !== f ||
+      t[13] !== h ||
+      t[14] !== g ||
+      t[15] !== y ||
+      t[16] !== C
+        ? ((I = u.jsx(r("WAWebMediaLinkPreview.react"), {
+            title: C,
             compose: !0,
-          }),
-        }),
-      });
+            thumbnailJpegHQ: h,
+            matchedText: k,
+            description: d,
+            thumbnailJpeg: f,
+            inviteGrpType: m,
+            isLoading: p,
+            thumbnailJpegWidth: y,
+            thumbnailJpegHeight: g,
+            linkPreviewData: a,
+            links: i,
+          })),
+          (t[6] = d),
+          (t[7] = m),
+          (t[8] = p),
+          (t[9] = a),
+          (t[10] = i),
+          (t[11] = k),
+          (t[12] = f),
+          (t[13] = h),
+          (t[14] = g),
+          (t[15] = y),
+          (t[16] = C),
+          (t[17] = I))
+        : (I = t[17]);
+      var T;
+      t[18] !== n || t[19] !== l || t[20] !== s || t[21] !== E || t[22] !== I
+        ? ((T = u.jsx(
+            "div",
+            babelHelpers.extends({ "data-testid": void 0 }, L, {
+              children: u.jsx(r("WAWebComposeBoxPopupPanel.react"), {
+                onOmit: l,
+                bodyBackground: !1,
+                isTopmostPanel: n,
+                questionType: s,
+                showCloseButton: E,
+                children: I,
+              }),
+            }),
+          )),
+          (t[18] = n),
+          (t[19] = l),
+          (t[20] = s),
+          (t[21] = E),
+          (t[22] = I),
+          (t[23] = T))
+        : (T = t[23]);
+      var D;
+      return (
+        t[24] !== l || t[25] !== c || t[26] !== T
+          ? ((D = u.jsx(o("WAWebUimUie.react").UIE, {
+              ref: c,
+              displayName: "ComposeBoxLinkPreview",
+              escapable: !0,
+              requestDismiss: l,
+              children: T,
+            })),
+            (t[24] = l),
+            (t[25] = c),
+            (t[26] = T),
+            (t[27] = D))
+          : (D = t[27]),
+        D
+      );
     }
-    S.displayName = S.name + " [from " + i.id + "]";
+    function S(e) {
+      var t = o("react-compiler-runtime").c(12),
+        n = e.ctwaContextData,
+        a = e.ctwaContextLinkData,
+        i = e.isTopmostPanel,
+        l = e.omitCtwa,
+        s = e.questionType,
+        c = e.ref,
+        d;
+      t[0] !== n || t[1] !== a.sourceUrl
+        ? ((d = u.jsx(r("WAWebBizCtwaContextImagePreview.react"), {
+            context: n,
+            sourceUrl: a.sourceUrl,
+            compose: !0,
+          })),
+          (t[0] = n),
+          (t[1] = a.sourceUrl),
+          (t[2] = d))
+        : (d = t[2]);
+      var m;
+      t[3] !== i || t[4] !== l || t[5] !== s || t[6] !== d
+        ? ((m = u.jsx(r("WAWebComposeBoxPopupPanel.react"), {
+            onOmit: l,
+            questionType: s,
+            isTopmostPanel: i,
+            children: d,
+          })),
+          (t[3] = i),
+          (t[4] = l),
+          (t[5] = s),
+          (t[6] = d),
+          (t[7] = m))
+        : (m = t[7]);
+      var p;
+      return (
+        t[8] !== l || t[9] !== c || t[10] !== m
+          ? ((p = u.jsx(o("WAWebUimUie.react").UIE, {
+              ref: c,
+              displayName: "ComposeBoxCtwaContextPreview",
+              escapable: !0,
+              requestDismiss: l,
+              children: m,
+            })),
+            (t[8] = l),
+            (t[9] = c),
+            (t[10] = m),
+            (t[11] = p))
+          : (p = t[11]),
+        p
+      );
+    }
     function R(t, a) {
       var i,
         l,

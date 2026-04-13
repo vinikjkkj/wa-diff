@@ -311,13 +311,13 @@ __d(
         },
         _e = p.jsx(r("WDSMenu.react"), {
           useMaxWidth: !1,
-          children: (function () {
-            var e = [],
-              t = o("WAWebStateUtils").unproxy(l);
+          children: (function (e, t, n) {
+            var a = [],
+              i = o("WAWebStateUtils").unproxy(l);
             if (
-              (o("WAWebMsgGetters").getIsSentByMe(t) &&
-                !o("WAWebFrontendMsgGetters").getAsRevoked(t.unsafe()) &&
-                e.push(
+              (o("WAWebMsgGetters").getIsSentByMe(i) &&
+                !o("WAWebFrontendMsgGetters").getAsRevoked(i.unsafe()) &&
+                a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     {
@@ -329,8 +329,8 @@ __d(
                     "info",
                   ),
                 ),
-              o("WAWebMsgReply").canReplyMsg(t.unsafe()) &&
-                e.push(
+              o("WAWebMsgReply").canReplyMsg(i.unsafe()) &&
+                a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     {
@@ -342,11 +342,11 @@ __d(
                     "reply",
                   ),
                 ),
-              (o("WAWebMsgReply").canPrivateReply(t.unsafe()) ||
+              (o("WAWebMsgReply").canPrivateReply(i.unsafe()) ||
                 o("WAWebMsgReply").canPrivateReplyInRestrictedGrp(
-                  t.unsafe(),
+                  i.unsafe(),
                 )) &&
-                e.push(
+                a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     {
@@ -362,7 +362,7 @@ __d(
               o("WAWebMsgGetters").getIsGroupMsg(l) &&
                 l.author &&
                 !o("WAWebMsgGetters").getIsSentByMe(l) &&
-                e.push(
+                a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     {
@@ -378,7 +378,7 @@ __d(
                   ),
                 ),
               o("WAWebReactionsUtils").canReactToMessage(G) &&
-                e.push(
+                a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     {
@@ -397,8 +397,8 @@ __d(
                     "sendReaction",
                   ),
                 ),
-              o("WAWebMsgActionCapability").canForwardMsg(t.unsafe()) &&
-                e.push(
+              o("WAWebMsgActionCapability").canForwardMsg(i.unsafe()) &&
+                a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     {
@@ -416,9 +416,9 @@ __d(
                     "forward",
                   ),
                 ),
-              o("WAWebMsgActionCapability").canStarMsg(t.unsafe()) &&
-                (t.star
-                  ? e.push(
+              o("WAWebMsgActionCapability").canStarMsg(i.unsafe()) &&
+                (i.star
+                  ? a.push(
                       p.jsx(
                         r("WDSMenuItem.react"),
                         {
@@ -433,7 +433,7 @@ __d(
                         "star",
                       ),
                     )
-                  : e.push(
+                  : a.push(
                       p.jsx(
                         r("WDSMenuItem.react"),
                         {
@@ -447,11 +447,11 @@ __d(
                     )),
               o("WAWebMiscGatingUtils").isFavoriteStickersEnabled())
             ) {
-              var n;
+              var u;
               o("WAWebFavoriteStickerAction").isStickerFilehashFavorited(
                 l.filehash,
               )
-                ? e.push(
+                ? a.push(
                     p.jsx(
                       r("WDSMenuItem.react"),
                       {
@@ -467,9 +467,9 @@ __d(
                     G.stickerPremiumStatus,
                   ) &&
                   r("WAWebAuraGating").canUsePremiumSticker(
-                    (n = G.mediaData) == null ? void 0 : n.stickerPremiumStatus,
+                    (u = G.mediaData) == null ? void 0 : u.stickerPremiumStatus,
                   ) &&
-                  e.push(
+                  a.push(
                     p.jsx(
                       r("WDSMenuItem.react"),
                       {
@@ -482,30 +482,30 @@ __d(
                     ),
                   );
             }
-            var a = s._(/*BTDS*/ "Copy sticker image"),
-              i = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
+            var c = s._(/*BTDS*/ "Copy sticker image"),
+              d = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
                 l.filehash,
               );
             if (
               o("WAWebStickerUtils").getStickerFileType(
-                l.mediaData.mimetype,
+                (e = l.mediaData) == null ? void 0 : e.mimetype,
               ) === o("WAWebStickerUtils").StickerFileType.LOTTIE
             ) {
-              var u = o(
+              var m = o(
                 "WAWebInMemoryLottieStickerCache",
               ).InMemoryLottieStickerCache.get(l.filehash);
-              u != null &&
+              m != null &&
                 o("WAWebCopyToClipboard").supportsCopyImageToClipboard() &&
-                e.push(
+                a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     {
                       Icon: r("WDSIconIcContentCopy.react"),
-                      title: a,
+                      title: c,
                       onPress: function () {
                         o(
                           "WAWebCopyStickerToClipboard",
-                        ).copyLottieStickerToClipboard(u);
+                        ).copyLottieStickerToClipboard(m);
                       },
                       testid: void 0,
                     },
@@ -513,50 +513,49 @@ __d(
                   ),
                 );
             } else
-              i != null &&
+              d != null &&
                 o("WAWebCopyToClipboard").supportsCopyImageToClipboard() &&
-                e.push(
+                a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     {
                       Icon: r("WDSIconIcContentCopy.react"),
-                      title: a,
+                      title: c,
                       onPress: function () {
-                        o("WAWebCopyToClipboard").copyImageToClipboard(i);
+                        o("WAWebCopyToClipboard").copyImageToClipboard(d);
                       },
                       testid: void 0,
                     },
                     "copy-favorite-sticker",
                   ),
                 );
-            var c = l.mediaData,
-              d = c.isFirstParty,
-              m = c.stickerPackId;
+            var _ = (t = l.mediaData) == null ? void 0 : t.isFirstParty,
+              f = (n = l.mediaData) == null ? void 0 : n.stickerPackId;
             return (
-              m != null &&
-                d === !0 &&
-                e.push(
+              f != null &&
+                _ === !0 &&
+                a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     {
                       Icon: r("WDSIconWdsIcSticker.react"),
                       title: s._(/*BTDS*/ "View pack"),
                       onPress: function () {
-                        return o("WAWebCmd").Cmd.openStickerPack(m);
+                        return o("WAWebCmd").Cmd.openStickerPack(f);
                       },
                       testid: void 0,
                     },
                     "open-sticker-pack",
                   ),
                 ),
-              e.push(
+              a.push(
                 p.jsx(
                   r("WDSMenuItem.react"),
                   { type: "separator" },
                   "separator",
                 ),
               ),
-              e.push(
+              a.push(
                 p.jsx(
                   r("WDSMenuItem.react"),
                   {
@@ -570,20 +569,20 @@ __d(
                 ),
               ),
               o("WAWebDebugGatingUtils").msgDebugMenuItemsEnabled() &&
-                (e.push(
+                (a.push(
                   p.jsx(
                     r("WDSMenuItem.react"),
                     { type: "separator" },
                     "debug-separator",
                   ),
                 ),
-                e.push.apply(
-                  e,
+                a.push.apply(
+                  a,
                   o(
                     "WAWebMessageDebugMenuItems.react",
                   ).getWAWebMessageDebugMenuItems(G),
                 )),
-              e
+              a
             );
           })(),
         }),

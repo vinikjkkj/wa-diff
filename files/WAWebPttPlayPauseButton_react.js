@@ -6,6 +6,7 @@ __d(
     "WDSIconIcPlayArrowFilled.react",
     "WDSMenuBarItem.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -31,48 +32,95 @@ __d(
         outOfChatEnabled: { ":hover_opacity": "x5z6fxw", $$css: !0 },
       };
     function p(t) {
-      var n = t.ref,
-        o = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        a = o.disabled,
-        i = a === void 0 ? !1 : a,
-        l = o.onConfirm,
-        c = o.paused,
-        p = o.tabOrder,
-        _ = o.theme,
-        f = function (t) {
-          t != null && l(t);
-        },
-        g = c ? s._(/*BTDS*/ "Play") : s._(/*BTDS*/ "Pause");
-      return d.jsx(
-        "div",
-        babelHelpers.extends(
-          { "aria-label": g },
-          (u || (u = r("stylex"))).props([
-            _ === "compose-box" && m.composeBox,
-            _ === "compose-box" && !i && m.composeBoxEnabled,
-            _ === "compose-box" && m.composeBoxEnabledRefresh,
-            _ === "out-of-chat-playback" && m.outOfChat,
-            _ === "out-of-chat-playback" && !i && m.outOfChatEnabled,
-          ]),
-          {
-            children: d.jsx(r("WDSMenuBarItem.react"), {
-              ref: n,
-              testid: void 0,
-              onClick: f,
-              disabled: i,
-              tabOrder: p,
-              title: g,
-              icon: r(
-                c
-                  ? "WDSIconIcPlayArrowFilled.react"
-                  : "WDSIconIcPauseFilled.react",
-              ),
-            }),
-          },
+      var n = o("react-compiler-runtime").c(21),
+        a,
+        i;
+      n[0] !== t
+        ? ((i = t.ref),
+          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i))
+        : ((a = n[1]), (i = n[2]));
+      var l = a,
+        c = l.disabled,
+        p = l.onConfirm,
+        _ = l.paused,
+        f = l.tabOrder,
+        g = l.theme,
+        h = c === void 0 ? !1 : c,
+        y;
+      n[3] !== p
+        ? ((y = function (t) {
+            t != null && p(t);
+          }),
+          (n[3] = p),
+          (n[4] = y))
+        : (y = n[4]);
+      var C = y,
+        b;
+      n[5] !== _
+        ? ((b = _ ? s._(/*BTDS*/ "Play") : s._(/*BTDS*/ "Pause")),
+          (n[5] = _),
+          (n[6] = b))
+        : (b = n[6]);
+      var v = b,
+        S;
+      n[7] !== h || n[8] !== g
+        ? ((S = (u || (u = r("stylex"))).props([
+            g === "compose-box" && m.composeBox,
+            g === "compose-box" && !h && m.composeBoxEnabled,
+            g === "compose-box" && m.composeBoxEnabledRefresh,
+            g === "out-of-chat-playback" && m.outOfChat,
+            g === "out-of-chat-playback" && !h && m.outOfChatEnabled,
+          ])),
+          (n[7] = h),
+          (n[8] = g),
+          (n[9] = S))
+        : (S = n[9]);
+      var R = r(
+          _ ? "WDSIconIcPlayArrowFilled.react" : "WDSIconIcPauseFilled.react",
         ),
+        L;
+      n[10] !== h ||
+      n[11] !== C ||
+      n[12] !== v ||
+      n[13] !== i ||
+      n[14] !== R ||
+      n[15] !== f
+        ? ((L = d.jsx(r("WDSMenuBarItem.react"), {
+            ref: i,
+            testid: void 0,
+            onClick: C,
+            disabled: h,
+            tabOrder: f,
+            title: v,
+            icon: R,
+          })),
+          (n[10] = h),
+          (n[11] = C),
+          (n[12] = v),
+          (n[13] = i),
+          (n[14] = R),
+          (n[15] = f),
+          (n[16] = L))
+        : (L = n[16]);
+      var E;
+      return (
+        n[17] !== v || n[18] !== S || n[19] !== L
+          ? ((E = d.jsx(
+              "div",
+              babelHelpers.extends({ "aria-label": v }, S, { children: L }),
+            )),
+            (n[17] = v),
+            (n[18] = S),
+            (n[19] = L),
+            (n[20] = E))
+          : (E = n[20]),
+        E
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

@@ -29,6 +29,7 @@ __d(
     "WDSIconIcFormatListBulleted.react",
     "qpl",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebUIM",
   ],
@@ -109,12 +110,20 @@ __d(
         : e.buttonText;
     }
     function f(e) {
-      return c.jsx(
-        r("WDSIconIcFormatListBulleted.react"),
-        babelHelpers.extends({}, e, { width: 20, height: 20 }),
+      var t = o("react-compiler-runtime").c(2),
+        n;
+      return (
+        t[0] !== e
+          ? ((n = c.jsx(
+              r("WDSIconIcFormatListBulleted.react"),
+              babelHelpers.extends({}, e, { width: 20, height: 20 }),
+            )),
+            (t[0] = e),
+            (t[1] = n))
+          : (n = t[1]),
+        n
       );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       var t = e.listType;
       if (

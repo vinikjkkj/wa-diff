@@ -5,6 +5,7 @@ __d(
     "WAWebMenu.react",
     "WAWebPopover.react",
     "react",
+    "react-compiler-runtime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
@@ -53,79 +54,169 @@ __d(
       },
       m = ["multi-select", "submenu", "switch"];
     function p(t) {
-      var n = t.children,
-        r = t.initHandling,
-        a = t.material,
-        i = t.maxHeight,
-        l = t.minWidth,
-        s = t.xstyle,
-        u = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        m = o("WAWebPopover.react").usePopoverElement(
-          babelHelpers.extends({}, u, {
-            initHandling: r != null ? r : "click",
+      var n = o("react-compiler-runtime").c(20),
+        r,
+        a,
+        i,
+        l,
+        s,
+        u;
+      if (n[0] !== t) {
+        var m = t.children,
+          p = t.initHandling,
+          _ = t.material,
+          f = t.maxHeight,
+          g = t.minWidth,
+          h = t.xstyle,
+          y = babelHelpers.objectWithoutPropertiesLoose(t, e);
+        ((r = m),
+          (a = p),
+          (i = f),
+          (l = g),
+          (u = h),
+          (s = y),
+          (n[0] = t),
+          (n[1] = r),
+          (n[2] = a),
+          (n[3] = i),
+          (n[4] = l),
+          (n[5] = s),
+          (n[6] = u));
+      } else
+        ((r = n[1]),
+          (a = n[2]),
+          (i = n[3]),
+          (l = n[4]),
+          (s = n[5]),
+          (u = n[6]));
+      var C = a != null ? a : "click",
+        b;
+      n[7] !== i || n[8] !== l
+        ? ((b = { maxHeight: i, minWidth: l }),
+          (n[7] = i),
+          (n[8] = l),
+          (n[9] = b))
+        : (b = n[9]);
+      var v;
+      n[10] !== u
+        ? ((v = [d.container, d.material, d.scrollable, u]),
+          (n[10] = u),
+          (n[11] = v))
+        : (v = n[11]);
+      var S;
+      n[12] !== r || n[13] !== b || n[14] !== v
+        ? ((S = c.jsx(o("WAWebFlex.react").FlexItem, {
+            style: b,
+            xstyle: v,
+            children: r,
+          })),
+          (n[12] = r),
+          (n[13] = b),
+          (n[14] = v),
+          (n[15] = S))
+        : (S = n[15]);
+      var R;
+      n[16] !== s || n[17] !== C || n[18] !== S
+        ? ((R = babelHelpers.extends({}, s, {
+            initHandling: C,
             dismissable: !0,
             arrowXStyle: d.arrow,
-            element: c.jsx(o("WAWebFlex.react").FlexItem, {
-              style: { maxHeight: i, minWidth: l },
-              xstyle: [d.container, d.material, d.scrollable, s],
-              children: n,
-            }),
-          }),
-        );
-      return m;
+            element: S,
+          })),
+          (n[16] = s),
+          (n[17] = C),
+          (n[18] = S),
+          (n[19] = R))
+        : (R = n[19]);
+      var L = o("WAWebPopover.react").usePopoverElement(R);
+      return L;
     }
     function _(e) {
-      var t = e.children,
-        n = e.initHandling,
-        r = e.initialActiveOptionId,
-        a = e.material,
-        i = e.menuRef,
-        l = e.onSelect,
-        u = e.useLegacyDesign,
-        d = e.xstyle,
-        _ = babelHelpers.objectWithoutPropertiesLoose(e, s),
-        f = p(
-          babelHelpers.extends({}, _, {
-            initHandling: n != null ? n : "click",
-            dismissable: !0,
-            material: a,
-            children: c.jsx(o("WAWebMenu.react").WAWebMenu, {
-              initialActiveOptionId: r,
-              material: a,
-              onSelect: g,
-              ref: i,
-              useLegacyDesign: u,
-              children: t,
-            }),
-            xstyle: d,
+      var t = o("react-compiler-runtime").c(10),
+        n,
+        r,
+        a,
+        i,
+        l,
+        u,
+        d,
+        _,
+        f;
+      t[0] !== e
+        ? ((n = e.children),
+          (r = e.initHandling),
+          (a = e.initialActiveOptionId),
+          (i = e.material),
+          (l = e.menuRef),
+          (u = e.onSelect),
+          (_ = e.useLegacyDesign),
+          (f = e.xstyle),
+          (d = babelHelpers.objectWithoutPropertiesLoose(e, s)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r),
+          (t[3] = a),
+          (t[4] = i),
+          (t[5] = l),
+          (t[6] = u),
+          (t[7] = d),
+          (t[8] = _),
+          (t[9] = f))
+        : ((n = t[1]),
+          (r = t[2]),
+          (a = t[3]),
+          (i = t[4]),
+          (l = t[5]),
+          (u = t[6]),
+          (d = t[7]),
+          (_ = t[8]),
+          (f = t[9]));
+      var g = p(
+        babelHelpers.extends({}, d, {
+          initHandling: r != null ? r : "click",
+          dismissable: !0,
+          material: i,
+          children: c.jsx(o("WAWebMenu.react").WAWebMenu, {
+            initialActiveOptionId: a,
+            material: i,
+            onSelect: h,
+            ref: l,
+            useLegacyDesign: _,
+            children: n,
           }),
-        );
-      function g(e, t) {
+          xstyle: f,
+        }),
+      );
+      function h(e, t) {
         var n = t.type;
-        (l == null || l(e), m.includes(n) === !1 && f.hidePopover());
+        (u == null || u(e), m.includes(n) === !1 && g.hidePopover());
       }
-      return f;
+      return g;
     }
     function f(e) {
       var t = p(e),
         n = t.popover;
       return n;
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       var t = _(e),
         n = t.popover;
       return n;
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
+      var t = o("react-compiler-runtime").c(2);
       r("vulture")("U1frJLJJ67h208atpcYCc7OChAA=");
-      var t = _(babelHelpers.extends({}, e, { initHandling: "contextmenu" })),
-        n = t.popover;
-      return n;
+      var n;
+      t[0] !== e
+        ? ((n = babelHelpers.extends({}, e, { initHandling: "contextmenu" })),
+          (t[0] = e),
+          (t[1] = n))
+        : (n = t[1]);
+      var a = _(n),
+        i = a.popover;
+      return i;
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"),
-      (l.PopoverAlignment = o("WAWebPopover.react").PopoverAlignment),
+    ((l.PopoverAlignment = o("WAWebPopover.react").PopoverAlignment),
       (l.PopoverPosition = o("WAWebPopover.react").PopoverPosition),
       (l.useDropdownV2 = p),
       (l.DropdownV2 = f),

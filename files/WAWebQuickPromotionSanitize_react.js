@@ -1,6 +1,6 @@
 __d(
   "WAWebQuickPromotionSanitize.react",
-  ["dompurify", "react"],
+  ["dompurify", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
@@ -11,10 +11,21 @@ __d(
       });
     }
     function c(e) {
-      var t = e.dirty;
-      return s.jsx("span", { dangerouslySetInnerHTML: { __html: u(t) } });
+      var t = o("react-compiler-runtime").c(4),
+        n = e.dirty,
+        r;
+      t[0] !== n ? ((r = u(n)), (t[0] = n), (t[1] = r)) : (r = t[1]);
+      var a;
+      return (
+        t[2] !== r
+          ? ((a = s.jsx("span", { dangerouslySetInnerHTML: { __html: r } })),
+            (t[2] = r),
+            (t[3] = a))
+          : (a = t[3]),
+        a
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

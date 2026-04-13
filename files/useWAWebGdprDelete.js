@@ -1,11 +1,30 @@
 __d(
   "useWAWebGdprDelete",
-  ["WAWap", "WAWebGdprHookUtils", "useWAWebGdprStatus", "useWAWebSendIq"],
+  [
+    "WAWap",
+    "WAWebGdprHookUtils",
+    "react-compiler-runtime",
+    "useWAWebGdprStatus",
+    "useWAWebSendIq",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return o("useWAWebSendIq").useSendIq(
-        o("WAWebGdprHookUtils").getGdprIq(o("WAWap").generateId(), e, "delete"),
-        o("useWAWebGdprStatus").GdprStatusWapParser,
+      var t = o("react-compiler-runtime").c(2),
+        n;
+      return (
+        t[0] !== e
+          ? ((n = o("WAWebGdprHookUtils").getGdprIq(
+              o("WAWap").generateId(),
+              e,
+              "delete",
+            )),
+            (t[0] = e),
+            (t[1] = n))
+          : (n = t[1]),
+        o("useWAWebSendIq").useSendIq(
+          n,
+          o("useWAWebGdprStatus").GdprStatusWapParser,
+        )
       );
     }
     l.useGdprDelete = e;

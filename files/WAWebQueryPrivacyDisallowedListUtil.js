@@ -5,19 +5,20 @@ __d(
     "WAWebPrivacyGatingUtils",
     "WAWebQueryPrivacyDisallowedListLidJob",
     "WAWebQueryPrivacyDisallowedListMexJob",
+    "WAWebQueryPrivacyDisallowedListPnJob",
     "WAWebSchemaPrivacyDisallowedList",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
+    var e, s, u;
+    function c(e) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (o("WAWebPrivacyGatingUtils").isMexPrivacyContactListEnabled()) {
             var n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
             if (n != null)
@@ -40,32 +41,51 @@ __d(
                   .sendLogs("queryPrivacyDisallowedList-with-mex-failed");
               }
           }
-          try {
-            return yield o(
-              "WAWebQueryPrivacyDisallowedListLidJob",
-            ).queryPrivacyDisallowedListLid(t);
-          } catch (e) {
-            throw (
+          if (m(t))
+            try {
+              return yield o(
+                "WAWebQueryPrivacyDisallowedListLidJob",
+              ).queryPrivacyDisallowedListLid(t);
+            } catch (e) {
               o("WALogger")
                 .ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[queryPrivacyDisallowedList] lid failed ",
                       " ",
+                      " -> pn",
+                    ])),
+                  t,
+                  e,
+                )
+                .sendLogs("queryPrivacyDisallowedList-with-lid-failed");
+            }
+          try {
+            return yield o(
+              "WAWebQueryPrivacyDisallowedListPnJob",
+            ).queryPrivacyDisallowedListPn(t);
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[queryPrivacyDisallowedList] pn failed ",
+                      " ",
                       "",
                     ])),
                   t,
                   e,
                 )
-                .sendLogs("queryPrivacyDisallowedList-with-lid-failed"),
+                .sendLogs("queryPrivacyDisallowedList-with-pn-failed"),
               e
             );
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e) {
+    function m(e) {
       return r("justknobx")._("5326")
         ? !1
         : e ===
@@ -99,8 +119,8 @@ __d(
                     );
                   })();
     }
-    ((l.queryPrivacyDisallowedList = u),
-      (l.isPrivacyDisallowedListTypeLidMigrated = d));
+    ((l.queryPrivacyDisallowedList = c),
+      (l.isPrivacyDisallowedListTypeLidMigrated = m));
   },
   98,
 );

@@ -18,7 +18,8 @@ __d(
     "WaWebPDFNCommonUtils",
     "asyncToGeneratorRuntime",
     "react",
-    "useVisibility",
+    "react-compiler-runtime",
+    "useWAWebDisclosureShownTracking",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l) {
@@ -168,56 +169,25 @@ __d(
             );
           }
         }, []));
-      var B = r("useVisibility")(),
-        W = B[0],
-        q = B[1],
-        U = m(!1);
-      if (
-        (d(
-          function () {
-            if (q && I != null && !U.current) {
-              var e = _.toString(),
-                t = o(
-                  "WAWebUserDisclosureCollection",
-                ).UserDisclosureCollection.get(e),
-                n = o("WAWebTos").TosManager.getState(e);
-              if (
-                (t == null ? void 0 : t.stage) != null ||
-                n === "SHOWN" ||
-                n === "ACCEPTED"
-              )
-                return;
-              ((U.current = !0),
-                o(
-                  "WAWebSetUserDisclosureStageAction",
-                ).updateUserDisclosureStateAction(
-                  _,
-                  o("WAWebPDFNTypes").DISCLOSURE_STAGE.SHOWN_0,
-                  {
-                    disclosureContentVersion:
-                      I == null ? void 0 : I.policyVersion,
-                  },
-                ));
-            }
-          },
-          [q, I, _],
-        ),
-        !L && x)
-      )
-        return N;
+      var B = r("useWAWebDisclosureShownTracking")({
+        noticeId: _.toString(),
+        disclosureContentVersion: I == null ? void 0 : I.policyVersion,
+        ready: I != null,
+      });
+      if (!L && x) return N;
       if (L)
         return s.jsx(o("WAWebModal.react").Modal, {
           children: s.jsx(o("WAWebEmptyState.react").Loading, {}),
         });
       if (v) return (o("WAWebModalManager").ModalManager.close(), g(), null);
-      var V =
+      var W =
         a === o("WaWebPDFNCommonUtils").PdfnNoticeType.NonBlocking ? A : O;
       return s.jsx("div", {
-        ref: W,
+        ref: B,
         children: s.jsx(f, {
           pdfnNotice: I,
           handleCancel: function () {
-            return void V();
+            return void W();
           },
           handleOk: function () {
             return void A();
@@ -228,24 +198,36 @@ __d(
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = e.handleCancel,
-        n = e.handleOk,
-        a = e.pdfnNotice,
-        i = e.theme,
-        l = i === void 0 ? o("WaWebPDFNCommonUtils").PdfnTheme.WhatsApp : i;
-      return l === o("WaWebPDFNCommonUtils").PdfnTheme.WhatsApp
-        ? s.jsx(r("WAWebPDFNWhatsAppModal.react"), {
-            pdfnNotice: a,
-            handleCancel: t,
-            handleOk: n,
-          })
-        : s.jsx(o("WAWebPDFNMetaModalLoadable").WAWebPDFNMetaModalLoadable, {
-            pdfnNotice: a,
-            onAccept: n,
-            onCancel: t,
-          });
+      var t = o("react-compiler-runtime").c(5),
+        n = e.handleCancel,
+        a = e.handleOk,
+        i = e.pdfnNotice,
+        l = e.theme,
+        u = l === void 0 ? o("WaWebPDFNCommonUtils").PdfnTheme.WhatsApp : l,
+        c;
+      return (
+        t[0] !== n || t[1] !== a || t[2] !== i || t[3] !== u
+          ? ((c =
+              u === o("WaWebPDFNCommonUtils").PdfnTheme.WhatsApp
+                ? s.jsx(r("WAWebPDFNWhatsAppModal.react"), {
+                    pdfnNotice: i,
+                    handleCancel: n,
+                    handleOk: a,
+                  })
+                : s.jsx(
+                    o("WAWebPDFNMetaModalLoadable").WAWebPDFNMetaModalLoadable,
+                    { pdfnNotice: i, onAccept: a, onCancel: n },
+                  )),
+            (t[0] = n),
+            (t[1] = a),
+            (t[2] = i),
+            (t[3] = u),
+            (t[4] = c))
+          : (c = t[4]),
+        c
+      );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   98,
 );

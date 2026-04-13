@@ -11,6 +11,7 @@ __d(
     "WAWebModelStats",
     "WAWebWamMemoryStat",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -20,54 +21,109 @@ __d(
       d = c.useEffect,
       m = c.useState;
     function p(e) {
-      var t = e.data,
-        n = e.header,
-        r = t[0],
-        o = babelHelpers.arrayLikeToArray(t).slice(1),
-        a = o.map(function (e, t) {
-          return u.createElement(
+      var t = o("react-compiler-runtime").c(14),
+        n = e.data,
+        r = e.header,
+        a,
+        i;
+      t[0] !== n
+        ? ((a = n[0]),
+          (i = babelHelpers.arrayLikeToArray(n).slice(1)),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = i))
+        : ((a = t[1]), (i = t[2]));
+      var l;
+      t[3] !== r || t[4] !== i
+        ? ((l = i.map(function (e, t) {
+            return u.createElement(
+              "div",
+              babelHelpers.extends(
+                {},
+                {
+                  0: { className: "x9fslfs" },
+                  1: { className: "xpvyfi4 x9fslfs x117nqv4" },
+                }[!!r << 0],
+                { key: t },
+              ),
+              e,
+            );
+          })),
+          (t[3] = r),
+          (t[4] = i),
+          (t[5] = l))
+        : (l = t[5]);
+      var s = l,
+        c,
+        d;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = { className: "x78zum5 x1q0g3np" }),
+          (d = { className: "x13ie5k6 xjx09e3 x1hr2gdg" }),
+          (t[6] = c),
+          (t[7] = d))
+        : ((c = t[6]), (d = t[7]));
+      var m;
+      t[8] !== a
+        ? ((m = u.jsxs(
             "div",
-            babelHelpers.extends(
-              {},
-              {
-                0: { className: "x9fslfs" },
-                1: { className: "xpvyfi4 x9fslfs x117nqv4" },
-              }[!!n << 0],
-              { key: t },
-            ),
-            e,
-          );
-        });
-      return u.jsxs(
-        "div",
-        {
-          className: "x78zum5 x1q0g3np",
-          children: [
-            u.jsxs("div", {
-              className: "x13ie5k6 xjx09e3 x1hr2gdg",
-              children: [" ", r, " "],
-            }),
-            a,
-          ],
-        },
-        r,
+            babelHelpers.extends({}, d, { children: [" ", a, " "] }),
+          )),
+          (t[8] = a),
+          (t[9] = m))
+        : (m = t[9]);
+      var p;
+      return (
+        t[10] !== s || t[11] !== a || t[12] !== m
+          ? ((p = u.jsxs(
+              "div",
+              babelHelpers.extends({}, c, { children: [m, s] }),
+              a,
+            )),
+            (t[10] = s),
+            (t[11] = a),
+            (t[12] = m),
+            (t[13] = p))
+          : (p = t[13]),
+        p
       );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = e.data,
-        n = e.headers,
-        r = u.jsx(p, { data: [" "].concat(n), header: !0 }, "h"),
-        o = t.map(function (e, t) {
-          return u.jsx(p, { data: e }, t);
-        });
-      return u.jsxs("div", {
-        className: "x78zum5 x1iyjqo2 xdt5ytf",
-        children: [r, o],
-      });
+      var t = o("react-compiler-runtime").c(8),
+        n = e.data,
+        r = e.headers,
+        a;
+      t[0] !== r
+        ? ((a = u.jsx(p, { data: [" "].concat(r), header: !0 }, "h")),
+          (t[0] = r),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] !== n ? ((l = n.map(f)), (t[2] = n), (t[3] = l)) : (l = t[3]);
+      var s = l,
+        c;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = { className: "x78zum5 x1iyjqo2 xdt5ytf" }), (t[4] = c))
+        : (c = t[4]);
+      var d;
+      return (
+        t[5] !== i || t[6] !== s
+          ? ((d = u.jsxs(
+              "div",
+              babelHelpers.extends({}, c, { children: [i, s] }),
+            )),
+            (t[5] = i),
+            (t[6] = s),
+            (t[7] = d))
+          : (d = t[7]),
+        d
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
-    function f() {
+    function f(e, t) {
+      return u.jsx(p, { data: e }, t);
+    }
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g() {
       var t = m(null),
         n = t[0],
         a = t[1];
@@ -144,7 +200,7 @@ __d(
         }),
       });
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   98,
 );

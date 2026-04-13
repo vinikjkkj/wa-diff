@@ -9,6 +9,7 @@ __d(
     "WAWebReportOutcomeHeader.react",
     "WAWebText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -17,21 +18,30 @@ __d(
         header: { lineHeight: "x1evy7pa", textAlign: "x2b8uid", $$css: !0 },
       };
     function c(e) {
-      var t = e.content,
-        n = e.testid,
-        r = n === void 0 ? "newsletter-report-subtitle" : n;
-      return s.jsx(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        justify: "center",
-        children: s.jsx(o("WAWebText.react").WAWebTextSmall, {
-          testid: void 0,
-          paddingTop: 12,
-          xstyle: u.header,
-          children: t,
-        }),
-      });
+      var t = o("react-compiler-runtime").c(3),
+        n = e.content,
+        r = e.testid,
+        a = r === void 0 ? "newsletter-report-subtitle" : r,
+        i;
+      return (
+        t[0] !== n || t[1] !== a
+          ? ((i = s.jsx(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "center",
+              children: s.jsx(o("WAWebText.react").WAWebTextSmall, {
+                testid: void 0,
+                paddingTop: 12,
+                xstyle: u.header,
+                children: n,
+              }),
+            })),
+            (t[0] = n),
+            (t[1] = a),
+            (t[2] = i))
+          : (i = t[2]),
+        i
+      );
     }
-    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
       var t = e.report,
         n = o("WAWebNewsletterIntegrityUtils").getReportDetailsTitleString(t),

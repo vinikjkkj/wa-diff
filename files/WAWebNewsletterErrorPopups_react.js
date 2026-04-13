@@ -11,6 +11,7 @@ __d(
     "WAWebText.react",
     "WAWebUserPrefsMeUser",
     "react",
+    "react-compiler-runtime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -18,58 +19,109 @@ __d(
       u = e || (e = o("react"));
     function c(e) {
       var t,
-        n = e.chat,
-        r = s._(/*BTDS*/ "Update not available"),
-        a = s._(
-          /*BTDS*/ "You can follow this channel to see all future updates",
-        ),
-        i = ((t = n.newsletterMetadata) == null ? void 0 : t.isPreview) === !0,
-        l = i ? r : null,
-        c = i ? a : r;
-      return u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        title: l,
-        onOK: o("WAWebModalManager").closeModalManager,
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "newsletter-error-unavailable",
-        },
-        children: c,
-      });
-    }
-    c.displayName = c.name + " [from " + i.id + "]";
-    function d() {
-      var e = s._(/*BTDS*/ "Update deleted"),
-        t = s._(/*BTDS*/ "The channel admin deleted this update.");
-      return u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        title: e,
-        onOK: o("WAWebModalManager").closeModalManager,
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "newsletter-error-deleted",
-        },
-        children: t,
-      });
-    }
-    d.displayName = d.name + " [from " + i.id + "]";
-    function m() {
-      r("vulture")("Ch9JkW0MQMa870xZOUSyTP0GIbo=");
-      var e = s._(
-        /*BTDS*/ "An error occurred while sending invite. Please try again.",
+        n = o("react-compiler-runtime").c(6),
+        r = e.chat,
+        a;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = s._(/*BTDS*/ "Update not available")), (n[0] = a))
+        : (a = n[0]);
+      var i = a,
+        l;
+      n[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(
+            /*BTDS*/ "You can follow this channel to see all future updates",
+          )),
+          (n[1] = l))
+        : (l = n[1]);
+      var c = l,
+        d = ((t = r.newsletterMetadata) == null ? void 0 : t.isPreview) === !0,
+        m = d ? i : null,
+        p = d ? c : i,
+        _;
+      n[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = {
+            surface: "unknown",
+            viewName: "newsletter-error-unavailable",
+          }),
+          (n[2] = _))
+        : (_ = n[2]);
+      var f;
+      return (
+        n[3] !== p || n[4] !== m
+          ? ((f = u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              title: m,
+              onOK: o("WAWebModalManager").closeModalManager,
+              tsNavigationData: _,
+              children: p,
+            })),
+            (n[3] = p),
+            (n[4] = m),
+            (n[5] = f))
+          : (f = n[5]),
+        f
       );
-      return u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        onOK: o("WAWebModalManager").closeModalManager,
-        onCancel: o("WAWebModalManager").closeModalManager,
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "newsletter-error-sending-invite",
-        },
-        children: u.jsx(o("WAWebText.react").WAWebTextTitle, {
-          color: "secondary",
-          children: e,
-        }),
-      });
     }
-    m.displayName = m.name + " [from " + i.id + "]";
+    function d() {
+      var e = o("react-compiler-runtime").c(3),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = s._(/*BTDS*/ "Update deleted")), (e[0] = t))
+        : (t = e[0]);
+      var n = t,
+        r;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = s._(/*BTDS*/ "The channel admin deleted this update.")),
+          (e[1] = r))
+        : (r = e[1]);
+      var a = r,
+        i;
+      return (
+        e[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((i = u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              title: n,
+              onOK: o("WAWebModalManager").closeModalManager,
+              tsNavigationData: {
+                surface: "unknown",
+                viewName: "newsletter-error-deleted",
+              },
+              children: a,
+            })),
+            (e[2] = i))
+          : (i = e[2]),
+        i
+      );
+    }
+    function m() {
+      var e = o("react-compiler-runtime").c(2);
+      r("vulture")("Ch9JkW0MQMa870xZOUSyTP0GIbo=");
+      var t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = s._(
+            /*BTDS*/ "An error occurred while sending invite. Please try again.",
+          )),
+          (e[0] = t))
+        : (t = e[0]);
+      var n = t,
+        a;
+      return (
+        e[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((a = u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              onOK: o("WAWebModalManager").closeModalManager,
+              onCancel: o("WAWebModalManager").closeModalManager,
+              tsNavigationData: {
+                surface: "unknown",
+                viewName: "newsletter-error-sending-invite",
+              },
+              children: u.jsx(o("WAWebText.react").WAWebTextTitle, {
+                color: "secondary",
+                children: n,
+              }),
+            })),
+            (e[1] = a))
+          : (a = e[1]),
+        a
+      );
+    }
     function p(e) {
       var t = e.error,
         n = e.onOK,

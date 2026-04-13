@@ -6,6 +6,7 @@ __d(
     "WAWebBizAdCreationTargetingSpecContext",
     "WAWebBizAdCreationTargetingSpecDispatcherContext",
     "react",
+    "react-compiler-runtime",
     "waWebBizAdCreationTargetingModalReducer",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,54 +20,105 @@ __d(
       p = c.useReducer,
       _ = c.useState;
     function f(t) {
-      var n = t.children,
-        a = t.initialAudienceName,
-        i = t.initialTargetingSpec,
-        l =
-          i === void 0
+      var n = o("react-compiler-runtime").c(21),
+        a,
+        i,
+        l,
+        s;
+      n[0] !== t
+        ? ((a = t.children),
+          (l = t.initialAudienceName),
+          (s = t.initialTargetingSpec),
+          (i = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i),
+          (n[3] = l),
+          (n[4] = s))
+        : ((a = n[1]), (i = n[2]), (l = n[3]), (s = n[4]));
+      var c =
+          s === void 0
             ? o("LWICometDefaultTargetingSpec").DEFAULT_TARGETING_SPEC
-            : i,
-        s = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        c = s.currency,
-        f = s.dailyBudget,
-        g = s.environment,
-        h = s.legacyAdAccountID,
-        y = s.selectedPublisherPlatforms,
-        C = _(a),
+            : s,
+        d = i,
+        m = d.currency,
+        f = d.dailyBudget,
+        g = d.environment,
+        h = d.legacyAdAccountID,
+        y = d.selectedPublisherPlatforms,
+        C = _(l),
         b = C[0],
         v = C[1],
-        S = d(function (e) {
-          v(e);
-        }, []),
-        R = p(r("waWebBizAdCreationTargetingModalReducer"), l),
-        L = R[0],
-        E = R[1],
-        k = m(
-          function () {
-            return {
-              audienceName: b,
-              setAudienceName: S,
-              environment: g,
-              dailyBudget: f,
-              currency: c,
-              legacyAdAccountID: h,
-              selectedPublisherPlatforms: y,
-            };
-          },
-          [b, S, g, f, c, h, y],
-        );
-      return u.jsx(r("WAWebBizAdCreationTargetingModalContext").Provider, {
-        value: k,
-        children: u.jsx(r("WAWebBizAdCreationTargetingSpecContext").Provider, {
-          value: L,
-          children: u.jsx(
+        S;
+      n[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = function (t) {
+            v(t);
+          }),
+          (n[5] = S))
+        : (S = n[5]);
+      var R = S,
+        L = p(r("waWebBizAdCreationTargetingModalReducer"), c),
+        E = L[0],
+        k = L[1],
+        I;
+      n[6] !== b ||
+      n[7] !== m ||
+      n[8] !== f ||
+      n[9] !== g ||
+      n[10] !== h ||
+      n[11] !== y
+        ? ((I = {
+            audienceName: b,
+            setAudienceName: R,
+            environment: g,
+            dailyBudget: f,
+            currency: m,
+            legacyAdAccountID: h,
+            selectedPublisherPlatforms: y,
+          }),
+          (n[6] = b),
+          (n[7] = m),
+          (n[8] = f),
+          (n[9] = g),
+          (n[10] = h),
+          (n[11] = y),
+          (n[12] = I))
+        : (I = n[12]);
+      var T = I,
+        D;
+      n[13] !== a
+        ? ((D = u.jsx(
             r("WAWebBizAdCreationTargetingSpecDispatcherContext").Provider,
-            { value: E, children: n },
-          ),
-        }),
-      });
+            { value: k, children: a },
+          )),
+          (n[13] = a),
+          (n[14] = D))
+        : (D = n[14]);
+      var x;
+      n[15] !== D || n[16] !== E
+        ? ((x = u.jsx(r("WAWebBizAdCreationTargetingSpecContext").Provider, {
+            value: E,
+            children: D,
+          })),
+          (n[15] = D),
+          (n[16] = E),
+          (n[17] = x))
+        : (x = n[17]);
+      var $;
+      return (
+        n[18] !== T || n[19] !== x
+          ? (($ = u.jsx(r("WAWebBizAdCreationTargetingModalContext").Provider, {
+              value: T,
+              children: x,
+            })),
+            (n[18] = T),
+            (n[19] = x),
+            (n[20] = $))
+          : ($ = n[20]),
+        $
+      );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    l.default = f;
   },
   98,
 );

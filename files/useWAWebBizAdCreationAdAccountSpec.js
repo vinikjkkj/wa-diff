@@ -2,6 +2,7 @@ __d(
   "useWAWebBizAdCreationAdAccountSpec",
   [
     "CometRelay",
+    "react-compiler-runtime",
     "useWAWebBizAdCreationAdAccountSpec_boostedComponentWrapper.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,25 +23,25 @@ __d(
         l,
         u,
         c,
-        d = o("CometRelay").useFragment(s, e),
-        m = String(
-          (t = d.spec) == null || (t = t.ad_account) == null ? void 0 : t.id,
-        ),
+        d = o("react-compiler-runtime").c(7),
+        m = o("CometRelay").useFragment(s, e),
         p = String(
-          (n = d.spec) == null || (n = n.ad_account) == null
+          (t = m.spec) == null || (t = t.ad_account) == null ? void 0 : t.id,
+        ),
+        _ = String(
+          (n = m.spec) == null || (n = n.ad_account) == null
             ? void 0
             : n.legacyAccountID,
         ),
-        _ = "USD",
         f =
           (r =
-            (a = d.spec) == null || (a = a.ad_account) == null
+            (a = m.spec) == null || (a = a.ad_account) == null
               ? void 0
               : a.currencyCodeEnum) != null
             ? r
-            : _,
+            : "USD",
         g = String(
-          (i = d.spec) == null ||
+          (i = m.spec) == null ||
             (i = i.ad_account) == null ||
             (i = i.payment_account) == null
             ? void 0
@@ -48,21 +49,39 @@ __d(
         ),
         h =
           (l =
-            (u = d.spec) == null || (u = u.ad_account) == null
+            (u = m.spec) == null || (u = u.ad_account) == null
               ? void 0
               : u.canSeeSAFRV3) != null
             ? l
             : !1,
         y =
-          (c = d.spec) == null || (c = c.ad_account) == null ? void 0 : c.name;
-      return {
-        canSeeSAFRV3: h,
-        currency: f,
-        id: m,
-        legacyAccountID: p,
-        name: y,
-        paymentAccountID: g,
-      };
+          (c = m.spec) == null || (c = c.ad_account) == null ? void 0 : c.name,
+        C;
+      return (
+        d[0] !== h ||
+        d[1] !== f ||
+        d[2] !== p ||
+        d[3] !== _ ||
+        d[4] !== y ||
+        d[5] !== g
+          ? ((C = {
+              canSeeSAFRV3: h,
+              currency: f,
+              id: p,
+              legacyAccountID: _,
+              name: y,
+              paymentAccountID: g,
+            }),
+            (d[0] = h),
+            (d[1] = f),
+            (d[2] = p),
+            (d[3] = _),
+            (d[4] = y),
+            (d[5] = g),
+            (d[6] = C))
+          : (C = d[6]),
+        C
+      );
     }
     l.default = u;
   },

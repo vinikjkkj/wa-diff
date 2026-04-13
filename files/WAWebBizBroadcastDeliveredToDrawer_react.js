@@ -21,6 +21,7 @@ __d(
     "WDSSpinner.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebMeasure",
     "useWAWebTimeout",
@@ -146,76 +147,130 @@ __d(
         },
       };
     function R(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(25),
         n = e.contact,
-        a =
-          (t = o("WAWebDetailImage.react").getSize(
-            o("WAWebDetailImage.react").DetailImageSize.ExtraSmall,
-          )) != null
-            ? t
-            : 40,
-        i = n.contactJid,
-        l = _(
-          function () {
-            var e = null;
-            try {
-              e = o("WAWebWidFactory").createWid(i);
-            } catch (e) {}
-            var t =
-                e != null
-                  ? o("WAWebContactCollection").ContactCollection.get(e)
-                  : null,
-              n =
-                t != null
-                  ? o("WAWebFrontendContactGetters").getDisplayName(t)
-                  : i;
-            return { contactModel: t, displayName: n };
-          },
-          [i],
-        ),
-        u = l.contactModel,
-        d = l.displayName;
-      return c.jsxs(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        xstyle: S.contactRow,
-        children: [
-          c.jsx("div", {
-            className: "x2lah0s",
-            children:
-              u != null
-                ? c.jsx(r("WAWebContactImage.react"), { contact: u, size: a })
-                : c.jsx(
-                    "div",
-                    babelHelpers.extends(
-                      {},
-                      (s || (s = r("stylex"))).props(S.dynamicSize(a)),
-                      {
-                        children: c.jsx(
-                          o("WAWebDefaultContactRefreshedIcon.react")
-                            .DefaultContactRefreshedIcon,
-                          {
-                            iconXstyle: [
-                              S.svgSize,
-                              S.circleIconRefreshed,
-                              S.profilePictureOutlineRefreshed,
-                            ],
-                            "aria-hidden": !0,
-                          },
-                        ),
-                      },
-                    ),
+        a,
+        i,
+        l,
+        u,
+        d,
+        m;
+      if (t[0] !== n.contactJid) {
+        var p,
+          _ =
+            (p = o("WAWebDetailImage.react").getSize(
+              o("WAWebDetailImage.react").DetailImageSize.ExtraSmall,
+            )) != null
+              ? p
+              : 40,
+          f = n.contactJid,
+          g,
+          h;
+        if (t[7] !== f) {
+          var y = null;
+          try {
+            y = o("WAWebWidFactory").createWid(f);
+          } catch (e) {}
+          ((g =
+            y != null
+              ? o("WAWebContactCollection").ContactCollection.get(y)
+              : null),
+            (h =
+              g != null
+                ? o("WAWebFrontendContactGetters").getDisplayName(g)
+                : f),
+            (t[7] = f),
+            (t[8] = g),
+            (t[9] = h));
+        } else ((g = t[8]), (h = t[9]));
+        var C = h,
+          b;
+        t[10] !== g || t[11] !== C
+          ? ((b = { contactModel: g, displayName: C }),
+            (t[10] = g),
+            (t[11] = C),
+            (t[12] = b))
+          : (b = t[12]);
+        var v = b,
+          R = v.contactModel,
+          L = v.displayName;
+        ((i = L),
+          (a = o("WAWebFlex.react").FlexRow),
+          (d = "center"),
+          (m = S.contactRow),
+          t[13] === Symbol.for("react.memo_cache_sentinel")
+            ? ((l = { className: "x2lah0s" }), (t[13] = l))
+            : (l = t[13]),
+          (u =
+            R != null
+              ? c.jsx(r("WAWebContactImage.react"), { contact: R, size: _ })
+              : c.jsx(
+                  "div",
+                  babelHelpers.extends(
+                    {},
+                    (s || (s = r("stylex"))).props(S.dynamicSize(_)),
+                    {
+                      children: c.jsx(
+                        o("WAWebDefaultContactRefreshedIcon.react")
+                          .DefaultContactRefreshedIcon,
+                        {
+                          iconXstyle: [
+                            S.svgSize,
+                            S.circleIconRefreshed,
+                            S.profilePictureOutlineRefreshed,
+                          ],
+                          "aria-hidden": !0,
+                        },
+                      ),
+                    },
                   ),
-          }),
-          c.jsx(r("WDSText.react"), {
+                )),
+          (t[0] = n.contactJid),
+          (t[1] = a),
+          (t[2] = i),
+          (t[3] = l),
+          (t[4] = u),
+          (t[5] = d),
+          (t[6] = m));
+      } else
+        ((a = t[1]),
+          (i = t[2]),
+          (l = t[3]),
+          (u = t[4]),
+          (d = t[5]),
+          (m = t[6]));
+      var E;
+      t[14] !== l || t[15] !== u
+        ? ((E = c.jsx("div", babelHelpers.extends({}, l, { children: u }))),
+          (t[14] = l),
+          (t[15] = u),
+          (t[16] = E))
+        : (E = t[16]);
+      var k;
+      t[17] !== i
+        ? ((k = c.jsx(r("WDSText.react"), {
             type: "Body1",
             colorName: "contentDefault",
             maxLines: 1,
-            children: d,
-          }),
-        ],
-      });
+            children: i,
+          })),
+          (t[17] = i),
+          (t[18] = k))
+        : (k = t[18]);
+      var I;
+      return (
+        t[19] !== a || t[20] !== d || t[21] !== m || t[22] !== E || t[23] !== k
+          ? ((I = c.jsxs(a, { align: d, xstyle: m, children: [E, k] })),
+            (t[19] = a),
+            (t[20] = d),
+            (t[21] = m),
+            (t[22] = E),
+            (t[23] = k),
+            (t[24] = I))
+          : (I = t[24]),
+        I
+      );
     }
-    R.displayName = R.name + " [from " + i.id + "]";
     function L(t) {
       var n,
         a = t.campaignId,

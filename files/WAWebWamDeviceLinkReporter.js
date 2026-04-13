@@ -7,6 +7,7 @@ __d(
     "WAResolvable",
     "WATimeUtils",
     "WAWebAppTracker",
+    "WAWebCanonicalUtils",
     "WAWebLinkDeviceExperience",
     "WAWebLocalStorage",
     "WAWebMdLinkDeviceCompanionWamEvent",
@@ -22,7 +23,12 @@ __d(
     function m() {
       s != null &&
         (r("WAWebLocalStorage") == null ||
-          r("WAWebLocalStorage").setItem(d, JSON.stringify(s)));
+          r("WAWebLocalStorage").setItem(
+            d,
+            JSON.stringify(
+              babelHelpers.extends({}, s, { lastCommittedStage: u }),
+            ),
+          ));
     }
     function p() {
       r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(d);
@@ -47,18 +53,47 @@ __d(
             (e = new (o(
               "WAWebMdLinkDeviceCompanionWamEvent",
             ).MdLinkDeviceCompanionWamEvent)()));
-          var a = yield C(t, n);
+          var a = yield v(t, n);
           return ((s = { regStartTime: r, sessionId: a }), a);
         })),
         g.apply(this, arguments)
       );
     }
-    function h(e) {
+    function h() {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (
+            o("WAWebCanonicalUtils").getCanonicalReloadReason() ===
+            o("WAWebCanonicalUtils").CanonicalReloadReason.REGISTRATION
+          ) {
+            var t = _();
+            t != null &&
+              ((s = t),
+              (e = new (o(
+                "WAWebMdLinkDeviceCompanionWamEvent",
+              ).MdLinkDeviceCompanionWamEvent)()),
+              (t.lastCommittedStage == null ||
+                t.lastCommittedStage <
+                  o("WAWebWamEnumMdLinkDeviceCompanionStage")
+                    .MD_LINK_DEVICE_COMPANION_STAGE.FIRST_CONNECT) &&
+                (yield C(
+                  o("WAWebWamEnumMdLinkDeviceCompanionStage")
+                    .MD_LINK_DEVICE_COMPANION_STAGE.FIRST_CONNECT,
+                )));
+          }
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
           if (!e) {
             var r = _();
@@ -71,28 +106,28 @@ __d(
           (yield (n = c) == null ? void 0 : n.promise,
             (c = new (o("WAResolvable").Resolvable)()),
             (u = t),
-            yield v(),
+            yield R(),
             m());
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = new (o("WABinary").Binary)();
           (n.writeBuffer(e), n.write(95), n.writeBuffer(t));
           var r = n.readByteArrayView(),
             a = yield o("WACryptoSha256").sha256(r);
           return o("WABase64").encodeB64(a);
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function v(t) {
+    function R(t) {
       var n;
       if (!(!e || !s)) {
         var r = s,
@@ -126,8 +161,9 @@ __d(
       }
     }
     ((l.initDeviceLinkEvent = f),
-      (l.setDeviceLinkPairStage = h),
-      (l.commitDeviceLinkEvent = v));
+      (l.resumeDeviceLinkReporting = h),
+      (l.setDeviceLinkPairStage = C),
+      (l.commitDeviceLinkEvent = R));
   },
   98,
 );

@@ -14,6 +14,7 @@ __d(
     "WAWebWamEnumInteractionSurface",
     "WAWebWamEnumThreadType",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebModelValues",
   ],
@@ -35,77 +36,135 @@ __d(
         return s._(/*BTDS*/ "Delete");
       };
     function g(e) {
-      var t = e.chat,
-        n = o("useWAWebModelValues").useModelValues(t, ["name"]);
-      (m(function () {
-        r("WAWebEnforcementActionLogging").setSurface(
-          o("WAWebWamEnumInteractionSurface").INTERACTION_SURFACE
-            .DELETE_CHANNEL_PHONE_NUMBER_CONFIRM,
-        );
-      }, []),
+      var t = o("react-compiler-runtime").c(21),
+        n = e.chat,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = ["name"]), (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebModelValues").useModelValues(n, a),
+        l;
+      (t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = []), (t[1] = l))
+        : (l = t[1]),
+        m(y, l),
         o("useWAWebListener").useListener(
           o("WAWebModalManager").ModalManager,
           "close_modal",
-          function () {
-            r("WAWebEnforcementActionLogging").logDismissModalClick();
-          },
+          h,
         ));
-      var a = d(
-          function () {
+      var c;
+      t[2] !== n.id
+        ? ((c = function () {
             (o(
               "WAWebNewsletterAttributionLogging",
             ).NewsletterCoreEventLogger.log({
               channelCoreEventType: o("WAWebWamEnumChannelEventType")
                 .CHANNEL_EVENT_TYPE.DELETE,
-              cid: t.id,
+              cid: n.id,
               eventSurface: o("WAWebWamEnumChannelEventSurface")
                 .CHANNEL_EVENT_SURFACE.CHANNEL_PROFILE,
             }),
               o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
               o("WAWebModalManager").ModalManager.close());
-          },
-          [t.id],
-        ),
-        i = [
-          {
-            action: function () {
-              return (
-                r(
-                  "WAWebEnforcementActionLogging",
-                ).logChannelDeletePhoneNumberConfirmClick(),
-                o("WAWebNewsletterDeleteAction").deleteNewsletterAction(t)
-              );
-            },
-            errorMessage: s._(
-              /*BTDS*/ "The channel couldn't be deleted. Please try again.",
+          }),
+          (t[2] = n.id),
+          (t[3] = c))
+        : (c = t[3]);
+      var d = c,
+        g;
+      t[4] !== n
+        ? ((g = function () {
+            return (
+              r(
+                "WAWebEnforcementActionLogging",
+              ).logChannelDeletePhoneNumberConfirmClick(),
+              o("WAWebNewsletterDeleteAction").deleteNewsletterAction(n)
+            );
+          }),
+          (t[4] = n),
+          (t[5] = g))
+        : (g = t[5]);
+      var C;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = s._(
+            /*BTDS*/ "The channel couldn't be deleted. Please try again.",
+          )),
+          (t[6] = C))
+        : (C = t[6]);
+      var b;
+      t[7] !== g
+        ? ((b = [{ action: g, errorMessage: C }]), (t[7] = g), (t[8] = b))
+        : (b = t[8]);
+      var v = b,
+        S;
+      t[9] !== i.name
+        ? ((S = s._(/*BTDS*/ 'You deleted your channel "{channel-name}"', [
+            s._param(
+              "channel-name",
+              u.jsx(o("WAWebEmojiText.react").EmojiText, { text: i.name }),
             ),
-          },
-        ],
-        l = s._(/*BTDS*/ 'You deleted your channel "{channel-name}"', [
-          s._param(
-            "channel-name",
-            u.jsx(o("WAWebEmojiText.react").EmojiText, { text: n.name }),
-          ),
-        ]),
-        c = {
-          surface: "channel-delete-page",
-          extras: {
-            channelWid: t.id,
-            threadType: o("WAWebWamEnumThreadType").THREAD_TYPE.CHANNEL,
-          },
-        };
-      return u.jsx(r("WAWebUserConfirmationModal.react"), {
-        actions: i,
-        actionType: "solid-warning",
-        actionText: f(),
-        emailContentText: _(),
-        phoneContentText: p(),
-        successText: l,
-        onCompletion: a,
-        tsNavigationData: c,
-      });
+          ])),
+          (t[9] = i.name),
+          (t[10] = S))
+        : (S = t[10]);
+      var R = S,
+        L;
+      t[11] !== n.id
+        ? ((L = {
+            surface: "channel-delete-page",
+            extras: {
+              channelWid: n.id,
+              threadType: o("WAWebWamEnumThreadType").THREAD_TYPE.CHANNEL,
+            },
+          }),
+          (t[11] = n.id),
+          (t[12] = L))
+        : (L = t[12]);
+      var E = L,
+        k,
+        I,
+        T;
+      t[13] === Symbol.for("react.memo_cache_sentinel")
+        ? ((T = f()),
+          (k = _()),
+          (I = p()),
+          (t[13] = k),
+          (t[14] = I),
+          (t[15] = T))
+        : ((k = t[13]), (I = t[14]), (T = t[15]));
+      var D;
+      return (
+        t[16] !== v || t[17] !== d || t[18] !== R || t[19] !== E
+          ? ((D = u.jsx(r("WAWebUserConfirmationModal.react"), {
+              actions: v,
+              actionType: "solid-warning",
+              actionText: T,
+              emailContentText: k,
+              phoneContentText: I,
+              successText: R,
+              onCompletion: d,
+              tsNavigationData: E,
+            })),
+            (t[16] = v),
+            (t[17] = d),
+            (t[18] = R),
+            (t[19] = E),
+            (t[20] = D))
+          : (D = t[20]),
+        D
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    function h() {
+      r("WAWebEnforcementActionLogging").logDismissModalClick();
+    }
+    function y() {
+      r("WAWebEnforcementActionLogging").setSurface(
+        o("WAWebWamEnumInteractionSurface").INTERACTION_SURFACE
+          .DELETE_CHANNEL_PHONE_NUMBER_CONFIRM,
+      );
+    }
+    l.default = g;
   },
   226,
 );

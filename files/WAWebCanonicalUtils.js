@@ -1,6 +1,7 @@
 __d(
   "WAWebCanonicalUtils",
   [
+    "$InternalEnum",
     "CurrentUser",
     "WAWebCanonicalEntRecoveryWam",
     "WAWebLocalStorage",
@@ -8,42 +9,45 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = "wa_web_canonical_credentials_stored_pending";
-    function s() {
+    var e = "wa_web_canonical_reload_reason",
+      s = n("$InternalEnum")({ REGISTRATION: "reg", RECOVERY: "recovery" });
+    function u() {
       return r("CurrentUser").isLoggedIn();
     }
-    function u() {
+    function c(t) {
       try {
-        r("WAWebLocalStorage") == null ||
-          r("WAWebLocalStorage").setItem(e, "1");
+        r("WAWebLocalStorage") == null || r("WAWebLocalStorage").setItem(e, t);
       } catch (e) {}
     }
-    function c() {
-      return d.apply(this, arguments);
-    }
     function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("WAWebODS").incr("web.app.canonical.page_load"),
-            s() && r("WAWebODS").incr("web.app.canonical.page_load.authed"));
-          try {
-            (r("WAWebLocalStorage") == null
-              ? void 0
-              : r("WAWebLocalStorage").getItem(e)) != null &&
-              (r("WAWebLocalStorage") == null ||
-                r("WAWebLocalStorage").removeItem(e),
-              o("WAWebCanonicalEntRecoveryWam").logCredentialsStored());
-          } catch (e) {}
-        })),
-        d.apply(this, arguments)
-      );
+      try {
+        var t =
+          r("WAWebLocalStorage") == null
+            ? void 0
+            : r("WAWebLocalStorage").getItem(e);
+        if (t === s.REGISTRATION) return s.REGISTRATION;
+        if (t === s.RECOVERY) return s.RECOVERY;
+      } catch (e) {}
+      return null;
     }
-    var m = !1;
+    function m() {
+      try {
+        r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(e);
+      } catch (e) {}
+    }
     function p() {
-      return m;
+      return _.apply(this, arguments);
     }
-    function _(e) {
-      m = e;
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (r("WAWebODS").incr("web.app.canonical.page_load"),
+            u() && r("WAWebODS").incr("web.app.canonical.page_load.authed"),
+            d() != null &&
+              (o("WAWebCanonicalEntRecoveryWam").logCredentialsStored(), m()));
+        })),
+        _.apply(this, arguments)
+      );
     }
     var f = !1;
     function g() {
@@ -52,13 +56,22 @@ __d(
     function h(e) {
       f = e;
     }
-    ((l.isCurrentUserLoggedIn = s),
-      (l.markCredentialsStoredForPostReload = u),
-      (l.logPageLoadAuthStatus = c),
-      (l.isCanonicalAppReloadPending = p),
-      (l.setCanonicalAppReloadPending = _),
-      (l.isDebugForceTokenRefresh = g),
-      (l.setDebugForceTokenRefresh = h));
+    var y = !1;
+    function C() {
+      return y;
+    }
+    function b(e) {
+      y = e;
+    }
+    ((l.CanonicalReloadReason = s),
+      (l.isCurrentUserLoggedIn = u),
+      (l.markCredentialsStoredForPostReload = c),
+      (l.getCanonicalReloadReason = d),
+      (l.logCanonicalPageLoadMetrics = p),
+      (l.isCanonicalAppReloadPending = g),
+      (l.setCanonicalAppReloadPending = h),
+      (l.isDebugForceTokenRefresh = C),
+      (l.setDebugForceTokenRefresh = b));
   },
   98,
 );

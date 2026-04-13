@@ -30,6 +30,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "react",
+    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebEventTargetValue",
     "useWAWebListener",
@@ -440,36 +441,61 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h() {
-      var e = p(!1),
-        t = e[0],
-        n = e[1],
-        r = 250;
+      var e = o("react-compiler-runtime").c(2),
+        t = p(!1),
+        n = t[0],
+        r = t[1],
+        a,
+        i;
       return (
-        d(function () {
-          var e = self.setTimeout(function () {
-              n(!0);
-            }, r),
-            t = function () {
-              (n(!1), o());
-            };
-          window.addEventListener("mouseup", t);
-          var o = function () {
-            (window.removeEventListener("mouseup", t), self.clearTimeout(e));
-          };
-          return o;
-        }, []),
-        t
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((a = function () {
+              var e = self.setTimeout(function () {
+                  r(!0);
+                }, 250),
+                t = function () {
+                  (r(!1), n());
+                };
+              window.addEventListener("mouseup", t);
+              var n = function () {
+                (window.removeEventListener("mouseup", t),
+                  self.clearTimeout(e));
+              };
+              return n;
+            }),
+            (i = []),
+            (e[0] = a),
+            (e[1] = i))
+          : ((a = e[0]), (i = e[1])),
+        d(a, i),
+        n
       );
     }
     function y(e) {
-      var t = e.time;
-      return s.jsx("div", {
-        className: "x2c5eco xunn93x",
-        role: "timer",
-        children: o("WAWebClock").Clock.durationStr(t),
-      });
+      var t = o("react-compiler-runtime").c(5),
+        n = e.time,
+        r;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = { className: "x2c5eco xunn93x" }), (t[0] = r))
+        : (r = t[0]);
+      var a;
+      t[1] !== n
+        ? ((a = o("WAWebClock").Clock.durationStr(n)), (t[1] = n), (t[2] = a))
+        : (a = t[2]);
+      var i;
+      return (
+        t[3] !== a
+          ? ((i = s.jsx(
+              "div",
+              babelHelpers.extends({}, r, { role: "timer", children: a }),
+            )),
+            (t[3] = a),
+            (t[4] = i))
+          : (i = t[4]),
+        i
+      );
     }
-    ((y.displayName = y.name + " [from " + i.id + "]"), (l.default = g));
+    l.default = g;
   },
   98,
 );

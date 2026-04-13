@@ -4,6 +4,7 @@ __d(
     "WAWebBizInlineValidationNotice.react",
     "WAWebFlex.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdCreationInlineValidationNotices",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,22 +16,33 @@ __d(
       return e === "ERROR" || e === "BLOCKING_TIP" ? "error" : "warning";
     }
     function d(e) {
-      var t = e.specElement,
-        n = r("useWAWebBizAdCreationInlineValidationNotices")(t);
-      return n.length === 0
-        ? null
-        : s.jsx(o("WAWebFlex.react").FlexColumn, {
-            xstyle: u.container,
-            children: n.map(function (e, t) {
-              return s.jsx(
-                r("WAWebBizInlineValidationNotice.react"),
-                { message: e.title, type: c(e.severity) },
-                t,
-              );
-            }),
-          });
+      var t = o("react-compiler-runtime").c(4),
+        n = e.specElement,
+        a = r("useWAWebBizAdCreationInlineValidationNotices")(n);
+      if (a.length === 0) return null;
+      var i;
+      t[0] !== a ? ((i = a.map(m)), (t[0] = a), (t[1] = i)) : (i = t[1]);
+      var l;
+      return (
+        t[2] !== i
+          ? ((l = s.jsx(o("WAWebFlex.react").FlexColumn, {
+              xstyle: u.container,
+              children: i,
+            })),
+            (t[2] = i),
+            (t[3] = l))
+          : (l = t[3]),
+        l
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    function m(e, t) {
+      return s.jsx(
+        r("WAWebBizInlineValidationNotice.react"),
+        { message: e.title, type: c(e.severity) },
+        t,
+      );
+    }
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

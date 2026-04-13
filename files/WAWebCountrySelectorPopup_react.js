@@ -18,6 +18,7 @@ __d(
     "WAWebWamEnumSurfaceType",
     "fbs",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -208,51 +209,109 @@ __d(
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = e.countryCode,
-        n = e["data-testid"],
-        a = n === void 0 ? "country-selector-popup-option" : n,
+      var t = o("react-compiler-runtime").c(20),
+        n = e.countryCode,
+        a = e["data-testid"],
         i = e.label,
         l = e.lastUsedCountryCode,
         s = e.onChange,
-        c = e.selectedCountryCode;
-      return u.jsx("li", {
-        className: "x889kno x5zjp28 x1a8lsjc x162tt16 x1ypdohk",
-        children: u.jsxs(o("WAWebFlex.react").FlexRow, {
-          align: "center",
-          children: [
-            u.jsx(r("WAWebFlexItem.react"), {
-              xstyle: p.inputWrapper,
-              children: u.jsx("input", {
-                id: t,
-                value: t,
-                type: "radio",
-                name: "countryCode",
-                checked: t === c,
-                className: "x1ypdohk",
-                onChange: s,
-              }),
+        c = e.selectedCountryCode,
+        d = a === void 0 ? "country-selector-popup-option" : a,
+        m;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = { className: "x889kno x5zjp28 x1a8lsjc x162tt16 x1ypdohk" }),
+          (t[0] = m))
+        : (m = t[0]);
+      var _ = n === c,
+        f;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = { className: "x1ypdohk" }), (t[1] = f))
+        : (f = t[1]);
+      var g;
+      t[2] !== n || t[3] !== s || t[4] !== _
+        ? ((g = u.jsx(r("WAWebFlexItem.react"), {
+            xstyle: p.inputWrapper,
+            children: u.jsx(
+              "input",
+              babelHelpers.extends(
+                {
+                  id: n,
+                  value: n,
+                  type: "radio",
+                  name: "countryCode",
+                  checked: _,
+                },
+                f,
+                { onChange: s },
+              ),
+            ),
+          })),
+          (t[2] = n),
+          (t[3] = s),
+          (t[4] = _),
+          (t[5] = g))
+        : (g = t[5]);
+      var h;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = { className: "x1lliihq x1lkfr7t x1ypdohk" }), (t[6] = h))
+        : (h = t[6]);
+      var y = d + "-label",
+        C;
+      t[7] !== n || t[8] !== i || t[9] !== y
+        ? ((C = u.jsx(
+            "label",
+            babelHelpers.extends({ htmlFor: n }, h, {
+              "data-testid": void 0,
+              children: i,
             }),
-            u.jsxs(r("WAWebFlexItem.react"), {
-              grow: 1,
-              children: [
-                u.jsx("label", {
-                  htmlFor: t,
-                  className: "x1lliihq x1lkfr7t x1ypdohk",
-                  "data-testid": void 0,
-                  children: i,
+          )),
+          (t[7] = n),
+          (t[8] = i),
+          (t[9] = y),
+          (t[10] = C))
+        : (C = t[10]);
+      var b;
+      t[11] !== n || t[12] !== l
+        ? ((b =
+            l === n &&
+            u.jsx("span", {
+              className: "x1lliihq xhslqc4 x1jchvi3 xa7kkou",
+              children: r("fbs")._(/*BTDS*/ "(Last Used)"),
+            })),
+          (t[11] = n),
+          (t[12] = l),
+          (t[13] = b))
+        : (b = t[13]);
+      var v;
+      t[14] !== C || t[15] !== b
+        ? ((v = u.jsxs(r("WAWebFlexItem.react"), {
+            grow: 1,
+            children: [C, b],
+          })),
+          (t[14] = C),
+          (t[15] = b),
+          (t[16] = v))
+        : (v = t[16]);
+      var S;
+      return (
+        t[17] !== v || t[18] !== g
+          ? ((S = u.jsx(
+              "li",
+              babelHelpers.extends({}, m, {
+                children: u.jsxs(o("WAWebFlex.react").FlexRow, {
+                  align: "center",
+                  children: [g, v],
                 }),
-                l === t &&
-                  u.jsx("span", {
-                    className: "x1lliihq xhslqc4 x1jchvi3 xa7kkou",
-                    children: r("fbs")._(/*BTDS*/ "(Last Used)"),
-                  }),
-              ],
-            }),
-          ],
-        }),
-      });
+              }),
+            )),
+            (t[17] = v),
+            (t[18] = g),
+            (t[19] = S))
+          : (S = t[19]),
+        S
+      );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   226,
 );

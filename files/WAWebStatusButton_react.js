@@ -1,6 +1,11 @@
 __d(
   "WAWebStatusButton.react",
-  ["WAWebExternalLink.react", "WAWebUnstyledButton.react", "react"],
+  [
+    "WAWebExternalLink.react",
+    "WAWebUnstyledButton.react",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -37,18 +42,34 @@ __d(
         },
       };
     function m(e) {
-      var t = e.text,
-        n = e.url,
-        a = function () {
-          o("WAWebExternalLink.react").openExternalLink(n);
-        };
-      return s.jsx(r("WAWebUnstyledButton.react"), {
-        xstyle: d.button,
-        onClick: a,
-        children: t,
-      });
+      var t = o("react-compiler-runtime").c(5),
+        n = e.text,
+        a = e.url,
+        i;
+      t[0] !== a
+        ? ((i = function () {
+            o("WAWebExternalLink.react").openExternalLink(a);
+          }),
+          (t[0] = a),
+          (t[1] = i))
+        : (i = t[1]);
+      var l = i,
+        u;
+      return (
+        t[2] !== l || t[3] !== n
+          ? ((u = s.jsx(r("WAWebUnstyledButton.react"), {
+              xstyle: d.button,
+              onClick: l,
+              children: n,
+            })),
+            (t[2] = l),
+            (t[3] = n),
+            (t[4] = u))
+          : (u = t[4]),
+        u
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   98,
 );

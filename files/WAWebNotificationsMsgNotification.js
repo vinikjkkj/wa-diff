@@ -2,6 +2,7 @@ __d(
   "WAWebNotificationsMsgNotification",
   [
     "fbt",
+    "Promise",
     "WAWebABProps",
     "WAWebBaseNotification",
     "WAWebBizAiAgentStatusUtils",
@@ -12,6 +13,7 @@ __d(
     "WAWebChatThreadLogging",
     "WAWebElevatedPushNamesFlag",
     "WAWebEnvironment",
+    "WAWebFMXGatingUtils",
     "WAWebFrontendChatGetters",
     "WAWebFrontendMsgGetters",
     "WAWebGetNotificationStrings",
@@ -42,15 +44,16 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c = (e = n("cr:3133")) != null ? e : {},
-      d = c.getContextMenuItems,
-      m = c.isReplyable,
-      p = c.shouldIgnoreSquelchForGroupMention,
-      _ = (u = n("cr:4404")) != null ? u : {},
-      f = _.getMessageNotificationFooter,
-      g = _.getNotificationBodyForPreviewOff,
-      h = new Set([o("WAWebMsgType").MSG_TYPE.ALBUM]),
-      y = (function (e) {
+      c,
+      d = (e = n("cr:3133")) != null ? e : {},
+      m = d.getContextMenuItems,
+      p = d.isReplyable,
+      _ = d.shouldIgnoreSquelchForGroupMention,
+      f = (u = n("cr:4404")) != null ? u : {},
+      g = f.getMessageNotificationFooter,
+      h = f.getNotificationBodyForPreviewOff,
+      y = new Set([o("WAWebMsgType").MSG_TYPE.ALBUM]),
+      C = (function (e) {
         function t(t) {
           var n,
             r = t.msg;
@@ -142,7 +145,7 @@ __d(
                                               .VOICE))
                                     ? r("WAWebNotificationMuteReason")
                                         .IgnoreBotMsgs
-                                    : b(this.msg)
+                                    : v(this.msg)
                                       ? r("WAWebNotificationMuteReason")
                                           .IgnoreInternalSilentTag
                                       : o(
@@ -174,8 +177,8 @@ __d(
             ).WANotificationController.notificationExists(this.buildKey());
             return (e &&
               (o("WAWebMsgGetters").getIsEdited(this.msg) ||
-                h.has(this.msg.type))) ||
-              (p != null && p(this.msg))
+                y.has(this.msg.type))) ||
+              (_ != null && _(this.msg))
               ? null
               : o("WAWebNotificationHelpers").shouldSquelch(
                     o("WAWebFrontendMsgGetters").getChat(this.msg),
@@ -216,8 +219,39 @@ __d(
           }),
           (a.getIcon = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = o("WAWebFrontendMsgGetters").getChat(this.msg);
+              if (
+                e.isSenderSuspicious === !0 &&
+                o("WAWebFMXGatingUtils").isSuspiciousFmxEnabled()
+              )
+                return o(
+                  "WAWebNotificationIconUtils",
+                ).getDefaultChatNotificationIcon(e);
+              if (
+                !e.trusted &&
+                e.promises.integritySignals != null &&
+                o("WAWebFMXGatingUtils").isSuspiciousFmxEnabled()
+              ) {
+                var t = yield (c || (c = n("Promise"))).all([
+                    o("WAWebNotificationIconUtils").getChatNotificationIcon(
+                      e,
+                      this.abortController.signal,
+                      this.getDefaultIcon(),
+                    ),
+                    e.promises.integritySignals,
+                  ]),
+                  r = t[0];
+                return (
+                  (e.promises.integritySignals = null),
+                  e.isSenderSuspicious === !0
+                    ? o(
+                        "WAWebNotificationIconUtils",
+                      ).getDefaultChatNotificationIcon(e)
+                    : r
+                );
+              }
               return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-                o("WAWebFrontendMsgGetters").getChat(this.msg),
+                e,
                 this.abortController.signal,
                 this.getDefaultIcon(),
               );
@@ -229,7 +263,7 @@ __d(
           })()),
           (a.getBannerOptions = function () {
             var e = this.msg,
-              t = S(e),
+              t = R(e),
               a = o("WAWebGetNotificationStrings").getNotificationBody(
                 babelHelpers.extends({}, t, {
                   msgDir: o("WAWebFrontendMsgGetters").getDir(e),
@@ -254,7 +288,7 @@ __d(
             return {
               wid: i.id,
               msgId: this.msg.id.toString(),
-              tag: R() ? this.msg.id.toString() : i.id.toString(),
+              tag: L() ? this.msg.id.toString() : i.id.toString(),
               title: o("WAWebNotificationHelpers").getNotificationTitle(i),
               body: a,
               onClick: function () {
@@ -267,11 +301,11 @@ __d(
           }),
           (a.isReplyable = function () {
             var e;
-            return (e = m == null ? void 0 : m(this.msg)) != null ? e : !1;
+            return (e = p == null ? void 0 : p(this.msg)) != null ? e : !1;
           }),
           (a.getContextMenuItems = function () {
             var e;
-            return (e = d == null ? void 0 : d(this.msg)) != null ? e : [];
+            return (e = m == null ? void 0 : m(this.msg)) != null ? e : [];
           }),
           (a.beforeBannerShown = function () {
             return (
@@ -293,7 +327,7 @@ __d(
           (a.getNotificationDeliveryWamEventData = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               return {
-                uiNotificationType: C(this.msg),
+                uiNotificationType: b(this.msg),
                 triggeredByOfflineMessage: this.msg.isOffline === !0,
               };
             });
@@ -305,7 +339,7 @@ __d(
           t
         );
       })(o("WAWebBaseNotification").WABaseNotification);
-    function C(e) {
+    function b(e) {
       switch (e.type) {
         case o("WAWebMsgType").MSG_TYPE.CHAT:
           return o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
@@ -349,7 +383,7 @@ __d(
             .OTHER;
       }
     }
-    function b(e) {
+    function v(e) {
       var t;
       return (
         !r("gkx")("26258") &&
@@ -358,7 +392,7 @@ __d(
           : t.includes("@silent")) === !0
       );
     }
-    function v(e) {
+    function S(e) {
       if (!o("WAWebMsgGetters").getIsGroupMsg(e)) return null;
       var t = null;
       return (
@@ -376,7 +410,7 @@ __d(
           : null
       );
     }
-    function S(e) {
+    function R(e) {
       var t,
         n = null,
         r = o("WAWebFrontendMsgGetters").getChat(e),
@@ -405,7 +439,7 @@ __d(
         !e.shouldShowNotificationPreview()
       ) {
         var u,
-          c = (u = g == null ? void 0 : g()) != null ? u : null;
+          c = (u = h == null ? void 0 : h()) != null ? u : null;
         c != null
           ? (n = c)
           : o("WAWebMsgGetters").getIsGroupMsg(e)
@@ -427,8 +461,8 @@ __d(
           : (n = o("WAWebGetNotificationStrings").getNotificationMessageBody(
               e,
             ));
-      var d = (t = f == null ? void 0 : f(r.unreadCount)) != null ? t : null,
-        m = v(e);
+      var d = (t = g == null ? void 0 : g(r.unreadCount)) != null ? t : null,
+        m = S(e);
       return (
         m != null &&
           (l != null
@@ -444,16 +478,16 @@ __d(
         )
       );
     }
-    function R() {
+    function L() {
       return (
         o("WAWebUA").UA.isBlink &&
         o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC
       );
     }
-    ((l.eligibleMessagesForNotificationRetriggering = h),
-      (l.WAMsgNotification = y),
-      (l.getNotificationParts = S),
-      (l.shouldReplaceMsgNotificationManually = R));
+    ((l.eligibleMessagesForNotificationRetriggering = y),
+      (l.WAMsgNotification = C),
+      (l.getNotificationParts = R),
+      (l.shouldReplaceMsgNotificationManually = L));
   },
   226,
 );

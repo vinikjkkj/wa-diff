@@ -5,6 +5,7 @@ __d(
     "WAWebPanelsMenuContainerStyles",
     "WAWebStopEvent",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,33 +18,47 @@ __d(
         "SHADOW",
       ]);
     function d(t) {
-      var n = t.children,
-        a = t.role,
-        i = t.theme;
-      return u.jsx(
-        "div",
-        babelHelpers.extends(
-          { role: a },
-          (e || (e = r("stylex"))).props(
+      var n = o("react-compiler-runtime").c(6),
+        a = t.children,
+        i = t.role,
+        l = t.theme,
+        s;
+      n[0] !== l
+        ? ((s = (e || (e = r("stylex"))).props(
             o("WAWebPanelsMenuContainerStyles").panelsMenuContainerStyles
               .container,
-            i === c.REACTIONS_CONTAINER &&
+            l === c.REACTIONS_CONTAINER &&
               o("WAWebPanelsMenuContainerStyles").panelsMenuContainerStyles
                 .reactionsContainer,
-            i === c.TAB_MARKER_SEPARATOR &&
+            l === c.TAB_MARKER_SEPARATOR &&
               o("WAWebPanelsMenuContainerStyles").panelsMenuContainerStyles
                 .menuTabMakerReactions,
-            i === c.SHADOW &&
+            l === c.SHADOW &&
               o("WAWebPanelsMenuContainerStyles").panelsMenuContainerStyles
                 .shadow,
-          ),
-          { onMouseDown: o("WAWebStopEvent").stopPropagation, children: n },
-        ),
+          )),
+          (n[0] = l),
+          (n[1] = s))
+        : (s = n[1]);
+      var d;
+      return (
+        n[2] !== a || n[3] !== i || n[4] !== s
+          ? ((d = u.jsx(
+              "div",
+              babelHelpers.extends({ role: i }, s, {
+                onMouseDown: o("WAWebStopEvent").stopPropagation,
+                children: a,
+              }),
+            )),
+            (n[2] = a),
+            (n[3] = i),
+            (n[4] = s),
+            (n[5] = d))
+          : (d = n[5]),
+        d
       );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"),
-      (l.MenuContainerTheme = c),
-      (l.MenuContainer = d));
+    ((l.MenuContainerTheme = c), (l.MenuContainer = d));
   },
   98,
 );

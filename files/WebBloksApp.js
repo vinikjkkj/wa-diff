@@ -16,7 +16,6 @@ __d(
     "react",
     "useFoldingAddressBar",
     "useWebBloksAccessibilityModule",
-    "useWebBloksFABScrollManager",
     "useWebBloksRefreshListener",
   ],
   function (t, n, r, o, a, i, l) {
@@ -90,8 +89,7 @@ __d(
       var $ = {};
       b.isRtl && ($ = { direction: "rtl", textAlign: "right" });
       var P = r("useFoldingAddressBar")(T),
-        N = o("useWebBloksFABScrollManager").useWebBloksFABScrollManager(P, L),
-        M = d(
+        N = d(
           function () {
             return b.embedded === !0
               ? g.bloksAppEmbedded
@@ -107,7 +105,7 @@ __d(
           },
           [b.embedded, P],
         ),
-        w = d(
+        M = d(
           function () {
             return T.map(function (e) {
               var t;
@@ -120,7 +118,7 @@ __d(
           },
           [T, l],
         ),
-        A = s.jsx(S, {
+        w = s.jsx(S, {
           children: s.jsxs("div", {
             style: babelHelpers.extends(
               {
@@ -134,16 +132,10 @@ __d(
             "data-testid": void 0,
             className: o("WebBloksStyle").classNames(
               o("WebBloksAppAccessibilityStyles").ACCESSIBILITY_STYLES.outlines,
-              M,
+              N,
             ),
             children: [
-              P
-                ? s.jsx(
-                    o("useWebBloksFABScrollManager").FABScrollBehaviorContext
-                      .Provider,
-                    { value: N, children: w },
-                  )
-                : w,
+              M,
               I &&
                 s.jsx(
                   r("WebBloksModalWrapper"),
@@ -156,11 +148,11 @@ __d(
         });
       return (
         L.environment.disableErrorBoundary !== !0 &&
-          (A = s.jsx(r("WebBloksErrorBoundary"), {
+          (w = s.jsx(r("WebBloksErrorBoundary"), {
             logger: L.environment.logger,
-            children: A,
+            children: w,
           })),
-        A
+        w
       );
     }
     _.displayName = _.name + " [from " + i.id + "]";

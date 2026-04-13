@@ -9,6 +9,7 @@ __d(
     "WAWebMsgGetters",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebForceUpdate",
     "useWAWebListener",
@@ -64,28 +65,65 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = e.chat,
-        n = e.timestampColor,
-        r = o("useWAWebChatValues").useChatValues(t.id, [
-          o("WAWebFrontendChatGetters").getPreviewMessage,
-          o("WAWebChatGetters").getT,
-        ]),
-        a = r[0],
-        i = r[1];
-      return a ? s.jsx(m, { msg: a, t: i, timestampColor: n }) : null;
+      var t = o("react-compiler-runtime").c(5),
+        n = e.chat,
+        r = e.timestampColor,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = [
+            o("WAWebFrontendChatGetters").getPreviewMessage,
+            o("WAWebChatGetters").getT,
+          ]),
+          (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebChatValues").useChatValues(n.id, a),
+        l = i[0],
+        u = i[1];
+      if (!l) return null;
+      var c;
+      return (
+        t[1] !== u || t[2] !== l || t[3] !== r
+          ? ((c = s.jsx(m, { msg: l, t: u, timestampColor: r })),
+            (t[1] = u),
+            (t[2] = l),
+            (t[3] = r),
+            (t[4] = c))
+          : (c = t[4]),
+        c
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = e.chat,
-        n = e.msg,
-        r = e.timestampColor;
-      return t
-        ? s.jsx(p, { chat: t, timestampColor: r })
-        : n
-          ? s.jsx(m, { msg: n, timestampColor: r })
-          : null;
+      var t = o("react-compiler-runtime").c(6),
+        n = e.chat,
+        r = e.msg,
+        a = e.timestampColor;
+      if (n) {
+        var i;
+        return (
+          t[0] !== n || t[1] !== a
+            ? ((i = s.jsx(p, { chat: n, timestampColor: a })),
+              (t[0] = n),
+              (t[1] = a),
+              (t[2] = i))
+            : (i = t[2]),
+          i
+        );
+      }
+      if (r) {
+        var l;
+        return (
+          t[3] !== r || t[4] !== a
+            ? ((l = s.jsx(m, { msg: r, timestampColor: a })),
+              (t[3] = r),
+              (t[4] = a),
+              (t[5] = l))
+            : (l = t[5]),
+          l
+        );
+      }
+      return null;
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   98,
 );

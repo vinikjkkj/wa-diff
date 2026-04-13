@@ -26,6 +26,7 @@ __d(
     "WDSMenu.react",
     "WDSMenuItem.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebListener",
     "useWAWebPinnedMessages",
@@ -54,27 +55,33 @@ __d(
         dashContainer: { width: "xfo62xy", $$css: !0 },
       };
     function h() {
-      var e = r("WDSIconIcPushPin.react");
-      return m.jsx(
-        "div",
-        babelHelpers.extends(
-          {},
-          (c || (c = r("stylex"))).props(
-            g.iconWrapper,
-            o("WAWebUISpacing").uiPadding.start6,
-            o("WAWebUISpacing").uiPadding.end8,
-          ),
-          {
-            children: m.jsx(e, {
-              xstyle: g.icon,
-              "aria-hidden": !0,
-              testid: void 0,
-            }),
-          },
-        ),
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = m.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                (c || (c = r("stylex"))).props(
+                  g.iconWrapper,
+                  o("WAWebUISpacing").uiPadding.start6,
+                  o("WAWebUISpacing").uiPadding.end8,
+                ),
+                {
+                  children: m.jsx(r("WDSIconIcPushPin.react"), {
+                    xstyle: g.icon,
+                    "aria-hidden": !0,
+                    testid: void 0,
+                  }),
+                },
+              ),
+            )),
+            (e[0] = t))
+          : (t = e[0]),
+        t
       );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     function y(t) {
       var n = t.ref,
         a = babelHelpers.objectWithoutPropertiesLoose(t, u),

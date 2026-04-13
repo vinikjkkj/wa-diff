@@ -10,69 +10,67 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebWamEnumKicErrorCodeType",
     "react",
-    "vulture",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
       c = e.useEffect;
     function d(e) {
-      var t = e.content,
-        n = e.onClose,
-        r = function () {
-          (o("WAWebExternalLink.react").openExternalLink(
-            o("WAWebFaqUrl").getEphemeralFaqUrl(),
-          ),
-            n != null && n(),
-            o("WAWebModalManager").ModalManager.closeSupportOrModal());
-        },
-        a = function () {
-          (n != null && n(),
-            o("WAWebModalManager").ModalManager.closeSupportOrModal());
-        };
-      return u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "kic-exited-warning",
-        },
-        onOK: a,
-        cancelText: s._(/*BTDS*/ "Learn more"),
-        onCancel: r,
-        children: t,
-      });
-    }
-    d.displayName = d.name + " [from " + i.id + "]";
-    function m(e) {
-      var t = e.action,
-        n = e.message,
-        a = e.onClose;
-      (r("vulture")("Y0_emdLQ_q0SF2riG9YUwwm06aY="),
-        c(function () {
-          var e =
-              t === "keep"
-                ? o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL
-                : o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL,
-            r = o("WAWebEphemeralKeepInChatWamUtils").getBaseErrorLog(n, e);
-          (r.set({
-            kicErrorCode: o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE
-              .NOT_PART_OF_THE_GROUP,
+      var t = o("react-compiler-runtime").c(10),
+        n = e.content,
+        r = e.onClose,
+        a;
+      t[0] !== r
+        ? ((a = function () {
+            (o("WAWebExternalLink.react").openExternalLink(
+              o("WAWebFaqUrl").getEphemeralFaqUrl(),
+            ),
+              r != null && r(),
+              o("WAWebModalManager").ModalManager.closeSupportOrModal());
           }),
-            r.commit());
-        }, []));
-      var i = null;
+          (t[0] = r),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] !== r
+        ? ((l = function () {
+            (r != null && r(),
+              o("WAWebModalManager").ModalManager.closeSupportOrModal());
+          }),
+          (t[2] = r),
+          (t[3] = l))
+        : (l = t[3]);
+      var c = l,
+        d;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = { surface: "unknown", viewName: "kic-exited-warning" }),
+          (t[4] = d))
+        : (d = t[4]);
+      var m;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = s._(/*BTDS*/ "Learn more")), (t[5] = m))
+        : (m = t[5]);
+      var p;
       return (
-        t === "keep"
-          ? (i = s._(
-              /*BTDS*/ "You can't keep this message because you left the chat.",
-            ))
-          : (i = s._(
-              /*BTDS*/ "You can't unkeep this message because you left the chat.",
-            )),
-        u.jsx(d, { content: i, onClose: a })
+        t[6] !== n || t[7] !== i || t[8] !== c
+          ? ((p = u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              tsNavigationData: d,
+              onOK: c,
+              cancelText: m,
+              onCancel: i,
+              children: n,
+            })),
+            (t[6] = n),
+            (t[7] = i),
+            (t[8] = c),
+            (t[9] = p))
+          : (p = t[9]),
+        p
       );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
-    function p(e) {
+    function m(e) {
       var t = e.action,
         n = e.message,
         r = e.onClose;
@@ -100,9 +98,8 @@ __d(
         u.jsx(d, { content: a, onClose: r })
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"),
-      (l.WarningKICMeUserExitedModal = m),
-      (l.WarningKICSenderExitedModal = p));
+    ((m.displayName = m.name + " [from " + i.id + "]"),
+      (l.WarningKICSenderExitedModal = m));
   },
   226,
 );

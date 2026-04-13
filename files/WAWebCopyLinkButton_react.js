@@ -8,6 +8,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -31,22 +32,49 @@ __d(
         t != null && t());
     }
     function m(e) {
-      var t = e.divider,
-        n = e.elementId,
-        r = e.onClick;
+      var t = o("react-compiler-runtime").c(8),
+        n = e.divider,
+        r = e.elementId,
+        a = e.onClick;
       if (!document.queryCommandSupported("copy")) return null;
-      var a = o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon;
-      return u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
-        testid: void 0,
-        icon: u.jsx(a, { xstyle: c.icon }),
-        onClick: function () {
-          return d(n, r);
-        },
-        divider: t,
-        children: s._(/*BTDS*/ "Copy link"),
-      });
+      var i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = u.jsx(o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon, {
+            xstyle: c.icon,
+          })),
+          (t[0] = i))
+        : (i = t[0]);
+      var l;
+      t[1] !== r || t[2] !== a
+        ? ((l = function () {
+            return d(r, a);
+          }),
+          (t[1] = r),
+          (t[2] = a),
+          (t[3] = l))
+        : (l = t[3]);
+      var m;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = s._(/*BTDS*/ "Copy link")), (t[4] = m))
+        : (m = t[4]);
+      var p;
+      return (
+        t[5] !== n || t[6] !== l
+          ? ((p = u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+              testid: void 0,
+              icon: i,
+              onClick: l,
+              divider: n,
+              children: m,
+            })),
+            (t[5] = n),
+            (t[6] = l),
+            (t[7] = p))
+          : (p = t[7]),
+        p
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

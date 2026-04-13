@@ -29,6 +29,7 @@ __d(
         embedded: !1,
         allowScreenOverflow: !1,
         allowFoldingAddressBar: !1,
+        enableScrollRestoration: !1,
         appLoader: null,
         logger: new (r("WebBloksLogger"))(),
         locale: "en_US",
@@ -90,7 +91,7 @@ __d(
       return s(e)[0];
     }
     function m(e, t) {
-      var n, r, o, a, i, l, s, u, c, d, m, _, f, g, h, y, C, b, v, S, R, L;
+      var n, r, o, a, i, l, s, u, c, d, m, _, f, g, h, y, C, b, v, S, R, L, E;
       return t
         ? {
             analytics: (n = t.analytics) != null ? n : e.analytics,
@@ -125,31 +126,35 @@ __d(
               (c = t.allowFoldingAddressBar) != null
                 ? c
                 : e.allowFoldingAddressBar,
+            enableScrollRestoration:
+              (d = t.enableScrollRestoration) != null
+                ? d
+                : e.enableScrollRestoration,
             loadingFallback:
-              (d = t.loadingFallback) != null ? d : e.loadingFallback,
+              (m = t.loadingFallback) != null ? m : e.loadingFallback,
             dataModulesStore: p(e.dataModulesStore, t.dataModulesStore),
             navigationTrackingUtils:
-              (m = t.navigationTrackingUtils) != null
-                ? m
+              (_ = t.navigationTrackingUtils) != null
+                ? _
                 : e.navigationTrackingUtils,
-            logger: (_ = t.logger) != null ? _ : e.logger,
+            logger: (f = t.logger) != null ? f : e.logger,
             disableErrorBoundary:
-              (f = t.disableErrorBoundary) != null ? f : e.disableErrorBoundary,
-            AssetRenderer: (g = t.AssetRenderer) != null ? g : e.AssetRenderer,
-            staticAssets: (h = t.staticAssets) != null ? h : e.staticAssets,
+              (g = t.disableErrorBoundary) != null ? g : e.disableErrorBoundary,
+            AssetRenderer: (h = t.AssetRenderer) != null ? h : e.AssetRenderer,
+            staticAssets: (y = t.staticAssets) != null ? y : e.staticAssets,
             globalStateStore:
-              (y = t.globalStateStore) != null ? y : e.globalStateStore,
+              (C = t.globalStateStore) != null ? C : e.globalStateStore,
             fontFamilyMappings:
-              (C = t.fontFamilyMappings) != null ? C : e.fontFamilyMappings,
-            timeoutIDS: (b = t.timeoutIDS) != null ? b : e.timeoutIDS,
+              (b = t.fontFamilyMappings) != null ? b : e.fontFamilyMappings,
+            timeoutIDS: (v = t.timeoutIDS) != null ? v : e.timeoutIDS,
             screenQueryTemplate:
-              (v = t.screenQueryTemplate) != null ? v : e.screenQueryTemplate,
+              (S = t.screenQueryTemplate) != null ? S : e.screenQueryTemplate,
             accessibilityModule:
-              (S = t.accessibilityModule) != null ? S : e.accessibilityModule,
-            gkx: (R = t.gkx) != null ? R : e.gkx,
+              (R = t.accessibilityModule) != null ? R : e.accessibilityModule,
+            gkx: (L = t.gkx) != null ? L : e.gkx,
             controllerNavigationLogger:
-              (L = t.controllerNavigationLogger) != null
-                ? L
+              (E = t.controllerNavigationLogger) != null
+                ? E
                 : e.controllerNavigationLogger,
           }
         : e;

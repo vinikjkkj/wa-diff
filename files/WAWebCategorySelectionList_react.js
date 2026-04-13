@@ -1,6 +1,12 @@
 __d(
   "WAWebCategorySelectionList.react",
-  ["WAWebCheckBox.react", "WAWebFlex.react", "WDSText.react", "react"],
+  [
+    "WAWebCheckBox.react",
+    "WAWebFlex.react",
+    "WDSText.react",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -25,48 +31,71 @@ __d(
         },
       };
     function c(e) {
-      var t = e.isDisabled,
-        n = e.isLoading,
-        a = e.isSelected,
-        i = e.results,
-        l = e.toggleResultById;
-      return n
-        ? s.jsx("div", { children: "Loading..." })
-        : s.jsx(o("WAWebFlex.react").FlexColumn, {
-            children:
-              i != null &&
-              i.map(function (e) {
-                var n = a(e.id),
-                  i = t(e.id);
-                return s.jsxs(
-                  o("WAWebFlex.react").FlexRow,
-                  {
-                    gap: 12,
-                    xstyle: u.categoryItem,
-                    children: [
-                      s.jsx(o("WAWebFlex.react").FlexItem, {
-                        xstyle: u.checkboxContainer,
-                        children: s.jsx(o("WAWebCheckBox.react").CheckBox, {
-                          checked: n,
-                          disabled: i,
-                          onChange: function () {
-                            return l(e.id);
-                          },
-                        }),
+      var t = o("react-compiler-runtime").c(8),
+        n = e.isDisabled,
+        a = e.isLoading,
+        i = e.isSelected,
+        l = e.results,
+        c = e.toggleResultById;
+      if (a) {
+        var d;
+        return (
+          t[0] === Symbol.for("react.memo_cache_sentinel")
+            ? ((d = s.jsx("div", { children: "Loading..." })), (t[0] = d))
+            : (d = t[0]),
+          d
+        );
+      }
+      var m;
+      t[1] !== n || t[2] !== i || t[3] !== l || t[4] !== c
+        ? ((m =
+            l != null &&
+            l.map(function (e) {
+              var t = i(e.id),
+                a = n(e.id);
+              return s.jsxs(
+                o("WAWebFlex.react").FlexRow,
+                {
+                  gap: 12,
+                  xstyle: u.categoryItem,
+                  children: [
+                    s.jsx(o("WAWebFlex.react").FlexItem, {
+                      xstyle: u.checkboxContainer,
+                      children: s.jsx(o("WAWebCheckBox.react").CheckBox, {
+                        checked: t,
+                        disabled: a,
+                        onChange: function () {
+                          return c(e.id);
+                        },
                       }),
-                      s.jsx(r("WDSText.react"), {
-                        colorName: "contentDefault",
-                        type: "Body1",
-                        children: e.localized_display_name,
-                      }),
-                    ],
-                  },
-                  e.id,
-                );
-              }),
-          });
+                    }),
+                    s.jsx(r("WDSText.react"), {
+                      colorName: "contentDefault",
+                      type: "Body1",
+                      children: e.localized_display_name,
+                    }),
+                  ],
+                },
+                e.id,
+              );
+            })),
+          (t[1] = n),
+          (t[2] = i),
+          (t[3] = l),
+          (t[4] = c),
+          (t[5] = m))
+        : (m = t[5]);
+      var p;
+      return (
+        t[6] !== m
+          ? ((p = s.jsx(o("WAWebFlex.react").FlexColumn, { children: m })),
+            (t[6] = m),
+            (t[7] = p))
+          : (p = t[7]),
+        p
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

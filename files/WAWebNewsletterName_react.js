@@ -11,6 +11,7 @@ __d(
     "WAWebPsaVerifiedBlueIcon.react",
     "WAWebPsaVerifiedIcon.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -97,40 +98,76 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = e.checkmarkLarge,
-        n = e.children,
-        r = e.skipCheckMark,
-        a = e.verified,
-        i;
-      if (a && !r) {
-        var l = s._(/*BTDS*/ "Verified channel"),
-          u = t ? 24 : 16;
-        i = c.jsx("div", {
-          className: "x78zum5 x6s0dn4 xl56j7k xwklpps x2lah0s",
-          children: o("WAWebMiscGatingUtils").isBlueEnabled()
-            ? c.jsx(o("WAWebPsaVerifiedBlueIcon.react").PsaVerifiedBlueIcon, {
-                "aria-label": l,
-                width: u,
-                height: u,
-              })
-            : c.jsx(o("WAWebPsaVerifiedIcon.react").PsaVerifiedIcon, {
-                "aria-label": l,
+      var t = o("react-compiler-runtime").c(11),
+        n = e.checkmarkLarge,
+        r = e.children,
+        a = e.skipCheckMark,
+        i = e.verified,
+        l;
+      if (i && !a) {
+        var u;
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((u = s._(/*BTDS*/ "Verified channel")), (t[0] = u))
+          : (u = t[0]);
+        var d = u,
+          m = n ? 24 : 16,
+          p;
+        t[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((p = { className: "x78zum5 x6s0dn4 xl56j7k xwklpps x2lah0s" }),
+            (t[1] = p))
+          : (p = t[1]);
+        var _;
+        (t[2] !== m
+          ? ((_ = c.jsx(
+              "div",
+              babelHelpers.extends({}, p, {
+                children: o("WAWebMiscGatingUtils").isBlueEnabled()
+                  ? c.jsx(
+                      o("WAWebPsaVerifiedBlueIcon.react").PsaVerifiedBlueIcon,
+                      { "aria-label": d, width: m, height: m },
+                    )
+                  : c.jsx(o("WAWebPsaVerifiedIcon.react").PsaVerifiedIcon, {
+                      "aria-label": d,
+                    }),
               }),
-        });
+            )),
+            (t[2] = m),
+            (t[3] = _))
+          : (_ = t[3]),
+          (l = _));
       }
-      return c.jsxs("span", {
-        className:
-          "x1c4vz4f x3nfvp2 x1i7k8ik xq9mrsl x6s0dn4 x6ikm8r x10wlt62 x193iq5w",
-        children: [
-          c.jsx("span", {
-            className: "x78zum5 xeuugli x6ikm8r x10wlt62 xlyipyv xuxw1ft",
-            children: n,
+      var f, g;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = {
+            className:
+              "x1c4vz4f x3nfvp2 x1i7k8ik xq9mrsl x6s0dn4 x6ikm8r x10wlt62 x193iq5w",
           }),
-          i,
-        ],
-      });
+          (g = {
+            className: "x78zum5 xeuugli x6ikm8r x10wlt62 xlyipyv xuxw1ft",
+          }),
+          (t[4] = f),
+          (t[5] = g))
+        : ((f = t[4]), (g = t[5]));
+      var h;
+      t[6] !== r
+        ? ((h = c.jsx("span", babelHelpers.extends({}, g, { children: r }))),
+          (t[6] = r),
+          (t[7] = h))
+        : (h = t[7]);
+      var y;
+      return (
+        t[8] !== l || t[9] !== h
+          ? ((y = c.jsxs(
+              "span",
+              babelHelpers.extends({}, f, { children: [h, l] }),
+            )),
+            (t[8] = l),
+            (t[9] = h),
+            (t[10] = y))
+          : (y = t[10]),
+        y
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
       var n = o("useWAWebModelValues").useModelValues(t, [
           "id",

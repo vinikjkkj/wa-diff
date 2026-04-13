@@ -13,6 +13,7 @@ __d(
     "WAWebUimUie.react",
     "WDSFocusStateStyles",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebIsKeyboardUser",
     "useWAWebUnmountSignal",
@@ -30,173 +31,206 @@ __d(
       g = d.useState,
       h = { cursorZoomIn: { cursor: "x1huxd7x", $$css: !0 } };
     function y(t) {
-      var n = t.ref,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        i = a.children,
-        l = a.height,
-        u = a.msg,
-        d = a.onLoad,
-        y = a.onZoomIn,
-        C = a.role,
-        b = a.tabIndex,
-        v = a.width,
-        S = a["aria-label"],
-        R = g(null),
-        L = R[0],
-        E = R[1],
-        k = g(!0),
-        I = k[0],
-        T = k[1],
-        D = f(0),
+      var n = o("react-compiler-runtime").c(13),
+        a = t.ref,
+        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        l = i.children,
+        u = i.height,
+        d = i.msg,
+        y = i.onLoad,
+        C = i.onZoomIn,
+        b = i.role,
+        v = i.tabIndex,
+        S = i.width,
+        R = i["aria-label"],
+        L = g(null),
+        E = L[0],
+        k = L[1],
+        I = g(!0),
+        T = I[0],
+        D = I[1],
         x = f(0),
-        $ = f(),
-        P = f(null),
-        N = r("useWAWebIsKeyboardUser")(),
-        M = N.isKeyboardUser,
-        w = g(!1),
-        A = w[0],
-        F = w[1],
-        O = r("useWAWebUnmountSignal")(),
-        B = function () {
-          var e;
-          return (e = $.current) == null ? void 0 : e.getOutsideContainer();
-        },
+        $ = f(0),
+        P = f(),
+        N = f(null),
+        M = r("useWAWebIsKeyboardUser")(),
+        w = M.isKeyboardUser,
+        A = g(!1),
+        F = A[0],
+        O = A[1],
+        B = r("useWAWebUnmountSignal")(),
         W = function () {
           var e;
-          return (e = $.current) == null ? void 0 : e.getInsideContainer();
+          return (e = P.current) == null ? void 0 : e.getOutsideContainer();
         },
-        q = m(o("WAWebMediaIncrementalZoom").MediaIncrementalZoomCtx),
-        U = q.isEnabled,
-        V = q.isZoomedIn;
-      p(
-        function () {
-          T(!V);
+        q = function () {
+          var e;
+          return (e = P.current) == null ? void 0 : e.getInsideContainer();
         },
-        [V],
-      );
-      var H = function () {
-          T(!1);
-        },
-        G = function (t, n, r) {
-          var e = x.current,
-            o = D.current,
+        U = m(o("WAWebMediaIncrementalZoom").MediaIncrementalZoomCtx),
+        V = U.isEnabled,
+        H = U.isZoomedIn,
+        G,
+        z;
+      (n[0] !== H
+        ? ((G = function () {
+            D(!H);
+          }),
+          (z = [H]),
+          (n[0] = H),
+          (n[1] = G),
+          (n[2] = z))
+        : ((G = n[1]), (z = n[2])),
+        p(G, z));
+      var j;
+      n[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((j = function () {
+            D(!1);
+          }),
+          (n[3] = j))
+        : (j = n[3]);
+      var K = j,
+        Q = function (t, n, r) {
+          var e = $.current,
+            o = x.current,
             a = window.innerWidth / 2 - n,
             i = window.innerHeight / 2 - r,
             l = e > 0 ? Math.round((1.2 * a * e) / t.clientWidth) : 0,
             s = o > 0 ? Math.round((1.2 * i * o) / t.clientHeight) : 0;
           return { translateX: l, translateY: s };
         },
-        z = function () {
-          (y(!1), E(null), T(!0));
+        X = function () {
+          (C(!1), k(null), D(!0));
         },
-        j = function () {
-          M && !O.aborted && F(!0);
-        },
-        K = function () {
-          O.aborted || F(!1);
-        },
-        Q = function (t, n, r) {
-          K();
-          var e = W(),
-            o = B();
+        Y;
+      n[4] !== w || n[5] !== B.aborted
+        ? ((Y = function () {
+            w && !B.aborted && O(!0);
+          }),
+          (n[4] = w),
+          (n[5] = B.aborted),
+          (n[6] = Y))
+        : (Y = n[6]);
+      var J = Y,
+        Z;
+      n[7] !== B.aborted
+        ? ((Z = function () {
+            B.aborted || O(!1);
+          }),
+          (n[7] = B.aborted),
+          (n[8] = Z))
+        : (Z = n[8]);
+      var ee = Z,
+        te = function (t, n, r) {
+          ee();
+          var e = q(),
+            o = W();
           if (!(!(e instanceof HTMLElement) || !(o instanceof HTMLElement))) {
-            ((D.current = e.clientHeight * t - o.clientHeight),
-              (x.current = e.clientWidth * t - o.clientWidth));
-            var a = G(o, n, r),
+            ((x.current = e.clientHeight * t - o.clientHeight),
+              ($.current = e.clientWidth * t - o.clientWidth));
+            var a = Q(o, n, r),
               i = a.translateX,
               l = a.translateY;
-            (y(!0), E({ factor: t, translateX: i, translateY: l }), T(!1));
+            (C(!0), k({ factor: t, translateX: i, translateY: l }), D(!1));
           }
         },
-        X = function (t, n) {
-          if (L) {
-            z();
+        ne = function (t, n) {
+          if (E) {
+            X();
             return;
           }
-          Q(o("WAWebMediaViewerConstants").ZOOM_IN_FACTOR, t, n);
+          te(o("WAWebMediaViewerConstants").ZOOM_IN_FACTOR, t, n);
         },
-        Y = function (t) {
-          (t.stopPropagation(), X(t.pageX, t.pageY));
+        re = function (t) {
+          (t.stopPropagation(), ne(t.pageX, t.pageY));
         },
-        J = function (t) {
+        oe = function (t) {
           (t.stopPropagation(),
-            X(window.innerWidth / 2, window.innerHeight / 2));
+            ne(window.innerWidth / 2, window.innerHeight / 2));
         };
-      _(n, function () {
+      _(a, function () {
         return {
           getHeightOverflow: function () {
-            return D.current;
-          },
-          getWidthOverflow: function () {
             return x.current;
           },
-          onClick: Y,
-          onKeyboardZoom: J,
-          getTranslatePosition: G,
-          getOutsideContainer: B,
-          getInsideContainer: W,
-          closingMediaZoomable: H,
+          getWidthOverflow: function () {
+            return $.current;
+          },
+          onClick: re,
+          onKeyboardZoom: oe,
+          getTranslatePosition: Q,
+          getOutsideContainer: W,
+          getInsideContainer: q,
+          closingMediaZoomable: K,
         };
       });
-      var Z = { width: v, height: l },
-        ee = !U && !L && h.cursorZoomIn,
-        te = c.jsx(
-          "div",
-          babelHelpers.extends(
-            {
-              role: C,
-              tabIndex: b,
-              "aria-label": S,
-              ref: P,
-              onFocus: j,
-              onBlur: K,
-            },
-            (s || (s = r("stylex"))).props(
-              r("WAWebMediaViewerStyles").content,
-              ee,
-              !L &&
-                A &&
-                o("WDSFocusStateStyles").WDSFocusStateStyles
-                  .genericFocusPersistent,
-            ),
-            { "data-testid": void 0, children: i },
-          ),
-        );
-      L &&
-        (te = c.jsx(o("WAWebUimUie.react").UIE, {
+      var ae = { width: S, height: u },
+        ie = !V && !E && h.cursorZoomIn,
+        le;
+      n[9] !== F || n[10] !== ie || n[11] !== E
+        ? ((le = (s || (s = r("stylex"))).props(
+            r("WAWebMediaViewerStyles").content,
+            ie,
+            !E &&
+              F &&
+              o("WDSFocusStateStyles").WDSFocusStateStyles
+                .genericFocusPersistent,
+          )),
+          (n[9] = F),
+          (n[10] = ie),
+          (n[11] = E),
+          (n[12] = le))
+        : (le = n[12]);
+      var se = c.jsx(
+        "div",
+        babelHelpers.extends(
+          {
+            role: b,
+            tabIndex: v,
+            "aria-label": R,
+            ref: N,
+            onFocus: J,
+            onBlur: ee,
+          },
+          le,
+          { "data-testid": void 0, children: l },
+        ),
+      );
+      E &&
+        (se = c.jsx(o("WAWebUimUie.react").UIE, {
           displayName: "ZoomInImage",
           escapable: !0,
-          requestDismiss: z,
-          children: te,
+          requestDismiss: X,
+          children: se,
         }));
-      var ne = o("WAWebGetDisplayType").getDisplayType(u),
-        re = o("WAWebAddOnBubbleType").AddOnBubbleType.MEDIA_VIEWER,
-        oe;
+      var ue = o("WAWebGetDisplayType").getDisplayType(d),
+        ce = o("WAWebAddOnBubbleType").AddOnBubbleType.MEDIA_VIEWER,
+        de;
       return (
-        u &&
-          o("WAWebReactionsUtils").shouldShowReactionBubble(u, re) &&
-          (oe = c.jsx(r("WAWebAddOnBubblesContainer.react"), {
-            isOutgoingMsg: o("WAWebMsgGetters").getIsSentByMe(u),
-            displayType: ne,
-            bubbleType: re,
-            displayReactionBubble: I,
-            parentIds: [u.id.toString()],
+        d &&
+          o("WAWebReactionsUtils").shouldShowReactionBubble(d, ce) &&
+          (de = c.jsx(r("WAWebAddOnBubblesContainer.react"), {
+            isOutgoingMsg: o("WAWebMsgGetters").getIsSentByMe(d),
+            displayType: ue,
+            bubbleType: ce,
+            displayReactionBubble: T,
+            parentIds: [d.id.toString()],
           })),
-        U
+        V
           ? c.jsx(o("WAWebMediaIncrementalZoom").IncrementalImageRenderer, {
-              size: Z,
-              image: te,
-              addonBubble: oe,
+              size: ae,
+              image: se,
+              addonBubble: de,
             })
           : c.jsxs(r("WAWebObjectFit.react"), {
               type: "zoomIn",
-              size: Z,
+              size: ae,
               position: "relative",
               objectPosition: "relative",
-              zoomIn: L,
-              onObjectLoad: d,
-              ref: $,
-              children: [te, oe],
+              zoomIn: E,
+              onObjectLoad: y,
+              ref: P,
+              children: [se, de],
             })
       );
     }

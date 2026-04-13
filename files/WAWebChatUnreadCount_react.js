@@ -7,6 +7,7 @@ __d(
     "WAWebL10N",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebABPropConfigValue",
   ],
@@ -72,63 +73,117 @@ __d(
         },
       };
     function p(t) {
-      var n = t.ariaLabel,
-        a = t.count,
-        i = t.maxCount,
-        l = i === void 0 ? 1e3 : i,
+      var n = o("react-compiler-runtime").c(27),
+        a = t.ariaLabel,
+        i = t.count,
+        l = t.maxCount,
         u = t.ref,
         p = t.theme,
-        _ = "";
-      n != null && n !== ""
-        ? (_ = n)
-        : a > 0
-          ? (_ = s._(
+        _ = l === void 0 ? 1e3 : l,
+        f;
+      if (a != null && a !== "") f = a;
+      else if (i > 0) {
+        var g;
+        (n[0] !== i
+          ? ((g = s._(
               /*BTDS*/ '_j{"*":"{count} unread messages","_1":"1 unread message"}',
-              [s._plural(a, "count")],
-            ))
-          : (_ = s._(/*BTDS*/ "Unread"));
-      var f = p === d.Transparent ? "contentDeemphasized" : "contentOnAccent",
-        g = o("useWAWebABPropConfigValue").useABPropConfigValue(
+              [s._plural(i, "count")],
+            )),
+            (n[0] = i),
+            (n[1] = g))
+          : (g = n[1]),
+          (f = g));
+      } else {
+        var h;
+        (n[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((h = s._(/*BTDS*/ "Unread")), (n[2] = h))
+          : (h = n[2]),
+          (f = h));
+      }
+      var y = p === d.Transparent ? "contentDeemphasized" : "contentOnAccent",
+        C = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "wds_web_roboto",
         ),
-        h = p === d.MissedCalls ? m.missedCallBg : m.defaultBg,
-        y = [m.count, h];
-      (a >= 10 &&
-        (y.push(m.countMorePadding),
-        (p === d.Outlined || p === d.MissedCalls) &&
-          y.push(m.outlinePaddingReposition)),
-        p === d.Outlined || p === d.MissedCalls
-          ? y.push(m.outlined)
-          : p === d.Transparent
-            ? y.push(m.transparent)
-            : p === d.QuestionResponses && y.push(m.marginHoriz8));
-      var C = p === d.MissedCalls ? "missed-call-counter" : "icon-unread-count",
-        b = p === d.MissedCalls ? "missed_call" : "unread_message",
-        v =
-          p === d.QuestionResponses
-            ? r("WAWebL10N").d(a)
-            : o("WAWebCountRenderingUtils").renderCount(a, l, b);
-      return c.jsx(
-        "span",
-        babelHelpers.extends(
-          { ref: u, "data-testid": void 0 },
-          (e || (e = r("stylex"))).props(y),
-          {
-            "aria-label": _,
-            children: c.jsx(r("WDSText.react"), {
-              type: "Body3Emphasized",
-              colorName: f,
-              robotoPropValue: g,
-              xstyle: m.fixWordBreak,
-              children: v,
-            }),
-          },
-        ),
+        b = p === d.MissedCalls ? m.missedCallBg : m.defaultBg,
+        v,
+        S,
+        R,
+        L;
+      if (n[3] !== b || n[4] !== i || n[5] !== _ || n[6] !== u || n[7] !== p) {
+        var E = [m.count, b];
+        (i >= 10 &&
+          (E.push(m.countMorePadding),
+          (p === d.Outlined || p === d.MissedCalls) &&
+            E.push(m.outlinePaddingReposition)),
+          p === d.Outlined || p === d.MissedCalls
+            ? E.push(m.outlined)
+            : p === d.Transparent
+              ? E.push(m.transparent)
+              : p === d.QuestionResponses && E.push(m.marginHoriz8));
+        var k =
+            p === d.MissedCalls ? "missed-call-counter" : "icon-unread-count",
+          I = p === d.MissedCalls ? "missed_call" : "unread_message",
+          T;
+        (n[12] !== i || n[13] !== I || n[14] !== _ || n[15] !== p
+          ? ((T =
+              p === d.QuestionResponses
+                ? r("WAWebL10N").d(i)
+                : o("WAWebCountRenderingUtils").renderCount(i, _, I)),
+            (n[12] = i),
+            (n[13] = I),
+            (n[14] = _),
+            (n[15] = p),
+            (n[16] = T))
+          : (T = n[16]),
+          (v = T),
+          (S = u),
+          (R = k),
+          (L = (e || (e = r("stylex"))).props(E)),
+          (n[3] = b),
+          (n[4] = i),
+          (n[5] = _),
+          (n[6] = u),
+          (n[7] = p),
+          (n[8] = v),
+          (n[9] = S),
+          (n[10] = R),
+          (n[11] = L));
+      } else ((v = n[8]), (S = n[9]), (R = n[10]), (L = n[11]));
+      var D;
+      n[17] !== v || n[18] !== C || n[19] !== y
+        ? ((D = c.jsx(r("WDSText.react"), {
+            type: "Body3Emphasized",
+            colorName: y,
+            robotoPropValue: C,
+            xstyle: m.fixWordBreak,
+            children: v,
+          })),
+          (n[17] = v),
+          (n[18] = C),
+          (n[19] = y),
+          (n[20] = D))
+        : (D = n[20]);
+      var x;
+      return (
+        n[21] !== S || n[22] !== R || n[23] !== L || n[24] !== D || n[25] !== f
+          ? ((x = c.jsx(
+              "span",
+              babelHelpers.extends({ ref: S, "data-testid": void 0 }, L, {
+                "aria-label": f,
+                children: D,
+              }),
+            )),
+            (n[21] = S),
+            (n[22] = R),
+            (n[23] = L),
+            (n[24] = D),
+            (n[25] = f),
+            (n[26] = x))
+          : (x = n[26]),
+        x
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"),
-      (l.UnreadCountTheme = d),
-      (l.UnreadCount = p));
+    ((l.UnreadCountTheme = d), (l.UnreadCount = p));
   },
   226,
 );

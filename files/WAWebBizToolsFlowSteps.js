@@ -6,6 +6,7 @@ __d(
     var e = n("$InternalEnum").Mirrored([
       "Tools",
       "BusinessProfile",
+      "BusinessAI",
       "ManageAds",
       "Catalog",
       "Orders",

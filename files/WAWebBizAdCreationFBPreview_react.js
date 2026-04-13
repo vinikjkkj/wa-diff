@@ -13,6 +13,7 @@ __d(
     "WDSIconWdsIcWhatsapp.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -119,384 +120,743 @@ __d(
         whatsappIcon: { color: "x14ug900", $$css: !0 },
       };
     function f(e) {
-      var t = e.businessName,
-        n = e.isVerified,
-        a = e.profilePictureUrl;
-      return c.jsx("div", {
-        className: "x1xrf6ya xde1mab xscbp6u x1iw51ew",
-        children: c.jsxs(o("WAWebFlex.react").FlexRow, {
-          xstyle: _.header,
-          align: "start",
-          children: [
-            c.jsx("div", {
-              className: "x2lah0s",
+      var t = o("react-compiler-runtime").c(19),
+        n = e.businessName,
+        a = e.isVerified,
+        i = e.profilePictureUrl,
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = { className: "x1xrf6ya xde1mab xscbp6u x1iw51ew" }), (t[0] = l))
+        : (l = t[0]);
+      var u;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = { className: "x2lah0s" }), (t[1] = u))
+        : (u = t[1]);
+      var d;
+      t[2] !== n || t[3] !== i
+        ? ((d = c.jsx(
+            "div",
+            babelHelpers.extends({}, u, {
               children:
-                a != null
+                i != null
                   ? c.jsx("img", {
                       className:
                         "x1c9tyrk xeusxvb x1pahc9y x1ertn4p x1vqgdyp x100vrsf xl1xv1r",
-                      src: a,
-                      alt: t,
+                      src: i,
+                      alt: n,
                     })
                   : c.jsx("div", {
                       className:
                         "x1c9tyrk xeusxvb x1pahc9y x1ertn4p x1vqgdyp x100vrsf x4wrhlh",
                     }),
             }),
-            c.jsxs(o("WAWebFlex.react").FlexColumn, {
-              xstyle: _.headerContent,
-              align: "start",
-              children: [
-                c.jsxs(o("WAWebFlex.react").FlexRow, {
-                  align: "center",
-                  gap: 4,
-                  children: [
-                    c.jsx(r("WDSText.react"), {
-                      type: "Body2Emphasized",
-                      colorName: "contentDefault",
-                      children: t,
-                    }),
-                    n === !0 &&
-                      c.jsx(
-                        o("BizKitNMEMV4BVerifiedBadge.react")
-                          .BizKitNMEMV4BVerifiedBadge,
-                        { size: "small", verified: !0 },
-                      ),
-                  ],
-                }),
-                c.jsxs(o("WAWebFlex.react").FlexRow, {
-                  xstyle: _.sponsoredRow,
-                  children: [
-                    c.jsx(r("WDSText.react"), {
-                      type: "Body3",
-                      colorName: "contentDeemphasized",
-                      children: s._(/*BTDS*/ "Sponsored"),
-                    }),
-                    c.jsx(r("WDSText.react"), {
-                      type: "Body3",
-                      colorName: "contentDeemphasized",
-                      children: "\xB7",
-                    }),
-                    c.jsx(r("WDSIconIcPublic.react"), {
-                      height: 12,
-                      width: 12,
-                      iconXstyle: _.icon,
-                    }),
-                  ],
-                }),
-              ],
-            }),
-            c.jsx(o("WAWebCallMenuIcon.react").CallMenuIcon, {
-              height: 24,
-              width: 24,
-              iconXstyle: _.icon,
-            }),
-          ],
-        }),
-      });
-    }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(e) {
-      var t = e.description;
-      return t == null || t.trim() === ""
-        ? null
-        : c.jsx("div", {
-            className: "xscbp6u x1iw51ew xde1mab xexx8yu",
-            children: c.jsx(r("WDSText.react"), {
-              type: "Body2",
-              colorName: "contentDefault",
-              children: t,
-            }),
-          });
-    }
-    g.displayName = g.name + " [from " + i.id + "]";
-    function h(e) {
-      var t = e.businessName;
-      return c.jsxs(o("WAWebFlex.react").FlexRow, {
-        xstyle: _.ctaRow,
-        align: "center",
-        children: [
-          c.jsxs(o("WAWebFlex.react").FlexColumn, {
-            xstyle: _.ctaTextColumn,
-            align: "start",
+          )),
+          (t[2] = n),
+          (t[3] = i),
+          (t[4] = d))
+        : (d = t[4]);
+      var m;
+      t[5] !== n
+        ? ((m = c.jsx(r("WDSText.react"), {
+            type: "Body2Emphasized",
+            colorName: "contentDefault",
+            children: n,
+          })),
+          (t[5] = n),
+          (t[6] = m))
+        : (m = t[6]);
+      var p;
+      t[7] !== a
+        ? ((p =
+            a === !0 &&
+            c.jsx(
+              o("BizKitNMEMV4BVerifiedBadge.react").BizKitNMEMV4BVerifiedBadge,
+              { size: "small", verified: !0 },
+            )),
+          (t[7] = a),
+          (t[8] = p))
+        : (p = t[8]);
+      var f;
+      t[9] !== m || t[10] !== p
+        ? ((f = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            gap: 4,
+            children: [m, p],
+          })),
+          (t[9] = m),
+          (t[10] = p),
+          (t[11] = f))
+        : (f = t[11]);
+      var g;
+      t[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            xstyle: _.sponsoredRow,
             children: [
               c.jsx(r("WDSText.react"), {
                 type: "Body3",
                 colorName: "contentDeemphasized",
-                children: s._(/*BTDS*/ "WHATSAPP"),
+                children: s._(/*BTDS*/ "Sponsored"),
               }),
+              c.jsx(r("WDSText.react"), {
+                type: "Body3",
+                colorName: "contentDeemphasized",
+                children: "\xB7",
+              }),
+              c.jsx(r("WDSIconIcPublic.react"), {
+                height: 12,
+                width: 12,
+                iconXstyle: _.icon,
+              }),
+            ],
+          })),
+          (t[12] = g))
+        : (g = t[12]);
+      var h;
+      t[13] !== f
+        ? ((h = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            xstyle: _.headerContent,
+            align: "start",
+            children: [f, g],
+          })),
+          (t[13] = f),
+          (t[14] = h))
+        : (h = t[14]);
+      var y;
+      t[15] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = c.jsx(o("WAWebCallMenuIcon.react").CallMenuIcon, {
+            height: 24,
+            width: 24,
+            iconXstyle: _.icon,
+          })),
+          (t[15] = y))
+        : (y = t[15]);
+      var C;
+      return (
+        t[16] !== d || t[17] !== h
+          ? ((C = c.jsx(
+              "div",
+              babelHelpers.extends({}, l, {
+                children: c.jsxs(o("WAWebFlex.react").FlexRow, {
+                  xstyle: _.header,
+                  align: "start",
+                  children: [d, h, y],
+                }),
+              }),
+            )),
+            (t[16] = d),
+            (t[17] = h),
+            (t[18] = C))
+          : (C = t[18]),
+        C
+      );
+    }
+    function g(e) {
+      var t = o("react-compiler-runtime").c(3),
+        n = e.description;
+      if (n == null || n.trim() === "") return null;
+      var a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = { className: "xscbp6u x1iw51ew xde1mab xexx8yu" }), (t[0] = a))
+        : (a = t[0]);
+      var i;
+      return (
+        t[1] !== n
+          ? ((i = c.jsx(
+              "div",
+              babelHelpers.extends({}, a, {
+                children: c.jsx(r("WDSText.react"), {
+                  type: "Body2",
+                  colorName: "contentDefault",
+                  children: n,
+                }),
+              }),
+            )),
+            (t[1] = n),
+            (t[2] = i))
+          : (i = t[2]),
+        i
+      );
+    }
+    function h(e) {
+      var t = o("react-compiler-runtime").c(7),
+        n = e.businessName,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = c.jsx(r("WDSText.react"), {
+            type: "Body3",
+            colorName: "contentDeemphasized",
+            children: s._(/*BTDS*/ "WHATSAPP"),
+          })),
+          (t[0] = a))
+        : (a = t[0]);
+      var i;
+      t[1] !== n
+        ? ((i = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            xstyle: _.ctaTextColumn,
+            align: "start",
+            children: [
+              a,
               c.jsx(r("WDSText.react"), {
                 type: "Body2Emphasized",
                 colorName: "contentDefault",
                 maxLines: 1,
-                children: t,
+                children: n,
               }),
             ],
-          }),
-          c.jsxs(o("WAWebFlex.react").FlexRow, {
+          })),
+          (t[1] = n),
+          (t[2] = i))
+        : (i = t[2]);
+      var l;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = c.jsx(r("WDSIconWdsIcWhatsapp.react"), {
+            height: 16,
+            width: 16,
+            iconXstyle: _.whatsappIcon,
+          })),
+          (t[3] = l))
+        : (l = t[3]);
+      var u;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: _.ctaButton,
             align: "center",
             children: [
-              c.jsx(r("WDSIconWdsIcWhatsapp.react"), {
-                height: 16,
-                width: 16,
-                iconXstyle: _.whatsappIcon,
-              }),
+              l,
               c.jsx(r("WDSText.react"), {
                 type: "Body3Emphasized",
                 colorName: "contentDefault",
                 children: s._(/*BTDS*/ "WhatsApp"),
               }),
             ],
-          }),
-        ],
-      });
+          })),
+          (t[4] = u))
+        : (u = t[4]);
+      var d;
+      return (
+        t[5] !== i
+          ? ((d = c.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: _.ctaRow,
+              align: "center",
+              children: [i, u],
+            })),
+            (t[5] = i),
+            (t[6] = d))
+          : (d = t[6]),
+        d
+      );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     function y() {
-      var e;
-      return c.jsxs((e = o("WAWebFlex.react")).FlexRow, {
-        xstyle: _.interactionRow,
-        children: [
-          c.jsxs(e.FlexRow, {
+      var e = o("react-compiler-runtime").c(6),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = c.jsx("div", {
+            className: "xhslqc4 x78zum5 xlup9mm x1kky2od",
+            children: c.jsx(r("FBNucleusLikeOutline16Icon.react"), {}),
+          })),
+          (e[0] = t))
+        : (t = e[0]);
+      var n;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: _.interactionButton,
             children: [
-              c.jsx("div", {
-                className: "xhslqc4 x78zum5 xlup9mm x1kky2od",
-                children: c.jsx(r("FBNucleusLikeOutline16Icon.react"), {}),
-              }),
+              t,
               c.jsx(r("WDSText.react"), {
                 type: "Body3Emphasized",
                 colorName: "contentDeemphasized",
                 children: s._(/*BTDS*/ "Like"),
               }),
             ],
-          }),
-          c.jsxs(e.FlexRow, {
+          })),
+          (e[1] = n))
+        : (n = e[1]);
+      var a;
+      e[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = c.jsx("div", {
+            className: "xhslqc4 x78zum5 xlup9mm x1kky2od",
+            children: c.jsx(r("FBNucleusCommentOutline16Icon.react"), {}),
+          })),
+          (e[2] = a))
+        : (a = e[2]);
+      var i;
+      e[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: _.interactionButton,
             children: [
-              c.jsx("div", {
-                className: "xhslqc4 x78zum5 xlup9mm x1kky2od",
-                children: c.jsx(r("FBNucleusCommentOutline16Icon.react"), {}),
-              }),
+              a,
               c.jsx(r("WDSText.react"), {
                 type: "Body3Emphasized",
                 colorName: "contentDeemphasized",
                 children: s._(/*BTDS*/ "Comment"),
               }),
             ],
-          }),
-          c.jsxs(e.FlexRow, {
-            xstyle: _.interactionButton,
-            children: [
-              c.jsx("div", {
-                className: "xhslqc4 x78zum5 xlup9mm x1kky2od",
-                children: c.jsx(r("FBNucleusShareOutline16Icon.react"), {}),
-              }),
-              c.jsx(r("WDSText.react"), {
-                type: "Body3Emphasized",
-                colorName: "contentDeemphasized",
-                children: s._(/*BTDS*/ "Share"),
-              }),
-            ],
-          }),
-        ],
-      });
-    }
-    y.displayName = y.name + " [from " + i.id + "]";
-    function C(t) {
-      var n = t.businessName,
-        a = t.cardType,
-        i = t.media,
-        l = a === "single" ? null : _.mediaPreviewCardCarousel;
-      return c.jsx(
-        "div",
-        babelHelpers.extends(
-          {},
-          (e || (e = r("stylex"))).props(_.singleMediaPreviewContainer, l),
-          {
-            children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
-              align: "stretch",
+          })),
+          (e[3] = i))
+        : (i = e[3]);
+      var l;
+      e[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = c.jsx("div", {
+            className: "xhslqc4 x78zum5 xlup9mm x1kky2od",
+            children: c.jsx(r("FBNucleusShareOutline16Icon.react"), {}),
+          })),
+          (e[4] = l))
+        : (l = e[4]);
+      var u;
+      return (
+        e[5] === Symbol.for("react.memo_cache_sentinel")
+          ? ((u = c.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: _.interactionRow,
               children: [
-                c.jsx(
-                  o("WAWebBizAdCreationPreviewMediaRenderers.react")
-                    .SingleMediaPreview,
-                  {
-                    containerXstyle: _.mediaPreviewThumbnailContainer,
-                    media: i,
-                  },
-                ),
-                c.jsx(h, { businessName: n }),
+                n,
+                i,
+                c.jsxs(o("WAWebFlex.react").FlexRow, {
+                  xstyle: _.interactionButton,
+                  children: [
+                    l,
+                    c.jsx(r("WDSText.react"), {
+                      type: "Body3Emphasized",
+                      colorName: "contentDeemphasized",
+                      children: s._(/*BTDS*/ "Share"),
+                    }),
+                  ],
+                }),
               ],
-            }),
-          },
-        ),
+            })),
+            (e[5] = u))
+          : (u = e[5]),
+        u
       );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
-    function b(e) {
-      var t = e.businessName,
-        n = e.medias;
-      return c.jsx("div", {
-        className: "x78zum5 x14aock7 x1trrmfo x1iw51ew xde1mab",
-        children: n.map(function (e, n) {
-          return c.jsx(
-            C,
-            { businessName: t, cardType: "carousel", media: e },
-            n,
-          );
-        }),
-      });
+    function C(t) {
+      var n = o("react-compiler-runtime").c(12),
+        a = t.businessName,
+        i = t.cardType,
+        l = t.media,
+        s = i === "single" ? null : _.mediaPreviewCardCarousel,
+        u;
+      n[0] !== s
+        ? ((u = (e || (e = r("stylex"))).props(
+            _.singleMediaPreviewContainer,
+            s,
+          )),
+          (n[0] = s),
+          (n[1] = u))
+        : (u = n[1]);
+      var d;
+      n[2] !== l
+        ? ((d = c.jsx(
+            o("WAWebBizAdCreationPreviewMediaRenderers.react")
+              .SingleMediaPreview,
+            { containerXstyle: _.mediaPreviewThumbnailContainer, media: l },
+          )),
+          (n[2] = l),
+          (n[3] = d))
+        : (d = n[3]);
+      var m;
+      n[4] !== a
+        ? ((m = c.jsx(h, { businessName: a })), (n[4] = a), (n[5] = m))
+        : (m = n[5]);
+      var p;
+      n[6] !== d || n[7] !== m
+        ? ((p = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            align: "stretch",
+            children: [d, m],
+          })),
+          (n[6] = d),
+          (n[7] = m),
+          (n[8] = p))
+        : (p = n[8]);
+      var f;
+      return (
+        n[9] !== u || n[10] !== p
+          ? ((f = c.jsx("div", babelHelpers.extends({}, u, { children: p }))),
+            (n[9] = u),
+            (n[10] = p),
+            (n[11] = f))
+          : (f = n[11]),
+        f
+      );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
+    function b(e) {
+      var t = o("react-compiler-runtime").c(8),
+        n = e.businessName,
+        r = e.medias,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = { className: "x78zum5 x14aock7 x1trrmfo x1iw51ew xde1mab" }),
+          (t[0] = a))
+        : (a = t[0]);
+      var i;
+      if (t[1] !== n || t[2] !== r) {
+        var l;
+        (t[4] !== n
+          ? ((l = function (t, r) {
+              return c.jsx(
+                C,
+                { businessName: n, cardType: "carousel", media: t },
+                r,
+              );
+            }),
+            (t[4] = n),
+            (t[5] = l))
+          : (l = t[5]),
+          (i = r.map(l)),
+          (t[1] = n),
+          (t[2] = r),
+          (t[3] = i));
+      } else i = t[3];
+      var s;
+      return (
+        t[6] !== i
+          ? ((s = c.jsx("div", babelHelpers.extends({}, a, { children: i }))),
+            (t[6] = i),
+            (t[7] = s))
+          : (s = t[7]),
+        s
+      );
+    }
     function v(e) {
-      var t = e.businessName,
-        n = e.medias,
-        r = e.thumbnailUrl,
-        a = e.videoPosterUrl,
-        i = e.videoUrl;
-      if (i != null)
-        return c.jsx("div", {
-          className: "x1uvdrpn x14mko6t",
-          children: c.jsx("div", {
-            className:
-              "xlr9sxt xvvg52n xwd4zgb xq8v1ta xx42vgk xbogo7e x120ee7l x1vb5itz x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 x2lah0s x6ikm8r x10wlt62",
-            children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
-              align: "stretch",
-              children: [
-                c.jsx("div", {
-                  className: "x127qqk8 x6ikm8r x10wlt62",
-                  children: c.jsx("video", {
-                    className: "x5yr21d x19kjcj4 xh8yej3",
-                    src: i,
+      var t = o("react-compiler-runtime").c(43),
+        n = e.businessName,
+        r = e.medias,
+        a = e.thumbnailUrl,
+        i = e.videoPosterUrl,
+        l = e.videoUrl;
+      if (l != null) {
+        var u, d;
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((u = { className: "x1uvdrpn x14mko6t" }),
+            (d = {
+              className:
+                "xlr9sxt xvvg52n xwd4zgb xq8v1ta xx42vgk xbogo7e x120ee7l x1vb5itz x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 x2lah0s x6ikm8r x10wlt62",
+            }),
+            (t[0] = u),
+            (t[1] = d))
+          : ((u = t[0]), (d = t[1]));
+        var m, p;
+        t[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((m = { className: "x127qqk8 x6ikm8r x10wlt62" }),
+            (p = { className: "x5yr21d x19kjcj4 xh8yej3" }),
+            (t[2] = m),
+            (t[3] = p))
+          : ((m = t[2]), (p = t[3]));
+        var f;
+        t[4] !== i || t[5] !== l
+          ? ((f = c.jsx(
+              "div",
+              babelHelpers.extends({}, m, {
+                children: c.jsx(
+                  "video",
+                  babelHelpers.extends({}, p, {
+                    src: l,
                     autoPlay: !0,
                     loop: !0,
                     muted: !0,
                     playsInline: !0,
-                    poster: a,
+                    poster: i,
                   }),
-                }),
-                c.jsx(h, { businessName: t }),
-              ],
-            }),
-          }),
-        });
-      if (n != null && n.length > 0) {
-        if (n.length === 1) {
-          var l = n[0];
-          return c.jsx("div", {
-            className: "x1uvdrpn x14mko6t",
-            children: c.jsx("div", {
-              className:
-                "xlr9sxt xvvg52n xwd4zgb xq8v1ta xx42vgk xbogo7e x120ee7l x1vb5itz x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 x2lah0s x6ikm8r x10wlt62",
-              children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
-                align: "stretch",
-                children: [
-                  typeof l == "string"
-                    ? c.jsx("div", {
-                        className: "x127qqk8 x6ikm8r x10wlt62",
-                        children: c.jsx("img", {
-                          className: "x5yr21d xl1xv1r xh8yej3",
-                          src: l,
-                          alt: s._(/*BTDS*/ "Media preview"),
-                        }),
-                      })
-                    : c.jsx(
-                        o("WAWebBizAdCreationPreviewMediaRenderers.react")
-                          .SingleMediaPreview,
-                        {
-                          containerXstyle: _.mediaPreviewThumbnailContainer,
-                          media: l,
-                        },
-                      ),
-                  c.jsx(h, { businessName: t }),
-                ],
+                ),
               }),
-            }),
-          });
-        }
-        var u = n.every(function (e) {
-          return typeof e == "string";
-        });
-        if (u)
-          return c.jsx("div", {
-            className: "x78zum5 x14aock7 x1trrmfo x1iw51ew xde1mab",
-            children: n.map(function (e, n) {
-              return c.jsx(
+            )),
+            (t[4] = i),
+            (t[5] = l),
+            (t[6] = f))
+          : (f = t[6]);
+        var g;
+        t[7] !== n
+          ? ((g = c.jsx(h, { businessName: n })), (t[7] = n), (t[8] = g))
+          : (g = t[8]);
+        var y;
+        return (
+          t[9] !== f || t[10] !== g
+            ? ((y = c.jsx(
                 "div",
-                {
-                  className:
-                    "xlr9sxt xvvg52n xwd4zgb xq8v1ta xx42vgk xbogo7e x120ee7l x1vb5itz x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 x2lah0s x6ikm8r x10wlt62 x1rva8in",
-                  children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
-                    align: "stretch",
-                    children: [
-                      c.jsx("div", {
-                        className: "x127qqk8 x6ikm8r x10wlt62",
-                        children: c.jsx("img", {
-                          className: "x5yr21d xl1xv1r xh8yej3",
-                          src: typeof e == "string" ? e : "",
-                          alt: s._(/*BTDS*/ "Media preview"),
+                babelHelpers.extends({}, u, {
+                  children: c.jsx(
+                    "div",
+                    babelHelpers.extends({}, d, {
+                      children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
+                        align: "stretch",
+                        children: [f, g],
+                      }),
+                    }),
+                  ),
+                }),
+              )),
+              (t[9] = f),
+              (t[10] = g),
+              (t[11] = y))
+            : (y = t[11]),
+          y
+        );
+      }
+      if (r != null && r.length > 0) {
+        if (r.length === 1) {
+          var C = r[0],
+            v,
+            L;
+          t[12] === Symbol.for("react.memo_cache_sentinel")
+            ? ((v = { className: "x1uvdrpn x14mko6t" }),
+              (L = {
+                className:
+                  "xlr9sxt xvvg52n xwd4zgb xq8v1ta xx42vgk xbogo7e x120ee7l x1vb5itz x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 x2lah0s x6ikm8r x10wlt62",
+              }),
+              (t[12] = v),
+              (t[13] = L))
+            : ((v = t[12]), (L = t[13]));
+          var E;
+          t[14] !== C
+            ? ((E =
+                typeof C == "string"
+                  ? c.jsx("div", {
+                      className: "x127qqk8 x6ikm8r x10wlt62",
+                      children: c.jsx("img", {
+                        className: "x5yr21d xl1xv1r xh8yej3",
+                        src: C,
+                        alt: s._(/*BTDS*/ "Media preview"),
+                      }),
+                    })
+                  : c.jsx(
+                      o("WAWebBizAdCreationPreviewMediaRenderers.react")
+                        .SingleMediaPreview,
+                      {
+                        containerXstyle: _.mediaPreviewThumbnailContainer,
+                        media: C,
+                      },
+                    )),
+              (t[14] = C),
+              (t[15] = E))
+            : (E = t[15]);
+          var k;
+          t[16] !== n
+            ? ((k = c.jsx(h, { businessName: n })), (t[16] = n), (t[17] = k))
+            : (k = t[17]);
+          var I;
+          return (
+            t[18] !== E || t[19] !== k
+              ? ((I = c.jsx(
+                  "div",
+                  babelHelpers.extends({}, v, {
+                    children: c.jsx(
+                      "div",
+                      babelHelpers.extends({}, L, {
+                        children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
+                          align: "stretch",
+                          children: [E, k],
                         }),
                       }),
-                      c.jsx(h, { businessName: t }),
-                    ],
+                    ),
                   }),
-                },
-                n,
-              );
-            }),
-          });
-        var d = n.filter(function (e) {
-          return typeof e != "string";
-        });
-        return c.jsx(b, { businessName: t, medias: d });
+                )),
+                (t[18] = E),
+                (t[19] = k),
+                (t[20] = I))
+              : (I = t[20]),
+            I
+          );
+        }
+        var T = r.every(R);
+        if (T) {
+          var D;
+          t[21] === Symbol.for("react.memo_cache_sentinel")
+            ? ((D = {
+                className: "x78zum5 x14aock7 x1trrmfo x1iw51ew xde1mab",
+              }),
+              (t[21] = D))
+            : (D = t[21]);
+          var x;
+          if (t[22] !== n || t[23] !== r) {
+            var $;
+            (t[25] !== n
+              ? (($ = function (t, r) {
+                  return c.jsx(
+                    "div",
+                    {
+                      className:
+                        "xlr9sxt xvvg52n xwd4zgb xq8v1ta xx42vgk xbogo7e x120ee7l x1vb5itz x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 x2lah0s x6ikm8r x10wlt62 x1rva8in",
+                      children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
+                        align: "stretch",
+                        children: [
+                          c.jsx("div", {
+                            className: "x127qqk8 x6ikm8r x10wlt62",
+                            children: c.jsx("img", {
+                              className: "x5yr21d xl1xv1r xh8yej3",
+                              src: typeof t == "string" ? t : "",
+                              alt: s._(/*BTDS*/ "Media preview"),
+                            }),
+                          }),
+                          c.jsx(h, { businessName: n }),
+                        ],
+                      }),
+                    },
+                    r,
+                  );
+                }),
+                (t[25] = n),
+                (t[26] = $))
+              : ($ = t[26]),
+              (x = r.map($)),
+              (t[22] = n),
+              (t[23] = r),
+              (t[24] = x));
+          } else x = t[24];
+          var P;
+          return (
+            t[27] !== x
+              ? ((P = c.jsx(
+                  "div",
+                  babelHelpers.extends({}, D, { children: x }),
+                )),
+                (t[27] = x),
+                (t[28] = P))
+              : (P = t[28]),
+            P
+          );
+        }
+        var N;
+        t[29] !== r
+          ? ((N = r.filter(S)), (t[29] = r), (t[30] = N))
+          : (N = t[30]);
+        var M = N,
+          w;
+        return (
+          t[31] !== M || t[32] !== n
+            ? ((w = c.jsx(b, { businessName: n, medias: M })),
+              (t[31] = M),
+              (t[32] = n),
+              (t[33] = w))
+            : (w = t[33]),
+          w
+        );
       }
-      return c.jsx("div", {
-        className: "x1uvdrpn x14mko6t",
-        children: c.jsx("div", {
-          className:
-            "xlr9sxt xvvg52n xwd4zgb xq8v1ta xx42vgk xbogo7e x120ee7l x1vb5itz x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 x2lah0s x6ikm8r x10wlt62",
-          children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
-            align: "stretch",
-            children: [
-              c.jsx(
-                o("WAWebBizAdCreationPreviewMediaRenderers.react")
-                  .PlaceholderMediaPreview,
-                {
-                  containerXstyle: _.mediaPreviewThumbnailContainer,
-                  thumbnailUrl: r,
-                },
-              ),
-              c.jsx(h, { businessName: t }),
-            ],
+      var A, F;
+      t[34] === Symbol.for("react.memo_cache_sentinel")
+        ? ((A = { className: "x1uvdrpn x14mko6t" }),
+          (F = {
+            className:
+              "xlr9sxt xvvg52n xwd4zgb xq8v1ta xx42vgk xbogo7e x120ee7l x1vb5itz x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x178xt8z x1lun4ml xso031l xpilrb4 x2lah0s x6ikm8r x10wlt62",
           }),
-        }),
-      });
+          (t[34] = A),
+          (t[35] = F))
+        : ((A = t[34]), (F = t[35]));
+      var O;
+      t[36] !== a
+        ? ((O = c.jsx(
+            o("WAWebBizAdCreationPreviewMediaRenderers.react")
+              .PlaceholderMediaPreview,
+            {
+              containerXstyle: _.mediaPreviewThumbnailContainer,
+              thumbnailUrl: a,
+            },
+          )),
+          (t[36] = a),
+          (t[37] = O))
+        : (O = t[37]);
+      var B;
+      t[38] !== n
+        ? ((B = c.jsx(h, { businessName: n })), (t[38] = n), (t[39] = B))
+        : (B = t[39]);
+      var W;
+      return (
+        t[40] !== O || t[41] !== B
+          ? ((W = c.jsx(
+              "div",
+              babelHelpers.extends({}, A, {
+                children: c.jsx(
+                  "div",
+                  babelHelpers.extends({}, F, {
+                    children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
+                      align: "stretch",
+                      children: [O, B],
+                    }),
+                  }),
+                ),
+              }),
+            )),
+            (t[40] = O),
+            (t[41] = B),
+            (t[42] = W))
+          : (W = t[42]),
+        W
+      );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      return c.jsxs("div", {
-        className:
-          "x1280gxy xlr9sxt xvvg52n xwd4zgb xq8v1ta xdqjdmj xvc5jky x11t971q xdzyupr",
-        children: [
-          c.jsx(f, {
+      return typeof e != "string";
+    }
+    function R(e) {
+      return typeof e == "string";
+    }
+    function L(e) {
+      var t = o("react-compiler-runtime").c(18),
+        n;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = {
+            className:
+              "x1280gxy xlr9sxt xvvg52n xwd4zgb xq8v1ta xdqjdmj xvc5jky x11t971q xdzyupr",
+          }),
+          (t[0] = n))
+        : (n = t[0]);
+      var r;
+      t[1] !== e.businessName ||
+      t[2] !== e.isVerified ||
+      t[3] !== e.profilePictureUrl
+        ? ((r = c.jsx(f, {
             businessName: e.businessName,
             isVerified: e.isVerified,
             profilePictureUrl: e.profilePictureUrl,
-          }),
-          c.jsx(g, { description: e.description }),
-          c.jsx(v, {
+          })),
+          (t[1] = e.businessName),
+          (t[2] = e.isVerified),
+          (t[3] = e.profilePictureUrl),
+          (t[4] = r))
+        : (r = t[4]);
+      var a;
+      t[5] !== e.description
+        ? ((a = c.jsx(g, { description: e.description })),
+          (t[5] = e.description),
+          (t[6] = a))
+        : (a = t[6]);
+      var i;
+      t[7] !== e.businessName ||
+      t[8] !== e.medias ||
+      t[9] !== e.thumbnailUrl ||
+      t[10] !== e.videoPosterUrl ||
+      t[11] !== e.videoUrl
+        ? ((i = c.jsx(v, {
             medias: e.medias,
             businessName: e.businessName,
             thumbnailUrl: e.thumbnailUrl,
             videoUrl: e.videoUrl,
             videoPosterUrl: e.videoPosterUrl,
-          }),
-          c.jsx(y, {}),
-        ],
-      });
+          })),
+          (t[7] = e.businessName),
+          (t[8] = e.medias),
+          (t[9] = e.thumbnailUrl),
+          (t[10] = e.videoPosterUrl),
+          (t[11] = e.videoUrl),
+          (t[12] = i))
+        : (i = t[12]);
+      var l;
+      t[13] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = c.jsx(y, {})), (t[13] = l))
+        : (l = t[13]);
+      var s;
+      return (
+        t[14] !== r || t[15] !== a || t[16] !== i
+          ? ((s = c.jsxs(
+              "div",
+              babelHelpers.extends({}, n, { children: [r, a, i, l] }),
+            )),
+            (t[14] = r),
+            (t[15] = a),
+            (t[16] = i),
+            (t[17] = s))
+          : (s = t[17]),
+        s
+      );
     }
-    ((S.displayName = S.name + " [from " + i.id + "]"), (l.default = S));
+    l.default = L;
   },
   226,
 );

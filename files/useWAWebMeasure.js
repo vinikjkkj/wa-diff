@@ -4,6 +4,7 @@ __d(
     "WAWebPREGatingUtils",
     "WAWebResizeObserver",
     "react",
+    "react-compiler-runtime",
     "useWAWebDebouncedCallback",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,25 +23,35 @@ __d(
         right: 0,
       };
     function m() {
-      var e = c(null),
-        t = e[0],
-        n = e[1],
-        a = c(d),
-        i = a[0],
-        l = a[1],
-        s = r("useWAWebDebouncedCallback")(l, 100);
-      return (
-        u(
-          function () {
-            if (t)
+      var e = o("react-compiler-runtime").c(6),
+        t = c(null),
+        n = t[0],
+        a = t[1],
+        i = c(d),
+        l = i[0],
+        s = i[1],
+        m = r("useWAWebDebouncedCallback")(s, 100),
+        p,
+        _;
+      (e[0] !== n || e[1] !== m
+        ? ((p = function () {
+            if (n)
               return o("WAWebResizeObserver").observe(
-                t,
-                o("WAWebPREGatingUtils").isPREResizeEnabled() ? s : l,
+                n,
+                o("WAWebPREGatingUtils").isPREResizeEnabled() ? m : s,
               );
-          },
-          [t, s],
-        ),
-        [n, i]
+          }),
+          (_ = [n, m]),
+          (e[0] = n),
+          (e[1] = m),
+          (e[2] = p),
+          (e[3] = _))
+        : ((p = e[2]), (_ = e[3])),
+        u(p, _));
+      var f;
+      return (
+        e[4] !== l ? ((f = [a, l]), (e[4] = l), (e[5] = f)) : (f = e[5]),
+        f
       );
     }
     l.default = m;

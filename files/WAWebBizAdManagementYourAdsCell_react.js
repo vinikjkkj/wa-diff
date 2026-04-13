@@ -9,6 +9,7 @@ __d(
     "WAWebL10nGetRenderedLocale",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebNativeAdsFlowIDContext",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -23,30 +24,39 @@ __d(
         textContainer: { minWidth: "xeuugli", $$css: !0 },
       };
     function _(e) {
-      var t = e.boostId,
-        n = m(!1),
-        a = r("useWAWebNativeAdsFlowIDContext")();
+      var t = o("react-compiler-runtime").c(4),
+        n = e.boostId,
+        a = m(!1),
+        i = r("useWAWebNativeAdsFlowIDContext")(),
+        l,
+        s;
       return (
-        d(
-          function () {
-            if (!n.current) {
-              var e;
-              ((n.current = !0),
-                (e = o("WAWebBizAdManagementLogger")).logManageAdsScreenAction(
-                  e.LWI_SCREEN_REFERENCE.LWI_SCREEN_PERFORMANCE,
-                  e.LWI_SCREEN_ACTION.LWI_ACTION_ADS_LISTING_VIEW,
-                  e.LWI_ADS_IDENTITY_TYPE.PAGE,
-                  a.manageAdsFlowID,
-                  t,
-                ));
-            }
-          },
-          [t, a.manageAdsFlowID],
-        ),
+        t[0] !== n || t[1] !== i.manageAdsFlowID
+          ? ((l = function () {
+              if (!a.current) {
+                var e;
+                ((a.current = !0),
+                  (e = o(
+                    "WAWebBizAdManagementLogger",
+                  )).logManageAdsScreenAction(
+                    e.LWI_SCREEN_REFERENCE.LWI_SCREEN_PERFORMANCE,
+                    e.LWI_SCREEN_ACTION.LWI_ACTION_ADS_LISTING_VIEW,
+                    e.LWI_ADS_IDENTITY_TYPE.PAGE,
+                    i.manageAdsFlowID,
+                    n,
+                  ));
+              }
+            }),
+            (s = [n, i.manageAdsFlowID]),
+            (t[0] = n),
+            (t[1] = i.manageAdsFlowID),
+            (t[2] = l),
+            (t[3] = s))
+          : ((l = t[2]), (s = t[3])),
+        d(l, s),
         null
       );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       var t = e.boostId,
         n = e.boostingStatus,

@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WAWebBlockContactAction",
-    "WAWebBlockContactUtils",
     "WAWebChatCollection",
     "WAWebChatComparator",
     "WAWebChatContactList.react",
@@ -309,11 +308,7 @@ __d(
         Te = function (t) {
           (ne(!0),
             o("WAWebBlockContactAction")
-              .unblockContact(
-                o(
-                  "WAWebBlockContactUtils",
-                ).getContactToBlockOnlyUseIfNoAssociatedChat(t, null),
-              )
+              .unblockContact(t)
               .then(function () {
                 B.aborted || (Ie(t), ne(!1));
               })

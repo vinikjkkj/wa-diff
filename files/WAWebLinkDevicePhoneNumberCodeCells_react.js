@@ -1,6 +1,12 @@
 __d(
   "WAWebLinkDevicePhoneNumberCodeCells.react",
-  ["WAWebFlex.react", "WAWebUISpacing", "react", "stylex"],
+  [
+    "WAWebFlex.react",
+    "WAWebUISpacing",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -37,59 +43,152 @@ __d(
         },
       };
     function d(t) {
-      var n = t["aria-details"],
-        a = t.code,
-        i = String(a).split(""),
-        l = i.slice(0, 4),
-        s = i.slice(4);
-      return u.jsx("div", {
-        "aria-details": n,
-        "data-testid": void 0,
-        "data-link-code": i,
-        children: u.jsxs(o("WAWebFlex.react").FlexRow, {
-          align: "center",
-          justify: "center",
-          className: "light",
-          children: [
-            l.map(function (e, t) {
-              return u.jsx(m, { content: e }, t + ":" + e);
-            }),
-            u.jsx(
-              "span",
-              babelHelpers.extends(
-                {},
-                (e || (e = r("stylex"))).props(
-                  c.hyphen,
-                  o("WAWebUISpacing").uiPadding.all3,
+      var n = o("react-compiler-runtime").c(26),
+        a = t["aria-details"],
+        i = t.code,
+        l,
+        s,
+        d,
+        _,
+        f,
+        g,
+        h,
+        y,
+        C,
+        b;
+      if (n[0] !== a || n[1] !== i) {
+        var v = String(i).split(""),
+          S = v.slice(0, 4),
+          R = v.slice(4);
+        ((y = a),
+          (C = "link-with-phone-number-code-cells"),
+          (b = v),
+          (l = o("WAWebFlex.react").FlexRow),
+          (s = "center"),
+          (d = "center"),
+          (_ = "light"),
+          (f = S.map(p)),
+          n[12] === Symbol.for("react.memo_cache_sentinel")
+            ? ((g = u.jsx(
+                "span",
+                babelHelpers.extends(
+                  {},
+                  (e || (e = r("stylex"))).props(
+                    c.hyphen,
+                    o("WAWebUISpacing").uiPadding.all3,
+                  ),
+                  { "aria-hidden": "true", children: "-" },
                 ),
-                { "aria-hidden": "true", children: "-" },
+              )),
+              (n[12] = g))
+            : (g = n[12]),
+          (h = R.map(m)),
+          (n[0] = a),
+          (n[1] = i),
+          (n[2] = l),
+          (n[3] = s),
+          (n[4] = d),
+          (n[5] = _),
+          (n[6] = f),
+          (n[7] = g),
+          (n[8] = h),
+          (n[9] = y),
+          (n[10] = C),
+          (n[11] = b));
+      } else
+        ((l = n[2]),
+          (s = n[3]),
+          (d = n[4]),
+          (_ = n[5]),
+          (f = n[6]),
+          (g = n[7]),
+          (h = n[8]),
+          (y = n[9]),
+          (C = n[10]),
+          (b = n[11]));
+      var L;
+      n[13] !== l ||
+      n[14] !== s ||
+      n[15] !== d ||
+      n[16] !== _ ||
+      n[17] !== f ||
+      n[18] !== g ||
+      n[19] !== h
+        ? ((L = u.jsxs(l, {
+            align: s,
+            justify: d,
+            className: _,
+            children: [f, g, h],
+          })),
+          (n[13] = l),
+          (n[14] = s),
+          (n[15] = d),
+          (n[16] = _),
+          (n[17] = f),
+          (n[18] = g),
+          (n[19] = h),
+          (n[20] = L))
+        : (L = n[20]);
+      var E;
+      return (
+        n[21] !== L || n[22] !== y || n[23] !== C || n[24] !== b
+          ? ((E = u.jsx("div", {
+              "aria-details": y,
+              "data-testid": void 0,
+              "data-link-code": b,
+              children: L,
+            })),
+            (n[21] = L),
+            (n[22] = y),
+            (n[23] = C),
+            (n[24] = b),
+            (n[25] = E))
+          : (E = n[25]),
+        E
+      );
+    }
+    function m(e, t) {
+      return u.jsx(_, { content: e }, t + 4 + ":" + e);
+    }
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p(e, t) {
+      return u.jsx(_, { content: e }, t + ":" + e);
+    }
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n = e.content,
+        r,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = [
+            c.codeCellWrapper,
+            o("WAWebUISpacing").uiMargin.horiz4,
+            o("WAWebUISpacing").uiPadding.vert13,
+          ]),
+          (a = { className: "x2b8uid xk50ysn x1aueamr x1jzgpr8 xzwifym" }),
+          (t[0] = r),
+          (t[1] = a))
+        : ((r = t[0]), (a = t[1]));
+      var i;
+      return (
+        t[2] !== n
+          ? ((i = u.jsx(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "center",
+              xstyle: r,
+              children: u.jsx(
+                "span",
+                babelHelpers.extends({}, a, { children: n }),
               ),
-            ),
-            s.map(function (e, t) {
-              return u.jsx(m, { content: e }, t + 4 + ":" + e);
-            }),
-          ],
-        }),
-      });
+            })),
+            (t[2] = n),
+            (t[3] = i))
+          : (i = t[3]),
+        i
+      );
     }
-    d.displayName = d.name + " [from " + i.id + "]";
-    function m(e) {
-      var t = e.content;
-      return u.jsx(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        justify: "center",
-        xstyle: [
-          c.codeCellWrapper,
-          o("WAWebUISpacing").uiMargin.horiz4,
-          o("WAWebUISpacing").uiPadding.vert13,
-        ],
-        children: u.jsx("span", {
-          className: "x2b8uid xk50ysn x1aueamr x1jzgpr8 xzwifym",
-          children: t,
-        }),
-      });
-    }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   98,
 );

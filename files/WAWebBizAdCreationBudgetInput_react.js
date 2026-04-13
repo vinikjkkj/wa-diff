@@ -9,6 +9,7 @@ __d(
     "WAWebUnstyledButton.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdCreationSpecDispatcherContext",
     "waWebBizAdCreationBudgetReducer",
     "withWAWebBizAdCreationSpecContext",
@@ -96,167 +97,298 @@ __d(
       },
     };
     function b(e) {
-      var t = e.displayBudget,
-        n = e.hasError,
-        a = n === void 0 ? !1 : n,
+      var t = o("react-compiler-runtime").c(56),
+        n = e.displayBudget,
+        a = e.hasError,
         i = e.setLocalBudget,
         l = e.adAccountID,
         c = e.currency,
-        b = e.defaultBudget,
-        v = e.selectedBudget,
-        S = r("useWAWebBizAdCreationSpecDispatcherContext")([
-          r("waWebBizAdCreationBudgetReducer"),
-        ]),
-        R = f(!1),
-        L = R[0],
-        E = R[1],
-        k = f(""),
-        I = k[0],
-        T = k[1],
-        D = _(null),
-        x = m(r("WAWebBizAdCreationLoggerContext")),
-        $ = _(null),
-        P = r("WAWebBizAdCreationCurrencyUtils").getCurrencySymbol(c),
-        N = f(g),
-        M = N[0],
-        w = N[1];
-      p(
-        function () {
-          var e = y(I || "0", D.current);
-          w(Math.max(e + h, g));
-        },
-        [I],
-      );
-      var A = r("WAWebBizAdCreationCurrencyUtils").formatCurrency(t, c, {
-          withDecimals: !1,
-          withSymbol: !0,
-          withNumberDelimiters: !0,
-        }),
-        F = d(
-          function (e) {
-            S({
-              budgetData: { budget: e },
+        d = e.defaultBudget,
+        b = e.selectedBudget,
+        v = a === void 0 ? !1 : a,
+        S;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = [r("waWebBizAdCreationBudgetReducer")]), (t[0] = S))
+        : (S = t[0]);
+      var R = r("useWAWebBizAdCreationSpecDispatcherContext")(S),
+        L = f(!1),
+        E = L[0],
+        k = L[1],
+        I = f(""),
+        T = I[0],
+        D = I[1],
+        x = _(null),
+        $ = m(r("WAWebBizAdCreationLoggerContext")),
+        P = _(null),
+        N;
+      t[1] !== c
+        ? ((N = r("WAWebBizAdCreationCurrencyUtils").getCurrencySymbol(c)),
+          (t[1] = c),
+          (t[2] = N))
+        : (N = t[2]);
+      var M = N,
+        w = f(g),
+        A = w[0],
+        F = w[1],
+        O,
+        B;
+      (t[3] !== T
+        ? ((O = function () {
+            var e = y(T || "0", x.current);
+            F(Math.max(e + h, g));
+          }),
+          (B = [T]),
+          (t[3] = T),
+          (t[4] = O),
+          (t[5] = B))
+        : ((O = t[4]), (B = t[5])),
+        p(O, B));
+      var W;
+      t[6] !== c || t[7] !== n
+        ? ((W = r("WAWebBizAdCreationCurrencyUtils").formatCurrency(n, c, {
+            withDecimals: !1,
+            withSymbol: !0,
+            withNumberDelimiters: !0,
+          })),
+          (t[6] = c),
+          (t[7] = n),
+          (t[8] = W))
+        : (W = t[8]);
+      var q = W,
+        U;
+      t[9] !== R
+        ? ((U = function (t) {
+            R({
+              budgetData: { budget: t },
               type: "budget_reducer.update_budget",
             });
-          },
-          [S],
-        ),
-        O = d(
-          function () {
-            (T(
-              r("WAWebBizAdCreationCurrencyUtils").formatCurrencyForInput(v, c),
+          }),
+          (t[9] = R),
+          (t[10] = U))
+        : (U = t[10]);
+      var V = U,
+        H;
+      t[11] !== c || t[12] !== b
+        ? ((H = function () {
+            (D(
+              r("WAWebBizAdCreationCurrencyUtils").formatCurrencyForInput(b, c),
             ),
-              E(!0));
-          },
-          [v, c],
-        );
-      p(
-        function () {
-          if (L && D.current != null) {
-            var e = D.current;
-            (e.focus(), e.select());
-          }
-        },
-        [L],
-      );
-      var B = d(
-          function () {
+              k(!0));
+          }),
+          (t[11] = c),
+          (t[12] = b),
+          (t[13] = H))
+        : (H = t[13]);
+      var G = H,
+        z,
+        j;
+      (t[14] !== E
+        ? ((j = function () {
+            if (E && x.current != null) {
+              var e = x.current;
+              (e.focus(), e.select());
+            }
+          }),
+          (z = [E]),
+          (t[14] = E),
+          (t[15] = z),
+          (t[16] = j))
+        : ((z = t[15]), (j = t[16])),
+        p(j, z));
+      var K;
+      t[17] !== l ||
+      t[18] !== c ||
+      t[19] !== d ||
+      t[20] !== T ||
+      t[21] !== $ ||
+      t[22] !== V ||
+      t[23] !== b ||
+      t[24] !== i
+        ? ((K = function () {
             var e,
-              t = r("WAWebBizAdCreationCurrencyUtils").parseCurrencyInput(I, c);
+              t = r("WAWebBizAdCreationCurrencyUtils").parseCurrencyInput(T, c);
             if (t == null) {
-              E(!1);
+              k(!1);
               return;
             }
             var n = t,
-              o = (e = $.current) != null ? e : v;
+              o = (e = P.current) != null ? e : b;
             (n !== o &&
-              x != null &&
+              $ != null &&
               r("WAWebBizAdLogger").log({
                 event: "change_budget",
-                loggerContext: x,
+                loggerContext: $,
                 adAccountID: l,
                 budget: n,
                 budgetType: "DAILY_BUDGET",
                 currency: c,
-                defaultBudget: b,
+                defaultBudget: d,
                 extra: { old_budget: o, input_type: "manual_input" },
               }),
-              ($.current = n),
+              (P.current = n),
               i(n),
-              F(n),
-              E(!1));
-          },
-          [I, c, v, x, i, F, l, b],
-        ),
-        W = d(function () {
-          E(!1);
-        }, []),
-        q = d(
-          function () {
-            B();
-          },
-          [B],
-        ),
-        U = d(
-          function (e) {
-            e.key === "Enter" ? B() : e.key === "Escape" && W();
-          },
-          [B, W],
-        ),
-        V = d(function (e) {
-          T(e.target.value);
-        }, []);
-      return L
-        ? u.jsxs(o("WAWebFlex.react").FlexRow, {
-            align: "center",
-            columnGap: 0,
-            xstyle: C.editModeContainer,
-            children: [
-              u.jsx(r("WDSText.react"), {
-                type: "LargeTitle1",
-                colorName: a ? "secondaryNegative" : "contentDefault",
-                children: P,
-              }),
-              u.jsx(
-                "input",
-                babelHelpers.extends(
-                  {
-                    ref: D,
-                    type: "text",
-                    inputMode: "numeric",
-                    value: I,
-                    onChange: V,
-                    onBlur: q,
-                    onKeyDown: U,
-                    "aria-label": s._(/*BTDS*/ "Budget amount"),
-                    style: { width: M },
-                  },
-                  {
-                    0: {
-                      className:
-                        "xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd x14ug900 x579bpy x1fcty0u x2b8uid x1a2a7pz xnei2rj xexx8yu xyri2b x18d9i69 x1c1uobl",
-                    },
-                    1: {
-                      className:
-                        "xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd x579bpy x1fcty0u x2b8uid x1a2a7pz xnei2rj xexx8yu xyri2b x18d9i69 x1c1uobl x30a034",
-                    },
-                  }[!!a << 0],
-                ),
-              ),
-            ],
-          })
-        : u.jsx(r("WAWebUnstyledButton.react"), {
-            onClick: O,
-            xstyle: C.viewModeContainer,
-            "aria-label": s._(/*BTDS*/ "Edit budget amount"),
-            children: u.jsx(r("WDSText.react"), {
+              V(n),
+              k(!1));
+          }),
+          (t[17] = l),
+          (t[18] = c),
+          (t[19] = d),
+          (t[20] = T),
+          (t[21] = $),
+          (t[22] = V),
+          (t[23] = b),
+          (t[24] = i),
+          (t[25] = K))
+        : (K = t[25]);
+      var Q = K,
+        X;
+      t[26] === Symbol.for("react.memo_cache_sentinel")
+        ? ((X = function () {
+            k(!1);
+          }),
+          (t[26] = X))
+        : (X = t[26]);
+      var Y = X,
+        J;
+      t[27] !== Q
+        ? ((J = function () {
+            Q();
+          }),
+          (t[27] = Q),
+          (t[28] = J))
+        : (J = t[28]);
+      var Z = J,
+        ee;
+      t[29] !== Q
+        ? ((ee = function (t) {
+            t.key === "Enter" ? Q() : t.key === "Escape" && Y();
+          }),
+          (t[29] = Q),
+          (t[30] = ee))
+        : (ee = t[30]);
+      var te = ee,
+        ne;
+      t[31] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ne = function (t) {
+            D(t.target.value);
+          }),
+          (t[31] = ne))
+        : (ne = t[31]);
+      var re = ne;
+      if (E) {
+        var oe = v ? "secondaryNegative" : "contentDefault",
+          ae;
+        t[32] !== M || t[33] !== oe
+          ? ((ae = u.jsx(r("WDSText.react"), {
               type: "LargeTitle1",
-              colorName: a ? "secondaryNegative" : "contentDefault",
-              children: A,
-            }),
-          });
+              colorName: oe,
+              children: M,
+            })),
+            (t[32] = M),
+            (t[33] = oe),
+            (t[34] = ae))
+          : (ae = t[34]);
+        var ie;
+        t[35] === Symbol.for("react.memo_cache_sentinel")
+          ? ((ie = s._(/*BTDS*/ "Budget amount")), (t[35] = ie))
+          : (ie = t[35]);
+        var le;
+        t[36] !== A
+          ? ((le = { width: A }), (t[36] = A), (t[37] = le))
+          : (le = t[37]);
+        var se;
+        t[38] !== v
+          ? ((se = {
+              0: {
+                className:
+                  "xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd x14ug900 x579bpy x1fcty0u x2b8uid x1a2a7pz xnei2rj xexx8yu xyri2b x18d9i69 x1c1uobl",
+              },
+              1: {
+                className:
+                  "xjbqb8w x972fbf x10w94by x1qhh985 x14e42zd x579bpy x1fcty0u x2b8uid x1a2a7pz xnei2rj xexx8yu xyri2b x18d9i69 x1c1uobl x30a034",
+              },
+            }[!!v << 0]),
+            (t[38] = v),
+            (t[39] = se))
+          : (se = t[39]);
+        var ue;
+        t[40] !== Z ||
+        t[41] !== te ||
+        t[42] !== T ||
+        t[43] !== le ||
+        t[44] !== se
+          ? ((ue = u.jsx(
+              "input",
+              babelHelpers.extends(
+                {
+                  ref: x,
+                  type: "text",
+                  inputMode: "numeric",
+                  value: T,
+                  onChange: re,
+                  onBlur: Z,
+                  onKeyDown: te,
+                  "aria-label": ie,
+                  style: le,
+                },
+                se,
+              ),
+            )),
+            (t[40] = Z),
+            (t[41] = te),
+            (t[42] = T),
+            (t[43] = le),
+            (t[44] = se),
+            (t[45] = ue))
+          : (ue = t[45]);
+        var ce;
+        return (
+          t[46] !== ae || t[47] !== ue
+            ? ((ce = u.jsxs(o("WAWebFlex.react").FlexRow, {
+                align: "center",
+                columnGap: 0,
+                xstyle: C.editModeContainer,
+                children: [ae, ue],
+              })),
+              (t[46] = ae),
+              (t[47] = ue),
+              (t[48] = ce))
+            : (ce = t[48]),
+          ce
+        );
+      }
+      var de;
+      t[49] === Symbol.for("react.memo_cache_sentinel")
+        ? ((de = s._(/*BTDS*/ "Edit budget amount")), (t[49] = de))
+        : (de = t[49]);
+      var me = v ? "secondaryNegative" : "contentDefault",
+        pe;
+      t[50] !== q || t[51] !== me
+        ? ((pe = u.jsx(r("WDSText.react"), {
+            type: "LargeTitle1",
+            colorName: me,
+            children: q,
+          })),
+          (t[50] = q),
+          (t[51] = me),
+          (t[52] = pe))
+        : (pe = t[52]);
+      var _e;
+      return (
+        t[53] !== G || t[54] !== pe
+          ? ((_e = u.jsx(r("WAWebUnstyledButton.react"), {
+              onClick: G,
+              xstyle: C.viewModeContainer,
+              "aria-label": de,
+              children: pe,
+            })),
+            (t[53] = G),
+            (t[54] = pe),
+            (t[55] = _e))
+          : (_e = t[55]),
+        _e
+      );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
     var v = r("withWAWebBizAdCreationSpecContext")(b, function (e) {
       var t;
       return {

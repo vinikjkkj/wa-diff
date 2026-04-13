@@ -9,6 +9,7 @@ __d(
     "WAWebFlex.react",
     "WAWebText_DONOTUSE.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -63,36 +64,53 @@ __d(
         },
       };
     function _() {
-      return u.jsxs(o("WAWebFlex.react").FlexRow, {
-        xstyle: p.container,
-        children: [
-          u.jsx(o("WAWebFlex.react").FlexColumn, {
+      var e = o("react-compiler-runtime").c(3),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = u.jsx(o("WAWebFlex.react").FlexColumn, {
             xstyle: p.item,
             children: d,
-          }),
-          u.jsx(o("WAWebFlex.react").FlexColumn, {
-            xstyle: [p.text, p.item],
-            children: u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-              testid: void 0,
-              children: s._(
-                /*BTDS*/ "This person's phone number is not shared in this chat. {=m2}",
-                [
-                  s._implicitParam(
-                    "=m2",
-                    u.jsx(r("WAWebClickableLink.react"), {
-                      onClick: m,
-                      testid: void 0,
-                      children: s._(/*BTDS*/ "Learn more"),
-                    }),
-                  ),
-                ],
-              ),
-            }),
-          }),
-        ],
-      });
+          })),
+          (e[0] = t))
+        : (t = e[0]);
+      var n;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = [p.text, p.item]), (e[1] = n))
+        : (n = e[1]);
+      var a;
+      return (
+        e[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((a = u.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: p.container,
+              children: [
+                t,
+                u.jsx(o("WAWebFlex.react").FlexColumn, {
+                  xstyle: n,
+                  children: u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
+                    testid: void 0,
+                    children: s._(
+                      /*BTDS*/ "This person's phone number is not shared in this chat. {=m2}",
+                      [
+                        s._implicitParam(
+                          "=m2",
+                          u.jsx(r("WAWebClickableLink.react"), {
+                            onClick: m,
+                            testid: void 0,
+                            children: s._(/*BTDS*/ "Learn more"),
+                          }),
+                        ),
+                      ],
+                    ),
+                  }),
+                }),
+              ],
+            })),
+            (e[2] = a))
+          : (a = e[2]),
+        a
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   226,
 );

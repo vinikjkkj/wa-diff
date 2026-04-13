@@ -6,6 +6,7 @@ __d(
     "WAWebRow.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -216,60 +217,141 @@ __d(
         },
       };
     function p(t) {
-      var n = t.animation,
-        a = n === void 0 ? !0 : n,
+      var n = o("react-compiler-runtime").c(37),
+        a = t.animation,
         i = t["aria-label"],
         l = t.children,
         s = t.className,
         d = t["data-list-scroll-offset"],
         m = t.ellipsify,
-        p = m === void 0 ? !0 : m,
-        g = t.ref,
-        h = t.subtitle,
-        y = t.testid,
-        C = t.theme,
-        b = t.title,
-        v = t.titleOnClick,
-        S = t.titleTestId,
-        R = t.titleXStyle,
-        L = t.xstyle,
-        E = (e || (e = r("stylex")))(
-          a && o("WAWebDrawerSectionAnimation.stylex").animateStyle.animate,
+        p = t.ref,
+        g = t.subtitle,
+        h = t.testid,
+        y = t.theme,
+        C = t.title,
+        b = t.titleOnClick,
+        v = t.titleTestId,
+        S = t.titleXStyle,
+        R = t.xstyle,
+        L = a === void 0 ? !0 : a,
+        E = m === void 0 ? !0 : m,
+        k,
+        I,
+        T;
+      if (
+        n[0] !== L ||
+        n[1] !== i ||
+        n[2] !== s ||
+        n[3] !== E ||
+        n[4] !== p ||
+        n[5] !== g ||
+        n[6] !== y ||
+        n[7] !== C ||
+        n[8] !== b ||
+        n[9] !== v ||
+        n[10] !== S ||
+        n[11] !== R
+      ) {
+        var D = (e || (e = r("stylex")))(
+          L && o("WAWebDrawerSectionAnimation.stylex").animateStyle.animate,
           !1,
           !1,
-          C === "refresh-new" ? c.containerRefreshed : c.container,
-          C && _(C),
-          L,
-        ),
-        k;
+          y === "refresh-new" ? c.containerRefreshed : c.container,
+          y && _(y),
+          R,
+        );
+        if (C != null) {
+          var x;
+          n[15] !== y ? ((x = f(y)), (n[15] = y), (n[16] = x)) : (x = n[16]);
+          var $;
+          n[17] !== x || n[18] !== S
+            ? (($ = [x, c.paddingTop8, S]),
+              (n[17] = x),
+              (n[18] = S),
+              (n[19] = $))
+            : ($ = n[19]);
+          var P;
+          n[20] !== C
+            ? ((P = u.jsx(r("WDSText.react"), {
+                type: "Body2Emphasized",
+                colorName: "contentDeemphasized",
+                children: C,
+              })),
+              (n[20] = C),
+              (n[21] = P))
+            : (P = n[21]);
+          var N;
+          (n[22] !== i ||
+          n[23] !== E ||
+          n[24] !== g ||
+          n[25] !== $ ||
+          n[26] !== P ||
+          n[27] !== b ||
+          n[28] !== v
+            ? ((N = u.jsx(r("WAWebRow.react"), {
+                side: g,
+                onClick: b,
+                ellipsify: E,
+                "aria-label": i,
+                xstyle: $,
+                testid: void 0,
+                children: P,
+              })),
+              (n[22] = i),
+              (n[23] = E),
+              (n[24] = g),
+              (n[25] = $),
+              (n[26] = P),
+              (n[27] = b),
+              (n[28] = v),
+              (n[29] = N))
+            : (N = n[29]),
+            (T = N));
+        }
+        ((k = p),
+          (I = o("WAWebClassnames").classnamesConvertMeToStylexPlease(s, D)),
+          (n[0] = L),
+          (n[1] = i),
+          (n[2] = s),
+          (n[3] = E),
+          (n[4] = p),
+          (n[5] = g),
+          (n[6] = y),
+          (n[7] = C),
+          (n[8] = b),
+          (n[9] = v),
+          (n[10] = S),
+          (n[11] = R),
+          (n[12] = k),
+          (n[13] = I),
+          (n[14] = T));
+      } else ((k = n[12]), (I = n[13]), (T = n[14]));
+      var M;
       return (
-        b != null &&
-          (k = u.jsx(r("WAWebRow.react"), {
-            side: h,
-            onClick: v,
-            ellipsify: p,
-            "aria-label": i,
-            xstyle: [f(C), c.paddingTop8, R],
-            testid: void 0,
-            children: u.jsx(r("WDSText.react"), {
-              type: "Body2Emphasized",
-              colorName: "contentDeemphasized",
-              children: b,
-            }),
-          })),
-        u.jsxs("div", {
-          ref: g,
-          className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            s,
-            E,
-          ),
-          "data-list-scroll-offset": d,
-          "data-testid": void 0,
-          children: [k, l],
-        })
+        n[30] !== l ||
+        n[31] !== d ||
+        n[32] !== k ||
+        n[33] !== I ||
+        n[34] !== h ||
+        n[35] !== T
+          ? ((M = u.jsxs("div", {
+              ref: k,
+              className: I,
+              "data-list-scroll-offset": d,
+              "data-testid": void 0,
+              children: [T, l],
+            })),
+            (n[30] = l),
+            (n[31] = d),
+            (n[32] = k),
+            (n[33] = I),
+            (n[34] = h),
+            (n[35] = T),
+            (n[36] = M))
+          : (M = n[36]),
+        M
       );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
       switch (e) {
         case "refresh-new":

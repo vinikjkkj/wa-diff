@@ -14,6 +14,7 @@ __d(
     "WDSIconIcCallFilled.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebIsWinHybridJoinableCallsEnabled",
     "useWAWebMissedCallCount",
@@ -52,61 +53,107 @@ __d(
         })(),
       });
     function m(e) {
-      var t = e.activeNavBarItem,
-        n = e.updateActiveNavBarItem,
-        a = r("useWAWebEventTargetValue")(
+      var t = o("react-compiler-runtime").c(16),
+        n = e.activeNavBarItem,
+        a = e.updateActiveNavBarItem,
+        i = r("useWAWebEventTargetValue")(
           o("WAWebVoipOngoingCallCollection").WAWebVoipOngoingCallCollection,
           "all",
-          function () {
-            return o(
-              "WAWebVoipOngoingCallCollection",
-            ).WAWebVoipOngoingCallCollection.hasOngoingJoinableGroupCalls();
-          },
+          p,
         ),
-        i =
+        l =
           o(
             "useWAWebIsWinHybridJoinableCallsEnabled",
-          ).useIsWinHybridJoinableCallsEnabled() && a,
-        l = o("useWAWebMissedCallCount").useWAWebMissedCallCount(),
-        c = l.clearMissedCallCount,
-        m = l.missedCallCount,
-        p = function () {
-          t !== o("WAWebNavBarTypes").NavBarItems.Calls &&
-            (n(o("WAWebNavBarTypes").NavBarItems.Calls),
-            o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({
-              clearUnreadActivity: c,
-            }),
-            d.resume());
-        },
-        _ =
-          t === o("WAWebNavBarTypes").NavBarItems.Calls
-            ? u.jsx(r("WDSIconIcCallFilled.react"), {})
-            : u.jsx(r("WDSIconIcCall.react"), {}),
-        f = s._(/*BTDS*/ "Calls"),
-        g,
+          ).useIsWinHybridJoinableCallsEnabled() && i,
+        c = o("useWAWebMissedCallCount").useWAWebMissedCallCount(),
+        m = c.clearMissedCallCount,
+        _ = c.missedCallCount,
+        f;
+      t[0] !== n || t[1] !== m || t[2] !== a
+        ? ((f = function () {
+            n !== o("WAWebNavBarTypes").NavBarItems.Calls &&
+              (a(o("WAWebNavBarTypes").NavBarItems.Calls),
+              o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({
+                clearUnreadActivity: m,
+              }),
+              d.resume());
+          }),
+          (t[0] = n),
+          (t[1] = m),
+          (t[2] = a),
+          (t[3] = f))
+        : (f = t[3]);
+      var g = f,
         h;
-      i
-        ? ((g = u.jsx(r("WAWebUnreadActivityIndicator.react"), { pulse: !0 })),
-          (h = o("WAWebNavBarItem.react").InlineActivityIndicatorType.Dot))
-        : m > 0 &&
-          ((g = u.jsx(o("WAWebChatUnreadCount.react").UnreadCount, {
-            theme: o("WAWebChatUnreadCount.react").UnreadCountTheme.MissedCalls,
-            maxCount: 100,
-            count: m,
+      t[4] !== n
+        ? ((h =
+            n === o("WAWebNavBarTypes").NavBarItems.Calls
+              ? u.jsx(r("WDSIconIcCallFilled.react"), {})
+              : u.jsx(r("WDSIconIcCall.react"), {})),
+          (t[4] = n),
+          (t[5] = h))
+        : (h = t[5]);
+      var y = h,
+        C;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = s._(/*BTDS*/ "Calls")), (t[6] = C))
+        : (C = t[6]);
+      var b = C,
+        v,
+        S;
+      if (l) {
+        var R;
+        (t[7] === Symbol.for("react.memo_cache_sentinel")
+          ? ((R = u.jsx(r("WAWebUnreadActivityIndicator.react"), {
+              pulse: !0,
+            })),
+            (t[7] = R))
+          : (R = t[7]),
+          (v = R),
+          (S = o("WAWebNavBarItem.react").InlineActivityIndicatorType.Dot));
+      } else if (_ > 0) {
+        var L;
+        (t[8] !== _
+          ? ((L = u.jsx(o("WAWebChatUnreadCount.react").UnreadCount, {
+              theme: o("WAWebChatUnreadCount.react").UnreadCountTheme
+                .MissedCalls,
+              maxCount: 100,
+              count: _,
+            })),
+            (t[8] = _),
+            (t[9] = L))
+          : (L = t[9]),
+          (v = L),
+          (S = o("WAWebNavBarItem.react").InlineActivityIndicatorType.Counter));
+      }
+      var E = n === o("WAWebNavBarTypes").NavBarItems.Calls,
+        k;
+      t[10] !== y || t[11] !== g || t[12] !== v || t[13] !== S || t[14] !== E
+        ? ((k = u.jsx(o("WAWebNavBarItem.react").NavBarItem, {
+            icon: y,
+            title: b,
+            testid: void 0,
+            isActive: E,
+            onClick: g,
+            inlineActivityIndicator: v,
+            inlineActivityIndicatorType: S,
           })),
-          (h = o("WAWebNavBarItem.react").InlineActivityIndicatorType.Counter));
-      var y = u.jsx(o("WAWebNavBarItem.react").NavBarItem, {
-        icon: _,
-        title: f,
-        testid: void 0,
-        isActive: t === o("WAWebNavBarTypes").NavBarItems.Calls,
-        onClick: p,
-        inlineActivityIndicator: g,
-        inlineActivityIndicatorType: h,
-      });
-      return y;
+          (t[10] = y),
+          (t[11] = g),
+          (t[12] = v),
+          (t[13] = S),
+          (t[14] = E),
+          (t[15] = k))
+        : (k = t[15]);
+      var I = k;
+      return I;
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    function p() {
+      return o(
+        "WAWebVoipOngoingCallCollection",
+      ).WAWebVoipOngoingCallCollection.hasOngoingJoinableGroupCalls();
+    }
+    l.default = m;
   },
   226,
 );

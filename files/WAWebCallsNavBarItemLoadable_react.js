@@ -8,6 +8,7 @@ __d(
     "WAWebLoadable",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebABPropConfigValue",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,17 +47,25 @@ __d(
         },
       });
     function m(e) {
-      var t = e.activeNavBarItem,
-        n = e.updateActiveNavBarItem,
-        a = o("useWAWebABPropConfigValue").useABPropConfigValue(
+      var t = o("react-compiler-runtime").c(3),
+        n = e.activeNavBarItem,
+        a = e.updateActiveNavBarItem,
+        i = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "enable_web_calls_tab",
         );
-      return !r("WAWebEnvironment").isWindows && !a
-        ? null
-        : u.jsx(d, { activeNavBarItem: t, updateActiveNavBarItem: n });
+      if (!r("WAWebEnvironment").isWindows && !i) return null;
+      var l;
+      return (
+        t[0] !== n || t[1] !== a
+          ? ((l = u.jsx(d, { activeNavBarItem: n, updateActiveNavBarItem: a })),
+            (t[0] = n),
+            (t[1] = a),
+            (t[2] = l))
+          : (l = t[2]),
+        l
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"),
-      (l.CallsNavBarItemLoadable = m));
+    l.CallsNavBarItemLoadable = m;
   },
   98,
 );

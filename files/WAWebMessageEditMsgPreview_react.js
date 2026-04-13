@@ -19,6 +19,7 @@ __d(
     "WAWebQuotedMsgModelUtils",
     "WAWebWrapperDisplayTypeContext",
     "react",
+    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -72,116 +73,238 @@ __d(
         },
       };
     function f(e) {
-      var t = e.linkPreviewVisible,
-        n = e.msg,
-        a = o("useWAWebMsgValues").useMsgValues(n.id, [
-          o("WAWebMsgGetters").getT,
-          o("WAWebFrontendMsgGetters").getSenderObj,
-        ]),
-        i = a[0],
-        l = a[1],
-        u = o("WAWebFrontendMsgGetters").getChat(n.unsafe()),
-        c = n.safe(),
-        d = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(n.unsafe()),
-        m;
-      d &&
-        (m = s.jsx(
-          r("WAWebQuotedMsg.react"),
-          {
-            msg: d,
-            rootMsg: c,
-            displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
-            theme: "editing",
-            chat: u,
-            t: i,
-          },
-          d.id.toString(),
-        ));
-      var p;
-      switch (c.type) {
-        case o("WAWebMsgType").MSG_TYPE.CHAT:
-          p = s.jsx(r("WAWebMessageText.react"), {
-            msg: c,
-            contact: l,
-            displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
-            quotedMsg: m,
-            trusted: o("WAWebMsgModelPropUtils").isTrusted(c.unsafe()),
-            displayAuthor: !1,
-          });
-          break;
-        case o("WAWebMsgType").MSG_TYPE.IMAGE:
-          p = s.jsx(o("WAWebMessagePicture.react").ImageMessage, {
-            msg: c,
-            displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
-            quotedMsg: m,
-            trusted: o("WAWebMsgModelPropUtils").isTrusted(c.unsafe()),
-            displayAuthor: !1,
-            mediaData: c.mediaData,
-          });
-          break;
-        case o("WAWebMsgType").MSG_TYPE.VIDEO:
-          c.isGif === !0
-            ? (p = s.jsx(o("WAWebMessageGif.react").WrappedGif, {
-                msg: c,
+      var t = o("react-compiler-runtime").c(50),
+        n = e.linkPreviewVisible,
+        a = e.msg,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [
+            o("WAWebMsgGetters").getT,
+            o("WAWebFrontendMsgGetters").getSenderObj,
+          ]),
+          (t[0] = i))
+        : (i = t[0]);
+      var l = o("useWAWebMsgValues").useMsgValues(a.id, i),
+        u = l[0],
+        c = l[1],
+        d;
+      t[1] !== a
+        ? ((d = o("WAWebFrontendMsgGetters").getChat(a.unsafe())),
+          (t[1] = a),
+          (t[2] = d))
+        : (d = t[2]);
+      var m = d,
+        p;
+      t[3] !== a ? ((p = a.safe()), (t[3] = a), (t[4] = p)) : (p = t[4]);
+      var f = p,
+        g;
+      if (t[5] !== m || t[6] !== a || t[7] !== f || t[8] !== u) {
+        var h = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(a.unsafe());
+        (h &&
+          (g = s.jsx(
+            r("WAWebQuotedMsg.react"),
+            {
+              msg: h,
+              rootMsg: f,
+              displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
+              theme: "editing",
+              chat: m,
+              t: u,
+            },
+            h.id.toString(),
+          )),
+          (t[5] = m),
+          (t[6] = a),
+          (t[7] = f),
+          (t[8] = u),
+          (t[9] = g));
+      } else g = t[9];
+      var y;
+      e: switch (f.type) {
+        case o("WAWebMsgType").MSG_TYPE.CHAT: {
+          var C = g,
+            b;
+          t[10] !== f
+            ? ((b = o("WAWebMsgModelPropUtils").isTrusted(f.unsafe())),
+              (t[10] = f),
+              (t[11] = b))
+            : (b = t[11]);
+          var v;
+          (t[12] !== g || t[13] !== f || t[14] !== c || t[15] !== b
+            ? ((v = s.jsx(r("WAWebMessageText.react"), {
+                msg: f,
+                contact: c,
                 displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
-                quotedMsg: m,
-                trusted: o("WAWebMsgModelPropUtils").isTrusted(c.unsafe()),
+                quotedMsg: C,
+                trusted: b,
                 displayAuthor: !1,
-                mediaData: c.mediaData,
-              }))
-            : (p = s.jsx(r("WAWebMediaVideo.react"), {
-                msg: c,
+              })),
+              (t[12] = g),
+              (t[13] = f),
+              (t[14] = c),
+              (t[15] = b),
+              (t[16] = v))
+            : (v = t[16]),
+            (y = v));
+          break e;
+        }
+        case o("WAWebMsgType").MSG_TYPE.IMAGE: {
+          var S = g,
+            R;
+          t[17] !== f
+            ? ((R = o("WAWebMsgModelPropUtils").isTrusted(f.unsafe())),
+              (t[17] = f),
+              (t[18] = R))
+            : (R = t[18]);
+          var L;
+          (t[19] !== g || t[20] !== f || t[21] !== R
+            ? ((L = s.jsx(o("WAWebMessagePicture.react").ImageMessage, {
+                msg: f,
                 displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
-                quotedMsg: m,
-                trusted: o("WAWebMsgModelPropUtils").isTrusted(c.unsafe()),
+                quotedMsg: S,
+                trusted: R,
                 displayAuthor: !1,
-              }));
-          break;
-        case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
-          p = s.jsx(r("WAWebMediaDocument.react"), {
-            msg: c,
-            displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
-            quotedMsg: m,
-            trusted: o("WAWebMsgModelPropUtils").isTrusted(c.unsafe()),
-            displayAuthor: !1,
-          });
-          break;
+                mediaData: f.mediaData,
+              })),
+              (t[19] = g),
+              (t[20] = f),
+              (t[21] = R),
+              (t[22] = L))
+            : (L = t[22]),
+            (y = L));
+          break e;
+        }
+        case o("WAWebMsgType").MSG_TYPE.VIDEO: {
+          if (f.isGif === !0) {
+            var E = g,
+              k;
+            t[23] !== f
+              ? ((k = o("WAWebMsgModelPropUtils").isTrusted(f.unsafe())),
+                (t[23] = f),
+                (t[24] = k))
+              : (k = t[24]);
+            var I;
+            (t[25] !== g || t[26] !== f || t[27] !== k
+              ? ((I = s.jsx(o("WAWebMessageGif.react").WrappedGif, {
+                  msg: f,
+                  displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
+                  quotedMsg: E,
+                  trusted: k,
+                  displayAuthor: !1,
+                  mediaData: f.mediaData,
+                })),
+                (t[25] = g),
+                (t[26] = f),
+                (t[27] = k),
+                (t[28] = I))
+              : (I = t[28]),
+              (y = I));
+          } else {
+            var T = g,
+              D;
+            t[29] !== f
+              ? ((D = o("WAWebMsgModelPropUtils").isTrusted(f.unsafe())),
+                (t[29] = f),
+                (t[30] = D))
+              : (D = t[30]);
+            var x;
+            (t[31] !== g || t[32] !== f || t[33] !== D
+              ? ((x = s.jsx(r("WAWebMediaVideo.react"), {
+                  msg: f,
+                  displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
+                  quotedMsg: T,
+                  trusted: D,
+                  displayAuthor: !1,
+                })),
+                (t[31] = g),
+                (t[32] = f),
+                (t[33] = D),
+                (t[34] = x))
+              : (x = t[34]),
+              (y = x));
+          }
+          break e;
+        }
+        case o("WAWebMsgType").MSG_TYPE.DOCUMENT: {
+          var $ = g,
+            P;
+          t[35] !== f
+            ? ((P = o("WAWebMsgModelPropUtils").isTrusted(f.unsafe())),
+              (t[35] = f),
+              (t[36] = P))
+            : (P = t[36]);
+          var N;
+          (t[37] !== g || t[38] !== f || t[39] !== P
+            ? ((N = s.jsx(r("WAWebMediaDocument.react"), {
+                msg: f,
+                displayType: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
+                quotedMsg: $,
+                trusted: P,
+                displayAuthor: !1,
+              })),
+              (t[37] = g),
+              (t[38] = f),
+              (t[39] = P),
+              (t[40] = N))
+            : (N = t[40]),
+            (y = N));
+        }
       }
-      return p
-        ? s.jsx(r("WAWebMsgPreview.react"), {
-            chatPreference: r("WAWebChatPreferenceCollection").assertGet(
-              "defaultPreference",
-            ),
-            containerXstyle: _.previewContainer,
-            bodyXstyle: [
-              _.previewBody,
-              _.paddingHoriz28,
-              t && _.pushUp,
-              !t && _.pushDown,
-            ],
-            children: s.jsx(o("WAWebFlex.react").FlexRow, {
-              justify: "center",
-              align: "center",
-              children: s.jsx(r("WAWebFlexItem.react"), {
-                xstyle: _.wrapper,
-                grow: 0,
-                children: s.jsx("div", {
-                  "data-nohandle": !0,
-                  testid: void 0,
-                  children: s.jsx(
-                    r("WAWebWrapperDisplayTypeContext").Provider,
-                    {
-                      value: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
-                      children: p,
-                    },
-                  ),
+      if (!y) return null;
+      var M;
+      t[41] === Symbol.for("react.memo_cache_sentinel")
+        ? ((M = r("WAWebChatPreferenceCollection").assertGet(
+            "defaultPreference",
+          )),
+          (t[41] = M))
+        : (M = t[41]);
+      var w = n && _.pushUp,
+        A = !n && _.pushDown,
+        F;
+      t[42] !== w || t[43] !== A
+        ? ((F = [_.previewBody, _.paddingHoriz28, w, A]),
+          (t[42] = w),
+          (t[43] = A),
+          (t[44] = F))
+        : (F = t[44]);
+      var O;
+      t[45] !== y
+        ? ((O = s.jsx(o("WAWebFlex.react").FlexRow, {
+            justify: "center",
+            align: "center",
+            children: s.jsx(r("WAWebFlexItem.react"), {
+              xstyle: _.wrapper,
+              grow: 0,
+              children: s.jsx("div", {
+                "data-nohandle": !0,
+                testid: void 0,
+                children: s.jsx(r("WAWebWrapperDisplayTypeContext").Provider, {
+                  value: o("WAWebDisplayType").DISPLAY_TYPE.EDITING,
+                  children: y,
                 }),
               }),
             }),
-          })
-        : null;
+          })),
+          (t[45] = y),
+          (t[46] = O))
+        : (O = t[46]);
+      var B;
+      return (
+        t[47] !== F || t[48] !== O
+          ? ((B = s.jsx(r("WAWebMsgPreview.react"), {
+              chatPreference: M,
+              containerXstyle: _.previewContainer,
+              bodyXstyle: F,
+              children: O,
+            })),
+            (t[47] = F),
+            (t[48] = O),
+            (t[49] = B))
+          : (B = t[49]),
+        B
+      );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    l.default = f;
   },
   98,
 );

@@ -1,90 +1,102 @@
 __d(
   "useWAWebLexicalTypeAheadKeyboardNavigation",
-  ["Lexical", "LexicalComposerContext", "LexicalUtils", "react"],
+  [
+    "Lexical",
+    "LexicalComposerContext",
+    "LexicalUtils",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = s.useEffect,
       c = s.useState;
     function d(e, t, n, r) {
-      var a = r.onCancel,
-        i = r.onSelect,
-        l = o("LexicalComposerContext").useLexicalComposerContext(),
-        s = l[0],
-        d = c(t),
-        m = d[0],
-        p = d[1];
-      return (
-        u(
-          function () {
+      var a = o("react-compiler-runtime").c(12),
+        i = r.onCancel,
+        l = r.onSelect,
+        s = o("LexicalComposerContext").useLexicalComposerContext(),
+        d = s[0],
+        m = c(t),
+        p = m[0],
+        _ = m[1],
+        f;
+      (a[0] !== p ||
+      a[1] !== n ||
+      a[2] !== d ||
+      a[3] !== e ||
+      a[4] !== i ||
+      a[5] !== l
+        ? ((f = function () {
             var t;
             return o("LexicalUtils").mergeRegister(
-              s.registerCommand(
+              d.registerCommand(
                 (t = o("Lexical")).KEY_ENTER_COMMAND,
                 function (t) {
                   return e.length === 0
                     ? !1
                     : (t != null &&
                         (t.preventDefault(), t.stopImmediatePropagation()),
-                      i(e[m]),
+                      l(e[p]),
                       !0);
                 },
                 t.COMMAND_PRIORITY_HIGH,
               ),
-              s.registerCommand(
+              d.registerCommand(
                 t.KEY_TAB_COMMAND,
                 function (t) {
                   return e.length === 0
                     ? !1
                     : (t != null &&
                         (t.preventDefault(), t.stopImmediatePropagation()),
-                      i(e[m]),
+                      l(e[p]),
                       !0);
                 },
                 t.COMMAND_PRIORITY_HIGH,
               ),
-              s.registerCommand(
+              d.registerCommand(
                 t.KEY_ESCAPE_COMMAND,
                 function (t) {
                   return e.length === 0
                     ? !1
                     : (t.preventDefault(),
                       t.stopImmediatePropagation(),
-                      a(),
+                      i(),
                       !0);
                 },
                 t.COMMAND_PRIORITY_HIGH,
               ),
-              s.registerCommand(
+              d.registerCommand(
                 t.KEY_ARROW_LEFT_COMMAND,
                 function (t) {
                   return n !== "row" || e.length === 0
                     ? !1
                     : (t.preventDefault(),
                       t.stopImmediatePropagation(),
-                      p(m === 0 ? e.length - 1 : m - 1),
+                      _(p === 0 ? e.length - 1 : p - 1),
                       !0);
                 },
                 t.COMMAND_PRIORITY_HIGH,
               ),
-              s.registerCommand(
+              d.registerCommand(
                 t.KEY_ARROW_RIGHT_COMMAND,
                 function (t) {
                   return n !== "row" || e.length === 0
                     ? !1
                     : (t.preventDefault(),
                       t.stopImmediatePropagation(),
-                      p((m + 1) % e.length),
+                      _((p + 1) % e.length),
                       !0);
                 },
                 t.COMMAND_PRIORITY_HIGH,
               ),
-              s.registerCommand(
+              d.registerCommand(
                 t.KEY_ARROW_UP_COMMAND,
                 function (t) {
                   if (n !== "column" || e.length === 0) return !1;
                   for (
-                    var r = m === 0 ? e.length - 1 : m - 1, o = e[r];
+                    var r = p === 0 ? e.length - 1 : p - 1, o = e[r];
                     ((a = o) == null ? void 0 : a.skipKeyboardNav) === !0;
                   ) {
                     var a;
@@ -93,39 +105,58 @@ __d(
                   return (
                     t.preventDefault(),
                     t.stopImmediatePropagation(),
-                    p(r),
+                    _(r),
                     !0
                   );
                 },
                 t.COMMAND_PRIORITY_HIGH,
               ),
-              s.registerCommand(
+              d.registerCommand(
                 t.KEY_ARROW_DOWN_COMMAND,
                 function (t) {
                   if (n !== "column" || e.length === 0) return !1;
                   (t.preventDefault(), t.stopImmediatePropagation());
                   for (
-                    var r = (m + 1) % e.length, o = e[r];
+                    var r = (p + 1) % e.length, o = e[r];
                     ((a = o) == null ? void 0 : a.skipKeyboardNav) === !0;
                   ) {
                     var a;
                     (r++, (o = e[r]));
                   }
-                  return (p(r), !0);
+                  return (_(r), !0);
                 },
                 t.COMMAND_PRIORITY_HIGH,
               ),
             );
-          },
-          void 0,
-        ),
-        u(
-          function () {
-            p(t);
-          },
-          [t],
-        ),
-        { activeIndex: m, setActiveIndex: p }
+          }),
+          (a[0] = p),
+          (a[1] = n),
+          (a[2] = d),
+          (a[3] = e),
+          (a[4] = i),
+          (a[5] = l),
+          (a[6] = f))
+        : (f = a[6]),
+        u(f, void 0));
+      var g, h;
+      (a[7] !== t
+        ? ((g = function () {
+            _(t);
+          }),
+          (h = [t]),
+          (a[7] = t),
+          (a[8] = g),
+          (a[9] = h))
+        : ((g = a[8]), (h = a[9])),
+        u(g, h));
+      var y;
+      return (
+        a[10] !== p
+          ? ((y = { activeIndex: p, setActiveIndex: _ }),
+            (a[10] = p),
+            (a[11] = y))
+          : (y = a[11]),
+        y
       );
     }
     l.useLexicalTypeAheadKeyboardNavigation = d;

@@ -11,6 +11,7 @@ __d(
     "err",
     "lodash",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebListener",
   ],
@@ -77,30 +78,39 @@ __d(
       }
     }
     function m() {
-      var e = r("useLazyRef")(function () {
-          return new Map();
-        }),
-        t = s(
-          function () {
+      var e = o("react-compiler-runtime").c(5),
+        t = r("useLazyRef")(p),
+        n;
+      e[0] !== t
+        ? ((n = function () {
             !document.hasFocus() ||
-              e.current.size === 0 ||
-              (u(e.current), (e.current = new Map()));
-          },
-          [e],
-        ),
-        n = s(
-          function (n) {
-            var r,
-              o = n.addOns,
-              a = n.addOnType,
-              i = e.current.get(a);
-            (i == null && ((i = []), e.current.set(a, i)),
-              (r = i).push.apply(r, o),
-              t());
-          },
-          [t, e],
-        );
-      return (o("useWAWebListener").useListener(window, "focus", t), n);
+              t.current.size === 0 ||
+              (u(t.current), (t.current = new Map()));
+          }),
+          (e[0] = t),
+          (e[1] = n))
+        : (n = e[1]);
+      var a = n,
+        i;
+      e[2] !== a || e[3] !== t
+        ? ((i = function (n) {
+            var e,
+              r = n.addOns,
+              o = n.addOnType,
+              i = t.current.get(o);
+            (i == null && ((i = []), t.current.set(o, i)),
+              (e = i).push.apply(e, r),
+              a());
+          }),
+          (e[2] = a),
+          (e[3] = t),
+          (e[4] = i))
+        : (i = e[4]);
+      var l = i;
+      return (o("useWAWebListener").useListener(window, "focus", a), l);
+    }
+    function p() {
+      return new Map();
     }
     ((l.markAddOnsAsReadUiAction = d), (l.useMarkAddOnsAsRead = m));
   },

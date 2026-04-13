@@ -5,6 +5,7 @@ __d(
     "WAWebUnstyledButton.react",
     "WDSFocusStateStyles",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
@@ -64,70 +65,143 @@ __d(
         selected: { color: "x14ug900", $$css: !0 },
       };
     function f(t) {
-      var n = t.ref,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        i = a.children,
-        l = a.role,
-        s = a.selected,
-        c = a.showFocusIndicator,
-        f = a.testid,
-        g = a.theme,
-        h = a.title,
-        y = m(),
-        C = function (t) {
-          ((y.current = t), a.onRef == null || a.onRef(t));
-        },
-        b = function (t) {
-          a.onClick == null || a.onClick(a.sectionId, t);
-        },
-        v = function () {
-          return document.activeElement
-            ? y.current === document.activeElement
-            : !1;
-        },
-        S = function () {
-          y != null &&
-            y.current &&
-            (v() || r("WAWebFocusTracer").focus(y.current));
-        };
-      d(n, function () {
-        return { hasFocus: v, focus: S };
-      });
-      var R = {};
+      var n = o("react-compiler-runtime").c(28),
+        a,
+        i;
+      n[0] !== t
+        ? ((i = t.ref),
+          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i))
+        : ((a = n[1]), (i = n[2]));
+      var l = a,
+        s = l.children,
+        c = l.role,
+        f = l.selected,
+        g = l.showFocusIndicator,
+        h = l.testid,
+        y = l.theme,
+        C = l.title,
+        b = m(),
+        v;
+      n[3] !== a
+        ? ((v = function (t) {
+            ((b.current = t), a.onRef == null || a.onRef(t));
+          }),
+          (n[3] = a),
+          (n[4] = v))
+        : (v = n[4]);
+      var S = v,
+        R;
+      n[5] !== a
+        ? ((R = function (t) {
+            a.onClick == null || a.onClick(a.sectionId, t);
+          }),
+          (n[5] = a),
+          (n[6] = R))
+        : (R = n[6]);
+      var L = R,
+        E;
+      n[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = function () {
+            return document.activeElement
+              ? b.current === document.activeElement
+              : !1;
+          }),
+          (n[7] = E))
+        : (E = n[7]);
+      var k = E,
+        I;
+      n[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = function () {
+            b != null &&
+              b.current &&
+              (k() || r("WAWebFocusTracer").focus(b.current));
+          }),
+          (n[8] = I))
+        : (I = n[8]);
+      var T = I,
+        D;
+      (n[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = function () {
+            return { hasFocus: k, focus: T };
+          }),
+          (n[9] = D))
+        : (D = n[9]),
+        d(i, D));
+      var x;
+      n[10] !== h || n[11] !== C
+        ? ((x = {}),
+          h != null && (x.testid = h),
+          C != null && (x.title = C),
+          (n[10] = h),
+          (n[11] = C),
+          (n[12] = x))
+        : (x = n[12]);
+      var $ = y === p.MENU ? _.menu : null,
+        P = y === p.MENU && f !== !0 ? _.menuHover : null,
+        N = y === p.CAROUSEL || y === p.CAROUSEL_END ? _.carousel : null,
+        M = y === p.CAROUSEL_END ? _.carouselEnd : null,
+        w = f === !0 ? _.selected : null,
+        A =
+          g === !0
+            ? o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocusInner
+            : null,
+        F;
+      n[13] !== w ||
+      n[14] !== A ||
+      n[15] !== $ ||
+      n[16] !== P ||
+      n[17] !== N ||
+      n[18] !== M
+        ? ((F = [_.tab, $, P, N, M, w, A]),
+          (n[13] = w),
+          (n[14] = A),
+          (n[15] = $),
+          (n[16] = P),
+          (n[17] = N),
+          (n[18] = M),
+          (n[19] = F))
+        : (F = n[19]);
+      var O = f != null ? f : !1,
+        B;
       return (
-        f != null && (R.testid = f),
-        h != null && (R.title = h),
-        u.jsx(
-          r("WAWebUnstyledButton.react"),
-          babelHelpers.extends(
-            {
-              role: l,
-              ref: C,
-              xstyle: [
-                _.tab,
-                g === p.MENU ? _.menu : null,
-                g === p.MENU && s !== !0 ? _.menuHover : null,
-                g === p.CAROUSEL || g === p.CAROUSEL_END ? _.carousel : null,
-                g === p.CAROUSEL_END ? _.carouselEnd : null,
-                s === !0 ? _.selected : null,
-                c === !0
-                  ? o("WDSFocusStateStyles").WDSFocusStateStyles
-                      .genericFocusInner
-                  : null,
-              ],
-              onClick: b,
-              tabIndex: 0,
-              "aria-current": s != null ? s : !1,
-            },
-            R,
-            { children: i },
-          ),
-        )
+        n[20] !== s ||
+        n[21] !== L ||
+        n[22] !== x ||
+        n[23] !== c ||
+        n[24] !== S ||
+        n[25] !== F ||
+        n[26] !== O
+          ? ((B = u.jsx(
+              r("WAWebUnstyledButton.react"),
+              babelHelpers.extends(
+                {
+                  role: c,
+                  ref: S,
+                  xstyle: F,
+                  onClick: L,
+                  tabIndex: 0,
+                  "aria-current": O,
+                },
+                x,
+                { children: s },
+              ),
+            )),
+            (n[20] = s),
+            (n[21] = L),
+            (n[22] = x),
+            (n[23] = c),
+            (n[24] = S),
+            (n[25] = F),
+            (n[26] = O),
+            (n[27] = B))
+          : (B = n[27]),
+        B
       );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"),
-      (l.THEMES = p),
-      (l.MenuTab = f));
+    ((l.THEMES = p), (l.MenuTab = f));
   },
   98,
 );

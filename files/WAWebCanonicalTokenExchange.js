@@ -5,8 +5,6 @@ __d(
     "Promise",
     "WALogger",
     "WAWebCanonicalEntRecoveryWam",
-    "WAWebCanonicalGating",
-    "WAWebCanonicalUtils",
     "WAWebXControllerFetchUtils",
     "WAXWhatsAppWebAuthControllerRouteBuilder",
     "asyncToGeneratorRuntime",
@@ -17,117 +15,84 @@ __d(
       u,
       c,
       d,
-      m,
-      p,
-      _,
-      f = n("$InternalEnum").Mirrored(["IDLE", "IN_PROGRESS", "PRESENT"]),
-      g = n("$InternalEnum").Mirrored(["SUCCESS", "FAILED", "TIMEOUT"]),
-      h = f.IDLE;
-    function y(e) {
-      h = e;
+      m = n("$InternalEnum").Mirrored(["IDLE", "IN_PROGRESS", "PRESENT"]),
+      p = n("$InternalEnum").Mirrored(["SUCCESS", "FAILED", "TIMEOUT"]),
+      _ = m.IDLE;
+    function f(e) {
+      _ = e;
     }
-    function C() {
-      return h;
+    function g() {
+      return _;
     }
-    function b() {
-      return o("WAWebCanonicalGating").isCanonicalAppReloadEnabled()
-        ? self.location.pathname === "/login"
-          ? (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[reload] reloading at /login, after canonical reg completed",
-                ])),
-            ),
-            self.location.reload(),
-            !0)
-          : C() === f.PRESENT
-            ? (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[reload][canonical] reloading after canonical reg completed",
-                  ])),
-              ),
-              o("WAWebCanonicalUtils").markCredentialsStoredForPostReload(),
-              self.location.reload(),
-              !0)
-            : (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[canonical] omit reload, token creation not done",
-                  ])),
-              ),
-              !1)
-        : !1;
+    function h(e, t) {
+      return y.apply(this, arguments);
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
+    function y() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i = (function () {
+              var a = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
                   try {
-                    var t;
+                    var n;
                     o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
                           "[canonical] Exchanging nonce for token",
                         ])),
                     );
-                    var n = e.accessToken,
-                      a = e.deviceId,
-                      i = e.nonce,
-                      l = e.userId,
-                      s = r(
+                    var a = t.accessToken,
+                      i = t.deviceId,
+                      l = t.nonce,
+                      d = t.userId,
+                      m = r(
                         "WAXWhatsAppWebAuthControllerRouteBuilder",
                       ).buildUri({
-                        access_token: n != null ? n : "",
-                        nonce: i,
-                        user_id: l,
-                        device_id: a,
+                        access_token: a != null ? a : "",
+                        nonce: l,
+                        user_id: d,
+                        device_id: i,
                       }),
-                      u = yield o(
+                      _ = yield o(
                         "WAWebXControllerFetchUtils",
-                      ).fetchFromXController(s.toString(), {
+                      ).fetchFromXController(m.toString(), {
                         method: "POST",
                         retry: !0,
                       });
-                    if (!u.ok)
+                    if (!_.ok)
                       return (
                         o("WALogger").ERROR(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
                               "[canonical] Failed to exchange nonce: HTTP ",
                               "",
                             ])),
-                          u.status,
+                          _.status,
                         ),
-                        g.FAILED
+                        p.FAILED
                       );
-                    var _ = yield o(
+                    var f = yield o(
                       "WAWebXControllerFetchUtils",
-                    ).extractJsonFromResponse(u);
+                    ).extractJsonFromResponse(_);
                     if (
-                      _ == null ||
-                      ((t = _.payload) == null ? void 0 : t.status) !==
+                      f == null ||
+                      ((n = f.payload) == null ? void 0 : n.status) !==
                         "success"
                     ) {
-                      var f,
+                      var g,
                         h,
                         y,
                         C,
                         b =
-                          (f =
-                            _ == null || (h = _.payload) == null
+                          (g =
+                            f == null || (h = f.payload) == null
                               ? void 0
                               : h.status) != null
-                            ? f
+                            ? g
                             : "invalid response",
                         v =
                           (y =
-                            _ == null || (C = _.payload) == null
+                            f == null || (C = f.payload) == null
                               ? void 0
                               : C.error) != null
                             ? y
@@ -135,8 +100,8 @@ __d(
                       return (
                         o("WALogger")
                           .ERROR(
-                            m ||
-                              (m = babelHelpers.taggedTemplateLiteralLoose([
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
                                 "[canonical] nonce exchange fail: ",
                                 " err=",
                                 "",
@@ -145,68 +110,67 @@ __d(
                             v,
                           )
                           .sendLogs("canonical-error", { sampling: 0.01 }),
-                        g.FAILED
+                        p.FAILED
                       );
                     }
-                    return g.SUCCESS;
+                    return p.SUCCESS;
                   } catch (e) {
                     return (
                       o("WALogger")
                         .ERROR(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
                               "[canonical] Unexpected error during nonce exchange: ",
                               "",
                             ])),
                           e,
                         )
                         .sendLogs("canonical-error", { sampling: 0.01 }),
-                      g.FAILED
+                      p.FAILED
                     );
                   }
                 },
               );
               return function () {
-                return t.apply(this, arguments);
+                return a.apply(this, arguments);
               };
             })(),
-            i = function (t) {
-              t === g.SUCCESS ? y(f.PRESENT) : t === g.FAILED && y(f.IDLE);
+            l = function (t) {
+              t === p.SUCCESS ? f(m.PRESENT) : t === p.FAILED && f(m.IDLE);
             };
           (o("WAWebCanonicalEntRecoveryWam").logExchangeNonceStart(),
-            y(f.IN_PROGRESS));
-          var l = function (t) {
-            t === g.SUCCESS
+            f(m.IN_PROGRESS));
+          var _ = function (t) {
+            t === p.SUCCESS
               ? o("WAWebCanonicalEntRecoveryWam").logExchangeNonceSuccess()
-              : t === g.FAILED &&
+              : t === p.FAILED &&
                 o("WAWebCanonicalEntRecoveryWam").logExchangeNonceError();
           };
-          if (t == null) {
-            var s = yield a();
-            return (i(s), l(s), s);
+          if (a == null) {
+            var g = yield i();
+            return (l(g), _(g), g);
           }
-          return new (_ || (_ = n("Promise")))(function (e) {
-            var n = window.setTimeout(function () {
-              e(g.TIMEOUT);
-            }, t);
-            a()
-              .then(function (t) {
-                (i(t), l(t), window.clearTimeout(n), e(t));
+          return new (d || (d = n("Promise")))(function (e) {
+            var t = window.setTimeout(function () {
+              e(p.TIMEOUT);
+            }, a);
+            i()
+              .then(function (n) {
+                (l(n), _(n), window.clearTimeout(t), e(n));
               })
               .catch(function () {
-                (i(g.FAILED), l(g.FAILED), window.clearTimeout(n), e(g.FAILED));
+                (l(p.FAILED), _(p.FAILED), window.clearTimeout(t), e(p.FAILED));
               });
           });
         })),
-        S.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    ((l.TokenCreationState = f),
-      (l.TokenExchangeResult = g),
-      (l.setTokenCreationState = y),
-      (l.getTokenCreationState = C),
-      (l.maybeReloadAfterRegistration = b),
-      (l.exchangeNonceForToken = v));
+    ((l.TokenCreationState = m),
+      (l.TokenExchangeResult = p),
+      (l.setTokenCreationState = f),
+      (l.getTokenCreationState = g),
+      (l.exchangeNonceForToken = h));
   },
   98,
 );

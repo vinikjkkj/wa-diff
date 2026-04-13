@@ -10,6 +10,7 @@ __d(
     "WAWebSuggestionsPanelContainer.react",
     "WAWebUnstyledButton.react",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebActiveSelection",
     "useWAWebLexicalEvent",
@@ -25,30 +26,74 @@ __d(
       return !!(e && (e.metaKey || e.shiftKey || e.altKey || e.ctrlKey));
     }
     function _(e) {
-      var t = e.active,
-        n = e.item,
-        a = e.onSelect,
-        i = e.renderItem,
-        l = r("useWAWebActiveSelection")(t, n.itemKey),
-        u = l[0],
-        c = l[1];
-      if (n.selectable === !1)
-        return s.jsx("div", { className: "xh8yej3", children: i(n, !1) });
-      var d = function () {
-          a(n);
-        },
-        p = function () {
-          t.setVal(t.list[n.index]);
-        };
-      return s.jsx(r("WAWebUnstyledButton.react"), {
-        onClick: d,
-        xstyle: m.itemWrapper,
-        onMouseEnter: p,
-        onMouseDown: o("WAWebStopEvent").preventDefault,
-        children: i(n, c),
-      });
+      var t = o("react-compiler-runtime").c(20),
+        n = e.active,
+        a = e.item,
+        i = e.onSelect,
+        l = e.renderItem,
+        u = r("useWAWebActiveSelection")(n, a.itemKey),
+        c = u[1];
+      if (a.selectable === !1) {
+        var d;
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((d = { className: "xh8yej3" }), (t[0] = d))
+          : (d = t[0]);
+        var p;
+        t[1] !== a || t[2] !== l
+          ? ((p = l(a, !1)), (t[1] = a), (t[2] = l), (t[3] = p))
+          : (p = t[3]);
+        var _;
+        return (
+          t[4] !== p
+            ? ((_ = s.jsx("div", babelHelpers.extends({}, d, { children: p }))),
+              (t[4] = p),
+              (t[5] = _))
+            : (_ = t[5]),
+          _
+        );
+      }
+      var f;
+      t[6] !== a || t[7] !== i
+        ? ((f = function () {
+            i(a);
+          }),
+          (t[6] = a),
+          (t[7] = i),
+          (t[8] = f))
+        : (f = t[8]);
+      var g = f,
+        h;
+      t[9] !== n || t[10] !== a.index
+        ? ((h = function () {
+            n.setVal(n.list[a.index]);
+          }),
+          (t[9] = n),
+          (t[10] = a.index),
+          (t[11] = h))
+        : (h = t[11]);
+      var y = h,
+        C;
+      t[12] !== c || t[13] !== a || t[14] !== l
+        ? ((C = l(a, c)), (t[12] = c), (t[13] = a), (t[14] = l), (t[15] = C))
+        : (C = t[15]);
+      var b;
+      return (
+        t[16] !== g || t[17] !== y || t[18] !== C
+          ? ((b = s.jsx(r("WAWebUnstyledButton.react"), {
+              onClick: g,
+              xstyle: m.itemWrapper,
+              onMouseEnter: y,
+              onMouseDown: o("WAWebStopEvent").preventDefault,
+              children: C,
+            })),
+            (t[16] = g),
+            (t[17] = y),
+            (t[18] = C),
+            (t[19] = b))
+          : (b = t[19]),
+        b
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       var t,
         n,

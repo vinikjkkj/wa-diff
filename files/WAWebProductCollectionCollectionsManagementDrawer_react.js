@@ -29,6 +29,7 @@ __d(
     "WAWebUtilsLogQplEvents",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebOnUnmount",
     "useWAWebStableCallback",
     "useWAWebThrottledCallback",
@@ -67,90 +68,155 @@ __d(
         paddingBottom20: { paddingBottom: "xv6tirj", $$css: !0 },
       };
     function C(e) {
-      var t = e.disableBtn,
-        n = t === void 0 ? !1 : t,
+      var t = o("react-compiler-runtime").c(6),
+        n = e.disableBtn,
         r = e.isLoading,
-        a = e.onClick;
-      return c.jsx(o("WAWebFlex.react").FlexContainer, {
-        xstyle: [y.footer, y.paddingAll12, y.paddingBottom20],
-        direction: "horizontal",
-        justify: "end",
-        children: c.jsx(o("WAWebButton.react").WAWebButtonPrimary, {
-          onClick: a,
-          disabled: n,
-          spinner: r,
-          children: s._(/*BTDS*/ "Save"),
-        }),
-      });
+        a = e.onClick,
+        i = n === void 0 ? !1 : n,
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [y.footer, y.paddingAll12, y.paddingBottom20]), (t[0] = l))
+        : (l = t[0]);
+      var u;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = s._(/*BTDS*/ "Save")), (t[1] = u))
+        : (u = t[1]);
+      var d;
+      return (
+        t[2] !== i || t[3] !== r || t[4] !== a
+          ? ((d = c.jsx(o("WAWebFlex.react").FlexContainer, {
+              xstyle: l,
+              direction: "horizontal",
+              justify: "end",
+              children: c.jsx(o("WAWebButton.react").WAWebButtonPrimary, {
+                onClick: a,
+                disabled: i,
+                spinner: r,
+                children: u,
+              }),
+            })),
+            (t[2] = i),
+            (t[3] = r),
+            (t[4] = a),
+            (t[5] = d))
+          : (d = t[5]),
+        d
+      );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b() {
-      return c.jsx(o("WAWebFlex.react").FlexRow, {
-        xstyle: y.reorderLoadingScreen,
-        align: "center",
-        justify: "center",
-        testid: void 0,
-        children: c.jsx(r("WAWebFlexItem.react"), {
-          children: c.jsx(o("WAWebSpinner.react").Spinner, {
-            size: 50,
-            stroke: 4,
-            color: "accent",
-          }),
-        }),
-      });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = c.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: y.reorderLoadingScreen,
+              align: "center",
+              justify: "center",
+              testid: void 0,
+              children: c.jsx(r("WAWebFlexItem.react"), {
+                children: c.jsx(o("WAWebSpinner.react").Spinner, {
+                  size: 50,
+                  stroke: 4,
+                  color: "accent",
+                }),
+              }),
+            })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.catalog,
-        n = e.catalogFlatListController,
-        a = e.checkIfCollectionIsDirty,
-        i = e.drawerRef,
-        l = e.editCollection,
-        u = e.handleReorderMove,
-        d = e.isLoadingMore,
-        m = e.isReorder,
-        p = e.onSeeCollection,
-        _ = e.reorderedCollection;
-      return t
-        ? c.jsxs("div", {
-            children: [
-              !m &&
-                !o(
-                  "WAWebLinkedCatalogHelper",
-                ).shouldHideComponentForSMBLinkedCatalog() &&
-                c.jsx(r("WAWebManageAddItemCta.react"), {
-                  onClick: function () {
-                    l(null);
-                  },
-                  theme: "collections",
-                  title: s._(/*BTDS*/ "New collection"),
-                }),
-              _.length !== 0 &&
-                c.jsx(r("WAWebProductCollectionCollectionsList.react"), {
-                  canManage: !0,
-                  catalog: t,
-                  onEditCollection: l,
-                  data: _,
-                  flatListController: n,
-                  onSeeCollection: p,
-                  isReorder: m,
-                  handleReorderMove: u,
-                  containerRef: i,
-                  onFinalDropOfItem: a,
-                }),
-              d &&
-                c.jsx("div", {
-                  className: "xrvj5dj xl56j7k x1qx5ct2",
-                  children: c.jsx(
-                    r("WAWebFlatListLoadingSpinnerItem.react"),
-                    {},
-                  ),
-                }),
-            ],
-          })
-        : null;
+      var t = o("react-compiler-runtime").c(19),
+        n = e.catalog,
+        a = e.catalogFlatListController,
+        i = e.checkIfCollectionIsDirty,
+        l = e.drawerRef,
+        u = e.editCollection,
+        d = e.handleReorderMove,
+        m = e.isLoadingMore,
+        p = e.isReorder,
+        _ = e.onSeeCollection,
+        f = e.reorderedCollection;
+      if (n) {
+        var g;
+        t[0] !== u || t[1] !== p
+          ? ((g =
+              !p &&
+              !o(
+                "WAWebLinkedCatalogHelper",
+              ).shouldHideComponentForSMBLinkedCatalog() &&
+              c.jsx(r("WAWebManageAddItemCta.react"), {
+                onClick: function () {
+                  u(null);
+                },
+                theme: "collections",
+                title: s._(/*BTDS*/ "New collection"),
+              })),
+            (t[0] = u),
+            (t[1] = p),
+            (t[2] = g))
+          : (g = t[2]);
+        var h;
+        t[3] !== n ||
+        t[4] !== a ||
+        t[5] !== i ||
+        t[6] !== l ||
+        t[7] !== u ||
+        t[8] !== d ||
+        t[9] !== p ||
+        t[10] !== _ ||
+        t[11] !== f
+          ? ((h =
+              f.length !== 0 &&
+              c.jsx(r("WAWebProductCollectionCollectionsList.react"), {
+                canManage: !0,
+                catalog: n,
+                onEditCollection: u,
+                data: f,
+                flatListController: a,
+                onSeeCollection: _,
+                isReorder: p,
+                handleReorderMove: d,
+                containerRef: l,
+                onFinalDropOfItem: i,
+              })),
+            (t[3] = n),
+            (t[4] = a),
+            (t[5] = i),
+            (t[6] = l),
+            (t[7] = u),
+            (t[8] = d),
+            (t[9] = p),
+            (t[10] = _),
+            (t[11] = f),
+            (t[12] = h))
+          : (h = t[12]);
+        var y;
+        t[13] !== m
+          ? ((y =
+              m &&
+              c.jsx("div", {
+                className: "xrvj5dj xl56j7k x1qx5ct2",
+                children: c.jsx(r("WAWebFlatListLoadingSpinnerItem.react"), {}),
+              })),
+            (t[13] = m),
+            (t[14] = y))
+          : (y = t[14]);
+        var C;
+        return (
+          t[15] !== g || t[16] !== h || t[17] !== y
+            ? ((C = c.jsxs("div", { children: [g, h, y] })),
+              (t[15] = g),
+              (t[16] = h),
+              (t[17] = y),
+              (t[18] = C))
+            : (C = t[18]),
+          C
+        );
+      }
+      return null;
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(t) {
       var a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e),

@@ -6,6 +6,7 @@ __d(
     "WAWebNuxCollectionsBanner.react",
     "WAWebUserPrefsMeUser",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,30 +14,49 @@ __d(
       s = e || (e = o("react")),
       u = e.useState;
     function c(e) {
-      var t = e.onOpenCollections,
-        n = u(!1),
-        a = n[0],
-        i = n[1],
-        l = o("WAWebCatalogCollection").CatalogCollection.get(
-          o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        );
-      return (
+      var t = o("react-compiler-runtime").c(5),
+        n = e.onOpenCollections,
+        a = u(!1),
+        i = a[0],
+        l = a[1],
+        c;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = o("WAWebCatalogCollection").CatalogCollection.get(
+            o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          )),
+          (t[0] = c))
+        : (c = t[0]);
+      var d = c,
+        m;
+      (t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = function () {
+            l(!0);
+          }),
+          (t[1] = m))
+        : (m = t[1]),
         o("useWAWebListener").useListener(
-          l == null ? void 0 : l.collections,
+          d == null ? void 0 : d.collections,
           "change",
-          function () {
-            i(!0);
-          },
-        ),
-        a &&
-          s.jsx(r("WAWebNuxBanners.react"), {
-            children: s.jsx(r("WAWebNuxCollectionsBanner.react"), {
-              onClick: t,
-            }),
-          })
+          m,
+        ));
+      var p;
+      return (
+        t[2] !== i || t[3] !== n
+          ? ((p =
+              i &&
+              s.jsx(r("WAWebNuxBanners.react"), {
+                children: s.jsx(r("WAWebNuxCollectionsBanner.react"), {
+                  onClick: n,
+                }),
+              })),
+            (t[2] = i),
+            (t[3] = n),
+            (t[4] = p))
+          : (p = t[4]),
+        p
       );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

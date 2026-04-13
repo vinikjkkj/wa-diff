@@ -12,7 +12,7 @@ __d(
     "use strict";
     var e, s, u, c;
     function d(e) {
-      (m(e), _(e), h(e), y(e));
+      (m(e), _(e), y(e), C(e));
     }
     function m(t) {
       t.tag !== "receipt" ||
@@ -108,12 +108,23 @@ __d(
       }
     }
     function g(e) {
+      return e.tag !== "message" || !Array.isArray(e.content)
+        ? !1
+        : e.content.some(function (e) {
+            var t;
+            return (
+              (e == null ? void 0 : e.tag) === "enc" &&
+              ((t = e.attrs) == null ? void 0 : t.count) != null
+            );
+          });
+    }
+    function h(e) {
       var t = o("WAWebWidValidator").validateAndGetParts(e);
       if (t == null || t.userPart == null) return !1;
       var n = o("WAWebWidFactory").createWid(e);
       return o("WAWebLidMigrationUtils").shouldHaveAccountLid(n) && !n.isLid();
     }
-    function h(e) {
+    function y(e) {
       if (
         o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0 &&
         !(e.tag === "receipt" || e.tag === "ack")
@@ -122,13 +133,14 @@ __d(
         if (t != null) {
           var n = String(t);
           if (
-            g(n) &&
+            h(n) &&
             !(
               e.attrs.category === "peer" &&
               o("WAWebUserPrefsMeUser").isMeAccount(
                 o("WAWebWidFactory").createWid(n),
               )
-            )
+            ) &&
+            !g(e)
           ) {
             var r = f(n);
             o("WALogger")
@@ -147,7 +159,7 @@ __d(
         }
       }
     }
-    function y(e) {
+    function C(e) {
       if (
         e.tag === "message" &&
         o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
@@ -160,7 +172,7 @@ __d(
             var a = o("WAWebWidFactory").createWid(n);
             if (a.isUser()) {
               var i = p(e),
-                l = i.filter(g);
+                l = i.filter(h);
               if (l.length > 0) {
                 var s = l.map(f).join(",");
                 o("WALogger")

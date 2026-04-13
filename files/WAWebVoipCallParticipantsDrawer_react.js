@@ -30,6 +30,7 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebVoipModalManager",
   ],
@@ -151,74 +152,127 @@ __d(
         connectedCountText: { textAlign: "x2b8uid", $$css: !0 },
       };
     function R(e) {
-      var t = e.chat,
-        n = e.connectedCount,
-        a = e.isCallLink,
-        i = e.isLinkedGroupCall,
-        l = e.participantsWithoutSelf,
-        u = b(
-          function () {
-            return o("WAWebCallLogUtils").sortConnectedParticipants(l);
-          },
-          [l],
-        ),
-        c = u.sortedParticipants,
-        d = i
-          ? (t == null ? void 0 : t.name) ||
-            (t == null ? void 0 : t.formattedTitle)
-          : o("WAWebParticipantListUtils").formatParticipantWidsPreserveOrder(
-              c,
-            ),
-        m = b(
-          function () {
-            return i && t != null
-              ? h.jsx(r("WAWebContactImage.react"), {
-                  contact: t.contact,
-                  size: v,
-                  loadPicture: !0,
-                })
-              : c.length > 0
-                ? h.jsx(r("WAWebMultiParticipantCallImage.react"), {
-                    participantWids: c,
-                    size: v,
-                  })
-                : a
-                  ? h.jsx(
-                      o("WAWebDefaultGroupRefreshedIcon.react")
-                        .DefaultGroupRefreshedIcon,
-                      { height: v, width: v, iconXstyle: S.defaultGroupAvatar },
-                    )
-                  : null;
-          },
-          [t, a, i, c],
-        );
-      return h.jsxs(o("WAWebFlex.react").FlexColumn, {
-        xstyle: S.headerSection,
-        children: [
-          m,
-          h.jsx(o("WAWebFlex.react").FlexItem, {
+      var t = o("react-compiler-runtime").c(20),
+        n = e.chat,
+        a = e.connectedCount,
+        i = e.isCallLink,
+        l = e.isLinkedGroupCall,
+        u = e.participantsWithoutSelf,
+        c;
+      t[0] !== u
+        ? ((c = o("WAWebCallLogUtils").sortConnectedParticipants(u)),
+          (t[0] = u),
+          (t[1] = c))
+        : (c = t[1]);
+      var d = c,
+        m = d.sortedParticipants,
+        p;
+      t[2] !== (n == null ? void 0 : n.formattedTitle) ||
+      t[3] !== (n == null ? void 0 : n.name) ||
+      t[4] !== l ||
+      t[5] !== m
+        ? ((p = l
+            ? (n == null ? void 0 : n.name) ||
+              (n == null ? void 0 : n.formattedTitle)
+            : o("WAWebParticipantListUtils").formatParticipantWidsPreserveOrder(
+                m,
+              )),
+          (t[2] = n == null ? void 0 : n.formattedTitle),
+          (t[3] = n == null ? void 0 : n.name),
+          (t[4] = l),
+          (t[5] = m),
+          (t[6] = p))
+        : (p = t[6]);
+      var _ = p,
+        f;
+      e: {
+        if (l && n != null) {
+          var g;
+          (t[7] !== n.contact
+            ? ((g = h.jsx(r("WAWebContactImage.react"), {
+                contact: n.contact,
+                size: v,
+                loadPicture: !0,
+              })),
+              (t[7] = n.contact),
+              (t[8] = g))
+            : (g = t[8]),
+            (f = g));
+          break e;
+        }
+        if (m.length > 0) {
+          var y;
+          (t[9] !== m
+            ? ((y = h.jsx(r("WAWebMultiParticipantCallImage.react"), {
+                participantWids: m,
+                size: v,
+              })),
+              (t[9] = m),
+              (t[10] = y))
+            : (y = t[10]),
+            (f = y));
+          break e;
+        }
+        if (i) {
+          var C;
+          (t[11] === Symbol.for("react.memo_cache_sentinel")
+            ? ((C = h.jsx(
+                o("WAWebDefaultGroupRefreshedIcon.react")
+                  .DefaultGroupRefreshedIcon,
+                { height: v, width: v, iconXstyle: S.defaultGroupAvatar },
+              )),
+              (t[11] = C))
+            : (C = t[11]),
+            (f = C));
+          break e;
+        }
+        f = null;
+      }
+      var b = f,
+        R;
+      t[12] !== _
+        ? ((R = h.jsx(o("WAWebFlex.react").FlexItem, {
             xstyle: S.groupNameText,
             children: h.jsx(r("WDSText.react"), {
               type: "Headline2",
               colorName: "contentDefault",
               maxLines: 2,
-              children: d,
+              children: _,
             }),
-          }),
-          h.jsx(o("WAWebFlex.react").FlexItem, {
+          })),
+          (t[12] = _),
+          (t[13] = R))
+        : (R = t[13]);
+      var L;
+      t[14] !== a
+        ? ((L = h.jsx(o("WAWebFlex.react").FlexItem, {
             xstyle: S.connectedCountText,
             children: h.jsx(r("WDSText.react"), {
               type: "Body2",
               colorName: "contentDeemphasized",
               children: s._(/*BTDS*/ "{count} connected", [
-                s._param("count", n),
+                s._param("count", a),
               ]),
             }),
-          }),
-        ],
-      });
+          })),
+          (t[14] = a),
+          (t[15] = L))
+        : (L = t[15]);
+      var E;
+      return (
+        t[16] !== b || t[17] !== R || t[18] !== L
+          ? ((E = h.jsxs(o("WAWebFlex.react").FlexColumn, {
+              xstyle: S.headerSection,
+              children: [b, R, L],
+            })),
+            (t[16] = b),
+            (t[17] = R),
+            (t[18] = L),
+            (t[19] = E))
+          : (E = t[19]),
+        E
+      );
     }
-    R.displayName = R.name + " [from " + i.id + "]";
     function L(t) {
       var a = t.call,
         i = t.chat,

@@ -45,6 +45,7 @@ __d(
     "asyncToGeneratorRuntime",
     "compactMap",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebEventResponses",
     "useWAWebMsgValues",
@@ -215,412 +216,794 @@ __d(
     f.displayName = f.name + " [from " + i.id + "]";
     function g(t) {
       var a,
-        i,
-        l,
-        u,
-        g = t.chat,
-        h = t.msg,
-        y = t.quotedMsg,
-        C = o("useWAWebMsgValues").useMsgValues(
-          h.id,
+        i = o("react-compiler-runtime").c(142),
+        l = t.chat,
+        u = t.msg,
+        g = t.quotedMsg,
+        v;
+      if (i[0] === Symbol.for("react.memo_cache_sentinel")) {
+        var S;
+        ((v = [
+          (S = o("WAWebMsgGetters")).getEventName,
+          S.getEventStartTime,
+          S.getEventEndTime,
+          S.getEventLocation,
+          S.getEventJoinLink,
+          S.getEventInvalidated,
+          S.getIsEventCanceled,
+          S.getEventIsScheduledCall,
+          S.getIsSentByMe,
+        ]),
+          (i[0] = v));
+      } else v = i[0];
+      var R = o("useWAWebMsgValues").useMsgValues(
+          u.id,
           r("WAWebCastToEventCreationMsg"),
-          [
-            (u = o("WAWebMsgGetters")).getEventName,
-            u.getEventStartTime,
-            u.getEventEndTime,
-            u.getEventLocation,
-            u.getEventJoinLink,
-            u.getEventInvalidated,
-            u.getIsEventCanceled,
-            u.getEventIsScheduledCall,
-            u.getIsSentByMe,
-          ],
+          v,
         ),
-        b = C[0],
-        v = C[1],
-        S = C[2],
-        R = C[3],
-        L = C[4],
-        E = C[5],
-        k = C[6],
-        I = C[7],
-        T = C[8],
-        D = r("useWAWebUIM")(),
-        x = o("useWAWebEventResponses").useEventResponses(h),
-        $ =
-          o("WAWebTextSizeUtils").getWAWebTextSizeStyles().pollQuestionTextSize,
-        P = b.slice(
+        L = R[0],
+        E = R[1],
+        k = R[2],
+        I = R[3],
+        T = R[4],
+        D = R[5],
+        x = R[6],
+        $ = R[7],
+        P = R[8],
+        N = r("useWAWebUIM")(),
+        M = o("useWAWebEventResponses").useEventResponses(u),
+        w;
+      i[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((w = o("WAWebTextSizeUtils").getWAWebTextSizeStyles()), (i[1] = w))
+        : (w = i[1]);
+      var A = w.pollQuestionTextSize,
+        F;
+      if (i[2] !== L) {
+        var O;
+        ((F = L.slice(
           0,
-          (a = o("WAWebEventsGatingUtils").getEventsNameLengthLimit()) != null
-            ? a
+          (O = o("WAWebEventsGatingUtils").getEventsNameLengthLimit()) != null
+            ? O
             : 100,
-        ),
-        N = o("WAWebEventUtils").shouldShowEventAsPassed(v, S),
-        M = k || N,
-        w = c.jsx(r("WDSIconIcCalendarMonth.react"), {
-          xstyle: E || M ? m.iconDisabled : m.icon,
-        }),
-        A = d();
-      if (b == null) return null;
-      function F() {
-        o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-          o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
-            ? { descriptorType: "event_info", chat: g, msg: h }
-            : c.jsx(
-                o("WAWebEventInfoFlowLoadable").EventInfoFlowLoadable,
-                {
-                  chat: g,
-                  msg: h,
-                  onEnd: o("WAWebDrawerManager").closeDrawerRight,
-                },
-                "event-info-drawer-" + h.id.toString(),
-              ),
-          { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE, uim: D },
-        );
-      }
-      function O(e) {
-        return B.apply(this, arguments);
-      }
-      function B() {
-        return (
-          (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            if (Y) {
-              if (L != null) {
-                var t = o("WAWebApiParse").parseCallLink(L);
-                if (t != null) {
-                  var n = t.data,
-                    a = n.callType,
-                    i = n.token,
-                    l = a === "video",
-                    s = o("WAWebChatGetters").getIsGroup(g),
-                    u = s
-                      ? o("WAWebWamEnumLobbyEntryPointType")
-                          .LOBBY_ENTRY_POINT_TYPE.EVENT_GROUP_CHAT
-                      : o("WAWebWamEnumLobbyEntryPointType")
-                          .LOBBY_ENTRY_POINT_TYPE.EVENT_INDIVIDUAL_CHAT,
-                    d = o("WAWebFrontendContactGetters").getMyUsername(),
-                    m = yield o(
-                      "WAWebVoipStackInterface",
-                    ).getVoipStackInterface();
-                  yield m == null ? void 0 : m.previewCallLink(i, l, u, d);
-                }
-              }
-            } else if (T) {
-              var p;
-              o("WAWebModalManager").ModalManager.open(
-                c.jsx(r("WAWebEventsCreateEventModalFlow.react"), {
-                  preselectedChat: g,
-                  prefilledData: {
-                    eventName: b,
-                    eventDescription: h.eventDescription,
-                    eventStartTime: o("WAWebEventUtils").eventTimeToUnixTime(v),
-                    eventEndTime:
-                      S != null
-                        ? o("WAWebEventUtils").eventTimeToUnixTime(S)
-                        : void 0,
-                    eventLocationName:
-                      (p = R == null ? void 0 : R.name) != null
-                        ? p
-                        : R == null
-                          ? void 0
-                          : R.address,
-                    eventCallType: o("WAWebEventUtils").getEventCallLinkType(L),
-                  },
-                  existingEventMsg: h,
-                  showLocationField: !I,
-                }),
-              );
-            } else {
-              var _;
-              (_ = A.current) == null || _.open(e);
-            }
-          })),
-          B.apply(this, arguments)
-        );
-      }
-      function W(e) {
-        return q.apply(this, arguments);
-      }
-      function q() {
-        return (
-          (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            o("WAWebSendEventResponseMsgAction").sendEventResponseMsg(e, h);
-          })),
-          q.apply(this, arguments)
-        );
-      }
-      var U = c.jsx(o("WAWebFlex.react").FlexRow, {
-          xstyle: [o("WAWebUISpacing").uiPadding.vert2, m.fullWidth],
-          children: c.jsx(o("WAWebExpandableText.react").ExpandableText, {
-            text: P,
-            textLimit: o("WAWebMsgGetters").getInitialPageSize(h),
-            children: function (t) {
-              var e = t.textLimit;
-              return c.jsx(o("WAWebEmojiText.react").EmojiText, {
-                text: P,
-                dirMismatch:
-                  o("WAWebFrontendMsgGetters").getRtl(h) !==
-                  r("WAWebL10N").isRTL(),
-                direction: "auto",
-                selectable: !0,
-                textLimit: e,
-                xstyle: [m.eventNameText, m.flex, $],
-              });
-            },
-          }),
-        }),
-        V = o("WAWebFormatEventDateString").getEventDateStringFor(v, S),
-        H =
-          v != null
-            ? c.jsx(o("WAWebFlex.react").FlexRow, {
-                xstyle: [m.eventDetailText, o("WAWebUISpacing").uiMargin.vert1],
-                children: s._(/*BTDS*/ "{Event-starttime-string}", [
-                  s._param("Event-starttime-string", V),
-                ]),
-              })
-            : null,
+        )),
+          (i[2] = L),
+          (i[3] = F));
+      } else F = i[3];
+      var B = F,
+        W,
+        q,
+        U,
+        V,
+        H,
         G,
-        z =
-          (i = R == null ? void 0 : R.name) != null
-            ? i
-            : R == null
-              ? void 0
-              : R.address;
-      z != null &&
-        (G = c.jsx(o("WAWebFlex.react").FlexRow, {
-          xstyle: [
-            m.eventDetailText,
-            m.fullWidth,
-            o("WAWebUISpacing").uiMargin.vert1,
-          ],
-          children: c.jsx(o("WAWebEmojiText.react").EmojiText, {
-            text: z,
-            direction: "auto",
-            selectable: !0,
-            xstyle: [m.fullWidth, m.flex],
-          }),
-        }));
-      var j,
-        K = p(L);
-      K != null &&
-        (j = c.jsx(o("WAWebFlex.react").FlexRow, {
-          xstyle: [m.eventDetailText, o("WAWebUISpacing").uiMargin.vert1],
-          children: K,
-        }));
-      var Q = x.find(function (e) {
-          return o("WAWebUserPrefsMeUser").isMeAccount(e.sender);
-        }),
-        X =
-          I ||
-          (!k &&
-            (Q == null ? void 0 : Q.eventResponse) ===
-              o("WAWebProtobufsE2E.pb")
-                .Message$EventResponseMessage$EventResponseType.GOING &&
-            o("WAWebEventUtils").eventIsJoinable(v)),
-        Y = L != null && X && o("WAWebVoipGatingUtils").isGroupCallingEnabled(),
-        J = o("WAWebEventUtils").shouldDisableInteractionForEvent({
-          isSentByMe: T,
-          isEventCanceled: k,
-          eventInvalidated: E,
-          isEventPassed: N,
-          showJoinCall: Y,
-        }),
-        Z = x.filter(function (e) {
-          return (
-            e.eventResponse ===
-            o("WAWebProtobufsE2E.pb")
-              .Message$EventResponseMessage$EventResponseType.GOING
-          );
-        }),
-        ee = null;
-      if (Z.length > 0) {
-        var te = Z.sort(function (e, t) {
-            return t.senderTimestampMs - e.senderTimestampMs;
-          })
-            .map(function (e) {
-              return e.sender;
-            })
-            .slice(0, 3),
-          ne = T ? m.facepileBorderOutgoing : m.facepileBorderIncoming;
-        ee = c.jsxs(o("WAWebFlex.react").FlexRow, {
-          xstyle: [
-            m.eventDetailText,
-            m.fullWidth,
-            o("WAWebUISpacing").uiMargin.vert1,
-          ],
-          children: [
-            c.jsx(r("WAWebFacePile.react"), {
-              keyName: h.id.toString(),
-              idsOrUrls: te,
-              borderColor: ne,
-              faceSize: 18,
-            }),
-            c.jsx(
-              "div",
-              babelHelpers.extends(
-                {},
-                (e || (e = r("stylex"))).props(
-                  o("WAWebUISpacing").uiMargin.start4,
-                ),
-                {
-                  children: s._(
-                    /*BTDS*/ '_j{"*":"{number-of-participants-going} going"}',
-                    [
-                      s._param("number-of-participants-going", Z.length, [
-                        0,
-                        Z.length,
-                      ]),
-                    ],
-                  ),
-                },
-              ),
-            ),
-          ],
-        });
-      }
-      var re = _({
-          eventResponse:
-            (l = Q == null ? void 0 : Q.eventResponse) != null
-              ? l
-              : o("WAWebProtobufsE2E.pb")
-                  .Message$EventResponseMessage$EventResponseType.UNKNOWN,
-          isSentByMe: T,
-          showJoinCall: Y,
-          isEventCanceled: k,
-        }),
-        oe = c.jsxs("span", {
-          className: "x3nfvp2 x6s0dn4",
-          children: [
+        z,
+        j,
+        K,
+        Q,
+        X,
+        Y,
+        J,
+        Z,
+        ee;
+      if (
+        i[4] !== l ||
+        i[5] !== k ||
+        i[6] !== D ||
+        i[7] !== $ ||
+        i[8] !== T ||
+        i[9] !== (I == null ? void 0 : I.address) ||
+        i[10] !== (I == null ? void 0 : I.name) ||
+        i[11] !== L ||
+        i[12] !== M ||
+        i[13] !== E ||
+        i[14] !== x ||
+        i[15] !== P ||
+        i[16] !== u ||
+        i[17] !== B ||
+        i[18] !== N
+      ) {
+        Z = Symbol.for("react.early_return_sentinel");
+        e: {
+          var te,
+            ne,
             re,
-            c.jsx(o("WAWebChevronCustomIcons").ChevronDownCustomIcon, {
-              height: 18,
-            }),
-          ],
-        }),
-        ae = y
-          ? c.jsx(
-              "div",
-              babelHelpers.extends(
-                {},
-                (e || (e = r("stylex"))).props(
-                  o("WAWebUISpacing").uiMargin.bottom3,
-                ),
-                { children: y },
-              ),
-            )
-          : null;
-      return c.jsxs(r("WAWebMessageTextBubble.react"), {
-        testid: void 0,
-        msg: h,
-        displayType: t.displayType,
-        displayAuthor: t.displayAuthor,
-        hideMeta: !0,
-        useFixedWidth: !o("WAWebDisplayType").isWideDisplay(t.displayType),
-        ariaLabel: f(h, x),
-        children: [
-          ae,
-          c.jsxs(r("WAWebUnstyledButton.react"), {
-            onClick: F,
-            xstyle: m.unstyledButton,
-            children: [
-              c.jsxs(r("WAWebMessageDeeperContainer.react"), {
-                xstyle: [
-                  m.deepContainer,
-                  o("WAWebUISpacing").uiPadding.all8,
-                  o("WAWebUISpacing").uiPadding.bottom12,
-                ],
-                outgoingMsg: T,
-                children: [
-                  c.jsx(o("WAWebFlex.react").FlexColumn, {
-                    xstyle: m.iconContainer,
-                    shrink: 0,
-                    align: "center",
-                    justify: "center",
-                    padding: 2,
-                    children: w,
-                  }),
-                  c.jsxs(o("WAWebFlex.react").FlexColumn, {
-                    xstyle: [o("WAWebUISpacing").uiPadding.start8, m.fullWidth],
-                    padding: 2,
-                    children: [
-                      U,
-                      H,
-                      G,
-                      j,
-                      ee,
-                      c.jsx("div", {
-                        className: "x10l6tqk x9q68il xy1j3rs",
-                        children: c.jsx(o("WAWebMessageMeta.react").Meta, {
-                          msg: h,
-                        }),
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-              E &&
-                c.jsxs(o("WAWebFlex.react").FlexRow, {
-                  xstyle: [
-                    m.invalidEventWarning,
-                    T
-                      ? m.invalidEventWarningBorderSender
-                      : m.invalidEventWarningBorderReceiver,
-                    o("WAWebUISpacing").uiMargin.top4,
-                    o("WAWebUISpacing").uiPadding.vert8,
-                    o("WAWebUISpacing").uiPadding.start14,
-                    o("WAWebUISpacing").uiPadding.end12,
-                  ],
-                  children: [
-                    c.jsx(o("WAWebWarningIcon.react").WarningIcon, {
-                      width: 19,
-                      height: 17,
-                      iconXstyle: m.warningIcon,
-                    }),
-                    c.jsx(
-                      "span",
-                      babelHelpers.extends(
-                        {},
-                        (e || (e = r("stylex"))).props(
-                          m.outOfDate,
-                          o("WAWebUISpacing").uiMargin.start8,
-                        ),
+            oe,
+            ae = o("WAWebEventUtils").shouldShowEventAsPassed(E, k),
+            ie = x || ae,
+            le = D || ie ? m.iconDisabled : m.icon,
+            se;
+          (i[34] !== le
+            ? ((se = c.jsx(r("WDSIconIcCalendarMonth.react"), { xstyle: le })),
+              (i[34] = le),
+              (i[35] = se))
+            : (se = i[35]),
+            (z = se));
+          var ue;
+          if (
+            (i[36] === Symbol.for("react.memo_cache_sentinel")
+              ? ((ue = d()), (i[36] = ue))
+              : (ue = i[36]),
+            (q = ue),
+            L == null)
+          ) {
+            Z = null;
+            break e;
+          }
+          var ce;
+          (i[37] !== l || i[38] !== u || i[39] !== N
+            ? ((ce = function () {
+                o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+                  o(
+                    "WAWebAdaptiveLayoutGatingUtils",
+                  ).shouldUseDrawerDescriptor()
+                    ? { descriptorType: "event_info", chat: l, msg: u }
+                    : c.jsx(
+                        o("WAWebEventInfoFlowLoadable").EventInfoFlowLoadable,
                         {
-                          "data-testid": void 0,
-                          children: s._(
-                            /*BTDS*/ "You can only see event changes made before you left.",
-                          ),
+                          chat: l,
+                          msg: u,
+                          onEnd: o("WAWebDrawerManager").closeDrawerRight,
                         },
+                        "event-info-drawer-" + u.id.toString(),
                       ),
-                    ),
-                  ],
+                  {
+                    focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+                    uim: N,
+                  },
+                );
+              }),
+              (i[37] = l),
+              (i[38] = u),
+              (i[39] = N),
+              (i[40] = ce))
+            : (ce = i[40]),
+            (H = ce),
+            (V = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (e) {
+                  if (Y) {
+                    if (T != null) {
+                      var t = o("WAWebApiParse").parseCallLink(T);
+                      if (t != null) {
+                        var n = t.data,
+                          a = n.callType,
+                          i = n.token,
+                          s = a === "video",
+                          d = o("WAWebChatGetters").getIsGroup(l),
+                          m = d
+                            ? o("WAWebWamEnumLobbyEntryPointType")
+                                .LOBBY_ENTRY_POINT_TYPE.EVENT_GROUP_CHAT
+                            : o("WAWebWamEnumLobbyEntryPointType")
+                                .LOBBY_ENTRY_POINT_TYPE.EVENT_INDIVIDUAL_CHAT,
+                          p = o("WAWebFrontendContactGetters").getMyUsername(),
+                          _ = yield o(
+                            "WAWebVoipStackInterface",
+                          ).getVoipStackInterface();
+                        yield _ == null
+                          ? void 0
+                          : _.previewCallLink(i, s, m, p);
+                      }
+                    }
+                  } else if (P) {
+                    var f;
+                    o("WAWebModalManager").ModalManager.open(
+                      c.jsx(r("WAWebEventsCreateEventModalFlow.react"), {
+                        preselectedChat: l,
+                        prefilledData: {
+                          eventName: L,
+                          eventDescription: u.eventDescription,
+                          eventStartTime:
+                            o("WAWebEventUtils").eventTimeToUnixTime(E),
+                          eventEndTime:
+                            k != null
+                              ? o("WAWebEventUtils").eventTimeToUnixTime(k)
+                              : void 0,
+                          eventLocationName:
+                            (f = I == null ? void 0 : I.name) != null
+                              ? f
+                              : I == null
+                                ? void 0
+                                : I.address,
+                          eventCallType:
+                            o("WAWebEventUtils").getEventCallLinkType(T),
+                        },
+                        existingEventMsg: u,
+                        showLocationField: !$,
+                      }),
+                    );
+                  } else {
+                    var g;
+                    (g = q.current) == null || g.open(e);
+                  }
+                },
+              );
+              function t(t) {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })()));
+          var de;
+          (i[41] !== u
+            ? ((de = (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    o("WAWebSendEventResponseMsgAction").sendEventResponseMsg(
+                      e,
+                      u,
+                    );
+                  },
+                );
+                function t(t) {
+                  return e.apply(this, arguments);
+                }
+                return t;
+              })()),
+              (i[41] = u),
+              (i[42] = de))
+            : (de = i[42]),
+            (G = de));
+          var me;
+          i[43] === Symbol.for("react.memo_cache_sentinel")
+            ? ((me = [o("WAWebUISpacing").uiPadding.vert2, m.fullWidth]),
+              (i[43] = me))
+            : (me = i[43]);
+          var pe;
+          i[44] !== u
+            ? ((pe = o("WAWebMsgGetters").getInitialPageSize(u)),
+              (i[44] = u),
+              (i[45] = pe))
+            : (pe = i[45]);
+          var _e;
+          i[46] !== u || i[47] !== B
+            ? ((_e = function (t) {
+                var e = t.textLimit;
+                return c.jsx(o("WAWebEmojiText.react").EmojiText, {
+                  text: B,
+                  dirMismatch:
+                    o("WAWebFrontendMsgGetters").getRtl(u) !==
+                    r("WAWebL10N").isRTL(),
+                  direction: "auto",
+                  selectable: !0,
+                  textLimit: e,
+                  xstyle: [m.eventNameText, m.flex, A],
+                });
+              }),
+              (i[46] = u),
+              (i[47] = B),
+              (i[48] = _e))
+            : (_e = i[48]);
+          var fe;
+          (i[49] !== pe || i[50] !== _e || i[51] !== B
+            ? ((fe = c.jsx(o("WAWebFlex.react").FlexRow, {
+                xstyle: me,
+                children: c.jsx(o("WAWebExpandableText.react").ExpandableText, {
+                  text: B,
+                  textLimit: pe,
+                  children: _e,
                 }),
-            ],
+              })),
+              (i[49] = pe),
+              (i[50] = _e),
+              (i[51] = B),
+              (i[52] = fe))
+            : (fe = i[52]),
+            (Q = fe));
+          var ge;
+          i[53] !== k || i[54] !== E
+            ? ((ge = o("WAWebFormatEventDateString").getEventDateStringFor(
+                E,
+                k,
+              )),
+              (i[53] = k),
+              (i[54] = E),
+              (i[55] = ge))
+            : (ge = i[55]);
+          var he = ge,
+            ye;
+          (i[56] !== he || i[57] !== E
+            ? ((ye =
+                E != null
+                  ? c.jsx(o("WAWebFlex.react").FlexRow, {
+                      xstyle: [
+                        m.eventDetailText,
+                        o("WAWebUISpacing").uiMargin.vert1,
+                      ],
+                      children: s._(/*BTDS*/ "{Event-starttime-string}", [
+                        s._param("Event-starttime-string", he),
+                      ]),
+                    })
+                  : null),
+              (i[56] = he),
+              (i[57] = E),
+              (i[58] = ye))
+            : (ye = i[58]),
+            (ee = ye));
+          var Ce =
+            (te = I == null ? void 0 : I.name) != null
+              ? te
+              : I == null
+                ? void 0
+                : I.address;
+          if (Ce != null) {
+            var be;
+            i[59] === Symbol.for("react.memo_cache_sentinel")
+              ? ((be = [
+                  m.eventDetailText,
+                  m.fullWidth,
+                  o("WAWebUISpacing").uiMargin.vert1,
+                ]),
+                (i[59] = be))
+              : (be = i[59]);
+            var ve;
+            i[60] === Symbol.for("react.memo_cache_sentinel")
+              ? ((ve = [m.fullWidth, m.flex]), (i[60] = ve))
+              : (ve = i[60]);
+            var Se;
+            (i[61] !== Ce
+              ? ((Se = c.jsx(o("WAWebFlex.react").FlexRow, {
+                  xstyle: be,
+                  children: c.jsx(o("WAWebEmojiText.react").EmojiText, {
+                    text: Ce,
+                    direction: "auto",
+                    selectable: !0,
+                    xstyle: ve,
+                  }),
+                })),
+                (i[61] = Ce),
+                (i[62] = Se))
+              : (Se = i[62]),
+              (j = Se));
+          }
+          var Re;
+          i[63] !== T ? ((Re = p(T)), (i[63] = T), (i[64] = Re)) : (Re = i[64]);
+          var Le = Re;
+          if (Le != null) {
+            var Ee;
+            i[65] === Symbol.for("react.memo_cache_sentinel")
+              ? ((Ee = [m.eventDetailText, o("WAWebUISpacing").uiMargin.vert1]),
+                (i[65] = Ee))
+              : (Ee = i[65]);
+            var ke;
+            (i[66] !== Le
+              ? ((ke = c.jsx(o("WAWebFlex.react").FlexRow, {
+                  xstyle: Ee,
+                  children: Le,
+                })),
+                (i[66] = Le),
+                (i[67] = ke))
+              : (ke = i[67]),
+              (W = ke));
+          }
+          K = M.find(b);
+          var Ie =
+            $ ||
+            (!x &&
+              ((ne = K) == null ? void 0 : ne.eventResponse) ===
+                o("WAWebProtobufsE2E.pb")
+                  .Message$EventResponseMessage$EventResponseType.GOING &&
+              o("WAWebEventUtils").eventIsJoinable(E));
+          if (
+            ((Y =
+              T != null &&
+              Ie &&
+              o("WAWebVoipGatingUtils").isGroupCallingEnabled()),
+            (X = o("WAWebEventUtils").shouldDisableInteractionForEvent({
+              isSentByMe: P,
+              isEventCanceled: x,
+              eventInvalidated: D,
+              isEventPassed: ae,
+              showJoinCall: Y,
+            })),
+            i[68] !== M || i[69] !== P || i[70] !== u.id)
+          ) {
+            var Te = M.filter(C);
+            if (((U = null), Te.length > 0)) {
+              var De = Te.sort(y).map(h).slice(0, 3),
+                xe = P ? m.facepileBorderOutgoing : m.facepileBorderIncoming,
+                $e;
+              i[72] === Symbol.for("react.memo_cache_sentinel")
+                ? (($e = [
+                    m.eventDetailText,
+                    m.fullWidth,
+                    o("WAWebUISpacing").uiMargin.vert1,
+                  ]),
+                  (i[72] = $e))
+                : ($e = i[72]);
+              var Pe;
+              i[73] !== u.id
+                ? ((Pe = u.id.toString()), (i[73] = u.id), (i[74] = Pe))
+                : (Pe = i[74]);
+              var Ne;
+              i[75] !== xe || i[76] !== De || i[77] !== Pe
+                ? ((Ne = c.jsx(r("WAWebFacePile.react"), {
+                    keyName: Pe,
+                    idsOrUrls: De,
+                    borderColor: xe,
+                    faceSize: 18,
+                  })),
+                  (i[75] = xe),
+                  (i[76] = De),
+                  (i[77] = Pe),
+                  (i[78] = Ne))
+                : (Ne = i[78]);
+              var Me;
+              i[79] === Symbol.for("react.memo_cache_sentinel")
+                ? ((Me = (e || (e = r("stylex"))).props(
+                    o("WAWebUISpacing").uiMargin.start4,
+                  )),
+                  (i[79] = Me))
+                : (Me = i[79]);
+              var we = s._(
+                  /*BTDS*/ '_j{"*":"{number-of-participants-going} going"}',
+                  [
+                    s._param("number-of-participants-going", Te.length, [
+                      0,
+                      Te.length,
+                    ]),
+                  ],
+                ),
+                Ae;
+              i[80] !== we
+                ? ((Ae = c.jsx(
+                    "div",
+                    babelHelpers.extends({}, Me, { children: we }),
+                  )),
+                  (i[80] = we),
+                  (i[81] = Ae))
+                : (Ae = i[81]);
+              var Fe;
+              (i[82] !== Ne || i[83] !== Ae
+                ? ((Fe = c.jsxs(o("WAWebFlex.react").FlexRow, {
+                    xstyle: $e,
+                    children: [Ne, Ae],
+                  })),
+                  (i[82] = Ne),
+                  (i[83] = Ae),
+                  (i[84] = Fe))
+                : (Fe = i[84]),
+                (U = Fe));
+            }
+            ((i[68] = M), (i[69] = P), (i[70] = u.id), (i[71] = U));
+          } else U = i[71];
+          J = _({
+            eventResponse:
+              (re = (oe = K) == null ? void 0 : oe.eventResponse) != null
+                ? re
+                : o("WAWebProtobufsE2E.pb")
+                    .Message$EventResponseMessage$EventResponseType.UNKNOWN,
+            isSentByMe: P,
+            showJoinCall: Y,
+            isEventCanceled: x,
+          });
+        }
+        ((i[4] = l),
+          (i[5] = k),
+          (i[6] = D),
+          (i[7] = $),
+          (i[8] = T),
+          (i[9] = I == null ? void 0 : I.address),
+          (i[10] = I == null ? void 0 : I.name),
+          (i[11] = L),
+          (i[12] = M),
+          (i[13] = E),
+          (i[14] = x),
+          (i[15] = P),
+          (i[16] = u),
+          (i[17] = B),
+          (i[18] = N),
+          (i[19] = W),
+          (i[20] = q),
+          (i[21] = U),
+          (i[22] = V),
+          (i[23] = H),
+          (i[24] = G),
+          (i[25] = z),
+          (i[26] = j),
+          (i[27] = K),
+          (i[28] = Q),
+          (i[29] = X),
+          (i[30] = Y),
+          (i[31] = J),
+          (i[32] = Z),
+          (i[33] = ee));
+      } else
+        ((W = i[19]),
+          (q = i[20]),
+          (U = i[21]),
+          (V = i[22]),
+          (H = i[23]),
+          (G = i[24]),
+          (z = i[25]),
+          (j = i[26]),
+          (K = i[27]),
+          (Q = i[28]),
+          (X = i[29]),
+          (Y = i[30]),
+          (J = i[31]),
+          (Z = i[32]),
+          (ee = i[33]));
+      if (Z !== Symbol.for("react.early_return_sentinel")) return Z;
+      var Oe = J,
+        Be;
+      i[85] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Be = { className: "x3nfvp2 x6s0dn4" }), (i[85] = Be))
+        : (Be = i[85]);
+      var We;
+      i[86] === Symbol.for("react.memo_cache_sentinel")
+        ? ((We = c.jsx(o("WAWebChevronCustomIcons").ChevronDownCustomIcon, {
+            height: 18,
+          })),
+          (i[86] = We))
+        : (We = i[86]);
+      var qe;
+      i[87] !== Oe
+        ? ((qe = c.jsxs(
+            "span",
+            babelHelpers.extends({}, Be, { children: [Oe, We] }),
+          )),
+          (i[87] = Oe),
+          (i[88] = qe))
+        : (qe = i[88]);
+      var Ue = qe,
+        Ve;
+      i[89] !== g
+        ? ((Ve = g
+            ? c.jsx(
+                "div",
+                babelHelpers.extends(
+                  {},
+                  (e || (e = r("stylex"))).props(
+                    o("WAWebUISpacing").uiMargin.bottom3,
+                  ),
+                  { children: g },
+                ),
+              )
+            : null),
+          (i[89] = g),
+          (i[90] = Ve))
+        : (Ve = i[90]);
+      var He = Ve,
+        Ge = t.displayType,
+        ze = t.displayAuthor,
+        je;
+      i[91] !== t.displayType
+        ? ((je = o("WAWebDisplayType").isWideDisplay(t.displayType)),
+          (i[91] = t.displayType),
+          (i[92] = je))
+        : (je = i[92]);
+      var Ke = !je,
+        Qe;
+      i[93] !== M || i[94] !== u
+        ? ((Qe = f(u, M)), (i[93] = M), (i[94] = u), (i[95] = Qe))
+        : (Qe = i[95]);
+      var Xe;
+      i[96] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Xe = [
+            m.deepContainer,
+            o("WAWebUISpacing").uiPadding.all8,
+            o("WAWebUISpacing").uiPadding.bottom12,
+          ]),
+          (i[96] = Xe))
+        : (Xe = i[96]);
+      var Ye;
+      i[97] !== z
+        ? ((Ye = c.jsx(o("WAWebFlex.react").FlexColumn, {
+            xstyle: m.iconContainer,
+            shrink: 0,
+            align: "center",
+            justify: "center",
+            padding: 2,
+            children: z,
+          })),
+          (i[97] = z),
+          (i[98] = Ye))
+        : (Ye = i[98]);
+      var Je;
+      i[99] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Je = [o("WAWebUISpacing").uiPadding.start8, m.fullWidth]),
+          (i[99] = Je))
+        : (Je = i[99]);
+      var Ze = j,
+        et = W,
+        tt = U,
+        nt;
+      i[100] === Symbol.for("react.memo_cache_sentinel")
+        ? ((nt = { className: "x10l6tqk x9q68il xy1j3rs" }), (i[100] = nt))
+        : (nt = i[100]);
+      var rt;
+      i[101] !== u
+        ? ((rt = c.jsx(
+            "div",
+            babelHelpers.extends({}, nt, {
+              children: c.jsx(o("WAWebMessageMeta.react").Meta, { msg: u }),
+            }),
+          )),
+          (i[101] = u),
+          (i[102] = rt))
+        : (rt = i[102]);
+      var ot;
+      i[103] !== W ||
+      i[104] !== U ||
+      i[105] !== j ||
+      i[106] !== Q ||
+      i[107] !== rt ||
+      i[108] !== ee
+        ? ((ot = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            xstyle: Je,
+            padding: 2,
+            children: [Q, ee, Ze, et, tt, rt],
+          })),
+          (i[103] = W),
+          (i[104] = U),
+          (i[105] = j),
+          (i[106] = Q),
+          (i[107] = rt),
+          (i[108] = ee),
+          (i[109] = ot))
+        : (ot = i[109]);
+      var at;
+      i[110] !== P || i[111] !== Ye || i[112] !== ot
+        ? ((at = c.jsxs(r("WAWebMessageDeeperContainer.react"), {
+            xstyle: Xe,
+            outgoingMsg: P,
+            children: [Ye, ot],
+          })),
+          (i[110] = P),
+          (i[111] = Ye),
+          (i[112] = ot),
+          (i[113] = at))
+        : (at = i[113]);
+      var it;
+      i[114] !== D || i[115] !== P
+        ? ((it =
+            D &&
+            c.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: [
+                m.invalidEventWarning,
+                P
+                  ? m.invalidEventWarningBorderSender
+                  : m.invalidEventWarningBorderReceiver,
+                o("WAWebUISpacing").uiMargin.top4,
+                o("WAWebUISpacing").uiPadding.vert8,
+                o("WAWebUISpacing").uiPadding.start14,
+                o("WAWebUISpacing").uiPadding.end12,
+              ],
+              children: [
+                c.jsx(o("WAWebWarningIcon.react").WarningIcon, {
+                  width: 19,
+                  height: 17,
+                  iconXstyle: m.warningIcon,
+                }),
+                c.jsx(
+                  "span",
+                  babelHelpers.extends(
+                    {},
+                    (e || (e = r("stylex"))).props(
+                      m.outOfDate,
+                      o("WAWebUISpacing").uiMargin.start8,
+                    ),
+                    {
+                      "data-testid": void 0,
+                      children: s._(
+                        /*BTDS*/ "You can only see event changes made before you left.",
+                      ),
+                    },
+                  ),
+                ),
+              ],
+            })),
+          (i[114] = D),
+          (i[115] = P),
+          (i[116] = it))
+        : (it = i[116]);
+      var lt;
+      i[117] !== H || i[118] !== at || i[119] !== it
+        ? ((lt = c.jsxs(r("WAWebUnstyledButton.react"), {
+            onClick: H,
+            xstyle: m.unstyledButton,
+            children: [at, it],
+          })),
+          (i[117] = H),
+          (i[118] = at),
+          (i[119] = it),
+          (i[120] = lt))
+        : (lt = i[120]);
+      var st = (a = K) == null ? void 0 : a.eventResponse,
+        ut;
+      i[121] !== q || i[122] !== G || i[123] !== st
+        ? ((ut = c.jsx(r("WAWebEventsRSVPPopup.react"), {
+            currentResponse: st,
+            onClick: G,
+            controlPopupRef: q,
+          })),
+          (i[121] = q),
+          (i[122] = G),
+          (i[123] = st),
+          (i[124] = ut))
+        : (ut = i[124]);
+      var ct = Y || P || x ? Oe : Ue,
+        dt;
+      i[125] !== V
+        ? ((dt = function (t) {
+            V(t);
           }),
-          c.jsx(r("WAWebEventsRSVPPopup.react"), {
-            currentResponse: Q == null ? void 0 : Q.eventResponse,
-            onClick: W,
-            controlPopupRef: A,
-          }),
-          c.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
+          (i[125] = V),
+          (i[126] = dt))
+        : (dt = i[126]);
+      var mt = !Y && X,
+        pt;
+      i[127] !== Oe || i[128] !== ct || i[129] !== dt || i[130] !== mt
+        ? ((pt = c.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
             theme: o("WAWebMessageBubbleActions.react").BubbleActionsTheme
               .EVENT_CREATION,
             items: [
               {
-                label: Y || T || k ? re : oe,
-                title: re,
-                onClick: function (t) {
-                  O(t);
-                },
-                disabled: !Y && J,
+                label: ct,
+                title: Oe,
+                onClick: dt,
+                disabled: mt,
                 testid: "event-rsvp-respond",
               },
             ],
-          }),
-        ],
-      });
+          })),
+          (i[127] = Oe),
+          (i[128] = ct),
+          (i[129] = dt),
+          (i[130] = mt),
+          (i[131] = pt))
+        : (pt = i[131]);
+      var _t;
+      return (
+        i[132] !== u ||
+        i[133] !== t.displayAuthor ||
+        i[134] !== t.displayType ||
+        i[135] !== He ||
+        i[136] !== Ke ||
+        i[137] !== Qe ||
+        i[138] !== lt ||
+        i[139] !== ut ||
+        i[140] !== pt
+          ? ((_t = c.jsxs(r("WAWebMessageTextBubble.react"), {
+              testid: void 0,
+              msg: u,
+              displayType: Ge,
+              displayAuthor: ze,
+              hideMeta: !0,
+              useFixedWidth: Ke,
+              ariaLabel: Qe,
+              children: [He, lt, ut, pt],
+            })),
+            (i[132] = u),
+            (i[133] = t.displayAuthor),
+            (i[134] = t.displayType),
+            (i[135] = He),
+            (i[136] = Ke),
+            (i[137] = Qe),
+            (i[138] = lt),
+            (i[139] = ut),
+            (i[140] = pt),
+            (i[141] = _t))
+          : (_t = i[141]),
+        _t
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
-      (l.getEventCallString = p),
+    function h(e) {
+      return e.sender;
+    }
+    function y(e, t) {
+      return t.senderTimestampMs - e.senderTimestampMs;
+    }
+    function C(e) {
+      return (
+        e.eventResponse ===
+        o("WAWebProtobufsE2E.pb").Message$EventResponseMessage$EventResponseType
+          .GOING
+      );
+    }
+    function b(e) {
+      return o("WAWebUserPrefsMeUser").isMeAccount(e.sender);
+    }
+    ((l.getEventCallString = p),
       (l.getEventRespondButtonText = _),
       (l.Event = g));
   },

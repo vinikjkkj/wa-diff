@@ -3,7 +3,6 @@ __d(
   [
     "fbt",
     "WALogger",
-    "WAWebBlockContactUtils",
     "WAWebCellFrame.react",
     "WAWebChatCollection",
     "WAWebChatUnblockableContactWrapper.react",
@@ -147,9 +146,7 @@ __d(
               disabled: I,
               testid: void 0,
               children: d.jsx(r("WAWebChatUnblockableContactWrapper.react"), {
-                contact: o(
-                  "WAWebBlockContactUtils",
-                ).getContactToBlockOnlyUseIfNoAssociatedChat(S, null),
+                contact: S,
                 disabled: I,
                 onSelect: L,
                 customSecondaryText: i == null ? void 0 : i(S.id),

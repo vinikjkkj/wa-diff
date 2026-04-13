@@ -10,6 +10,7 @@ __d(
     "WAWebWamEnumPaymentActionTypes",
     "WDSTextField.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -62,67 +63,126 @@ __d(
       column: { width: "xh8yej3", height: "x14nwjz3", $$css: !0 },
     };
     function _(e) {
-      var t = e.chat,
-        n = e.currency,
-        a = e.defaultAmount,
-        i = e.maxAmount,
-        l = e.minAmount,
-        s = e.onValueChange,
-        _ = e.pixData,
-        f = e.previousScreenName,
-        g = e.referral,
-        h = e.screen,
-        y = c(null),
-        C = y[0],
-        b = y[1],
-        v = c(!0),
-        S = v[0],
-        R = v[1],
-        L = function (t) {
-          var e = d(t, n, i, l);
-          (b(e), s(t, e != null));
-        };
-      return u.jsx(o("WAWebFlex.react").FlexRow, {
-        xstyle: p.row,
-        align: "start",
-        justify: "start",
-        children: u.jsx(o("WAWebFlex.react").FlexColumn, {
-          xstyle: p.column,
-          align: "start",
-          justify: "center",
-          children: u.jsx("div", {
-            className: "xh8yej3",
-            children: u.jsx(r("WDSTextField.react"), {
-              prefix: o("WAWebCurrencyUtils").formatLocalSymbol(n),
-              label: a,
-              floatingLabel: !1,
-              onValueChange: L,
-              error: C != null,
-              errorText: C,
-              bottomText: m(
-                o("PixPaymentRequestFeature").getPixPaymentRequestVariant(),
-              ),
-              onFocus: function () {
-                S &&
-                  (o("PixWamLogger").logPixSenderEvent(
-                    o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
-                      .PIX_PAYMENT_REQUEST_AMOUNT_INPUT,
-                    o("WAWebWamEnumPaymentActionTypes").PAYMENT_ACTION_TYPES
-                      .CLICK,
-                    f,
-                    g,
-                    h,
-                    t,
-                    _,
-                  ),
-                  R(!1));
-              },
-            }),
+      var t = o("react-compiler-runtime").c(23),
+        n = e.chat,
+        a = e.currency,
+        i = e.defaultAmount,
+        l = e.maxAmount,
+        s = e.minAmount,
+        _ = e.onValueChange,
+        f = e.pixData,
+        g = e.previousScreenName,
+        h = e.referral,
+        y = e.screen,
+        C = c(null),
+        b = C[0],
+        v = C[1],
+        S = c(!0),
+        R = S[0],
+        L = S[1],
+        E;
+      t[0] !== a || t[1] !== l || t[2] !== s || t[3] !== _
+        ? ((E = function (t) {
+            var e = d(t, a, l, s);
+            (v(e), _(t, e != null));
           }),
-        }),
-      });
+          (t[0] = a),
+          (t[1] = l),
+          (t[2] = s),
+          (t[3] = _),
+          (t[4] = E))
+        : (E = t[4]);
+      var k = E,
+        I;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = { className: "xh8yej3" }), (t[5] = I))
+        : (I = t[5]);
+      var T;
+      t[6] !== a
+        ? ((T = o("WAWebCurrencyUtils").formatLocalSymbol(a)),
+          (t[6] = a),
+          (t[7] = T))
+        : (T = t[7]);
+      var D = b != null,
+        x;
+      t[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = m(o("PixPaymentRequestFeature").getPixPaymentRequestVariant())),
+          (t[8] = x))
+        : (x = t[8]);
+      var $;
+      t[9] !== n ||
+      t[10] !== f ||
+      t[11] !== g ||
+      t[12] !== h ||
+      t[13] !== y ||
+      t[14] !== R
+        ? (($ = function () {
+            R &&
+              (o("PixWamLogger").logPixSenderEvent(
+                o("WAWebWamEnumPaymentActionTargets").PAYMENT_ACTION_TARGETS
+                  .PIX_PAYMENT_REQUEST_AMOUNT_INPUT,
+                o("WAWebWamEnumPaymentActionTypes").PAYMENT_ACTION_TYPES.CLICK,
+                g,
+                h,
+                y,
+                n,
+                f,
+              ),
+              L(!1));
+          }),
+          (t[9] = n),
+          (t[10] = f),
+          (t[11] = g),
+          (t[12] = h),
+          (t[13] = y),
+          (t[14] = R),
+          (t[15] = $))
+        : ($ = t[15]);
+      var P;
+      return (
+        t[16] !== i ||
+        t[17] !== b ||
+        t[18] !== k ||
+        t[19] !== T ||
+        t[20] !== D ||
+        t[21] !== $
+          ? ((P = u.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: p.row,
+              align: "start",
+              justify: "start",
+              children: u.jsx(o("WAWebFlex.react").FlexColumn, {
+                xstyle: p.column,
+                align: "start",
+                justify: "center",
+                children: u.jsx(
+                  "div",
+                  babelHelpers.extends({}, I, {
+                    children: u.jsx(r("WDSTextField.react"), {
+                      prefix: T,
+                      label: i,
+                      floatingLabel: !1,
+                      onValueChange: k,
+                      error: D,
+                      errorText: b,
+                      bottomText: x,
+                      onFocus: $,
+                    }),
+                  }),
+                ),
+              }),
+            })),
+            (t[16] = i),
+            (t[17] = b),
+            (t[18] = k),
+            (t[19] = T),
+            (t[20] = D),
+            (t[21] = $),
+            (t[22] = P))
+          : (P = t[22]),
+        P
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   226,
 );

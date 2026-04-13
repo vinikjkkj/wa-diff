@@ -26,6 +26,7 @@ __d(
     "WDSText.react",
     "fbs",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebFTS",
     "useWAWebFTSFilterer",
@@ -314,27 +315,45 @@ __d(
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
       var t,
-        n = e.msg,
-        a = o("WAWebMediaDocumentUtils").useMediaAction(n, {
-          forceDownload: !0,
-        }),
-        i = a[0],
-        l = i.onClick;
-      return l == null
-        ? null
-        : u.jsx(r("WDSMenuBarItem.react"), {
-            title: (t = i.title) != null ? t : "",
-            buttonSize: "small",
-            icon: r("WDSIconIcDownload.react"),
-            onClick: function (t) {
-              (t != null && l(t),
-                o("WAWebMediaHubLogger").logMediaHubAction({
-                  action: o("WAWebWamEnumActionCode").ACTION_CODE.DOWNLOAD,
-                }));
-            },
-          });
+        n = o("react-compiler-runtime").c(6),
+        a = e.msg,
+        i;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = { forceDownload: !0 }), (n[0] = i))
+        : (i = n[0]);
+      var l = o("WAWebMediaDocumentUtils").useMediaAction(a, i),
+        s = l[0],
+        c = s.onClick;
+      if (c == null) return null;
+      var d = (t = s.title) != null ? t : "",
+        m;
+      n[1] !== c
+        ? ((m = function (t) {
+            (t != null && c(t),
+              o("WAWebMediaHubLogger").logMediaHubAction({
+                action: o("WAWebWamEnumActionCode").ACTION_CODE.DOWNLOAD,
+              }));
+          }),
+          (n[1] = c),
+          (n[2] = m))
+        : (m = n[2]);
+      var p;
+      return (
+        n[3] !== d || n[4] !== m
+          ? ((p = u.jsx(r("WDSMenuBarItem.react"), {
+              title: d,
+              buttonSize: "small",
+              icon: r("WDSIconIcDownload.react"),
+              onClick: m,
+            })),
+            (n[3] = d),
+            (n[4] = m),
+            (n[5] = p))
+          : (p = n[5]),
+        p
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

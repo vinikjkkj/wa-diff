@@ -2,6 +2,7 @@ __d(
   "WAWebSettingsHierarchy",
   [
     "WAWebABProps",
+    "WAWebBizAiAgentStatusUtils",
     "WAWebBizGatingUtils",
     "WAWebChatThemeGatingUtils",
     "WAWebCommonCTWADataSharing",
@@ -41,6 +42,7 @@ __d(
           {
             business_tools: [
               "business_tools_business_profile",
+              "business_tools_business_ai",
               "business_tools_catalog",
               "business_tools_orders",
               "business_tools_advertise",
@@ -232,6 +234,18 @@ __d(
               o("WAWebSettingsFBT").businessToolsBusinessProfileTitle(),
             ),
             title: o("WAWebSettingsFBT").businessToolsBusinessProfileTitle,
+          },
+          {
+            step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,
+            id: "business_tools_business_ai",
+            isAvailable:
+              t &&
+              o("WAWebBizGatingUtils").isBizAIToolsSettingsEnabled() &&
+              o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent(),
+            searchCriteria: String(
+              o("WAWebSettingsFBT").businessToolsBusinessAITitle(),
+            ),
+            title: o("WAWebSettingsFBT").businessToolsBusinessAITitle,
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,

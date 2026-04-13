@@ -8,6 +8,7 @@ __d(
     "WAWebUimUie.react",
     "WAWebUimUieMenu.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -102,34 +103,66 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(t) {
-      var n = t.anchor,
-        a = t.onClose,
-        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        l = c.jsx(m, {
-          colors: i.colors,
-          selectedIndex: i.selectedIndex,
-          onSelect: i.onSelect,
-        });
-      return c.jsx(o("WAWebUimUie.react").UIE, {
-        displayName: "LabelColorPicker",
-        escapable: !0,
-        popable: !0,
-        dismissOnWindowResize: !0,
-        requestDismiss: a,
-        children: c.jsx(r("WAWebUimUieMenu.react"), {
-          contextMenu: {
-            menu: l,
-            type: o("WAWebDropdown.react").MenuType.LabelColorPicker,
-            anchor: n,
-            offsetX: r("WAWebL10N").isRTL() ? 9 : -9,
-            offsetY: 2,
-          },
-        }),
-      });
+      var n = o("react-compiler-runtime").c(14),
+        a,
+        i,
+        l;
+      n[0] !== t
+        ? ((a = t.anchor),
+          (i = t.onClose),
+          (l = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i),
+          (n[3] = l))
+        : ((a = n[1]), (i = n[2]), (l = n[3]));
+      var s;
+      n[4] !== l.colors || n[5] !== l.onSelect || n[6] !== l.selectedIndex
+        ? ((s = c.jsx(m, {
+            colors: l.colors,
+            selectedIndex: l.selectedIndex,
+            onSelect: l.onSelect,
+          })),
+          (n[4] = l.colors),
+          (n[5] = l.onSelect),
+          (n[6] = l.selectedIndex),
+          (n[7] = s))
+        : (s = n[7]);
+      var u = s,
+        d;
+      n[8] !== a || n[9] !== u
+        ? ((d = c.jsx(r("WAWebUimUieMenu.react"), {
+            contextMenu: {
+              menu: u,
+              type: o("WAWebDropdown.react").MenuType.LabelColorPicker,
+              anchor: a,
+              offsetX: r("WAWebL10N").isRTL() ? 9 : -9,
+              offsetY: 2,
+            },
+          })),
+          (n[8] = a),
+          (n[9] = u),
+          (n[10] = d))
+        : (d = n[10]);
+      var p;
+      return (
+        n[11] !== i || n[12] !== d
+          ? ((p = c.jsx(o("WAWebUimUie.react").UIE, {
+              displayName: "LabelColorPicker",
+              escapable: !0,
+              popable: !0,
+              dismissOnWindowResize: !0,
+              requestDismiss: i,
+              children: d,
+            })),
+            (n[11] = i),
+            (n[12] = d),
+            (n[13] = p))
+          : (p = n[13]),
+        p
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"),
-      (l.LabelColorPicker = m),
-      (l.LabelColorPopup = p));
+    ((l.LabelColorPicker = m), (l.LabelColorPopup = p));
   },
   98,
 );

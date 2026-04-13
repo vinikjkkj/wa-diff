@@ -1,17 +1,25 @@
 __d(
   "WAWebDrawerSectionRefreshed.react",
-  ["WAWebDrawerSection.react", "react"],
+  ["WAWebDrawerSection.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = "refresh-new";
-      return s.jsx(
-        r("WAWebDrawerSection.react"),
-        babelHelpers.extends({}, e, { theme: t }),
+      var t = o("react-compiler-runtime").c(2),
+        n;
+      return (
+        t[0] !== e
+          ? ((n = s.jsx(
+              r("WAWebDrawerSection.react"),
+              babelHelpers.extends({}, e, { theme: "refresh-new" }),
+            )),
+            (t[0] = e),
+            (t[1] = n))
+          : (n = t[1]),
+        n
       );
     }
-    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
+    l.default = u;
   },
   98,
 );

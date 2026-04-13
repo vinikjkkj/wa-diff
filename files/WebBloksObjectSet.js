@@ -37,6 +37,7 @@ __d(
             this,
             e.disableHistoryStack,
             e.enableCometRouter,
+            e.enableScrollRestoration,
           )),
           (this.toastManager =
             (a = t == null ? void 0 : t.toastManager) != null

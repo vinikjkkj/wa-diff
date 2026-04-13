@@ -25,6 +25,7 @@ __d(
     "WDSFocusStateStyles",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebModelValues",
     "useWAWebSettingSync",
@@ -116,294 +117,524 @@ __d(
         },
       };
     function h(t) {
-      var a = t.chat,
-        i = t.colorHex,
-        l = t.colorName,
-        u = t.isDefault,
-        d = f(!1),
-        m = d[0],
-        p = d[1],
-        h = o("useWAWebModelValues").useOptionalModelValues(a, ["wallpaper"]),
-        y = _(null),
-        C = function () {
-          return u ? o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER : i;
-        },
-        b = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = C(),
-              n = r("WAWebChatPreferenceCollection").get("defaultPreference");
-            o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper") &&
-            h != null &&
-            t !== h.wallpaper
-              ? (yield h.setChatWallpaper(t),
-                o("WAWebToastManager").ToastManager.open(
-                  c.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Chat wallpaper set"),
-                  }),
-                ))
-              : n &&
-                t !== n.wallpaper &&
-                (n.set("wallpaper", t),
-                o("WAWebSettingsSyncBridge").sendSettingChange(
-                  "wallpaperId",
-                  o("WAWebWallpaper").getWallpaperId(t),
-                ),
-                o("WAWebToastManager").ToastManager.open(
-                  c.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Global wallpaper set"),
-                  }),
-                ));
-          });
-          return function (n) {
-            return e.apply(this, arguments);
-          };
-        })(),
-        v = function (t) {
-          m ||
-            (p(!0),
-            r("WAWebChatPreferenceCollection").trigger(
-              "wallpaper_preview",
-              C(),
-            ));
-        },
-        S = function (t) {
-          m ||
-            (p(!0),
-            r("WAWebChatPreferenceCollection").trigger(
-              "wallpaper_preview",
-              C(),
-            ));
-        },
-        R = function (t) {
-          m &&
-            (p(!1),
-            r("WAWebChatPreferenceCollection").trigger("wallpaper_preview"));
-        },
-        L = t.isDefault
-          ? c.jsx("span", {
-              className:
-                "xlrnmfh xdj266r x1p8j9ns xat24cr x7phf20 x6ikm8r x10wlt62 x1ncwhqj xlyipyv xuxw1ft",
-              "data-testid": void 0,
-              children: s._(/*BTDS*/ "Default"),
-            })
-          : null,
-        E =
-          i != null ? "wallpaper-canvas-color-" + i : "wallpaper-canvas-color",
-        k = [
+      var a = o("react-compiler-runtime").c(37),
+        i = t.chat,
+        l = t.colorHex,
+        u = t.colorName,
+        d = t.isDefault,
+        m = f(!1),
+        p = m[0],
+        h = m[1],
+        y;
+      a[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = ["wallpaper"]), (a[0] = y))
+        : (y = a[0]);
+      var C = o("useWAWebModelValues").useOptionalModelValues(i, y),
+        b = _(null),
+        v;
+      a[1] !== l || a[2] !== d
+        ? ((v = function () {
+            return d ? o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER : l;
+          }),
+          (a[1] = l),
+          (a[2] = d),
+          (a[3] = v))
+        : (v = a[3]);
+      var S = v,
+        R;
+      a[4] !== C || a[5] !== S
+        ? ((R = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = S(),
+                  n = r("WAWebChatPreferenceCollection").get(
+                    "defaultPreference",
+                  );
+                o("WAWebABProps").getABPropConfigValue(
+                  "use_per_chat_wallpaper",
+                ) &&
+                C != null &&
+                t !== C.wallpaper
+                  ? (yield C.setChatWallpaper(t),
+                    o("WAWebToastManager").ToastManager.open(
+                      c.jsx(o("WAWebToast.react").Toast, {
+                        msg: s._(/*BTDS*/ "Chat wallpaper set"),
+                      }),
+                    ))
+                  : n &&
+                    t !== n.wallpaper &&
+                    (n.set("wallpaper", t),
+                    o("WAWebSettingsSyncBridge").sendSettingChange(
+                      "wallpaperId",
+                      o("WAWebWallpaper").getWallpaperId(t),
+                    ),
+                    o("WAWebToastManager").ToastManager.open(
+                      c.jsx(o("WAWebToast.react").Toast, {
+                        msg: s._(/*BTDS*/ "Global wallpaper set"),
+                      }),
+                    ));
+              },
+            );
+            return function (n) {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (a[4] = C),
+          (a[5] = S),
+          (a[6] = R))
+        : (R = a[6]);
+      var L = R,
+        E;
+      a[7] !== S || a[8] !== p
+        ? ((E = function (t) {
+            p ||
+              (h(!0),
+              r("WAWebChatPreferenceCollection").trigger(
+                "wallpaper_preview",
+                S(),
+              ));
+          }),
+          (a[7] = S),
+          (a[8] = p),
+          (a[9] = E))
+        : (E = a[9]);
+      var k = E,
+        I;
+      a[10] !== S || a[11] !== p
+        ? ((I = function (t) {
+            p ||
+              (h(!0),
+              r("WAWebChatPreferenceCollection").trigger(
+                "wallpaper_preview",
+                S(),
+              ));
+          }),
+          (a[10] = S),
+          (a[11] = p),
+          (a[12] = I))
+        : (I = a[12]);
+      var T = I,
+        D;
+      a[13] !== p
+        ? ((D = function (t) {
+            p &&
+              (h(!1),
+              r("WAWebChatPreferenceCollection").trigger("wallpaper_preview"));
+          }),
+          (a[13] = p),
+          (a[14] = D))
+        : (D = a[14]);
+      var x = D,
+        $;
+      a[15] !== t.isDefault
+        ? (($ = t.isDefault
+            ? c.jsx("span", {
+                className:
+                  "xlrnmfh xdj266r x1p8j9ns xat24cr x7phf20 x6ikm8r x10wlt62 x1ncwhqj xlyipyv xuxw1ft",
+                "data-testid": void 0,
+                children: s._(/*BTDS*/ "Default"),
+              })
+            : null),
+          (a[15] = t.isDefault),
+          (a[16] = $))
+        : ($ = a[16]);
+      var P = $,
+        N =
+          l != null ? "wallpaper-canvas-color-" + l : "wallpaper-canvas-color",
+        M = t.isSelected && g.canvasActive,
+        w = t.isSelected && g.canvasActiveBorder,
+        A = t.isDefault && g.canvasDefault,
+        F;
+      if (a[17] !== t.colorHex || a[18] !== M || a[19] !== w || a[20] !== A) {
+        var O = [
           g.wallpaperColorCanvas,
-          t.isSelected && g.canvasActive,
-          t.isSelected && g.canvasActiveBorder,
-          t.isDefault && g.canvasDefault,
+          M,
+          w,
+          A,
           t.colorHex != null && g.canvasBg(t.colorHex),
           o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
         ];
-      return c.jsxs(
-        "button",
-        babelHelpers.extends({}, (e || (e = r("stylex"))).props(k), {
-          ref: y,
-          onMouseOver: v,
-          onFocus: v,
-          tabIndex: 0,
-          onMouseEnter: S,
-          onMouseLeave: R,
-          onClick: b,
-          "data-testid": void 0,
-          "aria-label": t.ariaLabel,
-          title: t.isDefault ? s._(/*BTDS*/ "Default") : void 0,
-          children: [
-            L,
-            c.jsx(o("WAWebPopoverContext.react").WAWebPopoverController, {
-              targetRef: y,
-              popover: c.jsx(o("WAWebTooltip.react").WAWebHoverTooltip, {
-                targetRef: "context",
-                alignment: o("WAWebPopoverPosition").PopoverAlignment.Center,
-                position: o("WAWebPopoverPosition").PopoverPosition.Bottom,
-                showOnFocus: !0,
-                enableEnterTransition: !1,
-                children: l,
-              }),
+        ((F = (e || (e = r("stylex"))).props(O)),
+          (a[17] = t.colorHex),
+          (a[18] = M),
+          (a[19] = w),
+          (a[20] = A),
+          (a[21] = F));
+      } else F = a[21];
+      var B;
+      a[22] !== t.isDefault
+        ? ((B = t.isDefault ? s._(/*BTDS*/ "Default") : void 0),
+          (a[22] = t.isDefault),
+          (a[23] = B))
+        : (B = a[23]);
+      var W;
+      a[24] !== u
+        ? ((W = c.jsx(o("WAWebPopoverContext.react").WAWebPopoverController, {
+            targetRef: b,
+            popover: c.jsx(o("WAWebTooltip.react").WAWebHoverTooltip, {
+              targetRef: "context",
+              alignment: o("WAWebPopoverPosition").PopoverAlignment.Center,
+              position: o("WAWebPopoverPosition").PopoverPosition.Bottom,
+              showOnFocus: !0,
+              enableEnterTransition: !1,
+              children: u,
             }),
-          ],
-        }),
+          })),
+          (a[24] = u),
+          (a[25] = W))
+        : (W = a[25]);
+      var q;
+      return (
+        a[26] !== P ||
+        a[27] !== L ||
+        a[28] !== T ||
+        a[29] !== x ||
+        a[30] !== k ||
+        a[31] !== t.ariaLabel ||
+        a[32] !== F ||
+        a[33] !== B ||
+        a[34] !== W ||
+        a[35] !== N
+          ? ((q = c.jsxs(
+              "button",
+              babelHelpers.extends({}, F, {
+                ref: b,
+                onMouseOver: k,
+                onFocus: k,
+                tabIndex: 0,
+                onMouseEnter: T,
+                onMouseLeave: x,
+                onClick: L,
+                "data-testid": void 0,
+                "aria-label": t.ariaLabel,
+                title: B,
+                children: [P, W],
+              }),
+            )),
+            (a[26] = P),
+            (a[27] = L),
+            (a[28] = T),
+            (a[29] = x),
+            (a[30] = k),
+            (a[31] = t.ariaLabel),
+            (a[32] = F),
+            (a[33] = B),
+            (a[34] = W),
+            (a[35] = N),
+            (a[36] = q))
+          : (q = a[36]),
+        q
       );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     function y(t) {
-      var a,
-        i,
-        l = t.chat,
-        u = t.colors,
-        d = o("useWAWebModelValues").useOptionalModelValues(l, [
-          "wallpaper",
-          "showDoodle",
-        ]),
-        p = o("useWAWebModelValues").useOptionalModelValues(t.chatPreference, [
-          "wallpaper",
-          "showDoodle",
-        ]),
-        _ = m(o("WAWebThemeContext").ThemeContext),
-        f = o("useWAWebSettingSync").useSettingSync(
-          "isDoodleWallpaperEnabled",
-          function (e) {
-            o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper") &&
-            d
-              ? d.setShowDoodle(e)
-              : p && p.set("showDoodle", e);
-          },
+      var a = o("react-compiler-runtime").c(54),
+        i = t.chat,
+        l = t.colors,
+        u;
+      a[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = ["wallpaper", "showDoodle"]), (a[0] = u))
+        : (u = a[0]);
+      var d = o("useWAWebModelValues").useOptionalModelValues(i, u),
+        p;
+      a[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = ["wallpaper", "showDoodle"]), (a[1] = p))
+        : (p = a[1]);
+      var _ = o("useWAWebModelValues").useOptionalModelValues(
+          t.chatPreference,
+          p,
         ),
-        y =
-          o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper") &&
-          (a = d == null ? void 0 : d.wallpaper) != null
-            ? a
-            : p == null
-              ? void 0
-              : p.wallpaper,
-        C = function () {
-          if (
+        f = m(o("WAWebThemeContext").ThemeContext),
+        y;
+      a[2] !== d || a[3] !== _
+        ? ((y = function (t) {
             o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper") &&
             d
-          ) {
-            var e =
-              d.showDoodle != null
-                ? !d.showDoodle
-                : !(p != null && p.showDoodle);
-            (f(e),
-              o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, {
-                  msg: e
-                    ? s._(/*BTDS*/ "Chat wallpaper doodles added")
-                    : s._(/*BTDS*/ "Chat wallpaper doodles removed"),
-                }),
-              ));
-          } else if (p) {
-            var t = !p.showDoodle;
-            (f(t),
-              o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, {
-                  msg: t
-                    ? s._(/*BTDS*/ "Global wallpaper doodles added")
-                    : s._(/*BTDS*/ "Global wallpaper doodles removed"),
-                }),
-              ));
-          }
-        },
-        b = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (yield d == null ? void 0 : d.setChatWallpaper(null),
-              yield d == null ? void 0 : d.setShowDoodle(null),
-              r("WAWebChatPreferenceCollection").trigger(
-                "wallpaper_preview",
-                p == null ? void 0 : p.wallpaper,
-              ));
-          });
-          return function () {
-            return e.apply(this, arguments);
-          };
-        })(),
-        v =
+              ? d.setShowDoodle(t)
+              : _ && _.set("showDoodle", t);
+          }),
+          (a[2] = d),
+          (a[3] = _),
+          (a[4] = y))
+        : (y = a[4]);
+      var C = o("useWAWebSettingSync").useSettingSync(
+          "isDoodleWallpaperEnabled",
+          y,
+        ),
+        b;
+      if (
+        a[5] !== (d == null ? void 0 : d.wallpaper) ||
+        a[6] !== (_ == null ? void 0 : _.wallpaper)
+      ) {
+        var v;
+        ((b =
           o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper") &&
-          (i = d == null ? void 0 : d.showDoodle) != null
-            ? i
-            : p == null
+          (v = d == null ? void 0 : d.wallpaper) != null
+            ? v
+            : _ == null
               ? void 0
-              : p.showDoodle,
-        S = u.map(function (e) {
-          var t = y === e;
-          return c.jsx(
-            h,
-            {
-              ariaLabel: o("WAWebWallpaper").getWallpaperColorAriaLabel(
-                e,
-                _.theme,
-              ),
-              colorName: o("WAWebWallpaper").getWallpaperColorName(e, _.theme),
-              chat: l,
-              colorHex: e,
-              isSelected: t,
-              isDefault: !1,
-            },
-            e,
-          );
-        }),
-        R = c.jsx(
-          h,
-          {
-            chat: l,
-            ariaLabel: o("WAWebWallpaper").getWallpaperColorAriaLabel(
-              o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
-              _.theme,
-            ),
-            colorName: o("WAWebWallpaper").getWallpaperColorName(
-              o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
-              _.theme,
-            ),
-            isSelected: y === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
-            isDefault: !0,
-          },
-          o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
-        );
-      S.unshift(R);
-      for (var L = 0; L < 2; L++)
-        S.push(
-          c.jsx(
-            "div",
-            { className: "x1pigqs1 xqtp20y xx6jrq6" },
-            "emptyEl" + L,
-          ),
-        );
-      var E = c.jsxs("div", {
-          className:
-            "x78zum5 x1q0g3np x1a02dak xl56j7k x9orja2 x5zjp28 x1gx403c",
-          children: [
-            c.jsx(o("WAWebCheckBox.react").CheckBox, {
-              onChange: C,
-              checked: !!v,
-              id: "add-doodles",
-            }),
-            c.jsx(o("WAWebText.react").WAWebTextSmall, {
-              xstyle: g.checkboxLabel,
-              as: "label",
-              labelFor: "add-doodles",
-              children: s._(/*BTDS*/ "Add WhatsApp doodles"),
-            }),
-          ],
-        }),
-        k =
+              : _.wallpaper),
+          (a[5] = d == null ? void 0 : d.wallpaper),
+          (a[6] = _ == null ? void 0 : _.wallpaper),
+          (a[7] = b));
+      } else b = a[7];
+      var S = b,
+        R;
+      a[8] !== d || a[9] !== C || a[10] !== _
+        ? ((R = function () {
+            if (
+              o("WAWebABProps").getABPropConfigValue(
+                "use_per_chat_wallpaper",
+              ) &&
+              d
+            ) {
+              var e =
+                d.showDoodle != null
+                  ? !d.showDoodle
+                  : !(_ != null && _.showDoodle);
+              (C(e),
+                o("WAWebToastManager").ToastManager.open(
+                  c.jsx(o("WAWebToast.react").Toast, {
+                    msg: e
+                      ? s._(/*BTDS*/ "Chat wallpaper doodles added")
+                      : s._(/*BTDS*/ "Chat wallpaper doodles removed"),
+                  }),
+                ));
+            } else if (_) {
+              var t = !_.showDoodle;
+              (C(t),
+                o("WAWebToastManager").ToastManager.open(
+                  c.jsx(o("WAWebToast.react").Toast, {
+                    msg: t
+                      ? s._(/*BTDS*/ "Global wallpaper doodles added")
+                      : s._(/*BTDS*/ "Global wallpaper doodles removed"),
+                  }),
+                ));
+            }
+          }),
+          (a[8] = d),
+          (a[9] = C),
+          (a[10] = _),
+          (a[11] = R))
+        : (R = a[11]);
+      var L = R,
+        E;
+      a[12] !== d || a[13] !== (_ == null ? void 0 : _.wallpaper)
+        ? ((E = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              (yield d == null ? void 0 : d.setChatWallpaper(null),
+                yield d == null ? void 0 : d.setShowDoodle(null),
+                r("WAWebChatPreferenceCollection").trigger(
+                  "wallpaper_preview",
+                  _ == null ? void 0 : _.wallpaper,
+                ));
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (a[12] = d),
+          (a[13] = _ == null ? void 0 : _.wallpaper),
+          (a[14] = E))
+        : (E = a[14]);
+      var k = E,
+        I;
+      if (
+        a[15] !== (d == null ? void 0 : d.showDoodle) ||
+        a[16] !== (_ == null ? void 0 : _.showDoodle)
+      ) {
+        var T;
+        ((I =
           o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper") &&
-          d != null
-            ? c.jsx(o("WAWebFlex.react").FlexRow, {
-                wrap: "wrap",
-                justify: "center",
-                className: (e || (e = r("stylex")))(
-                  g.wallpaperUseGlobal,
-                  o("WAWebUISpacing").uiPadding.all10,
-                  o("WAWebUISpacing").uiMargin.all10,
-                ),
-                children: c.jsx(o("WAWebButton.react").Button, {
-                  onClick: b,
-                  disabled:
-                    (d == null ? void 0 : d.wallpaper) == null &&
-                    (d == null ? void 0 : d.showDoodle) == null,
-                  children: s._(/*BTDS*/ "Reset to default"),
-                }),
-              })
-            : null;
-      return c.jsxs(c.Fragment, {
-        children: [
-          E,
-          c.jsx("div", {
-            "aria-label": s._(
-              /*BTDS*/ "List of colors to set chat wallpaper to",
+          (T = d == null ? void 0 : d.showDoodle) != null
+            ? T
+            : _ == null
+              ? void 0
+              : _.showDoodle),
+          (a[15] = d == null ? void 0 : d.showDoodle),
+          (a[16] = _ == null ? void 0 : _.showDoodle),
+          (a[17] = I));
+      } else I = a[17];
+      var D = I,
+        x;
+      if (a[18] !== i || a[19] !== l || a[20] !== f.theme || a[21] !== S) {
+        var $;
+        (a[23] !== i || a[24] !== f.theme || a[25] !== S
+          ? (($ = function (t) {
+              var e = S === t;
+              return c.jsx(
+                h,
+                {
+                  ariaLabel: o("WAWebWallpaper").getWallpaperColorAriaLabel(
+                    t,
+                    f.theme,
+                  ),
+                  colorName: o("WAWebWallpaper").getWallpaperColorName(
+                    t,
+                    f.theme,
+                  ),
+                  chat: i,
+                  colorHex: t,
+                  isSelected: e,
+                  isDefault: !1,
+                },
+                t,
+              );
+            }),
+            (a[23] = i),
+            (a[24] = f.theme),
+            (a[25] = S),
+            (a[26] = $))
+          : ($ = a[26]),
+          (x = l.map($)));
+        var P;
+        a[27] !== f.theme
+          ? ((P = o("WAWebWallpaper").getWallpaperColorAriaLabel(
+              o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+              f.theme,
+            )),
+            (a[27] = f.theme),
+            (a[28] = P))
+          : (P = a[28]);
+        var N;
+        a[29] !== f.theme
+          ? ((N = o("WAWebWallpaper").getWallpaperColorName(
+              o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+              f.theme,
+            )),
+            (a[29] = f.theme),
+            (a[30] = N))
+          : (N = a[30]);
+        var M = S === o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+          w;
+        a[31] !== i || a[32] !== M || a[33] !== P || a[34] !== N
+          ? ((w = c.jsx(
+              h,
+              {
+                chat: i,
+                ariaLabel: P,
+                colorName: N,
+                isSelected: M,
+                isDefault: !0,
+              },
+              o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+            )),
+            (a[31] = i),
+            (a[32] = M),
+            (a[33] = P),
+            (a[34] = N),
+            (a[35] = w))
+          : (w = a[35]);
+        var A = w;
+        x.unshift(A);
+        for (var F = 0; F < 2; F++)
+          x.push(
+            c.jsx(
+              "div",
+              { className: "x1pigqs1 xqtp20y xx6jrq6" },
+              "emptyEl" + F,
             ),
+          );
+        ((a[18] = i), (a[19] = l), (a[20] = f.theme), (a[21] = S), (a[22] = x));
+      } else x = a[22];
+      var O;
+      a[36] === Symbol.for("react.memo_cache_sentinel")
+        ? ((O = {
             className:
               "x78zum5 x1q0g3np x1a02dak xl56j7k x9orja2 x5zjp28 x1gx403c",
-            children: S,
           }),
-          k,
-        ],
-      });
+          (a[36] = O))
+        : (O = a[36]);
+      var B = !!D,
+        W;
+      a[37] !== L || a[38] !== B
+        ? ((W = c.jsx(o("WAWebCheckBox.react").CheckBox, {
+            onChange: L,
+            checked: B,
+            id: "add-doodles",
+          })),
+          (a[37] = L),
+          (a[38] = B),
+          (a[39] = W))
+        : (W = a[39]);
+      var q;
+      a[40] === Symbol.for("react.memo_cache_sentinel")
+        ? ((q = c.jsx(o("WAWebText.react").WAWebTextSmall, {
+            xstyle: g.checkboxLabel,
+            as: "label",
+            labelFor: "add-doodles",
+            children: s._(/*BTDS*/ "Add WhatsApp doodles"),
+          })),
+          (a[40] = q))
+        : (q = a[40]);
+      var U;
+      a[41] !== W
+        ? ((U = c.jsxs(
+            "div",
+            babelHelpers.extends({}, O, { children: [W, q] }),
+          )),
+          (a[41] = W),
+          (a[42] = U))
+        : (U = a[42]);
+      var V = U,
+        H;
+      a[43] !== d || a[44] !== k
+        ? ((H =
+            o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper") &&
+            d != null
+              ? c.jsx(o("WAWebFlex.react").FlexRow, {
+                  wrap: "wrap",
+                  justify: "center",
+                  className: (e || (e = r("stylex")))(
+                    g.wallpaperUseGlobal,
+                    o("WAWebUISpacing").uiPadding.all10,
+                    o("WAWebUISpacing").uiMargin.all10,
+                  ),
+                  children: c.jsx(o("WAWebButton.react").Button, {
+                    onClick: k,
+                    disabled:
+                      (d == null ? void 0 : d.wallpaper) == null &&
+                      (d == null ? void 0 : d.showDoodle) == null,
+                    children: s._(/*BTDS*/ "Reset to default"),
+                  }),
+                })
+              : null),
+          (a[43] = d),
+          (a[44] = k),
+          (a[45] = H))
+        : (H = a[45]);
+      var G = H,
+        z,
+        j;
+      a[46] === Symbol.for("react.memo_cache_sentinel")
+        ? ((z = s._(/*BTDS*/ "List of colors to set chat wallpaper to")),
+          (j = {
+            className:
+              "x78zum5 x1q0g3np x1a02dak xl56j7k x9orja2 x5zjp28 x1gx403c",
+          }),
+          (a[46] = z),
+          (a[47] = j))
+        : ((z = a[46]), (j = a[47]));
+      var K;
+      a[48] !== x
+        ? ((K = c.jsx(
+            "div",
+            babelHelpers.extends({ "aria-label": z }, j, { children: x }),
+          )),
+          (a[48] = x),
+          (a[49] = K))
+        : (K = a[49]);
+      var Q;
+      return (
+        a[50] !== V || a[51] !== G || a[52] !== K
+          ? ((Q = c.jsxs(c.Fragment, { children: [V, K, G] })),
+            (a[50] = V),
+            (a[51] = G),
+            (a[52] = K),
+            (a[53] = Q))
+          : (Q = a[53]),
+        Q
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
       var t = e.chat,
         n = e.onClose,

@@ -9,7 +9,6 @@ __d(
     "WAWebAdvSignatureApi",
     "WAWebAppTracker",
     "WAWebBackendEventBus",
-    "WAWebCanonicalTokenExchange",
     "WAWebClearCredentials",
     "WAWebCoreActionsODS",
     "WAWebLogoutReasonConstants",
@@ -88,19 +87,16 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (_ || f) return !1;
-          (yield o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
-            o("WAWebWamEnumMdLinkDeviceCompanionStage")
-              .MD_LINK_DEVICE_COMPANION_STAGE.FIRST_CONNECT,
-          ),
+          _ ||
+            f ||
+            (yield o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
+              o("WAWebWamEnumMdLinkDeviceCompanionStage")
+                .MD_LINK_DEVICE_COMPANION_STAGE.FIRST_CONNECT,
+            ),
             (_ = !0),
             yield o("WAWebAdvSignatureApi").clearADVSecretKey(),
             yield o("WAWebUserPrefsGeneral").resetLoginCounter(),
             o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered(!0));
-          var e = o(
-            "WAWebCanonicalTokenExchange",
-          ).maybeReloadAfterRegistration();
-          return e;
         })),
         S.apply(this, arguments)
       );

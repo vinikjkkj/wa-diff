@@ -20,6 +20,7 @@ __d(
     "WAWebWdsPictoDisappearingMessagesIcon.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebNux",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -177,29 +178,52 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = e.Icon,
-        n = e.children,
-        r = e.size;
-      return u.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
-        xstyle: d.container,
-        children: [
-          u.jsx(t, {
+      var t = o("react-compiler-runtime").c(9),
+        n = e.Icon,
+        r = e.children,
+        a = e.size,
+        i = a != null ? a : 24,
+        l = a != null ? a : 24,
+        s;
+      t[0] !== n || t[1] !== i || t[2] !== l
+        ? ((s = u.jsx(n, {
             "aria-hidden": !0,
             displayInline: !0,
-            width: r != null ? r : 24,
-            height: r != null ? r : 24,
+            width: i,
+            height: l,
             xstyle: d.icon,
-          }),
-          u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+          })),
+          (t[0] = n),
+          (t[1] = i),
+          (t[2] = l),
+          (t[3] = s))
+        : (s = t[3]);
+      var c;
+      t[4] !== r
+        ? ((c = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
             xstyle: d.body,
             children: u.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-              children: n,
+              children: r,
             }),
-          }),
-        ],
-      });
+          })),
+          (t[4] = r),
+          (t[5] = c))
+        : (c = t[5]);
+      var m;
+      return (
+        t[6] !== s || t[7] !== c
+          ? ((m = u.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
+              xstyle: d.container,
+              children: [s, c],
+            })),
+            (t[6] = s),
+            (t[7] = c),
+            (t[8] = m))
+          : (m = t[8]),
+        m
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

@@ -101,6 +101,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsMultiDevice",
     "WAWebWaitForInitialChatsSynced",
+    "WAWebWamDeviceLinkReporter",
     "WAWebWamGlobals",
     "WAWebWamOfflineResumeReporter",
     "WAWebWamProcessWorkerData",
@@ -236,6 +237,7 @@ __d(
                 ])),
               o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
             ),
+            o("WAWebWamDeviceLinkReporter").resumeDeviceLinkReporting(),
             r("WAWebEnvironment").isWindows)
           ) {
             var t =

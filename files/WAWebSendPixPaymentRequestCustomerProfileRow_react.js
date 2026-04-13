@@ -10,6 +10,7 @@ __d(
     "WAWebStackedCirclesImage.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebContactValues",
   ],
@@ -19,60 +20,95 @@ __d(
       s = e || (e = o("react")),
       u = { row: { height: "x1peatla", $$css: !0 } };
     function c(e) {
-      var t = e.chat,
-        n = o("useWAWebChatValues").useChatValues(t.id, [
-          o("WAWebChatGetters").getId,
-        ]),
-        a = n[0],
-        i = t.contact,
-        l = o("useWAWebContactValues").useContactValues(i.id, [
-          o("WAWebContactGetters").getIsMe,
-          o("WAWebContactGetters").getShowBusinessCheckmarkAsPrimary,
-        ]),
-        c = l[0],
-        d = l[1];
-      return s.jsxs(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        xstyle: u.row,
-        children: [
-          s.jsx(o("WAWebFlex.react").FlexColumn, {
+      var t = o("react-compiler-runtime").c(14),
+        n = e.chat,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = [o("WAWebChatGetters").getId]), (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebChatValues").useChatValues(n.id, a),
+        l = i[0],
+        c = n.contact,
+        d;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = [
+            o("WAWebContactGetters").getIsMe,
+            o("WAWebContactGetters").getShowBusinessCheckmarkAsPrimary,
+          ]),
+          (t[1] = d))
+        : (d = t[1]);
+      var m = o("useWAWebContactValues").useContactValues(c.id, d),
+        p = m[0],
+        _ = m[1],
+        f;
+      t[2] !== l
+        ? ((f = s.jsx(o("WAWebDetailImage.react").DetailImage, {
+            id: l,
+            size: 40,
+            ephemeralIcon: "conversation-header",
+            hiddenSubgroupIcon: "conversation-header",
+            enableAdsDataSharingIcon: !0,
+            enableBizAiDataSharingIcon: !0,
+          })),
+          (t[2] = l),
+          (t[3] = f))
+        : (f = t[3]);
+      var g;
+      t[4] !== n || t[5] !== f
+        ? ((g = s.jsx(o("WAWebFlex.react").FlexColumn, {
             align: "center",
             paddingEnd: 2,
             children: s.jsx(r("WAWebGroupChatImage.react"), {
-              chat: t,
+              chat: n,
               theme: o("WAWebStackedCirclesImage.react").SubgroupImageTheme
                 .CHAT_HEADER,
-              regularChatImage: s.jsx(o("WAWebDetailImage.react").DetailImage, {
-                id: a,
-                size: 40,
-                ephemeralIcon: "conversation-header",
-                hiddenSubgroupIcon: "conversation-header",
-                enableAdsDataSharingIcon: !0,
-                enableBizAiDataSharingIcon: !0,
-              }),
+              regularChatImage: f,
               showCommunityInfo: !1,
             }),
-          }),
-          s.jsx(o("WAWebFlex.react").FlexColumn, {
+          })),
+          (t[4] = n),
+          (t[5] = f),
+          (t[6] = g))
+        : (g = t[6]);
+      var h;
+      t[7] !== n || t[8] !== p || t[9] !== _
+        ? ((h = s.jsx(o("WAWebFlex.react").FlexColumn, {
             align: "center",
             paddingStart: 12,
             children: s.jsx(r("WDSText.react"), {
               type: "Body1",
               colorName: "contentDefault",
               children: s.jsx(o("WAWebName.react").Name, {
-                chat: t,
+                chat: n,
                 ellipsify: !0,
-                showBusinessCheckmark: d,
+                showBusinessCheckmark: _,
                 testid: void 0,
-                showMessageYourselfName: c,
+                showMessageYourselfName: p,
                 truncateName: !0,
               }),
             }),
-          }),
-        ],
-      });
+          })),
+          (t[7] = n),
+          (t[8] = p),
+          (t[9] = _),
+          (t[10] = h))
+        : (h = t[10]);
+      var y;
+      return (
+        t[11] !== g || t[12] !== h
+          ? ((y = s.jsxs(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              xstyle: u.row,
+              children: [g, h],
+            })),
+            (t[11] = g),
+            (t[12] = h),
+            (t[13] = y))
+          : (y = t[13]),
+        y
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

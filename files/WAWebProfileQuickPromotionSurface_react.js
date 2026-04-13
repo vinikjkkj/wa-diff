@@ -7,43 +7,72 @@ __d(
     "WAWebQuickPromotionGating",
     "WAWebUserPrefsGeneral",
     "react",
+    "react-compiler-runtime",
     "useWAWebPrivacyTipQuickPromotion",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u() {
-      var e = o("useWAWebPrivacyTipQuickPromotion").usePrivacyTipQuickPromotion(
-        { surfaceId: o("WAWebCTWAConstants").QP_SURFACE_ID_PROFILE },
-        [o("WAWebUserPrefsGeneral").getLastProfilePicThumbUpdate()],
+      var e = o("react-compiler-runtime").c(9),
+        t,
+        n;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = { surfaceId: o("WAWebCTWAConstants").QP_SURFACE_ID_PROFILE }),
+          (n = [o("WAWebUserPrefsGeneral").getLastProfilePicThumbUpdate()]),
+          (e[0] = t),
+          (e[1] = n))
+        : ((t = e[0]), (n = e[1]));
+      var a = o("useWAWebPrivacyTipQuickPromotion").usePrivacyTipQuickPromotion(
+        t,
+        n,
       );
       if (
         !(
-          e == null ||
+          a == null ||
           !o("WAWebQuickPromotionGating").profilePrivacyTipsEnabled()
         )
       ) {
-        var t = e.dismiss,
-          n = e.image,
-          a = e.primaryActionClick,
-          i = e.promotion,
-          l = e.sanitizedText,
-          u = e.settingStep,
-          c = i.promotion.data.primaryAction;
-        return s.jsx(r("WAWebDrawerSection.react"), {
-          theme: "padding-no-vertical",
-          children: s.jsx(r("WAWebPrivacyTipBanner.react"), {
-            text: l,
-            image: n,
-            actionText: c == null ? void 0 : c.text,
-            onDismiss: t,
-            onAction: a,
-            settingStep: u,
-          }),
-        });
+        var i = a.dismiss,
+          l = a.image,
+          u = a.primaryActionClick,
+          c = a.promotion,
+          d = a.sanitizedText,
+          m = a.settingStep,
+          p = c.promotion.data.primaryAction,
+          _ = p == null ? void 0 : p.text,
+          f;
+        return (
+          e[2] !== i ||
+          e[3] !== l ||
+          e[4] !== u ||
+          e[5] !== d ||
+          e[6] !== m ||
+          e[7] !== _
+            ? ((f = s.jsx(r("WAWebDrawerSection.react"), {
+                theme: "padding-no-vertical",
+                children: s.jsx(r("WAWebPrivacyTipBanner.react"), {
+                  text: d,
+                  image: l,
+                  actionText: _,
+                  onDismiss: i,
+                  onAction: u,
+                  settingStep: m,
+                }),
+              })),
+              (e[2] = i),
+              (e[3] = l),
+              (e[4] = u),
+              (e[5] = d),
+              (e[6] = m),
+              (e[7] = _),
+              (e[8] = f))
+            : (f = e[8]),
+          f
+        );
       }
     }
-    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
+    l.default = u;
   },
   98,
 );

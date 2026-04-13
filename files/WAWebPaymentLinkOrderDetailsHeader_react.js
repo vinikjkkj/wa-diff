@@ -10,6 +10,7 @@ __d(
     "WAWebUISpacing",
     "WDSIconIcLink.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -85,85 +86,138 @@ __d(
         },
       };
     function d(e) {
-      var t = e.isSentByMe,
-        n = e.matchedText,
-        a = e.onClick,
-        i = e.parsedAmount;
-      return u.jsx("div", {
-        role: "button",
-        onClick: a,
-        onKeyPress: a,
-        tabIndex: 0,
-        "data-testid": void 0,
-        children: u.jsxs(o("WAWebFlex.react").FlexColumn, {
-          testid: void 0,
-          align: "stretch",
-          xstyle: [c.header, t ? c.bubbleOut : c.bubbleIn],
-          children: [
-            u.jsx(r("WAWebPaymentAmountDisplay.react"), {
-              amount1000: i.amount1000,
-              currency: i.currency,
-            }),
-            u.jsxs(o("WAWebFlex.react").FlexColumn, {
-              xstyle: [
-                o("WAWebUISpacing").uiPadding.bottom8,
-                o("WAWebUISpacing").uiPadding.horiz8,
-              ],
-              children: [
-                u.jsxs(o("WAWebFlex.react").FlexRow, {
-                  xstyle: c.payWithRow,
-                  align: "center",
-                  testid: void 0,
-                  children: [
-                    u.jsx(o("WAWebFlex.react").FlexRow, {
-                      xstyle: c.payWithText,
-                      children: s._(/*BTDS*/ "Pay with"),
-                    }),
-                    u.jsxs(o("WAWebFlex.react").FlexRow, {
-                      xstyle: c.iconsContainer,
-                      children: [
-                        u.jsx(
-                          o("WAWebPaymentVisaLogoIcon.react")
-                            .PaymentVisaLogoIcon,
-                          {
-                            iconXstyle: c.cardBrandIcon,
-                            viewBox: { x: 0, y: 5, width: 24, height: 14 },
-                          },
-                        ),
-                        u.jsx(
-                          o("WAWebMastercardLogoIcon.react").MastercardLogoIcon,
-                          {
-                            iconXstyle: c.cardBrandIcon,
-                            viewBox: { x: -2, y: -1.5, width: 26, height: 16 },
-                          },
-                        ),
-                      ],
-                    }),
-                  ],
-                }),
-                u.jsxs(o("WAWebFlex.react").FlexRow, {
-                  align: "center",
-                  xstyle: c.subdomainRow,
-                  children: [
-                    u.jsx(r("WDSIconIcLink.react"), {
-                      testid: void 0,
-                      iconXstyle: c.linkIconSmall,
-                    }),
-                    u.jsx(o("WAWebFlex.react").FlexRow, {
-                      xstyle: c.subdomainText,
-                      children: o(
-                        "WAWebMediaLinkPreviewContainer.react",
-                      ).getHostnameForUrl(n),
-                    }),
-                  ],
-                }),
-              ],
-            }),
-          ],
-        }),
-      });
+      var t = o("react-compiler-runtime").c(21),
+        n = e.isSentByMe,
+        a = e.matchedText,
+        i = e.onClick,
+        l = e.parsedAmount,
+        d = n ? c.bubbleOut : c.bubbleIn,
+        m;
+      t[0] !== d ? ((m = [c.header, d]), (t[0] = d), (t[1] = m)) : (m = t[1]);
+      var p;
+      t[2] !== l.amount1000 || t[3] !== l.currency
+        ? ((p = u.jsx(r("WAWebPaymentAmountDisplay.react"), {
+            amount1000: l.amount1000,
+            currency: l.currency,
+          })),
+          (t[2] = l.amount1000),
+          (t[3] = l.currency),
+          (t[4] = p))
+        : (p = t[4]);
+      var _;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = [
+            o("WAWebUISpacing").uiPadding.bottom8,
+            o("WAWebUISpacing").uiPadding.horiz8,
+          ]),
+          (t[5] = _))
+        : (_ = t[5]);
+      var f;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = u.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: c.payWithText,
+            children: s._(/*BTDS*/ "Pay with"),
+          })),
+          (t[6] = f))
+        : (f = t[6]);
+      var g;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = u.jsx(o("WAWebPaymentVisaLogoIcon.react").PaymentVisaLogoIcon, {
+            iconXstyle: c.cardBrandIcon,
+            viewBox: { x: 0, y: 5, width: 24, height: 14 },
+          })),
+          (t[7] = g))
+        : (g = t[7]);
+      var h;
+      t[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = u.jsxs(o("WAWebFlex.react").FlexRow, {
+            xstyle: c.payWithRow,
+            align: "center",
+            testid: void 0,
+            children: [
+              f,
+              u.jsxs(o("WAWebFlex.react").FlexRow, {
+                xstyle: c.iconsContainer,
+                children: [
+                  g,
+                  u.jsx(o("WAWebMastercardLogoIcon.react").MastercardLogoIcon, {
+                    iconXstyle: c.cardBrandIcon,
+                    viewBox: { x: -2, y: -1.5, width: 26, height: 16 },
+                  }),
+                ],
+              }),
+            ],
+          })),
+          (t[8] = h))
+        : (h = t[8]);
+      var y;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = u.jsx(r("WDSIconIcLink.react"), {
+            testid: void 0,
+            iconXstyle: c.linkIconSmall,
+          })),
+          (t[9] = y))
+        : (y = t[9]);
+      var C;
+      t[10] !== a
+        ? ((C = o("WAWebMediaLinkPreviewContainer.react").getHostnameForUrl(a)),
+          (t[10] = a),
+          (t[11] = C))
+        : (C = t[11]);
+      var b;
+      t[12] !== C
+        ? ((b = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+            xstyle: _,
+            children: [
+              h,
+              u.jsxs(o("WAWebFlex.react").FlexRow, {
+                align: "center",
+                xstyle: c.subdomainRow,
+                children: [
+                  y,
+                  u.jsx(o("WAWebFlex.react").FlexRow, {
+                    xstyle: c.subdomainText,
+                    children: C,
+                  }),
+                ],
+              }),
+            ],
+          })),
+          (t[12] = C),
+          (t[13] = b))
+        : (b = t[13]);
+      var v;
+      t[14] !== b || t[15] !== m || t[16] !== p
+        ? ((v = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+            testid: void 0,
+            align: "stretch",
+            xstyle: m,
+            children: [p, b],
+          })),
+          (t[14] = b),
+          (t[15] = m),
+          (t[16] = p),
+          (t[17] = v))
+        : (v = t[17]);
+      var S;
+      return (
+        t[18] !== i || t[19] !== v
+          ? ((S = u.jsx("div", {
+              role: "button",
+              onClick: i,
+              onKeyPress: i,
+              tabIndex: 0,
+              "data-testid": void 0,
+              children: v,
+            })),
+            (t[18] = i),
+            (t[19] = v),
+            (t[20] = S))
+          : (S = t[20]),
+        S
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   226,
 );

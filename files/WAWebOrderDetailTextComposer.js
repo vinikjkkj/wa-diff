@@ -8,6 +8,7 @@ __d(
     "WAWebVelocityTransitionGroup",
     "WAWebWdsIcSendFilledIcon.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,23 +35,42 @@ __d(
         },
       };
     function d(t) {
-      var n = t.buttonTitle,
-        a = t.chat,
+      var n = o("react-compiler-runtime").c(25),
+        a = t.buttonTitle,
         i = t.disabled,
         l = t.onChange,
         s = t.onSubmit,
         d = t.placeholder,
         m = t.testid,
         p = t.textFieldTestId,
-        _ = t.value;
-      return u.jsxs(u.Fragment, {
-        children: [
-          u.jsx(r("WAWebVelocityTransitionGroup"), {
+        _ = t.value,
+        f;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = [c.textFieldContainer, o("WAWebUISpacing").uiMargin.bottom40]),
+          (n[0] = f))
+        : (f = n[0]);
+      var g;
+      n[1] !== i || n[2] !== s
+        ? ((g = function () {
+            i !== !0 && s();
+          }),
+          (n[1] = i),
+          (n[2] = s),
+          (n[3] = g))
+        : (g = n[3]);
+      var h;
+      n[4] !== l
+        ? ((h = function (t) {
+            return l(t.text);
+          }),
+          (n[4] = l),
+          (n[5] = h))
+        : (h = n[5]);
+      var y;
+      n[6] !== d || n[7] !== g || n[8] !== h || n[9] !== p || n[10] !== _
+        ? ((y = u.jsx(r("WAWebVelocityTransitionGroup"), {
             transitionName: "media-caption",
-            xstyle: [
-              c.textFieldContainer,
-              o("WAWebUISpacing").uiMargin.bottom40,
-            ],
+            xstyle: f,
             children: u.jsx("div", {
               children: u.jsx(o("WAWebRichTextField.react").RichTextField, {
                 maxLength: r("WAWebConstantsDeprecated")
@@ -63,46 +83,78 @@ __d(
                 spellCheck: !0,
                 emojiBtnPosition: "side",
                 textFormatEnabled: !0,
-                onEnter: function () {
-                  i !== !0 && s();
-                },
-                onChange: function (t) {
-                  return l(t.text);
-                },
+                onEnter: g,
+                onChange: h,
               }),
             }),
-          }),
-          u.jsx(r("WAWebVelocityTransitionGroup"), {
+          })),
+          (n[6] = d),
+          (n[7] = g),
+          (n[8] = h),
+          (n[9] = p),
+          (n[10] = _),
+          (n[11] = y))
+        : (y = n[11]);
+      var C;
+      n[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = (e || (e = r("stylex"))).props([
+            c.btnSend,
+            o("WAWebUISpacing").uiMargin.all0,
+            o("WAWebUISpacing").uiPadding.all0,
+          ])),
+          (n[12] = C))
+        : (C = n[12]);
+      var b;
+      n[13] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = u.jsx(o("WAWebWdsIcSendFilledIcon.react").WdsIcSendFilledIcon, {
+            width: 18,
+            directional: !0,
+          })),
+          (n[13] = b))
+        : (b = n[13]);
+      var v;
+      n[14] !== i
+        ? ((v = u.jsx(o("WAWebRound.react").Round, {
+            disabled: i,
+            children: b,
+          })),
+          (n[14] = i),
+          (n[15] = v))
+        : (v = n[15]);
+      var S;
+      n[16] !== a || n[17] !== i || n[18] !== s || n[19] !== v || n[20] !== m
+        ? ((S = u.jsx(r("WAWebVelocityTransitionGroup"), {
             appear: !0,
             transitionName: "btn",
             children: u.jsx(
               "button",
-              babelHelpers.extends(
-                { disabled: i, "data-testid": void 0 },
-                (e || (e = r("stylex"))).props([
-                  c.btnSend,
-                  o("WAWebUISpacing").uiMargin.all0,
-                  o("WAWebUISpacing").uiPadding.all0,
-                ]),
-                {
-                  tabIndex: -1,
-                  onClick: s,
-                  title: n,
-                  children: u.jsx(o("WAWebRound.react").Round, {
-                    disabled: i,
-                    children: u.jsx(
-                      o("WAWebWdsIcSendFilledIcon.react").WdsIcSendFilledIcon,
-                      { width: 18, directional: !0 },
-                    ),
-                  }),
-                },
-              ),
+              babelHelpers.extends({ disabled: i, "data-testid": void 0 }, C, {
+                tabIndex: -1,
+                onClick: s,
+                title: a,
+                children: v,
+              }),
             ),
-          }),
-        ],
-      });
+          })),
+          (n[16] = a),
+          (n[17] = i),
+          (n[18] = s),
+          (n[19] = v),
+          (n[20] = m),
+          (n[21] = S))
+        : (S = n[21]);
+      var R;
+      return (
+        n[22] !== y || n[23] !== S
+          ? ((R = u.jsxs(u.Fragment, { children: [y, S] })),
+            (n[22] = y),
+            (n[23] = S),
+            (n[24] = R))
+          : (R = n[24]),
+        R
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   98,
 );

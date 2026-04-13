@@ -10,6 +10,7 @@ __d(
     "WAWebPaymentVisaLogoIcon.react",
     "WAWebThemeContext",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -60,60 +61,105 @@ __d(
         payWithIcons: { paddingInlineEnd: "x1nzty39", $$css: !0 },
       };
     function d(e) {
-      var t = e.msg,
-        n = o("WAWebBrPaymentRequest").getPaymentRequestInfo(t);
-      if (n == null) return null;
-      var a = o("WAWebThemeContext").isDarkTheme(),
-        i = [
-          c.paywithIcon,
-          c.paddingAll4,
-          c.marginStart4,
-          a && c.iconDarkBackground,
-        ],
-        l = n.map(function (e) {
-          return e.paymentType ===
-            o("WAWebBrPaymentRequest").PaymentRequestCtaType.BOLETO
-            ? u.jsx(
-                o("WAWebPaymentBoletoLogoIcon.react").PaymentBoletoLogoIcon,
-                { iconXstyle: i },
-              )
-            : e.paymentType ===
-                o("WAWebBrPaymentRequest").PaymentRequestCtaType
-                  .PIX_DYNAMIC_CODE
-              ? u.jsx(o("WAWebPaymentLogoPixIcon.react").PaymentLogoPixIcon, {
-                  iconXstyle: i,
-                })
-              : e.paymentType ===
-                  o("WAWebBrPaymentRequest").PaymentRequestCtaType.PAYMENT_LINK
-                ? u.jsxs(u.Fragment, {
-                    children: [
-                      u.jsx(
-                        o("WAWebPaymentVisaLogoIcon.react").PaymentVisaLogoIcon,
-                        { iconXstyle: i },
-                      ),
-                      u.jsx(
-                        o("WAWebMastercardLogoIcon.react").MastercardLogoIcon,
-                        { iconXstyle: i },
-                      ),
-                    ],
-                  })
-                : (function () {
-                    throw Error(
-                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        e.paymentType,
-                    );
-                  })();
-        });
-      return u.jsx(r("WAWebPaymentPayWithRow.react"), {
-        childrenXstyle: c.payWithIcons,
-        label: s._(/*BTDS*/ "Pay with"),
-        labelXstyle: c.payWithLabel,
-        testid: void 0,
-        xstyle: c.payWithRow,
-        children: l,
-      });
+      var t = o("react-compiler-runtime").c(9),
+        n = e.msg,
+        a,
+        i;
+      if (t[0] !== n) {
+        i = Symbol.for("react.early_return_sentinel");
+        e: {
+          var l = o("WAWebBrPaymentRequest").getPaymentRequestInfo(n);
+          if (l == null) {
+            i = null;
+            break e;
+          }
+          var d;
+          t[3] === Symbol.for("react.memo_cache_sentinel")
+            ? ((d = o("WAWebThemeContext").isDarkTheme()), (t[3] = d))
+            : (d = t[3]);
+          var m = d,
+            p;
+          t[4] === Symbol.for("react.memo_cache_sentinel")
+            ? ((p = [
+                c.paywithIcon,
+                c.paddingAll4,
+                c.marginStart4,
+                m && c.iconDarkBackground,
+              ]),
+              (t[4] = p))
+            : (p = t[4]);
+          var _ = p,
+            f;
+          (t[5] === Symbol.for("react.memo_cache_sentinel")
+            ? ((f = function (t) {
+                return t.paymentType ===
+                  o("WAWebBrPaymentRequest").PaymentRequestCtaType.BOLETO
+                  ? u.jsx(
+                      o("WAWebPaymentBoletoLogoIcon.react")
+                        .PaymentBoletoLogoIcon,
+                      { iconXstyle: _ },
+                    )
+                  : t.paymentType ===
+                      o("WAWebBrPaymentRequest").PaymentRequestCtaType
+                        .PIX_DYNAMIC_CODE
+                    ? u.jsx(
+                        o("WAWebPaymentLogoPixIcon.react").PaymentLogoPixIcon,
+                        { iconXstyle: _ },
+                      )
+                    : t.paymentType ===
+                        o("WAWebBrPaymentRequest").PaymentRequestCtaType
+                          .PAYMENT_LINK
+                      ? u.jsxs(u.Fragment, {
+                          children: [
+                            u.jsx(
+                              o("WAWebPaymentVisaLogoIcon.react")
+                                .PaymentVisaLogoIcon,
+                              { iconXstyle: _ },
+                            ),
+                            u.jsx(
+                              o("WAWebMastercardLogoIcon.react")
+                                .MastercardLogoIcon,
+                              { iconXstyle: _ },
+                            ),
+                          ],
+                        })
+                      : (function () {
+                          throw Error(
+                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                              t.paymentType,
+                          );
+                        })();
+              }),
+              (t[5] = f))
+            : (f = t[5]),
+            (a = l.map(f)));
+        }
+        ((t[0] = n), (t[1] = a), (t[2] = i));
+      } else ((a = t[1]), (i = t[2]));
+      if (i !== Symbol.for("react.early_return_sentinel")) return i;
+      var g = a,
+        h;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = s._(/*BTDS*/ "Pay with")), (t[6] = h))
+        : (h = t[6]);
+      var y;
+      return (
+        t[7] !== g
+          ? ((y = u.jsx(r("WAWebPaymentPayWithRow.react"), {
+              childrenXstyle: c.payWithIcons,
+              label: h,
+              labelXstyle: c.payWithLabel,
+              testid: void 0,
+              xstyle: c.payWithRow,
+              children: g,
+            })),
+            (t[7] = g),
+            (t[8] = y))
+          : (y = t[8]),
+        y
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   226,
 );

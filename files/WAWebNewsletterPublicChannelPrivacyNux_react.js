@@ -18,6 +18,7 @@ __d(
     "WDSIconIcVisibility.react",
     "WDSIconIcVisibilityOff.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -89,36 +90,68 @@ __d(
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = e.isOwner;
-      if (!o("WAWebNewsletterGatingUtils").isNewsletterCreationEnabled())
-        return u.jsx(r("WAWebNewsletterPrivacyRow.react"), {
-          icon: u.jsx(r("WDSIconIcVisibilityOff.react"), {
-            iconXstyle: c.tealColor,
-            height: 20,
-          }),
-          text: s._(
-            /*BTDS*/ "Your phone number, profile picture and name aren't shown to followers.",
-          ),
-          title: s._(/*BTDS*/ "People see your channel, not you"),
-        });
-      var n = r(
-        t ? "WDSIconIcVisibilityOff.react" : "WDSIconIcVisibility.react",
+      var t = o("react-compiler-runtime").c(10),
+        n = e.isOwner;
+      if (!o("WAWebNewsletterGatingUtils").isNewsletterCreationEnabled()) {
+        var a;
+        return (
+          t[0] === Symbol.for("react.memo_cache_sentinel")
+            ? ((a = u.jsx(r("WAWebNewsletterPrivacyRow.react"), {
+                icon: u.jsx(r("WDSIconIcVisibilityOff.react"), {
+                  iconXstyle: c.tealColor,
+                  height: 20,
+                }),
+                text: s._(
+                  /*BTDS*/ "Your phone number, profile picture and name aren't shown to followers.",
+                ),
+                title: s._(/*BTDS*/ "People see your channel, not you"),
+              })),
+              (t[0] = a))
+            : (a = t[0]),
+          a
+        );
+      }
+      var i = r(
+          n ? "WDSIconIcVisibilityOff.react" : "WDSIconIcVisibility.react",
+        ),
+        l;
+      t[1] !== i
+        ? ((l = u.jsx(i, { iconXstyle: c.tealColor, height: 20 })),
+          (t[1] = i),
+          (t[2] = l))
+        : (l = t[2]);
+      var d, m;
+      t[3] !== n
+        ? ((d = n
+            ? s._(
+                /*BTDS*/ "Followers can't see your phone number, profile picture or name, but other admins can.",
+              )
+            : s._(
+                /*BTDS*/ "Admins for this channel can see your phone number, profile picture and name, but followers can't.",
+              )),
+          (m = n
+            ? s._(/*BTDS*/ "People see your channel, not you")
+            : s._(/*BTDS*/ "You're visible to other admins")),
+          (t[3] = n),
+          (t[4] = d),
+          (t[5] = m))
+        : ((d = t[4]), (m = t[5]));
+      var p;
+      return (
+        t[6] !== l || t[7] !== d || t[8] !== m
+          ? ((p = u.jsx(r("WAWebNewsletterPrivacyRow.react"), {
+              icon: l,
+              text: d,
+              title: m,
+            })),
+            (t[6] = l),
+            (t[7] = d),
+            (t[8] = m),
+            (t[9] = p))
+          : (p = t[9]),
+        p
       );
-      return u.jsx(r("WAWebNewsletterPrivacyRow.react"), {
-        icon: u.jsx(n, { iconXstyle: c.tealColor, height: 20 }),
-        text: t
-          ? s._(
-              /*BTDS*/ "Followers can't see your phone number, profile picture or name, but other admins can.",
-            )
-          : s._(
-              /*BTDS*/ "Admins for this channel can see your phone number, profile picture and name, but followers can't.",
-            ),
-        title: t
-          ? s._(/*BTDS*/ "People see your channel, not you")
-          : s._(/*BTDS*/ "You're visible to other admins"),
-      });
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p() {
       o("WAWebExternalLink.react").openExternalLink(
         o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),

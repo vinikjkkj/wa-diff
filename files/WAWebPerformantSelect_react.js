@@ -11,6 +11,7 @@ __d(
     "WAWebSimpleSearch",
     "WDSThemes",
     "react",
+    "react-compiler-runtime",
     "useMergeRefs",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,138 +24,223 @@ __d(
       p = c.useState,
       _ = { tealColor: { color: "x1v5yvga", $$css: !0 } };
     function f(t) {
-      var n = t.ref,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        i = a.customLabel,
-        l = a.defaultLabel,
-        s = a.includeSearchInput,
-        c = a.initialSelection,
-        f = a.items,
-        g = a.menuMaxHeight,
-        h = g === void 0 ? 350 : g,
-        y = a.menuMinWidth,
-        C = a.popoverControllerRef,
-        b = a.testid,
-        v = a.theme,
-        S = a.width,
-        R = p(),
-        L = R[0],
-        E = R[1],
-        k = f;
-      L != null &&
-        L.length &&
-        (k = f.filter(function (e) {
-          return o("WAWebSimpleSearch").simpleSearch(L, [
-            e.menuItem.searchCriteria,
-          ]);
-        }));
-      var I = k,
-        T = function (t) {
+      var n = o("react-compiler-runtime").c(35),
+        a = t.ref,
+        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        l = i.customLabel,
+        s = i.defaultLabel,
+        c = i.includeSearchInput,
+        f = i.initialSelection,
+        g = i.items,
+        h = i.menuMaxHeight,
+        y = i.menuMinWidth,
+        C = i.popoverControllerRef,
+        b = i.testid,
+        v = i.theme,
+        S = i.width,
+        R = h === void 0 ? 350 : h,
+        L = p(),
+        E = L[0],
+        k = L[1],
+        I = g;
+      if (E != null && E.length) {
+        var T;
+        (n[0] !== E
+          ? ((T = function (t) {
+              return o("WAWebSimpleSearch").simpleSearch(E, [
+                t.menuItem.searchCriteria,
+              ]);
+            }),
+            (n[0] = E),
+            (n[1] = T))
+          : (T = n[1]),
+          (I = g.filter(T)));
+      }
+      var D = I,
+        x = function (t) {
           var e, n;
-          if ((i != null && (n = i(t)), n == null && t != null)) {
-            var r = I.find(function (e) {
+          if ((l != null && (n = l(t)), n == null && t != null)) {
+            var r = D.find(function (e) {
               return e.itemKey === t;
             });
             r != null && (n = r.menuItem.primary);
           }
-          return (e = n != null ? n : l) != null ? e : "";
+          return (e = n != null ? n : s) != null ? e : "";
         },
-        D = m(null),
-        x = r("useMergeRefs")(n, D),
-        $ = m(),
-        P = C != null ? C : $,
-        N = p(c),
-        M = N[0],
-        w = N[1],
-        A = p(T(c)),
-        F = A[0],
-        O = A[1],
-        B = function (t) {
-          var e,
-            n = T(t);
-          (O(n),
-            w(t),
-            a.onChange == null || a.onChange(t),
-            (e = P.current) == null || e.hidePopover());
-        },
-        W = function (t) {
-          return u.jsx(
-            o("WAWebMenuItems.react").ActionMenuItem,
-            babelHelpers.extends({}, t.menuItem, {
-              detailRight:
-                t.itemKey === M
-                  ? u.jsx(o("WAWebCheckmarkIcon.react").CheckmarkIcon, {
-                      iconXstyle: _.tealColor,
-                    })
-                  : t.menuItem.detailRight,
-            }),
-          );
-        },
-        q = p(y),
-        U = q[0],
-        V = q[1];
-      d(
-        function () {
-          if (y == null) {
+        $ = m(null),
+        P = r("useMergeRefs")(a, $),
+        N = m(),
+        M = C != null ? C : N,
+        w = p(f),
+        A = w[0],
+        F = w[1],
+        O = p(x(f)),
+        B = O[0],
+        W = O[1],
+        q;
+      n[2] !== M || n[3] !== x || n[4] !== i || n[5] !== F
+        ? ((q = function (t) {
+            var e,
+              n = x(t);
+            (W(n),
+              F(t),
+              i.onChange == null || i.onChange(t),
+              (e = M.current) == null || e.hidePopover());
+          }),
+          (n[2] = M),
+          (n[3] = x),
+          (n[4] = i),
+          (n[5] = F),
+          (n[6] = q))
+        : (q = n[6]);
+      var U = q,
+        V;
+      n[7] !== A
+        ? ((V = function (t) {
+            return u.jsx(
+              o("WAWebMenuItems.react").ActionMenuItem,
+              babelHelpers.extends({}, t.menuItem, {
+                detailRight:
+                  t.itemKey === A
+                    ? u.jsx(o("WAWebCheckmarkIcon.react").CheckmarkIcon, {
+                        iconXstyle: _.tealColor,
+                      })
+                    : t.menuItem.detailRight,
+              }),
+            );
+          }),
+          (n[7] = A),
+          (n[8] = V))
+        : (V = n[8]);
+      var H = V,
+        G = p(y),
+        z = G[0],
+        j = G[1],
+        K,
+        Q;
+      (n[9] !== y
+        ? ((K = function () {
+            if (y == null) {
+              var e;
+              j((e = $.current) == null ? void 0 : e.clientWidth);
+            }
+          }),
+          (Q = [y]),
+          (n[9] = y),
+          (n[10] = K),
+          (n[11] = Q))
+        : ((K = n[10]), (Q = n[11])),
+        d(K, Q));
+      var X = m(null),
+        Y;
+      n[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Y = function () {
             var e;
-            V((e = D.current) == null ? void 0 : e.clientWidth);
-          }
-        },
-        [y],
+            (e = X.current) == null || e.focus();
+          }),
+          (n[12] = Y))
+        : (Y = n[12]);
+      var J = Y,
+        Z;
+      n[13] !== D ||
+      n[14] !== H ||
+      n[15] !== U ||
+      n[16] !== R ||
+      n[17] !== z ||
+      n[18] !== A
+        ? ((Z = {
+            data: D,
+            material: !0,
+            renderItem: H,
+            initialActiveOptionId: A,
+            onSelect: U,
+            maxHeight: R,
+            minWidth: z,
+            reorderAnimationsEnabled: !1,
+            setFocusRef: X,
+          }),
+          (n[13] = D),
+          (n[14] = H),
+          (n[15] = U),
+          (n[16] = R),
+          (n[17] = z),
+          (n[18] = A),
+          (n[19] = Z))
+        : (Z = n[19]);
+      var ee = Z,
+        te;
+      n[20] !== c || n[21] !== ee || n[22] !== k
+        ? ((te =
+            c === !0
+              ? u.jsx(o("WAWebSearchInput").SearchInput, {
+                  colorScheme: "darker",
+                  onArrowDown: J,
+                  onSearch: k,
+                  padding: [16, 16, 8, 16],
+                  children: u.jsx(
+                    o("WAWebLexicalWAWebMenu.react").LexicalWAWebPerformantMenu,
+                    babelHelpers.extends({}, ee),
+                  ),
+                })
+              : u.jsx(
+                  o("WAWebPerformantMenu.react").WDSPerformantMenu,
+                  babelHelpers.extends({}, ee),
+                )),
+          (n[20] = c),
+          (n[21] = ee),
+          (n[22] = k),
+          (n[23] = te))
+        : (te = n[23]);
+      var ne = te,
+        re = S != null ? S : "100%",
+        oe =
+          v === "link-devices-screen" ? o("WDSThemes").WDSLightTheme : void 0,
+        ae;
+      n[24] !== M || n[25] !== ne || n[26] !== oe
+        ? ((ae = u.jsx(o("WAWebDropdownV2.react").DropdownV2, {
+            alignment: o("WAWebDropdownV2.react").PopoverAlignment.Start,
+            buffer: 4,
+            controllerRef: M,
+            initHandling: "click",
+            material: !0,
+            position: o("WAWebDropdownV2.react").PopoverPosition.Bottom,
+            target: $,
+            xstyle: oe,
+            children: ne,
+          })),
+          (n[24] = M),
+          (n[25] = ne),
+          (n[26] = oe),
+          (n[27] = ae))
+        : (ae = n[27]);
+      var ie;
+      return (
+        n[28] !== B ||
+        n[29] !== P ||
+        n[30] !== ae ||
+        n[31] !== re ||
+        n[32] !== b ||
+        n[33] !== v
+          ? ((ie = u.jsx(o("WAWebSelectButton.react").SelectButton, {
+              label: B,
+              ref: P,
+              testid: void 0,
+              theme: v,
+              width: re,
+              children: ae,
+            })),
+            (n[28] = B),
+            (n[29] = P),
+            (n[30] = ae),
+            (n[31] = re),
+            (n[32] = b),
+            (n[33] = v),
+            (n[34] = ie))
+          : (ie = n[34]),
+        ie
       );
-      var H = m(null),
-        G = function () {
-          var e;
-          (e = H.current) == null || e.focus();
-        },
-        z = {
-          data: I,
-          material: !0,
-          renderItem: W,
-          initialActiveOptionId: M,
-          onSelect: B,
-          maxHeight: h,
-          minWidth: U,
-          reorderAnimationsEnabled: !1,
-          setFocusRef: H,
-        },
-        j =
-          s === !0
-            ? u.jsx(o("WAWebSearchInput").SearchInput, {
-                colorScheme: "darker",
-                onArrowDown: G,
-                onSearch: E,
-                padding: [16, 16, 8, 16],
-                children: u.jsx(
-                  o("WAWebLexicalWAWebMenu.react").LexicalWAWebPerformantMenu,
-                  babelHelpers.extends({}, z),
-                ),
-              })
-            : u.jsx(
-                o("WAWebPerformantMenu.react").WDSPerformantMenu,
-                babelHelpers.extends({}, z),
-              );
-      return u.jsx(o("WAWebSelectButton.react").SelectButton, {
-        label: F,
-        ref: x,
-        testid: void 0,
-        theme: v,
-        width: S != null ? S : "100%",
-        children: u.jsx(o("WAWebDropdownV2.react").DropdownV2, {
-          alignment: o("WAWebDropdownV2.react").PopoverAlignment.Start,
-          buffer: 4,
-          controllerRef: P,
-          initHandling: "click",
-          material: !0,
-          position: o("WAWebDropdownV2.react").PopoverPosition.Bottom,
-          target: D,
-          xstyle:
-            v === "link-devices-screen" ? o("WDSThemes").WDSLightTheme : void 0,
-          children: j,
-        }),
-      });
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.Select = f));
+    l.Select = f;
   },
   98,
 );

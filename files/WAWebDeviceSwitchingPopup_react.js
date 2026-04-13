@@ -11,6 +11,7 @@ __d(
     "WAWebUISpacing",
     "WAWebWdsPictoMovePhoneIcon.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "vulture",
   ],
@@ -97,24 +98,38 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = e.content;
-      return (
-        r("vulture")("RnO40rXatJcT4DqTT2n1yrVDbhI="),
-        c.jsx(o("WAWebFlex.react").FlexRow, {
-          align: "center",
-          justify: "center",
-          xstyle: [
+      var t = o("react-compiler-runtime").c(4),
+        n = e.content;
+      r("vulture")("RnO40rXatJcT4DqTT2n1yrVDbhI=");
+      var a, i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = [
             o("WAWebUISpacing").uiMargin.horiz14,
             o("WAWebUISpacing").uiPadding.top20,
-          ],
-          children: c.jsx("span", {
-            className: "x2b8uid xk50ysn x1q74xe4 x1jzgpr8 x14ug900",
-            children: t,
-          }),
-        })
+          ]),
+          (i = { className: "x2b8uid xk50ysn x1q74xe4 x1jzgpr8 x14ug900" }),
+          (t[0] = a),
+          (t[1] = i))
+        : ((a = t[0]), (i = t[1]));
+      var l;
+      return (
+        t[2] !== n
+          ? ((l = c.jsx(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "center",
+              xstyle: a,
+              children: c.jsx(
+                "span",
+                babelHelpers.extends({}, i, { children: n }),
+              ),
+            })),
+            (t[2] = n),
+            (t[3] = l))
+          : (l = t[3]),
+        l
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

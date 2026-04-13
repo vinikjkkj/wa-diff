@@ -1,6 +1,13 @@
 __d(
   "WAWebListItem.react",
-  ["WAWebCompatibility", "react", "shallowEqual", "stylex", "useWAWebPrevious"],
+  [
+    "WAWebCompatibility",
+    "react",
+    "react-compiler-runtime",
+    "shallowEqual",
+    "stylex",
+    "useWAWebPrevious",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
       s,
@@ -22,42 +29,49 @@ __d(
       h = o("WAWebCompatibility").compatPrefix("transition");
     function y(t) {
       var n,
-        o,
         a,
-        i = t.ref,
-        l = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        u = l.data,
-        d = l.index,
-        m = l.renderItem,
-        y = l.testid,
-        b = l.zIndex,
-        v = p(!0),
-        S = v[0],
-        R = v[1],
-        L = r("useWAWebPrevious")(u.itemKey),
-        E = r("useWAWebPrevious")(u.offset),
-        k = C(l, L, E);
-      k !== S && R(k);
-      var I = S ? g + " " + f + "ms ease-in-out" : "none",
-        T =
-          l.listDirection === "horizontal"
-            ? ((n = { width: u.width }),
-              (n[g] = "translateX(" + u.offset + "px)"),
+        i,
+        l = o("react-compiler-runtime").c(1),
+        u = t.ref,
+        d = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        m = d.data,
+        y = d.index,
+        b = d.renderItem,
+        v = d.testid,
+        S = d.zIndex,
+        R = p(!0),
+        L = R[0],
+        E = R[1],
+        k = r("useWAWebPrevious")(m.itemKey),
+        I = r("useWAWebPrevious")(m.offset),
+        T = C(d, k, I);
+      T !== L && E(T);
+      var D = L ? g + " " + f + "ms ease-in-out" : "none",
+        x =
+          d.listDirection === "horizontal"
+            ? ((n = { width: m.width }),
+              (n[g] = "translateX(" + m.offset + "px)"),
               n)
-            : ((o = { height: u.height }),
-              (o[g] = "translateY(" + u.offset + "px)"),
-              o),
-        D = babelHelpers.extends(((a = { zIndex: b }), (a[h] = I), a), T),
-        x = m(u, d);
-      return c.jsx("div", {
-        ref: i,
-        className: (s || (s = r("stylex")))([_.item]),
-        style: D,
-        onFocus: l.onFocus,
-        role: l.role,
-        "data-testid": void 0,
-        children: x,
-      });
+            : ((a = { height: m.height }),
+              (a[g] = "translateY(" + m.offset + "px)"),
+              a),
+        $ = babelHelpers.extends(((i = { zIndex: S }), (i[h] = D), i), x),
+        P = b(m, y),
+        N;
+      return (
+        l[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((N = (s || (s = r("stylex")))([_.item])), (l[0] = N))
+          : (N = l[0]),
+        c.jsx("div", {
+          ref: u,
+          className: N,
+          style: $,
+          onFocus: d.onFocus,
+          role: d.role,
+          "data-testid": void 0,
+          children: P,
+        })
+      );
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e, t, n) {

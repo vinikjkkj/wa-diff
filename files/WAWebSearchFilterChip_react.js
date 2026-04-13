@@ -1,6 +1,11 @@
 __d(
   "WAWebSearchFilterChip.react",
-  ["WAWebFlex.react", "WAWebKeyboardHotKeys.react", "react"],
+  [
+    "WAWebFlex.react",
+    "WAWebKeyboardHotKeys.react",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -52,59 +57,100 @@ __d(
         },
       };
     function _(e) {
-      var t = e.onClearFilter,
-        n = e.ref,
-        r = e.text,
-        a = e.xstyle,
-        i = d(),
-        l = m(!1),
-        u = l[0],
-        _ = l[1],
-        f = {
-          backspace: function () {
-            u && t();
-          },
-        },
-        g = function () {
-          var e;
-          ((e = i.current) == null || e.focus(), _(!0));
-        },
-        h = function (t) {
-          (t.preventDefault(), g());
-        };
-      return (
-        c(n, function () {
-          return {
-            focus: function () {
-              g();
+      var t = o("react-compiler-runtime").c(16),
+        n = e.onClearFilter,
+        r = e.ref,
+        a = e.text,
+        i = e.xstyle,
+        l = d(),
+        u = m(!1),
+        _ = u[0],
+        f = u[1],
+        g;
+      t[0] !== _ || t[1] !== n
+        ? ((g = {
+            backspace: function () {
+              _ && n();
             },
-            blur: function () {
-              var e;
-              ((e = i.current) == null || e.blur(), _(!1));
-            },
-            isFocused: function () {
-              return u;
-            },
-          };
-        }),
-        s.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-          ref: i,
-          handlers: f,
-          xstyle: a,
-          onClick: h,
-          children: s.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: [
-              p.paddingHoriz4,
-              p.paddingVert2,
-              p.searchChip,
-              u && p.searchChipFocused,
-            ],
-            children: r,
           }),
-        })
+          (t[0] = _),
+          (t[1] = n),
+          (t[2] = g))
+        : (g = t[2]);
+      var h = g,
+        y;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = function () {
+            var e;
+            ((e = l.current) == null || e.focus(), f(!0));
+          }),
+          (t[3] = y))
+        : (y = t[3]);
+      var C = y,
+        b;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = function (t) {
+            (t.preventDefault(), C());
+          }),
+          (t[4] = b))
+        : (b = t[4]);
+      var v = b,
+        S;
+      (t[5] !== _
+        ? ((S = function () {
+            return {
+              focus: function () {
+                C();
+              },
+              blur: function () {
+                var e;
+                ((e = l.current) == null || e.blur(), f(!1));
+              },
+              isFocused: function () {
+                return _;
+              },
+            };
+          }),
+          (t[5] = _),
+          (t[6] = S))
+        : (S = t[6]),
+        c(r, S));
+      var R = _ && p.searchChipFocused,
+        L;
+      t[7] !== R
+        ? ((L = [p.paddingHoriz4, p.paddingVert2, p.searchChip, R]),
+          (t[7] = R),
+          (t[8] = L))
+        : (L = t[8]);
+      var E;
+      t[9] !== L || t[10] !== a
+        ? ((E = s.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: L,
+            children: a,
+          })),
+          (t[9] = L),
+          (t[10] = a),
+          (t[11] = E))
+        : (E = t[11]);
+      var k;
+      return (
+        t[12] !== h || t[13] !== E || t[14] !== i
+          ? ((k = s.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+              ref: l,
+              handlers: h,
+              xstyle: i,
+              onClick: v,
+              children: E,
+            })),
+            (t[12] = h),
+            (t[13] = E),
+            (t[14] = i),
+            (t[15] = k))
+          : (k = t[15]),
+        k
       );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   98,
 );

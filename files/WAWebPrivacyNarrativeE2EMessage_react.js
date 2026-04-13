@@ -12,6 +12,7 @@ __d(
     "WAWebTabOrder",
     "WAWebWamEnumPrivacyHighlightSurfaceEnum",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -51,102 +52,143 @@ __d(
         },
       };
     function p(e) {
-      var t = e.tabOrder,
-        n = function () {
-          o("WAWebModalManager").ModalManager.open(
-            c.jsx(o("WAWebE2EInfoModalV2.react").E2eInfoModalV2, {
-              highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
-                .PRIVACY_HIGHLIGHT_SURFACE_ENUM.CHATS_LIST,
-              url: o("WAWebPrinaUtils").securityUrl(),
-            }),
-          );
-        },
-        a = s._(/*BTDS*/ "Your personal messages are {=m2}", [
+      var t = o("react-compiler-runtime").c(2),
+        n = e.tabOrder,
+        a = _,
+        i;
+      if (t[0] !== n) {
+        var l = s._(/*BTDS*/ "Your personal messages are {=m2}", [
           s._implicitParam(
             "=m2",
             c.jsx(r("WAWebClickableLink.react"), {
               testid: void 0,
-              onClick: n,
+              onClick: a,
               tabIndex: 0,
               "data-tab":
-                t != null ? t : o("WAWebTabOrder").TAB_ORDER.E2E_MESSAGE_BTN,
+                n != null ? n : o("WAWebTabOrder").TAB_ORDER.E2E_MESSAGE_BTN,
               children: s._(/*BTDS*/ "end-to-end encrypted"),
             }),
           ),
         ]);
-      return c.jsx(g, {
-        testid: void 0,
-        iconXstyle: m.chatListIcon,
-        text: a,
-        xstyle: m.chatListContainer,
-        highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
-          .PRIVACY_HIGHLIGHT_SURFACE_ENUM.CHATS_LIST,
-      });
+        ((i = c.jsx(C, {
+          testid: void 0,
+          iconXstyle: m.chatListIcon,
+          text: l,
+          xstyle: m.chatListContainer,
+          highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
+            .PRIVACY_HIGHLIGHT_SURFACE_ENUM.CHATS_LIST,
+        })),
+          (t[0] = n),
+          (t[1] = i));
+      } else i = t[1];
+      return i;
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _() {
-      var e = function () {
-          o("WAWebModalManager").ModalManager.open(
-            c.jsx(o("WAWebE2EInfoModalV2.react").E2eInfoModalStatus, {
+      o("WAWebModalManager").ModalManager.open(
+        c.jsx(o("WAWebE2EInfoModalV2.react").E2eInfoModalV2, {
+          highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
+            .PRIVACY_HIGHLIGHT_SURFACE_ENUM.CHATS_LIST,
+          url: o("WAWebPrinaUtils").securityUrl(),
+        }),
+      );
+    }
+    function f() {
+      var e = o("react-compiler-runtime").c(3),
+        t = g,
+        n;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = s._(/*BTDS*/ "Your status updates are {=m2}", [
+            s._implicitParam(
+              "=m2",
+              c.jsx(r("WAWebClickableLink.react"), {
+                tabIndex: 0,
+                testid: void 0,
+                onClick: t,
+                children: s._(/*BTDS*/ "end-to-end encrypted"),
+              }),
+            ),
+          ])),
+          (e[0] = n))
+        : (n = e[0]);
+      var a = n,
+        i;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [m.statusListIcon, m.secondaryColors]), (e[1] = i))
+        : (i = e[1]);
+      var l;
+      return (
+        e[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((l = c.jsx(C, {
+              testid: void 0,
+              iconXstyle: i,
+              text: a,
+              xstyle: [m.statusListContainer, m.secondaryColors],
               highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
                 .PRIVACY_HIGHLIGHT_SURFACE_ENUM.STATUS_LIST,
-              url: o("WAWebPrinaUtils").securityUrl(),
-            }),
-          );
-        },
-        t = s._(/*BTDS*/ "Your status updates are {=m2}", [
-          s._implicitParam(
-            "=m2",
-            c.jsx(r("WAWebClickableLink.react"), {
-              tabIndex: 0,
-              testid: void 0,
-              onClick: e,
-              children: s._(/*BTDS*/ "end-to-end encrypted"),
-            }),
-          ),
-        ]);
-      return c.jsx(g, {
-        testid: void 0,
-        iconXstyle: [m.statusListIcon, m.secondaryColors],
-        text: t,
-        xstyle: [m.statusListContainer, m.secondaryColors],
-        highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
-          .PRIVACY_HIGHLIGHT_SURFACE_ENUM.STATUS_LIST,
-      });
+            })),
+            (e[2] = l))
+          : (l = e[2]),
+        l
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
-    function f() {
-      var e = function () {
-          o("WAWebModalManager").ModalManager.open(
-            c.jsx(o("WAWebE2EInfoModalV2.react").E2eInfoModalV2, {
+    function g() {
+      o("WAWebModalManager").ModalManager.open(
+        c.jsx(o("WAWebE2EInfoModalV2.react").E2eInfoModalStatus, {
+          highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
+            .PRIVACY_HIGHLIGHT_SURFACE_ENUM.STATUS_LIST,
+          url: o("WAWebPrinaUtils").securityUrl(),
+        }),
+      );
+    }
+    function h() {
+      var e = o("react-compiler-runtime").c(3),
+        t = y,
+        n;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = s._(/*BTDS*/ "Your personal calls are {=m2}", [
+            s._implicitParam(
+              "=m2",
+              c.jsx(r("WAWebClickableLink.react"), {
+                tabIndex: 0,
+                testid: void 0,
+                onClick: t,
+                children: s._(/*BTDS*/ "end-to-end encrypted"),
+              }),
+            ),
+          ])),
+          (e[0] = n))
+        : (n = e[0]);
+      var a = n,
+        i;
+      e[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [m.chatListIcon, m.secondaryColors]), (e[1] = i))
+        : (i = e[1]);
+      var l;
+      return (
+        e[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((l = c.jsx(C, {
+              testid: void 0,
+              iconXstyle: i,
+              text: a,
+              xstyle: [m.chatListContainer, m.secondaryColors],
               highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
                 .PRIVACY_HIGHLIGHT_SURFACE_ENUM.CALLS_LIST,
-              url: o("WAWebPrinaUtils").securityUrl(),
-            }),
-          );
-        },
-        t = s._(/*BTDS*/ "Your personal calls are {=m2}", [
-          s._implicitParam(
-            "=m2",
-            c.jsx(r("WAWebClickableLink.react"), {
-              tabIndex: 0,
-              testid: void 0,
-              onClick: e,
-              children: s._(/*BTDS*/ "end-to-end encrypted"),
-            }),
-          ),
-        ]);
-      return c.jsx(g, {
-        testid: void 0,
-        iconXstyle: [m.chatListIcon, m.secondaryColors],
-        text: t,
-        xstyle: [m.chatListContainer, m.secondaryColors],
-        highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
-          .PRIVACY_HIGHLIGHT_SURFACE_ENUM.CALLS_LIST,
-      });
+            })),
+            (e[2] = l))
+          : (l = e[2]),
+        l
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(t) {
+    function y() {
+      o("WAWebModalManager").ModalManager.open(
+        c.jsx(o("WAWebE2EInfoModalV2.react").E2eInfoModalV2, {
+          highlightSurface: o("WAWebWamEnumPrivacyHighlightSurfaceEnum")
+            .PRIVACY_HIGHLIGHT_SURFACE_ENUM.CALLS_LIST,
+          url: o("WAWebPrinaUtils").securityUrl(),
+        }),
+      );
+    }
+    function C(t) {
       var n = t.highlightSurface,
         a = t.iconXstyle,
         i = t.testid,
@@ -178,11 +220,11 @@ __d(
         ),
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
+    ((C.displayName = C.name + " [from " + i.id + "]"),
       (l.E2eMessageChatList = p),
-      (l.E2eMessageStatusList = _),
-      (l.E2eMessageCallsList = f),
-      (l.E2eMessage = g));
+      (l.E2eMessageStatusList = f),
+      (l.E2eMessageCallsList = h),
+      (l.E2eMessage = C));
   },
   226,
 );

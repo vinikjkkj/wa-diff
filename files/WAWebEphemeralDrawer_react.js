@@ -34,6 +34,7 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebNux",
     "useWAWebOnUnmount",
     "useWAWebUIM",
@@ -56,30 +57,56 @@ __d(
         title: { marginBottom: "xefnzgg", marginTop: "x98l61r", $$css: !0 },
       };
     function f(e) {
-      var t = e.onClick;
-      return s._(/*BTDS*/ "Update your {=m1} in Settings", [
-        s._implicitParam(
-          "=m1",
-          c.jsx(r("WAWebClickableLink.react"), {
-            onClick: t,
-            tabIndex: 0,
-            children: s._(/*BTDS*/ "default message timer"),
-          }),
-        ),
-      ]);
+      var t = o("react-compiler-runtime").c(2),
+        n = e.onClick,
+        a;
+      return (
+        t[0] !== n
+          ? ((a = s._(/*BTDS*/ "Update your {=m1} in Settings", [
+              s._implicitParam(
+                "=m1",
+                c.jsx(r("WAWebClickableLink.react"), {
+                  onClick: n,
+                  tabIndex: 0,
+                  children: s._(/*BTDS*/ "default message timer"),
+                }),
+              ),
+            ])),
+            (t[0] = n),
+            (t[1] = a))
+          : (a = t[1]),
+        a
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = e.onClick;
-      return c.jsx("div", {
-        className: "x1ubxc9n",
-        children: c.jsx(o("WAWebText.react").WAWebTextMuted, {
-          margin: [16, 0],
-          children: c.jsx(f, { onClick: t }),
-        }),
-      });
+      var t = o("react-compiler-runtime").c(4),
+        n = e.onClick,
+        r;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = { className: "x1ubxc9n" }), (t[0] = r))
+        : (r = t[0]);
+      var a;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = [16, 0]), (t[1] = a))
+        : (a = t[1]);
+      var i;
+      return (
+        t[2] !== n
+          ? ((i = c.jsx(
+              "div",
+              babelHelpers.extends({}, r, {
+                children: c.jsx(o("WAWebText.react").WAWebTextMuted, {
+                  margin: a,
+                  children: c.jsx(f, { onClick: n }),
+                }),
+              }),
+            )),
+            (t[2] = n),
+            (t[3] = i))
+          : (i = t[3]),
+        i
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(t) {
       var a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e),

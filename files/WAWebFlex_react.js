@@ -1,6 +1,6 @@
 __d(
   "WAWebFlex.react",
-  ["WAWebFlexItem.react", "react"],
+  ["WAWebFlexItem.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
       s = [
@@ -40,61 +40,151 @@ __d(
         baseline: { alignItems: "x1pha0wt", $$css: !0 },
       };
     function h(t) {
-      var n = t.ref,
-        o = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        a = o.align,
-        i = a === void 0 ? "start" : a,
-        l = o.alignSelf,
-        u = o.className,
-        c = o.direction,
-        d = o.justify,
-        h = d === void 0 ? "start" : d,
-        y = o.justifySelf,
-        C = o.xstyle,
-        b = babelHelpers.objectWithoutPropertiesLoose(o, s);
-      return m.jsx(
-        r("WAWebFlexItem.react"),
-        babelHelpers.extends(
-          {
-            className: u,
-            xstyle: [p.flex, _[h], f[c], g[i], C],
-            align: l,
-            justify: y,
-            isFlexContainer: !0,
-            ref: n,
-          },
-          b,
-        ),
+      var n = o("react-compiler-runtime").c(24),
+        a,
+        i;
+      n[0] !== t
+        ? ((i = t.ref),
+          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i))
+        : ((a = n[1]), (i = n[2]));
+      var l, u, c, d, h, y, C, b;
+      if (n[3] !== a) {
+        var v = a;
+        ((y = v.align),
+          (l = v.alignSelf),
+          (u = v.className),
+          (c = v.direction),
+          (C = v.justify),
+          (d = v.justifySelf),
+          (b = v.xstyle),
+          (h = babelHelpers.objectWithoutPropertiesLoose(v, s)),
+          (n[3] = a),
+          (n[4] = l),
+          (n[5] = u),
+          (n[6] = c),
+          (n[7] = d),
+          (n[8] = h),
+          (n[9] = y),
+          (n[10] = C),
+          (n[11] = b));
+      } else
+        ((l = n[4]),
+          (u = n[5]),
+          (c = n[6]),
+          (d = n[7]),
+          (h = n[8]),
+          (y = n[9]),
+          (C = n[10]),
+          (b = n[11]));
+      var S = y === void 0 ? "start" : y,
+        R = C === void 0 ? "start" : C,
+        L = _[R],
+        E = f[c],
+        k = g[S],
+        I;
+      n[12] !== L || n[13] !== E || n[14] !== k || n[15] !== b
+        ? ((I = [p.flex, L, E, k, b]),
+          (n[12] = L),
+          (n[13] = E),
+          (n[14] = k),
+          (n[15] = b),
+          (n[16] = I))
+        : (I = n[16]);
+      var T;
+      return (
+        n[17] !== l ||
+        n[18] !== u ||
+        n[19] !== d ||
+        n[20] !== i ||
+        n[21] !== h ||
+        n[22] !== I
+          ? ((T = m.jsx(
+              r("WAWebFlexItem.react"),
+              babelHelpers.extends(
+                {
+                  className: u,
+                  xstyle: I,
+                  align: l,
+                  justify: d,
+                  isFlexContainer: !0,
+                  ref: i,
+                },
+                h,
+              ),
+            )),
+            (n[17] = l),
+            (n[18] = u),
+            (n[19] = d),
+            (n[20] = i),
+            (n[21] = h),
+            (n[22] = I),
+            (n[23] = T))
+          : (T = n[23]),
+        T
       );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, u);
-      return m.jsx(
-        h,
-        babelHelpers.extends({}, n, {
-          direction: "horizontal",
-          ref: t,
-          children: n.children,
-        }),
+      var t = o("react-compiler-runtime").c(6),
+        n,
+        r;
+      t[0] !== e
+        ? ((r = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, u)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r))
+        : ((n = t[1]), (r = t[2]));
+      var a;
+      return (
+        t[3] !== n || t[4] !== r
+          ? ((a = m.jsx(
+              h,
+              babelHelpers.extends({}, n, {
+                direction: "horizontal",
+                ref: r,
+                children: n.children,
+              }),
+            )),
+            (t[3] = n),
+            (t[4] = r),
+            (t[5] = a))
+          : (a = t[5]),
+        a
       );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, c);
-      return m.jsx(
-        h,
-        babelHelpers.extends({}, n, {
-          direction: "vertical",
-          ref: t,
-          children: n.children,
-        }),
+      var t = o("react-compiler-runtime").c(6),
+        n,
+        r;
+      t[0] !== e
+        ? ((r = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, c)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r))
+        : ((n = t[1]), (r = t[2]));
+      var a;
+      return (
+        t[3] !== n || t[4] !== r
+          ? ((a = m.jsx(
+              h,
+              babelHelpers.extends({}, n, {
+                direction: "vertical",
+                ref: r,
+                children: n.children,
+              }),
+            )),
+            (t[3] = n),
+            (t[4] = r),
+            (t[5] = a))
+          : (a = t[5]),
+        a
       );
     }
-    ((C.displayName = C.name + " [from " + i.id + "]"),
-      (l.FlexItem = r("WAWebFlexItem.react")),
+    ((l.FlexItem = r("WAWebFlexItem.react")),
       (l.FlexContainer = h),
       (l.FlexRow = y),
       (l.FlexColumn = C));
