@@ -21,7 +21,6 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -33,24 +32,16 @@ __d(
       _ = d.useState,
       f = o("WAWebChatContact.react").ContactFactory();
     function g(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.contact,
-        r;
-      return (
-        t[0] !== n
-          ? ((r = c.jsx(f, {
-              contact: n,
-              theme: "drawer-list",
-              showNotifyName: !0,
-              waitIdle: !0,
-              idle: !0,
-            })),
-            (t[0] = n),
-            (t[1] = r))
-          : (r = t[1]),
-        r
-      );
+      var t = e.contact;
+      return c.jsx(f, {
+        contact: t,
+        theme: "drawer-list",
+        showNotifyName: !0,
+        waitIdle: !0,
+        idle: !0,
+      });
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
       var t = e.chat,
         a = e.groupMetadata,

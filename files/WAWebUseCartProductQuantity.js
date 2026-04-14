@@ -1,11 +1,6 @@
 __d(
   "WAWebUseCartProductQuantity",
-  [
-    "WAWebCartCollection",
-    "react",
-    "react-compiler-runtime",
-    "useWAWebListener",
-  ],
+  ["WAWebCartCollection", "react", "useWAWebListener"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -51,81 +46,57 @@ __d(
         );
       };
     function f(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n;
-      t[0] !== e ? ((n = m(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var r = n,
-        a;
-      t[2] !== r || t[3] !== e.id
-        ? ((a = p(e.id.toString(), r)), (t[2] = r), (t[3] = e.id), (t[4] = a))
-        : (a = t[4]);
-      var i = d(a),
-        l = i[0],
-        s = i[1],
-        c,
-        _;
-      (t[5] !== r || t[6] !== e.id
-        ? ((c = function () {
-            s(p(e.id.toString(), r));
-          }),
-          (_ = [e.id, r]),
-          (t[5] = r),
-          (t[6] = e.id),
-          (t[7] = c),
-          (t[8] = _))
-        : ((c = t[7]), (_ = t[8])),
-        u(c, _));
-      var f;
+      var t = c(
+          function () {
+            return m(e);
+          },
+          [e],
+        ),
+        n = d(p(e.id.toString(), t)),
+        r = n[0],
+        a = n[1];
       return (
-        t[9] !== r || t[10] !== e.id
-          ? ((f = function () {
-              s(p(e.id.toString(), r));
-            }),
-            (t[9] = r),
-            (t[10] = e.id),
-            (t[11] = f))
-          : (f = t[11]),
-        o("useWAWebListener").useListener(r, "change:cartItemCollection", f),
-        l
+        u(
+          function () {
+            a(p(e.id.toString(), t));
+          },
+          [e.id, t],
+        ),
+        o("useWAWebListener").useListener(
+          t,
+          "change:cartItemCollection",
+          function () {
+            a(p(e.id.toString(), t));
+          },
+        ),
+        r
       );
     }
     function g(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n;
-      t[0] !== e ? ((n = m(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var r = n,
-        a;
-      t[2] !== r || t[3] !== e
-        ? ((a = _(e, r)), (t[2] = r), (t[3] = e), (t[4] = a))
-        : (a = t[4]);
-      var i = d(a),
-        l = i[0],
-        s = i[1],
-        c,
-        p;
-      (t[5] !== r || t[6] !== e
-        ? ((c = function () {
-            s(_(e, r));
-          }),
-          (p = [e, r]),
-          (t[5] = r),
-          (t[6] = e),
-          (t[7] = c),
-          (t[8] = p))
-        : ((c = t[7]), (p = t[8])),
-        u(c, p));
-      var f;
+      var t = c(
+          function () {
+            return m(e);
+          },
+          [e],
+        ),
+        n = d(_(e, t)),
+        r = n[0],
+        a = n[1];
       return (
-        t[9] !== r || t[10] !== e
-          ? ((f = function () {
-              s(_(e, r));
-            }),
-            (t[9] = r),
-            (t[10] = e),
-            (t[11] = f))
-          : (f = t[11]),
-        o("useWAWebListener").useListener(r, "change:cartItemCollection", f),
-        l
+        u(
+          function () {
+            a(_(e, t));
+          },
+          [e, t],
+        ),
+        o("useWAWebListener").useListener(
+          t,
+          "change:cartItemCollection",
+          function () {
+            a(_(e, t));
+          },
+        ),
+        r
       );
     }
     ((l.useCartProductQuantity = f), (l.useCartProductQuantityMultiple = g));

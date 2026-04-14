@@ -1,6 +1,6 @@
 __d(
   "WAWebPollsOptionBar",
-  ["WAWebBar.react", "react", "react-compiler-runtime"],
+  ["WAWebBar.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -15,40 +15,29 @@ __d(
       };
     function c(e) {
       var t,
-        n = o("react-compiler-runtime").c(4),
-        a = e.checked,
-        i = e.isAdminOrOwner,
-        l = e.isCorrectOption,
-        c = e.isPollSentByMe,
-        d = e.result,
-        m;
-      l != null
-        ? a
-          ? (m = l ? u.quizCheckedCorrectOption : u.quizCheckedWrongOption)
-          : (m = l && !i ? u.quizCheckedCorrectOption : u.quizUnchecked)
-        : (m = c ? u.barSender : u.barReceiver);
-      var p = c ? u.barContainerSender : u.barContainerReceiver,
-        _ =
-          (t = d == null ? void 0 : d.percentageOfMostVotedForOption) != null
-            ? t
-            : 0,
-        f;
+        n = e.checked,
+        o = e.isAdminOrOwner,
+        a = e.isCorrectOption,
+        i = e.isPollSentByMe,
+        l = e.result,
+        c;
       return (
-        n[0] !== m || n[1] !== p || n[2] !== _
-          ? ((f = s.jsx(r("WAWebBar.react"), {
-              barXStyle: m,
-              containerXStyle: p,
-              percentage: _,
-            })),
-            (n[0] = m),
-            (n[1] = p),
-            (n[2] = _),
-            (n[3] = f))
-          : (f = n[3]),
-        f
+        a != null
+          ? n
+            ? (c = a ? u.quizCheckedCorrectOption : u.quizCheckedWrongOption)
+            : (c = a && !o ? u.quizCheckedCorrectOption : u.quizUnchecked)
+          : (c = i ? u.barSender : u.barReceiver),
+        s.jsx(r("WAWebBar.react"), {
+          barXStyle: c,
+          containerXStyle: i ? u.barContainerSender : u.barContainerReceiver,
+          percentage:
+            (t = l == null ? void 0 : l.percentageOfMostVotedForOption) != null
+              ? t
+              : 0,
+        })
       );
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

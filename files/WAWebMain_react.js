@@ -164,10 +164,48 @@ __d(
         r("WAWebHasBlockingCallState")()
       );
     }
-    var $ = 6e4,
-      P = "xrbhvgu-B",
-      N = "x1h4ohyg-B",
-      M = {
+    var $ = 6e4;
+    function P(e, t, r) {
+      var a = e ? $ : 0;
+      t.current = new AbortController();
+      var i = t.current.signal;
+      o("WAPromiseLoop")
+        .promiseLoop(
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                try {
+                  if ((yield o("WAPromiseDelays").delayMs(a), i.aborted))
+                    throw new (o("WAAbortError").AbortError)();
+                  if (
+                    (o("WAWebStreamModel").Stream.markUnavailable(3e4),
+                    yield new (f || (f = n("Promise")))(function (e) {
+                      r.current = e;
+                    }),
+                    i.aborted)
+                  )
+                    throw new (o("WAAbortError").AbortError)();
+                  (document.hasFocus() &&
+                    o("WAWebStreamModel").Stream.markAvailable(),
+                    (a = $));
+                } catch (t) {
+                  if (t.name === o("WAAbortError").ABORT_ERROR) e();
+                  else throw t;
+                }
+              },
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })(),
+        )
+        .finally(function () {
+          t.current = null;
+        });
+    }
+    var N = "xrbhvgu-B",
+      M = "x1h4ohyg-B",
+      w = {
         app: {
           position: "x1n2onr6",
           top: "x13vifvy",
@@ -276,7 +314,7 @@ __d(
           $$css: !0,
         },
       };
-    function w(e) {
+    function A(e) {
       var t,
         a,
         i,
@@ -292,10 +330,10 @@ __d(
           (r("WAWebEnvironment").isWindows ||
             o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.WINDOWS))) &&
         (d = !0);
-      var g = o("useWAWebABPropConfigValue").useABPropConfigValue(
+      var f = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "wds_web_toast",
         ),
-        y =
+        g =
           (n("cr:23046") == null
             ? void 0
             : n("cr:23046").isWindowsHybridEnabled()) === !0;
@@ -317,15 +355,15 @@ __d(
             return;
           }
         }, []));
-      var T = S(null),
+      var y = S(null),
+        T = S(null),
         x = S(null),
-        P = S(null),
+        $ = S(null),
         N = S(null),
-        w = S(null),
-        O = S(null),
-        B = S(!1),
-        W = S(null),
-        q = r("useLazyRef")(function () {
+        M = S(null),
+        A = S(!1),
+        B = S(null),
+        W = r("useLazyRef")(function () {
           return new (o("WAShiftTimer").ShiftTimer)(function () {
             if (document.activeElement === document.body) {
               var e = o("WAWebUim").UIM.Manager.getTop();
@@ -333,37 +371,37 @@ __d(
             }
           });
         }),
-        U = R(!1),
-        V = U[0],
-        H = U[1],
-        G = R(!1),
-        z = G[0],
-        j = G[1],
-        K = function () {
-          q.current.debounce(10);
+        q = R(!1),
+        U = q[0],
+        V = q[1],
+        H = R(!1),
+        G = H[0],
+        z = H[1],
+        j = function () {
+          W.current.debounce(10);
         },
-        Q = o("useWAWebAdjustableChatListWidth").useAdjustableChatListWidth(),
-        X = Q.leftDrawerStyle,
-        Y = Q.resizeHandle,
-        J = Q.rightDrawerStyle,
-        Z = r("useCurrentRoute")(),
-        ee = R(function () {
-          var e = Z == null ? void 0 : Z.url;
+        K = o("useWAWebAdjustableChatListWidth").useAdjustableChatListWidth(),
+        Q = K.leftDrawerStyle,
+        X = K.resizeHandle,
+        Y = K.rightDrawerStyle,
+        J = r("useCurrentRoute")(),
+        Z = R(function () {
+          var e = J == null ? void 0 : J.url;
           return e != null
             ? o("WAWebNavBarCometRouting").getNavBarItemForRouteUrl(e)
             : o("WAWebNavBarTypes").NavBarItems.Chats;
         }),
-        te = ee[0],
-        ne = ee[1],
-        re = C(
+        ee = Z[0],
+        te = Z[1],
+        ne = C(
           function (e) {
-            (e !== te &&
+            (e !== ee &&
               o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
-              ne(e));
+              te(e));
           },
-          [te],
+          [ee],
         ),
-        oe = C(
+        re = C(
           function (e, t) {
             if (
               (o("WAWebDrawerCoordination").closeConflictingDrawer(e, t),
@@ -371,42 +409,42 @@ __d(
             ) {
               if (t === "opened") {
                 var n;
-                (n = P.current) == null || n.onLeftDrawerOpen();
+                (n = x.current) == null || n.onLeftDrawerOpen();
               } else if (t === "closed") {
                 var r;
-                ((r = P.current) == null || r.onLeftDrawerClose(),
-                  re(o("WAWebNavBarTypes").NavBarItems.Chats));
+                ((r = x.current) == null || r.onLeftDrawerClose(),
+                  ne(o("WAWebNavBarTypes").NavBarItems.Chats));
               }
             } else
               e === "right" &&
                 (t === "opened"
-                  ? ((B.current = !1),
+                  ? ((A.current = !1),
                     o("WAWebCmd").Cmd.onPanesWillChange(3),
-                    H(!0),
-                    j(!0),
+                    V(!0),
+                    z(!0),
                     o("WAWebCmd").Cmd.onPanesDidChange(3))
                   : (t === "closed" || t === "replaced") &&
-                    ((B.current = !0), j(!0), H(!1)));
+                    ((A.current = !0), z(!0), V(!1)));
           },
-          [re],
+          [ne],
         ),
-        ae = function () {
-          (j(!1), V && B.current && H(!1));
+        oe = function () {
+          (z(!1), U && A.current && V(!1));
         };
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "set_active_nav_bar",
-        re,
+        ne,
       );
-      var ie = R(0),
-        le = ie[0],
-        se = ie[1];
+      var ae = R(0),
+        ie = ae[0],
+        le = ae[1];
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "rerender_app",
         function () {},
       );
-      var ue = function (t) {
+      var se = function (t) {
           var e,
             n,
             r,
@@ -421,7 +459,7 @@ __d(
                   : n.existsDrawer()) != null
                 ? e
                 : !1,
-            s = P.current;
+            s = x.current;
           i = i || (l && !!(s != null && s.containsDOMNode(t)));
           var u =
               (r =
@@ -432,10 +470,10 @@ __d(
                   : a.existsDrawer()) != null
                 ? r
                 : !1,
-            c = w.current;
+            c = N.current;
           return ((i = i || (u && !!(c != null && c.containsDOMNode(t)))), i);
         },
-        ce = function () {
+        ue = function () {
           switch (o("WAWebConnModel").Conn.tos) {
             case 1:
             case 2:
@@ -457,14 +495,14 @@ __d(
               break;
           }
         },
-        de = function () {
+        ce = function () {
           o("WAWebConnModel").Conn.smbTos &&
             o("WAWebModalManager").ModalManager.open(
               h.jsx(r("WAWebBizSmbTosModal.react"), {}),
               { blockClose: !0 },
             );
         },
-        me = function () {
+        de = function () {
           o("isNonZeroNumber").isNonZeroNumber(
             r("WAWebNoticeModel").noticeId,
           ) &&
@@ -476,7 +514,7 @@ __d(
               { blockClose: !0 },
             );
         },
-        pe = function (t) {
+        me = function (t) {
           for (
             var e = t.target,
               n = function (t) {
@@ -499,47 +537,9 @@ __d(
             ),
             t.preventDefault());
         },
-        _e = function (t) {
-          var e = t ? $ : 0;
-          O.current = new AbortController();
-          var r = O.current.signal;
-          o("WAPromiseLoop")
-            .promiseLoop(
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    try {
-                      if ((yield o("WAPromiseDelays").delayMs(e), r.aborted))
-                        throw new (o("WAAbortError").AbortError)();
-                      if (
-                        (o("WAWebStreamModel").Stream.markUnavailable(3e4),
-                        yield new (f || (f = n("Promise")))(function (e) {
-                          W.current = e;
-                        }),
-                        r.aborted)
-                      )
-                        throw new (o("WAAbortError").AbortError)();
-                      (document.hasFocus() &&
-                        o("WAWebStreamModel").Stream.markAvailable(),
-                        (e = $));
-                    } catch (e) {
-                      if (e.name === o("WAAbortError").ABORT_ERROR) t();
-                      else throw e;
-                    }
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            )
-            .finally(function () {
-              O.current = null;
-            });
-        },
-        fe = function () {
+        pe = function () {
           var e;
-          (e = O.current) == null || e.abort();
+          (e = M.current) == null || e.abort();
         };
       (o("WAWebLoggerImpl").Logger.setSkipLoggingForProdLowEndDevice(),
         o("WAWebLoggerImpl").Logger.maybeUpdateLogCapacityFromABProp(),
@@ -600,12 +600,12 @@ __d(
                   r("WAWebKeyboardEventConstants").Events.LOGGED_IN,
               );
             }),
-            _e(!0),
+            P(!0, M, B),
             o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiEnabled() &&
               o("WAWebAnimatedEmojiAssetLoader").initAnimatedEmojiAssets(t),
-            o("WAWebConnModel").Conn.isSMB && de(),
-            ce(),
-            me(),
+            o("WAWebConnModel").Conn.isSMB && ce(),
+            ue(),
+            de(),
             o("WAWebUA").UA.isSafari &&
               !o("WAGetUserMedia").getUserMedia &&
               o("WAWebUserPrefsNuxPreferences").shouldShowNUX(
@@ -674,7 +674,7 @@ __d(
             o("WAWebAppRatingDialogTrigger").checkAndTriggerAppRatingDialog());
         }, []),
         r("useWAWebOnUnmount")(function () {
-          (q.current.cancel(),
+          (W.current.cancel(),
             r("WAWebKeyboardManager").menuBatchRenderWith(function () {
               r("WAWebKeyboardManager").trigger(
                 r("WAWebKeyboardEventConstants").Event +
@@ -686,12 +686,12 @@ __d(
               !o("WAWebCometRouterGating").isCometRouterIntegrationEnabled() &&
               window.history.back(),
             (o("WAWebStreamModel").Stream.uiActive = !1),
-            fe());
+            pe());
         }));
-      var ge = r("WAWebURLUtils").canMuckHistory();
-      (o("useWAWebListener").useListener(ge ? window : null, "popstate", D),
+      var _e = r("WAWebURLUtils").canMuckHistory();
+      (o("useWAWebListener").useListener(_e ? window : null, "popstate", D),
         v(function () {
-          ge && D();
+          _e && D();
         }, []),
         v(function () {
           var e = getComputedStyle(document.documentElement);
@@ -701,32 +701,32 @@ __d(
         o("useWAWebListener").useListener(
           o("WAWebConnModel").Conn,
           "change:tos",
-          ce,
+          ue,
         ),
         o("useWAWebListener").useListener(
           o("WAWebConnModel").Conn.isSMB ? o("WAWebConnModel").Conn : null,
           "change:smbTos",
-          de,
+          ce,
         ),
         o("useWAWebListener").useListener(
           r("WAWebNoticeModel"),
           ["change:blocking", "change:noticeId"],
-          me,
+          de,
         ),
         o("useWAWebListener").useListener(
           document,
           "wheel",
           o("WAWebMouseManager").mouseWheelListener,
         ));
-      var he = function () {
-        (W.current == null || W.current(), (W.current = null));
+      var fe = function () {
+        (B.current == null || B.current(), (B.current = null));
       };
       (o("useWAWebListener").useListener(
         document,
         ["mousemove", "scroll", "keydown"],
-        he,
+        fe,
       ),
-        o("useWAWebListener").useListener(window, ["focus", "resize"], he),
+        o("useWAWebListener").useListener(window, ["focus", "resize"], fe),
         v(function () {
           o("WAWebDeviceCapabilitiesBootstrap").bootstrapDeviceCapabilities();
         }, []),
@@ -752,18 +752,18 @@ __d(
                   .sendLogs("integrity-challenge-opener-load-failed");
               });
         }, []));
-      var ye = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          ((t = { three: V, two: !V, "app-animating": z }),
+      var ge = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          ((t = { three: U, two: !U, "app-animating": G }),
           (t._aigs = !0),
           (t._as6h = !0),
           t),
-          (_ || (_ = r("stylex")))([M.app, !l && M.appNoAnimation]),
+          (_ || (_ = r("stylex")))([w.app, !l && w.appNoAnimation]),
         ),
-        Ce,
-        be;
-      (n("cr:593") != null && y && (be = h.jsx(n("cr:593"), {})),
+        he,
+        ye;
+      (n("cr:593") != null && g && (ye = h.jsx(n("cr:593"), {})),
         o("useWAWebExternalBetaOptIn").useExternalBetaValidator());
-      var ve = h.jsxs("div", {
+      var Ce = h.jsxs("div", {
           className:
             "x10l6tqk x13vifvy x1o0tod x78zum5 xh8yej3 x5yr21d x6ikm8r x10wlt62 x47corl",
           children: [
@@ -771,27 +771,27 @@ __d(
               className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
                 "_aigw",
                 "_as6h",
-                y && "_asu3",
+                g && "_asu3",
                 _([
-                  M.paneOneDrawerWithNavBar,
-                  M.pane,
-                  M.paneOne,
-                  M.sidePaneMaxWidth,
-                  M.paneOneDrawer,
-                  y && [
-                    M.paneWindowsHybrid,
-                    M.paneOneWindowsHybrid,
-                    M.sidePaneWidthWindowsHybrid,
+                  w.paneOneDrawerWithNavBar,
+                  w.pane,
+                  w.paneOne,
+                  w.sidePaneMaxWidth,
+                  w.paneOneDrawer,
+                  g && [
+                    w.paneWindowsHybrid,
+                    w.paneOneWindowsHybrid,
+                    w.sidePaneWidthWindowsHybrid,
                   ],
-                  M.navbarBorder,
+                  w.navbarBorder,
                 ]),
               ),
-              style: X,
+              style: Q,
               "data-testid": void 0,
               children: h.jsx(o("hero-tracing").HeroPagelet, {
                 name: "Left Drawer Manager",
                 observeTextMutation: !0,
-                children: A,
+                children: F,
               }),
             }),
             h.jsx(
@@ -807,20 +807,20 @@ __d(
                     className:
                       "x9f619 x1n2onr6 x5yr21d x6ikm8r x10wlt62 x17dzmu4 x1i1dayz x2ipvbc xjdofhw xyyilfv x1iyjqo2 xpilrb4 x1t7ytsu x1vb5itz x12xzxwr x178xt8z x13fuv20 xx42vgk",
                   },
-                }[!!y << 0],
+                }[!!g << 0],
                 {
                   "data-testid": void 0,
                   children: h.jsx(o("hero-tracing").HeroPagelet, {
                     name: "Mid Drawer Manager",
                     observeTextMutation: !0,
-                    children: F,
+                    children: O,
                   }),
                 },
               ),
             ),
           ],
         }),
-        Se = h.jsx("div", {
+        be = h.jsx("div", {
           className:
             "x10l6tqk x13vifvy x78zum5 x5yr21d x6ikm8r x10wlt62 x47corl x8qhkwt xdmgpyl x1oy9qf3",
           "data-testid": void 0,
@@ -829,78 +829,78 @@ __d(
             { direction: o("WAWebDrawerManager.react").Dir.FULLSCREEN },
           ),
         }),
-        Re = C(
+        ve = C(
           function (e) {
-            (o("WAWebCmd").Cmd.closeActiveChat(), re(e));
+            (o("WAWebCmd").Cmd.closeActiveChat(), ne(e));
           },
-          [re],
+          [ne],
         ),
-        Le = h.jsx(r("WAWebStrictMode.react"), {
+        Se = h.jsx(r("WAWebStrictMode.react"), {
           children: h.jsx(o("WAWebNavigationBar.react").NavigationBar, {
-            headerRef: x,
-            activeNavBarItem: te,
-            updateActiveNavBarItem: Re,
+            headerRef: T,
+            activeNavBarItem: ee,
+            updateActiveNavBarItem: ve,
           }),
         }),
-        Ee = h.jsx(r("WAWebStrictMode.react"), {
+        Re = h.jsx(r("WAWebStrictMode.react"), {
           children: h.jsx(r("WAWebChatlistPanelWrapper.react"), {
-            leftDrawerStyle: X,
-            resizeHandle: Y,
-            chatlistHeaderRef: x,
-            handleActiveNavBarItemUpdate: re,
-            chatlistPanelRef: P,
+            leftDrawerStyle: Q,
+            resizeHandle: X,
+            chatlistHeaderRef: T,
+            handleActiveNavBarItemUpdate: ne,
+            chatlistPanelRef: x,
             leftPaneClassName: o(
               "WAWebClassnames",
             ).classnamesConvertMeToStylexPlease(
-              ((a = {}), (a._aigw = !0), (a._as6h = !0), (a._asu3 = y), a),
+              ((a = {}), (a._aigw = !0), (a._as6h = !0), (a._asu3 = g), a),
               _(
-                M.pane,
-                M.paneOne,
-                M.sidePaneMaxWidth,
+                w.pane,
+                w.paneOne,
+                w.sidePaneMaxWidth,
                 o("WAWebUISpacing").uiPadding.start1,
-                y && M.sidePaneWidthWindowsHybrid,
+                g && w.sidePaneWidthWindowsHybrid,
               ),
             ),
           }),
         }),
-        ke = h.jsx(r("WAWebConversationWrapper.react"), {
+        Le = h.jsx(r("WAWebConversationWrapper.react"), {
           animate: l,
-          conversationRef: w,
+          conversationRef: N,
           paneTwoProps: {
             className:
               "x9f619 x1n2onr6 xupqr0c x5yr21d x6ikm8r x10wlt62 x17dzmu4 x1i1dayz x2ipvbc xjdofhw xyyilfv x1iyjqo2",
           },
         }),
-        Ie = h.jsx("div", {
+        Ee = h.jsx("div", {
           className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            ((i = {}), (i["_aig-"] = !0), (i._as6h = !0), (i._asu3 = y), i),
+            ((i = {}), (i["_aig-"] = !0), (i._as6h = !0), (i._asu3 = g), i),
             _([
-              M.pane,
-              M.paneBorderLeft,
-              V && M.rightDrawerIn,
-              V && y && M.sidePane3WidthWindowsHybrid,
+              w.pane,
+              w.paneBorderLeft,
+              U && w.rightDrawerIn,
+              U && g && w.sidePane3WidthWindowsHybrid,
             ]),
           ),
-          style: J,
-          ref: N,
+          style: Y,
+          ref: $,
           "data-testid": void 0,
           children: h.jsx(
             o("WAWebDrawerManager.react").DrawerManagerComponent,
             {
               direction: o("WAWebDrawerManager.react").Dir.RIGHT,
-              onDrawerAnimationComplete: ae,
+              onDrawerAnimationComplete: oe,
               animationDisabled: !0,
             },
           ),
         }),
-        Te = E ? h.jsx(E, {}) : null,
-        De = k ? h.jsx(k, {}) : null,
-        xe = n("cr:21265") ? h.jsx(n("cr:21265"), {}) : null,
-        $e = n("cr:21419") ? h.jsx(n("cr:21419"), {}) : null,
-        Pe = n("cr:22855") ? h.jsx(n("cr:22855"), {}) : null,
-        Ne = n("cr:683") ? h.jsx(n("cr:683"), {}) : null,
-        Me = n("cr:12406") ? h.jsx(n("cr:12406"), {}) : null,
-        we = g
+        ke = E ? h.jsx(E, {}) : null,
+        Ie = k ? h.jsx(k, {}) : null,
+        Te = n("cr:21265") ? h.jsx(n("cr:21265"), {}) : null,
+        De = n("cr:21419") ? h.jsx(n("cr:21419"), {}) : null,
+        xe = n("cr:22855") ? h.jsx(n("cr:22855"), {}) : null,
+        $e = n("cr:683") ? h.jsx(n("cr:683"), {}) : null,
+        Pe = n("cr:12406") ? h.jsx(n("cr:12406"), {}) : null,
+        Ne = f
           ? h.jsx("div", {
               id: "" + r("WDSToastContainerID"),
               className:
@@ -917,37 +917,37 @@ __d(
               children: h.jsx(
                 o("WAWebDrawerManagerContext").DrawerManagerContextProvider,
                 {
-                  onDrawerStateChange: oe,
+                  onDrawerStateChange: re,
                   children: h.jsx(
                     o("WAWebAppContext.react").AppContextProvider,
                     {
-                      rightDrawerOpen: V,
-                      activeNavBarItem: te,
+                      rightDrawerOpen: U,
+                      activeNavBarItem: ee,
                       children: h.jsxs("div", {
                         className: "x78zum5 xdt5ytf x5yr21d",
                         children: [
-                          be,
+                          ye,
                           h.jsx(o("WAWebUimUie.react").UIE, {
                             uimState: o("WAWebUim").UIMState.INACTIVE,
                             displayName: "Main",
                             children: h.jsxs(
                               r("WAWebKeyboardTopLevelHotKeys.react"),
                               {
-                                className: ye,
-                                onBlur: K,
-                                ref: T,
-                                onShowKeyboardShortcuts: pe,
-                                skipNode: ue,
+                                className: ge,
+                                onBlur: j,
+                                ref: y,
+                                onShowKeyboardShortcuts: me,
+                                skipNode: se,
                                 children: [
                                   h.jsx(
                                     r("WAWebNotificationManager.react"),
                                     {},
                                   ),
-                                  Te,
-                                  De,
+                                  ke,
+                                  Ie,
                                   h.jsx(r("WAWebActionListener"), {
-                                    activeNavBarItem: te,
-                                    updateActiveNavBarItem: Re,
+                                    activeNavBarItem: ee,
+                                    updateActiveNavBarItem: ve,
                                   }),
                                   h.jsx(
                                     o("WAWebPipManager.react").PiPManager,
@@ -968,19 +968,19 @@ __d(
                                     r("WAWebInternDogfoodingModal.react"),
                                     {},
                                   ),
-                                  Ce,
-                                  Le,
+                                  he,
                                   Se,
-                                  ve,
+                                  be,
+                                  Ce,
+                                  Re,
+                                  Le,
                                   Ee,
-                                  ke,
-                                  Ie,
+                                  Te,
+                                  De,
                                   xe,
                                   $e,
                                   Pe,
                                   Ne,
-                                  Me,
-                                  we,
                                 ],
                               },
                             ),
@@ -988,7 +988,7 @@ __d(
                         ],
                       }),
                     },
-                    le,
+                    ie,
                   ),
                 },
               ),
@@ -997,8 +997,8 @@ __d(
         },
       );
     }
-    w.displayName = w.name + " [from " + i.id + "]";
-    function A(e, t) {
+    A.displayName = A.name + " [from " + i.id + "]";
+    function F(e, t) {
       return h.jsxs(h.Fragment, {
         children: [
           h.jsx("div", {
@@ -1012,8 +1012,8 @@ __d(
         ],
       });
     }
-    A.displayName = A.name + " [from " + i.id + "]";
-    function F(e, t) {
+    F.displayName = F.name + " [from " + i.id + "]";
+    function O(e, t) {
       return h.jsxs(h.Fragment, {
         children: [
           h.jsx("div", {
@@ -1027,9 +1027,9 @@ __d(
         ],
       });
     }
-    ((F.displayName = F.name + " [from " + i.id + "]"),
+    ((O.displayName = O.name + " [from " + i.id + "]"),
       (l.hasPendingActions = x),
-      (l.MainComponent = w));
+      (l.MainComponent = A));
   },
   226,
 );

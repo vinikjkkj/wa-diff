@@ -25,7 +25,6 @@ __d(
     "compactMap",
     "fbs",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -46,117 +45,65 @@ __d(
         : s._(/*BTDS*/ "Question about WhatsApp for Web");
     }
     function v(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e.onDeleteScreenshot,
-        a = e.screenshots,
-        i;
-      t[0] !== n
-        ? ((i = function (t, r) {
-            if (t.url == null) return null;
-            var e = "url(" + t.url + ")",
-              a = t.url + "-" + r;
-            return u.jsx(
-              "div",
-              {
-                className:
-                  "x1n2onr6 x1faq86j x1vtj31x x1t79jtt xav9cv8 x7g7pl8 x4tpdpg x1wbi8v6 x1oreiyq x1vwr25l x18d0r48 x1e7nkc8",
-                style: { backgroundImage: e },
-                children: u.jsx("button", {
-                  className: "x10l6tqk xnfr1j x1h1655f x17t9dm2",
-                  onClick: function () {
-                    n(r);
-                  },
-                  children: u.jsx(o("WAWebXAltIcon.react").XAltIcon, {}),
-                }),
-              },
-              a,
-            );
-          }),
-          (t[0] = n),
-          (t[1] = i))
-        : (i = t[1]);
-      var l;
-      t[2] !== a || t[3] !== i
-        ? ((l = r("compactMap")(a, i)), (t[2] = a), (t[3] = i), (t[4] = l))
-        : (l = t[4]);
-      var s = l,
-        c;
-      return (
-        t[5] !== s
-          ? ((c =
-              s.length !== 0
-                ? u.jsx("div", {
-                    className:
-                      "x78zum5 x1tiyuxx x1uc92m x1nbhmlj x181vq82 x1q7yeco",
-                    children: s,
-                  })
-                : null),
-            (t[5] = s),
-            (t[6] = c))
-          : (c = t[6]),
-        c
-      );
+      var t = e.onDeleteScreenshot,
+        n = e.screenshots,
+        a = r("compactMap")(n, function (e, n) {
+          if (e.url == null) return null;
+          var r = "url(" + e.url + ")",
+            a = e.url + "-" + n;
+          return u.jsx(
+            "div",
+            {
+              className:
+                "x1n2onr6 x1faq86j x1vtj31x x1t79jtt xav9cv8 x7g7pl8 x4tpdpg x1wbi8v6 x1oreiyq x1vwr25l x18d0r48 x1e7nkc8",
+              style: { backgroundImage: r },
+              children: u.jsx("button", {
+                className: "x10l6tqk xnfr1j x1h1655f x17t9dm2",
+                onClick: function () {
+                  t(n);
+                },
+                children: u.jsx(o("WAWebXAltIcon.react").XAltIcon, {}),
+              }),
+            },
+            a,
+          );
+        });
+      return a.length !== 0
+        ? u.jsx("div", {
+            className: "x78zum5 x1tiyuxx x1uc92m x1nbhmlj x181vq82 x1q7yeco",
+            children: a,
+          })
+        : null;
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.isDragging,
-        r = e.onAttachClick,
-        a = e.reachedMaxScreenshots;
-      if (a) {
-        var i;
-        return (
-          t[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((i = u.jsx("div", {
-                className:
-                  "x9f619 x78zum5 xdt5ytf x6s0dn4 xl56j7k xh8yej3 xlup9mm xexx8yu xyri2b x18d9i69 x1c1uobl x98l61r x1pg5gke x2b8uid xtvhhri xlwc9sh xpw2u0k xt0e3qv",
-                children: s._(
-                  /*BTDS*/ '_j{"*":"{number} screenshots maximum","_1":"1 screenshot maximum"}',
-                  [s._plural(y, "number")],
-                ),
-              })),
-              (t[0] = i))
-            : (i = t[0]),
-          i
-        );
-      } else if (n) {
-        var l;
-        return (
-          t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((l = u.jsx("div", {
-                className:
-                  "x9f619 x78zum5 xdt5ytf x6s0dn4 xl56j7k xh8yej3 xlup9mm xexx8yu xyri2b x18d9i69 x1c1uobl x98l61r x1pg5gke xo1mcw5 x2b8uid xtvhhri x1ypdohk xlwc9sh",
-                children: s._(/*BTDS*/ "Release to add..."),
-              })),
-              (t[1] = l))
-            : (l = t[1]),
-          l
-        );
-      }
-      var c;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = {
-            className:
-              "x9f619 x78zum5 xdt5ytf x6s0dn4 xl56j7k xh8yej3 xlup9mm xexx8yu xyri2b x18d9i69 x1c1uobl x98l61r x1pg5gke xo1mcw5 x2b8uid xtvhhri x1ypdohk xlwc9sh",
-          }),
-          (t[2] = c))
-        : (c = t[2]);
-      var d;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = s._(/*BTDS*/ "Add screenshots")), (t[3] = d))
-        : (d = t[3]);
-      var m;
-      return (
-        t[4] !== r
-          ? ((m = u.jsx(
-              "div",
-              babelHelpers.extends({}, c, { onClick: r, children: d }),
-            )),
-            (t[4] = r),
-            (t[5] = m))
-          : (m = t[5]),
-        m
-      );
+      var t = e.isDragging,
+        n = e.onAttachClick,
+        r = e.reachedMaxScreenshots;
+      if (r) {
+        var o = y;
+        return u.jsx("div", {
+          className:
+            "x9f619 x78zum5 xdt5ytf x6s0dn4 xl56j7k xh8yej3 xlup9mm xexx8yu xyri2b x18d9i69 x1c1uobl x98l61r x1pg5gke x2b8uid xtvhhri xlwc9sh xpw2u0k xt0e3qv",
+          children: s._(
+            /*BTDS*/ '_j{"*":"{number} screenshots maximum","_1":"1 screenshot maximum"}',
+            [s._plural(o, "number")],
+          ),
+        });
+      } else if (t)
+        return u.jsx("div", {
+          className:
+            "x9f619 x78zum5 xdt5ytf x6s0dn4 xl56j7k xh8yej3 xlup9mm xexx8yu xyri2b x18d9i69 x1c1uobl x98l61r x1pg5gke xo1mcw5 x2b8uid xtvhhri x1ypdohk xlwc9sh",
+          children: s._(/*BTDS*/ "Release to add..."),
+        });
+      return u.jsx("div", {
+        className:
+          "x9f619 x78zum5 xdt5ytf x6s0dn4 xl56j7k xh8yej3 xlup9mm xexx8yu xyri2b x18d9i69 x1c1uobl x98l61r x1pg5gke xo1mcw5 x2b8uid xtvhhri x1ypdohk xlwc9sh",
+        onClick: n,
+        children: s._(/*BTDS*/ "Add screenshots"),
+      });
     }
+    S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
       var t,
         a = e.entityId,

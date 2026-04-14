@@ -12,7 +12,6 @@ __d(
     "WAWebRemediationOptionSection.react",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
@@ -57,109 +56,55 @@ __d(
             : null;
     }
     function m(t) {
-      var n = o("react-compiler-runtime").c(21),
-        a,
-        i;
-      n[0] !== t
-        ? ((i = t.ref),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i))
-        : ((a = n[1]), (i = n[2]));
-      var l = a,
-        s = l.onBack,
-        m = l.onClickSeeOptions,
-        p = l.onRequestReviewClick,
-        _ = l.report,
-        f;
-      n[3] !== _
-        ? ((f =
-            _.appeal.creationTime != null
-              ? u.jsx(
-                  o("WAWebNewsletterReportDetailsComponents")
-                    .ReportDetailsContentWithAppealInfo,
-                  { report: _ },
-                )
-              : u.jsx(
-                  o("WAWebNewsletterReportDetailsComponents")
-                    .ReportDetailsContent,
-                  { report: _ },
-                )),
-          (n[3] = _),
-          (n[4] = f))
-        : (f = n[4]);
-      var g = f,
-        h;
-      n[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = {
-            surface: "unknown",
-            viewName: "newsletter-dsa-report-details",
-          }),
-          (n[5] = h))
-        : (h = n[5]);
-      var y;
-      n[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = o(
-            "WAWebCommonNewsletterIntegrityStrings",
-          ).getNewsletterDSAReportsDrawerTitle()),
-          (n[6] = y))
-        : (y = n[6]);
-      var C;
-      n[7] !== s
-        ? ((C = u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            title: y,
-            onBack: s,
+      var n = t.ref,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = a.onBack,
+        l = a.onClickSeeOptions,
+        s = a.onRequestReviewClick,
+        m = a.report,
+        p =
+          m.appeal.creationTime != null
+            ? u.jsx(
+                o("WAWebNewsletterReportDetailsComponents")
+                  .ReportDetailsContentWithAppealInfo,
+                { report: m },
+              )
+            : u.jsx(
+                o("WAWebNewsletterReportDetailsComponents")
+                  .ReportDetailsContent,
+                { report: m },
+              );
+      return u.jsxs(r("WAWebDrawer.react"), {
+        theme: "gallery",
+        ref: n,
+        testid: void 0,
+        tsNavigationData: {
+          surface: "unknown",
+          viewName: "newsletter-dsa-report-details",
+        },
+        children: [
+          u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+            title: o(
+              "WAWebCommonNewsletterIntegrityStrings",
+            ).getNewsletterDSAReportsDrawerTitle(),
+            onBack: i,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-          })),
-          (n[7] = s),
-          (n[8] = C))
-        : (C = n[8]);
-      var b;
-      n[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = [
-            c.container,
-            o("WAWebUISpacing").uiPadding.vert36,
-            o("WAWebUISpacing").uiPadding.horiz32,
-          ]),
-          (n[9] = b))
-        : (b = n[9]);
-      var v;
-      n[10] !== m || n[11] !== p || n[12] !== _
-        ? ((v = d(m, p, _)), (n[10] = m), (n[11] = p), (n[12] = _), (n[13] = v))
-        : (v = n[13]);
-      var S;
-      n[14] !== g || n[15] !== v
-        ? ((S = u.jsx(r("WAWebDrawerBody.react"), {
+          }),
+          u.jsx(r("WAWebDrawerBody.react"), {
             children: u.jsxs(r("WAWebDrawerSection.react"), {
               animation: !1,
-              xstyle: b,
-              children: [g, v],
+              xstyle: [
+                c.container,
+                o("WAWebUISpacing").uiPadding.vert36,
+                o("WAWebUISpacing").uiPadding.horiz32,
+              ],
+              children: [p, d(l, s, m)],
             }),
-          })),
-          (n[14] = g),
-          (n[15] = v),
-          (n[16] = S))
-        : (S = n[16]);
-      var R;
-      return (
-        n[17] !== i || n[18] !== C || n[19] !== S
-          ? ((R = u.jsxs(r("WAWebDrawer.react"), {
-              theme: "gallery",
-              ref: i,
-              testid: void 0,
-              tsNavigationData: h,
-              children: [C, S],
-            })),
-            (n[17] = i),
-            (n[18] = C),
-            (n[19] = S),
-            (n[20] = R))
-          : (R = n[20]),
-        R
-      );
+          }),
+        ],
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

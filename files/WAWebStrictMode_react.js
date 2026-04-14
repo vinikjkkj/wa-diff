@@ -1,26 +1,14 @@
 __d(
   "WAWebStrictMode.react",
-  ["StrictMode", "gkx", "react", "react-compiler-runtime"],
+  ["StrictMode", "gkx", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.children;
-      if (r("gkx")("18530")) {
-        var a;
-        return (
-          t[0] !== n
-            ? ((a = s.jsx(r("StrictMode"), { children: n })),
-              (t[0] = n),
-              (t[1] = a))
-            : (a = t[1]),
-          a
-        );
-      }
-      return n;
+      var t = e.children;
+      return r("gkx")("18530") ? s.jsx(r("StrictMode"), { children: t }) : t;
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

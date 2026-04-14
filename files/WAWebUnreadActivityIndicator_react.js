@@ -1,18 +1,19 @@
 __d(
   "WAWebUnreadActivityIndicator.react",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = "x1fal1dg-B";
     function c(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.pulse,
-        r = e.ref,
-        a = n === void 0 ? !1 : n,
-        i;
-      t[0] !== a
-        ? ((i = {
+      var t = e.pulse,
+        n = t === void 0 ? !1 : t,
+        r = e.ref;
+      return s.jsx(
+        "span",
+        babelHelpers.extends(
+          { ref: r, "data-testid": void 0 },
+          {
             0: {
               className:
                 "x1rg5ohu x11inojt x16suv20 xo5v014 x1pse0pq x2b8uid x16dsc37 xyp3urf xyi3aci xwf5gio x1p453bz x1suzm8a",
@@ -21,25 +22,11 @@ __d(
               className:
                 "x1rg5ohu x11inojt x16suv20 xo5v014 x1pse0pq x2b8uid x16dsc37 xyp3urf xyi3aci xwf5gio x1p453bz x1suzm8a xnyknk1 x1c74tu6 xa4qsjk",
             },
-          }[!!a << 0]),
-          (t[0] = a),
-          (t[1] = i))
-        : (i = t[1]);
-      var l;
-      return (
-        t[2] !== r || t[3] !== i
-          ? ((l = s.jsx(
-              "span",
-              babelHelpers.extends({ ref: r, "data-testid": void 0 }, i),
-            )),
-            (t[2] = r),
-            (t[3] = i),
-            (t[4] = l))
-          : (l = t[4]),
-        l
+          }[!!n << 0],
+        ),
       );
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

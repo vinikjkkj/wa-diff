@@ -100,6 +100,7 @@ __d(
                       botModeOverride: l.botModeOverride,
                       lastReceivedKey: l.lastReceivedKey,
                       unreadEditTimestampMs: l.unreadEditTimestampMs,
+                      pinThreadTimestamp: l.pinThreadTimestamp,
                     });
                 }
                 return i;

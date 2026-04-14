@@ -7,7 +7,6 @@ __d(
     "WAWebMsgLinks",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -63,68 +62,46 @@ __d(
     }
     function p(t) {
       var n,
-        a = o("react-compiler-runtime").c(12),
-        i;
-      a[0] !== t ? ((i = m(t)), (a[0] = t), (a[1] = i)) : (i = a[1]);
-      var l = i;
-      if (l == null) return null;
-      var s;
-      if (
-        a[2] !== t.link ||
-        a[3] !== ((n = t.msg) == null ? void 0 : n.ctwaContext)
-      ) {
-        var u, p;
-        ((s = (e || (e = r("stylex"))).props(
-          d.container,
-          o("WAWebUISpacing").uiPadding.horiz8,
-          o("WAWebUISpacing").uiMargin.end6,
-          o("WAWebUISpacing").uiMargin.bottom2,
-          ((u = t.msg) == null ? void 0 : u.ctwaContext) != null &&
-            o("WAWebUISpacing").uiMargin.bottom3,
-          t.link && o("WAWebUISpacing").uiMargin.top3,
-          t.link && o("WAWebUISpacing").uiMargin.bottom5,
-        )),
-          (a[2] = t.link),
-          (a[3] = (p = t.msg) == null ? void 0 : p.ctwaContext),
-          (a[4] = s));
-      } else s = a[4];
-      var _, f;
-      a[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = c.jsx(o("WAWebAlertIcon.react").AlertIcon, {
-            displayInline: !0,
-            xstyle: [
-              d.icon,
-              o("WAWebUISpacing").uiMargin.top4,
-              o("WAWebUISpacing").uiMargin.end4,
-            ],
-          })),
-          (f = {
-            className: "x1n2onr6 x1c7jfne x190qgfh x1fcty0u x17t9dm2 xtvhhri",
-          }),
-          (a[5] = _),
-          (a[6] = f))
-        : ((_ = a[5]), (f = a[6]));
-      var g;
-      a[7] !== l
-        ? ((g = c.jsx("span", babelHelpers.extends({}, f, { children: l }))),
-          (a[7] = l),
-          (a[8] = g))
-        : (g = a[8]);
-      var h;
-      return (
-        a[9] !== s || a[10] !== g
-          ? ((h = c.jsxs(
-              "div",
-              babelHelpers.extends({}, s, { children: [_, g] }),
-            )),
-            (a[9] = s),
-            (a[10] = g),
-            (a[11] = h))
-          : (h = a[11]),
-        h
-      );
+        a = m(t);
+      return a == null
+        ? null
+        : c.jsxs(
+            "div",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
+                d.container,
+                o("WAWebUISpacing").uiPadding.horiz8,
+                o("WAWebUISpacing").uiMargin.end6,
+                o("WAWebUISpacing").uiMargin.bottom2,
+                ((n = t.msg) == null ? void 0 : n.ctwaContext) != null &&
+                  o("WAWebUISpacing").uiMargin.bottom3,
+                t.link && o("WAWebUISpacing").uiMargin.top3,
+                t.link && o("WAWebUISpacing").uiMargin.bottom5,
+              ),
+              {
+                children: [
+                  c.jsx(o("WAWebAlertIcon.react").AlertIcon, {
+                    displayInline: !0,
+                    xstyle: [
+                      d.icon,
+                      o("WAWebUISpacing").uiMargin.top4,
+                      o("WAWebUISpacing").uiMargin.end4,
+                    ],
+                  }),
+                  c.jsx("span", {
+                    className:
+                      "x1n2onr6 x1c7jfne x190qgfh x1fcty0u x17t9dm2 xtvhhri",
+                    children: a,
+                  }),
+                ],
+              },
+            ),
+          );
     }
-    ((l.getSuspiciousLabel = m), (l.SuspiciousLabel = p));
+    ((p.displayName = p.name + " [from " + i.id + "]"),
+      (l.getSuspiciousLabel = m),
+      (l.SuspiciousLabel = p));
   },
   226,
 );

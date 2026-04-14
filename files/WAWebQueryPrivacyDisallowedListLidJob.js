@@ -13,13 +13,13 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e) {
-      return _.apply(this, arguments);
+    var e, s, u, c, d, m, p;
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n;
           if (
             t ===
@@ -81,14 +81,14 @@ __d(
               r("err")("GetContactBlacklist lid request invalid response")
             );
           var l = i.value,
-            p = l.privacyAddressingMode,
-            _ = l.privacyList,
-            f = _ == null ? void 0 : _.user;
-          if (_ == null || f == null || f.length === 0)
+            _ = l.privacyAddressingMode,
+            f = l.privacyList,
+            g = f == null ? void 0 : f.user;
+          if (f == null || g == null || g.length === 0)
             return {
               status: "mismatch",
               users: [],
-              dhash: _ == null ? void 0 : _.dhash,
+              dhash: f == null ? void 0 : f.dhash,
             };
           if (i.name === "GetContactBlacklistResponseSuccess")
             throw (
@@ -100,7 +100,7 @@ __d(
               ),
               r("err")("GetContactBlacklist lid request invalid response")
             );
-          if (p !== "lid")
+          if (_ !== "lid")
             throw (
               o("WALogger").ERROR(
                 c ||
@@ -110,9 +110,9 @@ __d(
               ),
               r("err")("GetContactBlacklist lid request invalid response")
             );
-          var g = [],
-            h = [],
-            y = f.map(function (e) {
+          var h = [],
+            y = [],
+            C = g.map(function (e) {
               var t = e.jid,
                 n;
               if (t == null) {
@@ -137,17 +137,26 @@ __d(
               }
               var u = e.contactListIds;
               if ((u == null ? void 0 : u.name) === "Username")
-                g.push({ userId: n, username: u.value.username });
+                h.push({ userId: n, username: u.value.username });
               else if ((u == null ? void 0 : u.name) === "PnJid")
-                h.push({
+                y.push({
                   lid: n,
                   pn: o("WAWebJidToWid").userJidToUserWid(u.value.pnJid),
                 });
+              else if (
+                (u == null ? void 0 : u.name) === "EmptyContactListIdentifier"
+              )
+                o("WALogger").LOG(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "response contactListIds name is EmptyContactListIdentifier",
+                    ])),
+                );
               else
                 throw (
                   o("WALogger").ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "response contactListIds name is unexpected ",
                         "",
                       ])),
@@ -158,20 +167,20 @@ __d(
               return n;
             });
           (yield o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches({
-            mappings: h,
+            mappings: y,
             flushImmediately: !0,
             learningSource: "other",
           }),
             o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-              g.length > 0 &&
-              (yield o("WAWebSetUsernameJob").setUsernamesJob(g)));
-          var C = _.dhash;
-          return { status: "mismatch", users: y, dhash: C };
+              h.length > 0 &&
+              (yield o("WAWebSetUsernameJob").setUsernamesJob(h)));
+          var b = f.dhash;
+          return { status: "mismatch", users: C, dhash: b };
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.queryPrivacyDisallowedListLid = p;
+    l.queryPrivacyDisallowedListLid = _;
   },
   98,
 );

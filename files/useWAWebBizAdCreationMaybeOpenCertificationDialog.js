@@ -7,7 +7,6 @@ __d(
     "WAWebBizAdCreationSpecContext",
     "WAWebModalManager",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationMaybeOpenCertificationDialogQuery.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,31 +27,29 @@ __d(
       var t,
         n,
         a,
-        i = o("react-compiler-runtime").c(8),
-        l = o("CometRelay").useLazyLoadQuery(
+        i = o("CometRelay").useLazyLoadQuery(
           p,
           {},
           { fetchPolicy: "store-and-network" },
         ),
-        s = o("CometRelay").useRelayEnvironment(),
-        c = m(r("WAWebBizAdCreationLoggerContext")),
-        d = m(r("WAWebBizAdCreationSpecContext")),
+        l = o("CometRelay").useRelayEnvironment(),
+        s = m(r("WAWebBizAdCreationLoggerContext")),
+        c = m(r("WAWebBizAdCreationSpecContext")),
         _ =
-          d == null ||
-          (t = d.currentValue) == null ||
+          c == null ||
+          (t = c.currentValue) == null ||
           (t = t.adAccountData) == null
             ? void 0
             : t.id,
         f =
           (n =
-            l == null || (a = l.viewer) == null
+            i == null || (a = i.viewer) == null
               ? void 0
               : a.ad_integrity_certification) != null
             ? n
             : !1,
-        g;
-      i[0] !== _ || i[1] !== s || i[2] !== f || i[3] !== c || i[4] !== e
-        ? ((g = function () {
+        g = d(
+          function () {
             if (f) {
               e.onComplete();
               return;
@@ -60,8 +57,8 @@ __d(
             o("WAWebModalManager").ModalManager.open(
               u.jsx(r("WAWebBizAdCertificationDialog.react"), {
                 adAccountID: _,
-                environment: s,
-                loggerContext: c,
+                environment: l,
+                loggerContext: s,
                 onAccept: function () {
                   e.onComplete();
                 },
@@ -70,24 +67,10 @@ __d(
                 },
               }),
             );
-          }),
-          (i[0] = _),
-          (i[1] = s),
-          (i[2] = f),
-          (i[3] = c),
-          (i[4] = e),
-          (i[5] = g))
-        : (g = i[5]);
-      var h = g,
-        y;
-      return (
-        i[6] !== h
-          ? ((y = { isLoading: !1, maybeLaunchCertificationDialog: h }),
-            (i[6] = h),
-            (i[7] = y))
-          : (y = i[7]),
-        y
-      );
+          },
+          [f, e, l, s, _],
+        );
+      return { isLoading: !1, maybeLaunchCertificationDialog: g };
     }
     l.default = _;
   },

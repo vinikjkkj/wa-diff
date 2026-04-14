@@ -4,43 +4,45 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = new (r("WAWebTypedEventEmitter"))(),
-      s = !1,
-      u = null,
-      c = !1;
-    function d() {
-      return s;
+      s = "wa-web-main",
+      u = !1,
+      c = null,
+      d = !1;
+    function m() {
+      return u;
     }
-    function m(e) {
-      s = e;
+    function p(e) {
+      u = e;
     }
-    function p() {
-      return c;
+    function _() {
+      return d;
     }
-    function _(e) {
-      c = e;
+    function f(e) {
+      d = e;
     }
-    function f() {
-      if (u == null || !s) return !1;
+    function g() {
+      if (c == null || !u) return !1;
       try {
-        return !(u.document.hidden || u.innerWidth <= 0 || u.innerHeight <= 0);
+        return !(c.document.hidden || c.innerWidth <= 0 || c.innerHeight <= 0);
       } catch (e) {
         return !1;
       }
     }
-    function g() {
-      return u;
+    function h() {
+      return c;
     }
-    function h(e) {
-      u = e;
+    function y(e) {
+      c = e;
     }
     ((l.WAWebVoipUiPopoutWindowEventEmitter = e),
-      (l.getIsCallActiveInPopoutWindow = d),
-      (l.setIsCallActiveInPopoutWindow = m),
-      (l.getIsPopoutWindowOpening = p),
-      (l.setIsPopoutWindowOpening = _),
-      (l.getIsPopoutWindowActiveAndVisible = f),
-      (l.getPopoutWindow = g),
-      (l.setPopoutWindow = h));
+      (l.MAIN_WINDOW_NAME = s),
+      (l.getIsCallActiveInPopoutWindow = m),
+      (l.setIsCallActiveInPopoutWindow = p),
+      (l.getIsPopoutWindowOpening = _),
+      (l.setIsPopoutWindowOpening = f),
+      (l.getIsPopoutWindowActiveAndVisible = g),
+      (l.getPopoutWindow = h),
+      (l.setPopoutWindow = y));
   },
   98,
 );

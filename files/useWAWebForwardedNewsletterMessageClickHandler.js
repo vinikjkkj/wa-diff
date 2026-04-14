@@ -8,50 +8,40 @@ __d(
     "WAWebNewsletterOpenAtAction",
     "WAWebShowForwardedNewsletterMessageIndicator",
     "WAWebWamEnumTsSurface",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      var n = o("react-compiler-runtime").c(4),
-        r = e.forwardedNewsletterMessageInfo,
-        a = e.type;
+      var n = e.forwardedNewsletterMessageInfo,
+        r = e.type;
       if (
         !o(
           "WAWebShowForwardedNewsletterMessageIndicator",
-        ).showForwardedNewsletterMessageIndicator(r, a, t)
+        ).showForwardedNewsletterMessageIndicator(n, r, t)
       )
         return null;
-      var i = r.newsletterId,
-        l = r.serverMessageId;
-      if (i == null) return null;
-      var s;
-      n[0] !== e.id.remote || n[1] !== i || n[2] !== l
-        ? ((s = function () {
-            i === e.id.remote && l != null
-              ? o("WAWebNewsletterOpenAtAction").openNewsletterAt({
-                  newsletterJid: o("WAJids").toNewsletterJid(i.toJid()),
-                  serverId: l,
-                })
-              : o("WAWebNewsletterExecApiCmd").execNewsletterApiCmd({
-                  identifier: i.toString(),
-                  identifierType: o("WAWebNewsletterApiParse")
-                    .NewsletterIdentifierType.Id,
-                  type: "view",
-                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                    .ForwardedNewsletterMessage,
-                  discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
-                    .CHAT_THREAD,
-                  serverId: l,
-                });
-          }),
-          (n[0] = e.id.remote),
-          (n[1] = i),
-          (n[2] = l),
-          (n[3] = s))
-        : (s = n[3]);
-      var u = s;
-      return u;
+      var a = n.newsletterId,
+        i = n.serverMessageId;
+      if (a == null) return null;
+      var l = function () {
+        a === e.id.remote && i != null
+          ? o("WAWebNewsletterOpenAtAction").openNewsletterAt({
+              newsletterJid: o("WAJids").toNewsletterJid(a.toJid()),
+              serverId: i,
+            })
+          : o("WAWebNewsletterExecApiCmd").execNewsletterApiCmd({
+              identifier: a.toString(),
+              identifierType: o("WAWebNewsletterApiParse")
+                .NewsletterIdentifierType.Id,
+              type: "view",
+              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                .ForwardedNewsletterMessage,
+              discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                .CHAT_THREAD,
+              serverId: i,
+            });
+      };
+      return l;
     }
     l.useForwardedNewsletterMessageClickHandler = e;
   },

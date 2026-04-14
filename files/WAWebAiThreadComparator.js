@@ -1,14 +1,22 @@
 __d(
   "WAWebAiThreadComparator",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebBotGating"],
+  function (t, n, r, o, a, i, l) {
     var e = function (t, n) {
-        var e = t.lastMessageTimestamp || 0,
-          r = n.lastMessageTimestamp || 0;
-        return e !== r ? (e > r ? -1 : 1) : t.title < n.title ? -1 : 1;
+        if (o("WAWebBotGating").isAiThreadPinEnabled()) {
+          var e,
+            r,
+            a = (e = t.pinThreadTimestamp) != null ? e : 0,
+            i = (r = n.pinThreadTimestamp) != null ? r : 0;
+          if (a > 0 != i > 0) return a > 0 ? -1 : 1;
+          if (a > 0 && i > 0 && a !== i) return a > i ? -1 : 1;
+        }
+        var l = t.lastMessageTimestamp || 0,
+          s = n.lastMessageTimestamp || 0;
+        return l !== s ? (l > s ? -1 : 1) : t.title < n.title ? -1 : 1;
       },
-      l = e;
-    i.default = l;
+      s = e;
+    l.default = s;
   },
-  66,
+  98,
 );

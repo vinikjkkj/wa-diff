@@ -1,12 +1,6 @@
 __d(
   "WAWebDeltaText.react",
-  [
-    "WAWebL10N",
-    "WAWebNewsletterMetricUtils",
-    "WAWebText.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebL10N", "WAWebNewsletterMetricUtils", "WAWebText.react", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -32,33 +26,17 @@ __d(
           });
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.delta,
-        r = e.size,
-        a = e.testid;
-      if (n === o("WAWebNewsletterMetricUtils").DELTA_INFINITE) return null;
-      var i =
-          r === "small"
-            ? o("WAWebText.react").WAWebTextMuted
-            : o("WAWebText.react").WAWebTextTitle,
-        l;
-      t[0] !== n ? ((l = u(n)), (t[0] = n), (t[1] = l)) : (l = t[1]);
-      var d;
-      t[2] !== n ? ((d = c(n)), (t[2] = n), (t[3] = d)) : (d = t[3]);
-      var m;
-      return (
-        t[4] !== i || t[5] !== l || t[6] !== d || t[7] !== a
-          ? ((m = s.jsx(i, { testid: void 0, color: l, children: d })),
-            (t[4] = i),
-            (t[5] = l),
-            (t[6] = d),
-            (t[7] = a),
-            (t[8] = m))
-          : (m = t[8]),
-        m
-      );
+      var t = e.delta,
+        n = e.size,
+        r = e.testid;
+      if (t === o("WAWebNewsletterMetricUtils").DELTA_INFINITE) return null;
+      var a =
+        n === "small"
+          ? o("WAWebText.react").WAWebTextMuted
+          : o("WAWebText.react").WAWebTextTitle;
+      return s.jsx(a, { testid: void 0, color: u(t), children: c(t) });
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

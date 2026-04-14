@@ -14,7 +14,7 @@ __d(
     "use strict";
     var e,
       s = 3e3,
-      u = r("gkx")("1326"),
+      u = r("gkx")("6890"),
       c = 0,
       d = r("performanceNavigationStart")(),
       m = new Map(),

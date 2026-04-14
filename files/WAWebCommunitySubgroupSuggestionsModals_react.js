@@ -1,60 +1,26 @@
 __d(
   "WAWebCommunitySubgroupSuggestionsModals.react",
-  [
-    "fbt",
-    "Promise",
-    "WAWebConfirmPopup.react",
-    "WAWebModalManager",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["fbt", "Promise", "WAWebConfirmPopup.react", "WAWebModalManager", "react"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c = u || (u = o("react"));
     function d(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e.onOK,
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = s._(/*BTDS*/ "Community is full")), (t[0] = r))
-        : (r = t[0]);
-      var a;
-      t[1] !== n
-        ? ((a = function () {
-            (o("WAWebModalManager").closeModalManager(), n());
-          }),
-          (t[1] = n),
-          (t[2] = a))
-        : (a = t[2]);
-      var i;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = s._(/*BTDS*/ "Manage groups")), (t[3] = i))
-        : (i = t[3]);
-      var l;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = s._(
-            /*BTDS*/ "You cannot add more groups because this community is full. To add more, you must remove groups.",
-          )),
-          (t[4] = l))
-        : (l = t[4]);
-      var u;
-      return (
-        t[5] !== a
-          ? ((u = c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              title: r,
-              testid: void 0,
-              onOK: a,
-              okText: i,
-              onCancel: o("WAWebModalManager").closeModalManager,
-              children: l,
-            })),
-            (t[5] = a),
-            (t[6] = u))
-          : (u = t[6]),
-        u
-      );
+      var t = e.onOK;
+      return c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+        title: s._(/*BTDS*/ "Community is full"),
+        testid: void 0,
+        onOK: function () {
+          (o("WAWebModalManager").closeModalManager(), t());
+        },
+        okText: s._(/*BTDS*/ "Manage groups"),
+        onCancel: o("WAWebModalManager").closeModalManager,
+        children: s._(
+          /*BTDS*/ "You cannot add more groups because this community is full. To add more, you must remove groups.",
+        ),
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(t, r) {
       return new (e || (e = n("Promise")))(function (e) {
         var n =

@@ -5,7 +5,6 @@ __d(
     "WAWebEmptyState.react",
     "WAWebPhotoPickerStyle",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -33,62 +32,36 @@ __d(
         },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.error,
-        a = e.retry,
-        i = e.svgName,
-        l;
-      t[0] !== i
-        ? ((l =
-            i != null
-              ? s.jsx("div", {
-                  className: o("WAWebPhotoPickerStyle").styles.svgSize,
-                })
-              : void 0),
-          (t[0] = i),
-          (t[1] = l))
-        : (l = t[1]);
-      var c = l,
-        d;
-      t[2] !== c
-        ? ((d = s.jsx("div", {
-            className: o("WAWebPhotoPickerStyle").styles.imageContainer,
-            children: c,
-          })),
-          (t[2] = c),
-          (t[3] = d))
-        : (d = t[3]);
-      var m;
-      t[4] !== n || t[5] !== a
-        ? ((m = n
-            ? s.jsx(o("WAWebEmptyState.react").LazyLoadRetry, {
-                xstyle: u.lazyLoadRetry,
-                onClick: a,
+      var t = e.error,
+        n = e.retry,
+        a = e.svgName,
+        i =
+          a != null
+            ? s.jsx("div", {
+                className: o("WAWebPhotoPickerStyle").styles.svgSize,
               })
-            : s.jsx(r("WAWebAvatarSpinner.react"), {})),
-          (t[4] = n),
-          (t[5] = a),
-          (t[6] = m))
-        : (m = t[6]);
-      var p;
-      return (
-        t[7] !== d || t[8] !== m
-          ? ((p = s.jsx("div", {
-              className: o("WAWebPhotoPickerStyle").styles.container,
-              children: s.jsxs("div", {
-                className: o("WAWebPhotoPickerStyle").styles.body,
-                dir: "ltr",
-                children: [d, m],
-              }),
-            })),
-            (t[7] = d),
-            (t[8] = m),
-            (t[9] = p))
-          : (p = t[9]),
-        p
-      );
+            : void 0;
+      return s.jsx("div", {
+        className: o("WAWebPhotoPickerStyle").styles.container,
+        children: s.jsxs("div", {
+          className: o("WAWebPhotoPickerStyle").styles.body,
+          dir: "ltr",
+          children: [
+            s.jsx("div", {
+              className: o("WAWebPhotoPickerStyle").styles.imageContainer,
+              children: i,
+            }),
+            t
+              ? s.jsx(o("WAWebEmptyState.react").LazyLoadRetry, {
+                  xstyle: u.lazyLoadRetry,
+                  onClick: n,
+                })
+              : s.jsx(r("WAWebAvatarSpinner.react"), {}),
+          ],
+        }),
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

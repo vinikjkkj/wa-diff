@@ -1,6 +1,6 @@
 __d(
   "WAWebBar.react",
-  ["react", "react-compiler-runtime", "stylex"],
+  ["react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -30,51 +30,26 @@ __d(
         marginTop4: { marginTop: "xav9cv8", $$css: !0 },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(13),
-        a = t.barXStyle,
-        i = t.containerXStyle,
-        l = t.percentage,
-        s = t.ref,
-        d = l * 100 + "%",
-        m;
-      n[0] !== i
-        ? ((m = (e || (e = r("stylex"))).props(
-            c.barContainer,
-            c.marginTop4,
-            i,
-          )),
-          (n[0] = i),
-          (n[1] = m))
-        : (m = n[1]);
-      var p;
-      n[2] !== a
-        ? ((p = (e || (e = r("stylex")))(c.bar, a)), (n[2] = a), (n[3] = p))
-        : (p = n[3]);
-      var _;
-      n[4] !== d ? ((_ = { width: d }), (n[4] = d), (n[5] = _)) : (_ = n[5]);
-      var f;
-      n[6] !== p || n[7] !== _
-        ? ((f = u.jsx("div", { className: p, style: _ })),
-          (n[6] = p),
-          (n[7] = _),
-          (n[8] = f))
-        : (f = n[8]);
-      var g;
-      return (
-        n[9] !== s || n[10] !== m || n[11] !== f
-          ? ((g = u.jsx(
-              "div",
-              babelHelpers.extends({ ref: s }, m, { children: f }),
-            )),
-            (n[9] = s),
-            (n[10] = m),
-            (n[11] = f),
-            (n[12] = g))
-          : (g = n[12]),
-        g
+      var n = t.barXStyle,
+        o = t.containerXStyle,
+        a = t.percentage,
+        i = t.ref,
+        l = a * 100 + "%";
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          { ref: i },
+          (e || (e = r("stylex"))).props(c.barContainer, c.marginTop4, o),
+          {
+            children: u.jsx("div", {
+              className: e(c.bar, n),
+              style: { width: l },
+            }),
+          },
+        ),
       );
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

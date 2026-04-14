@@ -20,7 +20,6 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -40,7 +39,7 @@ __d(
         c = e.onUseMessage,
         f = _({ type: "loading" }),
         g = f[0],
-        y = f[1],
+        b = f[1],
         v = _(-1),
         S = v[0],
         R = v[1],
@@ -50,7 +49,7 @@ __d(
         I = p(!1),
         T = d(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (y({ type: "loading" }),
+            (b({ type: "loading" }),
               R(-1),
               (L.current = -1),
               (E.current = Date.now()));
@@ -70,7 +69,7 @@ __d(
                 case "graphql-error": {
                   var n = o("WAWebBizBroadcastGenAIError").GenAIErrorType
                     .GENERATION_FAILED;
-                  (y({ errorType: n, type: "error" }),
+                  (b({ errorType: n, type: "error" }),
                     o(
                       "WAWebBusinessBroadcastUserJourneyLogger",
                     ).BusinessBroadcastUserJourneyLogger.genAIErrorShown(n));
@@ -90,7 +89,7 @@ __d(
                                 .RATE_LIMIT
                             : o("WAWebBizBroadcastGenAIError").GenAIErrorType
                                 .GENERATION_FAILED;
-                  (y({ errorType: s, type: "error" }),
+                  (b({ errorType: s, type: "error" }),
                     o(
                       "WAWebBusinessBroadcastUserJourneyLogger",
                     ).BusinessBroadcastUserJourneyLogger.genAIErrorShown(s));
@@ -100,7 +99,7 @@ __d(
                   if (e.toneMessagePairs.length === 0) {
                     var u = o("WAWebBizBroadcastGenAIError").GenAIErrorType
                       .EMPTY_RESPONSE;
-                    (y({ errorType: u, type: "error" }),
+                    (b({ errorType: u, type: "error" }),
                       o(
                         "WAWebBusinessBroadcastUserJourneyLogger",
                       ).BusinessBroadcastUserJourneyLogger.genAIErrorShown(u));
@@ -110,7 +109,7 @@ __d(
                   var c = o(
                     "WAWebBizBroadcastGenAIRecommendationModel",
                   ).parseRecommendationResponse(e, null);
-                  (y({ result: c, type: "success" }),
+                  (b({ result: c, type: "success" }),
                     o(
                       "WAWebBusinessBroadcastUserJourneyLogger",
                     ).BusinessBroadcastUserJourneyLogger.genAISuggestionsShown(
@@ -125,7 +124,7 @@ __d(
             } catch (e) {
               var d = o("WAWebBizBroadcastGenAIError").GenAIErrorType
                 .GENERATION_FAILED;
-              (y({ errorType: d, type: "error" }),
+              (b({ errorType: d, type: "error" }),
                 o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.genAIErrorShown(d));
@@ -214,7 +213,7 @@ __d(
               var e = g.result.toneMessagePairs[L.current];
               if (e != null) {
                 var t;
-                y({
+                b({
                   followUps: (t = g.result.followUps) != null ? t : [],
                   result: g.result,
                   selected: e,
@@ -228,7 +227,7 @@ __d(
         w = d(
           function () {
             g.type === "customizing" &&
-              (y({ result: g.result, type: "success" }),
+              (b({ result: g.result, type: "success" }),
               R(-1),
               (L.current = -1));
           },
@@ -248,7 +247,7 @@ __d(
             onOverlayClick: x,
             children: u.jsx(o("WAWebFlex.react").FlexColumn, {
               align: "stretch",
-              xstyle: b.root,
+              xstyle: C.root,
               children: u.jsx(r("WAWebBizBroadcastGenAICustomizeModal.react"), {
                 followUps: g.followUps,
                 onAuthFailure: i,
@@ -263,11 +262,11 @@ __d(
             onOverlayClick: x,
             children: u.jsxs(o("WAWebFlex.react").FlexColumn, {
               align: "stretch",
-              xstyle: b.root,
+              xstyle: C.root,
               children: [
                 u.jsxs(o("WAWebFlex.react").FlexRow, {
                   align: "start",
-                  xstyle: b.header,
+                  xstyle: C.header,
                   children: [
                     u.jsx(r("WDSButton.react"), {
                       Icon: r("WDSIconIcClose.react"),
@@ -276,7 +275,7 @@ __d(
                       variant: "borderless",
                     }),
                     u.jsxs(o("WAWebFlex.react").FlexColumn, {
-                      xstyle: b.headerText,
+                      xstyle: C.headerText,
                       children: [
                         u.jsx(r("WDSText.react"), {
                           type: "Body1",
@@ -297,11 +296,11 @@ __d(
                 u.jsxs(o("WAWebFlex.react").FlexColumn, {
                   align: "stretch",
                   justify: g.type === "loading" ? "center" : void 0,
-                  xstyle: [b.body, F && b.bodyLoading],
+                  xstyle: [C.body, F && C.bodyLoading],
                   children: [
                     g.type === "loading" && u.jsx(h, {}),
                     g.type === "error" &&
-                      u.jsx(C, { errorType: g.errorType, onRetry: N }),
+                      u.jsx(y, { errorType: g.errorType, onRetry: N }),
                     g.type === "success" &&
                       u.jsx("div", {
                         className: "x78zum5 xdt5ytf x8a3fw1",
@@ -329,7 +328,7 @@ __d(
                 }),
                 u.jsxs(o("WAWebFlex.react").FlexRow, {
                   align: "center",
-                  xstyle: b.footer,
+                  xstyle: C.footer,
                   children: [
                     u.jsx(r("WDSButton.react"), {
                       Icon: r("WDSIconIcRefresh.react"),
@@ -339,7 +338,7 @@ __d(
                       variant: "borderless",
                     }),
                     u.jsxs(o("WAWebFlex.react").FlexRow, {
-                      xstyle: b.footerButtons,
+                      xstyle: C.footerButtons,
                       children: [
                         u.jsx(r("WDSButton.react"), {
                           disabled: O,
@@ -363,92 +362,51 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = u.jsx(o("WAWebFlex.react").FlexColumn, {
-              align: "stretch",
-              xstyle: b.cardList,
-              children: f.map(y),
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return u.jsx(o("WAWebFlex.react").FlexColumn, {
+        align: "stretch",
+        xstyle: C.cardList,
+        children: f.map(function (e) {
+          return u.jsxs(
+            o("WAWebFlex.react").FlexColumn,
+            {
+              align: "start",
+              xstyle: C.shimmerCard,
+              children: [
+                u.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+                  height: 14,
+                  width: 160,
+                }),
+                u.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+                  height: 72,
+                  width: "100%",
+                }),
+              ],
+            },
+            e,
+          );
+        }),
+      });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      return u.jsxs(
-        o("WAWebFlex.react").FlexColumn,
-        {
-          align: "start",
-          xstyle: b.shimmerCard,
-          children: [
-            u.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
-              height: 14,
-              width: 160,
-            }),
-            u.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
-              height: 72,
-              width: "100%",
-            }),
-          ],
-        },
-        e,
-      );
+      var t = e.errorType,
+        n = e.onRetry,
+        a = o("WAWebBizBroadcastGenAIError").getErrorMessage(t);
+      return u.jsxs(o("WAWebFlex.react").FlexColumn, {
+        align: "center",
+        xstyle: C.errorContainer,
+        children: [
+          u.jsx("span", { className: "xhslqc4 x1f6kntn x2b8uid", children: a }),
+          u.jsx(r("WDSButton.react"), {
+            label: s._(/*BTDS*/ "Try again"),
+            onPress: n,
+            variant: "outline",
+          }),
+        ],
+      });
     }
     y.displayName = y.name + " [from " + i.id + "]";
-    function C(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.errorType,
-        a = e.onRetry,
-        i;
-      t[0] !== n
-        ? ((i = o("WAWebBizBroadcastGenAIError").getErrorMessage(n)),
-          (t[0] = n),
-          (t[1] = i))
-        : (i = t[1]);
-      var l = i,
-        c;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = { className: "xhslqc4 x1f6kntn x2b8uid" }), (t[2] = c))
-        : (c = t[2]);
-      var d;
-      t[3] !== l
-        ? ((d = u.jsx("span", babelHelpers.extends({}, c, { children: l }))),
-          (t[3] = l),
-          (t[4] = d))
-        : (d = t[4]);
-      var m;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = s._(/*BTDS*/ "Try again")), (t[5] = m))
-        : (m = t[5]);
-      var p;
-      t[6] !== a
-        ? ((p = u.jsx(r("WDSButton.react"), {
-            label: m,
-            onPress: a,
-            variant: "outline",
-          })),
-          (t[6] = a),
-          (t[7] = p))
-        : (p = t[7]);
-      var _;
-      return (
-        t[8] !== d || t[9] !== p
-          ? ((_ = u.jsxs(o("WAWebFlex.react").FlexColumn, {
-              align: "center",
-              xstyle: b.errorContainer,
-              children: [d, p],
-            })),
-            (t[8] = d),
-            (t[9] = p),
-            (t[10] = _))
-          : (_ = t[10]),
-        _
-      );
-    }
-    var b = {
+    var C = {
       body: {
         maxHeight: "x14eurpq",
         minHeight: "x13hwc6b",

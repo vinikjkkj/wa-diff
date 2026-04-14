@@ -19,6 +19,7 @@ __d(
           (t.lastMsgKey = o("WAWebBaseModel").prop()),
           (t.unreadEditTimestampMs = o("WAWebBaseModel").prop()),
           (t.isPending = o("WAWebBaseModel").prop()),
+          (t.pinThreadTimestamp = o("WAWebBaseModel").prop()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );

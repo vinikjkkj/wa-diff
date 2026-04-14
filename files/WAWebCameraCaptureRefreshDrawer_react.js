@@ -8,31 +8,37 @@ __d(
     "WAWebComposeBoxUtils",
     "WAWebDrawer.react",
     "WAWebDrawerBody.react",
-    "WAWebDrawerHeader.react",
     "WAWebMediaEditorEnumsThemes",
     "WAWebMediaEditorForChatLoadable.react",
     "WAWebNoop",
     "WAWebObjectFit.react",
-    "WAWebReturnIcon.react",
     "WAWebRound.react",
     "WAWebSpinner.react",
-    "WAWebUnstyledButton.react",
     "WAWebVelocityTransitionGroup",
     "WAWebVideo.react",
+    "WDSIconIcClose.react",
+    "WDSIconIcDownload.react",
+    "WDSMenuBarItem.react",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c = u || (u = o("react")),
-      d = "x18re5ia-B",
-      m = {
-        retakeBtn: {
-          display: "x78zum5",
-          alignItems: "x6s0dn4",
-          cursor: "x1ypdohk",
-          $$css: !0,
-        },
+      d = u,
+      m = d.useCallback,
+      p = d.useState;
+    function _() {
+      var e = p(null),
+        t = e[0],
+        n = e[1],
+        r = m(function (e) {
+          n(e);
+        }, []);
+      return [t, r];
+    }
+    var f = "x18re5ia-B",
+      g = {
         videoContainer: {
           zIndex: "xhtitgo",
           width: "xh8yej3",
@@ -40,71 +46,99 @@ __d(
           $$css: !0,
         },
       },
-      p = { surface: "camera" };
-    function _(t) {
+      h = { surface: "camera" };
+    function y(e) {
+      var t = e.onClose,
+        n = e.onDownload,
+        o = e.toolbarRef;
+      return c.jsxs("header", {
+        className:
+          "x9f619 x78zum5 x1okw0bk x6s0dn4 x1qughib x1peatla x1280gxy x1iw51ew xde1mab",
+        children: [
+          c.jsx(r("WDSMenuBarItem.react"), {
+            icon: r("WDSIconIcClose.react"),
+            testid: void 0,
+            onClick: t,
+            title: s._(/*BTDS*/ "Close"),
+          }),
+          o != null
+            ? c.jsx("div", { ref: o, className: "x78zum5 xl56j7k x1iyjqo2" })
+            : null,
+          c.jsx(r("WDSMenuBarItem.react"), {
+            icon: r("WDSIconIcDownload.react"),
+            testid: void 0,
+            onClick: n,
+            title: s._(/*BTDS*/ "Download"),
+          }),
+        ],
+      });
+    }
+    y.displayName = y.name + " [from " + i.id + "]";
+    function C(t) {
       var n = t.chat,
         a = t.drawerTitle,
         i = t.img,
         l = t.onCapture,
-        u = t.onRetake,
-        d = t.onSendMedia,
-        _ = t.onVideoLoaded,
-        f = t.questionType,
-        g = t.state,
-        h = t.stream,
-        y = t.urlRef,
+        s = t.onSendMedia,
+        u = t.onVideoLoaded,
+        d = t.questionType,
+        m = t.state,
+        p = t.stream,
+        f = t.urlRef,
         C = t.videoRef,
         b = t.videoSize,
-        v,
-        S,
-        R,
+        v = _(),
+        S = v[0],
+        R = v[1],
         L,
-        E = t.theme === "capture-cover" ? "cover" : "contain";
-      switch (g) {
+        E,
+        k,
+        I = t.theme === "capture-cover" ? "cover" : "contain";
+      switch (m) {
         case "ANIMATING":
         case "LOADING":
           if (
-            ((L = c.jsx(o("WAWebSpinner.react").Spinner, {
+            ((k = c.jsx(o("WAWebSpinner.react").Spinner, {
               stroke: 4,
               size: 50,
             })),
-            g === "ANIMATING")
+            m === "ANIMATING")
           )
             break;
         case "RECORDING": {
-          var k = {
+          var T = {
               0: "xh8yej3 x5yr21d x1hc1fzr x19991ni x1d8287x x1j7uda5 xpk2tj9 x1bndym7",
               1: "xh8yej3 x5yr21d x19991ni x1d8287x x1j7uda5 xpk2tj9 x1bndym7 xg01cxk",
-            }[!!(h && g === "LOADING") << 0],
-            I = h
+            }[!!(p && m === "LOADING") << 0],
+            D = p
               ? c.jsx(r("WAWebVideo.react"), {
                   autoPlay: !0,
                   ref: C,
-                  onPlaying: _,
-                  src: y.current != null ? y.current : void 0,
-                  srcObject: y.current != null ? void 0 : h,
+                  onPlaying: u,
+                  src: f.current != null ? f.current : void 0,
+                  srcObject: f.current != null ? void 0 : p,
                 })
               : null;
-          ((R = h
+          ((E = p
             ? c.jsx(
                 "div",
                 {
                   className: "xh8yej3 x5yr21d",
                   children: c.jsx(r("WAWebObjectFit.react"), {
-                    type: E,
+                    type: I,
                     size: b,
                     children: c.jsx("div", {
-                      className: k,
+                      className: T,
                       "data-animage-capture-webcam": !0,
-                      children: I,
+                      children: D,
                     }),
                   }),
                 },
                 "webcam",
               )
             : null),
-            (v =
-              g === "RECORDING"
+            (L =
+              m === "RECORDING"
                 ? c.jsx(
                     "div",
                     {
@@ -126,8 +160,8 @@ __d(
         }
         case "SENDING": {
           if (
-            ((R = c.jsx(r("WAWebObjectFit.react"), {
-              type: E,
+            ((E = c.jsx(r("WAWebObjectFit.react"), {
+              type: I,
               size: b,
               children: c.jsx("img", {
                 alt: "",
@@ -138,36 +172,24 @@ __d(
             })),
             n)
           ) {
-            var T = r("WANullthrows")(n.attachMediaContents);
-            R = c.jsx(
+            var x = r("WANullthrows")(n.attachMediaContents);
+            E = c.jsx(
               o("WAWebMediaEditorForChatLoadable.react")
                 .MediaEditorForChatLoadable,
               {
                 theme: o("WAWebMediaEditorEnumsThemes").MediaTheme.CAPTURE,
                 chat: n,
                 initCaption: null,
-                mediaCollection: T,
+                mediaCollection: x,
                 onDropText: r("WAWebNoop"),
-                onSendMedia: d,
+                onSendMedia: s,
                 placeholderText: o(
                   "WAWebComposeBoxUtils",
-                ).getComposeBoxPlaceholderText({ chat: n, questionType: f }),
+                ).getComposeBoxPlaceholderText({ chat: n, questionType: d }),
+                toolbarContainer: S,
               },
             );
           }
-          S = c.jsxs(r("WAWebUnstyledButton.react"), {
-            xstyle: m.retakeBtn,
-            onClick: u,
-            children: [
-              c.jsx("div", {
-                className: "x2lah0s xbelrpt x17t9dm2",
-                children: c.jsx(o("WAWebReturnIcon.react").ReturnIcon, {
-                  "aria-hidden": !0,
-                }),
-              }),
-              s._(/*BTDS*/ "Retake"),
-            ],
-          });
           break;
         }
         default:
@@ -177,29 +199,27 @@ __d(
                 "captureDrawer:render Unhandled video capture state ",
                 "",
               ])),
-            g,
+            m,
           );
       }
-      var D = c.jsx("div", {
+      var $ = c.jsx("div", {
         className:
           "x1n2onr6 xhtitgo x9f619 x78zum5 x6s0dn4 xl56j7k x5sx7kw xexx8yu x1xnnf8n x10b6aqq x106a9eq x1m8r95a",
         children: c.jsx(r("WAWebVelocityTransitionGroup"), {
           transitionName: "pop_delay",
-          children: v,
+          children: L,
         }),
       });
       return c.jsxs(
         r("WAWebDrawer.react"),
         {
           theme: t.theme,
-          tsNavigationData: p,
+          tsNavigationData: h,
           children: [
-            c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-              title: a,
-              type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.OFFSET,
-              focusBackOrCancel: !0,
-              onCancel: t.onBack,
-              children: S,
+            c.jsx(y, {
+              onClose: t.onBack,
+              onDownload: r("WAWebNoop"),
+              toolbarRef: m === "SENDING" ? R : void 0,
             }),
             c.jsxs(r("WAWebDrawerBody.react"), {
               overflow: "hidden",
@@ -208,19 +228,19 @@ __d(
                   className:
                     "x1n2onr6 x78zum5 x1iyjqo2 x6s0dn4 xl56j7k xh8yej3",
                   children: [
-                    L,
+                    k,
                     c.jsx("div", {
                       className:
                         "x10l6tqk x13vifvy x1o0tod x78zum5 xdt5ytf x6s0dn4 xh8yej3 x5yr21d",
                       children: c.jsx(r("WAWebVelocityTransitionGroup"), {
                         transitionName: "capture",
-                        xstyle: m.videoContainer,
-                        children: R,
+                        xstyle: g.videoContainer,
+                        children: E,
                       }),
                     }),
                   ],
                 }),
-                D,
+                $,
               ],
             }),
           ],
@@ -228,7 +248,7 @@ __d(
         "attach-capture-modal",
       );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    ((C.displayName = C.name + " [from " + i.id + "]"), (l.default = C));
   },
   226,
 );

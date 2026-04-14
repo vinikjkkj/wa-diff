@@ -28,7 +28,6 @@ __d(
     "asyncToGeneratorRuntime",
     "qpl",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebForceUpdate",
     "useWAWebThrottledCallback",
@@ -75,260 +74,181 @@ __d(
       },
       h = r("qpl")._(774777483, "3443");
     function y(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e.errorName,
-        r = e.onChange,
-        a = e.value,
-        i;
-      t[0] !== r
-        ? ((i = function (t) {
-            var e = t.text;
-            r(e);
-          }),
-          (t[0] = r),
-          (t[1] = i))
-        : (i = t[1]);
-      var l;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = s._(/*BTDS*/ "New collection")), (t[2] = l))
-        : (l = t[2]);
-      var u;
-      return (
-        t[3] !== n || t[4] !== i || t[5] !== a
-          ? ((u = d.jsx(o("WAWebRichTextField.react").RichTextField, {
-              editable: !0,
-              focusOnMount: !0,
-              showRemaining: !0,
-              value: a,
-              onChange: i,
-              inputPlaceholder: l,
-              theme: "text-input",
-              error: n,
-              maxLength: 30,
-            })),
-            (t[3] = n),
-            (t[4] = i),
-            (t[5] = a),
-            (t[6] = u))
-          : (u = t[6]),
-        u
-      );
+      var t = e.errorName,
+        n = e.onChange,
+        r = e.value;
+      return d.jsx(o("WAWebRichTextField.react").RichTextField, {
+        editable: !0,
+        focusOnMount: !0,
+        showRemaining: !0,
+        value: r,
+        onChange: function (t) {
+          var e = t.text;
+          n(e);
+        },
+        inputPlaceholder: s._(/*BTDS*/ "New collection"),
+        theme: "text-input",
+        error: t,
+        maxLength: 30,
+      });
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.onClick,
-        a = e.updated,
-        i;
-      t[0] !== a
-        ? ((i = s._(
-            /*BTDS*/ '_j{"*":"{updated} items updated","_1":"1 item updated"}',
-            [s._plural(a, "updated")],
-          )),
-          (t[0] = a),
-          (t[1] = i))
-        : (i = t[1]);
-      var l = i,
-        c;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = (u || (u = r("stylex"))).props([
+      var t = e.onClick,
+        n = e.updated,
+        a = s._(
+          /*BTDS*/ '_j{"*":"{updated} items updated","_1":"1 item updated"}',
+          [s._plural(n, "updated")],
+        );
+      return d.jsxs(
+        "div",
+        babelHelpers.extends(
+          {},
+          (u || (u = r("stylex"))).props([
             g.footer,
             o("WAWebUISpacing").uiPadding.horiz24,
-          ])),
-          (t[2] = c))
-        : (c = t[2]);
-      var m;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = (u || (u = r("stylex"))).props(
-            o("WAWebUISpacing").uiPadding.all12,
-          )),
-          (t[3] = m))
-        : (m = t[3]);
-      var p;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = d.jsx(
-            o("WAWebCheckmarkMediumIcon.react").CheckmarkMediumIcon,
-            {},
-          )),
-          (t[4] = p))
-        : (p = t[4]);
-      var _;
-      t[5] !== n
-        ? ((_ = d.jsx(
-            "div",
-            babelHelpers.extends({}, m, {
-              children: d.jsx(o("WAWebRound.react").Round, {
-                large: !0,
-                onClick: n,
-                children: p,
-              }),
-            }),
-          )),
-          (t[5] = n),
-          (t[6] = _))
-        : (_ = t[6]);
-      var f;
-      return (
-        t[7] !== l || t[8] !== _
-          ? ((f = d.jsxs(
-              "div",
-              babelHelpers.extends({}, c, { children: [l, _] }),
-            )),
-            (t[7] = l),
-            (t[8] = _),
-            (t[9] = f))
-          : (f = t[9]),
-        f
-      );
-    }
-    function b(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.collection,
-        a = e.handleScroll,
-        i = e.nameInfo,
-        l = e.selectionList,
-        c = e.syncInfo,
-        m = i.errorName,
-        p = i.handleNameChange,
-        _ = i.name,
-        f = c.handleSave,
-        h = c.isUpdating,
-        b = c.loadingMore,
-        v = c.syncSelection,
-        S;
-      t[0] !== h
-        ? ((S = h
-            ? d.jsx("div", {
-                className: "x10l6tqk xh0rhid xbudbmw xupqr0c x11lhmoz",
-                children: d.jsx(o("WAWebSpinner.react").Spinner, {
-                  size: 50,
-                  stroke: 3,
-                }),
-              })
-            : null),
-          (t[0] = h),
-          (t[1] = S))
-        : (S = t[1]);
-      var R = S,
-        L = v(),
-        E;
-      return (
-        t[2] !== n ||
-        t[3] !== m ||
-        t[4] !== p ||
-        t[5] !== f ||
-        t[6] !== a ||
-        t[7] !== b ||
-        t[8] !== _ ||
-        t[9] !== l ||
-        t[10] !== R ||
-        t[11] !== L
-          ? ((E = d.jsx(o("WAWebDrawerContext").DrawerContext.Consumer, {
-              children: function (t) {
-                var e = o(
-                  "WAWebProductCatalogContext",
-                ).getProductCatalogContext(t);
-                return d.jsxs(d.Fragment, {
-                  children: [
-                    R,
-                    d.jsxs("div", {
-                      className: "x1n2onr6",
-                      children: [
-                        d.jsx(
-                          "span",
-                          babelHelpers.extends(
-                            {},
-                            (u || (u = r("stylex"))).props([
-                              g.nameIcon,
-                              o("WAWebUISpacing").uiMargin.start7,
-                            ]),
-                            {
-                              children: d.jsx(
-                                o("WAWebCollectionsFolderIcon.react")
-                                  .CollectionsFolderIcon,
-                                {},
-                              ),
-                            },
-                          ),
-                        ),
-                        d.jsx(
-                          "span",
-                          babelHelpers.extends(
-                            {},
-                            u.props([
-                              g.nameEdit,
-                              o("WAWebUISpacing").uiPadding.top10,
-                            ]),
-                            {
-                              children: d.jsx(y, {
-                                onChange: p,
-                                value: _,
-                                errorName: m,
-                              }),
-                            },
-                          ),
-                        ),
-                      ],
-                    }),
-                    d.jsx(
-                      "div",
-                      babelHelpers.extends(
+          ]),
+          {
+            children: [
+              a,
+              d.jsx(
+                "div",
+                babelHelpers.extends(
+                  {},
+                  u.props(o("WAWebUISpacing").uiPadding.all12),
+                  {
+                    children: d.jsx(o("WAWebRound.react").Round, {
+                      large: !0,
+                      onClick: t,
+                      children: d.jsx(
+                        o("WAWebCheckmarkMediumIcon.react").CheckmarkMediumIcon,
                         {},
-                        u.props([
-                          g.operation,
-                          o("WAWebUISpacing").uiPadding.top5,
-                          o("WAWebUISpacing").uiPadding.end0,
-                          o("WAWebUISpacing").uiPadding.bottom20,
-                          o("WAWebUISpacing").uiPadding.start10,
-                        ]),
-                        {
-                          children: n
-                            ? s._(/*BTDS*/ "Update items")
-                            : s._(/*BTDS*/ "Add items"),
-                        },
                       ),
-                    ),
-                    d.jsxs("div", {
-                      className: "xb8htw9 xw2csxc x1odjw0f",
-                      onScroll: a,
-                      children: [
-                        l,
-                        b &&
-                          d.jsx("div", {
-                            className: "xrvj5dj xl56j7k x1qx5ct2",
-                            children: d.jsx(
-                              r("WAWebFlatListLoadingSpinnerItem.react"),
-                              {},
-                            ),
-                          }),
-                      ],
                     }),
-                    L > 0 || (n && _ !== n.name)
-                      ? d.jsx(C, {
-                          updated: L,
-                          onClick: function () {
-                            f(e);
-                          },
-                        })
-                      : null,
-                  ],
-                });
-              },
-            })),
-            (t[2] = n),
-            (t[3] = m),
-            (t[4] = p),
-            (t[5] = f),
-            (t[6] = a),
-            (t[7] = b),
-            (t[8] = _),
-            (t[9] = l),
-            (t[10] = R),
-            (t[11] = L),
-            (t[12] = E))
-          : (E = t[12]),
-        E
+                  },
+                ),
+              ),
+            ],
+          },
+        ),
       );
     }
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e) {
+      var t = e.collection,
+        n = e.handleScroll,
+        a = e.nameInfo,
+        i = e.selectionList,
+        l = e.syncInfo,
+        c = a.errorName,
+        m = a.handleNameChange,
+        p = a.name,
+        _ = l.handleSave,
+        f = l.isUpdating,
+        h = l.loadingMore,
+        b = l.syncSelection,
+        v = f
+          ? d.jsx("div", {
+              className: "x10l6tqk xh0rhid xbudbmw xupqr0c x11lhmoz",
+              children: d.jsx(o("WAWebSpinner.react").Spinner, {
+                size: 50,
+                stroke: 3,
+              }),
+            })
+          : null,
+        S = b();
+      return d.jsx(o("WAWebDrawerContext").DrawerContext.Consumer, {
+        children: function (a) {
+          var e = o("WAWebProductCatalogContext").getProductCatalogContext(a);
+          return d.jsxs(d.Fragment, {
+            children: [
+              v,
+              d.jsxs("div", {
+                className: "x1n2onr6",
+                children: [
+                  d.jsx(
+                    "span",
+                    babelHelpers.extends(
+                      {},
+                      (u || (u = r("stylex"))).props([
+                        g.nameIcon,
+                        o("WAWebUISpacing").uiMargin.start7,
+                      ]),
+                      {
+                        children: d.jsx(
+                          o("WAWebCollectionsFolderIcon.react")
+                            .CollectionsFolderIcon,
+                          {},
+                        ),
+                      },
+                    ),
+                  ),
+                  d.jsx(
+                    "span",
+                    babelHelpers.extends(
+                      {},
+                      u.props([
+                        g.nameEdit,
+                        o("WAWebUISpacing").uiPadding.top10,
+                      ]),
+                      {
+                        children: d.jsx(y, {
+                          onChange: m,
+                          value: p,
+                          errorName: c,
+                        }),
+                      },
+                    ),
+                  ),
+                ],
+              }),
+              d.jsx(
+                "div",
+                babelHelpers.extends(
+                  {},
+                  u.props([
+                    g.operation,
+                    o("WAWebUISpacing").uiPadding.top5,
+                    o("WAWebUISpacing").uiPadding.end0,
+                    o("WAWebUISpacing").uiPadding.bottom20,
+                    o("WAWebUISpacing").uiPadding.start10,
+                  ]),
+                  {
+                    children: t
+                      ? s._(/*BTDS*/ "Update items")
+                      : s._(/*BTDS*/ "Add items"),
+                  },
+                ),
+              ),
+              d.jsxs("div", {
+                className: "xb8htw9 xw2csxc x1odjw0f",
+                onScroll: n,
+                children: [
+                  i,
+                  h &&
+                    d.jsx("div", {
+                      className: "xrvj5dj xl56j7k x1qx5ct2",
+                      children: d.jsx(
+                        r("WAWebFlatListLoadingSpinnerItem.react"),
+                        {},
+                      ),
+                    }),
+                ],
+              }),
+              S > 0 || (t && p !== t.name)
+                ? d.jsx(C, {
+                    updated: S,
+                    onClick: function () {
+                      _(e);
+                    },
+                  })
+                : null,
+            ],
+          });
+        },
+      });
+    }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v(t) {
       "use no forget";
       var a,

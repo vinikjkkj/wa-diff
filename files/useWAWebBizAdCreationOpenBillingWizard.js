@@ -9,7 +9,6 @@ __d(
     "WAWebShowBillingWizard",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationAdAccountUpdate",
     "useWAWebBizAdCreationMaybeOpenEmailOnboarding",
   ],
@@ -19,88 +18,61 @@ __d(
       s = (e || (e = o("react"))).useContext;
     function u(e) {
       var t,
-        a,
-        i = o("react-compiler-runtime").c(7),
-        l = s(r("WAWebBizAdCreationConfigContext")),
-        u = s(r("WAWebBizAdCreationSpecContext")),
-        c = o("CometRelay").useRelayEnvironment(),
-        d =
-          (t = u.currentValue.adAccountData) == null
+        a = s(r("WAWebBizAdCreationConfigContext")),
+        i = s(r("WAWebBizAdCreationSpecContext")),
+        l = o("CometRelay").useRelayEnvironment(),
+        u =
+          (t = i.currentValue.adAccountData) == null
             ? void 0
             : t.legacyAccountID,
-        m = r("useWAWebBizAdCreationAdAccountUpdate")(d != null ? d : ""),
-        p = o(
+        c = r("useWAWebBizAdCreationAdAccountUpdate")(u != null ? u : ""),
+        d = o(
           "WAWebBizAdCreationPaymentRefetchContext",
         ).useWAWebBizAdCreationPaymentRefetch(),
-        _ = p.triggerBillingRefetch,
-        f = r("useWAWebBizAdCreationMaybeOpenEmailOnboarding")(e),
-        g;
-      if (
-        i[0] !== (l == null ? void 0 : l.flowID) ||
-        i[1] !== f ||
-        i[2] !== c ||
-        i[3] !==
-          ((a = u.currentValue.adAccountData) == null
-            ? void 0
-            : a.paymentAccountID) ||
-        i[4] !== _ ||
-        i[5] !== m
-      ) {
-        var h;
-        ((g = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, o) {
-              var a, i;
-              if (e.wizardName != null) {
-                var s = (a = l == null ? void 0 : l.flowID) != null ? a : "",
-                  d =
-                    (i = u.currentValue.adAccountData) == null
-                      ? void 0
-                      : i.paymentAccountID;
-                if (d == null) {
-                  (r("FBLogger")("wa_ctwa_web").mustfix(
-                    "paymentAccountID is null in openBillingWizard",
-                  ),
-                    t("closed", {}));
-                  return;
-                }
-                var p = function (n, r) {
-                    (m(), _(), t(n, r));
-                  },
-                  g = e.wizardName,
-                  h = e.wizardPropsJSON;
-                f(function () {
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var e = yield r("WAWebShowBillingWizard")({
-                      relayEnvironment: c,
-                      flowID: s,
-                      onCloseCb: p,
-                      paymentAccountID: d,
-                      wizardName: g,
-                      wizardPropsJSON: h,
-                    });
-                    e();
-                  })();
-                }, o);
+        m = d.triggerBillingRefetch,
+        p = r("useWAWebBizAdCreationMaybeOpenEmailOnboarding")(e);
+      return (function () {
+        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, o) {
+            var s, u;
+            if (e.wizardName != null) {
+              var d = (s = a == null ? void 0 : a.flowID) != null ? s : "",
+                _ =
+                  (u = i.currentValue.adAccountData) == null
+                    ? void 0
+                    : u.paymentAccountID;
+              if (_ == null) {
+                (r("FBLogger")("wa_ctwa_web").mustfix(
+                  "paymentAccountID is null in openBillingWizard",
+                ),
+                  t("closed", {}));
+                return;
               }
-            },
-          );
-          return function (n, r, o) {
-            return e.apply(this, arguments);
-          };
-        })()),
-          (i[0] = l == null ? void 0 : l.flowID),
-          (i[1] = f),
-          (i[2] = c),
-          (i[3] =
-            (h = u.currentValue.adAccountData) == null
-              ? void 0
-              : h.paymentAccountID),
-          (i[4] = _),
-          (i[5] = m),
-          (i[6] = g));
-      } else g = i[6];
-      return g;
+              var f = function (n, r) {
+                  (c(), m(), t(n, r));
+                },
+                g = e.wizardName,
+                h = e.wizardPropsJSON;
+              p(function () {
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  var e = yield r("WAWebShowBillingWizard")({
+                    relayEnvironment: l,
+                    flowID: d,
+                    onCloseCb: f,
+                    paymentAccountID: _,
+                    wizardName: g,
+                    wizardPropsJSON: h,
+                  });
+                  e();
+                })();
+              }, o);
+            }
+          },
+        );
+        return function (t, n, r) {
+          return e.apply(this, arguments);
+        };
+      })();
     }
     l.default = u;
   },

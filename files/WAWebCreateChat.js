@@ -317,7 +317,6 @@ __d(
               ),
               yield o("WAWebApiChat").createChatRecord(N, S(q)),
               Z != null &&
-                !A &&
                 !w &&
                 o("WAWebFMXGatingUtils").isExpandFmxMexEnabled())
             ) {

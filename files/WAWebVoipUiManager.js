@@ -371,6 +371,9 @@ __d(
               "[voip] openPopout in fullscreen \u2014 may open tab not popup",
             ])),
         ),
+        (window.name = o(
+          "WAWebVoipUiPopoutWindowPortalContainer.react",
+        ).MAIN_WINDOW_NAME),
         o(
           "WAWebVoipUiPopoutWindowPortalContainer.react",
         ).setIsPopoutWindowOpening(!0));
@@ -441,7 +444,7 @@ __d(
         (o("WALogger").LOG(
           S ||
             (S = babelHelpers.taggedTemplateLiteralLoose([
-              "[voip] Service Worker disabled or gated. Using manual document bootstrap fallback",
+              "[voip] SW disabled/gated, using manual doc bootstrap",
             ])),
         ),
           d.document.write(
@@ -482,7 +485,7 @@ __d(
           (o("WALogger").WARN(
             L ||
               (L = babelHelpers.taggedTemplateLiteralLoose([
-                "[voip] SW ready signal timed out. Firing fallback onDocumentReady",
+                "[voip] SW ready timeout, firing fallback",
               ])),
           ),
             k());

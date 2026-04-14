@@ -83,7 +83,7 @@ __d(
               function (e) {
                 e instanceof o("WACustomError").TimeoutError
                   ? o("WALogger")
-                      .ERROR(
+                      .LOG(
                         u ||
                           (u = babelHelpers.taggedTemplateLiteralLoose([
                             "[FMX] integrity signals MEX call timed out for ",

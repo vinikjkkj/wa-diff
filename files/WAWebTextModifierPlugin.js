@@ -5,78 +5,68 @@ __d(
     "LexicalComposerContext",
     "WAWebLexicalUtils",
     "WAWebMultilinePlugin",
-    "react-compiler-runtime",
     "useWAWebLexicalEvent",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.autoToggleListBulletSymbol,
-        r = e.autoToggleListNumberSymbol,
-        a = o("LexicalComposerContext").useLexicalComposerContext(),
-        i = a[0],
-        l;
+      var t = e.autoToggleListBulletSymbol,
+        n = e.autoToggleListNumberSymbol,
+        r = o("LexicalComposerContext").useLexicalComposerContext(),
+        a = r[0];
       return (
-        t[0] !== n || t[1] !== r
-          ? ((l = function () {
-              return (n && u(), r && c(), !1);
-            }),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = l))
-          : (l = t[2]),
         o("useWAWebLexicalEvent").useLexicalCommandListener(
-          i,
+          a,
           o("WAWebMultilinePlugin").NEW_PARAGRAPH_COMMAND,
-          l,
+          function () {
+            return (t && s(), n && u(), !1);
+          },
           o("Lexical").COMMAND_PRIORITY_NORMAL,
         ),
         o("useWAWebLexicalEvent").useLexicalCommandListener(
-          i,
+          a,
           o("Lexical").DELETE_LINE_COMMAND,
-          s,
+          function (e) {
+            var t = o("Lexical").$getSelection();
+            return o("Lexical").$isRangeSelection(t)
+              ? (t.isCollapsed() &&
+                  t.anchor.type === "text" &&
+                  t.modify("extend", e, "lineboundary"),
+                t.removeText(),
+                !0)
+              : !1;
+          },
           o("Lexical").COMMAND_PRIORITY_HIGH,
         ),
         null
       );
     }
-    function s(e) {
-      var t = o("Lexical").$getSelection();
-      return o("Lexical").$isRangeSelection(t)
-        ? (t.isCollapsed() &&
-            t.anchor.type === "text" &&
-            t.modify("extend", e, "lineboundary"),
-          t.removeText(),
-          !0)
-        : !1;
-    }
-    function u() {
+    function s() {
       var e = o("WAWebLexicalUtils").$getSelectionParagraph();
       if (e) {
         var t = e.getPreviousSibling(),
           n = t == null ? void 0 : t.getBulletNode();
         if (!(!t || !n))
-          if (d(t)) t.remove();
+          if (c(t)) t.remove();
           else {
             var r = n.getTextContent();
             o("WAWebLexicalUtils").$insertText(r + " ");
           }
       }
     }
-    function c() {
+    function u() {
       var e = o("WAWebLexicalUtils").$getSelectionParagraph();
       if (e) {
         var t = e.getPreviousSibling(),
           n = t == null ? void 0 : t.getNumberNode();
         if (!(!t || !n))
-          if (d(t)) t.remove();
+          if (c(t)) t.remove();
           else {
             var r = parseInt(n.getTextContent(), 10) + 1;
             r <= 99 && o("WAWebLexicalUtils").$insertText(r + ". ");
           }
       }
     }
-    function d(e) {
+    function c(e) {
       var t = o("WAWebLexicalUtils").assertTextNode(
         e.getBulletNode() || e.getNumberNode(),
       );

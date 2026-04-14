@@ -8,7 +8,6 @@ __d(
     "WALogger",
     "WAMd5",
     "WAResolvable",
-    "WAWebABProps",
     "WAWebBizCoexGatingUtils",
     "WAWebBizCoexHostedAddVerification",
     "WAWebLidAwareContactsDB",
@@ -16,7 +15,6 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebPerformanceUtils",
     "WAWebProtobufsAdv.pb",
-    "WAWebRunInBatches",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
@@ -65,23 +63,10 @@ __d(
         });
     }
     function R(e) {
-      return o("WAWebABProps").getABPropConfigValue(
-        "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
-      )
-        ? o("WAWebRunInBatches").runInBatches(
-            e,
-            function (e) {
-              return r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-                e,
-                "ApiContact.createOrMergeAddressBookContactsBatched",
-              );
-            },
-            { batchSize: j },
-          )
-        : r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-            e,
-            "ApiContact.createOrMergeAddressBookContacts",
-          );
+      return r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
+        e,
+        "ApiContact.createOrMergeAddressBookContacts",
+      );
     }
     function L(e) {
       return E.apply(this, arguments);
@@ -417,35 +402,20 @@ __d(
         z.apply(this, arguments)
       );
     }
-    var j = 500;
-    function K(e) {
-      return Q.apply(this, arguments);
+    function j(e) {
+      return K.apply(this, arguments);
     }
-    function Q() {
+    function K() {
       return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-            return { id: e.id, contactHash: e.contactHash };
-          });
-          o("WAWebABProps").getABPropConfigValue(
-            "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
-          )
-            ? yield o("WAWebRunInBatches").runInBatches(
-                t,
-                function (e) {
-                  return r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-                    e,
-                    "ApiContact.updateContactsHashesBatched",
-                  );
-                },
-                { batchSize: j },
-              )
-            : yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-                t,
-                "ApiContact.updateContactsHashes",
-              );
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = [];
+          for (var n of e) t.push({ id: n.id, contactHash: n.contactHash });
+          yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
+            t,
+            "ApiContact.updateContactsHashes",
+          );
         })),
-        Q.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
     ((l.lidPnCache = b),
@@ -470,7 +440,7 @@ __d(
       (l.CheckPnToLidMappingCaller = V),
       (l.checkPnToLidMapping = H),
       (l.getContactRecordByHash = G),
-      (l.updateContactsHashes = K));
+      (l.updateContactsHashes = j));
   },
   98,
 );

@@ -40,7 +40,7 @@ __d(
             u = l.xwa2_newsletter_followers;
           if (u == null) return null;
           if (((n = u.followers) == null ? void 0 : n.edges) == null)
-            return { subscribers: [] };
+            return { followers: [] };
           var c = d(u.followers.edges),
             p = o(
               "WAWebUsernameWorkerCompatibleGatingUtils",
@@ -48,7 +48,7 @@ __d(
           return (
             p && (yield m(c)),
             {
-              subscribers:
+              followers:
                 (a = r("compactMap")(c, function (e) {
                   var t,
                     n = e.follow_time,
@@ -58,18 +58,18 @@ __d(
                     l = r.pn;
                   if (i == null) return null;
                   var s =
+                    l != null ? o("WAWebWidFactory").createWid(l) : void 0;
+                  return {
+                    displayName: r.display_name,
+                    id: o("WAWebWidFactory").createWid(i),
+                    role: o("WAWebMexNewsletterUtils").mapRoleToMembership(a),
+                    phoneNumber: s,
+                    followTime:
                       n != null
                         ? o("WATimeUtils").castToUnixTime(
                             Number.parseInt(n, 10),
                           )
                         : null,
-                    u = l != null ? o("WAWebWidFactory").createWid(l) : void 0;
-                  return {
-                    displayName: r.display_name,
-                    id: o("WAWebWidFactory").createWid(i),
-                    role: o("WAWebMexNewsletterUtils").mapRoleToMembership(a),
-                    phoneNumber: u,
-                    subscribeTime: s,
                     username: p
                       ? (t = r.username_info) == null
                         ? void 0

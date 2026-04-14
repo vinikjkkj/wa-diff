@@ -106,8 +106,10 @@ __d(
               object: {
                 serialize: function (t, n) {
                   var e = t.constructor;
-                  if (e !== Object)
-                    throw new Error("Cannot clone class object");
+                  if (e !== Object) {
+                    var r = new Error("Cannot clone class object");
+                    throw (r.stack, r);
+                  }
                   return { type: "object", value: t };
                 },
                 deserialize: function (t) {

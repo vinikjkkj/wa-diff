@@ -1,13 +1,6 @@
 __d(
   "WAWebMediaLinkPreviewDescription.react",
-  [
-    "WAWebEmojiText.react",
-    "WAWebL10N",
-    "WAWebUISpacing",
-    "react",
-    "react-compiler-runtime",
-    "stylex",
-  ],
+  ["WAWebEmojiText.react", "WAWebL10N", "WAWebUISpacing", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -78,83 +71,56 @@ __d(
           : c.twoLinesClamp;
     }
     function p(t) {
-      var n = o("react-compiler-runtime").c(15),
-        a = t.breakWord,
-        i = t.children,
-        l = t.isCompose,
-        s = t.isComposeHQPreview,
-        p = t.isFullPreview,
-        _ = t.isHighQualityLayout,
-        f = t.isStatus,
-        g = t.testid,
-        h = t.useTextLimit;
-      if (i == null) return null;
-      var y = r("WAWebL10N").isRTL() ? "rtl" : "ltr",
-        C = typeof i == "string" ? y : void 0,
-        b = h ? d : void 0,
-        v = g != null ? g : "link-description",
-        S;
-      n[0] !== l || n[1] !== s || n[2] !== p || n[3] !== _ || n[4] !== f
-        ? ((S = (e || (e = r("stylex"))).props([
+      var n = t.breakWord,
+        a = t.children,
+        i = t.isCompose,
+        l = t.isComposeHQPreview,
+        s = t.isFullPreview,
+        p = t.isHighQualityLayout,
+        _ = t.isStatus,
+        f = t.testid,
+        g = t.useTextLimit;
+      if (a == null) return null;
+      var h = r("WAWebL10N").isRTL() ? "rtl" : "ltr",
+        y = typeof a == "string" ? h : void 0,
+        C = g ? d : void 0;
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          { "data-testid": void 0 },
+          (e || (e = r("stylex"))).props([
             c.description,
-            f && c.statusDescription,
-            l && [c.composeDescription, o("WAWebUISpacing").uiMargin.bottom1],
+            _ && c.statusDescription,
+            i && [c.composeDescription, o("WAWebUISpacing").uiMargin.bottom1],
             m({
-              isCompose: l,
-              isComposeHQPreview: s,
-              isFullPreview: p,
-              isHighQualityLayout: _,
+              isCompose: i,
+              isComposeHQPreview: l,
+              isFullPreview: s,
+              isHighQualityLayout: p,
             }),
-          ])),
-          (n[0] = l),
-          (n[1] = s),
-          (n[2] = p),
-          (n[3] = _),
-          (n[4] = f),
-          (n[5] = S))
-        : (S = n[5]);
-      var R;
-      n[6] !== a || n[7] !== i || n[8] !== C || n[9] !== b
-        ? ((R =
-            typeof i == "string"
-              ? u.jsx(
-                  o("WAWebEmojiText.react").EmojiText,
-                  babelHelpers.extends(
-                    {
-                      text: i,
-                      textLimit: b,
-                      titlify: !0,
-                      direction: C,
-                      multiline: !0,
-                    },
-                    a === !0 && { breakWord: !0 },
-                  ),
-                )
-              : i),
-          (n[6] = a),
-          (n[7] = i),
-          (n[8] = C),
-          (n[9] = b),
-          (n[10] = R))
-        : (R = n[10]);
-      var L;
-      return (
-        n[11] !== v || n[12] !== S || n[13] !== R
-          ? ((L = u.jsx(
-              "div",
-              babelHelpers.extends({ "data-testid": void 0 }, S, {
-                children: R,
-              }),
-            )),
-            (n[11] = v),
-            (n[12] = S),
-            (n[13] = R),
-            (n[14] = L))
-          : (L = n[14]),
-        L
+          ]),
+          {
+            children:
+              typeof a == "string"
+                ? u.jsx(
+                    o("WAWebEmojiText.react").EmojiText,
+                    babelHelpers.extends(
+                      {
+                        text: a,
+                        textLimit: C,
+                        titlify: !0,
+                        direction: y,
+                        multiline: !0,
+                      },
+                      n === !0 && { breakWord: !0 },
+                    ),
+                  )
+                : a,
+          },
+        ),
       );
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

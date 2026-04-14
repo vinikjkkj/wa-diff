@@ -7,7 +7,6 @@ __d(
     "WDSIconIcCheck.react",
     "WDSIconIcClose.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -97,101 +96,58 @@ __d(
       m = n("$InternalEnum").Mirrored(["STAR", "CHECK", "CLOSE"]),
       p = [d.Primary, d.PrimaryPill];
     function _(t) {
-      var n = o("react-compiler-runtime").c(11),
-        a = t.children,
-        i = t.icon,
-        l = t.round,
-        s = t.testid,
-        m = t.theme,
-        _ = t.xstyle,
-        g = l === void 0 ? !1 : l,
-        h = m === void 0 ? d.Primary : m,
-        y;
-      n[0] !== g || n[1] !== h || n[2] !== _
-        ? ((y = (e || (e = r("stylex"))).props(
+      var n = t.children,
+        o = t.icon,
+        a = t.round,
+        i = a === void 0 ? !1 : a,
+        l = t.testid,
+        s = t.theme,
+        m = s === void 0 ? d.Primary : s,
+        _ = t.xstyle;
+      return u.jsxs(
+        "div",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props(
             c.marker,
-            p.includes(h) && c.primary,
-            h === d.Secondary && c.secondary,
-            h === d.PrimaryPill && c.pill,
-            h === d.Error && c.error,
-            g ? c.round : c.square,
+            p.includes(m) && c.primary,
+            m === d.Secondary && c.secondary,
+            m === d.PrimaryPill && c.pill,
+            m === d.Error && c.error,
+            i ? c.round : c.square,
             _,
-          )),
-          (n[0] = g),
-          (n[1] = h),
-          (n[2] = _),
-          (n[3] = y))
-        : (y = n[3]);
-      var C;
-      n[4] !== i
-        ? ((C = u.jsx(f, { name: i })), (n[4] = i), (n[5] = C))
-        : (C = n[5]);
-      var b;
-      return (
-        n[6] !== a || n[7] !== y || n[8] !== C || n[9] !== s
-          ? ((b = u.jsxs(
-              "div",
-              babelHelpers.extends({}, y, {
-                "data-testid": void 0,
-                children: [a, C],
-              }),
-            )),
-            (n[6] = a),
-            (n[7] = y),
-            (n[8] = C),
-            (n[9] = s),
-            (n[10] = b))
-          : (b = n[10]),
-        b
+          ),
+          { "data-testid": void 0, children: [n, u.jsx(f, { name: o })] },
+        ),
       );
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.name,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = {
-            width: 12,
-            height: 12,
-            xstyle: r("WAWebL10N").isRTL() ? c.iconStartRTL : c.iconStar,
-          }),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = a,
-        l;
-      return (
-        t[1] !== n
-          ? ((l =
-              n === m.STAR
-                ? u.jsx(
-                    o("WAWebStarIcon.react").StarIcon,
-                    babelHelpers.extends({}, i),
-                  )
-                : n === m.CHECK
-                  ? u.jsx(
-                      r("WDSIconIcCheck.react"),
-                      babelHelpers.extends({}, i),
-                    )
-                  : n === m.CLOSE
-                    ? u.jsx(
-                        r("WDSIconIcClose.react"),
-                        babelHelpers.extends({}, i),
-                      )
-                    : n == null
-                      ? null
-                      : (function () {
-                          throw Error(
-                            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                              n,
-                          );
-                        })()),
-            (t[1] = n),
-            (t[2] = l))
-          : (l = t[2]),
-        l
-      );
+      var t = e.name,
+        n = {
+          width: 12,
+          height: 12,
+          xstyle: r("WAWebL10N").isRTL() ? c.iconStartRTL : c.iconStar,
+        };
+      return t === m.STAR
+        ? u.jsx(o("WAWebStarIcon.react").StarIcon, babelHelpers.extends({}, n))
+        : t === m.CHECK
+          ? u.jsx(r("WDSIconIcCheck.react"), babelHelpers.extends({}, n))
+          : t === m.CLOSE
+            ? u.jsx(r("WDSIconIcClose.react"), babelHelpers.extends({}, n))
+            : t == null
+              ? null
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      t,
+                  );
+                })();
     }
-    ((l.TagTheme = d), (l.TagIconName = m), (l.Tag = _));
+    ((f.displayName = f.name + " [from " + i.id + "]"),
+      (l.TagTheme = d),
+      (l.TagIconName = m),
+      (l.Tag = _));
   },
   98,
 );

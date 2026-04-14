@@ -1,25 +1,16 @@
 __d(
   "WAWebRenderNewsletterInvitePreviewIcon",
-  ["WAWebNewsletterSystemMessageIcon.react", "react", "react-compiler-runtime"],
+  ["WAWebNewsletterSystemMessageIcon.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n;
-      return (
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(
-              o("WAWebNewsletterSystemMessageIcon.react")
-                .NewsletterSystemMessageIcon,
-              { width: 21, height: 21, "aria-hidden": !0 },
-            )),
-            (t[0] = n))
-          : (n = t[0]),
-        n
+      return s.jsx(
+        o("WAWebNewsletterSystemMessageIcon.react").NewsletterSystemMessageIcon,
+        { width: 21, height: 21, "aria-hidden": !0 },
       );
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

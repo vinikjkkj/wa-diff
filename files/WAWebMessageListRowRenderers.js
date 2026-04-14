@@ -13,28 +13,15 @@ __d(
     "WAWebWrapperGroupProfilePicture.react",
     "err",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = { className: "x1n2onr6" }), (t[0] = r))
-        : (r = t[0]);
-      var a;
-      return (
-        t[1] !== n
-          ? ((a = s.jsx("div", babelHelpers.extends({}, r, { children: n }))),
-            (t[1] = n),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.children;
+      return s.jsx("div", { className: "x1n2onr6", children: t });
     }
+    u.displayName = u.name + " [from " + i.id + "]";
     function c(e) {
       var t = {
         msgGroup: function (a) {

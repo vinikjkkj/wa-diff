@@ -1,6 +1,6 @@
 __d(
   "WAWebPopoverContext.react",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     var e = ["popover", "targetRef"],
       s,
@@ -19,46 +19,23 @@ __d(
     }
     function y(t) {
       var n,
-        r,
-        a = o("react-compiler-runtime").c(11),
-        i,
-        l,
-        s;
-      a[0] !== t
-        ? ((l = t.popover),
-          (s = t.targetRef),
-          (i = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (a[0] = t),
-          (a[1] = i),
-          (a[2] = l),
-          (a[3] = s))
-        : ((i = a[1]), (l = a[2]), (s = a[3]));
-      var c = _(),
-        d = (n = (r = i) == null ? void 0 : r.controllerRef) != null ? n : c,
-        m;
-      a[4] !== d || a[5] !== i || a[6] !== s
-        ? ((m = babelHelpers.extends({ targetRef: s }, i, {
-            controllerRef: d,
-          })),
-          (a[4] = d),
-          (a[5] = i),
-          (a[6] = s),
-          (a[7] = m))
-        : (m = a[7]);
-      var p = m,
-        g;
-      return (
-        a[8] !== p || a[9] !== l
-          ? ((g =
-              l != null ? u.jsx(f.Provider, { value: p, children: l }) : null),
-            (a[8] = p),
-            (a[9] = l),
-            (a[10] = g))
-          : (g = a[10]),
-        g
-      );
+        r = t.popover,
+        o = t.targetRef,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = _(),
+        l = (n = a == null ? void 0 : a.controllerRef) != null ? n : i,
+        s = p(
+          function () {
+            return babelHelpers.extends({ targetRef: o }, a, {
+              controllerRef: l,
+            });
+          },
+          [o, a, l],
+        );
+      return r != null ? u.jsx(f.Provider, { value: s, children: r }) : null;
     }
-    ((l.useWAWebPopoverControllerContext = g),
+    ((y.displayName = y.name + " [from " + i.id + "]"),
+      (l.useWAWebPopoverControllerContext = g),
       (l.useWAWebPopoverControllerRef = h),
       (l.WAWebPopoverController = y));
   },

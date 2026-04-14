@@ -25,7 +25,6 @@ __d(
     "WAWebUISpacing",
     "WAWebWamEnumInteractionSurface",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = ["ref"],
@@ -45,33 +44,18 @@ __d(
     function p(e) {
       var t,
         n,
-        r = o("react-compiler-runtime").c(20),
-        a = e.currentEnforcementAppeal,
-        i =
-          ((t = a.violatingContentData) == null ? void 0 : t.contentType) ===
+        r = e.currentEnforcementAppeal,
+        a =
+          ((t = r.violatingContentData) == null ? void 0 : t.contentType) ===
             o("WAWebCommonNewsletterEnums").ViolatingContentType.STATUS ||
-          ((n = a.enforcementExtraData) == null ||
+          ((n = r.enforcementExtraData) == null ||
           (n = n.enforcementTargetData) == null
             ? void 0
             : n.contentType) ===
-            o("WAWebCommonNewsletterEnums").ViolatingContentType.STATUS,
-        l;
-      r[0] !== a.appealState || r[1] !== a.enforcementType || r[2] !== i
-        ? ((l = o(
-            "WAWebNewsletterIntegrityUtils",
-          ).getTitleBasedOnEnforcementTypeAndOutcome(
-            a.appealState,
-            a.enforcementType,
-            i,
-          )),
-          (r[0] = a.appealState),
-          (r[1] = a.enforcementType),
-          (r[2] = i),
-          (r[3] = l))
-        : (l = r[3]);
-      var u;
-      r[4] !== l
-        ? ((u = c.jsx(o("WAWebFlex.react").FlexRow, {
+            o("WAWebCommonNewsletterEnums").ViolatingContentType.STATUS;
+      return c.jsxs(c.Fragment, {
+        children: [
+          c.jsx(o("WAWebFlex.react").FlexRow, {
             align: "center",
             justify: "center",
             children: c.jsx(o("WAWebText.react").WAWebTextLarge, {
@@ -81,37 +65,16 @@ __d(
               padding: 12,
               alignSelf: "center",
               color: "primary",
-              children: l,
+              children: o(
+                "WAWebNewsletterIntegrityUtils",
+              ).getTitleBasedOnEnforcementTypeAndOutcome(
+                r.appealState,
+                r.enforcementType,
+                a,
+              ),
             }),
-          })),
-          (r[4] = l),
-          (r[5] = u))
-        : (u = r[5]);
-      var d;
-      r[6] !== a.appealState ||
-      r[7] !== a.countryCode ||
-      r[8] !== a.enforcementType ||
-      r[9] !== a.enforcementViolationCategory ||
-      r[10] !== i
-        ? ((d = o(
-            "WAWebNewsletterIntegrityUtils",
-          ).getHeaderBodyTextBasedOnEnforcementTypeAndOutcome({
-            appealOutcome: a.appealState,
-            enforcementType: a.enforcementType,
-            countries: a.countryCode,
-            enforcementViolationCategory: a.enforcementViolationCategory,
-            isStatusContent: i,
-          })),
-          (r[6] = a.appealState),
-          (r[7] = a.countryCode),
-          (r[8] = a.enforcementType),
-          (r[9] = a.enforcementViolationCategory),
-          (r[10] = i),
-          (r[11] = d))
-        : (d = r[11]);
-      var p;
-      r[12] !== d
-        ? ((p = c.jsx(o("WAWebFlex.react").FlexRow, {
+          }),
+          c.jsx(o("WAWebFlex.react").FlexRow, {
             align: "center",
             justify: "center",
             children: c.jsx(o("WAWebText.react").WAWebTextMuted, {
@@ -119,15 +82,18 @@ __d(
               padding: 12,
               color: "secondary",
               xstyle: m.header,
-              children: d,
+              children: o(
+                "WAWebNewsletterIntegrityUtils",
+              ).getHeaderBodyTextBasedOnEnforcementTypeAndOutcome({
+                appealOutcome: r.appealState,
+                enforcementType: r.enforcementType,
+                countries: r.countryCode,
+                enforcementViolationCategory: r.enforcementViolationCategory,
+                isStatusContent: a,
+              }),
             }),
-          })),
-          (r[12] = d),
-          (r[13] = p))
-        : (p = r[13]);
-      var _;
-      r[14] !== a.appealCreationTime
-        ? ((_ = c.jsx(o("WAWebFlex.react").FlexRow, {
+          }),
+          c.jsx(o("WAWebFlex.react").FlexRow, {
             align: "center",
             justify: "center",
             children: c.jsx(o("WAWebText.react").WAWebTextMuted, {
@@ -141,28 +107,17 @@ __d(
                   s._param(
                     "appeal_creation_time",
                     o("WAWebDSADateUtils").getDSADateDisplayString(
-                      a.appealCreationTime,
+                      r.appealCreationTime,
                     ),
                   ),
                 ],
               ),
             }),
-          })),
-          (r[14] = a.appealCreationTime),
-          (r[15] = _))
-        : (_ = r[15]);
-      var f;
-      return (
-        r[16] !== u || r[17] !== p || r[18] !== _
-          ? ((f = c.jsxs(c.Fragment, { children: [u, p, _] })),
-            (r[16] = u),
-            (r[17] = p),
-            (r[18] = _),
-            (r[19] = f))
-          : (f = r[19]),
-        f
-      );
+          }),
+        ],
+      });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
       var n,
         a,

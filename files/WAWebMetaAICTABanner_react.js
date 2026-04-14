@@ -18,7 +18,6 @@ __d(
     "WDSHoverStateStyles",
     "WDSIconIcOpenInNew.react",
     "react",
-    "react-compiler-runtime",
     "useMergeRefs",
     "useVisibility",
     "useWAWebNux",
@@ -56,105 +55,78 @@ __d(
       return e;
     }
     function y(e) {
-      var t = o("react-compiler-runtime").c(16),
-        n = e.ref,
-        a = p(!1),
-        i = a[0],
-        l = a[1],
-        c = m(!1),
-        d = r("useWAWebNux")(o("WAWebNux").NUX.META_AI_CTA_BANNER),
-        _ = d[1],
-        f;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = function () {
-            c.current ||
-              (o(
-                "WAWebLogMetaAICtaUpsellOperation",
-              ).logMetaAICtaUpsellOperation(
-                o("WAWebWamEnumMetaAiUpsellCtaOperationType")
-                  .META_AI_UPSELL_CTA_OPERATION_TYPE.IMPRESSION,
-              ),
-              (c.current = !0));
-          }),
-          (t[0] = f))
-        : (f = t[0]);
-      var y = f,
-        C;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = {
-            onVisible: function () {
-              y();
-            },
-          }),
-          (t[1] = C))
-        : (C = t[1]);
-      var b = r("useVisibility")(C),
-        v = b[0],
-        S = r("useMergeRefs")(n, v),
-        R;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = h()), (t[2] = R))
-        : (R = t[2]);
-      var L = R,
-        E;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = function (t) {
-            (o("WAWebStopEvent").stopEvent(t),
-              o("WAWebLogMetaAICtaUpsellOperation").logMetaAICtaUpsellOperation(
-                o("WAWebWamEnumMetaAiUpsellCtaOperationType")
-                  .META_AI_UPSELL_CTA_OPERATION_TYPE.BUTTON_CLICK,
-              ),
-              o("WAWebExternalLink.react").openExternalLink(L));
-          }),
-          (t[3] = E))
-        : (E = t[3]);
-      var k = E,
-        I;
-      t[4] !== _
-        ? ((I = function () {
+      var t = e.ref,
+        n = p(!1),
+        a = n[0],
+        i = n[1],
+        l = m(!1),
+        c = r("useWAWebNux")(o("WAWebNux").NUX.META_AI_CTA_BANNER),
+        _ = c[1],
+        f = function () {
+          l.current ||
             (o("WAWebLogMetaAICtaUpsellOperation").logMetaAICtaUpsellOperation(
               o("WAWebWamEnumMetaAiUpsellCtaOperationType")
-                .META_AI_UPSELL_CTA_OPERATION_TYPE.DISMISS,
+                .META_AI_UPSELL_CTA_OPERATION_TYPE.IMPRESSION,
             ),
-              _(),
-              o("WAWebMetaAIBannerSessionTracker").markMetaAIBannerDismissed(
-                o("WAWebMetaAIBannerSessionTracker").MetaAIBannerTypes
-                  .META_AI_CTA_BANNER,
-              ));
-          }),
-          (t[4] = _),
-          (t[5] = I))
-        : (I = t[5]);
-      var T = I,
-        D =
-          i &&
-          o("WDSHoverStateStyles").WDSHoverStateStyles.genericHoverPersistent,
-        x;
-      t[6] !== D
-        ? ((x = [g.paddingHoriz16, g.paddingVert8, g.banner, D]),
-          (t[6] = D),
-          (t[7] = x))
-        : (x = t[7]);
-      var $;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = u.jsx(r("WAWebFlexItem.react"), {
-            padding: 8,
-            shrink: 0,
-            children: u.jsx(r("WDSIconIcOpenInNew.react"), {
-              width: 24,
-              height: 24,
-              iconXstyle: g.icon,
-            }),
-          })),
-          (t[8] = $))
-        : ($ = t[8]);
-      var P;
-      t[9] !== i
-        ? ((P = u.jsxs(o("WAWebFlex.react").FlexRow, {
+            (l.current = !0));
+        },
+        y = r("useVisibility")({
+          onVisible: function () {
+            f();
+          },
+        }),
+        C = y[0],
+        b = r("useMergeRefs")(t, C),
+        v = d(function () {
+          return h();
+        }, []),
+        S = function (t) {
+          (o("WAWebStopEvent").stopEvent(t),
+            o("WAWebLogMetaAICtaUpsellOperation").logMetaAICtaUpsellOperation(
+              o("WAWebWamEnumMetaAiUpsellCtaOperationType")
+                .META_AI_UPSELL_CTA_OPERATION_TYPE.BUTTON_CLICK,
+            ),
+            o("WAWebExternalLink.react").openExternalLink(v));
+        },
+        R = function () {
+          (o("WAWebLogMetaAICtaUpsellOperation").logMetaAICtaUpsellOperation(
+            o("WAWebWamEnumMetaAiUpsellCtaOperationType")
+              .META_AI_UPSELL_CTA_OPERATION_TYPE.DISMISS,
+          ),
+            _(),
+            o("WAWebMetaAIBannerSessionTracker").markMetaAIBannerDismissed(
+              o("WAWebMetaAIBannerSessionTracker").MetaAIBannerTypes
+                .META_AI_CTA_BANNER,
+            ));
+        };
+      return u.jsx(o("WAWebUimUie.react").UIE, {
+        displayName: "MetaAICTABanner>",
+        children: u.jsx(r("WAWebConversationBanner.react"), {
+          ref: b,
+          xstyle: [
+            g.paddingHoriz16,
+            g.paddingVert8,
+            g.banner,
+            a &&
+              o("WDSHoverStateStyles").WDSHoverStateStyles
+                .genericHoverPersistent,
+          ],
+          onClick: S,
+          onHoverChange: i,
+          onClose: R,
+          children: u.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             xstyle: g.row,
             children: [
-              $,
+              u.jsx(r("WAWebFlexItem.react"), {
+                padding: 8,
+                shrink: 0,
+                children: u.jsx(r("WDSIconIcOpenInNew.react"), {
+                  width: 24,
+                  height: 24,
+                  iconXstyle: g.icon,
+                }),
+              }),
               u.jsx(r("WAWebFlexItem.react"), {
                 grow: 1,
                 children: u.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
@@ -165,8 +137,8 @@ __d(
                       s._implicitParam(
                         "=m2",
                         u.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                          href: L,
-                          xstyle: i && g.underline,
+                          href: v,
+                          xstyle: a && g.underline,
                           children: s._(/*BTDS*/ "Try it"),
                         }),
                       ),
@@ -175,47 +147,20 @@ __d(
                 }),
               }),
             ],
-          })),
-          (t[9] = i),
-          (t[10] = P))
-        : (P = t[10]);
-      var N;
-      return (
-        t[11] !== T || t[12] !== S || t[13] !== x || t[14] !== P
-          ? ((N = u.jsx(o("WAWebUimUie.react").UIE, {
-              displayName: "MetaAICTABanner>",
-              children: u.jsx(r("WAWebConversationBanner.react"), {
-                ref: S,
-                xstyle: x,
-                onClick: k,
-                onHoverChange: l,
-                onClose: T,
-                children: P,
-              }),
-            })),
-            (t[11] = T),
-            (t[12] = S),
-            (t[13] = x),
-            (t[14] = P),
-            (t[15] = N))
-          : (N = t[15]),
-        N
-      );
+          }),
+        }),
+      });
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [o("WAWebBotProfileGetters").getIsDefault]), (t[0] = n))
-        : (n = t[0]);
-      var a = o("useWAWebOptionalBotProfileValues").useOptionalBotProfileValues(
+      var t = o("useWAWebOptionalBotProfileValues").useOptionalBotProfileValues(
           e.id,
-          n,
+          [o("WAWebBotProfileGetters").getIsDefault],
         ),
-        i = a[0],
-        l = r("useWAWebNux")(o("WAWebNux").NUX.META_AI_CTA_BANNER),
-        s = l[0];
-      return i === !0 && s;
+        n = t[0],
+        a = r("useWAWebNux")(o("WAWebNux").NUX.META_AI_CTA_BANNER),
+        i = a[0];
+      return n === !0 && i;
     }
     ((l.MetaAICTABanner = y), (l.useMetaAICTABanner = C));
   },

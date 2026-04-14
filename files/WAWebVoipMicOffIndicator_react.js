@@ -6,7 +6,6 @@ __d(
     "WDSIconIcMicOffFilled.react",
     "WDSTooltip.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebVoipWindowPopoutTooltipProps",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -24,7 +23,7 @@ __d(
           $$css: !0,
         },
         badge: {
-          backgroundColor: "x1od0jb8",
+          backgroundColor: "x1rk1j4g",
           borderStartStartRadius: "x1c9tyrk",
           borderStartEndRadius: "xeusxvb",
           borderEndEndRadius: "x1pahc9y",
@@ -38,70 +37,33 @@ __d(
       },
       d = { small: 14, medium: 20, large: 24 };
     function m(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.size,
-        a = n === void 0 ? "medium" : n,
-        i = d[a],
-        l = r("useWAWebVoipWindowPopoutTooltipProps")(),
-        m = l.tooltipAnchorRef,
-        p = l.tooltipOwnerDocument,
-        _;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = { className: "x10l6tqk x1u8a7rm x4brfc7 xugynej" }), (t[0] = _))
-        : (_ = t[0]);
-      var f;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = s._(/*BTDS*/ "Muted")), (t[1] = f))
-        : (f = t[1]);
-      var g = c[a],
-        h;
-      t[2] !== g ? ((h = [c.badge, g]), (t[2] = g), (t[3] = h)) : (h = t[3]);
-      var y;
-      t[4] !== i
-        ? ((y = u.jsx(r("WDSIconIcMicOffFilled.react"), {
-            height: i,
-            width: i,
-          })),
-          (t[4] = i),
-          (t[5] = y))
-        : (y = t[5]);
-      var C;
-      t[6] !== h || t[7] !== y
-        ? ((C = u.jsx(o("WAWebFlex.react").FlexRow, {
+      var t = e.size,
+        n = t === void 0 ? "medium" : t,
+        a = d[n],
+        i = r("useWAWebVoipWindowPopoutTooltipProps")(),
+        l = i.tooltipAnchorRef,
+        m = i.tooltipOwnerDocument;
+      return u.jsx("div", {
+        className: "x10l6tqk x1u8a7rm x4brfc7 xugynej",
+        children: u.jsx(r("WDSTooltip.react"), {
+          label: s._(/*BTDS*/ "Muted"),
+          ownerAnchorRef: l,
+          ownerDocument: m,
+          children: u.jsx(o("WAWebFlex.react").FlexRow, {
             align: "center",
             justify: "center",
             role: "status",
             "aria-label": "Microphone is muted",
-            xstyle: h,
-            children: y,
-          })),
-          (t[6] = h),
-          (t[7] = y),
-          (t[8] = C))
-        : (C = t[8]);
-      var b;
-      return (
-        t[9] !== C || t[10] !== m || t[11] !== p
-          ? ((b = u.jsx(
-              "div",
-              babelHelpers.extends({}, _, {
-                children: u.jsx(r("WDSTooltip.react"), {
-                  label: f,
-                  ownerAnchorRef: m,
-                  ownerDocument: p,
-                  children: C,
-                }),
-              }),
-            )),
-            (t[9] = C),
-            (t[10] = m),
-            (t[11] = p),
-            (t[12] = b))
-          : (b = t[12]),
-        b
-      );
+            xstyle: [c.badge, c[n]],
+            children: u.jsx(r("WDSIconIcMicOffFilled.react"), {
+              height: a,
+              width: a,
+            }),
+          }),
+        }),
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

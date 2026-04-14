@@ -6,7 +6,6 @@ __d(
     "WAWebFlex.react",
     "WAWebSMBTable.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,84 +20,57 @@ __d(
         return t;
       });
     function m() {
-      var e = o("react-compiler-runtime").c(2),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+      return s.jsxs(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        gap: 12,
+        xstyle: u.yourAdsCell,
+        children: [
+          s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
             height: 48,
             width: 48,
-          })),
-          (e[0] = t))
-        : (t = e[0]);
-      var n;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              gap: 12,
-              xstyle: u.yourAdsCell,
-              children: [
-                t,
-                s.jsxs(o("WAWebFlex.react").FlexColumn, {
-                  gap: 4,
-                  xstyle: u.textContainer,
-                  children: [
-                    s.jsx(
-                      o("WAWebBaseShimmerComponents.react").RectangleShimmer,
-                      { height: 16, width: 120 },
-                    ),
-                    s.jsx(
-                      o("WAWebBaseShimmerComponents.react").RectangleShimmer,
-                      { height: 12, width: 80 },
-                    ),
-                  ],
-                }),
-              ],
-            })),
-            (e[1] = n))
-          : (n = e[1]),
-        n
-      );
+          }),
+          s.jsxs(o("WAWebFlex.react").FlexColumn, {
+            gap: 4,
+            xstyle: u.textContainer,
+            children: [
+              s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+                height: 16,
+                width: 120,
+              }),
+              s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+                height: 12,
+                width: 80,
+              }),
+            ],
+          }),
+        ],
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.width,
-        r;
-      return (
-        t[0] !== n
-          ? ((r = s.jsx(
-              o("WAWebBaseShimmerComponents.react").RectangleShimmer,
-              { height: 16, width: n },
-            )),
-            (t[0] = n),
-            (t[1] = r))
-          : (r = t[1]),
-        r
-      );
+      var t = e.width;
+      return s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+        height: 16,
+        width: t,
+      });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s.jsxs(o("WAWebFlex.react").FlexColumn, {
-              gap: 4,
-              children: [
-                s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
-                  height: 16,
-                  width: 60,
-                }),
-                s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
-                  height: 12,
-                  width: 80,
-                }),
-              ],
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return s.jsxs(o("WAWebFlex.react").FlexColumn, {
+        gap: 4,
+        children: [
+          s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+            height: 16,
+            width: 60,
+          }),
+          s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+            height: 12,
+            width: 80,
+          }),
+        ],
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     var f = [
       {
         key: "yourAds",
@@ -153,24 +125,16 @@ __d(
       return String(t);
     }
     function h() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s.jsx("div", {
-              className: "x78zum5 xdt5ytf x1iyjqo2 x1c7u0tx",
-              children: s.jsx(r("WAWebSMBTable.react"), {
-                columns: f,
-                items: d,
-                getItemKey: g,
-              }),
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return s.jsx("div", {
+        className: "x78zum5 xdt5ytf x1iyjqo2 x1c7u0tx",
+        children: s.jsx(r("WAWebSMBTable.react"), {
+          columns: f,
+          items: d,
+          getItemKey: g,
+        }),
+      });
     }
-    l.default = h;
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
   },
   98,
 );

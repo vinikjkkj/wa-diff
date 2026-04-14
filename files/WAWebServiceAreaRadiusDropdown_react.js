@@ -9,7 +9,6 @@ __d(
     "WDSMenuItem.react",
     "WDSVars.stylex",
     "react",
-    "react-compiler-runtime",
     "useWAWebOnOutsideClick",
   ],
   function (t, n, r, o, a, i, l) {
@@ -52,151 +51,88 @@ __d(
         },
       };
     function f(e) {
-      var t = o("react-compiler-runtime").c(24),
-        n = e.fieldName,
+      var t = e.fieldName,
+        n = t === void 0 ? "serviceAreaRadius" : t,
         a = e.icon,
         i = e.label,
         l = e.onChange,
         u = e.value,
-        c = e.xstyle,
-        p = n === void 0 ? "serviceAreaRadius" : n,
+        p = e.xstyle,
         f = d(null),
-        h = m(!1),
-        y = h[0],
-        C = h[1],
-        b = Number(u) || 0,
-        v;
-      t[0] !== b
-        ? ((v = o("WAWebServiceAreaRadiusConstants").radiusMetersToOptionValue(
-            b,
-          )),
-          (t[0] = b),
-          (t[1] = v))
-        : (v = t[1]);
-      var S = v,
-        R = o("WAWebServiceAreaRadiusConstants").getServiceAreaRadiusOptions(),
-        L;
-      t[2] !== S
-        ? ((L = function (t) {
-            return t.value === S;
-          }),
-          (t[2] = S),
-          (t[3] = L))
-        : (L = t[3]);
-      var E = R.find(L),
-        k = E != null ? E.label() : R[0].label(),
-        I;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = function () {
-            C(!1);
-          }),
-          (t[4] = I))
-        : (I = t[4]);
-      var T = I;
-      o("useWAWebOnOutsideClick").useOnOutsideClick(f, T);
-      var D;
-      t[5] !== p || t[6] !== l
-        ? ((D = function (t) {
-            (l != null && l(p, String(t)), C(!1));
-          }),
-          (t[5] = p),
-          (t[6] = l),
-          (t[7] = D))
-        : (D = t[7]);
-      var x = D,
-        $;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = function () {
-            C(g);
-          }),
-          (t[8] = $))
-        : ($ = t[8]);
-      var P = $,
-        N;
-      t[9] !== P
-        ? ((N = function (t) {
-            (t.key === "Enter" || t.key === " ") && (t.preventDefault(), P());
-          }),
-          (t[9] = P),
-          (t[10] = N))
-        : (N = t[10]);
-      var M = N,
-        w;
-      t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = { className: "x1ypdohk x1n2onr6 xh8yej3" }), (t[11] = w))
-        : (w = t[11]);
-      var A = "button",
-        F = 0,
-        O = String(k),
-        B;
-      t[12] !== p || t[13] !== a || t[14] !== i || t[15] !== O || t[16] !== c
-        ? ((B = s.jsx(r("WAWebBusinessProfileTextField.react"), {
+        g = m(!1),
+        h = g[0],
+        y = g[1],
+        C = Number(u) || 0,
+        b = o("WAWebServiceAreaRadiusConstants").radiusMetersToOptionValue(C),
+        v = o("WAWebServiceAreaRadiusConstants").getServiceAreaRadiusOptions(),
+        S = v.find(function (e) {
+          return e.value === b;
+        }),
+        R = S != null ? S.label() : v[0].label(),
+        L = c(function () {
+          y(!1);
+        }, []);
+      o("useWAWebOnOutsideClick").useOnOutsideClick(f, L);
+      var E = c(
+          function (e) {
+            (l != null && l(n, String(e)), y(!1));
+          },
+          [n, l],
+        ),
+        k = c(function () {
+          y(function (e) {
+            return !e;
+          });
+        }, []),
+        I = c(
+          function (e) {
+            (e.key === "Enter" || e.key === " ") && (e.preventDefault(), k());
+          },
+          [k],
+        );
+      return s.jsxs("div", {
+        className: "x1ypdohk x1n2onr6 xh8yej3",
+        onClick: k,
+        onKeyDown: I,
+        ref: f,
+        role: "button",
+        tabIndex: 0,
+        children: [
+          s.jsx(r("WAWebBusinessProfileTextField.react"), {
             EndIcon: r("WDSIconIcArrowDropDown.react"),
             editable: !0,
-            fieldName: p,
+            fieldName: n,
             icon: a,
             label: i,
             readOnly: !0,
-            value: O,
-            xstyle: c,
-          })),
-          (t[12] = p),
-          (t[13] = a),
-          (t[14] = i),
-          (t[15] = O),
-          (t[16] = c),
-          (t[17] = B))
-        : (B = t[17]);
-      var W =
-          y &&
-          s.jsx(o("WAWebFlex.react").FlexItem, {
-            xstyle: _.menuContainer,
-            children: s.jsx(r("WDSMenu.react"), {
-              useMaxWidth: !1,
-              children: R.map(function (e) {
-                return s.jsx(
-                  r("WDSMenuItem.react"),
-                  {
-                    isToggleable: !0,
-                    onPress: function () {
-                      return x(e.value);
+            value: String(R),
+            xstyle: p,
+          }),
+          h &&
+            s.jsx(o("WAWebFlex.react").FlexItem, {
+              xstyle: _.menuContainer,
+              children: s.jsx(r("WDSMenu.react"), {
+                useMaxWidth: !1,
+                children: v.map(function (e) {
+                  return s.jsx(
+                    r("WDSMenuItem.react"),
+                    {
+                      isToggleable: !0,
+                      onPress: function () {
+                        return E(e.value);
+                      },
+                      title: e.label(),
+                      toggled: e.value === b,
                     },
-                    title: e.label(),
-                    toggled: e.value === S,
-                  },
-                  e.value,
-                );
+                    e.value,
+                  );
+                }),
               }),
             }),
-          }),
-        q;
-      return (
-        t[18] !== P || t[19] !== M || t[20] !== B || t[21] !== W || t[22] !== w
-          ? ((q = s.jsxs(
-              "div",
-              babelHelpers.extends({}, w, {
-                onClick: P,
-                onKeyDown: M,
-                ref: f,
-                role: A,
-                tabIndex: F,
-                children: [B, W],
-              }),
-            )),
-            (t[18] = P),
-            (t[19] = M),
-            (t[20] = B),
-            (t[21] = W),
-            (t[22] = w),
-            (t[23] = q))
-          : (q = t[23]),
-        q
-      );
+        ],
+      });
     }
-    function g(e) {
-      return !e;
-    }
-    l.default = f;
+    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
   },
   98,
 );

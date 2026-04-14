@@ -7,7 +7,6 @@ __d(
     "WAWebNoop",
     "cr:7293",
     "react",
-    "react-compiler-runtime",
     "useWAWebSettingSync",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -18,92 +17,64 @@ __d(
       m = d.getNotificationToneSetting,
       p = d.setNotificationToneSetting;
     function _(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.onClose,
-        a = e.ref,
-        i = s._(/*BTDS*/ "Messages"),
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = s._(/*BTDS*/ "Notification tone")), (t[0] = l))
-        : (l = t[0]);
-      var u = l,
-        d = o("useWAWebSettingSync").useSettingSync(
+      var t = e.onClose,
+        n = e.ref,
+        a = s._(/*BTDS*/ "Messages"),
+        i = s._(/*BTDS*/ "Notification tone"),
+        l = o("useWAWebSettingSync").useSettingSync(
           "defaultNotificationToneId",
           p != null ? p : r("WAWebNoop"),
         ),
-        _ = o("useWAWebSettingSync").useSettingSync(
+        u = o("useWAWebSettingSync").useSettingSync(
           "isMessagesNotificationEnabled",
-          b,
+          function (e) {
+            o(
+              "WAWebMuteCollection",
+            ).MuteCollection.setGlobalNotificationsEnabled(e);
+          },
         ),
-        v = o("useWAWebSettingSync").useSettingSync(
+        d = o("useWAWebSettingSync").useSettingSync(
           "isReactionsNotificationEnabled",
-          C,
+          function (e) {
+            o(
+              "WAWebMuteCollection",
+            ).MuteCollection.setGlobalNotificationReactionsEnabled(e);
+          },
         ),
-        S = i.toString(),
-        R;
-      t[1] !== u || t[2] !== d || t[3] !== _ || t[4] !== v || t[5] !== S
-        ? ((R = {
-            title: S,
-            testidPrefix: "direct-messages",
-            getNotificationsEnabled: y,
-            setNotificationsEnabled: _,
-            getReactionsEnabled: h,
-            setReactionsEnabled: v,
-            getSoundsEnabled: g,
-            setSoundsEnabled: f,
-            getNotificationToneSetting: m,
-            setNotificationToneSetting: d,
-            notificationToneDropdownTitle: u,
-          }),
-          (t[1] = u),
-          (t[2] = d),
-          (t[3] = _),
-          (t[4] = v),
-          (t[5] = S),
-          (t[6] = R))
-        : (R = t[6]);
-      var L = R,
-        E;
-      return (
-        t[7] !== L || t[8] !== n || t[9] !== a
-          ? ((E = c.jsx(r("WAWebGranularNotificationsDrawer.react"), {
-              config: L,
-              onClose: n,
-              ref: a,
-            })),
-            (t[7] = L),
-            (t[8] = n),
-            (t[9] = a),
-            (t[10] = E))
-          : (E = t[10]),
-        E
-      );
+        _ = {
+          title: a.toString(),
+          testidPrefix: "direct-messages",
+          getNotificationsEnabled: function () {
+            return o(
+              "WAWebMuteCollection",
+            ).MuteCollection.getGlobalNotificationsEnabled();
+          },
+          setNotificationsEnabled: u,
+          getReactionsEnabled: function () {
+            return o(
+              "WAWebMuteCollection",
+            ).MuteCollection.getGlobalNotificationReactionsEnabled();
+          },
+          setReactionsEnabled: d,
+          getSoundsEnabled: function () {
+            return o(
+              "WAWebMuteCollection",
+            ).MuteCollection.getGlobalSoundsEnabled();
+          },
+          setSoundsEnabled: function (t) {
+            o("WAWebMuteCollection").MuteCollection.setGlobalSoundsEnabled(t);
+          },
+          getNotificationToneSetting: m,
+          setNotificationToneSetting: l,
+          notificationToneDropdownTitle: i,
+        };
+      return c.jsx(r("WAWebGranularNotificationsDrawer.react"), {
+        config: _,
+        onClose: t,
+        ref: n,
+      });
     }
-    function f(e) {
-      o("WAWebMuteCollection").MuteCollection.setGlobalSoundsEnabled(e);
-    }
-    function g() {
-      return o("WAWebMuteCollection").MuteCollection.getGlobalSoundsEnabled();
-    }
-    function h() {
-      return o(
-        "WAWebMuteCollection",
-      ).MuteCollection.getGlobalNotificationReactionsEnabled();
-    }
-    function y() {
-      return o(
-        "WAWebMuteCollection",
-      ).MuteCollection.getGlobalNotificationsEnabled();
-    }
-    function C(e) {
-      o(
-        "WAWebMuteCollection",
-      ).MuteCollection.setGlobalNotificationReactionsEnabled(e);
-    }
-    function b(e) {
-      o("WAWebMuteCollection").MuteCollection.setGlobalNotificationsEnabled(e);
-    }
-    l.default = _;
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );

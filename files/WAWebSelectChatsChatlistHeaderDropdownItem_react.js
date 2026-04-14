@@ -7,43 +7,32 @@ __d(
     "WDSIconIcCheckBox.react",
     "WDSMenuItem.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.chatListCollapsed,
-        a = e.isMultiSelectMode,
-        i = e.startMultiSelect,
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = s._(/*BTDS*/ "Select chats")), (t[0] = l))
-        : (l = t[0]);
-      var c = l,
-        d;
-      t[1] !== i
-        ? ((d = u.jsx(r("WDSMenuItem.react"), {
-            Icon: r("WDSIconIcCheckBox.react"),
-            title: c,
-            onPress: i,
-            testid: void 0,
-          })),
-          (t[1] = i),
-          (t[2] = d))
-        : (d = t[2]);
-      var m = d;
+      var t = e.chatListCollapsed,
+        n = e.isMultiSelectMode,
+        a = e.startMultiSelect,
+        i = s._(/*BTDS*/ "Select chats"),
+        l = "mi-select-chats",
+        c = u.jsx(r("WDSMenuItem.react"), {
+          Icon: r("WDSIconIcCheckBox.react"),
+          title: i,
+          onPress: a,
+          testid: void 0,
+        });
       return o("WAWebMobilePlatforms").isSMB() &&
         !o("WAWebABProps").getABPropConfigValue(
           "wa_web_feature_parity_small_wins",
         )
         ? null
-        : !n && !a
-          ? m
+        : !t && !n
+          ? c
           : null;
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

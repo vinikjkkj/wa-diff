@@ -13,64 +13,54 @@ __d(
     "WDSMenuItem.react",
     "promiseDone",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c() {
-      var e = o("react-compiler-runtime").c(2),
-        t = d,
-        n;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = function (n) {
-            (n == null || n.stopPropagation(),
-              o("WAWebModalManager").ModalManager.open(
-                u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                  tsNavigationData: {
-                    surface: "unknown",
-                    viewName: "mark-all-read",
-                  },
-                  title: s._(/*BTDS*/ "Mark all chats as read?"),
-                  onOK: function () {
-                    (o("WAWebModalManager").ModalManager.close(), t());
-                  },
-                  onCancel: o("WAWebModalManager").closeModalManager,
-                }),
-              ));
-          }),
-          (e[0] = n))
-        : (n = e[0]);
-      var a = n,
-        i;
-      if (e[1] === Symbol.for("react.memo_cache_sentinel")) {
-        var l = s._(/*BTDS*/ "Mark all as read");
-        ((i = u.jsx(r("WDSMenuItem.react"), {
-          Icon: r("WDSIconWdsIcChat.react"),
-          title: l,
-          onPress: a,
-          testid: void 0,
-        })),
-          (e[1] = i));
-      } else i = e[1];
-      return i;
+      var e = function () {
+          var e = o("WAWebChatCollection").ChatCollection.filter(function (e) {
+            if (!o("WAWebFrontendChatGetters").getShouldAppearInList(e))
+              return !1;
+            var t = o("WAWebChatMessageSearch").matchFilter(e, {
+                kind: o("WAWebChatSearchFilters").SearchFilters.UNREAD,
+              }),
+              n = e.archive;
+            return t && !n;
+          });
+          e.forEach(function (e) {
+            var t = !1;
+            r("promiseDone")(
+              o("WAWebUpdateUnreadChatAction").markUnread(e, t, !1),
+            );
+          });
+        },
+        t = function (n) {
+          (n == null || n.stopPropagation(),
+            o("WAWebModalManager").ModalManager.open(
+              u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                tsNavigationData: {
+                  surface: "unknown",
+                  viewName: "mark-all-read",
+                },
+                title: s._(/*BTDS*/ "Mark all chats as read?"),
+                onOK: function () {
+                  (o("WAWebModalManager").ModalManager.close(), e());
+                },
+                onCancel: o("WAWebModalManager").closeModalManager,
+              }),
+            ));
+        },
+        n = s._(/*BTDS*/ "Mark all as read"),
+        a = "mi-mark-all-as-read";
+      return u.jsx(r("WDSMenuItem.react"), {
+        Icon: r("WDSIconWdsIcChat.react"),
+        title: n,
+        onPress: t,
+        testid: void 0,
+      });
     }
-    function d() {
-      var e = o("WAWebChatCollection").ChatCollection.filter(p);
-      e.forEach(m);
-    }
-    function m(e) {
-      r("promiseDone")(o("WAWebUpdateUnreadChatAction").markUnread(e, !1, !1));
-    }
-    function p(e) {
-      if (!o("WAWebFrontendChatGetters").getShouldAppearInList(e)) return !1;
-      var t = o("WAWebChatMessageSearch").matchFilter(e, {
-          kind: o("WAWebChatSearchFilters").SearchFilters.UNREAD,
-        }),
-        n = e.archive;
-      return t && !n;
-    }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

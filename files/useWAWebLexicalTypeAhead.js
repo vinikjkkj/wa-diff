@@ -5,7 +5,6 @@ __d(
     "WAWebEmoji",
     "WAWebLexicalUtils",
     "react",
-    "react-compiler-runtime",
     "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,181 +13,111 @@ __d(
       u = s.useEffect,
       c = s.useState;
     function d(e, t, n) {
-      var a = o("react-compiler-runtime").c(35),
-        i;
-      a[0] !== n
-        ? ((i = n != null ? n : {}), (a[0] = n), (a[1] = i))
-        : (i = a[1]);
-      var l = i,
-        s = l.boundary,
-        d = l.enabled,
-        m = l.maxQueryLength,
-        p = l.minQueryLength,
-        _ = s === void 0 ? !1 : s,
-        g = d === void 0 ? !0 : d,
-        h = p === void 0 ? 0 : p,
-        y = c(),
-        v = y[0],
-        S = y[1],
-        R = c(0),
-        L = R[0],
-        E = R[1],
-        k = c(),
-        I = k[0],
-        T = k[1],
-        D,
-        x;
-      (a[2] !== _ || a[3] !== e || a[4] !== g || a[5] !== m || a[6] !== t
-        ? ((D = function () {
-            if (g) {
-              var n = function () {
-                  e.getEditorState().read(function () {
-                    var n;
-                    if (!e.isComposing()) {
-                      var r = C(t, { boundary: _, maxQueryLength: m });
-                      (S(r == null ? void 0 : r.query),
-                        E(
-                          (n = r == null ? void 0 : r.leadOffset) != null
-                            ? n
-                            : 0,
-                        ));
-                    }
-                  });
-                },
-                r = e.registerUpdateListener(n);
-              return (n(), r);
-            }
-          }),
-          (x = [e, t, g, _, m]),
-          (a[2] = _),
-          (a[3] = e),
-          (a[4] = g),
-          (a[5] = m),
-          (a[6] = t),
-          (a[7] = D),
-          (a[8] = x))
-        : ((D = a[7]), (x = a[8])),
-        u(D, x));
-      var $;
-      a[9] !== _ || a[10] !== e || a[11] !== g || a[12] !== t
-        ? (($ = function () {
-            g &&
+      var a = n != null ? n : {},
+        i = a.boundary,
+        l = i === void 0 ? !1 : i,
+        s = a.enabled,
+        d = s === void 0 ? !0 : s,
+        m = a.maxQueryLength,
+        p = a.minQueryLength,
+        _ = p === void 0 ? 0 : p,
+        g = c(),
+        h = g[0],
+        y = g[1],
+        v = c(0),
+        S = v[0],
+        R = v[1],
+        L = c(),
+        E = L[0],
+        k = L[1];
+      u(
+        function () {
+          if (d) {
+            var n = function () {
+                e.getEditorState().read(function () {
+                  var n;
+                  if (!e.isComposing()) {
+                    var r = C(t, { boundary: l, maxQueryLength: m });
+                    (y(r == null ? void 0 : r.query),
+                      R(
+                        (n = r == null ? void 0 : r.leadOffset) != null ? n : 0,
+                      ));
+                  }
+                });
+              },
+              r = e.registerUpdateListener(n);
+            return (n(), r);
+          }
+        },
+        [e, t, d, l, m],
+      );
+      var I = r("useWAWebStableCallback")(function () {
+          d &&
+            e.update(function () {
+              var e = b(t, { boundary: l });
+              e == null || e.remove();
+            });
+        }),
+        T = r("useWAWebStableCallback")(function (n, r) {
+          (r === void 0 && (r = {}),
+            d &&
               e.update(function () {
-                var e = b(t, { boundary: _ });
-                e == null || e.remove();
-              });
-          }),
-          (a[9] = _),
-          (a[10] = e),
-          (a[11] = g),
-          (a[12] = t),
-          (a[13] = $))
-        : ($ = a[13]);
-      var P = r("useWAWebStableCallback")($),
-        N;
-      a[14] !== _ || a[15] !== e || a[16] !== g || a[17] !== t
-        ? ((N = function (r, a) {
-            var n = a === void 0 ? {} : a;
-            g &&
-              e.update(function () {
-                var e = b(t, { boundary: _ });
+                var e = b(t, { boundary: l });
                 if (e) {
-                  var a = n.leadingSpace,
-                    i = n.select,
-                    l = n.trailingSpace,
-                    s = a === void 0 ? !1 : a,
-                    u = i === void 0 ? !1 : i,
-                    c = l === void 0 ? !1 : l,
-                    d =
-                      typeof r == "string"
-                        ? new (o("Lexical").TextNode)(r)
-                        : r();
-                  (o("WAWebLexicalUtils").$replaceTextNode(e, d),
-                    s && o("WAWebLexicalUtils").$insertLeadingSpace(d),
-                    c &&
-                      o("WAWebLexicalUtils").$insertTrailingSpace(d, {
+                  var a = r,
+                    i = a.leadingSpace,
+                    s = i === void 0 ? !1 : i,
+                    u = a.select,
+                    c = u === void 0 ? !1 : u,
+                    d = a.trailingSpace,
+                    m = d === void 0 ? !1 : d,
+                    p =
+                      typeof n == "string"
+                        ? new (o("Lexical").TextNode)(n)
+                        : n();
+                  (o("WAWebLexicalUtils").$replaceTextNode(e, p),
+                    s && o("WAWebLexicalUtils").$insertLeadingSpace(p),
+                    m &&
+                      o("WAWebLexicalUtils").$insertTrailingSpace(p, {
                         moveCaret: !0,
                       }),
-                    u && d.select(0, d.getTextContent().length));
-                }
-              });
-          }),
-          (a[14] = _),
-          (a[15] = e),
-          (a[16] = g),
-          (a[17] = t),
-          (a[18] = N))
-        : (N = a[18]);
-      var M = r("useWAWebStableCallback")(N),
-        w;
-      a[19] !== g || a[20] !== v
-        ? ((w = function () {
-            g && T(v);
-          }),
-          (a[19] = g),
-          (a[20] = v),
-          (a[21] = w))
-        : (w = a[21]);
-      var A = r("useWAWebStableCallback")(w),
-        F;
-      a[22] !== _ || a[23] !== P || a[24] !== e || a[25] !== g || a[26] !== t
-        ? ((F = function (r) {
-            g &&
-              (e.focus(),
-              P(),
-              e.update(function () {
-                var e = o("WAWebLexicalUtils").$getRangeSelection();
-                if (e) {
-                  var n = t + r;
-                  if (_) {
-                    var a = e.anchor.offset,
-                      i = e.anchor.getNode().getTextContent(),
-                      l = i[a - 1];
-                    l && !f(l) && (n = " " + n);
-                  }
-                  e.insertText(n);
+                    c && p.select(0, p.getTextContent().length));
                 }
               }));
-          }),
-          (a[22] = _),
-          (a[23] = P),
-          (a[24] = e),
-          (a[25] = g),
-          (a[26] = t),
-          (a[27] = F))
-        : (F = a[27]);
-      var O = r("useWAWebStableCallback")(F);
-      ((v == null && I != null) ||
-        (I != null && v != null && !v.startsWith(I))) &&
-        T(null);
-      var B = g && I == null && v != null && v.length >= h,
-        W = B ? v : null,
-        q;
-      return (
-        a[28] !== P ||
-        a[29] !== L ||
-        a[30] !== A ||
-        a[31] !== M ||
-        a[32] !== O ||
-        a[33] !== W
-          ? ((q = {
-              query: W,
-              leadOffset: L,
-              clearQuery: P,
-              setQuery: O,
-              replaceQuery: M,
-              omitQuery: A,
-            }),
-            (a[28] = P),
-            (a[29] = L),
-            (a[30] = A),
-            (a[31] = M),
-            (a[32] = O),
-            (a[33] = W),
-            (a[34] = q))
-          : (q = a[34]),
-        q
-      );
+        }),
+        D = r("useWAWebStableCallback")(function () {
+          d && k(h);
+        }),
+        x = r("useWAWebStableCallback")(function (n) {
+          d &&
+            (e.focus(),
+            I(),
+            e.update(function () {
+              var e = o("WAWebLexicalUtils").$getRangeSelection();
+              if (e) {
+                var r = t + n;
+                if (l) {
+                  var a = e.anchor.offset,
+                    i = e.anchor.getNode().getTextContent(),
+                    s = i[a - 1];
+                  s && !f(s) && (r = " " + r);
+                }
+                e.insertText(r);
+              }
+            }));
+        });
+      ((h == null && E != null) ||
+        (E != null && h != null && !h.startsWith(E))) &&
+        k(null);
+      var $ = d && E == null && h != null && h.length >= _;
+      return {
+        query: $ ? h : null,
+        leadOffset: S,
+        clearQuery: I,
+        setQuery: x,
+        replaceQuery: T,
+        omitQuery: D,
+      };
     }
     function m(e) {
       return e.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");

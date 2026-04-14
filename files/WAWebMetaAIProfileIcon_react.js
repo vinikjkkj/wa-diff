@@ -1,12 +1,6 @@
 __d(
   "WAWebMetaAIProfileIcon.react",
-  [
-    "WAWebImg.react",
-    "WAWebMetaAiRingAssetResolver",
-    "react",
-    "react-compiler-runtime",
-    "stylex",
-  ],
+  ["WAWebImg.react", "WAWebMetaAiRingAssetResolver", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -44,42 +38,24 @@ __d(
         },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(8),
-        a = t.size,
-        i = a === void 0 ? 80 : a,
-        l;
-      n[0] !== i
-        ? ((l = (e || (e = r("stylex"))).props(d.container(i, i))),
-          (n[0] = i),
-          (n[1] = l))
-        : (l = n[1]);
-      var s;
-      n[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL()),
-          (n[2] = s))
-        : (s = n[2]);
-      var c;
-      n[3] !== i
-        ? ((c = u.jsx(r("WAWebImg.react"), {
-            src: s,
-            style: { width: i, height: i },
-            draggable: !1,
-          })),
-          (n[3] = i),
-          (n[4] = c))
-        : (c = n[4]);
-      var m;
-      return (
-        n[5] !== l || n[6] !== c
-          ? ((m = u.jsx("div", babelHelpers.extends({}, l, { children: c }))),
-            (n[5] = l),
-            (n[6] = c),
-            (n[7] = m))
-          : (m = n[7]),
-        m
+      var n = t.size,
+        a = n === void 0 ? 80 : n;
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props(d.container(a, a)),
+          {
+            children: u.jsx(r("WAWebImg.react"), {
+              src: o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL(),
+              style: { width: a, height: a },
+              draggable: !1,
+            }),
+          },
+        ),
       );
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

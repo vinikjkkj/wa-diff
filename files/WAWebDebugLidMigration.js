@@ -473,27 +473,32 @@ __d(
                 };
               }
             });
-          t.map(
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  try {
-                    yield o("WAWebSchemaChat")
-                      .getChatTable()
-                      .bulkCreateOrMerge([e]);
-                  } catch (e) {
-                    o("WALogger").LOG(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                      e,
-                    );
-                  }
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
+          yield (w || (w = n("Promise"))).all(
+            t.map(
+              (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    try {
+                      yield o("WAWebSchemaChat")
+                        .getChatTable()
+                        .bulkCreateOrMerge([e]);
+                    } catch (e) {
+                      o("WALogger").LOG(
+                        b ||
+                          (b = babelHelpers.taggedTemplateLiteralLoose([
+                            "",
+                            "",
+                          ])),
+                        e,
+                      );
+                    }
+                  },
+                );
+                return function (t) {
+                  return e.apply(this, arguments);
+                };
+              })(),
+            ),
           );
         })),
         se.apply(this, arguments)

@@ -1,12 +1,6 @@
 __d(
   "WAWebComposeBoxPanelsMenuButton.react",
-  [
-    "WAWebKeyboardHotKeys.react",
-    "WDSFocusStateStyles",
-    "react",
-    "react-compiler-runtime",
-    "stylex",
-  ],
+  ["WAWebKeyboardHotKeys.react", "WDSFocusStateStyles", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
       s,
@@ -41,131 +35,52 @@ __d(
         containerPaddingSquare26: { top: "xgu87t9", $$css: !0 },
       };
     function _(t) {
-      var n = o("react-compiler-runtime").c(32),
-        a,
-        i,
-        l,
-        u,
-        d,
-        _,
-        f,
-        g;
-      n[0] !== t
-        ? ((d = t.ref),
-          (u = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (l = function (t) {
-            (t.stopPropagation(), t.preventDefault(), u.onClick());
-          }),
-          (i = function (t) {
-            (t.stopPropagation(), t.preventDefault(), u.onClick());
-          }),
-          (a = o("WAWebKeyboardHotKeys.react").HotKeys),
-          (_ = "button"),
-          (f = u.tabIndex),
-          (g = (s || (s = r("stylex")))(
-            p.container,
-            u.xstyle,
-            u.isActive && p.containerActive,
-            (u.isMain || u.singleButton) && p.containerTop,
-            u.singleButton && p.containerPadding,
-            u.size === m.SQUARE24
-              ? p.containerPaddingSquare24
-              : p.containerPaddingSquare26,
-            o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-          )),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i),
-          (n[3] = l),
-          (n[4] = u),
-          (n[5] = d),
-          (n[6] = _),
-          (n[7] = f),
-          (n[8] = g))
-        : ((a = n[1]),
-          (i = n[2]),
-          (l = n[3]),
-          (u = n[4]),
-          (d = n[5]),
-          (_ = n[6]),
-          (f = n[7]),
-          (g = n[8]));
-      var h = u["aria-label"],
-        y = u["data-tab"],
-        C = u.testid,
-        b;
-      n[9] !== l
-        ? ((b = { enter: l, space: l }), (n[9] = l), (n[10] = b))
-        : (b = n[10]);
-      var v = u.style,
-        S;
-      n[11] !== u.size
-        ? ((S = {
-            0: {},
-            1: { className: "xvijh9v x1mpyi22 x1ty9z65 xm2jcoa" },
-          }[(u.size === m.SQUARE24) << 0]),
-          (n[11] = u.size),
-          (n[12] = S))
-        : (S = n[12]);
-      var R = u.size === m.SQUARE26 && p.square26Svg,
-        L;
-      n[13] !== u.Icon || n[14] !== R
-        ? ((L = c.jsx(u.Icon, { iconXstyle: R })),
-          (n[13] = u.Icon),
-          (n[14] = R),
-          (n[15] = L))
-        : (L = n[15]);
-      var E;
-      n[16] !== L || n[17] !== S
-        ? ((E = c.jsx("div", babelHelpers.extends({}, S, { children: L }))),
-          (n[16] = L),
-          (n[17] = S),
-          (n[18] = E))
-        : (E = n[18]);
-      var k;
-      return (
-        n[19] !== a ||
-        n[20] !== i ||
-        n[21] !== u.style ||
-        n[22] !== u.testid ||
-        n[23] !== d ||
-        n[24] !== _ ||
-        n[25] !== E ||
-        n[26] !== f ||
-        n[27] !== g ||
-        n[28] !== h ||
-        n[29] !== y ||
-        n[30] !== b
-          ? ((k = c.jsx(a, {
-              component: _,
-              tabIndex: f,
-              className: g,
-              "aria-label": h,
-              "data-tab": y,
-              "data-testid": void 0,
-              onClick: i,
-              ref: d,
-              handlers: b,
-              style: v,
-              children: E,
-            })),
-            (n[19] = a),
-            (n[20] = i),
-            (n[21] = u.style),
-            (n[22] = u.testid),
-            (n[23] = d),
-            (n[24] = _),
-            (n[25] = E),
-            (n[26] = f),
-            (n[27] = g),
-            (n[28] = h),
-            (n[29] = y),
-            (n[30] = b),
-            (n[31] = k))
-          : (k = n[31]),
-        k
-      );
+      var n = t.ref,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = function (t) {
+          (t.stopPropagation(), t.preventDefault(), a.onClick());
+        },
+        l = function (t) {
+          (t.stopPropagation(), t.preventDefault(), a.onClick());
+        };
+      return c.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+        component: "button",
+        tabIndex: a.tabIndex,
+        className: (s || (s = r("stylex")))(
+          p.container,
+          a.xstyle,
+          a.isActive && p.containerActive,
+          (a.isMain || a.singleButton) && p.containerTop,
+          a.singleButton && p.containerPadding,
+          a.size === m.SQUARE24
+            ? p.containerPaddingSquare24
+            : p.containerPaddingSquare26,
+          o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+        ),
+        "aria-label": a["aria-label"],
+        "data-tab": a["data-tab"],
+        "data-testid": void 0,
+        onClick: l,
+        ref: n,
+        handlers: { enter: i, space: i },
+        style: a.style,
+        children: c.jsx(
+          "div",
+          babelHelpers.extends(
+            {},
+            { 0: {}, 1: { className: "xvijh9v x1mpyi22 x1ty9z65 xm2jcoa" } }[
+              (a.size === m.SQUARE24) << 0
+            ],
+            {
+              children: c.jsx(a.Icon, {
+                iconXstyle: a.size === m.SQUARE26 && p.square26Svg,
+              }),
+            },
+          ),
+        ),
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     var f = d(_);
     ((l.SIZES = m), (l.PanelsMenuButton = f));
   },

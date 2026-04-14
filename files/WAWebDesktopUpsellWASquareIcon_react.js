@@ -1,11 +1,6 @@
 __d(
   "WAWebDesktopUpsellWASquareIcon.react",
-  [
-    "WAWebDesktopUpsellUtils",
-    "WAWebWaSquareIconIcon.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebDesktopUpsellUtils", "WAWebWaSquareIconIcon.react", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -22,29 +17,17 @@ __d(
         marginEnd8: { marginInlineEnd: "xqf2s3x", $$css: !0 },
       };
     function c() {
-      var e = o("react-compiler-runtime").c(2),
-        t = o("WAWebDesktopUpsellUtils").getUserDesktopOs(),
-        n;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [u.icon, u.marginEnd8]), (e[0] = n))
-        : (n = e[0]);
-      var r;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((r = s.jsx(o("WAWebWaSquareIconIcon.react").WaSquareIconIcon, {
-              height: 40,
-              xstyle: n,
-              iconXstyle:
-                t === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS
-                  ? u.macIcon
-                  : null,
-            })),
-            (e[1] = r))
-          : (r = e[1]),
-        r
-      );
+      var e = o("WAWebDesktopUpsellUtils").getUserDesktopOs();
+      return s.jsx(o("WAWebWaSquareIconIcon.react").WaSquareIconIcon, {
+        height: 40,
+        xstyle: [u.icon, u.marginEnd8],
+        iconXstyle:
+          e === o("WAWebDesktopUpsellUtils").UserDesktopOs.MACOS
+            ? u.macIcon
+            : null,
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

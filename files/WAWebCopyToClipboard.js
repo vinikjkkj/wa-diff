@@ -22,17 +22,17 @@ __d(
         return !1;
       }
     }
-    function c() {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            var e = yield navigator.permissions.query({
+            var t = yield e.navigator.permissions.query({
               name: "clipboard-write",
             });
-            return e.state === "granted";
+            return t.state === "granted";
           } catch (e) {
             return !1;
           }
@@ -47,33 +47,35 @@ __d(
         o("WAWebUA").UA.browser === o("WAWebUA").BROWSER_TYPE.SAFARI
       );
     }
-    function p(e) {
+    function p(e, t) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield c();
-          if (t)
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t != null ? t : window,
+            r = yield c(n);
+          if (r)
             try {
-              return (yield navigator.clipboard.writeText(e), !0);
+              return (yield n.navigator.clipboard.writeText(e), !0);
             } catch (e) {
               if (e instanceof o("WAWebMiscErrors").NotAllowedError) return !1;
             }
-          var n = !1,
-            r = document.body;
-          if (r) {
-            var a = document.createElement("textarea");
-            ((a.textContent = e), r.appendChild(a), a.focus(), a.select());
+          var a = !1,
+            i = n.document,
+            l = i.body;
+          if (l) {
+            var s = i.createElement("textarea");
+            ((s.textContent = e), l.appendChild(s), s.focus(), s.select());
             try {
-              (document.execCommand("copy"), (n = !0));
+              (i.execCommand("copy"), (a = !0));
             } catch (e) {
-              n = !1;
+              a = !1;
             } finally {
-              r.removeChild(a);
+              l.removeChild(s);
             }
           }
-          return n;
+          return a;
         })),
         _.apply(this, arguments)
       );

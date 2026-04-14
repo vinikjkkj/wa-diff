@@ -7,7 +7,6 @@ __d(
     "WAWebBizAdCreationSliderWithValue.react",
     "WAWebBizAdLogger",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationSpecDispatcherContext",
     "waWebBizAdCreationDurationReducer",
     "withWAWebBizAdCreationSpecContext",
@@ -24,106 +23,68 @@ __d(
       f = 1,
       g = 60;
     function h(e) {
-      var t = o("react-compiler-runtime").c(20),
-        n = e.adAccountID,
-        a = e.initialDuration,
-        i = e.selectedDuration,
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = [r("waWebBizAdCreationDurationReducer")]), (t[0] = l))
-        : (l = t[0]);
-      var c = r("useWAWebBizAdCreationSpecDispatcherContext")(l),
-        d = m(r("WAWebBizAdCreationLoggerContext")),
-        h = _(!1),
-        y = _(null),
-        b,
-        v;
-      (t[1] !== n || t[2] !== a || t[3] !== d || t[4] !== i
-        ? ((b = function () {
-            d != null &&
-              !h.current &&
-              ((h.current = !0),
-              r("WAWebBizAdLogger").log({
-                event: "duration_card_impression",
-                loggerContext: d,
-                adAccountID: n,
-                duration: i,
-                defaultDuration: a,
-                extra: { recommended_value: i },
-              }));
-          }),
-          (v = [n, a, d, i]),
-          (t[1] = n),
-          (t[2] = a),
-          (t[3] = d),
-          (t[4] = i),
-          (t[5] = b),
-          (t[6] = v))
-        : ((b = t[5]), (v = t[6])),
-        p(b, v));
-      var S;
-      t[7] !== n || t[8] !== c || t[9] !== d || t[10] !== i
-        ? ((S = function (t) {
-            if (t !== i) {
-              var e,
-                o = (e = y.current) != null ? e : i;
-              (c({
-                durationData: { durationInDays: t },
-                type: "duration_reducer.update_duration",
-              }),
-                d != null &&
-                  r("WAWebBizAdLogger").log({
-                    event: "change_duration",
-                    loggerContext: d,
-                    adAccountID: n,
-                    startingValue: String(o),
-                    endingValue: String(t),
-                  }),
-                (y.current = t));
-            }
-          }),
-          (t[7] = n),
-          (t[8] = c),
-          (t[9] = d),
-          (t[10] = i),
-          (t[11] = S))
-        : (S = t[11]);
-      var R = S,
-        L;
-      t[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = s._(/*BTDS*/ "Duration")), (t[12] = L))
-        : (L = t[12]);
-      var E;
-      t[13] !== i ? ((E = [i]), (t[13] = i), (t[14] = E)) : (E = t[14]);
-      var k;
-      t[15] !== R
-        ? ((k = function (t) {
-            return R(t[0]);
-          }),
-          (t[15] = R),
-          (t[16] = k))
-        : (k = t[16]);
-      var I;
-      return (
-        t[17] !== E || t[18] !== k
-          ? ((I = u.jsx(r("WAWebBizAdCard.react"), {
-              header: L,
-              children: u.jsx(r("WAWebBizAdCreationSliderWithValue.react"), {
-                values: E,
-                min: f,
-                max: g,
-                displayValueText: C,
-                onChange: k,
-                showMinMaxLabels: !1,
-              }),
-            })),
-            (t[17] = E),
-            (t[18] = k),
-            (t[19] = I))
-          : (I = t[19]),
-        I
+      var t = e.adAccountID,
+        n = e.initialDuration,
+        o = e.selectedDuration,
+        a = r("useWAWebBizAdCreationSpecDispatcherContext")([
+          r("waWebBizAdCreationDurationReducer"),
+        ]),
+        i = m(r("WAWebBizAdCreationLoggerContext")),
+        l = _(!1),
+        c = _(null);
+      p(
+        function () {
+          i != null &&
+            !l.current &&
+            ((l.current = !0),
+            r("WAWebBizAdLogger").log({
+              event: "duration_card_impression",
+              loggerContext: i,
+              adAccountID: t,
+              duration: o,
+              defaultDuration: n,
+              extra: { recommended_value: o },
+            }));
+        },
+        [t, n, i, o],
       );
+      var h = d(
+        function (e) {
+          if (e !== o) {
+            var n,
+              l = (n = c.current) != null ? n : o;
+            (a({
+              durationData: { durationInDays: e },
+              type: "duration_reducer.update_duration",
+            }),
+              i != null &&
+                r("WAWebBizAdLogger").log({
+                  event: "change_duration",
+                  loggerContext: i,
+                  adAccountID: t,
+                  startingValue: String(l),
+                  endingValue: String(e),
+                }),
+              (c.current = e));
+          }
+        },
+        [t, a, i, o],
+      );
+      return u.jsx(r("WAWebBizAdCard.react"), {
+        header: s._(/*BTDS*/ "Duration"),
+        children: u.jsx(r("WAWebBizAdCreationSliderWithValue.react"), {
+          values: [o],
+          min: f,
+          max: g,
+          displayValueText: C,
+          onChange: function (t) {
+            return h(t[0]);
+          },
+          showMinMaxLabels: !1,
+        }),
+      });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     var y = r("withWAWebBizAdCreationSpecContext")(h, function (e) {
       return {
         adAccountID: e.adAccountData.id,

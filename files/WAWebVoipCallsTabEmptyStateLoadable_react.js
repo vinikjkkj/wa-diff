@@ -7,7 +7,6 @@ __d(
     "WAWebLoadable",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -45,16 +44,10 @@ __d(
         },
       });
     function m() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = u.jsx(d, {})), (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return u.jsx(d, {});
     }
-    l.VoipCallsTabEmptyStateLoadable = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"),
+      (l.VoipCallsTabEmptyStateLoadable = m));
   },
   98,
 );

@@ -6,6 +6,7 @@ __d(
     "WAWebWamEnumContactType",
     "WAWebWamEnumQbmFlag",
     "WAWebWamEnumQbmMessageClickButtonClickedType",
+    "WAWebWamEnumSignupEntryPoint",
     "WAWebWamEnumThumbnailType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,9 +36,15 @@ __d(
               deltaTimeReceived: [5, e.TYPES.INTEGER],
               entSourceSubplatform: [16, e.TYPES.STRING],
               hsmTagStr: [6, e.TYPES.STRING],
+              iasEntryPoint: [
+                33,
+                o("WAWebWamEnumSignupEntryPoint").SIGNUP_ENTRY_POINT,
+              ],
+              iasOptinDs: [34, e.TYPES.STRING],
               isBizIntent: [13, e.TYPES.BOOLEAN],
               isBroadcastMessage: [14, e.TYPES.BOOLEAN],
               isCoex: [31, e.TYPES.BOOLEAN],
+              isIasSubscriber: [35, e.TYPES.BOOLEAN],
               isInsubContact: [15, e.TYPES.BOOLEAN],
               isOba: [19, e.TYPES.BOOLEAN],
               isThroughDecisionService: [32, e.TYPES.BOOLEAN],

@@ -4,7 +4,6 @@ __d(
     "WAWebConversationBackground.react",
     "WAWebWallpaper",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebModelValues",
   ],
@@ -57,90 +56,54 @@ __d(
         },
       };
     function _(t) {
-      var n = o("react-compiler-runtime").c(19),
-        a = t.bodyXstyle,
-        i = t.chatPreference,
-        l = t.children,
-        s = t.containerXstyle,
-        c = t.ref,
-        _ = m(null),
-        f;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = ["wallpaper", "showDoodle"]), (n[0] = f))
-        : (f = n[0]);
-      var g = o("useWAWebModelValues").useModelValues(i, f),
+      var n = t.bodyXstyle,
+        a = t.chatPreference,
+        i = t.children,
+        l = t.containerXstyle,
+        s = t.ref,
+        c = m(null),
+        _ = o("useWAWebModelValues").useModelValues(a, [
+          "wallpaper",
+          "showDoodle",
+        ]);
+      d(s, function () {
+        return {
+          getContainer: function () {
+            return c.current;
+          },
+        };
+      });
+      var f = _.showDoodle,
+        g = _.wallpaper,
         h;
-      (n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = function () {
-            return {
-              getContainer: function () {
-                return _.current;
-              },
-            };
-          }),
-          (n[1] = h))
-        : (h = n[1]),
-        d(c, h));
-      var y = g.showDoodle,
-        C = g.wallpaper,
-        b,
-        v,
-        S;
-      if (n[2] !== a || n[3] !== s || n[4] !== C) {
-        var R;
-        C !== o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER &&
-          (R = p.bodyBackgroundWallpaper(C));
-        var L = [p.container, s],
-          E = [p.body, a];
-        (L.push(p.paddingHoriz20, p.marginBottom20),
-          E.push(p.bodyRefreshed),
-          (v = (e || (e = r("stylex"))).props(L)),
-          (S = _),
-          (b = e.props(E, R)),
-          (n[2] = a),
-          (n[3] = s),
-          (n[4] = C),
-          (n[5] = b),
-          (n[6] = v),
-          (n[7] = S));
-      } else ((b = n[5]), (v = n[6]), (S = n[7]));
-      var k;
-      n[8] !== y || n[9] !== C
-        ? ((k = u.jsx(r("WAWebConversationBackground.react"), {
-            wallpaper: C,
-            showDoodle: y,
-          })),
-          (n[8] = y),
-          (n[9] = C),
-          (n[10] = k))
-        : (k = n[10]);
-      var I;
-      n[11] !== l || n[12] !== b || n[13] !== k
-        ? ((I = u.jsxs(
-            "div",
-            babelHelpers.extends({}, b, { children: [k, l] }),
-          )),
-          (n[11] = l),
-          (n[12] = b),
-          (n[13] = k),
-          (n[14] = I))
-        : (I = n[14]);
-      var T;
+      g !== o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER &&
+        (h = p.bodyBackgroundWallpaper(g));
+      var y = [p.container, l],
+        C = [p.body, n];
       return (
-        n[15] !== v || n[16] !== S || n[17] !== I
-          ? ((T = u.jsx(
+        y.push(p.paddingHoriz20, p.marginBottom20),
+        C.push(p.bodyRefreshed),
+        u.jsx(
+          "div",
+          babelHelpers.extends({}, (e || (e = r("stylex"))).props(y), {
+            ref: c,
+            children: u.jsxs(
               "div",
-              babelHelpers.extends({}, v, { ref: S, children: I }),
-            )),
-            (n[15] = v),
-            (n[16] = S),
-            (n[17] = I),
-            (n[18] = T))
-          : (T = n[18]),
-        T
+              babelHelpers.extends({}, e.props(C, h), {
+                children: [
+                  u.jsx(r("WAWebConversationBackground.react"), {
+                    wallpaper: g,
+                    showDoodle: f,
+                  }),
+                  i,
+                ],
+              }),
+            ),
+          }),
+        )
       );
     }
-    l.default = _;
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   98,
 );

@@ -344,8 +344,10 @@ __d(
                     ((t = e.mediaObject) == null
                       ? void 0
                       : t.contentInfo.fullPreviewData) != null ||
-                    ((n = e.scanLengths) == null ? void 0 : n.length) === 0 ||
-                    !e.scansSidecar
+                    !((n = e.scanLengths) != null && n.length) ||
+                    !e.scansSidecar ||
+                    !e.encFilehash ||
+                    !e.mediaKey
                   )
                 ) {
                   var r = o(

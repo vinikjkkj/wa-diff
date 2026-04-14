@@ -31,7 +31,6 @@ __d(
     "WAWebProductCatalogProductListDrawerHeader.react",
     "WDSIconIcMoreVert.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebContactValues",
     "useWAWebDebouncedCallback",
     "useWAWebForceUpdate",
@@ -49,87 +48,60 @@ __d(
       _ = d.useMemo,
       f = d.useState;
     function g(e) {
-      var t = o("react-compiler-runtime").c(17),
-        n = e.businessProfile,
-        a = e.canManageCatalog,
-        i = e.contact,
-        l = e.loadingMore,
-        s = e.onAddProduct,
-        u = e.productCatalogList,
-        d;
-      if (a && s) {
-        var m;
-        (t[0] !== s
-          ? ((m = c.jsx(r("WAWebManageAddItemCta.react"), {
-              onClick: s,
-              theme: "in-list",
-              testid: void 0,
-            })),
-            (t[0] = s),
-            (t[1] = m))
-          : (m = t[1]),
-          (d = m));
-      }
-      var p;
-      t[2] !== n || t[3] !== i
-        ? ((p =
-            n &&
-            c.jsx("div", {
-              "data-testid": void 0,
-              className: "x1okw0bk",
-              children: c.jsx(
-                r("WAWebProductCatalogProductListDrawerHeader.react"),
+      var t = e.businessProfile,
+        n = e.canManageCatalog,
+        o = e.contact,
+        a = e.loadingMore,
+        i = e.onAddProduct,
+        l = e.productCatalogList,
+        s;
+      return (
+        n &&
+          i &&
+          (s = c.jsx(r("WAWebManageAddItemCta.react"), {
+            onClick: i,
+            theme: "in-list",
+            testid: void 0,
+          })),
+        c.jsxs(c.Fragment, {
+          children: [
+            t &&
+              c.jsx("div", {
+                "data-testid": void 0,
+                className: "x1okw0bk",
+                children: c.jsx(
+                  r("WAWebProductCatalogProductListDrawerHeader.react"),
+                  {
+                    profilePicThumb: o.getProfilePicThumb(),
+                    contact: o,
+                    businessProfile: t,
+                  },
+                ),
+              }),
+            c.jsxs(
+              "div",
+              babelHelpers.extends(
+                { "data-testid": void 0 },
                 {
-                  profilePicThumb: i.getProfilePicThumb(),
-                  contact: i,
-                  businessProfile: n,
+                  0: { className: "x1okw0bk x6ikm8r x10wlt62 x12xbjc7" },
+                  1: {
+                    className: "x1okw0bk x6ikm8r x10wlt62 x12xbjc7 x1380le5",
+                  },
+                }[!!t << 0],
+                {
+                  children: [
+                    s,
+                    l,
+                    a && c.jsx(r("WAWebFlatListLoadingSpinnerItem.react"), {}),
+                  ],
                 },
               ),
-            })),
-          (t[2] = n),
-          (t[3] = i),
-          (t[4] = p))
-        : (p = t[4]);
-      var _;
-      t[5] !== n
-        ? ((_ = {
-            0: { className: "x1okw0bk x6ikm8r x10wlt62 x12xbjc7" },
-            1: { className: "x1okw0bk x6ikm8r x10wlt62 x12xbjc7 x1380le5" },
-          }[!!n << 0]),
-          (t[5] = n),
-          (t[6] = _))
-        : (_ = t[6]);
-      var f;
-      t[7] !== l
-        ? ((f = l && c.jsx(r("WAWebFlatListLoadingSpinnerItem.react"), {})),
-          (t[7] = l),
-          (t[8] = f))
-        : (f = t[8]);
-      var g;
-      t[9] !== d || t[10] !== u || t[11] !== _ || t[12] !== f
-        ? ((g = c.jsxs(
-            "div",
-            babelHelpers.extends({ "data-testid": void 0 }, _, {
-              children: [d, u, f],
-            }),
-          )),
-          (t[9] = d),
-          (t[10] = u),
-          (t[11] = _),
-          (t[12] = f),
-          (t[13] = g))
-        : (g = t[13]);
-      var h;
-      return (
-        t[14] !== p || t[15] !== g
-          ? ((h = c.jsxs(c.Fragment, { children: [p, g] })),
-            (t[14] = p),
-            (t[15] = g),
-            (t[16] = h))
-          : (h = t[16]),
-        h
+            ),
+          ],
+        })
       );
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
       var t = e.canManageCatalog,
         n = e.cartCount,

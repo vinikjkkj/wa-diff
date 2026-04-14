@@ -11,7 +11,6 @@ __d(
     "WAWebUISpacing",
     "WDSIconWdsIcCurrencyRealFilled.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -131,51 +130,21 @@ __d(
       }
     }
     function _(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.orderStatus,
-        r;
-      t[0] !== n
-        ? ((r =
-            n === void 0 ? o("WAWebOrderStatus").getDefaultOrderStatus() : n),
-          (t[0] = n),
-          (t[1] = r))
-        : (r = t[1]);
-      var a = r,
-        i;
-      t[2] !== a ? ((i = m(a)), (t[2] = a), (t[3] = i)) : (i = t[3]);
-      var l;
-      if (t[4] === Symbol.for("react.memo_cache_sentinel")) {
-        var s;
-        ((l = [
+      var t = e.orderStatus,
+        n = t === void 0 ? o("WAWebOrderStatus").getDefaultOrderStatus() : t;
+      return u.jsxs(o("WAWebText.react").WAWebTextSmall, {
+        color: m(n),
+        xstyle: [
           c.container,
-          (s = o("WAWebUISpacing")).uiPadding.top8,
-          s.uiPadding.bottom7,
-          s.uiPadding.start8,
-          s.uiPadding.end8,
-        ]),
-          (t[4] = l));
-      } else l = t[4];
-      var _;
-      t[5] !== a ? ((_ = p(a)), (t[5] = a), (t[6] = _)) : (_ = t[6]);
-      var f;
-      t[7] !== a ? ((f = d(a)), (t[7] = a), (t[8] = f)) : (f = t[8]);
-      var g;
-      return (
-        t[9] !== i || t[10] !== _ || t[11] !== f
-          ? ((g = u.jsxs(o("WAWebText.react").WAWebTextSmall, {
-              color: i,
-              xstyle: l,
-              children: [_, f],
-            })),
-            (t[9] = i),
-            (t[10] = _),
-            (t[11] = f),
-            (t[12] = g))
-          : (g = t[12]),
-        g
-      );
+          o("WAWebUISpacing").uiPadding.top8,
+          o("WAWebUISpacing").uiPadding.bottom7,
+          o("WAWebUISpacing").uiPadding.start8,
+          o("WAWebUISpacing").uiPadding.end8,
+        ],
+        children: [p(n), d(n)],
+      });
     }
-    l.default = _;
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );

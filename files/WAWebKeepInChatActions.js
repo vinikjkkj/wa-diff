@@ -3,7 +3,6 @@ __d(
   [
     "$InternalEnum",
     "Promise",
-    "VultureJSDeadComponent.react",
     "WACustomError",
     "WALogger",
     "WAWebChatGetters",
@@ -35,8 +34,10 @@ __d(
       s,
       u,
       c,
-      d = c || (c = o("react")),
-      m = n("$InternalEnum")({
+      d,
+      m,
+      p = m || (m = o("react")),
+      _ = n("$InternalEnum")({
         EXPIRED: "msg_is_expired",
         CANCELLED: "user_cancelled_operation",
         EMPTY: "no_applicable_messages",
@@ -44,7 +45,7 @@ __d(
         EXITED_ME_USER: "exited_me_user",
         SENDER_SUPERPOWER: "sender_superpower",
       }),
-      p = (function (e) {
+      f = (function (e) {
         function t(t) {
           var n;
           return (
@@ -56,20 +57,20 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError);
-    function _(e, t, n) {
-      return y([e], t, n);
-    }
-    function f(e, t, n) {
-      return S([e], t, n);
-    }
     function g(e, t, n) {
-      return h.apply(this, arguments);
+      return b([e], t, n);
     }
-    function h() {
+    function h(e, t, n) {
+      return L([e], t, n);
+    }
+    function y(e, t, n) {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          var i =
-              a === !0
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+          var l =
+              i === !0
                 ? function (e) {
                     return o("WAWebModalManager").ModalManager.openSupportModal(
                       e,
@@ -78,82 +79,85 @@ __d(
                 : function (e) {
                     return o("WAWebModalManager").ModalManager.open(e);
                   },
-            l = e.find(function (e) {
+            s = t.find(function (e) {
               return (
                 o("WAWebChatGetters").getIsGroup(
                   o("WAWebFrontendMsgGetters").getChat(e),
                 ) && !o("WAWebMsgModelPropUtils").iAmGroupParticipant(e)
               );
             });
-          if (l != null)
-            return (
-              i(
-                d.jsx(r("VultureJSDeadComponent.react"), {
-                  name: "WarningKICMeUserExitedModal",
-                }),
-              ),
-              (u || (u = n("Promise"))).reject(new p(m.EXITED_ME_USER))
-            );
-          var s = yield L(e);
           if (s != null)
             return (
-              i(
-                d.jsx(
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[KIC] User exited group before keeping message",
+                    ])),
+                )
+                .sendLogs("user-exited-keep"),
+              (d || (d = n("Promise"))).reject(new f(_.EXITED_ME_USER))
+            );
+          var u = yield k(t);
+          if (u != null)
+            return (
+              l(
+                p.jsx(
                   o("WAWebKeepInChatWarningKicExitedModal")
                     .WarningKICSenderExitedModal,
-                  { action: "keep", message: s },
+                  { action: "keep", message: u },
                 ),
               ),
-              (u || (u = n("Promise"))).reject(new p(m.EXITED_SENDER))
+              (d || (d = n("Promise"))).reject(new f(_.EXITED_SENDER))
             );
-          var c = e.find(function (e) {
+          var c = t.find(function (e) {
             return o("WAWebKeepInChatMsgUtils").isExpired(e);
           });
           if (c)
             return (
-              i(
-                d.jsx(r("WAWebKeepInChatWarningKeepExpiredModal"), {
+              l(
+                p.jsx(r("WAWebKeepInChatWarningKeepExpiredModal"), {
                   expiredMessage: c,
                 }),
               ),
-              (u || (u = n("Promise"))).reject(new p(m.EXPIRED))
+              (d || (d = n("Promise"))).reject(new f(_.EXPIRED))
             );
-          var _ = e.map(function (e) {
+          var m = t.map(function (e) {
               return o(
                 "WAWebKeepInChatMsgUtils",
               ).keepIsLockedForMeSenderSuperpower(e);
             }),
-            f = _.some(function (e) {
+            g = m.some(function (e) {
               return e;
             });
-          if (f) {
-            var g = _.findIndex(function (e) {
+          if (g) {
+            var h = m.findIndex(function (e) {
               return e;
             });
             return (
-              i(
-                d.jsx(r("WAWebKeepInChatWarningCannotKeepSenderSuperpower"), {
-                  message: e[g],
+              l(
+                p.jsx(r("WAWebKeepInChatWarningCannotKeepSenderSuperpower"), {
+                  message: t[h],
                 }),
               ),
-              (u || (u = n("Promise"))).reject(new p(m.SENDER_SUPERPOWER))
+              (d || (d = n("Promise"))).reject(new f(_.SENDER_SUPERPOWER))
             );
           }
-          yield (u || (u = n("Promise"))).all(
-            e.map(function (e) {
-              return o("WAWebKeepInChatMsgAction").keepMessage(e, t);
+          yield (d || (d = n("Promise"))).all(
+            t.map(function (e) {
+              return o("WAWebKeepInChatMsgAction").keepMessage(e, a);
             }),
           );
         })),
-        h.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function C() {
+    function v() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a = o("WAWebFrontendMsgGetters").getChat(e[0]),
             i =
               n === !0
@@ -175,9 +179,9 @@ __d(
             !r("WAWebNetworkStatus").online)
           )
             return (
-              k(e[0], o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL),
+              T(e[0], o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL),
               i(
-                d.jsx(
+                p.jsx(
                   o("WAWebKeepInChatWarningKeepOfflineModal")
                     .WarningKeepOfflineModal,
                   {},
@@ -190,23 +194,8 @@ __d(
               o("WAWebKeepInChatMsgUtils").canShowKeepOption(e)
             );
           });
-          if (!l.length) throw new p(m.EMPTY);
-          yield g(l, t, n);
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          yield (u || (u = n("Promise"))).all(
-            e.map(function (e) {
-              return o("WAWebKeepInChatMsgAction").undoKeepMessage(e, t, r);
-            }),
-          );
+          if (!l.length) throw new f(_.EMPTY);
+          yield y(l, t, n);
         })),
         v.apply(this, arguments)
       );
@@ -216,10 +205,25 @@ __d(
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          var l = o("WAWebFrontendMsgGetters").getChat(t[0]),
-            c =
-              i === !0
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          yield (d || (d = n("Promise"))).all(
+            e.map(function (e) {
+              return o("WAWebKeepInChatMsgAction").undoKeepMessage(e, t, r);
+            }),
+          );
+        })),
+        R.apply(this, arguments)
+      );
+    }
+    function L(e, t, n) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          var i = o("WAWebFrontendMsgGetters").getChat(e[0]),
+            l =
+              a === !0
                 ? function (e) {
                     return o("WAWebModalManager").ModalManager.openSupportModal(
                       e,
@@ -229,71 +233,71 @@ __d(
                     return o("WAWebModalManager").ModalManager.open(e);
                   };
           if (
-            (o("WAWebKicNux.react").shouldShowKicNux(l) &&
+            (o("WAWebKicNux.react").shouldShowKicNux(i) &&
               (yield o("WAWebKicNux.react").openKicNux(
-                l,
+                i,
                 o("WAWebWamEnumTriggerType").TRIGGER_TYPE
                   .KEEP_MESSAGE_FIRST_TIME,
               )),
             !r("WAWebNetworkStatus").online)
           )
             return (
-              k(t[0], o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL),
-              c(
-                d.jsx(
+              T(e[0], o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL),
+              l(
+                p.jsx(
                   o("WAWebKeepInChatWarningKeepOfflineModal")
                     .WarningKeepOfflineModal,
                   {},
                 ),
               )
             );
-          var _ = t.find(function (e) {
+          var m = e.find(function (e) {
               return o("WAWebKeepInChatMsgUtils").isExpired(e);
             }),
-            f = t.some(function (e) {
+            g = e.some(function (e) {
               return o("WAWebMsgGetters").getIsSentByMe(e);
             }),
-            g = t.some(function (e) {
+            h = e.some(function (e) {
               return o("WAWebKeepInChatMsgUtils").isPastUnkeepExpirationLimit(
                 e,
               );
             }),
-            h = t.find(function (e) {
+            y = e.find(function (e) {
               return (
                 o("WAWebChatGetters").getIsGroup(
                   o("WAWebFrontendMsgGetters").getChat(e),
                 ) && !o("WAWebMsgModelPropUtils").iAmGroupParticipant(e)
               );
             }),
-            y = yield L(t);
-          return new (u || (u = n("Promise")))(function (n, i) {
-            var l = function () {
-                n(b(t, { deleteExpired: !0 }, a));
+            C = yield k(e);
+          return new (d || (d = n("Promise")))(function (n, a) {
+            var i = function () {
+                n(S(e, { deleteExpired: !0 }, t));
               },
-              u = function () {
-                var n = t[0];
-                if (!n) {
+              d = function () {
+                var t = e[0];
+                if (!t) {
                   o("WALogger")
                     .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "Attempting to DFM an empty array of messages",
                         ])),
                     )
                     .sendLogs("unkeep-DFM-empty-array");
                   return;
                 }
-                var r = t.every(function (e) {
+                var n = e.every(function (e) {
                   return (
                     o("WAWebFrontendMsgGetters").getChat(e) ===
-                    o("WAWebFrontendMsgGetters").getChat(n)
+                    o("WAWebFrontendMsgGetters").getChat(t)
                   );
                 });
-                if (!r) {
+                if (!n) {
                   o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "Attempting to DFM an array of messages with mismatched chats",
                         ])),
                     )
@@ -301,70 +305,75 @@ __d(
                   return;
                 }
                 o("WAWebCmd").Cmd.sendDeleteMsgs(
-                  o("WAWebFrontendMsgGetters").getChat(n),
-                  { type: "message", list: t },
+                  o("WAWebFrontendMsgGetters").getChat(t),
+                  { type: "message", list: e },
                   !1,
                   null,
                   null,
                 );
               };
-            if (h != null)
-              c(
-                d.jsx(r("VultureJSDeadComponent.react"), {
-                  name: "WarningKICMeUserExitedModal",
-                }),
-              );
-            else if (y != null)
-              c(
-                d.jsx(
+            if (y != null) {
+              (o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[KIC] User exited group before unkeeping message",
+                    ])),
+                )
+                .sendLogs("user-exited-unkeep"),
+                a(new f(_.EXITED_ME_USER)));
+              return;
+            } else if (C != null)
+              l(
+                p.jsx(
                   o("WAWebKeepInChatWarningKicExitedModal")
                     .WarningKICSenderExitedModal,
                   {
                     action: "unkeep",
                     onClose: function () {
-                      return i(new p(m.EXITED_SENDER));
+                      return a(new f(_.EXITED_SENDER));
                     },
-                    message: y,
+                    message: C,
                   },
                 ),
               );
-            else if (_)
-              c(
-                g
-                  ? d.jsx(r("WAWebKeepInChatWarningUnkeepLimitExpiredModal"), {
-                      onDeleteForMe: u,
-                      expiredMessage: _,
+            else if (m)
+              l(
+                h
+                  ? p.jsx(r("WAWebKeepInChatWarningUnkeepLimitExpiredModal"), {
+                      onDeleteForMe: d,
+                      expiredMessage: m,
                     })
-                  : d.jsx(r("WAWebKeepInChatWarningUnkeepExpiredModal"), {
-                      onConfirm: l,
+                  : p.jsx(r("WAWebKeepInChatWarningUnkeepExpiredModal"), {
+                      onConfirm: i,
                       onCancel: function () {
-                        return i(new p(m.CANCELLED));
+                        return a(new f(_.CANCELLED));
                       },
-                      expiredMessage: _,
+                      expiredMessage: m,
                     }),
               );
-            else if (f)
-              c(
-                d.jsx(r("WAWebKeepInChatWarningUnkeepOwnMsgModal"), {
-                  onConfirm: l,
+            else if (g)
+              l(
+                p.jsx(r("WAWebKeepInChatWarningUnkeepOwnMsgModal"), {
+                  onConfirm: i,
                   onCancel: function () {
-                    return i(new p(m.CANCELLED));
+                    return a(new f(_.CANCELLED));
                   },
                 }),
               );
-            else return l();
+            else return i();
           });
         })),
-        R.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function E() {
+    function I() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (u || (u = n("Promise"))).all(
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield (d || (d = n("Promise"))).all(
             e.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -391,10 +400,10 @@ __d(
             return e != null;
           });
         })),
-        E.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function k(e, t) {
+    function T(e, t) {
       var n = o("WAWebEphemeralKeepInChatWamUtils").getBaseErrorLog(e, t);
       (n.set({
         kicErrorCode: o("WAWebWamEnumKicErrorCodeType").KIC_ERROR_CODE_TYPE
@@ -402,12 +411,12 @@ __d(
       }),
         n.commit());
     }
-    ((l.KeepProcessErrorReason = m),
-      (l.KeepProcessError = p),
-      (l.runKeepInChatUX = _),
-      (l.runUndoKeepInChatUX = f),
-      (l.runBulkKeepInChatUX = y),
-      (l.runBulkUndoKeepInChatUX = S));
+    ((l.KeepProcessErrorReason = _),
+      (l.KeepProcessError = f),
+      (l.runKeepInChatUX = g),
+      (l.runUndoKeepInChatUX = h),
+      (l.runBulkKeepInChatUX = b),
+      (l.runBulkUndoKeepInChatUX = L));
   },
   98,
 );

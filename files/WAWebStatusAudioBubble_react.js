@@ -13,7 +13,6 @@ __d(
     "WAWebPttStatusIcon.react",
     "WAWebStatusEventHandlersMap",
     "react",
-    "react-compiler-runtime",
     "useWAWebAnimationFrames",
     "useWAWebModelValues",
   ],
@@ -128,126 +127,58 @@ __d(
     }
     L.displayName = L.name + " [from " + i.id + "]";
     function E(e) {
-      var t = o("react-compiler-runtime").c(30),
-        n = e.isPreview,
-        r = e.msg,
-        a = e.playbackController,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = ["waveform", "duration"]), (t[0] = i))
-        : (i = t[0]);
-      var l = o("useWAWebModelValues").useModelValues(e.mediaData, i),
-        s;
-      t[1] !== l || t[2] !== a.duration
-        ? ((s = Number.isNaN(a.duration)
-            ? o("WAWebPttGetDurationFromMediaOrProtobuf").getDurationFromProto(
-                l,
-              )
-            : a.duration / 1e3),
-          (t[1] = l),
-          (t[2] = a.duration),
-          (t[3] = s))
-        : (s = t[3]);
-      var c = s,
-        d;
-      t[4] !== r ? ((d = S(r)), (t[4] = r), (t[5] = d)) : (d = t[5]);
-      var m = d,
-        p;
-      t[6] !== c || t[7] !== n || t[8] !== l || t[9] !== a
-        ? ((p = n
-            ? null
-            : u.jsx(L, {
-                duration: c,
-                playbackController: a,
-                waveformData: l.waveform,
-              })),
-          (t[6] = c),
-          (t[7] = n),
-          (t[8] = l),
-          (t[9] = a),
-          (t[10] = p))
-        : (p = t[10]);
-      var _ = p,
-        h;
-      t[11] !== c || t[12] !== n || t[13] !== a
-        ? ((h = n ? null : u.jsx(R, { duration: c, playbackController: a })),
-          (t[11] = c),
-          (t[12] = n),
-          (t[13] = a),
-          (t[14] = h))
-        : (h = t[14]);
-      var C = h,
-        b,
-        v;
-      t[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = {
-            className:
-              "x1czfd9k xwc1p85 x1nh4oco xlr9sxt xvvg52n xwd4zgb xq8v1ta x78zum5 x17t9dm2",
-          }),
-          (v = {
+      var t = e.isPreview,
+        n = e.msg,
+        r = e.playbackController,
+        a = o("useWAWebModelValues").useModelValues(e.mediaData, [
+          "waveform",
+          "duration",
+        ]),
+        i = Number.isNaN(r.duration)
+          ? o("WAWebPttGetDurationFromMediaOrProtobuf").getDurationFromProto(a)
+          : r.duration / 1e3,
+        l = S(n),
+        s = t
+          ? null
+          : u.jsx(L, {
+              duration: i,
+              playbackController: r,
+              waveformData: a.waveform,
+            }),
+        c = t ? null : u.jsx(R, { duration: i, playbackController: r });
+      return u.jsxs("div", {
+        className:
+          "x1czfd9k xwc1p85 x1nh4oco xlr9sxt xvvg52n xwd4zgb xq8v1ta x78zum5 x17t9dm2",
+        children: [
+          u.jsxs("div", {
             className:
               "xni59qk xy75621 x187xtus xcxhlts xx6jrq6 x78zum5 xl56j7k x6s0dn4 x1a02dak x1n2onr6",
+            children: [
+              u.jsx(o("WAWebDetailImage.react").DetailImage, {
+                id: n.senderObj.id,
+                size: f,
+              }),
+              u.jsx("span", {
+                className: o(
+                  "WAWebClassnames",
+                ).classnamesConvertMeToStylexPlease(
+                  "x11uqc5h x10l6tqk x18vhi92 x1coevs8",
+                  y,
+                ),
+                style: l,
+                children: u.jsx(o("WAWebPttStatusIcon.react").PttStatusIcon, {
+                  width: g,
+                  height: g,
+                }),
+              }),
+            ],
           }),
-          (t[15] = b),
-          (t[16] = v))
-        : ((b = t[15]), (v = t[16]));
-      var E;
-      t[17] !== r.senderObj.id
-        ? ((E = u.jsx(o("WAWebDetailImage.react").DetailImage, {
-            id: r.senderObj.id,
-            size: f,
-          })),
-          (t[17] = r.senderObj.id),
-          (t[18] = E))
-        : (E = t[18]);
-      var k;
-      t[19] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            "x11uqc5h x10l6tqk x18vhi92 x1coevs8",
-            y,
-          )),
-          (t[19] = k))
-        : (k = t[19]);
-      var I;
-      t[20] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = u.jsx(o("WAWebPttStatusIcon.react").PttStatusIcon, {
-            width: g,
-            height: g,
-          })),
-          (t[20] = I))
-        : (I = t[20]);
-      var T;
-      t[21] !== m
-        ? ((T = u.jsx("span", { className: k, style: m, children: I })),
-          (t[21] = m),
-          (t[22] = T))
-        : (T = t[22]);
-      var D;
-      t[23] !== T || t[24] !== E
-        ? ((D = u.jsxs(
-            "div",
-            babelHelpers.extends({}, v, { children: [E, T] }),
-          )),
-          (t[23] = T),
-          (t[24] = E),
-          (t[25] = D))
-        : (D = t[25]);
-      var x;
-      return (
-        t[26] !== D || t[27] !== C || t[28] !== _
-          ? ((x = u.jsxs(
-              "div",
-              babelHelpers.extends({}, b, { children: [D, _, C] }),
-            )),
-            (t[26] = D),
-            (t[27] = C),
-            (t[28] = _),
-            (t[29] = x))
-          : (x = t[29]),
-        x
-      );
+          s,
+          c,
+        ],
+      });
     }
-    l.default = E;
+    ((E.displayName = E.name + " [from " + i.id + "]"), (l.default = E));
   },
   98,
 );

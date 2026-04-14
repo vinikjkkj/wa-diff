@@ -1,6 +1,6 @@
 __d(
   "WAWebMediaEditorCanvasPaint",
-  ["ReactKonva", "fit-curve", "react", "react-compiler-runtime"],
+  ["ReactKonva", "fit-curve", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -9,75 +9,43 @@ __d(
       d = u.useMemo,
       m = u.useRef;
     function p(e) {
-      var t = o("react-compiler-runtime").c(21),
-        n = e.layer,
-        r;
-      t[0] !== n ? ((r = n.getWidth()), (t[0] = n), (t[1] = r)) : (r = t[1]);
-      var a = r,
-        i;
-      t[2] !== n ? ((i = n.getHeight()), (t[2] = n), (t[3] = i)) : (i = t[3]);
-      var l = i,
-        u;
-      t[4] !== n ? ((u = n.getPaths()), (t[4] = n), (t[5] = u)) : (u = t[5]);
-      var d = u,
-        p;
-      t[6] !== l || t[7] !== a
-        ? ((p = document.createElement("canvas")),
-          (p.width = Math.max(a, 1)),
-          (p.height = Math.max(l, 1)),
-          (t[6] = l),
-          (t[7] = a),
-          (t[8] = p))
-        : (p = t[8]);
-      var f = p,
-        g = m(),
-        h,
-        y;
-      (t[9] !== f || t[10] !== d
-        ? ((h = function () {
+      var t = e.layer,
+        n = t.getWidth(),
+        r = t.getHeight(),
+        a = t.getPaths(),
+        i = d(
+          function () {
+            var e = document.createElement("canvas");
+            return ((e.width = Math.max(n, 1)), (e.height = Math.max(r, 1)), e);
+          },
+          [n, r],
+        ),
+        l = m();
+      return (
+        c(
+          function () {
             var e,
-              t = f.getContext("2d");
-            (t.clearRect(0, 0, f.width, f.height),
-              d.forEach(function (e) {
-                return _(f, e);
+              t = i.getContext("2d");
+            (t.clearRect(0, 0, i.width, i.height),
+              a.forEach(function (e) {
+                return _(i, e);
               }),
-              (e = g.current) == null ||
+              (e = l.current) == null ||
                 (e = e.getLayer()) == null ||
                 e.batchDraw());
-          }),
-          (y = [d, f]),
-          (t[9] = f),
-          (t[10] = d),
-          (t[11] = h),
-          (t[12] = y))
-        : ((h = t[11]), (y = t[12])),
-        c(h, y));
-      var C;
-      t[13] !== n
-        ? ((C = n.getWidth()), (t[13] = n), (t[14] = C))
-        : (C = t[14]);
-      var b;
-      t[15] !== n
-        ? ((b = n.getHeight()), (t[15] = n), (t[16] = b))
-        : (b = t[16]);
-      var v;
-      return (
-        t[17] !== f || t[18] !== C || t[19] !== b
-          ? ((v = s.jsx(o("ReactKonva").Image, {
-              ref: g,
-              width: C,
-              height: b,
-              image: f,
-              listening: !1,
-            })),
-            (t[17] = f),
-            (t[18] = C),
-            (t[19] = b),
-            (t[20] = v))
-          : (v = t[20]),
-        v
+          },
+          [a, i],
+        ),
+        s.jsx(o("ReactKonva").Image, {
+          ref: l,
+          width: t.getWidth(),
+          height: t.getHeight(),
+          image: i,
+          listening: !1,
+        })
       );
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e, t) {
       var n = t.getPoints();
       if (n.length) {

@@ -13,7 +13,6 @@ __d(
     "WDSVars.stylex",
     "gkx",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebContactValues",
     "useWAWebIsKeyboardUser",
@@ -42,161 +41,86 @@ __d(
         marginTop2: { marginTop: "xfl633f", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(28),
-        a = t.ariaLabel,
-        i = t.id,
-        l = t.msg,
-        s = t.tabIndex,
-        c;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = [o("WAWebFrontendStatusGetters").getLastStatus]), (n[0] = c))
-        : (c = n[0]);
-      var m = o("useWAWebStatusValues").useStatusValues(i, c),
-        p = m[0],
-        _;
-      n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = [o("WAWebContactGetters").getStatusMute]), (n[1] = _))
-        : (_ = n[1]);
-      var f = o("useWAWebContactValues").useContactValues(t.contact.id, _),
-        g = f[0],
-        h = r("useWAWebIsKeyboardUser")(),
-        y = h.isKeyboardUser,
-        C = r("useWAWebStaticButtonA11y")(t.onClick),
-        b = C[0],
-        v = C[1],
-        S = l != null ? l : p,
-        R;
-      e: {
-        if (
-          !o(
-            "WAWebStatusGatingUtils",
-          ).isStatusCloseFriendsViewerSideEnabled() ||
-          p == null
-        ) {
-          R = null;
-          break e;
-        }
-        if (p.statusAudienceMetadata != null) {
-          R = o("WDSVars.stylex").WDSBaseColor.plum400;
-          break e;
-        }
-        R = null;
-      }
-      var L = R,
-        E;
-      n[2] !== S
-        ? ((E = function () {
-            if (!r("gkx")("26258") && S) {
-              var e = o("WAWebStateUtils").unproxy(S);
-              window.msg = e;
-            }
-          }),
-          (n[2] = S),
-          (n[3] = E))
-        : (E = n[3]);
-      var k = E,
-        I = d.thumbSizeSmall,
-        T;
-      n[4] !== S
-        ? ((T = S
-            ? u.jsx(o("WAWebDetailImage.react").DetailImage, {
-                id: o("WAWebMsgGetters").getSender(S),
-                theme: "status",
-                size: 40,
-              })
-            : null),
-          (n[4] = S),
-          (n[5] = T))
-        : (T = n[5]);
-      var D = T,
-        x;
-      n[6] !== y
-        ? ((x = (e || (e = r("stylex")))(
+      var n = t.ariaLabel,
+        a = t.id,
+        i = t.msg,
+        l = t.tabIndex,
+        s = o("useWAWebStatusValues").useStatusValues(a, [
+          o("WAWebFrontendStatusGetters").getLastStatus,
+        ]),
+        m = s[0],
+        p = o("useWAWebContactValues").useContactValues(t.contact.id, [
+          o("WAWebContactGetters").getStatusMute,
+        ]),
+        _ = p[0],
+        f = r("useWAWebIsKeyboardUser")(),
+        g = f.isKeyboardUser,
+        h = r("useWAWebStaticButtonA11y")(t.onClick),
+        y = h[0],
+        C = h[1],
+        b = i != null ? i : m,
+        v = c(
+          function () {
+            return !o(
+              "WAWebStatusGatingUtils",
+            ).isStatusCloseFriendsViewerSideEnabled() || m == null
+              ? null
+              : m.statusAudienceMetadata != null
+                ? o("WDSVars.stylex").WDSBaseColor.plum400
+                : null;
+          },
+          [m],
+        ),
+        S = function () {
+          if (!r("gkx")("26258") && b) {
+            var e = o("WAWebStateUtils").unproxy(b);
+            window.msg = e;
+          }
+        },
+        R = d.thumbSizeSmall,
+        L = b
+          ? u.jsx(o("WAWebDetailImage.react").DetailImage, {
+              id: o("WAWebMsgGetters").getSender(b),
+              theme: "status",
+              size: 40,
+            })
+          : null;
+      return u.jsxs(
+        "div",
+        babelHelpers.extends({ ref: y }, C, {
+          tabIndex: l,
+          className: (e || (e = r("stylex")))(
             d.container,
-            I,
+            R,
             d.marginTop2,
-            y && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-          )),
-          (n[6] = y),
-          (n[7] = x))
-        : (x = n[7]);
-      var $ = t.role || "",
-        P = r("gkx")("26258") ? null : k,
-        N;
-      n[8] !== t
-        ? ((N = function (n) {
+            g && o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+          ),
+          "aria-label": n,
+          role: t.role || "",
+          onContextMenu: r("gkx")("26258") ? null : S,
+          onClickCapture: function (n) {
             (t.onClick == null || t.onClick(),
               n.stopPropagation(),
               n.preventDefault());
-          }),
-          (n[8] = t),
-          (n[9] = N))
-        : (N = n[9]);
-      var M;
-      n[10] !== L || n[11] !== i || n[12] !== g
-        ? ((M = g
-            ? null
-            : u.jsx(o("WAWebStatusImageRing.react").StatusImageRing, {
-                id: i,
-                breakRing: !0,
-                customUnreadRingColor: L,
-              })),
-          (n[10] = L),
-          (n[11] = i),
-          (n[12] = g),
-          (n[13] = M))
-        : (M = n[13]);
-      var w;
-      n[14] !== S || n[15] !== D
-        ? ((w = u.jsx(
-            o("WAWebStatusThumbnailComponents.react").StatusMsgThumbnail,
-            { msg: S, thumbnailPlaceholder: D, size: "small" },
-          )),
-          (n[14] = S),
-          (n[15] = D),
-          (n[16] = w))
-        : (w = n[16]);
-      var A;
-      return (
-        n[17] !== a ||
-        n[18] !== v ||
-        n[19] !== b ||
-        n[20] !== w ||
-        n[21] !== x ||
-        n[22] !== $ ||
-        n[23] !== P ||
-        n[24] !== N ||
-        n[25] !== M ||
-        n[26] !== s
-          ? ((A = u.jsxs(
-              "div",
-              babelHelpers.extends({ ref: b }, v, {
-                tabIndex: s,
-                className: x,
-                "aria-label": a,
-                role: $,
-                onContextMenu: P,
-                onClickCapture: N,
-                "data-testid": void 0,
-                children: [M, w],
-              }),
-            )),
-            (n[17] = a),
-            (n[18] = v),
-            (n[19] = b),
-            (n[20] = w),
-            (n[21] = x),
-            (n[22] = $),
-            (n[23] = P),
-            (n[24] = N),
-            (n[25] = M),
-            (n[26] = s),
-            (n[27] = A))
-          : (A = n[27]),
-        A
+          },
+          "data-testid": void 0,
+          children: [
+            _
+              ? null
+              : u.jsx(o("WAWebStatusImageRing.react").StatusImageRing, {
+                  id: a,
+                  breakRing: !0,
+                  customUnreadRingColor: v,
+                }),
+            u.jsx(
+              o("WAWebStatusThumbnailComponents.react").StatusMsgThumbnail,
+              { msg: b, thumbnailPlaceholder: L, size: "small" },
+            ),
+          ],
+        }),
       );
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

@@ -27,7 +27,6 @@ __d(
     "WAWebWamEnumContactSearchEntrypoint",
     "WAWebWamEnumSearchActionName",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebStableCallback",
   ],
@@ -310,398 +309,181 @@ __d(
     }
     k.displayName = k.name + " [from " + i.id + "]";
     function I(t) {
-      var n = o("react-compiler-runtime").c(91),
-        a = t.active,
-        i = t.contextEnabled,
-        l = t.data,
-        u = t.disabled,
-        c = t.hideOutContactCheckbox,
-        m = t.inviteFlow,
-        p = t.isSearchResult,
-        _ = t.onClick,
-        f = t.onOutContactClick,
-        k = t.outContactSelections,
-        I = t.searchEntrypoint,
-        T = t.searchText,
-        D = t.selectedOutContactIds,
-        x;
+      var n = t.active,
+        a = t.contextEnabled,
+        i = t.data,
+        l = t.disabled,
+        u = t.hideOutContactCheckbox,
+        c = t.inviteFlow,
+        m = t.isSearchResult,
+        p = t.onClick,
+        _ = t.onOutContactClick,
+        f = t.outContactSelections,
+        k = t.searchEntrypoint,
+        I = t.searchText,
+        T = t.selectedOutContactIds,
+        D;
       switch (
-        (n[0] !== I
-          ? (I === "new_chat"
-              ? (x = o("WAWebWamEnumContactSearchEntrypoint")
-                  .CONTACT_SEARCH_ENTRYPOINT.NEW_CHAT)
-              : I === "new_group" &&
-                (x = o("WAWebWamEnumContactSearchEntrypoint")
-                  .CONTACT_SEARCH_ENTRYPOINT.NEW_GROUP),
-            (n[0] = I),
-            (n[1] = x))
-          : (x = n[1]),
-        l.type)
+        (k === "new_chat"
+          ? (D = o("WAWebWamEnumContactSearchEntrypoint")
+              .CONTACT_SEARCH_ENTRYPOINT.NEW_CHAT)
+          : k === "new_group" &&
+            (D = o("WAWebWamEnumContactSearchEntrypoint")
+              .CONTACT_SEARCH_ENTRYPOINT.NEW_GROUP),
+        i.type)
       ) {
         case C: {
-          var $ = l.data;
-          if (u === !0) {
-            var P;
-            return (
-              n[2] !== $
-                ? ((P = d.jsx(L, {
-                    chat: $,
-                    mode: o("WAWebChat.react").Mode.INFO,
-                    noContext: !0,
-                    theme: "disabled",
-                  })),
-                  (n[2] = $),
-                  (n[3] = P))
-                : (P = n[3]),
-              P
-            );
-          }
-          var N;
-          return (
-            n[4] !== a || n[5] !== $ || n[6] !== _
-              ? ((N = d.jsx(L, {
-                  active: a,
-                  chat: $,
-                  mode: o("WAWebChat.react").Mode.INFO,
-                  noContext: !0,
-                  onClick: _,
-                })),
-                (n[4] = a),
-                (n[5] = $),
-                (n[6] = _),
-                (n[7] = N))
-              : (N = n[7]),
-            N
-          );
+          var x = i.data;
+          return l === !0
+            ? d.jsx(L, {
+                chat: x,
+                mode: o("WAWebChat.react").Mode.INFO,
+                noContext: !0,
+                theme: "disabled",
+              })
+            : d.jsx(L, {
+                active: n,
+                chat: x,
+                mode: o("WAWebChat.react").Mode.INFO,
+                noContext: !0,
+                onClick: p,
+              });
         }
         case h: {
-          var M = l.data,
-            w;
-          n[8] === Symbol.for("react.memo_cache_sentinel")
-            ? ((w = s._(/*BTDS*/ "Message yourself")), (n[8] = w))
-            : (w = n[8]);
-          var A;
-          return (
-            n[9] !== a || n[10] !== p || n[11] !== M || n[12] !== _
-              ? ((A = d.jsxs(d.Fragment, {
-                  children: [
-                    d.jsx(E, {
-                      active: a,
-                      contact: M,
-                      onClick: _,
-                      secondary: w,
-                      waitIdle: !0,
-                      showMessageYourselfName: !0,
-                      isSearchResult: p,
-                    }),
-                    !1,
-                  ],
-                })),
-                (n[9] = a),
-                (n[10] = p),
-                (n[11] = M),
-                (n[12] = _),
-                (n[13] = A))
-              : (A = n[13]),
-            A
-          );
+          var $ = i.data;
+          return d.jsxs(d.Fragment, {
+            children: [
+              d.jsx(E, {
+                active: n,
+                contact: $,
+                onClick: p,
+                secondary: s._(/*BTDS*/ "Message yourself"),
+                waitIdle: !0,
+                showMessageYourselfName: !0,
+                isSearchResult: m,
+              }),
+              !1,
+            ],
+          });
         }
         case b: {
-          var F = l.data,
-            O;
-          n[14] === Symbol.for("react.memo_cache_sentinel")
-            ? ((O = s._(/*BTDS*/ "Message your assistant")), (n[14] = O))
-            : (O = n[14]);
-          var B;
-          return (
-            n[15] !== a || n[16] !== F || n[17] !== p || n[18] !== _
-              ? ((B = d.jsxs(d.Fragment, {
-                  children: [
-                    d.jsx(E, {
-                      active: a,
-                      contact: F,
-                      onClick: _,
-                      secondary: O,
-                      waitIdle: !0,
-                      isSearchResult: p,
-                    }),
-                    !1,
-                  ],
-                })),
-                (n[15] = a),
-                (n[16] = F),
-                (n[17] = p),
-                (n[18] = _),
-                (n[19] = B))
-              : (B = n[19]),
-            B
-          );
+          var P = i.data;
+          return d.jsxs(d.Fragment, {
+            children: [
+              d.jsx(E, {
+                active: n,
+                contact: P,
+                onClick: p,
+                secondary: s._(/*BTDS*/ "Message your assistant"),
+                waitIdle: !0,
+                isSearchResult: m,
+              }),
+              !1,
+            ],
+          });
         }
         case y: {
-          var W = l.data,
-            q;
-          n[20] !== x || n[21] !== _ || n[22] !== T
-            ? ((q = function (t, n, r, a) {
-                var e = o("WAWebFrontendContactGetters").getIsMyContact(n),
-                  i = o("WAWebChatCollection").ChatCollection.get(n.id) != null,
-                  l;
-                e && i
+          var N = i.data;
+          return d.jsx(E, {
+            active: n,
+            contact: N,
+            onClick: function (t, n, r, a) {
+              var e = o("WAWebFrontendContactGetters").getIsMyContact(n),
+                i = o("WAWebChatCollection").ChatCollection.get(n.id) != null,
+                l;
+              e && i
+                ? (l = o("WAWebWamEnumSearchActionName").SEARCH_ACTION_NAME
+                    .CLICK_ON_CONTACT_WITH_EXISTING_CHAT)
+                : !e && i
                   ? (l = o("WAWebWamEnumSearchActionName").SEARCH_ACTION_NAME
-                      .CLICK_ON_CONTACT_WITH_EXISTING_CHAT)
-                  : !e && i
+                      .CLICK_ON_NON_CONTACT_WITH_EXISTING_CHAT)
+                  : e
                     ? (l = o("WAWebWamEnumSearchActionName").SEARCH_ACTION_NAME
-                        .CLICK_ON_NON_CONTACT_WITH_EXISTING_CHAT)
-                    : e
-                      ? (l = o("WAWebWamEnumSearchActionName")
-                          .SEARCH_ACTION_NAME.CLICK_ON_CONTACT)
-                      : (l = o("WAWebWamEnumSearchActionName")
-                          .SEARCH_ACTION_NAME.CLICK_ON_NON_CONTACT);
-                var s = T.startsWith("@");
-                (o("WAWebUsernameSearchLogger").UsernameSearchLogger.log({
-                  contactSearchEntrypoint: x,
-                  searchActionName: l,
-                  searchStartsWithAt: s,
-                }),
-                  _(t, n, r, a));
+                        .CLICK_ON_CONTACT)
+                    : (l = o("WAWebWamEnumSearchActionName").SEARCH_ACTION_NAME
+                        .CLICK_ON_NON_CONTACT);
+              var s = I.startsWith("@");
+              (o("WAWebUsernameSearchLogger").UsernameSearchLogger.log({
+                contactSearchEntrypoint: D,
+                searchActionName: l,
+                searchStartsWithAt: s,
               }),
-              (n[20] = x),
-              (n[21] = _),
-              (n[22] = T),
-              (n[23] = q))
-            : (q = n[23]);
-          var U;
-          n[24] !== W.isContactBlocked
-            ? ((U = W.isContactBlocked
-                ? s._(/*BTDS*/ "Contact is blocked")
-                : void 0),
-              (n[24] = W.isContactBlocked),
-              (n[25] = U))
-            : (U = n[25]);
-          var V;
-          n[26] !== W
-            ? ((V = o("WAWebContactGetters").getIsMe(W)),
-              (n[26] = W),
-              (n[27] = V))
-            : (V = n[27]);
-          var H;
-          n[28] !== W
-            ? ((H = o("WAWebContactGetters").getIsMe(W)),
-              (n[28] = W),
-              (n[29] = H))
-            : (H = n[29]);
-          var G;
-          return (
-            n[30] !== a ||
-            n[31] !== W ||
-            n[32] !== i ||
-            n[33] !== p ||
-            n[34] !== q ||
-            n[35] !== U ||
-            n[36] !== V ||
-            n[37] !== H
-              ? ((G = d.jsx(E, {
-                  active: a,
-                  contact: W,
-                  onClick: q,
-                  secondary: U,
-                  hideStatus: V,
-                  waitIdle: !0,
-                  showMessageYourselfName: H,
-                  isSearchResult: p,
-                  showNotifyName: !0,
-                  truncateName: !0,
-                  contextEnabled: i,
-                })),
-                (n[30] = a),
-                (n[31] = W),
-                (n[32] = i),
-                (n[33] = p),
-                (n[34] = q),
-                (n[35] = U),
-                (n[36] = V),
-                (n[37] = H),
-                (n[38] = G))
-              : (G = n[38]),
-            G
-          );
+                p(t, n, r, a));
+            },
+            secondary: N.isContactBlocked
+              ? s._(/*BTDS*/ "Contact is blocked")
+              : void 0,
+            hideStatus: o("WAWebContactGetters").getIsMe(N),
+            waitIdle: !0,
+            showMessageYourselfName: o("WAWebContactGetters").getIsMe(N),
+            isSearchResult: m,
+            showNotifyName: !0,
+            truncateName: !0,
+            contextEnabled: a,
+          });
         }
         case v: {
-          var z = l.data,
-            j;
-          n[39] !== z.isContactBlocked
-            ? ((j = z.isContactBlocked
-                ? s._(/*BTDS*/ "Contact is blocked")
-                : void 0),
-              (n[39] = z.isContactBlocked),
-              (n[40] = j))
-            : (j = n[40]);
-          var K;
-          n[41] !== z
-            ? ((K = o("WAWebContactGetters").getIsMe(z)),
-              (n[41] = z),
-              (n[42] = K))
-            : (K = n[42]);
-          var Q;
-          n[43] !== z
-            ? ((Q = o("WAWebContactGetters").getIsMe(z)),
-              (n[43] = z),
-              (n[44] = Q))
-            : (Q = n[44]);
-          var X;
-          return (
-            n[45] !== a ||
-            n[46] !== z ||
-            n[47] !== p ||
-            n[48] !== _ ||
-            n[49] !== j ||
-            n[50] !== K ||
-            n[51] !== Q
-              ? ((X = d.jsx(E, {
-                  active: a,
-                  contact: z,
-                  onClick: _,
-                  secondary: j,
-                  hideStatus: K,
-                  waitIdle: !0,
-                  showMessageYourselfName: Q,
-                  isSearchResult: p,
-                  chatOrigin: "username_contactless_search",
-                  showNotifyName: !0,
-                })),
-                (n[45] = a),
-                (n[46] = z),
-                (n[47] = p),
-                (n[48] = _),
-                (n[49] = j),
-                (n[50] = K),
-                (n[51] = Q),
-                (n[52] = X))
-              : (X = n[52]),
-            X
-          );
+          var M = i.data;
+          return d.jsx(E, {
+            active: n,
+            contact: M,
+            onClick: p,
+            secondary: M.isContactBlocked
+              ? s._(/*BTDS*/ "Contact is blocked")
+              : void 0,
+            hideStatus: o("WAWebContactGetters").getIsMe(M),
+            waitIdle: !0,
+            showMessageYourselfName: o("WAWebContactGetters").getIsMe(M),
+            isSearchResult: m,
+            chatOrigin: "username_contactless_search",
+            showNotifyName: !0,
+          });
         }
         case S: {
-          var Y = l.data,
-            J = T.length > 0;
-          if (f != null) {
-            var Z;
-            n[53] !== Y || n[54] !== D
-              ? ((Z = D != null && D.has(Y.id)),
-                (n[53] = Y),
-                (n[54] = D),
-                (n[55] = Z))
-              : (Z = n[55]);
-            var ee = Z;
-            if (c === !0) {
-              var te;
-              n[56] !== f || n[57] !== Y
-                ? ((te = function (t) {
-                    return f(t, Y);
+          var w = i.data,
+            A = I.length > 0;
+          if (_ != null) {
+            var F = T != null && T.has(w.id);
+            return u === !0
+              ? d.jsx(r("WAWebOutContactCell.react"), {
+                  contact: w,
+                  inviteFlow: c,
+                  isSearchResult: A,
+                  onClick: function (t) {
+                    return _(t, w);
+                  },
+                })
+              : d.jsx(r("WAWebCheckboxSelectableWrapper.react"), {
+                  model: w,
+                  selections: f,
+                  checked: F,
+                  onClick: function (t) {
+                    return _(t, w);
+                  },
+                  wrapperTestid: "out-contact-selectable-wrapper-" + w.id,
+                  children: d.jsx(r("WAWebOutContactCell.react"), {
+                    contact: w,
+                    inviteFlow: c,
+                    isSearchResult: A,
+                    theme: "chat-checkbox",
                   }),
-                  (n[56] = f),
-                  (n[57] = Y),
-                  (n[58] = te))
-                : (te = n[58]);
-              var ne;
-              return (
-                n[59] !== m || n[60] !== J || n[61] !== Y || n[62] !== te
-                  ? ((ne = d.jsx(r("WAWebOutContactCell.react"), {
-                      contact: Y,
-                      inviteFlow: m,
-                      isSearchResult: J,
-                      onClick: te,
-                    })),
-                    (n[59] = m),
-                    (n[60] = J),
-                    (n[61] = Y),
-                    (n[62] = te),
-                    (n[63] = ne))
-                  : (ne = n[63]),
-                ne
-              );
-            }
-            var re;
-            n[64] !== f || n[65] !== Y
-              ? ((re = function (t) {
-                  return f(t, Y);
-                }),
-                (n[64] = f),
-                (n[65] = Y),
-                (n[66] = re))
-              : (re = n[66]);
-            var oe = "out-contact-selectable-wrapper-" + Y.id,
-              ae;
-            n[67] !== m || n[68] !== J || n[69] !== Y
-              ? ((ae = d.jsx(r("WAWebOutContactCell.react"), {
-                  contact: Y,
-                  inviteFlow: m,
-                  isSearchResult: J,
-                  theme: "chat-checkbox",
-                })),
-                (n[67] = m),
-                (n[68] = J),
-                (n[69] = Y),
-                (n[70] = ae))
-              : (ae = n[70]);
-            var ie;
-            return (
-              n[71] !== ee ||
-              n[72] !== Y ||
-              n[73] !== k ||
-              n[74] !== re ||
-              n[75] !== oe ||
-              n[76] !== ae
-                ? ((ie = d.jsx(r("WAWebCheckboxSelectableWrapper.react"), {
-                    model: Y,
-                    selections: k,
-                    checked: ee,
-                    onClick: re,
-                    wrapperTestid: oe,
-                    children: ae,
-                  })),
-                  (n[71] = ee),
-                  (n[72] = Y),
-                  (n[73] = k),
-                  (n[74] = re),
-                  (n[75] = oe),
-                  (n[76] = ae),
-                  (n[77] = ie))
-                : (ie = n[77]),
-              ie
-            );
+                });
           }
-          var le;
-          return (
-            n[78] !== m || n[79] !== J || n[80] !== Y
-              ? ((le = d.jsx(r("WAWebOutContactCell.react"), {
-                  contact: Y,
-                  inviteFlow: m,
-                  isSearchResult: J,
-                })),
-                (n[78] = m),
-                (n[79] = J),
-                (n[80] = Y),
-                (n[81] = le))
-              : (le = n[81]),
-            le
-          );
+          return d.jsx(r("WAWebOutContactCell.react"), {
+            contact: w,
+            inviteFlow: c,
+            isSearchResult: A,
+          });
         }
         case g: {
-          var se = l.data,
-            ue = l.spinner,
-            ce = l.uppercase,
-            de = ue === void 0 ? !1 : ue,
-            me;
-          n[82] === Symbol.for("react.memo_cache_sentinel")
-            ? ((me = {
-                className: "x4f6e3x x6ikm8r x10wlt62 x1280gxy x1n2onr6",
-              }),
-              (n[82] = me))
-            : (me = n[82]);
-          var pe;
-          n[83] !== de
-            ? ((pe =
-                de &&
+          var O = i.data,
+            B = i.spinner,
+            W = B === void 0 ? !1 : B,
+            q = i.uppercase;
+          return d.jsxs("div", {
+            className: "x4f6e3x x6ikm8r x10wlt62 x1280gxy x1n2onr6",
+            children: [
+              W &&
                 d.jsx("div", {
                   className: "x10l6tqk x78zum5 x6s0dn4 x5yr21d xdg88n9",
                   children: d.jsx(o("WAWebSpinner.react").Spinner, {
@@ -709,34 +491,14 @@ __d(
                     stroke: 6,
                     color: "highlight",
                   }),
-                })),
-              (n[83] = de),
-              (n[84] = pe))
-            : (pe = n[84]);
-          var _e;
-          n[85] !== se || n[86] !== ce
-            ? ((_e = d.jsx(r("WAWebSectionHeader.react"), {
-                header: se,
-                uppercase: ce,
+                }),
+              d.jsx(r("WAWebSectionHeader.react"), {
+                header: O,
+                uppercase: q,
                 xstyle: R.sectionHeader,
-              })),
-              (n[85] = se),
-              (n[86] = ce),
-              (n[87] = _e))
-            : (_e = n[87]);
-          var fe;
-          return (
-            n[88] !== pe || n[89] !== _e
-              ? ((fe = d.jsxs(
-                  "div",
-                  babelHelpers.extends({}, me, { children: [pe, _e] }),
-                )),
-                (n[88] = pe),
-                (n[89] = _e),
-                (n[90] = fe))
-              : (fe = n[90]),
-            fe
-          );
+              }),
+            ],
+          });
         }
         default:
           throw (
@@ -746,11 +508,11 @@ __d(
                   "UnknownDataError: invoked from WAWebChatContactList",
                 ])),
             ),
-            new (o("WAWebFlatList.react").UnknownDataError)(l)
+            new (o("WAWebFlatList.react").UnknownDataError)(i)
           );
       }
     }
-    l.default = k;
+    ((I.displayName = I.name + " [from " + i.id + "]"), (l.default = k));
   },
   226,
 );

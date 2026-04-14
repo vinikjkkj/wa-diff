@@ -1,6 +1,6 @@
 __d(
   "MqttEnvGk",
-  ["MqttEnv", "MqttLogger", "gkx"],
+  ["MqttEnv", "MqttLogger", "err", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -23,7 +23,7 @@ __d(
           return (
             r("MqttLogger")
               .getInstance()
-              .logError(new Error("unknown gk"), "Unknown GK value " + e),
+              .logError(r("err")("unknown gk"), "Unknown GK value " + e),
             !1
           );
       }

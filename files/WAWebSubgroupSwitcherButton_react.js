@@ -18,7 +18,6 @@ __d(
     "WDSIconIcArrowDropDown.react",
     "WDSTooltip.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -53,132 +52,89 @@ __d(
         iconGroup: { color: "x14ug900", $$css: !0 },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.parentGroupId,
-        r = e.size,
-        a;
-      return (
-        t[0] !== n || t[1] !== r
-          ? ((a = c.jsx(o("WAWebDetailImage.react").DetailImage, {
-              id: n,
-              size: r,
-              shape: o("WAWebDetailImage.react").DetailImageShape.Squircle,
-              xstyle: d.parentGroupImage,
-            })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.parentGroupId,
+        n = e.size;
+      return c.jsx(o("WAWebDetailImage.react").DetailImage, {
+        id: t,
+        size: n,
+        shape: o("WAWebDetailImage.react").DetailImageShape.Squircle,
+        xstyle: d.parentGroupImage,
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(t) {
       var n,
-        a = o("react-compiler-runtime").c(13),
-        i = t.chat,
-        l = (n = i.groupMetadata) == null ? void 0 : n.parentGroup;
-      if (l == null) return null;
-      var u;
-      a[0] !== i || a[1] !== l
-        ? ((u = function (t) {
-            (t == null || t.stopPropagation(),
-              new (o(
-                "WAWebCommunityFeatureUsageWamEvent",
-              ).CommunityFeatureUsageWamEvent)({
-                communityId: l.toString(),
-                communityUiAction: o(
-                  "WAWebWamEnumCommunityFeatureUiActionTakenType",
-                ).COMMUNITY_FEATURE_UI_ACTION_TAKEN_TYPE.ENTRY,
-                communityUiFeature: o("WAWebWamEnumCommunityUiFeatureType")
-                  .COMMUNITY_UI_FEATURE_TYPE.SUBGROUP_SWITCH,
-              }).commit(),
-              new (o(
-                "WAWebCommunityGroupJourneyEventImpl",
-              ).CommunityGroupJourneyEvent)({
-                action: o("WAWebWamEnumChatFilterActionTypes")
-                  .CHAT_FILTER_ACTION_TYPES.SUBGROUP_SWITCHER_CLICK,
-                surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHAT,
-                chat: i,
-              }).commit(),
-              o("WAWebModalManager").ModalManager.open(
-                c.jsx(r("WAWebCommunitySubgroupSwitcher.react"), { chat: i }),
-              ));
-          }),
-          (a[0] = i),
-          (a[1] = l),
-          (a[2] = u))
-        : (u = a[2]);
-      var p = u,
-        _;
-      a[3] !== l
-        ? ((_ = c.jsx(m, { parentGroupId: l, size: 28 })),
-          (a[3] = l),
-          (a[4] = _))
-        : (_ = a[4]);
-      var f = _,
-        g;
-      a[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = s._(/*BTDS*/ "Subgroup switcher")), (a[5] = g))
-        : (g = a[5]);
-      var h = g,
-        y;
-      a[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = (e || (e = r("stylex"))).props(
-            d.menuBarBtnContainer,
-            d.buttonMargin,
-            o("WAWebUISpacing").uiPadding.horiz10,
-            o("WAWebUISpacing").uiPadding.top8,
-            o("WAWebUISpacing").uiPadding.bottom5,
-            d.hoverBg,
-            o("WAWebUISpacing").uiPadding.start12,
-            o("WAWebUISpacing").uiPadding.end6,
-            o("WAWebUISpacing").uiPadding.top6,
-            o("WAWebUISpacing").uiPadding.bottom6,
-          )),
-          (a[6] = y))
-        : (y = a[6]);
-      var C;
-      a[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = c.jsx(r("WDSIconIcArrowDropDown.react"), {
-            xstyle: o("WAWebUISpacing").uiMargin.start4,
-            width: 20,
-            height: 20,
-          })),
-          (a[7] = C))
-        : (C = a[7]);
-      var b;
-      a[8] !== f
-        ? ((b = c.jsxs(o("WAWebFlex.react").FlexRow, {
-            align: "center",
-            justify: "center",
-            xstyle: d.iconGroup,
-            children: [f, C],
-          })),
-          (a[8] = f),
-          (a[9] = b))
-        : (b = a[9]);
-      var v;
-      if (a[10] !== p || a[11] !== b) {
-        var S = c.jsx(
+        a = t.chat,
+        i = (n = a.groupMetadata) == null ? void 0 : n.parentGroup;
+      if (i == null) return null;
+      var l = function (t) {
+          (t == null || t.stopPropagation(),
+            new (o(
+              "WAWebCommunityFeatureUsageWamEvent",
+            ).CommunityFeatureUsageWamEvent)({
+              communityId: i.toString(),
+              communityUiAction: o(
+                "WAWebWamEnumCommunityFeatureUiActionTakenType",
+              ).COMMUNITY_FEATURE_UI_ACTION_TAKEN_TYPE.ENTRY,
+              communityUiFeature: o("WAWebWamEnumCommunityUiFeatureType")
+                .COMMUNITY_UI_FEATURE_TYPE.SUBGROUP_SWITCH,
+            }).commit(),
+            new (o(
+              "WAWebCommunityGroupJourneyEventImpl",
+            ).CommunityGroupJourneyEvent)({
+              action: o("WAWebWamEnumChatFilterActionTypes")
+                .CHAT_FILTER_ACTION_TYPES.SUBGROUP_SWITCHER_CLICK,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHAT,
+              chat: a,
+            }).commit(),
+            o("WAWebModalManager").ModalManager.open(
+              c.jsx(r("WAWebCommunitySubgroupSwitcher.react"), { chat: a }),
+            ));
+        },
+        u = c.jsx(m, { parentGroupId: i, size: 28 }),
+        p = s._(/*BTDS*/ "Subgroup switcher"),
+        _ = c.jsx(
           "div",
-          babelHelpers.extends({}, y, {
-            children: c.jsx(r("WAWebUnstyledButton.react"), {
-              testid: void 0,
-              "aria-label": h,
-              dataTab: o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
-              onClick: p,
-              children: b,
-            }),
-          }),
+          babelHelpers.extends(
+            {},
+            (e || (e = r("stylex"))).props(
+              d.menuBarBtnContainer,
+              d.buttonMargin,
+              o("WAWebUISpacing").uiPadding.horiz10,
+              o("WAWebUISpacing").uiPadding.top8,
+              o("WAWebUISpacing").uiPadding.bottom5,
+              d.hoverBg,
+              o("WAWebUISpacing").uiPadding.start12,
+              o("WAWebUISpacing").uiPadding.end6,
+              o("WAWebUISpacing").uiPadding.top6,
+              o("WAWebUISpacing").uiPadding.bottom6,
+            ),
+            {
+              children: c.jsx(r("WAWebUnstyledButton.react"), {
+                testid: void 0,
+                "aria-label": p,
+                dataTab: o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
+                onClick: l,
+                children: c.jsxs(o("WAWebFlex.react").FlexRow, {
+                  align: "center",
+                  justify: "center",
+                  xstyle: d.iconGroup,
+                  children: [
+                    u,
+                    c.jsx(r("WDSIconIcArrowDropDown.react"), {
+                      xstyle: o("WAWebUISpacing").uiMargin.start4,
+                      width: 20,
+                      height: 20,
+                    }),
+                  ],
+                }),
+              }),
+            },
+          ),
         );
-        ((v = c.jsx(r("WDSTooltip.react"), { label: h, children: S })),
-          (a[10] = p),
-          (a[11] = b),
-          (a[12] = v));
-      } else v = a[12];
-      return v;
+      return c.jsx(r("WDSTooltip.react"), { label: p, children: _ });
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

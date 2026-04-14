@@ -1,51 +1,32 @@
 __d(
   "WAWebNuxBanners.react",
-  [
-    "WAWebNuxCtwaSuggestionHelpers",
-    "WAWebVelocityTransitionGroup",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebNuxCtwaSuggestionHelpers", "WAWebVelocityTransitionGroup", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = e.Children,
       c = "xr8eula-B";
     function d(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.children,
-        a;
-      if (t[0] !== n) {
-        var i = u.toArray(n);
-        ((a = i.find(m)), (t[0] = n), (t[1] = a));
-      } else a = t[1];
-      var l = a,
-        c;
-      return (
-        t[2] !== l
-          ? ((c = l
-              ? s.jsx("div", { className: "xof6966 xqnxcvj", children: l })
-              : s.jsx(r("WAWebVelocityTransitionGroup"), {
-                  transitionName: "butterbar",
-                  children: l,
-                })),
-            (t[2] = l),
-            (t[3] = c))
-          : (c = t[3]),
-        c
-      );
+      var t = e.children,
+        n = u.toArray(t),
+        a = n.find(function (e) {
+          var t = e.props,
+            n = t.promotion,
+            r = t.suggestion;
+          return r != null
+            ? o("WAWebNuxCtwaSuggestionHelpers").shouldShowSuggestion(r.id)
+            : n != null
+              ? !0
+              : e.type.shouldShow();
+        });
+      return a
+        ? s.jsx("div", { className: "xof6966 xqnxcvj", children: a })
+        : s.jsx(r("WAWebVelocityTransitionGroup"), {
+            transitionName: "butterbar",
+            children: a,
+          });
     }
-    function m(e) {
-      var t = e.props,
-        n = t.promotion,
-        r = t.suggestion;
-      return r != null
-        ? o("WAWebNuxCtwaSuggestionHelpers").shouldShowSuggestion(r.id)
-        : n != null
-          ? !0
-          : e.type.shouldShow();
-    }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

@@ -7,7 +7,6 @@ __d(
     "WAWebBizAdCreationShowIdentityChangeConfirmation",
     "WAWebModalManager",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationOpenAdAccountSelectorModal_query.graphql",
     "useWAWebBizAdsCreationOpenModal",
   ],
@@ -20,8 +19,7 @@ __d(
       d = c.useCallback,
       m = c.useContext;
     function p(t, a) {
-      var i = o("react-compiler-runtime").c(5),
-        l = o("CometRelay").useFragment(
+      var i = o("CometRelay").useFragment(
           e !== void 0
             ? e
             : (e = n(
@@ -29,40 +27,33 @@ __d(
               )),
           a,
         ),
-        s = m(r("WAWebBizAdCreationIdentityContext")),
-        c = r("useWAWebBizAdsCreationOpenModal")(),
-        d;
-      i[0] !== t || i[1] !== l || i[2] !== s || i[3] !== c
-        ? ((d = function () {
-            c(
+        l = m(r("WAWebBizAdCreationIdentityContext")),
+        s = r("useWAWebBizAdsCreationOpenModal")(),
+        c = d(
+          function () {
+            s(
               u.jsx(
                 r("WAWebBizAdCreationPaymentAdAccountSelectorModal.react"),
                 {
                   currentLegacyAccountID: t,
-                  fragmentRef: l,
-                  onClose: _,
+                  fragmentRef: i,
+                  onClose: function () {
+                    return o("WAWebModalManager").ModalManager.close();
+                  },
                   onSubmit: function (t) {
                     r("WAWebBizAdCreationShowIdentityChangeConfirmation")(
                       function () {
-                        s == null || s.setAdAccountId(t);
+                        l == null || l.setAdAccountId(t);
                       },
                     );
                   },
                 },
               ),
             );
-          }),
-          (i[0] = t),
-          (i[1] = l),
-          (i[2] = s),
-          (i[3] = c),
-          (i[4] = d))
-        : (d = i[4]);
-      var p = d;
-      return p;
-    }
-    function _() {
-      return o("WAWebModalManager").ModalManager.close();
+          },
+          [s, t, i, l],
+        );
+      return c;
     }
     l.default = p;
   },

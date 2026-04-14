@@ -12,7 +12,6 @@ __d(
     "WDSIconIcFilter.react",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -81,87 +80,42 @@ __d(
               })();
     }
     function g(e) {
-      var t = o("react-compiler-runtime").c(22),
-        n = e.tabName,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = {
-            className:
-              "x78zum5 xdt5ytf x5yr21d xl56j7k x6s0dn4 x2b8uid x1qvou4u x1s70e7g",
+      var t = e.tabName;
+      return u.jsxs("div", {
+        className:
+          "x78zum5 xdt5ytf x5yr21d xl56j7k x6s0dn4 x2b8uid x1qvou4u x1s70e7g",
+        children: [
+          u.jsxs("div", {
+            children: [
+              u.jsx(r("WDSText.react"), {
+                type: "Body1Emphasized",
+                colorName: "contentDeemphasized",
+                children: p(t),
+              }),
+              u.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDeemphasized",
+                children: _(t),
+              }),
+            ],
           }),
-          (t[0] = a))
-        : (a = t[0]);
-      var i;
-      t[1] !== n ? ((i = p(n)), (t[1] = n), (t[2] = i)) : (i = t[2]);
-      var l;
-      t[3] !== i
-        ? ((l = u.jsx(r("WDSText.react"), {
-            type: "Body1Emphasized",
-            colorName: "contentDeemphasized",
-            children: i,
-          })),
-          (t[3] = i),
-          (t[4] = l))
-        : (l = t[4]);
-      var s;
-      t[5] !== n ? ((s = _(n)), (t[5] = n), (t[6] = s)) : (s = t[6]);
-      var d;
-      t[7] !== s
-        ? ((d = u.jsx(r("WDSText.react"), {
-            type: "Body2",
-            colorName: "contentDeemphasized",
-            children: s,
-          })),
-          (t[7] = s),
-          (t[8] = d))
-        : (d = t[8]);
-      var g;
-      t[9] !== l || t[10] !== d
-        ? ((g = u.jsxs("div", { children: [l, d] })),
-          (t[9] = l),
-          (t[10] = d),
-          (t[11] = g))
-        : (g = t[11]);
-      var h;
-      t[12] !== n
-        ? ((h = function () {
-            return m(n);
-          }),
-          (t[12] = n),
-          (t[13] = h))
-        : (h = t[13]);
-      var y;
-      t[14] !== n ? ((y = f(n)), (t[14] = n), (t[15] = y)) : (y = t[15]);
-      var C;
-      t[16] !== h || t[17] !== y
-        ? ((C = u.jsx(r("WDSButton.react"), {
-            onPress: h,
+          u.jsx(r("WDSButton.react"), {
+            onPress: function () {
+              return m(t);
+            },
             Icon: r("WDSIconIcFilter.react"),
             size: "small",
             variant: "borderless",
             widthMode: "fit",
             xstyle: c.button,
-            label: y,
-          })),
-          (t[16] = h),
-          (t[17] = y),
-          (t[18] = C))
-        : (C = t[18]);
-      var b;
-      return (
-        t[19] !== g || t[20] !== C
-          ? ((b = u.jsxs(
-              "div",
-              babelHelpers.extends({}, a, { children: [g, C] }),
-            )),
-            (t[19] = g),
-            (t[20] = C),
-            (t[21] = b))
-          : (b = t[21]),
-        b
-      );
+            label: f(t),
+          }),
+        ],
+      });
     }
-    ((l.MediaHubTabs = d), (l.WAWebMediaHubEmptyGalleryEntryPoint = g));
+    ((g.displayName = g.name + " [from " + i.id + "]"),
+      (l.MediaHubTabs = d),
+      (l.WAWebMediaHubEmptyGalleryEntryPoint = g));
   },
   226,
 );

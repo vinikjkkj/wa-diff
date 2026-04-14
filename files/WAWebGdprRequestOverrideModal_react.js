@@ -6,7 +6,6 @@ __d(
     "WAWebGdprConstants",
     "WAWebModalManager",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -63,61 +62,33 @@ __d(
       }
     }
     function m(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.onConfirm,
-        r;
-      t[0] !== n
-        ? ((r = function () {
-            n().finally(p);
-          }),
-          (t[0] = n),
-          (t[1] = r))
-        : (r = t[1]);
-      var a = r,
-        i;
-      t[2] !== e.requestedReport
-        ? ((i = d(e.requestedReport)), (t[2] = e.requestedReport), (t[3] = i))
-        : (i = t[3]);
-      var l = i,
-        c = l[0],
-        m = l[1],
-        f;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = { surface: "unknown", viewName: "gdpr-request-override" }),
-          (t[4] = f))
-        : (f = t[4]);
-      var g;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = s._(/*BTDS*/ "Yes, cancel")), (t[5] = g))
-        : (g = t[5]);
-      var h;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = s._(/*BTDS*/ "No, don't cancel")), (t[6] = h))
-        : (h = t[6]);
-      var y;
-      return (
-        t[7] !== m || t[8] !== a || t[9] !== c
-          ? ((y = u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              tsNavigationData: f,
-              title: c,
-              onOK: a,
-              okText: g,
-              onCancel: _,
-              cancelText: h,
-              children: m,
-            })),
-            (t[7] = m),
-            (t[8] = a),
-            (t[9] = c),
-            (t[10] = y))
-          : (y = t[10]),
-        y
-      );
+      var t = e.onConfirm,
+        n = c(
+          function () {
+            t().finally(function () {
+              return o("WAWebModalManager").ModalManager.close();
+            });
+          },
+          [t],
+        ),
+        r = d(e.requestedReport),
+        a = r[0],
+        i = r[1];
+      return u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+        tsNavigationData: {
+          surface: "unknown",
+          viewName: "gdpr-request-override",
+        },
+        title: a,
+        onOK: n,
+        okText: s._(/*BTDS*/ "Yes, cancel"),
+        onCancel: p,
+        cancelText: s._(/*BTDS*/ "No, don't cancel"),
+        children: i,
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p() {
-      return o("WAWebModalManager").ModalManager.close();
-    }
-    function _() {
       o("WAWebModalManager").ModalManager.close();
     }
     l.default = m;

@@ -14,7 +14,6 @@ __d(
     "WAWebUsernameGatingUtils",
     "hero-tracing",
     "react",
-    "react-compiler-runtime",
     "useWAWebChatLockSettings",
     "useWAWebSettingsValues",
   ],
@@ -25,159 +24,90 @@ __d(
       c = u.useCallback,
       d = u.useState;
     function m(e) {
-      var t = o("react-compiler-runtime").c(22),
-        n = e.chatlistHeaderRef,
-        a = e.chatlistPanelRef,
-        i = e.handleActiveNavBarItemUpdate,
-        l = e.leftDrawerStyle,
-        u = e.leftPaneClassName,
-        c = e.resizeHandle,
-        m;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = [o("WAWebSettingsGetters").getShowArchiveV2]), (t[0] = m))
-        : (m = t[0]);
-      var p = o("useWAWebSettingsValues").useSettingsValues(m),
-        _ = p[0],
-        f = d(!1),
-        g = f[0],
-        h = f[1],
-        y = o("useWAWebChatLockSettings").useChatLockSettings(),
-        C;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = function () {
-            return h(!0);
-          }),
-          (t[1] = C))
-        : (C = t[1]);
-      var b = C,
-        v;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = function () {
-            return h(!1);
-          }),
-          (t[2] = v))
-        : (v = t[2]);
-      var S = v,
-        R;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = o("WAWebBotGating").isMetaAISearchExperienceEnabled()),
-          (t[3] = R))
-        : (R = t[3]);
-      var L = R,
-        E;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = o("WAWebUsernameGatingUtils").usernameGlobalSearchEnabled()),
-          (t[4] = E))
-        : (E = t[4]);
-      var k = E,
-        I;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = o("WAWebABProps").getABPropConfigValue(
-            "web_phone_number_global_search",
-          )),
-          (t[5] = I))
-        : (I = t[5]);
-      var T = I,
-        D = o(
+      var t = e.chatlistHeaderRef,
+        n = e.chatlistPanelRef,
+        a = e.handleActiveNavBarItemUpdate,
+        i = e.leftDrawerStyle,
+        l = e.leftPaneClassName,
+        u = e.resizeHandle,
+        m = o("useWAWebSettingsValues").useSettingsValues([
+          o("WAWebSettingsGetters").getShowArchiveV2,
+        ]),
+        p = m[0],
+        _ = d(!1),
+        f = _[0],
+        g = _[1],
+        h = o("useWAWebChatLockSettings").useChatLockSettings(),
+        y = c(function () {
+          return g(!0);
+        }, []),
+        C = c(function () {
+          return g(!1);
+        }, []),
+        b = o("WAWebBotGating").isMetaAISearchExperienceEnabled(),
+        v = o("WAWebUsernameGatingUtils").usernameGlobalSearchEnabled(),
+        S = o("WAWebABProps").getABPropConfigValue(
+          "web_phone_number_global_search",
+        ),
+        R = o(
           "WAWebAppRootInteractionContext.react",
         ).useInteractionWithAppRootContext(
           r("WAWebInteractionTracePolicy").NAVIGATION_CHATS_OPEN_CHAT,
           !1,
           !0,
         ),
-        x = D.startInteraction,
-        $ = g ? "inMultiSelectMode" : "inNonSelectableMode",
-        P = g
-          ? o("WAWebMultiSelectEntryPointConstants").MultiSelectEntryPoint
-              .ChatListHeaderDropdown
-          : null,
-        N;
-      t[6] !== y.hideLockedChats ||
-      t[7] !== a ||
-      t[8] !== g ||
-      t[9] !== _ ||
-      t[10] !== x ||
-      t[11] !== $ ||
-      t[12] !== P
-        ? ((N = s.jsx(
-            o("WAWebChatlistPanelFunctional.react").ChatlistPanelFunctional,
-            {
-              chatlistPanelRef: a,
-              showArchiveV2: _,
-              mode: r("WAWebChatlistPanelMode").Chatlist,
-              selectable: g,
-              endMultiSelect: S,
-              multiSelectEntryPoint: P,
-              hideLockedChats: y.hideLockedChats,
-              startChatInteraction: x,
-              aiSearchExperienceEnabled: L,
-              unknownContactUsernameSearchEnabled: k,
-              unknownContactPhoneSearchEnabled: T,
-            },
-            $,
-          )),
-          (t[6] = y.hideLockedChats),
-          (t[7] = a),
-          (t[8] = g),
-          (t[9] = _),
-          (t[10] = x),
-          (t[11] = $),
-          (t[12] = P),
-          (t[13] = N))
-        : (N = t[13]);
-      var M = N,
-        w;
-      return (
-        t[14] !== n ||
-        t[15] !== M ||
-        t[16] !== i ||
-        t[17] !== g ||
-        t[18] !== l ||
-        t[19] !== u ||
-        t[20] !== c
-          ? ((w = s.jsx(o("hero-tracing").HeroPagelet, {
-              name: "Chat List Panel",
-              children: function (t, a) {
-                return s.jsxs(s.Fragment, {
-                  children: [
-                    s.jsxs("div", {
-                      className: u,
-                      style: l,
-                      ref: t,
-                      children: [
-                        r("WAWebSettingsModel") &&
-                          s.jsx(
-                            o("WAWebChatlistHeaderV2.react")
-                              .WAWebChatlistHeaderV2,
-                            {
-                              headerRef: n,
-                              onSelectChatClick: b,
-                              isMultiSelectMode: g,
-                              updateActiveNavBarItem: i,
-                            },
-                          ),
-                        M,
-                        c,
-                      ],
-                    }),
-                    s.jsx(a, {}),
-                  ],
-                });
-              },
-            })),
-            (t[14] = n),
-            (t[15] = M),
-            (t[16] = i),
-            (t[17] = g),
-            (t[18] = l),
-            (t[19] = u),
-            (t[20] = c),
-            (t[21] = w))
-          : (w = t[21]),
-        w
-      );
+        L = R.startInteraction,
+        E = s.jsx(
+          o("WAWebChatlistPanelFunctional.react").ChatlistPanelFunctional,
+          {
+            chatlistPanelRef: n,
+            showArchiveV2: p,
+            mode: r("WAWebChatlistPanelMode").Chatlist,
+            selectable: f,
+            endMultiSelect: C,
+            multiSelectEntryPoint: f
+              ? o("WAWebMultiSelectEntryPointConstants").MultiSelectEntryPoint
+                  .ChatListHeaderDropdown
+              : null,
+            hideLockedChats: h.hideLockedChats,
+            startChatInteraction: L,
+            aiSearchExperienceEnabled: b,
+            unknownContactUsernameSearchEnabled: v,
+            unknownContactPhoneSearchEnabled: S,
+          },
+          f ? "inMultiSelectMode" : "inNonSelectableMode",
+        );
+      return s.jsx(o("hero-tracing").HeroPagelet, {
+        name: "Chat List Panel",
+        children: function (n, c) {
+          return s.jsxs(s.Fragment, {
+            children: [
+              s.jsxs("div", {
+                className: l,
+                style: i,
+                ref: n,
+                children: [
+                  r("WAWebSettingsModel") &&
+                    s.jsx(
+                      o("WAWebChatlistHeaderV2.react").WAWebChatlistHeaderV2,
+                      {
+                        headerRef: t,
+                        onSelectChatClick: y,
+                        isMultiSelectMode: f,
+                        updateActiveNavBarItem: a,
+                      },
+                    ),
+                  E,
+                  u,
+                ],
+              }),
+              s.jsx(c, {}),
+            ],
+          });
+        },
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

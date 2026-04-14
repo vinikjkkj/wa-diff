@@ -24,12 +24,16 @@ __d(
               if (o && p) return e;
               var s = (r = c[l]) != null ? r : n[l];
               if (s == null && o) return ((p = !0), e);
-              if (s == null)
-                throw new Error("Missing required template parameter: " + l);
-              if (s === "")
-                throw new Error(
+              if (s == null) {
+                var u = new Error("Missing required template parameter: " + l);
+                throw (u.stack, u);
+              }
+              if (s === "") {
+                var m = new Error(
                   "Required template parameter is an empty string: " + l,
                 );
+                throw (m.stack, m);
+              }
               return ((d[l] = !0), e + "/" + a + s + i);
             } else return ((p = !1), e + "/" + t.part);
           }, "")),
@@ -66,8 +70,10 @@ __d(
         buildUri: function (n) {
           var t,
             r = (t = u(n)[0]) != null ? t : o("ConstUriUtils").getUri(e);
-          if (r == null)
-            throw new Error("Not even the fallback URL parsed validly!");
+          if (r == null) {
+            var a = new Error("Not even the fallback URL parsed validly!");
+            throw (a.stack, a);
+          }
           return r;
         },
         buildUriNullable: function (t) {

@@ -88,7 +88,7 @@ __d(
                           .WARN(
                             e ||
                               (e = babelHelpers.taggedTemplateLiteralLoose([
-                                "[business-broadcast-tos-sync-error] biz broadcast tos sync error",
+                                "[biz-broadcast-tos] sync error",
                               ])),
                           )
                           .catching(

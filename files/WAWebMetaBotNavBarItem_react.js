@@ -181,11 +181,10 @@ __d(
       return r("useWAWebEventTargetValue")(
         o("WAWebCmd").Cmd,
         "on_ab_props_update_from_bridge",
-        S,
+        function () {
+          return o("WAWebBotGating").isBotShortcutEntryPointEnabled();
+        },
       );
-    }
-    function S() {
-      return o("WAWebBotGating").isBotShortcutEntryPointEnabled();
     }
     l.MetaBotNavBarItem = b;
   },

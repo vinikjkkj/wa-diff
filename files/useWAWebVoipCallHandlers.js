@@ -15,7 +15,7 @@ __d(
     "WAWebVoipStackInterface",
     "WAWebVoipUiManager",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
-    "WAWebVoipWaCallEnums",
+    "WAWebVoipVideoStateUtils",
     "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
@@ -316,11 +316,9 @@ __d(
                   t &&
                   !t.isVideo &&
                   C &&
-                  (t.selfVideoState == null ||
-                    t.selfVideoState ===
-                      o("WAWebVoipWaCallEnums").VideoState.Disabled ||
-                    t.selfVideoState ===
-                      o("WAWebVoipWaCallEnums").VideoState.Stopped);
+                  o("WAWebVoipVideoStateUtils").isVideoStateInactiveForCallMode(
+                    t.selfVideoState,
+                  );
               if (n === !0) {
                 var a =
                   o("WAWebABProps").getABPropConfigValue(

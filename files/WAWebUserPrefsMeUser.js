@@ -13,6 +13,7 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidToJid",
+    "err",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -141,7 +142,7 @@ __d(
                   "",
                 ])),
               n,
-              new Error().stack,
+              r("err")("").stack,
             )
             .sendLogs("WAWebUserPrefsMeUser-invalid-wid");
         }

@@ -20,7 +20,6 @@ __d(
     "WAWebUtilsLogQplEvents",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -213,100 +212,55 @@ __d(
     }
     C.displayName = C.name + " [from " + i.id + "]";
     function b(t) {
-      var n = o("react-compiler-runtime").c(20),
-        a = t.category,
-        i = t.toggleResultById,
-        l;
-      n[0] !== a.disabled || n[1] !== a.id || n[2] !== i
-        ? ((l = function () {
-            !a.disabled && i(a.id);
-          }),
-          (n[0] = a.disabled),
-          (n[1] = a.id),
-          (n[2] = i),
-          (n[3] = l))
-        : (l = n[3]);
-      var s = l,
-        u;
-      n[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = (e || (e = r("stylex"))).props(
-            o("WAWebUISpacing").uiPadding.vert18,
-            o("WAWebUISpacing").uiPadding.horiz24,
-          )),
-          (n[4] = u))
-        : (u = n[4]);
-      var d = "" + a.id,
-        m;
-      n[5] !== a.disabled || n[6] !== a.selected || n[7] !== s || n[8] !== d
-        ? ((m = c.jsx(
+      var n = t.category,
+        a = t.toggleResultById,
+        i = function () {
+          !n.disabled && a(n.id);
+        };
+      return c.jsxs(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        xstyle: g.rowMain,
+        children: [
+          c.jsx(
             "div",
-            babelHelpers.extends({}, u, {
-              children: c.jsx(o("WAWebCheckBox.react").CheckBox, {
-                id: d,
-                onChange: s,
-                checked: a.selected,
-                disabled: a.disabled,
-              }),
-            }),
-          )),
-          (n[5] = a.disabled),
-          (n[6] = a.selected),
-          (n[7] = s),
-          (n[8] = d),
-          (n[9] = m))
-        : (m = n[9]);
-      var p = "category-list-item-" + a.id,
-        _;
-      n[10] !== a.disabled
-        ? ((_ = (e || (e = r("stylex"))).props(
-            g.rowLabel,
-            o("WAWebUISpacing").uiPadding.vert13,
-            a.disabled && g.rowLabelDisabled,
-          )),
-          (n[10] = a.disabled),
-          (n[11] = _))
-        : (_ = n[11]);
-      var f;
-      n[12] !== a.id ||
-      n[13] !== a.localized_display_name ||
-      n[14] !== p ||
-      n[15] !== _
-        ? ((f = c.jsx(
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
+                o("WAWebUISpacing").uiPadding.vert18,
+                o("WAWebUISpacing").uiPadding.horiz24,
+              ),
+              {
+                children: c.jsx(o("WAWebCheckBox.react").CheckBox, {
+                  id: "" + n.id,
+                  onChange: i,
+                  checked: n.selected,
+                  disabled: n.disabled,
+                }),
+              },
+            ),
+          ),
+          c.jsx(
             "label",
-            babelHelpers.extends({ "data-testid": void 0 }, _, {
-              htmlFor: a.id,
-              children: a.localized_display_name,
-            }),
-          )),
-          (n[12] = a.id),
-          (n[13] = a.localized_display_name),
-          (n[14] = p),
-          (n[15] = _),
-          (n[16] = f))
-        : (f = n[16]);
-      var h;
-      return (
-        n[17] !== m || n[18] !== f
-          ? ((h = c.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              xstyle: g.rowMain,
-              children: [m, f],
-            })),
-            (n[17] = m),
-            (n[18] = f),
-            (n[19] = h))
-          : (h = n[19]),
-        h
-      );
+            babelHelpers.extends(
+              { "data-testid": void 0 },
+              e.props(
+                g.rowLabel,
+                o("WAWebUISpacing").uiPadding.vert13,
+                n.disabled && g.rowLabelDisabled,
+              ),
+              { htmlFor: n.id, children: n.localized_display_name },
+            ),
+          ),
+        ],
+      });
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v(t) {
-      var n = o("react-compiler-runtime").c(4),
-        a = t.label,
-        i,
-        l;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = { className: "x1jchvi3" }),
-          (l = c.jsx(
+      var n = t.label;
+      return c.jsxs("div", {
+        className: "x1jchvi3",
+        children: [
+          c.jsx(
             "div",
             babelHelpers.extends(
               {},
@@ -315,120 +269,56 @@ __d(
                 o("WAWebUISpacing").uiPadding.horiz24,
               ),
             ),
-          )),
-          (n[0] = i),
-          (n[1] = l))
-        : ((i = n[0]), (l = n[1]));
-      var s;
-      return (
-        n[2] !== a
-          ? ((s = c.jsxs(
-              "div",
-              babelHelpers.extends({}, i, { children: [l, a] }),
-            )),
-            (n[2] = a),
-            (n[3] = s))
-          : (s = n[3]),
-        s
-      );
+          ),
+          n,
+        ],
+      });
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = o("react-compiler-runtime").c(16),
-        n = e.isDisabled,
-        a = e.isLoading,
-        i = e.isSelected,
-        l = e.results,
-        u = e.toggleResultById,
-        d;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = new (r("WAWebFlatListController"))()), (t[0] = d))
-        : (d = t[0]);
-      var m = d;
-      if (a) {
-        var p;
-        return (
-          t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((p = c.jsx(o("WAWebFlex.react").FlexRow, {
-                align: "center",
-                justify: "center",
-                xstyle: [g.loadingSpinner, o("WAWebUISpacing").uiPadding.all0],
-                children: c.jsx(o("WAWebSpinner.react").Spinner, {
-                  color: "highlight",
-                  size: 44,
-                  stroke: 6,
-                }),
-              })),
-              (t[1] = p))
-            : (p = t[1]),
-          p
-        );
-      }
-      if (!l || l.length === 0) {
-        var _;
-        return (
-          t[2] === Symbol.for("react.memo_cache_sentinel")
-            ? ((_ = c.jsx(v, { label: s._(/*BTDS*/ "No categories found") })),
-              (t[2] = _))
-            : (_ = t[2]),
-          _
-        );
-      }
-      var f;
-      if (t[3] !== n || t[4] !== i || t[5] !== l) {
-        var y;
-        (t[7] !== n || t[8] !== i
-          ? ((y = function (t) {
-              return babelHelpers.extends({}, t, {
-                disabled: n(t),
-                id: t.id,
-                itemKey: t.id.toString(),
-                selected: i(t.id),
-              });
-            }),
-            (t[7] = n),
-            (t[8] = i),
-            (t[9] = y))
-          : (y = t[9]),
-          (f = l.map(y)),
-          (t[3] = n),
-          (t[4] = i),
-          (t[5] = l),
-          (t[6] = f));
-      } else f = t[6];
-      var C = f,
-        S;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = [m]), (t[10] = S))
-        : (S = t[10]);
-      var R;
-      t[11] !== u
-        ? ((R = function (t) {
-            return c.jsx(b, { category: t, toggleResultById: u });
+      var t = e.isDisabled,
+        n = e.isLoading,
+        a = e.isSelected,
+        i = e.results,
+        l = e.toggleResultById,
+        u = p(function () {
+          return new (r("WAWebFlatListController"))();
+        }, []);
+      if (n)
+        return c.jsx(o("WAWebFlex.react").FlexRow, {
+          align: "center",
+          justify: "center",
+          xstyle: [g.loadingSpinner, o("WAWebUISpacing").uiPadding.all0],
+          children: c.jsx(o("WAWebSpinner.react").Spinner, {
+            color: "highlight",
+            size: 44,
+            stroke: 6,
           }),
-          (t[11] = u),
-          (t[12] = R))
-        : (R = t[12]);
-      var L;
-      return (
-        t[13] !== C || t[14] !== R
-          ? ((L = c.jsx(r("WAWebFlatListContainer.react"), {
-              flatListControllers: S,
-              children: c.jsx(o("WAWebFlatList.react").FlatList, {
-                data: C,
-                flatListController: m,
-                direction: "vertical",
-                renderItem: R,
-                defaultItemHeight: h,
-              }),
-            })),
-            (t[13] = C),
-            (t[14] = R),
-            (t[15] = L))
-          : (L = t[15]),
-        L
-      );
+        });
+      if (!i || i.length === 0)
+        return c.jsx(v, { label: s._(/*BTDS*/ "No categories found") });
+      var d = i.map(function (e) {
+        return babelHelpers.extends({}, e, {
+          disabled: t(e),
+          id: e.id,
+          itemKey: e.id.toString(),
+          selected: a(e.id),
+        });
+      });
+      return c.jsx(r("WAWebFlatListContainer.react"), {
+        flatListControllers: [u],
+        children: c.jsx(o("WAWebFlatList.react").FlatList, {
+          data: d,
+          flatListController: u,
+          direction: "vertical",
+          renderItem: function (t) {
+            return c.jsx(b, { category: t, toggleResultById: l });
+          },
+          defaultItemHeight: h,
+        }),
+      });
     }
-    l.default = C;
+    ((S.displayName = S.name + " [from " + i.id + "]"), (l.default = C));
   },
   226,
 );

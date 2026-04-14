@@ -53,7 +53,6 @@ __d(
     "WAWebWamPrivateStatsUtils",
     "WDSIconWdsIcViewOnce.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useLazyRef",
     "useWAWebForceUpdate",
@@ -84,79 +83,44 @@ __d(
       C = 50,
       b = o("WAWebFlatList.react").DEFAULT_ITEM_HEIGHT + 10;
     function v(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.chat,
-        a = e.elevatedPushNamesEnabled,
-        i = e.participant,
-        l;
-      return (
-        t[0] !== n || t[1] !== a || t[2] !== i
-          ? ((l = m.jsx(r("WAWebChatGroupMsgInfoCell.react"), {
-              msgInfoParticipant: i,
-              chat: n,
-              contact: i.contact,
-              elevatedPushNamesEnabled: a,
-              theme: "drawer-list",
-            })),
-            (t[0] = n),
-            (t[1] = a),
-            (t[2] = i),
-            (t[3] = l))
-          : (l = t[3]),
-        l
-      );
+      var t = e.chat,
+        n = e.elevatedPushNamesEnabled,
+        o = e.participant;
+      return m.jsx(r("WAWebChatGroupMsgInfoCell.react"), {
+        msgInfoParticipant: o,
+        chat: t,
+        contact: o.contact,
+        elevatedPushNamesEnabled: n,
+        theme: "drawer-list",
+      });
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.agentName,
-        a = e.msg,
-        i;
-      return (
-        t[0] !== n || t[1] !== a
-          ? ((i = m.jsx(r("WAWebChatAgentMsgInfoCell.react"), {
-              msg: a,
-              agentName: n,
-              theme: "drawer-list",
-            })),
-            (t[0] = n),
-            (t[1] = a),
-            (t[2] = i))
-          : (i = t[2]),
-        i
-      );
+      var t = e.agentName,
+        n = e.msg;
+      return m.jsx(r("WAWebChatAgentMsgInfoCell.react"), {
+        msg: n,
+        agentName: t,
+        theme: "drawer-list",
+      });
     }
+    S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
       return o("WAWebContactCollection").ContactCollection.assertGet(e);
     }
     function L(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.msg,
-        a;
-      if (t[0] !== n) {
-        a = Symbol.for("react.early_return_sentinel");
-        e: {
-          var i = o("WAWebMsgGetters").getKicSender(n);
-          if (i != null) {
-            var l = R(i),
-              s;
-            (t[2] !== l || t[3] !== n.kicTimestampMs
-              ? ((s = m.jsx(r("WAWebChatKeptByMsgInfoCell.react"), {
-                  kicTimestampMs: n.kicTimestampMs,
-                  contact: l,
-                  theme: "drawer-list",
-                })),
-                (t[2] = l),
-                (t[3] = n.kicTimestampMs),
-                (t[4] = s))
-              : (s = t[4]),
-              (a = s));
-            break e;
-          }
-        }
-        ((t[0] = n), (t[1] = a));
-      } else a = t[1];
-      if (a !== Symbol.for("react.early_return_sentinel")) return a;
+      var t = e.msg,
+        n = o("WAWebMsgGetters").getKicSender(t);
+      if (n != null) {
+        var a = R(n);
+        return m.jsx(r("WAWebChatKeptByMsgInfoCell.react"), {
+          kicTimestampMs: t.kicTimestampMs,
+          contact: a,
+          theme: "drawer-list",
+        });
+      }
     }
+    L.displayName = L.name + " [from " + i.id + "]";
     function E(e) {
       var t = e.msg,
         n = e.section,

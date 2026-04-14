@@ -1,6 +1,6 @@
 __d(
   "WAWebNewsletterFooterWithActionLink.react",
-  ["WAWebFlex.react", "react", "react-compiler-runtime"],
+  ["WAWebFlex.react", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -33,45 +33,22 @@ __d(
       },
       c = { semiBold: { fontWeight: "xk50ysn", $$css: !0 } };
     function d(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.ref,
-        r = e.showBorder,
-        a = e.text,
-        i = r && u.border,
-        l;
-      t[0] !== i
-        ? ((l = [u.paddingHoriz8, u.paddingVert16, u.footer, i]),
-          (t[0] = i),
-          (t[1] = l))
-        : (l = t[1]);
-      var c;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = { className: "x1evy7pa x1f6kntn xhslqc4" }), (t[2] = c))
-        : (c = t[2]);
-      var d;
-      t[3] !== a
-        ? ((d = s.jsx("span", babelHelpers.extends({}, c, { children: a }))),
-          (t[3] = a),
-          (t[4] = d))
-        : (d = t[4]);
-      var m;
-      return (
-        t[5] !== n || t[6] !== l || t[7] !== d
-          ? ((m = s.jsx(o("WAWebFlex.react").FlexRow, {
-              ref: n,
-              xstyle: l,
-              justify: "center",
-              children: d,
-            })),
-            (t[5] = n),
-            (t[6] = l),
-            (t[7] = d),
-            (t[8] = m))
-          : (m = t[8]),
-        m
-      );
+      var t = e.ref,
+        n = e.showBorder,
+        r = e.text;
+      return s.jsx(o("WAWebFlex.react").FlexRow, {
+        ref: t,
+        xstyle: [u.paddingHoriz8, u.paddingVert16, u.footer, n && u.border],
+        justify: "center",
+        children: s.jsx("span", {
+          className: "x1evy7pa x1f6kntn xhslqc4",
+          children: r,
+        }),
+      });
     }
-    ((l.footerTextStyles = c), (l.NewsletterFooterWithActionLink = d));
+    ((d.displayName = d.name + " [from " + i.id + "]"),
+      (l.footerTextStyles = c),
+      (l.NewsletterFooterWithActionLink = d));
   },
   98,
 );

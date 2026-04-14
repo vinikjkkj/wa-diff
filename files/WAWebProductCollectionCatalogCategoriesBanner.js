@@ -5,7 +5,6 @@ __d(
     "WAWebBizProductCatalogBridge",
     "WAWebText_DONOTUSE.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -31,59 +30,38 @@ __d(
         },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.catalog,
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = ["id", "hasCatalogCategories"]), (t[0] = r))
-        : (r = t[0]);
-      var a = o("useWAWebModelValues").useModelValues(n, r),
-        i = a.hasCatalogCategories,
-        l = a.id,
-        m,
-        p;
-      if (
-        (t[1] !== n || t[2] !== i || t[3] !== l
-          ? ((m = function () {
-              i == null &&
-                o("WAWebBizProductCatalogBridge")
-                  .queryCatalogHasCategories(l)
-                  .then(function (e) {
-                    n.set({ hasCatalogCategories: e });
-                  });
-            }),
-            (p = [i, l, n]),
-            (t[1] = n),
-            (t[2] = i),
-            (t[3] = l),
-            (t[4] = m),
-            (t[5] = p))
-          : ((m = t[4]), (p = t[5])),
-        c(m, p),
-        i === !1 || i == null)
-      )
-        return null;
-      var _;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = [d.banner, d.paddingAll16]), (t[6] = _))
-        : (_ = t[6]);
-      var f;
+      var t = e.catalog,
+        n = o("useWAWebModelValues").useModelValues(t, [
+          "id",
+          "hasCatalogCategories",
+        ]),
+        r = n.hasCatalogCategories,
+        a = n.id;
       return (
-        t[7] === Symbol.for("react.memo_cache_sentinel")
-          ? ((f = u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
-              xstyle: _,
+        c(
+          function () {
+            r == null &&
+              o("WAWebBizProductCatalogBridge")
+                .queryCatalogHasCategories(a)
+                .then(function (e) {
+                  t.set({ hasCatalogCategories: e });
+                });
+          },
+          [r, a, t],
+        ),
+        r === !1 || r == null
+          ? null
+          : u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+              xstyle: [d.banner, d.paddingAll16],
               size: "13",
               color: "dark",
               children: s._(
                 /*BTDS*/ "Use WhatsApp on your phone to browse product categories.",
               ),
-            })),
-            (t[7] = f))
-          : (f = t[7]),
-        f
+            })
       );
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

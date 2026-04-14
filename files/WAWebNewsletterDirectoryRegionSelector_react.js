@@ -28,7 +28,6 @@ __d(
     "asyncToGeneratorRuntime",
     "fbs",
     "react",
-    "react-compiler-runtime",
     "useWAWebActiveSelection",
     "useWAWebDebouncedSearch",
   ],
@@ -138,90 +137,43 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = o("react-compiler-runtime").c(21),
-        n = e.active,
-        a = e.country,
-        i = e.onClick,
-        l = e.selected,
-        s = r("useWAWebActiveSelection")(n, a.code),
-        u = s[0],
-        d = s[1],
-        m;
-      t[0] !== a || t[1] !== i
-        ? ((m = function () {
-            i(a);
+      var t = e.active,
+        n = e.country,
+        a = e.onClick,
+        i = e.selected,
+        l = r("useWAWebActiveSelection")(t, n.code),
+        s = l[0],
+        u = l[1],
+        d = function () {
+          a(n);
+        },
+        m = { enter: d, space: d };
+      return c.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+        ref: s,
+        handlers: m,
+        role: "button",
+        children: c.jsx(r("WAWebCellV2.react"), {
+          active: u,
+          onClick: d,
+          colorScheme: "default",
+          size: "large",
+          border: "bottom-partial",
+          primary: c.jsx(o("WAWebText.react").WAWebTextTitle, {
+            children: n.name,
           }),
-          (t[0] = a),
-          (t[1] = i),
-          (t[2] = m))
-        : (m = t[2]);
-      var p = m,
-        _;
-      t[3] !== p
-        ? ((_ = { enter: p, space: p }), (t[3] = p), (t[4] = _))
-        : (_ = t[4]);
-      var f = _,
-        g;
-      t[5] !== a.name
-        ? ((g = c.jsx(o("WAWebText.react").WAWebTextTitle, {
-            children: a.name,
-          })),
-          (t[5] = a.name),
-          (t[6] = g))
-        : (g = t[6]);
-      var h = String(a.code),
-        y = "wds-radio-input-" + (l ? "checked" : "unchecked"),
-        C;
-      t[7] !== a.name || t[8] !== l || t[9] !== h || t[10] !== y
-        ? ((C = c.jsx(r("WDSBaseRadio.react"), {
-            value: h,
+          detailLeft: c.jsx(r("WDSBaseRadio.react"), {
+            value: String(n.code),
             name: "region",
-            checked: l,
+            checked: i,
             disabled: !1,
             testid: void 0,
             onChange: r("WAWebNoop"),
-            "aria-label": a.name,
-          })),
-          (t[7] = a.name),
-          (t[8] = l),
-          (t[9] = h),
-          (t[10] = y),
-          (t[11] = C))
-        : (C = t[11]);
-      var b;
-      t[12] !== p || t[13] !== d || t[14] !== g || t[15] !== C
-        ? ((b = c.jsx(r("WAWebCellV2.react"), {
-            active: d,
-            onClick: p,
-            colorScheme: "default",
-            size: "large",
-            border: "bottom-partial",
-            primary: g,
-            detailLeft: C,
-          })),
-          (t[12] = p),
-          (t[13] = d),
-          (t[14] = g),
-          (t[15] = C),
-          (t[16] = b))
-        : (b = t[16]);
-      var v;
-      return (
-        t[17] !== f || t[18] !== u || t[19] !== b
-          ? ((v = c.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-              ref: u,
-              handlers: f,
-              role: "button",
-              children: b,
-            })),
-            (t[17] = f),
-            (t[18] = u),
-            (t[19] = b),
-            (t[20] = v))
-          : (v = t[20]),
-        v
-      );
+            "aria-label": n.name,
+          }),
+        }),
+      });
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
       var t = e.countryList,
         n = e.onSelect,

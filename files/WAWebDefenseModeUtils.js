@@ -9,7 +9,6 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebWamEnumDefenseModeClickControlName",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -46,29 +45,18 @@ __d(
       if (d()) return c[e];
     }
     function p() {
-      var e = o("react-compiler-runtime").c(2),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = o("WAWebFaqUrl").getDefenseModeFaqUrl()), (e[0] = t))
-        : (t = e[0]);
-      var n = t,
-        a;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((a = u.jsx(r("WAWebClickableLink.react"), {
-              href: n,
-              onClick: function (t) {
-                (t.preventDefault(),
-                  o("WAWebExternalLink.react").openExternalLink(n));
-              },
-              children: s._(/*BTDS*/ "Learn more"),
-            })),
-            (e[1] = a))
-          : (a = e[1]),
-        a
-      );
+      var e = o("WAWebFaqUrl").getDefenseModeFaqUrl();
+      return u.jsx(r("WAWebClickableLink.react"), {
+        href: e,
+        onClick: function (n) {
+          (n.preventDefault(),
+            o("WAWebExternalLink.react").openExternalLink(e));
+        },
+        children: s._(/*BTDS*/ "Learn more"),
+      });
     }
-    ((l.getWamEnumIfSettingLockedByDefenseMode = m),
+    ((p.displayName = p.name + " [from " + i.id + "]"),
+      (l.getWamEnumIfSettingLockedByDefenseMode = m),
       (l.WAWebDefenseModeLearnMoreClickableLink = p));
   },
   226,

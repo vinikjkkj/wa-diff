@@ -1,45 +1,26 @@
 __d(
   "WAWebAttachMenuPopupItem.react",
-  ["WDSMenuItem.react", "react", "react-compiler-runtime"],
+  ["WDSMenuItem.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e.Icon,
-        a = e.disabled,
-        i = e.iconXstyle,
-        l = e.onPress,
-        u = e.testid,
-        c = e.text,
-        d;
-      return (
-        t[0] !== n ||
-        t[1] !== a ||
-        t[2] !== i ||
-        t[3] !== l ||
-        t[4] !== u ||
-        t[5] !== c
-          ? ((d = s.jsx(r("WDSMenuItem.react"), {
-              Icon: n,
-              disabled: a,
-              iconXstyle: i,
-              onPress: l,
-              title: c,
-              testid: void 0,
-            })),
-            (t[0] = n),
-            (t[1] = a),
-            (t[2] = i),
-            (t[3] = l),
-            (t[4] = u),
-            (t[5] = c),
-            (t[6] = d))
-          : (d = t[6]),
-        d
-      );
+      var t = e.Icon,
+        n = e.disabled,
+        o = e.iconXstyle,
+        a = e.onPress,
+        i = e.testid,
+        l = e.text;
+      return s.jsx(r("WDSMenuItem.react"), {
+        Icon: t,
+        disabled: n,
+        iconXstyle: o,
+        onPress: a,
+        title: l,
+        testid: void 0,
+      });
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

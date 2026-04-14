@@ -1,25 +1,17 @@
 __d(
   "WAWebRenderStickerPreviewIcon",
-  ["WDSIconWdsIcSticker.react", "react", "react-compiler-runtime"],
+  ["WDSIconWdsIcSticker.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n;
-      return (
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(r("WDSIconWdsIcSticker.react"), {
-              height: 20,
-              width: 16,
-              testid: void 0,
-            })),
-            (t[0] = n))
-          : (n = t[0]),
-        n
-      );
+      return s.jsx(r("WDSIconWdsIcSticker.react"), {
+        height: 20,
+        width: 16,
+        testid: void 0,
+      });
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

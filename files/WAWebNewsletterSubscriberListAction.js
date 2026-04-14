@@ -105,10 +105,9 @@ __d(
               p = yield o(
                 "WAWebNewsletterSubscriberListJob",
               ).getNewsletterSubscribers(l, n, r),
-              _ =
-                (a = p == null ? void 0 : p.subscribers.length) != null ? a : 0,
+              _ = (a = p == null ? void 0 : p.followers.length) != null ? a : 0,
               f = {
-                subscribers: d(p == null ? void 0 : p.subscribers),
+                subscribers: d(p == null ? void 0 : p.followers),
                 hasMore: _ >= m,
               };
             return (

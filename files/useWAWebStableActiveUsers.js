@@ -1,6 +1,6 @@
 __d(
   "useWAWebStableActiveUsers",
-  ["WAWebGroupGatingUtils", "react", "react-compiler-runtime"],
+  ["WAWebGroupGatingUtils", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useState;
@@ -36,37 +36,24 @@ __d(
       return [].concat(e, r);
     }
     function d(e, t) {
-      var n = o("react-compiler-runtime").c(4),
-        r;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = o("WAWebGroupGatingUtils").isGroupTypingIndicatorEnabled()),
-          (n[0] = r))
-        : (r = n[0]);
-      var a = r,
-        i;
-      n[1] !== t || n[2] !== e
-        ? ((i = function () {
-            return a ? c(e, t) : [];
-          }),
-          (n[1] = t),
-          (n[2] = e),
-          (n[3] = i))
-        : (i = n[3]);
-      var l = s(i),
+      var n = o("WAWebGroupGatingUtils").isGroupTypingIndicatorEnabled(),
+        r = s(function () {
+          return n ? c(e, t) : [];
+        }),
+        a = r[0],
+        i = r[1],
+        l = s(e),
         d = l[0],
         m = l[1],
-        p = s(e),
+        p = s(t),
         _ = p[0],
-        f = p[1],
-        g = s(t),
-        h = g[0],
-        y = g[1];
-      if (a && (e !== _ || t !== h)) {
-        (f(e), y(t));
-        var C = c(e, t);
-        m(u(d, C));
+        f = p[1];
+      if (n && (e !== d || t !== _)) {
+        (m(e), f(t));
+        var g = c(e, t);
+        i(u(a, g));
       }
-      return a ? d : null;
+      return n ? a : null;
     }
     ((l.preserveUserOrder = u), (l.useWAWebStableActiveUsers = d));
   },

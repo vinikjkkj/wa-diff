@@ -7,7 +7,6 @@ __d(
     "WAWebUISpacing",
     "WDSIconIcScheduleFilled.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -47,70 +46,39 @@ __d(
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g(t) {
-      var n = o("react-compiler-runtime").c(15),
-        a = t.isPollEnded,
-        i = t.isSingleOptionPoll,
-        l = t.pollEndTime,
-        u = l - o("WAWebClock").Clock.getServerTimeMs(),
-        _ = Math.max(0, Math.ceil(u / m)),
-        g = _ < p && !a,
-        h = a ? "poll-ended-label" : "poll-end-time-label",
-        y = i ? void 0 : d.iconContainer,
-        C = g ? "secondaryNegative" : "contentDeemphasized",
-        b;
-      n[0] !== y || n[1] !== C
-        ? ((b = c.jsx(r("WDSIconIcScheduleFilled.react"), {
+      var n = t.isPollEnded,
+        a = t.isSingleOptionPoll,
+        i = t.pollEndTime,
+        l = i - o("WAWebClock").Clock.getServerTimeMs(),
+        u = Math.max(0, Math.ceil(l / m)),
+        _ = u < p && !n;
+      return c.jsxs(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        xstyle: o("WAWebUISpacing").uiPadding.all4,
+        testid: void 0,
+        children: [
+          c.jsx(r("WDSIconIcScheduleFilled.react"), {
             width: 12,
             height: 12,
-            xstyle: y,
-            colorName: C,
-          })),
-          (n[0] = y),
-          (n[1] = C),
-          (n[2] = b))
-        : (b = n[2]);
-      var v;
-      n[3] !== g
-        ? ((v = (e || (e = r("stylex"))).props(
-            d.label,
-            g && d.almostEnded,
-            o("WAWebUISpacing").uiPadding.start5,
-          )),
-          (n[3] = g),
-          (n[4] = v))
-        : (v = n[4]);
-      var S;
-      n[5] !== a || n[6] !== _
-        ? ((S = a ? s._(/*BTDS*/ "Poll ended") : f(_)),
-          (n[5] = a),
-          (n[6] = _),
-          (n[7] = S))
-        : (S = n[7]);
-      var R;
-      n[8] !== v || n[9] !== S
-        ? ((R = c.jsx("span", babelHelpers.extends({}, v, { children: S }))),
-          (n[8] = v),
-          (n[9] = S),
-          (n[10] = R))
-        : (R = n[10]);
-      var L;
-      return (
-        n[11] !== h || n[12] !== b || n[13] !== R
-          ? ((L = c.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              xstyle: o("WAWebUISpacing").uiPadding.all4,
-              testid: void 0,
-              children: [b, R],
-            })),
-            (n[11] = h),
-            (n[12] = b),
-            (n[13] = R),
-            (n[14] = L))
-          : (L = n[14]),
-        L
-      );
+            xstyle: a ? void 0 : d.iconContainer,
+            colorName: _ ? "secondaryNegative" : "contentDeemphasized",
+          }),
+          c.jsx(
+            "span",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
+                d.label,
+                _ && d.almostEnded,
+                o("WAWebUISpacing").uiPadding.start5,
+              ),
+              { children: n ? s._(/*BTDS*/ "Poll ended") : f(u) },
+            ),
+          ),
+        ],
+      });
     }
-    l.default = g;
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   226,
 );

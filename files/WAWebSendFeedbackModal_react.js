@@ -32,7 +32,6 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -65,25 +64,17 @@ __d(
       y = n("$InternalEnum").Mirrored(["FORM", "SUCCESS"]),
       C = { titleContainer: { textAlign: "x2b8uid", $$css: !0 } };
     function b(e, t) {
-      var n = o("react-compiler-runtime").c(4),
-        r,
-        a;
-      (n[0] !== e || n[1] !== t
-        ? ((r = function () {
-            new (o("WAWebBugReportSessionWamEvent").BugReportSessionWamEvent)({
-              bugReportFlowAction: o("WAWebWamEnumBugReportFlowAction")
-                .BUG_REPORT_FLOW_ACTION.BUG_REPORT_FORM_IMPRESSION,
-              bugReportingEntryPoint: e,
-              clientServerJoinKey: t,
-            }).commit();
-          }),
-          (a = [e, t]),
-          (n[0] = e),
-          (n[1] = t),
-          (n[2] = r),
-          (n[3] = a))
-        : ((r = n[2]), (a = n[3])),
-        m(r, a));
+      m(
+        function () {
+          new (o("WAWebBugReportSessionWamEvent").BugReportSessionWamEvent)({
+            bugReportFlowAction: o("WAWebWamEnumBugReportFlowAction")
+              .BUG_REPORT_FLOW_ACTION.BUG_REPORT_FORM_IMPRESSION,
+            bugReportingEntryPoint: e,
+            clientServerJoinKey: t,
+          }).commit();
+        },
+        [e, t],
+      );
     }
     function v(t) {
       var a = t.bugReportingEntryPoint,
@@ -98,9 +89,9 @@ __d(
         S = _({ state: "none", mediaFiles: [] }),
         R = S[0],
         L = S[1],
-        E = _(!1),
-        k = E[0],
-        I = E[1],
+        T = _(!1),
+        D = T[0],
+        x = T[1],
         $ = _(!1),
         P = $[0],
         N = $[1],
@@ -333,7 +324,7 @@ __d(
         okText: s._(/*BTDS*/ "Send"),
         onOK: H,
         onCancel: G,
-        okDisabled: !O || P || k,
+        okDisabled: !O || P || D,
         okSpinner: P,
         buttonGroupStyle: h.buttonGroup,
         testid: void 0,
@@ -349,14 +340,14 @@ __d(
                   s._param(
                     "help_center_link",
                     c.jsx(r("WAWebClickableLink.react"), {
-                      onClick: T,
+                      onClick: E,
                       children: s._(/*BTDS*/ "Help Center"),
                     }),
                   ),
                   s._param(
                     "contact_us_link",
                     c.jsx(r("WAWebClickableLink.react"), {
-                      onClick: D,
+                      onClick: k,
                       children: s._(/*BTDS*/ "contact us"),
                     }),
                   ),
@@ -390,7 +381,7 @@ __d(
               marginBottom: 16,
               children: c.jsx(
                 o("WAWebScreenshotUpload.react").WAWebScreenshotUpload,
-                { mediaState: R, onChangeState: L, onUploadStateChange: I },
+                { mediaState: R, onChangeState: L, onUploadStateChange: x },
               ),
             }),
             c.jsxs(o("WAWebText.react").WAWebTextSmall, {
@@ -400,7 +391,7 @@ __d(
                 ),
                 " ",
                 c.jsx(r("WAWebClickableLink.react"), {
-                  onClick: x,
+                  onClick: I,
                   children: s._(/*BTDS*/ "Learn more"),
                 }),
               ],
@@ -411,246 +402,164 @@ __d(
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S(e, t) {
-      var n = o("react-compiler-runtime").c(4),
-        r,
-        a;
-      (n[0] !== e || n[1] !== t
-        ? ((r = function () {
-            new (o("WAWebBugReportSessionWamEvent").BugReportSessionWamEvent)({
-              bugReportFlowAction: o("WAWebWamEnumBugReportFlowAction")
-                .BUG_REPORT_FLOW_ACTION.SUCCESS_VIEW_IMPRESSION,
-              bugReportingEntryPoint: e,
-              clientServerJoinKey: t,
-            }).commit();
-          }),
-          (a = [e, t]),
-          (n[0] = e),
-          (n[1] = t),
-          (n[2] = r),
-          (n[3] = a))
-        : ((r = n[2]), (a = n[3])),
-        m(r, a));
-    }
-    function R(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.bugReportingEntryPoint,
-        a = e.clientServerJoinKey,
-        i = e.onCancel;
-      S(n, a);
-      var l;
-      t[0] !== i
-        ? ((l = function () {
-            i();
-          }),
-          (t[0] = i),
-          (t[1] = l))
-        : (l = t[1]);
-      var u = l,
-        d,
-        m;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = { surface: "unknown", viewName: "send-feedback" }),
-          (m = s._(/*BTDS*/ "Done")),
-          (t[2] = d),
-          (t[3] = m))
-        : ((d = t[2]), (m = t[3]));
-      var p;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = c.jsx(o("WAWebFlex.react").FlexItem, {
-            marginBottom: 16,
-            align: "center",
-            justify: "center",
-            children: c.jsx(
-              o("WAWebWdsPictoSucessCelebrationTickIcon.react")
-                .WdsPictoSucessCelebrationTickIcon,
-              { height: 88, width: 89 },
-            ),
-          })),
-          (t[4] = p))
-        : (p = t[4]);
-      var _;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = c.jsx(o("WAWebFlex.react").FlexItem, {
-            marginBottom: 24,
-            xstyle: C.titleContainer,
-            children: c.jsx(r("WAWebTextLineClamp.react"), {
-              maxLines: 3,
-              children: c.jsx(r("WDSText.react"), {
-                type: "Headline1",
-                colorName: "contentDefault",
-                textAlign: "center",
-                children: s._(/*BTDS*/ "Thanks for your feedback"),
-              }),
-            }),
-          })),
-          (t[5] = _))
-        : (_ = t[5]);
-      var f;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = c.jsx(o("WAWebFlex.react").FlexItem, {
-            testid: void 0,
-            marginBottom: 16,
-            children: c.jsx(r("WDSText.react"), {
-              type: "Body2",
-              colorName: "contentDeemphasized",
-              textAlign: "center",
-              children: s._(
-                /*BTDS*/ "It helps make WhatsApp better for everyone. While we don't share updates on your feedback, it tells us what to improve next.",
-              ),
-            }),
-          })),
-          (t[6] = f))
-        : (f = t[6]);
-      var g;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = c.jsxs(o("WAWebFlex.react").FlexColumn, {
-            align: "center",
-            children: [
-              p,
-              _,
-              f,
-              c.jsx(o("WAWebFlex.react").FlexItem, {
-                testid: void 0,
-                children: c.jsx(r("WDSText.react"), {
-                  type: "Body2",
-                  colorName: "contentDeemphasized",
-                  textAlign: "center",
-                  children: s._(
-                    /*BTDS*/ "Need more help? Visit the {help_center_link} or {contact_us_link}",
-                    [
-                      s._param(
-                        "help_center_link",
-                        c.jsx(r("WAWebClickableLink.react"), {
-                          onClick: E,
-                          children: "Help Center",
-                        }),
-                      ),
-                      s._param(
-                        "contact_us_link",
-                        c.jsx(r("WAWebClickableLink.react"), {
-                          onClick: L,
-                          children: "contact us",
-                        }),
-                      ),
-                    ],
-                  ),
-                }),
-              }),
-            ],
-          })),
-          (t[7] = g))
-        : (g = t[7]);
-      var h;
-      return (
-        t[8] !== u
-          ? ((h = c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              testid: void 0,
-              tsNavigationData: d,
-              okText: m,
-              onOK: u,
-              children: g,
-            })),
-            (t[8] = u),
-            (t[9] = h))
-          : (h = t[9]),
-        h
+      m(
+        function () {
+          new (o("WAWebBugReportSessionWamEvent").BugReportSessionWamEvent)({
+            bugReportFlowAction: o("WAWebWamEnumBugReportFlowAction")
+              .BUG_REPORT_FLOW_ACTION.SUCCESS_VIEW_IMPRESSION,
+            bugReportingEntryPoint: e,
+            clientServerJoinKey: t,
+          }).commit();
+        },
+        [e, t],
       );
     }
-    function L() {
-      (o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
-        new (o("WAWebSupportAiSessionWamEvent").SupportAiSessionWamEvent)({
-          supportAiEventType: o("WAWebWamEnumSupportAiEventType")
-            .SUPPORT_AI_EVENT_TYPE.CONTACT_US_CLICKED,
-        }).commit(),
-        o("WAWebModalManager").ModalManager.open(
-          c.jsx(r("WAWebContactFormWrapper.react"), {}),
-        ));
+    function R(e) {
+      var t = e.bugReportingEntryPoint,
+        n = e.clientServerJoinKey,
+        a = e.onCancel;
+      S(t, n);
+      var i = function () {
+        a();
+      };
+      return c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+        testid: void 0,
+        tsNavigationData: { surface: "unknown", viewName: "send-feedback" },
+        okText: s._(/*BTDS*/ "Done"),
+        onOK: i,
+        children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
+          align: "center",
+          children: [
+            c.jsx(o("WAWebFlex.react").FlexItem, {
+              marginBottom: 16,
+              align: "center",
+              justify: "center",
+              children: c.jsx(
+                o("WAWebWdsPictoSucessCelebrationTickIcon.react")
+                  .WdsPictoSucessCelebrationTickIcon,
+                { height: 88, width: 89 },
+              ),
+            }),
+            c.jsx(o("WAWebFlex.react").FlexItem, {
+              marginBottom: 24,
+              xstyle: C.titleContainer,
+              children: c.jsx(r("WAWebTextLineClamp.react"), {
+                maxLines: 3,
+                children: c.jsx(r("WDSText.react"), {
+                  type: "Headline1",
+                  colorName: "contentDefault",
+                  textAlign: "center",
+                  children: s._(/*BTDS*/ "Thanks for your feedback"),
+                }),
+              }),
+            }),
+            c.jsx(o("WAWebFlex.react").FlexItem, {
+              testid: void 0,
+              marginBottom: 16,
+              children: c.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDeemphasized",
+                textAlign: "center",
+                children: s._(
+                  /*BTDS*/ "It helps make WhatsApp better for everyone. While we don't share updates on your feedback, it tells us what to improve next.",
+                ),
+              }),
+            }),
+            c.jsx(o("WAWebFlex.react").FlexItem, {
+              testid: void 0,
+              children: c.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDeemphasized",
+                textAlign: "center",
+                children: s._(
+                  /*BTDS*/ "Need more help? Visit the {help_center_link} or {contact_us_link}",
+                  [
+                    s._param(
+                      "help_center_link",
+                      c.jsx(r("WAWebClickableLink.react"), {
+                        onClick: function () {
+                          o("WAWebExternalLink.react").openExternalLink(
+                            "https://faq.whatsapp.com/",
+                          );
+                        },
+                        children: "Help Center",
+                      }),
+                    ),
+                    s._param(
+                      "contact_us_link",
+                      c.jsx(r("WAWebClickableLink.react"), {
+                        onClick: function () {
+                          (o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
+                            new (o(
+                              "WAWebSupportAiSessionWamEvent",
+                            ).SupportAiSessionWamEvent)({
+                              supportAiEventType: o(
+                                "WAWebWamEnumSupportAiEventType",
+                              ).SUPPORT_AI_EVENT_TYPE.CONTACT_US_CLICKED,
+                            }).commit(),
+                            o("WAWebModalManager").ModalManager.open(
+                              c.jsx(r("WAWebContactFormWrapper.react"), {}),
+                            ));
+                        },
+                        children: "contact us",
+                      }),
+                    ),
+                  ],
+                ),
+              }),
+            }),
+          ],
+        }),
+      });
     }
+    R.displayName = R.name + " [from " + i.id + "]";
+    function L(e) {
+      var t = e.bugReportingEntryPoint,
+        n = e.onCancel,
+        r = e.onSubmit,
+        a = _(y.FORM),
+        i = a[0],
+        l = a[1],
+        s = _(function () {
+          return o(
+            "WAWebClientServerJoinKeyGenerator",
+          ).generateClientServerJoinKey();
+        }),
+        u = s[0],
+        d = function () {
+          l(y.SUCCESS);
+        },
+        m = function () {
+          (n == null || n(), o("WAWebModalManager").ModalManager.close());
+        };
+      e: {
+        if (i === y.FORM)
+          return c.jsx(v, {
+            bugReportingEntryPoint: t,
+            clientServerJoinKey: u,
+            onCancel: m,
+            onComplete: d,
+            onSubmit: r,
+          });
+        if (i === y.SUCCESS)
+          return c.jsx(R, {
+            bugReportingEntryPoint: t,
+            clientServerJoinKey: u,
+            onCancel: m,
+          });
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            i,
+        );
+      }
+    }
+    L.displayName = L.name + " [from " + i.id + "]";
     function E() {
       o("WAWebExternalLink.react").openExternalLink(
         "https://faq.whatsapp.com/",
       );
     }
-    function k(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n = e.bugReportingEntryPoint,
-        r = e.onCancel,
-        a = e.onSubmit,
-        i = _(y.FORM),
-        l = i[0],
-        s = i[1],
-        u = _(I),
-        d = u[0],
-        m;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = function () {
-            s(y.SUCCESS);
-          }),
-          (t[0] = m))
-        : (m = t[0]);
-      var p = m,
-        f;
-      t[1] !== r
-        ? ((f = function () {
-            (r == null || r(), o("WAWebModalManager").ModalManager.close());
-          }),
-          (t[1] = r),
-          (t[2] = f))
-        : (f = t[2]);
-      var g = f;
-      if (l === y.FORM) {
-        var h;
-        return (
-          t[3] !== n || t[4] !== d || t[5] !== g || t[6] !== a
-            ? ((h = c.jsx(v, {
-                bugReportingEntryPoint: n,
-                clientServerJoinKey: d,
-                onCancel: g,
-                onComplete: p,
-                onSubmit: a,
-              })),
-              (t[3] = n),
-              (t[4] = d),
-              (t[5] = g),
-              (t[6] = a),
-              (t[7] = h))
-            : (h = t[7]),
-          h
-        );
-      }
-      if (l === y.SUCCESS) {
-        var C;
-        return (
-          t[8] !== n || t[9] !== d || t[10] !== g
-            ? ((C = c.jsx(R, {
-                bugReportingEntryPoint: n,
-                clientServerJoinKey: d,
-                onCancel: g,
-              })),
-              (t[8] = n),
-              (t[9] = d),
-              (t[10] = g),
-              (t[11] = C))
-            : (C = t[11]),
-          C
-        );
-      }
-      throw Error(
-        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-          l,
-      );
-    }
-    function I() {
-      return o(
-        "WAWebClientServerJoinKeyGenerator",
-      ).generateClientServerJoinKey();
-    }
-    function T() {
-      o("WAWebExternalLink.react").openExternalLink(
-        "https://faq.whatsapp.com/",
-      );
-    }
-    function D() {
+    function k() {
       (o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
         new (o("WAWebSupportAiSessionWamEvent").SupportAiSessionWamEvent)({
           supportAiEventType: o("WAWebWamEnumSupportAiEventType")
@@ -660,12 +569,12 @@ __d(
           c.jsx(r("WAWebContactFormWrapper.react"), {}),
         ));
     }
-    function x() {
+    function I() {
       o("WAWebExternalLink.react").openExternalLink(
         "https://faq.whatsapp.com/1040401477781770",
       );
     }
-    l.default = k;
+    l.default = L;
   },
   226,
 );

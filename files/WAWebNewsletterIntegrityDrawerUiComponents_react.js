@@ -23,7 +23,6 @@ __d(
     "WAWebUISpacing",
     "WDSIconIcInfo.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -45,114 +44,67 @@ __d(
         iconGray: { color: "x1tvajsz", $$css: !0 },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.content,
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = [c.header, o("WAWebUISpacing").uiPadding.top16]), (t[0] = r))
-        : (r = t[0]);
-      var a;
-      return (
-        t[1] !== n
-          ? ((a = u.jsx(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "center",
-              children: u.jsx(o("WAWebText.react").WAWebTextLarge, {
-                testid: void 0,
-                xstyle: r,
-                weight: "medium",
-                children: n,
-              }),
-            })),
-            (t[1] = n),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.content;
+      return u.jsx(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        justify: "center",
+        children: u.jsx(o("WAWebText.react").WAWebTextLarge, {
+          testid: void 0,
+          xstyle: [c.header, o("WAWebUISpacing").uiPadding.top16],
+          weight: "medium",
+          children: t,
+        }),
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.content,
-        r;
-      return (
-        t[0] !== n
-          ? ((r =
-              n != null
-                ? u.jsx(o("WAWebFlex.react").FlexRow, {
-                    align: "center",
-                    justify: "center",
-                    children: u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                      testid: void 0,
-                      xstyle: [c.header, o("WAWebUISpacing").uiPadding.vert8],
-                      children: n,
-                    }),
-                  })
-                : null),
-            (t[0] = n),
-            (t[1] = r))
-          : (r = t[1]),
-        r
-      );
+      var t = e.content;
+      return t != null
+        ? u.jsx(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "center",
+            children: u.jsx(o("WAWebText.react").WAWebTextMuted, {
+              testid: void 0,
+              xstyle: [c.header, o("WAWebUISpacing").uiPadding.vert8],
+              children: t,
+            }),
+          })
+        : null;
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(14),
-        n = e.section;
-      if (n != null) {
-        var r = n.bullets,
-          a = n.key,
-          i = n.subtitle,
-          l = n.testId,
-          s = n.title,
-          c;
-        t[0] !== s ? ((c = s()), (t[0] = s), (t[1] = c)) : (c = t[1]);
-        var d;
-        t[2] !== c
-          ? ((d = u.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
-              color: "primary",
-              paddingTop: 24,
-              paddingBottom: 12,
-              children: c,
-            })),
-            (t[2] = c),
-            (t[3] = d))
-          : (d = t[3]);
-        var m;
-        t[4] !== i
-          ? ((m =
-              i != null &&
-              u.jsx(o("WAWebText.react").WAWebTextSmall, { children: i() })),
-            (t[4] = i),
-            (t[5] = m))
-          : (m = t[5]);
-        var p;
-        t[6] !== r
-          ? ((p =
-              r != null &&
-              u.jsx(o("WAWebNewsletterModalsUtils.react").BulletPointList, {
-                bullets: r,
-              })),
-            (t[6] = r),
-            (t[7] = p))
-          : (p = t[7]);
-        var _;
-        return (
-          t[8] !== a || t[9] !== d || t[10] !== m || t[11] !== p || t[12] !== l
-            ? ((_ = u.jsxs(
-                o("WAWebFlex.react").FlexColumn,
-                { justify: "stretch", testid: void 0, children: [d, m, p] },
-                a,
-              )),
-              (t[8] = a),
-              (t[9] = d),
-              (t[10] = m),
-              (t[11] = p),
-              (t[12] = l),
-              (t[13] = _))
-            : (_ = t[13]),
-          _
+      var t = e.section;
+      if (t != null) {
+        var n = t.bullets,
+          r = t.key,
+          a = t.subtitle,
+          i = t.testId,
+          l = t.title;
+        return u.jsxs(
+          o("WAWebFlex.react").FlexColumn,
+          {
+            justify: "stretch",
+            testid: void 0,
+            children: [
+              u.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
+                color: "primary",
+                paddingTop: 24,
+                paddingBottom: 12,
+                children: l(),
+              }),
+              a != null &&
+                u.jsx(o("WAWebText.react").WAWebTextSmall, { children: a() }),
+              n != null &&
+                u.jsx(o("WAWebNewsletterModalsUtils.react").BulletPointList, {
+                  bullets: n,
+                }),
+            ],
+          },
+          r,
         );
       }
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e, t) {
       var n = [].concat(
         t === !0
@@ -174,7 +126,7 @@ __d(
                           {
                             xstyle: c.learnMore,
                             selectable: !0,
-                            onClick: L,
+                            onClick: R,
                             children: s._(/*BTDS*/ "Learn more"),
                           },
                         ),
@@ -231,7 +183,7 @@ __d(
                   u.jsx(o("WAWebCopyPasteSelectable.react").SelectableLink, {
                     xstyle: c.learnMore,
                     selectable: !0,
-                    onClick: E,
+                    onClick: L,
                     children: s._(/*BTDS*/ "Learn more"),
                   }),
                 ),
@@ -286,205 +238,126 @@ __d(
       }
     }
     function h(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.reportTimestamp,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = u.jsx(r("WDSIconIcInfo.react"), {
+      var t = e.reportTimestamp;
+      return u.jsxs(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        justify: "center",
+        paddingTop: 8,
+        gap: 8,
+        children: [
+          u.jsx(r("WDSIconIcInfo.react"), {
             height: 16,
             width: 16,
             xstyle: c.iconGray,
-          })),
-          (t[0] = a))
-        : (a = t[0]);
-      var i;
-      return (
-        t[1] !== n
-          ? ((i = u.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "center",
-              paddingTop: 8,
-              gap: 8,
-              children: [
-                a,
-                u.jsx(o("WAWebText.react").WAWebTextSmall, {
-                  testid: void 0,
-                  children: s._(
-                    /*BTDS*/ "Date reported: {report_creation_time}",
-                    [
-                      s._param(
-                        "report_creation_time",
-                        o("WAWebDSADateUtils").getDSADateDisplayString(n),
-                      ),
-                    ],
-                  ),
-                }),
-              ],
-            })),
-            (t[1] = n),
-            (t[2] = i))
-          : (i = t[2]),
-        i
-      );
+          }),
+          u.jsx(o("WAWebText.react").WAWebTextSmall, {
+            testid: void 0,
+            children: s._(/*BTDS*/ "Date reported: {report_creation_time}", [
+              s._param(
+                "report_creation_time",
+                o("WAWebDSADateUtils").getDSADateDisplayString(t),
+              ),
+            ]),
+          }),
+        ],
+      });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.requestTimestamp;
-      if (n == null) return null;
-      var a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = u.jsx(r("WDSIconIcInfo.react"), {
-            height: 16,
-            width: 16,
-            xstyle: c.iconGray,
-          })),
-          (t[0] = a))
-        : (a = t[0]);
-      var i;
-      return (
-        t[1] !== n
-          ? ((i = u.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "center",
-              paddingTop: 8,
-              gap: 8,
-              children: [
-                a,
-                u.jsx(o("WAWebText.react").WAWebTextSmall, {
-                  testid: void 0,
-                  children: s._(
-                    /*BTDS*/ "Review requested: {report_creation_time}",
-                    [
-                      s._param(
-                        "report_creation_time",
-                        o("WAWebDSADateUtils").getDSADateDisplayString(n),
-                      ),
-                    ],
-                  ),
-                }),
-              ],
-            })),
-            (t[1] = n),
-            (t[2] = i))
-          : (i = t[2]),
-        i
-      );
-    }
-    function C(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.handleDelete,
-        r = e.title,
-        a;
-      return (
-        t[0] !== n || t[1] !== r
-          ? ((a = u.jsxs(o("WAWebFlex.react").FlexColumn, {
-              columnGap: 12,
-              children: [
-                u.jsx(o("WAWebButton.react").WAWebButtonSecondaryDestructive, {
-                  testid: void 0,
-                  stretch: !1,
-                  onClick: n,
-                  children: r,
-                }),
-                " ",
-              ],
-            })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
-    }
-    function b(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.enforcementType,
-        a = e.onClickSeeOptions,
-        i;
-      return (
-        t[0] !== n || t[1] !== a
-          ? ((i = u.jsx(o("WAWebFlex.react").FlexRow, {
-              xstyle: o("WAWebUISpacing").uiMargin.all10,
-              justify: "center",
-              children: u.jsx(r("WAWebRemediationOptionSection.react"), {
-                buttonType: "primary",
-                stretch: !1,
-                onClickSeeOptions: a,
-                enforcementType: n,
+      var t = e.requestTimestamp;
+      return t == null
+        ? null
+        : u.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "center",
+            paddingTop: 8,
+            gap: 8,
+            children: [
+              u.jsx(r("WDSIconIcInfo.react"), {
+                height: 16,
+                width: 16,
+                xstyle: c.iconGray,
               }),
-            })),
-            (t[0] = n),
-            (t[1] = a),
-            (t[2] = i))
-          : (i = t[2]),
-        i
-      );
+              u.jsx(o("WAWebText.react").WAWebTextSmall, {
+                testid: void 0,
+                children: s._(
+                  /*BTDS*/ "Review requested: {report_creation_time}",
+                  [
+                    s._param(
+                      "report_creation_time",
+                      o("WAWebDSADateUtils").getDSADateDisplayString(t),
+                    ),
+                  ],
+                ),
+              }),
+            ],
+          });
     }
+    y.displayName = y.name + " [from " + i.id + "]";
+    function C(e) {
+      var t = e.handleDelete,
+        n = e.title;
+      return u.jsxs(o("WAWebFlex.react").FlexColumn, {
+        columnGap: 12,
+        children: [
+          u.jsx(o("WAWebButton.react").WAWebButtonSecondaryDestructive, {
+            testid: void 0,
+            stretch: !1,
+            onClick: t,
+            children: n,
+          }),
+          " ",
+        ],
+      });
+    }
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e) {
+      var t = e.enforcementType,
+        n = e.onClickSeeOptions;
+      return u.jsx(o("WAWebFlex.react").FlexRow, {
+        xstyle: o("WAWebUISpacing").uiMargin.all10,
+        justify: "center",
+        children: u.jsx(r("WAWebRemediationOptionSection.react"), {
+          buttonType: "primary",
+          stretch: !1,
+          onClickSeeOptions: n,
+          enforcementType: t,
+        }),
+      });
+    }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.subtext,
-        r = e.testid,
-        a = e.text,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = "x9f619 xh8yej3 x1qjc9v5"), (t[0] = i))
-        : (i = t[0]);
-      var l;
-      t[1] !== a
-        ? ((l = u.jsx(o("WAWebText.react").WAWebTextTitle, { children: a })),
-          (t[1] = a),
-          (t[2] = l))
-        : (l = t[2]);
-      var s;
-      t[3] !== n
-        ? ((s = u.jsx(o("WAWebText.react").WAWebTextSmall, { children: n })),
-          (t[3] = n),
-          (t[4] = s))
-        : (s = t[4]);
-      var c;
-      t[5] !== l || t[6] !== s
-        ? ((c = u.jsxs(o("WAWebFlex.react").FlexColumn, { children: [l, s] })),
-          (t[5] = l),
-          (t[6] = s),
-          (t[7] = c))
-        : (c = t[7]);
-      var d;
-      return (
-        t[8] !== c || t[9] !== r
-          ? ((d = u.jsx(o("WAWebFlex.react").FlexRow, {
-              className: i,
-              paddingStart: 8,
-              paddingTop: 4,
-              paddingBottom: 4,
-              testid: void 0,
-              marginBottom: 8,
-              children: c,
-            })),
-            (t[8] = c),
-            (t[9] = r),
-            (t[10] = d))
-          : (d = t[10]),
-        d
-      );
+      var t = e.subtext,
+        n = e.testid,
+        r = e.text;
+      return u.jsx(o("WAWebFlex.react").FlexRow, {
+        className: "x9f619 xh8yej3 x1qjc9v5",
+        paddingStart: 8,
+        paddingTop: 4,
+        paddingBottom: 4,
+        testid: void 0,
+        marginBottom: 8,
+        children: u.jsxs(o("WAWebFlex.react").FlexColumn, {
+          children: [
+            u.jsx(o("WAWebText.react").WAWebTextTitle, { children: r }),
+            u.jsx(o("WAWebText.react").WAWebTextSmall, { children: t }),
+          ],
+        }),
+      });
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.points,
-        r;
-      return (
-        t[0] !== n ? ((r = n.map(R)), (t[0] = n), (t[1] = r)) : (r = t[1]),
-        r
-      );
+      var t = e.points;
+      return t.map(function (e, t) {
+        return u.jsx(
+          v,
+          { text: e.text(), subtext: e.subtext(), testid: void 0 },
+          t,
+        );
+      });
     }
-    function R(e, t) {
-      return u.jsx(
-        v,
-        { text: e.text(), subtext: e.subtext(), testid: void 0 },
-        t,
-      );
-    }
-    R.displayName = R.name + " [from " + i.id + "]";
-    function L() {
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R() {
       (r("WAWebEnforcementActionLogging").logLearnMoreWhyClick(),
         o("WAWebModalManager").ModalManager.open(
           u.jsx(
@@ -493,7 +366,7 @@ __d(
           ),
         ));
     }
-    function E() {
+    function L() {
       (r("WAWebEnforcementActionLogging").logLearnMoreEuClick(),
         o("WAWebModalManager").ModalManager.open(
           u.jsx(

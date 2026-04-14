@@ -13,7 +13,6 @@ __d(
     "asyncToGeneratorRuntime",
     "nullthrows",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationMaybeOpenEmailVerification_query.graphql",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -35,31 +34,44 @@ __d(
     function h(e, t) {
       var a,
         i,
-        l = o("react-compiler-runtime").c(9),
-        u = p(r("WAWebBizAdCreationIdentityContext")),
-        d = p(r("WAWebBizAdCreationLoggerContext")),
-        m = p(r("WAWebBizAdCreationSpecContext")),
+        l = p(r("WAWebBizAdCreationIdentityContext")),
+        u = p(r("WAWebBizAdCreationLoggerContext")),
+        d = p(r("WAWebBizAdCreationSpecContext")),
         h =
-          m == null ||
-          (a = m.currentValue) == null ||
+          d == null ||
+          (a = d.currentValue) == null ||
           (a = a.adAccountData) == null
             ? void 0
             : a.id,
-        C = f(!1),
-        b = C[0],
-        v = C[1],
-        S = _(!1),
-        R = o("CometRelay").useFragment(g, e),
-        L =
-          R == null || (i = R.wa_ad_account_onboarding_data) == null
+        y = f(!1),
+        C = y[0],
+        b = y[1],
+        v = _(!1),
+        S = o("CometRelay").useFragment(g, e),
+        R =
+          S == null || (i = S.wa_ad_account_onboarding_data) == null
             ? void 0
             : i.email,
-        E = y,
-        k;
-      l[0] !== h || l[1] !== L || l[2] !== u || l[3] !== d || l[4] !== t
-        ? ((k = function () {
+        L = m(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield o(
+              "WAWebRequestAdAccountRecoveryCode",
+            ).requestAdAccountRecoveryCode();
+            return e === "success"
+              ? { success: !0 }
+              : {
+                  success: !1,
+                  error: s._(
+                    /*BTDS*/ "Something went wrong. Please try again later.",
+                  ),
+                };
+          }),
+          [],
+        ),
+        E = m(
+          function () {
             var e = r("nullthrows")(
-                u,
+                l,
                 "useWAWebBizAdCreationMaybeOpenEmailVerification must be used within WAWebBizAdCreationIdentityContext",
               ),
               a = e.setVerifiedEmailRelayEnvironment,
@@ -68,13 +80,13 @@ __d(
               t.onComplete(i);
               return;
             }
-            (v(!0),
-              S.current ||
-                ((S.current = !0),
+            (b(!0),
+              v.current ||
+                ((v.current = !0),
                 o(
                   "WAWebRequestAdAccountRecoveryCode",
                 ).requestAdAccountRecoveryCode()));
-            var l = (function () {
+            var d = (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     var n = yield o(
@@ -83,7 +95,7 @@ __d(
                     if (n.success) {
                       var r = yield a(n.token);
                       return (
-                        v(!1),
+                        b(!1),
                         r == null
                           ? {
                               success: !1,
@@ -102,14 +114,14 @@ __d(
                 };
               })(),
               m = function () {
-                (v(!1),
+                (b(!1),
                   o("WAWebModalManager").closeModalManager(),
                   t.onCancel == null || t.onCancel());
               },
               p =
-                L != null
+                R != null
                   ? s._(/*BTDS*/ "Enter the 6-digit code we sent to {email}.", [
-                      s._param("email", L),
+                      s._param("email", R),
                     ])
                   : s._(
                       /*BTDS*/ "Enter the 6-digit code we sent to your email address.",
@@ -118,55 +130,19 @@ __d(
               c.jsx(r("WAWebBizAdCreationEmailVerificationDialog.react"), {
                 adAccountID: h,
                 bodyText: p,
-                loggerContext: d,
+                loggerContext: u,
                 onCancel: m,
-                onRequestResend: E,
+                onRequestResend: L,
                 onSuccess: o("WAWebModalManager").closeModalManager,
                 titleText: s._(/*BTDS*/ "Confirm it's you"),
-                verifyCode: l,
+                verifyCode: d,
               }),
               { blockClose: !0 },
             );
-          }),
-          (l[0] = h),
-          (l[1] = L),
-          (l[2] = u),
-          (l[3] = d),
-          (l[4] = t),
-          (l[5] = k))
-        : (k = l[5]);
-      var I = k,
-        T;
-      return (
-        l[6] !== b || l[7] !== I
-          ? ((T = { isVerifyingEmail: b, maybeOpenEmailVerification: I }),
-            (l[6] = b),
-            (l[7] = I),
-            (l[8] = T))
-          : (T = l[8]),
-        T
-      );
-    }
-    function y() {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o(
-            "WAWebRequestAdAccountRecoveryCode",
-          ).requestAdAccountRecoveryCode();
-          return e === "success"
-            ? { success: !0 }
-            : {
-                success: !1,
-                error: s._(
-                  /*BTDS*/ "Something went wrong. Please try again later.",
-                ),
-              };
-        })),
-        C.apply(this, arguments)
-      );
+          },
+          [h, L, l, u, t, R],
+        );
+      return { isVerifyingEmail: C, maybeOpenEmailVerification: E };
     }
     l.default = h;
   },

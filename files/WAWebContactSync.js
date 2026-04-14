@@ -276,7 +276,7 @@ __d(
                     }),
                     D = yield r("WAWebLidAwareContactsDB").bulkGet(T);
                   D.forEach(function (e, t) {
-                    e && e.isUsernameContact !== !0 && I.push(b[t]);
+                    (e == null || e.isUsernameContact !== !0) && I.push(b[t]);
                   });
                 } else I = b;
                 if (I.length > 0) {

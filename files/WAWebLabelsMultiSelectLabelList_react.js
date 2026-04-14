@@ -41,7 +41,6 @@ __d(
     "WDSTooltip.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebNux",
     "useWAWebUnmountSignal",
@@ -59,155 +58,83 @@ __d(
       h = 56,
       y = 0;
     function C() {
-      var e = o("react-compiler-runtime").c(2),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = [
-            o("WAWebUISpacing").uiMargin.all6,
-            o("WAWebUISpacing").uiMargin.end16,
-          ]),
-          (e[0] = t))
-        : (t = e[0]);
-      var n;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = u.jsx(o("WAWebFlex.react").FlexColumn, {
-              xstyle: t,
-              justify: "center",
-              align: "center",
-              children: u.jsx(
-                o("WAWebDraggableItemIcon.react").DraggableItemIcon,
-                { width: 18, height: 18 },
-              ),
-            })),
-            (e[1] = n))
-          : (n = e[1]),
-        n
-      );
+      return u.jsx(o("WAWebFlex.react").FlexColumn, {
+        xstyle: [
+          o("WAWebUISpacing").uiMargin.all6,
+          o("WAWebUISpacing").uiMargin.end16,
+        ],
+        justify: "center",
+        align: "center",
+        children: u.jsx(o("WAWebDraggableItemIcon.react").DraggableItemIcon, {
+          width: 18,
+          height: 18,
+        }),
+      });
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     var b = function (t) {
       return t.map(function (e, t) {
         return { itemKey: e.id, listItem: e, order: t };
       });
     };
     function v(e) {
-      var t = o("react-compiler-runtime").c(27),
-        n = e.autoLabeledLabelIds,
-        a = e.detailElement,
-        i = e.entryPoint,
-        l = e.initialLabelState,
-        s = e.isReorderActive,
-        c = e.label,
-        d = e.onLabelClick,
-        m = e.onMultiSelect,
-        p = e.ref,
-        _ = e.renderContext,
-        f = e.selectableState,
-        g = e.selectedLabels,
-        h = e.showContextActions;
-      if (!c.name) return null;
-      var y;
-      t[0] !== c.id
-        ? ((y = o("WAWebLabelCollection").LabelCollection.assertGet(c.id)),
-          (t[0] = c.id),
-          (t[1] = y))
-        : (y = t[1]);
-      var C = y,
-        b;
-      t[2] !== c.id || t[3] !== d
-        ? ((b = d
-            ? function () {
-                d(c.id);
-              }
-            : void 0),
-          (t[2] = c.id),
-          (t[3] = d),
-          (t[4] = b))
-        : (b = t[4]);
-      var v = b,
-        S;
-      t[5] !== n || t[6] !== c.id
-        ? ((S = n.includes(c.id)), (t[5] = n), (t[6] = c.id), (t[7] = S))
-        : (S = t[7]);
-      var R = S,
-        L;
-      t[8] !== C ||
-      t[9] !== a ||
-      t[10] !== i ||
-      t[11] !== v ||
-      t[12] !== l ||
-      t[13] !== s ||
-      t[14] !== c.id ||
-      t[15] !== m ||
-      t[16] !== _ ||
-      t[17] !== f ||
-      t[18] !== g ||
-      t[19] !== R ||
-      t[20] !== h
-        ? ((L =
-            _ === "label-selection"
-              ? u.jsx(r("WAWebChatCheckboxWrapper.react"), {
-                  theme: o("WAWebBizGatingUtils").labelsEditingEnabled()
-                    ? "label-selection-redesigned"
-                    : "label-selection",
-                  model: C,
-                  initialSelection: l[c.id] || 0,
-                  multiSelection: g,
-                  selectableState: f,
-                  onSelect: m,
-                  children: u.jsx(r("WAWebLabelsLabelListItem.react"), {
-                    label: c.id,
-                    onClick: v,
-                    showContextActions: h,
-                    entryPoint: i,
-                    shouldDisplayAutoLabeledText: R,
-                  }),
-                })
-              : u.jsx(r("WAWebLabelsLabelListItem.react"), {
-                  label: c.id,
-                  detailElement: a,
-                  isReorderActive: s,
-                  theme: _,
-                  onClick: v,
-                  showContextActions: h,
-                  entryPoint: i,
-                  shouldDisplayAutoLabeledText: R,
-                })),
-          (t[8] = C),
-          (t[9] = a),
-          (t[10] = i),
-          (t[11] = v),
-          (t[12] = l),
-          (t[13] = s),
-          (t[14] = c.id),
-          (t[15] = m),
-          (t[16] = _),
-          (t[17] = f),
-          (t[18] = g),
-          (t[19] = R),
-          (t[20] = h),
-          (t[21] = L))
-        : (L = t[21]);
-      var E = L,
-        k = "label_item_" + c.id,
-        I = "label-list-item-" + c.name,
-        T;
-      return (
-        t[22] !== E || t[23] !== p || t[24] !== k || t[25] !== I
-          ? ((T = u.jsx(
-              "div",
-              { ref: p, "data-testid": void 0, children: E },
-              k,
-            )),
-            (t[22] = E),
-            (t[23] = p),
-            (t[24] = k),
-            (t[25] = I),
-            (t[26] = T))
-          : (T = t[26]),
-        T
+      var t = e.autoLabeledLabelIds,
+        n = e.detailElement,
+        a = e.entryPoint,
+        i = e.initialLabelState,
+        l = e.isReorderActive,
+        s = e.label,
+        c = e.onLabelClick,
+        d = e.onMultiSelect,
+        m = e.ref,
+        p = e.renderContext,
+        _ = e.selectableState,
+        f = e.selectedLabels,
+        g = e.showContextActions;
+      if (!s.name) return null;
+      var h = o("WAWebLabelCollection").LabelCollection.assertGet(s.id),
+        y = c
+          ? function () {
+              c(s.id);
+            }
+          : void 0,
+        C = t.includes(s.id),
+        b =
+          p === "label-selection"
+            ? u.jsx(r("WAWebChatCheckboxWrapper.react"), {
+                theme: o("WAWebBizGatingUtils").labelsEditingEnabled()
+                  ? "label-selection-redesigned"
+                  : "label-selection",
+                model: h,
+                initialSelection: i[s.id] || 0,
+                multiSelection: f,
+                selectableState: _,
+                onSelect: d,
+                children: u.jsx(r("WAWebLabelsLabelListItem.react"), {
+                  label: s.id,
+                  onClick: y,
+                  showContextActions: g,
+                  entryPoint: a,
+                  shouldDisplayAutoLabeledText: C,
+                }),
+              })
+            : u.jsx(r("WAWebLabelsLabelListItem.react"), {
+                label: s.id,
+                detailElement: n,
+                isReorderActive: l,
+                theme: p,
+                onClick: y,
+                showContextActions: g,
+                entryPoint: a,
+                shouldDisplayAutoLabeledText: C,
+              });
+      return u.jsx(
+        "div",
+        { ref: m, "data-testid": void 0, children: b },
+        "label_item_" + s.id,
       );
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
       var t = o("WAWebLabelCollection").LabelCollection.filter(function (t) {
         return t.name
@@ -224,143 +151,71 @@ __d(
       return (o("WAWebListUtils").sortLabels(t), t);
     }
     function R() {
-      var e = o("react-compiler-runtime").c(7),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = o(
-            "WAWebLabelCollection",
-          ).LabelCollection.getInactivePresetLists()),
-          (e[0] = t))
-        : (t = e[0]);
-      var n = _(t),
-        a = n[0],
-        i = n[1],
-        l;
-      if (
-        (e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((l = function () {
-              i(
-                o(
-                  "WAWebLabelCollection",
-                ).LabelCollection.getInactivePresetLists(),
-              );
-            }),
-            (e[1] = l))
-          : (l = e[1]),
+      var e = _(
+          o("WAWebLabelCollection").LabelCollection.getInactivePresetLists(),
+        ),
+        t = e[0],
+        n = e[1];
+      return (
         o("useWAWebListener").useListener(
           o("WAWebLabelCollection").LabelCollection,
           "change:isActive",
-          l,
+          function () {
+            n(
+              o(
+                "WAWebLabelCollection",
+              ).LabelCollection.getInactivePresetLists(),
+            );
+          },
         ),
-        a.length === 0)
-      )
-        return null;
-      var c;
-      e[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = u.jsx(r("WAWebDrawerSection.react"), {
-            title: s._(/*BTDS*/ "Available lists"),
-            theme: "list-section",
-            animation: !1,
-          })),
-          (e[2] = c))
-        : (c = e[2]);
-      var d;
-      e[3] !== a ? ((d = a.map(L)), (e[3] = a), (e[4] = d)) : (d = e[4]);
-      var m;
-      return (
-        e[5] !== d
-          ? ((m = u.jsxs(u.Fragment, { children: [c, d] })),
-            (e[5] = d),
-            (e[6] = m))
-          : (m = e[6]),
-        m
+        t.length === 0
+          ? null
+          : u.jsxs(u.Fragment, {
+              children: [
+                u.jsx(r("WAWebDrawerSection.react"), {
+                  title: s._(/*BTDS*/ "Available lists"),
+                  theme: "list-section",
+                  animation: !1,
+                }),
+                t.map(function (e) {
+                  return u.jsx(L, { label: e }, e.id);
+                }),
+              ],
+            })
       );
     }
+    R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
-      return u.jsx(E, { label: e }, e.id);
-    }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E(e) {
-      var t = o("react-compiler-runtime").c(16),
-        n = e.label,
-        a;
-      t[0] !== n
-        ? ((a = function () {
-            o("WAWebListsActions").activatePresetList(n);
-          }),
-          (t[0] = n),
-          (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = { className: "x78zum5 x6s0dn4 xnnlda6 x13jy36j x64bnmy" }),
-          (t[2] = l))
-        : (l = t[2]);
-      var c;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = {
+      var t = e.label,
+        n = function () {
+          o("WAWebListsActions").activatePresetList(t);
+        };
+      return u.jsxs("div", {
+        className: "x78zum5 x6s0dn4 xnnlda6 x13jy36j x64bnmy",
+        "data-testid": void 0,
+        children: [
+          u.jsx("span", {
             className:
               "x1iyjqo2 xs83m0k xdl72j9 x6ikm8r x10wlt62 xlyipyv xuxw1ft",
+            children: o("WAWebListUtils").getListDisplayName(t.name, t.type),
           }),
-          (t[3] = c))
-        : (c = t[3]);
-      var d;
-      t[4] !== n.name || t[5] !== n.type
-        ? ((d = o("WAWebListUtils").getListDisplayName(n.name, n.type)),
-          (t[4] = n.name),
-          (t[5] = n.type),
-          (t[6] = d))
-        : (d = t[6]);
-      var m;
-      t[7] !== d
-        ? ((m = u.jsx("span", babelHelpers.extends({}, c, { children: d }))),
-          (t[7] = d),
-          (t[8] = m))
-        : (m = t[8]);
-      var p;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = s._(/*BTDS*/ "Enable list")), (t[9] = p))
-        : (p = t[9]);
-      var _;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = s._(/*BTDS*/ "Enable list")), (t[10] = _))
-        : (_ = t[10]);
-      var f;
-      t[11] !== i
-        ? ((f = u.jsx(r("WDSTooltip.react"), {
-            label: p,
+          u.jsx(r("WDSTooltip.react"), {
+            label: s._(/*BTDS*/ "Enable list"),
             children: u.jsx(r("WDSButton.react"), {
               Icon: r("WDSIconIcAdd.react"),
               variant: "borderless",
               size: "small",
               type: "default",
-              onPress: i,
-              "aria-label": _,
+              onPress: n,
+              "aria-label": s._(/*BTDS*/ "Enable list"),
               testid: void 0,
             }),
-          })),
-          (t[11] = i),
-          (t[12] = f))
-        : (f = t[12]);
-      var g;
-      return (
-        t[13] !== m || t[14] !== f
-          ? ((g = u.jsxs(
-              "div",
-              babelHelpers.extends({}, l, {
-                "data-testid": void 0,
-                children: [m, f],
-              }),
-            )),
-            (t[13] = m),
-            (t[14] = f),
-            (t[15] = g))
-          : (g = t[15]),
-        g
-      );
+          }),
+        ],
+      });
     }
-    function k(e) {
+    L.displayName = L.name + " [from " + i.id + "]";
+    function E(e) {
       var t = e.shouldScrollIntoViewAndSelect,
         a = e.selectedLabels,
         i = e.selectedSuggestionIds,
@@ -637,7 +492,7 @@ __d(
         ],
       });
     }
-    ((k.displayName = k.name + " [from " + i.id + "]"), (l.default = k));
+    ((E.displayName = E.name + " [from " + i.id + "]"), (l.default = E));
   },
   226,
 );

@@ -4,7 +4,6 @@ __d(
     "WAWebKeyboardConstants",
     "WAWebKeyboardTabUtils",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
   ],
@@ -24,78 +23,52 @@ __d(
         },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(10),
-        a = t.children,
-        i = t.focusType,
-        l = t.onBlur,
-        s = t.ref,
-        m = t.xstyle,
-        p = c(null),
-        _ = r("useMergeRefs")(s, p),
-        f;
-      if (n[0] !== i) {
-        var g = function (t) {
-          var e = p.current;
+      var n = t.children,
+        a = t.focusType,
+        i = t.onBlur,
+        l = t.ref,
+        s = t.xstyle,
+        m = c(null),
+        p = r("useMergeRefs")(l, m),
+        _ = function (t) {
+          var e = m.current;
           if (e) {
             var n = t.shiftKey
                 ? o("WAWebKeyboardTabUtils").TabDirection.BACKWARD
                 : o("WAWebKeyboardTabUtils").TabDirection.FORWARD,
               r =
-                i != null
-                  ? i
+                a != null
+                  ? a
                   : { type: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
-              a = r.customSelector,
+              i = r.customSelector,
               l = r.type,
               s = o("WAWebKeyboardTabUtils").getNextTabbableElement(
                 e,
                 n,
                 l,
                 void 0,
-                a,
+                i,
               );
             s != null && (t.preventDefault(), s.focus());
           }
-        };
-        ((f = function (t) {
+        },
+        f = function (t) {
           if (
             !(t.metaKey || t.ctrlKey) &&
             t.key === o("WAWebKeyboardConstants").KEYBOARD_EVENT_KEY_VALUE.TAB
           )
-            return g(t);
-        }),
-          (n[0] = i),
-          (n[1] = f));
-      } else f = n[1];
-      var h = f,
-        y;
-      n[2] !== m
-        ? ((y = (e || (e = r("stylex"))).props(d.container, m)),
-          (n[2] = m),
-          (n[3] = y))
-        : (y = n[3]);
-      var C;
-      return (
-        n[4] !== a || n[5] !== h || n[6] !== _ || n[7] !== l || n[8] !== y
-          ? ((C = u.jsx(
-              "div",
-              babelHelpers.extends({ ref: _ }, y, {
-                onKeyDown: h,
-                tabIndex: -1,
-                onBlur: l,
-                children: a,
-              }),
-            )),
-            (n[4] = a),
-            (n[5] = h),
-            (n[6] = _),
-            (n[7] = l),
-            (n[8] = y),
-            (n[9] = C))
-          : (C = n[9]),
-        C
+            return _(t);
+        };
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          { ref: p },
+          (e || (e = r("stylex"))).props(d.container, s),
+          { onKeyDown: f, tabIndex: -1, onBlur: i, children: n },
+        ),
       );
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

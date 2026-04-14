@@ -7,72 +7,44 @@ __d(
     "WAWebEphemeralityFrontendUtils",
     "WAWebFrontendChatGetters",
     "react",
-    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.chat,
-        a = e.containerXstyle,
-        i = e.dataTab,
-        l = e.disabled,
-        u = e.isOn,
-        c = e.mediaType,
-        d = e.onChange,
-        m = e.shouldShowNux,
-        p = e.shouldSkipNuxAndToast,
-        _;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = ["isEphemeralityDisabled"]), (t[0] = _))
-        : (_ = t[0]);
-      var f = o("useWAWebModelValues").useOptionalModelValues(n.contact, _);
-      if (
-        o("WAWebChatGetters").getIsNewsletter(n) ||
-        o("WAWebFrontendChatGetters").getIsCapiHostedGroup(n) ||
-        o("WAWebBizCoexUtils").isMeOrCurrentContactHosted(n.contact) ||
-        (f &&
+      var t = e.chat,
+        n = e.containerXstyle,
+        a = e.dataTab,
+        i = e.disabled,
+        l = e.isOn,
+        u = e.mediaType,
+        c = e.onChange,
+        d = e.shouldShowNux,
+        m = e.shouldSkipNuxAndToast,
+        p = o("useWAWebModelValues").useOptionalModelValues(t.contact, [
+          "isEphemeralityDisabled",
+        ]);
+      return o("WAWebChatGetters").getIsNewsletter(t) ||
+        o("WAWebFrontendChatGetters").getIsCapiHostedGroup(t) ||
+        o("WAWebBizCoexUtils").isMeOrCurrentContactHosted(t.contact) ||
+        (p &&
           o(
             "WAWebEphemeralityFrontendUtils",
-          ).isEphemeralityDisabledInUIForContact(f))
-      )
-        return null;
-      var g;
-      return (
-        t[1] !== a ||
-        t[2] !== i ||
-        t[3] !== l ||
-        t[4] !== u ||
-        t[5] !== c ||
-        t[6] !== d ||
-        t[7] !== m ||
-        t[8] !== p
-          ? ((g = s.jsx(r("WAWebAttachMediaViewOnce.react"), {
-              containerXstyle: a,
-              dataTab: i,
-              disabled: l,
-              isOn: u,
-              mediaType: c,
-              onChange: d,
-              shouldShowNux: m,
-              shouldSkipNuxAndToast: p,
-            })),
-            (t[1] = a),
-            (t[2] = i),
-            (t[3] = l),
-            (t[4] = u),
-            (t[5] = c),
-            (t[6] = d),
-            (t[7] = m),
-            (t[8] = p),
-            (t[9] = g))
-          : (g = t[9]),
-        g
-      );
+          ).isEphemeralityDisabledInUIForContact(p))
+        ? null
+        : s.jsx(r("WAWebAttachMediaViewOnce.react"), {
+            containerXstyle: n,
+            dataTab: a,
+            disabled: i,
+            isOn: l,
+            mediaType: u,
+            onChange: c,
+            shouldShowNux: d,
+            shouldSkipNuxAndToast: m,
+          });
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

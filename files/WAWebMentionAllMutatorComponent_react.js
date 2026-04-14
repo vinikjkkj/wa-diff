@@ -8,48 +8,37 @@ __d(
     "WAWebMentionMutatorComponentBase.react",
     "WAWebModalManager",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = { nonSelectable: { userSelect: "x87ps6o", $$css: !0 } };
     function c(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.lastMessage,
-        a = o("WAWebABProps").getABPropConfigValue(
+      var t = e.lastMessage,
+        n = o("WAWebABProps").getABPropConfigValue(
           "wa_web_highlight_me_mention",
         ),
-        i = d,
-        l;
-      return (
-        t[0] !== n
-          ? ((l = s.jsx(o("WAWebClickable.react").Clickable, {
-              as: "span",
-              tabIndex: a ? -1 : void 0,
-              xstyle: u.nonSelectable,
-              children: s.jsx(r("WAWebMentionMutatorComponentBase.react"), {
-                text: "all",
-                jid: "@all",
-                selectable: !1,
-                lastMessage: n,
-                onClick: i,
-              }),
-            })),
-            (t[0] = n),
-            (t[1] = l))
-          : (l = t[1]),
-        l
-      );
+        a = function () {
+          var e = o("WAWebChatCollection").ChatCollection.getActive();
+          e != null &&
+            o("WAWebModalManager").ModalManager.open(
+              s.jsx(r("WAWebMentionAllNuxModal.react"), { chat: e }),
+            );
+        };
+      return s.jsx(o("WAWebClickable.react").Clickable, {
+        as: "span",
+        tabIndex: n ? -1 : void 0,
+        xstyle: u.nonSelectable,
+        children: s.jsx(r("WAWebMentionMutatorComponentBase.react"), {
+          text: "all",
+          jid: "@all",
+          selectable: !1,
+          lastMessage: t,
+          onClick: a,
+        }),
+      });
     }
-    function d() {
-      var e = o("WAWebChatCollection").ChatCollection.getActive();
-      e != null &&
-        o("WAWebModalManager").ModalManager.open(
-          s.jsx(r("WAWebMentionAllNuxModal.react"), { chat: e }),
-        );
-    }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

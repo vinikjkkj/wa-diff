@@ -101,40 +101,49 @@ __d(
               d = u + ":" + c,
               p = this.$1.get(d);
             if (p != null) return p;
-            var _ = new (o("relay-runtime").RecordSource)(),
-              h = !0,
-              y = !1,
-              C = new (o("ReactiveQueryExecutionNode_EXPERIMENTAL").Scope)(
+            var _ = t;
+            if (s != null) {
+              var h = null;
+              for (var y in s)
+                y in i ||
+                  (h == null && (h = babelHelpers.extends({}, i)),
+                  (h[y] = s[y]));
+              h != null && (_ = babelHelpers.extends({}, t, { variables: h }));
+            }
+            var C = new (o("relay-runtime").RecordSource)(),
+              b = !0,
+              v = !1,
+              S = new (o("ReactiveQueryExecutionNode_EXPERIMENTAL").Scope)(
                 this,
-                t,
+                _,
                 r.selections,
                 n,
                 function (t) {
-                  var n = f(_, t);
-                  (!h &&
-                    (n || y) &&
-                    e.updater.updateRootFragmentWrapperStoreNode(S, [v, _]),
-                    (y = !1));
+                  var n = f(C, t);
+                  (!b &&
+                    (n || v) &&
+                    e.updater.updateRootFragmentWrapperStoreNode(E, [L, C]),
+                    (v = !1));
                 },
                 function () {
-                  ((y = !0),
-                    h ||
+                  ((v = !0),
+                    b ||
                       e.updater.updateRootFragmentWrapperStoreNode(
-                        S,
+                        E,
                         o("relay-runtime").suspenseSentinel(),
                       ));
                 },
               ),
-              b = r.name.replace("$normalization", ""),
-              v = {
-                __fragmentOwner: t,
-                __fragments: ((l = {}), (l[b] = s), l),
+              R = r.name.replace("$normalization", ""),
+              L = {
+                __fragmentOwner: _,
+                __fragments: ((l = {}), (l[R] = s), l),
                 __id: u,
               },
-              S = {
+              E = {
                 args: s,
                 cleanup: function () {
-                  C.dispose();
+                  S.dispose();
                 },
                 error: null,
                 executionNodes: [],
@@ -145,11 +154,11 @@ __d(
                 resolverFn: g,
                 typeName: null,
                 value:
-                  C.pendingExecNodes.size > 0
+                  S.pendingExecNodes.size > 0
                     ? o("relay-runtime").suspenseSentinel()
-                    : [v, _],
+                    : [L, C],
               };
-            return (this.$1.set(d, S), (h = !1), S);
+            return (this.$1.set(d, E), (b = !1), E);
           }),
           (t.createStoreNode = function (n, o, a, i, l, s) {
             var t = this;

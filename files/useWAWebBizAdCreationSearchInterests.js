@@ -4,7 +4,6 @@ __d(
     "CometRelay",
     "isStringNullOrEmpty",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationSearchInterestsQuery.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,41 +16,27 @@ __d(
       m = u.useRef,
       p = u.useState;
     function _(t, a) {
-      var i = o("react-compiler-runtime").c(11),
-        l;
-      i[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = []), (i[0] = l))
-        : (l = i[0]);
-      var s = p(l),
-        u = s[0],
-        c = s[1],
-        _ = p(!1),
-        f = _[0],
-        g = _[1],
-        h = m(null),
-        y,
-        C;
-      (i[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = function () {
-            return function () {
-              h.current != null && h.current.unsubscribe();
-            };
-          }),
-          (C = []),
-          (i[1] = y),
-          (i[2] = C))
-        : ((y = i[1]), (C = i[2])),
-        d(y, C));
-      var b;
-      i[3] !== t || i[4] !== a
-        ? ((b = function (l) {
-            if (l.trim().length === 0) {
-              (c([]), g(!1));
+      var i = p([]),
+        l = i[0],
+        s = i[1],
+        u = p(!1),
+        _ = u[0],
+        f = u[1],
+        g = m(null);
+      d(function () {
+        return function () {
+          g.current != null && g.current.unsubscribe();
+        };
+      }, []);
+      var h = c(
+          function (i) {
+            if (i.trim().length === 0) {
+              (s([]), f(!1));
               return;
             }
-            (g(!0),
-              h.current != null && h.current.unsubscribe(),
-              (h.current = o("CometRelay")
+            (f(!0),
+              g.current != null && g.current.unsubscribe(),
+              (g.current = o("CometRelay")
                 .fetchQuery(
                   a,
                   e !== void 0
@@ -59,7 +44,7 @@ __d(
                     : (e = n(
                         "useWAWebBizAdCreationSearchInterestsQuery.graphql",
                       )),
-                  { query: l, adAccountID: t, count: 10 },
+                  { query: i, adAccountID: t, count: 10 },
                 )
                 .subscribe({
                   next: function (t) {
@@ -72,7 +57,7 @@ __d(
                           ? void 0
                           : e.edges;
                     if (n == null) {
-                      (c([]), g(!1));
+                      (s([]), f(!1));
                       return;
                     }
                     var o = [];
@@ -82,46 +67,27 @@ __d(
                         !r("isStringNullOrEmpty")(t.id) &&
                         o.push({ children: [], node: t, pathName: null });
                     }),
-                      c(o),
-                      g(!1));
+                      s(o),
+                      f(!1));
                   },
                   error: function (t) {
-                    (c([]), g(!1));
+                    (s([]), f(!1));
                   },
                 })));
-          }),
-          (i[3] = t),
-          (i[4] = a),
-          (i[5] = b))
-        : (b = i[5]);
-      var v = b,
-        S;
-      i[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = function () {
-            (c([]),
-              g(!1),
-              h.current != null &&
-                (h.current.unsubscribe(), (h.current = null)));
-          }),
-          (i[6] = S))
-        : (S = i[6]);
-      var R = S,
-        L;
-      return (
-        i[7] !== v || i[8] !== f || i[9] !== u
-          ? ((L = {
-              searchResults: u,
-              fetchSearchResults: v,
-              clearSearchResults: R,
-              isSearching: f,
-            }),
-            (i[7] = v),
-            (i[8] = f),
-            (i[9] = u),
-            (i[10] = L))
-          : (L = i[10]),
-        L
-      );
+          },
+          [a, t],
+        ),
+        y = c(function () {
+          (s([]),
+            f(!1),
+            g.current != null && (g.current.unsubscribe(), (g.current = null)));
+        }, []);
+      return {
+        searchResults: l,
+        fetchSearchResults: h,
+        clearSearchResults: y,
+        isSearching: _,
+      };
     }
     l.default = _;
   },

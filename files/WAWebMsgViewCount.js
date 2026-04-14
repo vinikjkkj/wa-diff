@@ -7,7 +7,6 @@ __d(
     "WAWebL10NNumbersPluginRegistry",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -67,25 +66,13 @@ __d(
         : u(t, a, n);
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [
-            o("WAWebMsgGetters").getViewCount,
-            o("WAWebMsgGetters").getType,
-          ]),
-          (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebMsgValues").useMsgValues(e, n),
-        a = r[0],
-        i = r[1],
-        l;
-      return (
-        t[1] !== i || t[2] !== a
-          ? ((l = c(a, i)), (t[1] = i), (t[2] = a), (t[3] = l))
-          : (l = t[3]),
-        l
-      );
+      var t = o("useWAWebMsgValues").useMsgValues(e, [
+          o("WAWebMsgGetters").getViewCount,
+          o("WAWebMsgGetters").getType,
+        ]),
+        n = t[0],
+        r = t[1];
+      return c(n, r);
     }
     ((l.formatViewCount = c), (l.useWAWebLocalizedViewCount = d));
   },

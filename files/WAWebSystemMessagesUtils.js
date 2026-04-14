@@ -1,12 +1,6 @@
 __d(
   "WAWebSystemMessagesUtils",
-  [
-    "WAWebEmojiText.react",
-    "WAWebUserPrefsMeUser",
-    "WAWebWid",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebEmojiText.react", "WAWebUserPrefsMeUser", "WAWebWid", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
@@ -16,22 +10,15 @@ __d(
       );
     }
     function c(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.text,
-        r;
-      return (
-        t[0] !== n
-          ? ((r = s.jsx(o("WAWebEmojiText.react").EmojiText, {
-              direction: "auto",
-              text: n,
-            })),
-            (t[0] = n),
-            (t[1] = r))
-          : (r = t[1]),
-        r
-      );
+      var t = e.text;
+      return s.jsx(o("WAWebEmojiText.react").EmojiText, {
+        direction: "auto",
+        text: t,
+      });
     }
-    ((l.isMe = u), (l.FormattedText = c));
+    ((c.displayName = c.name + " [from " + i.id + "]"),
+      (l.isMe = u),
+      (l.FormattedText = c));
   },
   98,
 );

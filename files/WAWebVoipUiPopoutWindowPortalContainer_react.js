@@ -66,10 +66,25 @@ __d(
       }
       return e;
     }
-    var N = 500,
-      M = 250,
-      w = 1e4;
-    function A() {
+    function N(e) {
+      o(
+        "WAWebVoipPopoutWindowState",
+      ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
+        "popoutWindowVisibilityChanged",
+        {
+          visibilityState: e,
+          isCallActiveInPopoutWindow: o(
+            "WAWebVoipPopoutWindowState",
+          ).getIsCallActiveInPopoutWindow(),
+          hasPopoutWindow:
+            o("WAWebVoipPopoutWindowState").getPopoutWindow() != null,
+        },
+      );
+    }
+    var M = 500,
+      w = 250,
+      A = 1e4;
+    function F() {
       var t = E(null),
         a = t[0],
         i = t[1],
@@ -79,7 +94,7 @@ __d(
         D = E(null),
         x = D[0],
         $ = D[1],
-        A = r("useWAWebStableCallback")(function () {
+        F = r("useWAWebStableCallback")(function () {
           var e = o("WAWebVoipPopoutWindowState").getPopoutWindow();
           if (e) {
             var t = e.document.visibilityState;
@@ -93,43 +108,31 @@ __d(
               o(
                 "WAWebVelocityBackgroundTimer",
               ).toggleSmoothBackgroundAnimations(t === "visible"),
-              o(
-                "WAWebVoipPopoutWindowState",
-              ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
-                "popoutWindowVisibilityChanged",
-                t,
-              ));
+              N(t));
           }
         }),
-        F = L(null),
         O = L(null),
-        B = L(!1),
-        W = r("useWAWebStableCallback")(function () {
-          F.current != null &&
-            (window.clearInterval(F.current), (F.current = null));
-        }),
+        B = L(null),
+        W = L(!1),
         q = r("useWAWebStableCallback")(function () {
-          O.current != null && (O.current(), (O.current = null));
+          O.current != null &&
+            (window.clearInterval(O.current), (O.current = null));
         }),
-        U = o("useWAWebTimeout").useManualTimeout(function () {
-          (W(), q());
+        U = r("useWAWebStableCallback")(function () {
+          B.current != null && (B.current(), (B.current = null));
+        }),
+        V = o("useWAWebTimeout").useManualTimeout(function () {
+          (q(), U());
           var e = o(
             "WAWebVoipPopoutWindowState",
           ).getIsCallActiveInPopoutWindow();
           (o("WAWebVoipPopoutWindowState").setIsCallActiveInPopoutWindow(!1),
             o("WAWebVoipPopoutWindowState").setPopoutWindow(null),
-            e &&
-              o(
-                "WAWebVoipPopoutWindowState",
-              ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
-                "popoutWindowVisibilityChanged",
-                "hidden",
-              ),
+            e && N("hidden"),
             o("WAWebVelocityBackgroundTimer").toggleSmoothBackgroundAnimations(
               !1,
             ),
-            T.clear(),
-            a == null || a.removeEventListener("visibilitychange", A),
+            a == null || a.removeEventListener("visibilitychange", F),
             a == null || a.close(),
             o(
               "WAWebVoipPopoutWindowState",
@@ -138,7 +141,7 @@ __d(
               { callLogMsg: null, popoutWindow: null },
             ));
         }),
-        V = U[0];
+        H = V[0];
       (o("useWAWebListener").useListener(
         o("WAWebVoipPopoutWindowState").WAWebVoipUiPopoutWindowEventEmitter,
         "setPopoutWindowProps",
@@ -146,7 +149,7 @@ __d(
           var a,
             l = t.callLogMsg,
             y = t.popoutWindow;
-          l != null && (B.current = !1);
+          l != null && (W.current = !1);
           var C = o(
             "WAWebVoipPopoutWindowState",
           ).getIsCallActiveInPopoutWindow();
@@ -177,13 +180,13 @@ __d(
               l != null,
             ),
             (a = o("WAWebVoipPopoutWindowState").getPopoutWindow()) == null ||
-              a.addEventListener("visibilitychange", A),
-            l == null && (T.clear(), W(), q()),
+              a.addEventListener("visibilitychange", F),
+            l == null && (T.clear(), q(), U()),
             l != null &&
               o("WAWebUA").UA.isSafari &&
               y != null &&
-              (W(),
-              (F.current = window.setInterval(function () {
+              (q(),
+              (O.current = window.setInterval(function () {
                 try {
                   y.closed &&
                     (o("WALogger").LOG(
@@ -192,7 +195,7 @@ __d(
                           "voip: Safari popout close polling: detected window closed",
                         ])),
                     ),
-                    W(),
+                    q(),
                     o(
                       "WAWebVoipPopoutWindowState",
                     ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
@@ -208,7 +211,7 @@ __d(
                       ])),
                     String(e),
                   ),
-                    W(),
+                    q(),
                     o(
                       "WAWebVoipPopoutWindowState",
                     ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
@@ -216,7 +219,7 @@ __d(
                       { callEnded: !1 },
                     ));
                 }
-              }, N))),
+              }, M))),
             l != null && o("WAWebUA").UA.isSafari && y != null)
           ) {
             var b = r("WAWebCallCollection").activeCall,
@@ -248,7 +251,7 @@ __d(
                             S != null)
                           ) {
                             var t = yield Promise.resolve().then(function () {
-                                return J(
+                                return Z(
                                   require("WAWebVoipAudioCaptureAndPlayback"),
                                 );
                               }),
@@ -301,7 +304,7 @@ __d(
                     e();
                   }),
                     (k.length = 0),
-                    O.current === I && (O.current = null));
+                    B.current === I && (B.current = null));
                 },
                 D = function (t) {
                   if (!L) {
@@ -366,20 +369,20 @@ __d(
                 k.push(function () {
                   y.removeEventListener("focus", P);
                 }));
-              var U = function () {
+              var N = function () {
                 D("visibilitychange");
               };
               try {
-                (y.document.addEventListener("visibilitychange", U),
+                (y.document.addEventListener("visibilitychange", N),
                   k.push(function () {
                     try {
-                      y.document.removeEventListener("visibilitychange", U);
+                      y.document.removeEventListener("visibilitychange", N);
                     } catch (e) {}
                   }));
               } catch (e) {}
               var V = window.setInterval(function () {
                 D("poll");
-              }, M);
+              }, w);
               k.push(function () {
                 window.clearInterval(V);
               });
@@ -409,11 +412,11 @@ __d(
                 ),
                   D("timeout"),
                   I());
-              }, w);
+              }, A);
               (k.push(function () {
                 window.clearTimeout(H);
               }),
-                (O.current = I),
+                (B.current = I),
                 D("initial"));
               try {
                 y.document.hasFocus() || y.focus();
@@ -427,16 +430,24 @@ __d(
           "closePopoutWindow",
           function (e) {
             var t = e.callEnded,
-              a = e.surveyInteracted;
-            if (!B.current) {
-              B.current = !0;
-              var i = P();
-              if (!t && i.length > 0) {
-                var l = i.some(function (e) {
+              i = e.surveyInteracted;
+            if (!W.current) {
+              if (a != null && !a.closed)
+                try {
+                  var l;
+                  (l = a.open(
+                    "#",
+                    o("WAWebVoipPopoutWindowState").MAIN_WINDOW_NAME,
+                  )) == null || l.focus();
+                } catch (e) {}
+              W.current = !0;
+              var s = P();
+              if (!t && s.length > 0) {
+                var u = s.some(function (e) {
                   return e.type === "desktop";
                 });
-                if (l) {
-                  var s = (function () {
+                if (u) {
+                  var c = (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
                         var e = yield o(
@@ -450,14 +461,14 @@ __d(
                       return e.apply(this, arguments);
                     };
                   })();
-                  s();
+                  c();
                 }
-                var u = r("WAWebCallCollection").activeCall,
-                  c =
-                    (u == null ? void 0 : u.selfVideoState) ===
+                var d = r("WAWebCallCollection").activeCall,
+                  m =
+                    (d == null ? void 0 : d.selfVideoState) ===
                     o("WAWebVoipWaCallEnums").VideoState.Enabled;
-                if (c) {
-                  var d = (function () {
+                if (m) {
+                  var p = (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
                         try {
@@ -475,12 +486,12 @@ __d(
                       return e.apply(this, arguments);
                     };
                   })();
-                  if (document.hasFocus()) d();
+                  if (document.hasFocus()) p();
                   else {
-                    var m = function () {
-                      (window.removeEventListener("focus", m), d());
+                    var _ = function () {
+                      (window.removeEventListener("focus", _), p());
                     };
-                    (window.addEventListener("focus", m, { once: !0 }),
+                    (window.addEventListener("focus", _, { once: !0 }),
                       window.focus());
                   }
                 }
@@ -489,8 +500,8 @@ __d(
                 !t &&
                 (o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari)
               ) {
-                var p = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
-                if (p != null) {
+                var f = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
+                if (f != null) {
                   o("WALogger").LOG(
                     y ||
                       (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -499,21 +510,21 @@ __d(
                       ])),
                     o("WAWebUA").UA.isFirefox ? "Firefox" : "Safari",
                   );
-                  var _ = function () {
+                  var g = function () {
                     r("WAWebCallCollection").activeCall != null &&
                       o(
                         "WAWebVoipPopoutWindowState",
                       ).WAWebVoipUiPopoutWindowEventEmitter.trigger(
                         "requestAudioReacquisition",
-                        { deviceId: p, targetWindow: window },
+                        { deviceId: f, targetWindow: window },
                       );
                   };
-                  if (document.hasFocus()) _();
+                  if (document.hasFocus()) g();
                   else {
-                    var f = 1e4,
-                      g = function () {
-                        (window.clearTimeout(h),
-                          window.removeEventListener("focus", g),
+                    var h = 1e4,
+                      b = function () {
+                        (window.clearTimeout(v),
+                          window.removeEventListener("focus", b),
                           o("WALogger").LOG(
                             C ||
                               (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -522,21 +533,21 @@ __d(
                               ])),
                             o("WAWebUA").UA.isFirefox ? "Firefox" : "Safari",
                           ),
-                          _());
+                          g());
                       },
-                      h = window.setTimeout(function () {
-                        window.removeEventListener("focus", g);
-                      }, f);
-                    (window.addEventListener("focus", g), window.focus());
+                      v = window.setTimeout(function () {
+                        window.removeEventListener("focus", b);
+                      }, h);
+                    (window.addEventListener("focus", b), window.focus());
                   }
                 }
               }
-              var b = t && !a;
-              V(b ? I : 0);
+              var S = t && !i;
+              H(S ? I : 0);
             }
           },
         ));
-      var H = R(
+      var G = R(
         function () {
           return {
             isContextInPopoutWindow: !0,
@@ -550,7 +561,7 @@ __d(
       );
       return x
         ? v.jsx(r("WAWebVoipUiPopoutWindowContext").Provider, {
-            value: H,
+            value: G,
             children: v.jsx(
               o("WAWebVoipUiPopoutWindowLoadable")
                 .WAWebVoipUiPopoutWindowLoadable,
@@ -565,8 +576,9 @@ __d(
           })
         : null;
     }
-    ((A.displayName = A.name + " [from " + i.id + "]"),
+    ((F.displayName = F.name + " [from " + i.id + "]"),
       (l.VOIP_POPOUT_POPOVER_PORTAL_ID = k),
+      (l.MAIN_WINDOW_NAME = o("WAWebVoipPopoutWindowState").MAIN_WINDOW_NAME),
       (l.WAWebVoipUiPopoutWindowEventEmitter = o(
         "WAWebVoipPopoutWindowState",
       ).WAWebVoipUiPopoutWindowEventEmitter),
@@ -584,7 +596,7 @@ __d(
         "WAWebVoipPopoutWindowState",
       ).setIsPopoutWindowOpening),
       (l.setMediaStream = x),
-      (l.WAWebVoipUiPopoutWindowPortalContainer = A));
+      (l.WAWebVoipUiPopoutWindowPortalContainer = F));
   },
   98,
 );

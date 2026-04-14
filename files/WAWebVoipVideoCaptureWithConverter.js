@@ -45,14 +45,15 @@ __d(
       P,
       N,
       M,
-      w = 15,
-      A = 30,
-      F = 2,
-      O = 0.9;
-    function B(e) {
+      w,
+      A = 15,
+      F = 30,
+      O = 2,
+      B = 0.9;
+    function W(e) {
       return e - (e % 2);
     }
-    var W = (function () {
+    var q = (function () {
       function t() {
         ((this.converter = null),
           (this.mediaCaptureStream = null),
@@ -125,12 +126,12 @@ __d(
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
             var r = t.height,
               a = t.width;
-            ((this.width = B(a)), (this.height = B(r)));
+            ((this.width = W(a)), (this.height = W(r)));
             var i = [];
             (this.converter && i.push(this.converter.cleanup()),
               this.fallbackConverter &&
                 i.push(this.fallbackConverter.cleanup()),
-              yield (M || (M = n("Promise"))).all(i));
+              yield (w || (w = n("Promise"))).all(i));
             var l,
               u = !1;
             try {
@@ -189,31 +190,31 @@ __d(
               i,
               l = this,
               s,
-              y,
-              C = e.height,
-              b = e.maxFps,
-              v = e.onVideoDataFnType,
-              S = e.stream,
-              R = e.width;
+              C,
+              b = e.height,
+              v = e.maxFps,
+              S = e.onVideoDataFnType,
+              R = e.stream,
+              L = e.width;
             ((this.isStopped = !1),
               (this.isCaptureInProgress = !1),
               (this.lastCaptureTime = 0),
               (this.$2 = 0),
               (this.$3 = 0),
               o("WAWebVoipEncodeTargetFpsState").resetEncodeTargetFps(),
-              yield this.__initVideoCapture({ width: R, height: C }));
-            var L = S.getVideoTracks()[0],
-              E =
-                L == null ||
-                L.getSettings == null ||
-                (t = L.getSettings()) == null
+              yield this.__initVideoCapture({ width: L, height: b }));
+            var E = R.getVideoTracks()[0],
+              k =
+                E == null ||
+                E.getSettings == null ||
+                (t = E.getSettings()) == null
                   ? void 0
                   : t.facingMode;
-            this.$1 = E === "environment";
-            var k = R,
-              I = C,
-              T = r("nullthrows")(this.converter).getConverterName(),
-              D = "voip: [AV:startVideoCapture (" + T + ")]";
+            this.$1 = k === "environment";
+            var I = L,
+              T = b,
+              D = r("nullthrows")(this.converter).getConverterName(),
+              x = "voip: [AV:startVideoCapture (" + D + ")]";
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -221,37 +222,49 @@ __d(
                   " facingMode=",
                   "",
                 ])),
-              D,
-              E != null ? E : "unknown",
+              x,
+              k != null ? k : "unknown",
             );
-            var x =
-              (a =
-                (i = o("WAWebVoipPopoutWindowState").getPopoutWindow()) == null
-                  ? void 0
-                  : i.document) != null
-                ? a
-                : document;
-            this.mediaCaptureStream = {
-              mediaStream: S,
-              videoElement: x.createElement("video"),
-            };
-            var $ = this.mediaCaptureStream.videoElement;
-            (($.srcObject = S),
-              ($.autoplay = !0),
-              ($.muted = !0),
-              ($.playsInline = !0),
-              $.addEventListener(
+            var $ =
+                (a =
+                  (i = o("WAWebVoipPopoutWindowState").getPopoutWindow()) ==
+                  null
+                    ? void 0
+                    : i.document) != null
+                  ? a
+                  : null,
+              P = $ != null ? $ : document;
+            (o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "",
+                  " video element owner: ",
+                  "",
+                ])),
+              x,
+              $ != null ? "popout" : "main",
+            ),
+              (this.mediaCaptureStream = {
+                mediaStream: R,
+                videoElement: P.createElement("video"),
+              }));
+            var N = this.mediaCaptureStream.videoElement;
+            ((N.srcObject = R),
+              (N.autoplay = !0),
+              (N.muted = !0),
+              (N.playsInline = !0),
+              N.addEventListener(
                 "loadedmetadata",
                 function () {
                   ((l.$2 = o("WAWebVoipMediaEnums").detectSensorOffset(
-                    k,
                     I,
-                    $.videoWidth,
-                    $.videoHeight,
+                    T,
+                    N.videoWidth,
+                    N.videoHeight,
                   )),
                     o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " [orient] sensorOffset cached: ",
                           " track=",
@@ -260,12 +273,12 @@ __d(
                           "x",
                           "",
                         ])),
-                      D,
+                      x,
                       l.$2,
-                      k,
                       I,
-                      $.videoWidth,
-                      $.videoHeight,
+                      T,
+                      N.videoWidth,
+                      N.videoHeight,
                     ));
                 },
                 { once: !0 },
@@ -274,76 +287,76 @@ __d(
                 ? void 0
                 : s.videoElement.play(),
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "",
                     " video element ready",
                   ])),
-                D,
+                x,
               ));
-            var P = Math.floor(this.width * this.height * 1.5),
-              N = yield q(P);
+            var M = Math.floor(this.width * this.height * 1.5),
+              w = yield U(M);
             if (this.isStopped) {
-              yield V(N);
+              yield H(w);
               return;
             }
-            this.videoBuffer = N;
-            var M =
-                (y = this.mediaCaptureStream) == null ? void 0 : y.videoElement,
-              W =
+            this.videoBuffer = w;
+            var q =
+                (C = this.mediaCaptureStream) == null ? void 0 : C.videoElement,
+              V =
                 yield o("WAWebBackendApi").frontendSendAndReceive(
                   "initializeVoipWasm",
                 ),
-              U =
+              G =
                 o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_dynamic_fps_throttle",
                 ) === !0,
-              H = (function () {
+              z = (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     if (!l.isCaptureInProgress) {
                       l.isCaptureInProgress = !0;
                       var t = l.width,
                         n = l.height,
-                        a = 1e3 / b;
+                        a = 1e3 / v;
                       try {
                         if (l.isStopped) return;
-                        if (!l.mediaCaptureStream || !M || !l.converter) {
+                        if (!l.mediaCaptureStream || !q || !l.converter) {
                           o("WALogger").ERROR(
-                            m ||
-                              (m = babelHelpers.taggedTemplateLiteralLoose([
-                                "",
-                                ": Video capture not ready, canceling frame capture",
-                              ])),
-                            D,
-                          );
-                          return;
-                        }
-                        if (M.readyState < M.HAVE_CURRENT_DATA) {
-                          (o("WALogger").WARN(
                             p ||
                               (p = babelHelpers.taggedTemplateLiteralLoose([
                                 "",
+                                ": Video capture not ready, canceling frame capture",
+                              ])),
+                            x,
+                          );
+                          return;
+                        }
+                        if (q.readyState < q.HAVE_CURRENT_DATA) {
+                          (o("WALogger").WARN(
+                            _ ||
+                              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                                "",
                                 " Video not ready yet, skipping frame capture",
                               ])),
-                            D,
+                            x,
                           ),
                             e(a));
                           return;
                         }
                         if (
-                          M.readyState < 2 ||
-                          M.videoWidth === 0 ||
-                          M.videoHeight === 0
+                          q.readyState < 2 ||
+                          q.videoWidth === 0 ||
+                          q.videoHeight === 0
                         )
                           throw r("err")("Video element not ready for capture");
-                        if (U) {
+                        if (G) {
                           var i = o(
                             "WAWebVoipEncodeTargetFpsState",
                           ).getEncodeTargetFps();
                           if (i > 0) {
-                            var s = Math.max(w, Math.min(A, i + F)),
-                              u = (1e3 / s) * O,
+                            var s = Math.max(A, Math.min(F, i + O)),
+                              u = (1e3 / s) * B,
                               c = self.performance.now(),
                               d = c - l.lastCaptureTime;
                             if (d < u) {
@@ -353,43 +366,43 @@ __d(
                             l.lastCaptureTime = c;
                           }
                         }
-                        var y = M;
+                        var m = q;
                         try {
-                          if (M.videoWidth !== t || M.videoHeight !== n)
+                          if (q.videoWidth !== t || q.videoHeight !== n)
                             if (
-                              B(M.videoWidth) === t &&
-                              B(M.videoHeight) === n
+                              W(q.videoWidth) === t &&
+                              W(q.videoHeight) === n
                             ) {
                               if (
-                                ((y = yield createImageBitmap(M, 0, 0, t, n)),
+                                ((m = yield createImageBitmap(q, 0, 0, t, n)),
                                 l.isStopped || !l.converter)
                               )
                                 return;
                             } else {
                               (o("WALogger").LOG(
-                                _ ||
-                                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                                f ||
+                                  (f = babelHelpers.taggedTemplateLiteralLoose([
                                     "Video dims ",
                                     "x",
                                     " mismatch ",
                                     "x",
                                     ", skip",
                                   ])),
-                                M.videoWidth,
-                                M.videoHeight,
+                                q.videoWidth,
+                                q.videoHeight,
                                 t,
                                 n,
                               ),
                                 yield l.__initVideoCapture({
-                                  width: M.videoWidth,
-                                  height: M.videoHeight,
+                                  width: q.videoWidth,
+                                  height: q.videoHeight,
                                 }),
                                 e(a));
                               return;
                             }
                           if (!l.converter) return;
-                          var C = yield l.converter.convertVideoToNV12(y),
-                            S = o(
+                          var C = yield l.converter.convertVideoToNV12(m),
+                            b = o(
                               "WAWebVoipMediaEnums",
                             ).computeVideoOrientation(l.$2, l.$1);
                           if (l.$3 < 3) {
@@ -401,8 +414,8 @@ __d(
                                 ? void 0
                                 : R.angle;
                             o("WALogger").LOG(
-                              f ||
-                                (f = babelHelpers.taggedTemplateLiteralLoose([
+                              g ||
+                                (g = babelHelpers.taggedTemplateLiteralLoose([
                                   "",
                                   " [orient] frame#",
                                   " screenAngle=",
@@ -413,10 +426,10 @@ __d(
                                   "x",
                                   "",
                                 ])),
-                              D,
+                              x,
                               l.$3,
                               String(L),
-                              S,
+                              b,
                               l.$2,
                               String(l.$1),
                               t,
@@ -425,26 +438,26 @@ __d(
                           }
                           if (l.videoBuffer != null) {
                             var E = l.videoBuffer;
-                            (W.GROWABLE_HEAP_U8().set(C, E),
-                              W[v](
+                            (V.GROWABLE_HEAP_U8().set(C, E),
+                              V[S](
                                 E,
                                 C.length,
                                 t,
                                 n,
-                                b,
+                                v,
                                 o("WAWebVoipMediaEnums").WAWebVoipVideoFormat
                                   .NV12,
-                                S,
+                                b,
                               ));
                           } else
                             o("WALogger")
                               .ERROR(
-                                g ||
-                                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                                h ||
+                                  (h = babelHelpers.taggedTemplateLiteralLoose([
                                     "",
                                     " video buffer not initialized",
                                   ])),
-                                D,
+                                x,
                               )
                               .sendLogs(
                                 "voip: wasm: video buffer not initialized",
@@ -456,24 +469,24 @@ __d(
                             C.buffer,
                             t,
                             n,
-                            S,
+                            b,
                             o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.NV12,
                             0,
                             !1,
                           ),
                             e(a));
                         } finally {
-                          y instanceof ImageBitmap && y.close();
+                          m instanceof ImageBitmap && m.close();
                         }
                       } catch (t) {
                         (o("WALogger").ERROR(
-                          h ||
-                            (h = babelHelpers.taggedTemplateLiteralLoose([
+                          y ||
+                            (y = babelHelpers.taggedTemplateLiteralLoose([
                               "",
                               " video processing error: ",
                               "",
                             ])),
-                          D,
+                          x,
                           t,
                         ),
                           !l.isStopped &&
@@ -490,15 +503,15 @@ __d(
                   return e.apply(this, arguments);
                 };
               })();
-            M && M.readyState >= M.HAVE_CURRENT_DATA
+            q && q.readyState >= q.HAVE_CURRENT_DATA
               ? window.setTimeout(function () {
-                  return l.$4(H);
+                  return l.$4(z);
                 }, 0)
-              : M &&
-                M.addEventListener(
+              : q &&
+                q.addEventListener(
                   "loadeddata",
                   function () {
-                    return l.$4(H);
+                    return l.$4(z);
                   },
                   { once: !0 },
                 );
@@ -512,10 +525,10 @@ __d(
           var e = this,
             r = document.visibilityState === "visible",
             a = function () {
-              (M || (M = n("Promise"))).resolve(t(i)).catch(function (e) {
+              (w || (w = n("Promise"))).resolve(t(i)).catch(function (e) {
                 o("WALogger").WARN(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:captureFrame] unhandled error: ",
                       "",
                     ])),
@@ -570,8 +583,8 @@ __d(
               s = r || l,
               u = e.getCaptureSchedulerWindow();
             o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [AV:VideoCapture] ",
                   " visible=",
                   " popout=",
@@ -595,8 +608,8 @@ __d(
                   (!s && !e.usingFallback
                     ? e.switchToFallbackConverter().catch(function (e) {
                         o("WALogger").WARN(
-                          b ||
-                            (b = babelHelpers.taggedTemplateLiteralLoose([
+                          v ||
+                            (v = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: [AV:VideoCapture] switchToFallback error: ",
                               "",
                             ])),
@@ -607,8 +620,8 @@ __d(
                       e.usingFallback &&
                       e.switchBackToPrimaryConverter().catch(function (e) {
                         o("WALogger").WARN(
-                          v ||
-                            (v = babelHelpers.taggedTemplateLiteralLoose([
+                          S ||
+                            (S = babelHelpers.taggedTemplateLiteralLoose([
                               "voip: [AV:VideoCapture] switchBackToPrimary error: ",
                               "",
                             ])),
@@ -637,7 +650,7 @@ __d(
               this.visibilityChangeListener,
             ),
             (this.popoutVisibilityChangeListener = function (e) {
-              l("popoutVisibilitychange=" + e);
+              l("popoutVisibilitychange=" + e.visibilityState);
             }),
             o(
               "WAWebVoipPopoutWindowState",
@@ -659,8 +672,8 @@ __d(
               this.converterSwitchInProgress = !0;
               try {
                 o("WALogger").LOG(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                  R ||
+                    (R = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:VideoCapture] Switching to fallback converter ",
                       "",
                     ])),
@@ -703,8 +716,8 @@ __d(
                   (this.converter = e),
                   (this.usingFallback = !1),
                   o("WALogger").LOG(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                    L ||
+                      (L = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:VideoCapture] Switched back to primary converter ",
                         "",
                       ])),
@@ -732,8 +745,8 @@ __d(
             if (!this.converterSwitchInProgress) {
               if (this.numReconcileRequested > 1) {
                 o("WALogger").LOG(
-                  L ||
-                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:VideoCapture] max reconcile limit, skip",
                     ])),
                 );
@@ -746,8 +759,8 @@ __d(
                 ).getIsPopoutWindowActiveAndVisible();
               e && !this.usingFallback && this.fallbackConverter
                 ? (o("WALogger").LOG(
-                    E ||
-                      (E = babelHelpers.taggedTemplateLiteralLoose([
+                    k ||
+                      (k = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:VideoCapture] reconcile -> CPU fallback",
                       ])),
                   ),
@@ -756,8 +769,8 @@ __d(
                   this.usingFallback &&
                   this.primaryConverter &&
                   (o("WALogger").LOG(
-                    k ||
-                      (k = babelHelpers.taggedTemplateLiteralLoose([
+                    I ||
+                      (I = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:VideoCapture] reconcile -> primary",
                       ])),
                   ),
@@ -782,15 +795,14 @@ __d(
                   : "unknown",
               r = "voip: stopVideoCapture (" + n + ")";
             (o("WALogger").LOG(
-              I || (I = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+              T || (T = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
               r,
             ),
               (this.isStopped = !0),
               (this.lastCaptureTime = 0),
               o("WAWebVoipEncodeTargetFpsState").resetEncodeTargetFps());
             try {
-              if (
-                (this.clearScheduledCapture(),
+              (this.clearScheduledCapture(),
                 this.visibilityChangeListener &&
                   (document.removeEventListener(
                     "visibilitychange",
@@ -804,17 +816,16 @@ __d(
                     "popoutWindowVisibilityChanged",
                     this.popoutVisibilityChangeListener,
                   ),
-                  (this.popoutVisibilityChangeListener = null)),
-                this.mediaCaptureStream)
-              ) {
-                var a,
-                  i = this.mediaCaptureStream.mediaStream.getTracks();
+                  (this.popoutVisibilityChangeListener = null)));
+              var a = this.mediaCaptureStream;
+              if (a) {
+                var i = a.mediaStream.getTracks();
                 (i.forEach(function (e) {
                   e.stop();
                 }),
                   o("WALogger").LOG(
-                    T ||
-                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                    D ||
+                      (D = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " stopped ",
                         " tracks: ",
@@ -825,13 +836,14 @@ __d(
                     i.slice(0, 3).map(function (e) {
                       return e.kind;
                     }),
-                  ),
-                  (a = this.mediaCaptureStream) == null ||
-                    a.videoElement.remove(),
+                  ));
+                var l = a.videoElement;
+                ((l.srcObject = null),
+                  l.remove(),
                   (this.mediaCaptureStream = null),
                   o("WALogger").LOG(
-                    D ||
-                      (D = babelHelpers.taggedTemplateLiteralLoose([
+                    x ||
+                      (x = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " stopped video stream",
                       ])),
@@ -843,8 +855,8 @@ __d(
                 (this.primaryConverter = null),
                 (this.converter = null),
                 o("WALogger").LOG(
-                  x ||
-                    (x = babelHelpers.taggedTemplateLiteralLoose([
+                  $ ||
+                    ($ = babelHelpers.taggedTemplateLiteralLoose([
                       "",
                       " cleaned up converter",
                     ])),
@@ -854,8 +866,8 @@ __d(
                   (yield this.fallbackConverter.cleanup(),
                   (this.fallbackConverter = null),
                   o("WALogger").LOG(
-                    $ ||
-                      ($ = babelHelpers.taggedTemplateLiteralLoose([
+                    P ||
+                      (P = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " cleaned up fallback converter",
                       ])),
@@ -864,10 +876,10 @@ __d(
             } finally {
               if (this.videoBuffer != null) {
                 try {
-                  (yield V(this.videoBuffer),
+                  (yield H(this.videoBuffer),
                     o("WALogger").LOG(
-                      P ||
-                        (P = babelHelpers.taggedTemplateLiteralLoose([
+                      N ||
+                        (N = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " freed WASM video buffer",
                         ])),
@@ -875,8 +887,8 @@ __d(
                     ));
                 } catch (e) {
                   o("WALogger").WARN(
-                    N ||
-                      (N = babelHelpers.taggedTemplateLiteralLoose([
+                    M ||
+                      (M = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " error freeing WASM video buffer: ",
                         "",
@@ -897,37 +909,37 @@ __d(
         t
       );
     })();
-    function q(e) {
-      return U.apply(this, arguments);
+    function U(e) {
+      return V.apply(this, arguments);
     }
-    function U() {
+    function V() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t =
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "initializeVoipWasm",
             );
           return t._malloc(e);
         })),
-        U.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function V(e) {
-      return H.apply(this, arguments);
+    function H(e) {
+      return G.apply(this, arguments);
     }
-    function H() {
+    function G() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t =
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "initializeVoipWasm",
             );
           t._free(e);
         })),
-        H.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    l.WAWebVoipVideoCaptureWithConverter = W;
+    l.WAWebVoipVideoCaptureWithConverter = q;
   },
   98,
 );

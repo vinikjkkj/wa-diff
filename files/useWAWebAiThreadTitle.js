@@ -7,7 +7,6 @@ __d(
     "WAWebChatCollection",
     "WAWebResolveThreadForEntryPoint",
     "react",
-    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,69 +14,33 @@ __d(
     var e,
       s = (e || (e = o("react"))).useMemo;
     function u(e, t) {
-      var n = o("react-compiler-runtime").c(9),
-        r;
-      e: {
-        if (!e.isBot()) {
-          r = null;
-          break e;
-        }
-        var a;
-        n[0] !== e
-          ? ((a = o("WAWebChatCollection").ChatCollection.get(e)),
-            (n[0] = e),
-            (n[1] = a))
-          : (a = n[1]);
-        var i = a;
-        if ((i == null ? void 0 : i.aiThreads) == null) {
-          var l;
-          (n[2] === Symbol.for("react.memo_cache_sentinel")
-            ? ((l = new (o("WAWebAiThreadCollection").AiThreadCollection)()),
-              (n[2] = l))
-            : (l = n[2]),
-            (r = l));
-          break e;
-        }
-        r = i.aiThreads;
-      }
-      var s = r,
-        u;
-      if (n[3] !== s || n[4] !== t) {
-        var c;
-        ((u =
+      var n,
+        r = s(
+          function () {
+            if (!e.isBot()) return null;
+            var t = o("WAWebChatCollection").ChatCollection.get(e);
+            return (t == null ? void 0 : t.aiThreads) == null
+              ? new (o("WAWebAiThreadCollection").AiThreadCollection)()
+              : t.aiThreads;
+          },
+          [e],
+        ),
+        a =
           t == null
             ? null
-            : (c = s == null ? void 0 : s.get(t)) != null
-              ? c
-              : null),
-          (n[3] = s),
-          (n[4] = t),
-          (n[5] = u));
-      } else u = n[5];
-      var d = u,
-        m;
-      n[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = ["id", "title"]), (n[6] = m))
-        : (m = n[6]);
-      var p = o("useWAWebModelValues").useOptionalModelValues(d, m);
+            : (n = r == null ? void 0 : r.get(t)) != null
+              ? n
+              : null,
+        i = o("useWAWebModelValues").useOptionalModelValues(a, ["id", "title"]);
       if (
-        p != null &&
+        i != null &&
         !(
           t != null &&
           o("WAWebResolveThreadForEntryPoint").isDefaultThread(t) &&
           o("WAWebBotGating").isDefaultThreadRoutingEnabled()
         )
-      ) {
-        var _;
-        return (
-          n[7] !== p
-            ? ((_ = o("WAWebAiThreadGetters").getDisplayTitle(p)),
-              (n[7] = p),
-              (n[8] = _))
-            : (_ = n[8]),
-          _
-        );
-      }
+      )
+        return o("WAWebAiThreadGetters").getDisplayTitle(i);
     }
     l.default = u;
   },

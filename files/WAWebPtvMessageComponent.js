@@ -34,7 +34,6 @@ __d(
     "WAWebVideo.react",
     "bx",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebAnimationFrames",
     "useWAWebDebouncedChanges",
@@ -665,123 +664,71 @@ __d(
     }
     x.displayName = x.name + " [from " + i.id + "]";
     function $(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n = e.mediaData,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = ["preview", "fullPreviewData"]), (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebModelValues").useModelValues(n, a),
-        l,
-        s = !0;
-      if (i.fullPreviewData) {
-        var u;
-        (t[1] !== i.fullPreviewData
-          ? ((u =
-              i.fullPreviewData instanceof r("WAWebMediaOpaqueData")
-                ? i.fullPreviewData.url()
-                : i.fullPreviewData),
-            (t[1] = i.fullPreviewData),
-            (t[2] = u))
-          : (u = t[2]),
-          (l = u),
-          (s = !1));
-      } else if (i.preview != null) {
-        var c;
-        (t[3] !== i.preview
-          ? ((c =
-              i.preview instanceof r("WAWebMediaOpaqueData")
-                ? i.preview.url()
-                : i.preview),
-            (t[3] = i.preview),
-            (t[4] = c))
-          : (c = t[4]),
-          (l = c));
-      } else l = T;
-      var m;
-      t[5] !== s
-        ? ((m = {
+      var t = e.mediaData,
+        n = o("useWAWebModelValues").useModelValues(t, [
+          "preview",
+          "fullPreviewData",
+        ]),
+        a,
+        i = !0;
+      return (
+        n.fullPreviewData
+          ? ((a =
+              n.fullPreviewData instanceof r("WAWebMediaOpaqueData")
+                ? n.fullPreviewData.url()
+                : n.fullPreviewData),
+            (i = !1))
+          : n.preview != null
+            ? (a =
+                n.preview instanceof r("WAWebMediaOpaqueData")
+                  ? n.preview.url()
+                  : n.preview)
+            : (a = T),
+        d.jsx("div", {
+          className: {
             0: "x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x1xsqp64 x18d0r48 x1vjfegm",
             1: "x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x1xsqp64 x18d0r48 x1vjfegm x14tgpju",
-          }[!!s << 0]),
-          (t[5] = s),
-          (t[6] = m))
-        : (m = t[6]);
-      var p = "url(" + l + ")",
-        _;
-      t[7] !== p
-        ? ((_ = { backgroundImage: p }), (t[7] = p), (t[8] = _))
-        : (_ = t[8]);
-      var f;
-      return (
-        t[9] !== m || t[10] !== _
-          ? ((f = d.jsx("div", { className: m, style: _ })),
-            (t[9] = m),
-            (t[10] = _),
-            (t[11] = f))
-          : (f = t[11]),
-        f
+          }[!!i << 0],
+          style: { backgroundImage: "url(" + a + ")" },
+        })
       );
     }
+    $.displayName = $.name + " [from " + i.id + "]";
     function P(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.displayType,
-        a = e.duration,
-        i = e.getCurrentTime,
-        l = e.isActive,
-        s = e.isPlaying,
-        u = e.isSentByMe,
-        c;
-      t[0] !== i
-        ? ((c = function () {
-            return i();
-          }),
-          (t[0] = i),
-          (t[1] = c))
-        : (c = t[1]);
-      var m = g(c),
-        p = m[0],
-        _ = m[1],
-        f = a == null ? 0 : p / a,
-        h;
-      t[2] !== i || t[3] !== p
-        ? ((h = function () {
-            var e = i();
-            p !== e && _(e);
-          }),
-          (t[2] = i),
-          (t[3] = p),
-          (t[4] = h))
-        : (h = t[4]);
-      var y = l && s,
-        b;
-      (t[5] !== y ? ((b = { active: y }), (t[5] = y), (t[6] = b)) : (b = t[6]),
-        r("useWAWebAnimationFrames")(h, b));
-      var S = C;
-      l && (S = n === "MSG_INFO" ? R : v);
-      var L = l ? f : 0,
-        E = u ? "outgoing" : "incoming",
-        k;
+      var t = e.displayType,
+        n = e.duration,
+        a = e.getCurrentTime,
+        i = e.isActive,
+        l = e.isPlaying,
+        s = e.isSentByMe,
+        u = g(function () {
+          return a();
+        }),
+        c = u[0],
+        m = u[1],
+        p = n == null ? 0 : c / n;
+      r("useWAWebAnimationFrames")(
+        function () {
+          var e = a();
+          c !== e && m(e);
+        },
+        { active: i && l },
+      );
+      var _ = C;
       return (
-        t[7] !== S || t[8] !== L || t[9] !== E
-          ? ((k = d.jsx(o("WAWebSpinner.react").Spinner, {
-              size: S,
-              value: L,
-              max: 1,
-              color: "highlight",
-              progressContainerColor: E,
-              strokeLinecap: "butt",
-              xstyle: D.animateDimensions,
-            })),
-            (t[7] = S),
-            (t[8] = L),
-            (t[9] = E),
-            (t[10] = k))
-          : (k = t[10]),
-        k
+        i && (_ = t === "MSG_INFO" ? R : v),
+        d.jsx(o("WAWebSpinner.react").Spinner, {
+          size: _,
+          value: i ? p : 0,
+          max: 1,
+          color: "highlight",
+          progressContainerColor: s ? "outgoing" : "incoming",
+          strokeLinecap: "butt",
+          xstyle: D.animateDimensions,
+        })
       );
     }
-    l.default = x;
+    ((P.displayName = P.name + " [from " + i.id + "]"), (l.default = x));
   },
   226,
 );

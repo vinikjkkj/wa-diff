@@ -1,63 +1,38 @@
 __d(
   "useWAWebNewsletterMessageVisibilityLogger",
-  [
-    "WAWebMerlinImpressionManager",
-    "react",
-    "react-compiler-runtime",
-    "useVPVDImpression",
-  ],
+  ["WAWebMerlinImpressionManager", "react", "useVPVDImpression"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = (e || (e = o("react"))).useCallback;
     function u(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.channelUserType,
-        a = e.cid,
-        i = e.isStarredPost,
-        l = e.isVpvImpression,
-        s = e.mediaData,
+      var t = e.channelUserType,
+        n = e.cid,
+        a = e.isStarredPost,
+        i = e.isVpvImpression,
+        l = e.mediaData,
         u = e.postId,
-        c;
-      t[0] !== n ||
-      t[1] !== a ||
-      t[2] !== i ||
-      t[3] !== l ||
-      t[4] !== s ||
-      t[5] !== u
-        ? ((c = function (t) {
-            var e = t.hiddenTime,
-              r = t.visibleTime;
+        c = s(
+          function (e) {
+            var r = e.hiddenTime,
+              s = e.visibleTime;
             o("WAWebMerlinImpressionManager").logNewsletterMessageVisibility({
-              enter_ts: r,
-              exit_ts: e,
+              enter_ts: s,
+              exit_ts: r,
               itemId: u,
               visibilityData: {
-                cid: a,
-                isStarredPost: i,
-                isVpvImpression: l,
+                cid: n,
+                isStarredPost: a,
+                isVpvImpression: i,
                 postId: u,
-                mediaData: s,
-                channelUserType: n,
+                mediaData: l,
+                channelUserType: t,
               },
             });
-          }),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i),
-          (t[3] = l),
-          (t[4] = s),
-          (t[5] = u),
-          (t[6] = c))
-        : (c = t[6]);
-      var d = c,
-        m;
-      return (
-        t[7] !== d
-          ? ((m = { onVPVDEnd: d }), (t[7] = d), (t[8] = m))
-          : (m = t[8]),
-        r("useVPVDImpression")(m)
-      );
+          },
+          [u, n, a, i, l, t],
+        );
+      return r("useVPVDImpression")({ onVPVDEnd: c });
     }
     l.default = u;
   },

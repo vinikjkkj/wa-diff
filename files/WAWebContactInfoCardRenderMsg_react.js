@@ -1,23 +1,14 @@
 __d(
   "WAWebContactInfoCardRenderMsg.react",
-  ["WAWebContactInfoCard.react", "react", "react-compiler-runtime"],
+  ["WAWebContactInfoCard.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.chat,
-        a;
-      return (
-        t[0] !== n
-          ? ((a = s.jsx(r("WAWebContactInfoCard.react"), { chat: n })),
-            (t[0] = n),
-            (t[1] = a))
-          : (a = t[1]),
-        a
-      );
+      var t = e.chat;
+      return s.jsx(r("WAWebContactInfoCard.react"), { chat: t });
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

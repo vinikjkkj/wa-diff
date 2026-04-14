@@ -17,15 +17,15 @@ __d(
               a = yield o(
                 "WAWebUserPrefsNewsletter",
               ).NewsletterSubscribersCache.get(n);
-            if (a != null) return { subscribers: a };
+            if (a != null) return { followers: a };
             var i = yield o(
               "WAWebNewsletterSubscriberListQueryJob",
             ).getNewsletterSubscribers(e, t);
             return (
-              (i == null ? void 0 : i.subscribers) != null &&
+              (i == null ? void 0 : i.followers) != null &&
                 (yield o(
                   "WAWebUserPrefsNewsletter",
-                ).NewsletterSubscribersCache.set(n, i.subscribers)),
+                ).NewsletterSubscribersCache.set(n, i.followers)),
               i
             );
           }),

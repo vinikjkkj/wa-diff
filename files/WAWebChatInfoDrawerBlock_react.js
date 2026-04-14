@@ -1,6 +1,6 @@
 __d(
   "WAWebChatInfoDrawerBlock.react",
-  ["WAWebDrawerBlock.react", "react", "react-compiler-runtime"],
+  ["WAWebDrawerBlock.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -13,38 +13,17 @@ __d(
         },
       };
     function c(e) {
-      var t,
-        n = o("react-compiler-runtime").c(9),
-        a = (t = e.separator) != null ? t : !1,
-        i;
-      n[0] !== e.xstyle
-        ? ((i = [e.xstyle, u.container]), (n[0] = e.xstyle), (n[1] = i))
-        : (i = n[1]);
-      var l;
-      n[2] !== e.blockXstyle
-        ? ((l = [e.blockXstyle, u.block]), (n[2] = e.blockXstyle), (n[3] = l))
-        : (l = n[3]);
-      var c;
-      return (
-        n[4] !== e || n[5] !== a || n[6] !== i || n[7] !== l
-          ? ((c = s.jsx(
-              r("WAWebDrawerBlock.react"),
-              babelHelpers.extends({}, e, {
-                separator: a,
-                xstyle: i,
-                blockXstyle: l,
-              }),
-            )),
-            (n[4] = e),
-            (n[5] = a),
-            (n[6] = i),
-            (n[7] = l),
-            (n[8] = c))
-          : (c = n[8]),
-        c
+      var t;
+      return s.jsx(
+        r("WAWebDrawerBlock.react"),
+        babelHelpers.extends({}, e, {
+          separator: (t = e.separator) != null ? t : !1,
+          xstyle: [e.xstyle, u.container],
+          blockXstyle: [e.blockXstyle, u.block],
+        }),
       );
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

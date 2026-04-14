@@ -14,7 +14,6 @@ __d(
     "WAWebWdsIllAdsWaIcon.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -40,38 +39,23 @@ __d(
       },
       p = { grayIcon: { color: "xhslqc4", $$css: !0 } };
     function _(t) {
-      var n = o("react-compiler-runtime").c(5),
-        a = t.children,
-        i = t.icon,
-        l,
-        s;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = (e || (e = r("stylex"))).props(
-            o("WAWebUISpacing").uiPadding.vert5,
-          )),
-          (s = { className: "x6s0dn4 x3nfvp2" }),
-          (n[0] = l),
-          (n[1] = s))
-        : ((l = n[0]), (s = n[1]));
-      var u;
-      return (
-        n[2] !== a || n[3] !== i
-          ? ((u = c.jsx(
-              "li",
-              babelHelpers.extends({}, l, {
-                children: c.jsxs(
-                  "span",
-                  babelHelpers.extends({}, s, { children: [i, a] }),
-                ),
-              }),
-            )),
-            (n[2] = a),
-            (n[3] = i),
-            (n[4] = u))
-          : (u = n[4]),
-        u
+      var n = t.children,
+        a = t.icon;
+      return c.jsx(
+        "li",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props(o("WAWebUISpacing").uiPadding.vert5),
+          {
+            children: c.jsxs("span", {
+              className: "x6s0dn4 x3nfvp2",
+              children: [a, n],
+            }),
+          },
+        ),
       );
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(t) {
       var a = t.isPagelessAd,
         i = t.onClose,

@@ -21,10 +21,10 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGetUserDisclosuresAction",
     "WAWebLoadNewsletterPreviewChatAction",
+    "WAWebMexFetchNewsletterFollowersJob",
     "WAWebMexFetchNewsletterIsDomainPreviewableJob",
     "WAWebMexFetchNewsletterMessageReactionSenderListJob",
     "WAWebMexFetchNewsletterPendingInvitesJob",
-    "WAWebMexFetchNewsletterSubscribersJob",
     "WAWebMsgKey",
     "WAWebMsgModelFromData",
     "WAWebNewsletterBridgeApi",
@@ -381,8 +381,8 @@ __d(
       mexFetchSubscriberList: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield o(
-            "WAWebMexFetchNewsletterSubscribersJob",
-          ).mexFetchNewsletterSubscribers(e, t);
+            "WAWebMexFetchNewsletterFollowersJob",
+          ).mexFetchNewsletterFollowers(e, t);
         });
         function t(t, n) {
           return e.apply(this, arguments);

@@ -15,7 +15,6 @@ __d(
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -59,25 +58,26 @@ __d(
         },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(19),
-        a = e.mediaCollection,
-        i = e.mediaMimeTypes,
-        l = e.onMediaUploadComplete,
-        c = e.onMediaUploadFailure,
+      var t = e.mediaCollection,
+        a = e.mediaMimeTypes,
+        i = e.onMediaUploadComplete,
+        l = e.onMediaUploadFailure,
         m = e.onRender,
-        g = e.onSelectedMediaSave,
-        h = e.suportedMediaTypes,
-        y;
-      t[0] !== a
-        ? ((y = function () {
-            if (a.getPreviewableMedias().length === 0) {
+        _ = e.onSelectedMediaSave,
+        f = e.suportedMediaTypes,
+        g = c(
+          function () {
+            if (t.getPreviewableMedias().length === 0) {
               o("WAWebModalManager").ModalManager.closeMedia();
               return;
             }
             o("WAWebModalManager").ModalManager.open(
               u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                 title: s._(/*BTDS*/ "Continue without saving?"),
-                onOK: _,
+                onOK: function () {
+                  (o("WAWebModalManager").ModalManager.close(),
+                    o("WAWebModalManager").ModalManager.closeMedia());
+                },
                 okText: s._(/*BTDS*/ "Continue without saving"),
                 onCancel: o("WAWebModalManager").closeModalManager,
                 cancelText: s._(/*BTDS*/ "Go back"),
@@ -87,156 +87,112 @@ __d(
                 ),
               }),
             );
-          }),
-          (t[0] = a),
-          (t[1] = y))
-        : (y = t[1]);
-      var C = y,
-        b = p,
-        v;
-      t[2] !== a || t[3] !== l || t[4] !== c || t[5] !== g
-        ? ((v = (function () {
+          },
+          [t],
+        ),
+        h = c(function (e) {
+          if (!e || e.length === 0)
+            return (
+              r("FBLogger")("wa_ctwa_web").mustfix(
+                "No media provided for sending",
+              ),
+              !1
+            );
+          var t = [],
+            n = e.every(function (e, n) {
+              return !e || !e.media ? (t.length < 3 && t.push(n), !1) : !0;
+            });
+          return (
+            t.length > 0 &&
+              r("FBLogger")("wa_ctwa_web").mustfix(
+                "Invalid media items at " + t.length + " indices",
+              ),
+            n
+          );
+        }, []),
+        y = c(
+          (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                if (!b(e)) {
-                  (c(), o("WAWebModalManager").ModalManager.closeMedia());
+                if (!h(e)) {
+                  (l(), o("WAWebModalManager").ModalManager.closeMedia());
                   return;
                 }
-                (g(a),
+                (_(t),
                   o(
                     "WAWebBizAdCreationStage1WAUploadUtils",
-                  ).uploadAdCreativeMediaToWA(a, l, c),
+                  ).uploadAdCreativeMediaToWA(t, i, l),
                   o("WAWebModalManager").ModalManager.closeMedia());
               },
             );
-            return function (n) {
+            return function (t) {
               return e.apply(this, arguments);
             };
-          })()),
-          (t[2] = a),
-          (t[3] = l),
-          (t[4] = c),
-          (t[5] = g),
-          (t[6] = v))
-        : (v = t[6]);
-      var S = v,
-        R;
-      t[7] !== a || t[8] !== h
-        ? ((R = function (t) {
-            var e = o(
-              "WAWebBizAdCreationMediaValidationUtils",
-            ).maybePruneNewAttachments(a, t);
-            for (var n of e.pruneActions)
-              o("WAWebToastManager").ToastManager.open(
-                u.jsx(o("WAWebToast.react").Toast, {
-                  msg: o(
-                    "WAWebBizAdCreationMediaValidationUtils",
-                  ).PRUNE_TOAST_MESSAGES[n](),
-                }),
-              );
-            return (
-              e.shouldClearExisting && a.reset(),
-              a.processAttachments(
-                e.attachments,
-                void 0,
-                h,
-                o("WAWebBizAdCreationMediaValidationUtils").MAX_IMAGE_COUNT,
-              )
+          })(),
+          [h, i, l, _, t],
+        ),
+        C = function (n) {
+          var e = o(
+            "WAWebBizAdCreationMediaValidationUtils",
+          ).maybePruneNewAttachments(t, n);
+          for (var r of e.pruneActions)
+            o("WAWebToastManager").ToastManager.open(
+              u.jsx(o("WAWebToast.react").Toast, {
+                msg: o(
+                  "WAWebBizAdCreationMediaValidationUtils",
+                ).PRUNE_TOAST_MESSAGES[r](),
+              }),
             );
-          }),
-          (t[7] = a),
-          (t[8] = h),
-          (t[9] = R))
-        : (R = t[9]);
-      var L = R,
-        E;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = u.jsx("div", {
+          return (
+            e.shouldClearExisting && t.reset(),
+            t.processAttachments(
+              e.attachments,
+              void 0,
+              f,
+              o("WAWebBizAdCreationMediaValidationUtils").MAX_IMAGE_COUNT,
+            )
+          );
+        };
+      return u.jsxs(u.Fragment, {
+        children: [
+          u.jsx("div", {
             className:
               "x1honnu5 x5yr21d x1o0tod xixxii4 x13vifvy xh8yej3 xbpklzw",
-          })),
-          (t[10] = E))
-        : (E = t[10]);
-      var k;
-      t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = { surface: "ad-creation-flow-media-composer" }), (t[11] = k))
-        : (k = t[11]);
-      var I;
-      return (
-        t[12] !== C ||
-        t[13] !== L ||
-        t[14] !== S ||
-        t[15] !== a ||
-        t[16] !== i ||
-        t[17] !== m
-          ? ((I = u.jsxs(u.Fragment, {
-              children: [
-                E,
-                u.jsx(o("WAWebFlex.react").FlexColumn, {
-                  xstyle: d.mediaEditorModalContainer,
-                  children: u.jsx(
-                    o("WAWebMediaEditorLoadable.react").MediaEditorLoadable,
-                    {
-                      theme: o("WAWebMediaEditorEnumsThemes").MediaTheme
-                        .AD_CREATION,
-                      onClose: C,
-                      onRender: m,
-                      initCaption: null,
-                      mimes: i,
-                      onSendMedia: S,
-                      mediaCollection: a,
-                      sendAsSticker: !1,
-                      onDropText: r("WAWebNoop"),
-                      canViewOnce: !1,
-                      hdEligible: !0,
-                      maxNumberOfMedia: o(
-                        "WAWebBizAdCreationMediaValidationUtils",
-                      ).MAX_IMAGE_COUNT,
-                      renderCaptionInput: f,
-                      onProcessAttachments: L,
-                      tsNavigationData: k,
-                    },
-                  ),
-                }),
-              ],
-            })),
-            (t[12] = C),
-            (t[13] = L),
-            (t[14] = S),
-            (t[15] = a),
-            (t[16] = i),
-            (t[17] = m),
-            (t[18] = I))
-          : (I = t[18]),
-        I
-      );
+          }),
+          u.jsx(o("WAWebFlex.react").FlexColumn, {
+            xstyle: d.mediaEditorModalContainer,
+            children: u.jsx(
+              o("WAWebMediaEditorLoadable.react").MediaEditorLoadable,
+              {
+                theme: o("WAWebMediaEditorEnumsThemes").MediaTheme.AD_CREATION,
+                onClose: g,
+                onRender: m,
+                initCaption: null,
+                mimes: a,
+                onSendMedia: y,
+                mediaCollection: t,
+                sendAsSticker: !1,
+                onDropText: r("WAWebNoop"),
+                canViewOnce: !1,
+                hdEligible: !0,
+                maxNumberOfMedia: o("WAWebBizAdCreationMediaValidationUtils")
+                  .MAX_IMAGE_COUNT,
+                renderCaptionInput: p,
+                onProcessAttachments: C,
+                tsNavigationData: {
+                  surface: "ad-creation-flow-media-composer",
+                },
+              },
+            ),
+          }),
+        ],
+      });
     }
-    function p(e) {
-      if (!e || e.length === 0)
-        return (
-          r("FBLogger")("wa_ctwa_web").mustfix("No media provided for sending"),
-          !1
-        );
-      var t = [],
-        n = e.every(function (e, n) {
-          return !e || !e.media ? (t.length < 3 && t.push(n), !1) : !0;
-        });
-      return (
-        t.length > 0 &&
-          r("FBLogger")("wa_ctwa_web").mustfix(
-            "Invalid media items at " + t.length + " indices",
-          ),
-        n
-      );
-    }
-    function _() {
-      (o("WAWebModalManager").ModalManager.close(),
-        o("WAWebModalManager").ModalManager.closeMedia());
-    }
-    function f() {
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p() {
       return u.jsx(u.Fragment, {});
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = m));
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

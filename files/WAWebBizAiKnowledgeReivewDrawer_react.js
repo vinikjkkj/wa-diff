@@ -15,7 +15,6 @@ __d(
     "WAWebWdsSmbAnimBookAiTeachLearningIcon.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -70,175 +69,105 @@ __d(
     }
     var g = { container: { width: "xh8yej3", $$css: !0 } };
     function h() {
-      var e = o("react-compiler-runtime").c(23),
-        t = function () {
+      var e = function () {
           (o("WAWebBizAiKnowledgeReviewCommitMutation").commitPendingData(
-            f.map(y),
+            a.map(function (e) {
+              var t;
+              return (t = e.id) != null ? t : p;
+            }),
           ),
-            h([]),
+            i([]),
             o("WAWebDrawerManager").DrawerManager.closeDrawerRight());
         },
-        a;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = []), (e[0] = a))
-        : (a = e[0]);
-      var i = m(a),
-        l = i[0],
-        c = i[1],
-        f = l,
-        h = c,
-        C;
-      e[1] !== h
-        ? ((C = function (t) {
-            h(function (e) {
-              return e.filter(function (e) {
-                return e.id !== t;
-              });
+        t = m([]),
+        a = t[0],
+        i = t[1],
+        l = function (t) {
+          i(function (e) {
+            return e.filter(function (e) {
+              return e.id !== t;
             });
-          }),
-          (e[1] = h),
-          (e[2] = C))
-        : (C = e[2]);
-      var b = C,
-        v;
-      e[3] !== h
-        ? ((v = function () {
-            var e = (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* () {
-                  var e = yield o(
-                    "WAWebBizAiKnowledgeReviewQuery",
-                  ).getAllPendingKnowledge();
-                  h(e);
-                },
-              );
-              function t() {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })();
-            e();
-          }),
-          (e[3] = h),
-          (e[4] = v))
-        : (v = e[4]);
-      var S;
-      (e[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = []), (e[5] = S))
-        : (S = e[5]),
-        d(v, S));
-      var R;
-      e[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = { surface: "unknown", viewName: "biz-ai-knowledge-review" }),
-          (e[6] = R))
-        : (R = e[6]);
-      var L;
-      e[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = s._(/*BTDS*/ "Knowledge")), (e[7] = L))
-        : (L = e[7]);
-      var E;
-      e[8] !== t
-        ? ((E = u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            title: L,
-            type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-            rtlFixIfOnDarwin: !0,
-            focusBackOrCancel: !0,
-            onBack: t,
-          })),
-          (e[8] = t),
-          (e[9] = E))
-        : (E = e[9]);
-      var k, I;
-      e[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = u.jsx(o("WAWebFlex.react").FlexColumn, {
-            align: "center",
-            xstyle: [
-              o("WAWebUISpacing").uiPadding.top16,
-              o("WAWebUISpacing").uiMargin.bottom36,
-              g.container,
-            ],
-            children: u.jsx(
-              o("WAWebWdsSmbAnimBookAiTeachLearningIcon.react")
-                .WdsSmbAnimBookAiTeachLearningIcon,
-              {},
-            ),
-          })),
-          (k = u.jsx(
-            r("WAWebBizAiKnowledgeReviewSummaryPageDescription.react"),
-            {},
-          )),
-          (e[10] = k),
-          (e[11] = I))
-        : ((k = e[10]), (I = e[11]));
-      var T;
-      e[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = [o("WAWebUISpacing").uiMargin.top15, g.container]), (e[12] = T))
-        : (T = e[12]);
-      var D;
-      if (e[13] !== b || e[14] !== f) {
-        var x;
-        (e[16] !== b
-          ? ((x = function (t, n) {
-              var e,
-                o = _(t),
-                a = o.content,
-                i = o.title;
-              return u.jsx(
-                r("WAWebBizAIKnowledgeEntry.react"),
-                {
-                  id: (e = t.id) != null ? e : p,
-                  question: i,
-                  answer: a,
-                  onKnowledgeItemDeleted: b,
-                },
-                n,
-              );
-            }),
-            (e[16] = b),
-            (e[17] = x))
-          : (x = e[17]),
-          (D = f.map(x)),
-          (e[13] = b),
-          (e[14] = f),
-          (e[15] = D));
-      } else D = e[15];
-      var $;
-      e[18] !== D
-        ? (($ = u.jsx(r("WAWebDrawerBody.react"), {
-            children: u.jsxs(o("WAWebFlex.react").FlexColumn, {
-              padding: 8,
-              children: [
-                I,
-                k,
-                u.jsx(o("WAWebFlex.react").FlexColumn, {
-                  xstyle: T,
-                  children: D,
-                }),
-              ],
-            }),
-          })),
-          (e[18] = D),
-          (e[19] = $))
-        : ($ = e[19]);
-      var P;
+          });
+        };
       return (
-        e[20] !== $ || e[21] !== E
-          ? ((P = u.jsxs(r("WAWebDrawer.react"), {
-              tsNavigationData: R,
-              children: [E, $],
-            })),
-            (e[20] = $),
-            (e[21] = E),
-            (e[22] = P))
-          : (P = e[22]),
-        P
+        d(function () {
+          function e() {
+            return t.apply(this, arguments);
+          }
+          function t() {
+            return (
+              (t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var e = yield o(
+                  "WAWebBizAiKnowledgeReviewQuery",
+                ).getAllPendingKnowledge();
+                i(e);
+              })),
+              t.apply(this, arguments)
+            );
+          }
+          e();
+        }, []),
+        u.jsxs(r("WAWebDrawer.react"), {
+          tsNavigationData: {
+            surface: "unknown",
+            viewName: "biz-ai-knowledge-review",
+          },
+          children: [
+            u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+              title: s._(/*BTDS*/ "Knowledge"),
+              type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
+              rtlFixIfOnDarwin: !0,
+              focusBackOrCancel: !0,
+              onBack: e,
+            }),
+            u.jsx(r("WAWebDrawerBody.react"), {
+              children: u.jsxs(o("WAWebFlex.react").FlexColumn, {
+                padding: 8,
+                children: [
+                  u.jsx(o("WAWebFlex.react").FlexColumn, {
+                    align: "center",
+                    xstyle: [
+                      o("WAWebUISpacing").uiPadding.top16,
+                      o("WAWebUISpacing").uiMargin.bottom36,
+                      g.container,
+                    ],
+                    children: u.jsx(
+                      o("WAWebWdsSmbAnimBookAiTeachLearningIcon.react")
+                        .WdsSmbAnimBookAiTeachLearningIcon,
+                      {},
+                    ),
+                  }),
+                  u.jsx(
+                    r("WAWebBizAiKnowledgeReviewSummaryPageDescription.react"),
+                    {},
+                  ),
+                  u.jsx(o("WAWebFlex.react").FlexColumn, {
+                    xstyle: [o("WAWebUISpacing").uiMargin.top15, g.container],
+                    children: a.map(function (e, t) {
+                      var n,
+                        o = _(e),
+                        a = o.content,
+                        i = o.title;
+                      return u.jsx(
+                        r("WAWebBizAIKnowledgeEntry.react"),
+                        {
+                          id: (n = e.id) != null ? n : p,
+                          question: i,
+                          answer: a,
+                          onKnowledgeItemDeleted: l,
+                        },
+                        t,
+                      );
+                    }),
+                  }),
+                ],
+              }),
+            }),
+          ],
+        })
       );
     }
-    function y(e) {
-      var t;
-      return (t = e.id) != null ? t : p;
-    }
-    l.default = h;
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
   },
   226,
 );

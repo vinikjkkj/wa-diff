@@ -1,12 +1,6 @@
 __d(
   "WAWebVoipUiToastContainer.react",
-  [
-    "WAWebVoipUiPopoutWindowContext",
-    "WDSToast.react",
-    "react",
-    "react-compiler-runtime",
-    "stylex",
-  ],
+  ["WAWebVoipUiPopoutWindowContext", "WDSToast.react", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -29,100 +23,93 @@ __d(
           insetInlineStart: "x1o0tod",
           $$css: !0,
         },
+        toastAlignStart: {
+          justifyContent: "x1nhvcw1",
+          paddingInlineStart: "xdx6fka",
+          $$css: !0,
+        },
+        toastAlignEnd: {
+          justifyContent: "x13a6bvl",
+          paddingInlineEnd: "xvtqlqk",
+          $$css: !0,
+        },
         toastBottomDefault: { bottom: "x191j7n5", $$css: !0 },
         toastBottomWithControls: { bottom: "xy75b87", $$css: !0 },
         toastBottomWithControlsPopout: { bottom: "x1kiq0my", $$css: !0 },
       };
     function h(t) {
-      var n = o("react-compiler-runtime").c(11),
+      var n,
         a = t.areCallControlsVisible,
         i = t.ref,
         l = d(r("WAWebVoipUiPopoutWindowContext")),
-        s = f(null),
+        s = f("center"),
         c = s[0],
         m = s[1],
-        h = g.toastBottomDefault;
+        h = f(null),
+        C = h[0],
+        b = h[1],
+        v = g.toastBottomDefault;
       a &&
-        (h = l.isContextInPopoutWindow
+        (v = l.isContextInPopoutWindow
           ? g.toastBottomWithControlsPopout
           : g.toastBottomWithControls);
-      var C = _(null),
-        b;
-      (n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = function () {
-            return {
-              showToast: function (t) {
-                C.current == null || C.current(t);
-              },
-            };
-          }),
-          (n[0] = b))
-        : (b = n[0]),
-        p(i, b));
-      var v;
-      n[1] !== h
-        ? ((v = (e || (e = r("stylex"))).props(g.toastContainer, h)),
-          (n[1] = h),
-          (n[2] = v))
-        : (v = n[2]);
-      var S;
-      n[3] !== v
-        ? ((S = u.jsx("div", babelHelpers.extends({ ref: m }, v))),
-          (n[3] = v),
-          (n[4] = S))
-        : (S = n[4]);
-      var R;
-      if (n[5] !== l || n[6] !== c) {
-        var L;
-        ((R =
-          c != null &&
-          u.jsx(o("WDSToast.react").WDSToastProvider, {
-            target: c,
-            targetWindow: (L = l.windowEl) != null ? L : window,
-            children: u.jsx(y, {
-              onMount: function (t) {
-                C.current = t;
-              },
-            }),
-          })),
-          (n[5] = l),
-          (n[6] = c),
-          (n[7] = R));
-      } else R = n[7];
-      var E;
+      var S =
+          c === "start"
+            ? g.toastAlignStart
+            : c === "end"
+              ? g.toastAlignEnd
+              : null,
+        R = _(null);
       return (
-        n[8] !== S || n[9] !== R
-          ? ((E = u.jsxs(u.Fragment, { children: [S, R] })),
-            (n[8] = S),
-            (n[9] = R),
-            (n[10] = E))
-          : (E = n[10]),
-        E
+        p(i, function () {
+          return {
+            showToast: function (t) {
+              var e;
+              (m((e = t.align) != null ? e : "center"),
+                R.current == null || R.current(t));
+            },
+          };
+        }),
+        u.jsxs(u.Fragment, {
+          children: [
+            u.jsx(
+              "div",
+              babelHelpers.extends(
+                { ref: b },
+                (e || (e = r("stylex"))).props(g.toastContainer, S, v),
+              ),
+            ),
+            C != null &&
+              u.jsx(o("WDSToast.react").WDSToastProvider, {
+                target: C,
+                targetWindow: (n = l.windowEl) != null ? n : window,
+                children: u.jsx(y, {
+                  onMount: function (t) {
+                    R.current = t;
+                  },
+                }),
+              }),
+          ],
+        })
       );
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.onMount,
-        r = o("WDSToast.react").useWDSToast(),
-        a = r.showToast,
-        i,
-        l;
+      var t = e.onMount,
+        n = o("WDSToast.react").useWDSToast(),
+        r = n.showToast;
       return (
-        t[0] !== n || t[1] !== a
-          ? ((i = function () {
-              n(a);
-            }),
-            (l = [a, n]),
-            (t[0] = n),
-            (t[1] = a),
-            (t[2] = i),
-            (t[3] = l))
-          : ((i = t[2]), (l = t[3])),
-        m(i, l),
+        m(
+          function () {
+            t(r);
+          },
+          [r, t],
+        ),
         null
       );
     }
-    l.WAWebVoipUiToastContainer = h;
+    ((y.displayName = y.name + " [from " + i.id + "]"),
+      (l.WAWebVoipUiToastContainer = h));
   },
   98,
 );

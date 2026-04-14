@@ -26,7 +26,6 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "react",
-    "react-compiler-runtime",
     "useWAWebAsync",
     "useWAWebDebouncedCallback",
     "useWAWebStableCallback",
@@ -130,36 +129,37 @@ __d(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             if (!w) return;
-            var t = yield o(
-              "WAWebVoipAcquireMediaStream",
-            ).getAvailableVideoDevices(le, !0);
-            V(t);
-            var n = o("WAWebVoipVideoCameraCapture").WAWebVoipVideoCameraCapture
+            var t = o("WAWebUA").UA.isSafari && le != null,
+              n = yield o(
+                "WAWebVoipAcquireMediaStream",
+              ).getAvailableVideoDevices(le, !0, t);
+            V(n);
+            var r = o("WAWebVoipVideoCameraCapture").WAWebVoipVideoCameraCapture
                 .currentDeviceId,
-              r =
-                n != null &&
-                n !== "" &&
-                t.some(function (e) {
-                  return e.deviceId === n;
+              a =
+                r != null &&
+                r !== "" &&
+                n.some(function (e) {
+                  return e.deviceId === r;
                 });
             return (
-              r && n != null
+              a && r != null
                 ? (o("WALogger").LOG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [CameraDeviceSelector] auto-selecting previously selected\n          device: ",
                         "",
                       ])),
-                    n,
+                    r,
                   ),
-                  j(n))
-                : t.length > 0 &&
+                  j(r))
+                : n.length > 0 &&
                   !G &&
                   !ue.current.signal.aborted &&
-                  j(t[0].deviceId),
+                  j(n[0].deviceId),
               (ue.current = new AbortController()),
               o("WAWebUA").UA.isSafari && le != null && ne(!0),
-              t
+              n
             );
           } catch (e) {
             throw (
@@ -205,25 +205,26 @@ __d(
                     ),
                       Z(!0));
                     try {
-                      var e = yield o(
-                        "WAWebVoipAcquireMediaStream",
-                      ).getAvailableVideoDevices(le, !0);
-                      if ((V(e), G)) {
-                        var t = e.find(function (e) {
+                      var e = o("WAWebUA").UA.isSafari && le != null,
+                        t = yield o(
+                          "WAWebVoipAcquireMediaStream",
+                        ).getAvailableVideoDevices(le, !0, e);
+                      if ((V(t), G)) {
+                        var n = t.find(function (e) {
                           return e.deviceId === G;
                         });
-                        !t &&
-                          e.length > 0 &&
-                          (j(e[0].deviceId),
+                        !n &&
+                          t.length > 0 &&
+                          (j(t[0].deviceId),
                           o("WALogger").LOG(
                             d ||
                               (d = babelHelpers.taggedTemplateLiteralLoose([
                                 "voip: [CameraDeviceSelector] current device no longer available,\n              switching to: ",
                                 "",
                               ])),
-                            e[0].deviceId,
+                            t[0].deviceId,
                           ));
-                      } else e.length > 0 && j(e[0].deviceId);
+                      } else t.length > 0 && j(t[0].deviceId);
                       (o("WALogger").LOG(
                         m ||
                           (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -231,8 +232,8 @@ __d(
                             " video\n          devices: ",
                             "",
                           ])),
-                        e.length,
-                        e
+                        t.length,
+                        t
                           .map(function (e) {
                             return "" + e.label;
                           })
@@ -506,44 +507,32 @@ __d(
     }
     $.displayName = $.name + " [from " + i.id + "]";
     function P() {
-      var e = o("react-compiler-runtime").c(5),
-        t = T(null),
-        a = t[0],
-        i = t[1],
-        l = r("useWAWebStableCallback")(i),
-        s;
-      e[0] !== a || e[1] !== l
-        ? ((s = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (
-                !(navigator === void 0 || !navigator.permissions || a != null)
-              ) {
-                var e = function () {
-                    l(null);
-                  },
-                  t = yield navigator.permissions.query({ name: "camera" });
-                return (
-                  l(t.state),
-                  (t.onchange = e),
-                  function () {
-                    t.onchange = null;
-                  }
-                );
-              }
-            });
-            return function () {
-              return e.apply(this, arguments);
-            };
-          })()),
-          (e[0] = a),
-          (e[1] = l),
-          (e[2] = s))
-        : (s = e[2]);
-      var u;
+      var e = T(null),
+        t = e[0],
+        o = e[1],
+        a = r("useWAWebStableCallback")(o);
       return (
-        e[3] !== a ? ((u = [a]), (e[3] = a), (e[4] = u)) : (u = e[4]),
-        r("useWAWebAsync")(s, u),
-        a
+        r("useWAWebAsync")(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            if (
+              !(navigator === void 0 || !navigator.permissions || t != null)
+            ) {
+              var e = function () {
+                  a(null);
+                },
+                n = yield navigator.permissions.query({ name: "camera" });
+              return (
+                a(n.state),
+                (n.onchange = e),
+                function () {
+                  n.onchange = null;
+                }
+              );
+            }
+          }),
+          [t],
+        ),
+        t
       );
     }
     l.default = $;

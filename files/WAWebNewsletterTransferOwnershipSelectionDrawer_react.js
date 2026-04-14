@@ -15,7 +15,6 @@ __d(
     "WAWebPhoneNumberSearch",
     "WAWebSearchInput",
     "react",
-    "react-compiler-runtime",
     "useWAWebDebouncedSearch",
     "useWAWebNewsletterAdmins",
   ],
@@ -33,39 +32,23 @@ __d(
         marginTop20: { marginTop: "x1nmyh1g", $$css: !0 },
       };
     function g(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.chat,
-        r,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = s._(
-            /*BTDS*/ "Your channel doesn't have any admins. You can only transfer ownership to admins.",
-          )),
-          (a = s._(/*BTDS*/ "Invite admins")),
-          (t[0] = r),
-          (t[1] = a))
-        : ((r = t[0]), (a = t[1]));
-      var i;
-      return (
-        t[2] !== n
-          ? ((i = c.jsx(o("WAWebEmptyState.react").EmptyErrorStateWithButton, {
-              xstyle: f.marginTop20,
-              center: !1,
-              text: r,
-              buttonText: a,
-              onClick: function () {
-                o(
-                  "WAWebNewsletterAdminSelectionFlow.react",
-                ).startAdminInviteFlow({ chat: n });
-              },
-              testid: void 0,
-            })),
-            (t[2] = n),
-            (t[3] = i))
-          : (i = t[3]),
-        i
-      );
+      var t = e.chat;
+      return c.jsx(o("WAWebEmptyState.react").EmptyErrorStateWithButton, {
+        xstyle: f.marginTop20,
+        center: !1,
+        text: s._(
+          /*BTDS*/ "Your channel doesn't have any admins. You can only transfer ownership to admins.",
+        ),
+        buttonText: s._(/*BTDS*/ "Invite admins"),
+        onClick: function () {
+          o("WAWebNewsletterAdminSelectionFlow.react").startAdminInviteFlow({
+            chat: t,
+          });
+        },
+        testid: void 0,
+      });
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(t) {
       var n = t.ref,
         a = babelHelpers.objectWithoutPropertiesLoose(t, e),

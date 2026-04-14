@@ -18,7 +18,6 @@ __d(
     "WDSIconIcChevronRight.react",
     "WDSIconIcMusicNote.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebCanPlaybackAudio",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -38,154 +37,76 @@ __d(
         animationWrapper: { width: "x1kky2od", height: "xlup9mm", $$css: !0 },
       };
     function p(e) {
-      var t = o("react-compiler-runtime").c(27),
-        n = e.msg,
-        a = e.musicMetadata,
-        i = e.playing,
-        l = e.xstyle,
-        s = o("useWAWebCanPlaybackAudio").useCanDisplayMusicAttribution(n),
-        u = o("useWAWebCanPlaybackAudio").useCanPlaybackAudio(n);
-      if (!s) {
-        var d;
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((d = c.jsx(o("WAWebFlex.react").FlexItem, {
+      var t = e.msg,
+        n = e.musicMetadata,
+        a = e.playing,
+        i = e.xstyle,
+        l = o("useWAWebCanPlaybackAudio").useCanDisplayMusicAttribution(t),
+        s = o("useWAWebCanPlaybackAudio").useCanPlaybackAudio(t);
+      if (!l)
+        return c.jsxs(o("WAWebFlex.react").FlexRow, {
+          align: "center",
+          gap: 4,
+          testid: void 0,
+          xstyle: i,
+          children: [
+            c.jsx(o("WAWebFlex.react").FlexItem, {
               shrink: 0,
               children: c.jsx(g, {}),
-            })),
-            (t[0] = d))
-          : (d = t[0]);
-        var p;
-        t[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((p = c.jsx(o("WAWebFlex.react").FlexItem, {
+            }),
+            c.jsx(o("WAWebFlex.react").FlexItem, {
               className: "xlyipyv x6ikm8r x10wlt62 xuxw1ft xeuugli x17t9dm2",
               children: y.songUnavailable(),
-            })),
-            (t[1] = p))
-          : (p = t[1]);
-        var _;
-        t[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((_ = c.jsx(o("WAWebFlex.react").FlexItem, {
+            }),
+            c.jsx(o("WAWebFlex.react").FlexItem, {
               shrink: 0,
               children: c.jsx(h, {}),
-            })),
-            (t[2] = _))
-          : (_ = t[2]);
-        var f;
-        return (
-          t[3] !== l
-            ? ((f = c.jsxs(o("WAWebFlex.react").FlexRow, {
-                align: "center",
-                gap: 4,
-                testid: void 0,
-                xstyle: l,
-                children: [d, p, _],
-              })),
-              (t[3] = l),
-              (t[4] = f))
-            : (f = t[4]),
-          f
-        );
-      }
-      var C;
-      t[5] !== a.isExplicit
-        ? ((C = a.isExplicit
-            ? c.jsx(o("WAWebExplicitIcon.react").ExplicitIcon, {
-                height: 12,
-                width: 12,
-                "aria-label": y.explicitContent(),
-                iconXstyle: m.explicitIcon,
-              })
-            : null),
-          (t[5] = a.isExplicit),
-          (t[6] = C))
-        : (C = t[6]);
-      var b = C,
-        v;
-      t[7] !== a.author
-        ? ((v = c.jsx("strong", { children: a.author }, "author")),
-          (t[7] = a.author),
-          (t[8] = v))
-        : (v = t[8]);
-      var S = v,
-        R;
-      t[9] !== S || t[10] !== a.title
-        ? ((R = r("WAWebL10N").isRTL() ? [a.title, S] : [S, a.title]),
-          (t[9] = S),
-          (t[10] = a.title),
-          (t[11] = R))
-        : (R = t[11]);
-      var L = R,
-        E = L[0],
-        k = L[1],
-        I;
-      t[12] !== u || t[13] !== i
-        ? ((I = u
+            }),
+          ],
+        });
+      var u = n.isExplicit
+          ? c.jsx(o("WAWebExplicitIcon.react").ExplicitIcon, {
+              height: 12,
+              width: 12,
+              "aria-label": y.explicitContent(),
+              iconXstyle: m.explicitIcon,
+            })
+          : null,
+        d = c.jsx("strong", { children: n.author }, "author"),
+        p = r("WAWebL10N").isRTL() ? [n.title, d] : [d, n.title],
+        _ = p[0],
+        f = p[1];
+      return c.jsxs(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        gap: 4,
+        xstyle: i,
+        children: [
+          s
             ? c.jsx(o("WAWebFlex.react").FlexItem, {
                 shrink: 0,
                 xstyle: m.animationWrapper,
                 children: c.jsx(r("WAWebMusicSoundAnimation.react"), {
-                  play: i,
+                  play: a,
                 }),
               })
             : c.jsx(o("WAWebFlex.react").FlexItem, {
                 shrink: 0,
                 children: c.jsx(g, {}),
-              })),
-          (t[12] = u),
-          (t[13] = i),
-          (t[14] = I))
-        : (I = t[14]);
-      var T;
-      t[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = "xlyipyv x6ikm8r x10wlt62 xuxw1ft xeuugli x17t9dm2"),
-          (t[15] = T))
-        : (T = t[15]);
-      var D;
-      t[16] !== E || t[17] !== k
-        ? ((D = c.jsxs(o("WAWebFlex.react").FlexItem, {
+              }),
+          c.jsxs(o("WAWebFlex.react").FlexItem, {
             testid: void 0,
-            className: T,
-            children: [E, " ", k],
-          })),
-          (t[16] = E),
-          (t[17] = k),
-          (t[18] = D))
-        : (D = t[18]);
-      var x;
-      t[19] !== b
-        ? ((x = c.jsx(o("WAWebFlex.react").FlexItem, {
-            shrink: 0,
-            children: b,
-          })),
-          (t[19] = b),
-          (t[20] = x))
-        : (x = t[20]);
-      var $;
-      t[21] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = c.jsx(o("WAWebFlex.react").FlexItem, {
+            className: "xlyipyv x6ikm8r x10wlt62 xuxw1ft xeuugli x17t9dm2",
+            children: [_, " ", f],
+          }),
+          c.jsx(o("WAWebFlex.react").FlexItem, { shrink: 0, children: u }),
+          c.jsx(o("WAWebFlex.react").FlexItem, {
             shrink: 0,
             children: c.jsx(h, {}),
-          })),
-          (t[21] = $))
-        : ($ = t[21]);
-      var P;
-      return (
-        t[22] !== I || t[23] !== D || t[24] !== x || t[25] !== l
-          ? ((P = c.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              gap: 4,
-              xstyle: l,
-              children: [I, D, x, $],
-            })),
-            (t[22] = I),
-            (t[23] = D),
-            (t[24] = x),
-            (t[25] = l),
-            (t[26] = P))
-          : (P = t[26]),
-        P
-      );
+          }),
+        ],
+      });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
       var n = t.mediaController,
         a = t.msg,
@@ -277,35 +198,21 @@ __d(
       );
     }
     function g() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = c.jsx(r("WDSIconIcMusicNote.react"), {
-              iconXstyle: m.noteIcon,
-              height: 18,
-              viewBox: { x: 6, y: 0, height: 24, width: 14 },
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return c.jsx(r("WDSIconIcMusicNote.react"), {
+        iconXstyle: m.noteIcon,
+        height: 18,
+        viewBox: { x: 6, y: 0, height: 24, width: 14 },
+      });
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = c.jsx(r("WDSIconIcChevronRight.react"), {
-              iconXstyle: m.chevronIcon,
-              height: 20,
-              width: 24,
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return c.jsx(r("WDSIconIcChevronRight.react"), {
+        iconXstyle: m.chevronIcon,
+        height: 20,
+        width: 24,
+      });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     var y = {
       songUnavailable: function () {
         return s._(/*BTDS*/ "The song is unavailable");

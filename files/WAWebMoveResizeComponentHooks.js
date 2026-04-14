@@ -6,7 +6,6 @@ __d(
     "WAWebMoveResizeConstants",
     "WAWebVelocityAnimate",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -14,191 +13,127 @@ __d(
       u = 20,
       c = 20;
     function d(e) {
-      var t = o("react-compiler-runtime").c(22),
-        n = e.aspectRatio,
-        r = e.bottom,
-        a = e.disableResize,
-        i = e.height,
-        l = e.independentResize,
-        s = e.left,
-        d = e.margin,
-        m = e.minHeightProp,
-        p = e.minWidth,
-        _ = e.onMove,
-        f = e.onMoveEnd,
-        g = e.onMoveStart,
-        h = e.onResize,
-        y = e.onResizeEnd,
-        C = e.onResizeStart,
-        b = e.setBottom,
-        v = e.setHeight,
-        S = e.setLeft,
-        R = e.setWidth,
-        L = e.width,
-        E;
-      t[0] !== n ||
-      t[1] !== r ||
-      t[2] !== a ||
-      t[3] !== i ||
-      t[4] !== l ||
-      t[5] !== s ||
-      t[6] !== d.x ||
-      t[7] !== d.y ||
-      t[8] !== m ||
-      t[9] !== p ||
-      t[10] !== _ ||
-      t[11] !== f ||
-      t[12] !== g ||
-      t[13] !== h ||
-      t[14] !== y ||
-      t[15] !== C ||
-      t[16] !== b ||
-      t[17] !== v ||
-      t[18] !== S ||
-      t[19] !== R ||
-      t[20] !== L
-        ? ((E = function (t) {
-            var e = t.key,
-              o = t.shiftKey;
+      var t = e.aspectRatio,
+        n = e.bottom,
+        r = e.disableResize,
+        o = e.height,
+        a = e.independentResize,
+        i = e.left,
+        l = e.margin,
+        d = e.minHeightProp,
+        m = e.minWidth,
+        p = e.onMove,
+        _ = e.onMoveEnd,
+        f = e.onMoveStart,
+        g = e.onResize,
+        h = e.onResizeEnd,
+        y = e.onResizeStart,
+        C = e.setBottom,
+        b = e.setHeight,
+        v = e.setLeft,
+        S = e.setWidth,
+        R = e.width,
+        L = s(
+          function (e) {
+            var s = e.key,
+              L = e.shiftKey;
             if (
               !(
-                e !== "ArrowUp" &&
-                e !== "ArrowDown" &&
-                e !== "ArrowLeft" &&
-                e !== "ArrowRight"
+                s !== "ArrowUp" &&
+                s !== "ArrowDown" &&
+                s !== "ArrowLeft" &&
+                s !== "ArrowRight"
               ) &&
-              !(t.target instanceof HTMLInputElement)
+              !(e.target instanceof HTMLInputElement)
             )
-              if ((t.preventDefault(), o && a !== !0)) {
-                var E = L,
-                  k = i,
-                  I = l !== !0;
-                e === "ArrowRight"
-                  ? ((E = Math.max(p, L + c)), I && (k = E / n))
-                  : e === "ArrowLeft"
-                    ? ((E = Math.max(p, L - c)), I && (k = E / n))
-                    : e === "ArrowUp"
+              if ((e.preventDefault(), L && r !== !0)) {
+                var E = R,
+                  k = o,
+                  I = a !== !0;
+                s === "ArrowRight"
+                  ? ((E = Math.max(m, R + c)), I && (k = E / t))
+                  : s === "ArrowLeft"
+                    ? ((E = Math.max(m, R - c)), I && (k = E / t))
+                    : s === "ArrowUp"
                       ? I
-                        ? ((E = Math.max(p, L + c * n)), (k = E / n))
-                        : (k = i + c)
-                      : e === "ArrowDown" &&
+                        ? ((E = Math.max(m, R + c * t)), (k = E / t))
+                        : (k = o + c)
+                      : s === "ArrowDown" &&
                         (I
-                          ? ((E = Math.max(p, L - c * n)), (k = E / n))
-                          : (k = Math.max(m != null ? m : p / n, i - c)));
-                var T = window.innerWidth - s - d.x,
-                  D = window.innerHeight - r - d.y;
+                          ? ((E = Math.max(m, R - c * t)), (k = E / t))
+                          : (k = Math.max(d != null ? d : m / t, o - c)));
+                var T = window.innerWidth - i - l.x,
+                  D = window.innerHeight - n - l.y;
                 if (((E = Math.min(E, T)), (k = Math.min(k, D)), I)) {
-                  var x = E / n,
-                    $ = k * n;
+                  var x = E / t,
+                    $ = k * t;
                   x <= k ? (k = x) : (E = $);
                 }
-                (E !== L || k !== i) &&
-                  (C == null || C(),
-                  R(E),
-                  v(k),
-                  h == null || h(E, s, r),
-                  y == null || y());
+                (E !== R || k !== o) &&
+                  (y == null || y(),
+                  S(E),
+                  b(k),
+                  g == null || g(E, i, n),
+                  h == null || h());
               } else {
-                var P = s,
-                  N = r;
-                (e === "ArrowRight"
-                  ? (P = s + u)
-                  : e === "ArrowLeft"
-                    ? (P = s - u)
-                    : e === "ArrowUp"
-                      ? (N = r + u)
-                      : e === "ArrowDown" && (N = r - u),
-                  (P = Math.max(d.x, Math.min(P, window.innerWidth - L - d.x))),
+                var P = i,
+                  N = n;
+                (s === "ArrowRight"
+                  ? (P = i + u)
+                  : s === "ArrowLeft"
+                    ? (P = i - u)
+                    : s === "ArrowUp"
+                      ? (N = n + u)
+                      : s === "ArrowDown" && (N = n - u),
+                  (P = Math.max(l.x, Math.min(P, window.innerWidth - R - l.x))),
                   (N = Math.max(
-                    d.y,
-                    Math.min(N, window.innerHeight - i - d.y),
+                    l.y,
+                    Math.min(N, window.innerHeight - o - l.y),
                   )),
-                  (P !== s || N !== r) &&
-                    (g == null || g(),
-                    S(P),
-                    b(N),
-                    _ == null || _(P, N),
-                    f == null || f()));
+                  (P !== i || N !== n) &&
+                    (f == null || f(),
+                    v(P),
+                    C(N),
+                    p == null || p(P, N),
+                    _ == null || _()));
               }
-          }),
-          (t[0] = n),
-          (t[1] = r),
-          (t[2] = a),
-          (t[3] = i),
-          (t[4] = l),
-          (t[5] = s),
-          (t[6] = d.x),
-          (t[7] = d.y),
-          (t[8] = m),
-          (t[9] = p),
-          (t[10] = _),
-          (t[11] = f),
-          (t[12] = g),
-          (t[13] = h),
-          (t[14] = y),
-          (t[15] = C),
-          (t[16] = b),
-          (t[17] = v),
-          (t[18] = S),
-          (t[19] = R),
-          (t[20] = L),
-          (t[21] = E))
-        : (E = t[21]);
-      var k = E;
-      return k;
+          },
+          [r, R, o, a, i, l.x, l.y, n, m, t, d, y, g, h, f, p, _, S, b, v, C],
+        );
+      return L;
     }
     function m(e, t, n, a) {
-      var i = o("react-compiler-runtime").c(11),
-        l = e.componentRef,
-        s = e.unmountSignal,
-        u;
-      i[0] !== a || i[1] !== n || i[2] !== t
-        ? ((u = function (r) {
-            (r.width != null && t(r.width),
-              r.height != null && n(r.height),
-              r.bottom != null && a(r.bottom));
-          }),
-          (i[0] = a),
-          (i[1] = n),
-          (i[2] = t),
-          (i[3] = u))
-        : (u = i[3]);
-      var c = u,
-        d;
-      i[4] !== l || i[5] !== s || i[6] !== c
-        ? ((d = function (t, n) {
-            if (l.current == null) {
-              c(n);
+      var i = e.componentRef,
+        l = e.unmountSignal,
+        u = s(
+          function (e) {
+            (e.width != null && t(e.width),
+              e.height != null && n(e.height),
+              e.bottom != null && a(e.bottom));
+          },
+          [t, n, a],
+        ),
+        c = s(
+          function (e, t) {
+            if (i.current == null) {
+              u(t);
               return;
             }
-            var e = r("WAWebVelocityAnimate")(l.current, t, {
+            var n = r("WAWebVelocityAnimate")(i.current, e, {
               duration: o("WAWebMoveResizeConstants")
                 .MIN_HEIGHT_CHANGE_ANIMATION_DURATION,
               easing: o("WAWebMoveResizeConstants")
                 .MIN_HEIGHT_CHANGE_ANIMATION_TYPE,
             });
-            e.then(function () {
-              s.aborted || c(n);
+            n.then(function () {
+              l.aborted || u(t);
             }).catch(function () {
-              s.aborted || c(n);
+              l.aborted || u(t);
             });
-          }),
-          (i[4] = l),
-          (i[5] = s),
-          (i[6] = c),
-          (i[7] = d))
-        : (d = i[7]);
-      var m = d,
-        p;
-      return (
-        i[8] !== m || i[9] !== c
-          ? ((p = { updateDimensionState: c, animateDimensionChange: m }),
-            (i[8] = m),
-            (i[9] = c),
-            (i[10] = p))
-          : (p = i[10]),
-        p
-      );
+          },
+          [l, u, i],
+        );
+      return { updateDimensionState: u, animateDimensionChange: c };
     }
     function p(e) {
       var t = e.aspectRatio,

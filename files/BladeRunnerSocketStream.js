@@ -163,16 +163,15 @@ __d(
               }
             } else {
               var s;
-              throw (
-                (s = e.e2eLogger) == null ||
-                  s.logE2EEvent(
-                    r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
-                    r("RequestStreamE2EClientLoggerEvent").FAILURE,
-                    u,
-                    n == null ? void 0 : n.auxId,
-                  ),
-                new Error("Stream is closed or not accepted")
-              );
+              (s = e.e2eLogger) == null ||
+                s.logE2EEvent(
+                  r("RequestStreamE2EClientLoggerMessageType").AMENDMENT,
+                  r("RequestStreamE2EClientLoggerEvent").FAILURE,
+                  u,
+                  n == null ? void 0 : n.auxId,
+                );
+              var c = new Error("Stream is closed or not accepted");
+              throw (c.stack, c);
             }
           }),
           (i.amendWithoutAck = function (t) {

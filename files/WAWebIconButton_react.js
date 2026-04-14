@@ -1,6 +1,6 @@
 __d(
   "WAWebIconButton.react",
-  ["WAWebClickable.react", "WAWebUISpacing", "react", "react-compiler-runtime"],
+  ["WAWebClickable.react", "WAWebUISpacing", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["icon", "ref"],
@@ -31,52 +31,26 @@ __d(
         },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(14),
-        r,
-        a,
-        i;
-      n[0] !== t
-        ? ((r = t.icon),
-          (i = t.ref),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = r),
-          (n[2] = a),
-          (n[3] = i))
-        : ((r = n[1]), (a = n[2]), (i = n[3]));
-      var l = r != null && o("WAWebUISpacing").uiPadding.start10,
-        s = r != null && o("WAWebUISpacing").uiPadding.end2,
-        d = a.onClick == null && c.buttonNotClickable,
-        m;
-      n[4] !== a.xstyle || n[5] !== l || n[6] !== s || n[7] !== d
-        ? ((m = [c.button, c.row, l, s, a.xstyle, d]),
-          (n[4] = a.xstyle),
-          (n[5] = l),
-          (n[6] = s),
-          (n[7] = d),
-          (n[8] = m))
-        : (m = n[8]);
-      var p;
-      return (
-        n[9] !== r || n[10] !== a || n[11] !== i || n[12] !== m
-          ? ((p = u.jsxs(
-              o("WAWebClickable.react").Clickable,
-              babelHelpers.extends({}, a, {
-                xstyle: m,
-                ref: i,
-                children: [r, a.children],
-              }),
-            )),
-            (n[9] = r),
-            (n[10] = a),
-            (n[11] = i),
-            (n[12] = m),
-            (n[13] = p))
-          : (p = n[13]),
-        p
+      var n = t.icon,
+        r = t.ref,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      return u.jsxs(
+        o("WAWebClickable.react").Clickable,
+        babelHelpers.extends({}, a, {
+          xstyle: [
+            c.button,
+            c.row,
+            n != null && o("WAWebUISpacing").uiPadding.start10,
+            n != null && o("WAWebUISpacing").uiPadding.end2,
+            a.xstyle,
+            a.onClick == null && c.buttonNotClickable,
+          ],
+          ref: r,
+          children: [n, a.children],
+        }),
       );
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

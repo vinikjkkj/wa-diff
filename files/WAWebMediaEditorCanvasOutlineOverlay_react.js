@@ -7,7 +7,6 @@ __d(
     "cr:10204",
     "lodash",
     "react",
-    "react-compiler-runtime",
     "useWAWebMediaEditorCanvasDraw",
   ],
   function (t, n, r, o, a, i, l) {
@@ -131,81 +130,38 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = o("react-compiler-runtime").c(34),
-        n = e.points,
-        r = e.scale;
-      if (!n.length) return null;
-      var a = n[0],
-        i = n[n.length - 1],
-        l = _ / r.x,
-        u,
-        c = u,
-        d;
-      t[5] !== i ? ((d = i.getX()), (t[5] = i), (t[6] = d)) : (d = t[6]);
-      var m;
-      t[7] !== i ? ((m = i.getY()), (t[7] = i), (t[8] = m)) : (m = t[8]);
-      var p;
-      t[9] !== l || t[10] !== d || t[11] !== m
-        ? ((p = s.jsx(o("ReactKonva").Circle, {
+      var t = e.points,
+        n = e.scale;
+      if (!t.length) return null;
+      var r = t[0],
+        a = t[t.length - 1],
+        i = _ / n.x,
+        l;
+      return s.jsxs(s.Fragment, {
+        children: [
+          l,
+          s.jsx(o("ReactKonva").Circle, {
             name: C,
-            x: d,
-            y: m,
-            radius: l,
-          })),
-          (t[9] = l),
-          (t[10] = d),
-          (t[11] = m),
-          (t[12] = p))
-        : (p = t[12]);
-      var f;
-      t[13] !== a ? ((f = a.getX()), (t[13] = a), (t[14] = f)) : (f = t[14]);
-      var g;
-      t[15] !== a ? ((g = a.getY()), (t[15] = a), (t[16] = g)) : (g = t[16]);
-      var h;
-      t[17] !== l || t[18] !== f || t[19] !== g
-        ? ((h = s.jsx(o("ReactKonva").Circle, {
-            x: f,
-            y: g,
-            radius: l,
+            x: a.getX(),
+            y: a.getY(),
+            radius: i,
+          }),
+          s.jsx(o("ReactKonva").Circle, {
+            x: r.getX(),
+            y: r.getY(),
+            radius: i,
             stroke: "white",
-          })),
-          (t[17] = l),
-          (t[18] = f),
-          (t[19] = g),
-          (t[20] = h))
-        : (h = t[20]);
-      var b;
-      t[21] !== a ? ((b = a.getX()), (t[21] = a), (t[22] = b)) : (b = t[22]);
-      var v;
-      t[23] !== a ? ((v = a.getY()), (t[23] = a), (t[24] = v)) : (v = t[24]);
-      var S = l * 4,
-        R;
-      t[25] !== S || t[26] !== b || t[27] !== v
-        ? ((R = s.jsx(o("ReactKonva").Circle, {
+          }),
+          s.jsx(o("ReactKonva").Circle, {
             name: y,
-            x: b,
-            y: v,
-            radius: S,
-          })),
-          (t[25] = S),
-          (t[26] = b),
-          (t[27] = v),
-          (t[28] = R))
-        : (R = t[28]);
-      var L;
-      return (
-        t[29] !== u || t[30] !== R || t[31] !== p || t[32] !== h
-          ? ((L = s.jsxs(s.Fragment, { children: [c, p, h, R] })),
-            (t[29] = u),
-            (t[30] = R),
-            (t[31] = p),
-            (t[32] = h),
-            (t[33] = L))
-          : (L = t[33]),
-        L
-      );
+            x: r.getX(),
+            y: r.getY(),
+            radius: i * 4,
+          }),
+        ],
+      });
     }
-    l.default = b;
+    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = b));
   },
   98,
 );

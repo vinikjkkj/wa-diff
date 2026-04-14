@@ -28,7 +28,6 @@ __d(
     "asyncToGeneratorRuntime",
     "qpl",
     "react",
-    "react-compiler-runtime",
     "useWAWebContactValues",
     "useWAWebDebouncedCallback",
     "useWAWebForceUpdate",
@@ -47,156 +46,72 @@ __d(
       g = m.useState,
       h = r("qpl")._(774780089, "3436");
     function y(e) {
-      var t = o("react-compiler-runtime").c(32),
-        n = e.canManageCatalog,
-        a = e.cartEnabled,
-        i = e.catalog,
-        l = e.catalogFetchState,
-        u = e.collection,
-        c = e.collectionFlatListController,
-        m = e.dataSource,
-        p = e.handleCartClick,
-        _ = e.loadingMore,
-        f = e.onCartClick,
-        g = e.onEditCollection,
-        h = e.onProductDetail,
-        y = e.onProductShare,
-        C = a && f ? p : void 0;
-      if (!i || !m) {
-        var b;
-        return (
-          t[0] !== l
-            ? ((b = d.jsx(r("WAWebProductCatalogFetchStateTopBar.react"), {
-                fetchState: l,
-              })),
-              (t[0] = l),
-              (t[1] = b))
-            : (b = t[1]),
-          b
-        );
-      }
-      var v;
-      t[2] !== m ? ((v = m.getData()), (t[2] = m), (t[3] = v)) : (v = t[3]);
-      var S = v;
-      if (S.length === 0 && !_ && n && u) {
-        var R;
-        t[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((R = { className: "x1okw0bk x12xbjc7 x6ikm8r x10wlt62" }),
-            (t[4] = R))
-          : (R = t[4]);
-        var L;
-        t[5] !== u || t[6] !== g
-          ? ((L = d.jsx(r("WAWebManageAddItemCta.react"), {
+      var t = e.canManageCatalog,
+        n = e.cartEnabled,
+        a = e.catalog,
+        i = e.catalogFetchState,
+        l = e.collection,
+        u = e.collectionFlatListController,
+        c = e.dataSource,
+        m = e.handleCartClick,
+        p = e.loadingMore,
+        _ = e.onCartClick,
+        f = e.onEditCollection,
+        g = e.onProductDetail,
+        h = e.onProductShare,
+        y = n && _ ? m : void 0;
+      if (!a || !c)
+        return d.jsx(r("WAWebProductCatalogFetchStateTopBar.react"), {
+          fetchState: i,
+        });
+      var C = c.getData();
+      if (C.length === 0 && !p && t && l)
+        return d.jsxs("div", {
+          className: "x1okw0bk x12xbjc7 x6ikm8r x10wlt62",
+          children: [
+            d.jsx(r("WAWebManageAddItemCta.react"), {
               theme: "collections",
               onClick: function () {
-                g == null || g(u);
+                f == null || f(l);
               },
               testid: void 0,
-            })),
-            (t[5] = u),
-            (t[6] = g),
-            (t[7] = L))
-          : (L = t[7]);
-        var E;
-        t[8] === Symbol.for("react.memo_cache_sentinel")
-          ? ((E = d.jsx("div", {
+            }),
+            d.jsx("div", {
               className: "xqy66fx x1q3ajuy xr1496l x1gx403c x101yacv",
               children: s._(
                 /*BTDS*/ "This collection won't be visible to customers until you add at least 1 item",
               ),
-            })),
-            (t[8] = E))
-          : (E = t[8]);
-        var k;
-        return (
-          t[9] !== L
-            ? ((k = d.jsxs(
-                "div",
-                babelHelpers.extends({}, R, { children: [L, E] }),
-              )),
-              (t[9] = L),
-              (t[10] = k))
-            : (k = t[10]),
-          k
-        );
-      }
-      var I;
-      t[11] !== (u == null ? void 0 : u.id)
-        ? ((I = u == null ? void 0 : u.id.toString()),
-          (t[11] = u == null ? void 0 : u.id),
-          (t[12] = I))
-        : (I = t[12]);
-      var T;
-      t[13] !== n ||
-      t[14] !== i ||
-      t[15] !== c ||
-      t[16] !== S ||
-      t[17] !== C ||
-      t[18] !== h ||
-      t[19] !== y ||
-      t[20] !== I
-        ? ((T = d.jsx(r("WAWebProductCollectionsList.react"), {
-            onCartOpen: C,
-            onProductDetail: h,
-            flatListController: c,
-            catalog: i,
-            canManageCatalog: n,
-            shareLinks: n,
-            onProductShare: y,
-            collectionId: I,
-            data: S,
-          })),
-          (t[13] = n),
-          (t[14] = i),
-          (t[15] = c),
-          (t[16] = S),
-          (t[17] = C),
-          (t[18] = h),
-          (t[19] = y),
-          (t[20] = I),
-          (t[21] = T))
-        : (T = t[21]);
-      var D = T,
-        x;
-      t[22] !== u || t[23] !== g
-        ? ((x = u
-            ? d.jsx(
-                o("WAWebManageCollectionIntegrityBanner.react")
-                  .CollectionIntegrityBanner,
-                { collection: u, onEditCollection: g },
-              )
-            : void 0),
-          (t[22] = u),
-          (t[23] = g),
-          (t[24] = x))
-        : (x = t[24]);
-      var $ = x,
-        P;
-      t[25] === Symbol.for("react.memo_cache_sentinel")
-        ? ((P = { className: "x1okw0bk x12xbjc7 x6ikm8r x10wlt62" }),
-          (t[25] = P))
-        : (P = t[25]);
-      var N;
-      t[26] !== _
-        ? ((N = _ && d.jsx(r("WAWebFlatListLoadingSpinnerItem.react"), {})),
-          (t[26] = _),
-          (t[27] = N))
-        : (N = t[27]);
-      var M;
-      return (
-        t[28] !== $ || t[29] !== D || t[30] !== N
-          ? ((M = d.jsxs(
-              "div",
-              babelHelpers.extends({}, P, { children: [$, D, N] }),
-            )),
-            (t[28] = $),
-            (t[29] = D),
-            (t[30] = N),
-            (t[31] = M))
-          : (M = t[31]),
-        M
-      );
+            }),
+          ],
+        });
+      var b = d.jsx(r("WAWebProductCollectionsList.react"), {
+          onCartOpen: y,
+          onProductDetail: g,
+          flatListController: u,
+          catalog: a,
+          canManageCatalog: t,
+          shareLinks: t,
+          onProductShare: h,
+          collectionId: l == null ? void 0 : l.id.toString(),
+          data: C,
+        }),
+        v = l
+          ? d.jsx(
+              o("WAWebManageCollectionIntegrityBanner.react")
+                .CollectionIntegrityBanner,
+              { collection: l, onEditCollection: f },
+            )
+          : void 0;
+      return d.jsxs("div", {
+        className: "x1okw0bk x12xbjc7 x6ikm8r x10wlt62",
+        children: [
+          v,
+          b,
+          p && d.jsx(r("WAWebFlatListLoadingSpinnerItem.react"), {}),
+        ],
+      });
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     function C(t) {
       "use no forget";
       var a,

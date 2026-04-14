@@ -47,7 +47,7 @@ __d(
           .ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[test only - not production issue] mc_migration_regression: test crashlog for bucket ",
+                "[test-only] mc_migration_regression crashlog bucket ",
                 "",
               ])),
             t,

@@ -12,7 +12,6 @@ __d(
     "WAWebVelocityTransitionGroup",
     "WDSFocusStateStyles",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
     "useWAWebStaticButtonA11y",
@@ -31,71 +30,39 @@ __d(
       y = m.useState,
       C = { buttonMargin: { marginInlineStart: "x150mmf0", $$css: !0 } };
     function b(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n;
-      t[0] !== e.xstyle
-        ? ((n = [r("WAWebMenuBarStyles").itemChild, e.xstyle]),
-          (t[0] = e.xstyle),
-          (t[1] = n))
-        : (n = t[1]);
-      var a;
-      return (
-        t[2] !== e || t[3] !== n
-          ? ((a = d.jsx(
-              r("WAWebVelocityTransitionGroup"),
-              babelHelpers.extends({}, e, { xstyle: n }),
-            )),
-            (t[2] = e),
-            (t[3] = n),
-            (t[4] = a))
-          : (a = t[4]),
-        a
+      return d.jsx(
+        r("WAWebVelocityTransitionGroup"),
+        babelHelpers.extends({}, e, {
+          xstyle: [r("WAWebMenuBarStyles").itemChild, e.xstyle],
+        }),
       );
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     var v = p({});
     function S(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.children,
-        a = e.gap,
-        i = e.theme,
-        l;
-      t[0] !== a || t[1] !== i
-        ? ((l = (u || (u = r("stylex")))(
-            r("WAWebMenuBarStyles").menu,
-            i == null && r("WAWebMenuBarStyles").menuDefault,
-            i === "strong" && r("WAWebMenuBarStyles").menuStrong,
-            i === "inverse" && r("WAWebMenuBarStyles").menuInverse,
-            i === "nav-bar" && r("WAWebMenuBarStyles").menuNavBar,
-            a === "single" && r("WAWebMenuBarStyles").menuGapSingle,
-          )),
-          (t[0] = a),
-          (t[1] = i),
-          (t[2] = l))
-        : (l = t[2]);
-      var s = l,
-        c;
-      t[3] !== i
-        ? ((c = i ? { theme: i } : {}), (t[3] = i), (t[4] = c))
-        : (c = t[4]);
-      var m = c,
-        p;
-      t[5] !== n || t[6] !== s
-        ? ((p = d.jsx("div", { className: s, children: n })),
-          (t[5] = n),
-          (t[6] = s),
-          (t[7] = p))
-        : (p = t[7]);
-      var _;
-      return (
-        t[8] !== m || t[9] !== p
-          ? ((_ = d.jsx(v.Provider, { value: m, children: p })),
-            (t[8] = m),
-            (t[9] = p),
-            (t[10] = _))
-          : (_ = t[10]),
-        _
-      );
+      var t = e.children,
+        n = e.gap,
+        o = e.theme,
+        a = (u || (u = r("stylex")))(
+          r("WAWebMenuBarStyles").menu,
+          o == null && r("WAWebMenuBarStyles").menuDefault,
+          o === "strong" && r("WAWebMenuBarStyles").menuStrong,
+          o === "inverse" && r("WAWebMenuBarStyles").menuInverse,
+          o === "nav-bar" && r("WAWebMenuBarStyles").menuNavBar,
+          n === "single" && r("WAWebMenuBarStyles").menuGapSingle,
+        ),
+        i = g(
+          function () {
+            return o ? { theme: o } : {};
+          },
+          [o],
+        );
+      return d.jsx(v.Provider, {
+        value: i,
+        children: d.jsx("div", { className: a, children: t }),
+      });
     }
+    S.displayName = S.name + " [from " + i.id + "]";
     var R = -10;
     function L(t) {
       var n = t.ref,

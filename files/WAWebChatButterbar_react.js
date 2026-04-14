@@ -35,7 +35,6 @@ __d(
     "cr:5735",
     "gkx",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebABPropConfigValue",
     "useWAWebForceUpdate",
@@ -387,23 +386,14 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.setShowButterBar,
-        a;
-      return (
-        t[0] !== n
-          ? ((a = c.jsx(g, {
-              stream: o("WAWebStreamModel").Stream,
-              notice: r("WAWebNoticeModel"),
-              setShowButterBar: n,
-            })),
-            (t[0] = n),
-            (t[1] = a))
-          : (a = t[1]),
-        a
-      );
+      var t = e.setShowButterBar;
+      return c.jsx(g, {
+        stream: o("WAWebStreamModel").Stream,
+        notice: r("WAWebNoticeModel"),
+        setShowButterBar: t,
+      });
     }
-    l.default = h;
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
   },
   226,
 );

@@ -11,12 +11,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = s || (s = o("react")),
-      c = e || (e = r("react")),
-      d = u.useContext,
-      m = u.useMemo;
-    function p(e) {
+      s = e || (e = o("react")),
+      u = e,
+      c = u.useContext,
+      d = u.useMemo;
+    function m(e) {
       var t,
         n = o("react-compiler-runtime").c(8),
         a = e.viewModel,
@@ -24,29 +23,29 @@ __d(
           "CometComposedTextV2URParserContext.react",
         ).useCometComposedTextV2URParserContext(),
         l = i.markedTokenizeOptions,
-        s = i.renderers,
-        u = d(o("CometAIThemeProvider.react").CometAIThemeContext),
-        m = u.displayMode,
+        u = i.renderers,
+        d = c(o("CometAIThemeProvider.react").CometAIThemeContext),
+        m = d.displayMode,
         p =
-          (t = s.contentViewRenderer) == null
+          (t = u.contentViewRenderer) == null
             ? void 0
             : t.contentTriggerTextValues,
         _;
       n[0] !== p ||
       n[1] !== m ||
       n[2] !== l ||
-      n[3] !== s ||
+      n[3] !== u ||
       n[4] !== a.primitive
         ? ((_ = r("cometComposedTextV2GenAiUxPrimitiveParser")(a.primitive, {
             contentTriggerTextValues: p,
             displayMode: m,
             markedTokenizeOptions: l,
-            renderers: s,
+            renderers: u,
           })),
           (n[0] = p),
           (n[1] = m),
           (n[2] = l),
-          (n[3] = s),
+          (n[3] = u),
           (n[4] = a.primitive),
           (n[5] = _))
         : (_ = n[5]);
@@ -55,7 +54,7 @@ __d(
       var g;
       return (
         n[6] !== f
-          ? ((g = c.jsx(r("CometComposedTextV2RendererWithStableKeys.react"), {
+          ? ((g = s.jsx(r("CometComposedTextV2RendererWithStableKeys.react"), {
               root: f,
             })),
             (n[6] = f),
@@ -64,7 +63,7 @@ __d(
         g
       );
     }
-    l.default = p;
+    l.default = m;
   },
   98,
 );

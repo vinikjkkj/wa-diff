@@ -5,7 +5,6 @@ __d(
     "WAWebLinkDeviceCommonInstructions.react",
     "WAWebLinkDeviceInstructionsList.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -47,49 +46,23 @@ __d(
       ];
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.codeType,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = []), (t[0] = a))
-        : (a = t[0]);
-      var i = a;
-      e: switch (n) {
+      var t = e.codeType,
+        n = [];
+      switch (t) {
+        case o("WAWebLinkDeviceCodeViewCodeType").LinkDeviceCodeViewCodeType.QR:
+          n = u();
+          break;
         case o("WAWebLinkDeviceCodeViewCodeType").LinkDeviceCodeViewCodeType
-          .QR: {
-          var l;
-          (t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((l = u()), (t[1] = l))
-            : (l = t[1]),
-            (i = l));
-          break e;
-        }
-        case o("WAWebLinkDeviceCodeViewCodeType").LinkDeviceCodeViewCodeType
-          .PHONE_NUMBER_LINK_CODE: {
-          var d;
-          (t[2] === Symbol.for("react.memo_cache_sentinel")
-            ? ((d = c()), (t[2] = d))
-            : (d = t[2]),
-            (i = d));
-        }
+          .PHONE_NUMBER_LINK_CODE:
+          n = c();
+          break;
       }
-      var m = i,
-        p = String(n),
-        _;
-      return (
-        t[3] !== i || t[4] !== p
-          ? ((_ = s.jsx(r("WAWebLinkDeviceInstructionsList.react"), {
-              instructions: m,
-              instructionSource: p,
-            })),
-            (t[3] = i),
-            (t[4] = p),
-            (t[5] = _))
-          : (_ = t[5]),
-        _
-      );
+      return s.jsx(r("WAWebLinkDeviceInstructionsList.react"), {
+        instructions: n,
+        instructionSource: String(t),
+      });
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

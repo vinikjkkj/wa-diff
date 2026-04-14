@@ -21,7 +21,6 @@ __d(
     "asyncToGeneratorRuntime",
     "qpl",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -88,15 +87,9 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = c.jsx(r("WAWebFlexItem.react"), { grow: 1 })), (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return c.jsx(r("WAWebFlexItem.react"), { grow: 1 });
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     var b = r("qpl")._(701185297, "3420"),
       v = r("qpl")._(701183376, "3423");
     function S(t) {

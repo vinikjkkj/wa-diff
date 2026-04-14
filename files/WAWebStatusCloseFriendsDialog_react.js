@@ -2,8 +2,11 @@ __d(
   "WAWebStatusCloseFriendsDialog.react",
   [
     "fbt",
+    "WAWebClickableLink.react",
     "WAWebConfirmPopup.react",
     "WAWebDetailImage.react",
+    "WAWebExternalLink.react",
+    "WAWebFaqUrl",
     "WAWebFlex.react",
     "WAWebModal.react",
     "WAWebModalManager",
@@ -143,12 +146,43 @@ __d(
                   colorName: "contentDeemphasized",
                   children: i
                     ? s._(
-                        /*BTDS*/ 'People you added to " {list_name} " can see the audience name and emoji. Learn more',
-                        [s._param("list_name", a)],
+                        /*BTDS*/ 'People you added to " {list_name} " can see the audience name and emoji. {learn_more}',
+                        [
+                          s._param("list_name", a),
+                          s._param(
+                            "learn_more",
+                            u.jsx(r("WAWebClickableLink.react"), {
+                              onClick: function () {
+                                return o(
+                                  "WAWebExternalLink.react",
+                                ).openExternalLink(
+                                  o("WAWebFaqUrl").getCloseFriendLearnMoreUrl(),
+                                );
+                              },
+                              children: s._(/*BTDS*/ "Learn more"),
+                            }),
+                          ),
+                        ],
                       )
                     : s._(
-                        /*BTDS*/ 'Only people {contact_name} added to " {list_name} " can see this status. Learn more',
-                        [s._param("contact_name", t), s._param("list_name", a)],
+                        /*BTDS*/ 'Only people {contact_name} added to " {list_name} " can see this status. {learn_more}',
+                        [
+                          s._param("contact_name", t),
+                          s._param("list_name", a),
+                          s._param(
+                            "learn_more",
+                            u.jsx(r("WAWebClickableLink.react"), {
+                              onClick: function () {
+                                return o(
+                                  "WAWebExternalLink.react",
+                                ).openExternalLink(
+                                  o("WAWebFaqUrl").getCloseFriendLearnMoreUrl(),
+                                );
+                              },
+                              children: s._(/*BTDS*/ "Learn more"),
+                            }),
+                          ),
+                        ],
                       ),
                 }),
               ],

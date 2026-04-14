@@ -6,7 +6,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebUseBusinessProfile.react",
     "WAWebUserPrefsMeUser",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
     "useWAWebOptionalBotProfileValues",
   ],
@@ -18,37 +17,27 @@ __d(
       return t || n;
     }
     function s(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n;
+      var t;
       o("WAWebMsgGetters").getIsGroupMsg(e) ||
-        (n = o("WAWebUserPrefsMeUser").isMeAccount(e.from) ? e.to : e.from);
-      var r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = ["commands"]), (t[0] = r))
-        : (r = t[0]);
-      var a = o("WAWebUseBusinessProfile.react").useBusinessProfile(n, r);
-      return a == null ? void 0 : a.commands;
+        (t = o("WAWebUserPrefsMeUser").isMeAccount(e.from) ? e.to : e.from);
+      var n = o("WAWebUseBusinessProfile.react").useBusinessProfile(t, [
+        "commands",
+      ]);
+      return n == null ? void 0 : n.commands;
     }
     function u(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      e.id.remote.isBot() ? (n = e.id.remote) : (n = e.invokedBotWid);
-      var r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = [o("WAWebMsgGetters").getIsBotQuery]), (t[0] = r))
-        : (r = t[0]);
-      var a = o("useWAWebMsgValues").useMsgValues(e.id, r),
-        i = a[0],
-        l;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = [o("WAWebBotProfileGetters").getCommands]), (t[1] = l))
-        : (l = t[1]);
-      var s = o("useWAWebOptionalBotProfileValues").useOptionalBotProfileValues(
-          n,
-          l,
+      var t;
+      e.id.remote.isBot() ? (t = e.id.remote) : (t = e.invokedBotWid);
+      var n = o("useWAWebMsgValues").useMsgValues(e.id, [
+          o("WAWebMsgGetters").getIsBotQuery,
+        ]),
+        r = n[0],
+        a = o("useWAWebOptionalBotProfileValues").useOptionalBotProfileValues(
+          t,
+          [o("WAWebBotProfileGetters").getCommands],
         ),
-        u = s[0];
-      return !o("WAWebBotBaseGating").isBotEnabled() || !i ? null : u;
+        i = a[0];
+      return !o("WAWebBotBaseGating").isBotEnabled() || !r ? null : i;
     }
     l.useBotCommands = e;
   },

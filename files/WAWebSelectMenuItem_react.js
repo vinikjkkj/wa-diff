@@ -11,7 +11,6 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebSet",
   ],
@@ -126,78 +125,38 @@ __d(
       }
     }
     function b(t) {
-      var n = o("react-compiler-runtime").c(19),
-        a,
-        i,
-        l,
-        s,
-        c;
-      n[0] !== t
-        ? ((a = t.middlecontainerXStyle),
-          (i = t.onMouseEnter),
-          (l = t.onMouseLeave),
-          (c = t.theme),
-          (s = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i),
-          (n[3] = l),
-          (n[4] = s),
-          (n[5] = c))
-        : ((a = n[1]), (i = n[2]), (l = n[3]), (s = n[4]), (c = n[5]));
-      var d = c === void 0 ? "select" : c,
-        m = p(g);
-      if (m == null)
+      var n = t.middlecontainerXStyle,
+        a = t.onMouseEnter,
+        i = t.onMouseLeave,
+        l = t.theme,
+        s = l === void 0 ? "select" : l,
+        c = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        d = p(g);
+      if (d == null)
         throw r("err")(
           "[menu] `SelectMenuItem` must be used inside of a `SelectMenuItemGroup`",
         );
-      var _, f;
-      if (
-        n[6] !== s.optionId ||
-        n[7] !== m.isMultiselect ||
-        n[8] !== m.selection ||
-        n[9] !== d
-      ) {
-        var h = m.selection.has(s.optionId);
-        (m.isMultiselect
-          ? ((f = "multi-select"), (_ = y(h, d)))
-          : ((f = "single-select"), (_ = C(h, d))),
-          (n[6] = s.optionId),
-          (n[7] = m.isMultiselect),
-          (n[8] = m.selection),
-          (n[9] = d),
-          (n[10] = _),
-          (n[11] = f));
-      } else ((_ = n[10]), (f = n[11]));
-      var b;
+      var m = d.selection.has(c.optionId),
+        _,
+        f;
       return (
-        n[12] !== _ ||
-        n[13] !== a ||
-        n[14] !== i ||
-        n[15] !== l ||
-        n[16] !== s ||
-        n[17] !== f
-          ? ((b = u.jsx(
-              o("WAWebCellMenuItem.react").CellV2MenuItem,
-              babelHelpers.extends({ detailRight: _ }, s, {
-                middleContainerXStyle: a,
-                onMouseEnter: i,
-                onMouseLeave: l,
-                type: f,
-              }),
-            )),
-            (n[12] = _),
-            (n[13] = a),
-            (n[14] = i),
-            (n[15] = l),
-            (n[16] = s),
-            (n[17] = f),
-            (n[18] = b))
-          : (b = n[18]),
-        b
+        d.isMultiselect
+          ? ((_ = "multi-select"), (f = y(m, s)))
+          : ((_ = "single-select"), (f = C(m, s))),
+        u.jsx(
+          o("WAWebCellMenuItem.react").CellV2MenuItem,
+          babelHelpers.extends({ detailRight: f }, c, {
+            middleContainerXStyle: n,
+            onMouseEnter: a,
+            onMouseLeave: i,
+            type: _,
+          }),
+        )
       );
     }
-    ((l.SelectMenuItemGroup = h), (l.SelectMenuItem = b));
+    ((b.displayName = b.name + " [from " + i.id + "]"),
+      (l.SelectMenuItemGroup = h),
+      (l.SelectMenuItem = b));
   },
   98,
 );

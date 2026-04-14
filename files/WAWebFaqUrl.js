@@ -390,6 +390,9 @@ __d(
     function Rt() {
       return u(0x566e31f78e0b2);
     }
+    function Lt() {
+      return u(0x769e543c0aed3);
+    }
     ((l.FAQ_BASE_URL = e),
       (l.PLATFORM = s),
       (l.getFullUrl = u),
@@ -514,7 +517,8 @@ __d(
       (l.getHatchLearnMoreUrl = bt),
       (l.getBusinessBroadcastsLearnMoreUrl = vt),
       (l.getFirstTimeSMBCoexCallingLearnMoreUrl = St),
-      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Rt));
+      (l.getFirstTimeConsumerCoexCallingLearnMoreUrl = Rt),
+      (l.getCloseFriendLearnMoreUrl = Lt));
   },
   98,
 );

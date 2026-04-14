@@ -26,7 +26,6 @@ __d(
     "WDSIconIcMood.react",
     "escapeRegex",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebModelValues",
     "useWAWebMsgValues",
@@ -109,403 +108,200 @@ __d(
       },
       p = 8;
     function _(t) {
-      var n = o("react-compiler-runtime").c(18),
-        a = t.onEmoji,
-        i = t.onFocusNext,
-        l = t.onFocusPrev,
-        u = t.xstyle,
-        m = d(null),
-        p = m[0],
-        _ = m[1],
-        f;
-      n[0] !== a || n[1] !== i || n[2] !== l
-        ? ((f = function (t) {
-            (t.preventDefault(), t.stopPropagation());
-            var e = c.jsx(r("WAWebEmojiPanel.react"), {
-              onEmoji: a,
-              onFocusNext: i,
-              onFocusPrev: l,
-            });
-            _({
-              menu: e,
-              dirY: o("WAWebDropdown.react").DirY.TOP,
-              type: o("WAWebDropdown.react").MenuType.EmojiPicker,
-              anchor: t.target,
-            });
-          }),
-          (n[0] = a),
-          (n[1] = i),
-          (n[2] = l),
-          (n[3] = f))
-        : (f = n[3]);
-      var g = f,
-        h;
-      n[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = function () {
-            _(null);
-          }),
-          (n[4] = h))
-        : (h = n[4]);
-      var y = h,
-        C = r("useWAWebStaticButtonA11y")(g),
-        b = C[0],
-        v = C[1],
-        S;
-      n[5] !== u
-        ? ((S = (e || (e = r("stylex")))(u)), (n[5] = u), (n[6] = S))
-        : (S = n[6]);
-      var R;
-      n[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = s._(/*BTDS*/ "Open emojis panel")), (n[7] = R))
-        : (R = n[7]);
-      var L;
-      n[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = c.jsx(r("WDSIconIcMood.react"), {})), (n[8] = L))
-        : (L = n[8]);
-      var E;
-      n[9] !== v || n[10] !== b || n[11] !== S
-        ? ((E = c.jsx(
-            "div",
-            babelHelpers.extends({ ref: b, className: S, title: R }, v, {
-              children: L,
-            }),
-          )),
-          (n[9] = v),
-          (n[10] = b),
-          (n[11] = S),
-          (n[12] = E))
-        : (E = n[12]);
-      var k = E,
-        I = null;
-      if (p) {
-        var T;
-        (n[13] !== p
-          ? ((T = c.jsx(o("WAWebUimUie.react").UIE, {
-              displayName: "EmojiPicker",
-              escapable: !0,
-              popable: !0,
-              dismissOnWindowResize: !0,
-              requestDismiss: y,
-              children: c.jsx(r("WAWebUimUieMenu.react"), { contextMenu: p }),
-            })),
-            (n[13] = p),
-            (n[14] = T))
-          : (T = n[14]),
-          (I = T));
-      }
-      var D;
+      var n = t.onEmoji,
+        a = t.onFocusNext,
+        i = t.onFocusPrev,
+        l = t.xstyle,
+        u = d(null),
+        m = u[0],
+        p = u[1],
+        _ = function (t) {
+          (t.preventDefault(), t.stopPropagation());
+          var e = c.jsx(r("WAWebEmojiPanel.react"), {
+            onEmoji: n,
+            onFocusNext: a,
+            onFocusPrev: i,
+          });
+          p({
+            menu: e,
+            dirY: o("WAWebDropdown.react").DirY.TOP,
+            type: o("WAWebDropdown.react").MenuType.EmojiPicker,
+            anchor: t.target,
+          });
+        },
+        f = function () {
+          p(null);
+        },
+        g = r("useWAWebStaticButtonA11y")(_),
+        h = g[0],
+        y = g[1],
+        C = c.jsx(
+          "div",
+          babelHelpers.extends(
+            {
+              ref: h,
+              className: (e || (e = r("stylex")))(l),
+              title: s._(/*BTDS*/ "Open emojis panel"),
+            },
+            y,
+            { children: c.jsx(r("WDSIconIcMood.react"), {}) },
+          ),
+        ),
+        b = null;
       return (
-        n[15] !== k || n[16] !== I
-          ? ((D = c.jsxs(c.Fragment, { children: [k, I] })),
-            (n[15] = k),
-            (n[16] = I),
-            (n[17] = D))
-          : (D = n[17]),
-        D
+        m &&
+          (b = c.jsx(o("WAWebUimUie.react").UIE, {
+            displayName: "EmojiPicker",
+            escapable: !0,
+            popable: !0,
+            dismissOnWindowResize: !0,
+            requestDismiss: f,
+            children: c.jsx(r("WAWebUimUieMenu.react"), { contextMenu: m }),
+          })),
+        c.jsxs(c.Fragment, { children: [C, b] })
       );
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.disabled,
-        a = e.onClick,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = s._(/*BTDS*/ "Send edited message")), (t[0] = i))
-        : (i = t[0]);
-      var l;
-      return (
-        t[1] !== n || t[2] !== a
-          ? ((l = c.jsx(r("WDSButton.react"), {
-              testid: void 0,
-              onPress: a,
-              Icon: o("WAWebWebIcCheckIcon.react").WebIcCheckIcon,
-              disabled: n,
-              variant: "filled",
-              size: "medium",
-              "aria-label": i,
-            })),
-            (t[1] = n),
-            (t[2] = a),
-            (t[3] = l))
-          : (l = t[3]),
-        l
-      );
+      var t = e.disabled,
+        n = e.onClick;
+      return c.jsx(r("WDSButton.react"), {
+        testid: void 0,
+        onPress: n,
+        Icon: o("WAWebWebIcCheckIcon.react").WebIcCheckIcon,
+        disabled: t,
+        variant: "filled",
+        size: "medium",
+        "aria-label": s._(/*BTDS*/ "Send edited message"),
+      });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       var t,
-        n = o("react-compiler-runtime").c(62),
-        a = e.disableConfirmButton,
-        i = e.initialLinkPreview,
-        l = e.msg,
-        s = e.onConfirm,
-        u = e.onInputChange,
-        g = e.onLinkPreviewChange,
-        y;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = [
-            o("WAWebFrontendMsgGetters").getText,
-            o("WAWebMsgGetters").getCaption,
-          ]),
-          (n[0] = y))
-        : (y = n[0]);
-      var C = o("useWAWebMsgValues").useMsgValues(l.id, y),
-        b = C[0],
-        v = C[1],
-        S;
-      n[1] !== l
-        ? ((S = o("WAWebFrontendMsgGetters").getChat(l.unsafe())),
-          (n[1] = l),
-          (n[2] = S))
-        : (S = n[2]);
-      var R = S,
-        L = d((t = b != null ? b : v) != null ? t : ""),
+        n = e.disableConfirmButton,
+        a = e.initialLinkPreview,
+        i = e.msg,
+        l = e.onConfirm,
+        s = e.onInputChange,
+        u = e.onLinkPreviewChange,
+        g = o("useWAWebMsgValues").useMsgValues(i.id, [
+          o("WAWebFrontendMsgGetters").getText,
+          o("WAWebMsgGetters").getCaption,
+        ]),
+        y = g[0],
+        C = g[1],
+        b = o("WAWebFrontendMsgGetters").getChat(i.unsafe()),
+        v = d((t = y != null ? y : C) != null ? t : ""),
+        S = v[0],
+        R = v[1],
+        L = d(),
         E = L[0],
         k = L[1],
-        I = d(),
-        T = I[0],
-        D = I[1],
-        x,
-        $;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((x = r("WAWebChatPreferenceCollection").getDefault()),
-          ($ = ["spellcheck", "transformTextEmoji", "enterIsSend"]),
-          (n[3] = x),
-          (n[4] = $))
-        : ((x = n[3]), ($ = n[4]));
-      var P = o("useWAWebModelValues").useModelValues(x, $),
-        N;
-      n[5] !== T
-        ? ((N = function (t) {
-            T && (T.focus(), T.replaceSelection(t));
-          }),
-          (n[5] = T),
-          (n[6] = N))
-        : (N = n[6]);
-      var M = N,
-        w;
-      n[7] !== T
-        ? ((w = function () {
-            T && T.focus();
-          }),
-          (n[7] = T),
-          (n[8] = w))
-        : (w = n[8]);
-      var A = w,
-        F;
-      n[9] !== u
-        ? ((F = function (t) {
-            (k(t.text), u(t));
-          }),
-          (n[9] = u),
-          (n[10] = F))
-        : (F = n[10]);
-      var O = F,
-        B,
-        W;
-      n[11] !== l.type
-        ? ((W = o("WAWebMessageEditUtils").getMsgEditType(l.type)),
-          (n[11] = l.type),
-          (n[12] = W))
-        : (W = n[12]);
-      var q = W;
-      if (q === o("WAWebMessageEditUtils").MsgEditType.TextEdit) {
-        var U;
-        (n[13] !== R || n[14] !== i || n[15] !== g || n[16] !== E
-          ? ((U = c.jsx(r("WAWebMessageEditLinkPreviewPanel.react"), {
-              chat: R,
-              text: E,
-              onChange: g,
-              initialLinkPreview: i,
-            })),
-            (n[13] = R),
-            (n[14] = i),
-            (n[15] = g),
-            (n[16] = E),
-            (n[17] = U))
-          : (U = n[17]),
-          (B = U));
-      }
-      var V = q === o("WAWebMessageEditUtils").MsgEditType.CaptionEdit,
-        H;
-      n[18] !== R || n[19] !== V
-        ? ((H = o("WAWebComposeBoxUtils").getComposeBoxPlaceholderText({
-            chat: R,
-            isEditingCaption: V,
-          })),
-          (n[18] = R),
-          (n[19] = V),
-          (n[20] = H))
-        : (H = n[20]);
-      var G = H,
-        z;
-      n[21] !== l ? ((z = h(l)), (n[21] = l), (n[22] = z)) : (z = n[22]);
-      var j = P.spellcheck,
-        K = !P.enterIsSend,
-        Q;
-      n[23] !== R.groupMetadata || n[24] !== P.transformTextEmoji
-        ? ((Q = c.jsx(r("WAWebRichTextInputPlugins.react"), {
-            groupMetadata: R.groupMetadata,
-            transformTextEmoji: P.transformTextEmoji,
-            textFormatEnabled: !0,
-            bulletPointsEnabled: !0,
-            numberedListEnabled: !0,
-            inlineCodeEnabled: !0,
-            blockQuoteEnabled: !0,
-            internLinksEnabled: !0,
-            phoneNumbersEnabled: !0,
-            linksEnabled: !0,
-            textFormatShortcutsEnabled: !0,
-            floatingToolbarEnabled: !0,
-          })),
-          (n[23] = R.groupMetadata),
-          (n[24] = P.transformTextEmoji),
-          (n[25] = Q))
-        : (Q = n[25]);
-      var X;
-      n[26] === Symbol.for("react.memo_cache_sentinel")
-        ? ((X = c.jsx(r("WAWebEmojiPickerPlugin"), {})), (n[26] = X))
-        : (X = n[26]);
-      var Y;
-      n[27] !== R
-        ? ((Y = o("WAWebElevatedPushNamesFlag").elevatedPushNamesM2Enabled(R)),
-          (n[27] = R),
-          (n[28] = Y))
-        : (Y = n[28]);
-      var J;
-      n[29] !== R || n[30] !== Y
-        ? ((J = c.jsx(r("WAWebMentionPickerPlugin"), {
-            chat: R,
-            elevatedPushNamesEnabled: Y,
-            source: "message_edit",
-          })),
-          (n[29] = R),
-          (n[30] = Y),
-          (n[31] = J))
-        : (J = n[31]);
-      var Z;
-      n[32] !== P.spellcheck ||
-      n[33] !== O ||
-      n[34] !== s ||
-      n[35] !== G ||
-      n[36] !== z ||
-      n[37] !== K ||
-      n[38] !== Q ||
-      n[39] !== J
-        ? ((Z = c.jsxs(r("WAWebRichTextInput.react"), {
-            testid: void 0,
-            ref: D,
-            initialText: z,
-            xstyle: m.input,
-            onChange: O,
-            onEnter: s,
-            placeholder: G,
-            title: G,
-            maxLength: r("WAWebConstantsDeprecated").MAX_TXT_MSG_SIZE,
-            maxVisibleLines: p,
-            multiline: !0,
-            focusOnMount: !0,
-            spellCheck: j,
-            enterIsNewLine: K,
-            children: [Q, X, J],
-          })),
-          (n[32] = P.spellcheck),
-          (n[33] = O),
-          (n[34] = s),
-          (n[35] = G),
-          (n[36] = z),
-          (n[37] = K),
-          (n[38] = Q),
-          (n[39] = J),
-          (n[40] = Z))
-        : (Z = n[40]);
-      var ee = Z,
-        te;
-      n[41] === Symbol.for("react.memo_cache_sentinel")
-        ? ((te = [
+        I = o("useWAWebModelValues").useModelValues(
+          r("WAWebChatPreferenceCollection").getDefault(),
+          ["spellcheck", "transformTextEmoji", "enterIsSend"],
+        ),
+        T = function (t) {
+          E && (E.focus(), E.replaceSelection(t));
+        },
+        D = function () {
+          E && E.focus();
+        },
+        x = function (t) {
+          (R(t.text), s(t));
+        },
+        $ = null,
+        P,
+        N = o("WAWebMessageEditUtils").getMsgEditType(i.type);
+      N === o("WAWebMessageEditUtils").MsgEditType.TextEdit &&
+        (P = c.jsx(r("WAWebMessageEditLinkPreviewPanel.react"), {
+          chat: b,
+          text: S,
+          onChange: u,
+          initialLinkPreview: a,
+        }));
+      var M = o("WAWebComposeBoxUtils").getComposeBoxPlaceholderText({
+          chat: b,
+          isEditingCaption:
+            N === o("WAWebMessageEditUtils").MsgEditType.CaptionEdit,
+        }),
+        w = c.jsxs(r("WAWebRichTextInput.react"), {
+          testid: void 0,
+          ref: k,
+          initialText: h(i),
+          xstyle: m.input,
+          onChange: x,
+          onEnter: l,
+          placeholder: M,
+          title: M,
+          maxLength: r("WAWebConstantsDeprecated").MAX_TXT_MSG_SIZE,
+          maxVisibleLines: p,
+          multiline: !0,
+          focusOnMount: !0,
+          spellCheck: I.spellcheck,
+          enterIsNewLine: !I.enterIsSend,
+          children: [
+            c.jsx(r("WAWebRichTextInputPlugins.react"), {
+              groupMetadata: b.groupMetadata,
+              transformTextEmoji: I.transformTextEmoji,
+              textFormatEnabled: !0,
+              bulletPointsEnabled: !0,
+              numberedListEnabled: !0,
+              inlineCodeEnabled: !0,
+              blockQuoteEnabled: !0,
+              internLinksEnabled: !0,
+              phoneNumbersEnabled: !0,
+              linksEnabled: !0,
+              textFormatShortcutsEnabled: !0,
+              floatingToolbarEnabled: !0,
+            }),
+            c.jsx(r("WAWebEmojiPickerPlugin"), {}),
+            c.jsx(r("WAWebMentionPickerPlugin"), {
+              chat: b,
+              elevatedPushNamesEnabled: o(
+                "WAWebElevatedPushNamesFlag",
+              ).elevatedPushNamesM2Enabled(b),
+              source: "message_edit",
+            }),
+          ],
+        }),
+        A = c.jsx(_, {
+          xstyle: [
             m.emojiButton,
             m.emojiButtonRefreshed,
             o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-          ]),
-          (n[41] = te))
-        : (te = n[41]);
-      var ne;
-      n[42] !== M || n[43] !== A
-        ? ((ne = c.jsx(_, {
-            xstyle: te,
-            onEmoji: M,
-            onFocusNext: A,
-            onFocusPrev: A,
-          })),
-          (n[42] = M),
-          (n[43] = A),
-          (n[44] = ne))
-        : (ne = n[44]);
-      var re = ne,
-        oe;
-      n[45] !== a || n[46] !== s
-        ? ((oe = c.jsx(f, { onClick: s, disabled: a })),
-          (n[45] = a),
-          (n[46] = s),
-          (n[47] = oe))
-        : (oe = n[47]);
-      var ae = oe,
-        ie;
-      n[48] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ie = { className: "x1n2onr6 x1c4vz4f x2lah0s" }), (n[48] = ie))
-        : (ie = n[48]);
-      var le, se, ue;
-      n[49] === Symbol.for("react.memo_cache_sentinel")
-        ? ((le = [0, 20, 20, 20]),
-          (se = [2, 0, 8, 0]),
-          (ue = [m.composer, m.composerRefreshed]),
-          (n[49] = le),
-          (n[50] = se),
-          (n[51] = ue))
-        : ((le = n[49]), (se = n[50]), (ue = n[51]));
-      var ce;
-      n[52] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ce = [m.inputContainer, m.inputContainerRefreshed]), (n[52] = ce))
-        : (ce = n[52]);
-      var de;
-      n[53] !== ee
-        ? ((de = c.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: ce,
-            children: ee,
-          })),
-          (n[53] = ee),
-          (n[54] = de))
-        : (de = n[54]);
-      var me;
-      n[55] !== ae || n[56] !== re || n[57] !== de
-        ? ((me = c.jsxs(o("WAWebFlex.react").FlexRow, {
+          ],
+          onEmoji: T,
+          onFocusNext: D,
+          onFocusPrev: D,
+        }),
+        F = c.jsx(f, { onClick: l, disabled: n });
+      return c.jsxs("div", {
+        className: "x1n2onr6 x1c4vz4f x2lah0s",
+        children: [
+          P,
+          $,
+          c.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             alignSelf: "stretch",
             justify: "center",
             columnGap: 8,
-            margin: le,
-            padding: se,
-            xstyle: ue,
-            children: [de, re, ae],
-          })),
-          (n[55] = ae),
-          (n[56] = re),
-          (n[57] = de),
-          (n[58] = me))
-        : (me = n[58]);
-      var pe;
-      return (
-        n[59] !== B || n[60] !== me
-          ? ((pe = c.jsxs(
-              "div",
-              babelHelpers.extends({}, ie, { children: [B, null, me] }),
-            )),
-            (n[59] = B),
-            (n[60] = me),
-            (n[61] = pe))
-          : (pe = n[61]),
-        pe
-      );
+            margin: [0, 20, 20, 20],
+            padding: [2, 0, 8, 0],
+            xstyle: [m.composer, m.composerRefreshed],
+            children: [
+              c.jsx(o("WAWebFlex.react").FlexRow, {
+                xstyle: [m.inputContainer, m.inputContainerRefreshed],
+                children: w,
+              }),
+              A,
+              F,
+            ],
+          }),
+        ],
+      });
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
       var t,
         n,

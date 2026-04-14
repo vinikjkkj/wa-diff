@@ -4,20 +4,19 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = s || (s = r("react")),
-      c = (e || (e = o("react"))).createContext,
-      d = { fontSize: 15, lineGap: 9 },
-      m = c(d);
-    function p(e) {
+      s = e || (e = o("react")),
+      u = e.createContext,
+      c = { fontSize: 15, lineGap: 9 },
+      d = u(c);
+    function m(e) {
       var t = o("react-compiler-runtime").c(3),
         n = e.children,
         r = e.typography,
-        a = r != null ? r : d,
+        a = r != null ? r : c,
         i;
       return (
         t[0] !== n || t[1] !== a
-          ? ((i = u.jsx(m, { value: a, children: n })),
+          ? ((i = s.jsx(d, { value: a, children: n })),
             (t[0] = n),
             (t[1] = a),
             (t[2] = i))
@@ -25,7 +24,7 @@ __d(
         i
       );
     }
-    ((l.CometTypographyContext = m), (l.CometTypographyProvider = p));
+    ((l.CometTypographyContext = d), (l.CometTypographyProvider = m));
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "FBLogger",
     "react",
     "react-compiler-runtime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -48,16 +49,17 @@ __d(
     function _(e) {
       var t = o("react-compiler-runtime").c(3),
         n = e.children,
-        r = e.factory,
-        a;
+        a = e.factory;
+      r("vulture")("KoPNx4F_zMMXO_KqkIG8nAkjJkA=");
+      var i;
       return (
-        t[0] !== n || t[1] !== r
-          ? ((a = s.jsx(d.Provider, { value: r, children: n })),
+        t[0] !== n || t[1] !== a
+          ? ((i = s.jsx(d.Provider, { value: a, children: n })),
             (t[0] = n),
-            (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
+            (t[1] = a),
+            (t[2] = i))
+          : (i = t[2]),
+        i
       );
     }
     ((l.useRelayEnvironmentFactory = m),

@@ -5,7 +5,6 @@ __d(
     "WAWebClassnames",
     "WAWebLineHeight",
     "react",
-    "react-compiler-runtime",
     "useWAWebPrevious",
     "useWAWebWindowSize",
   ],
@@ -16,113 +15,68 @@ __d(
       d = c.useCallback,
       m = c.useState;
     function p(e) {
-      var t = o("react-compiler-runtime").c(19),
-        n = e.children,
-        a = e.dir,
-        i = e.maxLines,
-        l = e.style,
-        c = i,
-        d = l == null ? void 0 : l.singleLine,
-        p = l == null ? void 0 : l.multipleLine,
-        _ = m(d),
+      var t = e.children,
+        n = e.dir,
+        a = e.maxLines,
+        i = e.style,
+        l = a,
+        c = i == null ? void 0 : i.singleLine,
+        p = i == null ? void 0 : i.multipleLine,
+        _ = m(c),
         f = _[0],
         g = _[1],
         h = r("useWAWebPrevious")(f),
         y = r("useWAWebWindowSize")(),
         C = y.width,
         b = r("useWAWebPrevious")(C),
-        v;
-      t[0] !== c ||
-      t[1] !== p ||
-      t[2] !== h ||
-      t[3] !== b ||
-      t[4] !== d ||
-      t[5] !== f ||
-      t[6] !== C
-        ? ((v = function (t) {
-            if (!(t == null || !(C > 0)) && !(c === 1 || p == null)) {
-              var e = o("WAWebLineHeight").getNumberOfLines(t);
-              if (f === d && h === p && e > 1) {
+        v = d(
+          function (e) {
+            if (!(e == null || !(C > 0)) && !(l === 1 || p == null)) {
+              var t = o("WAWebLineHeight").getNumberOfLines(e);
+              if (f === c && h === p && t > 1) {
                 g(p);
                 return;
               }
-              if (f !== p && (b == null || C < b) && e > 1) {
+              if (f !== p && (b == null || C < b) && t > 1) {
                 g(p);
                 return;
               }
-              if (f !== d && (b == null || C > b) && e === 1) {
-                g(d);
+              if (f !== c && (b == null || C > b) && t === 1) {
+                g(c);
                 return;
               }
             }
-          }),
-          (t[0] = c),
-          (t[1] = p),
-          (t[2] = h),
-          (t[3] = b),
-          (t[4] = d),
-          (t[5] = f),
-          (t[6] = C),
-          (t[7] = v))
-        : (v = t[7]);
-      var S = v;
-      c >= 1 || s(0, 56351);
-      var R;
-      if (c === 1) {
-        var L;
-        (t[8] === Symbol.for("react.memo_cache_sentinel")
-          ? ((L = {
+          },
+          [l, c, p, f, h, C, b],
+        );
+      l >= 1 || s(0, 56351);
+      var S;
+      return (
+        l === 1
+          ? (S = {
               display: "block",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
-            }),
-            (t[8] = L))
-          : (L = t[8]),
-          (R = L));
-      } else {
-        var E;
-        (t[9] !== c
-          ? ((E = {
+            })
+          : (S = {
               display: "-webkit-box",
               overflow: "hidden",
               WebkitBoxOrient: "vertical",
-              WebkitLineClamp: c,
+              WebkitLineClamp: l,
             }),
-            (t[9] = c),
-            (t[10] = E))
-          : (E = t[10]),
-          (R = E));
-      }
-      var k;
-      t[11] !== f
-        ? ((k = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+        u.jsx("span", {
+          ref: v,
+          className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
             "x1n2onr6 x6ikm8r x10wlt62",
             f,
-          )),
-          (t[11] = f),
-          (t[12] = k))
-        : (k = t[12]);
-      var I;
-      return (
-        t[13] !== n || t[14] !== S || t[15] !== a || t[16] !== R || t[17] !== k
-          ? ((I = u.jsx("span", {
-              ref: S,
-              className: k,
-              style: R,
-              dir: a,
-              children: n,
-            })),
-            (t[13] = n),
-            (t[14] = S),
-            (t[15] = a),
-            (t[16] = R),
-            (t[17] = k),
-            (t[18] = I))
-          : (I = t[18]),
-        I
+          ),
+          style: S,
+          dir: n,
+          children: t,
+        })
       );
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

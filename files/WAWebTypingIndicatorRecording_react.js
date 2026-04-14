@@ -1,55 +1,27 @@
 __d(
   "WAWebTypingIndicatorRecording.react",
-  [
-    "WAWebL10N",
-    "WAWebLottieAnimationLoadable",
-    "WAWebThemeContext",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebL10N", "WAWebLottieAnimationLoadable", "WAWebThemeContext", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = e.useRef;
     function c() {
-      var e = o("react-compiler-runtime").c(5),
-        t = u(null),
-        n = o("WAWebThemeContext").useIsDarkTheme(),
-        a;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = {
-            className:
-              "xexx8yu x1icxu4v x18d9i69 x25sj25 x78zum5 x6s0dn4 xl56j7k xw4jnvo x1qx5ct2",
-          }),
-          (e[0] = a))
-        : (a = e[0]);
-      var i;
-      e[1] !== n ? ((i = d(n)), (e[1] = n), (e[2] = i)) : (i = e[2]);
-      var l;
-      return (
-        e[3] !== i
-          ? ((l = s.jsx(
-              "div",
-              babelHelpers.extends({}, a, {
-                "data-testid": void 0,
-                children: s.jsx(
-                  o("WAWebLottieAnimationLoadable").LottieAnimation,
-                  {
-                    ref: t,
-                    autoplay: !0,
-                    direction: r("WAWebL10N").isRTL() ? -1 : 1,
-                    loop: !0,
-                    data: i,
-                  },
-                ),
-              }),
-            )),
-            (e[3] = i),
-            (e[4] = l))
-          : (l = e[4]),
-        l
-      );
+      var e = u(null),
+        t = o("WAWebThemeContext").useIsDarkTheme();
+      return s.jsx("div", {
+        className:
+          "xexx8yu x1icxu4v x18d9i69 x25sj25 x78zum5 x6s0dn4 xl56j7k xw4jnvo x1qx5ct2",
+        "data-testid": void 0,
+        children: s.jsx(o("WAWebLottieAnimationLoadable").LottieAnimation, {
+          ref: e,
+          autoplay: !0,
+          direction: r("WAWebL10N").isRTL() ? -1 : 1,
+          loop: !0,
+          data: d(t),
+        }),
+      });
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
       var t = e
         ? [1, 1, 1, 1]

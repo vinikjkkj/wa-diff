@@ -22,7 +22,6 @@ __d(
     "WAWebUISpacing",
     "WAWebUnstyledButton.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebOnUnmount",
     "useWAWebStableCallback",
@@ -255,72 +254,47 @@ __d(
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [
+      var t;
+      return _.jsx(
+        r("WAWebUnstyledButton.react"),
+        {
+          xstyle: [
             b.phoneCodeWarning,
             o("WAWebUISpacing").uiMargin.horizAuto,
             o("WAWebUISpacing").uiPadding.horiz20,
-          ]),
-          (t[0] = n))
-        : (n = t[0]);
-      var a;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = _.jsx(o("WAWebFlex.react").FlexItem, {
-            align: "center",
-            xstyle: o("WAWebUISpacing").uiMargin.end10,
-            children: _.jsx(o("WAWebRefreshLargeIcon.react").RefreshLargeIcon, {
-              width: 32,
-              height: 32,
-              iconXstyle: b.phoneCodeWarningIcon,
-            }),
-          })),
-          (t[1] = a))
-        : (a = t[1]);
-      var i;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = _.jsx(o("WAWebFlex.react").FlexItem, {
-            xstyle: b.errorTitle,
-            children: s._(/*BTDS*/ "Code expired"),
-          })),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = _.jsxs(o("WAWebFlex.react").FlexRow, {
+          ],
+          onClick: e.onClick,
+          children: _.jsxs((t = o("WAWebFlex.react")).FlexRow, {
             children: [
-              a,
-              _.jsxs(o("WAWebFlex.react").FlexColumn, {
+              _.jsx(t.FlexItem, {
+                align: "center",
+                xstyle: o("WAWebUISpacing").uiMargin.end10,
+                children: _.jsx(
+                  o("WAWebRefreshLargeIcon.react").RefreshLargeIcon,
+                  { width: 32, height: 32, iconXstyle: b.phoneCodeWarningIcon },
+                ),
+              }),
+              _.jsxs(t.FlexColumn, {
                 align: "start",
                 justify: "start",
                 children: [
-                  i,
-                  _.jsx(o("WAWebFlex.react").FlexItem, {
+                  _.jsx(t.FlexItem, {
+                    xstyle: b.errorTitle,
+                    children: s._(/*BTDS*/ "Code expired"),
+                  }),
+                  _.jsx(t.FlexItem, {
                     xstyle: b.errorAction,
                     children: s._(/*BTDS*/ "Click to generate new code"),
                   }),
                 ],
               }),
             ],
-          })),
-          (t[3] = l))
-        : (l = t[3]);
-      var u;
-      return (
-        t[4] !== e.onClick
-          ? ((u = _.jsx(
-              r("WAWebUnstyledButton.react"),
-              { xstyle: n, onClick: e.onClick, children: l },
-              "expiry",
-            )),
-            (t[4] = e.onClick),
-            (t[5] = u))
-          : (u = t[5]),
-        u
+          }),
+        },
+        "expiry",
       );
     }
-    l.default = v;
+    ((S.displayName = S.name + " [from " + i.id + "]"), (l.default = v));
   },
   226,
 );

@@ -40,7 +40,6 @@ __d(
     "err",
     "fbs",
     "react",
-    "react-compiler-runtime",
     "useWAWebAsyncRetry",
     "useWAWebEventTargetValue",
   ],
@@ -561,23 +560,21 @@ __d(
     }
     F.displayName = F.name + " [from " + i.id + "]";
     function O(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.textToCopy,
-        a = x(!1),
-        i = a[0],
-        l = a[1],
-        u,
-        c;
-      (t[0] !== i || t[1] !== n
-        ? ((u = function () {
+      var t = e.textToCopy,
+        n = x(!1),
+        a = n[0],
+        i = n[1];
+      return (
+        T(
+          function () {
             var e = new AbortController();
             return (
-              i &&
+              a &&
                 o("WAWebCopyToClipboard")
-                  .copyTextToClipboard(n)
+                  .copyTextToClipboard(t)
                   .then(function () {
                     e.signal.aborted ||
-                      (l(!1),
+                      (i(!1),
                       o("WAWebToastManager").ToastManager.open(
                         E.jsx(o("WAWebToast.react").Toast, {
                           msg: s._(/*BTDS*/ "Link copied"),
@@ -588,31 +585,21 @@ __d(
                 e.abort();
               }
             );
-          }),
-          (c = [i, n]),
-          (t[0] = i),
-          (t[1] = n),
-          (t[2] = u),
-          (t[3] = c))
-        : ((u = t[2]), (c = t[3])),
-        T(u, c));
-      var d;
-      return (
-        t[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((d = E.jsx(r("WDSButton.react"), {
-              Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
-              "aria-label": r("fbs")._(/*BTDS*/ "Copy Call link"),
-              onPress: function () {
-                l(!0);
-              },
-              variant: "borderless",
-            })),
-            (t[4] = d))
-          : (d = t[4]),
-        d
+          },
+          [a, t],
+        ),
+        E.jsx(r("WDSButton.react"), {
+          Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+          "aria-label": r("fbs")._(/*BTDS*/ "Copy Call link"),
+          onPress: function () {
+            i(!0);
+          },
+          variant: "borderless",
+        })
       );
     }
-    ((l.handleGenerateCallLinkClick = w),
+    ((O.displayName = O.name + " [from " + i.id + "]"),
+      (l.handleGenerateCallLinkClick = w),
       (l.WAWebVoipCreateCallLinksPopup = F));
   },
   226,

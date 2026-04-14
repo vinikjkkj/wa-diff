@@ -5,7 +5,6 @@ __d(
     "WAWebLottieAnimationLoadable",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebGroupColors",
   ],
@@ -16,54 +15,39 @@ __d(
       c = s.useRef,
       d = { typingDots: { width: "x17z2i9w", height: "x17rw0jw", $$css: !0 } };
     function m(t) {
-      var n = o("react-compiler-runtime").c(10),
-        a = t.colorRgb,
-        i = t.isBotMsgStreaming,
-        l = t.xstyle,
-        s = c(null),
-        m = o("useWAWebGroupColors").useGroupsColorRGBValue(0),
-        _ = a != null ? a : m,
-        f;
-      n[0] !== i || n[1] !== l
-        ? ((f = (e || (e = r("stylex"))).props(
+      var n = t.colorRgb,
+        a = t.isBotMsgStreaming,
+        i = t.xstyle,
+        l = c(null),
+        s = o("useWAWebGroupColors").useGroupsColorRGBValue(0),
+        m = n != null ? n : s;
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props(
             d.typingDots,
-            i === !0
+            a === !0
               ? [
                   o("WAWebUISpacing").uiMargin.top8,
                   o("WAWebUISpacing").uiMargin.bottom4,
                 ]
               : [o("WAWebUISpacing").uiMargin.all9],
-            l,
-          )),
-          (n[0] = i),
-          (n[1] = l),
-          (n[2] = f))
-        : (f = n[2]);
-      var g;
-      n[3] !== _ ? ((g = p(_)), (n[3] = _), (n[4] = g)) : (g = n[4]);
-      var h;
-      n[5] !== g
-        ? ((h = u.jsx(o("WAWebLottieAnimationLoadable").LottieAnimation, {
-            ref: s,
-            autoplay: !0,
-            direction: r("WAWebL10N").isRTL() ? -1 : 1,
-            loop: !0,
-            data: g,
-          })),
-          (n[5] = g),
-          (n[6] = h))
-        : (h = n[6]);
-      var y;
-      return (
-        n[7] !== f || n[8] !== h
-          ? ((y = u.jsx("div", babelHelpers.extends({}, f, { children: h }))),
-            (n[7] = f),
-            (n[8] = h),
-            (n[9] = y))
-          : (y = n[9]),
-        y
+            i,
+          ),
+          {
+            children: u.jsx(o("WAWebLottieAnimationLoadable").LottieAnimation, {
+              ref: l,
+              autoplay: !0,
+              direction: r("WAWebL10N").isRTL() ? -1 : 1,
+              loop: !0,
+              data: p(m),
+            }),
+          },
+        ),
       );
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       return {
         v: "5.12.1",

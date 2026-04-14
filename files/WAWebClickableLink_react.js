@@ -5,7 +5,6 @@ __d(
     "WAWebExternalLink.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebStaticButtonA11y",
   ],
@@ -15,97 +14,48 @@ __d(
       u = s || (s = o("react"));
     function c(t) {
       var a,
-        i = o("react-compiler-runtime").c(18),
-        l = t.ariaLabel,
-        s = t.children,
-        c = t.className,
-        d = t.href,
-        m = t.onClick,
-        p = t.tabIndex,
-        _ = t.title,
-        f = t.xstyle,
-        g;
-      i[0] !== d || i[1] !== m
-        ? ((g = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                (d != null && (e.metaKey || e.altKey)) ||
-                  (e.preventDefault(), yield m(e));
-              },
-            );
-            return function (n) {
-              return e.apply(this, arguments);
-            };
-          })()),
-          (i[0] = d),
-          (i[1] = m),
-          (i[2] = g))
-        : (g = i[2]);
-      var h = g,
-        y = r("useWAWebStaticButtonA11y")(m),
-        C = y[0],
-        b = y[1],
-        v = (a = t.testid) != null ? a : "clickable-link",
-        S;
-      i[3] !== c || i[4] !== f
-        ? ((S = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            c,
+        i = t.ariaLabel,
+        l = t.children,
+        s = t.className,
+        c = t.href,
+        d = t.onClick,
+        m = t.tabIndex,
+        p = t.title,
+        _ = t.xstyle,
+        f = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            (c != null && (e.metaKey || e.altKey)) ||
+              (e.preventDefault(), yield d(e));
+          });
+          return function (n) {
+            return e.apply(this, arguments);
+          };
+        })(),
+        g = r("useWAWebStaticButtonA11y")(d),
+        h = g[0],
+        y = g[1];
+      return u.jsx(
+        o("WAWebExternalLink.react").ExternalLinkEl,
+        babelHelpers.extends({}, y, {
+          ref: h,
+          "data-testid": void 0,
+          className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+            s,
             "x1xlr1w8 xt0b8zv xbvygy2 x17f7hit xp30eni xhmieyt",
-            (e || (e = r("stylex")))(f),
-          )),
-          (i[3] = c),
-          (i[4] = f),
-          (i[5] = S))
-        : (S = i[5]);
-      var R = d != null ? d : void 0,
-        L = p != null ? p : void 0,
-        E = t["data-tab"],
-        k;
-      return (
-        i[6] !== l ||
-        i[7] !== b ||
-        i[8] !== s ||
-        i[9] !== C ||
-        i[10] !== h ||
-        i[11] !== v ||
-        i[12] !== S ||
-        i[13] !== R ||
-        i[14] !== L ||
-        i[15] !== E ||
-        i[16] !== _
-          ? ((k = u.jsx(
-              o("WAWebExternalLink.react").ExternalLinkEl,
-              babelHelpers.extends({}, b, {
-                ref: C,
-                "data-testid": void 0,
-                className: S,
-                href: R,
-                onClick: h,
-                role: "button",
-                title: _,
-                tabIndex: L,
-                "data-tab": E,
-                "aria-label": l,
-                children: s,
-              }),
-            )),
-            (i[6] = l),
-            (i[7] = b),
-            (i[8] = s),
-            (i[9] = C),
-            (i[10] = h),
-            (i[11] = v),
-            (i[12] = S),
-            (i[13] = R),
-            (i[14] = L),
-            (i[15] = E),
-            (i[16] = _),
-            (i[17] = k))
-          : (k = i[17]),
-        k
+            (e || (e = r("stylex")))(_),
+          ),
+          href: c != null ? c : void 0,
+          onClick: f,
+          role: "button",
+          title: p,
+          tabIndex: m != null ? m : void 0,
+          "data-tab": t["data-tab"],
+          "aria-label": i,
+          children: l,
+        }),
       );
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

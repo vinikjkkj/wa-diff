@@ -1,36 +1,29 @@
 __d(
   "useWAWebBizBroadcastOverlappingRecipients",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = (e || (e = o("react"))).useMemo;
     function u(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      e: {
-        if (e.size < 2) {
-          n = 0;
-          break e;
-        }
-        var r;
-        if (t[0] !== e) {
-          var a = new Set();
-          r = new Set();
-          for (var i of e) {
-            var l,
-              s = (l = i.broadcastMetadata) == null ? void 0 : l.recipients;
-            if (s != null)
-              for (var u of s.toArray()) {
-                var c = u.id.toString();
-                a.has(c) ? r.add(c) : a.add(c);
+      return s(
+        function () {
+          if (e.size < 2) return 0;
+          var t = new Set(),
+            n = new Set();
+          for (var r of e) {
+            var o,
+              a = (o = r.broadcastMetadata) == null ? void 0 : o.recipients;
+            if (a != null)
+              for (var i of a.toArray()) {
+                var l = i.id.toString();
+                t.has(l) ? n.add(l) : t.add(l);
               }
           }
-          ((t[0] = e), (t[1] = r));
-        } else r = t[1];
-        n = r.size;
-      }
-      return n;
+          return n.size;
+        },
+        [e],
+      );
     }
     l.useWAWebBizBroadcastOverlappingRecipients = u;
   },

@@ -670,35 +670,30 @@ __d(
     }
     function St() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "wa_web_channels_migrate_subscribers_to_followers_enabled",
+        "channels_admin_profiles_receiver_enabled",
       );
     }
     function Rt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "channels_admin_profiles_receiver_enabled",
-      );
-    }
-    function Lt() {
-      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_admin_profiles_forwarding_to_chats_enabled",
       );
     }
-    function Et() {
+    function Lt() {
       return (
         o("WAWebABProps").getABPropConfigValue("channels_t_enabled") === !0
       );
     }
-    function kt() {
+    function Et() {
       return o("WAWebABProps").getABPropConfigValue(
         "newsletter_status_receiver_enabled",
       );
     }
-    function It() {
+    function kt() {
       return o("WAWebABProps").getABPropConfigValue(
         "newsletter_status_creation_enabled",
       );
     }
-    function Tt() {
+    function It() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_pulse_on_unread_badge_enabled",
       );
@@ -823,13 +818,12 @@ __d(
       (l.isChannelEnforcementLoggingEnabled = Ct),
       (l.isChannelDSA26ReceiverEnabled = bt),
       (l.isChannelDSA26SenderEnabled = vt),
-      (l.isNewsletterSubscriberMigrationEnabled = St),
-      (l.isNewsletterAdminProfilesReceiverEnabled = Rt),
-      (l.isNewsletterAdminProfilesForwardingEnabled = Lt),
-      (l.isChannelsInChatListEnabled = Et),
-      (l.isNewsletterStatusReceiverEnabled = kt),
-      (l.isNewsletterStatusCreationEnabled = It),
-      (l.isNewsletterTabPulseEnabled = Tt));
+      (l.isNewsletterAdminProfilesReceiverEnabled = St),
+      (l.isNewsletterAdminProfilesForwardingEnabled = Rt),
+      (l.isChannelsInChatListEnabled = Lt),
+      (l.isNewsletterStatusReceiverEnabled = Et),
+      (l.isNewsletterStatusCreationEnabled = kt),
+      (l.isNewsletterTabPulseEnabled = It));
   },
   98,
 );

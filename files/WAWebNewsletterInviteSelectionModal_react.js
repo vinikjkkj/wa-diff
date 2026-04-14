@@ -14,7 +14,6 @@ __d(
     "WAWebWidFormat",
     "compactMap",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -34,119 +33,60 @@ __d(
         followerSelectionCount: { marginBottom: "x1ua1l7f", $$css: !0 },
       };
     function _(e) {
-      var t = o("react-compiler-runtime").c(23),
-        n = e.customGetData,
-        r = e.customSecondaryText,
-        a = e.infoHeader,
-        i = e.isDisabled,
-        l = e.maxItems,
-        s = e.modalTitle,
-        c = e.onConfirm,
-        d = m(0),
-        _ = d[0],
-        f = d[1],
-        g;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = function (t, n, r) {
-            f(r.length);
-          }),
-          (t[0] = g))
-        : (g = t[0]);
-      var y = g,
-        C;
-      t[1] !== s
-        ? ((C = u.jsx(o("WAWebText.react").WAWebTextLarge, {
-            color: "wdsContentDefault",
-            xstyle: p.inviteModalTitle,
-            children: s,
-          })),
-          (t[1] = s),
-          (t[2] = C))
-        : (C = t[2]);
-      var b;
-      t[3] !== l || t[4] !== _
-        ? ((b = h.modalSubtitle(_, l)), (t[3] = l), (t[4] = _), (t[5] = b))
-        : (b = t[5]);
-      var v;
-      t[6] !== b
-        ? ((v = u.jsx(o("WAWebText.react").WAWebTextSmall, {
-            color: "wdsContentDeemphasized",
-            xstyle: p.followerSelectionCount,
-            children: b,
-          })),
-          (t[6] = b),
-          (t[7] = v))
-        : (v = t[7]);
-      var S;
-      t[8] !== C || t[9] !== v
-        ? ((S = u.jsxs(u.Fragment, { children: [C, v] })),
-          (t[8] = C),
-          (t[9] = v),
-          (t[10] = S))
-        : (S = t[10]);
-      var R = S,
-        L;
-      t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = [16, 24]), (t[11] = L))
-        : (L = t[11]);
-      var E;
-      t[12] !== a
-        ? ((E = u.jsx(o("WAWebText.react").WAWebTextMuted, {
-            padding: L,
-            xstyle: p.customHeader,
-            children: a,
-          })),
-          (t[12] = a),
-          (t[13] = E))
-        : (E = t[13]);
-      var k = E,
-        I;
-      t[14] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = {
-            surface: "unknown",
-            viewName: "newsletter-invite-selection",
-          }),
-          (t[14] = I))
-        : (I = t[14]);
-      var T;
-      return (
-        t[15] !== n ||
-        t[16] !== k ||
-        t[17] !== r ||
-        t[18] !== R ||
-        t[19] !== i ||
-        t[20] !== l ||
-        t[21] !== c
-          ? ((T = u.jsx(o("WAWebSelectModal.react").SelectModal, {
-              customHeader: k,
-              onSelectionChanged: y,
-              headerChildren: R,
-              listType: o("WAWebSelectModal.react").ListType
-                .ParticipantManageModal,
-              onConfirm: c,
-              maxItems: l,
-              isDisabled: i,
-              customSecondaryText: r,
-              singleSelectionFooterType: o("WAWebSelectModalFooter.react")
-                .FooterType.CONFIRM,
-              multipleSelectionFooterType: o("WAWebSelectModalFooter.react")
-                .FooterType.CONFIRM,
-              shouldShowSelectionSummary: !1,
-              customGetData: n,
-              tsNavigationData: I,
-            })),
-            (t[15] = n),
-            (t[16] = k),
-            (t[17] = r),
-            (t[18] = R),
-            (t[19] = i),
-            (t[20] = l),
-            (t[21] = c),
-            (t[22] = T))
-          : (T = t[22]),
-        T
-      );
+      var t = e.customGetData,
+        n = e.customSecondaryText,
+        r = e.infoHeader,
+        a = e.isDisabled,
+        i = e.maxItems,
+        l = e.modalTitle,
+        s = e.onConfirm,
+        c = m(0),
+        _ = c[0],
+        f = c[1],
+        g = d(function (e, t, n) {
+          f(n.length);
+        }, []),
+        y = u.jsxs(u.Fragment, {
+          children: [
+            u.jsx(o("WAWebText.react").WAWebTextLarge, {
+              color: "wdsContentDefault",
+              xstyle: p.inviteModalTitle,
+              children: l,
+            }),
+            u.jsx(o("WAWebText.react").WAWebTextSmall, {
+              color: "wdsContentDeemphasized",
+              xstyle: p.followerSelectionCount,
+              children: h.modalSubtitle(_, i),
+            }),
+          ],
+        }),
+        C = u.jsx(o("WAWebText.react").WAWebTextMuted, {
+          padding: [16, 24],
+          xstyle: p.customHeader,
+          children: r,
+        });
+      return u.jsx(o("WAWebSelectModal.react").SelectModal, {
+        customHeader: C,
+        onSelectionChanged: g,
+        headerChildren: y,
+        listType: o("WAWebSelectModal.react").ListType.ParticipantManageModal,
+        onConfirm: s,
+        maxItems: i,
+        isDisabled: a,
+        customSecondaryText: n,
+        singleSelectionFooterType: o("WAWebSelectModalFooter.react").FooterType
+          .CONFIRM,
+        multipleSelectionFooterType: o("WAWebSelectModalFooter.react")
+          .FooterType.CONFIRM,
+        shouldShowSelectionSummary: !1,
+        customGetData: t,
+        tsNavigationData: {
+          surface: "unknown",
+          viewName: "newsletter-invite-selection",
+        },
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       return e.reduce(function (e, t) {
         var n = o("WAWebWidFactory").asUserWidOrThrow(t.id),

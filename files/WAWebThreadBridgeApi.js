@@ -27,37 +27,39 @@ __d(
             c = e.lastMessageTimestamp,
             d = e.lastMsgKey,
             m = e.lastReceivedKey,
-            p = e.threadId,
-            _ = e.unreadEditTimestampMs,
-            f = o("WAWebChatCollection").ChatCollection.get(s);
-          if (f) {
-            var g =
-              (t = f.aiThreads) != null
+            p = e.pinThreadTimestamp,
+            _ = e.threadId,
+            f = e.unreadEditTimestampMs,
+            g = o("WAWebChatCollection").ChatCollection.get(s);
+          if (g) {
+            var h =
+              (t = g.aiThreads) != null
                 ? t
                 : new (o("WAWebAiThreadCollection").AiThreadCollection)();
-            f.aiThreads || (f.aiThreads = g);
-            var h = g.get(p),
-              y =
-                (h == null ? void 0 : h.creationTimestamp) != null &&
-                u > h.creationTimestamp
+            g.aiThreads || (g.aiThreads = h);
+            var y = h.get(_),
+              C =
+                (y == null ? void 0 : y.creationTimestamp) != null &&
+                u > y.creationTimestamp
                   ? void 0
                   : u;
-            g.add(
+            h.add(
               {
-                id: p,
+                id: _,
                 title: a == null ? void 0 : a.title,
                 aiThreadType:
                   (n = a == null ? void 0 : a.aiThreadType) != null
                     ? n
                     : o("WAWebAiThreadTypeUtils").AiThreadType.Default,
-                creationTimestamp: y,
+                creationTimestamp: C,
                 lastMessageTimestamp: c,
                 botModeSelection: l,
                 botModeOverride: i,
                 lastReceivedKey:
                   m != null ? r("WAWebMsgKey").fromString(m) : null,
                 lastMsgKey: d != null ? r("WAWebMsgKey").fromString(d) : null,
-                unreadEditTimestampMs: _,
+                unreadEditTimestampMs: f,
+                pinThreadTimestamp: p,
                 isPending: !1,
               },
               { merge: !0 },

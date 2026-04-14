@@ -29,7 +29,6 @@ __d(
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebContactValues",
     "useWAWebModelValues",
@@ -375,88 +374,62 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.selected,
-        a;
-      t[0] !== n
-        ? ((a = (u || (u = r("stylex"))).props(
+      var t = e.selected;
+      return d.jsxs(
+        "div",
+        babelHelpers.extends(
+          {},
+          (u || (u = r("stylex"))).props(
             f.mentionsResult,
             o("WAWebUISpacing").uiPadding.vert10,
             o("WAWebUISpacing").uiPadding.horiz8,
-            n === !0 && f.mentionsResultSelected,
-          )),
-          (t[0] = n),
-          (t[1] = a))
-        : (a = t[1]);
-      var i;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = (u || (u = r("stylex"))).props(
-            f.resultImage,
-            o("WAWebUISpacing").uiMargin.end10,
-          )),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = d.jsx(
-            "div",
-            babelHelpers.extends({}, i, {
-              children: d.jsx(
-                o("WAWebDefaultGroupRefreshedIcon.react")
-                  .DefaultGroupRefreshedIcon,
-                {
-                  "aria-hidden": !0,
-                  iconXstyle: [
-                    f.circleIconRefreshed,
-                    f.profilePictureOutlineRefreshed,
-                  ],
-                  width: 32,
-                },
-              ),
-            }),
-          )),
-          (t[3] = l))
-        : (l = t[3]);
-      var c;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = d.jsx(r("WDSText.react"), {
-            colorName: "contentDefault",
-            type: "Body2",
-            children: s._(/*BTDS*/ "all"),
-          })),
-          (t[4] = c))
-        : (c = t[4]);
-      var m;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = d.jsxs(o("WAWebFlex.react").FlexColumn, {
-            rowGap: 0,
+            t === !0 && f.mentionsResultSelected,
+          ),
+          {
+            "data-testid": void 0,
             children: [
-              c,
-              d.jsx(r("WDSText.react"), {
-                colorName: "contentDeemphasized",
-                type: "Body3",
-                children: s._(/*BTDS*/ "Mention all members in this chat"),
+              d.jsx(
+                "div",
+                babelHelpers.extends(
+                  {},
+                  u.props(f.resultImage, o("WAWebUISpacing").uiMargin.end10),
+                  {
+                    children: d.jsx(
+                      o("WAWebDefaultGroupRefreshedIcon.react")
+                        .DefaultGroupRefreshedIcon,
+                      {
+                        "aria-hidden": !0,
+                        iconXstyle: [
+                          f.circleIconRefreshed,
+                          f.profilePictureOutlineRefreshed,
+                        ],
+                        width: 32,
+                      },
+                    ),
+                  },
+                ),
+              ),
+              d.jsxs(o("WAWebFlex.react").FlexColumn, {
+                rowGap: 0,
+                children: [
+                  d.jsx(r("WDSText.react"), {
+                    colorName: "contentDefault",
+                    type: "Body2",
+                    children: s._(/*BTDS*/ "all"),
+                  }),
+                  d.jsx(r("WDSText.react"), {
+                    colorName: "contentDeemphasized",
+                    type: "Body3",
+                    children: s._(/*BTDS*/ "Mention all members in this chat"),
+                  }),
+                ],
               }),
             ],
-          })),
-          (t[5] = m))
-        : (m = t[5]);
-      var p;
-      return (
-        t[6] !== a
-          ? ((p = d.jsxs(
-              "div",
-              babelHelpers.extends({}, a, {
-                "data-testid": void 0,
-                children: [l, m],
-              }),
-            )),
-            (t[6] = a),
-            (t[7] = p))
-          : (p = t[7]),
-        p
+          },
+        ),
       );
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b(t) {
       var a = t.chat,
         i = t.contact,

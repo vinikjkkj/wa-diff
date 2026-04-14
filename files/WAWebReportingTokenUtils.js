@@ -89,7 +89,7 @@ __d(
       }
       var l = C(e),
         s = b(e),
-        u = o("WAWebUserPrefsMeUser").getMeUser(),
+        u = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
         d = t.isLid()
           ? [
@@ -144,8 +144,10 @@ __d(
       );
     }
     function E(e) {
-      var t = o("WAWebWidToJid").widToJidWithType(e.id.remote);
-      return { jidType: t.jidType, remoteJid: o("WAJids").extractFromJid(t) };
+      var t = e.id.remote;
+      t.isRegularUser() && !t.isLid() && e.to.isLid() && (t = e.to);
+      var n = o("WAWebWidToJid").widToJidWithType(t);
+      return { jidType: n.jidType, remoteJid: o("WAJids").extractFromJid(n) };
     }
     function k(e) {
       var t, n;

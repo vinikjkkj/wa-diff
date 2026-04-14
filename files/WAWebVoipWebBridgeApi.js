@@ -45,6 +45,7 @@ __d(
     "WAWebVoipUiManager",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
     "WAWebVoipVideoRendererRegistry",
+    "WAWebVoipVideoStateUtils",
     "WAWebVoipWaCallEnums",
     "WAWebVoipWebLoadable",
     "WAWebWamEnumLobbyEntryPointType",
@@ -581,7 +582,13 @@ __d(
                   o("WAWebVoipEventConstants").VoipCallModelEvents
                     .SELF_VIDEO_STATE,
                 ),
-              ))
+              ),
+              o("WAWebVoipVideoStateUtils").isVideoStateInactiveForCallMode(
+                e.videoState,
+              ) &&
+                o(
+                  "WAWebVoipUiPopoutWindowPortalContainer.react",
+                ).setMediaStream("camera", null))
             : ((n.peerVideoState = e.videoState),
               e.userJid && (n.peerVideoJid = e.userJid));
           var i = e.userJid;
@@ -912,7 +919,8 @@ __d(
           e.setScreenShareState(t.sharer_jid, t.state);
           var n = o("WAWebUserPrefsMeUser").isMeAccount(t.sharer_jid);
           n &&
-            t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped &&
+            (t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped ||
+              t.state === o("WAWebVoipWaCallEnums").ScreenShareState.Failed) &&
             (o("WAWebVoipUiPopoutWindowPortalContainer.react").setMediaStream(
               "desktop",
               null,

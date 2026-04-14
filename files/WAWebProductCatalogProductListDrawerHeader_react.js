@@ -9,7 +9,6 @@ __d(
     "WAWebUISpacing",
     "isStringNullOrEmpty",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebContactValues",
     "useWAWebModelValues",
@@ -56,178 +55,98 @@ __d(
         img: { height: "xt7dq6l", $$css: !0 },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(4),
-        a = t.businessProfile,
-        i;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = ["description"]), (n[0] = i))
-        : (i = n[0]);
-      var l = o("useWAWebModelValues").useOptionalModelValues(a, i);
-      if (!l || r("isStringNullOrEmpty")(l == null ? void 0 : l.description))
-        return null;
-      var s;
-      n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = (e || (e = r("stylex"))).props(
-            c.description,
-            o("WAWebUISpacing").uiMargin.top12,
-          )),
-          (n[1] = s))
-        : (s = n[1]);
-      var d;
-      return (
-        n[2] !== l.description
-          ? ((d = u.jsx(
-              "div",
-              babelHelpers.extends({}, s, {
+      var n = t.businessProfile,
+        a = o("useWAWebModelValues").useOptionalModelValues(n, ["description"]);
+      return !a || r("isStringNullOrEmpty")(a == null ? void 0 : a.description)
+        ? null
+        : u.jsx(
+            "div",
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
+                c.description,
+                o("WAWebUISpacing").uiMargin.top12,
+              ),
+              {
                 children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
-                  text: l.description,
+                  text: a.description,
                   direction: "auto",
                   selectable: !0,
                   titlify: !0,
                 }),
-              }),
-            )),
-            (n[2] = l.description),
-            (n[3] = d))
-          : (d = n[3]),
-        d
-      );
+              },
+            ),
+          );
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.contact,
-        r = e.profilePicThumb,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = ["imgFull"]), (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebModelValues").useOptionalModelValues(r, a),
-        l;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = [
-            o("WAWebContactGetters").getId,
-            o("WAWebContactGetters").getIsMe,
-          ]),
-          (t[1] = l))
-        : (l = t[1]);
-      var s = o("useWAWebContactValues").useContactValues(n.id, l),
-        d = s[0];
-      if (!i) return null;
-      var m;
-      t[2] !== d
-        ? ((m = u.jsx(o("WAWebDetailImage.react").DefaultIcon, {
-            id: d,
-            xstyle: c.photoIcon,
-          })),
-          (t[2] = d),
-          (t[3] = m))
-        : (m = t[3]);
-      var p = m,
-        _;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = {
-            className:
-              "x1n2onr6 x1vjfegm x78zum5 x6s0dn4 xl56j7k xh8yej3 x5yr21d x1j6awrg x1m1drc7 x1iygr5g x1ojvc37 x4eaejv x1wsn0xg x100rkj9 x1sak2ym",
-          }),
-          (t[4] = _))
-        : (_ = t[4]);
-      var f;
-      return (
-        t[5] !== p || t[6] !== i
-          ? ((f = u.jsx(
-              "div",
-              babelHelpers.extends({}, _, {
-                children: u.jsx(o("WAWebDetailImage.react").DetailImageCommon, {
-                  profilePicThumb: i,
-                  loader: !0,
-                  defaultIcon: p,
-                  profilePicThumbImg: i.imgFull,
-                  spinnerXstyle: c.spinner,
-                  spinnerSize: 100,
-                  imgXstyle: c.img,
-                  theme: "business",
-                  shape: o("WAWebDetailImage.react").DetailImageShape.Square,
-                }),
-              }),
-            )),
-            (t[5] = p),
-            (t[6] = i),
-            (t[7] = f))
-          : (f = t[7]),
-        f
-      );
+      var t = e.contact,
+        n = e.profilePicThumb,
+        r = o("useWAWebModelValues").useOptionalModelValues(n, ["imgFull"]),
+        a = o("useWAWebContactValues").useContactValues(t.id, [
+          o("WAWebContactGetters").getId,
+          o("WAWebContactGetters").getIsMe,
+        ]),
+        i = a[0];
+      if (!r) return null;
+      var l = u.jsx(o("WAWebDetailImage.react").DefaultIcon, {
+        id: i,
+        xstyle: c.photoIcon,
+      });
+      return u.jsx("div", {
+        className:
+          "x1n2onr6 x1vjfegm x78zum5 x6s0dn4 xl56j7k xh8yej3 x5yr21d x1j6awrg x1m1drc7 x1iygr5g x1ojvc37 x4eaejv x1wsn0xg x100rkj9 x1sak2ym",
+        children: u.jsx(o("WAWebDetailImage.react").DetailImageCommon, {
+          profilePicThumb: r,
+          loader: !0,
+          defaultIcon: l,
+          profilePicThumbImg: r.imgFull,
+          spinnerXstyle: c.spinner,
+          spinnerSize: 100,
+          imgXstyle: c.img,
+          theme: "business",
+          shape: o("WAWebDetailImage.react").DetailImageShape.Square,
+        }),
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(t) {
-      var n = o("react-compiler-runtime").c(15),
-        a = t.businessProfile,
-        i = t.contact,
-        l = t.profilePicThumb,
-        s;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = { className: "x1n2onr6 x1m3v4wt x6ikm8r x10wlt62 x15e7hw7" }),
-          (n[0] = s))
-        : (s = n[0]);
-      var p;
-      n[1] !== i || n[2] !== l
-        ? ((p = u.jsx(m, { profilePicThumb: l, contact: i })),
-          (n[1] = i),
-          (n[2] = l),
-          (n[3] = p))
-        : (p = n[3]);
-      var _;
-      n[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = (e || (e = r("stylex"))).props(
-            c.text,
-            o("WAWebUISpacing").uiPadding.horiz30,
-          )),
-          (n[4] = _))
-        : (_ = n[4]);
-      var f;
-      n[5] !== i
-        ? ((f = u.jsx(o("WAWebText.react").WAWebTextLarge, {
-            color: "white",
-            weight: "bold",
-            children: u.jsx(o("WAWebName.react").Name, {
-              contact: i,
-              selectable: !0,
-              useVerifiedName: !0,
-            }),
-          })),
-          (n[5] = i),
-          (n[6] = f))
-        : (f = n[6]);
-      var g;
-      n[7] !== a
-        ? ((g = u.jsx(d, { businessProfile: a })), (n[7] = a), (n[8] = g))
-        : (g = n[8]);
-      var h;
-      n[9] !== f || n[10] !== g
-        ? ((h = u.jsxs(
+      var n = t.businessProfile,
+        a = t.contact,
+        i = t.profilePicThumb;
+      return u.jsxs("div", {
+        className: "x1n2onr6 x1m3v4wt x6ikm8r x10wlt62 x15e7hw7",
+        "data-testid": void 0,
+        children: [
+          u.jsx(m, { profilePicThumb: i, contact: a }),
+          u.jsxs(
             "div",
-            babelHelpers.extends({}, _, { children: [f, g] }),
-          )),
-          (n[9] = f),
-          (n[10] = g),
-          (n[11] = h))
-        : (h = n[11]);
-      var y;
-      return (
-        n[12] !== p || n[13] !== h
-          ? ((y = u.jsxs(
-              "div",
-              babelHelpers.extends({}, s, {
-                "data-testid": void 0,
-                children: [p, h],
-              }),
-            )),
-            (n[12] = p),
-            (n[13] = h),
-            (n[14] = y))
-          : (y = n[14]),
-        y
-      );
+            babelHelpers.extends(
+              {},
+              (e || (e = r("stylex"))).props(
+                c.text,
+                o("WAWebUISpacing").uiPadding.horiz30,
+              ),
+              {
+                children: [
+                  u.jsx(o("WAWebText.react").WAWebTextLarge, {
+                    color: "white",
+                    weight: "bold",
+                    children: u.jsx(o("WAWebName.react").Name, {
+                      contact: a,
+                      selectable: !0,
+                      useVerifiedName: !0,
+                    }),
+                  }),
+                  u.jsx(d, { businessProfile: n }),
+                ],
+              },
+            ),
+          ),
+        ],
+      });
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

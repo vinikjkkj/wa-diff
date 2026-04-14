@@ -6,7 +6,6 @@ __d(
     "WAWebVideoExitFullscreenIcon.react",
     "WAWebVideoFullscreenIcon.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -32,52 +31,25 @@ __d(
         },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.isFullscreenMode,
-        a = e.isStatic,
-        i = e.onClick,
-        l = e.ref,
-        d = n
+      var t = e.isFullscreenMode,
+        n = e.isStatic,
+        a = e.onClick,
+        i = e.ref,
+        l = t
           ? o("WAWebVideoExitFullscreenIcon.react").VideoExitFullscreenIcon
           : o("WAWebVideoFullscreenIcon.react").VideoFullscreenIcon,
-        m;
-      t[0] !== n
-        ? ((m = n
-            ? s._(/*BTDS*/ "Exit full screen")
-            : s._(/*BTDS*/ "Full screen")),
-          (t[0] = n),
-          (t[1] = m))
-        : (m = t[1]);
-      var p = m,
-        _ = n && c.fullscreen,
-        f = a && c.static,
-        g;
-      t[2] !== _ || t[3] !== f
-        ? ((g = [c.button, _, f]), (t[2] = _), (t[3] = f), (t[4] = g))
-        : (g = t[4]);
-      var h;
-      return (
-        t[5] !== d || t[6] !== p || t[7] !== i || t[8] !== l || t[9] !== g
-          ? ((h = u.jsx(r("WAWebSvgButton.react"), {
-              tabIndex: 0,
-              ref: l,
-              xstyle: g,
-              onClick: i,
-              "aria-label": p,
-              Icon: d,
-              displayInline: !0,
-            })),
-            (t[5] = d),
-            (t[6] = p),
-            (t[7] = i),
-            (t[8] = l),
-            (t[9] = g),
-            (t[10] = h))
-          : (h = t[10]),
-        h
-      );
+        d = t ? s._(/*BTDS*/ "Exit full screen") : s._(/*BTDS*/ "Full screen");
+      return u.jsx(r("WAWebSvgButton.react"), {
+        tabIndex: 0,
+        ref: i,
+        xstyle: [c.button, t && c.fullscreen, n && c.static],
+        onClick: a,
+        "aria-label": d,
+        Icon: l,
+        displayInline: !0,
+      });
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   226,
 );

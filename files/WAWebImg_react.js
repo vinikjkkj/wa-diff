@@ -11,7 +11,6 @@ __d(
     "WAWebNoop",
     "WAWebURLUtils",
     "react",
-    "react-compiler-runtime",
     "useMergeRefs",
     "useWAWebUnmountSignal",
   ],
@@ -25,71 +24,70 @@ __d(
       p = c.useState,
       _ = new (r("WAWebImgRetryQueue"))();
     function f(t) {
-      var n = o("react-compiler-runtime").c(2),
-        a = t.ref,
-        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        l = i.alt,
-        s = i.className,
-        c = i.crossOrigin,
-        f = i.disableContextMenu,
-        y = i.draggable,
-        C = i.hasPrivacyChecks,
-        b = i.noXHR,
-        v = i.onBlur,
-        S = i.onClick,
-        R = i.onError,
-        L = i.onFocus,
-        E = i.onLoad,
-        k = i.onMouseMove,
-        I = i.plainText,
-        T = i.renderError,
-        D = i.renderLoading,
-        x = i.selectable,
-        $ = i.style,
-        P = c === void 0 ? !0 : c,
-        N = f === void 0 ? !1 : f,
-        M = C === void 0 ? !0 : C,
-        w = b === void 0 ? !1 : b,
-        A = m(null),
-        F = r("useMergeRefs")(a, A),
-        O = m(null),
-        B = p(i.src),
-        W = B[0],
-        q = B[1],
-        U = p(!0),
-        V = U[0],
-        H = U[1],
-        G = p(null),
-        z = G[0],
-        j = G[1],
-        K = p(!0),
-        Q = K[0],
-        X = K[1],
-        Y = r("useWAWebUnmountSignal")();
-      i.src !== W && (q(i.src), H(!0));
-      var J = function (t) {
-          N && t.preventDefault();
+      var n = t.ref,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = a.alt,
+        l = a.className,
+        s = a.crossOrigin,
+        c = s === void 0 ? !0 : s,
+        f = a.disableContextMenu,
+        y = f === void 0 ? !1 : f,
+        C = a.draggable,
+        b = a.hasPrivacyChecks,
+        v = b === void 0 ? !0 : b,
+        S = a.noXHR,
+        R = S === void 0 ? !1 : S,
+        L = a.onBlur,
+        E = a.onClick,
+        k = a.onError,
+        I = a.onFocus,
+        T = a.onLoad,
+        D = a.onMouseMove,
+        x = a.plainText,
+        $ = a.renderError,
+        P = a.renderLoading,
+        N = a.selectable,
+        M = a.style,
+        w = m(null),
+        A = r("useMergeRefs")(n, w),
+        F = m(null),
+        O = p(a.src),
+        B = O[0],
+        W = O[1],
+        q = p(!0),
+        U = q[0],
+        V = q[1],
+        H = p(null),
+        G = H[0],
+        z = H[1],
+        j = p(!0),
+        K = j[0],
+        Q = j[1],
+        X = r("useWAWebUnmountSignal")();
+      a.src !== B && (W(a.src), V(!0));
+      var Y = function (t) {
+          y && t.preventDefault();
         },
-        Z = function (t) {
-          if ((H(!1), !W || !h(W))) {
-            j(t.error);
+        J = function (t) {
+          if ((V(!1), !B || !h(B))) {
+            z(t.error);
             return;
           }
-          var e = O.current,
+          var e = F.current,
             n;
           if (e)
-            if (g(e, i)) {
+            if (g(e, a)) {
               if (!e.noXHR) return;
               n = e;
             } else {
-              var a = e.release();
-              (a && _.remove(e), (n = new (r("WAWebImgRetry"))(W, P, w, M)));
+              var i = e.release();
+              (i && _.remove(e), (n = new (r("WAWebImgRetry"))(B, c, R, v)));
             }
-          else n = new (r("WAWebImgRetry"))(W, P, w, M);
-          O.current = n;
+          else n = new (r("WAWebImgRetry"))(B, c, R, v);
+          F.current = n;
           var l = _.enqueue(n);
           l.then(function () {
-            n === n && (Y.aborted || H(!0));
+            n === n && (X.aborted || V(!0));
           })
             .catch(
               o("WAFilteredCatch").filteredCatch(
@@ -98,7 +96,7 @@ __d(
                   o("WAWebMiscErrors").GaveUpRetry,
                 ],
                 function (e) {
-                  n === n && (Y.aborted || (H(!1), j(e), R && R(e)));
+                  n === n && (X.aborted || (V(!1), z(e), k && k(e)));
                 },
               ),
             )
@@ -110,64 +108,66 @@ __d(
             )
             .catch(o("WAAbortError").catchAbort(r("WAWebNoop")));
         },
-        ee = function (t) {
+        Z = function (t) {
           if (t.currentTarget.tagName === "IMG") {
-            var e = A.current;
+            var e = w.current;
             (e != null && e.complete && (e.style.visibility = "visible"),
-              E && E(t),
-              X(!1));
+              T && T(t),
+              Q(!1));
           }
-        },
-        te;
+        };
       if (
-        (n[0] !== W ? ((te = [W]), (n[0] = W), (n[1] = te)) : (te = n[1]),
-        d(function () {
-          if (W) {
-            var e = A.current;
-            return (
-              e && !e.complete && (e.style.visibility = "hidden"),
-              function () {
-                var e = O.current;
-                if (e) {
-                  var t = e.release();
-                  t && _.remove(e);
+        (d(
+          function () {
+            if (B) {
+              var e = w.current;
+              return (
+                e && !e.complete && (e.style.visibility = "hidden"),
+                function () {
+                  var e = F.current;
+                  if (e) {
+                    var t = e.release();
+                    t && _.remove(e);
+                  }
                 }
-              }
-            );
-          }
-        }, te),
-        z && T)
+              );
+            }
+          },
+          [B],
+        ),
+        G && $)
       )
-        return T(z);
-      var ne = !!(V && W);
+        return $(G);
+      var ee = !!(U && B);
       return u.jsxs(u.Fragment, {
         children: [
           u.jsx(o("WAWebCopyPasteSelectable.react").SelectableImg, {
-            onFocus: L,
-            onBlur: v,
-            ref: F,
-            plainText: I || "",
-            selectable: !!x,
-            crossOrigin: P ? "anonymous" : void 0,
-            onError: ne ? Z : r("WAWebNoop"),
-            onLoad: ne ? ee : r("WAWebNoop"),
+            onFocus: I,
+            onBlur: L,
+            ref: A,
+            plainText: x || "",
+            selectable: !!N,
+            crossOrigin: c ? "anonymous" : void 0,
+            onError: ee ? J : r("WAWebNoop"),
+            onLoad: ee ? Z : r("WAWebNoop"),
             src:
-              ne && W != null
-                ? W
+              ee && B != null
+                ? B
                 : r("WAWebConstantsDeprecated").ONE_BY_ONE_TRANS_GIF,
-            alt: l,
-            className: s,
-            draggable: y,
-            onClick: S,
-            onMouseMove: k,
-            style: $,
-            onContextMenu: J,
+            alt: i,
+            className: l,
+            draggable: C,
+            onClick: E,
+            onMouseMove: D,
+            style: M,
+            onContextMenu: Y,
             "data-testid": void 0,
           }),
-          Q && (D == null ? void 0 : D()),
+          K && (P == null ? void 0 : P()),
         ],
       });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g(e, t) {
       return (
         e.src === t.src &&

@@ -4,7 +4,6 @@ __d(
     "CometRelay",
     "WAWebBizAdCreationBudgetUtils",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationBudgetSpec_boostedComponentWrapper.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,36 +18,23 @@ __d(
               "useWAWebBizAdCreationBudgetSpec_boostedComponentWrapper.graphql",
             ));
     function d(e) {
-      var t,
-        n = o("react-compiler-runtime").c(3),
-        r = o("CometRelay").useFragment(c, e),
-        a;
-      if (
-        n[0] !== r.boostedComponentOptions.budgetOptions ||
-        n[1] !==
-          ((t = r.spec) == null || (t = t.budget) == null
-            ? void 0
-            : t.offsetAmount)
-      ) {
-        var i, l;
-        ((a = o("WAWebBizAdCreationBudgetUtils").createBudgetSpec(
-          {
-            offsetAmount:
-              (i = r.spec) == null || (i = i.budget) == null
-                ? void 0
-                : i.offsetAmount,
-            budgetOptions: r.boostedComponentOptions.budgetOptions,
-          },
-          { setInitialDefault: !0 },
-        )),
-          (n[0] = r.boostedComponentOptions.budgetOptions),
-          (n[1] =
-            (l = r.spec) == null || (l = l.budget) == null
-              ? void 0
-              : l.offsetAmount),
-          (n[2] = a));
-      } else a = n[2];
-      return a;
+      var t = o("CometRelay").useFragment(c, e);
+      return u(
+        function () {
+          var e;
+          return o("WAWebBizAdCreationBudgetUtils").createBudgetSpec(
+            {
+              offsetAmount:
+                (e = t.spec) == null || (e = e.budget) == null
+                  ? void 0
+                  : e.offsetAmount,
+              budgetOptions: t.boostedComponentOptions.budgetOptions,
+            },
+            { setInitialDefault: !0 },
+          );
+        },
+        [t],
+      );
     }
     l.default = d;
   },

@@ -1,6 +1,6 @@
 __d(
   "WAWebLinkMutatorComponent.react",
-  ["WAWebCopyPasteSelectable.react", "react", "react-compiler-runtime"],
+  ["WAWebCopyPasteSelectable.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -15,62 +15,32 @@ __d(
         },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.children,
+      var t = e.children,
+        n = t === void 0 ? "" : t,
         r = e.className,
         a = e.dataTab,
         i = e.href,
         l = e.onClick,
-        c = e.selectable,
-        d = n === void 0 ? "" : n,
-        m,
-        p;
-      t[0] !== l
-        ? ((m = function (t) {
-            l == null || l();
-          }),
-          (p = function (t) {
-            l == null || l();
-          }),
-          (t[0] = l),
-          (t[1] = m),
-          (t[2] = p))
-        : ((m = t[1]), (p = t[2]));
-      var _;
-      return (
-        t[3] !== d ||
-        t[4] !== r ||
-        t[5] !== a ||
-        t[6] !== i ||
-        t[7] !== c ||
-        t[8] !== m ||
-        t[9] !== p
-          ? ((_ = s.jsx(o("WAWebCopyPasteSelectable.react").SelectableLink, {
-              onClick: m,
-              onContextMenu: p,
-              className: r,
-              xstyle: u.link,
-              href: i,
-              title: i,
-              target: "_blank",
-              rel: "noopener noreferrer",
-              selectable: c,
-              dataTab: a,
-              children: d,
-            })),
-            (t[3] = d),
-            (t[4] = r),
-            (t[5] = a),
-            (t[6] = i),
-            (t[7] = c),
-            (t[8] = m),
-            (t[9] = p),
-            (t[10] = _))
-          : (_ = t[10]),
-        _
-      );
+        c = e.selectable;
+      return s.jsx(o("WAWebCopyPasteSelectable.react").SelectableLink, {
+        onClick: function (t) {
+          l == null || l();
+        },
+        onContextMenu: function (t) {
+          l == null || l();
+        },
+        className: r,
+        xstyle: u.link,
+        href: i,
+        title: i,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        selectable: c,
+        dataTab: a,
+        children: n,
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

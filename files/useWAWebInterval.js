@@ -1,6 +1,6 @@
 __d(
   "useWAWebInterval",
-  ["react", "react-compiler-runtime", "useWAWebStableCallback"],
+  ["react", "useWAWebStableCallback"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -8,52 +8,29 @@ __d(
       c = s.useEffect,
       d = s.useRef;
     function m(e, t, n) {
-      var a = o("react-compiler-runtime").c(12),
-        i = t === void 0 ? 0 : t,
-        l;
-      a[0] !== n
-        ? ((l = n != null ? n : {}), (a[0] = n), (a[1] = l))
-        : (l = a[1]);
-      var s = l,
-        u = s.immediate,
-        m = u === void 0 ? !1 : u,
-        p = r("useWAWebStableCallback")(e),
-        _ = d(),
-        f;
-      a[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = function () {
-            _.current && self.clearInterval(_.current);
-          }),
-          (a[2] = f))
-        : (f = a[2]);
-      var g = f,
-        h;
-      a[3] !== i || a[4] !== p
-        ? ((h = function () {
-            (g(), (_.current = self.setInterval(p, i)));
-          }),
-          (a[3] = i),
-          (a[4] = p),
-          (a[5] = h))
-        : (h = a[5]);
-      var y = h,
-        C,
-        b;
-      (a[6] !== m || a[7] !== y
-        ? ((C = function () {
-            return (m && y(), g);
-          }),
-          (b = [m, y, g]),
-          (a[6] = m),
-          (a[7] = y),
-          (a[8] = C),
-          (a[9] = b))
-        : ((C = a[8]), (b = a[9])),
-        c(C, b));
-      var v;
+      t === void 0 && (t = 0);
+      var o = n != null ? n : {},
+        a = o.immediate,
+        i = a === void 0 ? !1 : a,
+        l = r("useWAWebStableCallback")(e),
+        s = d(),
+        m = u(function () {
+          s.current && self.clearInterval(s.current);
+        }, []),
+        p = u(
+          function () {
+            (m(), (s.current = self.setInterval(l, t)));
+          },
+          [m, t, l],
+        );
       return (
-        a[10] !== y ? ((v = [y, g]), (a[10] = y), (a[11] = v)) : (v = a[11]),
-        v
+        c(
+          function () {
+            return (i && p(), m);
+          },
+          [i, p, m],
+        ),
+        [p, m]
       );
     }
     l.default = m;

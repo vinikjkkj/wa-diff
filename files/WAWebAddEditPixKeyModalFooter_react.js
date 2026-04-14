@@ -7,7 +7,6 @@ __d(
     "WAWebUserPrefsPaymentTos",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -39,55 +38,37 @@ __d(
     function _() {
       var e,
         t,
-        n = o("react-compiler-runtime").c(3),
-        a =
+        n =
           (e =
             (t = o("WAWebUserPrefsPaymentTos").getPaymentTos()) == null
               ? void 0
               : t.accepted) != null
             ? e
             : !1,
-        i;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = s._(
-            /*BTDS*/ "By continuing, you acknowledge the privacy policies of {wa-payments-tos-link} and {meta-tos-link} and accept the terms of {wa-payments-tos-link} and {meta-tos-link}. Your Pix key and name will be securely stored and encrypted. {learn-more-link}",
-            [
-              s._param("wa-payments-tos-link", p),
-              s._param("meta-tos-link", m),
-              s._param("learn-more-link", d),
-            ],
-          )),
-          (n[0] = i))
-        : (i = n[0]);
-      var l = i,
-        _;
-      n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = s._(
-            /*BTDS*/ "Your Pix key and name will be securely stored and encrypted. {learn-more-link}",
-            [s._param("learn-more-link", d)],
-          )),
-          (n[1] = _))
-        : (_ = n[1]);
-      var f = _,
-        g;
-      return (
-        n[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((g = u.jsx(o("WAWebFlex.react").FlexRow, {
-              xstyle: c.row,
-              justify: "center",
-              children: u.jsx(r("WDSText.react"), {
-                type: "Body3",
-                colorName: "contentDeemphasized",
-                textAlign: "center",
-                children: a ? f : l,
-              }),
-            })),
-            (n[2] = g))
-          : (g = n[2]),
-        g
-      );
+        a = s._(
+          /*BTDS*/ "By continuing, you acknowledge the privacy policies of {wa-payments-tos-link} and {meta-tos-link} and accept the terms of {wa-payments-tos-link} and {meta-tos-link}. Your Pix key and name will be securely stored and encrypted. {learn-more-link}",
+          [
+            s._param("wa-payments-tos-link", p),
+            s._param("meta-tos-link", m),
+            s._param("learn-more-link", d),
+          ],
+        ),
+        i = s._(
+          /*BTDS*/ "Your Pix key and name will be securely stored and encrypted. {learn-more-link}",
+          [s._param("learn-more-link", d)],
+        );
+      return u.jsx(o("WAWebFlex.react").FlexRow, {
+        xstyle: c.row,
+        justify: "center",
+        children: u.jsx(r("WDSText.react"), {
+          type: "Body3",
+          colorName: "contentDeemphasized",
+          textAlign: "center",
+          children: n ? i : a,
+        }),
+      });
     }
-    l.default = _;
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );

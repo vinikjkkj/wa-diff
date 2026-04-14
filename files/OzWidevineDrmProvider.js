@@ -112,9 +112,10 @@ __d(
               return o("oz-player/drm/OzDrmUtils").base64ToUint8Array(a);
             } catch (e) {
               var l = r("getErrorSafe")(e);
-              throw l.name === "InvalidCharacterError"
-                ? new Error("Endpoint returned error: " + a)
-                : l;
+              if (l.name === "InvalidCharacterError") {
+                var s = new Error("Endpoint returned error: " + a);
+                throw (s.stack, s);
+              } else throw l;
             }
           return null;
         }),

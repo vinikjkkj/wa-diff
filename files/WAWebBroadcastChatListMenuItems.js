@@ -21,7 +21,6 @@ __d(
     "WAWebWidToJid",
     "WDSMenuItem.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -29,26 +28,20 @@ __d(
       s = e || (e = o("react")),
       u = e.useEffect;
     function c(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.audienceId,
-        r,
-        a;
+      var t = e.audienceId;
       return (
-        t[0] !== n
-          ? ((r = function () {
-              o(
-                "WAWebBusinessBroadcastUserJourneyLogger",
-              ).BusinessBroadcastUserJourneyLogger.chatListContextMenuOpened(n);
-            }),
-            (a = [n]),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a))
-          : ((r = t[1]), (a = t[2])),
-        u(r, a),
+        u(
+          function () {
+            o(
+              "WAWebBusinessBroadcastUserJourneyLogger",
+            ).BusinessBroadcastUserJourneyLogger.chatListContextMenuOpened(t);
+          },
+          [t],
+        ),
         null
       );
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
       var t = e.cellRef,
         n = e.chat,

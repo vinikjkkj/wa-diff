@@ -677,28 +677,28 @@ __d(
         a
       );
     }
-    function j(e, t) {
+    function j(e, t, n) {
       return K.apply(this, arguments);
     }
     function K() {
       return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
-            var n,
-              r,
-              a =
+            var r,
+              a,
+              i =
                 t === !0 &&
                 !o("WAWebUA").UA.isFirefox &&
                 !o("WAWebUA").UA.isSafari,
-              i = a
+              l = i
                 ? navigator.mediaDevices
-                : (n =
-                      e == null || (r = e.navigator) == null
+                : (r =
+                      e == null || (a = e.navigator) == null
                         ? void 0
-                        : r.mediaDevices) != null
-                  ? n
+                        : a.mediaDevices) != null
+                  ? r
                   : navigator.mediaDevices;
-            if (!(i != null && i.enumerateDevices))
+            if (!(l != null && l.enumerateDevices))
               return (
                 o("WALogger").ERROR(
                   C ||
@@ -708,16 +708,17 @@ __d(
                 ),
                 []
               );
-            if (!a) {
+            var s = n === !0 || (o("WAWebUA").UA.isSafari && t === !0);
+            if (!(i || s)) {
               if (!k()) {
-                var l = yield o(
+                var u = yield o(
                     "WAWebMediaPermissionsUtils",
                   ).checkMediaPermissionState("camera"),
-                  s = l.granted;
-                if (!s)
+                  c = u.granted;
+                if (!c)
                   try {
-                    var u = yield i.getUserMedia({ video: !0 });
-                    u.getTracks().forEach(function (e) {
+                    var d = yield l.getUserMedia({ video: !0 });
+                    d.getTracks().forEach(function (e) {
                       return e.stop();
                     });
                   } catch (e) {
@@ -725,8 +726,8 @@ __d(
                   }
               }
             }
-            var c = yield i.enumerateDevices(),
-              d = c
+            var m = yield l.enumerateDevices(),
+              p = m
                 .filter(function (e) {
                   return e.kind === "videoinput";
                 })
@@ -743,9 +744,9 @@ __d(
                     "voip: [AV:getAvailableVideoDevices] loaded ",
                     "\n      video devices",
                   ])),
-                d.length,
+                p.length,
               ),
-              d
+              p
             );
           } catch (e) {
             return (
@@ -765,27 +766,29 @@ __d(
         K.apply(this, arguments)
       );
     }
-    function Q(e, t, n) {
+    function Q(e, t, n, r) {
       return X.apply(this, arguments);
     }
     function X() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield j(t, n);
-          return r.some(function (t) {
-            return t.deviceId === e;
-          })
-            ? !0
-            : (o("WALogger").ERROR(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: getIsValidVideoDevice: device not found in available devices: ",
-                    "",
-                  ])),
-                e,
-              ),
-              !1);
-        })),
+        (X = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield j(t, n, r);
+            return a.some(function (t) {
+              return t.deviceId === e;
+            })
+              ? !0
+              : (o("WALogger").ERROR(
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: getIsValidVideoDevice: device not found in available devices: ",
+                      "",
+                    ])),
+                  e,
+                ),
+                !1);
+          },
+        )),
         X.apply(this, arguments)
       );
     }

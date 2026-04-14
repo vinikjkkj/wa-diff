@@ -499,10 +499,14 @@ __d(
                     (L = babelHelpers.taggedTemplateLiteralLoose([
                       "",
                       " popout visibility changed: ",
+                      " active=",
+                      " hasWindow=",
                       "",
                     ])),
                   l,
-                  e,
+                  e.visibilityState,
+                  String(e.isCallActiveInPopoutWindow),
+                  String(e.hasPopoutWindow),
                 ),
                   i.$13 != null &&
                     (window.clearTimeout(i.$13), (i.$13 = null)));

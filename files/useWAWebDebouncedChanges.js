@@ -1,43 +1,29 @@
 __d(
   "useWAWebDebouncedChanges",
-  ["react", "react-compiler-runtime", "useWAWebDebouncedCallback"],
+  ["react", "useWAWebDebouncedCallback"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = s.useEffect,
       c = s.useState;
     function d(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.debounceMs,
-        a = e.shouldDebounce,
-        i = e.value,
-        l = c(i),
-        s = l[0],
-        d = l[1],
-        m;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = function (t) {
-            d(t);
-          }),
-          (t[0] = m))
-        : (m = t[0]);
-      var p = r("useWAWebDebouncedCallback")(m, n),
-        _,
-        f;
+      var t = e.debounceMs,
+        n = e.shouldDebounce,
+        o = e.value,
+        a = c(o),
+        i = a[0],
+        l = a[1],
+        s = r("useWAWebDebouncedCallback")(function (e) {
+          l(e);
+        }, t);
       return (
-        t[1] !== p || t[2] !== i || t[3] !== a
-          ? ((_ = function () {
-              a ? p(i) : (p.cancel(), d(i));
-            }),
-            (f = [i, a, p]),
-            (t[1] = p),
-            (t[2] = i),
-            (t[3] = a),
-            (t[4] = _),
-            (t[5] = f))
-          : ((_ = t[4]), (f = t[5])),
-        u(_, f),
-        s
+        u(
+          function () {
+            n ? s(o) : (s.cancel(), l(o));
+          },
+          [o, n, s],
+        ),
+        i
       );
     }
     l.useDebouncedChanges = d;

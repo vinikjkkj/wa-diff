@@ -8,7 +8,6 @@ __d(
     "WDSTextField.react",
     "getWAWebBizAdCreationCreativeCarouselReducer",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationSpecDispatcherContext",
     "withWAWebBizAdCreationSpecContext",
   ],
@@ -21,83 +20,57 @@ __d(
       m = c.useContext,
       p = c.useRef;
     function _(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n = e.adAccountID,
-        a = e.description,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = [r("getWAWebBizAdCreationCreativeCarouselReducer")]),
-          (t[0] = i))
-        : (i = t[0]);
-      var l = r("useWAWebBizAdCreationSpecDispatcherContext")(i),
-        c = m(r("WAWebBizAdCreationLoggerContext")),
-        d = p(a != null ? a : ""),
-        _;
-      t[1] !== l
-        ? ((_ = function (t) {
-            var e =
-              t.length >
+      var t = e.adAccountID,
+        n = e.description,
+        a = r("useWAWebBizAdCreationSpecDispatcherContext")([
+          r("getWAWebBizAdCreationCreativeCarouselReducer"),
+        ]),
+        i = m(r("WAWebBizAdCreationLoggerContext")),
+        l = p(n != null ? n : ""),
+        c = d(
+          function (e) {
+            var t =
+              e.length >
               o("WAWebBizAdCreationMediaValidationUtils").MAX_DESCRIPTION_LENGTH
-                ? t.slice(
+                ? e.slice(
                     0,
                     o("WAWebBizAdCreationMediaValidationUtils")
                       .MAX_DESCRIPTION_LENGTH,
                   )
-                : t;
-            l({
-              bodyText: e,
+                : e;
+            a({
+              bodyText: t,
               type: "creative_carousel_reducer.update_body_text",
             });
-          }),
-          (t[1] = l),
-          (t[2] = _))
-        : (_ = t[2]);
-      var f = _,
-        g;
-      t[3] !== n || t[4] !== a || t[5] !== c
-        ? ((g = function () {
-            var e = a != null ? a : "",
-              t = d.current;
-            e !== t &&
-              (c != null &&
+          },
+          [a],
+        ),
+        _ = d(
+          function () {
+            var e = n != null ? n : "",
+              o = l.current;
+            e !== o &&
+              (i != null &&
                 r("WAWebBizAdLogger").logCritical({
                   event: "change_body_text",
-                  loggerContext: c,
-                  adAccountID: n,
+                  loggerContext: i,
+                  adAccountID: t,
                   extra: { text_length: e.length },
                 }),
-              (d.current = e));
-          }),
-          (t[3] = n),
-          (t[4] = a),
-          (t[5] = c),
-          (t[6] = g))
-        : (g = t[6]);
-      var h = g,
-        y;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((y = s._(/*BTDS*/ "Description")), (t[7] = y))
-        : (y = t[7]);
-      var C = a != null ? a : "",
-        b;
-      return (
-        t[8] !== h || t[9] !== f || t[10] !== C
-          ? ((b = u.jsx(r("WDSTextField.react"), {
-              label: y,
-              onValueChange: f,
-              onBlur: h,
-              value: C,
-              maxCharacterCount: o("WAWebBizAdCreationMediaValidationUtils")
-                .MAX_DESCRIPTION_LENGTH,
-            })),
-            (t[8] = h),
-            (t[9] = f),
-            (t[10] = C),
-            (t[11] = b))
-          : (b = t[11]),
-        b
-      );
+              (l.current = e));
+          },
+          [n, i, t],
+        );
+      return u.jsx(r("WDSTextField.react"), {
+        label: s._(/*BTDS*/ "Description"),
+        onValueChange: c,
+        onBlur: _,
+        value: n != null ? n : "",
+        maxCharacterCount: o("WAWebBizAdCreationMediaValidationUtils")
+          .MAX_DESCRIPTION_LENGTH,
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     var f = r("withWAWebBizAdCreationSpecContext")(_, function (e) {
       var t,
         n,

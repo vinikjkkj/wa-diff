@@ -5,7 +5,6 @@ __d(
     "WAWebCommunityGatingUtils",
     "WAWebMenuItem.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["chat", "chatCellRef", "onSelect", "optionId", "ref"],
@@ -28,93 +27,43 @@ __d(
       return { itemKey: e.id.toString(), height: o && c(e) ? 88 : 72, chat: e };
     }
     function m(t) {
-      var n = o("react-compiler-runtime").c(21),
-        a,
-        i,
-        l,
-        s,
-        c,
-        d;
-      n[0] !== t
-        ? ((a = t.chat),
-          (l = t.chatCellRef),
-          (s = t.onSelect),
-          (c = t.optionId),
-          (d = t.ref),
-          (i = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i),
-          (n[3] = l),
-          (n[4] = s),
-          (n[5] = c),
-          (n[6] = d))
-        : ((a = n[1]),
-          (i = n[2]),
-          (l = n[3]),
-          (s = n[4]),
-          (c = n[5]),
-          (d = n[6]));
-      var m = o("WAWebMenuItem.react").useMenuItem(c),
-        p = m.border,
-        _ = m.colorScheme,
-        f = m.isActive,
-        g = m.material,
-        h = m.size,
-        y;
-      n[7] !== p ||
-      n[8] !== a ||
-      n[9] !== i ||
-      n[10] !== l ||
-      n[11] !== _ ||
-      n[12] !== f ||
-      n[13] !== g ||
-      n[14] !== h
-        ? ((y = u.jsx(
-            r("WAWebChatCellV2.react"),
-            babelHelpers.extends(
-              {
-                ref: l,
-                chat: a,
-                colorScheme: _,
-                size: h,
-                material: g,
-                border: p,
-                active: f,
-              },
-              i,
-            ),
-          )),
-          (n[7] = p),
-          (n[8] = a),
-          (n[9] = i),
-          (n[10] = l),
-          (n[11] = _),
-          (n[12] = f),
-          (n[13] = g),
-          (n[14] = h),
-          (n[15] = y))
-        : (y = n[15]);
-      var C;
-      return (
-        n[16] !== s || n[17] !== c || n[18] !== d || n[19] !== y
-          ? ((C = u.jsx(o("WAWebMenuItem.react").WAWebMenuItem, {
-              ref: d,
-              onSelect: s,
-              optionId: c,
-              type: "action",
-              children: y,
-            })),
-            (n[16] = s),
-            (n[17] = c),
-            (n[18] = d),
-            (n[19] = y),
-            (n[20] = C))
-          : (C = n[20]),
-        C
-      );
+      var n = t.chat,
+        a = t.chatCellRef,
+        i = t.onSelect,
+        l = t.optionId,
+        s = t.ref,
+        c = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        d = o("WAWebMenuItem.react").useMenuItem(l),
+        m = d.border,
+        p = d.colorScheme,
+        _ = d.isActive,
+        f = d.material,
+        g = d.size;
+      return u.jsx(o("WAWebMenuItem.react").WAWebMenuItem, {
+        ref: s,
+        onSelect: i,
+        optionId: l,
+        type: "action",
+        children: u.jsx(
+          r("WAWebChatCellV2.react"),
+          babelHelpers.extends(
+            {
+              ref: a,
+              chat: n,
+              colorScheme: p,
+              size: g,
+              material: f,
+              border: m,
+              active: _,
+            },
+            c,
+          ),
+        ),
+      });
     }
-    ((l.getFlatListConfigFromChat = d), (l.ChatMenuItem = m));
+    ((m.displayName = m.name + " [from " + i.id + "]"),
+      (l.getFlatListConfigFromChat = d),
+      (l.ChatMenuItem = m));
   },
   98,
 );

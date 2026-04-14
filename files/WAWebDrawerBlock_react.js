@@ -6,7 +6,6 @@ __d(
     "WAWebStylesEnv",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
     "useWAWebFocusState",
@@ -54,153 +53,87 @@ __d(
         active: { backgroundColor: "x4wrhlh", $$css: !0 },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(34),
+      var n,
         a = t.ariaLabel,
         i = t.blockXstyle,
         l = t.children,
         s = t.className,
         u = t.focusable,
         m = t.isRefresh,
-        p = t.multiline,
-        _ = t.onClick,
-        f = t.restrictSpacing,
-        g = t.separator,
-        h = t.side,
-        y = t.tabOrder,
-        C = t.testid,
-        b = t.xstyle,
-        v = m === void 0 ? !1 : m,
-        S = r("useWAWebStaticButtonA11y")(_),
+        p = m === void 0 ? !1 : m,
+        _ = t.multiline,
+        f = t.onClick,
+        g = t.restrictSpacing,
+        h = t.separator,
+        y = t.side,
+        C = t.tabOrder,
+        b = t.testid,
+        v = t.xstyle,
+        S = r("useWAWebStaticButtonA11y")(f),
         R = S[0],
         L = S[1],
         E = r("useWAWebFocusState")(),
         k = E[0],
         I = E[1],
         T = r("useMergeRefs")(R, k),
-        D;
-      n[0] !== h
-        ? ((D =
-            h != null
-              ? c.jsx("div", {
-                  className: "x1c4vz4f x2lah0s xdl72j9 x1fkuohi",
-                  children: h,
-                })
-              : null),
-          (n[0] = h),
-          (n[1] = D))
-        : (D = n[1]);
-      var x = D,
-        $ = g != null ? g : !0,
-        P;
-      if (n[2] !== s || n[3] !== I || n[4] !== $ || n[5] !== b) {
-        var N;
-        ((P = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          (e || (e = r("stylex")))(d.container, b, I && d.active),
+        D =
+          y != null
+            ? c.jsx("div", {
+                className: "x1c4vz4f x2lah0s xdl72j9 x1fkuohi",
+                children: y,
+              })
+            : null,
+        x = h != null ? h : !0,
+        $ = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          (e || (e = r("stylex")))(d.container, v, I && d.active),
           s,
-          ((N = {}), (N._ajxt = $), N),
-        )),
-          (n[2] = s),
-          (n[3] = I),
-          (n[4] = $),
-          (n[5] = b),
-          (n[6] = P));
-      } else P = n[6];
-      var M = P,
-        w = _ ? "button" : null,
-        A = _ || u === !0 ? 0 : -1,
-        F;
-      n[7] !== L || n[8] !== _ || n[9] !== w || n[10] !== A
-        ? ((F = babelHelpers.extends({}, L, {
-            onClick: _,
-            role: w,
-            tabIndex: A,
-          })),
-          (n[7] = L),
-          (n[8] = _),
-          (n[9] = w),
-          (n[10] = A),
-          (n[11] = F))
-        : (F = n[11]);
-      var O = F,
-        B = C != null ? C : $ ? "container_with_separator" : "container",
-        W;
-      n[12] !== i || n[13] !== p
-        ? ((W = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            "_ajxu",
-            (e || (e = r("stylex")))(d.block, i, p && d.blockMultiline),
-          )),
-          (n[12] = i),
-          (n[13] = p),
-          (n[14] = W))
-        : (W = n[14]);
-      var q;
-      n[15] !== v || n[16] !== p || n[17] !== f
-        ? ((q = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            (e || (e = r("stylex")))(
-              d.main,
-              p &&
-                (v
-                  ? [
-                      d.mainMultilineRefreshed,
-                      o("WAWebUISpacing").uiPadding.all0,
-                    ]
-                  : d.mainMultiline),
-              f && d.mainRestrictSpacing,
-              o("WAWebStylesEnv").isOSMac && d.mainMac,
+          ((n = {}), (n._ajxt = x), n),
+        ),
+        P = babelHelpers.extends({}, L, {
+          onClick: f,
+          role: f ? "button" : null,
+          tabIndex: f || u === !0 ? 0 : -1,
+        }),
+        N = b != null ? b : x ? "container_with_separator" : "container";
+      return c.jsx(
+        "div",
+        babelHelpers.extends({ "data-tab": C }, P, {
+          "aria-label": a,
+          ref: T,
+          className: $,
+          "data-testid": void 0,
+          children: c.jsxs("div", {
+            className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+              "_ajxu",
+              e(d.block, i, _ && d.blockMultiline),
             ),
-          )),
-          (n[15] = v),
-          (n[16] = p),
-          (n[17] = f),
-          (n[18] = q))
-        : (q = n[18]);
-      var U;
-      n[19] !== l || n[20] !== q
-        ? ((U = c.jsx("div", { className: q, children: l })),
-          (n[19] = l),
-          (n[20] = q),
-          (n[21] = U))
-        : (U = n[21]);
-      var V;
-      n[22] !== x || n[23] !== W || n[24] !== U
-        ? ((V = c.jsxs("div", { className: W, children: [U, x] })),
-          (n[22] = x),
-          (n[23] = W),
-          (n[24] = U),
-          (n[25] = V))
-        : (V = n[25]);
-      var H;
-      return (
-        n[26] !== a ||
-        n[27] !== M ||
-        n[28] !== O ||
-        n[29] !== T ||
-        n[30] !== V ||
-        n[31] !== y ||
-        n[32] !== B
-          ? ((H = c.jsx(
-              "div",
-              babelHelpers.extends({ "data-tab": y }, O, {
-                "aria-label": a,
-                ref: T,
-                className: M,
-                "data-testid": void 0,
-                children: V,
+            children: [
+              c.jsx("div", {
+                className: o(
+                  "WAWebClassnames",
+                ).classnamesConvertMeToStylexPlease(
+                  e(
+                    d.main,
+                    _ &&
+                      (p
+                        ? [
+                            d.mainMultilineRefreshed,
+                            o("WAWebUISpacing").uiPadding.all0,
+                          ]
+                        : d.mainMultiline),
+                    g && d.mainRestrictSpacing,
+                    o("WAWebStylesEnv").isOSMac && d.mainMac,
+                  ),
+                ),
+                children: l,
               }),
-            )),
-            (n[26] = a),
-            (n[27] = M),
-            (n[28] = O),
-            (n[29] = T),
-            (n[30] = V),
-            (n[31] = y),
-            (n[32] = B),
-            (n[33] = H))
-          : (H = n[33]),
-        H
+              D,
+            ],
+          }),
+        }),
       );
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

@@ -32,7 +32,6 @@ __d(
     "WAWebUimUieMenu.react",
     "WAWebUnstyledButton.react",
     "react",
-    "react-compiler-runtime",
     "useHoverState",
     "useWAWebIsKeyboardUser",
   ],
@@ -285,91 +284,54 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n = e.senderId,
-        a = e.senderName,
-        i = e.senderPictureDirectPath;
-      if (n) {
-        var l;
-        return (
-          t[0] !== n
-            ? ((l = u.jsx(o("WAWebDetailImage.react").DetailImage, {
-                id: n,
-                size: o("WAWebDetailImage.react").DetailImageSize.ExtraSmall,
-              })),
-              (t[0] = n),
-              (t[1] = l))
-            : (l = t[1]),
-          l
-        );
-      }
-      var s;
-      if (t[2] !== a) {
-        s = u.jsx(
+      var t = e.senderId,
+        n = e.senderName,
+        a = e.senderPictureDirectPath;
+      if (t)
+        return u.jsx(o("WAWebDetailImage.react").DetailImage, {
+          id: t,
+          size: o("WAWebDetailImage.react").DetailImageSize.ExtraSmall,
+        });
+      var i = u.jsx(
           o("WAWebDefaultContactRefreshedIcon.react")
             .DefaultContactRefreshedIcon,
           { iconXstyle: d.contactIcon, "aria-hidden": !0 },
-        );
-        var c = o("WAWebInitialsFromNameUtils").getInitialsFromNames({
+        ),
+        l = o("WAWebInitialsFromNameUtils").getInitialsFromNames({
           name: null,
           shortName: null,
-          pushname: a,
+          pushname: n,
         });
-        ((c.firstInitial != null || c.secondInitial != null) &&
-          (s = u.jsx(
-            o("WAWebInitialsProfilePicture.react").InitialsProfilePicture,
-            {
-              initialsData: c,
-              theme: o("WAWebInitialsProfilePicture.react").ThemeType
-                .GroupChatProfilePicture,
-              backgroundColorId: 1,
-            },
-          )),
-          (t[2] = a),
-          (t[3] = s));
-      } else s = t[3];
-      var m;
-      t[4] !== i
-        ? ((m = o("WAWebNewsletterModelUtils").formatProfilePictureURL(i)),
-          (t[4] = i),
-          (t[5] = m))
-        : (m = t[5]);
-      var p = m,
-        _;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = { width: "40px", height: "40px" }), (t[6] = _))
-        : (_ = t[6]);
-      var f;
-      t[7] !== s || t[8] !== p
-        ? ((f =
-            p == null
-              ? s
-              : u.jsx(r("WAWebImg.react"), {
-                  src: p,
-                  hasPrivacyChecks: !0,
-                  crossOrigin: !1,
-                  className:
-                    "x1n2onr6 x1lliihq xh8yej3 x5yr21d x6ikm8r x10wlt62 x1c9tyrk xeusxvb x1pahc9y x1ertn4p xl1xv1r x115dhu7 x17vty23",
-                  draggable: !1,
-                  renderError: function () {
-                    return s;
-                  },
-                })),
-          (t[7] = s),
-          (t[8] = p),
-          (t[9] = f))
-        : (f = t[9]);
-      var g;
-      return (
-        t[10] !== f
-          ? ((g = u.jsx("div", { style: _, children: f })),
-            (t[10] = f),
-            (t[11] = g))
-          : (g = t[11]),
-        g
-      );
+      (l.firstInitial != null || l.secondInitial != null) &&
+        (i = u.jsx(
+          o("WAWebInitialsProfilePicture.react").InitialsProfilePicture,
+          {
+            initialsData: l,
+            theme: o("WAWebInitialsProfilePicture.react").ThemeType
+              .GroupChatProfilePicture,
+            backgroundColorId: 1,
+          },
+        ));
+      var s = o("WAWebNewsletterModelUtils").formatProfilePictureURL(a);
+      return u.jsx("div", {
+        style: { width: "40px", height: "40px" },
+        children:
+          s == null
+            ? i
+            : u.jsx(r("WAWebImg.react"), {
+                src: s,
+                hasPrivacyChecks: !0,
+                crossOrigin: !1,
+                className:
+                  "x1n2onr6 x1lliihq xh8yej3 x5yr21d x6ikm8r x10wlt62 x1c9tyrk xeusxvb x1pahc9y x1ertn4p xl1xv1r x115dhu7 x17vty23",
+                draggable: !1,
+                renderError: function () {
+                  return i;
+                },
+              }),
+      });
     }
-    l.default = m;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

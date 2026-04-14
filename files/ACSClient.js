@@ -6,9 +6,7 @@ __d(
     "ACSTokenUtil",
     "LSVoprfWasm",
     "Promise",
-    "VoprfWasm",
     "asyncToGeneratorRuntime",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -249,31 +247,25 @@ __d(
         s = o("ACSTokenUtil").getCachedTokens(l, t, e.voprfWasm, e.voprfInfo);
       return s;
     }
-    function N(e, t, n, r, o) {
+    function N(e, t, n, r) {
       return M.apply(this, arguments);
     }
     function M() {
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            var l =
-                i ||
-                (r("justknobx")._("786")
-                  ? yield o("LSVoprfWasm").LSVoprfWasm({
-                      locateFile: o("LSVoprfWasm").locateFile,
-                    })
-                  : yield o("VoprfWasm").VoprfWasm({
-                      locateFile: o("VoprfWasm").locateFile,
-                    })),
-              s = l.createCurveRistretto(),
-              u = l.createVoprfExpTwohashdh(s);
+          function* (e, t, n, r) {
+            var a = yield o("LSVoprfWasm").LSVoprfWasm({
+                locateFile: o("LSVoprfWasm").locateFile,
+              }),
+              i = a.createCurveRistretto(),
+              l = a.createVoprfExpTwohashdh(i);
             return {
               projectName: e,
               attributeIdentifier: t,
               serverProvider: n,
-              storageManager: a,
-              voprfInfo: { curvePtr: s, voprfPtr: u },
-              voprfWasm: l,
+              storageManager: r,
+              voprfInfo: { curvePtr: i, voprfPtr: l },
+              voprfWasm: a,
             };
           },
         )),

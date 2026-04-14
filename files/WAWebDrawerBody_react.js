@@ -1,12 +1,6 @@
 __d(
   "WAWebDrawerBody.react",
-  [
-    "WAWebFlatListContainer.react",
-    "WAWebThemeContext",
-    "react",
-    "react-compiler-runtime",
-    "stylex",
-  ],
+  ["WAWebFlatListContainer.react", "WAWebThemeContext", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
       s = [
@@ -66,143 +60,50 @@ __d(
       p = { default: { backgroundColor: "x1280gxy", $$css: !0 } },
       _ = { default: { backgroundColor: "x1280gxy", $$css: !0 } };
     function f(t) {
-      var n = o("react-compiler-runtime").c(34),
-        a,
-        i;
-      n[0] !== t
-        ? ((i = t.ref),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i))
-        : ((a = n[1]), (i = n[2]));
-      var l = o("WAWebThemeContext").useIsDarkTheme(),
-        c,
-        f,
-        g,
-        h,
-        y,
-        C,
-        b,
-        v,
-        S,
-        R;
-      if (n[3] !== a) {
-        var L = a;
-        ((c = L.ariaLabel),
-          (f = L.ariaRole),
-          (g = L.backgroundColor),
-          (h = L.children),
-          (y = L.flatListControllers),
-          (C = L.isRefresh),
-          (v = L.overflow),
-          (S = L.theme),
-          (R = L.xstyle),
-          (b = babelHelpers.objectWithoutPropertiesLoose(L, s)),
-          (n[3] = a),
-          (n[4] = c),
-          (n[5] = f),
-          (n[6] = g),
-          (n[7] = h),
-          (n[8] = y),
-          (n[9] = C),
-          (n[10] = b),
-          (n[11] = v),
-          (n[12] = S),
-          (n[13] = R));
-      } else
-        ((c = n[4]),
-          (f = n[5]),
-          (g = n[6]),
-          (h = n[7]),
-          (y = n[8]),
-          (C = n[9]),
-          (b = n[10]),
-          (v = n[11]),
-          (S = n[12]),
-          (R = n[13]));
-      var E;
-      n[14] !== g ||
-      n[15] !== l ||
-      n[16] !== C ||
-      n[17] !== v ||
-      n[18] !== S ||
-      n[19] !== R
-        ? ((E = (u || (u = r("stylex")))([
-            m.container,
-            v === "hidden" && m.noscroll,
-            S === "center-content" && m.centerItem,
-            S === "padding" && m.padding,
-            S === "center-column" && m.centerColumn,
-            S === "custom-scroll" && !l && m.lightScrollStyles,
-            S === "custom-scroll" && l && m.darkScrollStyles,
-            l && m.darkMode,
-            g != null && (C === !0 ? _[g] : p[g]),
-            R,
-          ])),
-          (n[14] = g),
-          (n[15] = l),
-          (n[16] = C),
-          (n[17] = v),
-          (n[18] = S),
-          (n[19] = R),
-          (n[20] = E))
-        : (E = n[20]);
-      var k = E;
-      if (y && y.length > 0) {
-        var I;
-        return (
-          n[21] !== h ||
-          n[22] !== k ||
-          n[23] !== y ||
-          n[24] !== b ||
-          n[25] !== i
-            ? ((I = d.jsx(
-                r("WAWebFlatListContainer.react"),
-                babelHelpers.extends(
-                  { ref: i, flatListControllers: y, className: k },
-                  b,
-                  { children: h },
-                ),
-              )),
-              (n[21] = h),
-              (n[22] = k),
-              (n[23] = y),
-              (n[24] = b),
-              (n[25] = i),
-              (n[26] = I))
-            : (I = n[26]),
-          I
-        );
-      }
-      var T;
-      return (
-        n[27] !== c ||
-        n[28] !== f ||
-        n[29] !== h ||
-        n[30] !== k ||
-        n[31] !== b ||
-        n[32] !== i
-          ? ((T = d.jsx(
-              "div",
-              babelHelpers.extends(
-                { className: k, ref: i, "aria-label": c, role: f },
-                b,
-                { children: h },
-              ),
-            )),
-            (n[27] = c),
-            (n[28] = f),
-            (n[29] = h),
-            (n[30] = k),
-            (n[31] = b),
-            (n[32] = i),
-            (n[33] = T))
-          : (T = n[33]),
-        T
-      );
+      var n = t.ref,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = o("WAWebThemeContext").useIsDarkTheme(),
+        l = a.ariaLabel,
+        c = a.ariaRole,
+        f = a.backgroundColor,
+        g = a.children,
+        h = a.flatListControllers,
+        y = a.isRefresh,
+        C = a.overflow,
+        b = a.theme,
+        v = a.xstyle,
+        S = babelHelpers.objectWithoutPropertiesLoose(a, s),
+        R = (u || (u = r("stylex")))([
+          m.container,
+          C === "hidden" && m.noscroll,
+          b === "center-content" && m.centerItem,
+          b === "padding" && m.padding,
+          b === "center-column" && m.centerColumn,
+          b === "custom-scroll" && !i && m.lightScrollStyles,
+          b === "custom-scroll" && i && m.darkScrollStyles,
+          i && m.darkMode,
+          f != null && (y === !0 ? _[f] : p[f]),
+          v,
+        ]);
+      return h && h.length > 0
+        ? d.jsx(
+            r("WAWebFlatListContainer.react"),
+            babelHelpers.extends(
+              { ref: n, flatListControllers: h, className: R },
+              S,
+              { children: g },
+            ),
+          )
+        : d.jsx(
+            "div",
+            babelHelpers.extends(
+              { className: R, ref: n, "aria-label": l, role: c },
+              S,
+              { children: g },
+            ),
+          );
     }
-    l.default = f;
+    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
   },
   98,
 );

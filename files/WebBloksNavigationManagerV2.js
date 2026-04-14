@@ -493,7 +493,8 @@ __d(
           }),
           (n.$11 = function () {
             var e = this;
-            this.$2 &&
+            !this.$2 ||
+              !o("WebBloksSSRUtils").canUseDOM ||
               (this.$28(),
               (this.$3 = window.requestAnimationFrame(function () {
                 ((e.$3 = null), e.$29());
@@ -501,7 +502,7 @@ __d(
           }),
           (n.$20 = function () {
             var e = this;
-            if (this.$2) {
+            if (!(!this.$2 || !o("WebBloksSSRUtils").canUseDOM)) {
               var t = this.getCurrentScreen();
               (t != null && (t.savedScrollY = 0),
                 this.$28(),

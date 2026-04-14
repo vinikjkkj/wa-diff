@@ -58,7 +58,6 @@ __d(
     "WDSMenuBarItem.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useLazyRef",
     "useWAWebDebouncedCallback",
@@ -94,80 +93,43 @@ __d(
       },
       y = { surface: "new-chat" };
     function C(e) {
-      var t = o("react-compiler-runtime").c(14),
-        n = e.detailRight,
-        a = e.image,
-        i = e.onClick,
-        l = e.primary,
-        c = e.ref,
-        m = e.testid,
-        p;
-      t[0] !== l
-        ? ((p = s._(/*BTDS*/ "{item-title}", [
-            s._param("item-title", l.toString()),
-          ])),
-          (t[0] = l),
-          (t[1] = p))
-        : (p = t[1]);
-      var _ = p,
-        f;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = (u || (u = r("stylex"))).props(
+      var t = e.detailRight,
+        n = e.image,
+        a = e.onClick,
+        i = e.primary,
+        l = e.ref,
+        c = e.testid,
+        m = s._(/*BTDS*/ "{item-title}", [
+          s._param("item-title", i.toString()),
+        ]);
+      return d.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (u || (u = r("stylex"))).props(
             o("WDSFlex.stylex").wdsFlex.flex,
             h.pinnedItem,
-          )),
-          (t[2] = f))
-        : (f = t[2]);
-      var g;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = [o("WAWebUISpacing").uiPadding.start13]), (t[3] = g))
-        : (g = t[3]);
-      var y;
-      t[4] !== l
-        ? ((y = d.jsxs(o("WAWebText.react").WAWebTextTitle, {
-            children: [l, " "],
-          })),
-          (t[4] = l),
-          (t[5] = y))
-        : (y = t[5]);
-      var C;
-      return (
-        t[6] !== n ||
-        t[7] !== a ||
-        t[8] !== i ||
-        t[9] !== _ ||
-        t[10] !== c ||
-        t[11] !== y ||
-        t[12] !== m
-          ? ((C = d.jsx(
-              "div",
-              babelHelpers.extends({}, f, {
-                children: d.jsx(r("WAWebCellV2.react"), {
-                  ref: c,
-                  size: "medium",
-                  material: !0,
-                  detailLeft: a,
-                  detailLeftXStyle: g,
-                  detailRight: n,
-                  primary: y,
-                  onClick: i,
-                  ariaLabel: _,
-                  testid: void 0,
-                }),
+          ),
+          {
+            children: d.jsx(r("WAWebCellV2.react"), {
+              ref: l,
+              size: "medium",
+              material: !0,
+              detailLeft: n,
+              detailLeftXStyle: [o("WAWebUISpacing").uiPadding.start13],
+              detailRight: t,
+              primary: d.jsxs(o("WAWebText.react").WAWebTextTitle, {
+                children: [i, " "],
               }),
-            )),
-            (t[6] = n),
-            (t[7] = a),
-            (t[8] = i),
-            (t[9] = _),
-            (t[10] = c),
-            (t[11] = y),
-            (t[12] = m),
-            (t[13] = C))
-          : (C = t[13]),
-        C
+              onClick: a,
+              ariaLabel: m,
+              testid: void 0,
+            }),
+          },
+        ),
       );
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     var b = function (t, n) {
       o("WAWebUsernameSearchLogger").UsernameSearchLogger.log({
         contactSearchEntrypoint: o("WAWebWamEnumContactSearchEntrypoint")

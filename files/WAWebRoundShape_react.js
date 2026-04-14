@@ -1,6 +1,6 @@
 __d(
   "WAWebRoundShape.react",
-  ["react", "react-compiler-runtime", "stylex"],
+  ["react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -30,40 +30,28 @@ __d(
         groupModal: { width: "x15jighw", height: "x112a4uq", $$css: !0 },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(8),
-        a = t.children,
-        i = t.disabled,
-        l = t.theme,
-        s = t.transparent,
-        d = t.xstyle,
-        m;
-      n[0] !== i || n[1] !== l || n[2] !== s || n[3] !== d
-        ? ((m = (e || (e = r("stylex"))).props(
+      var n = t.children,
+        o = t.disabled,
+        a = t.theme,
+        i = t.transparent,
+        l = t.xstyle;
+      return u.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (e || (e = r("stylex"))).props(
             c.iconRefreshed,
-            (s === !0 && c.transparent) ||
-              (l === "compact" && c.compact) ||
-              (l === "group-modal" && c.groupModal),
-            i === !0 && c.disabled,
-            d,
-          )),
-          (n[0] = i),
-          (n[1] = l),
-          (n[2] = s),
-          (n[3] = d),
-          (n[4] = m))
-        : (m = n[4]);
-      var p;
-      return (
-        n[5] !== a || n[6] !== m
-          ? ((p = u.jsx("div", babelHelpers.extends({}, m, { children: a }))),
-            (n[5] = a),
-            (n[6] = m),
-            (n[7] = p))
-          : (p = n[7]),
-        p
+            (i === !0 && c.transparent) ||
+              (a === "compact" && c.compact) ||
+              (a === "group-modal" && c.groupModal),
+            o === !0 && c.disabled,
+            l,
+          ),
+          { children: n },
+        ),
       );
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

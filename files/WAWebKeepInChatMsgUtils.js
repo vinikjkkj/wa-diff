@@ -82,17 +82,12 @@ __d(
       return g(e) || h(e);
     }
     function g(e) {
-      var t;
       return (
         _(e) &&
         (e.afterReadDuration == null || e.afterReadDuration === 0) &&
-        (o("WAWebChatGroupUtils").canSendToGroup(
+        o("WAWebChatGroupUtils").canSendToGroup(
           o("WAWebFrontendMsgGetters").getChat(e),
-        ) ||
-          ((t = o("WAWebFrontendMsgGetters").getChat(e).groupMetadata) == null
-            ? void 0
-            : t.pastParticipants.get(o("WAWebUserPrefsMeUser").getMeUser())) !=
-            null) &&
+        ) &&
         !d(e) &&
         !e.star &&
         !e.isGif &&

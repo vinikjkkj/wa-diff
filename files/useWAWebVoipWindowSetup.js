@@ -8,6 +8,7 @@ __d(
     "WAWebKeyboardRun",
     "WAWebKeyboardShortcuts",
     "WAWebPopover.react",
+    "WAWebRobotoVariableFontLoadable",
     "WAWebUim",
     "WAWebVoipWindowConstants",
     "asyncToGeneratorRuntime",
@@ -149,6 +150,9 @@ __d(
                       var U = document.createElement("div");
                       ((U.id = m),
                         W.appendChild(U),
+                        yield o(
+                          "WAWebRobotoVariableFontLoadable",
+                        ).requireRobotoVariableFont(),
                         document.readyState === "complete"
                           ? L.resolve()
                           : S.addEventListener("load", R),

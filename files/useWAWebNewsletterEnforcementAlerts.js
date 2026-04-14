@@ -9,7 +9,6 @@ __d(
     "WAWebNewsletterGetNewsletterEnforcementAlertAction",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebUnmountSignal",
   ],
@@ -27,91 +26,65 @@ __d(
         "ERROR",
       ]);
     function _(t) {
-      var a = o("react-compiler-runtime").c(11),
-        i = r("useWAWebUnmountSignal")(),
-        l = m(p.FETCHING),
-        s = l[0],
-        u = l[1],
-        c;
-      a[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = ["add", "remove", "change", "reset"]), (a[0] = c))
-        : (c = a[0]);
-      var _ = r("useWAWebEventTargetValue")(
+      var a = r("useWAWebUnmountSignal")(),
+        i = m(p.FETCHING),
+        l = i[0],
+        s = i[1],
+        u = r("useWAWebEventTargetValue")(
           o("WAWebNewsletterEnforcementAlertCollection")
             .NewsletterEnforcementAlertCollection,
-          c,
-          f,
+          ["add", "remove", "change", "reset"],
+          function () {
+            return o(
+              "WAWebNewsletterEnforcementAlertCollection",
+            ).NewsletterEnforcementAlertCollection.toArray();
+          },
         ),
-        g;
-      a[1] !== t.id || a[2] !== i.aborted
-        ? ((g = (function () {
-            var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (!i.aborted) {
-                if ((u(p.FETCHING), !r("WAWebNetworkStatus").online)) {
-                  u(p.OFFLINE);
+        _ = c(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            if (!a.aborted) {
+              if ((s(p.FETCHING), !r("WAWebNetworkStatus").online)) {
+                s(p.OFFLINE);
+                return;
+              }
+              try {
+                if (
+                  (yield o(
+                    "WAWebNewsletterGetNewsletterEnforcementAlertAction",
+                  ).getNewsletterEnforcementAlertAction(
+                    t.id,
+                    o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,
+                  ),
+                  a.aborted)
+                ) {
+                  s(p.ERROR);
                   return;
                 }
-                try {
-                  if (
-                    (yield o(
-                      "WAWebNewsletterGetNewsletterEnforcementAlertAction",
-                    ).getNewsletterEnforcementAlertAction(
-                      t.id,
-                      o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION,
-                    ),
-                    i.aborted)
-                  ) {
-                    u(p.ERROR);
-                    return;
-                  }
-                  u(p.SUCCESS);
-                } catch (t) {
-                  var n = t;
-                  (o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[newsletters][alerts] Failed to fetch alerts for newsletter",
-                        ])),
-                    )
-                    .sendLogs("newsletter-alerts-drawer-fetch-failed"),
-                    u(p.ERROR));
-                }
+                s(p.SUCCESS);
+              } catch (t) {
+                (o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[newsletters][alerts] Failed to fetch alerts for newsletter",
+                      ])),
+                  )
+                  .sendLogs("newsletter-alerts-drawer-fetch-failed"),
+                  s(p.ERROR));
               }
-            });
-            return function () {
-              return a.apply(this, arguments);
-            };
-          })()),
-          (a[1] = t.id),
-          (a[2] = i.aborted),
-          (a[3] = g))
-        : (g = a[3]);
-      var h = g,
-        y,
-        C;
-      (a[4] !== h
-        ? ((y = function () {
-            h();
+            }
           }),
-          (C = [h]),
-          (a[4] = h),
-          (a[5] = y),
-          (a[6] = C))
-        : ((y = a[5]), (C = a[6])),
-        d(y, C));
-      var b;
+          [t.id, a.aborted],
+        );
       return (
-        a[7] !== s || a[8] !== h || a[9] !== _
-          ? ((b = [s, h, _]), (a[7] = s), (a[8] = h), (a[9] = _), (a[10] = b))
-          : (b = a[10]),
-        b
+        d(
+          function () {
+            _();
+          },
+          [_],
+        ),
+        [l, _, u]
       );
-    }
-    function f() {
-      return o(
-        "WAWebNewsletterEnforcementAlertCollection",
-      ).NewsletterEnforcementAlertCollection.toArray();
     }
     ((l.FetchAlertStatus = p), (l.useNewsletterEnforcementAlerts = _));
   },

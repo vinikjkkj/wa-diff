@@ -11,7 +11,6 @@ __d(
     "WAWebStatusUtils",
     "isStringNullOrEmpty",
     "react",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,104 +22,63 @@ __d(
         ackBlue: { color: "x1rv0e52", $$css: !0 },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(22),
+      var t,
         n = e.associatedMessages,
         a = e.msg,
-        i;
-      if (t[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var l;
-        ((i = [
-          (l = o("WAWebMsgGetters")).getAck,
-          l.getIsMedia,
-          l.getIsViewOnce,
-          l.getCaption,
-          l.getType,
-          l.getLoc,
-          l.getIsLive,
+        i = o("useWAWebMsgValues").useMsgValues(a.id, [
+          (t = o("WAWebMsgGetters")).getAck,
+          t.getIsMedia,
+          t.getIsViewOnce,
+          t.getCaption,
+          t.getType,
+          t.getLoc,
+          t.getIsLive,
         ]),
-          (t[0] = i));
-      } else i = t[0];
-      var u = o("useWAWebMsgValues").useMsgValues(a.id, i),
-        d = u[0],
-        m = u[1],
-        p = u[2],
-        _ = u[3],
-        f = u[4],
-        g = u[5],
-        h = u[6],
-        y = d != null ? d : o("WAWebAck").ACK.CLOCK,
-        C = o("WAWebMessageAssociationUIUtils").getLowestAckState(y, f, n),
-        b;
-      t[1] !== _ ||
-      t[2] !== h ||
-      t[3] !== m ||
-      t[4] !== p ||
-      t[5] !== g ||
-      t[6] !== f
-        ? ((b =
-            (m &&
-              r("isStringNullOrEmpty")(_) &&
-              !p &&
-              f !== o("WAWebMsgType").MSG_TYPE.AUDIO) ||
-            (f === o("WAWebMsgType").MSG_TYPE.LOCATION && !g && !h)),
-          (t[1] = _),
-          (t[2] = h),
-          (t[3] = m),
-          (t[4] = p),
-          (t[5] = g),
-          (t[6] = f),
-          (t[7] = b))
-        : (b = t[7]);
-      var v = b,
-        S,
-        R,
-        L,
-        E;
-      if (t[8] !== y || t[9] !== C) {
-        var k = o("WAWebStatusUtils").getMessageStatusLabel(y);
-        (C < o("WAWebAck").ACK.SENT
-          ? (S = o("WAWebMsgTimeIcon.react").MsgTimeIcon)
-          : C === o("WAWebAck").ACK.SENT
-            ? (S = o("WAWebMsgCheckIcon.react").MsgCheckIcon)
-            : C === o("WAWebAck").ACK.RECEIVED
-              ? (S = o("WAWebMsgDblcheckIcon.react").MsgDblcheckIcon)
-              : ((S = o("WAWebMsgDblcheckIcon.react").MsgDblcheckIcon),
-                (L = c.ackBlue)),
-          (R = S),
-          (E = k.toString()),
-          (t[8] = y),
-          (t[9] = C),
-          (t[10] = S),
-          (t[11] = R),
-          (t[12] = L),
-          (t[13] = E));
-      } else ((S = t[10]), (R = t[11]), (L = t[12]), (E = t[13]));
-      var I = " " + E + " ",
-        T = S === o("WAWebMsgTimeIcon.react").MsgTimeIcon ? void 0 : 11,
-        D = v && c.light,
-        x;
-      t[14] !== L || t[15] !== D
-        ? ((x = [D, L]), (t[14] = L), (t[15] = D), (t[16] = x))
-        : (x = t[16]);
-      var $;
+        l = i[0],
+        d = i[1],
+        m = i[2],
+        p = i[3],
+        _ = i[4],
+        f = i[5],
+        g = i[6],
+        h = l != null ? l : o("WAWebAck").ACK.CLOCK,
+        y = u(
+          function () {
+            return o("WAWebMessageAssociationUIUtils").getLowestAckState(
+              h,
+              _,
+              n,
+            );
+          },
+          [h, n, _],
+        ),
+        C =
+          (d &&
+            r("isStringNullOrEmpty")(p) &&
+            !m &&
+            _ !== o("WAWebMsgType").MSG_TYPE.AUDIO) ||
+          (_ === o("WAWebMsgType").MSG_TYPE.LOCATION && !f && !g),
+        b = o("WAWebStatusUtils").getMessageStatusLabel(h),
+        v,
+        S;
       return (
-        t[17] !== R || t[18] !== I || t[19] !== T || t[20] !== x
-          ? (($ = s.jsx(R, {
-              "aria-label": I,
-              height: T,
-              width: 16,
-              xstyle: x,
-            })),
-            (t[17] = R),
-            (t[18] = I),
-            (t[19] = T),
-            (t[20] = x),
-            (t[21] = $))
-          : ($ = t[21]),
-        $
+        y < o("WAWebAck").ACK.SENT
+          ? (v = o("WAWebMsgTimeIcon.react").MsgTimeIcon)
+          : y === o("WAWebAck").ACK.SENT
+            ? (v = o("WAWebMsgCheckIcon.react").MsgCheckIcon)
+            : y === o("WAWebAck").ACK.RECEIVED
+              ? (v = o("WAWebMsgDblcheckIcon.react").MsgDblcheckIcon)
+              : ((v = o("WAWebMsgDblcheckIcon.react").MsgDblcheckIcon),
+                (S = c.ackBlue)),
+        s.jsx(v, {
+          "aria-label": " " + b.toString() + " ",
+          height: v === o("WAWebMsgTimeIcon.react").MsgTimeIcon ? void 0 : 11,
+          width: 16,
+          xstyle: [C && c.light, S],
+        })
       );
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

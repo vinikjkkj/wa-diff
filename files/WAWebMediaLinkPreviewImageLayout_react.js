@@ -1,6 +1,6 @@
 __d(
   "WAWebMediaLinkPreviewImageLayout.react",
-  ["WAWebDisplayType", "react", "react-compiler-runtime", "stylex"],
+  ["WAWebDisplayType", "react", "stylex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -45,158 +45,85 @@ __d(
             : d;
     }
     function v(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.children,
-        r = e.displayType,
-        a = e.galleryView,
-        i = e.height,
-        l = e.isComposerHightQualityLayout,
-        s = e.isHighQualityLayout,
-        c = e.isStatus,
-        d = e.thumbnailJpegDirectPath,
-        m = e.thumbnailJpegHQ,
-        p = e.width;
+      var t = e.children,
+        n = e.displayType,
+        r = e.galleryView,
+        o = e.height,
+        a = e.isComposerHightQualityLayout,
+        i = e.isHighQualityLayout,
+        l = e.isStatus,
+        s = e.thumbnailJpegDirectPath,
+        c = e.thumbnailJpegHQ,
+        d = e.width;
       if (
-        ((d != null && d !== "") || (m != null && m !== "")) &&
-        i != null &&
-        p != null &&
-        !a
+        ((s != null && s !== "") || (c != null && c !== "")) &&
+        o != null &&
+        d != null &&
+        !r
       ) {
-        var _ = s || l ? S : R,
-          f = m != null,
-          g;
-        return (
-          t[0] !== _ ||
-          t[1] !== n ||
-          t[2] !== r ||
-          t[3] !== i ||
-          t[4] !== l ||
-          t[5] !== f ||
-          t[6] !== p
-            ? ((g = u.jsx(_, {
-                height: i,
-                width: p,
-                displayType: r,
-                isCompose: l,
-                hasHqThumbnail: f,
-                children: n,
-              })),
-              (t[0] = _),
-              (t[1] = n),
-              (t[2] = r),
-              (t[3] = i),
-              (t[4] = l),
-              (t[5] = f),
-              (t[6] = p),
-              (t[7] = g))
-            : (g = t[7]),
-          g
-        );
+        var m = i || a ? S : R;
+        return u.jsx(m, {
+          height: o,
+          width: d,
+          displayType: n,
+          isCompose: a,
+          hasHqThumbnail: c != null,
+          children: t,
+        });
       }
-      if (c && s) {
-        var h;
-        t[8] === Symbol.for("react.memo_cache_sentinel")
-          ? ((h = {
-              className: "x78zum5 xs83m0k x6ikm8r x10wlt62 xmqja0k xh8yej3",
-            }),
-            (t[8] = h))
-          : (h = t[8]);
-        var y;
-        return (
-          t[9] !== n
-            ? ((y = u.jsx("div", babelHelpers.extends({}, h, { children: n }))),
-              (t[9] = n),
-              (t[10] = y))
-            : (y = t[10]),
-          y
-        );
-      }
-      return n;
+      return l && i
+        ? u.jsx("div", {
+            className: "x78zum5 xs83m0k x6ikm8r x10wlt62 xmqja0k xh8yej3",
+            children: t,
+          })
+        : t;
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(t) {
-      var n = o("react-compiler-runtime").c(9),
-        a = t.children,
-        i = t.displayType,
-        l = t.hasHqThumbnail,
-        s = t.height,
-        c = t.isCompose,
-        d = t.width,
-        m = C(s, d, !0),
-        p = m < 1,
-        _ = b(i, p, c),
-        f = _ * m,
-        g;
-      n[0] !== f ? ((g = { height: f }), (n[0] = f), (n[1] = g)) : (g = n[1]);
-      var h = g,
-        v;
-      n[2] !== l || n[3] !== c
-        ? ((v = (e || (e = r("stylex")))([
-            y.thumbnailContainer,
-            !c && y.highQualityLayoutThumbnailContainer,
-            !l && y.blurred,
-          ])),
-          (n[2] = l),
-          (n[3] = c),
-          (n[4] = v))
-        : (v = n[4]);
-      var S;
-      return (
-        n[5] !== a || n[6] !== h || n[7] !== v
-          ? ((S = u.jsx("div", {
-              "data-testid": void 0,
-              className: v,
-              style: h,
-              children: a,
-            })),
-            (n[5] = a),
-            (n[6] = h),
-            (n[7] = v),
-            (n[8] = S))
-          : (S = n[8]),
-        S
-      );
-    }
-    function R(t) {
-      var n = o("react-compiler-runtime").c(9),
-        a = t.children,
-        i = t.hasHqThumbnail,
-        l = t.height,
+      var n = t.children,
+        o = t.displayType,
+        a = t.hasHqThumbnail,
+        i = t.height,
+        l = t.isCompose,
         s = t.width,
-        d = C(l, s),
-        m = c / d,
-        p = c / d,
-        _;
-      n[0] !== m || n[1] !== p
-        ? ((_ = { width: m, minWidth: p }), (n[0] = m), (n[1] = p), (n[2] = _))
-        : (_ = n[2]);
-      var f = _,
-        g;
-      n[3] !== i
-        ? ((g = (e || (e = r("stylex")))([
-            y.thumbnailContainer,
-            !i && y.blurred,
-          ])),
-          (n[3] = i),
-          (n[4] = g))
-        : (g = n[4]);
-      var h;
-      return (
-        n[5] !== a || n[6] !== f || n[7] !== g
-          ? ((h = u.jsx("div", {
-              "data-testid": void 0,
-              className: g,
-              style: f,
-              children: a,
-            })),
-            (n[5] = a),
-            (n[6] = f),
-            (n[7] = g),
-            (n[8] = h))
-          : (h = n[8]),
-        h
-      );
+        c = C(i, s, !0),
+        d = c < 1,
+        m = b(o, d, l),
+        p = { height: m * c };
+      return u.jsx("div", {
+        "data-testid": void 0,
+        className: (e || (e = r("stylex")))([
+          y.thumbnailContainer,
+          !l && y.highQualityLayoutThumbnailContainer,
+          !a && y.blurred,
+        ]),
+        style: p,
+        children: n,
+      });
     }
-    l.default = v;
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R(t) {
+      var n = t.children,
+        o = t.displayType,
+        a = t.hasHqThumbnail,
+        i = t.height,
+        l = t.isCompose,
+        s = t.width,
+        d = o,
+        m = C(i, s),
+        p = c,
+        _ = { width: p / m, minWidth: p / m };
+      return u.jsx("div", {
+        "data-testid": void 0,
+        className: (e || (e = r("stylex")))([
+          y.thumbnailContainer,
+          !a && y.blurred,
+        ]),
+        style: _,
+        children: n,
+      });
+    }
+    ((R.displayName = R.name + " [from " + i.id + "]"), (l.default = v));
   },
   98,
 );

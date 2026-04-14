@@ -35,13 +35,12 @@ __d(
     function f(e, t) {
       if (e.invitees != null && e.invitees.length > 0) return p.Confirmation;
       if (!t) return p.Selection;
-      var n = r("WAWebNewsletterMetadataCollection").some(g);
+      var n = r("WAWebNewsletterMetadataCollection").some(function (e) {
+        return o("WAWebNewsletterMembershipUtil").iAmAdmin(e);
+      });
       return n ? p.Selection : p.PrivacyNux;
     }
     function g(e) {
-      return o("WAWebNewsletterMembershipUtil").iAmAdmin(e);
-    }
-    function h(e) {
       var t,
         n = r("useWAWebNux")(o("WAWebNux").NUX.NEWSLETTER_MULTI_ADMIN),
         a = n[0],
@@ -52,24 +51,24 @@ __d(
         }),
         c = s[0],
         g = s[1],
-        h = m((t = e.invitees) != null ? t : []),
+        C = m((t = e.invitees) != null ? t : []),
         b = d(
           function (e) {
             var t = e.selectedItems;
-            ((h.current = t), g.push(p.Confirmation));
+            ((C.current = t), g.push(p.Confirmation));
           },
           [g],
         ),
         v = d(
           function (t, n) {
-            var r = h.current;
+            var r = C.current;
             (o("WAWebModalManager").ModalManager.close(),
               o("WAWebToastManager").ToastManager.open(
                 u.jsx(o("WAWebToast.react").Toast, {
-                  msg: y.sendingInvites(r.length),
+                  msg: h.sendingInvites(r.length),
                 }),
               ),
-              C({
+              y({
                 inviteMessage: t,
                 base64Thumb: n,
                 invitees: r,
@@ -103,7 +102,7 @@ __d(
           S = u.jsx(r("WAWebNewsletterAdminInviteWithMessageModal.react"), {
             chat: e.chat,
             isDirectInvite: R,
-            invitees: h.current,
+            invitees: C.current,
             onSend: v,
             onClose: _,
           });
@@ -112,8 +111,8 @@ __d(
       }
       return u.jsx(c, { flow: g, children: S });
     }
-    h.displayName = h.name + " [from " + i.id + "]";
-    var y = {
+    g.displayName = g.name + " [from " + i.id + "]";
+    var h = {
       sendingInvites: function (t) {
         return s._(
           /*BTDS*/ '_j{"*":"Sending {invites-sending} invites","_1":"Sending 1 invite"}',
@@ -127,7 +126,7 @@ __d(
         );
       },
     };
-    function C(e) {
+    function y(e) {
       var t = e.base64Thumb,
         n = e.chat,
         r = e.invitees,
@@ -144,7 +143,7 @@ __d(
           if (i.length === 0) {
             o("WAWebToastManager").ToastManager.open(
               u.jsx(o("WAWebToast.react").Toast, {
-                msg: y.invitesSent(r.length),
+                msg: h.invitesSent(r.length),
               }),
             );
             return;
@@ -154,7 +153,7 @@ __d(
               return t;
             }),
             s = r.length - i.length;
-          b({
+          C({
             failedInvites: l,
             base64Thumb: t,
             chat: n,
@@ -163,7 +162,7 @@ __d(
           });
         })
         .catch(function () {
-          return b({
+          return C({
             base64Thumb: t,
             chat: n,
             inviteMessage: a,
@@ -172,7 +171,7 @@ __d(
           });
         });
     }
-    function b(e) {
+    function C(e) {
       var t = e.base64Thumb,
         n = e.chat,
         r = e.failedInvites,
@@ -186,19 +185,19 @@ __d(
             contactList: r,
             numberOfSuccessfulInvites: i,
             onOk: function () {
-              C({ chat: n, inviteMessage: a, base64Thumb: t, invitees: r });
+              y({ chat: n, inviteMessage: a, base64Thumb: t, invitees: r });
             },
           },
         ),
       );
     }
-    function v(e) {
+    function b(e) {
       o("WAWebModalManager").ModalManager.open(
-        u.jsx(h, babelHelpers.extends({}, e)),
+        u.jsx(g, babelHelpers.extends({}, e)),
         { transition: "modal-flow" },
       );
     }
-    l.startAdminInviteFlow = v;
+    l.startAdminInviteFlow = b;
   },
   226,
 );

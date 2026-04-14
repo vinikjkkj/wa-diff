@@ -33,7 +33,6 @@ __d(
     "WAWebVideoUtils",
     "lodash",
     "react",
-    "react-compiler-runtime",
     "useBoolean",
     "useWAWebDebouncedCallback",
     "useWAWebIsKeyboardUser",
@@ -79,295 +78,69 @@ __d(
       },
       y = 3e3;
     function C(e) {
-      var t = o("react-compiler-runtime").c(24),
-        n = e.autoPlay,
-        r = e.isFullscreenMode,
-        a = e.ogVideoInfo,
-        i = e.onBufferUpdate,
-        l = e.onEnded,
-        u = e.onError,
-        c = e.onLoadedData,
-        m = e.onLoadedMetadata,
-        p = e.onPause,
-        _ = e.onPlaying,
-        f = e.onTimeUpdate,
-        g = e.onVolumeChange,
-        h = e.setIsLoading,
-        y = e.setRefVideo,
-        C = e.startTime;
-      if (!a) return null;
-      var b = "url(" + a.previewUrl + ")",
-        v;
-      t[0] !== b
-        ? ((v = { backgroundImage: b }), (t[0] = b), (t[1] = v))
-        : (v = t[1]);
-      var S = v,
-        R;
-      t[2] !== r || t[3] !== S
-        ? ((R = r
+      var t = e.autoPlay,
+        n = e.isFullscreenMode,
+        r = e.ogVideoInfo,
+        a = e.onBufferUpdate,
+        i = e.onEnded,
+        l = e.onError,
+        u = e.onLoadedData,
+        c = e.onLoadedMetadata,
+        m = e.onPause,
+        p = e.onPlaying,
+        _ = e.onTimeUpdate,
+        f = e.onVolumeChange,
+        g = e.setIsLoading,
+        h = e.setRefVideo,
+        y = e.startTime;
+      if (!r) return null;
+      var C = { backgroundImage: "url(" + r.previewUrl + ")" };
+      return d.jsxs(d.Fragment, {
+        children: [
+          n
             ? null
             : d.jsx("div", {
                 className:
                   "x1xsqp64 x18d0r48 x14tgpju x10l6tqk x13vifvy x1o0tod xtijo5x x1ey2m1c",
-                style: S,
-              })),
-          (t[2] = r),
-          (t[3] = S),
-          (t[4] = R))
-        : (R = t[4]);
-      var L;
-      t[5] !== n ||
-      t[6] !== a.videoMsg ||
-      t[7] !== a.videoUrl ||
-      t[8] !== i ||
-      t[9] !== l ||
-      t[10] !== u ||
-      t[11] !== c ||
-      t[12] !== m ||
-      t[13] !== p ||
-      t[14] !== _ ||
-      t[15] !== f ||
-      t[16] !== g ||
-      t[17] !== h ||
-      t[18] !== y ||
-      t[19] !== C
-        ? ((L =
-            a.videoUrl !== ""
-              ? d.jsx(
-                  o("WAWebPipUrlVideoTagLoadable.react").UrlVideoTagLoadable,
-                  {
-                    msg: a == null ? void 0 : a.videoMsg,
-                    ref: y,
-                    url: a.videoUrl,
-                    startTime: C,
-                    onEnded: l,
-                    onError: u,
-                    onLoadedMetadata: m,
-                    onPause: p,
-                    onPlaying: _,
-                    onBufferUpdate: i,
-                    onTimeUpdate: f,
-                    onWaiting: h,
-                    onVolumeChange: g,
-                    autoPlay: n,
-                    onLoadedData: c,
-                    children: s._(
-                      /*BTDS*/ "Your browser doesn't support video playback.",
-                    ),
-                  },
-                  "floating-media",
-                )
-              : null),
-          (t[5] = n),
-          (t[6] = a.videoMsg),
-          (t[7] = a.videoUrl),
-          (t[8] = i),
-          (t[9] = l),
-          (t[10] = u),
-          (t[11] = c),
-          (t[12] = m),
-          (t[13] = p),
-          (t[14] = _),
-          (t[15] = f),
-          (t[16] = g),
-          (t[17] = h),
-          (t[18] = y),
-          (t[19] = C),
-          (t[20] = L))
-        : (L = t[20]);
-      var E;
-      return (
-        t[21] !== R || t[22] !== L
-          ? ((E = d.jsxs(d.Fragment, { children: [R, L] })),
-            (t[21] = R),
-            (t[22] = L),
-            (t[23] = E))
-          : (E = t[23]),
-        E
-      );
-    }
-    function b(e) {
-      var t = o("react-compiler-runtime").c(35),
-        n = e.autoPlay,
-        a = e.isFullscreenMode,
-        i = e.isLoading,
-        l = e.isMediaRenderable,
-        u = e.isVideoError,
-        c = e.msgVideoInfo,
-        m = e.onBufferUpdate,
-        p = e.onEnded,
-        _ = e.onError,
-        f = e.onLoadedData,
-        g = e.onLoadedMetadata,
-        h = e.onPause,
-        y = e.onPlaying,
-        C = e.onTimeUpdate,
-        b = e.onVolumeChange,
-        v = e.setIsLoadedWithCancel,
-        S = e.setIsLoadingDebounced,
-        R = e.setRefVideo,
-        L = e.startTime;
-      if (!c) return null;
-      var E = c.mediaData.preview;
-      if (l) {
-        var k;
-        t[0] !== E
-          ? ((k =
-              E instanceof r("WAWebMediaOpaqueData")
-                ? { backgroundImage: "url(" + E.url() + ")" }
-                : void 0),
-            (t[0] = E),
-            (t[1] = k))
-          : (k = t[1]);
-        var I = k,
-          T;
-        t[2] !== a || t[3] !== I
-          ? ((T = a
-              ? null
-              : d.jsx("div", {
-                  className:
-                    "x1xsqp64 x18d0r48 x14tgpju x10l6tqk x13vifvy x1o0tod xtijo5x x1ey2m1c",
-                  style: I,
-                })),
-            (t[2] = a),
-            (t[3] = I),
-            (t[4] = T))
-          : (T = t[4]);
-        var D;
-        t[5] !== n ||
-        t[6] !== u ||
-        t[7] !== c.mediaData ||
-        t[8] !== c.msg ||
-        t[9] !== m ||
-        t[10] !== p ||
-        t[11] !== _ ||
-        t[12] !== f ||
-        t[13] !== g ||
-        t[14] !== h ||
-        t[15] !== y ||
-        t[16] !== C ||
-        t[17] !== b ||
-        t[18] !== v ||
-        t[19] !== S ||
-        t[20] !== R ||
-        t[21] !== L
-          ? ((D = u
-              ? null
-              : d.jsx(
-                  o("WAWebPipMsgVideoTagLoadable.react").MsgVideoTagLoadable,
-                  {
-                    ref: R,
-                    msg: c.msg,
-                    mediaData: c.mediaData,
-                    className: "x10l6tqk x5yr21d xh8yej3",
-                    startTime: L,
-                    onEnded: p,
-                    onError: _,
-                    onLoadedMetadata: g,
-                    onPause: h,
-                    onPlaying: y,
-                    onBufferUpdate: m,
-                    onTimeUpdate: C,
-                    onVolumeChange: b,
-                    autoPlay: n,
-                    onWaiting: S,
-                    onCanPlay: v,
-                    onLoadedData: f,
-                    children: s._(
-                      /*BTDS*/ "Your browser doesn't support video playback.",
-                    ),
-                  },
-                  "floating-media",
-                )),
-            (t[5] = n),
-            (t[6] = u),
-            (t[7] = c.mediaData),
-            (t[8] = c.msg),
-            (t[9] = m),
-            (t[10] = p),
-            (t[11] = _),
-            (t[12] = f),
-            (t[13] = g),
-            (t[14] = h),
-            (t[15] = y),
-            (t[16] = C),
-            (t[17] = b),
-            (t[18] = v),
-            (t[19] = S),
-            (t[20] = R),
-            (t[21] = L),
-            (t[22] = D))
-          : (D = t[22]);
-        var x;
-        t[23] !== i
-          ? ((x =
-              i &&
-              o("WAWebABProps").getABPropConfigValue(
-                "video_stream_buffering_ui_enabled",
-              )
-                ? d.jsx(o("WAWebFlex.react").FlexColumn, {
-                    justify: "center",
-                    align: "center",
-                    className: "x10l6tqk x13vifvy x1o0tod xtijo5x x1ey2m1c",
-                    children: d.jsx(o("WAWebSpinner.react").Spinner, {
-                      color: "white",
-                    }),
-                  })
-                : null),
-            (t[23] = i),
-            (t[24] = x))
-          : (x = t[24]);
-        var $;
-        return (
-          t[25] !== T || t[26] !== D || t[27] !== x
-            ? (($ = d.jsxs(d.Fragment, { children: [T, D, x] })),
-              (t[25] = T),
-              (t[26] = D),
-              (t[27] = x),
-              (t[28] = $))
-            : ($ = t[28]),
-          $
-        );
-      }
-      if (E instanceof r("WAWebMediaOpaqueData")) {
-        var P, N;
-        t[29] === Symbol.for("react.memo_cache_sentinel")
-          ? ((P = { className: "x14tgpju x5yr21d x19kjcj4 xh8yej3" }),
-            (N = s._(/*BTDS*/ "Preview")),
-            (t[29] = P),
-            (t[30] = N))
-          : ((P = t[29]), (N = t[30]));
-        var M;
-        t[31] !== E ? ((M = E.url()), (t[31] = E), (t[32] = M)) : (M = t[32]);
-        var w;
-        return (
-          t[33] !== M
-            ? ((w = d.jsx(
-                "img",
-                babelHelpers.extends({}, P, {
-                  alt: N,
-                  src: M,
-                  draggable: "false",
-                }),
+                style: C,
+              }),
+          r.videoUrl !== ""
+            ? d.jsx(
+                o("WAWebPipUrlVideoTagLoadable.react").UrlVideoTagLoadable,
+                {
+                  msg: r == null ? void 0 : r.videoMsg,
+                  ref: h,
+                  url: r.videoUrl,
+                  startTime: y,
+                  onEnded: i,
+                  onError: l,
+                  onLoadedMetadata: c,
+                  onPause: m,
+                  onPlaying: p,
+                  onBufferUpdate: a,
+                  onTimeUpdate: _,
+                  onWaiting: g,
+                  onVolumeChange: f,
+                  autoPlay: t,
+                  onLoadedData: u,
+                  children: s._(
+                    /*BTDS*/ "Your browser doesn't support video playback.",
+                  ),
+                },
                 "floating-media",
-              )),
-              (t[33] = M),
-              (t[34] = w))
-            : (w = t[34]),
-          w
-        );
-      }
-      return null;
+              )
+            : null,
+        ],
+      });
     }
-    function v(e) {
-      var t = o("react-compiler-runtime").c(36),
-        n = e.autoPlay,
-        r = e.isFullscreenMode,
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e) {
+      var t = e.autoPlay,
+        n = e.isFullscreenMode,
         a = e.isLoading,
         i = e.isMediaRenderable,
         l = e.isVideoError,
-        s = e.msgVideoInfo,
-        u = e.ogVideoInfo,
+        u = e.msgVideoInfo,
         c = e.onBufferUpdate,
         m = e.onEnded,
         p = e.onError,
@@ -376,275 +149,232 @@ __d(
         g = e.onPause,
         h = e.onPlaying,
         y = e.onTimeUpdate,
-        v = e.onVolumeChange,
-        S = e.setIsLoadedWithCancel,
-        R = e.setIsLoading,
-        L = e.setIsLoadingDebounced,
-        E = e.setRefVideo,
-        k = e.startTime,
-        I = e.type;
-      switch (I) {
-        case o("WAWebPipConst").PlayerType.FLOATER:
-        case o("WAWebPipConst").PlayerType.MEDIA_VIEWER: {
-          var T;
-          return (
-            t[0] !== n ||
-            t[1] !== r ||
-            t[2] !== a ||
-            t[3] !== i ||
-            t[4] !== l ||
-            t[5] !== s ||
-            t[6] !== c ||
-            t[7] !== m ||
-            t[8] !== p ||
-            t[9] !== _ ||
-            t[10] !== f ||
-            t[11] !== g ||
-            t[12] !== h ||
-            t[13] !== y ||
-            t[14] !== v ||
-            t[15] !== S ||
-            t[16] !== L ||
-            t[17] !== E ||
-            t[18] !== k
-              ? ((T = d.jsx(b, {
-                  msgVideoInfo: s,
-                  isMediaRenderable: i,
-                  isFullscreenMode: r,
-                  isVideoError: l,
-                  setRefVideo: E,
-                  startTime: k,
-                  onError: p,
-                  onEnded: m,
-                  onLoadedMetadata: f,
-                  onPause: g,
-                  onPlaying: h,
-                  onBufferUpdate: c,
-                  onTimeUpdate: y,
-                  isLoading: a,
-                  setIsLoadingDebounced: L,
-                  setIsLoadedWithCancel: S,
-                  onVolumeChange: v,
-                  autoPlay: n,
-                  onLoadedData: _,
-                })),
-                (t[0] = n),
-                (t[1] = r),
-                (t[2] = a),
-                (t[3] = i),
-                (t[4] = l),
-                (t[5] = s),
-                (t[6] = c),
-                (t[7] = m),
-                (t[8] = p),
-                (t[9] = _),
-                (t[10] = f),
-                (t[11] = g),
-                (t[12] = h),
-                (t[13] = y),
-                (t[14] = v),
-                (t[15] = S),
-                (t[16] = L),
-                (t[17] = E),
-                (t[18] = k),
-                (t[19] = T))
-              : (T = t[19]),
-            T
-          );
-        }
-        case o("WAWebPipConst").PlayerType.OG_FLOATER: {
-          var D;
-          return (
-            t[20] !== n ||
-            t[21] !== r ||
-            t[22] !== u ||
-            t[23] !== c ||
-            t[24] !== m ||
-            t[25] !== p ||
-            t[26] !== _ ||
-            t[27] !== f ||
-            t[28] !== g ||
-            t[29] !== h ||
-            t[30] !== y ||
-            t[31] !== v ||
-            t[32] !== R ||
-            t[33] !== E ||
-            t[34] !== k
-              ? ((D = d.jsx(C, {
-                  ogVideoInfo: u,
-                  isFullscreenMode: r,
-                  setRefVideo: E,
-                  startTime: k,
-                  onEnded: m,
-                  onError: p,
-                  onLoadedMetadata: f,
-                  onPause: g,
-                  onPlaying: h,
-                  onBufferUpdate: c,
-                  onTimeUpdate: y,
-                  setIsLoading: R,
-                  onVolumeChange: v,
-                  autoPlay: n,
-                  onLoadedData: _,
-                })),
-                (t[20] = n),
-                (t[21] = r),
-                (t[22] = u),
-                (t[23] = c),
-                (t[24] = m),
-                (t[25] = p),
-                (t[26] = _),
-                (t[27] = f),
-                (t[28] = g),
-                (t[29] = h),
-                (t[30] = y),
-                (t[31] = v),
-                (t[32] = R),
-                (t[33] = E),
-                (t[34] = k),
-                (t[35] = D))
-              : (D = t[35]),
-            D
-          );
-        }
-      }
-      return null;
-    }
-    function S(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.msgVideoInfo,
-        a = e.ogVideoInfo,
-        i = e.type;
-      switch (i) {
-        case o("WAWebPipConst").PlayerType.FLOATER:
-        case o("WAWebPipConst").PlayerType.MEDIA_VIEWER: {
-          if (!n) return null;
-          var l;
-          t[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((l = { className: "x5yr21d x1o0tod x10l6tqk x13vifvy xh8yej3" }),
-              (t[0] = l))
-            : (l = t[0]);
-          var s;
-          return (
-            t[1] !== n.mediaData || t[2] !== n.msg
-              ? ((s = d.jsx(
-                  "div",
-                  babelHelpers.extends({}, l, {
-                    children: d.jsx(r("WAWebMediaStage.react"), {
-                      msg: n.msg,
-                      mediaData: n.mediaData,
-                    }),
-                  }),
-                )),
-                (t[1] = n.mediaData),
-                (t[2] = n.msg),
-                (t[3] = s))
-              : (s = t[3]),
-            s
-          );
-        }
-        case o("WAWebPipConst").PlayerType.OG_FLOATER: {
-          if (!a) return null;
-          if (a.videoUrl === "") {
-            var u;
-            return (
-              t[4] === Symbol.for("react.memo_cache_sentinel")
-                ? ((u = d.jsx("div", {
-                    className: "x5yr21d x1o0tod x10l6tqk x13vifvy xh8yej3",
-                    children: d.jsx(
-                      o("WAWebMediaStateControls.react").Pending,
-                      {},
+        C = e.onVolumeChange,
+        b = e.setIsLoadedWithCancel,
+        v = e.setIsLoadingDebounced,
+        S = e.setRefVideo,
+        R = e.startTime;
+      if (!u) return null;
+      var L = u.mediaData.preview;
+      if (i) {
+        var E =
+          L instanceof r("WAWebMediaOpaqueData")
+            ? { backgroundImage: "url(" + L.url() + ")" }
+            : void 0;
+        return d.jsxs(d.Fragment, {
+          children: [
+            n
+              ? null
+              : d.jsx("div", {
+                  className:
+                    "x1xsqp64 x18d0r48 x14tgpju x10l6tqk x13vifvy x1o0tod xtijo5x x1ey2m1c",
+                  style: E,
+                }),
+            l
+              ? null
+              : d.jsx(
+                  o("WAWebPipMsgVideoTagLoadable.react").MsgVideoTagLoadable,
+                  {
+                    ref: S,
+                    msg: u.msg,
+                    mediaData: u.mediaData,
+                    className: "x10l6tqk x5yr21d xh8yej3",
+                    startTime: R,
+                    onEnded: m,
+                    onError: p,
+                    onLoadedMetadata: f,
+                    onPause: g,
+                    onPlaying: h,
+                    onBufferUpdate: c,
+                    onTimeUpdate: y,
+                    onVolumeChange: C,
+                    autoPlay: t,
+                    onWaiting: v,
+                    onCanPlay: b,
+                    onLoadedData: _,
+                    children: s._(
+                      /*BTDS*/ "Your browser doesn't support video playback.",
                     ),
-                  })),
-                  (t[4] = u))
-                : (u = t[4]),
-              u
-            );
-          }
-          return null;
-        }
+                  },
+                  "floating-media",
+                ),
+            a &&
+            o("WAWebABProps").getABPropConfigValue(
+              "video_stream_buffering_ui_enabled",
+            )
+              ? d.jsx(o("WAWebFlex.react").FlexColumn, {
+                  justify: "center",
+                  align: "center",
+                  className: "x10l6tqk x13vifvy x1o0tod xtijo5x x1ey2m1c",
+                  children: d.jsx(o("WAWebSpinner.react").Spinner, {
+                    color: "white",
+                  }),
+                })
+              : null,
+          ],
+        });
+      }
+      return L instanceof r("WAWebMediaOpaqueData")
+        ? d.jsx(
+            "img",
+            {
+              className: "x14tgpju x5yr21d x19kjcj4 xh8yej3",
+              alt: s._(/*BTDS*/ "Preview"),
+              src: L.url(),
+              draggable: "false",
+            },
+            "floating-media",
+          )
+        : null;
+    }
+    b.displayName = b.name + " [from " + i.id + "]";
+    function v(e) {
+      var t = e.autoPlay,
+        n = e.isFullscreenMode,
+        r = e.isLoading,
+        a = e.isMediaRenderable,
+        i = e.isVideoError,
+        l = e.msgVideoInfo,
+        s = e.ogVideoInfo,
+        u = e.onBufferUpdate,
+        c = e.onEnded,
+        m = e.onError,
+        p = e.onLoadedData,
+        _ = e.onLoadedMetadata,
+        f = e.onPause,
+        g = e.onPlaying,
+        h = e.onTimeUpdate,
+        y = e.onVolumeChange,
+        v = e.setIsLoadedWithCancel,
+        S = e.setIsLoading,
+        R = e.setIsLoadingDebounced,
+        L = e.setRefVideo,
+        E = e.startTime,
+        k = e.type;
+      switch (k) {
+        case o("WAWebPipConst").PlayerType.FLOATER:
+        case o("WAWebPipConst").PlayerType.MEDIA_VIEWER:
+          return d.jsx(b, {
+            msgVideoInfo: l,
+            isMediaRenderable: a,
+            isFullscreenMode: n,
+            isVideoError: i,
+            setRefVideo: L,
+            startTime: E,
+            onError: m,
+            onEnded: c,
+            onLoadedMetadata: _,
+            onPause: f,
+            onPlaying: g,
+            onBufferUpdate: u,
+            onTimeUpdate: h,
+            isLoading: r,
+            setIsLoadingDebounced: R,
+            setIsLoadedWithCancel: v,
+            onVolumeChange: y,
+            autoPlay: t,
+            onLoadedData: p,
+          });
+        case o("WAWebPipConst").PlayerType.OG_FLOATER:
+          return d.jsx(C, {
+            ogVideoInfo: s,
+            isFullscreenMode: n,
+            setRefVideo: L,
+            startTime: E,
+            onEnded: c,
+            onError: m,
+            onLoadedMetadata: _,
+            onPause: f,
+            onPlaying: g,
+            onBufferUpdate: u,
+            onTimeUpdate: h,
+            setIsLoading: S,
+            onVolumeChange: y,
+            autoPlay: t,
+            onLoadedData: p,
+          });
       }
       return null;
     }
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S(e) {
+      var t = e.msgVideoInfo,
+        n = e.ogVideoInfo,
+        a = e.type;
+      switch (a) {
+        case o("WAWebPipConst").PlayerType.FLOATER:
+        case o("WAWebPipConst").PlayerType.MEDIA_VIEWER:
+          return t
+            ? d.jsx("div", {
+                className: "x5yr21d x1o0tod x10l6tqk x13vifvy xh8yej3",
+                children: d.jsx(r("WAWebMediaStage.react"), {
+                  msg: t.msg,
+                  mediaData: t.mediaData,
+                }),
+              })
+            : null;
+        case o("WAWebPipConst").PlayerType.OG_FLOATER:
+          return n && n.videoUrl === ""
+            ? d.jsx("div", {
+                className: "x5yr21d x1o0tod x10l6tqk x13vifvy xh8yej3",
+                children: d.jsx(o("WAWebMediaStateControls.react").Pending, {}),
+              })
+            : null;
+      }
+      return null;
+    }
+    S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.children,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = d.jsx(o("WAWebAlertIcon.react").AlertIcon, {
+      var t = e.children;
+      return d.jsxs(r("WAWebPipOverlay.react"), {
+        children: [
+          d.jsx(o("WAWebAlertIcon.react").AlertIcon, {
             directional: !0,
             xstyle: h.errorLinkChevron,
             displayInline: !0,
-          })),
-          (t[0] = a))
-        : (a = t[0]);
-      var i;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = s._(/*BTDS*/ "The video can't be played.")), (t[1] = i))
-        : (i = t[1]);
-      var l;
-      return (
-        t[2] !== n
-          ? ((l = d.jsxs(r("WAWebPipOverlay.react"), {
-              children: [a, " ", i, n],
-            })),
-            (t[2] = n),
-            (t[3] = l))
-          : (l = t[3]),
-        l
-      );
+          }),
+          " ",
+          s._(/*BTDS*/ "The video can't be played."),
+          t,
+        ],
+      });
     }
+    R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
       var t,
         n,
         r,
-        a = o("react-compiler-runtime").c(5),
-        i = e.ogVideoInfo,
-        l = e.type;
+        a = e.ogVideoInfo,
+        i = e.type;
       if (
-        l !== o("WAWebPipConst").PlayerType.OG_FLOATER ||
-        !i ||
-        !(i != null && i.videoMsg)
+        i !== o("WAWebPipConst").PlayerType.OG_FLOATER ||
+        !a ||
+        !(a != null && a.videoMsg)
       )
         return null;
-      var u =
-          (t =
-            (n = i.videoMsg) == null || (n = n.ctwaContext) == null
-              ? void 0
-              : n.sourceUrl) != null
-            ? t
-            : (r = i.videoMsg) == null
-              ? void 0
-              : r.matchedText,
-        c;
-      a[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = "x1riek7e x1lliihq xav9cv8 xt0b8zv"), (a[0] = c))
-        : (c = a[0]);
-      var m, p;
-      a[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = d.jsx("span", { children: s._(/*BTDS*/ "Open the link") })),
-          (p = d.jsx(o("WAWebChevronIcon.react").ChevronIcon, {
+      var l =
+        (t =
+          (n = a.videoMsg) == null || (n = n.ctwaContext) == null
+            ? void 0
+            : n.sourceUrl) != null
+          ? t
+          : (r = a.videoMsg) == null
+            ? void 0
+            : r.matchedText;
+      return d.jsxs(o("WAWebExternalLink.react").ExternalLink, {
+        className: "x1riek7e x1lliihq xav9cv8 xt0b8zv",
+        href: l,
+        children: [
+          d.jsx("span", { children: s._(/*BTDS*/ "Open the link") }),
+          d.jsx(o("WAWebChevronIcon.react").ChevronIcon, {
             directional: !0,
             displayInline: !0,
             xstyle: h.errorLinkChevron,
-          })),
-          (a[1] = m),
-          (a[2] = p))
-        : ((m = a[1]), (p = a[2]));
-      var _;
-      return (
-        a[3] !== u
-          ? ((_ = d.jsxs(o("WAWebExternalLink.react").ExternalLink, {
-              className: c,
-              href: u,
-              children: [m, p],
-            })),
-            (a[3] = u),
-            (a[4] = _))
-          : (_ = a[4]),
-        _
-      );
+          }),
+        ],
+      });
     }
+    L.displayName = L.name + " [from " + i.id + "]";
     function E(t) {
       var n,
         a,

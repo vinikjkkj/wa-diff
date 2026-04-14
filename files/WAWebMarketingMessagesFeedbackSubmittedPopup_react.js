@@ -27,7 +27,6 @@ __d(
     "WDSIconIcBlock.react",
     "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -233,19 +232,9 @@ __d(
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = c.jsx("div", {
-              className: "xjm9jq1 xfw0ycb x98l61r x1ua1l7f",
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return c.jsx("div", { className: "xjm9jq1 xfw0ycb x98l61r x1ua1l7f" });
     }
-    l.default = p;
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

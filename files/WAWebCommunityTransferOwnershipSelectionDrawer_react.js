@@ -16,7 +16,6 @@ __d(
     "WAWebText.react",
     "WAWebUserPrefsMeUser",
     "react",
-    "react-compiler-runtime",
     "useWAWebCommunityAdmins",
     "useWAWebDebouncedSearch",
   ],
@@ -44,30 +43,19 @@ __d(
         },
       };
     function f() {
-      var e = o("react-compiler-runtime").c(2),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = [_.marginVert32, _.marginHoriz12]), (e[0] = t))
-        : (t = e[0]);
-      var n;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = c.jsx(r("WAWebDrawerSection.react"), {
-              xstyle: t,
-              children: c.jsx(o("WAWebFlex.react").FlexRow, {
-                justify: "center",
-                align: "center",
-                children: c.jsx(o("WAWebText.react").WAWebTextMuted, {
-                  textAlign: "center",
-                  children: s._(/*BTDS*/ "No admins"),
-                }),
-              }),
-            })),
-            (e[1] = n))
-          : (n = e[1]),
-        n
-      );
+      return c.jsx(r("WAWebDrawerSection.react"), {
+        xstyle: [_.marginVert32, _.marginHoriz12],
+        children: c.jsx(o("WAWebFlex.react").FlexRow, {
+          justify: "center",
+          align: "center",
+          children: c.jsx(o("WAWebText.react").WAWebTextMuted, {
+            textAlign: "center",
+            children: s._(/*BTDS*/ "No admins"),
+          }),
+        }),
+      });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g(t) {
       var n = t.ref,
         a = babelHelpers.objectWithoutPropertiesLoose(t, e),

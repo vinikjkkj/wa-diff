@@ -1,6 +1,6 @@
 __d(
   "WAWebContentPlaceholder.react",
-  ["react", "react-compiler-runtime", "stylex"],
+  ["react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -76,69 +76,29 @@ __d(
       }
     }
     function p(e) {
-      var t = o("react-compiler-runtime").c(17),
-        n = e.children,
-        r = e.hideBorder,
-        a = e.secondary,
-        i = e.theme,
-        l = r === void 0 ? !1 : r,
-        s;
-      t[0] !== a
-        ? ((s =
-            a != null
-              ? u.jsx("div", {
-                  className: "x1nxh6w3 x17fgdl5 xhslqc4",
-                  children: a,
-                })
-              : null),
-          (t[0] = a),
-          (t[1] = s))
-        : (s = t[1]);
-      var c = s,
-        p;
-      t[2] !== l || t[3] !== i
-        ? ((p = i === "media-gallery-footer" && l ? "" : d(i)),
-          (t[2] = l),
-          (t[3] = i),
-          (t[4] = p))
-        : (p = t[4]);
-      var _ = p,
-        f;
-      t[5] !== i ? ((f = m(i)), (t[5] = i), (t[6] = f)) : (f = t[6]);
-      var g = f,
-        h;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((h = { className: "xkz0k9k x6ikm8r x10wlt62" }), (t[7] = h))
-        : (h = t[7]);
-      var y;
-      t[8] !== n || t[9] !== g
-        ? ((y = u.jsx("div", { className: g, children: n })),
-          (t[8] = n),
-          (t[9] = g),
-          (t[10] = y))
-        : (y = t[10]);
-      var C;
-      t[11] !== c || t[12] !== y
-        ? ((C = u.jsxs(
-            "div",
-            babelHelpers.extends({}, h, { children: [y, c] }),
-          )),
-          (t[11] = c),
-          (t[12] = y),
-          (t[13] = C))
-        : (C = t[13]);
-      var b;
-      return (
-        t[14] !== _ || t[15] !== C
-          ? ((b = u.jsx("div", { className: _, children: C })),
-            (t[14] = _),
-            (t[15] = C),
-            (t[16] = b))
-          : (b = t[16]),
-        b
-      );
+      var t = e.children,
+        n = e.hideBorder,
+        r = n === void 0 ? !1 : n,
+        o = e.secondary,
+        a = e.theme,
+        i =
+          o != null
+            ? u.jsx("div", {
+                className: "x1nxh6w3 x17fgdl5 xhslqc4",
+                children: o,
+              })
+            : null,
+        l = a === "media-gallery-footer" && r ? "" : d(a),
+        s = m(a);
+      return u.jsx("div", {
+        className: l,
+        children: u.jsxs("div", {
+          className: "xkz0k9k x6ikm8r x10wlt62",
+          children: [u.jsx("div", { className: s, children: t }), i],
+        }),
+      });
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

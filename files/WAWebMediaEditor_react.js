@@ -199,172 +199,174 @@ __d(
         l,
         m,
         _,
-        x = t.ref,
-        $ = babelHelpers.objectWithoutPropertiesLoose(t, u);
-      o("WAWebTimeSpentLoggingNavigation").useTsNavigation($.tsNavigationData);
-      var P = $.onClose,
-        N = P === void 0 ? r("WAWebNoop") : P,
-        M = $.onRender,
-        w = M === void 0 ? r("WAWebNoop") : M,
-        A = $.theme,
-        F =
-          A === void 0 ? o("WAWebMediaEditorEnumsThemes").MediaTheme.ATTACH : A,
-        O = $.sendAsSticker,
-        B = O === void 0 ? !1 : O,
-        W = $.mediaCollection,
-        q = $.initCaption,
-        U = $.onDropText,
-        V = $.onSendMedia,
-        H = $.allowMultipleMedia,
-        G = H === void 0 ? !0 : H,
-        z = $.openTrigger,
-        j = $.isSendHQPhotoEnabled,
-        K = j === void 0 ? !0 : j,
-        Q = y((a = $.newsletterWid) != null ? a : null),
-        X = Q[0],
-        Y = Q[1],
-        J = y(
-          B != null && B
+        x,
+        $ = t.ref,
+        P = babelHelpers.objectWithoutPropertiesLoose(t, u);
+      o("WAWebTimeSpentLoggingNavigation").useTsNavigation(P.tsNavigationData);
+      var N = P.onClose,
+        M = N === void 0 ? r("WAWebNoop") : N,
+        w = P.onRender,
+        A = w === void 0 ? r("WAWebNoop") : w,
+        F = P.theme,
+        O =
+          F === void 0 ? o("WAWebMediaEditorEnumsThemes").MediaTheme.ATTACH : F,
+        B = P.sendAsSticker,
+        W = B === void 0 ? !1 : B,
+        q = P.mediaCollection,
+        U = P.initCaption,
+        V = P.onDropText,
+        H = P.onSendMedia,
+        G = P.allowMultipleMedia,
+        z = G === void 0 ? !0 : G,
+        j = P.openTrigger,
+        K = P.isSendHQPhotoEnabled,
+        Q = K === void 0 ? !0 : K,
+        X = (a = P.isSubmitDisabled) != null ? a : !1,
+        Y = y((i = P.newsletterWid) != null ? i : null),
+        J = Y[0],
+        Z = Y[1],
+        ee = y(
+          W != null && W
             ? o("WAWebMediaEditorEnumsThickness").ThicknessType.XLARGE
             : o("WAWebMediaEditorEnumsThickness").ThicknessType.SMALL,
         ),
-        Z = J[0],
-        ee = J[1],
-        te = y(!0),
-        ne = te[0],
-        re = te[1],
-        oe = y(function () {
+        te = ee[0],
+        ne = ee[1],
+        re = y(!0),
+        oe = re[0],
+        ae = re[1],
+        ie = y(function () {
           return o("WAWebMediaEditorEnumsColors").getColorValue(
             o("WAWebMediaEditorEnumsColors").ColorType.BLACK,
           );
         }),
-        ae = oe[0],
-        ie = oe[1],
-        le = y(o("WAWebMediaEditorEnumsFonts").FontType.SANS_SERIF),
-        se = le[0],
-        ue = le[1],
-        ce = y(o("WAWebMediaEditorEnumsFonts").TextAlignment.CENTER),
-        de = ce[0],
-        me = ce[1],
-        pe = y(!1),
-        _e = pe[0],
-        fe = pe[1],
-        ge = y(!0),
-        he = ge[0],
-        ye = ge[1],
-        Ce = y(!1),
-        be = Ce[0],
-        ve = Ce[1],
-        Se = y(!1),
-        Re = Se[0],
-        Le = Se[1],
-        Ee = y(!1),
-        ke = Ee[0],
-        Ie = Ee[1],
-        Te = y(null),
-        De = Te[0],
-        xe = Te[1],
-        $e = y(null),
-        Pe = $e[0],
-        Ne = $e[1],
-        Me = y(!1),
-        we = Me[0],
-        Ae = Me[1],
-        Fe = y(null),
-        Oe = Fe[0],
-        Be = Fe[1],
-        We = y(null),
-        qe = We[0],
-        Ue = We[1],
-        Ve = r("useWAWebToggle")(!1),
-        He = Ve[0],
-        Ge = Ve[1],
-        ze = y(B != null ? B : !1),
-        je = ze[0],
-        Ke = ze[1],
-        Qe = o("useWAWebTimeout").useTimeout(function () {
-          z ===
+        le = ie[0],
+        se = ie[1],
+        ue = y(o("WAWebMediaEditorEnumsFonts").FontType.SANS_SERIF),
+        ce = ue[0],
+        de = ue[1],
+        me = y(o("WAWebMediaEditorEnumsFonts").TextAlignment.CENTER),
+        pe = me[0],
+        _e = me[1],
+        fe = y(!1),
+        ge = fe[0],
+        he = fe[1],
+        ye = y(!0),
+        Ce = ye[0],
+        be = ye[1],
+        ve = y(!1),
+        Se = ve[0],
+        Re = ve[1],
+        Le = y(!1),
+        Ee = Le[0],
+        ke = Le[1],
+        Ie = y(!1),
+        Te = Ie[0],
+        De = Ie[1],
+        xe = y(null),
+        $e = xe[0],
+        Pe = xe[1],
+        Ne = y(null),
+        Me = Ne[0],
+        we = Ne[1],
+        Ae = y(!1),
+        Fe = Ae[0],
+        Oe = Ae[1],
+        Be = y(null),
+        We = Be[0],
+        qe = Be[1],
+        Ue = y(null),
+        Ve = Ue[0],
+        He = Ue[1],
+        Ge = r("useWAWebToggle")(!1),
+        ze = Ge[0],
+        je = Ge[1],
+        Ke = y(W != null ? W : !1),
+        Qe = Ke[0],
+        Xe = Ke[1],
+        Ye = o("useWAWebTimeout").useTimeout(function () {
+          j ===
             o("WAWebMediaEditorOpenTrigger").MediaEditorOpenTrigger
               .ConversationPanelDragAndDrop &&
-            (be || N());
+            (Se || M());
         }, 250),
-        Xe = Qe[0],
-        Ye = Qe[1],
-        Je = h(),
-        Ze = h(),
+        Je = Ye[0],
+        Ze = Ye[1],
         et = h(),
         tt = h(),
-        nt = y(q == null ? void 0 : q.text),
-        rt = nt[0],
-        ot = nt[1],
-        at = h(),
-        it = h(o("WAWebMediaEditorToolbarBlur.react").BLUR_DEFAULT_MODE),
-        lt = h(o("WAWebMediaEditorToolbarBlur.react").BLUR_DEFAULT_RADIUS),
-        st = h(
+        nt = h(),
+        rt = h(),
+        ot = y(U == null ? void 0 : U.text),
+        at = ot[0],
+        it = ot[1],
+        lt = h(),
+        st = h(o("WAWebMediaEditorToolbarBlur.react").BLUR_DEFAULT_MODE),
+        ut = h(o("WAWebMediaEditorToolbarBlur.react").BLUR_DEFAULT_RADIUS),
+        ct = h(
           o("WAWebMediaEditorEnumsColors").getColorValue(
             o("WAWebMediaEditorEnumsColors").ColorType.WHITE,
           ),
         ),
-        ut = h(
+        dt = h(
           o("WAWebMediaEditorEnumsColors").getColorValue(
             o("WAWebMediaEditorEnumsColors").ColorType.BLACK,
           ),
         ),
-        ct = h(3),
-        dt = r("useLazyRef")(function () {
-          return new Map();
-        }),
-        mt = function (t, n) {
-          dt.current.set(t, n);
-        },
+        mt = h(3),
         pt = r("useLazyRef")(function () {
           return new Map();
         }),
-        _t = r("useLazyRef")(function () {
+        _t = function (t, n) {
+          pt.current.set(t, n);
+        },
+        ft = r("useLazyRef")(function () {
           return new Map();
         }),
-        ft = function (t, n) {
-          _t.current.set(t, n);
-        },
         gt = r("useLazyRef")(function () {
           return new Map();
         }),
         ht = function (t, n) {
           gt.current.set(t, n);
         },
-        yt = o("useWAWebForceUpdate").useForceUpdateDONOTUSE(),
-        Ct = r("useWAWebUnmountSignal")();
-      ((W.isStickerMaker = je),
-        o("useWAWebListener").useListener(W, ["add", "remove", "reset"], yt));
-      var bt = function () {
-        if (W.canSend()) {
-          var e = W.uiProcessMsgs($.maxNumberOfMedia, F),
+        yt = r("useLazyRef")(function () {
+          return new Map();
+        }),
+        Ct = function (t, n) {
+          yt.current.set(t, n);
+        },
+        bt = o("useWAWebForceUpdate").useForceUpdateDONOTUSE(),
+        vt = r("useWAWebUnmountSignal")();
+      ((q.isStickerMaker = Qe),
+        o("useWAWebListener").useListener(q, ["add", "remove", "reset"], bt));
+      var St = function () {
+        if (q.canSend()) {
+          var e = q.uiProcessMsgs(P.maxNumberOfMedia, O),
             t = e.errorMsgs;
           (t &&
             (o("WAWebToastManager").ToastManager.open(
               p.jsx(o("WAWebToast.react").Toast, { msg: t }),
             ),
-            W.getPreviewableMedias().length === 0 && N()),
-            yt());
+            q.getPreviewableMedias().length === 0 && M()),
+            bt());
         }
       };
       o("useWAWebListener").useListener(
-        W,
+        q,
         ["active-change", "change:state", "change:previewable"],
-        bt,
+        St,
       );
-      var vt = function () {
+      var Rt = function () {
           var e;
           return (
-            W.length === 1 &&
-            ((e = W.at(0)) == null ? void 0 : e.type) ===
+            q.length === 1 &&
+            ((e = q.at(0)) == null ? void 0 : e.type) ===
               o("WAWebMsgType").MSG_TYPE.IMAGE
           );
         },
-        St = function () {
-          var e = !je && vt();
-          (Ke(e),
-            ee(
+        Lt = function () {
+          var e = !Qe && Rt();
+          (Xe(e),
+            ne(
               e
                 ? o("WAWebMediaEditorEnumsThickness").ThicknessType.XLARGE
                 : o("WAWebMediaEditorEnumsThickness").ThicknessType.SMALL,
@@ -373,114 +375,114 @@ __d(
       (o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "toggle_sticker_maker",
-        St,
+        Lt,
       ),
         f(function () {
-          Xe();
+          Je();
         }, []),
         f(function () {
           var e;
           return (
-            (e = tt.current) == null || e.focus(),
+            (e = rt.current) == null || e.focus(),
             function () {
-              at.current && self.clearTimeout(at.current);
+              lt.current && self.clearTimeout(lt.current);
             }
           );
         }, []),
         f(
           function () {
-            W.isStickerMaker = je;
+            q.isStickerMaker = Qe;
           },
           void 0,
         ));
-      var Rt = o("useWAWebModelValues").useModelValues(
+      var Et = o("useWAWebModelValues").useModelValues(
         r("WAWebChatPreferenceCollection").getDefault(),
         ["hdMediaEnabled"],
       );
       f(
         function () {
-          Rt.hdMediaEnabled &&
-            De != null &&
-            De.hdEligible &&
-            De.quality !== o("WAWebAttachMediaModel").MediaQuality.HD &&
-            K &&
-            De.setQualityFromPrefs();
+          Et.hdMediaEnabled &&
+            $e != null &&
+            $e.hdEligible &&
+            $e.quality !== o("WAWebAttachMediaModel").MediaQuality.HD &&
+            Q &&
+            $e.setQualityFromPrefs();
         },
-        [De, Rt.hdMediaEnabled, K],
+        [$e, Et.hdMediaEnabled, Q],
       );
-      var Lt = function () {
-          return tt.current;
+      var kt = function () {
+          return rt.current;
         },
-        Et = function (t) {
+        It = function (t) {
           var e;
-          if ((e = Je.current) != null && e.resetUIState()) return !1;
-          if (qe) return (Be(null), Ue(null), !1);
+          if ((e = et.current) != null && e.resetUIState()) return !1;
+          if (Ve) return (qe(null), He(null), !1);
           var n = t === o("WAWebUim").DismissReason.UIM_INTERACTION;
-          return (N(n), !0);
+          return (M(n), !0);
         };
-      (g(x, function () {
-        return { getElement: Lt, handleRequestDismiss: Et };
+      (g($, function () {
+        return { getElement: kt, handleRequestDismiss: It };
       }),
         f(
           function () {
-            w();
+            A();
           },
-          [w],
+          [A],
         ));
-      var kt = W.getActive(),
-        It = rt,
-        Tt = we;
-      !Tt &&
-        !De &&
-        It != null &&
-        It !== "" &&
-        kt &&
-        (kt.type === o("WAWebMsgType").MSG_TYPE.IMAGE ||
-          kt.type === o("WAWebMsgType").MSG_TYPE.VIDEO ||
-          kt.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT) &&
-        ((kt.caption = It), (Tt = !0));
-      var Dt =
-          (i = kt == null ? void 0 : kt.canUndoMediaEditorData()) != null
-            ? i
-            : !1,
-        xt =
-          (l = kt == null ? void 0 : kt.canRedoMediaEditorData()) != null
+      var Tt = q.getActive(),
+        Dt = at,
+        xt = Fe;
+      !xt &&
+        !$e &&
+        Dt != null &&
+        Dt !== "" &&
+        Tt &&
+        (Tt.type === o("WAWebMsgType").MSG_TYPE.IMAGE ||
+          Tt.type === o("WAWebMsgType").MSG_TYPE.VIDEO ||
+          Tt.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT) &&
+        ((Tt.caption = Dt), (xt = !0));
+      var $t =
+          (l = Tt == null ? void 0 : Tt.canUndoMediaEditorData()) != null
             ? l
+            : !1,
+        Pt =
+          (m = Tt == null ? void 0 : Tt.canRedoMediaEditorData()) != null
+            ? m
             : !1;
-      kt !== Pe && (Ne(kt), xe(kt), Le(Dt), Ie(xt), Ae(Tt));
-      var $t = function () {
-          return De == null
+      Tt !== Me && (we(Tt), Pe(Tt), ke($t), De(Pt), Oe(xt));
+      var Nt = function () {
+          return $e == null
             ? r("WAWebMediaEditorData").create()
-            : De.mediaEditorData;
+            : $e.mediaEditorData;
         },
-        Pt = function () {
+        Mt = function () {
           var e, t;
-          (Le(
-            (e = De == null ? void 0 : De.canUndoMediaEditorData()) != null
+          (ke(
+            (e = $e == null ? void 0 : $e.canUndoMediaEditorData()) != null
               ? e
               : !1,
           ),
-            Ie(
-              (t = De == null ? void 0 : De.canRedoMediaEditorData()) != null
+            De(
+              (t = $e == null ? void 0 : $e.canRedoMediaEditorData()) != null
                 ? t
                 : !1,
             ));
         },
-        Nt = function (n, r) {
-          if (n !== $t()) {
-            if (De) {
+        wt = function (n, r) {
+          if (n !== Nt()) {
+            if ($e) {
               var t, a;
-              (De.updateMediaEditorData(n, {
+              ($e.updateMediaEditorData(n, {
                 undoable:
                   (t = r == null ? void 0 : r.undoable) != null ? t : !1,
                 lastAction:
                   (a = r == null ? void 0 : r.lastAction) != null ? a : null,
               }),
-                Pt());
+                Mt());
             }
             if (r != null && r.updatePreview) {
               var i;
-              (i = Je.current) == null || i.updatePreview();
+              (i = et.current) == null || i.updatePreview();
             }
             o("WALogger").LOG(
               e ||
@@ -490,64 +492,64 @@ __d(
             );
           }
         },
-        Mt = function () {
+        At = function () {
           var e;
-          return (e = Je.current) == null ? void 0 : e.getBackground();
+          return (e = et.current) == null ? void 0 : e.getBackground();
         },
-        wt = function (t) {
-          if ((t === void 0 && (t = !0), De && De.canUndoMediaEditorData())) {
+        Ft = function (t) {
+          if ((t === void 0 && (t = !0), $e && $e.canUndoMediaEditorData())) {
             var e,
               n,
-              r = De.lastMediaEditorAction;
-            De.undoMediaEditorData(t);
-            var o = De.lastMediaEditorAction;
-            (Pt(),
-              (e = Je.current) == null || e.updatePreview(),
-              (n = Je.current) == null || n.undoAction(r, o));
+              r = $e.lastMediaEditorAction;
+            $e.undoMediaEditorData(t);
+            var o = $e.lastMediaEditorAction;
+            (Mt(),
+              (e = et.current) == null || e.updatePreview(),
+              (n = et.current) == null || n.undoAction(r, o));
           }
         },
-        At = function () {
-          if (De && De.canRedoMediaEditorData()) {
+        Ot = function () {
+          if ($e && $e.canRedoMediaEditorData()) {
             var e,
               t,
-              n = De.lastMediaEditorAction;
-            De.redoMediaEditorData();
-            var r = De.lastMediaEditorAction;
-            (Pt(),
-              (e = Je.current) == null || e.updatePreview(),
-              (t = Je.current) == null || t.redoAction(r, n));
+              n = $e.lastMediaEditorAction;
+            $e.redoMediaEditorData();
+            var r = $e.lastMediaEditorAction;
+            (Mt(),
+              (e = et.current) == null || e.updatePreview(),
+              (t = et.current) == null || t.redoAction(r, n));
           }
         },
-        Ft = function (t, n, o, a) {
-          var e = r("WANullthrows")(Je.current).getCanvasScale(),
+        Bt = function (t, n, o, a) {
+          var e = r("WANullthrows")(et.current).getCanvasScale(),
             i = n.width * e.x,
             l = n.height * e.y,
             s = o / i,
             u = a / l,
             c = Math.min(s, u),
-            d = $t().addImageLayerToCenter({
+            d = Nt().addImageLayerToCenter({
               type: t,
               image: n,
               editable: !0,
               scale: { x: c, y: c },
             });
-          Nt(d, { updatePreview: !0, undoable: !0 });
+          wt(d, { updatePreview: !0, undoable: !0 });
         },
-        Ot = (function () {
+        Wt = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             try {
               var t = yield o(
                 "WAWebMediaEditorUtilsCreateCanvasAndImage",
               ).createImageFromEmoji(e);
               if (!t) return;
-              var n = je ? v : b;
-              (Ft(
+              var n = Qe ? v : b;
+              (Bt(
                 o("WAWebMediaEditorLayersImage").ImageLayerType.Emoji,
                 t,
                 n,
                 n,
               ),
-                je &&
+                Qe &&
                   new (o(
                     "WAWebWebcStickerMakerEventsWamEvent",
                   ).WebcStickerMakerEventsWamEvent)({
@@ -567,7 +569,7 @@ __d(
             return e.apply(this, arguments);
           };
         })(),
-        Bt = function (t, n, a, i, l, s, u, c) {
+        qt = function (t, n, a, i, l, s, u, c) {
           (s === void 0 &&
             (s = o("WAWebMediaEditorEnumsColors").getColorValue(
               o("WAWebMediaEditorEnumsColors").ColorType.WHITE,
@@ -577,8 +579,8 @@ __d(
                 o("WAWebMediaEditorEnumsColors").ColorType.BLACK,
               )),
             c === void 0 && (c = 50));
-          var e = r("WANullthrows")(Je.current).getCanvasScale(),
-            d = r("WANullthrows")(Je.current).getCanvasSize(),
+          var e = r("WANullthrows")(et.current).getCanvasScale(),
+            d = r("WANullthrows")(et.current).getCanvasSize(),
             m = Math.min(
               d.getWidth(),
               l === o("WAWebMediaEditorLayersShape").BlurMode.None
@@ -591,7 +593,7 @@ __d(
                 ? T / e.y
                 : k / e.y,
             ),
-            _ = $t().addShapeLayerToCenter({
+            _ = Nt().addShapeLayerToCenter({
               image: t,
               size: new (r("WAWebMediaEditorGeometrySize"))({
                 width: m,
@@ -605,50 +607,50 @@ __d(
               strokeColor: u,
               strokeWidth: c,
             });
-          Nt(_, { updatePreview: !0, undoable: !0 });
+          wt(_, { updatePreview: !0, undoable: !0 });
         },
-        Wt = function (t) {
-          var e = $t().getSelectedLayer();
+        Ut = function (t) {
+          var e = Nt().getSelectedLayer();
           if (
             e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
             !e.getConfirmed()
           )
-            wt(!1);
+            Ft(!1);
           else {
             var n,
               a,
-              i = $t().clearSelectedLayer();
-            (Nt(i),
-              Bt(
+              i = Nt().clearSelectedLayer();
+            (wt(i),
+              qt(
                 r("WANullthrows")(
-                  (n = $t().getBackground()) == null ? void 0 : n.getImage(),
+                  (n = Nt().getBackground()) == null ? void 0 : n.getImage(),
                 ),
                 r("WANullthrows")(
-                  (a = $t().getBackground()) == null ? void 0 : a.getFrame(),
+                  (a = Nt().getBackground()) == null ? void 0 : a.getFrame(),
                 ),
                 t,
-                lt.current,
-                o("WAWebMediaEditorLayersShape").BlurMode.None,
-                st.current,
                 ut.current,
+                o("WAWebMediaEditorLayersShape").BlurMode.None,
                 ct.current,
+                dt.current,
+                mt.current,
               ));
           }
         },
-        qt = (function () {
+        Vt = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             try {
               var t = yield o(
                 "WAWebMediaEditorUtilsCreateCanvasAndImage",
               ).createImageFromSticker(e);
               if (!t) throw r("err")("Create image from sticker failed");
-              (Ft(
+              (Bt(
                 o("WAWebMediaEditorLayersImage").ImageLayerType.Sticker,
                 t,
                 S,
                 S,
               ),
-                je &&
+                Qe &&
                   new (o(
                     "WAWebWebcStickerMakerEventsWamEvent",
                   ).WebcStickerMakerEventsWamEvent)({
@@ -668,29 +670,29 @@ __d(
             return e.apply(this, arguments);
           };
         })(),
-        Ut = function () {
-          var e = $t().clearSelectedLayer();
-          Nt(e);
-        },
-        Vt = function () {
-          var e = $t().clearSelectedLayer();
-          Nt(e);
-        },
         Ht = function () {
-          var e = $t().clearSelectedLayer();
-          (Nt(e),
-            fe(function (e) {
+          var e = Nt().clearSelectedLayer();
+          wt(e);
+        },
+        Gt = function () {
+          var e = Nt().clearSelectedLayer();
+          wt(e);
+        },
+        zt = function () {
+          var e = Nt().clearSelectedLayer();
+          (wt(e),
+            he(function (e) {
               return !e;
             }));
         },
-        Gt = function (t) {
-          var e = $t(),
+        jt = function (t) {
+          var e = Nt(),
             n = e.setActiveFilter(t);
-          Nt(n, { undoable: !0, updatePreview: !0 });
+          wt(n, { undoable: !0, updatePreview: !0 });
         },
-        zt = function () {
-          var e = Mt(),
-            t = $t();
+        Kt = function () {
+          var e = At(),
+            t = Nt();
           if (!(!e || t.getOutlineLayer().isEmpty())) {
             var n = t.getCropCenter(),
               a = e.height,
@@ -710,13 +712,13 @@ __d(
               _ = t
                 .updateBackground(e, l, s, { x: p, y: p })
                 .clearOutlinePaths();
-            (Nt(_, {
+            (wt(_, {
               undoable: !0,
               updatePreview: !0,
               lastAction: o("WAWebAttachMediaModel").MediaEditorAction
                 .OutlineDone,
             }),
-              je &&
+              Qe &&
                 new (o(
                   "WAWebWebcStickerMakerEventsWamEvent",
                 ).WebcStickerMakerEventsWamEvent)({
@@ -726,19 +728,19 @@ __d(
                 }).commit());
           }
         },
-        jt = function () {
-          var e = $t().clearOutlinePaths();
-          Nt(e, { undoable: !0, updatePreview: !0 });
+        Qt = function () {
+          var e = Nt().clearOutlinePaths();
+          wt(e, { undoable: !0, updatePreview: !0 });
         },
-        Kt = function (t, n, r) {
-          var e = $t().setRotation(t).setCrop(n, r);
-          (Nt(e, {
+        Xt = function (t, n, r) {
+          var e = Nt().setRotation(t).setCrop(n, r);
+          (wt(e, {
             undoable: !0,
             updatePreview: !0,
             lastAction: o("WAWebAttachMediaModel").MediaEditorAction
               .CropRotateCanvas,
           }),
-            je &&
+            Qe &&
               new (o(
                 "WAWebWebcStickerMakerEventsWamEvent",
               ).WebcStickerMakerEventsWamEvent)({
@@ -747,114 +749,114 @@ __d(
                 ).WEBC_STICKER_MAKER_EVENT_NAME_TYPE.IMAGE_CROPPED,
               }).commit());
         },
-        Qt = function (t) {
-          var e = $t().getSelectedLayer();
+        Yt = function (t) {
+          var e = Nt().getSelectedLayer();
           if (
             e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
             e.isBlur()
           ) {
-            var n = $t().setBlurMode(e, t);
-            (Nt(n, { updatePreview: !0, undoable: !0 }), (it.current = t));
+            var n = Nt().setBlurMode(e, t);
+            (wt(n, { updatePreview: !0, undoable: !0 }), (st.current = t));
           }
         },
-        Xt = function (t, n) {
+        Jt = function (t, n) {
           n === void 0 && (n = !1);
-          var e = $t().getSelectedLayer();
+          var e = Nt().getSelectedLayer();
           if (e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer) {
-            var r = $t().setShapeRadius(e, t);
-            (Nt(r, { updatePreview: !0, undoable: n }), (lt.current = t));
+            var r = Nt().setShapeRadius(e, t);
+            (wt(r, { updatePreview: !0, undoable: n }), (ut.current = t));
           }
         },
-        Yt = function () {
-          var e = $t().getSelectedLayer();
+        Zt = function () {
+          var e = Nt().getSelectedLayer();
           if (
             e instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
             e.isBlur() &&
             !e.getConfirmed()
           )
-            wt(!1);
+            Ft(!1);
           else {
             var t,
               n,
-              a = $t().clearSelectedLayer();
-            (Nt(a),
-              Bt(
+              a = Nt().clearSelectedLayer();
+            (wt(a),
+              qt(
                 r("WANullthrows")(
-                  (t = $t().getBackground()) == null ? void 0 : t.getImage(),
+                  (t = Nt().getBackground()) == null ? void 0 : t.getImage(),
                 ),
                 r("WANullthrows")(
-                  (n = $t().getBackground()) == null ? void 0 : n.getFrame(),
+                  (n = Nt().getBackground()) == null ? void 0 : n.getFrame(),
                 ),
                 o("WAWebMediaEditorUtilsShapes").ShapeType.RECTANGLE,
-                lt.current,
-                it.current,
+                ut.current,
+                st.current,
               ));
           }
         },
-        Jt = function (t) {
-          var e = $t(),
+        en = function (t) {
+          var e = Nt(),
             n = e.getSelectedLayer();
           if (
             n instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
             !n.isBlur()
           ) {
             var r = e.setShapeFillColor(n, t);
-            (Nt(r, { updatePreview: !0, undoable: !0 }),
-              (st.current = t),
-              (ut.current = n.getStrokeColor()),
-              (ct.current = n.getStrokeWidth()));
+            (wt(r, { updatePreview: !0, undoable: !0 }),
+              (ct.current = t),
+              (dt.current = n.getStrokeColor()),
+              (mt.current = n.getStrokeWidth()));
           }
         },
-        Zt = function (t) {
-          var e = $t(),
+        tn = function (t) {
+          var e = Nt(),
             n = e.getSelectedLayer();
           if (
             n instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
             !n.isBlur()
           ) {
             var r = e.setShapeStrokeColor(n, t);
-            (Nt(r, { updatePreview: !0, undoable: !0 }),
-              (st.current = n.getFillColor()),
-              (ut.current = t),
-              (ct.current = n.getStrokeWidth()));
+            (wt(r, { updatePreview: !0, undoable: !0 }),
+              (ct.current = n.getFillColor()),
+              (dt.current = t),
+              (mt.current = n.getStrokeWidth()));
           }
         },
-        en = function (t) {
-          var e = $t(),
+        nn = function (t) {
+          var e = Nt(),
             n = e.getSelectedLayer();
           if (
             n instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
             !n.isBlur()
           ) {
             var r = e.setShapeStrokeWidth(n, t);
-            (Nt(r, { updatePreview: !0, undoable: !0 }),
-              (st.current = n.getFillColor()),
-              (ut.current = n.getStrokeColor()),
-              (ct.current = t));
+            (wt(r, { updatePreview: !0, undoable: !0 }),
+              (ct.current = n.getFillColor()),
+              (dt.current = n.getStrokeColor()),
+              (mt.current = t));
           }
         },
-        tn = function (t, n) {
-          var e = $t(),
+        rn = function (t, n) {
+          var e = Nt(),
             r = t.setPoints(n),
             o = e.updateLayer(t, r);
-          Nt(o, { updatePreview: !0, undoable: !0 });
+          wt(o, { updatePreview: !0, undoable: !0 });
         },
-        nn = function (t) {
-          ee(t);
+        on = function (t) {
+          ne(t);
         },
-        rn = function (t) {
-          re(t);
+        an = function (t) {
+          ae(t);
         },
-        on = function () {
-          Nt($t().clearSelectedLayer());
+        ln = function () {
+          wt(Nt().clearSelectedLayer());
         },
-        an = function () {
-          if (!Oe) {
-            on();
-            var e = r("WANullthrows")(Je.current).getCanvasScale(),
+        sn = function () {
+          if (!We) {
+            ln();
+            var e = r("WANullthrows")(et.current).getCanvasScale(),
               t = { x: R / e.x, y: R / e.y };
-            if (je) {
-              var n = $t(),
+            if (Qe) {
+              var n = Nt(),
                 a = n.getCropSize().getDimension(),
                 i = (L * a) / o("WAWebStickerConstants").STICKER_DIMENSION;
               t = {
@@ -863,87 +865,87 @@ __d(
               };
             }
             var l = {
-                origin: $t().getCropCenter(),
+                origin: Nt().getCropCenter(),
                 text: "",
-                textColor: ae,
-                textBackground: he,
-                alignment: de,
-                font: se,
+                textColor: le,
+                textBackground: Ce,
+                alignment: pe,
+                font: ce,
                 scale: t,
               },
-              s = $t().addTextLayer(l);
-            Nt(s, { updatePreview: !0, undoable: !0 });
+              s = Nt().addTextLayer(l);
+            wt(s, { updatePreview: !0, undoable: !0 });
             var u = r("WANullthrows")(s.getLastTextLayer());
-            (Ue(u), Be(null));
-          }
-        },
-        ln = function (t) {
-          ue(t);
-          var e = $t().getSelectedLayer();
-          if (qe) Ue(qe.setFont(t));
-          else if (
-            e &&
-            e instanceof o("WAWebMediaEditorLayersText").TextLayer
-          ) {
-            var n = $t().setFont(e, t);
-            Nt(n, { updatePreview: !0, undoable: !0 });
-          }
-        },
-        sn = function (t) {
-          me(t);
-          var e = $t().getSelectedLayer();
-          if (qe) Ue(qe.setAlignment(t));
-          else if (
-            e &&
-            e instanceof o("WAWebMediaEditorLayersText").TextLayer
-          ) {
-            var n = $t().setAlignment(e, t);
-            Nt(n, { updatePreview: !0, undoable: !0 });
+            (He(u), qe(null));
           }
         },
         un = function (t) {
-          ie(t);
-          var e = $t().getSelectedLayer();
-          if (qe) Ue(qe.setTextColor(t));
+          de(t);
+          var e = Nt().getSelectedLayer();
+          if (Ve) He(Ve.setFont(t));
           else if (
             e &&
             e instanceof o("WAWebMediaEditorLayersText").TextLayer
           ) {
-            var n = $t().setTextColor(e, t);
-            Nt(n, { updatePreview: !0, undoable: !0 });
+            var n = Nt().setFont(e, t);
+            wt(n, { updatePreview: !0, undoable: !0 });
           }
         },
-        cn = function () {
-          var e = !he;
-          ye(e);
-          var t = $t().getSelectedLayer();
-          if (qe) Ue(qe.setTextBackground(e));
+        cn = function (t) {
+          _e(t);
+          var e = Nt().getSelectedLayer();
+          if (Ve) He(Ve.setAlignment(t));
+          else if (
+            e &&
+            e instanceof o("WAWebMediaEditorLayersText").TextLayer
+          ) {
+            var n = Nt().setAlignment(e, t);
+            wt(n, { updatePreview: !0, undoable: !0 });
+          }
+        },
+        dn = function (t) {
+          se(t);
+          var e = Nt().getSelectedLayer();
+          if (Ve) He(Ve.setTextColor(t));
+          else if (
+            e &&
+            e instanceof o("WAWebMediaEditorLayersText").TextLayer
+          ) {
+            var n = Nt().setTextColor(e, t);
+            wt(n, { updatePreview: !0, undoable: !0 });
+          }
+        },
+        mn = function () {
+          var e = !Ce;
+          be(e);
+          var t = Nt().getSelectedLayer();
+          if (Ve) He(Ve.setTextBackground(e));
           else if (
             t &&
             t instanceof o("WAWebMediaEditorLayersText").TextLayer
           ) {
-            var n = $t().setTextBackground(t, e);
-            Nt(n, { updatePreview: !0, undoable: !0 });
+            var n = Nt().setTextBackground(t, e);
+            wt(n, { updatePreview: !0, undoable: !0 });
           }
         },
-        dn = function (t) {
-          (Ue(t), Be(t));
+        pn = function (t) {
+          (He(t), qe(t));
         },
-        mn = function (t, n) {
+        _n = function (t, n) {
           var e;
           if (!n)
-            Oe &&
-              Nt($t().deleteLayer(Oe), {
+            We &&
+              wt(Nt().deleteLayer(We), {
                 updatePreview: !0,
                 undoable: !!t.getText(),
               });
           else {
-            var a = $t(),
-              i = r("WANullthrows")(qe).setText(n);
-            (Oe
-              ? (a = a.updateLayer(r("WANullthrows")(Oe), i))
+            var a = Nt(),
+              i = r("WANullthrows")(Ve).setText(n);
+            (We
+              ? (a = a.updateLayer(r("WANullthrows")(We), i))
               : ((a = a.addTextLayer(i)),
-                je &&
+                Qe &&
                   new (o(
                     "WAWebWebcStickerMakerEventsWamEvent",
                   ).WebcStickerMakerEventsWamEvent)({
@@ -951,86 +953,86 @@ __d(
                       "WAWebWamEnumWebcStickerMakerEventNameType",
                     ).WEBC_STICKER_MAKER_EVENT_NAME_TYPE.TEXT_ADDED,
                   }).commit()),
-              Nt(a, { updatePreview: !0, undoable: !0 }));
+              wt(a, { updatePreview: !0, undoable: !0 }));
           }
           (self.setTimeout(function () {
-            (Ue(null), Be(null));
+            (He(null), qe(null));
           }, 0),
-            (e = tt.current) == null || e.focus());
+            (e = rt.current) == null || e.focus());
         },
-        pn = function (t) {
-          Nt($t().addPaintPath(t), { undoable: !0, updatePreview: !0 });
+        fn = function (t) {
+          wt(Nt().addPaintPath(t), { undoable: !0, updatePreview: !0 });
         },
-        _n = function (t) {
-          Nt($t().addOutlinePath(t), {
+        gn = function (t) {
+          wt(Nt().addOutlinePath(t), {
             undoable: !0,
             updatePreview: !0,
             lastAction: o("WAWebAttachMediaModel").MediaEditorAction.Outline,
           });
         },
-        fn = function (t) {
-          if (!(!t.getEditable() || _e)) {
-            var e = $t().setSelectedLayer(t);
+        hn = function (t) {
+          if (!(!t.getEditable() || ge)) {
+            var e = Nt().setSelectedLayer(t);
             (t instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
               (t.getConfirmed() || (e = e.updateLayer(t, t.setConfirmed())),
-              t.isBlur() && (it.current = t.getMode()),
-              (lt.current = t.getRadius())),
-              Nt(e),
+              t.isBlur() && (st.current = t.getMode()),
+              (ut.current = t.getRadius())),
+              wt(e),
               t instanceof o("WAWebMediaEditorLayersText").TextLayer &&
-                (ie(t.getTextColor()),
-                ye(t.getTextBackground()),
-                ue(t.getFont())));
+                (se(t.getTextColor()),
+                be(t.getTextBackground()),
+                de(t.getFont())));
           }
         },
-        gn = function (t, n) {
+        yn = function (t, n) {
           var e =
             t instanceof o("WAWebMediaEditorLayersImage").ImageLayer &&
             t.isBackground();
           e
-            ? Nt($t().translateBackground(n), {
+            ? wt(Nt().translateBackground(n), {
                 updatePreview: !0,
                 undoable: !0,
               })
-            : Nt($t().translateLayer(t, n), {
+            : wt(Nt().translateLayer(t, n), {
                 updatePreview: !0,
                 undoable: !0,
               });
         },
-        hn = function (t, n, r, a) {
+        Cn = function (t, n, r, a) {
           var e =
             t instanceof o("WAWebMediaEditorLayersImage").ImageLayer &&
             t.isBackground();
           e
-            ? Nt($t().transformBackground(n, r), {
+            ? wt(Nt().transformBackground(n, r), {
                 updatePreview: !0,
                 undoable: !0,
               })
-            : Nt($t().transformLayer(t, n, r, a), {
+            : wt(Nt().transformLayer(t, n, r, a), {
                 updatePreview: !0,
                 undoable: !0,
               });
         },
-        yn = function (t) {
-          var e = $t().deleteLayer(t);
-          (t === qe && (Ue(null), Be(null)),
-            Nt(e, { updatePreview: !0, undoable: !0 }));
+        bn = function (t) {
+          var e = Nt().deleteLayer(t);
+          (t === Ve && (He(null), qe(null)),
+            wt(e, { updatePreview: !0, undoable: !0 }));
         },
-        Cn = function (t) {
+        vn = function (t) {
           (o("WAWebEventFiles")
             .getFiles(t)
             .then(function (e) {
-              if (!Ct.aborted) {
+              if (!vt.aborted) {
                 var n;
                 return (
                   t.shiftKey === !0 &&
                     t.altKey === !0 &&
                     e.length === 1 &&
-                    (Ke(!0),
-                    ee(
+                    (Xe(!0),
+                    ne(
                       o("WAWebMediaEditorEnumsThickness").ThicknessType.XLARGE,
                     ),
                     (n = !0)),
-                  $.onProcessAttachments(
+                  P.onProcessAttachments(
                     e.map(function (e) {
                       return { file: e, stickerMaker: n };
                     }),
@@ -1044,28 +1046,28 @@ __d(
               o("WAFilteredCatch").filteredCatch(
                 o("WAWebMiscErrors").MediaDragDropError,
                 function (e) {
-                  W.length || U(e.src);
+                  q.length || V(e.src);
                 },
               ),
             ),
             t.target instanceof HTMLInputElement && (t.target.value = ""));
         },
-        bn = function (t) {
-          (Ye(), !(He || je) && Cn(t));
-        },
-        vn = function (t, n) {
-          He || je || (ve(t), !t && !n && !W.length && N());
-        },
         Sn = function (t) {
-          if (De) {
-            var e = W.indexOf(De);
-            (De.updateCaption(t),
-              e === 0 && t === "" && we && (Ae(!1), ot(null)));
-            var n = _t.current.get(De.id);
-            n && pt.current.set(De.id, n.editorContent());
+          (Ze(), !(ze || Qe) && vn(t));
+        },
+        Rn = function (t, n) {
+          ze || Qe || (Re(t), !t && !n && !q.length && M());
+        },
+        Ln = function (t) {
+          if ($e) {
+            var e = q.indexOf($e);
+            ($e.updateCaption(t),
+              e === 0 && t === "" && Fe && (Oe(!1), it(null)));
+            var n = gt.current.get($e.id);
+            n && ft.current.set($e.id, n.editorContent());
           }
         },
-        Rn = function (t) {
+        En = function (t) {
           var e = t
             .getFiles()
             .filter(function (e) {
@@ -1075,25 +1077,25 @@ __d(
             .map(function (e) {
               return { file: e };
             });
-          $.onProcessAttachments(
+          P.onProcessAttachments(
             e,
             o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
               .PASTE,
           );
         },
-        Ln = function (t) {
+        kn = function (t) {
           (t.preventDefault(), t.stopPropagation());
           var e = new (r("WAWebDataTransfer"))(t.clipboardData);
-          e.hasFiles() && Rn(e);
+          e.hasFiles() && En(e);
         },
-        En = function () {
-          if (Ze.current) {
-            var e = Ze.current;
+        In = function () {
+          if (tt.current) {
+            var e = tt.current;
             e.click();
           }
         },
-        kn = function (t) {
-          if (je) {
+        Tn = function (t) {
+          if (Qe) {
             var e = {
               stickerSendOrigin: o("WAWebWamEnumStickerSendOriginType")
                 .STICKER_SEND_ORIGIN_TYPE.STICKER_MAKER,
@@ -1154,17 +1156,17 @@ __d(
               textLayerCount: s,
             }).commit());
         },
-        In = function () {
+        Dn = function () {
           var e;
           return (
-            W.length === 1 &&
-            ((e = W.at(0)) == null ? void 0 : e.isViewableOnce()) === !0 &&
-            $.canViewOnce &&
-            !B
+            q.length === 1 &&
+            ((e = q.at(0)) == null ? void 0 : e.isViewableOnce()) === !0 &&
+            P.canViewOnce &&
+            !W
           );
         },
-        Tn = function () {
-          var e = W.getPreviewableMedias();
+        xn = function () {
+          var e = q.getPreviewableMedias();
           (d || (d = n("Promise")))
             .all(
               e.map(function (e) {
@@ -1180,25 +1182,25 @@ __d(
             )
             .finally(function () {
               if (e.length === 0) {
-                N();
+                M();
                 return;
               }
-              if ((De != null && De.mediaEditorData.hasEdits()) || je) {
+              if (($e != null && $e.mediaEditorData.hasEdits()) || Qe) {
                 var t;
-                (t = Je.current) == null ||
+                (t = et.current) == null ||
                   t.updatePreview({ immediately: !0 });
               }
               var r = [];
               (e.forEach(function (e) {
                 var t = e.editedFile;
-                if (t && (e.mediaEditorData.hasEdits() || je)) {
+                if (t && (e.mediaEditorData.hasEdits() || Qe)) {
                   var n = e.mediaEditorData.getActiveFilter(),
                     a = n !== o("WAWebMediaEditorUtilsFilters").FilterType.NONE,
                     i = e.mediaEditorData.isCropped(),
                     l = e.mediaEditorData.isRotated(),
-                    s = W.replace(e.id, {
+                    s = q.replace(e.id, {
                       file: t,
-                      asSticker: je,
+                      asSticker: Qe,
                       hasFilter: a,
                       isCropped: i,
                       isRotated: l,
@@ -1207,14 +1209,14 @@ __d(
                 }
               }),
                 (d || (d = n("Promise"))).all(r).then(function () {
-                  var t = W.getPreviewableMedias();
+                  var t = q.getPreviewableMedias();
                   if (t.length !== 0) {
                     var n = t.map(function (e) {
                         var t,
                           n = (t = e.caption) == null ? void 0 : t.trim(),
                           r = [],
                           o = [],
-                          a = pt.current.get(e.id);
+                          a = ft.current.get(e.id);
                         if (a) {
                           var i = a.data,
                             l = a.text;
@@ -1229,55 +1231,55 @@ __d(
                         );
                       }),
                       r = {
-                        isViewOnce: In() && He,
-                        selectedNewsletterWid: X,
-                        threadId: $.threadId,
+                        isViewOnce: Dn() && ze,
+                        selectedNewsletterWid: J,
+                        threadId: P.threadId,
                       };
-                    (we && (r.initCaptionUsed = !0),
-                      V(n, r, et.current),
-                      kn(e));
+                    (Fe && (r.initCaptionUsed = !0),
+                      H(n, r, nt.current),
+                      Tn(e));
                   }
                 }));
             });
         },
-        Dn = function (t) {
+        $n = function (t) {
           (t == null || t.preventDefault(),
             t == null || t.stopPropagation(),
-            W.canSend() &&
-              (($.isNewsletterStatus === !0 && X == null) || Tn()));
+            q.canSend() &&
+              (X || (P.isNewsletterStatus === !0 && J == null) || xn()));
         },
-        xn = function (t) {
+        Pn = function (t) {
           var e;
-          if (De && !t.repeat && !t.shiftKey && !qe) {
-            var n = _t.current.get(De.id);
+          if ($e && !t.repeat && !t.shiftKey && !Ve) {
+            var n = gt.current.get($e.id);
             if (!(n != null && n.isFocused())) {
-              var r = $t().getSelectedLayer();
+              var r = Nt().getSelectedLayer();
               if (r instanceof o("WAWebMediaEditorLayersText").TextLayer) {
-                (t.preventDefault(), t.stopPropagation(), dn(r));
+                (t.preventDefault(), t.stopPropagation(), pn(r));
                 return;
               }
-              ((e = Je.current) != null && e.resetUIState()) || Dn();
+              ((e = et.current) != null && e.resetUIState()) || $n();
             }
           }
         },
-        $n = function () {
-          if (De) {
-            var e = dt.current.get(De.id);
+        Nn = function () {
+          if ($e) {
+            var e = pt.current.get($e.id);
             e && e.scrollIntoView();
           }
         },
-        Pn = function () {
-          var e = W.setPrevAsActive();
-          e && $n();
+        Mn = function () {
+          var e = q.setPrevAsActive();
+          e && Nn();
         },
-        Nn = function () {
-          var e = W.setNextAsActive();
-          e && $n();
+        wn = function () {
+          var e = q.setNextAsActive();
+          e && Nn();
         },
-        Mn = function (t, n) {
-          if (!(!De || n.repeat || qe)) {
-            var e = De && !De.caption,
-              r = _t.current.get(De.id),
+        An = function (t, n) {
+          if (!(!$e || n.repeat || Ve)) {
+            var e = $e && !$e.caption,
+              r = gt.current.get($e.id),
               o = !1;
             (r &&
               (o =
@@ -1288,27 +1290,27 @@ __d(
               o ||
                 (n.preventDefault(),
                 n.stopPropagation(),
-                t === "left" ? Pn() : Nn()));
+                t === "left" ? Mn() : wn()));
           }
-        },
-        wn = function (t) {
-          if (De != null && De.mediaEditorData.hasEdits()) {
-            var e;
-            (e = Je.current) == null || e.updatePreview({ immediately: !0 });
-          }
-          W.setActive(t);
-        },
-        An = function (t, n) {
-          (n.stopPropagation(),
-            n.preventDefault(),
-            W.remove(t),
-            W.getValidMedias().length === 0
-              ? (at.current = self.setTimeout(function () {
-                  N();
-                }, C))
-              : et.current && r("WAWebFocusTracer").focus(et.current));
         },
         Fn = function (t) {
+          if ($e != null && $e.mediaEditorData.hasEdits()) {
+            var e;
+            (e = et.current) == null || e.updatePreview({ immediately: !0 });
+          }
+          q.setActive(t);
+        },
+        On = function (t, n) {
+          (n.stopPropagation(),
+            n.preventDefault(),
+            q.remove(t),
+            q.getValidMedias().length === 0
+              ? (lt.current = self.setTimeout(function () {
+                  M();
+                }, C))
+              : nt.current && r("WAWebFocusTracer").focus(nt.current));
+        },
+        Bn = function (t) {
           var e = null,
             n = function (n) {
               var e = n.onSendButtonClick,
@@ -1320,33 +1322,33 @@ __d(
                 u = s === void 0 ? null : s,
                 c = n.viewOnceDisabled,
                 d = c === void 0 ? !0 : c;
-              return $.renderCaptionInput({
+              return P.renderCaptionInput({
                 theme: l,
                 msgType: t.type,
                 initialText: t.caption,
                 viewOnce: u,
                 viewOnceDisabled: d,
-                onChange: Sn,
-                onToggleViewOnce: Ge,
-                onEnter: Dn,
-                onFiles: Rn,
+                onChange: Ln,
+                onToggleViewOnce: je,
+                onEnter: $n,
+                onFiles: En,
                 setCaptionInputRef: function (n) {
-                  ft(t.id, n);
+                  ht(t.id, n);
                 },
                 setSendButtonRef: i,
                 internLinksEnabled:
-                  F !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
+                  O !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
                 phoneNumbersEnabled:
-                  F !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
+                  O !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
                 expandedTextFormatsEnabled:
-                  F !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
+                  O !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
                 multiline:
-                  F !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
+                  O !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
                 sendButtonEnabled:
                   a ||
-                  F === o("WAWebMediaEditorEnumsThemes").MediaTheme.CAPTURE,
-                onSendButtonClick: e || Dn,
-                maxCaptionLength: $.maxCaptionLength,
+                  O === o("WAWebMediaEditorEnumsThemes").MediaTheme.CAPTURE,
+                onSendButtonClick: e || $n,
+                maxCaptionLength: P.maxCaptionLength,
               });
             };
           switch (t.type) {
@@ -1354,78 +1356,80 @@ __d(
             case o("WAWebMsgType").MSG_TYPE.IMAGE: {
               var a = n({
                 theme: "image",
-                viewOnce: He,
-                viewOnceDisabled: !In(),
+                viewOnce: ze,
+                viewOnceDisabled: !Dn(),
                 setSendButtonRef: function (n) {
-                  return ht(t.id, n);
+                  return Ct(t.id, n);
                 },
               });
               e = p.jsx(
                 r("WAWebMediaEditorImage.react"),
                 {
-                  ref: Je,
+                  ref: et,
                   attachMedia: t,
                   captionInput: a,
-                  hdEligible: t.hdEligible && $.hdEligible,
-                  isSendHQPhotoEnabled: $.isSendHQPhotoEnabled,
-                  onCaptionChange: Sn,
+                  hdEligible: t.hdEligible && P.hdEligible,
+                  isSendHQPhotoEnabled: P.isSendHQPhotoEnabled,
+                  onCaptionChange: Ln,
                   onClose:
-                    F === o("WAWebMediaEditorEnumsThemes").MediaTheme.CAPTURE
+                    O === o("WAWebMediaEditorEnumsThemes").MediaTheme.CAPTURE
                       ? null
-                      : N,
-                  onEnter: Dn,
-                  openTrigger: z,
-                  setCaptionInputRef: ft,
-                  setSendButtonRef: ht,
-                  paintThickness: Z,
-                  outlineSmoothing: ne,
-                  canUndo: Re,
-                  canRedo: ke,
-                  currentlyEditingTextLayer: Oe,
-                  draftTextLayer: qe,
-                  viewOnce: He,
-                  sendAsSticker: je,
-                  inFilterMode: _e,
+                      : M,
+                  onEnter: $n,
+                  openTrigger: j,
+                  setCaptionInputRef: ht,
+                  setSendButtonRef: Ct,
+                  paintThickness: te,
+                  outlineSmoothing: oe,
+                  canUndo: Ee,
+                  canRedo: Te,
+                  currentlyEditingTextLayer: We,
+                  draftTextLayer: Ve,
+                  viewOnce: ze,
+                  sendAsSticker: Qe,
+                  inFilterMode: ge,
                   internLinksEnabled:
-                    F !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
-                  mediaTheme: F,
-                  onFilterChange: Gt,
-                  onFilterSelect: Ht,
-                  onPaintSelect: Ut,
-                  onOutlineSelect: Vt,
-                  onOutlineDone: zt,
-                  onOutlineReset: jt,
-                  onTextSelect: an,
-                  onTextBackgroundToggle: cn,
-                  onEmojiSelect: Ot,
-                  onShapeSelect: Wt,
-                  onStickerSelect: qt,
-                  onLayerSelect: fn,
-                  onLayerUnselect: on,
-                  onLayerDelete: yn,
-                  onLayerTranslate: gn,
-                  onLayerTransform: hn,
-                  onTextEditingStart: dn,
-                  onTextEditingEnd: mn,
-                  onTextColorSelect: un,
-                  onPointsChange: tn,
-                  onFontSelect: ln,
-                  onAlignmentSelect: sn,
-                  onShapeFillColorSelect: Jt,
-                  onShapeStrokeColorSelect: Zt,
-                  onShapeStrokeWidthSelect: en,
-                  onPaintThicknessSelect: nn,
-                  onOutlineSmoothingToggle: rn,
-                  onCropRotateCanvas: Kt,
-                  onBlurModeChange: Qt,
-                  onBlurRadiusChange: Xt,
-                  onBlurSelect: Yt,
-                  onUndo: wt,
-                  onRedo: At,
-                  onPaintDrawEnd: pn,
-                  onOutlineDrawEnd: _n,
-                  onToggleViewOnce: Ge,
-                  onFiles: Rn,
+                    O !== o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
+                  mediaTheme: O,
+                  onFilterChange: jt,
+                  onFilterSelect: zt,
+                  onPaintSelect: Ht,
+                  onOutlineSelect: Gt,
+                  onOutlineDone: Kt,
+                  onOutlineReset: Qt,
+                  onTextSelect: sn,
+                  onTextBackgroundToggle: mn,
+                  onEmojiSelect: Wt,
+                  onShapeSelect: Ut,
+                  onStickerSelect: Vt,
+                  onLayerSelect: hn,
+                  onLayerUnselect: ln,
+                  onLayerDelete: bn,
+                  onLayerTranslate: yn,
+                  onLayerTransform: Cn,
+                  onTextEditingStart: pn,
+                  onTextEditingEnd: _n,
+                  onTextColorSelect: dn,
+                  onPointsChange: rn,
+                  onFontSelect: un,
+                  onAlignmentSelect: cn,
+                  onShapeFillColorSelect: en,
+                  onShapeStrokeColorSelect: tn,
+                  onShapeStrokeWidthSelect: nn,
+                  onPaintThicknessSelect: on,
+                  onOutlineSmoothingToggle: an,
+                  onCropRotateCanvas: Xt,
+                  onBlurModeChange: Yt,
+                  onBlurRadiusChange: Jt,
+                  onBlurSelect: Zt,
+                  onUndo: Ft,
+                  onRedo: Ot,
+                  onPaintDrawEnd: fn,
+                  onOutlineDrawEnd: gn,
+                  onToggleViewOnce: je,
+                  onFiles: En,
+                  hideFooter: P.hideFooter,
+                  toolbarContainer: P.toolbarContainer,
                 },
                 t.mediaEditorData.getId(),
               );
@@ -1434,12 +1438,12 @@ __d(
             case o("WAWebMsgType").MSG_TYPE.VIDEO: {
               var i = n({
                 theme: "video",
-                viewOnce: He,
-                viewOnceDisabled: !In(),
+                viewOnce: ze,
+                viewOnceDisabled: !Dn(),
               });
               e = p.jsx(
                 r("WAWebMediaEditorPreviewVideo.react"),
-                { attachMedia: t, captionInput: i, onClose: N },
+                { attachMedia: t, captionInput: i, onClose: M },
                 t.id,
               );
               break;
@@ -1447,7 +1451,7 @@ __d(
             case o("WAWebMsgType").MSG_TYPE.AUDIO:
               e = p.jsx(
                 r("WAWebMediaEditorPreviewAudio.react"),
-                { item: t, onClose: N },
+                { item: t, onClose: M },
                 t.id,
               );
               break;
@@ -1470,7 +1474,7 @@ __d(
                       fullPreviewSize: t.fullPreviewSize,
                       isPasswordProtected: t.isPasswordProtected,
                       mimetype: t.mimetype,
-                      onClose: N,
+                      onClose: M,
                     },
                     t.id,
                   ))
@@ -1481,7 +1485,7 @@ __d(
                       filesize: t.filesize,
                       filename: t.filename,
                       fileExt: t.fileExt,
-                      onClose: N,
+                      onClose: M,
                       captionInput: l,
                     },
                     t.id,
@@ -1491,13 +1495,13 @@ __d(
           }
           return e;
         },
-        On,
-        Bn = W.getPreviewableMedias(),
-        Wn = $.maxNumberOfMedia;
-      (Bn.length > Wn && (Bn = Bn.slice(0, Wn)),
-        W.canSend()
-          ? De && (On = Fn(De))
-          : (On = p.jsx(
+        Wn,
+        qn = q.getPreviewableMedias(),
+        Un = P.maxNumberOfMedia;
+      (qn.length > Un && (qn = qn.slice(0, Un)),
+        q.canSend()
+          ? $e && (Wn = Bn($e))
+          : (Wn = p.jsx(
               "div",
               babelHelpers.extends(
                 {},
@@ -1513,7 +1517,7 @@ __d(
                 },
               ),
             )));
-      var qn = be
+      var Vn = Se
           ? p.jsx(
               "div",
               {
@@ -1536,98 +1540,103 @@ __d(
               "container",
             )
           : null,
-        Un = {
-          enter: xn,
+        Hn = {
+          enter: Pn,
           left: function (t) {
-            return Mn("left", t);
+            return An("left", t);
           },
           right: function (t) {
-            return Mn("right", t);
+            return An("right", t);
           },
         },
-        Vn =
-          (m = $.mimes) != null
-            ? m
+        Gn =
+          (_ = P.mimes) != null
+            ? _
             : o("WAWebMimeTypes").DOC_MIMES === "*"
               ? "*"
               : [o("WAWebMimeTypes").IMAGE_MIMES].join(),
-        Hn,
-        Gn =
-          (De == null ? void 0 : De.type) ===
+        zn,
+        jn =
+          ($e == null ? void 0 : $e.type) ===
           o("WAWebMsgType").MSG_TYPE.DOCUMENT,
-        zn = (_ = $.isNewsletterStatus) != null ? _ : !1;
-      if (On != null) {
-        var jn, Kn;
+        Kn = (x = P.isNewsletterStatus) != null ? x : !1;
+      if (Wn != null) {
+        var Qn, Xn;
         if (
-          (Bn.length > 0 &&
-            (F === o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS &&
-              (zn && $.newsletterWid == null
-                ? (Kn = p.jsx(r("WAWebNewsletterStatusSelectorButton.react"), {
-                    selectedNewsletterWid: X,
-                    onNewsletterSelected: Y,
-                    type: "media",
-                  }))
-                : zn ||
-                  (Kn = p.jsx(r("WAWebStatusPrivacySettingButton.react"), {
-                    onAudienceSelectorClicked: $.onAudienceSelectorClicked,
-                    statusPostingPrivacyConfig: $.statusPostingPrivacyConfig,
-                    setStatusPostingPrivacyConfig: r("WANullthrows")(
-                      $.setStatusPostingPrivacyConfig,
-                    ),
-                    type: "media",
-                  }))),
-            F === o("WAWebMediaEditorEnumsThemes").MediaTheme.AD_CREATION ||
-            F === o("WAWebMediaEditorEnumsThemes").MediaTheme.BROADCAST
-              ? (jn = p.jsx("div", {
+          (qn.length > 0 &&
+            (O === o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS &&
+              (P.renderSubmitAccessory != null
+                ? (Xn = P.renderSubmitAccessory())
+                : Kn && P.newsletterWid == null
+                  ? (Xn = p.jsx(
+                      r("WAWebNewsletterStatusSelectorButton.react"),
+                      {
+                        selectedNewsletterWid: J,
+                        onNewsletterSelected: Z,
+                        type: "media",
+                      },
+                    ))
+                  : Kn ||
+                    (Xn = p.jsx(r("WAWebStatusPrivacySettingButton.react"), {
+                      onAudienceSelectorClicked: P.onAudienceSelectorClicked,
+                      statusPostingPrivacyConfig: P.statusPostingPrivacyConfig,
+                      setStatusPostingPrivacyConfig: r("WANullthrows")(
+                        P.setStatusPostingPrivacyConfig,
+                      ),
+                      type: "media",
+                    }))),
+            O === o("WAWebMediaEditorEnumsThemes").MediaTheme.AD_CREATION ||
+            O === o("WAWebMediaEditorEnumsThemes").MediaTheme.BROADCAST
+              ? (Qn = p.jsx("div", {
                   tabIndex: -1,
-                  ref: et,
+                  ref: nt,
                   onKeyPress: o("WAWebStopEvent").preventDefault,
                   children: p.jsx(r("WDSButton.react"), {
                     "aria-label": s._(/*BTDS*/ "Save"),
-                    onPress: Dn,
-                    disabled: !W.canSend(),
+                    onPress: $n,
+                    disabled: !q.canSend(),
                     label: s._(/*BTDS*/ "Save"),
                     size:
-                      F ===
+                      O ===
                       o("WAWebMediaEditorEnumsThemes").MediaTheme.AD_CREATION
                         ? "medium"
                         : "large",
                   }),
                 }))
-              : (jn = p.jsx("div", {
+              : (Qn = p.jsx("div", {
                   className: "x1247r65 xng8ra",
                   tabIndex: -1,
-                  ref: et,
+                  ref: nt,
                   onKeyPress: o("WAWebStopEvent").preventDefault,
                   children: p.jsx(r("WAWebSendButtonWithCount.react"), {
                     ariaLabel:
-                      Bn.length > 1
+                      qn.length > 1
                         ? s._(/*BTDS*/ "Send {file count} files", [
-                            s._param("file count", Bn.length),
+                            s._param("file count", qn.length),
                           ])
                         : s._(/*BTDS*/ "Send"),
                     large: !0,
-                    count: Bn.length === 1 ? null : Bn.length,
-                    onClick: Dn,
-                    disabled: !W.canSend() || (zn && X == null),
+                    count: qn.length === 1 ? null : qn.length,
+                    onClick: $n,
+                    disabled: !q.canSend() || X || (Kn && J == null),
                     theme:
-                      F === o("WAWebMediaEditorEnumsThemes").MediaTheme.POLL ||
-                      F ===
+                      O === o("WAWebMediaEditorEnumsThemes").MediaTheme.POLL ||
+                      O ===
                         o("WAWebMediaEditorEnumsThemes").MediaTheme.GALAXY_FLOW
                         ? "TICK"
                         : "SEND",
                   }),
                 }))),
-          F === o("WAWebMediaEditorEnumsThemes").MediaTheme.CAPTURE)
+          O === o("WAWebMediaEditorEnumsThemes").MediaTheme.CAPTURE)
         )
-          Hn = null;
+          zn = null;
         else {
-          var Qn = s._(/*BTDS*/ "Add file"),
-            Xn;
-          if (F === o("WAWebMediaEditorEnumsThemes").MediaTheme.AD_CREATION)
-            Xn = o(
+          var Yn = s._(/*BTDS*/ "Add file"),
+            Jn;
+          if (O === o("WAWebMediaEditorEnumsThemes").MediaTheme.AD_CREATION)
+            Jn = o(
               "WAWebBizAdCreationMediaValidationUtils",
-            ).canAddMoreAttachments(W)
+            ).canAddMoreAttachments(q)
               ? p.jsx(
                   r("WDSButton.react"),
                   {
@@ -1639,27 +1648,27 @@ __d(
                     variant: "tonal",
                     size: "large",
                     type: "default",
-                    onPress: En,
-                    "aria-label": Qn,
+                    onPress: In,
+                    "aria-label": Yn,
                   },
                   "media-more",
                 )
               : null;
           else {
-            var Yn = !He && !je && Bn.length < Wn;
-            Xn =
-              !je && G
+            var Zn = !ze && !Qe && qn.length < Un;
+            Jn =
+              !Qe && z
                 ? p.jsx(
                     r("WDSButton.react"),
                     {
-                      "aria-label": Qn,
-                      disabled: !Yn,
+                      "aria-label": Yn,
+                      disabled: !Zn,
                       Icon: o("WAWebPlusIcon.react").PlusIcon,
-                      onPress: En,
+                      onPress: In,
                       variant: "borderless",
                       xstyle: [
                         D.addMediaButton,
-                        !Yn && D.addMediaButtonDisabled,
+                        !Zn && D.addMediaButtonDisabled,
                         o("WAWebUISpacing").uiMargin.vert8,
                         o("WAWebUISpacing").uiMargin.horiz5,
                       ],
@@ -1668,10 +1677,10 @@ __d(
                   )
                 : null;
           }
-          var Jn;
-          (Bn.length > 0 &&
-            F !== o("WAWebMediaEditorEnumsThemes").MediaTheme.BROADCAST &&
-            (Jn = p.jsxs(o("WAWebFlex.react").FlexRow, {
+          var er;
+          (qn.length > 0 &&
+            O !== o("WAWebMediaEditorEnumsThemes").MediaTheme.BROADCAST &&
+            (er = p.jsxs(o("WAWebFlex.react").FlexRow, {
               grow: 1,
               className: (c || (c = r("stylex")))([
                 D.filmstripContainer,
@@ -1684,87 +1693,87 @@ __d(
               children: [
                 p.jsx(r("WAWebMediaEditorFilmstripDragAndDrop.react"), {
                   className: "x1c4vz4f xs83m0k xdl72j9 xeuugli xw2csxc xuxw1ft",
-                  mediaCollection: W,
-                  onClick: wn,
-                  onClose: An,
-                  onElementRef: mt,
-                  theme: F,
+                  mediaCollection: q,
+                  onClick: Fn,
+                  onClose: On,
+                  onElementRef: _t,
+                  theme: O,
                 }),
-                Xn,
+                Jn,
               ],
             })),
-            (Hn = p.jsxs(
+            (zn = p.jsxs(
               "div",
               babelHelpers.extends(
                 {},
                 (c || (c = r("stylex"))).props(
-                  F === o("WAWebMediaEditorEnumsThemes").MediaTheme.BROADCAST
+                  O === o("WAWebMediaEditorEnumsThemes").MediaTheme.BROADCAST
                     ? D.footerBroadcast
                     : D.footer,
                   o("WAWebUISpacing").uiPadding.vert8,
                   o("WAWebUISpacing").uiPadding.horiz16,
                 ),
-                { children: [Kn, Jn, jn] },
+                { children: [Xn, er, Qn] },
               ),
             )));
         }
       }
-      var Zn = {
+      var tr = {
           0: "x1iyjqo2 xs83m0k x1r8uery x1htk8sl x5yr21d x1bifzbx xhslqc4 x1280gxy xpilrb4 x1t7ytsu x1vb5itz",
           2: "x1iyjqo2 xs83m0k x1r8uery x1htk8sl x5yr21d x1bifzbx xhslqc4 x1280gxy xpilrb4 x1t7ytsu x1vb5itz",
           1: "x1iyjqo2 xs83m0k x1r8uery x1htk8sl x5yr21d x1bifzbx xhslqc4 x1280gxy xpilrb4 x1t7ytsu x1vb5itz",
           3: "x1iyjqo2 xs83m0k x1r8uery x1htk8sl x5yr21d x1bifzbx xhslqc4 x1280gxy xpilrb4 x1t7ytsu x1vb5itz",
         }[
-          (((De == null ? void 0 : De.type) !==
+          ((($e == null ? void 0 : $e.type) !==
             o("WAWebMsgType").MSG_TYPE.IMAGE) <<
             1) |
-            (!!Gn << 0)
+            (!!jn << 0)
         ],
-        er = p.jsxs(o("WAWebFlex.react").FlexColumn, {
+        nr = p.jsxs(o("WAWebFlex.react").FlexColumn, {
           grow: 1,
-          className: Zn,
+          className: tr,
           align: "stretch",
           children: [
-            qn,
-            On,
-            Hn,
+            Vn,
+            Wn,
+            zn,
             p.jsx("input", {
-              ref: Ze,
+              ref: tt,
               type: "file",
-              accept: Vn,
+              accept: Gn,
               style: { display: "none" },
-              onChange: Cn,
+              onChange: vn,
               multiple: !0,
             }),
           ],
         });
-      F === o("WAWebMediaEditorEnumsThemes").MediaTheme.ATTACH &&
-        (er = p.jsx(
+      O === o("WAWebMediaEditorEnumsThemes").MediaTheme.ATTACH &&
+        (nr = p.jsx(
           r("WAWebDrawer.react"),
           {
             theme: "media",
-            onDrop: bn,
-            onDragChange: vn,
+            onDrop: Sn,
+            onDragChange: Rn,
             children: p.jsx(r("WAWebDrawerBody.react"), {
               tabIndex: "-1",
               overflow: "hidden",
-              onPaste: Ln,
-              children: er,
+              onPaste: kn,
+              children: nr,
             }),
           },
           "attach-image-modal",
         ));
-      var tr = { 0: "", 1: "xh8yej3 x5yr21d" }[
+      var rr = { 0: "", 1: "xh8yej3 x5yr21d" }[
         !!(
-          F === o("WAWebMediaEditorEnumsThemes").MediaTheme.CAPTURE ||
+          O === o("WAWebMediaEditorEnumsThemes").MediaTheme.CAPTURE ||
           o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS
         ) << 0
       ];
       return p.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-        className: tr,
-        handlers: Un,
-        ref: tt,
-        children: er,
+        className: rr,
+        handlers: Hn,
+        ref: rt,
+        children: nr,
       });
     }
     x.displayName = x.name + " [from " + i.id + "]";

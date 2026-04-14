@@ -12,20 +12,23 @@ __d(
     "WAWebSendTextFlow.react",
     "WAWebSvgButton.react",
     "WAWebTextBoxReadonly.react",
+    "WAWebToast.react",
+    "WAWebToastManager",
     "WAWebUserPrefsMeUser",
     "WAWebVoipEventConstants",
     "WAWebVoipNewGroupCallContactPicker.react",
     "WAWebVoipStackInterface",
     "WAWebVoipUiContext",
+    "WAWebVoipUiPopoutWindowContext",
     "WDSButton.react",
     "WDSColorStyles.stylex",
     "WDSIconIcPersonAdd.react",
+    "WDSSwitch.react",
     "WDSText.react",
     "WDSThemes",
     "asyncToGeneratorRuntime",
     "fbs",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebEventTargetValue",
     "useWAWebVoipModalManager",
@@ -231,16 +234,12 @@ __d(
                           colorName: "contentDefault",
                           children: s._(/*BTDS*/ "Require approval to join"),
                         }),
-                        d.jsx(r("WDSButton.react"), {
-                          variant: g ? "tonal" : "borderless",
-                          type: "default",
-                          size: "small",
-                          label: g
-                            ? s._(/*BTDS*/ "Turn off")
-                            : s._(/*BTDS*/ "Turn on"),
-                          onPress: function () {
-                            return b(!g);
-                          },
+                        d.jsx(r("WDSSwitch.react"), {
+                          value: g,
+                          onChange: b,
+                          "aria-label": s._(
+                            /*BTDS*/ "Require approval to join",
+                          ),
                         }),
                       ],
                     }),
@@ -253,58 +252,54 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.textToCopy,
-        a = g(!1),
-        i = a[0],
-        l = a[1],
-        u = _(r("WAWebVoipUiContext")),
-        c = u.showCenteredToast,
-        m,
-        p;
-      (t[0] !== i || t[1] !== c || t[2] !== n
-        ? ((m = function () {
+      var t = e.textToCopy,
+        n = g(!1),
+        a = n[0],
+        i = n[1],
+        l = _(r("WAWebVoipUiPopoutWindowContext")),
+        u = l.isContextInPopoutWindow,
+        c = l.windowEl,
+        m = _(r("WAWebVoipUiContext")),
+        p = m.showToast;
+      return (
+        f(
+          function () {
             var e = new AbortController();
             return (
-              i &&
+              a &&
                 o("WAWebCopyToClipboard")
-                  .copyTextToClipboard(n)
+                  .copyTextToClipboard(t, c)
                   .then(function () {
                     e.signal.aborted ||
-                      (l(!1), c == null || c(s._(/*BTDS*/ "Link copied")));
+                      (i(!1),
+                      u
+                        ? p == null || p(s._(/*BTDS*/ "Link copied"), "start")
+                        : o("WAWebToastManager").ToastManager.open(
+                            d.jsx(o("WAWebToast.react").Toast, {
+                              msg: s._(/*BTDS*/ "Link copied"),
+                            }),
+                          ));
                   })
                   .catch(function () {
-                    e.signal.aborted || l(!1);
+                    e.signal.aborted || i(!1);
                   }),
               function () {
                 e.abort();
               }
             );
-          }),
-          (p = [i, c, n]),
-          (t[0] = i),
-          (t[1] = c),
-          (t[2] = n),
-          (t[3] = m),
-          (t[4] = p))
-        : ((m = t[3]), (p = t[4])),
-        f(m, p));
-      var h;
-      return (
-        t[5] === Symbol.for("react.memo_cache_sentinel")
-          ? ((h = d.jsx(r("WAWebSvgButton.react"), {
-              Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
-              "aria-label": r("fbs")._(/*BTDS*/ "Copy call link"),
-              onClick: function () {
-                l(!0);
-              },
-            })),
-            (t[5] = h))
-          : (h = t[5]),
-        h
+          },
+          [a, t, c, u, p],
+        ),
+        d.jsx(r("WAWebSvgButton.react"), {
+          Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+          "aria-label": r("fbs")._(/*BTDS*/ "Copy call link"),
+          onClick: function () {
+            i(!0);
+          },
+        })
       );
     }
-    l.default = b;
+    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = b));
   },
   226,
 );

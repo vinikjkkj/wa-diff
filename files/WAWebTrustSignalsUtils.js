@@ -12,7 +12,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "react",
-    "react-compiler-runtime",
     "useWAWebContactValues",
     "useWAWebModelValues",
   ],
@@ -21,43 +20,22 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.chat,
-        r = e.contactId,
-        a = _(r, n),
-        i;
-      t[0] !== r || t[1] !== a
-        ? ((i =
-            a == null || o("WAWebUserPrefsMeUser").isMeAccount(r)
-              ? s._(/*BTDS*/ "Added by someone")
-              : s._(/*BTDS*/ "Added by {user_name}", [
-                  s._param("user_name", a),
-                ])),
-          (t[0] = r),
-          (t[1] = a),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
-      t[3] !== n.trusted
-        ? ((l =
-            !n.trusted &&
+      var t = e.chat,
+        n = e.contactId,
+        r = _(n, t);
+      return u.jsxs(u.Fragment, {
+        children: [
+          r == null || o("WAWebUserPrefsMeUser").isMeAccount(n)
+            ? s._(/*BTDS*/ "Added by someone")
+            : s._(/*BTDS*/ "Added by {user_name}", [s._param("user_name", r)]),
+          !t.trusted &&
             u.jsxs(u.Fragment, {
               children: [" \xB7\xA0", s._(/*BTDS*/ "Not a contact")],
-            })),
-          (t[3] = n.trusted),
-          (t[4] = l))
-        : (l = t[4]);
-      var c;
-      return (
-        t[5] !== i || t[6] !== l
-          ? ((c = u.jsxs(u.Fragment, { children: [i, l] })),
-            (t[5] = i),
-            (t[6] = l),
-            (t[7] = c))
-          : (c = t[7]),
-        c
-      );
+            }),
+        ],
+      });
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(e, t) {
       var n = o("useWAWebModelValues").useModelValues(
           r("WANullthrows")(
@@ -105,36 +83,24 @@ __d(
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e, t) {
-      var n = o("react-compiler-runtime").c(3),
-        r;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = [
-            o("WAWebContactGetters").getNotifyName,
-            o("WAWebFrontendContactGetters").getFormattedNameAndType,
-          ]),
-          (n[0] = r))
-        : (r = n[0]);
-      var a = o("useWAWebContactValues").useOptionalContactValues(e, r);
-      if (!a) return null;
-      var i = a[0],
-        l = a[1],
-        s;
-      if (
-        l.type ===
+      var n = o("useWAWebContactValues").useOptionalContactValues(e, [
+        o("WAWebContactGetters").getNotifyName,
+        o("WAWebFrontendContactGetters").getFormattedNameAndType,
+      ]);
+      if (!n) return null;
+      var r = n[0],
+        a = n[1],
+        i;
+      return (
+        a.type ===
           o("WAWebWamEnumOppositeVisibleIdentificationType")
             .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PHONE_NUMBER &&
-        i != null &&
+        r != null &&
         o("WAWebElevatedPushNamesFlag").elevatedPushNamesM2Enabled(t)
-      ) {
-        var u;
-        (n[1] !== i
-          ? ((u = o("WAWebChatContactUtils").getFormattedNotifyName(i)),
-            (n[1] = i),
-            (n[2] = u))
-          : (u = n[2]),
-          (s = u));
-      } else s = l.displayName;
-      return s;
+          ? (i = o("WAWebChatContactUtils").getFormattedNotifyName(r))
+          : (i = a.displayName),
+        i
+      );
     }
     ((l.AddGroupCardTitle = c),
       (l.useCreatedAt = d),

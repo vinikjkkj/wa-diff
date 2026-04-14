@@ -6,7 +6,6 @@ __d(
     "WAWebBizAdCreationPaymentRefetchContext",
     "WAWebBizAdCreationSpecContext",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizAdCreationMaybeOpenBillingWizardQuery.graphql",
     "useWAWebBizAdCreationOpenBillingWizard",
   ],
@@ -36,106 +35,95 @@ __d(
         l,
         s,
         u,
-        c,
-        m,
         g,
         h,
         y,
         C,
-        b = o("react-compiler-runtime").c(8),
-        v = p(!1),
-        S = v[0],
-        R = v[1],
-        L = d(r("WAWebBizAdCreationSpecContext")),
-        E =
+        b,
+        v,
+        S = p(!1),
+        R = S[0],
+        L = S[1],
+        E = d(r("WAWebBizAdCreationSpecContext")),
+        k =
           (n =
-            (a = L.currentValue.adAccountData) == null
+            (a = E.currentValue.adAccountData) == null
               ? void 0
               : a.paymentAccountID) != null
             ? n
             : "",
-        k =
-          (i = (l = L.currentValue.budgetData) == null ? void 0 : l.budget) !=
+        I =
+          (i = (l = E.currentValue.budgetData) == null ? void 0 : l.budget) !=
           null
             ? i
             : 0,
-        I =
+        T =
           (s =
-            (u = L.currentValue.adAccountData) == null ? void 0 : u.currency) !=
+            (u = E.currentValue.adAccountData) == null ? void 0 : u.currency) !=
           null
             ? s
             : "USD",
-        T =
-          (c =
-            (m = L.currentValue.durationData) == null
+        D =
+          (g =
+            (h = E.currentValue.durationData) == null
               ? void 0
-              : m.durationInDays) != null
-            ? c
+              : h.durationInDays) != null
+            ? g
             : 1,
-        D = f(k, T, I),
-        x = o(
+        x = m(
+          function () {
+            return f(I, D, T);
+          },
+          [I, D, T],
+        ),
+        $ = o(
           "WAWebBizAdCreationPaymentRefetchContext",
         ).useWAWebBizAdCreationPaymentRefetch(),
-        $ = x.billingFetchKey,
-        P = o("CometRelay").useLazyLoadQuery(
+        P = $.billingFetchKey,
+        N = o("CometRelay").useLazyLoadQuery(
           _,
-          { asset_id: E, budget: D },
-          { fetchKey: $, fetchPolicy: "store-and-network" },
+          { asset_id: k, budget: x },
+          { fetchKey: P, fetchPolicy: "store-and-network" },
         ),
-        N =
-          P == null ||
-          (g = P.billable_account_by_asset_id) == null ||
-          (g = g.billing_info) == null
+        M =
+          N == null ||
+          (y = N.billable_account_by_asset_id) == null ||
+          (y = y.billing_info) == null
             ? void 0
-            : g.required_action,
-        M = N == null || (h = N.action) == null ? void 0 : h.wizard_name,
-        w =
-          (y =
-            N == null || (C = N.action) == null
+            : y.required_action,
+        w = M == null || (C = M.action) == null ? void 0 : C.wizard_name,
+        A =
+          (b =
+            M == null || (v = M.action) == null
               ? void 0
-              : C.wizard_props_json) != null
-            ? y
+              : v.wizard_props_json) != null
+            ? b
             : null,
-        A = r("useWAWebBizAdCreationOpenBillingWizard")(t),
-        F;
-      b[0] !== A || b[1] !== e || b[2] !== M || b[3] !== w
-        ? ((F = function () {
-            if (M == null) {
+        F = r("useWAWebBizAdCreationOpenBillingWizard")(t),
+        O = c(
+          function () {
+            if (w == null) {
               e.onComplete();
               return;
             }
-            (R(!0),
+            (L(!0),
               e.onWizardOpen == null || e.onWizardOpen(),
-              A(
-                { label: null, wizardName: M, wizardPropsJSON: w },
+              F(
+                { label: null, wizardName: w, wizardPropsJSON: A },
                 function (t) {
-                  (R(!1),
+                  (L(!1),
                     t === "complete"
                       ? e.onComplete()
                       : e.onWizardClose == null || e.onWizardClose());
                 },
                 function () {
-                  R(!1);
+                  L(!1);
                 },
               ));
-          }),
-          (b[0] = A),
-          (b[1] = e),
-          (b[2] = M),
-          (b[3] = w),
-          (b[4] = F))
-        : (F = b[4]);
-      var O = F,
-        B;
-      return (
-        b[5] !== S || b[6] !== O
-          ? ((B = { isLoading: S, maybeLaunchBillingWizard: O }),
-            (b[5] = S),
-            (b[6] = O),
-            (b[7] = B))
-          : (B = b[7]),
-        B
-      );
+          },
+          [w, A, F, e],
+        );
+      return { isLoading: R, maybeLaunchBillingWizard: O };
     }
     l.default = g;
   },

@@ -245,23 +245,29 @@ __d(
             switch (n.kind) {
               case o("relay-runtime").RelayConcreteNode
                 .CLIENT_EDGE_TO_CLIENT_OBJECT: {
-                var i = o("ReactiveExecutorUtils").getStorageKey(
-                    n.backingField,
-                    this.request.variables,
-                  ),
-                  l = r("nullthrows")(n.backingField.resolverInfo),
-                  s = l.resolverFunction,
-                  u = l.rootFragment;
-                if (u != null) {
-                  var c = this.createRootFragmentNode(t, i, u, s, n);
+                var i = r("nullthrows")(n.backingField.resolverInfo),
+                  l = i.resolverFunction,
+                  s = i.rootFragment,
+                  u =
+                    s != null && n.linkedField.args != null
+                      ? o("ReactiveExecutorUtils").getStorageKey(
+                          n.linkedField,
+                          this.request.variables,
+                        )
+                      : o("ReactiveExecutorUtils").getStorageKey(
+                          n.backingField,
+                          this.request.variables,
+                        );
+                if (s != null) {
+                  var c = this.createRootFragmentNode(t, u, s, l, n);
                   a.push(c);
                 } else
                   this.createNonRootFragmentClientEdgeNode(
                     n,
                     t,
                     t.storeNode.value,
-                    i,
-                    s,
+                    u,
+                    l,
                     a,
                   );
                 break;
@@ -557,47 +563,70 @@ __d(
                   this.execNodesToRead.push(t.parentNodeForRead)));
           }),
           (t.createRootFragmentNode = function (t, n, r, a, i) {
-            var e;
-            i.args == null
-              ? (e = o(
-                  "ReactiveExecutorUtils",
-                ).convertLocalArgumentsToNormalizationVariableArguments(
-                  r.argumentDefinitions,
-                ))
-              : r.argumentDefinitions == null
-                ? (e = i.args)
-                : (e = i.args.concat(
-                    o(
-                      "ReactiveExecutorUtils",
-                    ).convertLocalArgumentsToNormalizationVariableArguments(
-                      r.argumentDefinitions,
-                    ),
-                  ));
-            var l = this.store.getOrCreateRootFragmentWrapper(
+            var e,
+              l =
+                i.kind ===
+                o("relay-runtime").RelayConcreteNode
+                  .CLIENT_EDGE_TO_CLIENT_OBJECT
+                  ? i.linkedField.args
+                  : i.args;
+            if (l == null)
+              e = o(
+                "ReactiveExecutorUtils",
+              ).convertLocalArgumentsToNormalizationVariableArguments(
+                r.argumentDefinitions,
+                this.request.variables,
+              );
+            else {
+              var s = r.argumentDefinitions;
+              if (l == null || s == null) e = l;
+              else {
+                var u = new Set(
+                    l.map(function (e) {
+                      return e.name;
+                    }),
+                  ),
+                  c = s.filter(function (e) {
+                    return !u.has(e.name);
+                  });
+                e =
+                  c.length > 0
+                    ? l.concat(
+                        o(
+                          "ReactiveExecutorUtils",
+                        ).convertLocalArgumentsToNormalizationVariableArguments(
+                          c,
+                          this.request.variables,
+                        ),
+                      )
+                    : l;
+              }
+            }
+            var d = this.store.getOrCreateRootFragmentWrapper(
                 this.request,
                 t.storeNode,
                 r,
                 e,
                 this.request.variables,
               ),
-              s = [],
-              u = {
-                children: s,
+              m = [],
+              p = {
+                children: m,
                 parentNodeForRead: t,
                 scope: this,
                 selection: i,
                 shouldRead: !0,
                 storageKey: r.name,
-                storeNode: l,
-                value: l.value,
+                storeNode: d,
+                value: d.value,
               };
             return (
-              l.executionNodes.push(u),
-              o("relay-runtime").isSuspenseSentinel(l.value)
-                ? this.addPendingExecNode(u)
-                : l.value != null &&
-                  this.createRootFragmentInnerNode(u, t, n, a, i),
-              u
+              d.executionNodes.push(p),
+              o("relay-runtime").isSuspenseSentinel(d.value)
+                ? this.addPendingExecNode(p)
+                : d.value != null &&
+                  this.createRootFragmentInnerNode(p, t, n, a, i),
+              p
             );
           }),
           (t.createRootFragmentInnerNode = function (t, n, r, a, i) {
@@ -653,7 +682,8 @@ __d(
       var t = e.operationModuleProvider();
       if (t.kind === "Request") return t.operation.selections;
       if (t.kind === "SplitOperation") return t.selections;
-      throw new Error("Does not support other type of modules");
+      var n = new Error("Does not support other type of modules");
+      throw (n.stack, n);
     }
     function m(e) {
       e.componentModuleProvider != null || s(0, 102040);

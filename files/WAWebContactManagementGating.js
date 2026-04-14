@@ -28,6 +28,9 @@ __d(
       return d("chat_header");
     }
     function p() {
+      return d("group_member");
+    }
+    function _() {
       var e = Number.parseInt(
         o("WAWebABProps").getABPropConfigValue(
           "native_contact_companion_nux_learn_more_article_id",
@@ -39,7 +42,8 @@ __d(
     ((l.contactManagementEnabled = e),
       (l.bulkAddContactsFromGroupsEnabled = c),
       (l.addContactChatHeaderEnabled = m),
-      (l.getNativeContactLearnMoreArticleId = p));
+      (l.addContactGroupMemberEnabled = p),
+      (l.getNativeContactLearnMoreArticleId = _));
   },
   98,
 );

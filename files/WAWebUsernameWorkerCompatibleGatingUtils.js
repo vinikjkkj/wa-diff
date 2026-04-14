@@ -3,7 +3,6 @@ __d(
   [
     "WAWebABProps",
     "WAWebLid1X1MigrationGating",
-    "WAWebNewsletterGatingUtils",
     "WAWebPrimaryFeatures",
     "WAWebUsernameGatingUtils",
   ],
@@ -23,13 +22,8 @@ __d(
       );
     }
     function u() {
-      return (
-        o(
-          "WAWebNewsletterGatingUtils",
-        ).isNewsletterSubscriberMigrationEnabled() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "username_channels_pn_privacy_enabled",
-        )
+      return o("WAWebABProps").getABPropConfigValue(
+        "username_channels_pn_privacy_enabled",
       );
     }
     function c() {

@@ -10,6 +10,7 @@ __d(
     "WAWebUsyncUser",
     "WAWebWid",
     "asyncToGeneratorRuntime",
+    "isEmptyObject",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -19,26 +20,26 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = n.logTag,
-            a = new (o("WAWebUsync").USyncQuery)()
+          var a = n.logTag,
+            i = new (o("WAWebUsync").USyncQuery)()
               .withMode("query")
               .withContext("interactive");
-          (n.withBusinessProtocol === !0 && a.withBusinessProtocol(),
-            n.withPictureProtocol === !0 && a.withPictureProtocol(),
+          (n.withBusinessProtocol === !0 && i.withBusinessProtocol(),
+            n.withPictureProtocol === !0 && i.withPictureProtocol(),
             o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased()
-              ? a.withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.LID)
-              : (a.withContactProtocol(
+              ? i.withContactProtocol(o("WAWebUsync").USYNC_ADDRESSING_MODE.LID)
+              : (i.withContactProtocol(
                   o("WAWebUsync").USYNC_ADDRESSING_MODE.PN,
                 ),
-                a.withLidProtocol()));
-          var i = self.performance.now();
+                i.withLidProtocol()));
+          var l = self.performance.now();
           t.forEach(function (e) {
-            a.withUser(new (o("WAWebUsyncUser").USyncUser)().withPhone(e));
+            i.withUser(new (o("WAWebUsyncUser").USyncUser)().withPhone(e));
           });
-          var l = o(
+          var u = o(
               "WAWebContactSyncLogger",
             ).contactSyncLogger.createEventContext({
-              protocols: a.protocols,
+              protocols: i.protocols,
               requestedCount: t.length,
               requestOrigin: o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
                 .BUSINESS_BROADCAST,
@@ -47,13 +48,13 @@ __d(
                 "query",
               ),
             }),
-            u = yield o(
+            c = yield o(
               "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(l, function () {
-              return a.execute();
+            ).contactSyncLogger.executeWithLogging(u, function () {
+              return i.execute();
             });
-          u.error &&
-            Object.keys(u.error).length > 0 &&
+          c.error &&
+            !r("isEmptyObject")(c.error) &&
             (o("WALogger")
               .WARN(
                 e ||
@@ -62,15 +63,15 @@ __d(
                     "] USync errors for ",
                     " numbers",
                   ])),
-                r,
+                a,
                 t.length,
               )
               .sendLogs("business-broadcast-contact-verify-errors"),
-            Object.entries(u.error).forEach(function (e) {
+            Object.entries(c.error).forEach(function (e) {
               var t = e[0],
                 n = e[1];
             }));
-          var c = o("WAWebPerformanceUtils").getElapsedTimeMs(i);
+          var d = o("WAWebPerformanceUtils").getElapsedTimeMs(l);
           return (
             o("WALogger").LOG(
               s ||
@@ -80,18 +81,18 @@ __d(
                   " for ",
                   " numbers",
                 ])),
-              r,
-              c,
+              a,
+              d,
               t.length,
             ),
-            u.error && u.error.all
+            c.error && c.error.all
               ? o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
-                  l,
-                  u.error.all.errorCode,
                   u,
+                  c.error.all.errorCode,
+                  c,
                 )
-              : o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(l, u),
-            u
+              : o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(u, c),
+            c
           );
         })),
         m.apply(this, arguments)

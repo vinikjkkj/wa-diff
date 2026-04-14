@@ -7,7 +7,6 @@ __d(
     "WANullthrows",
     "WAPromiseDelays",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebAdvHandlerApi",
     "WAWebApiContact",
     "WAWebApiDeviceList",
@@ -22,7 +21,6 @@ __d(
     "WAWebLidAwareContactsDB",
     "WAWebLocalStorage",
     "WAWebPhashUtils",
-    "WAWebRunInBatches",
     "WAWebTextStatusCollection",
     "WAWebTextStatusGatingUtils",
     "WAWebUpdateDisappearingModeForContact",
@@ -466,23 +464,10 @@ __d(
             t.length,
           )
           .tags("contact-sync"),
-        o("WAWebABProps").getABPropConfigValue(
-          "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
+        r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
+          t,
+          "ContactSyncApi.markContactsSyncCompleted",
         )
-          ? o("WAWebRunInBatches").runInBatches(
-              t,
-              function (e) {
-                return r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-                  e,
-                  "ContactSyncApi.markContactsSyncCompletedBatched",
-                );
-              },
-              { batchSize: 100 },
-            )
-          : r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-              t,
-              "ContactSyncApi.markContactsSyncCompleted",
-            )
       );
     }
     function A(e, t, n) {

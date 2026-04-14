@@ -1,35 +1,19 @@
 __d(
   "WAWebAppealOutcomeHeader.react",
-  [
-    "WAWebAppealPictograms.react",
-    "WAWebFlex.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebAppealPictograms.react", "WAWebFlex.react", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.appealOutcome,
-        a;
-      return (
-        t[0] !== n
-          ? ((a = s.jsx(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "center",
-              children: s.jsx(r("WAWebAppealPictograms.react"), {
-                appealOutcome: n,
-              }),
-            })),
-            (t[0] = n),
-            (t[1] = a))
-          : (a = t[1]),
-        a
-      );
+      var t = e.appealOutcome;
+      return s.jsx(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        justify: "center",
+        children: s.jsx(r("WAWebAppealPictograms.react"), { appealOutcome: t }),
+      });
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

@@ -136,7 +136,8 @@ __d(
         A = M == null || (a = M.priority) == null ? void 0 : a.wamEnum,
         F = o("WAWebFMXTrustSignals").getContactTrustSignal(h),
         O = o("WAWebFMXTrustSignals").getNewAccountTrustSignal(g),
-        B = d(
+        B = o("WAWebFMXTrustSignals").getNewSmbAccountTrustSignal(g),
+        W = d(
           function (e) {
             o("WAWebFMXGatingUtils").fmxLoggingEnabled() &&
               new (o("WAWebPsFmxActionWamEvent").PsFmxActionWamEvent)({
@@ -164,22 +165,22 @@ __d(
         },
         [A],
       );
-      var W = function () {
-          (B(o("WAWebWamEnumFmxEvent").FMX_EVENT.SAFETY_TOOLS),
+      var q = function () {
+          (W(o("WAWebWamEnumFmxEvent").FMX_EVENT.SAFETY_TOOLS),
             o("WAWebSafetyToolsModal.react").displaySafetyToolsModal(h, g));
         },
-        q = function () {
-          (B(o("WAWebWamEnumFmxEvent").FMX_EVENT.CONTACT_INFO), y());
+        U = function () {
+          (W(o("WAWebWamEnumFmxEvent").FMX_EVENT.CONTACT_INFO), y());
         },
-        U,
-        V = w > 0,
-        H = p(
+        V,
+        H = w > 0,
+        G = p(
           function () {
             return o("WAWebBizCtwaAGMUtils").isCtWAInitiatedChat(g);
           },
           [g],
         ),
-        G = r("useWAWebEventTargetValue")(
+        z = r("useWAWebEventTargetValue")(
           o("WAWebSignupLoadingState").getSignupLoadingEmitter(),
           o("WAWebSignupLoadingState").SIGNUP_LOADING_CHANGE_EVENT,
           function () {
@@ -188,10 +189,10 @@ __d(
             );
           },
         ),
-        z = p(
+        j = p(
           function () {
             if (!o("WAWebSignupGating").isSignupAGMEnabled()) return !1;
-            if (G) return !0;
+            if (z) return !0;
             var e = g.msgs.getModelsArray();
             return e.slice(-_).some(function (e) {
               return (
@@ -199,69 +200,69 @@ __d(
               );
             });
           },
-          [g.msgs, G],
+          [g.msgs, z],
         );
       if (M != null)
-        if (!V) U = s._(/*BTDS*/ "No groups in common");
+        if (!H) V = s._(/*BTDS*/ "No groups in common");
         else {
-          var j,
-            K = function () {
-              (B(o("WAWebWamEnumFmxEvent").FMX_EVENT.COMMON_GROUPS), y());
+          var K,
+            Q = function () {
+              (W(o("WAWebWamEnumFmxEvent").FMX_EVENT.COMMON_GROUPS), y());
             },
-            Q = M == null || (j = M.priority) == null ? void 0 : j.group;
-          if (Q != null)
+            X = M == null || (K = M.priority) == null ? void 0 : K.group;
+          if (X != null)
             if (w > 1) {
-              var X;
-              U =
-                ((X = s._plural(w, "number_common_groups")),
+              var Y;
+              V =
+                ((Y = s._plural(w, "number_common_groups")),
                 s._(/*BTDS*/ '_j{"*":"You\'re both in {=m2}"}', [
-                  X,
+                  Y,
                   s._implicitParam(
                     "=m2",
                     u.jsx(o("WAWebText.react").WAWebClickableText, {
                       color: "teal",
-                      onClick: K,
+                      onClick: Q,
                       children: s._(
                         /*BTDS*/ '_j{"*":"{number_common_groups} groups including {group-name}","_1":"1 group including {group-name}"}',
-                        [X, s._param("group-name", Q.name)],
+                        [Y, s._param("group-name", X.name)],
                       ),
                     }),
                   ),
                 ]));
             } else
-              U = s._(/*BTDS*/ "You're both in the group {=m1}", [
+              V = s._(/*BTDS*/ "You're both in the group {=m1}", [
                 s._implicitParam(
                   "=m1",
                   u.jsx(o("WAWebText.react").WAWebClickableText, {
                     color: "teal",
-                    onClick: K,
+                    onClick: Q,
                     children: s._(/*BTDS*/ "{group-name}", [
-                      s._param("group-name", Q.name),
+                      s._param("group-name", X.name),
                     ]),
                   }),
                 ),
               ]);
           else
-            U = u.jsx(o("WAWebText.react").WAWebClickableText, {
+            V = u.jsx(o("WAWebText.react").WAWebClickableText, {
               color: "teal",
-              onClick: K,
+              onClick: Q,
               children: s._(
                 /*BTDS*/ '_j{"*":"{number_common_groups} groups in common","_1":"1 group in common"}',
                 [s._plural(w, "number_common_groups")],
               ),
             });
         }
-      var Y =
+      var J =
           o("WAWebBizGatingUtils").isMetaVerifiedContextCardEnabled() &&
           o("WAWebContactGetters").getShowAsMetaVerified(h),
-        J = o("WAWebBizGatingUtils").getFmxAgmEnabled(),
-        Z = V || R || Y || z,
-        ee = !0,
-        te,
+        Z = o("WAWebBizGatingUtils").getFmxAgmEnabled(),
+        ee = H || R || J || j,
+        te = !0,
         ne,
         re,
         oe,
-        ae = p(
+        ae,
+        ie = p(
           function () {
             var e,
               t,
@@ -270,7 +271,7 @@ __d(
               (I == null || (e = I.fbPage) == null ? void 0 : e.likes) !=
                 null &&
                 I.fbPage.likes > 0 &&
-                J &&
+                Z &&
                 n.set(
                   o("WAWebSocialMediaTrustSignals.react")
                     .SocialMediaTrustSignalSource.FACEBOOK,
@@ -282,7 +283,7 @@ __d(
                 ? void 0
                 : t.followers) != null &&
                 I.igProfessional.followers > 0 &&
-                J &&
+                Z &&
                 n.set(
                   o("WAWebSocialMediaTrustSignals.react")
                     .SocialMediaTrustSignalSource.INSTAGRAM,
@@ -296,14 +297,14 @@ __d(
           [
             I == null || (i = I.fbPage) == null ? void 0 : i.likes,
             I == null || (l = I.igProfessional) == null ? void 0 : l.followers,
-            J,
+            Z,
           ],
         );
       (I == null ? void 0 : I.memberSinceText) != null &&
-        J &&
-        (oe = I == null ? void 0 : I.memberSinceText);
-      var ie = s._(/*BTDS*/ "Business account"),
-        le =
+        Z &&
+        (ae = I == null ? void 0 : I.memberSinceText);
+      var le = s._(/*BTDS*/ "Business account"),
+        se =
           D && x != null && x !== ""
             ? s._(/*BTDS*/ "Representative at {company}", [
                 s._param(
@@ -321,34 +322,36 @@ __d(
                 ),
               ])
             : null;
-      if (Y) {
+      if (J) {
         o("WAWebMiscGatingUtils").isBlueEducationEnabled() &&
-          (ne = function () {
+          (re = function () {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(r("WAWebCheckmarkInfoModal.react"), {}),
             );
           });
-        var se = s._(/*BTDS*/ "Meta Verified"),
-          ue = o("WAWebMiscGatingUtils").isBlueEducationEnabled()
+        var ue = s._(/*BTDS*/ "Meta Verified"),
+          ce = o("WAWebMiscGatingUtils").isBlueEducationEnabled()
             ? u.jsx(o("WAWebText.react").WAWebClickableText, {
                 color: "primary",
-                onClick: ne,
-                children: se,
+                onClick: re,
+                children: ue,
               })
             : u.jsx(o("WAWebText.react").WAWebTextSmall, {
                 xstyle: f.metaVerifiedLabel,
                 color: "primary",
-                children: se,
+                children: ue,
               });
         (v != null &&
-          (te = u.jsx(o("WAWebText.react").WAWebTextMuted, { children: v })),
-          (ee = !1),
-          (re = J ? [ue, ie, oe].filter(Boolean) : [ie, oe].filter(Boolean)));
+          (ne = u.jsx(o("WAWebText.react").WAWebTextMuted, { children: v })),
+          (te = !1),
+          (oe = Z ? [ce, le, ae].filter(Boolean) : [le, ae].filter(Boolean)));
       } else
         R || k
-          ? (re = J ? [ie, oe].filter(Boolean) : [P, F, ie].filter(Boolean))
-          : (re = [P, O, F, U].filter(Boolean));
-      var ce = function () {
+          ? (oe = Z
+              ? [B != null ? B : le, ae].filter(Boolean)
+              : [P, F, le].filter(Boolean))
+          : (oe = [P, O, F, V].filter(Boolean));
+      var de = function () {
           var e = u.jsx(
             o("WAWebButton.react").WAWebButtonSecondaryDestructive,
             {
@@ -360,15 +363,15 @@ __d(
                     : o("WAWebBlockContants").BlockEntryPoint
                         .ChatFmxCardBlockSuspicious,
                 ),
-                  B(o("WAWebWamEnumFmxEvent").FMX_EVENT.BLOCK));
+                  W(o("WAWebWamEnumFmxEvent").FMX_EVENT.BLOCK));
               },
               icon: o("WAWebSettingsBlockedIcon.react").SettingsBlockedIcon,
               testid: void 0,
               children: r("WAWebFbtCommon")("Block"),
             },
           );
-          if (J) {
-            if (z || ((R || k) && H)) return null;
+          if (Z) {
+            if (j || ((R || k) && G)) return null;
             if (k)
               return u.jsx(r("WDSButtonGroup.react"), {
                 width: "hug",
@@ -385,7 +388,7 @@ __d(
                         : o("WAWebBlockContants").BlockEntryPoint
                             .ChatFmxCardBlockSuspicious,
                     ),
-                      B(o("WAWebWamEnumFmxEvent").FMX_EVENT.BLOCK));
+                      W(o("WAWebWamEnumFmxEvent").FMX_EVENT.BLOCK));
                   },
                   Icon: o("WAWebSettingsBlockedIcon.react").SettingsBlockedIcon,
                   testid: "fmx-card-block-btn",
@@ -394,7 +397,7 @@ __d(
                 primaryButtonProps: {
                   variant: "outline",
                   type: "default",
-                  onPress: q,
+                  onPress: U,
                   Icon: o("WAWebBusinessToolsOutlineIcon.react")
                     .BusinessToolsOutlineIcon,
                   testid: "fmx-card-profile-btn",
@@ -404,7 +407,7 @@ __d(
           }
           return e;
         },
-        de = ce();
+        me = de();
       return u.jsxs(o("WAWebFlex.react").FlexColumn, {
         align: "center",
         padding: [24, 12],
@@ -417,7 +420,7 @@ __d(
                 id: b,
                 size: o("WAWebDetailImage.react").DetailImageSize.Medium,
                 quality: o("WAWebDetailImage.react").DetailImageQuality.High,
-                onClick: q,
+                onClick: U,
                 tabIndex: 0,
                 ariaLabel: s._(
                   /*BTDS*/ "Profile picture. Click to view contact info",
@@ -427,13 +430,13 @@ __d(
                 paddingTop: 8,
                 children: u.jsx(o("WAWebName.react").Name, {
                   contact: h,
-                  onClick: ne,
-                  showBusinessCheckmark: Y,
-                  makeCheckmarkClickable: Y,
+                  onClick: re,
+                  showBusinessCheckmark: J,
+                  makeCheckmarkClickable: J,
                 }),
               }),
-              te,
-              ee &&
+              ne,
+              te &&
                 v != null &&
                 u.jsx(o("WAWebText.react").WAWebTextMuted, {
                   children: "~" + v,
@@ -442,36 +445,36 @@ __d(
                 paddingTop: 8,
                 testid: void 0,
                 children: [
-                  re.map(function (e, t) {
+                  oe.map(function (e, t) {
                     return u.jsxs(
                       "span",
                       {
                         children: [
                           e,
-                          t < re.length - 1 &&
+                          t < oe.length - 1 &&
                             u.jsx(u.Fragment, { children: " \u2022 " }),
                         ],
                       },
                       t,
                     );
                   }),
-                  le != null &&
+                  se != null &&
                     u.jsxs("span", {
                       className: "x1lliihq",
                       children: [
-                        re.length > 0 &&
+                        oe.length > 0 &&
                           u.jsx(u.Fragment, { children: "\u2022 " }),
-                        le,
+                        se,
                       ],
                     }),
                 ],
               }),
-              J &&
-                ae.size > 0 &&
+              Z &&
+                ie.size > 0 &&
                 u.jsx(
                   o("WAWebSocialMediaTrustSignals.react")
                     .WAWebSocialMediaTrustSignals,
-                  { socialMediaSignals: ae },
+                  { socialMediaSignals: ie },
                 ),
             ],
           }),
@@ -481,9 +484,9 @@ __d(
             paddingTop: 16,
             style: { minWidth: 160 },
             children: [
-              !Z &&
+              !ee &&
                 u.jsx(o("WAWebButton.react").WAWebButtonSimplified, {
-                  onClick: W,
+                  onClick: q,
                   icon: o("WAWebInfoShieldIcon.react").InfoShieldIcon,
                   testid: void 0,
                   children: s._(/*BTDS*/ "Safety tools"),
@@ -499,12 +502,12 @@ __d(
                           : o("WAWebBlockContants").BlockEntryPoint
                               .ChatFmxCardBlockSuspicious,
                       ),
-                        B(o("WAWebWamEnumFmxEvent").FMX_EVENT.BLOCK));
+                        W(o("WAWebWamEnumFmxEvent").FMX_EVENT.BLOCK));
                     },
                     testid: void 0,
                     children: r("WAWebFbtCommon")("Unblock"),
                   })
-                : de,
+                : me,
             ],
           }),
         ],

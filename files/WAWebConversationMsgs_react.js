@@ -1664,8 +1664,7 @@ __d(
               f.length > 0 &&
               o("WAWebMsgGetters").getGroupHistoryBundleMessageKey(f[0]) !=
                 null,
-            h = u != null && f.length > 0 ? f[0].id : void 0,
-            y = R.jsx(r("WAWebMessageList.react"), {
+            h = R.jsx(r("WAWebMessageList.react"), {
               ref: this.$17,
               getScrollContainer: this.$59,
               chat: a,
@@ -1680,11 +1679,11 @@ __d(
               isLoadingEarlierMsgs: m.isLoadingEarlierMsgs,
               isNearBottom: this.state.isNearBottom,
             }),
+            y,
             C,
-            b,
-            S;
+            b;
           _ && m.isLoadingAroundMsgs
-            ? (C = R.jsx(r("WAWebConversationLoadMoreMessages.react"), {
+            ? (y = R.jsx(r("WAWebConversationLoadMoreMessages.react"), {
                 direction: "around",
                 isMostRecentCMC: o(
                   "WAWebConversationMsgsUtils",
@@ -1694,11 +1693,11 @@ __d(
                 isLoadingRecentMsgs: m.isLoadingRecentMsgs,
                 isLoadingAroundMsgs: m.isLoadingAroundMsgs,
                 isRepairingMsgHistory: m.isRepairingMsgHistory,
+                chat: a,
                 threadId: u,
-                firstVisibleMsgKey: h,
               }))
             : ((this.$70() || u != null) &&
-                (b = R.jsx(r("WAWebConversationLoadMoreMessages.react"), {
+                (C = R.jsx(r("WAWebConversationLoadMoreMessages.react"), {
                   direction: "earlier",
                   isMostRecentCMC: o(
                     "WAWebConversationMsgsUtils",
@@ -1709,9 +1708,9 @@ __d(
                   isLoadingAroundMsgs: m.isLoadingAroundMsgs,
                   mdHistorySyncTransferState: a.endOfHistoryTransferType,
                   isRepairingMsgHistory: m.isRepairingMsgHistory,
+                  chat: a,
                   chatId: a.id,
                   threadId: u,
-                  firstVisibleMsgKey: h,
                 })),
               u == null &&
                 (this.state.cursor.getEnd(i) < i.length ||
@@ -1719,7 +1718,7 @@ __d(
                     this.props,
                   ) ||
                   m.isRepairingMsgHistory) &&
-                (S = R.jsx(r("WAWebConversationLoadMoreMessages.react"), {
+                (b = R.jsx(r("WAWebConversationLoadMoreMessages.react"), {
                   direction: "recent",
                   isMostRecentCMC: o(
                     "WAWebConversationMsgsUtils",
@@ -1730,7 +1729,7 @@ __d(
                   isLoadingAroundMsgs: m.isLoadingAroundMsgs,
                   isRepairingMsgHistory: m.isRepairingMsgHistory,
                 })));
-          var L = R.jsx(
+          var S = R.jsx(
             "div",
             babelHelpers.extends(
               {},
@@ -1763,7 +1762,7 @@ __d(
                 scrollContainerRef: this.scrollContainer,
                 chat: this.props.chat,
               }),
-              L,
+              S,
               R.jsxs("div", {
                 className:
                   "x10l6tqk x13vifvy x1o0tod xupqr0c x9f619 x78zum5 xdt5ytf xh8yej3 x5yr21d x6ikm8r x1rife3k xjbqb8w x1ewm37j",
@@ -1796,10 +1795,10 @@ __d(
                       ],
                     ),
                   ),
-                  C,
-                  b,
                   y,
-                  S,
+                  C,
+                  h,
+                  b,
                   R.jsx("div", { children: n }),
                 ],
               }),

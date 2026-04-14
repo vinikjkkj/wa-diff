@@ -159,36 +159,44 @@ __d(
     }
     y.doc = "Removes all lid contacts from address book.";
     function b(e, t, n) {
-      (t === void 0 && (t = !0),
-        o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-          mappings: e.map(function (e) {
-            return {
-              lid: o("WAWebWidFactory").asUserLidOrThrow(
-                o("WAWebWidFactory").createUserWidOrThrow(e.lid, "lid"),
-              ),
-              pn: o("WAWebWidFactory").createUserWidOrThrow(e.pn),
-            };
-          }),
-          flushImmediately: t,
-          learningSource: n != null ? n : "usync",
-        }));
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          (t === void 0 && (t = !0),
+            yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+              mappings: e.map(function (e) {
+                return {
+                  lid: o("WAWebWidFactory").asUserLidOrThrow(
+                    o("WAWebWidFactory").createUserWidOrThrow(e.lid, "lid"),
+                  ),
+                  pn: o("WAWebWidFactory").createUserWidOrThrow(e.pn),
+                };
+              }),
+              flushImmediately: t,
+              learningSource: n != null ? n : "usync",
+            }));
+        })),
+        v.apply(this, arguments)
+      );
     }
     b.doc = "Updates the LIDxPN mapping";
-    function v(e) {
+    function S(e) {
       return o("WAWebApiContact").getCurrentLid(
         o("WAWebWidFactory").createUserWidOrThrow(e),
       );
     }
-    v.doc = "Get a current LID for a given Phone Number";
-    function S(e) {
+    S.doc = "Get a current LID for a given Phone Number";
+    function R(e) {
       return o("WAWebApiContact").getPhoneNumber(
         o("WAWebWidFactory").asUserLidOrThrow(
           o("WAWebWidFactory").createUserWidOrThrow(e, "lid"),
         ),
       );
     }
-    S.doc = "Get the Phone Number for a given LID";
-    function R() {
+    R.doc = "Get the Phone Number for a given LID";
+    function L() {
       var t = o("WAWebChatCollection").ChatCollection.getActive();
       if (!t) {
         o("WALogger").WARN(
@@ -201,8 +209,8 @@ __d(
       }
       o("WAWebSendRequestPhoneNumberChatAction").sendRequestPhoneNumber(t);
     }
-    R.doc = "Send a request phone number message";
-    function L() {
+    L.doc = "Send a request phone number message";
+    function E() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (!e) {
         o("WALogger").WARN(
@@ -215,45 +223,45 @@ __d(
       }
       o("WAWebSendSharePhoneNumberChatAction").sendSharePhoneNumber(e);
     }
-    L.doc = "Send a share phone number message";
-    function E(e) {
+    E.doc = "Send a share phone number message";
+    function k(e) {
       var t = o(
         "WAWebUsernameCreationActionLogger",
       ).UsernameCreationActionLogger.getSessionId();
       o("WAWebSetUsernameJob").setUsernameQueryJob(e, t);
     }
-    E.doc = "Set the own username at the account level.";
-    function k(e) {
+    k.doc = "Set the own username at the account level.";
+    function I(e) {
       return o("WAWebStatusContactAction").getStatus(
         o("WAWebWidFactory").createUserWidOrThrow(e),
       );
     }
-    k.doc = "Get the about (about 1.0) status for a given JID";
-    function I(e) {
+    I.doc = "Get the about (about 1.0) status for a given JID";
+    function T(e) {
       return o("WAWebContactTextStatusBridge").getTextStatus(
         o("WAWebWidFactory").createUserWidOrThrow(e),
         null,
       );
     }
-    I.doc = "Get the text status (about 2.0) for a given JID";
-    var T = {
-      setUsername: E,
+    T.doc = "Get the text status (about 2.0) for a given JID";
+    var D = {
+      setUsername: k,
       createLidPnMappingsJob: b,
       setUsernames: _,
       createContact: g,
       resetLidContacts: y,
-      getCurrentLid: v,
-      getPhoneNumber: S,
+      getCurrentLid: S,
+      getPhoneNumber: R,
       getLidPnCache: u,
       getIsCagGroupCache: c,
-      sendRequestPhoneNumber: R,
-      sendSharePhoneNumber: L,
+      sendRequestPhoneNumber: L,
+      sendSharePhoneNumber: E,
       updateLidMetadataJob: d,
       clearLidMetadata: m,
-      getAboutStatus: k,
-      getTextStatus: I,
+      getAboutStatus: I,
+      getTextStatus: T,
     };
-    l.default = T;
+    l.default = D;
   },
   98,
 );

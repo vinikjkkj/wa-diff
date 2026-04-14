@@ -30,7 +30,6 @@ __d(
     "isStringNullOrEmpty",
     "justknobx",
     "react",
-    "react-compiler-runtime",
     "useWAWebForceUpdate",
     "useWAWebListener",
     "useWAWebWindowSize",
@@ -635,49 +634,21 @@ __d(
     }
     A.displayName = A.name + " [from " + i.id + "]";
     function F(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n,
-        a;
-      if (
-        (t[0] !== e
-          ? ((a = e.ref),
-            (n = babelHelpers.objectWithoutPropertiesLoose(e, y)),
-            (t[0] = e),
-            (t[1] = n),
-            (t[2] = a))
-          : ((n = t[1]), (a = t[2])),
-        (!o("WAWebMobilePlatforms").isSMB() ||
-          o("WAWebListsGatingUtils").isListsEnabled()) &&
-          r("justknobx")._("2386") &&
-          o("WAWebABProps").getABPropConfigValue(
-            "wa_web_lists_full_width_filters",
-          ))
-      ) {
-        var i;
-        return (
-          t[3] !== n || t[4] !== a
-            ? ((i = b.jsx(
-                r("WAWebChatListFiltersDynamic.react"),
-                babelHelpers.extends({ ref: a }, n),
-              )),
-              (t[3] = n),
-              (t[4] = a),
-              (t[5] = i))
-            : (i = t[5]),
-          i
-        );
-      }
-      var l;
-      return (
-        t[6] !== n || t[7] !== a
-          ? ((l = b.jsx(A, babelHelpers.extends({ ref: a }, n))),
-            (t[6] = n),
-            (t[7] = a),
-            (t[8] = l))
-          : (l = t[8]),
-        l
-      );
+      var t = e.ref,
+        n = babelHelpers.objectWithoutPropertiesLoose(e, y);
+      return (!o("WAWebMobilePlatforms").isSMB() ||
+        o("WAWebListsGatingUtils").isListsEnabled()) &&
+        r("justknobx")._("2386") &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_lists_full_width_filters",
+        )
+        ? b.jsx(
+            r("WAWebChatListFiltersDynamic.react"),
+            babelHelpers.extends({ ref: t }, n),
+          )
+        : b.jsx(A, babelHelpers.extends({ ref: t }, n));
     }
+    F.displayName = F.name + " [from " + i.id + "]";
     var O = F;
     l.ChatListFilters = O;
   },

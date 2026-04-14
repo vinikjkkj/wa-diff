@@ -1,6 +1,6 @@
 __d(
   "WAWebSquircleIcon.react",
-  ["react", "react-compiler-runtime", "stylex"],
+  ["react", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -23,43 +23,20 @@ __d(
         },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(10),
-        a = t.size,
-        i = a === void 0 ? 48 : a,
-        l;
-      n[0] !== t.disabled || n[1] !== t.transparent || n[2] !== t.xstyle
-        ? ((l = (e || (e = r("stylex")))(
-            c.icon,
-            t.transparent === !0 && c.transparent,
-            t.disabled === !0 && c.disabled,
-            t.xstyle,
-          )),
-          (n[0] = t.disabled),
-          (n[1] = t.transparent),
-          (n[2] = t.xstyle),
-          (n[3] = l))
-        : (l = n[3]);
-      var s;
-      n[4] !== i
-        ? ((s = { height: i, width: i }), (n[4] = i), (n[5] = s))
-        : (s = n[5]);
-      var d;
-      return (
-        n[6] !== t.children || n[7] !== l || n[8] !== s
-          ? ((d = u.jsx("div", {
-              className: l,
-              style: s,
-              children: t.children,
-            })),
-            (n[6] = t.children),
-            (n[7] = l),
-            (n[8] = s),
-            (n[9] = d))
-          : (d = n[9]),
-        d
-      );
+      var n = t.size,
+        o = n === void 0 ? 48 : n;
+      return u.jsx("div", {
+        className: (e || (e = r("stylex")))(
+          c.icon,
+          t.transparent === !0 && c.transparent,
+          t.disabled === !0 && c.disabled,
+          t.xstyle,
+        ),
+        style: { height: o, width: o },
+        children: t.children,
+      });
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

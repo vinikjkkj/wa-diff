@@ -9,7 +9,6 @@ __d(
     "WAWebStopEvent",
     "WDSIconIcExpandMore.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
@@ -104,127 +103,77 @@ __d(
         },
       };
     function d(t) {
-      var n = o("react-compiler-runtime").c(23),
-        a,
-        i;
-      n[0] !== t
-        ? ((i = t.ref),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = a),
-          (n[2] = i))
-        : ((a = n[1]), (i = n[2]));
-      var l = a,
-        s = l.ariaLabel,
-        d = l.ariaRoleDescription,
-        m = l.children,
-        p = l.label,
-        _ = l.testid,
-        f = l.theme,
-        g = l.width,
-        h =
-          f === "about-20-screen"
+      var n = t.ref,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = a.ariaLabel,
+        l = a.ariaRoleDescription,
+        s = a.children,
+        d = a.label,
+        m = a.testid,
+        p = a.theme,
+        _ = a.width;
+      return u.jsxs(o("WAWebButton.react").WAWebButtonSecondary, {
+        onClick: o("WAWebStopEvent").stopPropagation,
+        ref: n,
+        width: _,
+        ariaLabel: i,
+        ariaRoleDescription: l,
+        borderStyles:
+          p === "about-20-screen"
             ? c.about20BorderTheme
-            : f === "default"
+            : p === "default"
               ? null
-              : f === "link-devices-screen"
+              : p === "link-devices-screen"
                 ? c.linkDevicesBorderTheme
-                : f === "link-devices-screen-wds"
+                : p === "link-devices-screen-wds"
                   ? c.linkDevicesBorderThemeWdsLike
                   : null,
-        y =
-          f === "link-devices-screen-wds"
+        paddingStyles:
+          p === "link-devices-screen-wds"
             ? c.paddingWdsLike
-            : f === "about-20-screen"
+            : p === "about-20-screen"
               ? c.paddingAbout20
               : null,
-        C = f === "about-20-screen" && c.about20LabelColor,
-        b;
-      n[3] !== C ? ((b = [c.label, C]), (n[3] = C), (n[4] = b)) : (b = n[4]);
-      var v;
-      n[5] !== p || n[6] !== b
-        ? ((v = u.jsx(r("WAWebFlexItem.react"), {
-            justify: "start",
-            align: "center",
-            xstyle: b,
-            children: p,
-          })),
-          (n[5] = p),
-          (n[6] = b),
-          (n[7] = v))
-        : (v = n[7]);
-      var S;
-      n[8] !== f
-        ? ((S =
-            f === "about-20-screen"
-              ? u.jsx(r("WDSIconIcExpandMore.react"), {
-                  colorName: "contentDefault",
-                })
-              : f === "link-devices-screen-wds"
-                ? u.jsx(r("WDSIconIcExpandMore.react"), {
-                    colorName: "contentActionDefault",
-                  })
-                : f === "link-devices-screen"
-                  ? u.jsx(o("WAWebChevronIcon.react").ChevronIcon, {
-                      xstyle: c.paddingStart8,
-                      width: 20,
-                      iconXstyle: c.linkDevicesIconTheme,
-                    })
-                  : u.jsx(o("WAWebCaretDownIcon.react").CaretDownIcon, {
-                      xstyle: c.paddingStart8,
-                    })),
-          (n[8] = f),
-          (n[9] = S))
-        : (S = n[9]);
-      var R;
-      n[10] !== v || n[11] !== S
-        ? ((R = u.jsxs(o("WAWebFlex.react").FlexRow, {
+        testid: void 0,
+        children: [
+          u.jsxs(o("WAWebFlex.react").FlexRow, {
             justify: "all",
             align: "center",
             grow: 1,
-            children: [v, S],
-          })),
-          (n[10] = v),
-          (n[11] = S),
-          (n[12] = R))
-        : (R = n[12]);
-      var L;
-      return (
-        n[13] !== s ||
-        n[14] !== d ||
-        n[15] !== m ||
-        n[16] !== i ||
-        n[17] !== h ||
-        n[18] !== y ||
-        n[19] !== R ||
-        n[20] !== _ ||
-        n[21] !== g
-          ? ((L = u.jsxs(o("WAWebButton.react").WAWebButtonSecondary, {
-              onClick: o("WAWebStopEvent").stopPropagation,
-              ref: i,
-              width: g,
-              ariaLabel: s,
-              ariaRoleDescription: d,
-              borderStyles: h,
-              paddingStyles: y,
-              testid: void 0,
-              children: [R, m],
-            })),
-            (n[13] = s),
-            (n[14] = d),
-            (n[15] = m),
-            (n[16] = i),
-            (n[17] = h),
-            (n[18] = y),
-            (n[19] = R),
-            (n[20] = _),
-            (n[21] = g),
-            (n[22] = L))
-          : (L = n[22]),
-        L
-      );
+            children: [
+              u.jsx(r("WAWebFlexItem.react"), {
+                justify: "start",
+                align: "center",
+                xstyle: [
+                  c.label,
+                  p === "about-20-screen" && c.about20LabelColor,
+                ],
+                children: d,
+              }),
+              p === "about-20-screen"
+                ? u.jsx(r("WDSIconIcExpandMore.react"), {
+                    colorName: "contentDefault",
+                  })
+                : p === "link-devices-screen-wds"
+                  ? u.jsx(r("WDSIconIcExpandMore.react"), {
+                      colorName: "contentActionDefault",
+                    })
+                  : p === "link-devices-screen"
+                    ? u.jsx(o("WAWebChevronIcon.react").ChevronIcon, {
+                        xstyle: c.paddingStart8,
+                        width: 20,
+                        iconXstyle: c.linkDevicesIconTheme,
+                      })
+                    : u.jsx(o("WAWebCaretDownIcon.react").CaretDownIcon, {
+                        xstyle: c.paddingStart8,
+                      }),
+            ],
+          }),
+          s,
+        ],
+      });
     }
-    l.SelectButton = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.SelectButton = d));
   },
   98,
 );

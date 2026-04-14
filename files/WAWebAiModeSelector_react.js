@@ -13,7 +13,6 @@ __d(
     "WDSMenuItem.react",
     "WDSTooltip.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebBotModeSelection",
     "useWAWebDynamicBotModeOverride",
     "useWAWebResolvedBotMode",
@@ -28,88 +27,59 @@ __d(
       m = c.useRef,
       p = c.useState;
     function _(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.chat,
-        a = e.threadId,
-        i = o("useWAWebResolvedBotMode").useWAWebResolvedBotMode(n, a),
-        l = i.icon,
-        s = i.subtitle,
-        c = i.title,
-        d;
-      t[0] !== l || t[1] !== c
-        ? ((d = u.jsx(r("WDSChip.react"), {
-            Icon: l,
-            label: c,
-            isNeutral: !0,
-            testid: void 0,
-            isDisabled: !0,
-          })),
-          (t[0] = l),
-          (t[1] = c),
-          (t[2] = d))
-        : (d = t[2]);
-      var m = d,
-        p;
-      return (
-        t[3] !== m || t[4] !== s
-          ? ((p = u.jsx("div", {
-              children:
-                s != null
-                  ? u.jsx(r("WDSTooltip.react"), { label: s, children: m })
-                  : m,
-            })),
-            (t[3] = m),
-            (t[4] = s),
-            (t[5] = p))
-          : (p = t[5]),
-        p
-      );
+      var t = e.chat,
+        n = e.threadId,
+        a = o("useWAWebResolvedBotMode").useWAWebResolvedBotMode(t, n),
+        i = a.icon,
+        l = a.subtitle,
+        s = a.title,
+        c = u.jsx(r("WDSChip.react"), {
+          Icon: i,
+          label: s,
+          isNeutral: !0,
+          testid: void 0,
+          isDisabled: !0,
+        });
+      return u.jsx("div", {
+        children:
+          l != null
+            ? u.jsx(r("WDSTooltip.react"), { label: l, children: c })
+            : c,
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.chat,
-        a = e.threadId,
-        i = o("useWAWebBotModeSelection").useWAWebBotModeSelection(n, a),
-        l = i[0],
-        s = p(null),
-        c = s[0],
-        _ = s[1],
-        f = p(l),
-        h = f[0],
-        y = f[1];
-      l !== h && (y(l), _(null));
-      var C = c != null ? c : l,
-        b;
-      (t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = []), (t[0] = b))
-        : (b = t[0]),
-        d(g, b));
-      var v;
-      t[1] !== C
-        ? ((v = o("WAWebAiModeSelectorUtils").getBotUserSelectModeIcon(C)),
-          (t[1] = C),
-          (t[2] = v))
-        : (v = t[2]);
-      var S = v,
-        R;
-      t[3] !== C
-        ? ((R = o("WAWebAiModeSelectorUtils").getBotUserSelectModeTitle(C)),
-          (t[3] = C),
-          (t[4] = R))
-        : (R = t[4]);
-      var L = R,
-        E = m(null),
-        k = function (t) {
-          (_(t),
-            o("WAWebUpdateBotModeSelectionAction").persistBotModeSelection({
-              chat: n,
-              threadId: a,
-              botModeSelection: [t],
-            }),
-            P());
-        },
-        I = r("useWDSMenu")({
-          targetRef: E,
+      var t = e.chat,
+        n = e.threadId,
+        a = o("useWAWebBotModeSelection").useWAWebBotModeSelection(t, n),
+        i = a[0],
+        l = p(null),
+        s = l[0],
+        c = l[1],
+        _ = p(i),
+        f = _[0],
+        g = _[1];
+      i !== f && (g(i), c(null));
+      var h = s != null ? s : i;
+      d(function () {
+        return function () {
+          o("WAWebMaybeGetBotModeSelection").clearInMemoryBotMode();
+        };
+      }, []);
+      var y = o("WAWebAiModeSelectorUtils").getBotUserSelectModeIcon(h),
+        C = o("WAWebAiModeSelectorUtils").getBotUserSelectModeTitle(h),
+        b = m(null);
+      function v(e) {
+        (c(e),
+          o("WAWebUpdateBotModeSelectionAction").persistBotModeSelection({
+            chat: t,
+            threadId: n,
+            botModeSelection: [e],
+          }),
+          R());
+      }
+      var S = r("useWDSMenu")({
+          targetRef: b,
           menu: u.jsx(r("WDSMenu.react"), {
             children: o("WAWebGetAvailableBotSelectionModes")
               .getAvailableBotSelectionModes()
@@ -128,9 +98,9 @@ __d(
                       "WAWebAiModeSelectorUtils",
                     ).getBotUserSelectModeSubtitle(e),
                     isToggleable: !0,
-                    toggled: e === C,
+                    toggled: e === h,
                     onPress: function () {
-                      return k(e);
+                      return v(e);
                     },
                   },
                   "ai-mode-" + String(e),
@@ -140,131 +110,90 @@ __d(
           position: "above",
           align: "end",
         }),
-        T = I.closeMenu,
-        D = I.isMenuOpen,
-        x = I.menuPortal,
-        $ = I.openMenu,
-        P = T,
-        N;
-      t[5] !== S || t[6] !== D || t[7] !== L || t[8] !== $
-        ? ((N = u.jsx(r("WDSChip.react"), {
-            ref: E,
-            Icon: S,
-            label: L,
+        R = S.closeMenu,
+        L = S.isMenuOpen,
+        E = S.menuPortal,
+        k = S.openMenu;
+      return u.jsxs("div", {
+        children: [
+          u.jsx(r("WDSChip.react"), {
+            ref: b,
+            Icon: y,
+            label: C,
             isNeutral: !0,
-            onPress: $,
-            "aria-expanded": D,
-            isSelected: D,
+            onPress: k,
+            "aria-expanded": L,
+            isSelected: L,
             testid: void 0,
-          })),
-          (t[5] = S),
-          (t[6] = D),
-          (t[7] = L),
-          (t[8] = $),
-          (t[9] = N))
-        : (N = t[9]);
-      var M;
-      return (
-        t[10] !== x || t[11] !== N
-          ? ((M = u.jsxs("div", { children: [N, x] })),
-            (t[10] = x),
-            (t[11] = N),
-            (t[12] = M))
-          : (M = t[12]),
-        M
-      );
+          }),
+          E,
+        ],
+      });
     }
-    function g() {
-      return h;
-    }
-    function h() {
-      o("WAWebMaybeGetBotModeSelection").clearInMemoryBotMode();
-    }
-    function y(e) {
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g(e) {
       var t,
-        n = o("react-compiler-runtime").c(23),
-        a = e.chat,
-        i = e.threadId,
-        l = o("useWAWebDynamicBotModeOverride").useWAWebDynamicBotModeOverride(
+        n = e.chat,
+        a = e.threadId,
+        i = o("useWAWebDynamicBotModeOverride").useWAWebDynamicBotModeOverride(
+          n,
           a,
-          i,
         ),
-        c = p(null),
-        _ = c[0],
-        f = c[1],
-        g = p(l),
-        h = g[0],
-        y = g[1];
-      l !== h && (y(l), f(null));
-      var b =
+        l = p(null),
+        c = l[0],
+        _ = l[1],
+        f = p(i),
+        g = f[0],
+        h = f[1];
+      i !== g && (h(i), _(null));
+      var y =
           (t = o("WAWebDynamicAIModesCache").getStaleCachedDynamicAIModes()) !=
           null
             ? t
             : [],
-        v;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = o("WAWebDynamicAIModesCache").getDefaultDynamicAIMode()),
-          (n[0] = v))
-        : (v = n[0]);
-      var S = v,
-        R = _ != null ? _ : l,
-        L =
-          R != null &&
-          b.length > 0 &&
-          !b.some(function (e) {
-            return e.modeId === R.modeId;
+        C = o("WAWebDynamicAIModesCache").getDefaultDynamicAIMode(),
+        b = c != null ? c : i,
+        v =
+          b != null &&
+          y.length > 0 &&
+          !y.some(function (e) {
+            return e.modeId === b.modeId;
           }),
-        E = L ? S : R != null ? R : S,
-        k,
-        I;
-      (n[1] !== a || n[2] !== L || n[3] !== i
-        ? ((k = function () {
-            L &&
-              o(
-                "WAWebUpdateBotModeSelectionAction",
-              ).persistDynamicBotModeOverride({
-                chat: a,
-                threadId: i,
-                botModeOverride: [S.modeId],
-              });
-          }),
-          (I = [L, a, i, S.modeId]),
-          (n[1] = a),
-          (n[2] = L),
-          (n[3] = i),
-          (n[4] = k),
-          (n[5] = I))
-        : ((k = n[4]), (I = n[5])),
-        d(k, I));
-      var T;
-      (n[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = []), (n[6] = T))
-        : (T = n[6]),
-        d(C, T));
-      var D;
-      n[7] !== E.type
-        ? ((D = o("WAWebAiModeSelectorUtils").getDynamicModeIcon(E.type)),
-          (n[7] = E.type),
-          (n[8] = D))
-        : (D = n[8]);
-      var x = D,
-        $ = m(null),
-        P = function (t) {
-          (f(t),
+        S = v ? C : b != null ? b : C;
+      (d(
+        function () {
+          v &&
             o(
               "WAWebUpdateBotModeSelectionAction",
             ).persistDynamicBotModeOverride({
-              chat: a,
-              threadId: i,
-              botModeOverride: [t.modeId],
-            }),
-            B());
+              chat: n,
+              threadId: a,
+              botModeOverride: [C.modeId],
+            });
         },
-        N = b.length <= 1,
-        M = r("useWDSMenu")({
-          targetRef: $,
+        [v, n, a, C.modeId],
+      ),
+        d(function () {
+          return function () {
+            o("WAWebMaybeGetBotModeSelection").clearInMemoryBotModeOverride();
+          };
+        }, []));
+      var R = o("WAWebAiModeSelectorUtils").getDynamicModeIcon(S.type),
+        L = m(null);
+      function E(e) {
+        (_(e),
+          o("WAWebUpdateBotModeSelectionAction").persistDynamicBotModeOverride({
+            chat: n,
+            threadId: a,
+            botModeOverride: [e.modeId],
+          }),
+          T());
+      }
+      var k = y.length <= 1,
+        I = r("useWDSMenu")({
+          targetRef: L,
           menu: u.jsx(r("WDSMenu.react"), {
-            children: b.map(function (e) {
+            children: y.map(function (e) {
               var t = e.isExperimental
                 ? s._(/*BTDS*/ "{subtitle} \u00b7 {internalTag}", [
                     s._param("subtitle", e.subtitle),
@@ -281,9 +210,9 @@ __d(
                   title: e.title,
                   subtitle: t,
                   isToggleable: !0,
-                  toggled: E.modeId === e.modeId,
+                  toggled: S.modeId === e.modeId,
                   onPress: function () {
-                    return P(e);
+                    return E(e);
                   },
                 },
                 "ai-mode-" + e.modeId,
@@ -293,121 +222,56 @@ __d(
           position: "above",
           align: "end",
         }),
-        w = M.closeMenu,
-        A = M.isMenuOpen,
-        F = M.menuPortal,
-        O = M.openMenu,
-        B = w;
-      if (b.length === 0) return null;
-      if (N) {
-        var W = E.subtitle,
-          q;
-        n[9] !== x || n[10] !== E.title
-          ? ((q = u.jsx(r("WDSChip.react"), {
-              Icon: x,
-              label: E.title,
-              isNeutral: !0,
-              testid: void 0,
-              isDisabled: !0,
-            })),
-            (n[9] = x),
-            (n[10] = E.title),
-            (n[11] = q))
-          : (q = n[11]);
-        var U = q,
-          V;
-        return (
-          n[12] !== U || n[13] !== W
-            ? ((V = u.jsx("div", {
-                children:
-                  W != null && W !== ""
-                    ? u.jsx(r("WDSTooltip.react"), { label: W, children: U })
-                    : U,
-              })),
-              (n[12] = U),
-              (n[13] = W),
-              (n[14] = V))
-            : (V = n[14]),
-          V
-        );
-      }
-      var H;
-      n[15] !== x || n[16] !== E.title || n[17] !== A || n[18] !== O
-        ? ((H = u.jsx(r("WDSChip.react"), {
-            ref: $,
-            Icon: x,
-            label: E.title,
+        T = I.closeMenu,
+        D = I.isMenuOpen,
+        x = I.menuPortal,
+        $ = I.openMenu;
+      if (y.length === 0) return null;
+      if (k) {
+        var P = S.subtitle,
+          N = u.jsx(r("WDSChip.react"), {
+            Icon: R,
+            label: S.title,
             isNeutral: !0,
-            onPress: O,
-            "aria-expanded": A,
-            isSelected: A,
             testid: void 0,
-          })),
-          (n[15] = x),
-          (n[16] = E.title),
-          (n[17] = A),
-          (n[18] = O),
-          (n[19] = H))
-        : (H = n[19]);
-      var G;
-      return (
-        n[20] !== F || n[21] !== H
-          ? ((G = u.jsxs("div", { children: [H, F] })),
-            (n[20] = F),
-            (n[21] = H),
-            (n[22] = G))
-          : (G = n[22]),
-        G
-      );
-    }
-    function C() {
-      return b;
-    }
-    function b() {
-      o("WAWebMaybeGetBotModeSelection").clearInMemoryBotModeOverride();
-    }
-    function v(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.chat,
-        r = e.isInteractive,
-        a = e.threadId,
-        i = r === void 0 ? !1 : r;
-      if (i) {
-        if (o("WAWebBotBaseGating").isDynamicModeSelectorEnabled()) {
-          var l;
-          return (
-            t[0] !== n || t[1] !== a
-              ? ((l = u.jsx(y, { chat: n, threadId: a })),
-                (t[0] = n),
-                (t[1] = a),
-                (t[2] = l))
-              : (l = t[2]),
-            l
-          );
-        }
-        var s;
-        return (
-          t[3] !== n || t[4] !== a
-            ? ((s = u.jsx(f, { chat: n, threadId: a })),
-              (t[3] = n),
-              (t[4] = a),
-              (t[5] = s))
-            : (s = t[5]),
-          s
-        );
+            isDisabled: !0,
+          });
+        return u.jsx("div", {
+          children:
+            P != null && P !== ""
+              ? u.jsx(r("WDSTooltip.react"), { label: P, children: N })
+              : N,
+        });
       }
-      var c;
-      return (
-        t[6] !== n || t[7] !== a
-          ? ((c = u.jsx(_, { chat: n, threadId: a })),
-            (t[6] = n),
-            (t[7] = a),
-            (t[8] = c))
-          : (c = t[8]),
-        c
-      );
+      return u.jsxs("div", {
+        children: [
+          u.jsx(r("WDSChip.react"), {
+            ref: L,
+            Icon: R,
+            label: S.title,
+            isNeutral: !0,
+            onPress: $,
+            "aria-expanded": D,
+            isSelected: D,
+            testid: void 0,
+          }),
+          x,
+        ],
+      });
     }
-    l.default = v;
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e) {
+      var t = e.chat,
+        n = e.isInteractive,
+        r = n === void 0 ? !1 : n,
+        a = e.threadId;
+      return r
+        ? o("WAWebBotBaseGating").isDynamicModeSelectorEnabled()
+          ? u.jsx(g, { chat: t, threadId: a })
+          : u.jsx(f, { chat: t, threadId: a })
+        : u.jsx(_, { chat: t, threadId: a });
+    }
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
   },
   226,
 );

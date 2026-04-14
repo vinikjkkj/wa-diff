@@ -6,7 +6,6 @@ __d(
     "WAWebFlex.react",
     "WAWebUISpacing",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -21,95 +20,59 @@ __d(
         },
       };
     function c() {
-      var e = o("react-compiler-runtime").c(2),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = s.jsx(o("WAWebBaseShimmerComponents.react").CircleShimmer, {
+      return s.jsxs(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        xstyle: u.cellHeight,
+        children: [
+          s.jsx(o("WAWebBaseShimmerComponents.react").CircleShimmer, {
             diameter: 49,
             xstyle: o("WAWebUISpacing").uiMargin.end15,
-          })),
-          (e[0] = t))
-        : (t = e[0]);
-      var n;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              xstyle: u.cellHeight,
-              children: [
-                t,
-                s.jsxs(o("WAWebFlex.react").FlexColumn, {
-                  children: [
-                    s.jsx(
-                      o("WAWebBaseShimmerComponents.react").RectangleShimmer,
-                      {
-                        height: 12,
-                        width: 139,
-                        xstyle: o("WAWebUISpacing").uiMargin.bottom12,
-                      },
-                    ),
-                    s.jsx(
-                      o("WAWebBaseShimmerComponents.react").RectangleShimmer,
-                      { height: 10, width: 75 },
-                    ),
-                  ],
-                }),
-              ],
-            })),
-            (e[1] = n))
-          : (n = e[1]),
-        n
-      );
+          }),
+          s.jsxs(o("WAWebFlex.react").FlexColumn, {
+            children: [
+              s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+                height: 12,
+                width: 139,
+                xstyle: o("WAWebUISpacing").uiMargin.bottom12,
+              }),
+              s.jsx(o("WAWebBaseShimmerComponents.react").RectangleShimmer, {
+                height: 10,
+                width: 75,
+              }),
+            ],
+          }),
+        ],
+      });
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e.count,
-        a = e.description,
-        i = a === void 0 ? "WAWebNewsletterDirectoryShimmer" : a,
-        l;
-      t[0] !== i
-        ? ((l = s.jsx(r("CometHeroHoldTrigger.react"), {
-            description: i,
-            hold: !0,
-          })),
-          (t[0] = i),
-          (t[1] = l))
-        : (l = t[1]);
-      var c;
-      t[2] !== n
-        ? ((c = s.jsx(o("WAWebFlex.react").FlexColumn, {
+      var t = e.count,
+        n = e.description,
+        a = n === void 0 ? "WAWebNewsletterDirectoryShimmer" : n;
+      return s.jsxs(s.Fragment, {
+        children: [
+          s.jsx(r("CometHeroHoldTrigger.react"), { description: a, hold: !0 }),
+          s.jsx(o("WAWebFlex.react").FlexColumn, {
             xstyle: u.container,
-            children: Array.from({ length: n }, m),
-          })),
-          (t[2] = n),
-          (t[3] = c))
-        : (c = t[3]);
-      var d;
-      return (
-        t[4] !== l || t[5] !== c
-          ? ((d = s.jsxs(s.Fragment, { children: [l, c] })),
-            (t[4] = l),
-            (t[5] = c),
-            (t[6] = d))
-          : (d = t[6]),
-        d
-      );
+            children: Array.from({ length: t }, function (e, t) {
+              return s.jsx(
+                o("WAWebFlex.react").FlexColumn,
+                {
+                  align: "start",
+                  xstyle: [
+                    o("WAWebUISpacing").uiMargin.horiz13,
+                    o("WAWebUISpacing").uiMargin.vert12,
+                  ],
+                  children: s.jsx(c, {}),
+                },
+                t,
+              );
+            }),
+          }),
+        ],
+      });
     }
-    function m(e, t) {
-      return s.jsx(
-        o("WAWebFlex.react").FlexColumn,
-        {
-          align: "start",
-          xstyle: [
-            o("WAWebUISpacing").uiMargin.horiz13,
-            o("WAWebUISpacing").uiMargin.vert12,
-          ],
-          children: s.jsx(c, {}),
-        },
-        t,
-      );
-    }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = d));
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   98,
 );

@@ -18,7 +18,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "clamp",
     "react",
-    "react-compiler-runtime",
     "sumBy",
     "useLazyRef",
     "useWAWebEventTargetValue",
@@ -218,62 +217,32 @@ __d(
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.chat,
-        r = e.count,
-        a = e.multipleMsgs,
-        i;
-      t[0] !== r
-        ? ((i = s._(
-            /*BTDS*/ '_j{"*":"{reactions} reactions","_1":"1 reaction"}',
-            [s._plural(r, "reactions", r)],
-          )),
-          (t[0] = r),
-          (t[1] = i))
-        : (i = t[1]);
-      var l = i,
-        c = o(
+      var t = e.chat,
+        n = e.count,
+        r = e.multipleMsgs,
+        a = s._(/*BTDS*/ '_j{"*":"{reactions} reactions","_1":"1 reaction"}', [
+          s._plural(n, "reactions", n),
+        ]);
+      return u.jsx(o("WAWebFlex.react").FlexRow, {
+        align: "center",
+        justify: o(
           "WAWebNewsletterExtendedGatingUtils",
-        ).isNewsletterReactionSenderListEnabled(n, a)
+        ).isNewsletterReactionSenderListEnabled(t, r)
           ? "start"
           : "center",
-        d;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = [f.paddingTop20, f.paddingBottom8, f.paddingHoriz16, f.header]),
-          (t[2] = d))
-        : (d = t[2]);
-      var m;
-      t[3] !== n || t[4] !== l || t[5] !== a
-        ? ((m = o(
-            "WAWebNewsletterExtendedGatingUtils",
-          ).isNewsletterReactionSenderListEnabled(n, a)
-            ? u.jsx(o("WAWebText.react").WAWebTextTitle, {
-                weight: "semibold",
-                children: l,
-              })
-            : u.jsx(o("WAWebText.react").WAWebTextLarge, { children: l })),
-          (t[3] = n),
-          (t[4] = l),
-          (t[5] = a),
-          (t[6] = m))
-        : (m = t[6]);
-      var p;
-      return (
-        t[7] !== c || t[8] !== m
-          ? ((p = u.jsx(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: c,
-              xstyle: d,
-              testid: void 0,
-              children: m,
-            })),
-            (t[7] = c),
-            (t[8] = m),
-            (t[9] = p))
-          : (p = t[9]),
-        p
-      );
+        xstyle: [f.paddingTop20, f.paddingBottom8, f.paddingHoriz16, f.header],
+        testid: void 0,
+        children: o(
+          "WAWebNewsletterExtendedGatingUtils",
+        ).isNewsletterReactionSenderListEnabled(t, r)
+          ? u.jsx(o("WAWebText.react").WAWebTextTitle, {
+              weight: "semibold",
+              children: a,
+            })
+          : u.jsx(o("WAWebText.react").WAWebTextLarge, { children: a }),
+      });
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b(e, t, n) {
       var r = [];
       return (

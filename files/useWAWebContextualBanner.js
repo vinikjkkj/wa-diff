@@ -10,7 +10,6 @@ __d(
     "WAWebUserPrefsNuxPreferences",
     "WAWebWamEnumBannerOperations",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -101,99 +100,73 @@ __d(
       }
     }
     function y(e) {
-      var t = o("react-compiler-runtime").c(18),
-        n;
-      t[0] !== e
-        ? ((n = new Map(e.map(C))), (t[0] = e), (t[1] = n))
-        : (n = t[1]);
-      var a = n,
-        i;
-      t[2] !== a
-        ? ((i = function (t) {
-            return f(a.get(String(t)));
-          }),
-          (t[2] = a),
-          (t[3] = i))
-        : (i = t[3]);
-      var l = i,
-        s;
-      t[4] !== a
-        ? ((s = function (t) {
-            var e = a.get(String(t));
-            e &&
+      var t = m(
+          function () {
+            return new Map(
+              e.map(function (e) {
+                return [
+                  String(e),
+                  o("WAWebContextualBannerConfig").getContextualBannerConfig(e),
+                ];
+              }),
+            );
+          },
+          [e],
+        ),
+        n = d(
+          function (e) {
+            return f(t.get(String(e)));
+          },
+          [t],
+        ),
+        a = d(
+          function (e) {
+            var n = t.get(String(e));
+            n &&
               (o("WAWebUserPrefsContextualBanner").setBannerState(
-                t,
+                e,
                 o("WAWebUserPrefsContextualBanner").BannerState.VIEWED,
               ),
-              h(e, o("WAWebUserPrefsContextualBanner").BannerState.VIEWED));
-          }),
-          (t[4] = a),
-          (t[5] = s))
-        : (s = t[5]);
-      var u = s,
-        c;
-      t[6] !== a
-        ? ((c = function (t) {
-            var e = a.get(String(t));
-            ((e == null ? void 0 : e.syncEnabled) === !0 &&
-              r("WAWebNuxSync").acknowledgeNux(t),
+              h(n, o("WAWebUserPrefsContextualBanner").BannerState.VIEWED));
+          },
+          [t],
+        ),
+        i = d(
+          function (e) {
+            var n = t.get(String(e));
+            ((n == null ? void 0 : n.syncEnabled) === !0 &&
+              r("WAWebNuxSync").acknowledgeNux(e),
               o("WAWebUserPrefsContextualBanner").setBannerState(
-                t,
+                e,
                 o("WAWebUserPrefsContextualBanner").BannerState.CLICKED,
               ),
-              h(e, o("WAWebUserPrefsContextualBanner").BannerState.CLICKED));
-          }),
-          (t[6] = a),
-          (t[7] = c))
-        : (c = t[7]);
-      var d = c,
-        m;
-      t[8] !== a
-        ? ((m = function (t) {
-            var e = a.get(String(t));
-            ((e == null ? void 0 : e.syncEnabled) === !0 &&
-              r("WAWebNuxSync").acknowledgeNux(t),
+              h(n, o("WAWebUserPrefsContextualBanner").BannerState.CLICKED));
+          },
+          [t],
+        ),
+        l = d(
+          function (e) {
+            var n = t.get(String(e));
+            ((n == null ? void 0 : n.syncEnabled) === !0 &&
+              r("WAWebNuxSync").acknowledgeNux(e),
               o("WAWebUserPrefsContextualBanner").setBannerState(
-                t,
+                e,
                 o("WAWebUserPrefsContextualBanner").BannerState.DISMISSED,
               ),
-              h(e, o("WAWebUserPrefsContextualBanner").BannerState.DISMISSED));
-          }),
-          (t[8] = a),
-          (t[9] = m))
-        : (m = t[9]);
-      var p = m,
-        _;
-      t[10] !== a
-        ? ((_ = function (t) {
-            var e;
-            (((e = a.get(String(t))) == null ? void 0 : e.syncEnabled) === !0 &&
-              r("WAWebNuxSync").unAcknowledgeNux(t),
-              o("WAWebUserPrefsContextualBanner").clearBannerState(t));
-          }),
-          (t[10] = a),
-          (t[11] = _))
-        : (_ = t[11]);
-      var g = _,
-        y;
-      return (
-        t[12] !== l || t[13] !== d || t[14] !== p || t[15] !== g || t[16] !== u
-          ? ((y = [l, u, d, p, g]),
-            (t[12] = l),
-            (t[13] = d),
-            (t[14] = p),
-            (t[15] = g),
-            (t[16] = u),
-            (t[17] = y))
-          : (y = t[17]),
-        y
-      );
-    }
-    function C(e) {
-      return [
-        String(e),
-        o("WAWebContextualBannerConfig").getContextualBannerConfig(e),
-      ];
+              h(n, o("WAWebUserPrefsContextualBanner").BannerState.DISMISSED));
+          },
+          [t],
+        ),
+        s = d(
+          function (e) {
+            var n;
+            (((n = t.get(String(e))) == null ? void 0 : n.syncEnabled) === !0 &&
+              r("WAWebNuxSync").unAcknowledgeNux(e),
+              o("WAWebUserPrefsContextualBanner").clearBannerState(e));
+          },
+          [t],
+        );
+      return [n, a, i, l, s];
     }
     l.default = y;
   },

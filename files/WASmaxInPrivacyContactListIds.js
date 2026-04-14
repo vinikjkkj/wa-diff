@@ -2,6 +2,7 @@ __d(
   "WASmaxInPrivacyContactListIds",
   [
     "WAResultOrError",
+    "WASmaxInPrivacyEmptyContactListIdentifierMixin",
     "WASmaxInPrivacyPnJidMixin",
     "WASmaxInPrivacyUsernameMixin",
     "WASmaxParseUtils",
@@ -15,12 +16,23 @@ __d(
           value: t.value,
         });
       var n = o("WASmaxInPrivacyPnJidMixin").parsePnJidMixin(e);
-      return n.success
-        ? o("WAResultOrError").makeResult({ name: "PnJid", value: n.value })
+      if (n.success)
+        return o("WAResultOrError").makeResult({
+          name: "PnJid",
+          value: n.value,
+        });
+      var r = o(
+        "WASmaxInPrivacyEmptyContactListIdentifierMixin",
+      ).parseEmptyContactListIdentifierMixin(e);
+      return r.success
+        ? o("WAResultOrError").makeResult({
+            name: "EmptyContactListIdentifier",
+            value: r.value,
+          })
         : o("WASmaxParseUtils").errorMixinDisjunction(
             e,
-            ["Username", "PnJid"],
-            [t, n],
+            ["Username", "PnJid", "EmptyContactListIdentifier"],
+            [t, n, r],
           );
     }
     l.parseContactListIds = e;

@@ -12,7 +12,6 @@ __d(
     "cr:7675",
     "deferredLoadComponent",
     "react",
-    "react-compiler-runtime",
     "requireDeferred",
     "requireDeferredForDisplay",
   ],
@@ -81,16 +80,9 @@ __d(
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s.jsx("div", {})), (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return s.jsx("div", {});
     }
-    l.default = m;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

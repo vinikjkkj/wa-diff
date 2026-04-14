@@ -11,6 +11,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebVoipEventConstants",
     "WAWebVoipPerfMeasurement",
+    "WAWebVoipVideoStateUtils",
     "WAWebVoipWaCallEnums",
   ],
   function (t, n, r, o, a, i, l) {
@@ -133,19 +134,14 @@ __d(
             }
           }),
           (a.hasActiveVideo = function () {
-            var e =
-                this.selfVideoState != null &&
-                this.selfVideoState !==
-                  o("WAWebVoipWaCallEnums").VideoState.Disabled &&
-                this.selfVideoState !==
-                  o("WAWebVoipWaCallEnums").VideoState.Stopped,
-              t =
-                this.peerVideoState != null &&
-                this.peerVideoState !==
-                  o("WAWebVoipWaCallEnums").VideoState.Disabled &&
-                this.peerVideoState !==
-                  o("WAWebVoipWaCallEnums").VideoState.Stopped;
-            return e || t;
+            return (
+              !o("WAWebVoipVideoStateUtils").isVideoStateInactiveForCallMode(
+                this.selfVideoState,
+              ) ||
+              !o("WAWebVoipVideoStateUtils").isVideoStateInactiveForCallMode(
+                this.peerVideoState,
+              )
+            );
           }),
           (a.shouldShowVideoUI = function () {
             return this.selfVideoState == null && this.peerVideoState == null

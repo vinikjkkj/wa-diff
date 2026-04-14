@@ -2,8 +2,6 @@ __d(
   "WAWebNewsletterSubscriberListQueryJob",
   [
     "WAWebMexFetchNewsletterFollowersJob",
-    "WAWebMexFetchNewsletterSubscribersJob",
-    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterRpcUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -12,14 +10,8 @@ __d(
       var r = (function () {
         var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o(
-            "WAWebNewsletterGatingUtils",
-          ).isNewsletterSubscriberMigrationEnabled()
-            ? o(
-                "WAWebMexFetchNewsletterFollowersJob",
-              ).mexFetchNewsletterFollowers(e, t)
-            : o(
-                "WAWebMexFetchNewsletterSubscribersJob",
-              ).mexFetchNewsletterSubscribers(e, t);
+            "WAWebMexFetchNewsletterFollowersJob",
+          ).mexFetchNewsletterFollowers(e, t);
         });
         return function () {
           return r.apply(this, arguments);

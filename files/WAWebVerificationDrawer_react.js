@@ -48,7 +48,6 @@ __d(
     "WAWebXAltIcon.react",
     "jsqr",
     "react",
-    "react-compiler-runtime",
     "useWAWebContactValues",
     "useWAWebInterval",
     "useWAWebListener",
@@ -90,103 +89,67 @@ __d(
       b = 10,
       v = b / 2;
     function S(e) {
-      var t = o("react-compiler-runtime").c(16),
-        n = e.binary,
-        a = e.contact,
-        i = f(!1),
-        l = i[0],
-        u = i[1],
-        d = f(null),
-        m = d[0],
-        p = d[1],
-        _;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = function (t) {
-            var e = t == null ? void 0 : t.getElementsByTagName("canvas")[0];
-            if (!e) {
+      var t = e.binary,
+        n = e.contact,
+        a = f(!1),
+        i = a[0],
+        l = a[1],
+        u = f(null),
+        d = u[0],
+        p = u[1],
+        _ = m(
+          function (e) {
+            var t = e == null ? void 0 : e.getElementsByTagName("canvas")[0];
+            if (!t) {
               p(null);
               return;
             }
             var n = document.createElement("canvas");
-            ((n.width = e.width + b), (n.height = e.height + b));
+            ((n.width = t.width + b), (n.height = t.height + b));
             var r = n.getContext("2d");
             ((r.fillStyle = "white"),
               r.fillRect(0, 0, n.width, n.height),
-              r.drawImage(e, v, v),
+              r.drawImage(t, v, v),
               n.toBlob(p, "image/png"));
+          },
+          [p],
+        ),
+        g = o("WAWebUserPrefsMeUser").getMeUser(),
+        h = null;
+      if (i && d) {
+        var y = o("WAWebFrontendContactGetters").getFormattedUser(n),
+          S = o("WAWebFrontendContactGetters").getFormattedUser(
+            o("WAWebContactCollection").ContactCollection.assertGet(g),
+          ),
+          R = "Verification Code between " + S + " and " + y;
+        h = c.jsx(r("WAWebDownloadableLink.react"), {
+          file: d,
+          download: R,
+          extension: o("WAWebFileSaverTypes").AllowedFileExtensions.PNG,
+          children: c.jsx(o("WAWebAvatarOverlay.react").AvatarOverlay, {
+            text: s._(/*BTDS*/ "Download code"),
           }),
-          (t[0] = _))
-        : (_ = t[0]);
-      var g = _,
-        h;
-      if (t[1] !== a || t[2] !== m || t[3] !== l) {
-        var y = o("WAWebUserPrefsMeUser").getMeUser();
-        if (((h = null), l && m)) {
-          var S = o("WAWebFrontendContactGetters").getFormattedUser(a),
-            R = o("WAWebFrontendContactGetters").getFormattedUser(
-              o("WAWebContactCollection").ContactCollection.assertGet(y),
-            ),
-            L = "Verification Code between " + R + " and " + S,
-            E;
-          t[5] === Symbol.for("react.memo_cache_sentinel")
-            ? ((E = c.jsx(o("WAWebAvatarOverlay.react").AvatarOverlay, {
-                text: s._(/*BTDS*/ "Download code"),
-              })),
-              (t[5] = E))
-            : (E = t[5]);
-          var k;
-          (t[6] !== m || t[7] !== L
-            ? ((k = c.jsx(r("WAWebDownloadableLink.react"), {
-                file: m,
-                download: L,
-                extension: o("WAWebFileSaverTypes").AllowedFileExtensions.PNG,
-                children: E,
-              })),
-              (t[6] = m),
-              (t[7] = L),
-              (t[8] = k))
-            : (k = t[8]),
-            (h = k));
-        }
-        ((t[1] = a), (t[2] = m), (t[3] = l), (t[4] = h));
-      } else h = t[4];
-      var I, T;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = function () {
-            return u(!0);
-          }),
-          (T = function () {
-            return u(!1);
-          }),
-          (t[9] = I),
-          (t[10] = T))
-        : ((I = t[9]), (T = t[10]));
-      var D;
-      t[11] !== n
-        ? ((D = c.jsx(r("WAWebQRCode.react"), {
-            data: n,
+        });
+      }
+      return c.jsxs("div", {
+        onMouseEnter: function () {
+          return l(!0);
+        },
+        onMouseLeave: function () {
+          return l(!1);
+        },
+        children: [
+          h,
+          c.jsx(r("WAWebQRCode.react"), {
+            data: t,
             size: o("WAWebFrontendConstants").QR_EDGE / 2,
-            onChange: g,
+            onChange: _,
             xstyle: C.circle,
-          })),
-          (t[11] = n),
-          (t[12] = D))
-        : (D = t[12]);
-      var x;
-      return (
-        t[13] !== h || t[14] !== D
-          ? ((x = c.jsxs("div", {
-              onMouseEnter: I,
-              onMouseLeave: T,
-              children: [h, D],
-            })),
-            (t[13] = h),
-            (t[14] = D),
-            (t[15] = x))
-          : (x = t[15]),
-        x
-      );
+          }),
+        ],
+      });
     }
+    S.displayName = S.name + " [from " + i.id + "]";
     function R() {
       return c.jsx("div", {
         className: "xygnafs x1wkxgih x14a8spa x1t7qo4d x1c76a8b xu7uy1i",
@@ -201,35 +164,15 @@ __d(
     }
     R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.binary,
-        r = e.contact,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = {
-            className:
-              "x1n2onr6 x1y5idc5 xs3hcls xr1yuqi x11t971q x4ii5y1 xvc5jky x6ikm8r x10wlt62 x1c9tyrk xeusxvb x1pahc9y x1ertn4p x1jpgh95 x9kwlzf x7v9bd0 x1alahoq x1hqk2wv",
-          }),
-          (t[0] = a))
-        : (a = t[0]);
-      var i;
-      return (
-        t[1] !== n || t[2] !== r
-          ? ((i = c.jsx(
-              "div",
-              babelHelpers.extends({}, a, {
-                children: n
-                  ? c.jsx(S, { binary: n, contact: r })
-                  : c.jsx(R, {}),
-              }),
-            )),
-            (t[1] = n),
-            (t[2] = r),
-            (t[3] = i))
-          : (i = t[3]),
-        i
-      );
+      var t = e.binary,
+        n = e.contact;
+      return c.jsx("div", {
+        className:
+          "x1n2onr6 x1y5idc5 xs3hcls xr1yuqi x11t971q x4ii5y1 xvc5jky x6ikm8r x10wlt62 x1c9tyrk xeusxvb x1pahc9y x1ertn4p x1jpgh95 x9kwlzf x7v9bd0 x1alahoq x1hqk2wv",
+        children: t ? c.jsx(S, { binary: t, contact: n }) : c.jsx(R, {}),
+      });
     }
+    L.displayName = L.name + " [from " + i.id + "]";
     function E() {
       return c.jsx("div", {
         className:
@@ -253,64 +196,28 @@ __d(
     }
     k.displayName = k.name + " [from " + i.id + "]";
     function I(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = {
-            className:
-              "x10l6tqk xef1mmm x1oy9qf3 x9f619 xh8yej3 x889kno x2vl965 x1a8lsjc xe2zdcy x1djn5p2 x1d3mw78 x17t9dm2 x2b8uid x1kncwe2",
-          }),
-          (t[0] = r))
-        : (r = t[0]);
-      var a;
-      return (
-        t[1] !== n
-          ? ((a = c.jsx("div", babelHelpers.extends({}, r, { children: n }))),
-            (t[1] = n),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.children;
+      return c.jsx("div", {
+        className:
+          "x10l6tqk xef1mmm x1oy9qf3 x9f619 xh8yej3 x889kno x2vl965 x1a8lsjc xe2zdcy x1djn5p2 x1d3mw78 x17t9dm2 x2b8uid x1kncwe2",
+        children: t,
+      });
     }
+    I.displayName = I.name + " [from " + i.id + "]";
     function T(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.binary,
-        r = e.contact,
-        a = e.state;
-      switch (a) {
-        case "qr": {
-          var i;
-          return (
-            t[0] !== n || t[1] !== r
-              ? ((i = c.jsx(L, { binary: n, contact: r })),
-                (t[0] = n),
-                (t[1] = r),
-                (t[2] = i))
-              : (i = t[2]),
-            i
-          );
-        }
-        case "checkmark": {
-          var l;
-          return (
-            t[3] === Symbol.for("react.memo_cache_sentinel")
-              ? ((l = c.jsx(E, {})), (t[3] = l))
-              : (l = t[3]),
-            l
-          );
-        }
-        default: {
-          var s;
-          return (
-            t[4] === Symbol.for("react.memo_cache_sentinel")
-              ? ((s = c.jsx(k, {})), (t[4] = s))
-              : (s = t[4]),
-            s
-          );
-        }
+      var t = e.binary,
+        n = e.contact,
+        r = e.state;
+      switch (r) {
+        case "qr":
+          return c.jsx(L, { binary: t, contact: n });
+        case "checkmark":
+          return c.jsx(E, {});
+        default:
+          return c.jsx(k, {});
       }
     }
+    T.displayName = T.name + " [from " + i.id + "]";
     var D = 200;
     function x(e) {
       var t = e.disposeStream,

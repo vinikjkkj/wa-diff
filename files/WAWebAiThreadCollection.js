@@ -50,6 +50,7 @@ __d(
                           ? r("WAWebMsgKey").fromString(n.lastReceivedKey)
                           : null,
                       unreadEditTimestampMs: n.unreadEditTimestampMs,
+                      pinThreadTimestamp: n.pinThreadTimestamp,
                     });
                   this.add(i);
                 }

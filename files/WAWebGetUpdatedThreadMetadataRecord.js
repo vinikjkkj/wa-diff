@@ -32,11 +32,12 @@ __d(
           h,
           y,
           C,
-          b = n == null ? void 0 : n.lastMessageTimestamp,
-          v =
-            b == null
+          b,
+          v = n == null ? void 0 : n.lastMessageTimestamp,
+          S =
+            v == null
               ? t.lastMessageTimestamp
-              : Math.max(t.lastMessageTimestamp, b);
+              : Math.max(t.lastMessageTimestamp, v);
         (n == null ? void 0 : n.aiThreadInfo) == null &&
           t.aiThreadInfo == null &&
           o("WALogger")
@@ -49,7 +50,7 @@ __d(
               t.threadId.toString(),
             )
             .sendLogs("ai-thread-missing-ai-thread-type");
-        var S =
+        var R =
             (n == null ? void 0 : n.aiThreadInfo) == null &&
             t.aiThreadInfo == null
               ? void 0
@@ -70,13 +71,13 @@ __d(
                     "aiThreadType",
                   ),
                 ),
-          R =
+          L =
             (h = t.botModeSelection) != null
               ? h
               : n == null
                 ? void 0
                 : n.botModeSelection,
-          L =
+          E =
             (y = t.botModeOverride) != null
               ? y
               : n == null
@@ -88,14 +89,20 @@ __d(
           },
           c,
           {
-            aiThreadInfo: S,
+            aiThreadInfo: R,
             unreadCount:
               (C = n == null ? void 0 : n.unreadCount) != null ? C : 0,
-            lastMessageTimestamp: v,
-            botModeSelection: R,
-            botModeOverride: L,
+            lastMessageTimestamp: S,
+            botModeSelection: L,
+            botModeOverride: E,
             lastReceivedKey: n == null ? void 0 : n.lastReceivedKey,
             unreadEditTimestampMs: n == null ? void 0 : n.unreadEditTimestampMs,
+            pinThreadTimestamp:
+              (b = t.pinThreadTimestamp) != null
+                ? b
+                : n == null
+                  ? void 0
+                  : n.pinThreadTimestamp,
           },
         );
       }

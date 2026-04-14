@@ -12,7 +12,6 @@ __d(
     "WAWebStateUtils",
     "WDSFontTokenStyles",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,61 +34,41 @@ __d(
       m = 70,
       p = { "--highlight": "currentColor" };
     function _(t) {
-      var n = o("react-compiler-runtime").c(7),
-        a = t.response,
-        i = c(r("WAWebSearchHighlightTermsContext.react")),
-        l;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = (e || (e = r("stylex")))([d.container])), (n[0] = l))
-        : (l = n[0]);
-      var s;
-      n[1] !== i || n[2] !== a
-        ? ((s = function (t) {
+      var n = t.response,
+        a = c(r("WAWebSearchHighlightTermsContext.react"));
+      return u.jsx(r("WAWebFlexItem.react"), {
+        className: (e || (e = r("stylex")))([d.container]),
+        style: p,
+        children: u.jsx(o("WAWebExpandableText.react").ExpandableText, {
+          text: n.body,
+          textLimit: m,
+          children: function (t) {
             var e = t.textLimit,
-              n = o("WAWebFormatConfiguration").Conversation({
-                trusted: h(a),
-                links: f(o("WAWebStateUtils").unproxy(a), m),
-                phoneNumbers: g(o("WAWebStateUtils").unproxy(a), m),
+              r = o("WAWebFormatConfiguration").Conversation({
+                trusted: h(n),
+                links: f(o("WAWebStateUtils").unproxy(n), m),
+                phoneNumbers: g(o("WAWebStateUtils").unproxy(n), m),
                 selectable: !0,
                 parseInlineCode: !0,
                 parseQuotes: !0,
                 parseLists: !0,
-                terms: i,
+                terms: a,
               });
             return u.jsx(o("WAWebEmojiText.react").EmojiText, {
-              text: a.body,
+              text: n.body,
               breakWord: !0,
               textLimit: e,
-              formatters: n,
+              formatters: r,
               selectable: !0,
               multiline: !0,
               displayBlock: !0,
               xstyle: o("WDSFontTokenStyles").WDSFontTokenStyles.Body1,
             });
-          }),
-          (n[1] = i),
-          (n[2] = a),
-          (n[3] = s))
-        : (s = n[3]);
-      var _;
-      return (
-        n[4] !== a.body || n[5] !== s
-          ? ((_ = u.jsx(r("WAWebFlexItem.react"), {
-              className: l,
-              style: p,
-              children: u.jsx(o("WAWebExpandableText.react").ExpandableText, {
-                text: a.body,
-                textLimit: m,
-                children: s,
-              }),
-            })),
-            (n[4] = a.body),
-            (n[5] = s),
-            (n[6] = _))
-          : (_ = n[6]),
-        _
-      );
+          },
+        }),
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e, t) {
       var n = e.body;
       if (n == null) return e.links;

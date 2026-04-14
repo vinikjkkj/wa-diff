@@ -14,7 +14,6 @@ __d(
     "WAWebUISpacing",
     "err",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebListener",
   ],
@@ -70,27 +69,26 @@ __d(
         ],
       ]);
     function y(t) {
-      var n = o("react-compiler-runtime").c(15),
-        a = t.ref,
-        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        l = i.albumPosition,
-        s = i.currentAlbumMessageIndex,
-        u = i.displayType,
-        d = i.msg,
-        p = i.numAdditionalMedia,
+      var n = t.ref,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = a.albumPosition,
+        l = a.currentAlbumMessageIndex,
+        s = a.displayType,
+        u = a.msg,
+        d = a.numAdditionalMedia,
+        p = f(null),
         g = f(null),
-        y = f(null),
-        v = o("WAWebMediaAlbumUtils").isAlbumPortraitOriented(i.albumMsgs),
+        y = o("WAWebMediaAlbumUtils").isAlbumPortraitOriented(a.albumMsgs),
+        v =
+          i === o("WAWebMediaAlbumPosition").AlbumPosition.TOP_RIGHT &&
+          (a.albumMsgs.length === 3 || (a.albumMsgs.length === 2 && !y)),
         S =
-          l === o("WAWebMediaAlbumPosition").AlbumPosition.TOP_RIGHT &&
-          (i.albumMsgs.length === 3 || (i.albumMsgs.length === 2 && !v)),
-        R =
-          (l === o("WAWebMediaAlbumPosition").AlbumPosition.BOTTOM_LEFT &&
-            i.albumMsgs.length === 3) ||
-          (l === o("WAWebMediaAlbumPosition").AlbumPosition.TOP_LEFT &&
-            i.albumMsgs.length < 4 &&
-            !(i.albumMsgs.length === 2 && v)),
-        L = [
+          (i === o("WAWebMediaAlbumPosition").AlbumPosition.BOTTOM_LEFT &&
+            a.albumMsgs.length === 3) ||
+          (i === o("WAWebMediaAlbumPosition").AlbumPosition.TOP_LEFT &&
+            a.albumMsgs.length < 4 &&
+            !(a.albumMsgs.length === 2 && y)),
+        R = [
           [{ gridColumn: "1 / 3", gridRow: "1 / 3" }],
           [
             { gridColumn: "1 / 3", gridRow: "1 / 2" },
@@ -108,209 +106,104 @@ __d(
             { gridColumn: "2 / 3", gridRow: "2 / 3" },
           ],
         ],
-        E = [
+        L = [
           { gridColumn: "1 / 2", gridRow: "1 / 3" },
           { gridColumn: "2 / 3", gridRow: "1 / 3" },
         ],
-        k = function () {
-          d.type === o("WAWebMsgType").MSG_TYPE.REVOKED &&
+        E = function () {
+          u.type === o("WAWebMsgType").MSG_TYPE.REVOKED &&
             o("WAWebCmd").Cmd.refreshMessages();
         };
-      o("useWAWebListener").useListener(d, "change:type", k);
-      var I;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = function () {
-            return y.current;
-          }),
-          (n[0] = I))
-        : (I = n[0]);
-      var T = I,
-        D;
-      n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((D = function () {
-            return r("WANullthrows")(g.current);
-          }),
-          (n[1] = D))
-        : (D = n[1]);
-      var x = D,
-        $;
-      (n[2] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = function () {
-            return { getRef: T, getContainerElement: x };
-          }),
-          (n[2] = $))
-        : ($ = n[2]),
-        _(a, $));
-      var P = function () {
-          return i.albumMsgs.length === 2 && v
-            ? E[s]
-            : L[Math.min(i.albumMsgs.length, 4) - 1][s];
+      o("useWAWebListener").useListener(u, "change:type", E);
+      var k = function () {
+          return g.current;
         },
-        N = P(),
-        M = { 0: "xh8yej3 x1qftm1w xt7dq6l", 1: "xh8yej3 xt7dq6l x60eefa" }[
-          !!o("WAWebDisplayType").isWideDisplay(u) << 0
-        ],
-        w = (c || (c = r("stylex"))).props(
-          h.get(l),
-          R && o("WAWebUISpacing").uiMargin.end0,
-          S && o("WAWebUISpacing").uiMargin.top3,
+        I = function () {
+          return r("WANullthrows")(p.current);
+        };
+      _(n, function () {
+        return { getRef: k, getContainerElement: I };
+      });
+      var T = function () {
+        return a.albumMsgs.length === 2 && y
+          ? L[l]
+          : R[Math.min(a.albumMsgs.length, 4) - 1][l];
+      };
+      return m.jsx("div", {
+        ref: p,
+        style: T(),
+        className: {
+          0: "xh8yej3 x1qftm1w xt7dq6l",
+          1: "xh8yej3 xt7dq6l x60eefa",
+        }[!!o("WAWebDisplayType").isWideDisplay(s) << 0],
+        children: m.jsx(
+          "div",
+          babelHelpers.extends(
+            {},
+            (c || (c = r("stylex"))).props(
+              h.get(i),
+              S && o("WAWebUISpacing").uiMargin.end0,
+              v && o("WAWebUISpacing").uiMargin.top3,
+            ),
+            {
+              children: m.jsx(
+                b,
+                babelHelpers.extends({}, a, {
+                  elRef: g,
+                  overlayContent:
+                    d != null && d > 0
+                      ? m.jsx(C, { numAdditionalMedia: d })
+                      : null,
+                }),
+              ),
+            },
+          ),
         ),
-        A;
-      n[3] !== p
-        ? ((A =
-            p != null && p > 0 ? m.jsx(C, { numAdditionalMedia: p }) : null),
-          (n[3] = p),
-          (n[4] = A))
-        : (A = n[4]);
-      var F;
-      n[5] !== i || n[6] !== A
-        ? ((F = m.jsx(
-            b,
-            babelHelpers.extends({}, i, { elRef: y, overlayContent: A }),
-          )),
-          (n[5] = i),
-          (n[6] = A),
-          (n[7] = F))
-        : (F = n[7]);
-      var O;
-      n[8] !== w || n[9] !== F
-        ? ((O = m.jsx("div", babelHelpers.extends({}, w, { children: F }))),
-          (n[8] = w),
-          (n[9] = F),
-          (n[10] = O))
-        : (O = n[10]);
-      var B;
-      return (
-        n[11] !== N || n[12] !== M || n[13] !== O
-          ? ((B = m.jsx("div", {
-              ref: g,
-              style: N,
-              className: M,
-              children: O,
-            })),
-            (n[11] = N),
-            (n[12] = M),
-            (n[13] = O),
-            (n[14] = B))
-          : (B = n[14]),
-        B
-      );
+      });
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.numAdditionalMedia,
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r =
-            "x10l6tqk x1n327nk xr1yuqi x11t971q x4ii5y1 xvc5jky x1h833of x17t9dm2 x47corl"),
-          (t[0] = r))
-        : (r = t[0]);
-      var a;
-      return (
-        t[1] !== n
-          ? ((a = m.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
-              className: r,
-              children: s._(/*BTDS*/ "+{number}", [s._param("number", n)]),
-            })),
-            (t[1] = n),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.numAdditionalMedia;
+      return m.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
+        className:
+          "x10l6tqk x1n327nk xr1yuqi x11t971q x4ii5y1 xvc5jky x1h833of x17t9dm2 x47corl",
+        children: s._(/*BTDS*/ "+{number}", [s._param("number", t)]),
+      });
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
-      var t = o("react-compiler-runtime").c(23),
-        n,
-        a,
-        i;
-      if (
-        (t[0] !== e
-          ? ((n = e.elRef),
-            (a = e.overlayContent),
-            (i = babelHelpers.objectWithoutPropertiesLoose(e, u)),
-            (t[0] = e),
-            (t[1] = n),
-            (t[2] = a),
-            (t[3] = i))
-          : ((n = t[1]), (a = t[2]), (i = t[3])),
-        i.msg.type === o("WAWebMsgType").MSG_TYPE.IMAGE)
-      ) {
-        var l;
-        return (
-          t[4] !== n ||
-          t[5] !== a ||
-          t[6] !== i.albumMsgs ||
-          t[7] !== i.albumTheme ||
-          t[8] !== i.currentAlbumMessageIndex ||
-          t[9] !== i.displayType ||
-          t[10] !== i.isMsgVisible ||
-          t[11] !== i.msg ||
-          t[12] !== i.zoomMsg
-            ? ((l = m.jsx(o("WAWebMessagePicture.react").ImageMessage, {
-                theme: i.albumTheme,
-                albumMsgs: i.albumMsgs,
-                msg: i.msg,
-                currentAlbumMessageIndex: i.currentAlbumMessageIndex,
-                mediaData: i.msg.mediaData,
-                ref: n,
-                isMsgVisible: i.isMsgVisible,
-                zoomMsg: i.zoomMsg,
-                overlayContent: a,
-                displayAuthor: !1,
-                displayType: i.displayType,
-              })),
-              (t[4] = n),
-              (t[5] = a),
-              (t[6] = i.albumMsgs),
-              (t[7] = i.albumTheme),
-              (t[8] = i.currentAlbumMessageIndex),
-              (t[9] = i.displayType),
-              (t[10] = i.isMsgVisible),
-              (t[11] = i.msg),
-              (t[12] = i.zoomMsg),
-              (t[13] = l))
-            : (l = t[13]),
-          l
-        );
-      }
-      if (i.msg.type === o("WAWebMsgType").MSG_TYPE.VIDEO) {
-        var s;
-        return (
-          t[14] !== n ||
-          t[15] !== a ||
-          t[16] !== i.albumMsgs ||
-          t[17] !== i.albumTheme ||
-          t[18] !== i.currentAlbumMessageIndex ||
-          t[19] !== i.displayType ||
-          t[20] !== i.msg ||
-          t[21] !== i.zoomMsg
-            ? ((s = m.jsx(r("WAWebMediaVideo.react"), {
-                theme: i.albumTheme,
-                albumMsgs: i.albumMsgs,
-                msg: i.msg,
-                currentAlbumMessageIndex: i.currentAlbumMessageIndex,
-                ref: n,
-                zoomMsg: i.zoomMsg,
-                displayAuthor: !1,
-                overlayContent: a,
-                displayType: i.displayType,
-              })),
-              (t[14] = n),
-              (t[15] = a),
-              (t[16] = i.albumMsgs),
-              (t[17] = i.albumTheme),
-              (t[18] = i.currentAlbumMessageIndex),
-              (t[19] = i.displayType),
-              (t[20] = i.msg),
-              (t[21] = i.zoomMsg),
-              (t[22] = s))
-            : (s = t[22]),
-          s
-        );
-      }
-      throw r("err")("Unexpected Album Type: " + i.msg.type);
+      var t = e.elRef,
+        n = e.overlayContent,
+        a = babelHelpers.objectWithoutPropertiesLoose(e, u);
+      if (a.msg.type === o("WAWebMsgType").MSG_TYPE.IMAGE)
+        return m.jsx(o("WAWebMessagePicture.react").ImageMessage, {
+          theme: a.albumTheme,
+          albumMsgs: a.albumMsgs,
+          msg: a.msg,
+          currentAlbumMessageIndex: a.currentAlbumMessageIndex,
+          mediaData: a.msg.mediaData,
+          ref: t,
+          isMsgVisible: a.isMsgVisible,
+          zoomMsg: a.zoomMsg,
+          overlayContent: n,
+          displayAuthor: !1,
+          displayType: a.displayType,
+        });
+      if (a.msg.type === o("WAWebMsgType").MSG_TYPE.VIDEO)
+        return m.jsx(r("WAWebMediaVideo.react"), {
+          theme: a.albumTheme,
+          albumMsgs: a.albumMsgs,
+          msg: a.msg,
+          currentAlbumMessageIndex: a.currentAlbumMessageIndex,
+          ref: t,
+          zoomMsg: a.zoomMsg,
+          displayAuthor: !1,
+          overlayContent: n,
+          displayType: a.displayType,
+        });
+      throw r("err")("Unexpected Album Type: " + a.msg.type);
     }
-    l.default = y;
+    ((b.displayName = b.name + " [from " + i.id + "]"), (l.default = y));
   },
   226,
 );

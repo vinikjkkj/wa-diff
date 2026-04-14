@@ -27,7 +27,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumUpdateTabSearchEventType",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useLazyRef",
     "useWAWebDebouncedSearch",
@@ -394,29 +393,25 @@ __d(
     }
     h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n = e.children,
-        r;
+      var t = e.children;
       return (
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((r = { surface: "channel-updates-home" }), (t[0] = r))
-          : (r = t[0]),
-        o("WAWebTimeSpentLoggingNavigation").useTsNavigation(r),
-        n
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
+          surface: "channel-updates-home",
+        }),
+        t
       );
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n = e.children,
-        r;
+      var t = e.children;
       return (
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((r = { surface: "channel-updates-home-search" }), (t[0] = r))
-          : (r = t[0]),
-        o("WAWebTimeSpentLoggingNavigation").useTsNavigation(r),
-        n
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
+          surface: "channel-updates-home-search",
+        }),
+        t
       );
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     var b = 58;
     function v(e) {
       var t = e.directoryNewsletters,

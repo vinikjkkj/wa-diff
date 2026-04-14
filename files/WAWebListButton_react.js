@@ -5,7 +5,6 @@ __d(
     "WAWebText.react",
     "WAWebUnstyledButton.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebActiveSelection",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,65 +31,35 @@ __d(
         textColorRefreshed: { color: "x1v5yvga", $$css: !0 },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(14),
-        n = e.children,
-        a = e.id,
-        i = e.onClick,
-        l = e.testid,
-        u = r("useWAWebActiveSelection")(e.active, a != null ? a : ""),
-        d = u[0],
-        m = u[1],
-        p = m && c.active,
-        _ = !m && c.hover,
-        f;
-      t[0] !== p || t[1] !== _
-        ? ((f = [c.container, p, _]), (t[0] = p), (t[1] = _), (t[2] = f))
-        : (f = t[2]);
-      var g;
-      t[3] !== n || t[4] !== e.isRefresh
-        ? ((g =
+      var t = e.children,
+        n = e.id,
+        a = e.onClick,
+        i = e.testid,
+        l = r("useWAWebActiveSelection")(e.active, n != null ? n : ""),
+        u = l[0],
+        d = l[1];
+      return s.jsx(o("WAWebFlex.react").FlexRow, {
+        ref: u,
+        xstyle: [c.container, d && c.active, !d && c.hover],
+        align: "center",
+        justify: "center",
+        testid: void 0,
+        children: s.jsx(r("WAWebUnstyledButton.react"), {
+          xstyle: c.button,
+          onClick: a,
+          children:
             e.isRefresh === !0
               ? s.jsx(o("WAWebText.react").WAWebTextTitleRefreshed, {
                   xstyle: c.textColorRefreshed,
-                  children: n,
+                  children: t,
                 })
-              : n),
-          (t[3] = n),
-          (t[4] = e.isRefresh),
-          (t[5] = g))
-        : (g = t[5]);
-      var h;
-      t[6] !== i || t[7] !== g
-        ? ((h = s.jsx(r("WAWebUnstyledButton.react"), {
-            xstyle: c.button,
-            onClick: i,
-            children: g,
-          })),
-          (t[6] = i),
-          (t[7] = g),
-          (t[8] = h))
-        : (h = t[8]);
-      var y;
-      return (
-        t[9] !== d || t[10] !== f || t[11] !== h || t[12] !== l
-          ? ((y = s.jsx(o("WAWebFlex.react").FlexRow, {
-              ref: d,
-              xstyle: f,
-              align: "center",
-              justify: "center",
-              testid: void 0,
-              children: h,
-            })),
-            (t[9] = d),
-            (t[10] = f),
-            (t[11] = h),
-            (t[12] = l),
-            (t[13] = y))
-          : (y = t[13]),
-        y
-      );
+              : t,
+        }),
+      });
     }
-    ((l.LIST_BUTTON_HEIGHT = u), (l.ListButton = d));
+    ((d.displayName = d.name + " [from " + i.id + "]"),
+      (l.LIST_BUTTON_HEIGHT = u),
+      (l.ListButton = d));
   },
   98,
 );

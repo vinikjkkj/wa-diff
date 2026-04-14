@@ -6,7 +6,6 @@ __d(
     "WAWebClassnames",
     "WAWebKeyboardIsKeyActivation",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s, u) {
@@ -38,7 +37,7 @@ __d(
         },
       };
     function _(t) {
-      var n = o("react-compiler-runtime").c(45),
+      var n,
         a = t.authorBackgroundStyle,
         i = t.children,
         l = t.clickable,
@@ -50,173 +49,50 @@ __d(
         h = f[1],
         y = !g && !!c,
         C = l ? "button" : null,
-        b;
-      n[0] !== y
-        ? ((b = function (t) {
-            y && h(!0);
-          }),
-          (n[0] = y),
-          (n[1] = b))
-        : (b = n[1]);
-      var v = b,
-        S;
-      n[2] !== g
-        ? ((S = function (t) {
-            g && h(!1);
-          }),
-          (n[2] = g),
-          (n[3] = S))
-        : (S = n[3]);
-      var R = S,
-        L;
-      n[4] !== l || n[5] !== s
-        ? ((L = function (t) {
-            r("WAWebKeyboardIsKeyActivation")(t) && l && s();
-          }),
-          (n[4] = l),
-          (n[5] = s),
-          (n[6] = L))
-        : (L = n[6]);
-      var E = L,
-        k = _ === "composeBox",
-        I;
-      if (n[7] !== g || n[8] !== k) {
-        var T;
-        ((I = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          ((T = {}), (T._aju5 = k), (T._aju6 = g), (T._aju3 = !0), T),
-        )),
-          (n[7] = g),
-          (n[8] = k),
-          (n[9] = I));
-      } else I = n[9];
-      var D = I,
-        x;
-      n[10] !== a
-        ? ((x = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            (e || (e = r("stylex")))(a),
-            "_aju7",
-          )),
-          (n[10] = a),
-          (n[11] = x))
-        : (x = n[11]);
-      var $ = x,
-        P = _ === "composeBox" && p.noBorderRadius,
-        N,
-        M,
-        w,
-        A,
-        F,
-        O,
-        B,
-        W;
-      if (
-        n[12] !== l ||
-        n[13] !== v ||
-        n[14] !== R ||
-        n[15] !== D ||
-        n[16] !== P
-      ) {
-        var q = [p.quotedMsg, p.quotedMsgRefresh, P],
-          U;
-        (n[25] === Symbol.for("react.memo_cache_sentinel")
-          ? ((U = u._(/*BTDS*/ "Quoted message")), (n[25] = U))
-          : (U = n[25]),
-          (N = U),
-          (M = "quoted-message"),
-          n[26] === Symbol.for("react.memo_cache_sentinel")
-            ? ((w = { className: "xh8yej3" }), (n[26] = w))
-            : (w = n[26]),
-          (A = l ? v : null),
-          (F = l ? v : null),
-          (O = l ? R : null),
-          (B = D),
-          (W = (e || (e = r("stylex")))(q)),
-          (n[12] = l),
-          (n[13] = v),
-          (n[14] = R),
-          (n[15] = D),
-          (n[16] = P),
-          (n[17] = N),
-          (n[18] = M),
-          (n[19] = w),
-          (n[20] = A),
-          (n[21] = F),
-          (n[22] = O),
-          (n[23] = B),
-          (n[24] = W));
-      } else
-        ((N = n[17]),
-          (M = n[18]),
-          (w = n[19]),
-          (A = n[20]),
-          (F = n[21]),
-          (O = n[22]),
-          (B = n[23]),
-          (W = n[24]));
-      var V = B + " " + W,
-        H = l ? 0 : null,
-        G = l ? s : null,
-        z;
-      n[27] !== $
-        ? ((z = d.jsx("span", { className: $ })), (n[27] = $), (n[28] = z))
-        : (z = n[28]);
-      var j;
-      n[29] !== i ||
-      n[30] !== E ||
-      n[31] !== N ||
-      n[32] !== C ||
-      n[33] !== V ||
-      n[34] !== H ||
-      n[35] !== G ||
-      n[36] !== z
-        ? ((j = d.jsxs("div", {
-            className: V,
-            role: C,
-            "aria-label": N,
-            tabIndex: H,
-            onKeyDown: E,
-            onClick: G,
-            children: [z, i],
-          })),
-          (n[29] = i),
-          (n[30] = E),
-          (n[31] = N),
-          (n[32] = C),
-          (n[33] = V),
-          (n[34] = H),
-          (n[35] = G),
-          (n[36] = z),
-          (n[37] = j))
-        : (j = n[37]);
-      var K;
-      return (
-        n[38] !== M ||
-        n[39] !== w ||
-        n[40] !== A ||
-        n[41] !== F ||
-        n[42] !== O ||
-        n[43] !== j
-          ? ((K = d.jsx(
-              "div",
-              babelHelpers.extends({ "data-testid": void 0 }, w, {
-                onMouseOver: A,
-                onMouseEnter: F,
-                onMouseLeave: O,
-                children: j,
-              }),
-            )),
-            (n[38] = M),
-            (n[39] = w),
-            (n[40] = A),
-            (n[41] = F),
-            (n[42] = O),
-            (n[43] = j),
-            (n[44] = K))
-          : (K = n[44]),
-        K
-      );
+        b = function (t) {
+          y && h(!0);
+        },
+        v = function (t) {
+          g && h(!1);
+        },
+        S = function (t) {
+          r("WAWebKeyboardIsKeyActivation")(t) && l && s();
+        },
+        R = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          ((n = {}),
+          (n._aju5 = _ === "composeBox"),
+          (n._aju6 = g),
+          (n._aju3 = !0),
+          n),
+        ),
+        L = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          (e || (e = r("stylex")))(a),
+          "_aju7",
+        ),
+        E = [
+          p.quotedMsg,
+          p.quotedMsgRefresh,
+          _ === "composeBox" && p.noBorderRadius,
+        ],
+        k = u._(/*BTDS*/ "Quoted message");
+      return d.jsx("div", {
+        "data-testid": void 0,
+        className: "xh8yej3",
+        onMouseOver: l ? b : null,
+        onMouseEnter: l ? b : null,
+        onMouseLeave: l ? v : null,
+        children: d.jsxs("div", {
+          className: R + " " + e(E),
+          role: C,
+          "aria-label": k,
+          tabIndex: l ? 0 : null,
+          onKeyDown: S,
+          onClick: l ? s : null,
+          children: [d.jsx("span", { className: L }), i],
+        }),
+      });
     }
-    l.default = _;
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );

@@ -9,7 +9,6 @@ __d(
     "WAWebFontLoader",
     "WAWebLexicalUtils",
     "react",
-    "react-compiler-runtime",
     "useWAWebABPropConfigValue",
     "useWAWebLexicalEvent",
   ],
@@ -131,82 +130,62 @@ __d(
       }
     }
     function x(e) {
-      var t = o("react-compiler-runtime").c(16),
-        n = e.emojiSize,
-        r = e.transformTextEmoji,
-        a = o("LexicalComposerContext").useLexicalComposerContext(),
-        i = a[0],
-        l = o("useWAWebABPropConfigValue").useABPropConfigValue(
+      var t = e.emojiSize,
+        n = e.transformTextEmoji,
+        r = o("LexicalComposerContext").useLexicalComposerContext(),
+        a = r[0],
+        i = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "custom_racing_emoji",
         ),
-        u = o("useWAWebABPropConfigValue").useABPropConfigValue(
+        l = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "custom_racing_emoji_feb2025",
-        ),
-        d,
-        m;
-      (t[0] !== i || t[1] !== n || t[2] !== r
-        ? ((d = function () {
-            var e = i.registerNodeTransform(
+        );
+      return (
+        s(
+          function () {
+            var e = a.registerNodeTransform(
                 o("Lexical").TextNode,
                 function (e) {
-                  c(e, n);
+                  c(e, t);
                 },
               ),
-              t = i.registerNodeTransform(o("Lexical").TextNode, function (e) {
-                r && D(e, n);
+              r = a.registerNodeTransform(o("Lexical").TextNode, function (e) {
+                n && D(e, t);
               });
             return function () {
-              (e(), t());
+              (e(), r());
             };
-          }),
-          (m = [i, n, r]),
-          (t[0] = i),
-          (t[1] = n),
-          (t[2] = r),
-          (t[3] = d),
-          (t[4] = m))
-        : ((d = t[3]), (m = t[4])),
-        s(d, m));
-      var p;
-      t[5] !== i || t[6] !== n
-        ? ((p = function () {
-            i.update(function () {
+          },
+          [a, t, n],
+        ),
+        s(
+          function () {
+            a.update(function () {
               var e = [];
-              for (var t of o("WAWebLexicalUtils").textNodesIterator(
+              for (var n of o("WAWebLexicalUtils").textNodesIterator(
                 o("Lexical").$getRoot(),
               ))
-                o("WAWebEmojiNode").$isEmojiNode(t) && e.push(t);
+                o("WAWebEmojiNode").$isEmojiNode(n) && e.push(n);
               e.forEach(function (e) {
                 e.replace(
                   o("WAWebEmojiNode").$createEmojiNode(
                     e.emoji(),
                     e.textEmoji(),
-                    n,
+                    t,
                   ),
                 );
               });
             });
-          }),
-          (t[5] = i),
-          (t[6] = n),
-          (t[7] = p))
-        : (p = t[7]);
-      var _;
-      (t[8] !== i || t[9] !== n || t[10] !== u || t[11] !== l
-        ? ((_ = [i, n, l, u]),
-          (t[8] = i),
-          (t[9] = n),
-          (t[10] = u),
-          (t[11] = l),
-          (t[12] = _))
-        : (_ = t[12]),
-        s(p, _));
-      var f;
-      (t[13] !== i
-        ? ((f = function () {
+          },
+          [a, t, i, l],
+        ),
+        o("useWAWebLexicalEvent").useLexicalCommandListener(
+          a,
+          o("Lexical").KEY_BACKSPACE_COMMAND,
+          function () {
             var e;
             return (
-              i.update(
+              a.update(
                 function () {
                   var t = o("WAWebLexicalUtils").$getPreviousRangeSelection();
                   if (!(!t || !t.isCollapsed())) {
@@ -218,7 +197,7 @@ __d(
                 {
                   onUpdate: function () {
                     e != null &&
-                      i.update(
+                      a.update(
                         function () {
                           e != null && o("WAWebLexicalUtils").$insertText(e);
                         },
@@ -229,27 +208,14 @@ __d(
               ),
               !1
             );
-          }),
-          (t[13] = i),
-          (t[14] = f))
-        : (f = t[14]),
-        o("useWAWebLexicalEvent").useLexicalCommandListener(
-          i,
-          o("Lexical").KEY_BACKSPACE_COMMAND,
-          f,
-        ));
-      var g;
-      return (
-        t[15] === Symbol.for("react.memo_cache_sentinel")
-          ? ((g = []), (t[15] = g))
-          : (g = t[15]),
-        s($, g),
+          },
+        ),
+        s(function () {
+          o("WAWebFontLoader").FontLoader.load(
+            o("WAWebFontLoader").Font.NOTO_EMOJI,
+          );
+        }, []),
         null
-      );
-    }
-    function $() {
-      o("WAWebFontLoader").FontLoader.load(
-        o("WAWebFontLoader").Font.NOTO_EMOJI,
       );
     }
     l.default = x;

@@ -27,6 +27,7 @@ __d(
     "WAWebDoubleChevronInCircleIcon.react",
     "WAWebEnvironment",
     "WAWebEphemeralityFrontendUtils",
+    "WAWebFMXGatingUtils",
     "WAWebGroupType",
     "WAWebHasAcceptedBizBotTos",
     "WAWebIdleComponent.react",
@@ -59,7 +60,6 @@ __d(
     "gkx",
     "isStringNullOrEmpty",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useLazyRef",
     "useWAWebDefaultProfileColors",
@@ -508,47 +508,25 @@ __d(
     }
     E.displayName = E.name + " [from " + i.id + "]";
     function k(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["imgFull"]), (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebModelValues").useModelValues(e.profilePicThumb, n),
-        a;
-      return (
-        t[1] !== r.imgFull || t[2] !== e
-          ? ((a = c.jsx(
-              E,
-              babelHelpers.extends({}, e, { profilePicThumbImg: r.imgFull }),
-            )),
-            (t[1] = r.imgFull),
-            (t[2] = e),
-            (t[3] = a))
-          : (a = t[3]),
-        a
+      var t = o("useWAWebModelValues").useModelValues(e.profilePicThumb, [
+        "imgFull",
+      ]);
+      return c.jsx(
+        E,
+        babelHelpers.extends({}, e, { profilePicThumbImg: t.imgFull }),
       );
     }
+    k.displayName = k.name + " [from " + i.id + "]";
     function I(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = ["img"]), (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebModelValues").useModelValues(e.profilePicThumb, n),
-        a;
-      return (
-        t[1] !== r.img || t[2] !== e
-          ? ((a = c.jsx(
-              E,
-              babelHelpers.extends({}, e, { profilePicThumbImg: r.img }),
-            )),
-            (t[1] = r.img),
-            (t[2] = e),
-            (t[3] = a))
-          : (a = t[3]),
-        a
+      var t = o("useWAWebModelValues").useModelValues(e.profilePicThumb, [
+        "img",
+      ]);
+      return c.jsx(
+        E,
+        babelHelpers.extends({}, e, { profilePicThumbImg: t.img }),
       );
     }
+    I.displayName = I.name + " [from " + i.id + "]";
     function T(e) {
       return e === "group_profile_picture" ||
         e === "group_profile_picture_in_bubble"
@@ -678,11 +656,12 @@ __d(
         );
         ((Se = Ee == null ? void 0 : Ee.groupType), (Re = Ee));
       }
-      o("useWAWebListener").useListener(
+      (o("useWAWebListener").useListener(
         ye != null && o("WAWebChatGetters").getIsGroup(ye) ? Re : ye,
         "change:ephemeralDuration",
         me,
-      );
+      ),
+        o("useWAWebListener").useListener(ye, "change:isSenderSuspicious", me));
       var ke = r("useWAWebEventTargetValue")(
           Re,
           "change:hiddenSubgroup",
@@ -763,36 +742,43 @@ __d(
       var we = function () {
           var e = null,
             t;
+          X
+            ? (t = o(
+                "WAWebProfilePicThumbCollection",
+              ).ProfilePicThumbCollection.gadd(Ce))
+            : (t = o(
+                "WAWebProfilePicThumbCollection",
+              ).ProfilePicThumbCollection.get(Ce));
+          var n =
+            ye != null &&
+            !ye.trusted &&
+            ye.isSenderSuspicious === !0 &&
+            o("WAWebFMXGatingUtils").isSuspiciousFmxEnabled();
           return (
-            X
-              ? (t = o(
-                  "WAWebProfilePicThumbCollection",
-                ).ProfilePicThumbCollection.gadd(Ce))
-              : (t = o(
-                  "WAWebProfilePicThumbCollection",
-                ).ProfilePicThumbCollection.get(Ce)),
-            t
-              ? g === b.High
-                ? (e = c.jsx(k, {
-                    profilePicThumb: t,
-                    defaultIcon: Pe,
-                    loader: S,
-                    onLoad: E,
-                    alt: z,
-                    shape: A,
-                    id: Ce,
-                  }))
-                : (e = c.jsx(I, {
-                    profilePicThumb: t,
-                    defaultIcon: Pe,
-                    loader: S,
-                    onLoad: E,
-                    alt: z,
-                    loadingAnimation: J,
-                    shape: A,
-                    id: Ce,
-                  }))
-              : (e = Pe),
+            n
+              ? (e = Pe)
+              : t
+                ? g === b.High
+                  ? (e = c.jsx(k, {
+                      profilePicThumb: t,
+                      defaultIcon: Pe,
+                      loader: S,
+                      onLoad: E,
+                      alt: z,
+                      shape: A,
+                      id: Ce,
+                    }))
+                  : (e = c.jsx(I, {
+                      profilePicThumb: t,
+                      defaultIcon: Pe,
+                      loader: S,
+                      onLoad: E,
+                      alt: z,
+                      loadingAnimation: J,
+                      shape: A,
+                      id: Ce,
+                    }))
+                : (e = Pe),
             c.jsxs(
               "div",
               babelHelpers.extends(
@@ -913,370 +899,215 @@ __d(
     }
     $.displayName = $.name + " [from " + i.id + "]";
     function P(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.iconScheme,
-        a = e.shouldShowAdsDataSharingIcon,
+      var t = e.iconScheme,
+        n = e.shouldShowAdsDataSharingIcon,
+        a = n === void 0 ? !1 : n,
         i = e.shouldShowAIGroupIcon,
-        l = e.shouldShowBizAiDataSharingIcon,
-        s = e.shouldShowEphemeralIcon,
-        u = e.shouldShowHiddenSubgroupIcon,
-        d = a === void 0 ? !1 : a,
-        m = i === void 0 ? !1 : i,
-        p = l === void 0 ? !1 : l,
-        _ = s === void 0 ? !1 : s,
-        f = u === void 0 ? !1 : u;
-      if (p) {
-        var g;
-        return (
-          t[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((g = c.jsx(
-                o("WAWebDoubleChevronInCircleIcon.react")
-                  .DoubleChevronInCircleIcon,
-                {
-                  iconXstyle: [
-                    R.svgSize,
-                    R.badgeIconSVG,
-                    R.dataSharingUpdatedStyleIcon,
-                  ],
-                },
-              )),
-              (t[0] = g))
-            : (g = t[0]),
-          g
+        l = i === void 0 ? !1 : i,
+        s = e.shouldShowBizAiDataSharingIcon,
+        u = s === void 0 ? !1 : s,
+        d = e.shouldShowEphemeralIcon,
+        m = d === void 0 ? !1 : d,
+        p = e.shouldShowHiddenSubgroupIcon,
+        _ = p === void 0 ? !1 : p;
+      if (u)
+        return c.jsx(
+          o("WAWebDoubleChevronInCircleIcon.react").DoubleChevronInCircleIcon,
+          {
+            iconXstyle: [
+              R.svgSize,
+              R.badgeIconSVG,
+              R.dataSharingUpdatedStyleIcon,
+            ],
+          },
         );
-      }
-      if (d) {
-        var h;
-        return (
-          t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((h = c.jsx(
-                o("WAWebSingleChevronInCircleIcon.react")
-                  .SingleChevronInCircleIcon,
-                {
-                  iconXstyle: [
-                    R.svgSize,
-                    R.badgeIconSVG,
-                    R.dataSharingNewStyleIcon,
-                  ],
-                },
-              )),
-              (t[1] = h))
-            : (h = t[1]),
-          h
+      if (a)
+        return c.jsx(
+          o("WAWebSingleChevronInCircleIcon.react").SingleChevronInCircleIcon,
+          {
+            iconXstyle: [R.svgSize, R.badgeIconSVG, R.dataSharingNewStyleIcon],
+          },
         );
-      }
       if (
         o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
-        m
-      ) {
-        var y;
-        return (
-          t[2] === Symbol.for("react.memo_cache_sentinel")
-            ? ((y = c.jsx(r("WAWebMetaAIIcon.react"), {
-                height: 17,
-                width: 17,
-              })),
-              (t[2] = y))
-            : (y = t[2]),
-          y
-        );
-      }
-      var C = o("WAWebMiscGatingUtils").isBlueEnabled()
+        l
+      )
+        return c.jsx(r("WAWebMetaAIIcon.react"), { height: 17, width: 17 });
+      var f = o("WAWebMiscGatingUtils").isBlueEnabled()
           ? o("WAWebPsaVerifiedBlueIcon.react").PsaVerifiedBlueIcon
           : o("WAWebPsaVerifiedIcon.react").PsaVerifiedIcon,
-        b;
-      _ === !0
-        ? (b = r("WDSIconWdsIcDisappearingMessages.react"))
-        : f
-          ? (b = r("WDSIconIcVisibilityOff.react"))
-          : (b = C);
-      var v = n === "subgroup-join-modal" && R.subgroupJoinModalSvgStyle,
-        S;
-      t[3] !== v
-        ? ((S = {
-            xstyle: R.badgeIconPathSVG,
-            iconXstyle: [R.svgSize, R.badgeIconSVG, v],
-          }),
-          (t[3] = v),
-          (t[4] = S))
-        : (S = t[4]);
-      var L = S;
-      if (_ === !0) {
-        var E;
-        return (
-          t[5] !== L
-            ? ((E = c.jsx(
-                r("WDSIconWdsIcDisappearingMessages.react"),
-                babelHelpers.extends({ testid: void 0 }, L),
-              )),
-              (t[5] = L),
-              (t[6] = E))
-            : (E = t[6]),
-          E
-        );
-      }
-      var k;
-      return (
-        t[7] !== b || t[8] !== L
-          ? ((k = c.jsx(b, babelHelpers.extends({}, L))),
-            (t[7] = b),
-            (t[8] = L),
-            (t[9] = k))
-          : (k = t[9]),
-        k
-      );
+        g;
+      m === !0
+        ? (g = r("WDSIconWdsIcDisappearingMessages.react"))
+        : _
+          ? (g = r("WDSIconIcVisibilityOff.react"))
+          : (g = f);
+      var h = {
+        xstyle: R.badgeIconPathSVG,
+        iconXstyle: [
+          R.svgSize,
+          R.badgeIconSVG,
+          t === "subgroup-join-modal" && R.subgroupJoinModalSvgStyle,
+        ],
+      };
+      return m === !0
+        ? c.jsx(
+            r("WDSIconWdsIcDisappearingMessages.react"),
+            babelHelpers.extends({ testid: void 0 }, h),
+          )
+        : c.jsx(g, babelHelpers.extends({}, h));
     }
+    P.displayName = P.name + " [from " + i.id + "]";
     function N(t) {
-      var n = o("react-compiler-runtime").c(63),
-        a = t.authorColor,
-        i = t.groupType,
-        l = t.id,
-        s = t.quoted,
-        u = t.shape,
-        d = t.theme,
-        m = t.xstyle,
-        p = o("useWAWebDefaultProfileColors").useDefaultProfileColors(l),
-        _ = p.background,
-        f = p.foreground,
-        g = o("useWAWebGroupColors").useGroupsColorStyle(
-          a != null ? a : 1,
+      var n = t.authorColor,
+        a = t.groupType,
+        i = t.id,
+        l = t.quoted,
+        s = t.shape,
+        u = t.theme,
+        d = t.xstyle,
+        m = o("useWAWebDefaultProfileColors").useDefaultProfileColors(i),
+        p = m.background,
+        _ = m.foreground,
+        f = o("useWAWebGroupColors").useGroupsColorStyle(
+          n != null ? n : 1,
           "color",
         ),
-        h;
-      n[0] !== _ || n[1] !== m
-        ? ((h = [
-            R.svgSize,
-            R.circleIconRefreshed,
-            R.profilePictureOutlineRefreshed,
-            _,
-            m,
-          ]),
-          (n[0] = _),
-          (n[1] = m),
-          (n[2] = h))
-        : (h = n[2]);
-      var y = f != null ? f : R.primaryFill,
-        C;
-      n[3] !== y ? ((C = { primary: y }), (n[3] = y), (n[4] = C)) : (C = n[4]);
-      var b;
-      n[5] !== h || n[6] !== C
-        ? ((b = c.jsx(
-            o("WAWebDefaultContactRefreshedIcon.react")
-              .DefaultContactRefreshedIcon,
-            { iconXstyle: h, "aria-hidden": !0, innerStyles: C },
-          )),
-          (n[5] = h),
-          (n[6] = C),
-          (n[7] = b))
-        : (b = n[7]);
-      var L = b;
-      if (r("WAWebWid").isUser(l) && !r("WAWebWid").isPSA(l) && s) {
-        var E;
-        n[8] !== m
-          ? ((E = [R.svgSize, m]), (n[8] = m), (n[9] = E))
-          : (E = n[9]);
-        var k;
-        n[10] === Symbol.for("react.memo_cache_sentinel")
-          ? ((k = { primary: R.primaryFill, background: R.backgroundFill }),
-            (n[10] = k))
-          : (k = n[10]);
-        var I;
-        (n[11] !== E
-          ? ((I = c.jsx(
-              o("WAWebDefaultUserSquareIcon.react").DefaultUserSquareIcon,
-              { iconXstyle: E, "aria-hidden": !0, innerStyles: k },
-            )),
-            (n[11] = E),
-            (n[12] = I))
-          : (I = n[12]),
-          (L = I));
-      } else if (r("WAWebWid").isGroup(l))
-        if (i === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP) {
-          var T;
-          (n[13] !== m
-            ? ((T = c.jsx(
-                o("WAWebAnnouncementSpeakerIcon.react").AnnouncementSpeakerIcon,
-                {
-                  iconXstyle: [R.svgSize, R.announcementSpeaker, m],
-                  directional: !0,
-                  "aria-hidden": !0,
-                },
-              )),
-              (n[13] = m),
-              (n[14] = T))
-            : (T = n[14]),
-            (L = T));
-        } else if (
-          i === o("WAWebGroupType").GroupType.COMMUNITY ||
-          u === v.Squircle
-        ) {
-          var D;
-          n[15] === Symbol.for("react.memo_cache_sentinel")
-            ? ((D = { className: "x1n2onr6 xh8yej3 x5yr21d x1f2iure" }),
-              (n[15] = D))
-            : (D = n[15]);
-          var x;
-          n[16] !== _
-            ? ((x = (e || (e = r("stylex"))).props(
-                R.squircleIconBackground,
-                _,
-              )),
-              (n[16] = _),
-              (n[17] = x))
-            : (x = n[17]);
-          var $;
-          n[18] !== m
-            ? (($ = [R.svgSize, R.communitySquircle, m]),
-              (n[18] = m),
-              (n[19] = $))
-            : ($ = n[19]);
-          var P = f != null ? f : R.primaryFill,
-            N;
-          n[20] !== P
-            ? ((N = { primary: P }), (n[20] = P), (n[21] = N))
-            : (N = n[21]);
-          var M;
-          n[22] !== $ || n[23] !== N
-            ? ((M = c.jsx(
-                o("WAWebDefaultCommunityRefreshedIcon.react")
-                  .DefaultCommunityRefreshedIcon,
-                { iconXstyle: $, "aria-hidden": !0, innerStyles: N },
-              )),
-              (n[22] = $),
-              (n[23] = N),
-              (n[24] = M))
-            : (M = n[24]);
-          var w;
-          n[25] !== M || n[26] !== x
-            ? ((w = c.jsx("div", babelHelpers.extends({}, x, { children: M }))),
-              (n[25] = M),
-              (n[26] = x),
-              (n[27] = w))
-            : (w = n[27]);
-          var A;
-          n[28] === Symbol.for("react.memo_cache_sentinel")
-            ? ((A = c.jsx(r("WAWebSquircleStroke.react"), {})), (n[28] = A))
-            : (A = n[28]);
-          var F;
-          (n[29] !== w
-            ? ((F = c.jsxs(
-                "div",
-                babelHelpers.extends({}, D, { children: [w, A] }),
-              )),
-              (n[29] = w),
-              (n[30] = F))
-            : (F = n[30]),
-            (L = F));
-        } else if (
-          i === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP &&
-          o("WAWebCommunityGatingUtils").communityGeneralChatUIEnabled()
-        ) {
-          var O;
-          (n[31] === Symbol.for("react.memo_cache_sentinel")
-            ? ((O = c.jsx(
-                o("WAWebCommunityGeneralChatImage.react")
-                  .CommunityGeneralChatImage,
-                {},
-              )),
-              (n[31] = O))
-            : (O = n[31]),
-            (L = O));
-        } else {
-          var B;
-          n[32] !== _ || n[33] !== m
-            ? ((B = [
-                R.svgSize,
-                R.circleIconRefreshed,
-                R.profilePictureOutlineRefreshed,
-                _,
-                m,
-              ]),
-              (n[32] = _),
-              (n[33] = m),
-              (n[34] = B))
-            : (B = n[34]);
-          var W = f != null ? f : R.primaryFill,
-            q;
-          n[35] !== W
-            ? ((q = { primary: W }), (n[35] = W), (n[36] = q))
-            : (q = n[36]);
-          var U;
-          (n[37] !== B || n[38] !== q
-            ? ((U = c.jsx(
-                o("WAWebDefaultGroupRefreshedIcon.react")
-                  .DefaultGroupRefreshedIcon,
-                { iconXstyle: B, "aria-hidden": !0, innerStyles: q },
-              )),
-              (n[37] = B),
-              (n[38] = q),
-              (n[39] = U))
-            : (U = n[39]),
-            (L = U));
-        }
-      else if (r("WAWebWid").isBroadcast(l)) {
-        var V;
-        n[40] !== m
-          ? ((V = (e || (e = r("stylex"))).props(
+        g = c.jsx(
+          o("WAWebDefaultContactRefreshedIcon.react")
+            .DefaultContactRefreshedIcon,
+          {
+            iconXstyle: [
               R.svgSize,
               R.circleIconRefreshed,
               R.profilePictureOutlineRefreshed,
-              R.broadcastIconContainer,
-              m,
-            )),
-            (n[40] = m),
-            (n[41] = V))
-          : (V = n[41]);
-        var H;
-        n[42] === Symbol.for("react.memo_cache_sentinel")
-          ? ((H = c.jsx(r("WDSIconWdsIcBroadcastMessageFill.react"), {
-              xstyle: R.broadcastIconOuter,
-              iconXstyle: R.svgSize,
+              p,
+              d,
+            ],
+            "aria-hidden": !0,
+            innerStyles: { primary: _ != null ? _ : R.primaryFill },
+          },
+        );
+      r("WAWebWid").isUser(i) && !r("WAWebWid").isPSA(i) && l
+        ? (g = c.jsx(
+            o("WAWebDefaultUserSquareIcon.react").DefaultUserSquareIcon,
+            {
+              iconXstyle: [R.svgSize, d],
               "aria-hidden": !0,
-            })),
-            (n[42] = H))
-          : (H = n[42]);
-        var G;
-        (n[43] !== V
-          ? ((G = c.jsx("div", babelHelpers.extends({}, V, { children: H }))),
-            (n[43] = V),
-            (n[44] = G))
-          : (G = n[44]),
-          (L = G));
-      } else if (r("WAWebWid").isPSA(l)) {
-        var z;
-        (n[45] !== m
-          ? ((z = c.jsx(o("WAWebWaChatPsaIcon.react").WaChatPsaIcon, {
-              iconXstyle: [R.svgSize, R.avatarDefaultPSA, m],
-              "aria-hidden": !0,
-            })),
-            (n[45] = m),
-            (n[46] = z))
-          : (z = n[46]),
-          (L = z));
-      } else if (r("WAWebWid").isNewsletter(l)) {
-        var j;
-        n[47] !== m
-          ? ((j = [R.svgSize, R.newsletter, m]), (n[47] = m), (n[48] = j))
-          : (j = n[48]);
-        var K;
-        n[49] === Symbol.for("react.memo_cache_sentinel")
-          ? ((K = { primary: R.primaryFill, background: R.backgroundFill }),
-            (n[49] = K))
-          : (K = n[49]);
-        var Q;
-        (n[50] !== j
-          ? ((Q = c.jsx(
-              o("WAWebDefaultNewsletterIcon.react").DefaultNewsletterIcon,
-              { iconXstyle: j, "aria-hidden": !0, innerStyles: K },
-            )),
-            (n[50] = j),
-            (n[51] = Q))
-          : (Q = n[51]),
-          (L = Q));
-      }
-      var X;
-      n[52] !== d
-        ? ((X = {
+              innerStyles: {
+                primary: R.primaryFill,
+                background: R.backgroundFill,
+              },
+            },
+          ))
+        : r("WAWebWid").isGroup(i)
+          ? a === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
+            ? (g = c.jsx(
+                o("WAWebAnnouncementSpeakerIcon.react").AnnouncementSpeakerIcon,
+                {
+                  iconXstyle: [R.svgSize, R.announcementSpeaker, d],
+                  directional: !0,
+                  "aria-hidden": !0,
+                },
+              ))
+            : a === o("WAWebGroupType").GroupType.COMMUNITY || s === v.Squircle
+              ? (g = c.jsxs("div", {
+                  className: "x1n2onr6 xh8yej3 x5yr21d x1f2iure",
+                  children: [
+                    c.jsx(
+                      "div",
+                      babelHelpers.extends(
+                        {},
+                        (e || (e = r("stylex"))).props(
+                          R.squircleIconBackground,
+                          p,
+                        ),
+                        {
+                          children: c.jsx(
+                            o("WAWebDefaultCommunityRefreshedIcon.react")
+                              .DefaultCommunityRefreshedIcon,
+                            {
+                              iconXstyle: [R.svgSize, R.communitySquircle, d],
+                              "aria-hidden": !0,
+                              innerStyles: {
+                                primary: _ != null ? _ : R.primaryFill,
+                              },
+                            },
+                          ),
+                        },
+                      ),
+                    ),
+                    c.jsx(r("WAWebSquircleStroke.react"), {}),
+                  ],
+                }))
+              : a === o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP &&
+                  o("WAWebCommunityGatingUtils").communityGeneralChatUIEnabled()
+                ? (g = c.jsx(
+                    o("WAWebCommunityGeneralChatImage.react")
+                      .CommunityGeneralChatImage,
+                    {},
+                  ))
+                : (g = c.jsx(
+                    o("WAWebDefaultGroupRefreshedIcon.react")
+                      .DefaultGroupRefreshedIcon,
+                    {
+                      iconXstyle: [
+                        R.svgSize,
+                        R.circleIconRefreshed,
+                        R.profilePictureOutlineRefreshed,
+                        p,
+                        d,
+                      ],
+                      "aria-hidden": !0,
+                      innerStyles: { primary: _ != null ? _ : R.primaryFill },
+                    },
+                  ))
+          : r("WAWebWid").isBroadcast(i)
+            ? (g = c.jsx(
+                "div",
+                babelHelpers.extends(
+                  {},
+                  (e || (e = r("stylex"))).props(
+                    R.svgSize,
+                    R.circleIconRefreshed,
+                    R.profilePictureOutlineRefreshed,
+                    R.broadcastIconContainer,
+                    d,
+                  ),
+                  {
+                    children: c.jsx(
+                      r("WDSIconWdsIcBroadcastMessageFill.react"),
+                      {
+                        xstyle: R.broadcastIconOuter,
+                        iconXstyle: R.svgSize,
+                        "aria-hidden": !0,
+                      },
+                    ),
+                  },
+                ),
+              ))
+            : r("WAWebWid").isPSA(i)
+              ? (g = c.jsx(o("WAWebWaChatPsaIcon.react").WaChatPsaIcon, {
+                  iconXstyle: [R.svgSize, R.avatarDefaultPSA, d],
+                  "aria-hidden": !0,
+                }))
+              : r("WAWebWid").isNewsletter(i) &&
+                (g = c.jsx(
+                  o("WAWebDefaultNewsletterIcon.react").DefaultNewsletterIcon,
+                  {
+                    iconXstyle: [R.svgSize, R.newsletter, d],
+                    "aria-hidden": !0,
+                    innerStyles: {
+                      primary: R.primaryFill,
+                      background: R.backgroundFill,
+                    },
+                  },
+                ));
+      var h = c.createElement(
+        "div",
+        babelHelpers.extends(
+          {},
+          {
             0: {
               className:
                 "x10l6tqk x13vifvy x1o0tod x78zum5 x6s0dn4 xl56j7k xh8yej3 x5yr21d",
@@ -1310,56 +1141,32 @@ __d(
                 "x13vifvy x1o0tod x6s0dn4 xl56j7k xfimr68 x1jpgh95 xgd8bvy x1fgtraw x1n2onr6 x1lliihq",
             },
           }[
-            ((d === S.Status) << 2) |
-              ((d === S.MediaHub) << 1) |
-              ((d === S.GroupStatus) << 0)
-          ]),
-          (n[52] = d),
-          (n[53] = X))
-        : (X = n[53]);
-      var Y;
-      n[54] !== L || n[55] !== X
-        ? ((Y = c.createElement(
+            ((u === S.Status) << 2) |
+              ((u === S.MediaHub) << 1) |
+              ((u === S.GroupStatus) << 0)
+          ],
+          { key: "default" },
+        ),
+        g,
+      );
+      return (
+        u === S.GroupChatProfilePicture &&
+          (h = c.jsx(
             "div",
-            babelHelpers.extends({}, X, { key: "default" }),
-            L,
-          )),
-          (n[54] = L),
-          (n[55] = X),
-          (n[56] = Y))
-        : (Y = n[56]);
-      var J = Y;
-      if (d === S.GroupChatProfilePicture) {
-        var Z;
-        n[57] === Symbol.for("react.memo_cache_sentinel")
-          ? ((Z = {
+            {
               className:
                 "x10l6tqk x13vifvy x1o0tod x78zum5 x6s0dn4 xl56j7k xh8yej3 x5yr21d",
-            }),
-            (n[57] = Z))
-          : (Z = n[57]);
-        var ee;
-        n[58] !== m
-          ? ((ee = [R.svgSize, m]), (n[58] = m), (n[59] = ee))
-          : (ee = n[59]);
-        var te;
-        (n[60] !== g || n[61] !== ee
-          ? ((te = c.createElement(
-              "div",
-              babelHelpers.extends({}, Z, { key: "default" }),
-              c.jsx(o("WAWebDefaultUserColorIcon.react").DefaultUserColorIcon, {
-                iconXstyle: ee,
-                xstyle: g,
-              }),
-            )),
-            (n[60] = g),
-            (n[61] = ee),
-            (n[62] = te))
-          : (te = n[62]),
-          (J = te));
-      }
-      return J;
+              children: c.jsx(
+                o("WAWebDefaultUserColorIcon.react").DefaultUserColorIcon,
+                { iconXstyle: [R.svgSize, d], xstyle: f },
+              ),
+            },
+            "default",
+          )),
+        h
+      );
     }
+    N.displayName = N.name + " [from " + i.id + "]";
     function M(e, t) {
       return !!(
         e != null &&

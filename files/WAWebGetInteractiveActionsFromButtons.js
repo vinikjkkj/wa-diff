@@ -185,7 +185,7 @@ __d(
           (o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "getCtaAppInteractiveAction: failed to parse buttonParamsJson, using fallback url",
+                "getCtaAppInteractiveAction: buttonParamsJson parse failed",
               ])),
           ),
             (r = t.data.url));

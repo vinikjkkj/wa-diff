@@ -6,7 +6,6 @@ __d(
     "WAWebVideoPlaceholderIcon.react",
     "WDSIconIcDescription.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,113 +47,48 @@ __d(
         marginEnd8: { marginInlineEnd: "xqf2s3x", $$css: !0 },
       };
     function d(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.file,
-        a = p(n) || _(n) ? c.placeholderIcon : c.documentIcon,
-        i;
-      if (p(n)) {
-        var l;
-        (t[0] !== a
-          ? ((l = u.jsx(o("WAWebImageIcon.react").ImageIcon, {
-              iconXstyle: a,
-            })),
-            (t[0] = a),
-            (t[1] = l))
-          : (l = t[1]),
-          (i = l));
-      } else if (_(n)) {
-        var s;
-        (t[2] !== a
-          ? ((s = u.jsx(
-              o("WAWebVideoPlaceholderIcon.react").VideoPlaceholderIcon,
-              { iconXstyle: a },
-            )),
-            (t[2] = a),
-            (t[3] = s))
-          : (s = t[3]),
-          (i = s));
-      } else {
-        var d;
-        (t[4] !== a
-          ? ((d = u.jsx(r("WDSIconIcDescription.react"), { iconXstyle: a })),
-            (t[4] = a),
-            (t[5] = d))
-          : (d = t[5]),
-          (i = d));
-      }
-      var m;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((m = { className: "x78zum5 x6s0dn4 xl56j7k xh8yej3 x5yr21d" }),
-          (t[6] = m))
-        : (m = t[6]);
-      var f;
+      var t = e.file,
+        n = p(t) || _(t) ? c.placeholderIcon : c.documentIcon,
+        a;
       return (
-        t[7] !== i
-          ? ((f = u.jsx("div", babelHelpers.extends({}, m, { children: i }))),
-            (t[7] = i),
-            (t[8] = f))
-          : (f = t[8]),
-        f
+        p(t)
+          ? (a = u.jsx(o("WAWebImageIcon.react").ImageIcon, { iconXstyle: n }))
+          : _(t)
+            ? (a = u.jsx(
+                o("WAWebVideoPlaceholderIcon.react").VideoPlaceholderIcon,
+                { iconXstyle: n },
+              ))
+            : (a = u.jsx(r("WDSIconIcDescription.react"), { iconXstyle: n })),
+        u.jsx("div", {
+          className: "x78zum5 x6s0dn4 xl56j7k xh8yej3 x5yr21d",
+          children: a,
+        })
       );
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(t) {
-      var n = o("react-compiler-runtime").c(14),
-        a = t.file;
-      if (p(a)) {
-        var i;
-        n[0] !== a
-          ? ((i = URL.createObjectURL(a)), (n[0] = a), (n[1] = i))
-          : (i = n[1]);
-        var l = i,
-          s;
-        n[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((s = (e || (e = r("stylex")))([
-              c.thumbContainer,
-              c.thumb,
-              c.marginEnd8,
-            ])),
-            (n[2] = s))
-          : (s = n[2]);
-        var m = "url(" + l + ")",
-          _;
-        n[3] !== m
-          ? ((_ = { backgroundImage: m }), (n[3] = m), (n[4] = _))
-          : (_ = n[4]);
-        var f;
-        return (
-          n[5] !== s || n[6] !== _
-            ? ((f = u.jsx("div", { className: s, style: _ })),
-              (n[5] = s),
-              (n[6] = _),
-              (n[7] = f))
-            : (f = n[7]),
-          f
-        );
-      }
-      var g;
-      n[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = (e || (e = r("stylex")))([
+      var n = t.file;
+      if (p(n)) {
+        var o = URL.createObjectURL(n);
+        return u.jsx("div", {
+          className: (e || (e = r("stylex")))([
             c.thumbContainer,
             c.thumb,
             c.marginEnd8,
-          ])),
-          (n[8] = g))
-        : (g = n[8]);
-      var h;
-      n[9] !== a
-        ? ((h = u.jsx(d, { file: a })), (n[9] = a), (n[10] = h))
-        : (h = n[10]);
-      var y;
-      return (
-        n[11] !== g || n[12] !== h
-          ? ((y = u.jsx("div", { className: g, children: h })),
-            (n[11] = g),
-            (n[12] = h),
-            (n[13] = y))
-          : (y = n[13]),
-        y
-      );
+          ]),
+          style: { backgroundImage: "url(" + o + ")" },
+        });
+      }
+      return u.jsx("div", {
+        className: (e || (e = r("stylex")))([
+          c.thumbContainer,
+          c.thumb,
+          c.marginEnd8,
+        ]),
+        children: u.jsx(d, { file: n }),
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       return e.type.startsWith(
         o("WAAsConsumerApplication").IMAGE_MIME_TYPE.split("/")[0] + "/",

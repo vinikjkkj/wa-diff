@@ -81,7 +81,6 @@ __d(
     "WAWebVcardParsingUtils",
     "cr:10210",
     "react",
-    "react-compiler-runtime",
     "useWAWebModelValues",
     "useWAWebMsgValues",
     "useWAWebStableCallback",
@@ -96,149 +95,71 @@ __d(
       _ = m.useImperativeHandle,
       f = m.useRef;
     function g(e) {
-      var t = o("react-compiler-runtime").c(25),
-        n = e.chat,
-        a = e.displayType,
-        i = e.isFollowUpReply,
-        l = e.isMsgVisible,
-        s = e.msg,
-        u = e.t;
+      var t = e.chat,
+        n = e.displayType,
+        a = e.isFollowUpReply,
+        i = e.isMsgVisible,
+        l = e.msg,
+        s = e.t;
       if (
-        a === o("WAWebDisplayType").DISPLAY_TYPE.GALLERY ||
-        a === o("WAWebDisplayType").DISPLAY_TYPE.ALL_REPLIES
+        n === o("WAWebDisplayType").DISPLAY_TYPE.GALLERY ||
+        n === o("WAWebDisplayType").DISPLAY_TYPE.ALL_REPLIES
       )
         return null;
       if (
-        s.quotedType === o("WAWebQuotedMsgUtils").QuotedType.AUTO &&
-        i === !0 &&
+        l.quotedType === o("WAWebQuotedMsgUtils").QuotedType.AUTO &&
+        a === !0 &&
         o("WAWebThreadsGating").shouldHideAutoQuote()
       ) {
-        var c = o("WAWebThreadMsgUtils").getMsgViewAllRepliesThread(s);
+        var u = o("WAWebThreadMsgUtils").getMsgViewAllRepliesThread(l);
         if (
-          c != null &&
-          o("WAWebQuotedMsgUtils").getMessagesCountByThreadId(c) >= 2
+          u != null &&
+          o("WAWebQuotedMsgUtils").getMessagesCountByThreadId(u) >= 2
         )
           return null;
       }
-      var m;
-      if (t[0] !== n || t[1] !== a || t[2] !== l || t[3] !== s || t[4] !== u) {
-        m = Symbol.for("react.early_return_sentinel");
-        e: {
-          var p = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(s);
-          if (p) {
-            var _ = p.id.toString(),
-              f;
-            t[6] !== s
-              ? ((f = o("WAWebStateUtils").unproxy(s.safe())),
-                (t[6] = s),
-                (t[7] = f))
-              : (f = t[7]);
-            var g;
-            (t[8] !== n
-              ? ((g = o("WAWebStateUtils").unproxy(n)), (t[8] = n), (t[9] = g))
-              : (g = t[9]),
-              (m = d.jsx(
-                r("WAWebQuotedMsg.react"),
-                {
-                  msg: p,
-                  rootMsg: f,
-                  displayType: a,
-                  theme: "conversation",
-                  chat: g,
-                  t: u,
-                  isMsgVisible: l,
-                  onClick: function () {
-                    o(
-                      "WAWebQuotedMessageUserJourneyLogger",
-                    ).QuotedMessageUserJourneyLogger.quotedMessageBubbleTapped(
-                      n.id,
-                      p.unsafe(),
-                    );
-                  },
-                  shouldHideQuotedMsgAuthor: s.shouldHideQuotedMsgAuthor,
-                },
-                _,
-              )));
-            break e;
-          }
-        }
-        ((t[0] = n),
-          (t[1] = a),
-          (t[2] = l),
-          (t[3] = s),
-          (t[4] = u),
-          (t[5] = m));
-      } else m = t[5];
-      if (m !== Symbol.for("react.early_return_sentinel")) return m;
-      var h;
-      t[10] !== s
-        ? ((h = o("WAWebQuotedMsgModelUtils").getQuotedMsgAdminGroupJid(s)),
-          (t[10] = s),
-          (t[11] = h))
-        : (h = t[11]);
-      var y = h;
-      if (y) {
-        var C;
-        t[12] !== s
-          ? ((C = o("WAWebQuotedMsgModelUtils").getQuotedMsgAdminGroupSubject(
-              s,
-            )),
-            (t[12] = s),
-            (t[13] = C))
-          : (C = t[13]);
-        var b = C,
-          v;
-        t[14] !== s
-          ? ((v = o("WAWebQuotedMsgModelUtils").getQuotedMsgAdminParentGroupJid(
-              s,
-            )),
-            (t[14] = s),
-            (t[15] = v))
-          : (v = t[15]);
-        var S = v,
-          R;
-        return (
-          t[16] !== y || t[17] !== b || t[18] !== S
-            ? ((R = d.jsx(
-                o("WAWebQuotedMsgAdminGroupName.react").QuotedMsgAdminGroupName,
-                {
-                  quotedGroupJid: y,
-                  quotedGroupSubject: b,
-                  quotedParentGroupJid: S,
-                },
-              )),
-              (t[16] = y),
-              (t[17] = b),
-              (t[18] = S),
-              (t[19] = R))
-            : (R = t[19]),
-          R
+      var c = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(l);
+      if (c)
+        return d.jsx(
+          r("WAWebQuotedMsg.react"),
+          {
+            msg: c,
+            rootMsg: o("WAWebStateUtils").unproxy(l.safe()),
+            displayType: n,
+            theme: "conversation",
+            chat: o("WAWebStateUtils").unproxy(t),
+            t: s,
+            isMsgVisible: i,
+            onClick: function () {
+              o(
+                "WAWebQuotedMessageUserJourneyLogger",
+              ).QuotedMessageUserJourneyLogger.quotedMessageBubbleTapped(
+                t.id,
+                c.unsafe(),
+              );
+            },
+            shouldHideQuotedMsgAuthor: l.shouldHideQuotedMsgAuthor,
+          },
+          c.id.toString(),
+        );
+      var m = o("WAWebQuotedMsgModelUtils").getQuotedMsgAdminGroupJid(l);
+      if (m) {
+        var p = o("WAWebQuotedMsgModelUtils").getQuotedMsgAdminGroupSubject(l),
+          _ = o("WAWebQuotedMsgModelUtils").getQuotedMsgAdminParentGroupJid(l);
+        return d.jsx(
+          o("WAWebQuotedMsgAdminGroupName.react").QuotedMsgAdminGroupName,
+          { quotedGroupJid: m, quotedGroupSubject: p, quotedParentGroupJid: _ },
         );
       }
-      var L;
-      t[20] !== s
-        ? ((L = o("WAWebMsgGetters").getQuestionReplyQuotedMessage(s)),
-          (t[20] = s),
-          (t[21] = L))
-        : (L = t[21]);
-      var E = L;
-      if (E) {
-        var k;
-        return (
-          t[22] !== s || t[23] !== E
-            ? ((k = d.jsx(r("WAWebQuestionReplyQuotedMessage.react"), {
-                questionReplyQuotedMessage: E,
-                replyMsg: s,
-              })),
-              (t[22] = s),
-              (t[23] = E),
-              (t[24] = k))
-            : (k = t[24]),
-          k
-        );
-      }
-      return null;
+      var f = o("WAWebMsgGetters").getQuestionReplyQuotedMessage(l);
+      return f
+        ? d.jsx(r("WAWebQuestionReplyQuotedMessage.react"), {
+            questionReplyQuotedMessage: f,
+            replyMsg: l,
+          })
+        : null;
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(t) {
       var n,
         a,

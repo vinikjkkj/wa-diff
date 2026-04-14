@@ -17,7 +17,6 @@ __d(
     "WAWebStickerPackUtils",
     "WAWebStickerStoreFlowLoadable",
     "react",
-    "react-compiler-runtime",
     "useWAWebForwardedNewsletterMessageClickHandler",
     "useWAWebMsgValues",
   ],
@@ -67,98 +66,57 @@ __d(
       }
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(19),
-        n = e.msg,
-        r = e.theme,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [
-            o("WAWebMsgGetters").getUnreadQuestionResponsesCount,
-            o("WAWebMsgGetters").getServerId,
-          ]),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebMsgValues").useMsgValues(n.id, a),
-        l = i[0],
-        s = i[1],
-        d = o("WAWebMsgGetters").getHasOriginatedFromNewsletter(n),
-        m = o(
+      var t = e.msg,
+        n = e.theme,
+        r = o("useWAWebMsgValues").useMsgValues(t.id, [
+          o("WAWebMsgGetters").getUnreadQuestionResponsesCount,
+          o("WAWebMsgGetters").getServerId,
+        ]),
+        a = r[0],
+        i = r[1],
+        l = o("WAWebMsgGetters").getHasOriginatedFromNewsletter(t),
+        s = o(
           "useWAWebForwardedNewsletterMessageClickHandler",
         ).useForwardedNewsletterMessageClickHandler(
-          n,
+          t,
           o("WAWebNewsletterGatingUtils")
             .isNewsletterForwardBottomButtonEnabled,
         );
-      if (!(!d || o("WAWebFrontendMsgGetters").getIsTransparentMsg(n))) {
-        var p;
-        if (t[1] !== m || t[2] !== n || t[3] !== s || t[4] !== l) {
-          p = [];
+      if (!(!l || o("WAWebFrontendMsgGetters").getIsTransparentMsg(t))) {
+        var d = [],
+          m = o("WAWebQuestionsRenderingUtils").getQuestionAction(t, a);
+        m != null && d.push(m);
+        var p = c(t);
+        if ((p != null && d.push(p), s != null)) {
           var _;
-          t[6] !== n || t[7] !== l
-            ? ((_ = o("WAWebQuestionsRenderingUtils").getQuestionAction(n, l)),
-              (t[6] = n),
-              (t[7] = l),
-              (t[8] = _))
-            : (_ = t[8]);
-          var f = _;
-          f != null && p.push(f);
-          var g;
-          t[9] !== n ? ((g = c(n)), (t[9] = n), (t[10] = g)) : (g = t[10]);
-          var h = g;
-          if ((h != null && p.push(h), m != null)) {
-            var y,
-              C =
-                ((y = n.forwardedNewsletterMessageInfo) == null
-                  ? void 0
-                  : y.newsletterId) === n.id.remote
-                  ? s
-                  : null,
-              b;
-            t[11] !== C
-              ? ((b = o(
-                  "WAWebCommonNewsletterStrings",
-                ).getNewsletterLinkActionLabel("view", C)),
-                (t[11] = C),
-                (t[12] = b))
-              : (b = t[12]);
-            var v;
-            (t[13] !== m || t[14] !== b
-              ? ((v = {
-                  label: b,
-                  onClick: m,
-                  testid: "newsletter-invite-link-action",
-                }),
-                (t[13] = m),
-                (t[14] = b),
-                (t[15] = v))
-              : (v = t[15]),
-              p.push(v));
-          }
-          ((t[1] = m), (t[2] = n), (t[3] = s), (t[4] = l), (t[5] = p));
-        } else p = t[5];
-        if (p.length !== 0) {
-          var S =
-              r != null
-                ? r
+          d.push({
+            label: o(
+              "WAWebCommonNewsletterStrings",
+            ).getNewsletterLinkActionLabel(
+              "view",
+              ((_ = t.forwardedNewsletterMessageInfo) == null
+                ? void 0
+                : _.newsletterId) === t.id.remote
+                ? i
+                : null,
+            ),
+            onClick: s,
+            testid: "newsletter-invite-link-action",
+          });
+        }
+        if (d.length !== 0)
+          return u.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
+            items: d,
+            theme:
+              n != null
+                ? n
                 : o("WAWebMessageBubbleActions.react").BubbleActionsTheme
                     .FORWARDED_NEWSLETTER,
-            R;
-          return (
-            t[16] !== p || t[17] !== S
-              ? ((R = u.jsx(
-                  o("WAWebMessageBubbleActions.react").BubbleActions,
-                  { items: p, theme: S, direction: "vertical" },
-                )),
-                (t[16] = p),
-                (t[17] = S),
-                (t[18] = R))
-              : (R = t[18]),
-            R
-          );
-        }
+            direction: "vertical",
+          });
       }
     }
-    l.default = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
   226,
 );

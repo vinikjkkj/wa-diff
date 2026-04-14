@@ -1,6 +1,6 @@
 __d(
   "WAWebProductCatalogLinkIcon.react",
-  ["WDSIconIcLink.react", "react", "react-compiler-runtime"],
+  ["WDSIconIcLink.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -9,23 +9,13 @@ __d(
         inheritColor: { color: "x1heor9g", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.theme,
-        a = n === "inherit-color" && u.inheritColor,
-        i;
-      return (
-        t[0] !== a
-          ? ((i = s.jsx(r("WDSIconIcLink.react"), {
-              testid: void 0,
-              xstyle: [u.linkIcon, a],
-            })),
-            (t[0] = a),
-            (t[1] = i))
-          : (i = t[1]),
-        i
-      );
+      var t = e.theme;
+      return s.jsx(r("WDSIconIcLink.react"), {
+        testid: void 0,
+        xstyle: [u.linkIcon, t === "inherit-color" && u.inheritColor],
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

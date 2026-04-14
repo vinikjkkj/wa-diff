@@ -8,7 +8,6 @@ __d(
     "WDSButtonGroup.react",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -44,101 +43,57 @@ __d(
         textContainer: { rowGap: "x1o0lzc5", $$css: !0 },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.onRetry,
-        a;
-      t[0] !== n
-        ? ((a = function () {
-            (o("WAWebModalManager").ModalManager.close(), n());
-          }),
-          (t[0] = n),
-          (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = u.jsx(r("WDSText.react"), {
-            type: "Headline2",
-            colorName: "contentDefault",
-            children: c.title(),
-          })),
-          (t[2] = l))
-        : (l = t[2]);
-      var s, m;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = u.jsxs(o("WAWebFlex.react").FlexColumn, {
-            xstyle: d.textContainer,
-            children: [
-              l,
-              u.jsx(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDeemphasized",
-                children: c.body(),
+      var t = e.onRetry,
+        n = function () {
+          (o("WAWebModalManager").ModalManager.close(), t());
+        };
+      return u.jsx(o("WAWebModal.react").Modal, {
+        type: o("WAWebModal.react").ModalTheme.Promote,
+        onOverlayClick: o("WAWebModalManager").closeModalManager,
+        children: u.jsxs(o("WAWebFlex.react").FlexColumn, {
+          xstyle: d.container,
+          children: [
+            u.jsxs(o("WAWebFlex.react").FlexColumn, {
+              xstyle: d.textContainer,
+              children: [
+                u.jsx(r("WDSText.react"), {
+                  type: "Headline2",
+                  colorName: "contentDefault",
+                  children: c.title(),
+                }),
+                u.jsx(r("WDSText.react"), {
+                  type: "Body2",
+                  colorName: "contentDeemphasized",
+                  children: c.body(),
+                }),
+              ],
+            }),
+            u.jsx("div", {
+              className: "xh8yej3 x78zum5 x13a6bvl xm77wn2",
+              children: u.jsx(r("WDSButtonGroup.react"), {
+                orientation: "horizontal",
+                width: "hug",
+                primaryButtonProps: {
+                  variant: "filled",
+                  type: "default",
+                  onPress: n,
+                  testid: "retry-channel-creation-button",
+                  label: c.tryAgain(),
+                },
+                tertiaryButtonProps: {
+                  variant: "borderless",
+                  type: "default",
+                  onPress: o("WAWebModalManager").closeModalManager,
+                  testid: "cancel-channel-creation-button",
+                  label: c.cancel(),
+                },
               }),
-            ],
-          })),
-          (m = { className: "xh8yej3 x78zum5 x13a6bvl xm77wn2" }),
-          (t[3] = s),
-          (t[4] = m))
-        : ((s = t[3]), (m = t[4]));
-      var p;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = c.tryAgain()), (t[5] = p))
-        : (p = t[5]);
-      var _;
-      t[6] !== i
-        ? ((_ = {
-            variant: "filled",
-            type: "default",
-            onPress: i,
-            testid: "retry-channel-creation-button",
-            label: p,
-          }),
-          (t[6] = i),
-          (t[7] = _))
-        : (_ = t[7]);
-      var f;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = {
-            variant: "borderless",
-            type: "default",
-            onPress: o("WAWebModalManager").closeModalManager,
-            testid: "cancel-channel-creation-button",
-            label: c.cancel(),
-          }),
-          (t[8] = f))
-        : (f = t[8]);
-      var g;
-      return (
-        t[9] !== _
-          ? ((g = u.jsx(o("WAWebModal.react").Modal, {
-              type: o("WAWebModal.react").ModalTheme.Promote,
-              onOverlayClick: o("WAWebModalManager").closeModalManager,
-              children: u.jsxs(o("WAWebFlex.react").FlexColumn, {
-                xstyle: d.container,
-                children: [
-                  s,
-                  u.jsx(
-                    "div",
-                    babelHelpers.extends({}, m, {
-                      children: u.jsx(r("WDSButtonGroup.react"), {
-                        orientation: "horizontal",
-                        width: "hug",
-                        primaryButtonProps: _,
-                        tertiaryButtonProps: f,
-                      }),
-                    }),
-                  ),
-                ],
-              }),
-            })),
-            (t[9] = _),
-            (t[10] = g))
-          : (g = t[10]),
-        g
-      );
+            }),
+          ],
+        }),
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

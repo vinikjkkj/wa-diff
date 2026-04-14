@@ -23,80 +23,36 @@ __d(
     "WAWebUserPrefsMultiDevice",
     "WAWebWid",
     "react",
-    "react-compiler-runtime",
     "useWAWebContactValues",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.contactId,
-        a = e.onVerificationClick,
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = [
-            o("WAWebContactGetters").getPrivacyMode,
-            o("WAWebContactGetters").getIsHosted,
-          ]),
-          (t[0] = i))
-        : (i = t[0]);
-      var l = o("useWAWebContactValues").useContactValues(n, i),
-        c = l[0],
-        m = l[1],
-        p;
-      t[1] !== n || t[2] !== m || t[3] !== c
-        ? ((p = d(
-            o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(c),
-            n,
-            m,
-          )),
-          (t[1] = n),
-          (t[2] = m),
-          (t[3] = c),
-          (t[4] = p))
-        : (p = t[4]);
-      var _ = p;
-      if (_) {
-        var f;
-        return (
-          t[5] !== _.header || t[6] !== _.onClick || t[7] !== _.text
-            ? ((f = u.jsx(r("WAWebSecurityDrawerSection.react"), {
-                header: _.header,
-                text: _.text,
-                onClick: _.onClick,
-              })),
-              (t[5] = _.header),
-              (t[6] = _.onClick),
-              (t[7] = _.text),
-              (t[8] = f))
-            : (f = t[8]),
-          f
-        );
-      }
-      var g, h;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = s._(
-            /*BTDS*/ "Messages are end-to-end encrypted. Click to verify.",
-          )),
-          (h = { type: "encryption" }),
-          (t[9] = g),
-          (t[10] = h))
-        : ((g = t[9]), (h = t[10]));
-      var y;
-      return (
-        t[11] !== a
-          ? ((y = u.jsx(r("WAWebSecurityDrawerSection.react"), {
-              onClick: a,
-              text: g,
-              header: h,
-            })),
-            (t[11] = a),
-            (t[12] = y))
-          : (y = t[12]),
-        y
-      );
+      var t = e.contactId,
+        n = e.onVerificationClick,
+        a = o("useWAWebContactValues").useContactValues(t, [
+          o("WAWebContactGetters").getPrivacyMode,
+          o("WAWebContactGetters").getIsHosted,
+        ]),
+        i = a[0],
+        l = a[1],
+        c = d(o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(i), t, l);
+      return c
+        ? u.jsx(r("WAWebSecurityDrawerSection.react"), {
+            header: c.header,
+            text: c.text,
+            onClick: c.onClick,
+          })
+        : u.jsx(r("WAWebSecurityDrawerSection.react"), {
+            onClick: n,
+            text: s._(
+              /*BTDS*/ "Messages are end-to-end encrypted. Click to verify.",
+            ),
+            header: { type: "encryption" },
+          });
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(e, t, n) {
       var a = o("WAWebLidMigrationUtils").toUserLid(t);
       if (

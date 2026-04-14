@@ -1,12 +1,6 @@
 __d(
   "WAWebKeyboardShortcut.react",
-  [
-    "WAWebActions",
-    "WAWebFlex.react",
-    "WAWebKeyboardShortcuts",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebActions", "WAWebFlex.react", "WAWebKeyboardShortcuts", "react"],
   function (t, n, r, o, a, i, l) {
     var e = ["children"],
       s,
@@ -38,120 +32,51 @@ __d(
         },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.value,
-        r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = [4, 8]), (t[0] = r))
-        : (r = t[0]);
-      var a;
-      return (
-        t[1] !== n
-          ? ((a = u.jsx(o("WAWebFlex.react").FlexItem, {
-              inline: !0,
-              xstyle: d.key,
-              padding: r,
-              children: n,
-            })),
-            (t[1] = n),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.value;
+      return u.jsx(o("WAWebFlex.react").FlexItem, {
+        inline: !0,
+        xstyle: d.key,
+        padding: [4, 8],
+        children: t,
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(t) {
-      var n = o("react-compiler-runtime").c(6),
-        r,
-        a;
-      n[0] !== t
-        ? ((r = t.children),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = r),
-          (n[2] = a))
-        : ((r = n[1]), (a = n[2]));
-      var i;
-      return (
-        n[3] !== r || n[4] !== a
-          ? ((i = u.jsx(
-              o("WAWebFlex.react").FlexRow,
-              babelHelpers.extends({ inline: !0, align: "center", gap: 4 }, a, {
-                children: r,
-              }),
-            )),
-            (n[3] = r),
-            (n[4] = a),
-            (n[5] = i))
-          : (i = n[5]),
-        i
+      var n = t.children,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      return u.jsx(
+        o("WAWebFlex.react").FlexRow,
+        babelHelpers.extends({ inline: !0, align: "center", gap: 4 }, r, {
+          children: n,
+        }),
       );
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = o("react-compiler-runtime").c(13),
-        n = e.action,
-        r = e.addModifiers,
-        a = r === void 0 ? !0 : r;
-      if (n === o("WAWebActions").Action.OPEN_NTH_CHAT) {
-        var i;
-        return (
-          t[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((i = u.jsxs(p, {
-                children: [
-                  u.jsx(m, { value: "Ctrl" }),
-                  u.jsx(m, { value: "1..9" }),
-                ],
-              })),
-              (t[0] = i))
-            : (i = t[0]),
-          i
-        );
-      }
-      var l, s;
-      if (t[1] !== n) {
-        s = Symbol.for("react.early_return_sentinel");
-        e: {
-          var d = o("WAWebKeyboardShortcuts").getShortcutKey(n);
-          if (!d) {
-            s = null;
-            break e;
-          }
-          var _ = g(d, !0),
-            h = _.indexOf(c);
-          if (h === -1) l = u.jsx(m, { value: _ });
-          else {
-            var y;
-            t[4] === Symbol.for("react.memo_cache_sentinel")
-              ? ((y = u.jsx(m, { value: "Shift" })), (t[4] = y))
-              : (y = t[4]);
-            var C = u.jsx(m, { value: _.substr(c.length) }),
-              b;
-            (t[5] !== C
-              ? ((b = u.jsxs(u.Fragment, { children: [y, C] })),
-                (t[5] = C),
-                (t[6] = b))
-              : (b = t[6]),
-              (l = b));
-          }
-        }
-        ((t[1] = n), (t[2] = l), (t[3] = s));
-      } else ((l = t[2]), (s = t[3]));
-      if (s !== Symbol.for("react.early_return_sentinel")) return s;
-      var v;
-      t[7] !== n || t[8] !== a
-        ? ((v = a ? f(n) : null), (t[7] = n), (t[8] = a), (t[9] = v))
-        : (v = t[9]);
-      var S = v,
-        R;
-      return (
-        t[10] !== S || t[11] !== l
-          ? ((R = u.jsxs(p, { children: [S, l] })),
-            (t[10] = S),
-            (t[11] = l),
-            (t[12] = R))
-          : (R = t[12]),
-        R
-      );
+      var t = e.action,
+        n = e.addModifiers,
+        r = n === void 0 ? !0 : n;
+      if (t === o("WAWebActions").Action.OPEN_NTH_CHAT)
+        return u.jsxs(p, {
+          children: [u.jsx(m, { value: "Ctrl" }), u.jsx(m, { value: "1..9" })],
+        });
+      var a = o("WAWebKeyboardShortcuts").getShortcutKey(t);
+      if (!a) return null;
+      var i = g(a, !0),
+        l = i.indexOf(c),
+        s;
+      l === -1
+        ? (s = u.jsx(m, { value: i }))
+        : (s = u.jsxs(u.Fragment, {
+            children: [
+              u.jsx(m, { value: "Shift" }),
+              u.jsx(m, { value: i.substr(c.length) }),
+            ],
+          }));
+      var d = r ? f(t) : null;
+      return u.jsxs(p, { children: [d, s] });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       var t = o("WAWebKeyboardShortcuts").getShortcutDisplayModifiers(e);
       return t

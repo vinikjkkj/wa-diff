@@ -20,7 +20,6 @@ __d(
     "WDSSwitch.react",
     "cr:15980",
     "react",
-    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -75,179 +74,96 @@ __d(
       },
       p = { width: 24, height: 24, xstyle: d.featureImg };
     function _(e) {
-      var t = o("react-compiler-runtime").c(21),
-        n = e.chat,
-        a = e.onClose,
-        i = e.ref,
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = ["id", "limitSharing"]), (t[0] = l))
-        : (l = t[0]);
-      var c = o("useWAWebModelValues").useModelValues(n, l),
-        m;
-      t[1] !== c
-        ? ((m = o("WAWebLimitSharingUIUtils").isLimitSharingReceiverEnabled(c)),
-          (t[1] = c),
-          (t[2] = m))
-        : (m = t[2]);
-      var p = m,
-        _;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = o(
-            "WAWebLimitSharingGatingUtils",
-          ).isLimitSharingSetterUpdateGatingEnabledForWeb()),
-          (t[3] = _))
-        : (_ = t[3]);
-      var g = _,
-        h;
-      t[4] !== a
-        ? ((h = function () {
-            a == null || a();
-          }),
-          (t[4] = a),
-          (t[5] = h))
-        : (h = t[5]);
-      var y = h,
-        C;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((C = { surface: "unknown", viewName: "limit-sharing" }), (t[6] = C))
-        : (C = t[6]);
-      var b;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((b = s._(/*BTDS*/ "Advanced chat privacy")), (t[7] = b))
-        : (b = t[7]);
-      var v;
-      t[8] !== y
-        ? ((v = u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            title: b,
-            onBack: y,
+      var t = e.chat,
+        n = e.onClose,
+        a = e.ref,
+        i = o("useWAWebModelValues").useModelValues(t, ["id", "limitSharing"]),
+        l = o("WAWebLimitSharingUIUtils").isLimitSharingReceiverEnabled(i),
+        c = o(
+          "WAWebLimitSharingGatingUtils",
+        ).isLimitSharingSetterUpdateGatingEnabledForWeb(),
+        m = function () {
+          n == null || n();
+        };
+      return u.jsxs(r("WAWebDrawer.react"), {
+        theme: "gallery",
+        ref: a,
+        testid: void 0,
+        tsNavigationData: { surface: "unknown", viewName: "limit-sharing" },
+        children: [
+          u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+            title: s._(/*BTDS*/ "Advanced chat privacy"),
+            onBack: m,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-          })),
-          (t[8] = y),
-          (t[9] = v))
-        : (v = t[9]);
-      var S, R;
-      t[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = u.jsx(o("WAWebFlex.react").FlexRow, {
-            align: "center",
-            justify: "center",
-            children: u.jsx(
-              o("WAWebSecurityMessageLockIllustrationIcon.react")
-                .SecurityMessageLockIllustrationIcon,
-              { xstyle: [d.headerIcon, d.block] },
-            ),
-          })),
-          (R = u.jsx(f, {})),
-          (t[10] = S),
-          (t[11] = R))
-        : ((S = t[10]), (R = t[11]));
-      var L;
-      t[12] !== c || t[13] !== p
-        ? ((L =
-            !o("WAWebLimitSharingGatingUtils").isOpusFlagOn() &&
-            u.jsxs(o("WAWebFlex.react").FlexRow, {
-              xstyle: d.status,
-              justify: "all",
-              align: g ? "center" : "start",
-              children: [
-                u.jsxs(o("WAWebFlex.react").FlexColumn, {
-                  testid: void 0,
-                  children: [
-                    s._(/*BTDS*/ "Advanced chat privacy"),
-                    !g &&
-                      u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                        xstyle: d.statusDescription,
-                        testid: void 0,
-                        children: s._(
-                          /*BTDS*/ "This setting can only be updated on your phone.",
-                        ),
-                      }),
-                  ],
-                }),
-                u.jsx(o("WAWebFlex.react").FlexColumn, {
-                  children: u.jsx(r("WDSSwitch.react"), {
-                    value: p,
-                    disabled: !g,
-                    onChange: function () {
-                      return g
-                        ? void o("WAWebLimitSharingUIUtils").toggleLimitSharing(
-                            c,
-                          )
-                        : r("WAWebNoop")();
-                    },
-                  }),
-                }),
-              ],
-            })),
-          (t[12] = c),
-          (t[13] = p),
-          (t[14] = L))
-        : (L = t[14]);
-      var E;
-      t[15] !== L
-        ? ((E = u.jsx(r("WAWebDrawerBody.react"), {
+          }),
+          u.jsx(r("WAWebDrawerBody.react"), {
             children: u.jsxs(r("WAWebDrawerSection.react"), {
               animation: !1,
               theme: "padding-no-vertical",
-              children: [S, R, L],
+              children: [
+                u.jsx(o("WAWebFlex.react").FlexRow, {
+                  align: "center",
+                  justify: "center",
+                  children: u.jsx(
+                    o("WAWebSecurityMessageLockIllustrationIcon.react")
+                      .SecurityMessageLockIllustrationIcon,
+                    { xstyle: [d.headerIcon, d.block] },
+                  ),
+                }),
+                u.jsx(f, {}),
+                !o("WAWebLimitSharingGatingUtils").isOpusFlagOn() &&
+                  u.jsxs(o("WAWebFlex.react").FlexRow, {
+                    xstyle: d.status,
+                    justify: "all",
+                    align: c ? "center" : "start",
+                    children: [
+                      u.jsxs(o("WAWebFlex.react").FlexColumn, {
+                        testid: void 0,
+                        children: [
+                          s._(/*BTDS*/ "Advanced chat privacy"),
+                          !c &&
+                            u.jsx(o("WAWebText.react").WAWebTextMuted, {
+                              xstyle: d.statusDescription,
+                              testid: void 0,
+                              children: s._(
+                                /*BTDS*/ "This setting can only be updated on your phone.",
+                              ),
+                            }),
+                        ],
+                      }),
+                      u.jsx(o("WAWebFlex.react").FlexColumn, {
+                        children: u.jsx(r("WDSSwitch.react"), {
+                          value: l,
+                          disabled: !c,
+                          onChange: function () {
+                            return c
+                              ? void o(
+                                  "WAWebLimitSharingUIUtils",
+                                ).toggleLimitSharing(i)
+                              : r("WAWebNoop")();
+                          },
+                        }),
+                      }),
+                    ],
+                  }),
+              ],
             }),
-          })),
-          (t[15] = L),
-          (t[16] = E))
-        : (E = t[16]);
-      var k;
-      return (
-        t[17] !== i || t[18] !== E || t[19] !== v
-          ? ((k = u.jsxs(r("WAWebDrawer.react"), {
-              theme: "gallery",
-              ref: i,
-              testid: void 0,
-              tsNavigationData: C,
-              children: [v, E],
-            })),
-            (t[17] = i),
-            (t[18] = E),
-            (t[19] = v),
-            (t[20] = k))
-          : (k = t[20]),
-        k
-      );
+          }),
+        ],
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f() {
-      var e = o("react-compiler-runtime").c(3);
-      if (
-        o("WAWebLimitSharingGatingUtils").isOpusFlagOn() &&
+      return o("WAWebLimitSharingGatingUtils").isOpusFlagOn() &&
         n("cr:15980") != null
-      ) {
-        var t;
-        return (
-          e[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((t = u.jsx(n("cr:15980"), {})), (e[0] = t))
-            : (t = e[0]),
-          t
-        );
-      }
-      if (
-        o(
-          "WAWebLimitSharingGatingUtils",
-        ).isLimitSharingContentUpdateJuly25Enabled()
-      ) {
-        var r;
-        return (
-          e[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((r = u.jsx(g, {})), (e[1] = r))
-            : (r = e[1]),
-          r
-        );
-      }
-      var a;
-      return (
-        e[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((a = u.jsx(h, {})), (e[2] = a))
-          : (a = e[2]),
-        a
-      );
+        ? u.jsx(n("cr:15980"), {})
+        : o(
+              "WAWebLimitSharingGatingUtils",
+            ).isLimitSharingContentUpdateJuly25Enabled()
+          ? u.jsx(g, {})
+          : u.jsx(h, {});
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g() {
       var e = c(function () {
         return [
@@ -379,24 +295,14 @@ __d(
     }
     h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.icon,
-        r = e.text,
-        a;
-      return (
-        t[0] !== n || t[1] !== r
-          ? ((a = u.jsxs(
-              o("WAWebFlex.react").FlexRow,
-              babelHelpers.extends({}, m, { children: [n, r] }),
-            )),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
+      var t = e.icon,
+        n = e.text;
+      return u.jsxs(
+        o("WAWebFlex.react").FlexRow,
+        babelHelpers.extends({}, m, { children: [t, n] }),
       );
     }
-    l.default = _;
+    ((y.displayName = y.name + " [from " + i.id + "]"), (l.default = _));
   },
   226,
 );
