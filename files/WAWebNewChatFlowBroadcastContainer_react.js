@@ -73,37 +73,36 @@ __d(
           },
           [a],
         ),
-        m = c(function (e, t, n) {
-          (n === void 0 && (n = !0),
-            o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(),
-            n && p(e));
-          var r = o("WAWebWidFactory").createWid(e.broadcastJid),
-            a = o("WAWebChatCollection").ChatCollection.get(r);
-          o("WAWebBizBroadcastsAudienceUtils").showCreateAudienceSuccessToast(
-            e,
-            t,
-            function () {
-              (o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(),
-                a != null && o("WAWebCmd").Cmd.closeChat(a));
-            },
-          );
+        _ = c(function (e, t) {
+          o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen();
+          var n = o("WAWebWidFactory").createWid(e.broadcastJid),
+            r = o("WAWebChatCollection").ChatCollection.get(n);
+          (m(e),
+            o("WAWebBizBroadcastsAudienceUtils").showCreateAudienceSuccessToast(
+              e,
+              t,
+              function () {
+                (o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(),
+                  r != null && o("WAWebCmd").Cmd.closeChat(r));
+              },
+            ));
         }, []),
-        _ = c(
+        f = c(
           function (e) {
-            m(e, "create", !1);
+            _(e, "create");
           },
-          [m],
+          [_],
         ),
-        f = c(function (e) {
+        g = c(function (e) {
           (o("WAWebDrawerManager").DrawerManager.closeDrawerFullscreen(), p(e));
         }, []),
-        g = c(
-          function (e) {
-            m(e, "import");
-          },
-          [m],
-        ),
         h = c(
+          function (e) {
+            _(e, "import");
+          },
+          [_],
+        ),
+        y = c(
           function () {
             (o("WAWebDrawerManager").closeDrawerLeft(),
               o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
@@ -115,16 +114,16 @@ __d(
                       "WAWebDrawerManager",
                     ).DrawerManager.closeDrawerFullscreen();
                   },
-                  onNewAudienceSuccess: _,
-                  onSendBroadcast: f,
+                  onNewAudienceSuccess: f,
+                  onSendBroadcast: g,
                   suggestedAudienceData: null,
                 }),
                 { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
               ));
           },
-          [_, f],
+          [f, g],
         ),
-        y = c(
+        C = c(
           function (e, t) {
             (o("WAWebDrawerManager").closeDrawerLeft(),
               o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
@@ -140,16 +139,17 @@ __d(
                         "WAWebDrawerManager",
                       ).DrawerManager.closeDrawerFullscreen();
                     },
-                    onCreateAudienceSuccess: g,
+                    onCreateAudienceSuccess: h,
+                    onSendBroadcast: g,
                     validContactsData: e,
                   },
                 ),
                 { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
               ));
           },
-          [g],
+          [h, g],
         ),
-        C = c(
+        b = c(
           function () {
             (o(
               "WAWebBusinessBroadcastUserJourneyLogger",
@@ -173,29 +173,29 @@ __d(
                             o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
                           ));
                     },
-                    onUploadSuccess: y,
+                    onUploadSuccess: C,
                   },
                 ),
               ));
           },
-          [y],
+          [C],
         ),
-        b = c(
+        v = c(
           function () {
             t == null || t();
           },
           [t],
         ),
-        v = d(function () {
+        S = d(function () {
           return o(
             "WAWebBizBroadcastsAudienceUtils",
           ).getBroadcastChatsAsAudiences();
         }, []),
-        S =
+        R =
           o("useWAWebABPropConfigValue").useABPropConfigValue(
             "suggested_audiences_wa_web",
           ) === !0,
-        R = c(
+        L = c(
           function (e) {
             n("asyncToGeneratorRuntime")
               .asyncToGenerator(function* () {
@@ -228,8 +228,8 @@ __d(
                           "WAWebDrawerManager",
                         ).DrawerManager.closeDrawerFullscreen();
                       },
-                      onNewAudienceSuccess: _,
-                      onSendBroadcast: f,
+                      onNewAudienceSuccess: f,
+                      onSendBroadcast: g,
                       suggestedAudienceData: i,
                     }),
                     {
@@ -239,22 +239,22 @@ __d(
               })()
               .catch(r("WAWebNoop"));
           },
-          [_, f],
+          [f, g],
         );
       return s.jsx(r("WAWebBizBroadcastsEligibilityGate.react"), {
         entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_HOME,
-        onClose: b,
+        onClose: v,
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHATLIST,
         children: s.jsx(r("WAWebNewChatFlowBroadcastAudienceDrawer.react"), {
           ref: i,
-          audiences: v,
-          onBack: b,
-          onCancel: l === r("WAWebDrawerViewType").MODAL ? b : void 0,
-          onCreateAudience: h,
-          onImportAudience: C,
+          audiences: S,
+          onBack: v,
+          onCancel: l === r("WAWebDrawerViewType").MODAL ? v : void 0,
+          onCreateAudience: y,
+          onImportAudience: b,
           onSelectAudience: u,
-          onSuggestedCardPress: R,
-          suggestedAudiencesEnabled: S,
+          onSuggestedCardPress: L,
+          suggestedAudiencesEnabled: R,
           viewType: l,
         }),
       });

@@ -31,12 +31,9 @@ __d(
       var c = u.jsx(o("WAWebName.react").Name, { contact: l }),
         d = r("WAWeb-moment")
           .unix(parseInt(n.subscriptionTimestamp, 10))
-          .format("ll"),
-        m = function () {
-          o("WAWebModalManager").ModalManager.close();
-        };
+          .format("ll");
       return u.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        onOK: m,
+        onOK: o("WAWebModalManager").closeModalManager,
         okText: s._(/*BTDS*/ "OK, got it"),
         title:
           a === o("WAWebSignupCTAExperiment").SignupCTAExperiment.GetOffers

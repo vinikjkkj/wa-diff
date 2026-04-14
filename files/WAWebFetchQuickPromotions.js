@@ -8,7 +8,6 @@ __d(
     "WAPromiseRetryLoop",
     "WAPromiseTimeout",
     "WAWebBackendApi",
-    "WAWebBizGatingUtils",
     "WAWebBuildConstants",
     "WAWebCTWAConstants",
     "WAWebCommonCTWAQplHelpers",
@@ -25,12 +24,11 @@ __d(
     "WAWebL10NCountryCodes",
     "WAWebNetworkStatus",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebProtobufsQuickPromotionSurfaces.pb",
     "WAWebQplFlowWrapper",
+    "WAWebQuickPromotionGating",
     "WAWebRelayClient",
     "WAWebUserPrefsMeUser",
     "WAWebWebp",
-    "compactMap",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -90,7 +88,7 @@ __d(
       });
     }
     function F() {
-      return o("WAWebBizGatingUtils").qpGraphQLEnabled()
+      return o("WAWebQuickPromotionGating").qpGraphQLEnabledSMB()
         ? o("WAWebOrchestratorNonPersistedJob")
             .createNonPersistedJob("fetchQuickPromotions", function () {
               return o("WAWebBackendApi")
@@ -107,7 +105,7 @@ __d(
         .waitIfOffline()
         .then(function () {
           return o("WAPromiseTimeout")
-            .promiseTimeout(B(e), G())
+            .promiseTimeout(B(e), H())
             .then(function (t) {
               return t.type === "success"
                 ? (o("WALogger").LOG(
@@ -228,7 +226,9 @@ __d(
     }
     function q(e, t) {
       var r,
-        a = Array.from(o("WAWebBizGatingUtils").qpSurfaceIdsUsingGraphQL());
+        a = Array.from(
+          o("WAWebQuickPromotionGating").qpSurfaceIdsUsingGraphQLSMB(),
+        );
       if (a.length === 0)
         return (R || (R = n("Promise"))).resolve({ type: "not-enabled" });
       var i =
@@ -267,7 +267,7 @@ __d(
             n = new Map(),
             r = [];
           (a.forEach(function (e) {
-            var t = H(e);
+            var t = o("WAWebFetchQuickPromotionsCore").getSurfaceIdByNuxId(e);
             if (t == null) {
               r.length < 3 && r.push(e);
               return;
@@ -544,28 +544,18 @@ __d(
     }
     function U(e, t) {
       var n = t(M, e),
-        a = n.clause_type,
-        i = n.filters,
-        l = e.clauses;
-      if (a != null) {
-        var s =
-            l != null
-              ? r("compactMap")(l, function (e) {
-                  return U(e, t);
-                })
-              : [],
-          u = r("compactMap")(i, function (e) {
-            return V(e, t);
-          }),
-          c = {
-            clauseType: o("WAWebFetchQuickPromotionsCore").mapFilterClauseType(
-              a,
-            ),
-            clauses: s,
-            filters: u,
-          };
-        return c;
-      }
+        r = n.clause_type,
+        a = n.filters;
+      return o("WAWebFetchQuickPromotionsCore").parseFilterClause(
+        { clause_type: r, filters: a },
+        e.clauses,
+        function (e) {
+          return U(e, t);
+        },
+        function (e) {
+          return V(e, t);
+        },
+      );
     }
     function V(e, t) {
       var n = t(w, e),
@@ -573,37 +563,18 @@ __d(
         a = n.filter_result,
         i = n.parameters,
         l = n.passes_if_client_not_supported;
-      if (r != null) {
-        var s = i.reduce(function (e, t) {
-            var n = t.key,
-              r = t.value;
-            return (n == null || r == null || e.push({ key: n, value: r }), e);
-          }, []),
-          u = {
-            filterName: r,
-            parameters: s,
-            clientNotSupportedConfig:
-              l === !0
-                ? o("WAWebProtobufsQuickPromotionSurfaces.pb")
-                    .QP$FilterClientNotSupportedConfig.PASS_BY_DEFAULT
-                : o("WAWebProtobufsQuickPromotionSurfaces.pb")
-                    .QP$FilterClientNotSupportedConfig.FAIL_BY_DEFAULT,
-            filterResult:
-              a != null
-                ? o("WAWebFetchQuickPromotionsCore").mapFilterResult(a)
-                : void 0,
-          };
-        return u;
-      }
+      return o("WAWebFetchQuickPromotionsCore").parseFilter({
+        filter_name: r,
+        filter_result: a,
+        parameters: i.map(function (e) {
+          var t = e.key,
+            n = e.value;
+          return { key: t, value: n };
+        }),
+        passes_if_client_not_supported: l,
+      });
     }
-    function H(e) {
-      for (var t of o("WAWebCTWAConstants").KNOWN_QP_SURFACES.entries()) {
-        var n = t[0],
-          r = t[1];
-        if (r === e) return n;
-      }
-    }
-    function G() {
+    function H() {
       return (
         o("WAWebFetchAdAccountToken").getMaximumAdAccountFetchTimeoutSeconds() *
           1e3 +

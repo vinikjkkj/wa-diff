@@ -62,7 +62,11 @@ __d(
     function y(e) {
       return e.startsWith("image/");
     }
-    function C(e, t) {
+    function C(t) {
+      var n = t.getPreviewableMedias();
+      return n.length === 0 ? e : o("WAWebMimeTypes").IMAGE_MIMES;
+    }
+    function b(e, t) {
       var n = e.getPreviewableMedias(),
         r = n.length,
         a = [];
@@ -122,7 +126,8 @@ __d(
       (l.PRUNE_TOAST_MESSAGES = p),
       (l.deepCloneMediaCollection = _),
       (l.canAddMoreAttachments = g),
-      (l.maybePruneNewAttachments = C));
+      (l.getAllowedMimeTypesForCollection = C),
+      (l.maybePruneNewAttachments = b));
   },
   226,
 );

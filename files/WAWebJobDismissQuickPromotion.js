@@ -3,8 +3,9 @@ __d(
   [
     "WALogger",
     "WASmaxInAppCommsEventRPC",
-    "WAWebBizGatingUtils",
+    "WAWebConsumerQuickPromotionActionMutation",
     "WAWebDefinePersistedJob",
+    "WAWebMobilePlatforms",
     "WAWebModelStorageUtils",
     "WAWebQuickPromotionActionMutation",
     "WAWebWorkerSafeBackendApi",
@@ -77,40 +78,49 @@ __d(
             a =
               (e == null ? void 0 : e.instanceLogData) != null
                 ? String.fromCharCode.apply(null, e.instanceLogData)
-                : "";
-          if (o("WAWebBizGatingUtils").qpGraphQLEnabled()) {
-            var i = e == null ? void 0 : e.surfaceId;
-            if (i == null)
-              o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "dismissQuickPromotion: surface id for GraphQL call not found",
+                : "",
+            i = e == null ? void 0 : e.surfaceId;
+          if (i == null)
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "dismissQuickPromotion: surface id for GraphQL call not found",
+                ])),
+            );
+          else {
+            var l, d;
+            try {
+              d = o("WAWebMobilePlatforms").isSMB()
+                ? yield o(
+                    "WAWebQuickPromotionActionMutation",
+                  ).executeQuickPromotionActionMutation({
+                    event: "ACTION",
+                    action: "DISMISS",
+                    promotion_id: n,
+                    surface_nux_id: i,
+                    promotion_logging_data: a,
+                    client_time: r,
+                  })
+                : yield o(
+                    "WAWebConsumerQuickPromotionActionMutation",
+                  ).executeConsumerQuickPromotionActionMutation({
+                    event: "ACTION",
+                    action: "DISMISS",
+                    promotion_id: n,
+                    surface_nux_id: i,
+                    promotion_logging_data: a,
+                    client_time: r,
+                  });
+            } catch (e) {
+              o("WALogger").ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "dismissQuickPromotion: unable to log through GraphQL",
                   ])),
               );
-            else {
-              var l, d;
-              try {
-                d = yield o(
-                  "WAWebQuickPromotionActionMutation",
-                ).executeQuickPromotionActionMutation({
-                  event: "ACTION",
-                  action: "DISMISS",
-                  promotion_id: n,
-                  surface_nux_id: i,
-                  promotion_logging_data: a,
-                  client_time: r,
-                });
-              } catch (e) {
-                o("WALogger").ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "dismissQuickPromotion: unable to log through GraphQL",
-                    ])),
-                );
-              }
-              if (((l = d) == null ? void 0 : l.type) !== "not-enabled") return;
-              d.type;
             }
+            if (((l = d) == null ? void 0 : l.type) !== "not-enabled") return;
+            d.type;
           }
           var m = yield o("WASmaxInAppCommsEventRPC").sendEventRPC({
             eventType: "dismiss",

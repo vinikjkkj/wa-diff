@@ -1,10 +1,10 @@
 __d(
   "WAWebHandleQPSurfacesNotification",
   [
-    "WAWebBizGatingUtils",
     "WAWebCTWAConstants",
     "WAWebJobUpdateQPSurfaces",
     "WAWebParseQPSurfacesNotification",
+    "WAWebQuickPromotionGating",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,15 +22,14 @@ __d(
             a = t.ts,
             i = n(),
             l;
-          if (o("WAWebBizGatingUtils").qpGraphQLEnabled()) {
+          if (o("WAWebQuickPromotionGating").qpGraphQLEnabled()) {
             var s = [],
-              u = [];
+              u = [],
+              c = o("WAWebQuickPromotionGating").qpSurfaceIdsUsingGraphQL();
             l = r.filter(function (e) {
               var t = o("WAWebCTWAConstants").KNOWN_QP_SURFACES.get(e.id);
               if (t == null) return !1;
-              var n = !o("WAWebBizGatingUtils")
-                .qpSurfaceIdsUsingGraphQL()
-                .has(t);
+              var n = !c.has(t);
               return n;
             });
           } else l = r;

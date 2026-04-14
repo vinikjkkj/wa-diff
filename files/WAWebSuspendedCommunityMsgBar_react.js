@@ -172,7 +172,7 @@ __d(
                         onPress: function () {
                           o(
                             "WAWebSuspendedGroupUtils",
-                          ).openGroupSuspensionAppealModal(m.id.user);
+                          ).openGroupSuspensionAppealModal(m.id);
                         },
                         testid: void 0,
                         Icon: r("WDSIconIcHelp.react"),

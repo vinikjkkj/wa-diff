@@ -126,7 +126,7 @@ __d(
                     e,
                   );
                 }),
-            n.fromMe && (yield f(n)));
+            n.fromMe && n.isCallLink !== !0 && (yield f(n)));
         })),
         _.apply(this, arguments)
       );

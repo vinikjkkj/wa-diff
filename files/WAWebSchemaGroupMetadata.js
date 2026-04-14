@@ -64,6 +64,8 @@ __d(
               r("hasCapi"),
               r("hiddenSubgroup"),
               r("groupSafetyCheck"),
+              r("suspendAppealStatus"),
+              r("suspendAppealUpdateTime"),
               r("groupAdder"),
               r("lastCommunityPollTimestamp"),
               r("hasIncompleteParticipantInformation"),

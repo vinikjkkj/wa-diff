@@ -4,65 +4,50 @@ __d(
     "fbt",
     "WAWebBoolFunc",
     "WAWebFlex.react",
+    "WAWebForwardedInfoHeaderLink.react",
     "WAWebMessageMeta.react",
-    "WAWebText.react",
-    "WAWebUISpacing",
     "react",
-    "stylex",
     "useWAWebForwardedNewsletterMessageClickHandler",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c = u || (u = o("react"));
-    function d(t) {
-      var n,
-        a,
-        i = t.msg,
-        l = o(
+      u = e || (e = o("react"));
+    function c(e) {
+      var t,
+        n,
+        a = e.msg,
+        i = o(
           "useWAWebForwardedNewsletterMessageClickHandler",
         ).useForwardedNewsletterMessageClickHandler(
-          i,
+          a,
           o("WAWebBoolFunc").returnTrue,
         );
-      if (l == null) return null;
-      var u =
-          (n = i.forwardedNewsletterMessageInfo) == null
+      if (i == null) return null;
+      var l =
+          (t = a.forwardedNewsletterMessageInfo) == null
             ? void 0
-            : n.newsletterName,
-        d =
-          (a = i.forwardedNewsletterMessageInfo) == null
+            : t.newsletterName,
+        c =
+          (n = a.forwardedNewsletterMessageInfo) == null
             ? void 0
-            : a.profileName,
-        m = u != null ? u : s._(/*BTDS*/ "View channel");
-      return c.jsx(
-        "div",
-        babelHelpers.extends(
-          { "data-testid": void 0 },
-          (e || (e = r("stylex"))).props(o("WAWebUISpacing").uiPadding.vert3),
-          {
-            children: c.jsx(o("WAWebText.react").WAWebClickableText, {
-              onClick: l,
-              children: c.jsx(o("WAWebText.react").WAWebTextSmall, {
-                weight: "semibold",
-                color: "link",
-                children:
-                  d != null
-                    ? c.jsxs(o("WAWebFlex.react").FlexRow, {
-                        children: [
-                          d,
-                          c.jsx(o("WAWebMessageMeta.react").MetaBullet, {}),
-                          m,
-                        ],
-                      })
-                    : c.jsx(c.Fragment, { children: m }),
-              }),
-            }),
-          },
-        ),
-      );
+            : n.profileName,
+        d = l != null ? l : s._(/*BTDS*/ "View channel");
+      return u.jsx(r("WAWebForwardedInfoHeaderLink.react"), {
+        onClick: i,
+        testId: "forwarded-newsletter-info",
+        children:
+          c != null
+            ? u.jsxs(o("WAWebFlex.react").FlexRow, {
+                children: [
+                  c,
+                  u.jsx(o("WAWebMessageMeta.react").MetaBullet, {}),
+                  d,
+                ],
+              })
+            : d,
+      });
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   226,
 );

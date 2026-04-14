@@ -70,18 +70,7 @@ __d(
           o("WAWebSendSpamChatAction")
             .sendReport({ spamFlow: c, chat: n, msg: a })
             .then(function (e) {
-              return (
-                e != null && (S = e),
-                f &&
-                  o(
-                    "WAWebNewsletterUnsubscribeAction",
-                  ).unsubscribeFromNewsletterAction(n, {
-                    eventSurface: o("WAWebWamEnumChannelEventSurface")
-                      .CHANNEL_EVENT_SURFACE.CHANNEL_THREAD,
-                    discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
-                      .STATUS_VIEW,
-                  })
-              );
+              e != null && (S = e);
             })
             .catch(function (t) {
               o("WALogger")
@@ -111,7 +100,17 @@ __d(
                     },
                   ),
                 ),
-                l());
+                l(),
+                S != null &&
+                  f &&
+                  o(
+                    "WAWebNewsletterUnsubscribeAction",
+                  ).unsubscribeFromNewsletterAction(n, {
+                    eventSurface: o("WAWebWamEnumChannelEventSurface")
+                      .CHANNEL_EVENT_SURFACE.CHANNEL_THREAD,
+                    discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                      .STATUS_VIEW,
+                  }));
             });
         };
       return d.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {

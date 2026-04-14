@@ -4,8 +4,11 @@ __d(
     "WAWebAiModeSelector.react",
     "WAWebBotBaseGating",
     "WAWebBotGating",
+    "WAWebBotMultiModalToasts",
+    "WAWebBotMultiModalUtils",
     "WAWebBotUtils",
     "WAWebChatGetters",
+    "WAWebFileUtils",
     "WAWebFrontendChatGetters",
     "WAWebMediaEditor.react",
     "WAWebMediaEditorCaptionInput.react",
@@ -16,9 +19,12 @@ __d(
     "WAWebNewsletterWamoSubMessageTypePopup.react",
     "WAWebNewsletterWamoSubUtils",
     "WAWebQuotedMessageUserJourneyLogger",
+    "WAWebStateUtils",
     "WAWebUserPrefsMeUser",
+    "asyncToGeneratorRuntime",
     "react",
     "useWAWebChatValues",
+    "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -37,68 +43,144 @@ __d(
     }
     function d(e) {
       var t,
-        n = e.allowMultipleMedia,
-        a = e.chat,
-        i = e.hideFooter,
-        l = e.initCaption,
-        d = e.isNewsletterStatus,
-        m = e.isSubmitDisabled,
-        p = e.maxCaptionLength,
-        _ = e.maxNumberOfMedia,
-        f = e.mediaCollection,
-        g = e.mimes,
-        h = e.newsletterWid,
-        y = e.onAudienceSelectorClicked,
-        C = e.onClose,
-        b = e.onDropText,
-        v = e.onRender,
-        S = e.onSendMedia,
-        R = e.openTrigger,
-        L = e.placeholderText,
-        E = e.ref,
-        k = e.renderSubmitAccessory,
-        I = e.sendAsSticker,
-        T = e.setStatusPostingPrivacyConfig,
-        D = e.statusPostingPrivacyConfig,
-        x = e.theme,
-        $ = e.threadId,
-        P = e.toolbarContainer,
-        N = e.tsNavigationData,
-        M =
-          !a.contact.isEnterprise &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(a.contact.id) &&
-          !I,
+        a = e.allowMultipleMedia,
+        i = e.chat,
+        l = e.hideFooter,
+        d = e.initCaption,
+        m = e.isNewsletterStatus,
+        p = e.isSubmitDisabled,
+        _ = e.maxCaptionLength,
+        f = e.maxNumberOfMedia,
+        g = e.mediaCollection,
+        h = e.mimes,
+        y = e.newsletterWid,
+        C = e.onAudienceSelectorClicked,
+        b = e.onClose,
+        v = e.onDropText,
+        S = e.onRender,
+        R = e.onSendMedia,
+        L = e.openTrigger,
+        E = e.placeholderText,
+        k = e.ref,
+        I = e.renderSubmitAccessory,
+        T = e.sendAsSticker,
+        D = e.setStatusPostingPrivacyConfig,
+        x = e.statusPostingPrivacyConfig,
+        $ = e.theme,
+        P = e.threadId,
+        N = e.toolbarContainer,
+        M = e.tsNavigationData,
         w =
-          (t = o("useWAWebChatValues").useOptionalChatValues(a.id, [
+          !i.contact.isEnterprise &&
+          !o("WAWebUserPrefsMeUser").isMeAccount(i.contact.id) &&
+          !T,
+        A =
+          (t = o("useWAWebChatValues").useOptionalChatValues(i.id, [
             o("WAWebChatGetters").getIsNewsletter,
             o("WAWebFrontendChatGetters").getNewsletterMetadata,
             o("WAWebFrontendChatGetters").getComposeQuotedMsg,
           ])) != null
             ? t
             : [!1, null, null],
-        A = w[0],
-        F = w[1],
-        O = w[2],
-        B = u(null),
-        W = B[0],
-        q = B[1],
-        U = function (t, n) {
-          return f.processAttachmentsForChat(t, n, a, _);
+        F = A[0],
+        O = A[1],
+        B = A[2],
+        W = u(null),
+        q = W[0],
+        U = W[1],
+        V = o("WAWebChatGetters").getIsMetaAiBot(
+          o("WAWebStateUtils").unproxy(i),
+        );
+      o("useWAWebListener").useListener(
+        V ? g : null,
+        "max_upload_limit",
+        function () {
+          var e = g.getPreviewableMedias(),
+            t =
+              e.length > 0
+                ? o("WAWebFileUtils").typeFromMimetype(e[0].mimetype)
+                : void 0,
+            n = o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(
+              0,
+              i.id,
+              t,
+            );
+          t === "image"
+            ? o("WAWebBotMultiModalToasts").showImageSendLimitExceededToast(n)
+            : t === "document" &&
+              o(
+                "WAWebBotMultiModalToasts",
+              ).showDocumentUploadLimitExceededToast(n);
         },
-        V = function (t, n, r) {
+      );
+      var H = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t) {
+              var n = e;
+              if (V) {
+                if (
+                  o("WAWebBotMultiModalUtils").hasMetaAiMixedMediaTypes(
+                    e.map(function (e) {
+                      return e.file;
+                    }),
+                  )
+                ) {
+                  (o("WAWebBotMultiModalToasts").showMixedMediaTypeToast(),
+                    g.getPreviewableMedias().length === 0 &&
+                      (b == null || b(!0)));
+                  return;
+                }
+                var r = o(
+                  "WAWebBotMultiModalUtils",
+                ).getSupportedMetaAiAttachments(e);
+                if (
+                  (o("WAWebBotMultiModalUtils").maybeShowUnsupportedFileToast(
+                    r.length,
+                    e.length,
+                  ),
+                  r.length === 0)
+                ) {
+                  g.getPreviewableMedias().length === 0 && (b == null || b(!0));
+                  return;
+                }
+                n = r;
+              }
+              var a =
+                n.length > 0
+                  ? o("WAWebFileUtils").typeFromMimetype(n[0].file.type)
+                  : void 0;
+              return g.processAttachmentsForChat(
+                n,
+                t,
+                i,
+                f != null
+                  ? f
+                  : o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(
+                      g.getPreviewableMedias().length + n.length,
+                      i.id,
+                      a,
+                    ),
+              );
+            },
+          );
+          return function (n, r) {
+            return e.apply(this, arguments);
+          };
+        })(),
+        G = function (t, n, r) {
           if (
-            A &&
+            F &&
             o("WAWebNewsletterWamoSubUtils").newsletterSupportsSubscriptions(
-              F,
+              O,
             ) &&
-            x !== o("WAWebMediaEditorEnumsThemes").MediaTheme.POLL &&
+            $ !== o("WAWebMediaEditorEnumsThemes").MediaTheme.POLL &&
             o(
               "WAWebNewsletterGatingUtils",
             ).isWamoSubCreatorExperienceSupported()
           ) {
             var e = function (r) {
-              (q(null),
-                S(
+              (U(null),
+                R(
                   t,
                   babelHelpers.extends({}, n, {
                     isWamoSub:
@@ -110,71 +192,77 @@ __d(
                   }),
                 ));
             };
-            q({ popupAnchorEl: r, handleSelect: e });
+            U({ popupAnchorEl: r, handleSelect: e });
             return;
           }
-          (S(t, babelHelpers.extends({}, n)),
-            O != null &&
+          (R(t, babelHelpers.extends({}, n)),
+            B != null &&
               o(
                 "WAWebQuotedMessageUserJourneyLogger",
-              ).QuotedMessageUserJourneyLogger.quotedMessageSent(a.id));
+              ).QuotedMessageUserJourneyLogger.quotedMessageSent(i.id));
         },
-        H =
-          o("WAWebBotUtils").isMetaAiBot(a.id) &&
+        z =
+          o("WAWebBotUtils").isMetaAiBot(i.id) &&
           o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
             ? s.jsx(r("WAWebAiModeSelector.react"), {
-                chat: a,
+                chat: i,
                 isInteractive:
                   o("WAWebBotGating").isAiModeSelectorInteractive(),
-                threadId: $,
+                threadId: P,
               })
-            : null;
+            : null,
+        j = g.getPreviewableMedias(),
+        K =
+          j.length > 0
+            ? o("WAWebFileUtils").typeFromMimetype(j[0].mimetype)
+            : void 0;
       return s.jsxs(s.Fragment, {
         children: [
           s.jsx(o("WAWebMediaEditor.react").MediaEditor, {
-            ref: E,
-            canViewOnce: M,
-            sendAsSticker: I,
-            theme: x,
-            onClose: C,
-            onRender: v,
-            hdEligible: !A,
-            mediaCollection: f,
-            initCaption: l,
-            onDropText: b,
-            onSendMedia: V,
-            onAudienceSelectorClicked: y,
-            statusPostingPrivacyConfig: D,
-            setStatusPostingPrivacyConfig: T,
-            newsletterWid: h,
-            isNewsletterStatus: d,
-            tsNavigationData: N,
-            threadId: $,
-            allowMultipleMedia: n,
+            ref: k,
+            canViewOnce: w,
+            sendAsSticker: T,
+            theme: $,
+            onClose: b,
+            onRender: S,
+            hdEligible: !F,
+            mediaCollection: g,
+            initCaption: d,
+            onDropText: v,
+            onSendMedia: G,
+            onAudienceSelectorClicked: C,
+            statusPostingPrivacyConfig: x,
+            setStatusPostingPrivacyConfig: D,
+            newsletterWid: y,
+            isNewsletterStatus: m,
+            tsNavigationData: M,
+            threadId: P,
+            allowMultipleMedia: a,
             maxNumberOfMedia:
-              _ != null
-                ? _
+              f != null
+                ? f
                 : o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(
-                    f.getPreviewableMedias().length,
-                    a.id,
+                    j.length,
+                    i.id,
+                    K,
                   ),
-            mimes: g,
-            maxCaptionLength: p,
-            openTrigger: R,
-            onProcessAttachments: U,
-            renderCaptionInput: c(a, L, H),
-            hideFooter: i,
-            toolbarContainer: P,
-            renderSubmitAccessory: k,
-            isSubmitDisabled: m,
+            mimes: h,
+            maxCaptionLength: _,
+            openTrigger: L,
+            onProcessAttachments: H,
+            renderCaptionInput: c(i, E, z),
+            hideFooter: l,
+            toolbarContainer: N,
+            renderSubmitAccessory: I,
+            isSubmitDisabled: p,
           }),
-          W != null &&
-            x !== o("WAWebMediaEditorEnumsThemes").MediaTheme.POLL &&
+          q != null &&
+            $ !== o("WAWebMediaEditorEnumsThemes").MediaTheme.POLL &&
             s.jsx(r("WAWebNewsletterWamoSubMessageTypePopup.react"), {
-              handleSelect: W.handleSelect,
-              popupAnchorEl: W.popupAnchorEl,
+              handleSelect: q.handleSelect,
+              popupAnchorEl: q.popupAnchorEl,
               onDismiss: function () {
-                return q(null);
+                return U(null);
               },
             }),
         ],

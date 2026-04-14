@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebFrontendMsgGetters",
+    "WAWebGetAiBotContextForForwardedMsg",
     "WAWebGetNewsletterContextForForwardedMsg",
     "WAWebInteractiveMessageType",
     "WAWebMediaFastForwardUtils",
@@ -122,6 +123,9 @@ __d(
                 forwardedNewsletterMessageInfo: o(
                   "WAWebGetNewsletterContextForForwardedMsg",
                 ).getNewsletterContextForForwardedMsg(t),
+                forwardedAiBotMessageInfo: o(
+                  "WAWebGetAiBotContextForForwardedMsg",
+                ).getAiBotContextForForwardedMsg(t),
                 stickers: (d = t.stickers) != null ? d : void 0,
                 publisher: (m = t.stickerPackPublisher) != null ? m : void 0,
                 fileLength: (p = t.size) != null ? p : void 0,

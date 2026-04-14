@@ -3,10 +3,11 @@ __d(
   ["WAWebBBLoggerTypes"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
+    function e(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
+        extraAttributes: n,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_MODAL,

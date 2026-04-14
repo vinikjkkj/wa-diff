@@ -23,7 +23,7 @@ __d(
     "WAWebSettingsIcon.react",
     "WAWebSparklesIcon.react",
     "WAWebStaticMenuItem.react",
-    "WAWebText.react",
+    "WDSText.react",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -215,7 +215,9 @@ __d(
                       height: 32,
                       width: 32,
                     }),
-                    u.jsxs(o("WAWebText.react").WAWebTextMuted, {
+                    u.jsxs(r("WDSText.react"), {
+                      type: "Body1",
+                      colorName: "contentDeemphasized",
                       children: [
                         "Type ",
                         u.jsx(o("WAWebKeyboardShortcut.react").KeyboardKey, {

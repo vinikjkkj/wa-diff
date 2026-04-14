@@ -1178,7 +1178,10 @@ __d(
         rr = function () {
           (Ut(null), Gt(!1), In());
         },
-        or = function (t) {
+        or = function () {
+          (q == null || q(), o("WAWebCmd").Cmd.chatMessageSent(O));
+        },
+        ar = function (t) {
           if (t) {
             t.stopPropagation();
             var e = t.target.files == null ? [] : Array.from(t.target.files);
@@ -1202,7 +1205,7 @@ __d(
               }));
           }
         },
-        ar = function (t) {
+        ir = function (t) {
           if (
             o("WAWebABProps").getABPropConfigValue(
               "enable_mention_everyone_sender_web",
@@ -1222,12 +1225,12 @@ __d(
         onCtwaContextLinkData: Pn,
         onSendingLogAttributes: Nn,
         onSetTextContent: er,
-        onSetNonJidMentions: ar,
+        onSetNonJidMentions: ir,
       });
-      var ir =
+      var lr =
           o("WAWebTextSizeUtils").getWAWebTextSizeStyles().composerFontSize,
-        lr = o("WAWebStateUtils").unproxy(O).groupMetadata,
-        sr = function (t) {
+        sr = o("WAWebStateUtils").unproxy(O).groupMetadata,
+        ur = function (t) {
           o("WALogger").LOG(
             _ ||
               (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -1245,19 +1248,19 @@ __d(
               aiThreadInfo: e,
             }));
         },
-        ur = o("WAWebComposeBoxUtils").getComposeBoxPlaceholderText({
+        cr = o("WAWebComposeBoxUtils").getComposeBoxPlaceholderText({
           chat: O,
           questionType: U,
         }),
-        cr = o("WAWebComposeBoxUtils").getComposeBoxAriaLabelText(O),
-        dr = C.jsxs(r("WAWebRichTextInput.react"), {
+        dr = o("WAWebComposeBoxUtils").getComposeBoxAriaLabelText(O),
+        mr = C.jsxs(r("WAWebRichTextInput.react"), {
           ref: Bt,
           onFocus: Tn,
           onBlur: Dn,
-          placeholder: ur,
-          ariaLabel: cr,
+          placeholder: cr,
+          ariaLabel: dr,
           ariaActiveDescendents: Xt,
-          textXstyle: ir,
+          textXstyle: lr,
           xstyle: N.richTextRefresh,
           testid: void 0,
           editorName: "compose-box",
@@ -1280,7 +1283,7 @@ __d(
           onMaxPasteExceeded: o("WAWebComposeBoxUtils").handleMaxPasteExceeded,
           children: [
             C.jsx(r("WAWebRichTextInputPlugins.react"), {
-              groupMetadata: lr,
+              groupMetadata: sr,
               transformTextEmoji: be.transformTextEmoji,
               textFormatEnabled: !0,
               bulletPointsEnabled: !0,
@@ -1313,10 +1316,10 @@ __d(
               C.jsx(r("WAWebQuickReplyPickerPlugin"), { editor: Ot.editor }),
           ],
         }),
-        mr,
-        pr = Ot == null ? void 0 : Ot.editor;
-      (pr != null &&
-        (mr = C.jsxs(C.Fragment, {
+        pr,
+        _r = Ot == null ? void 0 : Ot.editor;
+      (_r != null &&
+        (pr = C.jsxs(C.Fragment, {
           children: [
             !1,
             !1,
@@ -1325,7 +1328,7 @@ __d(
               C.jsx(r("WAWebQuickReplySuggestions.react"), {
                 kind: o("WAWebSuggestionsPanelContainer.react")
                   .SuggestionsPanelKind.ComposeBox,
-                editor: pr,
+                editor: _r,
                 ref: wt,
                 onSelect: function () {
                   (Ln.current === $.ATTACHMENT_MENU
@@ -1359,7 +1362,7 @@ __d(
                 {
                   kind: o("WAWebSuggestionsPanelContainer.react")
                     .SuggestionsPanelKind.ComposeBox,
-                  editor: pr,
+                  editor: _r,
                   businessProfile: je && o("WAWebStateUtils").unproxy(je),
                   metaBotId: Ke,
                 },
@@ -1368,7 +1371,7 @@ __d(
               ? C.jsx(n("cr:5993"), {
                   kind: o("WAWebSuggestionsPanelContainer.react")
                     .SuggestionsPanelKind.ComposeBox,
-                  editor: pr,
+                  editor: _r,
                 })
               : null,
           ],
@@ -1391,13 +1394,13 @@ __d(
             Ht || zn();
           },
         ));
-      var _r = null;
+      var fr = null;
       rt &&
-        (_r = C.jsx(r("WAWebBotSuggestions.react"), {
+        (fr = C.jsx(r("WAWebBotSuggestions.react"), {
           id: j,
-          onPromptSelect: sr,
+          onPromptSelect: ur,
         }));
-      var fr = {
+      var gr = {
           chat: O,
           pttComposerActive: Ht,
           isMessageToBot: ze(),
@@ -1408,7 +1411,7 @@ __d(
           handleTab: tr,
           handleMetaUpDebounced: nr,
           handleInputFocus: Yn,
-          input: dr,
+          input: mr,
           expressionsPanelWrapperRef: $n,
           expressionsPanelPickerRef: xn,
           replaceInputSelection: Cn,
@@ -1421,7 +1424,7 @@ __d(
           startRecording: zn,
           threadId: V,
         },
-        gr = o("WAWebComposeBoxPopupPanels.react").useComposePopupPanels(Et, {
+        hr = o("WAWebComposeBoxPopupPanels.react").useComposePopupPanels(Et, {
           chat: O,
           linkPreviewData: Ie == null ? void 0 : Ie.data,
           links: Oe,
@@ -1444,21 +1447,22 @@ __d(
           questionReplyQuotedMessage: w.questionReplyQuotedMessage,
           questionType: U,
         }),
-        hr = gr.PopupPanels,
-        yr = gr.hasTopPanels,
-        Cr;
+        yr = hr.PopupPanels,
+        Cr = hr.hasTopPanels,
+        br;
       return (
         cn && n("cr:7456")
-          ? (Cr = C.jsx(
+          ? (br = C.jsx(
               n("cr:7456"),
-              babelHelpers.extends({}, fr, { ref: vt, onCollapseComposer: mn }),
+              babelHelpers.extends({}, gr, { ref: vt, onCollapseComposer: mn }),
             ))
-          : (Cr = C.jsx(
+          : (br = C.jsx(
               r("WAWebMessageComposer.react"),
-              babelHelpers.extends({}, fr, {
+              babelHelpers.extends({}, gr, {
                 ref: vt,
-                hasTopPanel: yr,
+                hasTopPanel: Cr,
                 closePttComposer: rr,
+                onPttSend: or,
                 questionType: U,
                 questionReplyQuotedMessage: w.questionReplyQuotedMessage,
                 threadId: V,
@@ -1482,7 +1486,7 @@ __d(
               ),
               ref: Rt,
               children: [
-                _r,
+                fr,
                 C.jsx(r("WAWebCopyPasteCopyableArea.react"), {
                   canCut: !0,
                   className: (g || (g = r("stylex")))(
@@ -1501,19 +1505,19 @@ __d(
                       null,
                       C.jsx(r("WAWebVelocityTransitionGroup"), {
                         transitionName: "messageComposer",
-                        children: Cr,
+                        children: br,
                       }),
                     ],
                   }),
                 }),
-                hr,
+                yr,
                 C.jsx(r("WAWebFilePicker.react"), {
                   ref: kt,
                   mimes: o("WAWebMimeTypes").IMAGE_MIMES,
-                  onChange: or,
+                  onChange: ar,
                   multiple: !1,
                 }),
-                mr,
+                pr,
                 Re != null &&
                   C.jsx(r("WAWebNewsletterWamoSubMessageTypePopup.react"), {
                     handleSelect: Re.handleSelect,

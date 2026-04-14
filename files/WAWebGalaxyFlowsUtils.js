@@ -40,20 +40,23 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t != null && t.aborted) throw new Error("Request aborted");
+          if (t != null && t.aborted) {
+            var n = new Error("Request aborted");
+            throw (n.stack, n);
+          }
           o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeScreenNavigationPoint(
             o("WAWebGalaxyFlowQPLLoggerUtils").WaeScreenNavigationQPLPoints
               .FETCHING_FLOW_JSON_START,
           );
-          var n = yield window.fetch("/flows/json/" + e, { signal: t }),
-            r = yield n.json();
+          var r = yield window.fetch("/flows/json/" + e, { signal: t }),
+            a = yield r.json();
           return (
             (t != null && t.aborted) ||
               o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeScreenNavigationPoint(
                 o("WAWebGalaxyFlowQPLLoggerUtils").WaeScreenNavigationQPLPoints
                   .FETCHING_FLOW_JSON_END,
               ),
-            r
+            a
           );
         })),
         p.apply(this, arguments)

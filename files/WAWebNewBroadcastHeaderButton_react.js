@@ -21,7 +21,7 @@ __d(
     var e,
       s = e || (e = o("react")),
       u = e,
-      c = u.useCallback,
+      c = u.useEffect,
       d = u.useRef,
       m = u.useState;
     function p(e) {
@@ -31,15 +31,15 @@ __d(
         }),
         a = n[0],
         i = n[1],
-        l = d(!1),
-        u = c(function () {
+        l = d(!1);
+      return (
+        c(function () {
           l.current ||
             ((l.current = !0),
             o(
               "WAWebBizBroadcastNewBroadcastFlowLoadable",
             ).prefetchNewBroadcastFlow());
-        }, []);
-      return (
+        }, []),
         o("useWAWebListener").useListener(
           o("WAWebTos").TosManager,
           "change",
@@ -49,7 +49,6 @@ __d(
         ),
         s.jsx("div", {
           className: "x150mmf0",
-          onPointerEnter: u,
           children: s.jsx(r("WDSButton.react"), {
             disabled: !a,
             label: o(

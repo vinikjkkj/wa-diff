@@ -154,10 +154,20 @@ __d(
                           e.length + l,
                           n.id,
                         ),
-                  u = o("WAWebBotUtils").isHatchBot(n.id)
-                    ? o("WAWebBotGating").getHatchDocumentUploadSizeLimitBytes()
-                    : null;
-                return this.processAttachments(e, t, i, s, a, u);
+                  u = null;
+                return (
+                  o("WAWebBotUtils").isHatchBot(n.id)
+                    ? (u =
+                        o(
+                          "WAWebBotGating",
+                        ).getHatchDocumentUploadSizeLimitBytes())
+                    : o("WAWebBotUtils").isMetaAiBot(n.id) &&
+                      (u =
+                        o(
+                          "WAWebBotGating",
+                        ).getMetaAiDocumentUploadSizeLimitBytes()),
+                  this.processAttachments(e, t, i, s, a, u)
+                );
               },
             );
             function t(t, n, r, o, a) {

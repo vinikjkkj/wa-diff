@@ -80,23 +80,27 @@ __d(
             );
           },
           onSuccess: function (t) {
-            g(!1);
-            var e = S.draftID;
-            (e != null &&
-              r("justknobx")._("5520") &&
-              (S.setDraftID(null),
-              L(e).catch(function (e) {
-                r("FBLogger")("wa_ctwa_web")
-                  .catching(r("getErrorSafe")(e))
-                  .warn("Draft delete on publish failed");
-              })),
-              l(),
-              E(
-                u.jsx(r("WAWebBizAdCreationSuccessModal.react"), {
-                  boostingStatus: t.boostingStatus,
-                }),
-                { blockClose: !0 },
-              ));
+            var e = function () {
+                (g(!1),
+                  l(),
+                  E(
+                    u.jsx(r("WAWebBizAdCreationSuccessModal.react"), {
+                      boostingStatus: t.boostingStatus,
+                    }),
+                    { blockClose: !0 },
+                  ));
+              },
+              n = S.draftID;
+            n != null && r("justknobx")._("5520")
+              ? (S.setDraftID(null),
+                L(n)
+                  .catch(function (e) {
+                    r("FBLogger")("wa_ctwa_web")
+                      .catching(r("getErrorSafe")(e))
+                      .warn("Draft delete on publish failed");
+                  })
+                  .finally(e))
+              : e();
           },
           pageID: c,
           product: p,

@@ -1,23 +1,49 @@
 __d(
   "WAWebBizAdManagementDraftActionsCell.react",
-  ["WAWebFlex.react", "WDSIconIcChevronRight.react", "react"],
-  function (t, n, r, o, a, i, l) {
+  [
+    "fbt",
+    "WAWebFlex.react",
+    "WDSButton.react",
+    "WDSIconIcChevronRight.react",
+    "WDSIconIcDelete.react",
+    "react",
+  ],
+  function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      s = e || (e = o("react")),
-      u = { container: { width: "xh8yej3", $$css: !0 } };
-    function c() {
-      return s.jsx(o("WAWebFlex.react").FlexRow, {
+      u = e || (e = o("react")),
+      c = { container: { width: "xh8yej3", $$css: !0 } };
+    function d(e) {
+      var t = e.isRowHovered,
+        n = e.onDelete;
+      return u.jsxs(o("WAWebFlex.react").FlexRow, {
+        align: "center",
         justify: "end",
-        xstyle: u.container,
-        children: s.jsx(r("WDSIconIcChevronRight.react"), {
-          height: 20,
-          width: 20,
-          colorName: "contentDeemphasized",
-        }),
+        xstyle: c.container,
+        children: [
+          t &&
+            n != null &&
+            u.jsx(r("WDSButton.react"), {
+              Icon: r("WDSIconIcDelete.react"),
+              "aria-label": s._(/*BTDS*/ "Delete draft"),
+              onPress: function (t) {
+                (t.stopPropagation(), n());
+              },
+              size: "small",
+              type: "default",
+              variant: "borderless",
+            }),
+          u.jsx(r("WDSButton.react"), {
+            Icon: r("WDSIconIcChevronRight.react"),
+            variant: "borderless",
+            size: "small",
+            type: "default",
+            disabled: !0,
+          }),
+        ],
       });
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
   },
-  98,
+  226,
 );

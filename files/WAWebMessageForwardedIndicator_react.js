@@ -4,6 +4,7 @@ __d(
     "WAWebClassnames",
     "WAWebForwardRefreshedIcon.react",
     "WAWebForwardUtils",
+    "WAWebForwardedAiBotMessageInfoHeader.react",
     "WAWebForwardedNewsletterMessageInfoHeader.react",
     "WAWebMessageForwardedIndicatorSearchTheWeb.react",
     "WAWebMessageTopIndicatorText.react",
@@ -61,6 +62,9 @@ __d(
             msg: i,
           }),
           u.jsx(r("WAWebForwardedNewsletterMessageInfoHeader.react"), {
+            msg: t.msg,
+          }),
+          u.jsx(r("WAWebForwardedAiBotMessageInfoHeader.react"), {
             msg: t.msg,
           }),
         ],

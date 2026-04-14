@@ -16,7 +16,7 @@ __d(
         "add remove",
         function () {
           var t = o("WAWebBotBaseGating").isBotEnabled() && e.id.isBot();
-          if (!t) return !1;
+          if (!t || o("WAWebBotBaseGating").isMetaAIHomeEnabled()) return !1;
           if (n.msgs.length === 0) return !0;
           if (n.msgs.length === 1) {
             var r,

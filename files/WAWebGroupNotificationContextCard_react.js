@@ -9,6 +9,7 @@ __d(
     "WAWebCameraV2Icon.react",
     "WAWebChatGetters",
     "WAWebCmd",
+    "WAWebCommunitySubgroupInviteLinkRestriction",
     "WAWebContactCollection",
     "WAWebConversationSpamUtils",
     "WAWebDetailImage.react",
@@ -316,7 +317,7 @@ __d(
             i.groupMetadata,
             "Chat groupMetadata is null in ContextCardDescription",
           ),
-          ["displayedDesc", "memberLinkMode", "participants"],
+          ["displayedDesc", "memberLinkMode", "parentGroup", "participants"],
         ),
         c =
           (t = (n = l.participants) == null ? void 0 : n.iAmAdmin()) != null
@@ -365,10 +366,14 @@ __d(
         y =
           l.memberLinkMode ===
             o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK &&
-          o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsM2Enabled();
+          o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsM2Enabled(),
+        C = o(
+          "WAWebCommunitySubgroupInviteLinkRestriction",
+        ).isSubgroupInviteLinkRestrictedByParentCommunity(l),
+        b = y && !C;
       if (!m && l.canSetDescription())
         return i.trusted
-          ? y && c
+          ? b && c
             ? u.jsx("div", {
                 className: "x1nxh6w3 xcgms0a x9f619 x1yn0g08 x1xrf6ya",
                 children: u.jsx(o("WAWebText.react").WAWebTextSmall, {
@@ -400,7 +405,7 @@ __d(
                 }),
               })
           : null;
-      var C = o("WAUnicodeUtils").numCodepoints(m) > _;
+      var v = o("WAUnicodeUtils").numCodepoints(m) > _;
       return u.jsxs("div", {
         className: "x1nxh6w3 xcgms0a x9f619 x1yn0g08 x1xrf6ya",
         children: [
@@ -423,7 +428,7 @@ __d(
                   bulletPointsEnabled: !1,
                 }),
           }),
-          C &&
+          v &&
             u.jsxs(u.Fragment, {
               children: [
                 " ",

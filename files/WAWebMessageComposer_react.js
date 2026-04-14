@@ -122,37 +122,38 @@ __d(
         L = t.input,
         E = t.inputHotkeyRef,
         k = t.isMessageToBot,
-        I = t.pttComposerActive,
-        T = t.questionReplyQuotedMessage,
-        D = t.questionType,
-        x = t.recordingSession,
-        $ = t.ref,
-        P = t.replaceInputSelection,
-        N = t.richTextInputRef,
-        M = t.startRecording,
-        w = t.threadId,
-        A = t.updateTextAfterMediaDrawerClose,
-        F = p(null);
+        I = t.onPttSend,
+        T = t.pttComposerActive,
+        D = t.questionReplyQuotedMessage,
+        x = t.questionType,
+        $ = t.recordingSession,
+        P = t.ref,
+        N = t.replaceInputSelection,
+        M = t.richTextInputRef,
+        w = t.startRecording,
+        A = t.threadId,
+        F = t.updateTextAfterMediaDrawerClose,
+        O = p(null);
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "open_attachment_dropdown",
         function () {
-          var e = F.current;
+          var e = O.current;
           e && e.open();
         },
       );
-      var O = D === o("WAWebQuestions.flow").QuestionType.Question,
-        B = D === o("WAWebQuestions.flow").QuestionType.Reply,
-        W = m(r("WAWebIsInThreadsViewContext")),
-        q =
-          !W &&
+      var B = x === o("WAWebQuestions.flow").QuestionType.Question,
+        W = x === o("WAWebQuestions.flow").QuestionType.Reply,
+        q = m(r("WAWebIsInThreadsViewContext")),
+        U =
+          !q &&
           (!o("WAWebChatGetters").getIsNewsletter(n) ||
             o("WAWebNewsletterGatingUtils").isNewsletterPTTSendingEnabled()) &&
-          (!O ||
+          (!B ||
             o("WAWebQuestionsGatingUtils").isQuestionSenderEnabledForMsgType(
               o("WAWebMsgType").MSG_TYPE.PTT,
             )) &&
-          (!B ||
+          (!W ||
             o(
               "WAWebQuestionsGatingUtils",
             ).isQuestionReplySenderEnabledForMsgType(
@@ -161,128 +162,129 @@ __d(
           !o("WAWebContactGetters").getIsCAPISupportAccount(n.contact) &&
           (!k || o("WAWebBotGating").isBotPttEnabled(n.id)) &&
           !o("WAWebChatGetters").getIsBroadcast(n),
-        U = function (t) {
-          t.target === t.currentTarget && I === !1 && (N == null || N.focus());
+        V = function (t) {
+          t.target === t.currentTarget && T === !1 && (M == null || M.focus());
         },
-        V = o("WAWebBotUtils").isMetaAiBot(n.id),
-        H = o("WAWebBotUtils").isBotChannelFBID(n.id),
-        G =
+        H = o("WAWebBotUtils").isMetaAiBot(n.id),
+        G = o("WAWebBotUtils").isBotChannelFBID(n.id),
+        z =
           k &&
-          ((V &&
+          ((H &&
             (o("WAWebBotGating").isMetaAiImageInputEnabled() ||
               o("WAWebBotGating").isMetaAiDocUploadEnabled())) ||
-            H),
-        z = !k || G,
-        j = function (t) {
-          return z
-            ? O
+            G),
+        j = !k || z,
+        K = function (t) {
+          return j
+            ? B
               ? o(
                   "WAWebQuestionsGatingUtils",
                 ).isQuestionSenderEnabledForMsgType(t)
-              : B
+              : W
                 ? o(
                     "WAWebQuestionsGatingUtils",
                   ).isQuestionReplySenderEnabledForMsgType(t)
                 : !o("WAWebChatGetters").getIsBroadcast(n)
             : !1;
         },
-        K = V && o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled(),
-        Q = K && o("WAWebBotGating").isAiModeSelectorInteractive(),
-        X = {
+        Q = H && o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled(),
+        X = Q && o("WAWebBotGating").isAiModeSelectorInteractive(),
+        Y = {
           expressionsPanelWrapperRef: l,
           expressionsPanelPickerRef: i,
-          replaceInputSelection: P,
+          replaceInputSelection: N,
           handlePanelsSticker: y,
           handlePanelsStickerFromStore: C,
           handlePanelsGif: h,
-          isStickerEnabled: !H && j(o("WAWebMsgType").MSG_TYPE.STICKER),
-          isGifEnabled: !H && j(o("WAWebMsgType").MSG_TYPE.VIDEO),
+          isStickerEnabled: !G && K(o("WAWebMsgType").MSG_TYPE.STICKER),
+          isGifEnabled: !G && K(o("WAWebMsgType").MSG_TYPE.VIDEO),
           getComposeBoxEditorRef: function () {
-            return N;
+            return M;
           },
           handleClose: function () {
-            return N == null ? void 0 : N.focus();
+            return M == null ? void 0 : M.focus();
           },
           size:
-            B || O
+            W || B
               ? o("WAWebExpressionsPanelPicker.react").ExpressionsPanelSize
                   .SMALL
               : void 0,
         },
-        Y = [
+        J = [
           o("WAWebUISpacing").uiPadding.all5,
           o("WAWebUISpacing").uiMargin.horiz12,
           o("WAWebUISpacing").uiMargin.bottom12,
         ],
-        J = c.jsx(o("WAWebComposeBoxSendButton.react").SendButtonRefresh, {
-          supportsPtt: q,
+        Z = c.jsx(o("WAWebComposeBoxSendButton.react").SendButtonRefresh, {
+          supportsPtt: U,
           onClickSend: b,
-          recordingSession: x,
+          recordingSession: $,
           onStartRecording: function () {
-            return void M();
+            return void w();
           },
           hasTextState: S,
           isMessageToBot: k,
-          buttonVariant: (B || O) && !S ? "tonal" : void 0,
+          buttonVariant: (W || B) && !S ? "tonal" : void 0,
         }),
-        Z = void 0;
-      !W &&
-        z &&
-        (!O ||
+        ee = void 0;
+      !q &&
+        j &&
+        (!B ||
           o("WAWebQuestionsGatingUtils").getEnabledQuestionAttachmentTypes()
             .size > 0) &&
-        (!B ||
+        (!W ||
           o(
             "WAWebQuestionsGatingUtils",
           ).getEnabledQuestionReplyAttachmentTypes().size > 0) &&
-        (Z = c.jsx("div", {
+        (ee = c.jsx("div", {
           className: "x100vrsf x1vqgdyp x78zum5 x6s0dn4 xpvyfi4",
           children: c.jsx(r("WAWebAttachMenuBarItem.react"), {
-            ref: F,
+            ref: O,
             chat: o("WAWebStateUtils").unproxy(n),
             getComposeContents: s,
             getComposeBoxEditorRef: function () {
-              return N;
+              return M;
             },
-            onMenuComplete: A,
+            onMenuComplete: F,
             iconWidth: 24,
-            questionType: D,
-            questionReplyQuotedMessage: T,
-            threadId: w,
+            questionType: x,
+            questionReplyQuotedMessage: D,
+            threadId: A,
           }),
         }));
-      var ee = I
+      var te = T
           ? c.jsx("div", {
               className: "x78zum5 x13a6bvl xh8yej3 x67bb7w",
               children: c.jsx(r("WAWebPttComposer.react"), {
                 chat: o("WAWebStateUtils").unproxy(n),
-                recordingSession: r("nullthrows")(x),
+                recordingSession: r("nullthrows")($),
                 onComplete: a,
-                threadId: w,
+                onSend: I,
+                threadId: A,
               }),
             })
           : c.jsxs(c.Fragment, {
               children: [
-                z && Z,
-                c.jsx(g, babelHelpers.extends({}, X)),
+                j && ee,
+                c.jsx(g, babelHelpers.extends({}, Y)),
                 L,
-                K &&
+                Q &&
                   c.jsx(r("WAWebAiModeSelector.react"), {
                     chat: n,
-                    threadId: w,
-                    isInteractive: Q,
+                    threadId: A,
+                    isInteractive: X,
                   }),
-                J,
+                Z,
               ],
             }),
-        te = r("WAWebEnvironment").isWindows,
-        ne = babelHelpers.extends(
+        ne = r("WAWebEnvironment").isWindows,
+        re = babelHelpers.extends(
           { tab: v, "shift+tab": v },
-          te ? { "ctrl+up": f } : { "meta+up": f },
+          ne ? { "ctrl+up": f } : { "meta+up": f },
           { up: f },
         );
       return c.jsx("div", {
-        ref: $,
+        ref: P,
         className: "x78zum5 xuk3077",
         children: c.jsx("div", {
           className: "_ak1r",
@@ -290,20 +292,20 @@ __d(
             ref: E,
             className: (e || (e = r("stylex")))(
               _.inputContainer,
-              Y,
+              J,
               _.inputContainerMaterial,
               _.inputContainerRefresh,
-              !D && _.inputBoxShadow,
+              !x && _.inputBoxShadow,
               !R && _.inputContainerRefreshNoTopPanel,
               R && _.inputContainerHasTopPanel,
-              D && _.questionInputContainer,
-              D != null && R && _.withoutTopBorder,
+              x && _.questionInputContainer,
+              x != null && R && _.withoutTopBorder,
             ),
-            handlers: ne,
-            onClick: U,
+            handlers: re,
+            onClick: V,
             onFocus: d,
             onBlur: u,
-            children: ee,
+            children: te,
           }),
         }),
       });

@@ -3,16 +3,17 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    function e(e) {
-      return l(e) ? ((e.numberRedemptions += 1), !0) : !1;
-    }
+    var e = 6e4;
     function l(e) {
-      return !(s(e) || e.numberRedemptions + 1 > e.maxRedemptions);
+      return s(e) ? ((e.numberRedemptions += 1), !0) : !1;
     }
     function s(e) {
-      return Date.now() > e.expiresOnMillis;
+      return u(e) ? !1 : e.numberRedemptions < e.maxRedemptions;
     }
-    ((i.redeemCachedToken = e), (i.isCachedTokenRedeemable = l));
+    function u(t) {
+      return Date.now() + e > t.expiresOnMillis;
+    }
+    ((i.redeemCachedToken = l), (i.isCachedTokenRedeemable = s));
   },
   66,
 );

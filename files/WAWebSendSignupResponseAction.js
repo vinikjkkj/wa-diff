@@ -236,7 +236,7 @@ __d(
                 o("WALogger").ERROR(
                   f ||
                     (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[injectPostSendOptOutSystemMsg] Failed to handle system message",
+                      "[injectPostSendOptOutSystemMsg] handle sys msg failed",
                     ])),
                 );
               }),

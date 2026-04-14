@@ -94,7 +94,7 @@ __d(
         l = t.sessionIdRef,
         u = s._(/*BTDS*/ "Recent updates"),
         d = s._(/*BTDS*/ "Viewed updates"),
-        m = s._(/*BTDS*/ "Hidden updates");
+        m = s._(/*BTDS*/ "Muted updates");
       switch (n.type) {
         case f.SEC_UNREAD:
           return c.jsx(r("WAWebSectionHeader.react"), {

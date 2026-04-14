@@ -2,17 +2,21 @@ __d(
   "WAWebSuspendedGroupUtils",
   [
     "fbt",
+    "WALogger",
     "WAWebABPropsSaga",
     "WAWebContactFormWrapper.react",
+    "WAWebDBGroupsGroupMetadata",
     "WAWebExitAndDeleteGroupPopup.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
     "WAWebGroupJoinRequestMetricUtils",
     "WAWebGroupSuspensionAppealEventsWamEvent",
     "WAWebGroupSuspensionAppealModal.react",
+    "WAWebGroupSuspensionAppealMutation",
     "WAWebGroupType",
     "WAWebL10N",
     "WAWebLeaveAndReportGroupModal.react",
+    "WAWebLoggerDebugInfo",
     "WAWebModalManager",
     "WAWebNoop",
     "WAWebSupportAiSessionWamEvent",
@@ -20,13 +24,18 @@ __d(
     "WAWebSuspendedGroupModal.react",
     "WAWebSuspendedGroupModalV2.react",
     "WAWebSuspendedGroupRedesignModalLoadable",
+    "WAWebToast.react",
+    "WAWebToastManager",
     "WAWebWamEnumSupportAiEventType",
+    "asyncToGeneratorRuntime",
+    "err",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = e || (e = o("react"));
-    function c(e, t, n) {
+      u,
+      c = u || (u = o("react"));
+    function d(e, t, n) {
       var r,
         a = e.groupMetadata;
       new (o(
@@ -44,29 +53,29 @@ __d(
         ),
       }).commit();
     }
-    var d = 1250,
-      m = "group-suspend-appeal",
-      p = "cxt/?entrypointid=group-no-longer-available&platform=web";
-    function _() {
+    var m = 1250,
+      p = "group-suspend-appeal",
+      _ = "cxt/?entrypointid=group-no-longer-available&platform=web";
+    function f() {
       return (
         o("WAWebFaqUrl").FAQ_BASE_URL +
         "/" +
-        p +
+        _ +
         "&lang=" +
         r("WAWebL10N").getNormalizedLocale()
       );
     }
-    var f = u.jsx(o("WAWebExternalLink.react").ExternalLink, {
-      href: _(),
+    var g = c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+      href: f(),
       testid: void 0,
       children: s._(/*BTDS*/ "Learn more"),
     });
-    function g(e) {
+    function h(e) {
       var t = r("WAWebNoop"),
         n = r("WAWebNoop"),
         a = " ";
       o("WAWebModalManager").ModalManager.open(
-        u.jsxs(r("WAWebSuspendedGroupModal.react"), {
+        c.jsxs(r("WAWebSuspendedGroupModal.react"), {
           title: s._(/*BTDS*/ "Group unavailable"),
           onSupportClicked: function () {
             (o("WAWebModalManager").ModalManager.close(),
@@ -78,10 +87,10 @@ __d(
                     .SUPPORT_AI_EVENT_TYPE.CONTACT_US_CLICKED,
                 }).commit(),
               o("WAWebModalManager").ModalManager.open(
-                u.jsx(r("WAWebContactFormWrapper.react"), {
+                c.jsx(r("WAWebContactFormWrapper.react"), {
                   onCancel: t,
                   onSend: n,
-                  supportTag: m,
+                  supportTag: p,
                   entityId: e,
                 }),
                 { transition: "modal-flow" },
@@ -94,33 +103,33 @@ __d(
               /*BTDS*/ "This group is no longer available. Please contact WhatsApp Support for help.",
             ),
             a,
-            f,
+            g,
           ],
         }),
         { transition: "modal-flow" },
       );
     }
-    function h() {
+    function y() {
       var e = " ";
       o("WAWebModalManager").ModalManager.open(
-        u.jsxs(r("WAWebSuspendedGroupModal.react"), {
+        c.jsxs(r("WAWebSuspendedGroupModal.react"), {
           title: s._(/*BTDS*/ "Group unavailable"),
           onDismissClicked: o("WAWebModalManager").closeModalManager,
           showSupportBtn: !1,
-          children: [s._(/*BTDS*/ "This group is no longer available."), e, f],
+          children: [s._(/*BTDS*/ "This group is no longer available."), e, g],
         }),
-        { transition: "modal-flow" },
-      );
-    }
-    function y(e) {
-      o("WAWebModalManager").ModalManager.open(
-        u.jsx(r("WAWebSuspendedGroupModalV2.react"), { chat: e }),
         { transition: "modal-flow" },
       );
     }
     function C(e) {
       o("WAWebModalManager").ModalManager.open(
-        u.jsx(
+        c.jsx(r("WAWebSuspendedGroupModalV2.react"), { chat: e }),
+        { transition: "modal-flow" },
+      );
+    }
+    function b(e) {
+      o("WAWebModalManager").ModalManager.open(
+        c.jsx(
           o("WAWebSuspendedGroupRedesignModalLoadable")
             .SuspendedGroupRedesignModalLoadable,
           { chat: e, isCommunity: !1 },
@@ -128,45 +137,104 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function b(e) {
-      o("WAWebModalManager").ModalManager.open(
-        u.jsx(r("WAWebGroupSuspensionAppealModal.react"), { groupJid: e }),
-        { transition: "modal-flow" },
-      );
-    }
     function v(e) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n;
+          try {
+            n = yield o(
+              "WAWebGroupSuspensionAppealMutation",
+            ).submitGroupSuspensionAppeal(
+              t.toJid(),
+              null,
+              JSON.stringify(
+                yield o("WAWebLoggerDebugInfo").getDebugInfo({
+                  supportTag: "group-suspend-appeal",
+                  convertFields: !0,
+                  addUserAgentDetails: !0,
+                  entityId: t.toJid(),
+                }),
+              ),
+            );
+          } catch (t) {
+            (o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[GROUP_SUSPEND] Failed to submit group suspension appeal",
+                  ])),
+              )
+              .catching(t instanceof Error ? t : r("err")(String(t)))
+              .tags("GROUP_SUSPEND")
+              .sendLogs("group-suspend-appeal-error"),
+              (n = {
+                success: !1,
+                appealCreationTime: null,
+                errorMessage: String(t),
+              }));
+          }
+          return (
+            n.success
+              ? yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(t, {
+                  suspendAppealStatus: "IN_REVIEW",
+                  suspendAppealUpdateTime: n.appealCreationTime,
+                })
+              : o("WAWebToastManager").ToastManager.open(
+                  c.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(
+                      /*BTDS*/ "Something went wrong. Please try again later.",
+                    ),
+                  }),
+                ),
+            n
+          );
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e) {
       o("WAWebModalManager").ModalManager.open(
-        u.jsx(r("WAWebExitAndDeleteGroupPopup.react"), { chat: e }),
+        c.jsx(r("WAWebGroupSuspensionAppealModal.react"), { chatId: e }),
         { transition: "modal-flow" },
       );
     }
-    function S(e, t) {
+    function L(e) {
       o("WAWebModalManager").ModalManager.open(
-        u.jsx(r("WAWebLeaveAndReportGroupModal.react"), {
+        c.jsx(r("WAWebExitAndDeleteGroupPopup.react"), { chat: e }),
+        { transition: "modal-flow" },
+      );
+    }
+    function E(e, t) {
+      o("WAWebModalManager").ModalManager.open(
+        c.jsx(r("WAWebLeaveAndReportGroupModal.react"), {
           chat: e,
           spamFlow: t,
         }),
         { transition: "modal-flow" },
       );
     }
-    function R() {
+    function k() {
       o("WAWebModalManager").ModalManager.open(
-        u.jsx(r("WAWebSuspendedGroupMediaDownloadFailureModal.react"), {}),
+        c.jsx(r("WAWebSuspendedGroupMediaDownloadFailureModal.react"), {}),
         { transition: "modal-flow" },
       );
     }
-    ((l.logGroupSuspensionAppealEvent = c),
-      (l.STACK_BUTTONS_WIDTH = d),
-      (l.SUSPENDED_GROUP_SUPPORT_TAG = m),
-      (l.getSuspendedFaqUrl = _),
-      (l.openSuspendedGroupModal = g),
-      (l.openTerminatedGroupOrNotMemberModal = h),
-      (l.openSuspendedGroupModalV2 = y),
-      (l.openSuspendedGroupRedesignModal = C),
-      (l.openGroupSuspensionAppealModal = b),
-      (l.openExitAndDeleteGroupModal = v),
-      (l.openLeaveAndReportGroupModal = S),
-      (l.openSuspendedGroupMediaDownloadFailureModal = R));
+    ((l.logGroupSuspensionAppealEvent = d),
+      (l.STACK_BUTTONS_WIDTH = m),
+      (l.SUSPENDED_GROUP_SUPPORT_TAG = p),
+      (l.getSuspendedFaqUrl = f),
+      (l.openSuspendedGroupModal = h),
+      (l.openTerminatedGroupOrNotMemberModal = y),
+      (l.openSuspendedGroupModalV2 = C),
+      (l.openSuspendedGroupRedesignModal = b),
+      (l.submitGroupAppeal = v),
+      (l.openGroupSuspensionAppealModal = R),
+      (l.openExitAndDeleteGroupModal = L),
+      (l.openLeaveAndReportGroupModal = E),
+      (l.openSuspendedGroupMediaDownloadFailureModal = k));
   },
   226,
 );

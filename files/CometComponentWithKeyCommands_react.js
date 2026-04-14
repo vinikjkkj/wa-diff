@@ -5,6 +5,7 @@ __d(
     "react",
     "react-compiler-runtime",
     "useKeyCommands",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -32,15 +33,16 @@ __d(
       };
     function d(e) {
       var t = e.commandConfigs;
-      return (r("useKeyCommands")(t), null);
+      return (
+        r("vulture")("zAeTPeUINDhNBGq_9kUh0iA4KI0="),
+        r("useKeyCommands")(t),
+        null
+      );
     }
     function m(t) {
-      var n = o("react-compiler-runtime").c(16),
-        a,
-        i,
-        l,
-        s,
-        m;
+      var n = o("react-compiler-runtime").c(16);
+      r("vulture")("LgdEKDqwYvx3sbAAubZpD9kOtGc=");
+      var a, i, l, s, m;
       n[0] !== t
         ? ((a = t.children),
           (i = t.commandConfigs),

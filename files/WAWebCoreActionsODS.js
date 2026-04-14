@@ -500,21 +500,63 @@ __d(
       r("WAWebODS").incr("web.call.relay.port_3478");
     }
     function He() {
-      r("WAWebODS").incr("web.calendar.open.date_marker");
+      r("WAWebODS").incr("web.call.ice.started.port_3478");
     }
     function Ge() {
-      r("WAWebODS").incr("web.calendar.open.search_drawer");
+      r("WAWebODS").incr("web.call.ice.started.port_3480");
     }
     function ze() {
-      r("WAWebODS").incr("web.calendar.date_selected.date_marker");
+      r("WAWebODS").incr("web.call.ice.connected.port_3478");
     }
     function je() {
-      r("WAWebODS").incr("web.calendar.date_selected.search_drawer");
+      r("WAWebODS").incr("web.call.ice.connected.port_3480");
     }
     function Ke() {
-      r("WAWebODS").incr("web.calendar.open.sticky_date_marker");
+      r("WAWebODS").incr("web.call.ice.failed.port_3478");
     }
     function Qe() {
+      r("WAWebODS").incr("web.call.ice.failed.port_3480");
+    }
+    function Xe() {
+      r("WAWebODS").incr("web.call.dtls.started.port_3478");
+    }
+    function Ye() {
+      r("WAWebODS").incr("web.call.dtls.started.port_3480");
+    }
+    function Je() {
+      r("WAWebODS").incr("web.call.dtls.connected.port_3478");
+    }
+    function Ze() {
+      r("WAWebODS").incr("web.call.dtls.connected.port_3480");
+    }
+    function et() {
+      r("WAWebODS").incr("web.call.dtls.failed.stall.port_3478");
+    }
+    function tt() {
+      r("WAWebODS").incr("web.call.dtls.failed.stall.port_3480");
+    }
+    function nt() {
+      r("WAWebODS").incr("web.call.dtls.failed.pc_failed.port_3478");
+    }
+    function rt() {
+      r("WAWebODS").incr("web.call.dtls.failed.pc_failed.port_3480");
+    }
+    function ot() {
+      r("WAWebODS").incr("web.calendar.open.date_marker");
+    }
+    function at() {
+      r("WAWebODS").incr("web.calendar.open.search_drawer");
+    }
+    function it() {
+      r("WAWebODS").incr("web.calendar.date_selected.date_marker");
+    }
+    function lt() {
+      r("WAWebODS").incr("web.calendar.date_selected.search_drawer");
+    }
+    function st() {
+      r("WAWebODS").incr("web.calendar.open.sticky_date_marker");
+    }
+    function ut() {
       r("WAWebODS").incr("web.calendar.date_selected.sticky_date_marker");
     }
     ((l.logStickerMsgSend = _),
@@ -573,12 +615,26 @@ __d(
       (l.logCallVoipInitSuccess = qe),
       (l.logCallVoipInitError = Ue),
       (l.logCallRelayPort3478 = Ve),
-      (l.logCalendarOpenFromDateMarker = He),
-      (l.logCalendarOpenFromSearchDrawer = Ge),
-      (l.logCalendarDateSelectedFromDateMarker = ze),
-      (l.logCalendarDateSelectedFromSearchDrawer = je),
-      (l.logCalendarOpenFromStickyDateMarker = Ke),
-      (l.logCalendarDateSelectedFromStickyDateMarker = Qe));
+      (l.logCallIceStartedPort3478 = He),
+      (l.logCallIceStartedPort3480 = Ge),
+      (l.logCallIceConnectedPort3478 = ze),
+      (l.logCallIceConnectedPort3480 = je),
+      (l.logCallIceFailedPort3478 = Ke),
+      (l.logCallIceFailedPort3480 = Qe),
+      (l.logCallDtlsStartedPort3478 = Xe),
+      (l.logCallDtlsStartedPort3480 = Ye),
+      (l.logCallDtlsConnectedPort3478 = Je),
+      (l.logCallDtlsConnectedPort3480 = Ze),
+      (l.logCallDtlsFailedStallPort3478 = et),
+      (l.logCallDtlsFailedStallPort3480 = tt),
+      (l.logCallDtlsFailedPcFailedPort3478 = nt),
+      (l.logCallDtlsFailedPcFailedPort3480 = rt),
+      (l.logCalendarOpenFromDateMarker = ot),
+      (l.logCalendarOpenFromSearchDrawer = at),
+      (l.logCalendarDateSelectedFromDateMarker = it),
+      (l.logCalendarDateSelectedFromSearchDrawer = lt),
+      (l.logCalendarOpenFromStickyDateMarker = st),
+      (l.logCalendarDateSelectedFromStickyDateMarker = ut));
   },
   98,
 );

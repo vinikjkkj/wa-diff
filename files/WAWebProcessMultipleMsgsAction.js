@@ -9,6 +9,7 @@ __d(
     "WAWebAvatarGatingUtils",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotTypes",
+    "WAWebBotUtils",
     "WAWebChatCollection",
     "WAWebChatModel",
     "WAWebDownloadProgressiveJpegThumbnail",
@@ -371,10 +372,13 @@ __d(
                 }
               });
             }
+            var j = o("WAWebBotUtils").isBotChannelFBID(x.id),
+              K = x instanceof o("WAWebChatModel").Chat ? x : null;
             if (
-              (o("WAWebABProps").getABPropConfigValue(
+              ((o("WAWebABProps").getABPropConfigValue(
                 "download_document_thumb_mms_enabled",
-              ) &&
+              ) ||
+                j) &&
                 r("compactMap")($, function (e) {
                   return o("WAWebFrontendMsgGetters").getAsDoc(e);
                 }).forEach(function (e) {
@@ -387,22 +391,22 @@ __d(
                           .MMS_THUMBNAIL,
                       )
                     : r("WAWebMediaDownloadMmsThumbnail")({
-                        chat: null,
+                        chat: K,
                         msg: e,
                         isPreload: !0,
                       });
                 }),
               o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled())
             ) {
-              var j = r("compactMap")($, function (e) {
+              var Q = r("compactMap")($, function (e) {
                   return o("WAWebFrontendMsgGetters").getAsDoc(e);
                 }),
-                K = j.some(function (e) {
+                X = Q.some(function (e) {
                   return o(
                     "WAWebTPPdfViewerGatingUtils",
                   ).isWebTPPdfViewerEnabledForMimeType(e.mimetype);
                 });
-              K &&
+              X &&
                 (n("cr:11804") == null ||
                   n("cr:11804").maybePreloadWebTPIframeForPDFs(void 0, {
                     source: "appStart",
@@ -433,13 +437,13 @@ __d(
                 "download_status_thumb_mms_enabled",
               ))
             ) {
-              var Q = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
-                X = 1e3 * 60 * 60 * 24;
-              if (Q == null || Date.now() - Q < 14 * X) {
-                var Y = $.filter(function (e) {
+              var Y = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
+                J = 1e3 * 60 * 60 * 24;
+              if (Y == null || Date.now() - Y < 14 * J) {
+                var Z = $.filter(function (e) {
                   return o("WAWebMsgGetters").getIsStatus(e);
                 });
-                r("compactMap")(Y, function (e) {
+                r("compactMap")(Z, function (e) {
                   return (
                     o("WAWebFrontendMsgGetters").getAsImage(e) ||
                     o("WAWebFrontendMsgGetters").getAsVideo(e)

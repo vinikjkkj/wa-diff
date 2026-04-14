@@ -7,10 +7,10 @@ __d(
     "WATaskScheduler",
     "WAWebBackendApi",
     "WAWebBizBroadcastDeviceCapabilityCommon",
-    "WAWebBizGatingUtils",
     "WAWebCTWAConstants",
     "WAWebFetchQuickPromotions",
     "WAWebMobilePlatforms",
+    "WAWebQuickPromotionGating",
     "WAWebSchemaQuickPromotions",
     "WAWebTasksTaskType",
     "asyncToGeneratorRuntime",
@@ -67,11 +67,11 @@ __d(
                               e.data.qpConfigPriority - t.data.qpConfigPriority
                             );
                           }),
-                          o("WAWebBizGatingUtils").qpGraphQLEnabled())
+                          o("WAWebQuickPromotionGating").qpGraphQLEnabledSMB())
                         ) {
                           var r = o(
-                              "WAWebBizGatingUtils",
-                            ).qpSurfaceIdsUsingGraphQL(),
+                              "WAWebQuickPromotionGating",
+                            ).qpSurfaceIdsUsingGraphQLSMB(),
                             a = n.filter(function (t) {
                               if (t == null) return !1;
                               var n = o(

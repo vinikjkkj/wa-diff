@@ -12,85 +12,99 @@ __d(
     function c(t) {
       ((u = t), (e = null));
     }
-    function d() {
-      var t;
+    function d(e) {
       if (u == null) return !1;
-      var n = u,
-        r =
-          (t = o("WAWebABProps").getABPropConfigValue(
-            "bonsai_supported_languages",
-          )) != null
-            ? t
-            : "en";
-      if (s !== r || e == null) {
-        var a = r
-          .toLowerCase()
-          .split(",")
-          .map(function (e) {
-            return e.trim();
-          });
-        ((s = r), (e = a.includes(n)));
-      }
-      return e;
+      var t = u,
+        n = new Set(
+          e
+            .toLowerCase()
+            .split(",")
+            .map(function (e) {
+              return e.trim();
+            })
+            .filter(function (e) {
+              return e.length > 0;
+            }),
+        );
+      return n.has(t);
     }
     function m() {
-      return o("WAWebABProps").getABPropConfigValue("bonsai_enabled") === !0;
+      var t;
+      if (u == null) return !1;
+      var n =
+        (t = o("WAWebABProps").getABPropConfigValue(
+          "bonsai_supported_languages",
+        )) != null
+          ? t
+          : "en";
+      return ((s !== n || e == null) && ((s = n), (e = d(n))), e);
     }
     function p() {
+      return o("WAWebABProps").getABPropConfigValue("bonsai_enabled") === !0;
+    }
+    function _() {
       return (
-        _() &&
+        g() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_chat_meta_ai_home_web_enabled",
         ) === !0
       );
     }
-    function _() {
-      return o("WAWebMobilePlatforms").isSMB() || !d() ? !1 : m();
-    }
     function f() {
-      return o("WAWebABProps").getABPropConfigValue("bot_3p_status") !== 0;
+      return (
+        _() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_chat_meta_ai_home_default_landing_enabled",
+        )
+      );
     }
     function g() {
+      return o("WAWebMobilePlatforms").isSMB() || !m() ? !1 : p();
+    }
+    function h() {
+      return o("WAWebABProps").getABPropConfigValue("bot_3p_status") !== 0;
+    }
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "wabai_message_rendering_enabled",
       );
     }
-    function h() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_forward_attribution_enabled",
       );
     }
-    function y() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue("ai_mode_selector_enabled");
     }
-    function C() {
+    function v() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_dynamic_mode_selector_enabled",
       );
     }
-    function b() {
+    function S() {
       return (
         o("WAWebThreadsGating").isThreadsInfraEnabled() &&
         o("WAWebABProps").getABPropConfigValue("ai_chat_threads_infra_enabled")
       );
     }
-    function v() {
+    function R() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_rich_response_main_gate_enabled",
       );
     }
-    function S() {
-      return v() ? !o("WAWebMobilePlatforms").isSMB() : !1;
+    function L() {
+      return R() ? !o("WAWebMobilePlatforms").isSMB() : !1;
     }
-    function R() {
+    function E() {
       return (
-        S() &&
+        L() &&
         o("WAWebABProps").getABPropConfigValue(
           "ai_rich_response_forward_receiving_enabled",
         )
       );
     }
-    function L(e) {
+    function k(e) {
       return o("WAWebBotUtils").isMetaAiBot(e)
         ? o("WAWebABProps").getABPropConfigValue(
             "ai_session_transparency_meta_ai_enabled",
@@ -99,22 +113,24 @@ __d(
             "ai_continuous_session_transparency_notice_enabled",
           );
     }
-    function E(e) {
+    function I(e) {
       return o("WAWebBotUtils").isMetaAiBot(e.from) && r("justknobx")._("5352");
     }
     ((l.setBonsaiUserLanguage = c),
-      (l.isMetaAIHomeEnabled = p),
-      (l.isBotEnabled = _),
-      (l.isBizBot3pEnabled = f),
-      (l.isBizBot1pEnabled = g),
-      (l.isAiForwardAttributionEnabled = h),
-      (l.isAiModeSelectorMessagingEnabled = y),
-      (l.isDynamicModeSelectorEnabled = C),
-      (l.isAiChatThreadsInfraEnabled = b),
-      (l.isRichStructuredResponseReceiverEnabled = S),
-      (l.isRichResponseForwardReceivingEnabled = R),
-      (l.isAiContinuousSessionTransparencyNoticeEnabled = L),
-      (l.isLoadingMediaMessagesEnabled = E));
+      (l.isDeviceLanguageInLanguages = d),
+      (l.isMetaAIHomeEnabled = _),
+      (l.isMetaAIHomeDefaultLandingEnabled = f),
+      (l.isBotEnabled = g),
+      (l.isBizBot3pEnabled = h),
+      (l.isBizBot1pEnabled = y),
+      (l.isAiForwardAttributionEnabled = C),
+      (l.isAiModeSelectorMessagingEnabled = b),
+      (l.isDynamicModeSelectorEnabled = v),
+      (l.isAiChatThreadsInfraEnabled = S),
+      (l.isRichStructuredResponseReceiverEnabled = L),
+      (l.isRichResponseForwardReceivingEnabled = E),
+      (l.isAiContinuousSessionTransparencyNoticeEnabled = k),
+      (l.isLoadingMediaMessagesEnabled = I));
   },
   98,
 );

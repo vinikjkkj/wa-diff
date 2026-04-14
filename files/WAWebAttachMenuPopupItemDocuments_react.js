@@ -1,10 +1,12 @@
 __d(
   "WAWebAttachMenuPopupItemDocuments.react",
   [
+    "Promise",
     "WAWebAttachMenuFilePicker",
     "WAWebAttachMenuPopupItem.react",
     "WAWebAttachMenuStrings",
     "WAWebAttachmentMenuLogger",
+    "WAWebBotMultiModalUtils",
     "WAWebChatGetters",
     "WAWebFileUtils",
     "WAWebPrepareMessageSendingAction",
@@ -15,55 +17,84 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = { refreshedIcon: { color: "x19mqsdy", $$css: !0 } },
-      c = "application/pdf";
-    function d(e, t, r) {
+      s,
+      u = s || (s = o("react")),
+      c = { refreshedIcon: { color: "x19mqsdy", $$css: !0 } },
+      d = "application/pdf";
+    function m(t, r, a, i) {
       (n("cr:8711") == null ||
         n("cr:8711").preloadWebTPThumbnailRendererIfEnabled(
           "documentAttachClick",
         ),
-        o("WAWebPrepareMessageSendingAction").prepareChatForMessageSending(e),
+        o("WAWebPrepareMessageSendingAction").prepareChatForMessageSending(t),
         o("WAWebAttachmentMenuLogger").AttachmentMenuLogger.logAttachMenuClick(
-          e,
+          t,
           o("WAWebAttachmentMenuLogger").AttachmentMenuTarget.DOCUMENT,
         ));
-      var a = o("WAWebChatGetters").getIsMetaAiBot(
-        o("WAWebStateUtils").unproxy(e),
-      );
+      var l = o("WAWebChatGetters").getIsMetaAiBot(
+          o("WAWebStateUtils").unproxy(t),
+        ),
+        s = null;
+      if (l) {
+        var u = o(
+          "WAWebBotMultiModalUtils",
+        ).getMetaAiFilePickerAcceptOverride();
+        s = u !== "" ? u : d;
+      }
       o("WAWebAttachMenuFilePicker").createFilePicker(
         {
           accept: o("WAWebAttachMenuFilePicker").FilePickerMimeType.DOCUMENT,
-          acceptOverride: a ? c : null,
-          multiple: !0,
+          acceptOverride: l ? s : null,
+          multiple: a,
           transformAttachment: function (t) {
             return { file: t, type: o("WAWebFileUtils").FILETYPE.DOCUMENT };
           },
         },
+        function (t) {
+          if (l) {
+            (e || (e = n("Promise"))).all(t).then(function (e) {
+              var t = o(
+                "WAWebBotMultiModalUtils",
+              ).getSupportedMetaAiAttachments(e);
+              (o("WAWebBotMultiModalUtils").maybeShowUnsupportedFileToast(
+                t.length,
+                e.length,
+              ),
+                t.length > 0 &&
+                  i(
+                    t.map(function (e) {
+                      return e;
+                    }),
+                  ));
+            });
+            return;
+          }
+          i(t);
+        },
         r,
-        t,
       );
     }
-    function m(e) {
+    function p(e) {
       var t = e.chat,
         n = e.dismissMenu,
-        a = e.onDocumentPick,
-        i = function () {
-          d(t, n, a);
+        a = e.multiple,
+        i = e.onDocumentPick,
+        l = function () {
+          m(t, n, a, i);
         },
-        l = function (r) {
-          return (r.preventDefault(), d(t, n, a), !1);
+        s = function (r) {
+          return (r.preventDefault(), m(t, n, a, i), !1);
         };
-      return s.jsx(r("WAWebAttachMenuPopupItem.react"), {
+      return u.jsx(r("WAWebAttachMenuPopupItem.react"), {
         testid: void 0,
-        action: l,
-        onPress: i,
+        action: s,
+        onPress: l,
         Icon: r("WDSIconIcDescriptionFilled.react"),
-        iconXstyle: u.refreshedIcon,
+        iconXstyle: c.refreshedIcon,
         text: o("WAWebAttachMenuStrings").DocumentText(),
       });
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

@@ -228,40 +228,77 @@ __d(
         v(s, t, n, o, a, i);
       }
     }
-    function v(e, t, a, i, l, s) {
+    function v(e, t, a, i, l, u) {
       if (e.length) {
-        var u = r("justknobx")._("4621");
-        (s(!0),
+        var d = r("justknobx")._("4621");
+        (u(!0),
           o("WAWebBizAdCreationMediaValidationUtils")
             .deepCloneMediaCollection(t)
             .then(
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
-                    var n = e.map(function (e) {
+                    var n = r("justknobx")._("3528"),
+                      u = e;
+                    if (n) {
+                      var m = e.some(function (e) {
+                          return e.type.startsWith("image/");
+                        }),
+                        p = e.some(function (e) {
+                          return e.type.startsWith("video/");
+                        });
+                      m &&
+                        p &&
+                        ((u = e.filter(function (e) {
+                          return !e.type.startsWith("video/");
+                        })),
+                        o("WAWebToastManager").ToastManager.open(
+                          c.jsx(o("WAWebToast.react").Toast, {
+                            msg: s._(
+                              /*BTDS*/ "Can't mix photos and video. Only photos were kept.",
+                            ),
+                          }),
+                        ));
+                    }
+                    var _ = u.map(function (e) {
                         return { file: e };
                       }),
-                      s = o(
+                      f = o(
                         "WAWebBizAdCreationMediaValidationUtils",
-                      ).maybePruneNewAttachments(t, n);
-                    for (var d of s.pruneActions)
+                      ).maybePruneNewAttachments(t, _),
+                      h = t.getPreviewableMedias().length > 0;
+                    if (
+                      n &&
+                      f.pruneActions.includes("CROSS_MEDIA_VIDEO_ADDED") &&
+                      h
+                    ) {
+                      o("WAWebToastManager").ToastManager.open(
+                        c.jsx(o("WAWebToast.react").Toast, {
+                          msg: s._(
+                            /*BTDS*/ "Videos can't be added when images are selected.",
+                          ),
+                        }),
+                      );
+                      return;
+                    }
+                    for (var y of f.pruneActions)
                       o("WAWebToastManager").ToastManager.open(
                         c.jsx(o("WAWebToast.react").Toast, {
                           msg: o(
                             "WAWebBizAdCreationMediaValidationUtils",
-                          ).PRUNE_TOAST_MESSAGES[d](),
+                          ).PRUNE_TOAST_MESSAGES[y](),
                         }),
                       );
-                    if ((s.shouldClearExisting && t.reset(), u)) {
-                      if (s.attachments.length === 0) return;
-                      var m = new Set(
+                    if ((f.shouldClearExisting && t.reset(), d)) {
+                      if (f.attachments.length === 0) return;
+                      var C = new Set(
                         t.getPreviewableMedias().map(function (e) {
                           return e.id;
                         }),
                       );
                       try {
                         yield t.processAttachments(
-                          s.attachments,
+                          f.attachments,
                           void 0,
                           o("WAWebBizAdCreationMediaValidationUtils")
                             .SUPPORTED_MEDIA_TYPES,
@@ -275,24 +312,24 @@ __d(
                             .mustfix("failed to process media for upload"));
                         return;
                       }
-                      var p = new Set(
+                      var b = new Set(
                         t
                           .getPreviewableMedias()
                           .filter(function (e) {
-                            return !m.has(e.id);
+                            return !C.has(e.id);
                           })
                           .map(function (e) {
                             return e.id;
                           }),
                       );
-                      (l(t, p), g(t, a, i));
+                      (l(t, b), g(t, a, i));
                       return;
                     }
-                    var _ = r("WAWebNoop");
-                    s.attachments.length > 0 &&
-                      (_ = function () {
+                    var v = r("WAWebNoop");
+                    f.attachments.length > 0 &&
+                      (v = function () {
                         t.processAttachments(
-                          s.attachments,
+                          f.attachments,
                           void 0,
                           o("WAWebBizAdCreationMediaValidationUtils")
                             .SUPPORTED_MEDIA_TYPES,
@@ -300,10 +337,10 @@ __d(
                             .MAX_IMAGE_COUNT,
                         );
                       });
-                    var f = c.jsx(
+                    var S = c.jsx(
                       r("WAWebBizAdCreationCreativeMediaView.react"),
                       {
-                        onRender: _,
+                        onRender: v,
                         mediaCollection: t,
                         suportedMediaTypes: o(
                           "WAWebBizAdCreationMediaValidationUtils",
@@ -316,7 +353,7 @@ __d(
                         onSelectedMediaSave: l,
                       },
                     );
-                    o("WAWebModalManager").ModalManager.openMedia(f, {
+                    o("WAWebModalManager").ModalManager.openMedia(S, {
                       blockClose: !0,
                       focusType: {
                         type: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
@@ -336,7 +373,7 @@ __d(
                 .mustfix("failed to clone media collection");
             })
             .finally(function () {
-              s(!1);
+              u(!1);
             }));
       }
     }

@@ -42,6 +42,7 @@ __d(
       "MetaAIThreadList",
       "MetaAIIntroPanel",
       "MetaAIForward",
+      "ForwardedAiBotMessage",
       "AskMetaAI",
       "AskMetaAI1on1",
       "AskMetaAIGroup",

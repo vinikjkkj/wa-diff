@@ -688,9 +688,7 @@ __d(
       );
       var re = o("useWAWebFlow").useFlow(C.Edit, {
           transitions: o("useWAWebFlow").FlowTransitions.None,
-          onEnd: function () {
-            return o("WAWebModalManager").ModalManager.close();
-          },
+          onEnd: o("WAWebModalManager").closeModalManager,
         }),
         oe = re[1],
         ae = h(null),
@@ -737,16 +735,13 @@ __d(
         _e = function (t, n, r) {
           (le(), Y(t), K(n), r != null && ne(r));
         },
-        fe = function () {
-          o("WAWebModalManager").ModalManager.close();
-        },
-        ge = (function () {
+        fe = (function () {
           var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var n,
               r = j != null && j.trim() ? j : null;
             if (!(r != null && r.length > b)) {
               if (r === W && X === q && te === U) {
-                fe();
+                o("WAWebModalManager").closeModalManager();
                 return;
               }
               try {
@@ -806,14 +801,14 @@ __d(
                   preset: pe(),
                 }),
                 o("WAWebAboutDailyUtils").incrementAboutSuccess(),
-                fe());
+                o("WAWebModalManager").closeModalManager());
             }
           });
           return function () {
             return r.apply(this, arguments);
           };
         })(),
-        he = (function () {
+        ge = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             if (!(e == null || N == null)) {
               var t = [].concat(N);
@@ -835,8 +830,8 @@ __d(
             return e.apply(this, arguments);
           };
         })(),
-        ye = s._(/*BTDS*/ "About"),
-        Ce = (function () {
+        he = s._(/*BTDS*/ "About"),
+        ye = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
               (yield o("WAWebTextStatusAction").setMyTextStatus(
@@ -869,28 +864,28 @@ __d(
                 .CLEAR_EXISTING,
             }),
               o("WAWebAboutDailyUtils").incrementAboutSuccess(),
-              fe());
+              o("WAWebModalManager").closeModalManager());
           });
           return function () {
             return e.apply(this, arguments);
           };
         })(),
+        Ce = function () {
+          ye();
+        },
         be = function () {
-          Ce();
+          fe();
         },
-        ve = function () {
-          ge();
-        },
-        Se = (i = G ? W : null) != null ? i : null,
-        Re = (l = G ? q : null) != null ? l : null,
-        Le =
+        ve = (i = G ? W : null) != null ? i : null,
+        Se = (l = G ? q : null) != null ? l : null,
+        Re =
           (m = Z == null ? void 0 : Z.value) != null
             ? m
             : o("WAWebEphemeralAboutDurationsUtils")
                 .defaultTextStatusEphemeralDuration,
-        Ee = j != null && j.trim() ? j : null,
-        ke = Ee === Se && (X != null ? X : null) === Re && te === Le,
-        Ie = ke || (!!X && Ee == null) || (j != null && j.length > b);
+        Le = j != null && j.trim() ? j : null,
+        Ee = Le === ve && (X != null ? X : null) === Se && te === Re,
+        ke = Ee || (!!X && Le == null) || (j != null && j.length > b);
       return ie === C.Edit
         ? p.jsx(o("WAWebModal.react").Modal, {
             type: o("WAWebModal.react").ModalTheme.EditAbout,
@@ -898,9 +893,9 @@ __d(
               className: "x1280gxy",
               children: [
                 p.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-                  title: ye,
+                  title: he,
                   type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.POPUP,
-                  onCancel: fe,
+                  onCancel: o("WAWebModalManager").closeModalManager,
                 }),
                 p.jsxs(r("WAWebDrawerBody.react"), {
                   theme: "padding",
@@ -930,7 +925,7 @@ __d(
                       ],
                     }),
                     p.jsx(M, {
-                      handleDeleteSuggestion: he,
+                      handleDeleteSuggestion: ge,
                       onSave: _e,
                       suggestions: N,
                     }),
@@ -943,7 +938,7 @@ __d(
                     G &&
                       p.jsx(o("WAWebClickable.react").Clickable, {
                         ariaLabel: s._(/*BTDS*/ "Delete"),
-                        onClick: be,
+                        onClick: Ce,
                         children: p.jsx(r("WDSIconIcDelete.react"), {
                           xstyle: L.grayColor,
                         }),
@@ -955,8 +950,8 @@ __d(
                         size: "medium",
                         type: "default",
                         Icon: o("WAWebWebIcCheckIcon.react").WebIcCheckIcon,
-                        disabled: Ie,
-                        onPress: ve,
+                        disabled: ke,
+                        onPress: be,
                         testid: void 0,
                         "aria-label": s._(/*BTDS*/ "Save"),
                       }),

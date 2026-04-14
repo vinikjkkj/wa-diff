@@ -431,11 +431,24 @@ __d(
         oe = function () {
           (z(!1), U && A.current && V(!1));
         };
-      o("useWAWebListener").useListener(
+      (o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "set_active_nav_bar",
         ne,
-      );
+      ),
+        o("useWAWebListener").useListener(
+          o("WAWebCmd").Cmd,
+          "open_chat",
+          C(
+            function (e) {
+              ee === o("WAWebNavBarTypes").NavBarItems.MetaAI &&
+                (e == null ? void 0 : e.threadId) == null &&
+                (o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
+                ne(o("WAWebNavBarTypes").NavBarItems.Chats));
+            },
+            [ee, ne],
+          ),
+        ));
       var ae = R(0),
         ie = ae[0],
         le = ae[1];

@@ -7,6 +7,7 @@ __d(
     "WAWebDetailImage.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
+    "WAWebFbtCommon",
     "WAWebFlex.react",
     "WAWebModal.react",
     "WAWebModalManager",
@@ -141,49 +142,32 @@ __d(
                         [s._param("contact_name", t)],
                       ),
                 }),
-                u.jsx(r("WDSText.react"), {
+                u.jsxs(r("WDSText.react"), {
                   type: "Body1",
                   colorName: "contentDeemphasized",
-                  children: i
-                    ? s._(
-                        /*BTDS*/ 'People you added to " {list_name} " can see the audience name and emoji. {learn_more}',
-                        [
-                          s._param("list_name", a),
-                          s._param(
-                            "learn_more",
-                            u.jsx(r("WAWebClickableLink.react"), {
-                              onClick: function () {
-                                return o(
-                                  "WAWebExternalLink.react",
-                                ).openExternalLink(
-                                  o("WAWebFaqUrl").getCloseFriendLearnMoreUrl(),
-                                );
-                              },
-                              children: s._(/*BTDS*/ "Learn more"),
-                            }),
-                          ),
-                        ],
-                      )
-                    : s._(
-                        /*BTDS*/ 'Only people {contact_name} added to " {list_name} " can see this status. {learn_more}',
-                        [
-                          s._param("contact_name", t),
-                          s._param("list_name", a),
-                          s._param(
-                            "learn_more",
-                            u.jsx(r("WAWebClickableLink.react"), {
-                              onClick: function () {
-                                return o(
-                                  "WAWebExternalLink.react",
-                                ).openExternalLink(
-                                  o("WAWebFaqUrl").getCloseFriendLearnMoreUrl(),
-                                );
-                              },
-                              children: s._(/*BTDS*/ "Learn more"),
-                            }),
-                          ),
-                        ],
-                      ),
+                  children: [
+                    i
+                      ? s._(
+                          /*BTDS*/ 'People you added to "{list_name}" can see the audience name and emoji.',
+                          [s._param("list_name", a)],
+                        )
+                      : s._(
+                          /*BTDS*/ 'Only people {contact_name} added to "{list_name}" can see this status.',
+                          [
+                            s._param("contact_name", t),
+                            s._param("list_name", a),
+                          ],
+                        ),
+                    " ",
+                    u.jsx(r("WAWebClickableLink.react"), {
+                      onClick: function () {
+                        return o("WAWebExternalLink.react").openExternalLink(
+                          o("WAWebFaqUrl").getCloseFriendLearnMoreUrl(),
+                        );
+                      },
+                      children: r("WAWebFbtCommon")("Learn more"),
+                    }),
+                  ],
                 }),
               ],
             }),

@@ -239,42 +239,62 @@ __d(
     function f(e) {
       var t = e.chat,
         n = e.deepConversationParams,
-        r = e.mmSignalType;
+        r = e.mmSignalType,
+        a = e.msgId,
+        i = e.tokenPath;
       if (
         o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingDisclosureEnabled()
       ) {
-        var a = g({ chat: t, deepConversationParams: n }),
-          i = o(
+        var l = g({ chat: t, deepConversationParams: n, msgId: a }),
+          s = o(
             "WAWebMmSignalSharingGatingUtils",
           ).getMmSignalSharingOptimizedDeliverySignalCollectionConfig(),
-          l = i.consented_collection_window_in_hours,
-          s = i.consented_types_allowlist,
-          u = i.non_consented_collection_window_in_hours,
-          c = i.non_consented_types_allowlist;
-        if (a) {
-          var d;
-          return (d = h(a, a.disclosedToken, r, s, l)) != null
-            ? d
-            : h(a, a.undisclosedToken, r, c, u);
+          u = s.consented_collection_window_in_hours,
+          c = s.consented_types_allowlist,
+          d = s.non_consented_collection_window_in_hours,
+          m = s.non_consented_types_allowlist;
+        if (l) {
+          var p;
+          return i === "disclosed"
+            ? h(l, l.disclosedToken, r, c, u)
+            : i === "undisclosed"
+              ? h(l, l.undisclosedToken, r, m, d)
+              : (p = h(l, l.disclosedToken, r, c, u)) != null
+                ? p
+                : h(l, l.undisclosedToken, r, m, d);
         }
       }
     }
     function g(e) {
       var t,
         n = e.chat,
-        r = e.deepConversationParams;
+        r = e.deepConversationParams,
+        a = e.msgId;
       if (
         o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingDisclosureEnabled()
       ) {
         if (r) {
-          var a = _({ chat: n, fromMe: r.isNewMessagefromMe }),
-            i = a != null ? a : {},
-            l = i.mmSignalSharingExpirationWindowItem;
-          return l;
+          var i = _({ chat: n, fromMe: r.isNewMessagefromMe }),
+            l = i != null ? i : {},
+            s = l.mmSignalSharingExpirationWindowItem;
+          return s;
+        }
+        if (a) {
+          var u,
+            c =
+              (u = n.mmSignalSharingExpirationWindow) == null
+                ? void 0
+                : u.find(function (e) {
+                    return (
+                      e.messageId.id === a.id &&
+                      (e.disclosedToken != null || e.undisclosedToken != null)
+                    );
+                  });
+          if (c) return c;
         }
         return (t = n.mmSignalSharingExpirationWindow) == null
           ? void 0

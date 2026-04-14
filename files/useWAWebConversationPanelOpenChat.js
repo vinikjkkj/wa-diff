@@ -28,6 +28,7 @@ __d(
     "WAWebQuerySubGroupAction",
     "WAWebRestoreSubgroupSuggestionsAction",
     "WAWebSideNavButtonsActivityModel",
+    "WAWebSignupGreetingAction",
     "WAWebSupportChatUtils",
     "WAWebSuspendedCommunityUtils",
     "WAWebSuspendedGroupUtils",
@@ -272,6 +273,7 @@ __d(
           function () {
             (t.urlText && (t.urlText = void 0),
               t.urlNumber && (t.urlNumber = void 0),
+              o("WAWebSignupGreetingAction").maybeCleanupSignupAGM(t),
               n(!1));
           }
         );

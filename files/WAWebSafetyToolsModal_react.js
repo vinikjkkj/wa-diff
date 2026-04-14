@@ -19,10 +19,10 @@ __d(
     "WAWebReportContactPopup.react",
     "WAWebSettingsBlockedIcon.react",
     "WAWebSpamConstants",
-    "WAWebText.react",
     "WAWebThumbsDownIcon.react",
     "WAWebWamEnumFmxEntryPoint",
     "WAWebWamEnumFmxEvent",
+    "WDSText.react",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -31,6 +31,8 @@ __d(
       c = {
         secondaryColor: { color: "xhslqc4", $$css: !0 },
         criticalColor: { color: "x30a034", $$css: !0 },
+        paddingTop16: { paddingTop: "xyamay9", $$css: !0 },
+        paddingTop8: { paddingTop: "x1y1aw1k", $$css: !0 },
       };
     function d(e, t) {
       o("WAWebModalManager").ModalManager.open(
@@ -85,15 +87,21 @@ __d(
         onOK: o("WAWebModalManager").closeModalManager,
         children: u.jsxs(o("WAWebFlex.react").FlexColumn, {
           children: [
-            u.jsx(o("WAWebText.react").WAWebTextLarge, {
+            u.jsx(r("WDSText.react"), {
+              type: "Headline2",
+              colorName: "contentDefault",
               children: s._(/*BTDS*/ "Safety tools"),
             }),
-            u.jsx(o("WAWebText.react").WAWebTextTitle, {
-              paddingTop: 16,
+            u.jsx(r("WDSText.react"), {
+              type: "Body1",
+              colorName: "contentDefault",
+              xstyle: c.paddingTop16,
               children: s._(/*BTDS*/ "Here's what you can do"),
             }),
-            u.jsx(o("WAWebText.react").WAWebTextMuted, {
-              paddingTop: 8,
+            u.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDeemphasized",
+              xstyle: c.paddingTop8,
               children: s._(
                 /*BTDS*/ "When receiving messages from an unknown sender you can take any of these actions. They won't be notified if you do.",
               ),
@@ -115,8 +123,9 @@ __d(
                       { directional: !0 },
                     ),
                     onClick: d,
-                    primary: u.jsx(o("WAWebText.react").WAWebTextTitle, {
-                      color: "critical",
+                    primary: u.jsx(r("WDSText.react"), {
+                      type: "Body1",
+                      colorName: "secondaryNegative",
                       children: s._(/*BTDS*/ "Block contact"),
                     }),
                     size: "medium",
@@ -131,15 +140,18 @@ __d(
                     directional: !0,
                   }),
                   onClick: l,
-                  primary: u.jsx(o("WAWebText.react").WAWebTextTitle, {
-                    color: "critical",
+                  primary: u.jsx(r("WDSText.react"), {
+                    type: "Body1",
+                    colorName: "secondaryNegative",
                     children: s._(/*BTDS*/ "Report contact"),
                   }),
                   size: "medium",
                 }),
               ],
             }),
-            u.jsx(o("WAWebText.react").WAWebTextTitle, {
+            u.jsx(r("WDSText.react"), {
+              type: "Body1",
+              colorName: "contentDefault",
               children: s._(/*BTDS*/ "Staying safe in chats"),
             }),
             u.jsxs(o("WAWebFlex.react").FlexColumn, {
@@ -152,11 +164,14 @@ __d(
                     iconXstyle: c.secondaryColor,
                   }),
                   interactive: !1,
-                  primary: u.jsx(o("WAWebText.react").WAWebTextTitle, {
+                  primary: u.jsx(r("WDSText.react"), {
+                    type: "Body1",
+                    colorName: "contentDefault",
                     children: s._(/*BTDS*/ "Profile name and photo"),
                   }),
-                  secondary: u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                    textWrap: "wrap",
+                  secondary: u.jsx(r("WDSText.react"), {
+                    type: "Body2",
+                    colorName: "contentDeemphasized",
                     children: s._(
                       /*BTDS*/ "Names and photos set by the sender. WhatsApp does not verify this information.",
                     ),
@@ -169,11 +184,14 @@ __d(
                     iconXstyle: c.secondaryColor,
                   }),
                   interactive: !1,
-                  primary: u.jsx(o("WAWebText.react").WAWebTextTitle, {
+                  primary: u.jsx(r("WDSText.react"), {
+                    type: "Body1",
+                    colorName: "contentDefault",
                     children: s._(/*BTDS*/ "Phone number"),
                   }),
-                  secondary: u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                    textWrap: "wrap",
+                  secondary: u.jsx(r("WDSText.react"), {
+                    type: "Body2",
+                    colorName: "contentDeemphasized",
                     children: s._(
                       /*BTDS*/ "Make sure that the country code of the number looks familiar.",
                     ),

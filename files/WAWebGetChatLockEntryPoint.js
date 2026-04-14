@@ -59,6 +59,7 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI:
         case o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI1on1:
         case o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ForwardedAiBotMessage:
         case o("WAWebChatEntryPoint").ChatEntryPoint.Unknown:
           break;
       }

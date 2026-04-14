@@ -246,7 +246,7 @@ __d(
                       S === "group"
                         ? (n = s._(/*BTDS*/ "Group muted"))
                         : S === "newsletter" &&
-                          (n = s._(/*BTDS*/ "Notifications turned off")),
+                          (n = s._(/*BTDS*/ "Channel muted")),
                       p
                         ? new (o("WAWebActionToast.react").ActionType)(n)
                         : new (o("WAWebActionToast.react").ActionType)(n, {
@@ -488,7 +488,7 @@ __d(
                         )
                       : f === "newsletter"
                         ? new (o("WAWebActionToast.react").ActionType)(
-                            s._(/*BTDS*/ "Notifications turned on"),
+                            s._(/*BTDS*/ "Channel unmuted"),
                             {
                               actionText: s._(/*BTDS*/ "Undo"),
                               actionHandler: function () {

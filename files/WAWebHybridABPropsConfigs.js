@@ -194,12 +194,12 @@ __d(
       enable_windows_jumplist_hybrid: [20899, "bool", !1, !0],
       enable_windows_xdr_chat_handoff: [24783, "bool", !1, !0],
       enforce_lid_call_no_fallback: [26767, "bool", !0, !0],
-      files_media_hub_web: [14751, "bool", !1, !1],
       gc_device_switching_killswitch: [26182, "bool", !1, !1],
       genai_early_audio_pre_buf_size: [15306, "int", 100, 100],
       giphy_pma_shutoff_enabled: [27942, "bool", !1, !1],
       group_call_max_participants: [4190, "int", 32, 32],
       group_create_add_using_lid_jids: [16192, "bool", !1, !1],
+      group_history_after_join_prerequisites: [28787, "bool", !1, !1],
       group_history_bundle_time_limit_receiver_enforcement_secs: [
         25910,
         "int",

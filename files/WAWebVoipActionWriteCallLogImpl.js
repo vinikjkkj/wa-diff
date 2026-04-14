@@ -22,13 +22,33 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p;
-    function _(e, t, n, r) {
-      return f.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _ = new Set(),
+      f = 100;
+    function g(e) {
+      if (!_.has(e)) {
+        if (_.size >= f) {
+          var t = _.values().next().value;
+          t != null && _.delete(t);
+        }
+        _.add(e);
+      }
     }
-    function f() {
+    function h(e) {
+      return _.has(e);
+    }
+    function y(e, t, n, r) {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, a, i, l) {
             l === void 0 && (l = !1);
             var c,
@@ -58,13 +78,13 @@ __d(
                           "[voip] call log in-mem, async IDB persist scheduled",
                         ])),
                     ),
-                    g(t, c, _),
+                    b(t, c, _),
                     _
                   );
               }
             }
             var f = new (o("WAResolvable").Resolvable)(),
-              h = Date.now();
+              g = Date.now();
             return (
               o("WAWebMessageQueue").onMessageQueue({
                 chatWid: t,
@@ -76,7 +96,7 @@ __d(
                 action: (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
-                      var e = Date.now() - h;
+                      var e = Date.now() - g;
                       (o("WALogger").LOG(
                         s ||
                           (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,8 +109,8 @@ __d(
                           o("WAWebVoipActivityTracker").VoipUiActivity
                             .ICCE_WRITE_CALL_LOG_QUEUED,
                         ));
-                      var t = y(c).then(function (t) {
-                        var n = Date.now() - h,
+                      var t = h(c).then(function (t) {
+                        var n = Date.now() - g,
                           r = n - e;
                         (o("WALogger").LOG(
                           u ||
@@ -121,12 +141,12 @@ __d(
               }),
               f.promise
             );
-            function y(e) {
-              return C.apply(this, arguments);
+            function h(e) {
+              return y.apply(this, arguments);
             }
-            function C() {
+            function y() {
               return (
-                (C = n("asyncToGeneratorRuntime").asyncToGenerator(
+                (y = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
                     var a = null;
                     if (i)
@@ -164,20 +184,20 @@ __d(
                     );
                   },
                 )),
-                C.apply(this, arguments)
+                y.apply(this, arguments)
               );
             }
           },
         )),
-        f.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    function b(e, t, n) {
+      return v.apply(this, arguments);
     }
-    function h() {
+    function v() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i = Date.now();
           o("WAWebMessageQueue").onMessageQueue({
             chatWid: e,
@@ -249,10 +269,12 @@ __d(
             })(),
           });
         })),
-        h.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    l.writeVoipCallLogMessageImpl = _;
+    ((l.markCallIdProcessed = g),
+      (l.isCallIdAlreadyProcessed = h),
+      (l.writeVoipCallLogMessageImpl = y));
   },
   98,
 );

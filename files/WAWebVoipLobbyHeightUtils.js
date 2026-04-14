@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
-        VIDEO_LOBBY_HEIGHT: 400,
+        VIDEO_LOBBY_HEIGHT: 460,
         AUDIO_LOBBY_COLLAPSED_HEIGHT: 200,
         CONNECTED_PARTICIPANTS_SECTION_HEIGHT: 58,
         PARTICIPANT_ROW_HEIGHT: 61,

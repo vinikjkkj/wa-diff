@@ -1099,12 +1099,19 @@ __d(
           ));
       },
       handleWaitingRoomDenied: function (t) {
-        o("WALogger").LOG(
+        (o("WALogger").LOG(
           A ||
             (A = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleWaitingRoomDenied",
             ])),
-        );
+        ),
+          o("WAWebToastManager").ToastManager.open(
+            V.jsx(o("WAWebToast.react").Toast, {
+              msg: s._(
+                /*BTDS*/ "Your request to join the call was not approved.",
+              ),
+            }),
+          ));
         var e = r("WAWebCallCollection").activeCall;
         e != null &&
           ((e.displayWaitingRoomDenied = !0),

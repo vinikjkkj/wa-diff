@@ -10,6 +10,7 @@ __d(
     "WAWebBotDeviceCapabilities",
     "WAWebBotUtils",
     "WAWebDBMessageUtils",
+    "WAWebDbEncryptionKey",
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaMessage",
@@ -32,8 +33,9 @@ __d(
       h,
       y,
       C,
-      b = 100;
-    function v() {
+      b,
+      v = 100;
+    function S() {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "migrateMetaAiMessagesToHistoricalThread",
@@ -45,7 +47,7 @@ __d(
                 ])),
             );
             try {
-              yield S(b);
+              yield R(v);
             } catch (e) {
               o("WALogger")
                 .ERROR(
@@ -72,13 +74,18 @@ __d(
         )
         .fireAndForget();
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebUserPrefsBot").isMetaAIThreadMigrationComplete()) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            (yield o(
+              "WAWebDbEncryptionKey",
+            ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
+            o("WAWebUserPrefsBot").isMetaAIThreadMigrationComplete())
+          ) {
             o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -87,7 +94,7 @@ __d(
             );
             return;
           }
-          if (yield T()) {
+          if (yield D()) {
             (o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -99,7 +106,7 @@ __d(
               ).markMetaAIThreadMigrationStateAsComplete());
             return;
           }
-          var t = yield E(e);
+          var t = yield k(e);
           if (t.length === 0) {
             o("WALogger").LOG(
               _ ||
@@ -131,7 +138,7 @@ __d(
                   "[migrateMetaAiMessagesToHistoricalThread]: All messages already have thread IDs",
                 ])),
             ),
-              yield k(t));
+              yield I(t));
             return;
           }
           o("WALogger").LOG(
@@ -142,43 +149,56 @@ __d(
               ])),
             r.length,
           );
-          var a = L(r),
+          var a = E(r),
             i = a.messageUpdates,
             l = a.threadUpdates;
-          (yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["message", "thread-metadata"],
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e[0],
-                      n = e[1];
-                    (yield t.bulkCreateOrMerge(i),
-                      yield o(
-                        "WAWebThreadMetadataBulkJob",
-                      ).bulkCreateOrUpdateThreadsMetadata(l));
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-            yield k(t),
+          try {
+            yield o("WAWebModelStorageUtils")
+              .getStorage()
+              .lock(
+                ["message", "thread-metadata"],
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      var t = e[0],
+                        n = e[1];
+                      (yield t.bulkCreateOrMerge(i),
+                        yield o(
+                          "WAWebThreadMetadataBulkJob",
+                        ).bulkCreateOrUpdateThreadsMetadata(l));
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              );
+          } catch (e) {
+            if (e != null && typeof e == "object" && e.name === "AbortError") {
+              o("WALogger").WARN(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "[migrateMetaAiMessagesToHistoricalThread]: Transaction aborted, will retry on next scheduled run",
+                  ])),
+              );
+              return;
+            }
+            throw e;
+          }
+          (yield I(t),
             o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
                   "[migrateMetaAiMessagesToHistoricalThread]: Successfully migrated ",
                   " messages",
                 ])),
               r.length,
             ));
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e) {
+    function E(e) {
       var t = o("WAWebAiThreadCreationUtils").getHistoricalMetaAiThreadId(),
         n = { aiThreadType: o("WAWebAiThreadTypeUtils").AiThreadType.Default },
         r = e.map(function (e) {
@@ -218,7 +238,7 @@ __d(
         { messageUpdates: r, threadUpdates: [] }
       );
     }
-    function E(e) {
+    function k(e) {
       var t,
         n = o("WAWebUserPrefsBot").getMetaAIThreadMigrationState(),
         r =
@@ -250,12 +270,12 @@ __d(
           })
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function I() {
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e[e.length - 1];
           (t == null ? void 0 : t.internalId) != null
             ? yield o("WAWebUserPrefsBot").setMetaAIThreadMigrationState({
@@ -265,21 +285,21 @@ __d(
                     .IN_PROGRESS,
               })
             : o("WALogger").WARN(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "[migrateMetaAiMessagesToHistoricalThread]: Last message has no internalId",
                   ])),
               );
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T() {
-      return D.apply(this, arguments);
-    }
     function D() {
+      return x.apply(this, arguments);
+    }
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebUserPrefsBot").getMetaAIThreadMigrationState();
           if (
             e == null ||
@@ -288,7 +308,7 @@ __d(
           )
             return !1;
           var t = e.lastConvertedMessageInternalId,
-            n = yield x(t);
+            n = yield $(t);
           if (!n) return !1;
           var r = yield o(
             "WAWebBotDeviceCapabilities",
@@ -297,15 +317,15 @@ __d(
             !r || !o("WAWebBotBaseGating").isAiChatThreadsInfraEnabled()
           );
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebDBMessageUtils").endOfChat(
               o("WAWebBotUtils").META_BOT_PN_WID,
             ),
@@ -318,12 +338,12 @@ __d(
               });
           return n === 0;
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    ((l.migrateMetaAiMessagesToHistoricalThread = v),
-      (l.migrateMessagesForMetaAiBot = S),
-      (l.shouldMarkMigrationComplete = T));
+    ((l.migrateMetaAiMessagesToHistoricalThread = S),
+      (l.migrateMessagesForMetaAiBot = R),
+      (l.shouldMarkMigrationComplete = D));
   },
   98,
 );

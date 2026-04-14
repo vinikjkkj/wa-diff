@@ -986,6 +986,24 @@ __d(
                           storageKey: "ad_account(is_forced:true)",
                         },
                         {
+                          alias: null,
+                          args: null,
+                          concreteType: "AdsPlacementSpec",
+                          kind: "LinkedField",
+                          name: "placement_spec",
+                          plural: !1,
+                          selections: [
+                            {
+                              alias: null,
+                              args: null,
+                              kind: "ScalarField",
+                              name: "publisher_platforms",
+                              storageKey: null,
+                            },
+                          ],
+                          storageKey: null,
+                        },
+                        {
                           kind: "TypeDiscriminator",
                           abstractKey: "__isBoostedComponentSpec",
                         },

@@ -17,6 +17,7 @@ __d(
     "buildWAWebDraftTableItem",
     "justknobx",
     "react",
+    "useWAWebBizAdDeleteDraftModal",
     "useWAWebCometInteractionTracing",
     "useWAWebDraftThumbnailUrl",
     "useWAWebNativeAdsFlowIDContext",
@@ -32,9 +33,10 @@ __d(
       _ = m.useEffect,
       f = m.useMemo,
       g = m.useRef,
-      h = 20,
-      y = 10,
-      C = {
+      h = m.useState,
+      y = 20,
+      C = 10,
+      b = {
         emptyStateWrapper: {
           flexGrow: "x1iyjqo2",
           justifyContent: "xl56j7k",
@@ -44,7 +46,7 @@ __d(
           $$css: !0,
         },
       };
-    function b(e) {
+    function v(e) {
       var t = e.manageAdsFlowID,
         n = g(!1);
       return (
@@ -66,8 +68,8 @@ __d(
         null
       );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
-    function v(e) {
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S(e) {
       var t = e.hasAds,
         n = e.manageAdsFlowID,
         r = e.pageId,
@@ -93,10 +95,10 @@ __d(
         null
       );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
-    var S = e !== void 0 ? e : (e = n("WAWebBizAdManagementRootQuery.graphql")),
-      R = u !== void 0 ? u : (u = n("WAWebBizAdManagementRoot_query.graphql"));
-    function L(e) {
+    S.displayName = S.name + " [from " + i.id + "]";
+    var R = e !== void 0 ? e : (e = n("WAWebBizAdManagementRootQuery.graphql")),
+      L = u !== void 0 ? u : (u = n("WAWebBizAdManagementRoot_query.graphql"));
+    function E(e) {
       var t,
         n,
         a,
@@ -105,109 +107,131 @@ __d(
         u,
         c,
         m,
-        h,
-        S,
-        L,
+        y,
+        R,
         E,
         k,
-        I = e.onAdSelect,
-        T = e.onLoginToFacebook,
-        D = e.onRecreateAd,
-        x = e.onResumeDraft,
-        $ = e.pageId1,
-        P = e.queryData,
-        N = e.selectedKey,
-        M = r("useWAWebNativeAdsFlowIDContext")(),
-        w = r("useWAWebCometInteractionTracing")(
+        I,
+        T = e.onAdSelect,
+        D = e.onExistingDraftIDChange,
+        x = e.onLoginToFacebook,
+        $ = e.onRecreateAd,
+        P = e.onResumeDraft,
+        N = e.pageId1,
+        M = e.queryData,
+        w = e.selectedKey,
+        A = r("useWAWebNativeAdsFlowIDContext")(),
+        F = r("useWAWebCometInteractionTracing")(
           r("WAWebInteractionTracePolicy").NAVIGATION_NATIVE_ADS_MANAGE,
           !0,
           60,
         ),
-        A = w.completeInteraction,
-        F = w.startInteraction,
-        O = g(!1);
+        O = F.completeInteraction,
+        B = F.startInteraction,
+        W = g(!1);
       _(
         function () {
-          O.current ||
-            ((O.current = !0),
+          W.current ||
+            ((W.current = !0),
             o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
               o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                 .GRAPHQL_QUERY_START,
             ),
-            F());
+            B());
         },
-        [F],
+        [B],
       );
-      var B = r("justknobx")._("5520"),
-        W = P == null || (t = P.ctwa) == null ? void 0 : t.latest_wa_web_draft,
-        q =
-          W == null ||
-          (n = W.spec) == null ||
+      var q = r("justknobx")._("5520"),
+        U = M == null || (t = M.ctwa) == null ? void 0 : t.latest_wa_web_draft,
+        V = h(!1),
+        H = V[0],
+        G = V[1],
+        z = p(function () {
+          return G(!0);
+        }, []);
+      _(
+        function () {
+          var e = q && !H ? (U == null ? void 0 : U.id) : null;
+          D == null || D(e);
+        },
+        [q, H, U == null ? void 0 : U.id, D],
+      );
+      var j = r("useWAWebBizAdDeleteDraftModal")(U == null ? void 0 : U.id, z),
+        K =
+          U == null ||
+          (n = U.spec) == null ||
           (n = n.adgroup_spec) == null ||
           (n = n[0]) == null ||
           (n = n.creative) == null
             ? void 0
             : n.object_story_spec,
-        U = r("useWAWebDraftThumbnailUrl")({
+        Q = r("useWAWebDraftThumbnailUrl")({
           linkPicture:
-            q == null || (a = q.link_data) == null ? void 0 : a.picture,
+            K == null || (a = K.link_data) == null ? void 0 : a.picture,
           linkImageHash:
-            q == null || (i = q.link_data) == null ? void 0 : i.image_hash,
+            K == null || (i = K.link_data) == null ? void 0 : i.image_hash,
           firstChildPicture:
-            q == null ||
-            (l = q.link_data) == null ||
+            K == null ||
+            (l = K.link_data) == null ||
             (l = l.child_attachments) == null ||
             (l = l[0]) == null
               ? void 0
               : l.picture,
           videoImageUrl:
-            q == null || (u = q.video_data) == null ? void 0 : u.image_url,
+            K == null || (u = K.video_data) == null ? void 0 : u.image_url,
           videoImageHash:
-            q == null || (c = q.video_data) == null ? void 0 : c.image_hash,
+            K == null || (c = K.video_data) == null ? void 0 : c.image_hash,
           videoId:
-            q == null || (m = q.video_data) == null ? void 0 : m.video_id,
+            K == null || (m = K.video_data) == null ? void 0 : m.video_id,
           legacyAdAccountId:
-            W == null || (h = W.spec) == null || (h = h.ad_account) == null
+            U == null || (y = U.spec) == null || (y = y.ad_account) == null
               ? void 0
-              : h.legacy_account_id,
+              : y.legacy_account_id,
         }),
-        V = U.isLoadingThumbnail,
-        H = U.thumbnailUrl,
-        G = f(
+        X = Q.isLoadingThumbnail,
+        Y = Q.thumbnailUrl,
+        J = f(
           function () {
-            return B
-              ? r("buildWAWebDraftTableItem")(P, H, V, $, function () {
-                  var e = W == null ? void 0 : W.id;
-                  e != null &&
-                    (x == null || x(e, W == null ? void 0 : W.flow_id));
-                })
+            return q && !H
+              ? r("buildWAWebDraftTableItem")(
+                  M,
+                  Y,
+                  X,
+                  N,
+                  function () {
+                    var e = U == null ? void 0 : U.id;
+                    e != null &&
+                      (P == null || P(e, U == null ? void 0 : U.flow_id));
+                  },
+                  j,
+                )
               : null;
           },
-          [B, W, P, H, V, x, $],
-        ),
-        z = f(
-          function () {
-            return G != null ? [G] : [];
-          },
-          [G],
-        ),
-        j = o("CometRelay").usePaginationFragment(R, P),
-        K = j.data,
-        Q = j.hasNext,
-        X = j.isLoadingNext,
-        Y = j.loadNext,
-        J = p(
-          function () {
-            Q && !X && Y(y);
-          },
-          [Q, X, Y],
+          [q, H, U, M, Y, X, P, j, N],
         ),
         Z = f(
+          function () {
+            return J != null ? [J] : [];
+          },
+          [J],
+        ),
+        ee = o("CometRelay").usePaginationFragment(L, M),
+        te = ee.data,
+        ne = ee.hasNext,
+        re = ee.isLoadingNext,
+        oe = ee.loadNext,
+        ae = p(
+          function () {
+            ne && !re && oe(C);
+          },
+          [ne, re, oe],
+        ),
+        ie = f(
           function () {
             var e,
               t,
               n =
-                (e = (t = K.ctwa.all_user_ads) == null ? void 0 : t.edges) !=
+                (e = (t = te.ctwa.all_user_ads) == null ? void 0 : t.edges) !=
                 null
                   ? e
                   : [];
@@ -256,10 +280,10 @@ __d(
                   L,
                   E,
                   k,
-                  T,
+                  I,
+                  D,
                   x,
-                  N,
-                  M,
+                  P,
                   w,
                   A,
                   F,
@@ -388,13 +412,13 @@ __d(
                         : E.message,
                   $e =
                     (k =
-                      pe == null || (T = pe.spec) == null
+                      pe == null || (I = pe.spec) == null
                         ? void 0
-                        : T.audience) != null
+                        : I.audience) != null
                       ? k
-                      : _e == null || (x = _e.spec) == null
+                      : _e == null || (D = _e.spec) == null
                         ? void 0
-                        : x.audience,
+                        : D.audience,
                   Pe = $e
                     ? {
                         targetSpecStringWithoutPlacements:
@@ -411,20 +435,21 @@ __d(
                     isDraft: !1,
                     isLoadingThumbnail: !1,
                     nodeId: he,
+                    onDeleteDraft: null,
                     thumbnailUrl: ye,
                     highResImageUrl: Se,
                     legacyAdAccountId: Re,
-                    pageId: $,
+                    pageId: N,
                     link: ke,
                     childAttachments: Ie,
                     videoData: Te,
                     startTime: De,
                     durationInDays:
-                      (N =
-                        pe == null || (M = pe.spec) == null
+                      (x =
+                        pe == null || (P = pe.spec) == null
                           ? void 0
-                          : M.duration_in_days) != null
-                        ? N
+                          : P.duration_in_days) != null
+                        ? x
                         : _e == null || (w = _e.spec) == null
                           ? void 0
                           : w.duration_in_days,
@@ -449,16 +474,16 @@ __d(
                     description: xe,
                     isVerified:
                       (W =
-                        P == null || (q = P.page) == null
+                        M == null || (q = M.page) == null
                           ? void 0
                           : q.is_verified) != null
                         ? W
                         : !1,
                     businessName:
-                      P == null || (U = P.page) == null ? void 0 : U.name,
+                      M == null || (U = M.page) == null ? void 0 : U.name,
                     profilePictureUrl:
-                      P == null ||
-                      (V = P.page) == null ||
+                      M == null ||
+                      (V = M.page) == null ||
                       (V = V.profile_picture) == null
                         ? void 0
                         : V.uri,
@@ -554,10 +579,10 @@ __d(
                           : de.formatted_for_lwi,
                     audience: Pe,
                     onViewResults: function () {
-                      return I(Ne);
+                      return T(Ne);
                     },
                     onRecreateAd: function (t, n) {
-                      return D == null ? void 0 : D(ge, t, n);
+                      return $ == null ? void 0 : $(ge, t, n);
                     },
                     onResumeDraft: r("WAWebNoop"),
                   };
@@ -565,38 +590,38 @@ __d(
               });
           },
           [
-            (S = K.ctwa.all_user_ads) == null ? void 0 : S.edges,
-            $,
-            P == null || (L = P.page) == null ? void 0 : L.is_verified,
-            P == null || (E = P.page) == null ? void 0 : E.name,
-            P == null || (k = P.page) == null || (k = k.profile_picture) == null
+            (R = te.ctwa.all_user_ads) == null ? void 0 : R.edges,
+            N,
+            M == null || (E = M.page) == null ? void 0 : E.is_verified,
+            M == null || (k = M.page) == null ? void 0 : k.name,
+            M == null || (I = M.page) == null || (I = I.profile_picture) == null
               ? void 0
-              : k.uri,
-            D,
-            I,
+              : I.uri,
+            $,
+            T,
           ],
         ),
-        ee = g(!1);
+        le = g(!1);
       _(
         function () {
-          if (!ee.current) {
+          if (!le.current) {
             var e;
-            ((ee.current = !0),
+            ((le.current = !0),
               (e = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(
                 e.AdsManagementQplPoint.GRAPHQL_QUERY_END,
               ),
               e.adsManagementQplAddPoint(e.AdsManagementQplPoint.TABLE_RENDER),
-              e.adsManagementQplAnnotateAdCount(Z.length),
+              e.adsManagementQplAnnotateAdCount(ie.length),
               e.endAdsManagementQplSuccess(),
-              A());
+              O());
           }
         },
-        [Z, A],
+        [ie, O],
       );
-      var te = p(function (e) {
+      var se = p(function (e) {
           return e.nodeId;
         }, []),
-        ne = p(
+        ue = p(
           function (e) {
             if (e.isDraft) {
               e.onResumeDraft();
@@ -608,29 +633,29 @@ __d(
               o("WAWebBizAdManagementLogger").LWI_SCREEN_ACTION
                 .LWI_ACTION_ADS_LISTING_CLICKED,
               o("WAWebBizAdManagementLogger").LWI_ADS_IDENTITY_TYPE.PAGE,
-              M.manageAdsFlowID,
+              A.manageAdsFlowID,
               e.boostId,
             ),
-              I(e));
+              T(e));
           },
-          [M.manageAdsFlowID, I],
+          [A.manageAdsFlowID, T],
         );
-      return Z.length === 0 && z.length === 0
+      return ie.length === 0 && Z.length === 0
         ? d.jsx("div", {
             className: "x78zum5 xdt5ytf x1iyjqo2 x1c7u0tx",
             children: d.jsxs(o("WAWebFlex.react").FlexColumn, {
-              xstyle: C.emptyStateWrapper,
+              xstyle: b.emptyStateWrapper,
               children: [
                 d.jsx(r("WAWebBizAdManagementNullView.react"), {
-                  manageAdsFlowID: M.manageAdsFlowID,
-                  pageId: $,
+                  manageAdsFlowID: A.manageAdsFlowID,
+                  pageId: N,
                 }),
-                T != null &&
+                x != null &&
                   d.jsx(r("WDSButton.react"), {
                     label: s._(/*BTDS*/ "Continue with Facebook"),
                     variant: "outline",
                     size: "medium",
-                    onPress: T,
+                    onPress: x,
                   }),
               ],
             }),
@@ -638,102 +663,109 @@ __d(
         : d.jsxs("div", {
             className: "x78zum5 xdt5ytf x1iyjqo2 x1c7u0tx",
             children: [
-              d.jsx(b, { manageAdsFlowID: M.manageAdsFlowID }),
-              d.jsx(v, {
-                hasAds: Z.length > 0,
-                manageAdsFlowID: M.manageAdsFlowID,
-                pageId: $,
+              d.jsx(v, { manageAdsFlowID: A.manageAdsFlowID }),
+              d.jsx(S, {
+                hasAds: ie.length > 0,
+                manageAdsFlowID: A.manageAdsFlowID,
+                pageId: N,
               }),
               d.jsx(r("WAWebSMBTable.react"), {
                 columns: o("WAWebBizAdManagementSMBTableColumns")
                   .adManagementColumns,
-                items: Z,
-                getItemKey: te,
-                onRowClick: ne,
-                pinnedItems: z,
-                hasMore: Q,
-                isLoadingMore: X,
-                onLoadMore: J,
-                selectedKey: N,
+                items: ie,
+                getItemKey: se,
+                onRowClick: ue,
+                pinnedItems: Z,
+                hasMore: ne,
+                isLoadingMore: re,
+                onLoadMore: ae,
+                selectedKey: w,
               }),
             ],
           });
     }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E(e) {
-      var t = e.onAdSelect,
-        n = e.onLoginToFacebook,
-        r = e.onRecreateAd,
-        a = e.onResumeDraft,
-        i = e.pageId1,
-        l = e.pageId2,
-        s = e.selectedKey,
-        u = o("CometRelay").useLazyLoadQuery(
-          S,
-          { page_id_1: i, page_id_2: l, options: {}, first: h, after: null },
-          { fetchPolicy: "network-only" },
-        );
-      return d.jsx(L, {
-        queryData: u,
-        onAdSelect: t,
-        onLoginToFacebook: n,
-        onRecreateAd: r,
-        onResumeDraft: a,
-        pageId1: i,
-        selectedKey: s,
-      });
-    }
     E.displayName = E.name + " [from " + i.id + "]";
     function k(e) {
       var t = e.onAdSelect,
-        n = e.onLoginToFacebook,
-        r = e.onRecreateAd,
-        a = e.onResumeDraft,
-        i = e.pageId1,
-        l = e.queryRef,
-        s = e.selectedKey,
-        u = o("CometRelay").usePreloadedQuery(S, l);
-      return d.jsx(L, {
-        queryData: u,
+        n = e.onExistingDraftIDChange,
+        r = e.onLoginToFacebook,
+        a = e.onRecreateAd,
+        i = e.onResumeDraft,
+        l = e.pageId1,
+        s = e.pageId2,
+        u = e.selectedKey,
+        c = o("CometRelay").useLazyLoadQuery(
+          R,
+          { page_id_1: l, page_id_2: s, options: {}, first: y, after: null },
+          { fetchPolicy: "network-only" },
+        );
+      return d.jsx(E, {
+        queryData: c,
         onAdSelect: t,
-        onLoginToFacebook: n,
-        onRecreateAd: r,
-        onResumeDraft: a,
-        pageId1: i,
-        selectedKey: s,
+        onExistingDraftIDChange: n,
+        onLoginToFacebook: r,
+        onRecreateAd: a,
+        onResumeDraft: i,
+        pageId1: l,
+        selectedKey: u,
       });
     }
     k.displayName = k.name + " [from " + i.id + "]";
     function I(e) {
       var t = e.onAdSelect,
-        n = e.onLoginToFacebook,
-        o = e.onRecreateAd,
-        a = e.onResumeDraft,
-        i = e.pageId1,
-        l = e.pageId2,
+        n = e.onExistingDraftIDChange,
+        r = e.onLoginToFacebook,
+        a = e.onRecreateAd,
+        i = e.onResumeDraft,
+        l = e.pageId1,
         s = e.queryRef,
-        u = e.selectedKey;
-      return r("justknobx")._("2130") && s != null
-        ? d.jsx(k, {
-            queryRef: s,
+        u = e.selectedKey,
+        c = o("CometRelay").usePreloadedQuery(R, s);
+      return d.jsx(E, {
+        queryData: c,
+        onAdSelect: t,
+        onExistingDraftIDChange: n,
+        onLoginToFacebook: r,
+        onRecreateAd: a,
+        onResumeDraft: i,
+        pageId1: l,
+        selectedKey: u,
+      });
+    }
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T(e) {
+      var t = e.onAdSelect,
+        n = e.onExistingDraftIDChange,
+        o = e.onLoginToFacebook,
+        a = e.onRecreateAd,
+        i = e.onResumeDraft,
+        l = e.pageId1,
+        s = e.pageId2,
+        u = e.queryRef,
+        c = e.selectedKey;
+      return r("justknobx")._("2130") && u != null
+        ? d.jsx(I, {
+            queryRef: u,
             onAdSelect: t,
-            onLoginToFacebook: n,
-            onRecreateAd: o,
-            onResumeDraft: a,
-            pageId1: i,
-            selectedKey: u,
+            onExistingDraftIDChange: n,
+            onLoginToFacebook: o,
+            onRecreateAd: a,
+            onResumeDraft: i,
+            pageId1: l,
+            selectedKey: c,
           })
-        : d.jsx(E, {
+        : d.jsx(k, {
             onAdSelect: t,
-            onLoginToFacebook: n,
-            onRecreateAd: o,
-            onResumeDraft: a,
-            pageId1: i,
-            pageId2: l,
-            selectedKey: u,
+            onExistingDraftIDChange: n,
+            onLoginToFacebook: o,
+            onRecreateAd: a,
+            onResumeDraft: i,
+            pageId1: l,
+            pageId2: s,
+            selectedKey: c,
           });
     }
-    ((I.displayName = I.name + " [from " + i.id + "]"), (l.default = I));
+    ((T.displayName = T.name + " [from " + i.id + "]"), (l.default = T));
   },
   226,
 );

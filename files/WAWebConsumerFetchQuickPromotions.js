@@ -7,7 +7,6 @@ __d(
     "WALogger",
     "WAPromiseRetryLoop",
     "WAPromiseTimeout",
-    "WAWebABProps",
     "WAWebBackendApi",
     "WAWebBuildConstants",
     "WAWebCTWAConstants",
@@ -22,15 +21,13 @@ __d(
     "WAWebFetchQuickPromotionsCore",
     "WAWebJobUpdateQPSurfaces",
     "WAWebL10NCountryCodes",
-    "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebOrchestratorNonPersistedJob",
-    "WAWebProtobufsQuickPromotionSurfaces.pb",
     "WAWebQplFlowWrapper",
+    "WAWebQuickPromotionGating",
     "WAWebRelayClient",
     "WAWebUserPrefsMeUser",
     "WAWebWebp",
-    "compactMap",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -52,61 +49,47 @@ __d(
       S,
       R,
       L = r("qpl")._(1029379849, "2322"),
-      E = [
-        "WHATSAPP_FOR_WEB_WA_BANNER_WEB_QP",
-        "WHATSAPP_FOR_WEB_UPDATES_TAB_FOOTER_NOTICE_QP",
-        "WHATSAPP_FOR_WEB_GROUPSBANNER_QP",
-        "WHATSAPP_FOR_WEB_PROFILEBANNER_QP",
-      ],
-      k = { type: "error" },
-      I = 1,
-      T = 1e3,
-      D = 3e3,
-      x =
+      E = { type: "error" },
+      k = 1,
+      I = 1e3,
+      T = 3e3,
+      D =
         e !== void 0
           ? e
           : (e = n("WAWebConsumerFetchQuickPromotionsQuery.graphql")),
-      $ =
+      x =
         s !== void 0
           ? s
           : (s = n(
               "WAWebConsumerFetchQuickPromotionsQuery_QuickPromotion.graphql",
             )),
-      P =
+      $ =
         u !== void 0
           ? u
           : (u = n(
               "WAWebConsumerFetchQuickPromotionsQuery_QPCreative.graphql",
             )),
-      N =
+      P =
         c !== void 0
           ? c
           : (c = n("WAWebConsumerFetchQuickPromotionsQuery_QPAction.graphql")),
-      M =
+      N =
         d !== void 0
           ? d
           : (d = n("WAWebConsumerFetchQuickPromotionsQuery_QPText.graphql")),
-      w =
+      M =
         m !== void 0
           ? m
           : (m = n(
               "WAWebConsumerFetchQuickPromotionsQuery_QPWAFilterClause.graphql",
             )),
-      A =
+      w =
         p !== void 0
           ? p
           : (p = n(
               "WAWebConsumerFetchQuickPromotionsQuery_QPWAFilter.graphql",
             ));
-    function F() {
-      return (
-        !o("WAWebMobilePlatforms").isSMB() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "fetch_qp_via_graphql_web_enabled",
-        )
-      );
-    }
-    function O(e) {
+    function A(e) {
       o("WAWebCommonCTWAQplHelpers").qplAnnotateGraphQLError({
         error: e,
         event: L,
@@ -114,27 +97,27 @@ __d(
         errorMessageAnnotationName: "fetch_consumer_promotions_error_message",
       });
     }
-    function B() {
-      return F()
+    function F() {
+      return o("WAWebQuickPromotionGating").consumerQpGraphQLEnabled()
         ? o("WAWebOrchestratorNonPersistedJob")
             .createNonPersistedJob("fetchConsumerQuickPromotions", function () {
               return o("WAWebBackendApi")
                 .frontendSendAndReceive("getUserLocale")
                 .then(function (e) {
-                  return W(e);
+                  return O(e);
                 });
             })
             .waitUntilCompleted()
         : (R || (R = n("Promise"))).resolve({ type: "not-enabled" });
     }
-    function W(e) {
+    function O(e) {
       return r("WAWebNetworkStatus")
         .waitIfOffline()
         .then(function () {
           return o("WAPromiseTimeout")
             .promiseTimeout(
-              q(e),
-              o("WAWebCTWAConstants").QP_FETCH_TIMEOUT_MS * (I + 1),
+              B(e),
+              o("WAWebCTWAConstants").QP_FETCH_TIMEOUT_MS * (k + 1),
             )
             .then(function (t) {
               return t.type === "success"
@@ -166,7 +149,7 @@ __d(
                                   "fetchConsumerQuickPromotions: failed while saving to the DB",
                                 ])),
                             ),
-                        O(e),
+                        A(e),
                         o("WAWebQplFlowWrapper").QPL.markerEnd(L, 3),
                         { type: "error" }
                       );
@@ -202,11 +185,11 @@ __d(
             });
         });
     }
-    function q(e) {
+    function B(e) {
       return (
         o("WAWebQplFlowWrapper").QPL.markerStart(L),
         o("WAWebQplFlowWrapper").QPL.markerPoint(L, "fetch_promotions_start"),
-        U(e).then(function (e) {
+        W(e).then(function (e) {
           return e.type === "success"
             ? (o("WAWebQplFlowWrapper").QPL.markerPoint(
                 L,
@@ -222,10 +205,10 @@ __d(
         })
       );
     }
-    function U(e) {
-      var t = I,
+    function W(e) {
+      var t = k,
         n = function (r) {
-          return V(e)
+          return q(e)
             .then(function (e) {
               if (e.type === "success") r(e);
               else {
@@ -240,25 +223,29 @@ __d(
         },
         r = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
           name: "fetchConsumerQuickPromotions",
-          timer: { algo: { type: "exponential", first: T }, max: D },
+          timer: { algo: { type: "exponential", first: I }, max: T },
           code: n,
         });
       return (r.start(), r.promise());
     }
-    function V(e) {
+    function q(e) {
       var t,
-        r = [].concat(E),
-        a =
-          (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
-            ? void 0
-            : t.user;
+        r = Array.from(
+          o("WAWebQuickPromotionGating").qpSurfaceIdsUsingGraphQLConsumer(),
+        );
+      if (r.length === 0)
+        return (R || (R = n("Promise"))).resolve({ type: "not-enabled" });
+      var a =
+        (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
+          ? void 0
+          : t.user;
       if (a == null)
         return (R || (R = n("Promise"))).resolve({ type: "error" });
       var i = o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(a),
         l;
       return o("WAWebRelayClient")
         .fetchQuery(
-          x,
+          D,
           {
             nux_ids: r,
             trigger_context: {
@@ -278,12 +265,12 @@ __d(
           },
         )
         .then(function (e) {
-          if (e == null) return k;
+          if (e == null) return E;
           var t = e.quick_promotion_multiverse_batch_fetch_root,
             n = new Map(),
             a = [];
           (r.forEach(function (e) {
-            var t = z(e);
+            var t = o("WAWebFetchQuickPromotionsCore").getSurfaceIdByNuxId(e);
             if (t == null) {
               a.length < 3 && a.push(e);
               return;
@@ -324,7 +311,7 @@ __d(
                       s = e.priority,
                       u = e.time_range;
                     if (i != null) {
-                      var c = l($, i),
+                      var c = l(x, i),
                         d = c.ab_prop_name,
                         m = c.client_side_dry_run,
                         p = c.content_attributes,
@@ -343,11 +330,11 @@ __d(
                           k = p.wa_primary_cta_alternative_url;
                         if (E != null) {
                           var I = f.map(function (e) {
-                              return l(P, e);
+                              return l($, e);
                             }),
                             T = I[0],
                             D,
-                            x,
+                            M,
                             w,
                             A,
                             F,
@@ -356,23 +343,23 @@ __d(
                           if (T != null) {
                             var W = T.accessibility_text_for_image,
                               q = T.content,
-                              U = T.dismiss_action,
-                              V = T.primary_action,
+                              V = T.dismiss_action,
+                              H = T.primary_action,
                               G = T.title,
                               z = T.wa_dark_mode_media_details,
                               j = T.wa_light_mode_media_details;
                             if (G == null || q == null) return;
                             if (
-                              ((A = l(M, G).text),
-                              (F = l(M, q).text),
-                              V != null)
+                              ((A = l(N, G).text),
+                              (F = l(N, q).text),
+                              H != null)
                             ) {
-                              var K = l(N, V),
+                              var K = l(P, H),
                                 Q = K.limit,
                                 X = K.title,
                                 Y = K.url;
-                              if (((x = Q), X != null)) {
-                                var J = l(M, X);
+                              if (((M = Q), X != null)) {
+                                var J = l(N, X);
                                 J.text != null &&
                                   (D = {
                                     text: J == null ? void 0 : J.text,
@@ -382,7 +369,7 @@ __d(
                               }
                             }
                             if (
-                              ((w = U == null ? void 0 : U.limit),
+                              ((w = V == null ? void 0 : V.limit),
                               (O = T.is_dismissible),
                               W != null)
                             ) {
@@ -450,18 +437,18 @@ __d(
                                 );
                               }, []),
                               re =
-                                y != null || x != null || w != null
+                                y != null || M != null || w != null
                                   ? {
                                       promotionConfig: {
                                         maxImpressions: y != null ? y : -1,
                                         maxDismisses: w != null ? w : 0,
-                                        maxPrimaryClicks: x != null ? x : 0,
+                                        maxPrimaryClicks: M != null ? M : 0,
                                         maxSecondaryClicks: 0,
                                       },
                                       userInfo: void 0,
                                     }
                                   : void 0,
-                              oe = _ != null ? H(_, l) : void 0,
+                              oe = _ != null ? U(_, l) : void 0,
                               ae =
                                 g != null
                                   ? {
@@ -535,71 +522,42 @@ __d(
           );
         })
         .catch(function (e) {
-          return (O(e), k);
+          return (A(e), E);
         });
     }
-    function H(e, t) {
-      var n = t(w, e),
-        a = n.clause_type,
-        i = n.filters,
-        l = e.clauses;
-      if (a != null) {
-        var s =
-            l != null
-              ? r("compactMap")(l, function (e) {
-                  return H(e, t);
-                })
-              : [],
-          u = r("compactMap")(i, function (e) {
-            return G(e, t);
-          }),
-          c = {
-            clauseType: o("WAWebFetchQuickPromotionsCore").mapFilterClauseType(
-              a,
-            ),
-            clauses: s,
-            filters: u,
-          };
-        return c;
-      }
+    function U(e, t) {
+      var n = t(M, e),
+        r = n.clause_type,
+        a = n.filters;
+      return o("WAWebFetchQuickPromotionsCore").parseFilterClause(
+        { clause_type: r, filters: a },
+        e.clauses,
+        function (e) {
+          return U(e, t);
+        },
+        function (e) {
+          return V(e, t);
+        },
+      );
     }
-    function G(e, t) {
-      var n = t(A, e),
+    function V(e, t) {
+      var n = t(w, e),
         r = n.filter_name,
         a = n.filter_result,
         i = n.parameters,
         l = n.passes_if_client_not_supported;
-      if (r != null) {
-        var s = i.reduce(function (e, t) {
-            var n = t.key,
-              r = t.value;
-            return (n == null || r == null || e.push({ key: n, value: r }), e);
-          }, []),
-          u = {
-            filterName: r,
-            parameters: s,
-            clientNotSupportedConfig:
-              l === !0
-                ? o("WAWebProtobufsQuickPromotionSurfaces.pb")
-                    .QP$FilterClientNotSupportedConfig.PASS_BY_DEFAULT
-                : o("WAWebProtobufsQuickPromotionSurfaces.pb")
-                    .QP$FilterClientNotSupportedConfig.FAIL_BY_DEFAULT,
-            filterResult:
-              a != null
-                ? o("WAWebFetchQuickPromotionsCore").mapFilterResult(a)
-                : void 0,
-          };
-        return u;
-      }
+      return o("WAWebFetchQuickPromotionsCore").parseFilter({
+        filter_name: r,
+        filter_result: a,
+        parameters: i.map(function (e) {
+          var t = e.key,
+            n = e.value;
+          return { key: t, value: n };
+        }),
+        passes_if_client_not_supported: l,
+      });
     }
-    function z(e) {
-      for (var t of o("WAWebCTWAConstants").KNOWN_QP_SURFACES.entries()) {
-        var n = t[0],
-          r = t[1];
-        if (r === e) return n;
-      }
-    }
-    l.fetchConsumerQuickPromotions = B;
+    l.fetchConsumerQuickPromotions = F;
   },
   98,
 );

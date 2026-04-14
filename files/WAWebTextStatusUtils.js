@@ -4,46 +4,49 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = -1,
       s = 50,
-      u = 0,
-      c = null,
+      u = -2,
+      c = 0,
       d = null,
       m = null,
-      p = -1;
-    function _(e, t, n, r, a) {
-      var i = a === p || (r != null && o("WATimeUtils").unixTime() < r),
+      p = null,
+      _ = -1;
+    function f(e, t, n, r, a) {
+      var i = a === _ || (r != null && o("WATimeUtils").unixTime() < r),
         l = !!(e != null && e.trim()) || !!t,
-        s = n !== u;
+        s = n !== c;
       return s && i && l;
     }
-    function f(e) {
-      return e != null && e !== p;
+    function g(e) {
+      return e != null && e !== _;
     }
-    function g(t, n, r, a, i) {
+    function h(t, n, r, a, i) {
       return !(
         !o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() ||
         r === e ||
-        !_(t, n, r, a, i)
+        r === u ||
+        !f(t, n, r, a, i)
       );
     }
-    function h(e) {
+    function y(e) {
       return e.status === void 0;
     }
-    function y(e) {
+    function C(e) {
       var t = r("fbs")._(/*BTDS*/ "Hey there! I am using WhatsApp.").toString();
       return e.isValidTextStatus() && e.status !== t;
     }
     ((l.TEXT_STATUS_NOT_FETCHED = e),
       (l.SUGGESTIONS_MAX_COUNT = s),
-      (l.CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL = u),
-      (l.CLEAR_TEXT_STATUS_STRING_VAL = c),
-      (l.CLEAR_TEXT_STATUS_EMOJI_VAL = d),
-      (l.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL = m),
-      (l.TEXT_STATUS_DURATION_INFINITE = p),
-      (l.hasTextStatusSet = _),
-      (l.isEphemeralTextStatus = f),
-      (l.shouldDisplayTextStatus = g),
-      (l.isLegacyAboutNotFetched = h),
-      (l.hasCustomAboutSet = y));
+      (l.TEXT_STATUS_NEVER_HAD = u),
+      (l.CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL = c),
+      (l.CLEAR_TEXT_STATUS_STRING_VAL = d),
+      (l.CLEAR_TEXT_STATUS_EMOJI_VAL = m),
+      (l.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL = p),
+      (l.TEXT_STATUS_DURATION_INFINITE = _),
+      (l.hasTextStatusSet = f),
+      (l.isEphemeralTextStatus = g),
+      (l.shouldDisplayTextStatus = h),
+      (l.isLegacyAboutNotFetched = y),
+      (l.hasCustomAboutSet = C));
   },
   226,
 );

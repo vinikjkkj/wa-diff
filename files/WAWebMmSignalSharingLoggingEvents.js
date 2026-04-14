@@ -144,6 +144,7 @@ __d(
               mmSignalType: m,
               mmCtaButtonIndex: l,
               mmCarouselCardIndex: s,
+              msgId: u.id,
             }));
         var _;
         ((c == null ? void 0 : c.consentedUrl) != null
@@ -580,7 +581,8 @@ __d(
         r = e.deepConversationParams,
         a = e.mmCarouselCardIndex,
         i = e.mmCtaButtonIndex,
-        l = e.mmSignalType;
+        l = e.mmSignalType,
+        s = e.msgId;
       if (
         !(
           !n ||
@@ -603,16 +605,17 @@ __d(
             mmCtaButtonIndex: i,
             mmCarouselCardIndex: a,
             deepConversationParams: r,
+            msgId: s,
           });
           return;
         }
-        var s = o("WAWebMmSignalSharingModelUtils").getMMSignalSharingData({
+        var u = o("WAWebMmSignalSharingModelUtils").getMMSignalSharingData({
           chat: n,
           mmSignalType: l,
           deepConversationParams: r,
         });
         n &&
-          s != null &&
+          u != null &&
           o(
             "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
           ).isMmSignalSharingUserDisclosedInCollectionWindow(
@@ -622,7 +625,7 @@ __d(
             !n.contact.isContactBlocked) &&
           o("WAWebMmSignalSharingLoggingUtils").logMmSignalSharingEvent({
             chat: n,
-            signal: { mmSignalType: l, mmSignalData: s },
+            signal: { mmSignalType: l, mmSignalData: u },
           });
       }
     }
@@ -632,29 +635,32 @@ __d(
         r = e.mmCarouselCardIndex,
         a = e.mmCtaButtonIndex,
         i = e.mmSignalType,
-        l = o(
+        l = e.msgId,
+        s = o(
           "WAWebMmSignalSharingTos",
         ).isMmSignalSharingDisclosureTosAccepted(),
-        s =
+        u =
           o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
           t.contact.isContactBlocked,
-        u = o(
+        c = o(
           "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
         ).isMmSignalSharingUserDisclosedInCollectionWindow(
           t.mmSignalSharingExpirationWindow,
         );
-      if (l && u && !s) {
-        var c = o("WAWebMmSignalSharingModelUtils").getMMSignalSharingData({
+      if (s && c && !u) {
+        var d = o("WAWebMmSignalSharingModelUtils").getMMSignalSharingData({
           chat: t,
           mmSignalType: i,
           deepConversationParams: n,
+          msgId: l,
+          tokenPath: "disclosed",
         });
-        if (c != null) {
+        if (d != null) {
           o("WAWebMmSignalSharingLoggingUtils").logMmSignalSharingEvent({
             chat: t,
             signal: {
               mmSignalType: i,
-              mmSignalData: c,
+              mmSignalData: d,
               isDisclosed: !0,
               mmCtaButtonIndex: a,
               mmCarouselCardIndex: r,
@@ -664,17 +670,19 @@ __d(
         }
       }
       if (o("WAWebMmSignalSharingGatingUtils").isSignalTypeAllowlisted(i, !1)) {
-        var d = o("WAWebMmSignalSharingModelUtils").getMMSignalSharingData({
+        var m = o("WAWebMmSignalSharingModelUtils").getMMSignalSharingData({
           chat: t,
           mmSignalType: i,
           deepConversationParams: n,
+          msgId: l,
+          tokenPath: "undisclosed",
         });
-        if (d != null) {
+        if (m != null) {
           o("WAWebMmSignalSharingLoggingUtils").logMmSignalSharingEvent({
             chat: t,
             signal: {
               mmSignalType: i,
-              mmSignalData: d,
+              mmSignalData: m,
               isDisclosed: !1,
               mmCtaButtonIndex: a,
               mmCarouselCardIndex: r,

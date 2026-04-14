@@ -29,27 +29,36 @@ __d(
                   a < s)
               )
                 return;
-              var u;
+              var u =
+                  a ===
+                    o("WAWebTextStatusUtils")
+                      .CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL &&
+                  (s == null ||
+                    s === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED ||
+                    s === o("WAWebTextStatusUtils").TEXT_STATUS_NEVER_HAD)
+                    ? o("WAWebTextStatusUtils").TEXT_STATUS_NEVER_HAD
+                    : a,
+                c;
               r != null &&
                 r > 0 &&
                 a !==
                   o("WAWebTextStatusUtils")
                     .CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL &&
-                (u = Number(a) + Number(r));
-              var c = {
+                (c = Number(a) + Number(r));
+              var d = {
                 textStatusString: t,
                 textStatusEmoji: n,
                 textStatusEphemeralDuration: r,
-                textStatusLastUpdateTime: a,
-                textStatusExpiryTs: u,
+                textStatusLastUpdateTime: u,
+                textStatusExpiryTs: c,
               };
               (yield o("WAWebDBUpdateContactTable").updateContactTable(
                 i,
-                babelHelpers.extends({}, c),
+                babelHelpers.extends({}, d),
               ),
                 o("WAWebBackendApi").frontendFireAndForget(
                   "updateTextStatus",
-                  babelHelpers.extends({}, c, { contactId: i }),
+                  babelHelpers.extends({}, d, { contactId: i }),
                 ));
             }
           },

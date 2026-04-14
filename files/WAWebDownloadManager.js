@@ -453,7 +453,12 @@ __d(
             K,
           );
           try {
-            var X = N({ progressiveJpegOpts: k, filehash: u, debugString: K }),
+            var X = N({
+                progressiveJpegOpts: k,
+                filehash: u,
+                debugString: K,
+                scanCount: M,
+              }),
               Y = function (t) {
                 (F(t),
                   X != null &&
@@ -461,6 +466,7 @@ __d(
                       progressiveJpegOpts: k,
                       filehash: u,
                       debugString: K,
+                      scanCount: M,
                     })));
               },
               J = r("WAWebGetMediaDownloadByterange")({
@@ -815,17 +821,30 @@ __d(
     function N(e) {
       var t = e.debugString,
         n = e.filehash,
-        r = e.progressiveJpegOpts;
-      return r == null
-        ? null
-        : new (o("WAWebCryptoImageStreamer").ImageStreamer)({
-            scanLengths: r.scanLengths,
-            scansSidecar: r.scansSidecar,
-            mimetype: r.mimetype,
-            filehash: n,
-            debugString: t,
-            onProgressiveUpdate: r.onProgressiveUpdate,
-          });
+        r = e.progressiveJpegOpts,
+        a = e.scanCount;
+      if (r == null) return null;
+      var i =
+          a == null ||
+          o("WAWebMediaGatingUtils").getHQImageThumbnailInChatScans() === 0
+            ? null
+            : a,
+        l = i == null ? r.scanLengths : r.scanLengths.slice(0, i),
+        s =
+          i == null
+            ? r.scansSidecar
+            : r.scansSidecar.slice(
+                0,
+                i * o("WAWebCryptoDecryptPartialMedia").HMAC_SIZE,
+              );
+      return new (o("WAWebCryptoImageStreamer").ImageStreamer)({
+        scanLengths: l,
+        scansSidecar: s,
+        mimetype: r.mimetype,
+        filehash: n,
+        debugString: t,
+        onProgressiveUpdate: r.onProgressiveUpdate,
+      });
     }
     function M(e) {
       var t = e.downloadOrigin,

@@ -46,9 +46,10 @@ __d(
         p = o("WAWebFaqUrl").getBusinessBroadcastsLearnMoreUrl();
       c(
         function () {
+          var e = o("WAWebBizBroadcastTos").getBizBroadcastTosDebugInfo();
           o(
             "WAWebBusinessBroadcastUserJourneyLogger",
-          ).BusinessBroadcastUserJourneyLogger.tosNuxViewed(a);
+          ).BusinessBroadcastUserJourneyLogger.tosNuxViewed(a, e);
         },
         [a],
       );

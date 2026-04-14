@@ -32,38 +32,37 @@ __d(
     var e,
       u,
       c = u || (u = o("react")),
-      d = u.useState,
-      m = { checkboxLabel: { display: "x1rg5ohu", $$css: !0 } };
-    function p(t) {
+      d = u.useState;
+    function m(t) {
       var a = t.chat,
         i = t.spamFlow,
         l = d(!1),
         u = l[0],
-        p = l[1],
-        g = d(!1),
-        h = g[0],
-        y = g[1],
-        C = d(f(i)),
-        b = C[0],
-        v = C[1],
-        S = a.id.toJid(),
-        R = r("useVisibility")({
+        m = l[1],
+        f = d(!1),
+        g = f[0],
+        h = f[1],
+        y = d(_(i)),
+        C = y[0],
+        b = y[1],
+        v = a.id.toJid(),
+        S = r("useVisibility")({
           onVisible: function () {
             return o(
               "WAWebGroupExitModalLoggingUtils",
-            ).logGroupExitModalOpenEvent({ groupJid: S, spamFlow: i });
+            ).logGroupExitModalOpenEvent({ groupJid: v, spamFlow: i });
           },
         }),
-        L = R[0],
-        E = function () {
+        R = S[0],
+        L = function () {
           o("WAWebGroupExitModalLoggingUtils").logGroupExitModalLearnMoreEvent({
-            groupJid: S,
+            groupJid: v,
             spamFlow: i,
           });
         },
-        k = function () {
+        E = function () {
           (o("WAWebGroupExitModalLoggingUtils").logGroupExitModalCancelEvent({
-            groupJid: S,
+            groupJid: v,
             spamFlow: i,
           }),
             i ===
@@ -71,7 +70,7 @@ __d(
               o(
                 "WAWebGroupSafetyCheckModalLoggingUtils",
               ).logGroupSafetyCheckExitDialogUIInteractionsEvent({
-                groupJid: S,
+                groupJid: v,
                 interaction: o(
                   "WAWebWamEnumPsGroupSafetyCheckExitDialogActions",
                 ).PS_GROUP_SAFETY_CHECK_EXIT_DIALOG_ACTIONS
@@ -79,12 +78,12 @@ __d(
               }),
             o("WAWebModalManager").ModalManager.close());
         };
-      function I() {
-        return T.apply(this, arguments);
+      function k() {
+        return I.apply(this, arguments);
       }
-      function T() {
+      function I() {
         return (
-          (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             if (!r("WAWebNetworkStatus").online)
               return (
                 o("WAWebToastManager").ToastManager.open(
@@ -99,7 +98,7 @@ __d(
             if (
               i === o("WAWebSpamConstants").SpamFlow.GroupSafetyCheckModalUpsell
             ) {
-              var e = b
+              var e = C
                 ? o("WAWebWamEnumPsGroupSafetyCheckExitDialogActions")
                     .PS_GROUP_SAFETY_CHECK_EXIT_DIALOG_ACTIONS
                     .GROUP_EXIT_DIALOG_EXIT_AND_REPORT
@@ -109,14 +108,14 @@ __d(
               o(
                 "WAWebGroupSafetyCheckModalLoggingUtils",
               ).logGroupSafetyCheckExitDialogUIInteractionsEvent({
-                groupJid: S,
+                groupJid: v,
                 interaction: e,
               });
             }
             var t = yield o("WAWebExitGroupAction").sendExitGroup(a);
             return (
               t &&
-                b &&
+                C &&
                 o("WAWebSendSpamChatAction").sendReport({
                   chat: a,
                   spamFlow: i,
@@ -125,117 +124,119 @@ __d(
               t
             );
           })),
-          T.apply(this, arguments)
+          I.apply(this, arguments)
         );
+      }
+      function T() {
+        return D.apply(this, arguments);
       }
       function D() {
-        return x.apply(this, arguments);
-      }
-      function x() {
         return (
-          (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             (o("WAWebGroupExitModalLoggingUtils").logGroupExitModalExitEvent({
-              groupJid: S,
+              groupJid: v,
               spamFlow: i,
-              reportingEnabled: b,
+              reportingEnabled: C,
             }),
-              p(!0),
-              yield I(),
-              p(!1));
+              m(!0),
+              yield k(),
+              m(!1));
           })),
-          x.apply(this, arguments)
+          D.apply(this, arguments)
         );
       }
-      var $ = function (t) {
+      var x = function (t) {
           (o(
             "WAWebGroupExitModalLoggingUtils",
           ).logGroupDeleteConfirmationModalDeleteEvent({
-            groupJid: S,
+            groupJid: v,
             spamFlow: i,
           }),
             t.finally(r("WAWebNoop")));
         },
-        P = function () {
+        $ = function () {
           o(
             "WAWebGroupExitModalLoggingUtils",
           ).logGroupDeleteConfirmationModalCancelEvent({
-            groupJid: S,
+            groupJid: v,
             spamFlow: i,
           });
         };
-      function N() {
-        return M.apply(this, arguments);
+      function P() {
+        return N.apply(this, arguments);
       }
-      function M() {
+      function N() {
         return (
-          (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             (o(
               "WAWebGroupExitModalLoggingUtils",
             ).logGroupExitModalExitAndDeleteEvent({
-              groupJid: S,
+              groupJid: v,
               spamFlow: i,
-              reportingEnabled: b,
+              reportingEnabled: C,
             }),
-              y(!0));
-            var e = yield I();
-            (y(!1),
+              h(!0));
+            var e = yield k();
+            (h(!1),
               e &&
                 o("WAWebModalManager").ModalManager.open(
                   c.jsx(r("WAWebDeleteChatPopup.react"), {
                     chat: a,
-                    onDeleteOrExit: $,
-                    onCancel: P,
+                    onDeleteOrExit: x,
+                    onCancel: $,
                   }),
                   { transition: "modal" },
                 ));
           })),
-          M.apply(this, arguments)
+          N.apply(this, arguments)
         );
       }
-      var w = s._(/*BTDS*/ "Exit group: \u201c{group_name}\u201d?", [
+      var M = s._(/*BTDS*/ "Exit group: \u201c{group_name}\u201d?", [
           s._param(
             "group_name",
             c.jsx(o("WAWebName.react").Name, { chat: a, titlify: !0 }),
           ),
         ]),
-        A = s._(/*BTDS*/ "Only admins are notified when you leave a group."),
-        F = s._(/*BTDS*/ "Exit group"),
-        O = c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+        w = s._(/*BTDS*/ "Only admins are notified when you leave a group."),
+        A = s._(/*BTDS*/ "Exit group"),
+        F = c.jsx(o("WAWebExternalLink.react").ExternalLink, {
           href: o("WAWebFaqUrl").getBlockingReportingFaqUrl(),
           testid: void 0,
-          onClick: E,
+          onClick: L,
           children: r("WAWebFbtCommon")("Learn more"),
         }),
-        B = s._(
+        O = s._(
           /*BTDS*/ "The last 5 messages in this chat will be sent to WhatsApp. No one in the group will know about this report. {link to learn more}",
-          [s._param("link to learn more", O)],
+          [s._param("link to learn more", F)],
         ),
-        W = {
+        B = {
           text: s._(/*BTDS*/ "Exit and delete for me"),
-          onClick: N,
-          spinner: h,
-          disabled: h || u,
+          onClick: P,
+          spinner: g,
+          disabled: g || u,
           type: "warning",
         },
-        q = _(i)
+        W = p(i)
           ? c.jsxs(c.Fragment, {
               children: [
-                c.jsx(o("WAWebCheckBox.react").CheckBox, {
-                  onChange: function () {
-                    return v(!b);
-                  },
-                  checked: b,
-                  id: "menu-icon-Report-checkbox",
-                  testid: void 0,
-                }),
-                c.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
-                  color: "primary",
-                  xstyle: [
-                    m.checkboxLabel,
-                    o("WAWebUISpacing").uiMargin.start8,
+                c.jsxs("div", {
+                  className: "x78zum5 x1q0g3np x6s0dn4",
+                  children: [
+                    c.jsx(o("WAWebCheckBox.react").CheckBox, {
+                      onChange: function () {
+                        return b(!C);
+                      },
+                      checked: C,
+                      id: "menu-icon-Report-checkbox",
+                      testid: void 0,
+                    }),
+                    c.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
+                      color: "primary",
+                      xstyle: o("WAWebUISpacing").uiMargin.start8,
+                      testid: void 0,
+                      children: r("WAWebFbtCommon")("Report to WhatsApp"),
+                    }),
                   ],
-                  testid: void 0,
-                  children: r("WAWebFbtCommon")("Report to WhatsApp"),
                 }),
                 c.jsx(o("WAWebText.react").WAWebTextSmall, {
                   color: "secondary",
@@ -244,7 +245,7 @@ __d(
                     o("WAWebUISpacing").uiMargin.top6,
                   ],
                   testid: void 0,
-                  children: B,
+                  children: O,
                 }),
               ],
             })
@@ -254,17 +255,17 @@ __d(
           surface: "unknown",
           viewName: "leave-report-group",
         },
-        onOK: D,
-        okText: F,
-        contentRef: L,
+        onOK: T,
+        okText: A,
+        contentRef: R,
         okButtonType: "solid-warning",
-        onCancel: k,
+        onCancel: E,
         cancelButtonType: "simplified",
-        onOverlayClick: k,
+        onOverlayClick: E,
         okSpinner: u,
-        okDisabled: u || h,
-        title: w,
-        extraButtonProps: W,
+        okDisabled: u || g,
+        title: M,
+        extraButtonProps: B,
         children: c.jsxs(
           "div",
           babelHelpers.extends(
@@ -275,30 +276,30 @@ __d(
                 c.jsx(o("WAWebText.react").WAWebTextSmall, {
                   color: "secondary",
                   xstyle: o("WAWebUISpacing").uiMargin.vert12,
-                  children: A,
+                  children: w,
                 }),
-                q,
+                W,
               ],
             },
           ),
         ),
       });
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _(e) {
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p(e) {
       return (
-        f(e) ||
+        _(e) ||
         o("WAWebABProps").getABPropConfigValue("improve_group_reporting")
       );
     }
-    function f(e) {
+    function _(e) {
       return (
         e === o("WAWebSpamConstants").SpamFlow.GroupFmxCardLeave ||
         e === o("WAWebSpamConstants").SpamFlow.GroupSpamBannerReport ||
         e === o("WAWebSpamConstants").SpamFlow.GroupSafetyCheckModalUpsell
       );
     }
-    l.default = p;
+    l.default = m;
   },
   226,
 );

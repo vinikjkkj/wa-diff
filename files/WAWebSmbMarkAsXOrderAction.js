@@ -36,26 +36,18 @@ __d(
             return null;
         }
       },
-      s = function (t, n) {
-        var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
-          r;
-        if (e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true) {
-          var a = o(
-            "WAWebBizGatingUtils",
-          ).isPerCustomerDataSharingControlsEnabled()
-            ? o("WAWebPerCustomerDataSharingUtils").getCurrentDataSharingState(
-                n,
-              )
-            : t;
-          r = {
-            globalSharingSettingEnabled: !0,
-            eventSharingSettingEnabled: a,
-          };
-        } else
-          e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false
-            ? (r = { globalSharingSettingEnabled: !1 })
-            : (r = null);
-        return r;
+      s = function (t) {
+        var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
+        return e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
+          ? babelHelpers.extends(
+              { globalSharingSettingEnabled: !0 },
+              o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled()
+                ? null
+                : { eventSharingSettingEnabled: t },
+            )
+          : e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false
+            ? { globalSharingSettingEnabled: !1 }
+            : null;
       },
       u = function (n, a, i, l) {
         var t,
@@ -85,7 +77,7 @@ __d(
                   threadIdHmac: e != null ? e : void 0,
                 };
                 new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
-                  babelHelpers.extends({}, t, s(a, d)),
+                  babelHelpers.extends({}, t, s(a)),
                 ).commit();
               });
           }
@@ -118,7 +110,7 @@ __d(
                 threadIdHmac: e != null ? e : void 0,
               };
               new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
-                babelHelpers.extends({}, t, s(n, i)),
+                babelHelpers.extends({}, t, s(n)),
               ).commit();
             });
         }

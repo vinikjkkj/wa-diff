@@ -6,7 +6,6 @@ __d(
     "WASyncdConst",
     "WAWebBackendApi",
     "WAWebDBOutContactDatabaseApi",
-    "WAWebOutContactInviteGating",
     "WAWebSyncdAction",
     "WAWebSyncdIndexUtils",
     "asyncToGeneratorRuntime",
@@ -39,15 +38,6 @@ __d(
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                if (
-                  !o("WAWebOutContactInviteGating").isOutContactInviteEnabled()
-                )
-                  return t.map(function () {
-                    return {
-                      actionState:
-                        o("WASyncdConst").SyncActionState.Unsupported,
-                    };
-                  });
                 var n = 0,
                   r = [],
                   a = [],

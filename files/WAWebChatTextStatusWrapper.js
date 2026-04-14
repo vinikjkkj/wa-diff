@@ -39,11 +39,12 @@ __d(
       if (o("WAWebTextStatusUtils").shouldDisplayTextStatus(a, i, l, s, u))
         return !0;
       if (o("WAWebUserPrefsMeUser").isMeAccount(e)) return !1;
-      if (!c && o("WAWebTextStatusUtils").hasCustomAboutSet(r)) {
-        var d,
-          m,
-          p = (d = (m = r.status) == null ? void 0 : m.trim()) != null ? d : "";
-        return p !== "";
+      var d = l != null && l >= 0;
+      if (!d && !c && o("WAWebTextStatusUtils").hasCustomAboutSet(r)) {
+        var m,
+          p,
+          _ = (m = (p = r.status) == null ? void 0 : p.trim()) != null ? m : "";
+        return _ !== "";
       }
       return !1;
     }
@@ -114,17 +115,18 @@ __d(
         S = g === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED,
         R = !_ && !f && o("WAWebTextStatusUtils").isLegacyAboutNotFetched(m),
         L = o("WAWebUserPrefsMeUser").isMeAccount(a),
-        E = function () {
+        E = g != null && g >= 0,
+        k = function () {
           return o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
             ? C
               ? v()
-              : !L && !S && o("WAWebTextStatusUtils").hasCustomAboutSet(m)
+              : !L && !E && !S && o("WAWebTextStatusUtils").hasCustomAboutSet(m)
                 ? u.jsx(u.Fragment, { children: m.status })
                 : b
             : b;
         },
-        k = E(),
-        I = function () {
+        I = k(),
+        T = function () {
           var e = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e;
@@ -132,6 +134,7 @@ __d(
                 S
                   ? (e = o("WAWebTextStatusAction").getTextStatus(a, g))
                   : !L &&
+                    !E &&
                     R &&
                     (e = o(
                       "WAWebTextStatusCollection",
@@ -143,13 +146,13 @@ __d(
               return e.apply(this, arguments);
             };
           })();
-          return (e(), k);
+          return (e(), I);
         };
       return u.jsx(r("WAWebIdleComponent.react"), {
         id: a,
-        onComplex: I,
+        onComplex: T,
         waitIdle: s,
-        children: k,
+        children: I,
       });
     }
     ((d.displayName = d.name + " [from " + i.id + "]"),

@@ -250,6 +250,8 @@ __d(
                   onCreateAudienceSuccess: $,
                   validContactsData: v,
                   errorList: L,
+                  isBBCreationFlow: !0,
+                  onSendBroadcast: x,
                 },
               )
             : null;

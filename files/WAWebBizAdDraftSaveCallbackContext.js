@@ -6,8 +6,9 @@ __d(
     var e,
       s = e || (e = o("react")),
       u = { current: null },
-      c = s.createContext({ saveCallbackRef: u });
-    l.default = c;
+      c = { current: null },
+      d = s.createContext({ existingDraftIDRef: u, saveCallbackRef: c });
+    l.default = d;
   },
   98,
 );

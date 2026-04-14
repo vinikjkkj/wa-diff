@@ -118,12 +118,15 @@ __d(
                                 : i.type === "MetaAiContactInfo"
                                   ? o("WAWebChatEntryPoint").ChatEntryPoint
                                       .ContactInfo
-                                  : (function () {
-                                      throw Error(
-                                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                          i.type,
-                                      );
-                                    })();
+                                  : i.type === "ForwardedAiBotMessage"
+                                    ? o("WAWebChatEntryPoint").ChatEntryPoint
+                                        .ForwardedAiBotMessage
+                                    : (function () {
+                                        throw Error(
+                                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                            i.type,
+                                        );
+                                      })();
             e: {
               var n = i;
               if (
@@ -193,7 +196,10 @@ __d(
                   n.type === "MetaAiMention") ||
                 (((typeof n == "object" && n !== null) ||
                   typeof n == "function") &&
-                  n.type === "MetaAiContactInfo")
+                  n.type === "MetaAiContactInfo") ||
+                (((typeof n == "object" && n !== null) ||
+                  typeof n == "function") &&
+                  n.type === "ForwardedAiBotMessage")
               ) {
                 var s = yield o(
                   "WAWebBotFrontendUtils",
@@ -254,17 +260,23 @@ __d(
           tabOrder: o("WAWebTabOrder").TAB_ORDER.CHATLIST_HEADER,
           testid: void 0,
           onClick: function () {
-            var e = o("WAWebBotFrontendUtils").createAndOpenNewMetaAiThread(
-              t,
-              o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINewThreadCreation,
-            );
-            (o("WAWebThreadJourneyLogger").ThreadJourneyLogger.logNewChatClick(
-              o("WAWebWamEnumMetaAiActionEntryPoint").META_AI_ACTION_ENTRY_POINT
-                .THREAD_LIST_VIEW,
-            ),
-              o("WAWebBotBaseGating").isMetaAIHomeEnabled()
-                ? (v(null), o("WAWebOpenMetaAIHomeAction").openMetaAIHome())
-                : D(e));
+            if (
+              (o(
+                "WAWebThreadJourneyLogger",
+              ).ThreadJourneyLogger.logNewChatClick(
+                o("WAWebWamEnumMetaAiActionEntryPoint")
+                  .META_AI_ACTION_ENTRY_POINT.THREAD_LIST_VIEW,
+              ),
+              o("WAWebBotBaseGating").isMetaAIHomeEnabled())
+            )
+              (v(null), o("WAWebOpenMetaAIHomeAction").openMetaAIHome());
+            else {
+              var e = o("WAWebBotFrontendUtils").createAndOpenNewMetaAiThread(
+                t,
+                o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINewThreadCreation,
+              );
+              D(e);
+            }
           },
           icon: r("WDSIconIcAddCircle.react"),
           title: s._(/*BTDS*/ "New chat"),

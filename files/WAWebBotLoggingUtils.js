@@ -116,7 +116,11 @@ __d(
                     o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINavigationBar
                   ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
                       .WEB_NAVIGATION_BAR
-                  : e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAIForward
+                  : e ===
+                        o("WAWebChatEntryPoint").ChatEntryPoint.MetaAIForward ||
+                      e ===
+                        o("WAWebChatEntryPoint").ChatEntryPoint
+                          .ForwardedAiBotMessage
                     ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
                         .META_AI_FORWARD
                     : e === o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI
@@ -217,7 +221,10 @@ __d(
         if (e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINavigationBar)
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .AI_WEB_NAVIGATION_BAR;
-        if (e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAIForward)
+        if (
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.MetaAIForward ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.ForwardedAiBotMessage
+        )
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .FORWARD;
         if (

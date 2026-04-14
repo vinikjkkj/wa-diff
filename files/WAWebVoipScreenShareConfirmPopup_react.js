@@ -46,6 +46,7 @@ __d(
         children: u.jsx(r("WDSText.react"), {
           colorName: "contentDefault",
           type: "Body2",
+          preserveNewLines: !1,
           children:
             a != null
               ? a

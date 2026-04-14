@@ -451,20 +451,21 @@ __d(
         l,
         u = t.chat,
         d = t.onSelectMessages,
-        g = t.threadId,
-        y = r("useWAWebUIM")(),
-        R = o("useWAWebForceUpdate").useForceUpdateDONOTUSE(),
-        L = p(null),
+        g = t.selectable,
+        y = t.threadId,
+        R = r("useWAWebUIM")(),
+        L = o("useWAWebForceUpdate").useForceUpdateDONOTUSE(),
         E = p(null),
         k = p(null),
-        I = u.contact,
-        T = _(function () {
+        I = p(null),
+        T = u.contact,
+        D = _(function () {
           return o(
             "WAWebMmSignalSharingTos",
           ).isMmSignalSharingDisclosureTosAccepted();
         }),
-        D = T[0],
-        x = T[1];
+        x = D[0],
+        $ = D[1];
       o("useWAWebListener").useListener(
         o("WAWebTos").TosManager,
         "change",
@@ -477,11 +478,11 @@ __d(
             var e = o(
               "WAWebMmSignalSharingTos",
             ).isMmSignalSharingDisclosureTosAccepted();
-            D !== e && x(e);
+            x !== e && $(e);
           }
         },
       );
-      var $ = o("useWAWebChatValues").useChatValues(u.id, [
+      var P = o("useWAWebChatValues").useChatValues(u.id, [
           (i = o("WAWebChatGetters")).getId,
           (l = o("WAWebFrontendChatGetters")).getFormattedTitle,
           l.getPresence,
@@ -500,67 +501,67 @@ __d(
           i.getCapiThreadControl,
           l.getAttachMediaContents,
         ]),
-        P = $[0],
-        N = $[1],
-        M = $[2],
-        w = $[3],
-        A = $[4],
-        F = $[5],
-        O = $[6],
-        B = $[7],
-        W = $[8],
-        q = $[9],
-        U = $[10],
-        V = $[11],
-        H = $[12],
-        G = $[13],
-        z = $[14],
-        j = $[15],
-        K = $[16],
-        Q =
-          A &&
+        N = P[0],
+        M = P[1],
+        w = P[2],
+        A = P[3],
+        F = P[4],
+        O = P[5],
+        B = P[6],
+        W = P[7],
+        q = P[8],
+        U = P[9],
+        V = P[10],
+        H = P[11],
+        G = P[12],
+        z = P[13],
+        j = P[14],
+        K = P[15],
+        Q = P[16],
+        X =
+          F &&
           o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled(),
-        X = _(function () {
+        Y = _(function () {
           var e;
-          return (e = Q
+          return (e = X
             ? o("WAWebStatusCollection").StatusCollection.get(u.id)
             : null) != null
             ? e
             : null;
         }),
-        Y = X[0],
-        J = X[1],
-        Z = _(u.id),
-        ee = Z[0],
-        te = Z[1];
-      if (u.id !== ee) {
-        var ne;
-        (te(u.id),
-          J(
-            (ne = Q
+        J = Y[0],
+        Z = Y[1],
+        ee = _(u.id),
+        te = ee[0],
+        ne = ee[1];
+      if (u.id !== te) {
+        var re;
+        (ne(u.id),
+          Z(
+            (re = X
               ? o("WAWebStatusCollection").StatusCollection.get(u.id)
               : null) != null
-              ? ne
+              ? re
               : null,
           ));
       }
       o("useWAWebListener").useListener(
-        Q ? o("WAWebStatusCollection").StatusCollection : null,
+        X ? o("WAWebStatusCollection").StatusCollection : null,
         ["add", "remove", "change:msgsChanged"],
         function () {
           var e;
-          return J(
+          return Z(
             (e = o("WAWebStatusCollection").StatusCollection.get(u.id)) != null
               ? e
               : null,
           );
         },
       );
-      var re = r("useWAWebIsKeyboardUser")(),
-        oe = re.isKeyboardUser,
-        ae = o("WAWebThemeContext").useIsDarkTheme(),
-        ie = o("useWAWebModelValues").useModelValues(M.chatstate, ["type"]),
-        le = o("useWAWebContactValues").useContactValues(I.id, [
+      var oe = r("useWAWebIsKeyboardUser")(),
+        ae = oe.isKeyboardUser,
+        ie = o("WAWebThemeContext").useIsDarkTheme(),
+        le = o("useWAWebModelValues").useModelValues(w.chatstate, ["type"]),
+        se = o("useWAWebContactValues").useContactValues(T.id, [
           o("WAWebContactGetters").getIsMe,
           o("WAWebContactGetters").getShowBusinessCheckmarkAsPrimary,
           o("WAWebContactGetters").getShowBusinessCheckmarkAsSecondary,
@@ -569,28 +570,28 @@ __d(
             .getShowBiz3pBotVerifiedNameAsSecondary,
           o("WAWebFrontendContactGetters").getIsContactBlocked,
         ]),
-        se = le[0],
-        ue = le[1],
-        ce = le[2],
-        de = le[3],
-        me = le[4],
-        pe = le[5],
-        _e =
+        ue = se[0],
+        ce = se[1],
+        de = se[2],
+        me = se[3],
+        pe = se[4],
+        _e = se[5],
+        fe =
           (a = o("WAWebUseBusinessProfile.react").useBusinessProfile(
-            o("WAWebBotGating").isBizBot3pAvailable() ? I.id : null,
+            o("WAWebBotGating").isBizBot3pAvailable() ? T.id : null,
             ["isBizBot3p"],
           )) != null
             ? a
             : {},
-        fe = _e.isBizBot3p,
-        ge = me && fe === !0,
-        he = o("useWAWebModelValues").useOptionalModelValues(G, [
+        ge = fe.isBizBot3p,
+        he = pe && ge === !0,
+        ye = o("useWAWebModelValues").useOptionalModelValues(z, [
           "membershipType",
           "suspended",
           "terminated",
           "isSuspendedOrTerminated",
         ]),
-        ye = p(null);
+        Ce = p(null);
       m(function () {
         function e() {
           return t.apply(this, arguments);
@@ -600,75 +601,75 @@ __d(
             (t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               (yield o(
                 "WAWebBusinessProfileCollection",
-              ).BusinessProfileCollection.find(I.id),
-                R());
+              ).BusinessProfileCollection.find(T.id),
+                L());
             })),
             t.apply(this, arguments)
           );
         }
-        de && e();
+        me && e();
       }, []);
-      var Ce = _(!0),
-        be = Ce[0],
-        ve = Ce[1],
-        Se = o("WAWebDrawerManagerContext").useDrawerManagerContext("mid"),
-        Re = function (t) {
-          var e = Se.existsDrawer();
+      var be = _(!0),
+        ve = be[0],
+        Se = be[1],
+        Re = o("WAWebDrawerManagerContext").useDrawerManagerContext("mid"),
+        Le = function (t) {
+          var e = Re.existsDrawer();
           e && (t == null || t.preventDefault());
         },
-        Le = function (t) {
+        Ee = function (t) {
           t == null || t.preventDefault();
-          var e = Se.existsDrawer();
+          var e = Re.existsDrawer();
           e ||
             o("WAWebDrawerManager").DrawerManager.openDrawerRight(
               o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
                 ? {
                     descriptorType: "chat_search",
                     chat: o("WAWebStateUtils").unproxy(u),
-                    threadId: g,
+                    threadId: y,
                   }
                 : c.jsx(
                     r("WAWebChatSearchDrawer.react"),
-                    { chat: o("WAWebStateUtils").unproxy(u), threadId: g },
-                    "chat-search-" + P.toString(),
+                    { chat: o("WAWebStateUtils").unproxy(u), threadId: y },
+                    "chat-search-" + N.toString(),
                   ),
               {
                 transition: "slide-left",
-                uim: y,
+                uim: R,
                 focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
               },
             );
         },
-        Ee = function (t) {
+        ke = function (t) {
           var e;
-          t((e = L.current) == null ? void 0 : e.getBoundingClientRect());
+          t((e = E.current) == null ? void 0 : e.getBoundingClientRect());
         },
-        ke = function () {
+        Ie = function () {
           C(
             u,
-            y,
+            R,
             o("WAWebWamEnumProfileEntryPoint").PROFILE_ENTRY_POINT.CHAT_HEADER,
-            g,
+            y,
           );
         },
-        Ie = r("useWAWebStaticButtonA11y")(ke),
-        Te = Ie[0],
-        De = Ie[1];
+        Te = r("useWAWebStaticButtonA11y")(Ie),
+        De = Te[0],
+        xe = Te[1];
       (o("useWAWebListener").useListener(
-        I.businessProfile,
+        T.businessProfile,
         ["change:profileOptions", "change:catalogStatus"],
         function () {
           (!o("WAWebABProps").getABPropConfigValue(
             "wa_web_reduce_cascading_updates_chat_open",
           ) ||
             r("justknobx")._("2452")) &&
-            R();
+            L();
         },
       ),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
           "get_conversation_header_offset",
-          Ee,
+          ke,
         ),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
@@ -677,11 +678,11 @@ __d(
             return b();
           },
         ),
-        o("useWAWebListener").useListener(u, "change:labels", R),
+        o("useWAWebListener").useListener(u, "change:labels", L),
         o("useWAWebListener").useListener(
           o("WAWebLabelCollection").LabelCollection,
           "all",
-          R,
+          L,
         ),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
@@ -689,10 +690,10 @@ __d(
           function () {
             C(
               u,
-              y,
+              R,
               o("WAWebWamEnumProfileEntryPoint").PROFILE_ENTRY_POINT
                 .CHAT_HEADER,
-              g,
+              y,
             );
           },
         ),
@@ -717,102 +718,102 @@ __d(
           o("WAWebCmd").Cmd,
           "exit_current_group",
           function () {
-            F && o("WAWebConversationMenus").handleDeleteOrExitChat(u);
+            O && o("WAWebConversationMenus").handleDeleteOrExitChat(u);
           },
         ));
-      var xe = !!K,
-        $e = o("useWAWebModelValues").useModelValues(o("WAWebConnModel").Conn, [
+      var $e = !!Q,
+        Pe = o("useWAWebModelValues").useModelValues(o("WAWebConnModel").Conn, [
           "pushname",
         ]),
-        Pe = $e.pushname,
-        Ne = _(null),
-        Me = Ne[0],
-        we = Ne[1];
+        Ne = Pe.pushname,
+        Me = _(null),
+        we = Me[0],
+        Ae = Me[1];
       m(
         function () {
-          if (o("WAWebChatAssignmentUtils").canAssignChat(u) && V != null) {
-            var e = H
+          if (o("WAWebChatAssignmentUtils").canAssignChat(u) && H != null) {
+            var e = G
               ? s._(/*BTDS*/ "Assigned to you")
               : s._(/*BTDS*/ "Assigned to {agentName}", [
-                  s._param("agentName", V.name),
+                  s._param("agentName", H.name),
                 ]);
-            we(e);
+            Ae(e);
           }
         },
-        [Pe, u, V, H],
+        [Ne, u, H, G],
       );
-      var Ae, Fe;
-      if (w)
-        ((Ae = c.jsx(r("WAWebContactMenuDropdown.react"), {
+      var Fe, Oe;
+      if (A)
+        ((Fe = c.jsx(r("WAWebContactMenuDropdown.react"), {
           chat: u,
-          onSearchChat: Le,
+          onSearchChat: Ee,
           onSelectMessages: d,
           toContextMenuManager: !0,
           enableChatThreadLogging: !0,
-          threadId: g,
+          threadId: y,
         })),
-          (Fe = c.jsx(r("WAWebUserSubtitle.react"), {
-            contact: I,
-            presence: M,
-            chatstate: M.chatstate,
+          (Oe = c.jsx(r("WAWebUserSubtitle.react"), {
+            contact: T,
+            presence: w,
+            chatstate: w.chatstate,
             location: "title",
-            showBusinessCheckmark: ce,
-            showVerifiedName: ge,
-            assignmentSubtitle: Me,
-            chatId: P,
-            threadId: g,
+            showBusinessCheckmark: de,
+            showVerifiedName: he,
+            assignmentSubtitle: we,
+            chatId: N,
+            threadId: y,
           })));
-      else if (O)
-        ((Ae = c.jsx(r("WAWebBroadcastMenuDropdown.react"), {
+      else if (B)
+        ((Fe = c.jsx(r("WAWebBroadcastMenuDropdown.react"), {
           chat: o("WAWebStateUtils").unproxy(u),
           toContextMenuManager: !0,
         })),
-          (Fe = c.jsx(r("WAWebBroadcastSubtitle.react"), { chat: u })));
-      else if (F) {
-        var Oe = r("nullthrows")(B);
-        ((Ae = c.jsx(r("WAWebGroupMenuDropdown.react"), {
+          (Oe = c.jsx(r("WAWebBroadcastSubtitle.react"), { chat: u })));
+      else if (O) {
+        var Be = r("nullthrows")(W);
+        ((Fe = c.jsx(r("WAWebGroupMenuDropdown.react"), {
           chat: o("WAWebStateUtils").unproxy(u),
-          onSearchChat: Le,
+          onSearchChat: Ee,
           onSelectMessages: d,
           toContextMenuManager: !0,
         })),
-          Oe.isSuspendedOrTerminated()
-            ? (Fe = null)
-            : !Oe.isUnnamed || ie.type === "typing"
-              ? (Fe = c.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+          Be.isSuspendedOrTerminated()
+            ? (Oe = null)
+            : !Be.isUnnamed || le.type === "typing"
+              ? (Oe = c.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
                   name: "group-subtitle",
                   children: c.jsx(r("WAWebGroupSubtitle.react"), {
-                    chatstate: M.chatstate,
-                    groupMetadata: Oe,
-                    presence: M,
+                    chatstate: w.chatstate,
+                    groupMetadata: Be,
+                    presence: w,
                     placeholder: h(u),
                     location: "title",
-                    assignmentSubtitle: Me,
-                    chatId: P,
+                    assignmentSubtitle: we,
+                    chatId: N,
                   }),
                 }))
-              : (Fe = null));
+              : (Oe = null));
       } else
-        A &&
-          ((Ae = c.jsx(r("WAWebNewsletterChatMenuDropdown.react"), {
+        F &&
+          ((Fe = c.jsx(r("WAWebNewsletterChatMenuDropdown.react"), {
             chat: u,
             onSelectMessages: d,
           })),
-          (Fe =
-            (he == null ? void 0 : he.suspended) === !0
+          (Oe =
+            (ye == null ? void 0 : ye.suspended) === !0
               ? null
               : c.jsx(r("WAWebNewsletterChatHeaderSubtitle.react"), {
-                  newsletterMetadata: he,
+                  newsletterMetadata: ye,
                 })));
-      var Be = null,
-        We = o("WAWebShouldShowCallButtons").getCallButtonsState(u),
-        qe = We.shouldDisableStartCall,
-        Ue = We.shouldShow;
-      Ue &&
-        (Be = c.jsx(
+      var We = null,
+        qe = o("WAWebShouldShowCallButtons").getCallButtonsState(u),
+        Ue = qe.shouldDisableStartCall,
+        Ve = qe.shouldShow;
+      Ve &&
+        (We = c.jsx(
           o("WAWebVoipCallButtonsLoadable").WAWebCallButtonsLoadable,
           {
-            callFromUI: F
+            callFromUI: O
               ? o("WAWebWamEnumCallFromUi").CALL_FROM_UI.GROUP_CHAT_DIRECT
               : o("WAWebWamEnumCallFromUi").CALL_FROM_UI.CONVERSATION,
             lobbyEntryPoint: o("WAWebWamEnumLobbyEntryPointType")
@@ -820,65 +821,65 @@ __d(
             surface: o("WAWebCallButtonsSurface").WAWebCallButtonsSurface
               .ChatHeader,
             chat: u,
-            isStartCallDisabled: qe,
+            isStartCallDisabled: Ue,
           },
         ));
-      var Ve =
-          (B == null ? void 0 : B.parentGroup) != null &&
-          B.participants.iAmMember(),
-        He = Ve
+      var He =
+          (W == null ? void 0 : W.parentGroup) != null &&
+          W.participants.iAmMember(),
+        Ge = He
           ? c.jsx(r("WAWebSubgroupSwitcherButton.react"), { chat: u })
           : null,
-        Ge;
-      (A === !1 &&
+        ze;
+      (F === !1 &&
         o("WAWebChatGroupUtils").isSuspendedGroup(u) === !1 &&
-        (Ge = c.jsx(r("WDSMenuBarItem.react"), {
+        (ze = c.jsx(r("WDSMenuBarItem.react"), {
           tabOrder: o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
           testid: void 0,
           icon: r("WDSIconIcSearch.react"),
           title: s._(/*BTDS*/ "Search"),
-          onClick: Le,
+          onClick: Ee,
           marginInlineXstyle: f.buttonMargin,
-          disabled: xe,
+          disabled: $e,
         })),
-        W &&
-          (Fe = c.jsx(r("WAWebUserSubtitle.react"), {
-            contact: I,
-            presence: M,
-            chatstate: M.chatstate,
+        q &&
+          (Oe = c.jsx(r("WAWebUserSubtitle.react"), {
+            contact: T,
+            presence: w,
+            chatstate: w.chatstate,
             location: "title",
-            showBusinessCheckmark: ce,
-            chatId: P,
+            showBusinessCheckmark: de,
+            chatId: N,
           })));
-      var ze;
-      be &&
-        (ze = c.jsx(r("WAWebChatAssignmentNux.react"), {
-          targetRef: k,
+      var je;
+      ve &&
+        (je = c.jsx(r("WAWebChatAssignmentNux.react"), {
+          targetRef: I,
           chat: u,
         }));
-      var je = c.jsx(r("WDSMenuBarItem.react"), {
-        ref: k,
+      var Ke = c.jsx(r("WDSMenuBarItem.react"), {
+        ref: I,
         tabOrder: o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
         icon: r("WDSIconIcMoreVert.react"),
         title: s._(/*BTDS*/ "Menu"),
         onClick: function (t) {
-          (ve(!1), Re(t));
+          (Se(!1), Le(t));
         },
         testid: void 0,
-        wdsMenuToRender: Ae,
+        wdsMenuToRender: Fe,
         menuAlign: "end",
-        disabled: xe,
+        disabled: $e,
       });
       return c.jsxs(
         "header",
         babelHelpers.extends(
-          { ref: L },
+          { ref: E },
           (e || (e = r("stylex"))).props(
             f.chatHeader,
             r("WAWebConversationPanelStyleUtils").sharedLayer,
             o("WAWebUISpacing").uiPadding.vert10,
             o("WAWebUISpacing").uiPadding.horiz16,
-            ae && f.chatHeaderDarkOverride,
+            ie && f.chatHeaderDarkOverride,
             f.chatHeaderMaterial,
             f.chatHeaderStylesOverride,
             r("WAWebConversationPanelStyleUtils").sharedShadow,
@@ -887,16 +888,16 @@ __d(
             "data-testid": void 0,
             children: [
               c.jsx(r("WAWebPrivacyBlurWrapper.react"), {
-                containerRef: E,
+                containerRef: k,
                 children: c.jsxs("div", {
-                  ref: E,
+                  ref: k,
                   className: "x78zum5 x6s0dn4 x1iyjqo2 xeuugli",
                   children: [
                     c.jsx("div", {
                       className:
                         "x1n2onr6 x1c4vz4f x2lah0s xdl72j9 x1cbfl22 x1y332i5",
                       onClick: function () {
-                        if (Y != null) {
+                        if (J != null) {
                           o(
                             "WAWebOpenStatusQuotedFlow",
                           ).fetchAndOpenNewsletterStatus({
@@ -912,21 +913,21 @@ __d(
                         }
                         C(
                           u,
-                          y,
+                          R,
                           o("WAWebWamEnumProfileEntryPoint").PROFILE_ENTRY_POINT
                             .CHAT_HEADER,
-                          g,
+                          y,
                         );
                       },
                       title: s._(/*BTDS*/ "Profile details"),
-                      role: W ? null : "button",
+                      role: q ? null : "button",
                       children: c.jsx(r("WAWebGroupChatImage.react"), {
                         chat: u,
                         theme: o("WAWebStackedCirclesImage.react")
                           .SubgroupImageTheme.CHAT_HEADER,
                         regularChatImage: c.jsxs(c.Fragment, {
                           children: [
-                            Y != null &&
+                            J != null &&
                               c.jsx(
                                 o("WAWebStatusImageRing.react").StatusImageRing,
                                 {
@@ -941,7 +942,7 @@ __d(
                                 },
                               ),
                             c.jsx(o("WAWebDetailImage.react").DetailImage, {
-                              id: P,
+                              id: N,
                               size: 40,
                               ephemeralIcon: "conversation-header",
                               hiddenSubgroupIcon: "conversation-header",
@@ -952,11 +953,11 @@ __d(
                             (!o(
                               "WAWebMmSignalSharingGatingUtils",
                             ).isCCIComplianceEnabled() ||
-                              !pe) &&
+                              !_e) &&
                               o(
                                 "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
                               ).isMmSignalSharingUserDisclosedInCollectionWindow(
-                                z,
+                                j,
                               ) &&
                               c.jsx(
                                 o("WAWebSingleChevronInCircleIcon.react")
@@ -977,9 +978,9 @@ __d(
                           o("WDSFocusStateStyles").WDSFocusStateStyles
                             .genericFocus,
                         ),
-                        De,
+                        xe,
                         {
-                          ref: Te,
+                          ref: De,
                           "data-testid": void 0,
                           "data-tab":
                             o("WAWebTabOrder").TAB_ORDER.CHAT_HEADER_BUTTON,
@@ -1009,23 +1010,23 @@ __d(
                                         "x78zum5 x1q0g3np x6ikm8r x10wlt62 x1jchvi3 xdod15v x14ug900 x1yc453h xlyipyv xuxw1ft xh8yej3 x1s688f x1c4vz4f x2lah0s xdl72j9",
                                     },
                                   }[
-                                    (!!ae << 1) |
+                                    (!!ie << 1) |
                                       (!!o("WAWebStylesEnv").hasEmoji << 0)
                                   ],
                                   {
                                     children: c.jsx(o("WAWebName.react").Name, {
                                       chat: u,
                                       ellipsify: !0,
-                                      showBusinessCheckmark: ue,
+                                      showBusinessCheckmark: ce,
                                       testid: void 0,
-                                      showMessageYourselfName: se,
+                                      showMessageYourselfName: ue,
                                       truncateName: !0,
                                     }),
                                   },
                                 ),
                               ),
                             }),
-                            Fe,
+                            Oe,
                           ],
                         },
                       ),
@@ -1039,11 +1040,11 @@ __d(
                   o("WAWebMenuBar.react").MenuBar,
                   {
                     children: [
-                      He,
-                      !o("WAWebMobilePlatforms").isSMB() && Be,
+                      Ge,
+                      !o("WAWebMobilePlatforms").isSMB() && We,
                       c.jsx(r("WAWebCommerceButton.react"), {
                         chat: u,
-                        disabled: xe,
+                        disabled: $e,
                       }),
                       o(
                         "WAWebNewsletterCommonGatingUtils",
@@ -1054,30 +1055,31 @@ __d(
                         ),
                       v(u),
                       S(u),
-                      O &&
+                      B &&
                         c.jsx(r("WAWebNewBroadcastHeaderButton.react"), {
                           chat: u,
                         }),
-                      o("WAWebMobilePlatforms").isSMB() && Be,
-                      Ge,
-                      Ae != null &&
+                      o("WAWebMobilePlatforms").isSMB() && We,
+                      ze,
+                      Fe != null &&
                         c.jsx("div", {
                           className: "x1n2onr6 x150mmf0",
-                          ref: ye,
-                          children: je,
+                          ref: Ce,
+                          children: Ke,
                         }),
                     ],
                   },
                   "conversation-header",
                 ),
               }),
-              ze,
-              ((w && !se) ||
-                (o("WAWebBotUtils").isHatchBot(P) &&
+              je,
+              ((A && !ue) ||
+                (o("WAWebBotUtils").isHatchBot(N) &&
                   o("WAWebBotFrontendGating").isHatchIntegrationEnabled())) &&
                 c.jsx(r("WAWebChatHeaderTextStatusBubble.react"), {
                   chat: u,
-                  contactId: P,
+                  contactId: N,
+                  selectable: g,
                 }),
             ],
           },

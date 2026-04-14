@@ -565,6 +565,7 @@ __d(
           c.jsx(o("WAWebHeader.react").ConversationHeader, {
             chat: i,
             onSelectMessages: de,
+            selectable: A,
             threadId: y,
           }),
           c.jsx(r("WAWebConversationPanelBanner.react"), {

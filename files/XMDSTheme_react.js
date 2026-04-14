@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = r("react"));
+      s = e || (e = o("react"));
     l.default = n("cr:2671");
   },
   98,

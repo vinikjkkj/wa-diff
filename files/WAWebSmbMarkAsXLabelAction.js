@@ -47,22 +47,16 @@ __d(
             ? { paid: !0 }
             : { paid: !1 };
       },
-      m = function (t, n) {
+      m = function (t) {
         var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue();
         switch (e) {
-          case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true: {
-            var r = o(
-              "WAWebBizGatingUtils",
-            ).isPerCustomerDataSharingControlsEnabled()
-              ? o(
-                  "WAWebPerCustomerDataSharingUtils",
-                ).getCurrentDataSharingState(n)
-              : t;
-            return {
-              globalSharingSettingEnabled: !0,
-              eventSharingSettingEnabled: r,
-            };
-          }
+          case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true:
+            return babelHelpers.extends(
+              { globalSharingSettingEnabled: !0 },
+              o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled()
+                ? null
+                : { eventSharingSettingEnabled: t },
+            );
           case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false:
             return c;
           case o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset:
@@ -104,7 +98,7 @@ __d(
                         ctwaSignalMetadata: r,
                         deepLinkConversionSource: l.source,
                       },
-                      m(a, s),
+                      m(a),
                       {
                         customerAdsSharingSettingEnabled: u,
                         threadIdHmac: e != null ? e : void 0,
@@ -131,7 +125,7 @@ __d(
                           ctwaSignalMetadata: t.ctwa_3pd_conversion_metadata,
                           deepLinkConversionSource: l.source,
                         },
-                        m(a, s),
+                        m(a),
                         {
                           customerAdsSharingSettingEnabled: u,
                           threadIdHmac: e != null ? e : void 0,

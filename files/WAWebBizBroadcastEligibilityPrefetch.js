@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWaitForComms",
+    "WAWebBackendErrors",
     "WAWebGetBusinessEligibilityJob",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -20,15 +21,21 @@ __d(
               yield o(
                 "WAWebGetBusinessEligibilityJob",
               ).fetchAndCacheBusinessEligibility());
-          } catch (t) {
+          } catch (n) {
+            var t =
+              n instanceof o("WAWebBackendErrors").ServerStatusCodeError
+                ? n.statusCode
+                : 0;
             o("WALogger")
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BizBroadcastEligibilityPrefetch] fetch eligibility failed",
+                    "[BizBroadcastEligibilityPrefetch] fetch eligibility failed statusCode=",
+                    "",
                   ])),
+                t,
               )
-              .catching(r("getErrorSafe")(t))
+              .catching(r("getErrorSafe")(n))
               .sendLogs("business-broadcast-eligibility-prefetch-failed");
           }
         })),

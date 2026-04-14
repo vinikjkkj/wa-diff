@@ -4,6 +4,7 @@ __d(
     "WAAsyncSleep",
     "WAWebABProps",
     "WAWebAppContext.react",
+    "WAWebBotBaseGating",
     "WAWebBusinessProfileCollection",
     "WAWebCAPIGroupAboutModal.react",
     "WAWebChatGetters",
@@ -18,6 +19,7 @@ __d(
     "WAWebIntroPanel.react",
     "WAWebIntroPanelV2.react",
     "WAWebMaybeGeneratePerCustomerDataSharingSystemMessageAction",
+    "WAWebMetaAILandingLoadable",
     "WAWebMidDrawerEmptyState.react",
     "WAWebMobilePlatforms",
     "WAWebModalManager",
@@ -242,17 +244,23 @@ __d(
           "WAWebConversationPreloadGatingUtils",
         ).isConversationPreloadEnabled(),
         W = o("WAWebMobilePlatforms").isSMB() === !1,
-        q =
+        q = o("WAWebBotBaseGating").isMetaAIHomeDefaultLandingEnabled()
+          ? s.jsx(
+              o("WAWebMetaAILandingLoadable").WAWebMetaAILandingLoadable,
+              {},
+            )
+          : s.jsx(r("WAWebIntroPanelV2.react"), {}),
+        U =
           R === o("WAWebNavBarTypes").NavBarItems.Chats
-            ? s.jsx(r("WAWebIntroPanelV2.react"), {})
+            ? q
             : s.jsx(o("WAWebMidDrawerEmptyState.react").MidDrawerEmptyState, {
                 type: R,
               }),
-        U = r("useWAWebConversationPreloading")(B ? u : null),
-        V = U.warmedChat,
-        H = U.warmedFocusCtx,
-        G = U.warmedMsgCollection,
-        z = {
+        V = r("useWAWebConversationPreloading")(B ? u : null),
+        H = V.warmedChat,
+        G = V.warmedFocusCtx,
+        z = V.warmedMsgCollection,
+        j = {
           chat: u,
           chatEntryPoint: c.current,
           groupMetadata: u == null ? void 0 : u.groupMetadata,
@@ -266,11 +274,11 @@ __d(
           updateOpenedChatInfo: E,
           showPreview: I,
         },
-        j = u == null ? void 0 : u.id.toString();
+        K = u == null ? void 0 : u.id.toString();
       return B && W
         ? s.jsxs(s.Fragment, {
             children: [
-              s.jsx(d, { mode: O ? "hidden" : "visible", children: q }),
+              s.jsx(d, { mode: O ? "hidden" : "visible", children: U }),
               O &&
                 s.jsx(
                   d,
@@ -278,12 +286,12 @@ __d(
                     mode: "visible",
                     children: s.createElement(
                       r("WAWebConversationPanelWrapper.react"),
-                      babelHelpers.extends({}, z, { key: j, ref: i }),
+                      babelHelpers.extends({}, j, { key: K, ref: i }),
                     ),
                   },
-                  j,
+                  K,
                 ),
-              V &&
+              H &&
                 s.jsx(
                   d,
                   {
@@ -292,33 +300,33 @@ __d(
                       r("WAWebConversationPanelWrapper.react"),
                       {
                         ref: O ? void 0 : i,
-                        chat: V,
-                        msgCollection: G,
-                        chatEntryPoint: z.chatEntryPoint,
+                        chat: H,
+                        msgCollection: z,
+                        chatEntryPoint: j.chatEntryPoint,
                         chatPreference: r(
                           "WAWebChatPreferenceCollection",
                         ).assertGet("defaultPreference"),
-                        focusCtx: H,
-                        groupMetadata: V.groupMetadata,
-                        showPreview: z.showPreview,
+                        focusCtx: G,
+                        groupMetadata: H.groupMetadata,
+                        showPreview: j.showPreview,
                         threadId: void 0,
                         notifyChatRendered: L,
                         updateOpenedChatInfo: E,
                       },
-                      V.id.toString(),
+                      H.id.toString(),
                     ),
                   },
-                  V.id.toString(),
+                  H.id.toString(),
                 ),
             ],
           })
         : O
           ? s.createElement(
               r("WAWebConversationPanelWrapper.react"),
-              babelHelpers.extends({}, z, { key: j, ref: i }),
+              babelHelpers.extends({}, j, { key: K, ref: i }),
             )
           : W
-            ? q
+            ? U
             : R !== o("WAWebNavBarTypes").NavBarItems.Chats
               ? s.jsx(o("WAWebMidDrawerEmptyState.react").MidDrawerEmptyState, {
                   type: R,

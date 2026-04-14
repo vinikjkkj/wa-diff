@@ -21,15 +21,12 @@ __d(
         a = e.privacyPolicyUrl,
         i = u.jsx(o("WAWebName.react").Name, { contact: t }),
         l = function () {
-          o("WAWebModalManager").ModalManager.close();
-        },
-        c = function () {
           (o("WAWebExternalLink.react").openExternalLink(a),
             o("WAWebModalManager").ModalManager.close());
         };
       return u.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        onCancel: l,
-        onOK: c,
+        onCancel: o("WAWebModalManager").closeModalManager,
+        onOK: l,
         okIcon: r("WDSIconIcOpenInNew.react"),
         okText: s._(/*BTDS*/ "View Privacy Policy"),
         title: s._(/*BTDS*/ "About {contactTitle} Privacy Policy", [

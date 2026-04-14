@@ -92,7 +92,8 @@ __d(
       var t,
         n = e.chat,
         a = e.contactId,
-        i = o("useWAWebContactValues").useContactValues(a, [
+        i = e.selectable,
+        l = o("useWAWebContactValues").useContactValues(a, [
           o("WAWebContactGetters").getNotifyName,
           (t = o("WAWebFrontendContactGetters")).getTextStatusString,
           t.getTextStatusEmoji,
@@ -100,73 +101,74 @@ __d(
           t.getTextStatusExpiryTs,
           t.getTextStatusEphemeralDuration,
         ]),
-        l = i[0],
-        c = i[1],
-        f = i[2],
-        g = i[3],
-        h = i[4],
-        y = i[5],
-        C = o("useWAWebSetModelValue").useSetModelValue(n, "composeQuotedMsg"),
-        b = o("WAWebThemeContext").useIsDarkTheme(),
-        v = _(!0),
-        S = v[0],
-        R = v[1],
-        L = d(
+        c = l[0],
+        f = l[1],
+        g = l[2],
+        h = l[3],
+        y = l[4],
+        C = l[5],
+        b = o("useWAWebSetModelValue").useSetModelValue(n, "composeQuotedMsg"),
+        v = o("WAWebThemeContext").useIsDarkTheme(),
+        S = _(!0),
+        R = S[0],
+        L = S[1],
+        E = d(
           function (e, t) {
-            e.equals(n.id) && R(t);
+            e.equals(n.id) && L(t);
           },
           [n.id],
         );
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "conversation_near_bottom_changed",
-        L,
+        E,
       );
-      var E = o("WAWebTextStatusUtils").shouldDisplayTextStatus(c, f, g, h, y),
-        T =
+      var T = o("WAWebTextStatusUtils").shouldDisplayTextStatus(f, g, h, y, C),
+        D =
           o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() &&
-          E &&
-          S &&
-          o("WAWebTextStatusUtils").isEphemeralTextStatus(y),
-        D = d(
+          T &&
+          R &&
+          i !== !0 &&
+          o("WAWebTextStatusUtils").isEphemeralTextStatus(C),
+        x = d(
           function (e) {
-            T &&
+            D &&
               e.id.equals(n.id) &&
               o("WAWebAboutDailyUtils").incrementAboutMessageSend();
           },
-          [T, n.id],
+          [D, n.id],
         );
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "chat_message_sent",
-        D,
+        x,
       );
-      var x = I(T),
-        $ = x.handleEnterComplete,
-        P = x.handleExitComplete,
-        N = x.isRendered,
-        M = x.phase,
-        w = p(void 0);
+      var $ = I(D),
+        P = $.handleEnterComplete,
+        N = $.handleExitComplete,
+        M = $.isRendered,
+        w = $.phase,
+        A = p(void 0);
       if (
         (m(
           function () {
-            T &&
-              g !== w.current &&
-              ((w.current = g),
+            D &&
+              h !== A.current &&
+              ((A.current = h),
               o("WAWebAboutWamLogger").logAboutConsumption({
                 aboutConsumptionSurface: o("WAWebAboutWamLogger")
                   .ABOUT_CONSUMPTION_SURFACE_TYPE.ONE_ON_ONE_CHAT,
               }),
               o("WAWebAboutDailyUtils").incrementAboutChatConsumption());
           },
-          [T, g],
+          [D, h],
         ),
-        !N)
+        !M)
       )
         return null;
-      var A = function () {
+      var F = function () {
           var e = [];
-          (f != null && e.push(f), c != null && c !== "" && e.push(c));
+          (g != null && e.push(g), f != null && f !== "" && e.push(f));
           var t = e.join(" ");
           if (t !== "") {
             var i = new (o("WAWebMsgModel").Msg)({
@@ -181,13 +183,13 @@ __d(
               t: o("WATimeUtils").unixTime(),
               from: a,
               to: n.id,
-              notifyName: l != null ? l : "",
+              notifyName: c != null ? c : "",
               isNewMsg: !1,
               local: !0,
               ack: 0,
             });
             (o("WAWebMsgCollection").MsgCollection.add(i),
-              C(i),
+              b(i),
               o("WAWebComposeBoxActions").ComposeBoxActions.focus(n),
               o("WAWebAboutWamLogger").logAboutInteraction({
                 aboutConsumptionSurface: o("WAWebAboutWamLogger")
@@ -196,22 +198,22 @@ __d(
               o("WAWebAboutDailyUtils").incrementAboutChatBubbleTap());
           }
         },
-        F;
-      if (f != null) {
-        var O = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(f);
-        O != null &&
-          (F = u.jsx("div", {
+        O;
+      if (g != null) {
+        var B = o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(g);
+        B != null &&
+          (O = u.jsx("div", {
             className: "x11lfxj5 x2lah0s",
             children: u.jsx(
               r("WAWebEmoji.react"),
-              { emoji: O, size: "small" },
+              { emoji: B, size: "small" },
               "low-res",
             ),
           }));
       }
-      var B = s._(/*BTDS*/ "Quote text status"),
-        W = o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(n),
-        q = u.jsxs(
+      var W = s._(/*BTDS*/ "Quote text status"),
+        q = o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(n),
+        U = u.jsxs(
           "div",
           babelHelpers.extends(
             {},
@@ -232,14 +234,14 @@ __d(
                 className:
                   "x16w0wmm x6nvzda x4i4b9w xhl9efl xj65ea0 x16ovd2e x12xbjc7 x1iw51ew xde1mab xpr29tx xw5ewwj x78zum5 x6s0dn4 x1dsg9wm x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu xnj1f2r x2uibgs xkveyfu x12llq9 xt0e3qv",
               },
-            }[(!!b << 1) | (!!W << 0)],
+            }[(!!v << 1) | (!!q << 0)],
             {
               children: [
-                F,
+                O,
                 u.jsx(o("WAWebEmojiText.react").EmojiText, {
                   xstyle: k.text,
                   direction: "inherit",
-                  text: c,
+                  text: f,
                   selectable: !1,
                 }),
               ],
@@ -288,11 +290,11 @@ __d(
                     "x1n2onr6 x1v4s8kt xols6we x16w0wmm x1c9tyrk xeusxvb x1pahc9y x1ertn4p xpr29tx xyqm7xq xjpr12u x1al4vs7 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu xnj1f2r x2uibgs xkveyfu x12llq9 xocyte x5hsz1j xn0cd8s x1u6ievf x1vwdvh2",
                 },
               }[
-                (!!b << 2) |
-                  ((M === "entering") << 1) |
-                  ((M === "leaving") << 0)
+                (!!v << 2) |
+                  ((w === "entering") << 1) |
+                  ((w === "leaving") << 0)
               ],
-              { onAnimationEnd: M === "leaving" ? P : void 0 },
+              { onAnimationEnd: w === "leaving" ? N : void 0 },
             ),
           ),
           u.jsx(
@@ -333,9 +335,9 @@ __d(
                     "x1n2onr6 xsmyaan x1kpxq89 x16w0wmm x1c9tyrk xeusxvb x1pahc9y x1ertn4p xpr29tx x1y3qizg x1wsgfga x1rzzxd5 x1al4vs7 x178xt8z x1lun4ml xso031l xpilrb4 x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu xnj1f2r x2uibgs xkveyfu x12llq9 x1npxeiq x5hsz1j xn0cd8s x1u6ievf xreyxwi",
                 },
               }[
-                (!!b << 2) |
-                  ((M === "entering") << 1) |
-                  ((M === "leaving") << 0)
+                (!!v << 2) |
+                  ((w === "entering") << 1) |
+                  ((w === "leaving") << 0)
               ],
             ),
           ),
@@ -354,15 +356,15 @@ __d(
                   className:
                     "x1vwdvh2 xocyte x5hsz1j xn0cd8s x1u6ievf x1al4vs7",
                 },
-              }[((M === "entering") << 1) | ((M === "leaving") << 0)],
+              }[((w === "entering") << 1) | ((w === "leaving") << 0)],
               {
-                onAnimationEnd: M === "entering" ? $ : void 0,
-                children: W
-                  ? q
+                onAnimationEnd: w === "entering" ? P : void 0,
+                children: q
+                  ? U
                   : u.jsx(o("WAWebClickable.react").Clickable, {
-                      onClick: A,
-                      ariaLabel: B,
-                      children: q,
+                      onClick: F,
+                      ariaLabel: W,
+                      children: U,
                     }),
               },
             ),

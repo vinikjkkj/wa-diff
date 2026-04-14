@@ -10,6 +10,7 @@ __d(
     "WAWebMediaEditorForChatLoadable.react",
     "WAWebModalManager",
     "WAWebMsgGetters",
+    "WAWebNewsletterStatusSelectorButton.react",
     "WAWebNoop",
     "WAWebPrepareMessageSendingAction",
     "WAWebStatusChangePrivacyPopup.react",
@@ -29,8 +30,9 @@ __d(
       d = c || (c = o("react")),
       m = c,
       p = m.useEffect,
-      _ = m.useRef;
-    function f(e) {
+      _ = m.useRef,
+      f = m.useState;
+    function g(e) {
       if (e != null)
         switch (e.setting) {
           case o("WAWebUserPrefsStatusType").StatusPrivacySettingType.AllowList:
@@ -41,56 +43,71 @@ __d(
             return;
         }
     }
-    function g(t) {
+    function h(t) {
       var a = t.chat,
         i = t.initCaption,
         l = t.isNewsletterStatus,
         c = l === void 0 ? !1 : l,
         m = t.mediaCollection,
-        g = t.newsletterWid,
-        h = t.onCancel,
-        y = t.onComplete,
-        C = t.onRender,
-        b = t.onSend,
-        v = t.statusPosterActionsLogger,
-        S = t.statusPostOrigin,
-        R = o(
+        h = t.newsletterWid,
+        y = t.onCancel,
+        C = t.onComplete,
+        b = t.onRender,
+        v = t.onSend,
+        S = t.statusPosterActionsLogger,
+        R = t.statusPostOrigin,
+        L = o(
           "useWAWebStatusPrivacySettingConfig",
         ).useWAWebStatusPrivacySettingConfig(),
-        L = R.audienceTracking,
-        E = R.setStatusPostingPrivacyConfig,
-        k = R.statusPostingPrivacyConfig,
-        I = R.trackAudienceSelectorClicked,
-        T = _(0);
+        E = L.audienceTracking,
+        k = L.setStatusPostingPrivacyConfig,
+        I = L.statusPostingPrivacyConfig,
+        T = L.trackAudienceSelectorClicked,
+        D = _(0),
+        x = f(h != null ? h : null),
+        $ = x[0],
+        P = x[1],
+        N =
+          c && h == null
+            ? function () {
+                return d.jsx(r("WAWebNewsletterStatusSelectorButton.react"), {
+                  selectedNewsletterWid: $,
+                  onNewsletterSelected: P,
+                  type: "media",
+                });
+              }
+            : void 0,
+        M = c && $ == null;
       p(
         function () {
-          v == null ||
-            v.logStatusReadyScreenImp(
+          S == null ||
+            S.logStatusReadyScreenImp(
               o("WAWebLogStatusPosterActions").STATUS_CONTENT_TYPE.PHOTO,
             );
         },
-        [v],
+        [S],
       );
-      var D = function (t) {
+      var w = function (t) {
           (t === void 0 && (t = !0),
-            t && x(),
-            y == null || y(!1),
-            h == null || h(),
+            t && A(),
+            C == null || C(!1),
+            y == null || y(),
             m.mediaPickerStatsLogger.logCancel(),
-            v == null || v.logComposerXoutTapped(),
+            S == null || S.logComposerXoutTapped(),
             o("WAWebModalManager").ModalManager.closeMedia());
         },
-        x = function () {
+        A = function () {
           a && a.setAttachMediaContents(null);
         },
-        $ = (function () {
+        F = (function () {
           var t = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (t, n) {
-              v == null ||
-                v.logPostSendTap(
+              S == null ||
+                S.logPostSendTap(
                   o("WAWebLogStatusPosterActions").STATUS_CONTENT_TYPE.PHOTO,
                 );
-              var i = n == null ? void 0 : n.selectedNewsletterWid,
+              var i =
+                  N != null ? $ : n == null ? void 0 : n.selectedNewsletterWid,
                 l = a;
               if (i != null && i !== a.id)
                 try {
@@ -115,14 +132,14 @@ __d(
                   return;
                 }
               i == null &&
-              (k == null ? void 0 : k.setting) ===
+              (I == null ? void 0 : I.setting) ===
                 o("WAWebUserPrefsStatusType").StatusPrivacySettingType
                   .AllowList &&
-              (k == null ? void 0 : k.allowList.length) === 0
+              (I == null ? void 0 : I.allowList.length) === 0
                 ? o("WAWebModalManager").ModalManager.open(
                     d.jsx(r("WAWebStatusChangePrivacyPopup.react"), {
-                      statusPostingPrivacyConfig: k,
-                      setStatusPostingPrivacyConfig: E,
+                      statusPostingPrivacyConfig: I,
+                      setStatusPostingPrivacyConfig: k,
                     }),
                   )
                 : (o("WAWebUiIdleEventBus").UiIdleEventBus.once(
@@ -139,11 +156,11 @@ __d(
                               o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE
                                 .PROCESSING),
                           i != null && (n.isNewsletterStatus = !0));
-                        var r = T.current,
+                        var r = D.current,
                           a = {
                             statusPostOrigin:
-                              S != null
-                                ? S
+                              R != null
+                                ? R
                                 : o("WAWebWamEnumStatusPostOrigin")
                                     .STATUS_POST_ORIGIN.STATUS_TAB_CAMERA,
                             mediaType: o(
@@ -158,16 +175,16 @@ __d(
                             isVideoTrimmed: t.isVideoTrimmed,
                             perPostStatusPrivacySetting:
                               i == null
-                                ? k == null
+                                ? I == null
                                   ? void 0
-                                  : k.setting
+                                  : I.setting
                                 : void 0,
                             retryCount: r,
                             statusAudienceSelectorClicked:
-                              L.statusAudienceSelectorClicked,
+                              E.statusAudienceSelectorClicked,
                             statusAudienceSelectorUpdated:
-                              L.statusAudienceSelectorUpdated,
-                            statusAudienceSize: i == null ? f(k) : void 0,
+                              E.statusAudienceSelectorUpdated,
+                            statusAudienceSize: i == null ? g(I) : void 0,
                           };
                         t.sendToChat({ chat: l, options: n })
                           .then(function (e) {
@@ -234,12 +251,12 @@ __d(
                             ])),
                           t.length,
                         ),
-                        x());
+                        A());
                     },
                   ),
-                  (T.current += 1),
-                  y == null || y(!0),
-                  b == null || b(),
+                  (D.current += 1),
+                  C == null || C(!0),
+                  v == null || v(),
                   m.mediaPickerStatsLogger.logSend({ isViewOnce: !1 }),
                   o("WAWebModalManager").ModalManager.closeMedia());
             },
@@ -259,25 +276,27 @@ __d(
             {
               theme: o("WAWebMediaEditorEnumsThemes").MediaTheme.STATUS,
               chat: a,
-              onClose: D,
-              onRender: C,
+              onClose: w,
+              onRender: b,
               initCaption: i != null ? i : null,
-              onSendMedia: $,
+              onSendMedia: F,
               mediaCollection: m,
               sendAsSticker: !1,
               onDropText: r("WAWebNoop"),
-              statusPostingPrivacyConfig: k,
-              setStatusPostingPrivacyConfig: E,
-              onAudienceSelectorClicked: I,
+              statusPostingPrivacyConfig: I,
+              setStatusPostingPrivacyConfig: k,
+              onAudienceSelectorClicked: T,
               isNewsletterStatus: c,
-              newsletterWid: g,
+              newsletterWid: h,
+              renderSubmitAccessory: N,
+              isSubmitDisabled: M,
               tsNavigationData: { surface: "status-composer-media" },
             },
           ),
         })
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
   },
   98,
 );

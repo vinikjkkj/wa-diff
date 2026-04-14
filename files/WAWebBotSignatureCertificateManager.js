@@ -121,7 +121,7 @@ __d(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
                         "",
-                        " Leaf certificate not valid at server time",
+                        " leaf cert invalid at serverTime",
                       ])),
                     L,
                   )
@@ -143,7 +143,7 @@ __d(
                       p ||
                         (p = babelHelpers.taggedTemplateLiteralLoose([
                           "",
-                          " Issuer certificate not valid at server time",
+                          " issuer cert invalid at serverTime",
                         ])),
                       L,
                     )
@@ -163,7 +163,7 @@ __d(
                       _ ||
                         (_ = babelHelpers.taggedTemplateLiteralLoose([
                           "",
-                          " Certificate signature verification failed at position ",
+                          " cert sig verify failed at pos ",
                           "",
                         ])),
                       L,
@@ -264,7 +264,7 @@ __d(
                   h ||
                     (h = babelHelpers.taggedTemplateLiteralLoose([
                       "",
-                      " Certificate signature verification error",
+                      " cert sig verify error",
                     ])),
                   L,
                 )
@@ -293,7 +293,7 @@ __d(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
                 "",
-                " Failed to extract issuer public key for Ed25519 verification",
+                " issuer pubkey extract failed for Ed25519",
               ])),
             L,
           ),
@@ -316,7 +316,7 @@ __d(
                   y ||
                     (y = babelHelpers.taggedTemplateLiteralLoose([
                       "",
-                      " cert.verify() failed, falling back to chain engine",
+                      " cert.verify() failed, fallback to engine",
                     ])),
                   L,
                 )

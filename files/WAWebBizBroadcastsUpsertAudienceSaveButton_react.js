@@ -187,14 +187,13 @@ __d(
         ),
         E = u(
           function () {
-            g != null &&
-              (S != null &&
-                o(
-                  "WAWebBusinessBroadcastUserJourneyLogger",
-                ).BusinessBroadcastUserJourneyLogger.createBroadcastChooseAudienceClicked(
-                  b,
-                  S,
-                ),
+            (S != null &&
+              o(
+                "WAWebBusinessBroadcastUserJourneyLogger",
+              ).BusinessBroadcastUserJourneyLogger.createBroadcastChooseAudienceClicked(
+                b,
+                S,
+              ),
               R().then(g).catch(r("WAWebNoop")));
           },
           [b, S, g, R],
@@ -213,11 +212,10 @@ __d(
               ).getSaveAudienceButtonLabel(),
               onPress: L,
               testid: void 0,
-              variant: g != null ? "tonal" : "filled",
+              variant: m ? "filled" : "tonal",
             }),
             !m &&
               a == null &&
-              g != null &&
               s.jsx(r("WDSButton.react"), {
                 disabled: p,
                 label: o(

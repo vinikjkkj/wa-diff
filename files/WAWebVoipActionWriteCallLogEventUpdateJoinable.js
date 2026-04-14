@@ -291,9 +291,10 @@ __d(
                 "WAWebVoipOngoingCallCollection",
               ).WAWebVoipOngoingCallCollection.remove(p.id)
             : I &&
+              (o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(n),
               o(
                 "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.add(I, { merge: !0 });
+              ).WAWebVoipOngoingCallCollection.add(I, { merge: !0 }));
         })),
         f.apply(this, arguments)
       );

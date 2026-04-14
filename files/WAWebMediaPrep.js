@@ -596,6 +596,7 @@ __d(
               isForwarded: s.isForwarded,
               forwardingScore: s.forwardingScore,
               forwardedNewsletterMessageInfo: s.forwardedNewsletterMessageInfo,
+              forwardedAiBotMessageInfo: s.forwardedAiBotMessageInfo,
               multicast: s.multicast,
               forwardedFromWeb: s.forwardedFromWeb,
               ctwaContext: s.ctwaContext,

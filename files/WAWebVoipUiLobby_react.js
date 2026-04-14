@@ -201,26 +201,28 @@ __d(
             return !e;
           });
         }, []),
-        B = _(!1);
+        B = _(!1),
+        W = _(!1);
       return (
         m(
           function () {
             if (!i && S.length === 0) {
-              o(
+              (o(
                 "WAWebVoipLobbyHeightUtils",
               ).WAWebVoipLobbyPanelStateEmitter.trigger("panelStateChanged", {
                 isExpanded: !1,
                 connectedParticipantCount: 0,
                 isVideoCall: y,
                 hasNoParticipants: !0,
-              });
+              }),
+                (W.current = !0));
               return;
             }
             if (M) {
               var e = B.current;
               B.current = A;
               var t = e !== A;
-              if (!(!t && !A))
+              if (!(W.current && !t && !A))
                 return (
                   o(
                     "WAWebVoipLobbyHeightUtils",
@@ -232,6 +234,7 @@ __d(
                       isVideoCall: y,
                     },
                   ),
+                  (W.current = !0),
                   function () {
                     o(
                       "WAWebVoipLobbyHeightUtils",

@@ -49,24 +49,15 @@ __d(
     }
     function m() {
       var e,
-        t,
-        n = r("WAWebCallCollection").lastActiveCall,
-        a = n == null ? void 0 : n.callFailedReason,
-        i = n == null ? void 0 : n.callLogResult,
-        l = (e = n == null ? void 0 : n.outgoing) != null ? e : !1,
-        m =
-          (t = n == null ? void 0 : n.displayWaitingRoomDenied) != null
-            ? t
-            : !1,
-        p;
+        t = r("WAWebCallCollection").lastActiveCall,
+        n = t == null ? void 0 : t.callFailedReason,
+        a = t == null ? void 0 : t.callLogResult,
+        i = (e = t == null ? void 0 : t.outgoing) != null ? e : !1,
+        l;
       return (
-        m
-          ? (p = s._(
-              /*BTDS*/ "Your request to join the call was not approved.",
-            ))
-          : a != null
-            ? (p = d(a))
-            : (p = o("WAWebCallLogUtils").getCallResultText(i, l)),
+        n != null
+          ? (l = d(n))
+          : (l = o("WAWebCallLogUtils").getCallResultText(a, i)),
         u.jsx(o("WAWebFlex.react").FlexItem, {
           xstyle: c.callEndedContainer,
           children: u.jsx(o("WAWebFlex.react").FlexColumn, {
@@ -77,7 +68,7 @@ __d(
               type: "Body1",
               colorName: "persistentAlwaysWhite",
               selectable: !1,
-              children: p,
+              children: l,
             }),
           }),
         })

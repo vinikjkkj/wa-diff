@@ -36,6 +36,14 @@ __d(
           },
           dsa_beneficiary: e.dsaData.dsaBeneficiary,
           dsa_payor: e.dsaData.dsaPayor,
+          messenger_welcome_message: {
+            greeting: "Hi! Please let us know how we can help you.",
+            icebreakers: [],
+            icebreakers_enabled: !1,
+            prefill: "Hello! Can I get more info on this?",
+            prefill_enabled: !0,
+            prefill_message_edited: !1,
+          },
         };
       return n;
     }

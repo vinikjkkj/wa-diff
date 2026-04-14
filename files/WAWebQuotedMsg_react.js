@@ -189,7 +189,9 @@ __d(
         A = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e;
-            if ((C == null || C(), y.unsafe().local !== !0)) {
+            if (
+              (C == null || C(), !(y.unsafe().local === !0 && !y.id.fromMe))
+            ) {
               if (o("WAWebMsgGetters").getIsStatus(y)) {
                 if (!b || !b.isQuotedMsgAvailable)
                   o("WAWebToastManager").ToastManager.open(

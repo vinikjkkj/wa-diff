@@ -7,6 +7,7 @@ __d(
     "WALogger",
     "WAPromiseDelays",
     "WAWebABProps",
+    "WAWebCoreActionsODS",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipSctpDataChannelThread",
     "WAWebVoipSctpDiagnostics",
@@ -707,6 +708,11 @@ __d(
         a &&
           (n === "connected" &&
             ((a.iceConnectedTime = Date.now()),
+            a.relayPort === 3478
+              ? (o("WAWebCoreActionsODS").logCallIceConnectedPort3478(),
+                o("WAWebCoreActionsODS").logCallDtlsStartedPort3478())
+              : (o("WAWebCoreActionsODS").logCallIceConnectedPort3480(),
+                o("WAWebCoreActionsODS").logCallDtlsStartedPort3480()),
             a.dtlsStallTimeout != null &&
               window.clearTimeout(a.dtlsStallTimeout),
             (a.dtlsStallTimeout = window.setTimeout(function () {
@@ -730,10 +736,17 @@ __d(
                   t,
                   r,
                 ),
+                  a.relayPort === 3478
+                    ? o("WAWebCoreActionsODS").logCallDtlsFailedStallPort3478()
+                    : o("WAWebCoreActionsODS").logCallDtlsFailedStallPort3480(),
                   He(a, "dtls_stall", "dtls_stall_reconnecting", "[SCTP]"));
               }
             }, be))),
-          n === "failed" && ze(a));
+          n === "failed" &&
+            (a.relayPort === 3478
+              ? o("WAWebCoreActionsODS").logCallIceFailedPort3478()
+              : o("WAWebCoreActionsODS").logCallIceFailedPort3480(),
+            ze(a)));
       }),
         (e.onconnectionstatechange = function () {
           var n = e.connectionState;
@@ -750,27 +763,35 @@ __d(
             r,
           );
           var a = Ne.get(t);
-          if (
-            a &&
-            n === "connected" &&
-            a.dtlsStallTimeout != null &&
-            (window.clearTimeout(a.dtlsStallTimeout),
-            (a.dtlsStallTimeout = null),
-            a.iceConnectedTime > 0)
-          ) {
-            var i = Date.now() - a.iceConnectedTime;
-            o("WALogger").LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [SCTP] DTLS handshake completed in ",
-                  "ms for ",
-                  "",
-                  "",
-                ])),
-              i,
-              t,
-              r,
-            );
+          if (a) {
+            if (
+              n === "connected" &&
+              a.dtlsStallTimeout != null &&
+              (window.clearTimeout(a.dtlsStallTimeout),
+              (a.dtlsStallTimeout = null),
+              a.relayPort === 3478
+                ? o("WAWebCoreActionsODS").logCallDtlsConnectedPort3478()
+                : o("WAWebCoreActionsODS").logCallDtlsConnectedPort3480(),
+              a.iceConnectedTime > 0)
+            ) {
+              var i = Date.now() - a.iceConnectedTime;
+              o("WALogger").LOG(
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [SCTP] DTLS handshake completed in ",
+                    "ms for ",
+                    "",
+                    "",
+                  ])),
+                i,
+                t,
+                r,
+              );
+            }
+            n === "failed" &&
+              (a.relayPort === 3478
+                ? o("WAWebCoreActionsODS").logCallDtlsFailedPcFailedPort3478()
+                : o("WAWebCoreActionsODS").logCallDtlsFailedPcFailedPort3480());
           }
         }));
     }
@@ -858,6 +879,9 @@ __d(
                 ip: e.ip,
                 port: e.port,
               }),
+              e.port === 3478
+                ? o("WAWebCoreActionsODS").logCallIceStartedPort3478()
+                : o("WAWebCoreActionsODS").logCallIceStartedPort3480(),
               o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
                 ? yield r("WACommonTaskScheduler").yield()
                 : yield o("WAPromiseDelays").releaseToEventLoop(),

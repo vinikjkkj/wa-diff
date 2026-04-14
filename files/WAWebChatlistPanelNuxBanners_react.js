@@ -1,7 +1,6 @@
 __d(
   "WAWebChatlistPanelNuxBanners.react",
   [
-    "WAWebBizGatingUtils",
     "WAWebCTWAConstants",
     "WAWebCTWASuggestionCollection",
     "WAWebConnModel",
@@ -11,6 +10,7 @@ __d(
     "WAWebNuxCtwaSuggestionBanner.react",
     "WAWebNuxOrderExpansion.react",
     "WAWebNuxQuickPromotionChatListBanner.react",
+    "WAWebQuickPromotionGating",
     "WAWebUserPrefsNuxPreferences",
     "react",
     "useWAWebBestQuickPromotionForSurface",
@@ -51,7 +51,10 @@ __d(
           "useWAWebBestQuickPromotionForSurface",
         ).useBestQuickPromotionForSurface(
           { surfaceId: o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP },
-          { eligibilityCheck: o("WAWebBizGatingUtils").qpCampaignsEnabled },
+          {
+            eligibilityCheck: o("WAWebQuickPromotionGating")
+              .qpCampaignsEnabledSMB,
+          },
         ),
         c = [];
       return (

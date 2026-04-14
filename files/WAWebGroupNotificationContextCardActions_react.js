@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebAddUserIcon.react",
     "WAWebButton.react",
+    "WAWebCommunitySubgroupInviteLinkRestriction",
     "WAWebGroupGatingUtils",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupMemberTagUpdateLogger",
@@ -71,15 +72,19 @@ __d(
         ),
         h = o("WAWebMemberLabelHooks").useHasSelfMemberLabelForChat(n),
         y = !h && o("WAWebMemberLabelGating").isMemberLabelSenderEnabled(),
-        C = t && !a.support,
-        b = a.canSetSubject() && i,
-        v =
+        C = o(
+          "WAWebCommunitySubgroupInviteLinkRestriction",
+        ).isSubgroupInviteLinkRestrictedByParentCommunity(a),
+        b = t && !a.support,
+        v = a.canSetSubject() && i,
+        S =
           a.memberLinkMode ===
             o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK &&
           o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsM2Enabled(),
-        S = {
+        R = S && !C,
+        L = {
           name: {
-            available: b,
+            available: v,
             onPress: p,
             icon: o("WAWebPencilIcon.react").PencilIcon,
             testid: "group-notification-context-card-add-name-button",
@@ -87,7 +92,7 @@ __d(
             shadowOnHover: !1,
           },
           addMembers: {
-            available: C,
+            available: b,
             onPress: l,
             icon: o("WAWebAddUserIcon.react").AddUserIcon,
             testid: "group-notification-context-card-add-members-button",
@@ -108,7 +113,7 @@ __d(
             label: s._(/*BTDS*/ "Group info"),
           },
           inviteViaLink: {
-            available: v,
+            available: R,
             onPress: f != null ? f : r("WAWebNoop"),
             icon: r("WDSIconIcLink.react"),
             testid: "group-notification-context-card-invite-via-link-button",
@@ -116,18 +121,18 @@ __d(
             useVerticalLayout: !0,
           },
         },
-        R = o(
+        E = o(
           "WAWebGroupNotificationContextCardActionsUtils",
-        ).getGroupNotificationButtonConfig(S),
-        L = R.firstConfig,
-        E = R.secondConfig,
-        k = R.useVerticalLayout;
-      if (E != null) {
-        var I = L != null ? L : E,
-          T = { variant: "outline", type: "default" },
-          D = k ? [I, E] : [E, I],
-          x = D[0],
-          $ = D[1];
+        ).getGroupNotificationButtonConfig(L),
+        k = E.firstConfig,
+        I = E.secondConfig,
+        T = E.useVerticalLayout;
+      if (I != null) {
+        var D = k != null ? k : I,
+          x = { variant: "outline", type: "default" },
+          $ = T ? [D, I] : [I, D],
+          P = $[0],
+          N = $[1];
         return u.jsx(
           "div",
           babelHelpers.extends(
@@ -141,29 +146,29 @@ __d(
                 className:
                   "x78zum5 xdt5ytf x6s0dn4 xl56j7k xyamay9 x5w4yej x3pnbk8 xh8yej3",
               },
-            }[!!k << 0],
+            }[!!T << 0],
             {
               children: u.jsx(r("WDSButtonGroup.react"), {
-                width: k ? "fill" : "hug",
+                width: T ? "fill" : "hug",
                 orientation: "horizontal",
-                primaryButtonProps: babelHelpers.extends({}, T, {
-                  onPress: x.onPress,
-                  Icon: x.icon,
-                  testid: x.testid,
-                  label: x.label,
+                primaryButtonProps: babelHelpers.extends({}, x, {
+                  onPress: P.onPress,
+                  Icon: P.icon,
+                  testid: P.testid,
+                  label: P.label,
                 }),
-                secondaryButtonProps: babelHelpers.extends({}, T, {
-                  onPress: $.onPress,
-                  Icon: $.icon,
-                  testid: $.testid,
-                  label: $.label,
+                secondaryButtonProps: babelHelpers.extends({}, x, {
+                  onPress: N.onPress,
+                  Icon: N.icon,
+                  testid: N.testid,
+                  label: N.label,
                 }),
               }),
             },
           ),
         );
       }
-      var P = function (t) {
+      var M = function (t) {
         return (
           t != null &&
           u.jsx(o("WAWebButton.react").WAWebButtonSecondary, {
@@ -176,13 +181,13 @@ __d(
         );
       };
       return u.jsxs(o("WAWebButton.react").ButtonGroup, {
-        direction: k ? "vertical" : "horizontal",
+        direction: T ? "vertical" : "horizontal",
         align: "stretch",
         justify: "center",
         wrap: "wrap",
         paddingTop: 16,
         xstyle: m.buttonGroupContainer,
-        children: [P(L), P(E)],
+        children: [M(k), M(I)],
       });
     }
     ((p.displayName = p.name + " [from " + i.id + "]"),

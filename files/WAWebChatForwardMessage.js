@@ -14,6 +14,7 @@ __d(
     "WAWebFileUtils",
     "WAWebFrontendMsgGetters",
     "WAWebGeneratePollVotesSnapshotFromPoll",
+    "WAWebGetAiBotContextForForwardedMsg",
     "WAWebGetNewsletterContextForForwardedMsg",
     "WAWebIncrementNewsletterForwardCounterAction",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -316,6 +317,9 @@ __d(
         (c.forwardedNewsletterMessageInfo = o(
           "WAWebGetNewsletterContextForForwardedMsg",
         ).getNewsletterContextForForwardedMsg(e)),
+        (c.forwardedAiBotMessageInfo = o(
+          "WAWebGetAiBotContextForForwardedMsg",
+        ).getAiBotContextForForwardedMsg(e)),
         o("WAWebChatEphemerality").isEphemeralSettingOn(t) &&
           ((c.ephemeralDuration = o(
             "WAWebChatEphemerality",

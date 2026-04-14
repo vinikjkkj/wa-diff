@@ -15,7 +15,6 @@ __d(
       c = {
         rowContainer: { width: "xh8yej3", $$css: !0 },
         textContainer: { minWidth: "xeuugli", $$css: !0 },
-        thumbnailOpacity: { opacity: "x197sbye", $$css: !0 },
       };
     function d(e) {
       var t = e.description,
@@ -35,7 +34,6 @@ __d(
             : u.jsx(r("WAWebBizAdManagementThumbnail.react"), {
                 thumbnailUrl: a,
                 boostingStatus: null,
-                thumbnailXStyle: c.thumbnailOpacity,
               }),
           u.jsx(o("WAWebFlex.react").FlexColumn, {
             xstyle: c.textContainer,

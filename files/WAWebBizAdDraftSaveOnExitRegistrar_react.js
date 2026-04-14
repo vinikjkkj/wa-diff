@@ -20,51 +20,58 @@ __d(
     function d(e) {
       var t = e.spec,
         o = u(r("WAWebBizAdDraftSaveCallbackContext")),
-        a = o.saveCallbackRef,
-        i = u(r("WAWebBizAdCreationDraftIDContext")),
-        l = u(r("WAWebBizAdCreationConfigContext")),
-        s = r("useWAWebBizAdCreateDraftMutation")(),
-        d = s[0],
-        m = r("useWAWebBizAdEditDraftMutation")(),
-        p = m[0];
+        a = o.existingDraftIDRef,
+        i = o.saveCallbackRef,
+        l = u(r("WAWebBizAdCreationDraftIDContext")),
+        s = u(r("WAWebBizAdCreationConfigContext")),
+        d = r("useWAWebBizAdCreateDraftMutation")(),
+        m = d[0],
+        p = r("useWAWebBizAdEditDraftMutation")(),
+        _ = p[0];
       return (
         c(
           function () {
             return (
-              (a.current = n("asyncToGeneratorRuntime").asyncToGenerator(
+              (i.current = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
-                  if (l == null)
+                  var e;
+                  if (s == null)
                     return (
                       r("FBLogger")("wa_ctwa_web").warn(
                         "Draft save failed: configContext is null",
                       ),
                       { success: !1 }
                     );
-                  var e = l.flowID,
-                    n = l.pageID,
-                    o = l.product,
-                    a = r("convertWAWebSpecToLWIVariables")(t, e, n, o),
-                    s = a.input.creation_spec,
-                    u = i.draftID;
-                  if (u != null) {
-                    var c = yield p({ draft_id: u, flow_id: e, spec: s });
-                    return c.success
-                      ? { success: !0, draftID: u }
+                  var n = s.flowID,
+                    o = s.pageID,
+                    i = s.product,
+                    u = r("convertWAWebSpecToLWIVariables")(t, n, o, i),
+                    c = u.input.creation_spec,
+                    d = (e = l.draftID) != null ? e : a.current;
+                  if (d != null) {
+                    var p = yield _({
+                      draft_id: d,
+                      flow_id: n,
+                      spec: c,
+                      use_case: "WA_WEB",
+                    });
+                    return p.success
+                      ? { success: !0, draftID: d }
                       : (r("FBLogger")("wa_ctwa_web").warn(
                           "Draft edit mutation failed",
                         ),
                         { success: !1 });
                   }
-                  var m = yield d({
-                    flow_id: e,
-                    page_id: n,
-                    product: o,
-                    spec: s,
+                  var f = yield m({
+                    flow_id: n,
+                    page_id: o,
+                    product: i,
+                    spec: c,
                     use_case: "WA_WEB",
                   });
-                  return m.success
-                    ? (i.setDraftID(m.draftID),
-                      { success: !0, draftID: m.draftID })
+                  return f.success
+                    ? (l.setDraftID(f.draftID),
+                      { success: !0, draftID: f.draftID })
                     : (r("FBLogger")("wa_ctwa_web").warn(
                         "Draft create mutation failed",
                       ),
@@ -72,11 +79,11 @@ __d(
                 },
               )),
               function () {
-                a.current = null;
+                i.current = null;
               }
             );
           },
-          [a, i, l, t, d, p],
+          [i, a, l, s, t, m, _],
         ),
         null
       );

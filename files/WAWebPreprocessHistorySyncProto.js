@@ -322,8 +322,8 @@ __d(
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[history sync][recent sync] Dropped ",
-                    " request welcome messages",
+                    "[history sync] dropped ",
+                    " bot welcome msgs",
                   ])),
                 A,
               ),
@@ -352,8 +352,8 @@ __d(
                 .LOG(
                   f ||
                     (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync] Applied ",
-                      " message throttling delays totaling ",
+                      "[history sync] throttle delays=",
+                      " total=",
                       "ms",
                     ])),
                   B,

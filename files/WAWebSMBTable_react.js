@@ -9,7 +9,8 @@ __d(
       c = u.useCallback,
       d = u.useEffect,
       m = u.useRef,
-      p = {
+      p = u.useState,
+      _ = {
         table: { width: "xh8yej3", $$css: !0 },
         headerRow: {
           width: "xh8yej3",
@@ -60,7 +61,7 @@ __d(
         },
         rowContent: { width: "xh8yej3", $$css: !0 },
       };
-    function _(e) {
+    function f(e) {
       var t,
         n,
         r = {};
@@ -77,78 +78,87 @@ __d(
         r
       );
     }
-    function f(e, t, n, r, a, i, l, u) {
-      var c = {
-          isFirstRow: t === 0,
-          isLastRow: t === n - 1,
-          item: e,
-          rowIndex: t,
+    function g(e) {
+      var t = e.columns,
+        n = e.getItemKey,
+        r = e.item,
+        a = e.onRowClick,
+        i = e.renderRow,
+        l = e.rowIndex,
+        u = e.selectedKey,
+        c = e.totalItems,
+        d = p(!1),
+        m = d[0],
+        g = d[1],
+        h = {
+          isFirstRow: l === 0,
+          isLastRow: l === c - 1,
+          isRowHovered: m,
+          item: r,
+          rowIndex: l,
         },
-        d = s.jsx(s.Fragment, {
-          children: r.map(function (e) {
+        y = s.jsx(s.Fragment, {
+          children: t.map(function (e) {
             return s.jsx(
               o("WAWebFlex.react").FlexColumn,
               {
-                xstyle: p.cell,
-                style: _(e.width),
-                children: e.cell != null ? e.cell(c) : null,
+                xstyle: _.cell,
+                style: f(e.width),
+                children: e.cell != null ? e.cell(h) : null,
               },
               e.key,
             );
           }),
         });
-      if (l != null)
-        return s.jsx(
-          o("WAWebFlex.react").FlexRow,
-          { children: l(e, d, t) },
-          a(e, t),
-        );
-      if (i != null) {
-        var m = a(e, t),
-          f = u != null && m === u;
-        return s.jsx(
-          o("WAWebFlex.react").FlexRow,
-          {
-            xstyle: p.rowBase,
-            children: s.jsx("div", {
-              role: "button",
-              tabIndex: 0,
-              className: {
-                0: "x1ypdohk x1xrf6ya xscbp6u x78zum5 xh8yej3 xyi3aci xwf5gio x1p453bz x1suzm8a x1n67ipk",
-                1: "x1ypdohk x1xrf6ya xscbp6u x78zum5 xh8yej3 xyi3aci xwf5gio x1p453bz x1suzm8a x1n67ipk x1h3rtpe",
-              }[!!f << 0],
-              onClick: function () {
-                return i(e, t);
-              },
-              onKeyDown: function (r) {
-                (r.key === "Enter" || r.key === " ") &&
-                  (r.preventDefault(), i(e, t));
-              },
-              children: s.jsx(o("WAWebFlex.react").FlexRow, {
-                align: "center",
-                xstyle: p.rowContent,
-                children: d,
-              }),
+      if (i != null)
+        return s.jsx(o("WAWebFlex.react").FlexRow, { children: i(r, y, l) });
+      if (a != null) {
+        var C = n(r, l),
+          b = u != null && C === u;
+        return s.jsx(o("WAWebFlex.react").FlexRow, {
+          xstyle: _.rowBase,
+          children: s.jsx("div", {
+            role: "button",
+            tabIndex: 0,
+            className: {
+              0: "x1ypdohk x1xrf6ya xscbp6u x78zum5 xh8yej3 xyi3aci xwf5gio x1p453bz x1suzm8a x1n67ipk",
+              1: "x1ypdohk x1xrf6ya xscbp6u x78zum5 xh8yej3 xyi3aci xwf5gio x1p453bz x1suzm8a x1n67ipk x1h3rtpe",
+            }[!!b << 0],
+            onClick: function () {
+              return a(r, l);
+            },
+            onKeyDown: function (t) {
+              (t.key === "Enter" || t.key === " ") &&
+                (t.preventDefault(), a(r, l));
+            },
+            onMouseEnter: function () {
+              return g(!0);
+            },
+            onMouseLeave: function () {
+              return g(!1);
+            },
+            children: s.jsx(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              xstyle: _.rowContent,
+              children: y,
             }),
-          },
-          m,
-        );
+          }),
+        });
       }
-      return s.jsx(
-        o("WAWebFlex.react").FlexRow,
-        { xstyle: [p.rowBase, p.nonClickableRow], children: d },
-        a(e, t),
-      );
+      return s.jsx(o("WAWebFlex.react").FlexRow, {
+        xstyle: [_.rowBase, _.nonClickableRow],
+        children: y,
+      });
     }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(e) {
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e) {
       var t = e.columns,
         n = e.getItemKey,
         a = e.hasMore,
         i = e.isLoadingMore,
         l = e.items,
         u = e.onLoadMore,
-        g = e.onRowClick,
+        p = e.onRowClick,
         h = e.pinnedItems,
         y = e.renderRow,
         C = e.selectedKey,
@@ -179,20 +189,20 @@ __d(
           [v, u],
         ),
         s.jsxs(o("WAWebFlex.react").FlexColumn, {
-          xstyle: p.table,
+          xstyle: _.table,
           children: [
             s.jsx(o("WAWebFlex.react").FlexRow, {
-              xstyle: p.headerRow,
+              xstyle: _.headerRow,
               children: t.map(function (e) {
                 return s.jsx(
                   o("WAWebFlex.react").FlexColumn,
                   {
                     xstyle: [
-                      p.cell,
-                      p.headerCells,
-                      e.header != null && p.headerCellsHoverable,
+                      _.cell,
+                      _.headerCells,
+                      e.header != null && _.headerCellsHoverable,
                     ],
-                    style: _(e.width),
+                    style: f(e.width),
                     children:
                       e.renderHeader != null
                         ? e.renderHeader()
@@ -215,22 +225,40 @@ __d(
             h != null &&
               h.map(function (e, r) {
                 var o;
-                return f(
-                  e,
-                  r,
-                  ((o = h == null ? void 0 : h.length) != null ? o : 0) +
-                    l.length,
-                  t,
-                  n,
+                return s.jsx(
                   g,
-                  y,
-                  C,
+                  {
+                    columns: t,
+                    getItemKey: n,
+                    item: e,
+                    onRowClick: p,
+                    renderRow: y,
+                    rowIndex: r,
+                    selectedKey: C,
+                    totalItems:
+                      ((o = h == null ? void 0 : h.length) != null ? o : 0) +
+                      l.length,
+                  },
+                  n(e, r),
                 );
               }),
             l.map(function (e, r) {
               var o,
                 a = (o = h == null ? void 0 : h.length) != null ? o : 0;
-              return f(e, r + a, a + l.length, t, n, g, y, C);
+              return s.jsx(
+                g,
+                {
+                  columns: t,
+                  getItemKey: n,
+                  item: e,
+                  onRowClick: p,
+                  renderRow: y,
+                  rowIndex: r + a,
+                  selectedKey: C,
+                  totalItems: a + l.length,
+                },
+                n(e, r + a),
+              );
             }),
             i === !0 &&
               s.jsx("div", {
@@ -242,7 +270,7 @@ __d(
         })
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
   },
   98,
 );

@@ -3,28 +3,28 @@ __d(
   ["WAWebNoop"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, o, a) {
-      var i,
-        l,
+    function e(e, t, n, o, a, i) {
+      var l,
         s,
         u,
-        c = e == null || (i = e.ctwa) == null ? void 0 : i.latest_wa_web_draft;
-      if (c == null) return null;
-      var d =
-          (l = c.spec) == null ||
-          (l = l.adgroup_spec) == null ||
-          (l = l[0]) == null ||
-          (l = l.creative) == null
+        c,
+        d = e == null || (l = e.ctwa) == null ? void 0 : l.latest_wa_web_draft;
+      if (d == null) return null;
+      var m =
+          (s = d.spec) == null ||
+          (s = s.adgroup_spec) == null ||
+          (s = s[0]) == null ||
+          (s = s.creative) == null
             ? void 0
-            : l.object_story_spec,
-        m = d == null ? void 0 : d.link_data,
-        p = d == null ? void 0 : d.video_data,
-        _ =
-          (s = m == null ? void 0 : m.message) != null
-            ? s
-            : p == null
+            : s.object_story_spec,
+        p = m == null ? void 0 : m.link_data,
+        _ = m == null ? void 0 : m.video_data,
+        f =
+          (u = p == null ? void 0 : p.message) != null
+            ? u
+            : _ == null
               ? void 0
-              : p.message;
+              : _.message;
       return {
         adClicks: 0,
         adgroupId: null,
@@ -39,9 +39,9 @@ __d(
         childAttachments: null,
         conversations: 0,
         currency: "USD",
-        description: _,
-        draftId: c.id,
-        draftFlowId: c.flow_id,
+        description: f,
+        draftId: d.id,
+        draftFlowId: d.flow_id,
         durationInDays: null,
         formattedBudget: null,
         formattedSpent: "",
@@ -51,8 +51,9 @@ __d(
         isVerified: null,
         legacyAdAccountId: null,
         link: null,
-        nodeId: (u = c.id) != null ? u : "draft",
+        nodeId: (c = d.id) != null ? c : "draft",
         onViewResults: r("WAWebNoop"),
+        onDeleteDraft: i != null ? i : null,
         onRecreateAd: r("WAWebNoop"),
         onResumeDraft: a != null ? a : r("WAWebNoop"),
         pageId: o,

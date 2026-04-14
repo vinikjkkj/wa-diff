@@ -7,6 +7,7 @@ __d(
     "WAWebAddUserIcon.react",
     "WAWebChatCollection",
     "WAWebCommunitySubgroupImage.react",
+    "WAWebCommunitySubgroupInviteLinkRestriction",
     "WAWebDrawerManager",
     "WAWebEmojiText.react",
     "WAWebExistingGroupPermissionsDrawer.react",
@@ -55,7 +56,10 @@ __d(
         g = d != null ? d : n.formattedTitle,
         h = m === "true",
         y = p === "true",
-        C = _
+        C = o(
+          "WAWebCommunitySubgroupInviteLinkRestriction",
+        ).isSubgroupInviteLinkRestrictedByParentCommunity(n.groupMetadata),
+        b = _
           ? u.jsx(o("WAWebFlex.react").FlexRow, {
               align: "center",
               justify: "center",
@@ -66,11 +70,11 @@ __d(
               }),
             })
           : null,
-        b = r("useWAWebAddParticipantsSelectedContacts")(),
-        v = b.handleClearSelectedContacts,
-        S = b.selectedContactsMap,
-        R = b.updateSelectedContactsState,
-        L = function () {
+        v = r("useWAWebAddParticipantsSelectedContacts")(),
+        S = v.handleClearSelectedContacts,
+        R = v.selectedContactsMap,
+        L = v.updateSelectedContactsState,
+        E = function () {
           if (o("WAWebReachoutTimelockUtils").isUserReachoutTimelocked()) {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(
@@ -82,19 +86,19 @@ __d(
             return;
           }
           var e = function () {
-            return L();
+            return E();
           };
           o("WAWebOpenAddParticipantModalFlow").openAddParticipantModalFlow({
             groupMetadata: r("WANullthrows")(n.groupMetadata),
             chat: n,
             communityName: f,
-            selectedContactsMap: S,
-            updateSelectedContactsState: R,
+            selectedContactsMap: R,
+            updateSelectedContactsState: L,
             reopenAddGroupFlowCallback: e,
-            handleClearSelectedContacts: v,
+            handleClearSelectedContacts: S,
           });
         },
-        E = function () {
+        k = function () {
           o("WAWebDrawerManager").DrawerManager.openDrawerRight(
             u.jsx(
               o("WAWebGroupInviteLinkDrawerLoadable")
@@ -124,15 +128,15 @@ __d(
             ),
           );
         },
-        k = s._(/*BTDS*/ "It was added to the community");
+        I = s._(/*BTDS*/ "It was added to the community");
       return (
         f &&
           (y === !0
-            ? (k = s._(
+            ? (I = s._(
                 /*BTDS*/ 'It was added to the community "{community_name}". Only people in the community who have been invited can see and join this group.',
                 [s._param("community_name", f)],
               ))
-            : (k =
+            : (I =
                 h === !0
                   ? s._(
                       /*BTDS*/ 'It was added to the community "{community_name}". Anyone in the community can request to join this group.',
@@ -148,7 +152,7 @@ __d(
               className:
                 "x1iw51ew xde1mab x1xrf6ya xscbp6u xso031l x1q0q8m5 x120ee7l",
               children: [
-                C,
+                b,
                 u.jsx(o("WAWebFlex.react").FlexRow, {
                   className: "x1380le5 x4tpdpg",
                   justify: "center",
@@ -167,14 +171,14 @@ __d(
                   justify: "center",
                   children: u.jsx(o("WAWebText.react").WAWebTextSmall, {
                     children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
-                      text: k,
+                      text: I,
                     }),
                   }),
                 }),
               ],
             }),
             u.jsxs(r("WAWebUnstyledButton.react"), {
-              onClick: L,
+              onClick: E,
               xstyle: [c.button, c.marginVert20],
               children: [
                 u.jsx(o("WAWebFlex.react").FlexRow, {
@@ -192,26 +196,27 @@ __d(
                 }),
               ],
             }),
-            u.jsxs(r("WAWebUnstyledButton.react"), {
-              onClick: E,
-              xstyle: [c.button, c.marginVert20],
-              children: [
-                u.jsx(o("WAWebFlex.react").FlexRow, {
-                  align: "center",
-                  justify: "end",
-                  xstyle: c.marginEnd8,
-                  children: u.jsx(r("WDSIconIcLink.react"), {
-                    testid: void 0,
-                    iconXstyle: c.tealLighterColor,
-                    height: 20,
+            !C &&
+              u.jsxs(r("WAWebUnstyledButton.react"), {
+                onClick: k,
+                xstyle: [c.button, c.marginVert20],
+                children: [
+                  u.jsx(o("WAWebFlex.react").FlexRow, {
+                    align: "center",
+                    justify: "end",
+                    xstyle: c.marginEnd8,
+                    children: u.jsx(r("WDSIconIcLink.react"), {
+                      testid: void 0,
+                      iconXstyle: c.tealLighterColor,
+                      height: 20,
+                    }),
                   }),
-                }),
-                u.jsx("span", {
-                  className: "x1v5yvga xeuugli x1u7k74 x1f6kntn",
-                  children: s._(/*BTDS*/ "Invite to group via link"),
-                }),
-              ],
-            }),
+                  u.jsx("span", {
+                    className: "x1v5yvga xeuugli x1u7k74 x1f6kntn",
+                    children: s._(/*BTDS*/ "Invite to group via link"),
+                  }),
+                ],
+              }),
           ],
         })
       );

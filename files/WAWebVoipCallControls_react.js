@@ -381,6 +381,7 @@ __d(
           }),
           K
             ? u.jsxs(o("WAWebFlex.react").FlexRow, {
+                align: "center",
                 justify: "center",
                 xstyle: p.centreControlsGroup,
                 children: [
@@ -470,6 +471,7 @@ __d(
               })
             : null,
           u.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
             justify: "end",
             shrink: 0,
             grow: K ? 1 : 0,

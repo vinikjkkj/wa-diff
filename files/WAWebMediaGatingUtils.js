@@ -15,17 +15,22 @@ __d(
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    function e(e, t, n) {
+      if (o("WAWebBotUtils").isMetaAiBot(t)) {
+        if (n === "document")
+          return o("WAWebBotGating").getMetaAiFileUploadCountLimit();
+        if (n === "image") return o("WAWebBotGating").getMetaAiImageSendLimit();
+      }
       if (
         t.isNewsletter() &&
         !o("WAWebNewsletterGatingUtils").isNewsletterMediaAlbumUploadEnabled()
       )
         return 1;
-      var n = o("WAWebABProps").getABPropConfigValue(
+      var r = o("WAWebABProps").getABPropConfigValue(
         "media_picker_select_limit",
       );
-      return e <= n
-        ? n
+      return e <= r
+        ? r
         : o("WAWebABProps").getABPropConfigValue(
             "media_picker_select_limit_new",
           );

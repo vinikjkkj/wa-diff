@@ -20,11 +20,11 @@ __d(
     "WAWebGroupType",
     "WAWebPresenceCollection",
     "WAWebPresenceEnum",
+    "WAWebPresenceOrder",
     "WAWebPrivacyGatingUtils",
     "WAWebTextStatusGatingUtils",
     "WAWebWid",
     "lodash",
-    "useWAWebStableActiveUsers",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -142,7 +142,7 @@ __d(
                       typingUserIds: o(
                         "WAWebGroupGatingUtils",
                       ).isGroupTypingIndicatorEnabled()
-                        ? o("useWAWebStableActiveUsers").preserveUserOrder(
+                        ? o("WAWebPresenceOrder").preserveUserOrder(
                             e.typingUserIds,
                             i,
                           )
@@ -150,7 +150,7 @@ __d(
                       recordingUserIds: o(
                         "WAWebGroupGatingUtils",
                       ).isGroupTypingIndicatorEnabled()
-                        ? o("useWAWebStableActiveUsers").preserveUserOrder(
+                        ? o("WAWebPresenceOrder").preserveUserOrder(
                             e.recordingUserIds,
                             l,
                           )

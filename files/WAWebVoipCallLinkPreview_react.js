@@ -234,9 +234,7 @@ __d(
       E && k ? (N = P) : E ? (N = $) : (N = x);
       var M;
       E && k ? (M = L) : E ? (M = R) : (M = S);
-      var w = I
-          ? s._(/*BTDS*/ "Your request to join the call was not approved.")
-          : s._(/*BTDS*/ "Call ended"),
+      var w = s._(/*BTDS*/ "Call ended"),
         A = o("WAWebVoipLinkPreviewCallLink").getLandingPageMutePrefs(),
         F = b(A.videoMuted),
         O = F[0],

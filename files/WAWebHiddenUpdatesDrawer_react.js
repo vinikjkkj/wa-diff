@@ -108,7 +108,7 @@ __d(
           "change:statusMute change:parentStatusMute",
           d,
         ));
-      var m = s._(/*BTDS*/ "Hidden updates"),
+      var m = s._(/*BTDS*/ "Muted updates"),
         h = function (t, n) {
           o("WAWebModalManager").ModalManager.openMedia(
             c.jsx(r("WAWebStatusViewer.react"), {

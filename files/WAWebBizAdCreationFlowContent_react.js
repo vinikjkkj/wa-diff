@@ -7,6 +7,7 @@ __d(
     "FBLogger",
     "WAWebBizAdCreationFooterPortalContext.react",
     "WAWebBizAdDetailsDrawer.react",
+    "WAWebBizAdDraftSaveCallbackContext",
     "WAWebBizAdManagementHeaderButtonGroup.react",
     "WAWebBizAdManagementLogger",
     "WAWebBizAdManagementNullView.react",
@@ -35,9 +36,10 @@ __d(
       u = e || (e = o("react")),
       c = e,
       d = c.useCallback,
-      m = c.useRef,
-      p = c.useState,
-      _ = {
+      m = c.useContext,
+      p = c.useRef,
+      _ = c.useState,
+      f = {
         identityFallbackContainer: {
           flexGrow: "x1iyjqo2",
           justifyContent: "xl56j7k",
@@ -70,42 +72,50 @@ __d(
           $$css: !0,
         },
       };
-    function f(e) {
+    function g(e) {
       var t = e.flow,
         a = e.showExitConfirmation,
         l = e.step,
         c = r("useWAWebBizAdCreationIdentityContext")(),
-        f = r("useWAWebNativeAdsFlowIDContext")(),
-        g = c == null ? void 0 : c.relayEnvironment,
-        h = c == null ? void 0 : c.adCreationEntrypointReference,
-        y = c == null ? void 0 : c.adManagementQueryVariables,
-        C = d(
+        g = r("useWAWebNativeAdsFlowIDContext")(),
+        h = c == null ? void 0 : c.relayEnvironment,
+        y = c == null ? void 0 : c.adCreationEntrypointReference,
+        C = c == null ? void 0 : c.adManagementQueryVariables,
+        b = d(
           function () {
-            var e = f.regenerateAdCreationFlowID();
+            var e = g.regenerateAdCreationFlowID();
             (c == null || c.reloadPreloadedQueries(e), t.pop());
           },
-          [t, f, c],
+          [t, g, c],
         ),
-        b = p(null),
-        v = b[0],
-        S = b[1],
-        R = d(function (e) {
-          S(e);
+        v = m(r("WAWebBizAdDraftSaveCallbackContext")),
+        S = v.existingDraftIDRef,
+        R = d(
+          function (e) {
+            S.current = e;
+          },
+          [S],
+        ),
+        L = _(null),
+        E = L[0],
+        k = L[1],
+        I = d(function (e) {
+          k(e);
         }, []),
-        L = d(function () {
-          S(null);
+        T = d(function () {
+          k(null);
         }, []),
-        E = c == null ? void 0 : c.reloadPreloadedQueries,
-        k = f.regenerateAdCreationFlowID,
-        I = d(
+        D = c == null ? void 0 : c.reloadPreloadedQueries,
+        x = g.regenerateAdCreationFlowID,
+        $ = d(
           function (e, n, r) {
-            if (E != null) {
-              S(null);
-              var a = k();
+            if (D != null) {
+              k(null);
+              var a = x();
               (o("WAWebBizAdManagementLogger").logAdCreationEntryTap(
                 n,
                 a,
-                f.manageAdsFlowID,
+                g.manageAdsFlowID,
               ),
                 o("WAWebBizEnterFlowClickLogger").logEnterFlowClick({
                   entryPoint: r,
@@ -113,37 +123,37 @@ __d(
                   pageID: c == null ? void 0 : c.pageId,
                   recreateBoostId: e,
                 }),
-                E(a, { boostId: e }),
+                D(a, { boostId: e }),
                 t.push(
                   o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
                     .AdCreation,
                 ));
             }
           },
-          [t, f.manageAdsFlowID, c == null ? void 0 : c.pageId, E, k],
+          [t, g.manageAdsFlowID, c == null ? void 0 : c.pageId, D, x],
         ),
-        T = d(
+        P = d(
           function (e, n) {
-            if (E != null) {
-              S(null);
+            if (D != null) {
+              k(null);
               var r;
-              (n != null ? (f.setAdCreationFlowID(n), (r = n)) : (r = k()),
+              (n != null ? (g.setAdCreationFlowID(n), (r = n)) : (r = x()),
                 o("WAWebBizAdManagementLogger").logAdCreationEntryTap(
                   o("WAWebBizAdManagementLogger").LWI_ENTRY_POINT
                     .SMB_ADVERTISE_FROM_MANAGE_ADS_DRAFT_LIST,
                   r,
-                  f.manageAdsFlowID,
+                  g.manageAdsFlowID,
                 ),
-                E(r, { draftId: e }),
+                D(r, { draftId: e }),
                 t.push(
                   o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
                     .AdCreation,
                 ));
             }
           },
-          [t, f, E, k],
+          [t, g, D, x],
         ),
-        D = d(
+        N = d(
           function (e) {
             if (
               (r("FBLogger")("wa_ctwa_web").mustfix(
@@ -157,24 +167,24 @@ __d(
               t != null &&
                 o(
                   "WAWebBizNativeAdsEnterFlowErrorLogger",
-                ).logAdCreationEnterFlowError(e, t, f.adCreationFlowID);
+                ).logAdCreationEnterFlowError(e, t, g.adCreationFlowID);
             } else
               o(
                 "WAWebBizNativeAdsEnterFlowErrorLogger",
               ).logManageAdsGenericError(
                 e,
-                f.manageAdsFlowID,
+                g.manageAdsFlowID,
                 c == null ? void 0 : c.pageId,
               );
           },
           [
-            f.adCreationFlowID,
-            f.manageAdsFlowID,
+            g.adCreationFlowID,
+            g.manageAdsFlowID,
             c == null ? void 0 : c.pageId,
             l,
           ],
         ),
-        x = m(null);
+        M = p(null);
       if (l == null)
         return (
           r("FBLogger")("wa_ctwa_web").mustfix(
@@ -193,27 +203,27 @@ __d(
             step: l,
           }),
         });
-      var $ = o("WAWebBizNativeAdsDrawerConfig").getDrawerConfig(l),
-        P,
-        N,
-        M;
+      var w = o("WAWebBizNativeAdsDrawerConfig").getDrawerConfig(l),
+        A,
+        F,
+        O;
       e: {
         if (
           l === o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdCreation
         ) {
-          ((N = function () {
+          ((F = function () {
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e = yield a();
-              e && C();
+              e && b();
             })();
           }),
-            (P =
-              g != null && h != null
+            (A =
+              h != null && y != null
                 ? u.jsx(o("CometRelay").RelayEnvironmentProvider, {
-                    environment: g,
+                    environment: h,
                     children: u.jsx(o("CometRelay").EntryPointContainer, {
-                      entryPointReference: h,
-                      props: { onNavigateToManageAds: C },
+                      entryPointReference: y,
+                      props: { onNavigateToManageAds: b },
                     }),
                   })
                 : null));
@@ -223,16 +233,16 @@ __d(
           l ===
           o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdManagement
         ) {
-          ((M =
-            g != null
+          ((O =
+            h != null
               ? u.jsx(o("CometRelay").RelayEnvironmentProvider, {
-                  environment: g,
+                  environment: h,
                   children: u.jsx(
                     r("WAWebBizAdManagementHeaderButtonGroup.react"),
                     {
                       accountType: c == null ? void 0 : c.accountType,
                       flow: t,
-                      relayEnvironment: g,
+                      relayEnvironment: h,
                     },
                   ),
                 })
@@ -240,26 +250,27 @@ __d(
                   accountType: c == null ? void 0 : c.accountType,
                   createAdDisabled: !0,
                   flow: t,
-                  relayEnvironment: g,
+                  relayEnvironment: h,
                 })),
-            (P =
-              g != null && y != null
+            (A =
+              h != null && C != null
                 ? u.jsx(o("CometRelay").RelayEnvironmentProvider, {
-                    environment: g,
+                    environment: h,
                     children: u.jsx(r("WAWebBizAdManagementRoot.react"), {
+                      onExistingDraftIDChange: R,
                       onLoginToFacebook:
                         (c == null ? void 0 : c.accountType) !== "FB"
                           ? c == null
                             ? void 0
                             : c.loginWithFacebook
                           : void 0,
-                      pageId1: y.pageId1,
-                      pageId2: y.pageId2,
+                      pageId1: C.pageId1,
+                      pageId2: C.pageId2,
                       queryRef: c == null ? void 0 : c.adManagementQueryRef,
-                      onAdSelect: R,
-                      onRecreateAd: I,
-                      onResumeDraft: T,
-                      selectedKey: v == null ? void 0 : v.nodeId,
+                      onAdSelect: I,
+                      onRecreateAd: $,
+                      onResumeDraft: P,
+                      selectedKey: E == null ? void 0 : E.nodeId,
                     }),
                   })
                 : null));
@@ -270,15 +281,15 @@ __d(
             l,
         );
       }
-      if (!(c != null && c.isWAAEligible) && !g) {
-        var w,
-          A = (w = c == null ? void 0 : c.pageId) != null ? w : "";
-        P = u.jsxs(o("WAWebFlexBox.react").FlexColumn, {
-          xstyle: _.identityFallbackContainer,
+      if (!(c != null && c.isWAAEligible) && !h) {
+        var B,
+          W = (B = c == null ? void 0 : c.pageId) != null ? B : "";
+        A = u.jsxs(o("WAWebFlexBox.react").FlexColumn, {
+          xstyle: f.identityFallbackContainer,
           children: [
             u.jsx(r("WAWebBizAdManagementNullView.react"), {
-              manageAdsFlowID: f.manageAdsFlowID,
-              pageId: A,
+              manageAdsFlowID: g.manageAdsFlowID,
+              pageId: W,
             }),
             u.jsx(r("WDSButton.react"), {
               label: s._(/*BTDS*/ "Continue with Facebook"),
@@ -290,21 +301,21 @@ __d(
         });
       }
       return (
-        P == null &&
+        A == null &&
           !(c != null && c.isSwitching) &&
           (r("FBLogger")("wa_ctwa_web").warn(
             "bodyContent is null in AdCreationFlowContent for step " +
               String(l) +
               ": relayEnvironment=" +
-              String(g != null) +
-              " adCreationEntrypointRef=" +
               String(h != null) +
-              " adManagementQueryVars=" +
+              " adCreationEntrypointRef=" +
               String(y != null) +
+              " adManagementQueryVars=" +
+              String(C != null) +
               " isWAAEligible=" +
               String(c == null ? void 0 : c.isWAAEligible),
           ),
-          (P = $.loadingFallback)),
+          (A = w.loadingFallback)),
         u.jsx(r("WAWebBizAdsErrorBoundary.react"), {
           name: "WAWebNativeAdsFlow",
           fallback: u.jsx(r("WAWebBizAdsErrorPopup.react"), {
@@ -312,27 +323,27 @@ __d(
               step: l,
             }),
           }),
-          onError: D,
+          onError: N,
           children: u.jsx(r("WAWebDrawer.react"), {
-            theme: $.drawerTheme,
+            theme: w.drawerTheme,
             tsNavigationData: {
               surface: "unknown",
               viewName: "biz-native-ads",
             },
             children: u.jsxs(o("WAWebFlex.react").FlexRow, {
-              xstyle: _.fullscreenRoot,
+              xstyle: f.fullscreenRoot,
               children: [
                 u.jsxs(o("WAWebFlexBox.react").FlexColumn, {
-                  xstyle: _.mainContentWithHeader,
+                  xstyle: f.mainContentWithHeader,
                   children: [
                     u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-                      title: $.title(),
-                      type: $.headerType,
-                      onBack: N,
-                      rightActionElement: M,
+                      title: w.title(),
+                      type: w.headerType,
+                      onBack: F,
+                      rightActionElement: O,
                     }),
                     u.jsxs(r("CometPlaceholder.react"), {
-                      fallback: $.loadingFallback,
+                      fallback: w.loadingFallback,
                       name: i.id,
                       children: [
                         u.jsx(r("WAWebDrawerBody.react"), {
@@ -340,11 +351,11 @@ __d(
                             o("WAWebBizAdCreationFooterPortalContext.react")
                               .FooterPortalProvider,
                             {
-                              containerRef: x,
+                              containerRef: M,
                               children:
                                 c != null && c.isSwitching
-                                  ? $.loadingFallback
-                                  : P,
+                                  ? w.loadingFallback
+                                  : A,
                             },
                           ),
                         }),
@@ -352,7 +363,7 @@ __d(
                           o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
                             .AdCreation &&
                           u.jsx("div", {
-                            ref: x,
+                            ref: M,
                             className: "xh8yej3 x2lah0s",
                           }),
                       ],
@@ -361,17 +372,17 @@ __d(
                 }),
                 u.jsx(r("WAWebVelocityTransitionGroup"), {
                   xstyle: [
-                    _.rightDrawerWrapper,
-                    v != null ? _.rightDrawerOpen : _.rightDrawerClosed,
+                    f.rightDrawerWrapper,
+                    E != null ? f.rightDrawerOpen : f.rightDrawerClosed,
                   ],
                   transitionName: "slide-left",
                   children:
-                    v != null && g != null
+                    E != null && h != null
                       ? u.jsx(o("CometRelay").RelayEnvironmentProvider, {
-                          environment: g,
+                          environment: h,
                           children: u.jsx(r("WAWebBizAdDetailsDrawer.react"), {
-                            item: v,
-                            onClose: L,
+                            item: E,
+                            onClose: T,
                           }),
                         })
                       : null,
@@ -382,7 +393,7 @@ __d(
         })
       );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   226,
 );

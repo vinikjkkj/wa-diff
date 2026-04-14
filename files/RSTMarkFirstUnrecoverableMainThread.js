@@ -5,6 +5,7 @@ __d(
     "RSTLocalStorageMainThread",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,9 +22,10 @@ __d(
           try {
             "locks" in navigator &&
               (yield navigator.locks.request(e, function () {
-                r("RSTLocalStorageMainThread").has(a) ||
-                  (r("RSTLocalStorageMainThread").set(a, n),
-                  (t.isFirstUnrecoverable = !0));
+                (r("vulture")("owaG8fhKeXEHTz6uOX1_f8a5b8E="),
+                  !r("RSTLocalStorageMainThread").has(a) &&
+                    (r("RSTLocalStorageMainThread").set(a, n),
+                    (t.isFirstUnrecoverable = !0)));
               }));
           } catch (e) {
             r("FBLogger")("responsive-tracker")

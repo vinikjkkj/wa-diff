@@ -340,7 +340,7 @@ __d(
                           ? y
                             ? (qe = C.noBg)
                             : (qe = B ? C.contextEventOut : C.contextEventIn)
-                          : S.isForwarded && O
+                          : (S.isForwarded || ie != null) && O
                             ? (qe = C.noBg)
                             : (qe = B ? C.contextOut : C.contextIn));
       var Ue, Ve;
@@ -381,7 +381,9 @@ __d(
           (a._am2l = Ae && Ue === !0),
           a),
           (u || (u = r("stylex")))(Qe),
-          ie != null && { 0: "xx0f3s1", 1: "x104how" }[!!x << 0],
+          ie != null &&
+            !(xe || De || Me) &&
+            { 0: "xx0f3s1", 1: "x104how" }[!!x << 0],
         ),
         Je = function (t) {
           r("WAWebKeyboardIsKeyActivation")(t) && se(t);

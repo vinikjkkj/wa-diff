@@ -9,6 +9,7 @@ __d(
     "WAWebFilePicker.react",
     "WAWebPlusIcon.react",
     "WDSButton.react",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -18,32 +19,44 @@ __d(
       c = e,
       d = c.useCallback,
       m = c.useContext,
-      p = c.useRef,
-      _ = c.useState;
-    function f(e) {
+      p = c.useMemo,
+      _ = c.useRef,
+      f = c.useState;
+    function g(e) {
       var t = e.adAccountID,
         n = e.mediaCollection,
         a = e.onMediaUploadComplete,
         i = e.onMediaUploadFailure,
         l = e.onSelectedMediaSave,
         c = e.setMediaUploadFailed,
-        f = p(null),
-        g = _(!1),
-        h = g[0],
-        y = g[1],
-        C = m(r("WAWebBizAdCreationLoggerContext")),
-        b = function () {
+        g = _(null),
+        h = f(!1),
+        y = h[0],
+        C = h[1],
+        b = m(r("WAWebBizAdCreationLoggerContext")),
+        v = r("justknobx")._("3528"),
+        S = p(
+          function () {
+            return v
+              ? o(
+                  "WAWebBizAdCreationMediaValidationUtils",
+                ).getAllowedMimeTypesForCollection(n)
+              : o("WAWebBizAdCreationMediaValidationUtils").ALLOWED_MIME_TYPES;
+          },
+          [v, n],
+        ),
+        R = function () {
           var e;
-          (C != null &&
+          (b != null &&
             r("WAWebBizAdLogger").logCritical({
               event: "new_carousel_add_media_click",
-              loggerContext: C,
+              loggerContext: b,
               adAccountID: t,
             }),
             c(!1),
-            (e = f.current) == null || e.open());
+            (e = g.current) == null || e.open());
         },
-        v = d(
+        L = d(
           function (e) {
             o("WAWebBizAdCreationStage1WAUploadUtils").handleMediaPick(
               e,
@@ -51,7 +64,7 @@ __d(
               a,
               i,
               l,
-              y,
+              C,
             );
           },
           [n, a, i, l],
@@ -68,24 +81,23 @@ __d(
                 variant: "tonal",
                 size: "large",
                 type: "default",
-                onPress: b,
+                onPress: R,
                 "aria-label": s._(/*BTDS*/ "Add file"),
-                loading: h,
+                loading: y,
               },
               "media-more",
             ),
           }),
           u.jsx(r("WAWebFilePicker.react"), {
-            ref: f,
-            mimes: o("WAWebBizAdCreationMediaValidationUtils")
-              .ALLOWED_MIME_TYPES,
-            onChange: v,
+            ref: g,
+            mimes: S,
+            onChange: L,
             multiple: !0,
           }),
         ],
       });
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   226,
 );

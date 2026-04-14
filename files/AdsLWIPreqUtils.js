@@ -1,10 +1,12 @@
 __d(
   "AdsLWIPreqUtils",
-  ["qex", "useAdsLWIExposeAdAccountBoolUniverseHook"],
+  ["gkx", "qex", "useAdsLWIExposeAdAccountBoolUniverseHook"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      if ((e === void 0 && (e = !1), e)) {
+      if ((e === void 0 && (e = !1), !r("gkx")("20935") && !r("gkx")("21034")))
+        return !1;
+      if (e) {
         var t = r("qex")._("3453") === !0;
         r("qex")._("5144");
         var n = r("qex")._("5145") === !0;

@@ -202,29 +202,30 @@ __d(
         },
         le = function () {
           if (Q) {
-            var e = g.current;
+            var t = g.current;
             if (
               R &&
               o("WAWebNewsletterWamoSubUtils").newsletterSupportsSubscriptions(
                 L,
               ) &&
-              e &&
+              t &&
               o(
                 "WAWebNewsletterGatingUtils",
               ).isWamoSubCreatorExperienceSupported()
             ) {
-              var t = function (t) {
+              var n = function (t) {
                 ie(
                   t ===
                     o("WAWebNewsletterWamoSubMessageType")
                       .NewsletterWamoSubMessageType.WamoSub,
                 );
               };
-              T({ popupAnchorEl: e, handleSelect: t });
+              T({ popupAnchorEl: t, handleSelect: n });
             } else ie();
-            o(
-              "WAWebPttMessageUserJourneyLogger",
-            ).PttMessageUserJourneyLogger.send(a.id, E != null);
+            (e.onSend == null || e.onSend(),
+              o(
+                "WAWebPttMessageUserJourneyLogger",
+              ).PttMessageUserJourneyLogger.send(a.id, E != null));
           }
         };
       o("useWAWebListener").useListener(

@@ -14,8 +14,10 @@ __d(
       if (t === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING) {
         var n = o("WAWebWamFalcoABProps").getShadowLoggingEventIds();
         if (n.has(e.id) && "traceIdInt" in e) {
-          var r = new Uint32Array(1);
-          (self.crypto.getRandomValues(r), e.set({ traceIdInt: r[0] }));
+          var r = new Uint32Array(2);
+          self.crypto.getRandomValues(r);
+          var a = (r[1] % 2097152) * 4294967296 + r[0];
+          e.set({ traceIdInt: a });
         }
       }
     }

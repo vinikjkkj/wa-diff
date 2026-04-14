@@ -117,6 +117,9 @@ __d(
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI1on1 ||
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .ForwardedAiBotMessage ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.RefreshRestore
                 )
                   break e;

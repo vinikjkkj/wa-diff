@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebActionToast.react",
+    "WAWebBotUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebToast.react",
@@ -14,12 +15,17 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      return o("WAWebMsgGetters").getIsFrequentlyForwarded(e)
-        ? s._(/*BTDS*/ "Forwarded many times")
-        : o("WAWebMsgGetters").getType(e) ===
-            o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE
-          ? s._(/*BTDS*/ "Forwarded from Meta AI")
-          : s._(/*BTDS*/ "Forwarded");
+      var t;
+      if (o("WAWebMsgGetters").getIsFrequentlyForwarded(e))
+        return s._(/*BTDS*/ "Forwarded many times");
+      var n = (t = e.forwardedAiBotMessageInfo) == null ? void 0 : t.botId,
+        r =
+          o("WAWebBotUtils").isMetaAiBot(e.id.remote) ||
+          (n != null && o("WAWebBotUtils").isMetaAiBot(n));
+      return o("WAWebMsgGetters").getType(e) ===
+        o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE && r
+        ? s._(/*BTDS*/ "Forwarded from Meta AI")
+        : s._(/*BTDS*/ "Forwarded");
     }
     function d(e) {
       var t = s._(

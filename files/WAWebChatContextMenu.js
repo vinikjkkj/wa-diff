@@ -6,6 +6,7 @@ __d(
     "WAWebChatAssignmentUtils",
     "WAWebChatAssignmentWithContainerIcon.react",
     "WAWebChatCellDebugMenuItems.react",
+    "WAWebChatContextMenuItemAddContact.react",
     "WAWebChatContextMenuItemArchive.react",
     "WAWebChatContextMenuItemBlock.react",
     "WAWebChatContextMenuItemDelete.react",
@@ -42,6 +43,11 @@ __d(
         d = e.searchQuery,
         m = e.selectableState,
         p = [
+          u.jsx(
+            r("WAWebChatContextMenuItemAddContact.react"),
+            { chat: i },
+            "AddContact",
+          ),
           u.jsx(
             r("WAWebChatContextMenuItemArchive.react"),
             { chat: i },

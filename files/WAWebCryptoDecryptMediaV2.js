@@ -40,7 +40,7 @@ __d(
               o("WALogger").WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[media][crypto] compound bridge timeout, using main-thread fallback ",
+                    "[media][crypto] bridge timeout, main-thread fallback ",
                     "",
                   ])),
                 { debugString: a },

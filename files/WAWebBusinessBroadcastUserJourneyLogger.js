@@ -705,8 +705,22 @@ __d(
           (t.genAINuxDismissClicked = function () {
             o("WAWebBBGenAILogs").genAINuxDismissClicked(this.$1);
           }),
-          (t.tosNuxViewed = function (t) {
-            o("WAWebBBNuxLogs").tosNuxViewed(this.$1, t);
+          (t.tosNuxViewed = function (t, n) {
+            var e, r;
+            o("WAWebBBNuxLogs").tosNuxViewed(
+              this.$1,
+              t,
+              n != null
+                ? {
+                    is_soft_opt_in_accepted: n.isSoftOptInAccepted,
+                    persisted_state:
+                      (e = n.persistedState) != null ? e : "null",
+                    sync_result: n.syncResult,
+                    tos_manager_state:
+                      (r = n.tosManagerState) != null ? r : "null",
+                  }
+                : void 0,
+            );
           }),
           (t.tosNuxAcceptClicked = function (t) {
             o("WAWebBBNuxLogs").tosNuxAcceptClicked(this.$1, t);

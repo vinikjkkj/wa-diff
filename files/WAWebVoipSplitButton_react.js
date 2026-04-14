@@ -47,10 +47,10 @@ __d(
           $$css: !0,
         },
         splitButtonLeft: {
-          borderStartStartRadius: "x1bczwif",
+          borderStartStartRadius: "xt8t1vi",
+          borderEndStartRadius: "x15urzxu",
           borderStartEndRadius: "x17un8ov",
           borderEndEndRadius: "x1e7945m",
-          borderEndStartRadius: "x11o6v7j",
           height: "x1vqgdyp",
           paddingInlineStart: "x1iw51ew",
           paddingInlineEnd: "x1uc92m",
@@ -63,9 +63,9 @@ __d(
         },
         splitButtonRight: {
           borderStartStartRadius: "x1bczwif",
-          borderStartEndRadius: "x17un8ov",
-          borderEndEndRadius: "x1e7945m",
           borderEndStartRadius: "x11o6v7j",
+          borderStartEndRadius: "x1xc408v",
+          borderEndEndRadius: "x129tdwq",
           height: "x1vqgdyp",
           width: "xezivpi",
           paddingInlineStart: "x1c1uobl",
@@ -86,6 +86,11 @@ __d(
           $$css: !0,
         },
         buttonHover: { ":hover_backgroundColor": "x1k5h0tu", $$css: !0 },
+        focusInner: {
+          ":focus-visible_outlineOffset": "xyu9ima",
+          ":focus-visible_outlineWidth": "x100v1rl",
+          $$css: !0,
+        },
       },
       d = 1e3;
     function m(e) {
@@ -149,6 +154,7 @@ __d(
                     c.splitButtonLeft,
                     !I && c.splitButtonLeftSmall,
                     !a && !p && c.buttonHover,
+                    c.focusInner,
                   ],
                   "aria-label": C,
                   children: s.jsx(t, { height: T, width: T }),
@@ -173,6 +179,7 @@ __d(
                     c.splitButtonRight,
                     !I && c.splitButtonRightSmall,
                     !a && !l && c.buttonHover,
+                    c.focusInner,
                   ],
                   ref: g,
                   "aria-label": _,

@@ -3,10 +3,10 @@ __d(
   [
     "WALogger",
     "WAWebBaseCollection",
-    "WAWebBizGatingUtils",
     "WAWebFetchQuickPromotions",
     "WAWebL10N",
     "WAWebQuickPromotionEligibilityEvaluator",
+    "WAWebQuickPromotionGating",
     "WAWebQuickPromotionModel",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,7 +39,7 @@ __d(
                 }),
               ),
               this.localeChangeListener == null &&
-                o("WAWebBizGatingUtils").qpGraphQLEnabled() &&
+                o("WAWebQuickPromotionGating").qpGraphQLEnabledSMB() &&
                 (this.localeChangeListener = r("WAWebL10N").on(
                   "locale_change",
                   function () {

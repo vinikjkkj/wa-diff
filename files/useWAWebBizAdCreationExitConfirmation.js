@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "FBLogger",
+    "Promise",
     "WAWebConfirmPopup.react",
     "WAWebModalManager",
     "WAWebToast.react",
@@ -17,13 +18,15 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      u = e || (e = o("react")),
-      c = e,
-      d = c.useCallback,
-      m = c.useRef;
-    function p(e, t) {
-      var a = m(!1),
-        i = d(
+      u,
+      c = u || (u = o("react")),
+      d = u,
+      m = d.useCallback,
+      p = d.useRef,
+      _ = d.useState;
+    function f(e, t) {
+      var a = p(!1),
+        i = m(
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             if (a.current) return !1;
             a.current = !0;
@@ -31,10 +34,10 @@ __d(
               var e = t.saveCallbackRef.current,
                 n = r("justknobx")._("5520");
               return e != null && n
-                ? yield _(e)
+                ? yield y(e)
                 : yield o("WAWebConfirmPopup.react").waitForConfirmPopup({
                     title: s._(/*BTDS*/ "Continue without saving?"),
-                    children: u.jsx(r("WDSText.react"), {
+                    children: c.jsx(r("WDSText.react"), {
                       type: "Body2",
                       colorName: "contentDeemphasized",
                       children: s._(/*BTDS*/ "Your progress will be lost."),
@@ -49,7 +52,7 @@ __d(
         );
       return (
         r("useWAWebBeforeUnload")(
-          d(
+          m(
             function () {
               return { showConfirmationDialog: e };
             },
@@ -59,66 +62,100 @@ __d(
         { showExitConfirmation: i }
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = !1,
-            n = yield o("WAWebConfirmPopup.react").waitForConfirmPopup({
-              title: s._(/*BTDS*/ "Save as draft?"),
-              children: u.jsx(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDeemphasized",
-                children: s._(/*BTDS*/ "You can continue editing later."),
-              }),
-              okText: s._(/*BTDS*/ "Save"),
-              cancelText: s._(/*BTDS*/ "Cancel"),
-              extraButtonProps: {
-                text: s._(/*BTDS*/ "Discard"),
-                onClick: function () {
-                  ((t = !0), o("WAWebModalManager").ModalManager.close());
-                },
-              },
-              splitLayout: !0,
-            });
-          return n
-            ? (e()
-                .then(function (e) {
-                  e.success ||
-                    (r("FBLogger")("wa_ctwa_web").warn(
-                      "Draft save on exit returned failure",
-                    ),
-                    o("WAWebToastManager").ToastManager.open(
-                      u.jsx(o("WAWebToast.react").Toast, {
-                        msg: s._(
-                          /*BTDS*/ "Failed to save draft. Please try again.",
-                        ),
-                        id: o("WAWebToast.react").genId(),
-                      }),
-                    ));
-                })
-                .catch(function (e) {
-                  (r("FBLogger")("wa_ctwa_web")
-                    .catching(r("getErrorSafe")(e))
-                    .warn("Draft save on exit failed"),
-                    o("WAWebToastManager").ToastManager.open(
-                      u.jsx(o("WAWebToast.react").Toast, {
-                        msg: s._(
-                          /*BTDS*/ "Failed to save draft. Please try again.",
-                        ),
-                        id: o("WAWebToast.react").genId(),
-                      }),
-                    ));
-                }),
-              !0)
-            : !!t;
-        })),
-        f.apply(this, arguments)
+    function g() {
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Failed to save draft. Please try again."),
+          id: o("WAWebToast.react").genId(),
+        }),
       );
     }
-    l.default = p;
+    function h(e) {
+      var t = e.onResult,
+        a = e.saveDraft,
+        i = _(!1),
+        l = i[0],
+        u = i[1],
+        d = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            u(!0);
+            try {
+              var e = yield a();
+              e.success ||
+                (r("FBLogger")("wa_ctwa_web").mustfix(
+                  "Draft save on exit returned failure",
+                ),
+                g());
+            } catch (e) {
+              (r("FBLogger")("wa_ctwa_web")
+                .catching(r("getErrorSafe")(e))
+                .mustfix("Draft save on exit failed"),
+                g());
+            }
+            t(!0);
+          });
+          return function () {
+            return e.apply(this, arguments);
+          };
+        })(),
+        m = function () {
+          t(!0);
+        },
+        p = function () {
+          t(!1);
+        };
+      return c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+        title: s._(/*BTDS*/ "Save as draft?"),
+        okText: s._(/*BTDS*/ "Save"),
+        okSpinner: l,
+        okDisabled: l,
+        onOK: d,
+        onCancel: p,
+        cancelText: s._(/*BTDS*/ "Cancel"),
+        cancelDisabled: l,
+        extraButtonProps: {
+          text: s._(/*BTDS*/ "Discard"),
+          onClick: m,
+          disabled: l,
+        },
+        splitLayout: !0,
+        children: c.jsx(r("WDSText.react"), {
+          type: "Body2",
+          colorName: "contentDeemphasized",
+          children: s._(/*BTDS*/ "You can continue editing later."),
+        }),
+      });
+    }
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          return new (e || (e = n("Promise")))(function (e) {
+            var n = function () {
+              (o("WAWebModalManager").ModalManager.off("close_modal", n),
+                e(!1));
+            };
+            (o("WAWebModalManager").ModalManager.on("close_modal", n),
+              o("WAWebModalManager").ModalManager.open(
+                c.jsx(h, {
+                  saveDraft: t,
+                  onResult: function (r) {
+                    (o("WAWebModalManager").ModalManager.off("close_modal", n),
+                      o("WAWebModalManager").ModalManager.close(),
+                      e(r));
+                  },
+                }),
+                { blockClose: !0 },
+              ));
+          });
+        })),
+        C.apply(this, arguments)
+      );
+    }
+    l.default = f;
   },
   226,
 );

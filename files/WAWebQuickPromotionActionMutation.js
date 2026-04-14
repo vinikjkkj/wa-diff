@@ -5,11 +5,11 @@ __d(
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
-    "WAWebBizGatingUtils",
     "WAWebCTWAConstants",
     "WAWebFetchAdAccountToken",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebQuickPromotionActionMutation.graphql",
+    "WAWebQuickPromotionGating",
     "WAWebRelayClient",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,11 +22,11 @@ __d(
       p =
         e !== void 0 ? e : (e = n("WAWebQuickPromotionActionMutation.graphql"));
     function _(e) {
-      if (!o("WAWebBizGatingUtils").qpGraphQLEnabled())
+      if (!o("WAWebQuickPromotionGating").qpGraphQLEnabledSMB())
         return (d || (d = n("Promise"))).resolve({ type: "not-enabled" });
       var t = o("WAWebCTWAConstants").KNOWN_QP_SURFACES.get(e.surface_nux_id);
       return t == null ||
-        !o("WAWebBizGatingUtils").qpSurfaceIdsUsingGraphQL().has(t)
+        !o("WAWebQuickPromotionGating").qpSurfaceIdsUsingGraphQLSMB().has(t)
         ? (d || (d = n("Promise"))).resolve({ type: "not-enabled" })
         : o("WAWebOrchestratorNonPersistedJob")
             .createNonPersistedJob("quickPromotionActionMutation", function () {

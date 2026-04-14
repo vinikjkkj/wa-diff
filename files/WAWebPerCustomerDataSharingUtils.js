@@ -57,14 +57,23 @@ __d(
             ).DataSharing3pdLidCollection.isDataSharingEnabled(e);
     }
     function d(e) {
-      return o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled()
-        ? c(e)
+      if (
+        !o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled() ||
+        e == null
+      )
+        return o("WAWebWamEnumCustomerAdsSharingSettingEnabled")
+          .CUSTOMER_ADS_SHARING_SETTING_ENABLED.UNSET;
+      var t = o(
+        "WAWebDataSharing3pdLidCollection",
+      ).DataSharing3pdLidCollection.get(e);
+      return t == null
+        ? o("WAWebWamEnumCustomerAdsSharingSettingEnabled")
+            .CUSTOMER_ADS_SHARING_SETTING_ENABLED.UNSET
+        : t.dataSharing3pdEnabled
           ? o("WAWebWamEnumCustomerAdsSharingSettingEnabled")
               .CUSTOMER_ADS_SHARING_SETTING_ENABLED.TRUE
           : o("WAWebWamEnumCustomerAdsSharingSettingEnabled")
-              .CUSTOMER_ADS_SHARING_SETTING_ENABLED.FALSE
-        : o("WAWebWamEnumCustomerAdsSharingSettingEnabled")
-            .CUSTOMER_ADS_SHARING_SETTING_ENABLED.UNSET;
+              .CUSTOMER_ADS_SHARING_SETTING_ENABLED.FALSE;
     }
     function m(e) {
       return p.apply(this, arguments);

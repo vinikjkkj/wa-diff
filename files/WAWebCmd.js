@@ -2,6 +2,7 @@ __d(
   "WAWebCmd",
   [
     "$InternalEnum",
+    "JSResourceForInteraction",
     "Promise",
     "WAAbortError",
     "WALogger",
@@ -228,28 +229,111 @@ __d(
             this.trigger("edit_group_description");
           }),
           (i.attachMediaDrawer = function (t) {
-            var e = o("WAWebStateUtils").unproxy(t.chat);
+            var e = this,
+              a = o("WAWebStateUtils").unproxy(t.chat);
             if (
               !(
-                e.id.isBot() &&
-                !o("WAWebBotUtils").isBotChannelFBID(e.id) &&
-                (!o("WAWebBotUtils").isMetaAiBot(e.id) ||
+                a.id.isBot() &&
+                !o("WAWebBotUtils").isBotChannelFBID(a.id) &&
+                (!o("WAWebBotUtils").isMetaAiBot(a.id) ||
                   !(
                     o("WAWebBotGating").isMetaAiImageInputEnabled() ||
                     o("WAWebBotGating").isMetaAiDocUploadEnabled()
                   ))
               )
             ) {
-              var n = function (r) {
-                  (r.length > 0 &&
-                    o(
-                      "WAWebComposeBoxActions",
-                    ).ComposeBoxActions.setTextContent(e, r.join("\n\n")),
-                    t.onCancel == null || t.onCancel());
-                },
-                r = babelHelpers.extends({}, t, { chat: e, onCancel: n });
-              this.trigger("attach_media_drawer", r);
+              if (o("WAWebBotUtils").isMetaAiBot(a.id)) {
+                var i = t.attachments;
+                if (i != null) {
+                  (h || (h = n("Promise"))).all(i).then(
+                    (function () {
+                      var o = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (o) {
+                          var i = yield r("JSResourceForInteraction")(
+                              "WAWebBotMultiModalUtils",
+                            )
+                              .__setRef("WAWebCmd")
+                              .load(),
+                            l = i.getSupportedMetaAiAttachments,
+                            s = i.hasMetaAiMixedMediaTypes,
+                            u = i.maybeShowUnsupportedFileToast;
+                          if (
+                            s(
+                              o.map(function (e) {
+                                return e.file;
+                              }),
+                            )
+                          ) {
+                            var c = yield r("JSResourceForInteraction")(
+                                "WAWebBotMultiModalToasts",
+                              )
+                                .__setRef("WAWebCmd")
+                                .load(),
+                              d = c.showMixedMediaTypeToast;
+                            d();
+                            return;
+                          }
+                          var m = l(o);
+                          if ((u(m.length, o.length), m.length !== 0)) {
+                            var p = yield (h || (h = n("Promise"))).all([
+                                r("JSResourceForInteraction")("WAWebFileUtils")
+                                  .__setRef("WAWebCmd")
+                                  .load(),
+                                r("JSResourceForInteraction")(
+                                  "WAWebMediaGatingUtils",
+                                )
+                                  .__setRef("WAWebCmd")
+                                  .load(),
+                              ]),
+                              _ = p[0].typeFromMimetype,
+                              f = p[1].getMaxNumberSelectableMedia,
+                              g = _(m[0].file.type),
+                              y = f(m.length, a.id, g),
+                              C = m;
+                            if (m.length > y) {
+                              var b = yield r("JSResourceForInteraction")(
+                                  "WAWebBotMultiModalToasts",
+                                )
+                                  .__setRef("WAWebCmd")
+                                  .load(),
+                                v = b.showDocumentUploadLimitExceededToast,
+                                S = b.showImageSendLimitExceededToast;
+                              (g === "image" ? S(y) : g === "document" && v(y),
+                                (C = m.slice(0, y)));
+                            }
+                            e.$CmdImpl$p_1(
+                              babelHelpers.extends({}, t, {
+                                attachments: C.map(function (e) {
+                                  return e;
+                                }),
+                              }),
+                              a,
+                            );
+                          }
+                        },
+                      );
+                      return function (e) {
+                        return o.apply(this, arguments);
+                      };
+                    })(),
+                  );
+                  return;
+                }
+              }
+              this.$CmdImpl$p_1(t, a);
             }
+          }),
+          (i.$CmdImpl$p_1 = function (t, n) {
+            var e = function (r) {
+                (r.length > 0 &&
+                  o("WAWebComposeBoxActions").ComposeBoxActions.setTextContent(
+                    n,
+                    r.join("\n\n"),
+                  ),
+                  t.onCancel == null || t.onCancel());
+              },
+              r = babelHelpers.extends({}, t, { chat: n, onCancel: e });
+            this.trigger("attach_media_drawer", r);
           }),
           (i.attachProduct = function (t) {
             this.trigger("attach_product", t);
@@ -367,7 +451,7 @@ __d(
               r,
             );
           }),
-          (i.$CmdImpl$p_1 = function (r) {
+          (i.$CmdImpl$p_2 = function (r) {
             var t = this,
               a = r.chat,
               i = r.msgContext,
@@ -436,7 +520,7 @@ __d(
               c = o("WAWebStateUtils").unproxy(r);
             if (!i) return this.openChatBottom({ chat: c, chatEntryPoint: a });
             o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0);
-            var d = this.$CmdImpl$p_1({
+            var d = this.$CmdImpl$p_2({
               chat: c,
               msgContext: i,
               chatEntryPoint: a,
@@ -452,13 +536,13 @@ __d(
                       if (t)
                         if (t.wasVisible)
                           ((r = function () {
-                            return e.$CmdImpl$p_2({
+                            return e.$CmdImpl$p_3({
                               pos: "offset",
                               offset: t.offset,
                             });
                           }),
                             (o = function () {
-                              return e.$CmdImpl$p_2({
+                              return e.$CmdImpl$p_3({
                                 pos: "center",
                                 animate: a,
                                 duration: b,
@@ -468,7 +552,7 @@ __d(
                         else
                           switch (
                             ((r = function () {
-                              return e.$CmdImpl$p_2({
+                              return e.$CmdImpl$p_3({
                                 pos: t.alignAt,
                                 scrollIfNeeded: !0,
                               });
@@ -478,7 +562,7 @@ __d(
                             case "top":
                             case "bottom":
                               o = function () {
-                                return e.$CmdImpl$p_2({
+                                return e.$CmdImpl$p_3({
                                   pos: "center",
                                   animate: a,
                                   duration: b,
@@ -494,7 +578,7 @@ __d(
                           }
                       else
                         ((r = function () {
-                          return e.$CmdImpl$p_2({ pos: "center" });
+                          return e.$CmdImpl$p_3({ pos: "center" });
                         }),
                           (o = function () {
                             return (h || (h = n("Promise"))).resolve();
@@ -541,7 +625,7 @@ __d(
                 return !0;
               })
               .then(function (t) {
-                return (e.$CmdImpl$p_3(i), t);
+                return (e.$CmdImpl$p_4(i), t);
               })
               .catch(
                 o("WAAbortError").catchAbort(o("WAWebBoolFunc").returnFalse),
@@ -590,14 +674,14 @@ __d(
               d || u.unreadCount > 0)
             ) {
               o("WAWebUiIdleEventBus").UiIdleEventBus.setUiBusy(!0);
-              var p = this.$CmdImpl$p_1({
+              var p = this.$CmdImpl$p_2({
                 chat: u,
                 msgContext: d,
                 chatEntryPoint: i,
                 threadId: l,
               })
                 .then(function () {
-                  return e.$CmdImpl$p_2({ pos: "top", offset: -120 });
+                  return e.$CmdImpl$p_3({ pos: "top", offset: -120 });
                 })
                 .then(o("WAWebBoolFunc").returnTrue)
                 .catch(
@@ -648,7 +732,7 @@ __d(
                   : (m = i.msgs.last()),
                 (l = { collection: d, msg: m, isUnreadDivider: !1 }));
             }
-            var p = this.$CmdImpl$p_1({
+            var p = this.$CmdImpl$p_2({
               chat: i,
               msgContext: l,
               chatEntryPoint: r,
@@ -668,7 +752,7 @@ __d(
               p
             );
           }),
-          (i.$CmdImpl$p_2 = function (t) {
+          (i.$CmdImpl$p_3 = function (t) {
             var e = this;
             return new (h || (h = n("Promise")))(function (n) {
               e.trigger("scroll_to_focused_msg", n, t);
@@ -1034,7 +1118,7 @@ __d(
           (i.typingIndicatorVisibilityChange = function (t) {
             this.trigger("typing_indicator_visibility_change", t);
           }),
-          (i.$CmdImpl$p_3 = function (t) {
+          (i.$CmdImpl$p_4 = function (t) {
             t.highlightTerms != null &&
               t.highlightTerms.length > 0 &&
               this.trigger("set_msg_highlight_terms", t.highlightTerms, t.key);

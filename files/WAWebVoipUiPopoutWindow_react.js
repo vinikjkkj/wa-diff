@@ -1,37 +1,54 @@
 __d(
   "WAWebVoipUiPopoutWindow.react",
   [
-    "fbt",
     "ReactDOM",
     "WAWebCallCollection",
+    "WAWebChatCollection",
     "WAWebVoipEventConstants",
     "WAWebVoipPopoutModalManagerWrapper.react",
     "WAWebVoipTooSmallOverlay.react",
     "WAWebVoipUiLoadable",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
     "WAWebVoipWindowConstants",
+    "fbs",
     "react",
     "useWAWebEventTargetValue",
     "useWAWebVoipWindowSetup",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      u = e || (e = o("react")),
-      c = e,
-      d = c.useEffect,
-      m = c.useState;
-    function p() {
+      s = e || (e = o("react")),
+      u = e,
+      c = u.useEffect,
+      d = u.useState;
+    function m() {
       o(
         "WAWebVoipUiPopoutWindowPortalContainer.react",
       ).WAWebVoipUiPopoutWindowEventEmitter.trigger("closePopoutWindow", {
         callEnded: !1,
       });
     }
-    function _(e) {
-      e.title = String(s._(/*BTDS*/ "WhatsApp call"));
+    function p(e) {
+      if (e != null) {
+        var t,
+          n = (t = e.id) == null ? void 0 : t.remote;
+        if (n != null) {
+          var a = o("WAWebChatCollection").ChatCollection.get(n);
+          if (a != null && a.id.isGroup()) {
+            var i = a.name || a.formattedTitle;
+            if (i != null && i !== "")
+              return String(
+                r("fbs")._(/*BTDS*/ "WhatsApp call \u2014 {group_name}", [
+                  r("fbs")._param("group_name", i),
+                ]),
+              );
+          }
+        }
+      }
+      return String(r("fbs")._(/*BTDS*/ "WhatsApp call"));
     }
-    function f() {
+    function _() {
       var e = r("WAWebCallCollection").activeCall;
       if (e != null && e.isCallLink && e.callLinkToken != null) {
         var t = e.isVideo ? "video" : "voice";
@@ -39,14 +56,14 @@ __d(
       }
       return window.location.origin;
     }
-    function g(e) {
+    function f(e) {
       var t = e.callLogMsg,
         n = e.onWindowReady,
         a = e.popoutWindow,
-        i = m(!1),
+        i = d(!1),
         l = i[0],
-        s = i[1],
-        c = r("useWAWebEventTargetValue")(
+        u = i[1],
+        f = r("useWAWebEventTargetValue")(
           [
             r("WAWebCallCollection"),
             r("WAWebCallCollection").activeCall,
@@ -58,12 +75,12 @@ __d(
           ) + " change",
           o("WAWebVoipWindowConstants").getEffectiveMinWindowWidth,
         );
-      d(
+      c(
         function () {
           if (a) {
             var e = function () {
-              s(
-                a.outerWidth < c ||
+              u(
+                a.outerWidth < f ||
                   a.outerHeight <
                     o("WAWebVoipWindowConstants").MIN_WINDOW_HEIGHT,
               );
@@ -77,7 +94,7 @@ __d(
             );
           }
         },
-        [a, c],
+        [a, f],
       );
       var g = o("useWAWebVoipWindowSetup").useVoipWindowSetup(
         a
@@ -86,11 +103,13 @@ __d(
               popoverPortalId: o("WAWebVoipUiPopoutWindowPortalContainer.react")
                 .VOIP_POPOUT_POPOVER_PORTAL_ID,
               logContext: "popout window",
-              onBeforeUnload: p,
-              onPageHide: p,
-              setDocumentTitle: _,
+              onBeforeUnload: m,
+              onPageHide: m,
+              setDocumentTitle: function (n) {
+                n.title = p(t);
+              },
               preventPageRefresh: !0,
-              replaceUrl: f(),
+              replaceUrl: _(),
             }
           : null,
         n,
@@ -98,16 +117,16 @@ __d(
       return (
         g &&
         o("ReactDOM").createPortal(
-          u.jsxs(u.Fragment, {
+          s.jsxs(s.Fragment, {
             children: [
-              u.jsx(
+              s.jsx(
                 o("WAWebVoipPopoutModalManagerWrapper.react")
                   .VoipPopoutModalManagerWrapper,
                 {
                   type: o("WAWebVoipPopoutModalManagerWrapper.react").ModalType,
                 },
               ),
-              u.jsx(
+              s.jsx(
                 o("WAWebVoipPopoutModalManagerWrapper.react")
                   .VoipPopoutModalManagerWrapper,
                 {
@@ -115,17 +134,17 @@ __d(
                     .SupportType,
                 },
               ),
-              u.jsx(
+              s.jsx(
                 o("WAWebVoipPopoutModalManagerWrapper.react")
                   .VoipPopoutModalManagerWrapper,
                 {
                   type: o("WAWebVoipPopoutModalManagerWrapper.react").MediaType,
                 },
               ),
-              u.jsx(o("WAWebVoipUiLoadable").WAWebVoipUiLoadable, {
+              s.jsx(o("WAWebVoipUiLoadable").WAWebVoipUiLoadable, {
                 callLogMsg: t,
               }),
-              u.jsx(
+              s.jsx(
                 o("WAWebVoipTooSmallOverlay.react").WAWebVoipTooSmallOverlay,
                 { isVisible: l },
               ),
@@ -135,8 +154,8 @@ __d(
         )
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
-      (l.WAWebVoipUiPopoutWindow = g));
+    ((f.displayName = f.name + " [from " + i.id + "]"),
+      (l.WAWebVoipUiPopoutWindow = f));
   },
   226,
 );

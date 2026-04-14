@@ -166,14 +166,33 @@ __d(
             F();
             return;
           }
-          (t.type === "contact" || t.type === "group") &&
-            (o(
-              "WAWebLimitSharingUIUtils",
-            ).isLimitSharingReceiverEnabledForUsers(l, [t.id])
-              ? o(
-                  "WAWebLimitSharingUIUtils",
-                ).showLimitSharingInvokeBlockedPopup(l)
-              : A(t.id));
+          if (t.type === "contact" || t.type === "group")
+            if (
+              o(
+                "WAWebLimitSharingUIUtils",
+              ).isLimitSharingReceiverEnabledForUsers(l, [t.id])
+            )
+              o("WAWebLimitSharingUIUtils").showLimitSharingInvokeBlockedPopup(
+                l,
+              );
+            else {
+              A(t.id);
+              var e =
+                t.type === "contact"
+                  ? o("WAWebWamEnumMentionType").MENTION_TYPE.REGULAR_USER
+                  : o("WAWebWamEnumMentionType").MENTION_TYPE.GROUP;
+              o("WAWebChatThreadLogging")
+                .getChatThreadID(l.id.toJid())
+                .then(function (t) {
+                  new (o(
+                    "WAWebMentionPickerActionWamEvent",
+                  ).MentionPickerActionWamEvent)({
+                    isAGroup: E != null,
+                    mentionType: e,
+                    threadId: t != null ? t : "",
+                  }).commit();
+                });
+            }
         },
         W = function (t) {
           if (O(t)) {

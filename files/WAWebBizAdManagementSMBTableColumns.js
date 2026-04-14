@@ -155,20 +155,24 @@ __d(
         width: o("WAWebBizAdManagementColumnWidths").adManagementColumnWidths
           .actions,
         cell: function (t) {
-          var e = t.item;
-          return e.isDraft
-            ? u.jsx(r("WAWebBizAdManagementDraftActionsCell.react"), {})
+          var e = t.isRowHovered,
+            n = t.item;
+          return n.isDraft
+            ? u.jsx(r("WAWebBizAdManagementDraftActionsCell.react"), {
+                isRowHovered: e,
+                onDelete: n.onDeleteDraft,
+              })
             : u.jsx(r("WAWebBizAdManagementActionsCell.react"), {
-                boostId: e.boostId,
-                boostingStatus: e.boostingStatus,
+                boostId: n.boostId,
+                boostingStatus: n.boostingStatus,
                 onRecreatePress: function () {
-                  return e.onRecreateAd(
+                  return n.onRecreateAd(
                     o("WAWebBizAdManagementLogger").LWI_ENTRY_POINT
                       .SMB_ADVERTISE_FROM_MANAGE_ADS_OVERFLOW_MENU_ITEM_RECREATE_AD_BUTTON,
                     "whatsapp_smb_manage_ads_listing_overflow_menu_recreate_ad_option",
                   );
                 },
-                onViewResults: e.onViewResults,
+                onViewResults: n.onViewResults,
               });
         },
       },

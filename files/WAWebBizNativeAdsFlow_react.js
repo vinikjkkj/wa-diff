@@ -35,30 +35,31 @@ __d(
         g = _[1],
         h = r("useWAWebFocusOnMount")(),
         y = p(null),
-        C = m(function () {
-          return { saveCallbackRef: y };
+        C = p(null),
+        b = m(function () {
+          return { existingDraftIDRef: y, saveCallbackRef: C };
         }, []),
-        b = r("useWAWebBizAdCreationExitConfirmation")(
+        v = r("useWAWebBizAdCreationExitConfirmation")(
           g.step ===
             o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdCreation,
-          C,
+          b,
         ),
-        v = b.showExitConfirmation,
-        S = d(
+        S = v.showExitConfirmation,
+        R = d(
           function (e) {
             e !== o("WAWebUim").DismissReason.LIFECYCLE &&
               (g.step ===
               o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdCreation
                 ? n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var e = yield v();
+                    var e = yield S();
                     e && g.end();
                   })()
                 : g.end());
           },
-          [g, v],
+          [g, S],
         );
       return u.jsx(r("WAWebBizAdDraftSaveCallbackContext").Provider, {
-        value: C,
+        value: b,
         children: u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
           tabIndex: 0,
           ref: h,
@@ -73,10 +74,10 @@ __d(
                 children: u.jsx(f, {
                   ref: l,
                   flow: g,
-                  requestDismiss: S,
+                  requestDismiss: R,
                   children: u.jsx(r("WAWebBizAdCreationFlowContent.react"), {
                     flow: g,
-                    showExitConfirmation: v,
+                    showExitConfirmation: S,
                     step: g.step,
                   }),
                 }),

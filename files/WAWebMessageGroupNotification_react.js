@@ -8,6 +8,7 @@ __d(
     "WAWebChatCommunityUtils",
     "WAWebChatGroupUtils",
     "WAWebCmd",
+    "WAWebCommunitySubgroupInviteLinkRestriction",
     "WAWebConfirmPopup.react",
     "WAWebContactCollection",
     "WAWebDrawerManager",
@@ -943,7 +944,13 @@ __d(
                 }
                 return w();
               case "revoke_invite":
-                return A();
+                return o(
+                  "WAWebCommunitySubgroupInviteLinkRestriction",
+                ).isSubgroupInviteLinkRestrictedByParentCommunity(
+                  N.groupMetadata,
+                )
+                  ? void 0
+                  : A();
               case "description":
                 return F();
               case "parent_group_description":
@@ -962,7 +969,13 @@ __d(
               case "default_sub_group_demote":
                 return F(!0);
               case "growth_unlocked":
-                return q();
+                return o(
+                  "WAWebCommunitySubgroupInviteLinkRestriction",
+                ).isSubgroupInviteLinkRestrictedByParentCommunity(
+                  N.groupMetadata,
+                )
+                  ? void 0
+                  : q();
               case "growth_locked":
                 return W();
               case "ephemeral_keep_in_chat":

@@ -52,9 +52,7 @@ __d(
             : t.participants.iAmAdmin()) === !0,
         l = function () {
           (o("WAWebModalManager").closeModalManager(),
-            o("WAWebSuspendedGroupUtils").openGroupSuspensionAppealModal(
-              n.id.user,
-            ));
+            o("WAWebSuspendedGroupUtils").openGroupSuspensionAppealModal(n.id));
         },
         d = function () {
           o("WAWebModalManager").closeModalManager();

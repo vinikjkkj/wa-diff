@@ -313,6 +313,7 @@ __d(
       (l.openMetaAiThreadAndSendQuery = L),
       (l.createNewMetaAiThread = E),
       (l.createAndOpenNewMetaAiThread = k),
+      (l.ensureThreadModelExists = I),
       (l.runMetaAiThreadsFlow = T),
       (l.getMetaAiChat = D),
       (l.getMetaAiTEEBotDisplayName = $),

@@ -2,7 +2,7 @@ __d(
   "WAWebHandleQPPrefetchTimestampNotification",
   [
     "WASmaxPsaResetSmbLastQpPrefetchTimestampRPC",
-    "WAWebBizGatingUtils",
+    "WAWebQuickPromotionGating",
     "WAWebWorkerSafeBackendApi",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,7 +13,7 @@ __d(
         n = t.makeResetSmbLastQpPrefetchTimestampResponseAck,
         r = n();
       return (
-        o("WAWebBizGatingUtils").qpGraphQLEnabled() &&
+        o("WAWebQuickPromotionGating").qpGraphQLEnabledSMB() &&
           o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
             "fetchQuickPromotionsNow",
           ),

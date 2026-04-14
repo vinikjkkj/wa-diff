@@ -110,6 +110,7 @@ __d(
             s.jsx(r("WAWebAttachMenuPopupItemDocuments.react"), {
               chat: a,
               dismissMenu: R,
+              multiple: !C,
               onDocumentPick: function (t) {
                 L({
                   attachments: t,

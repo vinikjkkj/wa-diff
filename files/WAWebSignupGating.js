@@ -1,6 +1,6 @@
 __d(
   "WAWebSignupGating",
-  ["WAWebABProps", "WAWebBizGatingUtils"],
+  ["WAWebABProps", "WAWebBizGatingUtils", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
@@ -8,7 +8,10 @@ __d(
         o("WAWebBizGatingUtils").getFmxAgmEnabled()
       );
     }
-    l.isSignupAGMEnabled = e;
+    function s() {
+      return !r("justknobx")._("5555");
+    }
+    ((l.isSignupAGMEnabled = e), (l.isSignupAGMCleanupEnabled = s));
   },
   98,
 );

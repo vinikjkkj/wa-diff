@@ -450,6 +450,7 @@ __d(
                         o("WAWebBizBroadcastsImportAudienceScreenLoadable")
                           .WAWebBizBroadcastsImportAudienceScreenLoadable,
                         {
+                          onSendBroadcast: te,
                           entryPoint: s,
                           onClose: function () {
                             return T.pop();

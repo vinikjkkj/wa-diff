@@ -14,6 +14,7 @@ __d(
     "WAWebStaleBaseCollection",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -52,9 +53,17 @@ __d(
                     (t =
                       (n = a.recipients) == null
                         ? void 0
-                        : n.map(function (e) {
-                            return { id: o("WAWebWidFactory").createWid(e) };
-                          })) != null
+                        : n
+                            .map(function (e) {
+                              try {
+                                return {
+                                  id: o("WAWebWidFactory").createWid(e),
+                                };
+                              } catch (e) {
+                                return null;
+                              }
+                            })
+                            .filter(Boolean)) != null
                       ? t
                       : [];
                   return {
@@ -108,15 +117,15 @@ __d(
               n.parentType ===
               o("WAWebListItemParentType").LabelItemParentType.Contact
             ) {
-              var r = n.labelId;
+              var a = n.labelId;
               this.forEach(function (n) {
-                var a,
-                  i =
-                    (a = n.get("audienceExpression")) != null
-                      ? a
+                var i,
+                  l =
+                    (i = n.get("audienceExpression")) != null
+                      ? i
                       : o("WAWebAudienceExpressionTypes")
                           .DEFAULT_AUDIENCE_EXPRESSION;
-                o("WAWebAudienceExpressionTypes").expressionUsesLabel(i, r) &&
+                o("WAWebAudienceExpressionTypes").expressionUsesLabel(l, a) &&
                   t
                     .findImpl(n.id)
                     .then(function (e) {
@@ -137,6 +146,7 @@ __d(
                             ])),
                         )
                         .verbose()
+                        .catching(r("getErrorSafe")(t))
                         .sendLogs(
                           "broadcast-metadata-collection-failed-to-update-metadata",
                         );

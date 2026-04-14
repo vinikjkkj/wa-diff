@@ -45,6 +45,7 @@ __d(
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebQplStorage",
     "WAWebQuarantineDataCleanupJob",
+    "WAWebQuickPromotionGating",
     "WAWebReportDbVerionsJob",
     "WAWebRestartRecentSyncJob",
     "WAWebSyncContactsJob",
@@ -853,8 +854,8 @@ __d(
                                                                   "WAWebFetchQuickPromotions",
                                                                 ).fetchQuickPromotions(),
                                                                 o(
-                                                                  "WAWebBizGatingUtils",
-                                                                ).qpGraphQLFetchIntervalMinutes() *
+                                                                  "WAWebQuickPromotionGating",
+                                                                ).qpGraphQLFetchIntervalMinutesSMB() *
                                                                   o(
                                                                     "WATimeUtils",
                                                                   )
