@@ -8,6 +8,7 @@ const FETCH_SCRIPT_PATH = path.resolve(__dirname, 'fetch.js')
 const OUTPUT_PATH = path.resolve(__dirname, 'urls.json')
 const EXPORT_DIR = path.resolve(__dirname, 'files')
 const WORKERS = '50'
+const MODULE_FILTER = '/^(?!.*react).+$/i'
 
 const MAX_WAIT_MS = 5 * 60 * 1000
 const POLL_INTERVAL_MS = 2000
@@ -86,7 +87,7 @@ function runWaExport() {
         WORKERS,
         '--flat',
         '--module-filter',
-        'react'
+        MODULE_FILTER
     ]
 
     return runCommand(process.execPath, [waExportScript, ...args], 'wa-export')
