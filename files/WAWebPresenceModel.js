@@ -24,6 +24,7 @@ __d(
     "WAWebPrivacyGatingUtils",
     "WAWebTextStatusGatingUtils",
     "WAWebWid",
+    "WAWebWidFormat",
     "lodash",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -421,9 +422,8 @@ __d(
     function b(e, t, n, r) {
       if (e === "typing" && t.length > 0) return v(t, r);
       if (e === "recording_audio" && n.length > 0) {
-        var o = S(n[n.length - 1], r);
-        if (o == null) return null;
-        var a = o.accessibleName,
+        var o = S(n[n.length - 1], r),
+          a = o.accessibleName,
           i = o.name;
         return {
           text: s._(/*BTDS*/ "{member} is recording audio\u2026", [
@@ -437,9 +437,8 @@ __d(
       return null;
     }
     function v(e, t) {
-      var n = S(e[e.length - 1], t);
-      if (n == null) return null;
-      var r = n.accessibleName,
+      var n = S(e[e.length - 1], t),
+        r = n.accessibleName,
         a = n.name,
         i = e.length;
       if (
@@ -487,18 +486,19 @@ __d(
     }
     function S(e, t) {
       var n = o("WAWebContactCollection").ContactCollection.get(e);
-      if (n == null) return null;
-      if (o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(n) && t)
+      if (n == null) {
+        var r = o("WAWebWidFormat").widToFormattedUser(e);
+        return { name: r, accessibleName: r };
+      }
+      if (o("WAWebElevatedPushNamesFlag").pushNameCanBeUsed(n) && t) {
+        var a = o("WAWebContactGetters").getNotifyName(n);
         return {
-          name: o("WAWebChatContactUtils").getFormattedNotifyName(
-            o("WAWebContactGetters").getNotifyName(n),
-          ),
-          accessibleName: o("WAWebChatContactUtils").getAccessibleNotifyName(
-            o("WAWebContactGetters").getNotifyName(n),
-          ),
+          name: o("WAWebChatContactUtils").getFormattedNotifyName(a),
+          accessibleName: o("WAWebChatContactUtils").getAccessibleNotifyName(a),
         };
-      var r = o("WAWebFrontendContactGetters").getFormattedShortName(n);
-      return { name: r, accessibleName: r };
+      }
+      var i = o("WAWebFrontendContactGetters").getFormattedShortName(n);
+      return { name: i, accessibleName: i };
     }
     ((l.processStagesRecursively = y),
       (l.Presence = C),

@@ -20,9 +20,8 @@ __d(
         l = a != null ? a : i;
       if (l) {
         if (
-          !o("WAWebPollsGatingUtils").isPollResultSnapshotReceivingEnabled() ||
-          (i &&
-            !o("WAWebNewsletterGatingUtils").isNewsletterQuizReceiverEnabled())
+          i &&
+          !o("WAWebNewsletterGatingUtils").isNewsletterQuizReceiverEnabled()
         )
           return {
             msgData: babelHelpers.extends({}, t, {

@@ -34,7 +34,7 @@ __d(
                       "Failed to sync non-address book contacts with error: ",
                       "",
                     ])),
-                  t,
+                  String(t),
                 );
               })
               .then(function () {
@@ -47,7 +47,7 @@ __d(
                       "contact sync failed: ",
                       "",
                     ])),
-                  e,
+                  String(e),
                 );
               })
           : o("WAWebContactSyncBridge").doFullContactSync(!1)
@@ -67,7 +67,7 @@ __d(
                       "Failed to sync non-address book contacts with error: ",
                       "",
                     ])),
-                  e,
+                  String(e),
                 );
               })
               .then(function () {
@@ -80,7 +80,7 @@ __d(
                       "contact sync failed: ",
                       "",
                     ])),
-                  e,
+                  String(e),
                 );
               })
           : o("WAWebContactSyncBridge").doFullContactSync(!1)

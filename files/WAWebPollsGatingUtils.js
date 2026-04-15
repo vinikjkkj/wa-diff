@@ -26,80 +26,45 @@ __d(
         20,
       );
     }
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "poll_result_details_view_enabled",
+    function m(e) {
+      return (
+        r("WAWebWid").isNewsletter(e) !== !0 ||
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
       );
     }
-    function p() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "polls_fast_follow_enabled",
+    function p(e) {
+      return (
+        r("WAWebWid").isNewsletter(e) !== !0 ||
+        o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
       );
     }
     function _() {
-      return p();
-    }
-    function f() {
-      return p();
-    }
-    function g() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "polls_single_option_control_enabled",
-      );
-    }
-    function h(e) {
-      return r("WAWebWid").isNewsletter(e) === !0
-        ? o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
-        : g() ||
-            o("WAWebABProps").getABPropConfigValue(
-              "polls_single_option_sender_control_enabled",
-            );
-    }
-    function y(e) {
-      return (
-        h(e) ||
-        o("WAWebABProps").getABPropConfigValue(
-          "polls_single_option_receiver_control_enabled",
-        )
-      );
-    }
-    function C() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "polls_notification_enabled",
-      );
-    }
-    function b() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "poll_result_snapshot_message_receiver_enabled",
-      );
-    }
-    function v() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "poll_creator_edit_receiving_version",
         ) > 0
       );
     }
-    function S() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "poll_end_time_receiving_enabled",
       );
     }
-    function R() {
+    function g() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "poll_hide_voters_receiving_enabled",
         ) > 0
       );
     }
-    function L() {
+    function h() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "poll_add_option_receiving_enabled",
         ) > 0
       );
     }
-    function E() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "tappable_links_in_poll_option_enabled",
       );
@@ -109,19 +74,13 @@ __d(
       (l.getMaxPollOptionLength = u),
       (l.getMaxPollOptionLengthForIncomingMessages = c),
       (l.getMaxPollOptionCount = d),
-      (l.isPollResultDetailsViewEnabled = m),
-      (l.arePollsFastFollowsEnabled = p),
-      (l.isPrefillPollQuestionEnabled = _),
-      (l.isPollsCancellationPromptEnabled = f),
-      (l.isSingleOptionPollsSendingEnabled = h),
-      (l.isSingleOptionPollsReceivingEnabled = y),
-      (l.arePollsNotificationsEnabled = C),
-      (l.isPollResultSnapshotReceivingEnabled = b),
-      (l.isPollCreatorEditReceivingEnabled = v),
-      (l.isPollEndTimeReceivingEnabled = S),
-      (l.isPollHideVotersReceivingEnabled = R),
-      (l.isPollAddOptionReceivingEnabled = L),
-      (l.isTappableLinksInPollOptionEnabled = E));
+      (l.isSingleOptionPollsSendingEnabled = m),
+      (l.isSingleOptionPollsReceivingEnabled = p),
+      (l.isPollCreatorEditReceivingEnabled = _),
+      (l.isPollEndTimeReceivingEnabled = f),
+      (l.isPollHideVotersReceivingEnabled = g),
+      (l.isPollAddOptionReceivingEnabled = h),
+      (l.isTappableLinksInPollOptionEnabled = y));
   },
   98,
 );

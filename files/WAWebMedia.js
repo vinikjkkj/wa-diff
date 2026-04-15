@@ -10,7 +10,6 @@ __d(
     "WAWebMediaCancelDownloadMsg",
     "WAWebMediaCancelUploadMsg",
     "WAWebMediaDownloadMsg",
-    "WAWebMediaForwardMediaMsg",
     "WAWebMediaMetadata",
     "WAWebMediaMsgRegistration",
     "WAWebMediaPrep",
@@ -34,10 +33,9 @@ __d(
       m = importNamespace(
         "WAWebDownloadStatusThumbnail",
       ).downloadStatusThumbnail,
-      p = importNamespace("WAWebMediaForwardMediaMsg").forwardMediaMsg,
-      _ = importNamespace("WAWebManuallySetMedia").manuallySetMedia,
-      f = importNamespace("WAWebPrepRawMedia").prepRawMedia,
-      g = importNamespace("WAWebMediaResumeUploadMsg").resumeUploadMsg;
+      p = importNamespace("WAWebManuallySetMedia").manuallySetMedia,
+      _ = importNamespace("WAWebPrepRawMedia").prepRawMedia,
+      f = importNamespace("WAWebMediaResumeUploadMsg").resumeUploadMsg;
     (Object.keys(importNamespace("WAWebMediaCancelDownloadMsg")).forEach(
       function (e) {
         e === "default" ||
@@ -88,10 +86,9 @@ __d(
       (i.downloadMsg = c),
       (i.downloadProgressiveJpegThumbnail = d),
       (i.downloadStatusThumbnail = m),
-      (i.forwardMediaMsg = p),
-      (i.manuallySetMedia = _),
-      (i.prepRawMedia = f),
-      (i.resumeUploadMsg = g));
+      (i.manuallySetMedia = p),
+      (i.prepRawMedia = _),
+      (i.resumeUploadMsg = f));
   },
   66,
 );

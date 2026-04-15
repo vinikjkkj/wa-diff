@@ -122,14 +122,13 @@ __d(
         v = t.pollType,
         S = r("useLazyRef")(function () {
           var e, t;
-          return o("WAWebPollsGatingUtils").isPrefillPollQuestionEnabled() &&
-            (e =
-              (t = l()) == null || (t = t.getTextContent()) == null
-                ? void 0
-                : t.substring(
-                    0,
-                    o("WAWebPollsGatingUtils").getMaxPollNameLength(),
-                  )) != null
+          return (e =
+            (t = l()) == null || (t = t.getTextContent()) == null
+              ? void 0
+              : t.substring(
+                  0,
+                  o("WAWebPollsGatingUtils").getMaxPollNameLength(),
+                )) != null
             ? e
             : "";
         }).current,
@@ -259,14 +258,10 @@ __d(
             return e.name !== "" || e.image;
           }),
         _e = function () {
-          pe && o("WAWebPollsGatingUtils").isPollsCancellationPromptEnabled()
-            ? O(!0)
-            : me(!0);
+          pe ? O(!0) : me(!0);
         },
         fe = function () {
-          pe && o("WAWebPollsGatingUtils").isPollsCancellationPromptEnabled()
-            ? F || O(!0)
-            : me(!0);
+          pe ? F || O(!0) : me(!0);
         },
         ge = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
@@ -311,9 +306,7 @@ __d(
             (o("WAWebPollsSendPollCreationMsgAction").sendPollCreation({
               poll: s,
               chat: i,
-              quotedMsg: o("WAWebPollsGatingUtils").arePollsFastFollowsEnabled()
-                ? i.composeQuotedMsg
-                : null,
+              quotedMsg: i.composeQuotedMsg,
               isWamoSub:
                 e ===
                 o("WAWebNewsletterWamoSubMessageType")
@@ -673,8 +666,7 @@ __d(
               ],
             }),
           }),
-          o("WAWebPollsGatingUtils").isPollsCancellationPromptEnabled() &&
-            F &&
+          F &&
             c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
               cancelButtonType: "warning-secondary",
               title:

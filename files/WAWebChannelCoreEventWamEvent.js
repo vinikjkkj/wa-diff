@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumChannelEventSurface",
     "WAWebWamEnumChannelEventType",
     "WAWebWamEnumChannelEventUnit",
+    "WAWebWamEnumCoreEventTriggerType",
     "WAWebWamEnumTsSurface",
   ],
   function (t, n, r, o, a, i, l) {
@@ -44,6 +45,10 @@ __d(
               ],
               channelRequestMetadata: [19, e.TYPES.STRING],
               cid: [4, e.TYPES.STRING],
+              coreEventTrigger: [
+                21,
+                o("WAWebWamEnumCoreEventTriggerType").CORE_EVENT_TRIGGER_TYPE,
+              ],
               directoryChannelIndex: [9, e.TYPES.INTEGER],
               discoverySurface: [14, o("WAWebWamEnumTsSurface").TS_SURFACE],
               entryPointMetadata: [5, e.TYPES.STRING],

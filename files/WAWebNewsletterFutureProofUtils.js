@@ -8,7 +8,6 @@ __d(
     "WAWebMusicGatingUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebPollCreationUtils",
-    "WAWebPollsGatingUtils",
     "WAWebQuestionsGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -58,9 +57,7 @@ __d(
             "WAWebNewsletterGatingUtils",
           ).isNewsletterPollsReceivingEnabled();
         case o("WAWebMsgType").MSG_TYPE.POLL_RESULT_SNAPSHOT:
-          return o(
-            "WAWebPollsGatingUtils",
-          ).isPollResultSnapshotReceivingEnabled();
+          return !0;
         case o("WAWebMsgType").MSG_TYPE.AUDIO:
           return o(
             "WAWebNewsletterGatingUtils",

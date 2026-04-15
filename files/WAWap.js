@@ -5,7 +5,6 @@ __d(
     "WABinary",
     "WACryptoDependencies",
     "WAJids",
-    "WALogger",
     "WALongInt",
     "WATextEncoding",
     "WAWapDict",
@@ -18,32 +17,31 @@ __d(
     "use strict";
     var e,
       s,
-      u,
-      c = (s = o("WAJids")).MSGR_USER_DOMAIN.replace("@", ""),
-      d = s.WA_USER_DOMAIN.replace("@", ""),
-      m = s.LID_DOMAIN.replace("@", ""),
-      p = s.INTEROP_DOMAIN.replace("@", ""),
-      _ = s.HOSTED_DOMAIN.replace("@", ""),
-      f = 2,
-      g = 128,
-      h = 0,
-      y = 236,
-      C = 237,
-      b = 238,
-      v = 239,
-      S = [y, C, b, v],
-      R = 245,
-      L = 246,
-      E = 247,
-      k = 248,
-      I = 249,
-      T = 250,
-      D = 251,
-      x = 252,
-      $ = 253,
-      P = 254,
-      N = 255,
-      M = [
+      u = (e = o("WAJids")).MSGR_USER_DOMAIN.replace("@", ""),
+      c = e.WA_USER_DOMAIN.replace("@", ""),
+      d = e.LID_DOMAIN.replace("@", ""),
+      m = e.INTEROP_DOMAIN.replace("@", ""),
+      p = e.HOSTED_DOMAIN.replace("@", ""),
+      _ = 2,
+      f = 128,
+      g = 0,
+      h = 236,
+      y = 237,
+      C = 238,
+      b = 239,
+      v = [h, y, C, b],
+      S = 245,
+      R = 246,
+      L = 247,
+      E = 248,
+      k = 249,
+      I = 250,
+      T = 251,
+      D = 252,
+      x = 253,
+      $ = 254,
+      P = 255,
+      N = [
         "0",
         "1",
         "2",
@@ -61,7 +59,7 @@ __d(
         "\uFFFD",
         "\uFFFD",
       ],
-      w = [
+      M = [
         "0",
         "1",
         "2",
@@ -79,25 +77,25 @@ __d(
         "E",
         "F",
       ],
-      A = "",
-      F = 1,
-      O = { sentinel: "DROP_ATTR" },
-      B = (u = o("WAWapJid")).WapJid.create(null, "g.us"),
-      W = u.WapJid.create(null, s.WA_SERVER_JID_SUFFIX),
-      q = u.WapJid.create("status", "broadcast"),
-      U = u.WapJid.create(null, "newsletter"),
-      V = u.WapJid.create(null, "hosted"),
-      H = u.WapJid.create(null, "hosted.lid"),
-      G = u.WapJid.create(null, "call"),
-      z = {},
-      j = !1;
-    function K() {
-      j = !0;
+      w = "",
+      A = 1,
+      F = { sentinel: "DROP_ATTR" },
+      O = (s = o("WAWapJid")).WapJid.create(null, "g.us"),
+      B = s.WapJid.create(null, e.WA_SERVER_JID_SUFFIX),
+      W = s.WapJid.create("status", "broadcast"),
+      q = s.WapJid.create(null, "newsletter"),
+      U = s.WapJid.create(null, "hosted"),
+      V = s.WapJid.create(null, "hosted.lid"),
+      H = s.WapJid.create(null, "call"),
+      G = {},
+      z = !1;
+    function j() {
+      z = !0;
     }
-    var Q = o("WATextEncoding").newTextEncoder(),
-      X = (function () {
+    var K = o("WATextEncoding").newTextEncoder(),
+      Q = (function () {
         function e(e, t, n) {
-          (t === void 0 && (t = z),
+          (t === void 0 && (t = G),
             n === void 0 && (n = null),
             (this.tag = e),
             (this.attrs = t),
@@ -120,14 +118,14 @@ __d(
                       this.tag +
                       ">")
                   : (e += " />"),
-              j && (e = r("WAXmlFormatter")(e)),
+              z && (e = r("WAXmlFormatter")(e)),
               e
             );
           }),
           e
         );
       })();
-    function Y(e, t, n) {
+    function X(e, t, n) {
       var a = null;
       if (t && t.children != null)
         throw r("err")(
@@ -154,117 +152,117 @@ __d(
             var n = c[t];
             if (n == null)
               throw r("err")("Attr " + t + " in <" + e + "> is null");
-            n !== O && (u[t] = n);
+            n !== F && (u[t] = n);
           }
         });
       }
-      return new X(e, u, a);
+      return new Q(e, u, a);
     }
-    var J = Y;
-    function Z(e) {
+    var Y = X;
+    function J(e) {
       return e instanceof o("WAWapJid").WapJid ? e.toString() : e;
     }
-    function ee(e) {
+    function Z(e) {
       var t = e.content;
       return (
         Array.isArray(t)
-          ? (t = t.map(ee))
+          ? (t = t.map(Z))
           : typeof t == "string" &&
             (t = o("WABinary").Binary.build(t).readByteArrayView()),
-        new X(e.tag, e.attrs || z, t)
+        new Q(e.tag, e.attrs || G, t)
       );
     }
-    function te(e) {
-      var t = e instanceof X ? e : ee(e),
+    function ee(e) {
+      var t = e instanceof Q ? e : Z(e),
         n = new (o("WABinary").Binary)();
-      ne(t, n);
+      te(t, n);
       var r = 0,
         a = n.readByteArrayView(),
         i = new Uint8Array(1 + a.length);
       return ((i[0] = r), i.set(a, 1), i);
     }
-    function ne(e, t) {
-      if (e == null) t.writeUint8(h);
-      else if (e instanceof X) oe(e, t);
-      else if (e instanceof o("WAWapJid").WapJid) re(e, t);
-      else if (typeof e == "string") se(e, t);
-      else if (e instanceof Uint8Array) ce(e, t);
+    function te(e, t) {
+      if (e == null) t.writeUint8(g);
+      else if (e instanceof Q) re(e, t);
+      else if (e instanceof o("WAWapJid").WapJid) ne(e, t);
+      else if (typeof e == "string") le(e, t);
+      else if (e instanceof Uint8Array) ue(e, t);
       else {
         var n = typeof e;
         throw r("err")("Invalid payload type " + n);
       }
     }
-    function re(e, t) {
+    function ne(e, t) {
       var n = e.getInnerJid();
       if (n.type === o("WAWapJid").WAP_JID_SUBTYPE.JID_U) {
         var r = n.device,
           a = n.domainType,
           i = n.user;
-        (t.writeUint8(E), t.writeUint8(a), t.writeUint8(r), ne(i, t));
+        (t.writeUint8(L), t.writeUint8(a), t.writeUint8(r), te(i, t));
       } else if (n.type === o("WAWapJid").WAP_JID_SUBTYPE.JID_FB) {
         var l = n.device,
           s = n.user;
-        (t.writeUint8(L), ne(s, t), t.writeUint16(l), ne(c, t));
+        (t.writeUint8(R), te(s, t), t.writeUint16(l), te(u, t));
       } else if (n.type === o("WAWapJid").WAP_JID_SUBTYPE.JID_INTEROP) {
-        var u = n.device,
+        var c = n.device,
           d = n.integrator,
           m = n.user;
-        (t.writeUint8(R), ne(m, t), t.writeUint16(u), t.writeUint16(d));
+        (t.writeUint8(S), te(m, t), t.writeUint16(c), t.writeUint16(d));
       } else {
         var p = n.server,
           _ = n.user;
-        (t.writeUint8(T), _ != null ? ne(_, t) : t.writeUint8(h), ne(p, t));
+        (t.writeUint8(I), _ != null ? te(_, t) : t.writeUint8(g), te(p, t));
       }
     }
-    function oe(e, t) {
+    function re(e, t) {
       if (e.tag === void 0) {
-        (t.writeUint8(k), t.writeUint8(h));
+        (t.writeUint8(E), t.writeUint8(g));
         return;
       }
       var n = 1;
       (e.attrs && (n += Object.keys(e.attrs).length * 2),
         e.content && n++,
         n < 256
-          ? (t.writeUint8(k), t.writeUint8(n))
-          : n < 65536 && (t.writeUint8(I), t.writeUint16(n)),
-        ne(e.tag, t),
+          ? (t.writeUint8(E), t.writeUint8(n))
+          : n < 65536 && (t.writeUint8(k), t.writeUint16(n)),
+        te(e.tag, t),
         e.attrs &&
           Object.keys(e.attrs).forEach(function (n) {
-            (se(n, t), ne(e.attrs[n], t));
+            (le(n, t), te(e.attrs[n], t));
           }));
       var r = e.content;
       if (Array.isArray(r)) {
         r.length < 256
-          ? (t.writeUint8(k), t.writeUint8(r.length))
-          : r.length < 65536 && (t.writeUint8(I), t.writeUint16(r.length));
-        for (var o = 0; o < r.length; o++) oe(r[o], t);
-      } else r && ne(r, t);
+          ? (t.writeUint8(E), t.writeUint8(r.length))
+          : r.length < 65536 && (t.writeUint8(k), t.writeUint16(r.length));
+        for (var o = 0; o < r.length; o++) re(r[o], t);
+      } else r && te(r, t);
     }
-    var ae, ie;
-    function le(e) {
+    var oe, ae;
+    function ie(e) {
       for (var t = new Map(), n = 0; n < e.length; n++) t.set(e[n], n);
       return t;
     }
-    function se(e, t) {
+    function le(e, t) {
       if (e === "") {
-        (t.writeUint8(x), t.writeUint8(0));
+        (t.writeUint8(D), t.writeUint8(0));
         return;
       }
-      ae == null && (ae = le(o("WAWapDict").SINGLE_BYTE_TOKEN));
-      var n = ae.get(e);
+      oe == null && (oe = ie(o("WAWapDict").SINGLE_BYTE_TOKEN));
+      var n = oe.get(e);
       if (n != null) {
         t.writeUint8(n + 1);
         return;
       }
-      if (ie == null) {
-        ie = [];
+      if (ae == null) {
+        ae = [];
         for (var r = 0; r < o("WAWapDict").DICTIONARIES.length; ++r)
-          ie.push(le(o("WAWapDict").DICTIONARIES[r]));
+          ae.push(ie(o("WAWapDict").DICTIONARIES[r]));
       }
-      for (var a = 0; a < ie.length; ++a) {
-        var i = ie[a].get(e);
+      for (var a = 0; a < ae.length; ++a) {
+        var i = ae[a].get(e);
         if (i != null) {
-          (t.writeUint8(S[a]), t.writeUint8(i));
+          (t.writeUint8(v[a]), t.writeUint8(i));
           return;
         }
       }
@@ -274,32 +272,32 @@ __d(
           u = /[^0-9A-F]+?/;
         if (s.exec(e)) {
           if (!u.exec(e)) {
-            ue(e, D, t);
+            se(e, T, t);
             return;
           }
         } else {
-          ue(e, N, t);
+          se(e, P, t);
           return;
         }
       }
-      (de(l, t), t.writeString(e));
+      (ce(l, t), t.writeString(e));
     }
-    function ue(e, t, n) {
+    function se(e, t, n) {
       var o = e.length % 2 === 1;
       n.writeUint8(t);
       var a = Math.ceil(e.length / 2);
-      (o && (a |= g), n.writeUint8(a));
+      (o && (a |= f), n.writeUint8(a));
       for (var i = 0, l = 0; l < e.length; l++) {
         var s = e.charCodeAt(l),
           u = null;
         if (
           (48 <= s && s <= 57
             ? (u = s - 48)
-            : t === N
+            : t === P
               ? s === 45
                 ? (u = 10)
                 : s === 46 && (u = 11)
-              : t === D && 65 <= s && s <= 70 && (u = s - 55),
+              : t === T && 65 <= s && s <= 70 && (u = s - 55),
           u == null)
         )
           throw r("err")("Cannot nibble encode " + s);
@@ -308,106 +306,100 @@ __d(
           : ((i |= u), n.writeUint8(i));
       }
     }
-    function ce(e, t) {
-      (de(e.length, t), t.writeByteArray(e));
+    function ue(e, t) {
+      (ce(e.length, t), t.writeByteArray(e));
     }
-    function de(e, t) {
-      if (e < 256) (t.writeUint8(x), t.writeUint8(e));
+    function ce(e, t) {
+      if (e < 256) (t.writeUint8(D), t.writeUint8(e));
       else if (e < 1048576)
-        (t.writeUint8($),
+        (t.writeUint8(x),
           t.writeUint8((e >>> 16) & 255),
           t.writeUint8((e >>> 8) & 255),
           t.writeUint8(e & 255));
-      else if (e < 4294967296) (t.writeUint8(P), t.writeUint32(e));
+      else if (e < 4294967296) (t.writeUint8($), t.writeUint32(e));
       else
         throw r("err")(
           "Binary with length " + e + " is too big for WAP protocol",
         );
     }
-    function me(t, n) {
-      var r = new (o("WABinary").Binary)(t),
-        a = r.readUint8(),
-        i = a & f;
-      return i
-        ? (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "Decoding compressed stanza",
-              ])),
-          ),
-          n(r.readByteArrayView()).then(function (e) {
-            return ge(new (o("WABinary").Binary)(e));
-          }))
-        : Promise.resolve(ge(r));
+    function de(e, t) {
+      var n = new (o("WABinary").Binary)(e),
+        r = n.readUint8(),
+        a = r & _;
+      return a
+        ? t(n.readByteArrayView()).then(function (e) {
+            return fe(new (o("WABinary").Binary)(e));
+          })
+        : Promise.resolve(fe(n));
     }
-    function pe(e) {
+    function me(e) {
       var t = new (o("WABinary").Binary)(e),
         n = t.readUint8(),
-        a = n & f;
+        a = n & _;
       if (a)
         throw r("err")("Cannot pass compressed stanza to decodeStanzaDebug");
-      return ge(t);
+      return fe(t);
     }
-    function _e(e, t) {
+    function pe(e, t) {
       var n = e.readUint8();
-      if (n === h) return null;
-      if (n === k) return fe(e, e.readUint8());
-      if (n === I) return fe(e, e.readUint16());
-      if (n === x) {
+      if (n === g) return null;
+      if (n === E) return _e(e, e.readUint8());
+      if (n === k) return _e(e, e.readUint16());
+      if (n === D) {
         var a = e.readUint8();
-        return Re(e, a, t);
+        return Se(e, a, t);
       }
-      if (n === $) {
+      if (n === x) {
         var i = e.readUint8(),
           l = e.readUint8(),
           s = e.readUint8(),
           u = ((i & 15) << 16) + (l << 8) + s;
-        return Re(e, u, t);
+        return Se(e, u, t);
       }
-      if (n === P) {
+      if (n === $) {
         var c = e.readUint32();
-        return Re(e, c, t);
+        return Se(e, c, t);
       }
-      if (n === T) return Ce(e);
-      if (n === L) return be(e);
-      if (n === R) return ve(e);
-      if (n === E) return Se(e);
-      if (n === N) {
+      if (n === I) return ye(e);
+      if (n === R) return Ce(e);
+      if (n === S) return be(e);
+      if (n === L) return ve(e);
+      if (n === P) {
         var d = e.readUint8(),
           m = d >>> 7,
           p = d & 127;
-        return Le(e, M, m, p);
+        return Re(e, N, m, p);
       }
-      if (n === D) {
+      if (n === T) {
         var _ = e.readUint8(),
           f = _ >>> 7,
-          g = _ & 127;
-        return Le(e, w, f, g);
+          y = _ & 127;
+        return Re(e, M, f, y);
       }
       if (n <= 0 || n >= 240) throw r("err")("Unable to decode WAP buffer");
-      if (n >= y && n <= v) {
-        var C = n - y,
-          b = o("WAWapDict").DICTIONARIES[C];
-        if (b === void 0) throw r("err")("Missing WAP dictionary " + C);
-        var S = e.readUint8(),
-          A = b[S];
+      if (n >= h && n <= b) {
+        var C = n - h,
+          v = o("WAWapDict").DICTIONARIES[C];
+        if (v === void 0) throw r("err")("Missing WAP dictionary " + C);
+        var w = e.readUint8(),
+          A = v[w];
         if (A === void 0)
-          throw r("err")("Invalid value index " + S + " in dict " + C);
+          throw r("err")("Invalid value index " + w + " in dict " + C);
         return A;
       }
       var F = o("WAWapDict").SINGLE_BYTE_TOKEN[n - 1];
       if (F === void 0) throw r("err")("Undefined token with index " + n);
       return F;
     }
-    function fe(e, t) {
-      for (var n = [], r = 0; r < t; r++) n.push(ge(e));
+    function _e(e, t) {
+      for (var n = [], r = 0; r < t; r++) n.push(fe(e));
       return n;
     }
-    function ge(e) {
+    function fe(e) {
       var t = e.readUint8(),
         n;
-      if (t === k) n = e.readUint8();
-      else if (t === I) n = e.readUint16();
+      if (t === E) n = e.readUint8();
+      else if (t === k) n = e.readUint16();
       else
         throw r("err")(
           "Failed to decode node since type byte " + String(t) + " is invalid",
@@ -416,52 +408,52 @@ __d(
         i = null;
       if (n === 0)
         throw r("err")("Failed to decode node, list cannot be empty");
-      var l = he(e);
+      var l = ge(e);
       for (n -= 1; n > 1; ) {
         a || (a = {});
-        var s = he(e),
-          u = _e(e, !0);
+        var s = ge(e),
+          u = pe(e, !0);
         ((a[s] = u), (n -= 2));
       }
       return (
         n === 1 &&
-          ((i = _e(e, !1)),
+          ((i = pe(e, !1)),
           i instanceof o("WAWapJid").WapJid && (i = String(i)),
-          typeof i == "string" && (i = Q.encode(i))),
-        new X(l, a, i)
+          typeof i == "string" && (i = K.encode(i))),
+        new Q(l, a, i)
       );
     }
-    function he(e) {
-      var t = _e(e, !0);
+    function ge(e) {
+      var t = pe(e, !0);
       if (typeof t != "string")
         throw r("err")("WAWap:decodeString got invalid value, string expected");
       return t;
     }
-    function ye(e) {
-      var t = _e(e, !0);
+    function he(e) {
+      var t = pe(e, !0);
       if (t != null && typeof t != "string")
         throw r("err")(
           "WAWap:decodeNullableString got invalid value, string expected",
         );
       return t;
     }
-    function Ce(e) {
-      var t = ye(e),
-        n = he(e);
+    function ye(e) {
+      var t = he(e),
+        n = ge(e);
       return o("WAWapJid").WapJid.create(t, n);
     }
-    function be(e) {
-      var t = he(e),
+    function Ce(e) {
+      var t = ge(e),
         n = e.readUint16();
-      return (he(e), o("WAWapJid").WapJid.createFbJid(t, n));
+      return (ge(e), o("WAWapJid").WapJid.createFbJid(t, n));
     }
-    function ve(e) {
-      var t = he(e),
+    function be(e) {
+      var t = ge(e),
         n = e.readUint16(),
         r = e.readUint16();
-      return (he(e), o("WAWapJid").WapJid.createInteropJid(t, n, r));
+      return (ge(e), o("WAWapJid").WapJid.createInteropJid(t, n, r));
     }
-    function Se(e) {
+    function ve(e) {
       var t = null,
         n = e.readUint8();
       if (n === 0) t = o("WAWapJid").DomainType.WHATSAPP;
@@ -471,16 +463,16 @@ __d(
       else if (n === 129) t = o("WAWapJid").DomainType.HOSTED_LID;
       else throw r("err")("decodeJidU - Invalid domain type encoding " + n);
       var a = e.readUint8(),
-        i = he(e);
+        i = ge(e);
       return o("WAWapJid").WapJid.createJidU(i, t, a);
     }
-    function Re(e, t, n) {
+    function Se(e, t, n) {
       return (
         n === void 0 && (n = !1),
         n ? e.readString(t) : e.readByteArrayView(t)
       );
     }
-    function Le(e, t, n, r) {
+    function Re(e, t, n, r) {
       for (var o = new Array(r * 2 - n), a = 0; a < o.length - 1; a += 2) {
         var i = e.readUint8();
         ((o[a] = t[i >>> 4]), (o[a + 1] = t[i & 15]));
@@ -491,15 +483,15 @@ __d(
       }
       return o.join("");
     }
-    function Ee() {
-      if (!A) {
+    function Le() {
+      if (!w) {
         var e = new Uint16Array(2);
         (o("WACryptoDependencies").getCrypto().getRandomValues(e),
-          (A = String(e[0]) + "." + String(e[1]) + "-"));
+          (w = String(e[0]) + "." + String(e[1]) + "-"));
       }
-      return "" + A + F++;
+      return "" + w + A++;
     }
-    function ke(e) {
+    function Ee(e) {
       switch (e.type) {
         case "group":
           return e.groupJid;
@@ -517,7 +509,7 @@ __d(
           return (e.type, e.broadcastJid);
       }
     }
-    function Ie(e) {
+    function ke(e) {
       switch (e.type) {
         case "group":
           return e.author;
@@ -529,43 +521,43 @@ __d(
           return (e.type, null);
       }
     }
-    function Te(e) {
+    function Ie(e) {
       return e.type === "status" || e.type === "group" || e.type === "broadcast"
-        ? xe(e.author)
-        : O;
+        ? De(e.author)
+        : F;
+    }
+    function Te(e) {
+      return De(Ee(e));
     }
     function De(e) {
-      return xe(ke(e));
-    }
-    function xe(e) {
       var t = o("WAJids").validateDomainJid(e);
-      if (t != null) return $e(t);
+      if (t != null) return xe(t);
       var n = e.split("@"),
         a = n[0],
         i = n[1],
         l = null,
         s = null;
       if (
-        (i === d ||
-          i === c ||
-          i === p ||
+        (i === c ||
+          i === u ||
           i === m ||
-          i === _ ||
+          i === d ||
+          i === p ||
           i === o("WAJids").HOSTED_LID_SUFFIX) &&
         a.indexOf(":") !== -1
       ) {
-        var u = a.split(":");
-        ((a = u[0]), (l = u[1]), (s = parseInt(l, 10)));
+        var _ = a.split(":");
+        ((a = _[0]), (l = _[1]), (s = parseInt(l, 10)));
       }
-      if (i === p) {
+      if (i === m) {
         var f = a.split("-"),
           g = f[0],
           h = f[1];
         return o("WAWapJid").WapJid.createInteropJid(h, s, parseInt(g, 10));
-      } else if (i === c) return o("WAWapJid").WapJid.createFbJid(a, s);
+      } else if (i === u) return o("WAWapJid").WapJid.createFbJid(a, s);
       var y = null;
-      if (i === m) y = o("WAWapJid").DomainType.LID;
-      else if (i === _) {
+      if (i === d) y = o("WAWapJid").DomainType.LID;
+      else if (i === p) {
         if (s !== 99) throw r("err")("wid unexpected deviceId");
         y = o("WAWapJid").DomainType.HOSTED;
       } else if (i === o("WAJids").HOSTED_LID_SUFFIX) {
@@ -576,130 +568,130 @@ __d(
         ? o("WAWapJid").WapJid.createJidU(a, y, s)
         : o("WAWapJid").WapJid.create(a, i);
     }
-    function $e(e) {
+    function xe(e) {
       return e === "s.whatsapp.net"
-        ? W
+        ? B
         : e === "g.us"
-          ? B
+          ? O
           : e === "newsletter"
-            ? U
+            ? q
             : e === "call"
-              ? G
+              ? H
               : r("WAAssertUnreachable")(e);
     }
+    function $e(e) {
+      return De(e);
+    }
     function Pe(e) {
-      return xe(e);
+      return De(e);
     }
     function Ne(e) {
-      return xe(e);
+      return De(e);
     }
     function Me(e) {
-      return xe(e);
+      return De(e);
     }
     function we(e) {
-      return xe(e);
+      return De(e);
     }
     function Ae(e) {
-      return xe(e);
+      return De(e);
     }
     function Fe(e) {
-      return xe(e);
-    }
-    function Oe(e) {
       return e.jidType === "phoneDevice" ||
         e.jidType === "msgrDevice" ||
         e.jidType === "lidDevice"
-        ? xe(e.deviceJid)
+        ? De(e.deviceJid)
         : e.jidType === "phoneUser" ||
             e.jidType === "msgrUser" ||
             e.jidType === "lidUser"
-          ? xe(e.userJid)
+          ? De(e.userJid)
           : e.jidType === "group"
-            ? xe(e.groupJid)
+            ? De(e.groupJid)
             : e.jidType === "status"
-              ? xe(e.statusJid)
+              ? De(e.statusJid)
               : e.jidType === "call"
-                ? xe(e.callJid)
+                ? De(e.callJid)
                 : e.jidType === "interopDevice"
-                  ? xe(e.deviceJid)
+                  ? De(e.deviceJid)
                   : e.jidType === "interopUser"
-                    ? xe(e.userJid)
+                    ? De(e.userJid)
                     : e.jidType === "newsletter"
-                      ? xe(e.newsletterJid)
+                      ? De(e.newsletterJid)
                       : e.jidType === "hosted"
-                        ? xe(e.hostedDeviceJid)
+                        ? De(e.hostedDeviceJid)
                         : e.jidType === "hostedLid"
-                          ? xe(e.hostedLidDeviceJid)
+                          ? De(e.hostedLidDeviceJid)
                           : e.jidType === "bot"
-                            ? xe(e.botJid)
-                            : (e.jidType, xe(e.broadcastJid));
+                            ? De(e.botJid)
+                            : (e.jidType, De(e.broadcastJid));
     }
-    function Be(e) {
+    function Oe(e) {
       return e;
     }
-    function We(e) {
+    function Be(e) {
       return e.toString();
+    }
+    function We(e) {
+      return e;
     }
     function qe(e) {
       return e;
     }
     function Ue(e) {
-      return e;
+      return e == null ? F : e;
     }
     function Ve(e) {
-      return e == null ? O : e;
-    }
-    function He(e) {
       return e.toString();
     }
-    function Ge(e) {
+    function He(e) {
       return o("WALongInt").longIntToDecimalString(e);
     }
-    function ze(e, t) {
+    function Ge(e, t) {
       t === void 0 && (t = 4);
       for (var n = e, r = new Uint8Array(t), o = t - 1; o >= 0; o--)
         ((r[o] = n & 255), (n >>>= 8));
       return r;
     }
-    ((l.DROP_ATTR = O),
-      (l.G_US = B),
-      (l.S_WHATSAPP_NET = W),
-      (l.STATUS_BROADCAST = q),
-      (l.NEWSLETTER = U),
-      (l.HOSTED = V),
-      (l.HOSTED_LID = H),
-      (l.CALL = G),
-      (l.enableXMLFormat = K),
-      (l.WapNode = X),
-      (l.makeWapNode = Y),
-      (l.wap = J),
-      (l.decodeAsString = Z),
-      (l.makeStanza = ee),
-      (l.encodeStanza = te),
-      (l.decodeStanza = me),
-      (l.decodeStanzaDebug = pe),
-      (l.generateId = Ee),
-      (l.extractToJid = ke),
-      (l.extractParticipantJid = Ie),
-      (l.PARTICIPANT_JID = Te),
-      (l.TO_JID = De),
-      (l.JID = xe),
-      (l.DOMAIN_JID = $e),
-      (l.USER_JID = Pe),
-      (l.DEVICE_JID = Ne),
-      (l.GROUP_JID = Me),
-      (l.BROADCAST_JID = we),
-      (l.CALL_JID = Ae),
-      (l.NEWSLETTER_JID = Fe),
-      (l.TO_WAP_JID = Oe),
-      (l.STANZA_ID = Be),
-      (l.SMAX_ID = We),
-      (l.CUSTOM_STRING = qe),
-      (l.CALL_ID = Ue),
-      (l.MAYBE_CUSTOM_STRING = Ve),
-      (l.INT = He),
-      (l.LONG_INT = Ge),
-      (l.BIG_ENDIAN_CONTENT = ze));
+    ((l.DROP_ATTR = F),
+      (l.G_US = O),
+      (l.S_WHATSAPP_NET = B),
+      (l.STATUS_BROADCAST = W),
+      (l.NEWSLETTER = q),
+      (l.HOSTED = U),
+      (l.HOSTED_LID = V),
+      (l.CALL = H),
+      (l.enableXMLFormat = j),
+      (l.WapNode = Q),
+      (l.makeWapNode = X),
+      (l.wap = Y),
+      (l.decodeAsString = J),
+      (l.makeStanza = Z),
+      (l.encodeStanza = ee),
+      (l.decodeStanza = de),
+      (l.decodeStanzaDebug = me),
+      (l.generateId = Le),
+      (l.extractToJid = Ee),
+      (l.extractParticipantJid = ke),
+      (l.PARTICIPANT_JID = Ie),
+      (l.TO_JID = Te),
+      (l.JID = De),
+      (l.DOMAIN_JID = xe),
+      (l.USER_JID = $e),
+      (l.DEVICE_JID = Pe),
+      (l.GROUP_JID = Ne),
+      (l.BROADCAST_JID = Me),
+      (l.CALL_JID = we),
+      (l.NEWSLETTER_JID = Ae),
+      (l.TO_WAP_JID = Fe),
+      (l.STANZA_ID = Oe),
+      (l.SMAX_ID = Be),
+      (l.CUSTOM_STRING = We),
+      (l.CALL_ID = qe),
+      (l.MAYBE_CUSTOM_STRING = Ue),
+      (l.INT = Ve),
+      (l.LONG_INT = He),
+      (l.BIG_ENDIAN_CONTENT = Ge));
   },
   98,
 );

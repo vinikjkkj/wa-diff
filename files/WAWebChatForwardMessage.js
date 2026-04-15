@@ -18,8 +18,8 @@ __d(
     "WAWebGetNewsletterContextForForwardedMsg",
     "WAWebIncrementNewsletterForwardCounterAction",
     "WAWebInteractiveMessagesNativeFlowName",
-    "WAWebMedia",
     "WAWebMediaConstants",
+    "WAWebMediaForwardMediaMsg",
     "WAWebMediaGetUploadOriginForChat",
     "WAWebMediaOpaqueData",
     "WAWebMediaUploadMmsThumbnail",
@@ -58,7 +58,7 @@ __d(
             p = e.multicast,
             f = p === void 0 ? !1 : p;
           if (d(m) || o("WAWebFileUtils").isDocument(m))
-            return o("WAWebMedia").forwardMediaMsg(m, a, f, l);
+            return o("WAWebMediaForwardMediaMsg").forwardMediaMsg(m, a, f, l);
           var g = C(m, a);
           if (o("WAWebBotUtils").isMetaAiBot(a.id)) {
             if (t != null && t !== "") {

@@ -23,7 +23,6 @@ __d(
     "WAWebPollOptionsRenderUtils",
     "WAWebPollsDetailsFlow",
     "WAWebPollsExpandedPhotoDrawer",
-    "WAWebPollsGatingUtils",
     "WAWebPollsOptions",
     "WAWebPollsUseResults",
     "WAWebUISpacing",
@@ -127,13 +126,12 @@ __d(
         E;
       n[6] !== g || n[7] !== a
         ? ((E =
-            (!g ||
-              o(
-                "WAWebNewsletterExtendedGatingUtils",
-              ).isNewsletterPollsVotersEnabledForChat(
-                o("WAWebFrontendMsgGetters").getChat(a.unsafe()),
-              )) &&
-            o("WAWebPollsGatingUtils").isPollResultDetailsViewEnabled()),
+            !g ||
+            o(
+              "WAWebNewsletterExtendedGatingUtils",
+            ).isNewsletterPollsVotersEnabledForChat(
+              o("WAWebFrontendMsgGetters").getChat(a.unsafe()),
+            )),
           (n[6] = g),
           (n[7] = a),
           (n[8] = E))

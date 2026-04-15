@@ -16,7 +16,6 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebPollEndTimeLabel",
     "WAWebPollHideVoterNamesLabel",
-    "WAWebPollsGatingUtils",
     "WAWebTextSizeUtils",
     "WAWebUISpacing",
     "react",
@@ -188,10 +187,8 @@ __d(
     function p(t) {
       var n = o("react-compiler-runtime").c(12),
         a = t.isSingleOptionPoll,
-        i = t.pollType;
-      if (!o("WAWebPollsGatingUtils").isSingleOptionPollsReceivingEnabled())
-        return null;
-      var l;
+        i = t.pollType,
+        l;
       if (i === o("WAWebPollCreationUtils").PollType.QUIZ) {
         var u;
         (n[0] === Symbol.for("react.memo_cache_sentinel")

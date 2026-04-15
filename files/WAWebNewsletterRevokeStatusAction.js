@@ -35,9 +35,13 @@ __d(
             });
             if (l.success) {
               var u = n.id.toString();
-              (t.revokeMsgs([u]),
-                yield o("WAWebDBMessageDelete").removeStatusMessage([n]));
-            } else
+              return (
+                t.revokeMsgs([u]),
+                yield o("WAWebDBMessageDelete").removeStatusMessage([n]),
+                !0
+              );
+            }
+            return (
               o("WALogger")
                 .ERROR(
                   e ||
@@ -47,17 +51,22 @@ __d(
                     ])),
                   l.ack.error,
                 )
-                .sendLogs("newsletter-status-revoke-action-failed");
+                .sendLogs("newsletter-status-revoke-action-failed"),
+              !1
+            );
           } catch (e) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[newsletter][status][revoke] Revoke request failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("newsletter-status-revoke-request-error");
+            return (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[newsletter][status][revoke] Revoke request failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("newsletter-status-revoke-request-error"),
+              !1
+            );
           }
         })),
         c.apply(this, arguments)

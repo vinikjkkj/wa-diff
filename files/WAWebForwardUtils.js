@@ -3,6 +3,7 @@ __d(
   [
     "fbt",
     "WAWebActionToast.react",
+    "WAWebBotBaseGating",
     "WAWebBotUtils",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -23,7 +24,9 @@ __d(
           o("WAWebBotUtils").isMetaAiBot(e.id.remote) ||
           (n != null && o("WAWebBotUtils").isMetaAiBot(n));
       return o("WAWebMsgGetters").getType(e) ===
-        o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE && r
+        o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
+        r &&
+        !o("WAWebBotBaseGating").isAiForwardAttributionEnabled()
         ? s._(/*BTDS*/ "Forwarded from Meta AI")
         : s._(/*BTDS*/ "Forwarded");
     }

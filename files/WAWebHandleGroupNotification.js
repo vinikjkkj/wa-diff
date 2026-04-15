@@ -257,7 +257,51 @@ __d(
         rejected: f.RevokedSubGroupSuggestionReason.REJECTED,
         cancelled: f.RevokedSubGroupSuggestionReason.CANCELLED,
       };
-    function I(e, t, n) {
+    function I(e) {
+      var t = e.attrString("unlink_type"),
+        n = e.hasAttr("unlink_reason") ? e.attrString("unlink_reason") : null,
+        r = e.mapChildrenWithTag("group", function (e) {
+          return {
+            id: o("WAWebJidToWid").groupJidToWid(e.attrGroupJid("jid")),
+            subject: e.attrString("subject"),
+            subjectTime: e.attrInt("s_t"),
+          };
+        });
+      if (t === "parent_group") {
+        if (n === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT)
+          return {
+            actionType:
+              o("WAWebGroupType").GROUP_ACTIONS.DELETE_PARENT_GROUP_UNLINK,
+            groupDatas: r,
+          };
+        if (n === o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT)
+          return {
+            actionType:
+              o("WAWebGroupType").GROUP_ACTIONS.INTEGRITY_PARENT_GROUP_UNLINK,
+            groupDatas: r,
+          };
+      } else if (t === "sub_group") {
+        if (n === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT)
+          return {
+            actionType:
+              o("WAWebGroupType").GROUP_ACTIONS.DELETE_PARENT_GROUP_UNLINK,
+            groupDatas: r,
+          };
+        if (n === o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT)
+          return {
+            actionType:
+              o("WAWebGroupType").GROUP_ACTIONS.INTEGRITY_SUB_GROUP_UNLINK,
+            groupDatas: r,
+          };
+      }
+      var a = {
+        sub_group: o("WAWebGroupType").GROUP_ACTIONS.SUB_GROUP_UNLINK,
+        parent_group: o("WAWebGroupType").GROUP_ACTIONS.PARENT_GROUP_UNLINK,
+        sibling_group: o("WAWebGroupType").GROUP_ACTIONS.SIBLING_GROUP_UNLINK,
+      };
+      return { actionType: a[t], groupDatas: r };
+    }
+    function T(e, t, n) {
       var r,
         a,
         i,
@@ -381,7 +425,7 @@ __d(
         groupInfo: S,
       };
     }
-    var T = new (r("WADeprecatedWapParser"))(
+    var D = new (r("WADeprecatedWapParser"))(
       "groupNotificationParser",
       function (e) {
         (e.assertTag("notification"),
@@ -440,7 +484,7 @@ __d(
               switch (c) {
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.CREATE:
-                  return I(t, a, n);
+                  return T(t, a, n);
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.ADD:
                   return {
@@ -682,78 +726,19 @@ __d(
                   };
                 }
                 case o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.UNLINK: {
-                  var f = a.attrString("unlink_type"),
-                    g = a.hasAttr("unlink_reason")
-                      ? a.attrString("unlink_reason")
-                      : null,
-                    h = a.mapChildrenWithTag("group", function (e) {
-                      return {
-                        id: o("WAWebJidToWid").groupJidToWid(
-                          e.attrGroupJid("jid"),
-                        ),
-                        subject: e.attrString("subject"),
-                        subjectTime: e.attrInt("s_t"),
-                      };
-                    });
-                  if (f === "parent_group") {
-                    if (g === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT)
-                      return {
-                        actionType:
-                          o("WAWebGroupType").GROUP_ACTIONS
-                            .DELETE_PARENT_GROUP_UNLINK,
-                        groupDatas: h,
-                      };
-                    if (
-                      g ===
-                      o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT
-                    )
-                      return {
-                        actionType:
-                          o("WAWebGroupType").GROUP_ACTIONS
-                            .INTEGRITY_PARENT_GROUP_UNLINK,
-                        groupDatas: h,
-                      };
-                  } else if (f === "sub_group") {
-                    if (g === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT)
-                      return {
-                        actionType:
-                          o("WAWebGroupType").GROUP_ACTIONS
-                            .DELETE_PARENT_GROUP_UNLINK,
-                        groupDatas: h,
-                      };
-                    if (
-                      g ===
-                      o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT
-                    )
-                      return {
-                        actionType:
-                          o("WAWebGroupType").GROUP_ACTIONS
-                            .INTEGRITY_SUB_GROUP_UNLINK,
-                        groupDatas: h,
-                      };
-                  }
-                  var C = {
-                    sub_group:
-                      o("WAWebGroupType").GROUP_ACTIONS.SUB_GROUP_UNLINK,
-                    parent_group:
-                      o("WAWebGroupType").GROUP_ACTIONS.PARENT_GROUP_UNLINK,
-                    sibling_group:
-                      o("WAWebGroupType").GROUP_ACTIONS.SIBLING_GROUP_UNLINK,
-                  };
-                  return { actionType: C[f], groupDatas: h };
-                }
+                  .GROUP_NOTIFICATION_TAG.UNLINK:
+                  return I(a);
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.MEMBERSHIP_APPROVAL_MODE: {
-                  var v;
+                  var f;
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .MEMBERSHIP_APPROVAL_MODE,
                     value:
-                      ((v = a.child("group_join")) == null
+                      ((f = a.child("group_join")) == null
                         ? void 0
-                        : v.attrString("state")) === "on",
+                        : f.attrString("state")) === "on",
                     triggered: a.hasAttr("triggered")
                       ? a.attrString("triggered")
                       : void 0,
@@ -761,14 +746,14 @@ __d(
                 }
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.MEMBERSHIP_APPROVAL_REQUEST: {
-                  var T;
+                  var g;
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .MEMBERSHIP_APPROVAL_REQUEST,
                     requestMethod:
-                      (T = E[a.attrString("request_method")]) != null
-                        ? T
+                      (g = E[a.attrString("request_method")]) != null
+                        ? g
                         : o("WAWebRequestMethodType").RequestMethod.InviteLink,
                     parentGroupId: a.hasAttr("parent_group_jid")
                       ? o("WAWebJidToWid").groupJidToWid(
@@ -815,14 +800,14 @@ __d(
                   };
                 case o("WAWebHandleGroupNotificationConst")
                   .GROUP_NOTIFICATION_TAG.CREATED_MEMBERSHIP_REQUESTS: {
-                  var D;
+                  var h;
                   return {
                     actionType:
                       o("WAWebGroupType").GROUP_ACTIONS
                         .CREATED_MEMBERSHIP_REQUESTS,
                     requestMethod:
-                      (D = E[a.attrString("request_method")]) != null
-                        ? D
+                      (h = E[a.attrString("request_method")]) != null
+                        ? h
                         : o("WAWebRequestMethodType").RequestMethod.InviteLink,
                     parentGroupId: a.hasAttr("parent_group_jid")
                       ? o("WAWebJidToWid").groupJidToWid(
@@ -986,7 +971,7 @@ __d(
         };
       },
     );
-    function D(e) {
+    function x(e) {
       var t = e.content;
       if (t != null && Array.isArray(t) && t.length > 0) {
         var r = t[0],
@@ -998,7 +983,7 @@ __d(
             ).handleGroupsDirtyNotificationJob(e),
           );
       }
-      var i = T.parse(e);
+      var i = D.parse(e);
       return i.error
         ? (o("WALogger").ERROR(
             p ||
@@ -1009,9 +994,9 @@ __d(
             i.error.toString(),
           ),
           (_ || (_ = n("Promise"))).reject(i.error))
-        : x(i.success);
+        : $(i.success);
     }
-    function x(e) {
+    function $(e) {
       var t =
         !!e.offline &&
         !o(
@@ -1055,7 +1040,7 @@ __d(
             })(),
           });
     }
-    ((l.handleGroupNotification = D), (l.handleParsedGroupNotification = x));
+    ((l.handleGroupNotification = x), (l.handleParsedGroupNotification = $));
   },
   98,
 );

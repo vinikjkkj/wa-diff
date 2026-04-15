@@ -1,63 +1,84 @@
 __d(
   "WAWebBrowserFeatures",
-  ["WAMd5", "WAPlatformEstimate"],
+  ["Promise", "WAMd5", "WAPlatformEstimate", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
+    var e;
+    function s() {
       return navigator.plugins.length;
     }
-    function s() {
+    function u() {
       var e, t;
       return (e = (t = navigator.mimeTypes) == null ? void 0 : t.length) != null
         ? e
         : 0;
     }
-    function u() {
+    function c() {
       return "Notification" in window && Notification.permission !== "denied";
     }
-    function c() {
+    function d() {
       return (
         "pdfViewerEnabled" in navigator && navigator.pdfViewerEnabled === !0
       );
     }
-    function d() {
+    function m() {
       var e, t;
       return (
         screen.height !== ((e = screen) == null ? void 0 : e.availHeight) ||
         screen.width !== ((t = screen) == null ? void 0 : t.availWidth)
       );
     }
-    function m() {
+    function p() {
       return "share" in navigator && "canShare" in navigator;
     }
-    function p() {
+    function _() {
       return "chrome" in window;
     }
-    function _() {
+    function f() {
       return window.history.length;
     }
-    function f() {
+    function g() {
       return window.innerWidth + "x" + window.innerHeight;
     }
-    function g() {
-      try {
-        var e = document.createElement("canvas"),
-          t = e.getContext("2d");
-        return t == null
-          ? ""
-          : ((e.width = 120),
-            (e.height = 20),
-            (t.font = "14px 'Arial'"),
-            (t.fillStyle = "#fff"),
-            t.fillRect(0, 0, 120, 20),
-            (t.fillStyle = "rgba(102, 204, 0, 0.7)"),
-            t.fillText("whatsapp web", 2, 15),
-            o("WAMd5").md5(e.toDataURL()));
-      } catch (e) {
-        return "";
-      }
-    }
     function h() {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            var t = document.createElement("canvas"),
+              r = t.getContext("2d");
+            if (r == null) return "";
+            ((t.width = 120),
+              (t.height = 20),
+              (r.font = "14px 'Arial'"),
+              (r.fillStyle = "#fff"),
+              r.fillRect(0, 0, 120, 20),
+              (r.fillStyle = "rgba(102, 204, 0, 0.7)"),
+              r.fillText("whatsapp web", 2, 15));
+            var a = yield new (e || (e = n("Promise")))(function (e) {
+              return t.toBlob(e);
+            });
+            if (a == null) return "";
+            var i = yield new e(function (e, t) {
+              var n = new FileReader();
+              ((n.onloadend = function () {
+                var t = n.result;
+                e(typeof t == "string" ? t : "");
+              }),
+                (n.onerror = t),
+                n.readAsDataURL(a));
+            });
+            return i !== "" ? o("WAMd5").md5(i) : "";
+          } catch (e) {
+            return "";
+          }
+        })),
+        y.apply(this, arguments)
+      );
+    }
+    function C() {
       try {
         var e = [];
         return (
@@ -78,7 +99,7 @@ __d(
         return "";
       }
     }
-    function y() {
+    function b() {
       try {
         var e;
         if (!("chrome" in window)) return "missing";
@@ -119,24 +140,33 @@ __d(
         return "";
       }
     }
-    function C() {
-      return {
-        pluginCount: e(),
-        mimeTypeCount: s(),
-        hasNotificationPermission: u(),
-        isPDFViewerEnabled: c(),
-        hasTaskbar: d(),
-        hasWebShare: m(),
-        hasChrome: p(),
-        platformEstimate: r("WAPlatformEstimate")(),
-        historyLength: _(),
-        viewPortSize: f(),
-        canvasFingerprint: g(),
-        automationSignals: h(),
-        chromeStructure: y(),
-      };
+    function v() {
+      return S.apply(this, arguments);
     }
-    l.default = C;
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield h();
+          return {
+            pluginCount: s(),
+            mimeTypeCount: u(),
+            hasNotificationPermission: c(),
+            isPDFViewerEnabled: d(),
+            hasTaskbar: m(),
+            hasWebShare: p(),
+            hasChrome: _(),
+            platformEstimate: r("WAPlatformEstimate")(),
+            historyLength: f(),
+            viewPortSize: g(),
+            canvasFingerprint: e,
+            automationSignals: C(),
+            chromeStructure: b(),
+          };
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    l.default = v;
   },
   98,
 );

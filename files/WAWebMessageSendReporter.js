@@ -15,6 +15,7 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebRevokeMessageSendWamEvent",
+    "WAWebStickerPremiumStatus",
     "WAWebUsernameTypes",
     "WAWebWamAddressingModeUtils",
     "WAWebWamEnumChatOriginsType",
@@ -224,6 +225,11 @@ __d(
             f &&
               o("WAWebNewsletterGatingUtils").isWamoSubLoggingEnabled() &&
               (this.$2.isPremium = !!e.isWamoSub),
+            o("WAWebMsgGetters").getType(e) ===
+              o("WAWebMsgType").MSG_TYPE.STICKER &&
+              (this.$2.stickerIsPremium =
+                e.stickerPremiumStatus ===
+                o("WAWebStickerPremiumStatus").StickerPremiumStatus.PREMIUM),
             o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([

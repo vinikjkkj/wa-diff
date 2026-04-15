@@ -115,6 +115,11 @@ __d(
           "poll_edit_invalid_protocol_message_type",
         MISSING_SENDER_TIMESTAMP: "poll_edit_missing_sender_timestamp",
         MISSING_MESSAGE_SECRET: "poll_edit_missing_message_secret",
+        MISSING_POLL_CREATION_MESSAGE:
+          "poll_edit_missing_poll_creation_message",
+        INVALID_NAME: "poll_edit_invalid_name",
+        TARGET_MESSAGE_KEY_MISMATCH: "poll_edit_target_message_key_mismatch",
+        OUTSIDE_EDIT_WINDOW: "poll_edit_edit_outside_edit_window",
       }),
       y = (function (e) {
         function t() {

@@ -49,7 +49,21 @@ __d(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );
     }
-    function f(e) {
+    function f() {
+      var e = o("WAWebToast.react").genId(),
+        t = s._(/*BTDS*/ "Status deleted");
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
+      );
+    }
+    function g() {
+      var e = o("WAWebToast.react").genId(),
+        t = s._(/*BTDS*/ "Couldn't delete status. Please try again.");
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
+      );
+    }
+    function h(e) {
       return s._(/*BTDS*/ "Date requested : {review_request_date}", [
         s._param(
           "review_request_date",
@@ -57,8 +71,8 @@ __d(
         ),
       ]);
     }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(e, t, n) {
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y(e, t, n) {
       switch (t) {
         case o("WAWebCommonNewsletterEnums").EnforcementType.GEOSUSPEND:
         case o("WAWebCommonNewsletterEnums").EnforcementType.SUSPEND:
@@ -94,10 +108,10 @@ __d(
               ).getProfilePictureDeletionReviewCompletedString();
       }
     }
-    function h() {
+    function C() {
       r("WAWebEnforcementActionLogging").logSeeRuleClick();
     }
-    function y(e, t, n) {
+    function b(e, t, n) {
       switch (t) {
         case o("WAWebCommonNewsletterEnums").EnforcementType.GEOSUSPEND: {
           switch (e) {
@@ -188,7 +202,7 @@ __d(
         }
       }
     }
-    function C(e, t) {
+    function v(e, t) {
       if (e === "CONTENT_UNAVAILABLE")
         return s._(
           /*BTDS*/ "Your review is closed as this status is no longer available on your channel. It may have expired after 24 hours, or been deleted by a channel admin.",
@@ -256,7 +270,7 @@ __d(
           );
       }
     }
-    function b(e) {
+    function S(e) {
       var t = e.appealOutcome,
         n = e.countries,
         a = e.enforcementType,
@@ -270,7 +284,7 @@ __d(
           a ===
             o("WAWebCommonNewsletterEnums").EnforcementType.GEOSUSPEND_INFORM)
       )
-        return C(t, a);
+        return v(t, a);
       var u =
           n == null
             ? void 0
@@ -493,7 +507,7 @@ __d(
               return s._(
                 /*BTDS*/ "Your profile picture does not follow our {=m2} on {violation_category_text}",
                 [
-                  s._param("violation_category_text", v(i)),
+                  s._param("violation_category_text", R(i)),
                   s._implicitParam(
                     "=m2",
                     c.jsx(o("WAWebExternalLink.react").ExternalLink, {
@@ -525,7 +539,7 @@ __d(
         }
       }
     }
-    function v(e) {
+    function R(e) {
       if (e == null)
         return o(
           "WAWebCommonNewsletterIntegrityStrings",
@@ -613,11 +627,11 @@ __d(
           ).getNewsletterGenericViolationPolicyString();
       }
     }
-    function S(e) {
+    function L(e) {
       return s._(
         /*BTDS*/ "Some updates shared by this channel don't follow our {=m1} on {violation_category_text}",
         [
-          s._param("violation_category_text", v(e)),
+          s._param("violation_category_text", R(e)),
           s._implicitParam(
             "=m1",
             c.jsx(o("WAWebExternalLink.react").ExternalLink, {
@@ -630,8 +644,8 @@ __d(
         ],
       );
     }
-    S.displayName = S.name + " [from " + i.id + "]";
-    function R(t) {
+    L.displayName = L.name + " [from " + i.id + "]";
+    function E(t) {
       if (t == null)
         return (
           o("WALogger").ERROR(
@@ -662,8 +676,8 @@ __d(
         ],
       });
     }
-    R.displayName = R.name + " [from " + i.id + "]";
-    function L(e, t, n) {
+    E.displayName = E.name + " [from " + i.id + "]";
+    function k(e, t, n) {
       return n === !0
         ? t != null
           ? s._(
@@ -673,7 +687,7 @@ __d(
                 s._implicitParam(
                   "=m4",
                   c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    onClick: h,
+                    onClick: C,
                     xstyle: d.seeRule,
                     href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
                     children: s._(/*BTDS*/ "See rule"),
@@ -684,11 +698,11 @@ __d(
           : s._(
               /*BTDS*/ "This status doesn't follow our Channel Guidelines on {violation_category_text} {=m4}",
               [
-                s._param("violation_category_text", v(e)),
+                s._param("violation_category_text", R(e)),
                 s._implicitParam(
                   "=m4",
                   c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    onClick: h,
+                    onClick: C,
                     xstyle: d.seeRule,
                     href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
                     children: s._(/*BTDS*/ "See rule"),
@@ -704,7 +718,7 @@ __d(
                 s._implicitParam(
                   "=m4",
                   c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    onClick: h,
+                    onClick: C,
                     xstyle: d.seeRule,
                     href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
                     children: s._(/*BTDS*/ "See rule"),
@@ -715,11 +729,11 @@ __d(
           : s._(
               /*BTDS*/ "This update doesn't follow our Channel Guidelines on {violation_category_text} {=m4}",
               [
-                s._param("violation_category_text", v(e)),
+                s._param("violation_category_text", R(e)),
                 s._implicitParam(
                   "=m4",
                   c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    onClick: h,
+                    onClick: C,
                     xstyle: d.seeRule,
                     href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
                     children: s._(/*BTDS*/ "See rule"),
@@ -728,11 +742,11 @@ __d(
               ],
             );
     }
-    function E(e) {
+    function I(e) {
       return s._(
         /*BTDS*/ "Your profile picture does not follow our {=m2} on {violation_category_text}",
         [
-          s._param("violation_category_text", v(e)),
+          s._param("violation_category_text", R(e)),
           s._implicitParam(
             "=m2",
             c.jsx(o("WAWebExternalLink.react").ExternalLink, {
@@ -745,14 +759,14 @@ __d(
         ],
       );
     }
-    E.displayName = E.name + " [from " + i.id + "]";
-    function k(e) {
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T(e) {
       return e.reportStatus === "PENDING" || e.appeal.state === "PENDING"
         ? s._(/*BTDS*/ "Report in review")
         : s._(/*BTDS*/ "Report reviewed");
     }
-    k.displayName = k.name + " [from " + i.id + "]";
-    function I(e) {
+    T.displayName = T.name + " [from " + i.id + "]";
+    function D(e) {
       var t = e.reportContentData;
       return t.reportContentType === "status"
         ? e.newsletterName != null
@@ -784,7 +798,7 @@ __d(
                 ])
               : s._(/*BTDS*/ "You reported a channel");
     }
-    function T(e) {
+    function x(e) {
       if (e.newsletterName == null)
         return o(
           "WAWebCommonNewsletterIntegrityStrings",
@@ -860,7 +874,7 @@ __d(
           ).getNewsletterReportContentUnavailableDescription();
       }
     }
-    function D(e) {
+    function $(e) {
       if (e.newsletterName == null)
         return o(
           "WAWebCommonNewsletterIntegrityStrings",
@@ -940,8 +954,8 @@ __d(
           return null;
       }
     }
-    var x = "8639295579439940";
-    function $(e) {
+    var P = "8639295579439940";
+    function N(e) {
       var t = e.msg,
         n = e.reportId,
         a = t != null,
@@ -995,7 +1009,7 @@ __d(
               ? {
                   learnMoreUrl: o(
                     "WAWebContactFormsUrl",
-                  ).getReportContentAUSFormUrl(n, x),
+                  ).getReportContentAUSFormUrl(n, P),
                   bannerText: s._(
                     /*BTDS*/ "You can send an additional report under the Australian Online Safety Act.",
                   ),
@@ -1007,19 +1021,21 @@ __d(
     ((l.showReviewSubmissionFailureToast = m),
       (l.showReviewSubmissionSuccessToast = p),
       (l.showDsbReferenceNumberFailureToast = _),
-      (l.getOutcomeListSubtitle = f),
-      (l.getOutcomeListTitle = g),
-      (l.getTitleBasedOnEnforcementTypeAndOutcome = y),
-      (l.getHeaderBodyTextBasedOnEnforcementTypeAndOutcome = b),
-      (l.getSuspendedNewsletterPolicyGuideline = S),
-      (l.getServerDrivenPolicyGuideline = R),
-      (l.getSuspendInformPolicyGuideline_ToBeDeprecated = L),
-      (l.getProfilePictureDeletionPolicyGuideline = E),
-      (l.getReportStatusString = k),
-      (l.getReportDetailsTitleString = I),
-      (l.getReportDetailsSubtitleString = T),
-      (l.getReportDetailsWithAppealInfoSubtitleString = D),
-      (l.getNewsletterReportComplianceConfig = $));
+      (l.showStatusDeleteSuccessToast = f),
+      (l.showStatusDeleteFailureToast = g),
+      (l.getOutcomeListSubtitle = h),
+      (l.getOutcomeListTitle = y),
+      (l.getTitleBasedOnEnforcementTypeAndOutcome = b),
+      (l.getHeaderBodyTextBasedOnEnforcementTypeAndOutcome = S),
+      (l.getSuspendedNewsletterPolicyGuideline = L),
+      (l.getServerDrivenPolicyGuideline = E),
+      (l.getSuspendInformPolicyGuideline_ToBeDeprecated = k),
+      (l.getProfilePictureDeletionPolicyGuideline = I),
+      (l.getReportStatusString = T),
+      (l.getReportDetailsTitleString = D),
+      (l.getReportDetailsSubtitleString = x),
+      (l.getReportDetailsWithAppealInfoSubtitleString = $),
+      (l.getNewsletterReportComplianceConfig = N));
   },
   226,
 );

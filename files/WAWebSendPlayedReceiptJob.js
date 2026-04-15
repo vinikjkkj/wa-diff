@@ -6,6 +6,7 @@ __d(
     "WAWebAck",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
+    "WAWebPnlessStanzaMigration",
     "WAWebPrivacySettings",
     "WAWebSchemaMessage",
     "WAWebSendReceiptJobCommon",
@@ -35,8 +36,9 @@ __d(
             a = t.id.id,
             i = r.isUser() ? null : t.author,
             l = e(n),
-            s = o("WAWap").wap("receipt", {
-              to: o("WAWebCommsWapMd").CHAT_JID(r),
+            s = yield o("WAWebPnlessStanzaMigration").getStanzaToFromChatId(r),
+            u = o("WAWap").wap("receipt", {
+              to: o("WAWebCommsWapMd").CHAT_JID(s),
               type: l,
               id: o("WAWap").CUSTOM_STRING(a),
               t: o("WAWap").CUSTOM_STRING(Date.now().toString()),
@@ -46,12 +48,12 @@ __d(
             });
           return (
             yield o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
-              s,
+              u,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: a,
                 class: "receipt",
                 type: l,
-                from: r,
+                from: s,
                 participant: i,
               }),
             ),

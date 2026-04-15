@@ -1113,6 +1113,9 @@ __d(
               t.templateParams = void 0;
               break;
             }
+          case l.CHANGE_LIMIT_SHARING:
+            t.viewMode = o("WAWebViewMode.flow").ViewModeType.HIDDEN;
+            break;
           case l.GROUP_MEMBER_SHARE_GROUP_HISTORY_MODE:
             ((t.type = "gp2"),
               (t.kind = o("WAWebMsgType").MsgKind.Gp2),

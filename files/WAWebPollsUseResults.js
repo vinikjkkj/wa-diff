@@ -8,7 +8,6 @@ __d(
     "WAWebMessageAddOnType",
     "WAWebMsgType",
     "WAWebPollVoteGetters",
-    "WAWebPollsGatingUtils",
     "WAWebPollsPollVoteCollection",
     "WAWebUserPrefsMeUser",
     "react",
@@ -68,15 +67,12 @@ __d(
       var b, v;
       (t[8] !== h || t[9] !== g
         ? ((b = function () {
-            if (o("WAWebPollsGatingUtils").arePollsNotificationsEnabled()) {
-              var e = g.filter(p);
-              e.length !== 0 &&
-                h({
-                  addOnType: o("WAWebMessageAddOnType").MessageAddOnType
-                    .PollVote,
-                  addOns: e.map(m),
-                });
-            }
+            var e = g.filter(p);
+            e.length !== 0 &&
+              h({
+                addOnType: o("WAWebMessageAddOnType").MessageAddOnType.PollVote,
+                addOns: e.map(m),
+              });
           }),
           (v = [g, h]),
           (t[8] = h),

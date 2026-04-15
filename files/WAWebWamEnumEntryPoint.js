@@ -81,6 +81,9 @@ __d(
       BB_CHAT_OVERFLOW_MENU: 76,
       BB_TOOLS_PAGE: 77,
       BB_REVIEW: 78,
+      CHAT_OVERFLOW_MENU: 79,
+      IN_THREAD_CHAT: 80,
+      SETTINGS_TAB: 81,
     });
     i.ENTRY_POINT = e;
   },

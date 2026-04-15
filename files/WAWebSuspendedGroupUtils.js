@@ -9,9 +9,9 @@ __d(
     "WAWebExitAndDeleteGroupPopup.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
+    "WAWebGroupAppealInReviewModal.react",
     "WAWebGroupJoinRequestMetricUtils",
     "WAWebGroupSuspensionAppealEventsWamEvent",
-    "WAWebGroupSuspensionAppealModal.react",
     "WAWebGroupSuspensionAppealMutation",
     "WAWebGroupType",
     "WAWebL10N",
@@ -143,19 +143,20 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
+          var n = t.id,
+            a;
           try {
-            n = yield o(
+            a = yield o(
               "WAWebGroupSuspensionAppealMutation",
             ).submitGroupSuspensionAppeal(
-              t.toJid(),
+              n.toJid(),
               null,
               JSON.stringify(
                 yield o("WAWebLoggerDebugInfo").getDebugInfo({
                   supportTag: "group-suspend-appeal",
                   convertFields: !0,
                   addUserAgentDetails: !0,
-                  entityId: t.toJid(),
+                  entityId: n.toJid(),
                 }),
               ),
             );
@@ -170,34 +171,41 @@ __d(
               .catching(t instanceof Error ? t : r("err")(String(t)))
               .tags("GROUP_SUSPEND")
               .sendLogs("group-suspend-appeal-error"),
-              (n = {
+              (a = {
                 success: !1,
                 appealCreationTime: null,
                 errorMessage: String(t),
               }));
           }
-          return (
-            n.success
-              ? yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(t, {
+          if (a.success) {
+            var i;
+            (yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(n, {
+              suspendAppealStatus: "IN_REVIEW",
+              suspendAppealUpdateTime: a.appealCreationTime,
+            }),
+              (i = t.groupMetadata) == null ||
+                i.set({
                   suspendAppealStatus: "IN_REVIEW",
-                  suspendAppealUpdateTime: n.appealCreationTime,
-                })
-              : o("WAWebToastManager").ToastManager.open(
-                  c.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(
-                      /*BTDS*/ "Something went wrong. Please try again later.",
-                    ),
-                  }),
+                  suspendAppealUpdateTime: a.appealCreationTime,
+                }),
+              o("WAWebModalManager").closeModalManager(),
+              R(t));
+          } else
+            o("WAWebToastManager").ToastManager.open(
+              c.jsx(o("WAWebToast.react").Toast, {
+                msg: s._(
+                  /*BTDS*/ "Something went wrong. Please try again later.",
                 ),
-            n
-          );
+              }),
+            );
+          return a;
         })),
         S.apply(this, arguments)
       );
     }
     function R(e) {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebGroupSuspensionAppealModal.react"), { chatId: e }),
+        c.jsx(r("WAWebGroupAppealInReviewModal.react"), { chat: e }),
         { transition: "modal-flow" },
       );
     }
@@ -231,7 +239,7 @@ __d(
       (l.openSuspendedGroupModalV2 = C),
       (l.openSuspendedGroupRedesignModal = b),
       (l.submitGroupAppeal = v),
-      (l.openGroupSuspensionAppealModal = R),
+      (l.openGroupAppealInReviewModal = R),
       (l.openExitAndDeleteGroupModal = L),
       (l.openLeaveAndReportGroupModal = E),
       (l.openSuspendedGroupMediaDownloadFailureModal = k));

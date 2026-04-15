@@ -25,6 +25,7 @@ __d(
     "WAWebPaymentRequestWamLogger",
     "WAWebQbmIncomingMessageLogger",
     "WAWebRuntimeEnvironmentUtils",
+    "WAWebStickerPremiumStatus",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
     "WAWebWamAddressingModeUtils",
@@ -258,6 +259,12 @@ __d(
                           (b.localAddressingMode = o(
                             "WAWebWamAddressingModeUtils",
                           ).getWamAddressingModeFromString(l)),
+                        o("WAWebMsgGetters").getType(e) ===
+                          o("WAWebMsgType").MSG_TYPE.STICKER &&
+                          (b.stickerIsPremium =
+                            e.stickerPremiumStatus ===
+                            o("WAWebStickerPremiumStatus").StickerPremiumStatus
+                              .PREMIUM),
                         a != null && a.isGroup())
                       ) {
                         var M = yield o(

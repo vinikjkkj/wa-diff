@@ -28,6 +28,7 @@ __d(
         isViewOnce: "isViewOnce",
         waveform: "waveform",
         staticUrl: "staticUrl",
+        stickerPremiumStatus: "stickerPremiumStatus",
         accessibilityLabel: "accessibilityLabel",
       }),
       s = Object.freeze({
@@ -57,6 +58,7 @@ __d(
         isViewOnce: "isViewOnce",
         waveform: "waveform",
         staticUrl: "staticUrl",
+        stickerPremiumStatus: "stickerPremiumStatus",
         stickerPackId: "stickerPackId",
         stickerPackName: "stickerPackName",
         stickerPackPublisher: "stickerPackPublisher",

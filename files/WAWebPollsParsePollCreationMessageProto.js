@@ -42,9 +42,7 @@ __d(
       if (
         f == null ||
         (f === d &&
-          !o("WAWebPollsCagsGatingUtils").isPollsReceivingEnabledInCags()) ||
-        (f === m &&
-          !o("WAWebPollsGatingUtils").isSingleOptionPollsReceivingEnabled())
+          !o("WAWebPollsCagsGatingUtils").isPollsReceivingEnabledInCags())
       )
         return null;
       var y = f.contextInfo,
