@@ -22,7 +22,6 @@ Tooling to version WhatsApp Web JavaScript bundles and inspect diffs across rele
 
 - Node.js `>=20`
 - npm `>=10`
-- A valid WhatsApp Web session
 
 ## Install
 
@@ -70,6 +69,17 @@ prettier --write files --ignore-unknown
 2. Review changed files in `urls.json` and `files/`.
 3. Commit the update.
 4. Compare commits to analyze WhatsApp bundle changes.
+
+## AI-generated release notes
+
+Each commit pushed by the daily workflow gets an automatic GitHub Release summarizing what changed. The summary is produced by Gemini 2.5 Flash from the commit's `--stat` and `git diff -U1` (when small enough), and includes both English and Portuguese versions in collapsible sections.
+
+- Tag format: `vYYYY.MM.DD-HHMM` (commit timestamp, UTC)
+- Generator: [`.github/scripts/explain_commit.py`](./.github/scripts/explain_commit.py)
+- Workflow step lives in [`.github/workflows/daily-update.yml`](./.github/workflows/daily-update.yml)
+- Requires repo secret `GEMINI_API_KEY` ([get one here](https://aistudio.google.com/apikey))
+
+Browse the latest summaries in the [Releases](../../releases) tab.
 
 ## Notes
 
