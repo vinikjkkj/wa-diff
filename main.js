@@ -54,7 +54,15 @@ function resolveFromProject(request) {
 function runWaExport() {
     const waExportScript = resolveFromProject('wa-modules-loader/dist/export/index.js')
 
-    const args = [OUTPUT_PATH, EXPORT_DIR, '--workers', WORKERS, '--flat']
+    const args = [
+        OUTPUT_PATH,
+        EXPORT_DIR,
+        '--workers',
+        WORKERS,
+        '--flat',
+        '--module-filter',
+        'react'
+    ]
 
     return runCommand(process.execPath, [waExportScript, ...args], 'wa-export')
 }

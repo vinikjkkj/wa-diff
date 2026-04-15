@@ -30,6 +30,6 @@
     "dependencies": {
         "prettier": "^3.8.2",
         "puppeteer-real-browser": "^1.4.4",
-        "wa-modules-loader": "github:vinikjkkj/wa-modules-loader"
+        "wa-modules-loader": "^1.1.2"
     }
 }
