@@ -51,8 +51,33 @@ function resolveFromProject(request) {
     return require.resolve(request, { paths: [__dirname] })
 }
 
+function resolvePackageBin(packageName, binName = packageName) {
+    const packageJsonPath = resolveFromProject(`${packageName}/package.json`)
+    const packageDir = path.dirname(packageJsonPath)
+    const packageJson = require(packageJsonPath)
+    const { bin } = packageJson
+
+    if (typeof bin === 'string') {
+        return path.resolve(packageDir, bin)
+    }
+
+    if (bin && typeof bin === 'object') {
+        const explicitBin = bin[binName]
+        const firstBin = Object.values(bin)[0]
+        const selectedBin = explicitBin || firstBin
+
+        if (typeof selectedBin === 'string') {
+            return path.resolve(packageDir, selectedBin)
+        }
+    }
+
+    throw new Error(
+        `Unable to resolve bin "${binName}" from package "${packageName}"`
+    )
+}
+
 function runWaExport() {
-    const waExportScript = resolveFromProject('wa-modules-loader/dist/export/index.js')
+    const waExportScript = resolvePackageBin('wa-modules-loader', 'wa-export')
 
     const args = [
         OUTPUT_PATH,
@@ -68,7 +93,7 @@ function runWaExport() {
 }
 
 function runPrettier() {
-    const prettierScript = resolveFromProject('prettier/bin/prettier.cjs')
+    const prettierScript = resolvePackageBin('prettier', 'prettier')
 
     return runCommand(
         process.execPath,
