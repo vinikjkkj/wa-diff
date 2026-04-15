@@ -3,7 +3,6 @@ __d(
   ["$InternalEnum", "WAWebNoop"],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
-        DEFAULT: 0,
         RASTER: 1,
         VIDEOFRAME: 2,
         WEBGL: 3,
@@ -11,7 +10,6 @@ __d(
         WEBGPU: 5,
       }),
       s = n("$InternalEnum")({
-        DEFAULT: 0,
         MAIN_THREAD: 1,
         SINGLE_WORKER: 2,
         WORKER_PER_CANVAS: 3,

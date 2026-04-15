@@ -53,6 +53,7 @@ __d(
                 isThroughDecisionService: this.getIsThroughDecisionService(),
                 messageTypeStr: this.msg.type,
                 qbmFlag: this.getQbmFlag(),
+                isOba: this.getIsOba(this.chat),
               })),
               this
             );
@@ -110,6 +111,14 @@ __d(
             var t,
               n = this.msg.decisionSources;
             return (t = n == null ? void 0 : n.includes(e)) != null ? t : !1;
+          }),
+          (n.getIsOba = function (t) {
+            var e;
+            return (
+              ((e = t.contact.businessProfile) == null
+                ? void 0
+                : e.isAuthorizedAgent) === !0
+            );
           }),
           t
         );

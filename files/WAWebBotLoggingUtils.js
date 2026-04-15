@@ -7,6 +7,7 @@ __d(
     "WAWebChatEntryPoint",
     "WAWebProtobufsAICommon.pb",
     "WAWebWamEnumBotEntryPointType",
+    "WAWebWamEnumChatFilterActionTypes",
     "WAWebWamEnumMetaAiActionEntryPoint",
     "WAWebWamEnumThreadActionTypes",
   ],
@@ -512,6 +513,23 @@ __d(
                                           );
                                         })();
     }
+    var v = null;
+    function S(e) {
+      var t;
+      if (e == null) return "undefined";
+      if (v == null) {
+        var n = new Map();
+        for (var r of Object.entries(
+          o("WAWebWamEnumChatFilterActionTypes").CHAT_FILTER_ACTION_TYPES,
+        )) {
+          var a = r[0],
+            i = r[1];
+          typeof i == "number" && n.set(i, a);
+        }
+        v = n;
+      }
+      return (t = v.get(e)) != null ? t : String(e);
+    }
     ((l.getBotMetricsEntryPointFromBotEntryPoint = m),
       (l.getBotMetricsEntryPointFromChatEntryPoint = p),
       (l.getBotOriginFromBotMetricsEntryPoint = _),
@@ -519,7 +537,8 @@ __d(
       (l.maybeGetBotMetricsMetadata = g),
       (l.getMetaAiActionEntryPointName = h),
       (l.getBotEntryPointTypeName = C),
-      (l.getThreadActionTypeName = b));
+      (l.getThreadActionTypeName = b),
+      (l.getChatFilterActionTypeName = S));
   },
   98,
 );

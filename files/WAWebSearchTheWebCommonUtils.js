@@ -33,6 +33,7 @@ __d(
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -281,47 +282,93 @@ __d(
       }
     }
     function D(e) {
-      var t = e.onSearchClick,
-        a = e.searchType,
-        i = d(!1),
-        l = i[0],
-        s = i[1];
-      return c.jsx(o("WAWebFlex.react").FlexItem, {
-        testid: void 0,
-        paddingTop: 8,
-        paddingBottom: 8,
-        children: c.jsx(r("WAWebCellV2.react"), {
-          detailLeft: I(a),
-          containerXStyle: [m.paddingEnd4, m.paddingVert4],
-          primaryRightXStyle: [m.paddingEnd4, m.paddingVert4],
-          disabled: l,
-          onClick: n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            r("WAWebNetworkStatus").online
-              ? (s(!0),
-                yield t(),
-                s(!1),
-                new (o(
-                  "WAWebHfmTextSearchCompleteWamEvent",
-                ).HfmTextSearchCompleteWamEvent)().commit(),
-                o("WAWebModalManager").ModalManager.close())
-              : y(g());
-          }),
-          primary: c.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
+      var t = o("react-compiler-runtime").c(18),
+        a = e.onSearchClick,
+        i = e.searchType,
+        l = d(!1),
+        s = l[0],
+        u = l[1],
+        p;
+      t[0] !== i ? ((p = I(i)), (t[0] = i), (t[1] = p)) : (p = t[1]);
+      var _, f;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = [m.paddingEnd4, m.paddingVert4]),
+          (f = [m.paddingEnd4, m.paddingVert4]),
+          (t[2] = _),
+          (t[3] = f))
+        : ((_ = t[2]), (f = t[3]));
+      var h;
+      t[4] !== a
+        ? ((h = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              r("WAWebNetworkStatus").online
+                ? (u(!0),
+                  yield a(),
+                  u(!1),
+                  new (o(
+                    "WAWebHfmTextSearchCompleteWamEvent",
+                  ).HfmTextSearchCompleteWamEvent)().commit(),
+                  o("WAWebModalManager").ModalManager.close())
+                : y(g());
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (t[4] = a),
+          (t[5] = h))
+        : (h = t[5]);
+      var C;
+      t[6] !== i ? ((C = T(i)), (t[6] = i), (t[7] = C)) : (C = t[7]);
+      var b;
+      t[8] !== C
+        ? ((b = c.jsx(o("WAWebText.react").WAWebTextSectionTitle, {
             color: "primary",
             paddingStart: 12,
-            children: T(a),
-          }),
-          alignDetailRight: "start",
-          primaryRight: l
+            children: C,
+          })),
+          (t[8] = C),
+          (t[9] = b))
+        : (b = t[9]);
+      var v;
+      t[10] !== s
+        ? ((v = s
             ? c.jsx(o("WAWebSpinner.react").Spinner, {
                 size: 20,
                 color: "accent",
               })
-            : null,
-        }),
-      });
+            : null),
+          (t[10] = s),
+          (t[11] = v))
+        : (v = t[11]);
+      var S;
+      return (
+        t[12] !== s || t[13] !== p || t[14] !== h || t[15] !== b || t[16] !== v
+          ? ((S = c.jsx(o("WAWebFlex.react").FlexItem, {
+              testid: void 0,
+              paddingTop: 8,
+              paddingBottom: 8,
+              children: c.jsx(r("WAWebCellV2.react"), {
+                detailLeft: p,
+                containerXStyle: _,
+                primaryRightXStyle: f,
+                disabled: s,
+                onClick: h,
+                primary: b,
+                alignDetailRight: "start",
+                primaryRight: v,
+              }),
+            })),
+            (t[12] = s),
+            (t[13] = p),
+            (t[14] = h),
+            (t[15] = b),
+            (t[16] = v),
+            (t[17] = S))
+          : (S = t[17]),
+        S
+      );
     }
-    D.displayName = D.name + " [from " + i.id + "]";
     function x(e) {
       var t = Array.from(e.keys());
       if (t.length === 1) {

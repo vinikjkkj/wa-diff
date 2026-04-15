@@ -200,6 +200,57 @@ __d(
         $.apply(this, arguments)
       );
     }
+    function P(e, t, n) {
+      var r =
+          "a=candidate:2 1 udp 2122262783 " +
+          e +
+          " " +
+          t +
+          " typ host generation 0 network-cost 5",
+        o = [r, "a=end-of-candidates"].join("\r\n"),
+        a = D(n);
+      return ((a += o + "\r\n"), a);
+    }
+    function N(e, t) {
+      var n,
+        r = t.enableEdgerayDtlsActiveMode
+          ? "a=setup:active"
+          : "a=setup:passive",
+        o = e.replace(/a=setup:actpass/g, r),
+        a = (n = t.authToken) != null ? n : t.token;
+      return (
+        (o = I(o, a, t.key)),
+        (o = T(
+          o,
+          "sha-256",
+          "F9:CA:0C:98:A3:CC:71:D6:42:CE:5A:E2:53:D2:15:20:D3:1B:BA:D8:57:A4:F0:AF:BE:0B:FB:F3:6B:0C:A0:68",
+        )),
+        (o = o.replace(/a=ice-options:[^\r\n]+\r\n/g, "")),
+        (o = o.replace(
+          /a=max-message-size:[^\r\n]+/g,
+          "a=max-message-size:1500",
+        )),
+        (o = P(t.ip, t.port.toString(), o)),
+        o
+      );
+    }
+    var M = n("$InternalEnum").Mirrored([
+      "STUN_ALLOC",
+      "STUN_BIND",
+      "STUN_UNKNOWN",
+      "NonSTUN",
+    ]);
+    function w(e) {
+      if (e.byteLength < 2) return M.NonSTUN;
+      var t = new Uint8Array(e),
+        n = t[0],
+        r = t[1];
+      if ((n & 192) === 0) {
+        var o = ((n & 63) << 8) | r;
+        return o === 1 ? M.STUN_BIND : o === 3 ? M.STUN_ALLOC : M.STUN_UNKNOWN;
+      }
+      return M.NonSTUN;
+    }
     ((l.RELAY_PROTO_UDP = u),
       (l.CONNECTION_TIMEOUT_MS = c),
       (l.MAX_BUFFER_SIZE = d),
@@ -219,7 +270,11 @@ __d(
       (l.replaceIceCredentials = I),
       (l.replaceDtlsFingerprint = T),
       (l.removeIceCandidates = D),
-      (l.dataToArrayBuffer = x));
+      (l.dataToArrayBuffer = x),
+      (l.addIceCandidates = P),
+      (l.createAnswerSdp = N),
+      (l.PacketType = M),
+      (l.inspectPacketType = w));
   },
   98,
 );

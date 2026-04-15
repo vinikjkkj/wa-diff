@@ -227,15 +227,21 @@ __d(
                 return e.id.toString();
               });
               try {
+                var K = t.flatMap(function (e) {
+                  var t;
+                  return ((t = e.threadIds) != null ? t : []).map(function (e) {
+                    return e.toString();
+                  });
+                });
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
                   "checkOrphanMutations",
-                  { msgIds: j, chatIds: p },
+                  { msgIds: j, chatIds: p, threadIds: K },
                 ),
                   yield o(
                     "WAWebCheckUpdateOrphanReactions",
                   ).checkUpdateForOrphanReactions(j));
               } catch (e) {
-                var K = r("getErrorSafe")(e);
+                var Q = r("getErrorSafe")(e);
                 o("WALogger")
                   .ERROR(
                     s ||
@@ -247,7 +253,7 @@ __d(
                     String(j.join(" ")),
                     String(t[0].id.remote),
                   )
-                  .catching(K);
+                  .catching(Q);
               }
               (v(w, T),
                 o("WALogger").LOG(
@@ -259,7 +265,7 @@ __d(
                   i,
                 ));
             } catch (e) {
-              var Q = r("getErrorSafe")(e);
+              var X = r("getErrorSafe")(e);
               r("gkx")("26258")
                 ? o("WALogger")
                     .ERROR(
@@ -268,7 +274,7 @@ __d(
                           "[store-msgs] error",
                         ])),
                     )
-                    .catching(Q)
+                    .catching(X)
                     .sendLogs("storeMsgs-error", { sampling: 0.01 })
                 : o("WALogger")
                     .ERROR(
@@ -277,7 +283,7 @@ __d(
                           "[store-msgs] error",
                         ])),
                     )
-                    .catching(Q)
+                    .catching(X)
                     .sendLogs("storeMsgs-error");
             }
         })),

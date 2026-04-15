@@ -169,12 +169,14 @@ __d(
                   next: function (o) {
                     try {
                       r.closed ||
-                        t.from(n(o)).subscribe({
-                          start: a,
-                          next: r.next,
-                          error: r.error,
-                          complete: i,
-                        });
+                        t
+                          .from(n(o))
+                          .subscribe({
+                            start: a,
+                            next: r.next,
+                            error: r.error,
+                            complete: i,
+                          });
                     } catch (e) {
                       r.error(e, !0);
                     }

@@ -7,6 +7,7 @@ __d(
     "WAWebSendReadReceiptJob",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebListener",
   ],
@@ -38,25 +39,34 @@ __d(
       );
     }
     function d() {
-      var e = r("useLazyRef")(function () {
-          return [];
-        }),
-        t = s(
-          function () {
+      var e = o("react-compiler-runtime").c(5),
+        t = r("useLazyRef")(m),
+        n;
+      e[0] !== t
+        ? ((n = function () {
             !document.hasFocus() ||
-              e.current.length === 0 ||
-              (u(e.current), (e.current = []));
-          },
-          [e],
-        ),
-        n = s(
-          function (n) {
-            var r;
-            ((r = e.current).push.apply(r, n), t());
-          },
-          [t, e],
-        );
-      return (o("useWAWebListener").useListener(window, "focus", t), n);
+              t.current.length === 0 ||
+              (u(t.current), (t.current = []));
+          }),
+          (e[0] = t),
+          (e[1] = n))
+        : (n = e[1]);
+      var a = n,
+        i;
+      e[2] !== a || e[3] !== t
+        ? ((i = function (n) {
+            var e;
+            ((e = t.current).push.apply(e, n), a());
+          }),
+          (e[2] = a),
+          (e[3] = t),
+          (e[4] = i))
+        : (i = e[4]);
+      var l = i;
+      return (o("useWAWebListener").useListener(window, "focus", a), l);
+    }
+    function m() {
+      return [];
     }
     l.useMarkAddonsAsRead = d;
   },

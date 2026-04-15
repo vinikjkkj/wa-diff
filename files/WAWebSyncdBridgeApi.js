@@ -11,8 +11,9 @@ __d(
     var e = {
       checkOrphanMutations: function (t) {
         var e = t.chatIds,
-          n = t.msgIds;
-        return o("WAWebSyncdOrphan").checkOrphanMutations(n, e);
+          n = t.msgIds,
+          r = t.threadIds;
+        return o("WAWebSyncdOrphan").checkOrphanMutations(n, e, r);
       },
       handleSyncdFatal: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

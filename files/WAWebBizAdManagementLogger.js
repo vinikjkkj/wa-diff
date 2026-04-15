@@ -7,22 +7,25 @@ __d(
     "WAWebWamEnumLwiEntryPoint",
     "WAWebWamEnumLwiScreenAction",
     "WAWebWamEnumLwiScreenReference",
+    "WAWebWamEnumWebFlowType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n) {
-      var r = new (o("WAWebLwiEntryTapWamEvent").LwiEntryTapWamEvent)({
+    function e(e, t, n, r) {
+      var a = new (o("WAWebLwiEntryTapWamEvent").LwiEntryTapWamEvent)({
         lwiEntryPoint: e,
         lwiFlowId: t,
       });
-      (n != null && (r.previousLwiFlowId = n), r.commit());
+      (n != null && (a.previousLwiFlowId = n),
+        r != null && (a.webFlowType = r),
+        a.commit());
     }
-    function s(e, t, n) {
-      var r = new (o("WAWebLwiEntryTapWamEvent").LwiEntryTapWamEvent)({
+    function s(e, t, n, r) {
+      var a = new (o("WAWebLwiEntryTapWamEvent").LwiEntryTapWamEvent)({
         lwiEntryPoint: e,
         lwiFlowId: t,
       });
-      ((r.previousLwiFlowId = n), r.commit());
+      ((a.previousLwiFlowId = n), r != null && (a.webFlowType = r), a.commit());
     }
     function u(e, t, n, r, a, i) {
       var l = new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
@@ -47,7 +50,8 @@ __d(
       ).LWI_SCREEN_ACTION),
       (l.LWI_SCREEN_REFERENCE = o(
         "WAWebWamEnumLwiScreenReference",
-      ).LWI_SCREEN_REFERENCE));
+      ).LWI_SCREEN_REFERENCE),
+      (l.WEB_FLOW_TYPE = o("WAWebWamEnumWebFlowType").WEB_FLOW_TYPE));
   },
   98,
 );

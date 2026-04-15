@@ -1,13 +1,13 @@
 __d(
   "ImmediateImplementation",
   ["ImmediateImplementationExperiments"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     (function (e, t) {
       "use strict";
-      var r = 1,
+      var n = 1,
         o = {},
         a = {},
-        l = a,
+        i = a,
         s = !1,
         u = e.document,
         c,
@@ -36,14 +36,14 @@ __d(
           : !1;
       }
       function f(e) {
-        var n = e[0];
+        var r = e[0];
         return (
           (e = Array.prototype.slice.call(e, 1)),
-          (o[r] = function () {
-            n.apply(t, e);
+          (o[n] = function () {
+            r.apply(t, e);
           }),
-          (l = l.next = { handle: r++ }),
-          l.handle
+          (i = i.next = { handle: n++ }),
+          i.handle
         );
       }
       function g() {
@@ -132,7 +132,7 @@ __d(
       }
       (y()
         ? e.MessageChannel &&
-          n("ImmediateImplementationExperiments").prefer_message_channel
+          r("ImmediateImplementationExperiments").prefer_message_channel
           ? (C(),
             b(),
             (c = function () {
@@ -146,11 +146,11 @@ __d(
               "onreadystatechange" in u.createElement("script")
             ? v()
             : S(),
-        (i.setImmediate = c),
-        (i.clearImmediate = h));
+        (l.setImmediate = c),
+        (l.clearImmediate = h));
     })(
       typeof self == "undefined" ? (typeof t == "undefined" ? this : t) : self,
     );
   },
-  null,
+  34,
 );

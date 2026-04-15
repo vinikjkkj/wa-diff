@@ -10,37 +10,66 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebWamEnumKicErrorCodeType",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
       c = e.useEffect;
     function d(e) {
-      var t = e.content,
-        n = e.onClose,
-        r = function () {
-          (o("WAWebExternalLink.react").openExternalLink(
-            o("WAWebFaqUrl").getEphemeralFaqUrl(),
-          ),
-            n != null && n(),
-            o("WAWebModalManager").ModalManager.closeSupportOrModal());
-        },
-        a = function () {
-          (n != null && n(),
-            o("WAWebModalManager").ModalManager.closeSupportOrModal());
-        };
-      return u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "kic-exited-warning",
-        },
-        onOK: a,
-        cancelText: s._(/*BTDS*/ "Learn more"),
-        onCancel: r,
-        children: t,
-      });
+      var t = o("react-compiler-runtime").c(10),
+        n = e.content,
+        r = e.onClose,
+        a;
+      t[0] !== r
+        ? ((a = function () {
+            (o("WAWebExternalLink.react").openExternalLink(
+              o("WAWebFaqUrl").getEphemeralFaqUrl(),
+            ),
+              r != null && r(),
+              o("WAWebModalManager").ModalManager.closeSupportOrModal());
+          }),
+          (t[0] = r),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] !== r
+        ? ((l = function () {
+            (r != null && r(),
+              o("WAWebModalManager").ModalManager.closeSupportOrModal());
+          }),
+          (t[2] = r),
+          (t[3] = l))
+        : (l = t[3]);
+      var c = l,
+        d;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = { surface: "unknown", viewName: "kic-exited-warning" }),
+          (t[4] = d))
+        : (d = t[4]);
+      var m;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = s._(/*BTDS*/ "Learn more")), (t[5] = m))
+        : (m = t[5]);
+      var p;
+      return (
+        t[6] !== n || t[7] !== i || t[8] !== c
+          ? ((p = u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              tsNavigationData: d,
+              onOK: c,
+              cancelText: m,
+              onCancel: i,
+              children: n,
+            })),
+            (t[6] = n),
+            (t[7] = i),
+            (t[8] = c),
+            (t[9] = p))
+          : (p = t[9]),
+        p
+      );
     }
-    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
       var t = e.action,
         n = e.message,

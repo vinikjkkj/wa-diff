@@ -16,6 +16,7 @@ __d(
     "WDSIconIcArrowDropDown.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -65,26 +66,41 @@ __d(
       };
     }
     function m(e) {
-      var t = e.chatJid,
-        n = c(
-          function () {
-            return o("WAWebContactCollection").ContactCollection.get(t);
-          },
-          [t],
-        ),
-        a =
-          n != null
-            ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(n)
-                .displayName
-            : "\u2014";
-      return u.jsx(r("WDSText.react"), {
-        type: "Body2",
-        colorName: "contentDefault",
-        maxLines: 1,
-        children: a,
-      });
+      var t = o("react-compiler-runtime").c(6),
+        n = e.chatJid,
+        a;
+      t[0] !== n
+        ? ((a = o("WAWebContactCollection").ContactCollection.get(n)),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] !== i
+        ? ((l =
+            i != null
+              ? o("WAWebFrontendContactGetters").getFormattedPhoneAndType(i)
+                  .displayName
+              : "\u2014"),
+          (t[2] = i),
+          (t[3] = l))
+        : (l = t[3]);
+      var s = l,
+        c;
+      return (
+        t[4] !== s
+          ? ((c = u.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              maxLines: 1,
+              children: s,
+            })),
+            (t[4] = s),
+            (t[5] = c))
+          : (c = t[5]),
+        c
+      );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       if (e == null || e === 0) return "\u2014";
       try {
@@ -101,10 +117,10 @@ __d(
       f = [
         "customer",
         "phone",
-        "email",
         "leadStage",
         "list",
         "acquisitionSource",
+        "email",
         "lastMessage",
         "lastOrder",
         "notes",
@@ -173,26 +189,6 @@ __d(
           sortable: !0,
           width: {
             options: { minWidth: 180 },
-            type: "proportional",
-            value: 10,
-          },
-        },
-        {
-          cell: function (t) {
-            var e;
-            return u.jsx(r("WDSText.react"), {
-              type: "Body2",
-              colorName: "contentDefault",
-              maxLines: 1,
-              children: (e = t.item.email) != null ? e : "\u2014",
-            });
-          },
-          header: s._(/*BTDS*/ "Email"),
-          key: "email",
-          renderHeader: i(s._(/*BTDS*/ "Email"), "email"),
-          sortable: !0,
-          width: {
-            options: { minWidth: 200 },
             type: "proportional",
             value: 10,
           },
@@ -274,6 +270,26 @@ __d(
             options: { minWidth: 170 },
             type: "proportional",
             value: 12,
+          },
+        },
+        {
+          cell: function (t) {
+            var e;
+            return u.jsx(r("WDSText.react"), {
+              type: "Body2",
+              colorName: "contentDefault",
+              maxLines: 1,
+              children: (e = t.item.email) != null ? e : "\u2014",
+            });
+          },
+          header: s._(/*BTDS*/ "Email"),
+          key: "email",
+          renderHeader: i(s._(/*BTDS*/ "Email"), "email"),
+          sortable: !0,
+          width: {
+            options: { minWidth: 200 },
+            type: "proportional",
+            value: 10,
           },
         },
         {

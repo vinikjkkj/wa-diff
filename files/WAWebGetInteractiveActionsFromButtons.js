@@ -38,11 +38,14 @@ __d(
     "WAWebPaymentRequestWamLogger",
     "WAWebPhoneIcon.react",
     "WAWebQbmMessageClickLogEvent",
+    "WAWebQbmMessageLevelActionEvent",
     "WAWebReplyChatIcon.react",
     "WAWebRichOrderStatusLogger",
     "WAWebSendTextMsgChatAction",
     "WAWebSmbPaidMessagesButtonLoggerWamEvent",
     "WAWebWamEnumDisclosureEventType",
+    "WAWebWamEnumMessageActionEntryPoint",
+    "WAWebWamEnumMessageLevelAction",
     "WAWebWamEnumPmButtonEventType",
     "WAWebWamEnumPmButtonType",
     "WAWebWamEnumQbmMessageClickButtonClickedType",
@@ -280,24 +283,32 @@ __d(
         y(e, t, n, r, a);
       else {
         if (r == null) return;
-        (o("WAWebExternalLink.react").openExternalLink(r),
-          L(n, t),
-          o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-            msg: t.unsafe(),
-            chat: e,
-            buttonClickedType: o("WAWebWamEnumQbmMessageClickButtonClickedType")
-              .QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
-            nativeFlowName: n.name,
-          }),
+        (o("WAWebExternalLink.react").openExternalLink(r), L(n, t));
+        var i = t.unsafe();
+        (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
+          msg: i,
+          chat: e,
+          buttonClickedType: o("WAWebWamEnumQbmMessageClickButtonClickedType")
+            .QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
+          nativeFlowName: n.name,
+        }),
           o(
             "WAWebMmSignalSharingLoggingEvents",
           ).logMmSignalSharingLinkClickEvent({
             eventType: o("WAWebWamEnumDisclosureEventType")
               .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
             linkTypeIndex: n.index,
-            msg: t.unsafe(),
+            msg: i,
             chat: e,
             hasShownDisclosure: a,
+          }),
+          o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+            msg: i,
+            chat: e,
+            messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+              .MESSAGE_LEVEL_ACTION.BUTTON_CLICK,
+            messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
+              .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
           }));
       }
     }
@@ -312,24 +323,34 @@ __d(
               : "",
           verifyTrackableLink: o("WAWebMsgGetters").getIsMarketingMessage(t),
           onOkClick: function () {
-            (L(n, t),
-              o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-                msg: t.unsafe(),
-                chat: e,
-                buttonClickedType: o(
-                  "WAWebWamEnumQbmMessageClickButtonClickedType",
-                ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
-                nativeFlowName: n.name,
-              }),
+            L(n, t);
+            var r = t.unsafe();
+            (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
+              msg: r,
+              chat: e,
+              buttonClickedType: o(
+                "WAWebWamEnumQbmMessageClickButtonClickedType",
+              ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
+              nativeFlowName: n.name,
+            }),
               o(
                 "WAWebMmSignalSharingLoggingEvents",
               ).logMmSignalSharingLinkClickEvent({
                 eventType: o("WAWebWamEnumDisclosureEventType")
                   .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
                 linkTypeIndex: n.index,
-                msg: t.unsafe(),
+                msg: r,
                 chat: e,
                 hasShownDisclosure: i,
+              }),
+              o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+                msg: r,
+                chat: e,
+                messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                  .MESSAGE_LEVEL_ACTION.BUTTON_CLICK,
+                messageActionEntryPoint: o(
+                  "WAWebWamEnumMessageActionEntryPoint",
+                ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
               }));
           },
         }),
@@ -367,12 +388,20 @@ __d(
           }
           (L(e, t),
             o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-              msg: t.unsafe(),
+              msg: r,
               chat: n,
               buttonClickedType: o(
                 "WAWebWamEnumQbmMessageClickButtonClickedType",
               ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.QUICK_REPLY,
               nativeFlowName: e.name,
+            }),
+            o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+              msg: r,
+              chat: n,
+              messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                .MESSAGE_LEVEL_ACTION.BUTTON_CLICK,
+              messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
+                .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
             }));
           var l = o("WAWebMsgCollection").MsgCollection.get(t.id);
           l != null &&
@@ -387,15 +416,23 @@ __d(
       return {
         label: (n = e.data) == null ? void 0 : n.label,
         onClick: function () {
-          (r("WAWebBizMessageOpenCallModal")(),
-            L(e, t),
-            o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-              msg: t.unsafe(),
-              chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
-              buttonClickedType: o(
-                "WAWebWamEnumQbmMessageClickButtonClickedType",
-              ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.PHONE_NUMBER,
-              nativeFlowName: e.name,
+          (r("WAWebBizMessageOpenCallModal")(), L(e, t));
+          var n = t.unsafe(),
+            a = o("WAWebFrontendMsgGetters").getChat(n);
+          (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
+            msg: n,
+            chat: a,
+            buttonClickedType: o("WAWebWamEnumQbmMessageClickButtonClickedType")
+              .QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.PHONE_NUMBER,
+            nativeFlowName: e.name,
+          }),
+            o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+              msg: n,
+              chat: a,
+              messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                .MESSAGE_LEVEL_ACTION.BUTTON_CLICK,
+              messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
+                .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
             }));
         },
         Icon: o("WAWebPhoneIcon.react").PhoneIcon,
@@ -405,16 +442,28 @@ __d(
       return {
         label: e.data.label,
         onClick: function () {
-          e.data.catalogUrl != null &&
-            (o("WAWebExternalLink.react").openExternalLink(e.data.catalogUrl),
-            o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-              msg: t.unsafe(),
-              chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
+          if (e.data.catalogUrl != null) {
+            o("WAWebExternalLink.react").openExternalLink(e.data.catalogUrl);
+            var n = t.unsafe(),
+              r = o("WAWebFrontendMsgGetters").getChat(n);
+            (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
+              msg: n,
+              chat: r,
               buttonClickedType: o(
                 "WAWebWamEnumQbmMessageClickButtonClickedType",
               ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.CATALOG,
               nativeFlowName: e.name,
-            }));
+            }),
+              o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+                msg: n,
+                chat: r,
+                messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                  .MESSAGE_LEVEL_ACTION.BUTTON_CLICK,
+                messageActionEntryPoint: o(
+                  "WAWebWamEnumMessageActionEntryPoint",
+                ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+              }));
+          }
         },
       };
     }
@@ -422,14 +471,23 @@ __d(
       return {
         label: e.data.label,
         onClick: function () {
-          (o("WAWebCouponCodeHelper").copyCouponCodeGivenCode(e.data.copyCode),
-            o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-              msg: t.unsafe(),
-              chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
-              buttonClickedType: o(
-                "WAWebWamEnumQbmMessageClickButtonClickedType",
-              ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.COPY_CODE,
-              nativeFlowName: e.name,
+          o("WAWebCouponCodeHelper").copyCouponCodeGivenCode(e.data.copyCode);
+          var n = t.unsafe(),
+            r = o("WAWebFrontendMsgGetters").getChat(n);
+          (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
+            msg: n,
+            chat: r,
+            buttonClickedType: o("WAWebWamEnumQbmMessageClickButtonClickedType")
+              .QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.COPY_CODE,
+            nativeFlowName: e.name,
+          }),
+            o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+              msg: n,
+              chat: r,
+              messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                .MESSAGE_LEVEL_ACTION.COPY,
+              messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
+                .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
             }));
         },
         Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
@@ -445,15 +503,16 @@ __d(
           ? {
               label: a,
               onClick: function () {
-                var e = o("WAWebFrontendMsgGetters").getChat(t.unsafe());
+                var e = t.unsafe(),
+                  n = o("WAWebFrontendMsgGetters").getChat(e);
                 (o("WAWebRichOrderStatusLogger").logRichOrderStatusInteraction(
-                  t.unsafe(),
+                  e,
                   o("WAWebRichOrderStatusLogger").RichOrderStatusActionType
                     .MESSAGE_CTA_CLICK,
                 ),
                   o(
                     "WAWebBizOpenOrderStatusDrawer.react",
-                  ).openOrderStatusDrawer(i, e, t));
+                  ).openOrderStatusDrawer(i, n, t));
               },
             }
           : {

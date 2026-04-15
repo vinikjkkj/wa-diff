@@ -42,6 +42,7 @@ __d(
         PROFILE_USERNAME: "PROFILE_USERNAME",
         CHAT_OPEN: "CHAT_OPEN",
         APP_OPEN: "APP_OPEN",
+        NEWSLETTER_STATUS_DEEPLINK: "NEWSLETTER_STATUS_DEEPLINK",
       },
       l = n("$InternalEnum").Mirrored(["PIX_FAQ", "PIX_ONBOARDING"]);
     ((i.APICmd = e), (i.BrazilPaymentResultSubtype = l));

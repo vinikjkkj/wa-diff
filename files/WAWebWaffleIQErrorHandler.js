@@ -10,9 +10,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 3;
-    function c(e) {
-      e === void 0 && (e = u);
+      u,
+      c = 3;
+    function d(e) {
+      e === void 0 && (e = c);
       var t = 0;
       return {
         canRetry: function () {
@@ -23,12 +24,12 @@ __d(
         },
       };
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           switch (e) {
             case "IQErrorRequestTimeout":
             case "IQErrorRateOverlimit":
@@ -52,15 +53,15 @@ __d(
               return "fail";
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (!t.canRetry())
             return (
               o("WALogger")
@@ -73,6 +74,14 @@ __d(
                 .sendLogs("waffle-nonce-retry-limit", { sampling: 0.01 }),
               !1
             );
+          o("WALogger")
+            .LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[WAFFLE-TRACE] handleNonceRetry: attempting retry",
+                ])),
+            )
+            .sendLogs("waffle-nonce-trace-retry", { sampling: 1 });
           try {
             yield o(
               "WAWebAccountLinkingNonceFetchAPI",
@@ -80,8 +89,8 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] requestNonceFromPrimary failed",
                   ])),
               )
@@ -89,12 +98,12 @@ __d(
           }
           return !0;
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.createWaffleOperationRetryState = c),
-      (l.handleCommonWaffleIQError = d),
-      (l.handleNonceRetry = p));
+    ((l.createWaffleOperationRetryState = d),
+      (l.handleCommonWaffleIQError = m),
+      (l.handleNonceRetry = _));
   },
   98,
 );

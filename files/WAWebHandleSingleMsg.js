@@ -290,15 +290,23 @@ __d(
                   )
                   .tags("messaging"));
               try {
+                var N,
+                  M = ((N = T.threadIds) != null ? N : []).map(function (e) {
+                    return e.toString();
+                  });
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
                   "checkOrphanMutations",
-                  { msgIds: [T.id.toString()], chatIds: [a.toString()] },
+                  {
+                    msgIds: [T.id.toString()],
+                    chatIds: [a.toString()],
+                    threadIds: M,
+                  },
                 ),
                   yield o(
                     "WAWebCheckUpdateOrphanReactions",
                   ).checkUpdateForOrphanReactions([T.id.toString()]));
               } catch (e) {
-                var N = r("getErrorSafe")(e);
+                var w = r("getErrorSafe")(e);
                 o("WALogger")
                   .ERROR(
                     _ ||
@@ -310,17 +318,17 @@ __d(
                     String(T.id),
                     String(a),
                   )
-                  .catching(N);
+                  .catching(w);
               }
-              var M = !1;
+              var A = !1;
               if (
                 l === "createChat" &&
                 T.type !== o("WAWebMsgType").MSG_TYPE.CHAT &&
                 a.isRegularUser()
               ) {
-                var w = yield o("WAWebApiChatCommon").getChatRecord(a);
-                w == null &&
-                  ((M = !0),
+                var F = yield o("WAWebApiChatCommon").getChatRecord(a);
+                F == null &&
+                  ((A = !0),
                   o("WALogger").WARN(
                     f ||
                       (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -331,7 +339,7 @@ __d(
                   ));
               }
               !P &&
-                !M &&
+                !A &&
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
                   "processMultipleMessages",
                   {
@@ -366,7 +374,7 @@ __d(
                 );
                 return;
               }
-              var A = r("getErrorSafe")(e);
+              var O = r("getErrorSafe")(e);
               r("gkx")("26258")
                 ? o("WALogger")
                     .WARN(
@@ -381,9 +389,9 @@ __d(
                         ])),
                       String(T.id),
                       String(a),
-                      A.name,
-                      A.message,
-                      A.stack,
+                      O.name,
+                      O.message,
+                      O.stack,
                     )
                     .tags("messaging")
                 : o("WALogger")
@@ -399,9 +407,9 @@ __d(
                         ])),
                       String(T.id),
                       String(a),
-                      A.name,
-                      A.message,
-                      A.stack,
+                      O.name,
+                      O.message,
+                      O.stack,
                     )
                     .tags("messaging")
                     .sendLogs(

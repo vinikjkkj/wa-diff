@@ -54,6 +54,8 @@ __d(
               r("hasRequestedWelcomeMsg"),
               r("wallpaper"),
               r("showDoodle"),
+              r("chatThemeId"),
+              r("colorSchemeId"),
               r("capiThreadControl"),
               r("capiCallingPermissionType"),
               r("createdLocally"),

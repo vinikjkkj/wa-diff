@@ -12,41 +12,52 @@ __d(
     var e,
       s,
       u,
-      c = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      c,
+      d,
+      m,
+      p = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       );
-    function d() {
-      return c.updateAccountLinkingState(
+    function _() {
+      return p.updateAccountLinkingState(
         o("WAWebAccountLinkingConstants").AccountLinkState.Paused,
       );
     }
-    function m() {
-      return c.purgeWaffleData();
+    function f() {
+      return p.purgeWaffleData();
     }
-    function p() {
-      return _.apply(this, arguments);
+    function g() {
+      return h.apply(this, arguments);
     }
-    function _() {
+    function h() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield c.getAccountLinkingData();
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield p.getAccountLinkingData();
           if (t != null) {
             if (
               t.linkState ===
               o("WAWebAccountLinkingConstants").AccountLinkState.Active
             )
               try {
-                (yield o("WAWebAccountLinkingAPI").ping(),
-                  yield o("WAWebAccountLinkingAPI").fetchServiceData());
-              } catch (t) {
-                o("WALogger")
-                  .ERROR(
+                (o("WALogger")
+                  .LOG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[WAFFLE-TRACE] handleResyncState: local=Active, calling ping()",
+                      ])),
+                  )
+                  .sendLogs("waffle-nonce-trace-resync", { sampling: 1 }),
+                  yield o("WAWebAccountLinkingAPI").ping(),
+                  yield o("WAWebAccountLinkingAPI").fetchServiceData());
+              } catch (e) {
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "[WAFFLE] handleResyncState active state failed: ",
                         "",
                       ])),
-                    t,
+                    e,
                   )
                   .tags("waffle", "account-linking", "resync")
                   .sendLogs("waffle-resync-active-failed", { sampling: 0.01 });
@@ -61,13 +72,21 @@ __d(
                   switch (n) {
                     case o("WAWebAccountLinkingConstants")
                       .AccountLinkingStateExists.UNLINKED:
-                      yield c.purgeWaffleData();
+                      yield p.purgeWaffleData();
                       break;
                     case o("WAWebAccountLinkingConstants")
                       .AccountLinkingStateExists.ACTIVE:
-                      yield o(
-                        "WAWebAccountLinkingNonceFetchAPI",
-                      ).requestNonceFromPrimary();
+                      (o("WALogger")
+                        .LOG(
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                              "[WAFFLE-TRACE] handleResyncState: local=Paused, server=ACTIVE, requesting nonce",
+                            ])),
+                        )
+                        .sendLogs("waffle-nonce-trace-resync", { sampling: 1 }),
+                        yield o(
+                          "WAWebAccountLinkingNonceFetchAPI",
+                        ).requestNonceFromPrimary());
                       break;
                     case o("WAWebAccountLinkingConstants")
                       .AccountLinkingStateExists.PAUSED:
@@ -76,8 +95,8 @@ __d(
               } catch (e) {
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[WAFFLE] handleResyncState paused state failed: ",
                         "",
                       ])),
@@ -96,20 +115,28 @@ __d(
                     break;
                   case o("WAWebAccountLinkingConstants")
                     .AccountLinkingStateExists.ACTIVE:
-                    yield o(
-                      "WAWebAccountLinkingNonceFetchAPI",
-                    ).requestNonceFromPrimary();
+                    (o("WALogger")
+                      .LOG(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[WAFFLE-TRACE] handleResyncState: local=Unlinked, server=ACTIVE, requesting nonce",
+                          ])),
+                      )
+                      .sendLogs("waffle-nonce-trace-resync", { sampling: 1 }),
+                      yield o(
+                        "WAWebAccountLinkingNonceFetchAPI",
+                      ).requestNonceFromPrimary());
                     break;
                   case o("WAWebAccountLinkingConstants")
                     .AccountLinkingStateExists.PAUSED:
-                    yield d();
+                    yield _();
                     break;
                 }
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] handleResyncState unlinked state failed: ",
                       "",
                     ])),
@@ -119,12 +146,12 @@ __d(
                 .sendLogs("waffle-resync-unlinked-failed", { sampling: 0.01 });
             }
         })),
-        _.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((l.handlePausedState = d),
-      (l.handleUnlinkedState = m),
-      (l.handleResyncState = p));
+    ((l.handlePausedState = _),
+      (l.handleUnlinkedState = f),
+      (l.handleResyncState = g));
   },
   98,
 );

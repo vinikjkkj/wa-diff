@@ -218,7 +218,10 @@ __d(
                           s != null && (b.messageQueueTime = s - i)),
                         e.ephemeralDuration != null &&
                           e.ephemeralDuration > 0 &&
-                          (b.ephemeralityDuration = e.ephemeralDuration));
+                          (b.ephemeralityDuration = e.ephemeralDuration),
+                        e.afterReadDuration != null &&
+                          ((b.isAfterRead = e.afterReadDuration > 0),
+                          (b.afterReadDuration = e.afterReadDuration)));
                       var I =
                         o("WAWebMsgGetters").getWamDisappearingModeInitiator(e);
                       I != null && (b.disappearingChatInitiator = I);

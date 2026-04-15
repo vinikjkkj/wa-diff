@@ -12,75 +12,77 @@ __d(
     function s(t) {
       try {
         t.forEach(function (e) {
-          var t = e.event,
-            n = e.threadDs,
-            r = e.threadId,
-            a = t.contactInfo,
-            i = {
-              threadDs: n,
-              threadId: r,
-              messagesSent: t.msgsSent,
-              messagesReceived: t.msgsReceived,
-              messagesRead: t.msgsRead,
-              messagesUnread: t.messagesUnread,
-              isMessageYourself: t.isMessageYourself,
-              isAGroup: a.isAGroup,
-              isAContact: a.isAGroup ? void 0 : a.isAContact,
-              groupSize: a.isAGroup ? a.groupSize : void 0,
+          var t,
+            n = e.event,
+            r = e.threadDs,
+            a = e.threadId,
+            i = n.contactInfo,
+            l = {
+              threadDs: r,
+              threadId: a,
+              messagesSent: n.msgsSent,
+              messagesReceived: n.msgsReceived,
+              messagesRead: n.msgsRead,
+              messagesUnread: n.messagesUnread,
+              isMessageYourself: n.isMessageYourself,
+              isAGroup: i.isAGroup,
+              isAContact: i.isAGroup ? void 0 : i.isAContact,
+              groupSize: i.isAGroup ? i.groupSize : void 0,
               typeOfGroup:
-                a.groupType != null
-                  ? o("WAWebGroupType").groupTypeToWamEnum(a.groupType)
+                i.groupType != null
+                  ? o("WAWebGroupType").groupTypeToWamEnum(i.groupType)
                   : void 0,
-              isArchived: t.isArchived,
-              isPinned: t.isPinned,
-              chatMuted: t.isMuted
+              isArchived: n.isArchived,
+              isPinned: n.isPinned,
+              chatMuted: n.isMuted
                 ? o("WAWebWamEnumChatMutedType").CHAT_MUTED_TYPE
                     .MUTED_NO_NOTIFICATIONS
                 : o("WAWebWamEnumChatMutedType").CHAT_MUTED_TYPE.NOT_MUTED,
-              isPnhEnabledChat: t.isPnhEnabledChat,
+              isPnhEnabledChat: n.isPnhEnabledChat,
               groupStatusLikesOthersToOthers:
-                t.eventGroupStatusLikeOthersToOthers,
-              groupStatusLikesOthersToOwn: t.eventGroupStatusLikeOthersToOwn,
+                n.eventGroupStatusLikeOthersToOthers,
+              groupStatusLikesOthersToOwn: n.eventGroupStatusLikeOthersToOwn,
               groupStatusRepliesOthersToOthers:
-                t.eventGroupStatusReplyOthersToOthers,
-              groupStatusRepliesOthersToOwn: t.eventGroupStatusReplyOthersToOwn,
-              groupStatusRepliesOwnToOthers: t.eventGroupStatusReplyOwnToOthers,
-              groupStatusRepliesOwnToOwn: t.eventGroupStatusReplyOwnToOwn,
-              hasUsername: t.hasUsername,
-              hasUsernamePin: t.hasUsernamePin,
+                n.eventGroupStatusReplyOthersToOthers,
+              groupStatusRepliesOthersToOwn: n.eventGroupStatusReplyOthersToOwn,
+              groupStatusRepliesOwnToOthers: n.eventGroupStatusReplyOwnToOthers,
+              groupStatusRepliesOwnToOwn: n.eventGroupStatusReplyOwnToOwn,
+              hasUsername: n.hasUsername,
+              hasUsernamePin: n.hasUsernamePin,
               oppositeVisibleIdentification:
-                t.oppositeVisibleIdentification != null
-                  ? t.oppositeVisibleIdentification
+                n.oppositeVisibleIdentification != null
+                  ? n.oppositeVisibleIdentification
                   : void 0,
-              sharesCommonGroup: t.sharesCommonGroup,
-              isUsernameThread: t.isUsernameThread,
-              isUsernameThreadAtCreation: t.isUsernameThreadAtCreation,
-              reactionsSent: t.reactionsSent,
-              reactionsReceived: t.reactionsReceived,
-              forwardMessagesSent: t.forwardMessagesSent,
-              forwardMessagesReceived: t.forwardMessagesReceived,
-              editedMsgsSent: t.editedMsgsSent,
-              viewOnceMessagesSent: t.viewOnceMsgsSent,
-              viewOnceMessagesReceived: t.viewOnceMsgsReceived,
-              viewOnceMessagesOpened: t.viewOnceMessagesOpened,
-              commentsReceived: t.commentsReceived,
-              eventCreationMessagesSent: t.eventCreationMessagesSent,
-              eventCreationMessagesReceived: t.eventCreationMessagesReceived,
-              eventResponseMessagesSent: t.eventResponseMessagesSent,
-              eventResponseMessagesReceived: t.eventResponseMessagesReceived,
-              profileViews: t.profileViews,
-              profileReplies: t.profileReplies,
-              statusViews: t.statusViews,
-              statusReplies: t.statusReplies,
-              groupMembershipReplies: t.groupMembershipReplies,
-              groupPrivateReplies: t.groupPrivateReplies,
-              chatOverflowClicks: t.chatOverflowClicks,
-              repliesSent: t.repliesSent,
+              sharesCommonGroup: n.sharesCommonGroup,
+              isUsernameThread: n.isUsernameThread,
+              isUsernameThreadAtCreation: n.isUsernameThreadAtCreation,
+              reactionsSent: n.reactionsSent,
+              reactionsReceived: n.reactionsReceived,
+              forwardMessagesSent: n.forwardMessagesSent,
+              forwardMessagesReceived: n.forwardMessagesReceived,
+              editedMsgsSent: n.editedMsgsSent,
+              viewOnceMessagesSent: n.viewOnceMsgsSent,
+              viewOnceMessagesReceived: n.viewOnceMsgsReceived,
+              viewOnceMessagesOpened: n.viewOnceMessagesOpened,
+              commentsReceived: n.commentsReceived,
+              eventCreationMessagesSent: n.eventCreationMessagesSent,
+              eventCreationMessagesReceived: n.eventCreationMessagesReceived,
+              eventResponseMessagesSent: n.eventResponseMessagesSent,
+              eventResponseMessagesReceived: n.eventResponseMessagesReceived,
+              profileViews: n.profileViews,
+              profileReplies: n.profileReplies,
+              statusViews: n.statusViews,
+              statusReplies: n.statusReplies,
+              groupMembershipReplies: n.groupMembershipReplies,
+              groupPrivateReplies: n.groupPrivateReplies,
+              chatOverflowClicks: n.chatOverflowClicks,
+              repliesSent: n.repliesSent,
+              afterReadDuration: (t = n.afterReadDuration) != null ? t : void 0,
             },
-            l = new (o(
+            s = new (o(
               "WAWebThreadInteractionDataCoreConsumerWamEvent",
-            ).ThreadInteractionDataCoreConsumerWamEvent)(i);
-          l.commit();
+            ).ThreadInteractionDataCoreConsumerWamEvent)(l);
+          s.commit();
         });
       } catch (t) {
         var n = t instanceof Error ? t : r("err")(String(t));

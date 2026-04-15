@@ -1,6 +1,6 @@
 __d(
   "useWAWebHover",
-  ["react"],
+  ["react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -8,33 +8,40 @@ __d(
       u = s.useEffect,
       c = s.useState;
     function d(e) {
-      var t = c(!1),
-        n = t[0],
-        r = t[1];
+      var t = o("react-compiler-runtime").c(3),
+        n = c(!1),
+        r = n[0],
+        a = n[1],
+        i,
+        l;
       return (
-        u(
-          function () {
-            var t = e.current;
-            if (t) {
-              var n = function () {
-                  r(!0);
-                },
-                o = function () {
-                  r(!1);
-                };
-              return (
-                t.addEventListener("mouseenter", n),
-                t.addEventListener("mouseleave", o),
-                function () {
-                  (t.removeEventListener("mouseenter", n),
-                    t.removeEventListener("mouseleave", o));
-                }
-              );
-            }
-          },
-          [e],
-        ),
-        n
+        t[0] !== e
+          ? ((i = function () {
+              var t = e.current;
+              if (t) {
+                var n = function () {
+                    a(!0);
+                  },
+                  r = function () {
+                    a(!1);
+                  };
+                return (
+                  t.addEventListener("mouseenter", n),
+                  t.addEventListener("mouseleave", r),
+                  function () {
+                    (t.removeEventListener("mouseenter", n),
+                      t.removeEventListener("mouseleave", r));
+                  }
+                );
+              }
+            }),
+            (l = [e]),
+            (t[0] = e),
+            (t[1] = i),
+            (t[2] = l))
+          : ((i = t[1]), (l = t[2])),
+        u(i, l),
+        r
       );
     }
     l.useWAWebHover = d;

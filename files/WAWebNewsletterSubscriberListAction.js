@@ -20,10 +20,17 @@ __d(
       var n, r;
       if (t != null) {
         var a = t.map(function (e) {
-          var t = e.contact,
-            n = e.role;
+          var t = e.adminProfile,
+            n = e.contact,
+            r = e.role;
           return new (o("WAWebNewsletterSubscriberModel").NewsletterSubscriber)(
-            { id: t.id, contact: t, membership: n, isPendingAdmin: !1 },
+            {
+              id: n.id,
+              adminProfile: t,
+              contact: n,
+              membership: r,
+              isPendingAdmin: !1,
+            },
           );
         });
         ((n = e.newsletterMetadata) == null ||
@@ -59,12 +66,12 @@ __d(
             name: t.displayName,
             type: "out",
           });
-          e.push({ contact: i, role: t.role });
+          e.push({ adminProfile: t.adminProfile, contact: i, role: t.role });
         } else {
           if (!a && !o("WAWebFrontendContactGetters").getIsMyContact(r))
             return e;
           (a && r.phoneNumber == null && r.set({ phoneNumber: t.phoneNumber }),
-            e.push({ contact: r, role: t.role }));
+            e.push({ adminProfile: t.adminProfile, contact: r, role: t.role }));
         }
         return e;
       }, []);

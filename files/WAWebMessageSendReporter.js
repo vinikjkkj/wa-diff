@@ -144,6 +144,9 @@ __d(
             (k && (this.$2.chatOrigins = k),
             e.ephemeralDuration != null &&
               (this.$2.ephemeralityDuration = e.ephemeralDuration),
+            e.afterReadDuration != null &&
+              ((this.$2.isAfterRead = e.afterReadDuration > 0),
+              (this.$2.afterReadDuration = e.afterReadDuration)),
             !_ ||
               o("WAWebABProps").getABPropConfigValue(
                 "dm_initiator_trigger_groups",

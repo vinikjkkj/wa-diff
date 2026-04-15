@@ -10,6 +10,7 @@ __d(
     "WAWebABPropsGlobals",
     "WAWebAboutConsumptionDailyWamEvent",
     "WAWebAboutCreationDailyWamEvent",
+    "WAWebAfterReadUtils",
     "WAWebApiContact",
     "WAWebApiPrivacyDisallowedList",
     "WAWebApiPrivacyEphemerality",
@@ -790,8 +791,15 @@ __d(
           var s = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
             o("WAWebContactCollection").ContactCollection.getMeContact(),
           );
+          i.defaultDisappearingDuration = s != null ? s : 0;
+          var u =
+            s != null &&
+            o("WAWebAfterReadUtils").isAfterReadDuration(s) &&
+            o("WAWebAfterReadUtils").isAfterReadEnabled();
           if (
-            ((i.defaultDisappearingDuration = s != null ? s : 0),
+            ((i.defaultAfterReadEnabled = u),
+            (i.defaultAfterReadDuration = u ? s : void 0),
+            u && (i.defaultDisappearingDuration = 0),
             (i.defenseMode = N(a.defenseMode)),
             o("WAWebABProps").getABPropConfigValue(
               "dm_initiator_trigger_daily_logs",
@@ -799,15 +807,15 @@ __d(
           ) {
             i.isDefaultDisappearingMessagingUser =
               i.defaultDisappearingDuration !== 0;
-            var u = yield o(
+            var c = yield o(
                 "WAWebApiPrivacyEphemerality",
               ).queryEphemeralityDailyLogInfo(),
-              c = u.countEphemeralThreads,
-              d = u.countEphemeralThreadsEnabledByMe,
-              m = u.isEphemeralMessagingUser;
-            ((i.isEphemeralMessagingUser = m),
-              (i.countEphemeralThreads = c),
-              (i.countEphemeralThreadsEnabledByMe = d));
+              d = c.countEphemeralThreads,
+              m = c.countEphemeralThreadsEnabledByMe,
+              p = c.isEphemeralMessagingUser;
+            ((i.isEphemeralMessagingUser = p),
+              (i.countEphemeralThreads = d),
+              (i.countEphemeralThreadsEnabledByMe = m));
           }
           return i;
         })),

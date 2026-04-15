@@ -6,6 +6,7 @@ __d(
     "Promise",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdDeleteMutation.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,69 +28,80 @@ __d(
       });
     }
     function f() {
-      var e = o("CometRelay").useMutation(m),
-        t = e[0],
-        a = e[1],
-        i = o("CometRelay").useRelayEnvironment(),
-        l = c(
-          (function () {
+      var e = o("react-compiler-runtime").c(6),
+        t = o("CometRelay").useMutation(m),
+        a = t[0],
+        i = t[1],
+        l = o("CometRelay").useRelayEnvironment(),
+        u;
+      e[0] !== a || e[1] !== l
+        ? ((u = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var o = function () {
-                    return new (s || (s = n("Promise")))(function (n) {
-                      t({
+                var t = function () {
+                    return new (s || (s = n("Promise")))(function (t) {
+                      a({
                         variables: { boostID: e },
-                        onCompleted: function (t, o) {
+                        onCompleted: function (n, o) {
                           var e;
                           if (o != null && o.length > 0) {
                             (r("FBLogger")("wa_ctwa_web").warn(
                               "Ad delete mutation server error: " +
                                 o[0].message,
                             ),
-                              n({ success: !1, error: "mutation_failed" }));
+                              t({ success: !1, error: "mutation_failed" }));
                             return;
                           }
-                          (t == null ||
-                          (e = t.wa_delete_boosted_component) == null
+                          (n == null ||
+                          (e = n.wa_delete_boosted_component) == null
                             ? void 0
                             : e.success) === !0
-                            ? n({ success: !0 })
+                            ? t({ success: !0 })
                             : (r("FBLogger")("wa_ctwa_web").warn(
                                 "Ad delete mutation returned unsuccessful response",
                               ),
-                              n({ success: !1, error: "mutation_failed" }));
+                              t({ success: !1, error: "mutation_failed" }));
                         },
-                        onError: function (t) {
+                        onError: function (n) {
                           (r("FBLogger")("wa_ctwa_web")
-                            .catching(t)
+                            .catching(n)
                             .warn("Ad delete mutation network error"),
-                            n({ success: !1, error: "mutation_failed" }));
+                            t({ success: !1, error: "mutation_failed" }));
                         },
                       });
                     });
                   },
-                  a = yield o();
-                if (a.success) return (_(i, e), a);
+                  o = yield t();
+                if (o.success) return (_(l, e), o);
                 (r("FBLogger")("wa_ctwa_web").warn(
                   "Ad delete mutation failed on first attempt, retrying in useWAWebBizAdDeleteMutation",
                 ),
                   yield p(d));
-                var l = yield o();
-                return l.success
-                  ? (_(i, e), l)
+                var i = yield t();
+                return i.success
+                  ? (_(l, e), i)
                   : (r("FBLogger")("wa_ctwa_web").mustfix(
                       "Ad delete mutation failed in useWAWebBizAdDeleteMutation after 2 attempts",
                     ),
-                    l);
+                    i);
               },
             );
-            return function (t) {
+            return function (n) {
               return e.apply(this, arguments);
             };
-          })(),
-          [t, i],
-        );
-      return [l, a];
+          })()),
+          (e[0] = a),
+          (e[1] = l),
+          (e[2] = u))
+        : (u = e[2]);
+      var c = u,
+        f;
+      return (
+        e[3] !== c || e[4] !== i
+          ? ((f = [c, i]), (e[3] = c), (e[4] = i), (e[5] = f))
+          : (f = e[5]),
+        f
+      );
     }
     l.default = f;
   },

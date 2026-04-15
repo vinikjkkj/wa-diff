@@ -23,6 +23,7 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebUpdateEphemeralSettingTimestampChatAction",
     "WAWebUserPrefsMeUser",
+    "WAWebWamEnumPreviousEphemeralityType",
     "WAWebWamNumberToPreciseSizeBucket",
     "asyncToGeneratorRuntime",
     "err",
@@ -189,37 +190,53 @@ __d(
                 "user cannot change group ephemeral duration for chat " +
                   e.id.toString(),
               );
-            var i = o("WAWebChatEphemerality").getEphemeralSetting(e);
+            var i = o(
+              "WAWebChatEphemerality",
+            ).calculateEphemeralDurationForChat(e);
             i !== t &&
               (o("WAWebChatGetters").getIsGroup(e)
                 ? yield m(e, t, a)
                 : yield c(e, t, a));
-            var l = {
-              chatEphemeralityDuration: t,
-              threadId: yield o("WAWebChatThreadLogging").getChatThreadID(
-                e.id.toJid(),
-              ),
-              ephemeralSettingEntryPoint: n,
-            };
+            var l =
+                o("WAWebAfterReadUtils").isAfterReadDuration(t) &&
+                o("WAWebAfterReadUtils").isAfterReadEnabled(),
+              s = {
+                chatEphemeralityDuration: l ? void 0 : t,
+                threadId: yield o("WAWebChatThreadLogging").getChatThreadID(
+                  e.id.toJid(),
+                ),
+                ephemeralSettingEntryPoint: n,
+                isAfterRead: l,
+                afterReadDuration: l ? t : void 0,
+              };
             if (
-              (i != null && (l.previousEphemeralityDuration = i),
+              (i != null &&
+                ((s.previousEphemeralityDuration = i),
+                i > 0 &&
+                  (s.previousEphemeralityType = o(
+                    "WAWebAfterReadUtils",
+                  ).isAfterReadDuration(i)
+                    ? o("WAWebWamEnumPreviousEphemeralityType")
+                        .PREVIOUS_EPHEMERALITY_TYPE.AFTER_READ
+                    : o("WAWebWamEnumPreviousEphemeralityType")
+                        .PREVIOUS_EPHEMERALITY_TYPE.DISAPPEARING_MESSAGE)),
               o("WAWebChatGetters").getIsGroup(e))
             ) {
-              var s, u;
-              l.ephemeralSettingGroupSize = o(
+              var u, d;
+              s.ephemeralSettingGroupSize = o(
                 "WAWebWamNumberToPreciseSizeBucket",
               ).numberToPreciseSizeBucket(
-                (s =
-                  (u = e.groupMetadata) == null
+                (u =
+                  (d = e.groupMetadata) == null
                     ? void 0
-                    : u.participants.length) != null
-                  ? s
+                    : d.participants.length) != null
+                  ? u
                   : 0,
               );
             }
             new (o(
               "WAWebEphemeralSettingChangeWamEvent",
-            ).EphemeralSettingChangeWamEvent)(l).commit();
+            ).EphemeralSettingChangeWamEvent)(s).commit();
           },
         )),
         f.apply(this, arguments)

@@ -37,6 +37,7 @@ __d(
     "oz-player/networks/OzBandwidthEstimator",
     "oz-player/networks/OzClockSyncNetworkRequestStreamHandler",
     "setTimeout",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -576,7 +577,8 @@ __d(
         }),
         r("justknobx")._("3727") ||
           Pe.onWarning(function (e) {
-            Q && Q.flushQueuedLogs();
+            (r("vulture")("QCuuQ7CXeADrgLt_57K5Fu04eIs="),
+              Q && Q.flushQueuedLogs());
             var t = o(
               "VideoPlayerImplementationErrors",
             ).createVideoPlayerErrorFromOzImplementationError(

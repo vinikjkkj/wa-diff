@@ -170,7 +170,7 @@ __d(
             w());
           return;
         }
-        if (t.isCallLink) {
+        if (t.isCallLink && t.callLinkState != null) {
           (o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([

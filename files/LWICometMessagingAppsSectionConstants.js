@@ -5,6 +5,7 @@ __d(
     "LWICometUnifiedCreationEligibilityChecker",
     "LWICometWhatsAppPageExperiments",
     "qex",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -45,7 +46,7 @@ __d(
       return e === "1" || e === "3";
     }
     function C(e) {
-      return e === "2";
+      return (r("vulture")("5fq9M0O_F2QKmgrZAx6olA6dmuU="), e === "2");
     }
     function b(e, t, n) {
       return !C(e) || t === "WHATSAPP_MESSAGE"

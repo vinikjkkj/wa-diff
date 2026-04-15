@@ -23,7 +23,16 @@ __d(
             (this.$5 = new Map()),
             (this.$6 = !1),
             (this.$7 = new Map()),
-            (this.$8 = new Map()));
+            (this.$8 = new Map()),
+            (this.$9 = 0),
+            (this.$10 = 0),
+            (this.$11 = 0),
+            (this.$12 = 0),
+            (this.$13 = 0),
+            (this.$14 = 0),
+            (this.$15 = 0),
+            (this.$16 = 0),
+            (this.$17 = 0));
         }
         var n = t.prototype;
         return (
@@ -57,7 +66,7 @@ __d(
               (this.$3 = null));
           }),
           (n.reset = function () {
-            (this.$5.clear(), this.$7.clear(), this.$8.clear());
+            (this.$5.clear(), this.$7.clear(), this.$8.clear(), this.$12++);
           }),
           (n.isEnabled = function () {
             return this.$6;
@@ -67,6 +76,33 @@ __d(
               this.$5.delete(t),
               this.$7.delete(t),
               this.$8.delete(t));
+          }),
+          (n.consumeMetrics = function () {
+            if (!this.$6 && this.$9 === 0) return null;
+            var e = {
+              webAvSyncEnabled: !0,
+              webAvSyncCalibrationCount: this.$9,
+              webAvSyncRecalibrationCount: this.$10,
+              webAvSyncForceRecalibrationCount: this.$11,
+              webAvSyncDeviceChangeResetCount: this.$12,
+              webAvSyncFramesHeldTotal: this.$13,
+              webAvSyncFramesEvictedTotal: this.$14,
+              webAvSyncMaxQueueDepth: this.$15,
+              webAvSyncFramesRenderedInSync: this.$16,
+              webAvSyncFramesRenderedLate: this.$17,
+            };
+            return (this.$18(), e);
+          }),
+          (n.$18 = function () {
+            ((this.$9 = 0),
+              (this.$10 = 0),
+              (this.$11 = 0),
+              (this.$12 = 0),
+              (this.$13 = 0),
+              (this.$14 = 0),
+              (this.$15 = 0),
+              (this.$16 = 0),
+              (this.$17 = 0));
           }),
           (n.enqueueVideoFrame = function (t) {
             if (this.$6) {
@@ -78,58 +114,61 @@ __d(
                 r.length >= d;
               ) {
                 var o = r.shift();
-                o != null &&
-                  e != null &&
-                  e(
-                    o.userJid,
-                    o.frameBuffer,
-                    o.width,
-                    o.height,
-                    o.orientation,
-                    o.format,
-                    o.timestamp,
-                    o.isKeyFrame,
-                  );
+                (this.$14++,
+                  o != null &&
+                    e != null &&
+                    e(
+                      o.userJid,
+                      o.frameBuffer,
+                      o.width,
+                      o.height,
+                      o.orientation,
+                      o.format,
+                      o.timestamp,
+                      o.isKeyFrame,
+                    ));
               }
-              (r.push(t), this.$9());
+              (r.push(t),
+                r.length > this.$15 && (this.$15 = r.length),
+                this.$19());
             }
           }),
-          (n.$9 = function () {
+          (n.$19 = function () {
             var e = this.$3,
               t = this.$2;
             if (!(e == null || t == null)) {
               var n = e();
               if (n === 0) {
-                this.$10(t);
+                this.$20(t);
                 return;
               }
               for (var r of this.$4.entries()) {
                 var o = r[0],
                   a = r[1];
-                this.$11(o, a, n, t);
+                this.$21(o, a, n, t);
               }
             }
           }),
-          (n.$11 = function (t, n, r, a) {
+          (n.$21 = function (t, n, r, a) {
             for (var e = 0; e < n.length; ) {
               var i = n[e],
-                l = this.$12(t, i.timestamp, r);
+                l = this.$22(t, i.timestamp, r);
               if (l == null) {
-                (this.$13(t, r, i.timestamp), this.$14(n, e, a));
+                (this.$23(t, r, i.timestamp), this.$24(n, e, a));
                 continue;
               }
               if (Math.abs(l) > _) {
-                (this.$15(t, r, i.timestamp, l), this.$14(n, e, a));
+                (this.$25(t, r, i.timestamp, l), this.$24(n, e, a));
                 continue;
               }
               if (l > m) {
-                (this.$7.set(t, 0), e++);
+                (this.$7.set(t, 0), this.$13++, e++);
                 continue;
               }
               if (l < p) {
                 var s,
                   c = ((s = this.$7.get(t)) != null ? s : 0) + 1;
-                if ((this.$7.set(t, c), c >= g)) {
+                if ((this.$7.set(t, c), this.$17++, c >= g)) {
                   (o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -144,18 +183,19 @@ __d(
                   ),
                     this.$7.set(t, 0),
                     this.$8.set(t, Date.now()),
-                    this.$13(t, r, i.timestamp),
-                    this.$14(n, e, a));
+                    this.$23(t, r, i.timestamp),
+                    this.$11++,
+                    this.$24(n, e, a));
                   continue;
                 }
-                this.$14(n, e, a);
+                this.$24(n, e, a);
                 continue;
               }
-              (this.$7.set(t, 0), this.$14(n, e, a));
+              (this.$7.set(t, 0), this.$16++, this.$24(n, e, a));
             }
             n.length === 0 && this.$4.delete(t);
           }),
-          (n.$12 = function (t, n, r) {
+          (n.$22 = function (t, n, r) {
             var e = this.$5.get(t);
             if (e == null) return null;
             var o = this.$1;
@@ -166,13 +206,15 @@ __d(
             var l = i / h;
             return (l - a) * 1e3;
           }),
-          (n.$13 = function (t, n, r) {
-            this.$5.set(t, {
+          (n.$23 = function (t, n, r) {
+            var e = !this.$5.has(t);
+            (this.$5.set(t, {
               firstAudioTimestamp: n,
               firstVideoRtpTimestamp: r,
-            });
+            }),
+              e && this.$9++);
           }),
-          (n.$15 = function (t, n, r, a) {
+          (n.$25 = function (t, n, r, a) {
             var e,
               i = Date.now(),
               l = (e = this.$8.get(t)) != null ? e : 0;
@@ -189,10 +231,11 @@ __d(
                   a,
                 ),
                 this.$8.set(t, i),
-                this.$13(t, n, r),
+                this.$23(t, n, r),
+                this.$10++,
                 !0);
           }),
-          (n.$14 = function (t, n, r) {
+          (n.$24 = function (t, n, r) {
             var e = t[n];
             (t.splice(n, 1),
               r(
@@ -206,7 +249,7 @@ __d(
                 e.isKeyFrame,
               ));
           }),
-          (n.$10 = function (t) {
+          (n.$20 = function (t) {
             for (var e of this.$4.entries()) {
               var n = e[0],
                 r = e[1];

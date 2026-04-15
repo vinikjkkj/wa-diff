@@ -902,6 +902,8 @@ __d(
       UNKNOWN_ENTRY_POINT_EDIT_AD: "unknown_entry_point_edit_ad",
       CTWA_IG_CASD_MIGRATION: "ctwa_ig_casd_migration",
       OPEN_CUSTOM_BUDGET: "open_custom_budget",
+      CTWA_NATIVE_QP_FILTER_GRACE_PERIOD_EVALUATION:
+        "ctwa_native_qp_filter_grace_period_evaluation",
       CTWA_NATIVE_QP_FILTER_LOW_FUNDS_EVALUATION:
         "ctwa_native_qp_filter_low_funds_evaluation",
       CTWA_NATIVE_QP_FILTER_OUT_OF_FUNDS_EVALUATION:

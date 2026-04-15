@@ -11,6 +11,7 @@ __d(
           (t.id = o("WAWebModelUtils").prop()),
           (t.membership = o("WAWebModelUtils").prop()),
           (t.isPendingAdmin = o("WAWebModelUtils").prop()),
+          (t.adminProfile = o("WAWebModelUtils").session()),
           (t.contact = o("WAWebModelUtils").session()),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)

@@ -47,14 +47,17 @@ __d(
                 botEntryPoint: l,
                 botPersonaId: (r = this.$4) != null ? r : void 0,
               }),
-              u = o("WAWebBotLoggingUtils").getBotEntryPointTypeName(l);
+              u = o("WAWebBotLoggingUtils").getBotEntryPointTypeName(l),
+              c = o("WAWebBotLoggingUtils").getChatFilterActionTypeName(a);
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "BotJourneyWamEvent:commit entryPoint=",
+                  " actionType=",
                   "",
                 ])),
               u,
+              c,
             ),
               s.commit());
           }),

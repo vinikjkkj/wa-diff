@@ -72,17 +72,21 @@ __d(
             ])),
         ));
     }
-    function L(e) {
-      ((g = o(
-        "WAWebVoipVideoRendererInterface",
-      ).WAWebVoipVideoRendererType.getName(e)),
+    function L(e, t) {
+      var n = o(
+          "WAWebVoipVideoRendererInterface",
+        ).WAWebVoipVideoRendererType.getName(e),
+        r = o(
+          "WAWebVoipVideoRendererInterface",
+        ).WAWebVoipVideoRendererThreadingMode.getName(t);
+      ((g = n + ":" + r),
         o("WALogger").LOG(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:windowMetrics] renderer type set: ",
               "",
             ])),
-          e,
+          g,
         ));
     }
     ((l.startWindowMetrics = C),

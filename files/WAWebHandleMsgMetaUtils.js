@@ -53,8 +53,14 @@ __d(
           (t == null ? void 0 : t.pollType) ===
             o("WAWebHandleMsgCommon").POLL_TYPES.edit
         );
+      },
+      _ = function (t) {
+        return (
+          (t == null ? void 0 : t.appdata) ===
+          o("WAWebHandleMsgCommon").APPDATA.member_tag
+        );
       };
-    function _(e) {
+    function f(e) {
       if (e != null && u(e)) return o("WAWebMsgType").MSG_TYPE.COMMENT;
     }
     ((l.isReactionMsgMeta = e),
@@ -64,7 +70,8 @@ __d(
       (l.isEventEditMsgMeta = d),
       (l.isMediaMsgMeta = m),
       (l.isPollEditMsgMeta = p),
-      (l.getMsgTypeFromMsgMeta = _));
+      (l.isMemberTagMsgMeta = _),
+      (l.getMsgTypeFromMsgMeta = f));
   },
   98,
 );

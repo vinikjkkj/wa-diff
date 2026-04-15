@@ -15,12 +15,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s, u, c, d, m, p, _, f, g;
-    function h(e, t) {
+    function h(e, t, n) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           if (o("WAWebSyncdDisabled").isSyncdDisabled())
             return (g || (g = n("Promise"))).resolve();
           yield (g || (g = n("Promise"))).all([
@@ -31,6 +31,7 @@ __d(
               .then(function (e) {
                 return R(e.filter(Boolean));
               }),
+            r != null && r.length > 0 ? D(r) : void 0,
           ]);
         })),
         y.apply(this, arguments)
@@ -137,7 +138,7 @@ __d(
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WASyncdConst").SyncModelType.Agent);
+          yield E(e, o("WASyncdConst").SyncModelType.Thread);
         })),
         x.apply(this, arguments)
       );
@@ -148,7 +149,7 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WASyncdConst").SyncModelType.ChatAssignment);
+          yield E(e, o("WASyncdConst").SyncModelType.Agent);
         })),
         P.apply(this, arguments)
       );
@@ -159,17 +160,28 @@ __d(
     function M() {
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield E(e, o("WASyncdConst").SyncModelType.UserStatusMute);
+          yield E(e, o("WASyncdConst").SyncModelType.ChatAssignment);
         })),
         M.apply(this, arguments)
       );
     }
-    function w(e, t) {
+    function w(e) {
       return A.apply(this, arguments);
     }
     function A() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield E(e, o("WASyncdConst").SyncModelType.UserStatusMute);
+        })),
+        A.apply(this, arguments)
+      );
+    }
+    function F(e, t) {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             (o("WALogger").LOG(
               u ||
@@ -210,15 +222,15 @@ __d(
               r.length,
             ));
         })),
-        A.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function F() {
-      return O.apply(this, arguments);
+    function B() {
+      return W.apply(this, arguments);
     }
-    function O() {
+    function W() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (
             (o("WALogger").LOG(
               m ||
@@ -236,7 +248,7 @@ __d(
             );
             return;
           }
-          (yield w(
+          (yield F(
             o("WASyncdConst").SyncModelType.FavoriteSticker,
             function () {
               var e = o(
@@ -262,17 +274,18 @@ __d(
                 ])),
             ));
         })),
-        O.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
     ((l.checkOrphanMutations = h),
       (l.checkOrphanMessages = C),
       (l.checkOrphanChats = v),
       (l.applyAllOrphansAndUnsupported = I),
-      (l.checkOrphanAgents = D),
-      (l.checkOrphanChatAssignments = $),
-      (l.checkOrphanUserStatusMutes = N),
-      (l.checkOrphanFavoriteStickers = F));
+      (l.checkOrphanThreads = D),
+      (l.checkOrphanAgents = $),
+      (l.checkOrphanChatAssignments = N),
+      (l.checkOrphanUserStatusMutes = w),
+      (l.checkOrphanFavoriteStickers = B));
   },
   98,
 );

@@ -1,16 +1,32 @@
 __d(
   "useWAWebPinsToResend",
-  ["WAWebPinInChatCollection", "compactMap", "useWAWebAggregatedView"],
+  [
+    "WAWebPinInChatCollection",
+    "compactMap",
+    "react-compiler-runtime",
+    "useWAWebAggregatedView",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("useWAWebAggregatedView").useAggregatedView(
+      var t = o("react-compiler-runtime").c(5),
+        n = o("useWAWebAggregatedView").useAggregatedView(
           o("WAWebPinInChatCollection").PinInChatCollection.byIsFailedByMe,
           !0,
         ),
-        n = r("compactMap")(e, function (e) {
-          return t.get(o("WAWebPinInChatCollection").getPinInChatId(e));
-        });
-      return n;
+        a;
+      t[0] !== n
+        ? ((a = function (t) {
+            return n.get(o("WAWebPinInChatCollection").getPinInChatId(t));
+          }),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i;
+      t[2] !== e || t[3] !== a
+        ? ((i = r("compactMap")(e, a)), (t[2] = e), (t[3] = a), (t[4] = i))
+        : (i = t[4]);
+      var l = i;
+      return l;
     }
     l.default = e;
   },

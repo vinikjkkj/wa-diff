@@ -25,6 +25,7 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebLidMigrationUtils",
     "WAWebMarketingMessagesUserFeedbackGatingUtils",
+    "WAWebMessagingGatingUtils",
     "WAWebMsgAGMProcessing",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
@@ -969,11 +970,17 @@ __d(
         e.msgProtobuf.senderKeyDistributionMessage != null
       );
     }
-    function G(e, t) {
+    function G(e, t, n) {
       if (e === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg) {
-        var n = t.msgInfo.chat.isGroup(),
-          r = t.msgMeta.capi === !0;
-        return n && r;
+        var r = t.msgMeta.capi === !0,
+          a = t.msgInfo.chat.isGroup();
+        if (
+          (a && r) ||
+          (r &&
+            n.isStateless === !0 &&
+            o("WAWebMessagingGatingUtils").isSimpleSignalEnabled())
+        )
+          return !0;
       }
       return !1;
     }

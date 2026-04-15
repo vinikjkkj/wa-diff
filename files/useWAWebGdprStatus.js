@@ -11,6 +11,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "decodeProtobuf",
     "react",
+    "react-compiler-runtime",
     "useWAWebAsync",
     "useWAWebOnUnmount",
   ],
@@ -88,17 +89,28 @@ __d(
       ];
     }
     function h(e, t) {
-      var n = c(
-          function (t) {
-            return o("WAWebGdprHookUtils").getGdprIq(t, e, "status");
-          },
-          [e],
-        ),
-        r = g(n, e, t),
-        a = r[0],
-        i = r[1],
-        l = r[2];
-      return [a, i == null ? void 0 : i.result, l];
+      var n = o("react-compiler-runtime").c(6),
+        r;
+      n[0] !== e
+        ? ((r = function (n) {
+            return o("WAWebGdprHookUtils").getGdprIq(n, e, "status");
+          }),
+          (n[0] = e),
+          (n[1] = r))
+        : (r = n[1]);
+      var a = r,
+        i = g(a, e, t),
+        l = i[0],
+        s = i[1],
+        u = i[2],
+        c = s == null ? void 0 : s.result,
+        d;
+      return (
+        n[2] !== l || n[3] !== u || n[4] !== c
+          ? ((d = [l, c, u]), (n[2] = l), (n[3] = u), (n[4] = c), (n[5] = d))
+          : (d = n[5]),
+        d
+      );
     }
     ((l.GdprStatusWapParser = p),
       (l.doOtherPendingRequestsExist = f),

@@ -66,6 +66,7 @@ __d(
               ciphertext: e.contentBytes(),
               retryCount: (t = e.maybeAttrInt("count")) != null ? t : 0,
               hideFail: e.maybeAttrString("decrypt-fail") === "hide",
+              isStateless: e.maybeAttrString("state") === "false",
             };
           }),
           i = e.maybeChild("device-identity"),

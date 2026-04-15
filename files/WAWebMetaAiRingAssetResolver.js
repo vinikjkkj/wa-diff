@@ -1,11 +1,6 @@
 __d(
   "WAWebMetaAiRingAssetResolver",
-  [
-    "WAWebABProps",
-    "WDSIconWdsIcMetaAiRing.react",
-    "WDSIconWdsIcMetaAiRingV2.react",
-    "bx",
-  ],
+  ["WAWebABProps", "WDSIconWdsIcMetaAiRing.react", "bx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -14,9 +9,7 @@ __d(
       );
     }
     function s() {
-      return e()
-        ? r("WDSIconWdsIcMetaAiRingV2.react")
-        : r("WDSIconWdsIcMetaAiRing.react");
+      return (e(), r("WDSIconWdsIcMetaAiRing.react"));
     }
     function u() {
       return e()

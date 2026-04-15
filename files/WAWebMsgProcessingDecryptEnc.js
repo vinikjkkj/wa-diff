@@ -35,8 +35,8 @@ __d(
         : c === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg ||
             c === o("WAWebBackendJobs.flow").CiphertextType.Msg
           ? (function () {
-              var t = a.isUser() ? a : i;
-              if (!t)
+              var d = a.isUser() ? a : i;
+              if (!d)
                 return (e || (e = n("Promise"))).reject(
                   r("err")(
                     "['messaging'] decryptEnc: receive msg from " +
@@ -44,10 +44,10 @@ __d(
                       " without participant",
                   ),
                 );
-              var d = o(
+              var m = o(
                 "WAWebMsgProcessingApiUtils",
-              ).shouldOmitSessionPersistence(c, l);
-              return o("WAWebSignal").Cipher.decryptSignalProto(t, c, u, d, s);
+              ).shouldOmitSessionPersistence(c, l, t);
+              return o("WAWebSignal").Cipher.decryptSignalProto(d, c, u, m, s);
             })()
           : c === o("WAWebBackendJobs.flow").CiphertextType.Msmsg
             ? o("WAWebBotMessageSecret").decryptMsmsgBotMessage(u, l)

@@ -35,13 +35,19 @@ __d(
             "media_picker_select_limit_new",
           );
     }
-    function s(e) {
+    function s(e, t) {
       return o("WAWebBotUtils").isMetaAiBot(e)
-        ? !1
+        ? t === "document"
+          ? o("WAWebBotGating").getMetaAiFileUploadCountLimit() > 1
+          : t === "image"
+            ? o("WAWebBotGating").getMetaAiImageSendLimit() > 1
+            : !1
         : e.isNewsletter()
-          ? o(
-              "WAWebNewsletterGatingUtils",
-            ).isNewsletterMediaAlbumUploadEnabled()
+          ? t === "document"
+            ? !0
+            : o(
+                "WAWebNewsletterGatingUtils",
+              ).isNewsletterMediaAlbumUploadEnabled()
           : !0;
     }
     function u() {

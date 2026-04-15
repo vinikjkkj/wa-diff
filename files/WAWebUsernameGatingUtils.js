@@ -109,6 +109,11 @@ __d(
         "username_engagement_network_impact_logging",
       );
     }
+    function $() {
+      return !!o("WAWebABProps").getABPropConfigValue(
+        "username_adoption_and_engagement_monitoring_enabled",
+      );
+    }
     ((l.usernameDisplayedEnabled = e),
       (l.usernameSearchEnabled = s),
       (l.usernameContactlessChatEnabled = u),
@@ -131,7 +136,8 @@ __d(
       (l.usernameKeyUpsellMode = I),
       (l.usernameKeyUpsellMaxCharacters = T),
       (l.usernameKeyUpsellMaxNumbers = D),
-      (l.usernameEngagementNetworkImpactLoggingEnabled = x));
+      (l.usernameEngagementNetworkImpactLoggingEnabled = x),
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = $));
   },
   98,
 );

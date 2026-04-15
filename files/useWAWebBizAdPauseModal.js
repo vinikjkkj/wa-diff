@@ -11,6 +11,7 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdPauseMutation",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -67,19 +68,25 @@ __d(
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m(e, t) {
-      var n = o("CometRelay").useRelayEnvironment(),
-        r = c(
-          function () {
+      var n = o("react-compiler-runtime").c(4),
+        r = o("CometRelay").useRelayEnvironment(),
+        a;
+      n[0] !== e || n[1] !== t || n[2] !== r
+        ? ((a = function () {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(o("CometRelay").RelayEnvironmentProvider, {
-                environment: n,
+                environment: r,
                 children: u.jsx(d, { boostId: e, onComplete: t }),
               }),
             );
-          },
-          [e, t, n],
-        );
-      return r;
+          }),
+          (n[0] = e),
+          (n[1] = t),
+          (n[2] = r),
+          (n[3] = a))
+        : (a = n[3]);
+      var i = a;
+      return i;
     }
     l.default = m;
   },

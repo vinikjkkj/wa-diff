@@ -89,6 +89,7 @@ __d(
             side: "client_side",
             starting_value: t.startingValue,
             targeting_spec: (a = t.targetingSpec) != null ? a : null,
+            wa_ad_account_type: l == null ? void 0 : l.waAdAccountType,
           };
         },
         buildValidationNoticeImpressionEvent: function (t) {
@@ -108,6 +109,7 @@ __d(
               notice_name: t.noticeName,
               spec_element: t.specElement,
             }),
+            wa_ad_account_type: e == null ? void 0 : e.waAdAccountType,
           };
         },
       },

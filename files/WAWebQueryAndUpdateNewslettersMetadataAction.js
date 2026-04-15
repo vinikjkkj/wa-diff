@@ -405,7 +405,7 @@ __d(
                       })
                       .then(function (n) {
                         if (
-                          n.filter(function (e) {
+                          !n.some(function (e) {
                             return (
                               e.isWamoSub !== !0 ||
                               o(
@@ -415,7 +415,7 @@ __d(
                                 e.viewMode,
                               )
                             );
-                          }).length === 0 &&
+                          }) &&
                           t === !0
                         )
                           return o(

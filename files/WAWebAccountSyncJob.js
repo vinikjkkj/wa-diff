@@ -100,7 +100,16 @@ __d(
         m.getOrRun("privacy")
       );
     }
-    function _(e) {
+    function _() {
+      return (
+        o(
+          "WAWebDefenseModeTransitionListener",
+        ).initDefenseModeTransitionListener(),
+        m.delete("privacy"),
+        m.getOrRun("privacy")
+      );
+    }
+    function f(e) {
       var t = o("WATimeUtils").unixTime();
       e.forEach(function (e) {
         var n;
@@ -111,12 +120,12 @@ __d(
         );
       });
     }
-    function f() {
-      return g.apply(this, arguments);
-    }
     function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o(
             "WAWebQueryDisappearingModeJob",
           ).queryDisappearingMode();
@@ -130,15 +139,16 @@ __d(
             newSettingTimestamp: e.t,
           });
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
     ((l.AccountSyncType = s),
       (l.getDevices = u),
       (l.getAndUpdateProfilePicture = c),
       (l.updatePrivacySettings = p),
-      (l.updateTosStateFromAccountSync = _),
-      (l.updateDefaultDisappearingMode = f));
+      (l.forceUpdatePrivacySettings = _),
+      (l.updateTosStateFromAccountSync = f),
+      (l.updateDefaultDisappearingMode = g));
   },
   98,
 );

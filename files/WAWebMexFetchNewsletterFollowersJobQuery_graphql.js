@@ -54,6 +54,44 @@ __d(
           kind: "ScalarField",
           name: "role",
           storageKey: null,
+        },
+        s = {
+          alias: null,
+          args: null,
+          concreteType: "XWA2NewsletterAdminProfile",
+          kind: "LinkedField",
+          name: "admin_profile",
+          plural: !1,
+          selections: [
+            n,
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "name",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              concreteType: "XWA2Picture",
+              kind: "LinkedField",
+              name: "picture",
+              plural: !1,
+              selections: [
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "direct_path",
+                  storageKey: null,
+                },
+                n,
+              ],
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
         };
       return {
         fragment: {
@@ -112,6 +150,7 @@ __d(
                         },
                         i,
                         l,
+                        s,
                       ],
                       storageKey: null,
                     },
@@ -190,6 +229,7 @@ __d(
                         },
                         i,
                         l,
+                        s,
                       ],
                       storageKey: null,
                     },
@@ -202,7 +242,7 @@ __d(
           ],
         },
         params: {
-          id: "25895136756785869",
+          id: "27472091235714801",
           metadata: {},
           name: "WAWebMexFetchNewsletterFollowersJobQuery",
           operationKind: "query",

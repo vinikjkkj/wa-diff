@@ -8,6 +8,7 @@ __d(
     "WAWebPollsPollVoteModel",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
+    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebModelValues",
     "useWAWebPollVoteValues",
@@ -17,43 +18,58 @@ __d(
       var t,
         n,
         a,
-        i = e.includeUnvote,
-        l = e.pollCreationMsg,
-        u =
-          (t = o("useWAWebModelValues").useOptionalModelValues(l, ["id"])) ==
+        i = o("react-compiler-runtime").c(6),
+        l = e.includeUnvote,
+        u = e.pollCreationMsg,
+        c =
+          (t = o("useWAWebModelValues").useOptionalModelValues(u, ["id"])) ==
           null
             ? void 0
             : t.id,
-        c = s(u),
-        d = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        m = r("useWAWebEventTargetValue")(c, "add remove reset", function () {
-          if (
-            c instanceof
-            o("WAWebPollsPollVoteCollection").GroupedPollVoteCollection
-          )
-            return c.getVoteFromSenderAddressingModeInsensitive(d);
-          if (u != null) return c == null ? void 0 : c.get(u);
-        }),
-        p = m instanceof o("WAWebPollsPollVoteModel").PollVote ? m : null,
-        _ =
-          m instanceof o("WAWebNewsletterPollVotesModel").NewsletterPollVotes
-            ? m
+        d;
+      i[0] !== c ? ((d = s(c)), (i[0] = c), (i[1] = d)) : (d = i[1]);
+      var m = d,
+        p;
+      i[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE()),
+          (i[2] = p))
+        : (p = i[2]);
+      var _ = p,
+        f;
+      i[3] !== m || i[4] !== c
+        ? ((f = function () {
+            if (
+              m instanceof
+              o("WAWebPollsPollVoteCollection").GroupedPollVoteCollection
+            )
+              return m.getVoteFromSenderAddressingModeInsensitive(_);
+            if (c != null) return m == null ? void 0 : m.get(c);
+          }),
+          (i[3] = m),
+          (i[4] = c),
+          (i[5] = f))
+        : (f = i[5]);
+      var g = r("useWAWebEventTargetValue")(m, "add remove reset", f),
+        h = g instanceof o("WAWebPollsPollVoteModel").PollVote ? g : null,
+        y =
+          g instanceof o("WAWebNewsletterPollVotesModel").NewsletterPollVotes
+            ? g
             : null,
-        f =
-          (n = o("useWAWebModelValues").useOptionalModelValues(_, [
+        C =
+          (n = o("useWAWebModelValues").useOptionalModelValues(y, [
             "isUnvote",
           ])) == null
             ? void 0
             : n.isUnvote,
-        g =
+        b =
           (a = o("useWAWebPollVoteValues").useOptionalPollVoteValues(
-            p == null ? void 0 : p.id,
+            h == null ? void 0 : h.id,
             [o("WAWebPollVoteGetters").getIsUnvote],
           )) == null
             ? void 0
             : a[0],
-        h = f != null ? f : g;
-      return m == null || (h === !0 && !i) ? null : m;
+        v = C != null ? C : b;
+      return g == null || (v === !0 && !l) ? null : g;
     }
     function s(e) {
       if (e == null) return null;

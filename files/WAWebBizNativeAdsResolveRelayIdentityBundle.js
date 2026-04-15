@@ -231,6 +231,7 @@ __d(
                 adManagementQueryRef: $,
                 accountType: t,
                 hasLinkedFbPage: R.fbPageId != null,
+                linkedPagesInfo: R,
                 pageId: E,
                 hasWeakToken:
                   y.type === "WAA" &&

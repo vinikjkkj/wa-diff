@@ -5,6 +5,7 @@ __d(
     "JSSelfProfilerUtils",
     "asyncToGeneratorRuntime",
     "interaction-tracing-metrics",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -12,13 +13,13 @@ __d(
       s = 5,
       u = 300,
       c = (function (t) {
-        function r() {
+        function a() {
           return t.apply(this, arguments) || this;
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(a, t);
+        var i = a.prototype;
         return (
-          (a.getSubSpanList = function (n) {
+          (i.getSubSpanList = function (n) {
             var t,
               r,
               a = (t = n.metadata) == null ? void 0 : t.interactionId;
@@ -47,41 +48,43 @@ __d(
               l
             );
           }),
-          (a.transform = (function () {
+          (i.transform = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t,
                   n,
-                  r = this,
-                  a = this.getSubSpanList(e),
-                  i = [],
-                  l = new Map();
-                if (a == null) return e;
+                  a = this,
+                  i = this.getSubSpanList(e),
+                  l = [],
+                  s = new Map();
+                if (i == null) return e;
                 e.metadata =
                   (t = e.metadata) != null ? t : { subSpanNames: [] };
-                var s = (n = e.metadata.subSpanNames) != null ? n : [],
-                  c = s.length;
-                function d(e) {
-                  if (l.has(e)) {
+                var c = (n = e.metadata.subSpanNames) != null ? n : [],
+                  d = c.length;
+                function m(e) {
+                  if (
+                    (r("vulture")("MewU4cPqMKpS1VTLR8mmLJsfhuk="), s.has(e))
+                  ) {
                     var t;
-                    return (t = l.get(e)) != null ? t : -1;
+                    return (t = s.get(e)) != null ? t : -1;
                   }
-                  return (l.set(e, c), i.push(e), c++);
+                  return (s.set(e, d), l.push(e), d++);
                 }
                 for (
-                  var m = function* (n) {
+                  var p = function* (n) {
                       yield o("JSSelfProfilerUtils").nextEventLoop(function () {
-                        return r.batchProcess(e, n, a, d);
+                        return a.batchProcess(e, n, i, m);
                       });
                     },
-                    p = 0;
-                  p < e.samples.length;
-                  p += u
+                    _ = 0;
+                  _ < e.samples.length;
+                  _ += u
                 )
-                  yield* m(p);
+                  yield* p(_);
                 return (
                   e.metadata != null &&
-                    (e.metadata.subSpanNames = [].concat(s, i)),
+                    (e.metadata.subSpanNames = [].concat(c, l)),
                   e
                 );
               },
@@ -91,7 +94,7 @@ __d(
             }
             return t;
           })()),
-          (a.batchProcess = function (t, n, r, o) {
+          (i.batchProcess = function (t, n, r, o) {
             for (
               var e = Math.min(n + u, t.samples.length),
                 a = function () {
@@ -110,7 +113,7 @@ __d(
             )
               a();
           }),
-          r
+          a
         );
       })(r("JSSPTraceBaseTransformer"));
     l.default = c;

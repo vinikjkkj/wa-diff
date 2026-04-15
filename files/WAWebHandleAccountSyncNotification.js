@@ -490,7 +490,7 @@ __d(
               o(
                 "WAWebBackendEventBus",
               ).BackendEventBus.triggerAccountSyncForPrivacy(
-                yield o("WAWebAccountSyncJob").updatePrivacySettings(),
+                yield o("WAWebAccountSyncJob").forceUpdatePrivacySettings(),
               );
               break;
             case o("WAWebAccountSyncJob").AccountSyncType.BLOCKLIST:

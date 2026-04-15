@@ -14,6 +14,7 @@ __d(
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -46,45 +47,55 @@ __d(
       })({ isSelfScreenSharing: e, isAnyPeerScreenSharing: t });
     }
     function f(e) {
-      var t = e.isAnyPeerScreenSharing,
-        n = e.isSelfScreenSharing;
-      return (function (e) {
-        if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.isAnyPeerScreenSharing === !0
-        )
-          return p.jsx(o("WAWebIcScreenShareIcon.react").IcScreenShareIcon, {});
-        if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.isAnyPeerScreenSharing === !1 &&
-          e.isSelfScreenSharing === !1
-        )
-          return p.jsx(o("WAWebIcScreenShareIcon.react").IcScreenShareIcon, {});
-        if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.isAnyPeerScreenSharing === !1 &&
-          e.isSelfScreenSharing === !0
-        )
-          return p.jsx(r("WDSIconIcStopScreenShare.react"), {});
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            e,
-        );
-      })({ isSelfScreenSharing: n, isAnyPeerScreenSharing: t });
+      var t = o("react-compiler-runtime").c(3),
+        n = e.isAnyPeerScreenSharing,
+        r = e.isSelfScreenSharing,
+        a;
+      return (
+        t[0] !== n || t[1] !== r
+          ? ((a = g({ isSelfScreenSharing: r, isAnyPeerScreenSharing: n })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a))
+          : (a = t[2]),
+        a
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
+      if (
+        ((typeof e == "object" && e !== null) || typeof e == "function") &&
+        e.isAnyPeerScreenSharing === !0
+      )
+        return p.jsx(o("WAWebIcScreenShareIcon.react").IcScreenShareIcon, {});
+      if (
+        ((typeof e == "object" && e !== null) || typeof e == "function") &&
+        e.isAnyPeerScreenSharing === !1 &&
+        e.isSelfScreenSharing === !1
+      )
+        return p.jsx(o("WAWebIcScreenShareIcon.react").IcScreenShareIcon, {});
+      if (
+        ((typeof e == "object" && e !== null) || typeof e == "function") &&
+        e.isAnyPeerScreenSharing === !1 &&
+        e.isSelfScreenSharing === !0
+      )
+        return p.jsx(r("WDSIconIcStopScreenShare.react"), {});
+      throw Error(
+        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+          e,
+      );
+    }
+    function h(e) {
       return e
         ? s._(/*BTDS*/ "Stop sharing screen")
         : s._(/*BTDS*/ "Share screen");
     }
-    g.displayName = g.name + " [from " + i.id + "]";
-    function h(e) {
-      return y.apply(this, arguments);
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
             i,
             l = t.closeModal,
@@ -129,7 +140,7 @@ __d(
                         ((t = r("WAWebCallCollection").activeCall) == null ||
                           t.setSelfScreenShareRejected(!1),
                           yield (d || (d = n("Promise"))).resolve(f()),
-                          yield C());
+                          yield b());
                       } catch (t) {
                         o("WALogger")
                           .ERROR(
@@ -147,23 +158,23 @@ __d(
             );
             return;
           }
-          if (c) yield v();
+          if (c) yield S();
           else if (!u || h) {
             var y;
             ((y = r("WAWebCallCollection").activeCall) == null ||
               y.setSelfScreenShareRejected(!1),
-              yield C());
+              yield b());
           }
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WAWebVoipActivityTracker").trackUiActivity(
             o("WAWebVoipActivityTracker").VoipUiActivity
               .USER_START_SCREEN_SHARE,
@@ -203,15 +214,15 @@ __d(
                 ).WAWebVoipVideoDesktopCapture.stopCapture(!0));
             }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function v() {
-      return S.apply(this, arguments);
-    }
     function S() {
+      return R.apply(this, arguments);
+    }
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           o("WAWebVoipActivityTracker").trackUiActivity(
             o("WAWebVoipActivityTracker").VoipUiActivity.USER_STOP_SCREEN_SHARE,
           );
@@ -219,13 +230,13 @@ __d(
           (e == null ? void 0 : e.type) === "web" &&
             (yield e.stopScreenShare());
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
     ((l.getScreenShareIcon = _),
       (l.ScreenShareIcon = f),
-      (l.getScreenShareLabel = g),
-      (l.handlePressScreenShare = h));
+      (l.getScreenShareLabel = h),
+      (l.handlePressScreenShare = y));
   },
   226,
 );

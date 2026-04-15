@@ -3,6 +3,7 @@ __d(
   [
     "CometRelay",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdCreationSearchRegionalLocationsQuery.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,22 +15,28 @@ __d(
       d = u.useRef,
       m = u.useState;
     function p(t, r) {
-      var a = m([]),
-        i = a[0],
-        l = a[1],
-        s = m(!1),
-        u = s[0],
-        p = s[1],
-        _ = d(null),
-        f = c(
-          function (a) {
-            if (a.trim().length === 0) {
-              (l([]), p(!1));
+      var a = o("react-compiler-runtime").c(8),
+        i;
+      a[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = []), (a[0] = i))
+        : (i = a[0]);
+      var l = m(i),
+        s = l[0],
+        u = l[1],
+        c = m(!1),
+        p = c[0],
+        f = c[1],
+        g = d(null),
+        h;
+      a[1] !== t || a[2] !== r
+        ? ((h = function (i) {
+            if (i.trim().length === 0) {
+              (u([]), f(!1));
               return;
             }
-            (p(!0),
-              _.current != null && _.current.unsubscribe(),
-              (_.current = o("CometRelay")
+            (f(!0),
+              g.current != null && g.current.unsubscribe(),
+              (g.current = o("CometRelay")
                 .fetchQuery(
                   t,
                   e !== void 0
@@ -38,7 +45,7 @@ __d(
                         "useWAWebBizAdCreationSearchRegionalLocationsQuery.graphql",
                       )),
                   {
-                    query: a,
+                    query: i,
                     first: 10,
                     locationTypes: [
                       "COUNTRY_GROUP",
@@ -55,30 +62,44 @@ __d(
                   next: function (t) {
                     var e,
                       n = ((e = t.geo_locations_search) != null ? e : []).map(
-                        function (e) {
-                          var t;
-                          return {
-                            key: e.key,
-                            name: e.name,
-                            type: e.type,
-                            countryCode: e.country_code,
-                            countryName: e.country_name,
-                            region: e.region,
-                            regionId: e.region_id,
-                            isWorldwide: (t = e.is_worldwide) != null ? t : !1,
-                          };
-                        },
+                        _,
                       );
-                    (l(n), p(!1));
+                    (u(n), f(!1));
                   },
                   error: function (t) {
-                    (l([]), p(!1), r != null && r());
+                    (u([]), f(!1), r != null && r());
                   },
                 })));
-          },
-          [t, r],
-        );
-      return { locations: i, fetchLocations: f, isLoading: u };
+          }),
+          (a[1] = t),
+          (a[2] = r),
+          (a[3] = h))
+        : (h = a[3]);
+      var y = h,
+        C;
+      return (
+        a[4] !== y || a[5] !== p || a[6] !== s
+          ? ((C = { locations: s, fetchLocations: y, isLoading: p }),
+            (a[4] = y),
+            (a[5] = p),
+            (a[6] = s),
+            (a[7] = C))
+          : (C = a[7]),
+        C
+      );
+    }
+    function _(e) {
+      var t;
+      return {
+        key: e.key,
+        name: e.name,
+        type: e.type,
+        countryCode: e.country_code,
+        countryName: e.country_name,
+        region: e.region,
+        regionId: e.region_id,
+        isWorldwide: (t = e.is_worldwide) != null ? t : !1,
+      };
     }
     l.default = p;
   },

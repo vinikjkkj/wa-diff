@@ -7,21 +7,33 @@ __d(
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizGatingUtils",
     "WAWebSchemaBusinessBroadcastCampaign",
+    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y;
-    function C(e) {
-      return b.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y, C;
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
+            if (o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() == null) {
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[broadcast:device-cleanup] User identity not available yet \u2014 skipping cleanup",
+                    ])),
+                )
+                .sendLogs("business-broadcast-device-cleanup-skipped-no-me");
+              return;
+            }
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:device-cleanup] Cleanup triggered",
                 ])),
             );
@@ -29,8 +41,8 @@ __d(
             if (t != null)
               ((a = t),
                 o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:device-cleanup] Using provided device IDs: ",
                       "",
                     ])),
@@ -45,8 +57,8 @@ __d(
                   }),
                 )),
                   o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[broadcast:device-cleanup] Fetched device IDs from cache: ",
                         "",
                       ])),
@@ -55,8 +67,8 @@ __d(
               } catch (e) {
                 o("WALogger")
                   .WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "[broadcast:device-cleanup] Device list not available yet \u2014 skipping cleanup (will retry on next DEVICES notification)",
                       ])),
                   )
@@ -66,7 +78,7 @@ __d(
             var l = yield o(
                 "WAWebBizBroadcastCampaignAPI",
               ).getAllBizBroadcastCampaigns(),
-              C = l.filter(function (e) {
+              b = l.filter(function (e) {
                 return (
                   !a.has(e.deviceId) &&
                   (e.status ===
@@ -77,10 +89,10 @@ __d(
                         .BusinessBroadcastCampaignStatus.SCHEDULED)
                 );
               });
-            if (C.length === 0) {
+            if (b.length === 0) {
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:device-cleanup] No orphaned campaigns found",
                   ])),
               );
@@ -90,25 +102,25 @@ __d(
               !o("WAWebBizGatingUtils").isBizBroadcastSendWebEnabledNoExposure()
             ) {
               o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:device-cleanup] Skipped \u2014 feature not enabled",
                   ])),
               );
               return;
             }
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:device-cleanup] Found ",
                   " orphaned campaign(s) with invalid device IDs",
                 ])),
-              C.length,
+              b.length,
             );
-            var b = [],
-              v = 0;
-            (yield (y || (y = n("Promise"))).all(
-              C.map(
+            var v = [],
+              S = 0;
+            (yield (C || (C = n("Promise"))).all(
+              b.map(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
@@ -120,13 +132,13 @@ __d(
                           status: o("WAWebSchemaBusinessBroadcastCampaign")
                             .BusinessBroadcastCampaignStatus.FAILED,
                         }),
-                          v++,
-                          b.length < 3 && b.push(e.campaignId));
+                          S++,
+                          v.length < 3 && v.push(e.campaignId));
                       } catch (t) {
                         o("WALogger")
                           .ERROR(
-                            _ ||
-                              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                            f ||
+                              (f = babelHelpers.taggedTemplateLiteralLoose([
                                 "[broadcast:device-cleanup] Failed to clean up campaign ",
                                 "",
                               ])),
@@ -143,28 +155,28 @@ __d(
                 })(),
               ),
             ),
-              v > 0 &&
+              S > 0 &&
                 o("WALogger").LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[broadcast:device-cleanup] Marked ",
                       " campaign(s) as FAILED => ",
                       "",
                     ])),
+                  S,
                   v,
-                  b,
                 ),
               o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:device-cleanup] Cleanup complete",
                   ])),
               ));
           } catch (e) {
             o("WALogger")
               .ERROR(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:device-cleanup] Unexpected error during cleanup",
                   ])),
               )
@@ -172,10 +184,10 @@ __d(
               .sendLogs("business-broadcast-device-cleanup-error");
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    l.cleanupCampaignsWithInvalidDevices = C;
+    l.cleanupCampaignsWithInvalidDevices = b;
   },
   98,
 );

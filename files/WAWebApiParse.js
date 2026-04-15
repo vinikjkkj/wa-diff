@@ -11,6 +11,7 @@ __d(
     "WAWebBroadcastApiParse",
     "WAWebExternalCtxConfig",
     "WAWebNewsletterApiParse",
+    "WAWebNewsletterStatusApiParse",
     "WAWebPaymentLinkUrlMetaData",
     "WAWebPonyfillsUrlSearchParams",
     "WAWebRegistrationCampaignConstants",
@@ -855,12 +856,20 @@ __d(
         return { resultType: o("WAWebApi").APICmd.CREATE_COMMUNITY, data: l };
       var s = rt(e);
       if (s) return { resultType: o("WAWebApi").APICmd.AVATAR_STICKERPACK };
-      var u = o("WAWebStatusApiParse").parseStatusPostFeatureLink(e);
-      if (u) return { resultType: o("WAWebApi").APICmd.STATUS_POST, data: u };
-      var c = o("WAWebBroadcastApiParse").parseBroadcastFeatureLink(e);
-      if (c) return { resultType: o("WAWebApi").APICmd.BROADCAST, data: c };
-      var d = o("WAWebNewsletterApiParse").parseNewsletter(e, t);
-      if (d) return { resultType: o("WAWebApi").APICmd.NEWSLETTER, data: d };
+      var u = o("WAWebNewsletterStatusApiParse").parseNewsletterStatusDeeplink(
+        e,
+      );
+      if (u)
+        return {
+          resultType: o("WAWebApi").APICmd.NEWSLETTER_STATUS_DEEPLINK,
+          data: u,
+        };
+      var c = o("WAWebStatusApiParse").parseStatusPostFeatureLink(e);
+      if (c) return { resultType: o("WAWebApi").APICmd.STATUS_POST, data: c };
+      var d = o("WAWebBroadcastApiParse").parseBroadcastFeatureLink(e);
+      if (d) return { resultType: o("WAWebApi").APICmd.BROADCAST, data: d };
+      var m = o("WAWebNewsletterApiParse").parseNewsletter(e, t);
+      if (m) return { resultType: o("WAWebApi").APICmd.NEWSLETTER, data: m };
       if (
         [fe, ge].some(function (t) {
           return e.match(t);
@@ -876,42 +885,42 @@ __d(
           resultType: o("WAWebApi").APICmd.FAVORITES,
           data: { url: "/" },
         };
-      var m = Ke(e);
-      if (m != null)
-        return { resultType: o("WAWebApi").APICmd.OPEN_CATALOG, data: m };
-      var p = Xe(e);
+      var p = Ke(e);
       if (p != null)
+        return { resultType: o("WAWebApi").APICmd.OPEN_CATALOG, data: p };
+      var _ = Xe(e);
+      if (_ != null)
         return {
           resultType: o("WAWebApi").APICmd.CATALOG_LINKING_CHAT_PSA,
-          data: p,
+          data: _,
         };
-      var _ = _t(e);
-      if (_) {
-        var f;
+      var f = _t(e);
+      if (f) {
+        var g;
         return {
           resultType: o("WAWebApi").APICmd.STICKER_PACK,
-          data: { url: (f = _.data.url) != null ? f : "" },
+          data: { url: (g = f.data.url) != null ? g : "" },
         };
       }
-      var g = Ge(e);
-      if (g)
-        return { resultType: o("WAWebApi").APICmd.PUSH_NOTIFICATION, data: g };
-      var h = je(e);
-      if (h != null)
-        return { resultType: o("WAWebApi").APICmd.ADVERTISE, data: h };
-      var C = Ct(e);
-      if (C) return C;
+      var h = Ge(e);
+      if (h)
+        return { resultType: o("WAWebApi").APICmd.PUSH_NOTIFICATION, data: h };
+      var C = je(e);
+      if (C != null)
+        return { resultType: o("WAWebApi").APICmd.ADVERTISE, data: C };
+      var b = Ct(e);
+      if (b) return b;
       if (e.match(ae))
         return {
           resultType: o("WAWebApi").APICmd.MANAGE_ADS,
           trigger: "chatListBanner",
         };
       if (e.match(ue)) {
-        var b = new URL(e),
-          v = b.searchParams.get("source");
+        var v = new URL(e),
+          S = v.searchParams.get("source");
         return {
           resultType: o("WAWebApi").APICmd.CTWA_ADS_DATA_SHARING,
-          source: v != null ? v : "unknown",
+          source: S != null ? S : "unknown",
         };
       }
       if (e.match(ce))
@@ -921,25 +930,25 @@ __d(
           resultType: o("WAWebApi").APICmd.BIZ_BROADCAST_AUDIENCE_MODAL,
         };
       if (e.match(me)) {
-        var S = new URL(e),
-          R = S.searchParams.get("source");
+        var R = new URL(e),
+          L = R.searchParams.get("source");
         return {
           resultType: o("WAWebApi").APICmd.BIZ_BROADCAST_HOME,
-          source: R != null ? R : "unknown",
+          source: L != null ? L : "unknown",
         };
       }
-      var L = Qe(e);
-      if (L) return L;
+      var E = Qe(e);
+      if (E) return E;
       if (e.match(Ze))
         return { resultType: o("WAWebApi").APICmd.EDIT_PROFILE_PICTURE };
-      var E = e.match(et);
-      if (E) {
-        var k,
-          I = new URL(e.replace("whatsapp://", "https://")),
-          T = (k = I.searchParams.get("entry_point")) != null ? k : void 0;
+      var k = e.match(et);
+      if (k) {
+        var I,
+          T = new URL(e.replace("whatsapp://", "https://")),
+          D = (I = T.searchParams.get("entry_point")) != null ? I : void 0;
         return {
           resultType: o("WAWebApi").APICmd.PROFILE_USERNAME,
-          data: { entryPoint: T },
+          data: { entryPoint: D },
         };
       }
       if (
@@ -954,35 +963,35 @@ __d(
           resultType: o("WAWebApi").APICmd.CALL_USER,
           data: { url: "/" },
         };
-      var D = Ye(e);
-      if (D != null)
-        return { resultType: o("WAWebApi").APICmd.PAYMENT_LINK, data: D };
-      var x = ut(e);
-      if (x != null) return x;
-      var P = mt(e);
+      var x = Ye(e);
+      if (x != null)
+        return { resultType: o("WAWebApi").APICmd.PAYMENT_LINK, data: x };
+      var P = ut(e);
       if (P != null) return P;
-      var N = it(e);
-      if (N) return N;
-      var F = Ae(e);
-      if (F) return { resultType: o("WAWebApi").APICmd.MSG_SEND, data: F };
-      var O = vt(e);
-      if (O != null)
+      var N = mt(e);
+      if (N != null) return N;
+      var F = it(e);
+      if (F) return F;
+      var O = Ae(e);
+      if (O) return { resultType: o("WAWebApi").APICmd.MSG_SEND, data: O };
+      var B = vt(e);
+      if (B != null)
         return {
           resultType: o("WAWebApi").APICmd.WEB_REGISTRATION_CAMPAIGN,
-          data: O,
+          data: B,
         };
-      var B = M(e);
-      if (B != null) return B;
-      var W = w(e);
+      var W = M(e);
       if (W != null) return W;
+      var q = w(e);
+      if (q != null) return q;
       if (e.match($)) return { resultType: o("WAWebApi").APICmd.NEW_CHAT };
       if (e.match(A)) return { resultType: o("WAWebApi").APICmd.NEW_CALL };
-      var q = r("gkx")("26258") ? null : St();
-      if (q)
-        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: q };
-      var U = Rt(e);
-      return U
-        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: U }
+      var U = r("gkx")("26258") ? null : St();
+      if (U)
+        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: U };
+      var V = Rt(e);
+      return V
+        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: V }
         : { resultType: o("WAWebApi").APICmd.INVALID };
     }
     ((l.parseConversionData = E),

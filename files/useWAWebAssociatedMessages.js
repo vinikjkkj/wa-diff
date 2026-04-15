@@ -5,6 +5,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebViewMode.flow",
+    "react-compiler-runtime",
     "useWAWebAggregatedView",
     "useWAWebEqualModelMemo",
     "useWAWebMsgValues",
@@ -12,19 +13,29 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      t === void 0 && (t = o("WAWebViewMode.flow").ViewModeSurface.CHAT);
-      var n = o("useWAWebMsgValues").useMsgValues(e.id, [
-          o("WAWebMsgGetters").getId,
-        ]),
-        a = n[0],
-        i = o("useWAWebAggregatedView").useAggregatedView(
+      var n = o("react-compiler-runtime").c(4),
+        a = t === void 0 ? o("WAWebViewMode.flow").ViewModeSurface.CHAT : t,
+        i;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [o("WAWebMsgGetters").getId]), (n[0] = i))
+        : (i = n[0]);
+      var l = o("useWAWebMsgValues").useMsgValues(e.id, i),
+        s = l[0],
+        u = o("useWAWebAggregatedView").useAggregatedView(
           o("WAWebMsgCollection").MsgCollection.byParentMessage,
-          a,
+          s,
         ),
-        l = o(
-          "WAWebMessageAssociationUIUtils",
-        ).filterOutVisibleAssociatedMessages(i, t);
-      return r("useWAWebEqualModelMemo")(l);
+        c;
+      n[1] !== u || n[2] !== a
+        ? ((c = o(
+            "WAWebMessageAssociationUIUtils",
+          ).filterOutVisibleAssociatedMessages(u, a)),
+          (n[1] = u),
+          (n[2] = a),
+          (n[3] = c))
+        : (c = n[3]);
+      var d = c;
+      return r("useWAWebEqualModelMemo")(d);
     }
     l.useHiddenAssociatedMessages = e;
   },

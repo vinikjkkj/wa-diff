@@ -10,6 +10,7 @@ __d(
     "WAWebText_DONOTUSE.react",
     "WAWebUISpacing",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -62,61 +63,89 @@ __d(
         },
       };
     function m(t) {
-      var n = t.amount,
-        a = t.documentPreview,
-        i = t.isSentByMe,
-        l = t.numberOfItems,
-        u = t.orderId,
-        m = t.orderPaymentStatus,
-        _ = t.payIcons,
-        f = t.quantity,
-        g = t.text,
-        h = t.thumbnail,
-        y = t.xstyle;
-      return c.jsxs(o("WAWebFlex.react").FlexColumn, {
-        xstyle: [
-          d.header,
-          o("WAWebUISpacing").uiPadding.top6,
-          o("WAWebUISpacing").uiPadding.bottom8,
-          o("WAWebUISpacing").uiPadding.horiz8,
-          i ? d.bubbleOut : d.bubbleIn,
-          y,
-        ],
-        children: [
-          c.jsxs(o("WAWebFlex.react").FlexRow, {
+      var n = o("react-compiler-runtime").c(32),
+        a = t.amount,
+        i = t.documentPreview,
+        l = t.isSentByMe,
+        u = t.numberOfItems,
+        m = t.orderId,
+        _ = t.orderPaymentStatus,
+        f = t.payIcons,
+        g = t.quantity,
+        h = t.text,
+        y = t.thumbnail,
+        C = t.xstyle,
+        b = l ? d.bubbleOut : d.bubbleIn,
+        v;
+      n[0] !== b || n[1] !== C
+        ? ((v = [
+            d.header,
+            o("WAWebUISpacing").uiPadding.top6,
+            o("WAWebUISpacing").uiPadding.bottom8,
+            o("WAWebUISpacing").uiPadding.horiz8,
+            b,
+            C,
+          ]),
+          (n[0] = b),
+          (n[1] = C),
+          (n[2] = v))
+        : (v = n[2]);
+      var S;
+      n[3] !== m
+        ? ((S = o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+            ? s._(/*BTDS*/ "Charge #{order}", [s._param("order", m)])
+            : s._(/*BTDS*/ "Order #{order}", [s._param("order", m)])),
+          (n[3] = m),
+          (n[4] = S))
+        : (S = n[4]);
+      var R;
+      n[5] !== S
+        ? ((R = c.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
+            color: "secondary",
+            weight: "medium",
+            xstyle: d.orderId,
+            size: "10",
+            children: S,
+          })),
+          (n[5] = S),
+          (n[6] = R))
+        : (R = n[6]);
+      var L;
+      n[7] !== m || n[8] !== _
+        ? ((L =
+            _ === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
+            c.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
+              testid: void 0,
+              color: "secondary",
+              weight: "medium",
+              size: "10",
+              xstyle: d.orderId,
+              children: [
+                c.jsx(
+                  o("WAWebActionCheckCircleIcon.react").ActionCheckCircleIcon,
+                  { width: 12, displayInline: !0, xstyle: d.icon },
+                ),
+                s._(/*BTDS*/ "Paid"),
+              ],
+            })),
+          (n[7] = m),
+          (n[8] = _),
+          (n[9] = L))
+        : (L = n[9]);
+      var E;
+      n[10] !== R || n[11] !== L
+        ? ((E = c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: d.total,
             justify: "all",
-            children: [
-              c.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
-                color: "secondary",
-                weight: "medium",
-                xstyle: d.orderId,
-                size: "10",
-                children: o(
-                  "WAWebBizGatingUtils",
-                ).isOrderContentOptimizationEnabled()
-                  ? s._(/*BTDS*/ "Charge #{order}", [s._param("order", u)])
-                  : s._(/*BTDS*/ "Order #{order}", [s._param("order", u)]),
-              }),
-              m === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
-                c.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
-                  testid: void 0,
-                  color: "secondary",
-                  weight: "medium",
-                  size: "10",
-                  xstyle: d.orderId,
-                  children: [
-                    c.jsx(
-                      o("WAWebActionCheckCircleIcon.react")
-                        .ActionCheckCircleIcon,
-                      { width: 12, displayInline: !0, xstyle: d.icon },
-                    ),
-                    s._(/*BTDS*/ "Paid"),
-                  ],
-                }),
-            ],
-          }),
-          c.jsx(
+            children: [R, L],
+          })),
+          (n[10] = R),
+          (n[11] = L),
+          (n[12] = E))
+        : (E = n[12]);
+      var k;
+      n[13] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = c.jsx(
             "div",
             babelHelpers.extends(
               {},
@@ -126,39 +155,54 @@ __d(
                 o("WAWebUISpacing").uiMargin.bottom8,
               ),
             ),
-          ),
-          a != null
-            ? a
-            : c.jsxs(o("WAWebFlex.react").FlexRow, {
-                align: "center",
-                className: "xh8yej3",
-                children: [
-                  h != null && h !== ""
-                    ? c.jsx("div", {
-                        className: (e || (e = r("stylex")))(
-                          d.media,
-                          o("WAWebUISpacing").uiMargin.end8,
-                        ),
-                        style: { backgroundImage: "url(" + h + ")" },
-                      })
-                    : null,
-                  c.jsxs("div", {
-                    className: "x6ikm8r x10wlt62",
-                    children: [
-                      c.jsx(r("WAWebTextLineClamp.react"), {
-                        maxLines: 1,
-                        children: g,
-                      }),
-                      c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-                        color: "secondary",
-                        children: p(l, f),
-                      }),
-                    ],
-                  }),
-                ],
-              }),
-          _ != null &&
-            (_ == null ? void 0 : _.length) > 0 &&
+          )),
+          (n[13] = k))
+        : (k = n[13]);
+      var I;
+      n[14] !== i || n[15] !== u || n[16] !== g || n[17] !== h || n[18] !== y
+        ? ((I =
+            i != null
+              ? i
+              : c.jsxs(o("WAWebFlex.react").FlexRow, {
+                  align: "center",
+                  className: "xh8yej3",
+                  children: [
+                    y != null && y !== ""
+                      ? c.jsx("div", {
+                          className: (e || (e = r("stylex")))(
+                            d.media,
+                            o("WAWebUISpacing").uiMargin.end8,
+                          ),
+                          style: { backgroundImage: "url(" + y + ")" },
+                        })
+                      : null,
+                    c.jsxs("div", {
+                      className: "x6ikm8r x10wlt62",
+                      children: [
+                        c.jsx(r("WAWebTextLineClamp.react"), {
+                          maxLines: 1,
+                          children: h,
+                        }),
+                        c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
+                          color: "secondary",
+                          children: p(u, g),
+                        }),
+                      ],
+                    }),
+                  ],
+                })),
+          (n[14] = i),
+          (n[15] = u),
+          (n[16] = g),
+          (n[17] = h),
+          (n[18] = y),
+          (n[19] = I))
+        : (I = n[19]);
+      var T;
+      n[20] !== f
+        ? ((T =
+            f != null &&
+            (f == null ? void 0 : f.length) > 0 &&
             c.jsxs(c.Fragment, {
               children: [
                 c.jsx(
@@ -184,38 +228,71 @@ __d(
                     c.jsx(o("WAWebFlex.react").FlexRow, {
                       xstyle: d.icon,
                       justify: "end",
-                      children: _,
+                      children: f,
                     }),
                   ],
                 }),
               ],
-            }),
-          c.jsx(
+            })),
+          (n[20] = f),
+          (n[21] = T))
+        : (T = n[21]);
+      var D;
+      n[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = c.jsx(
             "div",
             babelHelpers.extends(
               {},
-              e.props(d.hr, o("WAWebUISpacing").uiMargin.vert8),
+              (e || (e = r("stylex"))).props(
+                d.hr,
+                o("WAWebUISpacing").uiMargin.vert8,
+              ),
             ),
-          ),
-          c.jsxs(o("WAWebFlex.react").FlexRow, {
+          )),
+          (n[22] = D))
+        : (D = n[22]);
+      var x;
+      n[23] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
+            size: "15",
+            children: s._(/*BTDS*/ "Total"),
+          })),
+          (n[23] = x))
+        : (x = n[23]);
+      var $;
+      n[24] !== a
+        ? (($ = c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: d.total,
             justify: "all",
             children: [
-              c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-                size: "15",
-                children: s._(/*BTDS*/ "Total"),
-              }),
+              x,
               c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
                 size: "15",
                 weight: "medium",
-                children: n,
+                children: a,
               }),
             ],
-          }),
-        ],
-      });
+          })),
+          (n[24] = a),
+          (n[25] = $))
+        : ($ = n[25]);
+      var P;
+      return (
+        n[26] !== $ || n[27] !== v || n[28] !== E || n[29] !== I || n[30] !== T
+          ? ((P = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+              xstyle: v,
+              children: [E, k, I, T, D, $],
+            })),
+            (n[26] = $),
+            (n[27] = v),
+            (n[28] = E),
+            (n[29] = I),
+            (n[30] = T),
+            (n[31] = P))
+          : (P = n[31]),
+        P
+      );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p(e, t) {
       return e != null && e > 1
         ? s._(/*BTDS*/ '_j{"*":"{number-of-items} items","_1":"1 item"}', [

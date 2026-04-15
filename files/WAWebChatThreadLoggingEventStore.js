@@ -370,15 +370,16 @@ __d(
                             u,
                             c,
                             d,
-                            m = h[t],
-                            _ = r("WAWebWid").isGroup(e.chatId),
-                            f = b[t],
-                            g = o("WAWebBotTypes").BizBotAutomatedType.cast(
+                            m,
+                            _ = h[t],
+                            f = r("WAWebWid").isGroup(e.chatId),
+                            g = b[t],
+                            k = o("WAWebBotTypes").BizBotAutomatedType.cast(
                               (n = S[t]) == null ? void 0 : n.automatedType,
                             ),
-                            k = _
+                            D = f
                               ? {
-                                  isAGroup: _,
+                                  isAGroup: f,
                                   groupSize:
                                     (a =
                                       (i = v[t]) == null ||
@@ -388,155 +389,161 @@ __d(
                                       ? a
                                       : 1,
                                   groupType:
-                                    f == null
+                                    g == null
                                       ? o("WAWebGroupType").GroupType.DEFAULT
                                       : o(
                                           "WAWebGroupType",
-                                        ).getGroupTypeFromGroupMetadata(f),
+                                        ).getGroupTypeFromGroupMetadata(g),
                                 }
                               : {
-                                  isAGroup: _,
+                                  isAGroup: f,
                                   isAContact: yield o(
                                     "WAWebApiContact",
                                   ).isAddressBookContact(e.chatId),
-                                  automatedType: g,
+                                  automatedType: k,
                                 },
-                            D = o("WAWebWidFactory").createWid(e.chatId),
-                            x =
-                              ((l = m == null ? void 0 : m.pin) != null
+                            x = o("WAWebWidFactory").createWid(e.chatId),
+                            $ =
+                              ((l = _ == null ? void 0 : _.pin) != null
                                 ? l
                                 : 0) > 0,
-                            $ =
-                              (s = m == null ? void 0 : m.archive) != null
+                            P =
+                              (s = _ == null ? void 0 : _.archive) != null
                                 ? s
                                 : !1,
-                            P = y[t],
-                            N =
-                              (u = m == null ? void 0 : m.unreadCount) != null
+                            N = y[t],
+                            M =
+                              (u = _ == null ? void 0 : _.unreadCount) != null
                                 ? u
                                 : 0,
-                            M =
-                              ((c = m == null ? void 0 : m.muteExpiration) !=
+                            w =
+                              ((c = _ == null ? void 0 : _.muteExpiration) !=
                               null
                                 ? c
                                 : 0) !== 0,
-                            w = C[t]
+                            A = C[t]
                               ? yield o(
                                   "WAWebGetBizCatalogType",
-                                ).getBizCatalogType(D)
+                                ).getBizCatalogType(x)
                               : null,
-                            A =
+                            F =
                               r("WAWebWid").isStringLid(e.chatId) ||
-                              (f == null ? void 0 : f.defaultSubgroup) === !0,
-                            F = o("WAWebUserPrefsMeUser").isMeAccount(D),
-                            O = D.isBot(),
-                            B = o(
-                              "WAWebChatThreadLoggingUtils",
-                            ).getWamDisappearingModeInitiatedByMe(
-                              m == null
-                                ? void 0
-                                : m.disappearingModeInitiatedByMe,
-                            ),
+                              (g == null ? void 0 : g.defaultSubgroup) === !0,
+                            O = o("WAWebUserPrefsMeUser").isMeAccount(x),
+                            B = x.isBot(),
                             W = o(
                               "WAWebChatThreadLoggingUtils",
+                            ).getWamDisappearingModeInitiatedByMe(
+                              _ == null
+                                ? void 0
+                                : _.disappearingModeInitiatedByMe,
+                            ),
+                            q = o(
+                              "WAWebChatThreadLoggingUtils",
                             ).getWamDisappearingModeTrigger(
-                              m == null ? void 0 : m.disappearingModeTrigger,
+                              _ == null ? void 0 : _.disappearingModeTrigger,
                             );
                           o("WAWebABProps").getABPropConfigValue(
                             "dm_initiator_trigger_groups",
                           ) &&
-                            r("WAWebWid").isGroup(m == null ? void 0 : m.id) &&
-                            ((B = o(
+                            r("WAWebWid").isGroup(_ == null ? void 0 : _.id) &&
+                            ((W = o(
                               "WAWebChatThreadLoggingUtils",
                             ).getWamDisappearingModeInitiatedByMe(
-                              f == null
+                              g == null
                                 ? void 0
-                                : f.disappearingModeInitiatedByMe,
+                                : g.disappearingModeInitiatedByMe,
                             )),
-                            (W = o(
+                            (q = o(
                               "WAWebChatThreadLoggingUtils",
                             ).getWamDisappearingModeTriggerGroups(
-                              f == null ? void 0 : f.disappearingModeTrigger,
+                              g == null ? void 0 : g.disappearingModeTrigger,
                             )));
-                          var q = I,
-                            U = T,
-                            V = null,
-                            H = !1,
-                            G = R[t];
-                          if (G != null) {
-                            var z = o("WAWebWidFactory").createWid(G.id);
-                            V = o(
+                          var U = I,
+                            V = T,
+                            H = null,
+                            G = !1,
+                            z = R[t];
+                          if (z != null) {
+                            var j = o("WAWebWidFactory").createWid(z.id);
+                            H = o(
                               "WAWebChatThreadLoggingUtils",
                             ).getOppositeVisibleIdentificationType(
-                              G,
-                              z.isLid() ? "lid" : "pn",
+                              z,
+                              j.isLid() ? "lid" : "pn",
                             );
-                            var j = o("WAWebLidMigrationUtils").toPn(z) != null,
-                              K = !r("isStringNullOrEmpty")(G.username);
-                            H = !j && K;
+                            var K = o("WAWebLidMigrationUtils").toPn(j) != null,
+                              Q = !r("isStringNullOrEmpty")(z.username);
+                            G = !K && Q;
                           }
-                          var Q = null,
-                            X = null,
-                            Y = null;
-                          if (!_ && D.isRegularUser() && p) {
-                            var J, Z;
-                            ((Q = e.msgsSent > 0),
-                              (X =
-                                ((J = L[t]) == null ? void 0 : J.eurl) !=
+                          var X = null,
+                            Y = null,
+                            J = null;
+                          if (!f && x.isRegularUser() && p) {
+                            var Z, ee;
+                            ((X = e.msgsSent > 0),
+                              (Y =
+                                ((Z = L[t]) == null ? void 0 : Z.eurl) !=
                                   null ||
-                                ((Z = L[t]) == null ? void 0 : Z.previewEurl) !=
-                                  null),
-                              (Y = m != null && E.has(m.id)));
+                                ((ee = L[t]) == null
+                                  ? void 0
+                                  : ee.previewEurl) != null),
+                              (J = _ != null && E.has(_.id)));
                           }
-                          var ee = o("WAWebWamEnumChatOriginsType")
+                          var te = o("WAWebWamEnumChatOriginsType")
                             .CHAT_ORIGINS_TYPE.OTHERS;
                           if (
-                            (D.isLid() &&
-                              (ee = o("WAWebWamEnumChatOriginsType")
+                            (x.isLid() &&
+                              (te = o("WAWebWamEnumChatOriginsType")
                                 .CHAT_ORIGINS_TYPE.LID_CTWA),
-                            m != null && m.lidOriginType)
+                            _ != null && _.lidOriginType)
                           )
-                            switch (m == null ? void 0 : m.lidOriginType) {
+                            switch (_ == null ? void 0 : _.lidOriginType) {
                               case o("WAWebUsernameTypes").LidOriginType
                                 .PNH_CTWA:
-                                ee = o("WAWebWamEnumChatOriginsType")
+                                te = o("WAWebWamEnumChatOriginsType")
                                   .CHAT_ORIGINS_TYPE.LID_CTWA;
                                 break;
                               case o("WAWebUsernameTypes").LidOriginType
                                 .GENERAL:
-                                ee = o("WAWebWamEnumChatOriginsType")
+                                te = o("WAWebWamEnumChatOriginsType")
                                   .CHAT_ORIGINS_TYPE.OTHERS;
                                 break;
                             }
                           return babelHelpers.extends({}, e, {
-                            isPinned: x,
-                            isArchived: $,
-                            contactInfo: k,
-                            messagesStarred: P,
-                            messagesUnread: N,
-                            isMuted: M,
-                            bizCatalogType: w,
-                            isPnhEnabledChat: A,
-                            isMessageYourself: F,
-                            isUserAgent: O,
-                            ephemeralityInitiator: B,
-                            ephemeralityTriggerAction: W,
-                            isUsernameThread: H,
-                            hasUsername: q,
-                            hasUsernamePin: U,
-                            oppositeVisibleIdentification: V,
+                            isPinned: $,
+                            isArchived: P,
+                            contactInfo: D,
+                            messagesStarred: N,
+                            messagesUnread: M,
+                            isMuted: w,
+                            bizCatalogType: A,
+                            isPnhEnabledChat: F,
+                            isMessageYourself: O,
+                            isUserAgent: B,
+                            ephemeralityInitiator: W,
+                            ephemeralityTriggerAction: q,
+                            isUsernameThread: G,
+                            hasUsername: U,
+                            hasUsernamePin: V,
+                            oppositeVisibleIdentification: H,
                             isUsernameThreadAtCreation:
                               (d =
-                                m == null
+                                _ == null
                                   ? void 0
-                                  : m.isUsernameThreadAtCreation) != null
+                                  : _.isUsernameThreadAtCreation) != null
                                 ? d
                                 : void 0,
-                            hasReplied1On1: Q != null ? Q : void 0,
-                            sharesCommonGroup: Y != null ? Y : void 0,
+                            hasReplied1On1: X != null ? X : void 0,
+                            sharesCommonGroup: J != null ? J : void 0,
                             oppositePartyHasProfilePhoto:
-                              X != null ? X : void 0,
-                            chatOrigins: ee,
+                              Y != null ? Y : void 0,
+                            chatOrigins: te,
+                            afterReadDuration:
+                              (m = _ == null ? void 0 : _.afterReadDuration) !=
+                              null
+                                ? m
+                                : void 0,
                           });
                         },
                       );

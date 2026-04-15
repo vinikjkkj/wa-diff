@@ -65,6 +65,10 @@ __d(
             light: c.tonalLight,
             dark: c.tonalDark,
           },
+          bubble: {
+            vibrant: { light: c.bubbleLight, dark: c.bubbleDark },
+            tonal: { light: c.bubbleTonalLight, dark: c.bubbleTonalDark },
+          },
         }),
         (e[u.Theme.PearlIndigo] = {
           vibrant: {
@@ -82,6 +86,11 @@ __d(
             light: d.minimalLight,
             dark: d.minimalDark,
           },
+          bubble: {
+            vibrant: { light: d.bubbleLight, dark: d.bubbleDark },
+            tonal: { light: d.bubbleTonalLight, dark: d.bubbleTonalDark },
+            minimal: { light: d.bubbleMinimalLight, dark: d.bubbleMinimalDark },
+          },
         }),
         (e[u.Theme.TyrianPurple] = {
           vibrant: {
@@ -93,6 +102,10 @@ __d(
             system: m.tonalSystem,
             light: m.tonalLight,
             dark: m.tonalDark,
+          },
+          bubble: {
+            vibrant: { light: m.bubbleLight, dark: m.bubbleDark },
+            tonal: { light: m.bubbleTonalLight, dark: m.bubbleTonalDark },
           },
         }),
         (e[u.Theme.SunsetOrange] = {
@@ -106,6 +119,10 @@ __d(
             light: p.tonalLight,
             dark: p.tonalDark,
           },
+          bubble: {
+            vibrant: { light: p.bubbleLight, dark: p.bubbleDark },
+            tonal: { light: p.bubbleTonalLight, dark: p.bubbleTonalDark },
+          },
         }),
         (e[u.Theme.MerinoTeal] = {
           vibrant: {
@@ -117,6 +134,10 @@ __d(
             system: _.tonalSystem,
             light: _.tonalLight,
             dark: _.tonalDark,
+          },
+          bubble: {
+            vibrant: { light: _.bubbleLight, dark: _.bubbleDark },
+            tonal: { light: _.bubbleTonalLight, dark: _.bubbleTonalDark },
           },
         }),
         (e[u.Theme.RoyalBlue] = {
@@ -130,6 +151,10 @@ __d(
             light: f.tonalLight,
             dark: f.tonalDark,
           },
+          bubble: {
+            vibrant: { light: f.bubbleLight, dark: f.bubbleDark },
+            tonal: { light: f.bubbleTonalLight, dark: f.bubbleTonalDark },
+          },
         }),
         (e[u.Theme.DarkCerulean] = {
           vibrant: {
@@ -141,6 +166,10 @@ __d(
             system: g.tonalSystem,
             light: g.tonalLight,
             dark: g.tonalDark,
+          },
+          bubble: {
+            vibrant: { light: g.bubbleLight, dark: g.bubbleDark },
+            tonal: { light: g.bubbleTonalLight, dark: g.bubbleTonalDark },
           },
         }),
         (e[u.Theme.CharcoalGreen] = {
@@ -154,6 +183,10 @@ __d(
             light: h.tonalLight,
             dark: h.tonalDark,
           },
+          bubble: {
+            vibrant: { light: h.bubbleLight, dark: h.bubbleDark },
+            tonal: { light: h.bubbleTonalLight, dark: h.bubbleTonalDark },
+          },
         }),
         (e[u.Theme.PersianPlum] = {
           vibrant: {
@@ -166,6 +199,10 @@ __d(
             light: y.tonalLight,
             dark: y.tonalDark,
           },
+          bubble: {
+            vibrant: { light: y.bubbleLight, dark: y.bubbleDark },
+            tonal: { light: y.bubbleTonalLight, dark: y.bubbleTonalDark },
+          },
         }),
         (e[u.Theme.DuneMono] = {
           vibrant: {
@@ -177,6 +214,10 @@ __d(
             system: C.tonalSystem,
             light: C.tonalLight,
             dark: C.tonalDark,
+          },
+          bubble: {
+            vibrant: { light: C.bubbleLight, dark: C.bubbleDark },
+            tonal: { light: C.bubbleTonalLight, dark: C.bubbleTonalDark },
           },
         }),
         (e[u.Theme.DefaultBlue] = {
@@ -195,6 +236,11 @@ __d(
             light: b.minimalLight,
             dark: b.minimalDark,
           },
+          bubble: {
+            vibrant: { light: b.bubbleLight, dark: b.bubbleDark },
+            tonal: { light: b.bubbleTonalLight, dark: b.bubbleTonalDark },
+            minimal: { light: b.bubbleMinimalLight, dark: b.bubbleMinimalDark },
+          },
         }),
         (e[u.Theme.DefaultMono] = {
           vibrant: {
@@ -211,6 +257,11 @@ __d(
             system: v.minimalLight,
             light: v.minimalLight,
             dark: v.minimalDark,
+          },
+          bubble: {
+            vibrant: { light: v.bubbleLight, dark: v.bubbleDark },
+            tonal: { light: v.bubbleTonalLight, dark: v.bubbleTonalDark },
+            minimal: { light: v.bubbleMinimalLight, dark: v.bubbleMinimalDark },
           },
         }),
         (e[u.Theme.SkyBlue] = {
@@ -229,6 +280,11 @@ __d(
             light: S.minimalLight,
             dark: S.minimalDark,
           },
+          bubble: {
+            vibrant: { light: S.bubbleLight, dark: S.bubbleDark },
+            tonal: { light: S.bubbleTonalLight, dark: S.bubbleTonalDark },
+            minimal: { light: S.bubbleMinimalLight, dark: S.bubbleMinimalDark },
+          },
         }),
         (e[u.Theme.Brown] = {
           vibrant: {
@@ -240,6 +296,10 @@ __d(
             system: R.tonalSystem,
             light: R.tonalLight,
             dark: R.tonalDark,
+          },
+          bubble: {
+            vibrant: { light: R.bubbleLight, dark: R.bubbleDark },
+            tonal: { light: R.bubbleTonalLight, dark: R.bubbleTonalDark },
           },
         }),
         (e[u.Theme.Cream] = {
@@ -253,6 +313,10 @@ __d(
             light: L.tonalLight,
             dark: L.tonalDark,
           },
+          bubble: {
+            vibrant: { light: L.bubbleLight, dark: L.bubbleDark },
+            tonal: { light: L.bubbleTonalLight, dark: L.bubbleTonalDark },
+          },
         }),
         (e[u.Theme.Emerald] = {
           vibrant: {
@@ -264,6 +328,10 @@ __d(
             system: E.tonalSystem,
             light: E.tonalLight,
             dark: E.tonalDark,
+          },
+          bubble: {
+            vibrant: { light: E.bubbleLight, dark: E.bubbleDark },
+            tonal: { light: E.bubbleTonalLight, dark: E.bubbleTonalDark },
           },
         }),
         (e[u.Theme.Lemon] = {
@@ -277,6 +345,10 @@ __d(
             light: k.tonalLight,
             dark: k.tonalDark,
           },
+          bubble: {
+            vibrant: { light: k.bubbleLight, dark: k.bubbleDark },
+            tonal: { light: k.bubbleTonalLight, dark: k.bubbleTonalDark },
+          },
         }),
         (e[u.Theme.Lime] = {
           vibrant: {
@@ -288,6 +360,10 @@ __d(
             system: I.tonalSystem,
             light: I.tonalLight,
             dark: I.tonalDark,
+          },
+          bubble: {
+            vibrant: { light: I.bubbleLight, dark: I.bubbleDark },
+            tonal: { light: I.bubbleTonalLight, dark: I.bubbleTonalDark },
           },
         }),
         (e[u.Theme.Pink] = {
@@ -301,6 +377,10 @@ __d(
             light: T.tonalLight,
             dark: T.tonalDark,
           },
+          bubble: {
+            vibrant: { light: T.bubbleLight, dark: T.bubbleDark },
+            tonal: { light: T.bubbleTonalLight, dark: T.bubbleTonalDark },
+          },
         }),
         (e[u.Theme.Red] = {
           vibrant: {
@@ -312,6 +392,10 @@ __d(
             system: D.tonalSystem,
             light: D.tonalLight,
             dark: D.tonalDark,
+          },
+          bubble: {
+            vibrant: { light: D.bubbleLight, dark: D.bubbleDark },
+            tonal: { light: D.bubbleTonalLight, dark: D.bubbleTonalDark },
           },
         }),
         (e[u.Theme.SunriseOrange] = {
@@ -325,6 +409,10 @@ __d(
             light: x.tonalLight,
             dark: x.tonalDark,
           },
+          bubble: {
+            vibrant: { light: x.bubbleLight, dark: x.bubbleDark },
+            tonal: { light: x.bubbleTonalLight, dark: x.bubbleTonalDark },
+          },
         }),
         (e[u.Theme.WarmYellow] = {
           vibrant: {
@@ -336,6 +424,10 @@ __d(
             system: $.tonalSystem,
             light: $.tonalLight,
             dark: $.tonalDark,
+          },
+          bubble: {
+            vibrant: { light: $.bubbleLight, dark: $.bubbleDark },
+            tonal: { light: $.bubbleTonalLight, dark: $.bubbleTonalDark },
           },
         }),
         e),
@@ -392,16 +484,31 @@ __d(
           ? n.tonal[t]
           : n.vibrant[t];
     }
-    function U(e) {
-      return e.replace(/-/g, " ");
+    function U(e, t) {
+      if (e === "Default")
+        return U(o("WAWebChatThemeEnums").TonalScheme.WhatsAppGreen, t);
+      var n = P[W(e)],
+        r = n.bubble;
+      if (r != null) {
+        var a = e;
+        return a.endsWith("@Minimal") && r.minimal != null
+          ? r.minimal[t]
+          : a.endsWith("@Tonal")
+            ? r.tonal[t]
+            : r.vibrant[t];
+      }
+      return q(e, t);
     }
     function V(e) {
+      return e.replace(/-/g, " ");
+    }
+    function H(e) {
       return e.replace(/[-@]/g, " ");
     }
-    function H() {
+    function G() {
       return N;
     }
-    function G() {
+    function z() {
       return N.flatMap(function (e) {
         return [e, F(e), B(e)];
       }).filter(Boolean);
@@ -409,10 +516,11 @@ __d(
     ((l.Theme = u.Theme),
       (l.getBaseTheme = W),
       (l.getChatTheme = q),
-      (l.getThemeName = U),
-      (l.getColorSchemeName = V),
-      (l.getAllThemes = H),
-      (l.getAllColorSchemes = G));
+      (l.getBubbleTheme = U),
+      (l.getThemeName = V),
+      (l.getColorSchemeName = H),
+      (l.getAllThemes = G),
+      (l.getAllColorSchemes = z));
   },
   98,
 );

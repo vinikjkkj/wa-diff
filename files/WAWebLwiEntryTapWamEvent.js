@@ -5,6 +5,7 @@ __d(
     "WAWebWamEnumLwiEntryPoint",
     "WAWebWamEnumLwiSubEntryPoint",
     "WAWebWamEnumStatusTypeMedia",
+    "WAWebWamEnumWebFlowType",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -38,6 +39,7 @@ __d(
               ],
               userHasLinkedFbPage: [5, e.TYPES.BOOLEAN],
               waCampaignId: [10, e.TYPES.STRING],
+              webFlowType: [19, o("WAWebWamEnumWebFlowType").WEB_FLOW_TYPE],
             },
             [1, 1, 1],
             "regular",

@@ -725,8 +725,40 @@ __d(
           (t.tosNuxAcceptClicked = function (t) {
             o("WAWebBBNuxLogs").tosNuxAcceptClicked(this.$1, t);
           }),
-          (t.tosNuxAcceptFailed = function (t, n) {
-            o("WAWebBBNuxLogs").tosNuxAcceptFailed(this.$1, t, n);
+          (t.tosNuxAcceptSuccess = function (t, n) {
+            var e, r;
+            o("WAWebBBNuxLogs").tosNuxAcceptSuccess(
+              this.$1,
+              t,
+              n != null
+                ? {
+                    is_soft_opt_in_accepted: n.isSoftOptInAccepted,
+                    persisted_state:
+                      (e = n.persistedState) != null ? e : "null",
+                    sync_result: n.syncResult,
+                    tos_manager_state:
+                      (r = n.tosManagerState) != null ? r : "null",
+                  }
+                : void 0,
+            );
+          }),
+          (t.tosNuxAcceptFailed = function (t, n, r) {
+            var e, a;
+            o("WAWebBBNuxLogs").tosNuxAcceptFailed(
+              this.$1,
+              t,
+              n,
+              r != null
+                ? {
+                    is_soft_opt_in_accepted: r.isSoftOptInAccepted,
+                    persisted_state:
+                      (e = r.persistedState) != null ? e : "null",
+                    sync_result: r.syncResult,
+                    tos_manager_state:
+                      (a = r.tosManagerState) != null ? a : "null",
+                  }
+                : void 0,
+            );
           }),
           (t.tosNuxDismissClicked = function (t) {
             o("WAWebBBNuxLogs").tosNuxDismissClicked(this.$1, t);

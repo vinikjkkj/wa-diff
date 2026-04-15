@@ -1,6 +1,11 @@
 __d(
   "useWAWebStableActiveUsers",
-  ["WAWebGroupGatingUtils", "WAWebPresenceOrder", "react"],
+  [
+    "WAWebGroupGatingUtils",
+    "WAWebPresenceOrder",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useState;
@@ -17,24 +22,37 @@ __d(
       return [].concat(e, r);
     }
     function c(e, t) {
-      var n = o("WAWebGroupGatingUtils").isGroupTypingIndicatorEnabled(),
-        r = s(function () {
-          return n ? u(e, t) : [];
-        }),
-        a = r[0],
-        i = r[1],
-        l = s(e),
+      var n = o("react-compiler-runtime").c(4),
+        r;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = o("WAWebGroupGatingUtils").isGroupTypingIndicatorEnabled()),
+          (n[0] = r))
+        : (r = n[0]);
+      var a = r,
+        i;
+      n[1] !== t || n[2] !== e
+        ? ((i = function () {
+            return a ? u(e, t) : [];
+          }),
+          (n[1] = t),
+          (n[2] = e),
+          (n[3] = i))
+        : (i = n[3]);
+      var l = s(i),
         c = l[0],
         d = l[1],
-        m = s(t),
+        m = s(e),
         p = m[0],
-        _ = m[1];
-      if (n && (e !== c || t !== p)) {
-        (d(e), _(t));
-        var f = u(e, t);
-        i(o("WAWebPresenceOrder").preserveUserOrder(a, f));
+        _ = m[1],
+        f = s(t),
+        g = f[0],
+        h = f[1];
+      if (a && (e !== p || t !== g)) {
+        (_(e), h(t));
+        var y = u(e, t);
+        d(o("WAWebPresenceOrder").preserveUserOrder(c, y));
       }
-      return n ? a : null;
+      return a ? c : null;
     }
     l.useWAWebStableActiveUsers = c;
   },

@@ -9,8 +9,8 @@ __d(
     function u(t) {
       e = t;
     }
-    function c(e, t) {
-      return s()(e, t);
+    function c(e, t, n) {
+      return s()(e, t, n);
     }
     ((l.getHandler = s), (l.setHandler = u), (l.checkOrphanMutations = c));
   },

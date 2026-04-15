@@ -61,6 +61,7 @@ __d(
     "cr:23149",
     "gkx",
     "react",
+    "react-compiler-runtime",
     "useWAWebABPropConfigValue",
     "useWAWebGroupParticipantStatus",
     "useWAWebMuteValues",
@@ -98,148 +99,226 @@ __d(
       var t,
         a,
         i,
-        l = e.chat,
-        m = e.container,
-        p = e.onSearchChat,
-        _ = e.onSelect,
-        f = o("useWAWebMuteValues").useMuteValues(l.id, [
-          o("WAWebMuteGetters").getIsMuted,
-        ]),
-        g = f[0],
-        h = r("useWAWebGroupParticipantStatus")(l.groupMetadata),
-        y = h[0],
-        C = [],
-        b = function () {
-          o("WAWebCmd").Cmd.ephemeralDrawer(
-            o("WAWebStateUtils").unproxy(l),
-            !1,
-            o("WAWebWamEnumEphemeralSettingEntryPointType")
-              .EPHEMERAL_SETTING_ENTRY_POINT_TYPE.CHAT_OVERFLOW,
-          );
-        },
-        v = function () {
-          var e;
-          if (o("WAWebReachoutTimelockUtils").isUserReachoutTimelocked()) {
-            o("WAWebModalManager").ModalManager.open(
-              u.jsx(
-                o("WAWebReachoutTimelockRestrictedModalLoadable")
-                  .ReachoutTimelockRestrictedModalLoadable,
-                {},
-              ),
+        l = o("react-compiler-runtime").c(83),
+        m = e.chat,
+        _ = e.container,
+        f = e.onSearchChat,
+        g = e.onSelect,
+        h;
+      l[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = [o("WAWebMuteGetters").getIsMuted]), (l[0] = h))
+        : (h = l[0]);
+      var y = o("useWAWebMuteValues").useMuteValues(m.id, h),
+        C = y[0],
+        b = r("useWAWebGroupParticipantStatus")(m.groupMetadata),
+        v = b[0],
+        S = [],
+        R;
+      l[1] !== m
+        ? ((R = function () {
+            o("WAWebCmd").Cmd.ephemeralDrawer(
+              o("WAWebStateUtils").unproxy(m),
+              !1,
+              o("WAWebWamEnumEphemeralSettingEntryPointType")
+                .EPHEMERAL_SETTING_ENTRY_POINT_TYPE.CHAT_OVERFLOW,
             );
-            return;
-          }
-          var t = l.groupMetadata;
-          if (t != null) {
-            var n =
-              (e = t.getParentGroupChat()) == null ? void 0 : e.formattedTitle;
-            o("WAWebOpenAddParticipantModalFlow").openAddParticipantModalFlow({
-              groupMetadata: t,
-              chat: o("WAWebStateUtils").unproxy(l),
-              communityName: n,
-            });
-          }
-        },
-        S = s._(/*BTDS*/ "Add member");
-      c(l, y) &&
-        C.push(
-          u.jsx(
-            r("WDSMenuItem.react"),
-            {
-              Icon: r("WDSIconIcPersonAdd.react"),
-              title: S,
-              onPress: v,
-              testid: void 0,
-            },
-            "addMember",
-          ),
-        );
-      var R = s._(/*BTDS*/ "Assign chat");
-      o("WAWebChatAssignmentUtils").canAssignChats() &&
-        C.push(
-          u.jsx(
-            r("WDSMenuItem.react"),
-            {
-              Icon: o("WAWebChatAssignmentWithContainerIcon.react")
-                .ChatAssignmentWithContainerIcon,
-              title: R,
-              onPress: function () {
-                o("WAWebCmd").Cmd.assignChat(
-                  l,
-                  o("WAWebChatAssignmentLogEvents.flow")
-                    .ChatAssignmentEntryPointType.CONVERSATION_MENU,
-                );
+          }),
+          (l[1] = m),
+          (l[2] = R))
+        : (R = l[2]);
+      var L = R,
+        E;
+      l[3] !== m
+        ? ((E = function () {
+            var e;
+            if (o("WAWebReachoutTimelockUtils").isUserReachoutTimelocked()) {
+              o("WAWebModalManager").ModalManager.open(
+                u.jsx(
+                  o("WAWebReachoutTimelockRestrictedModalLoadable")
+                    .ReachoutTimelockRestrictedModalLoadable,
+                  {},
+                ),
+              );
+              return;
+            }
+            var t = m.groupMetadata;
+            if (t != null) {
+              var n =
+                (e = t.getParentGroupChat()) == null
+                  ? void 0
+                  : e.formattedTitle;
+              o("WAWebOpenAddParticipantModalFlow").openAddParticipantModalFlow(
+                {
+                  groupMetadata: t,
+                  chat: o("WAWebStateUtils").unproxy(m),
+                  communityName: n,
+                },
+              );
+            }
+          }),
+          (l[3] = m),
+          (l[4] = E))
+        : (E = l[4]);
+      var k = E,
+        I;
+      l[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = s._(/*BTDS*/ "Add member")), (l[5] = I))
+        : (I = l[5]);
+      var T = I;
+      if (c(m, v)) {
+        var D;
+        (l[6] !== k
+          ? ((D = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                Icon: r("WDSIconIcPersonAdd.react"),
+                title: T,
+                onPress: k,
+                testid: void 0,
               },
-              testid: void 0,
-            },
-            "assignChat",
-          ),
-        );
-      var L =
-        ((t = l.groupMetadata) == null ? void 0 : t.groupType) ===
-        o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
-          ? s._(/*BTDS*/ "Announcements info")
-          : s._(/*BTDS*/ "Group info");
+              "addMember",
+            )),
+            (l[6] = k),
+            (l[7] = D))
+          : (D = l[7]),
+          S.push(D));
+      }
+      var x;
+      l[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = s._(/*BTDS*/ "Assign chat")), (l[8] = x))
+        : (x = l[8]);
+      var $ = x;
+      if (o("WAWebChatAssignmentUtils").canAssignChats()) {
+        var P;
+        (l[9] !== m
+          ? ((P = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                Icon: o("WAWebChatAssignmentWithContainerIcon.react")
+                  .ChatAssignmentWithContainerIcon,
+                title: $,
+                onPress: function () {
+                  o("WAWebCmd").Cmd.assignChat(
+                    m,
+                    o("WAWebChatAssignmentLogEvents.flow")
+                      .ChatAssignmentEntryPointType.CONVERSATION_MENU,
+                  );
+                },
+                testid: void 0,
+              },
+              "assignChat",
+            )),
+            (l[9] = m),
+            (l[10] = P))
+          : (P = l[10]),
+          S.push(P));
+      }
+      var N;
+      if (l[11] !== ((t = m.groupMetadata) == null ? void 0 : t.groupType)) {
+        var M, w;
+        ((N =
+          ((M = m.groupMetadata) == null ? void 0 : M.groupType) ===
+          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
+            ? s._(/*BTDS*/ "Announcements info")
+            : s._(/*BTDS*/ "Group info")),
+          (l[11] = (w = m.groupMetadata) == null ? void 0 : w.groupType),
+          (l[12] = N));
+      } else N = l[12];
+      var A = N,
+        F;
+      l[13] !== m
+        ? ((F = function () {
+            return o("WAWebCmd").Cmd.chatInfoDrawer(m);
+          }),
+          (l[13] = m),
+          (l[14] = F))
+        : (F = l[14]);
+      var O;
       if (
-        (C.push(
-          u.jsx(
-            r("WDSMenuItem.react"),
-            {
-              Icon: r("WDSIconIcInfo.react"),
-              title: L,
-              onPress: function () {
-                return o("WAWebCmd").Cmd.chatInfoDrawer(l);
+        (l[15] !== A || l[16] !== F
+          ? ((O = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                Icon: r("WDSIconIcInfo.react"),
+                title: A,
+                onPress: F,
+                testid: void 0,
               },
-              testid: void 0,
-            },
-            "info",
-          ),
-        ),
+              "info",
+            )),
+            (l[15] = A),
+            (l[16] = F),
+            (l[17] = O))
+          : (O = l[17]),
+        S.push(O),
         o("WAWebABProps").getABPropConfigValue("wa_web_chat_search_entrypoint"))
       ) {
-        var E = s._(/*BTDS*/ "Search");
-        C.push(
-          u.jsx(
-            r("WDSMenuItem.react"),
-            {
-              Icon: r("WDSIconIcSearch.react"),
-              title: E,
-              onPress: p,
-              testid: void 0,
-            },
-            "search",
-          ),
-        );
+        var B;
+        l[18] === Symbol.for("react.memo_cache_sentinel")
+          ? ((B = s._(/*BTDS*/ "Search")), (l[18] = B))
+          : (B = l[18]);
+        var W = B,
+          q;
+        (l[19] !== f
+          ? ((q = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                Icon: r("WDSIconIcSearch.react"),
+                title: W,
+                onPress: f,
+                testid: void 0,
+              },
+              "search",
+            )),
+            (l[19] = f),
+            (l[20] = q))
+          : (q = l[20]),
+          S.push(q));
       }
-      var k = s._(/*BTDS*/ "Select messages");
-      (C.push(
-        u.jsx(
-          r("WDSMenuItem.react"),
-          {
-            Icon: r("WDSIconIcCheckBox.react"),
-            title: k,
-            onPress: _,
-            testid: void 0,
-          },
-          "select",
-        ),
-      ),
+      var U;
+      l[21] === Symbol.for("react.memo_cache_sentinel")
+        ? ((U = s._(/*BTDS*/ "Select messages")), (l[21] = U))
+        : (U = l[21]);
+      var V = U,
+        H;
+      if (
+        (l[22] !== g
+          ? ((H = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                Icon: r("WDSIconIcCheckBox.react"),
+                title: V,
+                onPress: g,
+                testid: void 0,
+              },
+              "select",
+            )),
+            (l[22] = g),
+            (l[23] = H))
+          : (H = l[23]),
+        S.push(H),
         o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebBizGatingUtils").isCTWASMBLabelChatHeaderEnabledWeb() &&
           r("WAWebEnvironment").isWindows &&
           !r("WAWebEnvironment").isGuest &&
-          o("WAWebHeader.react").isCommunityRelatedChat(l) &&
-          l.canSend &&
-          C.push(
-            u.jsx(
+          o("WAWebHeader.react").isCommunityRelatedChat(m) &&
+          m.canSend)
+      ) {
+        var G;
+        l[24] === Symbol.for("react.memo_cache_sentinel")
+          ? ((G = s._(/*BTDS*/ "Label chat")), (l[24] = G))
+          : (G = l[24]);
+        var z;
+        (l[25] !== m
+          ? ((z = u.jsx(
               r("WDSMenuItem.react"),
               {
                 Icon: o("WAWebLabelOutlineIcon.react").LabelOutlineIcon,
-                title: s._(/*BTDS*/ "Label chat"),
+                title: G,
                 onPress: function () {
                   o("WAWebModalManager").ModalManager.open(
                     u.jsx(r("WAWebBizManageLabelModal.react"), {
-                      modelsToUpdate: [l],
+                      modelsToUpdate: [m],
                       onCancel: o("WAWebModalManager").closeModalManager,
                       onLabelUpdateComplete:
                         o("WAWebModalManager").closeModalManager,
@@ -250,215 +329,362 @@ __d(
                 testid: void 0,
               },
               "label-chat",
-            ),
-          ),
-        l.mute.canMute() &&
-          C.push(
-            u.jsx(
+            )),
+            (l[25] = m),
+            (l[26] = z))
+          : (z = l[26]),
+          S.push(z));
+      }
+      if (m.mute.canMute()) {
+        var j, K;
+        l[27] !== m
+          ? ((j = function (t) {
+              return o("WAWebCmd").Cmd.muteChatFromEntryPoint(
+                m,
+                t,
+                o("WAWebWamEnumMuteEntryPoint").MUTE_ENTRY_POINT
+                  .CONVERSATION_SCREEN,
+              );
+            }),
+            (K = function (t) {
+              o("WAWebCmd").Cmd.muteChatWithDuration(m, t);
+            }),
+            (l[27] = m),
+            (l[28] = j),
+            (l[29] = K))
+          : ((j = l[28]), (K = l[29]));
+        var Q;
+        (l[30] !== m || l[31] !== C || l[32] !== j || l[33] !== K
+          ? ((Q = u.jsx(
               r("WAWebMuteMenuItem.react"),
-              {
-                onMute: function (t) {
-                  return o("WAWebCmd").Cmd.muteChatFromEntryPoint(
-                    l,
-                    t,
-                    o("WAWebWamEnumMuteEntryPoint").MUTE_ENTRY_POINT
-                      .CONVERSATION_SCREEN,
-                  );
-                },
-                onMuteWithDuration: function (t) {
-                  o("WAWebCmd").Cmd.muteChatWithDuration(l, t);
-                },
-                chat: l,
-                isMuted: g,
-              },
+              { onMute: j, onMuteWithDuration: K, chat: m, isMuted: C },
               "mute",
-            ),
-          ));
-      var I = s._(/*BTDS*/ "Disappearing messages");
+            )),
+            (l[30] = m),
+            (l[31] = C),
+            (l[32] = j),
+            (l[33] = K),
+            (l[34] = Q))
+          : (Q = l[34]),
+          S.push(Q));
+      }
+      var X;
+      l[35] === Symbol.for("react.memo_cache_sentinel")
+        ? ((X = s._(/*BTDS*/ "Disappearing messages")), (l[35] = X))
+        : (X = l[35]);
+      var Y = X;
       if (
-        (o("WAWebChatEphemerality").shouldShowEphemeralSetting(l) &&
-          (a = l.groupMetadata) != null &&
-          a.canSetEphemeralSetting() &&
-          C.push(
-            u.jsx(
+        o("WAWebChatEphemerality").shouldShowEphemeralSetting(m) &&
+        (a = m.groupMetadata) != null &&
+        a.canSetEphemeralSetting()
+      ) {
+        var J;
+        (l[36] !== L
+          ? ((J = u.jsx(
               r("WDSMenuItem.react"),
               {
                 Icon: r("WDSIconWdsIcDisappearingMessages.react"),
-                title: I,
-                onPress: b,
+                title: Y,
+                onPress: L,
                 testid: void 0,
               },
               "disappearingMessages",
-            ),
-          ),
-        C.push(
-          u.jsx(r("WAWebChatContextMenuItemLock.react"), { chat: l }, "Lock"),
-        ),
+            )),
+            (l[36] = L),
+            (l[37] = J))
+          : (J = l[37]),
+          S.push(J));
+      }
+      var Z;
+      if (
+        (l[38] !== m
+          ? ((Z = u.jsx(
+              r("WAWebChatContextMenuItemLock.react"),
+              { chat: m },
+              "Lock",
+            )),
+            (l[38] = m),
+            (l[39] = Z))
+          : (Z = l[39]),
+        S.push(Z),
         o("WAWebChatThemeGatingUtils").isChatThemesEnabled())
       ) {
-        var T = s._(/*BTDS*/ "Chat theme");
-        C.push(
-          u.jsx(
-            r("WDSMenuItem.react"),
-            {
-              Icon: r("WDSIconIcPalette.react"),
-              title: T,
-              onPress: function () {
-                return o("WAWebCmd").Cmd.chatThemeDrawer(l);
-              },
-              testid: void 0,
-            },
-            "chatTheme",
-          ),
-        );
-      }
-      if (
-        l.canToggleFavorite() &&
-        o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()
-      ) {
-        var D, x;
-        (l.isFavorite
-          ? ((x = o(
-              "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-            ).isUsingSupportedBritishEnglishLocale()
-              ? s._(/*BTDS*/ "Remove from favourites")
-              : s._(/*BTDS*/ "Remove from Favorites")),
-            (D = r("WDSIconIcFavoriteFilled.react")))
-          : ((x = o(
-              "WAWebL10NIsUsingSupportedBritishEnglishLocale",
-            ).isUsingSupportedBritishEnglishLocale()
-              ? s._(/*BTDS*/ "Add to favourites")
-              : s._(/*BTDS*/ "Add to Favorites")),
-            (D = r("WDSIconIcFavorite.react"))),
-          C.push(
-            u.jsx(
+        var ee;
+        l[40] === Symbol.for("react.memo_cache_sentinel")
+          ? ((ee = s._(/*BTDS*/ "Chat theme")), (l[40] = ee))
+          : (ee = l[40]);
+        var te = ee,
+          ne;
+        (l[41] !== m
+          ? ((ne = u.jsx(
               r("WDSMenuItem.react"),
               {
-                Icon: D,
-                title: x,
+                Icon: r("WDSIconIcPalette.react"),
+                title: te,
                 onPress: function () {
-                  return o("WAWebCmd").Cmd.favoriteChat(
-                    l,
-                    !l.isFavorite,
-                    o("WAWebWamEnumFavoritesUpdateEntryPoint")
-                      .FAVORITES_UPDATE_ENTRY_POINT.CHAT_HEADER_CONTEXT_MENU,
-                  );
+                  return o("WAWebCmd").Cmd.chatThemeDrawer(m);
                 },
                 testid: void 0,
               },
+              "chatTheme",
+            )),
+            (l[41] = m),
+            (l[42] = ne))
+          : (ne = l[42]),
+          S.push(ne));
+      }
+      if (
+        m.canToggleFavorite() &&
+        o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled()
+      ) {
+        var re, oe;
+        if (m.isFavorite) {
+          var ae;
+          (l[43] === Symbol.for("react.memo_cache_sentinel")
+            ? ((ae = o(
+                "WAWebL10NIsUsingSupportedBritishEnglishLocale",
+              ).isUsingSupportedBritishEnglishLocale()
+                ? s._(/*BTDS*/ "Remove from favourites")
+                : s._(/*BTDS*/ "Remove from Favorites")),
+              (l[43] = ae))
+            : (ae = l[43]),
+            (oe = ae),
+            (re = r("WDSIconIcFavoriteFilled.react")));
+        } else {
+          var ie;
+          (l[44] === Symbol.for("react.memo_cache_sentinel")
+            ? ((ie = o(
+                "WAWebL10NIsUsingSupportedBritishEnglishLocale",
+              ).isUsingSupportedBritishEnglishLocale()
+                ? s._(/*BTDS*/ "Add to favourites")
+                : s._(/*BTDS*/ "Add to Favorites")),
+              (l[44] = ie))
+            : (ie = l[44]),
+            (oe = ie),
+            (re = r("WDSIconIcFavorite.react")));
+        }
+        var le;
+        l[45] !== m
+          ? ((le = function () {
+              return o("WAWebCmd").Cmd.favoriteChat(
+                m,
+                !m.isFavorite,
+                o("WAWebWamEnumFavoritesUpdateEntryPoint")
+                  .FAVORITES_UPDATE_ENTRY_POINT.CHAT_HEADER_CONTEXT_MENU,
+              );
+            }),
+            (l[45] = m),
+            (l[46] = le))
+          : (le = l[46]);
+        var se;
+        (l[47] !== oe || l[48] !== le || l[49] !== re
+          ? ((se = u.jsx(
+              r("WDSMenuItem.react"),
+              { Icon: re, title: oe, onPress: le, testid: void 0 },
               "favorite",
-            ),
-          ));
+            )),
+            (l[47] = oe),
+            (l[48] = le),
+            (l[49] = re),
+            (l[50] = se))
+          : (se = l[50]),
+          S.push(se));
       }
       if (o("WAWebListsGatingUtils").isListsEnabled()) {
-        var $ = function () {
-          o(
-            "WAWebChatContextMenuItemEditLabel.react",
-          ).checkDataSharingOrHandleLabelAction(l);
-        };
-        C.push(
-          u.jsx(r("WAWebChatContextMenuItemEditList.react"), {
-            chat: l,
-            displayContext: "chat-header",
-            onSMBLabelMenuItemClick: $,
-          }),
-        );
+        var ue;
+        l[51] !== m
+          ? ((ue = function () {
+              o(
+                "WAWebChatContextMenuItemEditLabel.react",
+              ).checkDataSharingOrHandleLabelAction(m);
+            }),
+            (l[51] = m),
+            (l[52] = ue))
+          : (ue = l[52]);
+        var ce = ue,
+          de;
+        (l[53] !== m || l[54] !== ce
+          ? ((de = u.jsx(r("WAWebChatContextMenuItemEditList.react"), {
+              chat: m,
+              displayContext: "chat-header",
+              onSMBLabelMenuItemClick: ce,
+            })),
+            (l[53] = m),
+            (l[54] = ce),
+            (l[55] = de))
+          : (de = l[55]),
+          S.push(de));
       }
-      var P = s._(/*BTDS*/ "Copy selection");
-      o("WAWebCopyUtils").canCopySelection() &&
-        m != null &&
-        C.push(
-          u.jsx(r("WDSMenuItem.react"), {
-            Icon: r("WDSIconIcContentCopy.react"),
-            title: P,
-            onPress: function () {
-              o("WAWebCopyUtils").copySelection(m);
-            },
-          }),
-        );
-      var N = (i = l.groupMetadata) == null ? void 0 : i.groupInviteLink;
+      var me;
+      l[56] === Symbol.for("react.memo_cache_sentinel")
+        ? ((me = s._(/*BTDS*/ "Copy selection")), (l[56] = me))
+        : (me = l[56]);
+      var pe = me;
+      if (o("WAWebCopyUtils").canCopySelection() && _ != null) {
+        var _e;
+        (l[57] !== _
+          ? ((_e = u.jsx(r("WDSMenuItem.react"), {
+              Icon: r("WDSIconIcContentCopy.react"),
+              title: pe,
+              onPress: function () {
+                o("WAWebCopyUtils").copySelection(_);
+              },
+            })),
+            (l[57] = _),
+            (l[58] = _e))
+          : (_e = l[58]),
+          S.push(_e));
+      }
+      var fe = (i = m.groupMetadata) == null ? void 0 : i.groupInviteLink;
       if (
-        N != null &&
+        fe != null &&
         o("WAWebABProps").getABPropConfigValue("web_menu_share_group")
       ) {
-        var M = function () {
-            o("WAWebModalManager").ModalManager.open(
-              u.jsx(r("WAWebSendTextFlow.react"), {
-                title: s._(/*BTDS*/ "Share chat to"),
-                text: N,
-              }),
-              { transition: "modal-flow" },
-            );
-          },
-          w = s._(/*BTDS*/ "Share chat");
-        C.push(
-          u.jsx(
-            r("WDSMenuItem.react"),
-            {
-              Icon: r("WDSIconIcShare.react"),
-              title: w,
-              onPress: M,
-              testid: void 0,
-            },
-            "share",
-          ),
-        );
+        var ge;
+        l[59] !== fe
+          ? ((ge = function () {
+              o("WAWebModalManager").ModalManager.open(
+                u.jsx(r("WAWebSendTextFlow.react"), {
+                  title: s._(/*BTDS*/ "Share chat to"),
+                  text: fe,
+                }),
+                { transition: "modal-flow" },
+              );
+            }),
+            (l[59] = fe),
+            (l[60] = ge))
+          : (ge = l[60]);
+        var he = ge,
+          ye;
+        l[61] === Symbol.for("react.memo_cache_sentinel")
+          ? ((ye = s._(/*BTDS*/ "Share chat")), (l[61] = ye))
+          : (ye = l[61]);
+        var Ce = ye,
+          be;
+        (l[62] !== he
+          ? ((be = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                Icon: r("WDSIconIcShare.react"),
+                title: Ce,
+                onPress: he,
+                testid: void 0,
+              },
+              "share",
+            )),
+            (l[62] = he),
+            (l[63] = be))
+          : (be = l[63]),
+          S.push(be));
       }
-      (C.push(u.jsx(r("WAWebExportChatMenuItem.react"), { chat: l }, "export")),
-        C.push(
-          u.jsx(
+      var ve;
+      (l[64] !== m
+        ? ((ve = u.jsx(
+            r("WAWebExportChatMenuItem.react"),
+            { chat: m },
+            "export",
+          )),
+          (l[64] = m),
+          (l[65] = ve))
+        : (ve = l[65]),
+        S.push(ve));
+      var Se;
+      l[66] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Se = s._(/*BTDS*/ "Close chat")), (l[66] = Se))
+        : (Se = l[66]);
+      var Re;
+      (l[67] !== m
+        ? ((Re = u.jsx(
             r("WDSMenuItem.react"),
             {
               Icon: r("WDSIconIcCancel.react"),
-              title: s._(/*BTDS*/ "Close chat"),
+              title: Se,
               onPress: function () {
-                return o("WAWebCmd").Cmd.closeChat(l);
+                return o("WAWebCmd").Cmd.closeChat(m);
               },
               testid: void 0,
             },
             "close",
-          ),
-        ),
-        C.push(u.jsx(r("WDSMenuItem.react"), { type: "separator" })));
-      var A = s._(/*BTDS*/ "Clear chat"),
-        F = o("useWAWebABPropConfigValue").useABPropConfigValue(
+          )),
+          (l[67] = m),
+          (l[68] = Re))
+        : (Re = l[68]),
+        S.push(Re));
+      var Le;
+      (l[69] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Le = u.jsx(r("WDSMenuItem.react"), { type: "separator" })),
+          (l[69] = Le))
+        : (Le = l[69]),
+        S.push(Le));
+      var Ee;
+      l[70] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ee = s._(/*BTDS*/ "Clear chat")), (l[70] = Ee))
+        : (Ee = l[70]);
+      var ke = Ee,
+        Ie = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "ai_learning_clear_chat_disable_empty_chats",
         ),
-        O = l.msgs.getModelsArray().some(function (e) {
-          return !o("WAWebCommonMsgUtils").isNotificationType(
-            e.type,
-            e.subtype,
-          );
-        });
-      C.push(
-        u.jsx(r("WDSMenuItem.react"), {
-          Icon: r("WDSIconIcDoNotDisturbOn.react"),
-          title: A,
-          onPress: function () {
-            return o("WAWebCmd").Cmd.clearChat(l);
-          },
-          testid: void 0,
-          destructive: !0,
-          disabled: F && !O,
-        }),
-      );
-      var B = function () {
-        d(l);
-      };
+        Te;
+      l[71] !== m.msgs
+        ? ((Te = m.msgs.getModelsArray().some(p)),
+          (l[71] = m.msgs),
+          (l[72] = Te))
+        : (Te = l[72]);
+      var De = Te,
+        xe;
+      l[73] !== m
+        ? ((xe = function () {
+            return o("WAWebCmd").Cmd.clearChat(m);
+          }),
+          (l[73] = m),
+          (l[74] = xe))
+        : (xe = l[74]);
+      var $e = Ie && !De,
+        Pe;
+      (l[75] !== xe || l[76] !== $e
+        ? ((Pe = u.jsx(r("WDSMenuItem.react"), {
+            Icon: r("WDSIconIcDoNotDisturbOn.react"),
+            title: ke,
+            onPress: xe,
+            testid: void 0,
+            destructive: !0,
+            disabled: $e,
+          })),
+          (l[75] = xe),
+          (l[76] = $e),
+          (l[77] = Pe))
+        : (Pe = l[77]),
+        S.push(Pe));
+      var Ne;
+      l[78] !== m
+        ? ((Ne = function () {
+            d(m);
+          }),
+          (l[78] = m),
+          (l[79] = Ne))
+        : (Ne = l[79]);
+      var Me = Ne,
+        we;
       return (
-        C.push(
-          u.jsx(
-            r("WAWebDeleteMenuItem.react"),
-            { onDeleteOrExit: B, chat: l },
-            "delete",
-          ),
-        ),
-        n("cr:23149") == null || n("cr:23149").addDevItemsToMenu(C, l),
-        C
+        l[80] !== m || l[81] !== Me
+          ? ((we = u.jsx(
+              r("WAWebDeleteMenuItem.react"),
+              { onDeleteOrExit: Me, chat: m },
+              "delete",
+            )),
+            (l[80] = m),
+            (l[81] = Me),
+            (l[82] = we))
+          : (we = l[82]),
+        S.push(we),
+        n("cr:23149") == null || n("cr:23149").addDevItemsToMenu(S, m),
+        S
       );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
+      return !o("WAWebCommonMsgUtils").isNotificationType(e.type, e.subtype);
+    }
+    function _(e) {
       o(
         "WAWebBusinessBroadcastUserJourneyLogger",
       ).BusinessBroadcastUserJourneyLogger.conversationHeaderMenuOpened(
@@ -492,7 +718,7 @@ __d(
         t
       );
     }
-    function _(e, t, a, i) {
+    function f(e, t, a, i) {
       i === void 0 && (i = !1);
       var l = [];
       return (
@@ -542,8 +768,8 @@ __d(
     }
     ((l.handleDeleteOrExitChat = d),
       (l.GroupMenu = m),
-      (l.broadcastMenu = p),
-      (l.hybridMenu = _));
+      (l.broadcastMenu = _),
+      (l.hybridMenu = f));
   },
   226,
 );

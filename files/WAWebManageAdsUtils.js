@@ -10,7 +10,12 @@ __d(
     "use strict";
     var e = function (t, n, a) {
       var e = r("WAWebPonyfillsCryptoRandomUUID")();
-      o("WAWebBizAdManagementLogger").logManageAdsEntryTap(a, e);
+      o("WAWebBizAdManagementLogger").logManageAdsEntryTap(
+        a,
+        e,
+        null,
+        o("WAWebBizAdManagementLogger").WEB_FLOW_TYPE.EXTERNAL_WEB,
+      );
       var i = o("WAWebBusinessAdCreationUtils").getWhatsappManageAdsUrl(t, n);
       o("WAWebExternalLink.react").openExternalLink(i);
     };

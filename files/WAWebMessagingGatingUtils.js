@@ -89,6 +89,16 @@ __d(
         "top_level_message_secret_check",
       );
     }
+    function k() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "web_biz_simple_signal_enabled",
+        ) === 1
+      );
+    }
+    function I() {
+      return !1;
+    }
     ((l.sendKeyDistributionMsgToNewGroups = e),
       (l.sendKeyDistributionMsgMinGroupSize = s),
       (l.sendKeyDistributionMsgMaxGroupSize = u),
@@ -107,7 +117,9 @@ __d(
       (l.isReportingTokenValidationFailureDebugPlaceholderEnabled = S),
       (l.isMessageDropPlaceholderEnabled = R),
       (l.isReportingTokenSwappedFallbackValidationEnabled = L),
-      (l.isTopLevelMessageSecretCheckEnabled = E));
+      (l.isTopLevelMessageSecretCheckEnabled = E),
+      (l.isSimpleSignalEnabled = k),
+      (l.isCoexSimpleSignalEnabled = I));
   },
   98,
 );

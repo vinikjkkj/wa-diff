@@ -59,15 +59,10 @@ __d(
                           })();
         }),
         (t.$2 = function (t, n) {
-          var e,
-            r = this.$1(n);
-          if (r == null) return null;
-          var o = r.enabled === !0;
-          return {
-            id: t,
-            isActive: o,
-            limit: (e = r.limit) != null ? e : this.$3(t, o),
-          };
+          var e = this.$1(n);
+          if (e == null) return null;
+          var r = e.enabled === !0;
+          return { id: t, isActive: r, limit: this.$3(t, r) };
         }),
         (t.$3 = function (t, n) {
           return t === o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS

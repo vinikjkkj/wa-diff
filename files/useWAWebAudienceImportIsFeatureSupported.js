@@ -5,6 +5,7 @@ __d(
     "WAWebBizGatingUtils",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -12,25 +13,32 @@ __d(
       u = s.useEffect,
       c = s.useState;
     function d() {
-      var e = o("WAWebBizGatingUtils").isBizBroadcastContactImportEnabled(),
-        t = c(e ? null : !1),
-        r = t[0],
-        a = t[1];
+      var e = o("react-compiler-runtime").c(3),
+        t = o("WAWebBizGatingUtils").isBizBroadcastContactImportEnabled(),
+        r = c(t ? null : !1),
+        a = r[0],
+        i = r[1],
+        l,
+        s;
       return (
-        u(
-          function () {
-            r == null &&
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                a(
-                  yield o(
-                    "WAWebBizBroadcastsDeviceCapability",
-                  ).getPrimarySupportsBusinessBroadcastListImport(),
-                );
-              })();
-          },
-          [r],
-        ),
-        r
+        e[0] !== a
+          ? ((l = function () {
+              a == null &&
+                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                  i(
+                    yield o(
+                      "WAWebBizBroadcastsDeviceCapability",
+                    ).getPrimarySupportsBusinessBroadcastListImport(),
+                  );
+                })();
+            }),
+            (s = [a]),
+            (e[0] = a),
+            (e[1] = l),
+            (e[2] = s))
+          : ((l = e[1]), (s = e[2])),
+        u(l, s),
+        a
       );
     }
     l.useWAWebAudienceImportIsFeatureSupported = d;

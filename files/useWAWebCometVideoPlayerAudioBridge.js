@@ -1,6 +1,11 @@
 __d(
   "useWAWebCometVideoPlayerAudioBridge",
-  ["WAWebPttAudioChannels", "WAWebUserPrefsGeneral", "react"],
+  [
+    "WAWebPttAudioChannels",
+    "WAWebUserPrefsGeneral",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -10,74 +15,84 @@ __d(
     function d(e, t) {
       var n,
         r,
-        a = (n = t == null ? void 0 : t.onlyClaimIfUnmuted) != null ? n : !0,
-        i = t == null ? void 0 : t.onAudioChannelRelease,
-        l = (r = t == null ? void 0 : t.syncVolumeSettings) != null ? r : !0,
-        s = c(null),
-        d = c(!0),
-        m = c(!1),
-        p = c(0),
-        _ = c(!1);
-      u(
-        function () {
-          if (e != null) {
-            if (d.current) {
-              var t, n;
-              if (((d.current = !1), l)) {
-                var r = o("WAWebUserPrefsGeneral").getMediaVolumeSettings(),
-                  u = r.muted,
-                  c = r.volume;
-                (c != null && e.setVolume(c),
-                  u != null && e.setMuted(u, "product_initiated"));
+        a = o("react-compiler-runtime").c(6),
+        i = (n = t == null ? void 0 : t.onlyClaimIfUnmuted) != null ? n : !0,
+        l = t == null ? void 0 : t.onAudioChannelRelease,
+        s = (r = t == null ? void 0 : t.syncVolumeSettings) != null ? r : !0,
+        d = c(null),
+        m = c(!0),
+        p = c(!1),
+        _ = c(0),
+        f = c(!1),
+        g,
+        h;
+      (a[0] !== e || a[1] !== l || a[2] !== i || a[3] !== s
+        ? ((g = function () {
+            if (e != null) {
+              if (m.current) {
+                var t, n;
+                if (((m.current = !1), s)) {
+                  var r = o("WAWebUserPrefsGeneral").getMediaVolumeSettings(),
+                    a = r.muted,
+                    u = r.volume;
+                  (u != null && e.setVolume(u),
+                    a != null && e.setMuted(a, "product_initiated"));
+                }
+                var c = e.getCurrentState();
+                ((p.current = c.paused === !1),
+                  (_.current = (t = c.volume) != null ? t : 0),
+                  (f.current = (n = c.muted) != null ? n : !1));
               }
-              var f = e.getCurrentState();
-              ((m.current = f.paused === !1),
-                (p.current = (t = f.volume) != null ? t : 0),
-                (_.current = (n = f.muted) != null ? n : !1));
+              var g = e.subscribe(function () {
+                var t,
+                  n,
+                  r = e.getCurrentState(),
+                  a = r.paused === !1,
+                  u = (t = r.volume) != null ? t : 0,
+                  c = (n = r.muted) != null ? n : !1,
+                  m = a && !p.current,
+                  g = !c && f.current,
+                  h = m && (!i || !c),
+                  y = i && g && a,
+                  C = i && c && !f.current;
+                ((h || y) && d.current == null
+                  ? (d.current = o(
+                      "WAWebPttAudioChannels",
+                    ).MainAudioChannel.claim(
+                      e,
+                      l != null
+                        ? function () {
+                            return l(e);
+                          }
+                        : function () {
+                            e.pause("product_initiated");
+                          },
+                    ))
+                  : ((!a && p.current) || C) &&
+                    (d.current == null || d.current(), (d.current = null)),
+                  s &&
+                    (u !== _.current || c !== f.current) &&
+                    o("WAWebUserPrefsGeneral").setMediaVolumeSettings(u, c),
+                  (p.current = a),
+                  (_.current = u),
+                  (f.current = c));
+              });
+              return function () {
+                (g.remove(),
+                  d.current == null || d.current(),
+                  (d.current = null));
+              };
             }
-            var g = e.subscribe(function () {
-              var t,
-                n,
-                r = e.getCurrentState(),
-                u = r.paused === !1,
-                c = (t = r.volume) != null ? t : 0,
-                d = (n = r.muted) != null ? n : !1,
-                f = u && !m.current,
-                g = !d && _.current,
-                h = f && (!a || !d),
-                y = a && g && u,
-                C = a && d && !_.current;
-              ((h || y) && s.current == null
-                ? (s.current = o(
-                    "WAWebPttAudioChannels",
-                  ).MainAudioChannel.claim(
-                    e,
-                    i != null
-                      ? function () {
-                          return i(e);
-                        }
-                      : function () {
-                          e.pause("product_initiated");
-                        },
-                  ))
-                : ((!u && m.current) || C) &&
-                  (s.current == null || s.current(), (s.current = null)),
-                l &&
-                  (c !== p.current || d !== _.current) &&
-                  o("WAWebUserPrefsGeneral").setMediaVolumeSettings(c, d),
-                (m.current = u),
-                (p.current = c),
-                (_.current = d));
-            });
-            return function () {
-              (g.remove(),
-                s.current == null || s.current(),
-                (s.current = null));
-            };
-          }
-        },
-        [e, a, i, l],
-      );
+          }),
+          (h = [e, i, l, s]),
+          (a[0] = e),
+          (a[1] = l),
+          (a[2] = i),
+          (a[3] = s),
+          (a[4] = g),
+          (a[5] = h))
+        : ((g = a[4]), (h = a[5])),
+        u(g, h));
     }
     l.default = d;
   },

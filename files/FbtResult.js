@@ -1,6 +1,6 @@
 __d(
   "FbtResult",
-  ["FbtReactUtil", "FbtResultBase"],
+  ["FbtReactUtil", "FbtResultBase", "vulture"],
   function (t, n, r, o, a, i) {
     var e = function (t) {
         return t.content;
@@ -22,7 +22,10 @@ __d(
         return (
           babelHelpers.inheritsLoose(r, t),
           (r.get = function (t) {
-            return new r(t.contents, t.errorListener);
+            return (
+              n("vulture")("TRGOAQsNFXLnjs_GejtTuVpAhiQ="),
+              new r(t.contents, t.errorListener)
+            );
           }),
           r
         );

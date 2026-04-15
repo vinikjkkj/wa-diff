@@ -23,6 +23,7 @@ __d(
     "WDSMenuItem.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebNewsletterInviteLink",
     "useWAWebNewsletterMuteState",
   ],
@@ -76,156 +77,267 @@ __d(
       );
     }
     function d(e) {
-      var t = e.chat;
-      return u.jsx(r("WAWebChatContextMenuItemPin.react"), { chat: t }, "pin");
+      var t = o("react-compiler-runtime").c(2),
+        n = e.chat,
+        a;
+      return (
+        t[0] !== n
+          ? ((a = u.jsx(
+              r("WAWebChatContextMenuItemPin.react"),
+              { chat: n },
+              "pin",
+            )),
+            (t[0] = n),
+            (t[1] = a))
+          : (a = t[1]),
+        a
+      );
     }
-    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = e.chat,
-        a = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (yield o("WAWebCmd").Cmd.openChatBottom({ chat: t }),
-              o("WAWebCmd").Cmd.chatInfoDrawer(t));
-          });
-          return function () {
-            return e.apply(this, arguments);
-          };
-        })(),
-        i = s._(/*BTDS*/ "Channel info");
-      return u.jsx(
-        r("WDSMenuItem.react"),
-        {
-          testid: void 0,
-          onPress: function () {
-            return void a();
-          },
-          Icon: r("WDSIconIcInfo.react"),
-          title: i,
-        },
-        "Info",
+      var t = o("react-compiler-runtime").c(5),
+        a = e.chat,
+        i;
+      t[0] !== a
+        ? ((i = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              (yield o("WAWebCmd").Cmd.openChatBottom({ chat: a }),
+                o("WAWebCmd").Cmd.chatInfoDrawer(a));
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (t[0] = a),
+          (t[1] = i))
+        : (i = t[1]);
+      var l = i,
+        c;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = s._(/*BTDS*/ "Channel info")), (t[2] = c))
+        : (c = t[2]);
+      var d = c,
+        m;
+      return (
+        t[3] !== l
+          ? ((m = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                testid: void 0,
+                onPress: function () {
+                  return void l();
+                },
+                Icon: r("WDSIconIcInfo.react"),
+                title: d,
+              },
+              "Info",
+            )),
+            (t[3] = l),
+            (t[4] = m))
+          : (m = t[4]),
+        m
       );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = e.chat,
-        n = o("useWAWebNewsletterMuteState").useNewsletterMuteState(t),
-        a = n.isMuted,
-        i = n.toggleMuteState,
-        l = function () {
-          var e = a
-            ? s._(
-                /*BTDS*/ "Could not unmute channel. Check your connection and try again.",
-              )
-            : s._(
-                /*BTDS*/ "Could not mute channel. Check your connection and try again.",
-              );
-          o("WAWebRunWithInternetCheck").runWithInternetCheck(function () {
-            return i();
-          }, e);
-        };
-      return u.jsx(
-        r("WAWebMuteMenuItem.react"),
-        { onMute: l, isMuted: a, chat: t },
-        "mute",
+      var t = o("react-compiler-runtime").c(7),
+        n = e.chat,
+        a = o("useWAWebNewsletterMuteState").useNewsletterMuteState(n),
+        i = a.isMuted,
+        l = a.toggleMuteState,
+        c;
+      t[0] !== i || t[1] !== l
+        ? ((c = function () {
+            var e = i
+              ? s._(
+                  /*BTDS*/ "Could not unmute channel. Check your connection and try again.",
+                )
+              : s._(
+                  /*BTDS*/ "Could not mute channel. Check your connection and try again.",
+                );
+            o("WAWebRunWithInternetCheck").runWithInternetCheck(function () {
+              return l();
+            }, e);
+          }),
+          (t[0] = i),
+          (t[1] = l),
+          (t[2] = c))
+        : (c = t[2]);
+      var d = c,
+        m;
+      return (
+        t[3] !== n || t[4] !== d || t[5] !== i
+          ? ((m = u.jsx(
+              r("WAWebMuteMenuItem.react"),
+              { onMute: d, isMuted: i, chat: n },
+              "mute",
+            )),
+            (t[3] = n),
+            (t[4] = d),
+            (t[5] = i),
+            (t[6] = m))
+          : (m = t[6]),
+        m
       );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = e.chat;
-      return u.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), { chat: t });
+      var t = o("react-compiler-runtime").c(2),
+        n = e.chat,
+        a;
+      return (
+        t[0] !== n
+          ? ((a = u.jsx(r("WAWebChatContextMenuItemMarkUnread.react"), {
+              chat: n,
+            })),
+            (t[0] = n),
+            (t[1] = a))
+          : (a = t[1]),
+        a
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       var t,
-        n = e.chat,
-        a = (t = n.newsletterMetadata) == null ? void 0 : t.inviteCode;
-      if (a == null) return null;
-      var i = function () {
-          return o("useWAWebNewsletterInviteLink").copyInviteLink(
-            o("useWAWebNewsletterInviteLink").getInviteLink(a),
-          );
-        },
-        l = s._(/*BTDS*/ "Copy link");
-      return u.jsx(
-        r("WDSMenuItem.react"),
-        {
-          testid: void 0,
-          onPress: i,
-          Icon: r("WDSIconIcLink.react"),
-          title: l,
-        },
-        "HandleCopy",
-      );
-    }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(e) {
-      var t = e.chat,
-        a = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            o("WAWebModalManager").ModalManager.open(
-              u.jsx(
-                o("WAWebUnfollowNewsletterConfirmationModal.react")
-                  .UnfollowNewsletterConfirmationModal,
-                {
-                  chat: t,
-                  loggingOptions: {
-                    eventSurface: o("WAWebWamEnumChannelEventSurface")
-                      .CHANNEL_EVENT_SURFACE.CHANNEL_UPDATES_HOME,
-                    discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
-                      .CHANNEL_UPDATES_HOME,
-                  },
-                },
-              ),
+        n = o("react-compiler-runtime").c(5),
+        a = e.chat,
+        i = (t = a.newsletterMetadata) == null ? void 0 : t.inviteCode;
+      if (i == null) return null;
+      var l;
+      n[0] !== i
+        ? ((l = function () {
+            return o("useWAWebNewsletterInviteLink").copyInviteLink(
+              o("useWAWebNewsletterInviteLink").getInviteLink(i),
             );
-          });
-          return function () {
-            return e.apply(this, arguments);
-          };
-        })(),
-        i = s._(/*BTDS*/ "Unfollow");
-      return u.jsx(
-        r("WDSMenuItem.react"),
-        {
-          testid: void 0,
-          onPress: function () {
-            return void a();
-          },
-          Icon: r("WDSIconIcLogout.react"),
-          title: i,
-          destructive: !0,
-        },
-        "HandleUnfollow",
+          }),
+          (n[0] = i),
+          (n[1] = l))
+        : (l = n[1]);
+      var c = l,
+        d;
+      n[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = s._(/*BTDS*/ "Copy link")), (n[2] = d))
+        : (d = n[2]);
+      var m = d,
+        p;
+      return (
+        n[3] !== c
+          ? ((p = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                testid: void 0,
+                onPress: c,
+                Icon: r("WDSIconIcLink.react"),
+                title: m,
+              },
+              "HandleCopy",
+            )),
+            (n[3] = c),
+            (n[4] = p))
+          : (p = n[4]),
+        p
       );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
+    function g(e) {
+      var t = o("react-compiler-runtime").c(5),
+        a = e.chat,
+        i;
+      t[0] !== a
+        ? ((i = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              o("WAWebModalManager").ModalManager.open(
+                u.jsx(
+                  o("WAWebUnfollowNewsletterConfirmationModal.react")
+                    .UnfollowNewsletterConfirmationModal,
+                  {
+                    chat: a,
+                    loggingOptions: {
+                      eventSurface: o("WAWebWamEnumChannelEventSurface")
+                        .CHANNEL_EVENT_SURFACE.CHANNEL_UPDATES_HOME,
+                      discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+                        .CHANNEL_UPDATES_HOME,
+                    },
+                  },
+                ),
+              );
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (t[0] = a),
+          (t[1] = i))
+        : (i = t[1]);
+      var l = i,
+        c;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = s._(/*BTDS*/ "Unfollow")), (t[2] = c))
+        : (c = t[2]);
+      var d = c,
+        m;
+      return (
+        t[3] !== l
+          ? ((m = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                testid: void 0,
+                onPress: function () {
+                  return void l();
+                },
+                Icon: r("WDSIconIcLogout.react"),
+                title: d,
+                destructive: !0,
+              },
+              "HandleUnfollow",
+            )),
+            (t[3] = l),
+            (t[4] = m))
+          : (m = t[4]),
+        m
+      );
+    }
     function h(e) {
-      var t = e.chat,
-        a = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (yield o("WAWebCmd").Cmd.openChatBottom({ chat: t }),
-              o("WAWebCmd").Cmd.newsletterDeleteDrawer(t));
-          });
-          return function () {
-            return e.apply(this, arguments);
-          };
-        })(),
-        i = s._(/*BTDS*/ "Delete channel");
-      return u.jsx(
-        r("WDSMenuItem.react"),
-        {
-          testid: void 0,
-          onPress: function () {
-            return void a();
-          },
-          Icon: r("WDSIconIcDelete.react"),
-          title: i,
-          destructive: !0,
-        },
-        "DeleteNewsletter",
+      var t = o("react-compiler-runtime").c(5),
+        a = e.chat,
+        i;
+      t[0] !== a
+        ? ((i = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              (yield o("WAWebCmd").Cmd.openChatBottom({ chat: a }),
+                o("WAWebCmd").Cmd.newsletterDeleteDrawer(a));
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (t[0] = a),
+          (t[1] = i))
+        : (i = t[1]);
+      var l = i,
+        c;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = s._(/*BTDS*/ "Delete channel")), (t[2] = c))
+        : (c = t[2]);
+      var d = c,
+        m;
+      return (
+        t[3] !== l
+          ? ((m = u.jsx(
+              r("WDSMenuItem.react"),
+              {
+                testid: void 0,
+                onPress: function () {
+                  return void l();
+                },
+                Icon: r("WDSIconIcDelete.react"),
+                title: d,
+                destructive: !0,
+              },
+              "DeleteNewsletter",
+            )),
+            (t[3] = l),
+            (t[4] = m))
+          : (m = t[4]),
+        m
       );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"),
-      (l.getNewsletterContextMenuItems = c));
+    l.getNewsletterContextMenuItems = c;
   },
   226,
 );

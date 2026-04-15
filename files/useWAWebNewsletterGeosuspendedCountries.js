@@ -5,6 +5,7 @@ __d(
     "WAWebCountriesUtils",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebModelValues",
   ],
@@ -15,67 +16,88 @@ __d(
       c = u.useEffect,
       d = u.useState;
     function m(t) {
-      var a = d(null),
-        i = a[0],
-        l = a[1],
-        s = o("useWAWebModelValues").useModelValues(t, ["newsletterMetadata"]),
-        u = o("useWAWebModelValues").useOptionalModelValues(
-          s.newsletterMetadata,
-          ["geosuspendedCountries"],
+      var a = o("react-compiler-runtime").c(8),
+        i = d(null),
+        l = i[0],
+        s = i[1],
+        u;
+      a[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = ["newsletterMetadata"]), (a[0] = u))
+        : (u = a[0]);
+      var m = o("useWAWebModelValues").useModelValues(t, u),
+        _;
+      a[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = ["geosuspendedCountries"]), (a[1] = _))
+        : (_ = a[1]);
+      var f = o("useWAWebModelValues").useOptionalModelValues(
+          m.newsletterMetadata,
+          _,
         ),
-        m = r("useWAWebEventTargetValue")(
-          u == null ? void 0 : u.geosuspendedCountries,
-          ["add", "remove", "reset", "change"],
-          function () {
-            return u == null ? void 0 : u.geosuspendedCountries.toArray();
-          },
-        );
+        g;
+      a[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = ["add", "remove", "reset", "change"]), (a[2] = g))
+        : (g = a[2]);
+      var h;
+      a[3] !== (f == null ? void 0 : f.geosuspendedCountries)
+        ? ((h = function () {
+            return f == null ? void 0 : f.geosuspendedCountries.toArray();
+          }),
+          (a[3] = f == null ? void 0 : f.geosuspendedCountries),
+          (a[4] = h))
+        : (h = a[4]);
+      var y = r("useWAWebEventTargetValue")(
+          f == null ? void 0 : f.geosuspendedCountries,
+          g,
+          h,
+        ),
+        C,
+        b;
       return (
-        c(
-          function () {
-            function t() {
-              return r.apply(this, arguments);
-            }
-            function r() {
-              return (
-                (r = n("asyncToGeneratorRuntime").asyncToGenerator(
+        a[5] !== y
+          ? ((C = function () {
+              var t = (function () {
+                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
-                    if (m != null) {
-                      var t = yield (e || (e = n("Promise"))).all(
-                        m.map(
-                          (function () {
-                            var e = n(
-                              "asyncToGeneratorRuntime",
-                            ).asyncToGenerator(function* (e) {
-                              var t;
-                              return {
-                                countryCode: e.id,
-                                countryName:
-                                  (t = yield o(
-                                    "WAWebCountriesUtils",
-                                  ).getCountryNameFromCountryCode(e.id)) != null
-                                    ? t
-                                    : "",
-                              };
-                            });
-                            return function (t) {
-                              return e.apply(this, arguments);
-                            };
-                          })(),
-                        ),
-                      );
-                      l(t);
+                    if (y != null) {
+                      var t = yield (e || (e = n("Promise"))).all(y.map(p));
+                      s(t);
                     }
                   },
-                )),
-                r.apply(this, arguments)
-              );
-            }
-            t();
-          },
-          [m],
-        ),
-        i
+                );
+                function r() {
+                  return t.apply(this, arguments);
+                }
+                return r;
+              })();
+              t();
+            }),
+            (b = [y]),
+            (a[5] = y),
+            (a[6] = C),
+            (a[7] = b))
+          : ((C = a[6]), (b = a[7])),
+        c(C, b),
+        l
+      );
+    }
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t;
+          return {
+            countryCode: e.id,
+            countryName:
+              (t = yield o("WAWebCountriesUtils").getCountryNameFromCountryCode(
+                e.id,
+              )) != null
+                ? t
+                : "",
+          };
+        })),
+        _.apply(this, arguments)
       );
     }
     l.useNewsletterGeosuspendedCountries = m;

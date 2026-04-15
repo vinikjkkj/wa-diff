@@ -1386,6 +1386,20 @@ __d(
               })
             );
           }),
+          (i.setChatThemeId = function (t) {
+            this.chatThemeId = t;
+            var e = t != null ? t : null;
+            return o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+              chatThemeId: e,
+            });
+          }),
+          (i.setColorSchemeId = function (t) {
+            this.colorSchemeId = t;
+            var e = t != null ? t : null;
+            return o("WAWebDBUpdateChatTable").updateChatTable(this.id, {
+              colorSchemeId: e,
+            });
+          }),
           (i.setCapiThreadControl = function (t) {
             return (
               o("WALogger").LOG(

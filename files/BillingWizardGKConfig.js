@@ -184,6 +184,7 @@ __d(
           enableExposureLogging: !0,
           type: "PAYMENT_ACCOUNT_ID",
         },
+        PLATFORMIZED_MV4B_PAYU_INDIA_UPI_GK: { type: "PAYMENT_ACCOUNT_ID" },
         REAL_TIME_TAX_ID_VALIDATION_EG_MV4B_ROLLOUT: {
           type: "PAYMENT_ACCOUNT_ID",
         },

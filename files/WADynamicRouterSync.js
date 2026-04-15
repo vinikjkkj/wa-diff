@@ -32,15 +32,17 @@ __d(
           (this.$4 = null),
           (this.fireAndForget = function (t, n, r, o, a, i, l) {
             (o === void 0 && (o = !1),
-              e.$3.get(t).add({
-                route: n,
-                arg: r,
-                resolver: null,
-                silentLog: o,
-                eventCallbacks: a,
-                transferList: l,
-                opts: p(i, e.$4),
-              }),
+              e.$3
+                .get(t)
+                .add({
+                  route: n,
+                  arg: r,
+                  resolver: null,
+                  silentLog: o,
+                  eventCallbacks: a,
+                  transferList: l,
+                  opts: p(i, e.$4),
+                }),
               e.$5(t, n));
           }),
           (this.sendAndReceive = function (t, r, o, a, i, l, s) {

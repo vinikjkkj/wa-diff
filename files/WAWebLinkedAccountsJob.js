@@ -134,17 +134,29 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield c();
-          if (!e) return { fbPageId: null, waPageId: null };
-          var t = e.accounts.find(function (e) {
+          var e,
+            t,
+            n = yield c();
+          if (!n)
+            return {
+              fbPageId: null,
+              waPageId: null,
+              fbHasCreatedAd: !1,
+              waaHasCreatedAd: !1,
+            };
+          var r = n.accounts.find(function (e) {
               return e.type === "whatsapp";
             }),
-            n = e.accounts.find(function (e) {
+            o = n.accounts.find(function (e) {
               return e.type === "facebook";
             });
           return {
-            fbPageId: n == null ? void 0 : n.id,
-            waPageId: t == null ? void 0 : t.id,
+            fbPageId: o == null ? void 0 : o.id,
+            waPageId: r == null ? void 0 : r.id,
+            fbHasCreatedAd:
+              (e = o == null ? void 0 : o.hasCreatedAd) != null ? e : !1,
+            waaHasCreatedAd:
+              (t = r == null ? void 0 : r.hasCreatedAd) != null ? t : !1,
           };
         })),
         p.apply(this, arguments)

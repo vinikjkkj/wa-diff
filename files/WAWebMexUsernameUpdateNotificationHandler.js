@@ -6,7 +6,6 @@ __d(
     "WAWebApiChat",
     "WAWebApiContact",
     "WAWebContactSystemMsg",
-    "WAWebGroupMemberUpdatesGatingUtils",
     "WAWebHandleSingleMsgFactory",
     "WAWebLidAwareContactsDB",
     "WAWebQueryExistsJob",
@@ -205,11 +204,8 @@ __d(
                   newUsername: a,
                   wid: l,
                   displayName: t,
-                  viewMode: o(
-                    "WAWebGroupMemberUpdatesGatingUtils",
-                  ).groupMemberUpdatesUsernamesEnabled()
-                    ? o("WAWebViewMode.flow").ViewModeType.GROUP_MEMBER_UPDATES
-                    : o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+                  viewMode:
+                    o("WAWebViewMode.flow").ViewModeType.GROUP_MEMBER_UPDATES,
                 }),
                 d = o("WAWebHandleSingleMsgFactory").handleSingleMsg({
                   chatId: u,

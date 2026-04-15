@@ -26,12 +26,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c = u || (u = r("react")),
-      d = (e || (e = o("react"))).useLayoutEffect;
+      u = e || (e = o("react")),
+      c = e.useLayoutEffect;
     n("KeyStatus");
-    var m = [],
-      p = (function (e) {
+    var d = [],
+      m = (function (e) {
         function t(t, n) {
           var o;
           if (((o = e.call(this) || this), (o._config = t || {}), n)) {
@@ -75,7 +74,7 @@ __d(
                 a = r("HTML")(n).getRootNode();
               else if (this.containsReactComponent) {
                 var s = document.createElement("div");
-                (g(n, s, function () {
+                (f(n, s, function () {
                   (e.inform("reactshow"), e.updatePosition());
                 }),
                   (a = this._reactContainer = s));
@@ -161,7 +160,7 @@ __d(
                   t.inform("show", this),
                   this._permanent ||
                     window.setTimeout(function () {
-                      e._shown && m.push(e);
+                      e._shown && d.push(e);
                     }, 0))
                 : o("CSS").hide(n),
               r("Style").set(n, "visibility", ""),
@@ -190,7 +189,7 @@ __d(
           }),
           (n.finishHide = function () {
             if (this._shown) {
-              (this._permanent || r("removeFromArray")(m, this),
+              (this._permanent || r("removeFromArray")(d, this),
                 (this._hiding = !1),
                 (this._shown = !1));
               var e = this.getRoot();
@@ -234,14 +233,14 @@ __d(
             t.showAfterDelay(n);
           }),
           (t.getTopmostLayer = function () {
-            return m[m.length - 1];
+            return d[d.length - 1];
           }),
           (t.informBlur = function (t) {
-            ((_ = null), (f = null));
-            var e = m.length;
+            ((p = null), (_ = null));
+            var e = d.length;
             if (e)
               for (; e--; ) {
-                var n = m[e],
+                var n = d[e],
                   r = n.getContentRoot();
                 if (
                   (r != null || s(0, 5144),
@@ -255,8 +254,8 @@ __d(
           t
         );
       })(r("mixin")(r("ArbiterMixin"), r("BehaviorsMixin")));
-    (Object.assign(p, r("ArbiterMixin")),
-      Object.assign(p.prototype, {
+    (Object.assign(m, r("ArbiterMixin")),
+      Object.assign(m.prototype, {
         _destroyed: !1,
         _initialized: !1,
         _root: null,
@@ -270,29 +269,29 @@ __d(
         "keydown",
         function (e) {
           if (r("KeyEventController").filterEventTargets(e, "keydown")) {
-            for (var t = m.length - 1; t >= 0; t--)
-              if (m[t].inform("key", e) === !1) return !1;
+            for (var t = d.length - 1; t >= 0; t--)
+              if (d[t].inform("key", e) === !1) return !1;
           }
           return !0;
         },
         r("Event").Priority.URGENT,
       ));
-    var _;
+    var p;
     r("Event").listen(document.documentElement, "mousedown", function (e) {
-      _ = e.getTarget();
+      p = e.getTarget();
     });
-    var f;
+    var _;
     (r("Event").listen(document.documentElement, "mouseup", function (e) {
-      ((f = e.getTarget()),
+      ((_ = e.getTarget()),
         r("setImmediate")(function () {
-          ((_ = null), (f = null));
+          ((p = null), (_ = null));
         }));
     }),
       r("Event").listen(document.documentElement, "click", function (e) {
-        var t = _,
-          n = f;
-        ((_ = null), (f = null));
-        var a = m.length;
+        var t = p,
+          n = _;
+        ((p = null), (_ = null));
+        var a = d.length;
         if (a) {
           var i = e.getTarget();
           i !== n ||
@@ -300,22 +299,22 @@ __d(
             (r("DOM").contains(document.documentElement, i) &&
               ((i.offsetWidth != null && !i.offsetWidth) ||
                 o("Parent").byClass(i, "generic_dialog") ||
-                p.informBlur(i)));
+                m.informBlur(i)));
         }
       }));
-    function g(e, t, n) {
+    function f(e, t, n) {
       r("setImmediate")(function () {
         o("ReactDOM_DEPRECATED").render_DEPRECATED(
-          c.jsx(h, { onRender: n, children: e }),
+          u.jsx(g, { onRender: n, children: e }),
           t,
         );
       });
     }
-    function h(e) {
+    function g(e) {
       var t = e.children,
         n = e.onRender;
       return (
-        d(
+        c(
           function () {
             n();
           },
@@ -324,7 +323,7 @@ __d(
         t
       );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = p));
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

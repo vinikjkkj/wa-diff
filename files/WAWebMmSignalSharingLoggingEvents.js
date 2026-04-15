@@ -142,12 +142,17 @@ __d(
             D({
               chat: n,
               mmSignalType: m,
-              mmCtaButtonIndex: l,
+              mmCtaButtonIndex:
+                r !==
+                o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
+                  .BODY_URL_CLICK
+                  ? l
+                  : void 0,
               mmCarouselCardIndex: s,
               msgId: u.id,
             }));
         var _;
-        ((c == null ? void 0 : c.consentedUrl) != null
+        (p && (c == null ? void 0 : c.consentedUrl) != null
           ? (_ = o("WAWebWamEnumSignalSharingStatus").SIGNAL_SHARING_STATUS
               .ONE_PD)
           : (c == null ? void 0 : c.unconsentedUrl) != null

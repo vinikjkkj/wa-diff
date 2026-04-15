@@ -11,6 +11,7 @@ __d(
     "WAWebUpdater",
     "WAWebUpdaterUpdateApp",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -20,26 +21,47 @@ __d(
       o("WAWebUpdaterUpdateApp").updateApp();
     }
     function d(e) {
-      var t = e.customUpdateButtonFbt,
-        n = e.msg,
-        r = s._(/*BTDS*/ "Click here to update."),
-        a = t != null ? t : r;
-      return o("WAWebMsgGetters").getIsSentByMe(n) ||
-        !n.subtype ||
-        n.futureproofType === o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT ||
-        (n.futureproofType === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-          n.futureproofSubtype === "message_edit")
-        ? n.futureproofType === o("WAWebMsgType").MSG_TYPE.CALL_LOG
-          ? null
-          : u.jsx("span", {
-              className: "x187aw1n",
-              role: "button",
-              onClick: c,
-              children: a,
-            })
-        : null;
+      var t = o("react-compiler-runtime").c(4),
+        n = e.customUpdateButtonFbt,
+        r = e.msg,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = s._(/*BTDS*/ "Click here to update.")), (t[0] = a))
+        : (a = t[0]);
+      var i = a,
+        l = n != null ? n : i;
+      if (
+        o("WAWebMsgGetters").getIsSentByMe(r) ||
+        !r.subtype ||
+        r.futureproofType === o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT ||
+        (r.futureproofType === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+          r.futureproofSubtype === "message_edit")
+      ) {
+        if (r.futureproofType === o("WAWebMsgType").MSG_TYPE.CALL_LOG)
+          return null;
+        var d;
+        t[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((d = { className: "x187aw1n" }), (t[1] = d))
+          : (d = t[1]);
+        var m;
+        return (
+          t[2] !== l
+            ? ((m = u.jsx(
+                "span",
+                babelHelpers.extends({}, d, {
+                  role: "button",
+                  onClick: c,
+                  children: l,
+                }),
+              )),
+              (t[2] = l),
+              (t[3] = m))
+            : (m = t[3]),
+          m
+        );
+      }
+      return null;
     }
-    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
       var t,
         n,

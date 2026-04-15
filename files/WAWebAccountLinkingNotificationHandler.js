@@ -9,13 +9,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e, s, u, c, d, m;
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function d() {
+    function _() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (o("WAWebAccountLinkingGatingUtils").accountLinkingEnabled()) {
             var n = o(
               "WASmaxInWaffleWFNotificationRequest",
@@ -46,22 +46,52 @@ __d(
                   break;
                 case o("WAWebAccountLinkingConstants")
                   .AccountLinkingNotificationEvent.CLIENT_RESYNC:
-                  yield o("WAWebAccountLinkingHandler").handleResyncState();
+                  (o("WALogger")
+                    .LOG(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[WAFFLE-TRACE] handleResyncState triggered by CLIENT_RESYNC notification",
+                        ])),
+                    )
+                    .sendLogs("waffle-nonce-trace-notification", {
+                      sampling: 1,
+                    }),
+                    yield o("WAWebAccountLinkingHandler").handleResyncState());
                   break;
                 case o("WAWebAccountLinkingConstants")
                   .AccountLinkingNotificationEvent.ACCOUNT_UNLINKED:
                   n.value.notificationMetadataClientResync === "true" &&
-                    (yield o("WAWebAccountLinkingHandler").handleResyncState());
+                    (o("WALogger")
+                      .LOG(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "[WAFFLE-TRACE] handleResyncState triggered by ACCOUNT_UNLINKED notification (clientResync=true)",
+                          ])),
+                      )
+                      .sendLogs("waffle-nonce-trace-notification", {
+                        sampling: 1,
+                      }),
+                    yield o("WAWebAccountLinkingHandler").handleResyncState());
                   break;
                 case o("WAWebAccountLinkingConstants")
                   .AccountLinkingNotificationEvent.ACCOUNT_LINKED:
                   n.value.notificationMetadataClientResync === "true" &&
-                    (yield o("WAWebAccountLinkingHandler").handleResyncState());
+                    (o("WALogger")
+                      .LOG(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "[WAFFLE-TRACE] handleResyncState triggered by ACCOUNT_LINKED notification (clientResync=true)",
+                          ])),
+                      )
+                      .sendLogs("waffle-nonce-trace-notification", {
+                        sampling: 1,
+                      }),
+                    yield o("WAWebAccountLinkingHandler").handleResyncState());
                   break;
                 default:
                   o("WALogger").ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "[WAFFLE] Unhandled account linking notification event",
                       ])),
                   );
@@ -69,17 +99,17 @@ __d(
               }
             } else
               o("WALogger").ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] Failed to parse account linking notification",
                   ])),
               );
           }
         })),
-        d.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.handleAccountLinkingNotification = c;
+    l.handleAccountLinkingNotification = p;
   },
   98,
 );

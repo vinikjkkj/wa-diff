@@ -28,6 +28,7 @@ __d(
     "WAWebToastManager",
     "WAWebUserPrefsCTWA",
     "WAWebWamEnumLwiScreenAction",
+    "WAWebWamEnumWebFlowType",
     "asyncToGeneratorRuntime",
     "gkx",
     "react",
@@ -154,6 +155,9 @@ __d(
             lwiFlowId: p,
             userHasLinkedFbPage: u,
             waCampaignId: i,
+            webFlowType: m
+              ? o("WAWebWamEnumWebFlowType").WEB_FLOW_TYPE.NATIVE_WEB
+              : o("WAWebWamEnumWebFlowType").WEB_FLOW_TYPE.EXTERNAL_WEB,
           }),
           o("WAWebAdCreationLogger").logRoutingDecision({
             lwiEntryPoint: a,

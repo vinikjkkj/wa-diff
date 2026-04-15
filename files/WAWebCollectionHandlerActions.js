@@ -3,6 +3,7 @@ __d(
   [
     "WAWebAgentSync",
     "WAWebAiThreadDeleteSync",
+    "WAWebAiThreadPinSync",
     "WAWebAiThreadRenameSync",
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebArchiveChatSync",
@@ -126,6 +127,7 @@ __d(
       r("WAWebCustomerDataSync"),
       r("WAWebAiThreadRenameSync"),
       r("WAWebAiThreadDeleteSync"),
+      r("WAWebAiThreadPinSync"),
       r("WAWebSettingsSync"),
       r("WAWebNctSaltSync"),
       r("WAWebSubscriptionsSyncV2Sync"),

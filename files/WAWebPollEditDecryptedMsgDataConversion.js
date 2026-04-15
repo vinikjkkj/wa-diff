@@ -69,10 +69,6 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON.INVALID_MESSAGE,
         );
       if (
-        m.options.length > 0 ||
-        m.selectableOptionsCount != null ||
-        m.pollType != null ||
-        m.pollContentType != null ||
         m.correctAnswer != null ||
         m.endTime != null ||
         m.hideParticipantName != null ||

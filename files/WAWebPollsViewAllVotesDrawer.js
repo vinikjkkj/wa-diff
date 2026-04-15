@@ -14,6 +14,7 @@ __d(
     "WAWebPollsOptionSection",
     "WAWebPollsUseResults",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebNewsletterPollsResults",
     "useWAWebPollAssociatedMessagesMap",
@@ -24,54 +25,113 @@ __d(
       c,
       d = c || (c = o("react"));
     function m(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, u),
-        r = n.msg;
-      return r.id.remote.isNewsletter()
-        ? d.jsx(f, babelHelpers.extends({}, n, { ref: t }))
-        : d.jsx(_, babelHelpers.extends({}, n, { ref: t }));
+      var t = o("react-compiler-runtime").c(7),
+        n,
+        r;
+      t[0] !== e
+        ? ((r = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, u)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r))
+        : ((n = t[1]), (r = t[2]));
+      var a = n,
+        i = a.msg,
+        l;
+      return (
+        t[3] !== i.id.remote || t[4] !== n || t[5] !== r
+          ? ((l = i.id.remote.isNewsletter()
+              ? d.jsx(f, babelHelpers.extends({}, n, { ref: r }))
+              : d.jsx(_, babelHelpers.extends({}, n, { ref: r }))),
+            (t[3] = i.id.remote),
+            (t[4] = n),
+            (t[5] = r),
+            (t[6] = l))
+          : (l = t[6]),
+        l
+      );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     var p = m;
     function _(e) {
-      var t = e.associatedMessages,
-        n = e.msg,
-        r = e.onBack,
-        a = e.optionLocalId,
-        i = e.ref,
-        l = o("WAWebPollsUseResults").useResults(n);
-      return d.jsx(g, {
-        associatedMessages: t,
-        mode: "e2ee",
-        onBack: r,
-        optionsToResults: l,
-        optionLocalId: a,
-        msg: n,
-        ref: i,
-      });
+      var t = o("react-compiler-runtime").c(7),
+        n = e.associatedMessages,
+        r = e.msg,
+        a = e.onBack,
+        i = e.optionLocalId,
+        l = e.ref,
+        s = o("WAWebPollsUseResults").useResults(r),
+        u;
+      return (
+        t[0] !== n ||
+        t[1] !== r ||
+        t[2] !== a ||
+        t[3] !== i ||
+        t[4] !== s ||
+        t[5] !== l
+          ? ((u = d.jsx(g, {
+              associatedMessages: n,
+              mode: "e2ee",
+              onBack: a,
+              optionsToResults: s,
+              optionLocalId: i,
+              msg: r,
+              ref: l,
+            })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a),
+            (t[3] = i),
+            (t[4] = s),
+            (t[5] = l),
+            (t[6] = u))
+          : (u = t[6]),
+        u
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = e.associatedMessages,
-        n = e.msg,
-        r = e.onBack,
-        a = e.optionLocalId,
-        i = e.ref,
-        l = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(n, {
-          pollVoteLocalId: a,
-        });
-      return d.jsx(g, {
-        associatedMessages: t,
-        mode: "newsletter",
-        withSectioning: !0,
-        onBack: r,
-        optionsToResults: l,
-        optionLocalId: a,
-        msg: n,
-        ref: i,
-      });
+      var t = o("react-compiler-runtime").c(9),
+        n = e.associatedMessages,
+        r = e.msg,
+        a = e.onBack,
+        i = e.optionLocalId,
+        l = e.ref,
+        s;
+      t[0] !== i
+        ? ((s = { pollVoteLocalId: i }), (t[0] = i), (t[1] = s))
+        : (s = t[1]);
+      var u = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(
+          r,
+          s,
+        ),
+        c;
+      return (
+        t[2] !== n ||
+        t[3] !== r ||
+        t[4] !== a ||
+        t[5] !== i ||
+        t[6] !== u ||
+        t[7] !== l
+          ? ((c = d.jsx(g, {
+              associatedMessages: n,
+              mode: "newsletter",
+              withSectioning: !0,
+              onBack: a,
+              optionsToResults: u,
+              optionLocalId: i,
+              msg: r,
+              ref: l,
+            })),
+            (t[2] = n),
+            (t[3] = r),
+            (t[4] = a),
+            (t[5] = i),
+            (t[6] = u),
+            (t[7] = l),
+            (t[8] = c))
+          : (c = t[8]),
+        c
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(t) {
       var n = t.associatedMessages,
         a = t.mode,

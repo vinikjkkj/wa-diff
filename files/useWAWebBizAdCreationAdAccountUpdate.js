@@ -7,6 +7,7 @@ __d(
     "WAWebBizAdCreationConfigContext",
     "WAWebBizAdCreationSpecContext",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdCreationAdAccountUpdate_AdAccountDetailsQuery.graphql",
     "useWAWebBizAdCreationAdAccountUpdate_BudgetQuery.graphql",
     "useWAWebBizAdCreationSpecDispatcherContext",
@@ -94,99 +95,111 @@ __d(
           });
     }
     function h(e) {
-      var t = o("CometRelay").useRelayEnvironment(),
-        n = m(r("WAWebBizAdCreationSpecContext")),
-        a = n.currentValue,
-        i = m(r("WAWebBizAdCreationConfigContext")),
-        l = r("useWAWebBizAdCreationSpecDispatcherContext")([
-          r("waWebBizAdCreationAdAccountReducer"),
-        ]);
-      return d(
-        function () {
-          var n = function (t) {
-              l({
-                adAccountData: t,
-                type: "ad_account_reducer.update_ad_account",
-              });
-            },
-            s = function (t, n) {
-              l({
-                adAccountData: t,
-                budgetData: n,
-                type: "ad_account_reducer.update_ad_account_with_currency_update",
-              });
-            },
-            u = function (t) {
-              return i == null
-                ? (r("FBLogger")("wa_ctwa_web").mustfix(
-                    "Config context is null when trying to refetch budget",
-                  ),
-                  null)
-                : {
-                    ad_account_id: t.legacyAccountID,
-                    page_id: i.pageID,
-                    product: i.product,
-                    flow_id: i.flowID,
-                  };
-            },
-            c = function (t, o) {
-              (r("FBLogger")("wa_ctwa_web")
-                .catching(t)
-                .mustfix(
-                  "Error fetching budget after currency change, updating ad account only",
-                ),
-                n(o));
-            },
-            d = function (t, r) {
-              var e = g(t);
-              if (e == null) {
-                n(r);
-                return;
-              }
-              s(r, e);
-            };
-          o("CometRelay")
-            .fetchQuery(t, p, { adAccountID: e })
-            .subscribe({
-              error: function (t) {
-                r("FBLogger")("wa_ctwa_web")
-                  .catching(t)
-                  .mustfix(
-                    "Error fetching ad account after closing billing wizard",
-                  );
-              },
-              next: function (r) {
-                var e,
-                  i = f(r);
-                if (i != null) {
-                  var l = (e = a.adAccountData) == null ? void 0 : e.currency,
-                    s = i.currency,
-                    m = s !== l;
-                  if (!m) {
-                    n(i);
+      var t = o("react-compiler-runtime").c(7),
+        n = o("CometRelay").useRelayEnvironment(),
+        a = m(r("WAWebBizAdCreationSpecContext")),
+        i = a.currentValue,
+        l = m(r("WAWebBizAdCreationConfigContext")),
+        s;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = [r("waWebBizAdCreationAdAccountReducer")]), (t[0] = s))
+        : (s = t[0]);
+      var u = r("useWAWebBizAdCreationSpecDispatcherContext")(s),
+        c;
+      return (
+        t[1] !== e || t[2] !== l || t[3] !== u || t[4] !== n || t[5] !== i
+          ? ((c = function () {
+              var t = function (t) {
+                  u({
+                    adAccountData: t,
+                    type: "ad_account_reducer.update_ad_account",
+                  });
+                },
+                a = function (t, n) {
+                  u({
+                    adAccountData: t,
+                    budgetData: n,
+                    type: "ad_account_reducer.update_ad_account_with_currency_update",
+                  });
+                },
+                s = function (t) {
+                  return l == null
+                    ? (r("FBLogger")("wa_ctwa_web").mustfix(
+                        "Config context is null when trying to refetch budget",
+                      ),
+                      null)
+                    : {
+                        ad_account_id: t.legacyAccountID,
+                        page_id: l.pageID,
+                        product: l.product,
+                        flow_id: l.flowID,
+                      };
+                },
+                c = function (n, o) {
+                  (r("FBLogger")("wa_ctwa_web")
+                    .catching(n)
+                    .mustfix(
+                      "Error fetching budget after currency change, updating ad account only",
+                    ),
+                    t(o));
+                },
+                d = function (n, r) {
+                  var e = g(n);
+                  if (e == null) {
+                    t(r);
                     return;
                   }
-                  var p = u(i);
-                  if (p == null) {
-                    n(i);
-                    return;
-                  }
-                  o("CometRelay")
-                    .fetchQuery(t, _, { input: p })
-                    .subscribe({
-                      error: function (t) {
-                        return c(t, i);
-                      },
-                      next: function (t) {
-                        return d(t, i);
-                      },
-                    });
-                }
-              },
-            });
-        },
-        [e, i, l, t, a],
+                  a(r, e);
+                };
+              o("CometRelay")
+                .fetchQuery(n, p, { adAccountID: e })
+                .subscribe({
+                  error: y,
+                  next: function (r) {
+                    var e,
+                      a = f(r);
+                    if (a != null) {
+                      var l =
+                          (e = i.adAccountData) == null ? void 0 : e.currency,
+                        u = a.currency,
+                        m = u !== l;
+                      if (!m) {
+                        t(a);
+                        return;
+                      }
+                      var p = s(a);
+                      if (p == null) {
+                        t(a);
+                        return;
+                      }
+                      o("CometRelay")
+                        .fetchQuery(n, _, { input: p })
+                        .subscribe({
+                          error: function (t) {
+                            return c(t, a);
+                          },
+                          next: function (t) {
+                            return d(t, a);
+                          },
+                        });
+                    }
+                  },
+                });
+            }),
+            (t[1] = e),
+            (t[2] = l),
+            (t[3] = u),
+            (t[4] = n),
+            (t[5] = i),
+            (t[6] = c))
+          : (c = t[6]),
+        c
       );
+    }
+    function y(e) {
+      r("FBLogger")("wa_ctwa_web")
+        .catching(e)
+        .mustfix("Error fetching ad account after closing billing wizard");
     }
     l.default = h;
   },

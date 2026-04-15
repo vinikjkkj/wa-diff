@@ -6,17 +6,13 @@ __d(
     "Promise",
     "WATimeUtils",
     "WAWebAttachMediaModel",
-    "WAWebBizAdCreationCreativeMediaView.react",
     "WAWebBizAdCreationMediaValidationUtils",
     "WAWebDataTransfer",
-    "WAWebKeyboardTabUtils",
     "WAWebLidStatusMigrationUtils",
     "WAWebMediaEntry",
     "WAWebMediaPrep",
-    "WAWebModalManager",
     "WAWebMsgKey",
     "WAWebMsgModel",
-    "WAWebNoop",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUiIdleEventBus",
@@ -229,153 +225,117 @@ __d(
       }
     }
     function v(e, t, a, i, l, u) {
-      if (e.length) {
-        var d = r("justknobx")._("4621");
+      e.length &&
         (u(!0),
-          o("WAWebBizAdCreationMediaValidationUtils")
-            .deepCloneMediaCollection(t)
-            .then(
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n = r("justknobx")._("3528"),
-                      u = e;
-                    if (n) {
-                      var m = e.some(function (e) {
-                          return e.type.startsWith("image/");
-                        }),
-                        p = e.some(function (e) {
-                          return e.type.startsWith("video/");
-                        });
-                      m &&
-                        p &&
-                        ((u = e.filter(function (e) {
-                          return !e.type.startsWith("video/");
-                        })),
-                        o("WAWebToastManager").ToastManager.open(
-                          c.jsx(o("WAWebToast.react").Toast, {
-                            msg: s._(
-                              /*BTDS*/ "Can't mix photos and video. Only photos were kept.",
-                            ),
-                          }),
-                        ));
-                    }
-                    var _ = u.map(function (e) {
-                        return { file: e };
+        o("WAWebBizAdCreationMediaValidationUtils")
+          .deepCloneMediaCollection(t)
+          .then(
+            (function () {
+              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (t) {
+                  var n = r("justknobx")._("3528"),
+                    u = e;
+                  if (n) {
+                    var d = e.some(function (e) {
+                        return e.type.startsWith("image/");
                       }),
-                      f = o(
-                        "WAWebBizAdCreationMediaValidationUtils",
-                      ).maybePruneNewAttachments(t, _),
-                      h = t.getPreviewableMedias().length > 0;
-                    if (
-                      n &&
-                      f.pruneActions.includes("CROSS_MEDIA_VIDEO_ADDED") &&
-                      h
-                    ) {
+                      m = e.some(function (e) {
+                        return e.type.startsWith("video/");
+                      });
+                    d &&
+                      m &&
+                      ((u = e.filter(function (e) {
+                        return !e.type.startsWith("video/");
+                      })),
                       o("WAWebToastManager").ToastManager.open(
                         c.jsx(o("WAWebToast.react").Toast, {
                           msg: s._(
-                            /*BTDS*/ "Videos can't be added when images are selected.",
+                            /*BTDS*/ "Can't mix photos and video. Only photos were kept.",
                           ),
                         }),
+                      ));
+                  }
+                  var p = u.map(function (e) {
+                      return { file: e };
+                    }),
+                    _ = o(
+                      "WAWebBizAdCreationMediaValidationUtils",
+                    ).maybePruneNewAttachments(t, p),
+                    f = t.getPreviewableMedias().length > 0;
+                  if (
+                    n &&
+                    _.pruneActions.includes("CROSS_MEDIA_VIDEO_ADDED") &&
+                    f
+                  ) {
+                    o("WAWebToastManager").ToastManager.open(
+                      c.jsx(o("WAWebToast.react").Toast, {
+                        msg: s._(
+                          /*BTDS*/ "Videos can't be added when images are selected.",
+                        ),
+                      }),
+                    );
+                    return;
+                  }
+                  for (var h of _.pruneActions)
+                    o("WAWebToastManager").ToastManager.open(
+                      c.jsx(o("WAWebToast.react").Toast, {
+                        msg: o(
+                          "WAWebBizAdCreationMediaValidationUtils",
+                        ).PRUNE_TOAST_MESSAGES[h](),
+                      }),
+                    );
+                  if (
+                    (_.shouldClearExisting && t.reset(),
+                    _.attachments.length !== 0)
+                  ) {
+                    var y = new Set(
+                      t.getPreviewableMedias().map(function (e) {
+                        return e.id;
+                      }),
+                    );
+                    try {
+                      yield t.processAttachments(
+                        _.attachments,
+                        void 0,
+                        o("WAWebBizAdCreationMediaValidationUtils")
+                          .SUPPORTED_MEDIA_TYPES,
+                        o("WAWebBizAdCreationMediaValidationUtils")
+                          .MAX_IMAGE_COUNT,
                       );
+                    } catch (e) {
+                      (i(),
+                        r("FBLogger")("wa_ctwa_web")
+                          .catching(r("getErrorSafe")(e))
+                          .mustfix("failed to process media for upload"));
                       return;
                     }
-                    for (var y of f.pruneActions)
-                      o("WAWebToastManager").ToastManager.open(
-                        c.jsx(o("WAWebToast.react").Toast, {
-                          msg: o(
-                            "WAWebBizAdCreationMediaValidationUtils",
-                          ).PRUNE_TOAST_MESSAGES[y](),
-                        }),
-                      );
-                    if ((f.shouldClearExisting && t.reset(), d)) {
-                      if (f.attachments.length === 0) return;
-                      var C = new Set(
-                        t.getPreviewableMedias().map(function (e) {
+                    var C = new Set(
+                      t
+                        .getPreviewableMedias()
+                        .filter(function (e) {
+                          return !y.has(e.id);
+                        })
+                        .map(function (e) {
                           return e.id;
                         }),
-                      );
-                      try {
-                        yield t.processAttachments(
-                          f.attachments,
-                          void 0,
-                          o("WAWebBizAdCreationMediaValidationUtils")
-                            .SUPPORTED_MEDIA_TYPES,
-                          o("WAWebBizAdCreationMediaValidationUtils")
-                            .MAX_IMAGE_COUNT,
-                        );
-                      } catch (e) {
-                        (i(),
-                          r("FBLogger")("wa_ctwa_web")
-                            .catching(r("getErrorSafe")(e))
-                            .mustfix("failed to process media for upload"));
-                        return;
-                      }
-                      var b = new Set(
-                        t
-                          .getPreviewableMedias()
-                          .filter(function (e) {
-                            return !C.has(e.id);
-                          })
-                          .map(function (e) {
-                            return e.id;
-                          }),
-                      );
-                      (l(t, b), g(t, a, i));
-                      return;
-                    }
-                    var v = r("WAWebNoop");
-                    f.attachments.length > 0 &&
-                      (v = function () {
-                        t.processAttachments(
-                          f.attachments,
-                          void 0,
-                          o("WAWebBizAdCreationMediaValidationUtils")
-                            .SUPPORTED_MEDIA_TYPES,
-                          o("WAWebBizAdCreationMediaValidationUtils")
-                            .MAX_IMAGE_COUNT,
-                        );
-                      });
-                    var S = c.jsx(
-                      r("WAWebBizAdCreationCreativeMediaView.react"),
-                      {
-                        onRender: v,
-                        mediaCollection: t,
-                        suportedMediaTypes: o(
-                          "WAWebBizAdCreationMediaValidationUtils",
-                        ).SUPPORTED_MEDIA_TYPES,
-                        mediaMimeTypes: o(
-                          "WAWebBizAdCreationMediaValidationUtils",
-                        ).ALLOWED_MIME_TYPES,
-                        onMediaUploadComplete: a,
-                        onMediaUploadFailure: i,
-                        onSelectedMediaSave: l,
-                      },
                     );
-                    o("WAWebModalManager").ModalManager.openMedia(S, {
-                      blockClose: !0,
-                      focusType: {
-                        type: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
-                      },
-                      transition: "status-modal",
-                    });
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            )
-            .catch(function (e) {
-              r("FBLogger")("wa_ctwa_web")
-                .catching(r("getErrorSafe")(e))
-                .mustfix("failed to clone media collection");
-            })
-            .finally(function () {
-              u(!1);
-            }));
-      }
+                    (l(t, C), g(t, a, i));
+                  }
+                },
+              );
+              return function (e) {
+                return t.apply(this, arguments);
+              };
+            })(),
+          )
+          .catch(function (e) {
+            r("FBLogger")("wa_ctwa_web")
+              .catching(r("getErrorSafe")(e))
+              .mustfix("failed to clone media collection");
+          })
+          .finally(function () {
+            u(!1);
+          }));
     }
     ((l.WA_PARTIAL_UPLOAD_FAILURE_TOAST_MSG = d),
       (l.sendStage1WAUploadMsg = _),

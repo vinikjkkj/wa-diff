@@ -56,6 +56,13 @@ __d(
       );
     }
     function g() {
+      return o("WAWebMobilePlatforms").isSMB()
+        ? f()
+        : o("WAWebABProps").getABPropConfigValue(
+            "consumer_web_qp_graphql_to_fetch_qp_frequency_mins",
+          );
+    }
+    function h() {
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -63,10 +70,10 @@ __d(
         )
       );
     }
-    function h() {
-      return o("WAWebMobilePlatforms").isSMB() ? _() : g();
+    function y() {
+      return o("WAWebMobilePlatforms").isSMB() ? _() : h();
     }
-    function y(t) {
+    function C(t) {
       var n = new Map(
           Array.from(
             o("WAWebCTWAConstants").KNOWN_QP_SURFACES.values(),
@@ -97,22 +104,22 @@ __d(
         r
       );
     }
-    function C() {
-      return y(
+    function b() {
+      return C(
         o("WAWebABProps").getABPropConfigValue(
           "smb_graphql_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function b() {
-      return y(
+    function v() {
+      return C(
         o("WAWebABProps").getABPropConfigValue(
           "consumer_graphql_web_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function v() {
-      return o("WAWebMobilePlatforms").isSMB() ? C() : b();
+    function S() {
+      return o("WAWebMobilePlatforms").isSMB() ? b() : v();
     }
     ((l.groupsPrivacyTipsEnabled = u),
       (l.profilePrivacyTipsEnabled = c),
@@ -121,11 +128,12 @@ __d(
       (l.qpCampaignsEnabledSMB = p),
       (l.qpGraphQLEnabledSMB = _),
       (l.qpGraphQLFetchIntervalMinutesSMB = f),
-      (l.consumerQpGraphQLEnabled = g),
-      (l.qpGraphQLEnabled = h),
-      (l.qpSurfaceIdsUsingGraphQLSMB = C),
-      (l.qpSurfaceIdsUsingGraphQLConsumer = b),
-      (l.qpSurfaceIdsUsingGraphQL = v));
+      (l.qpGraphQLFetchIntervalMinutes = g),
+      (l.consumerQpGraphQLEnabled = h),
+      (l.qpGraphQLEnabled = y),
+      (l.qpSurfaceIdsUsingGraphQLSMB = b),
+      (l.qpSurfaceIdsUsingGraphQLConsumer = v),
+      (l.qpSurfaceIdsUsingGraphQL = S));
   },
   98,
 );

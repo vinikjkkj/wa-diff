@@ -8,6 +8,7 @@ __d(
     "WAWebUserPrefsNewsletter",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebUnmountSignal",
   ],
@@ -38,7 +39,11 @@ __d(
                   (t = t.subscribers) == null
                     ? void 0
                     : t.map(function (e) {
-                        return { contact: e.contact, role: e.membership };
+                        return {
+                          adminProfile: e.adminProfile,
+                          contact: e.contact,
+                          role: e.membership,
+                        };
                       })) != null
                   ? e
                   : [],
@@ -46,6 +51,7 @@ __d(
             if (c && r != null) {
               var a;
               n.unshift({
+                adminProfile: null,
                 contact: r,
                 role:
                   d == null || (a = d.newsletterMetadata) == null
@@ -92,17 +98,34 @@ __d(
       );
     }
     function d(e) {
-      var t = c({
-          newsletter: e,
-          cacheType: o("WAWebUserPrefsNewsletter")
-            .ValidCachedNewsletterSubscriberKeys.FULL,
-          count: o("WAWebNewsletterGatingUtils").getMaxSubscriberNumber(),
-          includeMeContact: !1,
-        }),
-        n = t[0];
-      return n.map(function (e) {
-        return e.contact;
-      });
+      var t = o("react-compiler-runtime").c(5),
+        n;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = o("WAWebNewsletterGatingUtils").getMaxSubscriberNumber()),
+          (t[0] = n))
+        : (n = t[0]);
+      var r;
+      t[1] !== e
+        ? ((r = {
+            newsletter: e,
+            cacheType: o("WAWebUserPrefsNewsletter")
+              .ValidCachedNewsletterSubscriberKeys.FULL,
+            count: n,
+            includeMeContact: !1,
+          }),
+          (t[1] = e),
+          (t[2] = r))
+        : (r = t[2]);
+      var a = c(r),
+        i = a[0],
+        l;
+      return (
+        t[3] !== i ? ((l = i.map(m)), (t[3] = i), (t[4] = l)) : (l = t[4]),
+        l
+      );
+    }
+    function m(e) {
+      return e.contact;
     }
     ((l.useNewsletterSubscribers = c), (l.useNewsletterAllSubscribers = d));
   },

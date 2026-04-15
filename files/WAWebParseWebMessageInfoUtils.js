@@ -10,7 +10,6 @@ __d(
     "WAWebBotGroupGatingUtils",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDecodeJid",
-    "WAWebGroupMemberUpdatesGatingUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebParseMsgPaymentInfo",
@@ -968,12 +967,8 @@ __d(
               (t.kind = o("WAWebMsgType").MsgKind.NotificationTemplate),
               (t.subtype = "change_username"),
               r("WAWebWid").isGroup(t.id.remote) &&
-              o(
-                "WAWebGroupMemberUpdatesGatingUtils",
-              ).groupMemberUpdatesUsernamesEnabled()
-                ? (t.viewMode =
-                    o("WAWebViewMode.flow").ViewModeType.GROUP_MEMBER_UPDATES)
-                : (t.viewMode = o("WAWebViewMode.flow").ViewModeType.VISIBLE));
+                (t.viewMode =
+                  o("WAWebViewMode.flow").ViewModeType.GROUP_MEMBER_UPDATES));
             break;
           case l.BIZ_COEX_PRIVACY_INIT_SELF:
             if (!o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled()) {

@@ -5,6 +5,7 @@ __d(
     "WAWebThreadMsgUtils",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,80 +19,111 @@ __d(
       _ = [],
       f = 20;
     function g(e, t) {
-      var n = d(
-          function () {
-            return new (r("WAWebFtsMsgsCollection"))(e);
-          },
-          [e],
-        ),
-        a = p(_),
-        i = a[0],
-        l = a[1],
-        s = p(!1),
-        g = s[0],
-        h = s[1],
+      var n = o("react-compiler-runtime").c(19),
+        a;
+      n[0] !== e
+        ? ((a = new (r("WAWebFtsMsgsCollection"))(e)), (n[0] = e), (n[1] = a))
+        : (a = n[1]);
+      var i = a,
+        l = p(_),
+        s = l[0],
+        u = l[1],
+        d = p(!1),
+        g = d[0],
+        h = d[1],
         y = m(null),
         C = p(t),
         b = C[0],
         v = C[1];
       t !== b && (v(t), r("isStringNullOrEmpty")(t) ? h(!1) : h(!0));
-      var S = u(
-        function () {
-          var e = n.toArray(),
-            t = [];
-          for (var r of e) {
-            var a = o("WAWebThreadMsgUtils").getMsgAiThread(r);
-            a != null && t.push({ msg: r, threadId: a });
-          }
-          l(t);
-        },
-        [n],
-      );
-      return (
-        c(
-          function () {
-            var o;
+      var S;
+      n[2] !== i
+        ? ((S = function () {
+            var e = i.toArray(),
+              t = [];
+            for (var n of e) {
+              var r = o("WAWebThreadMsgUtils").getMsgAiThread(n);
+              r != null && t.push({ msg: n, threadId: r });
+            }
+            u(t);
+          }),
+          (n[2] = i),
+          (n[3] = S))
+        : (S = n[3]);
+      var R = S,
+        L,
+        E;
+      (n[4] !== e || n[5] !== i || n[6] !== R || n[7] !== t
+        ? ((L = function () {
+            var n;
             if (r("isStringNullOrEmpty")(t)) {
-              var a;
-              ((a = y.current) == null || a.abort(),
-                n.resetSearch(),
-                n.delete());
+              var o;
+              ((o = y.current) == null || o.abort(),
+                i.resetSearch(),
+                i.delete());
               return;
             }
-            (o = y.current) == null || o.abort();
-            var i = new AbortController();
-            y.current = i;
-            var l = n.search({ chat: e, count: f, searchTerm: t.trim() });
+            (n = y.current) == null || n.abort();
+            var a = new AbortController();
+            y.current = a;
+            var l = i.search({ chat: e, count: f, searchTerm: t.trim() });
             if (l == null) {
-              (S(), h(!1));
+              (R(), h(!1));
               return;
             }
             return (
               l
                 .then(function () {
-                  i.signal.aborted || S();
+                  a.signal.aborted || R();
                 })
                 .finally(function () {
-                  i.signal.aborted || h(!1);
+                  a.signal.aborted || h(!1);
                 }),
               function () {
-                i.abort();
+                a.abort();
               }
             );
-          },
-          [t, e, n, S],
-        ),
-        o("useWAWebListener").useListener(n, "bulk_remove", S),
-        c(
-          function () {
+          }),
+          (E = [t, e, i, R]),
+          (n[4] = e),
+          (n[5] = i),
+          (n[6] = R),
+          (n[7] = t),
+          (n[8] = L),
+          (n[9] = E))
+        : ((L = n[8]), (E = n[9])),
+        c(L, E),
+        o("useWAWebListener").useListener(i, "bulk_remove", R));
+      var k, I;
+      (n[10] !== i
+        ? ((k = function () {
             return function () {
               var e;
-              ((e = y.current) == null || e.abort(), n.delete(!0));
+              ((e = y.current) == null || e.abort(), i.delete(!0));
             };
-          },
-          [n],
-        ),
-        { isSearching: g, results: r("isStringNullOrEmpty")(t) ? _ : i }
+          }),
+          (I = [i]),
+          (n[10] = i),
+          (n[11] = k),
+          (n[12] = I))
+        : ((k = n[11]), (I = n[12])),
+        c(k, I));
+      var T;
+      n[13] !== s || n[14] !== t
+        ? ((T = r("isStringNullOrEmpty")(t) ? _ : s),
+          (n[13] = s),
+          (n[14] = t),
+          (n[15] = T))
+        : (T = n[15]);
+      var D;
+      return (
+        n[16] !== g || n[17] !== T
+          ? ((D = { isSearching: g, results: T }),
+            (n[16] = g),
+            (n[17] = T),
+            (n[18] = D))
+          : (D = n[18]),
+        D
       );
     }
     l.default = g;

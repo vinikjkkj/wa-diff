@@ -9,8 +9,7 @@ __d(
         enableReactProfiling: e("12286"),
         enableResetCompletedFix: e("12288"),
         fixParentInteractionIdWhenCancel: e("12343"),
-        deferUnmountCleanup: r("gkx")("23235") || r("gkx")("23438"),
-        removeHoldOnParentContextOnNewInteraction: r("gkx")("12290"),
+        removeHoldOnParentContextOnNewInteraction: e("12290"),
       };
     l.default = s;
   },

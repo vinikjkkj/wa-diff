@@ -13,6 +13,7 @@ __d(
     "getErrorSafe",
     "justknobx",
     "react",
+    "react-compiler-runtime",
     "useWAWebBeforeUnload",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -71,62 +72,117 @@ __d(
       );
     }
     function h(e) {
-      var t = e.onResult,
-        a = e.saveDraft,
-        i = _(!1),
-        l = i[0],
-        u = i[1],
-        d = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            u(!0);
-            try {
-              var e = yield a();
-              e.success ||
-                (r("FBLogger")("wa_ctwa_web").mustfix(
-                  "Draft save on exit returned failure",
-                ),
-                g());
-            } catch (e) {
-              (r("FBLogger")("wa_ctwa_web")
-                .catching(r("getErrorSafe")(e))
-                .mustfix("Draft save on exit failed"),
-                g());
-            }
-            t(!0);
-          });
-          return function () {
-            return e.apply(this, arguments);
-          };
-        })(),
-        m = function () {
-          t(!0);
-        },
-        p = function () {
-          t(!1);
-        };
-      return c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        title: s._(/*BTDS*/ "Save as draft?"),
-        okText: s._(/*BTDS*/ "Save"),
-        okSpinner: l,
-        okDisabled: l,
-        onOK: d,
-        onCancel: p,
-        cancelText: s._(/*BTDS*/ "Cancel"),
-        cancelDisabled: l,
-        extraButtonProps: {
-          text: s._(/*BTDS*/ "Discard"),
-          onClick: m,
-          disabled: l,
-        },
-        splitLayout: !0,
-        children: c.jsx(r("WDSText.react"), {
-          type: "Body2",
-          colorName: "contentDeemphasized",
-          children: s._(/*BTDS*/ "You can continue editing later."),
-        }),
-      });
+      var t = o("react-compiler-runtime").c(20),
+        a = e.onResult,
+        i = e.saveDraft,
+        l = _(!1),
+        u = l[0],
+        d = l[1],
+        m;
+      t[0] !== a || t[1] !== i
+        ? ((m = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              d(!0);
+              try {
+                var e = yield i();
+                e.success ||
+                  (r("FBLogger")("wa_ctwa_web").mustfix(
+                    "Draft save on exit returned failure",
+                  ),
+                  g());
+              } catch (e) {
+                var t = e;
+                (r("FBLogger")("wa_ctwa_web")
+                  .catching(r("getErrorSafe")(t))
+                  .mustfix("Draft save on exit failed"),
+                  g());
+              }
+              a(!0);
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (t[0] = a),
+          (t[1] = i),
+          (t[2] = m))
+        : (m = t[2]);
+      var p = m,
+        f;
+      t[3] !== a
+        ? ((f = function () {
+            a(!0);
+          }),
+          (t[3] = a),
+          (t[4] = f))
+        : (f = t[4]);
+      var h = f,
+        y;
+      t[5] !== a
+        ? ((y = function () {
+            a(!1);
+          }),
+          (t[5] = a),
+          (t[6] = y))
+        : (y = t[6]);
+      var C = y,
+        b,
+        v;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = s._(/*BTDS*/ "Save as draft?")),
+          (v = s._(/*BTDS*/ "Save")),
+          (t[7] = b),
+          (t[8] = v))
+        : ((b = t[7]), (v = t[8]));
+      var S;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = s._(/*BTDS*/ "Cancel")), (t[9] = S))
+        : (S = t[9]);
+      var R;
+      t[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((R = s._(/*BTDS*/ "Discard")), (t[10] = R))
+        : (R = t[10]);
+      var L;
+      t[11] !== h || t[12] !== u
+        ? ((L = { text: R, onClick: h, disabled: u }),
+          (t[11] = h),
+          (t[12] = u),
+          (t[13] = L))
+        : (L = t[13]);
+      var E;
+      t[14] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = c.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDeemphasized",
+            children: s._(/*BTDS*/ "You can continue editing later."),
+          })),
+          (t[14] = E))
+        : (E = t[14]);
+      var k;
+      return (
+        t[15] !== C || t[16] !== p || t[17] !== u || t[18] !== L
+          ? ((k = c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              title: b,
+              okText: v,
+              okSpinner: u,
+              okDisabled: u,
+              onOK: p,
+              onCancel: C,
+              cancelText: S,
+              cancelDisabled: u,
+              extraButtonProps: L,
+              splitLayout: !0,
+              children: E,
+            })),
+            (t[15] = C),
+            (t[16] = p),
+            (t[17] = u),
+            (t[18] = L),
+            (t[19] = k))
+          : (k = t[19]),
+        k
+      );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
       return C.apply(this, arguments);
     }

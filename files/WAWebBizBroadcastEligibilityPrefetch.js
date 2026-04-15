@@ -30,7 +30,7 @@ __d(
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BizBroadcastEligibilityPrefetch] fetch eligibility failed statusCode=",
+                    "[BizBroadcastEligibilityPrefetch] failed code=",
                     "",
                   ])),
                 t,

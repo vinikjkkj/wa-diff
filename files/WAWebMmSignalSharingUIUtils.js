@@ -11,7 +11,10 @@ __d(
     "WAWebMmSignalSharingShowDisclosureModal",
     "WAWebModalManager",
     "WAWebQbmMessageClickLogEvent",
+    "WAWebQbmMessageLevelActionEvent",
     "WAWebWamEnumDisclosureEventType",
+    "WAWebWamEnumMessageActionEntryPoint",
+    "WAWebWamEnumMessageLevelAction",
     "WAWebWamEnumQbmMessageClickButtonClickedType",
     "asyncToGeneratorRuntime",
     "react",
@@ -123,6 +126,17 @@ __d(
                         buttonClickedType: o(
                           "WAWebWamEnumQbmMessageClickButtonClickedType",
                         ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.BODY_URL,
+                      }),
+                      o(
+                        "WAWebQbmMessageLevelActionEvent",
+                      ).logQbmMessageLevelAction({
+                        msg: n,
+                        chat: t,
+                        messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                          .MESSAGE_LEVEL_ACTION.LINK_CLICK,
+                        messageActionEntryPoint: o(
+                          "WAWebWamEnumMessageActionEntryPoint",
+                        ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
                       }));
                   },
                   onCancel: function (r) {
@@ -164,6 +178,17 @@ __d(
                         buttonClickedType: o(
                           "WAWebWamEnumQbmMessageClickButtonClickedType",
                         ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.BODY_URL,
+                      }),
+                      o(
+                        "WAWebQbmMessageLevelActionEvent",
+                      ).logQbmMessageLevelAction({
+                        msg: n,
+                        chat: t,
+                        messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                          .MESSAGE_LEVEL_ACTION.LINK_CLICK,
+                        messageActionEntryPoint: o(
+                          "WAWebWamEnumMessageActionEntryPoint",
+                        ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
                       }));
                   },
                 })
@@ -184,6 +209,15 @@ __d(
                   buttonClickedType: o(
                     "WAWebWamEnumQbmMessageClickButtonClickedType",
                   ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.BODY_URL,
+                }),
+                o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+                  msg: n,
+                  chat: t,
+                  messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                    .MESSAGE_LEVEL_ACTION.LINK_CLICK,
+                  messageActionEntryPoint: o(
+                    "WAWebWamEnumMessageActionEntryPoint",
+                  ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
                 }));
           }
         })),

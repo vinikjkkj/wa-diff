@@ -38,28 +38,33 @@ __d(
           r = t.lwiFlowId,
           a = t.userHasLinkedFbPage,
           i = t.waCampaignId,
-          l = new (o("WAWebLwiEntryTapWamEvent").LwiEntryTapWamEvent)({
+          l = t.webFlowType,
+          s = new (o("WAWebLwiEntryTapWamEvent").LwiEntryTapWamEvent)({
             lwiEntryPoint: e,
             lwiFlowId: r,
             userHasLinkedFbPage: a,
             waCampaignId: i,
           });
-        (n != null && (l.lwiExtras = n), l.commit());
+        (l != null && (s.webFlowType = l),
+          n != null && (s.lwiExtras = n),
+          s.commit());
       },
       m = function (t) {
         var e = t.lwiEntryPoint,
           n = t.userHasLinkedFbPage,
-          r = t.waCampaignId;
+          r = t.waCampaignId,
+          a = t.webFlowType;
         o("WAWebUserPrefsCTWA").resetAdCreationSequenceNumber();
-        var a = o("WAWebUserPrefsCTWA").generateAdCreationFlowId();
+        var i = o("WAWebUserPrefsCTWA").generateAdCreationFlowId();
         return (
           d({
             lwiEntryPoint: e,
-            lwiFlowId: a,
+            lwiFlowId: i,
             userHasLinkedFbPage: n,
             waCampaignId: r,
+            webFlowType: a,
           }),
-          a
+          i
         );
       },
       p = function (t, n, r) {

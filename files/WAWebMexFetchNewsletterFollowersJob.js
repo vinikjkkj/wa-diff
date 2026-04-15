@@ -51,30 +51,43 @@ __d(
               followers:
                 (a = r("compactMap")(c, function (e) {
                   var t,
-                    n = e.follow_time,
-                    r = e.node,
-                    a = e.role,
-                    i = r.id,
-                    l = r.pn;
-                  if (i == null) return null;
-                  var s =
-                    l != null ? o("WAWebWidFactory").createWid(l) : void 0;
+                    n,
+                    r,
+                    a = e.admin_profile,
+                    i = e.follow_time,
+                    l = e.node,
+                    s = e.role,
+                    u = l.id,
+                    c = l.pn;
+                  if (u == null) return null;
+                  var d =
+                    c != null ? o("WAWebWidFactory").createWid(c) : void 0;
                   return {
-                    displayName: r.display_name,
-                    id: o("WAWebWidFactory").createWid(i),
-                    role: o("WAWebMexNewsletterUtils").mapRoleToMembership(a),
-                    phoneNumber: s,
+                    displayName: l.display_name,
+                    id: o("WAWebWidFactory").createWid(u),
+                    role: o("WAWebMexNewsletterUtils").mapRoleToMembership(s),
+                    phoneNumber: d,
                     followTime:
-                      n != null
+                      i != null
                         ? o("WATimeUtils").castToUnixTime(
-                            Number.parseInt(n, 10),
+                            Number.parseInt(i, 10),
                           )
                         : null,
                     username: p
-                      ? (t = r.username_info) == null
+                      ? (t = l.username_info) == null
                         ? void 0
                         : t.username
                       : void 0,
+                    adminProfile:
+                      a != null && a.name != null
+                        ? {
+                            id: a.id,
+                            name: a.name,
+                            pictureDirectPath:
+                              (n = a.picture) == null ? void 0 : n.direct_path,
+                            pictureId: (r = a.picture) == null ? void 0 : r.id,
+                          }
+                        : null,
                   };
                 })) != null
                   ? a

@@ -117,7 +117,11 @@ __d(
             (v != null && (L = babelHelpers.extends({}, L, v)),
               S != null && (L = babelHelpers.extends({}, L, S)),
               R != null && (L = babelHelpers.extends({}, L, R)));
-            var E =
+            var E = yield o("WAWebBackendApi").frontendSendAndReceive(
+              "consumeAVSyncMetrics",
+            );
+            E != null && (L = babelHelpers.extends({}, L, E));
+            var k =
               yield o("WAWebBackendApi").frontendSendAndReceive(
                 "consumeAnrCount",
               );
@@ -127,21 +131,21 @@ __d(
                   "voip: ANR count for this call: ",
                   "",
                 ])),
-              E != null ? E : 0,
+              k != null ? k : 0,
             );
-            var k = null,
-              I = null,
+            var I = null,
               T = null,
               D = null,
-              x = null;
-            if (E != null && E > 0) {
-              var $ = yield o("WAWebBackendApi").frontendSendAndReceive(
+              x = null,
+              $ = null;
+            if (k != null && k > 0) {
+              var P = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "consumeActivityData",
               );
-              $ != null &&
-                ((k = $.lastVoipActivity),
-                (I = $.lastVoipActivityTimestampSec),
-                (T = $.timeFirstAnrSinceCallStartSec),
+              P != null &&
+                ((I = P.lastVoipActivity),
+                (T = P.lastVoipActivityTimestampSec),
+                (D = P.timeFirstAnrSinceCallStartSec),
                 o("WALogger").LOG(
                   p ||
                     (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -150,16 +154,16 @@ __d(
                       "s firstAnrT=",
                       "s",
                     ])),
-                  k != null ? k : "none",
                   I != null ? I : "none",
                   T != null ? T : "none",
+                  D != null ? D : "none",
                 ));
-              var P = yield o("WAWebBackendApi").frontendSendAndReceive(
+              var N = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "consumeUiActivityData",
               );
-              P != null &&
-                ((D = P.lastVoipUiActivity),
-                (x = P.lastVoipUiActivityTimestampSec),
+              N != null &&
+                ((x = N.lastVoipUiActivity),
+                ($ = N.lastVoipUiActivityTimestampSec),
                 o("WALogger").LOG(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -167,29 +171,29 @@ __d(
                       " uiActT=",
                       "s",
                     ])),
-                  D != null ? D : "none",
                   x != null ? x : "none",
+                  $ != null ? $ : "none",
                 ));
             } else
               o("WAWebBackendApi").frontendFireAndForget(
                 "clearAllActivityTracking",
                 {},
               );
-            var N;
+            var M;
             if (
               a.eventType ===
               o("WAWebVoipJsonParserPayloads").FieldstatsPayloadType.Call
             ) {
-              var M = new (o("WAWebCallWamEvent").CallWamEvent)(L),
-                w = {};
-              (E != null && (w.numAnrs = E),
-                k != null && (w.lastVoipActivity = k),
-                I != null && (w.lastVoipActivityTimestampSec = I),
-                T != null && (w.timeFirstAnrSinceCallStartSec = T),
-                D != null && (w.lastVoipUiActivity = D),
-                x != null && (w.lastVoipUiActivityTimestampSec = x),
-                r("isEmptyObject")(w) ||
-                  (M.set(w),
+              var w = new (o("WAWebCallWamEvent").CallWamEvent)(L),
+                A = {};
+              (k != null && (A.numAnrs = k),
+                I != null && (A.lastVoipActivity = I),
+                T != null && (A.lastVoipActivityTimestampSec = T),
+                D != null && (A.timeFirstAnrSinceCallStartSec = D),
+                x != null && (A.lastVoipUiActivity = x),
+                $ != null && (A.lastVoipUiActivityTimestampSec = $),
+                r("isEmptyObject")(A) ||
+                  (w.set(A),
                   o("WALogger").LOG(
                     f ||
                       (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -201,16 +205,16 @@ __d(
                         " uiActT=",
                         "s",
                       ])),
-                    E != null ? E : "null",
                     k != null ? k : "null",
                     I != null ? I : "null",
                     T != null ? T : "null",
                     D != null ? D : "null",
                     x != null ? x : "null",
+                    $ != null ? $ : "null",
                   )),
-                (N = M));
-            } else N = b(L);
-            (a.uploadInRealtime ? yield N.commitAndWaitForFlush() : N.commit(),
+                (M = w));
+            } else M = b(L);
+            (a.uploadInRealtime ? yield M.commitAndWaitForFlush() : M.commit(),
               o("WALogger").LOG(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([

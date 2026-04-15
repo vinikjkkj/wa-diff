@@ -156,6 +156,22 @@ __d(
               threadId: t,
             });
           }),
+          (a.logThreadPin = function (t, n) {
+            this.log({
+              threadActionType: o("WAWebWamEnumThreadActionTypes")
+                .THREAD_ACTION_TYPES.PIN,
+              threadCreationTs: n == null ? void 0 : n.toString(),
+              threadId: t,
+            });
+          }),
+          (a.logThreadUnpin = function (t, n) {
+            this.log({
+              threadActionType: o("WAWebWamEnumThreadActionTypes")
+                .THREAD_ACTION_TYPES.UNPIN,
+              threadCreationTs: n == null ? void 0 : n.toString(),
+              threadId: t,
+            });
+          }),
           (a.logThreadDelete = function (t, r) {
             var e = this;
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

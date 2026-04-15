@@ -9,19 +9,25 @@ __d(
     "WAWebSecurityDrawerSection.react",
     "WAWebTextWithLearnMoreLink",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c() {
-      var e = d();
-      return u.jsx(r("WAWebSecurityDrawerSection.react"), {
-        header: e.header,
-        text: e.text,
-        onClick: e.onClick,
-      });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      if (e[0] === Symbol.for("react.memo_cache_sentinel")) {
+        var n = d();
+        ((t = u.jsx(r("WAWebSecurityDrawerSection.react"), {
+          header: n.header,
+          text: n.text,
+          onClick: n.onClick,
+        })),
+          (e[0] = t));
+      } else t = e[0];
+      return t;
     }
-    c.displayName = c.name + " [from " + i.id + "]";
     function d() {
       var e = function () {
           o("WAWebOpenSystemMessageModal").openSystemMessageModal(

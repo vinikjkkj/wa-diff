@@ -39,11 +39,21 @@ __d(
                     n = t.map(function (e) {
                       return e.id.toString();
                     });
-                  return (
-                    o(
-                      "WAWebCheckUpdateOrphanReactions",
-                    ).checkUpdateForOrphanReactions(n),
-                    o("WAWebSyncdOrphanFactory").checkOrphanMutations(n, e)
+                  o(
+                    "WAWebCheckUpdateOrphanReactions",
+                  ).checkUpdateForOrphanReactions(n);
+                  var r = _.flatMap(function (e) {
+                    var t;
+                    return ((t = e.threadIds) != null ? t : []).map(
+                      function (e) {
+                        return e.toString();
+                      },
+                    );
+                  });
+                  return o("WAWebSyncdOrphanFactory").checkOrphanMutations(
+                    n,
+                    e,
+                    r,
                   );
                 })
                 .then(function () {

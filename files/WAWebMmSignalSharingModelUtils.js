@@ -56,17 +56,32 @@ __d(
         ).isMmSignalSharingReplacingShimmedLinksEnabled()
       ) {
         var l,
-          u = (l = S(i, t)) != null ? l : {},
-          c = u.originalUrl;
-        return c != null ? c : r;
+          u,
+          c = (l = S(i, t)) != null ? l : {},
+          d = c.consentedUrl,
+          m = c.originalUrl,
+          p = c.unconsentedUrl;
+        if (a) {
+          var _, f, g;
+          if (
+            o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
+            (_ = n.contact) != null &&
+            _.isContactBlocked
+          ) {
+            var h;
+            return (h = p != null ? p : m) != null ? h : r;
+          }
+          return (f = (g = d != null ? d : p) != null ? g : m) != null ? f : r;
+        }
+        return (u = p != null ? p : m) != null ? u : r;
       }
       if (s(n, i) && a) {
-        var d,
-          m = (d = S(i, t)) != null ? d : {},
-          p = m.consentedUrl,
-          _ = m.originalUrl,
-          f = m.unconsentedUrl;
-        return b(n, p, f, _, r);
+        var y,
+          C = (y = S(i, t)) != null ? y : {},
+          v = C.consentedUrl,
+          R = C.originalUrl,
+          L = C.unconsentedUrl;
+        return b(n, v, L, R, r);
       }
       return r;
     }
@@ -95,27 +110,50 @@ __d(
           : []) {
           var u,
             c,
-            d = l.originalUrl;
-          if (v(d) === v(n)) return { link: d != null ? d : n, index: i };
+            d = l.consentedUsersUrl,
+            m = l.originalUrl,
+            p = l.unconsentedUsersUrl;
+          if (v(m) === v(n)) {
+            var _ = void 0;
+            if (r) {
+              var f;
+              if (
+                o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
+                (f = t.contact) != null &&
+                f.isContactBlocked
+              ) {
+                var g;
+                _ = (g = p != null ? p : m) != null ? g : n;
+              } else {
+                var h, y;
+                _ =
+                  (h = (y = d != null ? d : p) != null ? y : m) != null ? h : n;
+              }
+            } else {
+              var C;
+              _ = (C = p != null ? p : m) != null ? C : n;
+            }
+            return { link: _, index: i };
+          }
           i++;
         }
         return { link: n, index: void 0 };
       }
       if (s(t, a) && r) {
-        var m = 0;
-        for (var p of (_ =
-          (f = a.mmSignalSharing) == null
+        var S = 0;
+        for (var R of (L =
+          (E = a.mmSignalSharing) == null
             ? void 0
-            : f.urlTrackingMapElements) != null
-          ? _
+            : E.urlTrackingMapElements) != null
+          ? L
           : []) {
-          var _,
-            f,
-            g = p.consentedUsersUrl,
-            h = p.originalUrl,
-            y = p.unconsentedUsersUrl;
-          if (v(h) === v(n)) return { link: b(t, g, y, h, n), index: m };
-          m++;
+          var L,
+            E,
+            k = R.consentedUsersUrl,
+            I = R.originalUrl,
+            T = R.unconsentedUsersUrl;
+          if (v(I) === v(n)) return { link: b(t, k, T, I, n), index: S };
+          S++;
         }
       }
       return { link: n, index: void 0 };

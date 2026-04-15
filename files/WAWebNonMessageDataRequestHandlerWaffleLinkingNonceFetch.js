@@ -9,15 +9,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      u,
+      c = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       );
-    function c(e) {
-      return d.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = 0,
             r = 0;
           for (var a of t) {
@@ -27,19 +28,27 @@ __d(
               continue;
             }
             var l = i.nonce,
-              c = i.waEntFbid;
-            if (l == null || c == null) {
+              d = i.waEntFbid;
+            if (l == null || d == null) {
               r++;
               continue;
             }
-            (yield u.updateAccountLinkingData(l, c),
+            (o("WALogger")
+              .LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WAFFLE-TRACE] nonce fetch response received, calling refreshAccessToken",
+                  ])),
+              )
+              .sendLogs("waffle-nonce-trace-response", { sampling: 1 }),
+              yield c.updateAccountLinkingData(l, d),
               yield o("WAWebAccountLinkingAPI").refreshAccessToken(),
               yield o("WAWebAccountLinkingAPI").fetchServiceData());
           }
           (n > 0 &&
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[rdu] waffle nonce fetch: ",
                   " null responses",
                 ])),
@@ -47,18 +56,18 @@ __d(
             ),
             r > 0 &&
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[rdu] waffle nonce fetch: ",
                     " null nonce/waEntFbid",
                   ])),
                 r,
               ));
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.handleWaffleLinkingNonceFetchOperationRequestResponse = c;
+    l.handleWaffleLinkingNonceFetchOperationRequestResponse = d;
   },
   98,
 );

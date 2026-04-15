@@ -26,13 +26,26 @@ __d(
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
-        extraAttributes: { error_type: n, save_result: "failure" },
+        extraAttributes: babelHelpers.extends({ save_result: "success" }, n),
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT_SUCCESS,
+      });
+    }
+    function c(e, t, n, r) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        entryPoint: t,
+        extraAttributes: babelHelpers.extends(
+          { error_type: n, save_result: "failure" },
+          r,
+        ),
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT_FAILED,
       });
     }
-    function c(e, t) {
+    function d(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -41,7 +54,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_DISMISS,
       });
     }
-    function d(e, t, n) {
+    function m(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -52,9 +65,10 @@ __d(
     }
     ((l.tosNuxViewed = e),
       (l.tosNuxAcceptClicked = s),
-      (l.tosNuxAcceptFailed = u),
-      (l.tosNuxDismissClicked = c),
-      (l.tosNuxLinkClicked = d));
+      (l.tosNuxAcceptSuccess = u),
+      (l.tosNuxAcceptFailed = c),
+      (l.tosNuxDismissClicked = d),
+      (l.tosNuxLinkClicked = m));
   },
   98,
 );

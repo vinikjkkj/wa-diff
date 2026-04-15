@@ -521,9 +521,23 @@ __d(
                 .INVALID_POLL_EDIT_STANZA,
             );
         }
+        if (o("WAWebHandleMsgMetaUtils").isMemberTagMsgMeta(a)) {
+          var x =
+              s.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
+              s.futureproofType === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+              s.futureproofSubtype === "member_label",
+            N =
+              s.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+              s.subtype === "member_label";
+          if (!x && !N)
+            throw new (o("WAWebHandleMsgError").MessageProtobufMismatchError)(
+              o("WAWebHandleMsgError").MessageProtobufMismatchErrorCode
+                .INVALID_MEMBER_TAG_STANZA,
+            );
+        }
         if (r("gkx")("26259")) {
-          var x = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(i);
-          x !== (a == null ? void 0 : a.type) &&
+          var M = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(i);
+          M !== (a == null ? void 0 : a.type) &&
             o("WALogger")
               .ERROR(
                 f ||
@@ -534,7 +548,7 @@ __d(
                     "",
                   ])),
                 a == null ? void 0 : a.type,
-                x,
+                M,
                 s.type,
               )
               .tags("messaging")

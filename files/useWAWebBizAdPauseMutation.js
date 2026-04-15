@@ -8,6 +8,7 @@ __d(
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdPauseMutation.graphql",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,17 +34,19 @@ __d(
       });
     }
     function f() {
-      var e = o("CometRelay").useMutation(m),
-        t = e[0],
-        a = e[1],
-        i = o("CometRelay").useRelayEnvironment(),
-        l = c(
-          (function () {
+      var e = o("react-compiler-runtime").c(6),
+        t = o("CometRelay").useMutation(m),
+        a = t[0],
+        i = t[1],
+        l = o("CometRelay").useRelayEnvironment(),
+        u;
+      e[0] !== a || e[1] !== l
+        ? ((u = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var a = function () {
-                    return new (s || (s = n("Promise")))(function (n) {
-                      t({
+                var t = function () {
+                    return new (s || (s = n("Promise")))(function (t) {
+                      a({
                         variables: { boostID: e },
                         optimisticUpdater: function (n) {
                           var t = n.get(e);
@@ -56,56 +59,65 @@ __d(
                               );
                           }
                         },
-                        onCompleted: function (t, o) {
+                        onCompleted: function (n, o) {
                           var e;
                           if (o != null && o.length > 0) {
                             (r("FBLogger")("wa_ctwa_web").warn(
                               "Ad pause mutation server error: " + o[0].message,
                             ),
-                              n({ success: !1, error: "mutation_failed" }));
+                              t({ success: !1, error: "mutation_failed" }));
                             return;
                           }
-                          (t == null ||
-                          (e = t.wa_pause_boosted_component) == null
+                          (n == null ||
+                          (e = n.wa_pause_boosted_component) == null
                             ? void 0
                             : e.id) != null
-                            ? n({ success: !0 })
+                            ? t({ success: !0 })
                             : (r("FBLogger")("wa_ctwa_web").warn(
                                 "Ad pause mutation returned null response",
                               ),
-                              n({ success: !1, error: "mutation_failed" }));
+                              t({ success: !1, error: "mutation_failed" }));
                         },
-                        onError: function (t) {
+                        onError: function (n) {
                           (r("FBLogger")("wa_ctwa_web")
-                            .catching(r("getErrorSafe")(t))
+                            .catching(r("getErrorSafe")(n))
                             .warn("Ad pause mutation network error"),
-                            n({ success: !1, error: "mutation_failed" }));
+                            t({ success: !1, error: "mutation_failed" }));
                         },
                       });
                     });
                   },
-                  l = yield a();
-                if (l.success) return (_(i, e), l);
+                  i = yield t();
+                if (i.success) return (_(l, e), i);
                 (r("FBLogger")("wa_ctwa_web").warn(
                   "Ad pause mutation failed on first attempt, retrying in useWAWebBizAdPauseMutation",
                 ),
                   yield p(d));
-                var u = yield a();
+                var u = yield t();
                 return u.success
-                  ? (_(i, e), u)
+                  ? (_(l, e), u)
                   : (r("FBLogger")("wa_ctwa_web").mustfix(
                       "Ad pause mutation failed in useWAWebBizAdPauseMutation after 2 attempts",
                     ),
                     u);
               },
             );
-            return function (t) {
+            return function (n) {
               return e.apply(this, arguments);
             };
-          })(),
-          [t, i],
-        );
-      return [l, a];
+          })()),
+          (e[0] = a),
+          (e[1] = l),
+          (e[2] = u))
+        : (u = e[2]);
+      var c = u,
+        f;
+      return (
+        e[3] !== i || e[4] !== c
+          ? ((f = [c, i]), (e[3] = i), (e[4] = c), (e[5] = f))
+          : (f = e[5]),
+        f
+      );
     }
     l.default = f;
   },

@@ -1,6 +1,6 @@
 __d(
   "WAWebUseChatTheme",
-  ["JSResourceForInteraction", "react"],
+  ["JSResourceForInteraction", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -11,37 +11,51 @@ __d(
         "WAWebUseChatTheme",
       );
     function m(e) {
-      e === void 0 && (e = { isChatThemeEnabled: !1 });
-      var t = e,
-        n = t.isChatThemeEnabled,
-        r = c(null),
-        o = r[0],
-        a = r[1];
+      var t = o("react-compiler-runtime").c(5),
+        n;
+      t[0] !== e
+        ? ((n = e === void 0 ? { isChatThemeEnabled: !1 } : e),
+          (t[0] = e),
+          (t[1] = n))
+        : (n = t[1]);
+      var r = n,
+        a = r.isChatThemeEnabled,
+        i = c(null),
+        l = i[0],
+        s = i[1],
+        m,
+        p;
       return (
-        u(
-          function () {
-            if (n === !0) {
-              var e = !1;
-              return (
-                d.load().then(function (t) {
-                  e ||
-                    a({
-                      Theme: t.Theme,
-                      getAllColorSchemes: t.getAllColorSchemes,
-                      getBaseTheme: t.getBaseTheme,
-                      getChatTheme: t.getChatTheme,
-                      getColorSchemeName: t.getColorSchemeName,
-                    });
-                }),
-                function () {
-                  e = !0;
-                }
-              );
-            }
-          },
-          [n],
-        ),
-        n === !0 ? o : null
+        t[2] !== a
+          ? ((m = function () {
+              if (a === !0) {
+                var e = !1;
+                return (
+                  d.load().then(function (t) {
+                    e ||
+                      s({
+                        Theme: t.Theme,
+                        getAllColorSchemes: t.getAllColorSchemes,
+                        getAllThemes: t.getAllThemes,
+                        getBaseTheme: t.getBaseTheme,
+                        getBubbleTheme: t.getBubbleTheme,
+                        getChatTheme: t.getChatTheme,
+                        getColorSchemeName: t.getColorSchemeName,
+                      });
+                  }),
+                  function () {
+                    e = !0;
+                  }
+                );
+              }
+            }),
+            (p = [a]),
+            (t[2] = a),
+            (t[3] = m),
+            (t[4] = p))
+          : ((m = t[3]), (p = t[4])),
+        u(m, p),
+        a === !0 ? l : null
       );
     }
     l.useLazyChatThemeDefinitions = m;

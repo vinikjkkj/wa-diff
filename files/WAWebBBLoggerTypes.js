@@ -122,6 +122,7 @@ __d(
           "suggested_audience_cards_impression",
         TOS_NUX_ACCEPT: "tos_nux_accept",
         TOS_NUX_ACCEPT_FAILED: "tos_nux_accept_failed",
+        TOS_NUX_ACCEPT_SUCCESS: "tos_nux_accept_success",
         TOS_NUX_DISMISS: "tos_nux_dismiss",
         TOS_NUX_LINK: "tos_nux_link",
         TOS_NUX_MODAL: "tos_nux_modal",

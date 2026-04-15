@@ -14,7 +14,6 @@ __d(
     "WAWebBotTosIds",
     "WAWebBotUtils",
     "WAWebModalManager",
-    "WAWebNoop",
     "WAWebPDFNModal.react",
     "WAWebToastManager",
     "WAWebTosGating",
@@ -101,33 +100,44 @@ __d(
                   ? a
                   : Number(s),
               y = o("WAWebBotTos").isNonBlockingBotNotice(Number(h));
-            if (u || y)
-              return C(String(h))
-                ? void 0
-                : (o("WAWebBotJourneyLogger").BotJourneyLogger.logTosView(
-                    o("WAWebBotLogging").getWamBotEntryPoint(i),
-                  ),
-                  new (e || (e = n("Promise")))(function (e, t) {
-                    o("WAWebModalManager").ModalManager.open(
-                      c.jsx(r("WAWebPDFNModal.react"), {
-                        pdfnId: Number(h),
-                        runIfTosAccepted: function () {
-                          e();
-                        },
-                        onCancel: y
-                          ? r("WAWebNoop")
-                          : function () {
-                              t(m);
-                            },
-                        verifyTosAccepted: o("WAWebBoolFunc").returnFalse,
-                        theme: o("WaWebPDFNCommonUtils").PdfnTheme.Meta,
-                        noticeType: y
-                          ? o("WaWebPDFNCommonUtils").PdfnNoticeType.NonBlocking
-                          : o("WaWebPDFNCommonUtils").PdfnNoticeType.Blocking,
-                        onAcceptError: y ? _ : void 0,
-                      }),
-                    );
-                  }));
+            if (u || y) {
+              if (C(String(h))) return;
+              var b = o("WAWebBotLogging").getWamBotEntryPoint(i);
+              return (
+                o("WAWebBotJourneyLogger").BotJourneyLogger.logTosView(b),
+                new (e || (e = n("Promise")))(function (e, t) {
+                  o("WAWebModalManager").ModalManager.open(
+                    c.jsx(r("WAWebPDFNModal.react"), {
+                      pdfnId: Number(h),
+                      runIfTosAccepted: function () {
+                        (o(
+                          "WAWebBotJourneyLogger",
+                        ).BotJourneyLogger.logTosAccept(b),
+                          e());
+                      },
+                      onCancel: y
+                        ? function () {
+                            o(
+                              "WAWebBotJourneyLogger",
+                            ).BotJourneyLogger.logTosAccept(b);
+                          }
+                        : function () {
+                            (o(
+                              "WAWebBotJourneyLogger",
+                            ).BotJourneyLogger.logTosDismiss(b),
+                              t(m));
+                          },
+                      verifyTosAccepted: o("WAWebBoolFunc").returnFalse,
+                      theme: o("WaWebPDFNCommonUtils").PdfnTheme.Meta,
+                      noticeType: y
+                        ? o("WaWebPDFNCommonUtils").PdfnNoticeType.NonBlocking
+                        : o("WaWebPDFNCommonUtils").PdfnNoticeType.Blocking,
+                      onAcceptError: y ? _ : void 0,
+                    }),
+                  );
+                })
+              );
+            }
             if (d.includes(i)) {
               if (!o("WAWebTosGating").shouldBlockByBotTos(l.contact)) return;
               if (o("WAWebBotTosIds").supportedTosNoticeIds.has(s)) {

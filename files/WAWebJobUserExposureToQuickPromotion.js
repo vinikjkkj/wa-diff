@@ -3,17 +3,14 @@ __d(
   [
     "WALogger",
     "WASmaxInAppCommsEventRPC",
-    "WAWebConsumerQuickPromotionActionMutation",
     "WAWebDefinePersistedJob",
-    "WAWebMobilePlatforms",
     "WAWebModelStorageUtils",
-    "WAWebQuickPromotionActionMutation",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(t) {
+    var e, s, u;
+    function c(t) {
       var r = t.experimentKey,
         a = t.exposureHoldout,
         i = t.id;
@@ -37,8 +34,7 @@ __d(
                     var t = e[0],
                       n = yield t.get(i);
                     if (n == null) return "not-found";
-                    if (a == null)
-                      return { type: "old-job", surfaceId: n.surfaceId };
+                    if (a == null) return "old-job";
                     var o = n.tracking,
                       l = o.lastLoggedExposure;
                     if (
@@ -53,10 +49,7 @@ __d(
                         exposureHoldout: a,
                       },
                     });
-                    return (
-                      yield t.merge(i, { tracking: s }),
-                      { type: "updated", surfaceId: n.surfaceId }
-                    );
+                    return (yield t.merge(i, { tracking: s }), "updated");
                   },
                 );
                 return function (t) {
@@ -65,7 +58,7 @@ __d(
               })(),
             )
             .then(function (e) {
-              return typeof e != "string" && e.type === "updated"
+              return e === "updated"
                 ? o("WAWebWorkerSafeBackendApi")
                     .workerSafeSendAndReceive("loadQuickPromotions", {
                       trigger: "user-action",
@@ -76,17 +69,16 @@ __d(
                 : e;
             });
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = t.experimentKey,
-            a = t.id,
-            i = t.ts;
-          if (typeof e == "string") {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.experimentKey,
+            r = t.id,
+            a = t.ts;
+          if (e !== "updated" && e !== "old-job") {
             o("WALogger").WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -97,62 +89,30 @@ __d(
             );
             return;
           }
-          var l;
-          try {
-            l = o("WAWebMobilePlatforms").isSMB()
-              ? yield o(
-                  "WAWebQuickPromotionActionMutation",
-                ).executeQuickPromotionActionMutation({
-                  event: "EXPOSURE",
-                  promotion_id: a,
-                  surface_nux_id: e.surfaceId,
-                  promotion_logging_data: r,
-                  client_time: i,
-                })
-              : yield o(
-                  "WAWebConsumerQuickPromotionActionMutation",
-                ).executeConsumerQuickPromotionActionMutation({
-                  event: "EXPOSURE",
-                  promotion_id: a,
-                  surface_nux_id: e.surfaceId,
-                  promotion_logging_data: r,
-                  client_time: i,
-                });
-          } catch (e) {
+          var i = yield o("WASmaxInAppCommsEventRPC").sendEventRPC({
+            eventType: "exposure",
+            eventPromotionId: r,
+            eventTimestampSec: a,
+            eventLogdata: n,
+          });
+          i.name !== "EventResponseSuccess" &&
+            (i.name,
             o("WALogger").ERROR(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "userExposureToQuickPromotion: unable to log through GraphQL",
+                  "userExposureToQuickPromotion: unable to log",
                 ])),
-            );
-          }
-          if (((n = l) == null ? void 0 : n.type) === "not-enabled") {
-            l.type;
-            var d = yield o("WASmaxInAppCommsEventRPC").sendEventRPC({
-              eventType: "exposure",
-              eventPromotionId: a,
-              eventTimestampSec: i,
-              eventLogdata: r,
-            });
-            d.name !== "EventResponseSuccess" &&
-              (d.name,
-              o("WALogger").ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "userExposureToQuickPromotion: unable to log",
-                  ])),
-              ));
-          }
+            ));
         })),
-        p.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    var _ = o("WAWebDefinePersistedJob")
+    var p = o("WAWebDefinePersistedJob")
       .defineWebPersistedJob()
-      .step("saveToDb", d)
-      .finalStep("reportToComms", m)
+      .step("saveToDb", c)
+      .finalStep("reportToComms", d)
       .end();
-    l.userExposureToQuickPromotion = _;
+    l.userExposureToQuickPromotion = p;
   },
   98,
 );

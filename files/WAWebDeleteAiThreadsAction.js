@@ -1,8 +1,10 @@
 __d(
   "WAWebDeleteAiThreadsAction",
   [
+    "Promise",
     "WALogger",
     "WAWebAiThreadDeleteSync",
+    "WAWebAiThreadPinSync",
     "WAWebChatCollection",
     "WAWebThreadBridgeApi",
     "WAWebThreadJourneyLogger",
@@ -12,13 +14,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d;
-    function m(e, t) {
-      return p.apply(this, arguments);
+    var e, s, u, c, d, m, p, _;
+    function f(e, t) {
+      return g.apply(this, arguments);
     }
-    function p() {
+    function g() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
           if (
             (o("WALogger").LOG(
               e ||
@@ -29,18 +31,24 @@ __d(
             !t.isBot())
           )
             throw r("err")("deleteAiThreadsAction: chatId must be a bot");
-          var a = o("WAWebChatCollection").ChatCollection.get(t),
-            i = n.map(function (e) {
+          var i = o("WAWebChatCollection").ChatCollection.get(t),
+            l = a.map(function (e) {
               var t;
-              return a == null ||
-                (t = a.aiThreads) == null ||
+              return i == null ||
+                (t = i.aiThreads) == null ||
                 (t = t.get(e)) == null
                 ? void 0
                 : t.creationTimestamp;
+            }),
+            f = a.filter(function (e) {
+              var t,
+                n = i == null || (t = i.aiThreads) == null ? void 0 : t.get(e),
+                r = n == null ? void 0 : n.pinThreadTimestamp;
+              return r != null && r > 0;
             });
           (o("WAWebThreadJourneyLogger").ThreadJourneyLogger.logThreadDelete(
-            n,
-            i,
+            a,
+            l,
           ),
             o("WALogger").LOG(
               s ||
@@ -48,36 +56,58 @@ __d(
                   "[deleteAiThreadsAction]: Delete from threads_metadata table",
                 ])),
             ));
-          var l = yield o("WAWebThreadMetadataBulkJob").bulkDeleteThreads(t, n);
+          var g = yield o("WAWebThreadMetadataBulkJob").bulkDeleteThreads(t, a);
+          if (f.length > 0) {
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[deleteAiThreadsAction]: Send companion unpin mutations",
+                ])),
+            );
+            try {
+              yield (_ || (_ = n("Promise"))).all(
+                f.map(function (e) {
+                  return r("WAWebAiThreadPinSync").sendMutation(e, !1);
+                }),
+              );
+            } catch (e) {
+              o("WALogger").WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[deleteAiThreadsAction] failed to send companion unpin mutations",
+                  ])),
+              );
+            }
+          }
           (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "[deleteAiThreadsAction]: Send delete mutations",
               ])),
           ),
-            yield r("WAWebAiThreadDeleteSync").sendMutation(n),
+            yield r("WAWebAiThreadDeleteSync").sendMutation(a),
             o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[deleteAiThreadsAction]: Delete model msgs by msgIds",
                 ])),
             ),
             o("WAWebThreadBridgeApi").ThreadBridgeApi.deleteChatAiThreads({
               chatId: t,
-              threadIds: n,
-              msgIds: l,
+              threadIds: a,
+              msgIds: g,
             }),
             o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "[deleteAiThreadsAction]: End",
                 ])),
             ));
         })),
-        p.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.deleteAiThreadsAction = m;
+    l.deleteAiThreadsAction = f;
   },
   98,
 );

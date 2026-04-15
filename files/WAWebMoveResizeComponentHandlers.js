@@ -154,13 +154,14 @@ __d(
         b = 0;
       if (
         (f !== 0 && y.deltaLeft === 0
-          ? f > 0
-            ? (C = window.innerWidth - _ - u.x)
-            : (C = u.x)
+          ? (y.deltaLeft,
+            window.innerWidth,
+            u.x,
+            f > 0 ? (C = window.innerWidth - _ - u.x) : (C = u.x))
           : (C = m.left + y.deltaLeft),
         g !== 0 && y.deltaBottom === 0)
       )
-        if (g > 0) {
+        if ((y.deltaBottom, window.innerHeight, u.y, g > 0)) {
           var v = s ? l : _ / t;
           b = window.innerHeight - v - u.y - i - 0.1;
         } else b = u.y + a;

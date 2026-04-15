@@ -14,6 +14,7 @@ __d(
     "WAWebStaleBaseCollection",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "compactMap",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,42 +35,33 @@ __d(
             (e.findImpl = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
-                  var t,
-                    n,
-                    r = o("WAWebWidFactory").createWid(
+                  var t = o("WAWebWidFactory").createWid(
                       o("WAWebBaseModel").idTypeToString(e),
                     ),
-                    a = yield o(
+                    n = yield o(
                       "WAWebBroadcastDatabaseJob",
-                    ).getBroadcastMetadataJob(r);
-                  if (a == null)
+                    ).getBroadcastMetadataJob(t);
+                  if (n == null)
                     return {
                       audienceExpression: o("WAWebAudienceExpressionTypes")
                         .DEFAULT_AUDIENCE_EXPRESSION,
-                      id: r,
+                      id: t,
                       recipients: [],
                     };
-                  var i =
-                    (t =
-                      (n = a.recipients) == null
-                        ? void 0
-                        : n
-                            .map(function (e) {
-                              try {
-                                return {
-                                  id: o("WAWebWidFactory").createWid(e),
-                                };
-                              } catch (e) {
-                                return null;
-                              }
-                            })
-                            .filter(Boolean)) != null
-                      ? t
+                  var a =
+                    n.recipients != null
+                      ? r("compactMap")(n.recipients, function (e) {
+                          try {
+                            return { id: o("WAWebWidFactory").createWid(e) };
+                          } catch (e) {
+                            return null;
+                          }
+                        })
                       : [];
                   return {
-                    audienceExpression: a.audienceExpression,
-                    id: o("WAWebWidFactory").createWid(a.id),
-                    recipients: i,
+                    audienceExpression: n.audienceExpression,
+                    id: o("WAWebWidFactory").createWid(n.id),
+                    recipients: a,
                   };
                 },
               );

@@ -62,6 +62,7 @@ __d(
         AvatarUpdated: "avatar_updated_action",
         AiThreadRename: "ai_thread_rename",
         AiThreadDelete: "ai_thread_delete",
+        AiThreadPin: "thread_pin",
         VoipRelayAllCalls: "setting_relayAllCalls",
         CallLog: "call_log",
         WaffleAccountLinkState: "waffle_account_link_state",

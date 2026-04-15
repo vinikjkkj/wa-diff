@@ -15,6 +15,7 @@ __d(
     "WAWebWebTPSharedSessionUtils",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebCallbackOnce",
     "useWAWebStableCallback",
   ],
@@ -26,73 +27,92 @@ __d(
       m = c.useState;
     function p(t, a, i, l) {
       var u,
-        c = m(!1),
-        p = c[0],
-        _ = c[1],
-        f = m(!1),
-        g = f[0],
-        h = f[1],
-        y = m(null),
-        C = y[0],
-        b = y[1],
-        v = l.appConfigOverrides,
-        S = l.onCancel,
-        R = l.onError,
-        L = l.onReady,
-        E = l.onShareSuccess,
-        k = (u = r("useWAWebStableCallback"))(L),
-        I = u(E),
-        T = u(R),
-        D = u(S),
-        x = v == null ? void 0 : v.menuItemLabel,
-        $ = v == null ? void 0 : v.savedPreference,
-        P = v == null ? void 0 : v.showSavePreferenceCheckbox,
-        N = S != null,
-        M = $ != null ? $ : !1,
-        w = r("useWAWebCallbackOnce")(
+        c = o("react-compiler-runtime").c(23),
+        p = m(!1),
+        f = p[0],
+        g = p[1],
+        h = m(!1),
+        y = h[0],
+        C = h[1],
+        b = m(null),
+        v = b[0],
+        S = b[1],
+        R = l.appConfigOverrides,
+        L = l.onCancel,
+        E = l.onError,
+        k = l.onReady,
+        I = l.onShareSuccess,
+        T = (u = r("useWAWebStableCallback"))(k),
+        D = u(I),
+        x = u(E),
+        $ = u(L),
+        P = R == null ? void 0 : R.menuItemLabel,
+        N = R == null ? void 0 : R.savedPreference,
+        M = R == null ? void 0 : R.showSavePreferenceCheckbox,
+        w = L != null,
+        A = N != null ? N : !1,
+        F = r("useWAWebCallbackOnce")(
           o("WAWebTPExtensionDetection").detectBrowserExtension,
-        );
-      return (
-        d(
-          function () {
-            function e() {
-              return r.apply(this, arguments);
-            }
-            function r() {
-              return (
-                (r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    var e = yield o(
-                      "WAWebFileSaverDownloadData",
-                    ).getMultiMsgDownloadData(t);
-                    e.blob && b(e.blob);
-                  },
-                )),
-                r.apply(this, arguments)
-              );
-            }
-            e();
-          },
-          [t],
         ),
-        d(
-          function () {
+        O,
+        B;
+      (c[0] !== t
+        ? ((O = function () {
+            var e = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  var e = yield o(
+                    "WAWebFileSaverDownloadData",
+                  ).getMultiMsgDownloadData(t);
+                  e.blob && S(e.blob);
+                },
+              );
+              function r() {
+                return e.apply(this, arguments);
+              }
+              return r;
+            })();
+            e();
+          }),
+          (B = [t]),
+          (c[0] = t),
+          (c[1] = O),
+          (c[2] = B))
+        : ((O = c[1]), (B = c[2])),
+        d(O, B));
+      var W, q;
+      (c[3] !== v ||
+      c[4] !== P ||
+      c[5] !== N ||
+      c[6] !== M ||
+      c[7] !== F ||
+      c[8] !== w ||
+      c[9] !== i ||
+      c[10] !== a.filehash ||
+      c[11] !== a.filename ||
+      c[12] !== a.size ||
+      c[13] !== A ||
+      c[14] !== $ ||
+      c[15] !== x ||
+      c[16] !== T ||
+      c[17] !== D
+        ? ((W = function () {
             var t = i.current;
-            if (!t || (M && C == null)) return r("WAWebNoop");
+            if (!t || (A && v == null)) return r("WAWebNoop");
             (o("WAWebTPPdfViewerQpl").pdfViewerQpl.initialize("pdf_sharer"),
               o("WAWebTPPdfViewerQpl").pdfViewerQpl.sharerModalOpen(),
               o("WAWebTPLoggingUtils").logPdfSharerOpenEvent(
                 a.filehash,
                 a.size,
               ),
-              _(!0));
+              g(!0));
             var l = a.filename,
               u = new (o("WAWebTPPdfSharer").WAWebTPPdfSharer)(t),
               c =
                 o("WAWebTP3PConfig").get3PConfigFromMimeType("application/pdf"),
               d =
                 c != null
-                  ? w(c)
+                  ? F(c)
                   : (e || (e = n("Promise"))).resolve({
                       extensionDetected: !1,
                       extensionViewerUrl: null,
@@ -101,9 +121,9 @@ __d(
             d.then(function (e) {
               m = e.extensionDetected ? "extension" : "custom_app";
               var t = {};
-              (P != null && (t.showSavePreferenceCheckbox = P),
-                $ != null && (t.savedPreference = $),
-                x != null && (t.menuItemLabel = x));
+              (M != null && (t.showSavePreferenceCheckbox = M),
+                N != null && (t.savedPreference = N),
+                P != null && (t.menuItemLabel = P));
               var n = babelHelpers.extends(
                 {},
                 o("WAWebPdfViewerAppConfig").getWebTPAppConfig(),
@@ -113,7 +133,7 @@ __d(
               return u.publishAppConfig(n);
             })
               .then(function () {
-                (o("WAWebTPPdfViewerQpl").pdfViewerQpl.sharerAppReady(), k(u));
+                (o("WAWebTPPdfViewerQpl").pdfViewerQpl.sharerAppReady(), T(u));
               })
               .catch(function () {
                 (o("WAWebTPLoggingUtils").logPdfSharerErrorEvent(
@@ -124,23 +144,21 @@ __d(
                 ),
                   o("WAWebTPPdfViewerQpl").pdfViewerQpl.sharerError(),
                   u.destroy(),
-                  h(!0),
-                  T());
+                  C(!0),
+                  x());
               })
               .finally(function () {
                 window.setTimeout(function () {
-                  _(!1);
+                  g(!1);
                 }, 200);
               });
-            var p = u.listenForCheckboxToggle(function () {
-              o("WAWebTPLoggingUtils").logPdfSharerAutoProceedCheckboxEvent();
-            });
+            var p = u.listenForCheckboxToggle(_);
             return (
-              N &&
+              w &&
                 u.listenForCancel().then(function () {
                   (o("WAWebTPLoggingUtils").logPdfSharerCancelEvent(a.filehash),
                     o("WAWebTPPdfViewerQpl").pdfViewerQpl.sharerUserCancel(),
-                    D());
+                    $());
                 }),
               u.listenForError().then(function () {
                 (o("WAWebTPLoggingUtils").logPdfSharerErrorEvent(
@@ -150,15 +168,15 @@ __d(
                   m,
                 ),
                   o("WAWebTPPdfViewerQpl").pdfViewerQpl.sharerError(),
-                  h(!0),
-                  _(!1),
-                  T());
+                  C(!0),
+                  g(!1),
+                  x());
               }),
               u
                 .listenForGetPDf()
                 .then(
                   n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    if (!C) {
+                    if (!v) {
                       o("WAWebTPLoggingUtils").logPdfSharerErrorEvent(
                         "blob_null_at_share",
                         "PDF blob was null when user attempted to share",
@@ -167,7 +185,7 @@ __d(
                       );
                       return;
                     }
-                    (M &&
+                    (A &&
                       o(
                         "WAWebTPLoggingUtils",
                       ).logPdfSharerContinueAutoProceedEvent(m),
@@ -182,7 +200,7 @@ __d(
                       o(
                         "WAWebTPPdfViewerQpl",
                       ).pdfViewerQpl.sharerGetPdfStart());
-                    var e = yield C.arrayBuffer(),
+                    var e = yield v.arrayBuffer(),
                       t = yield o("WAWebTPSessionUtils").createSessionId(e);
                     (o("WAWebTPPdfViewerQpl").pdfViewerQpl.sharerGetPdfEnd(),
                       yield o(
@@ -204,7 +222,7 @@ __d(
                       m,
                     ),
                       o("WAWebTPPdfViewerQpl").pdfViewerQpl.sharerSuccess(),
-                      I(n));
+                      D(n));
                   }),
                 )
                 .catch(function (e) {
@@ -217,18 +235,63 @@ __d(
                     m,
                   ),
                     o("WAWebTPPdfViewerQpl").pdfViewerQpl.sharerError(),
-                    h(!0),
-                    T());
+                    C(!0),
+                    x());
                 }),
               function () {
                 (p(), u.destroy());
               }
             );
-          },
-          [C, x, $, P, w, N, i, a.filehash, a.filename, a.size, D, T, k, I, M],
-        ),
-        { hasError: g, loading: p }
+          }),
+          (q = [
+            v,
+            P,
+            N,
+            M,
+            F,
+            w,
+            i,
+            a.filehash,
+            a.filename,
+            a.size,
+            $,
+            x,
+            T,
+            D,
+            A,
+          ]),
+          (c[3] = v),
+          (c[4] = P),
+          (c[5] = N),
+          (c[6] = M),
+          (c[7] = F),
+          (c[8] = w),
+          (c[9] = i),
+          (c[10] = a.filehash),
+          (c[11] = a.filename),
+          (c[12] = a.size),
+          (c[13] = A),
+          (c[14] = $),
+          (c[15] = x),
+          (c[16] = T),
+          (c[17] = D),
+          (c[18] = W),
+          (c[19] = q))
+        : ((W = c[18]), (q = c[19])),
+        d(W, q));
+      var U;
+      return (
+        c[20] !== y || c[21] !== f
+          ? ((U = { hasError: y, loading: f }),
+            (c[20] = y),
+            (c[21] = f),
+            (c[22] = U))
+          : (U = c[22]),
+        U
       );
+    }
+    function _() {
+      o("WAWebTPLoggingUtils").logPdfSharerAutoProceedCheckboxEvent();
     }
     l.default = p;
   },

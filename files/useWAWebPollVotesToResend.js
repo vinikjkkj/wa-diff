@@ -7,6 +7,7 @@ __d(
     "WAWebNewsletterPollVotesModel",
     "WAWebPollsPollVoteModel",
     "WAWebPollsUseMyVote",
+    "react-compiler-runtime",
     "useWAWebNewsletterPollVotesValues",
     "useWAWebPollVoteValues",
   ],
@@ -15,35 +16,51 @@ __d(
       var t,
         n,
         r,
-        a =
-          e != null ? o("WAWebFrontendMsgGetters").getAsPollCreation(e) : null,
-        i = o("WAWebPollsUseMyVote").useMyVote({
-          pollCreationMsg: a,
-          includeUnvote: !0,
-        }),
-        l = i instanceof o("WAWebPollsPollVoteModel").PollVote ? i : null,
-        s =
-          i instanceof o("WAWebNewsletterPollVotesModel").NewsletterPollVotes
-            ? i
+        a = o("react-compiler-runtime").c(7),
+        i;
+      a[0] !== e
+        ? ((i =
+            e != null
+              ? o("WAWebFrontendMsgGetters").getAsPollCreation(e)
+              : null),
+          (a[0] = e),
+          (a[1] = i))
+        : (i = a[1]);
+      var l = i,
+        s;
+      a[2] !== l
+        ? ((s = { pollCreationMsg: l, includeUnvote: !0 }),
+          (a[2] = l),
+          (a[3] = s))
+        : (s = a[3]);
+      var u = o("WAWebPollsUseMyVote").useMyVote(s),
+        c = u instanceof o("WAWebPollsPollVoteModel").PollVote ? u : null,
+        d =
+          u instanceof o("WAWebNewsletterPollVotesModel").NewsletterPollVotes
+            ? u
             : null,
-        u =
+        m =
           (t = o(
             "useWAWebNewsletterPollVotesValues",
-          ).useOptionalNewsletterPollVotesValues(s == null ? void 0 : s.id, [
+          ).useOptionalNewsletterPollVotesValues(d == null ? void 0 : d.id, [
             o("WAWebFrontendNewsletterPollVotesGetters").getIsFailed,
           ])) == null
             ? void 0
             : t[0],
-        c =
+        p =
           (n = o("useWAWebPollVoteValues").useOptionalPollVoteValues(
-            l == null ? void 0 : l.id,
+            c == null ? void 0 : c.id,
             [o("WAWebFrontendPollVoteGetters").getIsFailed],
           )) == null
             ? void 0
             : n[0],
-        d = (r = u != null ? u : c) != null ? r : !1,
-        m = d && i != null ? [i] : [];
-      return m;
+        _ = (r = m != null ? m : p) != null ? r : !1,
+        f;
+      a[4] !== u || a[5] !== _
+        ? ((f = _ && u != null ? [u] : []), (a[4] = u), (a[5] = _), (a[6] = f))
+        : (f = a[6]);
+      var g = f;
+      return g;
     }
     l.default = e;
   },

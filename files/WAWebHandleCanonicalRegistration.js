@@ -318,7 +318,7 @@ __d(
               o("WALogger").LOG(
                 b ||
                   (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "[canonical][reload] omit reload, token exchange did not succeed",
+                    "[canonical][reload] skip, token exchange failed",
                   ])),
               );
               return;
