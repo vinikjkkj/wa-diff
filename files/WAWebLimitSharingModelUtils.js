@@ -4,7 +4,7 @@ __d(
     "WAWebBackendApi",
     "WAWebContactSystemMsg",
     "WAWebDBUpdateChatTable",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebProtobufsProtocol.pb",
     "WAWebSchemaChat",
     "WAWebWidFactory",
@@ -111,7 +111,7 @@ __d(
             t,
           );
           return (
-            yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: e,
               newMsg: n,
               handleSingleMsgOrigin: "limitSharing",

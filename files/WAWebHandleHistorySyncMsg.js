@@ -9,7 +9,7 @@ __d(
     "WAWebCheckUpdateOrphanReactions",
     "WAWebDBProcessRecentAndFullHistorySyncMessage",
     "WAWebNoop",
-    "WAWebSyncdOrphanFactory",
+    "WAWebSyncdOrphanWorkerCompatible",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
   ],
@@ -50,11 +50,9 @@ __d(
                       },
                     );
                   });
-                  return o("WAWebSyncdOrphanFactory").checkOrphanMutations(
-                    n,
-                    e,
-                    r,
-                  );
+                  return o(
+                    "WAWebSyncdOrphanWorkerCompatible",
+                  ).checkOrphanMutations(n, e, r);
                 })
                 .then(function () {
                   return (u || (u = n("Promise"))).all(i).then(function (e) {

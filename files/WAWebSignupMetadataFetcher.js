@@ -1,6 +1,11 @@
 __d(
   "WAWebSignupMetadataFetcher",
-  ["WALogger", "WAWebSignupMetadataQuery", "asyncToGeneratorRuntime"],
+  [
+    "WALogger",
+    "WAWebSignupMetadataQuery",
+    "asyncToGeneratorRuntime",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e, t) {
@@ -10,36 +15,39 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
-            var r = yield o(
+            var a = yield o(
               "WAWebSignupMetadataQuery",
             ).fetchSignupMetadataGraphQL(t, n);
-            return r == null || r.id == null || r.signup_message == null
-              ? (o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[fetchSignupMetadata] null/incomplete resp id=",
-                      "",
-                    ])),
-                  t,
-                ),
+            return a == null || a.id == null || a.signup_message == null
+              ? (o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[signup:metadata] invalid response signupId=",
+                        "",
+                      ])),
+                    t,
+                  )
+                  .sendLogs("signup-metadata-invalid-response"),
                 null)
               : {
-                  signupId: r.id,
-                  signupMessage: r.signup_message,
-                  privacyPolicyUrl: r.privacy_policy_url,
+                  signupId: a.id,
+                  signupMessage: a.signup_message,
+                  privacyPolicyUrl: a.privacy_policy_url,
                 };
           } catch (e) {
             return (
-              o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[fetchSignupMetadata] GraphQL error for signupId=",
-                    ": ",
-                    "",
-                  ])),
-                t,
-                e,
-              ),
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[signup:metadata] fetch failed signupId=",
+                      "",
+                    ])),
+                  t,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("signup-metadata-fetch-failed"),
               null
             );
           }

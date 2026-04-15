@@ -32,7 +32,7 @@ __d(
     "WAWebStatusGatingUtils",
     "WAWebThreadsGating",
     "WAWebThreadsMetadataProtoUtils",
-    "WAWebUpdateMmSignalSharingExpirationWindowFactory",
+    "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWid",
     "isArrayNullOrEmpty",
@@ -371,7 +371,7 @@ __d(
             .sendLogs("Failed to parse Forwarded AI Bot Message Info.");
         }
       (o(
-        "WAWebUpdateMmSignalSharingExpirationWindowFactory",
+        "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
       ).updateMmSignalSharingExpirationWindow(e, t),
         t.statusAttributions != null &&
           t.statusAttributions.length > 0 &&

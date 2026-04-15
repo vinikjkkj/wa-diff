@@ -85,7 +85,7 @@ __d(
       );
     })(o("WAWebBaseNotification").WABaseNotification);
     function u() {
-      return s._(/*BTDS*/ "Whatsapp Business AI").toString();
+      return s._(/*BTDS*/ "WhatsApp Business AI").toString();
     }
     function c(e) {
       var t = o("WAWebFrontendContactGetters").getFormattedName(e.contact),

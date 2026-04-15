@@ -4,6 +4,7 @@ __d(
     "ErrorNormalizeUtils",
     "WATagsLogger",
     "WAWebABProps",
+    "WAWebCrashlog",
     "WAWebFBLogger",
     "WAWebLogLineSanitizer",
     "WAWebLoggerImpl",
@@ -19,38 +20,37 @@ __d(
     function s() {
       return !r("gkx")("26258") || r("gkx")("26259");
     }
-    var u;
-    function c() {
+    function u() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_console_log_level",
       );
       return e < 1 || e > 4 ? 1e3 : e;
     }
-    function d(e) {
+    function c(e) {
       return e === "ERROR" || e === "CATCHING"
         ? {
             level: 4,
-            consoleFunction: c() <= 4 ? console.error : r("WAWebNoop"),
+            consoleFunction: u() <= 4 ? console.error : r("WAWebNoop"),
           }
         : e === "WARN"
           ? {
               level: 3,
-              consoleFunction: c() <= 3 ? console.warn : r("WAWebNoop"),
+              consoleFunction: u() <= 3 ? console.warn : r("WAWebNoop"),
             }
           : e === "COUNT"
             ? {
                 level: 2,
-                consoleFunction: c() <= 2 ? console.count : r("WAWebNoop"),
+                consoleFunction: u() <= 2 ? console.count : r("WAWebNoop"),
               }
             : e === "LOG"
               ? {
                   level: 2,
-                  consoleFunction: c() <= 2 ? console.log : r("WAWebNoop"),
+                  consoleFunction: u() <= 2 ? console.log : r("WAWebNoop"),
                 }
               : e === "DEV_XMPP" || e === "DEV"
                 ? {
                     level: 1,
-                    consoleFunction: c() <= 1 ? console.info : r("WAWebNoop"),
+                    consoleFunction: u() <= 1 ? console.info : r("WAWebNoop"),
                   }
                 : (function () {
                     throw Error(
@@ -59,9 +59,9 @@ __d(
                     );
                   })();
     }
-    function m(t, n) {
+    function d(t, n) {
       for (
-        var r = d(t),
+        var r = c(t),
           o = arguments.length,
           a = new Array(o > 2 ? o - 2 : 0),
           i = 2;
@@ -85,20 +85,20 @@ __d(
           ? r.consoleFunction.apply(r, [u.format].concat(u.styles, a))
           : r.consoleFunction.apply(r, [n].concat(a));
       } else if (s === "context_after") {
-        var c = e.getContextStyle();
-        r.consoleFunction.apply(r, ["%c" + n, c].concat(a));
+        var d = e.getContextStyle();
+        r.consoleFunction.apply(r, ["%c" + n, d].concat(a));
       } else e.recordFilteredLog(t, n);
     }
-    function p(e) {
+    function m(e) {
       if (!r("gkx")("5943")) {
-        var t = d(e.level),
+        var t = c(e.level),
           n = o("WAWebLoggerImpl")
             .Logger.log(t.level)
             .apply(void 0, [e.template].concat(e.expressions));
-        s() && m(e.level, n);
+        s() && d(e.level, n);
       }
     }
-    function _(e, t, n) {
+    function p(e, t, n) {
       var r,
         a = e.expressions.find(function (e) {
           return e instanceof Error;
@@ -131,24 +131,24 @@ __d(
         );
       } else l.mustfix.apply(l, [s + " (" + t + ")"].concat(u));
     }
-    var f = {
+    var _ = {
       info: function (t, n, r) {
-        p(r);
+        m(r);
       },
       count: function (t, n, r) {
-        p(r);
+        m(r);
       },
       debug: function (t, n, r) {
-        s() && p(r);
+        s() && m(r);
       },
       logRestricted: function (t, n, r) {
-        s() && p(r);
+        s() && m(r);
       },
       error: function (t, n, r, o) {
-        p(o);
+        m(o);
       },
       warn: function (t, n, r) {
-        p(r);
+        m(r);
       },
       devConsole: function (t, n, o) {
         if (!r("gkx")("5943") && s()) {
@@ -158,59 +158,59 @@ __d(
             i++
           )
             a[i - 3] = arguments[i];
-          m.apply(void 0, [t, n + " devConsole:"].concat(a));
+          d.apply(void 0, [t, n + " devConsole:"].concat(a));
         }
       },
       sendLogs: function (t) {
-        var e, n, a, i, l, c;
+        var e, n, a, i, l, u;
         if (
           !((t.level === "DEV" || t.level === "DEV_XMPP") && r("gkx")("26258"))
         ) {
-          var p = d(t.level),
-            f = t.expressions.find(function (e) {
+          var m = c(t.level),
+            _ = t.expressions.find(function (e) {
               return e instanceof Error;
             }),
-            g = r("ErrorNormalizeUtils").normalizeError(
-              f != null ? f : r("err")("created for stack trace"),
+            f = r("ErrorNormalizeUtils").normalizeError(
+              _ != null ? _ : r("err")("created for stack trace"),
             ),
-            h = f ? [] : [o("WAWebLoggerImpl").STACK_TRACE_TAG],
-            y = o("WAWebLoggerImpl")
-              .Logger.log(p.level, t.verbose, g, !1, h)
+            g = _ ? [] : [o("WAWebLoggerImpl").STACK_TRACE_TAG],
+            h = o("WAWebLoggerImpl")
+              .Logger.log(m.level, t.verbose, f, !1, g)
               .apply(void 0, [t.template].concat(t.expressions));
-          s() && !r("gkx")("5943") && m(t.level, y);
-          var C = o("WAWebLoggerImpl")
-            .Logger.log(p.level, t.verbose, void 0, !0, t.tags)
+          s() && !r("gkx")("5943") && d(t.level, h);
+          var y = o("WAWebLoggerImpl")
+            .Logger.log(m.level, t.verbose, void 0, !0, t.tags)
             .apply(void 0, [t.template].concat(t.expressions));
-          s() && !r("gkx")("5943") && m(t.level, C);
-          var b =
+          s() && !r("gkx")("5943") && d(t.level, y);
+          var C =
               (e = (n = t.sendLogs) == null ? void 0 : n.reason) != null
                 ? e
                 : "www_sendlogs_undefined",
-            v = u(b, {
+            b = o("WAWebCrashlog").sendLogs(C, {
               sampling: (a = t.sendLogs) == null ? void 0 : a.sampling,
               tags: t.tags,
               sendLogsType: (i = t.sendLogs) == null ? void 0 : i.sendLogsType,
               separateEmployeeLog:
                 (l = t.sendLogs) == null ? void 0 : l.separateEmployeeLog,
               employeeSampling:
-                (c = t.sendLogs) == null ? void 0 : c.employeeSampling,
+                (u = t.sendLogs) == null ? void 0 : u.employeeSampling,
             });
-          (v.catch(function (e) {}),
+          (b.catch(function (e) {}),
             r("gkx")("16915") &&
-              v
+              b
                 .then(function (e) {
-                  _(t, b, e);
+                  p(t, C, e);
                 })
                 .catch(function () {
-                  _(t, b, null);
+                  p(t, C, null);
                 }));
         }
       },
     };
-    function g(e) {
-      ((u = e), o("WATagsLogger").initializeWaLogger(f));
+    function f() {
+      o("WATagsLogger").initializeWaLogger(_);
     }
-    l.initializeWAWebLogger = g;
+    l.initializeWAWebLogger = f;
   },
   98,
 );

@@ -37,12 +37,17 @@ __d(
       );
     }
     function p() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_qp_emergency_force_fetch_nonce",
+      );
+    }
+    function _() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("qp_campaign_client_enabled")
       );
     }
-    function _() {
+    function f() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -50,19 +55,19 @@ __d(
         )
       );
     }
-    function f() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_graphql_to_fetch_qp_frequency_mins",
       );
     }
-    function g() {
+    function h() {
       return o("WAWebMobilePlatforms").isSMB()
-        ? f()
+        ? g()
         : o("WAWebABProps").getABPropConfigValue(
             "consumer_web_qp_graphql_to_fetch_qp_frequency_mins",
           );
     }
-    function h() {
+    function y() {
       return (
         !o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -70,10 +75,10 @@ __d(
         )
       );
     }
-    function y() {
-      return o("WAWebMobilePlatforms").isSMB() ? _() : h();
+    function C() {
+      return o("WAWebMobilePlatforms").isSMB() ? f() : y();
     }
-    function C(t) {
+    function b(t) {
       var n = new Map(
           Array.from(
             o("WAWebCTWAConstants").KNOWN_QP_SURFACES.values(),
@@ -104,36 +109,37 @@ __d(
         r
       );
     }
-    function b() {
-      return C(
+    function v() {
+      return b(
         o("WAWebABProps").getABPropConfigValue(
           "smb_graphql_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function v() {
-      return C(
+    function S() {
+      return b(
         o("WAWebABProps").getABPropConfigValue(
           "consumer_graphql_web_to_fetch_qp_surface_ids",
         ),
       );
     }
-    function S() {
-      return o("WAWebMobilePlatforms").isSMB() ? b() : v();
+    function R() {
+      return o("WAWebMobilePlatforms").isSMB() ? v() : S();
     }
     ((l.groupsPrivacyTipsEnabled = u),
       (l.profilePrivacyTipsEnabled = c),
       (l.updatesTabQuickPromotionBannerEnabled = d),
       (l.getUpdatesTabPrivacyNoticeRolloutDate = m),
-      (l.qpCampaignsEnabledSMB = p),
-      (l.qpGraphQLEnabledSMB = _),
-      (l.qpGraphQLFetchIntervalMinutesSMB = f),
-      (l.qpGraphQLFetchIntervalMinutes = g),
-      (l.consumerQpGraphQLEnabled = h),
-      (l.qpGraphQLEnabled = y),
-      (l.qpSurfaceIdsUsingGraphQLSMB = b),
-      (l.qpSurfaceIdsUsingGraphQLConsumer = v),
-      (l.qpSurfaceIdsUsingGraphQL = S));
+      (l.qpEmergencyForceFetchNonce = p),
+      (l.qpCampaignsEnabledSMB = _),
+      (l.qpGraphQLEnabledSMB = f),
+      (l.qpGraphQLFetchIntervalMinutesSMB = g),
+      (l.qpGraphQLFetchIntervalMinutes = h),
+      (l.consumerQpGraphQLEnabled = y),
+      (l.qpGraphQLEnabled = C),
+      (l.qpSurfaceIdsUsingGraphQLSMB = v),
+      (l.qpSurfaceIdsUsingGraphQLConsumer = S),
+      (l.qpSurfaceIdsUsingGraphQL = R));
   },
   98,
 );

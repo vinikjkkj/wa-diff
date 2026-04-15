@@ -5,7 +5,7 @@ __d(
     "WAWebContactSystemMsg",
     "WAWebDBUpdateChatTable",
     "WAWebHandleMsgTypes.flow",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,7 +28,7 @@ __d(
               e.id,
               "ctwa_consumer_data_sharing_disclosure_system_message",
             );
-            (yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+            (yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: e.id,
               handleSingleMsgOrigin:
                 "hasCtwaConsumerDataSharingDisclosureNotification",

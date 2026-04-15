@@ -16,7 +16,7 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebHandleMsgValidate",
     "WAWebHandlePrivacyModeChange",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMaybeUpdateMessageThreadDetails",
     "WAWebMessageAssociation.flow",
     "WAWebMessagePostprocessRenderable",
@@ -288,7 +288,9 @@ __d(
                     return e.shouldShowSupportAISystemMessage === !0;
                   });
                   W === !0 &&
-                    (yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+                    (yield o(
+                      "WAWebHandleSingleMsgWorkerCompatible",
+                    ).handleSingleMsg({
                       chatId: h,
                       newMsg: o("WAWebSagaSystemMsg").genSagaInitSystemMsg(h),
                       handleSingleMsgOrigin: "supportSagaInit",

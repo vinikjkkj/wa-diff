@@ -28,8 +28,8 @@ __d(
       },
     };
     ((l.MsgProcessStage = e),
-      (l.setHandler = u),
-      (l.getHandler = c),
+      (l.setInstance = u),
+      (l.getInstance = c),
       (l.msgProcessReporter = d));
   },
   98,

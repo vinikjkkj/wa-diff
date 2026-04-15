@@ -30,6 +30,7 @@ __d(
         case "author":
         case "broadcastId":
         case "chat":
+        case "chatId":
         case "descOwner":
         case "from":
         case "gid":

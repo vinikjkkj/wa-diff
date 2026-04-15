@@ -12,7 +12,7 @@ __d(
     "WAWebDBContactRemoveSoftDeletedUsernames",
     "WAWebDynamicThrottlingManager",
     "WAWebEnvironment",
-    "WAWebIdentityChangeApiFactory",
+    "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebRunInBatches",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebUsernameGatingUtils",
@@ -160,7 +160,10 @@ __d(
               i != null &&
                 l &&
                 g.push(
-                  o("WAWebIdentityChangeApiFactory").handleNewIdentity(r, !t),
+                  o("WAWebIdentityChangeApiWorkerCompatible").handleNewIdentity(
+                    r,
+                    !t,
+                  ),
                 );
               var S;
               a === "migration-sync-old" || a === "blocklist-inactive"

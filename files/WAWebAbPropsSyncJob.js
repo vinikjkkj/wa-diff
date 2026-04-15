@@ -5,6 +5,7 @@ __d(
     "WAGetAbPropsProtocol",
     "WALogger",
     "WAPromiseDelays",
+    "WATaskScheduler",
     "WAWebABProps",
     "WAWebABPropsGlobals",
     "WAWebABPropsLocalStorage",
@@ -16,6 +17,7 @@ __d(
     "WAWebEncryptedRid",
     "WAWebEventSamplingCache",
     "WAWebSyncOnABProps",
+    "WAWebTasksTaskType",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "justknobx",
@@ -36,6 +38,10 @@ __d(
             t.handleServiceImprovementOptOutFlagABPropConfigValueChange(i),
             t.handleAdAccountTokenStorageKillSwitchABPropConfigValueChange(a),
             t.handleUIRefreshNuxOnABPropConfigValueChange(l),
+            o("WAWebSyncOnABProps").consumeQpEmergencyForceFetchNonce() &&
+              o("WATaskScheduler").rescheduleNow(
+                o("WAWebTasksTaskType").TaskType.FETCH_QUICK_PROMOTIONS,
+              ),
             n &&
               (yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
                 "checkOrphanFavoriteStickers",

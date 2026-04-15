@@ -9,6 +9,7 @@ __d(
     "WAWebMmSignalSharingLoggingEvents",
     "WAWebMmSignalSharingModelUtils",
     "WAWebMmSignalSharingShowDisclosureModal",
+    "WAWebMmSignalSharingTos",
     "WAWebModalManager",
     "WAWebQbmMessageClickLogEvent",
     "WAWebQbmMessageLevelActionEvent",
@@ -86,7 +87,9 @@ __d(
               ).getBodyLinkForMmSignalSharing({
                 chat: t,
                 msg: n.unsafe(),
-                isMmSignalSharingDisclosureTosAccepted: !0,
+                isMmSignalSharingDisclosureTosAccepted: o(
+                  "WAWebMmSignalSharingTos",
+                ).isMmSignalSharingDisclosureTosAccepted(),
                 defaultUrl: i == null ? void 0 : i.href,
               }),
               s = l.index,
@@ -103,7 +106,9 @@ __d(
                       ).getBodyLinkForMmSignalSharing({
                         chat: t,
                         msg: n.unsafe(),
-                        isMmSignalSharingDisclosureTosAccepted: !0,
+                        isMmSignalSharingDisclosureTosAccepted: o(
+                          "WAWebMmSignalSharingTos",
+                        ).isMmSignalSharingDisclosureTosAccepted(),
                         defaultUrl: i == null ? void 0 : i.href,
                       }),
                       r = e.index,
@@ -156,7 +161,9 @@ __d(
                       ).getBodyLinkForMmSignalSharing({
                         chat: t,
                         msg: n.unsafe(),
-                        isMmSignalSharingDisclosureTosAccepted: !0,
+                        isMmSignalSharingDisclosureTosAccepted: o(
+                          "WAWebMmSignalSharingTos",
+                        ).isMmSignalSharingDisclosureTosAccepted(),
                         defaultUrl: i == null ? void 0 : i.href,
                       }),
                       r = e.link;

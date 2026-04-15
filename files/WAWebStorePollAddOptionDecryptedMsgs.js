@@ -2,6 +2,7 @@ __d(
   "WAWebStorePollAddOptionDecryptedMsgs",
   [
     "Promise",
+    "WAWebApplyPollAddOptionToParent",
     "WAWebBackendApi",
     "WAWebStoreMsgs",
     "WAWebWidFactory",
@@ -16,6 +17,9 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t.length !== 0) {
+            yield o(
+              "WAWebApplyPollAddOptionToParent",
+            ).applyPollAddOptionsToParent(t);
             var r = new Map();
             for (var a of t) {
               var i = a.parentMsg.id.remote.toString(),

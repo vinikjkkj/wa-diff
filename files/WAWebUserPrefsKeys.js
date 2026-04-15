@@ -164,6 +164,8 @@ __d(
             GROUP_ABPROPS_REFRESH_ID: "group-abprops-refresh-id",
             GROUP_ABPROPS_EMERGENCY_PUSH_TIMESTAMP:
               "group-abprops-emergency-push-timestamp",
+            QP_EMERGENCY_FORCE_FETCH_LAST_HANDLED_NONCE:
+              "qp-emergency-force-fetch-last-handled-nonce",
             HISTORY_SYNC_EARLIEST_DATE: "history-sync-earliest-date",
             HISTORY_SYNC_COMPLETE_ON_DEMAND_ACCESS_GRANTED:
               "WAHistorySyncCompleteOnDemandAccessGranted",
@@ -374,6 +376,7 @@ __d(
         STATUS_PRIVACY_SETTING: "WAStatusPostingPrivacySetting",
         STATUS_SHARE_TO_FB: "WAStatusShareToFB",
         STATUS_SHARE_TO_IG: "WAStatusShareToIG",
+        STATUS_RESHARE_ALLOWED: "WAStatusReshareAllowed",
         OFFLINE_NOTIFICATION_ENGAGEMENT: "WAOfflineNotificationEngagement",
         NOTIFICATION_ENGAGEMENT: "WANotificationEngagement",
         IS_HOSTED_ME_ACCOUNT: "WAIsHostedMeAccount",

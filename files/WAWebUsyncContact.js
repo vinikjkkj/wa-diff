@@ -1,24 +1,33 @@
 __d(
   "WAWebUsyncContact",
-  ["WAWap", "WAWebCommsWapMd", "WAWebUsync"],
+  ["WALogger", "WAWap", "WAWebCommsWapMd", "WAWebUsync"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      e.assertTag("contact");
-      var t = e.maybeChild("error");
-      if (t)
+    var e;
+    function s(t) {
+      t.assertTag("contact");
+      var n = t.maybeChild("error");
+      if (n)
         return {
-          errorCode: t.attrInt("code"),
-          errorText: t.attrString("text"),
+          errorCode: n.attrInt("code"),
+          errorText: n.attrString("text"),
         };
-      var n = { type: e.attrString("type") },
-        r = e.hasAttr("username");
+      t.hasAttr("type") ||
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[usync] contact node has missing type attribute",
+              ])),
+          )
+          .sendLogs("usync-contact-missing-type");
+      var r = { type: t.attrString("type") };
       return (
-        r && (n.username = e.attrString("username")),
-        e.hasContent() && (n.content = e.contentString()),
-        n
+        t.hasAttr("username") && (r.username = t.attrString("username")),
+        t.hasContent() && (r.content = t.contentString()),
+        r
       );
     }
-    var s = (function () {
+    var u = (function () {
       function e(e) {
         this.addressingMode = e;
       }
@@ -66,7 +75,7 @@ __d(
         e
       );
     })();
-    ((l.contactParser = e), (l.USyncContactProtocol = s));
+    ((l.contactParser = s), (l.USyncContactProtocol = u));
   },
   98,
 );

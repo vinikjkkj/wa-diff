@@ -10,7 +10,7 @@ __d(
     "WAWebChangeProfilePicThumb",
     "WAWebCommsWapMd",
     "WAWebGroupSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebProfilePicConstants",
@@ -125,13 +125,13 @@ __d(
                               "WAWebUserPrefsMeUser",
                             ).getMePnUserOrThrow_DO_NOT_USE(),
                         );
-                        return o("WAWebHandleSingleMsgFactory").handleSingleMsg(
-                          {
-                            chatId: l,
-                            newMsg: e,
-                            handleSingleMsgOrigin: "profilePicNotification",
-                          },
-                        );
+                        return o(
+                          "WAWebHandleSingleMsgWorkerCompatible",
+                        ).handleSingleMsg({
+                          chatId: l,
+                          newMsg: e,
+                          handleSingleMsgOrigin: "profilePicNotification",
+                        });
                       }
                     }));
                 break;

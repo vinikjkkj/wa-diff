@@ -6,7 +6,7 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebCryptoCurve25519",
-    "WAWebIdentityChangeApiFactory",
+    "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebProtocolStoreCommonApi",
     "WAWebSignalCommonUtils",
     "WAWebSignalConvertApi",
@@ -175,7 +175,7 @@ __d(
                     }
                     e != null &&
                       (yield o(
-                        "WAWebIdentityChangeApiFactory",
+                        "WAWebIdentityChangeApiWorkerCompatible",
                       ).handleNewIdentity(
                         o("WAWebWidFromSignalAddress").widFromSignalAddress(e),
                         !1,

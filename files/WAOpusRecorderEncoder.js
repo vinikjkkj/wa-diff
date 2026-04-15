@@ -132,7 +132,7 @@ __d(
             27 + this.segmentTableIndex,
           ),
           n.setUint32(22, this.getChecksum(r), !0),
-          self.postMessage({ message: "page", page: r }, [r.buffer]),
+          globalThis.postMessage({ message: "page", page: r }, [r.buffer]),
           (this.segmentTableIndex = 0),
           (this.segmentDataIndex = 0),
           (this.buffersInPage = 0),
@@ -224,7 +224,7 @@ __d(
       }),
       (e.prototype.flush = function (e) {
         (this.buffersInPage > 0 && this.generatePage(),
-          self.postMessage({ message: "flushed", requestId: e }));
+          globalThis.postMessage({ message: "flushed", requestId: e }));
       }));
     var s,
       u = {

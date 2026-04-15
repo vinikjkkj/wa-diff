@@ -132,10 +132,10 @@ __d(
                                         r(
                                           "WAWebInteractiveMessagesNativeFlowName",
                                         ).CTA_APP
-                                      ? o(
+                                      ? u(e) != null &&
+                                        o(
                                           "WAWebMmSignalSharingGatingUtils",
-                                        ).isMmSignalSharingAppCtaEnabled() &&
-                                        u(e) != null
+                                        ).isMmSignalSharingAppCtaEnabled()
                                       : e.nativeFlowName ===
                                           r(
                                             "WAWebInteractiveMessagesNativeFlowName",
@@ -203,22 +203,19 @@ __d(
     }
     function u(e) {
       var t;
-      return (
-        e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-          e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-          e.nativeFlowName != null &&
-          o(
-            "WAWebBizTemplateAndInteractiveMessagesUtils",
-          ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(
-            e.nativeFlowName,
-          ) &&
-          ((t = e.interactivePayload) == null ? void 0 : t.buttons) != null &&
-          e.interactivePayload.buttons.forEach(function (e) {
-            var t = c(e);
-            if (t) return !0;
-          }),
-        !1
-      );
+      return e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+        e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
+        e.nativeFlowName != null &&
+        o(
+          "WAWebBizTemplateAndInteractiveMessagesUtils",
+        ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(
+          e.nativeFlowName,
+        ) &&
+        ((t = e.interactivePayload) == null ? void 0 : t.buttons) != null
+        ? e.interactivePayload.buttons.some(function (e) {
+            return c(e);
+          })
+        : !1;
     }
     function c(e) {
       var t = o(

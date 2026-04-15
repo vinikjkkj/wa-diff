@@ -7,7 +7,7 @@ __d(
     "WAWebBackendApi",
     "WAWebBroadcastSystemMsg",
     "WAWebHandleMsgTypes.flow",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebInitialSystemMsg",
     "WAWebSchemaBroadcastMetadata",
     "WAWebSyncdCoreApi",
@@ -27,7 +27,7 @@ __d(
             l = [].concat(a, [i]);
           yield (e || (e = n("Promise"))).all(
             l.map(function (e) {
-              return o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+              return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
                 chatId: t,
                 handleSingleMsgOrigin: "createChat",
                 messageOverwriteOption: o("WAWebHandleMsgTypes.flow")

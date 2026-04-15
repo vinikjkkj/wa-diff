@@ -252,6 +252,35 @@ __d(
     function T() {
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return (
+            o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_RESHARE_ALLOWED,
+            ) === !0
+          );
+        })),
+        T.apply(this, arguments)
+      );
+    }
+    function D(e) {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_RESHARE_ALLOWED,
+            e,
+          );
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    function $() {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
@@ -264,74 +293,19 @@ __d(
               }),
             );
         })),
-        T.apply(this, arguments)
-      );
-    }
-    function D() {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SENDER_KEY,
-          );
-          return e || { rotateKey: !1, senderKey: new Set() };
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["user-prefs"],
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield D(),
-                  n = t.rotateKey ? new Set() : t.senderKey;
-                (e.forEach(function (e) {
-                  n.add(String(e));
-                }),
-                  yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                    o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SENDER_KEY,
-                    { rotateKey: !1, senderKey: n },
-                  ));
-              }),
-            );
-        })),
         P.apply(this, arguments)
       );
     }
-    function N(e) {
+    function N() {
       return M.apply(this, arguments);
     }
     function M() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["user-prefs"],
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield D();
-                if (!t.rotateKey) {
-                  var n = e.some(function (e) {
-                    return t.senderKey.has(String(e));
-                  });
-                  n &&
-                    (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                      o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
-                        .STATUS_SENDER_KEY,
-                      { rotateKey: !0, senderKey: new Set() },
-                    ));
-                }
-              }),
-            );
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SENDER_KEY,
+          );
+          return e || { rotateKey: !1, senderKey: new Set() };
         })),
         M.apply(this, arguments)
       );
@@ -347,7 +321,62 @@ __d(
             .lock(
               ["user-prefs"],
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var t = yield D();
+                var t = yield N(),
+                  n = t.rotateKey ? new Set() : t.senderKey;
+                (e.forEach(function (e) {
+                  n.add(String(e));
+                }),
+                  yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                    o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.STATUS_SENDER_KEY,
+                    { rotateKey: !1, senderKey: n },
+                  ));
+              }),
+            );
+        })),
+        A.apply(this, arguments)
+      );
+    }
+    function F(e) {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(
+              ["user-prefs"],
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var t = yield N();
+                if (!t.rotateKey) {
+                  var n = e.some(function (e) {
+                    return t.senderKey.has(String(e));
+                  });
+                  n &&
+                    (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                      o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
+                        .STATUS_SENDER_KEY,
+                      { rotateKey: !0, senderKey: new Set() },
+                    ));
+                }
+              }),
+            );
+        })),
+        O.apply(this, arguments)
+      );
+    }
+    function B(e) {
+      return W.apply(this, arguments);
+    }
+    function W() {
+      return (
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(
+              ["user-prefs"],
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                var t = yield N();
                 (e.forEach(function (e) {
                   if ((t.senderKey.delete(String(e)), e.isUser())) {
                     var n = o("WAWebApiContact").getAlternateUserWid(
@@ -363,16 +392,16 @@ __d(
               }),
             );
         })),
-        A.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function F(e) {
-      return O.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function O() {
+    function U() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield D();
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield N();
           if (t.rotateKey || t.senderKey.size === 0)
             return {
               rotateKey: t.rotateKey,
@@ -398,10 +427,10 @@ __d(
               : { rotateKey: t.rotateKey, skDistribList: r, participantList: n }
           );
         })),
-        O.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    var B = {
+    var V = {
       setStatusPrivacyConfig: u,
       calculateStatusPrivacyUpdateEntries: c,
       getStatusPrivacySetting: d,
@@ -411,16 +440,18 @@ __d(
       getShareToIG: v,
       persistShareToFB: R,
       persistShareToIG: E,
-      getStatusSenderKeyMap: D,
-      getStatusSkDistribList: F,
-      markStatusHasSenderKey: $,
+      getStatusReshareAllowed: I,
+      persistStatusReshareAllowed: D,
+      getStatusSenderKeyMap: N,
+      getStatusSkDistribList: q,
+      markStatusHasSenderKey: w,
       getStatusContacts: o("WAWebStatusContactUtils").getStatusContacts,
       getStatusList: h,
-      getStatusPrivacySettingConfig: I,
-      markForgetStatusSenderKey: w,
-      markStatusSenderKeyRotate: N,
+      getStatusPrivacySettingConfig: $,
+      markForgetStatusSenderKey: B,
+      markStatusSenderKeyRotate: F,
     };
-    l.default = B;
+    l.default = V;
   },
   98,
 );

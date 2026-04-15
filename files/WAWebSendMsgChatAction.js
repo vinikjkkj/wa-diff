@@ -19,7 +19,7 @@ __d(
     "WAWebDBThreadMetadataBulkHelper",
     "WAWebEmptyChatSystemMsg",
     "WAWebFindChatAction",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationFrontendUtils",
     "WAWebLidMigrationUtils",
@@ -70,7 +70,9 @@ __d(
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
                   return (
-                    yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+                    yield o(
+                      "WAWebHandleSingleMsgWorkerCompatible",
+                    ).handleSingleMsg({
                       chatId: a.id,
                       newMsg: t,
                       handleSingleMsgOrigin: "voipNotification",

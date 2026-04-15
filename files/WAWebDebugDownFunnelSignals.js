@@ -15,7 +15,7 @@ __d(
     "WAWebConversionTupleModel",
     "WAWebDataSharingOptInCoolOffModel",
     "WAWebDataSharingUpsellModel",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebIndividualNewChatMessageCappingLimitUtils",
     "WAWebLabelCollection",
     "WAWebMobilePlatforms",
@@ -491,7 +491,7 @@ __d(
             subtype: "biz_automatically_labeled_chat_system_message",
             templateParams: [t],
           });
-          yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
             chatId: e,
             newMsg: n,
             handleSingleMsgOrigin: "createChat",
@@ -786,7 +786,7 @@ __d(
             subtype: "ctwa_consumer_data_sharing_disclosure_system_message",
             templateParams: [],
           });
-          yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
             chatId: e,
             newMsg: t,
             handleSingleMsgOrigin: "createChat",

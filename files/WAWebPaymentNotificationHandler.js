@@ -7,7 +7,7 @@ __d(
     "WAWebCommonMsgSubtypeTypes",
     "WAWebDBMsgUtils",
     "WAWebDBProcessMessage",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLidMigrationUtils",
     "WAWebMsgCollection",
     "WAWebMsgKey",
@@ -93,7 +93,7 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.type === "account-set-up") {
             var t = yield R(e.from, e.timestamp);
-            yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: t.from,
               newMsg: t,
               handleSingleMsgOrigin: "handlePaymentInviteNotification",

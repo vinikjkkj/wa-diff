@@ -15,7 +15,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGroupSystemMsg",
     "WAWebGroupType",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebInvalidateEventsAction",
     "WAWebInvisiblePlaceholderViewModeProcessor",
     "WAWebLidMigrationUtils",
@@ -219,7 +219,7 @@ __d(
                                         });
                                         y &&
                                           o(
-                                            "WAWebHandleSingleMsgFactory",
+                                            "WAWebHandleSingleMsgWorkerCompatible",
                                           ).handleSingleMsg({
                                             chatId: y.from,
                                             newMsg: y,

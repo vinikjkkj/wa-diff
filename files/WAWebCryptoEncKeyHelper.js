@@ -3,71 +3,85 @@ __d(
   [
     "Promise",
     "WAWebBackendEventBus",
+    "WAWebBackendWorkerClient",
     "WAWebCryptoEncryptionSaltHelper",
     "WAWebDbEncryptionKey",
     "WAWebInvocationInterface",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = null;
+    var e, s;
     function u() {
-      return c.apply(this, arguments);
+      return (
+        s == null && (s = o("WAWebCryptoEncryptionSaltHelper").getOrGenSalt()),
+        s
+      );
     }
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          s == null &&
-            (s = o("WAWebCryptoEncryptionSaltHelper").getOrGenSalt());
-          var e = yield s;
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield u();
           if (!(!e || e.constructor !== Uint8Array))
             return o("WAWebDbEncryptionKey").DbEncKeyStore.init(e);
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d() {
-      return m.apply(this, arguments);
-    }
     function m() {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          s == null &&
-            (s = o("WAWebCryptoEncryptionSaltHelper").getOrGenSalt());
-          var e = yield s;
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield u();
           !e ||
             e.constructor !== Uint8Array ||
             o("WAWebInvocationInterface").get().initDatabaseEncnKey(e);
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return o("WAWebInvocationInterface")
-        .get()
-        .generateFinalDbEncryptionAndFtsKey(e);
-    }
-    function _() {
-      return f.apply(this, arguments);
+    function _(e) {
+      return (
+        o("WAWebBackendWorkerClient")
+          .getBackendWorkerBridge()
+          .then(function (t) {
+            return t.fireAndForget(
+              "database",
+              "generateFinalDbMsgEncryptionKey",
+              { salt: e },
+            );
+          }),
+        o("WAWebInvocationInterface")
+          .get()
+          .generateFinalDbEncryptionAndFtsKey(e)
+      );
     }
     function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield (e || (e = n("Promise"))).all([
             o("WAWebDbEncryptionKey").DbEncKeyStore.deleteKeys(),
             o("WAWebInvocationInterface").get().deleteDbEncKeyCache(),
           ]);
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
     (o("WAWebBackendEventBus").BackendEventBus.onLogout(function () {
       s = (e || (e = n("Promise"))).resolve(null);
     }),
-      (l.initEncSalt = u),
-      (l.initEncSaltForInvoker = d),
-      (l.generateFinalDbEncryptionAndFtsKeyForInvoker = p),
-      (l.deleteEncKeysAndCache = _));
+      (l.getSalt = u),
+      (l.initEncSalt = c),
+      (l.initEncSaltForInvoker = m),
+      (l.generateFinalDbEncryptionAndFtsKeyForInvoker = _),
+      (l.deleteEncKeysAndCache = f));
   },
   98,
 );

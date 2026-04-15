@@ -536,7 +536,7 @@ __d(
               try {
                 if (M != null && J != null) {
                   var ae,
-                    ie = J.end - J.start;
+                    ie = J.end - J.start + 1;
                   return r("WANullthrows")(
                     yield (ae = X) == null ? void 0 : ae.handleProgress(ie, re),
                   );

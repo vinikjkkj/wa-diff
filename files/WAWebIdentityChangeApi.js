@@ -12,7 +12,7 @@ __d(
     "WAWebBizCoexUtils",
     "WAWebContactSystemMsg",
     "WAWebDeviceListPk",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebModelStorageUtils",
     "WAWebMsgType",
     "WAWebOfflineDeviceCache",
@@ -145,11 +145,13 @@ __d(
                     subtype: "encrypt_now",
                     templateParams: [],
                   });
-                yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
-                  chatId: r("WANullthrows")(h.from),
-                  newMsg: h,
-                  handleSingleMsgOrigin: "bizStateChangeNotification",
-                });
+                yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg(
+                  {
+                    chatId: r("WANullthrows")(h.from),
+                    newMsg: h,
+                    handleSingleMsgOrigin: "bizStateChangeNotification",
+                  },
+                );
               }
               o("WAWebBizCoexUtils").triggerUsyncForCoexUpdate(l);
             }

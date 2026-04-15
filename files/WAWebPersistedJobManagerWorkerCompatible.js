@@ -10,15 +10,9 @@ __d(
       return r("nullthrows")(e, "WAWebPersistedJobManager is not initialised");
     }
     function c() {
-      return u().getJobManager();
+      return u();
     }
-    function d(e) {
-      return u().maybeCreateJob(e);
-    }
-    ((l.setHandler = s),
-      (l.getHandler = u),
-      (l.getJobManager = c),
-      (l.maybeCreateJob = d));
+    ((l.setInstance = s), (l.getInstance = u), (l.getJobManager = c));
   },
   98,
 );

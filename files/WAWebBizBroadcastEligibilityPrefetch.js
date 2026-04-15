@@ -5,6 +5,8 @@ __d(
     "WAWaitForComms",
     "WAWebBackendErrors",
     "WAWebGetBusinessEligibilityJob",
+    "WAWebMobilePlatforms",
+    "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -42,7 +44,24 @@ __d(
         u.apply(this, arguments)
       );
     }
-    l.prefetchBizBroadcastEligibility = s;
+    function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
+      return (
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WAWebMobilePlatforms").isSMB() &&
+            (yield s(),
+            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+              "loadQuickPromotions",
+              { trigger: "prefetch" },
+            ));
+        })),
+        d.apply(this, arguments)
+      );
+    }
+    ((l.prefetchBizBroadcastEligibility = s),
+      (l.prefetchEligibilityAndReloadQPs = c));
   },
   98,
 );

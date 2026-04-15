@@ -6,7 +6,7 @@ __d(
     "WAWebApiChat",
     "WAWebApiContact",
     "WAWebContactSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLidAwareContactsDB",
     "WAWebQueryExistsJob",
     "WAWebSchemaGroupMetadata",
@@ -175,7 +175,7 @@ __d(
                 wid: l,
                 displayName: t,
               });
-            yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: u,
               newMsg: c,
               handleSingleMsgOrigin: "username_change_notification",
@@ -207,7 +207,7 @@ __d(
                   viewMode:
                     o("WAWebViewMode.flow").ViewModeType.GROUP_MEMBER_UPDATES,
                 }),
-                d = o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+                d = o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
                   chatId: u,
                   newMsg: c,
                   handleSingleMsgOrigin: "username_change_notification",

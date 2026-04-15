@@ -147,57 +147,59 @@ __d(
       var k = E;
       return k;
     }
-    function m(e, t, n, a) {
-      var i = o("react-compiler-runtime").c(11),
-        l = e.componentRef,
-        s = e.unmountSignal,
-        u;
-      i[0] !== a || i[1] !== n || i[2] !== t
-        ? ((u = function (r) {
+    function m(e, t, n, a, i) {
+      var l = o("react-compiler-runtime").c(12),
+        s = e.componentRef,
+        u = e.unmountSignal,
+        c;
+      l[0] !== a || l[1] !== n || l[2] !== i || l[3] !== t
+        ? ((c = function (r) {
             (r.width != null && t(r.width),
               r.height != null && n(r.height),
-              r.bottom != null && a(r.bottom));
+              r.bottom != null && a(r.bottom),
+              r.left != null && i(r.left));
           }),
-          (i[0] = a),
-          (i[1] = n),
-          (i[2] = t),
-          (i[3] = u))
-        : (u = i[3]);
-      var c = u,
-        d;
-      i[4] !== l || i[5] !== s || i[6] !== c
-        ? ((d = function (t, n) {
-            if (l.current == null) {
-              c(n);
+          (l[0] = a),
+          (l[1] = n),
+          (l[2] = i),
+          (l[3] = t),
+          (l[4] = c))
+        : (c = l[4]);
+      var d = c,
+        m;
+      l[5] !== s || l[6] !== u || l[7] !== d
+        ? ((m = function (t, n) {
+            if (s.current == null) {
+              d(n);
               return;
             }
-            var e = r("WAWebVelocityAnimate")(l.current, t, {
+            var e = r("WAWebVelocityAnimate")(s.current, t, {
               duration: o("WAWebMoveResizeConstants")
                 .MIN_HEIGHT_CHANGE_ANIMATION_DURATION,
               easing: o("WAWebMoveResizeConstants")
                 .MIN_HEIGHT_CHANGE_ANIMATION_TYPE,
             });
             e.then(function () {
-              s.aborted || c(n);
+              u.aborted || d(n);
             }).catch(function () {
-              s.aborted || c(n);
+              u.aborted || d(n);
             });
           }),
-          (i[4] = l),
-          (i[5] = s),
-          (i[6] = c),
-          (i[7] = d))
-        : (d = i[7]);
-      var m = d,
-        p;
+          (l[5] = s),
+          (l[6] = u),
+          (l[7] = d),
+          (l[8] = m))
+        : (m = l[8]);
+      var p = m,
+        _;
       return (
-        i[8] !== m || i[9] !== c
-          ? ((p = { updateDimensionState: c, animateDimensionChange: m }),
-            (i[8] = m),
-            (i[9] = c),
-            (i[10] = p))
-          : (p = i[10]),
-        p
+        l[9] !== p || l[10] !== d
+          ? ((_ = { updateDimensionState: d, animateDimensionChange: p }),
+            (l[9] = p),
+            (l[10] = d),
+            (l[11] = _))
+          : (_ = l[11]),
+        _
       );
     }
     function p(e) {

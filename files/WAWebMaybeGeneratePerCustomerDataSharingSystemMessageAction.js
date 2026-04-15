@@ -4,7 +4,7 @@ __d(
     "WASmaxInBizSettingsEnums",
     "WAWebCTWADataSharingModel",
     "WAWebContactSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMsgType",
     "WAWebPerCustomerDataSharingUtils",
     "WAWebWidFactory",
@@ -41,7 +41,7 @@ __d(
                   : "biz_per_customer_3pd_data_share_opt_out",
                 templateParams: [],
               });
-              yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+              yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
                 chatId: a,
                 newMsg: s,
                 handleSingleMsgOrigin: "perCustomerDataSharingNotification",

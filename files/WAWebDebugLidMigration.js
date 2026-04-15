@@ -20,7 +20,7 @@ __d(
     "WAWebDebugUtils",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebHistorySyncLidChatGating",
     "WAWebLid1X1MigrationGating",
     "WAWebLid1X1ThreadAccountMigrations",
@@ -656,7 +656,7 @@ __d(
           templateParams: [],
         },
       );
-      return o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+      return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
         chatId: r("nullthrows")(t.from),
         newMsg: t,
         handleSingleMsgOrigin: "debugCreateChat",

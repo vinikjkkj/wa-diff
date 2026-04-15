@@ -162,31 +162,49 @@ __d(
           }
         }),
         l &&
-          e.onBeforeComplete(function (e) {
-            e &&
-              ["vcWithoutImage", "visuallyComplete"].forEach(function (n) {
-                var r = e.markerPoints.get(n),
-                  a = o("WebAPIs").derefOnlyAttachedElement(
-                    r == null ? void 0 : r.element,
+          e.onBeforeComplete(function (n) {
+            n &&
+              ["vcWithoutImage", "visuallyComplete"].forEach(function (r) {
+                var a = n.markerPoints.get(r),
+                  i = o("WebAPIs").derefOnlyAttachedElement(
+                    a == null ? void 0 : a.element,
                   );
-                if (r && a) {
-                  var i = l(a, "HeroPlaceholder", "placeholderUUID"),
-                    s = new Set();
+                if (a && i) {
+                  var s = l(i, "HeroPlaceholder", "placeholderUUID"),
+                    u = e.config.logHeroHoldTrigger
+                      ? l(i, "HeroHoldBoundary", "placeholderUUID").concat(
+                          l(i, "HeroHoldLoggingBoundary", "placeholderUUID"),
+                        )
+                      : [],
+                    c = new Map();
+                  (s.forEach(function (e) {
+                    e != null && c.set(e, !1);
+                  }),
+                    u.forEach(function (e) {
+                      e != null && c.set(e, !0);
+                    }));
+                  var d = new Set();
                   if (
-                    (i.forEach(function (e) {
-                      if (e != null && t.placeholderMap[e]) {
-                        var n = t.placeholderMap[e].reverse();
-                        n.forEach(function (e) {
-                          e.startTime <= r.timestamp &&
-                            e.description != null &&
-                            s.add(e.description);
+                    (c.forEach(function (e, n) {
+                      if (t.placeholderMap[n] != null) {
+                        var r = t.placeholderMap[n].reverse();
+                        r.forEach(function (t) {
+                          if (
+                            t.startTime <= a.timestamp &&
+                            t.description != null
+                          ) {
+                            var n = e
+                              ? "HeroHold(" + t.description + ")"
+                              : t.description;
+                            d.add(n);
+                          }
                         });
                       }
                     }),
-                    s.size > 0)
+                    d.size > 0)
                   ) {
-                    var u = r.data || {};
-                    ((u.vcBlockingPlaceholders = Array.from(s)), (r.data = u));
+                    var m = a.data || {};
+                    ((m.vcBlockingPlaceholders = Array.from(d)), (a.data = m));
                   }
                 }
               });

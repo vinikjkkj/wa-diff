@@ -480,7 +480,7 @@ __d(
           n != null ? JSON.stringify({ continuationTarget: n }) : void 0,
       }).commit();
     }
-    function k(e, t, n, r) {
+    function k(e, t, n, r, a) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_SHARER_ERROR,
@@ -488,6 +488,7 @@ __d(
           .PDF_SHARER,
         webtpErrorType: e,
         webtpErrorMessage: t,
+        webtpErrorStack: a,
         webtpSessionId: n,
         webtpTelemetryData:
           r != null ? JSON.stringify({ continuationTarget: r }) : void 0,
@@ -520,7 +521,7 @@ __d(
         webtpFileSize: t,
       }).commit();
     }
-    function x(e, t, n) {
+    function x(e, t, n, r) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_ERROR,
@@ -528,6 +529,7 @@ __d(
           .PDF_RECEIVER,
         webtpErrorType: e,
         webtpErrorMessage: t,
+        webtpErrorStack: r,
         webtpSessionId: n,
       }).commit();
     }

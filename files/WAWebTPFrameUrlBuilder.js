@@ -2,6 +2,7 @@ __d(
   "WAWebTPFrameUrlBuilder",
   [
     "WAWebL10nGetRenderedLocale",
+    "WAXWhatsAppWebTPHtmlSandboxControllerRouteBuilder",
     "WAXWhatsAppWebTPPdfSharerControllerRouteBuilder",
     "WAXWhatsAppWebTPPdfThumbnailControllerRouteBuilder",
     "WAXWhatsAppWebTPPdfViewerControllerRouteBuilder",
@@ -42,10 +43,19 @@ __d(
     function c() {
       return u() + "&mode=inline";
     }
+    function d() {
+      var e = r("WhatsAppWebTPUrlBuilder").url;
+      if (r("isStringNullOrEmpty")(e))
+        throw r("err")("Failed to get webtp html sandbox url");
+      return (
+        e + r("WAXWhatsAppWebTPHtmlSandboxControllerRouteBuilder").buildURL({})
+      );
+    }
     ((l.getWAWebTPThumbnailUrl = e),
       (l.getWAWebTPPdfViewerUrl = s),
       (l.getWAWebTPPdfSharerUrl = u),
-      (l.getWAWebTPPdfInlineSharerUrl = c));
+      (l.getWAWebTPPdfInlineSharerUrl = c),
+      (l.getWAWebTPHtmlSandboxUrl = d));
   },
   98,
 );

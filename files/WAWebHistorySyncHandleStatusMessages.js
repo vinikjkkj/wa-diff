@@ -12,7 +12,7 @@ __d(
     "WAWebBackendJobs.flow",
     "WAWebDBReportingTokenUtils",
     "WAWebHandleMsgTypes.flow",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebHistorySyncLogUtils",
     "WAWebHistorySyncNotificationUtils",
     "WAWebLidStatusMigrationUtils",
@@ -156,7 +156,9 @@ __d(
                             invis: !0,
                             ack: o("WAAckLevel").ACK.READ,
                           })),
-                        yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+                        yield o(
+                          "WAWebHandleSingleMsgWorkerCompatible",
+                        ).handleSingleMsg({
                           chatId: g.id.remote,
                           newMsg: g,
                           handleSingleMsgOrigin: "historyStatusMessages",

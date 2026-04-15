@@ -14,7 +14,9 @@ __d(
       g = 10,
       h = 9e4,
       y = 4294967296,
-      C = (function () {
+      C = 1e3,
+      b = 3,
+      v = (function () {
         function t() {
           ((this.$1 = 0),
             (this.$2 = null),
@@ -32,7 +34,13 @@ __d(
             (this.$14 = 0),
             (this.$15 = 0),
             (this.$16 = 0),
-            (this.$17 = 0));
+            (this.$17 = 0),
+            (this.$18 = 0),
+            (this.$19 = 0),
+            (this.$20 = 0),
+            (this.$21 = []),
+            (this.$22 = 0),
+            (this.$23 = 0));
         }
         var n = t.prototype;
         return (
@@ -79,7 +87,17 @@ __d(
           }),
           (n.consumeMetrics = function () {
             if (!this.$6 && this.$9 === 0) return null;
-            var e = {
+            var e = this.$18 > 0 ? this.$19 / this.$18 : null,
+              t = null,
+              n = null;
+            if (this.$21.length > 0) {
+              var r = this.$21.slice().sort(function (e, t) {
+                return e - t;
+              });
+              ((t = r[Math.floor(r.length * 0.5)]),
+                (n = r[Math.floor(r.length * 0.95)]));
+            }
+            var o = {
               webAvSyncEnabled: !0,
               webAvSyncCalibrationCount: this.$9,
               webAvSyncRecalibrationCount: this.$10,
@@ -90,10 +108,15 @@ __d(
               webAvSyncMaxQueueDepth: this.$15,
               webAvSyncFramesRenderedInSync: this.$16,
               webAvSyncFramesRenderedLate: this.$17,
+              webAvSyncAvgDeltaMs: e != null ? Math.round(e) : null,
+              webAvSyncP50DeltaMs: t != null ? Math.round(t) : null,
+              webAvSyncP95DeltaMs: n != null ? Math.round(n) : null,
+              webAvSyncMaxAbsDeltaMs: Math.round(this.$20),
+              webAvSyncTimeOutOfSyncMs: Math.round(this.$22),
             };
-            return (this.$18(), e);
+            return (this.$24(), o);
           }),
-          (n.$18 = function () {
+          (n.$24 = function () {
             ((this.$9 = 0),
               (this.$10 = 0),
               (this.$11 = 0),
@@ -102,7 +125,26 @@ __d(
               (this.$14 = 0),
               (this.$15 = 0),
               (this.$16 = 0),
-              (this.$17 = 0));
+              (this.$17 = 0),
+              (this.$18 = 0),
+              (this.$19 = 0),
+              (this.$20 = 0),
+              (this.$21 = []),
+              (this.$22 = 0),
+              (this.$23 = 0));
+          }),
+          (n.$25 = function (t) {
+            (this.$18++, (this.$19 += t));
+            var e = Math.abs(t);
+            if ((e > this.$20 && (this.$20 = e), this.$21.length < C))
+              this.$21.push(t);
+            else {
+              var n = this.$18 % (C * b);
+              n < C && (this.$21[n] = t);
+            }
+            var r = Date.now();
+            (this.$23 > 0 && e > m && (this.$22 += r - this.$23),
+              (this.$23 = r));
           }),
           (n.enqueueVideoFrame = function (t) {
             if (this.$6) {
@@ -130,35 +172,35 @@ __d(
               }
               (r.push(t),
                 r.length > this.$15 && (this.$15 = r.length),
-                this.$19());
+                this.$26());
             }
           }),
-          (n.$19 = function () {
+          (n.$26 = function () {
             var e = this.$3,
               t = this.$2;
             if (!(e == null || t == null)) {
               var n = e();
               if (n === 0) {
-                this.$20(t);
+                this.$27(t);
                 return;
               }
               for (var r of this.$4.entries()) {
                 var o = r[0],
                   a = r[1];
-                this.$21(o, a, n, t);
+                this.$28(o, a, n, t);
               }
             }
           }),
-          (n.$21 = function (t, n, r, a) {
+          (n.$28 = function (t, n, r, a) {
             for (var e = 0; e < n.length; ) {
               var i = n[e],
-                l = this.$22(t, i.timestamp, r);
+                l = this.$29(t, i.timestamp, r);
               if (l == null) {
-                (this.$23(t, r, i.timestamp), this.$24(n, e, a));
+                (this.$30(t, r, i.timestamp), this.$31(n, e, a));
                 continue;
               }
-              if (Math.abs(l) > _) {
-                (this.$25(t, r, i.timestamp, l), this.$24(n, e, a));
+              if ((this.$25(l), Math.abs(l) > _)) {
+                (this.$32(t, r, i.timestamp, l), this.$31(n, e, a));
                 continue;
               }
               if (l > m) {
@@ -183,19 +225,19 @@ __d(
                   ),
                     this.$7.set(t, 0),
                     this.$8.set(t, Date.now()),
-                    this.$23(t, r, i.timestamp),
+                    this.$30(t, r, i.timestamp),
                     this.$11++,
-                    this.$24(n, e, a));
+                    this.$31(n, e, a));
                   continue;
                 }
-                this.$24(n, e, a);
+                this.$31(n, e, a);
                 continue;
               }
-              (this.$7.set(t, 0), this.$16++, this.$24(n, e, a));
+              (this.$7.set(t, 0), this.$16++, this.$31(n, e, a));
             }
             n.length === 0 && this.$4.delete(t);
           }),
-          (n.$22 = function (t, n, r) {
+          (n.$29 = function (t, n, r) {
             var e = this.$5.get(t);
             if (e == null) return null;
             var o = this.$1;
@@ -206,7 +248,7 @@ __d(
             var l = i / h;
             return (l - a) * 1e3;
           }),
-          (n.$23 = function (t, n, r) {
+          (n.$30 = function (t, n, r) {
             var e = !this.$5.has(t);
             (this.$5.set(t, {
               firstAudioTimestamp: n,
@@ -214,7 +256,7 @@ __d(
             }),
               e && this.$9++);
           }),
-          (n.$25 = function (t, n, r, a) {
+          (n.$32 = function (t, n, r, a) {
             var e,
               i = Date.now(),
               l = (e = this.$8.get(t)) != null ? e : 0;
@@ -231,11 +273,11 @@ __d(
                   a,
                 ),
                 this.$8.set(t, i),
-                this.$23(t, n, r),
+                this.$30(t, n, r),
                 this.$10++,
                 !0);
           }),
-          (n.$24 = function (t, n, r) {
+          (n.$31 = function (t, n, r) {
             var e = t[n];
             (t.splice(n, 1),
               r(
@@ -249,7 +291,7 @@ __d(
                 e.isKeyFrame,
               ));
           }),
-          (n.$20 = function (t) {
+          (n.$27 = function (t) {
             for (var e of this.$4.entries()) {
               var n = e[0],
                 r = e[1];
@@ -270,7 +312,7 @@ __d(
           t
         );
       })();
-    l.WAWebVoipAVSyncController = C;
+    l.WAWebVoipAVSyncController = v;
   },
   98,
 );

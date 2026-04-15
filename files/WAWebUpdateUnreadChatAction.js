@@ -232,46 +232,58 @@ __d(
         );
     }
     function I(e) {
-      var t = e.afterAvailable,
-        a = t === void 0 ? !0 : t,
-        i = e.chat,
-        l = e.threadId,
-        s = l === void 0 ? null : l;
-      if ((k("sendSeen: start"), i.markedUnread || i.unreadCount === 0))
+      var t,
+        a,
+        i = e.afterAvailable,
+        l = i === void 0 ? !0 : i,
+        s = e.chat,
+        u = e.threadId,
+        d = u === void 0 ? null : u;
+      k("sendSeen: start");
+      var m =
+        d != null &&
+        ((t =
+          (a = s.aiThreads) == null || (a = a.get(d)) == null
+            ? void 0
+            : a.unreadCount) != null
+          ? t
+          : 0) > 0;
+      if (s.markedUnread || (s.unreadCount === 0 && !m))
         return (
-          k("markedUnread: " + String(i.markedUnread)),
-          k("unreadCount: " + i.unreadCount),
+          k("markedUnread: " + String(s.markedUnread)),
+          k("unreadCount: " + s.unreadCount),
+          k("threadHasUnread: " + String(m)),
           k("sendSeen: end-1"),
           (_ || (_ = n("Promise"))).resolve()
         );
-      if (!o("WAWebStreamModel").Stream.available && a)
+      if (!o("WAWebStreamModel").Stream.available && l)
         return (
           k("stream unavailable"),
-          i.listenToOnce(
+          s.listenToOnce(
             o("WAWebStreamModel").Stream,
             "change:available",
             function () {
-              return I({ chat: i, threadId: s });
+              return I({ chat: s, threadId: d });
             },
           ),
           k("sendSeen: end-2"),
           (_ || (_ = n("Promise"))).resolve()
         );
       (k("stream available"),
-        k("unreadCount: " + i.unreadCount),
-        k("pendingSeenCount: " + i.pendingSeenCount));
-      var u = i.unreadCount - i.pendingSeenCount;
-      k("unreadCountDelta: " + u);
-      var d = i.unreadCount === -1 && u === -1;
-      if (u <= 0 && !d && s == null)
+        k("unreadCount: " + s.unreadCount),
+        k("pendingSeenCount: " + s.pendingSeenCount));
+      var p = s.unreadCount - s.pendingSeenCount;
+      k("unreadCountDelta: " + p);
+      var f = s.unreadCount === -1 && p === -1;
+      if (p <= 0 && !f && d == null)
         return (k("sendSeen: end-3"), (_ || (_ = n("Promise"))).resolve());
-      ((i.disableUnreadAnchor = !0),
-        (i.pendingSeenCount = i.unreadCount),
-        k("pendingSeenCount set to: " + i.unreadCount));
-      var m = function () {
-          ((i.pendingSeenCount -= u),
-            k("pendingSeenCount set to " + i.pendingSeenCount),
-            i.pendingSeenCount < 0 &&
+      ((s.disableUnreadAnchor = !0),
+        (s.pendingSeenCount = s.unreadCount),
+        k("pendingSeenCount set to: " + s.unreadCount));
+      var g = function () {
+          ((s.pendingSeenCount -= p),
+            k("pendingSeenCount set to " + s.pendingSeenCount),
+            s.pendingSeenCount < 0 &&
               (o("WALogger").WARN(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -280,35 +292,35 @@ __d(
                     " delta: ",
                     "",
                   ])),
-                i.unreadCount,
-                i.pendingSeenCount,
-                u,
+                s.unreadCount,
+                s.pendingSeenCount,
+                p,
               ),
-              (i.pendingSeenCount = 0)));
+              (s.pendingSeenCount = 0)));
         },
-        p = r("gkx")("26258") ? i.getLastMsgKeyForAction() : i.lastReceivedKey;
-      if (s != null) {
-        var f,
-          g = (f = i.aiThreads) == null ? void 0 : f.get(s);
-        (g == null ? void 0 : g.lastReceivedKey) != null &&
-          ((p = g.lastReceivedKey),
+        h = r("gkx")("26258") ? s.getLastMsgKeyForAction() : s.lastReceivedKey;
+      if (d != null) {
+        var y,
+          C = (y = s.aiThreads) == null ? void 0 : y.get(d);
+        (C == null ? void 0 : C.lastReceivedKey) != null &&
+          ((h = C.lastReceivedKey),
           k(
             "using thread-specific lastReceivedKey: " +
-              g.lastReceivedKey.toString(),
+              C.lastReceivedKey.toString(),
           ));
       }
       return o("WAWebChatSeenBridge")
-        .sendConversationSeen(i, p, u, s != null ? s : void 0)
+        .sendConversationSeen(s, h, p, d != null ? d : void 0)
         .then(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = e.chatUnreadUpdate,
                   n = e.fullyReadThreadIds;
-                t != null ? A(i, t) : yield M(i, u);
+                t != null ? A(s, t) : yield M(s, p);
                 for (var r of n) {
                   var o,
-                    a = (o = i.aiThreads) == null ? void 0 : o.get(r);
+                    a = (o = s.aiThreads) == null ? void 0 : o.get(r);
                   a && a.set({ unreadCount: 0 });
                 }
               },
@@ -322,7 +334,7 @@ __d(
           o("WAFilteredCatch").filteredCatch(
             o("WAWebBackendErrors").ServerStatusCodeError,
             function (e) {
-              return (m(), (_ || (_ = n("Promise"))).reject(e));
+              return (g(), (_ || (_ = n("Promise"))).reject(e));
             },
           ),
         )

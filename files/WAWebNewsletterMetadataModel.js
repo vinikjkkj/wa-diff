@@ -52,6 +52,7 @@ __d(
             return new Set();
           })),
           (t.adminInsights = o("WAWebModelUtils").session()),
+          (t.adminProfile = o("WAWebModelUtils").prop()),
           (t.adminCount = o("WAWebModelUtils").prop(1)),
           (t.pendingAdmins = o("WAWebModelUtils").collection(
             r("WAWebNewsletterPendingAdminsCollection"),

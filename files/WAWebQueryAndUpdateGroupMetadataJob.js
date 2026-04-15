@@ -15,7 +15,7 @@ __d(
     "WAWebGroupDatabaseJob",
     "WAWebGroupQueryJob",
     "WAWebGroupSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLidMappingUsernameLearnUtils",
     "WAWebPhashUtils",
     "WAWebQueryAndUpdateSubgroupSuggestionsJob",
@@ -356,7 +356,7 @@ __d(
               t !== n &&
               t !== r &&
               e.defaultSubgroup !== !0 &&
-              o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+              o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
                 chatId: e.id,
                 newMsg: o("WAWebGroupSystemMsg").genInitialPhashMismatchMsg(
                   e.id,

@@ -15,7 +15,7 @@ __d(
     "WAWebChatAssignmentUtils",
     "WAWebChatCollection",
     "WAWebCmd",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMobilePlatforms",
     "WAWebNotificationController",
     "WAWebNotificationsChatAssignmentNotification",
@@ -174,7 +174,7 @@ __d(
             n = e.chatId,
             r = e.timestamp,
             a = o("WAWebChatCollection").ChatCollection.get(n);
-          o("WAWebHandleSingleMsgFactory")
+          o("WAWebHandleSingleMsgWorkerCompatible")
             .handleSingleMsg({
               chatId: n,
               newMsg: o(

@@ -16,7 +16,7 @@ __d(
     "WAWebNewsletterCollection",
     "WAWebNewsletterDeleteChatJob",
     "WAWebNewsletterGetAdminCapabilitiesJob",
-    "WAWebNewsletterGetAdminCountJob",
+    "WAWebNewsletterGetAdminInfoJob",
     "WAWebNewsletterGetNewsletterEnforcementAlertAction",
     "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterMetadataCollection",
@@ -123,11 +123,13 @@ __d(
                       function* (e) {
                         if (o("WAWebNewsletterMembershipUtil").iAmOwner(e)) {
                           var t = yield o(
-                            "WAWebNewsletterGetAdminCountJob",
-                          ).getNewsletterAdminCount(
-                            o("WAJids").toNewsletterJid(e.id.toString()),
-                          );
-                          e.adminCount = t;
+                              "WAWebNewsletterGetAdminInfoJob",
+                            ).getNewsletterAdminInfo(
+                              o("WAJids").toNewsletterJid(e.id.toString()),
+                            ),
+                            n = t.adminCount,
+                            r = t.adminProfile;
+                          ((e.adminCount = n), (e.adminProfile = r));
                         }
                       },
                     );
@@ -239,16 +241,18 @@ __d(
               g = void 0,
               h = (a = t == null ? void 0 : t.adminFields) != null ? a : {},
               y = h.adminCount;
-            y === !0 &&
-              (g = yield o(
-                "WAWebNewsletterGetAdminCountJob",
-              ).getNewsletterAdminCount(e));
-            var C = void 0,
-              b = (i = t == null ? void 0 : t.adminFields) != null ? i : {},
-              v = b.capabilities;
+            if (y === !0) {
+              var C = yield o(
+                "WAWebNewsletterGetAdminInfoJob",
+              ).getNewsletterAdminInfo(e);
+              g = C.adminCount;
+            }
+            var b = void 0,
+              v = (i = t == null ? void 0 : t.adminFields) != null ? i : {},
+              S = v.capabilities;
             return (
-              v === !0 &&
-                (C = yield o(
+              S === !0 &&
+                (b = yield o(
                   "WAWebNewsletterGetAdminCapabilitiesJob",
                 ).getNewsletterAdminCapabilities(e)),
               yield D({
@@ -256,7 +260,7 @@ __d(
                 metadata: [
                   babelHelpers.extends({}, c, {
                     adminCount: g,
-                    capabilities: C,
+                    capabilities: b,
                   }),
                 ],
                 pics: f,

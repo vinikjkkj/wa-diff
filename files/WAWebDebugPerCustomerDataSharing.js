@@ -5,7 +5,7 @@ __d(
     "WAWebContactSystemMsg",
     "WAWebCtwaPerCustomerDataSharingSync",
     "WAWebDataSharing3pdLidCollection",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMsgType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -179,7 +179,7 @@ __d(
               : "biz_per_customer_3pd_data_share_opt_out",
             templateParams: [],
           });
-          yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
             chatId: e,
             newMsg: n,
             handleSingleMsgOrigin: "createChat",

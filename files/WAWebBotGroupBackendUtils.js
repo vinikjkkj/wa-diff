@@ -5,7 +5,7 @@ __d(
     "WAWebBotUtils",
     "WAWebContactSystemMsg",
     "WAWebGroupSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,7 +24,7 @@ __d(
             var t = o(
               "WAWebContactSystemMsg",
             ).genEncryptNotificationMsgAfterBotRemoved(e);
-            yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: e,
               newMsg: t,
               handleSingleMsgOrigin: "botGroup",
@@ -48,7 +48,7 @@ __d(
             var t = o(
               "WAWebGroupSystemMsg",
             ).genGroupTransitionToBotGroupNotificationMsg(e);
-            yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: e,
               newMsg: t,
               handleSingleMsgOrigin: "botGroup",
@@ -72,7 +72,7 @@ __d(
             var t = o(
               "WAWebGroupSystemMsg",
             ).genGroupTransitionToTeeBotGroupNotificationMsg(e);
-            yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: e,
               newMsg: t,
               handleSingleMsgOrigin: "botGroup",

@@ -199,7 +199,7 @@ __d(
               (t.id.remote.isStatus() &&
                 (a = t.id.fromMe
                   ? o("WAWebLidStatusMigrationUtils").matWidConvert(
-                      o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+                      o("WAWebUserPrefsMeUser").getMeUser(),
                     )
                   : t.author),
               this.hasSynced())

@@ -7,6 +7,7 @@ __d(
     "WAGzip",
     "WALogger",
     "WAPromiseDelays",
+    "WAResultOrError",
     "WAWebABProps",
     "WAWebApiHistorySyncNotification",
     "WAWebBackendEventBusWorkerCompatible",
@@ -23,6 +24,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -33,40 +35,46 @@ __d(
     function f() {
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          var l = yield o("WAWebGetHistorySyncProgress").getHistorySyncProgress(
-              t,
-            ),
+          var l = 0,
             _ = new (o("WABinary").Binary)(a),
             f = yield o("WAGzip").inflate(_.readByteArrayView()),
             g = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsHistorySync.pb").HistorySyncSpec,
               f,
             ),
-            h = [];
+            h = g.conversations.length,
+            y = [];
           (g.phoneNumberToLidMappings.forEach(function (e) {
             var t = e.lidJid,
               n = e.pnJid;
             t != null &&
               n != null &&
-              h.push({
+              y.push({
                 lid: o("WAWebWidFactory").createUserLidOrThrow(t),
                 pn: o("WAWebWidFactory").createUserWidOrThrow(n),
               });
           }),
-            yield (p || (p = n("Promise"))).all([i.dbReady, i.abPropsReady]),
-            yield o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches({
-              mappings: h,
-              flushImmediately: !0,
-              identityChangeHandlingEnabled: !1,
-              learningSource: "other",
-            }),
+            yield (p || (p = n("Promise"))).all([
+              i.dbReady,
+              i.abPropsReady,
+              i.isGlobalsReady,
+            ]));
+          var C = yield o("WAWebGetHistorySyncProgress").getHistorySyncProgress(
+            t,
+          );
+          (yield o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches({
+            mappings: y,
+            flushImmediately: !0,
+            identityChangeHandlingEnabled: !1,
+            learningSource: "other",
+          }),
             o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[history sync][recent sync] learned ",
                   " mappings",
                 ])),
-              h.length,
+              y.length,
             ),
             o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
               t.syncType,
@@ -117,37 +125,38 @@ __d(
               o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
                 ? yield r("WACommonTaskScheduler").yield()
                 : yield o("WAPromiseDelays").releaseToEventLoop());
-            var y = yield o(
+            var b = yield o(
                 "WAWebPreprocessHistorySyncProto",
-              ).preprocessHistorySyncProto(g, h),
-              C = y.associatedMsgs,
-              b = y.chatRows,
-              v = y.chatsWithRecentOrFullSyncMsgs,
-              S = y.lastMsgs,
-              R = y.missingParentsCache,
-              L = y.recentOrFullSyncMsgs,
-              E = y.threadMsgs,
-              k = y.totalChunkMsgCount,
-              I = y.unifiedAddons;
-            (o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
-              t.syncType,
-              o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
-                .MESSAGE_PREPROCESSED,
-              t.chunkOrder,
-            ),
-              L.length !== 0
+              ).preprocessHistorySyncProto(g, y),
+              v = b.associatedMsgs,
+              S = b.chatRows,
+              R = b.chatsWithRecentOrFullSyncMsgs,
+              L = b.lastMsgs,
+              E = b.missingParentsCache,
+              k = b.recentOrFullSyncMsgs,
+              I = b.threadMsgs,
+              T = b.totalChunkMsgCount,
+              D = b.unifiedAddons;
+            ((l = T),
+              o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
+                t.syncType,
+                o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
+                  .MESSAGE_PREPROCESSED,
+                t.chunkOrder,
+              ),
+              k.length !== 0
                 ? yield o(
                     "WAWebHandleHistorySyncMsg",
                   ).handleProgressiveHistorySyncMsgs(
+                    k,
+                    Array.from(R),
+                    D,
                     L,
-                    Array.from(v),
-                    I,
-                    S,
                     t.syncType,
                     t.chunkOrder,
-                    C,
-                    R,
+                    v,
                     E,
+                    I,
                   )
                 : o("WALogger").LOG(
                     d ||
@@ -157,49 +166,49 @@ __d(
                   ),
               o(
                 "WAWebUserPrefsHistorySync",
-              ).setHistorySyncTotalProcessedMessageCount(k),
+              ).setHistorySyncTotalProcessedMessageCount(T),
               yield o("WAWebUserPrefsHistorySync").setLastHistorySyncedChunk(
                 t.syncType,
                 t.chunkOrder,
-                l,
+                C,
               ),
               o("WAWebHistorySyncProgress").updateHistorySyncProgressModel(),
               yield o(
                 "WAWebApiHistorySyncNotification",
               ).updateCurrentlyProcessed(t.msgKey, t.syncType, t.chunkOrder));
             for (
-              var T = o(
+              var x = o(
                   "WAWebUserPrefsHistorySync",
                 ).getHistoryInitialSyncBoundary(),
-                D = new Set(),
-                x = [],
-                $ = 0;
-              $ < g.conversations.length;
-              $++
+                $ = new Set(),
+                P = [],
+                N = 0;
+              N < g.conversations.length;
+              N++
             ) {
-              var P = g.conversations[$],
-                N = o("WAWebWidFactory").createWid(P.id),
-                M = b[$],
-                w =
-                  (M == null ? void 0 : M.id) != null
-                    ? o("WAWebWidFactory").createWid(M.id)
-                    : N;
-              D.add(w.toString());
-              var A = (T == null ? void 0 : T[P.id]) != null;
-              if (A) {
-                var F = P.endOfHistoryTransferType;
-                F != null &&
-                  x.push(
+              var M = g.conversations[N],
+                w = o("WAWebWidFactory").createWid(M.id),
+                A = S[N],
+                F =
+                  (A == null ? void 0 : A.id) != null
+                    ? o("WAWebWidFactory").createWid(A.id)
+                    : w;
+              $.add(F.toString());
+              var O = (x == null ? void 0 : x[M.id]) != null;
+              if (O) {
+                var B = M.endOfHistoryTransferType;
+                B != null &&
+                  P.push(
                     o(
                       "WAWebHistorySyncWorkerCompatibleNotificationUtils",
-                    ).updateEndOfHistorySync(w, F),
+                    ).updateEndOfHistorySync(F, B),
                   );
               }
             }
-            (yield (p || (p = n("Promise"))).all(x),
+            (yield (p || (p = n("Promise"))).all(P),
               o("WAWebBackendEventBusWorkerCompatible")
                 .getBackendEventBus()
-                .triggerHistorySyncChunkProcessed(D),
+                .triggerHistorySyncChunkProcessed($),
               o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
                 t.syncType,
                 o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
@@ -214,14 +223,17 @@ __d(
                   ])),
                 o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(
                   t,
-                  k,
-                  v.length,
+                  T,
+                  R.length,
                 ),
               ));
           } catch (e) {
-            throw e;
+            return o("WAResultOrError").makeError(String(r("getErrorSafe")(e)));
           }
-          return g;
+          return o("WAResultOrError").makeResult({
+            totalChunkMsgCount: l,
+            conversationLength: h,
+          });
         })),
         f.apply(this, arguments)
       );

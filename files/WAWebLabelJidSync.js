@@ -9,7 +9,7 @@ __d(
     "WAWebBackendApi",
     "WAWebContactSystemMsg",
     "WAWebDBLabelAssociationDatabaseApi",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLabelConstants",
     "WAWebLid1X1MigrationGating",
     "WAWebListItemParentType",
@@ -190,7 +190,7 @@ __d(
                                       templateParams: [T.toString()],
                                     });
                                     yield o(
-                                      "WAWebHandleSingleMsgFactory",
+                                      "WAWebHandleSingleMsgWorkerCompatible",
                                     ).handleSingleMsg({
                                       chatId: b,
                                       newMsg: D,

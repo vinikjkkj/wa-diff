@@ -17,7 +17,7 @@ __d(
     "WAWebGroupParticipantsJob",
     "WAWebGroupQueryGroupJob",
     "WAWebGroupsParticipantsApi",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebInactiveGroupLidMigrationJob",
     "WAWebModifyParticipantsGroupAction",
     "WAWebMsgGetters",
@@ -254,7 +254,7 @@ __d(
               recvFresh: !0,
               isNewMsg: !0,
             };
-          yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
             chatId: i.id,
             newMsg: d,
             handleSingleMsgOrigin: "debugGroup",

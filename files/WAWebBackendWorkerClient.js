@@ -5,12 +5,26 @@ __d(
     "QPLFlow",
     "WAResolvable",
     "WAWebABPropsCache",
+    "WAWebApiHydrateWidsUtil",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBackendWorkerBridge",
     "WAWebBackendWorkerResource",
     "WAWebFBLogger",
+    "WAWebGetMessageCache",
+    "WAWebGlobals",
+    "WAWebHandleSingleMsgWorkerCompatible",
+    "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebMainThreadQplHandler",
+    "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
+    "WAWebMsgKey",
+    "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+    "WAWebPersistedJobManagerWorkerCompatible",
+    "WAWebSyncdOrphanWorkerCompatible",
+    "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
+    "WAWebUserPrefsBase",
+    "WAWebUserPrefsIndexedDBStorage",
+    "WAWebUserPrefsKeys",
     "WAWebWorkerSafeBackendApi",
     "WorkerBundleResource",
     "asyncToGeneratorRuntime",
@@ -20,12 +34,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s,
-      u,
-      c = r("qpl")._(891427260, "2714"),
-      d = new (o("WAResolvable").Resolvable)();
-    function m(e) {
+    var e, s, u;
+    function c(e) {
+      throw new TypeError('"' + e + '" is read-only');
+    }
+    var d = r("qpl")._(891427260, "2714"),
+      m = new (o("WAResolvable").Resolvable)(),
+      p = new Map();
+    function _(e) {
       var t = null,
         n = {
           onmessage: t,
@@ -43,21 +59,21 @@ __d(
         n
       );
     }
-    function p() {
-      return _.apply(this, arguments);
+    function f() {
+      return g.apply(this, arguments);
     }
-    function _() {
+    function g() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("QPLFlow").startQPLFlow(c, { timeoutInMs: 6e4 });
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = o("QPLFlow").startQPLFlow(d, { timeoutInMs: 6e4 });
           try {
             t.addPoint("create_worker_start");
-            var n = o("WorkerBundleResource").createDedicatedWebWorker(
+            var a = o("WorkerBundleResource").createDedicatedWebWorker(
               r("WAWebBackendWorkerResource"),
             );
-            yield h(n);
-            var a = o("WAWebBackendWorkerBridge").createBridge(
-              m(n),
+            yield C(a);
+            var i = o("WAWebBackendWorkerBridge").createBridge(
+              _(a),
               [
                 "historySync",
                 "deviceSync",
@@ -66,7 +82,9 @@ __d(
                 "prekeyProcessing",
                 "abProps",
                 "database",
+                "globals",
                 "backendEventBusSync",
+                "userPrefs",
               ],
               [
                 {
@@ -183,14 +201,226 @@ __d(
                     },
                   },
                 },
+                {
+                  namespace: "mainthread_callbacks",
+                  handlers: {
+                    handleSingleMsg: function (t) {
+                      return (
+                        o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+                        o(
+                          "WAWebHandleSingleMsgWorkerCompatible",
+                        ).handleSingleMsg(
+                          babelHelpers.extends({}, t, {
+                            newMsg: babelHelpers.extends({}, t.newMsg, {
+                              id: r("WAWebMsgKey").from(t.newMsg.id),
+                            }),
+                          }),
+                        )
+                      );
+                    },
+                    checkOrphanMutations: function (t) {
+                      var e = t.chatIds,
+                        n = t.msgIds,
+                        r = t.threadIds;
+                      return o(
+                        "WAWebSyncdOrphanWorkerCompatible",
+                      ).checkOrphanMutations(n, e, r);
+                    },
+                    maybeInsertDebugPlaceholder: function (t) {
+                      return (
+                        o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+                        o(
+                          "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
+                        ).maybeInsertDebugPlaceholder(t)
+                      );
+                    },
+                    updateMmSignalSharingExpirationWindow: function (t) {
+                      var e = t.contextInfo,
+                        n = t.msg;
+                      return (
+                        o("WAWebApiHydrateWidsUtil").hydrateWids(n),
+                        o(
+                          "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
+                        ).updateMmSignalSharingExpirationWindow(n, e)
+                      );
+                    },
+                  },
+                },
+                {
+                  namespace: "mainthread_jobmanager",
+                  handlers: {
+                    fireAndForget: function (t) {
+                      o("WAWebPersistedJobManagerWorkerCompatible")
+                        .getJobManager()
+                        .fireAndForget(t);
+                    },
+                    waitUntilPersisted: function (t) {
+                      return o("WAWebPersistedJobManagerWorkerCompatible")
+                        .getJobManager()
+                        .waitUntilPersisted(t);
+                    },
+                    waitUntilCompleted: function (t) {
+                      return o("WAWebPersistedJobManagerWorkerCompatible")
+                        .getJobManager()
+                        .waitUntilCompleted(t);
+                    },
+                    loadAndRunJobFromId: function (t) {
+                      var e = t.jobId;
+                      return o("WAWebPersistedJobManagerWorkerCompatible")
+                        .getJobManager()
+                        .loadAndRunJobFromId(e);
+                    },
+                    deletePersistedJob: (function () {
+                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (e) {
+                          var t = e.jobId;
+                          yield o("WAWebPersistedJobManagerWorkerCompatible")
+                            .getJobManager()
+                            .accessors.deletePersistedJob(t);
+                        },
+                      );
+                      function t(t) {
+                        return e.apply(this, arguments);
+                      }
+                      return t;
+                    })(),
+                    maybeCreateJob: function (t) {
+                      return o("WAWebPersistedJobManagerWorkerCompatible")
+                        .getJobManager()
+                        .accessors.maybeCreateJob(t);
+                    },
+                  },
+                },
+                {
+                  namespace: "mainthread_messagecache",
+                  handlers: {
+                    addMessages: function (t) {
+                      var e = t.flushImmediately,
+                        n = t.messages;
+                      return (
+                        o("WAWebApiHydrateWidsUtil").hydrateWids(n),
+                        o("WAWebGetMessageCache")
+                          .getMessageCache()
+                          .addMessages(n, e)
+                      );
+                    },
+                    addAdditionalInfo: function (t) {
+                      var e = t.dangerouslyFlushImmediately,
+                        n = t.info;
+                      o("WAWebGetMessageCache")
+                        .getMessageCache()
+                        .addAdditionalInfo(n, e);
+                    },
+                    createSnapshot: function () {
+                      o("WAWebGetMessageCache")
+                        .getMessageCache()
+                        .createSnapshot();
+                    },
+                    checkpointQueueWait: function () {
+                      return o("WAWebGetMessageCache")
+                        .getMessageCache()
+                        .checkpointQueueWait();
+                    },
+                    checkpointQueueSize: function () {
+                      return o("WAWebGetMessageCache")
+                        .getMessageCache()
+                        .checkpointQueueSize();
+                    },
+                    size: function () {
+                      return o("WAWebGetMessageCache").getMessageCache().size();
+                    },
+                  },
+                },
+                {
+                  namespace: "mainthread_msgreporter",
+                  handlers: {
+                    startMarker: function (t) {
+                      var e = t.markerId,
+                        n = t.stage,
+                        r = o(
+                          "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+                        ).msgProcessReporter.startMarker(n);
+                      r && p.set(e, r);
+                    },
+                    endMarker: function (t) {
+                      var e = t.markerId,
+                        n = p.get(e);
+                      n && (n(), p.delete(e));
+                    },
+                    activate: function (t) {
+                      var e = t.count;
+                      o(
+                        "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+                      ).msgProcessReporter.activate(e);
+                    },
+                  },
+                },
+                {
+                  namespace: "mainthread_identitychange",
+                  handlers: {
+                    handleNewIdentity: function (t) {
+                      var e = t.deviceWid,
+                        n = t.offline;
+                      return (
+                        o("WAWebApiHydrateWidsUtil").hydrateWids({
+                          deviceWid: e,
+                        }),
+                        o(
+                          "WAWebIdentityChangeApiWorkerCompatible",
+                        ).handleNewIdentity(e, n)
+                      );
+                    },
+                    clearDeviceRecordForIdentityChange: function (t) {
+                      return (
+                        o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+                        o(
+                          "WAWebIdentityChangeApiWorkerCompatible",
+                        ).clearDeviceRecordForIdentityChange(t)
+                      );
+                    },
+                  },
+                },
+                {
+                  namespace: "userPrefsFromWorker",
+                  handlers: {
+                    syncSet: function (t) {
+                      var e = t.key,
+                        n = t.value;
+                      o(
+                        "WAWebUserPrefsIndexedDBStorage",
+                      ).userPrefsIdb.applySyncSet(e, n);
+                    },
+                    syncRemove: function (t) {
+                      var e = t.key;
+                      o(
+                        "WAWebUserPrefsIndexedDBStorage",
+                      ).userPrefsIdb.applySyncRemove(e);
+                    },
+                    syncClear: function () {
+                      o(
+                        "WAWebUserPrefsIndexedDBStorage",
+                      ).userPrefsIdb.applySyncClear();
+                    },
+                    syncBulkSet: function (t) {
+                      var e = t.entries;
+                      for (var n of e) {
+                        var r = n.key,
+                          a = n.value;
+                        o(
+                          "WAWebUserPrefsIndexedDBStorage",
+                        ).userPrefsIdb.applySyncSet(r, a);
+                      }
+                    },
+                  },
+                },
               ],
             );
-            (a.setNamespaceHandler("event", function (e, t, n) {
+            (i.setNamespaceHandler("event", function (e, t, n) {
               n
                 ? n(o("WAWebBackendApi").frontendSendAndReceive(e, t))
                 : o("WAWebBackendApi").frontendFireAndForget(e, t);
             }),
-              a.setNamespaceHandler("workerSafeEvent", function (e, t, n) {
+              i.setNamespaceHandler("workerSafeEvent", function (e, t, n) {
                 n
                   ? n(
                       o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
@@ -203,7 +433,18 @@ __d(
                       t,
                     );
               }),
-              d.resolve(a),
+              m.resolve(i));
+            var l = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
+                o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME,
+              ),
+              u = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
+                o("WAWebUserPrefsKeys").KEYS.LID,
+              );
+            (i.fireAndForget("globals", "set", {
+              deviceJid: o("WAWebGlobals").getMyDeviceJid(),
+              lidDeviceJid: u != null ? String(u) : null,
+              displayName: l != null ? String(l) : null,
+            }),
               t.addPoint("create_worker_end"),
               t.endSuccess(),
               o("WAWebFBLogger")
@@ -227,16 +468,16 @@ __d(
               t.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(e)));
           }
         })),
-        _.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function f() {
-      return d.promise;
+    function h() {
+      return m.promise;
     }
-    function g() {
-      return d.resolveWasCalled();
+    function y() {
+      return m.resolveWasCalled();
     }
-    function h(e) {
+    function C(e) {
       return new (u || (u = n("Promise")))(function (t, n) {
         var r = function (a) {
           var o = a.data,
@@ -249,9 +490,9 @@ __d(
         e.addEventListener("message", r);
       });
     }
-    ((l.startBackendWorker = p),
-      (l.getBackendWorkerBridge = f),
-      (l.isBackendWorkerBridgeReady = g));
+    ((l.startBackendWorker = f),
+      (l.getBackendWorkerBridge = h),
+      (l.isBackendWorkerBridgeReady = y));
   },
   98,
 );

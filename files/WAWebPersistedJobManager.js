@@ -120,11 +120,9 @@ __d(
       if (s == null) throw r("err")("jobs manager has not been initialized");
       return s;
     }
-    var f = { getJobManager: _, maybeCreateJob: m };
     ((l.startWebPersistedJobManager = u),
       (l.maybeCreateJob = m),
-      (l.getJobManager = _),
-      (l.mainThreadPersistedJobManagerHandler = f));
+      (l.getJobManager = _));
   },
   98,
 );

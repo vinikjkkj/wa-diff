@@ -5,7 +5,7 @@ __d(
     "WASmaxStatusDeliverIncomingNewsletterStatusRPC",
     "WAWebBackendApi",
     "WAWebHandleMsgTypes.flow",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
     "WAWebMessageProcessorCache",
     "WAWebMessageQueue",
@@ -100,13 +100,13 @@ __d(
                           );
                       }
                       try {
-                        (yield o("WAWebHandleSingleMsgFactory").handleSingleMsg(
-                          {
-                            chatId: m,
-                            newMsg: t,
-                            handleSingleMsgOrigin: "addStatusMessages",
-                          },
-                        ),
+                        (yield o(
+                          "WAWebHandleSingleMsgWorkerCompatible",
+                        ).handleSingleMsg({
+                          chatId: m,
+                          newMsg: t,
+                          handleSingleMsgOrigin: "addStatusMessages",
+                        }),
                           c.serverId != null &&
                             o("WAWebBackendApi").frontendFireAndForget(
                               "fillGapFromIncomingStanza",

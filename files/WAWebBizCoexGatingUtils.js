@@ -1,44 +1,47 @@
 __d(
   "WAWebBizCoexGatingUtils",
-  ["WAWebABProps", "WAWebMobilePlatforms"],
+  ["WAWebABProps", "cr:37209"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "adv_accept_hosted_devices",
-      );
-    }
-    function s() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "adv_accept_hosted_devices",
-      );
-    }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "adv_accept_hosted_devices",
-      );
-    }
+    var e,
+      s = (e = n("cr:37209")) != null ? e : {},
+      u = s.isSMB;
     function c() {
-      return !!o("WAWebMobilePlatforms").isSMB();
+      return o("WAWebABProps").getABPropConfigValue(
+        "adv_accept_hosted_devices",
+      );
     }
     function d() {
-      return !o("WAWebMobilePlatforms").isSMB() || !e()
+      return o("WAWebABProps").getABPropConfigValue(
+        "adv_accept_hosted_devices",
+      );
+    }
+    function m() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "adv_accept_hosted_devices",
+      );
+    }
+    function p() {
+      return !!(u != null && u());
+    }
+    function _() {
+      return !(u != null && u()) || !c()
         ? !1
         : o("WAWebABProps").getABPropConfigValue(
             "lazy_system_message_insertion_enabled",
           );
     }
-    function m() {
+    function f() {
       return o("WAWebABProps").getABPropConfigValue(
         "auth_agents_consumer_exp_enabled",
       );
     }
-    ((l.bizHostedDevicesEnabled = e),
-      (l.bizHostedDevicesSystemMessageEnabled = s),
-      (l.hostedDeviceSecurityCodeVerificationEnabled = u),
-      (l.smbHostedPrimaryPairingAllowed = c),
-      (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = d),
-      (l.authorizedAgentsEnabled = m));
+    ((l.bizHostedDevicesEnabled = c),
+      (l.bizHostedDevicesSystemMessageEnabled = d),
+      (l.hostedDeviceSecurityCodeVerificationEnabled = m),
+      (l.smbHostedPrimaryPairingAllowed = p),
+      (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = _),
+      (l.authorizedAgentsEnabled = f));
   },
   98,
 );

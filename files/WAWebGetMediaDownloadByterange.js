@@ -10,30 +10,27 @@ __d(
       var t = e.partialVideoOpts,
         n = e.progressiveJpegOpts,
         a = e.scanCount;
-      if (n && a != null)
-        return {
-          start: 0,
-          end: r("sumBy")(
-            o("WAAlignChunkLengthsToMultipleOfAesBlockSize")
-              .alignChunkLengthsToMultipleOfAesBlockSize(n.scanLengths)
-              .slice(0, a),
-            function (e) {
-              return e;
-            },
-          ),
-        };
+      if (n && a != null) {
+        var i = o("WAAlignChunkLengthsToMultipleOfAesBlockSize")
+            .alignChunkLengthsToMultipleOfAesBlockSize(n.scanLengths)
+            .slice(0, a),
+          l = r("sumBy")(i, function (e) {
+            return e;
+          });
+        return l === 0 ? null : { start: 0, end: l - 1 };
+      }
       if (t) {
-        var i = t.secondsToDownload,
-          l = t.video,
-          s = l.duration,
-          u = l.size,
-          c = (u * i) / s,
-          d = 128 * 1024,
-          m = Math.max(c, d),
-          p = Math.ceil(m / o("WAWebCryptoDecryptPartialMedia").BLOCK_SIZE);
+        var s = t.secondsToDownload,
+          u = t.video,
+          c = u.duration,
+          d = u.size,
+          m = (d * s) / c,
+          p = 128 * 1024,
+          _ = Math.max(m, p),
+          f = Math.ceil(_ / o("WAWebCryptoDecryptPartialMedia").BLOCK_SIZE);
         return {
           start: 0,
-          end: p * o("WAWebCryptoDecryptPartialMedia").BLOCK_SIZE - 1,
+          end: f * o("WAWebCryptoDecryptPartialMedia").BLOCK_SIZE - 1,
         };
       }
       return null;

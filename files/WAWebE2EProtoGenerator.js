@@ -253,8 +253,8 @@ __d(
           creatorName: f,
         };
       }
-      return (
-        e.ephemeralDuration && (a.expiration = e.ephemeralDuration),
+      if (
+        (e.ephemeralDuration && (a.expiration = e.ephemeralDuration),
         e.ephemeralSettingTimestamp &&
           (a.ephemeralSettingTimestamp = e.ephemeralSettingTimestamp),
         e.afterReadDuration != null &&
@@ -291,8 +291,14 @@ __d(
             utmCampaign: n.campaign != null ? n.campaign : void 0,
             utmSource: n.source != null ? n.source : void 0,
           }),
-        e.cannotBeRanked &&
-          (a.featureEligibilities = { cannotBeRanked: e.cannotBeRanked }),
+        e.cannotBeRanked || e.canBeReshared)
+      ) {
+        var g = {};
+        (e.cannotBeRanked && (g.cannotBeRanked = e.cannotBeRanked),
+          e.canBeReshared && (g.canBeReshared = e.canBeReshared),
+          (a.featureEligibilities = g));
+      }
+      return (
         e.limitSharing && (a.limitSharingV2 = e.limitSharing),
         h(e, t, r("isEmptyObject")(a) ? void 0 : a)
       );

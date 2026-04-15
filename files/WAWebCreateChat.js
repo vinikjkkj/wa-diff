@@ -25,7 +25,7 @@ __d(
     "WAWebGetCTWAEligibilityFromConversion",
     "WAWebGetMessageCache",
     "WAWebHandleMsgTypes.flow",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebInitialSystemMsg",
     "WAWebLid1X1MigrationGating",
     "WAWebLidAwareContactsDB",
@@ -310,16 +310,21 @@ __d(
                   "createChat-lid-offline-resume-workaround-failed-chat",
                 );
             }
+            var ie;
             if (
               N.isLid() &&
               o(
                 "WAWebUsernameGatingUtils",
               ).usernameAdoptionAndEngagementMonitoringEnabled()
             ) {
-              var ie = o("WAWebLidMigrationUtils").toPn(N) != null,
-                le = yield r("WAWebLidAwareContactsDB").get(N.toJid()),
-                se = (le == null ? void 0 : le.username) != null;
-              q.isUsernameThreadAtCreation = !ie && se;
+              var le = o("WAWebLidMigrationUtils").toPn(N) != null;
+              if (le) q.isUsernameThreadAtCreation = !1;
+              else {
+                var se;
+                ((ie = yield o("WAWebApiContact").getContactRecord(N)),
+                  (q.isUsernameThreadAtCreation =
+                    ((se = ie) == null ? void 0 : se.username) != null));
+              }
             }
             if (
               (yield o("WAWebBackendApi").frontendFireAndForget(
@@ -366,13 +371,15 @@ __d(
                 N.toLogString(),
               );
               for (var pe of me)
-                yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
-                  chatId: N,
-                  newMsg: pe,
-                  handleSingleMsgOrigin: "createChat",
-                  messageOverwriteOption: ce,
-                  preserveOrder: de,
-                });
+                yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg(
+                  {
+                    chatId: N,
+                    newMsg: pe,
+                    handleSingleMsgOrigin: "createChat",
+                    messageOverwriteOption: ce,
+                    preserveOrder: de,
+                  },
+                );
             }
             if (e.chatId.isUser()) {
               var _e = o("WAWebWidFactory").createUserWidOrThrow(
@@ -382,12 +389,18 @@ __d(
                 ge = o("WAWebApiContact").getContactHash(fe),
                 he = { id: fe, contactHash: ge },
                 ye;
-              (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-                ((ye = yield o(
-                  "WAWebApiContactUsernameFields",
-                ).getOrFetchContactUsernameCountryCode(N)),
-                ye != null && (he.usernameCountryCode = ye)),
-                yield r("WAWebLidAwareContactsDB").createOrMerge(fe, he));
+              if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
+                var Ce, be;
+                ((ye =
+                  (Ce = (be = ie) == null ? void 0 : be.usernameCountryCode) !=
+                  null
+                    ? Ce
+                    : yield o(
+                        "WAWebApiContactUsernameFields",
+                      ).getOrFetchContactUsernameCountryCode(N)),
+                  ye != null && (he.usernameCountryCode = ye));
+              }
+              yield r("WAWebLidAwareContactsDB").createOrMerge(fe, he);
             }
           },
         )),

@@ -56,10 +56,11 @@ __d(
       m,
       p,
       _,
-      f = r("requireDeferred")("WAWebSetFrontendHandlerApi").__setRef(
+      f,
+      g = r("requireDeferred")("WAWebSetFrontendHandlerApi").__setRef(
         "WAWebLaunchSocket",
       ),
-      g = r("requireDeferred")("WAWebSetWorkerSafeHandlerApi").__setRef(
+      h = r("requireDeferred")("WAWebSetWorkerSafeHandlerApi").__setRef(
         "WAWebLaunchSocket",
       );
     o("WAWebBackendEventBus").BackendEventBus.onReconnectSocket(function () {
@@ -71,7 +72,7 @@ __d(
       ),
         o("WAComms").closeSocketAndResume());
     });
-    function h(e) {
+    function y(e) {
       (o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(
         o("WAWebBackendEventBus").BackendEventBus,
       ),
@@ -109,11 +110,11 @@ __d(
       var t = o("WAWebBridgeInitialization").makeBridge();
       return (
         o("WAWebBackendApi").setApi(t),
-        f.load().then(function (e) {
+        g.load().then(function (e) {
           var n = e.setFrontendHandlers;
           return n(t);
         }),
-        g.load().then(function (e) {
+        h.load().then(function (e) {
           var n = e.setWorkerSafeHandlers;
           return n(t);
         }),
@@ -122,7 +123,7 @@ __d(
         o("WAWebDbRolloutUtil")
           .loadSchemaVersions()
           .then(function () {
-            return y();
+            return C();
           })
           .then(function () {
             return o("WAWebCryptoEncKeyHelper").initEncSalt();
@@ -134,7 +135,7 @@ __d(
             return o("WAWebSignalStorage").initialize();
           })
           .then(function () {
-            return (_ || (_ = n("Promise"))).all([
+            return (f || (f = n("Promise"))).all([
               o("WAWebModelStorage").initialize(),
               e,
             ]);
@@ -143,7 +144,10 @@ __d(
             return o("WAWebStatusStorage").initialize();
           })
           .then(function () {
-            return (_ || (_ = n("Promise"))).all([
+            return b();
+          })
+          .then(function () {
+            return (f || (f = n("Promise"))).all([
               o("WAWebUserPrefsGeneral").getLogoutReason(),
               o("WAWebWorkerStorage").initialize(),
               o("WAWebUserPrefsGeneral").setAppVersionBase(
@@ -193,7 +197,7 @@ __d(
                     ).BackendEventBus.triggerStorageInitializationError(e);
                   })
                   .then(function () {
-                    return (_ || (_ = n("Promise"))).all([
+                    return (f || (f = n("Promise"))).all([
                       o(
                         "WAWebABPropsUpdateFromStorage",
                       ).updateABPropsFromStorage(),
@@ -225,11 +229,11 @@ __d(
                           );
                         },
                         t = o("WAWebBlocklistMigration").applyBlocklistV2Rules()
-                          ? (_ || (_ = n("Promise"))).resolve()
+                          ? (f || (f = n("Promise"))).resolve()
                           : o("WAWebBackendApi").frontendSendAndReceive(
                               "restoreBlocklist",
                             );
-                      yield (_ || (_ = n("Promise"))).all([
+                      yield (f || (f = n("Promise"))).all([
                         o("WAWebBackendApi").frontendSendAndReceive(
                           "restoreOptOutList",
                           {},
@@ -262,7 +266,7 @@ __d(
                 o(
                   "WAWebWaitForInitialChatsSynced",
                 ).initWaitForInitialChatsSynced(),
-                (_ || (_ = n("Promise")))
+                (f || (f = n("Promise")))
                   .all([
                     o("WAWebRegistration").refreshNoiseCredentials(),
                     o("WAWebRegistration").refreshSignalCredentials(),
@@ -278,7 +282,7 @@ __d(
           })
       );
     }
-    function y() {
+    function C() {
       o("WALogger").LOG(
         p ||
           (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -286,14 +290,36 @@ __d(
           ])),
       );
       var e = o("WAWebSchemaVersions").getSchemaVersions();
-      (o("WAWebInvocationInterface").get().setSchemaVersions(e),
-        o("WAWebBackendWorkerClient")
-          .getBackendWorkerBridge()
-          .then(function (t) {
-            return t.fireAndForget("database", "initDb", { versionsToSet: e });
-          }));
+      o("WAWebInvocationInterface").get().setSchemaVersions(e);
     }
-    l.launchSocket = h;
+    function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
+      return (
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WALogger").LOG(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "[storage] send schema versions to fts worker",
+              ])),
+          );
+          var e = o("WAWebSchemaVersions").getSchemaVersions(),
+            t = yield o("WAWebCryptoEncKeyHelper").getSalt();
+          t != null &&
+            o("WAWebBackendWorkerClient")
+              .getBackendWorkerBridge()
+              .then(function (n) {
+                return n.fireAndForget("database", "initDb", {
+                  versionsToSet: e,
+                  salt: t,
+                });
+              });
+        })),
+        v.apply(this, arguments)
+      );
+    }
+    l.launchSocket = y;
   },
   98,
 );

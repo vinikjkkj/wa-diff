@@ -128,10 +128,12 @@ __d(
                 : t >= l[0];
             }));
           break;
-        default:
-          throw new Error(
+        default: {
+          var c = new Error(
             o("ContextualConfigConstants").ERROR.ILLEGAL_NUMERIC_STRATEGY,
           );
+          throw (c.stack, c);
+        }
       }
       return function (e) {
         return s(e);

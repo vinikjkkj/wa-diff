@@ -34,6 +34,7 @@ __d(
             n("terminated"),
             n("followerActivityMuteExpiration"),
             n("adminCount"),
+            n("adminProfile"),
             n("capabilities"),
             n("messageDeliveryUpdates"),
             n("geosuspendedCountries"),

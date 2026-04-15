@@ -19,7 +19,7 @@ __d(
     "WAWebGroupHistoryReportingTokenUtils",
     "WAWebHandleMsgTypes.flow",
     "WAWebLidMigrationUtils",
-    "WAWebMessageInsertDebugPlaceholderFactory",
+    "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessagePluginGenerateReportingTokenContent",
     "WAWebMessageSecretErrorsWamEvent",
     "WAWebMessagingGatingUtils",
@@ -560,7 +560,7 @@ __d(
             ) {
               var g = V(e);
               o(
-                "WAWebMessageInsertDebugPlaceholderFactory",
+                "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
               ).maybeInsertDebugPlaceholder({
                 externalId: g.externalId,
                 nackReason: o("WAWebCreateNackFromStanza").NackReason

@@ -2,7 +2,7 @@ __d(
   "WAWebAddBotTransparencyNotice",
   [
     "WAWebBotSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,7 +16,7 @@ __d(
           var n = o(
             "WAWebBotSystemMsg",
           ).genBotSessionTransparencyNoticeSystemMsg(e, t);
-          yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
             chatId: e,
             newMsg: n,
             handleSingleMsgOrigin: "limitSharing",

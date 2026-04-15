@@ -33,10 +33,12 @@ __d(
           return new (r("MultiOutputResolvedContextualConfig"))(e, t);
         case o("ContextualConfigConstants").CONFIG_TYPE.TABLE:
           return new (r("TableContextualConfig"))(e, t);
-        default:
-          throw new Error(
+        default: {
+          var n = new Error(
             o("ContextualConfigConstants").ERROR.UNKNOWN_CONFIG_TYPE,
           );
+          throw (n.stack, n);
+        }
       }
     }
     l.default = d;

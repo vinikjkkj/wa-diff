@@ -2,7 +2,7 @@ __d(
   "WAWebEphemeralGenerateSystemMessage",
   [
     "WAWebContactSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +17,7 @@ __d(
             t,
             n,
           );
-          yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
             chatId: r.from,
             newMsg: r,
             handleSingleMsgOrigin: "ephemeralSystemMsg",
@@ -36,7 +36,7 @@ __d(
           var t = o(
             "WAWebContactSystemMsg",
           ).genDisappearingModeUnsupportedSystemMsg(e.id);
-          yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
             chatId: t.from,
             newMsg: t,
             handleSingleMsgOrigin: "ephemeralUnsupportedSystemMsg",

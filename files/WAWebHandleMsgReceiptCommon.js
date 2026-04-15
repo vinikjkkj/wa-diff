@@ -295,8 +295,8 @@ __d(
             d = c ? E(l) : { msgsByThreadId: new Map(), msgsWithoutThread: l },
             m = d.msgsByThreadId,
             f = d.msgsWithoutThread;
-          (c && f.length === 0 && m.size > 0
-            ? (yield (_ || (_ = n("Promise"))).all(
+          if (c && f.length === 0 && m.size > 0) {
+            var g = yield (_ || (_ = n("Promise"))).all(
                 Array.from(m.entries()).map(
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -304,7 +304,7 @@ __d(
                         var n = e[0],
                           o = e[1],
                           a = r("WAWebThreadId").from(n);
-                        yield P({
+                        return P({
                           chatId: s,
                           msgs: o,
                           msgKeys: t,
@@ -318,12 +318,13 @@ __d(
                   })(),
                 ),
               ),
-              (u = Array.from(m.keys(), function (e) {
-                return r("WAWebThreadId").from(e);
-              })))
-            : (u = yield P({ chatId: s, msgs: f, msgKeys: t })),
-            yield k(s, u),
-            yield T(s));
+              y = new Set();
+            for (var b of g) for (var v of b) y.add(v.toString());
+            u = Array.from(y, function (e) {
+              return r("WAWebThreadId").from(e);
+            });
+          } else u = yield P({ chatId: s, msgs: f, msgKeys: t });
+          (yield k(s, u), yield T(s));
         })),
         w.apply(this, arguments)
       );

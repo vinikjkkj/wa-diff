@@ -17,7 +17,7 @@ __d(
     "WAWebHandleMsgTypes.flow",
     "WAWebMaybePostOfflineCountTooHighMetric",
     "WAWebMessageDedupUtils",
-    "WAWebMessageInsertDebugPlaceholderFactory",
+    "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMessageQueue",
     "WAWebMsgProcessingApiUtils",
     "WAWebMsgProcessingDecryptApi",
@@ -136,7 +136,7 @@ __d(
                       "WAWebPostIncomingMessageDropMetric",
                     ).postIncomingMessageDropInvalidStanza(t),
               o(
-                "WAWebMessageInsertDebugPlaceholderFactory",
+                "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
               ).maybeInsertDebugPlaceholder({
                 externalId: v,
                 nackReason: E,

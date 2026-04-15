@@ -10,7 +10,7 @@ __d(
     "WAWebFindChatAction",
     "WAWebGetMessageCache",
     "WAWebHandleMsgTypes.flow",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMessageQueue",
     "WAWebMsgCollection",
     "WAWebSendMsgChatAction",
@@ -161,7 +161,7 @@ __d(
                         ? (yield (p || (p = n("Promise"))).all([
                             l.applyUpdate(e),
                             yield o(
-                              "WAWebHandleSingleMsgFactory",
+                              "WAWebHandleSingleMsgWorkerCompatible",
                             ).handleSingleMsg({
                               chatId: t,
                               newMsg: e,
@@ -224,7 +224,9 @@ __d(
                         "WAWebFindChatAction",
                       ).findOrCreateLatestChat(e, "voipCallLog"),
                       s = l.chat;
-                    (yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+                    (yield o(
+                      "WAWebHandleSingleMsgWorkerCompatible",
+                    ).handleSingleMsg({
                       chatId: s.id,
                       newMsg: t,
                       handleSingleMsgOrigin: "voipNotification",

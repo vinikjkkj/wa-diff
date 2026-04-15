@@ -10,6 +10,7 @@ __d(
     "WAWebMsgType",
     "WAWebStatusGatingUtils",
     "WAWebUserPrefsMeUser",
+    "WAWebUserPrefsStatus",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -43,7 +44,10 @@ __d(
               id: yield r("WAWebMsgKey").newId(),
               participant: m,
             }),
-            _ = {
+            _ = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
+              ? yield r("WAWebUserPrefsStatus").getStatusReshareAllowed()
+              : !1,
+            f = {
               id: p,
               body: s,
               author: c,
@@ -67,8 +71,9 @@ __d(
               cannotBeRanked: o(
                 "WAWebStatusGatingUtils",
               ).canCheckStatusRankingPosterGating(),
+              canBeReshared: _,
             };
-          return _;
+          return f;
         })),
         u.apply(this, arguments)
       );

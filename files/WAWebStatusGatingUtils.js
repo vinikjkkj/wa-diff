@@ -133,6 +133,16 @@ __d(
         "waweb_status_close_friends_viewer_side_enabled",
       );
     }
+    function k() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_reshare_poster_side_enabled",
+      );
+    }
+    function I() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_status_resharer_flow_enabled",
+      );
+    }
     ((l.statusQuickReplyEmojis = u),
       (l.isStatusLikesSendEnabled = c),
       (l.isStatusPrivateMentionsReceiveEnabled = d),
@@ -149,7 +159,9 @@ __d(
       (l.isStatusFirstUploadFixEnabled = S),
       (l.isStatusViewerSidePosterIdentifiersEnabled = R),
       (l.isStatusCrosspostingAttributionsEnabled = L),
-      (l.isStatusCloseFriendsViewerSideEnabled = E));
+      (l.isStatusCloseFriendsViewerSideEnabled = E),
+      (l.isStatusResharePosterSideEnabled = k),
+      (l.isStatusReshareViewerFlowEnabled = I));
   },
   98,
 );

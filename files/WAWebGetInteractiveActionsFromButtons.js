@@ -29,6 +29,7 @@ __d(
     "WAWebMmSignalSharingLoggingEvents",
     "WAWebMmSignalSharingModelUtils",
     "WAWebMmSignalSharingShowDisclosureModal",
+    "WAWebMmSignalSharingTos",
     "WAWebMmSignalSharingUIUtils",
     "WAWebModalManager",
     "WAWebMsgCollection",
@@ -241,7 +242,9 @@ __d(
                 chat: l,
                 msg: a.unsafe(),
                 btnIndex: t.index,
-                isMmSignalSharingDisclosureTosAccepted: !0,
+                isMmSignalSharingDisclosureTosAccepted: o(
+                  "WAWebMmSignalSharingTos",
+                ).isMmSignalSharingDisclosureTosAccepted(),
                 defaultUrl: n,
               });
             },

@@ -9,7 +9,7 @@ __d(
     "WAWebChatMessageCountsWamEvent",
     "WAWebChatThreadLogging",
     "WAWebCreateChat",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -127,7 +127,7 @@ __d(
               uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
                 .NOTIFICATION_TYPE_ENUM.INVITE_JOINED,
             }).commit(),
-              yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+              yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
                 chatId: a,
                 newMsg: i,
                 handleSingleMsgOrigin:

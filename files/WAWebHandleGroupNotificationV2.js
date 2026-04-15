@@ -14,7 +14,7 @@ __d(
     "WAWebGroupQueryJob",
     "WAWebGroupSystemMsg",
     "WAWebHandleGroupNotificationConst",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLidMappingUsernameLearnUtils",
     "WAWebMemberLabelGroupRemoveHandler",
     "WAWebMessageQueue",
@@ -360,7 +360,9 @@ __d(
                 );
               yield (c || (c = n("Promise"))).all(
                 e.map(function (e) {
-                  return o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+                  return o(
+                    "WAWebHandleSingleMsgWorkerCompatible",
+                  ).handleSingleMsg({
                     chatId: e.from,
                     newMsg: e,
                     handleSingleMsgOrigin: "handleGroupNotificationV2",

@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WAWebChatCollection",
     "WAWebContactSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLid1X1MigrationGating",
     "WAWebLidMigrationUtils",
     "WAWebPrivacyModeSystemMsg",
@@ -54,7 +54,7 @@ __d(
       return (
         h.map(function (e) {
           if (e != null)
-            return o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+            return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: g,
               newMsg: e,
               handleSingleMsgOrigin: "bizStateChangeNotification",

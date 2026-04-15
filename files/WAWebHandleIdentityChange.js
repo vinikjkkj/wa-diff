@@ -10,7 +10,7 @@ __d(
     "WAWebBroadcastSenderKeyManager",
     "WAWebCommsWapMd",
     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
-    "WAWebIdentityChangeApiFactory",
+    "WAWebIdentityChangeApiWorkerCompatible",
     "WAWebJidToWid",
     "WAWebManageE2ESessionsJob",
     "WAWebMessageQueue",
@@ -108,7 +108,7 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = _ ? o("WAWebWidFactory").asUserLidOrThrow(_) : null;
             yield o(
-              "WAWebIdentityChangeApiFactory",
+              "WAWebIdentityChangeApiWorkerCompatible",
             ).clearDeviceRecordForIdentityChange({
               wid: h,
               stanzaLid: e,

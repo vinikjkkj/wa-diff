@@ -74,7 +74,7 @@ __d(
               o("WALogger").WARN(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[deleteAiThreadsAction] failed to send companion unpin mutations",
+                    "[deleteAiThreadsAction] companion unpin mutations failed",
                   ])),
               );
             }

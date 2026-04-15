@@ -3,7 +3,7 @@ __d(
   [
     "WATimeUtils",
     "WAWebContactSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMmSignalSharingGatingUtils",
     "WAWebTos",
     "asyncToGeneratorRuntime",
@@ -38,7 +38,7 @@ __d(
             ).isMmDataSharingDisclosureEnabledAdditionalTransparencyLargeScreens())
           ) {
             var t = o("WAWebContactSystemMsg").genMmSignalSharingSystemMsg(e);
-            yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+            yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: e,
               newMsg: t,
               handleSingleMsgOrigin: "mmSignalSharing",

@@ -1,59 +1,25 @@
 __d(
   "WAWebJobLoadQuickPromotions",
   [
-    "JSResourceForInteraction",
-    "Promise",
-    "WALogger",
     "WATaskScheduler",
     "WAWebBackendApi",
-    "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebCTWAConstants",
     "WAWebFetchQuickPromotions",
-    "WAWebMobilePlatforms",
     "WAWebQuickPromotionGating",
     "WAWebSchemaQuickPromotions",
     "WAWebTasksTaskType",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
+    function e(e) {
+      return s.apply(this, arguments);
     }
-    function c() {
+    function s() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          a === void 0 && (a = !1);
-          var i =
-            a &&
-            o("WAWebMobilePlatforms").isSMB() &&
-            o(
-              "WAWebBizBroadcastDeviceCapabilityCommon",
-            ).getPrimarySupportsBusinessBroadcast()
-              ? n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  try {
-                    var t = yield r("JSResourceForInteraction")(
-                        "WAWebBizBroadcastEligibilityPrefetch",
-                      )
-                        .__setRef("WAWebJobLoadQuickPromotions")
-                        .load(),
-                      n = t.prefetchBizBroadcastEligibility;
-                    yield n();
-                  } catch (t) {
-                    o("WALogger").ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[loadQuickPromotions] eligibility prefetch failed: ",
-                          "",
-                        ])),
-                      t,
-                    );
-                  }
-                })()
-              : (s || (s = n("Promise"))).resolve();
+        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebBackendApi")
             .frontendSendAndReceive("getUserLocale")
-            .then(function (e) {
+            .then(function (t) {
               return o("WAWebSchemaQuickPromotions")
                 .getQuickPromotionsTable()
                 .all()
@@ -72,17 +38,17 @@ __d(
                           var r = o(
                               "WAWebQuickPromotionGating",
                             ).qpSurfaceIdsUsingGraphQLSMB(),
-                            a = n.filter(function (t) {
-                              if (t == null) return !1;
+                            a = n.filter(function (e) {
+                              if (e == null) return !1;
                               var n = o(
                                 "WAWebCTWAConstants",
-                              ).KNOWN_QP_SURFACES.get(t.surfaceId);
+                              ).KNOWN_QP_SURFACES.get(e.surfaceId);
                               if (n == null) return !1;
                               var a = r.has(n);
-                              return a && t.locale !== e;
+                              return a && e.locale !== t;
                             });
                           if (a.length > 0) {
-                            if (t === "app-launch") {
+                            if (e === "app-launch") {
                               o("WAWebFetchQuickPromotions")
                                 .fetchQuickPromotions()
                                 .then(function () {
@@ -93,14 +59,13 @@ __d(
                                 });
                               return;
                             }
-                            if (t === "fetch-success") return;
+                            if (e === "fetch-success") return;
                           }
                         }
-                        (yield i,
-                          o("WAWebBackendApi").frontendFireAndForget(
-                            "loadedQuickPromotions",
-                            { promotions: n },
-                          ));
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "loadedQuickPromotions",
+                          { promotions: n },
+                        );
                       },
                     );
                     return function (e) {
@@ -110,10 +75,10 @@ __d(
                 );
             });
         })),
-        c.apply(this, arguments)
+        s.apply(this, arguments)
       );
     }
-    l.loadQuickPromotions = u;
+    l.loadQuickPromotions = e;
   },
   98,
 );

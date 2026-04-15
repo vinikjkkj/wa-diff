@@ -336,10 +336,10 @@ __d(
       );
     }
     function ee(e, t) {
-      return B() && t != null && o("WAWebBotUtils").isMetaAiBot(e);
+      return t != null && o("WAWebBotUtils").isMetaAiBot(e) && B();
     }
     function te(e) {
-      return B() && o("WAWebBotUtils").isMetaAiBot(e);
+      return o("WAWebBotUtils").isMetaAiBot(e) && B();
     }
     function ne() {
       var e,

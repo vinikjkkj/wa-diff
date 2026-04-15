@@ -5,7 +5,7 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebContactSystemMsg",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebLid1X1MigrationGating",
     "WAWebLidAwareContactsDB",
     "WAWebModelStorageUtils",
@@ -267,7 +267,9 @@ __d(
                       try {
                         var t = o("WAWebWidFactory").createWid(e),
                           n = I(t);
-                        yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+                        yield o(
+                          "WAWebHandleSingleMsgWorkerCompatible",
+                        ).handleSingleMsg({
                           chatId: t,
                           newMsg: n,
                           handleSingleMsgOrigin:

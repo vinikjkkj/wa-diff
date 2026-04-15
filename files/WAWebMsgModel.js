@@ -311,6 +311,7 @@ __d(
             (e.backgroundColor = o("WAWebBaseModel").prop()),
             (e.font = o("WAWebBaseModel").prop()),
             (e.cannotBeRanked = o("WAWebBaseModel").prop()),
+            (e.canBeReshared = o("WAWebBaseModel").prop()),
             (e.campaignId = o("WAWebBaseModel").prop()),
             (e.campaignDuration = o("WAWebBaseModel").prop()),
             (e.actionLink = o("WAWebBaseModel").prop()),

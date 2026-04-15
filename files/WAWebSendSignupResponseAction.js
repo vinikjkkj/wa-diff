@@ -24,6 +24,7 @@ __d(
     "WAWebWidToJid",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -125,12 +126,18 @@ __d(
                   signupCtaTapped: !1,
                 }),
                 k(),
-                o("WALogger").ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "sendSignupResponse: signup IQ failure",
-                    ])),
-                ),
+                o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[signup:response] IQ error signupId=",
+                        " errorCode=",
+                        "",
+                      ])),
+                    i,
+                    v.errorCode,
+                  )
+                  .sendLogs("signup-response-iq-error"),
                 !1
               );
             (yield o("WAWebUserPrefsMultiDevice").setOptOutlistHash(
@@ -147,14 +154,17 @@ __d(
                 signupCtaTapped: !1,
               }),
               k(),
-              o("WALogger").WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "sendSignupResponse: signup IQ exception: ",
-                    "",
-                  ])),
-                e,
-              ),
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[signup:response] IQ exception signupId=",
+                      "",
+                    ])),
+                  i,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("signup-response-iq-exception"),
               !1
             );
           }
@@ -165,12 +175,18 @@ __d(
             )[1];
             return S.messageSendResult !==
               o("WAWebSendMsgResultAction").SendMsgResult.OK
-              ? (o("WALogger").ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "sendSignupResponse: SendMsgResult failure",
-                    ])),
-                ),
+              ? (o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[signup:response] send failed signupId=",
+                        " result=",
+                        "",
+                      ])),
+                    i,
+                    S.messageSendResult,
+                  )
+                  .sendLogs("signup-response-send-failed"),
                 !1)
               : (L(o("WAWebStateUtils").unproxy(t)), !0);
           } catch (e) {
@@ -209,7 +225,9 @@ __d(
                 r("JSResourceForInteraction")("WAWebGetMessageCache")
                   .__setRef("WAWebSendSignupResponseAction")
                   .load(),
-                r("JSResourceForInteraction")("WAWebHandleSingleMsgFactory")
+                r("JSResourceForInteraction")(
+                  "WAWebHandleSingleMsgWorkerCompatible",
+                )
                   .__setRef("WAWebSendSignupResponseAction")
                   .load(),
               ]),

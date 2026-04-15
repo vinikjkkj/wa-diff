@@ -37,9 +37,10 @@ __d(
       },
       p = function (t, n) {
         for (var e of t) if (e.name === n) return e.type;
-        throw new Error(
+        var r = new Error(
           o("ContextualConfigConstants").ERROR.UNDECLARED_OUTPUT_PARAM,
         );
+        throw (r.stack, r);
       },
       _ = function (t) {
         return function (e) {

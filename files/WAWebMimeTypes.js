@@ -29,6 +29,13 @@ __d(
           canSend: !0,
           signatureMimetype: "application/rtf",
         },
+        "text/html": {
+          ext: "HTML",
+          msgType: "document",
+          icon: "icon-doc-txt",
+          canSend: !1,
+          previewType: "html",
+        },
         "text/vcard": { ext: "VCF", msgType: "vcard" },
         "application/zip": {
           ext: "ZIP",
@@ -176,6 +183,9 @@ __d(
     function D(e) {
       return E(e) === "pdf";
     }
+    function x(e) {
+      return E(e) === "html";
+    }
     ((l.MIMETYPE_DETERMINING_LENGTH = e),
       (l.MSCFB_HEADER = s),
       (l.MSCFB_MIME = u),
@@ -193,7 +203,8 @@ __d(
       (l.previewType = E),
       (l.getMediaMimeType = k),
       (l.isOpus = T),
-      (l.isPdfDocument = D));
+      (l.isPdfDocument = D),
+      (l.isHtmlDocument = x));
   },
   98,
 );

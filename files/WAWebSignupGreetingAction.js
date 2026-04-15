@@ -10,7 +10,7 @@ __d(
     "WAWebCommonMsgUtils",
     "WAWebContactSystemMsg",
     "WAWebFindChatAction",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebNullFunc",
@@ -22,6 +22,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -84,7 +85,9 @@ __d(
                     isSignupDeeplink: !0,
                   });
                   C != null &&
-                    (yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+                    (yield o(
+                      "WAWebHandleSingleMsgWorkerCompatible",
+                    ).handleSingleMsg({
                       chatId: u.id,
                       newMsg: C,
                       handleSingleMsgOrigin: "signupAGM",
@@ -101,12 +104,18 @@ __d(
               }
             }
             if (h == null) {
-              (o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[injectSignupGreetingMessage] skipping: metadata null",
-                  ])),
-              ),
+              (o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[signup:greeting] metadata null signupId=",
+                      " phone=",
+                      "",
+                    ])),
+                  t,
+                  e,
+                )
+                .sendLogs("signup-greeting-metadata-null"),
                 o("WAWebSignupLoadingState").setSignupLoading(a, !1));
               return;
             }
@@ -145,16 +154,21 @@ __d(
                 t,
               ),
               o("WAWebSignupLoadingState").setSignupLoading(a, !1));
-          } catch (t) {
+          } catch (n) {
             if (
-              (o("WALogger").WARN(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[injectSignupGreetingMessage] error ",
-                    "",
-                  ])),
-                t,
-              ),
+              (o("WALogger")
+                .ERROR(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[signup:greeting] injection failed signupId=",
+                      " phone=",
+                      "",
+                    ])),
+                  t,
+                  e,
+                )
+                .catching(r("getErrorSafe")(n))
+                .sendLogs("signup-greeting-injection-failed"),
               a != null)
             )
               o("WAWebSignupLoadingState").setSignupLoading(a, !1);

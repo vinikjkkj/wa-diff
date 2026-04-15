@@ -186,6 +186,9 @@ __d(
           (r.getResumeUIProgressBarType = function () {
             return this.offlineResumeManager.getResumeUIProgressBarType();
           }),
+          (r.hasReceivedOfflinePreviewIb = function () {
+            return this.$2;
+          }),
           (r.hasInitOfflineResumeManager = function () {
             return this.offlineResumeManager != null;
           }),

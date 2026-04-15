@@ -2,12 +2,16 @@ __d(
   "WAWebSyncOnABProps",
   [
     "WALogger",
+    "WANullthrows",
     "WAWebABProps",
     "WAWebABPropsWamGlobals",
+    "WAWebLocalStorage",
     "WAWebProtobufsE2E.pb",
+    "WAWebQuickPromotionGating",
     "WAWebStoreSpecialAbProps",
     "WAWebUserPrefsAppStateSync",
     "WAWebUserPrefsCTWA",
+    "WAWebUserPrefsKeys",
     "WAWebUserPrefsTypes",
     "WAWebUserPrefsUiRefresh",
     "asyncToGeneratorRuntime",
@@ -73,10 +77,27 @@ __d(
         o("WAWebUserPrefsUiRefresh").setUiRefreshNuxAcked(!1),
         o("WAWebStoreSpecialAbProps").storeSpecialAbProps());
     }
+    function g() {
+      var e = o("WAWebQuickPromotionGating").qpEmergencyForceFetchNonce();
+      if (e === "") return !1;
+      var t = r("WANullthrows")(r("WAWebLocalStorage")).getItem(
+        o("WAWebUserPrefsKeys").KEYS
+          .QP_EMERGENCY_FORCE_FETCH_LAST_HANDLED_NONCE,
+      );
+      return e === t
+        ? !1
+        : (r("WANullthrows")(r("WAWebLocalStorage")).setItem(
+            o("WAWebUserPrefsKeys").KEYS
+              .QP_EMERGENCY_FORCE_FETCH_LAST_HANDLED_NONCE,
+            e,
+          ),
+          !0);
+    }
     ((l.handleServiceImprovementOptOutFlagABPropConfigValueChange = d),
       (l.ensureNonCriticalDataSyncIsInitialized = m),
       (l.handleAdAccountTokenStorageKillSwitchABPropConfigValueChange = _),
-      (l.handleUIRefreshNuxOnABPropConfigValueChange = f));
+      (l.handleUIRefreshNuxOnABPropConfigValueChange = f),
+      (l.consumeQpEmergencyForceFetchNonce = g));
   },
   98,
 );

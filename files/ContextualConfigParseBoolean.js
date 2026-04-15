@@ -9,10 +9,12 @@ __d(
           return !0;
         case "FALSE":
           return !1;
-        default:
-          throw new Error(
+        default: {
+          var t = new Error(
             o("ContextualConfigConstants").ERROR.BAD_BOOLEAN_FORMAT,
           );
+          throw (t.stack, t);
+        }
       }
     }
     l.default = e;

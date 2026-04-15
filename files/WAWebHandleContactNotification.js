@@ -15,7 +15,7 @@ __d(
     "WAWebContactSyncBridge",
     "WAWebContactTextStatusBridge",
     "WAWebDBCreateLidPnMappings",
-    "WAWebHandleSingleMsgFactory",
+    "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebJidToWid",
     "WAWebLid1X1MigrationGating",
     "WAWebMessageProcessUtils",
@@ -189,7 +189,7 @@ __d(
             t.jid != null &&
             (yield r("WAWebProcessPhoneNumberChange")(t.oldJid, t.jid));
           var n = yield g(e, t);
-          yield o("WAWebHandleSingleMsgFactory").handleSingleMsg({
+          yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
             chatId: e,
             newMsg: n,
             handleSingleMsgOrigin: "changeNumberNotification",

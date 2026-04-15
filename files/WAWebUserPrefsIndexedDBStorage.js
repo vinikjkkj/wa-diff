@@ -118,15 +118,28 @@ __d(
     var E = (function () {
         function t() {
           ((this.loadedUserPrefs = null),
-            (this.myInstanceId = Math.random().toString(36).substr(2, 5)));
+            (this.myInstanceId = Math.random().toString(36).substr(2, 5)),
+            (this.$1 = null));
         }
         var a = t.prototype;
         return (
+          (a.setSyncCallback = function (t) {
+            this.$1 = t;
+          }),
+          (a.applySyncSet = function (t, n) {
+            this.loadedUserPrefs != null && (this.loadedUserPrefs[t] = n);
+          }),
+          (a.applySyncRemove = function (t) {
+            this.loadedUserPrefs != null && delete this.loadedUserPrefs[t];
+          }),
+          (a.applySyncClear = function () {
+            this.loadedUserPrefs != null && (this.loadedUserPrefs = {});
+          }),
           (a.init = function () {
             var e = this;
             return (
-              this.$1 == null &&
-                (this.$1 = o("WAWebApiUserPrefs")
+              this.$2 == null &&
+                (this.$2 = o("WAWebApiUserPrefs")
                   .allUserPrefsIdb()
                   .then(function (t) {
                     var n = Object.fromEntries(
@@ -138,14 +151,15 @@ __d(
                     );
                     e.loadedUserPrefs = n;
                   })),
-              this.$1
+              this.$2
             );
           }),
           (a.set = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, n) {
-                var a = L(t);
-                if (a != null) {
+                var a,
+                  i = L(t);
+                if (i != null) {
                   this.loadedUserPrefs == null &&
                     (o("WALogger")
                       .WARN(
@@ -158,12 +172,15 @@ __d(
                       )
                       .sendLogs("userprefs-idb-set-before-init"),
                     yield this.init());
-                  var i = r("WANullthrows")(this.loadedUserPrefs),
-                    l = o("WAWebUserPrefsPreProcessors").preProcessUserPref(
+                  var l = r("WANullthrows")(this.loadedUserPrefs),
+                    s = o("WAWebUserPrefsPreProcessors").preProcessUserPref(
                       t,
                       n,
                     );
-                  ((i[a] = l), yield g({ key: a, value: l }));
+                  ((l[i] = s),
+                    (a = this.$1) == null ||
+                      a.call(this, { action: "set", key: i, value: s }),
+                    yield g({ key: i, value: s }));
                 }
               },
             );
@@ -210,6 +227,7 @@ __d(
           (a.remove = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
+                var t;
                 this.loadedUserPrefs == null &&
                   (o("WALogger")
                     .WARN(
@@ -222,9 +240,13 @@ __d(
                     )
                     .sendLogs("userprefs-idb-remove-before-init"),
                   yield this.init());
-                var t = r("WANullthrows")(this.loadedUserPrefs),
-                  n = L(e);
-                n != null && (delete t[n], yield y(n));
+                var n = r("WANullthrows")(this.loadedUserPrefs),
+                  a = L(e);
+                a != null &&
+                  (delete n[a],
+                  (t = this.$1) == null ||
+                    t.call(this, { action: "remove", key: a }),
+                  yield y(a));
               },
             );
             function t(t) {
@@ -234,7 +256,10 @@ __d(
           })()),
           (a.clear = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              ((this.loadedUserPrefs = {}), yield b());
+              var e;
+              ((this.loadedUserPrefs = {}),
+                (e = this.$1) == null || e.call(this, { action: "clear" }),
+                yield b());
             });
             function t() {
               return e.apply(this, arguments);
@@ -244,17 +269,18 @@ __d(
           (a.bulkSetItemsToIndexedDB = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = r("compactMap")(e, function (e) {
-                  var t = L(e.key);
-                  if (t != null)
-                    return {
-                      key: t,
-                      value: o(
-                        "WAWebUserPrefsPreProcessors",
-                      ).preProcessUserPref(e.key, e.value),
-                    };
-                });
-                (yield S(t),
+                var t,
+                  n = r("compactMap")(e, function (e) {
+                    var t = L(e.key);
+                    if (t != null)
+                      return {
+                        key: t,
+                        value: o(
+                          "WAWebUserPrefsPreProcessors",
+                        ).preProcessUserPref(e.key, e.value),
+                      };
+                  });
+                (yield S(n),
                   this.loadedUserPrefs == null &&
                     (o("WALogger")
                       .WARN(
@@ -265,12 +291,14 @@ __d(
                       )
                       .sendLogs("userprefs-idb-bulk-set-before-init"),
                     yield this.init()));
-                var n = r("WANullthrows")(this.loadedUserPrefs);
-                for (var a of t) {
-                  var i = a.key,
-                    l = a.value;
-                  n[i] = l;
+                var a = r("WANullthrows")(this.loadedUserPrefs);
+                for (var i of n) {
+                  var l = i.key,
+                    s = i.value;
+                  a[l] = s;
                 }
+                (t = this.$1) == null ||
+                  t.call(this, { action: "bulkSet", entries: n });
               },
             );
             function t(t) {

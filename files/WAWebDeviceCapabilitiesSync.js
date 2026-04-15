@@ -210,10 +210,7 @@ __d(
                                   "WAWebWorkerSafeBackendApi",
                                 ).workerSafeFireAndForget(
                                   "loadQuickPromotions",
-                                  {
-                                    trigger: "prefetch",
-                                    shouldPrefetchEligibility: !0,
-                                  },
+                                  { trigger: "prefetch" },
                                 ));
                           }
                         }

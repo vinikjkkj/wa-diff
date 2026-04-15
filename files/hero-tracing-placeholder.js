@@ -3,6 +3,9 @@ __d(
   [
     "HeroComponent.react",
     "HeroCurrentInteractionForLoggingContext",
+    "HeroHoldBoundary.react",
+    "HeroHoldLoggingBoundary.react",
+    "HeroHoldLoggingBoundaryContext",
     "HeroHoldTrigger.react",
     "HeroInteractionContext",
     "HeroInteractionContextPassthrough.react",
@@ -14,6 +17,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     ((l.HeroComponent = r("HeroComponent.react")),
+      (l.HeroHoldBoundary = r("HeroHoldBoundary.react")),
+      (l.HeroHoldLoggingBoundary = r("HeroHoldLoggingBoundary.react")),
+      (l.HeroHoldLoggingBoundaryContext = r("HeroHoldLoggingBoundaryContext")),
       (l.HeroHoldTrigger = r("HeroHoldTrigger.react")),
       (l.HeroInteractionContext = o("HeroInteractionContext")),
       (l.HeroInteractionContextPassthrough = r(
