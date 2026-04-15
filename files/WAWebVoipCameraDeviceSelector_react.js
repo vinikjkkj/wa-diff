@@ -26,6 +26,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "react",
+    "react-compiler-runtime",
     "useWAWebAsync",
     "useWAWebDebouncedCallback",
     "useWAWebStableCallback",
@@ -57,48 +58,66 @@ __d(
       T = R.useState,
       D = 500;
     function x(e) {
+      var t = o("react-compiler-runtime").c(2),
+        n = e.children,
+        a;
+      return (
+        t[0] !== n
+          ? ((a = S.jsx(r("WDSText.react"), {
+              type: "Body1",
+              colorName: "contentDefault",
+              selectable: !1,
+              children: n,
+            })),
+            (t[0] = n),
+            (t[1] = a))
+          : (a = t[1]),
+        a
+      );
+    }
+    function $(e) {
       return e instanceof Error && e.name.includes("NotAllowed");
     }
-    function $(t) {
+    function P(t) {
       var a = t.disableMainButton,
         i = a === void 0 ? !1 : a,
         l = t.hasCameraAvailable,
         v = l === void 0 ? !0 : l,
         R = t.isDisabled,
-        $ = R === void 0 ? !1 : R,
-        N = t.isMuted,
-        M = N === void 0 ? !1 : N,
-        w = t.isVideoCall,
-        A = t.onMainClick,
-        F = E(r("WAWebVoipUiPopoutWindowContext")),
-        O = r("useWAWebVoipModalManager")(),
-        B = O.closeModal,
-        W = O.openModal,
-        q = T([]),
-        U = q[0],
-        V = q[1],
-        H = T(""),
-        G = H[0],
-        z = H[1],
-        j = r("useWAWebStableCallback")(function (e) {
-          (e && ue.current.abort(), z(e));
+        P = R === void 0 ? !1 : R,
+        M = t.isMuted,
+        w = M === void 0 ? !1 : M,
+        A = t.isVideoCall,
+        F = t.onMainClick,
+        O = E(r("WAWebVoipUiPopoutWindowContext")),
+        B = r("useWAWebVoipModalManager")(),
+        W = B.closeModal,
+        q = B.openModal,
+        U = T([]),
+        V = U[0],
+        H = U[1],
+        G = T(""),
+        z = G[0],
+        j = G[1],
+        K = r("useWAWebStableCallback")(function (e) {
+          (e && ce.current.abort(), j(e));
         }),
-        K = T(!1),
-        Q = K[0],
-        X = K[1],
-        Y = T(!1),
-        J = Y[0],
-        Z = Y[1],
-        ee = T(!1),
-        te = ee[0],
-        ne = ee[1],
-        re = I(null),
-        oe = o("WAWebPopoverContext.react").useWAWebPopoverControllerRef(),
-        ae = r("useWAWebDebouncedCallback")(A != null ? A : r("WAWebNoop"), D, {
+        Q = T(!1),
+        X = Q[0],
+        Y = Q[1],
+        J = T(!1),
+        Z = J[0],
+        ee = J[1],
+        te = T(!1),
+        ne = te[0],
+        re = te[1],
+        oe = I(null),
+        ae = o("WAWebPopoverContext.react").useWAWebPopoverControllerRef(),
+        ie = r("useWAWebDebouncedCallback")(F != null ? F : r("WAWebNoop"), D, {
           leading: !0,
           trailing: !1,
         }),
-        ie = L(
+        le = L(
           function () {
             if (!v) {
               var e =
@@ -107,33 +126,33 @@ __d(
                 ) === !0;
               if (!e) {
                 var t;
-                W(
+                q(
                   S.jsx((t = o("WAWebGuidePopup.react")).GuidePopup, {
                     messaging: t.Messaging.CAMERA_MISSING,
                     type: t.GuidePopupType.GUIDE_UNBLOCK,
                     featureSurface: t.FeatureSurface.VOIP_VIDEO_UPGRADE,
-                    onConfirm: B,
+                    onConfirm: W,
                   }),
                 );
                 return;
               }
             }
-            ae();
+            ie();
           },
-          [B, ae, v, W],
+          [W, ie, v, q],
         ),
-        le = F.windowEl,
-        se = P(),
-        ue = I(new AbortController());
+        se = O.windowEl,
+        ue = N(),
+        ce = I(new AbortController());
       (r("useWAWebAsync")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            if (!w) return;
-            var t = o("WAWebUA").UA.isSafari && le != null,
+            if (!A) return;
+            var t = o("WAWebUA").UA.isSafari && se != null,
               n = yield o(
                 "WAWebVoipAcquireMediaStream",
-              ).getAvailableVideoDevices(le, !0, t);
-            V(n);
+              ).getAvailableVideoDevices(se, !0, t);
+            H(n);
             var r = o("WAWebVoipVideoCameraCapture").WAWebVoipVideoCameraCapture
                 .currentDeviceId,
               a =
@@ -152,18 +171,18 @@ __d(
                       ])),
                     r,
                   ),
-                  j(r))
+                  K(r))
                 : n.length > 0 &&
-                  !G &&
-                  !ue.current.signal.aborted &&
-                  j(n[0].deviceId),
-              (ue.current = new AbortController()),
-              o("WAWebUA").UA.isSafari && le != null && ne(!0),
+                  !z &&
+                  !ce.current.signal.aborted &&
+                  K(n[0].deviceId),
+              (ce.current = new AbortController()),
+              o("WAWebUA").UA.isSafari && se != null && re(!0),
               n
             );
           } catch (e) {
             throw (
-              x(e) ||
+              $(e) ||
                 o("WALogger").ERROR(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -172,12 +191,12 @@ __d(
                     ])),
                   e,
                 ),
-              V([]),
+              H([]),
               e
             );
           }
         }),
-        [se, G, le, w],
+        [ue, z, se, A],
       ),
         k(
           function () {
@@ -185,7 +204,7 @@ __d(
               t,
               r =
                 (e =
-                  le == null || (t = le.navigator) == null
+                  se == null || (t = se.navigator) == null
                     ? void 0
                     : t.mediaDevices) != null
                   ? e
@@ -203,19 +222,19 @@ __d(
                           "voip: [CameraDeviceSelector] device change detected, reloading devices",
                         ])),
                     ),
-                      Z(!0));
+                      ee(!0));
                     try {
-                      var e = o("WAWebUA").UA.isSafari && le != null,
+                      var e = o("WAWebUA").UA.isSafari && se != null,
                         t = yield o(
                           "WAWebVoipAcquireMediaStream",
-                        ).getAvailableVideoDevices(le, !0, e);
-                      if ((V(t), G)) {
+                        ).getAvailableVideoDevices(se, !0, e);
+                      if ((H(t), z)) {
                         var n = t.find(function (e) {
-                          return e.deviceId === G;
+                          return e.deviceId === z;
                         });
                         !n &&
                           t.length > 0 &&
-                          (j(t[0].deviceId),
+                          (K(t[0].deviceId),
                           o("WALogger").LOG(
                             d ||
                               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -224,7 +243,7 @@ __d(
                               ])),
                             t[0].deviceId,
                           ));
-                      } else t.length > 0 && j(t[0].deviceId);
+                      } else t.length > 0 && K(t[0].deviceId);
                       (o("WALogger").LOG(
                         m ||
                           (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -239,9 +258,9 @@ __d(
                           })
                           .join(", "),
                       ),
-                        o("WAWebUA").UA.isSafari && le != null && ne(!0));
+                        o("WAWebUA").UA.isSafari && se != null && re(!0));
                     } catch (e) {
-                      (x(e) ||
+                      ($(e) ||
                         o("WALogger").ERROR(
                           p ||
                             (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -250,9 +269,9 @@ __d(
                             ])),
                           e,
                         ),
-                        V([]));
+                        H([]));
                     } finally {
-                      Z(!1);
+                      ee(!1);
                     }
                   },
                 )),
@@ -266,7 +285,7 @@ __d(
               }
             );
           },
-          [G, j, le],
+          [z, K, se],
         ),
         k(
           function () {
@@ -280,7 +299,7 @@ __d(
                   ])),
                 e,
               ),
-                j(e));
+                K(e));
             };
             return (
               o("WAWebVoipVideoCameraCapture").VideoDeviceEvents.on(
@@ -295,16 +314,16 @@ __d(
               }
             );
           },
-          [j],
+          [K],
         ),
         k(
           function () {
-            te &&
-              !M &&
-              G &&
-              !Q &&
-              !J &&
-              (ne(!1),
+            ne &&
+              !w &&
+              z &&
+              !X &&
+              !Z &&
+              (re(!1),
               o("WALogger").LOG(
                 f ||
                   (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -313,13 +332,13 @@ __d(
               ),
               o(
                 "WAWebVoipVideoCameraCapture",
-              ).WAWebVoipVideoCameraCapture.switchVideoDevice(G, le));
+              ).WAWebVoipVideoCameraCapture.switchVideoDevice(z, se));
           },
-          [te, M, G, le, Q, J],
+          [ne, w, z, se, X, Z],
         ));
-      var ce = (function () {
+      var de = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            if (e === G) {
+            if (e === z) {
               o("WALogger").LOG(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -330,7 +349,7 @@ __d(
               );
               return;
             }
-            if (Q || J) {
+            if (X || Z) {
               o("WALogger").LOG(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -351,11 +370,11 @@ __d(
                   ])),
                 e,
               ),
-              X(!0));
+              Y(!0));
             try {
               var t = yield o(
                 "WAWebVoipVideoCameraCapture",
-              ).WAWebVoipVideoCameraCapture.switchVideoDevice(e, le);
+              ).WAWebVoipVideoCameraCapture.switchVideoDevice(e, se);
               if (t) {
                 var n,
                   a =
@@ -363,7 +382,7 @@ __d(
                       .WAWebVoipVideoCameraCapture.currentDeviceId) != null
                       ? n
                       : e;
-                (j(a),
+                (K(a),
                   o("WALogger").LOG(
                     C ||
                       (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -392,63 +411,66 @@ __d(
                   }),
                 ));
             } finally {
-              X(!1);
+              Y(!1);
             }
           });
           return function (n) {
             return e.apply(this, arguments);
           };
         })(),
-        de = function () {
+        me = function () {
           var e;
           (o("WAWebVoipActivityTracker").trackUiActivity(
             o("WAWebVoipActivityTracker").VoipUiActivity
               .USER_OPEN_CAMERA_DROPDOWN,
           ),
-            (e = oe.current) == null || e.showPopover());
+            (e = ae.current) == null || e.showPopover());
         },
-        me = r("useWAWebVoipWindowPopoutTooltipProps")(),
-        pe = me.tooltipAnchorRef,
-        _e = me.tooltipOwnerDocument,
-        fe = function () {
+        pe = r("useWAWebVoipWindowPopoutTooltipProps")(),
+        _e = pe.tooltipAnchorRef,
+        fe = pe.tooltipOwnerDocument,
+        ge = function () {
           var e;
           return S.jsxs(o("WAWebDropdownV2.react").DropdownV2Menu, {
-            popoverPortal: (e = F.popoverPortalEl) != null ? e : void 0,
+            popoverPortal: (e = O.popoverPortalEl) != null ? e : void 0,
             position: o("WAWebDropdownV2.react").PopoverPosition.Top,
             alignment: o("WAWebDropdownV2.react").PopoverAlignment.Center,
             minWidth: 280,
             maxHeight: 200,
-            controllerRef: oe,
-            initialActiveOptionId: G,
-            target: re,
+            controllerRef: ae,
+            initialActiveOptionId: z,
+            target: oe,
             xstyle: o("WDSThemes").WDSDarkTheme,
             children: [
               S.jsx(r("WDSText.react"), {
                 type: "Body2Emphasized",
                 colorName: "contentDeemphasized",
+                selectable: !1,
                 children: s._(/*BTDS*/ "Camera"),
               }),
               S.jsx(o("WAWebSelectMenuItem.react").SelectMenuItemGroup, {
                 multiselect: !1,
-                initialSelection: G,
+                initialSelection: z,
                 onSelect: function (t) {
-                  t !== "no-devices" && ce(t);
+                  t !== "no-devices" && de(t);
                 },
                 children:
-                  U.length === 0
+                  V.length === 0
                     ? S.jsx(o("WAWebMenuItems.react").SelectMenuItem, {
                         optionId: "no-devices",
-                        primary: "No cameras available",
+                        primary: S.jsx(x, {
+                          children: s._(/*BTDS*/ "No cameras available"),
+                        }),
                         disabled: !0,
                       })
-                    : U.map(function (e) {
+                    : V.map(function (e) {
                         return S.jsx(
                           o("WAWebMenuItems.react").SelectMenuItem,
                           {
                             optionId: e.deviceId,
-                            primary: e.label,
+                            primary: S.jsx(x, { children: e.label }),
                             detailRight:
-                              e.deviceId === G
+                              e.deviceId === z
                                 ? S.jsx(
                                     o("WAWebCheckmarkIcon.react").CheckmarkIcon,
                                     { height: 16, width: 16 },
@@ -462,18 +484,18 @@ __d(
             ],
           });
         },
-        ge = !w || se !== "granted" || !v,
-        he = !w && se === "denied",
-        ye = (function () {
-          return he
+        he = !A || ue !== "granted" || !v,
+        ye = !A && ue === "denied",
+        Ce = (function () {
+          return ye
             ? s._(/*BTDS*/ "Allow camera access to switch to video")
-            : M
+            : w
               ? s._(/*BTDS*/ "Turn camera on")
               : s._(/*BTDS*/ "Turn camera off");
         })(),
-        Ce = (function () {
+        be = (function () {
           return v
-            ? ge
+            ? he
               ? s._(/*BTDS*/ "Allow camera access to select camera")
               : s._(/*BTDS*/ "Camera settings")
             : s._(/*BTDS*/ "No camera found");
@@ -482,60 +504,72 @@ __d(
         children: [
           S.jsx(r("WAWebVoipSplitButton.react"), {
             Icon: r(
-              M
+              w
                 ? "WDSIconIcVideocamOffFilled.react"
                 : "WDSIconIcVideocamFilled.react",
             ),
-            isMuted: M,
-            onMainClick: A != null ? ie : de,
-            onDropdownClick: de,
-            dropdownRef: re,
+            isMuted: w,
+            onMainClick: F != null ? le : me,
+            onDropdownClick: me,
+            dropdownRef: oe,
             testId: "camera-split-button",
-            disabled: $ || Q || J || he,
+            disabled: P || X || Z || ye,
             disableMainButton: i,
-            disableDropdownButton: ge,
-            tooltipOwnerAnchorRef: pe,
-            tooltipOwnerDocument: _e,
-            mainButtonLabel: ye,
-            mainButtonTestId: M ? "camera-turn-on" : "camera-turn-off",
-            dropdownButtonLabel: Ce,
+            disableDropdownButton: he,
+            tooltipOwnerAnchorRef: _e,
+            tooltipOwnerDocument: fe,
+            mainButtonLabel: Ce,
+            mainButtonTestId: w ? "camera-turn-on" : "camera-turn-off",
+            dropdownButtonLabel: be,
             dropdownButtonTestId: "camera-settings",
           }),
-          U.length > 0 && !$ && fe(),
+          V.length > 0 && !P && ge(),
         ],
       });
     }
-    $.displayName = $.name + " [from " + i.id + "]";
-    function P() {
-      var e = T(null),
-        t = e[0],
-        o = e[1],
-        a = r("useWAWebStableCallback")(o);
+    P.displayName = P.name + " [from " + i.id + "]";
+    function N() {
+      var e = o("react-compiler-runtime").c(5),
+        t = T(null),
+        a = t[0],
+        i = t[1],
+        l = r("useWAWebStableCallback")(i),
+        s;
+      e[0] !== a || e[1] !== l
+        ? ((s = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              if (
+                !(navigator === void 0 || !navigator.permissions || a != null)
+              ) {
+                var e = function () {
+                    l(null);
+                  },
+                  t = yield navigator.permissions.query({ name: "camera" });
+                return (
+                  l(t.state),
+                  (t.onchange = e),
+                  function () {
+                    t.onchange = null;
+                  }
+                );
+              }
+            });
+            return function () {
+              return e.apply(this, arguments);
+            };
+          })()),
+          (e[0] = a),
+          (e[1] = l),
+          (e[2] = s))
+        : (s = e[2]);
+      var u;
       return (
-        r("useWAWebAsync")(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (
-              !(navigator === void 0 || !navigator.permissions || t != null)
-            ) {
-              var e = function () {
-                  a(null);
-                },
-                n = yield navigator.permissions.query({ name: "camera" });
-              return (
-                a(n.state),
-                (n.onchange = e),
-                function () {
-                  n.onchange = null;
-                }
-              );
-            }
-          }),
-          [t],
-        ),
-        t
+        e[3] !== a ? ((u = [a]), (e[3] = a), (e[4] = u)) : (u = e[4]),
+        r("useWAWebAsync")(s, u),
+        a
       );
     }
-    l.default = $;
+    l.default = P;
   },
   226,
 );

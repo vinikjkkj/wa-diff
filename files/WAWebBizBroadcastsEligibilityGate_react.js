@@ -6,6 +6,7 @@ __d(
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebModalManager",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -13,58 +14,73 @@ __d(
       s = e || (e = o("react")),
       u = e.useEffect;
     function c(e) {
-      var t = e.children,
-        n = e.entryPoint,
-        a = e.onClose,
-        i = e.surface,
-        l = o(
+      var t = o("react-compiler-runtime").c(9),
+        n = e.children,
+        a = e.entryPoint,
+        i = e.onClose,
+        l = e.surface,
+        c = o(
           "WAWebBizBroadcastsFeatureEligibilityModal.react",
         ).useMarketingMessagesEligibility(),
-        c = l == null ? void 0 : l.status;
-      return (
-        u(
-          function () {
-            c != null &&
+        d = c == null ? void 0 : c.status,
+        m,
+        p;
+      (t[0] !== a || t[1] !== d || t[2] !== l
+        ? ((m = function () {
+            d != null &&
               o(
                 "WAWebBusinessBroadcastUserJourneyLogger",
               ).BusinessBroadcastUserJourneyLogger.eligibilityCheckResult(
-                c,
-                n,
-                i,
+                d,
+                a,
+                l,
               );
-          },
-          [c, n, i],
-        ),
-        u(
-          function () {
-            l == null
-              ? o("WAWebModalManager").ModalManager.open(
-                  s.jsx(r("WAWebBizBroadcastsLoadingModal.react"), {
-                    onCancel: function () {
-                      (o("WAWebModalManager").ModalManager.close(), a());
-                    },
-                  }),
-                )
-              : (o("WAWebModalManager").ModalManager.close(),
-                l.status !== "SUCCESS" &&
-                  (a(),
-                  o("WAWebModalManager").ModalManager.open(
-                    s.jsx(
-                      o("WAWebBizBroadcastsFeatureEligibilityModal.react")
-                        .WAWebBizBroadcastsFeatureEligibilityModal,
-                      {
-                        eligibility: l,
-                        onCancel: o("WAWebModalManager").closeModalManager,
+          }),
+          (p = [d, a, l]),
+          (t[0] = a),
+          (t[1] = d),
+          (t[2] = l),
+          (t[3] = m),
+          (t[4] = p))
+        : ((m = t[3]), (p = t[4])),
+        u(m, p));
+      var _, f;
+      return (
+        t[5] !== c || t[6] !== i
+          ? ((_ = function () {
+              c == null
+                ? o("WAWebModalManager").ModalManager.open(
+                    s.jsx(r("WAWebBizBroadcastsLoadingModal.react"), {
+                      onCancel: function () {
+                        (o("WAWebModalManager").ModalManager.close(), i());
                       },
-                    ),
-                  )));
-          },
-          [l, a],
-        ),
-        (l == null ? void 0 : l.status) === "SUCCESS" ? t : null
+                    }),
+                  )
+                : (o("WAWebModalManager").ModalManager.close(),
+                  c.status !== "SUCCESS" &&
+                    (i(),
+                    o("WAWebModalManager").ModalManager.open(
+                      s.jsx(
+                        o("WAWebBizBroadcastsFeatureEligibilityModal.react")
+                          .WAWebBizBroadcastsFeatureEligibilityModal,
+                        {
+                          eligibility: c,
+                          onCancel: o("WAWebModalManager").closeModalManager,
+                        },
+                      ),
+                    )));
+            }),
+            (f = [c, i]),
+            (t[5] = c),
+            (t[6] = i),
+            (t[7] = _),
+            (t[8] = f))
+          : ((_ = t[7]), (f = t[8])),
+        u(_, f),
+        (c == null ? void 0 : c.status) === "SUCCESS" ? n : null
       );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

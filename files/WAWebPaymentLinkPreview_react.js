@@ -6,6 +6,7 @@ __d(
     "WAWebFlex.react",
     "WAWebPaymentAmountDisplay.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -82,64 +83,114 @@ __d(
         },
       };
     function m(e) {
-      var t = e.isLoading,
-        n = e.previewMetadata,
-        a = e.title,
-        i = e.urlElement,
-        l = null,
+      var t = o("react-compiler-runtime").c(22),
+        n = e.isLoading,
+        a = e.previewMetadata,
+        i = e.title,
+        l = e.urlElement,
         c = null,
-        m = o("PaymentLinkPreviewWithAmountFeature").computeAmount1000(
-          n.amount,
-          n.offset,
-          n.currency,
+        m = null;
+      if (t[0] !== a.amount || t[1] !== a.currency || t[2] !== a.offset) {
+        var p = o("PaymentLinkPreviewWithAmountFeature").computeAmount1000(
+          a.amount,
+          a.offset,
+          a.currency,
         );
-      if (m != null) {
-        var p = o("WAWebCurrencyUtils").formatAmount1000ToParts(
-            m.currency,
-            m.amount1000,
-          ),
-          _ = p.integer.replace(/\D/g, ""),
-          f = p.decimal.replace(/\D/g, ""),
-          g = _.length + f.length;
-        g <= u
-          ? (l = s.jsx(o("WAWebFlex.react").FlexRow, {
-              shrink: 0,
-              xstyle: d.amountContainer,
-              children: s.jsx(r("WAWebPaymentAmountDisplay.react"), {
-                amount1000: m.amount1000,
-                currency: m.currency,
-                fontSize: 16,
-                width: 96,
-              }),
-            }))
-          : (c = s.jsx(o("WAWebFlex.react").FlexRow, {
-              xstyle: d.inlineAmount,
-              children: p.symbol + " " + p.integer + p.decimal,
-            }));
-      }
-      return s.jsxs(o("WAWebFlex.react").FlexRow, {
-        testid: void 0,
-        xstyle: d.container,
-        children: [
-          s.jsxs(o("WAWebFlex.react").FlexColumn, {
+        if (p != null) {
+          var _ = o("WAWebCurrencyUtils").formatAmount1000ToParts(
+              p.currency,
+              p.amount1000,
+            ),
+            f = _.integer.replace(/\D/g, ""),
+            g = _.decimal.replace(/\D/g, ""),
+            h = f.length + g.length;
+          if (h <= u) {
+            var y;
+            (t[5] !== p
+              ? ((y = s.jsx(o("WAWebFlex.react").FlexRow, {
+                  shrink: 0,
+                  xstyle: d.amountContainer,
+                  children: s.jsx(r("WAWebPaymentAmountDisplay.react"), {
+                    amount1000: p.amount1000,
+                    currency: p.currency,
+                    fontSize: 16,
+                    width: 96,
+                  }),
+                })),
+                (t[5] = p),
+                (t[6] = y))
+              : (y = t[6]),
+              (c = y));
+          } else {
+            var C = _.symbol + " " + _.integer + _.decimal,
+              b;
+            (t[7] !== C
+              ? ((b = s.jsx(o("WAWebFlex.react").FlexRow, {
+                  xstyle: d.inlineAmount,
+                  children: C,
+                })),
+                (t[7] = C),
+                (t[8] = b))
+              : (b = t[8]),
+              (m = b));
+          }
+        }
+        ((t[0] = a.amount),
+          (t[1] = a.currency),
+          (t[2] = a.offset),
+          (t[3] = c),
+          (t[4] = m));
+      } else ((c = t[3]), (m = t[4]));
+      var v;
+      t[9] !== n || t[10] !== i
+        ? ((v =
+            !n &&
+            i != null &&
+            s.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: d.title,
+              children: i,
+            })),
+          (t[9] = n),
+          (t[10] = i),
+          (t[11] = v))
+        : (v = t[11]);
+      var S = !n && m,
+        R;
+      t[12] !== v || t[13] !== S || t[14] !== l
+        ? ((R = s.jsxs(o("WAWebFlex.react").FlexColumn, {
             xstyle: d.body,
-            children: [
-              !t &&
-                a != null &&
-                s.jsx(o("WAWebFlex.react").FlexRow, {
-                  xstyle: d.title,
-                  children: a,
-                }),
-              !t && c,
-              i,
-            ],
-          }),
-          !t && l,
-          t && s.jsx(o("WAWebFlex.react").FlexRow, { xstyle: d.shimmer }),
-        ],
-      });
+            children: [v, S, l],
+          })),
+          (t[12] = v),
+          (t[13] = S),
+          (t[14] = l),
+          (t[15] = R))
+        : (R = t[15]);
+      var L = !n && c,
+        E;
+      t[16] !== n
+        ? ((E =
+            n && s.jsx(o("WAWebFlex.react").FlexRow, { xstyle: d.shimmer })),
+          (t[16] = n),
+          (t[17] = E))
+        : (E = t[17]);
+      var k;
+      return (
+        t[18] !== R || t[19] !== L || t[20] !== E
+          ? ((k = s.jsxs(o("WAWebFlex.react").FlexRow, {
+              testid: void 0,
+              xstyle: d.container,
+              children: [R, L, E],
+            })),
+            (t[18] = R),
+            (t[19] = L),
+            (t[20] = E),
+            (t[21] = k))
+          : (k = t[21]),
+        k
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   98,
 );

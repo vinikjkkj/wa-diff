@@ -7,6 +7,7 @@ __d(
     "WAWebNativeAdsGatingUtils",
     "WAWebWamEnumLwiEntryPoint",
     "react",
+    "react-compiler-runtime",
     "useWAWebNativeAdsMvpEligibility",
     "useWAWebServerGatedAdEntryPoint",
   ],
@@ -14,38 +15,51 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = e.activeAccountInfo,
-        n = o("useWAWebNativeAdsMvpEligibility").useNativeAdsMvpEligibility(),
-        a = n.isQE2Eligible,
-        i = o("useWAWebServerGatedAdEntryPoint").useServerGatedAdEntryPoint(
+      var t = o("react-compiler-runtime").c(5),
+        n = e.activeAccountInfo,
+        a = o("useWAWebNativeAdsMvpEligibility").useNativeAdsMvpEligibility(),
+        i = a.isQE2Eligible,
+        l = o("useWAWebServerGatedAdEntryPoint").useServerGatedAdEntryPoint(
           "whatsapp_smb_web_ad_creation_home_menu_item",
-          t,
+          n,
         ),
-        l = i[0],
-        u = i[1],
-        c =
-          o("WAWebMobilePlatforms").isSMB() &&
-          t != null &&
-          !l &&
-          (t !== "not-linked" ||
-            o("WAWebNativeAdsGatingUtils").isNativeAdsMvpEntrypointEligible(
-              a,
-            )) &&
-          o("WAWebBizGatingUtils").shouldShowAdCreationDropdown()
-            ? s.jsx(r("WAWebAdCreationDropdownItem.react"), {
-                adCreationUrlInput: {
-                  sourceAdCreation:
-                    "whatsapp_smb_web_ad_creation_home_menu_item",
-                  activeAccountInfo: t,
-                },
-                ctaText: u == null ? void 0 : u.content,
-                lwiEntryPoint: o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
-                  .SMB_HOME_SCREEN_OVERFLOW_MENU_ITEM,
-              })
-            : null;
-      return c;
+        u = l[0],
+        c = l[1],
+        d;
+      t[0] !== n ||
+      t[1] !== (c == null ? void 0 : c.content) ||
+      t[2] !== u ||
+      t[3] !== i
+        ? ((d =
+            o("WAWebMobilePlatforms").isSMB() &&
+            n != null &&
+            !u &&
+            (n !== "not-linked" ||
+              o("WAWebNativeAdsGatingUtils").isNativeAdsMvpEntrypointEligible(
+                i,
+              )) &&
+            o("WAWebBizGatingUtils").shouldShowAdCreationDropdown()
+              ? s.jsx(r("WAWebAdCreationDropdownItem.react"), {
+                  adCreationUrlInput: {
+                    sourceAdCreation:
+                      "whatsapp_smb_web_ad_creation_home_menu_item",
+                    activeAccountInfo: n,
+                  },
+                  ctaText: c == null ? void 0 : c.content,
+                  lwiEntryPoint: o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
+                    .SMB_HOME_SCREEN_OVERFLOW_MENU_ITEM,
+                })
+              : null),
+          (t[0] = n),
+          (t[1] = c == null ? void 0 : c.content),
+          (t[2] = u),
+          (t[3] = i),
+          (t[4] = d))
+        : (d = t[4]);
+      var m = d;
+      return m;
     }
-    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
+    l.default = u;
   },
   98,
 );

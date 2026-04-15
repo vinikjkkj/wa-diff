@@ -22,6 +22,7 @@ __d(
     "WAWebSpinner.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebAsync",
     "useWAWebCountries",
   ],
@@ -65,24 +66,43 @@ __d(
         },
       };
     function C() {
-      return d.jsx(r("WAWebFlexItem.react"), { xstyle: y.spacer });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = d.jsx(r("WAWebFlexItem.react"), { xstyle: y.spacer })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b() {
-      return d.jsx(o("WAWebFlex.react").FlexRow, {
-        alignSelf: "center",
-        xstyle: [y.error, y.marginBottom8, y.paddingVert12, y.paddingHoriz16],
-        align: "center",
-        justify: "center",
-        children: d.jsx(r("WAWebFlexItem.react"), {
-          children: d.jsx("span", {
-            id: h,
-            children: s._(/*BTDS*/ "Valid phone number is required."),
-          }),
-        }),
-      });
+      var e = o("react-compiler-runtime").c(2),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = [y.error, y.marginBottom8, y.paddingVert12, y.paddingHoriz16]),
+          (e[0] = t))
+        : (t = e[0]);
+      var n;
+      return (
+        e[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((n = d.jsx(o("WAWebFlex.react").FlexRow, {
+              alignSelf: "center",
+              xstyle: t,
+              align: "center",
+              justify: "center",
+              children: d.jsx(r("WAWebFlexItem.react"), {
+                children: d.jsx("span", {
+                  id: h,
+                  children: s._(/*BTDS*/ "Valid phone number is required."),
+                }),
+              }),
+            })),
+            (e[1] = n))
+          : (n = e[1]),
+        n
+      );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
       var t = e.initialCountryId,
         a = e.initialPhoneNumber,
@@ -199,70 +219,99 @@ __d(
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S(t) {
-      var n = t.actionButtonText,
-        a = t.isInsideModal,
-        i = a === void 0 ? !1 : a,
+      var n = o("react-compiler-runtime").c(33),
+        a = t.actionButtonText,
+        i = t.isInsideModal,
         l = t.isLinkingPageLoading,
-        s = l === void 0 ? !1 : l,
-        c = t.onChangePhoneNumber,
-        m = t.onChangeSelectedCountry,
-        p = t.onFailInteraction,
-        f = t.onStopInteraction,
-        g = t.onSubmit,
-        h = t.phoneNumberWithoutCountryCode,
-        v = t.selectedCountryId,
-        S = t.shouldDisplayError,
-        R = t.surface,
-        L = R === void 0 ? "default" : R,
-        E = o("useWAWebCountries").useCountries({
-          filterType: o("WAWebCountriesUtils").COUNTRY_FILTER_TYPE
-            .WHATSAPP_REGISTRATION,
-        }),
-        k = E.error,
-        I = E.value,
-        T = r("useWAWebAsync")(r("WAWebLinkDeviceFlagEmojiSetup"), []);
+        s = t.onChangePhoneNumber,
+        c = t.onChangeSelectedCountry,
+        m = t.onFailInteraction,
+        p = t.onStopInteraction,
+        f = t.onSubmit,
+        g = t.phoneNumberWithoutCountryCode,
+        h = t.selectedCountryId,
+        v = t.shouldDisplayError,
+        S = t.surface,
+        R = i === void 0 ? !1 : i,
+        L = l === void 0 ? !1 : l,
+        E = S === void 0 ? "default" : S,
+        k;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = {
+            filterType: o("WAWebCountriesUtils").COUNTRY_FILTER_TYPE
+              .WHATSAPP_REGISTRATION,
+          }),
+          (n[0] = k))
+        : (k = n[0]);
+      var I = o("useWAWebCountries").useCountries(k),
+        T = I.error,
+        D = I.value,
+        x;
+      n[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = []), (n[1] = x))
+        : (x = n[1]);
+      var $ = r("useWAWebAsync")(r("WAWebLinkDeviceFlagEmojiSetup"), x),
+        P,
+        N;
       if (
-        (_(
-          function () {
-            T.error && p
-              ? p(T.error)
-              : f != null &&
-                !T.loading &&
-                !T.error &&
-                s !== !0 &&
-                I != null &&
-                f();
-          },
-          [I, s, p, f, T.error, T.loading],
-        ),
-        T.loading || T.error || s === !0 || I == null)
-      )
-        return (
-          T.error
-            ? o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[AltDeviceLink] PhoneNumEntry emoji load failed",
-                    ])),
-                )
-                .catching(T.error)
-                .sendLogs("alt-device-linking load error", { sampling: 0.01 })
-            : k &&
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[AltDeviceLink] PhoneNumEntry countries load failed",
-                    ])),
-                )
-                .catching(k)
-                .sendLogs("alt-device-linking load error", { sampling: 0.01 }),
-          d.jsx(o("WAWebFlex.react").FlexColumn, {
-            align: "center",
-            justify: "around",
-            className: { 0: "x1ym45yv", 1: "x1fb2l0r" }[!!i << 0],
-            children: d.jsxs(r("WAWebFlexItem.react"), {
+        (n[2] !== D ||
+        n[3] !== L ||
+        n[4] !== m ||
+        n[5] !== p ||
+        n[6] !== $.error ||
+        n[7] !== $.loading
+          ? ((P = function () {
+              $.error && m
+                ? m($.error)
+                : p != null &&
+                  !$.loading &&
+                  !$.error &&
+                  L !== !0 &&
+                  D != null &&
+                  p();
+            }),
+            (N = [D, L, m, p, $.error, $.loading]),
+            (n[2] = D),
+            (n[3] = L),
+            (n[4] = m),
+            (n[5] = p),
+            (n[6] = $.error),
+            (n[7] = $.loading),
+            (n[8] = P),
+            (n[9] = N))
+          : ((P = n[8]), (N = n[9])),
+        _(P, N),
+        $.loading || $.error || L === !0 || D == null)
+      ) {
+        $.error
+          ? o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[AltDeviceLink] PhoneNumEntry emoji load failed",
+                  ])),
+              )
+              .catching($.error)
+              .sendLogs("alt-device-linking load error", { sampling: 0.01 })
+          : T &&
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[AltDeviceLink] PhoneNumEntry countries load failed",
+                  ])),
+              )
+              .catching(T)
+              .sendLogs("alt-device-linking load error", { sampling: 0.01 });
+        var M;
+        n[10] !== R
+          ? ((M = { 0: "x1ym45yv", 1: "x1fb2l0r" }[!!R << 0]),
+            (n[10] = R),
+            (n[11] = M))
+          : (M = n[11]);
+        var w;
+        n[12] === Symbol.for("react.memo_cache_sentinel")
+          ? ((w = d.jsxs(r("WAWebFlexItem.react"), {
               children: [
                 d.jsx(r("CometHeroHoldTrigger.react"), {
                   description: "WAWebLinkDevicePhoneNumberEntryScreen",
@@ -270,58 +319,118 @@ __d(
                 }),
                 d.jsx(o("WAWebSpinner.react").Spinner, {}),
               ],
-            }),
-          })
+            })),
+            (n[12] = w))
+          : (w = n[12]);
+        var A;
+        return (
+          n[13] !== M
+            ? ((A = d.jsx(o("WAWebFlex.react").FlexColumn, {
+                align: "center",
+                justify: "around",
+                className: M,
+                children: w,
+              })),
+              (n[13] = M),
+              (n[14] = A))
+            : (A = n[14]),
+          A
         );
-      var D = L === "link-device-phone-number" && S;
-      return d.jsxs(o("WAWebFlex.react").FlexColumn, {
-        align: "stretch",
-        xstyle: y.phoneNumberSectionWrapper,
-        children: [
-          d.jsx(r("WAWebCountryPhoneNumberInput.react"), {
-            countries: I,
-            shouldDisplayError: S,
-            phoneNumberWithoutCountryCode: h,
-            selectedCountryId: v,
-            onChangePhoneNumber: c,
-            onChangeSelectedCountry: m,
-            onSubmit: g,
-            surface: L,
-          }),
-          D ? d.jsx(b, {}) : d.jsx(C, {}),
-          n != null &&
+      }
+      var F = E === "link-device-phone-number" && v,
+        O;
+      n[15] !== D ||
+      n[16] !== s ||
+      n[17] !== c ||
+      n[18] !== f ||
+      n[19] !== g ||
+      n[20] !== h ||
+      n[21] !== v ||
+      n[22] !== E
+        ? ((O = d.jsx(r("WAWebCountryPhoneNumberInput.react"), {
+            countries: D,
+            shouldDisplayError: v,
+            phoneNumberWithoutCountryCode: g,
+            selectedCountryId: h,
+            onChangePhoneNumber: s,
+            onChangeSelectedCountry: c,
+            onSubmit: f,
+            surface: E,
+          })),
+          (n[15] = D),
+          (n[16] = s),
+          (n[17] = c),
+          (n[18] = f),
+          (n[19] = g),
+          (n[20] = h),
+          (n[21] = v),
+          (n[22] = E),
+          (n[23] = O))
+        : (O = n[23]);
+      var B;
+      n[24] !== F
+        ? ((B = F ? d.jsx(b, {}) : d.jsx(C, {})), (n[24] = F), (n[25] = B))
+        : (B = n[25]);
+      var W;
+      n[26] !== a || n[27] !== f
+        ? ((W =
+            a != null &&
             d.jsx(r("WAWebFlexItem.react"), {
               xstyle: y.marginBottom24,
               align: "center",
               children: d.jsx(o("WAWebButton.react").Button, {
                 type: "primary",
-                onClick: g,
+                onClick: f,
                 testid: void 0,
-                children: n,
+                children: a,
               }),
-            }),
-        ],
-      });
+            })),
+          (n[26] = a),
+          (n[27] = f),
+          (n[28] = W))
+        : (W = n[28]);
+      var q;
+      return (
+        n[29] !== O || n[30] !== B || n[31] !== W
+          ? ((q = d.jsxs(o("WAWebFlex.react").FlexColumn, {
+              align: "stretch",
+              xstyle: y.phoneNumberSectionWrapper,
+              children: [O, B, W],
+            })),
+            (n[29] = O),
+            (n[30] = B),
+            (n[31] = W),
+            (n[32] = q))
+          : (q = n[32]),
+        q
+      );
     }
-    S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
-      var t = e.shouldShowUpdatePrimaryErrorBanner;
-      if (t === !0) {
-        var n = s._(/*BTDS*/ "Update WhatsApp on phone"),
-          o = s._(
+      var t = o("react-compiler-runtime").c(2),
+        n = e.shouldShowUpdatePrimaryErrorBanner;
+      if (n === !0) {
+        var a;
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((a = s._(/*BTDS*/ "Update WhatsApp on phone")), (t[0] = a))
+          : (a = t[0]);
+        var i = a,
+          l;
+        if (t[1] === Symbol.for("react.memo_cache_sentinel")) {
+          var u = s._(
             /*BTDS*/ "This feature is not available on the current version of WhatsApp on your phone. Please update the app and try again.",
           );
-        return d.jsx(r("WAWebLoggedOutBanner.react"), {
-          header: n,
-          text: o,
-          category: "warning",
-        });
+          ((l = d.jsx(r("WAWebLoggedOutBanner.react"), {
+            header: i,
+            text: u,
+            category: "warning",
+          })),
+            (t[1] = l));
+        } else l = t[1];
+        return l;
       }
       return null;
     }
-    ((R.displayName = R.name + " [from " + i.id + "]"),
-      (l.LinkWithPhoneNumberEntryScreen = v),
-      (l.PhoneNumberSection = S));
+    ((l.LinkWithPhoneNumberEntryScreen = v), (l.PhoneNumberSection = S));
   },
   226,
 );

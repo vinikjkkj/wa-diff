@@ -10,6 +10,7 @@ __d(
     "WDSIconIcPersonAdd.react",
     "WDSMenuItem.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebChatValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -27,54 +28,70 @@ __d(
       );
     function _(t) {
       var a,
-        i = t.chat,
-        l = o("useWAWebChatValues").useChatValues(i.id, [
-          o("WAWebChatGetters").getIsUser,
-        ]),
-        u = l[0],
-        _ = i.contact;
-      if (!u || _ == null) return null;
-      var f = _.id,
-        g = o("WAWebContactGetters").getIsMe(_),
-        h = !!(
-          o("WAWebContactGetters").getIsUser(_) &&
-          (((a = o("WAWebContactGetters").getName(_)) != null && a.length) ||
-            _.isUsernameContact)
+        i = o("react-compiler-runtime").c(4),
+        l = t.chat,
+        u;
+      i[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = [o("WAWebChatGetters").getIsUser]), (i[0] = u))
+        : (u = i[0]);
+      var _ = o("useWAWebChatValues").useChatValues(l.id, u),
+        f = _[0],
+        g = l.contact;
+      if (!f || g == null) return null;
+      var h = g.id,
+        y = o("WAWebContactGetters").getIsMe(g),
+        C = !!(
+          o("WAWebContactGetters").getIsUser(g) &&
+          (((a = o("WAWebContactGetters").getName(g)) != null && a.length) ||
+            g.isUsernameContact)
         );
       if (
-        !f.isRegularUser() ||
-        g ||
-        f.isIAS() ||
-        f.isCAPISupportAccount() ||
-        f.isSupportAccount() ||
-        h ||
+        !h.isRegularUser() ||
+        y ||
+        h.isIAS() ||
+        h.isCAPISupportAccount() ||
+        h.isSupportAccount() ||
+        C ||
         !o("WAWebContactManagementGating").contactManagementEnabled() ||
         !o("WAWebContactManagementGating").addContactChatListEnabled()
       )
         return null;
-      var y = s._(/*BTDS*/ "Add contact"),
-        C = function () {
+      var b;
+      i[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = s._(/*BTDS*/ "Add contact")), (i[1] = b))
+        : (b = i[1]);
+      var v = b,
+        S;
+      if (i[2] !== g) {
+        var R = function () {
           (e || (e = n("Promise")))
             .all([d.load(), m.load(), p.load()])
             .then(function (e) {
-              var t = e[0].openContactEditDrawer,
-                n = e[1].ContactSourceType,
-                r = e[2].getContactDataFromContactModel;
-              t(r(_), n.ChatListMenu);
+              var t = e[0],
+                n = e[1],
+                r = e[2],
+                o = t.openContactEditDrawer,
+                a = n.ContactSourceType,
+                i = r.getContactDataFromContactModel;
+              o(i(g), a.ChatListMenu);
             });
         };
-      return c.jsx(
-        r("WDSMenuItem.react"),
-        {
-          Icon: r("WDSIconIcPersonAdd.react"),
-          title: y,
-          onPress: C,
-          testid: void 0,
-        },
-        "AddContact",
-      );
+        ((S = c.jsx(
+          r("WDSMenuItem.react"),
+          {
+            Icon: r("WDSIconIcPersonAdd.react"),
+            title: v,
+            onPress: R,
+            testid: void 0,
+          },
+          "AddContact",
+        )),
+          (i[2] = g),
+          (i[3] = S));
+      } else S = i[3];
+      return S;
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   226,
 );

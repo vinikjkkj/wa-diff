@@ -1,6 +1,12 @@
 __d(
   "WAWebActiveAccountInfoContext.react",
-  ["WALogger", "WAWebBizGatingUtils", "WAWebLinkedAccountsAction", "react"],
+  [
+    "WALogger",
+    "WAWebBizGatingUtils",
+    "WAWebLinkedAccountsAction",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -29,43 +35,49 @@ __d(
     function y() {
       return p;
     }
-    function C(t) {
-      var n = t.children;
+    function C(e) {
+      var t = o("react-compiler-runtime").c(1),
+        n = e.children,
+        r;
       return (
-        d(function () {
-          if (o("WAWebBizGatingUtils").shouldFetchLinkedAccounts()) {
-            var t = new AbortController();
-            return (
-              o("WAWebLinkedAccountsAction")
-                .getActiveLinkedAccountInfo(t.signal)
-                .then(function (e) {
-                  t.signal.aborted || h(e);
-                })
-                .catch(function () {
-                  o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "WAWebActiveAccountInfoContext: linked accounts fetch failed",
-                      ])),
-                  );
-                }),
-              function () {
-                return t.abort();
-              }
-            );
-          }
-        }, []),
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((r = []), (t[0] = r))
+          : (r = t[0]),
+        d(b, r),
         n
       );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b() {
+      if (o("WAWebBizGatingUtils").shouldFetchLinkedAccounts()) {
+        var e = new AbortController();
+        return (
+          o("WAWebLinkedAccountsAction")
+            .getActiveLinkedAccountInfo(e.signal)
+            .then(function (t) {
+              e.signal.aborted || h(t);
+            })
+            .catch(v),
+          function () {
+            return e.abort();
+          }
+        );
+      }
+    }
+    function v() {
+      o("WALogger").WARN(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "WAWebActiveAccountInfoContext: linked accounts fetch failed",
+          ])),
+      );
+    }
+    function S() {
       return m(f, y);
     }
     ((l.setActiveAccountInfo = h),
       (l.getActiveAccountInfo = y),
       (l.ActiveAccountInfoProvider = C),
-      (l.useActiveAccountInfo = b));
+      (l.useActiveAccountInfo = S));
   },
   98,
 );

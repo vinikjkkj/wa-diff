@@ -10,24 +10,48 @@ __d(
     "WAWebMsgType",
     "WAWebServerPropConstants",
     "react",
+    "react-compiler-runtime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = e.displayType,
-        n = e.mediaType;
+      var t = o("react-compiler-runtime").c(11),
+        n = e.displayType,
+        a = e.mediaType;
       r("vulture")("7i2IRZAIHBeSZEKDcErvcDNj9xA=");
-      var o = d(n);
-      return u.jsx(r("WAWebFailIcon.react"), {
-        displayType: t,
-        onClick: m.bind(null, o),
-        tooltip: o,
-        ariaLabel: o,
-      });
+      var i, l, s, c;
+      t[0] !== n || t[1] !== a
+        ? ((l = d(a)),
+          (i = r("WAWebFailIcon.react")),
+          (s = n),
+          (c = m.bind(null, l)),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = i),
+          (t[3] = l),
+          (t[4] = s),
+          (t[5] = c))
+        : ((i = t[2]), (l = t[3]), (s = t[4]), (c = t[5]));
+      var p;
+      return (
+        t[6] !== i || t[7] !== l || t[8] !== s || t[9] !== c
+          ? ((p = u.jsx(i, {
+              displayType: s,
+              onClick: c,
+              tooltip: l,
+              ariaLabel: l,
+            })),
+            (t[6] = i),
+            (t[7] = l),
+            (t[8] = s),
+            (t[9] = c),
+            (t[10] = p))
+          : (p = t[10]),
+        p
+      );
     }
-    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
       var t = o("WAWebL10nFilesize").getL10nFilesize(
         o("WAWebServerPropConstants").MAX_FILE_SIZE_BYTES,

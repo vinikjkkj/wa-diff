@@ -3,8 +3,6 @@ __d(
   [
     "cx",
     "fbt",
-    "WAWebABProps",
-    "WAWebChatPreferenceCollection",
     "WAWebChatThemeGatingUtils",
     "WAWebClassnames",
     "WAWebCmd",
@@ -12,15 +10,12 @@ __d(
     "WAWebConversationPreview.react",
     "WAWebErrorBoundary.react",
     "WAWebGetConversationPanelKey",
-    "WAWebThemeContext",
     "WAWebUim",
     "WAWebUimUie.react",
-    "WAWebUseChatTheme",
-    "WAWebWallpaper",
     "react",
     "stylex",
     "useWAWebListener",
-    "useWAWebModelValues",
+    "useWAWebWallpaperState",
   ],
   function (t, n, r, o, a, i, l, s, u) {
     var e = ["ref"],
@@ -34,158 +29,90 @@ __d(
       h = { pane: { backgroundColor: "x1q80dvb", $$css: !0 } };
     function y(t) {
       var n,
-        a,
-        i,
-        l,
-        s = t.ref,
-        d = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        p = d.chat,
-        y = d.chatEntryPoint,
-        C = d.focusCtx,
-        b = d.msgCollection,
-        v = d.notifyChatRendered,
-        S = d.showPreview,
-        R = d.threadId,
-        L = d.updateOpenedChatInfo,
-        E = f(null),
-        k = o("useWAWebModelValues").useModelValues(d.chatPreference, [
-          "wallpaper",
-          "showDoodle",
-          "colorSchemeId",
-        ]),
-        I = o("useWAWebModelValues").useOptionalModelValues(d.chat, [
-          "wallpaper",
-          "showDoodle",
-          "colorSchemeId",
-        ]);
-      function T() {
-        var e;
-        return S == null &&
-          o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper") &&
-          (e = I == null ? void 0 : I.wallpaper) != null
-          ? e
-          : k.wallpaper;
-      }
-      var D = g(T()),
-        x = D[0],
-        $ = D[1],
-        P = g(T()),
-        N = P[0],
-        M = P[1],
-        w = g([]),
-        A = w[0],
-        F = w[1];
-      (o("useWAWebListener").useListener(
-        r("WAWebChatPreferenceCollection"),
-        "wallpaper_preview",
-        function (e) {
-          if (
-            o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper")
-          ) {
-            var t;
-            $(
-              (t = e != null ? e : I == null ? void 0 : I.wallpaper) != null
-                ? t
-                : k.wallpaper,
-            );
-          } else $(e != null ? e : k.wallpaper);
-        },
-      ),
-        o("useWAWebListener").useListener(
-          o("WAWebCmd").Cmd,
-          "show_overlay_animation",
-          function (e) {
-            (F(function (t) {
-              return [].concat(t, [e]);
-            }),
-              window.setTimeout(function () {
-                F(function (t) {
-                  return t.filter(function (t) {
-                    return t !== e;
-                  });
-                });
-              }, 5e3));
-          },
-        ));
-      var O = o("WAWebChatThemeGatingUtils").isChatThemesEnabled(),
-        B = g(null),
-        W = B[0],
-        q = B[1];
+        a = t.ref,
+        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        l = i.chat,
+        s = i.chatEntryPoint,
+        d = i.focusCtx,
+        p = i.msgCollection,
+        y = i.notifyChatRendered,
+        C = i.showPreview,
+        b = i.threadId,
+        v = i.updateOpenedChatInfo,
+        S = f(null),
+        R = o("useWAWebWallpaperState").useWallpaperState({
+          chat: l,
+          chatPreference: i.chatPreference,
+          showPreview: C,
+        }),
+        L = R.backgroundWrapperStyle,
+        E = R.chatThemeStyle,
+        k = R.displayWallpaper,
+        I = R.isDarkTheme,
+        T = R.showDoodle,
+        D = R.showStockWallpaper,
+        x = R.stockWallpaperUrl,
+        $ = g([]),
+        P = $[0],
+        N = $[1];
       o("useWAWebListener").useListener(
-        r("WAWebChatPreferenceCollection"),
-        "chat_theme_preview",
+        o("WAWebCmd").Cmd,
+        "show_overlay_animation",
         function (e) {
-          O && q(e);
+          (N(function (t) {
+            return [].concat(t, [e]);
+          }),
+            window.setTimeout(function () {
+              N(function (t) {
+                return t.filter(function (t) {
+                  return t !== e;
+                });
+              });
+            }, 5e3));
         },
       );
-      var U =
-          O &&
-          (n =
-            (a = W != null ? W : I == null ? void 0 : I.colorSchemeId) != null
-              ? a
-              : k.colorSchemeId) != null
-            ? n
-            : null,
-        V = o("WAWebUseChatTheme").useLazyChatThemeDefinitions({
-          isChatThemeEnabled: O,
-        }),
-        H = o("WAWebThemeContext").useIsDarkTheme(),
-        G =
-          U != null && V != null
-            ? V.getChatTheme(U, H ? "dark" : "light")
-            : null,
-        z = T();
-      N !== z && ($(z), M(z));
-      var j = function (t) {
-        return E.current ? E.current.contains(t) : !1;
+      var M = function (t) {
+        return S.current ? S.current.contains(t) : !1;
       };
-      _(s, function () {
-        return { containsDOMNode: j };
+      _(a, function () {
+        return { containsDOMNode: M };
       });
-      var K = {};
-      x !== o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER &&
-        (K.backgroundColor = x);
-      var Q =
-          S != null
+      var w =
+          C != null
             ? m.jsx(r("WAWebConversationPreview.react"), {
-                previewType: S,
+                previewType: C,
                 title:
-                  S === "theme"
+                  C === "theme"
                     ? u._(/*BTDS*/ "Theme preview")
                     : u._(/*BTDS*/ "Wallpaper preview"),
-                wallpaper: x,
-                showDoodle: k.showDoodle,
+                wallpaper: k,
+                showDoodle: T,
               })
             : null,
-        X =
-          p && b
+        A =
+          l && p
             ? m.jsx(
                 r("WAWebConversationPanel.react"),
                 {
-                  chat: p,
-                  chatEntryPoint: y,
-                  groupMetadata: p.groupMetadata,
-                  focusCtx: C,
-                  msgCollection: b,
-                  threadId: R,
-                  notifyChatRendered: v,
-                  updateOpenedChatInfo: L,
-                  wallpaper: x,
-                  showDoodle:
-                    o("WAWebABProps").getABPropConfigValue(
-                      "use_per_chat_wallpaper",
-                    ) && (i = I == null ? void 0 : I.showDoodle) != null
-                      ? i
-                      : k.showDoodle,
+                  chat: l,
+                  chatEntryPoint: s,
+                  groupMetadata: l.groupMetadata,
+                  focusCtx: d,
+                  msgCollection: p,
+                  threadId: b,
+                  notifyChatRendered: y,
+                  updateOpenedChatInfo: v,
+                  wallpaper: k,
+                  showDoodle: T,
                 },
-                r("WAWebGetConversationPanelKey")(p, R),
+                r("WAWebGetConversationPanelKey")(l, b),
               )
             : null,
-        Y;
+        F;
       return (
-        o("WAWebABProps").getABPropConfigValue("use_per_chat_wallpaper")
-          ? (Y = Q != null ? Q : X)
-          : (Y = X != null ? X : Q),
+        o("WAWebChatThemeGatingUtils").isChatThemesEnabled()
+          ? (F = w != null ? w : A)
+          : (F = A != null ? A : w),
         m.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
           name: "conversation-panel",
           type: "fatal",
@@ -195,16 +122,38 @@ __d(
             children: m.jsxs("div", {
               id: "main",
               className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-                ((l = {}),
-                (l._ajy0 = d.showPreview != null),
-                (l._ajx_ = !0),
-                l),
-                (c || (c = r("stylex")))(h.pane, G),
+                ((n = {}),
+                (n._ajy0 = i.showPreview != null),
+                (n._ajx_ = !0),
+                n),
+                (c || (c = r("stylex")))(h.pane, E),
               ),
-              style: K,
-              ref: E,
+              style: L,
+              ref: S,
               "data-testid": void 0,
-              children: [Y, A],
+              children: [
+                D &&
+                  m.jsxs(m.Fragment, {
+                    children: [
+                      m.jsx("div", {
+                        className:
+                          "x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x18d0r48 x1xsqp64 x1ja2u2z",
+                        style: {
+                          backgroundImage: "url(" + (x != null ? x : "") + ")",
+                        },
+                        "data-testid": void 0,
+                      }),
+                      I &&
+                        m.jsx("div", {
+                          className:
+                            "x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x7w8cv9 x1ja2u2z",
+                          "data-testid": void 0,
+                        }),
+                    ],
+                  }),
+                F,
+                P,
+              ],
             }),
           }),
         })

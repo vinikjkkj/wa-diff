@@ -32,6 +32,7 @@ __d(
     "WAWebWamEnumDisappearingModeSettingEventNameType",
     "WAWebWamEnumDmChatPickerEntryPointType",
     "WAWebWamEnumDmChatPickerEventNameType",
+    "WAWebWamEnumPreviousEphemeralityType",
     "react",
     "useWAWebNux",
   ],
@@ -92,6 +93,7 @@ __d(
           ).DISAPPEARING_MODE_SETTING_EVENT_NAME_TYPE
             .DEFAULT_MESSAGE_TIMER_OPEN,
           disappearingModeEntryPoint: n,
+          isAfterRead: o("WAWebAfterReadUtils").isAfterReadDuration(c.duration),
         }).commit();
       }, []),
         p(
@@ -119,42 +121,66 @@ __d(
       function R() {
         var e = c.duration,
           t = c.settingTimestamp,
-          r = h.duration;
-        o("WAWebSetDisappearingModePrivacyAction")
-          .setDisappearingMode(r)
-          .then(function () {
-            new (o(
-              "WAWebDisappearingModeSettingChangeWamEvent",
-            ).DisappearingModeSettingChangeWamEvent)({
-              disappearingModeEntryPoint: n,
-              lastToggleTimestamp: t,
-              newEphemeralityDuration: r,
-              previousEphemeralityDuration: e,
-            }).commit();
-          })
-          .catch(function () {
-            (o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "DDM duration change failed. Entry: ",
-                    " Previous: ",
-                    " New: ",
-                    "",
-                  ])),
-                n,
-                e,
-                r,
-              )
-              .sendLogs("DDM-change-fail"),
-              o("WAWebToastManager").ToastManager.open(
-                d.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(
-                    /*BTDS*/ "Failed to change disappearing messages duration",
-                  ),
-                }),
-              ));
-          });
+          r = h.duration,
+          a = o("WAWebAfterReadUtils").isAfterReadDuration(r),
+          i;
+        (e > 0 &&
+          (i = o("WAWebAfterReadUtils").isAfterReadDuration(e)
+            ? o("WAWebWamEnumPreviousEphemeralityType")
+                .PREVIOUS_EPHEMERALITY_TYPE.AFTER_READ
+            : o("WAWebWamEnumPreviousEphemeralityType")
+                .PREVIOUS_EPHEMERALITY_TYPE.DISAPPEARING_MESSAGE),
+          o("WAWebSetDisappearingModePrivacyAction")
+            .setDisappearingMode(r)
+            .then(function () {
+              new (o(
+                "WAWebDisappearingModeSettingChangeWamEvent",
+              ).DisappearingModeSettingChangeWamEvent)({
+                disappearingModeEntryPoint: n,
+                lastToggleTimestamp: t,
+                newEphemeralityDuration: a ? void 0 : r,
+                previousEphemeralityDuration: e,
+                isAfterRead: a,
+                afterReadDuration: a ? r : void 0,
+                previousEphemeralityType: i,
+                isSuccess: !0,
+              }).commit();
+            })
+            .catch(function () {
+              (new (o(
+                "WAWebDisappearingModeSettingChangeWamEvent",
+              ).DisappearingModeSettingChangeWamEvent)({
+                disappearingModeEntryPoint: n,
+                lastToggleTimestamp: t,
+                newEphemeralityDuration: a ? void 0 : r,
+                previousEphemeralityDuration: e,
+                isAfterRead: a,
+                afterReadDuration: a ? r : void 0,
+                previousEphemeralityType: i,
+                isSuccess: !1,
+              }).commit(),
+                o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "DDM duration change failed. Entry: ",
+                        " Previous: ",
+                        " New: ",
+                        "",
+                      ])),
+                    n,
+                    e,
+                    r,
+                  )
+                  .sendLogs("DDM-change-fail"),
+                o("WAWebToastManager").ToastManager.open(
+                  d.jsx(o("WAWebToast.react").Toast, {
+                    msg: s._(
+                      /*BTDS*/ "Failed to change disappearing messages duration",
+                    ),
+                  }),
+                ));
+            }));
       }
       function L() {
         o("WAWebModalManager").ModalManager.open(
@@ -173,6 +199,7 @@ __d(
             "WAWebWamEnumDisappearingModeSettingEventNameType",
           ).DISAPPEARING_MODE_SETTING_EVENT_NAME_TYPE.LEARN_MORE_CLICK,
           disappearingModeEntryPoint: n,
+          isAfterRead: o("WAWebAfterReadUtils").isAfterReadDuration(h.duration),
         }).commit();
       }
       function k(e) {
@@ -185,6 +212,9 @@ __d(
             ).DISAPPEARING_MODE_SETTING_EVENT_NAME_TYPE
               .DEFAULT_MESSAGE_TIMER_EXIT,
             disappearingModeEntryPoint: n,
+            isAfterRead: o("WAWebAfterReadUtils").isAfterReadDuration(
+              h.duration,
+            ),
           }).commit(),
           a(e));
       }

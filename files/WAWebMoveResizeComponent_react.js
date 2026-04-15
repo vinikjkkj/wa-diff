@@ -205,7 +205,10 @@ __d(
         $e = g(!1),
         Pe = function (t) {
           (t.button === 0 &&
-            ((ie.current = o("WAWebMoveResizeComponentUtils").UserActions.MOVE),
+            (t.clientX,
+            t.clientY,
+            ie.current,
+            (ie.current = o("WAWebMoveResizeComponentUtils").UserActions.MOVE),
             ae(o("WAWebMoveResizeComponentUtils").UserActions.MOVE),
             ($e.current = !1),
             (he.current = { left: H, bottom: W }),
@@ -297,7 +300,13 @@ __d(
                 extraBottomContentHeight: n,
                 resizeStartPiPStyle: de,
               });
-              (G(l.movedLeft),
+              (t.clientX,
+                t.clientY,
+                ge.current,
+                he.current,
+                window.innerWidth,
+                window.innerHeight,
+                G(l.movedLeft),
                 q(l.movedBottom),
                 E && E(l.movedLeft, l.movedBottom));
               break;
@@ -305,12 +314,14 @@ __d(
           }
         },
         We = function (t) {
-          (ie.current === o("WAWebMoveResizeComponentUtils").UserActions.RESIZE
-            ? ((x.current = !1), i.onResizeEnd == null || i.onResizeEnd())
-            : ie.current ===
-                o("WAWebMoveResizeComponentUtils").UserActions.MOVE &&
-              $e.current &&
-              (i.onMoveEnd == null || i.onMoveEnd()),
+          (ie.current,
+            $e.current,
+            ie.current === o("WAWebMoveResizeComponentUtils").UserActions.RESIZE
+              ? ((x.current = !1), i.onResizeEnd == null || i.onResizeEnd())
+              : ie.current ===
+                  o("WAWebMoveResizeComponentUtils").UserActions.MOVE &&
+                $e.current &&
+                (i.onMoveEnd == null || i.onMoveEnd()),
             ($e.current = !1),
             (ie.current = o("WAWebMoveResizeComponentUtils").UserActions.IDLE),
             ae(o("WAWebMoveResizeComponentUtils").UserActions.IDLE));
@@ -356,39 +367,42 @@ __d(
         },
         Ve = r("useWAWebDebouncedCallback")(function () {
           if (
-            ie.current === o("WAWebMoveResizeComponentUtils").UserActions.IDLE
+            ie.current !== o("WAWebMoveResizeComponentUtils").UserActions.IDLE
           ) {
-            var e = Oe(),
-              t = e.extraBottomContentHeight,
-              n = e.extraTopContentHeight,
-              r = o(
-                "WAWebMoveResizeComponentHandlers",
-              ).calculateWindowResizeState({
-                width: M,
-                height: F,
-                independentResize: i.independentResize === !0,
-                bottom: W,
-                left: H,
-                aspectRatio: i.aspectRatio,
-                margin: i.margin,
-                minWidth: i.minWidth,
-                extraTopContentHeight: n,
-                extraBottomContentHeight: t,
-                previousWindowSize: Ce,
-                previousConvPanelRightBorder: Se,
-                escapeConversationHeader: i.escapeConversationHeader,
-                getConversationHeaderOffset: function (t) {
-                  return o("WAWebCmd").Cmd.getConversationHeaderOffset(t);
-                },
-              });
-            r.hasChanges &&
-              (q(r.bottom),
-              G(r.left),
-              w(r.width),
-              r.height != null && O(r.height),
-              be(r.previousWindowSize),
-              Re(r.previousConvPanelRightBorder));
+            ie.current;
+            return;
           }
+          (window.innerWidth, window.innerHeight);
+          var e = Oe(),
+            t = e.extraBottomContentHeight,
+            n = e.extraTopContentHeight,
+            r = o(
+              "WAWebMoveResizeComponentHandlers",
+            ).calculateWindowResizeState({
+              width: M,
+              height: F,
+              independentResize: i.independentResize === !0,
+              bottom: W,
+              left: H,
+              aspectRatio: i.aspectRatio,
+              margin: i.margin,
+              minWidth: i.minWidth,
+              extraTopContentHeight: n,
+              extraBottomContentHeight: t,
+              previousWindowSize: Ce,
+              previousConvPanelRightBorder: Se,
+              escapeConversationHeader: i.escapeConversationHeader,
+              getConversationHeaderOffset: function (t) {
+                return o("WAWebCmd").Cmd.getConversationHeaderOffset(t);
+              },
+            });
+          r.hasChanges &&
+            (q(r.bottom),
+            G(r.left),
+            w(r.width),
+            r.height != null && O(r.height),
+            be(r.previousWindowSize),
+            Re(r.previousConvPanelRightBorder));
         }, 50);
       (p(function () {
         if (!l) {

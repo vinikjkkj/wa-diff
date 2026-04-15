@@ -9,6 +9,7 @@ __d(
     "WDSIconWdsIcAi.react",
     "WDSTooltip.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebNux",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -19,44 +20,73 @@ __d(
       d = c.useEffect,
       m = c.useRef;
     function p(e) {
-      var t = e.message,
-        n = e.onPress,
-        a = r("useWAWebNux")(
+      var t = o("react-compiler-runtime").c(9),
+        n = e.message,
+        a = e.onPress,
+        i = r("useWAWebNux")(
           o("WAWebNux").NUX.BUSINESS_BROADCAST_GENAI_TOOLTIP,
         ),
-        i = a[0],
-        l = a[1],
-        c = m(!1),
-        p =
-          o("WAWebBizBroadcastGenAIGating").isGenAITextEnabled() &&
-          o("WAWebBizBroadcastGenAIEligibilityModel").isGenAIEligible(),
-        _ =
-          o("WAWebBizBroadcastGenAIGating").countWords(t) >
+        l = i[0],
+        c = i[1],
+        p = m(!1),
+        _;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ =
+            o("WAWebBizBroadcastGenAIGating").isGenAITextEnabled() &&
+            o("WAWebBizBroadcastGenAIEligibilityModel").isGenAIEligible()),
+          (t[0] = _))
+        : (_ = t[0]);
+      var f = _,
+        g =
+          o("WAWebBizBroadcastGenAIGating").countWords(n) >
           o("WAWebBizBroadcastGenAIGating").getGenAIComposerMinWords(),
-        f = p && i && _;
+        h = f && l && g,
+        y,
+        C;
+      if (
+        (t[1] !== h || t[2] !== c
+          ? ((y = function () {
+              h && !p.current && ((p.current = !0), c());
+            }),
+            (C = [h, c]),
+            (t[1] = h),
+            (t[2] = c),
+            (t[3] = y),
+            (t[4] = C))
+          : ((y = t[3]), (C = t[4])),
+        d(y, C),
+        !f)
+      )
+        return null;
+      var b;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = s._(/*BTDS*/ "Get help using AI")), (t[5] = b))
+        : (b = t[5]);
+      var v;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = s._(/*BTDS*/ "Generate with AI")), (t[6] = v))
+        : (v = t[6]);
+      var S;
       return (
-        d(
-          function () {
-            f && !c.current && ((c.current = !0), l());
-          },
-          [f, l],
-        ),
-        p
-          ? u.jsx(r("WDSTooltip.react"), {
-              label: s._(/*BTDS*/ "Get help using AI"),
+        t[7] !== a
+          ? ((S = u.jsx(r("WDSTooltip.react"), {
+              label: b,
               position: "below",
               children: u.jsx(r("WDSButton.react"), {
                 variant: "borderless",
                 size: "small",
                 Icon: r("WDSIconWdsIcAi.react"),
-                onPress: n,
-                "aria-label": s._(/*BTDS*/ "Generate with AI"),
+                onPress: a,
+                "aria-label": v,
               }),
-            })
-          : null
+            })),
+            (t[7] = a),
+            (t[8] = S))
+          : (S = t[8]),
+        S
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

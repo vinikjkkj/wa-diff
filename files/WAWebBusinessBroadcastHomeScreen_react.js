@@ -27,6 +27,7 @@ __d(
     "WDSMenuBarItem.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebABPropConfigValue",
     "useWAWebBroadcastCampaigns",
   ],
@@ -77,285 +78,420 @@ __d(
         },
       };
     function f(e) {
-      var t = e.audienceActions,
-        n = e.audiencesList,
-        a = e.entryPoint,
-        i = e.onAudienceSelect,
-        l = e.onBroadcastSelect,
-        u = e.onClose,
-        f = e.onCreateAudience,
-        g = e.onCreateBroadcast,
-        h = e.onPreview,
-        y = e.onSuggestedCardPress,
-        C = e.onUploadSuccess,
-        b = p("broadcasts"),
-        v = b[0],
-        S = b[1],
-        R = p(!o("WAWebBizBroadcastTos").isBizBroadcastTosAccepted()),
-        L = R[0],
-        E = R[1],
-        k =
+      var t = o("react-compiler-runtime").c(88),
+        n = e.audienceActions,
+        a = e.audiencesList,
+        i = e.entryPoint,
+        l = e.onAudienceSelect,
+        u = e.onBroadcastSelect,
+        c = e.onClose,
+        m = e.onCreateAudience,
+        f = e.onCreateBroadcast,
+        y = e.onPreview,
+        C = e.onSuggestedCardPress,
+        b = e.onUploadSuccess,
+        v = p("broadcasts"),
+        S = v[0],
+        R = v[1],
+        L;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = o("WAWebBizBroadcastTos").isBizBroadcastTosAccepted()),
+          (t[0] = L))
+        : (L = t[0]);
+      var E = p(!L),
+        k = E[0],
+        I = E[1],
+        T =
           o("useWAWebABPropConfigValue").useABPropConfigValue(
             "suggested_audiences_wa_web",
           ) === !0,
-        I = o("WAWebActiveAccountInfoContext.react").useActiveAccountInfo(),
-        T = r("useWAWebBroadcastCampaigns")(),
-        D = T.campaigns,
-        x = T.loading;
-      d(
-        function () {
-          o(
-            "WAWebBusinessBroadcastUserJourneyLogger",
-          ).BusinessBroadcastUserJourneyLogger.bbHomePageViewed(a);
-        },
-        [a],
-      );
-      var $ = m(
-          function () {
-            if (D.length === 0) return n;
-            var e = new Map();
-            for (var t of D) {
-              var r = t.broadcastJid.replace(/@broadcast$/, ""),
-                o = e.get(r);
-              (o == null || t.sentAt > o) && e.set(r, t.sentAt);
-            }
-            return n.map(function (t) {
-              var n = e.get(t.broadcastJid);
-              return n != null
-                ? babelHelpers.extends({}, t, { lastBroadcastTimestamp: n })
-                : t;
-            });
-          },
-          [n, D],
-        ),
-        P = c(
-          function (e) {
-            (e === "broadcasts"
+        D = o("WAWebActiveAccountInfoContext.react").useActiveAccountInfo(),
+        x = r("useWAWebBroadcastCampaigns")(),
+        $ = x.campaigns,
+        P = x.loading,
+        N,
+        M;
+      (t[1] !== i
+        ? ((N = function () {
+            o(
+              "WAWebBusinessBroadcastUserJourneyLogger",
+            ).BusinessBroadcastUserJourneyLogger.bbHomePageViewed(i);
+          }),
+          (M = [i]),
+          (t[1] = i),
+          (t[2] = N),
+          (t[3] = M))
+        : ((N = t[2]), (M = t[3])),
+        d(N, M));
+      var w;
+      e: {
+        if ($.length === 0) {
+          w = a;
+          break e;
+        }
+        var A;
+        if (t[4] !== a || t[5] !== $) {
+          var F = new Map();
+          for (var O of $) {
+            var B = O.broadcastJid.replace(/@broadcast$/, ""),
+              W = F.get(B);
+            (W == null || O.sentAt > W) && F.set(B, O.sentAt);
+          }
+          ((A = a.map(function (e) {
+            var t = F.get(e.broadcastJid);
+            return t != null
+              ? babelHelpers.extends({}, e, { lastBroadcastTimestamp: t })
+              : e;
+          })),
+            (t[4] = a),
+            (t[5] = $),
+            (t[6] = A));
+        } else A = t[6];
+        w = A;
+      }
+      var q = w,
+        U;
+      t[7] !== i
+        ? ((U = function (t) {
+            (t === "broadcasts"
               ? o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
-                ).BusinessBroadcastUserJourneyLogger.homeBroadcastsTabClicked(a)
-              : e === "audiences" &&
+                ).BusinessBroadcastUserJourneyLogger.homeBroadcastsTabClicked(i)
+              : t === "audiences" &&
                 o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
-                ).BusinessBroadcastUserJourneyLogger.homeAudiencesTabClicked(a),
-              S(e));
-          },
-          [a],
-        ),
-        N = m(
-          function () {
-            return o(
-              "WAWebBusinessBroadcastHomeTableColumns.react",
-            ).getBroadcastColumns(a, h);
-          },
-          [a, h],
-        ),
-        M = m(
-          function () {
-            return o(
-              "WAWebBusinessBroadcastHomeTableColumns.react",
-            ).getAudienceColumns(a, t);
-          },
-          [a, t],
-        ),
-        w = c(function (e) {
-          return e.campaignId;
-        }, []),
-        A = c(function (e) {
-          return e.broadcastJid;
-        }, []),
-        F = c(
-          function () {
+                ).BusinessBroadcastUserJourneyLogger.homeAudiencesTabClicked(i),
+              R(t));
+          }),
+          (t[7] = i),
+          (t[8] = U))
+        : (U = t[8]);
+      var V = U,
+        H;
+      t[9] !== i || t[10] !== y
+        ? ((H = o(
+            "WAWebBusinessBroadcastHomeTableColumns.react",
+          ).getBroadcastColumns(i, y)),
+          (t[9] = i),
+          (t[10] = y),
+          (t[11] = H))
+        : (H = t[11]);
+      var G = H,
+        z;
+      t[12] !== n || t[13] !== i
+        ? ((z = o(
+            "WAWebBusinessBroadcastHomeTableColumns.react",
+          ).getAudienceColumns(i, n)),
+          (t[12] = n),
+          (t[13] = i),
+          (t[14] = z))
+        : (z = t[14]);
+      var j = z,
+        K = h,
+        Q = g,
+        X;
+      t[15] !== D
+        ? ((X = function () {
             o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
               s.jsx(o("WAWebSettingsFlow.react").SettingsFlow, {
-                activeAccountInfo: I,
+                activeAccountInfo: D,
                 onEnd: o("WAWebDrawerManager").closeDrawerLeft,
               }),
             );
-          },
-          [I],
-        ),
-        O = c(
-          function (e) {
-            l != null && l(e);
-          },
-          [l],
-        ),
-        B = c(
-          function (e) {
+          }),
+          (t[15] = D),
+          (t[16] = X))
+        : (X = t[16]);
+      var Y = X,
+        J;
+      t[17] !== u
+        ? ((J = function (t) {
+            u != null && u(t);
+          }),
+          (t[17] = u),
+          (t[18] = J))
+        : (J = t[18]);
+      var Z = J,
+        ee;
+      t[19] !== i || t[20] !== l
+        ? ((ee = function (t) {
             (o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.newBusinessBroadcastAudienceListItemClicked(
-              e.broadcastJid,
-              a,
+              t.broadcastJid,
+              i,
             ),
-              i != null && i(e));
-          },
-          [a, i],
-        ),
-        W = c(
-          function (e) {
-            y != null && y(e);
-          },
-          [y],
-        ),
-        q = x && D.length === 0,
-        U = !x && D.length === 0 && n.length === 0 && !k,
-        V = !x && D.length === 0,
-        H = q
-          ? s.jsx("div", {
-              className: "x6s0dn4 x78zum5 x5yr21d xl56j7k",
-              children: s.jsx(o("WAWebSpinner.react").Spinner, {
-                color: "default",
-                size: 24,
-                stroke: 6,
-              }),
-            })
-          : s.jsx(r("WAWebSMBTable.react"), {
-              columns: N,
-              items: D,
-              getItemKey: w,
-              onRowClick: O,
+              l != null && l(t));
+          }),
+          (t[19] = i),
+          (t[20] = l),
+          (t[21] = ee))
+        : (ee = t[21]);
+      var te = ee,
+        ne;
+      t[22] !== C
+        ? ((ne = function (t) {
+            C != null && C(t);
+          }),
+          (t[22] = C),
+          (t[23] = ne))
+        : (ne = t[23]);
+      var re = ne,
+        oe = P && $.length === 0,
+        ae = !P && $.length === 0 && a.length === 0 && !T,
+        ie = !P && $.length === 0,
+        le;
+      t[24] !== G || t[25] !== $ || t[26] !== Z || t[27] !== oe
+        ? ((le = oe
+            ? s.jsx("div", {
+                className: "x6s0dn4 x78zum5 x5yr21d xl56j7k",
+                children: s.jsx(o("WAWebSpinner.react").Spinner, {
+                  color: "default",
+                  size: 24,
+                  stroke: 6,
+                }),
+              })
+            : s.jsx(r("WAWebSMBTable.react"), {
+                columns: G,
+                items: $,
+                getItemKey: K,
+                onRowClick: Z,
+              })),
+          (t[24] = G),
+          (t[25] = $),
+          (t[26] = Z),
+          (t[27] = oe),
+          (t[28] = le))
+        : (le = t[28]);
+      var se = le,
+        ue;
+      t[29] !== se ||
+      t[30] !== i ||
+      t[31] !== ae ||
+      t[32] !== ie ||
+      t[33] !== m ||
+      t[34] !== f ||
+      t[35] !== b
+        ? ((ue = ie
+            ? s.jsx(o("WAWebFlex.react").FlexRow, {
+                xstyle: _.emptyStateAudienceTab,
+                align: "center",
+                children: s.jsx(
+                  r("WAWebBusinessBroadcastHomeEmptyState.react"),
+                  {
+                    onCreateAudience: m,
+                    onCreateBroadcast: f,
+                    onUploadSuccess: b,
+                    showFooterButtons: ae,
+                    entryPoint: i,
+                  },
+                ),
+              })
+            : se),
+          (t[29] = se),
+          (t[30] = i),
+          (t[31] = ae),
+          (t[32] = ie),
+          (t[33] = m),
+          (t[34] = f),
+          (t[35] = b),
+          (t[36] = ue))
+        : (ue = t[36]);
+      var ce = ue,
+        de;
+      t[37] !== i || t[38] !== re || t[39] !== T
+        ? ((de =
+            T &&
+            s.jsx(r("WAWebSuggestedAudienceCardList.react"), {
+              entryPoint: i,
+              onCardPress: re,
+            })),
+          (t[37] = i),
+          (t[38] = re),
+          (t[39] = T),
+          (t[40] = de))
+        : (de = t[40]);
+      var me;
+      t[41] !== j || t[42] !== q || t[43] !== te
+        ? ((me = s.jsx(r("WAWebSMBTable.react"), {
+            columns: j,
+            items: q,
+            getItemKey: Q,
+            onRowClick: te,
+          })),
+          (t[41] = j),
+          (t[42] = q),
+          (t[43] = te),
+          (t[44] = me))
+        : (me = t[44]);
+      var pe;
+      t[45] !== de || t[46] !== me
+        ? ((pe = s.jsxs(s.Fragment, { children: [de, me] })),
+          (t[45] = de),
+          (t[46] = me),
+          (t[47] = pe))
+        : (pe = t[47]);
+      var _e = pe,
+        fe;
+      t[48] === Symbol.for("react.memo_cache_sentinel")
+        ? ((fe = {
+            className: "x1280gxy x78zum5 xdt5ytf x1iyjqo2 x6ikm8r x10wlt62",
+          }),
+          (t[48] = fe))
+        : (fe = t[48]);
+      var ge;
+      t[49] === Symbol.for("react.memo_cache_sentinel")
+        ? ((ge = s.jsx(r("WDSText.react"), {
+            testid: void 0,
+            type: "Headline1",
+            colorName: "contentDefault",
+            children: o(
+              "WAWebBizBroadcastsHomeStrings",
+            ).getBusinessBroadcastsTitle(),
+          })),
+          (t[49] = ge))
+        : (ge = t[49]);
+      var he;
+      t[50] !== i || t[51] !== ae || t[52] !== m || t[53] !== f || t[54] !== b
+        ? ((he =
+            !ae &&
+            s.jsxs(o("WAWebFlex.react").FlexRow, {
+              gap: 12,
+              testid: void 0,
+              children: [
+                s.jsx(r("WAWebBizBroadcastHomeCreateAudienceButton.react"), {
+                  onUploadSuccess: b,
+                  onCreateAudience: m,
+                  entryPoint: i,
+                }),
+                s.jsx(r("WDSButton.react"), {
+                  Icon: r("WDSIconIcAdd.react"),
+                  label: o(
+                    "WAWebBizBroadcastsHomeStrings",
+                  ).getCreateBroadcastButtonLabel(),
+                  onPress: function () {
+                    (o(
+                      "WAWebBusinessBroadcastUserJourneyLogger",
+                    ).BusinessBroadcastUserJourneyLogger.createBroadcastButtonClicked(
+                      i,
+                      o("WAWebWamEnumSurfaceType").SURFACE_TYPE.BB_HOME,
+                      { is_bb_home_empty_state: !1 },
+                    ),
+                      f());
+                  },
+                  size: "medium",
+                  testid: void 0,
+                  variant: "filled",
+                }),
+              ],
+            })),
+          (t[50] = i),
+          (t[51] = ae),
+          (t[52] = m),
+          (t[53] = f),
+          (t[54] = b),
+          (t[55] = he))
+        : (he = t[55]);
+      var ye;
+      t[56] !== i
+        ? ((ye = function () {
+            o(
+              "WAWebBusinessBroadcastUserJourneyLogger",
+            ).BusinessBroadcastUserJourneyLogger.homeOverflowMenuClicked(i);
+          }),
+          (t[56] = i),
+          (t[57] = ye))
+        : (ye = t[57]);
+      var Ce;
+      t[58] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ce = o("WAWebBizBroadcastsHomeStrings").getMenuButtonTitle()),
+          (t[58] = Ce))
+        : (Ce = t[58]);
+      var be, ve;
+      t[59] === Symbol.for("react.memo_cache_sentinel")
+        ? ((be = s.jsx(r("WDSIconIcSettings.react"), {})),
+          (ve = o("WAWebBizBroadcastsHomeStrings").getAccountSettingsLabel()),
+          (t[59] = be),
+          (t[60] = ve))
+        : ((be = t[59]), (ve = t[60]));
+      var Se;
+      t[61] !== Y
+        ? ((Se = {
+            menu: [
+              s.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { action: Y, icon: be, children: ve },
+                "account-settings",
+              ),
+            ],
+          }),
+          (t[61] = Y),
+          (t[62] = Se))
+        : (Se = t[62]);
+      var Re;
+      t[63] !== ye || t[64] !== Se
+        ? ((Re = s.jsx(o("WAWebMenuBar.react").MenuBar, {
+            children: s.jsx(r("WDSMenuBarItem.react"), {
+              icon: r("WDSIconIcMoreVert.react"),
+              onOpen: ye,
+              testid: void 0,
+              title: Ce,
+              dropdownMenu: Se,
             }),
-        G = V
-          ? s.jsx(o("WAWebFlex.react").FlexRow, {
-              xstyle: _.emptyStateAudienceTab,
-              align: "center",
-              children: s.jsx(r("WAWebBusinessBroadcastHomeEmptyState.react"), {
-                onCreateAudience: f,
-                onCreateBroadcast: g,
-                onUploadSuccess: C,
-                showFooterButtons: U,
-                entryPoint: a,
-              }),
-            })
-          : H,
-        z = s.jsxs(s.Fragment, {
-          children: [
-            k &&
-              s.jsx(r("WAWebSuggestedAudienceCardList.react"), {
-                entryPoint: a,
-                onCardPress: W,
-              }),
-            s.jsx(r("WAWebSMBTable.react"), {
-              columns: M,
-              items: $,
-              getItemKey: A,
-              onRowClick: B,
-            }),
-          ],
-        });
-      return s.jsxs("div", {
-        className: "x1280gxy x78zum5 xdt5ytf x1iyjqo2 x6ikm8r x10wlt62",
-        children: [
-          s.jsxs(o("WAWebFlex.react").FlexRow, {
+          })),
+          (t[63] = ye),
+          (t[64] = Se),
+          (t[65] = Re))
+        : (Re = t[65]);
+      var Le;
+      t[66] !== he || t[67] !== Re
+        ? ((Le = s.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             justify: "all",
             xstyle: _.headerContainer,
             children: [
-              s.jsx(r("WDSText.react"), {
-                testid: void 0,
-                type: "Headline1",
-                colorName: "contentDefault",
-                children: o(
-                  "WAWebBizBroadcastsHomeStrings",
-                ).getBusinessBroadcastsTitle(),
-              }),
+              ge,
               s.jsx(o("WAWebFlex.react").FlexRow, {
                 align: "center",
                 gap: 16,
                 children: s.jsxs(o("WAWebFlex.react").FlexRow, {
                   align: "center",
                   gap: 8,
-                  children: [
-                    !U &&
-                      s.jsxs(o("WAWebFlex.react").FlexRow, {
-                        gap: 12,
-                        testid: void 0,
-                        children: [
-                          s.jsx(
-                            r(
-                              "WAWebBizBroadcastHomeCreateAudienceButton.react",
-                            ),
-                            {
-                              onUploadSuccess: C,
-                              onCreateAudience: f,
-                              entryPoint: a,
-                            },
-                          ),
-                          s.jsx(r("WDSButton.react"), {
-                            Icon: r("WDSIconIcAdd.react"),
-                            label: o(
-                              "WAWebBizBroadcastsHomeStrings",
-                            ).getCreateBroadcastButtonLabel(),
-                            onPress: function () {
-                              (o(
-                                "WAWebBusinessBroadcastUserJourneyLogger",
-                              ).BusinessBroadcastUserJourneyLogger.createBroadcastButtonClicked(
-                                a,
-                                o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-                                  .BB_HOME,
-                                { is_bb_home_empty_state: !1 },
-                              ),
-                                g());
-                            },
-                            size: "medium",
-                            testid: void 0,
-                            variant: "filled",
-                          }),
-                        ],
-                      }),
-                    s.jsx(o("WAWebMenuBar.react").MenuBar, {
-                      children: s.jsx(r("WDSMenuBarItem.react"), {
-                        icon: r("WDSIconIcMoreVert.react"),
-                        onOpen: function () {
-                          o(
-                            "WAWebBusinessBroadcastUserJourneyLogger",
-                          ).BusinessBroadcastUserJourneyLogger.homeOverflowMenuClicked(
-                            a,
-                          );
-                        },
-                        testid: void 0,
-                        title: o(
-                          "WAWebBizBroadcastsHomeStrings",
-                        ).getMenuButtonTitle(),
-                        dropdownMenu: {
-                          menu: [
-                            s.jsx(
-                              o("WAWebDropdownItem.react").DropdownItem,
-                              {
-                                action: F,
-                                icon: s.jsx(r("WDSIconIcSettings.react"), {}),
-                                children: o(
-                                  "WAWebBizBroadcastsHomeStrings",
-                                ).getAccountSettingsLabel(),
-                              },
-                              "account-settings",
-                            ),
-                          ],
-                        },
-                      }),
-                    }),
-                  ],
+                  children: [he, Re],
                 }),
               }),
             ],
-          }),
-          U
+          })),
+          (t[66] = he),
+          (t[67] = Re),
+          (t[68] = Le))
+        : (Le = t[68]);
+      var Ee;
+      t[69] !== S ||
+      t[70] !== _e ||
+      t[71] !== ce ||
+      t[72] !== i ||
+      t[73] !== V ||
+      t[74] !== ae ||
+      t[75] !== oe ||
+      t[76] !== m ||
+      t[77] !== f ||
+      t[78] !== b
+        ? ((Ee = ae
             ? s.jsx(r("WAWebBusinessBroadcastHomeEmptyState.react"), {
-                onCreateAudience: f,
-                onCreateBroadcast: g,
-                onUploadSuccess: C,
-                showFooterButtons: U,
-                entryPoint: a,
+                onCreateAudience: m,
+                onCreateBroadcast: f,
+                onUploadSuccess: b,
+                showFooterButtons: ae,
+                entryPoint: i,
               })
             : s.jsxs(s.Fragment, {
                 children: [
                   s.jsx(o("WAWebFlex.react").FlexColumn, {
                     xstyle: _.tabsContainer,
                     children: s.jsx(r("WAWebTabs.react"), {
-                      selectedId: v,
-                      onSelect: P,
+                      selectedId: S,
+                      onSelect: V,
                       testIdPrefix: "biz-broadcasts-home-tab",
                       tabConfigs: [
                         {
@@ -377,7 +513,7 @@ __d(
                     }),
                   }),
                   s.jsx(r("WAWebDrawerBody.react"), {
-                    children: q
+                    children: oe
                       ? s.jsx("div", {
                           className: "x6s0dn4 x78zum5 x5yr21d xl56j7k",
                           children: s.jsx(o("WAWebSpinner.react").Spinner, {
@@ -389,24 +525,61 @@ __d(
                       : s.jsx(o("WAWebFlex.react").FlexColumn, {
                           align: "stretch",
                           xstyle: _.tableContainer,
-                          children: v === "broadcasts" ? G : z,
+                          children: S === "broadcasts" ? ce : _e,
                         }),
                   }),
                 ],
-              }),
-          L
+              })),
+          (t[69] = S),
+          (t[70] = _e),
+          (t[71] = ce),
+          (t[72] = i),
+          (t[73] = V),
+          (t[74] = ae),
+          (t[75] = oe),
+          (t[76] = m),
+          (t[77] = f),
+          (t[78] = b),
+          (t[79] = Ee))
+        : (Ee = t[79]);
+      var ke;
+      t[80] !== i || t[81] !== c || t[82] !== k
+        ? ((ke = k
             ? s.jsx(r("WAWebBizBroadcastTosModal.react"), {
-                entryPoint: a,
+                entryPoint: i,
                 onAccept: function () {
-                  return E(!1);
+                  return I(!1);
                 },
-                onDismiss: u,
+                onDismiss: c,
               })
-            : null,
-        ],
-      });
+            : null),
+          (t[80] = i),
+          (t[81] = c),
+          (t[82] = k),
+          (t[83] = ke))
+        : (ke = t[83]);
+      var Ie;
+      return (
+        t[84] !== Le || t[85] !== Ee || t[86] !== ke
+          ? ((Ie = s.jsxs(
+              "div",
+              babelHelpers.extends({}, fe, { children: [Le, Ee, ke] }),
+            )),
+            (t[84] = Le),
+            (t[85] = Ee),
+            (t[86] = ke),
+            (t[87] = Ie))
+          : (Ie = t[87]),
+        Ie
+      );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    function g(e) {
+      return e.broadcastJid;
+    }
+    function h(e) {
+      return e.campaignId;
+    }
+    l.default = f;
   },
   98,
 );

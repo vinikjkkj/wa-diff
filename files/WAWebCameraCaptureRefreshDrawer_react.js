@@ -21,6 +21,7 @@ __d(
     "WDSMenuBarItem.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -29,13 +30,23 @@ __d(
       d = c.useCallback,
       m = c.useState;
     function p() {
-      var e = m(null),
-        t = e[0],
-        n = e[1],
-        r = d(function (e) {
-          n(e);
-        }, []);
-      return [t, r];
+      var e = o("react-compiler-runtime").c(3),
+        t = m(null),
+        n = t[0],
+        r = t[1],
+        a;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = function (t) {
+            r(t);
+          }),
+          (e[0] = a))
+        : (a = e[0]);
+      var i = a,
+        l;
+      return (
+        e[1] !== n ? ((l = [n, i]), (e[1] = n), (e[2] = l)) : (l = e[2]),
+        l
+      );
     }
     var _ = "x18re5ia-B",
       f = {
@@ -136,45 +147,105 @@ __d(
       },
       g = { surface: "camera" };
     function h(e) {
-      var t = e.onClose,
-        n = e.onDownload,
-        o = e.toolbarRef;
-      return u.jsxs("header", {
-        className:
-          "x9f619 x78zum5 x1okw0bk x6s0dn4 x1qughib x1peatla x1280gxy x1iw51ew xde1mab",
-        children: [
-          u.jsx(r("WDSMenuBarItem.react"), {
+      var t = o("react-compiler-runtime").c(13),
+        n = e.onClose,
+        a = e.onDownload,
+        i = e.toolbarRef,
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = {
+            className:
+              "x9f619 x78zum5 x1okw0bk x6s0dn4 x1qughib x1peatla x1280gxy x1iw51ew xde1mab",
+          }),
+          (t[0] = l))
+        : (l = t[0]);
+      var c;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = s._(/*BTDS*/ "Close")), (t[1] = c))
+        : (c = t[1]);
+      var d;
+      t[2] !== n
+        ? ((d = u.jsx(r("WDSMenuBarItem.react"), {
             icon: r("WDSIconIcClose.react"),
             testid: void 0,
-            onClick: t,
-            title: s._(/*BTDS*/ "Close"),
-          }),
-          o != null
-            ? u.jsx("div", { ref: o, className: "x78zum5 xl56j7k x1iyjqo2" })
-            : null,
-          u.jsx(r("WDSMenuBarItem.react"), {
+            onClick: n,
+            title: c,
+          })),
+          (t[2] = n),
+          (t[3] = d))
+        : (d = t[3]);
+      var m;
+      t[4] !== i
+        ? ((m =
+            i != null
+              ? u.jsx("div", { ref: i, className: "x78zum5 xl56j7k x1iyjqo2" })
+              : null),
+          (t[4] = i),
+          (t[5] = m))
+        : (m = t[5]);
+      var p;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = s._(/*BTDS*/ "Download")), (t[6] = p))
+        : (p = t[6]);
+      var _;
+      t[7] !== a
+        ? ((_ = u.jsx(r("WDSMenuBarItem.react"), {
             icon: r("WDSIconIcDownload.react"),
             testid: void 0,
-            onClick: n,
-            title: s._(/*BTDS*/ "Download"),
-          }),
-        ],
-      });
+            onClick: a,
+            title: p,
+          })),
+          (t[7] = a),
+          (t[8] = _))
+        : (_ = t[8]);
+      var f;
+      return (
+        t[9] !== d || t[10] !== m || t[11] !== _
+          ? ((f = u.jsxs(
+              "header",
+              babelHelpers.extends({}, l, { children: [d, m, _] }),
+            )),
+            (t[9] = d),
+            (t[10] = m),
+            (t[11] = _),
+            (t[12] = f))
+          : (f = t[12]),
+        f
+      );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = e.isActive,
-        n = e.label;
-      return u.jsx(r("WAWebUnstyledButton.react"), {
-        xstyle: [f.modeBtn, t ? f.modeBtnActive : f.modeBtnHover],
-        children: u.jsx(r("WDSText.react"), {
-          type: "Body2Emphasized",
-          colorName: t ? "contentDefault" : "contentActionDefault",
-          children: n,
-        }),
-      });
+      var t = o("react-compiler-runtime").c(8),
+        n = e.isActive,
+        a = e.label,
+        i = n ? f.modeBtnActive : f.modeBtnHover,
+        l;
+      t[0] !== i ? ((l = [f.modeBtn, i]), (t[0] = i), (t[1] = l)) : (l = t[1]);
+      var s = n ? "contentDefault" : "contentActionDefault",
+        c;
+      t[2] !== a || t[3] !== s
+        ? ((c = u.jsx(r("WDSText.react"), {
+            type: "Body2Emphasized",
+            colorName: s,
+            children: a,
+          })),
+          (t[2] = a),
+          (t[3] = s),
+          (t[4] = c))
+        : (c = t[4]);
+      var d;
+      return (
+        t[5] !== l || t[6] !== c
+          ? ((d = u.jsx(r("WAWebUnstyledButton.react"), {
+              xstyle: l,
+              children: c,
+            })),
+            (t[5] = l),
+            (t[6] = c),
+            (t[7] = d))
+          : (d = t[7]),
+        d
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
       var t = e.chat,
         n = e.drawerTitle,

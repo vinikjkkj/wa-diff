@@ -338,6 +338,7 @@ __d(
             r("BaseView.react"),
             babelHelpers.extends({}, l, {
               "aria-label": j,
+              "aria-modal": !0,
               ref: H,
               role: "dialog",
               testid: void 0,

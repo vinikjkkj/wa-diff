@@ -51,6 +51,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebModelValues",
     "useWAWebStatusPrivacySettingConfig",
@@ -678,30 +679,56 @@ __d(
       });
     };
     function v(e) {
-      var t = e.children,
-        n = e.disabled,
-        a = e.icon,
-        i = e.isLastItem,
-        l = e.onClick,
-        s = e.tabIndex,
-        u = s === void 0 ? 0 : s,
+      var t = o("react-compiler-runtime").c(11),
+        n = e.children,
+        a = e.disabled,
+        i = e.icon,
+        l = e.isLastItem,
+        s = e.onClick,
+        u = e.tabIndex,
         c = e.testid,
         d = e.title,
-        p = a != null ? a : b();
-      return m.jsx(r("WAWebDrawerItem.react"), {
-        title: d,
-        theme: "privacy",
-        icon: p,
-        onClick: l,
-        disabled: n,
-        isLastItem: i,
-        tabIndex: u,
-        dataTab: o("WAWebTabOrder").TAB_ORDER.DRAWER_CONTENT,
-        testid: void 0,
-        children: t,
-      });
+        p = u === void 0 ? 0 : u,
+        _;
+      t[0] !== i
+        ? ((_ = i != null ? i : b()), (t[0] = i), (t[1] = _))
+        : (_ = t[1]);
+      var f = _,
+        g;
+      return (
+        t[2] !== n ||
+        t[3] !== a ||
+        t[4] !== l ||
+        t[5] !== f ||
+        t[6] !== s ||
+        t[7] !== p ||
+        t[8] !== c ||
+        t[9] !== d
+          ? ((g = m.jsx(r("WAWebDrawerItem.react"), {
+              title: d,
+              theme: "privacy",
+              icon: f,
+              onClick: s,
+              disabled: a,
+              isLastItem: l,
+              tabIndex: p,
+              dataTab: o("WAWebTabOrder").TAB_ORDER.DRAWER_CONTENT,
+              testid: void 0,
+              children: n,
+            })),
+            (t[2] = n),
+            (t[3] = a),
+            (t[4] = l),
+            (t[5] = f),
+            (t[6] = s),
+            (t[7] = p),
+            (t[8] = c),
+            (t[9] = d),
+            (t[10] = g))
+          : (g = t[10]),
+        g
+      );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
       var t = e.about,
         n = e.groupAdd,

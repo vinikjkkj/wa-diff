@@ -27,6 +27,7 @@ __d(
     "asyncToGeneratorRuntime",
     "nullthrows",
     "react",
+    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebListener",
     "useWAWebStableCallback",
@@ -381,20 +382,35 @@ __d(
     }
     h.displayName = h.name + " [from " + i.id + "]";
     function y(t) {
-      var n = t.ref,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        i = a.onBack;
-      return c.jsxs(r("WAWebDrawer.react"), {
-        ref: n,
-        theme: "settings",
-        testid: void 0,
-        children: [
-          c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            title: s._(/*BTDS*/ "VoIP UI Debug"),
-            onBack: i,
+      var n = o("react-compiler-runtime").c(10),
+        a,
+        i;
+      n[0] !== t
+        ? ((i = t.ref),
+          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i))
+        : ((a = n[1]), (i = n[2]));
+      var l = a,
+        u = l.onBack,
+        d;
+      n[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = s._(/*BTDS*/ "VoIP UI Debug")), (n[3] = d))
+        : (d = n[3]);
+      var m;
+      n[4] !== u
+        ? ((m = c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+            title: d,
+            onBack: u,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-          }),
-          c.jsxs(r("WAWebDrawerBody.react"), {
+          })),
+          (n[4] = u),
+          (n[5] = m))
+        : (m = n[5]);
+      var p;
+      n[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = c.jsxs(r("WAWebDrawerBody.react"), {
             children: [
               c.jsx(h, { title: "1:1 Audio Call", isVideoCall: !1 }),
               c.jsx(h, { title: "1:1 Video Call", isVideoCall: !0 }),
@@ -409,11 +425,25 @@ __d(
                 isGroupCall: !0,
               }),
             ],
-          }),
-        ],
-      });
+          })),
+          (n[6] = p))
+        : (p = n[6]);
+      var _;
+      return (
+        n[7] !== i || n[8] !== m
+          ? ((_ = c.jsxs(r("WAWebDrawer.react"), {
+              ref: i,
+              theme: "settings",
+              testid: void 0,
+              children: [m, p],
+            })),
+            (n[7] = i),
+            (n[8] = m),
+            (n[9] = _))
+          : (_ = n[9]),
+        _
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
       for (
         var t = o("WAWebContactCollection").ContactCollection.getModelsArray(),

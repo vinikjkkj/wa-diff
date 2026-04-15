@@ -19,6 +19,7 @@ __d(
     "WAWebModalManager",
     "WAWebMsgType",
     "react",
+    "react-compiler-runtime",
     "useWAWebUIM",
     "useWAWebUnmountSignal",
   ],
@@ -59,86 +60,96 @@ __d(
           : o("WAWebMsgType").MSG_TYPE.IMAGE;
       };
     function y(e) {
-      var t = e.mediaPayload,
-        n = r("useWAWebUIM")(),
-        a = p(),
-        i = m(
-          function () {
-            var e;
-            return [g(t), new Set([h(t)]), (e = t.maxItems) != null ? e : _];
-          },
-          [t],
-        ),
-        l = i[0],
-        u = i[1],
-        y = i[2],
-        C = p(null),
-        b = r("useWAWebUnmountSignal")(),
-        v = m(
-          function () {
-            return (
-              t.inputType !==
-              o("WAFlowsNativeMediaEventTypes").WAFlowsMediaInputType.CAMERA
-            );
-          },
-          [t.inputType],
-        ),
-        S = c(
-          function (e) {
-            var n = e.attachments,
-              a = new (r("WAWebAttachMediaCollection"))({
+      var t,
+        n = o("react-compiler-runtime").c(31),
+        a = e.mediaPayload,
+        i = r("useWAWebUIM")(),
+        l = p(),
+        u;
+      n[0] !== a ? ((u = g(a)), (n[0] = a), (n[1] = u)) : (u = n[1]);
+      var c;
+      n[2] !== a ? ((c = h(a)), (n[2] = a), (n[3] = c)) : (c = n[3]);
+      var m;
+      n[4] !== c ? ((m = new Set([c])), (n[4] = c), (n[5] = m)) : (m = n[5]);
+      var y = (t = a.maxItems) != null ? t : _,
+        R;
+      n[6] !== u || n[7] !== m || n[8] !== y
+        ? ((R = [u, m, y]), (n[6] = u), (n[7] = m), (n[8] = y), (n[9] = R))
+        : (R = n[9]);
+      var L = R,
+        E = L[0],
+        k = L[1],
+        I = L[2],
+        T = p(null),
+        D = r("useWAWebUnmountSignal")(),
+        x =
+          a.inputType !==
+          o("WAFlowsNativeMediaEventTypes").WAFlowsMediaInputType.CAMERA,
+        $;
+      n[10] !== x || n[11] !== I || n[12] !== E || n[13] !== a || n[14] !== k
+        ? (($ = function (t) {
+            var e = t.attachments,
+              n = new (r("WAWebAttachMediaCollection"))({
                 chatParticipantCount: 1,
               }),
               i = function () {
-                a.processAttachments(n, void 0, u, y);
+                n.processAttachments(e, void 0, k, I);
               },
-              c = s.jsx(r("WAWebGalaxyFlowMediaView.react"), {
-                allowMultipleMedia: v,
+              l = s.jsx(r("WAWebGalaxyFlowMediaView.react"), {
+                allowMultipleMedia: x,
                 onRender: i,
-                mediaPayload: t,
-                mediaCollection: a,
-                suportedMediaTypes: u,
-                mediaMimeTypes: l,
-                maxItems: y,
-                maxFileSizeBytes: t.maxFileSizeBytes,
+                mediaPayload: a,
+                mediaCollection: n,
+                suportedMediaTypes: k,
+                mediaMimeTypes: E,
+                maxItems: I,
+                maxFileSizeBytes: a.maxFileSizeBytes,
               });
-            o("WAWebModalManager").ModalManager.openMedia(c, {
+            o("WAWebModalManager").ModalManager.openMedia(l, {
               transition: "status-modal",
               blockClose: !0,
               focusType: {
                 type: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
               },
             });
-          },
-          [v, y, l, t, u],
-        ),
-        R = c(
-          function () {
-            n == null || n.requestDismiss();
-          },
-          [n],
-        ),
-        L = c(
-          function (e) {
-            var t;
-            if (!e) {
-              R();
+          }),
+          (n[10] = x),
+          (n[11] = I),
+          (n[12] = E),
+          (n[13] = a),
+          (n[14] = k),
+          (n[15] = $))
+        : ($ = n[15]);
+      var P = $,
+        N;
+      n[16] !== i
+        ? ((N = function () {
+            i == null || i.requestDismiss();
+          }),
+          (n[16] = i),
+          (n[17] = N))
+        : (N = n[17]);
+      var M = N,
+        w;
+      n[18] !== M || n[19] !== P
+        ? ((w = function (t) {
+            var e;
+            if (!t) {
+              M();
               return;
             }
-            e.stopPropagation();
-            var n = Array.from((t = e.target.files) != null ? t : []);
-            (R(),
-              n.length &&
-                S({
-                  attachments: n.map(function (e) {
-                    return { file: e };
-                  }),
-                }));
-          },
-          [R, S],
-        ),
-        E = c(
-          function () {
+            t.stopPropagation();
+            var n = Array.from((e = t.target.files) != null ? e : []);
+            (M(), n.length && P({ attachments: n.map(S) }));
+          }),
+          (n[18] = M),
+          (n[19] = P),
+          (n[20] = w))
+        : (w = n[20]);
+      var A = w,
+        F;
+      n[21] !== P || n[22] !== D
+        ? ((F = function () {
             var e = o("WAWebMediaCapture").start({
                 type: o("WAWebMediaCaptureStreamType")
                   .WAWebMediaCaptureStreamType.CAMERA,
@@ -147,27 +158,25 @@ __d(
               }),
               t = e.asyncStream,
               n = e.disposeStream;
-            ((C.current = n),
-              r("WAPromiseRaceAbort")(t, b)
+            ((T.current = n),
+              r("WAPromiseRaceAbort")(t, D)
                 .then(function (e) {
                   if (e) {
                     var t = s.jsx("div", {
                       className:
                         "x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x78zum5 x1y61xfy",
                       children: s.jsx(r("WAWebCaptureDrawer.react"), {
-                        onBack: function () {
-                          o("WAWebModalManager").ModalManager.closeMedia();
-                        },
+                        onBack: v,
                         chat: void 0,
                         theme: "capture-cover",
                         stream: e,
-                        disposeStream: C.current,
+                        disposeStream: T.current,
                         caption: !1,
                         onCaptured: function (t) {
                           var e = o("WAWebFileUtils").createFile([t], "", {
                             type: "image/jpeg",
                           });
-                          e && S({ attachments: [{ file: e }] });
+                          e && P({ attachments: [{ file: e }] });
                         },
                       }),
                     });
@@ -183,59 +192,84 @@ __d(
                 .catch(
                   o("WAFilteredCatch").filteredCatch(
                     o("WAWebMiscErrors").GetUserMedia.NotAllowedError,
-                    function () {
-                      var e;
-                      o("WAWebModalManager").ModalManager.open(
-                        s.jsx((e = o("WAWebGuidePopup.react")).GuidePopup, {
-                          messaging: e.Messaging.CAMERA_FAIL,
-                          type: e.GuidePopupType.GUIDE_UNBLOCK,
-                          featureSurface: e.FeatureSurface.PHOTO_CAPTURE,
-                        }),
-                      );
-                    },
+                    b,
                   ),
                 )
                 .catch(
                   o("WAFilteredCatch").filteredCatch(
                     o("WAWebMiscErrors").GetUserMedia.GetUserMediaError,
-                    function () {
-                      var e;
-                      o("WAWebModalManager").ModalManager.open(
-                        s.jsx((e = o("WAWebGuidePopup.react")).GuidePopup, {
-                          messaging: e.Messaging.CAMERA_MISSING,
-                          type: e.GuidePopupType.GUIDE_NONE,
-                          featureSurface: e.FeatureSurface.PHOTO_CAPTURE,
-                        }),
-                      );
-                    },
+                    C,
                   ),
                 ));
-          },
-          [b, S],
-        );
-      return (
-        d(
-          function () {
-            if (t.inputType != null && f.includes(t.inputType)) E();
+          }),
+          (n[21] = P),
+          (n[22] = D),
+          (n[23] = F))
+        : (F = n[23]);
+      var O = F,
+        B,
+        W;
+      (n[24] !== a.inputType || n[25] !== O
+        ? ((W = function () {
+            if (a.inputType != null && f.includes(a.inputType)) O();
             else {
               var e;
-              (e = a.current) == null || e.open();
+              (e = l.current) == null || e.open();
             }
             return function () {
-              C.current == null || C.current();
+              T.current == null || T.current();
             };
-          },
-          [t.inputType, E],
-        ),
-        s.jsx(r("WAWebFilePicker.react"), {
-          ref: a,
-          mimes: l,
-          onChange: L,
-          multiple: !0,
-        })
+          }),
+          (B = [a.inputType, O]),
+          (n[24] = a.inputType),
+          (n[25] = O),
+          (n[26] = B),
+          (n[27] = W))
+        : ((B = n[26]), (W = n[27])),
+        d(W, B));
+      var q;
+      return (
+        n[28] !== A || n[29] !== E
+          ? ((q = s.jsx(r("WAWebFilePicker.react"), {
+              ref: l,
+              mimes: E,
+              onChange: A,
+              multiple: !0,
+            })),
+            (n[28] = A),
+            (n[29] = E),
+            (n[30] = q))
+          : (q = n[30]),
+        q
       );
     }
-    ((y.displayName = y.name + " [from " + i.id + "]"), (l.default = y));
+    function C() {
+      var e;
+      o("WAWebModalManager").ModalManager.open(
+        s.jsx((e = o("WAWebGuidePopup.react")).GuidePopup, {
+          messaging: e.Messaging.CAMERA_MISSING,
+          type: e.GuidePopupType.GUIDE_NONE,
+          featureSurface: e.FeatureSurface.PHOTO_CAPTURE,
+        }),
+      );
+    }
+    function b() {
+      var e;
+      o("WAWebModalManager").ModalManager.open(
+        s.jsx((e = o("WAWebGuidePopup.react")).GuidePopup, {
+          messaging: e.Messaging.CAMERA_FAIL,
+          type: e.GuidePopupType.GUIDE_UNBLOCK,
+          featureSurface: e.FeatureSurface.PHOTO_CAPTURE,
+        }),
+      );
+    }
+    function v() {
+      o("WAWebModalManager").ModalManager.closeMedia();
+    }
+    function S(e) {
+      return { file: e };
+    }
+    l.default = y;
   },
   98,
 );

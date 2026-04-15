@@ -9,6 +9,7 @@ __d(
     "WAWebConnModel",
     "WAWebUserPrefsMeUser",
     "react",
+    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,101 +27,166 @@ __d(
         n,
         a,
         i,
-        l = e.item,
-        s = e.onClose,
-        c = e.videoData,
-        d = m(function () {
-          return o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE();
-        }, []),
-        p = o("useWAWebModelValues").useModelValues(o("WAWebConnModel").Conn, [
-          "pushname",
-        ]),
-        f = p.pushname,
-        g = (t = (n = l.businessName) != null ? n : f) != null ? t : "",
-        h = c == null || (a = c.fetch__Video) == null ? void 0 : a.playable_url,
-        y = (i = l.highResImageUrl) != null ? i : l.thumbnailUrl,
-        C = m(
-          function () {
-            var e;
-            if (h != null && h !== "") return null;
-            var t = l.childAttachments;
-            if (t != null && t.length > 0) {
-              var n = t
-                .map(function (e) {
-                  return e.picture;
-                })
-                .filter(function (e) {
-                  return e != null && e !== "";
-                });
-              if (n.length > 0) return n;
-            }
-            var r = (e = l.highResImageUrl) != null ? e : l.thumbnailUrl;
-            return r != null ? [r] : null;
-          },
-          [h, l.childAttachments, l.highResImageUrl, l.thumbnailUrl],
+        l,
+        s = o("react-compiler-runtime").c(18),
+        c = e.item,
+        d = e.onClose,
+        m = e.videoData,
+        p;
+      s[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE()),
+          (s[0] = p))
+        : (p = s[0]);
+      var f = p,
+        y;
+      s[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = ["pushname"]), (s[1] = y))
+        : (y = s[1]);
+      var C = o("useWAWebModelValues").useModelValues(
+          o("WAWebConnModel").Conn,
+          y,
         ),
-        b = m(
-          function () {
-            var e;
-            return {
-              businessName: g,
-              description: l.description,
-              medias: C,
-              meUser: d,
-              profilePictureUrl: l.profilePictureUrl,
-              isVerified: l.isVerified,
-              thumbnailUrl:
-                (e = l.highResImageUrl) != null ? e : l.thumbnailUrl,
-              videoUrl: h != null && h !== "" ? h : null,
-              videoPosterUrl: h != null && h !== "" ? y : null,
-            };
-          },
-          [
-            g,
-            C,
-            h,
-            y,
-            l.description,
-            l.isVerified,
-            l.profilePictureUrl,
-            l.highResImageUrl,
-            l.thumbnailUrl,
-            d,
-          ],
-        );
-      return u.jsx(r("WAWebBizAdPreviewContent.react"), {
-        onClose: s,
-        previewData: b,
-        xstyle: _.root,
-      });
+        b = C.pushname,
+        v = (t = (n = c.businessName) != null ? n : b) != null ? t : "",
+        S = m == null || (a = m.fetch__Video) == null ? void 0 : a.playable_url,
+        R = (i = c.highResImageUrl) != null ? i : c.thumbnailUrl,
+        L;
+      e: {
+        var E;
+        if (S != null && S !== "") {
+          L = null;
+          break e;
+        }
+        var k = c.childAttachments;
+        if (k != null && k.length > 0) {
+          var I;
+          s[2] !== k
+            ? ((I = k.map(h).filter(g)), (s[2] = k), (s[3] = I))
+            : (I = s[3]);
+          var T = I;
+          if (T.length > 0) {
+            L = T;
+            break e;
+          }
+        }
+        var D = (E = c.highResImageUrl) != null ? E : c.thumbnailUrl,
+          x;
+        (s[4] !== D
+          ? ((x = D != null ? [D] : null), (s[4] = D), (s[5] = x))
+          : (x = s[5]),
+          (L = x));
+      }
+      var $ = L,
+        P = (l = c.highResImageUrl) != null ? l : c.thumbnailUrl,
+        N = S != null && S !== "" ? S : null,
+        M = S != null && S !== "" ? R : null,
+        w;
+      s[6] !== v ||
+      s[7] !== c.description ||
+      s[8] !== c.isVerified ||
+      s[9] !== c.profilePictureUrl ||
+      s[10] !== $ ||
+      s[11] !== P ||
+      s[12] !== N ||
+      s[13] !== M
+        ? ((w = {
+            businessName: v,
+            description: c.description,
+            medias: $,
+            meUser: f,
+            profilePictureUrl: c.profilePictureUrl,
+            isVerified: c.isVerified,
+            thumbnailUrl: P,
+            videoUrl: N,
+            videoPosterUrl: M,
+          }),
+          (s[6] = v),
+          (s[7] = c.description),
+          (s[8] = c.isVerified),
+          (s[9] = c.profilePictureUrl),
+          (s[10] = $),
+          (s[11] = P),
+          (s[12] = N),
+          (s[13] = M),
+          (s[14] = w))
+        : (w = s[14]);
+      var A = w,
+        F;
+      return (
+        s[15] !== d || s[16] !== A
+          ? ((F = u.jsx(r("WAWebBizAdPreviewContent.react"), {
+              onClose: d,
+              previewData: A,
+              xstyle: _.root,
+            })),
+            (s[15] = d),
+            (s[16] = A),
+            (s[17] = F))
+          : (F = s[17]),
+        F
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = e.item,
-        n = e.onClose,
-        r = e.videoId,
-        a = o("CometRelay").useLazyLoadQuery(p, { videoId: r });
-      return u.jsx(f, { item: t, onClose: n, videoData: a });
+      return e != null && e !== "";
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t,
-        n = e.item,
-        o = e.onClose,
-        a = (t = n.videoData) == null ? void 0 : t.video_id;
-      return u.jsx(r("WAWebBizAdsErrorBoundary.react"), {
-        fallback: u.jsx(r("WAWebBizGenericErrorCard.react"), {}),
-        name: "ad-preview-drawer",
-        children:
-          a != null
-            ? u.jsx(d, {
-                fallback: u.jsx(f, { item: n, onClose: o, videoData: null }),
-                children: u.jsx(g, { item: n, onClose: o, videoId: a }),
-              })
-            : u.jsx(f, { item: n, onClose: o, videoData: null }),
-      });
+      return e.picture;
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
+    function y(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n = e.item,
+        r = e.onClose,
+        a = e.videoId,
+        i = o("CometRelay").useLazyLoadQuery(p, { videoId: a }),
+        l;
+      return (
+        t[0] !== n || t[1] !== r || t[2] !== i
+          ? ((l = u.jsx(f, { item: n, onClose: r, videoData: i })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = i),
+            (t[3] = l))
+          : (l = t[3]),
+        l
+      );
+    }
+    function C(e) {
+      var t,
+        n = o("react-compiler-runtime").c(5),
+        a = e.item,
+        i = e.onClose,
+        l = (t = a.videoData) == null ? void 0 : t.video_id,
+        s;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = u.jsx(r("WAWebBizGenericErrorCard.react"), {})), (n[0] = s))
+        : (s = n[0]);
+      var c;
+      return (
+        n[1] !== a || n[2] !== i || n[3] !== l
+          ? ((c = u.jsx(r("WAWebBizAdsErrorBoundary.react"), {
+              fallback: s,
+              name: "ad-preview-drawer",
+              children:
+                l != null
+                  ? u.jsx(d, {
+                      fallback: u.jsx(f, {
+                        item: a,
+                        onClose: i,
+                        videoData: null,
+                      }),
+                      children: u.jsx(y, { item: a, onClose: i, videoId: l }),
+                    })
+                  : u.jsx(f, { item: a, onClose: i, videoData: null }),
+            })),
+            (n[1] = a),
+            (n[2] = i),
+            (n[3] = l),
+            (n[4] = c))
+          : (c = n[4]),
+        c
+      );
+    }
+    l.default = C;
   },
   98,
 );

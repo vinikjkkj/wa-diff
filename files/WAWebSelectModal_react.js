@@ -39,6 +39,7 @@ __d(
     "WAWebWidFactory",
     "WDSPaddings.stylex",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useLazyRef",
     "useVisibility",
@@ -84,139 +85,280 @@ __d(
         : o("WAWebContactCollection").ContactCollection.getFilteredContacts({});
     }
     function S(e) {
-      var t = e.activeRef,
-        n = e.flatListControllerRef,
-        a = e.handleLeaveList,
-        i = e.handleSelectionChanged,
-        l = e.handleUsernameContactRowClicked,
-        s = e.listRef,
-        u = e.onLoading,
-        c = e.outContactSelections,
-        d = e.props,
-        p = e.searchText,
-        _ = e.selectionsRef,
-        f = e.updateSelectedContactsState;
-      switch (d.listType) {
+      var t = o("react-compiler-runtime").c(58),
+        n = e.activeRef,
+        a = e.flatListControllerRef,
+        i = e.handleLeaveList,
+        l = e.handleSelectionChanged,
+        s = e.handleUsernameContactRowClicked,
+        u = e.listRef,
+        c = e.onLoading,
+        d = e.outContactSelections,
+        p = e.props,
+        _ = e.searchText,
+        f = e.selectionsRef,
+        g = e.updateSelectedContactsState;
+      switch (p.listType) {
         case C.ChatSelectModal: {
-          var g,
-            h,
-            y = d.getInitialItems,
-            b = _;
-          return m.jsx(r("WAWebMultiSelectChatList.react"), {
-            ref: s,
-            excludeChat: d.excludeChat,
-            getInitialItems: y,
-            searchText: p,
-            active: t,
-            selections: b,
-            maxChats: d.maxItems,
-            maxChatsExceedErrorMsg: d.maxItemsExceedErrorMsg,
-            onLeaveList: a,
-            onSelectionChanged: i,
-            hasFrequentlyForwarded: d.hasFrequentlyForwarded,
-            hasForwarded: d.hasForwarded,
-            flatListController: n,
-            isDisabled: d.isDisabled,
-            ephemeralIcon: d.ephemeralIcon,
-            customItemSecondaryText: d.customItemSecondaryText,
-            onChatsLoaded: d.onDataLoaded,
-            excludeContacts: d.excludeContacts,
-            includeNewsletters: d.includeNewsletters,
-            chatFilter: d.chatFilter,
-            contactFilter: d.contactFilter,
-            includeMetaAi: (g = d.includeMetaAi) != null ? g : !1,
-            includeMyStatus: (h = d.includeMyStatus) != null ? h : !1,
-          });
+          var h,
+            y,
+            b = p.getInitialItems,
+            S = f,
+            R = (h = p.includeMetaAi) != null ? h : !1,
+            L = (y = p.includeMyStatus) != null ? y : !1,
+            E;
+          return (
+            t[0] !== n ||
+            t[1] !== a ||
+            t[2] !== b ||
+            t[3] !== i ||
+            t[4] !== l ||
+            t[5] !== u ||
+            t[6] !== p.chatFilter ||
+            t[7] !== p.contactFilter ||
+            t[8] !== p.customItemSecondaryText ||
+            t[9] !== p.ephemeralIcon ||
+            t[10] !== p.excludeChat ||
+            t[11] !== p.excludeContacts ||
+            t[12] !== p.hasForwarded ||
+            t[13] !== p.hasFrequentlyForwarded ||
+            t[14] !== p.includeNewsletters ||
+            t[15] !== p.isDisabled ||
+            t[16] !== p.maxItems ||
+            t[17] !== p.maxItemsExceedErrorMsg ||
+            t[18] !== p.onDataLoaded ||
+            t[19] !== _ ||
+            t[20] !== S ||
+            t[21] !== R ||
+            t[22] !== L
+              ? ((E = m.jsx(r("WAWebMultiSelectChatList.react"), {
+                  ref: u,
+                  excludeChat: p.excludeChat,
+                  getInitialItems: b,
+                  searchText: _,
+                  active: n,
+                  selections: S,
+                  maxChats: p.maxItems,
+                  maxChatsExceedErrorMsg: p.maxItemsExceedErrorMsg,
+                  onLeaveList: i,
+                  onSelectionChanged: l,
+                  hasFrequentlyForwarded: p.hasFrequentlyForwarded,
+                  hasForwarded: p.hasForwarded,
+                  flatListController: a,
+                  isDisabled: p.isDisabled,
+                  ephemeralIcon: p.ephemeralIcon,
+                  customItemSecondaryText: p.customItemSecondaryText,
+                  onChatsLoaded: p.onDataLoaded,
+                  excludeContacts: p.excludeContacts,
+                  includeNewsletters: p.includeNewsletters,
+                  chatFilter: p.chatFilter,
+                  contactFilter: p.contactFilter,
+                  includeMetaAi: R,
+                  includeMyStatus: L,
+                })),
+                (t[0] = n),
+                (t[1] = a),
+                (t[2] = b),
+                (t[3] = i),
+                (t[4] = l),
+                (t[5] = u),
+                (t[6] = p.chatFilter),
+                (t[7] = p.contactFilter),
+                (t[8] = p.customItemSecondaryText),
+                (t[9] = p.ephemeralIcon),
+                (t[10] = p.excludeChat),
+                (t[11] = p.excludeContacts),
+                (t[12] = p.hasForwarded),
+                (t[13] = p.hasFrequentlyForwarded),
+                (t[14] = p.includeNewsletters),
+                (t[15] = p.isDisabled),
+                (t[16] = p.maxItems),
+                (t[17] = p.maxItemsExceedErrorMsg),
+                (t[18] = p.onDataLoaded),
+                (t[19] = _),
+                (t[20] = S),
+                (t[21] = R),
+                (t[22] = L),
+                (t[23] = E))
+              : (E = t[23]),
+            E
+          );
         }
         case C.ParticipantManageModal:
         case C.ContactSelectModal: {
-          var S = d.getInitialItems,
-            R = _;
-          return m.jsx(
-            o("WAWebMultiSelectContactList.react").MultiSelectContactList,
-            {
-              handleUsernameContactRowClicked: l,
-              ref: s,
-              customGetData: d.customGetData,
-              contacts: v(d.contacts),
-              includeYouSection: d.includeYouSection,
-              getInitialItems: S,
-              searchText: p,
-              active: t,
-              selections: R,
-              maxContacts: d.maxItems,
-              maxContactsExceedErrorMsg: d.maxItemsExceedErrorMsg,
-              onLeaveList: a,
-              onSelectionChanged: i,
-              isDisabled: d.isDisabled,
-              isSelected: d.isSelected,
-              customSecondaryText: d.customSecondaryText,
-              allowBlockedContacts: d.allowBlockedContacts,
-              flatListController: n,
-              allowUnknownUsernameContactSearch:
-                d.allowUnknownUsernameContactSearch,
-              onLoading: u,
-              outContacts: d.outContacts,
-              outContactSelections: c,
-              updateSelectedContactsState: f,
-              targetWindow: d.targetWindow,
-            },
+          var k = p.getInitialItems,
+            I = f,
+            T = p.customGetData,
+            D;
+          t[24] !== p.contacts
+            ? ((D = v(p.contacts)), (t[24] = p.contacts), (t[25] = D))
+            : (D = t[25]);
+          var x;
+          return (
+            t[26] !== n ||
+            t[27] !== a ||
+            t[28] !== k ||
+            t[29] !== i ||
+            t[30] !== l ||
+            t[31] !== s ||
+            t[32] !== u ||
+            t[33] !== c ||
+            t[34] !== d ||
+            t[35] !== p.allowBlockedContacts ||
+            t[36] !== p.allowUnknownUsernameContactSearch ||
+            t[37] !== p.customGetData ||
+            t[38] !== p.customSecondaryText ||
+            t[39] !== p.includeYouSection ||
+            t[40] !== p.isDisabled ||
+            t[41] !== p.isSelected ||
+            t[42] !== p.maxItems ||
+            t[43] !== p.maxItemsExceedErrorMsg ||
+            t[44] !== p.outContacts ||
+            t[45] !== p.targetWindow ||
+            t[46] !== _ ||
+            t[47] !== I ||
+            t[48] !== D ||
+            t[49] !== g
+              ? ((x = m.jsx(
+                  o("WAWebMultiSelectContactList.react").MultiSelectContactList,
+                  {
+                    handleUsernameContactRowClicked: s,
+                    ref: u,
+                    customGetData: T,
+                    contacts: D,
+                    includeYouSection: p.includeYouSection,
+                    getInitialItems: k,
+                    searchText: _,
+                    active: n,
+                    selections: I,
+                    maxContacts: p.maxItems,
+                    maxContactsExceedErrorMsg: p.maxItemsExceedErrorMsg,
+                    onLeaveList: i,
+                    onSelectionChanged: l,
+                    isDisabled: p.isDisabled,
+                    isSelected: p.isSelected,
+                    customSecondaryText: p.customSecondaryText,
+                    allowBlockedContacts: p.allowBlockedContacts,
+                    flatListController: a,
+                    allowUnknownUsernameContactSearch:
+                      p.allowUnknownUsernameContactSearch,
+                    onLoading: c,
+                    outContacts: p.outContacts,
+                    outContactSelections: d,
+                    updateSelectedContactsState: g,
+                    targetWindow: p.targetWindow,
+                  },
+                )),
+                (t[26] = n),
+                (t[27] = a),
+                (t[28] = k),
+                (t[29] = i),
+                (t[30] = l),
+                (t[31] = s),
+                (t[32] = u),
+                (t[33] = c),
+                (t[34] = d),
+                (t[35] = p.allowBlockedContacts),
+                (t[36] = p.allowUnknownUsernameContactSearch),
+                (t[37] = p.customGetData),
+                (t[38] = p.customSecondaryText),
+                (t[39] = p.includeYouSection),
+                (t[40] = p.isDisabled),
+                (t[41] = p.isSelected),
+                (t[42] = p.maxItems),
+                (t[43] = p.maxItemsExceedErrorMsg),
+                (t[44] = p.outContacts),
+                (t[45] = p.targetWindow),
+                (t[46] = _),
+                (t[47] = I),
+                (t[48] = D),
+                (t[49] = g),
+                (t[50] = x))
+              : (x = t[50]),
+            x
           );
         }
         case C.ProductSelectModal: {
-          var L = _;
-          return m.jsx(r("WAWebBizMultiSelectProductList.react"), {
-            ref: s,
-            flatListController: n,
-            active: t,
-            selections: L,
-            onSelectionChanged: i,
-            onProductsLoaded: d.onDataLoaded,
-          });
-        }
-      }
-    }
-    S.displayName = S.name + " [from " + i.id + "]";
-    function R(e) {
-      var t = e.previewComponent,
-        n = e.selectionsRef,
-        a = y([]),
-        i = a[0],
-        l = a[1];
-      _(
-        function () {
-          var e = n.current,
-            t = function () {
-              var t = e.getSelected();
-              l(t);
-            };
-          t();
-          var r = function () {
-            t();
-          };
+          var $ = f,
+            P;
           return (
-            e.on("all", r),
-            function () {
-              e.off("all", r);
-            }
+            t[51] !== n ||
+            t[52] !== a ||
+            t[53] !== l ||
+            t[54] !== u ||
+            t[55] !== p.onDataLoaded ||
+            t[56] !== $
+              ? ((P = m.jsx(r("WAWebBizMultiSelectProductList.react"), {
+                  ref: u,
+                  flatListController: a,
+                  active: n,
+                  selections: $,
+                  onSelectionChanged: l,
+                  onProductsLoaded: p.onDataLoaded,
+                })),
+                (t[51] = n),
+                (t[52] = a),
+                (t[53] = l),
+                (t[54] = u),
+                (t[55] = p.onDataLoaded),
+                (t[56] = $),
+                (t[57] = P))
+              : (P = t[57]),
+            P
           );
-        },
-        [n],
-      );
-      var s = i.length === 1,
-        u = i[0];
-      if (u == null || !s) return null;
-      var c = !1;
-      if (u.id != null) {
-        var d = String(u.id);
-        if (r("WAWebWid").isWid(d)) {
-          var m = o("WAWebWidFactory").createWid(d);
-          c = o("WAWebBotUtils").isMetaAiBot(m);
         }
       }
-      return c ? t : null;
     }
-    R.displayName = R.name + " [from " + i.id + "]";
+    function R(e) {
+      var t = o("react-compiler-runtime").c(4),
+        n = e.previewComponent,
+        a = e.selectionsRef,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = []), (t[0] = i))
+        : (i = t[0]);
+      var l = y(i),
+        s = l[0],
+        u = l[1],
+        c,
+        d;
+      (t[1] !== a
+        ? ((c = function () {
+            var e = a.current,
+              t = function () {
+                var t = e.getSelected();
+                u(t);
+              };
+            t();
+            var n = function () {
+              t();
+            };
+            return (
+              e.on("all", n),
+              function () {
+                e.off("all", n);
+              }
+            );
+          }),
+          (d = [a]),
+          (t[1] = a),
+          (t[2] = c),
+          (t[3] = d))
+        : ((c = t[2]), (d = t[3])),
+        _(c, d));
+      var m = s.length === 1,
+        p = s[0];
+      if (p == null || !m) return null;
+      var f = !1;
+      if (p.id != null) {
+        var g = String(p.id);
+        if (r("WAWebWid").isWid(g)) {
+          var h = o("WAWebWidFactory").createWid(g);
+          f = o("WAWebBotUtils").isMetaAiBot(h);
+        }
+      }
+      return f ? n : null;
+    }
     function L(t) {
       var a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e),

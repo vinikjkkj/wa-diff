@@ -8,6 +8,7 @@ __d(
     "WAWebVoipGatingUtils",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -45,14 +46,22 @@ __d(
         },
       });
     function m(e) {
-      var t = e.activeNavBarItem,
-        n = e.updateActiveNavBarItem;
-      return o("WAWebVoipGatingUtils").isGroupCallingEnabled()
-        ? u.jsx(d, { activeNavBarItem: t, updateActiveNavBarItem: n })
-        : null;
+      var t = o("react-compiler-runtime").c(3),
+        n = e.activeNavBarItem,
+        r = e.updateActiveNavBarItem;
+      if (!o("WAWebVoipGatingUtils").isGroupCallingEnabled()) return null;
+      var a;
+      return (
+        t[0] !== n || t[1] !== r
+          ? ((a = u.jsx(d, { activeNavBarItem: n, updateActiveNavBarItem: r })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a))
+          : (a = t[2]),
+        a
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"),
-      (l.CallsNavBarItemLoadable = m));
+    l.CallsNavBarItemLoadable = m;
   },
   98,
 );

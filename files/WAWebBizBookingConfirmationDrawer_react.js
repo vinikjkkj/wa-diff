@@ -34,6 +34,7 @@ __d(
     "WDSTextualLink.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -81,146 +82,218 @@ __d(
       );
     }
     function y(e) {
-      var t = e.actionLabel,
-        n = e.description,
-        a = e.icon,
-        i = e.onActionClick,
-        l = e.testid,
-        s = e.textLimit,
-        u = n != null ? n.toString() : null,
-        d = p(null),
-        h = _(!1),
-        y = h[0],
-        C = h[1];
-      return (
-        m(function () {
-          var e = d.current;
-          if (e != null) {
-            var t = new ResizeObserver(function () {
-              var t = o("WAWebLineHeight").getNumberOfLines(e);
-              C(t > g);
-            });
-            return (
-              t.observe(e),
-              function () {
-                return t.disconnect();
-              }
-            );
-          }
-        }, []),
-        c.jsx(r("WAWebDrawerBlock.react"), {
-          blockXstyle: f.paddingEnd0,
-          isRefresh: !0,
-          multiline: !0,
-          separator: !1,
-          testid: void 0,
-          xstyle: f.drawerBlock,
-          children: c.jsxs(o("WAWebFlex.react").FlexRow, {
-            align: y ? "start" : "center",
-            xstyle: f.listItemContentWrapper,
-            children: [
-              c.jsx(o("WAWebFlex.react").FlexRow, {
-                align: "center",
-                justify: "center",
-                shrink: 0,
-                xstyle: f.spacingSingle,
-                children: c.jsx(r("WDSText.react"), {
-                  colorName: "contentDeemphasized",
-                  type: "Body1",
-                  children: a,
-                }),
-              }),
-              c.jsxs(o("WAWebFlex.react").FlexColumn, {
-                grow: 1,
-                children: [
-                  u != null &&
-                    c.jsx(r("WDSText.react"), {
-                      ref: d,
-                      colorName: "contentDefault",
-                      type: "Body1",
-                      children: c.jsx(
-                        o("WAWebExpandableText.react").ExpandableText,
-                        {
-                          text: u,
-                          textLimit: s != null ? s : 1 / 0,
-                          children: function (t) {
-                            var e = t.textLimit;
-                            return c.jsx(o("WAWebEmojiText.react").EmojiText, {
-                              ellipsify: !0,
-                              formatters: [
-                                [[r("WAWebMarkdownLinkFormatMutator"), {}]],
-                              ].concat(
-                                o(
-                                  "WAWebFormatConfiguration",
-                                ).UntrustedGroupDesc({
-                                  expandedFormattingEnabled: !0,
-                                }),
-                              ),
-                              inferLinesDirection: !0,
-                              multiline: !0,
-                              preserveWhitespace: !0,
-                              text: u,
-                              textLimit: e,
-                            });
-                          },
-                        },
-                      ),
-                    }),
-                  t != null &&
-                    i != null &&
-                    c.jsx(r("WDSTextualLink.react"), {
-                      onClick: i,
-                      textConfig: "Body2",
-                      children: t,
-                    }),
-                ],
-              }),
-            ],
+      var t = o("react-compiler-runtime").c(22),
+        n = e.actionLabel,
+        a = e.description,
+        i = e.icon,
+        l = e.onActionClick,
+        s = e.testid,
+        u = e.textLimit,
+        d;
+      t[0] !== a
+        ? ((d = a != null ? a.toString() : null), (t[0] = a), (t[1] = d))
+        : (d = t[1]);
+      var h = d,
+        y = p(null),
+        C = _(!1),
+        b = C[0],
+        v = C[1],
+        S,
+        R;
+      (t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = function () {
+            var e = y.current;
+            if (e != null) {
+              var t = new ResizeObserver(function () {
+                var t = o("WAWebLineHeight").getNumberOfLines(e);
+                v(t > g);
+              });
+              return (
+                t.observe(e),
+                function () {
+                  return t.disconnect();
+                }
+              );
+            }
           }),
-        })
+          (R = []),
+          (t[2] = S),
+          (t[3] = R))
+        : ((S = t[2]), (R = t[3])),
+        m(S, R));
+      var L = b ? "start" : "center",
+        E;
+      t[4] !== i
+        ? ((E = c.jsx(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "center",
+            shrink: 0,
+            xstyle: f.spacingSingle,
+            children: c.jsx(r("WDSText.react"), {
+              colorName: "contentDeemphasized",
+              type: "Body1",
+              children: i,
+            }),
+          })),
+          (t[4] = i),
+          (t[5] = E))
+        : (E = t[5]);
+      var k;
+      t[6] !== h || t[7] !== u
+        ? ((k =
+            h != null &&
+            c.jsx(r("WDSText.react"), {
+              ref: y,
+              colorName: "contentDefault",
+              type: "Body1",
+              children: c.jsx(o("WAWebExpandableText.react").ExpandableText, {
+                text: h,
+                textLimit: u != null ? u : 1 / 0,
+                children: function (t) {
+                  var e = t.textLimit;
+                  return c.jsx(o("WAWebEmojiText.react").EmojiText, {
+                    ellipsify: !0,
+                    formatters: [
+                      [[r("WAWebMarkdownLinkFormatMutator"), {}]],
+                    ].concat(
+                      o("WAWebFormatConfiguration").UntrustedGroupDesc({
+                        expandedFormattingEnabled: !0,
+                      }),
+                    ),
+                    inferLinesDirection: !0,
+                    multiline: !0,
+                    preserveWhitespace: !0,
+                    text: h,
+                    textLimit: e,
+                  });
+                },
+              }),
+            })),
+          (t[6] = h),
+          (t[7] = u),
+          (t[8] = k))
+        : (k = t[8]);
+      var I;
+      t[9] !== n || t[10] !== l
+        ? ((I =
+            n != null &&
+            l != null &&
+            c.jsx(r("WDSTextualLink.react"), {
+              onClick: l,
+              textConfig: "Body2",
+              children: n,
+            })),
+          (t[9] = n),
+          (t[10] = l),
+          (t[11] = I))
+        : (I = t[11]);
+      var T;
+      t[12] !== k || t[13] !== I
+        ? ((T = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            grow: 1,
+            children: [k, I],
+          })),
+          (t[12] = k),
+          (t[13] = I),
+          (t[14] = T))
+        : (T = t[14]);
+      var D;
+      t[15] !== L || t[16] !== E || t[17] !== T
+        ? ((D = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: L,
+            xstyle: f.listItemContentWrapper,
+            children: [E, T],
+          })),
+          (t[15] = L),
+          (t[16] = E),
+          (t[17] = T),
+          (t[18] = D))
+        : (D = t[18]);
+      var x;
+      return (
+        t[19] !== D || t[20] !== s
+          ? ((x = c.jsx(r("WAWebDrawerBlock.react"), {
+              blockXstyle: f.paddingEnd0,
+              isRefresh: !0,
+              multiline: !0,
+              separator: !1,
+              testid: void 0,
+              xstyle: f.drawerBlock,
+              children: D,
+            })),
+            (t[19] = D),
+            (t[20] = s),
+            (t[21] = x))
+          : (x = t[21]),
+        x
       );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = e.icon,
-        n = e.label,
-        a = e.onActionClick,
-        i = e.testid;
-      return c.jsx(r("WAWebDrawerBlock.react"), {
-        blockXstyle: f.paddingEnd0,
-        isRefresh: !0,
-        multiline: !0,
-        onClick: a,
-        separator: !1,
-        testid: void 0,
-        xstyle: f.drawerBlock,
-        children: c.jsxs(o("WAWebFlex.react").FlexRow, {
-          align: "center",
-          xstyle: f.listItemContentWrapper,
-          children: [
-            c.jsx(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "center",
-              shrink: 0,
-              xstyle: f.spacingSingle,
-              children: c.jsx(r("WDSText.react"), {
-                colorName: "contentDeemphasized",
-                type: "Body1",
-                children: t,
-              }),
+      var t = o("react-compiler-runtime").c(11),
+        n = e.icon,
+        a = e.label,
+        i = e.onActionClick,
+        l = e.testid,
+        s;
+      t[0] !== n
+        ? ((s = c.jsx(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "center",
+            shrink: 0,
+            xstyle: f.spacingSingle,
+            children: c.jsx(r("WDSText.react"), {
+              colorName: "contentDeemphasized",
+              type: "Body1",
+              children: n,
             }),
-            c.jsx(o("WAWebFlex.react").FlexColumn, {
-              grow: 1,
-              children: c.jsx(r("WDSTextualLink.react"), {
-                textConfig: "Body1",
-                children: n,
-              }),
+          })),
+          (t[0] = n),
+          (t[1] = s))
+        : (s = t[1]);
+      var u;
+      t[2] !== a
+        ? ((u = c.jsx(o("WAWebFlex.react").FlexColumn, {
+            grow: 1,
+            children: c.jsx(r("WDSTextualLink.react"), {
+              textConfig: "Body1",
+              children: a,
             }),
-          ],
-        }),
-      });
+          })),
+          (t[2] = a),
+          (t[3] = u))
+        : (u = t[3]);
+      var d;
+      t[4] !== s || t[5] !== u
+        ? ((d = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            xstyle: f.listItemContentWrapper,
+            children: [s, u],
+          })),
+          (t[4] = s),
+          (t[5] = u),
+          (t[6] = d))
+        : (d = t[6]);
+      var m;
+      return (
+        t[7] !== i || t[8] !== d || t[9] !== l
+          ? ((m = c.jsx(r("WAWebDrawerBlock.react"), {
+              blockXstyle: f.paddingEnd0,
+              isRefresh: !0,
+              multiline: !0,
+              onClick: i,
+              separator: !1,
+              testid: void 0,
+              xstyle: f.drawerBlock,
+              children: d,
+            })),
+            (t[7] = i),
+            (t[8] = d),
+            (t[9] = l),
+            (t[10] = m))
+          : (m = t[10]),
+        m
+      );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b() {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(o("WAWebModal.react").Modal, {

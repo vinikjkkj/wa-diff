@@ -7,6 +7,7 @@ __d(
     "WAWebStopEvent",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -14,31 +15,38 @@ __d(
       u = e || (e = o("react")),
       c = e.useEffect;
     function d(e) {
-      var t = e.fallback;
+      var t = o("react-compiler-runtime").c(1),
+        n = e.fallback,
+        r;
       return (
-        c(function () {
-          o("WAWebModalManager").ModalManager.open(
-            u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              onOverlayClick: o("WAWebStopEvent").preventDefault,
-              onOK: function () {
-                window.location.reload();
-              },
-              okText: s._(/*BTDS*/ "Reload"),
-              okButtonType: "primary",
-              title: s._(/*BTDS*/ "Something went wrong"),
-              children: u.jsx(r("WDSText.react"), {
-                type: "Body1",
-                colorName: "contentDefault",
-                children: s._(/*BTDS*/ "Try reloading the page."),
-              }),
-            }),
-            { blockClose: !0 },
-          );
-        }, []),
-        t
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((r = []), (t[0] = r))
+          : (r = t[0]),
+        c(m, r),
+        n
       );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    function m() {
+      o("WAWebModalManager").ModalManager.open(
+        u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+          onOverlayClick: o("WAWebStopEvent").preventDefault,
+          onOK: p,
+          okText: s._(/*BTDS*/ "Reload"),
+          okButtonType: "primary",
+          title: s._(/*BTDS*/ "Something went wrong"),
+          children: u.jsx(r("WDSText.react"), {
+            type: "Body1",
+            colorName: "contentDefault",
+            children: s._(/*BTDS*/ "Try reloading the page."),
+          }),
+        }),
+        { blockClose: !0 },
+      );
+    }
+    function p() {
+      window.location.reload();
+    }
+    l.default = d;
   },
   226,
 );

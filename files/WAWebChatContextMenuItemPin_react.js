@@ -19,86 +19,112 @@ __d(
     "cr:12224",
     "cr:12385",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = e.cellRef,
-        a = e.chat;
-      function i(e) {
-        return l.apply(this, arguments);
-      }
-      function l() {
-        return (
-          (l = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var i = !!(
-                e &&
-                n("cr:12224") != null &&
-                n("cr:12224").isPinnedChatsEnabled() &&
-                !(
-                  n("cr:12224") != null &&
-                  n("cr:12224").isPinnedChatsBenefitActive()
-                )
-              ),
-              l = o("WAWebChatPinBridge").getPinLimit(a.id),
-              c = o("WAWebChatGetters").getIsNewsletter(a)
-                ? r("WAWebNewsletterCollection")
-                : o("WAWebChatCollection").ChatCollection;
-            !e ||
-            (yield o("WAWebChatPinBridge").getNumConversationsPinned(a.id)) < l
-              ? o("WAWebCmd").Cmd.pinChat(o("WAWebStateUtils").unproxy(a), e)
-              : c.countWhere(function (e) {
-                    var t;
-                    return (
-                      o("WAWebFrontendChatGetters").getShouldAppearInList(e) &&
-                      ((t = e.pin) != null ? t : 0) > 0
-                    );
-                  }) >= l
-                ? (o("WAWebPinnedChatsWamUtils").logPinnedChatsMaxAlert(),
-                  i && n("cr:12385")
-                    ? o("WAWebModalManager").ModalManager.openAlert(
-                        u.jsx(n("cr:12385"), {}),
-                      )
-                    : o("WAWebModalManager").ModalManager.open(
+      var t = o("react-compiler-runtime").c(6),
+        a = e.cellRef,
+        i = e.chat,
+        l;
+      t[0] !== a || t[1] !== i
+        ? ((l = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = !!(
+                    e &&
+                    n("cr:12224") != null &&
+                    n("cr:12224").isPinnedChatsEnabled() &&
+                    !(
+                      n("cr:12224") != null &&
+                      n("cr:12224").isPinnedChatsBenefitActive()
+                    )
+                  ),
+                  l = o("WAWebChatPinBridge").getPinLimit(i.id),
+                  c = o("WAWebChatGetters").getIsNewsletter(i)
+                    ? r("WAWebNewsletterCollection")
+                    : o("WAWebChatCollection").ChatCollection;
+                !e ||
+                (yield o("WAWebChatPinBridge").getNumConversationsPinned(
+                  i.id,
+                )) < l
+                  ? o("WAWebCmd").Cmd.pinChat(
+                      o("WAWebStateUtils").unproxy(i),
+                      e,
+                    )
+                  : c.countWhere(d) >= l
+                    ? (o("WAWebPinnedChatsWamUtils").logPinnedChatsMaxAlert(),
+                      t && n("cr:12385")
+                        ? o("WAWebModalManager").ModalManager.openAlert(
+                            u.jsx(n("cr:12385"), {}),
+                          )
+                        : o("WAWebModalManager").ModalManager.open(
+                            u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                              onOK: function () {
+                                (o("WAWebModalManager").ModalManager.close(),
+                                  a == null || a.focusOnContextMenuButton());
+                              },
+                              okText: r("WAWebFbtCommon")("OK"),
+                              children: m.getPinLimitExceededText(i.id, l),
+                            }),
+                          ))
+                    : (o("WAWebPinnedChatsWamUtils").logPinnedChatsMaxAlert(),
+                      o("WAWebModalManager").ModalManager.open(
                         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                          title: m.getUnPinAllModalTitle(i.id, l),
                           onOK: function () {
-                            (o("WAWebModalManager").ModalManager.close(),
-                              t == null || t.focusOnContextMenuButton());
+                            (o("WAWebChatPinBridge").unpinAllConversations(
+                              i.id,
+                            ),
+                              o("WAWebModalManager").ModalManager.close());
                           },
-                          okText: r("WAWebFbtCommon")("OK"),
-                          children: d.getPinLimitExceededText(a.id, l),
+                          okText: s._(/*BTDS*/ "Unpin all"),
+                          onCancel: o("WAWebModalManager").closeModalManager,
+                          cancelText: s._(/*BTDS*/ "Cancel"),
+                          children: u.jsx(o("WAWebText.react").WAWebTextMuted, {
+                            children: m.getUnPinAllModalContent(i.id),
+                          }),
                         }),
-                      ))
-                : (o("WAWebPinnedChatsWamUtils").logPinnedChatsMaxAlert(),
-                  o("WAWebModalManager").ModalManager.open(
-                    u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                      title: d.getUnPinAllModalTitle(a.id, l),
-                      onOK: function () {
-                        (o("WAWebChatPinBridge").unpinAllConversations(a.id),
-                          o("WAWebModalManager").ModalManager.close());
-                      },
-                      okText: s._(/*BTDS*/ "Unpin all"),
-                      onCancel: o("WAWebModalManager").closeModalManager,
-                      cancelText: s._(/*BTDS*/ "Cancel"),
-                      children: u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                        children: d.getUnPinAllModalContent(a.id),
-                      }),
-                    }),
-                  ));
-          })),
-          l.apply(this, arguments)
+                      ));
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
+          (t[0] = a),
+          (t[1] = i),
+          (t[2] = l))
+        : (l = t[2]);
+      var c = l;
+      if (i.canPin()) {
+        var p;
+        return (
+          t[3] !== i || t[4] !== c
+            ? ((p = u.jsx(
+                r("WAWebPinMenuItem.react"),
+                { onPinOrUnpin: c, chat: i },
+                "pin",
+              )),
+              (t[3] = i),
+              (t[4] = c),
+              (t[5] = p))
+            : (p = t[5]),
+          p
         );
       }
-      if (a.canPin())
-        return u.jsx(
-          r("WAWebPinMenuItem.react"),
-          { onPinOrUnpin: i, chat: a },
-          "pin",
-        );
     }
-    c.displayName = c.name + " [from " + i.id + "]";
-    var d = {
+    function d(e) {
+      var t;
+      return (
+        o("WAWebFrontendChatGetters").getShouldAppearInList(e) &&
+        ((t = e.pin) != null ? t : 0) > 0
+      );
+    }
+    var m = {
       getPinLimitExceededText: function (t, n) {
         return t.isNewsletter()
           ? s._(

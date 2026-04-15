@@ -15,6 +15,7 @@ __d(
     "WAWebWamEnumReportToAdminInteraction",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -25,114 +26,169 @@ __d(
       m = d.useEffect,
       p = d.useState;
     function _(t) {
-      var a = t.ref,
-        i = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        l = i.chat,
-        u = i.onClose,
-        d = i.onMsgFooterClick,
-        _ = p([]),
-        f = _[0],
-        g = _[1];
-      m(
-        function () {
-          (o("WAWebSendForAdminReviewUtils").clearLastReportTimestamp(l),
-            o("WAWebReportToAdminEventsLogger").logRTAReportingEvent({
-              reportToAdminInteraction: o(
-                "WAWebWamEnumReportToAdminInteraction",
-              ).REPORT_TO_ADMIN_INTERACTION.CLICK_OPEN_ADMIN_DASHBOARD,
-              groupId: l.id.user,
-            }));
-          function e() {
-            return t.apply(this, arguments);
-          }
-          function t() {
-            return (
-              (t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var e = yield o("WAWebReportToAdminJob").getReportedMsgs(l.id);
-                if (e) {
-                  var t = e.msgToReporterAndOrderMap,
-                    n = e.reports;
-                  if (n) {
-                    var r = yield o("WAWebDBMsgUtils").getMsgsByMsgIdsAndChatId(
-                        n.reportsReport.map(function (e) {
-                          return e.messageId;
+      var a = o("react-compiler-runtime").c(14),
+        i,
+        l;
+      a[0] !== t
+        ? ((l = t.ref),
+          (i = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (a[0] = t),
+          (a[1] = i),
+          (a[2] = l))
+        : ((i = a[1]), (l = a[2]));
+      var u = i,
+        d = u.chat,
+        _ = u.onClose,
+        g = u.onMsgFooterClick,
+        h;
+      a[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = []), (a[3] = h))
+        : (h = a[3]);
+      var y = p(h),
+        C = y[0],
+        b = y[1],
+        v,
+        S;
+      (a[4] !== d
+        ? ((v = function () {
+            (o("WAWebSendForAdminReviewUtils").clearLastReportTimestamp(d),
+              o("WAWebReportToAdminEventsLogger").logRTAReportingEvent({
+                reportToAdminInteraction: o(
+                  "WAWebWamEnumReportToAdminInteraction",
+                ).REPORT_TO_ADMIN_INTERACTION.CLICK_OPEN_ADMIN_DASHBOARD,
+                groupId: d.id.user,
+              }));
+            var e = (function () {
+              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* () {
+                  var e = yield o("WAWebReportToAdminJob").getReportedMsgs(
+                    d.id,
+                  );
+                  if (e) {
+                    var t = e.msgToReporterAndOrderMap,
+                      n = e.reports;
+                    if (n) {
+                      var r = yield o(
+                          "WAWebDBMsgUtils",
+                        ).getMsgsByMsgIdsAndChatId(
+                          n.reportsReport.map(f),
+                          d.id,
+                        ),
+                        a = r.map(function (e) {
+                          var n = new (o("WAWebMsgModel").Msg)(
+                            o("WAWebDBMessageSerialization").messageFromDbRow(
+                              e,
+                            ),
+                          );
+                          return (
+                            n.waitForPrep().then(function () {
+                              var e;
+                              n.reporterJidList =
+                                (e = t.get(n.id.id)) == null
+                                  ? void 0
+                                  : e.reporters;
+                            }),
+                            n
+                          );
                         }),
-                        l.id,
-                      ),
-                      a = r.map(function (e) {
-                        var n = new (o("WAWebMsgModel").Msg)(
-                          o("WAWebDBMessageSerialization").messageFromDbRow(e),
-                        );
-                        return (
-                          n.waitForPrep().then(function () {
-                            var e;
-                            n.reporterJidList =
-                              (e = t.get(n.id.id)) == null
+                        i = a.sort(function (e, n) {
+                          var r, o, a, i;
+                          return (
+                            ((r =
+                              (o = t.get(e.id.id)) == null
                                 ? void 0
-                                : e.reporters;
-                          }),
-                          n
-                        );
-                      }),
-                      i = a.sort(function (e, n) {
-                        var r, o, a, i;
-                        return (
-                          ((r =
-                            (o = t.get(e.id.id)) == null ? void 0 : o.order) !=
-                          null
-                            ? r
-                            : 0) -
-                          ((a =
-                            (i = t.get(n.id.id)) == null ? void 0 : i.order) !=
-                          null
-                            ? a
-                            : 0)
-                        );
-                      });
-                    g(i);
+                                : o.order) != null
+                              ? r
+                              : 0) -
+                            ((a =
+                              (i = t.get(n.id.id)) == null
+                                ? void 0
+                                : i.order) != null
+                              ? a
+                              : 0)
+                          );
+                        });
+                      b(i);
+                    }
                   }
-                }
-              })),
-              t.apply(this, arguments)
+                },
+              );
+              function t() {
+                return e.apply(this, arguments);
+              }
+              return t;
+            })();
+            e();
+          }),
+          (S = [d]),
+          (a[4] = d),
+          (a[5] = v),
+          (a[6] = S))
+        : ((v = a[5]), (S = a[6])),
+        m(v, S));
+      var R = new (o("WAWebReportedMsgCollection").ReportedMsgCollection)(),
+        L;
+      a[7] !== C
+        ? ((L = function (t) {
+            b(
+              C.filter(function (e) {
+                return e.id.toString() !== t.toString();
+              }),
             );
-          }
-          e();
-        },
-        [l],
-      );
-      var h = new (o("WAWebReportedMsgCollection").ReportedMsgCollection)(),
-        y = function (t) {
-          g(
-            f.filter(function (e) {
-              return e.id.toString() !== t.toString();
-            }),
-          );
-        };
-      o("useWAWebListener").useListener(l.msgs, "change:msgKey", function (e) {
-        var t = e.oldKey;
-        y(t);
-      });
-      var C = s._(/*BTDS*/ "Sent for admin review"),
-        b = c.jsx(o("WAWebEmptyState.react").SentForAdminReview, {});
+          }),
+          (a[7] = C),
+          (a[8] = L))
+        : (L = a[8]);
+      var E = L,
+        k;
+      (a[9] !== E
+        ? ((k = function (t) {
+            var e = t.oldKey;
+            E(e);
+          }),
+          (a[9] = E),
+          (a[10] = k))
+        : (k = a[10]),
+        o("useWAWebListener").useListener(d.msgs, "change:msgKey", k));
+      var I;
+      a[11] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = s._(/*BTDS*/ "Sent for admin review")), (a[11] = I))
+        : (I = a[11]);
+      var T = I,
+        D;
+      a[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = c.jsx(o("WAWebEmptyState.react").SentForAdminReview, {})),
+          (a[12] = D))
+        : (D = a[12]);
+      var x = D;
+      R.add(C, { sort: !1 });
+      var $;
       return (
-        h.add(f, { sort: !1 }),
+        a[13] === Symbol.for("react.memo_cache_sentinel")
+          ? (($ = s._(
+              /*BTDS*/ "Use WhatsApp on your phone to see older messages.",
+            )),
+            (a[13] = $))
+          : ($ = a[13]),
         c.jsx(r("WAWebMsgDrawer.react"), {
           testid: void 0,
-          ref: a,
-          msgCollection: h,
-          onClose: u,
-          chat: l,
-          title: C,
+          ref: l,
+          msgCollection: R,
+          onClose: _,
+          chat: d,
+          title: T,
           displayType: o("WAWebDisplayType").DISPLAY_TYPE.REPORTED_MSG,
-          emptyListText: b,
-          onMsgFooterClick: d,
-          footerText: s._(
-            /*BTDS*/ "Use WhatsApp on your phone to see older messages.",
-          ),
+          emptyListText: x,
+          onMsgFooterClick: g,
+          footerText: $,
         })
       );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    _.displayName = _.name + " [from " + i.id + "]";
+    function f(e) {
+      return e.messageId;
+    }
+    l.default = _;
   },
   226,
 );

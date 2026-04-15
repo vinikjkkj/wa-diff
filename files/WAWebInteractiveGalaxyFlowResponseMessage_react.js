@@ -13,6 +13,7 @@ __d(
     "WAWebUISpacing",
     "WDSIconIcDescription.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -57,107 +58,194 @@ __d(
     function p(t) {
       var n,
         a,
-        i = t.defaultMsg,
-        l = t.msg,
-        u =
+        i = o("react-compiler-runtime").c(38),
+        l = t.defaultMsg,
+        u = t.msg,
+        d =
           (n =
-            (a = l.interactivePayload) == null ? void 0 : a.buttonParamsJson) !=
+            (a = u.interactivePayload) == null ? void 0 : a.buttonParamsJson) !=
           null
             ? n
             : "{}",
-        p = d(
-          function () {
-            return JSON.parse(u);
-          },
-          [u],
-        ),
-        _ = p.wa_flow_response_params;
+        p;
+      i[0] !== d ? ((p = JSON.parse(d)), (i[0] = d), (i[1] = p)) : (p = i[1]);
+      var _ = p,
+        f = _.wa_flow_response_params;
       if (
-        _ == null ||
-        !Object.prototype.hasOwnProperty.call(_, "response_message") ||
-        _.response_message == null
+        f == null ||
+        !Object.prototype.hasOwnProperty.call(f, "response_message") ||
+        f.response_message == null
       )
-        return i;
-      if (_.title == null) return null;
-      var f = o("WAWebGetGalaxyFlowCtaButton").getGalaxyFlowResponseCtaButton(
-        u,
-        0,
-      );
-      if (f == null) return null;
-      var g = o(
-          "WAWebGetGalaxyFlowsActionFromButton",
-        ).getCtaFlowInteractiveAction(f, l),
-        h = c.jsx(
-          "div",
-          babelHelpers.extends(
-            {},
-            {
-              0: { className: "x10l6tqk x1n327nk xv1oinf x1oi8geq" },
-              1: { className: "x10l6tqk x1n327nk xv1oinf x1oi8geq xtrg13t" },
-            }[!!r("WAWebL10N").isRTL() << 0],
-            { children: c.jsx(o("WAWebMessageMeta.react").Meta, { msg: l }) },
-          ),
-        ),
-        y = s._(/*BTDS*/ "Response sent"),
-        C = _.title;
-      return c.jsx(
-        "div",
-        babelHelpers.extends(
-          {
-            "data-testid": void 0,
-            role: "button",
-            onClick: function () {
-              return g == null || g.onClick == null ? void 0 : g.onClick();
-            },
-            tabIndex: 0,
-            onKeyDown: function (t) {
-              (t.preventDefault(),
-                (t.key === "Enter" || t.key === " ") &&
-                  (g == null || g.onClick == null || g.onClick()));
-            },
-          },
-          (e || (e = r("stylex"))).props(
+        return l;
+      if (f.title == null) return null;
+      var g, h;
+      if (i[2] !== d || i[3] !== u) {
+        h = Symbol.for("react.early_return_sentinel");
+        e: {
+          var y = o(
+            "WAWebGetGalaxyFlowCtaButton",
+          ).getGalaxyFlowResponseCtaButton(d, 0);
+          if (y == null) {
+            h = null;
+            break e;
+          }
+          g = o(
+            "WAWebGetGalaxyFlowsActionFromButton",
+          ).getCtaFlowInteractiveAction(y, u);
+        }
+        ((i[2] = d), (i[3] = u), (i[4] = g), (i[5] = h));
+      } else ((g = i[4]), (h = i[5]));
+      if (h !== Symbol.for("react.early_return_sentinel")) return h;
+      var C = g,
+        b;
+      i[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = {
+            0: { className: "x10l6tqk x1n327nk xv1oinf x1oi8geq" },
+            1: { className: "x10l6tqk x1n327nk xv1oinf x1oi8geq xtrg13t" },
+          }[!!r("WAWebL10N").isRTL() << 0]),
+          (i[6] = b))
+        : (b = i[6]);
+      var v;
+      i[7] !== u
+        ? ((v = c.jsx(o("WAWebMessageMeta.react").Meta, { msg: u })),
+          (i[7] = u),
+          (i[8] = v))
+        : (v = i[8]);
+      var S;
+      i[9] !== b || i[10] !== v
+        ? ((S = c.jsx("div", babelHelpers.extends({}, b, { children: v }))),
+          (i[9] = b),
+          (i[10] = v),
+          (i[11] = S))
+        : (S = i[11]);
+      var R = S,
+        L;
+      i[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = s._(/*BTDS*/ "Response sent")), (i[12] = L))
+        : (L = i[12]);
+      var E = L,
+        k = f.title,
+        I;
+      i[13] !== C
+        ? ((I = function () {
+            return C == null || C.onClick == null ? void 0 : C.onClick();
+          }),
+          (i[13] = C),
+          (i[14] = I))
+        : (I = i[14]);
+      var T;
+      i[15] !== C
+        ? ((T = function (t) {
+            (t.preventDefault(),
+              (t.key === "Enter" || t.key === " ") &&
+                (C == null || C.onClick == null || C.onClick()));
+          }),
+          (i[15] = C),
+          (i[16] = T))
+        : (T = i[16]);
+      var D;
+      i[17] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = (e || (e = r("stylex"))).props(
             [m.bubble, o("WAWebUISpacing").uiPadding.top5],
             o("WAWebUISpacing").uiPadding.horiz5,
-          ),
-          {
-            children: c.jsxs(o("WAWebFlex.react").FlexRow, {
-              xstyle: [m.innerBubble, o("WAWebUISpacing").uiPadding.all8],
-              align: "center",
-              children: [
-                c.jsx(o("WAWebFlex.react").FlexItem, {
-                  xstyle: m.roundIconContainer,
-                  padding: 2,
-                  children: c.jsx(r("WDSIconIcDescription.react"), {
-                    xstyle: m.iconColor,
-                  }),
-                }),
-                c.jsxs(o("WAWebFlex.react").FlexColumn, {
-                  xstyle: o("WAWebUISpacing").uiPadding.start12,
-                  justify: "evenly",
-                  rowGap: 4,
-                  children: [
-                    c.jsx(o("WAWebEmojiText.react").EmojiText, {
-                      xstyle: m.titleText,
-                      text: C,
-                      textLimit: 30,
-                      dirMismatch:
-                        (o("WABidi").dir(C) === "rtl") !==
-                        r("WAWebL10N").isRTL(),
-                      direction: o("WABidi").dir(C),
-                      inferLinesDirection: !0,
-                    }),
-                    c.jsx(o("WAWebText.react").WAWebTextMuted, { children: y }),
-                    h,
-                  ],
-                }),
-              ],
+          )),
+          (i[17] = D))
+        : (D = i[17]);
+      var x;
+      i[18] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = [m.innerBubble, o("WAWebUISpacing").uiPadding.all8]),
+          (i[18] = x))
+        : (x = i[18]);
+      var $;
+      i[19] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = c.jsx(o("WAWebFlex.react").FlexItem, {
+            xstyle: m.roundIconContainer,
+            padding: 2,
+            children: c.jsx(r("WDSIconIcDescription.react"), {
+              xstyle: m.iconColor,
             }),
-          },
-        ),
+          })),
+          (i[19] = $))
+        : ($ = i[19]);
+      var P;
+      i[20] !== k
+        ? ((P = o("WABidi").dir(k)), (i[20] = k), (i[21] = P))
+        : (P = i[21]);
+      var N;
+      i[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((N = r("WAWebL10N").isRTL()), (i[22] = N))
+        : (N = i[22]);
+      var M = (P === "rtl") !== N,
+        w;
+      i[23] !== k
+        ? ((w = o("WABidi").dir(k)), (i[23] = k), (i[24] = w))
+        : (w = i[24]);
+      var A;
+      i[25] !== M || i[26] !== w || i[27] !== k
+        ? ((A = c.jsx(o("WAWebEmojiText.react").EmojiText, {
+            xstyle: m.titleText,
+            text: k,
+            textLimit: 30,
+            dirMismatch: M,
+            direction: w,
+            inferLinesDirection: !0,
+          })),
+          (i[25] = M),
+          (i[26] = w),
+          (i[27] = k),
+          (i[28] = A))
+        : (A = i[28]);
+      var F;
+      i[29] === Symbol.for("react.memo_cache_sentinel")
+        ? ((F = c.jsx(o("WAWebText.react").WAWebTextMuted, { children: E })),
+          (i[29] = F))
+        : (F = i[29]);
+      var O;
+      i[30] !== R || i[31] !== A
+        ? ((O = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            xstyle: x,
+            align: "center",
+            children: [
+              $,
+              c.jsxs(o("WAWebFlex.react").FlexColumn, {
+                xstyle: o("WAWebUISpacing").uiPadding.start12,
+                justify: "evenly",
+                rowGap: 4,
+                children: [A, F, R],
+              }),
+            ],
+          })),
+          (i[30] = R),
+          (i[31] = A),
+          (i[32] = O))
+        : (O = i[32]);
+      var B;
+      return (
+        i[33] !== D || i[34] !== O || i[35] !== I || i[36] !== T
+          ? ((B = c.jsx(
+              "div",
+              babelHelpers.extends(
+                {
+                  "data-testid": void 0,
+                  role: "button",
+                  onClick: I,
+                  tabIndex: 0,
+                  onKeyDown: T,
+                },
+                D,
+                { children: O },
+              ),
+            )),
+            (i[33] = D),
+            (i[34] = O),
+            (i[35] = I),
+            (i[36] = T),
+            (i[37] = B))
+          : (B = i[37]),
+        B
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

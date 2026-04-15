@@ -133,6 +133,7 @@ __d(
     "cr:6008",
     "gkx",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebChatLockRestriction",
     "useWAWebContactValues",
@@ -165,37 +166,70 @@ __d(
       },
       v = { surface: "contact-info-drawer" };
     function S(e) {
-      var t = e.catalogContext,
-        n = e.contact,
-        a = e.onProductCatalog,
-        i = e.onProductDetail,
-        l = o("WAWebCatalogCollection").CatalogCollection.get(n.id);
-      if (!l) return null;
-      var u = s._(/*BTDS*/ "See all"),
-        c = !0,
-        d = t.session;
-      return d.isAccidental()
-        ? null
-        : o("WAWebBusinessProfileUtils").hasShop(n.businessProfile)
-          ? o("WAWebBizGatingUtils").bannedShopsEnabled() &&
-            o("WAWebBusinessProfileUtils").isShopBanned(n.businessProfile)
-            ? null
-            : m.jsx(r("WAWebProductCatalogShopsCatalogDrawerSection.react"), {
-                businessProfile: n.businessProfile,
-                catalog: l,
-                subtitle: u,
-                hideIncompleteRows: c,
-              })
-          : m.jsx(r("WAWebProductCatalogCatalogDrawerSection.react"), {
-              onProductDetail: i,
-              onProductCatalog: a,
-              catalog: l,
-              subtitle: u,
-              hideIncompleteRows: c,
+      var t = o("react-compiler-runtime").c(10),
+        n = e.catalogContext,
+        a = e.contact,
+        i = e.onProductCatalog,
+        l = e.onProductDetail,
+        u;
+      t[0] !== a.id
+        ? ((u = o("WAWebCatalogCollection").CatalogCollection.get(a.id)),
+          (t[0] = a.id),
+          (t[1] = u))
+        : (u = t[1]);
+      var c = u;
+      if (!c) return null;
+      var d;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = s._(/*BTDS*/ "See all")), (t[2] = d))
+        : (d = t[2]);
+      var p = d,
+        _ = n.session;
+      if (_.isAccidental()) return null;
+      if (o("WAWebBusinessProfileUtils").hasShop(a.businessProfile)) {
+        if (
+          o("WAWebBizGatingUtils").bannedShopsEnabled() &&
+          o("WAWebBusinessProfileUtils").isShopBanned(a.businessProfile)
+        )
+          return null;
+        var f;
+        return (
+          t[3] !== c || t[4] !== a.businessProfile
+            ? ((f = m.jsx(
+                r("WAWebProductCatalogShopsCatalogDrawerSection.react"),
+                {
+                  businessProfile: a.businessProfile,
+                  catalog: c,
+                  subtitle: p,
+                  hideIncompleteRows: !0,
+                },
+              )),
+              (t[3] = c),
+              (t[4] = a.businessProfile),
+              (t[5] = f))
+            : (f = t[5]),
+          f
+        );
+      }
+      var g;
+      return (
+        t[6] !== c || t[7] !== i || t[8] !== l
+          ? ((g = m.jsx(r("WAWebProductCatalogCatalogDrawerSection.react"), {
+              onProductDetail: l,
+              onProductCatalog: i,
+              catalog: c,
+              subtitle: p,
+              hideIncompleteRows: !0,
               shouldLog: !0,
-            });
+            })),
+            (t[6] = c),
+            (t[7] = i),
+            (t[8] = l),
+            (t[9] = g))
+          : (g = t[9]),
+        g
+      );
     }
-    S.displayName = S.name + " [from " + i.id + "]";
     function R(t) {
       var a,
         i,
@@ -1153,78 +1187,154 @@ __d(
     }
     R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
-      var t = e.chat;
-      return t != null
-        ? m.jsx(r("WAWebContactInfoChatTabFull.react"), { chat: t })
-        : m.jsx(r("WAWebDrawerBody.react"), {
-            children: m.jsx("div", {
-              className: "x78zum5 xl56j7k x6s0dn4 x1sk1jro x1ci70gm",
-              "data-testid": void 0,
-              children: m.jsx(r("WDSText.react"), {
-                type: "Body2",
-                colorName: "contentDeemphasized",
-                children: s._(/*BTDS*/ "No chat available"),
-              }),
-            }),
-          });
+      var t = o("react-compiler-runtime").c(4),
+        n = e.chat;
+      if (n != null) {
+        var a;
+        return (
+          t[0] !== n
+            ? ((a = m.jsx(r("WAWebContactInfoChatTabFull.react"), { chat: n })),
+              (t[0] = n),
+              (t[1] = a))
+            : (a = t[1]),
+          a
+        );
+      }
+      var i;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = { className: "x78zum5 xl56j7k x6s0dn4 x1sk1jro x1ci70gm" }),
+          (t[2] = i))
+        : (i = t[2]);
+      var l;
+      return (
+        t[3] === Symbol.for("react.memo_cache_sentinel")
+          ? ((l = m.jsx(r("WAWebDrawerBody.react"), {
+              children: m.jsx(
+                "div",
+                babelHelpers.extends({}, i, {
+                  "data-testid": void 0,
+                  children: m.jsx(r("WDSText.react"), {
+                    type: "Body2",
+                    colorName: "contentDeemphasized",
+                    children: s._(/*BTDS*/ "No chat available"),
+                  }),
+                }),
+              ),
+            })),
+            (t[3] = l))
+          : (l = t[3]),
+        l
+      );
     }
-    L.displayName = L.name + " [from " + i.id + "]";
     function E(e) {
-      var t = e.chatId,
-        n = e.handleClick,
-        a = e.isRefresh,
-        i = h(function () {
-          return o("WAWebChatCollection").ChatCollection.get(t) != null;
-        }),
-        l = i[0],
-        u = i[1];
+      var t = o("react-compiler-runtime").c(12),
+        n = e.chatId,
+        a = e.handleClick,
+        i = e.isRefresh,
+        l;
+      t[0] !== n
+        ? ((l = function () {
+            return o("WAWebChatCollection").ChatCollection.get(n) != null;
+          }),
+          (t[0] = n),
+          (t[1] = l))
+        : (l = t[1]);
+      var u = h(l),
+        c = u[0],
+        d = u[1],
+        p;
       if (
-        (o("useWAWebListener").useListener(
+        (t[2] !== n
+          ? ((p = function (t) {
+              t.id.equals(n) && d(!1);
+            }),
+            (t[2] = n),
+            (t[3] = p))
+          : (p = t[3]),
+        o("useWAWebListener").useListener(
           o("WAWebChatCollection").ChatCollection,
           "remove",
-          function (e) {
-            e.id.equals(t) && u(!1);
-          },
+          p,
         ),
-        !l)
+        !c)
       )
         return null;
-      var c = "li-delete-chat",
-        d = s._(/*BTDS*/ "Delete chat");
-      return a === !0
-        ? m.jsx(
-            o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerButtonsSection,
-            {
-              children: m.jsx("div", {
-                className: "x1280gxy",
-                children: m.jsx(r("WAWebDrawerButtonRefreshed.react"), {
-                  testid: void 0,
-                  icon: m.jsx(
-                    o("WAWebDeleteRefreshedIcon.react").DeleteRefreshedIcon,
-                    {},
+      var _;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = s._(/*BTDS*/ "Delete chat")), (t[4] = _))
+        : (_ = t[4]);
+      var f = _;
+      if (i === !0) {
+        var g;
+        t[5] === Symbol.for("react.memo_cache_sentinel")
+          ? ((g = { className: "x1280gxy" }), (t[5] = g))
+          : (g = t[5]);
+        var y;
+        t[6] === Symbol.for("react.memo_cache_sentinel")
+          ? ((y = m.jsx(
+              o("WAWebDeleteRefreshedIcon.react").DeleteRefreshedIcon,
+              {},
+            )),
+            (t[6] = y))
+          : (y = t[6]);
+        var C;
+        return (
+          t[7] !== a
+            ? ((C = m.jsx(
+                o("WAWebChatInfoDrawerSection.react")
+                  .ChatInfoDrawerButtonsSection,
+                {
+                  children: m.jsx(
+                    "div",
+                    babelHelpers.extends({}, g, {
+                      children: m.jsx(r("WAWebDrawerButtonRefreshed.react"), {
+                        testid: void 0,
+                        icon: y,
+                        danger: !0,
+                        onClick: a,
+                        children: f,
+                      }),
+                    }),
                   ),
-                  danger: !0,
-                  onClick: n,
-                  children: d,
-                }),
-              }),
-            },
-          )
-        : m.jsx(
-            o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerButtonsSection,
-            {
-              children: m.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
-                testid: void 0,
-                icon: m.jsx(o("WAWebDeleteIcon.react").DeleteIcon, {}),
-                color: "danger",
-                onClick: n,
-                theme: "chat-info",
-                children: d,
-              }),
-            },
-          );
+                },
+              )),
+              (t[7] = a),
+              (t[8] = C))
+            : (C = t[8]),
+          C
+        );
+      }
+      var b;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = m.jsx(o("WAWebDeleteIcon.react").DeleteIcon, {})), (t[9] = b))
+        : (b = t[9]);
+      var v;
+      return (
+        t[10] !== a
+          ? ((v = m.jsx(
+              o("WAWebChatInfoDrawerSection.react")
+                .ChatInfoDrawerButtonsSection,
+              {
+                children: m.jsx(
+                  o("WAWebDrawerButton.react").DrawerButtonSimple,
+                  {
+                    testid: void 0,
+                    icon: b,
+                    color: "danger",
+                    onClick: a,
+                    theme: "chat-info",
+                    children: f,
+                  },
+                ),
+              },
+            )),
+            (t[10] = a),
+            (t[11] = v))
+          : (v = t[11]),
+        v
+      );
     }
-    ((E.displayName = E.name + " [from " + i.id + "]"), (l.default = R));
+    l.default = R;
   },
   226,
 );

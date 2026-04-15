@@ -1,6 +1,12 @@
 __d(
   "WAWebSectionHeader.react",
-  ["WAWebStylesEnv", "WDSText.react", "react", "stylex"],
+  [
+    "WAWebStylesEnv",
+    "WDSText.react",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -25,33 +31,55 @@ __d(
       };
     function d(t) {
       var n,
-        a = t.header,
-        i = t.isTransparent,
-        l = i === void 0 ? !1 : i,
+        a = o("react-compiler-runtime").c(10),
+        i = t.header,
+        l = t.isTransparent,
         s = t.uppercase,
-        d = s === void 0 ? !1 : s;
-      return u.jsx(
-        "div",
-        babelHelpers.extends(
-          { "data-testid": void 0 },
-          (e || (e = r("stylex"))).props(
+        d = l === void 0 ? !1 : l,
+        m = s === void 0 ? !1 : s,
+        p = (n = t.testid) != null ? n : "section-header",
+        _;
+      a[0] !== d || a[1] !== t.xstyle || a[2] !== m
+        ? ((_ = (e || (e = r("stylex"))).props(
             c.container,
-            d && c.uppercase,
-            l && c.transparent,
+            m && c.uppercase,
+            d && c.transparent,
             o("WAWebStylesEnv").isOSMac && c.fontAliasing,
             t.xstyle,
-          ),
-          {
-            children: u.jsx(r("WDSText.react"), {
-              type: "Body2",
-              colorName: "contentDeemphasized",
-              children: a,
-            }),
-          },
-        ),
+          )),
+          (a[0] = d),
+          (a[1] = t.xstyle),
+          (a[2] = m),
+          (a[3] = _))
+        : (_ = a[3]);
+      var f;
+      a[4] !== i
+        ? ((f = u.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDeemphasized",
+            children: i,
+          })),
+          (a[4] = i),
+          (a[5] = f))
+        : (f = a[5]);
+      var g;
+      return (
+        a[6] !== p || a[7] !== _ || a[8] !== f
+          ? ((g = u.jsx(
+              "div",
+              babelHelpers.extends({ "data-testid": void 0 }, _, {
+                children: f,
+              }),
+            )),
+            (a[6] = p),
+            (a[7] = _),
+            (a[8] = f),
+            (a[9] = g))
+          : (g = a[9]),
+        g
       );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   98,
 );

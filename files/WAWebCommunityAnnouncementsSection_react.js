@@ -30,6 +30,7 @@ __d(
     "WAWebUISpacing",
     "WAWebWamEnumPrivacyHighlightSurfaceEnum",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -189,28 +190,46 @@ __d(
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = e.handleOnClick,
-        n = "block-starred-messages",
-        r = s._(/*BTDS*/ "Starred messages"),
-        a = { testid: n, onClick: t, title: r };
-      return u.jsx(
-        o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerSection,
-        {
-          titleTestId: "section-starred-messages",
-          xstyle: o("WAWebUISpacing").uiPadding.horiz0,
-          children: u.jsx(
-            o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
-            babelHelpers.extends({}, a, {
-              icon: u.jsx(
-                o("WAWebStarRefreshedIcon.react").StarRefreshedIcon,
-                {},
-              ),
-            }),
-          ),
-        },
+      var t = o("react-compiler-runtime").c(6),
+        n = e.handleOnClick,
+        r;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = s._(/*BTDS*/ "Starred messages")), (t[0] = r))
+        : (r = t[0]);
+      var a = r,
+        i;
+      t[1] !== n
+        ? ((i = { testid: "block-starred-messages", onClick: n, title: a }),
+          (t[1] = n),
+          (t[2] = i))
+        : (i = t[2]);
+      var l = i,
+        c;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = u.jsx(o("WAWebStarRefreshedIcon.react").StarRefreshedIcon, {})),
+          (t[3] = c))
+        : (c = t[3]);
+      var d;
+      return (
+        t[4] !== l
+          ? ((d = u.jsx(
+              o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerSection,
+              {
+                titleTestId: "section-starred-messages",
+                xstyle: o("WAWebUISpacing").uiPadding.horiz0,
+                children: u.jsx(
+                  o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
+                  babelHelpers.extends({}, l, { icon: c }),
+                ),
+              },
+            )),
+            (t[4] = l),
+            (t[5] = d))
+          : (d = t[5]),
+        d
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   226,
 );

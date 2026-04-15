@@ -7,6 +7,7 @@ __d(
     "WAWebDrawerManager",
     "WAWebGetUnifiedContentResponseTitle",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -22,33 +23,59 @@ __d(
         },
       };
     function c(e) {
-      var t = e.contentView,
-        n = t.content,
-        a = t.contentType,
-        i = o(
-          "WAWebGetUnifiedContentResponseTitle",
-        ).getUnifiedResponseContentTitle(a);
-      return s.jsxs(r("WAWebDrawer.react"), {
-        theme: "white-bg",
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "bot-unified-response",
-        },
-        children: [
-          s.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+      var t = o("react-compiler-runtime").c(10),
+        n = e.contentView,
+        a = n.content,
+        i = n.contentType,
+        l;
+      t[0] !== i
+        ? ((l = o(
+            "WAWebGetUnifiedContentResponseTitle",
+          ).getUnifiedResponseContentTitle(i)),
+          (t[0] = i),
+          (t[1] = l))
+        : (l = t[1]);
+      var c = l,
+        d;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = { surface: "unknown", viewName: "bot-unified-response" }),
+          (t[2] = d))
+        : (d = t[2]);
+      var m;
+      t[3] !== c
+        ? ((m = s.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-            title: i,
+            title: c,
             onCancel: o("WAWebDrawerManager").closeDrawerRight,
-          }),
-          s.jsx(r("WAWebDrawerBody.react"), {
+          })),
+          (t[3] = c),
+          (t[4] = m))
+        : (m = t[4]);
+      var p;
+      t[5] !== a
+        ? ((p = s.jsx(r("WAWebDrawerBody.react"), {
             xstyle: u.drawerContent,
-            children: n,
-          }),
-        ],
-      });
+            children: a,
+          })),
+          (t[5] = a),
+          (t[6] = p))
+        : (p = t[6]);
+      var _;
+      return (
+        t[7] !== m || t[8] !== p
+          ? ((_ = s.jsxs(r("WAWebDrawer.react"), {
+              theme: "white-bg",
+              tsNavigationData: d,
+              children: [m, p],
+            })),
+            (t[7] = m),
+            (t[8] = p),
+            (t[9] = _))
+          : (_ = t[9]),
+        _
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"),
-      (l.WAWebUnifiedResponseContentDrawer = c));
+    l.WAWebUnifiedResponseContentDrawer = c;
   },
   98,
 );

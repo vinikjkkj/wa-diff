@@ -52,44 +52,36 @@ __d(
                 "directUrlPath is required when crosspostingState is CROSSPOSTING_REQUEST_SUCCESS",
               ),
             )
-          : o("WAWebCrosspostingSchema")
-              .getTable()
-              .createOrMerge([s, a], {
-                statusMessageId: s,
-                crosspostingDestination: a,
-                crosspostingStatusUniqueId: u,
-                crosspostingState: i,
-                directUrlPath: l,
-              })
-        : o("WAWebCrosspostingSchema")
-            .getTable()
-            .createOrMerge([s, a], {
+          : o("WAWebCrosspostingSchema").getTable().createOrMerge([s, a], {
               statusMessageId: s,
               crosspostingDestination: a,
               crosspostingStatusUniqueId: u,
               crosspostingState: i,
-            });
+              directUrlPath: l,
+            })
+        : o("WAWebCrosspostingSchema").getTable().createOrMerge([s, a], {
+            statusMessageId: s,
+            crosspostingDestination: a,
+            crosspostingStatusUniqueId: u,
+            crosspostingState: i,
+          });
     }
     function _(e, t, n) {
-      return o("WAWebCrosspostingSchema")
-        .getTable()
-        .createOrMerge([t, n], {
-          statusMessageId: t,
-          crosspostingDestination: n,
-          crosspostingStatusUniqueId: e,
-        });
+      return o("WAWebCrosspostingSchema").getTable().createOrMerge([t, n], {
+        statusMessageId: t,
+        crosspostingDestination: n,
+        crosspostingStatusUniqueId: e,
+      });
     }
     function f(e) {
       var t = e.crosspostingDestination,
         n = e.directUrlPath,
         r = e.statusMessageId;
-      return o("WAWebCrosspostingSchema")
-        .getTable()
-        .merge([r, t], {
-          statusMessageId: r,
-          crosspostingDestination: t,
-          directUrlPath: n,
-        });
+      return o("WAWebCrosspostingSchema").getTable().merge([r, t], {
+        statusMessageId: r,
+        crosspostingDestination: t,
+        directUrlPath: n,
+      });
     }
     function g(t) {
       var a = t.crosspostingDestination,
@@ -103,21 +95,17 @@ __d(
                 "directUrlPath is required when crosspostingState is CROSSPOSTING_REQUEST_SUCCESS",
               ),
             )
-          : o("WAWebCrosspostingSchema")
-              .getTable()
-              .merge([s, a], {
-                statusMessageId: s,
-                crosspostingDestination: a,
-                crosspostingState: i,
-                directUrlPath: l,
-              })
-        : o("WAWebCrosspostingSchema")
-            .getTable()
-            .merge([s, a], {
+          : o("WAWebCrosspostingSchema").getTable().merge([s, a], {
               statusMessageId: s,
               crosspostingDestination: a,
               crosspostingState: i,
-            });
+              directUrlPath: l,
+            })
+        : o("WAWebCrosspostingSchema").getTable().merge([s, a], {
+            statusMessageId: s,
+            crosspostingDestination: a,
+            crosspostingState: i,
+          });
     }
     function h(e) {
       return y.apply(this, arguments);

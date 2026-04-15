@@ -11,6 +11,7 @@ __d(
     "WDSFocusStateStyles",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -37,65 +38,132 @@ __d(
         },
       };
     function C(e) {
-      var t = g(),
-        n = function (n) {
-          if (r("WAWebKeyboardIsKeyActivation")(n)) {
-            var e;
-            (e = t.current) == null || e.click();
-          }
-        },
-        a = e["aria-label"],
-        i = e.children,
-        l = e.className,
-        s = e["data-tab"],
-        u = e.href,
-        c = e.isLongTemplateUrl,
-        m = e.onClick,
-        _ = e.tabIndex,
-        f = e.testid,
-        h = e.xstyle,
-        C = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          l,
-          (d || (d = r("stylex")))(y.hoverUnderline, h),
+      var t = o("react-compiler-runtime").c(28),
+        n = g(),
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = function (t) {
+            if (r("WAWebKeyboardIsKeyActivation")(t)) {
+              var e;
+              (e = n.current) == null || e.click();
+            }
+          }),
+          (t[0] = a))
+        : (a = t[0]);
+      var i = a,
+        l = e["aria-label"],
+        s = e.children,
+        u = e.className,
+        c = e["data-tab"],
+        m = e.href,
+        _ = e.isLongTemplateUrl,
+        f = e.onClick,
+        h = e.tabIndex,
+        C = e.testid,
+        v = e.xstyle,
+        S;
+      t[1] !== u || t[2] !== v
+        ? ((S = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+            u,
+            (d || (d = r("stylex")))(y.hoverUnderline, v),
+          )),
+          (t[1] = u),
+          (t[2] = v),
+          (t[3] = S))
+        : (S = t[3]);
+      var R = S;
+      if (_) {
+        var L;
+        t[4] !== m
+          ? ((L = o("WAUnicodeUtils").substring(
+              m,
+              0,
+              r("WAWebConstantsDeprecated").TEMPLATE_URL_START,
+            )),
+            (t[4] = m),
+            (t[5] = L))
+          : (L = t[5]);
+        var E;
+        t[6] === Symbol.for("react.memo_cache_sentinel")
+          ? ((E = p.jsx("span", { children: "\u2026" })), (t[6] = E))
+          : (E = t[6]);
+        var k = m.length - r("WAWebConstantsDeprecated").TEMPLATE_URL_END,
+          I;
+        t[7] !== m || t[8] !== k
+          ? ((I = o("WAUnicodeUtils").substring(m, k, m.length)),
+            (t[7] = m),
+            (t[8] = k),
+            (t[9] = I))
+          : (I = t[9]);
+        var T;
+        return (
+          t[10] !== l ||
+          t[11] !== R ||
+          t[12] !== c ||
+          t[13] !== m ||
+          t[14] !== f ||
+          t[15] !== L ||
+          t[16] !== I ||
+          t[17] !== h
+            ? ((T = p.jsxs(b, {
+                ref: n,
+                className: R,
+                href: m,
+                onClick: f,
+                onKeyDown: i,
+                "data-tab": c,
+                tabIndex: h,
+                "aria-label": l,
+                children: [L, E, I],
+              })),
+              (t[10] = l),
+              (t[11] = R),
+              (t[12] = c),
+              (t[13] = m),
+              (t[14] = f),
+              (t[15] = L),
+              (t[16] = I),
+              (t[17] = h),
+              (t[18] = T))
+            : (T = t[18]),
+          T
         );
-      return c
-        ? p.jsxs(b, {
-            ref: t,
-            className: C,
-            href: u,
-            onClick: m,
-            onKeyDown: n,
-            "data-tab": s,
-            tabIndex: _,
-            "aria-label": a,
-            children: [
-              o("WAUnicodeUtils").substring(
-                u,
-                0,
-                r("WAWebConstantsDeprecated").TEMPLATE_URL_START,
-              ),
-              p.jsx("span", { children: "\u2026" }),
-              o("WAUnicodeUtils").substring(
-                u,
-                u.length - r("WAWebConstantsDeprecated").TEMPLATE_URL_END,
-                u.length,
-              ),
-            ],
-          })
-        : p.jsx(b, {
-            ref: t,
-            className: C,
-            href: u,
-            onClick: m,
-            onKeyDown: n,
-            "data-testid": void 0,
-            "data-tab": s,
-            tabIndex: _,
-            "aria-label": a,
-            children: i,
-          });
+      }
+      var D;
+      return (
+        t[19] !== l ||
+        t[20] !== s ||
+        t[21] !== R ||
+        t[22] !== c ||
+        t[23] !== m ||
+        t[24] !== f ||
+        t[25] !== h ||
+        t[26] !== C
+          ? ((D = p.jsx(b, {
+              ref: n,
+              className: R,
+              href: m,
+              onClick: f,
+              onKeyDown: i,
+              "data-testid": void 0,
+              "data-tab": c,
+              tabIndex: h,
+              "aria-label": l,
+              children: s,
+            })),
+            (t[19] = l),
+            (t[20] = s),
+            (t[21] = R),
+            (t[22] = c),
+            (t[23] = m),
+            (t[24] = f),
+            (t[25] = h),
+            (t[26] = C),
+            (t[27] = D))
+          : (D = t[27]),
+        D
+      );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b(t) {
       var n = t.href,
         a = babelHelpers.objectWithoutPropertiesLoose(t, u),

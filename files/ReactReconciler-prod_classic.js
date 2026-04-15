@@ -1900,7 +1900,7 @@ __d(
           : null;
       }
       function st(e) {
-        xi();
+        xi(!1);
         for (var t = e.return; t !== null; ) ((e = t), (t = e.return));
         return e.tag === 3 ? e.stateNode : null;
       }
@@ -7722,7 +7722,7 @@ __d(
           (e.indicatorLanes |= t & 4194048),
           t !== 268435456 &&
             ((e.suspendedLanes = 0), (e.pingedLanes = 0), (e.warmLanes = 0)),
-          al && (fp & 2 ? (Np = !0) : fp & 4 && (Mp = !0), xi()));
+          al && (fp & 2 ? (Np = !0) : fp & 4 && (Mp = !0), xi(!0)));
       }
       function Ka(e, t, n, r) {
         (gl && (t = T(e, t)),
@@ -8362,7 +8362,7 @@ __d(
         (r !== null && r.delete(t),
           (e.pingedLanes |= e.suspendedLanes & n),
           (e.warmLanes &= ~n),
-          al && (fp & 2 ? (Np = !0) : fp & 4 && (Mp = !0), xi()),
+          al && (fp & 2 ? (Np = !0) : fp & 4 && (Mp = !0), xi(!0)),
           gp === e &&
             (yp & n) === n &&
             ((Ep === 4 ||
@@ -8401,12 +8401,12 @@ __d(
         }
         (r !== null && r.delete(t), Ii(e, n));
       }
-      function xi() {
+      function xi(e) {
         if (50 < Zp) {
           ((Zp = 0), (e_ = null));
-          var e = t_;
+          var t = t_;
           if (((t_ = 0), al)) {
-            if (e === 1 && !(fp & 2 && gp !== null)) throw Error(o(185));
+            if (t === 1 && !(e || (fp & 2 && gp !== null))) throw Error(o(185));
           } else throw Error(o(185));
         }
       }
@@ -9833,7 +9833,7 @@ __d(
             version: ql,
             rendererPackageName: Ul,
             currentDispatcherRef: Wl,
-            reconcilerVersion: "19.3.0-www-classic-705268dc-20260409",
+            reconcilerVersion: "19.3.0-www-classic-fef12a01-20260413",
           };
           if (
             (Vl !== null && (e.rendererConfig = Vl),

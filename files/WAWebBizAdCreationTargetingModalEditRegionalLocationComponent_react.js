@@ -18,6 +18,7 @@ __d(
     "WDSSpinner.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizAdCreationSearchRegionalLocations",
     "useWAWebTimeout",
   ],
@@ -44,33 +45,59 @@ __d(
         sectionHeader: { marginBottom: "xefnzgg", $$css: !0 },
       };
     function f(e) {
-      var t = e.header,
-        n = e.locations,
-        a = e.onToggle,
-        i = e.showSubtitle;
-      return n.length === 0
-        ? null
-        : u.jsxs(o("WAWebFlex.react").FlexColumn, {
-            align: "stretch",
-            children: [
-              u.jsx(r("WDSText.react"), {
-                type: "Body2Emphasized",
-                colorName: "contentDeemphasized",
-                xstyle: _.sectionHeader,
-                children: t,
-              }),
-              n.map(function (e) {
-                var t = typeof i == "function" ? i(e) : i;
-                return u.jsx(
-                  r("WAWebBizAdCreationTargetingModalLocationItem.react"),
-                  { isSelected: !0, location: e, onToggle: a, showSubtitle: t },
-                  e.key,
-                );
-              }),
-            ],
-          });
+      var t = o("react-compiler-runtime").c(12),
+        n = e.header,
+        a = e.locations,
+        i = e.onToggle,
+        l = e.showSubtitle;
+      if (a.length === 0) return null;
+      var s;
+      t[0] !== n
+        ? ((s = u.jsx(r("WDSText.react"), {
+            type: "Body2Emphasized",
+            colorName: "contentDeemphasized",
+            xstyle: _.sectionHeader,
+            children: n,
+          })),
+          (t[0] = n),
+          (t[1] = s))
+        : (s = t[1]);
+      var c;
+      if (t[2] !== a || t[3] !== i || t[4] !== l) {
+        var d;
+        (t[6] !== i || t[7] !== l
+          ? ((d = function (t) {
+              var e = typeof l == "function" ? l(t) : l;
+              return u.jsx(
+                r("WAWebBizAdCreationTargetingModalLocationItem.react"),
+                { isSelected: !0, location: t, onToggle: i, showSubtitle: e },
+                t.key,
+              );
+            }),
+            (t[6] = i),
+            (t[7] = l),
+            (t[8] = d))
+          : (d = t[8]),
+          (c = a.map(d)),
+          (t[2] = a),
+          (t[3] = i),
+          (t[4] = l),
+          (t[5] = c));
+      } else c = t[5];
+      var m;
+      return (
+        t[9] !== s || t[10] !== c
+          ? ((m = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+              align: "stretch",
+              children: [s, c],
+            })),
+            (t[9] = s),
+            (t[10] = c),
+            (t[11] = m))
+          : (m = t[11]),
+        m
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       var t = e.adAccountID,
         n = e.environment,

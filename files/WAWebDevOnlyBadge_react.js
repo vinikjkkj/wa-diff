@@ -6,18 +6,27 @@ __d(
     "WAWebPill.react",
     "WDSMenuItem.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = e.label;
-      return s.jsx(o("WAWebPill.react").LabelPill, {
-        pillText: "DEV ONLY",
-        children: t,
-      });
+      var t = o("react-compiler-runtime").c(2),
+        n = e.label,
+        r;
+      return (
+        t[0] !== n
+          ? ((r = s.jsx(o("WAWebPill.react").LabelPill, {
+              pillText: "DEV ONLY",
+              children: n,
+            })),
+            (t[0] = n),
+            (t[1] = r))
+          : (r = t[1]),
+        r
+      );
     }
-    u.displayName = u.name + " [from " + i.id + "]";
     var c = "Copy Group ID";
     function d(e, t) {
       var n = e ? "Copy LID" : "Copy PN";

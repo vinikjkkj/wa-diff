@@ -16,6 +16,7 @@ __d(
     "WAWebTabOrder",
     "WAWebTimeSpentLoggingNavigation",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebNewsletterInboxSearch",
     "useWAWebRecommendedNewsletters",
@@ -238,25 +239,29 @@ __d(
     }
     h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = e.children;
+      var t = o("react-compiler-runtime").c(1),
+        n = e.children,
+        r;
       return (
-        o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
-          surface: "channel-updates-home",
-        }),
-        t
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((r = { surface: "channel-updates-home" }), (t[0] = r))
+          : (r = t[0]),
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation(r),
+        n
       );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = e.children;
+      var t = o("react-compiler-runtime").c(1),
+        n = e.children,
+        r;
       return (
-        o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
-          surface: "channel-updates-home-search",
-        }),
-        t
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((r = { surface: "channel-updates-home-search" }), (t[0] = r))
+          : (r = t[0]),
+        o("WAWebTimeSpentLoggingNavigation").useTsNavigation(r),
+        n
       );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     var b = 58;
     function v(e) {
       var t = e.directoryNewsletters,

@@ -12,6 +12,7 @@ __d(
     "WAWebWamEnumSmbDataSharingConsentScreenEntryPoint",
     "WDSSwitch.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -21,85 +22,127 @@ __d(
       d = c.useEffect,
       m = c.useState;
     function p(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(21),
         n = e.accountLid,
         a = e.chat,
         i = e.containerXstyle,
-        l = m(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue()),
-        c = l[0],
-        p = l[1];
-      d(function () {
-        var e = function () {
-          p(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
-        };
-        return (
-          o(
-            "WAWebCTWADataSharingModel",
-          ).CTWADataSharingModel.subscribeForUpdates(e),
-          function () {
-            o(
-              "WAWebCTWADataSharingModel",
-            ).CTWADataSharingModel.unsubscribeFromUpdates(e);
-          }
-        );
-      }, []);
-      var _ = m(
-          (t = o(
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue()),
+          (t[0] = l))
+        : (l = t[0]);
+      var c = m(l),
+        p = c[0],
+        _ = c[1],
+        f,
+        g;
+      (t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = function () {
+            var e = function () {
+              _(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
+            };
+            return (
+              o(
+                "WAWebCTWADataSharingModel",
+              ).CTWADataSharingModel.subscribeForUpdates(e),
+              function () {
+                o(
+                  "WAWebCTWADataSharingModel",
+                ).CTWADataSharingModel.unsubscribeFromUpdates(e);
+              }
+            );
+          }),
+          (g = []),
+          (t[1] = f),
+          (t[2] = g))
+        : ((f = t[1]), (g = t[2])),
+        d(f, g));
+      var h;
+      t[3] !== n
+        ? ((h = o(
             "WAWebDataSharing3pdLidCollection",
-          )).DataSharing3pdLidCollection.isDataSharingEnabled(n),
-        ),
-        f = _[0],
-        g = _[1],
-        h = function () {
-          g(
-            o(
-              "WAWebDataSharing3pdLidCollection",
-            ).DataSharing3pdLidCollection.isDataSharingEnabled(n),
-          );
-        };
+          ).DataSharing3pdLidCollection.isDataSharingEnabled(n)),
+          (t[3] = n),
+          (t[4] = h))
+        : (h = t[4]);
+      var y = m(h),
+        C = y[0],
+        b = y[1],
+        v;
+      t[5] !== n
+        ? ((v = function () {
+            b(
+              o(
+                "WAWebDataSharing3pdLidCollection",
+              ).DataSharing3pdLidCollection.isDataSharingEnabled(n),
+            );
+          }),
+          (t[5] = n),
+          (t[6] = v))
+        : (v = t[6]);
+      var S = v;
       (o("useWAWebListener").useListener(
-        t.DataSharing3pdLidCollection,
+        o("WAWebDataSharing3pdLidCollection").DataSharing3pdLidCollection,
         "add",
-        h,
+        S,
       ),
         o("useWAWebListener").useListener(
-          t.DataSharing3pdLidCollection,
+          o("WAWebDataSharing3pdLidCollection").DataSharing3pdLidCollection,
           "change",
-          h,
+          S,
         ),
         o("useWAWebListener").useListener(
-          t.DataSharing3pdLidCollection,
+          o("WAWebDataSharing3pdLidCollection").DataSharing3pdLidCollection,
           "remove",
-          h,
+          S,
         ));
-      var y =
-          c === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true && f,
-        C = u.jsx(o("WAWebChatInfoDrawerRow.react").DrawerRowTitleRefreshed, {
-          title: s._(/*BTDS*/ "Data Sharing"),
-        }),
-        b = y
-          ? u.jsx(o("WAWebText.react").WAWebTextMuted, {
-              children: s._(/*BTDS*/ "On for this contact"),
-            })
-          : u.jsx(o("WAWebText.react").WAWebTextMuted, {
-              children: s._(/*BTDS*/ "Off for this contact"),
-            }),
-        v = u.jsx(r("WDSSwitch.react"), {
-          tabIndex: -1,
-          "aria-label": "Toggle the data sharing state for this customer",
-          value: y,
-        }),
-        S = u.jsx(
-          o("WAWebBusinessDataSharingIcon.react").BusinessDataSharingIcon,
-          {},
-        );
-      return u.jsx(
-        o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
-        {
-          icon: S,
-          testid: void 0,
-          side: v,
-          onClick: function () {
+      var R =
+          p === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true && C,
+        L;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = u.jsx(
+            o("WAWebChatInfoDrawerRow.react").DrawerRowTitleRefreshed,
+            { title: s._(/*BTDS*/ "Data Sharing") },
+          )),
+          (t[7] = L))
+        : (L = t[7]);
+      var E = L,
+        k;
+      t[8] !== R
+        ? ((k = R
+            ? u.jsx(o("WAWebText.react").WAWebTextMuted, {
+                children: s._(/*BTDS*/ "On for this contact"),
+              })
+            : u.jsx(o("WAWebText.react").WAWebTextMuted, {
+                children: s._(/*BTDS*/ "Off for this contact"),
+              })),
+          (t[8] = R),
+          (t[9] = k))
+        : (k = t[9]);
+      var I = k,
+        T;
+      t[10] !== R
+        ? ((T = u.jsx(r("WDSSwitch.react"), {
+            tabIndex: -1,
+            "aria-label": "Toggle the data sharing state for this customer",
+            value: R,
+          })),
+          (t[10] = R),
+          (t[11] = T))
+        : (T = t[11]);
+      var D = T,
+        x;
+      t[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((x = u.jsx(
+            o("WAWebBusinessDataSharingIcon.react").BusinessDataSharingIcon,
+            {},
+          )),
+          (t[12] = x))
+        : (x = t[12]);
+      var $ = x,
+        P;
+      t[13] !== n || t[14] !== a
+        ? ((P = function () {
             return o(
               "WAWebPerCustomerDataSharingUtils",
             ).getModalForPerCustomerDataSharing(
@@ -108,14 +151,36 @@ __d(
                 .SMB_DATA_SHARING_CONSENT_SCREEN_ENTRY_POINT.CONTACT_INFO_CARD,
               a,
             );
-          },
-          title: C,
-          secondaryTitle: b,
-          containerXstyle: i,
-        },
+          }),
+          (t[13] = n),
+          (t[14] = a),
+          (t[15] = P))
+        : (P = t[15]);
+      var N;
+      return (
+        t[16] !== i || t[17] !== I || t[18] !== D || t[19] !== P
+          ? ((N = u.jsx(
+              o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
+              {
+                icon: $,
+                testid: void 0,
+                side: D,
+                onClick: P,
+                title: E,
+                secondaryTitle: I,
+                containerXstyle: i,
+              },
+            )),
+            (t[16] = i),
+            (t[17] = I),
+            (t[18] = D),
+            (t[19] = P),
+            (t[20] = N))
+          : (N = t[20]),
+        N
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

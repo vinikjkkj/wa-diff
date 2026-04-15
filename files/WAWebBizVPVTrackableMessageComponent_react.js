@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBizVPVDebugOverlay.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizMessageVPVLogger",
     "useWAWebVPVOverlayEnabled",
   ],
@@ -12,31 +13,52 @@ __d(
       s = e || (e = o("react")),
       u = e.useState;
     function c(e) {
-      var t = e.component,
-        n = e.visibilityData,
-        o = u(!1),
-        a = o[0],
-        i = o[1],
-        l = r("useWAWebBizMessageVPVLogger")(
-          babelHelpers.extends({}, n, { onVisibilityChange: i }),
-        ),
-        c = l[0],
-        d = r("useWAWebVPVOverlayEnabled")();
-      return s.jsxs("div", {
-        ref: c,
-        style: d ? { position: "relative" } : void 0,
-        children: [
-          d
+      var t = o("react-compiler-runtime").c(13),
+        n = e.component,
+        a = e.visibilityData,
+        i = u(!1),
+        l = i[0],
+        c = i[1],
+        d;
+      t[0] !== a
+        ? ((d = babelHelpers.extends({}, a, { onVisibilityChange: c })),
+          (t[0] = a),
+          (t[1] = d))
+        : (d = t[1]);
+      var m = r("useWAWebBizMessageVPVLogger")(d),
+        p = m[0],
+        _ = r("useWAWebVPVOverlayEnabled")(),
+        f;
+      t[2] !== _
+        ? ((f = _ ? { position: "relative" } : void 0), (t[2] = _), (t[3] = f))
+        : (f = t[3]);
+      var g;
+      t[4] !== l || t[5] !== _ || t[6] !== a
+        ? ((g = _
             ? s.jsx(r("WAWebBizVPVDebugOverlay.react"), {
-                visible: a,
-                visibilityData: n,
+                visible: l,
+                visibilityData: a,
               })
-            : null,
-          t,
-        ],
-      });
+            : null),
+          (t[4] = l),
+          (t[5] = _),
+          (t[6] = a),
+          (t[7] = g))
+        : (g = t[7]);
+      var h;
+      return (
+        t[8] !== n || t[9] !== f || t[10] !== g || t[11] !== p
+          ? ((h = s.jsxs("div", { ref: p, style: f, children: [g, n] })),
+            (t[8] = n),
+            (t[9] = f),
+            (t[10] = g),
+            (t[11] = p),
+            (t[12] = h))
+          : (h = t[12]),
+        h
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

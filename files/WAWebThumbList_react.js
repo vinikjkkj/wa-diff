@@ -12,6 +12,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebSpinner.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebPrevious",
     "useWAWebThrottledCallback",
   ],
@@ -138,39 +139,71 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.active,
-        n = e.msg,
-        r = e.onClick,
-        o = e.onSetActiveThumb,
-        a = e.preferPreview,
-        i = e.setThumbRef,
-        l = e.showTooltip,
-        s = e.tabIndex,
-        u = e.theme,
-        d = m(
-          function () {
-            r(n);
-          },
-          [n, r],
-        ),
-        p = m(
-          function (e) {
-            (i(e, n.id.toString()), t === !0 && o(e));
-          },
-          [t, n.id, o, i],
-        );
-      return c.jsx(C, {
-        theme: u,
-        active: t,
-        msg: n,
-        containerRef: p,
-        onClick: d,
-        preferPreview: a,
-        showTooltip: l,
-        tabIndex: s,
-      });
+      var t = o("react-compiler-runtime").c(17),
+        n = e.active,
+        r = e.msg,
+        a = e.onClick,
+        i = e.onSetActiveThumb,
+        l = e.preferPreview,
+        s = e.setThumbRef,
+        u = e.showTooltip,
+        d = e.tabIndex,
+        m = e.theme,
+        p;
+      t[0] !== r || t[1] !== a
+        ? ((p = function () {
+            a(r);
+          }),
+          (t[0] = r),
+          (t[1] = a),
+          (t[2] = p))
+        : (p = t[2]);
+      var _ = p,
+        f;
+      t[3] !== n || t[4] !== r.id || t[5] !== i || t[6] !== s
+        ? ((f = function (t) {
+            (s(t, r.id.toString()), n === !0 && i(t));
+          }),
+          (t[3] = n),
+          (t[4] = r.id),
+          (t[5] = i),
+          (t[6] = s),
+          (t[7] = f))
+        : (f = t[7]);
+      var g = f,
+        h;
+      return (
+        t[8] !== n ||
+        t[9] !== r ||
+        t[10] !== _ ||
+        t[11] !== l ||
+        t[12] !== g ||
+        t[13] !== u ||
+        t[14] !== d ||
+        t[15] !== m
+          ? ((h = c.jsx(C, {
+              theme: m,
+              active: n,
+              msg: r,
+              containerRef: g,
+              onClick: _,
+              preferPreview: l,
+              showTooltip: u,
+              tabIndex: d,
+            })),
+            (t[8] = n),
+            (t[9] = r),
+            (t[10] = _),
+            (t[11] = l),
+            (t[12] = g),
+            (t[13] = u),
+            (t[14] = d),
+            (t[15] = m),
+            (t[16] = h))
+          : (h = t[16]),
+        h
+      );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     var S = b;
     function R(e) {
       var t = p(o("WAWebMediaViewerFlow.react").MediaViewerFlowZoomContext),

@@ -47,6 +47,7 @@ __d(
     "WDSMenuBarItem.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -196,382 +197,614 @@ __d(
     }
     var h = { delete: { color: "xqnyt8g", $$css: !0 } };
     function y(e) {
-      var t,
-        a,
-        i = e.isMsgVisible,
-        l = e.link,
-        c = e.msg,
-        d = e.onCancel,
-        m = e.onMessageSelect,
-        p = o("WAWebFrontendMsgGetters").getChat(c),
-        _ = function () {
-          (o("WAWebModalManager").ModalManager.openSupportModal(
-            u.jsx(r("WAWebDeleteRevokeMsgFlow.react"), {
-              chat: p,
-              msgList: [c].map(o("WAWebStateUtils").unproxy),
-              isMsgVisible: i,
-              onEnd: d,
-              theme: "mediaHub",
-            }),
-          ),
-            o("WAWebRevokeMetricUtils").UiRevokeActionHelper.startSession(),
-            o("WAWebRevokeMetricUtils").UiRevokeActionHelper.messageSelected());
-        },
-        f =
-          (!o("WAWebMsgGetters").getIsNewsletterMsg(c) ||
-            o("WAWebMsgActionCapability").canRevokeNewsletterMsg(c)) &&
-          !o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
-            (t = c.ctwaContext) == null ? void 0 : t.sourceApp,
-            c.type,
-            (a = c.ctwaContext) == null
-              ? void 0
-              : a.automatedGreetingMessageShown,
-            c.subtype,
-          ),
-        y = [];
-      return (
-        y.push(
-          u.jsx(
-            o("WAWebDropdownItem.react").DropdownItem,
-            {
-              testid: void 0,
-              action: m,
-              icon: u.jsx(
-                o("WAWebCheckRefreshedIcon.react").CheckRefreshedIcon,
-                {},
-              ),
-              children: s._(/*BTDS*/ "Select"),
-            },
-            "select",
-          ),
-        ),
-        y.push(
-          u.jsx(r("WAWebDropdownItemSeparator.react"), {}, "separator-select"),
-        ),
-        !o("WAWebMsgActionCapability").canDownloadMsg(
-          c,
-          c.mediaObject != null,
-        ) &&
-          l != null &&
-          y.push(
-            u.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: function () {
-                  (o("WAWebExternalLink.react").openExternalLink(l.href),
-                    o("WAWebMediaHubLogger").logMediaHubAction({
-                      action: o("WAWebWamEnumActionCode").ACTION_CODE.OPEN,
-                    }));
-                },
-                icon: u.jsx(r("WDSIconIcOpenInNew.react"), {}),
-                children: s._(/*BTDS*/ "Open link in a new tab"),
-              },
-              "link",
-            ),
-          ),
-        y.push(
-          u.jsx(
-            o("WAWebDropdownItem.react").DropdownItem,
-            {
-              testid: void 0,
-              action: function () {
-                (o("WAWebMediaHubMessageActionHandlers").goToMessageFromModal(
-                  c,
-                ),
-                  o("WAWebMediaHubLogger").logMediaHubAction({
-                    action: o("WAWebWamEnumActionCode").ACTION_CODE
-                      .GO_TO_MESSAGE,
-                  }));
-              },
-              icon: u.jsx(o("WAWebChatRefreshedIcon.react").ChatRefreshedIcon, {
-                directional: !0,
+      var t = o("react-compiler-runtime").c(96),
+        a = e.isMsgVisible,
+        i = e.link,
+        l = e.msg,
+        c = e.onCancel,
+        d = e.onMessageSelect,
+        m;
+      t[0] !== l
+        ? ((m = o("WAWebFrontendMsgGetters").getChat(l)),
+          (t[0] = l),
+          (t[1] = m))
+        : (m = t[1]);
+      var p = m,
+        _;
+      t[2] !== p || t[3] !== a || t[4] !== l || t[5] !== c
+        ? ((_ = function () {
+            (o("WAWebModalManager").ModalManager.openSupportModal(
+              u.jsx(r("WAWebDeleteRevokeMsgFlow.react"), {
+                chat: p,
+                msgList: [l].map(o("WAWebStateUtils").unproxy),
+                isMsgVisible: a,
+                onEnd: c,
+                theme: "mediaHub",
               }),
-              children: s._(/*BTDS*/ "Go to message"),
-            },
-            "go-to-msg",
-          ),
-        ),
-        o("WAWebMsgReply").canReplyMsg(c) &&
-          y.push(
-            u.jsx(
+            ),
+              o("WAWebRevokeMetricUtils").UiRevokeActionHelper.startSession(),
+              o(
+                "WAWebRevokeMetricUtils",
+              ).UiRevokeActionHelper.messageSelected());
+          }),
+          (t[2] = p),
+          (t[3] = a),
+          (t[4] = l),
+          (t[5] = c),
+          (t[6] = _))
+        : (_ = t[6]);
+      var f = _,
+        y;
+      if (t[7] !== l) {
+        var C, b;
+        ((y =
+          (!o("WAWebMsgGetters").getIsNewsletterMsg(l) ||
+            o("WAWebMsgActionCapability").canRevokeNewsletterMsg(l)) &&
+          !o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
+            (C = l.ctwaContext) == null ? void 0 : C.sourceApp,
+            l.type,
+            (b = l.ctwaContext) == null
+              ? void 0
+              : b.automatedGreetingMessageShown,
+            l.subtype,
+          )),
+          (t[7] = l),
+          (t[8] = y));
+      } else y = t[8];
+      var v = y,
+        S;
+      if (
+        t[9] !== v ||
+        t[10] !== f ||
+        t[11] !== i ||
+        t[12] !== l ||
+        t[13] !== c ||
+        t[14] !== d
+      ) {
+        var R = [],
+          L,
+          E;
+        t[16] === Symbol.for("react.memo_cache_sentinel")
+          ? ((L = u.jsx(
+              o("WAWebCheckRefreshedIcon.react").CheckRefreshedIcon,
+              {},
+            )),
+            (E = s._(/*BTDS*/ "Select")),
+            (t[16] = L),
+            (t[17] = E))
+          : ((L = t[16]), (E = t[17]));
+        var k;
+        (t[18] !== d
+          ? ((k = u.jsx(
               o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: n("asyncToGeneratorRuntime").asyncToGenerator(
+              { testid: void 0, action: d, icon: L, children: E },
+              "select",
+            )),
+            (t[18] = d),
+            (t[19] = k))
+          : (k = t[19]),
+          R.push(k));
+        var I;
+        if (
+          (t[20] === Symbol.for("react.memo_cache_sentinel")
+            ? ((I = u.jsx(
+                r("WAWebDropdownItemSeparator.react"),
+                {},
+                "separator-select",
+              )),
+              (t[20] = I))
+            : (I = t[20]),
+          R.push(I),
+          !o("WAWebMsgActionCapability").canDownloadMsg(
+            l,
+            l.mediaObject != null,
+          ) && i != null)
+        ) {
+          var T;
+          t[21] !== i.href
+            ? ((T = function () {
+                (o("WAWebExternalLink.react").openExternalLink(i.href),
+                  o("WAWebMediaHubLogger").logMediaHubAction({
+                    action: o("WAWebWamEnumActionCode").ACTION_CODE.OPEN,
+                  }));
+              }),
+              (t[21] = i.href),
+              (t[22] = T))
+            : (T = t[22]);
+          var D, x;
+          t[23] === Symbol.for("react.memo_cache_sentinel")
+            ? ((D = u.jsx(r("WDSIconIcOpenInNew.react"), {})),
+              (x = s._(/*BTDS*/ "Open link in a new tab")),
+              (t[23] = D),
+              (t[24] = x))
+            : ((D = t[23]), (x = t[24]));
+          var $;
+          (t[25] !== T
+            ? (($ = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { testid: void 0, action: T, icon: D, children: x },
+                "link",
+              )),
+              (t[25] = T),
+              (t[26] = $))
+            : ($ = t[26]),
+            R.push($));
+        }
+        var P;
+        t[27] !== l
+          ? ((P = function () {
+              (o("WAWebMediaHubMessageActionHandlers").goToMessageFromModal(l),
+                o("WAWebMediaHubLogger").logMediaHubAction({
+                  action: o("WAWebWamEnumActionCode").ACTION_CODE.GO_TO_MESSAGE,
+                }));
+            }),
+            (t[27] = l),
+            (t[28] = P))
+          : (P = t[28]);
+        var N, M;
+        t[29] === Symbol.for("react.memo_cache_sentinel")
+          ? ((N = u.jsx(o("WAWebChatRefreshedIcon.react").ChatRefreshedIcon, {
+              directional: !0,
+            })),
+            (M = s._(/*BTDS*/ "Go to message")),
+            (t[29] = N),
+            (t[30] = M))
+          : ((N = t[29]), (M = t[30]));
+        var w;
+        if (
+          (t[31] !== P
+            ? ((w = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { testid: void 0, action: P, icon: N, children: M },
+                "go-to-msg",
+              )),
+              (t[31] = P),
+              (t[32] = w))
+            : (w = t[32]),
+          R.push(w),
+          o("WAWebMsgReply").canReplyMsg(l))
+        ) {
+          var A;
+          t[33] !== l
+            ? ((A = (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
                     (o("WAWebMediaHubLogger").logMediaHubAction({
                       action: o("WAWebWamEnumActionCode").ACTION_CODE.REPLY,
                     }),
                       yield o(
                         "WAWebMediaHubMessageActionHandlers",
-                      ).replyToMessageFromModal(c),
+                      ).replyToMessageFromModal(l),
                       g(
-                        c,
+                        l,
                         o("WAWebWamEnumMessageContextMenuOptionType")
                           .MESSAGE_CONTEXT_MENU_OPTION_TYPE.REPLY,
                       ));
                   },
-                ),
-                icon: u.jsx(
-                  o("WAWebReplyRefreshedIcon.react").ReplyRefreshedIcon,
-                  {},
-                ),
-                children: s._(/*BTDS*/ "Reply"),
-              },
-              "reply",
-            ),
-          ),
-        o("WAWebMsgReply").canPrivateReply(c) &&
-          y.push(
-            u.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: n("asyncToGeneratorRuntime").asyncToGenerator(
+                );
+                return function () {
+                  return e.apply(this, arguments);
+                };
+              })()),
+              (t[33] = l),
+              (t[34] = A))
+            : (A = t[34]);
+          var F, O;
+          t[35] === Symbol.for("react.memo_cache_sentinel")
+            ? ((F = u.jsx(
+                o("WAWebReplyRefreshedIcon.react").ReplyRefreshedIcon,
+                {},
+              )),
+              (O = s._(/*BTDS*/ "Reply")),
+              (t[35] = F),
+              (t[36] = O))
+            : ((F = t[35]), (O = t[36]));
+          var B;
+          (t[37] !== A
+            ? ((B = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { testid: void 0, action: A, icon: F, children: O },
+                "reply",
+              )),
+              (t[37] = A),
+              (t[38] = B))
+            : (B = t[38]),
+            R.push(B));
+        }
+        if (o("WAWebMsgReply").canPrivateReply(l)) {
+          var W;
+          t[39] !== l
+            ? ((W = (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
                     (o("WAWebMediaHubLogger").logMediaHubAction({
                       action: o("WAWebWamEnumActionCode").ACTION_CODE.REPLY,
                     }),
                       yield o(
                         "WAWebMediaHubMessageActionHandlers",
-                      ).replyPrivatelyToMessageFromModal(c),
+                      ).replyPrivatelyToMessageFromModal(l),
                       g(
-                        c,
+                        l,
                         o("WAWebWamEnumMessageContextMenuOptionType")
                           .MESSAGE_CONTEXT_MENU_OPTION_TYPE.REPLY_PRIVATELY,
                       ));
                   },
+                );
+                return function () {
+                  return e.apply(this, arguments);
+                };
+              })()),
+              (t[39] = l),
+              (t[40] = W))
+            : (W = t[40]);
+          var q, U;
+          t[41] === Symbol.for("react.memo_cache_sentinel")
+            ? ((q = u.jsx(
+                o("WAWebReplyPrivatelyRefreshedIcon.react")
+                  .ReplyPrivatelyRefreshedIcon,
+                {},
+              )),
+              (U = s._(/*BTDS*/ "Reply privately")),
+              (t[41] = q),
+              (t[42] = U))
+            : ((q = t[41]), (U = t[42]));
+          var V;
+          (t[43] !== W
+            ? ((V = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { testid: void 0, action: W, icon: q, children: U },
+                "reply-privately",
+              )),
+              (t[43] = W),
+              (t[44] = V))
+            : (V = t[44]),
+            R.push(V));
+        }
+        if (
+          !r("WAWebEnvironment").isWindows &&
+          o("WAWebMsgActionCapability").canDownloadMsg(l, l.mediaObject != null)
+        ) {
+          var H;
+          t[45] !== l || t[46] !== c
+            ? ((H = function () {
+                (o(
+                  "WAWebMediaHubMessageActionHandlers",
+                ).handleMessageDownloadClick([l], c, "media_hub"),
+                  g(
+                    l,
+                    o("WAWebWamEnumMessageContextMenuOptionType")
+                      .MESSAGE_CONTEXT_MENU_OPTION_TYPE.UNKNOWN,
+                  ),
+                  o("WAWebMediaHubLogger").logMediaHubAction({
+                    action: o("WAWebWamEnumActionCode").ACTION_CODE.DOWNLOAD,
+                  }));
+              }),
+              (t[45] = l),
+              (t[46] = c),
+              (t[47] = H))
+            : (H = t[47]);
+          var G, z;
+          t[48] === Symbol.for("react.memo_cache_sentinel")
+            ? ((G = u.jsx(r("WDSIconIcDownload.react"), {})),
+              (z = s._(/*BTDS*/ "Download")),
+              (t[48] = G),
+              (t[49] = z))
+            : ((G = t[48]), (z = t[49]));
+          var j;
+          (t[50] !== H
+            ? ((j = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { testid: void 0, action: H, icon: G, children: z },
+                "download",
+              )),
+              (t[50] = H),
+              (t[51] = j))
+            : (j = t[51]),
+            R.push(j));
+        }
+        if (o("WAWebCopyUtils").canCopyMessage(l)) {
+          var K;
+          t[52] !== l
+            ? ((K = function () {
+                (o("WAWebCopyUtils").copyMessageToClipboard(l),
+                  g(
+                    l,
+                    o("WAWebWamEnumMessageContextMenuOptionType")
+                      .MESSAGE_CONTEXT_MENU_OPTION_TYPE.COPY,
+                  ));
+              }),
+              (t[52] = l),
+              (t[53] = K))
+            : (K = t[53]);
+          var Q, X;
+          t[54] === Symbol.for("react.memo_cache_sentinel")
+            ? ((Q = u.jsx(
+                o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+                {},
+              )),
+              (X = s._(/*BTDS*/ "Copy")),
+              (t[54] = Q),
+              (t[55] = X))
+            : ((Q = t[54]), (X = t[55]));
+          var Y;
+          (t[56] !== K
+            ? ((Y = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { testid: void 0, action: K, icon: Q, children: X },
+                "copy",
+              )),
+              (t[56] = K),
+              (t[57] = Y))
+            : (Y = t[57]),
+            R.push(Y));
+        }
+        if (o("WAWebMsgActionCapability").canForwardMsg(l)) {
+          var J;
+          t[58] !== l
+            ? ((J = function () {
+                (o("WAWebMediaHubMessageActionHandlers").handleForwardClick(
+                  l,
+                  r("WAWebNoop"),
                 ),
-                icon: u.jsx(
-                  o("WAWebReplyPrivatelyRefreshedIcon.react")
-                    .ReplyPrivatelyRefreshedIcon,
-                  {},
-                ),
-                children: s._(/*BTDS*/ "Reply privately"),
-              },
-              "reply-privately",
-            ),
-          ),
-        !r("WAWebEnvironment").isWindows &&
-          o("WAWebMsgActionCapability").canDownloadMsg(
-            c,
-            c.mediaObject != null,
-          ) &&
-          y.push(
-            u.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: function () {
+                  g(
+                    l,
+                    o("WAWebWamEnumMessageContextMenuOptionType")
+                      .MESSAGE_CONTEXT_MENU_OPTION_TYPE.FORWARD,
+                  ),
+                  o("WAWebMediaHubLogger").logMediaHubAction({
+                    action: o("WAWebWamEnumActionCode").ACTION_CODE.FORWARD,
+                  }));
+              }),
+              (t[58] = l),
+              (t[59] = J))
+            : (J = t[59]);
+          var Z, ee;
+          t[60] === Symbol.for("react.memo_cache_sentinel")
+            ? ((Z = u.jsx(
+                o("WAWebForwardRefreshedIcon.react").ForwardRefreshedIcon,
+                { directional: !0 },
+              )),
+              (ee = s._(/*BTDS*/ "Forward")),
+              (t[60] = Z),
+              (t[61] = ee))
+            : ((Z = t[60]), (ee = t[61]));
+          var te;
+          (t[62] !== J
+            ? ((te = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { testid: void 0, action: J, icon: Z, children: ee },
+                "forward",
+              )),
+              (t[62] = J),
+              (t[63] = te))
+            : (te = t[63]),
+            R.push(te));
+        }
+        if (o("WAWebKeepInChatMsgUtils").canShowUnkeepOption(l)) {
+          var ne;
+          t[64] !== l
+            ? ((ne = function () {
+                (o("WAWebMediaHubMessageActionHandlers")
+                  .handleUndoKeepClick(l)
+                  .catch(r("WAWebNoop")),
+                  g(
+                    l,
+                    o("WAWebWamEnumMessageContextMenuOptionType")
+                      .MESSAGE_CONTEXT_MENU_OPTION_TYPE.UNKNOWN,
+                  ));
+              }),
+              (t[64] = l),
+              (t[65] = ne))
+            : (ne = t[65]);
+          var re, oe;
+          t[66] === Symbol.for("react.memo_cache_sentinel")
+            ? ((re = u.jsx(r("WDSIconWdsIcBookmarkSlash.react"), {})),
+              (oe = s._(/*BTDS*/ "Unkeep")),
+              (t[66] = re),
+              (t[67] = oe))
+            : ((re = t[66]), (oe = t[67]));
+          var ae;
+          (t[68] !== ne
+            ? ((ae = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { testid: void 0, action: ne, icon: re, children: oe },
+                "unkeep",
+              )),
+              (t[68] = ne),
+              (t[69] = ae))
+            : (ae = t[69]),
+            R.push(ae));
+        } else if (
+          !o("WAWebMsgGetters").getIsKept(l) &&
+          o("WAWebKeepInChatMsgUtils").canShowKeepOption(l)
+        ) {
+          var ie;
+          t[70] !== l
+            ? ((ie = function () {
+                (o("WAWebMediaHubMessageActionHandlers")
+                  .handleKeepClick(l)
+                  .catch(r("WAWebNoop")),
+                  g(
+                    l,
+                    o("WAWebWamEnumMessageContextMenuOptionType")
+                      .MESSAGE_CONTEXT_MENU_OPTION_TYPE.UNKNOWN,
+                  ));
+              }),
+              (t[70] = l),
+              (t[71] = ie))
+            : (ie = t[71]);
+          var le, se;
+          t[72] === Symbol.for("react.memo_cache_sentinel")
+            ? ((le = u.jsx(r("WDSIconIcBookmark.react"), {})),
+              (se = s._(/*BTDS*/ "Keep")),
+              (t[72] = le),
+              (t[73] = se))
+            : ((le = t[72]), (se = t[73]));
+          var ue;
+          (t[74] !== ie
+            ? ((ue = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                { testid: void 0, action: ie, icon: le, children: se },
+                "keep",
+              )),
+              (t[74] = ie),
+              (t[75] = ue))
+            : (ue = t[75]),
+            R.push(ue));
+        }
+        if (o("WAWebMsgActionCapability").canStarMsg(l)) {
+          if (l.star) {
+            var ce;
+            t[76] !== l
+              ? ((ce = function () {
                   (o(
                     "WAWebMediaHubMessageActionHandlers",
-                  ).handleMessageDownloadClick([c], d, "media_hub"),
+                  ).handleMessageUnstarClick(l),
                     g(
-                      c,
+                      l,
                       o("WAWebWamEnumMessageContextMenuOptionType")
-                        .MESSAGE_CONTEXT_MENU_OPTION_TYPE.UNKNOWN,
+                        .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
                     ),
                     o("WAWebMediaHubLogger").logMediaHubAction({
-                      action: o("WAWebWamEnumActionCode").ACTION_CODE.DOWNLOAD,
+                      action: o("WAWebWamEnumActionCode").ACTION_CODE.STAR,
                     }));
-                },
-                icon: u.jsx(r("WDSIconIcDownload.react"), {}),
-                children: s._(/*BTDS*/ "Download"),
-              },
-              "download",
-            ),
-          ),
-        o("WAWebCopyUtils").canCopyMessage(c) &&
-          y.push(
-            u.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: function () {
-                  (o("WAWebCopyUtils").copyMessageToClipboard(c),
-                    g(
-                      c,
-                      o("WAWebWamEnumMessageContextMenuOptionType")
-                        .MESSAGE_CONTEXT_MENU_OPTION_TYPE.COPY,
-                    ));
-                },
-                icon: u.jsx(
-                  o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+                }),
+                (t[76] = l),
+                (t[77] = ce))
+              : (ce = t[77]);
+            var de, me;
+            t[78] === Symbol.for("react.memo_cache_sentinel")
+              ? ((de = u.jsx(
+                  o("WAWebUnstarRefreshedIcon.react").UnstarRefreshedIcon,
                   {},
-                ),
-                children: s._(/*BTDS*/ "Copy"),
-              },
-              "copy",
-            ),
-          ),
-        o("WAWebMsgActionCapability").canForwardMsg(c) &&
-          y.push(
-            u.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: function () {
-                  (o("WAWebMediaHubMessageActionHandlers").handleForwardClick(
-                    c,
-                    r("WAWebNoop"),
-                  ),
+                )),
+                (me = s._(/*BTDS*/ "Unstar")),
+                (t[78] = de),
+                (t[79] = me))
+              : ((de = t[78]), (me = t[79]));
+            var pe;
+            (t[80] !== ce
+              ? ((pe = u.jsx(
+                  o("WAWebDropdownItem.react").DropdownItem,
+                  { testid: void 0, action: ce, icon: de, children: me },
+                  "star",
+                )),
+                (t[80] = ce),
+                (t[81] = pe))
+              : (pe = t[81]),
+              R.push(pe));
+          } else if (!o("WAWebMsgGetters").getIsKept(l)) {
+            var _e;
+            t[82] !== l
+              ? ((_e = function () {
+                  (o(
+                    "WAWebMediaHubMessageActionHandlers",
+                  ).handleMessageStarClick(l),
                     g(
-                      c,
+                      l,
                       o("WAWebWamEnumMessageContextMenuOptionType")
-                        .MESSAGE_CONTEXT_MENU_OPTION_TYPE.FORWARD,
+                        .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
                     ),
                     o("WAWebMediaHubLogger").logMediaHubAction({
-                      action: o("WAWebWamEnumActionCode").ACTION_CODE.FORWARD,
+                      action: o("WAWebWamEnumActionCode").ACTION_CODE.STAR,
                     }));
-                },
-                icon: u.jsx(
-                  o("WAWebForwardRefreshedIcon.react").ForwardRefreshedIcon,
-                  { directional: !0 },
-                ),
-                children: s._(/*BTDS*/ "Forward"),
-              },
-              "forward",
-            ),
-          ),
-        o("WAWebKeepInChatMsgUtils").canShowUnkeepOption(c)
-          ? y.push(
-              u.jsx(
-                o("WAWebDropdownItem.react").DropdownItem,
-                {
-                  testid: void 0,
-                  action: function () {
-                    (o("WAWebMediaHubMessageActionHandlers")
-                      .handleUndoKeepClick(c)
-                      .catch(r("WAWebNoop")),
-                      g(
-                        c,
-                        o("WAWebWamEnumMessageContextMenuOptionType")
-                          .MESSAGE_CONTEXT_MENU_OPTION_TYPE.UNKNOWN,
-                      ));
-                  },
-                  icon: u.jsx(r("WDSIconWdsIcBookmarkSlash.react"), {}),
-                  children: s._(/*BTDS*/ "Unkeep"),
-                },
-                "unkeep",
-              ),
-            )
-          : !o("WAWebMsgGetters").getIsKept(c) &&
-            o("WAWebKeepInChatMsgUtils").canShowKeepOption(c) &&
-            y.push(
-              u.jsx(
-                o("WAWebDropdownItem.react").DropdownItem,
-                {
-                  testid: void 0,
-                  action: function () {
-                    (o("WAWebMediaHubMessageActionHandlers")
-                      .handleKeepClick(c)
-                      .catch(r("WAWebNoop")),
-                      g(
-                        c,
-                        o("WAWebWamEnumMessageContextMenuOptionType")
-                          .MESSAGE_CONTEXT_MENU_OPTION_TYPE.UNKNOWN,
-                      ));
-                  },
-                  icon: u.jsx(r("WDSIconIcBookmark.react"), {}),
-                  children: s._(/*BTDS*/ "Keep"),
-                },
-                "keep",
-              ),
-            ),
-        o("WAWebMsgActionCapability").canStarMsg(c) &&
-          (c.star
-            ? y.push(
-                u.jsx(
+                }),
+                (t[82] = l),
+                (t[83] = _e))
+              : (_e = t[83]);
+            var fe, ge;
+            t[84] === Symbol.for("react.memo_cache_sentinel")
+              ? ((fe = u.jsx(
+                  o("WAWebStarRefreshedIcon.react").StarRefreshedIcon,
+                  {},
+                )),
+                (ge = s._(/*BTDS*/ "Star")),
+                (t[84] = fe),
+                (t[85] = ge))
+              : ((fe = t[84]), (ge = t[85]));
+            var he;
+            (t[86] !== _e
+              ? ((he = u.jsx(
                   o("WAWebDropdownItem.react").DropdownItem,
-                  {
-                    testid: void 0,
-                    action: function () {
-                      (o(
-                        "WAWebMediaHubMessageActionHandlers",
-                      ).handleMessageUnstarClick(c),
-                        g(
-                          c,
-                          o("WAWebWamEnumMessageContextMenuOptionType")
-                            .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
-                        ),
-                        o("WAWebMediaHubLogger").logMediaHubAction({
-                          action: o("WAWebWamEnumActionCode").ACTION_CODE.STAR,
-                        }));
-                    },
-                    icon: u.jsx(
-                      o("WAWebUnstarRefreshedIcon.react").UnstarRefreshedIcon,
-                      {},
-                    ),
-                    children: s._(/*BTDS*/ "Unstar"),
-                  },
+                  { testid: void 0, action: _e, icon: fe, children: ge },
                   "star",
-                ),
-              )
-            : o("WAWebMsgGetters").getIsKept(c) ||
-              y.push(
-                u.jsx(
-                  o("WAWebDropdownItem.react").DropdownItem,
-                  {
-                    testid: void 0,
-                    action: function () {
-                      (o(
-                        "WAWebMediaHubMessageActionHandlers",
-                      ).handleMessageStarClick(c),
-                        g(
-                          c,
-                          o("WAWebWamEnumMessageContextMenuOptionType")
-                            .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
-                        ),
-                        o("WAWebMediaHubLogger").logMediaHubAction({
-                          action: o("WAWebWamEnumActionCode").ACTION_CODE.STAR,
-                        }));
-                    },
-                    icon: u.jsx(
-                      o("WAWebStarRefreshedIcon.react").StarRefreshedIcon,
-                      {},
-                    ),
-                    children: s._(/*BTDS*/ "Star"),
-                  },
-                  "star",
-                ),
+                )),
+                (t[86] = _e),
+                (t[87] = he))
+              : (he = t[87]),
+              R.push(he));
+          }
+        }
+        if (v) {
+          var ye;
+          (t[88] === Symbol.for("react.memo_cache_sentinel")
+            ? ((ye = u.jsx(
+                r("WAWebDropdownItemSeparator.react"),
+                {},
+                "separator",
               )),
-        f &&
-          (y.push(
-            u.jsx(r("WAWebDropdownItemSeparator.react"), {}, "separator"),
-          ),
-          y.push(
-            u.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: function () {
-                  (_(),
-                    g(
-                      c,
-                      o("WAWebWamEnumMessageContextMenuOptionType")
-                        .MESSAGE_CONTEXT_MENU_OPTION_TYPE.DELETE,
-                    ),
-                    o("WAWebMediaHubLogger").logMediaHubAction({
-                      action: o("WAWebWamEnumActionCode").ACTION_CODE.DELETE,
-                    }));
+              (t[88] = ye))
+            : (ye = t[88]),
+            R.push(ye));
+          var Ce;
+          t[89] !== f || t[90] !== l
+            ? ((Ce = function () {
+                (f(),
+                  g(
+                    l,
+                    o("WAWebWamEnumMessageContextMenuOptionType")
+                      .MESSAGE_CONTEXT_MENU_OPTION_TYPE.DELETE,
+                  ),
+                  o("WAWebMediaHubLogger").logMediaHubAction({
+                    action: o("WAWebWamEnumActionCode").ACTION_CODE.DELETE,
+                  }));
+              }),
+              (t[89] = f),
+              (t[90] = l),
+              (t[91] = Ce))
+            : (Ce = t[91]);
+          var be;
+          t[92] === Symbol.for("react.memo_cache_sentinel")
+            ? ((be = u.jsx(
+                o("WAWebDeleteRefreshedIcon.react").DeleteRefreshedIcon,
+                {},
+              )),
+              (t[92] = be))
+            : (be = t[92]);
+          var ve;
+          t[93] === Symbol.for("react.memo_cache_sentinel")
+            ? ((ve = s._(/*BTDS*/ "Delete")), (t[93] = ve))
+            : (ve = t[93]);
+          var Se;
+          (t[94] !== Ce
+            ? ((Se = u.jsx(
+                o("WAWebDropdownItem.react").DropdownItem,
+                {
+                  testid: void 0,
+                  action: Ce,
+                  icon: be,
+                  xstyle: h.delete,
+                  children: ve,
                 },
-                icon: u.jsx(
-                  o("WAWebDeleteRefreshedIcon.react").DeleteRefreshedIcon,
-                  {},
-                ),
-                xstyle: h.delete,
-                children: s._(/*BTDS*/ "Delete"),
-              },
-              "delete",
-            ),
-          )),
-        u.jsx(u.Fragment, { children: y })
-      );
+                "delete",
+              )),
+              (t[94] = Ce),
+              (t[95] = Se))
+            : (Se = t[95]),
+            R.push(Se));
+        }
+        ((S = u.jsx(u.Fragment, { children: R })),
+          (t[9] = v),
+          (t[10] = f),
+          (t[11] = i),
+          (t[12] = l),
+          (t[13] = c),
+          (t[14] = d),
+          (t[15] = S));
+      } else S = t[15];
+      return S;
     }
-    ((y.displayName = y.name + " [from " + i.id + "]"),
-      (l.WAWebMediaHubMessageDropdownMenu = f),
-      (l.DropdownMenuItems = y));
+    ((l.WAWebMediaHubMessageDropdownMenu = f), (l.DropdownMenuItems = y));
   },
   226,
 );

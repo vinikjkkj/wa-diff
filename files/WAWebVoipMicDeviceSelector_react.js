@@ -28,6 +28,7 @@ __d(
     "err",
     "getErrorSafe",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebStableCallback",
     "useWAWebVoipModalManager",
@@ -77,45 +78,63 @@ __d(
       z = U.useRef,
       j = U.useState;
     function K(e) {
+      var t = o("react-compiler-runtime").c(2),
+        n = e.children,
+        a;
+      return (
+        t[0] !== n
+          ? ((a = q.jsx(r("WDSText.react"), {
+              type: "Body1",
+              colorName: "contentDefault",
+              selectable: !1,
+              children: n,
+            })),
+            (t[0] = n),
+            (t[1] = a))
+          : (a = t[1]),
+        a
+      );
+    }
+    function Q(e) {
       return e instanceof Error && e.name.includes("NotAllowed");
     }
-    function Q(t) {
+    function X(t) {
       var a = t.isMuted,
         i = a === void 0 ? !1 : a,
         l = t.onMainClick,
         W = H(r("WAWebVoipUiPopoutWindowContext")),
         U = r("useWAWebVoipModalManager")(),
-        Q = U.closeModal,
-        X = U.openModal,
-        Y = j([]),
-        J = Y[0],
-        Z = Y[1],
-        ee = j([]),
-        te = ee[0],
-        ne = ee[1],
-        re = j(null),
-        oe = re[0],
-        ae = re[1],
-        ie = j(null),
-        le = ie[0],
-        se = ie[1],
-        ue = j(!1),
-        ce = ue[0],
-        de = ue[1],
-        me = j(!1),
-        pe = me[0],
-        _e = me[1],
-        fe = q.createRef(),
-        ge = o("WAWebPopoverContext.react").useWAWebPopoverControllerRef(),
-        he = z(null),
-        ye = r("useWAWebVoipPermissionStatus")(!1),
-        Ce = ye.micPermission,
-        be = Ce === "denied",
-        ve = r("useWAWebStableCallback")(l != null ? l : r("WAWebNoop")),
-        Se = z(Ce);
+        X = U.closeModal,
+        Y = U.openModal,
+        J = j([]),
+        Z = J[0],
+        ee = J[1],
+        te = j([]),
+        ne = te[0],
+        re = te[1],
+        oe = j(null),
+        ae = oe[0],
+        ie = oe[1],
+        le = j(null),
+        se = le[0],
+        ue = le[1],
+        ce = j(!1),
+        de = ce[0],
+        me = ce[1],
+        pe = j(!1),
+        _e = pe[0],
+        fe = pe[1],
+        ge = q.createRef(),
+        he = o("WAWebPopoverContext.react").useWAWebPopoverControllerRef(),
+        ye = z(null),
+        Ce = r("useWAWebVoipPermissionStatus")(!1),
+        be = Ce.micPermission,
+        ve = be === "denied",
+        Se = r("useWAWebStableCallback")(l != null ? l : r("WAWebNoop")),
+        Re = z(be);
       (G(
         function () {
-          be &&
+          ve &&
             !i &&
             (o("WALogger").LOG(
               e ||
@@ -123,44 +142,44 @@ __d(
                   "voip: [MicDeviceSelector] mic permission denied, auto-muting",
                 ])),
             ),
-            ve());
+            Se());
         },
-        [be, i, ve],
+        [ve, i, Se],
       ),
         G(
           function () {
-            var e = Se.current;
-            if (((Se.current = Ce), Ce === "denied" && e !== "denied")) {
+            var e = Re.current;
+            if (((Re.current = be), be === "denied" && e !== "denied")) {
               var t;
-              X(
+              Y(
                 q.jsx((t = o("WAWebGuidePopup.react")).GuidePopup, {
                   messaging: t.Messaging.MIC_FAIL,
                   type: t.GuidePopupType.GUIDE_UNBLOCK,
                   featureSurface: t.FeatureSurface.VOIP_ACTIVE,
-                  onConfirm: Q,
+                  onConfirm: X,
                 }),
               );
             }
           },
-          [Ce, X, Q],
+          [be, Y, X],
         ));
-      var Re = V(
+      var Le = V(
         function () {
-          if (be) {
+          if (ve) {
             var e;
-            X(
+            Y(
               q.jsx((e = o("WAWebGuidePopup.react")).GuidePopup, {
                 messaging: e.Messaging.MIC_FAIL,
                 type: e.GuidePopupType.GUIDE_UNBLOCK,
                 featureSurface: e.FeatureSurface.VOIP_ACTIVE,
-                onConfirm: Q,
+                onConfirm: X,
               }),
             );
             return;
           }
           l == null || l();
         },
-        [Q, be, l, X],
+        [X, ve, l, Y],
       );
       (G(
         function () {
@@ -187,7 +206,7 @@ __d(
                   var e = yield o(
                     "WAWebAudioDeviceManager",
                   ).getAvailableAudioDevices(i, s, R);
-                  Z(e);
+                  ee(e);
                   var t = o(
                     "WAWebAudioDeviceManager",
                   ).getCurrentSelectedAudioDevice();
@@ -200,7 +219,7 @@ __d(
                           ])),
                         t,
                       ),
-                      ae(t))
+                      ie(t))
                     : o("WALogger").LOG(
                         m ||
                           (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -210,7 +229,7 @@ __d(
                   var n = yield o(
                     "WAWebAudioDeviceManager",
                   ).getAvailableAudioOutputDevices(i, s);
-                  ne(n);
+                  re(n);
                   var a = o(
                     "WAWebAudioDeviceManager",
                   ).getCurrentSelectedAudioOutputDevice();
@@ -223,8 +242,8 @@ __d(
                           ])),
                         a,
                       ),
-                      se(a))
-                    : n.length > 0 && le == null && se(n[0].deviceId);
+                      ue(a))
+                    : n.length > 0 && se == null && ue(n[0].deviceId);
                   var l = e
                       .map(function (e) {
                         return e.label;
@@ -236,7 +255,7 @@ __d(
                       })
                       .join(", ");
                 } catch (e) {
-                  (K(e) ||
+                  (Q(e) ||
                     o("WALogger")
                       .ERROR(
                         _ ||
@@ -245,8 +264,8 @@ __d(
                           ])),
                       )
                       .catching(r("getErrorSafe")(e)),
-                    Z([]),
-                    ne([]));
+                    ee([]),
+                    re([]));
                 }
               })),
               E.apply(this, arguments)
@@ -256,7 +275,7 @@ __d(
             var e = o(
               "WAWebAudioDeviceManager",
             ).getCurrentSelectedAudioDevice();
-            e != null && ae(e);
+            e != null && ie(e);
           }
           function I() {
             return T.apply(this, arguments);
@@ -270,7 +289,7 @@ __d(
                       "voip: [MicDeviceSelector] device change, reloading",
                     ])),
                 ),
-                  _e(!0));
+                  fe(!0));
                 var e = o(
                   "WAWebAudioDeviceManager",
                 ).getCurrentSelectedAudioDevice();
@@ -278,11 +297,11 @@ __d(
                   var t = yield o(
                     "WAWebAudioDeviceManager",
                   ).getAvailableAudioDevices(i, s, R);
-                  Z(t);
+                  ee(t);
                   var n = yield o(
                     "WAWebAudioDeviceManager",
                   ).getAvailableAudioOutputDevices(i, s);
-                  ne(n);
+                  re(n);
                   var a = yield o("WAWebAudioDeviceManager").selectAudioDevice(
                       i,
                       s,
@@ -317,7 +336,7 @@ __d(
                         "WAWebVoipAudioCaptureAndPlayback",
                       ).switchAudioInputDevice(a, i);
                       if (d)
-                        (ae(a),
+                        (ie(a),
                           o("WALogger").LOG(
                             h ||
                               (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -385,7 +404,7 @@ __d(
                       })
                       .join(", ");
                 } catch (e) {
-                  (K(e) ||
+                  (Q(e) ||
                     o("WALogger")
                       .ERROR(
                         S ||
@@ -394,10 +413,10 @@ __d(
                           ])),
                       )
                       .catching(r("getErrorSafe")(e)),
-                    Z([]),
-                    ne([]));
+                    ee([]),
+                    re([]));
                 } finally {
-                  _e(!1);
+                  fe(!1);
                 }
               })),
               T.apply(this, arguments)
@@ -422,7 +441,7 @@ __d(
               x
                 .query({ name: "microphone" })
                 .then(function (e) {
-                  ((he.current = e), e.addEventListener("change", I));
+                  ((ye.current = e), e.addEventListener("change", I));
                 })
                 .catch(function (e) {
                   o("WALogger")
@@ -437,12 +456,12 @@ __d(
           }
           return function () {
             (l && l.removeEventListener("devicechange", I),
-              he.current &&
-                (he.current.removeEventListener("change", I),
-                (he.current = null)));
+              ye.current &&
+                (ye.current.removeEventListener("change", I),
+                (ye.current = null)));
           };
         },
-        [le, W.windowEl],
+        [se, W.windowEl],
       ),
         G(
           function () {
@@ -452,7 +471,7 @@ __d(
                   r = t[0],
                   a =
                     (e =
-                      (n = J.find(function (e) {
+                      (n = Z.find(function (e) {
                         return e.deviceId === r;
                       })) == null
                         ? void 0
@@ -469,7 +488,7 @@ __d(
                   a,
                   r,
                 ),
-                  ae(r));
+                  ie(r));
               },
               t = function (t) {
                 var e,
@@ -477,7 +496,7 @@ __d(
                   r = t[0],
                   a =
                     (e =
-                      (n = te.find(function (e) {
+                      (n = ne.find(function (e) {
                         return e.deviceId === r;
                       })) == null
                         ? void 0
@@ -494,7 +513,7 @@ __d(
                   a,
                   r,
                 ),
-                  se(r));
+                  ue(r));
               };
             return (
               o("WAWebAudioDeviceManager").AudioDeviceEvents.on(
@@ -517,7 +536,7 @@ __d(
               }
             );
           },
-          [J, te],
+          [Z, ne],
         ),
         o("useWAWebListener").useListener(
           o("WAWebVoipUiPopoutWindowPortalContainer.react")
@@ -564,10 +583,10 @@ __d(
             };
           })(),
         ));
-      var Le = (function () {
+      var Ee = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t, n;
-            if (e === oe) {
+            if (e === ae) {
               o("WALogger").LOG(
                 T ||
                   (T = babelHelpers.taggedTemplateLiteralLoose([
@@ -578,7 +597,7 @@ __d(
               );
               return;
             }
-            if (ce || pe) {
+            if (de || _e) {
               o("WALogger").LOG(
                 D ||
                   (D = babelHelpers.taggedTemplateLiteralLoose([
@@ -589,7 +608,7 @@ __d(
             }
             var a =
               (t =
-                (n = J.find(function (t) {
+                (n = Z.find(function (t) {
                   return t.deviceId === e;
                 })) == null
                   ? void 0
@@ -606,7 +625,7 @@ __d(
               a,
               e,
             ),
-              de(!0),
+              me(!0),
               o("WAWebVoipActivityTracker").trackUiActivity(
                 o("WAWebVoipActivityTracker").VoipUiActivity
                   .USER_SWITCH_MIC_DEVICE,
@@ -617,7 +636,7 @@ __d(
                 "WAWebVoipAudioCaptureAndPlayback",
               ).switchAudioInputDevice(e, i);
               if (l)
-                (ae(e),
+                (ie(e),
                   o("WALogger").LOG(
                     $ ||
                       ($ = babelHelpers.taggedTemplateLiteralLoose([
@@ -657,17 +676,17 @@ __d(
                   }),
                 ));
             } finally {
-              de(!1);
+              me(!1);
             }
           });
           return function (n) {
             return e.apply(this, arguments);
           };
         })(),
-        Ee = (function () {
+        ke = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t, n;
-            if (e === le) {
+            if (e === se) {
               o("WALogger").LOG(
                 M ||
                   (M = babelHelpers.taggedTemplateLiteralLoose([
@@ -678,7 +697,7 @@ __d(
               );
               return;
             }
-            if (ce || pe) {
+            if (de || _e) {
               o("WALogger").LOG(
                 w ||
                   (w = babelHelpers.taggedTemplateLiteralLoose([
@@ -689,7 +708,7 @@ __d(
             }
             var a =
               (t =
-                (n = te.find(function (t) {
+                (n = ne.find(function (t) {
                   return t.deviceId === e;
                 })) == null
                   ? void 0
@@ -706,7 +725,7 @@ __d(
               a,
               e,
             ),
-              de(!0),
+              me(!0),
               o("WAWebVoipActivityTracker").trackUiActivity(
                 o("WAWebVoipActivityTracker").VoipUiActivity
                   .USER_SWITCH_SPEAKER_DEVICE,
@@ -716,7 +735,7 @@ __d(
                 "WAWebVoipAudioCaptureAndPlayback",
               ).switchAudioOutputDevice(e);
               if (i)
-                (se(e),
+                (ue(e),
                   o("WALogger").LOG(
                     F ||
                       (F = babelHelpers.taggedTemplateLiteralLoose([
@@ -756,24 +775,24 @@ __d(
                   }),
                 ));
             } finally {
-              de(!1);
+              me(!1);
             }
           });
           return function (n) {
             return e.apply(this, arguments);
           };
         })(),
-        ke = function () {
+        Ie = function () {
           var e;
           (o("WAWebVoipActivityTracker").trackUiActivity(
             o("WAWebVoipActivityTracker").VoipUiActivity.USER_OPEN_MIC_DROPDOWN,
           ),
-            (e = ge.current) == null || e.showPopover());
+            (e = he.current) == null || e.showPopover());
         },
-        Ie = r("useWAWebVoipWindowPopoutTooltipProps")(),
-        Te = Ie.tooltipAnchorRef,
-        De = Ie.tooltipOwnerDocument,
-        xe = function () {
+        Te = r("useWAWebVoipWindowPopoutTooltipProps")(),
+        De = Te.tooltipAnchorRef,
+        xe = Te.tooltipOwnerDocument,
+        $e = function () {
           var e;
           return q.jsxs(o("WAWebDropdownV2.react").DropdownV2Menu, {
             popoverPortal: (e = W.popoverPortalEl) != null ? e : void 0,
@@ -781,41 +800,44 @@ __d(
             alignment: o("WAWebDropdownV2.react").PopoverAlignment.Center,
             minWidth: 280,
             maxHeight: 200,
-            controllerRef: ge,
-            target: fe,
+            controllerRef: he,
+            target: ge,
             xstyle: o("WDSThemes").WDSDarkTheme,
             children: [
               q.jsx(r("WDSText.react"), {
                 type: "Body2Emphasized",
                 colorName: "contentDeemphasized",
+                selectable: !1,
                 children: s._(/*BTDS*/ "Microphone"),
               }),
               q.jsx(o("WAWebSelectMenuItem.react").SelectMenuItemGroup, {
                 multiselect: !1,
-                initialSelection: oe,
+                initialSelection: ae,
                 onSelect: function (t) {
                   t !== "no-devices" &&
                     t !== "no-speakers" &&
-                    J.find(function (e) {
+                    Z.find(function (e) {
                       return e.deviceId === t;
                     }) &&
-                    Le(t);
+                    Ee(t);
                 },
                 children:
-                  J.length === 0
+                  Z.length === 0
                     ? q.jsx(o("WAWebMenuItems.react").SelectMenuItem, {
                         optionId: "no-devices",
-                        primary: s._(/*BTDS*/ "No microphones available"),
+                        primary: q.jsx(K, {
+                          children: s._(/*BTDS*/ "No microphones available"),
+                        }),
                         disabled: !0,
                       })
-                    : J.map(function (e) {
+                    : Z.map(function (e) {
                         return q.jsx(
                           o("WAWebMenuItems.react").SelectMenuItem,
                           {
                             optionId: e.deviceId,
-                            primary: e.label,
+                            primary: q.jsx(K, { children: e.label }),
                             detailRight:
-                              e.deviceId === oe
+                              e.deviceId === ae
                                 ? q.jsx(
                                     o("WAWebCheckmarkIcon.react").CheckmarkIcon,
                                     { height: 16, width: 16 },
@@ -830,34 +852,37 @@ __d(
               q.jsx(r("WDSText.react"), {
                 type: "Body2Emphasized",
                 colorName: "contentDeemphasized",
+                selectable: !1,
                 children: s._(/*BTDS*/ "Speaker"),
               }),
               q.jsx(o("WAWebSelectMenuItem.react").SelectMenuItemGroup, {
                 multiselect: !1,
-                initialSelection: le,
+                initialSelection: se,
                 onSelect: function (t) {
                   t !== "no-devices" &&
                     t !== "no-speakers" &&
-                    te.find(function (e) {
+                    ne.find(function (e) {
                       return e.deviceId === t;
                     }) &&
-                    Ee(t);
+                    ke(t);
                 },
                 children:
-                  te.length === 0
+                  ne.length === 0
                     ? q.jsx(o("WAWebMenuItems.react").SelectMenuItem, {
                         optionId: "no-speakers",
-                        primary: s._(/*BTDS*/ "No speakers available"),
+                        primary: q.jsx(K, {
+                          children: s._(/*BTDS*/ "No speakers available"),
+                        }),
                         disabled: !0,
                       })
-                    : te.map(function (e) {
+                    : ne.map(function (e) {
                         return q.jsx(
                           o("WAWebMenuItems.react").SelectMenuItem,
                           {
                             optionId: e.deviceId,
-                            primary: e.label,
+                            primary: q.jsx(K, { children: e.label }),
                             detailRight:
-                              e.deviceId === le
+                              e.deviceId === se
                                 ? q.jsx(
                                     o("WAWebCheckmarkIcon.react").CheckmarkIcon,
                                     { height: 16, width: 16 },
@@ -871,8 +896,8 @@ __d(
             ],
           });
         },
-        $e = (function () {
-          return be
+        Pe = (function () {
+          return ve
             ? s._(/*BTDS*/ "Allow microphone access to unmute")
             : i
               ? s._(/*BTDS*/ "Unmute microphone")
@@ -887,23 +912,23 @@ __d(
                 : "WDSIconIcKeyboardVoiceFilled.react",
             ),
             isMuted: i,
-            onMainClick: l != null ? Re : ke,
-            onDropdownClick: ke,
-            dropdownRef: fe,
+            onMainClick: l != null ? Le : Ie,
+            onDropdownClick: Ie,
+            dropdownRef: ge,
             testId: "mic-split-button",
-            disabled: ce || pe,
-            tooltipOwnerAnchorRef: Te,
-            tooltipOwnerDocument: De,
-            mainButtonLabel: $e,
+            disabled: de || _e,
+            tooltipOwnerAnchorRef: De,
+            tooltipOwnerDocument: xe,
+            mainButtonLabel: Pe,
             mainButtonTestId: i ? "mic-unmute" : "mic-mute",
             dropdownButtonLabel: s._(/*BTDS*/ "Audio settings"),
             dropdownButtonTestId: "audio-settings",
           }),
-          xe(),
+          $e(),
         ],
       });
     }
-    ((Q.displayName = Q.name + " [from " + i.id + "]"), (l.default = Q));
+    ((X.displayName = X.name + " [from " + i.id + "]"), (l.default = X));
   },
   226,
 );

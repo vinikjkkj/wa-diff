@@ -48,6 +48,7 @@ __d(
     "WDSIconWdsIcCalendarSearch.react",
     "WDSSearchBar.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebGetFeatureFlag",
     "useWAWebListener",
@@ -118,190 +119,357 @@ __d(
       T = [I.CHAT_MSG_SEARCH, I.NEW_CHAT_CONTACT_SEARCH, I.NEWSLETTER_SEARCH],
       D = function () {};
     function x(e) {
-      var t = e.icon,
-        n = e.iconContainerClass,
-        r = e.kind,
-        a = e.label,
-        i = e.onClick,
-        l = "chat_filter_" + (r || "");
-      return C.jsx(o("WAWebDropdownItem.react").DropdownItem, {
-        action: i,
-        testid: void 0,
-        children: C.jsxs("div", {
-          className:
-            "x9f619 x78zum5 x6s0dn4 x193iq5w x16ovd2e x1evaxtz x12xbjc7 xb0esv5 x6ikm8r x10wlt62 xhslqc4 x1ypdohk",
-          children: [
-            C.jsx("div", { className: n, children: t }),
-            C.jsx("div", {
-              className: "x150mmf0 x1f6kntn x1o2sk6j",
-              children: a,
-            }),
-          ],
-        }),
-      });
+      var t = o("react-compiler-runtime").c(14),
+        n = e.icon,
+        r = e.iconContainerClass,
+        a = e.kind,
+        i = e.label,
+        l = e.onClick,
+        s = "chat_filter_" + (a || ""),
+        u;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = {
+            className:
+              "x9f619 x78zum5 x6s0dn4 x193iq5w x16ovd2e x1evaxtz x12xbjc7 xb0esv5 x6ikm8r x10wlt62 xhslqc4 x1ypdohk",
+          }),
+          (t[0] = u))
+        : (u = t[0]);
+      var c;
+      t[1] !== n || t[2] !== r
+        ? ((c = C.jsx("div", { className: r, children: n })),
+          (t[1] = n),
+          (t[2] = r),
+          (t[3] = c))
+        : (c = t[3]);
+      var d;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = { className: "x150mmf0 x1f6kntn x1o2sk6j" }), (t[4] = d))
+        : (d = t[4]);
+      var m;
+      t[5] !== i
+        ? ((m = C.jsx("div", babelHelpers.extends({}, d, { children: i }))),
+          (t[5] = i),
+          (t[6] = m))
+        : (m = t[6]);
+      var p;
+      t[7] !== c || t[8] !== m
+        ? ((p = C.jsxs(
+            "div",
+            babelHelpers.extends({}, u, { children: [c, m] }),
+          )),
+          (t[7] = c),
+          (t[8] = m),
+          (t[9] = p))
+        : (p = t[9]);
+      var _;
+      return (
+        t[10] !== s || t[11] !== l || t[12] !== p
+          ? ((_ = C.jsx(o("WAWebDropdownItem.react").DropdownItem, {
+              action: l,
+              testid: void 0,
+              children: p,
+            })),
+            (t[10] = s),
+            (t[11] = l),
+            (t[12] = p),
+            (t[13] = _))
+          : (_ = t[13]),
+        _
+      );
     }
-    x.displayName = x.name + " [from " + i.id + "]";
     function $(e) {
-      var t = e.updateSearchFilter,
-        n = [];
-      (n.push(
-        C.jsx(
-          x,
-          {
-            icon: C.jsx(o("WAWebSearchUnreadIcon.react").SearchUnreadIcon, {
-              iconXstyle: k.icon,
-            }),
-            kind: o("WAWebChatSearchFilters").SearchFilters.UNREAD,
-            label: s._(/*BTDS*/ "Unread chats"),
-            onClick: function () {
-              return t({
-                kind: o("WAWebChatSearchFilters").SearchFilters.UNREAD,
-              });
-            },
-          },
-          "unread",
-        ),
-      ),
-        o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled() &&
-          n.push(
-            C.jsx(
+      var t = o("react-compiler-runtime").c(27),
+        n = e.updateSearchFilter,
+        a = [],
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = C.jsx(o("WAWebSearchUnreadIcon.react").SearchUnreadIcon, {
+            iconXstyle: k.icon,
+          })),
+          (t[0] = i))
+        : (i = t[0]);
+      var l;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(/*BTDS*/ "Unread chats")), (t[1] = l))
+        : (l = t[1]);
+      var u;
+      if (
+        (t[2] !== n
+          ? ((u = C.jsx(
               x,
               {
-                icon: C.jsx(o("WAWebContactsIcon.react").ContactsIcon, {
-                  iconXstyle: k.icon,
-                }),
-                kind: o("WAWebChatSearchFilters").SearchFilters.FAVORITES,
-                label: s._(/*BTDS*/ "Favorites"),
+                icon: i,
+                kind: o("WAWebChatSearchFilters").SearchFilters.UNREAD,
+                label: l,
                 onClick: function () {
-                  return t({
+                  return n({
+                    kind: o("WAWebChatSearchFilters").SearchFilters.UNREAD,
+                  });
+                },
+              },
+              "unread",
+            )),
+            (t[2] = n),
+            (t[3] = u))
+          : (u = t[3]),
+        a.push(u),
+        o("WAWebInboxFiltersGatingUtils").inboxFavoritesEnabled())
+      ) {
+        var c;
+        t[4] === Symbol.for("react.memo_cache_sentinel")
+          ? ((c = C.jsx(o("WAWebContactsIcon.react").ContactsIcon, {
+              iconXstyle: k.icon,
+            })),
+            (t[4] = c))
+          : (c = t[4]);
+        var d;
+        t[5] === Symbol.for("react.memo_cache_sentinel")
+          ? ((d = s._(/*BTDS*/ "Favorites")), (t[5] = d))
+          : (d = t[5]);
+        var m;
+        (t[6] !== n
+          ? ((m = C.jsx(
+              x,
+              {
+                icon: c,
+                kind: o("WAWebChatSearchFilters").SearchFilters.FAVORITES,
+                label: d,
+                onClick: function () {
+                  return n({
                     kind: o("WAWebChatSearchFilters").SearchFilters.FAVORITES,
                   });
                 },
               },
               "favorites",
-            ),
-          ));
-      var a = r("useWAWebGetFeatureFlag")(
+            )),
+            (t[6] = n),
+            (t[7] = m))
+          : (m = t[7]),
+          a.push(m));
+      }
+      var p = r("useWAWebGetFeatureFlag")(
         o("WAWebFeatureFlagName").FeatureFlagName.CHAT_ASSIGNMENT,
       ).enabled;
-      return (
-        a &&
-          n.push(
-            C.jsx(
+      if (p) {
+        var _, f;
+        t[8] === Symbol.for("react.memo_cache_sentinel")
+          ? ((_ = C.jsx(
+              o("WAWebChatAssignmentWithContainerIcon.react")
+                .ChatAssignmentWithContainerIcon,
+              { iconXstyle: k.icon },
+            )),
+            (f = "x1n2onr6 x1xf60ip"),
+            (t[8] = _),
+            (t[9] = f))
+          : ((_ = t[8]), (f = t[9]));
+        var g;
+        t[10] === Symbol.for("react.memo_cache_sentinel")
+          ? ((g = s._(/*BTDS*/ "Assigned to you")), (t[10] = g))
+          : (g = t[10]);
+        var h;
+        (t[11] !== n
+          ? ((h = C.jsx(
               x,
               {
-                icon: C.jsx(
-                  o("WAWebChatAssignmentWithContainerIcon.react")
-                    .ChatAssignmentWithContainerIcon,
-                  { iconXstyle: k.icon },
-                ),
-                iconContainerClass: "x1n2onr6 x1xf60ip",
+                icon: _,
+                iconContainerClass: f,
                 kind: o("WAWebChatSearchFilters").SearchFilters.ASSIGNED_TO_YOU,
-                label: s._(/*BTDS*/ "Assigned to you"),
+                label: g,
                 onClick: function () {
-                  return t({
+                  return n({
                     kind: o("WAWebChatSearchFilters").SearchFilters
                       .ASSIGNED_TO_YOU,
                   });
                 },
               },
               "assigned-to-you",
-            ),
-          ),
-        o("WAWebBizGatingUtils").smartFiltersEnabled() &&
-          n.push(
-            C.jsx(
+            )),
+            (t[11] = n),
+            (t[12] = h))
+          : (h = t[12]),
+          a.push(h));
+      }
+      if (o("WAWebBizGatingUtils").smartFiltersEnabled()) {
+        var y;
+        t[13] === Symbol.for("react.memo_cache_sentinel")
+          ? ((y = C.jsx(o("WAWebContactsIcon.react").ContactsIcon, {
+              iconXstyle: k.icon,
+            })),
+            (t[13] = y))
+          : (y = t[13]);
+        var b;
+        t[14] === Symbol.for("react.memo_cache_sentinel")
+          ? ((b = s._(/*BTDS*/ "Contacts")), (t[14] = b))
+          : (b = t[14]);
+        var v;
+        t[15] !== n
+          ? ((v = C.jsx(
               x,
               {
-                icon: C.jsx(o("WAWebContactsIcon.react").ContactsIcon, {
-                  iconXstyle: k.icon,
-                }),
+                icon: y,
                 kind: o("WAWebChatSearchFilters").SearchFilters.CONTACT,
-                label: s._(/*BTDS*/ "Contacts"),
+                label: b,
                 onClick: function () {
-                  return t({
+                  return n({
                     kind: o("WAWebChatSearchFilters").SearchFilters.CONTACT,
                   });
                 },
               },
               "contact",
-            ),
-            C.jsx(
+            )),
+            (t[15] = n),
+            (t[16] = v))
+          : (v = t[16]);
+        var S;
+        t[17] === Symbol.for("react.memo_cache_sentinel")
+          ? ((S = C.jsx(o("WAWebNonContactsIcon.react").NonContactsIcon, {
+              iconXstyle: k.icon,
+            })),
+            (t[17] = S))
+          : (S = t[17]);
+        var R;
+        t[18] === Symbol.for("react.memo_cache_sentinel")
+          ? ((R = s._(/*BTDS*/ "Non-contacts")), (t[18] = R))
+          : (R = t[18]);
+        var L;
+        (t[19] !== n
+          ? ((L = C.jsx(
               x,
               {
-                icon: C.jsx(o("WAWebNonContactsIcon.react").NonContactsIcon, {
-                  iconXstyle: k.icon,
-                }),
+                icon: S,
                 kind: o("WAWebChatSearchFilters").SearchFilters.NON_CONTACT,
-                label: s._(/*BTDS*/ "Non-contacts"),
+                label: R,
                 onClick: function () {
-                  return t({
+                  return n({
                     kind: o("WAWebChatSearchFilters").SearchFilters.NON_CONTACT,
                   });
                 },
               },
               "non_contact",
-            ),
-          ),
-        n.push(
-          C.jsx(
+            )),
+            (t[19] = n),
+            (t[20] = L))
+          : (L = t[20]),
+          a.push(v, L));
+      }
+      var E;
+      t[21] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = C.jsx(o("WAWebGroupIcon.react").GroupIcon, {
+            iconXstyle: k.icon,
+          })),
+          (t[21] = E))
+        : (E = t[21]);
+      var I;
+      t[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = s._(/*BTDS*/ "Groups")), (t[22] = I))
+        : (I = t[22]);
+      var T;
+      (t[23] !== n
+        ? ((T = C.jsx(
             x,
             {
-              icon: C.jsx(o("WAWebGroupIcon.react").GroupIcon, {
-                iconXstyle: k.icon,
-              }),
+              icon: E,
               kind: o("WAWebChatSearchFilters").SearchFilters.GROUP,
-              label: s._(/*BTDS*/ "Groups"),
+              label: I,
               onClick: function () {
-                return t({
+                return n({
                   kind: o("WAWebChatSearchFilters").SearchFilters.GROUP,
                 });
               },
             },
             "group",
-          ),
-        ),
-        [
-          C.jsx(
-            "div",
-            {
-              className: "x889kno xsfy40s x1a8lsjc x13jy36j x14ug900",
-              children: s._(/*BTDS*/ "Chats"),
-            },
-            "chat_filter_kind_header",
-          ),
-        ].concat(n)
+          )),
+          (t[23] = n),
+          (t[24] = T))
+        : (T = t[24]),
+        a.push(T));
+      var D;
+      t[25] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = { className: "x889kno xsfy40s x1a8lsjc x13jy36j x14ug900" }),
+          (t[25] = D))
+        : (D = t[25]);
+      var $;
+      return (
+        t[26] === Symbol.for("react.memo_cache_sentinel")
+          ? (($ = C.createElement(
+              "div",
+              babelHelpers.extends({}, D, { key: "chat_filter_kind_header" }),
+              s._(/*BTDS*/ "Chats"),
+            )),
+            (t[26] = $))
+          : ($ = t[26]),
+        [$].concat(a)
       );
     }
-    $.displayName = $.name + " [from " + i.id + "]";
     function P(e) {
-      var t = e.active,
-        n = e.onClick,
-        r = o("WAWebConnModel").Conn.isSMB
-          ? s._(/*BTDS*/ "Chat filters menu")
-          : s._(/*BTDS*/ "Unread chats filter");
-      return C.jsx("button", {
-        "aria-label": r,
-        "aria-pressed": t,
-        "data-tab": o("WAWebTabOrder").TAB_ORDER.CHAT_LIST_FILTER,
-        onClick: n,
-        title: r,
-        className: "xdj266r xqf2s3x xat24cr x150mmf0",
-        children: C.jsx(o("WAWebFlex.react").FlexRow, {
-          align: "center",
-          className: {
+      var t = o("react-compiler-runtime").c(11),
+        n = e.active,
+        r = e.onClick,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = o("WAWebConnModel").Conn.isSMB
+            ? s._(/*BTDS*/ "Chat filters menu")
+            : s._(/*BTDS*/ "Unread chats filter")),
+          (t[0] = a))
+        : (a = t[0]);
+      var i = a,
+        l;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = { className: "xdj266r xqf2s3x xat24cr x150mmf0" }), (t[1] = l))
+        : (l = t[1]);
+      var u;
+      t[2] !== n
+        ? ((u = {
             0: "x23j0i4 xd7y6wv xhslqc4 x1c9tyrk xeusxvb x1pahc9y x1ertn4p",
             1: "x23j0i4 xd7y6wv x1c9tyrk xeusxvb x1pahc9y x1ertn4p x67lv5d xa9qhua",
-          }[!!t << 0],
-          justify: "center",
-          children: C.jsx(o("WAWebFilterIcon.react").FilterIcon, {
+          }[!!n << 0]),
+          (t[2] = n),
+          (t[3] = u))
+        : (u = t[3]);
+      var c;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = C.jsx(o("WAWebFilterIcon.react").FilterIcon, {
             height: 20,
             width: 20,
-          }),
-        }),
-      });
+          })),
+          (t[4] = c))
+        : (c = t[4]);
+      var d;
+      t[5] !== u
+        ? ((d = C.jsx(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            className: u,
+            justify: "center",
+            children: c,
+          })),
+          (t[5] = u),
+          (t[6] = d))
+        : (d = t[6]);
+      var m;
+      return (
+        t[7] !== n || t[8] !== r || t[9] !== d
+          ? ((m = C.jsx(
+              "button",
+              babelHelpers.extends(
+                {
+                  "aria-label": i,
+                  "aria-pressed": n,
+                  "data-tab": o("WAWebTabOrder").TAB_ORDER.CHAT_LIST_FILTER,
+                  onClick: r,
+                  title: i,
+                },
+                l,
+                { children: d },
+              ),
+            )),
+            (t[7] = n),
+            (t[8] = r),
+            (t[9] = d),
+            (t[10] = m))
+          : (m = t[10]),
+        m
+      );
     }
-    P.displayName = P.name + " [from " + i.id + "]";
     function N(t) {
       var n,
         a = t.ref,

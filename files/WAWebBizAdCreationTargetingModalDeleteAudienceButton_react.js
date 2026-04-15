@@ -6,6 +6,7 @@ __d(
     "WAWebBizAdLogger",
     "WDSButton.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -15,33 +16,52 @@ __d(
       d = c.useCallback,
       m = c.useContext;
     function p(e) {
-      var t = e.adAccountID,
-        n = e.audienceID,
-        o = e.onNavigateToDeleteConfirmation,
-        a = m(r("WAWebBizAdCreationLoggerContext")),
-        i = d(
-          function () {
-            n != null &&
-              (a != null &&
+      var t = o("react-compiler-runtime").c(8),
+        n = e.adAccountID,
+        a = e.audienceID,
+        i = e.onNavigateToDeleteConfirmation,
+        l = m(r("WAWebBizAdCreationLoggerContext")),
+        c;
+      t[0] !== n || t[1] !== a || t[2] !== l || t[3] !== i
+        ? ((c = function () {
+            a != null &&
+              (l != null &&
                 r("WAWebBizAdLogger").log({
                   event: "delete_audience_click",
-                  loggerContext: a,
-                  adAccountID: t,
-                  extra: { audience_id: n },
+                  loggerContext: l,
+                  adAccountID: n,
+                  extra: { audience_id: a },
                 }),
-              o());
-          },
-          [t, n, a, o],
-        );
-      return u.jsx(r("WDSButton.react"), {
-        label: s._(/*BTDS*/ "Delete audience"),
-        variant: "outline",
-        size: "medium",
-        type: "destructive",
-        onPress: i,
-      });
+              i());
+          }),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = l),
+          (t[3] = i),
+          (t[4] = c))
+        : (c = t[4]);
+      var d = c,
+        p;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = s._(/*BTDS*/ "Delete audience")), (t[5] = p))
+        : (p = t[5]);
+      var _;
+      return (
+        t[6] !== d
+          ? ((_ = u.jsx(r("WDSButton.react"), {
+              label: p,
+              variant: "outline",
+              size: "medium",
+              type: "destructive",
+              onPress: d,
+            })),
+            (t[6] = d),
+            (t[7] = _))
+          : (_ = t[7]),
+        _
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

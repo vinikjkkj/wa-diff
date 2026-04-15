@@ -23,6 +23,7 @@ __d(
     "WAWebVelocityTransitionGroup",
     "WAWebWamEnumWebcRmrReasonCode",
     "react",
+    "react-compiler-runtime",
     "useWAWebAsync",
     "useWAWebListener",
     "useWAWebModelValues",
@@ -207,41 +208,58 @@ __d(
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = e.msg,
-        n = o("useWAWebMsgValues").useMsgValues(t.id, [
-          o("WAWebFrontendMsgGetters").getMediaData,
-        ]),
-        r = n[0],
-        a = o("useWAWebModelValues").useModelValues(r, [
-          "preview",
-          "fullPreviewData",
-        ]),
-        i = a.fullPreviewData,
-        l = a.preview;
-      d(
-        function () {
-          t.downloadMedia({
-            downloadEvenIfExpensive: !1,
-            isUserInitiated: !1,
-            rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
-              .OTHER,
-          });
-        },
-        [t],
+      var t = o("react-compiler-runtime").c(7),
+        n = e.msg,
+        r;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((r = [o("WAWebFrontendMsgGetters").getMediaData]), (t[0] = r))
+        : (r = t[0]);
+      var a = o("useWAWebMsgValues").useMsgValues(n.id, r),
+        i = a[0],
+        l;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = ["preview", "fullPreviewData"]), (t[1] = l))
+        : (l = t[1]);
+      var s = o("useWAWebModelValues").useModelValues(i, l),
+        u = s.fullPreviewData,
+        m = s.preview,
+        _,
+        f;
+      (t[2] !== n
+        ? ((_ = function () {
+            n.downloadMedia({
+              downloadEvenIfExpensive: !1,
+              isUserInitiated: !1,
+              rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+                .OTHER,
+            });
+          }),
+          (f = [n]),
+          (t[2] = n),
+          (t[3] = _),
+          (t[4] = f))
+        : ((_ = t[3]), (f = t[4])),
+        d(_, f));
+      var g = m != null || u != null;
+      if (!g) return null;
+      var h;
+      return (
+        t[5] !== i
+          ? ((h = c.jsx(o("WAWebFlex.react").FlexItem, {
+              xstyle: p.mediaPreview,
+              children: c.jsx(
+                o("WAWebMediaMsgPreview.react").MediaMsgPreview,
+                { mediaData: i },
+                "media-preview",
+              ),
+            })),
+            (t[5] = i),
+            (t[6] = h))
+          : (h = t[6]),
+        h
       );
-      var s = l != null || i != null;
-      return s
-        ? c.jsx(o("WAWebFlex.react").FlexItem, {
-            xstyle: p.mediaPreview,
-            children: c.jsx(
-              o("WAWebMediaMsgPreview.react").MediaMsgPreview,
-              { mediaData: r },
-              "media-preview",
-            ),
-          })
-        : null;
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   98,
 );

@@ -4,6 +4,7 @@ __d(
     "WAWebBox.react",
     "WAWebDocumentFileIcon",
     "react",
+    "react-compiler-runtime",
     "useWAWebDocumentMediaType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -65,26 +66,48 @@ __d(
     function d(e) {
       var t,
         n,
-        o,
-        a = e.mediaData,
-        i = r("useWAWebDocumentMediaType")({
-          mimetype: a.mimetype,
-          filename: a.filename,
-        }),
-        l = c[(t = i.mime) != null ? t : ""];
-      return s.jsx(r("WAWebBox.react"), {
-        xstyle: [u.box, l],
-        children: s.jsx(r("WAWebDocumentFileIcon"), {
-          fontSize: 6,
-          width: 20,
-          height: 20,
-          xstyle: u.flex,
-          mimeType: (n = i.mime) != null ? n : "",
-          ext: (o = i.ext) != null ? o : "",
-        }),
-      });
+        a,
+        i = o("react-compiler-runtime").c(11),
+        l = e.mediaData,
+        d;
+      i[0] !== l.filename || i[1] !== l.mimetype
+        ? ((d = { mimetype: l.mimetype, filename: l.filename }),
+          (i[0] = l.filename),
+          (i[1] = l.mimetype),
+          (i[2] = d))
+        : (d = i[2]);
+      var m = r("useWAWebDocumentMediaType")(d),
+        p = c[(t = m.mime) != null ? t : ""],
+        _;
+      i[3] !== p ? ((_ = [u.box, p]), (i[3] = p), (i[4] = _)) : (_ = i[4]);
+      var f = (n = m.mime) != null ? n : "",
+        g = (a = m.ext) != null ? a : "",
+        h;
+      i[5] !== f || i[6] !== g
+        ? ((h = s.jsx(r("WAWebDocumentFileIcon"), {
+            fontSize: 6,
+            width: 20,
+            height: 20,
+            xstyle: u.flex,
+            mimeType: f,
+            ext: g,
+          })),
+          (i[5] = f),
+          (i[6] = g),
+          (i[7] = h))
+        : (h = i[7]);
+      var y;
+      return (
+        i[8] !== _ || i[9] !== h
+          ? ((y = s.jsx(r("WAWebBox.react"), { xstyle: _, children: h })),
+            (i[8] = _),
+            (i[9] = h),
+            (i[10] = y))
+          : (y = i[10]),
+        y
+      );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   98,
 );

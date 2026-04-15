@@ -2803,7 +2803,7 @@ __d(
         : null;
     }
     function Qo(e) {
-      Hd();
+      Hd(!1);
       for (var t = e.return; t !== null; ) ((e = t), (t = e.return));
       return e.tag === 3 ? e.stateNode : null;
     }
@@ -9039,7 +9039,7 @@ __d(
         (e.indicatorLanes |= t & 4194048),
         t !== 268435456 &&
           ((e.suspendedLanes = 0), (e.pingedLanes = 0), (e.warmLanes = 0)),
-        f && (cc & 2 ? (Tc = !0) : cc & 4 && (Dc = !0), Hd()));
+        f && (cc & 2 ? (Tc = !0) : cc & 4 && (Dc = !0), Hd(!0)));
     }
     function sd(e, t, n, r) {
       (D && (t = Le(e, t)),
@@ -9739,7 +9739,7 @@ __d(
       (r !== null && r.delete(t),
         (e.pingedLanes |= e.suspendedLanes & n),
         (e.warmLanes &= ~n),
-        f && (cc & 2 ? (Tc = !0) : cc & 4 && (Dc = !0), Hd()),
+        f && (cc & 2 ? (Tc = !0) : cc & 4 && (Dc = !0), Hd(!0)),
         dc === e &&
           (pc & n) === n &&
           ((bc === 4 ||
@@ -9778,12 +9778,12 @@ __d(
       }
       (r !== null && r.delete(t), qd(e, n));
     }
-    function Hd() {
+    function Hd(e) {
       if (50 < Yc) {
         ((Yc = 0), (Jc = null));
-        var e = Zc;
+        var t = Zc;
         if (((Zc = 0), f)) {
-          if (e === 1 && !(cc & 2 && dc !== null)) throw Error(c(185));
+          if (t === 1 && !(e || (cc & 2 && dc !== null))) throw Error(c(185));
         } else throw Error(c(185));
       }
     }
@@ -14470,8 +14470,8 @@ __d(
       if (typeof t == "string") return t === "use-credentials" ? t : "";
     }
     var Xh = s.version;
-    if (Xh !== "19.3.0-www-classic-705268dc-20260409")
-      throw Error(c(527, Xh, "19.3.0-www-classic-705268dc-20260409"));
+    if (Xh !== "19.3.0-www-classic-fef12a01-20260413")
+      throw Error(c(527, Xh, "19.3.0-www-classic-fef12a01-20260413"));
     ((Fe.findDOMNode = function (e) {
       return sm(e);
     }),
@@ -14487,10 +14487,10 @@ __d(
       ]));
     var Yh = {
       bundleType: 0,
-      version: "19.3.0-www-classic-705268dc-20260409",
+      version: "19.3.0-www-classic-fef12a01-20260413",
       rendererPackageName: "react-dom",
       currentDispatcherRef: X,
-      reconcilerVersion: "19.3.0-www-classic-705268dc-20260409",
+      reconcilerVersion: "19.3.0-www-classic-fef12a01-20260413",
     };
     if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ != "undefined") {
       var Jh = __REACT_DEVTOOLS_GLOBAL_HOOK__;
@@ -14835,7 +14835,7 @@ __d(
       (i.useFormStatus = function () {
         return X.H.useHostTransitionStatus();
       }),
-      (i.version = "19.3.0-www-classic-705268dc-20260409"));
+      (i.version = "19.3.0-www-classic-fef12a01-20260413"));
   },
   null,
 );

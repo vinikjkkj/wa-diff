@@ -6,6 +6,7 @@ __d(
     "WAWebBizAdCreationSAFRContext",
     "WAWebBizAdCreationSAFRContextProvider_boostedComponentWrapper.graphql",
     "react",
+    "react-compiler-runtime",
     "useLWISAFRData",
     "withWAWebBizAdCreationSpecContext",
   ],
@@ -18,39 +19,49 @@ __d(
       d = c.useMemo,
       m = c.useState;
     function p(t) {
-      var a = t.boostedComponentWrapperRef,
-        i = t.children,
-        l = t.canSeeSAFRV3,
-        s = t.regulatedCategories,
-        c = o("CometRelay").useFragment(
+      var a = o("react-compiler-runtime").c(5),
+        i = t.boostedComponentWrapperRef,
+        l = t.children,
+        s = t.canSeeSAFRV3,
+        c = t.regulatedCategories,
+        d = o("CometRelay").useFragment(
           e !== void 0
             ? e
             : (e = n(
                 "WAWebBizAdCreationSAFRContextProvider_boostedComponentWrapper.graphql",
               )),
-          a,
+          i,
         ),
-        p = c.safr_data;
+        p = d.safr_data;
       if (p == null)
         throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
           "SAFR Data under boosted component node should not be empty",
         );
-      var _ = r("useLWISAFRData")(p, s, l),
+      var _ = r("useLWISAFRData")(p, c, s),
         f = m(_),
         g = f[0],
         h = f[1],
-        y = d(
-          function () {
-            return babelHelpers.extends({}, g, { setConfig: h });
-          },
-          [g],
-        );
-      return u.jsx(r("WAWebBizAdCreationSAFRContext").Provider, {
-        value: y,
-        children: i,
-      });
+        y;
+      a[0] !== g
+        ? ((y = babelHelpers.extends({}, g, { setConfig: h })),
+          (a[0] = g),
+          (a[1] = y))
+        : (y = a[1]);
+      var C = y,
+        b;
+      return (
+        a[2] !== l || a[3] !== C
+          ? ((b = u.jsx(r("WAWebBizAdCreationSAFRContext").Provider, {
+              value: C,
+              children: l,
+            })),
+            (a[2] = l),
+            (a[3] = C),
+            (a[4] = b))
+          : (b = a[4]),
+        b
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     var _ = r("withWAWebBizAdCreationSpecContext")(p, function (e) {
       var t;
       return {

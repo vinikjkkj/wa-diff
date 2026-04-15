@@ -12,6 +12,7 @@ __d(
     "WAWebUISpacing",
     "WAWebWdsSmbPictoReceiptAndroidIcon.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebGetOrderRequests",
   ],
@@ -71,86 +72,146 @@ __d(
         });
       };
     function h(e) {
-      var t = e.onBack,
-        n = e.ref,
-        a = p(null),
-        i = o("useWAWebGetOrderRequests").useGetOrderRequests(a, _),
-        l = i.isLoading,
-        u = i.ordersInfoMap.contactAndOrderRequestInfoMap,
-        d = i.ordersLazylist;
-      return c.jsxs(r("WAWebDrawer.react"), {
-        ref: n,
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "biz-order-request-management",
-        },
-        children: [
-          c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            title: s._(/*BTDS*/ "Order requests"),
+      var t = o("react-compiler-runtime").c(21),
+        n = e.onBack,
+        a = e.ref,
+        i = p(null),
+        l = o("useWAWebGetOrderRequests").useGetOrderRequests(i, _),
+        u = l.isLoading,
+        d = l.ordersInfoMap,
+        f = l.ordersLazylist,
+        h = d.contactAndOrderRequestInfoMap,
+        C;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = {
+            surface: "unknown",
+            viewName: "biz-order-request-management",
+          }),
+          (t[0] = C))
+        : (C = t[0]);
+      var b;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = s._(/*BTDS*/ "Order requests")), (t[1] = b))
+        : (b = t[1]);
+      var v;
+      t[2] !== n
+        ? ((v = c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+            title: b,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-            onBack: t,
-          }),
-          c.jsxs(r("WAWebDrawerBody.react"), {
-            ref: a,
-            className: "x1280gxy x5yr21d xw2csxc x1odjw0f",
-            children: [
-              d.map(function (e, t) {
-                return c.jsxs(
-                  m,
-                  {
-                    children: [
-                      c.jsx(y, {
-                        date: o("WAWebOrderRequestFetcher").getOrderDisplayDate(
-                          u,
-                          d,
-                          t,
-                        ),
-                      }),
-                      c.jsx(r("WAWebOrderRequestDetail.react"), {
-                        contactAndOrderInfo: u[e],
-                      }),
-                    ],
-                  },
-                  e,
-                );
-              }),
-              l &&
-                c.jsx(o("WAWebFlex.react").FlexRow, {
-                  justify: "center",
-                  xstyle: o("WAWebUISpacing").uiPadding.all16,
-                  children: c.jsx(o("WAWebSpinner.react").Spinner, {
-                    color: "default",
-                    size: 24,
-                    stroke: 6,
+            onBack: n,
+          })),
+          (t[2] = n),
+          (t[3] = v))
+        : (v = t[3]);
+      var S;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = "x1280gxy x5yr21d xw2csxc x1odjw0f"), (t[4] = S))
+        : (S = t[4]);
+      var R;
+      t[5] !== h || t[6] !== f
+        ? ((R = f.map(function (e, t) {
+            return c.jsxs(
+              m,
+              {
+                children: [
+                  c.jsx(y, {
+                    date: o("WAWebOrderRequestFetcher").getOrderDisplayDate(
+                      h,
+                      f,
+                      t,
+                    ),
                   }),
-                }),
-              !l && !d.length && c.jsx(g, {}),
-            ],
-          }),
-        ],
-      });
-    }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y(t) {
-      var n = t.date,
-        a = n === void 0 ? "" : n;
+                  c.jsx(r("WAWebOrderRequestDetail.react"), {
+                    contactAndOrderInfo: h[e],
+                  }),
+                ],
+              },
+              e,
+            );
+          })),
+          (t[5] = h),
+          (t[6] = f),
+          (t[7] = R))
+        : (R = t[7]);
+      var L;
+      t[8] !== u
+        ? ((L =
+            u &&
+            c.jsx(o("WAWebFlex.react").FlexRow, {
+              justify: "center",
+              xstyle: o("WAWebUISpacing").uiPadding.all16,
+              children: c.jsx(o("WAWebSpinner.react").Spinner, {
+                color: "default",
+                size: 24,
+                stroke: 6,
+              }),
+            })),
+          (t[8] = u),
+          (t[9] = L))
+        : (L = t[9]);
+      var E;
+      t[10] !== u || t[11] !== f.length
+        ? ((E = !u && !f.length && c.jsx(g, {})),
+          (t[10] = u),
+          (t[11] = f.length),
+          (t[12] = E))
+        : (E = t[12]);
+      var k;
+      t[13] !== R || t[14] !== L || t[15] !== E
+        ? ((k = c.jsxs(r("WAWebDrawerBody.react"), {
+            ref: i,
+            className: S,
+            children: [R, L, E],
+          })),
+          (t[13] = R),
+          (t[14] = L),
+          (t[15] = E),
+          (t[16] = k))
+        : (k = t[16]);
+      var I;
       return (
-        a &&
-        c.jsx(
-          "div",
-          babelHelpers.extends(
-            {},
-            (e || (e = r("stylex"))).props(
-              f.infoRow,
-              o("WAWebUISpacing").uiPadding.horiz16,
-              o("WAWebUISpacing").uiPadding.vert10,
-            ),
-            { children: a.toUpperCase() },
-          ),
-        )
+        t[17] !== a || t[18] !== v || t[19] !== k
+          ? ((I = c.jsxs(r("WAWebDrawer.react"), {
+              ref: a,
+              tsNavigationData: C,
+              children: [v, k],
+            })),
+            (t[17] = a),
+            (t[18] = v),
+            (t[19] = k),
+            (t[20] = I))
+          : (I = t[20]),
+        I
       );
     }
-    ((y.displayName = y.name + " [from " + i.id + "]"), (l.default = h));
+    function y(t) {
+      var n = o("react-compiler-runtime").c(2),
+        a = t.date,
+        i = a === void 0 ? "" : a,
+        l;
+      return (
+        n[0] !== i
+          ? ((l =
+              i &&
+              c.jsx(
+                "div",
+                babelHelpers.extends(
+                  {},
+                  (e || (e = r("stylex"))).props(
+                    f.infoRow,
+                    o("WAWebUISpacing").uiPadding.horiz16,
+                    o("WAWebUISpacing").uiPadding.vert10,
+                  ),
+                  { children: i.toUpperCase() },
+                ),
+              )),
+            (n[0] = i),
+            (n[1] = l))
+          : (l = n[1]),
+        l
+      );
+    }
+    l.default = h;
   },
   226,
 );

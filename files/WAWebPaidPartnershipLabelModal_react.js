@@ -21,6 +21,7 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -105,81 +106,146 @@ __d(
       );
     }
     function f(e) {
-      var t = e.msg,
-        n = e.onClose,
-        a = t.isNewsletterStatus === !0,
-        i = a ? "STATUS" : "MESSAGE",
-        l = function () {
-          (o("WAWebModalManager").ModalManager.close(), n == null || n());
-        },
-        u = function () {
-          if (!r("WAWebNetworkStatus").online) {
-            (_(t, i), l());
-            return;
-          }
-          (m(t, i), l());
-        },
-        p = c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-          href: o("WAWebFaqUrl").getPaidPartnershipLabelFaqUrl(),
-          children: s._(/*BTDS*/ "Learn more"),
-        });
-      return c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "paid-partnership-label",
-        },
-        type: a ? o("WAWebModal.react").ModalTheme.StatusReport : void 0,
-        onOK: u,
-        okText: s._(/*BTDS*/ "Add label"),
-        onCancel: l,
-        buttonWidth: "hug",
-        children: c.jsxs(o("WAWebFlex.react").FlexColumn, {
-          align: "center",
-          children: [
-            c.jsx(
-              o("WAWebWdsPictoMegaphoneAdsIcon.react").WdsPictoMegaphoneAdsIcon,
-              { height: 64, width: 64, xstyle: d.icon },
-            ),
-            c.jsx(r("WDSText.react"), {
-              type: "Headline1",
-              colorName: "contentDefault",
-              xstyle: d.titleText,
-              children: a
-                ? s._(/*BTDS*/ "Label your status as paid partnership")
-                : s._(/*BTDS*/ "Label your update as paid partnership"),
-            }),
-            c.jsxs("div", {
-              className: "x78zum5 xdt5ytf x6s0dn4 x1j3ira4",
-              children: [
-                c.jsx(r("WDSText.react"), {
-                  type: "Body1",
-                  colorName: "contentDeemphasized",
-                  xstyle: d.centeredText,
-                  children: a
-                    ? s._(
-                        /*BTDS*/ "Only add this label to let followers know when a brand or business has compensated you to share a status. {learnMoreLink}",
-                        [s._param("learnMoreLink", p)],
-                      )
-                    : s._(
-                        /*BTDS*/ "Only add this label to let followers know when a brand or business has compensated you to share an update. {learnMoreLink}",
-                        [s._param("learnMoreLink", p)],
-                      ),
-                }),
-                c.jsx(r("WDSText.react"), {
-                  type: "Body2",
-                  colorName: "contentDeemphasized",
-                  xstyle: d.centeredText,
-                  children: s._(
-                    /*BTDS*/ "Once added, this label can't be removed.",
-                  ),
-                }),
-              ],
-            }),
-          ],
-        }),
-      });
+      var t = o("react-compiler-runtime").c(26),
+        n = e.msg,
+        a = e.onClose,
+        i = n.isNewsletterStatus === !0,
+        l = i ? "STATUS" : "MESSAGE",
+        u;
+      t[0] !== a
+        ? ((u = function () {
+            (o("WAWebModalManager").ModalManager.close(), a == null || a());
+          }),
+          (t[0] = a),
+          (t[1] = u))
+        : (u = t[1]);
+      var p = u,
+        f;
+      t[2] !== p || t[3] !== l || t[4] !== n
+        ? ((f = function () {
+            if (!r("WAWebNetworkStatus").online) {
+              (_(n, l), p());
+              return;
+            }
+            (m(n, l), p());
+          }),
+          (t[2] = p),
+          (t[3] = l),
+          (t[4] = n),
+          (t[5] = f))
+        : (f = t[5]);
+      var g = f,
+        h;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+            href: o("WAWebFaqUrl").getPaidPartnershipLabelFaqUrl(),
+            children: s._(/*BTDS*/ "Learn more"),
+          })),
+          (t[6] = h))
+        : (h = t[6]);
+      var y = h,
+        C;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = { surface: "unknown", viewName: "paid-partnership-label" }),
+          (t[7] = C))
+        : (C = t[7]);
+      var b = i ? o("WAWebModal.react").ModalTheme.StatusReport : void 0,
+        v;
+      t[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = s._(/*BTDS*/ "Add label")), (t[8] = v))
+        : (v = t[8]);
+      var S;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = c.jsx(
+            o("WAWebWdsPictoMegaphoneAdsIcon.react").WdsPictoMegaphoneAdsIcon,
+            { height: 64, width: 64, xstyle: d.icon },
+          )),
+          (t[9] = S))
+        : (S = t[9]);
+      var R;
+      t[10] !== i
+        ? ((R = c.jsx(r("WDSText.react"), {
+            type: "Headline1",
+            colorName: "contentDefault",
+            xstyle: d.titleText,
+            children: i
+              ? s._(/*BTDS*/ "Label your status as paid partnership")
+              : s._(/*BTDS*/ "Label your update as paid partnership"),
+          })),
+          (t[10] = i),
+          (t[11] = R))
+        : (R = t[11]);
+      var L;
+      t[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = "x78zum5 xdt5ytf x6s0dn4 x1j3ira4"), (t[12] = L))
+        : (L = t[12]);
+      var E;
+      t[13] !== i
+        ? ((E = c.jsx(r("WDSText.react"), {
+            type: "Body1",
+            colorName: "contentDeemphasized",
+            xstyle: d.centeredText,
+            children: i
+              ? s._(
+                  /*BTDS*/ "Only add this label to let followers know when a brand or business has compensated you to share a status. {learnMoreLink}",
+                  [s._param("learnMoreLink", y)],
+                )
+              : s._(
+                  /*BTDS*/ "Only add this label to let followers know when a brand or business has compensated you to share an update. {learnMoreLink}",
+                  [s._param("learnMoreLink", y)],
+                ),
+          })),
+          (t[13] = i),
+          (t[14] = E))
+        : (E = t[14]);
+      var k;
+      t[15] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = c.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDeemphasized",
+            xstyle: d.centeredText,
+            children: s._(/*BTDS*/ "Once added, this label can't be removed."),
+          })),
+          (t[15] = k))
+        : (k = t[15]);
+      var I;
+      t[16] !== E
+        ? ((I = c.jsxs("div", { className: L, children: [E, k] })),
+          (t[16] = E),
+          (t[17] = I))
+        : (I = t[17]);
+      var T;
+      t[18] !== I || t[19] !== R
+        ? ((T = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            align: "center",
+            children: [S, R, I],
+          })),
+          (t[18] = I),
+          (t[19] = R),
+          (t[20] = T))
+        : (T = t[20]);
+      var D;
+      return (
+        t[21] !== p || t[22] !== g || t[23] !== T || t[24] !== b
+          ? ((D = c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+              tsNavigationData: C,
+              type: b,
+              onOK: g,
+              okText: v,
+              onCancel: p,
+              buttonWidth: "hug",
+              children: T,
+            })),
+            (t[21] = p),
+            (t[22] = g),
+            (t[23] = T),
+            (t[24] = b),
+            (t[25] = D))
+          : (D = t[25]),
+        D
+      );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    l.default = f;
   },
   226,
 );

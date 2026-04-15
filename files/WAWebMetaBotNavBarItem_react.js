@@ -17,7 +17,6 @@ __d(
     "WAWebNavBarTypes",
     "WAWebOpenMetaAIHomeAction",
     "WAWebThreadJourneyLogger",
-    "WAWebUISpacing",
     "WAWebWamEnumMetaAiActionEntryPoint",
     "WAWebWamEnumWebcNavbarItemLabel",
     "asyncToGeneratorRuntime",
@@ -36,7 +35,7 @@ __d(
       g = _,
       h = g.useEffect,
       y = g.useRef,
-      C = { iconWrapper: { width: "x17z2i9w", height: "x17rw0jw", $$css: !0 } };
+      C = { iconWrapper: { width: "xvy4d1p", height: "xxk0z11", $$css: !0 } };
     function b(t) {
       var a = t.activeNavBarItem,
         i = t.updateActiveNavBarItem,
@@ -167,7 +166,6 @@ __d(
             xstyle: C.iconWrapper,
             children: f.jsx(r("WAWebMetaAIIcon.react"), {}),
           }),
-          spacingXstyle: o("WAWebUISpacing").uiPadding.all9,
           title: b,
           testid: void 0,
           isActive: a === o("WAWebNavBarTypes").NavBarItems.MetaAI,
@@ -181,10 +179,11 @@ __d(
       return r("useWAWebEventTargetValue")(
         o("WAWebCmd").Cmd,
         "on_ab_props_update_from_bridge",
-        function () {
-          return o("WAWebBotGating").isBotShortcutEntryPointEnabled();
-        },
+        S,
       );
+    }
+    function S() {
+      return o("WAWebBotGating").isBotShortcutEntryPointEnabled();
     }
     l.MetaBotNavBarItem = b;
   },

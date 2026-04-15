@@ -47,6 +47,7 @@ __d(
           .map(function (e) {
             return {
               itemKey: "pending-" + e.id.toJid(),
+              adminProfile: null,
               contact: e,
               height: c,
               role: null,

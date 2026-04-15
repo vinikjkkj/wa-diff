@@ -13,23 +13,42 @@ __d(
     "WAWebText.react",
     "WAWebWamEnumActionTarget",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = e.metric,
-        n = t.description,
-        r = t.name;
-      return u.jsxs(o("WAWebFlex.react").FlexColumn, {
-        children: [
-          u.jsx(o("WAWebText.react").WAWebTextLarge, { children: r }),
-          u.jsx(o("WAWebText.react").WAWebTextMuted, { children: n }),
-        ],
-      });
+      var t = o("react-compiler-runtime").c(7),
+        n = e.metric,
+        r = n.description,
+        a = n.name,
+        i;
+      t[0] !== a
+        ? ((i = u.jsx(o("WAWebText.react").WAWebTextLarge, { children: a })),
+          (t[0] = a),
+          (t[1] = i))
+        : (i = t[1]);
+      var l;
+      t[2] !== r
+        ? ((l = u.jsx(o("WAWebText.react").WAWebTextMuted, { children: r })),
+          (t[2] = r),
+          (t[3] = l))
+        : (l = t[3]);
+      var s;
+      return (
+        t[4] !== i || t[5] !== l
+          ? ((s = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+              children: [i, l],
+            })),
+            (t[4] = i),
+            (t[5] = l),
+            (t[6] = s))
+          : (s = t[6]),
+        s
+      );
     }
-    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
       var t = e.lastUpdated,
         n = e.logger,

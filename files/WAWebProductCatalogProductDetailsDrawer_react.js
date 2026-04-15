@@ -46,6 +46,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUtilsLogQplEvents",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebForceUpdate",
     "useWAWebListener",
@@ -114,83 +115,151 @@ __d(
         body: { flex: "x1okw0bk", $$css: !0 },
       };
     function I(e) {
-      var t = e.isAvailable,
-        n = e.productCatalogFetchState,
-        a = e.productFetchState,
-        i = e.productSanctioned,
-        l;
-      a === "ERROR" || a === "TOKEN_RECOVERY_REQUIRED"
-        ? (l = C.jsx(o("WAWebText.react").WAWebTextSmall, {
-            as: "span",
-            xstyle: [k.text, o("WAWebUISpacing").uiMargin.horiz10],
-            color: "critical",
-            children: s._(/*BTDS*/ "Something went wrong"),
-          }))
-        : t
-          ? (l = [
-              C.jsx(
-                o("WAWebSpinner.react").Spinner,
-                { size: 14, color: "highlight" },
-                "DetailDrawer-loadingBar-spinner",
-              ),
+      var t = o("react-compiler-runtime").c(14),
+        n = e.isAvailable,
+        a = e.productCatalogFetchState,
+        i = e.productFetchState,
+        l = e.productSanctioned,
+        u;
+      if (i === "ERROR" || i === "TOKEN_RECOVERY_REQUIRED") {
+        var c;
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((c = [k.text, o("WAWebUISpacing").uiMargin.horiz10]), (t[0] = c))
+          : (c = t[0]);
+        var d;
+        (t[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((d = C.jsx(o("WAWebText.react").WAWebTextSmall, {
+              as: "span",
+              xstyle: c,
+              color: "critical",
+              children: s._(/*BTDS*/ "Something went wrong"),
+            })),
+            (t[1] = d))
+          : (d = t[1]),
+          (u = d));
+      } else if (n) {
+        var g;
+        t[6] === Symbol.for("react.memo_cache_sentinel")
+          ? ((g = C.jsx(
+              o("WAWebSpinner.react").Spinner,
+              { size: 14, color: "highlight" },
+              "DetailDrawer-loadingBar-spinner",
+            )),
+            (t[6] = g))
+          : (g = t[6]);
+        var y;
+        t[7] === Symbol.for("react.memo_cache_sentinel")
+          ? ((y = [
+              k.text,
+              o("WAWebUISpacing").uiMargin.horiz10,
+              k.loadingText,
+            ]),
+            (t[7] = y))
+          : (y = t[7]);
+        var b;
+        (t[8] === Symbol.for("react.memo_cache_sentinel")
+          ? ((b = [
+              g,
               C.jsx(
                 o("WAWebText.react").WAWebTextSmall,
                 {
                   as: "span",
-                  xstyle: [
-                    k.text,
-                    o("WAWebUISpacing").uiMargin.horiz10,
-                    k.loadingText,
-                  ],
+                  xstyle: y,
                   children: s._(/*BTDS*/ "Waiting for network"),
                 },
                 "DetailDrawer-loadingBar-msg",
               ),
-            ])
-          : i === !0 && o("WAWebBizGatingUtils").isCountryOfOriginEnabled()
-            ? (l = C.jsx(o("WAWebText.react").WAWebTextSmall, {
-                as: "span",
-                xstyle: [k.text, o("WAWebUISpacing").uiMargin.horiz10],
-                color: "critical",
-                children: s._(
-                  /*BTDS*/ "This item has been removed and is no longer available for purchase.",
-                ),
-              }))
-            : (l = C.jsx(o("WAWebText.react").WAWebTextSmall, {
-                as: "span",
-                xstyle: [k.text, o("WAWebUISpacing").uiMargin.horiz10],
-                color: "critical",
-                children: s._(
-                  /*BTDS*/ "This product or service has been removed",
-                ),
-              }));
-      var u = a === "PENDING" || n === "PENDING",
-        c = u || !t;
-      return C.jsx(
-        "div",
-        babelHelpers.extends(
-          {},
-          (h || (h = r("stylex"))).props(
-            c && k.loadingContainer,
-            !c && k.shiftUp,
-            c && o("WAWebUISpacing").uiPadding.all8,
-          ),
-          { children: l },
-        ),
+            ]),
+            (t[8] = b))
+          : (b = t[8]),
+          (u = b));
+      } else if (
+        l === !0 &&
+        o("WAWebBizGatingUtils").isCountryOfOriginEnabled()
+      ) {
+        var m;
+        t[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((m = [k.text, o("WAWebUISpacing").uiMargin.horiz10]), (t[2] = m))
+          : (m = t[2]);
+        var p;
+        (t[3] === Symbol.for("react.memo_cache_sentinel")
+          ? ((p = C.jsx(o("WAWebText.react").WAWebTextSmall, {
+              as: "span",
+              xstyle: m,
+              color: "critical",
+              children: s._(
+                /*BTDS*/ "This item has been removed and is no longer available for purchase.",
+              ),
+            })),
+            (t[3] = p))
+          : (p = t[3]),
+          (u = p));
+      } else {
+        var _;
+        t[4] === Symbol.for("react.memo_cache_sentinel")
+          ? ((_ = [k.text, o("WAWebUISpacing").uiMargin.horiz10]), (t[4] = _))
+          : (_ = t[4]);
+        var f;
+        (t[5] === Symbol.for("react.memo_cache_sentinel")
+          ? ((f = C.jsx(o("WAWebText.react").WAWebTextSmall, {
+              as: "span",
+              xstyle: _,
+              color: "critical",
+              children: s._(
+                /*BTDS*/ "This product or service has been removed",
+              ),
+            })),
+            (t[5] = f))
+          : (f = t[5]),
+          (u = f));
+      }
+      var v = i === "PENDING" || a === "PENDING",
+        S = v || !n,
+        R;
+      t[9] !== S
+        ? ((R = (h || (h = r("stylex"))).props(
+            S && k.loadingContainer,
+            !S && k.shiftUp,
+            S && o("WAWebUISpacing").uiPadding.all8,
+          )),
+          (t[9] = S),
+          (t[10] = R))
+        : (R = t[10]);
+      var L;
+      return (
+        t[11] !== u || t[12] !== R
+          ? ((L = C.jsx("div", babelHelpers.extends({}, R, { children: u }))),
+            (t[11] = u),
+            (t[12] = R),
+            (t[13] = L))
+          : (L = t[13]),
+        L
       );
     }
-    I.displayName = I.name + " [from " + i.id + "]";
     function T(e) {
-      var t = e.handleBack,
-        n = e.menu;
-      return C.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-        title: s._(/*BTDS*/ "Details"),
-        onBack: t,
-        type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-        menu: n,
-      });
+      var t = o("react-compiler-runtime").c(4),
+        n = e.handleBack,
+        r = e.menu,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = s._(/*BTDS*/ "Details")), (t[0] = a))
+        : (a = t[0]);
+      var i;
+      return (
+        t[1] !== n || t[2] !== r
+          ? ((i = C.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+              title: a,
+              onBack: n,
+              type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
+              menu: r,
+            })),
+            (t[1] = n),
+            (t[2] = r),
+            (t[3] = i))
+          : (i = t[3]),
+        i
+      );
     }
-    T.displayName = T.name + " [from " + i.id + "]";
     function D(t) {
       "use no forget";
       var a,

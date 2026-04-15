@@ -11,6 +11,7 @@ __d(
     "WAWebStickerPanelContentEmpty.react",
     "WAWebStickerPanelContentStickersScrollGridPresentational.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebIsReadyToShowStickers.react",
     "useWAWebListener",
   ],
@@ -23,53 +24,77 @@ __d(
       p = c.useRef,
       _ = c.useState;
     function f(e) {
-      var t = e.displayLocation,
-        n = e.onDownloadEnd,
-        a = e.onDownloadStart,
-        i = e.onFocusPrev,
-        l = e.onScroll,
-        c = e.onStickerClick,
-        d = e.ref,
-        _ = e.resetScroll,
-        f = p(),
-        h = g(_, a, n);
-      m(d, function () {
-        return {
-          focus: function (t) {
-            var e;
-            (e = f.current) == null || e.focus(t);
-          },
-        };
-      });
-      var y = o("useWAWebIsReadyToShowStickers.react").useIsReadyToShowStickers(
-        t,
+      var t = o("react-compiler-runtime").c(8),
+        n = e.displayLocation,
+        a = e.onDownloadEnd,
+        i = e.onDownloadStart,
+        l = e.onFocusPrev,
+        c = e.onScroll,
+        d = e.onStickerClick,
+        _ = e.ref,
+        f = e.resetScroll,
+        h = p(),
+        y = g(f, i, a),
+        C;
+      (t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = function () {
+            return {
+              focus: function (t) {
+                var e;
+                (e = h.current) == null || e.focus(t);
+              },
+            };
+          }),
+          (t[0] = C))
+        : (C = t[0]),
+        m(_, C));
+      var b = o("useWAWebIsReadyToShowStickers.react").useIsReadyToShowStickers(
+        n,
       );
-      return y
-        ? h.length === 0
-          ? u.jsx(r("WAWebStickerPanelContentEmpty.react"), {
-              text: s._(/*BTDS*/ "You haven't favorited any stickers yet"),
-            })
-          : u.jsx(
+      if (!b) return null;
+      if (y.length === 0) {
+        var v;
+        return (
+          t[1] === Symbol.for("react.memo_cache_sentinel")
+            ? ((v = u.jsx(r("WAWebStickerPanelContentEmpty.react"), {
+                text: s._(/*BTDS*/ "You haven't favorited any stickers yet"),
+              })),
+              (t[1] = v))
+            : (v = t[1]),
+          v
+        );
+      }
+      var S;
+      return (
+        t[2] !== n || t[3] !== y || t[4] !== l || t[5] !== c || t[6] !== d
+          ? ((S = u.jsx(
               o(
                 "WAWebStickerPanelContentStickersScrollGridPresentational.react",
               ).StickersScrollGridPresentational,
               {
-                ref: f,
-                onFocusPrev: i,
-                onScroll: l,
-                onStickerClick: c,
-                onStickerEnter: c,
+                ref: h,
+                onFocusPrev: l,
+                onScroll: c,
+                onStickerClick: d,
+                onStickerEnter: d,
                 selectedTab: o("WAWebEmojiPickerConstants").StickerTabs
                   .FAVORITES,
-                stickers: h,
-                displayLocation: t,
+                stickers: y,
+                displayLocation: n,
                 theme: "searchable",
                 loadOneRow: !0,
               },
-            )
-        : null;
+            )),
+            (t[2] = n),
+            (t[3] = y),
+            (t[4] = l),
+            (t[5] = c),
+            (t[6] = d),
+            (t[7] = S))
+          : (S = t[7]),
+        S
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e, t, n) {
       var a = r("WAWebNewsletterCollection").getActive(),
         i = _([]),

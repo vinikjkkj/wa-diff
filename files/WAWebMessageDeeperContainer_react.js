@@ -1,6 +1,6 @@
 __d(
   "WAWebMessageDeeperContainer.react",
-  ["react", "stylex"],
+  ["react", "react-compiler-runtime", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -32,27 +32,38 @@ __d(
         wrapperOut: { backgroundColor: "x1bu39yj", $$css: !0 },
       };
     function d(t) {
-      var n = t.children,
-        o = t.outgoingMsg,
-        a = t.position,
-        i = t.xstyle;
-      return u.jsx(
-        "div",
-        babelHelpers.extends(
-          {},
-          (e || (e = r("stylex"))).props(
+      var n = o("react-compiler-runtime").c(7),
+        a = t.children,
+        i = t.outgoingMsg,
+        l = t.position,
+        s = t.xstyle,
+        d;
+      n[0] !== i || n[1] !== l || n[2] !== s
+        ? ((d = (e || (e = r("stylex"))).props(
             c.wrapper,
-            a === "bottom" && c.posBottom,
-            a === "top" && c.posTop,
-            !o && c.wrapperIn,
-            o && c.wrapperOut,
-            i,
-          ),
-          { children: n },
-        ),
+            l === "bottom" && c.posBottom,
+            l === "top" && c.posTop,
+            !i && c.wrapperIn,
+            i && c.wrapperOut,
+            s,
+          )),
+          (n[0] = i),
+          (n[1] = l),
+          (n[2] = s),
+          (n[3] = d))
+        : (d = n[3]);
+      var m;
+      return (
+        n[4] !== a || n[5] !== d
+          ? ((m = u.jsx("div", babelHelpers.extends({}, d, { children: a }))),
+            (n[4] = a),
+            (n[5] = d),
+            (n[6] = m))
+          : (m = n[6]),
+        m
       );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   98,
 );

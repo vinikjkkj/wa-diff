@@ -8,6 +8,7 @@ __d(
     "WAWebL10N",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -46,59 +47,112 @@ __d(
         },
       };
     function c(e) {
-      var t = e.documentData,
-        n = t.fileExt,
-        a = t.fileName,
-        i = t.mimetype,
-        l = t.previewUrl,
-        c = i === "application/pdf";
-      return s.jsxs(o("WAWebFlex.react").FlexColumn, {
-        xstyle: u.documentContainer,
-        children: [
-          c &&
+      var t = o("react-compiler-runtime").c(21),
+        n = e.documentData,
+        a = n.fileExt,
+        i = n.fileName,
+        l = n.mimetype,
+        c = n.previewUrl,
+        d = l === "application/pdf",
+        m;
+      t[0] !== d || t[1] !== c
+        ? ((m =
+            d &&
             s.jsx("img", {
               className: "x4mnvg2 x1uuy6ko xaejkm2 x1lliihq xl1xv1r x8ozjh4",
-              src: l,
+              src: c,
               alt: "",
+            })),
+          (t[0] = d),
+          (t[1] = c),
+          (t[2] = m))
+        : (m = t[2]);
+      var p = a != null ? a : "",
+        _;
+      t[3] !== l || t[4] !== p
+        ? ((_ = s.jsx(r("WAWebDocumentFileIcon"), {
+            width: 20,
+            mimeType: l,
+            ext: p,
+          })),
+          (t[3] = l),
+          (t[4] = p),
+          (t[5] = _))
+        : (_ = t[5]);
+      var f;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = { className: "xs83m0k xeuugli x6ikm8r x10wlt62" }), (t[6] = f))
+        : (f = t[6]);
+      var g;
+      t[7] !== i
+        ? ((g = s.jsx(
+            "div",
+            babelHelpers.extends({}, f, {
+              children: s.jsx(r("WDSText.react"), {
+                maxLines: 1,
+                colorName: "contentDefault",
+                type: "Body2Emphasized",
+                children: i,
+              }),
             }),
-          s.jsxs(o("WAWebFlex.react").FlexColumn, {
+          )),
+          (t[7] = i),
+          (t[8] = g))
+        : (g = t[8]);
+      var h;
+      t[9] !== _ || t[10] !== g
+        ? ((h = s.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            gap: 8,
+            xstyle: u.fileNameRow,
+            children: [_, g],
+          })),
+          (t[9] = _),
+          (t[10] = g),
+          (t[11] = h))
+        : (h = t[11]);
+      var y;
+      t[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = [u.text, r("WAWebL10N").isRTL() && u.textRTL]), (t[12] = y))
+        : (y = t[12]);
+      var C;
+      t[13] !== n
+        ? ((C = s.jsx(r("WAWebFlexItem.react"), {
+            xstyle: y,
+            grow: 1,
+            children: s.jsx(
+              r("WAWebBizBroadcastsDocumentPreviewMetadata.react"),
+              { documentData: n },
+            ),
+          })),
+          (t[13] = n),
+          (t[14] = C))
+        : (C = t[14]);
+      var b;
+      t[15] !== h || t[16] !== C
+        ? ((b = s.jsxs(o("WAWebFlex.react").FlexColumn, {
             xstyle: u.wrapper,
-            children: [
-              s.jsxs(o("WAWebFlex.react").FlexRow, {
-                align: "center",
-                gap: 8,
-                xstyle: u.fileNameRow,
-                children: [
-                  s.jsx(r("WAWebDocumentFileIcon"), {
-                    width: 20,
-                    mimeType: i,
-                    ext: n != null ? n : "",
-                  }),
-                  s.jsx("div", {
-                    className: "xs83m0k xeuugli x6ikm8r x10wlt62",
-                    children: s.jsx(r("WDSText.react"), {
-                      maxLines: 1,
-                      colorName: "contentDefault",
-                      type: "Body2Emphasized",
-                      children: a,
-                    }),
-                  }),
-                ],
-              }),
-              s.jsx(r("WAWebFlexItem.react"), {
-                xstyle: [u.text, r("WAWebL10N").isRTL() && u.textRTL],
-                grow: 1,
-                children: s.jsx(
-                  r("WAWebBizBroadcastsDocumentPreviewMetadata.react"),
-                  { documentData: t },
-                ),
-              }),
-            ],
-          }),
-        ],
-      });
+            children: [h, C],
+          })),
+          (t[15] = h),
+          (t[16] = C),
+          (t[17] = b))
+        : (b = t[17]);
+      var v;
+      return (
+        t[18] !== m || t[19] !== b
+          ? ((v = s.jsxs(o("WAWebFlex.react").FlexColumn, {
+              xstyle: u.documentContainer,
+              children: [m, b],
+            })),
+            (t[18] = m),
+            (t[19] = b),
+            (t[20] = v))
+          : (v = t[20]),
+        v
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

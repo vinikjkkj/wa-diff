@@ -1,6 +1,12 @@
 __d(
   "WAWebCommunitySubgroupImage.react",
-  ["WAWebDetailImage.react", "react", "stylex", "useWAWebActiveSelection"],
+  [
+    "WAWebDetailImage.react",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+    "useWAWebActiveSelection",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -103,63 +109,111 @@ __d(
       return e ? c.borderWhiteActive : t ? c.borderWhiteHover : c.borderWhite;
     }
     function g(t) {
-      var n = t.chat,
-        a = t.isHovered,
-        i = t.parentGroupChat,
-        l = t.selection,
-        s = t.size,
-        g = r("useWAWebActiveSelection")(l, n.id.toString()),
-        h = g[1],
-        y = 32,
-        C;
-      switch (s) {
-        case 38:
-          ((y = 26), (C = _));
-          break;
-        case 40:
-          ((y = 26), (C = p));
-          break;
-        case 44:
-          ((y = 28), (C = m));
-          break;
+      var n = o("react-compiler-runtime").c(24),
+        a = t.chat,
+        i = t.isHovered,
+        l = t.parentGroupChat,
+        s = t.selection,
+        g = t.size,
+        h;
+      n[0] !== a.id
+        ? ((h = a.id.toString()), (n[0] = a.id), (n[1] = h))
+        : (h = n[1]);
+      var y = r("useWAWebActiveSelection")(s, h),
+        C = y[1],
+        b,
+        v;
+      e: switch (g) {
+        case 38: {
+          ((b = 26), (v = _));
+          break e;
+        }
+        case 40: {
+          ((b = 26), (v = p));
+          break e;
+        }
+        case 44: {
+          ((b = 28), (v = m));
+          break e;
+        }
         case 49:
         default:
-          ((y = 31), (C = d));
+          ((b = 31), (v = d));
       }
-      return u.jsxs(
-        "div",
-        babelHelpers.extends(
-          { "data-testid": void 0 },
-          (e || (e = r("stylex"))).props([c.container, C.container]),
-          {
-            children: [
-              u.jsx(o("WAWebDetailImage.react").DetailImage, {
-                shape: o("WAWebDetailImage.react").DetailImageShape.Squircle,
-                id: i.id,
-                size: y,
+      var S;
+      n[2] !== v.container
+        ? ((S = (e || (e = r("stylex"))).props([c.container, v.container])),
+          (n[2] = v.container),
+          (n[3] = S))
+        : (S = n[3]);
+      var R;
+      n[4] !== b || n[5] !== l.id
+        ? ((R = u.jsx(o("WAWebDetailImage.react").DetailImage, {
+            shape: o("WAWebDetailImage.react").DetailImageShape.Squircle,
+            id: l.id,
+            size: b,
+          })),
+          (n[4] = b),
+          (n[5] = l.id),
+          (n[6] = R))
+        : (R = n[6]);
+      var L;
+      n[7] !== v.subgroupImage
+        ? ((L = (e || (e = r("stylex"))).props(
+            c.subgroupImage,
+            v.subgroupImage,
+          )),
+          (n[7] = v.subgroupImage),
+          (n[8] = L))
+        : (L = n[8]);
+      var E = a.id,
+        k = b,
+        I = C || i === !0,
+        T = i === !0,
+        D;
+      n[9] !== C || n[10] !== T
+        ? ((D = f(C, T)), (n[9] = C), (n[10] = T), (n[11] = D))
+        : (D = n[11]);
+      var x;
+      n[12] !== a.id || n[13] !== b || n[14] !== I || n[15] !== D
+        ? ((x = u.jsx(o("WAWebDetailImage.react").DetailImage, {
+            id: E,
+            size: k,
+            ephemeralIcon: "chat-list",
+            isHoveredOrActive: I,
+            xstyle: D,
+          })),
+          (n[12] = a.id),
+          (n[13] = b),
+          (n[14] = I),
+          (n[15] = D),
+          (n[16] = x))
+        : (x = n[16]);
+      var $;
+      n[17] !== L || n[18] !== x
+        ? (($ = u.jsx("div", babelHelpers.extends({}, L, { children: x }))),
+          (n[17] = L),
+          (n[18] = x),
+          (n[19] = $))
+        : ($ = n[19]);
+      var P;
+      return (
+        n[20] !== S || n[21] !== $ || n[22] !== R
+          ? ((P = u.jsxs(
+              "div",
+              babelHelpers.extends({ "data-testid": void 0 }, S, {
+                children: [R, $],
               }),
-              u.jsx(
-                "div",
-                babelHelpers.extends(
-                  {},
-                  e.props(c.subgroupImage, C.subgroupImage),
-                  {
-                    children: u.jsx(o("WAWebDetailImage.react").DetailImage, {
-                      id: n.id,
-                      size: y,
-                      ephemeralIcon: "chat-list",
-                      isHoveredOrActive: h || a === !0,
-                      xstyle: f(h, a === !0),
-                    }),
-                  },
-                ),
-              ),
-            ],
-          },
-        ),
+            )),
+            (n[20] = S),
+            (n[21] = $),
+            (n[22] = R),
+            (n[23] = P))
+          : (P = n[23]),
+        P
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    l.default = g;
   },
   98,
 );

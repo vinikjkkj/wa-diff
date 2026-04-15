@@ -15,51 +15,62 @@ __d(
     "WDSVars.stylex",
     "gkx",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = (s || (s = o("react"))).useEffect;
     function c(e) {
-      var t = e.blockQuoteEnabled,
-        n = e.bulletPointsEnabled,
-        r = e.highlightedBotCommands,
-        a = e.inlineCodeEnabled,
-        i = e.internLinksEnabled,
-        l = e.linksEnabled,
-        s = e.numberedListEnabled,
-        c = e.phoneNumbersEnabled,
-        m = o("LexicalComposerContext").useLexicalComposerContext(),
-        p = m[0];
-      return (
-        u(
-          function () {
-            var e = !1;
-            function u() {
-              d(p, {
-                bulletPointsEnabled: n,
-                numberedListEnabled: s,
-                inlineCodeEnabled: a,
-                blockQuoteEnabled: t,
-                internLinksEnabled: i,
-                phoneNumbersEnabled: c,
-                linksEnabled: l,
-                highlightedBotCommands: r,
-              });
-            }
-            var m = p.registerTextContentListener(function () {
+      var t = o("react-compiler-runtime").c(22),
+        n = e.blockQuoteEnabled,
+        r = e.bulletPointsEnabled,
+        a = e.highlightedBotCommands,
+        i = e.inlineCodeEnabled,
+        l = e.internLinksEnabled,
+        s = e.linksEnabled,
+        c = e.numberedListEnabled,
+        m = e.phoneNumbersEnabled,
+        p = o("LexicalComposerContext").useLexicalComposerContext(),
+        _ = p[0],
+        f,
+        g;
+      (t[0] !== n ||
+      t[1] !== r ||
+      t[2] !== _ ||
+      t[3] !== a ||
+      t[4] !== i ||
+      t[5] !== l ||
+      t[6] !== s ||
+      t[7] !== c ||
+      t[8] !== m
+        ? ((f = function () {
+            var e = !1,
+              t = function () {
+                d(_, {
+                  bulletPointsEnabled: r,
+                  numberedListEnabled: c,
+                  inlineCodeEnabled: i,
+                  blockQuoteEnabled: n,
+                  internLinksEnabled: l,
+                  phoneNumbersEnabled: m,
+                  linksEnabled: s,
+                  highlightedBotCommands: a,
+                });
+              },
+              u = _.registerTextContentListener(function () {
                 e = !0;
               }),
-              _ = p.registerUpdateListener(function () {
-                p.isComposing() || !e || ((e = !1), u());
+              p = _.registerUpdateListener(function () {
+                _.isComposing() || !e || ((e = !1), t());
               }),
-              f = p.registerMutationListener(
+              f = _.registerMutationListener(
                 o("Lexical").ParagraphNode,
                 function (e) {
-                  for (var t of e) {
-                    var n = t[1];
-                    if (n === "created" || n === "destroyed") {
-                      self.setTimeout(u, 0);
+                  for (var n of e) {
+                    var r = n[1];
+                    if (r === "created" || r === "destroyed") {
+                      self.setTimeout(t, 0);
                       break;
                     }
                   }
@@ -67,31 +78,65 @@ __d(
                 { skipInitialization: !0 },
               );
             return function () {
-              (m(), f(), _());
+              (u(), f(), p());
             };
-          },
-          [p, n, s, a, t, r, i, c, l],
-        ),
-        u(
-          function () {
-            return (
-              d(p, {
-                bulletPointsEnabled: n,
-                numberedListEnabled: s,
-                inlineCodeEnabled: a,
-                blockQuoteEnabled: t,
-                highlightedBotCommands: r,
-                internLinksEnabled: i,
-                phoneNumbersEnabled: c,
-                linksEnabled: l,
-              }),
-              function () {
-                p.update(v);
-              }
-            );
-          },
-          [p, n, s, a, t, r, i, c, l],
-        ),
+          }),
+          (g = [_, r, c, i, n, a, l, m, s]),
+          (t[0] = n),
+          (t[1] = r),
+          (t[2] = _),
+          (t[3] = a),
+          (t[4] = i),
+          (t[5] = l),
+          (t[6] = s),
+          (t[7] = c),
+          (t[8] = m),
+          (t[9] = f),
+          (t[10] = g))
+        : ((f = t[9]), (g = t[10])),
+        u(f, g));
+      var h, y;
+      return (
+        t[11] !== n ||
+        t[12] !== r ||
+        t[13] !== _ ||
+        t[14] !== a ||
+        t[15] !== i ||
+        t[16] !== l ||
+        t[17] !== s ||
+        t[18] !== c ||
+        t[19] !== m
+          ? ((h = function () {
+              return (
+                d(_, {
+                  bulletPointsEnabled: r,
+                  numberedListEnabled: c,
+                  inlineCodeEnabled: i,
+                  blockQuoteEnabled: n,
+                  highlightedBotCommands: a,
+                  internLinksEnabled: l,
+                  phoneNumbersEnabled: m,
+                  linksEnabled: s,
+                }),
+                function () {
+                  _.update(v);
+                }
+              );
+            }),
+            (y = [_, r, c, i, n, a, l, m, s]),
+            (t[11] = n),
+            (t[12] = r),
+            (t[13] = _),
+            (t[14] = a),
+            (t[15] = i),
+            (t[16] = l),
+            (t[17] = s),
+            (t[18] = c),
+            (t[19] = m),
+            (t[20] = h),
+            (t[21] = y))
+          : ((h = t[20]), (y = t[21])),
+        u(h, y),
         null
       );
     }

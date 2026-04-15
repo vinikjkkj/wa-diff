@@ -122,6 +122,7 @@ __d(
     "cr:6010",
     "gkx",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useVideoPlayerXAPIOutsideVideoPlayerSurface",
     "useWAWebCanDownloadStatus",
@@ -1802,78 +1803,154 @@ __d(
     }
     W.displayName = W.name + " [from " + i.id + "]";
     function q(e) {
-      var t = e.handleVerificationDrawerClose,
-        n = e.lid,
-        a = e.msgAuthor,
-        i = o("WAWebContactCollection").ContactCollection.assertGet(a);
-      return f.jsx(
-        r("WAWebVerificationDrawerLoadable").VerificationDrawerLoadable,
-        { lid: n, contact: i, isFirstLevel: !0, onClose: t },
+      var t = o("react-compiler-runtime").c(6),
+        n = e.handleVerificationDrawerClose,
+        a = e.lid,
+        i = e.msgAuthor,
+        l;
+      t[0] !== i
+        ? ((l = o("WAWebContactCollection").ContactCollection.assertGet(i)),
+          (t[0] = i),
+          (t[1] = l))
+        : (l = t[1]);
+      var s = l,
+        u;
+      return (
+        t[2] !== s || t[3] !== n || t[4] !== a
+          ? ((u = f.jsx(
+              r("WAWebVerificationDrawerLoadable").VerificationDrawerLoadable,
+              { lid: a, contact: s, isFirstLevel: !0, onClose: n },
+            )),
+            (t[2] = s),
+            (t[3] = n),
+            (t[4] = a),
+            (t[5] = u))
+          : (u = t[5]),
+        u
       );
     }
-    q.displayName = q.name + " [from " + i.id + "]";
     function U(e) {
-      var t = e.authorContact,
-        n = e.msg,
-        a = e.statusContact;
-      return o("WAWebMsgGetters").getIsGroupStatus(n)
-        ? t != null
-          ? f.jsx(r("WAWebGroupStatusAuthorImage.react"), {
-              primaryContactId: a.id,
-              secondaryContactId: t.id,
-            })
-          : f.jsx("div", {
-              className: "x100vrsf x1vqgdyp",
-              children: f.jsx(o("WAWebDetailImage.react").DefaultIcon, {
-                id: a.id,
-                theme: o("WAWebDetailImage.react").DefaultIconThemeType
-                  .GroupStatus,
-              }),
-            })
-        : f.jsx(o("WAWebDetailImage.react").DetailImage, {
-            id: a.id,
-            theme: "status",
-            size: 40,
-          });
+      var t = o("react-compiler-runtime").c(8),
+        n = e.authorContact,
+        a = e.msg,
+        i = e.statusContact;
+      if (o("WAWebMsgGetters").getIsGroupStatus(a)) {
+        if (n != null) {
+          var l;
+          return (
+            t[0] !== n.id || t[1] !== i.id
+              ? ((l = f.jsx(r("WAWebGroupStatusAuthorImage.react"), {
+                  primaryContactId: i.id,
+                  secondaryContactId: n.id,
+                })),
+                (t[0] = n.id),
+                (t[1] = i.id),
+                (t[2] = l))
+              : (l = t[2]),
+            l
+          );
+        }
+        var s;
+        t[3] === Symbol.for("react.memo_cache_sentinel")
+          ? ((s = { className: "x100vrsf x1vqgdyp" }), (t[3] = s))
+          : (s = t[3]);
+        var u;
+        return (
+          t[4] !== i.id
+            ? ((u = f.jsx(
+                "div",
+                babelHelpers.extends({}, s, {
+                  children: f.jsx(o("WAWebDetailImage.react").DefaultIcon, {
+                    id: i.id,
+                    theme: o("WAWebDetailImage.react").DefaultIconThemeType
+                      .GroupStatus,
+                  }),
+                }),
+              )),
+              (t[4] = i.id),
+              (t[5] = u))
+            : (u = t[5]),
+          u
+        );
+      }
+      var c;
+      return (
+        t[6] !== i.id
+          ? ((c = f.jsx(o("WAWebDetailImage.react").DetailImage, {
+              id: i.id,
+              theme: "status",
+              size: 40,
+            })),
+            (t[6] = i.id),
+            (t[7] = c))
+          : (c = t[7]),
+        c
+      );
     }
-    U.displayName = U.name + " [from " + i.id + "]";
     function V(e) {
       return (
         T(e) && e.mediaStage !== o("WAWebMediaTypes").MediaDataStage.RESOLVED
       );
     }
     function H(e) {
-      var t = e.mediaData,
-        n = o("useWAWebModelValues").useModelValues(t, ["mediaStage", "type"]),
-        a = V(n),
-        i = a
-          ? f.jsx("div", {
-              className:
-                "x10l6tqk x13vifvy xtijo5x x1ey2m1c x1o0tod x1pju0fl x10wjd1d xr1yuqi x11t971q x4ii5y1 xvc5jky x47corl",
-              children: f.jsx("button", {
-                className: "icon-media-disabled",
-                children: f.jsx(o("WAWebSpinner.react").Spinner, {
-                  size: 50,
-                  stroke: 4,
-                  color: "white",
+      var t = o("react-compiler-runtime").c(7),
+        n = e.mediaData,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = ["mediaStage", "type"]), (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebModelValues").useModelValues(n, a),
+        l;
+      t[1] !== i ? ((l = V(i)), (t[1] = i), (t[2] = l)) : (l = t[2]);
+      var s = l,
+        u;
+      t[3] !== s
+        ? ((u = s
+            ? f.jsx("div", {
+                className:
+                  "x10l6tqk x13vifvy xtijo5x x1ey2m1c x1o0tod x1pju0fl x10wjd1d xr1yuqi x11t971q x4ii5y1 xvc5jky x47corl",
+                children: f.jsx("button", {
+                  className: "icon-media-disabled",
+                  children: f.jsx(o("WAWebSpinner.react").Spinner, {
+                    size: 50,
+                    stroke: 4,
+                    color: "white",
+                  }),
                 }),
-              }),
-            })
-          : null;
-      return f.jsx(r("WAWebVelocityTransitionGroup"), {
-        transitionName: "status-media-loading",
-        appear: !0,
-        children: i,
-      });
+              })
+            : null),
+          (t[3] = s),
+          (t[4] = u))
+        : (u = t[4]);
+      var c = u,
+        d;
+      return (
+        t[5] !== c
+          ? ((d = f.jsx(r("WAWebVelocityTransitionGroup"), {
+              transitionName: "status-media-loading",
+              appear: !0,
+              children: c,
+            })),
+            (t[5] = c),
+            (t[6] = d))
+          : (d = t[6]),
+        d
+      );
     }
-    H.displayName = H.name + " [from " + i.id + "]";
     function G() {
-      return f.jsx("div", {
-        className:
-          "xh8yej3 x5yr21d x42x0ya x10l6tqk x13vifvy x1o0tod x197sbye x12xzxwr",
-      });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = f.jsx("div", {
+              className:
+                "xh8yej3 x5yr21d x42x0ya x10l6tqk x13vifvy x1o0tod x197sbye x12xzxwr",
+            })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    G.displayName = G.name + " [from " + i.id + "]";
     function z(e, t) {
       var n = !1;
       if (e.id.isGroup()) {
@@ -1892,128 +1969,393 @@ __d(
       return e.id.toString();
     }
     function K(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(75),
         n,
         a,
-        i = e.ref,
-        l = babelHelpers.objectWithoutPropertiesLoose(e, u),
-        s = P(l.mediaData, l.msg),
-        c = V(l.mediaData),
-        d = o("WAWebClock").Clock.getServerTime(),
-        m = parseFloat((t = l.mediaData) == null ? void 0 : t.duration),
-        p = r("useWAWebStatusVisibilityLogger")({
-          itemId: j(l.msg.id),
-          encryptedStatusIdPromise: o(
-            "WAWebStatusLoggingUtils",
-          ).statusIdForLogging(l.msg),
-          userRidPromise: o(
-            "WAWebStatusLoggingUtils",
-          ).statusPosterHashIdForLogging(l.msg, d),
-          statusPosterIdPromise: o(
-            "WAWebStatusLoggingUtils",
-          ).statusPosterIdForLogging(l.msg, d),
-          statusGroupIdPromise: o(
-            "WAWebStatusLoggingUtils",
-          ).statusGroupIdForLogging(l.msg, d),
-          statusContentType: x(s),
-          mediaType: s,
-          isSelfView: o("WAWebMsgGetters").getIsSentByMe(l.msg),
-          isSubImpression: N(l.msg, l.statusItemLastImpressionTimestampMap),
-          isCloseSharingPost:
+        i,
+        l,
+        s,
+        c,
+        d,
+        m,
+        p,
+        _,
+        g,
+        h,
+        y,
+        C,
+        b,
+        v,
+        S,
+        R,
+        L,
+        E,
+        k,
+        I,
+        T,
+        D,
+        $,
+        A,
+        F,
+        O,
+        B,
+        q,
+        U,
+        H;
+      if (t[0] !== e) {
+        var G, z, K;
+        ((a = e.ref), (n = babelHelpers.objectWithoutPropertiesLoose(e, u)));
+        var X = P(n.mediaData, n.msg),
+          Y = V(n.mediaData),
+          J = o("WAWebClock").Clock.getServerTime(),
+          Z = parseFloat((G = n.mediaData) == null ? void 0 : G.duration);
+        ((A = r("useWAWebStatusVisibilityLogger")),
+          (i = j(n.msg.id)),
+          (C = o("WAWebStatusLoggingUtils").statusIdForLogging(n.msg)),
+          ($ = o("WAWebStatusLoggingUtils").statusPosterHashIdForLogging(
+            n.msg,
+            J,
+          )),
+          (F = o("WAWebStatusLoggingUtils").statusPosterIdForLogging(n.msg, J)),
+          (O = o("WAWebStatusLoggingUtils").statusGroupIdForLogging(n.msg, J)),
+          (B = x(X)),
+          (q = X),
+          (U = o("WAWebMsgGetters").getIsSentByMe(n.msg)),
+          (H = N(n.msg, n.statusItemLastImpressionTimestampMap)),
+          (l =
             o(
               "WAWebStatusGatingUtils",
             ).isStatusCloseFriendsViewerSideEnabled() &&
-            l.msg.statusAudienceMetadata != null,
-          isFirstView: l.statusIsUnread,
-          statusContainsMusic: l.containsMusic,
-          musicBlocked: !l.canPlaybackAudio,
-          statusViewEntrypoint:
-            (n = l.rowSection) != null
-              ? n
+            n.msg.statusAudienceMetadata != null),
+          (s = n.statusIsUnread),
+          (c = n.containsMusic),
+          (d = !n.canPlaybackAudio),
+          (m =
+            (z = n.rowSection) != null
+              ? z
               : o("WAWebWamEnumStatusRowSection").STATUS_ROW_SECTION
-                  .RECENT_STORIES,
-          updatesTabSessionId: l.sessionId,
-          statusViewerSessionId: l.viewerSessionId,
-          statusPogIndex: l.statusPogIndex,
-          statusPostIndex: l.msgIdx,
-          statusCategory: l.isGroupStatus
+                  .RECENT_STORIES),
+          (p = n.sessionId),
+          (_ = n.viewerSessionId),
+          (g = n.statusPogIndex),
+          (h = n.msgIdx),
+          (y = n.isGroupStatus
             ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.GROUP_STATUS
-            : o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.REGULAR_STATUS,
-          statusPostPlaybackDuration: Number.isFinite(m) ? m : void 0,
-          psaCampaignId: l.msg.campaignId,
-          psaLinkAvailable:
-            ((a = l.msg.actionLink) == null ? void 0 : a.url) != null,
-          statusLoadTime: c
+            : o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.REGULAR_STATUS),
+          t[33] !== Z
+            ? ((b = Number.isFinite(Z) ? Z : void 0), (t[33] = Z), (t[34] = b))
+            : (b = t[34]),
+          (v = n.msg.campaignId),
+          (S = ((K = n.msg.actionLink) == null ? void 0 : K.url) != null),
+          (R = Y
             ? function () {
-                return l.statusItemViewEventRef.current.statusItemLoadTime;
+                return n.statusItemViewEventRef.current.statusItemLoadTime;
               }
-            : function () {
-                return 0;
-              },
-          urlStatusType: function () {
-            return l.statusItemViewEventRef.current.urlStatusType;
-          },
-          isPosterBiz: l.status.contact.isBusiness,
-          statusContainsQuestion: !1,
-          isSuccessfulView: function () {
-            return l.statusItemViewEventRef.current.statusItemViewTime > 0;
-          },
-          statusItemViewResult: function () {
-            return l.statusItemViewEventRef.current.statusItemViewResult;
-          },
-          entryMethod: M(l.statusRowEntryMethod),
-          viewSequenceIndex: function () {
-            return w(l.viewSequenceIndexRef);
-          },
-        }),
-        _ = p[0],
-        g = p[1];
-      return f.jsx("div", {
-        ref: _,
-        className: "x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x1280gxy",
-        children: f.jsx(W, babelHelpers.extends({ ref: i }, l)),
-      });
+            : Q),
+          (L = function () {
+            return n.statusItemViewEventRef.current.urlStatusType;
+          }),
+          (E = n.status.contact.isBusiness),
+          (k = !1),
+          (I = function () {
+            return n.statusItemViewEventRef.current.statusItemViewTime > 0;
+          }),
+          (T = function () {
+            return n.statusItemViewEventRef.current.statusItemViewResult;
+          }),
+          (D = M(n.statusRowEntryMethod)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = i),
+          (t[4] = l),
+          (t[5] = s),
+          (t[6] = c),
+          (t[7] = d),
+          (t[8] = m),
+          (t[9] = p),
+          (t[10] = _),
+          (t[11] = g),
+          (t[12] = h),
+          (t[13] = y),
+          (t[14] = C),
+          (t[15] = b),
+          (t[16] = v),
+          (t[17] = S),
+          (t[18] = R),
+          (t[19] = L),
+          (t[20] = E),
+          (t[21] = k),
+          (t[22] = I),
+          (t[23] = T),
+          (t[24] = D),
+          (t[25] = $),
+          (t[26] = A),
+          (t[27] = F),
+          (t[28] = O),
+          (t[29] = B),
+          (t[30] = q),
+          (t[31] = U),
+          (t[32] = H));
+      } else
+        ((n = t[1]),
+          (a = t[2]),
+          (i = t[3]),
+          (l = t[4]),
+          (s = t[5]),
+          (c = t[6]),
+          (d = t[7]),
+          (m = t[8]),
+          (p = t[9]),
+          (_ = t[10]),
+          (g = t[11]),
+          (h = t[12]),
+          (y = t[13]),
+          (C = t[14]),
+          (b = t[15]),
+          (v = t[16]),
+          (S = t[17]),
+          (R = t[18]),
+          (L = t[19]),
+          (E = t[20]),
+          (k = t[21]),
+          (I = t[22]),
+          (T = t[23]),
+          (D = t[24]),
+          ($ = t[25]),
+          (A = t[26]),
+          (F = t[27]),
+          (O = t[28]),
+          (B = t[29]),
+          (q = t[30]),
+          (U = t[31]),
+          (H = t[32]));
+      var ee;
+      t[35] !== n
+        ? ((ee = function () {
+            return w(n.viewSequenceIndexRef);
+          }),
+          (t[35] = n),
+          (t[36] = ee))
+        : (ee = t[36]);
+      var te;
+      t[37] !== i ||
+      t[38] !== l ||
+      t[39] !== s ||
+      t[40] !== c ||
+      t[41] !== d ||
+      t[42] !== m ||
+      t[43] !== p ||
+      t[44] !== _ ||
+      t[45] !== g ||
+      t[46] !== h ||
+      t[47] !== y ||
+      t[48] !== C ||
+      t[49] !== b ||
+      t[50] !== v ||
+      t[51] !== S ||
+      t[52] !== R ||
+      t[53] !== L ||
+      t[54] !== E ||
+      t[55] !== k ||
+      t[56] !== I ||
+      t[57] !== T ||
+      t[58] !== D ||
+      t[59] !== $ ||
+      t[60] !== ee ||
+      t[61] !== F ||
+      t[62] !== O ||
+      t[63] !== B ||
+      t[64] !== q ||
+      t[65] !== U ||
+      t[66] !== H
+        ? ((te = {
+            itemId: i,
+            encryptedStatusIdPromise: C,
+            userRidPromise: $,
+            statusPosterIdPromise: F,
+            statusGroupIdPromise: O,
+            statusContentType: B,
+            mediaType: q,
+            isSelfView: U,
+            isSubImpression: H,
+            isCloseSharingPost: l,
+            isFirstView: s,
+            statusContainsMusic: c,
+            musicBlocked: d,
+            statusViewEntrypoint: m,
+            updatesTabSessionId: p,
+            statusViewerSessionId: _,
+            statusPogIndex: g,
+            statusPostIndex: h,
+            statusCategory: y,
+            statusPostPlaybackDuration: b,
+            psaCampaignId: v,
+            psaLinkAvailable: S,
+            statusLoadTime: R,
+            urlStatusType: L,
+            isPosterBiz: E,
+            statusContainsQuestion: k,
+            isSuccessfulView: I,
+            statusItemViewResult: T,
+            entryMethod: D,
+            viewSequenceIndex: ee,
+          }),
+          (t[37] = i),
+          (t[38] = l),
+          (t[39] = s),
+          (t[40] = c),
+          (t[41] = d),
+          (t[42] = m),
+          (t[43] = p),
+          (t[44] = _),
+          (t[45] = g),
+          (t[46] = h),
+          (t[47] = y),
+          (t[48] = C),
+          (t[49] = b),
+          (t[50] = v),
+          (t[51] = S),
+          (t[52] = R),
+          (t[53] = L),
+          (t[54] = E),
+          (t[55] = k),
+          (t[56] = I),
+          (t[57] = T),
+          (t[58] = D),
+          (t[59] = $),
+          (t[60] = ee),
+          (t[61] = F),
+          (t[62] = O),
+          (t[63] = B),
+          (t[64] = q),
+          (t[65] = U),
+          (t[66] = H),
+          (t[67] = te))
+        : (te = t[67]);
+      var ne = A(te),
+        re = ne[0],
+        oe;
+      t[68] === Symbol.for("react.memo_cache_sentinel")
+        ? ((oe = {
+            className: "x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x1280gxy",
+          }),
+          (t[68] = oe))
+        : (oe = t[68]);
+      var ae;
+      t[69] !== n || t[70] !== a
+        ? ((ae = f.jsx(W, babelHelpers.extends({ ref: a }, n))),
+          (t[69] = n),
+          (t[70] = a),
+          (t[71] = ae))
+        : (ae = t[71]);
+      var ie;
+      return (
+        t[72] !== re || t[73] !== ae
+          ? ((ie = f.jsx(
+              "div",
+              babelHelpers.extends({ ref: re }, oe, { children: ae }),
+            )),
+            (t[72] = re),
+            (t[73] = ae),
+            (t[74] = ie))
+          : (ie = t[74]),
+        ie
+      );
     }
-    K.displayName = K.name + " [from " + i.id + "]";
-    function Q(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, c),
-        a = o("useWAWebMsgValues").useMsgValues(n.msg.id, [
-          o("WAWebMsgGetters").getIsGroupStatus,
-          o("WAWebMsgGetters").isStatusWithMusic,
-        ]),
-        i = a[0],
-        l = a[1],
-        s = o("useWAWebCanPlaybackAudio").useCanPlaybackAudio(n.msg),
-        u = r("useLazyRef")(function () {
-          var e;
-          return (e = n.statusItemViewMap.get(n.msg.id.toString())) != null
-            ? e
-            : new (o("WAWebStatusItemViewWamEvent").StatusItemViewWamEvent)({
-                statusItemViewResult: o("WAWebWamEnumStatusItemViewResult")
-                  .STATUS_ITEM_VIEW_RESULT.ERROR_UNKNOWN,
-                statusItemReplied: 0,
-                statusItemViewTime: 0,
-                statusItemViewCount: 0,
-                statusItemImpressionCount: 0,
-                statusItem3sViewCount: 0,
-                statusCategory: i
-                  ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.GROUP_STATUS
-                  : o("WAWebWamEnumStatusCategory").STATUS_CATEGORY
-                      .REGULAR_STATUS,
-              });
-        }),
-        d = babelHelpers.extends({}, n, {
-          statusItemViewEventRef: u,
-          isGroupStatus: i,
-          containsMusic: l,
-          canPlaybackAudio: s,
-        });
-      return o("WAWebStatusGatingUtils").isStatusVPVLoggingEnabled()
-        ? f.jsx(K, babelHelpers.extends({ ref: t }, d))
-        : f.jsx(W, babelHelpers.extends({ ref: t }, d));
+    function Q() {
+      return 0;
     }
-    ((Q.displayName = Q.name + " [from " + i.id + "]"), (l.default = Q));
+    function X(e) {
+      var t = o("react-compiler-runtime").c(20),
+        n,
+        a;
+      t[0] !== e
+        ? ((a = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, c)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = a))
+        : ((n = t[1]), (a = t[2]));
+      var i;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [
+            o("WAWebMsgGetters").getIsGroupStatus,
+            o("WAWebMsgGetters").isStatusWithMusic,
+          ]),
+          (t[3] = i))
+        : (i = t[3]);
+      var l = o("useWAWebMsgValues").useMsgValues(n.msg.id, i),
+        s = l[0],
+        u = l[1],
+        d = o("useWAWebCanPlaybackAudio").useCanPlaybackAudio(n.msg),
+        m;
+      t[4] !== s || t[5] !== n.msg.id || t[6] !== n.statusItemViewMap
+        ? ((m = function () {
+            var e;
+            return (e = n.statusItemViewMap.get(n.msg.id.toString())) != null
+              ? e
+              : new (o("WAWebStatusItemViewWamEvent").StatusItemViewWamEvent)({
+                  statusItemViewResult: o("WAWebWamEnumStatusItemViewResult")
+                    .STATUS_ITEM_VIEW_RESULT.ERROR_UNKNOWN,
+                  statusItemReplied: 0,
+                  statusItemViewTime: 0,
+                  statusItemViewCount: 0,
+                  statusItemImpressionCount: 0,
+                  statusItem3sViewCount: 0,
+                  statusCategory: s
+                    ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY
+                        .GROUP_STATUS
+                    : o("WAWebWamEnumStatusCategory").STATUS_CATEGORY
+                        .REGULAR_STATUS,
+                });
+          }),
+          (t[4] = s),
+          (t[5] = n.msg.id),
+          (t[6] = n.statusItemViewMap),
+          (t[7] = m))
+        : (m = t[7]);
+      var p = r("useLazyRef")(m),
+        _;
+      t[8] !== d || t[9] !== u || t[10] !== s || t[11] !== n || t[12] !== p
+        ? ((_ = babelHelpers.extends({}, n, {
+            statusItemViewEventRef: p,
+            isGroupStatus: s,
+            containsMusic: u,
+            canPlaybackAudio: d,
+          })),
+          (t[8] = d),
+          (t[9] = u),
+          (t[10] = s),
+          (t[11] = n),
+          (t[12] = p),
+          (t[13] = _))
+        : (_ = t[13]);
+      var g = _;
+      if (o("WAWebStatusGatingUtils").isStatusVPVLoggingEnabled()) {
+        var h;
+        return (
+          t[14] !== g || t[15] !== a
+            ? ((h = f.jsx(K, babelHelpers.extends({ ref: a }, g))),
+              (t[14] = g),
+              (t[15] = a),
+              (t[16] = h))
+            : (h = t[16]),
+          h
+        );
+      }
+      var y;
+      return (
+        t[17] !== g || t[18] !== a
+          ? ((y = f.jsx(W, babelHelpers.extends({ ref: a }, g))),
+            (t[17] = g),
+            (t[18] = a),
+            (t[19] = y))
+          : (y = t[19]),
+        y
+      );
+    }
+    l.default = X;
   },
   226,
 );

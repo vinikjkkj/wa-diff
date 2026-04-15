@@ -37,6 +37,7 @@ __d(
     "WDSIconIcThumbDown.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebCommunitySubgroups",
     "useWAWebEventTargetValue",
@@ -52,90 +53,160 @@ __d(
       m = c.useState;
     function p(e) {
       var t,
-        n = e.chat,
-        r = e.showDeleteOrExit,
-        a = r === void 0 ? !0 : r,
-        i =
+        n = o("react-compiler-runtime").c(16),
+        r = e.chat,
+        a = e.showDeleteOrExit,
+        i = a === void 0 ? !0 : a,
+        l =
           (t = o("useWAWebModelValues").useOptionalModelValues(
-            n.groupMetadata,
+            r.groupMetadata,
             ["parentGroup", "participants"],
           )) != null
             ? t
             : {},
-        l = i.parentGroup,
-        s = i.participants,
-        c =
-          (s == null ? void 0 : s.iAmAdmin()) &&
-          o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(n),
-        d = a ? u.jsx(h, { chat: n, isRefresh: !0 }) : null,
-        m = o("WAWebChatGroupUtils").isTerminatedGroup(n)
-          ? null
-          : u.jsx(g, { chat: n, showAdditionalAction: !c, isRefresh: !0 }),
+        s = l.parentGroup,
+        c = l.participants,
+        d;
+      n[0] !== r || n[1] !== c
+        ? ((d =
+            (c == null ? void 0 : c.iAmAdmin()) &&
+            o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(r)),
+          (n[0] = r),
+          (n[1] = c),
+          (n[2] = d))
+        : (d = n[2]);
+      var m = d,
         p;
+      n[3] !== r || n[4] !== i
+        ? ((p = i ? u.jsx(S, { chat: r, isRefresh: !0 }) : null),
+          (n[3] = r),
+          (n[4] = i),
+          (n[5] = p))
+        : (p = n[5]);
+      var _ = p,
+        f;
+      n[6] !== r || n[7] !== m
+        ? ((f = o("WAWebChatGroupUtils").isTerminatedGroup(r)
+            ? null
+            : u.jsx(b, { chat: r, showAdditionalAction: !m, isRefresh: !0 })),
+          (n[6] = r),
+          (n[7] = m),
+          (n[8] = f))
+        : (f = n[8]);
+      var g = f,
+        h;
+      if (
+        !(o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(r) || s == null)
+      ) {
+        var y;
+        (n[9] !== r || n[10] !== s
+          ? ((y = u.jsx(R, { chat: r, parentGroup: s, isRefresh: !0 })),
+            (n[9] = r),
+            (n[10] = s),
+            (n[11] = y))
+          : (y = n[11]),
+          (h = y));
+      }
+      var C;
       return (
-        o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(n) ||
-          l == null ||
-          (p = u.jsx(y, { chat: n, parentGroup: l, isRefresh: !0 })),
-        u.jsxs(
-          o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerButtonsSection,
-          { children: [p, d, m] },
-        )
+        n[12] !== _ || n[13] !== g || n[14] !== h
+          ? ((C = u.jsxs(
+              o("WAWebChatInfoDrawerSection.react")
+                .ChatInfoDrawerButtonsSection,
+              { children: [h, _, g] },
+            )),
+            (n[12] = _),
+            (n[13] = g),
+            (n[14] = h),
+            (n[15] = C))
+          : (C = n[15]),
+        C
       );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = e.isExit;
-      d(function () {
-        new (o("WAWebPrivacyTipActionWamEvent").PrivacyTipActionWamEvent)({
-          privacyTipActionType: o("WAWebWamEnumPrivacyTipActionType")
-            .PRIVACY_TIP_ACTION_TYPE.VIEW,
-        }).commit();
-      }, []);
-      var n = function () {
-          (new (o("WAWebPrivacyTipActionWamEvent").PrivacyTipActionWamEvent)({
-            privacyTipActionType: o("WAWebWamEnumPrivacyTipActionType")
-              .PRIVACY_TIP_ACTION_TYPE.CLICK_PRIVACY_TIP,
-          }).commit(),
-            o("WAWebModalManager").ModalManager.close());
-        },
-        a = function () {
-          new (o("WAWebPrivacyTipActionWamEvent").PrivacyTipActionWamEvent)({
-            privacyTipActionType: o("WAWebWamEnumPrivacyTipActionType")
-              .PRIVACY_TIP_ACTION_TYPE.CLICK_OK,
-          }).commit();
-        },
-        i = function () {
-          (new (o("WAWebPrivacyTipActionWamEvent").PrivacyTipActionWamEvent)({
-            privacyTipActionType: o("WAWebWamEnumPrivacyTipActionType")
-              .PRIVACY_TIP_ACTION_TYPE.CLICK_OUTSIDE,
-          }).commit(),
-            o("WAWebModalManager").ModalManager.close());
-        };
-      return u.jsx(r("WAWebIconPopup.react"), {
-        icon: o("WAWebCheckmarkMediumIcon.react").CheckmarkMediumIcon,
-        title: s._(/*BTDS*/ "Thank you for reporting"),
-        description: u.jsx(u.Fragment, {
-          children:
-            t === !0
-              ? s._(
-                  /*BTDS*/ "You're no longer a member of this group. Reports are sent to WhatsApp. This helps keep WhatsApp safe for everyone.",
-                )
-              : s._(
-                  /*BTDS*/ "Reports are sent to WhatsApp. This helps keep WhatsApp safe for everyone.",
-                ),
-        }),
-        extraContent: u.jsx(o("WAWebFlex.react").FlexRow, {
-          paddingTop: 40,
-          children: u.jsx(r("WAWebGroupAddPrivacyTipBanner.react"), {
-            onAction: n,
-          }),
-        }),
-        onPrimaryActionClick: a,
-        onOverlayClick: i,
-      });
+      var t = o("react-compiler-runtime").c(7),
+        n = e.isExit,
+        a;
+      (t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = []), (t[0] = a))
+        : (a = t[0]),
+        d(y, a));
+      var i = h,
+        l = g,
+        c = f,
+        m;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = s._(/*BTDS*/ "Thank you for reporting")), (t[1] = m))
+        : (m = t[1]);
+      var p;
+      t[2] !== n
+        ? ((p = u.jsx(u.Fragment, {
+            children:
+              n === !0
+                ? s._(
+                    /*BTDS*/ "You're no longer a member of this group. Reports are sent to WhatsApp. This helps keep WhatsApp safe for everyone.",
+                  )
+                : s._(
+                    /*BTDS*/ "Reports are sent to WhatsApp. This helps keep WhatsApp safe for everyone.",
+                  ),
+          })),
+          (t[2] = n),
+          (t[3] = p))
+        : (p = t[3]);
+      var _;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = u.jsx(o("WAWebFlex.react").FlexRow, {
+            paddingTop: 40,
+            children: u.jsx(r("WAWebGroupAddPrivacyTipBanner.react"), {
+              onAction: i,
+            }),
+          })),
+          (t[4] = _))
+        : (_ = t[4]);
+      var C;
+      return (
+        t[5] !== p
+          ? ((C = u.jsx(r("WAWebIconPopup.react"), {
+              icon: o("WAWebCheckmarkMediumIcon.react").CheckmarkMediumIcon,
+              title: m,
+              description: p,
+              extraContent: _,
+              onPrimaryActionClick: l,
+              onOverlayClick: c,
+            })),
+            (t[5] = p),
+            (t[6] = C))
+          : (C = t[6]),
+        C
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
-    function f(e) {
+    function f() {
+      (new (o("WAWebPrivacyTipActionWamEvent").PrivacyTipActionWamEvent)({
+        privacyTipActionType: o("WAWebWamEnumPrivacyTipActionType")
+          .PRIVACY_TIP_ACTION_TYPE.CLICK_OUTSIDE,
+      }).commit(),
+        o("WAWebModalManager").ModalManager.close());
+    }
+    function g() {
+      new (o("WAWebPrivacyTipActionWamEvent").PrivacyTipActionWamEvent)({
+        privacyTipActionType: o("WAWebWamEnumPrivacyTipActionType")
+          .PRIVACY_TIP_ACTION_TYPE.CLICK_OK,
+      }).commit();
+    }
+    function h() {
+      (new (o("WAWebPrivacyTipActionWamEvent").PrivacyTipActionWamEvent)({
+        privacyTipActionType: o("WAWebWamEnumPrivacyTipActionType")
+          .PRIVACY_TIP_ACTION_TYPE.CLICK_PRIVACY_TIP,
+      }).commit(),
+        o("WAWebModalManager").ModalManager.close());
+    }
+    function y() {
+      new (o("WAWebPrivacyTipActionWamEvent").PrivacyTipActionWamEvent)({
+        privacyTipActionType: o("WAWebWamEnumPrivacyTipActionType")
+          .PRIVACY_TIP_ACTION_TYPE.VIEW,
+      }).commit();
+    }
+    function C(e) {
       var t = e.isExit;
       if (o("WAWebQuickPromotionGating").groupsPrivacyTipsEnabled()) {
         var n = o("WAWebUserPrefsGeneral").getUserPrivacySettings();
@@ -143,116 +214,159 @@ __d(
           o("WAWebModalManager").ModalManager.open(u.jsx(_, { isExit: t }));
       }
     }
-    function g(e) {
-      var t,
+    function b(e) {
+      var t = o("react-compiler-runtime").c(12),
         a = e.chat,
         i = e.isRefresh,
         l = e.showAdditionalAction,
-        c =
+        c;
+      if (t[0] !== a) {
+        var d;
+        ((c =
           o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(a) &&
           !o(
             "WAWebChatGroupUtils",
           ).isIntegrityDeactivatedCommunityAnnouncementGroup(a) &&
           !o("WAWebChatGroupUtils").isTerminatedGroup(a) &&
-          ((t = a.groupMetadata) == null
+          ((d = a.groupMetadata) == null
             ? void 0
-            : t.participants.iAmMember()) === !0,
-        d = function () {
-          var e = function () {
-            (o("WAWebSendSpamChatAction").sendReport({
-              chat: a,
-              spamFlow: o("WAWebSpamConstants").SpamFlow.GroupInfoReport,
-            }),
-              o("WAWebModalManager").ModalManager.close(),
-              f({ isExit: !1 }));
-          };
-          function t() {
-            return i.apply(this, arguments);
-          }
-          function i() {
-            return (
-              (i = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                (yield o("WAWebSendSpamChatAction").sendReport({
+            : d.participants.iAmMember()) === !0),
+          (t[0] = a),
+          (t[1] = c));
+      } else c = t[1];
+      var m = c,
+        p;
+      t[2] !== a || t[3] !== m || t[4] !== l
+        ? ((p = function () {
+            var e = function () {
+                (o("WAWebSendSpamChatAction").sendReport({
                   chat: a,
                   spamFlow: o("WAWebSpamConstants").SpamFlow.GroupInfoReport,
                 }),
-                  o("WAWebExitGroupAction").sendExitGroup(a),
                   o("WAWebModalManager").ModalManager.close(),
-                  f({ isExit: !0 }));
-              })),
-              i.apply(this, arguments)
-            );
-          }
-          var s = function () {
-            var e,
-              t =
-                (e = a.groupMetadata) == null ? void 0 : e.getParentGroupChat();
-            c && t
-              ? o("WAWebSendSpamChatAction")
-                  .sendReport({
-                    chat: a,
-                    spamFlow: o("WAWebSpamConstants").SpamFlow.GroupInfoReport,
-                  })
-                  .then(function () {
-                    o("WAWebModalManager").ModalManager.open(
-                      u.jsx(r("WAWebLeaveCommunityModal.react"), { chat: t }),
-                      { transition: "modal-flow" },
-                    );
-                  })
-              : (o("WAWebSendSpamChatAction").sendSpamExitClear(
-                  a,
-                  o("WAWebSpamConstants").SpamFlow.GroupInfoReport,
-                ),
-                o("WAWebModalManager").ModalManager.close(),
-                f({ isExit: !0 }));
-          };
-          o("WAWebChatGetters").getIsGroup(a) &&
-          !o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(a) &&
-          o("WAWebBlocklistUtils").isRBIForGroupsEnabled()
-            ? o("WAWebModalManager").ModalManager.open(
-                u.jsx(r("WAWebReportGroupPopup.react"), {
-                  onReportAndLeave: t,
-                  onReport: e,
-                  chat: a,
-                }),
-                { transition: "modal-flow" },
-              )
-            : o("WAWebModalManager").ModalManager.open(
-                u.jsx(r("WAWebReportSpamPopup.react"), {
-                  isMessage: !1,
-                  isGroupChat: !0,
-                  isCommunityAnnouncementGroup: c,
-                  showAdditionalActionCheckbox: l,
-                  onReport: e,
-                  onReportExitClear: s,
-                  onCancel: function () {
-                    return o("WAWebModalManager").ModalManager.close();
+                  C({ isExit: !1 }));
+              },
+              t = (function () {
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* () {
+                    (yield o("WAWebSendSpamChatAction").sendReport({
+                      chat: a,
+                      spamFlow:
+                        o("WAWebSpamConstants").SpamFlow.GroupInfoReport,
+                    }),
+                      o("WAWebExitGroupAction").sendExitGroup(a),
+                      o("WAWebModalManager").ModalManager.close(),
+                      C({ isExit: !0 }));
                   },
-                }),
-              );
-        },
-        m = s._(/*BTDS*/ "Report announcements"),
-        p = s._(/*BTDS*/ "Report group"),
-        _ = c ? m : p;
-      return i === !0
-        ? u.jsx(r("WAWebDrawerButtonRefreshed.react"), {
-            testid: void 0,
-            danger: !0,
-            icon: u.jsx(r("WDSIconIcThumbDown.react"), {}),
-            onClick: d,
-            children: _,
-          })
-        : u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
-            testid: void 0,
-            color: "danger",
-            icon: u.jsx(o("WAWebThumbsDownIcon.react").ThumbsDownIcon, {}),
-            theme: "chat-info",
-            onClick: d,
-            children: _,
-          });
+                );
+                function t() {
+                  return e.apply(this, arguments);
+                }
+                return t;
+              })(),
+              i = function () {
+                var e,
+                  t =
+                    (e = a.groupMetadata) == null
+                      ? void 0
+                      : e.getParentGroupChat();
+                m && t
+                  ? o("WAWebSendSpamChatAction")
+                      .sendReport({
+                        chat: a,
+                        spamFlow:
+                          o("WAWebSpamConstants").SpamFlow.GroupInfoReport,
+                      })
+                      .then(function () {
+                        o("WAWebModalManager").ModalManager.open(
+                          u.jsx(r("WAWebLeaveCommunityModal.react"), {
+                            chat: t,
+                          }),
+                          { transition: "modal-flow" },
+                        );
+                      })
+                  : (o("WAWebSendSpamChatAction").sendSpamExitClear(
+                      a,
+                      o("WAWebSpamConstants").SpamFlow.GroupInfoReport,
+                    ),
+                    o("WAWebModalManager").ModalManager.close(),
+                    C({ isExit: !0 }));
+              };
+            o("WAWebChatGetters").getIsGroup(a) &&
+            !o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(a) &&
+            o("WAWebBlocklistUtils").isRBIForGroupsEnabled()
+              ? o("WAWebModalManager").ModalManager.open(
+                  u.jsx(r("WAWebReportGroupPopup.react"), {
+                    onReportAndLeave: t,
+                    onReport: e,
+                    chat: a,
+                  }),
+                  { transition: "modal-flow" },
+                )
+              : o("WAWebModalManager").ModalManager.open(
+                  u.jsx(r("WAWebReportSpamPopup.react"), {
+                    isMessage: !1,
+                    isGroupChat: !0,
+                    isCommunityAnnouncementGroup: m,
+                    showAdditionalActionCheckbox: l,
+                    onReport: e,
+                    onReportExitClear: i,
+                    onCancel: v,
+                  }),
+                );
+          }),
+          (t[2] = a),
+          (t[3] = m),
+          (t[4] = l),
+          (t[5] = p))
+        : (p = t[5]);
+      var _ = p,
+        f;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = s._(/*BTDS*/ "Report announcements")), (t[6] = f))
+        : (f = t[6]);
+      var g = f,
+        h;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = s._(/*BTDS*/ "Report group")), (t[7] = h))
+        : (h = t[7]);
+      var y = h,
+        b = m ? g : y,
+        S;
+      return (
+        t[8] !== b || t[9] !== _ || t[10] !== i
+          ? ((S =
+              i === !0
+                ? u.jsx(r("WAWebDrawerButtonRefreshed.react"), {
+                    testid: void 0,
+                    danger: !0,
+                    icon: u.jsx(r("WDSIconIcThumbDown.react"), {}),
+                    onClick: _,
+                    children: b,
+                  })
+                : u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+                    testid: void 0,
+                    color: "danger",
+                    icon: u.jsx(
+                      o("WAWebThumbsDownIcon.react").ThumbsDownIcon,
+                      {},
+                    ),
+                    theme: "chat-info",
+                    onClick: _,
+                    children: b,
+                  })),
+            (t[8] = b),
+            (t[9] = _),
+            (t[10] = i),
+            (t[11] = S))
+          : (S = t[11]),
+        S
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
-    function h(e) {
+    function v() {
+      return o("WAWebModalManager").ModalManager.close();
+    }
+    function S(e) {
       var t = e.chat,
         n = e.isRefresh,
         a = o("useWAWebChatValues").useChatValues(t.id, [
@@ -320,75 +434,132 @@ __d(
             })
       );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y(e) {
-      var t = e.chat,
-        n = e.isRefresh,
-        a = e.parentGroup,
-        i = r("useWAWebUnmountSignal")(),
-        l = o("useWAWebModelValues").useModelValues(t, [
-          "groupMetadata",
-          "isReadOnly",
-          "id",
-          "formattedTitle",
-        ]),
-        c = l.formattedTitle,
-        d = l.groupMetadata,
-        p = l.id,
-        _ = l.isReadOnly,
-        f = r("WAWebGroupMetadataCollection").get(a.toString()),
-        g = r("useWAWebIAmCommunityAdmin")(f),
-        h = !!r("useWAWebEventTargetValue")(
-          d == null ? void 0 : d.participants,
-          ["bulk_add", "bulk_remove"],
-          function () {
-            return d == null ? void 0 : d.participants.iAmAdmin();
-          },
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R(e) {
+      var t = o("react-compiler-runtime").c(20),
+        n = e.chat,
+        a = e.isRefresh,
+        i = e.parentGroup,
+        l = r("useWAWebUnmountSignal")(),
+        c;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = ["groupMetadata", "isReadOnly", "id", "formattedTitle"]),
+          (t[0] = c))
+        : (c = t[0]);
+      var d = o("useWAWebModelValues").useModelValues(n, c),
+        p = d.formattedTitle,
+        _ = d.groupMetadata,
+        f = d.id,
+        g = d.isReadOnly,
+        h;
+      t[1] !== i
+        ? ((h = r("WAWebGroupMetadataCollection").get(i.toString())),
+          (t[1] = i),
+          (t[2] = h))
+        : (h = t[2]);
+      var y = h,
+        C = r("useWAWebIAmCommunityAdmin")(y),
+        b;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b = ["bulk_add", "bulk_remove"]), (t[3] = b))
+        : (b = t[3]);
+      var v;
+      t[4] !== (_ == null ? void 0 : _.participants)
+        ? ((v = function () {
+            return _ == null ? void 0 : _.participants.iAmAdmin();
+          }),
+          (t[4] = _ == null ? void 0 : _.participants),
+          (t[5] = v))
+        : (v = t[5]);
+      var S = !!r("useWAWebEventTargetValue")(
+          _ == null ? void 0 : _.participants,
+          b,
+          v,
         ),
-        y = r("useWAWebCommunitySubgroups")(f),
-        C = y.joinedSubgroups,
-        b = y.unjoinedSubgroups,
-        v = m(!1),
-        S = v[0],
-        R = v[1];
-      if (_ || C == null || b == null || (!g && !h)) return null;
-      var L = function () {
-          S ||
-            i.aborted ||
-            (o("WAWebCommunityRemoveSubgroup").handleRemoveSubgroup({
-              parentId: a,
-              removedSubgroupWid: p,
-              removedSubgroupTitle: c,
-              setLoading: R,
-              iAmCommunityAdmin: g,
-            }),
-            i.aborted);
-        },
-        E = s._(/*BTDS*/ "Remove from community"),
-        k = "li-remove-group-from-community",
-        I = function () {
-          L();
-        };
-      return n === !0
-        ? u.jsx(r("WAWebDrawerButtonRefreshed.react"), {
-            testid: void 0,
-            icon: u.jsx(r("WDSIconIcLogout.react"), { directional: !0 }),
-            disabled: S,
-            danger: !0,
-            onClick: I,
-            children: E,
-          })
-        : u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
-            testid: void 0,
-            icon: u.jsx(o("WAWebExitIcon.react").ExitIcon, { directional: !0 }),
-            disabled: S,
-            color: "danger",
-            theme: "chat-info",
-            onClick: I,
-            children: E,
-          });
+        R = r("useWAWebCommunitySubgroups")(y),
+        L = R.joinedSubgroups,
+        E = R.unjoinedSubgroups,
+        k = m(!1),
+        I = k[0],
+        T = k[1];
+      if (g || L == null || E == null || (!C && !S)) return null;
+      var D;
+      t[6] !== I ||
+      t[7] !== C ||
+      t[8] !== l ||
+      t[9] !== i ||
+      t[10] !== p ||
+      t[11] !== f
+        ? ((D = function () {
+            I ||
+              l.aborted ||
+              (o("WAWebCommunityRemoveSubgroup").handleRemoveSubgroup({
+                parentId: i,
+                removedSubgroupWid: f,
+                removedSubgroupTitle: p,
+                setLoading: T,
+                iAmCommunityAdmin: C,
+              }),
+              l.aborted);
+          }),
+          (t[6] = I),
+          (t[7] = C),
+          (t[8] = l),
+          (t[9] = i),
+          (t[10] = p),
+          (t[11] = f),
+          (t[12] = D))
+        : (D = t[12]);
+      var x = D,
+        $;
+      t[13] === Symbol.for("react.memo_cache_sentinel")
+        ? (($ = s._(/*BTDS*/ "Remove from community")), (t[13] = $))
+        : ($ = t[13]);
+      var P = $,
+        N;
+      t[14] !== x
+        ? ((N = function () {
+            x();
+          }),
+          (t[14] = x),
+          (t[15] = N))
+        : (N = t[15]);
+      var M = N,
+        w;
+      return (
+        t[16] !== I || t[17] !== M || t[18] !== a
+          ? ((w =
+              a === !0
+                ? u.jsx(r("WAWebDrawerButtonRefreshed.react"), {
+                    testid: void 0,
+                    icon: u.jsx(r("WDSIconIcLogout.react"), {
+                      directional: !0,
+                    }),
+                    disabled: I,
+                    danger: !0,
+                    onClick: M,
+                    children: P,
+                  })
+                : u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+                    testid: void 0,
+                    icon: u.jsx(o("WAWebExitIcon.react").ExitIcon, {
+                      directional: !0,
+                    }),
+                    disabled: I,
+                    color: "danger",
+                    theme: "chat-info",
+                    onClick: M,
+                    children: P,
+                  })),
+            (t[16] = I),
+            (t[17] = M),
+            (t[18] = a),
+            (t[19] = w))
+          : (w = t[19]),
+        w
+      );
     }
-    ((y.displayName = y.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

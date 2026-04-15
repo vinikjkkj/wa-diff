@@ -39,16 +39,12 @@ __d(
       C = _.useMemo,
       b = _.useRef,
       v =
-        r("HeroTracingCoreConfig").deferUnmountCleanup === void 0
-          ? !1
-          : r("HeroTracingCoreConfig").deferUnmountCleanup,
-      S =
         r("HeroTracingCoreConfig").fixParentInteractionIdWhenCancel === void 0
           ? !1
           : r("HeroTracingCoreConfig").fixParentInteractionIdWhenCancel,
-      R = "root",
-      L = new WeakSet();
-    function E(e, t, n) {
+      S = "root",
+      R = new WeakSet();
+    function L(e, t, n) {
       (o("HeroLogger").markStart(e, t),
         o(
           "interaction-tracing-metrics",
@@ -60,7 +56,7 @@ __d(
           "SuspensePromise",
         ));
     }
-    function k(e, t, n, a, i) {
+    function E(e, t, n, a, i) {
       (o("HeroLogger").markStartPlaceholder(e, t, void 0, n, a, i),
         o(
           "interaction-tracing-metrics",
@@ -72,7 +68,7 @@ __d(
           "PlaceholderWait",
         ));
     }
-    function I(e, t, n, a) {
+    function k(e, t, n, a) {
       (o("HeroLogger").markEnd(
         e,
         n,
@@ -92,7 +88,7 @@ __d(
           (d || (d = r("performanceNow")))(),
         ));
     }
-    function T(e, t, n, a) {
+    function I(e, t, n, a) {
       (o("HeroLogger").markEndPlaceholder(
         e,
         n,
@@ -111,7 +107,7 @@ __d(
           (d || (d = r("performanceNow")))(),
         ));
     }
-    function D(e, t, n) {
+    function T(e, t, n) {
       o(
         "interaction-tracing-metrics",
       ).InteractionTracingMetricsCore.addHeroRelay(t, {
@@ -150,7 +146,7 @@ __d(
         }
       }
     }
-    function x(e, t, n) {
+    function D(e, t, n) {
       o(
         "interaction-tracing-metrics",
       ).InteractionTracingMetricsCore.addHeroBootload(t, {
@@ -158,7 +154,7 @@ __d(
         pageletStack: n,
       });
     }
-    function $(e) {
+    function x(e) {
       if (!e) return "No placeholder";
       var t = e.boundaryName != null ? "@" + e.boundaryName : "",
         n =
@@ -168,7 +164,7 @@ __d(
           "No Promises";
       return n + t;
     }
-    function P(e, t) {
+    function $(e, t) {
       if (e == null) return null;
       var n = {
         commitCount: 0,
@@ -203,104 +199,136 @@ __d(
       }
       return n;
     }
-    var N = new Set();
-    function M(t) {
+    var P = new Set(),
+      N = new Map();
+    function M(e, t) {
+      return e == null || t == null ? null : e + "::" + t;
+    }
+    function w(e) {
+      e != null && r("clearImmediate")(e);
+    }
+    function A(e) {
+      if (e != null) {
+        var t = N.get(e);
+        t != null && (w(t), N.delete(e));
+      }
+    }
+    function F(e) {
+      return r("setImmediateAcrossTransitions")(e);
+    }
+    function O(e, t) {
+      A(e);
+      var n = F(function () {
+        (N.get(e) === n && N.delete(e), t());
+      });
+      N.set(e, n);
+    }
+    function B(t) {
       var a,
         i,
         l,
         m = t.ref,
         _ = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        N = g(o("hero-tracing-placeholder").HeroInteractionContext.Context),
-        M = g(o("hero-tracing-placeholder").HeroInteractionIDContext),
+        P = g(o("hero-tracing-placeholder").HeroInteractionContext.Context),
+        N = g(o("hero-tracing-placeholder").HeroInteractionIDContext),
         w = b(null),
-        A = b(null),
-        F = g(r("HiddenSubtreePassiveContext")),
-        O = (a = _.interactionDesc) != null ? a : "No Description",
-        B = _.interactionUUID,
-        W = b({}),
-        q = b({}),
-        U = b({}),
-        V = b(null),
-        H = b(M),
-        G = r("useStable")(
+        B = b(null),
+        W = g(r("HiddenSubtreePassiveContext")),
+        q = (a = _.interactionDesc) != null ? a : "No Description",
+        U = _.interactionUUID,
+        V = b(_.shouldDeferUnmountCleanup),
+        H = M(_.unmountCleanupHandoffKey, U),
+        G = b(H);
+      y(
+        function () {
+          ((V.current = _.shouldDeferUnmountCleanup), (G.current = H));
+        },
+        [_.shouldDeferUnmountCleanup, H],
+      );
+      var z = b({}),
+        j = b({}),
+        K = b({}),
+        Q = b(null),
+        X = b(N),
+        Y = r("useStable")(
           o("hero-tracing-placeholder").HeroPlaceholderUtils.getSimpleUUID,
         ),
-        z = C(
+        J = C(
           function () {
             var e;
-            return [].concat(N.pageletStack, [
-              (e = _.pageletName) != null ? e : R,
+            return [].concat(P.pageletStack, [
+              (e = _.pageletName) != null ? e : S,
             ]);
           },
-          [N.pageletStack, _.pageletName],
+          [P.pageletStack, _.pageletName],
         ),
-        j = b([]),
-        K = b(new Set()),
-        Q = f(function () {
-          return r("objectValues")(W.current).some(function (e) {
+        Z = b([]),
+        ee = b(new Set()),
+        te = f(function () {
+          return r("objectValues")(z.current).some(function (e) {
             return e.shouldHold;
           });
         }, []),
-        X = f(
+        ne = f(
           function (e, t, n) {
-            A.current !== e &&
+            B.current !== e &&
               w.current == null &&
-              !F.getCurrentState().hidden &&
-              !Q() &&
+              !W.getCurrentState().hidden &&
+              !te() &&
               (w.current = o(
                 "foregroundRequestAnimationFrame",
               ).foregroundRequestAnimationFrame(function () {
                 ((w.current = null),
-                  !F.getCurrentState().hidden &&
-                    A.current !== e &&
-                    !Q() &&
-                    ((A.current = e),
+                  !W.getCurrentState().hidden &&
+                    B.current !== e &&
+                    !te() &&
+                    ((B.current = e),
                     n !== e &&
-                      o("HeroLogger").endHeroInteraction(e, z, "SUCCESS"),
-                    n != null && N.unhold(n, n + "_" + G),
-                    D(j.current, e, z),
-                    x(K.current, e, z),
-                    (j.current = []),
-                    (K.current = new Set())));
+                      o("HeroLogger").endHeroInteraction(e, J, "SUCCESS"),
+                    n != null && P.unhold(n, n + "_" + Y),
+                    T(Z.current, e, J),
+                    D(ee.current, e, J),
+                    (Z.current = []),
+                    (ee.current = new Set())));
               }));
           },
-          [F, N, G, z, Q],
+          [W, P, Y, J, te],
         );
-      if (B != null) {
-        var Y = o(
+      if (U != null) {
+        var re = o(
           "interaction-tracing-metrics",
-        ).InteractionTracingMetricsCore.get(B);
-        Y != null &&
-          Y.completed == null &&
+        ).InteractionTracingMetricsCore.get(U);
+        re != null &&
+          re.completed == null &&
           o(
             "interaction-tracing-metrics",
           ).InteractionTracingMetricsCore.addFirstMarkerPoint(
-            B,
+            U,
             "HeroTrace_start",
             "AppTiming",
             (d || (d = r("performanceNow")))(),
           );
       }
-      var J = f(
+      var oe = f(
           function () {
-            var e = V.current;
-            e != null && X(e.interactionUUID, e.interactionDesc, M);
+            var e = Q.current;
+            e != null && ne(e.interactionUUID, e.interactionDesc, N);
           },
-          [M, X],
+          [N, ne],
         ),
-        Z = f(
+        ae = f(
           function (e, t, n) {
-            var a = V.current;
-            if (a != null && A.current !== a.interactionUUID) {
-              var i = S ? H.current : n;
-              (i != null && N.unhold(i, i + "_" + G),
+            var a = Q.current;
+            if (a != null && B.current !== a.interactionUUID) {
+              var i = v ? X.current : n;
+              (i != null && P.unhold(i, i + "_" + Y),
                 r("HeroTracingCoreConfig")
                   .removeHoldOnParentContextOnNewInteraction &&
-                  N.unhold(a.interactionUUID, a.interactionUUID + "_" + G),
+                  P.unhold(a.interactionUUID, a.interactionUUID + "_" + Y),
                 i !== a.interactionUUID
                   ? o("HeroLogger").endHeroInteraction(
                       a.interactionUUID,
-                      z,
+                      J,
                       "ABORT",
                       t,
                     )
@@ -319,42 +347,45 @@ __d(
                   ));
             }
             (a != null &&
-              (D(j.current, a.interactionUUID, z),
-              x(K.current, a.interactionUUID, z)),
-              (j.current = []),
-              (K.current = new Set()),
-              (A.current = null),
+              (T(Z.current, a.interactionUUID, J),
+              D(ee.current, a.interactionUUID, J)),
+              (Z.current = []),
+              (ee.current = new Set()),
+              (B.current = null),
               w.current && w.current(),
               (w.current = null),
-              (V.current = e),
-              (H.current = n),
+              (Q.current = e),
+              (X.current = n),
               e !== null &&
                 n != null &&
-                N.hold(
+                P.hold(
                   n,
-                  z,
+                  J,
                   "Sub Interaction:" + e.interactionDesc,
-                  n + "_" + G,
+                  n + "_" + Y,
                 ));
           },
-          [N, G, z],
+          [P, Y, J],
         ),
-        ee = b(null);
+        ie = b(null);
       (h(
         function () {
+          var e = G.current;
           return (
-            v === !0 && r("clearImmediate")(ee.current),
+            e != null && A(e),
             function () {
               var e = function () {
-                return Z(null, "Unmount");
-              };
-              v === !0
-                ? (ee.current = r("setImmediateAcrossTransitions")(e))
-                : e();
+                  return ae(null, "Unmount");
+                },
+                t = (V.current == null ? void 0 : V.current()) === !0;
+              if (t) {
+                var n = G.current;
+                n == null ? (ie.current = F(e)) : O(n, e);
+              } else e();
             }
           );
         },
-        [Z],
+        [ae],
       ),
         y(
           function () {
@@ -362,60 +393,60 @@ __d(
             if (
               !(
                 r("HeroTracingCoreConfig").enableResetCompletedFix === !0 &&
-                B != null &&
+                U != null &&
                 ((e = o(
                   "interaction-tracing-metrics",
-                ).InteractionTracingMetricsCore.get(B)) == null
+                ).InteractionTracingMetricsCore.get(U)) == null
                   ? void 0
                   : e.completed) != null
               )
             ) {
               var t = null;
-              (B != null && (t = { interactionDesc: O, interactionUUID: B }),
-                Z(t, "New Interaction", M),
-                B != null && X(B, O, M));
+              (U != null && (t = { interactionDesc: q, interactionUUID: U }),
+                ae(t, "New Interaction", N),
+                U != null && ne(U, q, N));
             }
           },
-          [O, B, M, Z, X],
+          [q, U, N, ae, ne],
         ),
         y(
           function () {
-            if (B != null) {
-              var e = F.getCurrentState().hidden,
-                t = F.getCurrentState().backgrounded,
-                n = F.subscribeToChanges(function (n) {
+            if (U != null) {
+              var e = W.getCurrentState().hidden,
+                t = W.getCurrentState().backgrounded,
+                n = W.subscribeToChanges(function (n) {
                   var r = n.hidden,
                     a = n.backgrounded,
                     i = e,
                     l = t;
                   if (((e = r), (t = a), i !== r && r))
-                    Z({ interactionDesc: O, interactionUUID: B }, "Hidden");
+                    ae({ interactionDesc: q, interactionUUID: U }, "Hidden");
                   else if ((i && !r) || (l && !a)) {
                     var s = o(
                       "interaction-tracing-metrics",
-                    ).InteractionTracingMetricsCore.get(B);
+                    ).InteractionTracingMetricsCore.get(U);
                     (s != null &&
                       s.completed == null &&
-                      A.current === B &&
-                      (A.current = null),
-                      X(B, O, M));
+                      B.current === U &&
+                      (B.current = null),
+                      ne(U, q, N));
                   }
                 });
               return (
-                B != null && X(B, O, M),
+                U != null && ne(U, q, N),
                 function () {
                   return n.remove();
                 }
               );
             }
           },
-          [F, B, O, Z, X, M],
+          [W, U, q, ae, ne, N],
         ));
-      var te = C(
+      var le = C(
           function () {
             var e = {
               consumeBootload: function (t) {
-                K.current.add(t);
+                ee.current.add(t);
               },
               hold: function (r, a, i, l, u) {
                 i === void 0 && (i = "Hold");
@@ -437,12 +468,12 @@ __d(
               logMetadata: function (t, n, r) {
                 var e,
                   o = r[r.length - 1],
-                  a = (e = q.current[o]) != null ? e : Object.create(null);
-                (n != null ? (a[t] = n) : delete a[t], (q.current[o] = a));
+                  a = (e = j.current[o]) != null ? e : Object.create(null);
+                (n != null ? (a[t] = n) : delete a[t], (j.current[o] = a));
               },
               logPageletVC: function (t, n, r, a, i) {
                 var e = i[i.length - 1],
-                  l = q.current[e],
+                  l = j.current[e],
                   s = l != null ? babelHelpers.extends({}, l) : void 0;
                 (s &&
                   o(
@@ -465,9 +496,9 @@ __d(
                   r != null &&
                     ((s = Object.assign(
                       s != null ? s : babelHelpers.extends({}, null),
-                      P(U.current[e], r),
+                      $(K.current[e], r),
                     )),
-                    (U.current[e] = {}),
+                    (K.current[e] = {}),
                     o("HeroLogger").measure(
                       t,
                       [].concat(i),
@@ -485,14 +516,14 @@ __d(
                     (
                       u || (u = r("HeroTracingCoreDependencies"))
                     ).UserTimingUtils.measureReactCommit(n, i, a),
-                  A.current !== t && l)
+                  B.current !== t && l)
                 ) {
                   var e,
                     c,
                     d = s[s.length - 1],
-                    m = (e = U.current[d]) != null ? e : Object.create(null),
+                    m = (e = K.current[d]) != null ? e : Object.create(null),
                     p = (c = m[i]) != null ? c : Object.create(null);
-                  ((p.commitDuration = a), (m[i] = p), (U.current[d] = m));
+                  ((p.commitDuration = a), (m[i] = p), (K.current[d] = m));
                 }
               },
               logReactPostCommit: function (t, n, o, a, i, l, s) {
@@ -502,19 +533,19 @@ __d(
                     (
                       u || (u = r("HeroTracingCoreDependencies"))
                     ).UserTimingUtils.measureReactPostCommit(n, a),
-                  A.current !== t && l)
+                  B.current !== t && l)
                 ) {
                   var e,
                     c,
                     d = s[s.length - 1],
-                    m = (e = U.current[d]) != null ? e : Object.create(null),
+                    m = (e = K.current[d]) != null ? e : Object.create(null),
                     p = (c = m[i]) != null ? c : Object.create(null);
-                  ((p.postCommitDuration = a), (m[i] = p), (U.current[d] = m));
+                  ((p.postCommitDuration = a), (m[i] = p), (K.current[d] = m));
                 }
               },
               logReactRender: function (t, n, r, a, i, l, s, u, c) {
                 if (
-                  A.current !== t &&
+                  B.current !== t &&
                   (o("HeroLogger").measure(
                     t,
                     [].concat(c),
@@ -529,39 +560,39 @@ __d(
                   var e,
                     d,
                     m = c[c.length - 1],
-                    p = (e = U.current[m]) != null ? e : Object.create(null),
+                    p = (e = K.current[m]) != null ? e : Object.create(null),
                     _ = (d = p[i]) != null ? d : Object.create(null);
                   ((_.actualDuration = l),
                     (_.baseDuration = s),
                     (p[i] = _),
-                    (U.current[m] = p));
+                    (K.current[m] = p));
                 }
               },
-              pageletStack: N.pageletStack,
+              pageletStack: P.pageletStack,
               registerPlaceholder: function (t, n, r) {
-                var e = W.current[n];
+                var e = z.current[n];
                 if ((w.current && w.current(), (w.current = null), e != null)) {
                   e.shouldHold = !0;
                   return;
                 }
                 var o = new Set();
-                ((W.current[n] = {
+                ((z.current[n] = {
                   pageletStack: r,
                   shouldHold: !0,
                   thenables: o,
                 }),
-                  k(t, n, r, $(W.current[n]), t));
+                  E(t, n, r, x(z.current[n]), t));
               },
               removePlaceholder: function (t, n) {
-                var e = W.current[n] != null;
+                var e = z.current[n] != null;
                 if (e) {
-                  var r = W.current[n];
-                  (delete W.current[n], J(), T(t, n, r.pageletStack, $(r)));
+                  var r = z.current[n];
+                  (delete z.current[n], oe(), I(t, n, r.pageletStack, x(r)));
                 }
               },
               suspenseCallback: function (t, n, r, a, i) {
                 var e,
-                  l = W.current[n],
+                  l = z.current[n],
                   s = {
                     boundaryName: i,
                     pageletStack: r,
@@ -569,13 +600,13 @@ __d(
                       (e = l == null ? void 0 : l.shouldHold) != null ? e : !1,
                     thenables: a,
                   };
-                W.current[n] = s;
-                var u = $(s);
-                (l == null && k(t, n, r, u),
+                z.current[n] = s;
+                var u = x(s);
+                (l == null && E(t, n, r, u),
                   a.forEach(function (e) {
-                    if (!L.has(e)) {
+                    if (!R.has(e)) {
                       var n;
-                      L.add(e);
+                      R.add(e);
                       var a =
                           (n = (c || (c = o("PromiseAnnotate"))).getDisplayName(
                             e,
@@ -585,14 +616,14 @@ __d(
                         i = o(
                           "hero-tracing-placeholder",
                         ).HeroPlaceholderUtils.getSimpleUUID();
-                      (E(t, i, a),
+                      (L(t, i, a),
                         e.then(function () {
-                          I(t, i, r, a);
+                          k(t, i, r, a);
                         }));
                     }
                   }));
-                var d = $(l);
-                l != null && u !== d && (T(t, n, r, d), k(t, n, r, u));
+                var d = x(l);
+                l != null && u !== d && (I(t, n, r, d), E(t, n, r, u));
               },
               unhold: function (n, r) {
                 e.removePlaceholder(n, r);
@@ -600,43 +631,43 @@ __d(
             };
             return e;
           },
-          [N.pageletStack, J],
+          [P.pageletStack, oe],
         ),
-        ne = C(function () {
+        se = C(function () {
           return {
             consumeBootload: function (t) {
-              K.current.add(t);
+              ee.current.add(t);
             },
             retainQuery: function (t) {
-              j.current.push(t);
+              Z.current.push(t);
             },
             wrapPrepareQueryResource: function (t) {
               return t();
             },
           };
         }, []),
-        re = (i = _.pageletName) != null ? i : R,
-        oe = o(
+        ue = (i = _.pageletName) != null ? i : S,
+        ce = o(
           "HeroTracingPlatformDependenciesType",
         ).getHeroInteractionHostInstanceProps(_);
       return p.jsx(
         o("hero-tracing-placeholder").HeroInteractionContext.Context.Provider,
         {
-          value: te,
+          value: le,
           children: p.jsx(
             o("hero-tracing-placeholder").HeroInteractionIDContext.Provider,
             {
-              value: B,
+              value: U,
               children: p.jsx(
                 o("hero-tracing-placeholder")
                   .HeroCurrentInteractionForLoggingContext.Provider,
                 {
-                  value: V,
+                  value: Q,
                   children: p.jsx(r("RelayProfilerContext").Provider, {
-                    value: ne,
+                    value: se,
                     children: p.jsx(r("HeroPagelet.react"), {
                       isMutationRoot: !0,
-                      name: re,
+                      name: ue,
                       observeTextMutation: _.observeTextMutation,
                       ref: m,
                       alwaysMarkMutationRootAsVisualChange:
@@ -655,7 +686,7 @@ __d(
                           : p.jsxs(
                               r("HeroTracingPlatformDependencies")
                                 .HostInstanceTrackableComponent,
-                              babelHelpers.extends({}, oe, {
+                              babelHelpers.extends({}, ce, {
                                 ref: t,
                                 children: [p.jsx(n, {}), _.children],
                               }),
@@ -670,9 +701,9 @@ __d(
         },
       );
     }
-    ((M.displayName = M.name + " [from " + i.id + "]"),
-      (M.displayName = "HeroInteraction"),
-      (l.default = M));
+    ((B.displayName = B.name + " [from " + i.id + "]"),
+      (B.displayName = "HeroInteraction"),
+      (l.default = B));
   },
   98,
 );

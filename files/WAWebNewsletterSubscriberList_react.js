@@ -29,6 +29,7 @@ __d(
     "WAWebWamEnumChannelAdminAction",
     "WDSIconIcLink.react",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebNewsletterSubscribers",
     "useWAWebNewsletterSubscribersContextMenu",
@@ -72,49 +73,103 @@ __d(
       m = o("WAWebChatContact.react").ContactFactory(),
       p = 68;
     function _(e) {
-      var t = e.text,
-        n = e.textAlign;
-      return u.jsx(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        justify: "center",
-        xstyle: [o("WAWebUISpacing").uiPadding.vert16, d.lastRow, d[n]],
-        children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
-          direction: "auto",
-          text: t,
-          titlify: !0,
-          xstyle: [d.lastRowLabel, o("WAWebUISpacing").uiPadding.horiz20],
-        }),
-      });
+      var t = o("react-compiler-runtime").c(8),
+        n = e.text,
+        r = e.textAlign,
+        a = d[r],
+        i;
+      t[0] !== a
+        ? ((i = [o("WAWebUISpacing").uiPadding.vert16, d.lastRow, a]),
+          (t[0] = a),
+          (t[1] = i))
+        : (i = t[1]);
+      var l;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [d.lastRowLabel, o("WAWebUISpacing").uiPadding.horiz20]),
+          (t[2] = l))
+        : (l = t[2]);
+      var s;
+      t[3] !== n
+        ? ((s = u.jsx(o("WAWebEmojiText.react").EmojiText, {
+            direction: "auto",
+            text: n,
+            titlify: !0,
+            xstyle: l,
+          })),
+          (t[3] = n),
+          (t[4] = s))
+        : (s = t[4]);
+      var c;
+      return (
+        t[5] !== i || t[6] !== s
+          ? ((c = u.jsx(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "center",
+              xstyle: i,
+              children: s,
+            })),
+            (t[5] = i),
+            (t[6] = s),
+            (t[7] = c))
+          : (c = t[7]),
+        c
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f() {
-      return u.jsx(o("WAWebEmojiText.react").EmojiText, {
-        breakWord: !0,
-        direction: "auto",
-        text: o("WAWebCommonNewsletterStrings").getMeContactLabelChannelText(),
-        titlify: !0,
-        xstyle: d.italic,
-      });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = u.jsx(o("WAWebEmojiText.react").EmojiText, {
+              breakWord: !0,
+              direction: "auto",
+              text: o(
+                "WAWebCommonNewsletterStrings",
+              ).getMeContactLabelChannelText(),
+              titlify: !0,
+              xstyle: d.italic,
+            })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = e.onShareLink,
-        n = u.jsx(r("WAWebRoundShape.react"), {
-          theme: "group-modal",
-          children: u.jsx(r("WDSIconIcLink.react"), { testid: void 0 }),
-        });
-      return u.jsx(r("WAWebCellV2.react"), {
-        detailLeft: n,
-        isRefresh: !0,
-        onClick: t,
-        primary: u.jsx(o("WAWebText.react").WAWebTextTitleRefreshed, {
-          children: o("WAWebCommonNewsletterStrings").getInviteViaLinkText(),
-        }),
-        size: "medium",
-        testid: void 0,
-      });
+      var t = o("react-compiler-runtime").c(4),
+        n = e.onShareLink,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = u.jsx(r("WAWebRoundShape.react"), {
+            theme: "group-modal",
+            children: u.jsx(r("WDSIconIcLink.react"), { testid: void 0 }),
+          })),
+          (t[0] = a))
+        : (a = t[0]);
+      var i = a,
+        l;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = u.jsx(o("WAWebText.react").WAWebTextTitleRefreshed, {
+            children: o("WAWebCommonNewsletterStrings").getInviteViaLinkText(),
+          })),
+          (t[1] = l))
+        : (l = t[1]);
+      var s;
+      return (
+        t[2] !== n
+          ? ((s = u.jsx(r("WAWebCellV2.react"), {
+              detailLeft: i,
+              isRefresh: !0,
+              onClick: n,
+              primary: l,
+              size: "medium",
+              testid: void 0,
+            })),
+            (t[2] = n),
+            (t[3] = s))
+          : (s = t[3]),
+        s
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e, t) {
       return !(
         o("WAWebUserPrefsMeUser").isMeAccount(e) &&
@@ -122,39 +177,75 @@ __d(
       );
     }
     function y(e) {
-      var t = e.active,
-        n = e.handleContactClick,
-        r = e.handleContactContextMenu,
-        a = e.newsletter,
-        i = e.subscriberData,
-        l = c(
-          function () {
-            var e;
-            return h(
-              (e = i.contact) == null ? void 0 : e.id,
-              a == null ? void 0 : a.newsletterMetadata,
-            );
-          },
-          [i, a],
-        );
-      return i.contact == null
-        ? null
-        : u.jsx(m, {
-            active: t,
-            contact: i.contact,
-            contextEnabled: l,
-            contextMenu: !0,
-            isPendingParticipant: i.isPendingAdmin,
-            newsletterMembershipType: i.role,
-            onClick: n,
-            onContext: r,
-            secondary: o("WAWebContactGetters").getIsMe(i.contact)
-              ? u.jsx(f, {})
-              : null,
-            theme: "chat-info",
-          });
+      var t,
+        n = o("react-compiler-runtime").c(14),
+        r = e.active,
+        a = e.handleContactClick,
+        i = e.handleContactContextMenu,
+        l = e.newsletter,
+        s = e.subscriberData,
+        c;
+      if (
+        n[0] !== (l == null ? void 0 : l.newsletterMetadata) ||
+        n[1] !== ((t = s.contact) == null ? void 0 : t.id)
+      ) {
+        var d;
+        ((c = function () {
+          var e;
+          return h(
+            (e = s.contact) == null ? void 0 : e.id,
+            l == null ? void 0 : l.newsletterMetadata,
+          );
+        }),
+          (n[0] = l == null ? void 0 : l.newsletterMetadata),
+          (n[1] = (d = s.contact) == null ? void 0 : d.id),
+          (n[2] = c));
+      } else c = n[2];
+      var p = c;
+      if (s.contact == null) return null;
+      var _;
+      n[3] !== s.contact
+        ? ((_ = o("WAWebContactGetters").getIsMe(s.contact)
+            ? u.jsx(f, {})
+            : null),
+          (n[3] = s.contact),
+          (n[4] = _))
+        : (_ = n[4]);
+      var g;
+      return (
+        n[5] !== r ||
+        n[6] !== a ||
+        n[7] !== i ||
+        n[8] !== p ||
+        n[9] !== s.contact ||
+        n[10] !== s.isPendingAdmin ||
+        n[11] !== s.role ||
+        n[12] !== _
+          ? ((g = u.jsx(m, {
+              active: r,
+              contact: s.contact,
+              contextEnabled: p,
+              contextMenu: !0,
+              isPendingParticipant: s.isPendingAdmin,
+              newsletterMembershipType: s.role,
+              onClick: a,
+              onContext: i,
+              secondary: _,
+              theme: "chat-info",
+            })),
+            (n[5] = r),
+            (n[6] = a),
+            (n[7] = i),
+            (n[8] = p),
+            (n[9] = s.contact),
+            (n[10] = s.isPendingAdmin),
+            (n[11] = s.role),
+            (n[12] = _),
+            (n[13] = g))
+          : (g = n[13]),
+        g
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
       var t = e.adminFunnelLogger,
         n = e.onShareLink,
@@ -189,13 +280,15 @@ __d(
         C = h[0],
         b = h[1],
         v = C.map(function (e) {
-          var t = e.contact,
-            n = e.role;
+          var t = e.adminProfile,
+            n = e.contact,
+            r = e.role;
           return {
-            itemKey: t.id.toString(),
-            contact: t,
+            itemKey: n.id.toString(),
+            adminProfile: t,
+            contact: n,
             height: p,
-            role: n,
+            role: r,
             isPendingAdmin: !1,
           };
         }),

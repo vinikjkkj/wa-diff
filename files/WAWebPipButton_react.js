@@ -1,6 +1,13 @@
 __d(
   "WAWebPipButton.react",
-  ["fbt", "WAWebVideoPipIcon.react", "WDSFocusStateStyles", "react", "stylex"],
+  [
+    "fbt",
+    "WAWebVideoPipIcon.react",
+    "WDSFocusStateStyles",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+  ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
@@ -34,37 +41,58 @@ __d(
         preview: { top: "x1atx4j1", insetInlineStart: "x5tdj20", $$css: !0 },
       };
     function p(t) {
-      var n = t.onBlur,
-        a = t.onClick,
-        i = t.onFocus,
-        l = t.ref,
-        u = t.theme;
-      return c.jsx(
-        "button",
-        babelHelpers.extends(
-          { ref: l },
-          (e || (e = r("stylex"))).props(
+      var n = o("react-compiler-runtime").c(10),
+        a = t.onBlur,
+        i = t.onClick,
+        l = t.onFocus,
+        u = t.ref,
+        p = t.theme,
+        f;
+      n[0] !== p
+        ? ((f = (e || (e = r("stylex"))).props(
             m.pipBtn,
-            u === d.PLAYER && m.player,
-            u === d.PREVIEW && m.preview,
+            p === d.PLAYER && m.player,
+            p === d.PREVIEW && m.preview,
             o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-          ),
-          {
-            onBlur: n,
-            onClick: a,
-            onFocus: i,
-            onKeyDown: function (t) {
-              (t.key === "Enter" || t.key === " ") && t.stopPropagation();
-            },
-            "aria-label": s._(/*BTDS*/ "Picture-in-picture mode"),
-            children: c.jsx(o("WAWebVideoPipIcon.react").VideoPipIcon, {}),
-          },
-        ),
+          )),
+          (n[0] = p),
+          (n[1] = f))
+        : (f = n[1]);
+      var g, h;
+      n[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = s._(/*BTDS*/ "Picture-in-picture mode")),
+          (h = c.jsx(o("WAWebVideoPipIcon.react").VideoPipIcon, {})),
+          (n[2] = g),
+          (n[3] = h))
+        : ((g = n[2]), (h = n[3]));
+      var y;
+      return (
+        n[4] !== a || n[5] !== i || n[6] !== l || n[7] !== u || n[8] !== f
+          ? ((y = c.jsx(
+              "button",
+              babelHelpers.extends({ ref: u }, f, {
+                onBlur: a,
+                onClick: i,
+                onFocus: l,
+                onKeyDown: _,
+                "aria-label": g,
+                children: h,
+              }),
+            )),
+            (n[4] = a),
+            (n[5] = i),
+            (n[6] = l),
+            (n[7] = u),
+            (n[8] = f),
+            (n[9] = y))
+          : (y = n[9]),
+        y
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"),
-      (l.PIP_BUTTON_THEME = d),
-      (l.PiPButton = p));
+    function _(e) {
+      (e.key === "Enter" || e.key === " ") && e.stopPropagation();
+    }
+    ((l.PIP_BUTTON_THEME = d), (l.PiPButton = p));
   },
   226,
 );

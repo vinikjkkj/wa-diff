@@ -21,21 +21,31 @@ __d(
     "WDSIconIcInfo.react",
     "WDSIconIcLink.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
       c = e.useCallback;
     function d(e) {
-      return u.jsx(
-        o("WAWebIcAddCircleIcon.react").IcAddCircleIcon,
-        babelHelpers.extends(
-          { viewBox: { x: 0, y: 0, width: 24, height: 24 } },
-          e,
-        ),
+      var t = o("react-compiler-runtime").c(3),
+        n;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((n = { x: 0, y: 0, width: 24, height: 24 }), (t[0] = n))
+        : (n = t[0]);
+      var r;
+      return (
+        t[1] !== e
+          ? ((r = u.jsx(
+              o("WAWebIcAddCircleIcon.react").IcAddCircleIcon,
+              babelHelpers.extends({ viewBox: n }, e),
+            )),
+            (t[1] = e),
+            (t[2] = r))
+          : (r = t[2]),
+        r
       );
     }
-    d.displayName = d.name + " [from " + i.id + "]";
     var m = {
       buttonGroupContainer: {
         minWidth: "x5w4yej",
@@ -45,153 +55,261 @@ __d(
       },
     };
     function p(e) {
-      var t = e.canAddParticipants,
-        n = e.chat,
-        a = e.groupMetadata,
-        i = e.isUnnamed,
-        l = e.onAddGroupMembersClick,
+      var t = o("react-compiler-runtime").c(36),
+        n = e.canAddParticipants,
+        a = e.chat,
+        i = e.groupMetadata,
+        l = e.isUnnamed,
+        c = e.onAddGroupMembersClick,
         p = e.onAddNameClick,
-        _ = e.onGroupInfoClick,
-        f = e.onInviteViaLinkClick,
-        g = c(
-          function () {
+        f = e.onGroupInfoClick,
+        g = e.onInviteViaLinkClick,
+        h;
+      t[0] !== a
+        ? ((h = function () {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(
                 o("WAWebMemberLabelCreateUpdateModal.react")
                   .MemberLabelCreateUpdateModal,
                 {
-                  chat: n,
+                  chat: a,
                   entryPoint: o("WAWebGroupMemberTagUpdateLogger")
                     .GroupMemberTagUpdateLogger.ENTRY_POINT.NEW_MEMBER_PROMPT,
                   uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.CHAT_THREAD,
                 },
               ),
             );
-          },
-          [n],
-        ),
-        h = o("WAWebMemberLabelHooks").useHasSelfMemberLabelForChat(n),
-        y = !h && o("WAWebMemberLabelGating").isMemberLabelSenderEnabled(),
-        C = o(
-          "WAWebCommunitySubgroupInviteLinkRestriction",
-        ).isSubgroupInviteLinkRestrictedByParentCommunity(a),
-        b = t && !a.support,
-        v = a.canSetSubject() && i,
-        S =
-          a.memberLinkMode ===
-            o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK &&
-          o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsM2Enabled(),
-        R = S && !C,
-        L = {
-          name: {
-            available: v,
-            onPress: p,
-            icon: o("WAWebPencilIcon.react").PencilIcon,
-            testid: "group-notification-context-card-add-name-button",
-            label: s._(/*BTDS*/ "Name this group"),
-            shadowOnHover: !1,
-          },
-          addMembers: {
-            available: b,
-            onPress: l,
-            icon: o("WAWebAddUserIcon.react").AddUserIcon,
-            testid: "group-notification-context-card-add-members-button",
-            label: s._(/*BTDS*/ "Add members"),
-          },
-          memberTag: {
-            available: y,
-            onPress: g,
-            icon: d,
-            testid: "group-notification-context-card-add-member-tag-button",
-            label: s._(/*BTDS*/ "Add your member tag"),
-          },
-          groupInfo: {
-            available: !0,
-            onPress: _,
-            icon: r("WDSIconIcInfo.react"),
-            testid: "group-notification-context-card-group-info-button",
-            label: s._(/*BTDS*/ "Group info"),
-          },
-          inviteViaLink: {
-            available: R,
-            onPress: f != null ? f : r("WAWebNoop"),
-            icon: r("WDSIconIcLink.react"),
-            testid: "group-notification-context-card-invite-via-link-button",
-            label: s._(/*BTDS*/ "Invite via link or QR code"),
-            useVerticalLayout: !0,
-          },
-        },
-        E = o(
-          "WAWebGroupNotificationContextCardActionsUtils",
-        ).getGroupNotificationButtonConfig(L),
-        k = E.firstConfig,
-        I = E.secondConfig,
-        T = E.useVerticalLayout;
-      if (I != null) {
-        var D = k != null ? k : I,
-          x = { variant: "outline", type: "default" },
-          $ = T ? [D, I] : [I, D],
-          P = $[0],
-          N = $[1];
-        return u.jsx(
-          "div",
-          babelHelpers.extends(
-            {},
-            {
-              0: {
-                className:
-                  "x78zum5 x1q0g3np x1qjc9v5 xl56j7k x1a02dak xyamay9 x5w4yej xfex06f x3pnbk8",
+          }),
+          (t[0] = a),
+          (t[1] = h))
+        : (h = t[1]);
+      var y = h,
+        C = o("WAWebMemberLabelHooks").useHasSelfMemberLabelForChat(a),
+        b,
+        v,
+        S,
+        R,
+        L,
+        E,
+        k,
+        I,
+        T,
+        D;
+      if (
+        t[2] !== n ||
+        t[3] !== i ||
+        t[4] !== y ||
+        t[5] !== C ||
+        t[6] !== l ||
+        t[7] !== c ||
+        t[8] !== p ||
+        t[9] !== f ||
+        t[10] !== g
+      ) {
+        v = Symbol.for("react.early_return_sentinel");
+        e: {
+          var x =
+              !C && o("WAWebMemberLabelGating").isMemberLabelSenderEnabled(),
+            $;
+          t[21] !== i
+            ? (($ = o(
+                "WAWebCommunitySubgroupInviteLinkRestriction",
+              ).isSubgroupInviteLinkRestrictedByParentCommunity(i)),
+              (t[21] = i),
+              (t[22] = $))
+            : ($ = t[22]);
+          var P = $,
+            N = n && !i.support,
+            M;
+          t[23] !== i || t[24] !== l
+            ? ((M = i.canSetSubject() && l),
+              (t[23] = i),
+              (t[24] = l),
+              (t[25] = M))
+            : (M = t[25]);
+          var w = M,
+            A =
+              i.memberLinkMode ===
+                o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK &&
+              o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsM2Enabled(),
+            F = A && !P,
+            O = {
+              name: {
+                available: w,
+                onPress: p,
+                icon: o("WAWebPencilIcon.react").PencilIcon,
+                testid: "group-notification-context-card-add-name-button",
+                label: s._(/*BTDS*/ "Name this group"),
+                shadowOnHover: !1,
               },
-              1: {
-                className:
-                  "x78zum5 xdt5ytf x6s0dn4 xl56j7k xyamay9 x5w4yej x3pnbk8 xh8yej3",
+              addMembers: {
+                available: N,
+                onPress: c,
+                icon: o("WAWebAddUserIcon.react").AddUserIcon,
+                testid: "group-notification-context-card-add-members-button",
+                label: s._(/*BTDS*/ "Add members"),
               },
-            }[!!T << 0],
-            {
-              children: u.jsx(r("WDSButtonGroup.react"), {
-                width: T ? "fill" : "hug",
-                orientation: "horizontal",
-                primaryButtonProps: babelHelpers.extends({}, x, {
-                  onPress: P.onPress,
-                  Icon: P.icon,
-                  testid: P.testid,
-                  label: P.label,
-                }),
-                secondaryButtonProps: babelHelpers.extends({}, x, {
-                  onPress: N.onPress,
-                  Icon: N.icon,
-                  testid: N.testid,
-                  label: N.label,
-                }),
-              }),
+              memberTag: {
+                available: x,
+                onPress: y,
+                icon: d,
+                testid: "group-notification-context-card-add-member-tag-button",
+                label: s._(/*BTDS*/ "Add your member tag"),
+              },
+              groupInfo: {
+                available: !0,
+                onPress: f,
+                icon: r("WDSIconIcInfo.react"),
+                testid: "group-notification-context-card-group-info-button",
+                label: s._(/*BTDS*/ "Group info"),
+              },
+              inviteViaLink: {
+                available: F,
+                onPress: g != null ? g : r("WAWebNoop"),
+                icon: r("WDSIconIcLink.react"),
+                testid:
+                  "group-notification-context-card-invite-via-link-button",
+                label: s._(/*BTDS*/ "Invite via link or QR code"),
+                useVerticalLayout: !0,
+              },
             },
-          ),
-        );
-      }
-      var M = function (t) {
-        return (
-          t != null &&
-          u.jsx(o("WAWebButton.react").WAWebButtonSecondary, {
-            onClick: t.onPress,
-            icon: t.icon,
-            shadowOnHover: t.shadowOnHover,
-            testid: void 0,
-            children: t.label,
-          })
-        );
-      };
-      return u.jsxs(o("WAWebButton.react").ButtonGroup, {
-        direction: T ? "vertical" : "horizontal",
-        align: "stretch",
-        justify: "center",
-        wrap: "wrap",
-        paddingTop: 16,
-        xstyle: m.buttonGroupContainer,
-        children: [M(k), M(I)],
-      });
+            B = o(
+              "WAWebGroupNotificationContextCardActionsUtils",
+            ).getGroupNotificationButtonConfig(O),
+            W = B.firstConfig,
+            q = B.secondConfig,
+            U = B.useVerticalLayout;
+          if (q != null) {
+            var V = W != null ? W : q,
+              H = { variant: "outline", type: "default" },
+              G = U ? [V, q] : [q, V],
+              z = G[0],
+              j = G[1];
+            v = u.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                {
+                  0: {
+                    className:
+                      "x78zum5 x1q0g3np x1qjc9v5 xl56j7k x1a02dak xyamay9 x5w4yej xfex06f x3pnbk8",
+                  },
+                  1: {
+                    className:
+                      "x78zum5 xdt5ytf x6s0dn4 xl56j7k xyamay9 x5w4yej x3pnbk8 xh8yej3",
+                  },
+                }[!!U << 0],
+                {
+                  children: u.jsx(r("WDSButtonGroup.react"), {
+                    width: U ? "fill" : "hug",
+                    orientation: "horizontal",
+                    primaryButtonProps: babelHelpers.extends({}, H, {
+                      onPress: z.onPress,
+                      Icon: z.icon,
+                      testid: z.testid,
+                      label: z.label,
+                    }),
+                    secondaryButtonProps: babelHelpers.extends({}, H, {
+                      onPress: j.onPress,
+                      Icon: j.icon,
+                      testid: j.testid,
+                      label: j.label,
+                    }),
+                  }),
+                },
+              ),
+            );
+            break e;
+          }
+          var K = _;
+          ((b = o("WAWebButton.react").ButtonGroup),
+            (S = U ? "vertical" : "horizontal"),
+            (R = "stretch"),
+            (L = "center"),
+            (E = "wrap"),
+            (k = 16),
+            (I = m.buttonGroupContainer),
+            (T = K(W)),
+            (D = K(q)));
+        }
+        ((t[2] = n),
+          (t[3] = i),
+          (t[4] = y),
+          (t[5] = C),
+          (t[6] = l),
+          (t[7] = c),
+          (t[8] = p),
+          (t[9] = f),
+          (t[10] = g),
+          (t[11] = b),
+          (t[12] = v),
+          (t[13] = S),
+          (t[14] = R),
+          (t[15] = L),
+          (t[16] = E),
+          (t[17] = k),
+          (t[18] = I),
+          (t[19] = T),
+          (t[20] = D));
+      } else
+        ((b = t[11]),
+          (v = t[12]),
+          (S = t[13]),
+          (R = t[14]),
+          (L = t[15]),
+          (E = t[16]),
+          (k = t[17]),
+          (I = t[18]),
+          (T = t[19]),
+          (D = t[20]));
+      if (v !== Symbol.for("react.early_return_sentinel")) return v;
+      var Q;
+      return (
+        t[26] !== b ||
+        t[27] !== S ||
+        t[28] !== R ||
+        t[29] !== L ||
+        t[30] !== E ||
+        t[31] !== k ||
+        t[32] !== I ||
+        t[33] !== T ||
+        t[34] !== D
+          ? ((Q = u.jsxs(b, {
+              direction: S,
+              align: R,
+              justify: L,
+              wrap: E,
+              paddingTop: k,
+              xstyle: I,
+              children: [T, D],
+            })),
+            (t[26] = b),
+            (t[27] = S),
+            (t[28] = R),
+            (t[29] = L),
+            (t[30] = E),
+            (t[31] = k),
+            (t[32] = I),
+            (t[33] = T),
+            (t[34] = D),
+            (t[35] = Q))
+          : (Q = t[35]),
+        Q
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"),
-      (l.GroupNotificationContextCardActions = p));
+    function _(e) {
+      return (
+        e != null &&
+        u.jsx(o("WAWebButton.react").WAWebButtonSecondary, {
+          onClick: e.onPress,
+          icon: e.icon,
+          shadowOnHover: e.shadowOnHover,
+          testid: void 0,
+          children: e.label,
+        })
+      );
+    }
+    l.GroupNotificationContextCardActions = p;
   },
   226,
 );

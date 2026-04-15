@@ -51,6 +51,7 @@ __d(
     "cr:23046",
     "cr:27506",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebModelValues",
     "useWAWebMsgValues",
@@ -76,15 +77,32 @@ __d(
       e == null || e.stopPropagation();
     }
     function L(e) {
-      return o("WAWebTPPdfViewerGatingUtils").isWebTPEditPdfInWhatsappEnabled()
-        ? _.jsx(
-            o("WAWebTPEditPdfInWhatsappContext.react")
-              .WAWebTPEditPdfInWhatsappProvider,
-            { children: _.jsx(E, babelHelpers.extends({}, e)) },
-          )
-        : _.jsx(E, babelHelpers.extends({}, e));
+      var t = o("react-compiler-runtime").c(4);
+      if (o("WAWebTPPdfViewerGatingUtils").isWebTPEditPdfInWhatsappEnabled()) {
+        var n;
+        return (
+          t[0] !== e
+            ? ((n = _.jsx(
+                o("WAWebTPEditPdfInWhatsappContext.react")
+                  .WAWebTPEditPdfInWhatsappProvider,
+                { children: _.jsx(E, babelHelpers.extends({}, e)) },
+              )),
+              (t[0] = e),
+              (t[1] = n))
+            : (n = t[1]),
+          n
+        );
+      }
+      var r;
+      return (
+        t[2] !== e
+          ? ((r = _.jsx(E, babelHelpers.extends({}, e))),
+            (t[2] = e),
+            (t[3] = r))
+          : (r = t[3]),
+        r
+      );
     }
-    L.displayName = L.name + " [from " + i.id + "]";
     function E(t) {
       var a,
         i,
@@ -727,19 +745,21 @@ __d(
     }
     E.displayName = E.name + " [from " + i.id + "]";
     function k(e) {
-      var t = e.children,
-        n = e.hasNavigationButtons,
-        a = e.imgZoomed,
-        i = e.onNext,
-        l = e.onPrev,
-        s = h(
+      var t = o("react-compiler-runtime").c(16),
+        n = e.children,
+        a = e.hasNavigationButtons,
+        i = e.imgZoomed,
+        l = e.onNext,
+        s = e.onPrev,
+        c = h(
           o("WAWebMediaIncrementalZoom").MediaIncrementalZoomCtx,
         ).isZoomedIn,
-        c = C(),
-        d = C();
-      return _.jsxs(_.Fragment, {
-        children: [
-          n &&
+        d = C(),
+        p = C(),
+        f;
+      t[0] !== a || t[1] !== i || t[2] !== c || t[3] !== s || t[4] !== d
+        ? ((f =
+            a &&
             _.jsx(
               "div",
               babelHelpers.extends(
@@ -747,15 +767,15 @@ __d(
                 (m || (m = r("stylex"))).props(
                   r("WAWebMediaViewerModalStyle").mediaNavBtn,
                   r("WAWebMediaViewerModalStyle").mediaNavBtnPrev,
-                  s && r("WAWebMediaViewerModalStyle").mediaNavBtnHidden,
+                  c && r("WAWebMediaViewerModalStyle").mediaNavBtnHidden,
                   r("WAWebMediaViewerModalStyle")
                     .mediaNavBtnPrevIncrementalZoom,
                 ),
                 {
                   children: _.jsx("div", {
-                    onClick: l ? null : R,
+                    onClick: s ? null : R,
                     children: _.jsx(r("WDSTooltip.react"), {
-                      id: c,
+                      id: d,
                       label: u._(/*BTDS*/ "Previous"),
                       children: _.jsx(r("WDSButton.react"), {
                         Icon: r("WDSIconIcChevronLeft.react"),
@@ -763,19 +783,28 @@ __d(
                         type: "media",
                         size: "medium",
                         directional: !0,
-                        onPress: l != null ? l : void 0,
-                        disabled: !l || a,
+                        onPress: s != null ? s : void 0,
+                        disabled: !s || i,
                         testid: void 0,
-                        "aria-describedby": c,
+                        "aria-describedby": d,
                         "aria-label": u._(/*BTDS*/ "Previous"),
                       }),
                     }),
                   }),
                 },
               ),
-            ),
-          t,
-          n &&
+            )),
+          (t[0] = a),
+          (t[1] = i),
+          (t[2] = c),
+          (t[3] = s),
+          (t[4] = d),
+          (t[5] = f))
+        : (f = t[5]);
+      var g;
+      t[6] !== a || t[7] !== i || t[8] !== c || t[9] !== p || t[10] !== l
+        ? ((g =
+            a &&
             _.jsx(
               "div",
               babelHelpers.extends(
@@ -783,15 +812,15 @@ __d(
                 (m || (m = r("stylex"))).props(
                   r("WAWebMediaViewerModalStyle").mediaNavBtn,
                   r("WAWebMediaViewerModalStyle").mediaNavBtnNext,
-                  s && r("WAWebMediaViewerModalStyle").mediaNavBtnHidden,
+                  c && r("WAWebMediaViewerModalStyle").mediaNavBtnHidden,
                   r("WAWebMediaViewerModalStyle")
                     .mediaNavBtnNextIncrementalZoom,
                 ),
                 {
                   children: _.jsx("div", {
-                    onClick: i ? null : R,
+                    onClick: l ? null : R,
                     children: _.jsx(r("WDSTooltip.react"), {
-                      id: d,
+                      id: p,
                       label: u._(/*BTDS*/ "Next"),
                       children: _.jsx(r("WDSButton.react"), {
                         Icon: r("WDSIconIcChevronRight.react"),
@@ -799,21 +828,36 @@ __d(
                         type: "media",
                         size: "medium",
                         directional: !0,
-                        onPress: i != null ? i : void 0,
-                        disabled: !i || a,
+                        onPress: l != null ? l : void 0,
+                        disabled: !l || i,
                         testid: void 0,
-                        "aria-describedby": d,
+                        "aria-describedby": p,
                         "aria-label": u._(/*BTDS*/ "Next"),
                       }),
                     }),
                   }),
                 },
               ),
-            ),
-        ],
-      });
+            )),
+          (t[6] = a),
+          (t[7] = i),
+          (t[8] = c),
+          (t[9] = p),
+          (t[10] = l),
+          (t[11] = g))
+        : (g = t[11]);
+      var y;
+      return (
+        t[12] !== n || t[13] !== f || t[14] !== g
+          ? ((y = _.jsxs(_.Fragment, { children: [f, n, g] })),
+            (t[12] = n),
+            (t[13] = f),
+            (t[14] = g),
+            (t[15] = y))
+          : (y = t[15]),
+        y
+      );
     }
-    k.displayName = k.name + " [from " + i.id + "]";
     function I(e) {
       var t;
       ((t = o("WAWebAppTracker")).AppTracker.stop(t.AppTrackerType.MediaOpen),

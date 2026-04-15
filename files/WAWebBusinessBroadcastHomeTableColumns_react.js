@@ -24,6 +24,7 @@ __d(
     "WDSMenuItem.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWDSMenu",
   ],
   function (t, n, r, o, a, i, l) {
@@ -373,105 +374,173 @@ __d(
       ];
     }
     function R(e) {
-      var t = e.index,
-        n = e.onDelete,
-        a = e.onPreview;
-      return s.jsxs(r("WDSMenu.react"), {
-        children: [
-          s.jsx(r("WDSMenuItem.react"), {
+      var t = o("react-compiler-runtime").c(11),
+        n = e.index,
+        a = e.onDelete,
+        i = e.onPreview,
+        l = "biz-broadcasts-campaign-table-preview-action-" + n,
+        u;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = o("WAWebBizBroadcastsHomeStrings").getPreviewActionLabel()),
+          (t[0] = u))
+        : (u = t[0]);
+      var c;
+      t[1] !== i || t[2] !== l
+        ? ((c = s.jsx(r("WDSMenuItem.react"), {
             Icon: r("WDSIconIcVisibility.react"),
             testid: void 0,
-            title: o("WAWebBizBroadcastsHomeStrings").getPreviewActionLabel(),
-            onPress: a,
-          }),
-          s.jsx(r("WDSMenuItem.react"), {
+            title: u,
+            onPress: i,
+          })),
+          (t[1] = i),
+          (t[2] = l),
+          (t[3] = c))
+        : (c = t[3]);
+      var d = "biz-broadcasts-campaign-table-delete-action-" + n,
+        m;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = o("WAWebBizBroadcastsHomeStrings").getDeleteActionLabel()),
+          (t[4] = m))
+        : (m = t[4]);
+      var p;
+      t[5] !== a || t[6] !== d
+        ? ((p = s.jsx(r("WDSMenuItem.react"), {
             Icon: r("WDSIconIcDelete.react"),
             testid: void 0,
-            title: o("WAWebBizBroadcastsHomeStrings").getDeleteActionLabel(),
-            onPress: n,
+            title: m,
+            onPress: a,
             destructive: !0,
-          }),
-        ],
-      });
+          })),
+          (t[5] = a),
+          (t[6] = d),
+          (t[7] = p))
+        : (p = t[7]);
+      var _;
+      return (
+        t[8] !== c || t[9] !== p
+          ? ((_ = s.jsxs(r("WDSMenu.react"), { children: [c, p] })),
+            (t[8] = c),
+            (t[9] = p),
+            (t[10] = _))
+          : (_ = t[10]),
+        _
+      );
     }
-    R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
-      var t = e.broadcastJid,
-        n = e.entryPoint,
-        a = e.index,
-        i = e.item,
-        l = e.onPreview,
-        u = d(null),
-        p = c(
-          function () {
+      var t = o("react-compiler-runtime").c(23),
+        n = e.broadcastJid,
+        a = e.entryPoint,
+        i = e.index,
+        l = e.item,
+        u = e.onPreview,
+        c = d(null),
+        p;
+      t[0] !== a || t[1] !== l || t[2] !== u
+        ? ((p = function () {
             (o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.broadcastPreviewClicked(
-              n,
+              a,
               o("WAWebWamEnumSurfaceType").SURFACE_TYPE.OVERFLOW_MENU,
             ),
-              l(i));
-          },
-          [n, l, i],
-        ),
-        _ = c(
-          function () {
+              u(l));
+          }),
+          (t[0] = a),
+          (t[1] = l),
+          (t[2] = u),
+          (t[3] = p))
+        : (p = t[3]);
+      var _ = p,
+        f;
+      t[4] !== n || t[5] !== a || t[6] !== l.campaignId
+        ? ((f = function () {
             o("WAWebModalManager").ModalManager.open(
               s.jsx(
                 o("WAWebBizBroadcastDeleteConfirmationModalLoadable")
                   .WAWebBizBroadcastDeleteConfirmationModalLoadable,
                 {
-                  broadcastJid: t,
-                  campaignId: i.campaignId,
-                  entryPoint: n,
+                  broadcastJid: n,
+                  campaignId: l.campaignId,
+                  entryPoint: a,
                   surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.BB_HOME,
                 },
               ),
             );
-          },
-          [t, n, i.campaignId],
-        ),
-        f = r("useWDSMenu")({
-          dismissable: !0,
-          enableUIM: !1,
-          menu: s.jsx(R, { index: a, onDelete: _, onPreview: p }),
-          targetRef: u,
-        }),
-        g = f.closeMenu,
-        h = f.isMenuOpen,
-        y = f.menuPortal,
-        C = f.openMenu,
-        b = c(
-          function (e) {
-            (e.stopPropagation(),
-              h
-                ? g()
+          }),
+          (t[4] = n),
+          (t[5] = a),
+          (t[6] = l.campaignId),
+          (t[7] = f))
+        : (f = t[7]);
+      var g = f,
+        h;
+      t[8] !== g || t[9] !== _ || t[10] !== i
+        ? ((h = {
+            dismissable: !0,
+            enableUIM: !1,
+            menu: s.jsx(R, { index: i, onDelete: g, onPreview: _ }),
+            targetRef: c,
+          }),
+          (t[8] = g),
+          (t[9] = _),
+          (t[10] = i),
+          (t[11] = h))
+        : (h = t[11]);
+      var y = r("useWDSMenu")(h),
+        C = y.closeMenu,
+        b = y.isMenuOpen,
+        v = y.menuPortal,
+        S = y.openMenu,
+        L;
+      t[12] !== C || t[13] !== a || t[14] !== b || t[15] !== S
+        ? ((L = function (t) {
+            (t.stopPropagation(),
+              b
+                ? C()
                 : (o(
                     "WAWebBusinessBroadcastUserJourneyLogger",
                   ).BusinessBroadcastUserJourneyLogger.broadcastItemOverflowClicked(
-                    n,
+                    a,
                   ),
-                  C()));
-          },
-          [n, h, g, C],
-        );
-      return s.jsxs(o("WAWebFlex.react").FlexRow, {
-        xstyle: m.actionsContainer,
-        children: [
-          s.jsx(r("WDSButton.react"), {
-            ref: u,
+                  S()));
+          }),
+          (t[12] = C),
+          (t[13] = a),
+          (t[14] = b),
+          (t[15] = S),
+          (t[16] = L))
+        : (L = t[16]);
+      var E = L,
+        k = "biz-broadcasts-campaign-table-actions-button-" + i,
+        I;
+      t[17] !== E || t[18] !== k
+        ? ((I = s.jsx(r("WDSButton.react"), {
+            ref: c,
             Icon: r("WDSIconIcMoreVert.react"),
             testid: void 0,
             variant: "borderless",
             size: "small",
             type: "default",
-            onPress: b,
-          }),
-          y,
-        ],
-      });
+            onPress: E,
+          })),
+          (t[17] = E),
+          (t[18] = k),
+          (t[19] = I))
+        : (I = t[19]);
+      var T;
+      return (
+        t[20] !== v || t[21] !== I
+          ? ((T = s.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: m.actionsContainer,
+              children: [I, v],
+            })),
+            (t[20] = v),
+            (t[21] = I),
+            (t[22] = T))
+          : (T = t[22]),
+        T
+      );
     }
-    L.displayName = L.name + " [from " + i.id + "]";
     function E(e, t) {
       return [
         {
@@ -582,97 +651,164 @@ __d(
       ];
     }
     function k(e) {
-      var t = e.index,
-        n = e.onDelete,
-        a = e.onRename;
-      return s.jsxs(r("WDSMenu.react"), {
-        children: [
-          s.jsx(r("WDSMenuItem.react"), {
+      var t = o("react-compiler-runtime").c(11),
+        n = e.index,
+        a = e.onDelete,
+        i = e.onRename,
+        l = "biz-broadcasts-audience-table-rename-action-" + n,
+        u;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = o(
+            "WAWebBizBroadcastsHomeStrings",
+          ).getRenameAudienceActionLabel()),
+          (t[0] = u))
+        : (u = t[0]);
+      var c;
+      t[1] !== i || t[2] !== l
+        ? ((c = s.jsx(r("WDSMenuItem.react"), {
             Icon: r("WDSIconIcEdit.react"),
             testid: void 0,
-            title: o(
-              "WAWebBizBroadcastsHomeStrings",
-            ).getRenameAudienceActionLabel(),
-            onPress: a,
-          }),
-          s.jsx(r("WDSMenuItem.react"), {
+            title: u,
+            onPress: i,
+          })),
+          (t[1] = i),
+          (t[2] = l),
+          (t[3] = c))
+        : (c = t[3]);
+      var d = "biz-broadcasts-audience-table-delete-action-" + n,
+        m;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = o("WAWebBizBroadcastsHomeStrings").getDeleteAudienceLabel()),
+          (t[4] = m))
+        : (m = t[4]);
+      var p;
+      t[5] !== a || t[6] !== d
+        ? ((p = s.jsx(r("WDSMenuItem.react"), {
             Icon: r("WDSIconIcDelete.react"),
             testid: void 0,
-            title: o("WAWebBizBroadcastsHomeStrings").getDeleteAudienceLabel(),
-            onPress: n,
+            title: m,
+            onPress: a,
             destructive: !0,
-          }),
-        ],
-      });
+          })),
+          (t[5] = a),
+          (t[6] = d),
+          (t[7] = p))
+        : (p = t[7]);
+      var _;
+      return (
+        t[8] !== c || t[9] !== p
+          ? ((_ = s.jsxs(r("WDSMenu.react"), { children: [c, p] })),
+            (t[8] = c),
+            (t[9] = p),
+            (t[10] = _))
+          : (_ = t[10]),
+        _
+      );
     }
-    k.displayName = k.name + " [from " + i.id + "]";
     function I(e) {
-      var t = e.entryPoint,
-        n = e.index,
-        a = e.item,
-        i = e.onDelete,
-        l = e.onRename,
-        u = d(null),
-        p = c(
-          function () {
+      var t = o("react-compiler-runtime").c(22),
+        n = e.entryPoint,
+        a = e.index,
+        i = e.item,
+        l = e.onDelete,
+        u = e.onRename,
+        c = d(null),
+        p;
+      t[0] !== n || t[1] !== i || t[2] !== u
+        ? ((p = function () {
             (o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.renameAudienceClicked(
-              t,
+              n,
               o("WAWebWamEnumSurfaceType").SURFACE_TYPE.BB_HOME,
-              a.broadcastJid,
+              i.broadcastJid,
             ),
-              l(a));
-          },
-          [t, l, a],
-        ),
-        _ = c(
-          function () {
+              u(i));
+          }),
+          (t[0] = n),
+          (t[1] = i),
+          (t[2] = u),
+          (t[3] = p))
+        : (p = t[3]);
+      var _ = p,
+        f;
+      t[4] !== n || t[5] !== i || t[6] !== l
+        ? ((f = function () {
             (o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.deleteAudienceClicked(
-              t,
+              n,
               o("WAWebWamEnumSurfaceType").SURFACE_TYPE.BB_HOME,
-              a.broadcastJid,
+              i.broadcastJid,
             ),
-              i(a));
-          },
-          [t, i, a],
-        ),
-        f = r("useWDSMenu")({
-          dismissable: !0,
-          enableUIM: !1,
-          menu: s.jsx(k, { index: n, onRename: p, onDelete: _ }),
-          targetRef: u,
-        }),
-        g = f.closeMenu,
-        h = f.isMenuOpen,
-        y = f.menuPortal,
-        C = f.openMenu,
-        b = c(
-          function (e) {
-            (e.stopPropagation(), h ? g() : C());
-          },
-          [h, g, C],
-        );
-      return s.jsxs(o("WAWebFlex.react").FlexRow, {
-        xstyle: m.actionsContainer,
-        children: [
-          s.jsx(r("WDSButton.react"), {
-            ref: u,
+              l(i));
+          }),
+          (t[4] = n),
+          (t[5] = i),
+          (t[6] = l),
+          (t[7] = f))
+        : (f = t[7]);
+      var g = f,
+        h;
+      t[8] !== g || t[9] !== _ || t[10] !== a
+        ? ((h = {
+            dismissable: !0,
+            enableUIM: !1,
+            menu: s.jsx(k, { index: a, onRename: _, onDelete: g }),
+            targetRef: c,
+          }),
+          (t[8] = g),
+          (t[9] = _),
+          (t[10] = a),
+          (t[11] = h))
+        : (h = t[11]);
+      var y = r("useWDSMenu")(h),
+        C = y.closeMenu,
+        b = y.isMenuOpen,
+        v = y.menuPortal,
+        S = y.openMenu,
+        R;
+      t[12] !== C || t[13] !== b || t[14] !== S
+        ? ((R = function (t) {
+            (t.stopPropagation(), b ? C() : S());
+          }),
+          (t[12] = C),
+          (t[13] = b),
+          (t[14] = S),
+          (t[15] = R))
+        : (R = t[15]);
+      var L = R,
+        E = "biz-broadcasts-audience-table-actions-button-" + a,
+        I;
+      t[16] !== L || t[17] !== E
+        ? ((I = s.jsx(r("WDSButton.react"), {
+            ref: c,
             Icon: r("WDSIconIcMoreVert.react"),
             testid: void 0,
             variant: "borderless",
             size: "small",
             type: "default",
-            onPress: b,
-          }),
-          y,
-        ],
-      });
+            onPress: L,
+          })),
+          (t[16] = L),
+          (t[17] = E),
+          (t[18] = I))
+        : (I = t[18]);
+      var T;
+      return (
+        t[19] !== v || t[20] !== I
+          ? ((T = s.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: m.actionsContainer,
+              children: [I, v],
+            })),
+            (t[19] = v),
+            (t[20] = I),
+            (t[21] = T))
+          : (T = t[21]),
+        T
+      );
     }
-    ((I.displayName = I.name + " [from " + i.id + "]"),
-      (l.formatDate = h),
+    ((l.formatDate = h),
       (l.getStatusDisplay = b),
       (l.getStatusDetailDisplay = v),
       (l.getBroadcastColumns = S),

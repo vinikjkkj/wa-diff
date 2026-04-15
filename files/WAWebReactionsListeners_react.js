@@ -7,7 +7,7 @@ __d(
         n = e.onReactionChange;
       return (r("useWAWebReactions")(t, n), null);
     }
-    ((e.displayName = e.name + " [from " + i.id + "]"), (l.default = e));
+    l.default = e;
   },
   98,
 );

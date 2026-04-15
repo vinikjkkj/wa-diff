@@ -8,6 +8,7 @@ __d(
     "WAWebVoipWaCallEnums",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -49,32 +50,48 @@ __d(
     }
     function m() {
       var e,
-        t = r("WAWebCallCollection").lastActiveCall,
-        n = t == null ? void 0 : t.callFailedReason,
-        a = t == null ? void 0 : t.callLogResult,
-        i = (e = t == null ? void 0 : t.outgoing) != null ? e : !1,
-        l;
+        t = o("react-compiler-runtime").c(3),
+        n = r("WAWebCallCollection").lastActiveCall,
+        a = n == null ? void 0 : n.callFailedReason,
+        i = n == null ? void 0 : n.callLogResult,
+        l = (e = n == null ? void 0 : n.outgoing) != null ? e : !1,
+        s;
+      if (a != null) {
+        var m;
+        (t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((m = d(a)), (t[0] = m))
+          : (m = t[0]),
+          (s = m));
+      } else {
+        var p;
+        (t[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((p = o("WAWebCallLogUtils").getCallResultText(i, l)), (t[1] = p))
+          : (p = t[1]),
+          (s = p));
+      }
+      var _;
       return (
-        n != null
-          ? (l = d(n))
-          : (l = o("WAWebCallLogUtils").getCallResultText(a, i)),
-        u.jsx(o("WAWebFlex.react").FlexItem, {
-          xstyle: c.callEndedContainer,
-          children: u.jsx(o("WAWebFlex.react").FlexColumn, {
-            align: "center",
-            justify: "center",
-            xstyle: c.callEndedTextContainer,
-            children: u.jsx(r("WDSText.react"), {
-              type: "Body1",
-              colorName: "persistentAlwaysWhite",
-              selectable: !1,
-              children: l,
-            }),
-          }),
-        })
+        t[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((_ = u.jsx(o("WAWebFlex.react").FlexItem, {
+              xstyle: c.callEndedContainer,
+              children: u.jsx(o("WAWebFlex.react").FlexColumn, {
+                align: "center",
+                justify: "center",
+                xstyle: c.callEndedTextContainer,
+                children: u.jsx(r("WDSText.react"), {
+                  type: "Body1",
+                  colorName: "persistentAlwaysWhite",
+                  selectable: !1,
+                  children: s,
+                }),
+              }),
+            })),
+            (t[2] = _))
+          : (_ = t[2]),
+        _
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

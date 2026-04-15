@@ -23,6 +23,7 @@ __d(
     "WAWebRequestReviewSection.react",
     "WAWebWamEnumInteractionSurface",
     "react",
+    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -39,96 +40,153 @@ __d(
         l,
         u,
         p,
-        f,
-        g = t.ref,
-        h = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        y = h.chat,
-        C = h.currentEnforcementAppeal,
-        b = h.onBack,
-        v = h.onClickDSBFlow,
-        S = h.onClickEmailReporter,
-        R = h.onClickRequestReview,
-        L = h.onClickSeeReviewDetails,
-        E = h.onDeleteNewsletter;
-      d(function () {
-        r("WAWebEnforcementActionLogging").setSurface(
-          o("WAWebWamEnumInteractionSurface").INTERACTION_SURFACE
-            .REMEDIATION_OPTION_SCREEN,
-        );
-      }, []);
-      var k = o("useWAWebModelValues").useOptionalModelValues(
-          y.newsletterMetadata,
-          ["membershipType"],
+        g = o("react-compiler-runtime").c(52),
+        h,
+        y;
+      g[0] !== t
+        ? ((y = t.ref),
+          (h = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (g[0] = t),
+          (g[1] = h),
+          (g[2] = y))
+        : ((h = g[1]), (y = g[2]));
+      var C = h,
+        b = C.chat,
+        v = C.currentEnforcementAppeal,
+        S = C.onBack,
+        R = C.onClickDSBFlow,
+        L = C.onClickEmailReporter,
+        E = C.onClickRequestReview,
+        k = C.onClickSeeReviewDetails,
+        I = C.onDeleteNewsletter,
+        T;
+      (g[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((T = []), (g[3] = T))
+        : (T = g[3]),
+        d(_, T));
+      var D;
+      g[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = ["membershipType"]), (g[4] = D))
+        : (D = g[4]);
+      var x = o("useWAWebModelValues").useOptionalModelValues(
+          b.newsletterMetadata,
+          D,
         ),
-        I =
-          ((n = C.enforcementExtraData) == null
+        $ =
+          ((n = v.enforcementExtraData) == null
             ? void 0
             : n.ipViolationReportData) != null
-            ? (a = C.enforcementExtraData) == null
+            ? (a = v.enforcementExtraData) == null
               ? void 0
               : a.ipViolationReportData.appealFormUrl
-            : (i = C.enforcementExtraData) == null ||
+            : (i = v.enforcementExtraData) == null ||
                 (i = i.appealExtraData) == null
               ? void 0
               : i.appealFormUrl,
-        T =
-          C.msgData != null
-            ? o("WAWebMsgCollection").MsgCollection.gadd(C.msgData)
-            : null,
-        D;
+        P;
+      g[5] !== v.msgData
+        ? ((P =
+            v.msgData != null
+              ? o("WAWebMsgCollection").MsgCollection.gadd(v.msgData)
+              : null),
+          (g[5] = v.msgData),
+          (g[6] = P))
+        : (P = g[6]);
+      var N = P,
+        M;
       if (
-        (C.enforcementType ===
+        (v.enforcementType ===
           o("WAWebCommonNewsletterEnums").EnforcementType.SUSPEND_INFORM ||
-          C.enforcementType ===
+          v.enforcementType ===
             o("WAWebCommonNewsletterEnums").EnforcementType.GEOSUSPEND_INFORM ||
-          C.enforcementType ===
+          v.enforcementType ===
             o("WAWebCommonNewsletterEnums").EnforcementType.VIOLATING_MSG) &&
-        T != null
+        N != null
       ) {
-        var x,
-          $,
-          P =
-            ((x = C.violatingContentData) == null ? void 0 : x.contentType) ===
+        var w,
+          A,
+          F =
+            ((w = v.violatingContentData) == null ? void 0 : w.contentType) ===
               o("WAWebCommonNewsletterEnums").ViolatingContentType.STATUS ||
-            (($ = C.enforcementExtraData) == null ||
-            ($ = $.enforcementTargetData) == null
+            ((A = v.enforcementExtraData) == null ||
+            (A = A.enforcementTargetData) == null
               ? void 0
-              : $.contentType) ===
-              o("WAWebCommonNewsletterEnums").ViolatingContentType.STATUS;
-        D = c.jsx(r("WAWebNewsletterRemediationOptionDeleteUpdate.react"), {
-          isStatusContent: P,
-          msgModel: T,
-          onBack: b,
-        });
+              : A.contentType) ===
+              o("WAWebCommonNewsletterEnums").ViolatingContentType.STATUS,
+          O;
+        (g[7] !== F || g[8] !== S || g[9] !== N
+          ? ((O = c.jsx(
+              r("WAWebNewsletterRemediationOptionDeleteUpdate.react"),
+              { isStatusContent: F, msgModel: N, onBack: S },
+            )),
+            (g[7] = F),
+            (g[8] = S),
+            (g[9] = N),
+            (g[10] = O))
+          : (O = g[10]),
+          (M = O));
       }
-      var N = c.jsx(r("WAWebRemediationOptionDeleteNewsletter.react"), {
-          enforcementType: C.enforcementType,
-          newsletterMetadata: k,
-          onDeleteNewsletter: E,
-        }),
-        M =
-          C.enforcementId != null
-            ? c.jsx(r("WAWebNewsletterRemediationOptionContactDSB.react"), {
-                enforcementSource: C.enforcementSource,
-                onClickDSBFlow: v,
-              })
-            : null,
-        w =
-          ((l = C.enforcementExtraData) == null
+      var B;
+      g[11] !== v.enforcementType || g[12] !== x || g[13] !== I
+        ? ((B = c.jsx(r("WAWebRemediationOptionDeleteNewsletter.react"), {
+            enforcementType: v.enforcementType,
+            newsletterMetadata: x,
+            onDeleteNewsletter: I,
+          })),
+          (g[11] = v.enforcementType),
+          (g[12] = x),
+          (g[13] = I),
+          (g[14] = B))
+        : (B = g[14]);
+      var W = B,
+        q;
+      g[15] !== v.enforcementId || g[16] !== v.enforcementSource || g[17] !== R
+        ? ((q =
+            v.enforcementId != null
+              ? c.jsx(r("WAWebNewsletterRemediationOptionContactDSB.react"), {
+                  enforcementSource: v.enforcementSource,
+                  onClickDSBFlow: R,
+                })
+              : null),
+          (g[15] = v.enforcementId),
+          (g[16] = v.enforcementSource),
+          (g[17] = R),
+          (g[18] = q))
+        : (q = g[18]);
+      var U = q,
+        V =
+          ((l = v.enforcementExtraData) == null
             ? void 0
             : l.enforcementOriginWorkflow) != null &&
-          ((u = C.enforcementExtraData) == null
+          ((u = v.enforcementExtraData) == null
             ? void 0
             : u.enforcementOriginLegalBasis) != null,
-        A =
-          C.enforcementSource === "IP_SRT" && !w
-            ? c.jsx(
-                r("WAWebNewsletterRemediationOptionContactReporter.react"),
-                { onClickEmailReporter: S },
-              )
-            : null,
-        F =
-          I != null
+        H;
+      g[19] !== v.enforcementSource || g[20] !== V || g[21] !== L
+        ? ((H =
+            v.enforcementSource === "IP_SRT" && !V
+              ? c.jsx(
+                  r("WAWebNewsletterRemediationOptionContactReporter.react"),
+                  { onClickEmailReporter: L },
+                )
+              : null),
+          (g[19] = v.enforcementSource),
+          (g[20] = V),
+          (g[21] = L),
+          (g[22] = H))
+        : (H = g[22]);
+      var G = H,
+        z;
+      if (
+        g[23] !==
+          ((p = v.enforcementExtraData) == null
+            ? void 0
+            : p.enforcementOriginWorkflow) ||
+        g[24] !== $
+      ) {
+        var j, K, Q;
+        ((z =
+          $ != null
             ? c.jsx(r("WAWebNewsletterAlertsRowComponent.react"), {
                 icon: c.jsx(
                   o("WAWebMessageReportIcon.react").MessageReportIcon,
@@ -136,14 +194,14 @@ __d(
                 ),
                 onClick: function () {
                   (r("WAWebEnforcementActionLogging").logSubmitAppealClick(),
-                    o("WAWebExternalLink.react").openExternalLink(I));
+                    o("WAWebExternalLink.react").openExternalLink($));
                 },
                 showBottomBorder: !1,
                 showDetailRight: !1,
                 subtitle:
-                  ((p = C.enforcementExtraData) == null
+                  ((j = v.enforcementExtraData) == null
                     ? void 0
-                    : p.enforcementOriginWorkflow) != null
+                    : j.enforcementOriginWorkflow) != null
                     ? s._(
                         /*BTDS*/ "Ask WhatsApp to take another look if you think there has been a mistake.",
                       )
@@ -153,77 +211,155 @@ __d(
                 testId:
                   "newsletter-remediation-options-drawer-outside-app-appeal",
                 title:
-                  ((f = C.enforcementExtraData) == null
+                  ((K = v.enforcementExtraData) == null
                     ? void 0
-                    : f.enforcementOriginWorkflow) != null
+                    : K.enforcementOriginWorkflow) != null
                     ? o(
                         "WAWebCommonNewsletterIntegrityStrings",
                       ).getRequestAppealRemediationOptionsRowText()
                     : s._(/*BTDS*/ "Submit an appeal"),
               })
-            : null,
-        O =
-          F == null
-            ? c.jsx(r("WAWebRequestReviewSection.react"), {
-                appealState: C.appealState,
-                chatId: o("WAJids").toNewsletterJid(y.id.toJid()),
-                onClickRequestReview: R,
-                onClickSeeReviewDetails: L,
-              })
-            : null,
-        B =
-          C.enforcementSource === "IP_SRT"
-            ? c.jsx(r("WAWebNewsletterAlertsRowComponent.react"), {
-                icon: c.jsx(o("WAWebHelpIcon.react").HelpIcon, {
-                  height: 24,
-                  width: 24,
-                  iconXstyle: m.secondaryColor,
-                }),
-                onClick: _,
-                showBottomBorder: !1,
-                showDetailRight: !1,
-                subtitle: s._(
-                  /*BTDS*/ "Learn more about WhatsApp\u2019s intellectual property policies.",
-                ),
-                testId: "newsletter-remediation-options-drawer-help-center",
-                title: s._(/*BTDS*/ "Go to Help Center"),
-              })
-            : null,
-        W =
-          C.enforcementSource !== "IP_SRT"
-            ? c.jsx(
-                r("WAWebNewsletterRemediationOptionChannelGuidelines.react"),
-                {},
-              )
-            : null;
-      return c.jsxs(r("WAWebDrawer.react"), {
-        ref: g,
-        testid: void 0,
-        theme: "gallery",
-        tsNavigationData: {
-          surface: "unknown",
-          viewName: "newsletter-remediation",
-        },
-        children: [
-          c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            onBack: b,
-            title: o(
-              "WAWebCommonNewsletterIntegrityStrings",
-            ).getNewsletterRemediationOptionsDrawerTitle(),
+            : null),
+          (g[23] =
+            (Q = v.enforcementExtraData) == null
+              ? void 0
+              : Q.enforcementOriginWorkflow),
+          (g[24] = $),
+          (g[25] = z));
+      } else z = g[25];
+      var X = z,
+        Y;
+      g[26] !== b.id ||
+      g[27] !== v.appealState ||
+      g[28] !== E ||
+      g[29] !== k ||
+      g[30] !== X
+        ? ((Y =
+            X == null
+              ? c.jsx(r("WAWebRequestReviewSection.react"), {
+                  appealState: v.appealState,
+                  chatId: o("WAJids").toNewsletterJid(b.id.toJid()),
+                  onClickRequestReview: E,
+                  onClickSeeReviewDetails: k,
+                })
+              : null),
+          (g[26] = b.id),
+          (g[27] = v.appealState),
+          (g[28] = E),
+          (g[29] = k),
+          (g[30] = X),
+          (g[31] = Y))
+        : (Y = g[31]);
+      var J = Y,
+        Z;
+      g[32] !== v.enforcementSource
+        ? ((Z =
+            v.enforcementSource === "IP_SRT"
+              ? c.jsx(r("WAWebNewsletterAlertsRowComponent.react"), {
+                  icon: c.jsx(o("WAWebHelpIcon.react").HelpIcon, {
+                    height: 24,
+                    width: 24,
+                    iconXstyle: m.secondaryColor,
+                  }),
+                  onClick: f,
+                  showBottomBorder: !1,
+                  showDetailRight: !1,
+                  subtitle: s._(
+                    /*BTDS*/ "Learn more about WhatsApp\u2019s intellectual property policies.",
+                  ),
+                  testId: "newsletter-remediation-options-drawer-help-center",
+                  title: s._(/*BTDS*/ "Go to Help Center"),
+                })
+              : null),
+          (g[32] = v.enforcementSource),
+          (g[33] = Z))
+        : (Z = g[33]);
+      var ee = Z,
+        te;
+      g[34] !== v.enforcementSource
+        ? ((te =
+            v.enforcementSource !== "IP_SRT"
+              ? c.jsx(
+                  r("WAWebNewsletterRemediationOptionChannelGuidelines.react"),
+                  {},
+                )
+              : null),
+          (g[34] = v.enforcementSource),
+          (g[35] = te))
+        : (te = g[35]);
+      var ne = te,
+        re;
+      g[36] === Symbol.for("react.memo_cache_sentinel")
+        ? ((re = { surface: "unknown", viewName: "newsletter-remediation" }),
+          (g[36] = re))
+        : (re = g[36]);
+      var oe;
+      g[37] === Symbol.for("react.memo_cache_sentinel")
+        ? ((oe = o(
+            "WAWebCommonNewsletterIntegrityStrings",
+          ).getNewsletterRemediationOptionsDrawerTitle()),
+          (g[37] = oe))
+        : (oe = g[37]);
+      var ae;
+      g[38] !== S
+        ? ((ae = c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+            onBack: S,
+            title: oe,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
-          }),
-          c.jsx(r("WAWebDrawerBody.react"), {
+          })),
+          (g[38] = S),
+          (g[39] = ae))
+        : (ae = g[39]);
+      var ie = J || X,
+        le;
+      g[40] !== ne ||
+      g[41] !== W ||
+      g[42] !== M ||
+      g[43] !== U ||
+      g[44] !== G ||
+      g[45] !== ee ||
+      g[46] !== ie
+        ? ((le = c.jsx(r("WAWebDrawerBody.react"), {
             children: c.jsxs(r("WAWebDrawerSection.react"), {
               animation: !1,
               theme: "full-height",
-              children: [N, D, O || F, M, A, W, B],
+              children: [W, M, ie, U, G, ne, ee],
             }),
-          }),
-        ],
-      });
+          })),
+          (g[40] = ne),
+          (g[41] = W),
+          (g[42] = M),
+          (g[43] = U),
+          (g[44] = G),
+          (g[45] = ee),
+          (g[46] = ie),
+          (g[47] = le))
+        : (le = g[47]);
+      var se;
+      return (
+        g[48] !== y || g[49] !== ae || g[50] !== le
+          ? ((se = c.jsxs(r("WAWebDrawer.react"), {
+              ref: y,
+              testid: void 0,
+              theme: "gallery",
+              tsNavigationData: re,
+              children: [ae, le],
+            })),
+            (g[48] = y),
+            (g[49] = ae),
+            (g[50] = le),
+            (g[51] = se))
+          : (se = g[51]),
+        se
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _() {
+      r("WAWebEnforcementActionLogging").setSurface(
+        o("WAWebWamEnumInteractionSurface").INTERACTION_SURFACE
+          .REMEDIATION_OPTION_SCREEN,
+      );
+    }
+    function f() {
       (r("WAWebEnforcementActionLogging").logGoToHelpCentreClick(),
         o("WAWebExternalLink.react").openExternalLink(
           "https://www.whatsapp.com/legal/ip-policy",

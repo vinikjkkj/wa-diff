@@ -5,6 +5,7 @@ __d(
     "WAWebL10N",
     "WAWebRound.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,47 +32,66 @@ __d(
         },
       };
     function d(t) {
-      var n = t.onClick,
-        a = t.type,
-        i = a === o("WAWebChevronButton.react").ButtonType.Prev,
-        l = a === o("WAWebChevronButton.react").ButtonType.Next;
-      return u.jsx(
-        "div",
-        babelHelpers.extends(
-          {},
-          {
+      var n = o("react-compiler-runtime").c(15),
+        a = t.onClick,
+        i = t.type,
+        l = i === o("WAWebChevronButton.react").ButtonType.Prev,
+        s = i === o("WAWebChevronButton.react").ButtonType.Next,
+        d;
+      n[0] !== s || n[1] !== l
+        ? ((d = {
             0: { className: "x5yr21d x187nhsf x10l6tqk x13vifvy" },
             2: { className: "x5yr21d x187nhsf x10l6tqk x13vifvy x11uqc5h" },
             1: { className: "x5yr21d x187nhsf x10l6tqk x13vifvy xtijo5x" },
             3: {
               className: "x5yr21d x187nhsf x10l6tqk x13vifvy x11uqc5h xtijo5x",
             },
-          }[(!!i << 1) | (!!l << 0)],
-          {
-            children: u.jsx(
-              "div",
-              babelHelpers.extends(
-                {},
-                (e || (e = r("stylex"))).props(
-                  c.btnBase,
-                  c.btnContainerBase,
-                  i && m(),
-                  l && p(),
-                ),
-                {
-                  children: u.jsx(o("WAWebChevronButton.react").ChevronButton, {
-                    type: a,
-                    onClick: n,
-                    theme: o("WAWebRound.react").RoundTheme.XSmall,
-                  }),
-                },
-              ),
-            ),
-          },
-        ),
+          }[(!!l << 1) | (!!s << 0)]),
+          (n[0] = s),
+          (n[1] = l),
+          (n[2] = d))
+        : (d = n[2]);
+      var _;
+      n[3] !== s || n[4] !== l
+        ? ((_ = (e || (e = r("stylex"))).props(
+            c.btnBase,
+            c.btnContainerBase,
+            l && m(),
+            s && p(),
+          )),
+          (n[3] = s),
+          (n[4] = l),
+          (n[5] = _))
+        : (_ = n[5]);
+      var f;
+      n[6] !== a || n[7] !== i
+        ? ((f = u.jsx(o("WAWebChevronButton.react").ChevronButton, {
+            type: i,
+            onClick: a,
+            theme: o("WAWebRound.react").RoundTheme.XSmall,
+          })),
+          (n[6] = a),
+          (n[7] = i),
+          (n[8] = f))
+        : (f = n[8]);
+      var g;
+      n[9] !== _ || n[10] !== f
+        ? ((g = u.jsx("div", babelHelpers.extends({}, _, { children: f }))),
+          (n[9] = _),
+          (n[10] = f),
+          (n[11] = g))
+        : (g = n[11]);
+      var h;
+      return (
+        n[12] !== d || n[13] !== g
+          ? ((h = u.jsx("div", babelHelpers.extends({}, d, { children: g }))),
+            (n[12] = d),
+            (n[13] = g),
+            (n[14] = h))
+          : (h = n[14]),
+        h
       );
     }
-    d.displayName = d.name + " [from " + i.id + "]";
     function m() {
       return r("WAWebL10N").isRTL()
         ? c.backgroundImageGradientToLeft

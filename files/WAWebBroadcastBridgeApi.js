@@ -58,15 +58,13 @@ __d(
               id: a.id,
               name: a.name,
             }),
-            r("WAWebBroadcastMetadataCollection")
-              .gadd({ id: e.id })
-              .set(
-                {
-                  audienceExpression: e.audienceExpression,
-                  recipients: e.recipients,
-                },
-                { merge: !0 },
-              ));
+            r("WAWebBroadcastMetadataCollection").gadd({ id: e.id }).set(
+              {
+                audienceExpression: e.audienceExpression,
+                recipients: e.recipients,
+              },
+              { merge: !0 },
+            ));
         },
       };
     l.BroadcastBridgeApi = s;

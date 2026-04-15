@@ -12,6 +12,7 @@ __d(
     "WAWebFlexItem.react",
     "WAWebRoundShape.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -39,15 +40,16 @@ __d(
         secondaryColor: { color: "xhslqc4", $$css: !0 },
       };
     function m(t) {
-      var n = t.ariaLabel,
-        a = t.fromNewsletter,
-        i = a === void 0 ? !1 : a,
+      var n = o("react-compiler-runtime").c(23),
+        a = t.ariaLabel,
+        i = t.fromNewsletter,
         l = t.isRefresh,
         u = t.numMore,
         m = t.onClick,
         p = t.viewAll,
-        _ = p === void 0 ? !1 : p,
-        f = t.xstyle;
+        _ = t.xstyle,
+        f = i === void 0 ? !1 : i,
+        g = p === void 0 ? !1 : p;
       u <= 0 &&
         o("WALogger")
           .ERROR(
@@ -57,11 +59,10 @@ __d(
               ])),
           )
           .sendLogs("invalid-number-of-more-contacts-in-chat");
-      var g = c.jsx(o("WAWebFlex.react").FlexRow, {
-          align: "center",
-          justify: "center",
-          xstyle: l === !0 ? d.iconWrapperRefreshed : d.iconWrapper,
-          children: _
+      var h = l === !0 ? d.iconWrapperRefreshed : d.iconWrapper,
+        y;
+      n[0] !== l || n[1] !== g
+        ? ((y = g
             ? null
             : c.jsx(r("WAWebRoundShape.react"), {
                 transparent: !0,
@@ -76,36 +77,93 @@ __d(
                         o("WAWebChevronCustomIcons").ChevronDownCustomIcon,
                         { iconXstyle: d.secondaryColor },
                       ),
-              }),
-        }),
-        h = s._(/*BTDS*/ '_j{"*":"{count} more","_1":"1 more"}', [
-          s._plural(u, "count"),
-        ]);
-      _ &&
-        ((h = s._(/*BTDS*/ "View all ({more})", [s._param("more", h)])),
-        i &&
-          (h = o(
-            "WAWebCommonNewsletterStrings",
-          ).getViewAllChannelFollowersText()));
-      var y = c.jsx(r("WAWebFlexItem.react"), {
-          align: "start",
-          grow: 1,
-          xstyle: _ && d.textAlt,
-          children: h,
-        }),
-        C =
+              })),
+          (n[0] = l),
+          (n[1] = g),
+          (n[2] = y))
+        : (y = n[2]);
+      var C;
+      n[3] !== h || n[4] !== y
+        ? ((C = c.jsx(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "center",
+            xstyle: h,
+            children: y,
+          })),
+          (n[3] = h),
+          (n[4] = y),
+          (n[5] = C))
+        : (C = n[5]);
+      var b = C,
+        v;
+      if (n[6] !== f || n[7] !== u || n[8] !== g) {
+        if (
+          ((v = s._(/*BTDS*/ '_j{"*":"{count} more","_1":"1 more"}', [
+            s._plural(u, "count"),
+          ])),
+          g &&
+            ((v = s._(/*BTDS*/ "View all ({more})", [s._param("more", v)])), f))
+        ) {
+          var S;
+          (n[10] === Symbol.for("react.memo_cache_sentinel")
+            ? ((S = o(
+                "WAWebCommonNewsletterStrings",
+              ).getViewAllChannelFollowersText()),
+              (n[10] = S))
+            : (S = n[10]),
+            (v = S));
+        }
+        ((n[6] = f), (n[7] = u), (n[8] = g), (n[9] = v));
+      } else v = n[9];
+      var R = g && d.textAlt,
+        L;
+      n[11] !== R || n[12] !== v
+        ? ((L = c.jsx(r("WAWebFlexItem.react"), {
+            align: "start",
+            grow: 1,
+            xstyle: R,
+            children: v,
+          })),
+          (n[11] = R),
+          (n[12] = v),
+          (n[13] = L))
+        : (L = n[13]);
+      var E = L,
+        k =
           l === !0
             ? r("WAWebDrawerButtonRefreshed.react")
-            : o("WAWebDrawerButton.react").DrawerButtonSimple;
-      return c.jsx(C, {
-        ariaLabel: n,
-        icon: g,
-        onClick: m,
-        xstyle: [d.container, f],
-        children: y,
-      });
+            : o("WAWebDrawerButton.react").DrawerButtonSimple,
+        I;
+      n[14] !== _
+        ? ((I = [d.container, _]), (n[14] = _), (n[15] = I))
+        : (I = n[15]);
+      var T;
+      return (
+        n[16] !== k ||
+        n[17] !== a ||
+        n[18] !== E ||
+        n[19] !== b ||
+        n[20] !== m ||
+        n[21] !== I
+          ? ((T = c.jsx(k, {
+              ariaLabel: a,
+              icon: b,
+              onClick: m,
+              xstyle: I,
+              children: E,
+            })),
+            (n[16] = k),
+            (n[17] = a),
+            (n[18] = E),
+            (n[19] = b),
+            (n[20] = m),
+            (n[21] = I),
+            (n[22] = T))
+          : (T = n[22]),
+        T
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

@@ -21,6 +21,7 @@ __d(
     "WAWebXIcon.react",
     "WDSButton.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebOnUnmount",
     "useWAWebSimilarNewsletters",
@@ -243,49 +244,68 @@ __d(
     }
     h.displayName = h.name + " [from " + i.id + "]";
     function y(t) {
-      var n = t.discoverySurface,
-        a = t.eventSurface,
-        i = t.isLoading,
-        l = i === void 0 ? !1 : i,
+      var n = o("react-compiler-runtime").c(11),
+        a = t.discoverySurface,
+        i = t.eventSurface,
+        l = t.isLoading,
         s = t.newsletters,
         c = t.ref,
-        d = t.similarNewslettersSessionId;
-      return u.jsxs("div", {
-        ref: c,
-        children: [
-          u.jsx(
+        d = t.similarNewslettersSessionId,
+        m = l === void 0 ? !1 : l,
+        p;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = (e || (e = r("stylex"))).props(
+            o("WAWebUISpacing").uiMargin.bottom12,
+          )),
+          (n[0] = p))
+        : (p = n[0]);
+      var _;
+      n[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = u.jsx(
             "div",
-            babelHelpers.extends(
-              {},
-              (e || (e = r("stylex"))).props(
-                o("WAWebUISpacing").uiMargin.bottom12,
-              ),
-              {
-                children: u.jsx(o("WAWebText.react").WAWebTextSmall, {
-                  children: o(
-                    "WAWebCommonNewsletterStrings",
-                  ).getNewsletterSimilarNewslettersTitle(),
-                }),
-              },
-            ),
-          ),
-          u.jsx(r("WAWebNewsletterRecommendedV2Unit.react"), {
+            babelHelpers.extends({}, p, {
+              children: u.jsx(o("WAWebText.react").WAWebTextSmall, {
+                children: o(
+                  "WAWebCommonNewsletterStrings",
+                ).getNewsletterSimilarNewslettersTitle(),
+              }),
+            }),
+          )),
+          (n[1] = _))
+        : (_ = n[1]);
+      var f;
+      n[2] !== a || n[3] !== i || n[4] !== m || n[5] !== s || n[6] !== d
+        ? ((f = u.jsx(r("WAWebNewsletterRecommendedV2Unit.react"), {
             chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
               .SimilarNewsletters,
-            discoverySurface: n,
-            eventSurface: a,
+            discoverySurface: a,
+            eventSurface: i,
             isFullUnit: !1,
-            isLoading: l,
+            isLoading: m,
             newsletterEventUnit: o("WAWebWamEnumChannelEventUnit")
               .CHANNEL_EVENT_UNIT.SIMILAR_CHANNELS,
             newsletters: s,
             similarNewslettersSessionId: d,
-          }),
-        ],
-      });
+          })),
+          (n[2] = a),
+          (n[3] = i),
+          (n[4] = m),
+          (n[5] = s),
+          (n[6] = d),
+          (n[7] = f))
+        : (f = n[7]);
+      var g;
+      return (
+        n[8] !== c || n[9] !== f
+          ? ((g = u.jsxs("div", { ref: c, children: [_, f] })),
+            (n[8] = c),
+            (n[9] = f),
+            (n[10] = g))
+          : (g = n[10]),
+        g
+      );
     }
-    ((y.displayName = y.name + " [from " + i.id + "]"),
-      (l.SimilarNewslettersConversationBanner = g),
+    ((l.SimilarNewslettersConversationBanner = g),
       (l.SimilarNewslettersInfoDrawerUnit = h));
   },
   98,

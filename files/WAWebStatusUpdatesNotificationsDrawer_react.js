@@ -8,6 +8,7 @@ __d(
     "WAWebSettingsSyncBridge",
     "cr:7293",
     "react",
+    "react-compiler-runtime",
     "useWAWebSettingSync",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -18,70 +19,100 @@ __d(
       m = d.getNotificationToneStatusSetting,
       p = d.setNotificationToneStatusSetting;
     function _(e) {
-      var t = e.onClose,
-        n = e.ref,
-        a = s._(/*BTDS*/ "Status"),
-        i = s._(/*BTDS*/ "Notification tone"),
-        l = o("useWAWebSettingSync").useSettingSync(
+      var t = o("react-compiler-runtime").c(11),
+        n = e.onClose,
+        a = e.ref,
+        i = s._(/*BTDS*/ "Status"),
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(/*BTDS*/ "Notification tone")), (t[0] = l))
+        : (l = t[0]);
+      var u = l,
+        d = o("useWAWebSettingSync").useSettingSync(
           "statusNotificationToneId",
           p != null ? p : r("WAWebNoop"),
         ),
-        u = o("useWAWebSettingSync").useSettingSync(
+        _ = o("useWAWebSettingSync").useSettingSync(
           "isStatusNotificationEnabled",
-          function (e) {
-            o(
-              "WAWebMuteCollection",
-            ).MuteCollection.setGlobalStatusNotificationsEnabled(e);
-          },
+          b,
         ),
-        d = o("useWAWebSettingSync").useSettingSync(
+        v = o("useWAWebSettingSync").useSettingSync(
           "isStatusReactionsNotificationEnabled",
-          function (e) {
-            o(
-              "WAWebMuteCollection",
-            ).MuteCollection.setGlobalStatusNotificationReactionsEnabled(e);
-          },
+          C,
         ),
-        _ = {
-          title: a.toString(),
-          testidPrefix: "status-updates",
-          getNotificationsEnabled: function () {
-            return o(
-              "WAWebMuteCollection",
-            ).MuteCollection.getGlobalStatusNotificationsEnabled();
-          },
-          setNotificationsEnabled: u,
-          getReactionsEnabled: function () {
-            return o(
-              "WAWebMuteCollection",
-            ).MuteCollection.getGlobalStatusNotificationReactionsEnabled();
-          },
-          setReactionsEnabled: d,
-          getSoundsEnabled: function () {
-            return o(
-              "WAWebMuteCollection",
-            ).MuteCollection.getGlobalStatusSoundsEnabled();
-          },
-          setSoundsEnabled: function (t) {
-            (o(
-              "WAWebMuteCollection",
-            ).MuteCollection.setGlobalStatusSoundsEnabled(t),
-              o("WAWebSettingsSyncBridge").sendSettingChange(
-                "statusNotificationToneId",
-                t ? 1 : 0,
-              ));
-          },
-          getNotificationToneSetting: m,
-          setNotificationToneSetting: l,
-          notificationToneDropdownTitle: i,
-        };
-      return c.jsx(r("WAWebGranularNotificationsDrawer.react"), {
-        config: _,
-        onClose: t,
-        ref: n,
-      });
+        S = i.toString(),
+        R;
+      t[1] !== v || t[2] !== u || t[3] !== d || t[4] !== _ || t[5] !== S
+        ? ((R = {
+            title: S,
+            testidPrefix: "status-updates",
+            getNotificationsEnabled: y,
+            setNotificationsEnabled: _,
+            getReactionsEnabled: h,
+            setReactionsEnabled: v,
+            getSoundsEnabled: g,
+            setSoundsEnabled: f,
+            getNotificationToneSetting: m,
+            setNotificationToneSetting: d,
+            notificationToneDropdownTitle: u,
+          }),
+          (t[1] = v),
+          (t[2] = u),
+          (t[3] = d),
+          (t[4] = _),
+          (t[5] = S),
+          (t[6] = R))
+        : (R = t[6]);
+      var L = R,
+        E;
+      return (
+        t[7] !== L || t[8] !== n || t[9] !== a
+          ? ((E = c.jsx(r("WAWebGranularNotificationsDrawer.react"), {
+              config: L,
+              onClose: n,
+              ref: a,
+            })),
+            (t[7] = L),
+            (t[8] = n),
+            (t[9] = a),
+            (t[10] = E))
+          : (E = t[10]),
+        E
+      );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    function f(e) {
+      (o("WAWebMuteCollection").MuteCollection.setGlobalStatusSoundsEnabled(e),
+        o("WAWebSettingsSyncBridge").sendSettingChange(
+          "statusNotificationToneId",
+          e ? 1 : 0,
+        ));
+    }
+    function g() {
+      return o(
+        "WAWebMuteCollection",
+      ).MuteCollection.getGlobalStatusSoundsEnabled();
+    }
+    function h() {
+      return o(
+        "WAWebMuteCollection",
+      ).MuteCollection.getGlobalStatusNotificationReactionsEnabled();
+    }
+    function y() {
+      return o(
+        "WAWebMuteCollection",
+      ).MuteCollection.getGlobalStatusNotificationsEnabled();
+    }
+    function C(e) {
+      o(
+        "WAWebMuteCollection",
+      ).MuteCollection.setGlobalStatusNotificationReactionsEnabled(e);
+    }
+    function b(e) {
+      o(
+        "WAWebMuteCollection",
+      ).MuteCollection.setGlobalStatusNotificationsEnabled(e);
+    }
+    l.default = _;
   },
   226,
 );

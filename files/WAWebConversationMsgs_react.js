@@ -1345,10 +1345,14 @@ __d(
                   (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[ConversationMsgs] Slow getMsgs in render: ",
                     "ms, ",
-                    " msgs",
+                    " msgs, ",
+                    " visible msgs, ",
+                    " total msgs",
                   ])),
                 _,
                 m.length,
+                d.length,
+                i.length,
               );
           }
           return m;

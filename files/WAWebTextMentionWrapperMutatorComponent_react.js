@@ -21,6 +21,7 @@ __d(
     "WAWebWrapperDisplayTypeContext",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -66,68 +67,85 @@ __d(
       );
     }
     function _(e) {
-      var t = e.contact,
-        n = e.lastMessage,
-        a = e.selectable,
-        i = e.theme,
-        l = d(r("WAWebWrapperDisplayTypeContext")),
-        u = function () {
-          var e,
-            n,
-            r =
-              (e = o(
-                "WAWebSimpleSignalPNToFBIDMigration",
-              ).getDeprecatedPnChatForFbidInvoke(t.id)) != null
-                ? e
-                : t.id,
-            a =
-              (n = o(
-                "WAWebBotProfileCollection",
-              ).BotProfileCollection.getDefaultBot()) == null
-                ? void 0
-                : n.id;
-          if (
-            r.isBot() &&
-            !r.equals(a) &&
-            !o("WAWebChatCollection").ChatCollection.get(r)
-          ) {
-            o("WAWebModalManager").ModalManager.open(
-              c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                onOK: o("WAWebModalManager").closeModalManager,
-                children: s._(
-                  /*BTDS*/ "Starting a new chat with a bot is currently not supported on {=m1}.",
-                  [
-                    s._implicitParam(
-                      "=m1",
-                      c.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
-                        children: s._(/*BTDS*/ ""),
-                      }),
-                    ),
-                  ],
-                ),
-              }),
-            );
-            return;
-          }
-          var i = o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
-            r,
-            "text_mention",
-          );
-          i != null && m(i);
-        },
+      var t = o("react-compiler-runtime").c(8),
+        n = e.contact,
+        a = e.lastMessage,
+        i = e.selectable,
+        l = e.theme,
+        u = d(r("WAWebWrapperDisplayTypeContext")),
         p;
+      t[0] !== n
+        ? ((p = function () {
+            var e,
+              t,
+              r =
+                (e = o(
+                  "WAWebSimpleSignalPNToFBIDMigration",
+                ).getDeprecatedPnChatForFbidInvoke(n.id)) != null
+                  ? e
+                  : n.id,
+              a =
+                (t = o(
+                  "WAWebBotProfileCollection",
+                ).BotProfileCollection.getDefaultBot()) == null
+                  ? void 0
+                  : t.id;
+            if (
+              r.isBot() &&
+              !r.equals(a) &&
+              !o("WAWebChatCollection").ChatCollection.get(r)
+            ) {
+              o("WAWebModalManager").ModalManager.open(
+                c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                  onOK: o("WAWebModalManager").closeModalManager,
+                  children: s._(
+                    /*BTDS*/ "Starting a new chat with a bot is currently not supported on {=m1}.",
+                    [
+                      s._implicitParam(
+                        "=m1",
+                        c.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
+                          children: s._(/*BTDS*/ ""),
+                        }),
+                      ),
+                    ],
+                  ),
+                }),
+              );
+              return;
+            }
+            var i = o("WAWebChatGroupUtils").getOneToOneContactFromGroupContact(
+              r,
+              "text_mention",
+            );
+            i != null && m(i);
+          }),
+          (t[0] = n),
+          (t[1] = p))
+        : (p = t[1]);
+      var _ = p,
+        f;
+      u !== o("WAWebDisplayType").DISPLAY_TYPE.EDITING && (f = _);
+      var g;
       return (
-        l !== o("WAWebDisplayType").DISPLAY_TYPE.EDITING && (p = u),
-        c.jsx(r("WAWebTextMentionMutatorComponent.react"), {
-          contact: t,
-          theme: i,
-          selectable: a,
-          onClick: p,
-          lastMessage: n,
-        })
+        t[2] !== n || t[3] !== a || t[4] !== f || t[5] !== i || t[6] !== l
+          ? ((g = c.jsx(r("WAWebTextMentionMutatorComponent.react"), {
+              contact: n,
+              theme: l,
+              selectable: i,
+              onClick: f,
+              lastMessage: a,
+            })),
+            (t[2] = n),
+            (t[3] = a),
+            (t[4] = f),
+            (t[5] = i),
+            (t[6] = l),
+            (t[7] = g))
+          : (g = t[7]),
+        g
       );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   226,
 );

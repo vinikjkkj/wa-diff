@@ -24,6 +24,7 @@ __d(
     "WAWebVelocityTransitionGroup",
     "WAWebWamEnumMetaAiActionEntryPoint",
     "WDSFocusStateStyles",
+    "WDSIconIcPushPin.react",
     "WDSText.react",
     "WDSTooltip.react",
     "react",
@@ -227,19 +228,38 @@ __d(
               })
             : null,
         j = z,
-        K = T
+        K = r("useWAWebEventTargetValue")(
+          u,
+          "change:pinThreadTimestamp",
+          function () {
+            var e = u.pinThreadTimestamp;
+            return (
+              e != null && e > 0 && o("WAWebBotGating").isAiThreadPinEnabled()
+            );
+          },
+        ),
+        Q = K
+          ? c.jsx("div", {
+              className: "x1rg5ohu xhslqc4 x16dsc37",
+              children: c.jsx(r("WDSIconIcPushPin.react"), {
+                width: 20,
+                height: 20,
+              }),
+            })
+          : null,
+        X = T
           ? null
           : c.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
               columnGap: 4,
-              children: [H, U],
+              children: [H, Q, U],
             }),
-        Q = "Body1",
-        X = c.jsx(r("WDSTooltip.react"), {
+        Y = "Body1",
+        J = c.jsx(r("WDSTooltip.react"), {
           label: D,
           position: "below",
           children: c.jsx(r("WDSText.react"), {
-            type: Q,
+            type: Y,
             colorName: "contentDefault",
             maxLines: 1,
             children: c.jsx(o("WAWebEmojiText.react").EmojiText, {
@@ -249,7 +269,7 @@ __d(
             }),
           }),
         }),
-        Y = c.jsx(r("WDSText.react"), {
+        Z = c.jsx(r("WDSText.react"), {
           type: "Body2",
           colorName: "contentDeemphasized",
           maxLines: 1,
@@ -267,19 +287,19 @@ __d(
                   text: s._(/*BTDS*/ "Loading\u2026"),
                 }),
         }),
-        J = function () {
-          !T && q && !ae ? re() : $();
+        ee = function () {
+          !T && q && !le ? ae() : $();
         },
-        Z = f(function () {
+        te = f(function () {
           return a.isSelected(u);
         }),
-        ee = Z[0],
-        te = Z[1],
-        ne = function (t) {
-          te(t);
+        ne = te[0],
+        re = te[1],
+        oe = function (t) {
+          re(t);
         },
-        re = function () {
-          a.setVal(u, !ee, !1);
+        ae = function () {
+          a.setVal(u, !ne, !1);
           var e = u.id;
           (i == null || i(e),
             o("WAWebCmd").Cmd.openChatBottom({
@@ -289,28 +309,28 @@ __d(
               threadId: e,
             }));
         },
-        oe = u.id.toString();
-      o("useWAWebListener").useListener(a, oe, ne);
-      var ae =
+        ie = u.id.toString();
+      o("useWAWebListener").useListener(a, ie, oe);
+      var le =
           o("WAWebResolveThreadForEntryPoint").isDefaultThread(u.id) &&
           o("WAWebBotGating").isDefaultThreadRoutingEnabled(),
-        ie =
-          !T && q && !ae
+        se =
+          !T && q && !le
             ? c.jsx(o("WAWebCheckBox.react").CheckBox, {
-                checked: ee,
-                onChange: re,
+                checked: ne,
+                onChange: ae,
               })
             : null;
       return c.jsx(r("WAWebCellV2.react"), {
-        onClick: J,
+        onClick: ee,
         colorScheme: "default",
         size: "large",
         border: "bottom-partial",
-        primary: X,
+        primary: J,
         primaryRight: j,
-        secondary: Y,
-        secondaryRight: K,
-        detailLeft: ie,
+        secondary: Z,
+        secondaryRight: X,
+        detailLeft: se,
         onMouseEnter: T ? void 0 : C,
         onMouseLeave: T ? void 0 : b,
         onContextMenu: T ? void 0 : N,

@@ -1,6 +1,6 @@
 __d(
   "WAWebTextUtils.react",
-  ["react", "stylex"],
+  ["react", "react-compiler-runtime", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -14,44 +14,73 @@ __d(
         alignStart: { textAlign: "x1yc453h", $$css: !0 },
       };
     function d(t) {
-      var n = t.align,
-        o = t.bold,
-        a = t.children,
-        i = t.italic,
-        l;
-      switch (n) {
-        case "center":
-          l = c.alignCenter;
-          break;
-        case "end":
-          l = c.alignEnd;
-          break;
+      var n = o("react-compiler-runtime").c(7),
+        a = t.align,
+        i = t.bold,
+        l = t.children,
+        s = t.italic,
+        d;
+      e: switch (a) {
+        case "center": {
+          d = c.alignCenter;
+          break e;
+        }
+        case "end": {
+          d = c.alignEnd;
+          break e;
+        }
         case "start":
-          l = c.alignStart;
-          break;
+          d = c.alignStart;
       }
-      var s = [c.container, o === !0 && c.bold, i === !0 && c.italic, l];
-      return u.jsx(
-        "span",
-        babelHelpers.extends({}, (e || (e = r("stylex"))).props(s), {
-          children: a,
-        }),
+      var m = i === !0 && c.bold,
+        p = s === !0 && c.italic,
+        _;
+      if (n[0] !== d || n[1] !== m || n[2] !== p) {
+        var f = [c.container, m, p, d];
+        ((_ = (e || (e = r("stylex"))).props(f)),
+          (n[0] = d),
+          (n[1] = m),
+          (n[2] = p),
+          (n[3] = _));
+      } else _ = n[3];
+      var g;
+      return (
+        n[4] !== l || n[5] !== _
+          ? ((g = u.jsx("span", babelHelpers.extends({}, _, { children: l }))),
+            (n[4] = l),
+            (n[5] = _),
+            (n[6] = g))
+          : (g = n[6]),
+        g
       );
     }
-    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
-      var t = e.children;
-      return u.jsx(d, { bold: !0, children: t });
+      var t = o("react-compiler-runtime").c(2),
+        n = e.children,
+        r;
+      return (
+        t[0] !== n
+          ? ((r = u.jsx(d, { bold: !0, children: n })), (t[0] = n), (t[1] = r))
+          : (r = t[1]),
+        r
+      );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = e.align,
-        n = e.children;
-      return u.jsx(d, { align: t, children: n });
+      var t = o("react-compiler-runtime").c(3),
+        n = e.align,
+        r = e.children,
+        a;
+      return (
+        t[0] !== n || t[1] !== r
+          ? ((a = u.jsx(d, { align: n, children: r })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a))
+          : (a = t[2]),
+        a
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"),
-      (l.Bold = m),
-      (l.TextAlign = p));
+    ((l.Bold = m), (l.TextAlign = p));
   },
   98,
 );

@@ -1,6 +1,12 @@
 __d(
   "WAWebSMBTable.react",
-  ["WAWebFlex.react", "WAWebSpinner.react", "WDSText.react", "react"],
+  [
+    "WAWebFlex.react",
+    "WAWebSpinner.react",
+    "WDSText.react",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -79,103 +85,206 @@ __d(
       );
     }
     function g(e) {
-      var t = e.columns,
-        n = e.getItemKey,
-        r = e.item,
-        a = e.onRowClick,
-        i = e.renderRow,
-        l = e.rowIndex,
-        u = e.selectedKey,
-        c = e.totalItems,
-        d = p(!1),
-        m = d[0],
-        g = d[1],
-        h = {
-          isFirstRow: l === 0,
-          isLastRow: l === c - 1,
-          isRowHovered: m,
-          item: r,
-          rowIndex: l,
-        },
-        y = s.jsx(s.Fragment, {
-          children: t.map(function (e) {
-            return s.jsx(
-              o("WAWebFlex.react").FlexColumn,
-              {
-                xstyle: _.cell,
-                style: f(e.width),
-                children: e.cell != null ? e.cell(h) : null,
-              },
-              e.key,
-            );
-          }),
-        });
-      if (i != null)
-        return s.jsx(o("WAWebFlex.react").FlexRow, { children: i(r, y, l) });
-      if (a != null) {
-        var C = n(r, l),
-          b = u != null && C === u;
-        return s.jsx(o("WAWebFlex.react").FlexRow, {
-          xstyle: _.rowBase,
-          children: s.jsx("div", {
-            role: "button",
-            tabIndex: 0,
-            className: {
+      var t = o("react-compiler-runtime").c(39),
+        n = e.columns,
+        r = e.getItemKey,
+        a = e.item,
+        i = e.onRowClick,
+        l = e.renderRow,
+        u = e.rowIndex,
+        c = e.selectedKey,
+        d = e.totalItems,
+        m = p(!1),
+        g = m[0],
+        h = m[1],
+        y = u === 0,
+        C = u === d - 1,
+        b;
+      if (
+        t[0] !== n ||
+        t[1] !== g ||
+        t[2] !== a ||
+        t[3] !== u ||
+        t[4] !== y ||
+        t[5] !== C
+      ) {
+        var v = {
+          isFirstRow: y,
+          isLastRow: C,
+          isRowHovered: g,
+          item: a,
+          rowIndex: u,
+        };
+        ((b = n.map(function (e) {
+          return s.jsx(
+            o("WAWebFlex.react").FlexColumn,
+            {
+              xstyle: _.cell,
+              style: f(e.width),
+              children: e.cell != null ? e.cell(v) : null,
+            },
+            e.key,
+          );
+        })),
+          (t[0] = n),
+          (t[1] = g),
+          (t[2] = a),
+          (t[3] = u),
+          (t[4] = y),
+          (t[5] = C),
+          (t[6] = b));
+      } else b = t[6];
+      var S;
+      t[7] !== b
+        ? ((S = s.jsx(s.Fragment, { children: b })), (t[7] = b), (t[8] = S))
+        : (S = t[8]);
+      var R = S;
+      if (l != null) {
+        var L;
+        t[9] !== R || t[10] !== a || t[11] !== l || t[12] !== u
+          ? ((L = l(a, R, u)),
+            (t[9] = R),
+            (t[10] = a),
+            (t[11] = l),
+            (t[12] = u),
+            (t[13] = L))
+          : (L = t[13]);
+        var E;
+        return (
+          t[14] !== L
+            ? ((E = s.jsx(o("WAWebFlex.react").FlexRow, { children: L })),
+              (t[14] = L),
+              (t[15] = E))
+            : (E = t[15]),
+          E
+        );
+      }
+      if (i != null) {
+        var k;
+        t[16] !== r || t[17] !== a || t[18] !== u
+          ? ((k = r(a, u)), (t[16] = r), (t[17] = a), (t[18] = u), (t[19] = k))
+          : (k = t[19]);
+        var I = k,
+          T = c != null && I === c,
+          D;
+        t[20] !== T
+          ? ((D = {
               0: "x1ypdohk x1xrf6ya xscbp6u x78zum5 xh8yej3 xyi3aci xwf5gio x1p453bz x1suzm8a x1n67ipk",
               1: "x1ypdohk x1xrf6ya xscbp6u x78zum5 xh8yej3 xyi3aci xwf5gio x1p453bz x1suzm8a x1n67ipk x1h3rtpe",
-            }[!!b << 0],
-            onClick: function () {
-              return a(r, l);
-            },
-            onKeyDown: function (t) {
+            }[!!T << 0]),
+            (t[20] = T),
+            (t[21] = D))
+          : (D = t[21]);
+        var x, $;
+        t[22] !== a || t[23] !== i || t[24] !== u
+          ? ((x = function () {
+              return i(a, u);
+            }),
+            ($ = function (t) {
               (t.key === "Enter" || t.key === " ") &&
-                (t.preventDefault(), a(r, l));
-            },
-            onMouseEnter: function () {
-              return g(!0);
-            },
-            onMouseLeave: function () {
-              return g(!1);
-            },
-            children: s.jsx(o("WAWebFlex.react").FlexRow, {
+                (t.preventDefault(), i(a, u));
+            }),
+            (t[22] = a),
+            (t[23] = i),
+            (t[24] = u),
+            (t[25] = x),
+            (t[26] = $))
+          : ((x = t[25]), ($ = t[26]));
+        var P, N;
+        t[27] === Symbol.for("react.memo_cache_sentinel")
+          ? ((N = function () {
+              return h(!0);
+            }),
+            (P = function () {
+              return h(!1);
+            }),
+            (t[27] = P),
+            (t[28] = N))
+          : ((P = t[27]), (N = t[28]));
+        var M;
+        t[29] !== R
+          ? ((M = s.jsx(o("WAWebFlex.react").FlexRow, {
               align: "center",
               xstyle: _.rowContent,
-              children: y,
-            }),
-          }),
-        });
+              children: R,
+            })),
+            (t[29] = R),
+            (t[30] = M))
+          : (M = t[30]);
+        var w;
+        return (
+          t[31] !== M || t[32] !== D || t[33] !== x || t[34] !== $
+            ? ((w = s.jsx(o("WAWebFlex.react").FlexRow, {
+                xstyle: _.rowBase,
+                children: s.jsx("div", {
+                  role: "button",
+                  tabIndex: 0,
+                  className: D,
+                  onClick: x,
+                  onKeyDown: $,
+                  onMouseEnter: N,
+                  onMouseLeave: P,
+                  children: M,
+                }),
+              })),
+              (t[31] = M),
+              (t[32] = D),
+              (t[33] = x),
+              (t[34] = $),
+              (t[35] = w))
+            : (w = t[35]),
+          w
+        );
       }
-      return s.jsx(o("WAWebFlex.react").FlexRow, {
-        xstyle: [_.rowBase, _.nonClickableRow],
-        children: y,
-      });
+      var A;
+      t[36] === Symbol.for("react.memo_cache_sentinel")
+        ? ((A = [_.rowBase, _.nonClickableRow]), (t[36] = A))
+        : (A = t[36]);
+      var F;
+      return (
+        t[37] !== R
+          ? ((F = s.jsx(o("WAWebFlex.react").FlexRow, {
+              xstyle: A,
+              children: R,
+            })),
+            (t[37] = R),
+            (t[38] = F))
+          : (F = t[38]),
+        F
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = e.columns,
-        n = e.getItemKey,
+      var t = o("react-compiler-runtime").c(46),
+        n = e.columns,
+        r = e.getItemKey,
         a = e.hasMore,
         i = e.isLoadingMore,
         l = e.items,
         u = e.onLoadMore,
-        p = e.onRowClick,
-        h = e.pinnedItems,
-        y = e.renderRow,
-        C = e.selectedKey,
-        b = m(null),
-        v = c(
-          function (e) {
-            var t,
-              n = e[0],
-              r = (t = n.isIntersecting) != null ? t : n.intersectionRatio > 0;
+        c = e.onRowClick,
+        p = e.pinnedItems,
+        f = e.renderRow,
+        h = e.selectedKey,
+        C = m(null),
+        b;
+      t[0] !== a || t[1] !== i || t[2] !== u
+        ? ((b = function (t) {
+            var e,
+              n = t[0],
+              r = (e = n.isIntersecting) != null ? e : n.intersectionRatio > 0;
             r && a === !0 && i !== !0 && (u == null || u());
-          },
-          [a, i, u],
-        );
-      return (
-        d(
-          function () {
-            var e = b.current;
+          }),
+          (t[0] = a),
+          (t[1] = i),
+          (t[2] = u),
+          (t[3] = b))
+        : (b = t[3]);
+      var v = b,
+        S,
+        R;
+      (t[4] !== v || t[5] !== u
+        ? ((S = function () {
+            var e = C.current;
             if (!(e == null || u == null)) {
               var t = new IntersectionObserver(v, { rootMargin: "100px" });
               return (
@@ -185,92 +294,181 @@ __d(
                 }
               );
             }
-          },
-          [v, u],
-        ),
-        s.jsxs(o("WAWebFlex.react").FlexColumn, {
-          xstyle: _.table,
-          children: [
-            s.jsx(o("WAWebFlex.react").FlexRow, {
-              xstyle: _.headerRow,
-              children: t.map(function (e) {
-                return s.jsx(
-                  o("WAWebFlex.react").FlexColumn,
-                  {
-                    xstyle: [
-                      _.cell,
-                      _.headerCells,
-                      e.header != null && _.headerCellsHoverable,
-                    ],
-                    style: f(e.width),
-                    children:
-                      e.renderHeader != null
-                        ? e.renderHeader()
-                        : e.header != null
-                          ? s.jsx("div", {
-                              className: "x193iq5w",
-                              children: s.jsx(r("WDSText.react"), {
-                                maxLines: 1,
-                                type: "Body2Emphasized",
-                                colorName: "contentDeemphasized",
-                                children: e.header,
-                              }),
-                            })
-                          : null,
-                  },
-                  e.key,
-                );
-              }),
-            }),
-            h != null &&
-              h.map(function (e, r) {
-                var o;
-                return s.jsx(
-                  g,
-                  {
-                    columns: t,
-                    getItemKey: n,
-                    item: e,
-                    onRowClick: p,
-                    renderRow: y,
-                    rowIndex: r,
-                    selectedKey: C,
-                    totalItems:
-                      ((o = h == null ? void 0 : h.length) != null ? o : 0) +
-                      l.length,
-                  },
-                  n(e, r),
-                );
-              }),
-            l.map(function (e, r) {
-              var o,
-                a = (o = h == null ? void 0 : h.length) != null ? o : 0;
+          }),
+          (R = [v, u]),
+          (t[4] = v),
+          (t[5] = u),
+          (t[6] = S),
+          (t[7] = R))
+        : ((S = t[6]), (R = t[7])),
+        d(S, R));
+      var L;
+      t[8] !== n ? ((L = n.map(y)), (t[8] = n), (t[9] = L)) : (L = t[9]);
+      var E;
+      t[10] !== L
+        ? ((E = s.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: _.headerRow,
+            children: L,
+          })),
+          (t[10] = L),
+          (t[11] = E))
+        : (E = t[11]);
+      var k;
+      t[12] !== n ||
+      t[13] !== r ||
+      t[14] !== l.length ||
+      t[15] !== c ||
+      t[16] !== p ||
+      t[17] !== f ||
+      t[18] !== h
+        ? ((k =
+            p != null &&
+            p.map(function (e, t) {
+              var o;
               return s.jsx(
                 g,
                 {
-                  columns: t,
-                  getItemKey: n,
+                  columns: n,
+                  getItemKey: r,
                   item: e,
-                  onRowClick: p,
-                  renderRow: y,
-                  rowIndex: r + a,
-                  selectedKey: C,
+                  onRowClick: c,
+                  renderRow: f,
+                  rowIndex: t,
+                  selectedKey: h,
+                  totalItems:
+                    ((o = p == null ? void 0 : p.length) != null ? o : 0) +
+                    l.length,
+                },
+                r(e, t),
+              );
+            })),
+          (t[12] = n),
+          (t[13] = r),
+          (t[14] = l.length),
+          (t[15] = c),
+          (t[16] = p),
+          (t[17] = f),
+          (t[18] = h),
+          (t[19] = k))
+        : (k = t[19]);
+      var I;
+      if (
+        t[20] !== n ||
+        t[21] !== r ||
+        t[22] !== l ||
+        t[23] !== c ||
+        t[24] !== (p == null ? void 0 : p.length) ||
+        t[25] !== f ||
+        t[26] !== h
+      ) {
+        var T;
+        (t[28] !== n ||
+        t[29] !== r ||
+        t[30] !== l.length ||
+        t[31] !== c ||
+        t[32] !== (p == null ? void 0 : p.length) ||
+        t[33] !== f ||
+        t[34] !== h
+          ? ((T = function (t, o) {
+              var e,
+                a = (e = p == null ? void 0 : p.length) != null ? e : 0;
+              return s.jsx(
+                g,
+                {
+                  columns: n,
+                  getItemKey: r,
+                  item: t,
+                  onRowClick: c,
+                  renderRow: f,
+                  rowIndex: o + a,
+                  selectedKey: h,
                   totalItems: a + l.length,
                 },
-                n(e, r + a),
+                r(t, o + a),
               );
             }),
+            (t[28] = n),
+            (t[29] = r),
+            (t[30] = l.length),
+            (t[31] = c),
+            (t[32] = p == null ? void 0 : p.length),
+            (t[33] = f),
+            (t[34] = h),
+            (t[35] = T))
+          : (T = t[35]),
+          (I = l.map(T)),
+          (t[20] = n),
+          (t[21] = r),
+          (t[22] = l),
+          (t[23] = c),
+          (t[24] = p == null ? void 0 : p.length),
+          (t[25] = f),
+          (t[26] = h),
+          (t[27] = I));
+      } else I = t[27];
+      var D;
+      t[36] !== i
+        ? ((D =
             i === !0 &&
-              s.jsx("div", {
-                className: "x78zum5 xl56j7k x6s0dn4 x1p57kb1 xvpt6g3 xh8yej3",
-                children: s.jsx(o("WAWebSpinner.react").Spinner, { size: 24 }),
-              }),
-            a === !0 && s.jsx("div", { ref: b, className: "xjm9jq1" }),
-          ],
-        })
+            s.jsx("div", {
+              className: "x78zum5 xl56j7k x6s0dn4 x1p57kb1 xvpt6g3 xh8yej3",
+              children: s.jsx(o("WAWebSpinner.react").Spinner, { size: 24 }),
+            })),
+          (t[36] = i),
+          (t[37] = D))
+        : (D = t[37]);
+      var x;
+      t[38] !== a
+        ? ((x = a === !0 && s.jsx("div", { ref: C, className: "xjm9jq1" })),
+          (t[38] = a),
+          (t[39] = x))
+        : (x = t[39]);
+      var $;
+      return (
+        t[40] !== E || t[41] !== k || t[42] !== I || t[43] !== D || t[44] !== x
+          ? (($ = s.jsxs(o("WAWebFlex.react").FlexColumn, {
+              xstyle: _.table,
+              children: [E, k, I, D, x],
+            })),
+            (t[40] = E),
+            (t[41] = k),
+            (t[42] = I),
+            (t[43] = D),
+            (t[44] = x),
+            (t[45] = $))
+          : ($ = t[45]),
+        $
       );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
+    function y(e) {
+      return s.jsx(
+        o("WAWebFlex.react").FlexColumn,
+        {
+          xstyle: [
+            _.cell,
+            _.headerCells,
+            e.header != null && _.headerCellsHoverable,
+          ],
+          style: f(e.width),
+          children:
+            e.renderHeader != null
+              ? e.renderHeader()
+              : e.header != null
+                ? s.jsx("div", {
+                    className: "x193iq5w",
+                    children: s.jsx(r("WDSText.react"), {
+                      maxLines: 1,
+                      type: "Body2Emphasized",
+                      colorName: "contentDeemphasized",
+                      children: e.header,
+                    }),
+                  })
+                : null,
+        },
+        e.key,
+      );
+    }
+    ((y.displayName = y.name + " [from " + i.id + "]"), (l.default = h));
   },
   98,
 );

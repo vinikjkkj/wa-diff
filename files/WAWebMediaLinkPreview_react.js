@@ -23,6 +23,7 @@ __d(
     "WAWebStarIcon.react",
     "WDSIconIcLink.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s, u) {
@@ -175,264 +176,547 @@ __d(
           });
     }
     function R(e) {
-      var t = e.children,
-        n = e.displayType,
-        r = e.kept,
-        a = e.star;
-      if (n !== o("WAWebDisplayType").DISPLAY_TYPE.GALLERY) return t;
-      var i = [];
+      var t = o("react-compiler-runtime").c(11),
+        n = e.children,
+        r = e.displayType,
+        a = e.kept,
+        i = e.star;
+      if (r !== o("WAWebDisplayType").DISPLAY_TYPE.GALLERY) return n;
+      var l;
+      if (t[0] !== a || t[1] !== i) {
+        if (((l = []), i === !0)) {
+          var s;
+          (t[3] === Symbol.for("react.memo_cache_sentinel")
+            ? ((s = [o("WAWebStarIcon.react").StarIcon, 16, 15]), (t[3] = s))
+            : (s = t[3]),
+            l.push(s));
+        }
+        if (a === !0) {
+          var u;
+          (t[4] === Symbol.for("react.memo_cache_sentinel")
+            ? ((u = [
+                o("WAWebKeepInChatIcon.react").KeepInChatIcon,
+                15.64,
+                14.67,
+              ]),
+              (t[4] = u))
+            : (u = t[4]),
+            l.push(u));
+        }
+        ((t[0] = a), (t[1] = i), (t[2] = l));
+      } else l = t[2];
+      var c;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = {
+            className:
+              "x1n2onr6 x78zum5 x1c4vz4f x2lah0s xdl72j9 x6s0dn4 xl56j7k x6ikm8r x10wlt62 x1280gxy",
+          }),
+          (t[5] = c))
+        : (c = t[5]);
+      var m;
+      t[6] !== l
+        ? ((m =
+            l.length > 0 &&
+            d.jsx("div", {
+              className: "x78zum5 x10l6tqk xmnqija xy1j3rs",
+              children: l.map(L),
+            })),
+          (t[6] = l),
+          (t[7] = m))
+        : (m = t[7]);
+      var p;
       return (
-        a === !0 && i.push([o("WAWebStarIcon.react").StarIcon, 16, 15]),
-        r === !0 &&
-          i.push([o("WAWebKeepInChatIcon.react").KeepInChatIcon, 15.64, 14.67]),
-        d.jsxs("div", {
-          "data-testid": void 0,
-          className:
-            "x1n2onr6 x78zum5 x1c4vz4f x2lah0s xdl72j9 x6s0dn4 xl56j7k x6ikm8r x10wlt62 x1280gxy",
-          children: [
-            t,
-            i.length > 0 &&
-              d.jsx("div", {
-                className: "x78zum5 x10l6tqk xmnqija xy1j3rs",
-                children: i.map(function (e) {
-                  var t = e[0],
-                    n = e[1],
-                    r = e[2];
-                  return d.jsx(
-                    t,
-                    { xstyle: f.icon, width: n, height: r },
-                    t.name,
-                  );
-                }),
+        t[8] !== n || t[9] !== m
+          ? ((p = d.jsxs(
+              "div",
+              babelHelpers.extends({ "data-testid": void 0 }, c, {
+                children: [n, m],
               }),
-          ],
-        })
+            )),
+            (t[8] = n),
+            (t[9] = m),
+            (t[10] = p))
+          : (p = t[10]),
+        p
       );
     }
-    R.displayName = R.name + " [from " + i.id + "]";
-    function L(t) {
-      var n = t.botPluginReferenceIndex,
-        a = t.botReelPluginThumbnailData,
+    function L(e) {
+      var t = e[0],
+        n = e[1],
+        r = e[2];
+      return d.jsx(t, { xstyle: f.icon, width: n, height: r }, t.name);
+    }
+    L.displayName = L.name + " [from " + i.id + "]";
+    function E(t) {
+      var n = o("react-compiler-runtime").c(109),
+        a = t.botPluginReferenceIndex,
         i = t.compose,
-        l = i === void 0 ? !1 : i,
-        s = t.containerXstyle,
-        c = t.description,
-        m = t.displayType,
-        p = t.horizontalLayout,
-        _ = p === void 0 ? !1 : p,
-        C = t.inviteGrpType,
-        b = t.isInvite,
-        v = t.isLoading,
-        L = t.isSentByMe,
-        E = t.kept,
-        k = t.linkPreviewData,
-        I = t.links,
-        T = t.matchedText,
-        D = t.onClick,
-        x = t.star,
-        $ = t.theme,
-        P = t.thumbnail,
-        N = t.thumbnailJpeg,
-        M = t.thumbnailJpegDirectPath,
-        w = t.thumbnailJpegHeight,
-        A = t.thumbnailJpegHQ,
-        F = t.thumbnailJpegWidth,
-        O = t.title,
-        B = $ === "bot_plugin_link",
-        W = m === o("WAWebDisplayType").DISPLAY_TYPE.GALLERY,
-        q = ($ === "high-quality" || $ === "high-quality-extended") && !W,
-        U = !l && !W && S(T),
-        V;
-      if (o("WAWebNewsletterApiParse").isNewsletterInviteCode(T))
-        o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
-          ? o("WAWebABProps").getABPropConfigValue(
-              "channels_invite_link_preview_improvement_enabled",
-            )
-            ? (V = c)
-            : (V = u._(/*BTDS*/ "Channel invite link"))
-          : (V = null);
-      else if (C != null) {
-        var H;
-        (C === o("WAWebGroupType").GroupType.LINKED_SUBGROUP &&
-          typeof c == "string" &&
-          (H = c),
-          (V = o("WAWebLinkPreviewGroupUtils").getInviteLinkDescription(C, H)));
-      } else V = c;
-      var G = g(O),
-        z = h(G),
-        j = m === o("WAWebDisplayType").DISPLAY_TYPE.STATUS,
-        K = $ === "support_citations_link",
-        Q =
-          T != null && T !== ""
-            ? d.jsx(
-                "div",
-                babelHelpers.extends(
-                  { "data-testid": void 0 },
-                  {
-                    0: {
-                      className:
-                        "xhslqc4 x1c4vz4f x2lah0s xdl72j9 x1pg5gke x4p5aij",
-                    },
-                    4: {
-                      className:
-                        "x1c4vz4f x2lah0s xdl72j9 x4p5aij xa2ctma x1f6kntn",
-                    },
-                    2: {
-                      className:
-                        "x1c4vz4f x2lah0s xdl72j9 x4p5aij xhslqc4 x1f6kntn",
-                    },
-                    6: {
-                      className:
-                        "x1c4vz4f x2lah0s xdl72j9 x4p5aij xhslqc4 x1f6kntn",
-                    },
-                    1: {
-                      className:
-                        "xhslqc4 x1c4vz4f x2lah0s xdl72j9 x1pg5gke x4p5aij xuxw1ft x6ikm8r x10wlt62 xlyipyv",
-                    },
-                    5: {
-                      className:
-                        "x1c4vz4f x2lah0s xdl72j9 x4p5aij xa2ctma x1f6kntn xuxw1ft x6ikm8r x10wlt62 xlyipyv",
-                    },
-                    3: {
-                      className:
-                        "x1c4vz4f x2lah0s xdl72j9 x4p5aij xhslqc4 x1f6kntn xuxw1ft x6ikm8r x10wlt62 xlyipyv",
-                    },
-                    7: {
-                      className:
-                        "x1c4vz4f x2lah0s xdl72j9 x4p5aij xhslqc4 x1f6kntn xuxw1ft x6ikm8r x10wlt62 xlyipyv",
-                    },
-                  }[(!!j << 2) | (!!l << 1) | (!!K << 0)],
-                  {
-                    children: d.jsx(o("WAWebEmojiText.react").EmojiText, {
-                      text: T,
-                      direction: G,
-                      dirMismatch: z,
-                    }),
-                  },
-                ),
-              )
-            : null,
-        X = k == null ? void 0 : k.previewMetadata;
+        l = t.containerXstyle,
+        s = t.description,
+        c = t.displayType,
+        m = t.horizontalLayout,
+        p = t.inviteGrpType,
+        _ = t.isInvite,
+        C = t.isLoading,
+        b = t.isSentByMe,
+        v = t.kept,
+        L = t.linkPreviewData,
+        E = t.links,
+        k = t.matchedText,
+        I = t.onClick,
+        T = t.star,
+        D = t.theme,
+        x = t.thumbnail,
+        $ = t.thumbnailJpeg,
+        P = t.thumbnailJpegDirectPath,
+        N = t.thumbnailJpegHeight,
+        M = t.thumbnailJpegHQ,
+        w = t.thumbnailJpegWidth,
+        A = t.title,
+        F = i === void 0 ? !1 : i,
+        O = m === void 0 ? !1 : m,
+        B = D === "bot_plugin_link",
+        W = c === o("WAWebDisplayType").DISPLAY_TYPE.GALLERY,
+        q = (D === "high-quality" || D === "high-quality-extended") && !W,
+        U,
+        V,
+        H,
+        G,
+        z,
+        j,
+        K,
+        Q,
+        X;
       if (
-        l &&
-        X != null &&
-        o(
-          "PaymentLinkPreviewWithAmountFeature",
-        ).isPaymentLinkPreviewWithAmountEnabled(k, I)
-      )
-        return d.jsx(r("WAWebPaymentLinkPreview.react"), {
-          title: O,
-          urlElement: Q,
-          previewMetadata: X,
-          isLoading: v,
-        });
-      var Y =
-          l &&
-          A != null &&
-          F != null &&
-          F > y &&
-          o("WAWebMediaGatingUtils").shouldUseLargeHQPreviewInComposer(),
-        J = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-          "_ahwq",
-          (e || (e = r("stylex")))([
-            f.preview,
-            l && f.noBorderRadius,
-            l && f.compose,
-            l &&
-              (A != null && Y
-                ? f.composeWithHQMediaPreview
-                : f.composeWithSQMediaPreview),
-            L === !0 ? f.boubbleOut : f.bubbleIn,
-            j && f.status,
-            j && q && f.statusImageShrink,
-            $ === "extended" && f.extended,
-            q && f.highQualityLayout,
-            U && !q && f.fullPreview,
-            _ && f.horizontalLayout,
-            s,
-          ]),
-        ),
-        Z = v,
-        ee = Z
-          ? d.jsx(r("WDSIconIcLink.react"), {
-              testid: void 0,
-              xstyle: [f.paddingAll24, f.placeholderImage],
-              width: 32,
-              height: 32,
-            })
-          : d.jsx(r("WAWebMediaLinkPreviewImage.react"), {
-              thumbnail: P,
-              thumbnailJpeg: N,
-              thumbnailJpegHQ: A,
-              thumbnailJpegDirectPath: M,
-              thumbnailJpegHeight: w,
-              thumbnailJpegWidth: F,
-              isHighQualityLayout: q,
-              displayType: m,
-              isStatus: j,
-              isFullPreview: U,
-              theme: $,
-              withoutDescription: V == null,
-              isInvite:
-                m !== o("WAWebDisplayType").DISPLAY_TYPE.GALLERY ? !!b : !1,
-              isCompose: l,
-            }),
-        te = d.jsx(r("WAWebMediaLinkPreviewDescription.react"), {
-          useTextLimit: U && !q,
-          isStatus: j,
-          isFullPreview: U,
-          isHighQualityLayout: q,
-          isComposeHQPreview: Y,
-          isCompose: l,
-          testid: void 0,
-          children: V,
-        }),
-        ne = O != null && B && n != null ? n + ". " + O : O;
-      return d.jsxs("div", {
-        "data-testid": void 0,
-        className: J,
-        style: l ? { ":empty": { display: "none" } } : void 0,
-        onClick: D,
-        children: [
-          d.jsx(R, { star: x, kept: E, displayType: m, children: ee }),
-          d.jsxs(
+        n[0] !== l ||
+        n[1] !== s ||
+        n[2] !== c ||
+        n[3] !== O ||
+        n[4] !== p ||
+        n[5] !== F ||
+        n[6] !== W ||
+        n[7] !== q ||
+        n[8] !== C ||
+        n[9] !== b ||
+        n[10] !== L ||
+        n[11] !== E ||
+        n[12] !== k ||
+        n[13] !== D ||
+        n[14] !== M ||
+        n[15] !== w ||
+        n[16] !== A
+      ) {
+        j = Symbol.for("react.early_return_sentinel");
+        e: {
+          if (
+            ((H = !F && !W && S(k)),
+            o("WAWebNewsletterApiParse").isNewsletterInviteCode(k))
+          )
+            if (!o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled())
+              U = null;
+            else if (
+              o("WAWebABProps").getABPropConfigValue(
+                "channels_invite_link_preview_improvement_enabled",
+              )
+            )
+              U = s;
+            else {
+              var Y;
+              (n[26] === Symbol.for("react.memo_cache_sentinel")
+                ? ((Y = u._(/*BTDS*/ "Channel invite link")), (n[26] = Y))
+                : (Y = n[26]),
+                (U = Y));
+            }
+          else if (p != null) {
+            var J;
+            p === o("WAWebGroupType").GroupType.LINKED_SUBGROUP &&
+              typeof s == "string" &&
+              (J = s);
+            var Z;
+            (n[27] !== J || n[28] !== p
+              ? ((Z = o("WAWebLinkPreviewGroupUtils").getInviteLinkDescription(
+                  p,
+                  J,
+                )),
+                (n[27] = J),
+                (n[28] = p),
+                (n[29] = Z))
+              : (Z = n[29]),
+              (U = Z));
+          } else U = s;
+          var ee;
+          (n[30] !== A
+            ? ((K = g(A)), (ee = h(K)), (n[30] = A), (n[31] = ee), (n[32] = K))
+            : ((ee = n[31]), (K = n[32])),
+            (Q = ee),
+            (G = c === o("WAWebDisplayType").DISPLAY_TYPE.STATUS));
+          var te = D === "support_citations_link",
+            ne;
+          (n[33] !== F ||
+          n[34] !== G ||
+          n[35] !== te ||
+          n[36] !== k ||
+          n[37] !== K ||
+          n[38] !== Q
+            ? ((ne =
+                k != null && k !== ""
+                  ? d.jsx(
+                      "div",
+                      babelHelpers.extends(
+                        { "data-testid": void 0 },
+                        {
+                          0: {
+                            className:
+                              "xhslqc4 x1c4vz4f x2lah0s xdl72j9 x1pg5gke x4p5aij",
+                          },
+                          4: {
+                            className:
+                              "x1c4vz4f x2lah0s xdl72j9 x4p5aij xa2ctma x1f6kntn",
+                          },
+                          2: {
+                            className:
+                              "x1c4vz4f x2lah0s xdl72j9 x4p5aij xhslqc4 x1f6kntn",
+                          },
+                          6: {
+                            className:
+                              "x1c4vz4f x2lah0s xdl72j9 x4p5aij xhslqc4 x1f6kntn",
+                          },
+                          1: {
+                            className:
+                              "xhslqc4 x1c4vz4f x2lah0s xdl72j9 x1pg5gke x4p5aij xuxw1ft x6ikm8r x10wlt62 xlyipyv",
+                          },
+                          5: {
+                            className:
+                              "x1c4vz4f x2lah0s xdl72j9 x4p5aij xa2ctma x1f6kntn xuxw1ft x6ikm8r x10wlt62 xlyipyv",
+                          },
+                          3: {
+                            className:
+                              "x1c4vz4f x2lah0s xdl72j9 x4p5aij xhslqc4 x1f6kntn xuxw1ft x6ikm8r x10wlt62 xlyipyv",
+                          },
+                          7: {
+                            className:
+                              "x1c4vz4f x2lah0s xdl72j9 x4p5aij xhslqc4 x1f6kntn xuxw1ft x6ikm8r x10wlt62 xlyipyv",
+                          },
+                        }[(!!G << 2) | (!!F << 1) | (!!te << 0)],
+                        {
+                          children: d.jsx(o("WAWebEmojiText.react").EmojiText, {
+                            text: k,
+                            direction: K,
+                            dirMismatch: Q,
+                          }),
+                        },
+                      ),
+                    )
+                  : null),
+              (n[33] = F),
+              (n[34] = G),
+              (n[35] = te),
+              (n[36] = k),
+              (n[37] = K),
+              (n[38] = Q),
+              (n[39] = ne))
+            : (ne = n[39]),
+            (X = ne));
+          var re = L == null ? void 0 : L.previewMetadata;
+          if (
+            F &&
+            re != null &&
+            o(
+              "PaymentLinkPreviewWithAmountFeature",
+            ).isPaymentLinkPreviewWithAmountEnabled(L, E)
+          ) {
+            var oe;
+            (n[40] !== C || n[41] !== re || n[42] !== A || n[43] !== X
+              ? ((oe = d.jsx(r("WAWebPaymentLinkPreview.react"), {
+                  title: A,
+                  urlElement: X,
+                  previewMetadata: re,
+                  isLoading: C,
+                })),
+                (n[40] = C),
+                (n[41] = re),
+                (n[42] = A),
+                (n[43] = X),
+                (n[44] = oe))
+              : (oe = n[44]),
+              (j = oe));
+            break e;
+          }
+          var ae;
+          (n[45] !== F || n[46] !== M || n[47] !== w
+            ? ((ae =
+                F &&
+                M != null &&
+                w != null &&
+                w > y &&
+                o("WAWebMediaGatingUtils").shouldUseLargeHQPreviewInComposer()),
+              (n[45] = F),
+              (n[46] = M),
+              (n[47] = w),
+              (n[48] = ae))
+            : (ae = n[48]),
+            (V = ae),
+            (z = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+              "_ahwq",
+              (e || (e = r("stylex")))([
+                f.preview,
+                F && f.noBorderRadius,
+                F && f.compose,
+                F &&
+                  (M != null && V
+                    ? f.composeWithHQMediaPreview
+                    : f.composeWithSQMediaPreview),
+                b === !0 ? f.boubbleOut : f.bubbleIn,
+                G && f.status,
+                G && q && f.statusImageShrink,
+                D === "extended" && f.extended,
+                q && f.highQualityLayout,
+                H && !q && f.fullPreview,
+                O && f.horizontalLayout,
+                l,
+              ]),
+            )));
+        }
+        ((n[0] = l),
+          (n[1] = s),
+          (n[2] = c),
+          (n[3] = O),
+          (n[4] = p),
+          (n[5] = F),
+          (n[6] = W),
+          (n[7] = q),
+          (n[8] = C),
+          (n[9] = b),
+          (n[10] = L),
+          (n[11] = E),
+          (n[12] = k),
+          (n[13] = D),
+          (n[14] = M),
+          (n[15] = w),
+          (n[16] = A),
+          (n[17] = U),
+          (n[18] = V),
+          (n[19] = H),
+          (n[20] = G),
+          (n[21] = z),
+          (n[22] = j),
+          (n[23] = K),
+          (n[24] = Q),
+          (n[25] = X));
+      } else
+        ((U = n[17]),
+          (V = n[18]),
+          (H = n[19]),
+          (G = n[20]),
+          (z = n[21]),
+          (j = n[22]),
+          (K = n[23]),
+          (Q = n[24]),
+          (X = n[25]));
+      if (j !== Symbol.for("react.early_return_sentinel")) return j;
+      var ie = z,
+        le = C,
+        se;
+      n[49] !== U ||
+      n[50] !== c ||
+      n[51] !== F ||
+      n[52] !== H ||
+      n[53] !== q ||
+      n[54] !== _ ||
+      n[55] !== G ||
+      n[56] !== le ||
+      n[57] !== D ||
+      n[58] !== x ||
+      n[59] !== $ ||
+      n[60] !== P ||
+      n[61] !== M ||
+      n[62] !== N ||
+      n[63] !== w
+        ? ((se = le
+            ? d.jsx(r("WDSIconIcLink.react"), {
+                testid: void 0,
+                xstyle: [f.paddingAll24, f.placeholderImage],
+                width: 32,
+                height: 32,
+              })
+            : d.jsx(r("WAWebMediaLinkPreviewImage.react"), {
+                thumbnail: x,
+                thumbnailJpeg: $,
+                thumbnailJpegHQ: M,
+                thumbnailJpegDirectPath: P,
+                thumbnailJpegHeight: N,
+                thumbnailJpegWidth: w,
+                isHighQualityLayout: q,
+                displayType: c,
+                isStatus: G,
+                isFullPreview: H,
+                theme: D,
+                withoutDescription: U == null,
+                isInvite:
+                  c !== o("WAWebDisplayType").DISPLAY_TYPE.GALLERY ? !!_ : !1,
+                isCompose: F,
+              })),
+          (n[49] = U),
+          (n[50] = c),
+          (n[51] = F),
+          (n[52] = H),
+          (n[53] = q),
+          (n[54] = _),
+          (n[55] = G),
+          (n[56] = le),
+          (n[57] = D),
+          (n[58] = x),
+          (n[59] = $),
+          (n[60] = P),
+          (n[61] = M),
+          (n[62] = N),
+          (n[63] = w),
+          (n[64] = se))
+        : (se = n[64]);
+      var ue = se,
+        ce = H && !q,
+        de = p != null ? "link-description-" + String(p) : "link-description",
+        me;
+      n[65] !== U ||
+      n[66] !== F ||
+      n[67] !== V ||
+      n[68] !== H ||
+      n[69] !== q ||
+      n[70] !== G ||
+      n[71] !== ce ||
+      n[72] !== de
+        ? ((me = d.jsx(r("WAWebMediaLinkPreviewDescription.react"), {
+            useTextLimit: ce,
+            isStatus: G,
+            isFullPreview: H,
+            isHighQualityLayout: q,
+            isComposeHQPreview: V,
+            isCompose: F,
+            testid: void 0,
+            children: U,
+          })),
+          (n[65] = U),
+          (n[66] = F),
+          (n[67] = V),
+          (n[68] = H),
+          (n[69] = q),
+          (n[70] = G),
+          (n[71] = ce),
+          (n[72] = de),
+          (n[73] = me))
+        : (me = n[73]);
+      var pe = me,
+        _e = A != null && B && a != null ? a + ". " + A : A,
+        fe;
+      n[74] !== F
+        ? ((fe = F ? { ":empty": { display: "none" } } : void 0),
+          (n[74] = F),
+          (n[75] = fe))
+        : (fe = n[75]);
+      var ge;
+      n[76] !== c || n[77] !== ue || n[78] !== v || n[79] !== T
+        ? ((ge = d.jsx(R, { star: T, kept: v, displayType: c, children: ue })),
+          (n[76] = c),
+          (n[77] = ue),
+          (n[78] = v),
+          (n[79] = T),
+          (n[80] = ge))
+        : (ge = n[80]);
+      var he;
+      n[81] !== F || n[82] !== V || n[83] !== H || n[84] !== q || n[85] !== G
+        ? ((he = (e || (e = r("stylex"))).props(
+            f.body,
+            G && f.statusBody,
+            H && f.fullPreviewBody,
+            H && !q && f.fullPreviewNotHighQualityLayoutBody,
+            F ? f.composeBody : f.notComposeBody,
+            F && (V ? f.composeBodyHQ : f.composeBodyLQ),
+          )),
+          (n[81] = F),
+          (n[82] = V),
+          (n[83] = H),
+          (n[84] = q),
+          (n[85] = G),
+          (n[86] = he))
+        : (he = n[86]);
+      var ye;
+      n[87] !== B ||
+      n[88] !== F ||
+      n[89] !== G ||
+      n[90] !== _e ||
+      n[91] !== le ||
+      n[92] !== K ||
+      n[93] !== Q
+        ? ((ye =
+            !le &&
+            d.jsx(r("WAWebMediaLinkPreviewTitle.react"), {
+              isBotPluginLink: B,
+              isCompose: F,
+              isStatus: G,
+              title: _e,
+              titleDir: K,
+              titleDirMismatch: Q,
+            })),
+          (n[87] = B),
+          (n[88] = F),
+          (n[89] = G),
+          (n[90] = _e),
+          (n[91] = le),
+          (n[92] = K),
+          (n[93] = Q),
+          (n[94] = ye))
+        : (ye = n[94]);
+      var Ce = !B && !le && pe,
+        be;
+      n[95] !== he || n[96] !== ye || n[97] !== Ce || n[98] !== X
+        ? ((be = d.jsxs(
             "div",
-            babelHelpers.extends(
-              {},
-              e.props(
-                f.body,
-                j && f.statusBody,
-                U && f.fullPreviewBody,
-                U && !q && f.fullPreviewNotHighQualityLayoutBody,
-                l ? f.composeBody : f.notComposeBody,
-                l && (Y ? f.composeBodyHQ : f.composeBodyLQ),
-              ),
-              {
-                children: [
-                  !Z &&
-                    d.jsx(r("WAWebMediaLinkPreviewTitle.react"), {
-                      isBotPluginLink: B,
-                      isCompose: l,
-                      isStatus: j,
-                      title: ne,
-                      titleDir: G,
-                      titleDirMismatch: z,
-                    }),
-                  !B && !Z && te,
-                  Q,
-                ],
-              },
-            ),
-          ),
-          Z &&
+            babelHelpers.extends({}, he, { children: [ye, Ce, X] }),
+          )),
+          (n[95] = he),
+          (n[96] = ye),
+          (n[97] = Ce),
+          (n[98] = X),
+          (n[99] = be))
+        : (be = n[99]);
+      var ve;
+      n[100] !== le
+        ? ((ve =
+            le &&
             d.jsx("div", {
               className:
                 "xm0bted x1ptvdk8 xvjg3zp x1esw782 xa4qsjk x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x47corl",
-            }),
-        ],
-      });
+            })),
+          (n[100] = le),
+          (n[101] = ve))
+        : (ve = n[101]);
+      var Se;
+      return (
+        n[102] !== ie ||
+        n[103] !== I ||
+        n[104] !== ge ||
+        n[105] !== be ||
+        n[106] !== ve ||
+        n[107] !== fe
+          ? ((Se = d.jsxs("div", {
+              "data-testid": void 0,
+              className: ie,
+              style: fe,
+              onClick: I,
+              children: [ge, be, ve],
+            })),
+            (n[102] = ie),
+            (n[103] = I),
+            (n[104] = ge),
+            (n[105] = be),
+            (n[106] = ve),
+            (n[107] = fe),
+            (n[108] = Se))
+          : (Se = n[108]),
+        Se
+      );
     }
-    ((L.displayName = L.name + " [from " + i.id + "]"), (l.default = L));
+    l.default = E;
   },
   226,
 );

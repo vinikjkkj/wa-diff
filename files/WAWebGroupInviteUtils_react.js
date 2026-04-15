@@ -10,6 +10,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -20,16 +21,27 @@ __d(
         );
       };
     function d() {
-      return u.jsx(r("WAWebGroupInviteLockModal.react"), {
-        title: s._(/*BTDS*/ "Invite link unavailable"),
-        onLearnMoreClicked: c,
-        onOkClicked: o("WAWebModalManager").closeModalManager,
-        children: s._(
-          /*BTDS*/ "You can't join this group because the invite link is unavailable.",
-        ),
-      });
+      var e = o("react-compiler-runtime").c(2),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = s._(/*BTDS*/ "Invite link unavailable")), (e[0] = t))
+        : (t = e[0]);
+      var n;
+      return (
+        e[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((n = u.jsx(r("WAWebGroupInviteLockModal.react"), {
+              title: t,
+              onLearnMoreClicked: c,
+              onOkClicked: o("WAWebModalManager").closeModalManager,
+              children: s._(
+                /*BTDS*/ "You can't join this group because the invite link is unavailable.",
+              ),
+            })),
+            (e[1] = n))
+          : (n = e[1]),
+        n
+      );
     }
-    d.displayName = d.name + " [from " + i.id + "]";
     function m(e, t, n) {
       if (
         (t === void 0 && (t = !0),

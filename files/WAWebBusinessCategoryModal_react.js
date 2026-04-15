@@ -15,6 +15,7 @@ __d(
     "WAWebUtilsLogQplEvents",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -24,71 +25,113 @@ __d(
       m = c.useEffect,
       p = c.useState;
     function _(e) {
-      var t = e.isCategoryDisabled,
-        n = e.isCategorySelected,
-        a = e.onRemoveCategory,
-        i = e.onToggleCategory,
-        l = e.searchText,
-        s = e.selectedCategories,
-        c = p(!1),
-        _ = c[0],
-        f = c[1],
-        g = p([]),
-        h = g[0],
-        y = g[1],
-        C = d(function (e) {
-          (f(!0),
-            o("WAWebBusinessCategoriesResultCollection")
-              .BusinessCategoriesResultCollection.find(
-                e ||
-                  o("WAWebBusinessCategoriesResultModel")
-                    .BUSINESS_CATEGORY_EMPTY_STR_ID,
-              )
-              .then(function (t) {
-                var n = t.categories;
-                (e !== "" &&
-                  (n = n.filter(function (e) {
-                    return !e.not_a_biz;
-                  })),
-                  y(n));
-              })
-              .catch(function () {
-                y([]);
-              })
-              .finally(function () {
-                f(!1);
-              }));
-        }, []);
-      m(
-        function () {
-          C(l);
-        },
-        [l, C],
-      );
-      var b = function (t) {
-        var e = h.find(function (e) {
-          return e.id === t;
-        });
-        e && i(e);
-      };
-      return u.jsxs(u.Fragment, {
-        children: [
-          u.jsx(r("WAWebBusinessCategoryList.react"), {
-            selectedCategories: s,
-            onRemoveItem: a,
+      var t = o("react-compiler-runtime").c(20),
+        n = e.isCategoryDisabled,
+        a = e.isCategorySelected,
+        i = e.onRemoveCategory,
+        l = e.onToggleCategory,
+        s = e.searchText,
+        c = e.selectedCategories,
+        d = p(!1),
+        _ = d[0],
+        g = d[1],
+        h;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = []), (t[0] = h))
+        : (h = t[0]);
+      var y = p(h),
+        C = y[0],
+        b = y[1],
+        v;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = function (t) {
+            (g(!0),
+              o("WAWebBusinessCategoriesResultCollection")
+                .BusinessCategoriesResultCollection.find(
+                  t ||
+                    o("WAWebBusinessCategoriesResultModel")
+                      .BUSINESS_CATEGORY_EMPTY_STR_ID,
+                )
+                .then(function (e) {
+                  var n = e.categories;
+                  (t !== "" && (n = n.filter(f)), b(n));
+                })
+                .catch(function () {
+                  b([]);
+                })
+                .finally(function () {
+                  g(!1);
+                }));
           }),
-          u.jsx(r("WAWebCategorySelectionList.react"), {
+          (t[1] = v))
+        : (v = t[1]);
+      var S = v,
+        R,
+        L;
+      (t[2] !== s
+        ? ((R = function () {
+            S(s);
+          }),
+          (L = [s, S]),
+          (t[2] = s),
+          (t[3] = R),
+          (t[4] = L))
+        : ((R = t[3]), (L = t[4])),
+        m(R, L));
+      var E;
+      t[5] !== l || t[6] !== C
+        ? ((E = function (t) {
+            var e = C.find(function (e) {
+              return e.id === t;
+            });
+            e && l(e);
+          }),
+          (t[5] = l),
+          (t[6] = C),
+          (t[7] = E))
+        : (E = t[7]);
+      var k = E,
+        I;
+      t[8] !== i || t[9] !== c
+        ? ((I = u.jsx(r("WAWebBusinessCategoryList.react"), {
+            selectedCategories: c,
+            onRemoveItem: i,
+          })),
+          (t[8] = i),
+          (t[9] = c),
+          (t[10] = I))
+        : (I = t[10]);
+      var T;
+      t[11] !== k || t[12] !== n || t[13] !== a || t[14] !== _ || t[15] !== C
+        ? ((T = u.jsx(r("WAWebCategorySelectionList.react"), {
             isLoading: _,
-            results: h,
-            isSelected: n,
-            isDisabled: t,
-            toggleResultById: b,
-          }),
-        ],
-      });
+            results: C,
+            isSelected: a,
+            isDisabled: n,
+            toggleResultById: k,
+          })),
+          (t[11] = k),
+          (t[12] = n),
+          (t[13] = a),
+          (t[14] = _),
+          (t[15] = C),
+          (t[16] = T))
+        : (T = t[16]);
+      var D;
+      return (
+        t[17] !== I || t[18] !== T
+          ? ((D = u.jsxs(u.Fragment, { children: [I, T] })),
+            (t[17] = I),
+            (t[18] = T),
+            (t[19] = D))
+          : (D = t[19]),
+        D
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
+      return !e.not_a_biz;
+    }
+    function g(e) {
       var t = e.initialCategories,
         a = e.onCancel,
         i = e.onSaveSuccess,
@@ -215,7 +258,7 @@ __d(
         }),
       });
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
   },
   226,
 );

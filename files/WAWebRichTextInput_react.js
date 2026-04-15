@@ -13,6 +13,7 @@ __d(
     "WAWebCharacterLimitPlugin",
     "WAWebClassnames",
     "WAWebClipboardPlugin",
+    "WAWebCometRouterGating",
     "WAWebCopyPasteCopyable.react",
     "WAWebDebugRichTextInput",
     "WAWebDelimiterNode",
@@ -86,7 +87,12 @@ __d(
         paragraph: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
           "_aupe",
           o("WAWebCopyPasteCopyable.react").COPYABLE_CSS_CLASS,
-          "x15bjb6t x1n2onr6",
+          {
+            0: "x15bjb6t x1n2onr6",
+            1: "x15bjb6t x1n2onr6 xdj266r x14z9mp xat24cr x1lziwak",
+          }[
+            !!o("WAWebCometRouterGating").isCometRouterIntegrationEnabled() << 0
+          ],
         ),
         text: {
           base: o("WAWebClassnames").classnamesConvertMeToStylexPlease(

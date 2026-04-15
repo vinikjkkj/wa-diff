@@ -12,7 +12,7 @@ __d(
       s,
       u = s || (s = o("react"));
     function c(t) {
-      var n = o("react-compiler-runtime").c(16),
+      var n = o("react-compiler-runtime").c(21),
         a,
         i,
         l,
@@ -42,36 +42,48 @@ __d(
       var p = s === void 0 ? "regular" : s,
         _ = c === void 0 ? "default" : c,
         f;
-      if (n[7] !== p || n[8] !== _ || n[9] !== m) {
-        f = d(_);
-        var g =
+      n[7] !== _ ? ((f = d(_)), (n[7] = _), (n[8] = f)) : (f = n[8]);
+      var g = f,
+        h =
           p === "regular"
             ? o("BaseIconButtonXMDSVariants").BaseIconButtonXMDSRegularVariant
-            : o("BaseIconButtonXMDSVariants").BaseIconButtonXMDSDenseVariant;
-        ((f.xstyleConfig.pressable = [
-          f.xstyleConfig.pressable,
-          g.xstyleConfig.pressable,
-          m,
-        ]),
-          (n[7] = p),
-          (n[8] = _),
-          (n[9] = m),
-          (n[10] = f));
-      } else f = n[10];
-      var h;
+            : o("BaseIconButtonXMDSVariants").BaseIconButtonXMDSDenseVariant,
+        y;
+      n[9] !== g.xstyleConfig.pressable ||
+      n[10] !== h.xstyleConfig.pressable ||
+      n[11] !== m
+        ? ((y = [g.xstyleConfig.pressable, h.xstyleConfig.pressable, m]),
+          (n[9] = g.xstyleConfig.pressable),
+          (n[10] = h.xstyleConfig.pressable),
+          (n[11] = m),
+          (n[12] = y))
+        : (y = n[12]);
+      var C;
+      n[13] !== g.xstyleConfig || n[14] !== y
+        ? ((C = {
+            xstyleConfig: babelHelpers.extends({}, g.xstyleConfig, {
+              pressable: y,
+            }),
+          }),
+          (n[13] = g.xstyleConfig),
+          (n[14] = y),
+          (n[15] = C))
+        : (C = n[15]);
+      var b = C,
+        v;
       return (
-        n[11] !== a || n[12] !== i || n[13] !== l || n[14] !== f
-          ? ((h = u.jsx(
+        n[16] !== a || n[17] !== i || n[18] !== l || n[19] !== b
+          ? ((v = u.jsx(
               r("BaseIconButton.react"),
-              babelHelpers.extends({}, i, { ref: l, variant: f, children: a }),
+              babelHelpers.extends({}, i, { ref: l, variant: b, children: a }),
             )),
-            (n[11] = a),
-            (n[12] = i),
-            (n[13] = l),
-            (n[14] = f),
-            (n[15] = h))
-          : (h = n[15]),
-        h
+            (n[16] = a),
+            (n[17] = i),
+            (n[18] = l),
+            (n[19] = b),
+            (n[20] = v))
+          : (v = n[20]),
+        v
       );
     }
     function d(e) {

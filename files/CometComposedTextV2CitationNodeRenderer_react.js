@@ -95,7 +95,7 @@ __d(
               (t[3] = E))
             : (E = t[3]),
           s.jsx(
-            "div",
+            "span",
             babelHelpers.extends({}, R, {
               children: s.jsx(r("BaseInlinePressable.react"), {
                 linkProps: { rel: "external", target: "_blank", url: p },

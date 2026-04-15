@@ -1,6 +1,6 @@
 __d(
   "WAWebBizBroadcastBusinessInfoContext.react",
-  ["react", "useWAWebBizBroadcastBusinessInfo"],
+  ["react", "react-compiler-runtime", "useWAWebBizBroadcastBusinessInfo"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -23,51 +23,84 @@ __d(
       return d(_);
     }
     function g(e) {
-      var t = e.children,
-        n = o(
+      var t,
+        n,
+        r,
+        a,
+        i,
+        l,
+        u,
+        c,
+        d = o("react-compiler-runtime").c(12),
+        m = e.children,
+        p = o(
           "useWAWebBizBroadcastBusinessInfo",
         ).useWAWebBizBroadcastBusinessInfo(),
-        r = n.businessInfo,
-        a = n.error,
-        i = n.isLoading,
-        l = n.refetch,
-        u = m(
-          function () {
-            var e, t, n, o, s, u, c, d;
-            return {
-              adAccountId:
-                (e = r == null || (t = r.ad_account) == null ? void 0 : t.id) !=
-                null
-                  ? e
-                  : null,
-              businessId:
-                (n = r == null || (o = r.business) == null ? void 0 : o.id) !=
-                null
-                  ? n
-                  : null,
-              businessInfo: r,
-              error: a,
-              isLoading: i,
-              pageId:
-                (s = r == null || (u = r.page) == null ? void 0 : u.id) != null
-                  ? s
-                  : null,
-              paymentAccountId:
-                (c =
-                  r == null || (d = r.business_payment_account) == null
-                    ? void 0
-                    : d.id) != null
-                  ? c
-                  : null,
-              refetch: l,
-            };
-          },
-          [r, a, i, l],
-        );
-      return s.jsx(_.Provider, { value: u, children: t });
+        f = p.businessInfo,
+        g = p.error,
+        h = p.isLoading,
+        y = p.refetch,
+        C =
+          (t = f == null || (n = f.ad_account) == null ? void 0 : n.id) != null
+            ? t
+            : null,
+        b =
+          (r = f == null || (a = f.business) == null ? void 0 : a.id) != null
+            ? r
+            : null,
+        v =
+          (i = f == null || (l = f.page) == null ? void 0 : l.id) != null
+            ? i
+            : null,
+        S =
+          (u =
+            f == null || (c = f.business_payment_account) == null
+              ? void 0
+              : c.id) != null
+            ? u
+            : null,
+        R;
+      d[0] !== f ||
+      d[1] !== g ||
+      d[2] !== h ||
+      d[3] !== y ||
+      d[4] !== C ||
+      d[5] !== b ||
+      d[6] !== v ||
+      d[7] !== S
+        ? ((R = {
+            adAccountId: C,
+            businessId: b,
+            businessInfo: f,
+            error: g,
+            isLoading: h,
+            pageId: v,
+            paymentAccountId: S,
+            refetch: y,
+          }),
+          (d[0] = f),
+          (d[1] = g),
+          (d[2] = h),
+          (d[3] = y),
+          (d[4] = C),
+          (d[5] = b),
+          (d[6] = v),
+          (d[7] = S),
+          (d[8] = R))
+        : (R = d[8]);
+      var L = R,
+        E;
+      return (
+        d[9] !== m || d[10] !== L
+          ? ((E = s.jsx(_.Provider, { value: L, children: m })),
+            (d[9] = m),
+            (d[10] = L),
+            (d[11] = E))
+          : (E = d[11]),
+        E
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
-      (l.useWAWebBizBroadcastBusinessInfoContext = f),
+    ((l.useWAWebBizBroadcastBusinessInfoContext = f),
       (l.WAWebBizBroadcastBusinessInfoProvider = g));
   },
   98,

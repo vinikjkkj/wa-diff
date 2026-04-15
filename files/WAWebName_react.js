@@ -36,6 +36,7 @@ __d(
     "WDSButton.react",
     "cr:17281",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebChatValues",
     "useWAWebContactValues",
@@ -656,7 +657,8 @@ __d(
     function v(t) {
       var n,
         r,
-        a =
+        a = o("react-compiler-runtime").c(49),
+        i =
           (n = o("useWAWebChatValues").useOptionalChatValues(
             (r = t.chat) == null ? void 0 : r.id,
             [
@@ -669,110 +671,250 @@ __d(
           )) != null
             ? n
             : [!1, !1, !1, null, null],
-        i = a[0],
-        l = a[1],
-        s = a[2],
-        m = a[3],
-        p = a[4];
-      if (t.chat && m != null && !i && !l && !s) {
-        var _ = t.chat,
-          g = t.selectable,
-          h = babelHelpers.objectWithoutPropertiesLoose(t, e);
-        return f.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
-          name: "group-name",
-          fallback: function () {
-            return f.jsx("span", { children: p });
-          },
-          children: f.jsx(
-            b,
-            babelHelpers.extends({ chat: _, groupMetadata: m }, h),
-          ),
-        });
-      }
-      if (t.chat && !i && l) {
-        var y = t.chat,
-          v = t.selectable,
-          S = babelHelpers.objectWithoutPropertiesLoose(t, u);
-        return f.jsx(
-          o("WAWebNewsletterName.react").NewsletterName,
-          babelHelpers.extends({ chat: y, selectable: v }, S),
+        l = i[0],
+        s = i[1],
+        m = i[2],
+        p = i[3],
+        _ = i[4];
+      if (t.chat && p != null && !l && !s && !m) {
+        var g, h;
+        if (a[0] !== t) {
+          var y = t.chat,
+            v = t.selectable,
+            S = babelHelpers.objectWithoutPropertiesLoose(t, e);
+          ((g = y), (h = S), (a[0] = t), (a[1] = g), (a[2] = h));
+        } else ((g = a[1]), (h = a[2]));
+        var R;
+        a[3] !== _
+          ? ((R = function () {
+              return f.jsx("span", { children: _ });
+            }),
+            (a[3] = _),
+            (a[4] = R))
+          : (R = a[4]);
+        var L;
+        a[5] !== g || a[6] !== p || a[7] !== h
+          ? ((L = f.jsx(
+              b,
+              babelHelpers.extends({ chat: g, groupMetadata: p }, h),
+            )),
+            (a[5] = g),
+            (a[6] = p),
+            (a[7] = h),
+            (a[8] = L))
+          : (L = a[8]);
+        var E;
+        return (
+          a[9] !== R || a[10] !== L
+            ? ((E = f.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+                name: "group-name",
+                fallback: R,
+                children: L,
+              })),
+              (a[9] = R),
+              (a[10] = L),
+              (a[11] = E))
+            : (E = a[11]),
+          E
         );
       }
-      if (t.chat && s) {
-        var R = t.breakWord,
-          L = t.chat,
-          E = t.className,
-          k = t.element,
-          I = t.ellipsify,
-          T = t.firstLabel,
-          D = t.highlightText,
-          x = t.labels,
-          $ = t.onClick,
-          P = t.selectable,
-          N = t.showLabelIcon,
-          M = t.testid,
-          w = t.titlify,
-          A = t.xstyle;
-        return f.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
-          name: "broadcast-name",
-          fallback: function () {
-            return f.jsx("span", { children: p });
-          },
-          children: f.jsx(o("WAWebBroadcastName.react").BroadcastName, {
-            chat: L,
-            breakWord: R,
-            className: E,
-            element: k,
-            ellipsify: I,
-            firstLabel: T,
-            highlightText: D,
-            labels: x,
-            onClick: $,
-            selectable: P,
-            showLabelIcon: N,
-            testid: void 0,
-            titlify: w,
-            xstyle: A,
-          }),
-        });
+      if (t.chat && !l && s) {
+        var k, I, T;
+        a[12] !== t
+          ? ((k = t.chat),
+            (T = t.selectable),
+            (I = babelHelpers.objectWithoutPropertiesLoose(t, u)),
+            (a[12] = t),
+            (a[13] = k),
+            (a[14] = I),
+            (a[15] = T))
+          : ((k = a[13]), (I = a[14]), (T = a[15]));
+        var D;
+        return (
+          a[16] !== k || a[17] !== I || a[18] !== T
+            ? ((D = f.jsx(
+                o("WAWebNewsletterName.react").NewsletterName,
+                babelHelpers.extends({ chat: k, selectable: T }, I),
+              )),
+              (a[16] = k),
+              (a[17] = I),
+              (a[18] = T),
+              (a[19] = D))
+            : (D = a[19]),
+          D
+        );
       }
-      var F, O;
-      if (t.chat) {
-        var B = t.chat,
-          W = babelHelpers.objectWithoutPropertiesLoose(t, c);
-        ((F = B.contact), (O = W));
-      } else {
-        var q = t.contact,
-          U = babelHelpers.objectWithoutPropertiesLoose(t, d);
-        ((F = q), (O = U));
-      }
-      return f.jsx(C, babelHelpers.extends({ contact: F }, O));
-    }
-    v.displayName = v.name + " [from " + i.id + "]";
-    function S(e) {
-      var t = e.chat,
-        n = e.contact,
-        o = e.xstyle;
-      return f.jsxs(
-        "span",
-        babelHelpers.extends({}, (p || (p = r("stylex"))).props(o), {
-          children: [
-            f.jsx(v, {
-              contact: n,
-              useShortName: !!n.shortName,
-              showNotifyName: !0,
-              elevatedPushNamesEnabled: !0,
-              useLiftMeUp: !0,
+      if (t.chat && m) {
+        var x = t.breakWord,
+          $ = t.chat,
+          P = t.className,
+          N = t.element,
+          M = t.ellipsify,
+          w = t.firstLabel,
+          A = t.highlightText,
+          F = t.labels,
+          O = t.onClick,
+          B = t.selectable,
+          W = t.showLabelIcon,
+          q = t.testid,
+          U = t.titlify,
+          V = t.xstyle,
+          H;
+        a[20] !== _
+          ? ((H = function () {
+              return f.jsx("span", { children: _ });
             }),
-            f.jsx("span", { children: "\xA0\u2022\xA0" }),
-            t.groupMetadata &&
-              f.jsx(b, { chat: t, groupMetadata: t.groupMetadata }),
-          ],
-        }),
+            (a[20] = _),
+            (a[21] = H))
+          : (H = a[21]);
+        var G;
+        a[22] !== x ||
+        a[23] !== $ ||
+        a[24] !== P ||
+        a[25] !== N ||
+        a[26] !== M ||
+        a[27] !== w ||
+        a[28] !== A ||
+        a[29] !== F ||
+        a[30] !== O ||
+        a[31] !== B ||
+        a[32] !== W ||
+        a[33] !== q ||
+        a[34] !== U ||
+        a[35] !== V
+          ? ((G = f.jsx(o("WAWebBroadcastName.react").BroadcastName, {
+              chat: $,
+              breakWord: x,
+              className: P,
+              element: N,
+              ellipsify: M,
+              firstLabel: w,
+              highlightText: A,
+              labels: F,
+              onClick: O,
+              selectable: B,
+              showLabelIcon: W,
+              testid: void 0,
+              titlify: U,
+              xstyle: V,
+            })),
+            (a[22] = x),
+            (a[23] = $),
+            (a[24] = P),
+            (a[25] = N),
+            (a[26] = M),
+            (a[27] = w),
+            (a[28] = A),
+            (a[29] = F),
+            (a[30] = O),
+            (a[31] = B),
+            (a[32] = W),
+            (a[33] = q),
+            (a[34] = U),
+            (a[35] = V),
+            (a[36] = G))
+          : (G = a[36]);
+        var z;
+        return (
+          a[37] !== H || a[38] !== G
+            ? ((z = f.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+                name: "broadcast-name",
+                fallback: H,
+                children: G,
+              })),
+              (a[37] = H),
+              (a[38] = G),
+              (a[39] = z))
+            : (z = a[39]),
+          z
+        );
+      }
+      var j, K;
+      if (t.chat) {
+        var Q, X;
+        (a[40] !== t
+          ? ((Q = t.chat),
+            (X = babelHelpers.objectWithoutPropertiesLoose(t, c)),
+            (a[40] = t),
+            (a[41] = Q),
+            (a[42] = X))
+          : ((Q = a[41]), (X = a[42])),
+          (j = Q.contact),
+          (K = X));
+      } else {
+        var Y, J;
+        (a[43] !== t
+          ? ((Y = t.contact),
+            (J = babelHelpers.objectWithoutPropertiesLoose(t, d)),
+            (a[43] = t),
+            (a[44] = Y),
+            (a[45] = J))
+          : ((Y = a[44]), (J = a[45])),
+          (j = Y),
+          (K = J));
+      }
+      var Z;
+      return (
+        a[46] !== j || a[47] !== K
+          ? ((Z = f.jsx(C, babelHelpers.extends({ contact: j }, K))),
+            (a[46] = j),
+            (a[47] = K),
+            (a[48] = Z))
+          : (Z = a[48]),
+        Z
       );
     }
-    ((S.displayName = S.name + " [from " + i.id + "]"),
-      (l.ContactName = C),
+    function S(e) {
+      var t = o("react-compiler-runtime").c(12),
+        n = e.chat,
+        a = e.contact,
+        i = e.xstyle,
+        l;
+      t[0] !== i
+        ? ((l = (p || (p = r("stylex"))).props(i)), (t[0] = i), (t[1] = l))
+        : (l = t[1]);
+      var s = !!a.shortName,
+        u;
+      t[2] !== a || t[3] !== s
+        ? ((u = f.jsx(v, {
+            contact: a,
+            useShortName: s,
+            showNotifyName: !0,
+            elevatedPushNamesEnabled: !0,
+            useLiftMeUp: !0,
+          })),
+          (t[2] = a),
+          (t[3] = s),
+          (t[4] = u))
+        : (u = t[4]);
+      var c;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = f.jsx("span", { children: "\xA0\u2022\xA0" })), (t[5] = c))
+        : (c = t[5]);
+      var d;
+      t[6] !== n
+        ? ((d =
+            n.groupMetadata &&
+            f.jsx(b, { chat: n, groupMetadata: n.groupMetadata })),
+          (t[6] = n),
+          (t[7] = d))
+        : (d = t[7]);
+      var m;
+      return (
+        t[8] !== l || t[9] !== u || t[10] !== d
+          ? ((m = f.jsxs(
+              "span",
+              babelHelpers.extends({}, l, { children: [u, c, d] }),
+            )),
+            (t[8] = l),
+            (t[9] = u),
+            (t[10] = d),
+            (t[11] = m))
+          : (m = t[11]),
+        m
+      );
+    }
+    ((l.ContactName = C),
       (l.GroupName = b),
       (l.Name = v),
       (l.ContactAndGroupName = S));

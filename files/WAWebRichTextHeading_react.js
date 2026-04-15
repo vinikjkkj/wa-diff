@@ -1,6 +1,6 @@
 __d(
   "WAWebRichTextHeading.react",
-  ["WAWebHeadingFormatMutator", "react", "stylex"],
+  ["WAWebHeadingFormatMutator", "react", "react-compiler-runtime", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -45,16 +45,25 @@ __d(
       }
     }
     function m(t) {
-      var n = t.level,
-        o = t.text;
-      return u.jsx(
-        "span",
-        babelHelpers.extends({}, (e || (e = r("stylex"))).props(d(n)), {
-          children: o,
-        }),
+      var n = o("react-compiler-runtime").c(5),
+        a = t.level,
+        i = t.text,
+        l;
+      n[0] !== a
+        ? ((l = (e || (e = r("stylex"))).props(d(a))), (n[0] = a), (n[1] = l))
+        : (l = n[1]);
+      var s;
+      return (
+        n[2] !== l || n[3] !== i
+          ? ((s = u.jsx("span", babelHelpers.extends({}, l, { children: i }))),
+            (n[2] = l),
+            (n[3] = i),
+            (n[4] = s))
+          : (s = n[4]),
+        s
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   98,
 );

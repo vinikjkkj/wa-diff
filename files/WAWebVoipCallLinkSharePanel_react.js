@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WALogger",
     "WAWebChatCollection",
+    "WAWebConfirmPopup.react",
     "WAWebCopyRefreshedIcon.react",
     "WAWebCopyToClipboard",
     "WAWebDrawerManager",
@@ -12,8 +13,6 @@ __d(
     "WAWebSendTextFlow.react",
     "WAWebSvgButton.react",
     "WAWebTextBoxReadonly.react",
-    "WAWebToast.react",
-    "WAWebToastManager",
     "WAWebUserPrefsMeUser",
     "WAWebVoipEventConstants",
     "WAWebVoipNewGroupCallContactPicker.react",
@@ -29,6 +28,7 @@ __d(
     "asyncToGeneratorRuntime",
     "fbs",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebEventTargetValue",
     "useWAWebVoipModalManager",
@@ -111,10 +111,22 @@ __d(
               : !1;
           },
         ),
-        h =
+        h = r("useWAWebEventTargetValue")(
+          a,
+          o("WAWebVoipEventConstants").getChangeEvent(
+            o("WAWebVoipEventConstants").VoipCallModelEvents.WAITING_ROOM_STATE,
+          ),
+          function () {
+            var e;
+            return (e = a == null ? void 0 : a.waitingRoomUsers) != null
+              ? e
+              : [];
+          },
+        ),
+        b =
           a.callLinkCreatorJid != null &&
           o("WAWebUserPrefsMeUser").isMeAccount(a.callLinkCreatorJid),
-        b = p(function (e) {
+        S = p(function (e) {
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             try {
               var t = yield o(
@@ -126,10 +138,34 @@ __d(
             } catch (e) {}
           })();
         }, []),
-        S = o("WAWebChatCollection").ChatCollection.getLatestChatForWid(
+        R = p(
+          function (e) {
+            !e && h.length > 0
+              ? f(
+                  d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                    onOK: function () {
+                      (_(), S(!1));
+                    },
+                    onCancel: function () {
+                      return _();
+                    },
+                    children: d.jsx(r("WDSText.react"), {
+                      colorName: "contentDefault",
+                      type: "Body2",
+                      children: s._(
+                        /*BTDS*/ "Anyone waiting to join will be admitted to the call.",
+                      ),
+                    }),
+                  }),
+                )
+              : S(e);
+          },
+          [h, f, _, S],
+        ),
+        L = o("WAWebChatCollection").ChatCollection.getLatestChatForWid(
           o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
         ),
-        R = p(
+        E = p(
           function () {
             c != null &&
               (o("WALogger").LOG(
@@ -151,17 +187,17 @@ __d(
           [c, f],
         );
       if (c == null) return null;
-      var L = l === "standalone";
+      var k = l === "standalone";
       return d.jsxs(
         "div",
         babelHelpers.extends(
           {},
           (u || (u = r("stylex"))).props(
-            L && o("WDSThemes").WDSDarkTheme,
-            L ? y.container : y.sidebarContainer,
-            L &&
+            k && o("WDSThemes").WDSDarkTheme,
+            k ? y.container : y.sidebarContainer,
+            k &&
               o("WDSColorStyles.stylex").WDSColorStyles.persistentAlwaysWhite,
-            L &&
+            k &&
               o("WDSColorStyles.stylex").WDSBackgroundColorStyles
                 .backgroundWashPlain,
           ),
@@ -189,11 +225,11 @@ __d(
                 Icon: o("WAWebForwardRefreshedIcon.react").ForwardRefreshedIcon,
                 directional: !0,
                 label: s._(/*BTDS*/ "Send link via WhatsApp"),
-                onPress: R,
+                onPress: E,
                 size: "small",
                 xstyle: y.fullWidthButton,
               }),
-              L &&
+              k &&
                 d.jsx("div", {
                   className: "xh8yej3 x1380le5",
                   children: d.jsx(r("WDSButton.react"), {
@@ -202,10 +238,10 @@ __d(
                     Icon: r("WDSIconIcPersonAdd.react"),
                     label: s._(/*BTDS*/ "Add people"),
                     onPress: function () {
-                      S != null &&
+                      L != null &&
                         f(
                           d.jsx(r("WAWebVoipNewGroupCallContactPicker.react"), {
-                            chat: S,
+                            chat: L,
                             isAddingToExistingCall: !0,
                             isVideoCall: a.isVideo,
                             onClose: _,
@@ -217,9 +253,9 @@ __d(
                     xstyle: y.fullWidthButton,
                   }),
                 }),
-              L &&
+              k &&
                 a.isCallLink &&
-                h &&
+                b &&
                 d.jsxs(d.Fragment, {
                   children: [
                     d.jsx("div", {
@@ -236,7 +272,7 @@ __d(
                         }),
                         d.jsx(r("WDSSwitch.react"), {
                           value: g,
-                          onChange: b,
+                          onChange: R,
                           "aria-label": s._(
                             /*BTDS*/ "Require approval to join",
                           ),
@@ -252,54 +288,62 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.textToCopy,
-        n = g(!1),
-        a = n[0],
-        i = n[1],
-        l = _(r("WAWebVoipUiPopoutWindowContext")),
-        u = l.isContextInPopoutWindow,
-        c = l.windowEl,
+      var t = o("react-compiler-runtime").c(7),
+        n = e.textToCopy,
+        a = g(!1),
+        i = a[0],
+        l = a[1],
+        u = _(r("WAWebVoipUiPopoutWindowContext")),
+        c = u.windowEl,
         m = _(r("WAWebVoipUiContext")),
-        p = m.showToast;
-      return (
-        f(
-          function () {
+        p = m.showToast,
+        h,
+        y;
+      (t[0] !== i || t[1] !== p || t[2] !== c || t[3] !== n
+        ? ((h = function () {
             var e = new AbortController();
             return (
-              a &&
+              i &&
                 o("WAWebCopyToClipboard")
-                  .copyTextToClipboard(t, c)
+                  .copyTextToClipboard(n, c)
                   .then(function () {
                     e.signal.aborted ||
-                      (i(!1),
-                      u
-                        ? p == null || p(s._(/*BTDS*/ "Link copied"), "start")
-                        : o("WAWebToastManager").ToastManager.open(
-                            d.jsx(o("WAWebToast.react").Toast, {
-                              msg: s._(/*BTDS*/ "Link copied"),
-                            }),
-                          ));
+                      (l(!1),
+                      p == null || p(s._(/*BTDS*/ "Link copied"), "center"));
                   })
                   .catch(function () {
-                    e.signal.aborted || i(!1);
+                    e.signal.aborted || l(!1);
                   }),
               function () {
                 e.abort();
               }
             );
-          },
-          [a, t, c, u, p],
-        ),
-        d.jsx(r("WAWebSvgButton.react"), {
-          Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
-          "aria-label": r("fbs")._(/*BTDS*/ "Copy call link"),
-          onClick: function () {
-            i(!0);
-          },
-        })
+          }),
+          (y = [i, n, c, p]),
+          (t[0] = i),
+          (t[1] = p),
+          (t[2] = c),
+          (t[3] = n),
+          (t[4] = h),
+          (t[5] = y))
+        : ((h = t[4]), (y = t[5])),
+        f(h, y));
+      var C;
+      return (
+        t[6] === Symbol.for("react.memo_cache_sentinel")
+          ? ((C = d.jsx(r("WAWebSvgButton.react"), {
+              Icon: o("WAWebCopyRefreshedIcon.react").CopyRefreshedIcon,
+              "aria-label": r("fbs")._(/*BTDS*/ "Copy call link"),
+              onClick: function () {
+                l(!0);
+              },
+            })),
+            (t[6] = C))
+          : (C = t[6]),
+        C
       );
     }
-    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = b));
+    l.default = b;
   },
   226,
 );

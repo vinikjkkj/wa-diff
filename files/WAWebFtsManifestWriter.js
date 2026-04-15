@@ -142,18 +142,16 @@ __d(
                   r = yield e
                     .getManifestTable()
                     .get(t.ManifestKeys.NEXT_VERSION);
-                (e
-                  .getManifestTable()
-                  .bulkCreateOrReplace([
-                    babelHelpers.extends({}, n, {
-                      isCurrent: !1,
-                      key: t.ManifestKeys.PREV_VERSION,
-                    }),
-                    babelHelpers.extends({}, r, {
-                      isCurrent: !0,
-                      key: t.ManifestKeys.CURR_VERSION,
-                    }),
-                  ]),
+                (e.getManifestTable().bulkCreateOrReplace([
+                  babelHelpers.extends({}, n, {
+                    isCurrent: !1,
+                    key: t.ManifestKeys.PREV_VERSION,
+                  }),
+                  babelHelpers.extends({}, r, {
+                    isCurrent: !0,
+                    key: t.ManifestKeys.CURR_VERSION,
+                  }),
+                ]),
                   yield e
                     .getManifestTable()
                     .remove(t.ManifestKeys.NEXT_VERSION),

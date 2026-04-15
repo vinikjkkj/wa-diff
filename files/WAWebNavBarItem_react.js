@@ -12,6 +12,7 @@ __d(
     "WDSTooltip.react",
     "cr:23442",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useMergeRefs",
   ],
@@ -63,135 +64,232 @@ __d(
         },
       };
     function f(t) {
-      var n = t.ref,
-        a = t["aria-label"],
-        i = t.children,
-        l = t.disabled,
-        s = t.isActive,
-        c = t.onClick,
-        d = t.onMouseEnter,
-        m = t.testid,
-        p = t.xstyle;
-      return u.jsx(
-        "button",
-        babelHelpers.extends(
-          {
-            "aria-pressed": s,
-            "aria-label": a,
-            onClick: c,
-            tabIndex: -1,
-            ref: n,
-            "data-testid": void 0,
-            "data-navbar-item": !0,
-            "data-navbar-item-selected": s,
-            onMouseEnter: d,
-          },
-          (e || (e = r("stylex"))).props([
+      var n = o("react-compiler-runtime").c(12),
+        a = t.ref,
+        i = t["aria-label"],
+        l = t.children,
+        s = t.disabled,
+        c = t.isActive,
+        d = t.onClick,
+        m = t.onMouseEnter,
+        p = t.testid,
+        f = t.xstyle,
+        g;
+      n[0] !== s || n[1] !== f
+        ? ((g = (e || (e = r("stylex"))).props([
             r("WAWebUnstyledButtonStyles").button,
             o("WAWebUISpacing").uiPadding.all0,
             o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-            l === !0 && r("WAWebUnstyledButtonStyles").disabled,
+            s === !0 && r("WAWebUnstyledButtonStyles").disabled,
             _.circularButton,
-            p,
-          ]),
-          { children: i },
-        ),
+            f,
+          ])),
+          (n[0] = s),
+          (n[1] = f),
+          (n[2] = g))
+        : (g = n[2]);
+      var h;
+      return (
+        n[3] !== i ||
+        n[4] !== l ||
+        n[5] !== c ||
+        n[6] !== d ||
+        n[7] !== m ||
+        n[8] !== a ||
+        n[9] !== g ||
+        n[10] !== p
+          ? ((h = u.jsx(
+              "button",
+              babelHelpers.extends(
+                {
+                  "aria-pressed": c,
+                  "aria-label": i,
+                  onClick: d,
+                  tabIndex: -1,
+                  ref: a,
+                  "data-testid": void 0,
+                  "data-navbar-item": !0,
+                  "data-navbar-item-selected": c,
+                  onMouseEnter: m,
+                },
+                g,
+                { children: l },
+              ),
+            )),
+            (n[3] = i),
+            (n[4] = l),
+            (n[5] = c),
+            (n[6] = d),
+            (n[7] = m),
+            (n[8] = a),
+            (n[9] = g),
+            (n[10] = p),
+            (n[11] = h))
+          : (h = n[11]),
+        h
       );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(t) {
-      var a = t.ariaLabel,
-        i = t.dotIndicatorPositionXstyle,
-        l = t.icon,
-        s = t.inlineActivityIndicator,
-        c = t.inlineActivityIndicatorType,
+      var a = o("react-compiler-runtime").c(36),
+        i = t.ariaLabel,
+        l = t.dotIndicatorPositionXstyle,
+        s = t.icon,
+        c = t.inlineActivityIndicator,
+        d = t.inlineActivityIndicatorType,
         g = t.isActive,
         h = t.isTooltipDisabled,
-        y = h === void 0 ? !1 : h,
-        C = t.keyboardShortcutAction,
-        b = t.onClick,
-        v = t.onMouseEnter,
-        S = t.ref,
-        R = t.shouldHoldInteractionManually,
-        L = R === void 0 ? !1 : R,
-        E = t.spacingXstyle,
-        k = E === void 0 ? o("WAWebUISpacing").uiPadding.all8 : E,
-        I = t.testid,
-        T = t.title,
-        D = t.tracePolicy,
+        y = t.keyboardShortcutAction,
+        C = t.onClick,
+        b = t.onMouseEnter,
+        v = t.ref,
+        S = t.shouldHoldInteractionManually,
+        R = t.spacingXstyle,
+        L = t.testid,
+        E = t.title,
+        k = t.tracePolicy,
+        I = h === void 0 ? !1 : h,
+        T = S === void 0 ? !1 : S,
+        D = R === void 0 ? o("WAWebUISpacing").uiPadding.all8 : R,
         x = o(
           "WAWebAppRootInteractionContext.react",
         ).useInteractionWithAppRootContext(
-          D != null ? D : r("WAWebInteractionTracePolicy").DEFAULT,
-          L,
+          k != null ? k : r("WAWebInteractionTracePolicy").DEFAULT,
+          T,
           !0,
         ),
         $ = x.startInteraction,
-        P = function (t) {
-          (t.preventDefault(), !g && D && $(), b == null || b(t));
-        },
-        N = m(null),
-        M = r("useMergeRefs")(N, S),
-        w = n("cr:23442")(),
-        A = w[0],
-        F = w[1],
-        O = r("useMergeRefs")(A, N),
-        B = d(
-          function () {
-            return u.jsx("div", { children: l });
-          },
-          [l],
-        ),
-        W =
-          s &&
-          u.jsx(o("WAWebFlex.react").FlexItem, {
-            className: (e || (e = r("stylex")))([
-              _.inlineActivityIndicator,
-              c === p.Counter ? _.counterIndicator : _.dotIndicator,
-              i,
-            ]),
-            children: s,
+        P;
+      a[0] !== g || a[1] !== C || a[2] !== $ || a[3] !== k
+        ? ((P = function (t) {
+            (t.preventDefault(), !g && k && $(), C == null || C(t));
           }),
-        q = u.jsx(f, {
-          testid: void 0,
-          "aria-label": a != null ? a : T,
-          onClick: P,
-          ref: M,
-          dataTab: o("WAWebTabOrder").TAB_ORDER.CHATLIST_HEADER,
-          xstyle: [_.fullWidth, k],
-          isActive: g,
-          onMouseEnter: v,
-          children: u.jsx(o("WAWebFlex.react").FlexRow, {
+          (a[0] = g),
+          (a[1] = C),
+          (a[2] = $),
+          (a[3] = k),
+          (a[4] = P))
+        : (P = a[4]);
+      var N = P,
+        M = m(null),
+        w = r("useMergeRefs")(M, v),
+        A = n("cr:23442")(),
+        F = A[0],
+        O = r("useMergeRefs")(F, M),
+        B;
+      a[5] !== s
+        ? ((B = u.jsx("div", { children: s })), (a[5] = s), (a[6] = B))
+        : (B = a[6]);
+      var W = B,
+        q;
+      a[7] !== l || a[8] !== c || a[9] !== d
+        ? ((q =
+            c &&
+            u.jsx(o("WAWebFlex.react").FlexItem, {
+              className: (e || (e = r("stylex")))([
+                _.inlineActivityIndicator,
+                d === p.Counter ? _.counterIndicator : _.dotIndicator,
+                l,
+              ]),
+              children: c,
+            })),
+          (a[7] = l),
+          (a[8] = c),
+          (a[9] = d),
+          (a[10] = q))
+        : (q = a[10]);
+      var U = q,
+        V = i != null ? i : E,
+        H;
+      a[11] !== D
+        ? ((H = [_.fullWidth, D]), (a[11] = D), (a[12] = H))
+        : (H = a[12]);
+      var G;
+      a[13] !== U || a[14] !== W
+        ? ((G = u.jsx(o("WAWebFlex.react").FlexRow, {
             align: "center",
             xstyle: _.fullWidth,
             children: u.jsxs(o("WAWebFlex.react").FlexRow, {
               grow: 1,
               align: "center",
               xstyle: _.inlineActivityIndicatorContainer,
-              children: [B, W],
+              children: [W, U],
             }),
-          }),
-        });
-      return u.jsx(o("WAWebFlex.react").FlexRow, {
-        ref: O,
-        xstyle: [
-          _.container,
-          o("WAWebUISpacing").uiMargin.vert2,
-          g && _.active,
-        ],
-        children: u.jsx(r("WDSTooltip.react"), {
-          label: T,
-          delayTooltipMs: 0,
-          position: "end",
-          shortcut: C,
-          disabled: y,
-          children: q,
-        }),
-      });
+          })),
+          (a[13] = U),
+          (a[14] = W),
+          (a[15] = G))
+        : (G = a[15]);
+      var z;
+      a[16] !== N ||
+      a[17] !== g ||
+      a[18] !== b ||
+      a[19] !== w ||
+      a[20] !== V ||
+      a[21] !== H ||
+      a[22] !== G ||
+      a[23] !== L
+        ? ((z = u.jsx(f, {
+            testid: void 0,
+            "aria-label": V,
+            onClick: N,
+            ref: w,
+            dataTab: o("WAWebTabOrder").TAB_ORDER.CHATLIST_HEADER,
+            xstyle: H,
+            isActive: g,
+            onMouseEnter: b,
+            children: G,
+          })),
+          (a[16] = N),
+          (a[17] = g),
+          (a[18] = b),
+          (a[19] = w),
+          (a[20] = V),
+          (a[21] = H),
+          (a[22] = G),
+          (a[23] = L),
+          (a[24] = z))
+        : (z = a[24]);
+      var j = z,
+        K = g && _.active,
+        Q;
+      a[25] !== K
+        ? ((Q = [_.container, o("WAWebUISpacing").uiMargin.vert2, K]),
+          (a[25] = K),
+          (a[26] = Q))
+        : (Q = a[26]);
+      var X;
+      a[27] !== j || a[28] !== I || a[29] !== y || a[30] !== E
+        ? ((X = u.jsx(r("WDSTooltip.react"), {
+            label: E,
+            delayTooltipMs: 0,
+            position: "end",
+            shortcut: y,
+            disabled: I,
+            children: j,
+          })),
+          (a[27] = j),
+          (a[28] = I),
+          (a[29] = y),
+          (a[30] = E),
+          (a[31] = X))
+        : (X = a[31]);
+      var Y;
+      return (
+        a[32] !== O || a[33] !== Q || a[34] !== X
+          ? ((Y = u.jsx(o("WAWebFlex.react").FlexRow, {
+              ref: O,
+              xstyle: Q,
+              children: X,
+            })),
+            (a[32] = O),
+            (a[33] = Q),
+            (a[34] = X),
+            (a[35] = Y))
+          : (Y = a[35]),
+        Y
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
-      (l.InlineActivityIndicatorType = p),
-      (l.NavBarItem = g));
+    ((l.InlineActivityIndicatorType = p), (l.NavBarItem = g));
   },
   98,
 );

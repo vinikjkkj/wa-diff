@@ -118,6 +118,7 @@ __d(
     "WAWebWidFormat",
     "countWhere",
     "react",
+    "react-compiler-runtime",
     "useWAWebGetFeatureFlag",
     "useWAWebIsWinHybridJoinableCallsEnabled",
     "useWAWebModelValues",
@@ -140,83 +141,135 @@ __d(
       b = h.useMemo,
       v = h.useRef;
     function S(e) {
-      var t = e.chat,
-        n = e.contact,
-        a = e.displayAuthor,
-        i = e.elRef,
-        l = e.forwardClickRef,
-        u = e.isMissedCall,
-        d = e.isVideo,
-        m = e.msg,
-        p = b(function () {
-          return new (o(
+      var t = o("react-compiler-runtime").c(24),
+        n = e.chat,
+        a = e.contact,
+        i = e.displayAuthor,
+        l = e.elRef,
+        u = e.forwardClickRef,
+        d = e.isMissedCall,
+        m = e.isVideo,
+        p = e.msg,
+        _;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = new (o(
             "WAWebPreCallUserJourneyLogger",
-          ).PreCallUserJourneyLogger)();
-        }, []),
-        _ = o("WAWebMsgGetters").getCallDuration(m),
-        f = o("WAWebMsgGetters").getCallParticipants(m),
-        h = o("WAWebClock").Clock.callDurationStrSimple(_ != null ? _ : 0),
-        y =
-          f != null
-            ? r("countWhere")(f, function (e) {
-                return (
-                  e.outcome ===
-                  o("WAWebVoipWaCallEnums").CallParticipantState.Connected
-                );
-              })
-            : 0,
-        C =
-          _ != null && _ > 0
-            ? s._(/*BTDS*/ "{time} \u2022 {joined-count} joined", [
-                s._param("time", h),
-                s._param("joined-count", y),
-              ])
-            : null,
-        v = function () {
-          (o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[voip] group ICCE bubble clicked, opening dropdown",
-              ])),
-          ),
-            o("WAWebVoipActivityTracker").startUiActivityTracking(),
-            o("WAWebVoipActivityTracker").trackUiActivity(
-              o("WAWebVoipActivityTracker").VoipUiActivity
-                .ICCE_BUBBLE_GROUP_DROPDOWN_OPEN,
+          ).PreCallUserJourneyLogger)()),
+          (t[0] = _))
+        : (_ = t[0]);
+      var f = _,
+        h,
+        y,
+        C;
+      if (t[1] !== p) {
+        h = o("WAWebMsgGetters").getCallDuration(p);
+        var b = o("WAWebMsgGetters").getCallParticipants(p);
+        ((y = o("WAWebClock").Clock.callDurationStrSimple(h != null ? h : 0)),
+          (C = b != null ? r("countWhere")(b, R) : 0),
+          (t[1] = p),
+          (t[2] = h),
+          (t[3] = y),
+          (t[4] = C));
+      } else ((h = t[2]), (y = t[3]), (C = t[4]));
+      var v = C,
+        S;
+      t[5] !== h || t[6] !== y || t[7] !== v
+        ? ((S =
+            h != null && h > 0
+              ? s._(/*BTDS*/ "{time} \u2022 {joined-count} joined", [
+                  s._param("time", y),
+                  s._param("joined-count", v),
+                ])
+              : null),
+          (t[5] = h),
+          (t[6] = y),
+          (t[7] = v),
+          (t[8] = S))
+        : (S = t[8]);
+      var L = S,
+        E;
+      t[9] !== d
+        ? ((E = function () {
+            (o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip] group ICCE bubble clicked, opening dropdown",
+                ])),
             ),
-            p.clickCallDropdown(
-              u
-                ? o("WAWebWamEnumSubSurface").SUB_SURFACE.MISSED_ICCE_BUBBLE
-                : o("WAWebWamEnumSubSurface").SUB_SURFACE
-                    .ICCE_BUBBLE_OTHER_RESULT,
-            ));
-        };
-      return g.jsx(r("WAWebGroupCallDropdownWithTrigger.react"), {
-        chat: t,
-        initialSubtext: C,
-        isMissedCall: u,
-        isVideo: d,
-        logger: p,
-        onDropdownOpen: v,
-        trigger: function (t) {
-          return g.jsx("div", {
-            role: "button",
-            ref: function (n) {
-              ((i.current = n), t(n));
-            },
-            tabIndex: 0,
-            children: g.jsx(r("WAWebMessageNotificationCallLog.react"), {
-              ref: l,
-              msg: m,
-              contact: n,
-              displayAuthor: a,
-            }),
-          });
-        },
-      });
+              o("WAWebVoipActivityTracker").startUiActivityTracking(),
+              o("WAWebVoipActivityTracker").trackUiActivity(
+                o("WAWebVoipActivityTracker").VoipUiActivity
+                  .ICCE_BUBBLE_GROUP_DROPDOWN_OPEN,
+              ),
+              f.clickCallDropdown(
+                d
+                  ? o("WAWebWamEnumSubSurface").SUB_SURFACE.MISSED_ICCE_BUBBLE
+                  : o("WAWebWamEnumSubSurface").SUB_SURFACE
+                      .ICCE_BUBBLE_OTHER_RESULT,
+              ));
+          }),
+          (t[9] = d),
+          (t[10] = E))
+        : (E = t[10]);
+      var k = E,
+        I;
+      t[11] !== a || t[12] !== i || t[13] !== l || t[14] !== u || t[15] !== p
+        ? ((I = function (t) {
+            return g.jsx("div", {
+              role: "button",
+              ref: function (n) {
+                ((l.current = n), t(n));
+              },
+              tabIndex: 0,
+              children: g.jsx(r("WAWebMessageNotificationCallLog.react"), {
+                ref: u,
+                msg: p,
+                contact: a,
+                displayAuthor: i,
+              }),
+            });
+          }),
+          (t[11] = a),
+          (t[12] = i),
+          (t[13] = l),
+          (t[14] = u),
+          (t[15] = p),
+          (t[16] = I))
+        : (I = t[16]);
+      var T;
+      return (
+        t[17] !== n ||
+        t[18] !== k ||
+        t[19] !== L ||
+        t[20] !== d ||
+        t[21] !== m ||
+        t[22] !== I
+          ? ((T = g.jsx(r("WAWebGroupCallDropdownWithTrigger.react"), {
+              chat: n,
+              initialSubtext: L,
+              isMissedCall: d,
+              isVideo: m,
+              logger: f,
+              onDropdownOpen: k,
+              trigger: I,
+            })),
+            (t[17] = n),
+            (t[18] = k),
+            (t[19] = L),
+            (t[20] = d),
+            (t[21] = m),
+            (t[22] = I),
+            (t[23] = T))
+          : (T = t[23]),
+        T
+      );
     }
-    S.displayName = S.name + " [from " + i.id + "]";
-    function R(t) {
+    function R(e) {
+      return (
+        e.outcome === o("WAWebVoipWaCallEnums").CallParticipantState.Connected
+      );
+    }
+    function L(t) {
       var n,
         a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e),
@@ -1391,7 +1444,7 @@ __d(
         });
       return g.jsx("span", { children: ct });
     }
-    ((R.displayName = R.name + " [from " + i.id + "]"), (l.default = R));
+    ((L.displayName = L.name + " [from " + i.id + "]"), (l.default = L));
   },
   226,
 );

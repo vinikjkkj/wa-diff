@@ -205,24 +205,22 @@ __d(
             })
             .then(function () {
               var e = r.toString();
-              return o("WAWebSchemaChat")
-                .getChatTable()
-                .createOrReplace({
-                  id: e,
-                  t: 1,
-                  unreadCount: 0,
-                  archive: !1,
-                  isReadOnly: !1,
-                  isAnnounceGrpRestrict: null,
-                  modifyTag: 0,
-                  muteExpiration: 0,
-                  isAutoMuted: !1,
-                  name: "",
-                  notSpam: !1,
-                  pin: null,
-                  changeNumberOldJid: null,
-                  changeNumberNewJid: null,
-                });
+              return o("WAWebSchemaChat").getChatTable().createOrReplace({
+                id: e,
+                t: 1,
+                unreadCount: 0,
+                archive: !1,
+                isReadOnly: !1,
+                isAnnounceGrpRestrict: null,
+                modifyTag: 0,
+                muteExpiration: 0,
+                isAutoMuted: !1,
+                name: "",
+                notSpam: !1,
+                pin: null,
+                changeNumberOldJid: null,
+                changeNumberNewJid: null,
+              });
             })
             .catch(function (e) {
               o("WALogger").WARN(

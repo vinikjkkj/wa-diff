@@ -17,6 +17,7 @@ __d(
     "WDSIconWdsIcAiFilled.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -27,54 +28,68 @@ __d(
         buttonSpacing: { marginTop: "x98l61r", $$css: !0 },
       };
     function m(e) {
-      var t = e.chat,
-        a = s._(/*BTDS*/ "Respond manually"),
-        i = c(!1),
-        l = i[0],
-        m = i[1];
-      function p(e) {
-        return _.apply(this, arguments);
-      }
-      function _() {
-        return (
-          (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            try {
-              m(!0);
-              var t = yield o(
-                "WAWebAiAgentAutoReplyControlMutation",
-              ).changeAiReplyStatus(e.id, "MUTED");
-              t.isSuccess
-                ? e.setCapiThreadControl(
-                    o("WAWebProtobufsE2E.pb")
-                      .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
-                      .CONTROL_PASSED,
-                  )
-                : o("WAWebModalManager").ModalManager.open(
+      var t = o("react-compiler-runtime").c(8),
+        a = e.chat,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = s._(/*BTDS*/ "Respond manually")), (t[0] = i))
+        : (i = t[0]);
+      var l = i,
+        m = c(!1),
+        p = m[0],
+        _ = m[1],
+        f;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                try {
+                  _(!0);
+                  var t = yield o(
+                    "WAWebAiAgentAutoReplyControlMutation",
+                  ).changeAiReplyStatus(e.id, "MUTED");
+                  t.isSuccess
+                    ? e.setCapiThreadControl(
+                        o("WAWebProtobufsE2E.pb")
+                          .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+                          .CONTROL_PASSED,
+                      )
+                    : o("WAWebModalManager").ModalManager.open(
+                        u.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {}),
+                      );
+                } catch (e) {
+                  o("WAWebModalManager").ModalManager.open(
                     u.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {}),
                   );
-            } catch (e) {
-              o("WAWebModalManager").ModalManager.open(
-                u.jsx(r("WAWebBizAiMuteUnmuteErrorDrawer.react"), {}),
-              );
+                }
+                _(!1);
+              },
+            );
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            m(!1);
+            return t;
+          })()),
+          (t[1] = f))
+        : (f = t[1]);
+      var g = f,
+        h = p,
+        y;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = u.jsx(r("WAWebFlexItem.react"), {
+            children:
+              o("WAWebBizAiAgentGating").isAiMuteUnmuteV2Enabled() &&
+              u.jsx(r("WDSIconWdsIcAiFilled.react"), {}),
           })),
-          _.apply(this, arguments)
-        );
-      }
-      var f = l;
-      return u.jsxs(o("WAWebFlex.react").FlexColumn, {
-        align: "center",
-        children: [
-          u.jsx(r("WAWebFlexItem.react"), {
+          (t[2] = y))
+        : (y = t[2]);
+      var C;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = u.jsx(r("WAWebFlexItem.react"), {
             children: u.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
               children: [
-                u.jsx(r("WAWebFlexItem.react"), {
-                  children:
-                    o("WAWebBizAiAgentGating").isAiMuteUnmuteV2Enabled() &&
-                    u.jsx(r("WDSIconWdsIcAiFilled.react"), {}),
-                }),
+                y,
                 u.jsx(r("WAWebFlexItem.react"), {
                   xstyle:
                     o("WAWebBizAiAgentGating").isAiMuteUnmuteV2Enabled() &&
@@ -83,43 +98,66 @@ __d(
                 }),
               ],
             }),
-          }),
-          u.jsx(r("WAWebFlexItem.react"), {
-            xstyle:
-              o("WAWebBizAiAgentGating").isAiMuteUnmuteV2Enabled() &&
-              d.buttonSpacing,
-            children: o("WAWebBizAiAgentGating").isAiMuteUnmuteV2Enabled()
-              ? u.jsx(r("WDSButton.react"), {
-                  label: f ? void 0 : a,
-                  Icon: r("WDSIconIcKeyboard.react"),
-                  loading: f,
-                  type: "default",
-                  variant: "tonal",
-                  onPress: function () {
-                    (o(
-                      "WAWebGenAiAgentLogEvents",
-                    ).logClickGenAiAgentAutoReplyBlockingBar(),
-                      p(t));
-                  },
-                })
-              : u.jsx(o("WAWebCopyPasteSelectable.react").SelectableLink, {
-                  className: "x1v5yvga",
-                  id: "toggle-ai-reply-status",
-                  "data-testid": void 0,
-                  selectable: !1,
-                  onClick: function () {
-                    (o(
-                      "WAWebGenAiAgentLogEvents",
-                    ).logClickGenAiAgentAutoReplyBlockingBar(),
-                      o("WAWebCmd").Cmd.changeAiReplyStatus(t, !1));
-                  },
-                  children: s._(/*BTDS*/ "Respond manually"),
+          })),
+          (t[3] = C))
+        : (C = t[3]);
+      var b;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((b =
+            o("WAWebBizAiAgentGating").isAiMuteUnmuteV2Enabled() &&
+            d.buttonSpacing),
+          (t[4] = b))
+        : (b = t[4]);
+      var v;
+      return (
+        t[5] !== a || t[6] !== h
+          ? ((v = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+              align: "center",
+              children: [
+                C,
+                u.jsx(r("WAWebFlexItem.react"), {
+                  xstyle: b,
+                  children: o("WAWebBizAiAgentGating").isAiMuteUnmuteV2Enabled()
+                    ? u.jsx(r("WDSButton.react"), {
+                        label: h ? void 0 : l,
+                        Icon: r("WDSIconIcKeyboard.react"),
+                        loading: h,
+                        type: "default",
+                        variant: "tonal",
+                        onPress: function () {
+                          (o(
+                            "WAWebGenAiAgentLogEvents",
+                          ).logClickGenAiAgentAutoReplyBlockingBar(),
+                            g(a));
+                        },
+                      })
+                    : u.jsx(
+                        o("WAWebCopyPasteSelectable.react").SelectableLink,
+                        {
+                          className: "x1v5yvga",
+                          id: "toggle-ai-reply-status",
+                          "data-testid": void 0,
+                          selectable: !1,
+                          onClick: function () {
+                            (o(
+                              "WAWebGenAiAgentLogEvents",
+                            ).logClickGenAiAgentAutoReplyBlockingBar(),
+                              o("WAWebCmd").Cmd.changeAiReplyStatus(a, !1));
+                          },
+                          children: s._(/*BTDS*/ "Respond manually"),
+                        },
+                      ),
                 }),
-          }),
-        ],
-      });
+              ],
+            })),
+            (t[5] = a),
+            (t[6] = h),
+            (t[7] = v))
+          : (v = t[7]),
+        v
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

@@ -1,6 +1,12 @@
 __d(
   "WAWebMetaAIActionPills.react",
-  ["WAWebUnstyledButton.react", "WDSText.react", "react", "stylex"],
+  [
+    "WAWebUnstyledButton.react",
+    "WDSText.react",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -54,41 +60,68 @@ __d(
         "get-advice": c.iconColorPurple,
       };
     function m(t) {
-      var n = t.categories,
-        o = t.onCategorySelect;
-      return u.jsx("div", {
-        className: "x78zum5 x1a02dak x8a3fw1 x1aj3ljl xl56j7k xh8yej3 xrlsmeg",
-        children: n.map(function (t) {
-          var n = t.Icon;
-          return u.jsxs(
-            r("WAWebUnstyledButton.react"),
-            {
-              onClick: function () {
-                return o(t.id);
-              },
-              xstyle: c.pill,
-              children: [
-                u.jsx(
-                  "span",
-                  babelHelpers.extends(
-                    {},
-                    (e || (e = r("stylex"))).props(c.iconWrapper, d[t.id]),
-                    { children: u.jsx(n, { height: 20, width: 20 }) },
-                  ),
-                ),
-                u.jsx(r("WDSText.react"), {
-                  colorName: "contentDefault",
-                  type: "Body2",
-                  children: t.label(),
-                }),
-              ],
-            },
-            t.id,
-          );
-        }),
-      });
+      var n = o("react-compiler-runtime").c(8),
+        a = t.categories,
+        i = t.onCategorySelect,
+        l;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = {
+            className:
+              "x78zum5 x1a02dak x8a3fw1 x1aj3ljl xl56j7k xh8yej3 xrlsmeg",
+          }),
+          (n[0] = l))
+        : (l = n[0]);
+      var s;
+      if (n[1] !== a || n[2] !== i) {
+        var m;
+        (n[4] !== i
+          ? ((m = function (n) {
+              var t = n.Icon;
+              return u.jsxs(
+                r("WAWebUnstyledButton.react"),
+                {
+                  onClick: function () {
+                    return i(n.id);
+                  },
+                  xstyle: c.pill,
+                  children: [
+                    u.jsx(
+                      "span",
+                      babelHelpers.extends(
+                        {},
+                        (e || (e = r("stylex"))).props(c.iconWrapper, d[n.id]),
+                        { children: u.jsx(t, { height: 20, width: 20 }) },
+                      ),
+                    ),
+                    u.jsx(r("WDSText.react"), {
+                      colorName: "contentDefault",
+                      type: "Body2",
+                      children: n.label(),
+                    }),
+                  ],
+                },
+                n.id,
+              );
+            }),
+            (n[4] = i),
+            (n[5] = m))
+          : (m = n[5]),
+          (s = a.map(m)),
+          (n[1] = a),
+          (n[2] = i),
+          (n[3] = s));
+      } else s = n[3];
+      var p;
+      return (
+        n[6] !== s
+          ? ((p = u.jsx("div", babelHelpers.extends({}, l, { children: s }))),
+            (n[6] = s),
+            (n[7] = p))
+          : (p = n[7]),
+        p
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   98,
 );

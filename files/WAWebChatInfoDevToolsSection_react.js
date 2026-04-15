@@ -19,6 +19,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWidFormat",
     "react",
+    "react-compiler-runtime",
     "useWAWebContactValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -64,138 +65,252 @@ __d(
       );
     }
     function f(e) {
-      var t = e.chat,
-        n = e.phoneNumber,
-        a = _(n),
-        i =
-          a.length === 0
-            ? null
-            : c.jsxs(r("WAWebDevToolsSection.react"), {
-                children: [
-                  "LID",
-                  a.length === 1 ? "" : "s",
-                  ": ",
-                  a.map(h).join(", "),
-                ],
-              }),
-        l = "https://www.internalfb.com/intern/bunny/?q=waflb+" + n.user,
-        u = r("WAWebURLUtils").build(
-          "https://www.internalfb.com/intern/whatsapp/admin/user_info",
-          { phone: n.user },
-        ),
-        d = n.isFbidBot()
-          ? "https://wa.me/ais/" + n.user
-          : "https://wa.me/" + n.user;
-      return c.jsxs(c.Fragment, {
-        children: [
-          c.jsxs(r("WAWebDevToolsSection.react"), {
-            children: [
-              !n.isFbidBot() &&
-                c.jsxs(c.Fragment, {
+      var t = o("react-compiler-runtime").c(23),
+        n = e.chat,
+        a = e.phoneNumber,
+        i = _(a),
+        l;
+      t[0] !== i
+        ? ((l =
+            i.length === 0
+              ? null
+              : c.jsxs(r("WAWebDevToolsSection.react"), {
                   children: [
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: u,
-                      children: "Admin Tool",
-                    }),
-                    " / ",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: l,
-                      children: "Crashlogs",
-                    }),
-                    " / ",
+                    "LID",
+                    i.length === 1 ? "" : "s",
+                    ": ",
+                    i.map(C).join(", "),
                   ],
+                })),
+          (t[0] = i),
+          (t[1] = l))
+        : (l = t[1]);
+      var s = l,
+        u = "https://www.internalfb.com/intern/bunny/?q=waflb+" + a.user,
+        d;
+      t[2] !== a.user
+        ? ((d = r("WAWebURLUtils").build(
+            "https://www.internalfb.com/intern/whatsapp/admin/user_info",
+            { phone: a.user },
+          )),
+          (t[2] = a.user),
+          (t[3] = d))
+        : (d = t[3]);
+      var m = d,
+        p = a.isFbidBot()
+          ? "https://wa.me/ais/" + a.user
+          : "https://wa.me/" + a.user,
+        f;
+      t[4] !== u || t[5] !== m || t[6] !== a
+        ? ((f =
+            !a.isFbidBot() &&
+            c.jsxs(c.Fragment, {
+              children: [
+                c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                  href: m,
+                  children: "Admin Tool",
                 }),
-              c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                href: d,
-                onClick: function () {
-                  window.navigator.clipboard
-                    .writeText(d)
-                    .then(function () {
-                      o("WAWebToastManager").ToastManager.open(
-                        c.jsx(o("WAWebToast.react").Toast, {
-                          msg: s._(/*BTDS*/ "Link copied to clipboard."),
-                        }),
-                      );
-                    })
-                    .catch(function () {
-                      o("WAWebToastManager").ToastManager.open(
-                        c.jsx(o("WAWebToast.react").Toast, {
-                          msg: s._(
-                            /*BTDS*/ "Couldn't copy to clipboard. Copy using mouse or keyboard.",
-                          ),
-                        }),
-                      );
-                    });
-                },
-                children: "wa.me",
-              }),
-            ],
+                " / ",
+                c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                  href: u,
+                  children: "Crashlogs",
+                }),
+                " / ",
+              ],
+            })),
+          (t[4] = u),
+          (t[5] = m),
+          (t[6] = a),
+          (t[7] = f))
+        : (f = t[7]);
+      var y;
+      t[8] !== p
+        ? ((y = function () {
+            window.navigator.clipboard.writeText(p).then(h).catch(g);
           }),
-          c.jsx(y, { chat: t, id: n }),
-          i,
-        ],
-      });
+          (t[8] = p),
+          (t[9] = y))
+        : (y = t[9]);
+      var v;
+      t[10] !== y || t[11] !== p
+        ? ((v = c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+            href: p,
+            onClick: y,
+            children: "wa.me",
+          })),
+          (t[10] = y),
+          (t[11] = p),
+          (t[12] = v))
+        : (v = t[12]);
+      var S;
+      t[13] !== f || t[14] !== v
+        ? ((S = c.jsxs(r("WAWebDevToolsSection.react"), { children: [f, v] })),
+          (t[13] = f),
+          (t[14] = v),
+          (t[15] = S))
+        : (S = t[15]);
+      var R;
+      t[16] !== n || t[17] !== a
+        ? ((R = c.jsx(b, { chat: n, id: a })),
+          (t[16] = n),
+          (t[17] = a),
+          (t[18] = R))
+        : (R = t[18]);
+      var L;
+      return (
+        t[19] !== s || t[20] !== S || t[21] !== R
+          ? ((L = c.jsxs(c.Fragment, { children: [S, R, s] })),
+            (t[19] = s),
+            (t[20] = S),
+            (t[21] = R),
+            (t[22] = L))
+          : (L = t[22]),
+        L
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(e) {
-      var t = e.chat,
-        n = e.lid,
-        a = r("WAWebURLUtils").build(
-          "https://www.internalfb.com/intern/whatsapp/admin/user_info",
-          { lid: n.user },
-        ),
-        i = o("useWAWebContactValues").useContactValues(n, [
-          o("WAWebFrontendContactGetters").getPhoneNumber,
-        ]),
-        l = i[0],
-        s =
-          l != null
-            ? o("WAWebWidFormat").widToFormattedUser(r("WAWebWid").user(l))
-            : "N/A";
-      return c.jsxs(c.Fragment, {
-        children: [
-          c.jsx(r("WAWebDevToolsSection.react"), {
+    function g() {
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(
+            /*BTDS*/ "Couldn't copy to clipboard. Copy using mouse or keyboard.",
+          ),
+        }),
+      );
+    }
+    function h() {
+      o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Link copied to clipboard."),
+        }),
+      );
+    }
+    function y(e) {
+      var t = o("react-compiler-runtime").c(16),
+        n = e.chat,
+        a = e.lid,
+        i;
+      t[0] !== a.user
+        ? ((i = r("WAWebURLUtils").build(
+            "https://www.internalfb.com/intern/whatsapp/admin/user_info",
+            { lid: a.user },
+          )),
+          (t[0] = a.user),
+          (t[1] = i))
+        : (i = t[1]);
+      var l = i,
+        s;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = [o("WAWebFrontendContactGetters").getPhoneNumber]), (t[2] = s))
+        : (s = t[2]);
+      var u = o("useWAWebContactValues").useContactValues(a, s),
+        d = u[0],
+        m;
+      t[3] !== d
+        ? ((m =
+            d != null
+              ? o("WAWebWidFormat").widToFormattedUser(r("WAWebWid").user(d))
+              : "N/A"),
+          (t[3] = d),
+          (t[4] = m))
+        : (m = t[4]);
+      var p = m,
+        _;
+      t[5] !== l
+        ? ((_ = c.jsx(r("WAWebDevToolsSection.react"), {
             children: c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-              href: a,
+              href: l,
               children: "Admin Tool",
             }),
-          }),
-          c.jsx(y, { chat: t, id: n }),
-          c.jsxs(r("WAWebDevToolsSection.react"), {
-            children: ["PhoneNumber: ", s],
-          }),
-        ],
-      });
+          })),
+          (t[5] = l),
+          (t[6] = _))
+        : (_ = t[6]);
+      var f;
+      t[7] !== n || t[8] !== a
+        ? ((f = c.jsx(b, { chat: n, id: a })),
+          (t[7] = n),
+          (t[8] = a),
+          (t[9] = f))
+        : (f = t[9]);
+      var g;
+      t[10] !== p
+        ? ((g = c.jsxs(r("WAWebDevToolsSection.react"), {
+            children: ["PhoneNumber: ", p],
+          })),
+          (t[10] = p),
+          (t[11] = g))
+        : (g = t[11]);
+      var h;
+      return (
+        t[12] !== _ || t[13] !== f || t[14] !== g
+          ? ((h = c.jsxs(c.Fragment, { children: [_, f, g] })),
+            (t[12] = _),
+            (t[13] = f),
+            (t[14] = g),
+            (t[15] = h))
+          : (h = t[15]),
+        h
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
-    function h(e) {
+    function C(e) {
       var t = o("WAWebWidDevTools").isWidClientAssigned(e) ? "(fake lid)" : "";
       return e.toString() + " " + t;
     }
-    function y(e) {
-      var t = e.chat,
-        n = e.id;
-      return t
-        ? c.jsx(C, { chat: t })
-        : c.jsxs(r("WAWebDevToolsSection.react"), {
-            children: ["ContactId: ", n.toString()],
-          });
+    function b(e) {
+      var t = o("react-compiler-runtime").c(6),
+        n = e.chat,
+        a = e.id;
+      if (n) {
+        var i;
+        return (
+          t[0] !== n
+            ? ((i = c.jsx(v, { chat: n })), (t[0] = n), (t[1] = i))
+            : (i = t[1]),
+          i
+        );
+      }
+      var l;
+      t[2] !== a ? ((l = a.toString()), (t[2] = a), (t[3] = l)) : (l = t[3]);
+      var s;
+      return (
+        t[4] !== l
+          ? ((s = c.jsxs(r("WAWebDevToolsSection.react"), {
+              children: ["ContactId: ", l],
+            })),
+            (t[4] = l),
+            (t[5] = s))
+          : (s = t[5]),
+        s
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
-    function C(e) {
-      var t = e.chat,
-        n = t.contact.id.isRegularUser();
-      return c.jsxs(c.Fragment, {
-        children: [
-          n &&
+    function v(e) {
+      var t = o("react-compiler-runtime").c(20),
+        n = e.chat,
+        a;
+      t[0] !== n.contact.id
+        ? ((a = n.contact.id.isRegularUser()),
+          (t[0] = n.contact.id),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] !== n.contact.isUsernameContact || t[3] !== i
+        ? ((l =
+            i &&
             c.jsxs(r("WAWebDevToolsSection.react"), {
               children: [
                 "Is Username Contact:",
                 " ",
-                t.contact.isUsernameContact ? "true" : "false",
+                n.contact.isUsernameContact ? "true" : "false",
               ],
-            }),
-          c.jsxs(r("WAWebDevToolsSection.react"), {
+            })),
+          (t[2] = n.contact.isUsernameContact),
+          (t[3] = i),
+          (t[4] = l))
+        : (l = t[4]);
+      var s;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = c.jsxs(r("WAWebDevToolsSection.react"), {
             children: [
               "1:1 LID Migrated:",
               " ",
@@ -205,55 +320,117 @@ __d(
                 ? "Migrated"
                 : "Not Migrated",
             ],
-          }),
-          c.jsxs(r("WAWebDevToolsSection.react"), {
-            children: ["ChatId: ", t.id.toString()],
-          }),
-          o(
-            "WAWebLid1X1MigrationGating",
-          ).Lid1X1MigrationUtils.isLidMigrated() && t.accountLid != null
-            ? c.jsxs(r("WAWebDevToolsSection.react"), {
-                children: ["AccountLid: ", h(t.accountLid)],
-              })
-            : null,
-          t.id.isLid() &&
+          })),
+          (t[5] = s))
+        : (s = t[5]);
+      var u;
+      t[6] !== n.id
+        ? ((u = n.id.toString()), (t[6] = n.id), (t[7] = u))
+        : (u = t[7]);
+      var d;
+      t[8] !== u
+        ? ((d = c.jsxs(r("WAWebDevToolsSection.react"), {
+            children: ["ChatId: ", u],
+          })),
+          (t[8] = u),
+          (t[9] = d))
+        : (d = t[9]);
+      var m;
+      t[10] !== n.accountLid
+        ? ((m =
+            o(
+              "WAWebLid1X1MigrationGating",
+            ).Lid1X1MigrationUtils.isLidMigrated() && n.accountLid != null
+              ? c.jsxs(r("WAWebDevToolsSection.react"), {
+                  children: ["AccountLid: ", C(n.accountLid)],
+                })
+              : null),
+          (t[10] = n.accountLid),
+          (t[11] = m))
+        : (m = t[11]);
+      var p;
+      t[12] !== n.id || t[13] !== n.lidOriginType
+        ? ((p =
+            n.id.isLid() &&
             c.jsxs(r("WAWebDevToolsSection.react"), {
               children: [
                 "ChatOrigin:",
                 " ",
-                t.lidOriginType == null ? "pnh_ctwa" : t.lidOriginType,
+                n.lidOriginType == null ? "pnh_ctwa" : n.lidOriginType,
               ],
-            }),
-        ],
-      });
-    }
-    C.displayName = C.name + " [from " + i.id + "]";
-    function b(e) {
-      var t = e.chat,
-        n = e.contact,
-        r = n.id;
-      if (r.isUser())
-        return r.isLid()
-          ? c.jsx(g, { chat: t, lid: r })
-          : c.jsx(f, { phoneNumber: r, chat: t });
-    }
-    b.displayName = b.name + " [from " + i.id + "]";
-    function v(e) {
-      var t = e.chat,
-        n = e.contact,
-        r = e.isRefresh;
-      return c.jsx(
-        o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerSection,
-        {
-          title: c.jsx(o("WAWebDevOnlyBadge.react").DevOnlyBadge, {
-            label: "Developer Section",
-          }),
-          titleXStyle: r === !0 && o("WAWebUISpacing").uiPadding.all0,
-          children: c.jsx(b, { chat: t, contact: n }),
-        },
+            })),
+          (t[12] = n.id),
+          (t[13] = n.lidOriginType),
+          (t[14] = p))
+        : (p = t[14]);
+      var _;
+      return (
+        t[15] !== l || t[16] !== d || t[17] !== m || t[18] !== p
+          ? ((_ = c.jsxs(c.Fragment, { children: [l, s, d, m, p] })),
+            (t[15] = l),
+            (t[16] = d),
+            (t[17] = m),
+            (t[18] = p),
+            (t[19] = _))
+          : (_ = t[19]),
+        _
       );
     }
-    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = v));
+    function S(e) {
+      var t = o("react-compiler-runtime").c(3),
+        n = e.chat,
+        r = e.contact,
+        a = r.id;
+      if (a.isUser()) {
+        var i;
+        return (
+          t[0] !== n || t[1] !== a
+            ? ((i = a.isLid()
+                ? c.jsx(y, { chat: n, lid: a })
+                : c.jsx(f, { phoneNumber: a, chat: n })),
+              (t[0] = n),
+              (t[1] = a),
+              (t[2] = i))
+            : (i = t[2]),
+          i
+        );
+      }
+    }
+    function R(e) {
+      var t = o("react-compiler-runtime").c(7),
+        n = e.chat,
+        r = e.contact,
+        a = e.isRefresh,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = c.jsx(o("WAWebDevOnlyBadge.react").DevOnlyBadge, {
+            label: "Developer Section",
+          })),
+          (t[0] = i))
+        : (i = t[0]);
+      var l = a === !0 && o("WAWebUISpacing").uiPadding.all0,
+        s;
+      t[1] !== n || t[2] !== r
+        ? ((s = c.jsx(S, { chat: n, contact: r })),
+          (t[1] = n),
+          (t[2] = r),
+          (t[3] = s))
+        : (s = t[3]);
+      var u;
+      return (
+        t[4] !== l || t[5] !== s
+          ? ((u = c.jsx(
+              o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerSection,
+              { title: i, titleXStyle: l, children: s },
+            )),
+            (t[4] = l),
+            (t[5] = s),
+            (t[6] = u))
+          : (u = t[6]),
+        u
+      );
+    }
+    l.default = R;
   },
   226,
 );

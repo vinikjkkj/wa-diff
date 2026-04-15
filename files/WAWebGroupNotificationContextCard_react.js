@@ -48,6 +48,7 @@ __d(
     "WAWebWamNumberToPreciseSizeBucket",
     "WDSButtonGroup.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebAddParticipantsSelectedContacts",
     "useWAWebChatValues",
     "useWAWebEventTargetValue",
@@ -77,30 +78,61 @@ __d(
       },
       _ = 70;
     function f(e) {
-      var t = e.chat,
-        n = e.msg;
+      var t = o("react-compiler-runtime").c(18),
+        n = e.chat,
+        r = e.msg,
+        a,
+        i;
+      (t[0] !== r.id
+        ? ((a = function () {
+            o("WAWebCmd").Cmd.groupNotificationContextCardRendered(r.id);
+          }),
+          (i = [r.id]),
+          (t[0] = r.id),
+          (t[1] = a),
+          (t[2] = i))
+        : ((a = t[1]), (i = t[2])),
+        m(a, i));
+      var l;
+      t[3] !== n
+        ? ((l = u.jsx(h, { chat: n })), (t[3] = n), (t[4] = l))
+        : (l = t[4]);
+      var s, c;
+      t[5] !== n || t[6] !== r
+        ? ((s = u.jsx(y, { chat: n, msg: r })),
+          (c = u.jsx(C, { chat: n, msg: r })),
+          (t[5] = n),
+          (t[6] = r),
+          (t[7] = s),
+          (t[8] = c))
+        : ((s = t[7]), (c = t[8]));
+      var d, _;
+      t[9] !== n
+        ? ((d = u.jsx(b, { chat: n })),
+          (_ = u.jsx(v, { chat: n })),
+          (t[9] = n),
+          (t[10] = d),
+          (t[11] = _))
+        : ((d = t[10]), (_ = t[11]));
+      var f;
       return (
-        m(
-          function () {
-            o("WAWebCmd").Cmd.groupNotificationContextCardRendered(n.id);
-          },
-          [n.id],
-        ),
-        u.jsxs(o("WAWebFlex.react").FlexColumn, {
-          xstyle: p.container,
-          align: "center",
-          testid: void 0,
-          children: [
-            u.jsx(h, { chat: t }),
-            u.jsx(y, { chat: t, msg: n }),
-            u.jsx(C, { chat: t, msg: n }),
-            u.jsx(b, { chat: t }),
-            u.jsx(v, { chat: t }),
-          ],
-        })
+        t[12] !== l || t[13] !== s || t[14] !== c || t[15] !== d || t[16] !== _
+          ? ((f = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+              xstyle: p.container,
+              align: "center",
+              testid: void 0,
+              children: [l, s, c, d, _],
+            })),
+            (t[12] = l),
+            (t[13] = s),
+            (t[14] = c),
+            (t[15] = d),
+            (t[16] = _),
+            (t[17] = f))
+          : (f = t[17]),
+        f
       );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     var g = function (t) {
       var e,
         n,
@@ -209,33 +241,62 @@ __d(
     }
     h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = e.chat,
-        n = e.msg,
-        r;
-      switch (n.subtype) {
-        case "create":
-          r = s._(/*BTDS*/ "You created this group");
-          break;
-        case "add":
-          r = n.author
-            ? u.jsx(o("WAWebTrustSignalsUtils").AddGroupCardTitle, {
-                chat: t,
-                contactId: n.author,
-              })
-            : null;
-          break;
-        case "invite":
-          r = s._(/*BTDS*/ "You joined with an invite link");
-          break;
+      var t = o("react-compiler-runtime").c(8),
+        n = e.chat,
+        r = e.msg,
+        a;
+      e: switch (r.subtype) {
+        case "create": {
+          var i;
+          (t[0] === Symbol.for("react.memo_cache_sentinel")
+            ? ((i = s._(/*BTDS*/ "You created this group")), (t[0] = i))
+            : (i = t[0]),
+            (a = i));
+          break e;
+        }
+        case "add": {
+          var l;
+          (t[1] !== n || t[2] !== r.author
+            ? ((l = r.author
+                ? u.jsx(o("WAWebTrustSignalsUtils").AddGroupCardTitle, {
+                    chat: n,
+                    contactId: r.author,
+                  })
+                : null),
+              (t[1] = n),
+              (t[2] = r.author),
+              (t[3] = l))
+            : (l = t[3]),
+            (a = l));
+          break e;
+        }
+        case "invite": {
+          var c;
+          (t[4] === Symbol.for("react.memo_cache_sentinel")
+            ? ((c = s._(/*BTDS*/ "You joined with an invite link")), (t[4] = c))
+            : (c = t[4]),
+            (a = c));
+        }
       }
-      return u.jsx(o("WAWebText.react").WAWebTextLarge, {
-        xstyle: [p.breakText, p.paddingTop12],
-        weight: "medium",
-        testid: void 0,
-        children: r,
-      });
+      var d;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((d = [p.breakText, p.paddingTop12]), (t[5] = d))
+        : (d = t[5]);
+      var m;
+      return (
+        t[6] !== a
+          ? ((m = u.jsx(o("WAWebText.react").WAWebTextLarge, {
+              xstyle: d,
+              weight: "medium",
+              testid: void 0,
+              children: a,
+            })),
+            (t[6] = a),
+            (t[7] = m))
+          : (m = t[7]),
+        m
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
       "use no forget";
       var t = e.chat,

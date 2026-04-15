@@ -6,44 +6,73 @@ __d(
     "WAWebPrivacyTipBanner.react",
     "WAWebQuickPromotionGating",
     "react",
+    "react-compiler-runtime",
     "useWAWebPrivacyTipQuickPromotion",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = e.group,
-        n = o("useWAWebPrivacyTipQuickPromotion").usePrivacyTipQuickPromotion({
-          surfaceId: o("WAWebCTWAConstants").QP_SURFACE_ID_EXITED_GROUP,
-          group: t,
-        });
+      var t = o("react-compiler-runtime").c(9),
+        n = e.group,
+        a;
+      t[0] !== n
+        ? ((a = {
+            surfaceId: o("WAWebCTWAConstants").QP_SURFACE_ID_EXITED_GROUP,
+            group: n,
+          }),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = o("useWAWebPrivacyTipQuickPromotion").usePrivacyTipQuickPromotion(
+        a,
+      );
       if (
         !(
-          n == null ||
+          i == null ||
           !o("WAWebQuickPromotionGating").groupsPrivacyTipsEnabled()
         )
       ) {
-        var a = n.dismiss,
-          i = n.image,
-          l = n.primaryActionClick,
-          u = n.promotion,
-          c = n.sanitizedText,
-          d = n.settingStep,
-          m = u.promotion.data.primaryAction;
-        return s.jsx(o("WAWebFlex.react").FlexRow, {
-          paddingTop: 8,
-          children: s.jsx(r("WAWebPrivacyTipBanner.react"), {
-            text: c,
-            image: i,
-            actionText: m == null ? void 0 : m.text,
-            onDismiss: a,
-            onAction: l,
-            settingStep: d,
-          }),
-        });
+        var l = i.dismiss,
+          u = i.image,
+          c = i.primaryActionClick,
+          d = i.promotion,
+          m = i.sanitizedText,
+          p = i.settingStep,
+          _ = d.promotion.data.primaryAction,
+          f = _ == null ? void 0 : _.text,
+          g;
+        return (
+          t[2] !== l ||
+          t[3] !== u ||
+          t[4] !== c ||
+          t[5] !== m ||
+          t[6] !== p ||
+          t[7] !== f
+            ? ((g = s.jsx(o("WAWebFlex.react").FlexRow, {
+                paddingTop: 8,
+                children: s.jsx(r("WAWebPrivacyTipBanner.react"), {
+                  text: m,
+                  image: u,
+                  actionText: f,
+                  onDismiss: l,
+                  onAction: c,
+                  settingStep: p,
+                }),
+              })),
+              (t[2] = l),
+              (t[3] = u),
+              (t[4] = c),
+              (t[5] = m),
+              (t[6] = p),
+              (t[7] = f),
+              (t[8] = g))
+            : (g = t[8]),
+          g
+        );
       }
     }
-    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
+    l.default = u;
   },
   98,
 );

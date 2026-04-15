@@ -23,6 +23,7 @@ __d(
     "WDSMenuItem.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -255,141 +256,242 @@ __d(
     }
     S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
-      var t = e.entryPoint,
-        n = e.onSelectButtonType,
-        a = h(
-          function () {
-            n("quick_reply");
-          },
-          [n],
-        ),
-        i = h(
-          function () {
-            n("cta_call");
-          },
-          [n],
-        ),
-        l = h(
-          function () {
-            n("cta_url");
-          },
-          [n],
-        ),
-        s = f.jsxs(r("WDSMenu.react"), {
-          children: [
-            f.jsx(r("WDSMenuItem.react"), {
-              Icon: r("WDSIconIcReply.react"),
-              title: o(
-                "WAWebBizBroadcastCTAButtonSectionStrings",
-              ).getCustomReplyMenuLabel(),
-              subtitle: o(
-                "WAWebBizBroadcastCTAButtonSectionStrings",
-              ).getCustomReplyMenuSubtitle(),
-              onPress: a,
-              testid: void 0,
-            }),
-            f.jsx(r("WDSMenuItem.react"), {
-              Icon: r("WDSIconIcCall.react"),
-              title: o(
-                "WAWebBizBroadcastCTAButtonSectionStrings",
-              ).getPhoneCallMenuLabel(),
-              subtitle: o(
-                "WAWebBizBroadcastCTAButtonSectionStrings",
-              ).getPhoneCallMenuSubtitle(),
-              onPress: i,
-              testid: void 0,
-            }),
-            f.jsx(r("WDSMenuItem.react"), {
-              Icon: r("WDSIconIcLink.react"),
-              title: o(
-                "WAWebBizBroadcastCTAButtonSectionStrings",
-              ).getWebsiteMenuLabel(),
-              subtitle: o(
-                "WAWebBizBroadcastCTAButtonSectionStrings",
-              ).getWebsiteMenuSubtitle(),
-              onPress: l,
-              testid: void 0,
-            }),
-          ],
-        });
-      return f.jsx("div", {
-        className: "x1de0gy xh8yej3",
-        children: f.jsx(r("WAWebBizBroadcastsNewBroadcastAddButton.react"), {
-          buttonLabel: o(
+      var t = o("react-compiler-runtime").c(29),
+        n = e.entryPoint,
+        a = e.onSelectButtonType,
+        i;
+      t[0] !== a
+        ? ((i = function () {
+            a("quick_reply");
+          }),
+          (t[0] = a),
+          (t[1] = i))
+        : (i = t[1]);
+      var l = i,
+        s;
+      t[2] !== a
+        ? ((s = function () {
+            a("cta_call");
+          }),
+          (t[2] = a),
+          (t[3] = s))
+        : (s = t[3]);
+      var u = s,
+        c;
+      t[4] !== a
+        ? ((c = function () {
+            a("cta_url");
+          }),
+          (t[4] = a),
+          (t[5] = c))
+        : (c = t[5]);
+      var d = c,
+        m,
+        p;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
-          ).getAddButtonLabel(),
-          contextMenu: s,
-          onButtonClick: function () {
+          ).getCustomReplyMenuLabel()),
+          (p = o(
+            "WAWebBizBroadcastCTAButtonSectionStrings",
+          ).getCustomReplyMenuSubtitle()),
+          (t[6] = m),
+          (t[7] = p))
+        : ((m = t[6]), (p = t[7]));
+      var _;
+      t[8] !== l
+        ? ((_ = f.jsx(r("WDSMenuItem.react"), {
+            Icon: r("WDSIconIcReply.react"),
+            title: m,
+            subtitle: p,
+            onPress: l,
+            testid: void 0,
+          })),
+          (t[8] = l),
+          (t[9] = _))
+        : (_ = t[9]);
+      var g, h;
+      t[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = o(
+            "WAWebBizBroadcastCTAButtonSectionStrings",
+          ).getPhoneCallMenuLabel()),
+          (h = o(
+            "WAWebBizBroadcastCTAButtonSectionStrings",
+          ).getPhoneCallMenuSubtitle()),
+          (t[10] = g),
+          (t[11] = h))
+        : ((g = t[10]), (h = t[11]));
+      var y;
+      t[12] !== u
+        ? ((y = f.jsx(r("WDSMenuItem.react"), {
+            Icon: r("WDSIconIcCall.react"),
+            title: g,
+            subtitle: h,
+            onPress: u,
+            testid: void 0,
+          })),
+          (t[12] = u),
+          (t[13] = y))
+        : (y = t[13]);
+      var C, b;
+      t[14] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = o(
+            "WAWebBizBroadcastCTAButtonSectionStrings",
+          ).getWebsiteMenuLabel()),
+          (b = o(
+            "WAWebBizBroadcastCTAButtonSectionStrings",
+          ).getWebsiteMenuSubtitle()),
+          (t[14] = C),
+          (t[15] = b))
+        : ((C = t[14]), (b = t[15]));
+      var v;
+      t[16] !== d
+        ? ((v = f.jsx(r("WDSMenuItem.react"), {
+            Icon: r("WDSIconIcLink.react"),
+            title: C,
+            subtitle: b,
+            onPress: d,
+            testid: void 0,
+          })),
+          (t[16] = d),
+          (t[17] = v))
+        : (v = t[17]);
+      var S;
+      t[18] !== v || t[19] !== _ || t[20] !== y
+        ? ((S = f.jsxs(r("WDSMenu.react"), { children: [_, y, v] })),
+          (t[18] = v),
+          (t[19] = _),
+          (t[20] = y),
+          (t[21] = S))
+        : (S = t[21]);
+      var R = S,
+        L;
+      t[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = "x1de0gy xh8yej3"), (t[22] = L))
+        : (L = t[22]);
+      var E;
+      t[23] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = o(
+            "WAWebBizBroadcastCTAButtonSectionStrings",
+          ).getAddButtonLabel()),
+          (t[23] = E))
+        : (E = t[23]);
+      var k;
+      t[24] !== n
+        ? ((k = function () {
             o(
               "WAWebBusinessBroadcastUserJourneyLogger",
-            ).BusinessBroadcastUserJourneyLogger.addCTAButtonClicked(t);
-          },
-          position: "above",
-          testid: void 0,
-        }),
-      });
+            ).BusinessBroadcastUserJourneyLogger.addCTAButtonClicked(n);
+          }),
+          (t[24] = n),
+          (t[25] = k))
+        : (k = t[25]);
+      var I;
+      return (
+        t[26] !== R || t[27] !== k
+          ? ((I = f.jsx("div", {
+              className: L,
+              children: f.jsx(
+                r("WAWebBizBroadcastsNewBroadcastAddButton.react"),
+                {
+                  buttonLabel: E,
+                  contextMenu: R,
+                  onButtonClick: k,
+                  position: "above",
+                  testid: void 0,
+                },
+              ),
+            })),
+            (t[26] = R),
+            (t[27] = k),
+            (t[28] = I))
+          : (I = t[28]),
+        I
+      );
     }
-    R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
-      var t = e.buttonData,
-        n = e.onEdit,
-        a = e.onRemove;
-      return t.type === "quick_reply"
-        ? f.jsx(E, {
-            Icon: r("WDSIconIcReply.react"),
-            displayText: t.displayText,
-            secondaryText: o("WAWebBizBroadcastCTAButtonSectionStrings")
-              .getCustomReplyMenuLabel()
-              .toString(),
-            onEdit: n,
-            onRemove: a,
-          })
-        : t.type === "cta_call"
-          ? f.jsx(E, {
-              Icon: r("WDSIconIcCall.react"),
-              displayText: t.displayText,
-              secondaryText: t.phoneNumber,
-              onEdit: n,
-              onRemove: a,
-            })
-          : t.type === "cta_url"
-            ? f.jsx(E, {
-                Icon: r("WDSIconIcLink.react"),
-                displayText: t.displayText,
-                secondaryText: t.url,
-                onEdit: n,
-                onRemove: a,
-              })
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    t.type,
-                );
-              })();
-    }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E(e) {
-      var t = e.Icon,
-        n = e.displayText,
+      var t = o("react-compiler-runtime").c(7),
+        n = e.buttonData,
         a = e.onEdit,
         i = e.onRemove,
-        l = e.secondaryText,
-        u = b(!1),
-        c = u[0],
-        d = u[1],
-        m = b(!1),
-        p = m[0],
-        _ = m[1],
-        g = h(function (e) {
-          var t = e.relatedTarget;
-          (!(t instanceof Node) || !e.currentTarget.contains(t)) && _(!1);
-        }, []),
-        y = c || p;
-      return f.jsxs(
-        "div",
-        babelHelpers.extends(
-          { role: "group" },
-          {
+        l;
+      return (
+        t[0] !== n.displayText ||
+        t[1] !== n.phoneNumber ||
+        t[2] !== n.type ||
+        t[3] !== n.url ||
+        t[4] !== a ||
+        t[5] !== i
+          ? ((l =
+              n.type === "quick_reply"
+                ? f.jsx(E, {
+                    Icon: r("WDSIconIcReply.react"),
+                    displayText: n.displayText,
+                    secondaryText: o("WAWebBizBroadcastCTAButtonSectionStrings")
+                      .getCustomReplyMenuLabel()
+                      .toString(),
+                    onEdit: a,
+                    onRemove: i,
+                  })
+                : n.type === "cta_call"
+                  ? f.jsx(E, {
+                      Icon: r("WDSIconIcCall.react"),
+                      displayText: n.displayText,
+                      secondaryText: n.phoneNumber,
+                      onEdit: a,
+                      onRemove: i,
+                    })
+                  : n.type === "cta_url"
+                    ? f.jsx(E, {
+                        Icon: r("WDSIconIcLink.react"),
+                        displayText: n.displayText,
+                        secondaryText: n.url,
+                        onEdit: a,
+                        onRemove: i,
+                      })
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            n.type,
+                        );
+                      })()),
+            (t[0] = n.displayText),
+            (t[1] = n.phoneNumber),
+            (t[2] = n.type),
+            (t[3] = n.url),
+            (t[4] = a),
+            (t[5] = i),
+            (t[6] = l))
+          : (l = t[6]),
+        l
+      );
+    }
+    function E(e) {
+      var t = o("react-compiler-runtime").c(31),
+        n = e.Icon,
+        a = e.displayText,
+        i = e.onEdit,
+        l = e.onRemove,
+        u = e.secondaryText,
+        c = b(!1),
+        d = c[0],
+        m = c[1],
+        p = b(!1),
+        _ = p[0],
+        g = p[1],
+        h;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = function (t) {
+            var e = t.relatedTarget;
+            (!(e instanceof Node) || !t.currentTarget.contains(e)) && g(!1);
+          }),
+          (t[0] = h))
+        : (h = t[0]);
+      var y = h,
+        C = d || _,
+        S;
+      t[1] !== C
+        ? ((S = {
             0: {
               className:
                 "xyi3aci xwf5gio x1p453bz x1suzm8a x78zum5 x1de0gy x1ncir08 x1n2onr6 x1bu39yj",
@@ -398,81 +500,143 @@ __d(
               className:
                 "xyi3aci xwf5gio x1p453bz x1suzm8a x78zum5 x1de0gy x1ncir08 x1n2onr6 x1cbl2y9",
             },
-          }[!!y << 0],
-          {
-            "data-testid": void 0,
-            onMouseEnter: function () {
-              return d(!0);
-            },
-            onMouseLeave: function () {
-              return d(!1);
-            },
-            onFocus: function () {
-              return _(!0);
-            },
-            onBlur: g,
-            children: [
-              f.jsxs(o("WAWebFlex.react").FlexRow, {
-                align: "stretch",
-                xstyle: v.row,
-                children: [
-                  f.jsx(o("WAWebFlex.react").FlexColumn, {
-                    align: "center",
-                    justify: "center",
-                    xstyle: [v.ctaIcon, y && v.ctaBackgroundHovered],
-                    children: f.jsx(t, {}),
-                  }),
-                  f.jsxs(o("WAWebFlex.react").FlexColumn, {
-                    justify: "center",
-                    xstyle: v.text,
-                    children: [
-                      f.jsx(r("WDSText.react"), {
-                        maxLines: 1,
-                        colorName: "contentDefault",
-                        type: "Body2Emphasized",
-                        testid: void 0,
-                        children: n,
-                      }),
-                      l != null &&
-                        f.jsx(r("WDSText.react"), {
-                          maxLines: 1,
-                          colorName: "contentDeemphasized",
-                          type: "Body3",
-                          testid: void 0,
-                          children: l,
-                        }),
-                    ],
-                  }),
-                ],
-              }),
-              y &&
-                f.jsxs(o("WAWebFlex.react").FlexRow, {
-                  xstyle: v.actionButtons,
-                  children: [
-                    f.jsx(r("WDSButton.react"), {
-                      "aria-label": s._(/*BTDS*/ "Edit button"),
-                      size: "small",
-                      variant: "filled",
-                      Icon: r("WDSIconIcEdit.react"),
-                      onPress: a,
-                      testid: void 0,
-                    }),
-                    f.jsx(r("WDSButton.react"), {
-                      "aria-label": s._(/*BTDS*/ "Remove button"),
-                      size: "small",
-                      variant: "filled",
-                      Icon: r("WDSIconIcClose.react"),
-                      onPress: i,
-                      testid: void 0,
-                    }),
-                  ],
+          }[!!C << 0]),
+          (t[1] = C),
+          (t[2] = S))
+        : (S = t[2]);
+      var R, L, E;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((R = function () {
+            return m(!0);
+          }),
+          (L = function () {
+            return m(!1);
+          }),
+          (E = function () {
+            return g(!0);
+          }),
+          (t[3] = R),
+          (t[4] = L),
+          (t[5] = E))
+        : ((R = t[3]), (L = t[4]), (E = t[5]));
+      var k = C && v.ctaBackgroundHovered,
+        I;
+      t[6] !== k ? ((I = [v.ctaIcon, k]), (t[6] = k), (t[7] = I)) : (I = t[7]);
+      var T;
+      t[8] !== n ? ((T = f.jsx(n, {})), (t[8] = n), (t[9] = T)) : (T = t[9]);
+      var D;
+      t[10] !== I || t[11] !== T
+        ? ((D = f.jsx(o("WAWebFlex.react").FlexColumn, {
+            align: "center",
+            justify: "center",
+            xstyle: I,
+            children: T,
+          })),
+          (t[10] = I),
+          (t[11] = T),
+          (t[12] = D))
+        : (D = t[12]);
+      var x;
+      t[13] !== a
+        ? ((x = f.jsx(r("WDSText.react"), {
+            maxLines: 1,
+            colorName: "contentDefault",
+            type: "Body2Emphasized",
+            testid: void 0,
+            children: a,
+          })),
+          (t[13] = a),
+          (t[14] = x))
+        : (x = t[14]);
+      var $;
+      t[15] !== u
+        ? (($ =
+            u != null &&
+            f.jsx(r("WDSText.react"), {
+              maxLines: 1,
+              colorName: "contentDeemphasized",
+              type: "Body3",
+              testid: void 0,
+              children: u,
+            })),
+          (t[15] = u),
+          (t[16] = $))
+        : ($ = t[16]);
+      var P;
+      t[17] !== x || t[18] !== $
+        ? ((P = f.jsxs(o("WAWebFlex.react").FlexColumn, {
+            justify: "center",
+            xstyle: v.text,
+            children: [x, $],
+          })),
+          (t[17] = x),
+          (t[18] = $),
+          (t[19] = P))
+        : (P = t[19]);
+      var N;
+      t[20] !== P || t[21] !== D
+        ? ((N = f.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "stretch",
+            xstyle: v.row,
+            children: [D, P],
+          })),
+          (t[20] = P),
+          (t[21] = D),
+          (t[22] = N))
+        : (N = t[22]);
+      var M;
+      t[23] !== C || t[24] !== i || t[25] !== l
+        ? ((M =
+            C &&
+            f.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: v.actionButtons,
+              children: [
+                f.jsx(r("WDSButton.react"), {
+                  "aria-label": s._(/*BTDS*/ "Edit button"),
+                  size: "small",
+                  variant: "filled",
+                  Icon: r("WDSIconIcEdit.react"),
+                  onPress: i,
+                  testid: void 0,
                 }),
-            ],
-          },
-        ),
+                f.jsx(r("WDSButton.react"), {
+                  "aria-label": s._(/*BTDS*/ "Remove button"),
+                  size: "small",
+                  variant: "filled",
+                  Icon: r("WDSIconIcClose.react"),
+                  onPress: l,
+                  testid: void 0,
+                }),
+              ],
+            })),
+          (t[23] = C),
+          (t[24] = i),
+          (t[25] = l),
+          (t[26] = M))
+        : (M = t[26]);
+      var w;
+      return (
+        t[27] !== N || t[28] !== M || t[29] !== S
+          ? ((w = f.jsxs(
+              "div",
+              babelHelpers.extends({ role: "group" }, S, {
+                "data-testid": void 0,
+                onMouseEnter: R,
+                onMouseLeave: L,
+                onFocus: E,
+                onBlur: y,
+                children: [N, M],
+              }),
+            )),
+            (t[27] = N),
+            (t[28] = M),
+            (t[29] = S),
+            (t[30] = w))
+          : (w = t[30]),
+        w
       );
     }
-    ((E.displayName = E.name + " [from " + i.id + "]"), (l.default = S));
+    l.default = S;
   },
   226,
 );

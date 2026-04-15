@@ -1,6 +1,11 @@
 __d(
   "WAWebPaymentPayWithRow.react",
-  ["WAWebFlex.react", "WAWebText_DONOTUSE.react", "react"],
+  [
+    "WAWebFlex.react",
+    "WAWebText_DONOTUSE.react",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -20,32 +25,63 @@ __d(
         },
       };
     function c(e) {
-      var t = e.children,
-        n = e.childrenXstyle,
-        r = e.label,
-        a = e.labelXstyle,
-        i = e.testid,
-        l = i === void 0 ? "payment-pay-with-row" : i,
-        c = e.xstyle;
-      return s.jsxs(o("WAWebFlex.react").FlexRow, {
-        xstyle: [u.total, c],
-        justify: "all",
-        align: "center",
-        testid: void 0,
-        children: [
-          s.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-            xstyle: [u.payWithText, a],
-            children: r,
-          }),
-          s.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: [u.icon, n],
+      var t = o("react-compiler-runtime").c(17),
+        n = e.children,
+        r = e.childrenXstyle,
+        a = e.label,
+        i = e.labelXstyle,
+        l = e.testid,
+        c = e.xstyle,
+        d = l === void 0 ? "payment-pay-with-row" : l,
+        m;
+      t[0] !== c ? ((m = [u.total, c]), (t[0] = c), (t[1] = m)) : (m = t[1]);
+      var p;
+      t[2] !== i
+        ? ((p = [u.payWithText, i]), (t[2] = i), (t[3] = p))
+        : (p = t[3]);
+      var _;
+      t[4] !== a || t[5] !== p
+        ? ((_ = s.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
+            xstyle: p,
+            children: a,
+          })),
+          (t[4] = a),
+          (t[5] = p),
+          (t[6] = _))
+        : (_ = t[6]);
+      var f;
+      t[7] !== r ? ((f = [u.icon, r]), (t[7] = r), (t[8] = f)) : (f = t[8]);
+      var g;
+      t[9] !== n || t[10] !== f
+        ? ((g = s.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: f,
             justify: "end",
-            children: t,
-          }),
-        ],
-      });
+            children: n,
+          })),
+          (t[9] = n),
+          (t[10] = f),
+          (t[11] = g))
+        : (g = t[11]);
+      var h;
+      return (
+        t[12] !== m || t[13] !== _ || t[14] !== g || t[15] !== d
+          ? ((h = s.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: m,
+              justify: "all",
+              align: "center",
+              testid: void 0,
+              children: [_, g],
+            })),
+            (t[12] = m),
+            (t[13] = _),
+            (t[14] = g),
+            (t[15] = d),
+            (t[16] = h))
+          : (h = t[16]),
+        h
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

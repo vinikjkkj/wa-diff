@@ -7,6 +7,7 @@ __d(
     "WAWebForwardedInfoHeaderLink.react",
     "WAWebMessageMeta.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebForwardedNewsletterMessageClickHandler",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -15,39 +16,62 @@ __d(
     function c(e) {
       var t,
         n,
-        a = e.msg,
-        i = o(
+        a = o("react-compiler-runtime").c(8),
+        i = e.msg,
+        l = o(
           "useWAWebForwardedNewsletterMessageClickHandler",
         ).useForwardedNewsletterMessageClickHandler(
-          a,
+          i,
           o("WAWebBoolFunc").returnTrue,
         );
-      if (i == null) return null;
-      var l =
-          (t = a.forwardedNewsletterMessageInfo) == null
+      if (l == null) return null;
+      var c =
+          (t = i.forwardedNewsletterMessageInfo) == null
             ? void 0
             : t.newsletterName,
-        c =
-          (n = a.forwardedNewsletterMessageInfo) == null
+        d =
+          (n = i.forwardedNewsletterMessageInfo) == null
             ? void 0
             : n.profileName,
-        d = l != null ? l : s._(/*BTDS*/ "View channel");
-      return u.jsx(r("WAWebForwardedInfoHeaderLink.react"), {
-        onClick: i,
-        testId: "forwarded-newsletter-info",
-        children:
-          c != null
-            ? u.jsxs(o("WAWebFlex.react").FlexRow, {
-                children: [
-                  c,
-                  u.jsx(o("WAWebMessageMeta.react").MetaBullet, {}),
-                  d,
-                ],
-              })
-            : d,
-      });
+        m;
+      a[0] !== c
+        ? ((m = c != null ? c : s._(/*BTDS*/ "View channel")),
+          (a[0] = c),
+          (a[1] = m))
+        : (m = a[1]);
+      var p = m,
+        _;
+      a[2] !== d || a[3] !== p
+        ? ((_ =
+            d != null
+              ? u.jsxs(o("WAWebFlex.react").FlexRow, {
+                  children: [
+                    d,
+                    u.jsx(o("WAWebMessageMeta.react").MetaBullet, {}),
+                    p,
+                  ],
+                })
+              : p),
+          (a[2] = d),
+          (a[3] = p),
+          (a[4] = _))
+        : (_ = a[4]);
+      var f;
+      return (
+        a[5] !== l || a[6] !== _
+          ? ((f = u.jsx(r("WAWebForwardedInfoHeaderLink.react"), {
+              onClick: l,
+              testId: "forwarded-newsletter-info",
+              children: _,
+            })),
+            (a[5] = l),
+            (a[6] = _),
+            (a[7] = f))
+          : (f = a[7]),
+        f
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   226,
 );

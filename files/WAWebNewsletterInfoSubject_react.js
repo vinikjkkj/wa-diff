@@ -14,6 +14,7 @@ __d(
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -88,75 +89,126 @@ __d(
       );
     }
     function g(e) {
-      var t = e.adminFunnelLogger,
-        a = e.chat,
-        i = o("useWAWebModelValues").useOptionalModelValues(
-          a.newsletterMetadata,
-          ["name", "membershipType", "isSuspendedOrTerminated", "verified"],
+      var t = o("react-compiler-runtime").c(18),
+        a = e.adminFunnelLogger,
+        i = e.chat,
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [
+            "name",
+            "membershipType",
+            "isSuspendedOrTerminated",
+            "verified",
+          ]),
+          (t[0] = l))
+        : (l = t[0]);
+      var u = o("useWAWebModelValues").useOptionalModelValues(
+          i.newsletterMetadata,
+          l,
         ),
-        l = _(a.formattedTitle),
-        u = l[0],
-        d = l[1],
-        g = p(a.formattedTitle),
-        h = m(
-          function () {
-            u !== g.current &&
-              ((g.current = u),
-              t.logEvent(
+        d = _(i.formattedTitle),
+        m = d[0],
+        g = d[1],
+        h = p(i.formattedTitle),
+        y;
+      t[1] !== a || t[2] !== m
+        ? ((y = function () {
+            m !== h.current &&
+              ((h.current = m),
+              a.logEvent(
                 o("WAWebWamEnumChannelAdminAction").CHANNEL_ADMIN_ACTION
                   .CHANNEL_NAME_SET,
               ));
-          },
-          [t, u],
-        ),
-        y = m(
-          (function () {
+          }),
+          (t[1] = a),
+          (t[2] = m),
+          (t[3] = y))
+        : (y = t[3]);
+      var C = y,
+        b;
+      t[4] !== a || t[5] !== i || t[6] !== C
+        ? ((b = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                (h(),
-                  e !== a.formattedTitle &&
-                    (t.logEvent(
+                (C(),
+                  e !== i.formattedTitle &&
+                    (a.logEvent(
                       o("WAWebWamEnumChannelAdminAction").CHANNEL_ADMIN_ACTION
                         .CHANNEL_ADMIN_FLOW_CONFIRMATION_TAP,
                     ),
-                    yield f(a, e, t)));
+                    yield f(i, e, a)));
               },
             );
-            return function (t) {
+            return function (n) {
               return e.apply(this, arguments);
             };
-          })(),
-          [a, h, t],
+          })()),
+          (t[4] = a),
+          (t[5] = i),
+          (t[6] = C),
+          (t[7] = b))
+        : (b = t[7]);
+      var v = b;
+      if (u == null) return null;
+      if (
+        u.isSuspendedOrTerminated === !0 ||
+        !o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(u)
+      ) {
+        var S;
+        return (
+          t[8] !== i
+            ? ((S = c.jsx(r("WDSText.react"), {
+                type: "Headline1",
+                colorName: "contentDefault",
+                textAlign: "center",
+                children: c.jsx(o("WAWebName.react").Name, {
+                  chat: i,
+                  breakWord: !0,
+                  checkmarkLarge: !0,
+                  selectable: !0,
+                }),
+              })),
+              (t[8] = i),
+              (t[9] = S))
+            : (S = t[9]),
+          S
         );
-      return i == null
-        ? null
-        : i.isSuspendedOrTerminated === !0 ||
-            !o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(i)
-          ? c.jsx(r("WDSText.react"), {
-              type: "Headline1",
-              colorName: "contentDefault",
-              textAlign: "center",
-              children: c.jsx(o("WAWebName.react").Name, {
-                chat: a,
-                breakWord: !0,
-                checkmarkLarge: !0,
-                selectable: !0,
-              }),
-            })
-          : c.jsx(r("WAWebGroupInfoSubjectInput.react"), {
-              subject: a.formattedTitle,
-              onSave: y,
+      }
+      var R;
+      t[10] !== u
+        ? ((R =
+            o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(u) &&
+            u.isSuspendedOrTerminated !== !0),
+          (t[10] = u),
+          (t[11] = R))
+        : (R = t[11]);
+      var L;
+      t[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = s._(/*BTDS*/ "Channel name can't be empty")), (t[12] = L))
+        : (L = t[12]);
+      var E;
+      return (
+        t[13] !== i.formattedTitle || t[14] !== C || t[15] !== v || t[16] !== R
+          ? ((E = c.jsx(r("WAWebGroupInfoSubjectInput.react"), {
+              subject: i.formattedTitle,
+              onSave: v,
               editRestrictionInfo: void 0,
-              editable:
-                o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(i) &&
-                i.isSuspendedOrTerminated !== !0,
-              emptyErrorMessage: s._(/*BTDS*/ "Channel name can't be empty"),
-              onChange: d,
-              onBlur: h,
+              editable: R,
+              emptyErrorMessage: L,
+              onChange: g,
+              onBlur: C,
               direction: "ltr",
-            });
+            })),
+            (t[13] = i.formattedTitle),
+            (t[14] = C),
+            (t[15] = v),
+            (t[16] = R),
+            (t[17] = E))
+          : (E = t[17]),
+        E
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    l.default = g;
   },
   226,
 );

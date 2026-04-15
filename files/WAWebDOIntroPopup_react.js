@@ -20,6 +20,7 @@ __d(
     "WAWebWdsIllDetectedOutcomesAutomatedLabelsIcon.react",
     "WDSIconIcSettings.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -47,85 +48,114 @@ __d(
       },
       g = "https://business.facebook.com";
     function h(e) {
-      var t = function (n) {
-          (n.preventDefault(),
-            new (o(
-              "WAWebAutomaticEventsUserJourneyWamEvent",
-            ).AutomaticEventsUserJourneyWamEvent)({
-              surface: e.surfaceType,
-              smbUserActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
-              automaticEventsTargetComponent: o(
-                "WAWebWamEnumAutomaticEventsTargetComponentEnum",
-              ).AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM
-                .NUX_SCREEN_META_BUSINESS_SUITE,
-            }).commit(),
-            self.setTimeout(function () {
-              return o("WAWebExternalLink.react").openExternalLink(g);
-            }, 10));
-        },
-        n = o("WAWebListsGatingUtils").isListsEnabled(),
-        a = n
-          ? [
-              {
-                Icon: o("WAWebListPeopleIcon.react").ListPeopleIcon,
-                title: s._(
-                  /*BTDS*/ "Chats are added to a list when a new order or lead occurs",
-                ),
-                key: "chats-are-added-to-list-new-order-or-lead",
-              },
-              {
-                Icon: o("WAWebBoltIcon.react").BoltIcon,
-                title: s._(
-                  /*BTDS*/ "Organizing your chats with auto-created lists saves valuable time",
-                ),
-                key: "organizing-chats-with-auto-created-lists-saves-time",
-              },
-              {
-                Icon: r("WDSIconIcSettings.react"),
-                title: s._(
-                  /*BTDS*/ "You can change your lists settings in the Tools tab",
-                ),
-                key: "change-your-lists-settings-in-tools-tab",
-              },
-            ]
-          : [
-              {
-                Icon: o("WAWebBoltIcon.react").BoltIcon,
-                title: s._(
-                  /*BTDS*/ "Auto labels can help you save time and work more efficiently",
-                ),
-                key: "auto-labels-can-help-you-save-time-and-work-more-efficiently",
-              },
-              {
-                Icon: o("WAWebLabelOutlineIcon.react").LabelOutlineIcon,
-                title: s._(
-                  /*BTDS*/ "Labels are added by Meta when a new order or lead occurs in a chat",
-                ),
-                key: "labels-are-added-new-order-or-lead",
-              },
-              {
-                Icon: r("WDSIconIcSettings.react"),
-                title: s._(
-                  /*BTDS*/ "You can change your labeling settings in {=m2}",
-                  [
-                    s._implicitParam(
-                      "=m2",
-                      d.jsx(r("WAWebClickableLink.react"), {
-                        href: g,
-                        onClick: t,
-                        children: s._(/*BTDS*/ "Meta Business Suite"),
-                      }),
-                    ),
-                  ],
-                ),
-                key: "change-your-labeling-settings-in-mbs",
-              },
-            ];
-      return d.jsx(y, babelHelpers.extends({ content: a, listsEnabled: n }, e));
+      var t = o("react-compiler-runtime").c(8),
+        n;
+      t[0] !== e.surfaceType
+        ? ((n = function (n) {
+            (n.preventDefault(),
+              new (o(
+                "WAWebAutomaticEventsUserJourneyWamEvent",
+              ).AutomaticEventsUserJourneyWamEvent)({
+                surface: e.surfaceType,
+                smbUserActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                  .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+                automaticEventsTargetComponent: o(
+                  "WAWebWamEnumAutomaticEventsTargetComponentEnum",
+                ).AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM
+                  .NUX_SCREEN_META_BUSINESS_SUITE,
+              }).commit(),
+              self.setTimeout(y, 10));
+          }),
+          (t[0] = e.surfaceType),
+          (t[1] = n))
+        : (n = t[1]);
+      var a = n,
+        i;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = o("WAWebListsGatingUtils").isListsEnabled()), (t[2] = i))
+        : (i = t[2]);
+      var l = i,
+        u;
+      t[3] !== a
+        ? ((u = l
+            ? [
+                {
+                  Icon: o("WAWebListPeopleIcon.react").ListPeopleIcon,
+                  title: s._(
+                    /*BTDS*/ "Chats are added to a list when a new order or lead occurs",
+                  ),
+                  key: "chats-are-added-to-list-new-order-or-lead",
+                },
+                {
+                  Icon: o("WAWebBoltIcon.react").BoltIcon,
+                  title: s._(
+                    /*BTDS*/ "Organizing your chats with auto-created lists saves valuable time",
+                  ),
+                  key: "organizing-chats-with-auto-created-lists-saves-time",
+                },
+                {
+                  Icon: r("WDSIconIcSettings.react"),
+                  title: s._(
+                    /*BTDS*/ "You can change your lists settings in the Tools tab",
+                  ),
+                  key: "change-your-lists-settings-in-tools-tab",
+                },
+              ]
+            : [
+                {
+                  Icon: o("WAWebBoltIcon.react").BoltIcon,
+                  title: s._(
+                    /*BTDS*/ "Auto labels can help you save time and work more efficiently",
+                  ),
+                  key: "auto-labels-can-help-you-save-time-and-work-more-efficiently",
+                },
+                {
+                  Icon: o("WAWebLabelOutlineIcon.react").LabelOutlineIcon,
+                  title: s._(
+                    /*BTDS*/ "Labels are added by Meta when a new order or lead occurs in a chat",
+                  ),
+                  key: "labels-are-added-new-order-or-lead",
+                },
+                {
+                  Icon: r("WDSIconIcSettings.react"),
+                  title: s._(
+                    /*BTDS*/ "You can change your labeling settings in {=m2}",
+                    [
+                      s._implicitParam(
+                        "=m2",
+                        d.jsx(r("WAWebClickableLink.react"), {
+                          href: g,
+                          onClick: a,
+                          children: s._(/*BTDS*/ "Meta Business Suite"),
+                        }),
+                      ),
+                    ],
+                  ),
+                  key: "change-your-labeling-settings-in-mbs",
+                },
+              ]),
+          (t[3] = a),
+          (t[4] = u))
+        : (u = t[4]);
+      var c = u,
+        m;
+      return (
+        t[5] !== c || t[6] !== e
+          ? ((m = d.jsx(
+              C,
+              babelHelpers.extends({ content: c, listsEnabled: l }, e),
+            )),
+            (t[5] = c),
+            (t[6] = e),
+            (t[7] = m))
+          : (m = t[7]),
+        m
+      );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y(t) {
+    function y() {
+      return o("WAWebExternalLink.react").openExternalLink(g);
+    }
+    function C(t) {
       var n,
         a = t.content,
         i = t.listsEnabled,
@@ -199,43 +229,79 @@ __d(
                 n = e.description,
                 r = e.key,
                 o = e.title;
-              return d.jsx(C, { Icon: t, title: o, description: n }, r);
+              return d.jsx(b, { Icon: t, title: o, description: n }, r);
             }),
           }),
         ],
       });
     }
-    y.displayName = y.name + " [from " + i.id + "]";
-    function C(e) {
-      var t = e.Icon,
-        n = e.description,
-        a = e.title;
-      return d.jsxs(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        className: (u || (u = r("stylex")))([
-          o("WAWebUISpacing").uiMargin.top20,
-        ]),
-        children: [
-          d.jsx(o("WAWebFlex.react").FlexItem, {
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e) {
+      var t = o("react-compiler-runtime").c(14),
+        n = e.Icon,
+        a = e.description,
+        i = e.title,
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = (u || (u = r("stylex")))([o("WAWebUISpacing").uiMargin.top20])),
+          (t[0] = l))
+        : (l = t[0]);
+      var s;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = (u || (u = r("stylex")))(o("WAWebUISpacing").uiMargin.horiz25)),
+          (t[1] = s))
+        : (s = t[1]);
+      var c;
+      t[2] !== n
+        ? ((c = d.jsx(o("WAWebFlex.react").FlexItem, {
             shrink: 0,
-            className: u(o("WAWebUISpacing").uiMargin.horiz25),
-            children: d.jsx(t, { width: 24, iconXstyle: f.icon }),
-          }),
-          d.jsxs(o("WAWebFlex.react").FlexItem, {
-            children: [
-              d.jsx(o("WAWebText.react").WAWebTextTitle, {
-                xstyle: o("WAWebUISpacing").uiMargin.end24,
-                color: "wdsContentDeemphasized",
-                children: a,
-              }),
-              n != null &&
-                d.jsx(o("WAWebText.react").WAWebTextSmall, { children: n }),
-            ],
-          }),
-        ],
-      });
+            className: s,
+            children: d.jsx(n, { width: 24, iconXstyle: f.icon }),
+          })),
+          (t[2] = n),
+          (t[3] = c))
+        : (c = t[3]);
+      var m;
+      t[4] !== i
+        ? ((m = d.jsx(o("WAWebText.react").WAWebTextTitle, {
+            xstyle: o("WAWebUISpacing").uiMargin.end24,
+            color: "wdsContentDeemphasized",
+            children: i,
+          })),
+          (t[4] = i),
+          (t[5] = m))
+        : (m = t[5]);
+      var p;
+      t[6] !== a
+        ? ((p =
+            a != null &&
+            d.jsx(o("WAWebText.react").WAWebTextSmall, { children: a })),
+          (t[6] = a),
+          (t[7] = p))
+        : (p = t[7]);
+      var _;
+      t[8] !== m || t[9] !== p
+        ? ((_ = d.jsxs(o("WAWebFlex.react").FlexItem, { children: [m, p] })),
+          (t[8] = m),
+          (t[9] = p),
+          (t[10] = _))
+        : (_ = t[10]);
+      var g;
+      return (
+        t[11] !== c || t[12] !== _
+          ? ((g = d.jsxs(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              className: l,
+              children: [c, _],
+            })),
+            (t[11] = c),
+            (t[12] = _),
+            (t[13] = g))
+          : (g = t[13]),
+        g
+      );
     }
-    ((C.displayName = C.name + " [from " + i.id + "]"), (l.default = h));
+    l.default = h;
   },
   226,
 );

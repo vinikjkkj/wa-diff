@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumUpdateEntryPoint",
     "WDSFontTokenStyles",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -37,47 +38,84 @@ __d(
         },
       };
     function m(t) {
-      var n = t.listId,
-        a = t.listName,
-        i = function () {
-          o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-            c.jsx(r("WAWebCreateOrEditListDrawer.react"), {
-              listId: n,
-              onBack: o("WAWebDrawerManager").closeDrawerLeft,
-              onClose: o("WAWebDrawerManager").closeDrawerLeft,
-              entryPoint: o("WAWebWamEnumUpdateEntryPoint").UPDATE_ENTRY_POINT
-                .CHAT_LIST_FILTER_MANAGE,
-            }),
-            { focusOnUnMount: !0 },
-          );
-        },
-        l = s._(/*BTDS*/ "Manage {listName}", [s._param("listName", a)]);
-      return c.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-        handlers: { enter: i, space: i },
-        "aria-label": l.toString(),
-        role: "button",
-        "data-testid": void 0,
-        onClick: i,
-        xstyle: d.container,
-        tabIndex: 0,
-        children: c.jsx(
-          "span",
-          babelHelpers.extends(
-            {},
-            (e || (e = r("stylex"))).props(
-              o("WDSFontTokenStyles").WDSFontTokenStyles.Body1,
-              d.manageListText,
-            ),
-            {
+      var n = o("react-compiler-runtime").c(16),
+        a = t.listId,
+        i = t.listName,
+        l;
+      n[0] !== a
+        ? ((l = function () {
+            o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
+              c.jsx(r("WAWebCreateOrEditListDrawer.react"), {
+                listId: a,
+                onBack: o("WAWebDrawerManager").closeDrawerLeft,
+                onClose: o("WAWebDrawerManager").closeDrawerLeft,
+                entryPoint: o("WAWebWamEnumUpdateEntryPoint").UPDATE_ENTRY_POINT
+                  .CHAT_LIST_FILTER_MANAGE,
+              }),
+              { focusOnUnMount: !0 },
+            );
+          }),
+          (n[0] = a),
+          (n[1] = l))
+        : (l = n[1]);
+      var u = l,
+        m;
+      n[2] !== i
+        ? ((m = s._(/*BTDS*/ "Manage {listName}", [s._param("listName", i)])),
+          (n[2] = i),
+          (n[3] = m))
+        : (m = n[3]);
+      var p = m,
+        _;
+      n[4] !== u
+        ? ((_ = { enter: u, space: u }), (n[4] = u), (n[5] = _))
+        : (_ = n[5]);
+      var f;
+      n[6] !== p ? ((f = p.toString()), (n[6] = p), (n[7] = f)) : (f = n[7]);
+      var g;
+      n[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = (e || (e = r("stylex"))).props(
+            o("WDSFontTokenStyles").WDSFontTokenStyles.Body1,
+            d.manageListText,
+          )),
+          (n[8] = g))
+        : (g = n[8]);
+      var h;
+      n[9] !== i
+        ? ((h = c.jsx(
+            "span",
+            babelHelpers.extends({}, g, {
               children: s._(/*BTDS*/ "Manage {listName}", [
-                s._param("listName", a),
+                s._param("listName", i),
               ]),
-            },
-          ),
-        ),
-      });
+            }),
+          )),
+          (n[9] = i),
+          (n[10] = h))
+        : (h = n[10]);
+      var y;
+      return (
+        n[11] !== u || n[12] !== _ || n[13] !== f || n[14] !== h
+          ? ((y = c.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+              handlers: _,
+              "aria-label": f,
+              role: "button",
+              "data-testid": void 0,
+              onClick: u,
+              xstyle: d.container,
+              tabIndex: 0,
+              children: h,
+            })),
+            (n[11] = u),
+            (n[12] = _),
+            (n[13] = f),
+            (n[14] = h),
+            (n[15] = y))
+          : (y = n[15]),
+        y
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

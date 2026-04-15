@@ -14,6 +14,7 @@ __d(
     "WDSText.react",
     "WDSTextualLink.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -24,22 +25,24 @@ __d(
         icon: { color: "xhslqc4", marginInlineEnd: "xqf2s3x", $$css: !0 },
       };
     function m(e) {
-      var t = e.chat,
-        n = e.onClose,
-        a = e.ref,
-        i = c(
-          function () {
-            (n(),
+      var t = o("react-compiler-runtime").c(12),
+        n = e.chat,
+        a = e.onClose,
+        i = e.ref,
+        l;
+      t[0] !== n || t[1] !== a
+        ? ((l = function () {
+            (a(),
               o("WAWebDrawerManager").DrawerManager.openDrawerRight(
                 o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
                   ? {
                       descriptorType: "info_flow",
-                      chat: t,
+                      chat: n,
                       initialStep:
                         o("WAWebInfoFlowStep").InfoFlowStep.Notifications,
                     }
                   : u.jsx(o("WAWebInfoFlowLoadable").InfoFlowLoadable, {
-                      chat: t,
+                      chat: n,
                       initialStep:
                         o("WAWebInfoFlowStep").InfoFlowStep.Notifications,
                     }),
@@ -48,42 +51,72 @@ __d(
                   focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
                 },
               ));
-          },
-          [t, n],
-        );
-      return u.jsx(o("WAWebUimUie.react").UIE, {
-        displayName: "NewsletterNotificationSettingsBanner",
-        escapable: !0,
-        children: u.jsx(r("WAWebConversationBanner.react"), {
-          ref: a,
-          xstyle: d.banner,
-          onClose: n,
-          children: u.jsxs(o("WAWebFlex.react").FlexRow, {
+          }),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = l))
+        : (l = t[2]);
+      var c = l,
+        m;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = u.jsx(
+            o("WAWebUnmuteNotificationsRefreshedIcon.react")
+              .UnmuteNotificationsRefreshedIcon,
+            { iconXstyle: d.icon },
+          )),
+          (t[3] = m))
+        : (m = t[3]);
+      var p;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = s._(/*BTDS*/ "New notification settings available.")),
+          (t[4] = p))
+        : (p = t[4]);
+      var _;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = s._(/*BTDS*/ "View settings")), (t[5] = _))
+        : (_ = t[5]);
+      var f;
+      t[6] !== c
+        ? ((f = u.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             children: [
-              u.jsx(
-                o("WAWebUnmuteNotificationsRefreshedIcon.react")
-                  .UnmuteNotificationsRefreshedIcon,
-                { iconXstyle: d.icon },
-              ),
+              m,
               u.jsxs(r("WDSText.react"), {
                 type: "Body2",
                 colorName: "contentDefault",
                 children: [
-                  s._(/*BTDS*/ "New notification settings available."),
+                  p,
                   "\xA0",
-                  u.jsx(r("WDSTextualLink.react"), {
-                    onClick: i,
-                    children: s._(/*BTDS*/ "View settings"),
-                  }),
+                  u.jsx(r("WDSTextualLink.react"), { onClick: c, children: _ }),
                 ],
               }),
             ],
-          }),
-        }),
-      });
+          })),
+          (t[6] = c),
+          (t[7] = f))
+        : (f = t[7]);
+      var g;
+      return (
+        t[8] !== a || t[9] !== i || t[10] !== f
+          ? ((g = u.jsx(o("WAWebUimUie.react").UIE, {
+              displayName: "NewsletterNotificationSettingsBanner",
+              escapable: !0,
+              children: u.jsx(r("WAWebConversationBanner.react"), {
+                ref: i,
+                xstyle: d.banner,
+                onClose: a,
+                children: f,
+              }),
+            })),
+            (t[8] = a),
+            (t[9] = i),
+            (t[10] = f),
+            (t[11] = g))
+          : (g = t[11]),
+        g
+      );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

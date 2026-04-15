@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipAudioWaveform.react",
-  ["WAWebVelocityAnimate", "react", "stylex"],
+  ["WAWebVelocityAnimate", "react", "react-compiler-runtime", "stylex"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -70,70 +70,76 @@ __d(
         },
       };
     function E(t) {
-      var n = t.accentColor,
-        o = t.audioLevel,
-        a = o === void 0 ? 0 : o,
-        i = t.barCount,
-        l = i === void 0 ? p : i,
+      var n = o("react-compiler-runtime").c(21),
+        a = t.accentColor,
+        i = t.audioLevel,
+        l = t.barCount,
         s = t.isActive,
-        c = s === void 0 ? !0 : s,
-        _ = t.scale,
-        g = _ === void 0 ? 1 : _,
-        h = m([]),
-        b = m([]),
-        S = m(null),
-        R = m(null),
-        E = m(null);
-      return (
-        d(
-          function () {
+        c = t.scale,
+        _ = i === void 0 ? 0 : i,
+        g = l === void 0 ? p : l,
+        h = s === void 0 ? !0 : s,
+        b = c === void 0 ? 1 : c,
+        S;
+      n[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = []), (n[0] = S))
+        : (S = n[0]);
+      var R = m(S),
+        E;
+      n[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = []), (n[1] = E))
+        : (E = n[1]);
+      var T = m(E),
+        D = m(null),
+        x = m(null),
+        $ = m(null),
+        P,
+        N;
+      (n[2] !== _ || n[3] !== g || n[4] !== h
+        ? ((P = function () {
             if (
-              (R.current != null &&
-                (window.clearTimeout(R.current), (R.current = null)),
-              !c || a === 0)
+              (x.current != null &&
+                (window.clearTimeout(x.current), (x.current = null)),
+              !h || _ === 0)
             ) {
-              (h.current.forEach(function (e) {
-                e && (e.style.height = y + f * 2 + "px");
-              }),
-                b.current.forEach(function (e) {
-                  e && (e.style.height = y + "px");
-                }),
-                S.current != null &&
-                  (window.cancelAnimationFrame(S.current), (S.current = null)),
-                (R.current = window.setTimeout(function () {
-                  E.current &&
+              (R.current.forEach(I),
+                T.current.forEach(k),
+                D.current != null &&
+                  (window.cancelAnimationFrame(D.current), (D.current = null)),
+                (x.current = window.setTimeout(function () {
+                  $.current &&
                     r("WAWebVelocityAnimate")(
-                      E.current,
+                      $.current,
                       { opacity: [0, 1] },
                       { duration: 300, easing: "easeOutQuart" },
                     );
                 }, v)));
               return;
             }
-            E.current &&
+            $.current &&
               r("WAWebVelocityAnimate")(
-                E.current,
-                { opacity: [1, E.current.style.opacity || 0] },
+                $.current,
+                { opacity: [1, $.current.style.opacity || 0] },
                 { duration: 300, easing: "easeOutQuart" },
               );
-            var e = Math.max(0, Math.min(1, a)),
+            var e = Math.max(0, Math.min(1, _)),
               t = C - y,
-              n = Array.from({ length: l }, function (n, r) {
-                var o = Math.abs(r - Math.floor(l / 2)),
-                  a = 1 - o / Math.floor(l / 2),
+              n = Array.from({ length: g }, function (n, r) {
+                var o = Math.abs(r - Math.floor(g / 2)),
+                  a = 1 - o / Math.floor(g / 2),
                   i = 0.7 + Math.random() * 0.3,
-                  s = a * i * e;
-                return y + t * s;
+                  l = a * i * e;
+                return y + t * l;
               });
             return (
-              h.current.forEach(function (e, t) {
+              R.current.forEach(function (e, t) {
                 if (e) {
                   var r,
                     o = (r = n[t]) != null ? r : y;
                   e.style.height = o + f * 2 + "px";
                 }
               }),
-              b.current.forEach(function (e, t) {
+              T.current.forEach(function (e, t) {
                 if (e) {
                   var r,
                     o = (r = n[t]) != null ? r : y;
@@ -141,69 +147,113 @@ __d(
                 }
               }),
               function () {
-                R.current != null &&
-                  (window.clearTimeout(R.current), (R.current = null));
+                x.current != null &&
+                  (window.clearTimeout(x.current), (x.current = null));
               }
             );
-          },
-          [a, l, c],
-        ),
-        u.jsx("div", {
-          ref: E,
-          children: u.jsx(
-            "div",
-            babelHelpers.extends(
-              {},
-              (e || (e = r("stylex"))).props(L.scaleWrapper(g)),
+          }),
+          (N = [_, g, h]),
+          (n[2] = _),
+          (n[3] = g),
+          (n[4] = h),
+          (n[5] = P),
+          (n[6] = N))
+        : ((P = n[5]), (N = n[6])),
+        d(P, N));
+      var M;
+      n[7] !== b
+        ? ((M = (e || (e = r("stylex"))).props(L.scaleWrapper(b))),
+          (n[7] = b),
+          (n[8] = M))
+        : (M = n[8]);
+      var w;
+      n[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((w = { className: "xlup9mm x17dzmu4" }), (n[9] = w))
+        : (w = n[9]);
+      var A;
+      n[10] !== g
+        ? ((A = (e || (e = r("stylex"))).props(L.barsContainer(g))),
+          (n[10] = g),
+          (n[11] = A))
+        : (A = n[11]);
+      var F;
+      n[12] !== a || n[13] !== g
+        ? ((F = Array.from({ length: g }, function (t, n) {
+            return u.jsxs(
+              "div",
               {
-                children: u.jsx("div", {
-                  className: "xlup9mm x17dzmu4",
-                  children: u.jsx(
+                className:
+                  "x1n2onr6 xci0xqf xlup9mm x78zum5 x6s0dn4 xl56j7k x2lah0s",
+                children: [
+                  u.jsx("div", {
+                    ref: function (t) {
+                      R.current[n] = t;
+                    },
+                    className:
+                      "x10l6tqk xci0xqf xt8t1vi x1xc408v x129tdwq x15urzxu xcrclan x5uqrmk x1od0jb8 x1hagigm",
+                  }),
+                  u.jsx(
                     "div",
-                    babelHelpers.extends({}, e.props(L.barsContainer(l)), {
-                      children: Array.from({ length: l }, function (t, o) {
-                        return u.jsxs(
-                          "div",
-                          {
-                            className:
-                              "x1n2onr6 xci0xqf xlup9mm x78zum5 x6s0dn4 xl56j7k x2lah0s",
-                            children: [
-                              u.jsx("div", {
-                                ref: function (t) {
-                                  h.current[o] = t;
-                                },
-                                className:
-                                  "x10l6tqk xci0xqf xt8t1vi x1xc408v x129tdwq x15urzxu xcrclan x5uqrmk x1od0jb8 x1hagigm",
-                              }),
-                              u.jsx(
-                                "div",
-                                babelHelpers.extends(
-                                  {
-                                    ref: function (t) {
-                                      b.current[o] = t;
-                                    },
-                                  },
-                                  (e || (e = r("stylex"))).props(
-                                    L.accentBar,
-                                    n != null && L.accentBarColor(n),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          },
-                          o,
-                        );
-                      }),
-                    }),
+                    babelHelpers.extends(
+                      {
+                        ref: function (t) {
+                          T.current[n] = t;
+                        },
+                      },
+                      (e || (e = r("stylex"))).props(
+                        L.accentBar,
+                        a != null && L.accentBarColor(a),
+                      ),
+                    ),
                   ),
-                }),
+                ],
               },
-            ),
-          ),
-        })
+              n,
+            );
+          })),
+          (n[12] = a),
+          (n[13] = g),
+          (n[14] = F))
+        : (F = n[14]);
+      var O;
+      n[15] !== A || n[16] !== F
+        ? ((O = u.jsx(
+            "div",
+            babelHelpers.extends({}, w, {
+              children: u.jsx(
+                "div",
+                babelHelpers.extends({}, A, { children: F }),
+              ),
+            }),
+          )),
+          (n[15] = A),
+          (n[16] = F),
+          (n[17] = O))
+        : (O = n[17]);
+      var B;
+      return (
+        n[18] !== O || n[19] !== M
+          ? ((B = u.jsx("div", {
+              ref: $,
+              children: u.jsx(
+                "div",
+                babelHelpers.extends({}, M, { children: O }),
+              ),
+            })),
+            (n[18] = O),
+            (n[19] = M),
+            (n[20] = B))
+          : (B = n[20]),
+        B
       );
     }
-    ((E.displayName = E.name + " [from " + i.id + "]"), (l.default = E));
+    function k(e) {
+      e && (e.style.height = y + "px");
+    }
+    function I(e) {
+      e && (e.style.height = y + f * 2 + "px");
+    }
+    l.default = E;
   },
   98,
 );

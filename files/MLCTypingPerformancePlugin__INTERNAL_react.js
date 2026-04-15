@@ -7,7 +7,6 @@ __d(
     "mlcInternBootstrapTypingPerformance__INTERNAL",
     "one-trace",
     "react",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -30,7 +29,6 @@ __d(
     }
     function _(e) {
       return (
-        r("vulture")("yH_iXdLG8FrdD4vAdSdSO4Jp4Eg="),
         r("mlcInternBootstrapTypingPerformance__INTERNAL")(),
         s.jsx(f, babelHelpers.extends({}, e))
       );

@@ -14,25 +14,34 @@ __d(
     "WDSMenuItem.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = e.chat;
-      return s.jsx(
-        r("WDSMenuItem.react"),
-        {
-          testid: void 0,
-          onPress: function () {
-            c(t);
-          },
-          title: "Convert to LID chat",
-        },
-        "convertToLid",
+      var t = o("react-compiler-runtime").c(2),
+        n = e.chat,
+        a;
+      return (
+        t[0] !== n
+          ? ((a = s.jsx(
+              r("WDSMenuItem.react"),
+              {
+                testid: void 0,
+                onPress: function () {
+                  c(n);
+                },
+                title: "Convert to LID chat",
+              },
+              "convertToLid",
+            )),
+            (t[0] = n),
+            (t[1] = a))
+          : (a = t[1]),
+        a
       );
     }
-    u.displayName = u.name + " [from " + i.id + "]";
     function c(e) {
       o("WAWebModalManager").ModalManager.open(
         s.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {

@@ -39,6 +39,7 @@ __d(
     "WDSTextualLink.react",
     "compactMap",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebFocusOnMount",
     "useWAWebModelValues",
@@ -92,7 +93,7 @@ __d(
       };
     function y(e) {
       var t,
-        n,
+        n = o("react-compiler-runtime").c(25),
         a = e.data,
         i = a.icon,
         l = a.itemKey,
@@ -104,52 +105,116 @@ __d(
         h = p(!1),
         y = h[0],
         C = h[1],
-        b = o("WAWebChatCollection").ChatCollection.get(l),
-        v = o("useWAWebModelValues").useOptionalModelValues(b, [
-          "formattedTitle",
-        ]),
-        S = (t = v == null ? void 0 : v.formattedTitle) != null ? t : u;
-      (b == null || (n = b.groupMetadata) == null ? void 0 : n.groupType) ===
-        o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-        (S = s._(/*BTDS*/ "Announcements").toString());
-      var R = function () {
-        o("WAWebCommunityRemoveSubgroup").handleRemoveSubgroup({
-          parentId: d,
-          removedSubgroupWid: g,
-          removedSubgroupTitle: S,
-          setLoading: C,
-        });
-      };
-      return c.jsx(r("WAWebCellFrame.react"), {
-        primary: c.jsx(o("WAWebEmojiText.react").EmojiText, {
-          text: S,
-          ellipsify: !0,
-        }),
-        image: i,
-        secondary: m,
-        detail:
-          f &&
-          (y
-            ? c.jsx(r("WAWebVelocityTransitionGroup"), {
-                transitionName: "fade",
-                children: c.jsx(o("WAWebSpinner.react").Spinner, {
-                  size: 18,
-                  stroke: 6,
-                  color: "highlight",
-                }),
-              })
-            : c.jsx(r("WAWebVelocityTransitionGroup"), {
-                transitionName: "fade",
-                children: c.jsx(_, {
-                  onClick: R,
-                  active: e.active,
-                  subgroup: g,
-                  groupName: S,
-                }),
-              })),
-      });
+        b;
+      n[0] !== l
+        ? ((b = o("WAWebChatCollection").ChatCollection.get(l)),
+          (n[0] = l),
+          (n[1] = b))
+        : (b = n[1]);
+      var v = b,
+        S;
+      n[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = ["formattedTitle"]), (n[2] = S))
+        : (S = n[2]);
+      var R = o("useWAWebModelValues").useOptionalModelValues(v, S),
+        L;
+      if (
+        n[3] !== (R == null ? void 0 : R.formattedTitle) ||
+        n[4] !==
+          (v == null || (t = v.groupMetadata) == null ? void 0 : t.groupType) ||
+        n[5] !== u
+      ) {
+        var E, k, I;
+        ((L = (E = R == null ? void 0 : R.formattedTitle) != null ? E : u),
+          (v == null || (k = v.groupMetadata) == null
+            ? void 0
+            : k.groupType) ===
+            o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
+            (L = s._(/*BTDS*/ "Announcements").toString()),
+          (n[3] = R == null ? void 0 : R.formattedTitle),
+          (n[4] =
+            v == null || (I = v.groupMetadata) == null ? void 0 : I.groupType),
+          (n[5] = u),
+          (n[6] = L));
+      } else L = n[6];
+      var T;
+      n[7] !== L || n[8] !== d || n[9] !== g
+        ? ((T = function () {
+            o("WAWebCommunityRemoveSubgroup").handleRemoveSubgroup({
+              parentId: d,
+              removedSubgroupWid: g,
+              removedSubgroupTitle: L,
+              setLoading: C,
+            });
+          }),
+          (n[7] = L),
+          (n[8] = d),
+          (n[9] = g),
+          (n[10] = T))
+        : (T = n[10]);
+      var D = T,
+        x;
+      n[11] !== L
+        ? ((x = c.jsx(o("WAWebEmojiText.react").EmojiText, {
+            text: L,
+            ellipsify: !0,
+          })),
+          (n[11] = L),
+          (n[12] = x))
+        : (x = n[12]);
+      var $;
+      n[13] !== L ||
+      n[14] !== D ||
+      n[15] !== y ||
+      n[16] !== e.active ||
+      n[17] !== f ||
+      n[18] !== g
+        ? (($ =
+            f &&
+            (y
+              ? c.jsx(r("WAWebVelocityTransitionGroup"), {
+                  transitionName: "fade",
+                  children: c.jsx(o("WAWebSpinner.react").Spinner, {
+                    size: 18,
+                    stroke: 6,
+                    color: "highlight",
+                  }),
+                })
+              : c.jsx(r("WAWebVelocityTransitionGroup"), {
+                  transitionName: "fade",
+                  children: c.jsx(_, {
+                    onClick: D,
+                    active: e.active,
+                    subgroup: g,
+                    groupName: L,
+                  }),
+                }))),
+          (n[13] = L),
+          (n[14] = D),
+          (n[15] = y),
+          (n[16] = e.active),
+          (n[17] = f),
+          (n[18] = g),
+          (n[19] = $))
+        : ($ = n[19]);
+      var P;
+      return (
+        n[20] !== i || n[21] !== m || n[22] !== x || n[23] !== $
+          ? ((P = c.jsx(r("WAWebCellFrame.react"), {
+              primary: x,
+              image: i,
+              secondary: m,
+              detail: $,
+            })),
+            (n[20] = i),
+            (n[21] = m),
+            (n[22] = x),
+            (n[23] = $),
+            (n[24] = P))
+          : (P = n[24]),
+        P
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(t) {
       var n,
         a = t.ref,

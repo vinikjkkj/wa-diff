@@ -9,6 +9,7 @@ __d(
     "WDSButton.react",
     "WDSIconIcPhotoCamera.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -71,51 +72,82 @@ __d(
         },
       };
     function p(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(10),
         n = e.profilePicThumb,
-        a = o("useWAWebModelValues").useModelValues(n, ["id"]),
-        i = c(null),
-        l = function () {
-          var e;
-          (e = i.current) == null || e.click();
-        };
-      return u.jsx((t = r("WAWebFlexItem.react")), {
-        xstyle: m.container,
-        children: u.jsx(o("WAWebFlex.react").FlexColumn, {
-          align: "center",
-          children: u.jsxs(t, {
-            xstyle: m.imageBorder,
-            children: [
-              u.jsx(o("WAWebDetailImage.react").DetailImage, {
-                id: a.id,
-                size: d,
-                loader: !0,
-                quality: o("WAWebDetailImage.react").DetailImageQuality.High,
-              }),
-              u.jsx(t, {
-                xstyle: m.pickerOverlay,
-                children: u.jsx(r("WAWebProfilePicPicker.react"), {
-                  profilePicThumb: n,
-                  size: d,
-                  editImageButtonRef: i,
-                }),
-              }),
-              u.jsx(t, {
-                xstyle: m.profilePicEditButtonWrapper,
-                children: u.jsx(r("WDSButton.react"), {
-                  Icon: r("WDSIconIcPhotoCamera.react"),
-                  label: s._(/*BTDS*/ "Edit"),
-                  variant: "outline",
-                  xstyle: m.editButtonColor,
-                  onPress: l,
-                }),
-              }),
-            ],
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = ["id"]), (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebModelValues").useModelValues(n, a),
+        l = c(null),
+        p;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = function () {
+            var e;
+            (e = l.current) == null || e.click();
           }),
-        }),
-      });
+          (t[1] = p))
+        : (p = t[1]);
+      var _ = p,
+        f;
+      t[2] !== i.id
+        ? ((f = u.jsx(o("WAWebDetailImage.react").DetailImage, {
+            id: i.id,
+            size: d,
+            loader: !0,
+            quality: o("WAWebDetailImage.react").DetailImageQuality.High,
+          })),
+          (t[2] = i.id),
+          (t[3] = f))
+        : (f = t[3]);
+      var g;
+      t[4] !== n
+        ? ((g = u.jsx(r("WAWebFlexItem.react"), {
+            xstyle: m.pickerOverlay,
+            children: u.jsx(r("WAWebProfilePicPicker.react"), {
+              profilePicThumb: n,
+              size: d,
+              editImageButtonRef: l,
+            }),
+          })),
+          (t[4] = n),
+          (t[5] = g))
+        : (g = t[5]);
+      var h;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = u.jsx(r("WAWebFlexItem.react"), {
+            xstyle: m.profilePicEditButtonWrapper,
+            children: u.jsx(r("WDSButton.react"), {
+              Icon: r("WDSIconIcPhotoCamera.react"),
+              label: s._(/*BTDS*/ "Edit"),
+              variant: "outline",
+              xstyle: m.editButtonColor,
+              onPress: _,
+            }),
+          })),
+          (t[6] = h))
+        : (h = t[6]);
+      var y;
+      return (
+        t[7] !== f || t[8] !== g
+          ? ((y = u.jsx(r("WAWebFlexItem.react"), {
+              xstyle: m.container,
+              children: u.jsx(o("WAWebFlex.react").FlexColumn, {
+                align: "center",
+                children: u.jsxs(r("WAWebFlexItem.react"), {
+                  xstyle: m.imageBorder,
+                  children: [f, g, h],
+                }),
+              }),
+            })),
+            (t[7] = f),
+            (t[8] = g),
+            (t[9] = y))
+          : (y = t[9]),
+        y
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

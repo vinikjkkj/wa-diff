@@ -5,6 +5,7 @@ __d(
     "WAWebMediaEditorEnumsColors",
     "WAWebMediaEditorUtilsColor",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -28,57 +29,87 @@ __d(
         o("WAWebMediaEditorEnumsColors").ColorType.WHITE,
       ).toRgbString();
     function h(e) {
-      var t = e.height,
-        n = e.ref,
-        r = e.width,
-        a = p();
-      d(n, function () {
-        return {
-          hide: function () {
-            var e;
-            (e = a.current) == null || e.hide();
-          },
-          show: function () {
-            var e;
-            (e = a.current) == null || e.show();
-          },
-        };
-      });
-      var i = m(
-        function () {
-          var e = document.createElement("canvas");
-          return ((e.width = Math.max(r, 1)), (e.height = Math.max(t, 1)), e);
-        },
-        [r, t],
-      );
-      return (
-        c(
-          function () {
+      var t = o("react-compiler-runtime").c(13),
+        n = e.height,
+        r = e.ref,
+        a = e.width,
+        i = p(),
+        l;
+      (t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = function () {
+            return {
+              hide: function () {
+                var e;
+                (e = i.current) == null || e.hide();
+              },
+              show: function () {
+                var e;
+                (e = i.current) == null || e.show();
+              },
+            };
+          }),
+          (t[0] = l))
+        : (l = t[0]),
+        d(r, l));
+      var u;
+      t[1] !== n || t[2] !== a
+        ? ((u = document.createElement("canvas")),
+          (u.width = Math.max(a, 1)),
+          (u.height = Math.max(n, 1)),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = u))
+        : (u = t[3]);
+      var m = u,
+        h,
+        y;
+      (t[4] !== n || t[5] !== m || t[6] !== a
+        ? ((h = function () {
             var e,
-              n = i.getContext("2d");
-            n.clearRect(0, 0, i.width, i.height);
+              t = m.getContext("2d");
+            t.clearRect(0, 0, m.width, m.height);
             for (
-              var o = _, l = Math.ceil(r / o), s = Math.ceil(t / o), u = 0;
-              u < s;
-              u++
+              var r = Math.ceil(a / _), o = Math.ceil(n / _), l = 0;
+              l < o;
+              l++
             )
-              for (var c = 0; c < l; c++) {
-                var d = (u + c) % 2 === 0 ? g : f;
-                (n.beginPath(),
-                  n.rect(c * o, u * o, o, o),
-                  (n.fillStyle = d),
-                  n.fill());
+              for (var s = 0; s < r; s++) {
+                var u = (l + s) % 2 === 0 ? g : f;
+                (t.beginPath(),
+                  t.rect(s * _, l * _, _, _),
+                  (t.fillStyle = u),
+                  t.fill());
               }
-            (e = a.current) == null ||
+            (e = i.current) == null ||
               (e = e.getLayer()) == null ||
               e.batchDraw();
-          },
-          [i, r, t],
-        ),
-        s.jsx(o("ReactKonva").Image, { ref: a, width: r, height: t, image: i })
+          }),
+          (y = [m, a, n]),
+          (t[4] = n),
+          (t[5] = m),
+          (t[6] = a),
+          (t[7] = h),
+          (t[8] = y))
+        : ((h = t[7]), (y = t[8])),
+        c(h, y));
+      var C;
+      return (
+        t[9] !== n || t[10] !== m || t[11] !== a
+          ? ((C = s.jsx(o("ReactKonva").Image, {
+              ref: i,
+              width: a,
+              height: n,
+              image: m,
+            })),
+            (t[9] = n),
+            (t[10] = m),
+            (t[11] = a),
+            (t[12] = C))
+          : (C = t[12]),
+        C
       );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = h));
+    l.default = h;
   },
   98,
 );

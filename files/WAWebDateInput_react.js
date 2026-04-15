@@ -9,6 +9,7 @@ __d(
     "WDSText.react",
     "fbs",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -70,109 +71,202 @@ __d(
         },
       };
     function f(t) {
-      var n = t.getDateBoundaries,
-        a = t.label,
-        i = t.name,
-        l = t.onChange,
-        s = t.theme,
-        c = t.value,
+      var n = o("react-compiler-runtime").c(41),
+        a = t.getDateBoundaries,
+        i = t.label,
+        l = t.name,
+        s = t.onChange,
+        c = t.theme,
+        d = t.value,
         f = m(),
         g = p(!1),
         h = g[0],
         y = g[1],
-        C = d(
-          function () {
-            return n();
-          },
-          [n],
-        ),
-        b = C[0],
-        v = C[1],
-        S = function (t) {
-          var e = t.target.value;
-          l(e);
-        },
-        R = function () {
-          var e;
-          return (e = f.current) == null ? void 0 : e.showPicker();
-        },
-        L = function () {
-          return y(!1);
-        },
-        E = function () {
-          return y(!0);
-        },
-        k = s === "about",
-        I = a != null && k,
-        T = [
-          _.container,
-          k ? _.aboutBorder : _.eventBorder,
-          !k && o("WAWebUISpacing").uiMargin.bottom10,
-          !k && o("WAWebUISpacing").uiPadding.vert5,
-          h && (k ? _.aboutActiveBorder : _.eventActiveBorder),
-          I && _.labeledContainer,
-        ],
-        D = !("showPicker" in HTMLInputElement.prototype),
-        x = (D || o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari) && h,
-        $ = r("WAWeb-moment")(c).format("LL");
-      return u.jsxs(
-        "section",
-        babelHelpers.extends({}, (e || (e = r("stylex"))).props(T), {
-          children: [
-            I &&
-              u.jsx("div", {
-                className:
-                  "x10l6tqk x13vifvy x4brfc7 x1cb1t30 x1280gxy x181vq82 x1uc92m x1vjfegm x47corl",
-                children: u.jsx(r("WDSText.react"), {
-                  type: "Body3",
-                  colorName: "contentDeemphasized",
-                  children: a,
-                }),
+        C;
+      n[0] !== a ? ((C = a()), (n[0] = a), (n[1] = C)) : (C = n[1]);
+      var b = C,
+        v = b[0],
+        S = b[1],
+        R;
+      n[2] !== s
+        ? ((R = function (t) {
+            var e = t.target.value;
+            s(e);
+          }),
+          (n[2] = s),
+          (n[3] = R))
+        : (R = n[3]);
+      var L = R,
+        E;
+      n[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((E = function () {
+            var e;
+            return (e = f.current) == null ? void 0 : e.showPicker();
+          }),
+          (n[4] = E))
+        : (E = n[4]);
+      var k = E,
+        I;
+      n[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = function () {
+            return y(!1);
+          }),
+          (n[5] = I))
+        : (I = n[5]);
+      var T = I,
+        D;
+      n[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = function () {
+            return y(!0);
+          }),
+          (n[6] = D))
+        : (D = n[6]);
+      var x = D,
+        $ = c === "about",
+        P = i != null && $,
+        N = $ ? _.aboutBorder : _.eventBorder,
+        M = !$ && o("WAWebUISpacing").uiMargin.bottom10,
+        w = !$ && o("WAWebUISpacing").uiPadding.vert5,
+        A = h && ($ ? _.aboutActiveBorder : _.eventActiveBorder),
+        F = P && _.labeledContainer,
+        O,
+        B,
+        W;
+      if (
+        n[7] !== h ||
+        n[8] !== F ||
+        n[9] !== N ||
+        n[10] !== M ||
+        n[11] !== w ||
+        n[12] !== A ||
+        n[13] !== d
+      ) {
+        var q = [_.container, N, M, w, A, F],
+          U = !("showPicker" in HTMLInputElement.prototype);
+        B = (U || o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari) && h;
+        var V;
+        (n[17] !== d
+          ? ((V = r("WAWeb-moment")(d).format("LL")), (n[17] = d), (n[18] = V))
+          : (V = n[18]),
+          (O = V),
+          (W = (e || (e = r("stylex"))).props(q)),
+          (n[7] = h),
+          (n[8] = F),
+          (n[9] = N),
+          (n[10] = M),
+          (n[11] = w),
+          (n[12] = A),
+          (n[13] = d),
+          (n[14] = O),
+          (n[15] = B),
+          (n[16] = W));
+      } else ((O = n[14]), (B = n[15]), (W = n[16]));
+      var H;
+      n[19] !== P || n[20] !== i
+        ? ((H =
+            P &&
+            u.jsx("div", {
+              className:
+                "x10l6tqk x13vifvy x4brfc7 x1cb1t30 x1280gxy x181vq82 x1uc92m x1vjfegm x47corl",
+              children: u.jsx(r("WDSText.react"), {
+                type: "Body3",
+                colorName: "contentDeemphasized",
+                children: i,
               }),
-            u.jsxs("span", {
-              className: "x1iyjqo2 x78zum5",
+            })),
+          (n[19] = P),
+          (n[20] = i),
+          (n[21] = H))
+        : (H = n[21]);
+      var G;
+      n[22] === Symbol.for("react.memo_cache_sentinel")
+        ? ((G = { className: "x1iyjqo2 x78zum5" }), (n[22] = G))
+        : (G = n[22]);
+      var z = h ? -1 : 0,
+        j;
+      n[23] !== O ||
+      n[24] !== L ||
+      n[25] !== h ||
+      n[26] !== S ||
+      n[27] !== v ||
+      n[28] !== l ||
+      n[29] !== d
+        ? ((j = h
+            ? u.jsx("input", {
+                ref: f,
+                className:
+                  "xgcd1z6 x1heor9g x1iyjqo2 xrv4cvt x5yr21d x972fbf x10w94by x1qhh985 x14e42zd x1a2a7pz x16tdsg8 xolhmmf xk5dnk7 x1ti3vn2 x1jsrl1z",
+                type: "date",
+                name: l,
+                value: d,
+                onChange: L,
+                min: v,
+                max: S,
+                autoFocus: !0,
+                onBlur: T,
+              })
+            : u.jsx("span", {
+                className: "x1iyjqo2 xrv4cvt x5yr21d",
+                children: O,
+              })),
+          (n[23] = O),
+          (n[24] = L),
+          (n[25] = h),
+          (n[26] = S),
+          (n[27] = v),
+          (n[28] = l),
+          (n[29] = d),
+          (n[30] = j))
+        : (j = n[30]);
+      var K;
+      n[31] !== B
+        ? ((K =
+            !B &&
+            u.jsx(r("WAWebUnstyledButton.react"), {
+              onClick: k,
+              xstyle: o("WAWebUISpacing").uiMargin.end5,
+              "aria-label": r("fbs")._(/*BTDS*/ "Select date from calendar"),
+              onBlur: T,
+              children: u.jsx(
+                o("WAWebCalendarMonthIcon.react").CalendarMonthIcon,
+                { height: 16, width: 16, xstyle: _.iconColor },
+              ),
+            })),
+          (n[31] = B),
+          (n[32] = K))
+        : (K = n[32]);
+      var Q;
+      n[33] !== z || n[34] !== j || n[35] !== K
+        ? ((Q = u.jsxs(
+            "span",
+            babelHelpers.extends({}, G, {
               role: "textbox",
-              tabIndex: h ? -1 : 0,
-              onFocus: E,
-              children: [
-                h
-                  ? u.jsx("input", {
-                      ref: f,
-                      className:
-                        "xgcd1z6 x1heor9g x1iyjqo2 xrv4cvt x5yr21d x972fbf x10w94by x1qhh985 x14e42zd x1a2a7pz x16tdsg8 xolhmmf xk5dnk7 x1ti3vn2 x1jsrl1z",
-                      type: "date",
-                      name: i,
-                      value: c,
-                      onChange: S,
-                      min: b,
-                      max: v,
-                      autoFocus: !0,
-                      onBlur: L,
-                    })
-                  : u.jsx("span", {
-                      className: "x1iyjqo2 xrv4cvt x5yr21d",
-                      children: $,
-                    }),
-                !x &&
-                  u.jsx(r("WAWebUnstyledButton.react"), {
-                    onClick: R,
-                    xstyle: o("WAWebUISpacing").uiMargin.end5,
-                    "aria-label": r("fbs")._(
-                      /*BTDS*/ "Select date from calendar",
-                    ),
-                    onBlur: L,
-                    children: u.jsx(
-                      o("WAWebCalendarMonthIcon.react").CalendarMonthIcon,
-                      { height: 16, width: 16, xstyle: _.iconColor },
-                    ),
-                  }),
-              ],
+              tabIndex: z,
+              onFocus: x,
+              children: [j, K],
             }),
-          ],
-        }),
+          )),
+          (n[33] = z),
+          (n[34] = j),
+          (n[35] = K),
+          (n[36] = Q))
+        : (Q = n[36]);
+      var X;
+      return (
+        n[37] !== W || n[38] !== H || n[39] !== Q
+          ? ((X = u.jsxs(
+              "section",
+              babelHelpers.extends({}, W, { children: [H, Q] }),
+            )),
+            (n[37] = W),
+            (n[38] = H),
+            (n[39] = Q),
+            (n[40] = X))
+          : (X = n[40]),
+        X
       );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.DateInput = f));
+    l.DateInput = f;
   },
   226,
 );

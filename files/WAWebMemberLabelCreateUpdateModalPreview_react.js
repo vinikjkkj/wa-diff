@@ -12,6 +12,7 @@ __d(
     "WAWebWallpaper",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -101,22 +102,34 @@ __d(
         },
       };
     function m(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(16),
         n = e.memberLabel,
-        a = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-        i = c(
-          function () {
-            if (a == null) return null;
-            var e = o("WAWebContactCollection").ContactCollection.get(a);
-            return e != null
-              ? o("WAWebFrontendContactGetters").getFormattedUser(e)
-              : null;
-          },
-          [a],
-        );
-      return u.jsxs(u.Fragment, {
-        children: [
-          u.jsx((t = o("WAWebFlex.react")).FlexRow, {
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = o("WAWebUserPrefsMeUser").getMaybeMePnUser()), (t[0] = a))
+        : (a = t[0]);
+      var i = a,
+        l;
+      e: {
+        if (i == null) {
+          l = null;
+          break e;
+        }
+        var c;
+        if (t[1] === Symbol.for("react.memo_cache_sentinel")) {
+          var m = o("WAWebContactCollection").ContactCollection.get(i);
+          ((c =
+            m != null
+              ? o("WAWebFrontendContactGetters").getFormattedUser(m)
+              : null),
+            (t[1] = c));
+        } else c = t[1];
+        l = c;
+      }
+      var _ = l,
+        f;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = u.jsx(o("WAWebFlex.react").FlexRow, {
             xstyle: d.chatTitle,
             align: "stretch",
             children: u.jsx(r("WDSText.react"), {
@@ -124,86 +137,142 @@ __d(
               colorName: "contentDeemphasized",
               children: s._(/*BTDS*/ "Preview"),
             }),
-          }),
-          u.jsxs(t.FlexRow, {
-            xstyle: d.doodleContainer,
-            children: [
-              u.jsx(r("WAWebConversationBackground.react"), {
-                wallpaper: o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
-                showDoodle: !0,
-              }),
-              u.jsx(t.FlexColumn, {
-                grow: 1,
-                align: "stretch",
-                children: u.jsxs(t.FlexRow, {
-                  justify: "stretch",
-                  children: [
-                    u.jsx(t.FlexRow, {
-                      xstyle: d.labelPreviewProfile,
-                      children:
-                        a != null
-                          ? u.jsx(o("WAWebDetailImage.react").DetailImage, {
-                              id: a,
-                              size: o("WAWebDetailImage.react").DetailImageSize
-                                .None,
-                            })
-                          : null,
-                    }),
-                    u.jsxs(o("WAWebFlex.react").FlexRow, {
-                      grow: 1,
-                      children: [
-                        u.jsx(o("WAWebTailInIcon.react").TailInIcon, {
-                          xstyle: d.labelPreviewMessageBubbleTail,
-                        }),
-                        u.jsxs(o("WAWebFlex.react").FlexColumn, {
-                          xstyle: d.labelPreviewMessageBubble,
-                          align: "stretch",
-                          children: [
-                            u.jsxs("div", {
-                              className: "x14hzkev x1f6kntn xd4r4e8 xk50ysn",
-                              children: [
-                                i != null ? i : s._(/*BTDS*/ "Preview"),
-                                " ",
-                                s._(/*BTDS*/ "(You)"),
-                              ],
-                            }),
-                            u.jsx(r("WDSText.react"), {
-                              colorName: "contentDeemphasized",
-                              type: "Body3",
-                              children:
-                                n != null && n.trim()
-                                  ? n
-                                  : s._(/*BTDS*/ "Member tag appears here"),
-                            }),
-                            u.jsx(p, {}),
-                          ],
-                        }),
-                      ],
-                    }),
-                  ],
+          })),
+          (t[2] = f))
+        : (f = t[2]);
+      var g;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = u.jsx(r("WAWebConversationBackground.react"), {
+            wallpaper: o("WAWebWallpaper").DEFAULT_CHAT_WALLPAPER,
+            showDoodle: !0,
+          })),
+          (t[3] = g))
+        : (g = t[3]);
+      var h;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = u.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: d.labelPreviewProfile,
+            children:
+              i != null
+                ? u.jsx(o("WAWebDetailImage.react").DetailImage, {
+                    id: i,
+                    size: o("WAWebDetailImage.react").DetailImageSize.None,
+                  })
+                : null,
+          })),
+          (t[4] = h))
+        : (h = t[4]);
+      var y;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = u.jsx(o("WAWebTailInIcon.react").TailInIcon, {
+            xstyle: d.labelPreviewMessageBubbleTail,
+          })),
+          (t[5] = y))
+        : (y = t[5]);
+      var C, b;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = { className: "x14hzkev x1f6kntn xd4r4e8 xk50ysn" }),
+          (b = _ != null ? _ : s._(/*BTDS*/ "Preview")),
+          (t[6] = C),
+          (t[7] = b))
+        : ((C = t[6]), (b = t[7]));
+      var v;
+      t[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = u.jsxs(
+            "div",
+            babelHelpers.extends({}, C, {
+              children: [b, " ", s._(/*BTDS*/ "(You)")],
+            }),
+          )),
+          (t[8] = v))
+        : (v = t[8]);
+      var S;
+      t[9] !== n
+        ? ((S =
+            n != null && n.trim()
+              ? n
+              : s._(/*BTDS*/ "Member tag appears here")),
+          (t[9] = n),
+          (t[10] = S))
+        : (S = t[10]);
+      var R;
+      t[11] !== S
+        ? ((R = u.jsx(r("WDSText.react"), {
+            colorName: "contentDeemphasized",
+            type: "Body3",
+            children: S,
+          })),
+          (t[11] = S),
+          (t[12] = R))
+        : (R = t[12]);
+      var L;
+      t[13] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = u.jsx(p, {})), (t[13] = L))
+        : (L = t[13]);
+      var E;
+      if (t[14] !== R) {
+        var k;
+        ((E = u.jsxs(u.Fragment, {
+          children: [
+            f,
+            u.jsxs((k = o("WAWebFlex.react")).FlexRow, {
+              xstyle: d.doodleContainer,
+              children: [
+                g,
+                u.jsx(k.FlexColumn, {
+                  grow: 1,
+                  align: "stretch",
+                  children: u.jsxs(k.FlexRow, {
+                    justify: "stretch",
+                    children: [
+                      h,
+                      u.jsxs(k.FlexRow, {
+                        grow: 1,
+                        children: [
+                          y,
+                          u.jsxs(k.FlexColumn, {
+                            xstyle: d.labelPreviewMessageBubble,
+                            align: "stretch",
+                            children: [v, R, L],
+                          }),
+                        ],
+                      }),
+                    ],
+                  }),
                 }),
-              }),
-            ],
-          }),
-        ],
-      });
+              ],
+            }),
+          ],
+        })),
+          (t[14] = R),
+          (t[15] = E));
+      } else E = t[15];
+      return E;
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p() {
-      return u.jsx(o("WAWebFlex.react").FlexColumn, {
-        xstyle: d.skeletonContainer,
-        align: "stretch",
-        children: Array.from({ length: 3 }, function (e, t) {
-          var n = t === 2;
-          return u.jsx(
-            o("WAWebFlex.react").FlexRow,
-            { xstyle: [d.skeleton, n && d.skeletonLast] },
-            t,
-          );
-        }),
-      });
+      var e = o("react-compiler-runtime").c(1),
+        t;
+      return (
+        e[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((t = u.jsx(o("WAWebFlex.react").FlexColumn, {
+              xstyle: d.skeletonContainer,
+              align: "stretch",
+              children: Array.from({ length: 3 }, _),
+            })),
+            (e[0] = t))
+          : (t = e[0]),
+        t
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
+    function _(e, t) {
+      var n = t === 2;
+      return u.jsx(
+        o("WAWebFlex.react").FlexRow,
+        { xstyle: [d.skeleton, n && d.skeletonLast] },
+        t,
+      );
+    }
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

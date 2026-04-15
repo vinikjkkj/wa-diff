@@ -32,6 +32,7 @@ __d(
     "isStringNullOrEmpty",
     "qpl",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useHoverState",
     "useWAWebModelValues",
@@ -73,33 +74,55 @@ __d(
       },
       h = r("qpl")._(774774794, "10");
     function y(e) {
-      var t = e.isAvailable,
-        n = e.onSendChat,
-        r = e.product,
-        a = o("WAWebUserPrefsMeUser").isMePnUser(r.catalogWid);
+      var t = o("react-compiler-runtime").c(7),
+        n = e.isAvailable,
+        r = e.onSendChat,
+        a = e.product,
+        i = o("WAWebUserPrefsMeUser").isMePnUser(a.catalogWid);
       if (
-        a ||
+        i ||
+        !r ||
+        !a.fetchedFromServer ||
         !n ||
-        !r.fetchedFromServer ||
-        !t ||
-        r.reviewStatus !==
+        a.reviewStatus !==
           o("WAWebProductCollection").PRODUCT_REVIEW_STATUS.APPROVED
       )
         return null;
-      var i = s._(/*BTDS*/ "Message business");
-      return d.jsx("div", {
-        className: "x78zum5 x2b8uid xefnzgg",
-        title: i,
-        children: d.jsx(o("WAWebButton.react").Button, {
-          testid: void 0,
-          onClick: n,
-          type: "secondary",
-          stretch: !0,
-          children: i,
-        }),
-      });
+      var l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(/*BTDS*/ "Message business")), (t[0] = l))
+        : (l = t[0]);
+      var u = l,
+        c;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((c = { className: "x78zum5 x2b8uid xefnzgg" }), (t[1] = c))
+        : (c = t[1]);
+      var m;
+      t[2] !== r
+        ? ((m = d.jsx(o("WAWebButton.react").Button, {
+            testid: void 0,
+            onClick: r,
+            type: "secondary",
+            stretch: !0,
+            children: u,
+          })),
+          (t[2] = r),
+          (t[3] = m))
+        : (m = t[3]);
+      var p;
+      return (
+        t[4] !== c || t[5] !== m
+          ? ((p = d.jsx(
+              "div",
+              babelHelpers.extends({}, c, { title: u, children: m }),
+            )),
+            (t[4] = c),
+            (t[5] = m),
+            (t[6] = p))
+          : (p = t[6]),
+        p
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
       var t = e.cartEnabled,
         n = e.collectionId,
@@ -197,63 +220,118 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.hideRetailerID,
-        n = e.isAvailable,
-        a = e.isDescExpanded,
-        i = e.onClickUrl,
-        l = e.onReadMore,
-        c = e.product,
-        m = !r("isStringNullOrEmpty")(c.description),
-        p = !r("isStringNullOrEmpty")(c.retailerId),
-        _ = !r("isStringNullOrEmpty")(c.url);
-      if (!m && !_ && !p) return null;
-      var f =
-          c.description != null &&
-          c.description.length >
+      var t = o("react-compiler-runtime").c(24),
+        n = e.hideRetailerID,
+        a = e.isAvailable,
+        i = e.isDescExpanded,
+        l = e.onClickUrl,
+        c = e.onReadMore,
+        m = e.product,
+        p;
+      t[0] !== m.description
+        ? ((p = r("isStringNullOrEmpty")(m.description)),
+          (t[0] = m.description),
+          (t[1] = p))
+        : (p = t[1]);
+      var _ = !p,
+        f;
+      t[2] !== m.retailerId
+        ? ((f = r("isStringNullOrEmpty")(m.retailerId)),
+          (t[2] = m.retailerId),
+          (t[3] = f))
+        : (f = t[3]);
+      var h = !f,
+        y = !r("isStringNullOrEmpty")(m.url);
+      if (!_ && !y && !h) return null;
+      var C =
+          m.description != null &&
+          m.description.length >
             r("WAWebConstantsDeprecated")
               .GROUP_DESCRIPTION_INFO_PANEL_TRUNC_LENGTH,
-        h = m
-          ? d.jsxs("div", {
-              children: [
-                d.jsx(o("WAWebEmojiText.react").EmojiText, {
-                  selectable: !0,
-                  multiline: !0,
-                  text: c.description,
-                  textLimit: a
-                    ? 1 / 0
-                    : r("WAWebConstantsDeprecated")
-                        .GROUP_DESCRIPTION_INFO_PANEL_TRUNC_LENGTH,
-                }),
-                f && !a
-                  ? d.jsxs("span", {
-                      className: "x1ph7ams",
-                      role: "button",
-                      onClick: l,
-                      children: [" ", s._(/*BTDS*/ "Read more")],
-                    })
-                  : null,
-              ],
-            })
-          : null;
-      return d.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
-        theme: "plain",
-        className: (u || (u = r("stylex")))([g.description, g.marginBottom20]),
-        children: [
-          h,
-          d.jsx(b, { isAvailable: n, product: c, onClick: i }),
-          p && !t
-            ? d.jsx("div", {
-                children: d.jsx(o("WAWebEmojiText.react").EmojiText, {
-                  text: c.retailerId,
-                  selectable: !0,
-                  direction: "inherit",
-                }),
+        v;
+      t[4] !== i ||
+      t[5] !== c ||
+      t[6] !== m.description ||
+      t[7] !== C ||
+      t[8] !== _
+        ? ((v = _
+            ? d.jsxs("div", {
+                children: [
+                  d.jsx(o("WAWebEmojiText.react").EmojiText, {
+                    selectable: !0,
+                    multiline: !0,
+                    text: m.description,
+                    textLimit: i
+                      ? 1 / 0
+                      : r("WAWebConstantsDeprecated")
+                          .GROUP_DESCRIPTION_INFO_PANEL_TRUNC_LENGTH,
+                  }),
+                  C && !i
+                    ? d.jsxs("span", {
+                        className: "x1ph7ams",
+                        role: "button",
+                        onClick: c,
+                        children: [" ", s._(/*BTDS*/ "Read more")],
+                      })
+                    : null,
+                ],
               })
-            : null,
-        ],
-      });
+            : null),
+          (t[4] = i),
+          (t[5] = c),
+          (t[6] = m.description),
+          (t[7] = C),
+          (t[8] = _),
+          (t[9] = v))
+        : (v = t[9]);
+      var S = v,
+        R;
+      t[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((R = (u || (u = r("stylex")))([g.description, g.marginBottom20])),
+          (t[10] = R))
+        : (R = t[10]);
+      var L;
+      t[11] !== a || t[12] !== l || t[13] !== m
+        ? ((L = d.jsx(b, { isAvailable: a, product: m, onClick: l })),
+          (t[11] = a),
+          (t[12] = l),
+          (t[13] = m),
+          (t[14] = L))
+        : (L = t[14]);
+      var E;
+      t[15] !== n || t[16] !== m.retailerId || t[17] !== h
+        ? ((E =
+            h && !n
+              ? d.jsx("div", {
+                  children: d.jsx(o("WAWebEmojiText.react").EmojiText, {
+                    text: m.retailerId,
+                    selectable: !0,
+                    direction: "inherit",
+                  }),
+                })
+              : null),
+          (t[15] = n),
+          (t[16] = m.retailerId),
+          (t[17] = h),
+          (t[18] = E))
+        : (E = t[18]);
+      var k;
+      return (
+        t[19] !== S || t[20] !== R || t[21] !== L || t[22] !== E
+          ? ((k = d.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
+              theme: "plain",
+              className: R,
+              children: [S, L, E],
+            })),
+            (t[19] = S),
+            (t[20] = R),
+            (t[21] = L),
+            (t[22] = E),
+            (t[23] = k))
+          : (k = t[23]),
+        k
+      );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(t) {
       var n,
         a = t.collectionId,

@@ -9,6 +9,7 @@ __d(
     "WDSFontTokenStyles",
     "nullthrows",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -70,72 +71,137 @@ __d(
         addOnAfterContainer: { minWidth: "xnei2rj", $$css: !0 },
       };
     function p(e) {
-      var t = e.addOnAfter,
-        n = e.ariaLabel,
-        a = e.inputContainerXstyle,
-        i = e.text,
-        l = e.xstyle,
-        u = d(!1),
-        p = u[0],
-        _ = u[1],
-        f = c(null),
-        g = function () {
-          if ((_(!0), f.current)) {
-            var e;
-            (e = window.getSelection()) == null ||
-              e.selectAllChildren(r("nullthrows")(f.current));
-          }
-        },
-        h = function () {
-          if ((_(!1), f.current)) {
-            var e;
-            (e = window.getSelection()) == null || e.removeAllRanges();
-          }
-        };
-      return s.jsxs(o("WAWebFlex.react").FlexRow, {
-        xstyle: [
-          m.container,
-          o("WDSColorStyles.stylex").WDSBackgroundColorStyles.surfaceHighlight,
-          p && m.containerFocused,
-          l,
-        ],
-        align: "center",
-        children: [
-          s.jsx(o("WAWebFlex.react").FlexItem, {
-            xstyle: [
-              m.inputContainer,
-              o("WAWebUISpacing").uiPadding.horiz20,
-              a,
-            ],
-            children: s.jsx(r("WAWebUnstyledButton.react"), {
-              ref: f,
-              xstyle: [
-                m.input,
-                o("WAWebUISpacing").uiPadding.all0,
-                o("WDSFontTokenStyles").WDSFontTokenStyles.Body2,
-              ],
-              "aria-label": n,
-              onFocus: g,
-              onBlur: h,
-              children: s.jsx(
-                o("WAWebCopyPasteSelectable.react").SelectableSpan,
-                { plainText: i.toString(), selectable: !0, children: i },
-              ),
-            }),
+      var t = o("react-compiler-runtime").c(25),
+        n = e.addOnAfter,
+        a = e.ariaLabel,
+        i = e.inputContainerXstyle,
+        l = e.text,
+        u = e.xstyle,
+        p = d(!1),
+        _ = p[0],
+        f = p[1],
+        g = c(null),
+        h;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = function () {
+            if ((f(!0), g.current)) {
+              var e;
+              (e = window.getSelection()) == null ||
+                e.selectAllChildren(r("nullthrows")(g.current));
+            }
           }),
-          t != null
-            ? s.jsx(o("WAWebFlex.react").FlexRow, {
-                xstyle: [
-                  m.addOnAfterContainer,
-                  o("WAWebUISpacing").uiPadding.all8,
-                ],
-                children: t,
-              })
-            : null,
-        ],
-      });
+          (t[0] = h))
+        : (h = t[0]);
+      var y = h,
+        C;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = function () {
+            if ((f(!1), g.current)) {
+              var e;
+              (e = window.getSelection()) == null || e.removeAllRanges();
+            }
+          }),
+          (t[1] = C))
+        : (C = t[1]);
+      var b = C,
+        v = _ && m.containerFocused,
+        S;
+      t[2] !== v || t[3] !== u
+        ? ((S = [
+            m.container,
+            o("WDSColorStyles.stylex").WDSBackgroundColorStyles
+              .surfaceHighlight,
+            v,
+            u,
+          ]),
+          (t[2] = v),
+          (t[3] = u),
+          (t[4] = S))
+        : (S = t[4]);
+      var R;
+      t[5] !== i
+        ? ((R = [m.inputContainer, o("WAWebUISpacing").uiPadding.horiz20, i]),
+          (t[5] = i),
+          (t[6] = R))
+        : (R = t[6]);
+      var L;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = [
+            m.input,
+            o("WAWebUISpacing").uiPadding.all0,
+            o("WDSFontTokenStyles").WDSFontTokenStyles.Body2,
+          ]),
+          (t[7] = L))
+        : (L = t[7]);
+      var E;
+      t[8] !== l ? ((E = l.toString()), (t[8] = l), (t[9] = E)) : (E = t[9]);
+      var k;
+      t[10] !== E || t[11] !== l
+        ? ((k = s.jsx(o("WAWebCopyPasteSelectable.react").SelectableSpan, {
+            plainText: E,
+            selectable: !0,
+            children: l,
+          })),
+          (t[10] = E),
+          (t[11] = l),
+          (t[12] = k))
+        : (k = t[12]);
+      var I;
+      t[13] !== a || t[14] !== k
+        ? ((I = s.jsx(r("WAWebUnstyledButton.react"), {
+            ref: g,
+            xstyle: L,
+            "aria-label": a,
+            onFocus: y,
+            onBlur: b,
+            children: k,
+          })),
+          (t[13] = a),
+          (t[14] = k),
+          (t[15] = I))
+        : (I = t[15]);
+      var T;
+      t[16] !== R || t[17] !== I
+        ? ((T = s.jsx(o("WAWebFlex.react").FlexItem, {
+            xstyle: R,
+            children: I,
+          })),
+          (t[16] = R),
+          (t[17] = I),
+          (t[18] = T))
+        : (T = t[18]);
+      var D;
+      t[19] !== n
+        ? ((D =
+            n != null
+              ? s.jsx(o("WAWebFlex.react").FlexRow, {
+                  xstyle: [
+                    m.addOnAfterContainer,
+                    o("WAWebUISpacing").uiPadding.all8,
+                  ],
+                  children: n,
+                })
+              : null),
+          (t[19] = n),
+          (t[20] = D))
+        : (D = t[20]);
+      var x;
+      return (
+        t[21] !== T || t[22] !== D || t[23] !== S
+          ? ((x = s.jsxs(o("WAWebFlex.react").FlexRow, {
+              xstyle: S,
+              align: "center",
+              children: [T, D],
+            })),
+            (t[21] = T),
+            (t[22] = D),
+            (t[23] = S),
+            (t[24] = x))
+          : (x = t[24]),
+        x
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   98,
 );

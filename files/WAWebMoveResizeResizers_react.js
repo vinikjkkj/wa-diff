@@ -1,6 +1,11 @@
 __d(
   "WAWebMoveResizeResizers.react",
-  ["WAWebMoveResizeComponentUtils", "react", "stylex"],
+  [
+    "WAWebMoveResizeComponentUtils",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -123,33 +128,56 @@ __d(
                         })();
     }
     function _(t) {
-      var n = t.currentAction,
-        a = t.directions,
-        i =
-          a === void 0
-            ? Array.from(
-                o("WAWebMoveResizeComponentUtils").ResizeDirections.members(),
-              )
-            : a,
-        l = t.getResizeCallback;
-      return i.map(function (t) {
-        return u.jsx(
-          "div",
-          babelHelpers.extends(
-            { "data-testid": void 0 },
-            (e || (e = r("stylex"))).props([
-              p(t),
-              m.resizer,
-              n === o("WAWebMoveResizeComponentUtils").UserActions.RESIZE &&
-                m.defaultCursor,
-            ]),
-            { onMouseDown: l(t) },
-          ),
-          t,
-        );
-      });
+      var n = o("react-compiler-runtime").c(9),
+        a = t.currentAction,
+        i = t.directions,
+        l = t.getResizeCallback,
+        s;
+      n[0] !== i
+        ? ((s =
+            i === void 0
+              ? Array.from(
+                  o("WAWebMoveResizeComponentUtils").ResizeDirections.members(),
+                )
+              : i),
+          (n[0] = i),
+          (n[1] = s))
+        : (s = n[1]);
+      var c = s,
+        d;
+      if (n[2] !== a || n[3] !== c || n[4] !== l) {
+        var _;
+        (n[6] !== a || n[7] !== l
+          ? ((_ = function (n) {
+              return u.jsx(
+                "div",
+                babelHelpers.extends(
+                  { "data-testid": void 0 },
+                  (e || (e = r("stylex"))).props([
+                    p(n),
+                    m.resizer,
+                    a ===
+                      o("WAWebMoveResizeComponentUtils").UserActions.RESIZE &&
+                      m.defaultCursor,
+                  ]),
+                  { onMouseDown: l(n) },
+                ),
+                n,
+              );
+            }),
+            (n[6] = a),
+            (n[7] = l),
+            (n[8] = _))
+          : (_ = n[8]),
+          (d = c.map(_)),
+          (n[2] = a),
+          (n[3] = c),
+          (n[4] = l),
+          (n[5] = d));
+      } else d = n[5];
+      return d;
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   98,
 );

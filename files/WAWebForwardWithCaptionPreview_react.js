@@ -26,7 +26,7 @@ __d(
     "WDSButton.react",
     "WDSIconIcClose.react",
     "WDSIconIcDescription.react",
-    "WDSIconIcEdit.react",
+    "WDSIconIcEditFilled.react",
     "react",
     "stylex",
     "useWAWebModelValues",
@@ -574,7 +574,7 @@ __d(
                       children: c.jsx("div", {
                         className:
                           "x10l6tqk xi2lk0m xz03a8w x78zum5 x6s0dn4 xl56j7k xgd8bvy x1fgtraw x1c9tyrk xeusxvb x1pahc9y x1ertn4p x1j3esqa xamhcws x1alpsbp xlxy82 xyumdvf x13fuv20 x18b5jzi x1q0q8m5 x1t7ytsu x1y55ic2 x1urg34u xee4sfp x1xm068e x1ypdohk xo1mcw5",
-                        children: c.jsx(r("WDSIconIcEdit.react"), {
+                        children: c.jsx(r("WDSIconIcEditFilled.react"), {
                           width: 16,
                           height: 16,
                         }),

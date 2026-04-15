@@ -1,6 +1,6 @@
 __d(
   "WAWebText_DONOTUSE.react",
-  ["WAWebClassnames", "react", "stylex"],
+  ["WAWebClassnames", "react", "react-compiler-runtime", "stylex"],
   function (t, n, r, o, a, i, l) {
     var e = ["ref"],
       s = ["ref"],
@@ -70,81 +70,222 @@ __d(
     function S(t) {
       var n,
         a,
-        i = t.ref,
-        l = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        s = l.as,
-        u = s === void 0 ? "span" : s,
-        c = l.size,
-        d = c === void 0 ? "14" : c,
-        m = l.theme,
-        p = l.weight,
-        _ = p === void 0 ? "normal" : p,
-        g = u,
-        S = l.color ? b[l.color] : null,
-        R = C[_],
-        L = ((n = l.xstyle) != null ? n : {}).fontSize != null ? null : d,
-        E = L != null ? y[L] : null,
-        k;
+        i = o("react-compiler-runtime").c(18),
+        l,
+        s;
+      i[0] !== t
+        ? ((s = t.ref),
+          (l = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (i[0] = t),
+          (i[1] = l),
+          (i[2] = s))
+        : ((l = i[1]), (s = i[2]));
+      var u = l,
+        c = u.as,
+        d = u.size,
+        m = u.theme,
+        p = u.weight,
+        _ = c === void 0 ? "span" : c,
+        g = d === void 0 ? "14" : d,
+        S = p === void 0 ? "normal" : p,
+        R = _,
+        L = l.color ? b[l.color] : null,
+        E = C[S],
+        k = ((n = l.xstyle) != null ? n : {}).fontSize != null ? null : g,
+        I = k != null ? y[k] : null,
+        T;
+      m && (T = v[m]);
+      var D = l.extras,
+        x;
+      i[3] !== L ||
+      i[4] !== I ||
+      i[5] !== l.className ||
+      i[6] !== l.xstyle ||
+      i[7] !== T ||
+      i[8] !== E
+        ? ((x = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+            (f || (f = r("stylex")))([I, T, E, L, l.xstyle]),
+            l.className,
+          )),
+          (i[3] = L),
+          (i[4] = I),
+          (i[5] = l.className),
+          (i[6] = l.xstyle),
+          (i[7] = T),
+          (i[8] = E),
+          (i[9] = x))
+        : (x = i[9]);
+      var $ = (a = l.ariaLabel) != null ? a : void 0,
+        P;
       return (
-        m && (k = v[m]),
-        h.jsx(
-          g,
-          babelHelpers.extends({}, l.extras, {
-            ref: i,
-            className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-              (f || (f = r("stylex")))([E, k, R, S, l.xstyle]),
-              l.className,
-            ),
-            "aria-label": (a = l.ariaLabel) != null ? a : void 0,
-            "data-testid": void 0,
-            children: l.children,
-          }),
-        )
+        i[10] !== R ||
+        i[11] !== l.children ||
+        i[12] !== l.testid ||
+        i[13] !== s ||
+        i[14] !== D ||
+        i[15] !== x ||
+        i[16] !== $
+          ? ((P = h.jsx(
+              R,
+              babelHelpers.extends({}, D, {
+                ref: s,
+                className: x,
+                "aria-label": $,
+                "data-testid": void 0,
+                children: l.children,
+              }),
+            )),
+            (i[10] = R),
+            (i[11] = l.children),
+            (i[12] = l.testid),
+            (i[13] = s),
+            (i[14] = D),
+            (i[15] = x),
+            (i[16] = $),
+            (i[17] = P))
+          : (P = i[17]),
+        P
       );
     }
-    S.displayName = S.name + " [from " + i.id + "]";
     var R = { 1: "h1", 2: "h2", 3: "h3", 4: "h4", 5: "h5", 6: "h6" };
     function L(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, s),
-        r = n.level,
-        o = r === void 0 ? "1" : r,
-        a = babelHelpers.objectWithoutPropertiesLoose(n, u);
-      return h.jsx(S, babelHelpers.extends({ ref: t, as: R[o] }, a));
-    }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, c);
-      return h.jsx(S, babelHelpers.extends({ ref: t, as: "p" }, n));
-    }
-    E.displayName = E.name + " [from " + i.id + "]";
-    function k(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, d);
-      return h.jsx(S, babelHelpers.extends({ ref: t, as: "div" }, n));
-    }
-    k.displayName = k.name + " [from " + i.id + "]";
-    function I(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, m);
-      return h.jsx(S, babelHelpers.extends({ ref: t, as: "span" }, n));
-    }
-    I.displayName = I.name + " [from " + i.id + "]";
-    function T(e) {
-      var t = e.ref,
-        n = babelHelpers.objectWithoutPropertiesLoose(e, p),
-        r = n.htmlFor,
-        o = babelHelpers.objectWithoutPropertiesLoose(n, _);
-      return h.jsx(
-        S,
-        babelHelpers.extends({ ref: t, as: "label" }, o, {
-          extras: { htmlFor: r },
-        }),
+      var t = o("react-compiler-runtime").c(10),
+        n,
+        r;
+      t[0] !== e
+        ? ((r = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, s)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r))
+        : ((n = t[1]), (r = t[2]));
+      var a, i;
+      if (t[3] !== n) {
+        var l = n;
+        ((a = l.level),
+          (i = babelHelpers.objectWithoutPropertiesLoose(l, u)),
+          (t[3] = n),
+          (t[4] = a),
+          (t[5] = i));
+      } else ((a = t[4]), (i = t[5]));
+      var c = a === void 0 ? "1" : a,
+        d = R[c],
+        m;
+      return (
+        t[6] !== r || t[7] !== d || t[8] !== i
+          ? ((m = h.jsx(S, babelHelpers.extends({ ref: r, as: d }, i))),
+            (t[6] = r),
+            (t[7] = d),
+            (t[8] = i),
+            (t[9] = m))
+          : (m = t[9]),
+        m
       );
     }
-    ((T.displayName = T.name + " [from " + i.id + "]"),
-      (l.Text = S),
+    function E(e) {
+      var t = o("react-compiler-runtime").c(6),
+        n,
+        r;
+      t[0] !== e
+        ? ((r = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, c)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r))
+        : ((n = t[1]), (r = t[2]));
+      var a;
+      return (
+        t[3] !== n || t[4] !== r
+          ? ((a = h.jsx(S, babelHelpers.extends({ ref: r, as: "p" }, n))),
+            (t[3] = n),
+            (t[4] = r),
+            (t[5] = a))
+          : (a = t[5]),
+        a
+      );
+    }
+    function k(e) {
+      var t = o("react-compiler-runtime").c(6),
+        n,
+        r;
+      t[0] !== e
+        ? ((r = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, d)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r))
+        : ((n = t[1]), (r = t[2]));
+      var a;
+      return (
+        t[3] !== n || t[4] !== r
+          ? ((a = h.jsx(S, babelHelpers.extends({ ref: r, as: "div" }, n))),
+            (t[3] = n),
+            (t[4] = r),
+            (t[5] = a))
+          : (a = t[5]),
+        a
+      );
+    }
+    function I(e) {
+      var t = o("react-compiler-runtime").c(6),
+        n,
+        r;
+      t[0] !== e
+        ? ((r = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, m)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r))
+        : ((n = t[1]), (r = t[2]));
+      var a;
+      return (
+        t[3] !== n || t[4] !== r
+          ? ((a = h.jsx(S, babelHelpers.extends({ ref: r, as: "span" }, n))),
+            (t[3] = n),
+            (t[4] = r),
+            (t[5] = a))
+          : (a = t[5]),
+        a
+      );
+    }
+    function T(e) {
+      var t = o("react-compiler-runtime").c(12),
+        n,
+        r;
+      t[0] !== e
+        ? ((r = e.ref),
+          (n = babelHelpers.objectWithoutPropertiesLoose(e, p)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = r))
+        : ((n = t[1]), (r = t[2]));
+      var a, i;
+      if (t[3] !== n) {
+        var l = n;
+        ((a = l.htmlFor),
+          (i = babelHelpers.objectWithoutPropertiesLoose(l, _)),
+          (t[3] = n),
+          (t[4] = a),
+          (t[5] = i));
+      } else ((a = t[4]), (i = t[5]));
+      var s;
+      t[6] !== a ? ((s = { htmlFor: a }), (t[6] = a), (t[7] = s)) : (s = t[7]);
+      var u;
+      return (
+        t[8] !== r || t[9] !== s || t[10] !== i
+          ? ((u = h.jsx(
+              S,
+              babelHelpers.extends({ ref: r, as: "label" }, i, { extras: s }),
+            )),
+            (t[8] = r),
+            (t[9] = s),
+            (t[10] = i),
+            (t[11] = u))
+          : (u = t[11]),
+        u
+      );
+    }
+    ((l.Text = S),
       (l.TextHeader = L),
       (l.TextParagraph = E),
       (l.TextDiv = k),

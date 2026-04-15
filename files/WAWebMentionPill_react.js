@@ -5,6 +5,7 @@ __d(
     "WAWebThemeContext",
     "WDSIconIcAlternateEmail.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -94,33 +95,63 @@ __d(
               : d.pillOthersIncoming;
     }
     function p(t) {
-      var n = t.children,
-        a = t.isMe,
-        i = t.isOutgoing,
-        l = t.isQuoted,
-        s = t.isRead,
-        p = t.onClick,
-        _ = o("WAWebThemeContext").useTheme(),
-        f = _.theme,
-        g = m(a, i, s, l, f === "light");
-      return u.jsxs(o("WAWebClickable.react").Clickable, {
-        className: (e || (e = r("stylex")))([d.pill, g]),
-        onClick: l === !0 ? void 0 : p,
-        role: "button",
-        tabIndex: l === !0 ? -1 : 0,
-        children: [
-          u.jsx("span", {
+      var n = o("react-compiler-runtime").c(14),
+        a = t.children,
+        i = t.isMe,
+        l = t.isOutgoing,
+        s = t.isQuoted,
+        p = t.isRead,
+        _ = t.onClick,
+        f = o("WAWebThemeContext").useTheme(),
+        g = f.theme,
+        h,
+        y;
+      if (n[0] !== i || n[1] !== l || n[2] !== s || n[3] !== p || n[4] !== g) {
+        var C = m(i, l, p, s, g === "light");
+        ((h = o("WAWebClickable.react").Clickable),
+          (y = (e || (e = r("stylex")))([d.pill, C])),
+          (n[0] = i),
+          (n[1] = l),
+          (n[2] = s),
+          (n[3] = p),
+          (n[4] = g),
+          (n[5] = h),
+          (n[6] = y));
+      } else ((h = n[5]), (y = n[6]));
+      var b = s === !0 ? void 0 : _,
+        v = s === !0 ? -1 : 0,
+        S;
+      n[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((S = u.jsx("span", {
             className: "x3nfvp2 x2lah0s xamitd3",
             children: u.jsx(r("WDSIconIcAlternateEmail.react"), {
               width: c,
               height: c,
             }),
-          }),
-          n,
-        ],
-      });
+          })),
+          (n[7] = S))
+        : (S = n[7]);
+      var R;
+      return (
+        n[8] !== h || n[9] !== a || n[10] !== y || n[11] !== b || n[12] !== v
+          ? ((R = u.jsxs(h, {
+              className: y,
+              onClick: b,
+              role: "button",
+              tabIndex: v,
+              children: [S, a],
+            })),
+            (n[8] = h),
+            (n[9] = a),
+            (n[10] = y),
+            (n[11] = b),
+            (n[12] = v),
+            (n[13] = R))
+          : (R = n[13]),
+        R
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   98,
 );

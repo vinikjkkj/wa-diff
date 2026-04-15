@@ -10,6 +10,7 @@ __d(
     "WAWebLottieAnimationLoadable",
     "WAWebText_DONOTUSE.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -41,24 +42,48 @@ __d(
         paragraph: { marginTop: "x1de0gy", $$css: !0 },
       };
     function d(e) {
-      var t = e.fromMe,
-        n = t
-          ? s._(/*BTDS*/ "Get started with disappearing messages")
-          : s._(/*BTDS*/ "Disappearing messages are turned on in this chat"),
-        a = s._(
-          /*BTDS*/ "For more privacy and storage, all new messages will disappear for everyone in this chat after the selected duration.",
-        ),
-        i;
-      return (
-        t
-          ? (i = s._(
+      var t = o("react-compiler-runtime").c(16),
+        n = e.fromMe,
+        a;
+      t[0] !== n
+        ? ((a = n
+            ? s._(/*BTDS*/ "Get started with disappearing messages")
+            : s._(/*BTDS*/ "Disappearing messages are turned on in this chat")),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(
+            /*BTDS*/ "For more privacy and storage, all new messages will disappear for everyone in this chat after the selected duration.",
+          )),
+          (t[2] = l))
+        : (l = t[2]);
+      var d = l,
+        m;
+      if (n) {
+        var p;
+        (t[3] === Symbol.for("react.memo_cache_sentinel")
+          ? ((p = s._(
               /*BTDS*/ "This setting does not affect your existing chats or any messages already saved to your device. Remember, people may find other ways to save messages.",
-            ))
-          : (i = u.jsxs(u.Fragment, {
+            )),
+            (t[3] = p))
+          : (p = t[3]),
+          (m = p));
+      } else {
+        var _;
+        t[4] === Symbol.for("react.memo_cache_sentinel")
+          ? ((_ = s._(
+              /*BTDS*/ "This setting does not affect your existing chats or any messages already saved to your device. Remember, people may find other ways to save messages.",
+            )),
+            (t[4] = _))
+          : (_ = t[4]);
+        var f;
+        (t[5] === Symbol.for("react.memo_cache_sentinel")
+          ? ((f = u.jsxs(u.Fragment, {
               children: [
-                s._(
-                  /*BTDS*/ "This setting does not affect your existing chats or any messages already saved to your device. Remember, people may find other ways to save messages.",
-                ),
+                _,
                 " ",
                 u.jsx(o("WAWebExternalLink.react").ExternalLink, {
                   href: o("WAWebFaqUrl").getEphemeralFaqUrl(),
@@ -66,46 +91,74 @@ __d(
                 }),
               ],
             })),
-        u.jsxs(u.Fragment, {
-          children: [
-            u.jsx(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "center",
-              children: u.jsx(
-                o("WAWebLottieAnimationLoadable").LottieAnimation,
-                {
-                  loop: !0,
-                  autoplay: !0,
-                  data: r("WAWebEphemeralNuxAnimationData"),
-                  xstyle: c.animation,
-                },
-              ),
+            (t[5] = f))
+          : (f = t[5]),
+          (m = f));
+      }
+      var g;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = u.jsx(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "center",
+            children: u.jsx(o("WAWebLottieAnimationLoadable").LottieAnimation, {
+              loop: !0,
+              autoplay: !0,
+              data: r("WAWebEphemeralNuxAnimationData"),
+              xstyle: c.animation,
             }),
-            u.jsx(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "center",
-              children: u.jsx(r("WAWebFlexItem.react"), {
-                xstyle: c.badge,
-                children: s._(/*BTDS*/ "New"),
-              }),
+          })),
+          (t[6] = g))
+        : (g = t[6]);
+      var h;
+      t[7] === Symbol.for("react.memo_cache_sentinel")
+        ? ((h = u.jsx(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "center",
+            children: u.jsx(r("WAWebFlexItem.react"), {
+              xstyle: c.badge,
+              children: s._(/*BTDS*/ "New"),
             }),
-            u.jsx(o("WAWebText_DONOTUSE.react").TextHeader, {
-              xstyle: c.header,
-              children: n,
-            }),
-            u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-              xstyle: c.paragraph,
-              children: a,
-            }),
-            u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
-              xstyle: c.paragraph,
-              children: i,
-            }),
-          ],
-        })
+          })),
+          (t[7] = h))
+        : (h = t[7]);
+      var y;
+      t[8] !== i
+        ? ((y = u.jsx(o("WAWebText_DONOTUSE.react").TextHeader, {
+            xstyle: c.header,
+            children: i,
+          })),
+          (t[8] = i),
+          (t[9] = y))
+        : (y = t[9]);
+      var C;
+      t[10] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
+            xstyle: c.paragraph,
+            children: d,
+          })),
+          (t[10] = C))
+        : (C = t[10]);
+      var b;
+      t[11] !== m
+        ? ((b = u.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
+            xstyle: c.paragraph,
+            children: m,
+          })),
+          (t[11] = m),
+          (t[12] = b))
+        : (b = t[12]);
+      var v;
+      return (
+        t[13] !== y || t[14] !== b
+          ? ((v = u.jsxs(u.Fragment, { children: [g, h, y, C, b] })),
+            (t[13] = y),
+            (t[14] = b),
+            (t[15] = v))
+          : (v = t[15]),
+        v
       );
     }
-    ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));
+    l.default = d;
   },
   226,
 );

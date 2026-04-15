@@ -6,6 +6,7 @@ __d(
     "WAWebActions",
     "WAWebKeyboardShortcuts",
     "WAWebTextFormatUtils",
+    "react-compiler-runtime",
     "useWAWebLexicalEvent",
   ],
   function (t, n, r, o, a, i, l) {
@@ -42,22 +43,30 @@ __d(
       }
     }
     function s(t) {
-      var n = o("LexicalComposerContext").useLexicalComposerContext(),
-        r = n[0];
-      o("useWAWebLexicalEvent").useLexicalCommandListener(
-        r,
-        o("Lexical").KEY_MODIFIER_COMMAND,
-        function (n) {
-          var a = e(n, t);
-          return !a || r.isComposing()
-            ? !1
-            : (r.update(function () {
-                o("WAWebTextFormatUtils").$toggleTextFormat(a);
-              }),
-              !0);
-        },
-        o("Lexical").COMMAND_PRIORITY_HIGH,
-      );
+      var n = o("react-compiler-runtime").c(3),
+        r = o("LexicalComposerContext").useLexicalComposerContext(),
+        a = r[0],
+        i;
+      (n[0] !== a || n[1] !== t
+        ? ((i = function (r) {
+            var n = e(r, t);
+            return !n || a.isComposing()
+              ? !1
+              : (a.update(function () {
+                  o("WAWebTextFormatUtils").$toggleTextFormat(n);
+                }),
+                !0);
+          }),
+          (n[0] = a),
+          (n[1] = t),
+          (n[2] = i))
+        : (i = n[2]),
+        o("useWAWebLexicalEvent").useLexicalCommandListener(
+          a,
+          o("Lexical").KEY_MODIFIER_COMMAND,
+          i,
+          o("Lexical").COMMAND_PRIORITY_HIGH,
+        ));
     }
     l.default = s;
   },

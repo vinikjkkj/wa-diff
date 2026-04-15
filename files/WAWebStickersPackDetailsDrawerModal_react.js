@@ -32,6 +32,7 @@ __d(
     "bx",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useLazyRef",
     "useWAWebEventTargetValue",
@@ -64,55 +65,86 @@ __d(
         emptyText: { textAlign: "x2b8uid", marginBottom: "x14ler8", $$css: !0 },
       };
     function g(e, t) {
-      var n = r("useWAWebEventTargetValue")(
+      var n = o("react-compiler-runtime").c(3),
+        a;
+      n[0] !== e || n[1] !== t
+        ? ((a = function () {
+            return (
+              e ||
+              (t
+                ? o("WAWebStickerPackCollectionMd").StickerPackCollectionMd.get(
+                    t,
+                  )
+                : null)
+            );
+          }),
+          (n[0] = e),
+          (n[1] = t),
+          (n[2] = a))
+        : (a = n[2]);
+      var i = r("useWAWebEventTargetValue")(
         o("WAWebStickerPackCollectionMd").StickerPackCollectionMd,
         "add remove reset",
-        function () {
-          return (
-            e ||
-            (t
-              ? o("WAWebStickerPackCollectionMd").StickerPackCollectionMd.get(t)
-              : null)
-          );
-        },
+        a,
       );
-      if (n) return n;
+      if (i) return i;
       if (t == null) return null;
       o(
         "WAWebStickerPackCollectionMd",
       ).StickerPackCollectionMd.fetchStickerPack(t);
     }
     function h(e) {
-      var t = r("useWAWebEventTargetValue")(e, "add remove reset", function () {
-          var t;
-          return (t = e == null ? void 0 : e.toArray()) != null ? t : [];
-        }),
-        n = r("useWAWebUiIdle")();
+      var t = o("react-compiler-runtime").c(6),
+        n;
+      t[0] !== e
+        ? ((n = function () {
+            var t;
+            return (t = e == null ? void 0 : e.toArray()) != null ? t : [];
+          }),
+          (t[0] = e),
+          (t[1] = n))
+        : (n = t[1]);
+      var a = r("useWAWebEventTargetValue")(e, "add remove reset", n),
+        i = r("useWAWebUiIdle")(),
+        l,
+        s;
       return (
-        p(
-          function () {
-            n(function () {
-              e == null || e.fetch();
-            });
-          },
-          [e, n],
-        ),
-        t
+        t[2] !== e || t[3] !== i
+          ? ((l = function () {
+              i(function () {
+                e == null || e.fetch();
+              });
+            }),
+            (s = [e, i]),
+            (t[2] = e),
+            (t[3] = i),
+            (t[4] = l),
+            (t[5] = s))
+          : ((l = t[4]), (s = t[5])),
+        p(l, s),
+        a
       );
     }
     function y(e) {
-      var t = r("useWAWebEventTargetValue")(
+      var t = o("react-compiler-runtime").c(2),
+        n;
+      t[0] !== e
+        ? ((n = function () {
+            return r("isStringNullOrEmpty")(e)
+              ? null
+              : o(
+                  "WAWebStickerPackCollectionMd",
+                ).StickerPackCollectionMd.packFetchState.get(e);
+          }),
+          (t[0] = e),
+          (t[1] = n))
+        : (n = t[1]);
+      var a = r("useWAWebEventTargetValue")(
         o("WAWebStickerPackCollectionMd").StickerPackCollectionMd,
         "change:packFetchState",
-        function () {
-          return r("isStringNullOrEmpty")(e)
-            ? null
-            : o(
-                "WAWebStickerPackCollectionMd",
-              ).StickerPackCollectionMd.packFetchState.get(e);
-        },
+        n,
       );
-      return t;
+      return a;
     }
     function C(e) {
       return "https://wa.me/stickerpack/" + e;

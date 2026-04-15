@@ -84,6 +84,7 @@ __d(
     "cr:5736",
     "gkx",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebActiveChatStyle",
   ],
@@ -103,35 +104,69 @@ __d(
       h = o("WAWebChat.react").ChatFactory(),
       y = o("WAWebChatContact.react").ContactFactory();
     function C(e) {
-      var t = e.chat,
-        n = e.createPreventAutoReadProps,
-        a = babelHelpers.objectWithoutPropertiesLoose(e, c),
-        i = o("WAWebABProps").getABPropConfigValue(
-          "wa_web_chatlist_render_chat_open",
-        ),
-        l = r("useWAWebActiveChatStyle")(t, i),
-        s = n(t),
-        u = s.forceActive,
-        d = s.activeStyleType;
-      if (i) {
-        var m = l.forceActive === !0,
-          _ = s.activeStyleType === "BORDER";
-        m && _
-          ? ((u = !0), (d = "BOTH"))
-          : m
-            ? ((u = !0), (d = "DEFAULT"))
-            : _ && (d = "BORDER");
+      var t = o("react-compiler-runtime").c(14),
+        n,
+        a,
+        i;
+      t[0] !== e
+        ? ((n = e.chat),
+          (i = e.createPreventAutoReadProps),
+          (a = babelHelpers.objectWithoutPropertiesLoose(e, c)),
+          (t[0] = e),
+          (t[1] = n),
+          (t[2] = a),
+          (t[3] = i))
+        : ((n = t[1]), (a = t[2]), (i = t[3]));
+      var l;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = o("WAWebABProps").getABPropConfigValue(
+            "wa_web_chatlist_render_chat_open",
+          )),
+          (t[4] = l))
+        : (l = t[4]);
+      var s = l,
+        u = r("useWAWebActiveChatStyle")(n, s),
+        d;
+      t[5] !== n || t[6] !== i
+        ? ((d = i(n)), (t[5] = n), (t[6] = i), (t[7] = d))
+        : (d = t[7]);
+      var m = d,
+        _ = m.forceActive,
+        f = m.activeStyleType;
+      if (s) {
+        var g = u.forceActive === !0,
+          y = m.activeStyleType === "BORDER";
+        g && y
+          ? ((_ = !0), (f = "BOTH"))
+          : g
+            ? ((_ = !0), (f = "DEFAULT"))
+            : y && (f = "BORDER");
       }
-      return p.jsx(
-        h,
-        babelHelpers.extends({ chat: t }, a, {
-          forceActive: u,
-          activeStyleType: d,
-          onContextMenuChange: s.onContextMenuChange,
-        }),
+      var C;
+      return (
+        t[8] !== f ||
+        t[9] !== n ||
+        t[10] !== a ||
+        t[11] !== _ ||
+        t[12] !== m.onContextMenuChange
+          ? ((C = p.jsx(
+              h,
+              babelHelpers.extends({ chat: n }, a, {
+                forceActive: _,
+                activeStyleType: f,
+                onContextMenuChange: m.onContextMenuChange,
+              }),
+            )),
+            (t[8] = f),
+            (t[9] = n),
+            (t[10] = a),
+            (t[11] = _),
+            (t[12] = m.onContextMenuChange),
+            (t[13] = C))
+          : (C = t[13]),
+        C
       );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b(e, t) {
       t === void 0 && (t = {});
       var n = t,
@@ -1944,26 +1979,49 @@ __d(
       },
     };
     function R(e) {
-      var t = e.emphasized,
-        n = e.header,
-        o = e.testid,
-        a = e.xstyle;
-      return p.jsx(
-        "div",
-        babelHelpers.extends(
-          { "data-testid": void 0 },
-          (d || (d = r("stylex"))).props(S.container, a),
-          {
-            children: p.jsx(r("WDSText.react"), {
-              type: t === !0 ? "Body1Emphasized" : "Body2",
-              colorName: t === !0 ? "contentDefault" : "contentDeemphasized",
-              children: n,
-            }),
-          },
-        ),
+      var t = o("react-compiler-runtime").c(10),
+        n = e.emphasized,
+        a = e.header,
+        i = e.testid,
+        l = e.xstyle,
+        s = i != null ? i : "section-header",
+        u;
+      t[0] !== l
+        ? ((u = (d || (d = r("stylex"))).props(S.container, l)),
+          (t[0] = l),
+          (t[1] = u))
+        : (u = t[1]);
+      var c = n === !0 ? "Body1Emphasized" : "Body2",
+        m = n === !0 ? "contentDefault" : "contentDeemphasized",
+        _;
+      t[2] !== a || t[3] !== c || t[4] !== m
+        ? ((_ = p.jsx(r("WDSText.react"), {
+            type: c,
+            colorName: m,
+            children: a,
+          })),
+          (t[2] = a),
+          (t[3] = c),
+          (t[4] = m),
+          (t[5] = _))
+        : (_ = t[5]);
+      var f;
+      return (
+        t[6] !== s || t[7] !== u || t[8] !== _
+          ? ((f = p.jsx(
+              "div",
+              babelHelpers.extends({ "data-testid": void 0 }, u, {
+                children: _,
+              }),
+            )),
+            (t[6] = s),
+            (t[7] = u),
+            (t[8] = _),
+            (t[9] = f))
+          : (f = t[9]),
+        f
       );
     }
-    R.displayName = R.name + " [from " + i.id + "]";
     var L = o("WAWebListenerHoc_DEPRECATED").ListenerHOC(
         r("WAWebTimerHoc_DEPRECATED.react")(v),
       ),

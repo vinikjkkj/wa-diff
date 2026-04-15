@@ -542,21 +542,33 @@ __d(
       r("WAWebODS").incr("web.call.dtls.failed.pc_failed.port_3480");
     }
     function ot() {
-      r("WAWebODS").incr("web.calendar.open.date_marker");
+      r("WAWebODS").incr("web.call.sctp.connection_failed.port_3478");
     }
     function at() {
-      r("WAWebODS").incr("web.calendar.open.search_drawer");
+      r("WAWebODS").incr("web.call.sctp.connection_failed.port_3480");
     }
     function it() {
-      r("WAWebODS").incr("web.calendar.date_selected.date_marker");
+      r("WAWebODS").incr("web.call.sctp.connection_cleaned_up.port_3478");
     }
     function lt() {
-      r("WAWebODS").incr("web.calendar.date_selected.search_drawer");
+      r("WAWebODS").incr("web.call.sctp.connection_cleaned_up.port_3480");
     }
     function st() {
-      r("WAWebODS").incr("web.calendar.open.sticky_date_marker");
+      r("WAWebODS").incr("web.calendar.open.date_marker");
     }
     function ut() {
+      r("WAWebODS").incr("web.calendar.open.search_drawer");
+    }
+    function ct() {
+      r("WAWebODS").incr("web.calendar.date_selected.date_marker");
+    }
+    function dt() {
+      r("WAWebODS").incr("web.calendar.date_selected.search_drawer");
+    }
+    function mt() {
+      r("WAWebODS").incr("web.calendar.open.sticky_date_marker");
+    }
+    function pt() {
       r("WAWebODS").incr("web.calendar.date_selected.sticky_date_marker");
     }
     ((l.logStickerMsgSend = _),
@@ -629,12 +641,16 @@ __d(
       (l.logCallDtlsFailedStallPort3480 = tt),
       (l.logCallDtlsFailedPcFailedPort3478 = nt),
       (l.logCallDtlsFailedPcFailedPort3480 = rt),
-      (l.logCalendarOpenFromDateMarker = ot),
-      (l.logCalendarOpenFromSearchDrawer = at),
-      (l.logCalendarDateSelectedFromDateMarker = it),
-      (l.logCalendarDateSelectedFromSearchDrawer = lt),
-      (l.logCalendarOpenFromStickyDateMarker = st),
-      (l.logCalendarDateSelectedFromStickyDateMarker = ut));
+      (l.logCallSctpConnectionFailedPort3478 = ot),
+      (l.logCallSctpConnectionFailedPort3480 = at),
+      (l.logCallSctpConnectionCleanedUpPort3478 = it),
+      (l.logCallSctpConnectionCleanedUpPort3480 = lt),
+      (l.logCalendarOpenFromDateMarker = st),
+      (l.logCalendarOpenFromSearchDrawer = ut),
+      (l.logCalendarDateSelectedFromDateMarker = ct),
+      (l.logCalendarDateSelectedFromSearchDrawer = dt),
+      (l.logCalendarOpenFromStickyDateMarker = mt),
+      (l.logCalendarDateSelectedFromStickyDateMarker = pt));
   },
   98,
 );

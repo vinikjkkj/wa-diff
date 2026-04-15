@@ -9,35 +9,56 @@ __d(
     "WAWebURLUtils",
     "WAWebWid",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = e.chat,
-        n = r("WAWebWid").user(t.id) || "",
-        a = r("WAWebURLUtils").build(
+      var t = o("react-compiler-runtime").c(5),
+        n = e.chat,
+        a;
+      if (t[0] !== n.id) {
+        var i = r("WAWebWid").user(n.id) || "";
+        ((a = r("WAWebURLUtils").build(
           "https://www.internalfb.com/intern/whatsapp/admin/channel_info",
-          { cid: n },
-        );
-      return s.jsx(
-        o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerSection,
-        {
-          title: s.jsx(o("WAWebDevOnlyBadge.react").DevOnlyBadge, {
+          { cid: i },
+        )),
+          (t[0] = n.id),
+          (t[1] = a));
+      } else a = t[1];
+      var l = a,
+        u;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((u = s.jsx(o("WAWebDevOnlyBadge.react").DevOnlyBadge, {
             label: "Developer Section",
-          }),
-          xstyle: o("WAWebUISpacing").uiMargin.top10,
-          children: s.jsx(o("WAWebText.react").WAWebTextTitle, {
-            as: "span",
-            children: s.jsx(o("WAWebExternalLink.react").ExternalLink, {
-              href: a,
-              children: "Admin Tool - Channel Info",
-            }),
-          }),
-        },
+          })),
+          (t[2] = u))
+        : (u = t[2]);
+      var c;
+      return (
+        t[3] !== l
+          ? ((c = s.jsx(
+              o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerSection,
+              {
+                title: u,
+                xstyle: o("WAWebUISpacing").uiMargin.top10,
+                children: s.jsx(o("WAWebText.react").WAWebTextTitle, {
+                  as: "span",
+                  children: s.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: l,
+                    children: "Admin Tool - Channel Info",
+                  }),
+                }),
+              },
+            )),
+            (t[3] = l),
+            (t[4] = c))
+          : (c = t[4]),
+        c
       );
     }
-    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
+    l.default = u;
   },
   98,
 );

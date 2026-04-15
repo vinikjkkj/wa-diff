@@ -167,15 +167,13 @@ __d(
                       })) != null
                   ? n
                   : [];
-            yield o("WAWebSchemaParticipant")
-              .getParticipantTable()
-              .merge(i, {
-                groupId: i,
-                participants: c,
-                pastParticipants: p,
-                admins: d,
-                superAdmins: m,
-              });
+            yield o("WAWebSchemaParticipant").getParticipantTable().merge(i, {
+              groupId: i,
+              participants: c,
+              pastParticipants: p,
+              admins: d,
+              superAdmins: m,
+            });
           }
         })),
         h.apply(this, arguments)

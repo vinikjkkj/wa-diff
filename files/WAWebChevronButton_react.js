@@ -7,6 +7,7 @@ __d(
     "WAWebChevronIcon.react",
     "WAWebRound.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -41,34 +42,73 @@ __d(
         disabledBtn: { opacity: "xbyyjgo", $$css: !0 },
       };
     function p(e) {
-      var t = e.disabled,
-        n = e.onClick,
-        r = e.onKeyDown,
-        a = e.overMedia,
-        i = e.testid,
-        l = e.theme,
-        s = e.type,
-        d = _(s),
-        p = d.Icon,
-        f = d.label;
-      return u.jsx(o("WAWebRound.react").Round, {
-        xstyle: [
-          m.btn,
-          s === c.Prev && m.btnMediaPrev,
-          s === c.Next && m.btnMediaNext,
-          t === !0 ? m.disabledBtn : m.backgroundColorBtn,
-          a === !0 && m.overMedia,
-        ],
-        onClick: t === !0 ? null : n,
-        onKeyDown: r,
-        label: f,
-        theme: l,
-        disabled: t,
-        testid: void 0,
-        children: u.jsx(p, { title: f, directional: !0 }),
-      });
+      var t = o("react-compiler-runtime").c(19),
+        n = e.disabled,
+        r = e.onClick,
+        a = e.onKeyDown,
+        i = e.overMedia,
+        l = e.testid,
+        s = e.theme,
+        d = e.type,
+        p;
+      t[0] !== d ? ((p = _(d)), (t[0] = d), (t[1] = p)) : (p = t[1]);
+      var f = p,
+        g = f.Icon,
+        h = f.label,
+        y = d === c.Prev && m.btnMediaPrev,
+        C = d === c.Next && m.btnMediaNext,
+        b = n === !0 ? m.disabledBtn : m.backgroundColorBtn,
+        v = i === !0 && m.overMedia,
+        S;
+      t[2] !== y || t[3] !== C || t[4] !== b || t[5] !== v
+        ? ((S = [m.btn, y, C, b, v]),
+          (t[2] = y),
+          (t[3] = C),
+          (t[4] = b),
+          (t[5] = v),
+          (t[6] = S))
+        : (S = t[6]);
+      var R = n === !0 ? null : r,
+        L;
+      t[7] !== g || t[8] !== h
+        ? ((L = u.jsx(g, { title: h, directional: !0 })),
+          (t[7] = g),
+          (t[8] = h),
+          (t[9] = L))
+        : (L = t[9]);
+      var E;
+      return (
+        t[10] !== n ||
+        t[11] !== h ||
+        t[12] !== a ||
+        t[13] !== S ||
+        t[14] !== R ||
+        t[15] !== L ||
+        t[16] !== l ||
+        t[17] !== s
+          ? ((E = u.jsx(o("WAWebRound.react").Round, {
+              xstyle: S,
+              onClick: R,
+              onKeyDown: a,
+              label: h,
+              theme: s,
+              disabled: n,
+              testid: void 0,
+              children: L,
+            })),
+            (t[10] = n),
+            (t[11] = h),
+            (t[12] = a),
+            (t[13] = S),
+            (t[14] = R),
+            (t[15] = L),
+            (t[16] = l),
+            (t[17] = s),
+            (t[18] = E))
+          : (E = t[18]),
+        E
+      );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
       switch (e) {
         case c.Prev:

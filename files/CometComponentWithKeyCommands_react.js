@@ -33,11 +33,7 @@ __d(
       };
     function d(e) {
       var t = e.commandConfigs;
-      return (
-        r("vulture")("zAeTPeUINDhNBGq_9kUh0iA4KI0="),
-        r("useKeyCommands")(t),
-        null
-      );
+      return (r("useKeyCommands")(t), null);
     }
     function m(t) {
       var n = o("react-compiler-runtime").c(16);

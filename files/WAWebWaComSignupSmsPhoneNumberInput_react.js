@@ -28,6 +28,7 @@ __d(
     "WAXWhatsAppWebRegistrationControllerRouteBuilder",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useVisibility",
     "useWAWebAsync",
     "useWAWebTimeout",
@@ -186,16 +187,23 @@ __d(
       var t = e.children;
       return t;
     }
-    S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
-      var t = e.errorReason;
-      return d.jsx(o("WAWebFlex.react").FlexRow, {
-        alignSelf: "center",
-        xstyle: h.error,
-        children: t,
-      });
+      var t = o("react-compiler-runtime").c(2),
+        n = e.errorReason,
+        r;
+      return (
+        t[0] !== n
+          ? ((r = d.jsx(o("WAWebFlex.react").FlexRow, {
+              alignSelf: "center",
+              xstyle: h.error,
+              children: n,
+            })),
+            (t[0] = n),
+            (t[1] = r))
+          : (r = t[1]),
+        r
+      );
     }
-    R.displayName = R.name + " [from " + i.id + "]";
     function L(e) {
       var t,
         a = e.experimentBucket,
@@ -453,11 +461,10 @@ __d(
     }
     L.displayName = L.name + " [from " + i.id + "]";
     function E() {
-      return d.jsxs(o("WAWebFlex.react").FlexColumn, {
-        rowGap: 2,
-        xstyle: h.subtitle,
-        children: [
-          d.jsx(o("WAWebFlex.react").FlexRow, {
+      var e = o("react-compiler-runtime").c(2),
+        t;
+      e[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((t = d.jsx(o("WAWebFlex.react").FlexRow, {
             alignSelf: "center",
             align: "center",
             wrap: "wrap",
@@ -467,52 +474,66 @@ __d(
                 /*BTDS*/ "We'll send an SMS to your phone, where you can download WhatsApp and register your account.",
               ),
             }),
-          }),
-          d.jsx(o("WAWebFlex.react").FlexRow, {
-            alignSelf: "center",
-            align: "center",
-            wrap: "wrap",
-            justify: "center",
-            children: d.jsx(S, {
-              children: s._(
-                /*BTDS*/ 'Message and data rates may apply. Read our\u00a0 {privacy_policy_link}. Click "Continue" to accept the\u00a0 {terms_of_service_link}.',
-                [
-                  s._param(
-                    "privacy_policy_link",
-                    d.jsx(
-                      o("WAWebLinkDeviceCommonInstructions.react")
-                        .ExternalHelpLink,
-                      {
-                        isBold: !1,
-                        text: s._(/*BTDS*/ "Privacy Policy"),
-                        url: "https://www.whatsapp.com/legal/privacy-policy",
-                        showArrow: !1,
-                        showUnderline: void 0,
-                      },
+          })),
+          (e[0] = t))
+        : (t = e[0]);
+      var n;
+      return (
+        e[1] === Symbol.for("react.memo_cache_sentinel")
+          ? ((n = d.jsxs(o("WAWebFlex.react").FlexColumn, {
+              rowGap: 2,
+              xstyle: h.subtitle,
+              children: [
+                t,
+                d.jsx(o("WAWebFlex.react").FlexRow, {
+                  alignSelf: "center",
+                  align: "center",
+                  wrap: "wrap",
+                  justify: "center",
+                  children: d.jsx(S, {
+                    children: s._(
+                      /*BTDS*/ 'Message and data rates may apply. Read our\u00a0 {privacy_policy_link}. Click "Continue" to accept the\u00a0 {terms_of_service_link}.',
+                      [
+                        s._param(
+                          "privacy_policy_link",
+                          d.jsx(
+                            o("WAWebLinkDeviceCommonInstructions.react")
+                              .ExternalHelpLink,
+                            {
+                              isBold: !1,
+                              text: s._(/*BTDS*/ "Privacy Policy"),
+                              url: "https://www.whatsapp.com/legal/privacy-policy",
+                              showArrow: !1,
+                              showUnderline: void 0,
+                            },
+                          ),
+                        ),
+                        s._param(
+                          "terms_of_service_link",
+                          d.jsx(
+                            o("WAWebLinkDeviceCommonInstructions.react")
+                              .ExternalHelpLink,
+                            {
+                              isBold: !1,
+                              text: s._(/*BTDS*/ "Terms of Service"),
+                              url: "https://www.whatsapp.com/legal/terms-of-service",
+                              showArrow: !1,
+                              showUnderline: void 0,
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  s._param(
-                    "terms_of_service_link",
-                    d.jsx(
-                      o("WAWebLinkDeviceCommonInstructions.react")
-                        .ExternalHelpLink,
-                      {
-                        isBold: !1,
-                        text: s._(/*BTDS*/ "Terms of Service"),
-                        url: "https://www.whatsapp.com/legal/terms-of-service",
-                        showArrow: !1,
-                        showUnderline: void 0,
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            }),
-          }),
-        ],
-      });
+                  }),
+                }),
+              ],
+            })),
+            (e[1] = n))
+          : (n = e[1]),
+        n
+      );
     }
-    ((E.displayName = E.name + " [from " + i.id + "]"), (l.default = L));
+    l.default = L;
   },
   226,
 );

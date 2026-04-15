@@ -16,6 +16,7 @@ __d(
     "WAWebRichTextField.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
     "useWAWebAsync",
     "useWAWebAsyncSaving",
     "useWAWebBeforeUnload",
@@ -49,77 +50,119 @@ __d(
         textFormatShortcutsEnabled: !0,
       };
     function v(e) {
-      var t,
-        n,
-        r = e.contact,
-        a = o("WAJids").validateChatJid(
-          (t = r == null || (n = r.id) == null ? void 0 : n.toJid()) != null
-            ? t
+      var t = o("react-compiler-runtime").c(5),
+        n = e.contact,
+        r;
+      if (t[0] !== (n == null ? void 0 : n.id)) {
+        var a, i;
+        ((r = o("WAJids").validateChatJid(
+          (a = n == null || (i = n.id) == null ? void 0 : i.toJid()) != null
+            ? a
             : "",
-        );
-      return r == null || a == null
-        ? null
-        : c.jsx(S, { contact: r, chatJid: a });
+        )),
+          (t[0] = n == null ? void 0 : n.id),
+          (t[1] = r));
+      } else r = t[1];
+      var l = r;
+      if (n == null || l == null) return null;
+      var s;
+      return (
+        t[2] !== l || t[3] !== n
+          ? ((s = c.jsx(S, { contact: n, chatJid: l })),
+            (t[2] = l),
+            (t[3] = n),
+            (t[4] = s))
+          : (s = t[4]),
+        s
+      );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
       var t,
         a,
         i,
-        l = e.chatJid,
-        s = e.contact,
-        u = L(l),
-        d = u.value,
-        p = (t = d == null ? void 0 : d.content) != null ? t : "",
-        _ = (a = d == null ? void 0 : d.createdAt) != null ? a : null,
-        f = (i = d == null ? void 0 : d.modifiedAt) != null ? i : null,
-        g = m(
-          (function () {
+        l = o("react-compiler-runtime").c(15),
+        s = e.chatJid,
+        u = e.contact,
+        d = L(s),
+        m = d.value,
+        p = (t = m == null ? void 0 : m.content) != null ? t : "",
+        _ = (a = m == null ? void 0 : m.createdAt) != null ? a : null,
+        f = (i = m == null ? void 0 : m.modifiedAt) != null ? i : null,
+        g;
+      l[0] !== s || l[1] !== u || l[2] !== m || l[3] !== p
+        ? ((g = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 if (e !== p)
                   return (
-                    o("WAWebNotesLogEvents").logNoteSaved(s, {
+                    o("WAWebNotesLogEvents").logNoteSaved(u, {
                       content_existed: p !== "",
                       has_content: e !== "",
                       length: e.length,
                       previous_length: p.length,
                     }),
-                    d == null
-                      ? o("WAWebNoteAction").noteAddAction("unstructured", l, e)
+                    m == null
+                      ? o("WAWebNoteAction").noteAddAction("unstructured", s, e)
                       : o("WAWebNoteAction").noteEditAction(
-                          d.id,
+                          m.id,
                           "unstructured",
-                          l,
+                          s,
                           e,
-                          d.createdAt,
+                          m.createdAt,
                         )
                   );
               },
             );
-            return function (t) {
+            return function (n) {
               return e.apply(this, arguments);
             };
-          })(),
-          [l, s, d, p],
-        ),
-        h = r("useWAWebAsyncSaving")(g),
-        y = h[0],
-        C = h[1];
-      if (!(u.error != null || u.loading))
-        return c.jsx(I, {
-          contact: s,
-          children: c.jsx(R, {
-            contact: s,
-            createdAt: _,
-            modifiedAt: f,
-            note: p,
-            saveNote: C,
-            savingNote: y,
-          }),
-        });
+          })()),
+          (l[0] = s),
+          (l[1] = u),
+          (l[2] = m),
+          (l[3] = p),
+          (l[4] = g))
+        : (g = l[4]);
+      var h = g,
+        y = r("useWAWebAsyncSaving")(h),
+        C = y[0],
+        b = y[1];
+      if (!(d.error != null || d.loading)) {
+        var v;
+        l[5] !== u ||
+        l[6] !== _ ||
+        l[7] !== f ||
+        l[8] !== p ||
+        l[9] !== b ||
+        l[10] !== C
+          ? ((v = c.jsx(R, {
+              contact: u,
+              createdAt: _,
+              modifiedAt: f,
+              note: p,
+              saveNote: b,
+              savingNote: C,
+            })),
+            (l[5] = u),
+            (l[6] = _),
+            (l[7] = f),
+            (l[8] = p),
+            (l[9] = b),
+            (l[10] = C),
+            (l[11] = v))
+          : (v = l[11]);
+        var S;
+        return (
+          l[12] !== u || l[13] !== v
+            ? ((S = c.jsx(I, { contact: u, children: v })),
+              (l[12] = u),
+              (l[13] = v),
+              (l[14] = S))
+            : (S = l[14]),
+          S
+        );
+      }
     }
-    S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
       var t = e.contact,
         n = e.createdAt,
@@ -331,44 +374,68 @@ __d(
           : o("WAWebClock").Clock.updatedStr(t);
     }
     function k(e, t) {
-      var n = f(!1);
-      p(
-        function () {
-          t && (n.current = !1);
-        },
-        [t],
-      );
-      var r = m(
-        function (t) {
-          n.current ||
-            (o("WAWebNotesLogEvents").logStartedTypingNote(e, {
-              content_existed: t,
-            }),
-            (n.current = !0));
-        },
-        [e],
-      );
-      return r;
+      var n = o("react-compiler-runtime").c(5),
+        r = f(!1),
+        a,
+        i;
+      (n[0] !== t
+        ? ((a = function () {
+            t && (r.current = !1);
+          }),
+          (i = [t]),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i))
+        : ((a = n[1]), (i = n[2])),
+        p(a, i));
+      var l;
+      n[3] !== e
+        ? ((l = function (n) {
+            r.current ||
+              (o("WAWebNotesLogEvents").logStartedTypingNote(e, {
+                content_existed: n,
+              }),
+              (r.current = !0));
+          }),
+          (n[3] = e),
+          (n[4] = l))
+        : (l = n[4]);
+      var s = l;
+      return s;
     }
     function I(e) {
-      var t = e.children,
-        n = e.contact,
-        a = f(!1),
-        i = f(),
-        l = r("useWAWebOnScreen")(i, r("WAWebNoop"));
+      var t = o("react-compiler-runtime").c(6),
+        n = e.children,
+        a = e.contact,
+        i = f(!1),
+        l = f(),
+        s = r("useWAWebOnScreen")(l, r("WAWebNoop")),
+        u,
+        d;
+      (t[0] !== a || t[1] !== s
+        ? ((u = function () {
+            s &&
+              !i.current &&
+              (o("WAWebNotesLogEvents").logNoteViewed(a), (i.current = !0));
+          }),
+          (d = [a, s]),
+          (t[0] = a),
+          (t[1] = s),
+          (t[2] = u),
+          (t[3] = d))
+        : ((u = t[2]), (d = t[3])),
+        p(u, d));
+      var m;
       return (
-        p(
-          function () {
-            l &&
-              !a.current &&
-              (o("WAWebNotesLogEvents").logNoteViewed(n), (a.current = !0));
-          },
-          [n, l],
-        ),
-        c.jsx("span", { ref: i, children: t })
+        t[4] !== n
+          ? ((m = c.jsx("span", { ref: l, children: n })),
+            (t[4] = n),
+            (t[5] = m))
+          : (m = t[5]),
+        m
       );
     }
-    ((I.displayName = I.name + " [from " + i.id + "]"), (l.default = v));
+    l.default = v;
   },
   226,
 );

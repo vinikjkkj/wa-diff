@@ -20,6 +20,7 @@ __d(
     "WDSIconIcNotificationsOff.react",
     "WDSIconIcPushPin.react",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebChatPreviewState",
     "useWAWebChatValues",
@@ -49,30 +50,46 @@ __d(
         },
       };
     function _(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(6),
         n = e.noMargin,
         r = e.noMarginRight,
-        a = e.ref;
-      return m.jsx(
-        "div",
-        {
-          ref: a,
-          className: o("WAWebClassnames").classnamesConvertMeToStylexPlease(
-            ((t = {}),
-            (t._ahlp = r),
-            (t._am_0 = n),
-            (t._ahlk = !0),
-            (t._ahlo = !0),
-            t),
-            "x1rg5ohu xf6vk7d xhslqc4 x16dsc37",
-          ),
-          "data-testid": void 0,
-          "aria-hidden": "true",
-        },
-        "icon-unread",
+        a = e.ref,
+        i;
+      if (t[0] !== n || t[1] !== r) {
+        var l;
+        ((i = o("WAWebClassnames").classnamesConvertMeToStylexPlease(
+          ((l = {}),
+          (l._ahlp = r),
+          (l._am_0 = n),
+          (l._ahlk = !0),
+          (l._ahlo = !0),
+          l),
+          "x1rg5ohu xf6vk7d xhslqc4 x16dsc37",
+        )),
+          (t[0] = n),
+          (t[1] = r),
+          (t[2] = i));
+      } else i = t[2];
+      var s;
+      return (
+        t[3] !== a || t[4] !== i
+          ? ((s = m.jsx(
+              "div",
+              {
+                ref: a,
+                className: i,
+                "data-testid": void 0,
+                "aria-hidden": "true",
+              },
+              "icon-unread",
+            )),
+            (t[3] = a),
+            (t[4] = i),
+            (t[5] = s))
+          : (s = t[5]),
+        s
       );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(t) {
       var n,
         a = t.chat,

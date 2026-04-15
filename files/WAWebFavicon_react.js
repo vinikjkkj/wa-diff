@@ -1,31 +1,40 @@
 __d(
   "WAWebFavicon.react",
-  ["WAWebNotificationIcon", "react"],
+  ["WAWebNotificationIcon", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useEffect;
     function u(e) {
-      var t = e.children;
+      var t = o("react-compiler-runtime").c(1),
+        n = e.children,
+        r;
       return (
-        s(function () {
-          o("WAWebNotificationIcon").setTitleAndIcon(0);
-        }, []),
-        t
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((r = []), (t[0] = r))
+          : (r = t[0]),
+        s(c, r),
+        n
       );
     }
-    u.displayName = u.name + " [from " + i.id + "]";
-    function c(e) {
-      var t = e.children;
+    function c() {
+      o("WAWebNotificationIcon").setTitleAndIcon(0);
+    }
+    function d(e) {
+      var t = o("react-compiler-runtime").c(1),
+        n = e.children,
+        r;
       return (
-        s(function () {
-          o("WAWebNotificationIcon").setTitleAndIcon(-1);
-        }, []),
-        t
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((r = []), (t[0] = r))
+          : (r = t[0]),
+        s(m, r),
+        n
       );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"),
-      (l.DefaultFavicon = u),
-      (l.ErrorFavicon = c));
+    function m() {
+      o("WAWebNotificationIcon").setTitleAndIcon(-1);
+    }
+    ((l.DefaultFavicon = u), (l.ErrorFavicon = d));
   },
   98,
 );

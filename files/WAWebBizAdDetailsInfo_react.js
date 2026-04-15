@@ -14,6 +14,7 @@ __d(
     "WDSIconIcPayments.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -33,17 +34,33 @@ __d(
         },
       };
     function m(e) {
-      var t = e.Icon,
-        n = e.children,
-        r = e.iconColorName;
-      return u.jsxs(o("WAWebFlex.react").FlexRow, {
-        gap: 16,
-        align: "center",
-        xstyle: d.row,
-        children: [u.jsx(t, { height: 20, width: 20, colorName: r }), n],
-      });
+      var t = o("react-compiler-runtime").c(6),
+        n = e.Icon,
+        r = e.children,
+        a = e.iconColorName,
+        i;
+      t[0] !== n || t[1] !== a
+        ? ((i = u.jsx(n, { height: 20, width: 20, colorName: a })),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = i))
+        : (i = t[2]);
+      var l;
+      return (
+        t[3] !== r || t[4] !== i
+          ? ((l = u.jsxs(o("WAWebFlex.react").FlexRow, {
+              gap: 16,
+              align: "center",
+              xstyle: d.row,
+              children: [i, r],
+            })),
+            (t[3] = r),
+            (t[4] = i),
+            (t[5] = l))
+          : (l = t[5]),
+        l
+      );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       var t,
         n = e.item,

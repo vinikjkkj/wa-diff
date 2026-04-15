@@ -66,6 +66,7 @@ __d(
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebABPropConfigValue",
     "useWAWebContactValues",
@@ -83,198 +84,358 @@ __d(
         secondaryWrapper: { lineHeight: "x1evy7pa", $$css: !0 },
       };
     function f(e) {
-      var t = e.contact,
-        n = e.displayRequestPhoneNumber,
-        a = e.isMessageYourselfChat,
-        i = e.onContactInfoAction,
-        l = e.onDetailImageClick,
-        u = e.onDetailImageLoad,
-        d = e.onOpenChatTabInCustomerManager,
-        f = e.onSaveContact,
-        g = e.onSearchMsgs,
-        h = e.sourceChat,
-        b = o("useWAWebContactValues").useContactValues(t.id, [
-          o("WAWebFrontendContactGetters").getPhoneNumber,
-        ]),
-        v = b[0],
-        S =
-          v != null
-            ? o("WAWebContactCollection").ContactCollection.get(v)
-            : null,
-        R = C({ contact: t, phoneNumberContact: S }),
-        L = R.title,
-        E = R.type;
-      p(
-        function () {
-          L != null &&
-            E ===
-              o("WAWebWamEnumOppositeVisibleIdentificationType")
-                .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.USERNAME &&
-            o("WAWebUsernameGatingUtils").usernameExposedLoggingEnabled() &&
-            new (o("WAWebUsernameExposedWamEvent").UsernameExposedWamEvent)({
-              usernameExposureContext: "contact_info_subtitle",
-            }).commit();
-        },
-        [L, E],
-      );
-      var k =
-          o("WAWebNotesUtils").shouldEnableNotesForWid(
-            t == null ? void 0 : t.id,
-          ) &&
-          !(
-            o("WAWebCustomerManagerGating").customerManagerEnabled() &&
-            o("WAWebCustomerManagerGating").isEligibleForCustomerFields(t)
-          )
-            ? m.jsx(r("WAWebContactInfoNotes.react"), { contact: t })
-            : null,
-        I =
-          o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled() &&
-          o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t.id),
-        T = m.jsx(o("WAWebName.react").Name, {
-          testid: void 0,
-          contact: t,
-          showMessageYourselfName: a,
-          useLiftMeUp: !1,
-          selectable: !0,
-          breakWord: !0,
-          checkmarkLarge: !0,
-        }),
-        D = s._(/*BTDS*/ "View photo"),
-        x = m.jsx(o("WAWebDetailImage.react").DetailImage, {
-          id: t.id,
-          size: o("WAWebDetailImage.react").DetailImageSize.Refresh,
-          loader: !0,
-          onLoad: u,
-          onClick: I ? void 0 : l,
-          quality: o("WAWebDetailImage.react").DetailImageQuality.High,
-          tabIndex: I ? void 0 : 0,
-          xstyle: I
-            ? void 0
-            : o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-          ariaLabel: I ? void 0 : D,
-        }),
-        $ =
-          n &&
-          !o(
-            "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
-          ).hasPhoneNumberHidingThreadPromotionMigrationStarted(),
-        P = I ? x : m.jsx(r("WDSTooltip.react"), { label: D, children: x });
-      return m.jsxs(r("WAWebDrawerSection.react"), {
-        theme: "refresh-new",
-        children: [
-          m.jsx(
-            "div",
-            babelHelpers.extends(
-              {},
-              (c || (c = r("stylex"))).props(
-                _.avatar,
-                o("WAWebUISpacing").uiMargin.bottom10,
-              ),
-              {
-                children: I
-                  ? m.jsxs("div", {
-                      className: "x1n2onr6 x1rg5ohu",
-                      children: [
-                        P,
-                        m.jsx("div", {
-                          className:
-                            "x10l6tqk x1ey2m1c xqqy42c x12peec7 x1c9tyrk xeusxvb x1pahc9y x1ertn4p x78zum5 x6s0dn4 xl56j7k x1247r65 xng8ra xvuyptp",
-                          children: m.jsx(
-                            r(
-                              "WDSIconWdsIcPrivateProcessingAiLockSparkleFill.react",
-                            ),
-                            { height: 40, width: 34 },
-                          ),
-                        }),
-                      ],
-                    })
-                  : P,
-              },
-            ),
-          ),
-          m.jsxs(o("WAWebFlex.react").FlexColumn, {
-            align: "center",
-            children: [
-              m.jsx(o("WAWebText.react").WAWebTextLargeRefreshed, {
-                children: T,
-              }),
-              !t.id.isBot() &&
-                L != null &&
-                m.jsx(
-                  "div",
-                  babelHelpers.extends(
-                    {},
-                    (c || (c = r("stylex"))).props(
-                      _.secondaryWrapper,
-                      o("WAWebUISpacing").uiMargin.top10,
-                    ),
-                    {
-                      children: m.jsx(
-                        o("WAWebCopyPasteSelectable.react").SelectableSpan,
-                        {
-                          dir: "auto",
-                          selectable: !0,
-                          children: m.jsx(
-                            o("WAWebText.react").WAWebTextTitleRefreshed,
-                            { color: "wdsContentDeemphasized", children: L },
-                          ),
-                        },
-                      ),
-                    },
-                  ),
-                ),
-              I &&
-                m.jsx(
-                  "div",
-                  babelHelpers.extends(
-                    {},
-                    (c || (c = r("stylex"))).props(
-                      _.secondaryWrapper,
-                      o("WAWebUISpacing").uiMargin.top10,
-                    ),
-                    {
-                      children: m.jsx(
-                        o("WAWebText.react").WAWebTextTitleRefreshed,
-                        {
-                          color: "wdsContentDeemphasized",
-                          children: o(
-                            "WAWebBotFrontendUtils",
-                          ).getMetaAiTEEBotSecondaryLine(t.id),
-                        },
-                      ),
-                    },
-                  ),
-                ),
-              m.jsx(
-                o("WAWebMemberLabelContactInfo.react").MemberLabelContactInfo,
-                { contact: t, chat: h },
-              ),
-            ],
+      var t = o("react-compiler-runtime").c(67),
+        n = e.contact,
+        a = e.displayRequestPhoneNumber,
+        i = e.isMessageYourselfChat,
+        l = e.onContactInfoAction,
+        u = e.onDetailImageClick,
+        d = e.onDetailImageLoad,
+        f = e.onOpenChatTabInCustomerManager,
+        g = e.onSaveContact,
+        h = e.onSearchMsgs,
+        b = e.sourceChat,
+        v;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = [o("WAWebFrontendContactGetters").getPhoneNumber]), (t[0] = v))
+        : (v = t[0]);
+      var S = o("useWAWebContactValues").useContactValues(n.id, v),
+        R = S[0],
+        L;
+      if (t[1] !== n || t[2] !== R) {
+        var E =
+          R != null
+            ? o("WAWebContactCollection").ContactCollection.get(R)
+            : null;
+        ((L = C({ contact: n, phoneNumberContact: E })),
+          (t[1] = n),
+          (t[2] = R),
+          (t[3] = L));
+      } else L = t[3];
+      var k = L,
+        I = k.title,
+        T = k.type,
+        D,
+        x;
+      (t[4] !== I || t[5] !== T
+        ? ((D = function () {
+            I != null &&
+              T ===
+                o("WAWebWamEnumOppositeVisibleIdentificationType")
+                  .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.USERNAME &&
+              o("WAWebUsernameGatingUtils").usernameExposedLoggingEnabled() &&
+              new (o("WAWebUsernameExposedWamEvent").UsernameExposedWamEvent)({
+                usernameExposureContext: "contact_info_subtitle",
+              }).commit();
           }),
-          n && m.jsx(r("WAWebContactInfoPhoneNumberHidden.react"), {}),
-          !a &&
-            !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(t.id) &&
-            m.jsx(y, {
-              contact: t,
-              displayRequestPnButton: $,
-              onContactInfoAction: i,
-              onSaveContact: f,
-              onSearchMsgs: g,
-              onOpenChatTabInCustomerManager: d,
-            }),
-          o("WAWebBizGatingUtils").canDisplayLabel() &&
+          (x = [I, T]),
+          (t[4] = I),
+          (t[5] = T),
+          (t[6] = D),
+          (t[7] = x))
+        : ((D = t[6]), (x = t[7])),
+        p(D, x));
+      var $;
+      t[8] !== n
+        ? (($ =
+            o("WAWebNotesUtils").shouldEnableNotesForWid(
+              n == null ? void 0 : n.id,
+            ) &&
             !(
               o("WAWebCustomerManagerGating").customerManagerEnabled() &&
-              o("WAWebCustomerManagerGating").isEligibleForCustomerFields(t)
+              o("WAWebCustomerManagerGating").isEligibleForCustomerFields(n)
+            )
+              ? m.jsx(r("WAWebContactInfoNotes.react"), { contact: n })
+              : null),
+          (t[8] = n),
+          (t[9] = $))
+        : ($ = t[9]);
+      var P = $,
+        N;
+      t[10] !== n.id
+        ? ((N =
+            o(
+              "WAWebBotGroupGatingUtils",
+            ).isTEEGroupBotParticipantAddEnabled() &&
+            o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(n.id)),
+          (t[10] = n.id),
+          (t[11] = N))
+        : (N = t[11]);
+      var M = N,
+        w;
+      t[12] !== n || t[13] !== i
+        ? ((w = m.jsx(o("WAWebName.react").Name, {
+            testid: void 0,
+            contact: n,
+            showMessageYourselfName: i,
+            useLiftMeUp: !1,
+            selectable: !0,
+            breakWord: !0,
+            checkmarkLarge: !0,
+          })),
+          (t[12] = n),
+          (t[13] = i),
+          (t[14] = w))
+        : (w = t[14]);
+      var A = w,
+        F;
+      t[15] === Symbol.for("react.memo_cache_sentinel")
+        ? ((F = s._(/*BTDS*/ "View photo")), (t[15] = F))
+        : (F = t[15]);
+      var O = F,
+        B = M ? void 0 : u,
+        W = M ? void 0 : 0,
+        q = M
+          ? void 0
+          : o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
+        U = M ? void 0 : O,
+        V;
+      t[16] !== n.id ||
+      t[17] !== d ||
+      t[18] !== W ||
+      t[19] !== q ||
+      t[20] !== U ||
+      t[21] !== B
+        ? ((V = m.jsx(o("WAWebDetailImage.react").DetailImage, {
+            id: n.id,
+            size: o("WAWebDetailImage.react").DetailImageSize.Refresh,
+            loader: !0,
+            onLoad: d,
+            onClick: B,
+            quality: o("WAWebDetailImage.react").DetailImageQuality.High,
+            tabIndex: W,
+            xstyle: q,
+            ariaLabel: U,
+          })),
+          (t[16] = n.id),
+          (t[17] = d),
+          (t[18] = W),
+          (t[19] = q),
+          (t[20] = U),
+          (t[21] = B),
+          (t[22] = V))
+        : (V = t[22]);
+      var H = V,
+        G;
+      t[23] !== a
+        ? ((G =
+            a &&
+            !o(
+              "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
+            ).hasPhoneNumberHidingThreadPromotionMigrationStarted()),
+          (t[23] = a),
+          (t[24] = G))
+        : (G = t[24]);
+      var z = G,
+        j;
+      t[25] !== H || t[26] !== M
+        ? ((j = M
+            ? H
+            : m.jsx(r("WDSTooltip.react"), { label: O, children: H })),
+          (t[25] = H),
+          (t[26] = M),
+          (t[27] = j))
+        : (j = t[27]);
+      var K = j,
+        Q;
+      t[28] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Q = (c || (c = r("stylex"))).props(
+            _.avatar,
+            o("WAWebUISpacing").uiMargin.bottom10,
+          )),
+          (t[28] = Q))
+        : (Q = t[28]);
+      var X;
+      t[29] !== K || t[30] !== M
+        ? ((X = m.jsx(
+            "div",
+            babelHelpers.extends({}, Q, {
+              children: M
+                ? m.jsxs("div", {
+                    className: "x1n2onr6 x1rg5ohu",
+                    children: [
+                      K,
+                      m.jsx("div", {
+                        className:
+                          "x10l6tqk x1ey2m1c xqqy42c x12peec7 x1c9tyrk xeusxvb x1pahc9y x1ertn4p x78zum5 x6s0dn4 xl56j7k x1247r65 xng8ra xvuyptp",
+                        children: m.jsx(
+                          r(
+                            "WDSIconWdsIcPrivateProcessingAiLockSparkleFill.react",
+                          ),
+                          { height: 40, width: 34 },
+                        ),
+                      }),
+                    ],
+                  })
+                : K,
+            }),
+          )),
+          (t[29] = K),
+          (t[30] = M),
+          (t[31] = X))
+        : (X = t[31]);
+      var Y;
+      t[32] !== A
+        ? ((Y = m.jsx(o("WAWebText.react").WAWebTextLargeRefreshed, {
+            children: A,
+          })),
+          (t[32] = A),
+          (t[33] = Y))
+        : (Y = t[33]);
+      var J;
+      t[34] !== n.id || t[35] !== I
+        ? ((J =
+            !n.id.isBot() &&
+            I != null &&
+            m.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                (c || (c = r("stylex"))).props(
+                  _.secondaryWrapper,
+                  o("WAWebUISpacing").uiMargin.top10,
+                ),
+                {
+                  children: m.jsx(
+                    o("WAWebCopyPasteSelectable.react").SelectableSpan,
+                    {
+                      dir: "auto",
+                      selectable: !0,
+                      children: m.jsx(
+                        o("WAWebText.react").WAWebTextTitleRefreshed,
+                        { color: "wdsContentDeemphasized", children: I },
+                      ),
+                    },
+                  ),
+                },
+              ),
+            )),
+          (t[34] = n.id),
+          (t[35] = I),
+          (t[36] = J))
+        : (J = t[36]);
+      var Z;
+      t[37] !== n.id || t[38] !== M
+        ? ((Z =
+            M &&
+            m.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                (c || (c = r("stylex"))).props(
+                  _.secondaryWrapper,
+                  o("WAWebUISpacing").uiMargin.top10,
+                ),
+                {
+                  children: m.jsx(
+                    o("WAWebText.react").WAWebTextTitleRefreshed,
+                    {
+                      color: "wdsContentDeemphasized",
+                      children: o(
+                        "WAWebBotFrontendUtils",
+                      ).getMetaAiTEEBotSecondaryLine(n.id),
+                    },
+                  ),
+                },
+              ),
+            )),
+          (t[37] = n.id),
+          (t[38] = M),
+          (t[39] = Z))
+        : (Z = t[39]);
+      var ee;
+      t[40] !== n || t[41] !== b
+        ? ((ee = m.jsx(
+            o("WAWebMemberLabelContactInfo.react").MemberLabelContactInfo,
+            { contact: n, chat: b },
+          )),
+          (t[40] = n),
+          (t[41] = b),
+          (t[42] = ee))
+        : (ee = t[42]);
+      var te;
+      t[43] !== Y || t[44] !== J || t[45] !== Z || t[46] !== ee
+        ? ((te = m.jsxs(o("WAWebFlex.react").FlexColumn, {
+            align: "center",
+            children: [Y, J, Z, ee],
+          })),
+          (t[43] = Y),
+          (t[44] = J),
+          (t[45] = Z),
+          (t[46] = ee),
+          (t[47] = te))
+        : (te = t[47]);
+      var ne;
+      t[48] !== a
+        ? ((ne = a && m.jsx(r("WAWebContactInfoPhoneNumberHidden.react"), {})),
+          (t[48] = a),
+          (t[49] = ne))
+        : (ne = t[49]);
+      var re;
+      t[50] !== n ||
+      t[51] !== z ||
+      t[52] !== i ||
+      t[53] !== l ||
+      t[54] !== f ||
+      t[55] !== g ||
+      t[56] !== h
+        ? ((re =
+            !i &&
+            !o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(n.id) &&
+            m.jsx(y, {
+              contact: n,
+              displayRequestPnButton: z,
+              onContactInfoAction: l,
+              onSaveContact: g,
+              onSearchMsgs: h,
+              onOpenChatTabInCustomerManager: f,
+            })),
+          (t[50] = n),
+          (t[51] = z),
+          (t[52] = i),
+          (t[53] = l),
+          (t[54] = f),
+          (t[55] = g),
+          (t[56] = h),
+          (t[57] = re))
+        : (re = t[57]);
+      var oe;
+      t[58] !== n
+        ? ((oe =
+            o("WAWebBizGatingUtils").canDisplayLabel() &&
+            !(
+              o("WAWebCustomerManagerGating").customerManagerEnabled() &&
+              o("WAWebCustomerManagerGating").isEligibleForCustomerFields(n)
             ) &&
             m.jsx(r("WAWebLabelsInfoDrawerLabelWell.react"), {
-              labels: t.labels,
-            }),
-          k,
-        ],
-      });
+              labels: n.labels,
+            })),
+          (t[58] = n),
+          (t[59] = oe))
+        : (oe = t[59]);
+      var ae;
+      return (
+        t[60] !== P ||
+        t[61] !== X ||
+        t[62] !== te ||
+        t[63] !== ne ||
+        t[64] !== re ||
+        t[65] !== oe
+          ? ((ae = m.jsxs(r("WAWebDrawerSection.react"), {
+              theme: "refresh-new",
+              children: [X, te, ne, re, oe, P],
+            })),
+            (t[60] = P),
+            (t[61] = X),
+            (t[62] = te),
+            (t[63] = ne),
+            (t[64] = re),
+            (t[65] = oe),
+            (t[66] = ae))
+          : (ae = t[66]),
+        ae
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       return h.apply(this, arguments);
     }

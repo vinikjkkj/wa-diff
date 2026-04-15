@@ -49,6 +49,7 @@ __d(
     "WDSIconIcPerson.react",
     "WDSIconIcPersonAddFilled.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebAddParticipantsSelectedContacts",
     "useWAWebCommunityMembers",
     "useWAWebSplitCommunityParticipants",
@@ -342,38 +343,63 @@ __d(
       return d;
     }
     function C(e) {
-      var t = e.onInviteMembersClick,
-        n = e.parentChat,
-        a = _(
-          function () {
-            return o(
-              "WAWebCommunityAnnouncementGroupUtils",
-            ).getCommunityAnnouncementGroup(n.groupMetadata);
-          },
-          [n.groupMetadata],
-        ),
-        i = o("useWAWebCommunityMembers").useCommunityMembers(n, a),
-        l = i.announcementGroupParticipants,
-        s = i.loading,
-        u = i.members,
-        c = i.parentGroupParticipants,
-        d = !!(c != null && c.iAmAdmin()),
-        p = r("useWAWebSplitCommunityParticipants")(d, l, u),
-        f = p.members,
-        g = p.membersNotInCAG,
-        h = {
-          parentChat: n,
-          announcementGroupParticipants: l,
-          parentGroupParticipants: c,
-          loading: s,
-          onInviteMembersClick: t,
-        };
-      return m.jsx(
-        r("WAWebCommunityMembersFlow.react"),
-        babelHelpers.extends({ members: f, membersNotInCAG: g }, h),
+      var t = o("react-compiler-runtime").c(14),
+        n = e.onInviteMembersClick,
+        a = e.parentChat,
+        i;
+      t[0] !== a.groupMetadata
+        ? ((i = o(
+            "WAWebCommunityAnnouncementGroupUtils",
+          ).getCommunityAnnouncementGroup(a.groupMetadata)),
+          (t[0] = a.groupMetadata),
+          (t[1] = i))
+        : (i = t[1]);
+      var l = i,
+        s = o("useWAWebCommunityMembers").useCommunityMembers(a, l),
+        u = s.announcementGroupParticipants,
+        c = s.loading,
+        d = s.members,
+        p = s.parentGroupParticipants,
+        _;
+      t[2] !== p
+        ? ((_ = p == null ? void 0 : p.iAmAdmin()), (t[2] = p), (t[3] = _))
+        : (_ = t[3]);
+      var f = !!_,
+        g = r("useWAWebSplitCommunityParticipants")(f, u, d),
+        h = g.members,
+        y = g.membersNotInCAG,
+        C;
+      t[4] !== u || t[5] !== c || t[6] !== n || t[7] !== a || t[8] !== p
+        ? ((C = {
+            parentChat: a,
+            announcementGroupParticipants: u,
+            parentGroupParticipants: p,
+            loading: c,
+            onInviteMembersClick: n,
+          }),
+          (t[4] = u),
+          (t[5] = c),
+          (t[6] = n),
+          (t[7] = a),
+          (t[8] = p),
+          (t[9] = C))
+        : (C = t[9]);
+      var b = C,
+        v;
+      return (
+        t[10] !== h || t[11] !== y || t[12] !== b
+          ? ((v = m.jsx(
+              r("WAWebCommunityMembersFlow.react"),
+              babelHelpers.extends({ members: h, membersNotInCAG: y }, b),
+            )),
+            (t[10] = h),
+            (t[11] = y),
+            (t[12] = b),
+            (t[13] = v))
+          : (v = t[13]),
+        v
       );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b(t) {
       var n = t.ref,
         a = babelHelpers.objectWithoutPropertiesLoose(t, c),

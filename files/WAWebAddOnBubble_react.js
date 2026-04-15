@@ -1,6 +1,12 @@
 __d(
   "WAWebAddOnBubble.react",
-  ["WAWebFlex.react", "WAWebReactionGatingUtils", "react", "stylex"],
+  [
+    "WAWebFlex.react",
+    "WAWebReactionGatingUtils",
+    "react",
+    "react-compiler-runtime",
+    "stylex",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -126,27 +132,48 @@ __d(
         },
       };
     function _(t) {
-      var n = t.children,
-        a = t.onAnimationEnd,
-        i = t.shouldAnimateBubble,
-        l = o("WAWebReactionGatingUtils").isReactionsMotionV2Enabled(),
-        s;
+      var n = o("react-compiler-runtime").c(8),
+        a = t.children,
+        i = t.onAnimationEnd,
+        l = t.shouldAnimateBubble,
+        s = o("WAWebReactionGatingUtils").isReactionsMotionV2Enabled(),
+        c;
+      l === !0
+        ? (c = s ? p.animateBubbleV2 : p.animateBubble)
+        : (c = p.container);
+      var d;
+      n[0] !== c
+        ? ((d = (e || (e = r("stylex")))([c, p.marginHoriz2])),
+          (n[0] = c),
+          (n[1] = d))
+        : (d = n[1]);
+      var m;
+      n[2] !== i
+        ? ((m = function (t) {
+            i && (t == null || t.addEventListener("animationend", i));
+          }),
+          (n[2] = i),
+          (n[3] = m))
+        : (m = n[3]);
+      var _;
       return (
-        i === !0
-          ? (s = l ? p.animateBubbleV2 : p.animateBubble)
-          : (s = p.container),
-        u.jsx(o("WAWebFlex.react").FlexRow, {
-          className: (e || (e = r("stylex")))([s, p.marginHoriz2]),
-          ref: function (t) {
-            a && (t == null || t.addEventListener("animationend", a));
-          },
-          align: "center",
-          justify: "center",
-          children: n,
-        })
+        n[4] !== a || n[5] !== d || n[6] !== m
+          ? ((_ = u.jsx(o("WAWebFlex.react").FlexRow, {
+              className: d,
+              ref: m,
+              align: "center",
+              justify: "center",
+              children: a,
+            })),
+            (n[4] = a),
+            (n[5] = d),
+            (n[6] = m),
+            (n[7] = _))
+          : (_ = n[7]),
+        _
       );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    l.default = _;
   },
   98,
 );

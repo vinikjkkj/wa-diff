@@ -10,6 +10,7 @@ __d(
     "WDSText.react",
     "WDSThemes",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -114,79 +115,132 @@ __d(
         },
       };
     function m(e) {
-      var t = e.isVideo,
-        n = t ? s._(/*BTDS*/ "Video call") : s._(/*BTDS*/ "Voice call");
-      return u.jsx(o("WAWebThemeContext").ThemeContext.Provider, {
-        value: c,
-        children: u.jsx(o("WAWebFlex.react").FlexColumn, {
-          xstyle: [
+      var t = o("react-compiler-runtime").c(17),
+        n = e.isVideo,
+        a;
+      t[0] !== n
+        ? ((a = n ? s._(/*BTDS*/ "Video call") : s._(/*BTDS*/ "Voice call")),
+          (t[0] = n),
+          (t[1] = a))
+        : (a = t[1]);
+      var i = a,
+        l;
+      t[2] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = [
             o("WDSThemes").WDSDarkTheme,
             d.voipContainer,
             o("WDSColorStyles.stylex").WDSColorStyles.persistentAlwaysWhite,
             o("WDSColorStyles.stylex").WDSBackgroundColorStyles
               .backgroundWashPlain,
-          ],
-          children: u.jsx(o("WAWebFlex.react").FlexItem, {
-            xstyle: d.lobbyOuterContainer,
-            children: u.jsx(o("WAWebFlex.react").FlexItem, {
-              xstyle: d.lobbyInnerContainer,
-              children: u.jsxs(o("WAWebFlex.react").FlexColumn, {
-                xstyle: d.contentContainer,
-                children: [
-                  u.jsxs(o("WAWebFlex.react").FlexRow, {
-                    align: "center",
-                    xstyle: d.participantInfoSection,
-                    children: [
-                      u.jsx("div", {
-                        className:
-                          "x100vrsf x1vqgdyp x1c9tyrk xeusxvb x1pahc9y x1ertn4p xfn3atn x78zum5 x6s0dn4 xl56j7k x2lah0s x1c3i2sq",
-                        children: t ? "\uD83D\uDCF9" : "\uD83D\uDCDE",
-                      }),
-                      u.jsxs(o("WAWebFlex.react").FlexColumn, {
-                        children: [
-                          u.jsx(r("WDSText.react"), {
-                            type: "Body1Emphasized",
-                            colorName: "contentDefault",
-                            selectable: !1,
-                            children: s._(/*BTDS*/ "Call link"),
-                          }),
-                          u.jsx(r("WDSText.react"), {
-                            type: "Body2",
-                            colorName: "contentDeemphasized",
-                            selectable: !1,
-                            children: n,
-                          }),
-                        ],
-                      }),
-                    ],
-                  }),
-                  u.jsxs(o("WAWebFlex.react").FlexItem, {
-                    xstyle: d.loadingArea,
-                    children: [
-                      u.jsx(o("WAWebSpinner.react").Spinner, {
-                        size: 40,
-                        color: "accent",
-                        stroke: 3,
-                      }),
-                      u.jsx(r("WDSText.react"), {
-                        type: "Body1",
-                        colorName: "contentDeemphasized",
-                        selectable: !1,
-                        children: s._(/*BTDS*/ "Connecting..."),
-                      }),
-                    ],
-                  }),
-                  u.jsx(o("WAWebFlex.react").FlexRow, {
-                    xstyle: d.controlsPlaceholder,
-                  }),
-                ],
+          ]),
+          (t[2] = l))
+        : (l = t[2]);
+      var m;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = {
+            className:
+              "x100vrsf x1vqgdyp x1c9tyrk xeusxvb x1pahc9y x1ertn4p xfn3atn x78zum5 x6s0dn4 xl56j7k x2lah0s x1c3i2sq",
+          }),
+          (t[3] = m))
+        : (m = t[3]);
+      var p = n ? "\uD83D\uDCF9" : "\uD83D\uDCDE",
+        _;
+      t[4] !== p
+        ? ((_ = u.jsx("div", babelHelpers.extends({}, m, { children: p }))),
+          (t[4] = p),
+          (t[5] = _))
+        : (_ = t[5]);
+      var f;
+      t[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = u.jsx(r("WDSText.react"), {
+            type: "Body1Emphasized",
+            colorName: "contentDefault",
+            selectable: !1,
+            children: s._(/*BTDS*/ "Call link"),
+          })),
+          (t[6] = f))
+        : (f = t[6]);
+      var g;
+      t[7] !== i
+        ? ((g = u.jsxs(o("WAWebFlex.react").FlexColumn, {
+            children: [
+              f,
+              u.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDeemphasized",
+                selectable: !1,
+                children: i,
+              }),
+            ],
+          })),
+          (t[7] = i),
+          (t[8] = g))
+        : (g = t[8]);
+      var h;
+      t[9] !== _ || t[10] !== g
+        ? ((h = u.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            xstyle: d.participantInfoSection,
+            children: [_, g],
+          })),
+          (t[9] = _),
+          (t[10] = g),
+          (t[11] = h))
+        : (h = t[11]);
+      var y;
+      t[12] === Symbol.for("react.memo_cache_sentinel")
+        ? ((y = u.jsx(o("WAWebSpinner.react").Spinner, {
+            size: 40,
+            color: "accent",
+            stroke: 3,
+          })),
+          (t[12] = y))
+        : (y = t[12]);
+      var C, b;
+      t[13] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = u.jsxs(o("WAWebFlex.react").FlexItem, {
+            xstyle: d.loadingArea,
+            children: [
+              y,
+              u.jsx(r("WDSText.react"), {
+                type: "Body1",
+                colorName: "contentDeemphasized",
+                selectable: !1,
+                children: s._(/*BTDS*/ "Connecting..."),
+              }),
+            ],
+          })),
+          (b = u.jsx(o("WAWebFlex.react").FlexRow, {
+            xstyle: d.controlsPlaceholder,
+          })),
+          (t[13] = C),
+          (t[14] = b))
+        : ((C = t[13]), (b = t[14]));
+      var v;
+      if (t[15] !== h) {
+        var S;
+        ((v = u.jsx(o("WAWebThemeContext").ThemeContext.Provider, {
+          value: c,
+          children: u.jsx((S = o("WAWebFlex.react")).FlexColumn, {
+            xstyle: l,
+            children: u.jsx(S.FlexItem, {
+              xstyle: d.lobbyOuterContainer,
+              children: u.jsx(S.FlexItem, {
+                xstyle: d.lobbyInnerContainer,
+                children: u.jsxs(S.FlexColumn, {
+                  xstyle: d.contentContainer,
+                  children: [h, C, b],
+                }),
               }),
             }),
           }),
-        }),
-      });
+        })),
+          (t[15] = h),
+          (t[16] = v));
+      } else v = t[16];
+      return v;
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

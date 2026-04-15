@@ -50,6 +50,7 @@ __d(
     "WAWebNoop",
     "WAWebProfileImage.react",
     "WAWebProfilePicThumbCollection",
+    "WAWebQbmMessageLevelActionEvent",
     "WAWebQueryExistsJob",
     "WAWebStateUtils",
     "WAWebText.react",
@@ -60,12 +61,15 @@ __d(
     "WAWebVcardGetNameFromParsed",
     "WAWebVcardParsingUtils",
     "WAWebVcardWidChoiceModal.react",
+    "WAWebWamEnumMessageActionEntryPoint",
+    "WAWebWamEnumMessageLevelAction",
     "WAWebWamEnumProfileEntryPoint",
     "WDSButton.react",
     "WDSIconWdsIcAiFilled.react",
     "fbs",
     "lodash",
     "react",
+    "react-compiler-runtime",
     "useWAWebForceUpdate",
     "useWAWebListener",
     "useWAWebMsgValues",
@@ -246,7 +250,15 @@ __d(
                 : o("WAWebContactEditUtils").openContactEditDrawer(
                     w,
                     o("WAWebContactLogging").ContactSourceType.VCard,
-                  ));
+                  ),
+            o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+              msg: s.unsafe(),
+              chat: T,
+              messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                .MESSAGE_LEVEL_ACTION.ADD_CONTACT,
+              messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
+                .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+            }));
         },
         U = function () {
           g
@@ -542,73 +554,175 @@ __d(
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = e.downloadMedia,
+      var t = o("react-compiler-runtime").c(8),
+        n = e.downloadMedia,
+        a = e.mediaStage;
+      if (!a) {
+        var i;
+        return (
+          t[0] !== n
+            ? ((i = c.jsx(h, { downloadMedia: n })), (t[0] = n), (t[1] = i))
+            : (i = t[1]),
+          i
+        );
+      }
+      switch (a) {
+        case o("WAWebMediaTypes").MediaDataStage.NEED_POKE:
+        case o("WAWebMediaTypes").MediaDataStage.INIT: {
+          var l;
+          return (
+            t[2] !== n
+              ? ((l = c.jsx(h, { downloadMedia: n })), (t[2] = n), (t[3] = l))
+              : (l = t[3]),
+            l
+          );
+        }
+        case o("WAWebMediaTypes").MediaDataStage.FETCHING:
+        case o("WAWebMediaTypes").MediaDataStage.REUPLOADING:
+        case o("WAWebMediaTypes").MediaDataStage.DECRYPTING: {
+          var s;
+          return (
+            t[4] === Symbol.for("react.memo_cache_sentinel")
+              ? ((s = c.jsx(g, { animate: !0, type: "profileImage" })),
+                (t[4] = s))
+              : (s = t[4]),
+            s
+          );
+        }
+        case o("WAWebMediaTypes").MediaDataStage.RESOLVED: {
+          var u;
+          return (
+            t[5] === Symbol.for("react.memo_cache_sentinel")
+              ? ((u = c.jsx(g, { type: "profileImage" })), (t[5] = u))
+              : (u = t[5]),
+            u
+          );
+        }
+        case o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING: {
+          var d;
+          return (
+            t[6] === Symbol.for("react.memo_cache_sentinel")
+              ? ((d = c.jsx(h, { downloadMedia: r("WAWebNoop") })), (t[6] = d))
+              : (d = t[6]),
+            d
+          );
+        }
+        default: {
+          var m;
+          return (
+            t[7] === Symbol.for("react.memo_cache_sentinel")
+              ? ((m = c.jsx(g, { animate: !0, type: "profileImage" })),
+                (t[7] = m))
+              : (m = t[7]),
+            m
+          );
+        }
+      }
+    }
+    function f(e) {
+      var t = o("react-compiler-runtime").c(5),
         n = e.mediaStage;
-      if (!n) return c.jsx(h, { downloadMedia: t });
+      if (!n) {
+        var r;
+        return (
+          t[0] === Symbol.for("react.memo_cache_sentinel")
+            ? ((r = c.jsx(g, { type: "body" })), (t[0] = r))
+            : (r = t[0]),
+          r
+        );
+      }
       switch (n) {
         case o("WAWebMediaTypes").MediaDataStage.NEED_POKE:
-        case o("WAWebMediaTypes").MediaDataStage.INIT:
-          return c.jsx(h, { downloadMedia: t });
+        case o("WAWebMediaTypes").MediaDataStage.INIT: {
+          var a;
+          return (
+            t[1] === Symbol.for("react.memo_cache_sentinel")
+              ? ((a = c.jsx(g, { type: "body" })), (t[1] = a))
+              : (a = t[1]),
+            a
+          );
+        }
         case o("WAWebMediaTypes").MediaDataStage.FETCHING:
         case o("WAWebMediaTypes").MediaDataStage.REUPLOADING:
-        case o("WAWebMediaTypes").MediaDataStage.DECRYPTING:
-          return c.jsx(g, { animate: !0, type: "profileImage" });
+        case o("WAWebMediaTypes").MediaDataStage.DECRYPTING: {
+          var i;
+          return (
+            t[2] === Symbol.for("react.memo_cache_sentinel")
+              ? ((i = c.jsx(g, { animate: !0, type: "body" })), (t[2] = i))
+              : (i = t[2]),
+            i
+          );
+        }
         case o("WAWebMediaTypes").MediaDataStage.RESOLVED:
-          return c.jsx(g, { type: "profileImage" });
-        case o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING:
-          return c.jsx(h, { downloadMedia: r("WAWebNoop") });
-        default:
-          return c.jsx(g, { animate: !0, type: "profileImage" });
+        case o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING: {
+          var l;
+          return (
+            t[3] === Symbol.for("react.memo_cache_sentinel")
+              ? ((l = c.jsx(g, { type: "body" })), (t[3] = l))
+              : (l = t[3]),
+            l
+          );
+        }
+        default: {
+          var s;
+          return (
+            t[4] === Symbol.for("react.memo_cache_sentinel")
+              ? ((s = c.jsx(g, { type: "body" })), (t[4] = s))
+              : (s = t[4]),
+            s
+          );
+        }
       }
     }
-    _.displayName = _.name + " [from " + i.id + "]";
-    function f(e) {
-      var t = e.mediaStage;
-      if (!t) return c.jsx(g, { type: "body" });
-      switch (t) {
-        case o("WAWebMediaTypes").MediaDataStage.NEED_POKE:
-        case o("WAWebMediaTypes").MediaDataStage.INIT:
-          return c.jsx(g, { type: "body" });
-        case o("WAWebMediaTypes").MediaDataStage.FETCHING:
-        case o("WAWebMediaTypes").MediaDataStage.REUPLOADING:
-        case o("WAWebMediaTypes").MediaDataStage.DECRYPTING:
-          return c.jsx(g, { animate: !0, type: "body" });
-        case o("WAWebMediaTypes").MediaDataStage.RESOLVED:
-        case o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING:
-          return c.jsx(g, { type: "body" });
-        default:
-          return c.jsx(g, { type: "body" });
-      }
-    }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = e.animate,
-        n = e.type,
-        r = [
-          "_ahz7",
-          n === "profileImage" ? "_ahz9" : "_ahza",
-          t ? "_ahz8" : null,
-        ].filter(Boolean);
-      return c.jsx("div", {
-        className: o("WAWebClassnames").classnamesConvertMeToStylexPlease.apply(
+      var t = o("react-compiler-runtime").c(5),
+        n = e.animate,
+        r = e.type,
+        a = r === "profileImage" ? "_ahz9" : "_ahza",
+        i = n ? "_ahz8" : null,
+        l;
+      if (t[0] !== a || t[1] !== i) {
+        var s = ["_ahz7", a, i].filter(Boolean);
+        ((l = o("WAWebClassnames").classnamesConvertMeToStylexPlease.apply(
           void 0,
-          r,
-        ),
-      });
+          s,
+        )),
+          (t[0] = a),
+          (t[1] = i),
+          (t[2] = l));
+      } else l = t[2];
+      var u;
+      return (
+        t[3] !== l
+          ? ((u = c.jsx("div", { className: l })), (t[3] = l), (t[4] = u))
+          : (u = t[4]),
+        u
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = e.downloadMedia;
-      return c.jsx(r("WDSButton.react"), {
-        "aria-label": u._(/*BTDS*/ "Download"),
-        Icon: o("WAWebAudioDownloadIcon.react").AudioDownloadIcon,
-        onPress: function () {
-          t == null || t();
-        },
-        variant: "borderless",
-      });
+      var t = o("react-compiler-runtime").c(3),
+        n = e.downloadMedia,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = u._(/*BTDS*/ "Download")), (t[0] = a))
+        : (a = t[0]);
+      var i;
+      return (
+        t[1] !== n
+          ? ((i = c.jsx(r("WDSButton.react"), {
+              "aria-label": a,
+              Icon: o("WAWebAudioDownloadIcon.react").AudioDownloadIcon,
+              onPress: function () {
+                n == null || n();
+              },
+              variant: "borderless",
+            })),
+            (t[1] = n),
+            (t[2] = i))
+          : (i = t[2]),
+        i
+      );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     var y = function () {
         o("WAWebModalManager").ModalManager.open(
           c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {

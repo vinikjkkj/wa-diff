@@ -7,6 +7,7 @@ __d(
     "WAWebStatusGetters",
     "WDSVars.stylex",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebStatusValues",
   ],
@@ -91,73 +92,153 @@ __d(
         return t + n * (r + o);
       };
     function b(t) {
-      var n = (2 * f + t.strokeWidth) / 2,
-        r = t.customStrokeColor,
-        o = babelHelpers.objectWithoutPropertiesLoose(t, e);
-      return c.jsx(
-        "circle",
-        babelHelpers.extends(
-          { cx: n, cy: n, r: f, fill: "none", strokeLinecap: "round" },
-          o,
-          r != null ? { style: { stroke: r } } : void 0,
-        ),
+      var n = o("react-compiler-runtime").c(9),
+        r = (2 * f + t.strokeWidth) / 2,
+        a,
+        i;
+      n[0] !== t
+        ? ((i = t.customStrokeColor),
+          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i))
+        : ((a = n[1]), (i = n[2]));
+      var l;
+      n[3] !== i
+        ? ((l = i != null ? { style: { stroke: i } } : void 0),
+          (n[3] = i),
+          (n[4] = l))
+        : (l = n[4]);
+      var s;
+      return (
+        n[5] !== a || n[6] !== r || n[7] !== l
+          ? ((s = c.jsx(
+              "circle",
+              babelHelpers.extends(
+                { cx: r, cy: r, r: f, fill: "none", strokeLinecap: "round" },
+                a,
+                l,
+              ),
+            )),
+            (n[5] = a),
+            (n[6] = r),
+            (n[7] = l),
+            (n[8] = s))
+          : (s = n[8]),
+        s
       );
     }
-    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.className,
-        n = e.customStrokeColor,
-        r = e.dashesToDraw,
-        o = e.dashesToOffsetBy,
-        a = e.stroke,
-        i = e.totalDashes,
-        l = g,
-        s = Math.PI * f * 2;
-      s - g * i < 1 && (l = s / i / 1.2);
-      var u = (s - l * i) / i,
-        d = s / 4 - l / 2,
-        m = C(d, o, l, u),
-        p = i !== 1 ? y(r, u, s, l) : void 0;
-      return c.jsx(b, {
-        className: t,
-        customStrokeColor: n,
-        strokeDashoffset: m,
-        strokeDasharray: p,
-        strokeWidth: a,
-      });
+      var t = o("react-compiler-runtime").c(16),
+        n = e.className,
+        r = e.customStrokeColor,
+        a = e.dashesToDraw,
+        i = e.dashesToOffsetBy,
+        l = e.stroke,
+        s = e.totalDashes,
+        u = g,
+        d = Math.PI * f * 2;
+      d - g * s < 1 && (u = d / s / 1.2);
+      var m = (d - u * s) / s,
+        p = d / 4 - u / 2,
+        _;
+      t[0] !== m || t[1] !== i || t[2] !== u || t[3] !== p
+        ? ((_ = C(p, i, u, m)),
+          (t[0] = m),
+          (t[1] = i),
+          (t[2] = u),
+          (t[3] = p),
+          (t[4] = _))
+        : (_ = t[4]);
+      var h = _,
+        v;
+      t[5] !== m || t[6] !== a || t[7] !== u || t[8] !== s
+        ? ((v = s !== 1 ? y(a, m, d, u) : void 0),
+          (t[5] = m),
+          (t[6] = a),
+          (t[7] = u),
+          (t[8] = s),
+          (t[9] = v))
+        : (v = t[9]);
+      var S = v,
+        R;
+      return (
+        t[10] !== n || t[11] !== r || t[12] !== S || t[13] !== h || t[14] !== l
+          ? ((R = c.jsx(b, {
+              className: n,
+              customStrokeColor: r,
+              strokeDashoffset: h,
+              strokeDasharray: S,
+              strokeWidth: l,
+            })),
+            (t[10] = n),
+            (t[11] = r),
+            (t[12] = S),
+            (t[13] = h),
+            (t[14] = l),
+            (t[15] = R))
+          : (R = t[15]),
+        R
+      );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = e.customUnreadRingColor,
-        n = e.respectAppTheme,
-        o = e.stroke,
-        a = e.totalCount,
-        i = e.unreadCount,
-        l = a - i,
-        u =
-          i > 0
-            ? c.jsx(v, {
-                className: (s || (s = r("stylex")))(h(n)),
-                customStrokeColor: t,
-                totalDashes: a,
-                dashesToDraw: i,
-                dashesToOffsetBy: a,
-                stroke: o,
-              })
-            : null,
-        d =
-          l > 0
-            ? c.jsx(v, {
-                className: "x1xwosuo x18cpw0e",
-                totalDashes: a,
-                dashesToDraw: l,
-                dashesToOffsetBy: l,
-                stroke: o,
-              })
-            : null;
-      return c.jsxs(c.Fragment, { children: [u, d] });
+      var t = o("react-compiler-runtime").c(13),
+        n = e.customUnreadRingColor,
+        a = e.respectAppTheme,
+        i = e.stroke,
+        l = e.totalCount,
+        u = e.unreadCount,
+        d = l - u,
+        m;
+      t[0] !== n || t[1] !== a || t[2] !== i || t[3] !== l || t[4] !== u
+        ? ((m =
+            u > 0
+              ? c.jsx(v, {
+                  className: (s || (s = r("stylex")))(h(a)),
+                  customStrokeColor: n,
+                  totalDashes: l,
+                  dashesToDraw: u,
+                  dashesToOffsetBy: l,
+                  stroke: i,
+                })
+              : null),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = i),
+          (t[3] = l),
+          (t[4] = u),
+          (t[5] = m))
+        : (m = t[5]);
+      var p = m,
+        _;
+      t[6] !== d || t[7] !== i || t[8] !== l
+        ? ((_ =
+            d > 0
+              ? c.jsx(v, {
+                  className: "x1xwosuo x18cpw0e",
+                  totalDashes: l,
+                  dashesToDraw: d,
+                  dashesToOffsetBy: d,
+                  stroke: i,
+                })
+              : null),
+          (t[6] = d),
+          (t[7] = i),
+          (t[8] = l),
+          (t[9] = _))
+        : (_ = t[9]);
+      var f = _,
+        g;
+      return (
+        t[10] !== f || t[11] !== p
+          ? ((g = c.jsxs(c.Fragment, { children: [p, f] })),
+            (t[10] = f),
+            (t[11] = p),
+            (t[12] = g))
+          : (g = t[12]),
+        g
+      );
     }
-    S.displayName = S.name + " [from " + i.id + "]";
     var R = function (t, n) {
       var e = t / (2 * f + n),
         r = t / 2,
@@ -175,100 +256,184 @@ __d(
       return { width: t, height: t, mask: a, WebkitMask: a };
     };
     function L(e) {
-      var t = e.customUnreadRingColor,
-        n = e.respectAppTheme,
-        o = e.size,
-        a = e.stroke,
-        i = e.theme,
-        l = e.unreadCount;
-      return c.jsx("div", {
-        className: (s || (s = r("stylex")))(
-          _.get(i),
-          m.loadingRing,
-          l > 0 ? h(n, t) : m.read,
-        ),
-        style: babelHelpers.extends(
-          {},
-          R(o, a),
-          t != null ? { color: t } : void 0,
-        ),
-      });
-    }
-    L.displayName = L.name + " [from " + i.id + "]";
-    function E(e) {
-      var t = e.id,
-        n = e.stroke,
-        a = n === void 0 ? 4 : n,
+      var t = o("react-compiler-runtime").c(16),
+        n = e.customUnreadRingColor,
+        a = e.respectAppTheme,
         i = e.size,
-        l = i === void 0 ? 48 : i,
-        u = e.breakRing,
-        d = u === void 0 ? !0 : u,
-        g = e.hideWhenNoUnreadStatuses,
-        y = g === void 0 ? !1 : g,
-        C = e.respectAppTheme,
-        v = C === void 0 ? !1 : C,
-        R = e.theme,
-        E = R === void 0 ? p.StatusPanel : R,
-        k = e.customUnreadRingColor,
-        I = k === void 0 ? null : k,
-        T = o("useWAWebStatusValues").useStatusValues(t, [
-          o("WAWebStatusGetters").getUnreadCount,
-          o("WAWebStatusGetters").getTotalCount,
-          o("WAWebStatusGetters").getIsLoading,
-          o("WAWebFrontendStatusGetters").getHasUnreadCloseFriendStatus,
-        ]),
-        D = T[0],
-        x = T[1],
-        $ = T[2],
-        P = T[3],
-        N =
-          I != null
-            ? I
-            : o(
-                  "WAWebStatusGatingUtils",
-                ).isStatusCloseFriendsViewerSideEnabled() && P
-              ? o("WDSVars.stylex").WDSBaseColor.plum400
-              : null;
-      if ((D <= 0 && y) || x === 0) return null;
-      if ($)
-        return c.jsx(L, {
-          customUnreadRingColor: N,
-          respectAppTheme: v,
-          size: l,
-          stroke: a,
-          theme: E,
-          unreadCount: D,
-        });
-      var M = 2 * f + a,
-        w = "0 0 " + M + " " + M,
-        A = N != null && D > 0,
-        F =
-          !d || x === 1 || A
-            ? c.jsx(b, {
-                className: (s || (s = r("stylex")))(D > 0 ? h(v, N) : m.read),
-                customStrokeColor: D > 0 ? N : null,
-                strokeWidth: a,
-              })
-            : c.jsx(S, {
-                customUnreadRingColor: N,
-                totalCount: x,
-                unreadCount: D,
-                stroke: a,
-                respectAppTheme: v,
-              });
-      return c.jsx(
-        "svg",
-        babelHelpers.extends({}, (s || (s = r("stylex"))).props(_.get(E)), {
-          width: l,
-          height: l,
-          viewBox: w,
-          children: F,
-        }),
+        l = e.stroke,
+        u = e.theme,
+        d = e.unreadCount,
+        p;
+      t[0] !== n || t[1] !== a || t[2] !== u || t[3] !== d
+        ? ((p = (s || (s = r("stylex")))(
+            _.get(u),
+            m.loadingRing,
+            d > 0 ? h(a, n) : m.read,
+          )),
+          (t[0] = n),
+          (t[1] = a),
+          (t[2] = u),
+          (t[3] = d),
+          (t[4] = p))
+        : (p = t[4]);
+      var f;
+      t[5] !== i || t[6] !== l
+        ? ((f = R(i, l)), (t[5] = i), (t[6] = l), (t[7] = f))
+        : (f = t[7]);
+      var g;
+      t[8] !== n
+        ? ((g = n != null ? { color: n } : void 0), (t[8] = n), (t[9] = g))
+        : (g = t[9]);
+      var y;
+      t[10] !== f || t[11] !== g
+        ? ((y = babelHelpers.extends({}, f, g)),
+          (t[10] = f),
+          (t[11] = g),
+          (t[12] = y))
+        : (y = t[12]);
+      var C;
+      return (
+        t[13] !== p || t[14] !== y
+          ? ((C = c.jsx("div", { className: p, style: y })),
+            (t[13] = p),
+            (t[14] = y),
+            (t[15] = C))
+          : (C = t[15]),
+        C
       );
     }
-    ((E.displayName = E.name + " [from " + i.id + "]"),
-      (l.RingTheme = p),
-      (l.StatusImageRing = E));
+    function E(e) {
+      var t = o("react-compiler-runtime").c(23),
+        n = e.id,
+        a = e.stroke,
+        i = e.size,
+        l = e.breakRing,
+        u = e.hideWhenNoUnreadStatuses,
+        d = e.respectAppTheme,
+        g = e.theme,
+        y = e.customUnreadRingColor,
+        C = a === void 0 ? 4 : a,
+        v = i === void 0 ? 48 : i,
+        R = l === void 0 ? !0 : l,
+        E = u === void 0 ? !1 : u,
+        k = d === void 0 ? !1 : d,
+        I = g === void 0 ? p.StatusPanel : g,
+        T = y === void 0 ? null : y,
+        D;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((D = [
+            o("WAWebStatusGetters").getUnreadCount,
+            o("WAWebStatusGetters").getTotalCount,
+            o("WAWebStatusGetters").getIsLoading,
+            o("WAWebFrontendStatusGetters").getHasUnreadCloseFriendStatus,
+          ]),
+          (t[0] = D))
+        : (D = t[0]);
+      var x = o("useWAWebStatusValues").useStatusValues(n, D),
+        $ = x[0],
+        P = x[1],
+        N = x[2],
+        M = x[3],
+        w =
+          T != null
+            ? T
+            : o(
+                  "WAWebStatusGatingUtils",
+                ).isStatusCloseFriendsViewerSideEnabled() && M
+              ? o("WDSVars.stylex").WDSBaseColor.plum400
+              : null;
+      if (($ <= 0 && E) || P === 0) return null;
+      if (N) {
+        var A;
+        return (
+          t[1] !== w ||
+          t[2] !== k ||
+          t[3] !== v ||
+          t[4] !== C ||
+          t[5] !== I ||
+          t[6] !== $
+            ? ((A = c.jsx(L, {
+                customUnreadRingColor: w,
+                respectAppTheme: k,
+                size: v,
+                stroke: C,
+                theme: I,
+                unreadCount: $,
+              })),
+              (t[1] = w),
+              (t[2] = k),
+              (t[3] = v),
+              (t[4] = C),
+              (t[5] = I),
+              (t[6] = $),
+              (t[7] = A))
+            : (A = t[7]),
+          A
+        );
+      }
+      var F = 2 * f + C,
+        O = "0 0 " + F + " " + F,
+        B = w != null && $ > 0,
+        W;
+      t[8] !== R ||
+      t[9] !== B ||
+      t[10] !== w ||
+      t[11] !== k ||
+      t[12] !== C ||
+      t[13] !== P ||
+      t[14] !== $
+        ? ((W =
+            !R || P === 1 || B
+              ? c.jsx(b, {
+                  className: (s || (s = r("stylex")))($ > 0 ? h(k, w) : m.read),
+                  customStrokeColor: $ > 0 ? w : null,
+                  strokeWidth: C,
+                })
+              : c.jsx(S, {
+                  customUnreadRingColor: w,
+                  totalCount: P,
+                  unreadCount: $,
+                  stroke: C,
+                  respectAppTheme: k,
+                })),
+          (t[8] = R),
+          (t[9] = B),
+          (t[10] = w),
+          (t[11] = k),
+          (t[12] = C),
+          (t[13] = P),
+          (t[14] = $),
+          (t[15] = W))
+        : (W = t[15]);
+      var q = W,
+        U;
+      t[16] !== I
+        ? ((U = (s || (s = r("stylex"))).props(_.get(I))),
+          (t[16] = I),
+          (t[17] = U))
+        : (U = t[17]);
+      var V;
+      return (
+        t[18] !== q || t[19] !== v || t[20] !== U || t[21] !== O
+          ? ((V = c.jsx(
+              "svg",
+              babelHelpers.extends({}, U, {
+                width: v,
+                height: v,
+                viewBox: O,
+                children: q,
+              }),
+            )),
+            (t[18] = q),
+            (t[19] = v),
+            (t[20] = U),
+            (t[21] = O),
+            (t[22] = V))
+          : (V = t[22]),
+        V
+      );
+    }
+    ((l.RingTheme = p), (l.StatusImageRing = E));
   },
   98,
 );

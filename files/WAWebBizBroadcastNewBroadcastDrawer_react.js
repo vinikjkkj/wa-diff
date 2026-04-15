@@ -8,6 +8,7 @@ __d(
     "WAWebBizBroadcastBusinessInfoContext.react",
     "WAWebBizBroadcastCTAButtonUtils",
     "WAWebBizBroadcastCheckoutUtils",
+    "WAWebBizBroadcastCreationQPLLogger",
     "WAWebBizBroadcastDetailsSection.react",
     "WAWebBizBroadcastDrawerFooter.react",
     "WAWebBizBroadcastGenAIGating",
@@ -30,6 +31,7 @@ __d(
     "WAWebToastManager",
     "WAWebWidToJid",
     "react",
+    "react-compiler-runtime",
     "useWAWebBizBroadcastBillingInfo",
     "useWAWebBizBroadcastCheckout",
     "useWAWebBizBroadcastDraftMessage",
@@ -63,9 +65,13 @@ __d(
         E = t.title;
       f(
         function () {
-          o(
+          (o(
             "WAWebBusinessBroadcastUserJourneyLogger",
-          ).BusinessBroadcastUserJourneyLogger.createBroadcastViewed(i);
+          ).BusinessBroadcastUserJourneyLogger.createBroadcastViewed(i),
+            o("WAWebBizBroadcastCreationQPLLogger").qplCreatePoint(
+              o("WAWebBizBroadcastCreationQPLLogger").CreateBroadcastQPLPoints
+                .DRAWER_MOUNTED,
+            ));
         },
         [i],
       );
@@ -112,37 +118,76 @@ __d(
         }),
         q = W.checkoutData,
         U = W.isLoading,
-        V = o(
+        V = h(!1);
+      f(
+        function () {
+          !U &&
+            !V.current &&
+            ((V.current = !0),
+            o("WAWebBizBroadcastCreationQPLLogger").qplCreatePoint(
+              o("WAWebBizBroadcastCreationQPLLogger").CreateBroadcastQPLPoints
+                .CHECKOUT_FETCH_END,
+            ));
+        },
+        [U],
+      );
+      var H = o(
           "WAWebBizBroadcastBusinessInfoContext.react",
         ).useWAWebBizBroadcastBusinessInfoContext(),
-        H = V.adAccountId,
-        G = q == null ? void 0 : q.costCurrency,
-        z = (a = q == null ? void 0 : q.costOffset) != null ? a : 1,
-        j = q == null ? void 0 : q.costBeforeTax,
-        K = g(
+        G = H.adAccountId,
+        z = q == null ? void 0 : q.costCurrency,
+        j = (a = q == null ? void 0 : q.costOffset) != null ? a : 1,
+        K = q == null ? void 0 : q.costBeforeTax,
+        Q = g(
           function () {
-            if (!(G == null || j == null))
-              return { amount: String(j / z), currency: G };
+            if (!(z == null || K == null))
+              return { amount: String(K / j), currency: z };
           },
-          [j, G, z],
+          [K, z, j],
         ),
-        Q = o(
+        X = o(
           "useWAWebBizBroadcastBillingInfo",
         ).useWAWebBizBroadcastBillingInfo({
-          assetId: H != null ? H : "",
-          budget: K,
+          assetId: G != null ? G : "",
+          budget: Q,
         }),
-        X = Q.billingInfo,
-        Y = Q.isLoading,
-        J = Q.refetch,
-        Z = Q.requiredAction,
-        ee = g(
+        Y = X.billingInfo,
+        J = X.isLoading,
+        Z = X.refetch,
+        ee = X.requiredAction,
+        te = h(!1);
+      f(
+        function () {
+          !J &&
+            !te.current &&
+            ((te.current = !0),
+            o("WAWebBizBroadcastCreationQPLLogger").qplCreatePoint(
+              o("WAWebBizBroadcastCreationQPLLogger").CreateBroadcastQPLPoints
+                .BILLING_FETCH_END,
+            ));
+        },
+        [J],
+      );
+      var ne = h(!1);
+      f(
+        function () {
+          V.current &&
+            te.current &&
+            !U &&
+            !J &&
+            !ne.current &&
+            ((ne.current = !0),
+            o("WAWebBizBroadcastCreationQPLLogger").qplCreateEnd(2));
+        },
+        [U, J],
+      );
+      var re = g(
           function () {
-            return j == null || z === 0 ? null : String(j / z);
+            return K == null || j === 0 ? null : String(K / j);
           },
-          [j, z],
+          [K, j],
         ),
-        te = g(
+        oe = g(
           function () {
             return O.flatMap(function (e) {
               var t = o("WAWebContactCollection").ContactCollection.get(e);
@@ -151,7 +196,7 @@ __d(
           },
           [O],
         ),
-        ne = g(
+        ae = g(
           function () {
             var e =
               $ != null
@@ -182,7 +227,7 @@ __d(
           },
           [T, F, $],
         ),
-        re = g(
+        ie = g(
           function () {
             return Array.from(R).map(function (e) {
               return o("WAWebWidToJid").widToBroadcastJid(e.id);
@@ -190,47 +235,47 @@ __d(
           },
           [R],
         ),
-        oe = y(!1),
-        ae = oe[0],
-        ie = oe[1],
-        le = h(null),
-        se = h(null),
-        ue = _(
+        le = y(!1),
+        se = le[0],
+        ue = le[1],
+        ce = h(null),
+        de = h(null),
+        me = _(
           function (e) {
             var t;
             (D(e),
-              (t = se.current) == null || t.setTextContent(e),
-              (le.current = e));
+              (t = de.current) == null || t.setTextContent(e),
+              (ce.current = e));
           },
           [D],
         ),
-        ce = _(
+        pe = _(
           function (e) {
             (D(e),
-              le.current != null &&
+              ce.current != null &&
                 e.length === 0 &&
-                ((le.current = null),
+                ((ce.current = null),
                 o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.genAIAiTextCleared()));
           },
           [D],
         ),
-        de = _(
+        _e = _(
           function () {
             o("WAWebModalManager").ModalManager.open(
               m.jsx(r("WAWebBizBroadcastGenAISuggestionsModal.react"), {
-                broadcastJids: re,
+                broadcastJids: ie,
                 draftMessage: T,
                 onAuthFailure: function () {},
                 onClose: o("WAWebModalManager").closeModalManager,
-                onUseMessage: ue,
+                onUseMessage: me,
               }),
             );
           },
-          [re, ue, T],
+          [ie, me, T],
         ),
-        me = _(function () {
+        fe = _(function () {
           var e = o("WAWebBizBroadcastGenAIGating").getGenAIComposerMinWords();
           o("WAWebToastManager").ToastManager.open(
             m.jsx(o("WAWebToast.react").Toast, {
@@ -242,7 +287,7 @@ __d(
             }),
           );
         }, []),
-        pe = _(
+        ge = _(
           function () {
             if (o("WAWebBizBroadcastGenAIPacing").hasReachedDailyLimit()) {
               (o(
@@ -260,14 +305,14 @@ __d(
                 ));
               return;
             }
-            de();
+            _e();
           },
-          [de],
+          [_e],
         ),
-        _e = _(
+        he = _(
           function () {
             if (!o("WAWebBizBroadcastGenAIToS").hasAcceptedGenAIToS()) {
-              (ie(!0),
+              (ue(!0),
                 o(
                   "WAWebBusinessBroadcastUserJourneyLogger",
                 ).BusinessBroadcastUserJourneyLogger.genAINuxModalViewed());
@@ -277,33 +322,33 @@ __d(
               o("WAWebBizBroadcastGenAIGating").countWords(T) <
               o("WAWebBizBroadcastGenAIGating").getGenAIComposerMinWords()
             ) {
-              me();
+              fe();
               return;
             }
-            pe();
+            ge();
           },
-          [me, T, pe],
+          [fe, T, ge],
         ),
-        fe = _(
+        ye = _(
           function () {
             (o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.genAINuxAcceptClicked(),
-              ie(!1),
+              ue(!1),
               !(
                 o("WAWebBizBroadcastGenAIGating").countWords(T) <
                 o("WAWebBizBroadcastGenAIGating").getGenAIComposerMinWords()
-              ) && pe());
+              ) && ge());
           },
-          [T, pe],
+          [T, ge],
         ),
-        ge = _(function () {
+        Ce = _(function () {
           (o(
             "WAWebBusinessBroadcastUserJourneyLogger",
           ).BusinessBroadcastUserJourneyLogger.genAINuxDismissClicked(),
-            ie(!1));
+            ue(!1));
         }, []),
-        he = _(
+        be = _(
           function () {
             (o("WALogger").LOG(
               c ||
@@ -316,45 +361,45 @@ __d(
           },
           [S, I],
         ),
-        ye = g(
+        ve = g(
           function () {
             return {
-              broadcastJids: re,
-              budgetAmount: ee,
+              broadcastJids: ie,
+              budgetAmount: re,
               checkoutData: q,
-              contacts: te,
+              contacts: oe,
               entryPoint: i,
               hasPendingBillingAction:
-                (Z == null ? void 0 : Z.wizardName) != null &&
+                (ee == null ? void 0 : ee.wizardName) != null &&
                 (q != null
                   ? o(
                       "WAWebBizBroadcastCheckoutUtils",
                     ).calculateCreditsAndPaidRecipients(q, O.length)
                       .numberOfPaidRecipients > 0
                   : O.length > 0),
-              isLoadingCheckoutOrBilling: U || Y,
-              messageContent: ne,
-              onSendSuccess: he,
+              isLoadingCheckoutOrBilling: U || J,
+              messageContent: ae,
+              onSendSuccess: be,
               recipientWids: O,
               selectedChats: R,
             };
           },
           [
+            ie,
             re,
-            ee,
             q,
-            te,
+            oe,
             i,
-            he,
-            Y,
+            be,
+            J,
             U,
-            ne,
+            ae,
             O,
-            Z == null ? void 0 : Z.wizardName,
+            ee == null ? void 0 : ee.wizardName,
             R,
           ],
         ),
-        Ce = m.jsxs(m.Fragment, {
+        Se = m.jsxs(m.Fragment, {
           children: [
             m.jsx(r("WAWebBizBroadcastAudienceSection.react"), {
               selectedChats: R,
@@ -370,18 +415,18 @@ __d(
               entryPoint: i,
               message: T,
               onButtonDataChange: A,
-              onGenAIPress: _e,
-              onMessageChange: ce,
-              richTextInputRef: se,
+              onGenAIPress: he,
+              onMessageChange: pe,
+              richTextInputRef: de,
               setAttachmentData: w,
             }),
             m.jsx(r("WAWebBizBroadcastDetailsSection.react"), {
               entryPoint: i,
-              onBillingInfoChanged: J,
+              onBillingInfoChanged: Z,
             }),
           ],
         }),
-        be = m.jsxs(m.Fragment, {
+        Re = m.jsxs(m.Fragment, {
           children: [
             m.jsx(r("WAWebBizBroadcastPreviewSection.react"), {
               attachmentData: M,
@@ -393,8 +438,8 @@ __d(
               recipientCount: O.length,
               checkoutData: q,
               isLoadingCheckout: U,
-              billingInfo: X,
-              isLoadingBillingInfo: Y,
+              billingInfo: Y,
+              isLoadingBillingInfo: J,
             }),
           ],
         });
@@ -403,10 +448,10 @@ __d(
         testid: void 0,
         tsNavigationData: { surface: "unknown", viewName: "biz-new-broadcast" },
         children: [
-          ae &&
+          se &&
             m.jsx(r("WAWebBizBroadcastGenAINUXModal.react"), {
-              onAccept: fe,
-              onClose: ge,
+              onAccept: ye,
+              onClose: Ce,
             }),
           m.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
             title: E,
@@ -418,15 +463,15 @@ __d(
             isRefresh: !0,
             xstyle: C.body,
             children: m.jsx(r("WAWebBizTwoColumnLayout.react"), {
-              primaryContent: Ce,
-              secondaryContent: be,
+              primaryContent: Se,
+              secondaryContent: Re,
             }),
           }),
           m.jsx(
             o("WAWebBizBroadcastSendContext.react").BroadcastSendContext
               .Provider,
             {
-              value: ye,
+              value: ve,
               children: m.jsx(r("WAWebBizBroadcastDrawerFooter.react"), {}),
             },
           ),
@@ -435,36 +480,63 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = e.entryPoint,
-        n = e.onBack,
-        r = e.onOpenExistingAudiences,
-        a = e.onOpenImportAudience,
-        i = e.onOpenUpsertAudience,
-        l = e.onSendSuccess,
-        s = e.ref,
-        u = e.selectedChats,
-        c = e.setSelectedChats,
-        d = e.title;
-      return m.jsx(
-        o("WAWebBizBroadcastBusinessInfoContext.react")
-          .WAWebBizBroadcastBusinessInfoProvider,
-        {
-          children: m.jsx(b, {
-            entryPoint: t,
-            innerRef: s,
-            onBack: n,
-            onOpenExistingAudiences: r,
-            onOpenImportAudience: a,
-            onOpenUpsertAudience: i,
-            onSendSuccess: l,
-            selectedChats: u,
-            setSelectedChats: c,
-            title: d,
-          }),
-        },
+      var t = o("react-compiler-runtime").c(11),
+        n = e.entryPoint,
+        r = e.onBack,
+        a = e.onOpenExistingAudiences,
+        i = e.onOpenImportAudience,
+        l = e.onOpenUpsertAudience,
+        s = e.onSendSuccess,
+        u = e.ref,
+        c = e.selectedChats,
+        d = e.setSelectedChats,
+        p = e.title,
+        _;
+      return (
+        t[0] !== n ||
+        t[1] !== r ||
+        t[2] !== a ||
+        t[3] !== i ||
+        t[4] !== l ||
+        t[5] !== s ||
+        t[6] !== u ||
+        t[7] !== c ||
+        t[8] !== d ||
+        t[9] !== p
+          ? ((_ = m.jsx(
+              o("WAWebBizBroadcastBusinessInfoContext.react")
+                .WAWebBizBroadcastBusinessInfoProvider,
+              {
+                children: m.jsx(b, {
+                  entryPoint: n,
+                  innerRef: u,
+                  onBack: r,
+                  onOpenExistingAudiences: a,
+                  onOpenImportAudience: i,
+                  onOpenUpsertAudience: l,
+                  onSendSuccess: s,
+                  selectedChats: c,
+                  setSelectedChats: d,
+                  title: p,
+                }),
+              },
+            )),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a),
+            (t[3] = i),
+            (t[4] = l),
+            (t[5] = s),
+            (t[6] = u),
+            (t[7] = c),
+            (t[8] = d),
+            (t[9] = p),
+            (t[10] = _))
+          : (_ = t[10]),
+        _
       );
     }
-    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = v));
+    l.default = v;
   },
   226,
 );

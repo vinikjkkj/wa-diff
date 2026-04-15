@@ -47,6 +47,7 @@ __d(
     "cr:17219",
     "getErrorSafe",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -67,117 +68,164 @@ __d(
         tealColor: { color: "x1v5yvga", $$css: !0 },
       };
     function h(e) {
-      var t = e.popoverPortalEl,
-        a = _(null);
-      return c.jsxs(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        justify: "end",
-        children: [
-          c.jsx(o("WAWebFlex.react").FlexItem, {
+      var t = o("react-compiler-runtime").c(5),
+        a = e.popoverPortalEl,
+        i = _(null),
+        l;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = c.jsx(o("WAWebFlex.react").FlexItem, {
             grow: 1,
             children: "Report a bug",
-          }),
-          c.jsx(o("WAWebMenuBar.react").MenuBarItem, {
+          })),
+          (t[0] = l))
+        : (l = t[0]);
+      var s;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = c.jsx(o("WAWebMenuBar.react").MenuBarItem, {
             icon: c.jsx(r("WDSIconIcMoreVert.react"), {}),
-            ref: a,
+            ref: i,
             testid: void 0,
             title: "Menu",
-          }),
-          c.jsx(o("WAWebDropdownV2.react").DropdownV2Menu, {
-            alignment: o("WAWebDropdownV2.react").PopoverAlignment.End,
-            minWidth: 120,
-            popoverPortal: t != null ? t : void 0,
-            position: o("WAWebDropdownV2.react").PopoverPosition.Bottom,
-            target: a,
-            children: c.jsxs(o("WAWebMenu.react").WAWebMenu, {
-              children: [
-                c.jsx(o("WAWebActionMenuItem.react").ActionMenuItem, {
-                  onSelect: S,
-                  optionId: "open-butterfly-form",
-                  primary: "Open Butterfly Form",
-                }),
-                c.jsx(o("WAWebActionMenuItem.react").ActionMenuItem, {
-                  onSelect: o("WAWebDownloadWebLogs")
-                    .createDownloadDataForMdWebLogs,
-                  optionId: "download-logs",
-                  primary: "Download Logs",
-                }),
-                c.jsx(o("WAWebActionMenuItem.react").ActionMenuItem, {
-                  onSelect: o("WAWebDownloadWebLogs")
-                    .createDownloadDataForLastCallLog,
-                  optionId: "download-last-call-log",
-                  primary: "Download Last Call Log",
-                }),
-                c.jsx(o("WAWebActionMenuItem.react").ActionMenuItem, {
-                  onSelect: L,
-                  optionId: "analyze-with-wamate",
-                  primary: "Analyze with WAMate",
-                }),
-                n("cr:17219") != null
-                  ? c.jsx(o("WAWebActionMenuItem.react").ActionMenuItem, {
-                      onSelect: function () {
-                        var e;
-                        (e = n("cr:17219").getWindowsBridge()) == null ||
-                          (e = e.getDebugFeatures()) == null ||
-                          e.saveNativeLogs();
-                      },
-                      optionId: "download-native-logs",
-                      primary: "Download Native Logs",
-                    })
-                  : null,
-              ],
+          })),
+          (t[1] = s))
+        : (s = t[1]);
+      var u = a != null ? a : void 0,
+        d;
+      if (t[2] === Symbol.for("react.memo_cache_sentinel")) {
+        var m;
+        ((d = c.jsxs(o("WAWebMenu.react").WAWebMenu, {
+          children: [
+            c.jsx((m = o("WAWebActionMenuItem.react")).ActionMenuItem, {
+              onSelect: R,
+              optionId: "open-butterfly-form",
+              primary: "Open Butterfly Form",
             }),
-          }),
-        ],
-      });
+            c.jsx(m.ActionMenuItem, {
+              onSelect: o("WAWebDownloadWebLogs")
+                .createDownloadDataForMdWebLogs,
+              optionId: "download-logs",
+              primary: "Download Logs",
+            }),
+            c.jsx(m.ActionMenuItem, {
+              onSelect: o("WAWebDownloadWebLogs")
+                .createDownloadDataForLastCallLog,
+              optionId: "download-last-call-log",
+              primary: "Download Last Call Log",
+            }),
+            c.jsx(m.ActionMenuItem, {
+              onSelect: E,
+              optionId: "analyze-with-wamate",
+              primary: "Analyze with WAMate",
+            }),
+            n("cr:17219") != null
+              ? c.jsx(o("WAWebActionMenuItem.react").ActionMenuItem, {
+                  onSelect: y,
+                  optionId: "download-native-logs",
+                  primary: "Download Native Logs",
+                })
+              : null,
+          ],
+        })),
+          (t[2] = d));
+      } else d = t[2];
+      var p;
+      return (
+        t[3] !== u
+          ? ((p = c.jsxs(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "end",
+              children: [
+                l,
+                s,
+                c.jsx(o("WAWebDropdownV2.react").DropdownV2Menu, {
+                  alignment: o("WAWebDropdownV2.react").PopoverAlignment.End,
+                  minWidth: 120,
+                  popoverPortal: u,
+                  position: o("WAWebDropdownV2.react").PopoverPosition.Bottom,
+                  target: i,
+                  children: d,
+                }),
+              ],
+            })),
+            (t[3] = u),
+            (t[4] = p))
+          : (p = t[4]),
+        p
+      );
     }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y(e) {
-      var t = e.categoryData,
-        n = e.onSelectCategory,
-        r = e.renderItem,
-        a = e.selectedCategory,
-        i = f(),
-        l = i[0],
-        s = i[1],
-        u = p(
-          function () {
-            var e = t;
-            return (
-              l != null &&
-                l.length &&
-                (e = e.filter(function (e) {
-                  return o("WAWebSimpleSearch").simpleSearch(l, [
-                    e.menuItem.searchCriteria,
-                  ]);
-                })),
-              e
-            );
-          },
-          [t, l],
-        );
-      return c.jsx(o("WAWebSearchInput").SearchInput, {
-        colorScheme: "darker",
-        onSearch: s,
-        padding: [16, 16, 8, 16],
-        placeholder: "Search bug category",
-        children: c.jsx(
-          o("WAWebLexicalWAWebMenu.react").LexicalWAWebPerformantMenu,
-          {
-            data: u,
-            initialActiveOptionId: a,
-            material: !0,
-            maxHeight: 400,
-            minWidth: 460,
-            onSelect: n,
-            renderItem: r,
-            reorderAnimationsEnabled: !1,
-          },
-        ),
-      });
+    function y() {
+      var e;
+      (e = n("cr:17219").getWindowsBridge()) == null ||
+        (e = e.getDebugFeatures()) == null ||
+        e.saveNativeLogs();
     }
-    y.displayName = y.name + " [from " + i.id + "]";
-    var C = (function () {
+    function C(e) {
+      var t = o("react-compiler-runtime").c(11),
+        n = e.categoryData,
+        r = e.onSelectCategory,
+        a = e.renderItem,
+        i = e.selectedCategory,
+        l = f(),
+        s = l[0],
+        u = l[1],
+        d = n;
+      if (s != null && s.length) {
+        var m;
+        if (t[0] !== d || t[1] !== s) {
+          var p;
+          (t[3] !== s
+            ? ((p = function (t) {
+                return o("WAWebSimpleSearch").simpleSearch(s, [
+                  t.menuItem.searchCriteria,
+                ]);
+              }),
+              (t[3] = s),
+              (t[4] = p))
+            : (p = t[4]),
+            (m = d.filter(p)),
+            (t[0] = d),
+            (t[1] = s),
+            (t[2] = m));
+        } else m = t[2];
+        d = m;
+      }
+      var _ = d,
+        g;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((g = [16, 16, 8, 16]), (t[5] = g))
+        : (g = t[5]);
+      var h;
+      return (
+        t[6] !== _ || t[7] !== r || t[8] !== a || t[9] !== i
+          ? ((h = c.jsx(o("WAWebSearchInput").SearchInput, {
+              colorScheme: "darker",
+              onSearch: u,
+              padding: g,
+              placeholder: "Search bug category",
+              children: c.jsx(
+                o("WAWebLexicalWAWebMenu.react").LexicalWAWebPerformantMenu,
+                {
+                  data: _,
+                  initialActiveOptionId: i,
+                  material: !0,
+                  maxHeight: 400,
+                  minWidth: 460,
+                  onSelect: r,
+                  renderItem: a,
+                  reorderAnimationsEnabled: !1,
+                },
+              ),
+            })),
+            (t[6] = _),
+            (t[7] = r),
+            (t[8] = a),
+            (t[9] = i),
+            (t[10] = h))
+          : (h = t[10]),
+        h
+      );
+    }
+    var b = (function () {
       var e = o("WAWebGetBugReportingCategories").getBugReportingCategories(),
         t = e.map(function (e) {
           var t = e.subtitle ? Math.ceil(e.subtitle.length / 60) : 0,
@@ -209,7 +257,7 @@ __d(
         t
       );
     })();
-    function b(t) {
+    function v(t) {
       var a,
         i,
         l = t.customCloseMediaModal,
@@ -217,7 +265,7 @@ __d(
         u = t.customOpenMediaModal,
         d = t.customOpenSupportModal,
         p = t.popoverPortalEl,
-        b = t.prefilledDescription,
+        y = t.prefilledDescription,
         v = t.prefilledTitle,
         S =
           s != null
@@ -236,7 +284,7 @@ __d(
             .BUG_REPORT_FORM_IMPRESSION,
         );
       }, []);
-      var L = f(b != null ? b : ""),
+      var L = f(y != null ? y : ""),
         E = L[0],
         k = L[1],
         I = f(v != null ? v : ""),
@@ -657,8 +705,8 @@ __d(
                   popoverPortal: p != null ? p : void 0,
                   position: o("WAWebDropdownV2.react").PopoverPosition.Bottom,
                   target: V,
-                  children: c.jsx(y, {
-                    categoryData: C,
+                  children: c.jsx(C, {
+                    categoryData: b,
                     onSelectCategory: function (t) {
                       var e;
                       if (t === "none") P(null);
@@ -706,8 +754,8 @@ __d(
         });
       }
     }
-    b.displayName = b.name + " [from " + i.id + "]";
-    function v(e, t, n) {
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S(e, t, n) {
       var r = n != null ? n : {},
         a = r.customCloseMediaModal,
         i = r.customCloseModal,
@@ -715,7 +763,7 @@ __d(
         s = r.customOpenModal,
         u = r.customOpenSupportModal,
         d = r.popoverPortalEl,
-        m = c.jsx(b, {
+        m = c.jsx(v, {
           customCloseMediaModal: a,
           customCloseModal: i,
           customOpenMediaModal: l,
@@ -728,23 +776,23 @@ __d(
         ? s(m, { skipDarkTheme: !0 })
         : o("WAWebModalManager").ModalManager.open(m);
     }
-    function S() {
-      return R.apply(this, arguments);
-    }
     function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebOpenBugReportForm").openBugReportForm();
-        })),
-        R.apply(this, arguments)
-      );
+      return L.apply(this, arguments);
     }
     function L() {
-      return E.apply(this, arguments);
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebOpenBugReportForm").openBugReportForm();
+        })),
+        L.apply(this, arguments)
+      );
     }
     function E() {
+      return k.apply(this, arguments);
+    }
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e = yield o("WAWebCrashlog").upload({
               reason: o("WAWebCrashlog").MANUAL_UPLOAD,
@@ -779,10 +827,10 @@ __d(
               ));
           }
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    l.openBugNubV2Popup = v;
+    l.openBugNubV2Popup = S;
   },
   98,
 );

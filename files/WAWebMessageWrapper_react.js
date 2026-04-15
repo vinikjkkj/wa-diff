@@ -141,6 +141,7 @@ __d(
     "gkx",
     "justknobx",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebAssociatedMessages",
     "useWAWebBizVPVData",
@@ -2134,28 +2135,60 @@ __d(
     M.displayName = "Wrapper";
     function M(e) {
       var t,
-        n,
+        n = o("react-compiler-runtime").c(12),
         r,
-        a = e.ref,
-        i = babelHelpers.objectWithoutPropertiesLoose(e, y);
-      return v.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
-        name: i.errorBoundaryName + "-message-wrapper",
-        description:
-          "msgId: " +
-          ((t =
-            (n = i.msg) == null || (n = n.id) == null
+        a;
+      n[0] !== e
+        ? ((a = e.ref),
+          (r = babelHelpers.objectWithoutPropertiesLoose(e, y)),
+          (n[0] = e),
+          (n[1] = r),
+          (n[2] = a))
+        : ((r = n[1]), (a = n[2]));
+      var i = r.errorBoundaryName + "-message-wrapper",
+        l;
+      if (n[3] !== r.msg.id) {
+        var s, u;
+        ((l =
+          (s =
+            (u = r.msg) == null || (u = u.id) == null
               ? void 0
-              : n.toString()) != null
-            ? t
-            : "") +
+              : u.toString()) != null
+            ? s
+            : ""),
+          (n[3] = r.msg.id),
+          (n[4] = l));
+      } else l = n[4];
+      var c =
+          "msgId: " +
+          l +
           " msgType: " +
-          i.msg.type +
+          r.msg.type +
           ", msgSubtype: " +
-          ((r = i.msg.subtype) != null ? r : "unknown"),
-        children: v.jsx($, babelHelpers.extends({ ref: a }, i)),
-      });
+          ((t = r.msg.subtype) != null ? t : "unknown"),
+        d;
+      n[5] !== r || n[6] !== a
+        ? ((d = v.jsx($, babelHelpers.extends({ ref: a }, r))),
+          (n[5] = r),
+          (n[6] = a),
+          (n[7] = d))
+        : (d = n[7]);
+      var m;
+      return (
+        n[8] !== i || n[9] !== c || n[10] !== d
+          ? ((m = v.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+              name: i,
+              description: c,
+              children: d,
+            })),
+            (n[8] = i),
+            (n[9] = c),
+            (n[10] = d),
+            (n[11] = m))
+          : (m = n[11]),
+        m
+      );
     }
-    M.displayName = M.name + " [from " + i.id + "]";
     function w(e) {
       o("WAWebCopyToClipboard").copyImageToClipboard(e);
     }

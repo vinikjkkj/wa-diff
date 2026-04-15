@@ -38,6 +38,7 @@ __d(
     "WDSTooltip.react",
     "fbs",
     "react",
+    "react-compiler-runtime",
     "stylex",
     "useWAWebFTS",
     "useWAWebFTSFilterer",
@@ -377,31 +378,50 @@ __d(
       transparent: { backgroundColor: "xjbqb8w", $$css: !0 },
     };
     function f(e) {
-      var t = e.link,
-        n = e.msg,
-        a = o("useWAWebMsgValues").useMsgValues(n.id, [
-          o("WAWebMsgGetters").getThumbnail,
-          o("WAWebMsgGetters").getThumbnailHQ,
-        ]),
-        i = a[0],
-        l = a[1],
-        s = l != null && l !== "" ? l : i,
-        c = s != null && s !== "";
-      return u.jsx(r("WAWebLinkIconContained.react"), {
-        backgroundXstyle: _.transparent,
-        icon: c
-          ? u.jsx(o("WAWebCopyPasteSelectable.react").SelectableImg, {
-              selectable: !1,
-              "data-testid": void 0,
-              className:
-                "x1useyqa xsdox4t xbrszos xea3l6g x18isctg x2q3nzr xl1xv1r",
-              alt: "",
-              src: "data:image/jpeg;base64," + (s != null ? s : ""),
-            })
-          : u.jsx(r("WAWebMediaHubLinkFavicon.react"), { msg: n, link: t }),
-      });
+      var t = o("react-compiler-runtime").c(6),
+        n = e.link,
+        a = e.msg,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = [
+            o("WAWebMsgGetters").getThumbnail,
+            o("WAWebMsgGetters").getThumbnailHQ,
+          ]),
+          (t[0] = i))
+        : (i = t[0]);
+      var l = o("useWAWebMsgValues").useMsgValues(a.id, i),
+        s = l[0],
+        c = l[1],
+        d = c != null && c !== "" ? c : s,
+        m = d != null && d !== "",
+        p;
+      return (
+        t[1] !== m || t[2] !== n || t[3] !== a || t[4] !== d
+          ? ((p = u.jsx(r("WAWebLinkIconContained.react"), {
+              backgroundXstyle: _.transparent,
+              icon: m
+                ? u.jsx(o("WAWebCopyPasteSelectable.react").SelectableImg, {
+                    selectable: !1,
+                    "data-testid": void 0,
+                    className:
+                      "x1useyqa xsdox4t xbrszos xea3l6g x18isctg x2q3nzr xl1xv1r",
+                    alt: "",
+                    src: "data:image/jpeg;base64," + (d != null ? d : ""),
+                  })
+                : u.jsx(r("WAWebMediaHubLinkFavicon.react"), {
+                    msg: a,
+                    link: n,
+                  }),
+            })),
+            (t[1] = m),
+            (t[2] = n),
+            (t[3] = a),
+            (t[4] = d),
+            (t[5] = p))
+          : (p = t[5]),
+        p
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       var t = e.link,
         n = e.msg,
@@ -472,19 +492,32 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = e.onPress;
-      return u.jsx(r("WDSTooltip.react"), {
-        label: r("fbs")._(/*BTDS*/ "Open in browser"),
-        children: u.jsx(r("WDSButton.react"), {
-          size: "small",
-          Icon: r("WDSIconIcOpenInNew.react"),
-          variant: "borderless",
-          xstyle: d.endAction,
-          onPress: t,
-        }),
-      });
+      var t = o("react-compiler-runtime").c(3),
+        n = e.onPress,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = r("fbs")._(/*BTDS*/ "Open in browser")), (t[0] = a))
+        : (a = t[0]);
+      var i;
+      return (
+        t[1] !== n
+          ? ((i = u.jsx(r("WDSTooltip.react"), {
+              label: a,
+              children: u.jsx(r("WDSButton.react"), {
+                size: "small",
+                Icon: r("WDSIconIcOpenInNew.react"),
+                variant: "borderless",
+                xstyle: d.endAction,
+                onPress: n,
+              }),
+            })),
+            (t[1] = n),
+            (t[2] = i))
+          : (i = t[2]),
+        i
+      );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   226,
 );

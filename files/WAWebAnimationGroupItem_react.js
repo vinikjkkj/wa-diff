@@ -1,15 +1,25 @@
 __d(
   "WAWebAnimationGroupItem.react",
-  ["react"],
+  ["react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = e.children,
-        n = e.ref;
-      return s.jsx("div", { ref: n, children: t });
+      var t = o("react-compiler-runtime").c(3),
+        n = e.children,
+        r = e.ref,
+        a;
+      return (
+        t[0] !== n || t[1] !== r
+          ? ((a = s.jsx("div", { ref: r, children: n })),
+            (t[0] = n),
+            (t[1] = r),
+            (t[2] = a))
+          : (a = t[2]),
+        a
+      );
     }
-    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
+    l.default = u;
   },
   98,
 );

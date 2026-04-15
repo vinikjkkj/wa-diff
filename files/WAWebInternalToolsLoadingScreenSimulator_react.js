@@ -6,6 +6,7 @@ __d(
     "WAWebLoadingScreen.react",
     "WAWebNoop",
     "react",
+    "react-compiler-runtime",
     "useWAWebUnmountSignal",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -74,76 +75,88 @@ __d(
         }
       };
     function f(e) {
-      var t = e.unifiedLoadingScreen,
-        n = t === void 0 ? !1 : t,
+      var t = o("react-compiler-runtime").c(11),
+        n = e.unifiedLoadingScreen,
         a = e.variant,
-        i = p(0),
-        l = i[0],
-        c = i[1],
+        i = n === void 0 ? !1 : n,
+        l = p(0),
+        c = l[0],
+        m = l[1],
         f = r("useWAWebUnmountSignal")(),
-        g = p(0),
-        h = g[0],
-        y = g[1],
-        C = p(o("WAWebLoadingScreen.react").Stage.INITIAL_LOAD),
+        C = p(0),
         b = C[0],
         v = C[1],
-        S = m(
-          function () {
-            return _(a);
-          },
-          [a],
-        );
-      return (
-        d(
-          function () {
-            if (l < S.length) {
-              var e = S[l],
+        S = p(o("WAWebLoadingScreen.react").Stage.INITIAL_LOAD),
+        R = S[0],
+        L = S[1],
+        E;
+      t[0] !== a ? ((E = _(a)), (t[0] = a), (t[1] = E)) : (E = t[1]);
+      var k = E,
+        I,
+        T;
+      (t[2] !== c || t[3] !== k || t[4] !== f
+        ? ((I = function () {
+            if (c < k.length) {
+              var e = k[c],
                 t = e.type,
                 n = e.value;
-              switch (t) {
-                case "delay":
+              e: switch (t) {
+                case "delay": {
                   (typeof n == "number" || s(0, 56361),
                     o("WAPromiseDelays")
                       .delayMs(n)
                       .then(function () {
-                        return (
-                          !f.aborted &&
-                          c(function (e) {
-                            return e + 1;
-                          })
-                        );
+                        return !f.aborted && m(y);
                       }));
-                  break;
-                case "progress":
-                  (typeof n == "number" || s(0, 56361),
-                    y(n),
-                    c(function (e) {
-                      return e + 1;
-                    }));
-                  break;
+                  break e;
+                }
+                case "progress": {
+                  (typeof n == "number" || s(0, 56361), v(n), m(h));
+                  break e;
+                }
                 case "stage":
-                  (typeof n != "number" || s(0, 56362),
-                    v(n),
-                    c(function (e) {
-                      return e + 1;
-                    }));
-                  break;
+                  (typeof n != "number" || s(0, 56362), L(n), m(g));
               }
             }
-          },
-          [l, S, f],
-        ),
-        u.jsx(o("WAWebLoadingScreen.react").LoadingScreen, {
-          progress: h,
-          stage: b,
-          onLogout: r("WAWebNoop"),
-          theme: n
-            ? o("WAWebLoadingScreen.react").LoadingScreenTheme.UNIFIED
-            : o("WAWebLoadingScreen.react").LoadingScreenTheme.MULTI_STAGE,
-        })
+          }),
+          (T = [c, k, f]),
+          (t[2] = c),
+          (t[3] = k),
+          (t[4] = f),
+          (t[5] = I),
+          (t[6] = T))
+        : ((I = t[5]), (T = t[6])),
+        d(I, T));
+      var D = i
+          ? o("WAWebLoadingScreen.react").LoadingScreenTheme.UNIFIED
+          : o("WAWebLoadingScreen.react").LoadingScreenTheme.MULTI_STAGE,
+        x;
+      return (
+        t[7] !== b || t[8] !== R || t[9] !== D
+          ? ((x = u.jsx(o("WAWebLoadingScreen.react").LoadingScreen, {
+              progress: b,
+              stage: R,
+              onLogout: r("WAWebNoop"),
+              theme: D,
+            })),
+            (t[7] = b),
+            (t[8] = R),
+            (t[9] = D),
+            (t[10] = x))
+          : (x = t[10]),
+        x
       );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    function g(e) {
+      return e + 1;
+    }
+    function h(e) {
+      return e + 1;
+    }
+    function y(e) {
+      return e + 1;
+    }
+    l.default = f;
   },
   98,
 );

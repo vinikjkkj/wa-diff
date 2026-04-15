@@ -33,11 +33,11 @@ __d(
             c,
             {
               width:
-                (n != null ? n + "px" : void 0) != null
+                (n != null ? n + "px" : null) != null
                   ? "x5lhr3w"
                   : n != null
                     ? n + "px"
-                    : void 0,
+                    : null,
               $$css: !0,
             },
             {
@@ -46,7 +46,7 @@ __d(
               })(t != null ? t : "middle"),
               "--x-width": (function (e) {
                 return typeof e == "number" ? e + "px" : e != null ? e : void 0;
-              })(n != null ? n + "px" : void 0),
+              })(n != null ? n + "px" : null),
             },
           ];
         },

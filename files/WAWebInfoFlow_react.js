@@ -8,6 +8,7 @@ __d(
     "WANullthrows",
     "WAPromiseRaceAbort",
     "WAWebABProps",
+    "WAWebBizBroadcastCreationQPLLogger",
     "WAWebBizBroadcastNewBroadcastFlowLoadable",
     "WAWebBizBroadcastsUpsertAudienceScreenLoadable",
     "WAWebBizShowCartAction",
@@ -654,7 +655,14 @@ __d(
                 ));
             },
             onNewBroadcast: function () {
-              (o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
+              (o("WAWebBizBroadcastCreationQPLLogger").qplCreateStart({
+                string: {
+                  entry_point: "bb_thread_info_drawer",
+                  platform: "web",
+                },
+                bool: { has_pre_selected_audience: !0 },
+              }),
+                o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
                 o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
                   d.jsx(
                     o("WAWebBizBroadcastNewBroadcastFlowLoadable")

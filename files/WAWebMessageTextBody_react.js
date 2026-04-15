@@ -14,6 +14,9 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgLinks",
     "WAWebMsgPhoneNumbers",
+    "WAWebQbmMessageLevelActionEvent",
+    "WAWebWamEnumMessageActionEntryPoint",
+    "WAWebWamEnumMessageLevelAction",
     "WDSFontTokenStyles",
     "react",
     "useWAWebMessageHighlightTerms",
@@ -88,7 +91,21 @@ __d(
               parseLists: !0,
               parseQuotes: !0,
               parseInlineCode: !0,
-              onLinkClick: s,
+              onLinkClick: function () {
+                s &&
+                  (s(),
+                  o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction(
+                    {
+                      msg: c.unsafe(),
+                      chat: o("WAWebFrontendMsgGetters").getChat(c.unsafe()),
+                      messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                        .MESSAGE_LEVEL_ACTION.URL_FRICTION_BANNER_VIEW,
+                      messageActionEntryPoint: o(
+                        "WAWebWamEnumMessageActionEntryPoint",
+                      ).MESSAGE_ACTION_ENTRY_POINT.URL_CLICK_BANNER,
+                    },
+                  ));
+              },
               terms: m != null ? m : null,
             });
           return u.jsx(o("WAWebEmojiText.react").EmojiText, {

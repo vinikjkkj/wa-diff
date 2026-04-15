@@ -42,17 +42,16 @@ __d(
         "aria-pressed",
       ],
       u,
-      c,
-      d = c || (c = r("react")),
-      m = (u || (u = o("react"))).useState,
-      p = { truncatedText: { maxWidth: "x1qh4rir", $$css: !0 } };
-    function _(t) {
+      c = u || (u = o("react")),
+      d = u.useState,
+      m = { truncatedText: { maxWidth: "x1qh4rir", $$css: !0 } };
+    function p(t) {
       var n = t.ref,
         a = babelHelpers.objectWithoutPropertiesLoose(t, e),
         i = a.Icon,
         l = a.label,
         u = a.size,
-        c = u === void 0 ? "default" : u,
+        p = u === void 0 ? "default" : u,
         _ = a.directional,
         f = _ === void 0 ? !0 : _,
         g = a.iconOnly,
@@ -87,10 +86,10 @@ __d(
         G = a["aria-pressed"],
         z = babelHelpers.objectWithoutPropertiesLoose(a, s),
         j = q != null ? q : o("getPlatformByGK").WDS_PLATFORM,
-        K = m(!1),
+        K = d(!1),
         Q = K[0],
         X = K[1],
-        Y = m(!1),
+        Y = d(!1),
         J = Y[0],
         Z = Y[1];
       function ee(e) {
@@ -113,17 +112,17 @@ __d(
         le = ae[1],
         se;
       i != null &&
-        (se = d.jsx(i, { height: ie, width: ie, xstyle: le, directional: f }));
+        (se = c.jsx(i, { height: ie, width: ie, xstyle: le, directional: f }));
       var ue;
       (A === !0 &&
-        (ue = d.jsx(r("WDSIconIcArrowDropDown.react"), {
+        (ue = c.jsx(r("WDSIconIcArrowDropDown.react"), {
           height: ie,
           width: ie,
           xstyle: le,
           directional: f,
         })),
         F != null &&
-          (ue = d.jsx(r("WDSText.react"), {
+          (ue = c.jsx(r("WDSText.react"), {
             type: "Body3Emphasized",
             colorName: o("WDSChipConfig").getButtonFontColor(C, v, x),
             selectable: !1,
@@ -134,19 +133,19 @@ __d(
         ? (ce = w)
         : h && se
           ? (ce = se)
-          : (ce = d.jsx(r("WDSText.react"), {
+          : (ce = c.jsx(r("WDSText.react"), {
               maxLines: 1,
-              xstyle: B && p.truncatedText,
+              xstyle: B && m.truncatedText,
               type: "Body2Emphasized",
               colorName: o("WDSChipConfig").getButtonFontColor(C, v, x),
               selectable: !1,
               children: l,
             }));
       var de = A != null;
-      return d.jsx(r("WDSTooltip.react"), {
+      return c.jsx(r("WDSTooltip.react"), {
         label: l,
         disabled: !h,
-        children: d.jsx(
+        children: c.jsx(
           r("BaseButtonV3.react"),
           babelHelpers.extends({}, z, {
             role: V,
@@ -163,7 +162,7 @@ __d(
             variant: o("WDSChipConfig").getButtonColorStyles(C, v),
             sizeVariant: {
               xstyleConfig: o("WDSChipConfig").getButtonSizeStyles(
-                c,
+                p,
                 se != null,
                 ue != null && de,
                 ue != null && !de,
@@ -192,7 +191,7 @@ __d(
         ),
       });
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

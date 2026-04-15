@@ -7,6 +7,7 @@ __d(
     "WAWebMessageCommunityCard.react",
     "WAWebUserPrefsMeUser",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -14,52 +15,132 @@ __d(
     function c(e) {
       var t,
         n,
-        a = e.author,
-        i = e.chat,
-        l = e.clickable,
-        c = e.templateParams,
-        m = c[0],
-        p = r("WAWebGroupMetadataCollection").get(m),
-        _ = p == null ? void 0 : p.participants.iAmAdmin(),
-        f = (t = i.groupMetadata) == null ? void 0 : t.membershipApprovalMode,
-        g = (n = i.groupMetadata) == null ? void 0 : n.hiddenSubgroup,
-        h;
-      g === !0
-        ? (h = s._(
-            /*BTDS*/ "Only people in the community who have been invited can see and join this group.",
-          ))
-        : f === !0
-          ? (h = s._(
+        a = o("react-compiler-runtime").c(27),
+        i = e.author,
+        l = e.chat,
+        c = e.clickable,
+        m = e.templateParams,
+        p = m[0],
+        _;
+      if (a[0] !== p) {
+        var f = r("WAWebGroupMetadataCollection").get(p);
+        ((_ = f == null ? void 0 : f.participants.iAmAdmin()),
+          (a[0] = p),
+          (a[1] = _));
+      } else _ = a[1];
+      var g = _,
+        h = (t = l.groupMetadata) == null ? void 0 : t.membershipApprovalMode,
+        y = (n = l.groupMetadata) == null ? void 0 : n.hiddenSubgroup,
+        C;
+      if (y === !0) {
+        var b;
+        (a[2] === Symbol.for("react.memo_cache_sentinel")
+          ? ((b = s._(
+              /*BTDS*/ "Only people in the community who have been invited can see and join this group.",
+            )),
+            (a[2] = b))
+          : (b = a[2]),
+          (C = b));
+      } else if (h === !0) {
+        var v;
+        (a[3] === Symbol.for("react.memo_cache_sentinel")
+          ? ((v = s._(
               /*BTDS*/ "Anyone in the community can request to join this group.",
-            ))
-          : (h = s._(/*BTDS*/ "Anyone in the community can join this group."));
-      var y = [
-          s._(
+            )),
+            (a[3] = v))
+          : (v = a[3]),
+          (C = v));
+      } else {
+        var S;
+        (a[4] === Symbol.for("react.memo_cache_sentinel")
+          ? ((S = s._(/*BTDS*/ "Anyone in the community can join this group.")),
+            (a[4] = S))
+          : (S = a[4]),
+          (C = S));
+      }
+      var R;
+      a[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((R = s._(
             /*BTDS*/ "As a member, you can join groups in the community and get admin announcements.",
-          ),
-          h,
-          s._(/*BTDS*/ "Your profile is visible to admins."),
-        ],
-        C = [
-          s._(/*BTDS*/ "Members in this group are now community members."),
-          h,
-        ],
-        b =
-          _ === !0
-            ? s._(/*BTDS*/ "Manage the community")
-            : s._(/*BTDS*/ "Explore the community");
-      return u.jsx(o("WAWebMessageCommunityCard.react").MessageCommunityCard, {
-        communityId: m,
-        subgroupId: i.id,
-        title: d({ templateParams: c, clickable: l, author: a }),
-        body: u.jsx(o("WAWebMessageCommunityCard.react").BulletedList, {
-          items: _ === !0 ? C : y,
-        }),
-        footer: b,
-        openNavigation: !_,
-      });
+          )),
+          (a[5] = R))
+        : (R = a[5]);
+      var L;
+      a[6] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = s._(/*BTDS*/ "Your profile is visible to admins.")), (a[6] = L))
+        : (L = a[6]);
+      var E;
+      a[7] !== C ? ((E = [R, C, L]), (a[7] = C), (a[8] = E)) : (E = a[8]);
+      var k = E,
+        I;
+      a[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((I = s._(
+            /*BTDS*/ "Members in this group are now community members.",
+          )),
+          (a[9] = I))
+        : (I = a[9]);
+      var T;
+      a[10] !== C ? ((T = [I, C]), (a[10] = C), (a[11] = T)) : (T = a[11]);
+      var D = T,
+        x;
+      a[12] !== g
+        ? ((x =
+            g === !0
+              ? s._(/*BTDS*/ "Manage the community")
+              : s._(/*BTDS*/ "Explore the community")),
+          (a[12] = g),
+          (a[13] = x))
+        : (x = a[13]);
+      var $ = x,
+        P = l.id,
+        N;
+      a[14] !== i || a[15] !== c || a[16] !== m
+        ? ((N = d({ templateParams: m, clickable: c, author: i })),
+          (a[14] = i),
+          (a[15] = c),
+          (a[16] = m),
+          (a[17] = N))
+        : (N = a[17]);
+      var M = g === !0 ? D : k,
+        w;
+      a[18] !== M
+        ? ((w = u.jsx(o("WAWebMessageCommunityCard.react").BulletedList, {
+            items: M,
+          })),
+          (a[18] = M),
+          (a[19] = w))
+        : (w = a[19]);
+      var A = !g,
+        F;
+      return (
+        a[20] !== l.id ||
+        a[21] !== p ||
+        a[22] !== $ ||
+        a[23] !== w ||
+        a[24] !== A ||
+        a[25] !== N
+          ? ((F = u.jsx(
+              o("WAWebMessageCommunityCard.react").MessageCommunityCard,
+              {
+                communityId: p,
+                subgroupId: P,
+                title: N,
+                body: w,
+                footer: $,
+                openNavigation: A,
+              },
+            )),
+            (a[20] = l.id),
+            (a[21] = p),
+            (a[22] = $),
+            (a[23] = w),
+            (a[24] = A),
+            (a[25] = N),
+            (a[26] = F))
+          : (F = a[26]),
+        F
+      );
     }
-    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
       var t = e.author,
         n = e.clickable,

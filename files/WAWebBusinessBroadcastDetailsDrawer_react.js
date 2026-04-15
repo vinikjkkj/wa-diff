@@ -43,6 +43,7 @@ __d(
     "WDSSpinner.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebBroadcastInsights",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -173,124 +174,210 @@ __d(
         },
       };
     function y(e) {
-      var t = e.deemphasized,
-        n = t === void 0 ? !1 : t,
+      var t = o("react-compiler-runtime").c(22),
+        n = e.deemphasized,
         a = e.icon,
         i = e.label,
         l = e.onClick,
         s = e.sublabel,
         u = e.value,
         d = e.valueSublabel,
-        m = n ? "contentDeemphasized" : "contentDefault",
-        p = c.jsxs(o("WAWebFlex.react").FlexRow, {
-          gap: 20,
-          align: "center",
-          xstyle: h.metricRow,
-          children: [
-            c.jsx(o("WAWebFlex.react").FlexItem, {
-              shrink: 0,
-              xstyle: h.metricIcon,
-              children: a,
-            }),
-            c.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              justify: "all",
-              grow: 1,
-              children: [
-                c.jsxs(o("WAWebFlex.react").FlexColumn, {
+        m = n === void 0 ? !1 : n,
+        p = m ? "contentDeemphasized" : "contentDefault",
+        _;
+      t[0] !== a
+        ? ((_ = c.jsx(o("WAWebFlex.react").FlexItem, {
+            shrink: 0,
+            xstyle: h.metricIcon,
+            children: a,
+          })),
+          (t[0] = a),
+          (t[1] = _))
+        : (_ = t[1]);
+      var f;
+      t[2] !== i
+        ? ((f = c.jsx(r("WDSText.react"), {
+            type: "Body1",
+            colorName: "contentDefault",
+            children: i,
+          })),
+          (t[2] = i),
+          (t[3] = f))
+        : (f = t[3]);
+      var g;
+      t[4] !== s
+        ? ((g =
+            s != null
+              ? c.jsx(r("WDSText.react"), {
+                  type: "Body2",
+                  colorName: "contentDeemphasized",
+                  children: s,
+                })
+              : null),
+          (t[4] = s),
+          (t[5] = g))
+        : (g = t[5]);
+      var y;
+      t[6] !== f || t[7] !== g
+        ? ((y = c.jsxs(o("WAWebFlex.react").FlexColumn, { children: [f, g] })),
+          (t[6] = f),
+          (t[7] = g),
+          (t[8] = y))
+        : (y = t[8]);
+      var C;
+      t[9] !== u || t[10] !== p || t[11] !== d
+        ? ((C =
+            u != null
+              ? c.jsxs(o("WAWebFlex.react").FlexColumn, {
+                  xstyle: h.metricRight,
                   children: [
                     c.jsx(r("WDSText.react"), {
                       type: "Body1",
-                      colorName: "contentDefault",
-                      children: i,
+                      colorName: p,
+                      children: u,
                     }),
-                    s != null
+                    d != null
                       ? c.jsx(r("WDSText.react"), {
                           type: "Body2",
                           colorName: "contentDeemphasized",
-                          children: s,
+                          children: d,
                         })
                       : null,
                   ],
-                }),
-                u != null
-                  ? c.jsxs(o("WAWebFlex.react").FlexColumn, {
-                      xstyle: h.metricRight,
-                      children: [
-                        c.jsx(r("WDSText.react"), {
-                          type: "Body1",
-                          colorName: m,
-                          children: u,
-                        }),
-                        d != null
-                          ? c.jsx(r("WDSText.react"), {
-                              type: "Body2",
-                              colorName: "contentDeemphasized",
-                              children: d,
-                            })
-                          : null,
-                      ],
-                    })
-                  : null,
-              ],
-            }),
-          ],
-        });
-      return l != null
-        ? c.jsx(r("WAWebUnstyledButton.react"), {
-            onClick: l,
-            xstyle: h.clickableRow,
-            children: p,
-          })
-        : p;
+                })
+              : null),
+          (t[9] = u),
+          (t[10] = p),
+          (t[11] = d),
+          (t[12] = C))
+        : (C = t[12]);
+      var b;
+      t[13] !== y || t[14] !== C
+        ? ((b = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            justify: "all",
+            grow: 1,
+            children: [y, C],
+          })),
+          (t[13] = y),
+          (t[14] = C),
+          (t[15] = b))
+        : (b = t[15]);
+      var v;
+      t[16] !== _ || t[17] !== b
+        ? ((v = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            gap: 20,
+            align: "center",
+            xstyle: h.metricRow,
+            children: [_, b],
+          })),
+          (t[16] = _),
+          (t[17] = b),
+          (t[18] = v))
+        : (v = t[18]);
+      var S = v;
+      if (l != null) {
+        var R;
+        return (
+          t[19] !== S || t[20] !== l
+            ? ((R = c.jsx(r("WAWebUnstyledButton.react"), {
+                onClick: l,
+                xstyle: h.clickableRow,
+                children: S,
+              })),
+              (t[19] = S),
+              (t[20] = l),
+              (t[21] = R))
+            : (R = t[21]),
+          R
+        );
+      }
+      return S;
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = e.colorName,
-        n = t === void 0 ? "contentDefault" : t,
+      var t = o("react-compiler-runtime").c(16),
+        n = e.colorName,
         a = e.icon,
         i = e.label,
         l = e.onClick,
         s = e.sublabel,
-        u = c.jsxs(o("WAWebFlex.react").FlexRow, {
-          gap: 20,
-          align: "center",
-          xstyle: h.metricRow,
-          children: [
-            c.jsx(o("WAWebFlex.react").FlexItem, {
-              shrink: 0,
-              xstyle: h.metricIcon,
-              children: a,
-            }),
-            c.jsxs(o("WAWebFlex.react").FlexColumn, {
-              grow: 1,
-              children: [
-                c.jsx(r("WDSText.react"), {
-                  type: "Body1",
-                  colorName: n,
-                  maxLines: 1,
-                  children: i,
-                }),
-                s != null
-                  ? c.jsx(r("WDSText.react"), {
-                      type: "Body2",
-                      colorName: "contentDeemphasized",
-                      children: s,
-                    })
-                  : null,
-              ],
-            }),
-          ],
-        });
-      return l != null
-        ? c.jsx(r("WAWebUnstyledButton.react"), {
-            onClick: l,
-            xstyle: h.clickableRow,
-            children: u,
-          })
-        : u;
+        u = n === void 0 ? "contentDefault" : n,
+        d;
+      t[0] !== a
+        ? ((d = c.jsx(o("WAWebFlex.react").FlexItem, {
+            shrink: 0,
+            xstyle: h.metricIcon,
+            children: a,
+          })),
+          (t[0] = a),
+          (t[1] = d))
+        : (d = t[1]);
+      var m;
+      t[2] !== u || t[3] !== i
+        ? ((m = c.jsx(r("WDSText.react"), {
+            type: "Body1",
+            colorName: u,
+            maxLines: 1,
+            children: i,
+          })),
+          (t[2] = u),
+          (t[3] = i),
+          (t[4] = m))
+        : (m = t[4]);
+      var p;
+      t[5] !== s
+        ? ((p =
+            s != null
+              ? c.jsx(r("WDSText.react"), {
+                  type: "Body2",
+                  colorName: "contentDeemphasized",
+                  children: s,
+                })
+              : null),
+          (t[5] = s),
+          (t[6] = p))
+        : (p = t[6]);
+      var _;
+      t[7] !== m || t[8] !== p
+        ? ((_ = c.jsxs(o("WAWebFlex.react").FlexColumn, {
+            grow: 1,
+            children: [m, p],
+          })),
+          (t[7] = m),
+          (t[8] = p),
+          (t[9] = _))
+        : (_ = t[9]);
+      var f;
+      t[10] !== d || t[11] !== _
+        ? ((f = c.jsxs(o("WAWebFlex.react").FlexRow, {
+            gap: 20,
+            align: "center",
+            xstyle: h.metricRow,
+            children: [d, _],
+          })),
+          (t[10] = d),
+          (t[11] = _),
+          (t[12] = f))
+        : (f = t[12]);
+      var g = f;
+      if (l != null) {
+        var y;
+        return (
+          t[13] !== g || t[14] !== l
+            ? ((y = c.jsx(r("WAWebUnstyledButton.react"), {
+                onClick: l,
+                xstyle: h.clickableRow,
+                children: g,
+              })),
+              (t[13] = g),
+              (t[14] = l),
+              (t[15] = y))
+            : (y = t[15]),
+          y
+        );
+      }
+      return g;
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b(t) {
       var n,
         a,

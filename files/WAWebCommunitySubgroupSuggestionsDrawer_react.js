@@ -20,6 +20,7 @@ __d(
     "WAWebUISpacing",
     "WDSTextualLink.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebFocusOnMount",
     "useWAWebOnUnmount",
   ],
@@ -61,40 +62,62 @@ __d(
         sectionTitle: { color: "xhslqc4", $$css: !0 },
       };
     function f(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(10),
         n = e.isAdmin,
         a = e.onSubgroupSuggestionAction,
         i = e.suggestions,
-        l = e.title;
-      return c.jsxs(r("WAWebDrawerSection.react"), {
-        xstyle: (t = o("WAWebUISpacing")).uiMargin.bottom16,
-        children: [
-          c.jsx(r("WAWebSectionHeader.react"), {
-            header: l,
-            xstyle: [
-              _.sectionTitle,
-              t.uiPadding.horiz24,
-              t.uiPadding.top16,
-              t.uiPadding.bottom12,
-            ],
-          }),
-          i == null
-            ? void 0
-            : i.map(function (e) {
-                return c.jsx(
-                  r("WAWebCommunitySubgroupSuggestion.react"),
-                  {
-                    subgroupSuggestion: e,
-                    isAdmin: n,
-                    onSubgroupSuggestionAction: a,
-                  },
-                  e.id,
-                );
-              }),
-        ],
-      });
+        l = e.title,
+        s;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((s = [
+            _.sectionTitle,
+            o("WAWebUISpacing").uiPadding.horiz24,
+            o("WAWebUISpacing").uiPadding.top16,
+            o("WAWebUISpacing").uiPadding.bottom12,
+          ]),
+          (t[0] = s))
+        : (s = t[0]);
+      var u;
+      t[1] !== l
+        ? ((u = c.jsx(r("WAWebSectionHeader.react"), { header: l, xstyle: s })),
+          (t[1] = l),
+          (t[2] = u))
+        : (u = t[2]);
+      var d;
+      t[3] !== n || t[4] !== a || t[5] !== i
+        ? ((d =
+            i == null
+              ? void 0
+              : i.map(function (e) {
+                  return c.jsx(
+                    r("WAWebCommunitySubgroupSuggestion.react"),
+                    {
+                      subgroupSuggestion: e,
+                      isAdmin: n,
+                      onSubgroupSuggestionAction: a,
+                    },
+                    e.id,
+                  );
+                })),
+          (t[3] = n),
+          (t[4] = a),
+          (t[5] = i),
+          (t[6] = d))
+        : (d = t[6]);
+      var m;
+      return (
+        t[7] !== u || t[8] !== d
+          ? ((m = c.jsxs(r("WAWebDrawerSection.react"), {
+              xstyle: o("WAWebUISpacing").uiMargin.bottom16,
+              children: [u, d],
+            })),
+            (t[7] = u),
+            (t[8] = d),
+            (t[9] = m))
+          : (m = t[9]),
+        m
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(t) {
       var n,
         a = t.ref,

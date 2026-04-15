@@ -6,6 +6,7 @@ __d(
     "WAWebMediaEditorToolbarColor.react",
     "WDSFocusStateStyles",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,78 +49,139 @@ __d(
         },
       };
     function m(t) {
-      var n = t.ref,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
-        i = a.children,
-        l = a.onClick,
-        u = a.icon,
-        m = a.caret,
-        p = a.disabled,
-        _ = p === void 0 ? !1 : p,
-        f = a.title,
-        g = a.selected,
-        h = g === void 0 ? !1 : g,
-        y = a.theme,
-        C =
+      var n = o("react-compiler-runtime").c(25),
+        a,
+        i;
+      n[0] !== t
+        ? ((i = t.ref),
+          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
+          (n[0] = t),
+          (n[1] = a),
+          (n[2] = i))
+        : ((a = n[1]), (i = n[2]));
+      var l = a,
+        u = l.children,
+        m = l.onClick,
+        p = l.icon,
+        _ = l.caret,
+        f = l.disabled,
+        g = l.title,
+        h = l.selected,
+        y = l.theme,
+        C = l.testid,
+        b = f === void 0 ? !1 : f,
+        v = h === void 0 ? !1 : h,
+        S =
           y === void 0
             ? o("WAWebMediaEditorToolbarColor.react").Theme.Default
             : y,
-        b = a.testid,
-        v = b === void 0 ? "" : b,
-        S;
-      if (m)
-        switch (m) {
-          case "up":
-            S = c.jsx(o("WAWebChevronCustomIcons").ChevronUpCustomIcon, {
-              displayInline: !0,
-              height: 24,
-            });
-            break;
-          case "down":
-            S = c.jsx(o("WAWebChevronCustomIcons").ChevronDownCustomIcon, {
-              displayInline: !0,
-              height: 24,
-            });
-            break;
+        R = C === void 0 ? "" : C,
+        L;
+      if (_)
+        e: switch (_) {
+          case "up": {
+            var E;
+            (n[3] === Symbol.for("react.memo_cache_sentinel")
+              ? ((E = c.jsx(o("WAWebChevronCustomIcons").ChevronUpCustomIcon, {
+                  displayInline: !0,
+                  height: 24,
+                })),
+                (n[3] = E))
+              : (E = n[3]),
+              (L = E));
+            break e;
+          }
+          case "down": {
+            var k;
+            (n[4] === Symbol.for("react.memo_cache_sentinel")
+              ? ((k = c.jsx(
+                  o("WAWebChevronCustomIcons").ChevronDownCustomIcon,
+                  { displayInline: !0, height: 24 },
+                )),
+                (n[4] = k))
+              : (k = n[4]),
+              (L = k));
+            break e;
+          }
           default:
-            break;
         }
-      return c.jsxs(
-        "button",
-        babelHelpers.extends(
-          { ref: n, onClick: l, "data-testid": void 0 },
-          (s || (s = r("stylex"))).props(
+      var I;
+      n[5] !== b || n[6] !== a.xstyle || n[7] !== v || n[8] !== S
+        ? ((I = (s || (s = r("stylex"))).props(
             d.container,
             o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocus,
-            C === o("WAWebMediaEditorToolbarColor.react").Theme.Default &&
+            S === o("WAWebMediaEditorToolbarColor.react").Theme.Default &&
               d.paddingAll8,
-            _ && d.disabled,
-            !_ && h && d.selected,
+            b && d.disabled,
+            !b && v && d.selected,
             a.xstyle,
-          ),
-          {
-            title: f,
-            children: [
-              u &&
-                c.jsx(o("WAWebFlex.react").FlexRow, {
-                  align: "center",
-                  justify: "center",
-                  xstyle: d.icon,
-                  children: u,
-                }),
-              i != null &&
-                c.jsx("span", {
-                  className:
-                    "x1iyjqo2 xxk0z11 x1o2sk6j x2b8uid x1wbi8v6 x7g7pl8",
-                  children: i,
-                }),
-              S && c.jsx("span", { children: S }),
-            ],
-          },
-        ),
+          )),
+          (n[5] = b),
+          (n[6] = a.xstyle),
+          (n[7] = v),
+          (n[8] = S),
+          (n[9] = I))
+        : (I = n[9]);
+      var T;
+      n[10] !== p
+        ? ((T =
+            p &&
+            c.jsx(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "center",
+              xstyle: d.icon,
+              children: p,
+            })),
+          (n[10] = p),
+          (n[11] = T))
+        : (T = n[11]);
+      var D;
+      n[12] !== u
+        ? ((D =
+            u != null &&
+            c.jsx("span", {
+              className: "x1iyjqo2 xxk0z11 x1o2sk6j x2b8uid x1wbi8v6 x7g7pl8",
+              children: u,
+            })),
+          (n[12] = u),
+          (n[13] = D))
+        : (D = n[13]);
+      var x;
+      n[14] !== L
+        ? ((x = L && c.jsx("span", { children: L })), (n[14] = L), (n[15] = x))
+        : (x = n[15]);
+      var $;
+      return (
+        n[16] !== m ||
+        n[17] !== i ||
+        n[18] !== I ||
+        n[19] !== T ||
+        n[20] !== D ||
+        n[21] !== x ||
+        n[22] !== R ||
+        n[23] !== g
+          ? (($ = c.jsxs(
+              "button",
+              babelHelpers.extends(
+                { ref: i, onClick: m, "data-testid": void 0 },
+                I,
+                { title: g, children: [T, D, x] },
+              ),
+            )),
+            (n[16] = m),
+            (n[17] = i),
+            (n[18] = I),
+            (n[19] = T),
+            (n[20] = D),
+            (n[21] = x),
+            (n[22] = R),
+            (n[23] = g),
+            (n[24] = $))
+          : ($ = n[24]),
+        $
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.ToolbarButton = m));
+    l.ToolbarButton = m;
   },
   98,
 );

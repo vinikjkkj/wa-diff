@@ -1,6 +1,11 @@
 __d(
   "WAWebBizTwoColumnLayout.react",
-  ["WAWebFlexBox.react", "WAWebResizeObserver.react", "react"],
+  [
+    "WAWebFlexBox.react",
+    "WAWebResizeObserver.react",
+    "react",
+    "react-compiler-runtime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -43,42 +48,91 @@ __d(
         },
       };
     function g(e) {
-      var t = e.flipResizeOrder,
-        n = t === void 0 ? !1 : t,
+      var t = o("react-compiler-runtime").c(20),
+        n = e.flipResizeOrder,
         a = e.primaryContent,
         i = e.secondaryContent,
-        l = u(!1),
-        c = l[0],
-        d = l[1],
-        m = function (t) {
-          d(t.width <= _);
-        },
-        p = n && c && i != null,
-        g = s.jsx(o("WAWebFlexBox.react").FlexColumn, {
-          xstyle: [f.primary, !c && f.largeScreenPrimary],
-          align: "stretch",
-          children: a,
-        }),
-        h =
-          i != null &&
-          s.jsx(o("WAWebFlexBox.react").FlexColumn, {
-            xstyle: [f.secondary, !c && f.largeScreenSecondary],
-            children: i,
-          });
-      return s.jsx(r("WAWebResizeObserver.react"), {
-        className: "xh8yej3 xc26acl xl56j7k x78zum5 x5yr21d",
-        onResize: m,
-        children: s.jsx(o("WAWebFlexBox.react").FlexItem, {
-          direction: c ? "vertical" : "horizontal",
-          flex: !0,
-          xstyle: [f.root, !c && f.largeScreenRoot],
-          children: p
-            ? s.jsxs(s.Fragment, { children: [h, g] })
-            : s.jsxs(s.Fragment, { children: [g, h] }),
-        }),
-      });
+        l = n === void 0 ? !1 : n,
+        c = u(!1),
+        d = c[0],
+        m = c[1],
+        p;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((p = function (t) {
+            m(t.width <= _);
+          }),
+          (t[0] = p))
+        : (p = t[0]);
+      var g = p,
+        h = l && d && i != null,
+        y = !d && f.largeScreenPrimary,
+        C;
+      t[1] !== y ? ((C = [f.primary, y]), (t[1] = y), (t[2] = C)) : (C = t[2]);
+      var b;
+      t[3] !== a || t[4] !== C
+        ? ((b = s.jsx(o("WAWebFlexBox.react").FlexColumn, {
+            xstyle: C,
+            align: "stretch",
+            children: a,
+          })),
+          (t[3] = a),
+          (t[4] = C),
+          (t[5] = b))
+        : (b = t[5]);
+      var v = b,
+        S;
+      t[6] !== d || t[7] !== i
+        ? ((S =
+            i != null &&
+            s.jsx(o("WAWebFlexBox.react").FlexColumn, {
+              xstyle: [f.secondary, !d && f.largeScreenSecondary],
+              children: i,
+            })),
+          (t[6] = d),
+          (t[7] = i),
+          (t[8] = S))
+        : (S = t[8]);
+      var R = S,
+        L;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = "xh8yej3 xc26acl xl56j7k x78zum5 x5yr21d"), (t[9] = L))
+        : (L = t[9]);
+      var E = d ? "vertical" : "horizontal",
+        k = !d && f.largeScreenRoot,
+        I;
+      t[10] !== k ? ((I = [f.root, k]), (t[10] = k), (t[11] = I)) : (I = t[11]);
+      var T;
+      t[12] !== v || t[13] !== R || t[14] !== h
+        ? ((T = h
+            ? s.jsxs(s.Fragment, { children: [R, v] })
+            : s.jsxs(s.Fragment, { children: [v, R] })),
+          (t[12] = v),
+          (t[13] = R),
+          (t[14] = h),
+          (t[15] = T))
+        : (T = t[15]);
+      var D;
+      return (
+        t[16] !== I || t[17] !== T || t[18] !== E
+          ? ((D = s.jsx(r("WAWebResizeObserver.react"), {
+              className: L,
+              onResize: g,
+              children: s.jsx(o("WAWebFlexBox.react").FlexItem, {
+                direction: E,
+                flex: !0,
+                xstyle: I,
+                children: T,
+              }),
+            })),
+            (t[16] = I),
+            (t[17] = T),
+            (t[18] = E),
+            (t[19] = D))
+          : (D = t[19]),
+        D
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    l.default = g;
   },
   98,
 );

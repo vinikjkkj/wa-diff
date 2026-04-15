@@ -4,6 +4,7 @@ __d(
     "WAWebInMemoryLottieStickerCache",
     "WAWebLottieAnimationLoadable",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,46 +47,76 @@ __d(
         lottieFill: { width: "xh8yej3", height: "x5yr21d", $$css: !0 },
       };
     function f(t) {
-      var n = t.mediaData,
-        a = t.onClose,
-        i = t.sizePercent,
-        l = i === void 0 ? 400 : i,
-        s = o(
-          "WAWebInMemoryLottieStickerCache",
-        ).InMemorySecondaryLottieStickerCache.get(n.filehash);
-      m(
-        function () {
-          s == null && a();
-        },
-        [s, a],
-      );
-      var c = d(
-        function () {
-          a();
-        },
-        [a],
-      );
-      if (s == null) return null;
-      var p = l + "%";
-      return u.jsx(
-        "div",
-        babelHelpers.extends(
-          {},
-          (e || (e = r("stylex"))).props(_.overlayContainer(p)),
-          {
-            children: u.jsx(o("WAWebLottieAnimationLoadable").LottieAnimation, {
-              data: s,
-              autoplay: !0,
-              loop: !1,
-              onComplete: c,
-              xstyle: _.lottieFill,
-              wrapperXstyle: _.lottieFill,
-            }),
-          },
-        ),
+      var n = o("react-compiler-runtime").c(16),
+        a = t.mediaData,
+        i = t.onClose,
+        l = t.sizePercent,
+        s = l === void 0 ? 400 : l,
+        c;
+      n[0] !== a.filehash
+        ? ((c = o(
+            "WAWebInMemoryLottieStickerCache",
+          ).InMemorySecondaryLottieStickerCache.get(a.filehash)),
+          (n[0] = a.filehash),
+          (n[1] = c))
+        : (c = n[1]);
+      var d = c,
+        p,
+        f;
+      (n[2] !== i || n[3] !== d
+        ? ((p = function () {
+            d == null && i();
+          }),
+          (f = [d, i]),
+          (n[2] = i),
+          (n[3] = d),
+          (n[4] = p),
+          (n[5] = f))
+        : ((p = n[4]), (f = n[5])),
+        m(p, f));
+      var g;
+      n[6] !== i
+        ? ((g = function () {
+            i();
+          }),
+          (n[6] = i),
+          (n[7] = g))
+        : (g = n[7]);
+      var h = g;
+      if (d == null) return null;
+      var y = s + "%",
+        C;
+      n[8] !== y
+        ? ((C = (e || (e = r("stylex"))).props(_.overlayContainer(y))),
+          (n[8] = y),
+          (n[9] = C))
+        : (C = n[9]);
+      var b;
+      n[10] !== h || n[11] !== d
+        ? ((b = u.jsx(o("WAWebLottieAnimationLoadable").LottieAnimation, {
+            data: d,
+            autoplay: !0,
+            loop: !1,
+            onComplete: h,
+            xstyle: _.lottieFill,
+            wrapperXstyle: _.lottieFill,
+          })),
+          (n[10] = h),
+          (n[11] = d),
+          (n[12] = b))
+        : (b = n[12]);
+      var v;
+      return (
+        n[13] !== C || n[14] !== b
+          ? ((v = u.jsx("div", babelHelpers.extends({}, C, { children: b }))),
+            (n[13] = C),
+            (n[14] = b),
+            (n[15] = v))
+          : (v = n[15]),
+        v
       );
     }
-    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = f));
+    l.default = f;
   },
   98,
 );

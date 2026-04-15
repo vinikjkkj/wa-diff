@@ -23,72 +23,25 @@ __d(
     "WDSTextFieldVariants",
     "err",
     "react",
-    "stylex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["ref"],
       s,
-      u,
-      c = u || (u = o("react")),
-      d = u,
-      m = d.useCallback,
-      p = d.useEffect,
-      _ = d.useId,
-      f = d.useImperativeHandle,
-      g = d.useLayoutEffect,
-      h = d.useMemo,
-      y = d.useRef,
-      C = d.useState,
-      b = o("Locale").isRTL(),
-      v = 8,
-      S = r("UserAgent").isPlatform("Mac OS X") ? "macWeb" : "windowsWeb",
-      R = {
-        height: "x16ye13r",
-        whiteSpace: "x126k92a",
-        overflowY: "x1odjw0f",
-        $$css: !0,
-      },
-      L = {
-        root: {
-          color: "x1heor9g",
-          backgroundColor: "xjbqb8w",
-          borderTopColor: "x1v8p93f",
-          borderInlineEndColor: "x1o3jo1z",
-          borderBottomColor: "x16stqrj",
-          borderInlineStartColor: "xv5lvn5",
-          borderTopStyle: "x1ejq31n",
-          borderInlineEndStyle: "x18oe1m7",
-          borderBottomStyle: "x1sy0etr",
-          borderInlineStartStyle: "xstzfhl",
-          borderTopWidth: "x972fbf",
-          borderInlineEndWidth: "x10w94by",
-          borderBottomWidth: "x1qhh985",
-          borderInlineStartWidth: "x14e42zd",
-          boxSizing: "x9f619",
-          maxWidth: "x193iq5w",
-          width: "xh8yej3",
-          lineHeight: "x1fc57z9",
-          overflowX: "x6ikm8r",
-          overflowY: "x10wlt62",
-          caretColor: "xjdcl3y",
-          outline: "x1a2a7pz",
-          "::selection_backgroundColor": "xkrh14z",
-          $$css: !0,
-        },
-        singleLine: { whiteSpace: "x1whj5v", $$css: !0 },
-        multiLine: function (t) {
-          return [
-            R,
-            {
-              "--x-height": (function (e) {
-                return typeof e == "number" ? e + "px" : e != null ? e : void 0;
-              })(t + "lh"),
-            },
-          ];
-        },
-      },
-      E = {
+      u = s || (s = o("react")),
+      c = s,
+      d = c.useCallback,
+      m = c.useEffect,
+      p = c.useId,
+      _ = c.useImperativeHandle,
+      f = c.useLayoutEffect,
+      g = c.useMemo,
+      h = c.useRef,
+      y = c.useState,
+      C = o("Locale").isRTL(),
+      b = 8,
+      v = r("UserAgent").isPlatform("Mac OS X") ? "macWeb" : "windowsWeb",
+      S = {
         paragraph: [
           o("WAWebCopyPasteSelectable.react").SELECTABLE_INPUT_CSS_CLASS,
           "x15bjb6t xdj266r x14z9mp xat24cr x1lziwak xq9mrsl x1n2onr6",
@@ -101,76 +54,76 @@ __d(
           code: "xldyu6s x7l0hbv",
         },
       };
-    function k(t) {
+    function R(t) {
       var n,
         a = t.ref,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e),
         l = i.EndIcon,
-        u = i.StartIcon,
-        d = i.bottomText,
+        s = i.StartIcon,
+        c = i.bottomText,
         R = i.children,
-        k = i.disabled,
-        T = k === void 0 ? !1 : k,
-        D = i.error,
-        x = D === void 0 ? !1 : D,
-        $ = i.errorText,
-        P = i.floatingLabel,
-        N = P === void 0 ? !0 : P,
-        M = i.initialText,
-        w = i.label,
-        A = i.labelTestId,
-        F = i.loading,
-        O = F === void 0 ? !1 : F,
-        B = i.maxCharacterCount,
-        W = i.maxLength,
-        q = i.nodes,
-        U = i.onBlur,
-        V = i.onEndIconClick,
-        H = i.onEnter,
-        G = i.onFocus,
-        z = i.onValueChange,
-        j = i.platform,
-        K = j === void 0 ? S : j,
-        Q = i.prefix,
-        X = i.readOnly,
-        Y = X === void 0 ? !1 : X,
-        J = i.rows,
-        Z = J === void 0 ? 1 : J,
-        ee = i.suffix,
-        te = i.testid,
-        ne = te === void 0 ? "text-input" : te,
-        re = Z > 1,
-        oe = C(M != null ? M : ""),
-        ae = oe[0],
-        ie = oe[1],
-        le = C(!1),
-        se = le[0],
-        ue = le[1],
-        ce = C(0),
-        de = ce[0],
-        me = ce[1],
-        pe = C(null),
-        _e = pe[0],
-        fe = pe[1],
-        ge = y(null),
-        he = _(),
-        ye = "bottom-text-" + he,
-        Ce = ae.length > 0,
-        be = B != null && ae.length > B,
-        ve = x || be,
-        Se = T === !0 && !ve,
-        Re = !T && !Y,
-        Le = h(function () {
+        E = i.disabled,
+        k = E === void 0 ? !1 : E,
+        I = i.error,
+        T = I === void 0 ? !1 : I,
+        D = i.errorText,
+        x = i.floatingLabel,
+        $ = x === void 0 ? !0 : x,
+        P = i.initialText,
+        N = i.label,
+        M = i.labelTestId,
+        w = i.loading,
+        A = w === void 0 ? !1 : w,
+        F = i.maxCharacterCount,
+        O = i.maxLength,
+        B = i.nodes,
+        W = i.onBlur,
+        q = i.onEndIconClick,
+        U = i.onEnter,
+        V = i.onFocus,
+        H = i.onValueChange,
+        G = i.platform,
+        z = G === void 0 ? v : G,
+        j = i.prefix,
+        K = i.readOnly,
+        Q = K === void 0 ? !1 : K,
+        X = i.rows,
+        Y = X === void 0 ? 1 : X,
+        J = i.suffix,
+        Z = i.testid,
+        ee = Z === void 0 ? "text-input" : Z,
+        te = Y > 1,
+        ne = y(P != null ? P : ""),
+        re = ne[0],
+        oe = ne[1],
+        ae = y(!1),
+        ie = ae[0],
+        le = ae[1],
+        se = y(0),
+        ue = se[0],
+        ce = se[1],
+        de = y(null),
+        me = de[0],
+        pe = de[1],
+        _e = h(null),
+        fe = p(),
+        ge = "bottom-text-" + fe,
+        he = re.length > 0,
+        ye = F != null && re.length > F,
+        Ce = T || ye,
+        be = k === !0 && !Ce,
+        ve = !k && !Q,
+        Se = g(function () {
           return o("LexicalHistoryPlugin").createEmptyHistoryState();
         }, []),
-        Ee = h(function () {
-          var e = q != null ? q : [],
+        Re = g(function () {
+          var e = B != null ? B : [],
             t = e.some(function (e) {
               return o("WDSBidiParagraphNode").isBidiNodeType(e.getType());
             });
           return {
             editor: {
-              theme: E,
+              theme: S,
               nodes: t
                 ? [].concat(e, [
                     {
@@ -195,82 +148,82 @@ __d(
               onError: function (t) {
                 throw r("err")(t.message);
               },
-              editable: Re,
+              editable: ve,
             },
             policyProduct: "whatsapp",
             surface: "WAJS",
           };
         }, []);
-      (p(
+      (m(
         function () {
-          _e != null && _e.setEditable(Re);
+          me != null && me.setEditable(ve);
         },
-        [_e, Re],
+        [me, ve],
       ),
-        g(function () {
-          if (ge.current) {
-            var e = ge.current,
+        f(function () {
+          if (_e.current) {
+            var e = _e.current,
               t = e.querySelector("label");
             if (t) {
               var n = t.getBoundingClientRect(),
                 r = e.getBoundingClientRect();
-              if (b === !0) {
+              if (C === !0) {
                 var o = r.right - n.right,
-                  a = o - v;
-                me(a);
+                  a = o - b;
+                ce(a);
               } else {
                 var i = n.left - r.left,
-                  l = i - v;
-                me(-l);
+                  l = i - b;
+                ce(-l);
               }
             }
           }
         }, []));
-      var ke = m(
+      var Le = d(
           function (e) {
-            (ie(e), z == null || z(e));
+            (oe(e), H == null || H(e));
           },
-          [z],
+          [H],
         ),
-        Ie = m(
+        Ee = d(
           function () {
-            (ue(!0), G == null || G());
+            (le(!0), V == null || V());
           },
-          [G],
+          [V],
         ),
-        Te = m(
+        ke = d(
           function () {
-            (ue(!1), U == null || U());
+            (le(!1), W == null || W());
           },
-          [U],
+          [W],
         );
-      f(
+      _(
         a,
         function () {
           return {
             focus: function () {
-              _e == null || _e.focus();
+              me == null || me.focus();
             },
             blur: function () {
-              _e != null &&
-                document.activeElement === _e.getRootElement() &&
-                _e.blur();
+              me != null &&
+                document.activeElement === me.getRootElement() &&
+                me.blur();
             },
             isFocused: function () {
-              return _e == null
+              return me == null
                 ? !1
-                : document.activeElement === _e.getRootElement();
+                : document.activeElement === me.getRootElement();
             },
             getTextContent: function () {
-              return _e == null
+              return me == null
                 ? ""
-                : _e.getEditorState().read(function () {
+                : me.getEditorState().read(function () {
                     return o("Lexical").$getRoot().getTextContent();
                   });
             },
             setTextContent: function (t) {
-              _e != null &&
-                _e.update(function () {
+              me != null &&
+                me.update(function () {
                   var e,
                     n = (e = o("Lexical")).$getRoot();
                   n.clear();
@@ -280,125 +233,123 @@ __d(
                 });
             },
             selectAll: function () {
-              _e != null &&
-                (_e.focus(),
-                _e.update(function () {
+              me != null &&
+                (me.focus(),
+                me.update(function () {
                   var e = o("Lexical")
                     .$getRoot()
                     .select(0, o("Lexical").$getRoot().getChildrenSize());
                   e != null && o("LexicalSelection").$selectAll(e);
                 }));
             },
-            editor: _e,
+            editor: me,
           };
         },
-        [_e],
+        [me],
       );
-      var De = N === !1 && (se || Ce) ? void 0 : w,
-        xe = ve || l != null || ee != null || O,
+      var Ie = $ === !1 && (ie || he) ? void 0 : N,
+        Te = Ce || l != null || J != null || A,
+        De = null;
+      Te &&
+        (De = u.jsx(o("WDSRichTextAddOns").RichTextFieldAddOnEnd, {
+          shouldShowError: Ce,
+          EndIcon: l,
+          suffix: J,
+          onEndIconClick: q,
+          loading: A,
+          platform: z,
+        }));
+      var xe = s != null || j != null,
         $e = null;
       xe &&
-        ($e = c.jsx(o("WDSRichTextAddOns").RichTextFieldAddOnEnd, {
-          shouldShowError: ve,
-          EndIcon: l,
-          suffix: ee,
-          onEndIconClick: V,
-          loading: O,
-          platform: K,
+        ($e = u.jsx(o("WDSRichTextAddOns").RichTextFieldAddOnStart, {
+          prefix: j,
+          StartIcon: s,
+          platform: z,
         }));
-      var Pe = u != null || Q != null,
+      var Pe = c != null || D != null || F != null,
         Ne = null;
-      Pe &&
-        (Ne = c.jsx(o("WDSRichTextAddOns").RichTextFieldAddOnStart, {
-          prefix: Q,
-          StartIcon: u,
-          platform: K,
-        }));
-      var Me = d != null || $ != null || B != null,
-        we = null;
       return (
-        Me &&
-          (we = c.jsx(o("WDSRichTextAddOns").RichTextFieldAddOnBottom, {
-            bottomText: d,
+        Pe &&
+          (Ne = u.jsx(o("WDSRichTextAddOns").RichTextFieldAddOnBottom, {
+            bottomText: c,
             testid: void 0,
-            errorText: $,
-            maxCharacterCount: B,
-            textLength: ae.length,
-            platform: K,
-            shouldShowError: ve,
-            bottomId: ye,
+            errorText: D,
+            maxCharacterCount: F,
+            textLength: re.length,
+            platform: z,
+            shouldShowError: Ce,
+            bottomId: ge,
           })),
-        c.jsx("div", {
-          ref: ge,
+        u.jsx("div", {
+          ref: _e,
           style:
             ((n = {}),
-            (n[o("WDSTextFieldVariants").labelMoveDistanceVarname] = de + "px"),
+            (n[o("WDSTextFieldVariants").labelMoveDistanceVarname] = ue + "px"),
             n),
-          children: c.jsx(r("WDSRichTextShell.react"), {
-            label: De,
-            isFocused: se,
-            hasValue: Ce,
-            platform: K,
-            shouldShowError: ve,
-            isDisabled: Se,
-            isMultiLine: re,
-            hasAddOnEnd: !!xe,
-            addOnStart: Ne,
-            addOnEnd: $e,
-            addOnBottom: we,
-            labelTestId: A,
-            children: c.jsxs(r("MLCComposer.react"), {
-              initialConfig: Ee,
+          children: u.jsx(r("WDSRichTextShell.react"), {
+            label: Ie,
+            isFocused: ie,
+            hasValue: he,
+            platform: z,
+            shouldShowError: Ce,
+            isDisabled: be,
+            isMultiLine: te,
+            hasAddOnEnd: !!Te,
+            addOnStart: $e,
+            addOnEnd: De,
+            addOnBottom: Ne,
+            labelTestId: M,
+            children: u.jsxs(r("MLCComposer.react"), {
+              initialConfig: Re,
               children: [
-                c.jsx(o("LexicalPlainTextPlugin").PlainTextPlugin, {
-                  contentEditable: c.jsx(
+                u.jsx(o("LexicalPlainTextPlugin").PlainTextPlugin, {
+                  contentEditable: u.jsx(
                     o("LexicalContentEditable").ContentEditable,
-                    babelHelpers.extends(
-                      {},
-                      (s || (s = r("stylex"))).props(
-                        L.root,
-                        re ? L.multiLine(Z) : L.singleLine,
-                      ),
-                      {
-                        "data-testid": void 0,
-                        ariaLabel: String(w),
-                        ariaInvalid: ve,
-                        ariaDescribedBy: Me ? ye : void 0,
-                        ariaMultiline: re || void 0,
-                      },
-                    ),
+                    {
+                      className: {
+                        0: "x1heor9g xjbqb8w x1v8p93f x1o3jo1z x16stqrj xv5lvn5 x1ejq31n x18oe1m7 x1sy0etr xstzfhl x972fbf x10w94by x1qhh985 x14e42zd x9f619 x193iq5w xh8yej3 x1fc57z9 x6ikm8r x10wlt62 xjdcl3y x1a2a7pz xkrh14z x1whj5v",
+                        1: "x1heor9g xjbqb8w x1v8p93f x1o3jo1z x16stqrj xv5lvn5 x1ejq31n x18oe1m7 x1sy0etr xstzfhl x972fbf x10w94by x1qhh985 x14e42zd x9f619 x193iq5w xh8yej3 x1fc57z9 x6ikm8r xjdcl3y x1a2a7pz xkrh14z x126k92a x1odjw0f",
+                      }[!!te << 0],
+                      style: te ? { height: Y + "lh" } : void 0,
+                      "data-testid": void 0,
+                      ariaLabel: String(N),
+                      ariaInvalid: Ce,
+                      ariaDescribedBy: Pe ? ge : void 0,
+                      ariaMultiline: te || void 0,
+                    },
                   ),
                   ErrorBoundary: o("LexicalErrorBoundary").LexicalErrorBoundary,
                 }),
-                c.jsx(o("LexicalHistoryPlugin").HistoryPlugin, {
-                  externalHistoryState: Le,
+                u.jsx(o("LexicalHistoryPlugin").HistoryPlugin, {
+                  externalHistoryState: Se,
                 }),
-                c.jsx(o("LexicalClearEditorPlugin").ClearEditorPlugin, {}),
-                c.jsx(I, { onEditor: fe }),
-                c.jsx(r("WDSRichTextEditorStatePlugin"), {
-                  onValueChange: ke,
-                  onFocus: Ie,
-                  onBlur: Te,
+                u.jsx(o("LexicalClearEditorPlugin").ClearEditorPlugin, {}),
+                u.jsx(L, { onEditor: pe }),
+                u.jsx(r("WDSRichTextEditorStatePlugin"), {
+                  onValueChange: Le,
+                  onFocus: Ee,
+                  onBlur: ke,
                 }),
                 R,
-                c.jsx(r("WDSRichTextInitialStatePlugin"), { initialText: M }),
-                W != null &&
-                  c.jsx(r("WDSRichTextCharLimitPlugin"), { maxLength: W }),
-                H != null &&
-                  c.jsx(r("WDSRichTextOnEnterPlugin"), { onEnter: H }),
+                u.jsx(r("WDSRichTextInitialStatePlugin"), { initialText: P }),
+                O != null &&
+                  u.jsx(r("WDSRichTextCharLimitPlugin"), { maxLength: O }),
+                U != null &&
+                  u.jsx(r("WDSRichTextOnEnterPlugin"), { onEnter: U }),
               ],
             }),
           }),
         })
       );
     }
-    k.displayName = k.name + " [from " + i.id + "]";
-    function I(e) {
+    R.displayName = R.name + " [from " + i.id + "]";
+    function L(e) {
       var t = e.onEditor,
         n = o("LexicalComposerContext").useLexicalComposerContext(),
         r = n[0];
       return (
-        p(
+        m(
           function () {
             t(r);
           },
@@ -407,7 +358,7 @@ __d(
         null
       );
     }
-    ((I.displayName = I.name + " [from " + i.id + "]"), (l.default = k));
+    ((L.displayName = L.name + " [from " + i.id + "]"), (l.default = R));
   },
   98,
 );

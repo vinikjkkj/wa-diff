@@ -21,6 +21,7 @@ __d(
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "react",
+    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -170,70 +171,91 @@ __d(
         );
       };
     function p(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(7),
         n = e.onBack,
-        a = e.ref;
-      return u.jsxs(r("WAWebDrawer.react"), {
-        ref: a,
-        tsNavigationData: { surface: "unknown", viewName: "ctwa-debug" },
-        children: [
-          u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
+        a = e.ref,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = { surface: "unknown", viewName: "ctwa-debug" }), (t[0] = i))
+        : (i = t[0]);
+      var l;
+      t[1] !== n
+        ? ((l = u.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
             title: "CTWA Debug",
             onBack: n,
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
             focusBackOrCancel: !0,
+          })),
+          (t[1] = n),
+          (t[2] = l))
+        : (l = t[2]);
+      var s;
+      if (t[3] === Symbol.for("react.memo_cache_sentinel")) {
+        var p;
+        ((s = u.jsx(r("WAWebDrawerBody.react"), {
+          children: u.jsxs(r("WAWebDrawerSection.react"), {
+            animation: !1,
+            xstyle: [
+              o("WDSPaddings.stylex").wdsPaddings.paddingHor32,
+              o("WDSPaddings.stylex").wdsPaddings.paddingVer20,
+            ],
+            children: [
+              u.jsx(o("WAWebText.react").WAWebTextTitle, {
+                children: "Localisation Testing",
+              }),
+              u.jsxs("ul", {
+                children: [
+                  u.jsx("li", {
+                    children: u.jsx(
+                      (p = o("WAWebButton.react")).WAWebButtonSimplified,
+                      {
+                        onClick: o("WAWebConsumerTransparencyModalDialog.react")
+                          .showConsumerTransparencyModalDialog,
+                        children: "Show Consumer Disclosure",
+                      },
+                    ),
+                  }),
+                  u.jsx("li", {
+                    children: u.jsx(p.WAWebButtonSimplified, {
+                      onClick: c,
+                      children: "Show SMB Disclosure",
+                    }),
+                  }),
+                  u.jsx("li", {
+                    children: u.jsx(p.WAWebButtonSimplified, {
+                      onClick: d,
+                      children: "Open Data Sharing Setting Drawer",
+                    }),
+                  }),
+                  u.jsx("li", {
+                    children: u.jsx(p.WAWebButtonSimplified, {
+                      onClick: m,
+                      children: "Show Upsell and OptOut components",
+                    }),
+                  }),
+                ],
+              }),
+            ],
           }),
-          u.jsx(r("WAWebDrawerBody.react"), {
-            children: u.jsxs(r("WAWebDrawerSection.react"), {
-              animation: !1,
-              xstyle: [
-                o("WDSPaddings.stylex").wdsPaddings.paddingHor32,
-                o("WDSPaddings.stylex").wdsPaddings.paddingVer20,
-              ],
-              children: [
-                u.jsx(o("WAWebText.react").WAWebTextTitle, {
-                  children: "Localisation Testing",
-                }),
-                u.jsxs("ul", {
-                  children: [
-                    u.jsx("li", {
-                      children: u.jsx(
-                        (t = o("WAWebButton.react")).WAWebButtonSimplified,
-                        {
-                          onClick: o(
-                            "WAWebConsumerTransparencyModalDialog.react",
-                          ).showConsumerTransparencyModalDialog,
-                          children: "Show Consumer Disclosure",
-                        },
-                      ),
-                    }),
-                    u.jsx("li", {
-                      children: u.jsx(t.WAWebButtonSimplified, {
-                        onClick: c,
-                        children: "Show SMB Disclosure",
-                      }),
-                    }),
-                    u.jsx("li", {
-                      children: u.jsx(t.WAWebButtonSimplified, {
-                        onClick: d,
-                        children: "Open Data Sharing Setting Drawer",
-                      }),
-                    }),
-                    u.jsx("li", {
-                      children: u.jsx(t.WAWebButtonSimplified, {
-                        onClick: m,
-                        children: "Show Upsell and OptOut components",
-                      }),
-                    }),
-                  ],
-                }),
-              ],
-            }),
-          }),
-        ],
-      });
+        })),
+          (t[3] = s));
+      } else s = t[3];
+      var _;
+      return (
+        t[4] !== a || t[5] !== l
+          ? ((_ = u.jsxs(r("WAWebDrawer.react"), {
+              ref: a,
+              tsNavigationData: i,
+              children: [l, s],
+            })),
+            (t[4] = a),
+            (t[5] = l),
+            (t[6] = _))
+          : (_ = t[6]),
+        _
+      );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
+    l.default = p;
   },
   98,
 );

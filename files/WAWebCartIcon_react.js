@@ -1,6 +1,6 @@
 __d(
   "WAWebCartIcon.react",
-  ["WDSIconIcShoppingCart.react", "react"],
+  ["WDSIconIcShoppingCart.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -9,14 +9,23 @@ __d(
         inheritColor: { color: "x1heor9g", $$css: !0 },
       };
     function c(e) {
-      var t = e.theme,
-        n = r("WDSIconIcShoppingCart.react");
-      return s.jsx(n, {
-        testid: void 0,
-        xstyle: [u.cartIcon, t === "inherit-color" && u.inheritColor],
-      });
+      var t = o("react-compiler-runtime").c(2),
+        n = e.theme,
+        a = n === "inherit-color" && u.inheritColor,
+        i;
+      return (
+        t[0] !== a
+          ? ((i = s.jsx(r("WDSIconIcShoppingCart.react"), {
+              testid: void 0,
+              xstyle: [u.cartIcon, a],
+            })),
+            (t[0] = a),
+            (t[1] = i))
+          : (i = t[1]),
+        i
+      );
     }
-    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
+    l.default = c;
   },
   98,
 );

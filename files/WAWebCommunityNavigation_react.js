@@ -44,6 +44,7 @@ __d(
     "WDSIconIcGroup.react",
     "WDSIconIcMoreVert.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebAllEvents",
     "useWAWebCommunitySubgroups",
     "useWAWebEventTargetValue",
@@ -62,113 +63,198 @@ __d(
       },
       f = 5e3;
     function g(e) {
-      var t = e.chat,
-        n = e.isAdmin,
-        a = e.isSuperAdmin,
-        i = e.onCommunitySettingsClick,
-        l = e.onInviteMembersClick,
-        u = e.onTransferOwnership,
-        c = r("useWAWebEventTargetValue")(
-          t == null ? void 0 : t.groupMetadata,
-          ["change:suspended"],
-          function () {
-            return o("WAWebChatCommunityUtils").isSuspendedCommunity(t);
-          },
+      var t = o("react-compiler-runtime").c(36),
+        n = e.chat,
+        a = e.isAdmin,
+        i = e.isSuperAdmin,
+        l = e.onCommunitySettingsClick,
+        u = e.onInviteMembersClick,
+        c = e.onTransferOwnership,
+        m;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = ["change:suspended"]), (t[0] = m))
+        : (m = t[0]);
+      var p;
+      t[1] !== n
+        ? ((p = function () {
+            return o("WAWebChatCommunityUtils").isSuspendedCommunity(n);
+          }),
+          (t[1] = n),
+          (t[2] = p))
+        : (p = t[2]);
+      var _ = r("useWAWebEventTargetValue")(
+          n == null ? void 0 : n.groupMetadata,
+          m,
+          p,
         ),
-        m = function () {
-          t && o("WAWebCmd").Cmd.openCommunityTabbedInfo(t.id);
-        },
-        p = function () {
-          t &&
-            o("WAWebModalManager").ModalManager.open(
-              d.jsx(
-                o("WAWebViewCommunityMembersModal.react")
-                  .ViewCommunityMembersModal,
-                { parentChat: t, onInviteMembersClick: l },
-              ),
-            );
-        },
-        _ = s._(/*BTDS*/ "Community info"),
-        f = [
-          d.jsx(
+        f;
+      t[3] !== n
+        ? ((f = function () {
+            n && o("WAWebCmd").Cmd.openCommunityTabbedInfo(n.id);
+          }),
+          (t[3] = n),
+          (t[4] = f))
+        : (f = t[4]);
+      var g = f,
+        h;
+      t[5] !== n || t[6] !== u
+        ? ((h = function () {
+            n &&
+              o("WAWebModalManager").ModalManager.open(
+                d.jsx(
+                  o("WAWebViewCommunityMembersModal.react")
+                    .ViewCommunityMembersModal,
+                  { parentChat: n, onInviteMembersClick: u },
+                ),
+              );
+          }),
+          (t[5] = n),
+          (t[6] = u),
+          (t[7] = h))
+        : (h = t[7]);
+      var y = h,
+        C;
+      t[8] === Symbol.for("react.memo_cache_sentinel")
+        ? ((C = s._(/*BTDS*/ "Community info")), (t[8] = C))
+        : (C = t[8]);
+      var b = C,
+        v;
+      t[9] === Symbol.for("react.memo_cache_sentinel")
+        ? ((v = d.jsx(o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon, {})),
+          (t[9] = v))
+        : (v = t[9]);
+      var S;
+      t[10] !== g
+        ? ((S = d.jsx(
             o("WAWebDropdownItem.react").DropdownItem,
-            {
-              testid: void 0,
-              action: m,
-              ariaLabel: _,
-              icon: d.jsx(
-                o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon,
-                {},
-              ),
-              children: _,
-            },
+            { testid: void 0, action: g, ariaLabel: b, icon: v, children: b },
             "communityInfo",
-          ),
-        ];
-      if (!c) {
-        var g = s._(/*BTDS*/ "View members");
-        if (
-          (f.push(
-            d.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: p,
-                ariaLabel: g,
-                icon: d.jsx(r("WDSIconIcGroup.react"), {}),
-                children: g,
-              },
-              "viewMembers",
-            ),
-          ),
-          n)
-        ) {
-          var h = s._(/*BTDS*/ "Community settings");
-          f.push(
-            d.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: i,
-                ariaLabel: h,
-                icon: d.jsx(
+          )),
+          (t[10] = g),
+          (t[11] = S))
+        : (S = t[11]);
+      var R;
+      if (
+        t[12] !== n ||
+        t[13] !== y ||
+        t[14] !== a ||
+        t[15] !== i ||
+        t[16] !== _ ||
+        t[17] !== l ||
+        t[18] !== c ||
+        t[19] !== S
+      ) {
+        if (((R = [S]), !_)) {
+          var L;
+          t[21] === Symbol.for("react.memo_cache_sentinel")
+            ? ((L = s._(/*BTDS*/ "View members")), (t[21] = L))
+            : (L = t[21]);
+          var E = L,
+            k;
+          t[22] === Symbol.for("react.memo_cache_sentinel")
+            ? ((k = d.jsx(r("WDSIconIcGroup.react"), {})), (t[22] = k))
+            : (k = t[22]);
+          var I;
+          if (
+            (t[23] !== y
+              ? ((I = d.jsx(
+                  o("WAWebDropdownItem.react").DropdownItem,
+                  {
+                    testid: void 0,
+                    action: y,
+                    ariaLabel: E,
+                    icon: k,
+                    children: E,
+                  },
+                  "viewMembers",
+                )),
+                (t[23] = y),
+                (t[24] = I))
+              : (I = t[24]),
+            R.push(I),
+            a)
+          ) {
+            var T;
+            t[25] === Symbol.for("react.memo_cache_sentinel")
+              ? ((T = s._(/*BTDS*/ "Community settings")), (t[25] = T))
+              : (T = t[25]);
+            var D = T,
+              x;
+            t[26] === Symbol.for("react.memo_cache_sentinel")
+              ? ((x = d.jsx(
                   o("WAWebSettingsRefreshedIcon.react").SettingsRefreshedIcon,
                   {},
-                ),
-                children: h,
-              },
-              "communitySettings",
-            ),
-          );
-        }
-        !a &&
-          t != null &&
-          f.push(
-            d.jsx(
-              o("WAWebDropdownItem.react").DropdownItem,
-              {
-                testid: void 0,
-                action: function () {
+                )),
+                (t[26] = x))
+              : (x = t[26]);
+            var $;
+            (t[27] !== l
+              ? (($ = d.jsx(
+                  o("WAWebDropdownItem.react").DropdownItem,
+                  {
+                    testid: void 0,
+                    action: l,
+                    ariaLabel: D,
+                    icon: x,
+                    children: D,
+                  },
+                  "communitySettings",
+                )),
+                (t[27] = l),
+                (t[28] = $))
+              : ($ = t[28]),
+              R.push($));
+          }
+          if (!i && n != null) {
+            var P;
+            t[29] !== n || t[30] !== c
+              ? ((P = function () {
                   o("WAWebModalManager").ModalManager.open(
                     d.jsx(r("WAWebLeaveCommunityModal.react"), {
-                      chat: t,
-                      onTransferOwnership: u,
+                      chat: n,
+                      onTransferOwnership: c,
                     }),
                     { transition: "modal-flow" },
                   );
-                },
-                icon: d.jsx(o("WAWebExitIcon.react").ExitIcon, {
-                  directional: !0,
                 }),
-                children: s._(/*BTDS*/ "Exit community"),
-              },
-              "exitCommunity",
-            ),
-          );
-      }
-      return f;
+                (t[29] = n),
+                (t[30] = c),
+                (t[31] = P))
+              : (P = t[31]);
+            var N, M;
+            t[32] === Symbol.for("react.memo_cache_sentinel")
+              ? ((N = d.jsx(o("WAWebExitIcon.react").ExitIcon, {
+                  directional: !0,
+                })),
+                (M = s._(/*BTDS*/ "Exit community")),
+                (t[32] = N),
+                (t[33] = M))
+              : ((N = t[32]), (M = t[33]));
+            var w;
+            (t[34] !== P
+              ? ((w = d.jsx(
+                  o("WAWebDropdownItem.react").DropdownItem,
+                  { testid: void 0, action: P, icon: N, children: M },
+                  "exitCommunity",
+                )),
+                (t[34] = P),
+                (t[35] = w))
+              : (w = t[35]),
+              R.push(w));
+          }
+        }
+        ((t[12] = n),
+          (t[13] = y),
+          (t[14] = a),
+          (t[15] = i),
+          (t[16] = _),
+          (t[17] = l),
+          (t[18] = c),
+          (t[19] = S),
+          (t[20] = R));
+      } else R = t[20];
+      return R;
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(t) {
       var n = t.ref,
         a = babelHelpers.objectWithoutPropertiesLoose(t, u),

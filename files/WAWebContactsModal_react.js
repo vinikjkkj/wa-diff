@@ -23,6 +23,7 @@ __d(
     "WAWebSectionHeader.react",
     "WAWebSingleSelection",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebDebouncedSearch",
   ],
@@ -37,7 +38,7 @@ __d(
       f = o("WAWebChatContact.react").ContactFactory(),
       g = o("WAWebModalsListModal.react").ListModalFactory();
     function h(e) {
-      var t,
+      var t = o("react-compiler-runtime").c(49),
         n = e.active,
         a = e.contextEnabled,
         i = e.contextMenu,
@@ -46,93 +47,212 @@ __d(
         c = e.filter,
         m = e.listenForAdminChange,
         g = e.loadOnlyContactPictures,
-        h = g === void 0 ? !1 : g,
-        y = e.newsletterRoles,
-        C = e.onContext,
-        b = e.onSelect,
-        v = e.openContextOnClick,
-        S = e.participantCollection,
-        R = e.showMemberLabel,
-        L = e.showNotifyName,
-        E = e.showStatusRingAroundProfilePhoto,
-        k = e.sourceChat;
+        h = e.newsletterRoles,
+        y = e.onContext,
+        C = e.onSelect,
+        b = e.openContextOnClick,
+        v = e.participantCollection,
+        S = e.showMemberLabel,
+        R = e.showNotifyName,
+        L = e.showStatusRingAroundProfilePhoto,
+        E = e.sourceChat,
+        k = g === void 0 ? !1 : g;
       switch (l.type) {
-        case p.HEADER:
-          return d.jsx(r("WAWebSectionHeader.react"), {
-            header: (t = l.header) != null ? t : "",
-            uppercase: l.itemKey !== _,
-          });
-        case p.ROW: {
-          var I = !!v,
-            T = o("WATypeUtils").isString(c(l.contact)),
-            D = T ? "group-modal" : null,
-            x = T ? c(l.contact) : null,
-            $ =
-              y && o("WAWebContactGetters").getIsMe(l.contact)
-                ? d.jsx(
-                    o("WAWebNewsletterSubscriberList.react")
-                      .YouArentVisibleToYourFollowersLabel,
-                    {},
-                  )
-                : x,
-            P =
-              C && i && a
-                ? {
-                    contextEnabled: function () {
-                      return a(l.contact.id);
-                    },
-                    contextMenu: i(l.contact.id),
-                    onContext: C,
-                  }
-                : {},
-            N = !0;
+        case p.HEADER: {
+          var I,
+            T = (I = l.header) != null ? I : "",
+            D = l.itemKey !== _,
+            x;
           return (
-            h &&
-              (N = o("WAWebFrontendContactGetters").getIsMyContact(l.contact)),
-            d.jsx(
-              f,
-              babelHelpers.extends(
-                {
-                  contact: l.contact,
-                  active: n,
-                  theme: D,
-                  secondary: $,
-                  newsletterMembershipType: l.newsletterRole,
-                  onClick:
-                    I && C
-                      ? C
-                      : T
-                        ? void 0
-                        : b
-                          ? function () {
-                              b(l.contact);
-                            }
-                          : r("WAWebNoop"),
-                  waitIdle: !0,
-                  showNotifyName: L,
-                  elevatedPushNamesEnabled: s,
-                  listenForAdminChange: m,
-                  participantCollection: S,
-                  isPendingParticipant: l.isPending,
-                },
-                P,
-                {
-                  showStatusRingAroundProfilePhoto: E,
-                  loadPicture: N,
-                  showMemberLabel: R,
-                  sourceChat: k,
-                },
-              ),
-            )
+            t[0] !== T || t[1] !== D
+              ? ((x = d.jsx(r("WAWebSectionHeader.react"), {
+                  header: T,
+                  uppercase: D,
+                })),
+                (t[0] = T),
+                (t[1] = D),
+                (t[2] = x))
+              : (x = t[2]),
+            x
           );
         }
-        case p.BUTTON:
-          return d.jsx(o("WAWebListButton.react").ListButton, {
-            active: n,
-            id: l.itemKey,
-            onClick: l.onClick,
-            children: l.text,
-          });
+        case p.ROW: {
+          var $ = !!b,
+            P;
+          t[3] !== l.contact || t[4] !== c
+            ? ((P = o("WATypeUtils").isString(c(l.contact))),
+              (t[3] = l.contact),
+              (t[4] = c),
+              (t[5] = P))
+            : (P = t[5]);
+          var N = P,
+            M = N ? "group-modal" : null,
+            w;
+          t[6] !== l.contact || t[7] !== c || t[8] !== N
+            ? ((w = N ? c(l.contact) : null),
+              (t[6] = l.contact),
+              (t[7] = c),
+              (t[8] = N),
+              (t[9] = w))
+            : (w = t[9]);
+          var A = w,
+            F;
+          t[10] !== l.contact || t[11] !== h || t[12] !== A
+            ? ((F =
+                h && o("WAWebContactGetters").getIsMe(l.contact)
+                  ? d.jsx(
+                      o("WAWebNewsletterSubscriberList.react")
+                        .YouArentVisibleToYourFollowersLabel,
+                      {},
+                    )
+                  : A),
+              (t[10] = l.contact),
+              (t[11] = h),
+              (t[12] = A),
+              (t[13] = F))
+            : (F = t[13]);
+          var O = F,
+            B;
+          t[14] !== a || t[15] !== i || t[16] !== l.contact || t[17] !== y
+            ? ((B =
+                y && i && a
+                  ? {
+                      contextEnabled: function () {
+                        return a(l.contact.id);
+                      },
+                      contextMenu: i(l.contact.id),
+                      onContext: y,
+                    }
+                  : {}),
+              (t[14] = a),
+              (t[15] = i),
+              (t[16] = l.contact),
+              (t[17] = y),
+              (t[18] = B))
+            : (B = t[18]);
+          var W = B,
+            q = !0;
+          if (k) {
+            var U;
+            (t[19] !== l.contact
+              ? ((U = o("WAWebFrontendContactGetters").getIsMyContact(
+                  l.contact,
+                )),
+                (t[19] = l.contact),
+                (t[20] = U))
+              : (U = t[20]),
+              (q = U));
+          }
+          var V;
+          t[21] !== l.contact ||
+          t[22] !== N ||
+          t[23] !== y ||
+          t[24] !== C ||
+          t[25] !== $
+            ? ((V =
+                $ && y
+                  ? y
+                  : N
+                    ? void 0
+                    : C
+                      ? function () {
+                          C(l.contact);
+                        }
+                      : r("WAWebNoop")),
+              (t[21] = l.contact),
+              (t[22] = N),
+              (t[23] = y),
+              (t[24] = C),
+              (t[25] = $),
+              (t[26] = V))
+            : (V = t[26]);
+          var H;
+          return (
+            t[27] !== n ||
+            t[28] !== W ||
+            t[29] !== l.contact ||
+            t[30] !== l.isPending ||
+            t[31] !== l.newsletterRole ||
+            t[32] !== s ||
+            t[33] !== m ||
+            t[34] !== q ||
+            t[35] !== v ||
+            t[36] !== O ||
+            t[37] !== S ||
+            t[38] !== R ||
+            t[39] !== L ||
+            t[40] !== E ||
+            t[41] !== V ||
+            t[42] !== M
+              ? ((H = d.jsx(
+                  f,
+                  babelHelpers.extends(
+                    {
+                      contact: l.contact,
+                      active: n,
+                      theme: M,
+                      secondary: O,
+                      newsletterMembershipType: l.newsletterRole,
+                      onClick: V,
+                      waitIdle: !0,
+                      showNotifyName: R,
+                      elevatedPushNamesEnabled: s,
+                      listenForAdminChange: m,
+                      participantCollection: v,
+                      isPendingParticipant: l.isPending,
+                    },
+                    W,
+                    {
+                      showStatusRingAroundProfilePhoto: L,
+                      loadPicture: q,
+                      showMemberLabel: S,
+                      sourceChat: E,
+                    },
+                  ),
+                )),
+                (t[27] = n),
+                (t[28] = W),
+                (t[29] = l.contact),
+                (t[30] = l.isPending),
+                (t[31] = l.newsletterRole),
+                (t[32] = s),
+                (t[33] = m),
+                (t[34] = q),
+                (t[35] = v),
+                (t[36] = O),
+                (t[37] = S),
+                (t[38] = R),
+                (t[39] = L),
+                (t[40] = E),
+                (t[41] = V),
+                (t[42] = M),
+                (t[43] = H))
+              : (H = t[43]),
+            H
+          );
+        }
+        case p.BUTTON: {
+          var G;
+          return (
+            t[44] !== n ||
+            t[45] !== l.itemKey ||
+            t[46] !== l.onClick ||
+            t[47] !== l.text
+              ? ((G = d.jsx(o("WAWebListButton.react").ListButton, {
+                  active: n,
+                  id: l.itemKey,
+                  onClick: l.onClick,
+                  children: l.text,
+                })),
+                (t[44] = n),
+                (t[45] = l.itemKey),
+                (t[46] = l.onClick),
+                (t[47] = l.text),
+                (t[48] = G))
+              : (G = t[48]),
+            G
+          );
+        }
         default:
           throw (
             o("WALogger").LOG(
@@ -145,7 +265,6 @@ __d(
           );
       }
     }
-    h.displayName = h.name + " [from " + i.id + "]";
     var y = 5001;
     function C(e, t) {
       var n;

@@ -13,6 +13,7 @@ __d(
     "WAWebStickerPanelContentEmpty.react",
     "WAWebStickerPanelContentStickersScrollGridPresentational.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebIsReadyToShowStickers.react",
     "useWAWebListener",
   ],
@@ -25,9 +26,9 @@ __d(
       p = c.useRef,
       _ = c.useState;
     function f(e) {
-      var t = e.displayLocation,
-        n = e.isAvatarStickers,
-        a = n === void 0 ? !1 : n,
+      var t = o("react-compiler-runtime").c(11),
+        n = e.displayLocation,
+        a = e.isAvatarStickers,
         i = e.onDownloadEnd,
         l = e.onDownloadStart,
         c = e.onFocusPrev,
@@ -35,51 +36,82 @@ __d(
         _ = e.onStickerClick,
         f = e.ref,
         h = e.resetScroll,
-        y = p(),
-        C = g(h, l, i, a),
-        b =
-          !a &&
-          (t === o("WAWebPanelsDisplayLocation").DisplayLocation.ComposeBox ||
-            t ===
+        y = a === void 0 ? !1 : a,
+        C = p(),
+        b = g(h, l, i, y),
+        v =
+          !y &&
+          (n === o("WAWebPanelsDisplayLocation").DisplayLocation.ComposeBox ||
+            n ===
               o("WAWebPanelsDisplayLocation").DisplayLocation.ExpressionsPanel),
-        v = b
-          ? [o("WAWebStickerModel").Sticker.getCreateButton()].concat(C)
-          : C;
-      m(f, function () {
-        return {
-          focus: function (t) {
-            var e;
-            (e = y.current) == null || e.focus(t);
-          },
-        };
-      });
-      var S = o("useWAWebIsReadyToShowStickers.react").useIsReadyToShowStickers(
-        t,
+        S;
+      t[0] !== b || t[1] !== v
+        ? ((S = v
+            ? [o("WAWebStickerModel").Sticker.getCreateButton()].concat(b)
+            : b),
+          (t[0] = b),
+          (t[1] = v),
+          (t[2] = S))
+        : (S = t[2]);
+      var R = S,
+        L;
+      (t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((L = function () {
+            return {
+              focus: function (t) {
+                var e;
+                (e = C.current) == null || e.focus(t);
+              },
+            };
+          }),
+          (t[3] = L))
+        : (L = t[3]),
+        m(f, L));
+      var E = o("useWAWebIsReadyToShowStickers.react").useIsReadyToShowStickers(
+        n,
       );
-      return S
-        ? v.length === 0
-          ? u.jsx(r("WAWebStickerPanelContentEmpty.react"), {
-              text: s._(/*BTDS*/ "You haven't sent any stickers yet"),
-            })
-          : u.jsx(
+      if (!E) return null;
+      if (R.length === 0) {
+        var k;
+        return (
+          t[4] === Symbol.for("react.memo_cache_sentinel")
+            ? ((k = u.jsx(r("WAWebStickerPanelContentEmpty.react"), {
+                text: s._(/*BTDS*/ "You haven't sent any stickers yet"),
+              })),
+              (t[4] = k))
+            : (k = t[4]),
+          k
+        );
+      }
+      var I;
+      return (
+        t[5] !== n || t[6] !== c || t[7] !== d || t[8] !== _ || t[9] !== R
+          ? ((I = u.jsx(
               o(
                 "WAWebStickerPanelContentStickersScrollGridPresentational.react",
               ).StickersScrollGridPresentational,
               {
-                ref: y,
+                ref: C,
                 onFocusPrev: c,
                 onScroll: d,
                 onStickerClick: _,
                 onStickerEnter: _,
                 selectedTab: o("WAWebEmojiPickerConstants").StickerTabs.RECENTS,
-                stickers: v,
+                stickers: R,
                 theme: "searchable",
-                displayLocation: t,
+                displayLocation: n,
               },
-            )
-        : null;
+            )),
+            (t[5] = n),
+            (t[6] = c),
+            (t[7] = d),
+            (t[8] = _),
+            (t[9] = R),
+            (t[10] = I))
+          : (I = t[10]),
+        I
+      );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e, t, n, a) {
       a === void 0 && (a = !1);
       var i = r("WAWebNewsletterCollection").getActive(),

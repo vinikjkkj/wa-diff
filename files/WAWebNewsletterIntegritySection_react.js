@@ -22,6 +22,7 @@ __d(
     "WDSIconIcThumbDown.react",
     "WDSText.react",
     "react",
+    "react-compiler-runtime",
     "useWAWebModelValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -33,74 +34,157 @@ __d(
         accentIcon: { color: "xo1mcw5", $$css: !0 },
       };
     function m(e) {
-      var t = e.chat,
-        n = e.onDeleteNewsletter,
-        r = e.onTransferNewsletterOwnership,
-        a = e.xstyle,
-        i = u.jsx(_, { chat: t }),
-        l = u.jsx(p, { chat: t }),
-        s = u.jsx(g, { chat: t, onTransferOwnership: r }),
-        c = u.jsx(h, { chat: t, onDeleteNewsletter: n }),
-        d = u.jsx(f, { chat: t });
-      return u.jsxs(
-        o("WAWebChatInfoDrawerSection.react").ChatInfoDrawerButtonsSection,
-        { xstyle: a, children: [i, d, s, c, l] },
+      var t = o("react-compiler-runtime").c(19),
+        n = e.chat,
+        r = e.onDeleteNewsletter,
+        a = e.onTransferNewsletterOwnership,
+        i = e.xstyle,
+        l;
+      t[0] !== n
+        ? ((l = u.jsx(_, { chat: n })), (t[0] = n), (t[1] = l))
+        : (l = t[1]);
+      var s = l,
+        c;
+      t[2] !== n
+        ? ((c = u.jsx(p, { chat: n })), (t[2] = n), (t[3] = c))
+        : (c = t[3]);
+      var d = c,
+        m;
+      t[4] !== n || t[5] !== a
+        ? ((m = u.jsx(g, { chat: n, onTransferOwnership: a })),
+          (t[4] = n),
+          (t[5] = a),
+          (t[6] = m))
+        : (m = t[6]);
+      var y = m,
+        C;
+      t[7] !== n || t[8] !== r
+        ? ((C = u.jsx(h, { chat: n, onDeleteNewsletter: r })),
+          (t[7] = n),
+          (t[8] = r),
+          (t[9] = C))
+        : (C = t[9]);
+      var b = C,
+        v;
+      t[10] !== n
+        ? ((v = u.jsx(f, { chat: n })), (t[10] = n), (t[11] = v))
+        : (v = t[11]);
+      var S = v,
+        R;
+      return (
+        t[12] !== b ||
+        t[13] !== S ||
+        t[14] !== d ||
+        t[15] !== y ||
+        t[16] !== s ||
+        t[17] !== i
+          ? ((R = u.jsxs(
+              o("WAWebChatInfoDrawerSection.react")
+                .ChatInfoDrawerButtonsSection,
+              { xstyle: i, children: [s, S, y, b, d] },
+            )),
+            (t[12] = b),
+            (t[13] = S),
+            (t[14] = d),
+            (t[15] = y),
+            (t[16] = s),
+            (t[17] = i),
+            (t[18] = R))
+          : (R = t[18]),
+        R
       );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = e.chat,
-        n = o("useWAWebModelValues").useOptionalModelValues(
-          t.newsletterMetadata,
-          ["suspended", "terminated", "isSuspendedOrTerminated"],
-        );
-      if (n != null && n.isSuspendedOrTerminated) return null;
-      var a = s._(/*BTDS*/ "Report channel"),
-        i = function () {
-          o("WAWebModalManager").ModalManager.open(
-            u.jsx(r("WAWebReportNewsletterPopup.react"), {
-              chat: t,
-              spamFlow: o("WAWebSpamConstants").SpamFlow.NewsletterInfoReport,
-            }),
-          );
-        };
-      return u.jsx(
-        o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
-        {
-          testid: void 0,
-          icon: u.jsx(r("WDSIconIcThumbDown.react"), {
-            iconXstyle: d.dangerIcon,
+      var t = o("react-compiler-runtime").c(8),
+        n = e.chat,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = ["suspended", "terminated", "isSuspendedOrTerminated"]),
+          (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebModelValues").useOptionalModelValues(
+        n.newsletterMetadata,
+        a,
+      );
+      if (i != null && i.isSuspendedOrTerminated) return null;
+      var l;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(/*BTDS*/ "Report channel")), (t[1] = l))
+        : (l = t[1]);
+      var c = l,
+        m;
+      t[2] !== n
+        ? ((m = function () {
+            o("WAWebModalManager").ModalManager.open(
+              u.jsx(r("WAWebReportNewsletterPopup.react"), {
+                chat: n,
+                spamFlow: o("WAWebSpamConstants").SpamFlow.NewsletterInfoReport,
+              }),
+            );
           }),
-          onClick: i,
-          title: u.jsx(
+          (t[2] = n),
+          (t[3] = m))
+        : (m = t[3]);
+      var p = m,
+        _;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = u.jsx(r("WDSIconIcThumbDown.react"), {
+            iconXstyle: d.dangerIcon,
+          })),
+          (t[4] = _))
+        : (_ = t[4]);
+      var f;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = u.jsx(
             o("WAWebChatInfoDrawerRow.react").DrawerRowTitleRefreshed,
             {
               title: u.jsx(r("WDSText.react"), {
                 type: "Body1",
                 colorName: "secondaryNegativeEmphasized",
-                children: a,
+                children: c,
               }),
             },
-          ),
-        },
+          )),
+          (t[5] = f))
+        : (f = t[5]);
+      var g;
+      return (
+        t[6] !== p
+          ? ((g = u.jsx(
+              o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
+              { testid: void 0, icon: _, onClick: p, title: f },
+            )),
+            (t[6] = p),
+            (t[7] = g))
+          : (g = t[7]),
+        g
       );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = e.chat,
-        n = o("useWAWebModelValues").useOptionalModelValues(
-          t.newsletterMetadata,
-          ["membershipType"],
+      var t = o("react-compiler-runtime").c(7),
+        n = e.chat,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = ["membershipType"]), (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebModelValues").useOptionalModelValues(
+          n.newsletterMetadata,
+          a,
         ),
-        a = s._(/*BTDS*/ "Unfollow channel"),
-        i = c(
-          function () {
+        l;
+      t[1] === Symbol.for("react.memo_cache_sentinel")
+        ? ((l = s._(/*BTDS*/ "Unfollow channel")), (t[1] = l))
+        : (l = t[1]);
+      var c = l,
+        m;
+      t[2] !== n
+        ? ((m = function () {
             o("WAWebModalManager").ModalManager.open(
               u.jsx(
                 o("WAWebUnfollowNewsletterConfirmationModal.react")
                   .UnfollowNewsletterConfirmationModal,
                 {
-                  chat: t,
+                  chat: n,
                   loggingOptions: {
                     eventSurface: o("WAWebWamEnumChannelEventSurface")
                       .CHANNEL_EVENT_SURFACE.CHANNEL_PROFILE,
@@ -110,144 +194,217 @@ __d(
                 },
               ),
             );
-          },
-          [t],
-        );
-      return o("WAWebNewsletterMembershipUtil").iAmSubscriber(n)
-        ? u.jsx(o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed, {
-            testid: void 0,
-            icon: u.jsx(o("WAWebExitIcon.react").ExitIcon, {
-              directional: !0,
-              iconXstyle: d.dangerIcon,
-            }),
-            onClick: i,
-            title: u.jsx(
-              o("WAWebChatInfoDrawerRow.react").DrawerRowTitleRefreshed,
-              {
-                title: u.jsx(r("WDSText.react"), {
-                  type: "Body1",
-                  colorName: "secondaryNegativeEmphasized",
-                  children: a,
-                }),
-              },
-            ),
-          })
-        : null;
+          }),
+          (t[2] = n),
+          (t[3] = m))
+        : (m = t[3]);
+      var p = m,
+        _;
+      return (
+        t[4] !== p || t[5] !== i
+          ? ((_ = o("WAWebNewsletterMembershipUtil").iAmSubscriber(i)
+              ? u.jsx(
+                  o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
+                  {
+                    testid: void 0,
+                    icon: u.jsx(o("WAWebExitIcon.react").ExitIcon, {
+                      directional: !0,
+                      iconXstyle: d.dangerIcon,
+                    }),
+                    onClick: p,
+                    title: u.jsx(
+                      o("WAWebChatInfoDrawerRow.react").DrawerRowTitleRefreshed,
+                      {
+                        title: u.jsx(r("WDSText.react"), {
+                          type: "Body1",
+                          colorName: "secondaryNegativeEmphasized",
+                          children: c,
+                        }),
+                      },
+                    ),
+                  },
+                )
+              : null),
+            (t[4] = p),
+            (t[5] = i),
+            (t[6] = _))
+          : (_ = t[6]),
+        _
+      );
     }
-    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = e.chat,
-        n = o("useWAWebModelValues").useOptionalModelValues(
-          t.newsletterMetadata,
-          ["membershipType"],
+      var t = o("react-compiler-runtime").c(8),
+        n = e.chat,
+        a;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((a = ["membershipType"]), (t[0] = a))
+        : (a = t[0]);
+      var i = o("useWAWebModelValues").useOptionalModelValues(
+          n.newsletterMetadata,
+          a,
         ),
-        a = c(
-          function () {
+        l;
+      t[1] !== n
+        ? ((l = function () {
             var e = o(
               "WAWebContactCollection",
             ).ContactCollection.getMeContact();
             e != null &&
               o("WAWebModalManager").ModalManager.open(
                 u.jsx(r("WAWebNewsletterDismissAdminPopup.react"), {
-                  newsletter: t,
+                  newsletter: n,
                   isMe: !0,
                   contact: e,
                 }),
               );
-          },
-          [t],
-        );
+          }),
+          (t[1] = n),
+          (t[2] = l))
+        : (l = t[2]);
+      var c = l;
       if (
-        !o("WAWebNewsletterMembershipUtil").iAmAdmin(n) ||
+        !o("WAWebNewsletterMembershipUtil").iAmAdmin(i) ||
         !o("WAWebNewsletterGatingUtils").isNewsletterCreationEnabled()
       )
         return null;
-      var i = s._(/*BTDS*/ "Dismiss yourself as admin");
-      return u.jsx(
-        o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
-        {
-          testid: void 0,
-          icon: u.jsx(r("WDSIconIcDoNotDisturbOn.react"), {
+      var m;
+      t[3] === Symbol.for("react.memo_cache_sentinel")
+        ? ((m = s._(/*BTDS*/ "Dismiss yourself as admin")), (t[3] = m))
+        : (m = t[3]);
+      var p = m,
+        _;
+      t[4] === Symbol.for("react.memo_cache_sentinel")
+        ? ((_ = u.jsx(r("WDSIconIcDoNotDisturbOn.react"), {
             iconXstyle: d.dangerIcon,
-          }),
-          onClick: a,
-          title: u.jsx(
+          })),
+          (t[4] = _))
+        : (_ = t[4]);
+      var f;
+      t[5] === Symbol.for("react.memo_cache_sentinel")
+        ? ((f = u.jsx(
             o("WAWebChatInfoDrawerRow.react").DrawerRowTitleRefreshed,
             {
               title: u.jsx(r("WDSText.react"), {
                 type: "Body1",
                 colorName: "secondaryNegativeEmphasized",
-                children: i,
+                children: p,
               }),
             },
-          ),
-        },
+          )),
+          (t[5] = f))
+        : (f = t[5]);
+      var g;
+      return (
+        t[6] !== c
+          ? ((g = u.jsx(
+              o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
+              { testid: void 0, icon: _, onClick: c, title: f },
+            )),
+            (t[6] = c),
+            (t[7] = g))
+          : (g = t[7]),
+        g
       );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = e.chat,
-        n = e.onTransferOwnership,
-        a = o("useWAWebModelValues").useOptionalModelValues(
-          t.newsletterMetadata,
-          ["membershipType", "suspended"],
-        );
-      return o("WAWebNewsletterMembershipUtil").iAmOwner(a) &&
-        !(a != null && a.suspended)
-        ? u.jsx(o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed, {
-            testid: void 0,
-            icon: u.jsx(o("WAWebPersonArrowIcon.react").PersonArrowIcon, {
-              directional: !0,
-              iconXstyle: d.accentIcon,
-            }),
-            onClick: n,
-            title: u.jsx(
-              o("WAWebChatInfoDrawerRow.react").DrawerRowTitleRefreshed,
-              {
-                title: u.jsx(r("WDSText.react"), {
-                  type: "Body1",
-                  colorName: "contentActionEmphasized",
-                  children: o(
-                    "WAWebCommonNewsletterStrings",
-                  ).getNewsletterTransferOwnershipText(),
-                }),
-              },
-            ),
-          })
-        : null;
+      var t = o("react-compiler-runtime").c(4),
+        n = e.chat,
+        a = e.onTransferOwnership,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = ["membershipType", "suspended"]), (t[0] = i))
+        : (i = t[0]);
+      var l = o("useWAWebModelValues").useOptionalModelValues(
+          n.newsletterMetadata,
+          i,
+        ),
+        s;
+      return (
+        t[1] !== l || t[2] !== a
+          ? ((s =
+              o("WAWebNewsletterMembershipUtil").iAmOwner(l) &&
+              !(l != null && l.suspended)
+                ? u.jsx(
+                    o("WAWebChatInfoDrawerRow.react")
+                      .ChatInfoDrawerRowRefreshed,
+                    {
+                      testid: void 0,
+                      icon: u.jsx(
+                        o("WAWebPersonArrowIcon.react").PersonArrowIcon,
+                        { directional: !0, iconXstyle: d.accentIcon },
+                      ),
+                      onClick: a,
+                      title: u.jsx(
+                        o("WAWebChatInfoDrawerRow.react")
+                          .DrawerRowTitleRefreshed,
+                        {
+                          title: u.jsx(r("WDSText.react"), {
+                            type: "Body1",
+                            colorName: "contentActionEmphasized",
+                            children: o(
+                              "WAWebCommonNewsletterStrings",
+                            ).getNewsletterTransferOwnershipText(),
+                          }),
+                        },
+                      ),
+                    },
+                  )
+                : null),
+            (t[1] = l),
+            (t[2] = a),
+            (t[3] = s))
+          : (s = t[3]),
+        s
+      );
     }
-    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = e.chat,
-        n = e.onDeleteNewsletter,
-        a = o("useWAWebModelValues").useOptionalModelValues(
-          t.newsletterMetadata,
-          ["membershipType"],
-        );
-      return o("WAWebNewsletterMembershipUtil").iAmOwner(a)
-        ? u.jsx(o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed, {
-            testid: void 0,
-            icon: u.jsx(o("WAWebDeleteIcon.react").DeleteIcon, {
-              directional: !0,
-              iconXstyle: d.dangerIcon,
-            }),
-            onClick: n,
-            title: u.jsx(
-              o("WAWebChatInfoDrawerRow.react").DrawerRowTitleRefreshed,
-              {
-                title: u.jsx(r("WDSText.react"), {
-                  type: "Body1",
-                  colorName: "secondaryNegativeEmphasized",
-                  children: o(
-                    "WAWebCommonNewsletterStrings",
-                  ).getDeleteChannelText(),
-                }),
-              },
-            ),
-          })
-        : null;
+      var t = o("react-compiler-runtime").c(4),
+        n = e.chat,
+        a = e.onDeleteNewsletter,
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = ["membershipType"]), (t[0] = i))
+        : (i = t[0]);
+      var l = o("useWAWebModelValues").useOptionalModelValues(
+          n.newsletterMetadata,
+          i,
+        ),
+        s;
+      return (
+        t[1] !== l || t[2] !== a
+          ? ((s = o("WAWebNewsletterMembershipUtil").iAmOwner(l)
+              ? u.jsx(
+                  o("WAWebChatInfoDrawerRow.react").ChatInfoDrawerRowRefreshed,
+                  {
+                    testid: void 0,
+                    icon: u.jsx(o("WAWebDeleteIcon.react").DeleteIcon, {
+                      directional: !0,
+                      iconXstyle: d.dangerIcon,
+                    }),
+                    onClick: a,
+                    title: u.jsx(
+                      o("WAWebChatInfoDrawerRow.react").DrawerRowTitleRefreshed,
+                      {
+                        title: u.jsx(r("WDSText.react"), {
+                          type: "Body1",
+                          colorName: "secondaryNegativeEmphasized",
+                          children: o(
+                            "WAWebCommonNewsletterStrings",
+                          ).getDeleteChannelText(),
+                        }),
+                      },
+                    ),
+                  },
+                )
+              : null),
+            (t[1] = l),
+            (t[2] = a),
+            (t[3] = s))
+          : (s = t[3]),
+        s
+      );
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"), (l.default = m));
+    l.default = m;
   },
   226,
 );

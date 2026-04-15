@@ -47,12 +47,15 @@ __d(
     "WAWebNotesLogEvents",
     "WAWebNotesUtils",
     "WAWebNumbersIcon.react",
+    "WAWebQbmMessageLevelActionEvent",
     "WAWebReactionsUtils",
     "WAWebReplyPrivatelyRefreshedIcon.react",
     "WAWebStickerPremiumStatus",
     "WAWebStickerUtils",
+    "WAWebWamEnumMessageActionEntryPoint",
     "WAWebWamEnumMessageContextMenuActionType",
     "WAWebWamEnumMessageContextMenuOptionType",
+    "WAWebWamEnumMessageLevelAction",
     "WDSIconIcAdd.react",
     "WDSIconIcBookmark.react",
     "WDSIconIcCheckBox.react",
@@ -315,7 +318,18 @@ __d(
                         b,
                         o("WAWebWamEnumMessageContextMenuOptionType")
                           .MESSAGE_CONTEXT_MENU_OPTION_TYPE.COPY,
-                      ));
+                      ),
+                      o(
+                        "WAWebQbmMessageLevelActionEvent",
+                      ).logQbmMessageLevelAction({
+                        msg: b,
+                        chat: o("WAWebFrontendMsgGetters").getChat(b),
+                        messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                          .MESSAGE_LEVEL_ACTION.COPY,
+                        messageActionEntryPoint: o(
+                          "WAWebWamEnumMessageActionEntryPoint",
+                        ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                      }));
                   },
                   testid: void 0,
                 },
@@ -338,7 +352,19 @@ __d(
                           b,
                           o("WAWebWamEnumMessageContextMenuOptionType")
                             .MESSAGE_CONTEXT_MENU_OPTION_TYPE.COPY,
-                        ));
+                        ),
+                        o(
+                          "WAWebQbmMessageLevelActionEvent",
+                        ).logQbmMessageLevelAction({
+                          msg: b,
+                          chat: o("WAWebFrontendMsgGetters").getChat(b),
+                          messageLevelAction: o(
+                            "WAWebWamEnumMessageLevelAction",
+                          ).MESSAGE_LEVEL_ACTION.COPY,
+                          messageActionEntryPoint: o(
+                            "WAWebWamEnumMessageActionEntryPoint",
+                          ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                        }));
                     },
                     testid: void 0,
                   },
@@ -359,7 +385,19 @@ __d(
                           b,
                           o("WAWebWamEnumMessageContextMenuOptionType")
                             .MESSAGE_CONTEXT_MENU_OPTION_TYPE.COPY,
-                        ));
+                        ),
+                        o(
+                          "WAWebQbmMessageLevelActionEvent",
+                        ).logQbmMessageLevelAction({
+                          msg: b,
+                          chat: o("WAWebFrontendMsgGetters").getChat(b),
+                          messageLevelAction: o(
+                            "WAWebWamEnumMessageLevelAction",
+                          ).MESSAGE_LEVEL_ACTION.COPY,
+                          messageActionEntryPoint: o(
+                            "WAWebWamEnumMessageActionEntryPoint",
+                          ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                        }));
                     },
                     testid: void 0,
                   },
@@ -464,6 +502,17 @@ __d(
                         .MESSAGE_CONTEXT_MENU_OPTION_TYPE.FORWARD,
                     ),
                     o(
+                      "WAWebQbmMessageLevelActionEvent",
+                    ).logQbmMessageLevelAction({
+                      msg: b,
+                      chat: o("WAWebFrontendMsgGetters").getChat(b),
+                      messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                        .MESSAGE_LEVEL_ACTION.FORWARD,
+                      messageActionEntryPoint: o(
+                        "WAWebWamEnumMessageActionEntryPoint",
+                      ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                    }),
+                    o(
                       "WAWebForwardActionUserJourneyLogger",
                     ).ForwardActionUserJourneyLogger.forwardTappedInContextMenu());
                 },
@@ -482,6 +531,14 @@ __d(
       if (re) {
         var Ce = function () {
           (Z(),
+            o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+              msg: b,
+              chat: o("WAWebFrontendMsgGetters").getChat(b),
+              messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                .MESSAGE_LEVEL_ACTION.UNPIN_MESSAGE,
+              messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
+                .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+            }),
             d(
               b,
               o("WAWebWamEnumMessageContextMenuOptionType")
@@ -509,7 +566,15 @@ __d(
               b,
               o("WAWebWamEnumMessageContextMenuOptionType")
                 .MESSAGE_CONTEXT_MENU_OPTION_TYPE.PIN_OR_UNPIN,
-            ));
+            ),
+            o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
+              msg: b,
+              chat: o("WAWebFrontendMsgGetters").getChat(b),
+              messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                .MESSAGE_LEVEL_ACTION.PIN_MESSAGE,
+              messageActionEntryPoint: o("WAWebWamEnumMessageActionEntryPoint")
+                .MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+            }));
         };
         oe.push(
           c.jsx(
@@ -611,7 +676,18 @@ __d(
                         b,
                         o("WAWebWamEnumMessageContextMenuOptionType")
                           .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
-                      ));
+                      ),
+                      o(
+                        "WAWebQbmMessageLevelActionEvent",
+                      ).logQbmMessageLevelAction({
+                        msg: b,
+                        chat: o("WAWebFrontendMsgGetters").getChat(b),
+                        messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                          .MESSAGE_LEVEL_ACTION.UNSTAR,
+                        messageActionEntryPoint: o(
+                          "WAWebWamEnumMessageActionEntryPoint",
+                        ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                      }));
                   },
                   testid: void 0,
                 },
@@ -631,7 +707,18 @@ __d(
                         b,
                         o("WAWebWamEnumMessageContextMenuOptionType")
                           .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
-                      ));
+                      ),
+                      o(
+                        "WAWebQbmMessageLevelActionEvent",
+                      ).logQbmMessageLevelAction({
+                        msg: b,
+                        chat: o("WAWebFrontendMsgGetters").getChat(b),
+                        messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                          .MESSAGE_LEVEL_ACTION.STAR,
+                        messageActionEntryPoint: o(
+                          "WAWebWamEnumMessageActionEntryPoint",
+                        ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                      }));
                   },
                   testid: void 0,
                 },
@@ -1215,7 +1302,19 @@ __d(
                           b,
                           o("WAWebWamEnumMessageContextMenuOptionType")
                             .MESSAGE_CONTEXT_MENU_OPTION_TYPE.SHARE,
-                        ));
+                        ),
+                        o(
+                          "WAWebQbmMessageLevelActionEvent",
+                        ).logQbmMessageLevelAction({
+                          msg: b,
+                          chat: o("WAWebFrontendMsgGetters").getChat(b),
+                          messageLevelAction: o(
+                            "WAWebWamEnumMessageLevelAction",
+                          ).MESSAGE_LEVEL_ACTION.SHARE,
+                          messageActionEntryPoint: o(
+                            "WAWebWamEnumMessageActionEntryPoint",
+                          ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                        }));
                     },
                     testid: void 0,
                   },
@@ -1265,6 +1364,17 @@ __d(
                     b,
                     o("WAWebWamEnumMessageContextMenuOptionType")
                       .MESSAGE_CONTEXT_MENU_OPTION_TYPE.REPORT,
+                  ),
+                  o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction(
+                    {
+                      msg: b,
+                      chat: o("WAWebFrontendMsgGetters").getChat(b),
+                      messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                        .MESSAGE_LEVEL_ACTION.REPORT,
+                      messageActionEntryPoint: o(
+                        "WAWebWamEnumMessageActionEntryPoint",
+                      ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                    },
                   ));
               },
               testid: void 0,
@@ -1288,7 +1398,18 @@ __d(
                       b,
                       o("WAWebWamEnumMessageContextMenuOptionType")
                         .MESSAGE_CONTEXT_MENU_OPTION_TYPE.DELETE,
-                    ));
+                    ),
+                    o(
+                      "WAWebQbmMessageLevelActionEvent",
+                    ).logQbmMessageLevelAction({
+                      msg: b,
+                      chat: o("WAWebFrontendMsgGetters").getChat(b),
+                      messageLevelAction: o("WAWebWamEnumMessageLevelAction")
+                        .MESSAGE_LEVEL_ACTION.DELETE,
+                      messageActionEntryPoint: o(
+                        "WAWebWamEnumMessageActionEntryPoint",
+                      ).MESSAGE_ACTION_ENTRY_POINT.CHATLIST,
+                    }));
                 },
                 testid: void 0,
                 destructive: !0,

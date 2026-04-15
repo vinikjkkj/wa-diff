@@ -11,6 +11,7 @@ __d(
     "WDSButton.react",
     "asyncToGeneratorRuntime",
     "react",
+    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -40,52 +41,83 @@ __d(
     f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       var t,
-        a = e.openBillingWizard,
-        i = e.paymentSectionRef,
-        l = o("CometRelay").useFragment(_, i),
-        s = m(r("WAWebBizAdCreationLoggerContext")),
-        c = m(r("WAWebBizAdCreationSpecContext")),
+        a = o("react-compiler-runtime").c(14),
+        i = e.openBillingWizard,
+        l = e.paymentSectionRef,
+        s = o("CometRelay").useFragment(_, l),
+        c = m(r("WAWebBizAdCreationLoggerContext")),
+        d = m(r("WAWebBizAdCreationSpecContext")),
         g =
-          c == null ||
-          (t = c.currentValue) == null ||
+          d == null ||
+          (t = d.currentValue) == null ||
           (t = t.adAccountData) == null
             ? void 0
             : t.id,
-        h = d(
-          (function () {
+        h;
+      a[0] !== g || a[1] !== c || a[2] !== i
+        ? ((h = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                (s != null &&
+                (c != null &&
                   r("WAWebBizAdLogger").log({
                     event: "click_add_payment_button",
-                    loggerContext: s,
+                    loggerContext: c,
                     adAccountID: g,
                   }),
-                  yield a(e));
+                  yield i(e));
               },
             );
-            return function (t) {
+            return function (n) {
               return e.apply(this, arguments);
             };
-          })(),
-          [g, s, a],
-        );
-      return u.jsxs(o("WAWebFlex.react").FlexRow, {
-        align: "center",
-        justify: "all",
-        xstyle: p.container,
-        children: [
-          u.jsx(r("WAWebBizAdCreationPaymentMethodLabel.react"), {
-            paymentSectionRef: l,
-          }),
-          u.jsx(o("WAWebFlex.react").FlexItem, {
+          })()),
+          (a[0] = g),
+          (a[1] = c),
+          (a[2] = i),
+          (a[3] = h))
+        : (h = a[3]);
+      var y = h,
+        C;
+      a[4] !== s
+        ? ((C = u.jsx(r("WAWebBizAdCreationPaymentMethodLabel.react"), {
+            paymentSectionRef: s,
+          })),
+          (a[4] = s),
+          (a[5] = C))
+        : (C = a[5]);
+      var b;
+      a[6] !== s.primaryAction || a[7] !== y
+        ? ((b = f(s.primaryAction, y)),
+          (a[6] = s.primaryAction),
+          (a[7] = y),
+          (a[8] = b))
+        : (b = a[8]);
+      var v;
+      a[9] !== b
+        ? ((v = u.jsx(o("WAWebFlex.react").FlexItem, {
             justify: "end",
-            children: f(l.primaryAction, h),
-          }),
-        ],
-      });
+            children: b,
+          })),
+          (a[9] = b),
+          (a[10] = v))
+        : (v = a[10]);
+      var S;
+      return (
+        a[11] !== C || a[12] !== v
+          ? ((S = u.jsxs(o("WAWebFlex.react").FlexRow, {
+              align: "center",
+              justify: "all",
+              xstyle: p.container,
+              children: [C, v],
+            })),
+            (a[11] = C),
+            (a[12] = v),
+            (a[13] = S))
+          : (S = a[13]),
+        S
+      );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"), (l.default = g));
+    l.default = g;
   },
   98,
 );

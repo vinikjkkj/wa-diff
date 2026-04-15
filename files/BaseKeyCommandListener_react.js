@@ -13,6 +13,7 @@ __d(
     "useGetComposingState",
     "useGlobalEventListener",
     "useUnsafeRef_DEPRECATED",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -46,6 +47,7 @@ __d(
               return {
                 getActiveCommands: function () {
                   return (
+                    r("vulture")("rCX7UN3JjXiprN8zdYXkAZKwjdY="),
                     r("FBLogger")("comet_ax").mustfix(
                       "Key Command observers are not supported in this context",
                     ),

@@ -18,6 +18,7 @@ __d(
     "WAWebNewsletterDirectoryShimmer.react",
     "WAWebSingleSelection",
     "react",
+    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebNewsletterDirectoryResults",
     "useWAWebWindowSize",
@@ -34,44 +35,93 @@ __d(
       g = 73,
       h = 2;
     function y() {
-      var e = r("useWAWebWindowSize")(),
-        t = e.height,
-        n = Math.floor(t / g) - h;
-      return u.jsx(r("WAWebNewsletterDirectoryShimmer.react"), { count: n });
+      var e = o("react-compiler-runtime").c(2),
+        t = r("useWAWebWindowSize")(),
+        n = t.height,
+        a = Math.floor(n / g) - h,
+        i;
+      return (
+        e[0] !== a
+          ? ((i = u.jsx(r("WAWebNewsletterDirectoryShimmer.react"), {
+              count: a,
+            })),
+            (e[0] = a),
+            (e[1] = i))
+          : (i = e[1]),
+        i
+      );
     }
-    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = e.country,
-        n = e.data,
-        a = e.discoverySurface,
-        i = e.index,
-        l = e.listView,
-        s = e.newsletterCategory,
-        c = e.onSelect,
-        d = e.selectionRef;
-      return u.jsx(r("WAWebDrawerSection.react"), {
-        animation: !1,
-        children: u.jsx(r("WAWebNewsletterDirectoryCell.react"), {
-          active: d,
-          newsletter: n.newsletter,
-          onSelect: function () {
-            return c(n);
-          },
-          chatEntryPoint: n.chatEntryPoint,
-          index: i,
-          directoryFunnelLogger: n.directoryFunnelLogger,
-          discoverySurface: a,
-          newsletterDirectorySectionName: s
+      var t = o("react-compiler-runtime").c(16),
+        n = e.country,
+        a = e.data,
+        i = e.discoverySurface,
+        l = e.index,
+        s = e.listView,
+        c = e.newsletterCategory,
+        d = e.onSelect,
+        m = e.selectionRef,
+        p;
+      t[0] !== a || t[1] !== d
+        ? ((p = function () {
+            return d(a);
+          }),
+          (t[0] = a),
+          (t[1] = d),
+          (t[2] = p))
+        : (p = t[2]);
+      var _;
+      t[3] !== c
+        ? ((_ = c
             ? o(
                 "WAWebNewsletterDirectoryCategoryUtils",
-              ).getNewsletterSectionFromCategoryType(s)
-            : "EXPLORE",
-          country: t,
-          listView: l,
-        }),
-      });
+              ).getNewsletterSectionFromCategoryType(c)
+            : "EXPLORE"),
+          (t[3] = c),
+          (t[4] = _))
+        : (_ = t[4]);
+      var f;
+      return (
+        t[5] !== n ||
+        t[6] !== a.chatEntryPoint ||
+        t[7] !== a.directoryFunnelLogger ||
+        t[8] !== a.newsletter ||
+        t[9] !== i ||
+        t[10] !== l ||
+        t[11] !== s ||
+        t[12] !== m ||
+        t[13] !== p ||
+        t[14] !== _
+          ? ((f = u.jsx(r("WAWebDrawerSection.react"), {
+              animation: !1,
+              children: u.jsx(r("WAWebNewsletterDirectoryCell.react"), {
+                active: m,
+                newsletter: a.newsletter,
+                onSelect: p,
+                chatEntryPoint: a.chatEntryPoint,
+                index: l,
+                directoryFunnelLogger: a.directoryFunnelLogger,
+                discoverySurface: i,
+                newsletterDirectorySectionName: _,
+                country: n,
+                listView: s,
+              }),
+            })),
+            (t[5] = n),
+            (t[6] = a.chatEntryPoint),
+            (t[7] = a.directoryFunnelLogger),
+            (t[8] = a.newsletter),
+            (t[9] = i),
+            (t[10] = l),
+            (t[11] = s),
+            (t[12] = m),
+            (t[13] = p),
+            (t[14] = _),
+            (t[15] = f))
+          : (f = t[15]),
+        f
+      );
     }
-    C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
       var t = e.category,
         n = e.chatEntryPoint,

@@ -403,7 +403,15 @@ __d(
               n = e.getBoundingClientRect(),
               r = t.clientX - n.left,
               o = t.clientY - n.top;
-            (q(!0), j({ x: r, y: o }), t.stopPropagation());
+            (t.clientX,
+              t.clientY,
+              n.left,
+              n.top,
+              n.width,
+              n.height,
+              q(!0),
+              j({ x: r, y: o }),
+              t.stopPropagation());
           }
         },
         _e = p(
@@ -418,7 +426,7 @@ __d(
                   i = n.height - A,
                   l = Math.max(0, Math.min(r, a)),
                   s = Math.max(0, Math.min(o, i));
-                X({ x: l, y: s });
+                (e.clientX, e.clientY, n.width, n.height, X({ x: l, y: s }));
               }
             }
           },
@@ -438,7 +446,7 @@ __d(
               u = t < l,
               c = s ? r : a.width - w - r,
               d = u ? r : a.height - A - r;
-            return { x: c, y: d };
+            return (a.width, a.height, { x: c, y: d });
           },
           [A, w, N.isContextInPopoutWindow],
         ),
@@ -461,7 +469,7 @@ __d(
             }
             q(!1);
           },
-          [W, Q.x, Q.y, fe],
+          [W, Q, fe],
         ),
         he = N.documentEl;
       f(
