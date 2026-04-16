@@ -43,13 +43,15 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
     prompt = (
         "You summarize commits from a repo that stores daily dumps of the WhatsApp Web bundle "
         f"(transpiled/minified code). {guidance}\n\n"
-        "Respond with ONLY valid JSON in this exact shape:\n"
+        "CRITICAL: Your response MUST be valid JSON with EXACTLY these 4 keys — no more, no less:\n"
         '{"title_en": "...", "body_en": "...", "title_pt": "...", "body_pt": "..."}\n\n'
-        "- title_en / title_pt: up to 80 characters, highlights the 1-2 main themes "
-        "(English and Brazilian Portuguese versions).\n"
-        "- body_en / body_pt: markdown, bullets grouped by theme "
-        "(e.g. **AI Reply Bot**, **Polls**, **Newsletter**). Short, no preamble. Max 12 bullets. "
-        "Keep code snippets and identifiers identical between languages — translate only prose.\n\n"
+        "ALL 4 keys are REQUIRED. Do NOT omit any key. Do NOT use other key names.\n\n"
+        "- title_en: up to 80 characters, English, highlights the 1-2 main themes.\n"
+        "- title_pt: up to 80 characters, Brazilian Portuguese translation of title_en.\n"
+        "- body_en: markdown, English, bullets grouped by theme "
+        "(e.g. **AI Reply Bot**, **Polls**, **Newsletter**). Short, no preamble. Max 12 bullets.\n"
+        "- body_pt: markdown, Brazilian Portuguese translation of body_en. "
+        "Keep code snippets and identifiers identical — translate only prose.\n\n"
         f"{context}"
     )
 
@@ -65,11 +67,13 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
 
     text = data["candidates"][0]["content"]["parts"][0]["text"]
     parsed = json.loads(text)
+    title_en = parsed.get("title_en", parsed.get("title", "")).strip()
+    body_en = parsed.get("body_en", parsed.get("body", "")).strip()
     return {
-        "title_en": parsed["title_en"].strip(),
-        "body_en": parsed["body_en"].strip(),
-        "title_pt": parsed["title_pt"].strip(),
-        "body_pt": parsed["body_pt"].strip(),
+        "title_en": title_en,
+        "body_en": body_en,
+        "title_pt": parsed.get("title_pt", title_en).strip(),
+        "body_pt": parsed.get("body_pt", body_en).strip(),
     }
 
 
