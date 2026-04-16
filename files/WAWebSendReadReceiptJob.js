@@ -18,11 +18,13 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterStatusViewReceiptUtils",
     "WAWebPrivacySettings",
+    "WAWebQbmMessageReadLogEvent",
     "WAWebSchemaMessage",
     "WAWebSendReceiptJobCommon",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
     "WAWebWamChatPSALogger",
+    "WAWebWamEnumReadSource",
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -80,6 +82,12 @@ __d(
             (h &&
               r("WAWebWid").isPSA(t.id) &&
               o("WAWebWamChatPSALogger").logChatPSARead(h),
+              h &&
+                o("WAWebQbmMessageReadLogEvent").logQbmMessageRead({
+                  msg: h,
+                  chat: t,
+                  readSource: o("WAWebWamEnumReadSource").READ_SOURCE.CHAT,
+                }),
               g.rowId != null && (_ == null || g.rowId > _) && (_ = g.rowId));
             var y = r("WAWebMsgKey").fromString(g.id);
             if (g.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {

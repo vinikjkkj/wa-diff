@@ -1,12 +1,12 @@
 __d(
   "WAWebChatPinBridge",
   [
+    "WAWebAuraGating",
     "WAWebPinChatLimits",
     "WAWebPinChatSync",
     "WAWebSyncdCoreApi",
     "WAWebSyncdWamAppState",
     "asyncToGeneratorRuntime",
-    "cr:12224",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r) {
@@ -59,10 +59,7 @@ __d(
       var t;
       return e.isNewsletter()
         ? o("WAWebPinChatLimits").MAX_PINNED_NEWSLETTERS
-        : (t =
-              n("cr:12224") == null
-                ? void 0
-                : n("cr:12224").getPinnedChatsBenefitLimit()) != null
+        : (t = r("WAWebAuraGating").getPinnedChatsBenefitLimit()) != null
           ? t
           : o("WAWebPinChatLimits").MAX_PINNED_CHATS;
     }

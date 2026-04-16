@@ -378,9 +378,9 @@ __d(
       if (
         e &&
         (e.pin != null ||
-          o("WAWebChatCollection").ChatCollection.filter(function (e) {
-            return e.pin;
-          }).length < o("WAWebChatPinBridge").getPinLimit(e.id))
+          o("WAWebChatCollection").ChatCollection.countWhere(function (e) {
+            return !!e.pin;
+          }) < o("WAWebChatPinBridge").getPinLimit(e.id))
       ) {
         var t = !!e.pin;
         o("WAWebCmd").Cmd.pinChat(e, !t);

@@ -61,10 +61,11 @@ __d(
                           },
                         ),
                           o.$1
-                            .publishWhenReady("RENDER_PDF_PREVIEW", {
-                              fileBuffer: a,
-                              fileName: r,
-                            })
+                            .publishWhenReady(
+                              "RENDER_PDF_PREVIEW",
+                              { fileBuffer: a, fileName: r },
+                              [a],
+                            )
                             .catch(n));
                       },
                     );

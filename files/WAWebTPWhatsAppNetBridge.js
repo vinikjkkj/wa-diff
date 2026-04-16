@@ -50,14 +50,14 @@ __d(
           }),
           (a.publishWhenReady = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
+              function* (e, t, n) {
                 return (
                   yield this.$WAWebTPWhatsAppNetBridge$p_1,
-                  this.publish(e, t)
+                  this.publish(e, t, n)
                 );
               },
             );
-            function t(t, n) {
+            function t(t, n, r) {
               return e.apply(this, arguments);
             }
             return t;

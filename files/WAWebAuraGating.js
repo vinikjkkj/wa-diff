@@ -7,7 +7,6 @@ __d(
     "WAWebAuraBenefitTypes",
     "WAWebMobilePlatforms",
     "WAWebStickerPremiumStatus",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -28,10 +27,17 @@ __d(
           (t.__resetForTesting = function () {
             this.$2 = null;
           }),
-          (t.isEnabled = function () {
-            return o("WAWebMobilePlatforms").isSMB() ? !1 : r("gkx")("20621");
+          (t.$3 = function () {
+            return o("WAWebMobilePlatforms").isSMB()
+              ? !0
+              : !!o("WAWebABProps").getABPropConfigValue("aura_kill_switch");
           }),
-          (t.$3 = function (t) {
+          (t.$4 = function () {
+            return this.$3()
+              ? !1
+              : !!o("WAWebABProps").getABPropConfigValue("aura_enabled");
+          }),
+          (t.$5 = function (t) {
             return !!(t === o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES
               ? o("WAWebABProps").getABPropConfigValue(
                   "aura_app_themes_enabled",
@@ -63,98 +69,73 @@ __d(
                               );
                             })())));
           }),
+          (t.$6 = function () {
+            return !o("WAWebABProps").getABPropConfigValue(
+              "aura_subscription_simulation_enabled",
+            ) && this.$2 != null
+              ? this.$2
+              : this.$1;
+          }),
+          (t.$7 = function (t) {
+            var e;
+            return this.$3()
+              ? !1
+              : ((e = this.$6().benefit(t)) == null ? void 0 : e.isActive) ===
+                  !0;
+          }),
           (t.benefit = function (t) {
-            if (!this.isEnabled() || !this.$3(t)) return null;
-            var e =
-              !o("WAWebABProps").getABPropConfigValue(
-                "aura_subscription_simulation_enabled",
-              ) && this.$2 != null
-                ? this.$2
-                : this.$1;
-            return e.benefit(t);
+            return !this.$4() || !this.$5(t) ? null : this.$6().benefit(t);
           }),
           (t.isThemesEnabled = function () {
-            return (
-              this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES,
-              ) != null
-            );
+            return this.benefit(
+              o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES,
+            ) != null
+              ? !0
+              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES);
           }),
           (t.isThemesBenefitActive = function () {
-            var e;
-            return (
-              ((e = this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES,
-              )) == null
-                ? void 0
-                : e.isActive) === !0
-            );
+            return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_THEMES);
           }),
           (t.isIconsEnabled = function () {
-            return (
-              this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.APP_ICONS,
-              ) != null
-            );
+            return this.benefit(
+              o("WAWebAuraBenefitTypes").AuraBenefitId.APP_ICONS,
+            ) != null
+              ? !0
+              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_ICONS);
           }),
           (t.isIconsBenefitActive = function () {
-            var e;
-            return (
-              ((e = this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.APP_ICONS,
-              )) == null
-                ? void 0
-                : e.isActive) === !0
-            );
+            return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.APP_ICONS);
           }),
           (t.isRingtonesEnabled = function () {
-            return (
-              this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.RINGTONES,
-              ) != null
-            );
+            return this.benefit(
+              o("WAWebAuraBenefitTypes").AuraBenefitId.RINGTONES,
+            ) != null
+              ? !0
+              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.RINGTONES);
           }),
           (t.isRingtonesBenefitActive = function () {
-            var e;
-            return (
-              ((e = this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.RINGTONES,
-              )) == null
-                ? void 0
-                : e.isActive) === !0
-            );
+            return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.RINGTONES);
           }),
           (t.isStickersEnabled = function () {
-            return (
-              this.benefit(o("WAWebAuraBenefitTypes").AuraBenefitId.STICKERS) !=
-              null
-            );
+            return this.benefit(
+              o("WAWebAuraBenefitTypes").AuraBenefitId.STICKERS,
+            ) != null
+              ? !0
+              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.STICKERS);
           }),
           (t.isStickersBenefitActive = function () {
-            var e;
-            return (
-              ((e = this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.STICKERS,
-              )) == null
-                ? void 0
-                : e.isActive) === !0
-            );
+            return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.STICKERS);
           }),
           (t.isPinnedChatsEnabled = function () {
-            return (
-              this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS,
-              ) != null
-            );
+            return this.benefit(
+              o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS,
+            ) != null
+              ? !0
+              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS);
           }),
           (t.isPinnedChatsBenefitActive = function () {
-            var e;
-            return (
-              ((e = this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS,
-              )) == null
-                ? void 0
-                : e.isActive) === !0
+            return this.$7(
+              o("WAWebAuraBenefitTypes").AuraBenefitId.PINNED_CHATS,
             );
           }),
           (t.getPinnedChatsBenefitLimit = function () {
@@ -166,20 +147,14 @@ __d(
               : e.limit;
           }),
           (t.isListsEnabled = function () {
-            return (
-              this.benefit(o("WAWebAuraBenefitTypes").AuraBenefitId.LISTS) !=
-              null
-            );
+            return this.benefit(
+              o("WAWebAuraBenefitTypes").AuraBenefitId.LISTS,
+            ) != null
+              ? !0
+              : this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.LISTS);
           }),
           (t.isListsBenefitActive = function () {
-            var e;
-            return (
-              ((e = this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.LISTS,
-              )) == null
-                ? void 0
-                : e.isActive) === !0
-            );
+            return this.$7(o("WAWebAuraBenefitTypes").AuraBenefitId.LISTS);
           }),
           (t.isStatusSearchEnabled = function () {
             return (
@@ -189,13 +164,8 @@ __d(
             );
           }),
           (t.isStatusSearchBenefitActive = function () {
-            var e;
-            return (
-              ((e = this.benefit(
-                o("WAWebAuraBenefitTypes").AuraBenefitId.STATUS_SEARCH,
-              )) == null
-                ? void 0
-                : e.isActive) === !0
+            return this.$7(
+              o("WAWebAuraBenefitTypes").AuraBenefitId.STATUS_SEARCH,
             );
           }),
           (t.canUsePremiumSticker = function (t) {

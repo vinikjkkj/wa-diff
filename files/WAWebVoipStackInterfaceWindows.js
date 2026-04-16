@@ -4,6 +4,7 @@ __d(
     "WABase64",
     "WALogger",
     "WAWebAdvSyncDeviceListApi",
+    "WAWebAuraRingtonePlayback",
     "WAWebBackendApi",
     "WAWebEnvironment",
     "WAWebLidMigrationUtils",
@@ -17,7 +18,6 @@ __d(
     "WAWebWindowsNativeVoipParsers",
     "asyncToGeneratorRuntime",
     "cr:16754",
-    "cr:34983",
     "err",
     "gkx",
   ],
@@ -247,23 +247,20 @@ __d(
             ? void 0
             : e.previewAndJoinCallLink(t, n, !0, r, a);
         },
-        handleIncomingSignalingOffer: function (t, r, a, i, l, s, u, c, d) {
+        handleIncomingSignalingOffer: function (t, n, r, a, i, l, s, u, c) {
           var e,
-            m,
-            p =
-              (e =
-                n("cr:34983") == null
-                  ? void 0
-                  : n("cr:34983").getRingtoneId(
-                      o("WAWebWidFactory").createWid(c),
-                    )) != null
+            d,
+            m =
+              (e = o("WAWebAuraRingtonePlayback").getRingtoneId(
+                o("WAWebWidFactory").createWid(u),
+              )) != null
                 ? e
                 : null;
-          return (m = o(
+          return (d = o(
             "WAWebWindowsHybridBridgeFactory",
-          ).getWindowsBridge()) == null || (m = m.voip) == null
+          ).getWindowsBridge()) == null || (d = d.voip) == null
             ? void 0
-            : m.handleIncomingSignalingOffer(t, r, a, i, l, s, u, c, d, p);
+            : d.handleIncomingSignalingOffer(t, n, r, a, i, l, s, u, c, m);
         },
         handleIncomingSignalingMessage: function (t, n, r, a, i, l, s, u) {
           var e;

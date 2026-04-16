@@ -48,15 +48,16 @@ __d(
         (t.$11 = function () {
           this.$4.setSupportedOrigins([this.$8].concat(Array.from(this.$9)));
         }),
-        (t.publish = function (t, n) {
+        (t.publish = function (t, n, r) {
           if (this.$1) {
             var e = o("WAWebTPMessage").encodeWAWebTPMessage(t, n);
             o("SecurePostMessage").sendMessageToSpecificOrigin(
               this.$2,
               e,
               this.$3,
+              r,
             );
-            for (var r of this.$5) r.onPublish(e);
+            for (var a of this.$5) a.onPublish(e);
           }
         }),
         (t.registerListener = function (t) {

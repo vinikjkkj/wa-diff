@@ -13,20 +13,10 @@ __d(
       ((u = t), (e = null));
     }
     function d(e) {
-      if (u == null) return !1;
-      var t = u,
-        n = new Set(
-          e
-            .toLowerCase()
-            .split(",")
-            .map(function (e) {
-              return e.trim();
-            })
-            .filter(function (e) {
-              return e.length > 0;
-            }),
-        );
-      return n.has(t);
+      var t = u;
+      if (t == null) return !1;
+      for (var n of e.split(",")) if (n.trim().toLowerCase() === t) return !0;
+      return !1;
     }
     function m() {
       var t;

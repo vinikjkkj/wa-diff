@@ -53,7 +53,7 @@ __d(
                             )) != null
                               ? r
                               : s;
-                        ((l = window.setTimeout(function () {
+                        l = window.setTimeout(function () {
                           (u(),
                             n(
                               new (o("WACustomError").TimeoutError)(
@@ -61,15 +61,14 @@ __d(
                                   c,
                               ),
                             ));
-                        }, c)),
-                          a.$1
-                            .publishWhenReady(
-                              "RENDER_PDF_THUMBNAIL",
-                              babelHelpers.extends({}, t, { requestId: i }),
-                            )
-                            .catch(function (e) {
-                              (l != null && window.clearTimeout(l), u(), n(e));
-                            }));
+                        }, c);
+                        var d = babelHelpers.extends({}, t, { requestId: i }),
+                          m = t.fileBuffer;
+                        a.$1
+                          .publishWhenReady("RENDER_PDF_THUMBNAIL", d, [m])
+                          .catch(function (e) {
+                            (l != null && window.clearTimeout(l), u(), n(e));
+                          });
                       },
                     );
                     return function (t, n) {

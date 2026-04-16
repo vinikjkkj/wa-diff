@@ -862,11 +862,6 @@ __d(
               this.table.orderBy(":id").primaryKeys(),
             );
           }),
-          (a.uniqueKeys = function (t) {
-            return o("WAWebDexieCastTypes").dexieCastToPromise(
-              this.table.orderBy(t).uniqueKeys(),
-            );
-          }),
           (a.count = function () {
             var e = this;
             return o("WAWebDexieCastTypes")

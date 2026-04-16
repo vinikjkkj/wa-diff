@@ -802,6 +802,9 @@ __d(
           (t.emailOnboardingCheckFailed = function (t) {
             o("WAWebBBPaymentLogs").emailOnboardingCheckFailed(this.$1, t);
           }),
+          (t.checkoutFetchFailed = function (t, n) {
+            o("WAWebBBPaymentLogs").checkoutFetchFailed(this.$1, t, n);
+          }),
           (t.billingSummaryFaqLinkClicked = function (t) {
             o("WAWebBBPaymentLogs").billingSummaryFaqLinkClicked(this.$1, t);
           }),
@@ -816,9 +819,6 @@ __d(
           }),
           (t.paymentMethodSectionViewed = function (t, n) {
             o("WAWebBBPaymentLogs").paymentMethodSectionViewed(this.$1, t, n);
-          }),
-          (t.checkoutFetchFailed = function (t) {
-            o("WAWebBBPaymentLogs").checkoutFetchFailed(this.$1, t);
           }),
           (t.billingWizardFailed = function (t, n) {
             o("WAWebBBPaymentLogs").billingWizardFailed(this.$1, t, n);

@@ -278,7 +278,7 @@ __d(
                     o("WALogger").WARN(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd][ai-thread-pin] all local pins are orphans, dropping incoming pin for thread ",
+                          "[syncd][ai-thread-pin] all pins orphan, drop incoming ",
                           "",
                         ])),
                       e.toString(),
@@ -317,8 +317,8 @@ __d(
                   : o("WALogger").WARN(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd][ai-thread-pin] evicting pin for thread ",
-                          " but DB row is missing",
+                          "[syncd][ai-thread-pin] evict pin, no DB row ",
+                          "",
                         ])),
                       e.toString(),
                     ),

@@ -69,13 +69,16 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EMAIL_ONBOARDING,
       });
     }
-    function _(e, t) {
+    function _(e, t, n) {
       e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+        extraAttributes: {
+          error_code: n != null ? String(n) : "unknown",
+          error_type: t,
+        },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.BILLING_FAQ_LINK,
+          o("WAWebBBLoggerTypes").UserActionTarget.CHECKOUT_FETCH,
       });
     }
     function f(e, t) {
@@ -84,7 +87,7 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.BILLING_TOS_LINK,
+          o("WAWebBBLoggerTypes").UserActionTarget.BILLING_FAQ_LINK,
       });
     }
     function g(e, t) {
@@ -93,10 +96,19 @@ __d(
         entryPoint: t,
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget.BILLING_TOS_LINK,
+      });
+    }
+    function h(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.BILLING_PRIVACY_POLICY_LINK,
       });
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -104,15 +116,6 @@ __d(
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget.PAYMENT_METHOD_SECTION,
-      });
-    }
-    function y(e, t) {
-      e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
-        extraAttributes: { error_type: t },
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
-        userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget.CHECKOUT_FETCH,
       });
     }
     function C(e, t, n) {
@@ -132,11 +135,11 @@ __d(
       (l.addFundsWizardOpened = d),
       (l.billingInfoFetchFailed = m),
       (l.emailOnboardingCheckFailed = p),
-      (l.billingSummaryFaqLinkClicked = _),
-      (l.billingSummaryTosLinkClicked = f),
-      (l.billingSummaryPrivacyPolicyLinkClicked = g),
-      (l.paymentMethodSectionViewed = h),
-      (l.checkoutFetchFailed = y),
+      (l.checkoutFetchFailed = _),
+      (l.billingSummaryFaqLinkClicked = f),
+      (l.billingSummaryTosLinkClicked = g),
+      (l.billingSummaryPrivacyPolicyLinkClicked = h),
+      (l.paymentMethodSectionViewed = y),
       (l.billingWizardFailed = C));
   },
   98,

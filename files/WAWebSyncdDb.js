@@ -24,11 +24,10 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return new Set(
-            yield o("WAWebSchemaPendingMutations")
-              .getPendingMutationsTable()
-              .uniqueKeys("collection"),
-          );
+          var e = yield o("WAWebSchemaPendingMutations")
+            .getPendingMutationsTable()
+            .all({ index: ["collection"], returnKeyType: "keys" });
+          return new Set(e);
         })),
         c.apply(this, arguments)
       );

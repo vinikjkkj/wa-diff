@@ -106,6 +106,12 @@ __d(
       coex_calling_enabled_business: [23933, "bool", !1, !0],
       coex_calling_permissions_3p_enabled: [23464, "bool", !1, !0],
       cross_device_message_editing: [28340, "bool", !1, !0],
+      ctwa_fix_unknown_agm_insertion_issue_for_businesses: [
+        28964,
+        "bool",
+        !1,
+        !1,
+      ],
       ctwa_tos_filtering_enabled: [976, "bool", !1, !1],
       custom_notification_tones: [18884, "bool", !1, !1],
       data_sharing_transparency_indicator_duration: [

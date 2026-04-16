@@ -129,7 +129,7 @@ __d(
               }),
               from: o("WAWebLidStatusMigrationUtils").matWidConvert(e.from),
               author: o("WAWebLidStatusMigrationUtils").matWidConvert(
-                o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+                o("WAWebUserPrefsMeUser").getMeUser(),
               ),
               cannotBeRanked: o(
                 "WAWebStatusGatingUtils",

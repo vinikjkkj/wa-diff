@@ -37,8 +37,8 @@ __d(
                   },
                   {
                     timeoutMs: s,
-                    onTimeout: function () {
-                      n();
+                    onTimeout: function (t) {
+                      n(t);
                     },
                   },
                 );
@@ -76,8 +76,8 @@ __d(
                 },
                 {
                   timeoutMs: u,
-                  onTimeout: function () {
-                    n();
+                  onTimeout: function (t) {
+                    n(t);
                   },
                 },
               );
@@ -88,11 +88,11 @@ __d(
               function* (t, o, a) {
                 var i = this;
                 return (
-                  this.$1.publishWhenReady("PDF_SHARER_GET_PDF_DOCUMENT", {
-                    fileBuffer: t,
-                    fileName: o,
-                    sessionId: a,
-                  }),
+                  this.$1.publishWhenReady(
+                    "PDF_SHARER_GET_PDF_DOCUMENT",
+                    { fileBuffer: t, fileName: o, sessionId: a },
+                    [t],
+                  ),
                   new (e || (e = n("Promise")))(function (e, t) {
                     i.$1.listenOnce(
                       "PDF_SHARER_GET_PDF_RESPONSE",
@@ -111,8 +111,8 @@ __d(
                       },
                       {
                         timeoutMs: c,
-                        onTimeout: function () {
-                          t();
+                        onTimeout: function (n) {
+                          t(n);
                         },
                       },
                     );

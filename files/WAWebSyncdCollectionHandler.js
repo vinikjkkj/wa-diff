@@ -44,6 +44,7 @@ __d(
     "WAWebWamEnumBootstrapAppStateDataStageCode",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "countWhere",
     "decodeProtobuf",
     "getErrorSafe",
     "gkx",
@@ -425,20 +426,20 @@ __d(
                     i,
                   ));
               } else if (d != null) {
-                var N = u.filter(function (e) {
+                var N = r("countWhere")(u, function (e) {
                     return (
                       e.operation ===
                       o("WAWebProtobufsServerSync.pb")
                         .SyncdMutation$SyncdOperation.SET
                     );
-                  }).length,
-                  M = u.filter(function (e) {
+                  }),
+                  M = r("countWhere")(u, function (e) {
                     return (
                       e.operation ===
                       o("WAWebProtobufsServerSync.pb")
                         .SyncdMutation$SyncdOperation.REMOVE
                     );
-                  }).length,
+                  }),
                   w = Array.from(
                     new Set(
                       u.map(function (e) {
@@ -1899,13 +1900,13 @@ __d(
               );
             }
             yield o("WAWebSyncdDbCallbacksApi").handleSyncBeforeApplyPatch(t);
-            var y = t.mutations.filter(function (e) {
+            var y = r("countWhere")(t.mutations, function (e) {
                 return (
                   e.operation ===
                   o("WAWebProtobufsServerSync.pb").SyncdMutation$SyncdOperation
                     .SET
                 );
-              }).length,
+              }),
               C = t.mutations.length - y;
             (o("WALogger").LOG(
               re ||

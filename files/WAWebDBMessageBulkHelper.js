@@ -30,6 +30,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "countWhere",
     "getErrorSafe",
     "gkx",
     "justknobx",
@@ -162,9 +163,9 @@ __d(
                 ])),
               b.length,
             );
-            var v = b.filter(function (e) {
-                return e == null ? void 0 : e.isLidAddressingMode;
-              }).length,
+            var v = r("countWhere")(b, function (e) {
+                return !!(e != null && e.isLidAddressingMode);
+              }),
               S = b.length - v;
             o("WALogger")
               .ERROR(
@@ -491,9 +492,9 @@ __d(
                   return e == null ? void 0 : e.id;
                 }),
               ),
-              p = n.filter(function (e) {
+              p = r("countWhere")(n, function (e) {
                 return r("WAWebWid").isRegularUserNoImply(e) && !m.has(e);
-              }).length;
+              });
             p > 0 &&
               (new (o("WAWebWebcChatCreateWamEvent").WebcChatCreateWamEvent)({
                 creationMethod: o("WAWebWamEnumWebcChatCreateCreationMethod")

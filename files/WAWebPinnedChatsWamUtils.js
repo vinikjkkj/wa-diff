@@ -1,17 +1,17 @@
 __d(
   "WAWebPinnedChatsWamUtils",
   [
+    "WAWebAuraGating",
     "WAWebPinnedChatsMaxAlertWamEvent",
     "WAWebWamEnumPinnedChatsPremiumStatusType",
     "WAWebWamEnumPremiumStatusType",
-    "cr:12224",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return n("cr:12224") != null && n("cr:12224").isPinnedChatsBenefitActive()
+      return r("WAWebAuraGating").isPinnedChatsBenefitActive()
         ? o("WAWebWamEnumPinnedChatsPremiumStatusType")
             .PINNED_CHATS_PREMIUM_STATUS_TYPE.ACTIVE
-        : n("cr:12224") != null && n("cr:12224").isPinnedChatsEnabled()
+        : r("WAWebAuraGating").isPinnedChatsEnabled()
           ? o("WAWebWamEnumPinnedChatsPremiumStatusType")
               .PINNED_CHATS_PREMIUM_STATUS_TYPE.ENABLED
           : o("WAWebWamEnumPinnedChatsPremiumStatusType")
@@ -19,10 +19,9 @@ __d(
     }
     function s() {
       var e = (function () {
-        return n("cr:12224") != null &&
-          n("cr:12224").isPinnedChatsBenefitActive()
+        return r("WAWebAuraGating").isPinnedChatsBenefitActive()
           ? o("WAWebWamEnumPremiumStatusType").PREMIUM_STATUS_TYPE.ACTIVE
-          : n("cr:12224") != null && n("cr:12224").isPinnedChatsEnabled()
+          : r("WAWebAuraGating").isPinnedChatsEnabled()
             ? o("WAWebWamEnumPremiumStatusType").PREMIUM_STATUS_TYPE.ENABLED
             : o("WAWebWamEnumPremiumStatusType").PREMIUM_STATUS_TYPE.DISABLED;
       })();

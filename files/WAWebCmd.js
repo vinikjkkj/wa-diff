@@ -248,68 +248,27 @@ __d(
                   (h || (h = n("Promise"))).all(i).then(
                     (function () {
                       var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (o) {
-                          var i = yield r("JSResourceForInteraction")(
+                        function* (n) {
+                          var o = yield r("JSResourceForInteraction")(
                               "WAWebBotMultiModalUtils",
                             )
                               .__setRef("WAWebCmd")
                               .load(),
-                            l = i.getSupportedMetaAiAttachments,
-                            s = i.hasMetaAiMixedMediaTypes,
-                            u = i.maybeShowUnsupportedFileToast;
-                          if (
-                            s(
-                              o.map(function (e) {
-                                return e.file;
-                              }),
-                            )
-                          ) {
-                            var c = yield r("JSResourceForInteraction")(
-                                "WAWebBotMultiModalToasts",
-                              )
-                                .__setRef("WAWebCmd")
-                                .load(),
-                              d = c.showMixedMediaTypeToast;
-                            d();
-                            return;
-                          }
-                          var m = l(o);
-                          if ((u(m.length, o.length), m.length !== 0)) {
-                            var p = yield (h || (h = n("Promise"))).all([
-                                r("JSResourceForInteraction")("WAWebFileUtils")
-                                  .__setRef("WAWebCmd")
-                                  .load(),
-                                r("JSResourceForInteraction")(
-                                  "WAWebMediaGatingUtils",
-                                )
-                                  .__setRef("WAWebCmd")
-                                  .load(),
-                              ]),
-                              _ = p[0].typeFromMimetype,
-                              f = p[1].getMaxNumberSelectableMedia,
-                              g = _(m[0].file.type),
-                              y = f(m.length, a.id, g),
-                              C = m;
-                            if (m.length > y) {
-                              var b = yield r("JSResourceForInteraction")(
-                                  "WAWebBotMultiModalToasts",
-                                )
-                                  .__setRef("WAWebCmd")
-                                  .load(),
-                                v = b.showDocumentUploadLimitExceededToast,
-                                S = b.showImageSendLimitExceededToast;
-                              (g === "image" ? S(y) : g === "document" && v(y),
-                                (C = m.slice(0, y)));
-                            }
-                            e.$CmdImpl$p_1(
-                              babelHelpers.extends({}, t, {
-                                attachments: C.map(function (e) {
-                                  return e;
+                            i = o.showMetaAiAttachmentErrors,
+                            l = o.validateMetaAiAttachments,
+                            s = l(n, a.id),
+                            u = s.errors,
+                            c = s.validAttachments;
+                          (i(u),
+                            c.length !== 0 &&
+                              e.$CmdImpl$p_1(
+                                babelHelpers.extends({}, t, {
+                                  attachments: c.map(function (e) {
+                                    return e;
+                                  }),
                                 }),
-                              }),
-                              a,
-                            );
-                          }
+                                a,
+                              ));
                         },
                       );
                       return function (e) {

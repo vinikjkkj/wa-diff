@@ -537,8 +537,10 @@ __d(
           ? a.signupContext != null
           : (a.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
                 a.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE) &&
-              (a == null ? void 0 : a.nativeFlowName) ===
-                r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW
+              ((a == null ? void 0 : a.nativeFlowName) ===
+                r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW ||
+                (a == null ? void 0 : a.nativeFlowName) ===
+                  r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP)
             ? !0
             : o("WAWebSpamUtils").isMsgTypeSupportedForMsgLevelReporting(
                 a.type,

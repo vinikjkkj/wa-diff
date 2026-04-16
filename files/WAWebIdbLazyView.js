@@ -194,11 +194,6 @@ __d(
               return e.allPrimaryKeys();
             });
           }),
-          (a.uniqueKeys = function (t) {
-            return this.$5(function (e) {
-              return e.uniqueKeys(t);
-            });
-          }),
           (a.count = function () {
             return this.$5(function (e) {
               return e.count();

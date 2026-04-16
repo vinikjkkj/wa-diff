@@ -30,16 +30,16 @@ __d(
       return o("WAWebBotUtils").isManusBot(e) ||
         o("WAWebBotUtils").isHatchBot(e)
         ? !0
-        : o("WAWebBotBaseGating").isBotEnabled() &&
-            o("WAWebABProps").getABPropConfigValue("bonsai_ptt_enabled") ===
-              !0 &&
-            o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
+        : !o("WAWebBotBaseGating").isBotEnabled() ||
+            !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
               (t = o("WAWebABProps").getABPropConfigValue(
                 "ai_ptt_main_gate_supported_languages",
               )) != null
                 ? t
                 : "en",
-            );
+            )
+          ? !1
+          : o("WAWebABProps").getABPropConfigValue("bonsai_ptt_enabled") === !0;
     }
     function u(e) {
       return !o("WAWebBotBaseGating").isBotEnabled() ||
@@ -297,18 +297,18 @@ __d(
     }
     function K() {
       var e;
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_web_meta_ai_image_input_enabled",
-        ) &&
-        o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
+      return !o("WAWebBotBaseGating").isBotEnabled() ||
+        !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
           (e = o("WAWebABProps").getABPropConfigValue(
             "ai_metabot_image_input_languages",
           )) != null
             ? e
             : "en",
         )
-      );
+        ? !1
+        : o("WAWebABProps").getABPropConfigValue(
+            "ai_web_meta_ai_image_input_enabled",
+          );
     }
     function Q() {
       return o("WAWebABProps").getABPropConfigValue(
