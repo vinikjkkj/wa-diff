@@ -6,6 +6,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 import urllib.request
 
 MODEL = "gemini-2.5-flash"
@@ -61,20 +62,31 @@ def call_gemini(api_key: str, context: str, has_diff: bool) -> dict:
     }).encode()
 
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent?key={api_key}"
-    req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=120) as r:
-        data = json.loads(r.read())
+    for attempt in range(1, 4):
+        try:
+            req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                data = json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            if attempt == 3 or e.code < 500:
+                raise
+            print(f"Gemini returned {e.code}, retrying in {attempt * 10}s...")
+            time.sleep(attempt * 10)
+            continue
 
-    text = data["candidates"][0]["content"]["parts"][0]["text"]
-    parsed = json.loads(text)
-    title_en = parsed.get("title_en", parsed.get("title", "")).strip()
-    body_en = parsed.get("body_en", parsed.get("body", "")).strip()
-    return {
-        "title_en": title_en,
-        "body_en": body_en,
-        "title_pt": parsed.get("title_pt", title_en).strip(),
-        "body_pt": parsed.get("body_pt", body_en).strip(),
-    }
+        text = data["candidates"][0]["content"]["parts"][0]["text"]
+        parsed = json.loads(text)
+        if all(k in parsed for k in ("title_en", "body_en", "title_pt", "body_pt")):
+            return {
+                "title_en": parsed["title_en"].strip(),
+                "body_en": parsed["body_en"].strip(),
+                "title_pt": parsed["title_pt"].strip(),
+                "body_pt": parsed["body_pt"].strip(),
+            }
+        print(f"Gemini returned invalid output (attempt {attempt}): {text[:200]}")
+        time.sleep(attempt * 10)
+
+    raise RuntimeError("Gemini failed to return valid output after 3 attempts")
 
 
 def emit_outputs(title: str, body: str, tag: str) -> None:
