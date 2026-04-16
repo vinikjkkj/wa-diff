@@ -6,6 +6,7 @@ __d(
     "WAWebAdvHandlerApi",
     "WAWebApiContact",
     "WAWebApiDeviceList",
+    "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebContactSyncUtils",
     "WAWebDeviceListPk",
@@ -193,9 +194,13 @@ __d(
               }),
               l = yield o(
                 "WAWebContactSyncLogger",
-              ).contactSyncLogger.executeWithLogging(i, function () {
-                return a.execute();
-              }),
+              ).contactSyncLogger.executeWithLogging(
+                i,
+                function () {
+                  return a.execute();
+                },
+                o("WAWebContactSyncErrorCodes").DEVICE_SYNC,
+              ),
               c = l.error.all;
             if (c)
               throw (
@@ -203,6 +208,7 @@ __d(
                   i,
                   c.errorCode,
                   l,
+                  o("WAWebContactSyncErrorCodes").DEVICE_SYNC,
                 ),
                 r("err")(
                   "syncDeviceList: error " + c.errorCode + ": " + c.errorText,

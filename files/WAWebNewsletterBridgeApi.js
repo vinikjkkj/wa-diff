@@ -417,6 +417,13 @@ __d(
           .gadd(e)
           .set({ hasProfilePictureDeletionAlerts: !0 }, { merge: !0 });
       },
+      updateNewsletterAdminProfile: function (t) {
+        var e = t.adminProfile,
+          n = t.id;
+        r("WAWebNewsletterMetadataCollection")
+          .gadd(n)
+          .set({ adminProfile: e }, { merge: !0 });
+      },
       getActiveNewsletter: function () {
         var e;
         return (e = r("WAWebNewsletterCollection").getActive()) == null

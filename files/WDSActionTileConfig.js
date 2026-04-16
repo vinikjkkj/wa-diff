@@ -11,19 +11,34 @@ __d(
         $$css: !0,
       },
     };
-    function s(e) {
-      if (e === "iOS") {
-        var t;
+    function s(e, t) {
+      if ((t === void 0 && (t = !1), t)) {
+        var n;
         return {
           content: [
-            (t = o("WDSActionTileDefaultConfig.stylex")).sharedSizeStyles
+            (n = o("WDSActionTileDefaultConfig.stylex")).sharedSizeStyles
               .content,
-            t.WDSActionTileiOS.content,
+            n.WDSActionTileBorderless.content,
           ],
-          item: [t.sharedSizeStyles.item, t.WDSActionTileiOS.item],
+          item: [n.sharedSizeStyles.item, n.WDSActionTileBorderless.item],
           container: [
-            t.sharedSizeStyles.container,
-            t.WDSActionTileiOS.container,
+            n.sharedSizeStyles.container,
+            n.WDSActionTileBorderless.container,
+          ],
+        };
+      }
+      if (e === "iOS") {
+        var n;
+        return {
+          content: [
+            (n = o("WDSActionTileDefaultConfig.stylex")).sharedSizeStyles
+              .content,
+            n.WDSActionTileiOS.content,
+          ],
+          item: [n.sharedSizeStyles.item, n.WDSActionTileiOS.item],
+          container: [
+            n.sharedSizeStyles.container,
+            n.WDSActionTileiOS.container,
           ],
         };
       }
@@ -42,13 +57,23 @@ __d(
         ],
       };
     }
-    var u = { icon24: { height: "xxk0z11", width: "xvy4d1p", $$css: !0 } };
+    function u() {
+      return o("WDSActionTileDefaultConfig.stylex").WDSActionTileIconContainer
+        .iconContainer;
+    }
     function c() {
-      return [24, u.icon24];
+      return o("WDSActionTileDefaultConfig.stylex").WDSActionTileIconContainer
+        .iconHoverOverlay;
+    }
+    var d = { icon24: { height: "xxk0z11", width: "xvy4d1p", $$css: !0 } };
+    function m() {
+      return [24, d.icon24];
     }
     ((l.WDSActionTileStyles = e),
       (l.getButtonSizeStyles = s),
-      (l.getIconSizeAndStyle = c));
+      (l.getIconContainerStyle = u),
+      (l.getIconHoverOverlayStyle = c),
+      (l.getIconSizeAndStyle = m));
   },
   98,
 );

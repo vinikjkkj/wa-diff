@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebMexFetchAboutStatusJob",
     "WAWebUsync",
@@ -76,9 +77,13 @@ __d(
             }),
             p = yield o(
               "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(m, function () {
-              return d.execute();
-            });
+            ).contactSyncLogger.executeWithLogging(
+              m,
+              function () {
+                return d.execute();
+              },
+              o("WAWebContactSyncErrorCodes").GET_ABOUT_STATUS,
+            );
           if (p.error.all || p.error.status) {
             var _ = p.error.all || p.error.status;
             return (
@@ -96,6 +101,7 @@ __d(
                 m,
                 _.errorCode,
                 p,
+                o("WAWebContactSyncErrorCodes").GET_ABOUT_STATUS,
               ),
               { id: i, error: _ }
             );

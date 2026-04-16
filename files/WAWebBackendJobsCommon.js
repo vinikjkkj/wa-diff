@@ -212,6 +212,9 @@ __d(
         } else if (e.questionReplyMessage) {
           var p = e.questionReplyMessage.message;
           return p ? f(p) : null;
+        } else if (e.newsletterAdminProfileMessage) {
+          var _ = e.newsletterAdminProfileMessage.message;
+          return _ ? f(_) : null;
         }
       }
       return null;

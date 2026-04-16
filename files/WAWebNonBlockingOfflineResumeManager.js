@@ -16,6 +16,7 @@ __d(
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebOfflineResumeTypes.flow",
     "WAWebOfflineResumeUtils",
+    "WAWebReconcileMetaAiUnreadCountHelper",
     "WAWebSignalProtocolStore",
     "WAWebThreadMetadata",
     "WAWebUserPrefsGeneral",
@@ -40,8 +41,9 @@ __d(
       h,
       y,
       C,
-      b = 100,
-      v = (function () {
+      b,
+      v = 100,
+      S = (function () {
         function t(e) {
           var t = this;
           ((this.$9 = null),
@@ -367,7 +369,7 @@ __d(
           }),
           (a.getResumeUIProgressBarType = function () {
             return !o("WAWebBackendEventBus").BackendEventBus
-              .isOfflineDeliveryEnd && this.offlineMessagePreviewCounter >= b
+              .isOfflineDeliveryEnd && this.offlineMessagePreviewCounter >= v
               ? o("WAWebOfflineResumeTypes.flow").ResumeUIProgressBarType
                   .Toastbar
               : o("WAWebOfflineResumeTypes.flow").ResumeUIProgressBarType.None;
@@ -434,11 +436,25 @@ __d(
                 yield this.$7,
                 yield o(
                   "WAWebOffdStorageUpdateOfflinePeerReceipts",
-                ).updatePeerReceipts(),
-                (this.$12 = 99),
+                ).updatePeerReceipts());
+              try {
+                yield o(
+                  "WAWebReconcileMetaAiUnreadCountHelper",
+                ).reconcileMetaAiUnreadCounts();
+              } catch (e) {
                 o("WALogger").LOG(
                   C ||
                     (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "[offline-resume][non-blocking] reconcileMetaAiUnreadCounts failed: ",
+                      "",
+                    ])),
+                  String(e),
+                );
+              }
+              ((this.$12 = 99),
+                o("WALogger").LOG(
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "[offline-resume][non-blocking] _onOfflineComplete: clearOfflineSnapShot done.",
                     ])),
                 ),
@@ -475,7 +491,7 @@ __d(
           t
         );
       })();
-    l.OfflineNonBlockingResumeStageManager = v;
+    l.OfflineNonBlockingResumeStageManager = S;
   },
   98,
 );

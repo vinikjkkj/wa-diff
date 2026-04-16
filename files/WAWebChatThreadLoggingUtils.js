@@ -112,6 +112,9 @@ __d(
         .replace(/-/g, "/");
     }
     function L(e) {
+      return R(e).replace(/\//g, "-");
+    }
+    function E(e) {
       var t = o("WATimeUtils").toDate(
           o("WATimeUtils").castToUnixTime(
             e - 8 * o("WATimeUtils").HOUR_SECONDS,
@@ -121,18 +124,18 @@ __d(
         r = String(t.getUTCMonth() + 1).padStart(2, "0");
       return n + "/" + r + "/01";
     }
-    function E(e, t) {
+    function k(e, t) {
       var n = t % o("WATimeUtils").DAY_SECONDS,
         r = t - n;
       return n >= e ? r + e : r - o("WATimeUtils").DAY_SECONDS + e;
     }
-    function k(e, t, n) {
-      return E(e, t) > n;
-    }
-    function I(e) {
-      return e.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT;
+    function I(e, t, n) {
+      return k(e, t) > n;
     }
     function T(e) {
+      return e.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT;
+    }
+    function D(e) {
       var t,
         n = new Set([
           o("WAWebMsgType").MSG_TYPE.PRODUCT,
@@ -142,7 +145,7 @@ __d(
       return (
         n.has(e.type) ||
         n.has((t = e.quotedMsg) == null ? void 0 : t.type) ||
-        !!(e.matchedText != null && e.matchedText !== "" && D(e.matchedText)) ||
+        !!(e.matchedText != null && e.matchedText !== "" && x(e.matchedText)) ||
         (e.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW &&
           (e.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS ||
@@ -150,28 +153,11 @@ __d(
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS))
       );
     }
-    function D(e) {
+    function x(e) {
       return (
         o("WAWebApiParse").matchCatalogUrl(e) ||
         o("WAWebApiParse").matchProductUrl(e)
       );
-    }
-    function x(e) {
-      if (e == null) return null;
-      switch (e) {
-        case o("WAWebEphemeralityTypes").DisappearingModeTrigger
-          .AccountSettings:
-          return o("WAWebWamEnumEphemeralityTriggerActionType")
-            .EPHEMERALITY_TRIGGER_ACTION_TYPE.ACCOUNT_SETTINGS;
-        case o("WAWebEphemeralityTypes").DisappearingModeTrigger.ChatSettings:
-          return o("WAWebWamEnumEphemeralityTriggerActionType")
-            .EPHEMERALITY_TRIGGER_ACTION_TYPE.CHAT_SETTINGS;
-        case o("WAWebEphemeralityTypes").DisappearingModeTrigger.BulkChange:
-          return o("WAWebWamEnumEphemeralityTriggerActionType")
-            .EPHEMERALITY_TRIGGER_ACTION_TYPE.BULK_CHANGE;
-        default:
-          return null;
-      }
     }
     function $(e) {
       if (e == null) return null;
@@ -191,6 +177,23 @@ __d(
       }
     }
     function P(e) {
+      if (e == null) return null;
+      switch (e) {
+        case o("WAWebEphemeralityTypes").DisappearingModeTrigger
+          .AccountSettings:
+          return o("WAWebWamEnumEphemeralityTriggerActionType")
+            .EPHEMERALITY_TRIGGER_ACTION_TYPE.ACCOUNT_SETTINGS;
+        case o("WAWebEphemeralityTypes").DisappearingModeTrigger.ChatSettings:
+          return o("WAWebWamEnumEphemeralityTriggerActionType")
+            .EPHEMERALITY_TRIGGER_ACTION_TYPE.CHAT_SETTINGS;
+        case o("WAWebEphemeralityTypes").DisappearingModeTrigger.BulkChange:
+          return o("WAWebWamEnumEphemeralityTriggerActionType")
+            .EPHEMERALITY_TRIGGER_ACTION_TYPE.BULK_CHANGE;
+        default:
+          return null;
+      }
+    }
+    function N(e) {
       return e == null
         ? null
         : e
@@ -199,39 +202,39 @@ __d(
           : o("WAWebWamEnumEphemeralityInitiatorType")
               .EPHEMERALITY_INITIATOR_TYPE.INITIATED_BY_OTHER;
     }
-    function N() {
-      return M.apply(this, arguments);
-    }
     function M() {
+      return w.apply(this, arguments);
+    }
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
             t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
           return (t == null ? void 0 : t.username) != null && t.username !== "";
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w() {
-      return A.apply(this, arguments);
-    }
     function A() {
+      return F.apply(this, arguments);
+    }
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
             t = yield r("WAWebLidAwareContactsDB").get(e.toJid());
           return (t == null ? void 0 : t.usernameKey) != null;
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(e) {
-      return O.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function O() {
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          return U(t)
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          return V(t)
             ? null
             : o("WAWebModelStorageUtils")
                 .getStorage()
@@ -258,14 +261,14 @@ __d(
                           t,
                         ),
                         null)
-                      : B(l, a);
+                      : W(l, a);
                   }),
                 );
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function B(e, t) {
+    function W(e, t) {
       if (e == null)
         return o("WAWebWamEnumOppositeVisibleIdentificationType")
           .OPPOSITE_VISIBLE_IDENTIFICATION_TYPE.PLACEHOLDER;
@@ -291,13 +294,13 @@ __d(
         n
       );
     }
-    function W(e) {
-      return q.apply(this, arguments);
+    function q(e) {
+      return U.apply(this, arguments);
     }
-    function q() {
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return U(e)
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          return V(e)
             ? null
             : o("WAWebModelStorageUtils")
                 .getStorage()
@@ -336,10 +339,10 @@ __d(
                   })(),
                 );
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U(e) {
+    function V(e) {
       return !e.isUser() || e.isPSA() || e.isBot();
     }
     ((l.generateThreadID = p),
@@ -347,19 +350,20 @@ __d(
       (l.generateMessageIDHMAC = h),
       (l.generateUserThreadIDHMAC = C),
       (l.getThreadDs = R),
-      (l.getThreadMonthDs = L),
-      (l.computeStartTs = E),
-      (l.shouldUpdateChatEvent = k),
-      (l.shouldIncrementMsgSendAndReceive = I),
-      (l.isCommerceMessage = T),
-      (l.getWamDisappearingModeTrigger = x),
-      (l.getWamDisappearingModeTriggerGroups = $),
-      (l.getWamDisappearingModeInitiatedByMe = P),
-      (l.getMeHasUsername = N),
-      (l.getMeHasUsernamePin = w),
-      (l.getOppositeVisibleIdentification = F),
-      (l.getOppositeVisibleIdentificationType = B),
-      (l.getChatOriginType = W));
+      (l.getThreadDsForDb = L),
+      (l.getThreadMonthDs = E),
+      (l.computeStartTs = k),
+      (l.shouldUpdateChatEvent = I),
+      (l.shouldIncrementMsgSendAndReceive = T),
+      (l.isCommerceMessage = D),
+      (l.getWamDisappearingModeTrigger = $),
+      (l.getWamDisappearingModeTriggerGroups = P),
+      (l.getWamDisappearingModeInitiatedByMe = N),
+      (l.getMeHasUsername = M),
+      (l.getMeHasUsernamePin = A),
+      (l.getOppositeVisibleIdentification = O),
+      (l.getOppositeVisibleIdentificationType = W),
+      (l.getChatOriginType = q));
   },
   98,
 );

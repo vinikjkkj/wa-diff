@@ -9,6 +9,7 @@ __d(
     "WAWebBizVerifiedLevelToString",
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebQueryExistsJob",
     "WAWebUpdateDisappearingModeForContact",
@@ -137,9 +138,13 @@ __d(
             }),
             i = yield o(
               "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(a, function () {
-              return r.execute();
-            }),
+            ).contactSyncLogger.executeWithLogging(
+              a,
+              function () {
+                return r.execute();
+              },
+              o("WAWebContactSyncErrorCodes").QUERY_BUSINESS,
+            ),
             l = i.error.all;
           if (
             (o("WALogger").LOG(
@@ -155,6 +160,7 @@ __d(
                 a,
                 l.errorCode,
                 i,
+                o("WAWebContactSyncErrorCodes").QUERY_BUSINESS,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
                 l.errorCode,

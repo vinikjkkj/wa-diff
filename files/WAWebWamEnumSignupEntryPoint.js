@@ -10,6 +10,8 @@ __d(
       FACEBOOK: 4,
       INSTAGRAM: 5,
       EXTERNAL: 6,
+      MESSENGER: 7,
+      THREADS: 8,
     });
     i.SIGNUP_ENTRY_POINT = e;
   },

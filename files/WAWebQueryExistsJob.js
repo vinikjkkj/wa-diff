@@ -5,6 +5,7 @@ __d(
     "WAPhoneFindCC",
     "WAWebApiContact",
     "WAWebBackendErrors",
+    "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebDBCreateLidPnMappings",
     "WAWebHandleUsernameSync",
@@ -77,9 +78,13 @@ __d(
             }),
             c = yield o(
               "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(u, function () {
-              return i.execute();
-            }),
+            ).contactSyncLogger.executeWithLogging(
+              u,
+              function () {
+                return i.execute();
+              },
+              o("WAWebContactSyncErrorCodes").QUERY_EXIST,
+            ),
             d = c.error.all || c.error.contact;
           if (d)
             throw (
@@ -87,6 +92,7 @@ __d(
                 u,
                 d.errorCode,
                 c,
+                o("WAWebContactSyncErrorCodes").QUERY_EXIST,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
                 d.errorCode,
@@ -189,9 +195,13 @@ __d(
             }),
             l = yield o(
               "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(i, function () {
-              return a.execute();
-            }),
+            ).contactSyncLogger.executeWithLogging(
+              i,
+              function () {
+                return a.execute();
+              },
+              o("WAWebContactSyncErrorCodes").QUERY_USERNAME_DEPRECATED,
+            ),
             u = l.error.all || l.error.contact;
           if (
             (o("WALogger").LOG(
@@ -207,6 +217,7 @@ __d(
                 i,
                 u.errorCode,
                 l,
+                o("WAWebContactSyncErrorCodes").QUERY_USERNAME_DEPRECATED,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
                 u.errorCode,
@@ -317,9 +328,13 @@ __d(
             }),
             s = yield o(
               "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(l, function () {
-              return i.execute();
-            }),
+            ).contactSyncLogger.executeWithLogging(
+              l,
+              function () {
+                return i.execute();
+              },
+              o("WAWebContactSyncErrorCodes").QUERY_USERNAME_EXIST,
+            ),
             u = s.error.all || s.error.contact;
           if (u)
             throw (
@@ -327,6 +342,7 @@ __d(
                 l,
                 u.errorCode,
                 s,
+                o("WAWebContactSyncErrorCodes").QUERY_USERNAME_EXIST,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
                 u.errorCode,

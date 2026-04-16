@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebBackendErrors",
     "WAWebBotProfileCategory",
+    "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebUsync",
     "WAWebUsyncUser",
@@ -45,9 +46,13 @@ __d(
             }),
             l = yield o(
               "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(i, function () {
-              return a.execute();
-            }),
+            ).contactSyncLogger.executeWithLogging(
+              i,
+              function () {
+                return a.execute();
+              },
+              o("WAWebContactSyncErrorCodes").BOT_PROFILE,
+            ),
             u = l.error.all || l.error.status;
           if (u)
             throw (
@@ -55,6 +60,7 @@ __d(
                 i,
                 u.errorCode,
                 l,
+                o("WAWebContactSyncErrorCodes").BOT_PROFILE,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
                 u.errorCode,

@@ -3,6 +3,7 @@ __d(
   [
     "WAJids",
     "WALogger",
+    "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebPerformanceUtils",
     "WAWebUsernameGatingUtils",
@@ -50,9 +51,13 @@ __d(
             }),
             c = yield o(
               "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(u, function () {
-              return i.execute();
-            });
+            ).contactSyncLogger.executeWithLogging(
+              u,
+              function () {
+                return i.execute();
+              },
+              o("WAWebContactSyncErrorCodes").BIZ_BROADCAST_VERIFY,
+            );
           c.error &&
             !r("isEmptyObject")(c.error) &&
             (o("WALogger")
@@ -90,6 +95,7 @@ __d(
                   u,
                   c.error.all.errorCode,
                   c,
+                  o("WAWebContactSyncErrorCodes").BIZ_BROADCAST_VERIFY,
                 )
               : o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(u, c),
             c

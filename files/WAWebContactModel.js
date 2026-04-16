@@ -527,7 +527,10 @@ __d(
                 i(u, t) == null
                 ? null
                 : (l = this.labels) != null && l.includes(a)
-                  ? { match: a, results: [{ startIndex: 0, length: a.length }] }
+                  ? {
+                      match: a,
+                      results: t ? [{ startIndex: 0, length: a.length }] : [],
+                    }
                   : null;
             }
             if (!t) return null;

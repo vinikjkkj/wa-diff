@@ -102,21 +102,22 @@ __d(
                                 i = (a = o(
                                   "WAWebChatThreadLoggingUtils",
                                 )).getThreadDs(e.startTs),
-                                s = yield a.generateThreadID(
+                                s = a.getThreadDsForDb(e.startTs),
+                                u = yield a.generateThreadID(
                                   r("WANullthrows")(l.secret),
                                   e.chatId,
                                   i,
                                 ),
-                                u = yield a.generateThreadID(
+                                c = yield a.generateThreadID(
                                   r("WANullthrows")(l.secret),
                                   e.chatId,
                                   a.getThreadMonthDs(e.startTs),
                                 ),
-                                c = e.contactInfo,
-                                d = {
-                                  threadDs: i,
-                                  threadId: s,
-                                  threadIdMonthly: u,
+                                d = e.contactInfo,
+                                m = {
+                                  threadDs: s,
+                                  threadId: u,
+                                  threadIdMonthly: c,
                                   messagesSent: e.msgsSent,
                                   messagesReceived: e.msgsReceived,
                                   commentsReceived: e.commentsReceived,
@@ -126,10 +127,10 @@ __d(
                                   viewOnceMessagesOpened:
                                     e.viewOnceMessagesOpened,
                                   isAGroup: e.contactInfo.isAGroup,
-                                  groupSize: c.isAGroup ? c.groupSize : void 0,
-                                  isAContact: c.isAGroup
+                                  groupSize: d.isAGroup ? d.groupSize : void 0,
+                                  isAContact: d.isAGroup
                                     ? void 0
-                                    : c.isAContact,
+                                    : d.isAContact,
                                   isArchived: e.isArchived,
                                   isPinned: e.isPinned,
                                   messagesStarred: e.messagesStarred,
@@ -188,54 +189,54 @@ __d(
                                   eventResponseMessagesSent:
                                     e.eventResponseMessagesSent,
                                 },
-                                m = new (o(
+                                p = new (o(
                                   "WAWebChatMessageCountsWamEvent",
-                                ).ChatMessageCountsWamEvent)(d);
+                                ).ChatMessageCountsWamEvent)(m);
                               (o("WAWebABProps").getABPropConfigValue(
                                 "group_status_receiver_enabled",
                               ) &&
-                                ((m.groupStatusLikesOthersToOthers =
+                                ((p.groupStatusLikesOthersToOthers =
                                   e.eventGroupStatusLikeOthersToOthers),
-                                (m.groupStatusLikesOthersToOwn =
+                                (p.groupStatusLikesOthersToOwn =
                                   e.eventGroupStatusLikeOthersToOwn),
-                                (m.groupStatusRepliesOthersToOthers =
+                                (p.groupStatusRepliesOthersToOthers =
                                   e.eventGroupStatusReplyOthersToOthers),
-                                (m.groupStatusRepliesOthersToOwn =
+                                (p.groupStatusRepliesOthersToOwn =
                                   e.eventGroupStatusReplyOthersToOwn),
-                                (m.groupStatusRepliesOwnToOthers =
+                                (p.groupStatusRepliesOwnToOthers =
                                   e.eventGroupStatusReplyOwnToOthers),
-                                (m.groupStatusRepliesOwnToOwn =
+                                (p.groupStatusRepliesOwnToOwn =
                                   e.eventGroupStatusReplyOwnToOwn)),
                                 e.ephemeralityTriggerAction != null &&
-                                  (m.ephemeralityTriggerAction =
+                                  (p.ephemeralityTriggerAction =
                                     e.ephemeralityTriggerAction),
                                 e.ephemeralityInitiator != null &&
-                                  (m.ephemeralityInitiator =
+                                  (p.ephemeralityInitiator =
                                     e.ephemeralityInitiator),
                                 o(
                                   "WAWebChatThreadLoggingCountFields",
                                 ).COUNT_FIELD_NAMES.forEach(function (t) {
-                                  m[t] = e[t];
+                                  p[t] = e[t];
                                 }),
                                 o(
                                   "WAWebChatThreadLoggingBoolFlagFields",
                                 ).FLAG_FIELD_NAMES.forEach(function (t) {
-                                  m[t] = e[t];
+                                  p[t] = e[t];
                                 }),
-                                c.isAGroup ||
+                                d.isAGroup ||
                                   (o(
                                     "WAWebBotBaseGating",
                                   ).isBizBot3pEnabled() &&
-                                    (m.isUser3pBotChat =
-                                      c.automatedType ===
+                                    (p.isUser3pBotChat =
+                                      d.automatedType ===
                                       o("WAWebBotTypes").BizBotAutomatedType
                                         .FULL_3P),
                                   o("WAWebBotBaseGating").isBizBot1pEnabled() &&
-                                    (m.isUser1pBizBotChat =
-                                      c.automatedType ===
+                                    (p.isUser1pBizBotChat =
+                                      d.automatedType ===
                                       o("WAWebBotTypes").BizBotAutomatedType
                                         .PARTIAL_1P)),
-                                m.commit());
+                                p.commit());
                             },
                           );
                           return function (t) {
@@ -295,7 +296,7 @@ __d(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (e) {
-                    var n = o("WAWebChatThreadLoggingUtils").getThreadDs(
+                    var n = o("WAWebChatThreadLoggingUtils").getThreadDsForDb(
                         e.startTs,
                       ),
                       r = yield o(

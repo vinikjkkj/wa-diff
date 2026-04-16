@@ -226,6 +226,12 @@ __d(
               l != null && l.set({ unreadCount: 0 });
             }
         },
+        updateChatUnreadCount: function (t) {
+          var e = t.chatId,
+            n = t.unreadCount,
+            r = o("WAWebChatCollection").ChatCollection.get(e);
+          r != null && r.set({ unreadCount: n });
+        },
         bulkUpdateChatCapiCallingPermissionType: function (t) {
           var e = t.updates;
           o("WALogger").LOG(

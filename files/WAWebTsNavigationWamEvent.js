@@ -41,10 +41,12 @@ __d(
               ],
               navigationDestinationViewName: [35, e.TYPES.STRING],
               navigationSource: [3, o("WAWebWamEnumTsSurface").TS_SURFACE],
+              networkIsWifiOpNumber: [41, e.TYPES.INTEGER],
               networkRadioTypeEventLevel: [
                 40,
                 o("WAWebWamEnumRadioType").RADIO_TYPE,
               ],
+              networkRadioTypeOpNumber: [42, e.TYPES.INTEGER],
               referrerAction: [
                 31,
                 o("WAWebWamEnumReferrerAction").REFERRER_ACTION,

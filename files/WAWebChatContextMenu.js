@@ -22,10 +22,10 @@ __d(
     "WAWebInboxFiltersGatingUtils",
     "WAWebL10NIsUsingSupportedBritishEnglishLocale",
     "WAWebListsGatingUtils",
+    "WAWebUnfavoriteRefreshedIcon.react",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WDSIconIcDoNotDisturbOn.react",
     "WDSIconIcFavorite.react",
-    "WDSIconIcFavoriteFilled.react",
     "WDSMenuItem.react",
     "cr:23046",
     "react",
@@ -101,7 +101,9 @@ __d(
             ).isUsingSupportedBritishEnglishLocale()
               ? s._(/*BTDS*/ "Remove from favourites")
               : s._(/*BTDS*/ "Remove from Favorites")),
-            (f = r("WDSIconIcFavoriteFilled.react")))
+            (f = o(
+              "WAWebUnfavoriteRefreshedIcon.react",
+            ).UnfavoriteRefreshedIcon))
           : ((g = o(
               "WAWebL10NIsUsingSupportedBritishEnglishLocale",
             ).isUsingSupportedBritishEnglishLocale()

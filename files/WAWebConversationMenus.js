@@ -41,6 +41,7 @@ __d(
     "WAWebSpamConstants",
     "WAWebStateUtils",
     "WAWebSuspendedGroupUtils",
+    "WAWebUnfavoriteRefreshedIcon.react",
     "WAWebWamEnumEphemeralSettingEntryPointType",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WAWebWamEnumMuteEntryPoint",
@@ -50,7 +51,6 @@ __d(
     "WDSIconIcContentCopy.react",
     "WDSIconIcDoNotDisturbOn.react",
     "WDSIconIcFavorite.react",
-    "WDSIconIcFavoriteFilled.react",
     "WDSIconIcInfo.react",
     "WDSIconIcPalette.react",
     "WDSIconIcPersonAdd.react",
@@ -449,7 +449,9 @@ __d(
               (l[43] = ae))
             : (ae = l[43]),
             (oe = ae),
-            (re = r("WDSIconIcFavoriteFilled.react")));
+            (re = o(
+              "WAWebUnfavoriteRefreshedIcon.react",
+            ).UnfavoriteRefreshedIcon));
         } else {
           var ie;
           (l[44] === Symbol.for("react.memo_cache_sentinel")

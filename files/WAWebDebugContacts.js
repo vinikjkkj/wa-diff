@@ -5,6 +5,7 @@ __d(
     "WAWebContactSyncBridge",
     "WAWebNonAddressBookContactsJob",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -28,27 +29,27 @@ __d(
           ? o("WAWebNonAddressBookContactsJob")
               .getAndUpdateNonAddressBookContacts()
               .catch(function (t) {
-                o("WALogger").ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Failed to sync non-address book contacts with error: ",
-                      "",
-                    ])),
-                  String(t),
-                );
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "Failed to sync non-address book contacts",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t));
               })
               .then(function () {
                 return o("WAWebContactSyncBridge").doFullContactSync(!1);
               })
               .catch(function (e) {
-                o("WALogger").ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "contact sync failed: ",
-                      "",
-                    ])),
-                  String(e),
-                );
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "contact sync failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
               })
           : o("WAWebContactSyncBridge").doFullContactSync(!1)
       );
@@ -61,27 +62,27 @@ __d(
           ? o("WAWebNonAddressBookContactsJob")
               .getNonAddressBookContactsAndMarkAllContactsDirty()
               .catch(function (e) {
-                o("WALogger").ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Failed to sync non-address book contacts with error: ",
-                      "",
-                    ])),
-                  String(e),
-                );
+                o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "Failed to sync non-address book contacts",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
               })
               .then(function () {
                 return o("WAWebContactSyncBridge").doFullContactSync(!1);
               })
               .catch(function (e) {
-                o("WALogger").ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "contact sync failed: ",
-                      "",
-                    ])),
-                  String(e),
-                );
+                o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "contact sync failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
               })
           : o("WAWebContactSyncBridge").doFullContactSync(!1)
       );

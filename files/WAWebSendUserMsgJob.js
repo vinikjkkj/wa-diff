@@ -52,9 +52,9 @@ __d(
                 h,
               )
               .tags("messaging");
-            var S =
-                v.isLid() &&
-                (l = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid()) != null
+            var S = v.isRegularUserPn()
+                ? o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
+                : (l = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid()) != null
                   ? l
                   : o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
               R = { wids: [v, S] };

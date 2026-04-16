@@ -711,6 +711,29 @@ __d(
           (a.generateSnapshot = function () {
             if (this.$2 === y.Memory) return this.$1.generateCacheUpdate();
           }),
+          (a.generateSnapshotThrottled = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              if (this.$2 === y.Memory) {
+                var e = [
+                  yield this.$1.Mutex.identity.acquire(),
+                  yield this.$1.Mutex.session.acquire(),
+                  yield this.$1.Mutex.senderKey.acquire(),
+                  yield this.$1.Mutex.preKey.acquire(),
+                ];
+                try {
+                  return yield this.$1.generateCacheUpdateThrottled();
+                } finally {
+                  e.forEach(function (e) {
+                    return e.release();
+                  });
+                }
+              }
+            });
+            function t() {
+              return e.apply(this, arguments);
+            }
+            return t;
+          })()),
           (a.deleteAllCache = function () {
             (o("WALogger")
               .LOG(

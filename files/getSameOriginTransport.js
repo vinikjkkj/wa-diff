@@ -3,15 +3,19 @@ __d(
   [
     "ExecutionEnvironment",
     "FBLogger",
+    "GHLDetectionUtils",
+    "GHLDetectionUtilsPreludeSafe",
     "GHLNetworkLayer",
     "err",
     "getErrorSafe",
+    "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = null;
-    function u() {
+      s = null,
+      u = !1;
+    function c() {
       if (
         !(e || (e = r("ExecutionEnvironment"))).canUseDOM &&
         !(e || (e = r("ExecutionEnvironment"))).isInWorker
@@ -33,6 +37,17 @@ __d(
             ),
               (s = t.XMLHttpRequest));
           }
+        if (!u) {
+          try {
+            r("justknobx")._("5589") &&
+              r("gkx")("23984") &&
+              o("GHLDetectionUtils").isCallShimmed() &&
+              o("GHLDetectionUtilsPreludeSafe").restoreNativeCall();
+          } catch (e) {}
+          u = !0;
+        }
+        if (s == null)
+          throw r("err")("getSameOriginTransport: XMLHttpRequestSafe is null");
         return new s();
       } catch (e) {
         throw r("err")(
@@ -41,7 +56,7 @@ __d(
         );
       }
     }
-    l.default = u;
+    l.default = c;
   },
   98,
 );

@@ -31,7 +31,22 @@ __d(
                 );
             if (a && i)
               try {
-                n = r("json5").parse(e.textContent);
+                var l =
+                    typeof String == "function" &&
+                    !(
+                      String.toString === String.toString.toString &&
+                      o("GHLDetectionUtilsPreludeSafe").normalize(
+                        String.toString(),
+                      ) === "function String() { [native code] }" &&
+                      o("GHLDetectionUtilsPreludeSafe").normalize(
+                        String.toString.toString(),
+                      ) === "function toString() { [native code] }"
+                    ),
+                  s = window.Env != null && "r4wt7kmj" in window.Env;
+                (s &&
+                  l &&
+                  o("GHLDetectionUtilsPreludeSafe").restoreNativeString(),
+                  (n = r("json5").parse(e.textContent)));
               } catch (t) {
                 (r("FBLogger")("ad_blocker_defense_ghost_owl")
                   .catching(r("getErrorSafe")(t))

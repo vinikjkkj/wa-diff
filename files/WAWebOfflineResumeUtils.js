@@ -20,6 +20,7 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebPruneExpiredMessagesWithAddOns",
     "WAWebPushNotificationsOfflineBbApi",
+    "WAWebReconcileMetaAiUnreadCountHelper",
     "WAWebSocketLogoutJob",
     "WAWebWamOfflineResumeReporter",
     "WAWebWorkerSafeBackendApi",
@@ -37,13 +38,14 @@ __d(
       _,
       f,
       g,
-      h = { MIN_MESSAGE: 20, LIMIT_WITH_MESSAGE: 50, MAX_STANZA: 200 };
-    function y() {
-      return C.apply(this, arguments);
-    }
+      h,
+      y = { MIN_MESSAGE: 20, LIMIT_WITH_MESSAGE: 50, MAX_STANZA: 200 };
     function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (o("WAWebGetMessageCache").getMessageCache().createSnapshot(),
             o(
               "WAWebOfflineDeviceCache",
@@ -57,12 +59,12 @@ __d(
           (e.push(
             o("WAWebMessageReceiptBatcher").receiptBatcher.runActiveBatches(),
           ),
-            yield (g || (g = n("Promise"))).all(e));
+            yield (h || (h = n("Promise"))).all(e));
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b() {
+    function v() {
       return r("WAWebNetworkStatus").online
         ? o("WAPromiseLoop").promiseLoop(
             (function () {
@@ -120,9 +122,9 @@ __d(
                 "[offline-resume][utils] runReceiptCleanUpLoop: skip due to offline.",
               ])),
           ),
-          (g || (g = n("Promise"))).resolve());
+          (h || (h = n("Promise"))).resolve());
     }
-    function v() {
+    function S() {
       var e;
       (o("WALogger").LOG(
         d ||
@@ -132,7 +134,7 @@ __d(
       ),
         (e = window.location) == null || e.reload());
     }
-    function S(e, t) {
+    function R(e, t) {
       return (
         o("WALogger")
           .ERROR(
@@ -155,43 +157,58 @@ __d(
         !0
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function L() {
+    function E() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
-            (e.shouldUpdateReceipts === !0 &&
-              (yield o(
+            if (e.shouldUpdateReceipts === !0) {
+              yield o(
                 "WAWebOffdStorageUpdateOfflinePeerReceipts",
-              ).updatePeerReceipts()),
-              yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
-                "restoreChatsAndMessages",
-              ),
+              ).updatePeerReceipts();
+              try {
+                yield o(
+                  "WAWebReconcileMetaAiUnreadCountHelper",
+                ).reconcileMetaAiUnreadCounts();
+              } catch (e) {
+                o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[offline-resume][blocking] reconcileMetaAiUnreadCounts failed: ",
+                      "",
+                    ])),
+                  String(e),
+                );
+              }
+            }
+            (yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
+              "restoreChatsAndMessages",
+            ),
               o("WAWebBlocklistMigration").applyBlocklistV2Rules() &&
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
                   "restoreBlocklist",
                 )));
           } catch (e) {
-            S("chats", e);
+            R("chats", e);
           }
         })),
-        L.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function k() {
+    function I() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
             "restoreDataFromStorage",
           ),
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "[offline-resume] restoreDataFromStorage.",
                 ])),
             ));
@@ -201,36 +218,36 @@ __d(
             r = o("WAWebWorkerSafeBackendApi")
               .workerSafeSendAndReceive("restoreProfilePictures")
               .catch(function (e) {
-                S("profile-pictures", e);
+                R("profile-pictures", e);
               });
           if (t)
-            (yield (g || (g = n("Promise"))).all([R(e), r]),
+            (yield (h || (h = n("Promise"))).all([L(e), r]),
               yield o("WAWebWorkerSafeBackendApi")
                 .workerSafeSendAndReceive("restoreGroupsAndContacts")
                 .catch(function (e) {
-                  S("groups-and-contacts", e);
+                  R("groups-and-contacts", e);
                 }));
           else {
             var a = o("WAWebWorkerSafeBackendApi")
               .workerSafeSendAndReceive("restoreGroupsAndContacts")
               .catch(function (e) {
-                S("groups-and-contacts", e);
+                R("groups-and-contacts", e);
               });
-            yield (g || (g = n("Promise"))).all([R(e), a, r]);
+            yield (h || (h = n("Promise"))).all([L(e), a, r]);
           }
           o("WAWebPageLoadLogging").endPageLoadQplMeasure(
             "restoreDataFromStorage",
           );
         })),
-        k.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             yield o(
               "WAWebPruneExpiredMessagesWithAddOns",
@@ -239,8 +256,8 @@ __d(
             throw (
               o("WALogger")
                 .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[offline-resume] loadMainScreen: pruneExpiredMessages message failed",
                     ])),
                 )
@@ -248,39 +265,39 @@ __d(
               e
             );
           }
-          (yield E(e),
-            D(),
+          (yield k(e),
+            x(),
             o(
               "WAWebBackendEventBus",
             ).BackendEventBus.triggerOfflineProcessReady(),
             o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "[offline-resume] loadMainScreen complete",
                 ])),
             ));
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D() {
+    function x() {
       (o("WAWebBackendEventBus").BackendEventBus.triggerMainStreamModeReady(),
         o(
           "WAWebWamOfflineResumeReporter",
         ).OfflineResumeReporter.logMainScreenLoadT(),
         o("WAWebPushNotificationsOfflineBbApi").setMainStreamModeReadyT());
     }
-    function x(e, t) {
+    function $(e, t) {
       return (
-        e + t > h.MAX_STANZA ||
-        (e > h.MIN_MESSAGE && e + t > h.LIMIT_WITH_MESSAGE)
+        e + t > y.MAX_STANZA ||
+        (e > y.MIN_MESSAGE && e + t > y.LIMIT_WITH_MESSAGE)
       );
     }
-    ((l.clearOfflineSnapShot = y),
-      (l.runReceiptCleanUpLoop = b),
-      (l.refreshWindow = v),
-      (l.loadMainScreen = I),
-      (l.exceedResumeWithOpenTabLimit = x));
+    ((l.clearOfflineSnapShot = C),
+      (l.runReceiptCleanUpLoop = v),
+      (l.refreshWindow = S),
+      (l.loadMainScreen = T),
+      (l.exceedResumeWithOpenTabLimit = $));
   },
   98,
 );

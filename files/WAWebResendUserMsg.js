@@ -64,9 +64,10 @@ __d(
             }
             try {
               var y,
-                C =
-                  _.isLid() &&
-                  (y = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid()) != null
+                C = _.isRegularUserPn()
+                  ? o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE()
+                  : (y = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid()) !=
+                      null
                     ? y
                     : o(
                         "WAWebUserPrefsMeUser",

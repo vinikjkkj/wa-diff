@@ -284,9 +284,18 @@ __d(
                           )
                           .sendLogs("message-cache-missing-doneFn");
                       },
-                C = o("WAWebSignalProtocolStore")
-                  .getSignalProtocolStore()
-                  .generateSnapshot();
+                C =
+                  !this.$7 &&
+                  o("WAWebABProps").getABPropConfigValue(
+                    "web_anr_throttle_signal_snapshot_enabled",
+                  ),
+                b = C
+                  ? o("WAWebSignalProtocolStore")
+                      .getSignalProtocolStore()
+                      .generateSnapshotThrottled()
+                  : o("WAWebSignalProtocolStore")
+                      .getSignalProtocolStore()
+                      .generateSnapshot();
               (this.$3.enqueue(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   try {
@@ -303,64 +312,63 @@ __d(
                           ])),
                         l,
                         s,
-                      ),
-                      C != null &&
-                        (yield o("WAWebSignalStorageUtils")
-                          .getStorage()
-                          .lock(
-                            [
-                              "session-store",
-                              "identity-store",
-                              "prekey-store",
-                              "senderkey-store",
-                            ],
-                            n("asyncToGeneratorRuntime").asyncToGenerator(
-                              function* () {
-                                yield (y || (y = n("Promise"))).all([
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkPutSession(
-                                    C.sessionUpdate,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkPutIdentityKeyWithRowId(
-                                    C.identityUpdate,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkPutSenderKey(
-                                    C.senderKeyUpdate,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkRemovePreKey(
-                                    C.preKeyRemove,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkRemoveSession(
-                                    C.sessionRemove,
-                                  ),
-                                  o(
-                                    "WAWebSignalStoreApi",
-                                  ).waSignalStore.bulkRemoveIdentity(
-                                    C.identityRemove,
-                                  ),
-                                ]);
-                              },
-                            ),
+                      ));
+                    var e = yield b;
+                    (e != null &&
+                      (yield o("WAWebSignalStorageUtils")
+                        .getStorage()
+                        .lock(
+                          [
+                            "session-store",
+                            "identity-store",
+                            "prekey-store",
+                            "senderkey-store",
+                          ],
+                          n("asyncToGeneratorRuntime").asyncToGenerator(
+                            function* () {
+                              yield (y || (y = n("Promise"))).all([
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkPutSession(e.sessionUpdate),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkPutIdentityKeyWithRowId(
+                                  e.identityUpdate,
+                                ),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkPutSenderKey(
+                                  e.senderKeyUpdate,
+                                ),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkRemovePreKey(
+                                  e.preKeyRemove,
+                                ),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkRemoveSession(
+                                  e.sessionRemove,
+                                ),
+                                o(
+                                  "WAWebSignalStoreApi",
+                                ).waSignalStore.bulkRemoveIdentity(
+                                  e.identityRemove,
+                                ),
+                              ]);
+                            },
                           ),
-                        o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
-                              "[message-cache] createSnapshot ",
-                              "-",
-                              ": signal stores updated",
-                            ])),
-                          l,
-                          s,
-                        )),
+                        ),
+                      o("WALogger").LOG(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "[message-cache] createSnapshot ",
+                            "-",
+                            ": signal stores updated",
+                          ])),
+                        l,
+                        s,
+                      )),
                       yield o(
                         "WAWebSendOfflineDeliveryReceiptJob",
                       ).sendAggregateOfflineReceipts(a),

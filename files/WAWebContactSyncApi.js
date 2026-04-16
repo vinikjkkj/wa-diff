@@ -13,6 +13,7 @@ __d(
     "WAWebAppTracker",
     "WAWebBizVerifiedNameAction",
     "WAWebContactSyncApiConst",
+    "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebContactSyncUtils",
     "WAWebDBCreateLidPnMappings",
@@ -180,6 +181,7 @@ __d(
                       c,
                       b.errorCode,
                       f != null ? f : void 0,
+                      o("WAWebContactSyncErrorCodes").BACKGROUND_SYNC,
                     )),
                     yield o("WAPromiseDelays").delayMs(h * 1e3));
                 }

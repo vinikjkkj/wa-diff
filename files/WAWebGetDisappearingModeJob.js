@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebContactSyncErrorCodes",
     "WAWebContactSyncLogger",
     "WAWebUserPrefsMeUser",
     "WAWebUsync",
@@ -52,9 +53,13 @@ __d(
             }),
             d = yield o(
               "WAWebContactSyncLogger",
-            ).contactSyncLogger.executeWithLogging(l, function () {
-              return i.execute();
-            });
+            ).contactSyncLogger.executeWithLogging(
+              l,
+              function () {
+                return i.execute();
+              },
+              o("WAWebContactSyncErrorCodes").GET_DISAPPEARING_MODE,
+            );
           if (d.error.all || d.error.status) {
             var m = d.error.all || d.error.status;
             return (
@@ -72,6 +77,7 @@ __d(
                 l,
                 m.errorCode,
                 d,
+                o("WAWebContactSyncErrorCodes").GET_DISAPPEARING_MODE,
               ),
               { id: t, error: m }
             );

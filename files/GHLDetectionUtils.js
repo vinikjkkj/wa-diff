@@ -45,9 +45,39 @@ __d(
               ) === "function toString() { [native code] }"
             );
     }
+    function c() {
+      return (
+        typeof String == "function" &&
+        !(
+          String.toString === String.toString.toString &&
+          o("GHLDetectionUtilsPreludeSafe").normalize(String.toString()) ===
+            "function String() { [native code] }" &&
+          o("GHLDetectionUtilsPreludeSafe").normalize(
+            String.toString.toString(),
+          ) === "function toString() { [native code] }"
+        )
+      );
+    }
+    function d() {
+      return (
+        typeof Function.prototype.call == "function" &&
+        !(
+          Function.prototype.call.toString ===
+            Function.prototype.call.toString.toString &&
+          o("GHLDetectionUtilsPreludeSafe").normalize(
+            Function.prototype.call.toString(),
+          ) === "function call() { [native code] }" &&
+          o("GHLDetectionUtilsPreludeSafe").normalize(
+            Function.prototype.call.toString.toString(),
+          ) === "function toString() { [native code] }"
+        )
+      );
+    }
     ((l.isJSONParseShimmed = e),
       (l.isXHRModified = s),
-      (l.isCanvasFillTextModified = u));
+      (l.isCanvasFillTextModified = u),
+      (l.isStringShimmed = c),
+      (l.isCallShimmed = d));
   },
   98,
 );

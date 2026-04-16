@@ -41,7 +41,20 @@ __d(
           .waitUntilCompleted()
       );
     }
-    function u(e) {
+    function u(e, t) {
+      return o("WAWebOrchestratorNonPersistedJob")
+        .createNonPersistedJob(
+          "updateNewsletterAdminProfile",
+          function () {
+            return o("WAWebSchemaNewsletterMetadata")
+              .getNewsletterMetadataTable()
+              .merge(e, { id: e, adminProfile: t });
+          },
+          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.HIGH },
+        )
+        .waitUntilCompleted();
+    }
+    function c(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "updateProfilePictureDeletion",
@@ -55,7 +68,8 @@ __d(
         .waitUntilCompleted();
     }
     ((l.updateGeosuspendedCountry = s),
-      (l.updateProfilePictureDeletionAlertState = u));
+      (l.updateNewsletterAdminProfile = u),
+      (l.updateProfilePictureDeletionAlertState = c));
   },
   98,
 );

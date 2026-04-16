@@ -245,16 +245,22 @@ __d(
         }),
         (a.getNextAvailableColor = function () {
           var e = o("WAWebListUtils").getAllLabelColors(),
-            t = this.map(function (e) {
-              return e.colorIndex;
-            }).sort(function (e, t) {
-              return Number(e) - Number(t);
-            });
-          if (t.length === 0) return 0;
-          var n = t.findIndex(function (e, t) {
+            t = new Set();
+          this.forEach(function (e) {
+            e.colorIndex != null && t.add(e.colorIndex);
+          });
+          var n = Array.from(t).sort(function (e, t) {
+            return Number(e) - Number(t);
+          });
+          if (n.length === 0) return 0;
+          var r = n.findIndex(function (e, t) {
             return e !== t;
           });
-          return n >= 0 ? n : Math.floor(Math.random() * e.length);
+          return r >= 0
+            ? r
+            : n.length < e.length
+              ? n.length
+              : Math.floor(Math.random() * e.length);
         }),
         (a.getChatLabelsWithUnarchivedAssociations = function () {
           return this.filter(function (e) {

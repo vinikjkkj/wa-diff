@@ -31,6 +31,7 @@ __d(
       BUSINESS_AI: 25,
       DRAFTS: 26,
       CAMPAIGN_REPLIES: 27,
+      BUSINESS_FOLDER: 28,
     });
     i.CHAT_FILTER_TYPES = e;
   },

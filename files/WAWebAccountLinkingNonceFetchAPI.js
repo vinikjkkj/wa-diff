@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebAccountLinkingGatingUtils",
+    "WAWebBoolFunc",
     "WAWebProtobufsE2E.pb",
     "WAWebSendNonMessageDataRequest",
     "asyncToGeneratorRuntime",
@@ -65,24 +66,19 @@ __d(
                     .WAFFLE_LINKING_NONCE_FETCH,
                   {},
                 )
-                .then(
-                  function () {
-                    return !0;
-                  },
-                  function (e) {
-                    return (
-                      o("WALogger")
-                        .ERROR(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "[WAFFLE] requestNonceFromPrimary RPC failed",
-                            ])),
-                        )
-                        .catching(r("getErrorSafe")(e)),
-                      !0
-                    );
-                  },
-                )
+                .then(o("WAWebBoolFunc").returnTrue, function (e) {
+                  return (
+                    o("WALogger")
+                      .ERROR(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "[WAFFLE] requestNonceFromPrimary RPC failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e)),
+                    !0
+                  );
+                })
                 .finally(function () {
                   m = null;
                 })),

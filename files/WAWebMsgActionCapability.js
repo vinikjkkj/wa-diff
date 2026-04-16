@@ -9,6 +9,7 @@ __d(
     "WAWebAuraGating",
     "WAWebBizCoexGatingUtils",
     "WAWebBizCtwaAGMUtils",
+    "WAWebBizGatingUtils",
     "WAWebBotBaseGating",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotProfileCollection",
@@ -535,6 +536,8 @@ __d(
               a.subtype,
             )
           ? a.signupContext != null
+            ? !0
+            : o("WAWebBizGatingUtils").isCtwaAgmReportingEnabled()
           : (a.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
                 a.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE) &&
               ((a == null ? void 0 : a.nativeFlowName) ===

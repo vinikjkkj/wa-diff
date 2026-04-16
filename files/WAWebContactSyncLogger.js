@@ -1,6 +1,10 @@
 __d(
   "WAWebContactSyncLogger",
-  ["WAWebContactSyncEventWamEvent", "asyncToGeneratorRuntime"],
+  [
+    "WAWebBackendErrors",
+    "WAWebContactSyncEventWamEvent",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = {
         UNKNOWN: 0,
@@ -123,40 +127,45 @@ __d(
               });
             i.commit();
           }),
-          (t.logFailure = function (t, n, r) {
+          (t.logFailure = function (t, n, r, a) {
             var e,
-              a = Date.now(),
-              i = r ? _(r.error) : 0,
-              l = new (o(
+              i = Date.now(),
+              l = r ? _(r.error) : 0,
+              s = n === 429 && a != null ? a : n,
+              u = new (o(
                 "WAWebContactSyncEventWamEvent",
               ).ContactSyncEventWamEvent)({
                 contactSyncType: t.syncType,
                 contactSyncRequestOrigin: t.requestOrigin,
                 contactSyncSuccess: !1,
                 contactSyncNoop: !1,
-                contactSyncErrorCode: n,
+                contactSyncErrorCode: s,
                 contactSyncStartTimestamp: Math.round(t.startTimestamp / 1e3),
-                contactSyncEndTimestamp: Math.round(a / 1e3),
-                contactSyncLatency: a - t.startTimestamp,
+                contactSyncEndTimestamp: Math.round(i / 1e3),
+                contactSyncLatency: i - t.startTimestamp,
                 contactSyncRequestedCount: t.requestedCount,
                 contactSyncResponseCount:
                   (e = r == null ? void 0 : r.list.length) != null ? e : 0,
                 contactSyncRequestProtocol: t.requestProtocolBitmask,
-                contactSyncFailureProtocol: i,
+                contactSyncFailureProtocol: l,
               });
-            l.commit();
+            u.commit();
           }),
           (t.executeWithLogging = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
+              function* (e, t, n) {
                 try {
                   return yield t();
                 } catch (t) {
-                  throw (this.logFailure(e, void 0, void 0), t);
+                  var r =
+                    t instanceof o("WAWebBackendErrors").ServerStatusCodeError
+                      ? t.statusCode
+                      : void 0;
+                  throw (this.logFailure(e, r, void 0, n), t);
                 }
               },
             );
-            function t(t, n) {
+            function t(t, n, r) {
               return e.apply(this, arguments);
             }
             return t;

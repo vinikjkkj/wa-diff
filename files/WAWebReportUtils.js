@@ -108,6 +108,78 @@ __d(
             };
           }
           if (
+            e.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
+            e.ctwaContext != null
+          ) {
+            var a = {
+                interactiveMessage: {
+                  body: { text: e.body },
+                  contextInfo: {
+                    externalAdReply: {
+                      sourceId: e.ctwaContext.sourceId,
+                      sourceUrl: e.ctwaContext.sourceUrl,
+                      sourceType: e.ctwaContext.sourceType,
+                      sourceApp: e.ctwaContext.sourceApp,
+                      title: e.ctwaContext.title,
+                      body: e.ctwaContext.description,
+                      thumbnailUrl: e.ctwaContext.thumbnailUrl,
+                      mediaType: e.ctwaContext.mediaType,
+                      mediaUrl: e.ctwaContext.mediaUrl,
+                      automatedGreetingMessageShown: !0,
+                      greetingMessageBody: e.body,
+                      ctaPayload: e.ctwaContext.ctaPayload,
+                      originalImageUrl: e.ctwaContext.originalImageUrl,
+                    },
+                  },
+                  nativeFlowMessage: {
+                    buttons: e.nativeFlowName
+                      ? [
+                          {
+                            name: e.nativeFlowName,
+                            buttonParamsJson: JSON.stringify({
+                              display_text: "",
+                            }),
+                          },
+                        ]
+                      : [],
+                    messageVersion: 1,
+                  },
+                },
+              },
+              i = o("encodeProtobuf")
+                .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, a)
+                .readByteArrayView();
+            return {
+              deletedReason: null,
+              messagePayloadTypesArgs: {
+                messageWithType: {
+                  contentTypeTextOrMediaMixinGroupArgs: {
+                    isContentTypeText: !0,
+                  },
+                },
+              },
+              hsmTemplateMixin: null,
+              questionsResponseMixin: null,
+              rawArgs: {
+                rawElementValue: i,
+                rawMixinsArgs:
+                  o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION === 2
+                    ? { isRawV2: !0 }
+                    : {
+                        rawV3: {
+                          rawProtocolV: o("WAWebBackendJobsCommon")
+                            .CIPHERTEXT_VERSION,
+                        },
+                      },
+                rawLocalMessageType: o(
+                  "WAWebSpamUtils",
+                ).msgTypeToReportLocalMessageType(
+                  o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
+                ),
+              },
+            };
+          }
+          if (
             e.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT ||
             e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN
           )
@@ -124,28 +196,28 @@ __d(
               rawArgs: null,
               questionsResponseMixin: null,
             };
-          var a,
-            i = e.isViewOnce && !o("WAWebViewOnceState").isUnviewed(e.safe());
-          i &&
-            (a = o("WAWebViewOnceState").isViewed(e.safe())
+          var l,
+            s = e.isViewOnce && !o("WAWebViewOnceState").isUnviewed(e.safe());
+          s &&
+            (l = o("WAWebViewOnceState").isViewed(e.safe())
               ? "view_once_opened"
               : "view_once_expired");
-          var l = o("WAWebReportSpamJob").getSpamMessageProtobuf(
+          var c = o("WAWebReportSpamJob").getSpamMessageProtobuf(
               o("WAWebOutgoingMessage").createOutgoingMsgModelProtobuf(
                 o("WAWebOutgoingMessage").OutgoingMessageOriginType.Report,
                 e,
               ),
             ),
-            s = u(l, e),
-            c = o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(s),
-            d = i
+            d = u(c, e),
+            m = o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(d),
+            p = s
               ? null
               : o("encodeProtobuf")
-                  .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, s)
+                  .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, d)
                   .readByteArrayView(),
-            m = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(s),
-            p =
-              m === "poll"
+            _ = o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(d),
+            f =
+              _ === "poll"
                 ? {
                     messageWithPoll: {
                       metaContenttype:
@@ -155,7 +227,7 @@ __d(
                           : "text",
                     },
                   }
-                : m === "text"
+                : _ === "text"
                   ? {
                       messageWithType: {
                         contentTypeTextOrMediaMixinGroupArgs: {
@@ -170,11 +242,11 @@ __d(
                         },
                       },
                     },
-            _ =
-              d != null
+            g =
+              p != null
                 ? babelHelpers.extends(
                     {
-                      rawElementValue: d,
+                      rawElementValue: p,
                       rawMixinsArgs:
                         o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION === 2
                           ? { isRawV2: !0 }
@@ -185,7 +257,7 @@ __d(
                               },
                             },
                     },
-                    c && { rawMediatype: c },
+                    m && { rawMediatype: m },
                     {
                       rawLocalMessageType: o(
                         "WAWebSpamUtils",
@@ -193,11 +265,11 @@ __d(
                     },
                   )
                 : null,
-            f =
+            h =
               e.isFromTemplate && e.templateId != null
                 ? { hsmTid: e.templateId }
                 : null,
-            g =
+            y =
               e.type ===
                 o("WAWebMsgType").MSG_TYPE.NEWSLETTER_QUESTION_RESPONSE &&
               e.parentServerId != null &&
@@ -210,11 +282,11 @@ __d(
                   }
                 : null;
           return {
-            deletedReason: a,
-            messagePayloadTypesArgs: p,
-            hsmTemplateMixin: f,
-            rawArgs: _,
-            questionsResponseMixin: g,
+            deletedReason: l,
+            messagePayloadTypesArgs: f,
+            hsmTemplateMixin: h,
+            rawArgs: g,
+            questionsResponseMixin: y,
           };
         })),
         d.apply(this, arguments)

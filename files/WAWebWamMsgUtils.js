@@ -75,13 +75,7 @@ __d(
         case "multi_vcard":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.CONTACT_ARRAY;
         case "chat":
-          return e.matchedText != null
-            ? o("WAWebApiParse").matchCatalogUrl(e.matchedText)
-              ? o("WAWebWamEnumMediaType").MEDIA_TYPE.CATALOG_LINK
-              : o("WAWebApiParse").matchProductUrl(e.matchedText)
-                ? o("WAWebWamEnumMediaType").MEDIA_TYPE.PRODUCT_LINK
-                : o("WAWebWamEnumMediaType").MEDIA_TYPE.URL
-            : o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
+          return m(e.matchedText);
         case "sticker":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.STICKER;
         case "product":
@@ -165,6 +159,15 @@ __d(
         : o("WAWebWamEnumMediaType").MEDIA_TYPE.INTERACTIVE_NFM;
     }
     function m(e) {
+      return e == null
+        ? o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE
+        : o("WAWebApiParse").matchCatalogUrl(e)
+          ? o("WAWebWamEnumMediaType").MEDIA_TYPE.CATALOG_LINK
+          : o("WAWebApiParse").matchProductUrl(e)
+            ? o("WAWebWamEnumMediaType").MEDIA_TYPE.PRODUCT_LINK
+            : o("WAWebWamEnumMediaType").MEDIA_TYPE.URL;
+    }
+    function p(e) {
       return e instanceof r("WAWebWid")
         ? o("WAWebUserPrefsMeUser").isMeAccount(e)
           ? e.isCompanion()
@@ -181,7 +184,7 @@ __d(
             : o("WAWebWamEnumE2eDeviceType").E2E_DEVICE_TYPE.OTHER_PRIMARY
         : null;
     }
-    function p(e) {
+    function _(e) {
       if (e.id.remote.isBot())
         return o("WAWebWamEnumAgentEngagementEnumType")
           .AGENT_ENGAGEMENT_ENUM_TYPE.DIRECT_CHAT;
@@ -192,7 +195,7 @@ __d(
             .INVOKED
         : null;
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       if (e != null && e.isBot())
         return o("WAWebWamEnumBotType").BOT_TYPE.METABOT;
       if (t) {
@@ -209,7 +212,7 @@ __d(
       }
       return o("WAWebWamEnumBotType").BOT_TYPE.UNKNOWN;
     }
-    function f(e) {
+    function g(e) {
       if (e == null || e === "") return null;
       switch (e) {
         case o("WAWebHandleMsgCommon").MSG_CATEGORY.peer:
@@ -219,7 +222,7 @@ __d(
           return null;
       }
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       if (t.isGroup()) return !!n;
       if (t.isStatus()) {
         var r, o;
@@ -233,11 +236,11 @@ __d(
       (l.getMessageTypeFromMsgInfoType = s),
       (l.getWamMediaType = u),
       (l.getInteractiveWamType = c),
-      (l.getWamE2eSenderType = m),
-      (l.getWamAgentEngagementType = p),
-      (l.getWamBotType = _),
-      (l.getWamInvisibleMessageCatgoryType = f),
-      (l.msgIsLid = g));
+      (l.getWamE2eSenderType = p),
+      (l.getWamAgentEngagementType = _),
+      (l.getWamBotType = f),
+      (l.getWamInvisibleMessageCatgoryType = g),
+      (l.msgIsLid = h));
   },
   98,
 );

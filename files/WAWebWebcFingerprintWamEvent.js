@@ -26,6 +26,7 @@ __d(
               deviceMemory: [39, e.TYPES.STRING],
               extentionIds: [27, e.TYPES.STRING],
               externalSources: [36, e.TYPES.STRING],
+              foreignDbList: [54, e.TYPES.STRING],
               gpuMake: [40, e.TYPES.STRING],
               hasChrome: [28, e.TYPES.BOOLEAN],
               hasTaskbar: [29, e.TYPES.BOOLEAN],

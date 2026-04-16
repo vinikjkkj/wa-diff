@@ -679,21 +679,26 @@ __d(
       );
     }
     function Lt() {
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channels_admin_profiles_list_enabled",
+      );
+    }
+    function Et() {
       return (
         o("WAWebABProps").getABPropConfigValue("channels_t_enabled") === !0
       );
     }
-    function Et() {
+    function kt() {
       return o("WAWebABProps").getABPropConfigValue(
         "newsletter_status_receiver_enabled",
       );
     }
-    function kt() {
+    function It() {
       return o("WAWebABProps").getABPropConfigValue(
         "newsletter_status_creation_enabled",
       );
     }
-    function It() {
+    function Tt() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_pulse_on_unread_badge_enabled",
       );
@@ -820,10 +825,11 @@ __d(
       (l.isChannelDSA26SenderEnabled = vt),
       (l.isNewsletterAdminProfilesReceiverEnabled = St),
       (l.isNewsletterAdminProfilesForwardingEnabled = Rt),
-      (l.isChannelsInChatListEnabled = Lt),
-      (l.isNewsletterStatusReceiverEnabled = Et),
-      (l.isNewsletterStatusCreationEnabled = kt),
-      (l.isNewsletterTabPulseEnabled = It));
+      (l.isNewsletterAdminProfilesListEnabled = Lt),
+      (l.isChannelsInChatListEnabled = Et),
+      (l.isNewsletterStatusReceiverEnabled = kt),
+      (l.isNewsletterStatusCreationEnabled = It),
+      (l.isNewsletterTabPulseEnabled = Tt));
   },
   98,
 );

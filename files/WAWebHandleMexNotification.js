@@ -14,6 +14,7 @@ __d(
     "WAWebMexLimitSharingUpdateHandler",
     "WAWebMexNewsletterAdminInviteRevokeNotificationHandler",
     "WAWebMexNewsletterAdminNotificationHandler",
+    "WAWebMexNewsletterAdminProfileUpdateNotificationHandler",
     "WAWebMexNewsletterJoinHandler",
     "WAWebMexNewsletterLeaveHandler",
     "WAWebMexNewsletterMetadataUpdateNotificationHandler",
@@ -141,224 +142,234 @@ __d(
                     o("WAWebMexNewsletterStateChangeHandler")
                       .mexHandleNewsletterStateChange,
                   )
-                : e.OperationName ===
-                    "NotificationNewsletterAdminMetadataUpdate"
+                : e.OperationName === "NotificationNewsletterAdminProfileUpdate"
                   ? h(
                       e,
-                      o("WAWebMexNewsletterAdminNotificationHandler")
-                        .mexHandleNewsletterAdminNotification,
+                      o(
+                        "WAWebMexNewsletterAdminProfileUpdateNotificationHandler",
+                      ).mexHandleNewsletterAdminProfileUpdateNotification,
                     )
-                  : e.OperationName === "NotificationNewsletterOwnerUpdate"
+                  : e.OperationName ===
+                      "NotificationNewsletterAdminMetadataUpdate"
                     ? h(
                         e,
-                        o("WAWebMexNewsletterOwnerNotificationHandler")
-                          .mexHandleNewsletterOwnerNotification,
+                        o("WAWebMexNewsletterAdminNotificationHandler")
+                          .mexHandleNewsletterAdminNotification,
                       )
-                    : e.OperationName === "NotificationNewsletterUpdate"
+                    : e.OperationName === "NotificationNewsletterOwnerUpdate"
                       ? h(
                           e,
-                          o(
-                            "WAWebMexNewsletterMetadataUpdateNotificationHandler",
-                          ).mexHandleNewsletterMetadataUpdate,
+                          o("WAWebMexNewsletterOwnerNotificationHandler")
+                            .mexHandleNewsletterOwnerNotification,
                         )
-                      : e.OperationName ===
-                            "NotificationNewsletterAdminPromote" ||
-                          e.OperationName ===
-                            "NotificationNewsletterAdminDemote"
+                      : e.OperationName === "NotificationNewsletterUpdate"
                         ? h(
                             e,
-                            o("WAWebMexNewsletterRoleChangeNotificationHandler")
-                              .mexHandleNewsletterRoleChange,
+                            o(
+                              "WAWebMexNewsletterMetadataUpdateNotificationHandler",
+                            ).mexHandleNewsletterMetadataUpdate,
                           )
                         : e.OperationName ===
-                            "NotificationNewsletterAdminInviteRevoke"
+                              "NotificationNewsletterAdminPromote" ||
+                            e.OperationName ===
+                              "NotificationNewsletterAdminDemote"
                           ? h(
                               e,
                               o(
-                                "WAWebMexNewsletterAdminInviteRevokeNotificationHandler",
-                              ).handleNewsletterAdminInviteRevoke,
+                                "WAWebMexNewsletterRoleChangeNotificationHandler",
+                              ).mexHandleNewsletterRoleChange,
                             )
                           : e.OperationName ===
-                              "NotificationNewsletterWamoSubStatusChange"
+                              "NotificationNewsletterAdminInviteRevoke"
                             ? h(
                                 e,
                                 o(
-                                  "WAWebMexNewsletterWamoSubStatusChangeNotificationHandler",
-                                ).mexHandleNewsletterWamoSubStatusChange,
+                                  "WAWebMexNewsletterAdminInviteRevokeNotificationHandler",
+                                ).handleNewsletterAdminInviteRevoke,
                               )
                             : e.OperationName ===
-                                "NewsletterResponseStateUpdate"
+                                "NotificationNewsletterWamoSubStatusChange"
                               ? h(
                                   e,
                                   o(
-                                    "WAWebMexNewsletterQuestionResponseStateChangeNotificationHandler",
-                                  )
-                                    .mexHandleNewsletterQuestionsResponseStateChange,
+                                    "WAWebMexNewsletterWamoSubStatusChangeNotificationHandler",
+                                  ).mexHandleNewsletterWamoSubStatusChange,
                                 )
                               : e.OperationName ===
-                                  "NotificationNewsletterBlockUser"
+                                  "NewsletterResponseStateUpdate"
                                 ? h(
                                     e,
                                     o(
-                                      "WAWebMexNewsletterQuestionResponseBlockedNotificationHandler",
+                                      "WAWebMexNewsletterQuestionResponseStateChangeNotificationHandler",
                                     )
-                                      .mexHandleNewsletterQuestionsResponseBlocked,
+                                      .mexHandleNewsletterQuestionsResponseStateChange,
                                   )
                                 : e.OperationName ===
-                                    "NotificationNewsletterPaidPartnershipUpdate"
+                                    "NotificationNewsletterBlockUser"
                                   ? h(
                                       e,
                                       o(
-                                        "WAWebMexNewsletterPaidPartnershipNotificationHandler",
-                                      ).mexHandleNewsletterPaidPartnership,
+                                        "WAWebMexNewsletterQuestionResponseBlockedNotificationHandler",
+                                      )
+                                        .mexHandleNewsletterQuestionsResponseBlocked,
                                     )
                                   : e.OperationName ===
-                                      "NotificationNewsletterMilestone"
+                                      "NotificationNewsletterPaidPartnershipUpdate"
                                     ? h(
                                         e,
                                         o(
-                                          "WAWebMexNewsletterMilestoneNotificationHandler",
-                                        ).mexHandleNewsletterMilestone,
+                                          "WAWebMexNewsletterPaidPartnershipNotificationHandler",
+                                        ).mexHandleNewsletterPaidPartnership,
                                       )
                                     : e.OperationName ===
-                                        "TextStatusUpdateNotification"
+                                        "NotificationNewsletterMilestone"
                                       ? h(
                                           e,
                                           o(
-                                            "WAWebMexTextStatusUpdateNotificationHandler",
-                                          ).mexHandleTextStatusUpdate,
+                                            "WAWebMexNewsletterMilestoneNotificationHandler",
+                                          ).mexHandleNewsletterMilestone,
                                         )
                                       : e.OperationName ===
-                                          "TextStatusUpdateNotificationSideSub"
+                                          "TextStatusUpdateNotification"
                                         ? h(
                                             e,
                                             o(
                                               "WAWebMexTextStatusUpdateNotificationHandler",
-                                            ).mexHandleTextStatusUpdateSideSub,
+                                            ).mexHandleTextStatusUpdate,
                                           )
                                         : e.OperationName ===
-                                              "NotificationGroupPropertyUpdate" ||
-                                            e.OperationName ===
-                                              "NotificationGroupHiddenPropertyUpdate" ||
-                                            e.OperationName ===
-                                              "NotificationGroupSafetyCheckPropertyUpdate" ||
-                                            e.OperationName ===
-                                              "NotificationGroupMemberLinkPropertyUpdate" ||
-                                            e.OperationName ===
-                                              "NotificationGroupMemberShareGroupHistoryModePropertyUpdate"
+                                            "TextStatusUpdateNotificationSideSub"
                                           ? h(
                                               e,
                                               o(
-                                                "WAWebMexGroupPropertyUpdateNotificationHandler",
-                                              ).mexHandleGroupPropertyUpdate,
+                                                "WAWebMexTextStatusUpdateNotificationHandler",
+                                              )
+                                                .mexHandleTextStatusUpdateSideSub,
                                             )
                                           : e.OperationName ===
-                                              "NotificationCommunityOwnerUpdate"
+                                                "NotificationGroupPropertyUpdate" ||
+                                              e.OperationName ===
+                                                "NotificationGroupHiddenPropertyUpdate" ||
+                                              e.OperationName ===
+                                                "NotificationGroupSafetyCheckPropertyUpdate" ||
+                                              e.OperationName ===
+                                                "NotificationGroupMemberLinkPropertyUpdate" ||
+                                              e.OperationName ===
+                                                "NotificationGroupMemberShareGroupHistoryModePropertyUpdate"
                                             ? h(
                                                 e,
                                                 o(
-                                                  "WAWebMexCommunityOwnerUpdateNotificationHandler",
-                                                ).mexHandleCommunityOwnerUpdate,
+                                                  "WAWebMexGroupPropertyUpdateNotificationHandler",
+                                                ).mexHandleGroupPropertyUpdate,
                                               )
                                             : e.OperationName ===
-                                                "UsernameSetNotification"
+                                                "NotificationCommunityOwnerUpdate"
                                               ? h(
                                                   e,
                                                   o(
-                                                    "WAWebMexUsernameUpdateNotificationHandler",
-                                                  ).mexHandleUsernameChange,
+                                                    "WAWebMexCommunityOwnerUpdateNotificationHandler",
+                                                  )
+                                                    .mexHandleCommunityOwnerUpdate,
                                                 )
                                               : e.OperationName ===
-                                                  "UsernameDeleteNotification"
+                                                  "UsernameSetNotification"
                                                 ? h(
                                                     e,
                                                     o(
                                                       "WAWebMexUsernameUpdateNotificationHandler",
-                                                    ).mexHandleUsernameDelete,
+                                                    ).mexHandleUsernameChange,
                                                   )
                                                 : e.OperationName ===
-                                                    "UsernameUpdateNotification"
+                                                    "UsernameDeleteNotification"
                                                   ? h(
                                                       e,
                                                       o(
                                                         "WAWebMexUsernameUpdateNotificationHandler",
-                                                      )
-                                                        .mexHandleUsernameChangeForSideSub,
+                                                      ).mexHandleUsernameDelete,
                                                     )
                                                   : e.OperationName ===
-                                                      "AccountSyncUsernameNotification"
+                                                      "UsernameUpdateNotification"
                                                     ? h(
                                                         e,
                                                         o(
-                                                          "WAWebMexUsernameAccountSyncNotificationHandler",
+                                                          "WAWebMexUsernameUpdateNotificationHandler",
                                                         )
-                                                          .mexHandleUsernameAccountSync,
+                                                          .mexHandleUsernameChangeForSideSub,
                                                       )
                                                     : e.OperationName ===
-                                                        "LidChangeNotification"
+                                                        "AccountSyncUsernameNotification"
                                                       ? h(
                                                           e,
                                                           o(
-                                                            "WAWebMexLidChangeNotificationHandler",
+                                                            "WAWebMexUsernameAccountSyncNotificationHandler",
                                                           )
-                                                            .mexHandleLidChangeNotification,
+                                                            .mexHandleUsernameAccountSync,
                                                         )
                                                       : e.OperationName ===
-                                                          "NotificationUserBrigadingUpdate"
+                                                          "LidChangeNotification"
                                                         ? h(
                                                             e,
                                                             o(
-                                                              "WAWebHandleBrigadingUpdateNotification",
+                                                              "WAWebMexLidChangeNotificationHandler",
                                                             )
-                                                              .mexHandleBrigadingNotification,
+                                                              .mexHandleLidChangeNotification,
                                                           )
                                                         : e.OperationName ===
-                                                            "NotificationGroupLimitSharingPropertyUpdate"
+                                                            "NotificationUserBrigadingUpdate"
                                                           ? h(
                                                               e,
                                                               o(
-                                                                "WAWebMexLimitSharingUpdateHandler",
+                                                                "WAWebHandleBrigadingUpdateNotification",
                                                               )
-                                                                .mexHandleLimitSharingUpdate,
+                                                                .mexHandleBrigadingNotification,
                                                             )
                                                           : e.OperationName ===
-                                                              "NotificationUserReachoutTimelockUpdate"
+                                                              "NotificationGroupLimitSharingPropertyUpdate"
                                                             ? h(
                                                                 e,
                                                                 o(
-                                                                  "WAWebMexReachoutTimelockNotificationHandler",
+                                                                  "WAWebMexLimitSharingUpdateHandler",
                                                                 )
-                                                                  .mexHandleReachoutTimelockNotification,
+                                                                  .mexHandleLimitSharingUpdate,
                                                               )
                                                             : e.OperationName ===
-                                                                "NotificationIntegrityChallengeRequest"
+                                                                "NotificationUserReachoutTimelockUpdate"
                                                               ? h(
                                                                   e,
                                                                   o(
-                                                                    "WAWebMexIntegrityChallengeNotificationHandler",
+                                                                    "WAWebMexReachoutTimelockNotificationHandler",
                                                                   )
-                                                                    .mexHandleIntegrityChallengeNotification,
+                                                                    .mexHandleReachoutTimelockNotification,
                                                                 )
                                                               : e.OperationName ===
-                                                                  "MessageCappingInfoNotification"
+                                                                  "NotificationIntegrityChallengeRequest"
                                                                 ? h(
                                                                     e,
                                                                     o(
-                                                                      "WAWebNewChatMessageCappingNotificationHandler",
+                                                                      "WAWebMexIntegrityChallengeNotificationHandler",
                                                                     )
-                                                                      .mexHandleNewChatMessageCappingNotification,
+                                                                      .mexHandleIntegrityChallengeNotification,
                                                                   )
-                                                                : (
-                                                                    u ||
-                                                                    (u =
-                                                                      n(
-                                                                        "Promise",
-                                                                      ))
-                                                                  ).reject(
-                                                                    new g(
-                                                                      e.OperationName,
-                                                                    ),
-                                                                  );
+                                                                : e.OperationName ===
+                                                                    "MessageCappingInfoNotification"
+                                                                  ? h(
+                                                                      e,
+                                                                      o(
+                                                                        "WAWebNewChatMessageCappingNotificationHandler",
+                                                                      )
+                                                                        .mexHandleNewChatMessageCappingNotification,
+                                                                    )
+                                                                  : (
+                                                                      u ||
+                                                                      (u =
+                                                                        n(
+                                                                          "Promise",
+                                                                        ))
+                                                                    ).reject(
+                                                                      new g(
+                                                                        e.OperationName,
+                                                                      ),
+                                                                    );
     }
     var g = (function (e) {
       function t(n) {

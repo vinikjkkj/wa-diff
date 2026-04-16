@@ -52621,6 +52621,11 @@ __d(
         name: "TEST_NAVIGATION_SAVE_TO_COLLECTIONS_VIEW_CONTROLLER",
         sampleRate: 1e4,
       },
+      740430680: {
+        moduleName: "IG_SLATE",
+        name: "TEST_INTERACTION_DPA_SHOWCASE_PAGE",
+        sampleRate: 1e4,
+      },
       740430689: {
         moduleName: "IG_SLATE",
         name: "TEST_DWELL_COM_INSTAGRAM_PRIVACY_ACTIVITY_CENTER_ACTIVITY_CENTER_ENTRY_BUSINESS_SCREEN",
