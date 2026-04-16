@@ -26,6 +26,7 @@ __d(
         "VCard",
         "ChatHeaderMenu",
         "ChatListMenu",
+        "FMXCard",
       ]);
     function u(e) {
       switch (e) {
@@ -36,6 +37,8 @@ __d(
         case s.ChatHeaderMenu:
           return "CONTACT_INFO";
         case s.ChatListMenu:
+          return "CONTACT_LIST";
+        case s.FMXCard:
           return "CONTACT_LIST";
         case s.VCard:
           return "VCARD";
@@ -215,6 +218,9 @@ __d(
         case s.ChatListMenu:
           return o("WAWebWamEnumNativeContactsNuxEntryPoint")
             .NATIVE_CONTACTS_NUX_ENTRY_POINT.CONVERSATION_ROW;
+        case s.FMXCard:
+          return o("WAWebWamEnumNativeContactsNuxEntryPoint")
+            .NATIVE_CONTACTS_NUX_ENTRY_POINT.CHAT;
       }
     }
     function m(t) {

@@ -1,9 +1,6 @@
 __d(
   "oz-player/parsers/OzXmlParserImplDOMParser",
-  [
-    "oz-player/shims/OzXmlParserTrustedTypesHTMLPolicy",
-    "oz-player/utils/OzErrorUtils",
-  ],
+  ["oz-player/utils/OzErrorUtils"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return { $: {} };
@@ -35,46 +32,43 @@ __d(
         (n.parse = function (n) {
           try {
             var t = e(),
-              r = o(
-                "oz-player/shims/OzXmlParserTrustedTypesHTMLPolicy",
-              ).createTrustedHTMLForDOMParser(n),
-              a = this.$1.parseFromString(r, "application/xml"),
-              i = a.querySelector("parsererror");
-            if (i) {
-              var l = i.querySelector("h3"),
-                u = l ? l.nextElementSibling : null,
-                c = u ? u.innerHTML : i.innerHTML,
-                d = 2e3;
+              r = this.$1.parseFromString(n, "application/xml"),
+              a = r.querySelector("parsererror");
+            if (a) {
+              var i = a.querySelector("h3"),
+                l = i ? i.nextElementSibling : null,
+                u = l ? l.innerHTML : a.innerHTML,
+                c = 2e3;
               throw o("oz-player/utils/OzErrorUtils").createOzError({
                 type: "OZ_XML_PARSER",
                 description:
                   "DOMParser parsererror: " +
-                  String(c).trim() +
+                  String(u).trim() +
                   "; truncated xml (" +
-                  Math.min(d, n.length) +
+                  Math.min(c, n.length) +
                   "/" +
                   n.length +
                   "): " +
-                  n.substring(0, d),
+                  n.substring(0, c),
                 extra: {},
               });
             }
-            var m = a.documentElement;
-            return (m != null && (t[m.nodeName] = [s(m)]), t);
+            var d = r.documentElement;
+            return (d != null && (t[d.nodeName] = [s(d)]), t);
           } catch (e) {
             if (o("oz-player/utils/OzErrorUtils").isOzError(e)) throw e;
-            var p = 2e3;
+            var m = 2e3;
             throw o("oz-player/utils/OzErrorUtils").createOzError({
               type: "OZ_XML_PARSER",
               description:
                 "XML parse exception: " +
                 String(e) +
                 "; truncated xml (" +
-                Math.min(p, n.length) +
+                Math.min(m, n.length) +
                 "/" +
                 n.length +
                 "): " +
-                n.substring(0, p),
+                n.substring(0, m),
               extra: { originalError: e },
             });
           }

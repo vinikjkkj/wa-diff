@@ -6,6 +6,7 @@ __d(
     "WAWebBotLoggingUtils",
     "WAWebGetSharedSessionId",
     "WAWebWamEnumChatFilterActionTypes",
+    "WAWebWamEnumTsSurface",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -39,16 +40,37 @@ __d(
             var t,
               r,
               a = n.actionType,
-              i = n.entryPoint,
-              l = (t = i != null ? i : this.$1) != null ? t : void 0,
-              s = new (o("WAWebBotJourneyWamEvent").BotJourneyWamEvent)({
+              i = n.additionalCategory,
+              l = n.aiSessionId,
+              s = n.entryPoint,
+              u = n.eventTsMs,
+              c = n.uiSurface,
+              d = (t = s != null ? s : this.$1) != null ? t : void 0,
+              m =
+                d != null
+                  ? o(
+                      "WAWebBotLoggingUtils",
+                    ).getBotMetricsEntryPointFromBotEntryPoint(d)
+                  : void 0,
+              p =
+                m != null
+                  ? o(
+                      "WAWebBotLoggingUtils",
+                    ).getBotOriginFromBotMetricsEntryPoint(m)
+                  : void 0,
+              _ = new (o("WAWebBotJourneyWamEvent").BotJourneyWamEvent)({
                 appSessionId: o("WAWebGetSharedSessionId").getSharedSessionId(),
                 actionType: a,
-                botEntryPoint: l,
+                botEntryPoint: d,
+                rawBotEntryPoint: p != null ? p : void 0,
                 botPersonaId: (r = this.$4) != null ? r : void 0,
+                uiSurface: c,
+                aiSessionId: l,
+                eventTsMs: u,
+                additionalCategory: i,
               }),
-              u = o("WAWebBotLoggingUtils").getBotEntryPointTypeName(l),
-              c = o("WAWebBotLoggingUtils").getChatFilterActionTypeName(a);
+              f = o("WAWebBotLoggingUtils").getBotEntryPointTypeName(d),
+              g = o("WAWebBotLoggingUtils").getChatFilterActionTypeName(a);
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -56,10 +78,10 @@ __d(
                   " actionType=",
                   "",
                 ])),
-              u,
-              c,
+              f,
+              g,
             ),
-              s.commit());
+              _.commit());
           }),
           (n.logAiChatClick = function () {
             this.log({
@@ -86,6 +108,37 @@ __d(
               actionType: o("WAWebWamEnumChatFilterActionTypes")
                 .CHAT_FILTER_ACTION_TYPES.AI_TOS_DISMISS_CLICK,
               entryPoint: t,
+            });
+          }),
+          (n.logModeSelectionImpression = function (t) {
+            var e = t.aiSessionId,
+              n = t.uiSurface,
+              r =
+                n === void 0
+                  ? o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT_COMPOSER
+                  : n;
+            this.log({
+              actionType: o("WAWebWamEnumChatFilterActionTypes")
+                .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_IMPRESSION,
+              uiSurface: r,
+              aiSessionId: e != null ? e : void 0,
+              eventTsMs: Date.now(),
+            });
+          }),
+          (n.logModeSelectionClick = function (t) {
+            var e = t.aiSessionId,
+              n = t.uiSurface,
+              r =
+                n === void 0
+                  ? o("WAWebWamEnumTsSurface").TS_SURFACE
+                      .META_AI_MODE_SELECTION_BOTTOM_SHEET
+                  : n;
+            this.log({
+              actionType: o("WAWebWamEnumChatFilterActionTypes")
+                .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_CLICK,
+              uiSurface: r,
+              aiSessionId: e != null ? e : void 0,
+              eventTsMs: Date.now(),
             });
           }),
           t

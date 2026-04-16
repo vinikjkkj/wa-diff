@@ -2,6 +2,8 @@ __d(
   "WAWebQuickPromotionFilters",
   [
     "WAWebBizBroadcastDeviceCapabilityQuickPromotionFilter",
+    "WAWebBizBroadcastDeviceCapabilitySyncQuickPromotionFilter",
+    "WAWebBizBroadcastMarketingMessagesEligibilityQuickPromotionFilter",
     "WAWebBizBroadcastSmbaPlatformQuickPromotionFilter",
     "WAWebBizBroadcastSmbiPlatformQuickPromotionFilter",
     "WAWebProfilePhotoRemovedQuickPromotionFilter",
@@ -16,6 +18,18 @@ __d(
           .bizBroadcastDeviceCapabilityFilter.name,
         o("WAWebBizBroadcastDeviceCapabilityQuickPromotionFilter")
           .bizBroadcastDeviceCapabilityFilter,
+      ],
+      [
+        o("WAWebBizBroadcastDeviceCapabilitySyncQuickPromotionFilter")
+          .bizBroadcastDeviceCapabilitySyncFilter.name,
+        o("WAWebBizBroadcastDeviceCapabilitySyncQuickPromotionFilter")
+          .bizBroadcastDeviceCapabilitySyncFilter,
+      ],
+      [
+        o("WAWebBizBroadcastMarketingMessagesEligibilityQuickPromotionFilter")
+          .bizBroadcastMarketingMessagesEligibilityFilter.name,
+        o("WAWebBizBroadcastMarketingMessagesEligibilityQuickPromotionFilter")
+          .bizBroadcastMarketingMessagesEligibilityFilter,
       ],
       [
         o("WAWebBizBroadcastSmbaPlatformQuickPromotionFilter")

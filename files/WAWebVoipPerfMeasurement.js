@@ -1,6 +1,11 @@
 __d(
   "WAWebVoipPerfMeasurement",
-  ["$InternalEnum", "WALogger", "WAWebVoipWaCallEnums"],
+  [
+    "$InternalEnum",
+    "WALogger",
+    "WAWebVoipCallStateUtils",
+    "WAWebVoipWaCallEnums",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -78,11 +83,8 @@ __d(
       e === o("WAWebVoipWaCallEnums").CallState.Rejoining ||
       e === o("WAWebVoipWaCallEnums").CallState.Link
         ? _(t)
-        : (e === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
-            e === o("WAWebVoipWaCallEnums").CallState.None) &&
-          f(),
-        e === o("WAWebVoipWaCallEnums").CallState.CallActive &&
-          g(u.FIRST_PEER_FRAME));
+        : o("WAWebVoipCallStateUtils").isCallTerminal(e) && f(),
+        o("WAWebVoipCallStateUtils").isCallActive(e) && g(u.FIRST_PEER_FRAME));
     }
     ((l.PerfMeasurement = u),
       (l.startMeasurement = g),

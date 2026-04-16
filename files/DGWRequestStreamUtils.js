@@ -67,11 +67,7 @@ __d(
     function c(e, t) {
       var n = e.headers,
         r = e.body;
-      if (
-        (t.kill_body === !0 && (r = null),
-        t.new_body != null && (r = t.new_body),
-        t.new_headers != null)
-      )
+      if ((t.new_body != null && (r = t.new_body), t.new_headers != null))
         try {
           n = s(JSON.parse(t.new_headers));
         } catch (e) {}

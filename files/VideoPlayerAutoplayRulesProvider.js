@@ -117,8 +117,9 @@ __d(
       W = [e, m, _],
       q = [u(0.25)],
       U = [e, C, m, p, _, f, g, u(0.001)],
-      V = [C, m, p, _],
-      H = [
+      V = [C, m, p],
+      H = [C, m, p, _, f],
+      G = [
         e,
         u(c.DEFAULT_VIEWABILITY_PERCENTAGE_FOR_PAUSE),
         C,
@@ -129,17 +130,17 @@ __d(
         f,
         g,
       ],
-      G = [],
-      z = [e, m, _, f, g],
-      j = [e, s, y(b), C, m, p, _, f, g],
-      K = [e, m, u(0), p, _, f, g],
-      Q = [e, m, h, u(c.DEFAULT_VIEWABILITY_PERCENTAGE_FOR_PAUSE), p, _, f, g],
-      X = [e, m, u(0.25), p, _, f, g],
-      Y = [
+      z = [],
+      j = [e, m, _, f, g],
+      K = [e, s, y(b), C, m, p, _, f, g],
+      Q = [e, m, u(0), p, _, f, g],
+      X = [e, m, h, u(c.DEFAULT_VIEWABILITY_PERCENTAGE_FOR_PAUSE), p, _, f, g],
+      Y = [e, m, u(0.25), p, _, f, g],
+      J = [
         r("evaluateVideoAutoplayIgnoreOnBackgroundedRule"),
         r("createEvaluateVideoAutoplayIgnoreOnInvisibleRule")(0),
       ],
-      J = [
+      Z = [
         e,
         s,
         u(c.DEFAULT_VIEWABILITY_PERCENTAGE_FOR_PAUSE),
@@ -151,10 +152,11 @@ __d(
         f,
         g,
       ],
-      Z = {
+      ee = {
         always_disable: A,
         barcelona_carousel: V,
-        barcelona_feed: H,
+        barcelona_carousel_v2: H,
+        barcelona_feed: G,
         basic: v,
         bulletin: F,
         creator_studio: w,
@@ -163,39 +165,39 @@ __d(
         dolly: U,
         focused_story_view: L,
         gif: E,
-        igd_music_sticker: Y,
-        kadabra_lightbox_feed: Q,
-        kadabra_tile_feed: X,
-        kds_video: K,
+        igd_music_sticker: J,
+        kadabra_lightbox_feed: X,
+        kadabra_tile_feed: Y,
+        kds_video: Q,
         live_producer: D,
         live_studio: x,
-        music_at_post_level_experience: j,
+        music_at_post_level_experience: K,
         polaris_feed: B,
         polaris_grid: q,
         polaris_live: W,
-        polaris_notes: G,
+        polaris_notes: z,
         reels: S,
-        reels_audio: z,
+        reels_audio: j,
         stages: M,
         tournament_hero: $,
-        wa_web: J,
+        wa_web: Z,
         watch_feed: I,
         watch_live_tab: T,
         wns: P,
         work_knowledge: N,
       },
-      ee = function (t) {
-        var e = Z[t];
+      te = function (t) {
+        var e = ee[t];
         if (!e)
           throw r("FBLogger")("comet_video_player").mustfixThrow(
             "Unknown VideoPlayerAutoplayRulesType passed to VideoPlayerAutoplayRulesProvider",
           );
         return e;
       };
-    function te(e) {
+    function ne(e) {
       return e;
     }
-    ((l.provideAutoplayRules = ee), (l.makeVideoPlayerAutoplayRules = te));
+    ((l.provideAutoplayRules = te), (l.makeVideoPlayerAutoplayRules = ne));
   },
   98,
 );

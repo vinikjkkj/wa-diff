@@ -9,6 +9,7 @@ __d(
     "WAWebNoop",
     "WAWebPttAudioChannels",
     "WAWebUserPrefsMeUser",
+    "WAWebVoipCallStateUtils",
     "WAWebVoipEventConstants",
     "WAWebVoipPerfMeasurement",
     "WAWebVoipVideoStateUtils",
@@ -96,12 +97,11 @@ __d(
                   o("WAWebVoipEventConstants").VoipCallModelEvents.STATE,
                 ),
               ),
-              t === o("WAWebVoipWaCallEnums").CallState.CallActive &&
+              o("WAWebVoipCallStateUtils").isCallActive(t) &&
                 (this.wasEverConnected = !0),
               this.$Call$p_10(e),
               o("WAWebVoipPerfMeasurement").onCallStateChange(t, this.outgoing),
-              t === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
-                t === o("WAWebVoipWaCallEnums").CallState.None)
+              o("WAWebVoipCallStateUtils").isCallTerminal(t))
             ) {
               var n;
               (this.$Call$p_2.clear(),
@@ -166,18 +166,16 @@ __d(
           (a.shouldShowSelfPreview = function () {
             return this.isVideo
               ? !0
-              : this.selfVideoState ===
-                  o("WAWebVoipWaCallEnums").VideoState.Enabled;
+              : o("WAWebVoipVideoStateUtils").isVideoEnabled(
+                  this.selfVideoState,
+                );
           }),
           (a.shouldShowPeerVideo = function () {
             return this.peerVideoState == null
               ? !1
-              : this.peerVideoState ===
-                  o("WAWebVoipWaCallEnums").VideoState.Enabled ||
-                  this.peerVideoState ===
-                    o("WAWebVoipWaCallEnums").VideoState.UpgradeAccept ||
-                  this.peerVideoState ===
-                    o("WAWebVoipWaCallEnums").VideoState.Paused;
+              : o("WAWebVoipVideoStateUtils").shouldShowVideo(
+                  this.peerVideoState,
+                );
           }),
           (a.$Call$p_11 = function () {
             return (
@@ -194,10 +192,9 @@ __d(
               o("WAWebVoipWaCallEnums").CallLinkState.QueryAcked
             )
               return !0;
-            var e =
-              this.$Call$p_1 ===
-                o("WAWebVoipWaCallEnums").CallState.ConnectedLonely ||
-              this.$Call$p_1 === o("WAWebVoipWaCallEnums").CallState.CallActive;
+            var e = o("WAWebVoipCallStateUtils").isCallConnected(
+              this.$Call$p_1,
+            );
             return this.$Call$p_11() && !e;
           }),
           (a.isInCallLinkLobby = function () {
@@ -335,10 +332,7 @@ __d(
             var e = this.$Call$p_8.get(t.toString());
             return e == null
               ? !0
-              : e === o("WAWebVoipWaCallEnums").VideoState.Stopped ||
-                  e === o("WAWebVoipWaCallEnums").VideoState.Paused ||
-                  e === o("WAWebVoipWaCallEnums").VideoState.Disabled ||
-                  e === o("WAWebVoipWaCallEnums").VideoState.UnknownPeer;
+              : o("WAWebVoipVideoStateUtils").isVideoMuted(e);
           }),
           (a.getParticipantMuteState = function (t) {
             return this.$Call$p_9.get(t.toString());

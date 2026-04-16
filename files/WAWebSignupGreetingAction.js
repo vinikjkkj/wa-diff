@@ -246,7 +246,7 @@ __d(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[maybeCleanupSignupAGM] removing ",
-                    " signup AGMs from existing chat",
+                    " AGMs from existing chat",
                   ])),
                 String(d.length),
               ),

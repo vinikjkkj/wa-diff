@@ -3,8 +3,10 @@ __d(
   [
     "WALogger",
     "WAWebBaseCollection",
+    "WAWebConsumerFetchQuickPromotions",
     "WAWebFetchQuickPromotions",
     "WAWebL10N",
+    "WAWebMobilePlatforms",
     "WAWebQuickPromotionEligibilityEvaluator",
     "WAWebQuickPromotionGating",
     "WAWebQuickPromotionModel",
@@ -39,7 +41,7 @@ __d(
                 }),
               ),
               this.localeChangeListener == null &&
-                o("WAWebQuickPromotionGating").qpGraphQLEnabledSMB() &&
+                o("WAWebQuickPromotionGating").qpGraphQLEnabled() &&
                 (this.localeChangeListener = r("WAWebL10N").on(
                   "locale_change",
                   function () {
@@ -49,7 +51,11 @@ __d(
                           "QuickPromotionCollectionImpl: locale changed, refetching",
                         ])),
                     ),
-                      o("WAWebFetchQuickPromotions").fetchQuickPromotions());
+                      o("WAWebMobilePlatforms").isSMB()
+                        ? o("WAWebFetchQuickPromotions").fetchQuickPromotions()
+                        : o(
+                            "WAWebConsumerFetchQuickPromotions",
+                          ).fetchConsumerQuickPromotions());
                   },
                 )),
               o("WALogger").LOG(

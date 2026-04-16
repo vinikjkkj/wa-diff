@@ -41,9 +41,9 @@ __d(
                   ])),
               )
               .sendLogs("waffle-nonce-trace-response", { sampling: 1 }),
-              yield c.updateAccountLinkingData(l, d),
-              yield o("WAWebAccountLinkingAPI").refreshAccessToken(),
-              yield o("WAWebAccountLinkingAPI").fetchServiceData());
+              yield c.updateAccountLinkingData(l, d));
+            var m = yield o("WAWebAccountLinkingAPI").refreshAccessToken();
+            m && (yield o("WAWebAccountLinkingAPI").fetchServiceData());
           }
           (n > 0 &&
             o("WALogger").LOG(

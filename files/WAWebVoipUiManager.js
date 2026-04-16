@@ -15,10 +15,10 @@ __d(
     "WAWebPwaDocumentMetadataUtils",
     "WAWebTimeSpentLoggingExternal",
     "WAWebVoipActivityTracker",
+    "WAWebVoipCallStateUtils",
     "WAWebVoipEventConstants",
     "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipUiPopoutWindowPortalContainer.react",
-    "WAWebVoipWaCallEnums",
     "WAWebVoipWindowConstants",
     "WAWebWamEnumTsExternalEventSource",
     "fbs",
@@ -191,7 +191,7 @@ __d(
             v = !t.outgoing,
             S = t.getState();
           if (v)
-            if (S === o("WAWebVoipWaCallEnums").CallState.CallActive)
+            if (o("WAWebVoipCallStateUtils").isCallActive(S))
               (M == null || M(), (M = null), F());
             else {
               var R,
@@ -202,7 +202,7 @@ __d(
                     : null,
                 k =
                   E != null
-                    ? o("WAWebFrontendContactGetters").getFormattedShortName(E)
+                    ? o("WAWebFrontendContactGetters").getDisplayName(E)
                     : "",
                 I = (R = t.isVideo) != null ? R : !1,
                 D = I
@@ -220,8 +220,7 @@ __d(
                 )),
                 P == null || P());
               var x = function () {
-                t.getState() ===
-                  o("WAWebVoipWaCallEnums").CallState.CallActive &&
+                o("WAWebVoipCallStateUtils").isCallActive(t.getState()) &&
                   (M == null || M(),
                   (M = null),
                   F(),

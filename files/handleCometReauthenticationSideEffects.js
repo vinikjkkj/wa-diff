@@ -1,6 +1,7 @@
 __d(
   "handleCometReauthenticationSideEffects",
   [
+    "CometReauthChallengeListener",
     "FBLogger",
     "FXUtils",
     "InteractionTracing",
@@ -24,6 +25,9 @@ __d(
         "bai_permissions.update_user_permission_on_asset_flow.save",
       ]);
     function d() {
+      o("CometReauthChallengeListener").notifyReauthChallengeListeners(
+        "canceled",
+      );
       var e = r("err")(
         o("SecuredActionUtils").SECURED_ACTION_REAUTH_CANCELED_ERROR.toString(),
       );
@@ -34,6 +38,9 @@ __d(
       }
     }
     function m() {
+      o("CometReauthChallengeListener").notifyReauthChallengeListeners(
+        "success",
+      );
       for (var e of u) {
         var t = e.onSuccess;
         t();

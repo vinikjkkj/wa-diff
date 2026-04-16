@@ -14,7 +14,35 @@ __d(
             e === o("WAWebVoipWaCallEnums").VideoState.UpgradeReject ||
             e === o("WAWebVoipWaCallEnums").VideoState.UpgradeRejectByTimeout;
     }
-    l.isVideoStateInactiveForCallMode = e;
+    function s(e) {
+      return (
+        e === o("WAWebVoipWaCallEnums").VideoState.Stopped ||
+        e === o("WAWebVoipWaCallEnums").VideoState.Disabled ||
+        e === o("WAWebVoipWaCallEnums").VideoState.UnknownPeer
+      );
+    }
+    function u(e) {
+      return e === o("WAWebVoipWaCallEnums").VideoState.Paused;
+    }
+    function c(e) {
+      return s(e) || u(e);
+    }
+    function d(e) {
+      return (
+        e === o("WAWebVoipWaCallEnums").VideoState.Enabled ||
+        e === o("WAWebVoipWaCallEnums").VideoState.UpgradeAccept ||
+        e === o("WAWebVoipWaCallEnums").VideoState.Paused
+      );
+    }
+    function m(e) {
+      return e === o("WAWebVoipWaCallEnums").VideoState.Enabled;
+    }
+    ((l.isVideoStateInactiveForCallMode = e),
+      (l.isVideoInactive = s),
+      (l.isVideoPaused = u),
+      (l.isVideoMuted = c),
+      (l.shouldShowVideo = d),
+      (l.isVideoEnabled = m));
   },
   98,
 );

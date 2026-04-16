@@ -1,7 +1,6 @@
 __d(
   "WorkerBundleResource",
   [
-    "TrustedTypesWebWorkerScriptURLPolicy",
     "XCometFBMultiSiteWebWorkerInitScriptControllerRouteBuilder",
     "getWorkerInitScriptSPINParams",
     "nullthrows",
@@ -29,10 +28,7 @@ __d(
               ? void 0
               : a.toString(),
           ),
-          m = new Worker(
-            r("TrustedTypesWebWorkerScriptURLPolicy").createScriptURL(d),
-            { name: l },
-          ),
+          m = new Worker(d, { name: l }),
           p = arguments.length,
           _ = new Array(p > 2 ? p - 2 : 0),
           f = 2;

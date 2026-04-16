@@ -91,31 +91,28 @@ __d(
           return this.$5;
         }),
         (t.$7 = function (t) {
-          if (!(t.temporary != null || t.temporary == !0)) {
-            if (
-              (t.newBody != null && (this.$1.payload = t.newBody),
-              t.newExtraHeader != null &&
-                ((this.$1.extraHeader = t.newExtraHeader),
-                (this.$1.headers = JSON.parse(t.newExtraHeader))),
-              t.patchExtraHeader != null)
-            )
-              try {
-                var e = JSON.parse(t.patchExtraHeader),
-                  n =
-                    this.$1.extraHeader != null
-                      ? JSON.parse(this.$1.extraHeader)
-                      : {};
-                this.$1.headers == null && (this.$1.headers = {});
-                for (var o of Object.keys(e))
-                  ((this.$1.headers[o] = e[o]), (n[o] = e[o]));
-                this.$1.extraHeader = JSON.stringify(n);
-              } catch (e) {
-                r("BladeRunnerLogger").warn(
-                  "Failed to patch header: " + t.patchExtraHeader,
-                );
-              }
-            t.killBody != null && t.killBody == !0 && (this.$1.payload = null);
-          }
+          if (
+            (t.newBody != null && (this.$1.payload = t.newBody),
+            t.newExtraHeader != null &&
+              ((this.$1.extraHeader = t.newExtraHeader),
+              (this.$1.headers = JSON.parse(t.newExtraHeader))),
+            t.patchExtraHeader != null)
+          )
+            try {
+              var e = JSON.parse(t.patchExtraHeader),
+                n =
+                  this.$1.extraHeader != null
+                    ? JSON.parse(this.$1.extraHeader)
+                    : {};
+              this.$1.headers == null && (this.$1.headers = {});
+              for (var o of Object.keys(e))
+                ((this.$1.headers[o] = e[o]), (n[o] = e[o]));
+              this.$1.extraHeader = JSON.stringify(n);
+            } catch (e) {
+              r("BladeRunnerLogger").warn(
+                "Failed to patch header: " + t.patchExtraHeader,
+              );
+            }
         }),
         e
       );

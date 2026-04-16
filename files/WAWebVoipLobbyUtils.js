@@ -1,6 +1,12 @@
 __d(
   "WAWebVoipLobbyUtils",
-  ["fbt", "WAWebFbtIntlList", "WAWebUserPrefsMeUser", "WAWebVoipWaCallEnums"],
+  [
+    "fbt",
+    "WAWebFbtIntlList",
+    "WAWebUserPrefsMeUser",
+    "WAWebVoipCallStateUtils",
+    "WAWebVoipWaCallEnums",
+  ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e, t) {
@@ -36,7 +42,7 @@ __d(
     }
     function p(e, t) {
       e === void 0 && (e = !1);
-      var n = t === o("WAWebVoipWaCallEnums").CallState.AcceptSent;
+      var n = o("WAWebVoipCallStateUtils").isCallConnecting(t);
       return {
         positiveButton: { labelKey: "join", shouldShow: !e && !n },
         negativeButton:
@@ -51,13 +57,13 @@ __d(
       };
     }
     function _(e, t, n, r) {
-      var a = r === o("WAWebVoipWaCallEnums").CallState.AcceptSent;
+      var a = o("WAWebVoipCallStateUtils").isCallConnecting(r);
       return e || a ? t : n;
     }
     function f(e, t, n, a) {
       if (
         (t === void 0 && (t = !1),
-        a === o("WAWebVoipWaCallEnums").CallState.AcceptSent)
+        o("WAWebVoipCallStateUtils").isCallConnecting(a))
       )
         return s._(/*BTDS*/ "Connecting...");
       if (e != null) {

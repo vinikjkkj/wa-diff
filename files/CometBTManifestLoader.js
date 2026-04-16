@@ -8,12 +8,10 @@ __d(
     "ODS",
     "Promise",
     "SiteData",
-    "TrustedTypes",
     "XHRRequest",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
-    "justknobx",
     "promiseDone",
   ],
   function (t, n, r, o, a, i, l) {
@@ -80,17 +78,12 @@ __d(
           e,
         );
     }
-    var _ = r("TrustedTypes").createPolicy("bt-manifest", {
-      createScript: function (t) {
-        return t;
-      },
-    });
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             !(
               !o("SiteData").manifest_origin ||
@@ -111,9 +104,7 @@ __d(
                     a,
                     t,
                   );
-                (r("justknobx")._("3786")
-                  ? (l.text = _.createScript(s))
-                  : (l.text = s),
+                ((l.innerText = s),
                   (l.type = "application/json"),
                   l.setAttribute("name", "binary-transparency-manifest"),
                   (l.dataset.manifestRev = a),
@@ -127,13 +118,13 @@ __d(
             }
           }
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h() {
-      (r("promiseDone")(f(o("SiteData").client_revision, "main")),
+    function g() {
+      (r("promiseDone")(_(o("SiteData").client_revision, "main")),
         o("BootloaderEvents").onResourceInLongTailBTManifest(function (e) {
-          (r("promiseDone")(f(o("SiteData").client_revision, "longtail")),
+          (r("promiseDone")(_(o("SiteData").client_revision, "longtail")),
             e.hashes.forEach(function (t) {
               r("BtLongtailHashFalcoEvent").log(function () {
                 return {
@@ -150,12 +141,12 @@ __d(
         r("ClientConsistencyEventEmitter").addListener(
           "newRevision",
           function (e) {
-            (r("promiseDone")(f(e, "main")),
-              r("promiseDone")(f(e, "longtail")));
+            (r("promiseDone")(_(e, "main")),
+              r("promiseDone")(_(e, "longtail")));
           },
         ));
     }
-    l.init = h;
+    l.init = g;
   },
   98,
 );

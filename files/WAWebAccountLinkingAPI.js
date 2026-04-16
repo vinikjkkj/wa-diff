@@ -128,22 +128,21 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (x != null) {
-            (o("WALogger")
-              .LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[WAFFLE-TRACE] refreshAccessToken: skipped (dedup, already in-flight)",
-                  ])),
-              )
-              .sendLogs("waffle-nonce-trace-refresh", { sampling: 1 }),
-              yield x);
-            return;
-          }
-          ((x = N().finally(function () {
-            x = null;
-          })),
-            yield x);
+          var e = x;
+          return e != null
+            ? (o("WALogger")
+                .LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE-TRACE] refreshAccessToken: skipped (dedup, already in-flight)",
+                    ])),
+                )
+                .sendLogs("waffle-nonce-trace-refresh", { sampling: 1 }),
+              e)
+            : ((x = N().finally(function () {
+                x = null;
+              })),
+              x);
         })),
         P.apply(this, arguments)
       );
@@ -155,92 +154,89 @@ __d(
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield L.getAccountLinkingData();
-          if (e != null) {
-            var t = e.fbid,
-              n = e.nonce,
-              a = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
-              i = a.privateKey,
-              l = a.publicKey,
-              s = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(
-                l,
-                !0,
-              ),
-              u = {
-                version: 1,
-                timestamp: Date.now(),
-                nonce: n,
-                client_pub_key: s,
-                client_pub_key_type: "RSA 2048",
+          if (e == null) return !1;
+          var t = e.fbid,
+            n = e.nonce,
+            a = yield o("WAWebAccountLinkingCryptoUtils").generateRSAKeys(),
+            i = a.privateKey,
+            l = a.publicKey,
+            s = yield o("WAWebAccountLinkingCryptoUtils").cryptoKeyToPem(l, !0),
+            u = {
+              version: 1,
+              timestamp: Date.now(),
+              nonce: n,
+              client_pub_key: s,
+              client_pub_key_type: "RSA 2048",
+            },
+            c = yield o(
+              "WAWebAccountLinkingCryptoUtils",
+            ).wrapPayloadWithRSAAESEncryption(u);
+          if (t != null) {
+            var _ = yield o(
+              "WASmaxWaffleRefreshAccessTokensRPC",
+            ).sendRefreshAccessTokensRPC({
+              rSAEncryptionMetadataMixinArgs: {
+                encryptedKeyElementValue: c.encryptedKey,
+                nonceElementValue: c.nonce,
+                encryptedDataElementValue: c.cipherText,
+                authTagElementValue: c.tag,
               },
-              c = yield o(
-                "WAWebAccountLinkingCryptoUtils",
-              ).wrapPayloadWithRSAAESEncryption(u);
-            if (t != null) {
-              var _ = yield o(
-                "WASmaxWaffleRefreshAccessTokensRPC",
-              ).sendRefreshAccessTokensRPC({
-                rSAEncryptionMetadataMixinArgs: {
-                  encryptedKeyElementValue: c.encryptedKey,
-                  nonceElementValue: c.nonce,
-                  encryptedDataElementValue: c.cipherText,
-                  authTagElementValue: c.tag,
-                },
-                timestampElementValue: Date.now(),
-                fbidElementValue: t,
-              });
-              if (_.name === "RefreshAccessTokensResponseSuccess") {
-                T.reset();
-                var f = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
-                    _.value.encryptionMetadataRSAEncryptionMetadataMixin,
-                  ),
-                  g = f.data,
-                  h = f.key,
-                  y = f.nonce,
-                  C = f.tag;
-                try {
-                  var b = yield o(
-                    "WAWebAccountLinkingCryptoUtils",
-                  ).decryptRSAEncryptedPayload(i, h, g, y, C);
-                  "access_token" in b &&
-                    (yield L.updateAccesstoken(b.access_token));
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "[WAFFLE] Failed to refresh access token",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e));
-                }
-              } else {
-                var v = _.value.errorRefreshAccessTokensErrors,
-                  S = yield o(
-                    "WAWebWaffleIQErrorHandler",
-                  ).handleCommonWaffleIQError(v.name);
-                (S === "request_nonce" &&
-                  (o("WALogger")
-                    .LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "[WAFFLE-TRACE] refreshAccessToken failed with ",
-                          ", triggering handleNonceRetry",
-                        ])),
-                      v.name,
-                    )
-                    .sendLogs("waffle-nonce-trace-refresh", { sampling: 1 }),
-                  yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(T)),
-                  o("WALogger").ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WAFFLE] Refresh access token RPC failed: ",
-                        "",
+              timestampElementValue: Date.now(),
+              fbidElementValue: t,
+            });
+            if (_.name === "RefreshAccessTokensResponseSuccess") {
+              T.reset();
+              var f = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
+                  _.value.encryptionMetadataRSAEncryptionMetadataMixin,
+                ),
+                g = f.data,
+                h = f.key,
+                y = f.nonce,
+                C = f.tag;
+              try {
+                var b = yield o(
+                  "WAWebAccountLinkingCryptoUtils",
+                ).decryptRSAEncryptedPayload(i, h, g, y, C);
+                if ("access_token" in b)
+                  return (yield L.updateAccesstoken(b.access_token), !0);
+              } catch (e) {
+                o("WALogger")
+                  .ERROR(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[WAFFLE] Failed to refresh access token",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
+              }
+            } else {
+              var v = _.value.errorRefreshAccessTokensErrors,
+                S = yield o(
+                  "WAWebWaffleIQErrorHandler",
+                ).handleCommonWaffleIQError(v.name);
+              (S === "request_nonce" &&
+                (o("WALogger")
+                  .LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[WAFFLE-TRACE] refreshAccessToken failed with ",
+                        ", triggering handleNonceRetry",
                       ])),
                     v.name,
-                  ));
-              }
+                  )
+                  .sendLogs("waffle-nonce-trace-refresh", { sampling: 1 }),
+                yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(T)),
+                o("WALogger").ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE] Refresh access token RPC failed: ",
+                      "",
+                    ])),
+                  v.name,
+                ));
             }
           }
+          return !1;
         })),
         M.apply(this, arguments)
       );

@@ -708,17 +708,23 @@ __d(
                 ),
                 []
               );
-            var s = n === !0 || (o("WAWebUA").UA.isSafari && t === !0);
+            var s = n === !0 || (o("WAWebUA").UA.isSafari && t === !0),
+              u = o("WAWebUA").UA.isFirefox && e != null;
             if (!(i || s)) {
               if (!k()) {
-                var u = yield o(
-                    "WAWebMediaPermissionsUtils",
-                  ).checkMediaPermissionState("camera"),
-                  c = u.granted;
-                if (!c)
+                var c = u
+                    ? { granted: !1 }
+                    : yield o(
+                        "WAWebMediaPermissionsUtils",
+                      ).checkMediaPermissionState(
+                        "camera",
+                        e == null ? void 0 : e.navigator,
+                      ),
+                  d = c.granted;
+                if (!d)
                   try {
-                    var d = yield l.getUserMedia({ video: !0 });
-                    d.getTracks().forEach(function (e) {
+                    var m = yield l.getUserMedia({ video: !0 });
+                    m.getTracks().forEach(function (e) {
                       return e.stop();
                     });
                   } catch (e) {
@@ -726,8 +732,8 @@ __d(
                   }
               }
             }
-            var m = yield l.enumerateDevices(),
-              p = m
+            var p = yield l.enumerateDevices(),
+              _ = p
                 .filter(function (e) {
                   return e.kind === "videoinput";
                 })
@@ -744,9 +750,9 @@ __d(
                     "voip: [AV:getAvailableVideoDevices] loaded ",
                     "\n      video devices",
                   ])),
-                p.length,
+                _.length,
               ),
-              p
+              _
             );
           } catch (e) {
             return (

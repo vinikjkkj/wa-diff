@@ -1,35 +1,39 @@
 __d(
   "WAWebWaffleIQErrorHandler",
   [
+    "WAAsyncSleep",
+    "WAExponentialBackoffIterator",
     "WALogger",
     "WAWebAccountLinkingHandler",
     "WAWebAccountLinkingNonceFetchAPI",
     "asyncToGeneratorRuntime",
-    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = 3;
-    function d(e) {
-      e === void 0 && (e = c);
-      var t = 0;
+      u = 3,
+      c = 1e3,
+      d = 3e4;
+    function m(e) {
+      e === void 0 && (e = u);
+      var t = { minTimeout: c, maxTimeout: d, retries: e, jitter: 0.5 },
+        n = o("WAExponentialBackoffIterator").exponentialBackoffIterator(t);
       return {
-        canRetry: function () {
-          return t < e ? (t++, !0) : !1;
+        nextBackoffMs: function () {
+          var e = n.next();
+          return e.done ? null : e.value;
         },
         reset: function () {
-          t = 0;
+          n = o("WAExponentialBackoffIterator").exponentialBackoffIterator(t);
         },
       };
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           switch (e) {
             case "IQErrorRequestTimeout":
             case "IQErrorRateOverlimit":
@@ -53,18 +57,18 @@ __d(
               return "fail";
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!t.canRetry())
-            return (
-              o("WALogger")
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.nextBackoffMs();
+          return n == null
+            ? (o("WALogger")
                 .ERROR(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -72,38 +76,24 @@ __d(
                     ])),
                 )
                 .sendLogs("waffle-nonce-retry-limit", { sampling: 0.01 }),
-              !1
-            );
-          o("WALogger")
-            .LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAFFLE-TRACE] handleNonceRetry: attempting retry",
-                ])),
-            )
-            .sendLogs("waffle-nonce-trace-retry", { sampling: 1 });
-          try {
-            yield o(
-              "WAWebAccountLinkingNonceFetchAPI",
-            ).requestNonceFromPrimary();
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[WAFFLE] requestNonceFromPrimary failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e));
-          }
-          return !0;
+              !1)
+            : (o("WALogger")
+                .LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAFFLE-TRACE] handleNonceRetry: attempting retry",
+                    ])),
+                )
+                .sendLogs("waffle-nonce-trace-retry", { sampling: 1 }),
+              yield o("WAAsyncSleep").asyncSleep(n),
+              o("WAWebAccountLinkingNonceFetchAPI").requestNonceFromPrimary());
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.createWaffleOperationRetryState = d),
-      (l.handleCommonWaffleIQError = m),
-      (l.handleNonceRetry = _));
+    ((l.createWaffleOperationRetryState = m),
+      (l.handleCommonWaffleIQError = p),
+      (l.handleNonceRetry = f));
   },
   98,
 );

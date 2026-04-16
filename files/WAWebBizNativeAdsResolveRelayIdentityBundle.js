@@ -193,6 +193,7 @@ __d(
                     : "",
                 pageId2:
                   R.fbPageId != null && R.waPageId != null ? R.waPageId : null,
+                draftPageId: E,
               },
               $ = null;
             if (r("justknobx")._("2130")) {
@@ -207,6 +208,7 @@ __d(
                 {
                   page_id_1: x.pageId1,
                   page_id_2: x.pageId2,
+                  draft_page_id: x.draftPageId,
                   options: {},
                   first: o("WAWebBizAdCreationConsts")
                     .AD_MANAGEMENT_INITIAL_LOAD_COUNT,

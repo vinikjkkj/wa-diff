@@ -11,6 +11,7 @@ __d(
     "WAWebBroadcastDatabaseJob",
     "WAWebBroadcastMsgDataUtils",
     "WAWebBusinessBroadcastUserJourneyLogger",
+    "WAWebFileUtils",
     "WAWebMsgType",
     "WAWebPendingBusinessBroadcastAPI",
     "WAWebPendingBusinessBroadcastSerialization",
@@ -271,6 +272,7 @@ __d(
               ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
                 0,
                 "failure",
+                null,
                 "integrity_permanent_blocked",
                 "integrity_permanent_blocked",
               ),
@@ -519,6 +521,7 @@ __d(
             ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
               F.length,
               "failure",
+              N != null ? o("WAWebFileUtils").getFileExtension(N.name) : null,
               "Broadcast message send failed",
               te,
             );
@@ -558,6 +561,7 @@ __d(
               ).BusinessBroadcastUserJourneyLogger.sendBroadcastResult(
                 0,
                 "failure",
+                null,
                 String(
                   (ne =
                     (re = r("getErrorSafe")(e)) == null

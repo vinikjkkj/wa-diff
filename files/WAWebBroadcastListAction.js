@@ -103,11 +103,13 @@ __d(
                   var t = o(
                       "WAWebBizBroadcastsFileProcessor",
                     ).normalizePhoneNumber(e.phone),
-                    n = o("WAJids").toPhoneUserJid(t),
-                    r = e.lid;
-                  if (r == null) return [];
-                  var a = { lidJid: r, pnJid: n };
-                  return [a];
+                    n = e.lid;
+                  if (n == null) return [];
+                  var r = {
+                    lidJid: n,
+                    pnJid: t !== "" ? o("WAJids").toPhoneUserJid(t) : void 0,
+                  };
+                  return [r];
                 });
               try {
                 var _ =

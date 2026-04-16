@@ -23,6 +23,7 @@ __d(
         ATTACHMENT_IMAGE_PREVIEW_BUTTON: "attachment_image_preview_button",
         ATTACHMENT_IMAGE_REMOVE_BUTTON: "attachment_image_remove_button",
         ATTACHMENT_PREVIEW_SAVE_BUTTON: "attachment_preview_save_button",
+        ATTACHMENT_SECTION_ERROR_RENDER: "attachment_section_error_render",
         ATTACHMENT_SELECTION_PREVIEW: "attachment_selection_preview",
         ATTACHMENT_VIDEO_PREVIEW_BUTTON: "attachment_video_preview_button",
         ATTACHMENT_VIDEO_REMOVE_BUTTON: "attachment_video_remove_button",
@@ -63,6 +64,8 @@ __d(
         DELETE_DIALOG: "delete_dialog",
         DELETE_ERROR_CONTACT: "delete_error_contact",
         DELIVERED_TO_DRAWER: "delivered_to_drawer",
+        DOCUMENT_PREVIEW_MESSAGE_BUBBLE_ERROR_RENDER:
+          "document_preview_message_bubble_error_render",
         EDIT_ERROR_CONTACT: "edit_error_contact",
         EDIT_RECIPIENTS_BUTTON: "edit_recipients_button",
         ELIGIBILITY_GATE: "eligibility_gate",

@@ -5,26 +5,31 @@ __d(
     "use strict";
     var e = (function () {
       var e = { defaultValue: null, kind: "LocalArgument", name: "after" },
-        t = { defaultValue: null, kind: "LocalArgument", name: "first" },
-        r = { defaultValue: null, kind: "LocalArgument", name: "options" },
-        o = { defaultValue: null, kind: "LocalArgument", name: "page_id_1" },
-        a = { defaultValue: null, kind: "LocalArgument", name: "page_id_2" },
-        i = [{ kind: "Variable", name: "id", variableName: "page_id_1" }],
-        l = {
+        t = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "draft_page_id",
+        },
+        r = { defaultValue: null, kind: "LocalArgument", name: "first" },
+        o = { defaultValue: null, kind: "LocalArgument", name: "options" },
+        a = { defaultValue: null, kind: "LocalArgument", name: "page_id_1" },
+        i = { defaultValue: null, kind: "LocalArgument", name: "page_id_2" },
+        l = [{ kind: "Variable", name: "id", variableName: "page_id_1" }],
+        s = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "name",
           storageKey: null,
         },
-        s = {
+        u = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_verified",
           storageKey: null,
         },
-        u = {
+        c = {
           alias: null,
           args: null,
           concreteType: "Image",
@@ -42,10 +47,8 @@ __d(
           ],
           storageKey: null,
         },
-        c = { kind: "Variable", name: "page_id_2", variableName: "page_id_2" },
         d = [
-          { kind: "Variable", name: "page_id", variableName: "page_id_1" },
-          c,
+          { kind: "Variable", name: "page_id", variableName: "draft_page_id" },
           { kind: "Literal", name: "product", value: "BOOSTED_MESSAGE" },
         ],
         m = {
@@ -169,7 +172,7 @@ __d(
           { kind: "Variable", name: "first", variableName: "first" },
           { kind: "Variable", name: "options", variableName: "options" },
           { kind: "Variable", name: "page_id_1", variableName: "page_id_1" },
-          c,
+          { kind: "Variable", name: "page_id_2", variableName: "page_id_2" },
         ],
         E = {
           alias: null,
@@ -483,19 +486,19 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t, r, o, a],
+          argumentDefinitions: [e, t, r, o, a, i],
           kind: "Fragment",
           metadata: null,
           name: "WAWebBizAdManagementRootQuery",
           selections: [
             {
               alias: null,
-              args: i,
+              args: l,
               concreteType: "Page",
               kind: "LinkedField",
               name: "page",
               plural: !1,
-              selections: [l, s, u],
+              selections: [s, u, c],
               storageKey: null,
             },
             {
@@ -565,18 +568,18 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [o, a, r, t, e],
+          argumentDefinitions: [a, i, t, o, r, e],
           kind: "Operation",
           name: "WAWebBizAdManagementRootQuery",
           selections: [
             {
               alias: null,
-              args: i,
+              args: l,
               concreteType: "Page",
               kind: "LinkedField",
               name: "page",
               plural: !1,
-              selections: [l, s, u, m],
+              selections: [s, u, c, m],
               storageKey: null,
             },
             {

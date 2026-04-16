@@ -4,8 +4,6 @@ __d(
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebDrawerManager",
     "WAWebKeyboardTabUtils",
-    "WAWebMidDrawerEmptyState.react",
-    "WAWebNavBarTypes",
     "WAWebVoipCallsTabDrawerFlowLoadable",
     "react",
   ],
@@ -25,22 +23,10 @@ __d(
         {
           focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
           transition: "pop-drawer-fast",
+          disableRotateFocus: !0,
         },
       ),
-        t == null || t(),
-        self.setTimeout(function () {
-          o("WAWebDrawerManager").DrawerManager.openDrawerMid(
-            o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
-              ? {
-                  descriptorType: "mid_drawer_empty_state",
-                  navBarItem: o("WAWebNavBarTypes").NavBarItems.Calls,
-                }
-              : s.jsx(o("WAWebMidDrawerEmptyState.react").MidDrawerEmptyState, {
-                  type: o("WAWebNavBarTypes").NavBarItems.Calls,
-                }),
-            { transition: "none", disableRotateFocus: !0, noFocus: !0 },
-          );
-        }, 0));
+        t == null || t());
     }
     l.navigateToVoipCallsTab = u;
   },

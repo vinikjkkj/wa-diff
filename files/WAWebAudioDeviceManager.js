@@ -297,16 +297,22 @@ __d(
                   ),
                   []
                 );
-              var l = t === !0 || (o("WAWebUA").UA.isSafari && n === !0);
+              var l = t === !0 || (o("WAWebUA").UA.isSafari && n === !0),
+                s = o("WAWebUA").UA.isFirefox && e != null;
               if (!l) {
-                var s = yield o(
-                    "WAWebMediaPermissionsUtils",
-                  ).checkMediaPermissionState("microphone"),
-                  u = s.granted;
-                if (!u)
+                var u = s
+                    ? { granted: !1 }
+                    : yield o(
+                        "WAWebMediaPermissionsUtils",
+                      ).checkMediaPermissionState(
+                        "microphone",
+                        e == null ? void 0 : e.navigator,
+                      ),
+                  c = u.granted;
+                if (!c)
                   try {
-                    var c = yield i.getUserMedia({ audio: !0 });
-                    c.getTracks().forEach(function (e) {
+                    var d = yield i.getUserMedia({ audio: !0 });
+                    d.getTracks().forEach(function (e) {
                       return e.stop();
                     });
                   } catch (e) {
@@ -322,9 +328,9 @@ __d(
                       );
                   }
               }
-              var d = yield i.enumerateDevices(),
-                m = ne(
-                  d
+              var m = yield i.enumerateDevices(),
+                p = ne(
+                  m
                     .filter(function (e) {
                       return e.kind === "audioinput";
                     })
@@ -344,12 +350,12 @@ __d(
                       " devices: ",
                       "",
                     ])),
-                  m.length,
-                  m.map(function (e) {
+                  p.length,
+                  p.map(function (e) {
                     return e.label + " (" + e.deviceId.slice(0, 8) + ")";
                   }),
                 ),
-                m
+                p
               );
             } catch (e) {
               return (

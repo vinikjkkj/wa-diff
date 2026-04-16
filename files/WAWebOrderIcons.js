@@ -4,7 +4,7 @@ __d(
     "WAWebCircledPlusCustomIcon",
     "WAWebProductCatalogProductThumb.react",
     "WAWebUISpacing",
-    "WDSIconIcFormatListBulleted.react",
+    "WDSIconIcShoppingCart.react",
     "react",
     "react-compiler-runtime",
   ],
@@ -28,7 +28,7 @@ __d(
       e[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((t = {
             className:
-              "x6s0dn4 x16kknjp xyi3aci xwf5gio x1p453bz x1suzm8a xuh0odg x78zum5 xsdox4t x1useyqa",
+              "x6s0dn4 x16kknjp xyi3aci xwf5gio x1p453bz x1suzm8a x1gnnqk1 x78zum5 xn3w4p2 x187nhsf",
           }),
           (e[0] = t))
         : (t = e[0]);
@@ -38,7 +38,7 @@ __d(
           ? ((n = s.jsx(
               "div",
               babelHelpers.extends({}, t, {
-                children: s.jsx(r("WDSIconIcFormatListBulleted.react"), {
+                children: s.jsx(r("WDSIconIcShoppingCart.react"), {
                   width: 20,
                   height: 20,
                   xstyle: [
@@ -59,7 +59,7 @@ __d(
       e[0] === Symbol.for("react.memo_cache_sentinel")
         ? ((t = {
             className:
-              "x6s0dn4 x16kknjp xyi3aci xwf5gio x1p453bz x1suzm8a xuh0odg x78zum5 xsdox4t x1useyqa",
+              "x6s0dn4 x16kknjp xyi3aci xwf5gio x1p453bz x1suzm8a x1gnnqk1 x78zum5 xn3w4p2 x187nhsf",
           }),
           (e[0] = t))
         : (t = e[0]);

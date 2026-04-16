@@ -25,9 +25,7 @@ __d(
       var e = o("WAWebBotGating").getAiThreadPinMaxCount();
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          onOK: function () {
-            return o("WAWebModalManager").ModalManager.close();
-          },
+          onOK: o("WAWebModalManager").closeModalManager,
           okText: r("WAWebFbtCommon")("OK"),
           children: s._(
             /*BTDS*/ '_j{"*":"You can only pin up to {number} chats.","_1":"You can only pin up to 1 chat."}',

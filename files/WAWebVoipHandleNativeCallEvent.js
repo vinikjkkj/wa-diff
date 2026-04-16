@@ -8,6 +8,7 @@ __d(
     "WAWebCoreActionsODS",
     "WAWebVoipBatteryDiagnostics",
     "WAWebVoipBrowserMetrics",
+    "WAWebVoipCallStateUtils",
     "WAWebVoipCrashRecovery",
     "WAWebVoipErrorLogUpload",
     "WAWebVoipFocusTracker",
@@ -143,16 +144,13 @@ __d(
         (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           if (e.type === "web") {
             var i =
-              t === o("WAWebVoipWaCallEnums").CallState.None ||
-              t === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
-              t === o("WAWebVoipWaCallEnums").CallState.CallActive;
+              o("WAWebVoipCallStateUtils").isCallTerminal(t) ||
+              o("WAWebVoipCallStateUtils").isCallActive(t);
             if (i) {
               G();
               return;
             }
-            var l =
-                t === o("WAWebVoipWaCallEnums").CallState.Calling ||
-                t === o("WAWebVoipWaCallEnums").CallState.PreacceptReceived,
+            var l = o("WAWebVoipCallStateUtils").isCallOutgoing(t),
               s = a.isCaller === !0,
               u = a.isGroupCall === !0;
             if (l && s && !u) {
@@ -259,10 +257,9 @@ __d(
     function Q(e, t, a) {
       if (e.type === "web") {
         var i =
-          t === o("WAWebVoipWaCallEnums").CallState.None ||
-          t === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
-          t === o("WAWebVoipWaCallEnums").CallState.CallActive ||
-          t === o("WAWebVoipWaCallEnums").CallState.AcceptSent;
+          o("WAWebVoipCallStateUtils").isCallTerminal(t) ||
+          o("WAWebVoipCallStateUtils").isCallActive(t) ||
+          o("WAWebVoipCallStateUtils").isCallConnecting(t);
         if (i) {
           K();
           return;
@@ -767,8 +764,7 @@ __d(
             "WAWebVoipThreadPoolManagerRegistry",
           ).getVoipThreadPoolManager();
           (s == null || s.onCallStateChanged(i),
-            i !== o("WAWebVoipWaCallEnums").CallState.None &&
-              i !== o("WAWebVoipWaCallEnums").CallState.CallStateEnding &&
+            o("WAWebVoipCallStateUtils").isCallTerminal(i) ||
               (o("WAWebBackendApi").frontendFireAndForget(
                 "startAnrTracking",
                 {},
@@ -895,9 +891,7 @@ __d(
             callState: i,
             callInfo: a.call_info,
           });
-          var D =
-            i === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
-            i === o("WAWebVoipWaCallEnums").CallState.None;
+          var D = o("WAWebVoipCallStateUtils").isCallTerminal(i);
           if (
             (D &&
               a.call_info.callDuration === 0 &&

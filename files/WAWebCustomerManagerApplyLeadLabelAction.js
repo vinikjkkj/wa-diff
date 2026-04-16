@@ -17,15 +17,16 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = o("WAWebLabelCollection").LabelCollection.findFirst(
-            function (e) {
-              return (
-                e.predefinedId ===
-                o("WAWebLabelConstants").PREDEFINED_LABEL_IDS.LEAD
-              );
-            },
-          );
-          if (n == null) {
+          var n,
+            r = o("WAWebLabelCollection").LabelCollection.findFirst(
+              function (e) {
+                return (
+                  e.predefinedId ===
+                  o("WAWebLabelConstants").PREDEFINED_LABEL_IDS.LEAD
+                );
+              },
+            );
+          if (r == null) {
             o("WALogger").WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -34,10 +35,10 @@ __d(
             );
             return;
           }
-          var r = o("WAWebChatCollection").ChatCollection.get(t),
-            a =
-              r != null
-                ? r
+          var a = o("WAWebChatCollection").ChatCollection.get(t),
+            i =
+              a != null
+                ? a
                 : yield o("WAWebFindChatAction")
                     .findOrCreateLatestChat(
                       o("WAWebWidFactory").createWid(t),
@@ -61,11 +62,11 @@ __d(
                         null
                       );
                     });
-          a != null &&
-            ((a.labels || []).includes(n.id) ||
+          i != null &&
+            (((n = i.labels) != null ? n : []).includes(r.id) ||
               o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                [{ id: n.id, type: "add" }],
-                [a],
+                [{ id: r.id, type: "add" }],
+                [i],
               ));
         })),
         c.apply(this, arguments)

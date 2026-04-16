@@ -106,7 +106,7 @@ __d(
                     event: "VIEW",
                     promotion_id: n,
                     surface_nux_id: i,
-                    promotion_logging_data: a,
+                    promotion_logging_data: "",
                     client_time: r,
                   });
             } catch (e) {

@@ -1,6 +1,6 @@
 __d(
   "IntervalTrackingBoundedBuffer",
-  ["CircularBuffer", "ErrorPubSub"],
+  ["CircularBuffer", "ErrorPubSub", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -9,8 +9,10 @@ __d(
         function t(e) {
           var t = this;
           if (((this.$6 = 0), e != null)) {
-            if (e <= 0)
-              throw new Error("Size for a buffer must be greater than zero.");
+            if (e <= 0) {
+              var n = new Error("Size for a buffer must be greater than zero.");
+              throw (n.stack, n);
+            }
           } else e = s;
           ((this.$4 = e),
             (this.$1 = new (r("CircularBuffer"))(e)),
@@ -64,7 +66,7 @@ __d(
             if (a == null || t == null || i == null)
               return (
                 (e || (e = r("ErrorPubSub"))).reportError(
-                  new Error(
+                  r("err")(
                     "messed up state inside IntervalTrackingBoundedBuffer",
                   ),
                 ),

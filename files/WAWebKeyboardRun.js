@@ -47,7 +47,7 @@ __d(
     "WAWebVoipCallsTabPanelManager",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
-    "WAWebVoipWaCallEnums",
+    "WAWebVoipVideoStateUtils",
     "WAWebWamEnumMuteEntryPoint",
     "asyncToGeneratorRuntime",
     "cr:13920",
@@ -524,8 +524,9 @@ __d(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((t == null ? void 0 : t.type) === "web") {
-            var n =
-              e.selfVideoState !== o("WAWebVoipWaCallEnums").VideoState.Enabled;
+            var n = !o("WAWebVoipVideoStateUtils").isVideoEnabled(
+              e.selfVideoState,
+            );
             yield t.setCallVideoMute(!n);
           }
         })();

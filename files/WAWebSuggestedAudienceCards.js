@@ -6,8 +6,8 @@ __d(
     "WAWebBizBroadcastsAudienceStrings",
     "WDSIconIcContacts.react",
     "WDSIconIcLabel.react",
-    "WDSIconWdsIcChatFilled.react",
-    "WDSIconWdsIcUnsupportedMessageFilled.react",
+    "WDSIconWdsIcChat.react",
+    "WDSIconWdsIcUnsupportedMessage.react",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,7 +17,7 @@ __d(
         {
           description: (e = o("WAWebBizBroadcastsAudienceStrings"))
             .getActiveChatsDescription,
-          icon: r("WDSIconWdsIcChatFilled.react"),
+          icon: r("WDSIconWdsIcChat.react"),
           id: "active_chats",
           resolveExpression: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -38,7 +38,7 @@ __d(
         },
         {
           description: e.getInactiveChatsDescription,
-          icon: r("WDSIconWdsIcUnsupportedMessageFilled.react"),
+          icon: r("WDSIconWdsIcUnsupportedMessage.react"),
           id: "inactive_chats",
           resolveExpression: (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {

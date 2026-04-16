@@ -1,11 +1,6 @@
 __d(
   "createNodesFromMarkup",
-  [
-    "invariant",
-    "ExecutionEnvironment",
-    "TrustedTypesNoOpPolicy_DO_NOT_USE",
-    "getMarkupWrap",
-  ],
+  ["invariant", "ExecutionEnvironment", "getMarkupWrap"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = (e || (e = r("ExecutionEnvironment"))).canUseDOM
@@ -24,7 +19,7 @@ __d(
       if (a) {
         n.innerHTML = a[1] + e + a[2];
         for (var i = a[0]; i--; ) n = n.lastChild;
-      } else n.innerHTML = r("TrustedTypesNoOpPolicy_DO_NOT_USE").createHTML(e);
+      } else n.innerHTML = e;
       var l = n.getElementsByTagName("script");
       l.length && (t || s(0, 5002), Array.from(l).forEach(t));
       for (var c = Array.from(n.childNodes); n.lastChild; )

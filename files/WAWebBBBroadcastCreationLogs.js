@@ -96,7 +96,38 @@ __d(
           userActionTarget: n,
         }));
     }
-    function g(e, t) {
+    function g(e, t, n) {
+      var r = {};
+      (n != null && (r.errorType = n),
+        e({
+          action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
+          entryPoint: t,
+          extraAttributes: r,
+          surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+          userActionTarget:
+            o("WAWebBBLoggerTypes").UserActionTarget.ADD_ATTACHMENT_BUTTON,
+        }));
+    }
+    function h(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget
+            .ATTACHMENT_SECTION_ERROR_RENDER,
+      });
+    }
+    function y(e) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget
+            .DOCUMENT_PREVIEW_MESSAGE_BUBBLE_ERROR_RENDER,
+      });
+    }
+    function C(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -105,7 +136,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_AUDIENCE_BUTTON,
       });
     }
-    function h(e, t) {
+    function b(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -114,19 +145,20 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.ADD_CTA_BUTTON,
       });
     }
-    function y(e, t, n, r, a) {
-      var i = { contact_count: t, save_result: n };
-      (r != null && (i.errorType = r),
-        a != null && (i.campaign_sent_error_type = a),
+    function v(e, t, n, r, a, i) {
+      var l = { contact_count: t, save_result: n };
+      (a != null && (l.errorType = a),
+        i != null && (l.campaign_sent_error_type = i),
+        r != null && (l.attachmentExt = r),
         e({
           action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
-          extraAttributes: i,
+          extraAttributes: l,
           surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
           userActionTarget:
             o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
         }));
     }
-    function C(e, t) {
+    function S(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         extraAttributes: t,
@@ -135,7 +167,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_CAMPAIGN_ACK,
       });
     }
-    function b(e, t, n) {
+    function R(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -145,7 +177,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CHOOSE_AUDIENCE_BUTTON,
       });
     }
-    function v(e, t, n) {
+    function L(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: n,
@@ -154,7 +186,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.MENU,
       });
     }
-    function S(e, t, n) {
+    function E(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -163,7 +195,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.CREATE_AUDIENCE_BUTTON,
       });
     }
-    function R(e, t, n) {
+    function k(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -172,7 +204,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.IMPORT_AUDIENCE_BUTTON,
       });
     }
-    function L(e, t) {
+    function I(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -181,7 +213,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_BUTTON,
       });
     }
-    function E(e, t) {
+    function T(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -189,7 +221,7 @@ __d(
         userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.BACK_BUTTON,
       });
     }
-    function k(e, t, n, r) {
+    function D(e, t, n, r) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: r,
@@ -199,7 +231,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function I(e, t) {
+    function x(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -209,7 +241,7 @@ __d(
             .EXIT_CONFIRMATION_DISMISS_BUTTON,
       });
     }
-    function T(e, t) {
+    function $(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: t,
@@ -219,7 +251,7 @@ __d(
             .EXIT_CONFIRMATION_CONTINUE_BUTTON,
       });
     }
-    function D(e, t) {
+    function P(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -228,7 +260,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_MODAL,
       });
     }
-    function x(e, t, n) {
+    function N(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -247,21 +279,24 @@ __d(
       (l.attachmentPreviewSaveButtonClicked = p),
       (l.attachmentPreviewButtonClicked = _),
       (l.attachmentRemoveButtonClicked = f),
-      (l.addAudienceButtonClicked = g),
-      (l.addCTAButtonClicked = h),
-      (l.sendBroadcastResult = y),
-      (l.sendCampaignAck = C),
-      (l.createBroadcastChooseAudienceClicked = b),
-      (l.createBroadcastAudienceMenuViewed = v),
-      (l.createAudienceButtonClicked = S),
-      (l.importAudienceButtonClicked = R),
-      (l.createBroadcastAudienceMenuExistingAudiencesClicked = L),
-      (l.createBroadcastBackClicked = E),
-      (l.createBroadcastSendClicked = k),
-      (l.createBroadcastExitConfirmationDismissed = I),
-      (l.createBroadcastExitConfirmationConfirmed = T),
-      (l.existingAudiencesModalViewed = D),
-      (l.existingAudiencesModalSaved = x));
+      (l.attachmentUpload = g),
+      (l.attachmentSectionErrorRender = h),
+      (l.documentPreviewMessageBubbleErrorRender = y),
+      (l.addAudienceButtonClicked = C),
+      (l.addCTAButtonClicked = b),
+      (l.sendBroadcastResult = v),
+      (l.sendCampaignAck = S),
+      (l.createBroadcastChooseAudienceClicked = R),
+      (l.createBroadcastAudienceMenuViewed = L),
+      (l.createAudienceButtonClicked = E),
+      (l.importAudienceButtonClicked = k),
+      (l.createBroadcastAudienceMenuExistingAudiencesClicked = I),
+      (l.createBroadcastBackClicked = T),
+      (l.createBroadcastSendClicked = D),
+      (l.createBroadcastExitConfirmationDismissed = x),
+      (l.createBroadcastExitConfirmationConfirmed = $),
+      (l.existingAudiencesModalViewed = P),
+      (l.existingAudiencesModalSaved = N));
   },
   98,
 );

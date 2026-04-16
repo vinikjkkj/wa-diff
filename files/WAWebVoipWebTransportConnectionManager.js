@@ -35,19 +35,18 @@ __d(
     function T(e) {
       var t = e.authToken,
         n = e.clusterDomain,
-        o = e.port,
-        a = e.token;
+        o = e.token;
       if (n == null || !n.endsWith(".whatsapp.com"))
         throw r("err")(
           "Invalid clusterDomain for WebTransport connection: " +
             (n != null ? n : "null"),
         );
-      var i = "https://" + n + ":" + o + "/webtransport",
-        l = new URLSearchParams();
+      var a = "https://" + n + "/webtransport",
+        i = new URLSearchParams();
       return (
-        l.set("token", a),
-        t != null && l.set("auth", t),
-        i + "?" + l.toString()
+        i.set("token", o),
+        t != null && i.set("auth", t),
+        a + "?" + i.toString()
       );
     }
     function D(e, t) {

@@ -1,6 +1,6 @@
 __d(
   "getMarkupWrap",
-  ["invariant", "ExecutionEnvironment", "TrustedTypesLinkTagHTMLPolicy"],
+  ["invariant", "ExecutionEnvironment"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = (e || (e = r("ExecutionEnvironment"))).canUseDOM
@@ -58,9 +58,7 @@ __d(
         Object.prototype.hasOwnProperty.call(f, t) || (t = "*"),
         Object.prototype.hasOwnProperty.call(c, t) ||
           (t === "*"
-            ? (u.innerHTML = r("TrustedTypesLinkTagHTMLPolicy").createHTML(
-                "<link />",
-              ))
+            ? (u.innerHTML = "<link />")
             : (u.innerHTML = "<" + t + "></" + t + ">"),
           (c[t] = !u.firstChild)),
         c[t] ? f[t] : null

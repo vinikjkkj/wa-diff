@@ -4,7 +4,9 @@ __d(
     "WATaskScheduler",
     "WAWebBackendApi",
     "WAWebCTWAConstants",
+    "WAWebConsumerFetchQuickPromotions",
     "WAWebFetchQuickPromotions",
+    "WAWebMobilePlatforms",
     "WAWebQuickPromotionGating",
     "WAWebSchemaQuickPromotions",
     "WAWebTasksTaskType",
@@ -33,11 +35,11 @@ __d(
                               e.data.qpConfigPriority - t.data.qpConfigPriority
                             );
                           }),
-                          o("WAWebQuickPromotionGating").qpGraphQLEnabledSMB())
+                          o("WAWebQuickPromotionGating").qpGraphQLEnabled())
                         ) {
                           var r = o(
                               "WAWebQuickPromotionGating",
-                            ).qpSurfaceIdsUsingGraphQLSMB(),
+                            ).qpSurfaceIdsUsingGraphQL(),
                             a = n.filter(function (e) {
                               if (e == null) return !1;
                               var n = o(
@@ -49,14 +51,17 @@ __d(
                             });
                           if (a.length > 0) {
                             if (e === "app-launch") {
-                              o("WAWebFetchQuickPromotions")
-                                .fetchQuickPromotions()
-                                .then(function () {
-                                  o("WATaskScheduler").rescheduleNow(
-                                    o("WAWebTasksTaskType").TaskType
-                                      .FETCH_QUICK_PROMOTIONS,
-                                  );
-                                });
+                              var i = o("WAWebMobilePlatforms").isSMB()
+                                ? o("WAWebFetchQuickPromotions")
+                                    .fetchQuickPromotions
+                                : o("WAWebConsumerFetchQuickPromotions")
+                                    .fetchConsumerQuickPromotions;
+                              i().then(function () {
+                                o("WATaskScheduler").rescheduleNow(
+                                  o("WAWebTasksTaskType").TaskType
+                                    .FETCH_QUICK_PROMOTIONS,
+                                );
+                              });
                               return;
                             }
                             if (e === "fetch-success") return;

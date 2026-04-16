@@ -7,7 +7,6 @@ __d(
     "EventListener",
     "FBLogger",
     "SubscriptionsHandler",
-    "TrustedTypesWebWorkerScriptURLPolicy",
     "URI",
     "WebWorkerConfig",
     "XCometFBMultiSiteWebWorkerInitScriptControllerRouteBuilder",
@@ -446,10 +445,7 @@ __d(
     ((m.states = ["constructed", "preparing", "executing", "terminated"]),
       (m.evalWorkerURL = r("WebWorkerConfig").evalWorkerURL));
     function p(e, n) {
-      return new t.Worker(
-        r("TrustedTypesWebWorkerScriptURLPolicy").createScriptURL(e),
-        n != null ? { name: n } : {},
-      );
+      return new t.Worker(e, n != null ? { name: n } : {});
     }
     var _ = r("memoize")(function () {
         var e, t;

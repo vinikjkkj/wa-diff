@@ -24,8 +24,9 @@ __d(
                   (r("replaceTransportMarkers")({ relativeTo: l }, e),
                   i === -42)
                 ) {
-                  var d = a != null && typeof a == "object" && a.__throw8367__;
-                  throw new Error(n + ": " + (typeof d == "string" ? d : ""));
+                  var d = a != null && typeof a == "object" && a.__throw8367__,
+                    m = new Error(n + ": " + (typeof d == "string" ? d : ""));
+                  throw (m.stack, m);
                 }
                 c.exports = e.data;
               },

@@ -70,9 +70,9 @@ __d(
         for (var l of e) r.has(l) || i.push(l);
         return { removedItems: i, addedItems: o };
       },
-      f = function (t, n) {
+      f = function (t, n, r) {
         var e = s._(/*BTDS*/ "Delete this list?"),
-          r = s._(
+          a = s._(
             /*BTDS*/ "Deleting a list removes it from all contacts and chats. Are you sure you want to delete this list?",
           );
         o("WAWebModalManager").ModalManager.open(
@@ -81,14 +81,18 @@ __d(
             title: e,
             okButtonType: "solid-warning",
             onOK: function () {
-              o("WAWebListsActions").deleteListAction(
-                t,
-                o("WAWebModalManager").closeModalManager,
-                n,
-              );
+              o("WAWebListsActions")
+                .deleteListAction(
+                  t,
+                  o("WAWebModalManager").closeModalManager,
+                  n,
+                )
+                .then(function () {
+                  r == null || r();
+                });
             },
             onCancel: o("WAWebModalManager").closeModalManager,
-            children: r,
+            children: a,
           }),
         );
       };

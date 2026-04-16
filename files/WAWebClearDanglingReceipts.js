@@ -5,7 +5,6 @@ __d(
     "WAAbortError",
     "WALogger",
     "WATimeUtils",
-    "WAWebABProps",
     "WAWebCommsSendPing",
     "WAWebNetworkStatus",
     "WAWebOfflineResumePreAckHandler",
@@ -138,10 +137,7 @@ __d(
               ])),
           );
           var e = yield o("WAWebCommsSendPing").blockSendPing();
-          (e ||
-            !o("WAWebABProps").getABPropConfigValue(
-              "web_offline_resume_wait_for_ping_response_enabled",
-            )) &&
+          e &&
             (o("WALogger").LOG(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([

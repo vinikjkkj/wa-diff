@@ -94,14 +94,6 @@ __d(
         n.writeBinary(o);
       }
       (n.writeFieldEnd(),
-        t.is_query != null &&
-          (n.writeFieldBegin({
-            fname: "is_query",
-            ftype: (e || (e = r("ThriftTypes"))).BOOL,
-            fid: 3,
-          }),
-          n.writeBool(t.is_query),
-          n.writeFieldEnd()),
         t.instrumentation_data != null &&
           (n.writeFieldBegin({
             fname: "instrumentation_data",
@@ -377,11 +369,6 @@ __d(
           case 2:
             a === (e || (e = r("ThriftTypes"))).STRING
               ? (n.amendment = t.readBinary())
-              : t.skip(a);
-            break;
-          case 3:
-            a === (e || (e = r("ThriftTypes"))).BOOL
-              ? (n.is_query = t.readBool())
               : t.skip(a);
             break;
           case 4:

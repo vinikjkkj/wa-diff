@@ -228,8 +228,9 @@ __d(
       (D.isFbtInstance = T),
       (D.cachedResults = p),
       (D._getCachedFbt = void 0));
-    var x = D;
-    i.exports = x;
+    var x = D,
+      $ = x;
+    l.default = $;
   },
-  34,
+  98,
 );

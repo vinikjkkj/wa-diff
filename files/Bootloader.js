@@ -26,8 +26,6 @@ __d(
     "ServerJsRuntimeEnvironment",
     "SiteData",
     "TimeSlice",
-    "TrustedTypesBootloaderDataURIScriptURLPolicy",
-    "TrustedTypesMetaURIScriptURLPolicy",
     "__debug",
     "clearTimeout",
     "cr:696703",
@@ -265,13 +263,8 @@ __d(
       var a = r("nullthrows")(o),
         i = document.createElement("script");
       (t.d
-        ? ((i.src = r(
-            "TrustedTypesBootloaderDataURIScriptURLPolicy",
-          ).createScriptURL(t.src)),
-          (i.nonce = r("BootloaderConfig").nonce))
-        : (i.src = r("TrustedTypesMetaURIScriptURLPolicy").createScriptURL(
-            t.src,
-          )),
+        ? ((i.src = t.src), (i.nonce = r("BootloaderConfig").nonce))
+        : (i.src = t.src),
         (i.async = !0),
         r("BootloaderConfig").enableRetryOnStuckResource &&
           i.setAttribute("fetchPriority", "high"),

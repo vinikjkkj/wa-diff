@@ -247,6 +247,20 @@ __d(
               a,
             );
           }),
+          (t.attachmentUpload = function (t, n) {
+            o("WAWebBBBroadcastCreationLogs").attachmentUpload(this.$1, t, n);
+          }),
+          (t.attachmentSectionErrorRender = function (t) {
+            o("WAWebBBBroadcastCreationLogs").attachmentSectionErrorRender(
+              this.$1,
+              t,
+            );
+          }),
+          (t.documentPreviewMessageBubbleErrorRender = function () {
+            o(
+              "WAWebBBBroadcastCreationLogs",
+            ).documentPreviewMessageBubbleErrorRender(this.$1);
+          }),
           (t.addAudienceButtonClicked = function (t) {
             o("WAWebBBBroadcastCreationLogs").addAudienceButtonClicked(
               this.$1,
@@ -259,13 +273,14 @@ __d(
           (t.createBroadcastViewed = function (t) {
             o("WAWebBBBroadcastCreationLogs").createBroadcastViewed(this.$1, t);
           }),
-          (t.sendBroadcastResult = function (t, n, r, a) {
+          (t.sendBroadcastResult = function (t, n, r, a, i) {
             o("WAWebBBBroadcastCreationLogs").sendBroadcastResult(
               this.$1,
               t,
               n,
               r,
               a,
+              i,
             );
           }),
           (t.sendCampaignAck = function (t) {

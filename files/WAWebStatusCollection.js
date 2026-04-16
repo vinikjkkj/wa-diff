@@ -327,7 +327,6 @@ __d(
           }),
           (i.getValidStatus = function () {
             return this.filter(function (e) {
-              var t;
               if (
                 e.isSyntheticFromMetadata === !0 ||
                 e.totalCount <= 0 ||
@@ -338,35 +337,36 @@ __d(
               if (o("WAWebFrontendContactGetters").getIsMyContact(e.contact))
                 return !0;
               if (o("WAWebContactGetters").getIsPSA(e.contact)) return !1;
-              var n = o("WAWebChatCollection").ChatCollection.get(e.contact.id);
+              var t = o("WAWebChatCollection").ChatCollection.get(e.contact.id);
               if (
-                (n == null ? void 0 : n.archive) === !0 ||
-                (n == null ? void 0 : n.isLocked) === !0
+                (t == null ? void 0 : t.archive) === !0 ||
+                (t == null ? void 0 : t.isLocked) === !0
               )
                 return !1;
               if (o("WAWebContactGetters").getIsGroup(e.contact)) {
-                var a,
-                  i =
+                var n,
+                  a =
                     r("WAWebGroupMetadataCollection") == null
                       ? void 0
                       : r("WAWebGroupMetadataCollection").get(e.contact.id);
-                if ((i == null ? void 0 : i.suspended) === !0) return !1;
+                if ((a == null ? void 0 : a.suspended) === !0) return !1;
                 if (
-                  (i == null || (a = i.participants) == null
+                  (a == null || (n = a.participants) == null
                     ? void 0
-                    : a.iAmMember()) === !0
+                    : n.iAmMember()) === !0
                 )
                   return !0;
               }
-              return !!(
-                o("WAWebChatGetters").getIsNewsletter(e.contact) &&
-                (r("WAWebNewsletterMetadataCollection") == null ||
-                (t = r("WAWebNewsletterMetadataCollection").get(
-                  e.contact.id,
-                )) == null
-                  ? void 0
-                  : t.isSubscribedOrOwned) === !0
-              );
+              if (o("WAWebChatGetters").getIsNewsletter(e.contact)) {
+                var i =
+                  r("WAWebNewsletterMetadataCollection") == null
+                    ? void 0
+                    : r("WAWebNewsletterMetadataCollection").get(e.contact.id);
+                if ((i == null ? void 0 : i.suspended) === !0) return !1;
+                if ((i == null ? void 0 : i.isSubscribedOrOwned) === !0)
+                  return !0;
+              }
+              return !1;
             });
           }),
           (i.getUnexpired = function (t) {

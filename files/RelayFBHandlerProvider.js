@@ -28,9 +28,10 @@ __d(
         case "prependNode":
           return o("relay-runtime").MutationHandlers.PrependNodeHandler;
       }
-      throw new Error(
+      var t = new Error(
         "RelayFBHandlerProvider: No handler defined for `" + e + "`.",
       );
+      throw (t.stack, t);
     }
     l.default = e;
   },

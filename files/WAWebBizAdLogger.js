@@ -93,23 +93,26 @@ __d(
           };
         },
         buildValidationNoticeImpressionEvent: function (t) {
-          var e = t.loggerContext;
+          var e,
+            n = t.loggerContext;
           return {
             event: "render_warning_message",
-            codebase: e == null ? void 0 : e.codebase,
-            product: e.product,
-            platform: e.platform,
-            entry_point: e.entryPoint,
-            flow: e == null ? void 0 : e.flow,
-            flow_id: e.flowID,
-            page_id: o("WAWebBizAdLoggerUtils").toInt64(e.pageID),
+            codebase: n == null ? void 0 : n.codebase,
+            product: n.product,
+            platform: n.platform,
+            entry_point: n.entryPoint,
+            flow: n == null ? void 0 : n.flow,
+            flow_id: n.flowID,
+            page_id: o("WAWebBizAdLoggerUtils").toInt64(n.pageID),
             ad_account_id: o("WAWebBizAdLoggerUtils").toInt64(t.adAccountID),
-            extra_data: o("WAWebBizAdLoggerUtils").convertExtraData({
-              message_type: t.messageType,
-              notice_name: t.noticeName,
-              spec_element: t.specElement,
-            }),
-            wa_ad_account_type: e == null ? void 0 : e.waAdAccountType,
+            extra_data: o("WAWebBizAdLoggerUtils").convertExtraData(
+              babelHelpers.extends({}, (e = t.extra) != null ? e : {}, {
+                message_type: t.messageType,
+                notice_name: t.noticeName,
+                spec_element: t.specElement,
+              }),
+            ),
+            wa_ad_account_type: n == null ? void 0 : n.waAdAccountType,
           };
         },
       },

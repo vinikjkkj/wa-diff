@@ -35,6 +35,7 @@ __d(
     "WAWebVoipActionWriteCallLogOfferNotice",
     "WAWebVoipActivityTracker",
     "WAWebVoipAnrTracker",
+    "WAWebVoipCallStateUtils",
     "WAWebVoipCameraPrewarm",
     "WAWebVoipEventConstants",
     "WAWebVoipGatingUtils",
@@ -391,8 +392,7 @@ __d(
             (r("WAWebEnvironment").isWindows ||
               o("WAWebVoipUiManager").setupVoipActiveCallChangeListener(),
             r("WAWebCallCollection").activeCall == null &&
-              (a === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
-                a === o("WAWebVoipWaCallEnums").CallState.None))
+              o("WAWebVoipCallStateUtils").isCallTerminal(a))
           ) {
             o("WALogger").LOG(
               h ||
@@ -540,12 +540,10 @@ __d(
               (S = r("WAWebCallCollection").activeCall) == null ||
                 S.setState(a),
               r("WAWebCallCollection").setIsInConnectedCall(
-                a === o("WAWebVoipWaCallEnums").CallState.CallActive ||
-                  a === o("WAWebVoipWaCallEnums").CallState.ConnectedLonely,
+                o("WAWebVoipCallStateUtils").isCallConnected(a),
               ));
           }
-          ((a === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
-            a === o("WAWebVoipWaCallEnums").CallState.None) &&
+          (o("WAWebVoipCallStateUtils").isCallTerminal(a) &&
             g &&
             (r("WAWebCallCollection").setActiveCall(null),
             r("WAWebCallCollection").setIsInConnectedCall(!1)),
@@ -638,14 +636,16 @@ __d(
       },
       voipAcquireMediaStream: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = null,
-            n = o(
-              "WAWebVoipUiPopoutWindowPortalContainer.react",
-            ).getPopoutWindow(),
-            r = n != null && !document.hasFocus();
-          o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari
-            ? r && (t = n)
-            : e.type !== "microphone" && r && (t = n);
+          var t = e.targetWindow;
+          if (t == null) {
+            var n = o(
+                "WAWebVoipUiPopoutWindowPortalContainer.react",
+              ).getPopoutWindow(),
+              r = n != null && !document.hasFocus();
+            o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari
+              ? r && (t = n)
+              : e.type !== "microphone" && r && (t = n);
+          }
           var a = yield o("WAWebVoipAcquireMediaStream").acquireVoipMediaStream(
             babelHelpers.extends({}, e, { targetWindow: t }),
           );

@@ -36,6 +36,7 @@ __d(
         {
           page_id_1: e.adManagementQueryVariables.pageId1,
           page_id_2: e.adManagementQueryVariables.pageId2,
+          draft_page_id: e.adManagementQueryVariables.draftPageId,
           options: {},
           first: o("WAWebBizAdCreationConsts").AD_MANAGEMENT_INITIAL_LOAD_COUNT,
           after: null,

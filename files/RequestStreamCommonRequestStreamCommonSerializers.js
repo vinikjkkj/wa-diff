@@ -8,25 +8,22 @@ __d(
       return {};
     }
     function u() {
-      return { expected_existing_headers: "", patch_headers_if_match: "" };
-    }
-    function c() {
       return { bytes: Uint8Array.of() };
     }
-    function d() {
+    function c() {
       return { message: "" };
     }
-    function m() {
+    function d() {
       return {
         reason: o(
           "RequestStreamCommonRequestStreamCommonTypes",
         ).TerminationReason.cast(0),
       };
     }
-    function p() {
+    function m() {
       return {};
     }
-    function _() {
+    function p() {
       return {
         stream_id: "0",
         last_sequencer: 0,
@@ -36,16 +33,16 @@ __d(
         ).FlowStatus.cast(0),
       };
     }
+    function _() {
+      return { ping_id: "0", caller_timestamp_ms: "0" };
+    }
     function f() {
-      return { caller_timestamp_ms: "0" };
+      return { ping_id: "0", original_ping_timestamp_ms: "0" };
     }
     function g() {
-      return { original_ping_timestamp_ms: "0" };
-    }
-    function h() {
       return {};
     }
-    function y(t, n) {
+    function h(t, n) {
       (n.writeStructBegin("ResponseRewriteRequest"),
         t.new_headers != null &&
           (n.writeFieldBegin({
@@ -71,75 +68,10 @@ __d(
           }),
           n.writeString(t.patch_headers),
           n.writeFieldEnd()),
-        t.kill_body != null &&
-          (n.writeFieldBegin({
-            fname: "kill_body",
-            ftype: (e || (e = r("ThriftTypes"))).BOOL,
-            fid: 4,
-          }),
-          n.writeBool(t.kill_body),
-          n.writeFieldEnd()),
-        t.temporary != null &&
-          (n.writeFieldBegin({
-            fname: "temporary",
-            ftype: (e || (e = r("ThriftTypes"))).BOOL,
-            fid: 5,
-          }),
-          n.writeBool(t.temporary),
-          n.writeFieldEnd()),
-        t.conditional_patch_headers != null &&
-          (n.writeFieldBegin({
-            fname: "conditional_patch_headers",
-            ftype: (e || (e = r("ThriftTypes"))).STRUCT,
-            fid: 6,
-          }),
-          C(t.conditional_patch_headers, n),
-          n.writeFieldEnd()),
         n.writeFieldStop(),
         n.writeStructEnd());
     }
-    function C(t, n) {
-      if (
-        (n.writeStructBegin("ResponseRewriteConditionalPatchHeaders"),
-        n.writeFieldBegin({
-          fname: "expected_existing_headers",
-          ftype: (e || (e = r("ThriftTypes"))).STRING,
-          fid: 1,
-        }),
-        t.expected_existing_headers != null)
-      )
-        n.writeString(t.expected_existing_headers);
-      else {
-        var o = "";
-        n.writeString(o);
-      }
-      if (
-        (n.writeFieldEnd(),
-        n.writeFieldBegin({
-          fname: "patch_headers_if_match",
-          ftype: e.STRING,
-          fid: 2,
-        }),
-        t.patch_headers_if_match != null)
-      )
-        n.writeString(t.patch_headers_if_match);
-      else {
-        var a = "";
-        n.writeString(a);
-      }
-      (n.writeFieldEnd(),
-        t.patch_headers_otherwise != null &&
-          (n.writeFieldBegin({
-            fname: "patch_headers_otherwise",
-            ftype: (e || (e = r("ThriftTypes"))).STRING,
-            fid: 3,
-          }),
-          n.writeString(t.patch_headers_otherwise),
-          n.writeFieldEnd()),
-        n.writeFieldStop(),
-        n.writeStructEnd());
-    }
-    function b(t, n) {
+    function y(t, n) {
       if (
         (n.writeStructBegin("ResponseData"),
         n.writeFieldBegin({
@@ -166,7 +98,7 @@ __d(
         n.writeFieldStop(),
         n.writeStructEnd());
     }
-    function v(t, n) {
+    function C(t, n) {
       if (
         (n.writeStructBegin("LogMessage"),
         n.writeFieldBegin({
@@ -183,7 +115,7 @@ __d(
       }
       (n.writeFieldEnd(), n.writeFieldStop(), n.writeStructEnd());
     }
-    function S(t, n) {
+    function b(t, n) {
       if (
         (n.writeStructBegin("Termination"),
         n.writeFieldBegin({
@@ -221,7 +153,7 @@ __d(
         n.writeFieldStop(),
         n.writeStructEnd());
     }
-    function R(t, n) {
+    function v(t, n) {
       (n.writeStructBegin("AmendStreamAck"),
         t.amendment_id != null &&
           (n.writeFieldBegin({
@@ -250,7 +182,7 @@ __d(
         n.writeFieldStop(),
         n.writeStructEnd());
     }
-    function L(t, n) {
+    function S(t, n) {
       if (
         (n.writeStructBegin("StreamCheck"),
         n.writeFieldBegin({
@@ -300,105 +232,69 @@ __d(
       }
       (n.writeFieldEnd(), n.writeFieldStop(), n.writeStructEnd());
     }
-    function E(t, n) {
+    function R(t, n) {
       if (
         (n.writeStructBegin("Ping"),
         n.writeFieldBegin({
-          fname: "caller_timestamp_ms",
+          fname: "ping_id",
           ftype: (e || (e = r("ThriftTypes"))).I64,
           fid: 1,
+        }),
+        t.ping_id != null)
+      )
+        n.writeI64(BigInt(t.ping_id));
+      else {
+        var o = "0";
+        n.writeI64(BigInt(o));
+      }
+      if (
+        (n.writeFieldEnd(),
+        n.writeFieldBegin({
+          fname: "caller_timestamp_ms",
+          ftype: e.I64,
+          fid: 2,
         }),
         t.caller_timestamp_ms != null)
       )
-        n.writeI64(r("jsbi").BigInt(t.caller_timestamp_ms));
+        n.writeI64(BigInt(t.caller_timestamp_ms));
       else {
-        var o = "0";
-        n.writeI64(r("jsbi").BigInt(o));
+        var a = "0";
+        n.writeI64(BigInt(a));
       }
-      if ((n.writeFieldEnd(), t.streams_to_check != null)) {
-        (n.writeFieldBegin({
-          fname: "streams_to_check",
-          ftype: (e || (e = r("ThriftTypes"))).LIST,
-          fid: 2,
-        }),
-          n.writeListBegin({
-            etype: e.STRUCT,
-            size: t.streams_to_check.length,
-          }));
-        for (var a of t.streams_to_check) L(a, n);
-        (n.writeListEnd(), n.writeFieldEnd());
-      }
-      (n.writeFieldStop(), n.writeStructEnd());
+      (n.writeFieldEnd(), n.writeFieldStop(), n.writeStructEnd());
     }
-    function k(t, n) {
+    function L(t, n) {
       if (
         (n.writeStructBegin("Pong"),
         n.writeFieldBegin({
-          fname: "original_ping_timestamp_ms",
+          fname: "ping_id",
           ftype: (e || (e = r("ThriftTypes"))).I64,
           fid: 1,
         }),
-        t.original_ping_timestamp_ms != null)
+        t.ping_id != null)
       )
-        n.writeI64(r("jsbi").BigInt(t.original_ping_timestamp_ms));
+        n.writeI64(BigInt(t.ping_id));
       else {
         var o = "0";
-        n.writeI64(r("jsbi").BigInt(o));
+        n.writeI64(BigInt(o));
       }
-      if ((n.writeFieldEnd(), t.stream_ids_missing != null)) {
-        (n.writeFieldBegin({
-          fname: "stream_ids_missing",
-          ftype: (e || (e = r("ThriftTypes"))).LIST,
+      if (
+        (n.writeFieldEnd(),
+        n.writeFieldBegin({
+          fname: "original_ping_timestamp_ms",
+          ftype: e.I64,
           fid: 2,
         }),
-          n.writeListBegin({
-            etype: e.I64,
-            size: t.stream_ids_missing.length,
-          }));
-        for (var a of t.stream_ids_missing) n.writeI64(r("jsbi").BigInt(a));
-        (n.writeListEnd(), n.writeFieldEnd());
+        t.original_ping_timestamp_ms != null)
+      )
+        n.writeI64(BigInt(t.original_ping_timestamp_ms));
+      else {
+        var a = "0";
+        n.writeI64(BigInt(a));
       }
-      if (t.stream_ids_behind != null) {
-        (n.writeFieldBegin({
-          fname: "stream_ids_behind",
-          ftype: (e || (e = r("ThriftTypes"))).LIST,
-          fid: 3,
-        }),
-          n.writeListBegin({ etype: e.I64, size: t.stream_ids_behind.length }));
-        for (var i of t.stream_ids_behind) n.writeI64(r("jsbi").BigInt(i));
-        (n.writeListEnd(), n.writeFieldEnd());
-      }
-      if (t.stream_ids_with_lost_amendments != null) {
-        (n.writeFieldBegin({
-          fname: "stream_ids_with_lost_amendments",
-          ftype: (e || (e = r("ThriftTypes"))).LIST,
-          fid: 4,
-        }),
-          n.writeListBegin({
-            etype: e.I64,
-            size: t.stream_ids_with_lost_amendments.length,
-          }));
-        for (var l of t.stream_ids_with_lost_amendments)
-          n.writeI64(r("jsbi").BigInt(l));
-        (n.writeListEnd(), n.writeFieldEnd());
-      }
-      if (t.stream_ids_with_wrong_status != null) {
-        (n.writeFieldBegin({
-          fname: "stream_ids_with_wrong_status",
-          ftype: (e || (e = r("ThriftTypes"))).LIST,
-          fid: 5,
-        }),
-          n.writeListBegin({
-            etype: e.I64,
-            size: t.stream_ids_with_wrong_status.length,
-          }));
-        for (var s of t.stream_ids_with_wrong_status)
-          n.writeI64(r("jsbi").BigInt(s));
-        (n.writeListEnd(), n.writeFieldEnd());
-      }
-      (n.writeFieldStop(), n.writeStructEnd());
+      (n.writeFieldEnd(), n.writeFieldStop(), n.writeStructEnd());
     }
-    function I(t, n) {
+    function E(t, n) {
       if ((n.writeStructBegin("StreamResponseDelta"), t.flow_status != null)) {
         var o;
         (n.writeFieldBegin({
@@ -418,7 +314,7 @@ __d(
           ftype: (e || (e = r("ThriftTypes"))).STRUCT,
           fid: 2,
         }),
-          v(t.log, n),
+          C(t.log, n),
           n.writeFieldEnd(),
           n.writeFieldStop(),
           n.writeStructEnd());
@@ -430,7 +326,7 @@ __d(
           ftype: (e || (e = r("ThriftTypes"))).STRUCT,
           fid: 3,
         }),
-          y(t.rewrite, n),
+          h(t.rewrite, n),
           n.writeFieldEnd(),
           n.writeFieldStop(),
           n.writeStructEnd());
@@ -442,7 +338,7 @@ __d(
           ftype: (e || (e = r("ThriftTypes"))).STRUCT,
           fid: 4,
         }),
-          b(t.data, n),
+          y(t.data, n),
           n.writeFieldEnd(),
           n.writeFieldStop(),
           n.writeStructEnd());
@@ -454,7 +350,7 @@ __d(
           ftype: (e || (e = r("ThriftTypes"))).STRUCT,
           fid: 5,
         }),
-          S(t.termination, n),
+          b(t.termination, n),
           n.writeFieldEnd(),
           n.writeFieldStop(),
           n.writeStructEnd());
@@ -466,7 +362,7 @@ __d(
           ftype: (e || (e = r("ThriftTypes"))).STRUCT,
           fid: 6,
         }),
-          R(t.amend_ack, n),
+          v(t.amend_ack, n),
           n.writeFieldEnd(),
           n.writeFieldStop(),
           n.writeStructEnd());
@@ -474,7 +370,7 @@ __d(
       }
       (n.writeFieldStop(), n.writeStructEnd());
     }
-    function T(t) {
+    function k(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var o = t.readFieldBegin(),
@@ -497,21 +393,6 @@ __d(
               ? (n.patch_headers = t.readString())
               : t.skip(a);
             break;
-          case 4:
-            a === (e || (e = r("ThriftTypes"))).BOOL
-              ? (n.kill_body = t.readBool())
-              : t.skip(a);
-            break;
-          case 5:
-            a === (e || (e = r("ThriftTypes"))).BOOL
-              ? (n.temporary = t.readBool())
-              : t.skip(a);
-            break;
-          case 6:
-            a === (e || (e = r("ThriftTypes"))).STRUCT
-              ? (n.conditional_patch_headers = D(t))
-              : t.skip(a);
-            break;
           default:
             t.skip(a);
         }
@@ -519,43 +400,7 @@ __d(
       }
       return (t.readStructEnd(), n);
     }
-    function D(t) {
-      var n = {};
-      for (t.readStructBegin(); ; ) {
-        var o = t.readFieldBegin(),
-          a = o.ftype,
-          i = o.fid;
-        if (a === (e || (e = r("ThriftTypes"))).STOP) break;
-        switch (i) {
-          case 1:
-            a === (e || (e = r("ThriftTypes"))).STRING
-              ? (n.expected_existing_headers = t.readString())
-              : t.skip(a);
-            break;
-          case 2:
-            a === (e || (e = r("ThriftTypes"))).STRING
-              ? (n.patch_headers_if_match = t.readString())
-              : t.skip(a);
-            break;
-          case 3:
-            a === (e || (e = r("ThriftTypes"))).STRING
-              ? (n.patch_headers_otherwise = t.readString())
-              : t.skip(a);
-            break;
-          default:
-            t.skip(a);
-        }
-        t.readFieldEnd();
-      }
-      return (
-        t.readStructEnd(),
-        n.expected_existing_headers === void 0 &&
-          (n.expected_existing_headers = ""),
-        n.patch_headers_if_match === void 0 && (n.patch_headers_if_match = ""),
-        n
-      );
-    }
-    function x(t) {
+    function I(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var o = t.readFieldBegin(),
@@ -584,7 +429,7 @@ __d(
         n
       );
     }
-    function $(t) {
+    function T(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var o = t.readFieldBegin(),
@@ -604,7 +449,7 @@ __d(
       }
       return (t.readStructEnd(), n.message === void 0 && (n.message = ""), n);
     }
-    function P(t) {
+    function D(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var a = t.readFieldBegin(),
@@ -643,7 +488,7 @@ __d(
         n
       );
     }
-    function N(t) {
+    function x(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var o = t.readFieldBegin(),
@@ -673,7 +518,7 @@ __d(
       }
       return (t.readStructEnd(), n);
     }
-    function M(t) {
+    function $(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var a = t.readFieldBegin(),
@@ -720,7 +565,7 @@ __d(
         n
       );
     }
-    function w(t) {
+    function P(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var o = t.readFieldBegin(),
@@ -729,19 +574,15 @@ __d(
         if (a === (e || (e = r("ThriftTypes"))).STOP) break;
         switch (i) {
           case 1:
+            a === (e || (e = r("ThriftTypes"))).I64
+              ? (n.ping_id = t.readI64().toString())
+              : t.skip(a);
+            break;
+          case 2:
             a === (e || (e = r("ThriftTypes"))).I64
               ? (n.caller_timestamp_ms = t.readI64().toString())
               : t.skip(a);
             break;
-          case 2:
-            if (a === (e || (e = r("ThriftTypes"))).LIST) {
-              n.streams_to_check = [];
-              for (var l = t.readListBegin(), s = 0; s < l.size; s++) {
-                var u = M(t);
-                n.streams_to_check.push(u);
-              }
-            } else t.skip(a);
-            break;
           default:
             t.skip(a);
         }
@@ -749,11 +590,12 @@ __d(
       }
       return (
         t.readStructEnd(),
+        n.ping_id === void 0 && (n.ping_id = "0"),
         n.caller_timestamp_ms === void 0 && (n.caller_timestamp_ms = "0"),
         n
       );
     }
-    function A(t) {
+    function N(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var o = t.readFieldBegin(),
@@ -763,44 +605,13 @@ __d(
         switch (i) {
           case 1:
             a === (e || (e = r("ThriftTypes"))).I64
-              ? (n.original_ping_timestamp_ms = t.readI64().toString())
+              ? (n.ping_id = t.readI64().toString())
               : t.skip(a);
             break;
           case 2:
-            if (a === (e || (e = r("ThriftTypes"))).LIST) {
-              n.stream_ids_missing = [];
-              for (var l = t.readListBegin(), s = 0; s < l.size; s++) {
-                var u = t.readI64().toString();
-                n.stream_ids_missing.push(u);
-              }
-            } else t.skip(a);
-            break;
-          case 3:
-            if (a === (e || (e = r("ThriftTypes"))).LIST) {
-              n.stream_ids_behind = [];
-              for (var c = t.readListBegin(), d = 0; d < c.size; d++) {
-                var m = t.readI64().toString();
-                n.stream_ids_behind.push(m);
-              }
-            } else t.skip(a);
-            break;
-          case 4:
-            if (a === (e || (e = r("ThriftTypes"))).LIST) {
-              n.stream_ids_with_lost_amendments = [];
-              for (var p = t.readListBegin(), _ = 0; _ < p.size; _++) {
-                var f = t.readI64().toString();
-                n.stream_ids_with_lost_amendments.push(f);
-              }
-            } else t.skip(a);
-            break;
-          case 5:
-            if (a === (e || (e = r("ThriftTypes"))).LIST) {
-              n.stream_ids_with_wrong_status = [];
-              for (var g = t.readListBegin(), h = 0; h < g.size; h++) {
-                var y = t.readI64().toString();
-                n.stream_ids_with_wrong_status.push(y);
-              }
-            } else t.skip(a);
+            a === (e || (e = r("ThriftTypes"))).I64
+              ? (n.original_ping_timestamp_ms = t.readI64().toString())
+              : t.skip(a);
             break;
           default:
             t.skip(a);
@@ -809,12 +620,13 @@ __d(
       }
       return (
         t.readStructEnd(),
+        n.ping_id === void 0 && (n.ping_id = "0"),
         n.original_ping_timestamp_ms === void 0 &&
           (n.original_ping_timestamp_ms = "0"),
         n
       );
     }
-    function F(t) {
+    function M(t) {
       var n,
         a = {};
       for (t.readStructBegin(); ; ) {
@@ -839,7 +651,7 @@ __d(
             break;
           case 2:
             if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null) ((a.log = $(t)), (n = "log"));
+              if (n == null) ((a.log = T(t)), (n = "log"));
               else
                 throw new Error(
                   "more than one field have been deserialized in union type: StreamResponseDelta; current field: log, previous deserialized field: " +
@@ -849,7 +661,7 @@ __d(
             break;
           case 3:
             if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null) ((a.rewrite = T(t)), (n = "rewrite"));
+              if (n == null) ((a.rewrite = k(t)), (n = "rewrite"));
               else
                 throw new Error(
                   "more than one field have been deserialized in union type: StreamResponseDelta; current field: rewrite, previous deserialized field: " +
@@ -859,7 +671,7 @@ __d(
             break;
           case 4:
             if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null) ((a.data = x(t)), (n = "data"));
+              if (n == null) ((a.data = I(t)), (n = "data"));
               else
                 throw new Error(
                   "more than one field have been deserialized in union type: StreamResponseDelta; current field: data, previous deserialized field: " +
@@ -869,7 +681,7 @@ __d(
             break;
           case 5:
             if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null) ((a.termination = P(t)), (n = "termination"));
+              if (n == null) ((a.termination = D(t)), (n = "termination"));
               else
                 throw new Error(
                   "more than one field have been deserialized in union type: StreamResponseDelta; current field: termination, previous deserialized field: " +
@@ -879,7 +691,7 @@ __d(
             break;
           case 6:
             if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null) ((a.amend_ack = N(t)), (n = "amend_ack"));
+              if (n == null) ((a.amend_ack = x(t)), (n = "amend_ack"));
               else
                 throw new Error(
                   "more than one field have been deserialized in union type: StreamResponseDelta; current field: amend_ack, previous deserialized field: " +
@@ -895,35 +707,32 @@ __d(
       return (t.readStructEnd(), a);
     }
     ((l.ResponseRewriteRequest$DefaultConstructor = s),
-      (l.ResponseRewriteConditionalPatchHeaders$DefaultConstructor = u),
-      (l.ResponseData$DefaultConstructor = c),
-      (l.LogMessage$DefaultConstructor = d),
-      (l.Termination$DefaultConstructor = m),
-      (l.AmendStreamAck$DefaultConstructor = p),
-      (l.StreamCheck$DefaultConstructor = _),
-      (l.Ping$DefaultConstructor = f),
-      (l.Pong$DefaultConstructor = g),
-      (l.StreamResponseDelta$DefaultConstructor = h),
-      (l.serializeResponseRewriteRequest = y),
-      (l.serializeResponseRewriteConditionalPatchHeaders = C),
-      (l.serializeResponseData = b),
-      (l.serializeLogMessage = v),
-      (l.serializeTermination = S),
-      (l.serializeAmendStreamAck = R),
-      (l.serializeStreamCheck = L),
-      (l.serializePing = E),
-      (l.serializePong = k),
-      (l.serializeStreamResponseDelta = I),
-      (l.deserializeResponseRewriteRequest = T),
-      (l.deserializeResponseRewriteConditionalPatchHeaders = D),
-      (l.deserializeResponseData = x),
-      (l.deserializeLogMessage = $),
-      (l.deserializeTermination = P),
-      (l.deserializeAmendStreamAck = N),
-      (l.deserializeStreamCheck = M),
-      (l.deserializePing = w),
-      (l.deserializePong = A),
-      (l.deserializeStreamResponseDelta = F));
+      (l.ResponseData$DefaultConstructor = u),
+      (l.LogMessage$DefaultConstructor = c),
+      (l.Termination$DefaultConstructor = d),
+      (l.AmendStreamAck$DefaultConstructor = m),
+      (l.StreamCheck$DefaultConstructor = p),
+      (l.Ping$DefaultConstructor = _),
+      (l.Pong$DefaultConstructor = f),
+      (l.StreamResponseDelta$DefaultConstructor = g),
+      (l.serializeResponseRewriteRequest = h),
+      (l.serializeResponseData = y),
+      (l.serializeLogMessage = C),
+      (l.serializeTermination = b),
+      (l.serializeAmendStreamAck = v),
+      (l.serializeStreamCheck = S),
+      (l.serializePing = R),
+      (l.serializePong = L),
+      (l.serializeStreamResponseDelta = E),
+      (l.deserializeResponseRewriteRequest = k),
+      (l.deserializeResponseData = I),
+      (l.deserializeLogMessage = T),
+      (l.deserializeTermination = D),
+      (l.deserializeAmendStreamAck = x),
+      (l.deserializeStreamCheck = $),
+      (l.deserializePing = P),
+      (l.deserializePong = N),
+      (l.deserializeStreamResponseDelta = M));
   },
   98,
 );

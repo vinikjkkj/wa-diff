@@ -7,7 +7,6 @@ __d(
     "FBLogger",
     "FbtResultBase",
     "HTML",
-    "TrustedTypesIEFixDOMPolicy",
     "UserAgent_DEPRECATED",
     "createArrayFromMixed",
     "err",
@@ -144,9 +143,11 @@ __d(
               "fieldset",
             ]))
         ) {
-          var i = a ? '<em style="display:none;">&nbsp;</em>' : "";
+          var i = a
+            ? '<em style="display:none;">&nbsp;</em>' + e.toString()
+            : e.toString();
           return (
-            (t.innerHTML = r("TrustedTypesIEFixDOMPolicy").createHTML(i + e)),
+            (t.innerHTML = i),
             a && t.removeChild(t.firstChild),
             Array.from(t.childNodes)
           );
