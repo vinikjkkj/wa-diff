@@ -382,6 +382,11 @@ __d(
         t.statusAudienceMetadata != null &&
           o("WAWebStatusGatingUtils").isStatusCloseFriendsViewerSideEnabled() &&
           (e.statusAudienceMetadata = t.statusAudienceMetadata));
+      var g = t.featureEligibilities;
+      ((g == null ? void 0 : g.cannotBeRanked) != null &&
+        (e.cannotBeRanked = g.cannotBeRanked),
+        (g == null ? void 0 : g.canBeReshared) != null &&
+          (e.canBeReshared = g.canBeReshared));
     }
     function v(e, t, n) {
       var r = o("WAWebDecodeJid").decodeJid(t.destinationJid);

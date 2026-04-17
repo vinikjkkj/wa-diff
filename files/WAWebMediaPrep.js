@@ -614,6 +614,7 @@ __d(
               questionReplyQuotedMessage: s.questionReplyQuotedMessage,
               interactiveAnnotations: s.interactiveAnnotations,
               threadIds: s.threadId != null ? [s.threadId] : void 0,
+              statusAttributions: s.statusAttributions,
             },
             E,
           );

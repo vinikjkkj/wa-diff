@@ -141,8 +141,8 @@ __d(
             return {
               fbPageId: null,
               waPageId: null,
-              fbHasCreatedAd: !1,
-              waaHasCreatedAd: !1,
+              fbPageHasCreatedAd: !1,
+              waAdsIdentityPageHasCreatedAd: !1,
             };
           var r = n.accounts.find(function (e) {
               return e.type === "whatsapp";
@@ -153,9 +153,9 @@ __d(
           return {
             fbPageId: o == null ? void 0 : o.id,
             waPageId: r == null ? void 0 : r.id,
-            fbHasCreatedAd:
+            fbPageHasCreatedAd:
               (e = o == null ? void 0 : o.hasCreatedAd) != null ? e : !1,
-            waaHasCreatedAd:
+            waAdsIdentityPageHasCreatedAd:
               (t = r == null ? void 0 : r.hasCreatedAd) != null ? t : !1,
           };
         })),

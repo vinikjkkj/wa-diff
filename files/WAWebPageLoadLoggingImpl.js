@@ -19,6 +19,7 @@ __d(
     "WAWebWamPageLoadReporter",
     "WAWebWamUtils",
     "WAWebWebcPageLoad2WamEvent",
+    "gkx",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,6 +40,9 @@ __d(
         ? !1
         : (p != null ||
             ((p = o("WAWebQplFlowWrapper").QPL.markerStart(m, {
+              annotations: {
+                bool: { wa_web_media_wasm_worker_split: r("gkx")("24042") },
+              },
               timestamp: 0,
             })),
             h == null &&

@@ -6,8 +6,10 @@ __d(
     "Promise",
     "WAWebBizAdCreationResolveStoredIdentity",
     "WAWebBizAdsErrorPopup.react",
+    "WAWebBizNativeAdsFlowTypes",
     "WAWebBizNativeAdsLoadingDrawer.react",
     "WAWebBizNativeAdsResolveRelayIdentityBundle",
+    "WAWebBizNativeAdsScenarioRouter",
     "WAWebLazyLoadedRetriable",
     "WAWebLinkedAccountsJob",
     "WAWebLoadable",
@@ -55,8 +57,8 @@ __d(
       ).resolveStoredAccountType();
       return t === "FB" || !e ? "FB" : "WAA";
     }
-    function f(t, a) {
-      var i = r("WAWebLazyLoadedRetriable")(
+    function f(t, a, i) {
+      var l = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var i = r("justknobx")._("5491"),
             l = i ? o("WAWebLinkedAccountsJob").queryLinkedPagesInfo() : null,
@@ -81,40 +83,78 @@ __d(
               e
             );
           }
-          (h == null &&
+          h == null &&
             g === "FB" &&
             f &&
             (h = yield o(
               "WAWebBizNativeAdsResolveRelayIdentityBundle",
-            ).resolveBizNativeAdsRelayIdentityBundle("WAA", t, l)),
-            a == null || a());
-          var y = function (n) {
+            ).resolveBizNativeAdsRelayIdentityBundle("WAA", t, l));
+          var y = null;
+          if (r("justknobx")._("4613")) {
+            var C,
+              b,
+              v,
+              S,
+              R =
+                (C = (b = h) == null ? void 0 : b.linkedPagesInfo) != null
+                  ? C
+                  : l != null
+                    ? yield l
+                    : null;
+            y = o("WAWebBizNativeAdsScenarioRouter").resolveNativeAdsScenario({
+              isWAAEligible: f,
+              fbPageHasCreatedAd:
+                (v = R == null ? void 0 : R.fbPageHasCreatedAd) != null
+                  ? v
+                  : !1,
+              waAdsIdentityPageHasCreatedAd:
+                (S = R == null ? void 0 : R.waAdsIdentityPageHasCreatedAd) !=
+                null
+                  ? S
+                  : !1,
+              hasValidFBAccessToken:
+                o(
+                  "WAWebBizAdCreationResolveStoredIdentity",
+                ).resolveStoredIdentityForAccountType("FB") != null,
+            });
+          }
+          var L =
+            y === "FIRST_TIME_WAA_ELIGIBLE"
+              ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdCreation
+              : o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
+                  .AdManagement;
+          a == null || a();
+          var E = function (n) {
             return u.jsx(
               p,
               babelHelpers.extends(
                 {
                   identityBundle: h,
-                  isWAAEligible: f,
                   initialAdCreationFlowID: t,
+                  initialStep: L,
+                  isWAAEligible: f,
+                  scenario: y,
                 },
                 n,
               ),
             );
           };
-          return y;
+          return E;
         }),
         "BizNativeAdsFlow",
       );
       return r("WAWebLoadable")({
-        loader: i,
+        loader: l,
         loading: function (t) {
           return t.error
             ? u.jsx(r("WAWebBizAdsErrorPopup.react"), {
-                fallback: u.jsx(r("WAWebBizNativeAdsLoadingDrawer.react"), {}),
+                fallback: u.jsx(r("WAWebBizNativeAdsLoadingDrawer.react"), {
+                  step: i,
+                }),
               })
             : a != null
               ? u.jsx(u.Fragment, {})
-              : u.jsx(r("WAWebBizNativeAdsLoadingDrawer.react"), {});
+              : u.jsx(r("WAWebBizNativeAdsLoadingDrawer.react"), { step: i });
         },
       });
     }

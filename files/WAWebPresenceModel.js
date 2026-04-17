@@ -2,6 +2,7 @@ __d(
   "WAWebPresenceModel",
   [
     "fbt",
+    "WAArraysShallowEqual",
     "WALogger",
     "WAWebBaseCollection",
     "WAWebBaseModel",
@@ -114,49 +115,54 @@ __d(
                   r("lodash").debounce(function () {
                     var t,
                       n = !1,
-                      r = [],
-                      a = [];
+                      a = [],
+                      i = [];
                     e.chatstates.forEach(function (e) {
                       ((e.type === "typing" || e.type === "recording_audio") &&
                         (e.type === "typing"
-                          ? r.push({ id: e.id, updateTime: e.updateTime })
-                          : a.push({ id: e.id, updateTime: e.updateTime }),
+                          ? a.push({ id: e.id, updateTime: e.updateTime })
+                          : i.push({ id: e.id, updateTime: e.updateTime }),
                         (!t || t.updateTime < e.updateTime) && (t = e)),
                         (n = n || e.type === "available"));
                     });
-                    var i = r
+                    var l = a
                         .sort(function (e, t) {
                           return e.updateTime - t.updateTime;
                         })
                         .map(function (e) {
                           return e.id;
                         }),
-                      l = a
+                      s = i
                         .sort(function (e, t) {
                           return e.updateTime - t.updateTime;
                         })
                         .map(function (e) {
                           return e.id;
-                        });
-                    (e.set({
-                      isOnline: n,
-                      typingUserIds: o(
+                        }),
+                      u = o(
                         "WAWebGroupGatingUtils",
                       ).isGroupTypingIndicatorEnabled()
                         ? o("WAWebPresenceOrder").preserveUserOrder(
                             e.typingUserIds,
-                            i,
+                            l,
                           )
-                        : i,
-                      recordingUserIds: o(
+                        : l,
+                      c = o(
                         "WAWebGroupGatingUtils",
                       ).isGroupTypingIndicatorEnabled()
                         ? o("WAWebPresenceOrder").preserveUserOrder(
                             e.recordingUserIds,
-                            l,
+                            s,
                           )
-                        : l,
-                    }),
+                        : s,
+                      d = !r("WAArraysShallowEqual")(u, e.typingUserIds),
+                      m = !r("WAArraysShallowEqual")(c, e.recordingUserIds);
+                    ((d || m || e.isOnline !== n) &&
+                      e.set({
+                        isOnline: n,
+                        typingUserIds: u,
+                        recordingUserIds: c,
+                      }),
                       e.chatstate.set({
                         id: t ? t.id : "",
                         type: t ? t.type : "unavailable",

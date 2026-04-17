@@ -29,7 +29,9 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:11804",
     "cr:7565",
+    "getErrorSafe",
     "react",
+    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebModelValues",
     "useWAWebMsgValues",
@@ -84,55 +86,72 @@ __d(
     function B(e) {
       e && (e.stopPropagation(), e.preventDefault());
     }
-    function W(t) {
-      var n = w(null),
+    function W(e) {
+      var t = o("react-compiler-runtime").c(8),
+        n = w(null),
         r = n[0],
         a = n[1],
-        i = o("useWAWebModelValues").useOptionalModelValues(t.mediaData, [
-          "mediaStage",
-          "filehash",
-        ]),
-        l = N(
-          function () {
-            i == null ||
-              i.filehash == null ||
-              i.mediaStage !== o("WAWebMediaTypes").MediaDataStage.INIT ||
+        i;
+      t[0] === Symbol.for("react.memo_cache_sentinel")
+        ? ((i = ["mediaStage", "filehash"]), (t[0] = i))
+        : (i = t[0]);
+      var l = o("useWAWebModelValues").useOptionalModelValues(e.mediaData, i),
+        s;
+      t[1] !== l
+        ? ((s = function () {
+            l == null ||
+              l.filehash == null ||
+              l.mediaStage !== o("WAWebMediaTypes").MediaDataStage.INIT ||
               o("WAWebMediaStore")
-                .LruMediaStore.has(i.filehash)
+                .LruMediaStore.has(l.filehash)
                 .then(function (e) {
                   return a(e);
                 })
-                .catch(function (t) {
-                  o("WALogger").ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[useIsFileInCacheState] Failed to get file from cache: ",
-                        "",
-                      ])),
-                    t,
-                  );
-                });
-          },
-          [i, a],
-        );
-      return (
+                .catch(q);
+          }),
+          (t[1] = l),
+          (t[2] = s))
+        : (s = t[2]);
+      var u = s,
+        c;
+      (t[3] !== u
+        ? ((c = function () {
+            u();
+          }),
+          (t[3] = u),
+          (t[4] = c))
+        : (c = t[4]),
         o("useWAWebListener").useListener(
-          t.mediaData,
+          e.mediaData,
           "change:filehash change:mediaStage",
-          function () {
-            l();
-          },
-        ),
-        M(
-          function () {
-            l();
-          },
-          [l],
-        ),
+          c,
+        ));
+      var d, m;
+      return (
+        t[5] !== u
+          ? ((d = function () {
+              u();
+            }),
+            (m = [u]),
+            (t[5] = u),
+            (t[6] = d),
+            (t[7] = m))
+          : ((d = t[6]), (m = t[7])),
+        M(d, m),
         r
       );
     }
-    function q(e) {
+    function q(t) {
+      o("WALogger")
+        .ERROR(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[useIsFileInCacheState] Failed to get file from cache",
+            ])),
+        )
+        .catching(r("getErrorSafe")(t));
+    }
+    function U(e) {
       var t = w(null),
         r = t[0],
         a = t[1],
@@ -229,10 +248,10 @@ __d(
         r
       );
     }
-    function U(e, t) {
+    function V(e, t) {
       t === void 0 && (t = {});
       var a = W(e),
-        i = q(e),
+        i = U(e),
         l = o("useWAWebMsgValues").useMsgValues(e.id, [
           o("WAWebMsgGetters").getIsVcardOverMmsDocument,
           o("WAWebMsgGetters").getIsFailed,
@@ -263,7 +282,7 @@ __d(
         w = function (n) {
           (B(n), e.cancelUpload());
         },
-        U = function (n) {
+        q = function (n) {
           (B(n), e.resumeUpload());
         },
         V = function (n) {
@@ -509,16 +528,16 @@ __d(
         })(),
         G = function (n) {
           H(n).catch(function (t) {
-            o("WALogger").ERROR(
-              D ||
-                (D = babelHelpers.taggedTemplateLiteralLoose([
-                  "[downloadMedia] Failed to download media for msg ",
-                  ": ",
-                  "",
-                ])),
-              e.id.toString(),
-              t,
-            );
+            o("WALogger")
+              .ERROR(
+                D ||
+                  (D = babelHelpers.taggedTemplateLiteralLoose([
+                    "[downloadMedia] Failed to download media for msg ",
+                    "",
+                  ])),
+                e.id.toString(),
+              )
+              .catching(r("getErrorSafe")(t));
           });
         },
         z = null,
@@ -584,7 +603,7 @@ __d(
         }
         case o("WAWebMediaTypes").MediaDataStage.NEED_UPLOAD:
           ((z = $.jsx(o("WAWebDocStateControls.react").Upload, {})),
-            (j.onClick = U));
+            (j.onClick = q));
           break;
         case o("WAWebMediaTypes").MediaDataStage.REMOTE_NEED_UPLOAD:
           ((z = $.jsx(o("WAWebDocStateControls.react").Upload, {})),
@@ -616,8 +635,8 @@ __d(
     ((l.displayDownloadingToast = F),
       (l.displayFileOpeningToast = O),
       (l.useIsFileInCacheState = W),
-      (l.useIsFileSavedOnFileSystem = q),
-      (l.useMediaAction = U));
+      (l.useIsFileSavedOnFileSystem = U),
+      (l.useMediaAction = V));
   },
   226,
 );

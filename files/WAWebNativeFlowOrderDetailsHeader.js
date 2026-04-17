@@ -63,7 +63,7 @@ __d(
         },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(32),
+      var n = o("react-compiler-runtime").c(31),
         a = t.amount,
         i = t.documentPreview,
         l = t.isSentByMe,
@@ -111,7 +111,7 @@ __d(
           (n[6] = R))
         : (R = n[6]);
       var L;
-      n[7] !== m || n[8] !== _
+      n[7] !== _
         ? ((L =
             _ === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
             c.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
@@ -128,23 +128,22 @@ __d(
                 s._(/*BTDS*/ "Paid"),
               ],
             })),
-          (n[7] = m),
-          (n[8] = _),
-          (n[9] = L))
-        : (L = n[9]);
+          (n[7] = _),
+          (n[8] = L))
+        : (L = n[8]);
       var E;
-      n[10] !== R || n[11] !== L
+      n[9] !== R || n[10] !== L
         ? ((E = c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: d.total,
             justify: "all",
             children: [R, L],
           })),
-          (n[10] = R),
-          (n[11] = L),
-          (n[12] = E))
-        : (E = n[12]);
+          (n[9] = R),
+          (n[10] = L),
+          (n[11] = E))
+        : (E = n[11]);
       var k;
-      n[13] === Symbol.for("react.memo_cache_sentinel")
+      n[12] === Symbol.for("react.memo_cache_sentinel")
         ? ((k = c.jsx(
             "div",
             babelHelpers.extends(
@@ -156,10 +155,10 @@ __d(
               ),
             ),
           )),
-          (n[13] = k))
-        : (k = n[13]);
+          (n[12] = k))
+        : (k = n[12]);
       var I;
-      n[14] !== i || n[15] !== u || n[16] !== g || n[17] !== h || n[18] !== y
+      n[13] !== i || n[14] !== u || n[15] !== g || n[16] !== h || n[17] !== y
         ? ((I =
             i != null
               ? i
@@ -191,15 +190,15 @@ __d(
                     }),
                   ],
                 })),
-          (n[14] = i),
-          (n[15] = u),
-          (n[16] = g),
-          (n[17] = h),
-          (n[18] = y),
-          (n[19] = I))
-        : (I = n[19]);
+          (n[13] = i),
+          (n[14] = u),
+          (n[15] = g),
+          (n[16] = h),
+          (n[17] = y),
+          (n[18] = I))
+        : (I = n[18]);
       var T;
-      n[20] !== f
+      n[19] !== f
         ? ((T =
             f != null &&
             (f == null ? void 0 : f.length) > 0 &&
@@ -234,11 +233,11 @@ __d(
                 }),
               ],
             })),
-          (n[20] = f),
-          (n[21] = T))
-        : (T = n[21]);
+          (n[19] = f),
+          (n[20] = T))
+        : (T = n[20]);
       var D;
-      n[22] === Symbol.for("react.memo_cache_sentinel")
+      n[21] === Symbol.for("react.memo_cache_sentinel")
         ? ((D = c.jsx(
             "div",
             babelHelpers.extends(
@@ -249,18 +248,18 @@ __d(
               ),
             ),
           )),
-          (n[22] = D))
-        : (D = n[22]);
+          (n[21] = D))
+        : (D = n[21]);
       var x;
-      n[23] === Symbol.for("react.memo_cache_sentinel")
+      n[22] === Symbol.for("react.memo_cache_sentinel")
         ? ((x = c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
             size: "15",
             children: s._(/*BTDS*/ "Total"),
           })),
-          (n[23] = x))
-        : (x = n[23]);
+          (n[22] = x))
+        : (x = n[22]);
       var $;
-      n[24] !== a
+      n[23] !== a
         ? (($ = c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: d.total,
             justify: "all",
@@ -273,23 +272,23 @@ __d(
               }),
             ],
           })),
-          (n[24] = a),
-          (n[25] = $))
-        : ($ = n[25]);
+          (n[23] = a),
+          (n[24] = $))
+        : ($ = n[24]);
       var P;
       return (
-        n[26] !== $ || n[27] !== v || n[28] !== E || n[29] !== I || n[30] !== T
+        n[25] !== $ || n[26] !== v || n[27] !== E || n[28] !== I || n[29] !== T
           ? ((P = c.jsxs(o("WAWebFlex.react").FlexColumn, {
               xstyle: v,
               children: [E, k, I, T, D, $],
             })),
-            (n[26] = $),
-            (n[27] = v),
-            (n[28] = E),
-            (n[29] = I),
-            (n[30] = T),
-            (n[31] = P))
-          : (P = n[31]),
+            (n[25] = $),
+            (n[26] = v),
+            (n[27] = E),
+            (n[28] = I),
+            (n[29] = T),
+            (n[30] = P))
+          : (P = n[30]),
         P
       );
     }

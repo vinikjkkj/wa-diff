@@ -29,15 +29,10 @@ __d(
                   a < s)
               )
                 return;
-              var u =
-                  a ===
-                    o("WAWebTextStatusUtils")
-                      .CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL &&
-                  (s == null ||
-                    s === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED ||
-                    s === o("WAWebTextStatusUtils").TEXT_STATUS_NEVER_HAD)
-                    ? o("WAWebTextStatusUtils").TEXT_STATUS_NEVER_HAD
-                    : a,
+              var u = o("WAWebTextStatusUtils").resolveTextStatusUpdateTime(
+                  a,
+                  s,
+                ),
                 c;
               r != null &&
                 r > 0 &&

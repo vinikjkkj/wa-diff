@@ -7,7 +7,9 @@ __d(
     "WAShiftTimer",
     "WAWebAppTracker",
     "WAWebBackendApi",
+    "WAWebEnvironment",
     "WAWebLidAwareContactsDB",
+    "WAWebMemoryStatWamEvent",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebSchemaChat",
     "WAWebSchemaMessage",
@@ -78,7 +80,7 @@ __d(
             var r;
             ((r = k) == null || r.cancel(),
               (k = null),
-              N(),
+              M(),
               (m = self.performance.now()));
           }
           ((S = t), P());
@@ -105,7 +107,7 @@ __d(
       if (!o("WAWebRuntimeEnvironmentUtils").isWorker()) {
         var e = h();
         e != null &&
-          O().then(function (t) {
+          B().then(function (t) {
             var n,
               r = new (o("WAWebWebcMemoryStatWamEvent").WebcMemoryStatWamEvent)(
                 babelHelpers.extends(
@@ -122,7 +124,7 @@ __d(
                         : n.visibilityState) === "visible",
                   },
                   t,
-                  w,
+                  A,
                 ),
               );
             (o("WAWebAppTracker").attachWAMAppContext(r), r.commit());
@@ -146,7 +148,7 @@ __d(
           S === o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE &&
             E !== 0 &&
             E % b === 0 &&
-            (N(), P()),
+            (M(), P()),
           $());
       })),
         k.onOrAfter(C));
@@ -154,14 +156,26 @@ __d(
     function P() {
       ((R = 0), (L = 0), (E = 0));
     }
-    function N() {
-      return M.apply(this, arguments);
+    function N(e, t) {
+      if (r("WAWebEnvironment").isWeb) {
+        var n = new (o("WAWebMemoryStatWamEvent").MemoryStatWamEvent)({
+          workingSetSize: e.usedJsHeapSize * 1e3,
+          workingSetPeakSize: Math.round(R / 1e3),
+          uptime: e.uptime,
+          numMessages: t.messageCollectionSize,
+          processType: "main",
+        });
+        (o("WAWebAppTracker").attachWAMAppContext(n), n.commit());
+      }
     }
     function M() {
+      return w.apply(this, arguments);
+    }
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
-            t = yield (d || (d = n("Promise"))).all([O(), A()]),
+            t = yield (d || (d = n("Promise"))).all([B(), F()]),
             a = t[0],
             i = t[1],
             l = r("WANullthrows")(h()),
@@ -183,7 +197,7 @@ __d(
                 i,
               ),
             );
-          (o("WAWebAppTracker").attachWAMAppContext(m), m.commit());
+          (o("WAWebAppTracker").attachWAMAppContext(m), m.commit(), N(l, a));
           var _ = (s / 1024).toFixed(2),
             f = (l.usedJsHeapSize / 1024).toFixed(2),
             g = "average: " + _ + "Gb, current: " + f + "Gb";
@@ -218,16 +232,16 @@ __d(
             );
           }
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    var w = null;
-    function A() {
-      return F.apply(this, arguments);
-    }
+    var A = null;
     function F() {
+      return O.apply(this, arguments);
+    }
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield (d || (d = n("Promise"))).all([
               o("WAWebSchemaChat").getChatTable().count(),
               r("WAWebLidAwareContactsDB").count(),
@@ -237,37 +251,37 @@ __d(
             a = e[1],
             i = e[2];
           return (
-            (w = {
-              chatDbSize: W(t),
-              contactDbSize: W(a),
-              messageDbSize: W(i),
+            (A = {
+              chatDbSize: q(t),
+              contactDbSize: q(a),
+              messageDbSize: q(i),
             }),
-            w
+            A
           );
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O() {
-      return B.apply(this, arguments);
-    }
     function B() {
+      return W.apply(this, arguments);
+    }
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e =
             yield o("WAWebBackendApi").frontendSendAndReceive(
               "getCollectionSizes",
             );
           return {
-            chatCollectionSize: W(e.chat),
-            contactCollectionSize: W(e.contact),
-            messageCollectionSize: W(e.message),
+            chatCollectionSize: q(e.chat),
+            contactCollectionSize: q(e.contact),
+            messageCollectionSize: q(e.message),
           };
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e) {
+    function q(e) {
       return e > 1e3 ? Math.round(e / 100) * 100 : Math.round(e / 10) * 10;
     }
     ((l.isPerformanceMemoryApiSupported = g),
@@ -276,7 +290,7 @@ __d(
       (l.setCurrentMemoryScenario = I),
       (l.uploadMemoryIfChatWasOpened = D),
       (l.uploadMemoryInfoOnChatClose = x),
-      (l.roundIntForMetrics = W));
+      (l.roundIntForMetrics = q));
   },
   98,
 );

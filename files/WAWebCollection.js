@@ -142,15 +142,11 @@ __d(
                 e.add(m);
               });
             }
-            if ((I && this.sort({ silent: !0 }), a.silent !== !0)) {
-              for (var P = 0, N = m.length; P < N; P++)
-                ((l = m[P]),
-                  l.trigger
-                    ? l.trigger("add", l, this, a)
-                    : this.trigger("add", l, this, a));
-              (I || (C != null && C.length)) && this.trigger("sort", this, a);
-            }
-            return n;
+            return (
+              I && this.sort({ silent: !0 }),
+              this.$Collection$p_4(m, I, C, a),
+              n
+            );
           }),
           (a.remove = function (t, n) {
             n === void 0 && (n = {});
@@ -174,7 +170,7 @@ __d(
                   e))
               ) {
                 var c = e;
-                (this.$Collection$p_4(e),
+                (this.$Collection$p_5(e),
                   (r = this._models.indexOf(e)),
                   this._models.splice(r, 1),
                   n.silent !== !0 &&
@@ -182,7 +178,7 @@ __d(
                     c.trigger
                       ? c.trigger("remove", e, this, n)
                       : this.trigger("remove", e, this, n)),
-                  this.$Collection$p_5(c));
+                  this.$Collection$p_6(c));
               }
             return (
               this.$Collection$p_1(function (e) {
@@ -193,7 +189,7 @@ __d(
           }),
           (a.reset = function () {
             for (var e = 0, t = this._models.length; e < t; e++)
-              this.$Collection$p_5(this._models[e]);
+              this.$Collection$p_6(this._models[e]);
             (this._reset(), this.trigger("reset", this));
           }),
           (a.sort = function (t) {
@@ -210,9 +206,9 @@ __d(
           (a.replaceId = function (t, n) {
             var e = this.get(t);
             e &&
-              (this.$Collection$p_6(t),
+              (this.$Collection$p_7(t),
               e.set({ id: n }),
-              this.$Collection$p_7(e));
+              this.$Collection$p_8(e));
           }),
           (a.reorderMutate = function (t, n) {
             o("WAArrayMove").arrayMoveMutate(this._models, t, n);
@@ -369,25 +365,37 @@ __d(
             }
           }),
           (a.$Collection$p_3 = function (t) {
-            (this.$Collection$p_7(t),
+            (this.$Collection$p_8(t),
               t.collection || (t.collection = this),
-              t.on && t.on("all", this.$Collection$p_8, this));
-          }),
-          (a.$Collection$p_5 = function (t) {
-            (this === t.collection && delete t.collection,
-              this.$Collection$p_4(t),
-              t.off && t.off("all", this.$Collection$p_8, this));
-          }),
-          (a.$Collection$p_7 = function (t) {
-            this._index[t.id] = t;
-          }),
-          (a.$Collection$p_4 = function (t) {
-            delete this._index[t.id];
+              t.on && t.on("all", this.$Collection$p_9, this));
           }),
           (a.$Collection$p_6 = function (t) {
+            (this === t.collection && delete t.collection,
+              this.$Collection$p_5(t),
+              t.off && t.off("all", this.$Collection$p_9, this));
+          }),
+          (a.$Collection$p_8 = function (t) {
+            this._index[t.id] = t;
+          }),
+          (a.$Collection$p_5 = function (t) {
+            delete this._index[t.id];
+          }),
+          (a.$Collection$p_7 = function (t) {
             this.get(t) && delete this._index[t];
           }),
-          (a.$Collection$p_8 = function (t, n, r, o) {
+          (a.$Collection$p_4 = function (t, n, r, o) {
+            if (o.silent !== !0) {
+              for (var e = 0, a = t.length; e < a; e++) {
+                var i = t[e];
+                i.trigger
+                  ? i.trigger("add", i, this, o)
+                  : this.trigger("add", i, this, o);
+              }
+              (n === !0 || (r != null && r.length)) &&
+                this.trigger("sort", this, o);
+            }
+          }),
+          (a.$Collection$p_9 = function (t, n, r, o) {
             var e = t.indexOf(":"),
               a = e === -1 ? t : t.slice(0, e);
             ((a === "add" || a === "remove") && r !== this) ||

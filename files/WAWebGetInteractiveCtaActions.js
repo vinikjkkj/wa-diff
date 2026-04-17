@@ -7,6 +7,7 @@ __d(
     "WAWebBrPaymentRequest",
     "WAWebCatalogShortLinkUtils",
     "WAWebGetGalaxyFlowCtaButton",
+    "WAWebInAppSignupConfirmation",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
@@ -182,8 +183,22 @@ __d(
         case r("WAWebInteractiveMessagesNativeFlowName")
           .CALL_PERMISSION_REQUEST:
         case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP:
-        case r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP:
           break;
+        case r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP: {
+          var y = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
+            e.buttonParamsJson,
+          );
+          if (y != null)
+            return {
+              name: "cta_copy",
+              index: t,
+              data: {
+                label: s._(/*BTDS*/ "Copy code").toString(),
+                copyCode: y,
+              },
+            };
+          break;
+        }
       }
     }
     function c(e) {

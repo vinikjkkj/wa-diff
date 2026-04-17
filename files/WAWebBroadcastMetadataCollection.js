@@ -153,14 +153,14 @@ __d(
             ) &&
               this.forEach(function (t) {
                 var n,
-                  r =
+                  a =
                     (n = t.get("audienceExpression")) != null
                       ? n
                       : o("WAWebAudienceExpressionTypes")
                           .DEFAULT_AUDIENCE_EXPRESSION;
-                r.type ===
+                a.type ===
                   o("WAWebAudienceExpressionTypes").EXPRESSION_TYPE_PREDICATE &&
-                  r.predicateType ===
+                  a.predicateType ===
                     o("WAWebAudienceExpressionTypes")
                       .PREDICATE_TYPE_ALL_CONTACTS &&
                   e
@@ -183,7 +183,7 @@ __d(
                             ])),
                         )
                         .verbose()
-                        .catching(e)
+                        .catching(r("getErrorSafe")(e))
                         .sendLogs(
                           "broadcast-metadata-collection-failed-to-update-metadata-contacts",
                         );

@@ -24,7 +24,8 @@ __d(
             n === "XFBFBShortsLocationAttribution" ||
             n === "XFBVideoDeliveryResponse" ||
             n === "GemstoneViewerWrapper" ||
-            n === "XFBIBAdObjectSpec"
+            n === "XFBIBAdObjectSpec" ||
+            n === "DiscoverUnitFeedItem"
           ? t.id == null
             ? null
             : n + ":" + t.id

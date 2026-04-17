@@ -4,6 +4,7 @@ __d(
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
+    "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -37,14 +38,27 @@ __d(
           : a.buttonParamsJson;
       return i == null ? null : e(i);
     };
-    function u(e, t) {
+    function u(e) {
+      if (e == null) return null;
+      try {
+        var t = JSON.parse(e),
+          n = t.promo_code;
+        if (!r("isStringNullOrEmpty")(n)) return n;
+      } catch (e) {
+        return null;
+      }
+      return null;
+    }
+    function c(e, t) {
       if (t == null || t === "" || e.includes("*" + t + "*")) return e;
       var n = e.indexOf(t);
       return n < 0
         ? e
         : e.slice(0, n) + ("*" + t + "*") + e.slice(n + t.length);
     }
-    ((l.getInAppSignupConfirmationInfo = s), (l.applyBoldToPromoCode = u));
+    ((l.getInAppSignupConfirmationInfo = s),
+      (l.parseInAppSignupPromoCode = u),
+      (l.applyBoldToPromoCode = c));
   },
   98,
 );

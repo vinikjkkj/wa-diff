@@ -150,7 +150,7 @@ __d(
           var J = void 0;
           (w === !0
             ? (J = $.reduce(function (e, t) {
-                return e + "-" + t.id.toString();
+                return e + "-" + t.id.id;
               }, "grouped-sticker-"))
             : (J = _($)),
             s.push({
@@ -237,8 +237,8 @@ __d(
     }
     function _(e) {
       var t = e.length,
-        n = e[0] ? e[0].id.toString() : "",
-        r = e[t - 1] ? e[t - 1].id.toString() : "";
+        n = e[0] ? e[0].id.id : "",
+        r = e[t - 1] ? e[t - 1].id.id : "";
       return "album-" + n + "-" + r + "-" + t;
     }
     function f(e, t) {

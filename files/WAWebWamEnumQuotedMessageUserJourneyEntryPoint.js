@@ -8,6 +8,7 @@ __d(
       AUTO: 3,
       MESSAGE_DOUBLE_TAP: 4,
       KEYBOARD_SHORTCUT: 5,
+      INTENT_BASED: 6,
     });
     i.QUOTED_MESSAGE_USER_JOURNEY_ENTRY_POINT = e;
   },

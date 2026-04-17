@@ -128,7 +128,7 @@ __d(
                     (o("WALogger").LOG(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[newsletter-status-deeplink] Target status not in initial batch, backfilling",
+                          "[newsletter-status-deeplink] status not found, backfilling",
                         ])),
                     ),
                     yield o(
@@ -173,7 +173,7 @@ __d(
               .ERROR(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[newsletter-status-deeplink] Failed to open newsletter status deeplink",
+                    "[newsletter-status-deeplink] failed to open deeplink",
                   ])),
               )
               .catching(r("getErrorSafe")(e))

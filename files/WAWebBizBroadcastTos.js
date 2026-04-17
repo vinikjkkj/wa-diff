@@ -6,6 +6,7 @@ __d(
     "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
     "WATimeUtils",
     "WAWaitForComms",
+    "WAWebEventEmitter",
     "WAWebPDFNTypes",
     "WAWebSetUserDisclosureStageJob",
     "WAWebTos",
@@ -26,46 +27,35 @@ __d(
         signal: new AbortController().signal,
       },
       m = !1,
-      p = !1,
-      _ = "pending";
+      p = "pending",
+      _ = new (r("WAWebEventEmitter"))();
     function f() {
-      if (!p) {
-        p = !0;
-        var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s),
-          t = r("WAWebUserPrefsStore").getUser(u);
-        ((e === "ACCEPTED" || t === !0) &&
-          ((m = !0), t !== !0 && r("WAWebUserPrefsStore").setUser(u, !0)),
-          m
-            ? (_ = "success")
+      return (
+        m ||
+          ((m = !0),
+          g()
+            ? (p = "success")
             : y().then(
                 function () {
-                  _ = "success";
+                  p = "success";
                 },
                 function () {
-                  _ = "error";
+                  p = "error";
                 },
-              ));
-      }
-      return s;
+              )),
+        s
+      );
     }
     function g() {
-      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s);
       return (
-        e === "ACCEPTED" ||
-        o("WAWebTos").TosManager.getState(f()) === "ACCEPTED" ||
-        m ||
+        r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s) === "ACCEPTED" ||
         r("WAWebUserPrefsStore").getUser(u) === !0
       );
     }
     function h() {
-      ((m = !0),
-        o("WAWebTos").TosManager.setState(
-          f(),
-          "ACCEPTED",
-          o("WATimeUtils").unixTime(),
-        ),
-        r("WAWebUserPrefsStore").setUser("TOS_STATE_" + s, "ACCEPTED"),
-        r("WAWebUserPrefsStore").setUser(u, !0));
+      (r("WAWebUserPrefsStore").setUser("TOS_STATE_" + s, "ACCEPTED"),
+        r("WAWebUserPrefsStore").setUser(u, !0),
+        _.trigger("change"));
     }
     function y() {
       return C.apply(this, arguments);
@@ -134,9 +124,9 @@ __d(
     function b() {
       var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s);
       return {
-        isSoftOptInAccepted: m,
+        isSoftOptInAccepted: r("WAWebUserPrefsStore").getUser(u) === !0,
         persistedState: typeof e == "string" ? e : null,
-        syncResult: _,
+        syncResult: p,
         tosManagerState: o("WAWebTos").TosManager.getState(f()),
       };
     }
@@ -155,7 +145,8 @@ __d(
         S.apply(this, arguments)
       );
     }
-    ((l.getBizBroadcastTosId = f),
+    ((l.bizBroadcastTosEmitter = _),
+      (l.getBizBroadcastTosId = f),
       (l.isBizBroadcastTosAccepted = g),
       (l.getBizBroadcastTosDebugInfo = b),
       (l.acceptBizBroadcastTos = v));

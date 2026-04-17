@@ -30,6 +30,7 @@ __d(
     "asyncToGeneratorRuntime",
     "getErrorSafe",
     "getSafeQplErrorMessage",
+    "gkx",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -65,7 +66,12 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("QPLFlow").startQPLFlow(d, { timeoutInMs: 6e4 });
+          var t = o("QPLFlow").startQPLFlow(d, {
+            annotations: {
+              bool: { wa_web_media_wasm_worker_split: r("gkx")("24042") },
+            },
+            timeoutInMs: 6e4,
+          });
           try {
             t.addPoint("create_worker_start");
             var a = o("WorkerBundleResource").createDedicatedWebWorker(

@@ -622,6 +622,7 @@ __d(
           chat: n,
           mmSignalType: l,
           deepConversationParams: r,
+          msgId: s,
         });
         n &&
           u != null &&

@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBizAdCreationResolveStoredIdentity",
     "WAWebBizNativeAdsFlowLoadable",
+    "WAWebBizNativeAdsFlowTypes",
     "WAWebBizNativeAdsNUXLoadable",
     "WAWebBizNativeAdsQplHelpers",
     "WAWebCmd",
@@ -10,6 +11,7 @@ __d(
     "WAWebKeyboardTabUtils",
     "WAWebNavBarTypes",
     "WAWebPonyfillsCryptoRandomUUID",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,7 +27,7 @@ __d(
           o("WAWebNavBarTypes").NavBarItems.AdCreation,
         ));
       var i;
-      if (a == null)
+      if (a == null && !r("justknobx")._("4613"))
         i = s.jsx(o("WAWebBizNativeAdsNUXLoadable").BizNativeAdsNUXLoadable, {
           adCreationFlowID: n,
           entryPoint: e,
@@ -39,7 +41,13 @@ __d(
       else {
         var l = o(
           "WAWebBizNativeAdsFlowLoadable",
-        ).createBizNativeAdsFlowLoadable(n);
+        ).createBizNativeAdsFlowLoadable(
+          n,
+          void 0,
+          a == null
+            ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdCreation
+            : void 0,
+        );
         i = s.jsx(l, { entryPoint: e, manageAdsFlowID: t });
       }
       o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(i, {

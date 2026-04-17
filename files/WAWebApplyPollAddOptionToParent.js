@@ -50,7 +50,7 @@ __d(
                               .ERROR(
                                 e ||
                                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "applyPollAddOptionsToParent: parent message not found for key ",
+                                    "[applyPollAddOptionsToParent] parent msg not found ",
                                     "",
                                   ])),
                                 t,
@@ -68,7 +68,7 @@ __d(
                             .ERROR(
                               s ||
                                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                                  "applyPollAddOptionsToParent: parent message is not a poll creation message",
+                                  "[applyPollAddOptionsToParent] parent not poll creation msg",
                                 ])),
                             )
                             .sendLogs("poll_add_option_parent_not_poll");

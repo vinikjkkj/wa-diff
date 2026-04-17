@@ -90,7 +90,7 @@ __d(
                         "",
                       ])),
                     n.wid,
-                    e,
+                    String(e),
                   )
                   .sendLogs("createSignalSession-fail");
               });

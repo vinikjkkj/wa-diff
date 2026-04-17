@@ -44,16 +44,8 @@ __d(
                   ),
                 ),
               },
-            ];
-          t != null &&
-            c.push({
-              name: "cta_copy",
-              buttonParamsJson: JSON.stringify({
-                display_text: "Copy code",
-                copy_code: t,
-              }),
-            });
-          var d =
+            ],
+            d =
               t != null
                 ? "Thank you for signing up! Please use the code:\n" + t
                 : "Thank you for signing up! Your subscription is now active.",
@@ -131,8 +123,7 @@ __d(
         f.apply(this, arguments)
       );
     }
-    ((_.doc =
-      "Receive a signup confirmation with promo code and cta_copy button"),
+    ((_.doc = "Receive a signup confirmation with promo code"),
       (_.paramsToExecute = []));
     var g = {
       receiveInAppSignupConfirmation: c,

@@ -25,6 +25,7 @@ __d(
     "WAWebMsgType",
     "WAWebPollCreationUtils",
     "WAWebProtobufsE2E.pb",
+    "WAWebProtobufsStatusAttributions.pb",
     "WAWebThreadsGating",
     "WAWebURLUtils",
     "WAWebWid",
@@ -298,10 +299,24 @@ __d(
           e.canBeReshared && (g.canBeReshared = e.canBeReshared),
           (a.featureEligibilities = g));
       }
-      return (
-        e.limitSharing && (a.limitSharingV2 = e.limitSharing),
-        h(e, t, r("isEmptyObject")(a) ? void 0 : a)
-      );
+      if (
+        (e.limitSharing && (a.limitSharingV2 = e.limitSharing),
+        Array.isArray(e.statusAttributions) && e.statusAttributions.length > 0)
+      ) {
+        a.statusAttributions = e.statusAttributions;
+        var y = e.statusAttributions.some(function (e) {
+          return (
+            e.type ===
+            o("WAWebProtobufsStatusAttributions.pb").StatusAttribution$Type
+              .RESHARE
+          );
+        });
+        y &&
+          (a.statusAttributionType = o(
+            "WAWebProtobufsE2E.pb",
+          ).ContextInfo$StatusAttributionType.RESHARED_FROM_POST);
+      }
+      return h(e, t, r("isEmptyObject")(a) ? void 0 : a);
     }
     function g(e) {
       var t = e.id,

@@ -242,10 +242,10 @@ __d(
         }),
         t.ping_id != null)
       )
-        n.writeI64(BigInt(t.ping_id));
+        n.writeI64(r("jsbi").BigInt(t.ping_id));
       else {
         var o = "0";
-        n.writeI64(BigInt(o));
+        n.writeI64(r("jsbi").BigInt(o));
       }
       if (
         (n.writeFieldEnd(),
@@ -256,10 +256,10 @@ __d(
         }),
         t.caller_timestamp_ms != null)
       )
-        n.writeI64(BigInt(t.caller_timestamp_ms));
+        n.writeI64(r("jsbi").BigInt(t.caller_timestamp_ms));
       else {
         var a = "0";
-        n.writeI64(BigInt(a));
+        n.writeI64(r("jsbi").BigInt(a));
       }
       (n.writeFieldEnd(), n.writeFieldStop(), n.writeStructEnd());
     }
@@ -273,10 +273,10 @@ __d(
         }),
         t.ping_id != null)
       )
-        n.writeI64(BigInt(t.ping_id));
+        n.writeI64(r("jsbi").BigInt(t.ping_id));
       else {
         var o = "0";
-        n.writeI64(BigInt(o));
+        n.writeI64(r("jsbi").BigInt(o));
       }
       if (
         (n.writeFieldEnd(),
@@ -287,10 +287,10 @@ __d(
         }),
         t.original_ping_timestamp_ms != null)
       )
-        n.writeI64(BigInt(t.original_ping_timestamp_ms));
+        n.writeI64(r("jsbi").BigInt(t.original_ping_timestamp_ms));
       else {
         var a = "0";
-        n.writeI64(BigInt(a));
+        n.writeI64(r("jsbi").BigInt(a));
       }
       (n.writeFieldEnd(), n.writeFieldStop(), n.writeStructEnd());
     }

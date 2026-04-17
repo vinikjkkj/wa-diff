@@ -44,44 +44,44 @@ __d(
     "cr:11804",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e, t, n, r, o) {
-      return _.apply(this, arguments);
+    var e, s, u, c, d, m, p;
+    function _(e, t, n, r, o) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, c) {
-            var d,
-              p,
-              _ = yield r("WAWebGetMsgUpdatesActionsUtils")(t, a, i, c),
-              g = _.filteredRecs,
-              h = _.reorderRecs,
-              y = _.updates,
-              C = yield (m || (m = n("Promise"))).all(y),
-              b = C.filter(function (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, a, i, l, d) {
+            var m,
+              _,
+              f = yield r("WAWebGetMsgUpdatesActionsUtils")(t, a, i, d),
+              h = f.filteredRecs,
+              y = f.reorderRecs,
+              C = f.updates,
+              b = yield (p || (p = n("Promise"))).all(C),
+              v = b.filter(function (e) {
                 return (e == null ? void 0 : e.associationType) != null;
               });
             if (
               (o(
                 "WAWebMsgCollection",
-              ).MsgCollection.makeParentMessagesVisibleInChat(b),
-              g.length === 0 && h.length === 0)
+              ).MsgCollection.makeParentMessagesVisibleInChat(v),
+              h.length === 0 && y.length === 0)
             ) {
               if (t && i.pendingMsgsDone === !0) {
-                var v,
-                  S =
-                    (v = o("WAWebChatCollection").ChatCollection.get(t)) != null
-                      ? v
+                var S,
+                  R =
+                    (S = o("WAWebChatCollection").ChatCollection.get(t)) != null
+                      ? S
                       : r("WAWebNewsletterCollection").get(t);
-                S && (S.pendingMsgs = !1);
+                R && (R.pendingMsgs = !1);
               }
               return r("compactMap")(a, function (e) {
                 return o("WAWebMsgCollection").MsgCollection.get(e.id);
               });
             }
             if (!t)
-              return f(g).then(function () {
+              return g(h).then(function () {
                 return a.reduce(function (e, t) {
                   var n = o("WAWebMsgCollection").MsgCollection.get(t.id);
                   return (
@@ -92,22 +92,23 @@ __d(
                   );
                 }, []);
               });
-            var R,
-              L = a[0];
-            if (o("WAWebMsgGetters").getIsStatus(L)) {
-              var E,
-                k =
-                  (E = o("WAWebMsgGetters").getSender(L)) != null ? E : L.from;
+            var L = self.performance.now(),
+              E,
+              k = a[0];
+            if (o("WAWebMsgGetters").getIsStatus(k)) {
+              var I,
+                T =
+                  (I = o("WAWebMsgGetters").getSender(k)) != null ? I : k.from;
               if (
                 (r("WAWebWid").isStatus(t) &&
-                  (k = L.id.fromMe
+                  (T = k.id.fromMe
                     ? o("WAWebLidStatusMigrationUtils").matWidConvert(
                         o("WAWebUserPrefsMeUser").getMeUser(),
                       )
-                    : L.author),
-                k == null)
+                    : k.author),
+                T == null)
               ) {
-                var I, T, D;
+                var D, x, $;
                 o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -119,89 +120,104 @@ __d(
                       "",
                     ])),
                   t.toLogString(),
-                  (I = o("WAWebMsgGetters").getSender(L)) == null
+                  (D = o("WAWebMsgGetters").getSender(k)) == null
                     ? void 0
-                    : I.toLogString(),
-                  (T = L.from) == null ? void 0 : T.toLogString(),
-                  L.id.fromMe,
-                  (D = L.author) == null ? void 0 : D.toLogString(),
+                    : D.toLogString(),
+                  (x = k.from) == null ? void 0 : x.toLogString(),
+                  k.id.fromMe,
+                  ($ = k.author) == null ? void 0 : $.toLogString(),
                 );
               }
-              R = o("WAWebStatusCollection").StatusCollection.find(k);
-            } else R = yield o("WAWebFindChatAction").findExistingChat(t, l);
-            var x = yield R,
-              $ = yield f(g),
-              P = i.add === "after" || i.add === "last",
-              N = !i.isHistory,
-              M,
-              w,
-              A = !1,
-              F = x.id.isBot(),
-              O =
-                ((d = x.contact.businessProfile) == null
+              E = o("WAWebStatusCollection").StatusCollection.find(T);
+            } else E = yield o("WAWebFindChatAction").findExistingChat(t, l);
+            var P = yield E,
+              N = self.performance.now(),
+              M = yield g(h),
+              w = self.performance.now(),
+              A = i.add === "after" || i.add === "last",
+              F = !i.isHistory,
+              O,
+              B,
+              W = !1,
+              q = P.id.isBot(),
+              U =
+                ((m = P.contact.businessProfile) == null
                   ? void 0
-                  : d.isBizBot3p) === !0;
-            if ((F || O) && i.isHistory === !1) {
-              var B = x.msgs.last();
-              (B == null ? void 0 : B.subtype) ===
+                  : m.isBizBot3p) === !0;
+            if ((q || U) && i.isHistory === !1) {
+              var V = P.msgs.last();
+              (V == null ? void 0 : V.subtype) ===
                 o("WAWebBotGenTypingIndicatorMsg")
                   .BOT_TYPING_PLACEHOLDER_MSG_SUBTYPE &&
-                (B == null || B.delete({ skipUpdatingSortTime: !0 }));
+                (V == null || V.delete({ skipUpdatingSortTime: !0 }));
             }
-            ($.forEach(function (e) {
+            (M.forEach(function (e) {
               e.subtype === "biz_bot_1p_disclosure"
-                ? x.set({
+                ? P.set({
                     bizBotSystemMsgType: o("WAWebBotTypes").BizBotType.BIZ_1P,
                   })
                 : e.subtype === "biz_bot_3p_disclosure" &&
-                  x.set({
+                  P.set({
                     bizBotSystemMsgType: o("WAWebBotTypes").BizBotType.BIZ_3P,
                   });
             }),
               i.add === "unread"
-                ? ((M = c), x.msgChunks.push(M), (w = i.firstUnreadKey))
+                ? ((O = d), P.msgChunks.push(O), (B = i.firstUnreadKey))
                 : i.add === "last" && i.resume === !0
-                  ? ((M = c), (A = !0))
-                  : (M = typeof c == "function" ? c() : c));
-            var W = typeof M == "function" ? M() : M,
-              q = x;
+                  ? ((O = d), (W = !0))
+                  : (O = typeof d == "function" ? d() : d));
+            var H = typeof O == "function" ? O() : O,
+              G = P;
             if (
-              ((W == null ? void 0 : W.threadId) != null &&
-                x instanceof o("WAWebChatModel").Chat &&
-                (q = o("WAWebThreadModelResolver").resolveThreadOrChat(
-                  x,
-                  W.threadId,
+              ((H == null ? void 0 : H.threadId) != null &&
+                P instanceof o("WAWebChatModel").Chat &&
+                (G = o("WAWebThreadModelResolver").resolveThreadOrChat(
+                  P,
+                  H.threadId,
                 )),
               r("WAWebAddAndReorderMsgsActionsUtils")(
                 a,
-                $,
-                h,
-                q,
-                P,
-                W != null ? W : x.msgs,
-                w,
+                M,
+                y,
+                G,
                 A,
+                H != null ? H : P.msgs,
+                B,
+                W,
                 i.anchorMsgKey,
               ),
-              x instanceof o("WAWebChatModel").Chat &&
-                (W == null || W.threadId == null) &&
-                o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(
-                  x,
-                  $,
+              w - L >= 500 &&
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[processMM]: ",
+                      " msgs findChat=",
+                      "ms msgPrepWork=",
+                      "ms",
+                    ])),
+                  a.length,
+                  Math.round(N - L),
+                  Math.round(w - N),
                 ),
-              i.pendingMsgsDone === !0 && (x.pendingMsgs = !1),
-              N &&
+              P instanceof o("WAWebChatModel").Chat &&
+                (H == null || H.threadId == null) &&
+                o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(
+                  P,
+                  M,
+                ),
+              i.pendingMsgsDone === !0 && (P.pendingMsgs = !1),
+              F &&
                 r("WAWebWid").isBroadcast(t) &&
                 !r("WAWebWid").isStatus(t) &&
-                $.forEach(function (e) {
+                M.forEach(function (e) {
                   e &&
                     e.recvFresh &&
                     !o("WAWebMsgGetters").getIsNotification(e) &&
                     o("WAWebMsgModelUtils").broadcastFanout(e);
                 }),
-              !((p = i.isHistory) != null && p))
+              !((_ = i.isHistory) != null && _))
             ) {
-              var U = r("compactMap")($, function (e) {
+              var z = r("compactMap")(M, function (e) {
                 var t,
                   n,
                   r,
@@ -250,14 +266,14 @@ __d(
                 }
               });
               (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "processed ",
                     " recent sticker messages",
                   ])),
-                U.length,
+                z.length,
               ),
-                U.forEach(function (e) {
+                z.forEach(function (e) {
                   return o(
                     "WAWebRecentStickerCollectionMd",
                   ).RecentStickerCollectionMd.addNewSticker(
@@ -267,8 +283,8 @@ __d(
                   );
                 }));
             }
-            var V = 0,
-              H = r("compactMap")($, function (e) {
+            var j = 0,
+              K = r("compactMap")(M, function (e) {
                 var t =
                     e.isNewMsg &&
                     o("WAWebMsgGetters").getIsSentByMe(e) &&
@@ -277,7 +293,7 @@ __d(
                 if (t) {
                   var r = e.mediaKey;
                   if (r == null) {
-                    V++;
+                    j++;
                     return;
                   }
                   return {
@@ -300,24 +316,24 @@ __d(
                 }
               });
             if (
-              (V > 0 &&
+              (j > 0 &&
                 o("WALogger")
                   .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[sticker] Unexpected null media key",
                       ])),
                   )
                   .sendLogs("sticker-unexpected-null-media-key"),
               o("WAWebRecentStickerCollection").RecentStickerCollection.enqueue(
-                H,
+                K,
               ),
               o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled())
             ) {
-              var G = $.filter(function (e) {
+              var Q = M.filter(function (e) {
                 return !o("WAWebMsgGetters").getIsStatus(e);
               });
-              r("compactMap")(G, function (e) {
+              r("compactMap")(Q, function (e) {
                 return o("WAWebFrontendMsgGetters").getAsAutoDownloadableMedia(
                   e,
                 );
@@ -329,14 +345,14 @@ __d(
               });
             }
             if (!o("WAWebUserPrefsGeneral").getAutoDownloadPhotos()) {
-              var z = $.filter(function (e) {
+              var X = M.filter(function (e) {
                 return (
                   !o("WAWebMsgGetters").getIsSentByMe(e) &&
                   !o("WAWebMsgGetters").getIsStatus(e) &&
                   !o("WAWebMsgGetters").getIsNewsletterMsg(e)
                 );
               });
-              r("compactMap")(z, function (e) {
+              r("compactMap")(X, function (e) {
                 return o("WAWebFrontendMsgGetters").getAsImage(e);
               }).forEach(function (e) {
                 var t, n;
@@ -372,14 +388,14 @@ __d(
                 }
               });
             }
-            var j = o("WAWebBotUtils").isBotChannelFBID(x.id),
-              K = x instanceof o("WAWebChatModel").Chat ? x : null;
+            var Y = o("WAWebBotUtils").isBotChannelFBID(P.id),
+              J = P instanceof o("WAWebChatModel").Chat ? P : null;
             if (
               ((o("WAWebABProps").getABPropConfigValue(
                 "download_document_thumb_mms_enabled",
               ) ||
-                j) &&
-                r("compactMap")($, function (e) {
+                Y) &&
+                r("compactMap")(M, function (e) {
                   return o("WAWebFrontendMsgGetters").getAsDoc(e);
                 }).forEach(function (e) {
                   o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled()
@@ -391,22 +407,22 @@ __d(
                           .MMS_THUMBNAIL,
                       )
                     : r("WAWebMediaDownloadMmsThumbnail")({
-                        chat: K,
+                        chat: J,
                         msg: e,
                         isPreload: !0,
                       });
                 }),
               o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled())
             ) {
-              var Q = r("compactMap")($, function (e) {
+              var Z = r("compactMap")(M, function (e) {
                   return o("WAWebFrontendMsgGetters").getAsDoc(e);
                 }),
-                X = Q.some(function (e) {
+                ee = Z.some(function (e) {
                   return o(
                     "WAWebTPPdfViewerGatingUtils",
                   ).isWebTPPdfViewerEnabledForMimeType(e.mimetype);
                 });
-              X &&
+              ee &&
                 (n("cr:11804") == null ||
                   n("cr:11804").maybePreloadWebTPIframeForPDFs(void 0, {
                     source: "appStart",
@@ -414,7 +430,7 @@ __d(
                   }));
             }
             if (
-              (r("compactMap")($, function (e) {
+              (r("compactMap")(M, function (e) {
                 return o("WAWebFrontendMsgGetters").getAsUrl(e);
               }).forEach(function (e) {
                 o("WAWebMediaLinkPreviewUtils").hqLinkPreviewExpired(e.t) ||
@@ -437,13 +453,13 @@ __d(
                 "download_status_thumb_mms_enabled",
               ))
             ) {
-              var Y = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
-                J = 1e3 * 60 * 60 * 24;
-              if (Y == null || Date.now() - Y < 14 * J) {
-                var Z = $.filter(function (e) {
+              var te = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
+                ne = 1e3 * 60 * 60 * 24;
+              if (te == null || Date.now() - te < 14 * ne) {
+                var re = M.filter(function (e) {
                   return o("WAWebMsgGetters").getIsStatus(e);
                 });
-                r("compactMap")(Z, function (e) {
+                r("compactMap")(re, function (e) {
                   return (
                     o("WAWebFrontendMsgGetters").getAsImage(e) ||
                     o("WAWebFrontendMsgGetters").getAsVideo(e)
@@ -469,15 +485,15 @@ __d(
             });
           },
         )),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebMsgCollection").MsgCollection.add(e, { merge: !0 }),
             r = 0,
             a = t.reduce(function (e, t) {
@@ -498,8 +514,8 @@ __d(
               });
             o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "Get ",
                     " empty messages with ids => ",
                     "",
@@ -512,7 +528,7 @@ __d(
           var l = null,
             s = null;
           return (
-            yield (m || (m = n("Promise"))).all(
+            yield (p || (p = n("Promise"))).all(
               a.map(function (e) {
                 return e.waitForPrep().catch(function (t) {
                   ((l = t), (s = e));
@@ -523,8 +539,8 @@ __d(
               s != null &&
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "[msgPrepWork] id=",
                       " type=",
                       " subtype=",
@@ -541,10 +557,10 @@ __d(
             a
           );
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    l._processMultipleMessages = p;
+    l._processMultipleMessages = _;
   },
   98,
 );

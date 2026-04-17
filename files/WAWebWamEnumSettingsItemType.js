@@ -50,6 +50,7 @@ __d(
       VIBES_BOOKMARK: 44,
       CONTACTS: 45,
       APPEARANCE: 46,
+      USERNAME: 47,
     });
     i.SETTINGS_ITEM_TYPE = e;
   },

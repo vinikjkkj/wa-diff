@@ -313,8 +313,8 @@ __d(
     }
     function y(t, n) {
       if (t) {
-        var r = C(t) && n.isUser() && n.isRegularUserPn(),
-          a = t.isUser() && t.isRegularUserPn() && C(n);
+        var r = C(t) && b(n),
+          a = b(t) && C(n);
         (r || a) &&
           (o("WAWebCurrentUser").isEmployee()
             ? o("WALogger")
@@ -345,6 +345,9 @@ __d(
     }
     function C(e) {
       return e.isLid() || e.isHostedLid();
+    }
+    function b(e) {
+      return e.isRegularUser() && !C(e);
     }
     ((l.RECEIPT_TYPE = d),
       (l.sendBotInvokeResponseAcks = f),

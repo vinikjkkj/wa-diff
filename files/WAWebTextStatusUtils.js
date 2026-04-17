@@ -5,32 +5,38 @@ __d(
     var e = -1,
       s = 50,
       u = -2,
-      c = 0,
-      d = null,
-      m = null,
-      p = null,
-      _ = -1;
-    function f(e, t, n, r, a) {
-      var i = a === _ || (r != null && o("WATimeUtils").unixTime() < r),
+      c = 0;
+    function d(e) {
+      return e != null && e >= 0;
+    }
+    function m(t, n) {
+      return t === c && (n == null || n === e || n === u) ? u : t;
+    }
+    var p = null,
+      _ = null,
+      f = null,
+      g = -1;
+    function h(e, t, n, r, a) {
+      var i = a === g || (r != null && o("WATimeUtils").unixTime() < r),
         l = !!(e != null && e.trim()) || !!t,
         s = n !== c;
       return s && i && l;
     }
-    function g(e) {
-      return e != null && e !== _;
+    function y(e) {
+      return e != null && e !== g;
     }
-    function h(t, n, r, a, i) {
+    function C(t, n, r, a, i) {
       return !(
         !o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled() ||
         r === e ||
         r === u ||
-        !f(t, n, r, a, i)
+        !h(t, n, r, a, i)
       );
     }
-    function y(e) {
+    function b(e) {
       return e.status === void 0;
     }
-    function C(e) {
+    function v(e) {
       var t = r("fbs")._(/*BTDS*/ "Hey there! I am using WhatsApp.").toString();
       return e.isValidTextStatus() && e.status !== t;
     }
@@ -38,15 +44,17 @@ __d(
       (l.SUGGESTIONS_MAX_COUNT = s),
       (l.TEXT_STATUS_NEVER_HAD = u),
       (l.CLEAR_TEXT_STATUS_LAST_UPDATE_TIME_VAL = c),
-      (l.CLEAR_TEXT_STATUS_STRING_VAL = d),
-      (l.CLEAR_TEXT_STATUS_EMOJI_VAL = m),
-      (l.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL = p),
-      (l.TEXT_STATUS_DURATION_INFINITE = _),
-      (l.hasTextStatusSet = f),
-      (l.isEphemeralTextStatus = g),
-      (l.shouldDisplayTextStatus = h),
-      (l.isLegacyAboutNotFetched = y),
-      (l.hasCustomAboutSet = C));
+      (l.hasEverHadTextStatus = d),
+      (l.resolveTextStatusUpdateTime = m),
+      (l.CLEAR_TEXT_STATUS_STRING_VAL = p),
+      (l.CLEAR_TEXT_STATUS_EMOJI_VAL = _),
+      (l.CLEAR_TEXT_STATUS_EPHEMERAL_DURATION_VAL = f),
+      (l.TEXT_STATUS_DURATION_INFINITE = g),
+      (l.hasTextStatusSet = h),
+      (l.isEphemeralTextStatus = y),
+      (l.shouldDisplayTextStatus = C),
+      (l.isLegacyAboutNotFetched = b),
+      (l.hasCustomAboutSet = v));
   },
   226,
 );

@@ -327,7 +327,7 @@ __d(
                                 "syncd: updateMissingKeyDevices failed with error:\n        ",
                                 "",
                               ])),
-                            e,
+                            String(e),
                           );
                         });
                     })

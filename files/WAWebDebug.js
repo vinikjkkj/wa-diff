@@ -988,7 +988,7 @@ __d(
         sendReplyToMsg: X,
         runSubscriptionsManager:
           o("WAWebSubscriptions").runSubscriptionsManager,
-        getMyPn: o("WAWebUserPrefsMeUser").getMeUser,
+        getMyPn: o("WAWebUserPrefsMeUser").getMaybeMePnUser,
         decodeFutureproofBuffer: Z,
         sendFetchResendMissingKeys: te,
         setExpiredProfilePicture: ne,

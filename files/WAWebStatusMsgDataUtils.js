@@ -26,39 +26,40 @@ __d(
           var a,
             i,
             l,
-            s = (t.text || "").trim();
-          if (s === "") return null;
-          var u =
+            s,
+            u = (t.text || "").trim();
+          if (u === "") return null;
+          var c =
               n != null
                 ? n
                 : o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-            c = o("WAWebLidStatusMigrationUtils").matWidConvert(
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            d = o("WAWebLidStatusMigrationUtils").matWidConvert(
+              o("WAWebUserPrefsMeUser").getMeUser(),
             ),
-            d = (a = n == null ? void 0 : n.isNewsletter()) != null ? a : !1,
-            m = void 0;
-          d || (m = o("WAWebLidStatusMigrationUtils").matWidConvert(c));
-          var p = new (r("WAWebMsgKey"))({
+            m = (a = n == null ? void 0 : n.isNewsletter()) != null ? a : !1,
+            p = void 0;
+          m || (p = o("WAWebLidStatusMigrationUtils").matWidConvert(d));
+          var _ = new (r("WAWebMsgKey"))({
               fromMe: !0,
-              remote: u,
+              remote: c,
               id: yield r("WAWebMsgKey").newId(),
-              participant: m,
+              participant: p,
             }),
-            _ = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
+            f = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
               ? yield r("WAWebUserPrefsStatus").getStatusReshareAllowed()
               : !1,
-            f = {
-              id: p,
-              body: s,
-              author: c,
+            g = {
+              id: _,
+              body: u,
+              author: d,
               backgroundColor: (i = t.color) != null ? i : e,
               type: "chat",
               kind: o("WAWebMsgType").MsgKind.Chat,
               viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
               subtype: void 0,
               t: o("WATimeUtils").unixTime(),
-              from: c,
-              to: u,
+              from: d,
+              to: c,
               isNewMsg: !0,
               local: !0,
               ack: o("WAWebAck").ACK.CLOCK,
@@ -71,9 +72,11 @@ __d(
               cannotBeRanked: o(
                 "WAWebStatusGatingUtils",
               ).canCheckStatusRankingPosterGating(),
-              canBeReshared: _,
+              canBeReshared: f,
+              statusAttributions:
+                (s = t.statusAttributions) != null ? s : void 0,
             };
-          return f;
+          return g;
         })),
         u.apply(this, arguments)
       );

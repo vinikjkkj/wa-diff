@@ -1,19 +1,19 @@
 __d(
   "BladeRunnerStream",
-  ["Promise", "asyncToGeneratorRuntime"],
-  function (t, n, r, o, a, i) {
+  ["Promise", "asyncToGeneratorRuntime", "err"],
+  function (t, n, r, o, a, i, l) {
     var e,
-      l = (function () {
+      s = (function () {
         function t(e) {
           this.$1 = e;
         }
-        var r = t.prototype;
+        var o = t.prototype;
         return (
-          (r.getStreamHandler = function () {
+          (o.getStreamHandler = function () {
             return this.$1;
           }),
-          (r.cancel = function () {}),
-          (r.amendWithAck = (function () {
+          (o.cancel = function () {}),
+          (o.amendWithAck = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 return !1;
@@ -24,27 +24,32 @@ __d(
             }
             return t;
           })()),
-          (r.amendFireAndForget = function (t) {}),
-          (r.amendWithoutAck = function (t) {}),
-          (r.start = function () {
+          (o.amendFireAndForget = function (t) {}),
+          (o.ping = function () {
+            return (e || (e = n("Promise"))).reject(
+              r("err")("ping not supported"),
+            );
+          }),
+          (o.amendWithoutAck = function (t) {}),
+          (o.start = function () {
             return (e || (e = n("Promise"))).resolve();
           }),
-          (r.isAlive = function () {
+          (o.isAlive = function () {
             return !1;
           }),
-          (r.canAmend = function () {
+          (o.canAmend = function () {
             return !1;
           }),
-          (r.getStatus = function () {
+          (o.getStatus = function () {
             return null;
           }),
-          (r.getStreamId = function () {
+          (o.getStreamId = function () {
             return 0;
           }),
           t
         );
       })();
-    i.default = l;
+    l.default = s;
   },
-  66,
+  98,
 );

@@ -206,6 +206,7 @@ __d(
             a("forwardedAiBotMessageInfo"),
             a("botSignatureVerificationMetadata"),
             a("statusAttributions"),
+            a("canBeReshared"),
             a("statusAudienceMetadata"),
             a("viewed"),
             a("disappearingModeTrigger"),

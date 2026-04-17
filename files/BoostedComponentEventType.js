@@ -484,6 +484,8 @@ __d(
       CLICK_WELCOME_MESSAGE_REGENERATE_AI_ICEBREAKER:
         "click_welcome_message_regenerate_ai_icebreaker",
       IMPRESSION_AI_ICEBREAKER_MOBILE: "impression_ai_icebreaker_mobile",
+      IMPRESSION_AI_AUTOMATED_RESPONSE_MOBILE:
+        "impression_ai_automated_response_mobile",
       DISABLE_PREFILL: "disable_prefill",
       ENABLE_PREFILL: "enable_prefill",
       IMPRESSION_CTWA_PREFILL_SECTION: "impression_ctwa_prefill_section",
