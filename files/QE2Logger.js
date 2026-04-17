@@ -5,114 +5,117 @@ __d(
     "use strict";
     var e = {};
     function s(e, t, n) {
-      H(e, t != null ? t : "", 9, n);
+      G(e, t != null ? t : "", 9, n);
     }
     function u(e, t) {
-      H(e, t != null ? t : "", 9, null, "immediate");
+      G(e, t != null ? t : "", 9, null, "immediate");
     }
-    function c(e) {
-      H(e, "", 32);
+    function c(e, t) {
+      G(e, t != null ? t : "", 9, null, "critical");
     }
     function d(e) {
-      H(e, "", 32, null, "immediate");
+      G(e, "", 32);
     }
     function m(e) {
-      H(e, "", 54);
+      G(e, "", 32, null, "immediate");
     }
-    function p(e, t) {
-      H(e, t, 126);
+    function p(e) {
+      G(e, "", 54);
     }
     function _(e, t) {
-      H(e, "", 54, t, "immediate");
+      G(e, t, 126);
     }
     function f(e, t) {
-      H(e, "", 54, t, "critical");
+      G(e, "", 54, t, "immediate");
     }
     function g(e, t) {
-      H(e, t, 3);
+      G(e, "", 54, t, "critical");
     }
-    function h(e) {
-      H(e, "", 5);
+    function h(e, t) {
+      G(e, t, 3);
     }
     function y(e) {
-      H(e, "", 5, null, "immediate");
+      G(e, "", 5);
     }
-    function C(e, t) {
-      (t === void 0 && (t = null), H(e, "", 5, t, "critical"));
+    function C(e) {
+      G(e, "", 5, null, "immediate");
     }
-    function b(e) {
-      H(e, "", 31);
+    function b(e, t) {
+      (t === void 0 && (t = null), G(e, "", 5, t, "critical"));
     }
     function v(e) {
-      H(e, "", 98);
+      G(e, "", 31);
     }
-    function S(e, t) {
-      H(e, t, 7);
+    function S(e) {
+      G(e, "", 98);
     }
     function R(e, t) {
-      H(e, t, 7, null, "immediate");
+      G(e, t, 7);
     }
     function L(e, t) {
-      H(e, t, 7, null, "critical");
+      G(e, t, 7, null, "immediate");
     }
     function E(e, t) {
-      H(e, t, 55);
+      G(e, t, 7, null, "critical");
     }
     function k(e, t) {
-      H(e, t, 17);
+      G(e, t, 55);
     }
     function I(e, t) {
-      H(e, t, 17, null, "critical");
+      G(e, t, 17);
     }
     function T(e, t) {
-      H(e, t, 25);
+      G(e, t, 17, null, "critical");
     }
     function D(e, t) {
-      H(e, t, 115);
+      G(e, t, 25);
     }
     function x(e, t) {
-      H(e, t, 8);
+      G(e, t, 115);
     }
     function $(e, t) {
-      H(e, t, 22);
+      G(e, t, 8);
     }
     function P(e, t) {
-      H(e, t, 27);
+      G(e, t, 22);
     }
     function N(e, t) {
-      H(e, t, 0);
+      G(e, t, 27);
     }
     function M(e, t) {
-      H(e, t, 0, null, "immediate");
+      G(e, t, 0);
     }
     function w(e, t) {
-      H(e, t, 0, null, "critical");
+      G(e, t, 0, null, "immediate");
     }
-    function A(e, t, n) {
-      H(e, t != null ? t : "", 89, n);
+    function A(e, t) {
+      G(e, t, 0, null, "critical");
     }
-    function F(e, t) {
-      H(e, t != null ? t : "", 89, null, "immediate");
+    function F(e, t, n) {
+      G(e, t != null ? t : "", 89, n);
     }
     function O(e, t) {
-      H(e, t != null ? t : "", 89, null, "critical");
+      G(e, t != null ? t : "", 89, null, "immediate");
     }
     function B(e, t) {
-      H(e, t, 60);
+      G(e, t != null ? t : "", 89, null, "critical");
     }
     function W(e, t) {
-      H(e, t, 90);
+      G(e, t, 60);
     }
     function q(e, t) {
-      H(e, t, 144);
+      G(e, t, 90);
     }
-    function U(e, t, n) {
-      H(e, t, n);
+    function U(e, t) {
+      G(e, t, 144);
     }
     function V(e, t, n) {
-      H(e, t, n, null, "immediate");
+      G(e, t, n);
     }
-    function H(t, n, o, a, i) {
+    function H(e, t, n) {
+      G(e, t, n, null, "immediate");
+    }
+    function G(t, n, o, a, i) {
       var l = t + "|" + n;
       (a != null && (l = l + "|" + a),
         !e[l] &&
@@ -131,40 +134,41 @@ __d(
     }
     ((l.logExposureForUser = s),
       (l.logExposureForUserImmediately = u),
-      (l.logExposureForIGUser = c),
-      (l.logExposureForIGUserImmediately = d),
-      (l.logExposureForIGWebCookie = m),
-      (l.logExposureForIGAccountFBIDV2 = p),
-      (l.logExposureForIGWebCookieImmediately = _),
-      (l.logExposureForIGWebCookieCritical = f),
-      (l.logExposureForEmail = g),
-      (l.logExposureForDatr = h),
-      (l.logExposureForDatrImmediately = y),
-      (l.logExposureForDatrCritical = C),
-      (l.logExposureForOculusLoggedOut = b),
-      (l.logExposureForOculusLoggedOutCookieID = v),
-      (l.logExposureForPage = S),
-      (l.logExposureForPageImmediately = R),
-      (l.logExposureForPageCritical = L),
-      (l.logExposureForPaymentAccountID = E),
-      (l.logExposureForBusiness = k),
-      (l.logExposureForBusinessCritical = I),
-      (l.logExposureForGroup = T),
-      (l.logExposureForPhabricatorDiff = D),
-      (l.logExposureForPhoneNumber = x),
-      (l.logExposureForScimCompanyID = $),
-      (l.logExposureForAnalyticsEntityID = P),
-      (l.logExposureForAdAccountID = N),
-      (l.logExposureForAdAccountIDImmediately = M),
-      (l.logExposureForAdAccountIDCritical = w),
-      (l.logExposureForActingAccount = A),
-      (l.logExposureForActingAccountImmediately = F),
-      (l.logExposureForActingAccountCritical = O),
-      (l.logExposureForMixedUserAndPage = B),
-      (l.logExposureForCommerceMerchantSettings = W),
-      (l.logExposureForShopifyApplicationInstallationID = q),
-      (l.logExposure = U),
-      (l.logExposureImmediately = V));
+      (l.logExposureForUserCritical = c),
+      (l.logExposureForIGUser = d),
+      (l.logExposureForIGUserImmediately = m),
+      (l.logExposureForIGWebCookie = p),
+      (l.logExposureForIGAccountFBIDV2 = _),
+      (l.logExposureForIGWebCookieImmediately = f),
+      (l.logExposureForIGWebCookieCritical = g),
+      (l.logExposureForEmail = h),
+      (l.logExposureForDatr = y),
+      (l.logExposureForDatrImmediately = C),
+      (l.logExposureForDatrCritical = b),
+      (l.logExposureForOculusLoggedOut = v),
+      (l.logExposureForOculusLoggedOutCookieID = S),
+      (l.logExposureForPage = R),
+      (l.logExposureForPageImmediately = L),
+      (l.logExposureForPageCritical = E),
+      (l.logExposureForPaymentAccountID = k),
+      (l.logExposureForBusiness = I),
+      (l.logExposureForBusinessCritical = T),
+      (l.logExposureForGroup = D),
+      (l.logExposureForPhabricatorDiff = x),
+      (l.logExposureForPhoneNumber = $),
+      (l.logExposureForScimCompanyID = P),
+      (l.logExposureForAnalyticsEntityID = N),
+      (l.logExposureForAdAccountID = M),
+      (l.logExposureForAdAccountIDImmediately = w),
+      (l.logExposureForAdAccountIDCritical = A),
+      (l.logExposureForActingAccount = F),
+      (l.logExposureForActingAccountImmediately = O),
+      (l.logExposureForActingAccountCritical = B),
+      (l.logExposureForMixedUserAndPage = W),
+      (l.logExposureForCommerceMerchantSettings = q),
+      (l.logExposureForShopifyApplicationInstallationID = U),
+      (l.logExposure = V),
+      (l.logExposureImmediately = H));
   },
   98,
 );

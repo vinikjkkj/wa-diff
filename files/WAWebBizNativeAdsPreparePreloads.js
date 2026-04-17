@@ -2,6 +2,7 @@ __d(
   "WAWebBizNativeAdsPreparePreloads",
   [
     "CometRelay",
+    "FBLogger",
     "WAWebBizAdCreationConsts",
     "WAWebBizAdCreationRoot.entrypoint",
     "WAWebBizAdManagementRootQuery$Parameters",
@@ -11,7 +12,12 @@ __d(
     function e(e, t, n) {
       var a,
         i =
-          (a = n == null ? void 0 : n.adAccountId) != null ? a : e.adAccountId;
+          (a = n == null ? void 0 : n.adAccountId) != null ? a : e.adAccountId,
+        l = e.pageId;
+      if (l == null)
+        throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
+          "prepareAdCreationEntrypoint called without pageId \u2014 identity resolution must complete before reloading entrypoint",
+        );
       return o("CometRelay").loadEntryPoint(
         {
           getEnvironment: function () {
@@ -20,7 +26,7 @@ __d(
         },
         r("WAWebBizAdCreationRoot.entrypoint"),
         {
-          page_id: e.pageId,
+          page_id: l,
           flow_id: t,
           ad_account_type: e.accountType,
           ad_account_id: i,

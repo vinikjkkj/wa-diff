@@ -30,7 +30,8 @@ __d(
     function m(e) {
       return (
         e === o("WAWebVoipWaCallEnums").CallState.None ||
-        e === o("WAWebVoipWaCallEnums").CallState.CallStateEnding
+        e === o("WAWebVoipWaCallEnums").CallState.CallStateEnding ||
+        e === o("WAWebVoipWaCallEnums").CallState.CallActiveElseWhere
       );
     }
     function p(t) {

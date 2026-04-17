@@ -84,23 +84,24 @@ __d(
         $ = t.setPlaybackRateImpl,
         P = t.setVolumeImpl,
         N = t.subscribers,
-        M = t.unregisterEmsgObserverImpl,
-        w = t.videoElementAPIRef,
-        A = t.videoPlayerPassiveViewabilityInfo,
-        F = new Set(),
-        O = !1,
-        B = null,
-        W = [],
+        M = t.suspendAutoLoopImpl,
+        w = t.unregisterEmsgObserverImpl,
+        A = t.videoElementAPIRef,
+        F = t.videoPlayerPassiveViewabilityInfo,
+        O = new Set(),
+        B = !1,
+        W = null,
         q = [],
         U = [],
         V = [],
-        H = new e({
-          pauseRequestCallbacks: q,
-          playRequestCallbacks: W,
-          scrubBeginRequestCallbacks: U,
-          scrubEndRequestCallbacks: V,
+        H = [],
+        G = new e({
+          pauseRequestCallbacks: U,
+          playRequestCallbacks: q,
+          scrubBeginRequestCallbacks: V,
+          scrubEndRequestCallbacks: H,
         }),
-        G = {
+        z = {
           freeze: function () {
             if (!l().paused)
               throw r("FBLogger")("comet_video_player").mustfixThrow(
@@ -109,51 +110,51 @@ __d(
             var e = {};
             try {
               var t = !1;
-              (F.size === 0 &&
+              (O.size === 0 &&
                 ((t = !0),
-                (B = {
+                (W = {
                   exposedState: l(),
                   isFullscreen: u(),
                   liveRewindPlayheadPosition: c(),
                   playheadPosition: d(),
                   stateMachineState: m(),
                 })),
-                F.add(e),
+                O.add(e),
                 t &&
-                  ((O = !0),
+                  ((B = !0),
                   N.forEach(function (e) {
                     e();
                   })));
             } finally {
-              O = !1;
+              B = !1;
             }
             return e;
           },
           isFrozen: function () {
-            return B != null;
+            return W != null;
           },
           unfreeze: function (t) {
-            if (!F.has(t))
+            if (!O.has(t))
               throw r("FBLogger")("comet_video_player").mustfixThrow(
                 "Video player controller unfreeze token not found",
               );
-            (F.delete(t),
-              F.size === 0 &&
-                ((B = null),
+            (O.delete(t),
+              O.size === 0 &&
+                ((W = null),
                 N.forEach(function (e) {
                   e();
                 })));
           },
         },
-        z = function () {
-          return B != null ? B.exposedState : l();
+        j = function () {
+          return W != null ? W.exposedState : l();
         },
-        j = babelHelpers.extends({}, n, G, _, {
+        K = babelHelpers.extends({}, n, z, _, {
           changeProgressivePreload: function (t) {
             var e;
-            if (!G.isFrozen()) {
+            if (!z.isFrozen()) {
               var n =
-                (e = w.current) == null
+                (e = A.current) == null
                   ? void 0
                   : e.getUnderlyingVideoElement();
               n != null &&
@@ -162,33 +163,33 @@ __d(
           },
           debugAPI: o,
           exitPictureInPicture: function () {
-            G.isFrozen() || a();
+            z.isFrozen() || a();
           },
-          getCurrentState: z,
+          getCurrentState: j,
           getIsDesktopPictureInPicture: function () {
-            return B != null ? B.isFullscreen : s();
+            return W != null ? W.isFullscreen : s();
           },
           getIsFullscreen: function () {
-            return B != null ? B.isFullscreen : u();
+            return W != null ? W.isFullscreen : u();
           },
           getLiveRewindPlayheadPosition: function () {
-            return B != null ? B.liveRewindPlayheadPosition : c();
+            return W != null ? W.liveRewindPlayheadPosition : c();
           },
           getPlayheadPosition: function () {
-            return B != null ? B.playheadPosition : d();
+            return W != null ? W.playheadPosition : d();
           },
           internal_getCoreVideoStates: function () {
             return {
-              implementationController: j,
-              implementationExposedState: z(),
-              videoPlayerPassiveViewabilityInfo: A,
+              implementationController: K,
+              implementationExposedState: j(),
+              videoPlayerPassiveViewabilityInfo: F,
             };
           },
           internal_getStateMachineState: function () {
-            return B != null ? B.stateMachineState : m();
+            return W != null ? W.stateMachineState : m();
           },
           internal_getVideoElement: function () {
-            var e = w.current;
+            var e = A.current;
             if (e != null) {
               var t = e.getUnderlyingVideoElement();
               return t;
@@ -197,7 +198,7 @@ __d(
           },
           internal_getVideoPixelsDecodedDimensions: function () {
             var e,
-              t = w.current;
+              t = A.current;
             return (e =
               t == null ? void 0 : t.getVideoPixelsDecodedDimensions()) != null
               ? e
@@ -205,7 +206,7 @@ __d(
           },
           internal_getVideoPixelsPaintedDimensions: function () {
             var e,
-              t = w.current;
+              t = A.current;
             return (e =
               t == null ? void 0 : t.getVideoPixelsPaintedDimensions()) != null
               ? e
@@ -213,18 +214,18 @@ __d(
           },
           internal_injectFatalError: p,
           observeOn: function () {
-            return H;
+            return G;
           },
           pause: function (t) {
-            G.isFrozen() ||
-              (q.forEach(function (e) {
+            z.isFrozen() ||
+              (U.forEach(function (e) {
                 return e(t);
               }),
               f(t));
           },
           play: function (t) {
-            G.isFrozen() ||
-              (W.forEach(function (e) {
+            z.isFrozen() ||
+              (q.forEach(function (e) {
                 return e(t);
               }),
               g(t));
@@ -234,74 +235,74 @@ __d(
             return (h(e), e);
           },
           requestPictureInPicture: function () {
-            G.isFrozen() || y();
+            z.isFrozen() || y();
           },
           requestSetIsFullscreen: function (t) {
-            if (!G.isFrozen()) {
+            if (!z.isFrozen()) {
               var e = i.current;
               if (e) {
-                var n = j.internal_getVideoElement();
+                var n = K.internal_getVideoElement();
                 e.requestSetIsFullscreen(t, n);
               }
             }
           },
           scrollIntoView: function (t) {
-            var e = j.internal_getVideoElement();
+            var e = K.internal_getVideoElement();
             e && e.scrollIntoView(t);
           },
           scrubBegin: function () {
-            G.isFrozen() ||
-              (U.forEach(function (e) {
+            z.isFrozen() ||
+              (V.forEach(function (e) {
                 return e();
               }),
               C());
           },
           scrubEnd: function (t) {
-            G.isFrozen() ||
-              (V.forEach(function (e) {
+            z.isFrozen() ||
+              (H.forEach(function (e) {
                 return e(t);
               }),
               b(t));
           },
           seek: function (t) {
-            G.isFrozen() || v(t);
+            z.isFrozen() || v(t);
           },
           selectVideoQuality: function (t) {
-            G.isFrozen() || S(t);
+            z.isFrozen() || S(t);
           },
           selectVideoVariant: function (t) {
-            G.isFrozen() || R(t);
+            z.isFrozen() || R(t);
           },
           setCaptionsDisplayStyle: function (t) {
-            G.isFrozen() || L(t);
+            z.isFrozen() || L(t);
           },
           setCaptionsUrl: function (t) {
-            G.isFrozen() || E(t);
+            z.isFrozen() || E(t);
           },
           setCaptionsVisible: function (t) {
-            G.isFrozen() || k(t);
+            z.isFrozen() || k(t);
           },
           setIsLiveRewindActive: function (t) {
-            G.isFrozen() || I(t);
+            z.isFrozen() || I(t);
           },
           setLatencyLevel: function (t) {
-            G.isFrozen() || T(t);
+            z.isFrozen() || T(t);
           },
           setMuted: function (t, n) {
-            G.isFrozen() || D(t, n);
+            z.isFrozen() || D(t, n);
           },
           setPictureInPictureState: function (t) {
-            G.isFrozen() || x(t);
+            z.isFrozen() || x(t);
           },
           setPlaybackRate: function (t) {
-            G.isFrozen() || $(t);
+            z.isFrozen() || $(t);
           },
           setVolume: function (t) {
-            G.isFrozen() || P(t);
+            z.isFrozen() || P(t);
           },
           subscribe: function (t) {
             var e = function () {
-                (G.isFrozen() && !O) || t();
+                (z.isFrozen() && !B) || t();
               },
               n = i.current,
               o = n ? n.subscribe(e) : null;
@@ -314,12 +315,15 @@ __d(
               }
             );
           },
-          unregisterEmsgObserver: function (t) {
-            M(t);
+          suspendAutoLoop: function (t) {
+            z.isFrozen() || M(t);
           },
-          videoElementAPIRef: w,
+          unregisterEmsgObserver: function (t) {
+            w(t);
+          },
+          videoElementAPIRef: A,
         });
-      return j;
+      return K;
     }
     l.createVideoPlayerImplementationControllerImpl = s;
   },

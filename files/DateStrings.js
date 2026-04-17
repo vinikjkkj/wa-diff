@@ -261,8 +261,10 @@ __d(
           return s._(/*BTDS*/ "30th");
         case 31:
           return s._(/*BTDS*/ "31st");
-        default:
-          throw new Error("Invalid day of month.");
+        default: {
+          var t = new Error("Invalid day of month.");
+          throw (t.stack, t);
+        }
       }
     }
     function D() {

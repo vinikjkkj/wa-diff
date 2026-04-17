@@ -131,17 +131,7 @@ __d(
         ).Ack.cast(0);
         n.writeI32(i != null ? i : 0);
       }
-      (n.writeFieldEnd(),
-        t.query_result != null &&
-          (n.writeFieldBegin({
-            fname: "query_result",
-            ftype: (e || (e = r("ThriftTypes"))).STRING,
-            fid: 3,
-          }),
-          n.writeBinary(t.query_result),
-          n.writeFieldEnd()),
-        n.writeFieldStop(),
-        n.writeStructEnd());
+      (n.writeFieldEnd(), n.writeFieldStop(), n.writeStructEnd());
     }
     function y(t, n) {
       if (
@@ -405,11 +395,6 @@ __d(
               ? (n.ack = o(
                   "RequestStreamSingleChannelSingleChannelRequestStreamTypes",
                 ).Ack.cast(t.readI32()))
-              : t.skip(i);
-            break;
-          case 3:
-            i === (e || (e = r("ThriftTypes"))).STRING
-              ? (n.query_result = t.readBinary())
               : t.skip(i);
             break;
           default:

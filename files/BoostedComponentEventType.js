@@ -12,6 +12,7 @@ __d(
       ENTER_FLOW_DATA_NOT_READY: "enter_flow_data_not_ready",
       ENTER_FLOW_HOVER: "enter_flow_hover",
       ENTER_FLOW: "enter_flow",
+      ENTER_FLOW_AD_CENTER: "enter_flow_ad_center",
       ENTER_FLOW_ERROR: "enter_flow_error",
       ENTER_FLOW_ERROR_EMPTY_CAMPAIGNS: "enter_flow_error_empty_campaigns",
       ENTER_FLOW_ERROR_DUPLICATION_IG_ID: "enter_flow_error_duplication_ig_id",
@@ -1263,6 +1264,7 @@ __d(
       INDIA_FINSERV_BENEFICIARY_AND_PAYER_DROPDOWN_IMPRESSION:
         "india_finserv_beneficiary_and_payer_dropdown_impression",
       BIZAPP_RUN_STATUS_UPDATE: "bizapp_run_status_update",
+      BIZAPP_CLEAR_SANDBOX_CLICK: "bizapp_clear_sandbox_click",
       CCI_BRAZIL_COMPLIANCE_AD_CREATION_NOTICE_IMPRESSION:
         "cci_brazil_compliance_ad_creation_notice_impression",
       CCI_BRAZIL_COMPLIANCE_AD_CREATION_NOTICE_CLICK:

@@ -33,7 +33,7 @@ __d(
         a && i;
       ) {
         var l = null;
-        for (var s of R)
+        for (var s of L)
           if (
             a.getTextContent().endsWith(s) &&
             i.getTextContent().startsWith(s)
@@ -51,11 +51,11 @@ __d(
         ((a = d[0]), (u = d[1]));
         var m = o("WAWebLexicalUtils").$splitText(i, l.length);
         if (((c = m[0]), (i = m[1]), u && c)) {
-          var _,
+          var p,
             f,
             g = o("WAWebDelimiterNode").$createDelimiterNode(l, "open"),
             h = o("WAWebDelimiterNode").$createDelimiterNode(l, "close");
-          ((_ = u) == null || _.replace(g),
+          ((p = u) == null || p.replace(g),
             (f = c) == null || f.replace(h),
             (n = [g].concat(n, [h])));
         }
@@ -71,7 +71,7 @@ __d(
           selection: e,
           isMultiLines: !1,
         };
-      var y = p(
+      var y = _(
         n,
         0,
         r("WANullthrows")(n[n.length - 1]).getTextContentSize() - 1,
@@ -104,7 +104,7 @@ __d(
       var l = t[0],
         s = t[t.length - 1],
         u = l.getParent() !== s.getParent(),
-        c = p(t, n, a);
+        c = _(t, n, a);
       return c
         ? babelHelpers.extends({}, c, {
             startNode: r("WANullthrows")(c.selectedNodes[0]),
@@ -117,7 +117,27 @@ __d(
           })
         : null;
     }
-    function p(e, t, n) {
+    function p(e, t, n, r, a, i, l) {
+      for (var s = t, u = n; ; ) {
+        var c = e[s];
+        if (c == null || (c === e[r] && u > a)) return null;
+        if (
+          (o("WAWebDelimiterNode").$isDelimiterNode(c) && !c.isOpen()) ||
+          (o("WAWebDelimiterNode").$isDelimiterNode(c) && !i[l(c, "close")]) ||
+          u === c.getTextContentSize()
+        ) {
+          (s++, (u = 0));
+          continue;
+        }
+        if (c.getTextContent()[u] === " ") {
+          u++;
+          continue;
+        }
+        break;
+      }
+      return { startNodeIndex: s, startOffset: u };
+    }
+    function _(e, t, n) {
       var r = [].concat(e),
         a = t,
         i = n,
@@ -146,46 +166,29 @@ __d(
           return t.getTextContent() + "-" + n;
         },
         m = {};
-      for (
-        r.forEach(function (e) {
-          var t;
-          if (o("WAWebDelimiterNode").$isDelimiterNode(e)) {
-            var n = d(e, e.getPosition());
-            m[n] = ((t = m[n]) != null ? t : 0) + 1;
-          }
-        });
-        ;
-      ) {
-        var p = r[l];
-        if (p == null || (p === r[s] && a > i)) return null;
-        if (
-          (o("WAWebDelimiterNode").$isDelimiterNode(p) && !p.isOpen()) ||
-          (o("WAWebDelimiterNode").$isDelimiterNode(p) && !m[d(p, "close")]) ||
-          a === p.getTextContentSize()
-        ) {
-          (l++, (a = 0));
-          continue;
+      r.forEach(function (e) {
+        var t;
+        if (o("WAWebDelimiterNode").$isDelimiterNode(e)) {
+          var n = d(e, e.getPosition());
+          m[n] = ((t = m[n]) != null ? t : 0) + 1;
         }
-        if (p.getTextContent()[a] === " ") {
-          a++;
-          continue;
-        }
-        break;
-      }
-      for (;;) {
-        var _ = r[s];
-        if (_ == null || (_ === r[l] && a > i)) return null;
+      });
+      var _ = p(r, l, a, s, i, m, d);
+      if (_ == null) return null;
+      for (l = _.startNodeIndex, a = _.startOffset; ; ) {
+        var f = r[s];
+        if (f == null || (f === r[l] && a > i)) return null;
         if (
-          (o("WAWebDelimiterNode").$isDelimiterNode(_) && _.isOpen()) ||
-          (o("WAWebDelimiterNode").$isDelimiterNode(_) && !m[d(_, "open")]) ||
+          (o("WAWebDelimiterNode").$isDelimiterNode(f) && f.isOpen()) ||
+          (o("WAWebDelimiterNode").$isDelimiterNode(f) && !m[d(f, "open")]) ||
           i === -1
         ) {
-          var f;
+          var g;
           (s--,
-            (i = ((f = r[s]) == null ? void 0 : f.getTextContentSize()) - 1));
+            (i = ((g = r[s]) == null ? void 0 : g.getTextContentSize()) - 1));
           continue;
         }
-        if (_.getTextContent()[i] === " ") {
+        if (f.getTextContent()[i] === " ") {
           i--;
           continue;
         }
@@ -193,7 +196,7 @@ __d(
       }
       return { selectedNodes: r.slice(l, s + 1), startOffset: a, endOffset: i };
     }
-    function _(t, n) {
+    function f(t, n) {
       var r = t.endOffset,
         a = t.isCollapsed,
         i = t.selection,
@@ -212,7 +215,7 @@ __d(
           var m = u.splitText(r + 1);
           u = m[0];
         }
-      var p = L(n),
+      var p = E(n),
         _ = o("WAWebDelimiterNode").$createDelimiterNode(p, "open"),
         f = o("WAWebDelimiterNode").$createDelimiterNode(p, "close");
       (s.insertBefore(_), u.insertAfter(f));
@@ -229,9 +232,9 @@ __d(
         !o("WAWebDelimiterNode").$isDelimiterNode(y) &&
         f.insertAfter(o("Lexical").$createTextNode(" "));
       var b = n !== e.InlineCode && n !== e.Code;
-      E(i, s, u, b);
+      k(i, s, u, b);
     }
-    function f(e, t) {
+    function g(e, t) {
       var n;
       t === void 0 && (t = { keepNumberedList: !1 });
       for (
@@ -264,7 +267,7 @@ __d(
         if (((s = s.getNextSibling()), s === u)) break;
       }
     }
-    function g(t, n) {
+    function h(t, n) {
       var a,
         i = t.endNode,
         l = t.startNode,
@@ -282,19 +285,19 @@ __d(
         if (p) d = p;
         else {
           var _,
-            g,
+            f,
             h = (_ = s) == null ? void 0 : _.getPreviousSibling(),
             y = parseInt(
-              h == null || (g = h.getNumberNode()) == null
+              h == null || (f = h.getNumberNode()) == null
                 ? void 0
-                : g.getTextContent(),
+                : f.getTextContent(),
               10,
             );
           y && (d = Math.min(y + 1, u));
         }
       }
-      for (f(t, { keepNumberedList: n === e.NumberedList }); s; ) {
-        k(s.getFirstChild());
+      for (g(t, { keepNumberedList: n === e.NumberedList }); s; ) {
+        I(s.getFirstChild());
         var C = s.getFirstChild();
         if (
           (!C &&
@@ -325,16 +328,16 @@ __d(
         if (((s = s.getNextSibling()), s === c)) break;
       }
     }
-    function h(e, t) {
+    function y(e, t) {
       var n = e.endOffset,
         o = e.selectedNodes,
         a = e.selection,
         i = e.startOffset,
-        l = r("WANullthrows")(C(o, i, t)),
-        s = r("WANullthrows")(b(o, n, t));
-      (E(a, l, s), l.remove(), s.remove());
+        l = r("WANullthrows")(b(o, i, t)),
+        s = r("WANullthrows")(v(o, n, t));
+      (k(a, l, s), l.remove(), s.remove());
     }
-    function y(t, n) {
+    function C(t, n) {
       var o = t.endNode,
         a = t.endOffset,
         i = t.isCollapsed,
@@ -365,15 +368,15 @@ __d(
       }
       if (
         d !== o &&
-        ((m !== 0 && v([d]).length !== 0) ||
-          (a + 1 !== o.getTextContentSize() && v([o]).length !== 0))
+        ((m !== 0 && S([d]).length !== 0) ||
+          (a + 1 !== o.getTextContentSize() && S([o]).length !== 0))
       )
         return c.Skip;
-      var S = C(u, m, n),
-        R = b(u, a, n),
-        L = !!(S && R);
+      var C = b(u, m, n),
+        R = v(u, a, n),
+        L = !!(C && R);
       if (!L) {
-        var E = v(i ? [u[0].getPreviousSibling(), u[0].getNextSibling()] : u);
+        var E = S(i ? [u[0].getPreviousSibling(), u[0].getNextSibling()] : u);
         if (
           !E.some(function (e) {
             return e === n;
@@ -386,15 +389,15 @@ __d(
       }
       return L ? c.Remove : c.Skip;
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       if (t !== 0) return null;
       for (var r of e) {
         if (!o("WAWebDelimiterNode").$isDelimiterNode(r)) break;
-        if (r.getTextContent() === L(n)) return r;
+        if (r.getTextContent() === E(n)) return r;
       }
       return null;
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       var r;
       if (
         t + 1 !==
@@ -404,11 +407,11 @@ __d(
       for (var a = e.length - 1; a >= 0; a--) {
         var i = e[a];
         if (!o("WAWebDelimiterNode").$isDelimiterNode(i)) break;
-        if (i.getTextContent() === L(n)) return i;
+        if (i.getTextContent() === E(n)) return i;
       }
       return null;
     }
-    function v(t) {
+    function S(t) {
       var n = [];
       return (
         t.forEach(function (t) {
@@ -427,17 +430,17 @@ __d(
         n
       );
     }
-    var S = {};
-    ((S[e.Bold] = "*"),
-      (S[e.Italic] = "_"),
-      (S[e.Strikethrough] = "~"),
-      (S[e.Code] = "```"),
-      (S[e.InlineCode] = "`"));
-    var R = Array.from(Object.values(S));
-    function L(e) {
-      return r("WANullthrows")(S[e]);
+    var R = {};
+    ((R[e.Bold] = "*"),
+      (R[e.Italic] = "_"),
+      (R[e.Strikethrough] = "~"),
+      (R[e.Code] = "```"),
+      (R[e.InlineCode] = "`"));
+    var L = Array.from(Object.values(R));
+    function E(e) {
+      return r("WANullthrows")(R[e]);
     }
-    function E(e, t, n, a) {
+    function k(e, t, n, a) {
       a === void 0 && (a = !0);
       for (
         var i = t, l = n;
@@ -450,7 +453,7 @@ __d(
           (l = r("WANullthrows")(l.getPreviousSibling())));
       e.setTextNodeRange(i, 0, l, l.getTextContentSize());
     }
-    function k(e) {
+    function I(e) {
       if (e) {
         var t = e.getTextContent(),
           n = t.trimStart();
@@ -466,24 +469,24 @@ __d(
         }
       }
     }
-    function I(e) {
+    function T(e) {
       var t = m();
       if (!t) return !1;
-      var n = y(t, e);
+      var n = C(t, e);
       if (s.includes(e))
         switch (n) {
           case c.Add:
-            return (g(t, e), !0);
+            return (h(t, e), !0);
           case c.Remove:
-            return (f(t), !0);
+            return (g(t), !0);
           case c.Skip:
             return !1;
         }
-      switch (y(t, e)) {
+      switch (C(t, e)) {
         case c.Add:
-          return (_(t, e), !0);
+          return (f(t, e), !0);
         case c.Remove:
-          return (h(t, e), !0);
+          return (y(t, e), !0);
         case c.Skip:
           return !1;
       }
@@ -491,8 +494,8 @@ __d(
     ((l.TextFormatType = e),
       (l.TextFormatActionType = c),
       (l.$normalizeTextSelection = m),
-      (l.$getTextFormatAction = y),
-      (l.$toggleTextFormat = I));
+      (l.$getTextFormatAction = C),
+      (l.$toggleTextFormat = T));
   },
   98,
 );

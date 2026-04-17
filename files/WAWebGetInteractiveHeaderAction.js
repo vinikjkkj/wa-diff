@@ -6,8 +6,10 @@ __d(
     "WAWebBizOrderDetailAction",
     "WAWebBizSignupConfirmationPopup.react",
     "WAWebGetInteractiveActions",
+    "WAWebInAppSignupConfirmation",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
+    "WAWebSignupFlowLoggerLazy",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e, t) {
@@ -59,9 +61,20 @@ __d(
               return {
                 label: s._(/*BTDS*/ "View details"),
                 onClick: function () {
-                  o(
-                    "WAWebBizSignupConfirmationPopup.react",
-                  ).openSignupConfirmationPopup(t.msg);
+                  var e = o(
+                    "WAWebInAppSignupConfirmation",
+                  ).getInAppSignupConfirmationInfo(t.msg);
+                  (e != null &&
+                    o("WAWebSignupFlowLoggerLazy").logSignupOp({
+                      operation: o("WAWebSignupFlowLoggerLazy")
+                        .SIGNUP_USER_JOURNEY_OPERATION
+                        .SIGNUP_CONFIRMATION_VIEW_DETAILS_CLICKED,
+                      signupId: e.signupId,
+                      businessWid: t.msg.id.remote,
+                    }),
+                    o(
+                      "WAWebBizSignupConfirmationPopup.react",
+                    ).openSignupConfirmationPopup(t.msg));
                 },
               };
           }

@@ -7,7 +7,7 @@ __d(
       return e === "WAA"
         ? "ctwa_wa_ad_account"
         : e === "FB"
-          ? t
+          ? t === "linked_fb_page"
             ? "ctwa_fb_page_linked_account"
             : "ctwa_fb_pageless_account"
           : null;

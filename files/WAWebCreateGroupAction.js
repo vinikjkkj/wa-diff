@@ -13,6 +13,7 @@ __d(
     "WAWebCoreActionsODS",
     "WAWebFindChatAction",
     "WAWebGroupCreateJob",
+    "WAWebGroupCreateWamEvent",
     "WAWebGroupGatingUtils",
     "WAWebGroupMutationParticipantUtils",
     "WAWebGroupQueryBridge",
@@ -36,25 +37,25 @@ __d(
       u,
       c,
       d = c || (c = o("react"));
-    function m(e, t, n) {
-      return p(e, t, void 0, n);
+    function m(e, t, n, r) {
+      return p(e, t, void 0, n, r);
     }
-    function p(t, a, i, l) {
+    function p(t, a, i, l, c) {
       i === void 0 && (i = o("WAWebActionToast.react").genId());
-      var c = t.full,
-        m = t.parentGroupId,
-        _ = t.thumb,
-        f = t.title,
-        g =
+      var m = t.full,
+        _ = t.parentGroupId,
+        f = t.thumb,
+        g = t.title,
+        h =
           o("WAWebUsernameGatingUtils").usernameGroupMutationEnabled() ||
           t.addressingModeOverride ===
             o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.lid,
-        h;
+        y;
       try {
-        h = a.map(function (e) {
+        y = a.map(function (e) {
           return o(
             "WAWebGroupMutationParticipantUtils",
-          ).getGroupMutationParticipant(e, g, "createGroup");
+          ).getGroupMutationParticipant(e, h, "createGroup");
         });
       } catch (e) {
         return (
@@ -62,12 +63,18 @@ __d(
           (u || (u = n("Promise"))).resolve(void 0)
         );
       }
-      var y = o("WAWebGroupCreateJob")
-          .createGroup(t, h)
+      var C = o("WAWebGroupCreateJob")
+          .createGroup(t, y)
           .then(function (e) {
-            var t = o("WAWebWidFactory").asGroupWidOrThrow(e.wid);
-            o("WAWebCoreActionsODS").logGroupCreate();
-            var n = e.participants.map(function (e) {
+            var n = o("WAWebWidFactory").asGroupWidOrThrow(e.wid);
+            (o("WAWebCoreActionsODS").logGroupCreate(),
+              c != null &&
+                new (o("WAWebGroupCreateWamEvent").GroupCreateWamEvent)({
+                  ephemeralityDuration: t.ephemeralDuration,
+                  groupCreateEntryPoint: c,
+                  hasGroupName: g.trim().length > 0,
+                }).commit());
+            var r = e.participants.map(function (e) {
               return {
                 userWid: e.wid,
                 username: e.username,
@@ -76,17 +83,16 @@ __d(
                 invite_code_exp: e.invite_code_exp,
               };
             });
-            return { gid: t, participants: n };
+            return { gid: n, participants: r };
           }),
-        C = new (o("WAWebActionToast.react").ActionType)(
+        b = new (o("WAWebActionToast.react").ActionType)(
           s._(/*BTDS*/ "Creating group"),
         ),
-        b = y
-          .then(function (e) {
-            return new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Created group"),
-            );
-          })
+        v = C.then(function (e) {
+          return new (o("WAWebActionToast.react").ActionType)(
+            s._(/*BTDS*/ "Created group"),
+          );
+        })
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,
@@ -174,85 +180,82 @@ __d(
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebActionToast.react").ActionToast, {
             id: i,
-            initialAction: C,
-            pendingAction: b,
+            initialAction: b,
+            pendingAction: v,
           }),
         ),
-        y
-          .then(
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = e.participants.some(function (e) {
-                    return e.code === "403";
-                  });
-                  if (
-                    (t &&
-                      o("WAWebSendForNeededAddRequest").sendForNeededAddRequest(
-                        e,
-                        f,
-                        void 0,
-                        l,
-                      ),
-                    m == null &&
-                      e.gid &&
-                      o("WAWebFindChatAction")
-                        .findOrCreateLatestChat(e.gid, "createGroupAction")
-                        .then(function (t) {
-                          var n = t.chat;
-                          (o("WAWebCmd")
-                            .Cmd.openChatBottom({ chat: n })
-                            .then(function (e) {
-                              e &&
-                                o(
-                                  "WAWebComposeBoxActions",
-                                ).ComposeBoxActions.focus(n);
-                            }),
-                            (f === "" ||
+        C.then(
+          (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = e.participants.some(function (e) {
+                  return e.code === "403";
+                });
+                if (
+                  (t &&
+                    o("WAWebSendForNeededAddRequest").sendForNeededAddRequest(
+                      e,
+                      g,
+                      void 0,
+                      l,
+                    ),
+                  _ == null &&
+                    e.gid &&
+                    o("WAWebFindChatAction")
+                      .findOrCreateLatestChat(e.gid, "createGroupAction")
+                      .then(function (t) {
+                        var n = t.chat;
+                        (o("WAWebCmd")
+                          .Cmd.openChatBottom({ chat: n })
+                          .then(function (e) {
+                            e &&
                               o(
-                                "WAWebGroupGatingUtils",
-                              ).isAnyoneCanLinkToGroupsM2Enabled()) &&
-                              o("WAWebGroupQueryBridge")
-                                .sendQueryGroup(e.gid)
-                                .finally(r("WAWebNoop")));
-                        }),
-                    _ != null && c != null)
-                  ) {
-                    var n = o(
-                      "WAWebProfilePicThumbCollection",
-                    ).ProfilePicThumbCollection.gadd(e.gid);
-                    yield o("WAWebProfilePicThumbAction")
-                      .setProfilePic(n, _, c)
-                      .then(function () {
-                        return e.gid;
-                      });
-                  }
-                  if (
-                    o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
-                  ) {
-                    var a = e.participants.reduce(function (e, t) {
-                      return (
-                        t.username != null &&
-                          e.push({
-                            username: t.username,
-                            userId: o("WAWebWidFactory").asUserWidOrThrow(
-                              t.userWid,
-                            ),
+                                "WAWebComposeBoxActions",
+                              ).ComposeBoxActions.focus(n);
                           }),
-                        e
-                      );
-                    }, []);
-                    a.length > 0 &&
-                      (yield o("WAWebSetUsernameJob").setUsernamesJob(a));
-                  }
-                  return (t || l == null || l(), e.gid);
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          )
+                          (g === "" ||
+                            o(
+                              "WAWebGroupGatingUtils",
+                            ).isAnyoneCanLinkToGroupsM2Enabled()) &&
+                            o("WAWebGroupQueryBridge")
+                              .sendQueryGroup(e.gid)
+                              .finally(r("WAWebNoop")));
+                      }),
+                  f != null && m != null)
+                ) {
+                  var n = o(
+                    "WAWebProfilePicThumbCollection",
+                  ).ProfilePicThumbCollection.gadd(e.gid);
+                  yield o("WAWebProfilePicThumbAction")
+                    .setProfilePic(n, f, m)
+                    .then(function () {
+                      return e.gid;
+                    });
+                }
+                if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
+                  var a = e.participants.reduce(function (e, t) {
+                    return (
+                      t.username != null &&
+                        e.push({
+                          username: t.username,
+                          userId: o("WAWebWidFactory").asUserWidOrThrow(
+                            t.userWid,
+                          ),
+                        }),
+                      e
+                    );
+                  }, []);
+                  a.length > 0 &&
+                    (yield o("WAWebSetUsernameJob").setUsernamesJob(a));
+                }
+                return (t || l == null || l(), e.gid);
+              },
+            );
+            return function (t) {
+              return e.apply(this, arguments);
+            };
+          })(),
+        )
           .catch(
             o("WAFilteredCatch").filteredCatch(
               o("WAWebBackendErrors").ServerStatusCodeError,

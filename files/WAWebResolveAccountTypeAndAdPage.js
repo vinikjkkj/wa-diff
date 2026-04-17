@@ -119,24 +119,25 @@ __d(
               ? t
               : yield o("WAWebLinkedAccountsJob").queryLinkedPagesInfo();
           if (e.type === "WAA") {
-            if (n.waPageId != null) return n.waPageId;
+            if (n.waPageId != null)
+              return { pageId: n.waPageId, pageType: "wa_ads_identity_page" };
           } else if (n.fbPageId != null) {
             var a = n.fbPageId,
               i = yield r("WAWebGetFBAccountPages")(e),
               l = i.some(function (e) {
                 return e.id === a;
               });
-            if (l) return a;
+            if (l) return { pageId: a, pageType: "linked_fb_page" };
           } else if (n.waPageId != null) {
             var s = n.waPageId,
               u = yield _(e, s);
-            if (u) return s;
+            if (u) return { pageId: s, pageType: "wa_ads_identity_page" };
           }
           var c = yield o("WAWebFetchAdAccountToken").fetchToken(),
             d = r("nullthrows")(c.token),
             m = yield r("WAWebGetAccountNonce")(d),
             p = yield r("WAWebCreateWhatsAppAdsIdentity")(e, m);
-          return p;
+          return { pageId: p, pageType: "wa_ads_identity_page" };
         })),
         C.apply(this, arguments)
       );

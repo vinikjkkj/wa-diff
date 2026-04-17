@@ -2,6 +2,7 @@ __d(
   "WAWebBotCertificateValidationLogger",
   [
     "WALogger",
+    "WATimeUtils",
     "WAWebCertificateValidationEventWamEvent",
     "WAWebWamEnumCertVerificationResultType",
   ],
@@ -14,7 +15,7 @@ __d(
           r,
           a,
           i,
-          l,
+          l = t.startTime,
           u = new (o(
             "WAWebCertificateValidationEventWamEvent",
           ).CertificateValidationEventWamEvent)({
@@ -25,7 +26,7 @@ __d(
             leafCertTtlDays: (a = t.leafCertTtlDays) != null ? a : void 0,
             signatureVersion: (i = t.signatureVersion) != null ? i : void 0,
             verificationLatency:
-              (l = t.verificationLatencyMs) != null ? l : void 0,
+              l != null ? (o("WATimeUtils").unixTime() - l) * 1e3 : void 0,
           });
         u.commit();
       } catch (t) {

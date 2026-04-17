@@ -1,0 +1,40 @@
+__d(
+  "CometUFIFunnelLoggerConstants",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = n("$InternalEnum")({
+        COMMENT_CREATE: "comment_create_start",
+        COMMENT_CREATE_SUCCESS: "comment_create_success",
+        COMMENT_CREATE_ERROR: "comment_create_error",
+        COMMENT_EDIT: "comment_edit_start",
+        COMMENT_EDIT_SUCCESS: "comment_edit_success",
+        COMMENT_EDIT_ERROR: "comment_edit_error",
+        COMMENT_MENU_ITEM_EDIT: "comment_menu_item_edit",
+        COMMENT_MENU_ITEM_DELETE: "comment_menu_item_delete",
+        COMMENT_MENU_ITEM_DELETE_SUCCESS: "comment_menu_item_delete_sucess",
+        COMMENT_MENU_ITEM_DELETE_ERROR: "comment_menu_item_delete_error",
+        COMMENT_MENU_ITEM_HIDE: "comment_menu_item_hide",
+        COMMENT_MENU_ITEM_UNHIDE: "comment_menu_item_unhide",
+        COMMENT_ACTION_REACT: "comment_action_react",
+        COMMENT_ACTION_REPLY: "comment_action_reply",
+        COMMENT_ACTION_HIDE: "comment_action_hide",
+        COMMENT_ACTION_UNHIDE: "comment_action_unhide",
+        COMMENT_ACTION_TIMESTAMP: "comment_action_timestamp",
+        LEVEL_0_PAGER_CLICK: "level_0_pager_click",
+        LEVEL_1_PAGER_CLICK: "level_1_pager_click",
+        LEVEL_2_PAGER_CLICK: "level_2_pager_click",
+        REACTION_MENU_LIKE: "reaction_menu_like",
+        REACTION_MENU_LOVE: "reaction_menu_love",
+        REACTION_MENU_SUPPORT: "reaction_menu_support",
+        REACTION_MENU_HAHA: "reaction_menu_haha",
+        REACTION_MENU_WOW: "reaction_menu_wow",
+        REACTION_MENU_SORRY: "reaction_menu_sorry",
+        REACTION_MENU_ANGER: "reaction_menu_anger",
+      }),
+      l = 3e3;
+    ((i.CometUFIFunnelLoggerEvents = e),
+      (i.COMET_UFI_FUNNEL_LOGGER_START_DELAY = l));
+  },
+  66,
+);

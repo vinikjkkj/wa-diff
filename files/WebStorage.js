@@ -88,7 +88,7 @@ __d(
       return t;
     }
     function C(e, t, n) {
-      if (e == null) return new Error("storage cannot be null");
+      if (e == null) return r("err")("storage cannot be null");
       var o = null;
       try {
         e.setItem(t, n);

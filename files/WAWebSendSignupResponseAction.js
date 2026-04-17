@@ -16,6 +16,7 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
     "WAWebSignupCTAExperiment",
+    "WAWebSignupFlowLoggerLazy",
     "WAWebStateUtils",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -61,7 +62,17 @@ __d(
               ),
               !1
             );
-          if (n.signupCtaTapped === !0) return !1;
+          if (
+            (o("WAWebSignupFlowLoggerLazy").logSignupOp({
+              operation: o("WAWebSignupFlowLoggerLazy")
+                .SIGNUP_USER_JOURNEY_OPERATION.AGM_CTA_CLICKED,
+              signupId: i,
+              businessWid: t.id,
+              chatTimestamp: t.t,
+            }),
+            n.signupCtaTapped === !0)
+          )
+            return !1;
           var l = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
           if (l == null)
             return (
@@ -113,6 +124,13 @@ __d(
               signupCtaTapped: !0,
             }));
           try {
+            o("WAWebSignupFlowLoggerLazy").logSignupOp({
+              operation: o("WAWebSignupFlowLoggerLazy")
+                .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_REQUEST_SENT,
+              signupId: i,
+              businessWid: t.id,
+              chatTimestamp: t.t,
+            });
             var y = o("WAWebWidToJid").widToUserJid(t.id),
               C = yield r("JSResourceForInteraction")("WAWebOptOutUserJob")
                 .__setRef("WAWebSendSignupResponseAction")

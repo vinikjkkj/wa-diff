@@ -101,6 +101,9 @@ __d(
                       businessLidOrJid: g(t.id.toString()),
                       collectionWindowId: v(t, n, c),
                       isNetworkAvailable: r("WAWebNetworkStatus").online,
+                      isShimmingSignal: !o(
+                        "WAWebMmSignalSharingGatingUtils",
+                      ).isMmSignalSharingReplacingShimmedLinksEnabled(),
                     },
                     (a == null ? void 0 : a.templateId) != null
                       ? { templateId: a.templateId }
@@ -125,6 +128,9 @@ __d(
                 ).MmSignalSharingVerificationWithSignalDataEventWamEvent)(
                   babelHelpers.extends({}, R, {
                     isNetworkAvailable: r("WAWebNetworkStatus").online,
+                    isShimmingSignal: !o(
+                      "WAWebMmSignalSharingGatingUtils",
+                    ).isMmSignalSharingReplacingShimmedLinksEnabled(),
                     mmSignalData: o(
                       "WAWebMmSignalSharingModelUtils",
                     ).getMMSignalSharingData({

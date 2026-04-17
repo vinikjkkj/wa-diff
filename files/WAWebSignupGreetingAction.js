@@ -15,6 +15,7 @@ __d(
     "WAWebMsgType",
     "WAWebNullFunc",
     "WAWebSendMsgChatAction",
+    "WAWebSignupFlowLoggerLazy",
     "WAWebSignupGating",
     "WAWebSignupLoadingState",
     "WAWebSignupMetadataFetcher",
@@ -47,21 +48,37 @@ __d(
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a;
           try {
-            var i = o("WAWebWidFactory").createWid(e),
-              l = yield (f || (f = n("Promise"))).all([
-                o("WAWebFindChatAction").findOrCreateLatestChat(i, "signupAGM"),
+            var i,
+              l = o("WAWebWidFactory").createWid(e);
+            (i = o("WAWebSignupFlowLoggerLazy")).logSignupOp({
+              operation: i.SIGNUP_USER_JOURNEY_OPERATION.DEEP_LINK_PARSED,
+              signupId: t,
+              businessWid: l,
+            });
+            var s = yield (f || (f = n("Promise"))).all([
+                o("WAWebFindChatAction").findOrCreateLatestChat(l, "signupAGM"),
                 o("WAWebSignupMetadataFetcher")
-                  .fetchSignupMetadata(t, i.user)
+                  .fetchSignupMetadata(t, l.user)
                   .catch(o("WAWebNullFunc").returnNull),
               ]),
-              s = l[0],
-              u = s.chat,
-              c = s.created,
-              h = l[1];
-            if (((a = u.id.toString()), !c && !g.has(a))) {
+              u = s[0],
+              c = u.chat,
+              h = u.created,
+              y = s[1];
+            if (
+              ((a = c.id.toString()),
+              o("WAWebSignupFlowLoggerLazy").logSignupOp({
+                operation: o("WAWebSignupFlowLoggerLazy")
+                  .SIGNUP_USER_JOURNEY_OPERATION.LAND_ON_CHAT_THREAD,
+                signupId: t,
+                businessWid: c.id,
+                chatTimestamp: c.t,
+              }),
+              !h && !g.has(a))
+            ) {
               g.add(a);
               try {
-                var y = u.msgs.getModelsArray().some(function (e) {
+                var C = c.msgs.getModelsArray().some(function (e) {
                   return (
                     e.subtype ===
                       o("WAWebCommonMsgSubtypeTypes").MsgSubtype
@@ -72,10 +89,10 @@ __d(
                     )
                   );
                 });
-                if (!y) {
-                  var C = yield o(
+                if (!C) {
+                  var b = yield o(
                     "WAWebContactSystemMsg",
-                  ).genContactInfoCardMsg(u.id, {
+                  ).genContactInfoCardMsg(c.id, {
                     isSmb: !1,
                     isEnterprise: !1,
                     iAmStartingChat: !0,
@@ -84,12 +101,12 @@ __d(
                     isFMXCtWA: !1,
                     isSignupDeeplink: !0,
                   });
-                  C != null &&
+                  b != null &&
                     (yield o(
                       "WAWebHandleSingleMsgWorkerCompatible",
                     ).handleSingleMsg({
-                      chatId: u.id,
-                      newMsg: C,
+                      chatId: c.id,
+                      newMsg: b,
                       handleSingleMsgOrigin: "signupAGM",
                     }),
                     o("WALogger").LOG(
@@ -103,7 +120,7 @@ __d(
                 throw (g.delete(a), e);
               }
             }
-            if (h == null) {
+            if (y == null) {
               (o("WALogger")
                 .ERROR(
                   m ||
@@ -119,32 +136,32 @@ __d(
                 o("WAWebSignupLoadingState").setSignupLoading(a, !1));
               return;
             }
-            var b = o("WAWebUserPrefsMeUser").getMeUser(),
-              v = {
+            var v = o("WAWebUserPrefsMeUser").getMeUser(),
+              S = {
                 type: o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE,
                 kind: o("WAWebMsgType").MsgKind.AutomatedGreetingMessage,
                 subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup,
                 viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
                 ack: o("WAWebAck").ACK.READ,
-                from: u.id,
-                author: u.id,
+                from: c.id,
+                author: c.id,
                 id: new (r("WAWebMsgKey"))({
                   fromMe: !1,
-                  remote: u.id,
+                  remote: c.id,
                   id: yield r("WAWebMsgKey").newId(),
                   participant: void 0,
                 }),
                 local: !1,
                 isNewMsg: !0,
                 t: o("WATimeUtils").unixTime(),
-                to: b,
-                body: h.signupMessage,
+                to: v,
+                body: y.signupMessage,
                 signupContext: {
-                  signupId: h.signupId,
-                  privacyPolicyUrl: h.privacyPolicyUrl,
+                  signupId: y.signupId,
+                  privacyPolicyUrl: y.privacyPolicyUrl,
                 },
               };
-            (yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(u, v)[1],
+            (yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(c, S)[1],
               o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -153,6 +170,13 @@ __d(
                   ])),
                 t,
               ),
+              o("WAWebSignupFlowLoggerLazy").logSignupOp({
+                operation: o("WAWebSignupFlowLoggerLazy")
+                  .SIGNUP_USER_JOURNEY_OPERATION.AGM_INJECTED,
+                signupId: t,
+                businessWid: c.id,
+                chatTimestamp: c.t,
+              }),
               o("WAWebSignupLoadingState").setSignupLoading(a, !1));
           } catch (n) {
             if (
@@ -191,7 +215,21 @@ __d(
         e.signupCtaTapped !== !0
       );
     }
-    function S(t) {
+    function S(e, t) {
+      for (var n of e) {
+        var r,
+          a = (r = n.signupContext) == null ? void 0 : r.signupId;
+        a != null &&
+          o("WAWebSignupFlowLoggerLazy").logSignupOp({
+            operation: o("WAWebSignupFlowLoggerLazy")
+              .SIGNUP_USER_JOURNEY_OPERATION.AGM_CANCELLED_USER_LEFT,
+            signupId: a,
+            businessWid: t.id,
+            chatTimestamp: t.t,
+          });
+      }
+    }
+    function R(t) {
       if (
         !(
           !o("WAWebSignupGating").isSignupAGMEnabled() ||
@@ -204,15 +242,16 @@ __d(
           !(t.draftMessage != null && t.draftMessage.text !== "")
         ) {
           var a = t.msgs.getModelsArray(),
-            i = a.filter(v),
-            l = a.some(function (e) {
-              return (
-                !i.includes(e) &&
-                e.subtype !==
-                  o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ContactInfoCard &&
-                !o("WAWebCommonMsgUtils").isNotificationType(e.type, e.subtype)
-              );
-            });
+            i = a.filter(v);
+          S(i, t);
+          var l = a.some(function (e) {
+            return (
+              !i.includes(e) &&
+              e.subtype !==
+                o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ContactInfoCard &&
+              !o("WAWebCommonMsgUtils").isNotificationType(e.type, e.subtype)
+            );
+          });
           if (!l && a.length <= h)
             (o("WALogger").LOG(
               e ||
@@ -274,7 +313,7 @@ __d(
     }
     ((l.resetSignupCardInjectedChats = y),
       (l.injectSignupGreetingMessage = C),
-      (l.maybeCleanupSignupAGM = S));
+      (l.maybeCleanupSignupAGM = R));
   },
   98,
 );

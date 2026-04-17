@@ -58,7 +58,7 @@ __d(
         r = e.newDuration,
         o = m({ initiatorIsMe: t, initiatorUsername: n }),
         a = v(r),
-        i = p({ initiatorIsMe: t });
+        i = p({ initiatorIsMe: t, duration: r });
       return s._(/*BTDS*/ "{ddm-event} {ddm-explanation} {ddm-action}", [
         s._param("ddm-event", o),
         s._param("ddm-explanation", a),
@@ -82,10 +82,14 @@ __d(
             );
     }
     function p(e) {
-      var t = e.initiatorIsMe;
-      return t
-        ? s._(/*BTDS*/ "Click to change your default timer.")
-        : s._(/*BTDS*/ "Click to set your own default timer.");
+      var t = e.duration,
+        n = e.initiatorIsMe;
+      return o("WAWebAfterReadUtils").isAfterReadDuration(t) &&
+        o("WAWebAfterReadUtils").isAfterReadEnabled()
+        ? s._(/*BTDS*/ "Set your own default timer.")
+        : n
+          ? s._(/*BTDS*/ "Click to change your default timer.")
+          : s._(/*BTDS*/ "Click to set your own default timer.");
     }
     function _(e) {
       return S(o("WAWebStateUtils").unproxy(e.unsafe()));
@@ -223,7 +227,7 @@ __d(
       return o("WAWebAfterReadUtils").isAfterReadDuration(e) &&
         o("WAWebAfterReadUtils").isAfterReadEnabled()
         ? s._(
-            /*BTDS*/ "New messages will disappear from this chat {dm-duration} after they're sent or read.",
+            /*BTDS*/ "New messages will disappear {dm-duration} after they're read.",
             [s._param("dm-duration", t)],
           )
         : s._(
@@ -312,27 +316,31 @@ __d(
       var t = e.initiatorIsMe,
         n = e.initiatorUsername,
         r = e.newDuration,
-        o = e.state,
-        a = e.userCanChange,
-        i = C({ initiatorUsername: n, initiatorIsMe: t, state: o }),
-        l = s._(/*BTDS*/ "Click to change.");
+        a = e.state,
+        i = e.userCanChange,
+        l = C({ initiatorUsername: n, initiatorIsMe: t, state: a }),
+        u =
+          o("WAWebAfterReadUtils").isAfterReadDuration(r) &&
+          o("WAWebAfterReadUtils").isAfterReadEnabled()
+            ? s._(/*BTDS*/ "Change timer.")
+            : s._(/*BTDS*/ "Click to change.");
       if (!r)
-        return a !== !0
-          ? i
+        return i !== !0
+          ? l
           : s._(/*BTDS*/ "{dm-sm-event} {dm-sm-action}", [
-              s._param("dm-sm-event", i),
-              s._param("dm-sm-action", l),
+              s._param("dm-sm-event", l),
+              s._param("dm-sm-action", u),
             ]);
-      var u = v(r);
-      return a !== !0
+      var c = v(r);
+      return i !== !0
         ? s._(/*BTDS*/ "{dm-sm-event} {dm-sm-explanation}", [
-            s._param("dm-sm-event", i),
-            s._param("dm-sm-explanation", u),
+            s._param("dm-sm-event", l),
+            s._param("dm-sm-explanation", c),
           ])
         : s._(/*BTDS*/ "{dm-sm-event} {dm-sm-explanation} {dm-sm-action}", [
-            s._param("dm-sm-event", i),
-            s._param("dm-sm-explanation", u),
-            s._param("dm-sm-action", l),
+            s._param("dm-sm-event", l),
+            s._param("dm-sm-explanation", c),
+            s._param("dm-sm-action", u),
           ]);
     }
     function E() {

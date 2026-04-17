@@ -291,49 +291,48 @@ __d(
             l,
             s,
           ),
-            (V = window.setTimeout(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                if (H !== l) {
-                  o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: callee ringing timeout fired, callId changed",
-                      ])),
-                  );
-                  return;
-                }
-                (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: callee ringing timeout fired: ",
-                      "",
+            (V = window.setTimeout(function () {
+              if (H !== l) {
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: callee ringing timeout fired, callId changed",
                     ])),
-                  l,
-                ),
-                  (V = null),
-                  (H = null));
-                try {
-                  yield e.endCall(
-                    o("WAWebVoipSignalingEnums").EndCallReason.Timeout,
-                    !0,
-                  );
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: failed to end call on callee ringing timeout",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e));
-                }
+                );
+                return;
+              }
+              (o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: callee ringing timeout fired: ",
+                    "",
+                  ])),
+                l,
+              ),
+                (V = null),
+                (H = null),
+                (M || (M = n("Promise")))
+                  .resolve(
+                    e.endCall(
+                      o("WAWebVoipSignalingEnums").EndCallReason.Timeout,
+                      !0,
+                    ),
+                  )
+                  .catch(function (e) {
+                    o("WALogger")
+                      .ERROR(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: failed to end call on callee ringing timeout",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e));
+                  }),
                 o("WAWebBackendApi").frontendFireAndForget("setCallState", {
                   callState: o("WAWebVoipWaCallEnums").CallState.None,
                   callInfo: a,
-                });
-              }),
-              s * 1e3,
-            )));
+                }));
+            }, s * 1e3)));
         }
       }
     }

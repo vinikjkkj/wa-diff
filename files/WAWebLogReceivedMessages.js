@@ -17,6 +17,7 @@ __d(
     "WAWebEphemeralityResolver",
     "WAWebGalaxyFlowWamLoggerUtils",
     "WAWebGatedMessageReceivedWamEvent",
+    "WAWebInteractiveMessagesNativeFlowName",
     "WAWebLidAwareContactsDB",
     "WAWebLidMigrationUtils",
     "WAWebMessageReceiveWamEvent",
@@ -25,6 +26,7 @@ __d(
     "WAWebPaymentRequestWamLogger",
     "WAWebQbmIncomingMessageLogger",
     "WAWebRuntimeEnvironmentUtils",
+    "WAWebSignupFlowLoggerLazy",
     "WAWebStickerPremiumStatus",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
@@ -494,6 +496,35 @@ __d(
       );
     }
     function T(e) {
+      for (var t of e)
+        if (
+          t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+          t.nativeFlowName ===
+            r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP &&
+          !t.id.fromMe
+        ) {
+          var n,
+            a =
+              (n = t.interactivePayload) == null ||
+              (n = n.buttons) == null ||
+              (n = n[0]) == null
+                ? void 0
+                : n.buttonParamsJson;
+          if (a != null)
+            try {
+              var i = JSON.parse(a),
+                l = i.signup_id;
+              l != null &&
+                o("WAWebSignupFlowLoggerLazy").logSignupOp({
+                  operation: o("WAWebSignupFlowLoggerLazy")
+                    .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_CONFIRMATION_RECEIVED,
+                  signupId: String(l),
+                  businessWid: t.id.remote,
+                });
+            } catch (e) {}
+        }
+    }
+    function D(e) {
       (c || (c = n("Promise")))
         .all(
           e
@@ -504,7 +535,7 @@ __d(
         )
         .then(o("WAWebChatThreadLogging").handleActivitiesForChatThreadLogging);
     }
-    function D(e) {
+    function x(e) {
       e.filter(o("WAWebMsgGetters").getIsAuthenticationMessage).forEach(
         function (e) {
           o("WAWebBackendApi").frontendFireAndForget(
@@ -514,15 +545,15 @@ __d(
         },
       );
     }
-    function x(t) {
+    function $(t) {
       var r = t.msgs;
       b(r)
         .then(function (e) {
           return (c || (c = n("Promise"))).all([
             _(t, e.chatData, e.contactData),
             S(r, e.contactData),
-            T(r),
             D(r),
+            x(r),
             m(r),
             o(
               "WAWebGalaxyFlowWamLoggerUtils",
@@ -534,6 +565,7 @@ __d(
               r,
               e.chatData,
             ),
+            T(r),
           ]);
         })
         .catch(function (t) {
@@ -547,7 +579,7 @@ __d(
           );
         });
     }
-    l.logReceivedMessagesInWAM = x;
+    l.logReceivedMessagesInWAM = $;
   },
   98,
 );

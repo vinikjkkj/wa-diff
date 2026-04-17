@@ -82,12 +82,10 @@ __d(
     }
     function _(e) {
       return !(
-        !o(
-          "WAWebBotSignatureVerificationGating",
-        ).isForwardVerificationEnabled() ||
         e.isForwarded !== !0 ||
         e.forwardedAiBotMessageInfo == null ||
-        e.botSignatureVerificationMetadata == null
+        e.botSignatureVerificationMetadata == null ||
+        !o("WAWebBotSignatureVerificationGating").isForwardVerificationEnabled()
       );
     }
     function f(e) {

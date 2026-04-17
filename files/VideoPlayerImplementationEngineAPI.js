@@ -27,58 +27,59 @@ __d(
     "use strict";
     var e;
     function s(e) {
-      var t = e.concurrentAutoplayManagementAPI,
-        n = e.createExposedState,
-        r = e.debugAPI,
-        a = e.fullscreenControllerRef,
-        i = e.loggerToSNAPL,
-        l = e.loggerToVPL,
-        s = e.machine,
-        u = e.subscribers,
-        c = e.videoElementAPIRef,
-        d = e.videoPlayerPassiveViewabilityInfo,
-        m = {
+      var t = e.autoLoopSuspendedRef,
+        n = e.concurrentAutoplayManagementAPI,
+        a = e.createExposedState,
+        i = e.debugAPI,
+        l = e.fullscreenControllerRef,
+        s = e.loggerToSNAPL,
+        u = e.loggerToVPL,
+        c = e.machine,
+        d = e.subscribers,
+        m = e.videoElementAPIRef,
+        p = e.videoPlayerPassiveViewabilityInfo,
+        _ = {
           logVPLEvent_DO_NOT_USE: function (t, n) {
-            l.logVPLEvent({
+            u.logVPLEvent({
               eventType: t,
               logDataOverrides: n,
-              state: s.getCurrentState(),
+              state: c.getCurrentState(),
             });
           },
           setLoggingToSNAPLAdditionalData: function (t) {
-            i == null || i.setLoggingToSNAPLAdditionalData(t);
+            s == null || s.setLoggingToSNAPLAdditionalData(t);
           },
           setLoggingToVPLAdditionalData: function (t, n) {
-            l.setLoggingToVPLAdditionalData(t, n);
+            u.setLoggingToVPLAdditionalData(t, n);
           },
         };
       return o(
         "VideoPlayerImplementationControllerImpl",
       ).createVideoPlayerImplementationControllerImpl({
-        concurrentAutoplayManagementAPI: t,
-        debugAPI: r,
+        concurrentAutoplayManagementAPI: n,
+        debugAPI: i,
         exitPictureInPictureImpl: function () {
-          s.dispatch({ type: "controller_picture_in_picture_exit_requested" });
+          c.dispatch({ type: "controller_picture_in_picture_exit_requested" });
         },
-        fullscreenControllerRef: a,
+        fullscreenControllerRef: l,
         getCurrentExposedState: function () {
-          return n(s.getCurrentState());
+          return a(c.getCurrentState());
         },
         getCurrentIsDesktopPictureInPicture: function () {
           var e;
           return (e =
-            s.getCurrentState().controlledState.isDesktopPictureInPicture) !=
+            c.getCurrentState().controlledState.isDesktopPictureInPicture) !=
             null
             ? e
             : !1;
         },
         getCurrentIsFullscreen: function () {
-          var e = a.current;
+          var e = l.current;
           return e ? e.getIsFullscreen() : !1;
         },
         getCurrentLiveRewindPlayheadPosition: function () {
           var e,
-            t = s.getCurrentState(),
+            t = c.getCurrentState(),
             n = t.controlledState,
             r = n.isLiveRewindActive,
             o = n.seekableRanges,
@@ -93,132 +94,135 @@ __d(
             n,
             r = 0;
           return (e =
-            (t = (n = c.current) == null ? void 0 : n.getPlayheadPosition()) !=
+            (t = (n = m.current) == null ? void 0 : n.getPlayheadPosition()) !=
             null
               ? t
-              : s.getCurrentState().uncontrolledState
+              : c.getCurrentState().uncontrolledState
                   .videoElementPlayheadPosition) != null
             ? e
             : r;
         },
         internal_getCurrentStateMachineState: function () {
-          return s.getCurrentState();
+          return c.getCurrentState();
         },
         internal_injectFatalError: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { fatalError: t },
             type: "controller_inject_fatal_error",
           });
         },
-        loggerAPI: m,
+        loggerAPI: _,
         pauseImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { reason: t },
             type: "controller_pause_requested",
           });
         },
         playImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { reason: t },
             type: "controller_play_requested",
           });
         },
         registerEmsgObserverImpl: function (t) {
-          s.dispatch({ payload: { token: t }, type: "register_emsg_observer" });
+          c.dispatch({ payload: { token: t }, type: "register_emsg_observer" });
         },
         requestPictureInPictureImpl: function () {
-          s.dispatch({ type: "controller_picture_in_picture_requested" });
+          c.dispatch({ type: "controller_picture_in_picture_requested" });
         },
         scrubBeginImpl: function () {
-          s.dispatch({ type: "controller_scrub_begin_requested" });
+          c.dispatch({ type: "controller_scrub_begin_requested" });
         },
         scrubEndImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { seekTargetPosition: t },
             type: "controller_scrub_end_requested",
           });
         },
         seekImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { seekTargetPosition: t },
             type: "controller_seek_requested",
           });
         },
         selectVideoQualityImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { selectedVideoQuality: t },
             type: "controller_quality_requested",
           });
         },
         selectVideoVariantImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { selectedVideoVariant: t },
             type: "controller_video_variant_requested",
           });
         },
         setCaptionsDisplayStyleImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { captionDisplayStyle: t },
             type: "controller_set_caption_display_style_requested",
           });
         },
         setCaptionsUrlImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { captionsUrl: t },
             type: "controller_set_captions_url_requested",
           });
         },
         setCaptionsVisibleImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { captionsVisible: t },
             type: "controller_set_captions_visible_requested",
           });
         },
         setIsLiveRewindActiveImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { isLiveRewindActive: t },
             type: "controller_set_is_live_rewind_active_requested",
           });
         },
         setLatencyLevelImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { latencyLevel: t },
             type: "controller_set_latency_level_requested",
           });
         },
         setMutedImpl: function (t, n) {
-          s.dispatch({
+          c.dispatch({
             payload: { muted: t, reason: n },
             type: "controller_muted_requested",
           });
         },
         setPictureInPictureStateImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { isInPictureInPictureMode: t },
             type: "controller_set_picture_in_picture_state_requested",
           });
         },
         setPlaybackRateImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { playbackRate: t },
             type: "controller_set_playback_rate",
           });
         },
         setVolumeImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { volume: t },
             type: "controller_volume_requested",
           });
         },
-        subscribers: u,
+        subscribers: d,
+        suspendAutoLoopImpl: function (n) {
+          r("gkx")("22756") && (t.current = n);
+        },
         unregisterEmsgObserverImpl: function (t) {
-          s.dispatch({
+          c.dispatch({
             payload: { token: t },
             type: "unregister_emsg_observer",
           });
         },
-        videoElementAPIRef: c,
-        videoPlayerPassiveViewabilityInfo: d,
+        videoElementAPIRef: m,
+        videoPlayerPassiveViewabilityInfo: p,
       });
     }
     function u(e) {
@@ -643,7 +647,7 @@ __d(
             var n = re.current;
             n &&
               n({
-                implementationController: we,
+                implementationController: Ae,
                 implementationExposedState: e,
               });
           }
@@ -658,12 +662,14 @@ __d(
         Ce = function (t) {
           ye(t, "state_machine_fatal_error");
         },
-        be = o(
+        be = { current: !1 },
+        ve = o(
           "VideoPlayerImplementationEngineStateMachineWithEffects",
         ).createVideoPlayerImplementationEngineStateMachineWithEffects({
           alwaysShowCaptions: !!$.coreVideoPlayerMetaData.alwaysShowCaptions,
           areCaptionsAutogenerated:
             !!$.coreVideoPlayerMetaData.areCaptionsAutogenerated,
+          autoLoopSuspendedRef: be,
           captionDisplayStyle: $.coreVideoPlayerMetaData.captionDisplayStyle,
           captionsControllerRef: Z,
           debugLogId: w,
@@ -678,15 +684,15 @@ __d(
           videoPlayerPassiveViewabilityInfo:
             $.videoPlayerPassiveViewabilityInfo,
         }),
-        ve = !1,
-        Se = function (t) {
+        Se = !1,
+        Re = function (t) {
           var e = oe.current != null,
             n = me.current != null;
           (ue.forEach(function (e) {
             return e.remove();
           }),
             (ue.length = 0),
-            be.dispatch({
+            ve.dispatch({
               payload: {
                 reason: t,
                 videoElementAPIExisted: n,
@@ -696,10 +702,10 @@ __d(
             }));
           var o = ["destroyEngine(" + t + ")"];
           try {
-            if (ve)
+            if (Se)
               _ && A("[destroyEngineParts] skip callChain:" + o.join(":"));
             else {
-              ((ve = !0),
+              ((Se = !0),
                 _ && A("[destroyEngineParts] begin callChain:" + o.join(":")));
               try {
                 R(o);
@@ -729,13 +735,13 @@ __d(
           }
           var s = Z.current;
           (s != null &&
-            (be.getCurrentState().controlledState.captionsLoaded &&
-              be.dispatch({ type: "captions_unloaded" }),
+            (ve.getCurrentState().controlledState.captionsLoaded &&
+              ve.dispatch({ type: "captions_unloaded" }),
             (Z.current = null),
             s.destroy()),
-            c(null, J, le, be),
-            d(null, se, be),
-            be.dispatch({
+            c(null, J, le, ve),
+            d(null, se, ve),
+            ve.dispatch({
               payload: {
                 reason: t,
                 videoElementAPIExisted: n,
@@ -745,24 +751,24 @@ __d(
             }),
             e &&
               (r("gkx")("17338") || r("gkx")("18183")) &&
-              Ie(null, ["destroy", t]));
+              Te(null, ["destroy", t]));
         };
       ye = function (t, n) {
         var e = u(t, n);
-        (be.dispatch({
+        (ve.dispatch({
           payload: { fatalError: e },
           type: "implementation_fatal_error",
         }),
-          Se("implementation_fatal_error"),
+          Re("implementation_fatal_error"),
           x(e));
       };
-      var Re = function (t) {
+      var Le = function (t) {
           var e = g(t),
             n = h(t),
             r = y(t),
             a = Z.current;
           (r !== y(ie.current) &&
-            be.dispatch({
+            ve.dispatch({
               payload: { inbandCaptionsAutogenerated: r },
               type: "inband_captions_autogenerated_changed",
             }),
@@ -770,8 +776,8 @@ __d(
               ? n !== h(ie.current) &&
                 (a.updateInbandCaptionsExpected(n),
                 !n &&
-                  be.getCurrentState().controlledState.captionsLoaded &&
-                  be.dispatch({ type: "captions_unloaded" }))
+                  ve.getCurrentState().controlledState.captionsLoaded &&
+                  ve.dispatch({ type: "captions_unloaded" }))
               : (e || n) &&
                 a == null &&
                 (Z.current = o(
@@ -780,30 +786,30 @@ __d(
                   captionsUrl: e ? t.sideLoadCaptionsUrlFromProps : null,
                   inbandCaptionsExpected: n,
                   onCaptionsLoaded: function () {
-                    be.dispatch({ type: "captions_loaded" });
+                    ve.dispatch({ type: "captions_loaded" });
                   },
                 })),
             (ie.current = t));
         },
-        Le = function (t) {
+        Ee = function (t) {
           E != null &&
             t &&
             t.width > 0 &&
             t.height > 0 &&
             (E.setDimensions(t),
-            be.dispatch({
+            ve.dispatch({
               payload: { dimensions: { height: t.height, width: t.width } },
               type: "player_dimensions_changed",
             }));
         },
-        Ee = function (t) {
-          t !== be.getCurrentState().controlledState.loopCount &&
-            be.dispatch({
+        ke = function (t) {
+          t !== ve.getCurrentState().controlledState.loopCount &&
+            ve.dispatch({
               payload: { loopCount: t },
               type: "loop_count_change_requested",
             });
         },
-        ke = function (t) {
+        Ie = function (t) {
           (_ && A("[cleanupVideoElement]"),
             "srcObject" in t && (t.srcObject = null),
             t.removeAttribute("src"),
@@ -812,7 +818,7 @@ __d(
             }),
             (ce.length = 0));
         },
-        Ie = function (t, o) {
+        Te = function (t, o) {
           if (oe.current !== t) {
             (_ &&
               A("[handleVideoElement] callChain:" + o.join(":"), {
@@ -827,14 +833,14 @@ __d(
               ae != null && ae());
             var e = oe.current;
             if (
-              (e && ke(e),
+              (e && Ie(e),
               (oe.current = t),
               v(t, me),
               n("cr:506") != null && t != null && (ae = n("cr:506")(t, w)),
               t != null)
             ) {
-              (b(t, be, ce),
-                be.dispatch({ type: "implementation_video_node_mounted" }));
+              (b(t, ve, ce),
+                ve.dispatch({ type: "implementation_video_node_mounted" }));
               var a = [].concat(o, ["handleVideoElement(non-null)"]);
               try {
                 (_ &&
@@ -853,7 +859,7 @@ __d(
                   );
               }
             } else {
-              be.dispatch({ type: "implementation_video_node_unmounted" });
+              ve.dispatch({ type: "implementation_video_node_unmounted" });
               var i = [].concat(o, ["handleVideoElement(null)"]);
               try {
                 (_ &&
@@ -874,30 +880,30 @@ __d(
             }
           }
         },
-        Te = $.loggingMetaData.instanceKey,
-        De = function (t) {
+        De = $.loggingMetaData.instanceKey,
+        xe = function (t) {
           var e, n;
           if (
             ((re.current = t.onExposedStateChanged),
             (Y.current = t.coreVideoPlayerMetaData),
-            !!S(be.getCurrentState(), de))
+            !!S(ve.getCurrentState(), de))
           ) {
             if (
               (_ &&
-                (t.loggingMetaData.instanceKey !== Te &&
+                (t.loggingMetaData.instanceKey !== De &&
                   (A(
                     "[handleReactPropsChanged][WARNING] instanceKey changed from " +
-                      Te +
+                      De +
                       " to " +
                       t.loggingMetaData.instanceKey,
                   ),
-                  (Te = t.loggingMetaData.instanceKey)),
+                  (De = t.loggingMetaData.instanceKey)),
                 A("[handleReactPropsChanged]", t)),
-              c((e = t.fullscreenController) != null ? e : null, J, le, be),
+              c((e = t.fullscreenController) != null ? e : null, J, le, ve),
               d(
                 (n = t.videoPlayerPassiveViewabilityInfo) != null ? n : null,
                 se,
-                be,
+                ve,
               ),
               !T(t))
             ) {
@@ -919,11 +925,11 @@ __d(
                       ? r
                       : null,
                 };
-              (Re(a),
-                Le(t.dimensions),
-                Ee((o = t.coreVideoPlayerMetaData.loopCount) != null ? o : 0));
+              (Le(a),
+                Ee(t.dimensions),
+                ke((o = t.coreVideoPlayerMetaData.loopCount) != null ? o : 0));
             }
-            be.dispatch({
+            ve.dispatch({
               payload: {
                 coreVideoPlayerMetaData: t.coreVideoPlayerMetaData,
                 loggingMetaData: t.loggingMetaData,
@@ -932,26 +938,26 @@ __d(
             });
           }
         },
-        xe = null,
-        $e = function () {
-          var e = be.getCurrentState().controlledState.mountState;
+        $e = null,
+        Pe = function () {
+          var e = ve.getCurrentState().controlledState.mountState;
           switch (e) {
             case "before_mounted": {
               (ue.push(
                 o("RunComet").onUnload(function () {
-                  Se("page_unload");
+                  Re("page_unload");
                 }),
               ),
-                be.dispatch({ type: "implementation_mounted" }),
+                ve.dispatch({ type: "implementation_mounted" }),
                 I(oe.current, ["handleReactEffectInit(before_mounted)"]));
               break;
             }
             case "mounted_onscreen":
               break;
             case "mounted_offscreen": {
-              (r("clearTimeout")(xe),
-                (xe = null),
-                be.dispatch({ type: "implementation_onscreen" }));
+              (r("clearTimeout")($e),
+                ($e = null),
+                ve.dispatch({ type: "implementation_onscreen" }));
               break;
             }
             case "unmounted":
@@ -959,29 +965,29 @@ __d(
             default:
           }
         },
-        Pe = function () {
+        Ne = function () {
           var e = function () {
               if (
-                (r("clearTimeout")(xe),
-                (xe = null),
-                be.getCurrentState().controlledState.mountState !== "unmounted")
+                (r("clearTimeout")($e),
+                ($e = null),
+                ve.getCurrentState().controlledState.mountState !== "unmounted")
               ) {
                 var t = D();
                 t
-                  ? (xe = r("setTimeout")(e, 1e3))
-                  : (be.dispatch({
+                  ? ($e = r("setTimeout")(e, 1e3))
+                  : (ve.dispatch({
                       payload: { reason: "react_effect_cleanup" },
                       type: "implementation_unmounted",
                     }),
-                    Se("implementation_unmounted:react_effect_cleanup"));
+                    Re("implementation_unmounted:react_effect_cleanup"));
               }
             },
-            t = be.getCurrentState().controlledState.mountState;
+            t = ve.getCurrentState().controlledState.mountState;
           switch (t) {
             case "before_mounted":
               break;
             case "mounted_onscreen": {
-              (be.dispatch({ type: "implementation_offscreen" }), e());
+              (ve.dispatch({ type: "implementation_offscreen" }), e());
               break;
             }
             case "mounted_offscreen": {
@@ -992,27 +998,28 @@ __d(
               break;
           }
         },
-        Ne = function () {
-          S(be.getCurrentState(), de) ||
+        Me = function () {
+          S(ve.getCurrentState(), de) ||
             ((de = "mounted"),
             ue.push(
               o("RunComet").onUnload(function () {
-                Se("page_unload");
+                Re("page_unload");
               }),
             ),
-            be.dispatch({ type: "implementation_mounted" }),
+            ve.dispatch({ type: "implementation_mounted" }),
             I(oe.current, ["handleReactMount"]));
         },
-        Me = function () {
-          S(be.getCurrentState(), de) &&
+        we = function () {
+          S(ve.getCurrentState(), de) &&
             ((de = "unmounted"),
-            be.dispatch({
+            ve.dispatch({
               payload: { reason: "react_effect_cleanup" },
               type: "implementation_unmounted",
             }),
-            Se("implementation_unmounted:react_effect_cleanup"));
+            Re("implementation_unmounted:react_effect_cleanup"));
         },
-        we = s({
+        Ae = s({
+          autoLoopSuspendedRef: be,
           concurrentAutoplayManagementAPI: ee,
           createExposedState: pe,
           debugAPI: l({
@@ -1024,17 +1031,17 @@ __d(
           fullscreenControllerRef: J,
           loggerToSNAPL: j,
           loggerToVPL: K,
-          machine: be,
+          machine: ve,
           subscribers: te,
           videoElementAPIRef: me,
           videoPlayerPassiveViewabilityInfo:
             $.videoPlayerPassiveViewabilityInfo,
         }),
-        Ae = o(
+        Fe = o(
           "VideoPlayerImplementationStateMachine",
-        ).createReactVideoElementCallbacksForStateMachine(be, Ie),
-        Fe = pe(be.getInitialState()),
-        Oe = _
+        ).createReactVideoElementCallbacksForStateMachine(ve, Te),
+        Oe = pe(ve.getInitialState()),
+        Be = _
           ? function (e, t) {
               return function () {
                 A("[" + t + "] begin");
@@ -1048,36 +1055,36 @@ __d(
           : function (e, t) {
               return e;
             },
-        Be = {
+        We = {
           handleOnBeforeUnload: function () {
             $.coreVideoPlayerMetaData.loggingConfig
               .enablePauseAndFlushOnBeforeUnload === !0 &&
-              (j == null || j.logPausedOnBeforeUnload(be.getCurrentState()),
+              (j == null || j.logPausedOnBeforeUnload(ve.getCurrentState()),
               G == null || G.flushLogs(!0));
           },
           handleReactEffectCleanup: r("gkx")("24349")
-            ? Oe(Pe, "handleReactEffectCleanup")
-            : Oe(Me, "handleReactEffectCleanup->handleReactUnmount"),
+            ? Be(Ne, "handleReactEffectCleanup")
+            : Be(we, "handleReactEffectCleanup->handleReactUnmount"),
           handleReactEffectInit: r("gkx")("24349")
-            ? Oe($e, "handleReactEffectInit")
-            : Oe(Ne, "handleReactEffectInit->handleReactMount"),
-          handleReactPropsChanged: De,
-          implementationController: we,
-          initialExposedState: Fe,
+            ? Be(Pe, "handleReactEffectInit")
+            : Be(Me, "handleReactEffectInit->handleReactMount"),
+          handleReactPropsChanged: xe,
+          implementationController: Ae,
+          initialExposedState: Oe,
           logFlusherToVPL: z,
-          machine: be,
+          machine: ve,
           notifySubscribers: ne,
-          videoElementCallbacks: Ae,
+          videoElementCallbacks: Fe,
           videoElementRefCallback: function (t) {
             (t == null && r("gkx")("17338")) ||
-              Ie(t, ["videoElementRefCallback"]);
+              Te(t, ["videoElementRefCallback"]);
           },
         };
       return (
-        _ && A("[created]", { engine: Be, machine: be, videoElementRef: oe }),
+        _ && A("[created]", { engine: We, machine: ve, videoElementRef: oe }),
         {
           debugLog: A,
-          engine: Be,
+          engine: We,
           getCaptionsInfo: function () {
             return ie.current;
           },
@@ -1087,10 +1094,10 @@ __d(
           getVideoLiveTrace: function () {
             return U.current;
           },
-          handleCaptionsInfoChange: Re,
+          handleCaptionsInfoChange: Le,
           handleFatalImplementationError: ye,
           loggerToVPL: K,
-          machine: be,
+          machine: ve,
           videoElementAPIRef: me,
         }
       );

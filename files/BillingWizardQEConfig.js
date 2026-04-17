@@ -80,9 +80,6 @@ __d(
           params: { enable_v2: e },
           type: "PAYMENT_ACCOUNT",
         },
-        billing_autofill_business_account_info: {
-          params: { autofill_biz_info_ex_br_in_v2: e },
-        },
         billing_aware_onboarding: {
           params: { in_option_1: e, in_option_2: e },
           type: "PAYMENT_ACCOUNT",

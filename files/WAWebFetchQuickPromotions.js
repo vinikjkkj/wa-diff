@@ -27,6 +27,7 @@ __d(
     "WAWebQplFlowWrapper",
     "WAWebQuickPromotionGating",
     "WAWebRelayClient",
+    "WAWebSmbQpCallHealthLogger",
     "WAWebUserPrefsMeUser",
     "WAWebWebp",
     "qpl",
@@ -262,7 +263,14 @@ __d(
           },
         )
         .then(function (e) {
-          if (e == null) return E;
+          if (e == null)
+            return (
+              o("WAWebSmbQpCallHealthLogger").logSmbQpCallHealth(
+                "exception",
+                "null response",
+              ),
+              E
+            );
           var t = e.quick_promotion_batch_fetch_root,
             n = new Map(),
             r = [];
@@ -522,6 +530,7 @@ __d(
                 i.length,
                 i,
               ),
+            o("WAWebSmbQpCallHealthLogger").logSmbQpCallHealth("success"),
             {
               type: "success",
               quickPromotions: Array.from(n.values(), function (e) {
@@ -535,6 +544,10 @@ __d(
         .catch(function (e) {
           return (
             A(e),
+            o("WAWebSmbQpCallHealthLogger").logSmbQpCallHealth(
+              "exception",
+              e instanceof Error ? e.message : String(e),
+            ),
             e instanceof Error &&
             o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
               ? { type: "auth-failure" }

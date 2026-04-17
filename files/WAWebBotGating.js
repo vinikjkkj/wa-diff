@@ -311,9 +311,19 @@ __d(
           );
     }
     function Q() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "ai_web_meta_ai_pdf_document_input_enabled",
-      );
+      var e;
+      return !o("WAWebBotBaseGating").isBotEnabled() ||
+        !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
+          (e = o("WAWebABProps").getABPropConfigValue(
+            "ai_metabot_document_upload_enabled",
+          )) != null
+            ? e
+            : "en",
+        )
+        ? !1
+        : o("WAWebABProps").getABPropConfigValue(
+            "ai_web_meta_ai_pdf_document_input_enabled",
+          );
     }
     function X() {
       return o("WAWebABProps").getABPropConfigValue(

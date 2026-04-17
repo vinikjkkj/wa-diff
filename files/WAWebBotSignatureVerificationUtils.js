@@ -3,6 +3,7 @@ __d(
   [
     "WACryptoPrimitives",
     "WALogger",
+    "WATimeUtils",
     "WAWebBotCertificateValidationLogger",
     "WAWebBotSignatureCertificateManager",
     "WAWebBotSignatureRootCertificate",
@@ -29,7 +30,7 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = Date.now(),
+          var a = o("WATimeUtils").unixTime(),
             i = o(
               "WAWebBotSignatureVerificationGating",
             ).getForwardVerificationEnforcementLevel();
@@ -46,7 +47,7 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.SKIPPED_AB_DISABLED,
                   signatureVersion: h,
-                  verificationLatencyMs: Date.now() - a,
+                  startTime: a,
                 },
               ),
               { verified: !0, shouldBlock: !1, reason: "disabled" }
@@ -76,7 +77,7 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.FAILED_SIGNATURE_DATA_MISSING,
                   signatureVersion: h,
-                  verificationLatencyMs: Date.now() - a,
+                  startTime: a,
                 }),
                 { verified: !1, shouldBlock: l, reason: "missing_proofs" }
               );
@@ -108,7 +109,7 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.FAILED_SIGNATURE_DATA_MISSING,
                   signatureVersion: h,
-                  verificationLatencyMs: Date.now() - a,
+                  startTime: a,
                 }),
                 {
                   verified: !1,
@@ -144,7 +145,7 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.FAILED_UNKNOWN_ERROR,
                   signatureVersion: h,
-                  verificationLatencyMs: Date.now() - a,
+                  startTime: a,
                 },
               ),
               { verified: !1, shouldBlock: l, reason: "verification_exception" }
@@ -182,7 +183,7 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.FAILED_SIGNATURE_DATA_MISSING,
                   signatureVersion: h,
-                  verificationLatencyMs: Date.now() - r,
+                  startTime: r,
                 }),
                 !1
               );
@@ -207,7 +208,7 @@ __d(
                   ).CERT_VERIFICATION_RESULT_TYPE
                     .FAILED_SIGNATURE_DATA_MALFORMED,
                   signatureVersion: String(l),
-                  verificationLatencyMs: Date.now() - r,
+                  startTime: r,
                 }),
                 !1
               );
@@ -229,7 +230,7 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.FAILED_CHAIN_INCOMPLETE,
                   signatureVersion: h,
-                  verificationLatencyMs: Date.now() - r,
+                  startTime: r,
                 }),
                 !1
               );
@@ -254,7 +255,7 @@ __d(
                     "WAWebBotCertificateValidationLogger",
                   ).CERT_VERIFICATION_RESULT_TYPE.FAILED_CHAIN_INCOMPLETE,
                   signatureVersion: h,
-                  verificationLatencyMs: Date.now() - r,
+                  startTime: r,
                 }),
                 !1
               );
@@ -288,7 +289,7 @@ __d(
                   certChainLength: a.length,
                   certVerificationResult: y,
                   signatureVersion: h,
-                  verificationLatencyMs: Date.now() - r,
+                  startTime: r,
                 }),
                 !1
               );
@@ -307,7 +308,7 @@ __d(
                     : o("WAWebBotCertificateValidationLogger")
                         .CERT_VERIFICATION_RESULT_TYPE.FAILED_SIGNATURE_INVALID,
                   signatureVersion: h,
-                  verificationLatencyMs: Date.now() - r,
+                  startTime: r,
                 },
               ),
               L
