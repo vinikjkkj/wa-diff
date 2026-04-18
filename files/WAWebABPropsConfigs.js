@@ -3413,12 +3413,6 @@ __d(
       smb_ctwa_unlink_account_graphql_enabled: [15039, "bool", !1, !1],
       smb_ctwa_upload_ad_media_graphql_enabled: [14648, "bool", !1, !0],
       smb_custom_url_display_v2_enabled: [1849, "bool", !1, !0],
-      smb_custom_url_get_user_graphql_migration_enabled: [
-        10519,
-        "bool",
-        !0,
-        !0,
-      ],
       smb_dcp_enabled: [1701, "bool", !1, !1],
       smb_ecommerce_compliance_india_m4: [1003, "bool", !1, !0],
       smb_ecommerce_compliance_india_m4_5: [1192, "bool", !1, !0],

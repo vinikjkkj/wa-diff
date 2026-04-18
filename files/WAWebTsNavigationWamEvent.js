@@ -41,7 +41,9 @@ __d(
               ],
               navigationDestinationViewName: [35, e.TYPES.STRING],
               navigationSource: [3, o("WAWebWamEnumTsSurface").TS_SURFACE],
+              networkIsWifiCanonicalOpNumber: [43, e.TYPES.INTEGER],
               networkIsWifiOpNumber: [41, e.TYPES.INTEGER],
+              networkRadioTypeCanonicalOpNumber: [44, e.TYPES.INTEGER],
               networkRadioTypeEventLevel: [
                 40,
                 o("WAWebWamEnumRadioType").RADIO_TYPE,

@@ -34,6 +34,7 @@ __d(
               2,
               o("WAWebWamEnumDisclosureType").DISCLOSURE_TYPE,
             ],
+            threadIdHmac: [6, o("WAWebWamCodegenUtils").TYPES.STRING],
           },
           [1, 1, 1],
           "private",

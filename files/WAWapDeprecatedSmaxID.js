@@ -22,8 +22,6 @@ __d(
         MerchantGetComplianceInfo: 53,
         MerchantSetComplianceInfo: 54,
         CatalogVerifyPostcode: 70,
-        BtmCustomUrlGet: 78,
-        BtmCustomUrlGetUser: 79,
         QuerySubscription: 90,
         UpdateCollectionList: 92,
       }),

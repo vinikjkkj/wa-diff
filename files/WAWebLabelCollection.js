@@ -143,18 +143,13 @@ __d(
               c = o("WAWebListsGatingUtils").isListsEnabled(),
               d =
                 c &&
-                a.some(function (e) {
-                  var t, n;
-                  return (
-                    ((t = (n = e.labels) == null ? void 0 : n.length) != null
-                      ? t
-                      : 0) > 0 || e.isFavorite
-                  );
+                n.every(function (e) {
+                  return e.type === "add";
                 }),
               m = o("WAWebActionToast.react").genId(),
               _ = new (o("WAWebActionToast.react").ActionType)(
                 c
-                  ? g(f.IN_PROGRESS, !d, l)
+                  ? g(f.IN_PROGRESS, d, l)
                   : s._(
                       /*BTDS*/ '_j{"*":"Changing {count} labels","_1":"Changing {count} label"}',
                       [s._plural(n.length), s._param("count", n.length)],
@@ -180,7 +175,7 @@ __d(
               .then(function () {
                 return new (o("WAWebActionToast.react").ActionType)(
                   c
-                    ? g(f.SUCCESS, !d, l)
+                    ? g(f.SUCCESS, d, l)
                     : s._(
                         /*BTDS*/ '_j{"*":"{count} labels changed","_1":"1 label changed"}',
                         [s._plural(n.length, "count")],
@@ -197,7 +192,7 @@ __d(
                   ),
                   new (o("WAWebActionToast.react").ActionType)(
                     c
-                      ? g(f.ERROR, !d, l)
+                      ? g(f.ERROR, d, l)
                       : s._(
                           /*BTDS*/ '_j{"*":"Some labels could not be updated","_1":"The label could not be updated"}',
                           [s._plural(n.length)],

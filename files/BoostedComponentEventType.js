@@ -1267,6 +1267,7 @@ __d(
         "india_finserv_beneficiary_and_payer_dropdown_impression",
       BIZAPP_RUN_STATUS_UPDATE: "bizapp_run_status_update",
       BIZAPP_CLEAR_SANDBOX_CLICK: "bizapp_clear_sandbox_click",
+      BIZAPP_SET_SANDBOX_ON_TOAST: "bizapp_set_sandbox_on_toast",
       CCI_BRAZIL_COMPLIANCE_AD_CREATION_NOTICE_IMPRESSION:
         "cci_brazil_compliance_ad_creation_notice_impression",
       CCI_BRAZIL_COMPLIANCE_AD_CREATION_NOTICE_CLICK:

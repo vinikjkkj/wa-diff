@@ -110,6 +110,7 @@ __d(
                 70,
                 o("WAWebWamEnumLogoutReasonType").LOGOUT_REASON_TYPE,
               ],
+              logoutSessionId: [89, e.TYPES.INTEGER],
               mediaCaptionPresent: [8, e.TYPES.BOOLEAN],
               mediaUploadError: [
                 61,

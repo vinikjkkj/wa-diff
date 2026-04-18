@@ -4,6 +4,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("$InternalEnum")({
+        BUNDLE_LOAD_START: "bundle_load_start",
+        BUNDLE_LOAD_END: "bundle_load_end",
+        ELIGIBILITY_CHECK_START: "eligibility_check_start",
+        ELIGIBILITY_CHECK_END: "eligibility_check_end",
         IDENTITY_RESOLUTION_START: "identity_resolution_start",
         IDENTITY_RESOLUTION_END: "identity_resolution_end",
         FETCH_TOKEN_START: "fetch_token_start",

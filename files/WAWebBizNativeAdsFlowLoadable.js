@@ -9,6 +9,7 @@ __d(
     "WAWebBizAdsErrorPopup.react",
     "WAWebBizNativeAdsFlowTypes",
     "WAWebBizNativeAdsLoadingDrawer.react",
+    "WAWebBizNativeAdsQplHelpers",
     "WAWebBizNativeAdsResolveRelayIdentityBundle",
     "WAWebBizNativeAdsScenarioRouter",
     "WAWebLazyLoadedRetriable",
@@ -62,12 +63,28 @@ __d(
       var l = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var i = r("justknobx")._("5491"),
-            l = i ? o("WAWebLinkedAccountsJob").queryLinkedPagesInfo() : null,
-            s = yield (e || (e = n("Promise"))).all([m(), c()]),
+            l = i ? o("WAWebLinkedAccountsJob").queryLinkedPagesInfo() : null;
+          o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
+            o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
+              .BUNDLE_LOAD_START,
+          );
+          var s = yield (e || (e = n("Promise"))).all([m(), c()]),
             d = s[0],
-            p = s[1],
-            f = yield d(t),
-            g = _(f),
+            p = s[1];
+          (o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
+            o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
+              .BUNDLE_LOAD_END,
+          ),
+            o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
+              o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
+                .ELIGIBILITY_CHECK_START,
+            ));
+          var f = yield d(t);
+          o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
+            o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
+              .ELIGIBILITY_CHECK_END,
+          );
+          var g = _(f),
             h;
           try {
             h = yield o(

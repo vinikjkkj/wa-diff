@@ -40,6 +40,8 @@ __d(
                   .PRIVACY_SETTINGS_VALUE_TYPE,
               ],
               statusCrosspostEntryPoint: [12, e.TYPES.STRING],
+              statusCrosspostEventType: [14, e.TYPES.STRING],
+              statusCrosspostFlowTraceId: [15, e.TYPES.STRING],
               statusCrosspostMediaType: [
                 9,
                 o("WAWebWamEnumMediaType").MEDIA_TYPE,
@@ -53,7 +55,9 @@ __d(
                 o("WAWebWamEnumStatusCrosspostShareTypeEnum")
                   .STATUS_CROSSPOST_SHARE_TYPE_ENUM,
               ],
+              statusCrosspostTraceId: [16, e.TYPES.INTEGER],
               statusId: [11, e.TYPES.STRING],
+              userJourneyEventMs: [17, e.TYPES.INTEGER],
             },
             [1, 1, 1],
             "regular",
