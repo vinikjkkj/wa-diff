@@ -11,8 +11,9 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c = ["additional", "dev"];
-    function d() {
+      c = -1,
+      d = ["additional", "dev"];
+    function m() {
       var t = o("WAWebABProps").getABPropConfigValue(
         "dm_receiver_allowed_values",
       );
@@ -34,7 +35,7 @@ __d(
         );
       }
     }
-    function m(e, t) {
+    function p(e, t) {
       return {
         type: t,
         value: e,
@@ -43,70 +44,69 @@ __d(
         ).getDisappearingMessageDurationString(e),
       };
     }
-    function p(e) {
-      e === void 0 && (e = !1);
-      var t = d(),
-        n = [].concat(
-          t
+    function _() {
+      var e = m(),
+        t = [].concat(
+          e
             .filter(function (e) {
               return e > 0;
             })
             .map(function (e) {
-              return m(e, "default");
+              return p(e, "default");
             }),
         );
-      e
-        ? n.sort(function (e, t) {
-            return t.value - e.value;
-          })
-        : n.sort(function (e, t) {
-            return e.value - t.value;
-          });
-      var o = { type: "default", value: 0, label: r("fbs")._(/*BTDS*/ "Off") };
-      return (e ? n.unshift(o) : n.push(o), n);
+      t.sort(function (e, t) {
+        return e.value - t.value;
+      });
+      var n = { type: "default", value: 0, label: r("fbs")._(/*BTDS*/ "Off") };
+      if (o("WAWebAfterReadUtils").isAfterReadOptionAvailable()) {
+        var a = {
+          type: "after_reading",
+          value: c,
+          label: r("fbs")._(/*BTDS*/ "After reading"),
+        };
+        (t.unshift(a), t.unshift(n));
+      } else t.push(n);
+      return t;
     }
-    function _(e) {
-      return p(e).filter(function (e) {
-        return e.type === "default";
+    function f() {
+      return _().filter(function (e) {
+        return e.type === "default" || e.type === "after_reading";
       });
     }
-    function f(e) {
-      return p(e).filter(function (e) {
-        return c.includes(e.type);
+    function g() {
+      return _().filter(function (e) {
+        return d.includes(e.type);
       });
     }
-    function g(e) {
+    function h(e) {
       var t = o("WAWebAfterReadUtils")
         .getAfterReadAllowedValues()
         .filter(function (e) {
           return e > 0;
         })
         .map(function (e) {
-          return m(e, "default");
+          return p(e, "default");
         });
       return (
-        e === "asc"
-          ? t.sort(function (e, t) {
-              return e.value - t.value;
-            })
-          : e === "desc" &&
-            t.sort(function (e, t) {
-              return t.value - e.value;
-            }),
+        e === "asc" &&
+          t.sort(function (e, t) {
+            return e.value - t.value;
+          }),
         t
       );
     }
-    function h(e) {
+    function y(e) {
       if (e == null) return s._(/*BTDS*/ "Off");
-      var t = p().find(function (t) {
+      var t = _().find(function (t) {
         return t.value === e;
       });
       return t == null &&
-        ((t = g("none").find(function (t) {
+        ((t = h("none").find(function (t) {
           return t.value === e;
         })),
         t != null)
-        ? s._(/*BTDS*/ "{after_read_duration} after reading", [
+        ? s._(/*BTDS*/ "{after_read_duration}", [
             s._param("after_read_duration", t.label),
           ])
         : t == null
@@ -123,10 +123,11 @@ __d(
             s._(/*BTDS*/ "On"))
           : t.label;
     }
-    ((l.getDefaultEphemeralityDurations = _),
-      (l.getAdditionalEphemeralityDurations = f),
-      (l.getAfterReadEphemeralityDurations = g),
-      (l.durationToLabel = h));
+    ((l.AFTER_READING_VALUE = c),
+      (l.getDefaultEphemeralityDurations = f),
+      (l.getAdditionalEphemeralityDurations = g),
+      (l.getAfterReadEphemeralityDurations = h),
+      (l.durationToLabel = y));
   },
   226,
 );

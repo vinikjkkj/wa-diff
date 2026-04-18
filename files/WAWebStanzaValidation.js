@@ -125,10 +125,7 @@ __d(
       return o("WAWebLidMigrationUtils").shouldHaveAccountLid(n) && !n.isLid();
     }
     function y(e) {
-      if (
-        o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0 &&
-        !(e.tag === "receipt" || e.tag === "ack")
-      ) {
+      if (!(e.tag === "receipt" || e.tag === "ack")) {
         var t = e.attrs.to;
         if (t != null) {
           var n = String(t);
@@ -140,7 +137,8 @@ __d(
                 o("WAWebWidFactory").createWid(n),
               )
             ) &&
-            !g(e)
+            !g(e) &&
+            o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
           ) {
             var r = f(n);
             o("WALogger")
@@ -160,10 +158,7 @@ __d(
       }
     }
     function C(e) {
-      if (
-        e.tag === "message" &&
-        o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
-      ) {
+      if (e.tag === "message") {
         var t = e.attrs.to;
         if (t != null) {
           var n = String(t),
@@ -173,7 +168,11 @@ __d(
             if (a.isUser()) {
               var i = p(e),
                 l = i.filter(h);
-              if (l.length > 0) {
+              if (
+                l.length !== 0 &&
+                o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") ===
+                  !0
+              ) {
                 var s = l.map(f).join(",");
                 o("WALogger")
                   .ERROR(

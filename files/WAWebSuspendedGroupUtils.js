@@ -144,19 +144,20 @@ __d(
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.id,
-            a;
+            a = n.user.toString(),
+            i;
           try {
-            a = yield o(
+            i = yield o(
               "WAWebGroupSuspensionAppealMutation",
             ).submitGroupSuspensionAppeal(
-              n.toJid(),
+              a,
               null,
               JSON.stringify(
                 yield o("WAWebLoggerDebugInfo").getDebugInfo({
                   supportTag: "group-suspend-appeal",
                   convertFields: !0,
                   addUserAgentDetails: !0,
-                  entityId: n.toJid(),
+                  entityId: a,
                 }),
               ),
             );
@@ -171,22 +172,22 @@ __d(
               .catching(t instanceof Error ? t : r("err")(String(t)))
               .tags("GROUP_SUSPEND")
               .sendLogs("group-suspend-appeal-error"),
-              (a = {
+              (i = {
                 success: !1,
                 appealCreationTime: null,
                 errorMessage: String(t),
               }));
           }
-          if (a.success) {
-            var i;
+          if (i.success) {
+            var l;
             (yield o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(n, {
               suspendAppealStatus: "IN_REVIEW",
-              suspendAppealUpdateTime: a.appealCreationTime,
+              suspendAppealUpdateTime: i.appealCreationTime,
             }),
-              (i = t.groupMetadata) == null ||
-                i.set({
+              (l = t.groupMetadata) == null ||
+                l.set({
                   suspendAppealStatus: "IN_REVIEW",
-                  suspendAppealUpdateTime: a.appealCreationTime,
+                  suspendAppealUpdateTime: i.appealCreationTime,
                 }),
               o("WAWebModalManager").closeModalManager(),
               R(t));
@@ -198,7 +199,7 @@ __d(
                 ),
               }),
             );
-          return a;
+          return i;
         })),
         S.apply(this, arguments)
       );

@@ -10,6 +10,7 @@ __d(
     "WAWebApiActiveMessageRanges",
     "WAWebBackendApi",
     "WAWebChatCollection",
+    "WAWebChatConstants",
     "WAWebDBMessageRange",
     "WAWebDBQueryAndRemoveMessageHistory",
     "WAWebMdSyncdDogfoodingFeatureUsageWamEvent",
@@ -19,6 +20,7 @@ __d(
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebProtobufSyncAction.pb",
     "WAWebProtobufsServerSync.pb",
+    "WAWebSchemaChat",
     "WAWebStatusCollection",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
@@ -231,6 +233,14 @@ __d(
                 (yield o("WAWebThreadMetadataJob").deleteAllThreadsForChat(
                   o("WAWebWidToJid").widToChatJid(e),
                 ),
+                  yield o("WAWebSchemaChat")
+                    .getChatTable()
+                    .merge(e.toString(), {
+                      endOfHistoryTransferType:
+                        o("WAWebChatConstants")
+                          .ConversationEndOfHistoryTransferModelPropType
+                          .COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY,
+                    }),
                   a.length > 0 &&
                     (o("WAWebBackendApi").frontendFireAndForget(
                       "deleteModelsForLastAddOnPreview",
@@ -245,7 +255,11 @@ __d(
                       )));
                 var i = o("WAWebChatCollection").ChatCollection.get(e);
                 (i &&
-                  (i.deleteMessages(a),
+                  ((i.endOfHistoryTransferType =
+                    o(
+                      "WAWebChatConstants",
+                    ).ConversationEndOfHistoryTransferModelPropType.COMPLETE_AND_NO_MORE_MESSAGE_REMAIN_ON_PRIMARY),
+                  i.deleteMessages(a),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "deleteAiThreadsForChat",
                     { chatId: e.toString() },

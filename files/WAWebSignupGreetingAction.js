@@ -1,14 +1,15 @@
 __d(
   "WAWebSignupGreetingAction",
   [
-    "JSResourceForInteraction",
     "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebChatDeleteBridge",
     "WAWebCommonMsgSubtypeTypes",
     "WAWebCommonMsgUtils",
     "WAWebContactSystemMsg",
+    "WAWebDBMessageDelete",
     "WAWebFindChatAction",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebMsgKey",
@@ -230,85 +231,72 @@ __d(
       }
     }
     function R(t) {
+      var n = t.msgs.last();
       if (
+        !(n == null || !v(n)) &&
         !(
           !o("WAWebSignupGating").isSignupAGMEnabled() ||
           !o("WAWebSignupGating").isSignupAGMCleanupEnabled()
-        )
+        ) &&
+        !(t.draftMessage != null && t.draftMessage.text !== "")
       ) {
-        var n = t.msgs.last();
-        if (
-          !(n == null || !v(n)) &&
-          !(t.draftMessage != null && t.draftMessage.text !== "")
-        ) {
-          var a = t.msgs.getModelsArray(),
-            i = a.filter(v);
-          S(i, t);
-          var l = a.some(function (e) {
-            return (
-              !i.includes(e) &&
-              e.subtype !==
-                o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ContactInfoCard &&
-              !o("WAWebCommonMsgUtils").isNotificationType(e.type, e.subtype)
-            );
-          });
-          if (!l && a.length <= h)
+        var r = t.msgs.getModelsArray(),
+          a = r.filter(v);
+        S(a, t);
+        var i = r.some(function (e) {
+          return (
+            !a.includes(e) &&
+            e.subtype !==
+              o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ContactInfoCard &&
+            !o("WAWebCommonMsgUtils").isNotificationType(e.type, e.subtype)
+          );
+        });
+        if (!i && r.length <= h)
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[maybeCleanupSignupAGM] deleting signup chat",
+              ])),
+          ),
+            o("WAWebChatDeleteBridge")
+              .deleteFromStorage(t.id)
+              .catch(function (e) {
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[maybeCleanupSignupAGM] failed to delete from storage ",
+                      "",
+                    ])),
+                  e,
+                );
+              }),
+            t.delete());
+        else {
+          var l = [];
+          for (var d of a) (t.msgs.remove(d), l.push(d.id.toString()));
+          l.length > 0 &&
             (o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[maybeCleanupSignupAGM] deleting signup chat",
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[maybeCleanupSignupAGM] removing ",
+                  " AGMs from existing chat",
                 ])),
+              String(l.length),
             ),
-              r("JSResourceForInteraction")("WAWebChatDeleteBridge")
-                .__setRef("WAWebSignupGreetingAction")
-                .load()
-                .then(function (e) {
-                  var n = e.deleteFromStorage;
-                  return n(t.id);
-                })
-                .catch(function (e) {
-                  o("WALogger").WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[maybeCleanupSignupAGM] failed to delete from storage ",
-                        "",
-                      ])),
-                    e,
-                  );
-                }),
-              t.delete());
-          else {
-            var d = [];
-            for (var m of i) (t.msgs.remove(m), d.push(m.id.toString()));
-            d.length > 0 &&
-              (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[maybeCleanupSignupAGM] removing ",
-                    " AGMs from existing chat",
-                  ])),
-                String(d.length),
-              ),
-              r("JSResourceForInteraction")("WAWebDBMessageDelete")
-                .__setRef("WAWebSignupGreetingAction")
-                .load()
-                .then(function (e) {
-                  var t = e.removeMessagesFromHistory;
-                  return t(d, { deleteAssociatedMsgs: !1 });
-                })
-                .catch(function (e) {
-                  o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[maybeCleanupSignupAGM] failed to remove from history ",
-                        "",
-                      ])),
-                    e,
-                  );
-                }));
-          }
-          g.delete(t.id.toString());
+            o("WAWebDBMessageDelete")
+              .removeMessagesFromHistory(l, { deleteAssociatedMsgs: !1 })
+              .catch(function (e) {
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[maybeCleanupSignupAGM] failed to remove from history ",
+                      "",
+                    ])),
+                  e,
+                );
+              }));
         }
+        g.delete(t.id.toString());
       }
     }
     ((l.resetSignupCardInjectedChats = y),

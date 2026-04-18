@@ -8,6 +8,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSendMsgChatAction",
+    "WAWebSignupMetadataFetcher",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "asyncToGeneratorRuntime",
@@ -101,8 +102,17 @@ __d(
     ((m.doc =
       "Receive an example signup AGM with realistic business greeting text in the active chat"),
       (m.paramsToExecute = []));
-    var _ = { receiveSignupAGM: c, receiveSignupAGMExample: m };
-    l.default = _;
+    function _(e) {
+      o("WAWebSignupMetadataFetcher").setSignupMetadataOverride(e);
+    }
+    _.doc =
+      "Override signup metadata GraphQL response for E2E testing (DEV only)";
+    var f = {
+      receiveSignupAGM: c,
+      receiveSignupAGMExample: m,
+      setSignupMetadataOverride: _,
+    };
+    l.default = f;
   },
   98,
 );

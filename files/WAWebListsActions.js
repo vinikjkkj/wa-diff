@@ -616,7 +616,8 @@ __d(
         U.apply(this, arguments)
       );
     }
-    ((l.createNewListAction = $),
+    ((l.logUpdateMembersPerChat = x),
+      (l.createNewListAction = $),
       (l.editListAction = N),
       (l.deleteListAction = w),
       (l.activatePresetList = F),

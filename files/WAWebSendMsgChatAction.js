@@ -220,19 +220,23 @@ __d(
                     ).getMaybeSystemMsgForOrderEphemeralExemption(T, t);
                     N && (f = [N]);
                   }
-                  (k && (f = [].concat(f != null ? f : [], k)),
+                  k && (f = [].concat(f != null ? f : [], k));
+                  var M = o(
+                    "WAWebSendMsgChatActionUtils",
+                  ).maybeGetOpusSystemMsg(t, "opus-send-msg-fail");
+                  (M && (f = [M].concat(f != null ? f : [])),
                     o("WALogger").LOG(
                       d ||
                         (d = babelHelpers.taggedTemplateLiteralLoose([
                           "_addAndSendMsgToChat after system messages",
                         ])),
                     ));
-                  var M = f ? [].concat(f, [E]) : [E];
+                  var w = f ? [].concat(f, [E]) : [E];
                   return (
                     (x = T.wamMessageSendPerfReporter) == null ||
                       x.startSavedStage(),
                     o("WAWebDBProcessMessage")
-                      .storeMessages(M, t.id)
+                      .storeMessages(w, t.id)
                       .then(function () {
                         var e;
                         if (

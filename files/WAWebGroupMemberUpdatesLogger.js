@@ -21,13 +21,14 @@ __d(
             ).GroupMemberUpdatesWamEvent)(t);
             ((e.groupMemberUpdatesSessionId = this.$1), e.commit());
           }),
-          (t.logOnMemberUpdatesScreen = function (t, n) {
+          (t.logOnMemberUpdatesScreen = function (t, n, r) {
             this.log({
               groupMemberUpdatesActionName: t,
               groupMemberUpdatesCurrentScreen: o(
                 "WAWebWamEnumGroupMemberUpdatesCurrentScreen",
               ).GROUP_MEMBER_UPDATES_CURRENT_SCREEN.GROUP_MEMBER_UPDATES_SCREEN,
               fetchedMessageCount: n,
+              fetchedMessageLatency: r,
             });
           }),
           (t.logOnContactInfoScreen = function (t) {

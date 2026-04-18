@@ -49,6 +49,7 @@ __d(
               webcWebglFingerprint: e.webglFingerprint,
               automationSignals: e.automationSignals,
               chromeStructure: e.chromeStructure,
+              foreignDbList: e.foreignDbList,
             },
             n = new (o("WAWebWebcFingerprintWamEvent").WebcFingerprintWamEvent)(
               t,

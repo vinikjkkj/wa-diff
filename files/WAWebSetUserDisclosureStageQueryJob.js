@@ -14,7 +14,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = { 5: "ACCEPTED", 105: "SHOWN", 155: "ACCEPTED", "-1": "UNKNOWN" };
+      s = {
+        5: "ACCEPTED",
+        105: "SHOWN",
+        155: "ACCEPTED",
+        160: "SOFT_OPT_IN",
+        "-1": "UNKNOWN",
+      };
     function u(e, t) {
       return c.apply(this, arguments);
     }

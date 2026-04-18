@@ -9,6 +9,7 @@ __d(
       WAWebCanonicalHatchIdentityGetQuery: "26226835783605669",
       WAWebCanonicalUserValidQuery: "25995999653397511",
       WAWebBizGetCustomUrlUserGraphqlQuery: "7942225995860428",
+      WAWebBizGetCategoriesQuery: "26266473919627648",
       WAWebBizGetPriceTiersQuery: "6190826684377935",
       WAWebBizGetProfileShimlinksQuery: "24491258413796282",
       WAWebGraphQLProductCatalogGetPublicKeyJobQuery: "24765734146405491",

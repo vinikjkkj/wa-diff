@@ -302,6 +302,7 @@ __d(
         AiMusicSongGen: "AI_MUSIC_SONG_GEN",
         ThirdPartyAi: "THIRD_PARTY_AI",
         ThirdPartyAiEdited: "THIRD_PARTY_AI_EDITED",
+        ForwardedAi: "FORWARDED_AI",
       }),
       Se = e({
         XmaWebUrl: "XMA_WEB_URL",

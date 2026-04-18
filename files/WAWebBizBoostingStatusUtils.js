@@ -11,7 +11,6 @@ __d(
     "WDSIconIcSchedule.react",
     "WDSIconIcScheduleFilled.react",
     "WDSIconIcWarning.react",
-    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -124,48 +123,15 @@ __d(
           : "contentDeemphasized";
     }
     function p(e, t) {
-      return r("justknobx")._("5496") && t != null
+      return t != null
         ? t
-        : e === o("WAWebCommonAdsTypes").BoostingStatus.PENDING
-          ? s._(/*BTDS*/ "In review")
-          : e === o("WAWebCommonAdsTypes").BoostingStatus.ACTIVE
-            ? s._(/*BTDS*/ "Active")
-            : e === o("WAWebCommonAdsTypes").BoostingStatus.SCHEDULED
-              ? s._(/*BTDS*/ "Scheduled")
-              : e === o("WAWebCommonAdsTypes").BoostingStatus.REJECTED
-                ? s._(/*BTDS*/ "Rejected")
-                : e === o("WAWebCommonAdsTypes").BoostingStatus.NOT_DELIVERING
-                  ? s._(/*BTDS*/ "Not delivering")
-                  : e ===
-                      o("WAWebCommonAdsTypes").BoostingStatus.UNABLE_TO_CREATE
-                    ? s._(/*BTDS*/ "Unable to create")
-                    : e ===
-                        o("WAWebCommonAdsTypes").BoostingStatus.PAYMENT_PENDING
-                      ? s._(/*BTDS*/ "Payment pending")
-                      : e ===
-                            o("WAWebCommonAdsTypes").BoostingStatus.COMPLETED ||
-                          e ===
-                            o("WAWebCommonAdsTypes").BoostingStatus
-                              .EXTENDABLE ||
-                          e === o("WAWebCommonAdsTypes").BoostingStatus.FINISHED
-                        ? s._(/*BTDS*/ "Completed")
-                        : e === o("WAWebCommonAdsTypes").BoostingStatus.PAUSED
-                          ? s._(/*BTDS*/ "Paused")
-                          : e ===
-                              o("WAWebCommonAdsTypes").BoostingStatus.PAUSING
-                            ? s._(/*BTDS*/ "Pausing")
-                            : e ===
-                                o("WAWebCommonAdsTypes").BoostingStatus.RESUMING
-                              ? s._(/*BTDS*/ "Resuming")
-                              : e ===
-                                  o("WAWebCommonAdsTypes").BoostingStatus
-                                    .CREATING
-                                ? s._(/*BTDS*/ "Being prepared")
-                                : e ===
-                                    o("WAWebCommonAdsTypes").BoostingStatus
-                                      .LIMITED_DELIVERY
-                                  ? s._(/*BTDS*/ "Partially delivered")
-                                  : null;
+        : e === o("WAWebCommonAdsTypes").BoostingStatus.PAUSING
+          ? s._(/*BTDS*/ "Pausing")
+          : e === o("WAWebCommonAdsTypes").BoostingStatus.RESUMING
+            ? s._(/*BTDS*/ "Resuming")
+            : e === o("WAWebCommonAdsTypes").BoostingStatus.CREATING
+              ? s._(/*BTDS*/ "Being prepared")
+              : null;
     }
     ((l.getAdStatusIcon = c),
       (l.getStatusIconConfig = d),

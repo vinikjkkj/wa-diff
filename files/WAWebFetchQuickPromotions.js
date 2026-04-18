@@ -369,7 +369,8 @@ __d(
                                   });
                               }
                             }
-                            if (((A = T.is_dismissible), O != null)) {
+                            A = T.is_dismissible;
+                            {
                               var Q;
                               try {
                                 (H == null ? void 0 : H.jpeg_thumbnail) !=
@@ -406,7 +407,12 @@ __d(
                                       ])),
                                 );
                               }
-                              F = { description: O, light: Q, dark: X };
+                              (Q != null || X != null) &&
+                                (F = {
+                                  description: O != null ? O : "",
+                                  light: Q,
+                                  dark: X,
+                                });
                             }
                           }
                           if (!(M == null || w == null || A == null)) {

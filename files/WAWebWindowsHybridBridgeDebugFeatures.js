@@ -18,43 +18,53 @@ __d(
             a,
             i;
           ((this.$2 = null),
-            (this.$3 = null),
-            (this.ping = function (t) {
-              var r;
-              n.$1.pong(t.valueOf());
-              var a = self.performance.now(),
-                i = a - ((r = n.$2) != null ? r : a);
-              if (((n.$2 = a), i > 1300)) {
-                var l = o(
+            (this.$3 = 0),
+            (this.$4 = null),
+            (this.$5 = null),
+            (this.$6 = function () {
+              var t,
+                r = self.performance.now() - ((t = n.$2) != null ? t : 0),
+                a = o("WAWebAppTracker").AppTracker.getAppContext();
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "WindowsHybridBridgeDebugFeatures:ping:",
+                    " no ping ",
+                    "s appContext:",
+                    "",
+                  ])),
+                n.$3,
+                (r / 1e3).toFixed(0),
+                a || "none",
+              );
+            }),
+            (this.ping = function (e) {
+              var t;
+              n.$1.pong(e.valueOf());
+              var r = self.performance.now(),
+                a = r - ((t = n.$2) != null ? t : r);
+              if (((n.$2 = r), (n.$3 = e), a > 1300)) {
+                var i = o(
                   "WAWebAppTracker",
-                ).AppTracker.getAppContextWithLookback(i, a);
+                ).AppTracker.getAppContextWithLookback(a, r);
                 o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "WindowsHybridBridgeDebugFeatures:ping:",
                       " diff:",
                       "ms appContext:",
                       "",
                     ])),
-                  t,
-                  i.toFixed(0),
-                  l || "none",
+                  e,
+                  a.toFixed(0),
+                  i || "none",
                 );
               }
-              (n.$3 != null && self.clearTimeout(n.$3),
-                (n.$3 = self.setTimeout(function () {
-                  var e = o("WAWebAppTracker").AppTracker.getAppContext();
-                  o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "WindowsHybridBridgeDebugFeatures:ping:",
-                        " no ping 10s ctx:",
-                        "",
-                      ])),
-                    t,
-                    e || "none",
-                  );
-                }, 1e4)));
+              (n.$4 != null && self.clearTimeout(n.$4),
+                n.$5 != null && (self.clearInterval(n.$5), (n.$5 = null)),
+                (n.$4 = self.setTimeout(function () {
+                  (n.$6(), (n.$5 = self.setInterval(n.$6, 1e3)));
+                }, 5e3)));
             }),
             (this.$1 = t),
             (r = this.$1) == null ||

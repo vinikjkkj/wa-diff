@@ -1,6 +1,7 @@
 __d(
   "WAWebOpenBizNativeAdsFlow",
   [
+    "WAWebABProps",
     "WAWebBizAdCreationResolveStoredIdentity",
     "WAWebBizNativeAdsFlowLoadable",
     "WAWebBizNativeAdsFlowTypes",
@@ -27,7 +28,15 @@ __d(
           o("WAWebNavBarTypes").NavBarItems.AdCreation,
         ));
       var i;
-      if (a == null && !r("justknobx")._("4613"))
+      if (
+        a == null &&
+        !(
+          r("justknobx")._("4613") ||
+          o("WAWebABProps").getABPropConfigValue(
+            "ctwa_native_web_scenario_routing_enabled",
+          )
+        )
+      )
         i = s.jsx(o("WAWebBizNativeAdsNUXLoadable").BizNativeAdsNUXLoadable, {
           adCreationFlowID: n,
           entryPoint: e,

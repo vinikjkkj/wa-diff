@@ -154,7 +154,8 @@ __d(
     }
     var x = [2923009, 2923008, 2923011, 2923010, 2923016, 2923015],
       $ = [2446596, 2446978, 2446974, 2446862].concat(x);
-    ((l.MESSENGER_LINK = c),
+    ((l.INSTAGRAM_LINK = u),
+      (l.MESSENGER_LINK = c),
       (l.WHATSAPP_LINK = d),
       (l.isMessagingAppCTAType = m),
       (l.ASSET_FEED_SPEC_MESSENGER_CTA = p),

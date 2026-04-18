@@ -4,6 +4,7 @@ __d(
     "FBLogger",
     "JSResourceForInteraction",
     "Promise",
+    "WAWebABProps",
     "WAWebBizAdCreationResolveStoredIdentity",
     "WAWebBizAdsErrorPopup.react",
     "WAWebBizNativeAdsFlowTypes",
@@ -90,7 +91,12 @@ __d(
               "WAWebBizNativeAdsResolveRelayIdentityBundle",
             ).resolveBizNativeAdsRelayIdentityBundle("WAA", t, l));
           var y = null;
-          if (r("justknobx")._("4613")) {
+          if (
+            r("justknobx")._("4613") ||
+            o("WAWebABProps").getABPropConfigValue(
+              "ctwa_native_web_scenario_routing_enabled",
+            )
+          ) {
             var C,
               b,
               v,

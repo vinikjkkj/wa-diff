@@ -106,19 +106,26 @@ __d(
     }
     function m(e) {
       var t = e.customUrl,
-        n = e.phone,
-        a = e.url,
-        i = e.username,
-        l = e.usernameKey;
-      return n != null
-        ? { wid: o("WAWebWidFactory").createWid(n) }
+        n = e.invalidUsernameKey,
+        a = e.phone,
+        i = e.url,
+        l = e.username,
+        s = e.usernameKey;
+      return a != null
+        ? { wid: o("WAWebWidFactory").createWid(a) }
         : t != null
-          ? i != null
-            ? { customUrl: t, fallbackUrl: a, username: i, usernameKey: l }
-            : { customUrl: t, fallbackUrl: a }
-          : l != null
-            ? { username: r("WANullthrows")(i), usernameKey: l }
-            : { username: r("WANullthrows")(i) };
+          ? l != null
+            ? {
+                customUrl: t,
+                fallbackUrl: i,
+                username: l,
+                usernameKey: s,
+                invalidUsernameKey: n,
+              }
+            : { customUrl: t, fallbackUrl: i }
+          : s != null
+            ? { username: r("WANullthrows")(l), usernameKey: s }
+            : { username: r("WANullthrows")(l), invalidUsernameKey: n };
     }
     function p(e) {
       var t = e.campaign,

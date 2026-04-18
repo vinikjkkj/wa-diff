@@ -126,7 +126,7 @@ __d(
               id: e,
               name: t,
               colorIndex: i,
-              predefinedId: a,
+              predefinedId: a != null ? a : null,
               isActive: l != null ? l : void 0,
               type: u != null ? u : void 0,
             };

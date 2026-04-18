@@ -126,6 +126,7 @@ __d(
                   (a === "UNKNOWN" ||
                     a === "NOT_ACCEPTED" ||
                     a === "SHOWN" ||
+                    a === "SOFT_OPT_IN" ||
                     a === "ACCEPTED")
                     ? a
                     : "UNKNOWN";

@@ -5,15 +5,22 @@ __d(
     "WAWebSignupMetadataQuery",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
+    var e,
+      s,
+      u = null;
+    function c(e) {
+      r("gkx")("26256") && (u = e);
     }
-    function c() {
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          if (r("gkx")("26256") && u != null) return u;
           try {
             var a = yield o(
               "WAWebSignupMetadataQuery",
@@ -52,10 +59,10 @@ __d(
             );
           }
         })),
-        c.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.fetchSignupMetadata = u;
+    ((l.setSignupMetadataOverride = c), (l.fetchSignupMetadata = d));
   },
   98,
 );

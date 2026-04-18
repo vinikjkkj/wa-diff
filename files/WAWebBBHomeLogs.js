@@ -195,12 +195,15 @@ __d(
             .SUGGESTED_AUDIENCE_CARD_CLICK,
       });
     }
-    function k(e, t, n, r) {
+    function k(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: r,
-        extraAttributes: { predicate_type: n, suggested_audience_card_id: t },
-        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_HOME,
+        extraAttributes: {
+          predicate_type: n != null ? n : "",
+          suggested_audience_card_id: t,
+        },
+        surface: a,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget
             .SUGGESTED_AUDIENCE_CARD_ERROR,

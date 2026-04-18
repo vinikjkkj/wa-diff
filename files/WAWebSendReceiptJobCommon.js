@@ -16,6 +16,7 @@ __d(
     "WAWebPrivacySettings",
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebUserPrefsGeneral",
+    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "lodash",
   ],
@@ -158,9 +159,11 @@ __d(
                         e.isBot() &&
                         ((L = e), (E = s));
                       for (
-                        var k = yield o(
-                            "WAWebPnlessStanzaMigration",
-                          ).getStanzaToFromChatId(L),
+                        var k = o("WAWebUserPrefsMeUser").isMeAccount(L)
+                            ? L
+                            : yield o(
+                                "WAWebPnlessStanzaMigration",
+                              ).getStanzaToFromChatId(L),
                           I = [],
                           T = function* () {
                             var e = _.splice(0, m),

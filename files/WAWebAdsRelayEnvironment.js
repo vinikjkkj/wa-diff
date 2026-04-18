@@ -44,11 +44,8 @@ __d(
             )
               return c.environment;
           }
-          var i = yield s(),
-            l = i.Environment,
-            u = i.RecordSource,
-            d = i.Store,
-            m = yield (e || (e = n("Promise"))).all([
+          var i = yield (e || (e = n("Promise"))).all([
+              s(),
               r("JSResourceForInteraction")("URI")
                 .__setRef("WAWebAdsRelayEnvironment")
                 .load(),
@@ -62,10 +59,14 @@ __d(
                 .__setRef("WAWebAdsRelayEnvironment")
                 .load(),
             ]),
-            p = m[0],
-            _ = m[1],
-            f = m[2],
-            g = m[3],
+            l = i[0],
+            u = l.Environment,
+            d = l.RecordSource,
+            m = l.Store,
+            p = i[1],
+            _ = i[2],
+            f = i[3],
+            g = i[4],
             h = new p(
               o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint(),
             ),
@@ -77,9 +78,9 @@ __d(
               }),
               g({ actorID: t.actorID, accessToken: t.accessToken }),
             ),
-            C = new l({
+            C = new u({
               network: y,
-              store: new d(new u()),
+              store: new m(new d()),
               options: { actorID: t == null ? void 0 : t.actorID },
             });
           return (

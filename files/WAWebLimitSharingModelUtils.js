@@ -100,23 +100,27 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function f(e, t, n) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebContactSystemMsg").genLimitSharingUpdateSystemMsg(
-            e,
-            t,
-          );
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = o("WAWebContactSystemMsg").genLimitSharingUpdateSystemMsg(
+              e,
+              t,
+            ),
+            a =
+              (n == null ? void 0 : n.beforeTimestamp) != null
+                ? babelHelpers.extends({}, r, { t: n.beforeTimestamp })
+                : r;
           return (
             yield o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
               chatId: e,
-              newMsg: n,
+              newMsg: a,
               handleSingleMsgOrigin: "limitSharing",
             }),
-            n
+            a
           );
         })),
         g.apply(this, arguments)

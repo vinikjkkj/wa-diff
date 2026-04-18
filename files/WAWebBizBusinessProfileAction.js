@@ -60,11 +60,17 @@ __d(
         s.apply(this, arguments)
       );
     }
-    function u(e) {
+    function u(e, t) {
       return e ===
         o("WAWebBusinessCategoriesResultModel").BUSINESS_CATEGORY_EMPTY_STR_ID
-        ? o("WAWebBusinessProfileCategoriesBridge").queryBusinessCategories("")
-        : o("WAWebBusinessProfileCategoriesBridge").queryBusinessCategories(e);
+        ? o("WAWebBusinessProfileCategoriesBridge").queryBusinessCategories(
+            "",
+            t,
+          )
+        : o("WAWebBusinessProfileCategoriesBridge").queryBusinessCategories(
+            e,
+            t,
+          );
     }
     function c(e) {
       return d.apply(this, arguments);

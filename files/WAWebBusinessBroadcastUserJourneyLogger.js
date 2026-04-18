@@ -150,8 +150,14 @@ __d(
               a,
             );
           }),
-          (t.suggestedAudienceCardError = function (t, n, r) {
-            o("WAWebBBHomeLogs").suggestedAudienceCardError(this.$1, t, n, r);
+          (t.suggestedAudienceCardError = function (t, n, r, a) {
+            o("WAWebBBHomeLogs").suggestedAudienceCardError(
+              this.$1,
+              t,
+              n,
+              r,
+              a,
+            );
           }),
           (t.createAudienceViewed = function (t) {
             o("WAWebBBAudienceLogs").createAudienceViewed(this.$1, t);

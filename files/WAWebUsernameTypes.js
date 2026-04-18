@@ -29,6 +29,7 @@ __d(
       (l.UsernameValidationErrorType = s),
       (l.USERNAME_MIN_LENGTH = u),
       (l.USERNAME_MAX_LENGTH = c),
+      (l.USERNAME_KEY_LENGTH = d),
       (l.isUsernameKey = p),
       (l.asUsernameKey = _));
   },

@@ -11,7 +11,6 @@ __d(
     "WAWebAbPropsSyncJob",
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingScheduledJobs",
-    "WAWebAcpDeprecationMigration",
     "WAWebApiChat",
     "WAWebApiParticipantStore",
     "WAWebApiTasksScheduledTime",
@@ -41,6 +40,7 @@ __d(
     "WAWebNewsletterCleanupTasks",
     "WAWebNonAddressBookContactsJob",
     "WAWebNonMessageDataRequestMediaHandlingUtils",
+    "WAWebOpusMigration",
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebQplStorage",
@@ -1330,7 +1330,7 @@ __d(
                                                                                         ? t -
                                                                                             n
                                                                                         : (yield o(
-                                                                                            "WAWebAcpDeprecationMigration",
+                                                                                            "WAWebOpusMigration",
                                                                                           ).runOpusMigration(),
                                                                                           o(
                                                                                             "WATaskScheduler",

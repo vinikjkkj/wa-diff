@@ -4,7 +4,7 @@ __d(
     "fbt",
     "WALogger",
     "WATimeUtils",
-    "WAWebAcpDeprecationUtils",
+    "WAWebABProps",
     "WAWebActionToast.react",
     "WAWebCmd",
     "WAWebContactCollection",
@@ -25,6 +25,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebNetworkStatus",
+    "WAWebOpusUtils",
     "WAWebProtobufsProtocol.pb",
     "WAWebSendMsgChatAction",
     "WAWebSetPropertyGroupAction",
@@ -53,7 +54,7 @@ __d(
     }
     function _(e) {
       var t;
-      return o("WAWebLimitSharingGatingUtils").isOpusFlagOn()
+      return o("WAWebLimitSharingGatingUtils").isOpusEnabled()
         ? !1
         : o(
             "WAWebLimitSharingGatingUtils",
@@ -110,7 +111,7 @@ __d(
         : n.byNoUserOff();
     }
     function h(e) {
-      return o("WAWebLimitSharingGatingUtils").isOpusFlagOn()
+      return o("WAWebLimitSharingGatingUtils").isOpusEnabled()
         ? !1
         : e.hasCapi !== !0 &&
             !e.id.isBot() &&
@@ -129,7 +130,7 @@ __d(
     function b() {
       return (
         (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebLimitSharingGatingUtils").isOpusFlagOn()) {
+          if (!o("WAWebLimitSharingGatingUtils").isOpusEnabled()) {
             var t = _(e),
               a = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
               i = o("WATimeUtils").unixTime(),
@@ -162,10 +163,13 @@ __d(
     }
     function v(t) {
       var n;
-      ((n = t.limitSharing) == null ? void 0 : n.sharingLimited) === !0 &&
-        o("WAWebLimitSharingGatingUtils").isOpusEnabled() &&
-        o("WAWebAcpDeprecationUtils")
-          .opusProcessChat(t.id.toString())
+      if (
+        ((n = t.limitSharing) == null ? void 0 : n.sharingLimited) === !0 &&
+        o("WAWebLimitSharingGatingUtils").isOpusEnabled()
+      ) {
+        var r = o("WAWebABProps").getABPropConfigValue("opus_t");
+        o("WAWebOpusUtils")
+          .opusProcessChat(t.id.toString(), { beforeTimestamp: r })
           .catch(function (n) {
             o("WALogger")
               .ERROR(
@@ -179,6 +183,7 @@ __d(
               .catching(n instanceof Error ? n : new Error(String(n)))
               .sendLogs("opus-guardrail-fail");
           });
+      }
     }
     function S() {
       return {
@@ -418,7 +423,7 @@ __d(
       (l.isLimitSharingSettingVisible = h),
       (l.showLimitSharingInvokeBlockedPopup = y),
       (l.toggleLimitSharing = C),
-      (l.maybeOpusDeprecateChatOnOpen = v),
+      (l.maybeOpusProcessChatOnOpen = v),
       (l.getLimitSharingMessageNotification = F),
       (l.getLimitSharingGroupUpdateActionStrings = O));
   },

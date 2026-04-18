@@ -93,7 +93,7 @@ __d(
           multipleSelectionFooterType: o("WAWebSelectModalFooter.react")
             .FooterType.CONFIRM,
           shouldShowSelectionSummary: !1,
-          allowUnknownUsernameContactSearch: !1,
+          allowUnknownContactSearch: !1,
           tsNavigationData: {
             surface: "unknown",
             viewName: "manage-group-admins",

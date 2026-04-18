@@ -162,6 +162,8 @@ __d(
             TimeElapsedSinceCallOffer:
               (l = u.time_elapsed_since_call_offer) != null ? l : 0,
             SilenceReason: (s = u.silence_reason) != null ? s : 0,
+            ShouldUploadFieldStats: u.should_upload_field_stats,
+            MissedCallFieldStats: u.missed_call_field_stats,
           };
         },
         parseUpdate1to1CallLogData: function (t) {

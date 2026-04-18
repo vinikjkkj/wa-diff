@@ -221,8 +221,9 @@ __d(
                     c = s[1];
                   ((n.username = u),
                     c != null &&
-                      o("WAWebUsernameTypes").isUsernameKey(c) &&
-                      (n.usernameKey = c));
+                      (o("WAWebUsernameTypes").isUsernameKey(c)
+                        ? (n.usernameKey = c)
+                        : (n.invalidUsernameKey = !0)));
                 }
                 break;
               case "signup_id":
@@ -302,7 +303,7 @@ __d(
       U = /^https?:\/\/wa\.me\/?(?:([0-9.]{0,20}))\/?\??(.+)?$/i,
       V = /^https?:\/\/wa\.me\/?(?:([0-9a-z.]{5,35}))?\/?\??(.+)?$/i,
       H =
-        /^https?:\/\/wa\.me\/?@?(?:([0-9a-z._]{3,30}))(?::([0-9]{4}))?(\/?\?(.*))?$/i,
+        /^https?:\/\/wa\.me\/?@?(?:([0-9a-z._]{3,30}))(?::([^?/]+))?(\/?\?(.*))?$/i,
       G = /^https?:\/\/wa\.me\/p\/([0-9]{0,20})\/([0-9]{0,20})$/i,
       z = /^whatsapp:\/\/product\/([0-9]{0,20})\/([0-9]{0,20})$/i,
       j = new RegExp(
@@ -427,8 +428,11 @@ __d(
           var r = t[2];
           if (
             (r != null &&
-              o("WAWebUsernameTypes").isUsernameKey(r) &&
-              (n = babelHelpers.extends({}, n, { usernameKey: r })),
+              (o("WAWebUsernameTypes").isUsernameKey(r)
+                ? (n = babelHelpers.extends({}, n, { usernameKey: r }))
+                : (n = babelHelpers.extends({}, n, {
+                    invalidUsernameKey: !0,
+                  }))),
             t[3])
           ) {
             var a = x(t[3], e);

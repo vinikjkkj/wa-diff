@@ -7,7 +7,6 @@ __d(
     "WAWebLid1X1MigrationGating",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -68,18 +67,20 @@ __d(
           var t = e.data.to;
           if (u(t)) {
             var n = yield c(t);
-            if (n == null)
-              throw (
-                o("WALogger").ERROR(
+            if (n == null) {
+              o("WALogger")
+                .ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[pnless-stanza] maybeReplaceWidWithAccountLid: no lid ",
                       "",
                     ])),
                   t.toLogString(),
-                ),
-                r("err")("[pnless-stanza] no accountLid for user")
-              );
+                )
+                .tags("pnless-stanzas")
+                .sendLogs("pnless-no-lid-in-send");
+              return;
+            }
             e.type === "message"
               ? (e.data.to = n)
               : e.type === "addon" &&

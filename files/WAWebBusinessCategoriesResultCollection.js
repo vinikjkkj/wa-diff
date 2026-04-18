@@ -3,25 +3,26 @@ __d(
   [
     "WAWebBizBusinessProfileAction",
     "WAWebBusinessCategoriesResultModel",
+    "WAWebL10N",
     "WAWebStaleBaseCollection",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
-        for (var t, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
-          a[i] = arguments[i];
+        for (var t, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
+          i[l] = arguments[l];
         return (
-          (t = e.call.apply(e, [this].concat(a)) || this),
+          (t = e.call.apply(e, [this].concat(i)) || this),
           (t.findImpl = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t = yield o(
                     "WAWebBizBusinessProfileAction",
-                  ).queryBusinessCategories(e),
+                  ).queryBusinessCategories(e, r("WAWebL10N").getLocale()),
                   n = t.categories,
-                  r = t.notABizId;
-                return { id: e, categories: n, notABizId: r };
+                  a = t.notABizId;
+                return { id: e, categories: n, notABizId: a };
               },
             );
             return function (t) {

@@ -12,6 +12,7 @@ __d(
     "WAWebGroupABPropsCache",
     "WAWebRuntimeEnvironmentUtils",
     "cr:4941",
+    "err",
     "getErrorSafe",
     "gkx",
   ],
@@ -23,7 +24,7 @@ __d(
       d = new Map();
     function m() {
       var e,
-        t = new Error();
+        t = r("err")("");
       return (e = t.stack) != null ? e : "";
     }
     var p = new Map(),

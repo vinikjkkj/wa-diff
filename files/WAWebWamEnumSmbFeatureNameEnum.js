@@ -19,6 +19,7 @@ __d(
       DEVICE_LINKING: 13,
       QUICK_REPLY: 14,
       AUTOMATED_MESSAGE: 15,
+      CUSTOMER_MANAGER: 16,
     });
     i.SMB_FEATURE_NAME_ENUM = e;
   },

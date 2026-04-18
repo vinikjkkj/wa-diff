@@ -292,9 +292,9 @@ __d(
                     deepLinkHasPhoneNumber: !r("isStringNullOrEmpty")(q),
                     deepLinkHasText: !r("isStringNullOrEmpty")(U),
                     deepLinkHasUsername: !0,
-                    deepLinkHasUsernamePin: !r("isStringNullOrEmpty")(
-                      w.usernameKey,
-                    ),
+                    deepLinkHasUsernamePin:
+                      !r("isStringNullOrEmpty")(w.usernameKey) ||
+                      w.invalidUsernameKey === !0,
                     deepLinkSessionId: i,
                   }
                 : void 0;

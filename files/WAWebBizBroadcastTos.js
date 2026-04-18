@@ -19,53 +19,54 @@ __d(
     var e,
       s = "20250915",
       u = "biz_broadcast_soft_opt_in",
-      c = 160,
-      d = {
+      c = {
         maxTimeout: 16e3,
         minTimeout: 1e3,
         retries: 3,
         signal: new AbortController().signal,
       },
-      m = !1,
-      p = "pending",
-      _ = new (r("WAWebEventEmitter"))();
-    function f() {
+      d = !1,
+      m = "pending",
+      p = new (r("WAWebEventEmitter"))();
+    function _() {
       return (
-        m ||
-          ((m = !0),
-          g()
-            ? (p = "success")
-            : y().then(
+        d ||
+          ((d = !0),
+          f()
+            ? (m = "success")
+            : h().then(
                 function () {
-                  p = "success";
+                  m = "success";
                 },
                 function () {
-                  p = "error";
+                  m = "error";
                 },
               )),
         s
       );
     }
-    function g() {
+    function f() {
+      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s);
       return (
-        r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s) === "ACCEPTED" ||
-        r("WAWebUserPrefsStore").getUser(u) === !0
+        e === "ACCEPTED" ||
+        r("WAWebUserPrefsStore").getUser(u) === !0 ||
+        e === "SOFT_OPT_IN"
       );
     }
-    function h() {
-      (r("WAWebUserPrefsStore").setUser("TOS_STATE_" + s, "ACCEPTED"),
+    function g() {
+      (r("WAWebUserPrefsStore").setUser("TOS_STATE_" + s, "SOFT_OPT_IN"),
         r("WAWebUserPrefsStore").setUser(u, !0),
-        _.trigger("change"));
+        p.trigger("change"));
+    }
+    function h() {
+      return y.apply(this, arguments);
     }
     function y() {
-      return C.apply(this, arguments);
-    }
-    function C() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWaitForComms").waitForComms(),
             yield o("WAExponentialBackoff").exponentialBackoff(
-              d,
+              c,
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
@@ -89,10 +90,11 @@ __d(
                           return e.id === Number(s);
                         });
                         i != null &&
-                          (i.stage === c ||
+                          (i.stage ===
+                            o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN ||
                             i.stage ===
                               o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED) &&
-                          h();
+                          g();
                       }
                     } catch (n) {
                       return (
@@ -118,38 +120,38 @@ __d(
               })(),
             ));
         })),
-        C.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function b() {
+    function C() {
       var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s);
       return {
         isSoftOptInAccepted: r("WAWebUserPrefsStore").getUser(u) === !0,
         persistedState: typeof e == "string" ? e : null,
-        syncResult: p,
-        tosManagerState: o("WAWebTos").TosManager.getState(f()),
+        syncResult: m,
+        tosManagerState: o("WAWebTos").TosManager.getState(_()),
       };
     }
-    function v() {
-      return S.apply(this, arguments);
+    function b() {
+      return v.apply(this, arguments);
     }
-    function S() {
+    function v() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (h(),
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (g(),
             yield o("WAWebSetUserDisclosureStageJob").setUserDisclosureStage(
               Number(s),
-              o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED,
+              o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN,
             ));
         })),
-        S.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((l.bizBroadcastTosEmitter = _),
-      (l.getBizBroadcastTosId = f),
-      (l.isBizBroadcastTosAccepted = g),
-      (l.getBizBroadcastTosDebugInfo = b),
-      (l.acceptBizBroadcastTos = v));
+    ((l.bizBroadcastTosEmitter = p),
+      (l.getBizBroadcastTosId = _),
+      (l.isBizBroadcastTosAccepted = f),
+      (l.getBizBroadcastTosDebugInfo = C),
+      (l.acceptBizBroadcastTos = b));
   },
   98,
 );

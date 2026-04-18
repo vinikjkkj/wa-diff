@@ -46,7 +46,7 @@ __d(
                   a,
                   i = 0,
                   l = 0,
-                  u = t.map(function (e) {
+                  c = t.map(function (e) {
                     var t;
                     return o(
                       "WAWebAccountLinkingGatingUtils",
@@ -96,29 +96,36 @@ __d(
                     ),
                   a != null)
                 ) {
-                  var c,
-                    d,
-                    m = o("WAWebAccountLinkingUtils").mapToAccountLinkState(
+                  var d,
+                    m,
+                    p = o("WAWebAccountLinkingUtils").mapToAccountLinkState(
                       r("WANullthrows")(
-                        (c = a.value.waffleAccountLinkStateAction) == null
+                        (d = a.value.waffleAccountLinkStateAction) == null
                           ? void 0
-                          : c.linkState,
+                          : d.linkState,
                       ),
                     ),
-                    p = Number(
+                    _ = Number(
                       r("WANullthrows")(
-                        (d = a) == null ? void 0 : d.value.timestamp,
+                        (m = a) == null ? void 0 : m.value.timestamp,
                       ),
                     );
-                  (yield this.storeLinkState(m, p),
-                    m ===
-                      o("WAWebAccountLinkingConstants").AccountLinkState
-                        .Active &&
-                      (yield o(
+                  if (
+                    p ===
+                    o("WAWebAccountLinkingConstants").AccountLinkState.Active
+                  ) {
+                    var f = yield u.getAccountLinkingData();
+                    (f == null ||
+                      f.linkState !==
+                        o("WAWebAccountLinkingConstants").AccountLinkState
+                          .Active) &&
+                      (yield this.storeLinkState(p, _),
+                      yield o(
                         "WAWebAccountLinkingNonceFetchAPI",
-                      ).requestNonceFromPrimary()));
+                      ).requestNonceFromPrimary());
+                  }
                 }
-                return u;
+                return c;
               },
             );
             function a(e) {

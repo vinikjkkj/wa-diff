@@ -1,23 +1,30 @@
 __d(
   "WAWebBusinessProfileCategoriesBridge",
-  ["WAWebBizLogQplEvents", "WAWebQueryBusinessCategoriesJob"],
+  [
+    "JSResourceForInteraction",
+    "WAWebBizGatingUtils",
+    "WAWebBizLogQplEvents",
+    "WAWebQueryBusinessCategoriesJob",
+  ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return (
-        o("WAWebBizLogQplEvents").qplPointProfileCatsView("datasource_start"),
-        o("WAWebQueryBusinessCategoriesJob")
-          .queryBusinessCategories(e)
-          .then(function (e) {
-            return (
-              o("WAWebBizLogQplEvents").qplPointProfileCatsView(
-                "datasource_end",
-              ),
-              e
-            );
+    var e = r("JSResourceForInteraction")(
+      "WAWebBizGetCategoriesQuery",
+    ).__setRef("WAWebBusinessProfileCategoriesBridge");
+    function s(t, n) {
+      o("WAWebBizLogQplEvents").qplPointProfileCatsView("datasource_start");
+      var r = o("WAWebBizGatingUtils").isCategorySearchViaGraphEnabled()
+        ? e.load().then(function (e) {
+            return e.getBusinessCategories(t, n);
           })
-      );
+        : o("WAWebQueryBusinessCategoriesJob").queryBusinessCategories(t);
+      return r.then(function (e) {
+        return (
+          o("WAWebBizLogQplEvents").qplPointProfileCatsView("datasource_end"),
+          e
+        );
+      });
     }
-    l.queryBusinessCategories = e;
+    l.queryBusinessCategories = s;
   },
   98,
 );

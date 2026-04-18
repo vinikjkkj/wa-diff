@@ -1,9 +1,9 @@
 __d(
   "WAWebPdfViewerAppConfig",
   [
-    "WAWebABProps",
     "WAWebConnModel",
     "WAWebEnvironment",
+    "WAWebRobotoFontMode",
     "WAWebStylesEnv",
     "WAWebTPPdfViewerGatingUtils",
     "WAWebUA",
@@ -28,7 +28,7 @@ __d(
             : "light";
     }
     function s() {
-      var e = o("WAWebABProps").getABPropConfigValue("wds_web_roboto");
+      var e = o("WAWebRobotoFontMode").getWDSRobotoMode();
       return e === 3 ||
         (e === 2 && o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC)
         ? !0

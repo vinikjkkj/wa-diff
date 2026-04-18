@@ -1,6 +1,13 @@
 __d(
   "WAWebBrowserFeatures",
-  ["Promise", "WAMd5", "WAPlatformEstimate", "asyncToGeneratorRuntime"],
+  [
+    "Promise",
+    "WAMd5",
+    "WAPlatformEstimate",
+    "WAWebIndexedDB",
+    "WAWebIndexedDBPurge",
+    "asyncToGeneratorRuntime",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -146,7 +153,43 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield h();
+          try {
+            var e = yield r("WAWebIndexedDB") == null ||
+            r("WAWebIndexedDB").databases == null
+              ? void 0
+              : r("WAWebIndexedDB").databases();
+            if (e == null) return "";
+            var t = new Set(
+              Object.keys(o("WAWebIndexedDBPurge").WEB_IDB_DB_NAMES).map(
+                function (e) {
+                  return o("WAWebIndexedDBPurge").WEB_IDB_DB_NAMES[e];
+                },
+              ),
+            );
+            return e
+              .map(function (e) {
+                return e.name;
+              })
+              .filter(function (e) {
+                return e != null && !t.has(e);
+              })
+              .join(",");
+          } catch (e) {
+            return "";
+          }
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R() {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield (e || (e = n("Promise"))).all([h(), v()]),
+            o = t[0],
+            a = t[1];
           return {
             pluginCount: s(),
             mimeTypeCount: u(),
@@ -158,15 +201,16 @@ __d(
             platformEstimate: r("WAPlatformEstimate")(),
             historyLength: f(),
             viewPortSize: g(),
-            canvasFingerprint: e,
+            canvasFingerprint: o,
             automationSignals: C(),
             chromeStructure: b(),
+            foreignDbList: a,
           };
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    l.default = v;
+    l.default = R;
   },
   98,
 );

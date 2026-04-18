@@ -26,6 +26,9 @@ __d(
         case o("WAWebPDFNTypes").DISCLOSURE_STAGE.SHOWN_0:
           return o("WAWebWamEnumUserNoticeEvent").USER_NOTICE_EVENT
             .PDFN_SHOWN_0;
+        case o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN:
+          return o("WAWebWamEnumUserNoticeEvent").USER_NOTICE_EVENT
+            .PDFN_SOFT_OPT_IN;
       }
     }
     ((l.logUserNoticeEvent = e), (l.getNoticeEventFromDisclosureStage = s));
