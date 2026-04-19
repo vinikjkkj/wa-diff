@@ -77,28 +77,11 @@ __d(
           : t;
       }
     }
-    function h(e) {
-      if (
-        e.isSenderNewAccount === !0 &&
-        o("WAWebFMXGatingUtils").isExpandFmxAccountAgeUiEnabled() &&
-        o("WAWebFMXGatingUtils").isSuspiciousFmxEnabled()
-      ) {
-        var t = s._(/*BTDS*/ "New business account");
-        return o("WAWebFMXGatingUtils").isExpandFmxAccountAgeBoldedEnabled()
-          ? u.jsx(r("WDSText.react"), {
-              type: "Body2Emphasized",
-              colorName: "contentDeemphasized",
-              children: t,
-            })
-          : t;
-      }
-    }
     ((l.shouldShowCountryCodeTrustSignal = c),
       (l.getCountryCodeTrustSignal = m),
       (l.shouldShowContactTrustSignal = _),
       (l.getContactTrustSignal = f),
-      (l.getNewAccountTrustSignal = g),
-      (l.getNewSmbAccountTrustSignal = h));
+      (l.getNewAccountTrustSignal = g));
   },
   226,
 );

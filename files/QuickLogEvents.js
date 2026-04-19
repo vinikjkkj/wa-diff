@@ -10997,6 +10997,11 @@ __d(
         name: "LEAD_GEN_QUALITY_FUNNEL_ONBOARDING",
         sampleRate: 1,
       },
+      58205057: {
+        moduleName: "ADS_EVENTS_MANAGER",
+        name: "CONNECT_PIXEL_TO_AD_ACCOUNTS",
+        sampleRate: 250,
+      },
       58205292: {
         moduleName: "ADS_EVENTS_MANAGER",
         name: "LOAD_ENG_CHECKLIST",
@@ -11036,6 +11041,11 @@ __d(
         moduleName: "ADS_EVENTS_MANAGER",
         name: "SEND_DIAGNOSTICS_EMAIL",
         sampleRate: 1,
+      },
+      58207714: {
+        moduleName: "ADS_EVENTS_MANAGER",
+        name: "MANUAL_UPLOAD_OFFLINE_EVENTS",
+        sampleRate: 250,
       },
       58207719: {
         moduleName: "ADS_EVENTS_MANAGER",
@@ -11101,6 +11111,11 @@ __d(
         moduleName: "ADS_EVENTS_MANAGER",
         name: "LOAD_DATESET_OVERVIEW_PAGE",
         sampleRate: 1,
+      },
+      58210221: {
+        moduleName: "ADS_EVENTS_MANAGER",
+        name: "CONNECT_DATASET_TO_AD_ACCOUNT",
+        sampleRate: 250,
       },
       58210249: {
         moduleName: "ADS_EVENTS_MANAGER",
@@ -13615,7 +13630,7 @@ __d(
       85538115: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_SHOPS",
-        sampleRate: 85967,
+        sampleRate: 95246,
       },
       85538404: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14679,7 +14694,7 @@ __d(
       100335618: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH_AGGREGATED",
-        sampleRate: 1,
+        sampleRate: 0,
       },
       100338619: {
         moduleName: "ACCESS_LIBRARY",
@@ -47599,6 +47614,36 @@ __d(
         name: "PROMOTION_ADVANCED_SETTING_SAVE",
         sampleRate: 1,
       },
+      663751132: {
+        moduleName: "META_HEALTH_QUERY",
+        name: "STATISTICS_QUERY",
+        sampleRate: 1,
+      },
+      663751558: {
+        moduleName: "META_HEALTH_QUERY",
+        name: "OBSERVER_START",
+        sampleRate: 1,
+      },
+      663752729: {
+        moduleName: "META_HEALTH_QUERY",
+        name: "SAMPLE_QUERY",
+        sampleRate: 1,
+      },
+      663755460: {
+        moduleName: "META_HEALTH_QUERY",
+        name: "SUMMARY_QUERY",
+        sampleRate: 1,
+      },
+      663760521: {
+        moduleName: "META_HEALTH_QUERY",
+        name: "OBSERVER_STOP",
+        sampleRate: 1,
+      },
+      663760781: {
+        moduleName: "META_HEALTH_QUERY",
+        name: "AUTHORIZE",
+        sampleRate: 1,
+      },
       663882931: {
         moduleName: "DALMORE",
         name: "CODEC_AVATAR_DOWNLOAD",
@@ -74822,9 +74867,24 @@ __d(
         name: "FEO2_SERVER_TEST_RUN",
         sampleRate: 1,
       },
+      1068904122: {
+        moduleName: "MOBILE_IDENTITY_SERVICE",
+        name: "SILENT_AUTH2_PRE_CLIENT_EXECUTION_SERVER",
+        sampleRate: 1,
+      },
+      1068905010: {
+        moduleName: "MOBILE_IDENTITY_SERVICE",
+        name: "SILENT_AUTH2_CLIENT_DIGITAL_CREDENTIAL_REQUEST",
+        sampleRate: 1,
+      },
       1068905865: {
         moduleName: "MOBILE_IDENTITY_SERVICE",
         name: "SILENT_AUTH_PREFETCH_POLL",
+        sampleRate: 1,
+      },
+      1068906660: {
+        moduleName: "MOBILE_IDENTITY_SERVICE",
+        name: "SILENT_AUTH2_POST_CLIENT_EXECUTION_SERVER",
         sampleRate: 1,
       },
       1070006273: {
