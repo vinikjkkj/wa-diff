@@ -20,6 +20,7 @@ __d(
         CONTENT_CHANGED: { category: 5, eventName: 14 },
         ALERT_SHOWN: { category: 5, eventName: 13 },
         ALERT_CLOSED: { category: 5, eventName: 25 },
+        CUSTOM_EVENT: { category: 6, eventName: 19 },
       },
       u = crypto.randomUUID(),
       c = o("WAWebABProps").getABPropConfigValue("web_pathfinder_logging"),
@@ -50,7 +51,7 @@ __d(
           var i = s[t.eventType];
           i != null &&
             r("WamPathfinderWebFalcoEvent").log(function () {
-              var e, n, r, o;
+              var e, n, r, o, a, l;
               return {
                 event_category: i.category,
                 event_name: i.eventName,
@@ -63,6 +64,8 @@ __d(
                   (n = t.destinationName) != null ? n : void 0,
                 target_testid: (r = t.targetTrackingId) != null ? r : void 0,
                 target_element_type: (o = t.targetType) != null ? o : void 0,
+                event_metadata: (a = t.eventMetadata) != null ? a : void 0,
+                custom_metadata: (l = t.customMetadata) != null ? l : void 0,
               };
             });
         }
