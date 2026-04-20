@@ -142,7 +142,7 @@ __d(
               "span",
               babelHelpers.extends(
                 {
-                  "data-testid": void 0,
+                  "data-testid": S,
                   "aria-hidden": R,
                   "aria-label": L,
                   ref: E,

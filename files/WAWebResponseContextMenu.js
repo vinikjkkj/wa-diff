@@ -88,7 +88,12 @@ __d(
         (t[16] !== l
           ? ((h = u.jsx(
               o("WAWebDropdownItem.react").DropdownItem,
-              { action: l, testid: void 0, icon: f, children: g },
+              {
+                action: l,
+                testid: "newsletter-question-response-report",
+                icon: f,
+                children: g,
+              },
               "newsletter-question-response-report",
             )),
             (t[16] = l),
@@ -106,7 +111,12 @@ __d(
         (t[20] !== d
           ? ((b = u.jsx(
               o("WAWebDropdownItem.react").DropdownItem,
-              { action: d, testid: void 0, icon: y, children: C },
+              {
+                action: d,
+                testid: "newsletter-question-response-block",
+                icon: y,
+                children: C,
+              },
               "newsletter-question-response-block",
             )),
             (t[20] = d),
@@ -130,7 +140,7 @@ __d(
                 o("WAWebDropdownItem.react").DropdownItem,
                 {
                   action: p,
-                  testid: void 0,
+                  testid: "newsletter-question-response-delete",
                   theme: o("WAWebDropdownItem.react").DropdownItemThemeType
                     .Negative,
                   icon: v,
@@ -169,7 +179,12 @@ __d(
           (t[30] !== E
             ? ((I = u.jsx(
                 o("WAWebDropdownItem.react").DropdownItem,
-                { addSpacing: !0, testid: void 0, action: E, children: k },
+                {
+                  addSpacing: !0,
+                  testid: "mi-msg-copy-id",
+                  action: E,
+                  children: k,
+                },
                 "copy-id",
               )),
               (t[30] = E),

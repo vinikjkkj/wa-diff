@@ -34,7 +34,7 @@ __d(
       return u.jsx(
         r("WDSMenuItem.react"),
         {
-          testid: void 0,
+          testid: "mi-broadcast-info",
           onPress: n,
           Icon: o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon,
           title: o(
@@ -68,7 +68,7 @@ __d(
       return u.jsx(
         r("WDSMenuItem.react"),
         {
-          testid: void 0,
+          testid: "mi-close-chat",
           onPress: function () {
             return o("WAWebCmd").Cmd.closeChat(e);
           },

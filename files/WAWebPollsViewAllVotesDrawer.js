@@ -170,7 +170,7 @@ __d(
         {
           ref: m,
           theme: "striped",
-          testid: void 0,
+          testid: "poll-details-drawer",
           tsNavigationData: {
             surface: "unknown",
             viewName: "polls-view-all-votes",
@@ -197,7 +197,7 @@ __d(
                 isPollFromMe: i.id.fromMe,
                 flatListController: g.current,
                 withSectioning: p,
-                testid: void 0,
+                testid: "poll-details-option-" + _.localId,
                 isCorrectOption:
                   i.correctOptionIndex == null
                     ? null

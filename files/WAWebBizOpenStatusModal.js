@@ -14,7 +14,7 @@ __d(
       var e = s.jsx(
         o("WAWebButton.react").Button,
         {
-          testid: void 0,
+          testid: "popup-controls-ok",
           type: "primary",
           onClick: o("WAWebModalManager").closeModalManager,
           children: r("WAWebFbtCommon")("OK"),

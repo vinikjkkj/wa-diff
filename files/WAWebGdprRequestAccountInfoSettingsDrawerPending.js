@@ -41,7 +41,7 @@ __d(
       var m;
       t[4] === Symbol.for("react.memo_cache_sentinel")
         ? ((m = u.jsx(o("WAWebText.react").WAWebTextTitle, {
-            testid: void 0,
+            testid: "gdpr-pending-request",
             children: s._(/*BTDS*/ "Request sent"),
           })),
           (t[4] = m))

@@ -68,7 +68,7 @@ __d(
               .ChatAssignmentWithContainerIcon,
             title: s._(/*BTDS*/ "Assign chat"),
             onPress: t,
-            testid: void 0,
+            testid: "mi-assign-chat",
           }),
         );
       var _ = o("WAWebListsGatingUtils").isListsEnabled();
@@ -124,7 +124,7 @@ __d(
                       .FAVORITES_UPDATE_ENTRY_POINT.CHAT_HEADER_CONTEXT_MENU,
                   );
                 },
-                testid: void 0,
+                testid: "mi-favorite",
               },
               "favorite",
             ),
@@ -143,7 +143,7 @@ __d(
                 onPress: function () {
                   return o("WAWebCmd").Cmd.closeChat(i);
                 },
-                testid: void 0,
+                testid: "mi-close-chat",
                 Icon: o("WAWebCloseCircleRefreshedIcon.react")
                   .CloseCircleRefreshedIcon,
               },
@@ -185,7 +185,7 @@ __d(
               onPress: function () {
                 return o("WAWebCmd").Cmd.clearChat(i);
               },
-              testid: void 0,
+              testid: "mi-clear",
               destructive: !0,
             },
             "clear",

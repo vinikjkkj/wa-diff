@@ -22,7 +22,7 @@ __d(
           ? ((n = u.jsx(
               "span",
               babelHelpers.extends({}, t, {
-                "data-testid": void 0,
+                "data-testid": "terminated-community-msg-bar",
                 children: s._(
                   /*BTDS*/ "This community is no longer available. {=m2}",
                   [

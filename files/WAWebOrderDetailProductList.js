@@ -28,7 +28,7 @@ __d(
       var c;
       t[4] !== i || t[5] !== e.flatListController
         ? ((c = s.jsx(o("WAWebFlatList.react").FlatList, {
-            testid: void 0,
+            testid: "order-detail-product-list",
             flatListController: e.flatListController,
             direction: "vertical",
             forceConsistentRenderCount: !1,

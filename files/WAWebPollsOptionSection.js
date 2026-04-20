@@ -172,7 +172,7 @@ __d(
         n[23] !== A || n[24] !== F || n[25] !== v
           ? ((O = c.jsxs(r("WAWebDrawerSection.react"), {
               theme: "no-padding",
-              testid: void 0,
+              testid: v,
               children: [A, F],
             })),
             (n[23] = A),

@@ -39,7 +39,7 @@ __d(
                       width: 20,
                       height: 20,
                       "aria-hidden": !0,
-                      testid: void 0,
+                      testid: "wds-ic-view-once",
                     })
                   : s.jsx(
                       o("WAWebViewOnceViewedIcon.react").ViewOnceViewedIcon,
@@ -58,7 +58,7 @@ __d(
           ? ((d = s.jsx(r("WDSIconIcImage.react"), {
               width: 18,
               height: 20,
-              testid: void 0,
+              testid: "image-refreshed",
             })),
             (t[4] = d))
           : (d = t[4]),

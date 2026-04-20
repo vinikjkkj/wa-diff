@@ -158,7 +158,7 @@ __d(
                                 .POLLS_SENDER
                             : o("WAWebCheckBox.react").CheckboxTheme
                                 .POLLS_RECEIVER,
-                          testid: void 0,
+                          testid: "poll-option-" + _,
                         },
                         W,
                       ),
@@ -169,7 +169,7 @@ __d(
                         {
                           isAdminOrOwner: f,
                           hideResults: d,
-                          testid: void 0,
+                          testid: "quiz-option-" + _,
                           isCorrectOption: g,
                           msgId: C.id,
                           animationPromise: a,

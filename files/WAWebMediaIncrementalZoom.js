@@ -737,7 +737,7 @@ __d(
               icon: u,
               title: m,
               onClick: g,
-              testid: void 0,
+              testid: _,
             })),
             (t[8] = u),
             (t[9] = i),

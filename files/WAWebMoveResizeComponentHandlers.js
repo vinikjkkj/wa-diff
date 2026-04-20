@@ -1,13 +1,15 @@
 __d(
   "WAWebMoveResizeComponentHandlers",
   [
+    "WALogger",
     "WAWebMoveResizeComponentUtils",
     "WAWebMoveResizeLogic",
     "WAWebMoveResizeValidation",
     "lodash",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e, s, u;
+    function c(e) {
       var t = e.aspectRatio,
         n = e.clientX,
         r = e.clientY,
@@ -114,61 +116,112 @@ __d(
         resizedBottom: D,
       };
     }
-    function s(e) {
-      var t = e.aspectRatio,
-        n = e.clientX,
-        r = e.clientY,
-        a = e.extraBottomContentHeight,
-        i = e.extraTopContentHeight,
-        l = e.height,
-        s = e.independentResize,
-        u = e.margin,
-        c = e.minWidth,
-        d = e.moveStartMousePosition,
-        m = e.moveStartPositionStyle,
-        p = e.resizeStartPiPStyle,
-        _ = e.width,
-        f = n - d.x,
-        g = d.y - r,
-        h = {
-          resizeStartPiPStyle: p,
-          width: _,
-          moveStartPositionStyle: m,
-          margin: u,
-          aspectRatio: t,
-          minWidth: c,
+    function d(t) {
+      var n = t.aspectRatio,
+        r = t.clientX,
+        a = t.clientY,
+        i = t.extraBottomContentHeight,
+        l = t.extraTopContentHeight,
+        c = t.height,
+        d = t.independentResize,
+        m = t.margin,
+        p = t.minWidth,
+        _ = t.moveStartMousePosition,
+        f = t.moveStartPositionStyle,
+        g = t.resizeStartPiPStyle,
+        h = t.width,
+        y = r - _.x,
+        C = _.y - a;
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[WC Drag] processMoveAction deltas deltaLeft=",
+            " deltaBottom=",
+            " clientX=",
+            " clientY=",
+            " moveStartMouse=",
+            " moveStartStyle=",
+            "",
+          ])),
+        y,
+        C,
+        r,
+        a,
+        JSON.stringify(_),
+        JSON.stringify(f),
+      );
+      var b = {
+          resizeStartPiPStyle: g,
+          width: h,
+          moveStartPositionStyle: f,
+          margin: m,
+          aspectRatio: n,
+          minWidth: p,
           windowWidth: window.innerWidth,
           windowHeight: window.innerHeight,
-          extraTopContentHeight: i,
-          extraBottomContentHeight: a,
-          height: s ? l : void 0,
+          extraTopContentHeight: l,
+          extraBottomContentHeight: i,
+          height: d ? c : void 0,
         },
-        y = o("WAWebMoveResizeValidation").validateMoveResize({
-          deltaBottom: g,
-          deltaLeft: f,
+        v = o("WAWebMoveResizeValidation").validateMoveResize({
+          deltaBottom: C,
+          deltaLeft: y,
           deltaWidth: 0,
-          params: h,
+          params: b,
           type: "MOVE",
         }),
-        C = 0,
-        b = 0;
+        S = 0,
+        R = 0;
       if (
-        (f !== 0 && y.deltaLeft === 0
-          ? (y.deltaLeft,
-            window.innerWidth,
-            u.x,
-            f > 0 ? (C = window.innerWidth - _ - u.x) : (C = u.x))
-          : (C = m.left + y.deltaLeft),
-        g !== 0 && y.deltaBottom === 0)
+        (y !== 0 && v.deltaLeft === 0
+          ? (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[WC Drag] EDGE SNAP horizontal deltaLeft=",
+                  " validatedDeltaLeft=",
+                  " movedLeft=",
+                  " windowWidth=",
+                  " width=",
+                  " marginX=",
+                  "",
+                ])),
+              y,
+              v.deltaLeft,
+              S,
+              window.innerWidth,
+              h,
+              m.x,
+            ),
+            y > 0 ? (S = window.innerWidth - h - m.x) : (S = m.x))
+          : (S = f.left + v.deltaLeft),
+        C !== 0 && v.deltaBottom === 0)
       )
-        if ((y.deltaBottom, window.innerHeight, u.y, g > 0)) {
-          var v = s ? l : _ / t;
-          b = window.innerHeight - v - u.y - i - 0.1;
-        } else b = u.y + a;
-      else b = m.bottom + y.deltaBottom;
-      return { movedLeft: C, movedBottom: b };
+        if (
+          (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[WC Drag] EDGE SNAP vertical deltaBottom=",
+                " validatedDeltaBottom=",
+                " movedBottom=",
+                " windowHeight=",
+                " marginY=",
+                "",
+              ])),
+            C,
+            v.deltaBottom,
+            R,
+            window.innerHeight,
+            m.y,
+          ),
+          C > 0)
+        ) {
+          var L = d ? c : h / n;
+          R = window.innerHeight - L - m.y - l - 0.1;
+        } else R = m.y + i;
+      else R = f.bottom + v.deltaBottom;
+      return { movedLeft: S, movedBottom: R };
     }
-    function u(e) {
+    function m(e) {
       var t = e.aspectRatio,
         n = e.bottom,
         a = e.escapeConversationHeader,
@@ -243,9 +296,9 @@ __d(
         x = !r("lodash").isEqual(T, D);
       return babelHelpers.extends({}, T, { hasChanges: x });
     }
-    ((l.processResizeAction = e),
-      (l.processMoveAction = s),
-      (l.calculateWindowResizeState = u));
+    ((l.processResizeAction = c),
+      (l.processMoveAction = d),
+      (l.calculateWindowResizeState = m));
   },
   98,
 );

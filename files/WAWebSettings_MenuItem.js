@@ -117,7 +117,7 @@ __d(
               primary: S,
               secondary: h,
               detailRight: L,
-              testid: void 0,
+              testid: E,
               border: i,
               isRefresh: l,
               textWrap: "wrap",

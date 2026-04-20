@@ -67,7 +67,7 @@ __d(
     }
     var g = c.jsx(o("WAWebExternalLink.react").ExternalLink, {
       href: f(),
-      testid: void 0,
+      testid: "learn-more-link",
       children: s._(/*BTDS*/ "Learn more"),
     });
     function h(e) {

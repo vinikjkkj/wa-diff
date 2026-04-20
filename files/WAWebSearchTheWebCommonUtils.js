@@ -345,7 +345,7 @@ __d(
       return (
         t[12] !== s || t[13] !== p || t[14] !== h || t[15] !== b || t[16] !== v
           ? ((S = c.jsx(o("WAWebFlex.react").FlexItem, {
-              testid: void 0,
+              testid: "search-modal-row",
               paddingTop: 8,
               paddingBottom: 8,
               children: c.jsx(r("WAWebCellV2.react"), {

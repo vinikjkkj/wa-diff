@@ -43,7 +43,7 @@ __d(
         children: [
           u.jsx(o("WAWebRichTextField.react").RichTextField, {
             value: _,
-            testid: void 0,
+            testid: p,
             placeholder: s._(
               /*BTDS*/ "{input_label} ({currency_or_percentage})",
               [

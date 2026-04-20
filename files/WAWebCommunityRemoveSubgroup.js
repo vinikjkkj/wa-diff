@@ -68,13 +68,17 @@ __d(
         n[2] !== p || n[3] !== _
           ? ((C = c.jsx(
               "div",
-              babelHelpers.extends({ "data-testid": void 0 }, y, {
-                children: c.jsx(o("WAWebCheckBox.react").CheckBox, {
-                  onChange: _,
-                  checked: p,
-                  id: "checkbox-remove-orphan-members",
-                }),
-              }),
+              babelHelpers.extends(
+                { "data-testid": "checkbox-remove-orphan-members" },
+                y,
+                {
+                  children: c.jsx(o("WAWebCheckBox.react").CheckBox, {
+                    onChange: _,
+                    checked: p,
+                    id: "checkbox-remove-orphan-members",
+                  }),
+                },
+              ),
             )),
             (n[2] = p),
             (n[3] = _),

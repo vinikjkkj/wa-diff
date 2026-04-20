@@ -34,7 +34,7 @@ __d(
         }),
         l = u.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
           tsNavigationData: { surface: "unknown", viewName: "system-message" },
-          testid: void 0,
+          testid: "system-message-modal",
           onOK: o("WAWebModalManager").closeModalManager,
           okText: r("WAWebFbtCommon")("OK"),
           type: o("WAWebModal.react").ModalTheme.Multiline,
@@ -60,7 +60,7 @@ __d(
         : (i = { text: s._(/*BTDS*/ "Learn more"), onClick: a });
       var c = u.jsxs(o("WAWebConfirmPopup.react").ConfirmPopup, {
         tsNavigationData: { surface: "unknown", viewName: "system-message" },
-        testid: void 0,
+        testid: "system-message-modal",
         onOK: o("WAWebModalManager").closeModalManager,
         okText: r("WAWebFbtCommon")("OK"),
         type: o("WAWebModal.react").ModalTheme.Multiline,

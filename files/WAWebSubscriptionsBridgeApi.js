@@ -2,6 +2,7 @@ __d(
   "WAWebSubscriptionsBridgeApi",
   [
     "WAWebAuraBenefitProviderInit",
+    "WAWebAuraRingtoneSubscriptionCheck",
     "WAWebFeatureFlagCollection",
     "WAWebSchemaFeatureFlag",
     "WAWebSchemaSubscription",
@@ -50,7 +51,8 @@ __d(
             yield u(),
             o(
               "WAWebAuraBenefitProviderInit",
-            ).initAuraBenefitFeatureFlagProvider());
+            ).initAuraBenefitFeatureFlagProvider(),
+            o("WAWebAuraRingtoneSubscriptionCheck").initSubscriptionCheck());
         });
         function r() {
           return t.apply(this, arguments);
@@ -87,6 +89,7 @@ __d(
               e,
           );
         }
+        o("WAWebAuraRingtoneSubscriptionCheck").initSubscriptionCheck();
       },
       updateSubscriptions: function (t) {
         e: {

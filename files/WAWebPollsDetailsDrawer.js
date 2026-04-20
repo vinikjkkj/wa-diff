@@ -170,7 +170,7 @@ __d(
         {
           ref: h,
           theme: "striped",
-          testid: void 0,
+          testid: "poll-details-drawer",
           tsNavigationData: {
             surface: "polls-details",
             viewName: "polls-details",
@@ -200,7 +200,7 @@ __d(
                           body: s._(
                             /*BTDS*/ "Results only show votes made before you left the group.",
                           ),
-                          testid: void 0,
+                          testid: "invalid-poll-details-view-warning",
                         }),
                       }),
                     d.jsxs("div", {
@@ -247,7 +247,7 @@ __d(
                         f(t.localId);
                       },
                       flatListController: x,
-                      testid: void 0,
+                      testid: "poll-details-option-" + t.localId,
                       isCorrectOption:
                         c.correctOptionIndex == null
                           ? null

@@ -271,7 +271,7 @@ __d(
                     /*BTDS*/ "Edit button for text status creation",
                   ),
                   xstyle: o("WAWebUISpacing").uiMargin.startAuto,
-                  testid: void 0,
+                  testid: "edit_text_status",
                   onClick: Z,
                   children: Y,
                 })
@@ -346,9 +346,11 @@ __d(
       n[51] !== ae || n[52] !== ie
         ? ((le = c.jsxs(
             "div",
-            babelHelpers.extends({ "data-testid": void 0 }, oe, {
-              children: [ae, ie],
-            }),
+            babelHelpers.extends(
+              { "data-testid": "text-status-ephemeral" },
+              oe,
+              { children: [ae, ie] },
+            ),
           )),
           (n[51] = ae),
           (n[52] = ie),

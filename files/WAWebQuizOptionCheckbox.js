@@ -94,7 +94,7 @@ __d(
                 checked: a,
                 id: u,
                 onChange: R,
-                testid: void 0,
+                testid: y,
                 theme: o("WAWebCheckBox.react").CheckboxTheme.POLLS_RECEIVER,
               })),
               (t[9] = a),

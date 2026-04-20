@@ -539,7 +539,7 @@ __d(
               onClick: S,
               placeholder: E,
               tabOrder: D,
-              testid: void 0,
+              testid: "search-input",
               title: k,
               xstyle: !1,
             }),

@@ -24,7 +24,7 @@ __d(
           getFilledIcon: function (t) {
             return u.jsx(
               r("WDSIconWdsIcLogoFacebookFill.react"),
-              { width: t.width, height: t.height, testid: void 0 },
+              { width: t.width, height: t.height, testid: t.testid },
               t.testid,
             );
           },
@@ -50,7 +50,7 @@ __d(
           getFilledIcon: function (t) {
             return u.jsx(
               r("WDSIconWdsIcLogoInstagram.react"),
-              { width: t.width, height: t.height, testid: void 0 },
+              { width: t.width, height: t.height, testid: t.testid },
               t.testid,
             );
           },

@@ -29,7 +29,7 @@ __d(
               align: "center",
               justify: "center",
               children: s.jsx(o("WAWebText.react").WAWebTextSmall, {
-                testid: void 0,
+                testid: a,
                 paddingTop: 12,
                 xstyle: u.header,
                 children: n,
@@ -70,7 +70,7 @@ __d(
           a != null && s.jsx(c, { content: a }),
           s.jsx("span", {
             className: "report-appeal-id",
-            "data-testid": void 0,
+            "data-testid": t.appeal.appealId.toString(),
             children: s.jsx(
               o("WAWebNewsletterIntegrityDrawerUiComponents.react")
                 .DateReported,

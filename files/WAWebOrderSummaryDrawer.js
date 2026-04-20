@@ -155,7 +155,7 @@ __d(
       n[9] !== R
         ? ((L = c.jsxs(o("WAWebFlex.react").FlexRow, {
             justify: "all",
-            testid: void 0,
+            testid: "order-details-subtotal-row",
             children: [
               S,
               c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
@@ -185,7 +185,7 @@ __d(
                 d != null &&
                   c.jsxs(o("WAWebFlex.react").FlexRow, {
                     justify: "all",
-                    testid: void 0,
+                    testid: "order-details-discount-row",
                     children: [
                       c.jsxs(o("WAWebText_DONOTUSE.react").TextSpan, {
                         color: "secondary",
@@ -205,7 +205,7 @@ __d(
                 p != null &&
                   c.jsxs(o("WAWebFlex.react").FlexRow, {
                     justify: "all",
-                    testid: void 0,
+                    testid: "order-details-shipping-row",
                     children: [
                       c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
                         color: "secondary",
@@ -225,7 +225,7 @@ __d(
                 g != null &&
                   c.jsxs(o("WAWebFlex.react").FlexRow, {
                     justify: "all",
-                    testid: void 0,
+                    testid: "order-details-tax-row",
                     children: [
                       c.jsxs(o("WAWebText_DONOTUSE.react").TextSpan, {
                         color: "secondary",
@@ -250,7 +250,7 @@ __d(
                       onClick: function () {
                         return m == null ? void 0 : m();
                       },
-                      testid: void 0,
+                      testid: "order-details-additional-charges-button",
                       className: (e || (e = r("stylex")))(
                         r("WAWebOrderDetailSharedStyles").clickableText,
                         o("WAWebUISpacing").uiMargin.bottom0,
@@ -680,7 +680,7 @@ __d(
             xstyle: K,
             visible: Q,
             disabled: X,
-            testid: void 0,
+            testid: Y,
             totalPrice: J,
             title: q,
             onConfirm: U,

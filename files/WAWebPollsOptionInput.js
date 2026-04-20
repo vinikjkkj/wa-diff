@@ -108,7 +108,7 @@ __d(
                 onChange: function () {
                   l == null || l();
                 },
-                testid: void 0,
+                testid: L + "-select",
                 theme: o("WAWebCheckBox.react").CheckboxTheme.POLLS_SENDER,
               }),
             })),
@@ -193,7 +193,7 @@ __d(
                     ref: O,
                     showDraggableIcon: E,
                     showRemaining: !0,
-                    testid: void 0,
+                    testid: L,
                     textFormatEnabled: !0,
                     value: p,
                   }),

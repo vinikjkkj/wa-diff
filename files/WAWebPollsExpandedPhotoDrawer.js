@@ -195,7 +195,12 @@ __d(
         t[37] !== y || t[38] !== N || t[39] !== I
           ? ((M = s.jsxs(
               r("WAWebDrawer.react"),
-              { ref: y, testid: void 0, tsNavigationData: k, children: [I, N] },
+              {
+                ref: y,
+                testid: "photo-poll-expanded-view-drawer",
+                tsNavigationData: k,
+                children: [I, N],
+              },
               "photo-poll-expanded-view-drawer",
             )),
             (t[37] = y),

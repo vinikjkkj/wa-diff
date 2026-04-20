@@ -77,7 +77,7 @@ __d(
           s.jsx(
             r("WDSMenuItem.react"),
             {
-              testid: void 0,
+              testid: "mi-broadcast-info",
               onPress: m,
               Icon: o("WAWebInfoRefreshedIcon.react").InfoRefreshedIcon,
               title: o(

@@ -77,7 +77,7 @@ __d(
                   .MAX_CART_MESSAGE_LENGTH,
                 placeholder: d,
                 value: _,
-                testid: void 0,
+                testid: p,
                 multiline: !0,
                 showRemaining: !0,
                 spellCheck: !0,
@@ -128,7 +128,7 @@ __d(
             transitionName: "btn",
             children: u.jsx(
               "button",
-              babelHelpers.extends({ disabled: i, "data-testid": void 0 }, C, {
+              babelHelpers.extends({ disabled: i, "data-testid": m }, C, {
                 tabIndex: -1,
                 onClick: s,
                 title: a,

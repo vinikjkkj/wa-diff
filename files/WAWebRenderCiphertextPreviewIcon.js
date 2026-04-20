@@ -47,7 +47,7 @@ __d(
                 width: 20,
                 height: 20,
                 "aria-hidden": !0,
-                testid: void 0,
+                testid: "wds-ic-view-once",
               })),
               (t[2] = d))
             : (d = t[2]),

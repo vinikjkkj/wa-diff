@@ -220,7 +220,7 @@ __d(
         ? ((l = u.jsx(
             "span",
             babelHelpers.extends(
-              { "data-meta-key": "type", "data-testid": void 0 },
+              { "data-meta-key": "type", "data-testid": "type" },
               i,
               { title: a, children: a },
             ),

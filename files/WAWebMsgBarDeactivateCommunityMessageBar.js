@@ -17,7 +17,7 @@ __d(
           ? ((a = u.jsx(
               "span",
               babelHelpers.extends({}, r, {
-                "data-testid": void 0,
+                "data-testid": "deactivated-community-msg-bar",
                 children: n.participants.iAmAdmin()
                   ? s._(
                       /*BTDS*/ "This community was deactivated. You can no longer message it.",

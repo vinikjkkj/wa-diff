@@ -117,7 +117,7 @@ __d(
       t[12] !== a || t[13] !== f || t[14] !== I || t[15] !== c
         ? ((Q = u.jsx(r("WAWebOrderAdditionalChargesTextInput"), {
             text: f,
-            testid: void 0,
+            testid: "additional-charges-discount-input",
             label: K,
             symbol: I,
             currency: a,
@@ -162,7 +162,7 @@ __d(
       t[21] !== W || t[22] !== R || t[23] !== X
         ? ((Z = u.jsx(o("WAWebRichTextField.react").RichTextField, {
             value: R,
-            testid: void 0,
+            testid: "additional-charges-shipping-input",
             placeholder: X,
             onChange: Y,
             theme: "small",
@@ -183,7 +183,7 @@ __d(
       t[26] !== a || t[27] !== c || t[28] !== C || t[29] !== $
         ? ((te = u.jsx(r("WAWebOrderAdditionalChargesTextInput"), {
             text: C,
-            testid: void 0,
+            testid: "additional-charges-tax-input",
             label: ee,
             symbol: $,
             currency: a,
@@ -230,7 +230,7 @@ __d(
       t[39] !== q || t[40] !== re
         ? ((oe = u.jsx(o("WAWebOrderTotalPrice").OrderApplyChangesButton, {
             disabled: q,
-            testid: void 0,
+            testid: "apply-additional-costs-button",
             title: ne,
             onClick: re,
           })),

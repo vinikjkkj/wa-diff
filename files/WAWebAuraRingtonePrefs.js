@@ -5,37 +5,51 @@ __d(
     "use strict";
     var e = "AuraSelectedRingtoneId",
       s = "AuraChatRingtone_",
-      u = "__default__",
-      c = "__none__";
-    function d() {
+      u = "AuraRingtonePackVersion",
+      c = "__default__",
+      d = "__none__";
+    function m() {
       return typeof r("WAWebUserPrefsStore").getUser(e) == "string";
     }
-    function m() {
+    function p() {
       var t = r("WAWebUserPrefsStore").getUser(e);
-      return typeof t == "string" ? t : u;
+      return typeof t == "string" ? t : c;
     }
-    function p(t) {
+    function _(t) {
       r("WAWebUserPrefsStore").setUser(e, t);
     }
-    function _() {
-      r("WAWebUserPrefsStore").setUser(e, u);
+    function f() {
+      r("WAWebUserPrefsStore").setUser(e, c);
     }
-    function f(e) {
+    function g(e) {
       var t = s + e.toString(),
         n = r("WAWebUserPrefsStore").getUser(t);
       return typeof n == "string" ? n : null;
     }
-    function g(e, t) {
+    function h(e, t) {
       r("WAWebUserPrefsStore").setUser(s + e.toString(), t);
     }
-    ((l.DEFAULT_RINGTONE_ID = u),
-      (l.NONE_RINGTONE_ID = c),
-      (l.hasExplicitRingtoneSelection = d),
-      (l.getSelectedRingtoneId = m),
-      (l.saveSelectedRingtoneId = p),
-      (l.resetToDefaultRingtone = _),
-      (l.getChatRingtoneId = f),
-      (l.saveChatRingtoneId = g));
+    function y() {
+      var e = r("WAWebUserPrefsStore").getUser(u);
+      return typeof e == "string" ? e : null;
+    }
+    function C(e) {
+      r("WAWebUserPrefsStore").setUser(u, String(e));
+    }
+    function b() {
+      r("WAWebUserPrefsStore").setUser(u, null);
+    }
+    ((l.DEFAULT_RINGTONE_ID = c),
+      (l.NONE_RINGTONE_ID = d),
+      (l.hasExplicitRingtoneSelection = m),
+      (l.getSelectedRingtoneId = p),
+      (l.saveSelectedRingtoneId = _),
+      (l.resetToDefaultRingtone = f),
+      (l.getChatRingtoneId = g),
+      (l.saveChatRingtoneId = h),
+      (l.getStoredPackVersion = y),
+      (l.savePackVersion = C),
+      (l.clearPackVersion = b));
   },
   98,
 );

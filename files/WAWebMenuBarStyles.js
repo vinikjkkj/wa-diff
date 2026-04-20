@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = {
       menu: {
+        columnGap: "x1s70e7g",
         display: "x78zum5",
         alignItems: "x6s0dn4",
         boxSizing: "x1afcbsf",

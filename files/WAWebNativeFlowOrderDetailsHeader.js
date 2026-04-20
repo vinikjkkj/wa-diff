@@ -115,7 +115,7 @@ __d(
         ? ((L =
             _ === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
             c.jsxs(o("WAWebText_DONOTUSE.react").TextDiv, {
-              testid: void 0,
+              testid: "order-header-payment-status-paid",
               color: "secondary",
               weight: "medium",
               size: "10",
@@ -218,7 +218,7 @@ __d(
                   xstyle: d.total,
                   justify: "all",
                   align: "center",
-                  testid: void 0,
+                  testid: "order-header-pay-with-row",
                   children: [
                     c.jsx(o("WAWebText_DONOTUSE.react").TextParagraph, {
                       size: "14",

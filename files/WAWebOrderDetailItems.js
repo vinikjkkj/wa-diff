@@ -211,7 +211,7 @@ __d(
                 r("WAWebCellFrame.react"),
                 babelHelpers.extends(
                   {
-                    testid: void 0,
+                    testid: "order-item-cell",
                     className: (e || (e = r("stylex")))(
                       a > 0 && o("WAWebUISpacing").uiPadding.top10,
                     ),

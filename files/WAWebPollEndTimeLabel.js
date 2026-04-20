@@ -99,7 +99,7 @@ __d(
           ? ((L = c.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
               xstyle: o("WAWebUISpacing").uiPadding.all4,
-              testid: void 0,
+              testid: h,
               children: [b, R],
             })),
             (n[11] = h),

@@ -64,7 +64,7 @@ __d(
           ? ((m = c.jsxs(o("WAWebFlex.react").FlexRow, {
               align: "center",
               xstyle: o("WAWebUISpacing").uiPadding.all4,
-              testid: void 0,
+              testid: "poll-hide-voter-names-label",
               children: [l, u],
             })),
             (n[3] = l),

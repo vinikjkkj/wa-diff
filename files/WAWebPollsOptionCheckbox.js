@@ -52,7 +52,7 @@ __d(
               ariaLabel: g,
               theme: m,
               onChange: h,
-              testid: void 0,
+              testid: d,
             })),
             (t[6] = n),
             (t[7] = a),

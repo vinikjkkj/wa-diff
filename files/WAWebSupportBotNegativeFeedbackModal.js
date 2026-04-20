@@ -140,7 +140,7 @@ __d(
                               onChange: function () {
                                 return E(t.value);
                               },
-                              testid: void 0,
+                              testid: "feedback-option-" + n,
                             },
                             t.value,
                           ),

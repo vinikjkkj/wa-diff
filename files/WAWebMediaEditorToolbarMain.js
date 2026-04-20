@@ -258,7 +258,7 @@ __d(
                   return u.jsx(
                     o("WAWebDropdownItem.react").DropdownItem,
                     {
-                      testid: void 0,
+                      testid: String(e).toLowerCase() + "-shape-button",
                       action: function () {
                         return pe(e);
                       },
@@ -378,7 +378,12 @@ __d(
           (t[66] !== ve || t[67] !== Le
             ? ((Ee = u.jsx(
                 o("WAWebMenuBar.react").MenuBarItem,
-                { icon: ve, testid: void 0, title: Se, dropdownMenu: Le },
+                {
+                  icon: ve,
+                  testid: "wds-ic-hd-settings",
+                  title: Se,
+                  dropdownMenu: Le,
+                },
                 "hd-settings",
               )),
               (t[66] = ve),
@@ -400,7 +405,7 @@ __d(
                 o("WAWebMenuBar.react").MenuBarItem,
                 {
                   icon: ke,
-                  testid: void 0,
+                  testid: "wds-ic-hd-settings",
                   title: s._(/*BTDS*/ "This media is not HD resolution."),
                   onClick: f,
                 },
@@ -418,7 +423,7 @@ __d(
               o("WAWebMenuBar.react").MenuBarItem,
               {
                 icon: u.jsx(o("WAWebScissorsIcon.react").ScissorsIcon, {}),
-                testid: void 0,
+                testid: "outline-button",
                 title: s._(/*BTDS*/ "Outline"),
                 onClick: re,
                 selected: l,
@@ -443,7 +448,13 @@ __d(
       t[77] !== Z || t[78] !== a
         ? ((Pe = u.jsx(
             o("WAWebMenuBar.react").MenuBarItem,
-            { icon: xe, testid: void 0, title: $e, onClick: Z, selected: a },
+            {
+              icon: xe,
+              testid: "crop-rotate-button",
+              title: $e,
+              onClick: Z,
+              selected: a,
+            },
             "crop-rotate",
           )),
           (t[77] = Z),
@@ -463,7 +474,13 @@ __d(
       t[82] !== te || t[83] !== i
         ? ((Ae = u.jsx(
             o("WAWebMenuBar.react").MenuBarItem,
-            { icon: Me, testid: void 0, title: we, onClick: te, selected: i },
+            {
+              icon: Me,
+              testid: "filter-button",
+              title: we,
+              onClick: te,
+              selected: i,
+            },
             "filter",
           )),
           (t[82] = te),
@@ -483,7 +500,13 @@ __d(
       t[87] !== Q || t[88] !== c
         ? ((We = u.jsx(
             o("WAWebMenuBar.react").MenuBarItem,
-            { icon: Oe, testid: void 0, title: Be, onClick: Q, selected: c },
+            {
+              icon: Oe,
+              testid: "paint-button",
+              title: Be,
+              onClick: Q,
+              selected: c,
+            },
             "paint",
           )),
           (t[87] = Q),
@@ -504,7 +527,13 @@ __d(
       t[92] !== Y || t[93] !== He
         ? ((Ge = u.jsx(
             o("WAWebMenuBar.react").MenuBarItem,
-            { icon: Ue, testid: void 0, title: Ve, onClick: Y, selected: He },
+            {
+              icon: Ue,
+              testid: "text-button",
+              title: Ve,
+              onClick: Y,
+              selected: He,
+            },
             "text",
           )),
           (t[92] = Y),
@@ -532,7 +561,13 @@ __d(
       t[99] !== ae || t[100] !== Qe
         ? ((Xe = u.jsx(
             o("WAWebMenuBar.react").MenuBarItem,
-            { icon: je, testid: void 0, title: Ke, onClick: ae, selected: Qe },
+            {
+              icon: je,
+              testid: "blur-button",
+              title: Ke,
+              onClick: ae,
+              selected: Qe,
+            },
             "blur",
           )),
           (t[99] = ae),
@@ -562,7 +597,13 @@ __d(
       t[107] !== fe || t[108] !== et
         ? ((tt = u.jsx(
             o("WAWebMenuBar.react").MenuBarItem,
-            { icon: Je, testid: void 0, title: Ze, onClick: fe, selected: et },
+            {
+              icon: Je,
+              testid: "shape-button",
+              title: Ze,
+              onClick: fe,
+              selected: et,
+            },
             "shapes",
           )),
           (t[107] = fe),
@@ -592,7 +633,13 @@ __d(
       t[115] !== ue || t[116] !== at
         ? ((it = u.jsx(
             o("WAWebMenuBar.react").MenuBarItem,
-            { icon: rt, testid: void 0, title: ot, onClick: ue, selected: at },
+            {
+              icon: rt,
+              testid: "emoji-button",
+              title: ot,
+              onClick: ue,
+              selected: at,
+            },
             "emoji",
           )),
           (t[115] = ue),
@@ -622,7 +669,13 @@ __d(
       t[123] !== Ce || t[124] !== ct
         ? ((dt = u.jsx(
             o("WAWebMenuBar.react").MenuBarItem,
-            { icon: st, testid: void 0, title: ut, onClick: Ce, selected: ct },
+            {
+              icon: st,
+              testid: "sticker-button",
+              title: ut,
+              onClick: Ce,
+              selected: ct,
+            },
             "sticker",
           )),
           (t[123] = Ce),

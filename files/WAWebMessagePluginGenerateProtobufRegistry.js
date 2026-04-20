@@ -1,6 +1,7 @@
 __d(
   "WAWebMessagePluginGenerateProtobufRegistry",
   [
+    "WAWebAlbumsGenerateAlbumMessageProto",
     "WAWebEventsGenerateEventCreationMessageProto",
     "WAWebEventsGenerateEventEditMessageProto",
     "WAWebEventsGenerateEventResponseMessageProto",
@@ -61,7 +62,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = [
-        { type: "album", subtype: void 0, generateProtobuf: null },
+        {
+          type: "album",
+          subtype: void 0,
+          generateProtobuf: r("WAWebAlbumsGenerateAlbumMessageProto"),
+        },
         {
           type: "audio",
           subtype: void 0,

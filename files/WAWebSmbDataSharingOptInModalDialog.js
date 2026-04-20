@@ -572,7 +572,7 @@ __d(
       return (
         t[21] !== D || t[22] !== $ || t[23] !== I || t[24] !== u || t[25] !== W
           ? ((q = d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              testid: void 0,
+              testid: "ctwa-business-data-sharing-modal-dialog",
               buttonsDirection: "horizontal",
               type: o("WAWebModal.react").ModalTheme.DataSharing,
               onOK: I,

@@ -22,7 +22,7 @@ __d(
       );
     }
     var c = s.jsx(r("WAWebClickableLink.react"), {
-      testid: void 0,
+      testid: "biz-content-placeholder-learn-more",
       onClick: u,
       children: r("WAWebFbtCommon")("Learn more"),
     });

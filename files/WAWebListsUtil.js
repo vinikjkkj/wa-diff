@@ -77,7 +77,7 @@ __d(
           );
         o("WAWebModalManager").ModalManager.open(
           u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-            testid: void 0,
+            testid: "delete-list-confirm-popup",
             title: e,
             okButtonType: "solid-warning",
             onOK: function () {

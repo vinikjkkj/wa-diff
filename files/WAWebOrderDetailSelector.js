@@ -60,7 +60,7 @@ __d(
           return u.jsx(
             o("WAWebDropdownItem.react").DropdownItem,
             {
-              testid: void 0,
+              testid: "mi-" + a,
               action: function () {
                 (l(t), C(n));
               },

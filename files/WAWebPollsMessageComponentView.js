@@ -228,7 +228,7 @@ __d(
                 votedForOptions: L,
                 showViewVotesButton: k,
                 selectableOptionsCount: D,
-                testid: void 0,
+                testid: "poll-bubble",
                 readonly: C,
               }),
             )),
@@ -281,7 +281,7 @@ __d(
                 votedForOptions: i,
                 showViewVotesButton: !1,
                 selectableOptionsCount: n.pollVotesSnapshot.pollVotes.length,
-                testid: void 0,
+                testid: "poll-snapshot-bubble",
                 readonly: !0,
               }),
             )),
@@ -568,7 +568,7 @@ __d(
                       o("WAWebUISpacing").uiMargin.start8,
                     ),
                     {
-                      "data-testid": void 0,
+                      "data-testid": "invalid-poll-bubble-warning",
                       children: s._(
                         /*BTDS*/ "You can only see votes made before you left.",
                       ),
@@ -592,7 +592,7 @@ __d(
               ],
               children: m.jsx("span", {
                 className: "x1pg5gke x1d3mw78 xhslqc4",
-                "data-testid": void 0,
+                "data-testid": "see-votes-in-channel",
                 children:
                   O === o("WAWebPollCreationUtils").PollType.QUIZ
                     ? s._(/*BTDS*/ "View channel to answer.")
@@ -693,7 +693,7 @@ __d(
               hideMeta: !0,
               ariaLabel: Y,
               useFixedWidth: J,
-              testid: void 0,
+              testid: I,
               children: ce,
             })),
             (t[85] = a),

@@ -55,7 +55,7 @@ __d(
               justify: "center",
               align: "center",
               xstyle: i,
-              testid: void 0,
+              testid: a,
               children: [r, l],
             })),
             (t[3] = r),

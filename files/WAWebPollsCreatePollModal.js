@@ -417,7 +417,7 @@ __d(
         children: [
           c.jsx(o("WAWebModal.react").Modal, {
             type: o("WAWebModal.react").ModalTheme.Tower,
-            testid: void 0,
+            testid: "poll-creation-modal",
             onOverlayClick: fe,
             children: c.jsxs(r("WAWebDrawer.react"), {
               xstyle: C.drawer,
@@ -447,7 +447,7 @@ __d(
                           }),
                           c.jsx(o("WAWebRichTextField.react").RichTextField, {
                             ref: de,
-                            testid: void 0,
+                            testid: "poll-question-input",
                             focusOnMount: !0,
                             hideFloatingLabel: !0,
                             showRemaining: !0,
@@ -506,7 +506,7 @@ __d(
                                         },
                                         initialText: n.name,
                                         error: le.get(n.key),
-                                        testid: void 0,
+                                        testid: "poll-option-input-" + e,
                                         onTextInputRef: function (t) {
                                           t
                                             ? J.current.set(n.key, t)
@@ -569,7 +569,7 @@ __d(
                             ),
                           ),
                           c.jsx("h3", {
-                            "data-testid": void 0,
+                            "data-testid": "poll-creation-one-more-option-hint",
                             className: { 0: "x1nxh6w3", 1: "x1nxh6w3 xlshs6z" }[
                               !ce << 0
                             ],
@@ -614,7 +614,7 @@ __d(
                                       onChange: function () {
                                         T(!I);
                                       },
-                                      testid: void 0,
+                                      testid: "polls-single-option-switch",
                                     }),
                                   ],
                                 },
@@ -642,7 +642,7 @@ __d(
                         onClick: ye,
                         disabled: le.size !== 0 || W,
                         label: s._(/*BTDS*/ "Send"),
-                        testid: void 0,
+                        testid: "poll-send-button",
                         children: [
                           c.jsx(
                             o("WAWebWdsIcSendFilledIcon.react")

@@ -39,7 +39,7 @@ __d(
                   ? s.jsx(r("WDSIconWdsIcViewOnce.react"), {
                       width: 20,
                       height: 20,
-                      testid: void 0,
+                      testid: "wds-ic-view-once",
                     })
                   : s.jsx(
                       o("WAWebViewOnceViewedIcon.react").ViewOnceViewedIcon,
@@ -60,7 +60,7 @@ __d(
               height: 20,
               width: 20,
               colorName: m,
-              testid: void 0,
+              testid: "mic",
             })),
             (t[4] = m),
             (t[5] = p))

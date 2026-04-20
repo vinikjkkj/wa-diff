@@ -34,7 +34,7 @@ __d(
           (t[5] !== l
             ? ((p = u.jsx(
                 o("WAWebDropdownItem.react").DropdownItem,
-                { testid: void 0, action: l, icon: d, children: m },
+                { testid: "menu-item", action: l, icon: d, children: m },
                 "reorder-button",
               )),
               (t[5] = l),
@@ -68,7 +68,7 @@ __d(
         t[11] !== i || t[12] !== g
           ? ((h = u.jsx(o("WAWebMenuBar.react").MenuBarItem, {
               ref: i,
-              testid: void 0,
+              testid: "menu-bar-menu",
               icon: _,
               title: f,
               dropdownMenu: g,

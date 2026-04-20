@@ -670,7 +670,7 @@ __d(
           c.jsx("br", {}),
           c.jsx(r("WDSTextualLink.react"), {
             onClick: n,
-            testid: void 0,
+            testid: "enforcement-policy-see-details-link",
             children: s._(/*BTDS*/ "See details"),
           }),
         ],

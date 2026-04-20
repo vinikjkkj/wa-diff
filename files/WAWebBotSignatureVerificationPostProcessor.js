@@ -96,7 +96,8 @@ __d(
           ? new Uint8Array(t)
           : null;
     }
-    l.verifyForwardedBotMessage = m;
+    ((l.verifyForwardedBotMessage = m),
+      (l.shouldVerifyForwardedBotMessage = _));
   },
   98,
 );

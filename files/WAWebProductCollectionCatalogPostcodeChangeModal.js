@@ -128,7 +128,7 @@ __d(
         children: I
           ? c.jsx(o("WAWebText_DONOTUSE.react").Text, {
               as: "p",
-              testid: void 0,
+              testid: "catalog_postcode_change_modal__unservicable-alert",
               children: s._(
                 /*BTDS*/ "JioMart doesn't have items available in that area. You can try a different Pincode.",
               ),
@@ -143,7 +143,7 @@ __d(
                   ),
                 }),
                 c.jsx(o("WAWebRichTextField.react").RichTextField, {
-                  testid: void 0,
+                  testid: "catalog_postcode_change_modal__input",
                   onChange: function (t) {
                     var e = t.text;
                     return T(e);

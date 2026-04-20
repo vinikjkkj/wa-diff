@@ -49,7 +49,7 @@ __d(
               onPress: function () {
                 o("WAWebCopyToClipboard").copyTextToClipboard(d);
               },
-              testid: void 0,
+              testid: "test-" + m,
             },
             m,
           ),
@@ -84,7 +84,7 @@ __d(
                     { chatId: n },
                   );
                 },
-                testid: void 0,
+                testid: "mi-history-sync-on-demand",
               },
               "historySyncOnDemand",
             ),

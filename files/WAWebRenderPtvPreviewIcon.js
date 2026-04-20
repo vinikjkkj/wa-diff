@@ -11,7 +11,7 @@ __d(
         t[0] === Symbol.for("react.memo_cache_sentinel")
           ? ((n = s.jsx(r("WDSIconIcVideocam.react"), {
               height: 20,
-              testid: void 0,
+              testid: "video-call-refreshed",
             })),
             (t[0] = n))
           : (n = t[0]),

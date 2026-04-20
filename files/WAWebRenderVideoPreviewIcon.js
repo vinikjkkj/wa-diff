@@ -41,7 +41,7 @@ __d(
                   ? s.jsx(r("WDSIconWdsIcViewOnce.react"), {
                       width: 20,
                       height: 20,
-                      testid: void 0,
+                      testid: "wds-ic-view-once",
                     })
                   : s.jsx(
                       o("WAWebViewOnceViewedIcon.react").ViewOnceViewedIcon,
@@ -70,7 +70,7 @@ __d(
         t[5] === Symbol.for("react.memo_cache_sentinel")
           ? ((p = s.jsx(r("WDSIconIcVideocam.react"), {
               height: 20,
-              testid: void 0,
+              testid: "video-call-refreshed",
             })),
             (t[5] = p))
           : (p = t[5]),

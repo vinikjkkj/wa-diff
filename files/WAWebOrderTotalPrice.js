@@ -33,7 +33,7 @@ __d(
                   type: "primary",
                   disabled: n,
                   onClick: r,
-                  testid: void 0,
+                  testid: a,
                   children: i,
                 }),
               }),
@@ -75,7 +75,7 @@ __d(
                   children: u.jsx(o("WAWebButton.react").Button, {
                     type: "secondary",
                     onClick: l,
-                    testid: void 0,
+                    testid: "decline-cart-order-button",
                     children: d,
                   }),
                 }),
@@ -124,7 +124,7 @@ __d(
                     C == null
                       ? u.jsxs("div", {
                           className: "x78zum5 x1q0g3np x117nqv4 x1qughib",
-                          "data-testid": void 0,
+                          "data-testid": "total-price-container",
                           children: [_, u.jsx("p", { children: f })],
                         })
                       : u.jsx(o("WAWebText_DONOTUSE.react").TextDiv, {
@@ -137,7 +137,7 @@ __d(
                       title: n,
                       onClick: l,
                       disabled: r || !!C,
-                      testid: void 0,
+                      testid: p,
                     }),
                     u.jsx(m, { entryPoint: y, onClick: b }),
                   ],

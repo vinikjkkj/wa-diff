@@ -110,7 +110,7 @@ __d(
                   theme: "default",
                   maxLength: 12,
                   customStyleThemes: b,
-                  testid: void 0,
+                  testid: "order-detail-amount-input",
                   validate: v,
                   onChange: S,
                   onSave: R,

@@ -21,7 +21,7 @@ __d(
       return (
         t[1] !== n || t[2] !== a
           ? ((l = s.jsx(r("WAWebCellFrame.react"), {
-              testid: void 0,
+              testid: "add-order-item-button",
               image: i,
               primary: a,
               theme: "add-order-item",

@@ -169,7 +169,7 @@ __d(
           o("WAWebModalManager").ModalManager.close();
         };
       return u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-        testid: void 0,
+        testid: "ctwa-business-per-customer-data-sharing-opt-out-modal",
         buttonsDirection: "horizontal",
         type: o("WAWebModal.react").ModalTheme.DataSharing,
         onOK: m,

@@ -9,7 +9,6 @@ __d(
       c,
       d,
       m = r("bx").getURL(r("bx")("78755"));
-    o("WAWebAuraRingtoneDownloader").downloadPremiumRingtones();
     function p(t) {
       if (t != null) {
         var n = o("WAWebAuraRingtonePrefs").getChatRingtoneId(t);

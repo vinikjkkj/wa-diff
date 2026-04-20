@@ -234,8 +234,15 @@ __d(
           i && u.pollEndedLabel,
         ],
         children: g
-          ? s.jsx("div", { "data-testid": void 0, children: y })
-          : s.jsx("label", { htmlFor: n, "data-testid": void 0, children: y }),
+          ? s.jsx("div", {
+              "data-testid": "poll-option-row-label-" + a,
+              children: y,
+            })
+          : s.jsx("label", {
+              htmlFor: n,
+              "data-testid": "poll-option-row-label-" + a,
+              children: y,
+            }),
       });
     }
     p.displayName = p.name + " [from " + i.id + "]";

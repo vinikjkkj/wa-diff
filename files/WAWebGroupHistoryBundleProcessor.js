@@ -13,6 +13,7 @@ __d(
     "WAWebApiFilterAndReplaceMessages",
     "WAWebBackendApi",
     "WAWebDBEncryptMultipleMsgs",
+    "WAWebDBGroupsGroupMetadata",
     "WAWebDBMsgUtils",
     "WAWebDBReportingTokenUtils",
     "WAWebDBStoreEncryptedMsgs",
@@ -24,6 +25,7 @@ __d(
     "WAWebGroupHistoryMsgData.flow",
     "WAWebGroupHistoryReportingTokenValidator",
     "WAWebHandleOrphansForNewMsg",
+    "WAWebMsgEphemerality",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
     "WAWebParseWebMessageInfoApi",
@@ -118,10 +120,10 @@ __d(
               P = x.addonPromises,
               M = x.parsedMessages,
               A = x.reportingInfoRows,
-              F = [].concat(T, M),
-              O = [].concat(I, P),
-              B = [].concat(D, A);
-            if (F.length === 0) {
+              O = [].concat(T, M),
+              B = [].concat(I, P),
+              W = [].concat(D, A);
+            if (O.length === 0) {
               o("WALogger").WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -137,31 +139,32 @@ __d(
                   " msgs (",
                   " OOW pins), injecting",
                 ])),
-              F.length,
+              O.length,
               M.length,
             );
-            var W = yield $(F),
-              q = yield N(O, R),
-              U =
-                W.length < y.messages.length + l
+            var q = yield $(O),
+              U = yield N(q, a),
+              V = yield w(B, R),
+              H =
+                U.length < y.messages.length + l
                   ? o("WAWebGroupHistoryMsgData.flow")
                       .MessageHistoryBundleProcessState.INJECTED_PARTIAL
                   : o("WAWebGroupHistoryMsgData.flow")
                       .MessageHistoryBundleProcessState.INJECTED;
-            if ((yield w(W, a, e.id, U), B.length > 0))
+            if ((yield F(U, a, e.id, H), W.length > 0))
               try {
-                var V = new Set(
-                    W.map(function (e) {
+                var G = new Set(
+                    U.map(function (e) {
                       return e.id.toString();
                     }),
                   ),
-                  H = B.filter(function (e) {
-                    return V.has(e.msgKey);
+                  z = W.filter(function (e) {
+                    return G.has(e.msgKey);
                   });
-                H.length > 0 &&
+                z.length > 0 &&
                   (yield o(
                     "WAWebDBReportingTokenUtils",
-                  ).handleAddReportingInfos(H));
+                  ).handleAddReportingInfos(z));
               } catch (e) {
                 o("WALogger").WARN(
                   d ||
@@ -172,32 +175,32 @@ __d(
                   r("WAWebSerializeError")(e),
                 );
               }
-            (W.length > 0 &&
+            (U.length > 0 &&
               (yield o("WAWebBackendApi").frontendSendAndReceive(
                 "hydrateReactionsForMessages",
                 {
-                  messageIds: W.map(function (e) {
+                  messageIds: U.map(function (e) {
                     return e.id.toString();
                   }),
                 },
               ),
               yield (S || (S = n("Promise"))).all(
-                W.map(function (e) {
+                U.map(function (e) {
                   return o(
                     "WAWebHandleOrphansForNewMsg",
                   ).handleOrphansForNewMsg(e);
                 }),
               )),
-              q.length > 0 &&
+              V.length > 0 &&
                 (yield o("WAWebAddonProcessMsgs").processMsgsAndGetOrphans(
-                  q,
+                  V,
                   null,
                   o("WAWebAddonConstants").AddonProcessMode
                     .ProcessGroupHistoryBundle,
                 )),
               yield o(
                 "WAWebUpdateMessageHistoryBundleState",
-              ).updateGroupHistoryBundleState(e.id, U));
+              ).updateGroupHistoryBundleState(e.id, H));
           } catch (t) {
             if (
               (o("WAWebBackendApi").frontendFireAndForget(
@@ -374,18 +377,19 @@ __d(
       var a,
         i,
         l,
-        s = o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
+        s,
+        u = o("WAWebE2EProtoUtils").translateRegularMessageKeyToLocalReference(
           babelHelpers.extends({}, t.key, { participant: t.participant }),
           n,
         ),
-        u =
+        c =
           ((a = t.message) == null ||
           (a = a.editedMessage) == null ||
           (a = a.message) == null ||
           (a = a.protocolMessage) == null
             ? void 0
             : a.key) != null,
-        c = u
+        d = c
           ? (i = t.message) == null ||
             (i = i.editedMessage) == null ||
             (i = i.message) == null ||
@@ -395,37 +399,37 @@ __d(
           : (l = t.message) == null || (l = l.protocolMessage) == null
             ? void 0
             : l.key;
-      if (c != null) {
-        var d = o(
+      if (d != null) {
+        var m = o(
           "WAWebE2EProtoUtils",
         ).translateRegularMessageKeyToLocalReference(
-          babelHelpers.extends({}, c, { participant: t.participant }),
+          babelHelpers.extends({}, d, { participant: t.participant }),
           n,
         );
-        if (d != null)
-          if (u) {
-            var m, p, _;
+        if (m != null)
+          if (c) {
+            var p, _, f;
             t.message = babelHelpers.extends({}, t.message, {
               editedMessage: babelHelpers.extends(
                 {},
-                (m = t.message) == null ? void 0 : m.editedMessage,
+                (p = t.message) == null ? void 0 : p.editedMessage,
                 {
                   message: babelHelpers.extends(
                     {},
-                    (p = t.message) == null || (p = p.editedMessage) == null
+                    (_ = t.message) == null || (_ = _.editedMessage) == null
                       ? void 0
-                      : p.message,
+                      : _.message,
                     {
                       protocolMessage: babelHelpers.extends(
                         {},
-                        (_ = t.message) == null ||
-                          (_ = _.editedMessage) == null ||
-                          (_ = _.message) == null
+                        (f = t.message) == null ||
+                          (f = f.editedMessage) == null ||
+                          (f = f.message) == null
                           ? void 0
-                          : _.protocolMessage,
+                          : f.protocolMessage,
                         {
                           key: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(
-                            d,
+                            m,
                           ),
                         },
                       ),
@@ -435,24 +439,66 @@ __d(
               ),
             });
           } else {
-            var f;
+            var g;
             t.message = babelHelpers.extends({}, t.message, {
               protocolMessage: babelHelpers.extends(
                 {},
-                (f = t.message) == null ? void 0 : f.protocolMessage,
-                { key: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(d) },
+                (g = t.message) == null ? void 0 : g.protocolMessage,
+                { key: o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(m) },
               ),
             });
           }
       }
-      if (s) {
-        var g = o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(s);
-        ((t.key = g), g.participant != null && (t.participant = g.participant));
+      if (u) {
+        var h = o("WAWebProtobufMsgKeyUtils").msgKeyToProtobuf(u);
+        ((t.key = h), h.participant != null && (t.participant = h.participant));
       }
-      var h = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(t);
-      if (!h) return null;
-      var y = n.author;
-      return y == null
+      var y =
+        (s = t.message) == null ||
+        (s = s.messageContextInfo) == null ||
+        (s = s.messageAssociation) == null
+          ? void 0
+          : s.parentMessageKey;
+      if (y != null) {
+        var C,
+          b = o(
+            "WAWebE2EProtoUtils",
+          ).translateRegularMessageKeyToLocalReference(
+            babelHelpers.extends({}, y, { participant: t.participant }),
+            n,
+          );
+        if (
+          b != null &&
+          ((C = t.message) == null || (C = C.messageContextInfo) == null
+            ? void 0
+            : C.messageAssociation) != null
+        ) {
+          var v, S;
+          t.message = babelHelpers.extends({}, t.message, {
+            messageContextInfo: babelHelpers.extends(
+              {},
+              (v = t.message) == null ? void 0 : v.messageContextInfo,
+              {
+                messageAssociation: babelHelpers.extends(
+                  {},
+                  (S = t.message) == null || (S = S.messageContextInfo) == null
+                    ? void 0
+                    : S.messageAssociation,
+                  {
+                    parentMessageKey: o(
+                      "WAWebProtobufMsgKeyUtils",
+                    ).msgKeyToProtobuf(b),
+                  },
+                ),
+              },
+            ),
+          });
+        }
+      }
+      var R = o("WAWebParseWebMessageInfoApi").parseWebMessageInfo(t);
+      if (!R) return null;
+      var L = n.author;
+      return L == null
         ? (o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -460,14 +506,14 @@ __d(
               ])),
           ),
           null)
-        : babelHelpers.extends({}, h, {
+        : babelHelpers.extends({}, R, {
             ack:
-              s != null && s.fromMe
+              u != null && u.fromMe
                 ? o("WAWebAck").ACK.RECEIVED
                 : o("WAWebAck").ACK.READ,
             groupHistoryIndividualMessageInfo: {
               bundleMessageKey: r,
-              bundleSender: y,
+              bundleSender: L,
               isEditedAfterReceivedAsHistory: !1,
             },
           });
@@ -515,6 +561,27 @@ __d(
     function M() {
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
+          if (n == null) return e;
+          var r = n.ephemeralDuration;
+          return e.map(function (e) {
+            var t,
+              n = (t = e.ephemeralDuration) != null ? t : 0;
+            return n !== r &&
+              o("WAWebMsgEphemerality").messageSupportsEphemerality(e.type)
+              ? babelHelpers.extends({}, e, { ephemeralOutOfSync: !0 })
+              : e;
+          });
+        })),
+        M.apply(this, arguments)
+      );
+    }
+    function w(e, t) {
+      return A.apply(this, arguments);
+    }
+    function A() {
+      return (
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r,
             a = yield (S || (S = n("Promise"))).all(e),
             i = (r = []).concat.apply(r, a);
@@ -533,15 +600,15 @@ __d(
             return babelHelpers.extends({}, e, r, { id: n });
           });
         })),
-        M.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function w(e, t, n, r) {
-      return A.apply(this, arguments);
+    function F(e, t, n, r) {
+      return O.apply(this, arguments);
     }
-    function A() {
+    function O() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, a) {
             try {
               var i = yield o(
@@ -557,7 +624,7 @@ __d(
                   "WAWebApiFilterAndReplaceMessages",
                 ).filterAndReplaceMessages(e),
                 u = s.newMsgs,
-                c = F(u, l == null ? void 0 : l.t),
+                c = B(u, l == null ? void 0 : l.t),
                 d = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
                   c,
                   !1,
@@ -580,7 +647,7 @@ __d(
                         .MessageHistoryBundleProcessState.INJECTED_PARTIAL,
                   },
                 ),
-                yield O(c, t, i));
+                yield W(c, t, i));
             } catch (e) {
               throw (
                 e instanceof Error
@@ -605,22 +672,22 @@ __d(
             }
           },
         )),
-        A.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function F(e, t) {
+    function B(e, t) {
       var n = t != null ? t : 0;
       return e.filter(function (e) {
         var t;
         return ((t = e.t) != null ? t : 0) > n;
       });
     }
-    function O(e, t, n) {
-      return B.apply(this, arguments);
+    function W(e, t, n) {
+      return q.apply(this, arguments);
     }
-    function B() {
+    function q() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a,
             i =
               n != null && (a = n.anchorMessage) != null && a.id
@@ -636,7 +703,7 @@ __d(
             },
           );
         })),
-        B.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
     l.processMessageHistoryBundle = R;

@@ -273,7 +273,7 @@ __d(
       n[15] !== _
         ? ((f = c.jsx(
             "label",
-            babelHelpers.extends({ "data-testid": void 0 }, _, {
+            babelHelpers.extends({ "data-testid": p }, _, {
               htmlFor: a.id,
               children: a.localized_display_name,
             }),

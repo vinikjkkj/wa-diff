@@ -12,7 +12,7 @@ __d(
           ? ((n = s.jsx(r("WDSIconWdsIcSticker.react"), {
               height: 20,
               width: 16,
-              testid: void 0,
+              testid: "status-sticker",
             })),
             (t[0] = n))
           : (n = t[0]),

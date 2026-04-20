@@ -271,7 +271,7 @@ __d(
       return (
         r[6] !== g || r[7] !== l || r[8] !== v
           ? ((S = c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-              testid: void 0,
+              testid: "ctwa-business-per-customer-data-sharing-opt-in-modal",
               buttonsDirection: "horizontal",
               type: o("WAWebModal.react").ModalTheme.DataSharing,
               onOK: g,

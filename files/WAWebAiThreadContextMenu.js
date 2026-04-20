@@ -48,7 +48,7 @@ __d(
         ? u.jsx(
             o("WAWebDropdownItem.react").DropdownItem,
             {
-              testid: void 0,
+              testid: "mi-pin-thread",
               action: a,
               icon: n
                 ? u.jsx(r("WDSIconWdsIcPushPinSlash.react"), {})
@@ -96,7 +96,7 @@ __d(
             u.jsx(
               o("WAWebDropdownItem.react").DropdownItem,
               {
-                testid: void 0,
+                testid: "mi-rename-thread",
                 action: l,
                 icon: u.jsx(o("WAWebIcEditIcon.react").IcEditIcon, {}),
                 children: s._(/*BTDS*/ "Rename chat"),
@@ -109,7 +109,7 @@ __d(
           u.jsx(
             o("WAWebDropdownItem.react").DropdownItem,
             {
-              testid: void 0,
+              testid: "mi-delete-thread",
               action: c,
               icon: u.jsx(
                 o("WAWebDeleteRefreshedIcon.react").DeleteRefreshedIcon,

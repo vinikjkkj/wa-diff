@@ -205,7 +205,7 @@ __d(
                   ).handleLeadStageTransition(t.item.chatJid, t.item, n, r);
                 },
                 showNoneOption: !0,
-                testid: void 0,
+                testid: "customer-manager-lead-stage-cell",
               }),
             });
           },

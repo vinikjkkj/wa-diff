@@ -26,7 +26,7 @@ __d(
             s = a.pinInChat,
             u = a.pollVotes,
             c = a.reactions,
-            d = (yield (e || (e = n("Promise"))).allSettled(
+            d = yield (e || (e = n("Promise"))).allSettled(
               t.map(function (e) {
                 return o(
                   "WAWebGroupHistorySerializationUtils",
@@ -39,12 +39,16 @@ __d(
                   keepInChat: l,
                 });
               }),
-            )).filter(function (e) {
-              return e.status === "fulfilled";
-            });
-          return r("compactMap")(d, function (e) {
-            return e.value;
-          });
+            ),
+            m = r("compactMap")(
+              d.filter(function (e) {
+                return e.status === "fulfilled";
+              }),
+              function (e) {
+                return e.value;
+              },
+            );
+          return m;
         })),
         u.apply(this, arguments)
       );

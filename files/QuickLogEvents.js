@@ -13530,7 +13530,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 344,
+        sampleRate: 388,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -13630,7 +13630,7 @@ __d(
       85538115: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_SHOPS",
-        sampleRate: 95246,
+        sampleRate: 105592,
       },
       85538404: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -47614,6 +47614,11 @@ __d(
         name: "PROMOTION_ADVANCED_SETTING_SAVE",
         sampleRate: 1,
       },
+      663750072: {
+        moduleName: "META_HEALTH_QUERY",
+        name: "EXECUTE_QUERY",
+        sampleRate: 1,
+      },
       663751132: {
         moduleName: "META_HEALTH_QUERY",
         name: "STATISTICS_QUERY",
@@ -47632,6 +47637,11 @@ __d(
       663755460: {
         moduleName: "META_HEALTH_QUERY",
         name: "SUMMARY_QUERY",
+        sampleRate: 1,
+      },
+      663757989: {
+        moduleName: "META_HEALTH_QUERY",
+        name: "RESUME_QUERY",
         sampleRate: 1,
       },
       663760521: {

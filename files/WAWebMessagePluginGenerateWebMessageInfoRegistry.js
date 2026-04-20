@@ -4,12 +4,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = [
-        { type: "album", subtype: void 0, generateWebMessageInfo: null },
         {
-          type: "audio",
+          type: "album",
           subtype: void 0,
           generateWebMessageInfo: (e = r("WAWebGenerateWebMessageInfo")),
         },
+        { type: "audio", subtype: void 0, generateWebMessageInfo: e },
         {
           type: "biz_content_placeholder",
           subtype: void 0,

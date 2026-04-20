@@ -96,7 +96,7 @@ __d(
               ? ((v = c.jsx("div", {
                   role: "textbox",
                   onClick: o("WAWebStopEvent").stopPropagation,
-                  "data-testid": void 0,
+                  "data-testid": "catalog-product-price-editing",
                   children: c.jsxs(o("WAWebFlex.react").FlexRow, {
                     align: "center",
                     children: [g, b],
@@ -140,7 +140,7 @@ __d(
                   "div",
                   babelHelpers.extends({ role: "button" }, S, {
                     onClick: R,
-                    "data-testid": void 0,
+                    "data-testid": "catalog-product-price-editable-filled",
                     children: E,
                   }),
                 )),
@@ -178,7 +178,7 @@ __d(
                   "span",
                   babelHelpers.extends({ role: "button" }, I, {
                     onClick: T,
-                    "data-testid": void 0,
+                    "data-testid": "catalog-product-price-editable-blank",
                     children: D,
                   }),
                 )),
@@ -199,7 +199,10 @@ __d(
           var P;
           return (
             n[38] !== $
-              ? ((P = c.jsx("div", { "data-testid": void 0, children: $ })),
+              ? ((P = c.jsx("div", {
+                  "data-testid": "catalog-product-price-readonly",
+                  children: $,
+                })),
                 (n[38] = $),
                 (n[39] = P))
               : (P = n[39]),

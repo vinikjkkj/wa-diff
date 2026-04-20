@@ -267,7 +267,7 @@ __d(
       var _e;
       n[46] !== v || n[47] !== K
         ? ((_e = u.jsx(o("WAWebRichTextField.react").RichTextField, {
-            testid: void 0,
+            testid: "custom-item-edit-name-input",
             value: v,
             placeholder: me,
             onChange: W,
@@ -304,7 +304,7 @@ __d(
         ? ((he = u.jsx(r("WAWebFlexItem.react"), {
             grow: 4,
             children: u.jsx(o("WAWebRichTextField.react").RichTextField, {
-              testid: void 0,
+              testid: "custom-item-edit-price-input",
               value: E,
               placeholder: fe,
               onChange: U,
@@ -326,7 +326,7 @@ __d(
         ((ye =
           ((Ce = l == null ? void 0 : l.length) != null ? Ce : 0) > 1 &&
           u.jsx(r("WAWebFlexItem.react"), {
-            testid: void 0,
+            testid: "custom-item-edit-currency-flex-item",
             children: u.jsx(o("WAWebSelect.react").Select, {
               ariaRoleDescription:
                 "Currency selection in custom order item screen",
@@ -365,7 +365,7 @@ __d(
       var Re;
       n[65] !== J || n[66] !== M
         ? ((Re = u.jsx(o("WAWebRichTextField.react").RichTextField, {
-            testid: void 0,
+            testid: "custom-item-edit-quantity-input",
             value: M,
             placeholder: ve,
             onChange: H,
@@ -391,7 +391,7 @@ __d(
             title: Le,
             disabled: Ee,
             onClick: z,
-            testid: void 0,
+            testid: "save-custom-item-button",
           })),
           (n[70] = z),
           (n[71] = Le),

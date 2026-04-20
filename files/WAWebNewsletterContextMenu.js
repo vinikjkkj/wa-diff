@@ -122,7 +122,7 @@ __d(
           ? ((m = u.jsx(
               r("WDSMenuItem.react"),
               {
-                testid: void 0,
+                testid: "mi-info",
                 onPress: function () {
                   return void l();
                 },
@@ -221,7 +221,7 @@ __d(
           ? ((p = u.jsx(
               r("WDSMenuItem.react"),
               {
-                testid: void 0,
+                testid: "mi-copy-link",
                 onPress: c,
                 Icon: r("WDSIconIcLink.react"),
                 title: m,
@@ -276,7 +276,7 @@ __d(
           ? ((m = u.jsx(
               r("WDSMenuItem.react"),
               {
-                testid: void 0,
+                testid: "mi-unfollow-newsletter",
                 onPress: function () {
                   return void l();
                 },
@@ -321,7 +321,7 @@ __d(
           ? ((m = u.jsx(
               r("WDSMenuItem.react"),
               {
-                testid: void 0,
+                testid: "mi-delete-newsletter",
                 onPress: function () {
                   return void l();
                 },
