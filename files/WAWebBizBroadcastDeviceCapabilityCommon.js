@@ -6,7 +6,7 @@ __d(
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").UserPrefs.BizBroadcastPrimaryCapability,
         e,
-        { shouldWriteToIdb: !1 },
+        { shouldWriteToIdb: !0 },
       );
     }
     function s() {

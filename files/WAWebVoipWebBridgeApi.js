@@ -1029,14 +1029,10 @@ __d(
         var e = r("WAWebCallCollection").activeCall;
         if (e) {
           var n = t.currentState,
-            a = t.previousState,
-            i = t.shouldSendNoNetworkBanner,
-            l = t.shouldSendPoorBanner;
-          e.trigger(
-            o("WAWebVoipEventConstants").getChangeEvent(
-              o("WAWebVoipEventConstants").VoipCallModelEvents.NETWORK_HEALTH,
-            ),
-          );
+            o = t.previousState,
+            a = t.shouldSendNoNetworkBanner,
+            i = t.shouldSendPoorBanner;
+          e.setNetHealth(t);
         }
       },
       handleCallLinkStateChanged: function (t) {

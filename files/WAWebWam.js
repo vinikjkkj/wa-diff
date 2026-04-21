@@ -15,7 +15,7 @@ __d(
     "WAWebCrashlog",
     "WAWebEnvironment",
     "WAWebEventSampling",
-    "WAWebGuestWamUtils",
+    "WAWebGuestCoreWamUtils",
     "WAWebIsOfficialClient",
     "WAWebMiscBrowserUtils",
     "WAWebUploadPrivateStatsBackend",
@@ -223,7 +223,7 @@ __d(
                     : "",
               },
               r("WAWebEnvironment").isGuest
-                ? o("WAWebGuestWamUtils").getGuestWamOverrides()
+                ? o("WAWebGuestCoreWamUtils").getGuestWamOverrides()
                 : {},
             );
           return (
@@ -389,7 +389,7 @@ __d(
               o("WALogger").WARN(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[wam] _executePendingForContext failed to get context ",
+                    "[wam] executePendingForContext failed to get context ",
                     "",
                   ])),
                 String((s = u.stack) != null ? s : u),

@@ -42,6 +42,7 @@ __d(
         useLiteTracing: r("gkx")("20865"),
         perfXData: r("PerfXSharedFields").getCommonData(),
         debugLogToConsole: r("gkx")("7170"),
+        fixLongtaskSubscriptionLeak: r("gkx")("15899"),
       },
       m = new (o("web-loom").WebLoomCore)(d, c);
     (n("cr:1094133") && m.addProvider(n("cr:1094133")),

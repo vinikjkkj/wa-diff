@@ -45,7 +45,7 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = d();
           yield o("WAWebSignalStoreApi").waSignalStore.clearCredential();
-          var r = yield o("WAWebSignalKeyApi").generateIdentityKeyPair();
+          var r = o("WAWebSignalKeyApi").generateIdentityKeyPair();
           try {
             yield (s || (s = n("Promise"))).all([
               o("WAWebSignalStoreApi").waSignalStore.setRegistrationInfo({

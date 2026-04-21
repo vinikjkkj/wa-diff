@@ -301,7 +301,14 @@ __d(
         }),
       );
     }
-    l.sendSignupResponse = S;
+    function I() {
+      o("WAWebToastManager").ToastManager.open(
+        b.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "This link is no longer valid."),
+        }),
+      );
+    }
+    ((l.sendSignupResponse = S), (l.showInvalidSignupLinkToast = I));
   },
   226,
 );

@@ -220,8 +220,6 @@ __d(
                 );
             }
             if (
-              o("WACryptoLibraryConfig").getCryptoLibraryConfig()
-                .baseKeyCanonicalCheck &&
               !o("WACryptoCurveKeyCanonicalCheck").isCanonical(
                 n.sessionBaseKey.subarray(1),
               )

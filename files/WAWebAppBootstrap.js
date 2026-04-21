@@ -171,7 +171,6 @@ __d(
                 "web_signal_future_messages_max",
               ),
               S508658AutoAcknowledgeStaleSessions: !0,
-              baseKeyCanonicalCheck: !0,
             }),
             o("WAWebCacheStoreGatingUtil").initStorageOptimizationFlags(),
             o("WAWebAppSwInitializer").initializeSw({

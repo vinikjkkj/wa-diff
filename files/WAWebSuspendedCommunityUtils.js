@@ -6,6 +6,7 @@ __d(
     "WAWebConfirmPopup.react",
     "WAWebCxtUrl",
     "WAWebExternalLink.react",
+    "WAWebGroupAppealInReviewModalLoadable",
     "WAWebModalManager",
     "WAWebSuspendedCommunityModalLoadable",
     "WAWebSuspendedGroupRedesignModalLoadable",
@@ -68,10 +69,29 @@ __d(
           );
       }
     }
+    function _(e) {
+      var t,
+        n,
+        r = (t = e.groupMetadata) == null ? void 0 : t.parentGroup,
+        a = r != null ? o("WAWebChatCollection").ChatCollection.get(r) : null;
+      (a == null || (n = a.groupMetadata) == null
+        ? void 0
+        : n.suspendAppealStatus) === "IN_REVIEW"
+        ? o("WAWebModalManager").ModalManager.open(
+            u.jsx(
+              o("WAWebGroupAppealInReviewModalLoadable")
+                .GroupAppealInReviewModalLoadable,
+              { chat: a },
+            ),
+            { transition: "modal-flow" },
+          )
+        : p(e);
+    }
     ((l.SUSPENDED_COMMUNITY_SUPPORT_TAG = c),
       (l.openTerminatedCommunityModal = d),
       (l.openSuspendedCommunityModal = m),
-      (l.openSuspendedCommunityRedesignModal = p));
+      (l.openSuspendedCommunityRedesignModal = p),
+      (l.openSuspendedCommunityModalByAppealStatus = _));
   },
   226,
 );

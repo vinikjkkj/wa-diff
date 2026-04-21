@@ -6,7 +6,6 @@ __d(
     var e = {
       signalFutureMessagesMax: 2e3,
       S508658AutoAcknowledgeStaleSessions: !1,
-      baseKeyCanonicalCheck: !0,
     };
     function l() {
       return e;

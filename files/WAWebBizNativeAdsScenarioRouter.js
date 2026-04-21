@@ -9,9 +9,9 @@ __d(
         r = e.isWAAEligible,
         o = e.waAdsIdentityPageHasCreatedAd,
         a = t || o;
-      return !r && t && !n
+      return !r && a && !n
         ? "HAS_FB_ADS_NOT_WAA_ELIGIBLE"
-        : !r && !t
+        : !r && !a
           ? "FIRST_TIME_NOT_WAA_ELIGIBLE"
           : a
             ? t && !n && r && !o

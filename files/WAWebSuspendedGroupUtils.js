@@ -138,11 +138,18 @@ __d(
       );
     }
     function v(e) {
-      return S.apply(this, arguments);
+      var t;
+      ((t = e.groupMetadata) == null ? void 0 : t.suspendAppealStatus) ===
+      "IN_REVIEW"
+        ? L(e)
+        : b(e);
     }
-    function S() {
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.id,
             a = n.user.toString(),
             i;
@@ -190,7 +197,7 @@ __d(
                   suspendAppealUpdateTime: i.appealCreationTime,
                 }),
               o("WAWebModalManager").closeModalManager(),
-              R(t));
+              L(t));
           } else
             o("WAWebToastManager").ToastManager.open(
               c.jsx(o("WAWebToast.react").Toast, {
@@ -201,22 +208,22 @@ __d(
             );
           return i;
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(e) {
+    function L(e) {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebGroupAppealInReviewModal.react"), { chat: e }),
         { transition: "modal-flow" },
       );
     }
-    function L(e) {
+    function E(e) {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebExitAndDeleteGroupPopup.react"), { chat: e }),
         { transition: "modal-flow" },
       );
     }
-    function E(e, t) {
+    function k(e, t) {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebLeaveAndReportGroupModal.react"), {
           chat: e,
@@ -225,7 +232,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function k() {
+    function I() {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebSuspendedGroupMediaDownloadFailureModal.react"), {}),
         { transition: "modal-flow" },
@@ -239,11 +246,12 @@ __d(
       (l.openTerminatedGroupOrNotMemberModal = y),
       (l.openSuspendedGroupModalV2 = C),
       (l.openSuspendedGroupRedesignModal = b),
-      (l.submitGroupAppeal = v),
-      (l.openGroupAppealInReviewModal = R),
-      (l.openExitAndDeleteGroupModal = L),
-      (l.openLeaveAndReportGroupModal = E),
-      (l.openSuspendedGroupMediaDownloadFailureModal = k));
+      (l.openSuspendedGroupModalByAppealStatus = v),
+      (l.submitGroupAppeal = S),
+      (l.openGroupAppealInReviewModal = L),
+      (l.openExitAndDeleteGroupModal = E),
+      (l.openLeaveAndReportGroupModal = k),
+      (l.openSuspendedGroupMediaDownloadFailureModal = I));
   },
   226,
 );

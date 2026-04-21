@@ -4,7 +4,7 @@ __d(
     "WANullthrows",
     "WAWebApiLocalStorage",
     "WAWebEnvironment",
-    "WAWebGuestLocalStorage",
+    "WAWebGuestCoreLocalStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebWidToJid",
@@ -34,7 +34,7 @@ __d(
           (r("WAWebEnvironment").isGuest &&
             n.push({
               key: o("WAWebUserPrefsKeys").KEYS.GUEST_ACTIVE_INVITE_CODE,
-              value: o("WAWebGuestLocalStorage").getActiveGuestInviteCode(),
+              value: o("WAWebGuestCoreLocalStorage").getActiveGuestInviteCode(),
             }),
             yield o("WAWebApiLocalStorage").updateLocalStorage(n));
         })),

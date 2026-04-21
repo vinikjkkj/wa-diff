@@ -124,7 +124,8 @@ __d(
       g,
       h,
       y,
-      C = (function (t) {
+      C = 1e3,
+      b = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -1310,29 +1311,34 @@ __d(
               var i = (function () {
                 var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* () {
-                    (e.$ChatImpl$p_2.delete(t),
-                      !e.active ||
-                      (t.afterReadDuration != null && t.afterReadDuration > 0)
-                        ? (yield o(
-                            "WAWebDBEphemeralMessage",
-                          ).removeExpiredMessagesFromHistory([t]),
-                          o(
-                            "WAWebUpdateLastAddOnPreviewChatAction",
-                          ).deleteModelsForLastAddOnPreview([t.id.toString()]),
-                          yield o("WAWebPersistedJobManagerWorkerCompatible")
-                            .getJobManager()
-                            .waitUntilPersisted(
-                              o(
-                                "WAWebPersistedJobDefinitions",
-                              ).jobSerializers.deleteAddOns(e.id.toString(), [
-                                t.id.toString(),
-                              ]),
-                            ),
-                          t.delete({
-                            skipUpdatingSortTime: !0,
-                            doNotResetLastReceived: !0,
-                          }))
-                        : e.$ChatImpl$p_1.add(t));
+                    e.$ChatImpl$p_2.delete(t);
+                    var n =
+                      t.afterReadDuration != null && t.afterReadDuration > 0;
+                    if (!e.active || n) {
+                      var r = n && e.active;
+                      (r &&
+                        ((t.isFadingOut = !0),
+                        yield o("WAAsyncSleep").asyncSleep(C)),
+                        yield o(
+                          "WAWebDBEphemeralMessage",
+                        ).removeExpiredMessagesFromHistory([t]),
+                        o(
+                          "WAWebUpdateLastAddOnPreviewChatAction",
+                        ).deleteModelsForLastAddOnPreview([t.id.toString()]),
+                        yield o("WAWebPersistedJobManagerWorkerCompatible")
+                          .getJobManager()
+                          .waitUntilPersisted(
+                            o(
+                              "WAWebPersistedJobDefinitions",
+                            ).jobSerializers.deleteAddOns(e.id.toString(), [
+                              t.id.toString(),
+                            ]),
+                          ),
+                        t.delete({
+                          skipUpdatingSortTime: !0,
+                          doNotResetLastReceived: !0,
+                        }));
+                    } else e.$ChatImpl$p_1.add(t);
                   },
                 );
                 return function () {
@@ -1792,9 +1798,9 @@ __d(
           a
         );
       })(r("WAWebSuperChatMsgs"));
-    ((C.Proxy = "chat"), (C.idClass = r("WAWebWid")));
-    var b = o("WAWebBaseModel").defineModel(C);
-    l.Chat = b;
+    ((b.Proxy = "chat"), (b.idClass = r("WAWebWid")));
+    var v = o("WAWebBaseModel").defineModel(b);
+    l.Chat = v;
   },
   226,
 );

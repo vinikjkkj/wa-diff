@@ -765,10 +765,7 @@ __d(
             return (
               u &&
                 (o("WAWebUserPrefsVoip").setSelectedAudioOutputDevice(e),
-                o("WAWebAudioDeviceEvents").AudioDeviceEvents.trigger(
-                  "speakerDeviceSelectionChanged",
-                  [e],
-                ),
+                X(e),
                 o("WALogger").LOG(
                   V ||
                     (V = babelHelpers.taggedTemplateLiteralLoose([

@@ -5,7 +5,7 @@ __d(
     "WABinary",
     "WALogger",
     "WAWebEnvironment",
-    "WAWebGuestWamConstants",
+    "WAWebGuestCoreWamConstants",
     "WAWebPsIdUpdateWamEvent",
     "WAWebUserPrefsGeneral",
     "WAWebWamCodegenUtils",
@@ -138,13 +138,13 @@ __d(
     }
     function k() {
       return r("WAWebEnvironment").isGuest
-        ? o("WAWebGuestWamConstants")
+        ? o("WAWebGuestCoreWamConstants")
             .WAM_IN_MEMORY_BUFFERING_DURATION_IN_SECS_FOR_GUEST
         : o("WAWebWamConstants").WAM_IN_MEMORY_BUFFERING_DURATION_IN_SECS;
     }
     function I() {
       return r("WAWebEnvironment").isGuest
-        ? o("WAWebGuestWamConstants")
+        ? o("WAWebGuestCoreWamConstants")
             .WAM_BUFFER_ROTATE_INTERVAL_IN_SECS_FOR_GUEST
         : o("WAWebWamConstants").WAM_BUFFER_ROTATE_INTERVAL_IN_SECS;
     }

@@ -2,6 +2,7 @@ __d(
   "WAWebOptOutUserJob",
   [
     "WALogger",
+    "WAPromiseTimeout",
     "WASmaxBlocklistsUpdateOptOutListRPC",
     "WAWebUserPrefsMultiDevice",
     "WAWebWamEnumMmUserControlsEntryPoint",
@@ -117,12 +118,13 @@ __d(
     function y(e, t, n, r) {
       return f(e, !1, t, n, r);
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    var C = 1e4;
+    function b(e, t) {
+      return v.apply(this, arguments);
     }
-    function b() {
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = o("WAWebUserPrefsMultiDevice").getOptOutListHash(),
             r = {
               itemJid: e,
@@ -131,9 +133,14 @@ __d(
               itemDhash: n != null ? n : null,
               itemSignupId: t,
             },
-            a = yield o(
-              "WASmaxBlocklistsUpdateOptOutListRPC",
-            ).sendUpdateOptOutListRPC(r);
+            a = yield o("WAPromiseTimeout").promiseTimeout(
+              o("WASmaxBlocklistsUpdateOptOutListRPC").sendUpdateOptOutListRPC(
+                r,
+                { withoutRetry: !0 },
+              ),
+              C,
+              "[OptOutUserJob] signupUser IQ timed out",
+            );
           switch (a.name) {
             case "UpdateOptOutListResponseInvalidRequest": {
               var i = a.value.errorUpdateOptoutErrors.value,
@@ -182,13 +189,13 @@ __d(
               );
           }
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
     ((l.convertMarketingEntryPointToOptOutEntryPoint = p),
       (l.optOutUser = h),
       (l.optInUser = y),
-      (l.signupUser = C));
+      (l.signupUser = b));
   },
   98,
 );

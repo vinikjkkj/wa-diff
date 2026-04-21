@@ -100,28 +100,28 @@ __d(
         (a.toString = function () {
           return t.prototype.toString.call(
             this,
-            r("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
+            o("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
             r("PHPQuerySerializerNoEncoding"),
           );
         }),
         (a.toStringRawQuery = function () {
           return t.prototype.toStringRawQuery.call(
             this,
-            r("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
+            o("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
             r("PHPQuerySerializerNoEncoding"),
           );
         }),
         (a.toStringPreserveQuery = function () {
           return t.prototype.toStringPreserveQuery.call(
             this,
-            r("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
+            o("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
             r("PHPQuerySerializerNoEncoding"),
           );
         }),
         (a.toStringStrictQueryEncoding = function () {
           return t.prototype.toStringStrictQueryEncoding.call(
             this,
-            r("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
+            o("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
           );
         }),
         (a.getQueryString = function (n) {
@@ -130,7 +130,7 @@ __d(
             t.prototype.getQueryString.call(
               this,
               n,
-              r("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
+              o("UriNeedRawQuerySVChecker").isDomainNeedRawQuery,
               r("PHPQuerySerializerNoEncoding"),
             )
           );

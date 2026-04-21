@@ -200,6 +200,10 @@ __d(
           params: { share_credential: e },
           type: "PAYMENT_ACCOUNT",
         },
+        wa_paidm_credential_sharing: {
+          params: { inline: e },
+          type: "BUSINESS_ID",
+        },
         ce_ux_account_transitions: {
           params: { show_new_transition_ux: e },
           type: "PAYMENT_ACCOUNT",

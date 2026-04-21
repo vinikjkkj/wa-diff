@@ -45,7 +45,7 @@ __d(
               o("WALogger").ERROR(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[GRAPHQL][getMetaAISearchTypeAheadSuggestions] failed with error",
+                    "[GQL][getMetaAISearchTypeAheadSuggestions] failed",
                   ])),
               ),
               e instanceof o("WAWebGraphQLServerError").GraphQLServerError

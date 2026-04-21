@@ -7462,7 +7462,7 @@ __d(
       41492100: {
         moduleName: "ADS_MANAGER_WWW",
         name: "SELECTOR_RETURN_VALUES_AL",
-        sampleRate: 100,
+        sampleRate: 1e3,
       },
       41492124: {
         moduleName: "ADS_MANAGER_WWW",
@@ -13707,6 +13707,11 @@ __d(
         name: "MODAL_SHOWN",
         sampleRate: 1,
       },
+      88484634: {
+        moduleName: "BASEL_MME",
+        name: "IGASYNCTASK_CANCELLATION_DIAGNOSTIC",
+        sampleRate: null,
+      },
       88933908: {
         moduleName: "WORK_ACCOUNTS_TWO_FACTOR_LOGIN",
         name: "WORK_ACCOUNTS_REQUEST_ADMIN_CODE",
@@ -14686,15 +14691,11 @@ __d(
         name: "TAP_VIEW_SNAPSHOT",
         sampleRate: 1e3,
       },
-      100335617: {
-        moduleName: "ACCESS_LIBRARY",
-        name: "FETCH",
-        sampleRate: 1e3,
-      },
+      100335617: { moduleName: "ACCESS_LIBRARY", name: "FETCH", sampleRate: 1 },
       100335618: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH_AGGREGATED",
-        sampleRate: 0,
+        sampleRate: 34,
       },
       100338619: {
         moduleName: "ACCESS_LIBRARY",
@@ -14704,7 +14705,7 @@ __d(
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
-        sampleRate: 1,
+        sampleRate: 12,
       },
       100348897: {
         moduleName: "ACCESS_LIBRARY",
@@ -18456,6 +18457,11 @@ __d(
       168429767: {
         moduleName: "TF_DOGFOODING",
         name: "VERSION_NUDGE",
+        sampleRate: 1,
+      },
+      168434898: {
+        moduleName: "TF_DOGFOODING",
+        name: "REGISTER_FOR_TESTFLIGHT",
         sampleRate: 1,
       },
       168691665: {
@@ -22363,6 +22369,11 @@ __d(
         name: "AR_OPEN_NEW_REPORT",
         sampleRate: 1,
       },
+      270206062: {
+        moduleName: "ADS_MANAGER_INTERACTION",
+        name: "AM_TABLE_DATA_DISPLAY_CHANGE_GROUPING",
+        sampleRate: 1,
+      },
       270206071: {
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "AM_TABLE_DATA_DISPLAY_CHANGE_LEVEL",
@@ -23372,6 +23383,11 @@ __d(
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "AM_EDIT_TARGETING_SAVE_AUDIENCE_EDIT_IN_AUDIENCE_MGR",
         sampleRate: 1,
+      },
+      270211271: {
+        moduleName: "ADS_MANAGER_INTERACTION",
+        name: "AM_PUBLISH_ADS_IN_MAIBA",
+        sampleRate: 250,
       },
       270211281: {
         moduleName: "ADS_MANAGER_INTERACTION",
@@ -26843,6 +26859,16 @@ __d(
         sampleRate: null,
       },
       303698762: { moduleName: "IRIS", name: "IRIS_TEST", sampleRate: 1 },
+      303702584: {
+        moduleName: "IRIS",
+        name: "IRIS_SERVER_PUBLISH_TO_DRAIN",
+        sampleRate: 1,
+      },
+      303704086: {
+        moduleName: "IRIS",
+        name: "IRIS_SERVER_PUBLISH",
+        sampleRate: null,
+      },
       306649636: { moduleName: "XDS_BUGNUB", name: "FILE_TASK", sampleRate: 1 },
       306656200: {
         moduleName: "XDS_BUGNUB",
@@ -44085,6 +44111,11 @@ __d(
         name: "ANALYZER_RUN",
         sampleRate: 1,
       },
+      579940045: {
+        moduleName: "IFU_CSR",
+        name: "IFU_TILE_VEND",
+        sampleRate: null,
+      },
       580004466: {
         moduleName: "FB_ADS_IMPRESSIONS",
         name: "FB4A_XSL",
@@ -46113,6 +46144,11 @@ __d(
       621093054: {
         moduleName: "IG_ACTIVITY_FEED_ADS_DELIVERY",
         name: "ACTIVITY_FEED_CLIPS_VIDEO_WARM",
+        sampleRate: 1,
+      },
+      622534748: {
+        moduleName: "IG_SEARCH_TA_CLIENT",
+        name: "NULL_STATE_INITIAL_LOAD_IOS",
         sampleRate: 1,
       },
       622534774: {
@@ -51700,10 +51736,15 @@ __d(
         name: "PAYMENT_API_RESPONSE",
         sampleRate: 1,
       },
+      726206889: {
+        moduleName: "WHATSAPP_VOIP",
+        name: "CLIENT_ML_MODEL_RELIABILITY",
+        sampleRate: 1e4,
+      },
       726209662: {
         moduleName: "WHATSAPP_VOIP",
         name: "START_OUTGOING_CALLKIT_CALL",
-        sampleRate: 1,
+        sampleRate: 1e3,
       },
       726210610: {
         moduleName: "WHATSAPP_VOIP",
@@ -51713,6 +51754,11 @@ __d(
       726211467: {
         moduleName: "WHATSAPP_VOIP",
         name: "LARGE_ML_MODEL_AVAILABILITY",
+        sampleRate: 1e4,
+      },
+      726214597: {
+        moduleName: "WHATSAPP_VOIP",
+        name: "CLIENT_HD_TARGETING_RELIABILITY",
         sampleRate: 1e4,
       },
       726269953: {
@@ -58930,6 +58976,11 @@ __d(
         name: "TREE_DESERIALIZATION",
         sampleRate: 1,
       },
+      817892618: {
+        moduleName: "MANAGED_MOBILE_ERRORS",
+        name: "IG_IOS_IMAGE_INFRA",
+        sampleRate: 1,
+      },
       817893227: {
         moduleName: "MANAGED_MOBILE_ERRORS",
         name: "IG4A_IMAGE_INFRA_ERROR",
@@ -61617,7 +61668,7 @@ __d(
       857805635: {
         moduleName: "FAMILY_EXPERIENCES",
         name: "UNLINK_ALTERNATIVES_SCREEN_LOAD",
-        sampleRate: 10,
+        sampleRate: 1,
       },
       857805661: {
         moduleName: "FAMILY_EXPERIENCES",
@@ -61702,7 +61753,7 @@ __d(
       857811021: {
         moduleName: "FAMILY_EXPERIENCES",
         name: "UNLINK_DISCLOSURES_SCREEN_LOAD",
-        sampleRate: 10,
+        sampleRate: 1,
       },
       857811080: {
         moduleName: "FAMILY_EXPERIENCES",
@@ -61852,7 +61903,7 @@ __d(
       857816930: {
         moduleName: "FAMILY_EXPERIENCES",
         name: "UNLINK_IMPLICATIONS_SCREEN_LOAD",
-        sampleRate: 10,
+        sampleRate: 1,
       },
       858536557: {
         moduleName: "SERVICE_CONSOLE",
@@ -62872,6 +62923,11 @@ __d(
         name: "CREATE_CLUSTERING_RUN",
         sampleRate: 1,
       },
+      870187009: {
+        moduleName: "BASEL_TIMELINE",
+        name: "TIMELINE_JUMP_IOS",
+        sampleRate: 1,
+      },
       870321583: {
         moduleName: "AI_FRAME",
         name: "LASER_KNN_CALL",
@@ -63560,6 +63616,11 @@ __d(
         name: "DEVICE_CONNECTIVITY",
         sampleRate: 1,
       },
+      884869487: {
+        moduleName: "SMART_GLASSES",
+        name: "PHONE_EXP_QOS_SESSION",
+        sampleRate: 250,
+      },
       884869784: {
         moduleName: "SMART_GLASSES",
         name: "DEVICE_WIFIAWARE",
@@ -63589,6 +63650,11 @@ __d(
         moduleName: "SMART_GLASSES",
         name: "DEVICE_CONNECTIVITY_INSIGHTS_SNAPSHOT",
         sampleRate: 1,
+      },
+      884877114: {
+        moduleName: "SMART_GLASSES",
+        name: "QOS_EXPERIENCE_SESSION",
+        sampleRate: 250,
       },
       884880641: {
         moduleName: "SMART_GLASSES",
@@ -69972,12 +70038,12 @@ __d(
       974465496: {
         moduleName: "IG_HOME_SURFACE",
         name: "IG_CLIENT_SMART_FEATURE_P13N_BACKGROUND",
-        sampleRate: 1,
+        sampleRate: 1e3,
       },
       974466836: {
         moduleName: "IG_HOME_SURFACE",
         name: "NETWORK_PROBER",
-        sampleRate: 1,
+        sampleRate: 1e3,
       },
       974468459: {
         moduleName: "IG_HOME_SURFACE",
@@ -70677,6 +70743,11 @@ __d(
         moduleName: "RP_WWW_RAISE_HAND",
         name: "SHOW_OVERFLOW_POPOVER",
         sampleRate: 1,
+      },
+      989593601: {
+        moduleName: "GOOGLE_API_PROXY",
+        name: "REQUEST_EXECUTION",
+        sampleRate: 250,
       },
       989797483: {
         moduleName: "DIFFUSION",
@@ -72772,6 +72843,11 @@ __d(
         name: "EUICCSERVICE_OPERATION",
         sampleRate: 1,
       },
+      1041966420: {
+        moduleName: "WEARABLE_CONNECTIVITY",
+        name: "QOS_EXPERIENCE_SESSION",
+        sampleRate: 250,
+      },
       1042939905: {
         moduleName: "ENTITY_STORE",
         name: "RANKING_LATENCY",
@@ -72785,6 +72861,11 @@ __d(
       1043272384: {
         moduleName: "TELCO_ADS",
         name: "LANDING_PAGE_LOAD",
+        sampleRate: 1,
+      },
+      1043860852: {
+        moduleName: "DP_FOCUS_TIME",
+        name: "FOCUS_BLOCK_AUDIT",
         sampleRate: 1,
       },
       1043866384: {

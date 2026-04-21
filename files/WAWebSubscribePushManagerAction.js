@@ -10,7 +10,7 @@ __d(
     "WAWebSetPushConfigJob",
     "WAWebSetWorkerLocalStorage",
     "asyncToGeneratorRuntime",
-    "cr:9685",
+    "cr:27584",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
@@ -29,9 +29,9 @@ __d(
             var t,
               a,
               i,
-              l = n("cr:9685").isOfflineNotificationsEnabled(),
+              l = n("cr:27584").isOfflineNotificationsEnabled(),
               u =
-                (t = yield n("cr:9685").shouldSubscribePushManager(l)) != null
+                (t = yield n("cr:27584").shouldSubscribePushManager(l)) != null
                   ? t
                   : !1,
               c = yield (a = window.navigator.serviceWorker) == null
@@ -66,9 +66,9 @@ __d(
             var m = (yield d) != null;
             u
               ? m
-                ? (n("cr:9685").updateOfflineNotificationL10nStrings(),
+                ? (n("cr:27584").updateOfflineNotificationL10nStrings(),
                   r("WAWebL10N").on("locale_change", function () {
-                    n("cr:9685").updateOfflineNotificationL10nStrings();
+                    n("cr:27584").updateOfflineNotificationL10nStrings();
                   }))
                 : g()
               : m && y();
@@ -130,7 +130,7 @@ __d(
                 return;
               }
               (yield o("WAWebSetWorkerLocalStorage").setWorkerLocalStorage(),
-                yield n("cr:9685").updateOfflineNotificationL10nStrings());
+                yield n("cr:27584").updateOfflineNotificationL10nStrings());
             } catch (e) {
               o("WALogger").WARN(
                 d ||

@@ -28,7 +28,7 @@ __d(
     function _(e, t) {
       var n =
           t.implementations.length > 0 ? t.implementations[0].typename : null,
-        r = e.dashManifestUrl != null || e.dashManifestXmlString != null,
+        r = t.hasDashManifest,
         o = t.implementations.some(function (e) {
           return e.typename === "VideoPlayerNextgendashImplementation";
         });

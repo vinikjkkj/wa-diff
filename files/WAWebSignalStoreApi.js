@@ -382,14 +382,14 @@ __d(
                     ),
                     t.getMeta(o("WAWebSignalConst").META_KEYS.NEXT_PK_ID),
                   ])
-                  .then(function (i) {
-                    var l = i[0],
-                      c = i[1],
-                      m = l || u,
-                      p = c || u,
-                      _ = p - m,
-                      f = r - _;
-                    if (f <= 0)
+                  .then(function (n) {
+                    var i = n[0],
+                      l = n[1],
+                      s = i || u,
+                      c = l || u,
+                      m = c - s,
+                      p = r - m;
+                    if (p <= 0)
                       return (
                         o("WALogger").LOG(
                           e ||
@@ -398,22 +398,17 @@ __d(
                               ", need: ",
                               "",
                             ])),
-                          _,
+                          m,
                           r,
                         ),
-                        t.getPreKeysByRange(m, r)
+                        t.getPreKeysByRange(s, r)
                       );
-                    var g = d(p, p + f).map(function (e) {
+                    var _ = d(c, c + p).map(function (e) {
                       return a(e);
                     });
-                    return (s || (s = n("Promise")))
-                      .all(g)
-                      .then(function (e) {
-                        return t.savePreKeys(e);
-                      })
-                      .then(function () {
-                        return t.getPreKeysByRange(m, r);
-                      });
+                    return t.savePreKeys(_).then(function () {
+                      return t.getPreKeysByRange(s, r);
+                    });
                   });
               });
           }),
@@ -473,32 +468,34 @@ __d(
                 ]);
               });
           }),
-          (a.rotateSignedPreKey = function (t, n) {
+          (a.rotateSignedPreKey = function (t, r) {
             var e = this;
             return o("WAWebSignalStorageUtils")
               .getStorage()
               .lock(["signal-meta-store", "signed-prekey-store"], function () {
                 return e
                   .getMeta(o("WAWebSignalConst").META_KEYS.LAST_SPK_ID)
-                  .then(function (r) {
-                    var a =
-                      r == null ||
-                      r + 1 >=
-                        o("WASignalKeys").PRE_KEY_NON_INCLUSIVE_UPPER_BORDER
-                        ? u
-                        : r + 1;
-                    return n(t, a).then(function (t) {
-                      return (
-                        e.putSignedPreKeys([t]),
+                  .then(function (a) {
+                    var i =
+                        a == null ||
+                        a + 1 >=
+                          o("WASignalKeys").PRE_KEY_NON_INCLUSIVE_UPPER_BORDER
+                          ? u
+                          : a + 1,
+                      l = r(t, i);
+                    return (s || (s = n("Promise")))
+                      .all([
+                        e.putSignedPreKeys([l]),
                         e.putMeta([
                           {
                             key: o("WAWebSignalConst").META_KEYS.LAST_SPK_ID,
-                            value: a,
+                            value: i,
                           },
                         ]),
-                        t
-                      );
-                    });
+                      ])
+                      .then(function () {
+                        return l;
+                      });
                   });
               });
           }),

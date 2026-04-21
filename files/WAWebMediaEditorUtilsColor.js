@@ -6,22 +6,30 @@ __d(
       s = /^[0-9A-F]{6}$/i,
       u = (function () {
         function e(e, t, n, r, o) {
-          if ((r === void 0 && (r = 1), e < 0 || e > 255))
-            throw new RangeError(
+          if ((r === void 0 && (r = 1), e < 0 || e > 255)) {
+            var a = new RangeError(
               "red (" + e + " given) should be >= 0 and <= 255",
             );
-          if (t < 0 || t > 255)
-            throw new RangeError(
+            throw (a.stack, a);
+          }
+          if (t < 0 || t > 255) {
+            var i = new RangeError(
               "green (" + t + " given) should be >= 0 and <= 255",
             );
-          if (n < 0 || n > 255)
-            throw new RangeError(
+            throw (i.stack, i);
+          }
+          if (n < 0 || n > 255) {
+            var l = new RangeError(
               "blue (" + n + " given) should be >= 0 and <= 255",
             );
-          if (r < 0 || r > 1)
-            throw new RangeError(
+            throw (l.stack, l);
+          }
+          if (r < 0 || r > 1) {
+            var s = new RangeError(
               "alpha (" + r + " given) should be >= 0 and <= 1",
             );
+            throw (s.stack, s);
+          }
           ((this._red = e),
             (this._green = t),
             (this._blue = n),
@@ -33,16 +41,20 @@ __d(
           if (
             (t.length && t[0] === "#" && (t = t.substr(1)),
             t.length !== 3 && t.length !== 6)
-          )
-            throw new RangeError("hex " + n + " does not have 3 or 6 digits");
+          ) {
+            var o = new RangeError("hex " + n + " does not have 3 or 6 digits");
+            throw (o.stack, o);
+          }
           t.length === 3 && (t = "" + t[0] + t[0] + t[1] + t[1] + t[2] + t[2]);
-          var o = parseInt(t.substr(0, 2), 16),
-            a = parseInt(t.substr(2, 2), 16),
-            i = parseInt(t.substr(4, 2), 16);
-          if (isNaN(o) || isNaN(a) || isNaN(i))
-            throw new RangeError("hex " + n + " is invalid");
-          var l = 1;
-          return new e(o, a, i, l, r);
+          var a = parseInt(t.substr(0, 2), 16),
+            i = parseInt(t.substr(2, 2), 16),
+            l = parseInt(t.substr(4, 2), 16);
+          if (isNaN(a) || isNaN(i) || isNaN(l)) {
+            var s = new RangeError("hex " + n + " is invalid");
+            throw (s.stack, s);
+          }
+          var u = 1;
+          return new e(a, i, l, u, r);
         }),
           (e._fromHsl = function (n, r, o) {
             var t, a, i;

@@ -295,7 +295,11 @@ __d(
         ));
       var Z = _(J, Y, v, $, C, b, r("gkx")("24370"));
       if (Y && Z != null) throw Z;
-      return { implementations: N, warning: Z };
+      return {
+        hasDashManifest: W != null || U != null,
+        implementations: N,
+        warning: Z,
+      };
     }
     l.default = f;
   },

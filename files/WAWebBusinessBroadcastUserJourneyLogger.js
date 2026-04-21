@@ -159,8 +159,8 @@ __d(
               a,
             );
           }),
-          (t.createAudienceViewed = function (t) {
-            o("WAWebBBAudienceLogs").createAudienceViewed(this.$1, t);
+          (t.createAudienceViewed = function (t, n) {
+            o("WAWebBBAudienceLogs").createAudienceViewed(this.$1, t, n);
           }),
           (t.createAudienceContactCheckboxClicked = function (t, n) {
             o("WAWebBBAudienceLogs").createAudienceContactCheckboxClicked(

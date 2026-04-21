@@ -415,6 +415,7 @@ __d(
             (e.wamMessageSendReporter = o("WAWebBaseModel").session()),
             (e.wamMessageSendPerfReporter = o("WAWebBaseModel").session()),
             (e.pendingDeleteForMe = o("WAWebBaseModel").session(!1)),
+            (e.isFadingOut = o("WAWebBaseModel").session(!1)),
             (e.isDynamicReplyButtonsMsg = o("WAWebBaseModel").prop(!1)),
             (e.dynamicReplyButtons = o("WAWebBaseModel").prop()),
             (e.replyButtons = o("WAWebBaseModel").session()),

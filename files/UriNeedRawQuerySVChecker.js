@@ -1,37 +1,37 @@
 __d(
   "UriNeedRawQuerySVChecker",
   ["PHPQuerySerializer", "URIBase", "UriNeedRawQuerySVConfig"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      l,
-      s = ["http", "https"];
-    function u(t) {
-      if (t == null) return !1;
-      var r =
-        t instanceof (e || (e = n("URIBase")))
-          ? t
-          : (e || (e = n("URIBase"))).tryParse(
-              t,
-              l || (l = n("PHPQuerySerializer")),
-            );
-      if (r == null) return !1;
-      var o = r.getProtocol();
-      return s.includes(o) ? c(r.getDomain()) : !1;
-    }
+      s,
+      u = ["http", "https"];
     function c(t) {
+      if (t == null) return !1;
+      var n =
+        t instanceof (e || (e = r("URIBase")))
+          ? t
+          : (e || (e = r("URIBase"))).tryParse(
+              t,
+              s || (s = r("PHPQuerySerializer")),
+            );
+      if (n == null) return !1;
+      var o = n.getProtocol();
+      return u.includes(o) ? d(n.getDomain()) : !1;
+    }
+    function d(t) {
       return (
         t != null &&
-        n("UriNeedRawQuerySVConfig").uris.some(function (r) {
-          return (e || (e = n("URIBase"))).isDomainSubdomainOfDomain(
+        r("UriNeedRawQuerySVConfig").uris.some(function (n) {
+          return (e || (e = r("URIBase"))).isDomainSubdomainOfDomain(
             t,
-            r,
-            l || (l = n("PHPQuerySerializer")),
+            n,
+            s || (s = r("PHPQuerySerializer")),
           );
         })
       );
     }
-    a.exports = { isUriNeedRawQuery: u, isDomainNeedRawQuery: c };
+    ((l.isUriNeedRawQuery = c), (l.isDomainNeedRawQuery = d));
   },
-  null,
+  98,
 );

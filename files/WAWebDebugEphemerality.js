@@ -7,6 +7,7 @@ __d(
     "WAWebContactCollection",
     "WAWebEphemeralSyncResponse",
     "WAWebEphemeralityTypes",
+    "WAWebMsgCollection",
     "WAWebUpdateDisappearingModeForContact",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -71,11 +72,31 @@ __d(
       );
     }
     u.doc = "Sets or unsets isEphemeralityDisabled on the specified contact";
-    var d = {
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o(
+              "WAWebMsgCollection",
+            ).MsgCollection.hydrateOrGetMessages([e]),
+            a = n[0];
+          if (a == null) throw r("err")("Couldn't find msg for id " + e);
+          var i = o("WATimeUtils").unixTime() + t;
+          a.expiredTimestamp = i;
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    d.doc =
+      "Overrides expiredTimestamp on the given msg to (now + durationSeconds). Use durationSeconds=0 to expire immediately. Triggers the AR receiver-side expiration timer / fade-out animation. Note: in-memory only \u2014 change is lost on reload. msgId is the serialized msg key string (e.g. 'false_447...@c.us_3EB0...').";
+    var p = {
       sendEphemeralSyncResponse: e,
       setEphemeralityDisabledForContact: u,
+      overrideMsgExpiredTimestamp: d,
     };
-    l.default = d;
+    l.default = p;
   },
   98,
 );

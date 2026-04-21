@@ -12,18 +12,22 @@ __d(
         else if (n < 2048)
           (e.writeByte((n >> 6) | 192), e.writeByte((n & 63) | 128));
         else if ((n & 64512) == 55296) {
-          if (o + 1 >= t.length)
-            throw new Error(
+          if (o + 1 >= t.length) {
+            var a = new Error(
               "UTF-16 string is truncated: [" + n.toString(16) + "]",
             );
-          if ((t.charCodeAt(o + 1) & 64512) !== 56320)
-            throw new Error(
+            throw (a.stack, a);
+          }
+          if ((t.charCodeAt(o + 1) & 64512) !== 56320) {
+            var i = new Error(
               "Invalid UTF-16 string: [" +
                 n.toString(16) +
                 ", " +
                 t.charCodeAt(o + 1).toString(16) +
                 "]",
             );
+            throw (i.stack, i);
+          }
           ((n = 65536 + ((n & 1023) << 10) + (t.charCodeAt(++o) & 1023)),
             e.writeByte((n >> 18) | 240),
             e.writeByte(((n >> 12) & 63) | 128),

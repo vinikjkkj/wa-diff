@@ -59,11 +59,12 @@ __d(
         return e.value - t.value;
       });
       var n = { type: "default", value: 0, label: r("fbs")._(/*BTDS*/ "Off") };
-      if (o("WAWebAfterReadUtils").isAfterReadOptionAvailable()) {
+      if (o("WAWebAfterReadUtils").isAfterReadEnabled()) {
         var a = {
           type: "after_reading",
           value: c,
           label: r("fbs")._(/*BTDS*/ "After reading"),
+          disabled: !o("WAWebAfterReadUtils").isAfterReadOptionAvailable(),
         };
         (t.unshift(a), t.unshift(n));
       } else t.push(n);
