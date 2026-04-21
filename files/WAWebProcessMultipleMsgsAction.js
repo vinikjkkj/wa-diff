@@ -412,25 +412,27 @@ __d(
                         isPreload: !0,
                       });
                 }),
-              o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled())
-            ) {
-              var Z = r("compactMap")(M, function (e) {
-                  return o("WAWebFrontendMsgGetters").getAsDoc(e);
-                }),
-                ee = Z.some(function (e) {
-                  return o(
-                    "WAWebTPPdfViewerGatingUtils",
-                  ).isWebTPPdfViewerEnabledForMimeType(e.mimetype);
-                });
-              ee &&
-                (n("cr:11804") == null ||
-                  n("cr:11804").maybePreloadWebTPIframeForPDFs(void 0, {
-                    source: "appStart",
-                    force: !0,
-                  }));
-            }
-            if (
-              (r("compactMap")(M, function (e) {
+              window.setTimeout(function () {
+                if (
+                  o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled()
+                ) {
+                  var e = r("compactMap")(M, function (e) {
+                      return o("WAWebFrontendMsgGetters").getAsDoc(e);
+                    }),
+                    t = e.some(function (e) {
+                      return o(
+                        "WAWebTPPdfViewerGatingUtils",
+                      ).isWebTPPdfViewerEnabledForMimeType(e.mimetype);
+                    });
+                  t &&
+                    (n("cr:11804") == null ||
+                      n("cr:11804").maybePreloadWebTPIframeForPDFs(void 0, {
+                        source: "appStart",
+                        force: !0,
+                      }));
+                }
+              }, 0),
+              r("compactMap")(M, function (e) {
                 return o("WAWebFrontendMsgGetters").getAsUrl(e);
               }).forEach(function (e) {
                 o("WAWebMediaLinkPreviewUtils").hqLinkPreviewExpired(e.t) ||
@@ -453,13 +455,13 @@ __d(
                 "download_status_thumb_mms_enabled",
               ))
             ) {
-              var te = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
-                ne = 1e3 * 60 * 60 * 24;
-              if (te == null || Date.now() - te < 14 * ne) {
-                var re = M.filter(function (e) {
+              var Z = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
+                ee = 1e3 * 60 * 60 * 24;
+              if (Z == null || Date.now() - Z < 14 * ee) {
+                var te = M.filter(function (e) {
                   return o("WAWebMsgGetters").getIsStatus(e);
                 });
-                r("compactMap")(re, function (e) {
+                r("compactMap")(te, function (e) {
                   return (
                     o("WAWebFrontendMsgGetters").getAsImage(e) ||
                     o("WAWebFrontendMsgGetters").getAsVideo(e)

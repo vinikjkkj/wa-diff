@@ -777,7 +777,7 @@ __d(
                 .ERROR(
                   $ ||
                     ($ = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncd: _uploadSuccessful: unexpected server version (",
+                      "syncd: uploadSuccessful: unexpected server version (",
                       ") after patch upload, expected ",
                       "",
                     ])),
@@ -791,7 +791,7 @@ __d(
                 P ||
                   (P = babelHelpers.taggedTemplateLiteralLoose([
                     "[",
-                    "] syncd: _uploadSuccessful: write to db for ",
+                    "] syncd: uploadSuccessful: write to db for ",
                     "",
                   ])),
                 i,
@@ -862,7 +862,7 @@ __d(
               w ||
                 (w = babelHelpers.taggedTemplateLiteralLoose([
                   "[",
-                  "] syncd: end _uploadSuccessful for ",
+                  "] syncd: end uploadSuccessful for ",
                   "",
                 ])),
               i,
@@ -1270,7 +1270,7 @@ __d(
               e,
               "[" +
                 l +
-                "] start _applySnapshotAndPatches. mutation count: " +
+                "] start applySnapshotAndPatches. mutation count: " +
                 t.records.length +
                 ", version: " +
                 t.version.version,
@@ -2041,7 +2041,7 @@ __d(
               ie ||
                 (ie = babelHelpers.taggedTemplateLiteralLoose([
                   "[",
-                  "] syncd: completed _applyRemoveMutations for ",
+                  "] syncd: completed applyRemoveMutations for ",
                   " v",
                   "",
                 ])),
@@ -2159,7 +2159,7 @@ __d(
                 ce ||
                   (ce = babelHelpers.taggedTemplateLiteralLoose([
                     "[",
-                    "] syncd: completed final transaction in _applyPatch for ",
+                    "] syncd: completed final transaction in applyPatch for ",
                     " v",
                     "",
                   ])),
@@ -2425,7 +2425,7 @@ __d(
                   o("WALogger").WARN(
                     ge ||
                       (ge = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: catching error during _applySetMutations: ",
+                        "syncd: catching error during applySetMutations: ",
                         "",
                       ])),
                     t,

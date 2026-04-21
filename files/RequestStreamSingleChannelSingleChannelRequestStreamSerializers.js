@@ -11,49 +11,25 @@ __d(
     "use strict";
     var e;
     function s() {
-      return {};
-    }
-    function u() {
       return { body: Uint8Array.of() };
     }
-    function c() {
+    function u() {
       return { amendment: Uint8Array.of() };
     }
-    function d() {
+    function c() {
       return {
         ack: o(
           "RequestStreamSingleChannelSingleChannelRequestStreamTypes",
         ).Ack.cast(0),
       };
     }
-    function m() {
+    function d() {
       return { delta: [] };
     }
-    function p() {
+    function m() {
       return {};
     }
-    function _(t, n) {
-      (n.writeStructBegin("RequestStreamHeaders"),
-        t.headers != null &&
-          (n.writeFieldBegin({
-            fname: "headers",
-            ftype: (e || (e = r("ThriftTypes"))).STRING,
-            fid: 1,
-          }),
-          n.writeBinary(t.headers),
-          n.writeFieldEnd()),
-        t.instrumentation_data != null &&
-          (n.writeFieldBegin({
-            fname: "instrumentation_data",
-            ftype: (e || (e = r("ThriftTypes"))).STRING,
-            fid: 2,
-          }),
-          n.writeBinary(t.instrumentation_data),
-          n.writeFieldEnd()),
-        n.writeFieldStop(),
-        n.writeStructEnd());
-    }
-    function f(t, n) {
+    function p(t, n) {
       if (
         (n.writeStructBegin("RequestStreamBody"),
         n.writeFieldBegin({
@@ -70,7 +46,7 @@ __d(
       }
       (n.writeFieldEnd(), n.writeFieldStop(), n.writeStructEnd());
     }
-    function g(t, n) {
+    function _(t, n) {
       if (
         (n.writeStructBegin("AmendStream"),
         t.amendment_id != null &&
@@ -105,7 +81,7 @@ __d(
         n.writeFieldStop(),
         n.writeStructEnd());
     }
-    function h(t, n) {
+    function f(t, n) {
       if (
         (n.writeStructBegin("StreamResponseAck"),
         t.response_id != null &&
@@ -133,7 +109,7 @@ __d(
       }
       (n.writeFieldEnd(), n.writeFieldStop(), n.writeStructEnd());
     }
-    function y(t, n) {
+    function g(t, n) {
       if (
         (n.writeStructBegin("StreamResponse"),
         t.response_id != null &&
@@ -201,26 +177,14 @@ __d(
         n.writeFieldStop(),
         n.writeStructEnd());
     }
-    function C(t, n) {
-      if ((n.writeStructBegin("Payload"), t.request_headers != null)) {
-        (n.writeFieldBegin({
-          fname: "request_headers",
-          ftype: (e || (e = r("ThriftTypes"))).STRUCT,
-          fid: 1,
-        }),
-          _(t.request_headers, n),
-          n.writeFieldEnd(),
-          n.writeFieldStop(),
-          n.writeStructEnd());
-        return;
-      }
-      if (t.request_body != null) {
+    function h(t, n) {
+      if ((n.writeStructBegin("Payload"), t.request_body != null)) {
         (n.writeFieldBegin({
           fname: "request_body",
           ftype: (e || (e = r("ThriftTypes"))).STRUCT,
           fid: 2,
         }),
-          f(t.request_body, n),
+          p(t.request_body, n),
           n.writeFieldEnd(),
           n.writeFieldStop(),
           n.writeStructEnd());
@@ -232,7 +196,7 @@ __d(
           ftype: (e || (e = r("ThriftTypes"))).STRUCT,
           fid: 3,
         }),
-          g(t.amend, n),
+          _(t.amend, n),
           n.writeFieldEnd(),
           n.writeFieldStop(),
           n.writeStructEnd());
@@ -244,7 +208,7 @@ __d(
           ftype: (e || (e = r("ThriftTypes"))).STRUCT,
           fid: 4,
         }),
-          h(t.ack, n),
+          f(t.ack, n),
           n.writeFieldEnd(),
           n.writeFieldStop(),
           n.writeStructEnd());
@@ -256,7 +220,7 @@ __d(
           ftype: (e || (e = r("ThriftTypes"))).STRUCT,
           fid: 5,
         }),
-          y(t.response, n),
+          g(t.response, n),
           n.writeFieldEnd(),
           n.writeFieldStop(),
           n.writeStructEnd());
@@ -294,32 +258,7 @@ __d(
       }
       (n.writeFieldStop(), n.writeStructEnd());
     }
-    function b(t) {
-      var n = {};
-      for (t.readStructBegin(); ; ) {
-        var o = t.readFieldBegin(),
-          a = o.ftype,
-          i = o.fid;
-        if (a === (e || (e = r("ThriftTypes"))).STOP) break;
-        switch (i) {
-          case 1:
-            a === (e || (e = r("ThriftTypes"))).STRING
-              ? (n.headers = t.readBinary())
-              : t.skip(a);
-            break;
-          case 2:
-            a === (e || (e = r("ThriftTypes"))).STRING
-              ? (n.instrumentation_data = t.readBinary())
-              : t.skip(a);
-            break;
-          default:
-            t.skip(a);
-        }
-        t.readFieldEnd();
-      }
-      return (t.readStructEnd(), n);
-    }
-    function v(t) {
+    function y(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var o = t.readFieldBegin(),
@@ -343,7 +282,7 @@ __d(
         n
       );
     }
-    function S(t) {
+    function C(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var o = t.readFieldBegin(),
@@ -377,7 +316,7 @@ __d(
         n
       );
     }
-    function R(t) {
+    function b(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var a = t.readFieldBegin(),
@@ -411,7 +350,7 @@ __d(
         n
       );
     }
-    function L(t) {
+    function v(t) {
       var n = {};
       for (t.readStructBegin(); ; ) {
         var a = t.readFieldBegin(),
@@ -459,7 +398,7 @@ __d(
       }
       return (t.readStructEnd(), n.delta === void 0 && (n.delta = []), n);
     }
-    function E(t) {
+    function S(t) {
       var n,
         a = {};
       for (t.readStructBegin(); ; ) {
@@ -468,20 +407,9 @@ __d(
           s = i.fid;
         if (l === (e || (e = r("ThriftTypes"))).STOP) break;
         switch (s) {
-          case 1:
-            if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null)
-                ((a.request_headers = b(t)), (n = "request_headers"));
-              else
-                throw new Error(
-                  "more than one field have been deserialized in union type: Payload; current field: request_headers, previous deserialized field: " +
-                    n,
-                );
-            else t.skip(l);
-            break;
           case 2:
             if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null) ((a.request_body = v(t)), (n = "request_body"));
+              if (n == null) ((a.request_body = y(t)), (n = "request_body"));
               else
                 throw new Error(
                   "more than one field have been deserialized in union type: Payload; current field: request_body, previous deserialized field: " +
@@ -491,7 +419,7 @@ __d(
             break;
           case 3:
             if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null) ((a.amend = S(t)), (n = "amend"));
+              if (n == null) ((a.amend = C(t)), (n = "amend"));
               else
                 throw new Error(
                   "more than one field have been deserialized in union type: Payload; current field: amend, previous deserialized field: " +
@@ -501,7 +429,7 @@ __d(
             break;
           case 4:
             if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null) ((a.ack = R(t)), (n = "ack"));
+              if (n == null) ((a.ack = b(t)), (n = "ack"));
               else
                 throw new Error(
                   "more than one field have been deserialized in union type: Payload; current field: ack, previous deserialized field: " +
@@ -511,7 +439,7 @@ __d(
             break;
           case 5:
             if (l === (e || (e = r("ThriftTypes"))).STRUCT)
-              if (n == null) ((a.response = L(t)), (n = "response"));
+              if (n == null) ((a.response = v(t)), (n = "response"));
               else
                 throw new Error(
                   "more than one field have been deserialized in union type: Payload; current field: response, previous deserialized field: " +
@@ -554,24 +482,21 @@ __d(
       }
       return (t.readStructEnd(), a);
     }
-    ((l.RequestStreamHeaders$DefaultConstructor = s),
-      (l.RequestStreamBody$DefaultConstructor = u),
-      (l.AmendStream$DefaultConstructor = c),
-      (l.StreamResponseAck$DefaultConstructor = d),
-      (l.StreamResponse$DefaultConstructor = m),
-      (l.Payload$DefaultConstructor = p),
-      (l.serializeRequestStreamHeaders = _),
-      (l.serializeRequestStreamBody = f),
-      (l.serializeAmendStream = g),
-      (l.serializeStreamResponseAck = h),
-      (l.serializeStreamResponse = y),
-      (l.serializePayload = C),
-      (l.deserializeRequestStreamHeaders = b),
-      (l.deserializeRequestStreamBody = v),
-      (l.deserializeAmendStream = S),
-      (l.deserializeStreamResponseAck = R),
-      (l.deserializeStreamResponse = L),
-      (l.deserializePayload = E));
+    ((l.RequestStreamBody$DefaultConstructor = s),
+      (l.AmendStream$DefaultConstructor = u),
+      (l.StreamResponseAck$DefaultConstructor = c),
+      (l.StreamResponse$DefaultConstructor = d),
+      (l.Payload$DefaultConstructor = m),
+      (l.serializeRequestStreamBody = p),
+      (l.serializeAmendStream = _),
+      (l.serializeStreamResponseAck = f),
+      (l.serializeStreamResponse = g),
+      (l.serializePayload = h),
+      (l.deserializeRequestStreamBody = y),
+      (l.deserializeAmendStream = C),
+      (l.deserializeStreamResponseAck = b),
+      (l.deserializeStreamResponse = v),
+      (l.deserializePayload = S));
   },
   98,
 );

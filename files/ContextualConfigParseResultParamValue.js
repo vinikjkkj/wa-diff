@@ -28,10 +28,12 @@ __d(
           return r("ContextualConfigParseInteger")(t);
         case o("ContextualConfigConstants").TYPE.STRING:
           return t;
-        default:
-          throw new Error(
+        default: {
+          var n = new Error(
             o("ContextualConfigConstants").ERROR.INVALID_VALUE_TYPE,
           );
+          throw (n.stack, n);
+        }
       }
     }
     l.default = c;

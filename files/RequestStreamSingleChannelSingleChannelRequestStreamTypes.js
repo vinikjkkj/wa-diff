@@ -12,7 +12,6 @@ __d(
         Failure: 500,
       }),
       l = n("$InternalEnum")({
-        Request_headers: "request_headers",
         Request_body: "request_body",
         Amend: "amend",
         Ack: "ack",

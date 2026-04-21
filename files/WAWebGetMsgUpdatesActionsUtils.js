@@ -606,12 +606,12 @@ __d(
                 o("WALogger").LOG(
                   R ||
                     (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "[getMsgUpdates]: ",
-                      " messages: ",
-                      "ms filteredRecs=",
-                      " reorderRecs=",
-                      " updates=",
-                      " ephemeralOOS=",
+                      "[getMsgUpdates] ",
+                      " msgs ",
+                      "ms filt=",
+                      " reord=",
+                      " upd=",
+                      " oos=",
                       "",
                     ])),
                   a.length,

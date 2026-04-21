@@ -49,40 +49,40 @@ __d(
       return d.length === 1
         ? h != null
           ? s._(
-              /*BTDS*/ "{author name} sent message history that starts on {timestamp} to {receiver name}. {name of the non-history receiver} did not receive history",
+              /*BTDS*/ "{author name} sent {receiver name} message history that starts on {timestamp}. {name of the non-history receiver} did not receive history",
               [
                 s._param("author name", _),
-                s._param("timestamp", l),
                 s._param("receiver name", f),
+                s._param("timestamp", l),
                 s._param("name of the non-history receiver", h),
               ],
             )
           : s._(
-              /*BTDS*/ "{author name} sent message history that starts on {timestamp} to {receiver name}",
+              /*BTDS*/ "{author name} sent {receiver name} message history that starts on {timestamp}",
               [
                 s._param("author name", _),
-                s._param("timestamp", l),
                 s._param("receiver name", f),
+                s._param("timestamp", l),
               ],
             )
         : h != null
           ? s._(
-              /*BTDS*/ "{author name} sent message history that starts on {timestamp} to {receiver name} and {other count} others. {name of the non-history receiver} did not receive history",
+              /*BTDS*/ "{author name} sent {receiver name} and {other count} others message history that starts on {timestamp}. {name of the non-history receiver} did not receive history",
               [
                 s._param("author name", _),
-                s._param("timestamp", l),
                 s._param("receiver name", f),
                 s._param("other count", d.length - 1),
+                s._param("timestamp", l),
                 s._param("name of the non-history receiver", h),
               ],
             )
           : s._(
-              /*BTDS*/ "{author name} sent message history that starts on {timestamp} to {receiver name} and {other count} others",
+              /*BTDS*/ "{author name} sent {receiver name} and {other count} others message history that starts on {timestamp}",
               [
                 s._param("author name", _),
-                s._param("timestamp", l),
                 s._param("receiver name", f),
                 s._param("other count", d.length - 1),
+                s._param("timestamp", l),
               ],
             );
     }

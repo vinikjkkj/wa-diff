@@ -1248,7 +1248,10 @@ __d(
                 case o("WAWebChatFlowTypes").ChatKindType.Community:
                   return o("WAWebWamEnumWebcChatType").WEBC_CHAT_TYPE.COMMUNITY;
               }
-            else throw new TypeError("Invalid Chat.kind " + String(e));
+            else {
+              var t = new TypeError("Invalid Chat.kind " + String(e));
+              throw (t.stack, t);
+            }
           }),
           (i.getMdChatAssignmentChatType = function () {
             return o(
@@ -1273,7 +1276,10 @@ __d(
                   return o("WAWebWamEnumChatAssignmentChatType")
                     .CHAT_ASSIGNMENT_CHAT_TYPE.CHANNEL;
               }
-            else throw new TypeError("Invalid Chat.kind " + String(e));
+            else {
+              var t = new TypeError("Invalid Chat.kind " + String(e));
+              throw (t.stack, t);
+            }
           }),
           (i.deregisterExpiredViewOnceBulkMessages = function (t) {
             var e = this;

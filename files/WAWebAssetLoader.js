@@ -22,6 +22,7 @@ __d(
     "asyncToGeneratorRuntime",
     "cr:5624",
     "err",
+    "getErrorSafe",
     "gkx",
     "lodash",
   ],
@@ -214,11 +215,12 @@ __d(
                   );
                 })
                 .catch(function (t) {
-                  var n = e._loadingDataMap[l][s],
-                    r = C !== n;
+                  var n = r("getErrorSafe")(t),
+                    a = e._loadingDataMap[l][s],
+                    i = C !== a;
                   if (
-                    (r || (e._loadingDataMap[l][s] = null),
-                    t.name === o("WAAbortError").ABORT_ERROR &&
+                    (i || (e._loadingDataMap[l][s] = null),
+                    n.name === o("WAAbortError").ABORT_ERROR &&
                       (o("WALogger").LOG(
                         p ||
                           (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -229,9 +231,9 @@ __d(
                         l,
                         s,
                       ),
-                      r && n))
+                      i && a))
                   )
-                    return n.promise;
+                    return a.promise;
                   throw t;
                 });
             _.setConsumerPromise(y);

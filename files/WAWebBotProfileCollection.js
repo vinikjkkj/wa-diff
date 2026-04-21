@@ -80,8 +80,9 @@ __d(
           (a.$BotProfileCollectionImpl$p_1 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
-                var t = o("WAWebWidFactory").createWidFromWidLike(e);
-                if (!t.isFbidBot())
+                var t,
+                  n = o("WAWebWidFactory").createWidFromWidLike(e);
+                if (!n.isFbidBot())
                   return (
                     o("WALogger").ERROR(
                       c ||
@@ -91,7 +92,8 @@ __d(
                     ),
                     null
                   );
-                var n = yield o("WAWebBotProfileAction").queryBotProfile(t);
+                var r = (t = this.get(n)) == null ? void 0 : t.personaId,
+                  a = yield o("WAWebBotProfileAction").queryBotProfile(n, r);
                 return (
                   o("WALogger").LOG(
                     d ||
@@ -99,11 +101,11 @@ __d(
                         "[BotProfileCollection] query bot profile",
                       ])),
                   ),
-                  n
+                  a
                     ? (yield o("WAWebPersistBotProfiles").persistBotProfiles([
-                        n,
+                        a,
                       ]),
-                      babelHelpers.extends({}, n))
+                      babelHelpers.extends({}, a))
                     : (o("WALogger").WARN(
                         m ||
                           (m = babelHelpers.taggedTemplateLiteralLoose([

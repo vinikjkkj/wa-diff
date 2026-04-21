@@ -6,10 +6,14 @@ __d(
       function e(e) {
         var t = e.height,
           n = e.width;
-        if (n < 0)
-          throw new RangeError("MediaEditor:Size width cannot be negative");
-        if (t < 0)
-          throw new RangeError("MediaEditor:Size height cannot be negative");
+        if (n < 0) {
+          var r = new RangeError("MediaEditor:Size width cannot be negative");
+          throw (r.stack, r);
+        }
+        if (t < 0) {
+          var o = new RangeError("MediaEditor:Size height cannot be negative");
+          throw (o.stack, o);
+        }
         ((this.$1 = Object.freeze({ width: n, height: t })),
           Object.freeze(this));
       }

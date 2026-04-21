@@ -1,7 +1,6 @@
 __d(
   "WAWebCmd",
   [
-    "$InternalEnum",
     "JSResourceForInteraction",
     "Promise",
     "WAAbortError",
@@ -12,6 +11,7 @@ __d(
     "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebChatEntryPoint",
+    "WAWebCmd.flow",
     "WAWebComposeBoxActions",
     "WAWebCurrentUser",
     "WAWebDocumentFlushed",
@@ -40,9 +40,8 @@ __d(
       g,
       h,
       y = 1300,
-      C = n("$InternalEnum").Mirrored(["Sender", "Admin"]),
-      b = 400,
-      v = (function (t) {
+      C = 400,
+      b = (function (t) {
         function a() {
           var e;
           return (
@@ -51,7 +50,7 @@ __d(
             (e.isOfflineDeliveryEnd = !1),
             o(
               "WAWebUiIdleEventBus",
-            ).UiIdleEventBus.setDeferUntilDocumentFlushed(S),
+            ).UiIdleEventBus.setDeferUntilDocumentFlushed(v),
             e
           );
         }
@@ -223,7 +222,7 @@ __d(
             this.trigger("pause_ptt_recording");
           }),
           (i.sendPttRecording = function () {
-            R.trigger("send_ptt_recording");
+            S.trigger("send_ptt_recording");
           }),
           (i.editGroupDescription = function () {
             this.trigger("edit_group_description");
@@ -504,7 +503,7 @@ __d(
                               return e.$CmdImpl$p_3({
                                 pos: "center",
                                 animate: a,
-                                duration: b,
+                                duration: C,
                                 easing: [0.7, 0, 0.3, 1],
                               });
                             }));
@@ -524,7 +523,7 @@ __d(
                                 return e.$CmdImpl$p_3({
                                   pos: "center",
                                   animate: a,
-                                  duration: b,
+                                  duration: C,
                                   easing: [0.88, 0.64, 0.13, 0.99],
                                 });
                               };
@@ -575,7 +574,7 @@ __d(
                     o("WAPromiseDelays")
                       .delayMs(500)
                       .then(function () {
-                        (R.openMediaViewerForAlbumMedia(
+                        (S.openMediaViewerForAlbumMedia(
                           o("WAWebStateUtils").unproxy(e),
                         ),
                           t == null || t());
@@ -1085,7 +1084,7 @@ __d(
           a
         );
       })(r("WAWebEventEmitter"));
-    function S(e) {
+    function v(e) {
       var t,
         n = function () {
           if (!t) {
@@ -1117,11 +1116,11 @@ __d(
         n
       );
     }
-    var R = new v();
-    ((l.Revoke = C),
-      (l.CmdImpl = v),
-      (l.deferUntilDocumentFlushed = S),
-      (l.Cmd = R));
+    var S = new b();
+    ((l.Revoke = o("WAWebCmd.flow").Revoke),
+      (l.CmdImpl = b),
+      (l.deferUntilDocumentFlushed = v),
+      (l.Cmd = S));
   },
   98,
 );

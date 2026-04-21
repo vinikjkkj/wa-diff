@@ -146,7 +146,13 @@ __d(
               ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdCreation
               : o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
                   .AdManagement;
-          a == null || a();
+          (y === "FIRST_TIME_WAA_ELIGIBLE" &&
+            h != null &&
+            h.adCreationEntrypointReference == null &&
+            (h = yield o(
+              "WAWebBizNativeAdsResolveRelayIdentityBundle",
+            ).prepareDeferredAdCreationEntrypoint(h, t)),
+            a == null || a());
           var E = function (n) {
             return u.jsx(
               p,

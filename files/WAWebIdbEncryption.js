@@ -136,7 +136,7 @@ __d(
       );
     }
     ((l.encryptDbMaterial = u),
-      (l._getDecryptionKey = d),
+      (l.getDecryptionKey = d),
       (l.decryptDbMaterial = m));
   },
   98,

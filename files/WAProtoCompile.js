@@ -25,92 +25,99 @@ __d(
     function s(t) {
       if (t.internalCompiledSpec) return t.internalCompiledSpec;
       var n = t.internalSpec;
-      if (!n)
-        throw new Error(
+      if (!n) {
+        var r = new Error(
           "Message Class " + String(t) + " does not have internalSpec",
         );
-      var r = t.internalDefaults || {},
-        a = Object.keys(n).filter(function (e) {
+        throw (r.stack, r);
+      }
+      var a = t.internalDefaults || {},
+        i = Object.keys(n).filter(function (e) {
           return e !== o("WAProtoConst").KEYS.ONEOF;
         }),
-        i = new Array(a.length),
-        l = [],
+        l = new Array(i.length),
         s = [],
-        c = new Array(a.length),
-        d = n[o("WAProtoConst").KEYS.ONEOF] || {};
-      a.sort(function (e, t) {
+        c = [],
+        d = new Array(i.length),
+        m = n[o("WAProtoConst").KEYS.ONEOF] || {};
+      i.sort(function (e, t) {
         var r = u(n, e),
           o = u(n, t);
         return r[0] - o[0];
       });
-      for (var m = 0; m < a.length; m++) {
-        var p = a[m],
-          _ = u(n, p);
-        c[m] = r[p];
-        var f = _[1],
-          g = _[0];
+      for (var p = 0; p < i.length; p++) {
+        var _ = i[p],
+          f = u(n, _);
+        d[p] = a[_];
+        var g = f[1],
+          h = f[0];
         if (
-          (l.push(g),
-          s.push(f),
-          (f & o("WAProtoConst").TYPE_MASK) === o("WAProtoConst").TYPES.MESSAGE)
+          (s.push(h),
+          c.push(g),
+          (g & o("WAProtoConst").TYPE_MASK) === o("WAProtoConst").TYPES.MESSAGE)
         )
-          i[m] = _[2];
+          l[p] = f[2];
         else if (
-          (f & o("WAProtoConst").TYPE_MASK) ===
+          (g & o("WAProtoConst").TYPE_MASK) ===
           o("WAProtoConst").TYPES.ENUM
         ) {
-          var h = _[2];
-          if (typeof h.cast == "function") i[m] = h;
+          var y = f[2];
+          if (typeof y.cast == "function") l[p] = y;
           else {
-            var y = !0,
-              C = 0;
-            for (var b in h) y && b !== C++ && (y = !1);
-            var v = void 0;
-            if (y) {
-              v = [];
-              for (var S = 0; S < C; S++) v.push(!0);
+            var C = !0,
+              b = 0;
+            for (var v in y) C && v !== b++ && (C = !1);
+            var S = void 0;
+            if (C) {
+              S = [];
+              for (var R = 0; R < b; R++) S.push(!0);
             } else {
-              v = {};
-              for (var R in h) v[h[R]] = !0;
+              S = {};
+              for (var L in y) S[y[L]] = !0;
             }
-            i[m] = v;
+            l[p] = S;
           }
         } else if (
-          (f & o("WAProtoConst").TYPE_MASK) ===
+          (g & o("WAProtoConst").TYPE_MASK) ===
           o("WAProtoConst").TYPES.MAP
         ) {
-          if (_.length !== 3)
-            throw new Error(
+          if (f.length !== 3) {
+            var E = new Error(
               "Map field " +
-                p +
+                _ +
                 " should have exactly three elements in its internalSpec",
             );
-          i[m] = _[2];
-        } else i[m] = null;
+            throw (E.stack, E);
+          }
+          l[p] = f[2];
+        } else l[p] = null;
       }
-      var L = {},
-        E = function (t) {
-          d[t].forEach(function (e) {
-            (L[e] || (L[e] = []), L[e].push(t));
+      var k = {},
+        I = function (t) {
+          m[t].forEach(function (e) {
+            (k[e] || (k[e] = []), k[e].push(t));
           });
         };
-      for (var k in d) E(k);
-      var I =
+      for (var T in m) I(T);
+      var D =
           n[o("WAProtoConst").KEYS.RESERVED] &&
           n[o("WAProtoConst").KEYS.RESERVED][
             o("WAProtoConst").KEYS.RESERVED_TAGS
           ],
-        T =
+        x =
           n[o("WAProtoConst").KEYS.RESERVED] &&
           n[o("WAProtoConst").KEYS.RESERVED][
             o("WAProtoConst").KEYS.RESERVED_FIELDS
           ],
-        D = new e(a, l, s, c, i, d, L, I, T);
-      return ((t.internalCompiledSpec = D), D);
+        $ = new e(i, s, c, d, l, m, k, D, x);
+      return ((t.internalCompiledSpec = $), $);
     }
     function u(e, t) {
       var n = e[t];
-      if (n == null) throw new Error("fieldData of " + t + " is missing");
+      if (n == null) {
+        var r = new Error("fieldData of " + t + " is missing");
+        throw (r.stack, r);
+      }
       return n;
     }
     ((l.Spec = e), (l.compileSpec = s));

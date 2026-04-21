@@ -12,6 +12,7 @@ __d(
     "WAWebFindChatAction",
     "WAWebFrontendConstants",
     "WAWebMsgCollection",
+    "WAWebMsgModelUtils",
     "WAWebStateUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -141,7 +142,8 @@ __d(
                         ),
                       );
                       (o("WAWebMsgCollection").MsgCollection.add(a),
-                        (t.composeQuotedMsg = a),
+                        (t.composeQuotedMsg =
+                          o("WAWebMsgModelUtils").createMsgSnapshot(a)),
                         o("WAWebComposeBoxActions").ComposeBoxActions.focus(t),
                         window.innerWidth <=
                           o("WAWebFrontendConstants")

@@ -14,6 +14,7 @@ __d(
     "WAWebKeepInChatActions",
     "WAWebMessageHandlers",
     "WAWebModalManager",
+    "WAWebMsgModelUtils",
     "WAWebMultiSelectUtils",
     "WAWebReplyToMsgChatAction",
     "WAWebStateUtils",
@@ -348,7 +349,10 @@ __d(
             );
             return;
           }
-          (t.set("composeQuotedMsg", e),
+          (t.set(
+            "composeQuotedMsg",
+            o("WAWebMsgModelUtils").createMsgSnapshot(e),
+          ),
             o("WAWebModalManager").ModalManager.close(),
             o("WAWebComposeBoxActions").ComposeBoxActions.focus(
               o("WAWebFrontendMsgGetters").getChat(e),

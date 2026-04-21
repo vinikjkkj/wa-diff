@@ -420,7 +420,9 @@ __d(
         var o = JSON.parse(n);
         return (delete o[t], JSON.stringify(o));
       } catch (e) {
-        throw r("err")("removeKeyFromString: Failed to parse lottie json " + e);
+        throw r("err")(
+          "removeKeyFromString: Failed to parse lottie json " + String(e),
+        );
       }
     }
     var z = 25;

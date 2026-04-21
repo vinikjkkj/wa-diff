@@ -27,11 +27,15 @@ __d(
         "ChatHeaderMenu",
         "ChatListMenu",
         "FMXCard",
+        "MessageContextMenu",
+        "NewChatDrawer",
       ]);
     function u(e) {
       switch (e) {
         case s.NewChat:
           return "NEW_CHAT";
+        case s.NewChatDrawer:
+          return "NEW_CHAT_DRAWER";
         case s.ContactInfo:
         case s.GroupMemberInfo:
         case s.ChatHeaderMenu:
@@ -39,7 +43,9 @@ __d(
         case s.ChatListMenu:
           return "CONTACT_LIST";
         case s.FMXCard:
-          return "CONTACT_LIST";
+          return "FMX_CARD";
+        case s.MessageContextMenu:
+          return "CONTACT_INFO";
         case s.VCard:
           return "VCARD";
       }
@@ -221,6 +227,12 @@ __d(
         case s.FMXCard:
           return o("WAWebWamEnumNativeContactsNuxEntryPoint")
             .NATIVE_CONTACTS_NUX_ENTRY_POINT.CHAT;
+        case s.MessageContextMenu:
+          return o("WAWebWamEnumNativeContactsNuxEntryPoint")
+            .NATIVE_CONTACTS_NUX_ENTRY_POINT.CHAT;
+        case s.NewChatDrawer:
+          return o("WAWebWamEnumNativeContactsNuxEntryPoint")
+            .NATIVE_CONTACTS_NUX_ENTRY_POINT.NEW_CHAT_SEARCH;
       }
     }
     function m(t) {

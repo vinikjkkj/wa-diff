@@ -1,14 +1,16 @@
 __d(
   "WAWebBizBroadcastTos",
   [
+    "Promise",
     "WAExponentialBackoff",
     "WALogger",
     "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
     "WATimeUtils",
-    "WAWaitForComms",
+    "WAWebBackendEventBus",
     "WAWebEventEmitter",
     "WAWebPDFNTypes",
     "WAWebSetUserDisclosureStageJob",
+    "WAWebSocketConstants",
     "WAWebTos",
     "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
@@ -17,56 +19,73 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = "20250915",
-      u = "biz_broadcast_soft_opt_in",
-      c = {
+      s,
+      u = "20250915",
+      c = "biz_broadcast_soft_opt_in",
+      d = {
         maxTimeout: 16e3,
         minTimeout: 1e3,
         retries: 3,
         signal: new AbortController().signal,
       },
-      d = !1,
-      m = "pending",
-      p = new (r("WAWebEventEmitter"))();
-    function _() {
+      m = !1;
+    function p() {
+      return o("WAWebBackendEventBus").BackendEventBus.socketState ===
+        o("WAWebSocketConstants").SOCKET_STATE.CONNECTED
+        ? (s || (s = n("Promise"))).resolve()
+        : new (s || (s = n("Promise")))(function (e) {
+            var t = function (r) {
+              r === o("WAWebSocketConstants").SOCKET_STATE.CONNECTED &&
+                (o("WAWebBackendEventBus").BackendEventBus.off(
+                  o("WAWebBackendEventBus").BackendEvent.SET_SOCKET_STATE,
+                  t,
+                ),
+                e());
+            };
+            o("WAWebBackendEventBus").BackendEventBus.onSetSocketState(t);
+          });
+    }
+    var _ = "pending",
+      f = new (r("WAWebEventEmitter"))();
+    function g() {
       return (
-        d ||
-          ((d = !0),
-          f()
-            ? (m = "success")
-            : h().then(
+        m ||
+          ((m = !0),
+          h()
+            ? (_ = "success")
+            : C().then(
                 function () {
-                  m = "success";
+                  _ = "success";
                 },
                 function () {
-                  m = "error";
+                  _ = "error";
                 },
               )),
-        s
+        u
       );
     }
-    function f() {
-      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s);
+    function h() {
+      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + u);
       return (
         e === "ACCEPTED" ||
-        r("WAWebUserPrefsStore").getUser(u) === !0 ||
+        r("WAWebUserPrefsStore").getUser(c) === !0 ||
         e === "SOFT_OPT_IN"
       );
     }
-    function g() {
-      (r("WAWebUserPrefsStore").setUser("TOS_STATE_" + s, "SOFT_OPT_IN"),
-        r("WAWebUserPrefsStore").setUser(u, !0),
-        p.trigger("change"));
-    }
-    function h() {
-      return y.apply(this, arguments);
-    }
     function y() {
+      (r("WAWebUserPrefsStore").setUser("TOS_STATE_" + u, "SOFT_OPT_IN"),
+        r("WAWebUserPrefsStore").setUser(c, !0),
+        f.trigger("change"));
+    }
+    function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield o("WAWaitForComms").waitForComms(),
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (yield p(),
             yield o("WAExponentialBackoff").exponentialBackoff(
-              c,
+              d,
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
@@ -77,7 +96,7 @@ __d(
                         ).sendGetDisclosureStageByIdsRPC({
                           getDisclosureStageByIdArgs: [
                             {
-                              getDisclosureStageByIdId: Number(s),
+                              getDisclosureStageByIdId: Number(u),
                               getDisclosureStageByIdT: n,
                             },
                           ],
@@ -87,14 +106,14 @@ __d(
                         "GetDisclosureStageByIdsResponseClientSuccess"
                       ) {
                         var i = a.value.notice.find(function (e) {
-                          return e.id === Number(s);
+                          return e.id === Number(u);
                         });
                         i != null &&
                           (i.stage ===
                             o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN ||
                             i.stage ===
                               o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED) &&
-                          g();
+                          y();
                       }
                     } catch (n) {
                       return (
@@ -120,38 +139,38 @@ __d(
               })(),
             ));
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C() {
-      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s);
+    function v() {
+      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + u);
       return {
-        isSoftOptInAccepted: r("WAWebUserPrefsStore").getUser(u) === !0,
+        isSoftOptInAccepted: r("WAWebUserPrefsStore").getUser(c) === !0,
         persistedState: typeof e == "string" ? e : null,
-        syncResult: m,
-        tosManagerState: o("WAWebTos").TosManager.getState(_()),
+        syncResult: _,
+        tosManagerState: o("WAWebTos").TosManager.getState(g()),
       };
     }
-    function b() {
-      return v.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function v() {
+    function R() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (g(),
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (y(),
             yield o("WAWebSetUserDisclosureStageJob").setUserDisclosureStage(
-              Number(s),
+              Number(u),
               o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN,
             ));
         })),
-        v.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((l.bizBroadcastTosEmitter = p),
-      (l.getBizBroadcastTosId = _),
-      (l.isBizBroadcastTosAccepted = f),
-      (l.getBizBroadcastTosDebugInfo = C),
-      (l.acceptBizBroadcastTos = b));
+    ((l.bizBroadcastTosEmitter = f),
+      (l.getBizBroadcastTosId = g),
+      (l.isBizBroadcastTosAccepted = h),
+      (l.getBizBroadcastTosDebugInfo = v),
+      (l.acceptBizBroadcastTos = S));
   },
   98,
 );

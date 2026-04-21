@@ -27,22 +27,27 @@ __d(
           );
         }),
         (t.toByteArray = function () {
-          throw new Error("operation not supported");
+          var e = new Error("operation not supported");
+          throw (e.stack, e);
         }),
         (t.currentSize = function () {
           return this.$1;
         }),
         (t.readByte = function () {
-          throw new Error("operation not supported");
+          var e = new Error("operation not supported");
+          throw (e.stack, e);
         }),
         (t.readBytes = function (t) {
-          throw new Error("operation not supported");
+          var e = new Error("operation not supported");
+          throw (e.stack, e);
         }),
         (t.readFloatBE = function () {
-          throw new Error("operation not supported");
+          var e = new Error("operation not supported");
+          throw (e.stack, e);
         }),
         (t.readDoubleBE = function () {
-          throw new Error("operation not supported");
+          var e = new Error("operation not supported");
+          throw (e.stack, e);
         }),
         e
       );

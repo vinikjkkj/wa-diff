@@ -19,18 +19,16 @@ __d(
     "getDocumentScrollElement",
     "getObjectValues",
   ],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     var e,
-      l,
-      s = n("fb-error").TAAL,
+      s,
       u = "Event.listeners";
     Event.prototype || (Event.prototype = {});
     function c(e) {
       (e.type === "click" || e.type === "mouseover" || e.type === "keydown") &&
-        n("Arbiter").inform("Event/stop", { event: e });
+        r("Arbiter").inform("Event/stop", { event: e });
     }
     var d = (function () {
-      "use strict";
       function e(e, t, n) {
         ((this.cancelBubble = !1),
           (this.target = e),
@@ -55,7 +53,7 @@ __d(
           return Event.kill(this);
         }),
         (t.getTarget = function () {
-          return new (n("DOMEvent"))(this).target || null;
+          return new (r("DOMEvent"))(this).target || null;
         }),
         e
       );
@@ -95,7 +93,7 @@ __d(
             meta: !!this.metaKey,
           };
           return (
-            (e.access = n("UserAgent").isPlatform("Mac OS X")
+            (e.access = r("UserAgent").isPlatform("Mac OS X")
               ? e.control
               : e.alt),
             (e.any = e.control || e.shift || e.alt || e.meta),
@@ -123,80 +121,80 @@ __d(
       d.prototype,
     );
     var p = {
-      listen: function (r, o, a, i, l) {
+      listen: function (n, o, a, i, l) {
         if (
           (typeof a == "function" &&
-            (a = n("TimeSlice").guard(
+            (a = r("TimeSlice").guard(
               a,
-              n("dedupString")("Event.js " + o + " handler"),
+              r("dedupString")("Event.js " + o + " handler"),
             )),
           !l || typeof l == "boolean"
             ? (l = { passive: !1 })
             : (l = { passive: l.passive || !1 }),
-          !(e || (e = n("ExecutionEnvironment"))).canUseDOM)
+          !(e || (e = r("ExecutionEnvironment"))).canUseDOM)
         )
-          return new R(r, a, null, o, i, null, l);
+          return new R(n, a, null, o, i, null, l);
         if (
-          (typeof r == "string" && (r = n("$")(r)),
+          (typeof n == "string" && (n = r("$")(n)),
           typeof i == "undefined" && (i = Event.Priority.NORMAL),
           typeof o == "object")
         ) {
           var t = {};
-          for (var c in o) t[c] = Event.listen(r, c, o[c], i, l);
+          for (var s in o) t[s] = Event.listen(n, s, o[s], i, l);
           return t;
         }
         if (o.match(/^on/i))
           throw new TypeError(
             "Bad event name `" + o + "': use `click', not `onclick'.",
           );
-        if (!r) {
-          var d = s.blameToPreviousFrame(
+        if (!n) {
+          var c = r("fb-error").TAAL.blameToPreviousFrame(
             new Error("Cannot listen to an undefined element."),
           );
           throw (
-            n("FBLogger")("event")
-              .catching(d)
+            r("FBLogger")("event")
+              .catching(c)
               .mustfix("Tried to listen to element of type %s", o),
-            d
+            c
           );
         }
-        if (r.nodeName == "LABEL" && o == "click") {
-          var m = r.getElementsByTagName("input");
-          r = m.length === 1 ? m[0] : r;
-        } else if (r === window && o === "scroll") {
-          var p = n("getDocumentScrollElement")();
-          p !== document.documentElement && p !== document.body && (r = p);
+        if (n.nodeName == "LABEL" && o == "click") {
+          var d = n.getElementsByTagName("input");
+          n = d.length === 1 ? d[0] : n;
+        } else if (n === window && o === "scroll") {
+          var m = r("getDocumentScrollElement")();
+          m !== document.documentElement && m !== document.body && (n = m);
         }
-        var _ = n("DataStore").get(r, u, {}),
-          f = g[o];
-        (f && ((o = f.base), f.wrap && (a = f.wrap(a))), C(r, _, o, l));
-        var h = _[o];
-        i in h || (h[i] = []);
-        var b = h[i].length,
-          v = new R(r, a, _, o, i, b, l);
+        var p = r("DataStore").get(n, u, {}),
+          _ = g[o];
+        (_ && ((o = _.base), _.wrap && (a = _.wrap(a))), C(n, p, o, l));
+        var f = p[o];
+        i in f || (f[i] = []);
+        var h = f[i].length,
+          b = new R(n, a, p, o, i, h, l);
         return (
-          (h[i][b] = v),
-          h.numHandlers++,
-          l.passive || (h.numNonPassiveHandlers++, y(r, _[o], o)),
-          v
+          (f[i][h] = b),
+          f.numHandlers++,
+          l.passive || (f.numNonPassiveHandlers++, y(n, p[o], o)),
+          b
         );
       },
       stop: function (t) {
-        var e = new (n("DOMEvent"))(t).stopPropagation();
+        var e = new (r("DOMEvent"))(t).stopPropagation();
         return (c(e.event), t);
       },
       prevent: function (t) {
-        return (new (n("DOMEvent"))(t).preventDefault(), t);
+        return (new (r("DOMEvent"))(t).preventDefault(), t);
       },
       isDefaultPrevented: function (t) {
-        return new (n("DOMEvent"))(t).isDefaultPrevented(t);
+        return new (r("DOMEvent"))(t).isDefaultPrevented(t);
       },
       kill: function (t) {
-        var e = new (n("DOMEvent"))(t).kill();
+        var e = new (r("DOMEvent"))(t).kill();
         return (c(e.event), !1);
       },
       getKeyCode: function (t) {
-        if (((t = new (n("DOMEvent"))(t).event), !t)) return !1;
+        if (((t = new (r("DOMEvent"))(t).event), !t)) return !1;
         switch (t.keyCode) {
           case 63232:
             return 38;
@@ -229,7 +227,7 @@ __d(
       },
       getPriorities: function () {
         if (!_) {
-          var e = n("getObjectValues")(Event.Priority);
+          var e = r("getObjectValues")(Event.Priority);
           (e.sort(function (e, t) {
             return e - t;
           }),
@@ -250,23 +248,23 @@ __d(
         var e = Event.__getHandler(t, n);
         if (e) return e(m(r));
       },
-      __getHandler: function (t, r) {
-        var e = n("DataStore").get(t, u);
-        return e && e[r] ? e[r].domHandler : t["on" + r];
+      __getHandler: function (t, n) {
+        var e = r("DataStore").get(t, u);
+        return e && e[n] ? e[n].domHandler : t["on" + n];
       },
       getPosition: function (t) {
-        t = new (n("DOMEvent"))(t).event;
-        var e = n("getDocumentScrollElement")(),
-          r = t.clientX + n("Scroll").getLeft(e),
-          o = t.clientY + n("Scroll").getTop(e);
-        return { x: r, y: o };
+        t = new (r("DOMEvent"))(t).event;
+        var e = r("getDocumentScrollElement")(),
+          n = t.clientX + o("Scroll").getLeft(e),
+          a = t.clientY + o("Scroll").getTop(e);
+        return { x: n, y: a };
       },
     };
     Object.assign(Event, p);
     var _ = null,
       f = function (t) {
         return function (e) {
-          if (!n("DOMQuery").contains(this, e.getRelatedTarget()))
+          if (!o("DOMQuery").contains(this, e.getRelatedTarget()))
             return t.call(this, e);
         };
       },
@@ -286,7 +284,7 @@ __d(
             mouseenter: { base: "mouseover", wrap: f },
             mouseleave: { base: "mouseout", wrap: f },
           }),
-      n("UserAgent").isBrowser("Firefox < 52"))
+      r("UserAgent").isBrowser("Firefox < 52"))
     ) {
       var h = function (t, n) {
         n = m(n);
@@ -304,25 +302,25 @@ __d(
           !0,
         ));
     }
-    var y = function (t, r, o) {
-        var e = r.numNonPassiveHandlers == 0;
-        e != r.options.passive &&
-          (r.domHandlerRemover.remove(),
-          (r.options.passive = e),
-          (r.domHandlerRemover = n("DOMEventListener").add(t, o, r.domHandler, {
+    var y = function (t, n, o) {
+        var e = n.numNonPassiveHandlers == 0;
+        e != n.options.passive &&
+          (n.domHandlerRemover.remove(),
+          (n.options.passive = e),
+          (n.domHandlerRemover = r("DOMEventListener").add(t, o, n.domHandler, {
             passive: e,
           })));
       },
-      C = function (t, r, o, a) {
-        if (!(o in r)) {
-          var e = n("TimeSlice").guard(
+      C = function (t, n, o, a) {
+        if (!(o in n)) {
+          var e = r("TimeSlice").guard(
             S.bind(t, o),
-            n("dedupString")("Event listenHandler " + o),
+            r("dedupString")("Event listenHandler " + o),
           );
-          r[o] = {
+          n[o] = {
             numHandlers: 0,
             numNonPassiveHandlers: 0,
-            domHandlerRemover: n("DOMEventListener").add(t, o, e, a),
+            domHandlerRemover: r("DOMEventListener").add(t, o, e, a),
             domHandler: e,
             options: a,
           };
@@ -346,33 +344,33 @@ __d(
     function v(e, t) {
       return e.nodeName === "INPUT" && e.type === t;
     }
-    var S = function (t, r) {
-      var e = m(r);
-      if (!n("DataStore").get(this, u))
+    var S = function (t, n) {
+      var e = m(n);
+      if (!r("DataStore").get(this, u))
         throw new Error("Bad listenHandler context.");
-      var o = n("DataStore").get(this, u)[t];
-      if (!o) throw new Error("No registered handlers for `" + t + "'.");
+      var a = r("DataStore").get(this, u)[t];
+      if (!a) throw new Error("No registered handlers for `" + t + "'.");
       if (
         t == "click" ||
         t == "contextmenu" ||
         (t == "mousedown" && e.which == 2)
       ) {
-        var a = e.getTarget(),
-          i = n("Parent").byTag(a, "a");
-        i instanceof HTMLAnchorElement &&
-          i.href &&
-          b(i) &&
-          !v(a, "file") &&
-          !v(a, "submit") &&
+        var i = e.getTarget(),
+          l = o("Parent").byTag(i, "a");
+        l instanceof HTMLAnchorElement &&
+          l.href &&
+          b(l) &&
+          !v(i, "file") &&
+          !v(i, "submit") &&
           e.prevent();
       }
-      for (var l = Event.getPriorities(), s = 0; s < l.length; s++) {
-        var c = l[s];
-        if (c in o) {
-          for (var d = o[c], p = 0; p < d.length; p++)
-            if (d[p]) {
-              var _ = d[p].fire(this, e);
-              if (_ === !1) return e.kill();
+      for (var s = Event.getPriorities(), c = 0; c < s.length; c++) {
+        var d = s[c];
+        if (d in a) {
+          for (var p = a[d], _ = 0; _ < p.length; _++)
+            if (p[_]) {
+              var f = p[_].fire(this, e);
+              if (f === !1) return e.kill();
               e.cancelBubble && e.stop();
             }
         }
@@ -381,7 +379,6 @@ __d(
     };
     Event.Priority = { URGENT: -20, TRADITIONAL: -10, NORMAL: 0, _BUBBLE: 1e3 };
     var R = (function () {
-      "use strict";
       function t(e, t, n, r, o, a, i) {
         ((this.$1 = e),
           (this.$2 = t),
@@ -391,15 +388,15 @@ __d(
           (this.$4 = a),
           (this.$5 = i));
       }
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.isRemoved = function () {
+        (n.isRemoved = function () {
           return !this.$3;
         }),
-        (r.remove = function () {
-          if ((e || (e = n("ExecutionEnvironment"))).canUseDOM) {
+        (n.remove = function () {
+          if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
             if (this.isRemoved()) {
-              n("FBLogger")("Event").warn(
+              r("FBLogger")("Event").warn(
                 "Event handler has already been removed",
               );
               return;
@@ -415,21 +412,23 @@ __d(
               (this.$3 = null));
           }
         }),
-        (r.fire = function (r, o) {
-          return (e || (e = n("ExecutionEnvironment"))).canUseDOM
-            ? (l || (l = n("ErrorGuard"))).applyWithGuard(this.$2, r, [o], {
+        (n.fire = function (n, o) {
+          return (e || (e = r("ExecutionEnvironment"))).canUseDOM
+            ? (s || (s = r("ErrorGuard"))).applyWithGuard(this.$2, n, [o], {
                 name:
                   "eventhandler:" +
                   o.type +
                   ":" +
-                  (typeof r.name == "string" ? r.name : r.id),
+                  (typeof n.name == "string" ? n.name : n.id),
               })
             : !0;
         }),
         t
       );
     })();
-    ((t.$E = Event.$E = m), (a.exports = Event));
+    t.$E = Event.$E = m;
+    var L = Event;
+    l.default = L;
   },
-  null,
+  98,
 );

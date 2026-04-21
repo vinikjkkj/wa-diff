@@ -68,7 +68,10 @@ __d(
                 (u != null && (l = u.newsletterMetadata) != null && l.isPreview)
               )
                 return (p || (p = n("Promise"))).resolve({ id: e, stale: !0 });
-              if (o("WAWebBotUtils").isBotChannelFBID(e))
+              if (
+                o("WAWebBotUtils").isBotChannelFBID(e) ||
+                o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
+              )
                 return (p || (p = n("Promise"))).resolve({ id: e });
               if (
                 (r("WAWebWid").isUser(e) ||

@@ -517,22 +517,22 @@ __d(
         associationType: void 0,
         parentMsgKey: void 0,
       };
-      if (
-        (e.set(C),
-        e.trigger("change:msgKey", { newKey: m, oldKey: d }),
-        l &&
-          (d.equals(l.lastReceivedKey) && (l.lastReceivedKey = m),
-          l.composeQuotedMsg === e && (l.composeQuotedMsg = null),
+      if ((e.set(C), e.trigger("change:msgKey", { newKey: m, oldKey: d }), l)) {
+        var b;
+        (d.equals(l.lastReceivedKey) && (l.lastReceivedKey = m),
+          (b = l.composeQuotedMsg) != null &&
+            b.id.equals(d) &&
+            (l.composeQuotedMsg = null),
           _ &&
             ((l.unreadCount = Math.max(l.unreadCount - 1, 0)),
             (l.unreadDividerOffset += 1),
             o("WAWebApiChat").reduceChatUnreadCount(l.id.toString())),
-          g && (l.activeUnreadCount = Math.max(l.activeUnreadCount - 1, 0))),
-        r("WAWebWid").isBroadcast(d.remote))
-      ) {
-        var b = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(d),
-          v = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(m);
-        if (!b || !v || b.length !== v.length) {
+          g && (l.activeUnreadCount = Math.max(l.activeUnreadCount - 1, 0)));
+      }
+      if (r("WAWebWid").isBroadcast(d.remote)) {
+        var v = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(d),
+          S = o("WAWebMsgModelUtils").getBroadcastFanoutKeys(m);
+        if (!v || !S || v.length !== S.length) {
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -540,13 +540,13 @@ __d(
                 " ",
                 "",
               ])),
-            String(b),
             String(v),
+            String(S),
           );
           return;
         }
         (r("lodash")
-          .zip(b, v)
+          .zip(v, S)
           .forEach(function (e) {
             var n = c.get(e[0]);
             n && f(n, { msgKey: e[1], subtype: t.subtype, sender: t.sender });
@@ -554,7 +554,7 @@ __d(
           o("WAWebFtsClient")
             .ftsClient.purge([String(e.rowId)])
             .catch(r("WAWebNoop")));
-        var S = l ? l.id.toString() : e.id.remote.toString();
+        var R = l ? l.id.toString() : e.id.remote.toString();
         (o(
           "WAWebUpdateLastAddOnPreviewChatAction",
         ).deleteModelsForLastAddOnPreview([d.toString()]),
@@ -562,7 +562,7 @@ __d(
             .getJobManager()
             .fireAndForget(
               o("WAWebPersistedJobDefinitions").jobSerializers.deleteAddOns(
-                S.toString(),
+                R.toString(),
                 [d.toString()],
               ),
             ));

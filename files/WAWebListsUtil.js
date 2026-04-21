@@ -6,11 +6,13 @@ __d(
     "WAWebChatCollection",
     "WAWebChatThreadLogging",
     "WAWebConfirmPopup.react",
+    "WAWebFavoritesUtils",
     "WAWebFbtCommon",
     "WAWebListItemParentType",
     "WAWebListUtils",
     "WAWebListsActions",
     "WAWebModalManager",
+    "WAWebSchemaLabel",
     "WAWebWamEnumLabelOperations",
     "WAWebWamEnumLabelTargets",
     "WAWebWamLabelEventReporter",
@@ -50,16 +52,18 @@ __d(
       );
     }
     var p = function (t) {
-        return t.labelItemCollection.reduce(function (e, t) {
-          if (
-            t == null ||
-            t.parentType !==
-              o("WAWebListItemParentType").LabelItemParentType.Chat
-          )
-            return e;
-          var n = o("WAWebChatCollection").ChatCollection.get(t.parentId);
-          return (n != null && e.push(n), e);
-        }, []);
+        return t.type === o("WAWebSchemaLabel").ListType.FAVORITES
+          ? o("WAWebFavoritesUtils").getFavoriteChats()
+          : t.labelItemCollection.reduce(function (e, t) {
+              if (
+                t == null ||
+                t.parentType !==
+                  o("WAWebListItemParentType").LabelItemParentType.Chat
+              )
+                return e;
+              var n = o("WAWebChatCollection").ChatCollection.get(t.parentId);
+              return (n != null && e.push(n), e);
+            }, []);
       },
       _ = function (t, n) {
         var e = new Set(t),
@@ -95,8 +99,30 @@ __d(
             children: a,
           }),
         );
+      },
+      g = function (t, n) {
+        o("WAWebModalManager").ModalManager.open(
+          u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+            testid: "disable-list-confirm-popup",
+            title: s._(/*BTDS*/ "Disable list?"),
+            okButtonType: "solid-warning",
+            okText: s._(/*BTDS*/ "Disable"),
+            onOK: function () {
+              o("WAWebListsActions")
+                .deactivatePresetList(t)
+                .then(function () {
+                  (o("WAWebModalManager").closeModalManager(),
+                    n == null || n());
+                });
+            },
+            onCancel: o("WAWebModalManager").closeModalManager,
+            children: s._(
+              /*BTDS*/ "You can re-enable it from your lists settings at any time.",
+            ),
+          }),
+        );
       };
-    function g(e) {
+    function h(e) {
       o("WAWebModalManager").ModalManager.openAlert(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: function () {
@@ -111,7 +137,8 @@ __d(
       (l.getAllChatsInList = p),
       (l.getTwoArraysDifference = _),
       (l.openListDeleteConfirmPopup = f),
-      (l.showMaxListsModal = g));
+      (l.openListDisableConfirmPopup = g),
+      (l.showMaxListsModal = h));
   },
   226,
 );

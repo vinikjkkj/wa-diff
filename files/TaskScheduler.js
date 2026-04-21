@@ -17,7 +17,7 @@ __d(
         function t(e, t, n) {
           ((this.$1 = new Map()),
             (this.$2 = new Map()),
-            (this.$3 = [new Set(), new Set(), new Set()]),
+            (this.$3 = [new Set(), new Set(), new Set(), new Set()]),
             (this.$4 = null),
             (this.name = e),
             (this.config = t),

@@ -31,7 +31,7 @@ __d(
               .WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[_insertDebugPlaceholder] msgId=",
+                    "[insertDebugPlaceholder] msgId=",
                     " parse msgInfo failed",
                   ])),
                 r,
@@ -64,7 +64,7 @@ __d(
               .WARN(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[_insertDebugPlaceholder] msgId=",
+                    "[insertDebugPlaceholder] msgId=",
                     " insert failed: ",
                     "",
                   ])),

@@ -65,6 +65,8 @@ __d(
         "TOO_MANY_INTERNAL_SERVER_ERRORS_IN_7D",
         "TIMEOUT_WHILE_WAITING_FOR_MISSING_KEY",
         "MISSING_KEY_ON_ALL_CLIENTS",
+        "MALFORMED_MUTATION_CLEAR_CHAT",
+        "FAILED_MUTATION_CLEAR_CHAT",
       ]),
       d = [];
     function m(t, n) {

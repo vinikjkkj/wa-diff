@@ -874,7 +874,7 @@ __d(
                                                                     (E =
                                                                       babelHelpers.taggedTemplateLiteralLoose(
                                                                         [
-                                                                          "fetchConsumerQuickPromotions: fetching consumer quick promotions",
+                                                                          "fetchConsumerQuickPromotions: fetching",
                                                                         ],
                                                                       )),
                                                                 ),

@@ -15,7 +15,6 @@ __d(
     "WAWebBlocklistMigration",
     "WAWebBotBaseGating",
     "WAWebBotGating",
-    "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebBusinessProfileCollection",
     "WAWebChatCollection",
@@ -263,9 +262,6 @@ __d(
                   if (o("WAWebBotUtils").isMetaAiBot(this.id))
                     this.set({ name: "Meta AI" });
                   else if (
-                    o(
-                      "WAWebBotGroupGatingUtils",
-                    ).isTEEGroupBotParticipantAddEnabled() &&
                     this.id.server === "bot" &&
                     this.id.user ===
                       o("WAWebBotUtils").META_BOT_TEE_FBID_WID.user

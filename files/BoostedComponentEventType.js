@@ -1552,6 +1552,14 @@ __d(
         "lwi_performance_call_insights_cta_click",
       LOG_IG_PLACEMENT_INFO: "log_ig_placement_info",
       LOG_AD_LIMITS_INFO: "log_ad_limits_info",
+      HEADLINE_CLASSIFICATION_IMPRESSION: "headline_classification_impression",
+      HEADLINE_CLASSIFICATION_EDIT: "headline_classification_edit",
+      HEADLINE_WRITE_WITH_AI_BUTTON_CLICK:
+        "headline_write_with_ai_button_click",
+      HEADLINE_SUGGESTIONS_IMPRESSION: "headline_suggestions_impression",
+      HEADLINE_SUGGESTION_ACCEPTED: "headline_suggestion_accepted",
+      HEADLINE_SUGGESTIONS_REGENERATE: "headline_suggestions_regenerate",
+      HEADLINE_SUGGESTIONS_ERROR: "headline_suggestions_error",
     });
     i.default = e;
   },

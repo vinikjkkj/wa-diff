@@ -123,7 +123,9 @@ __d(
           : "contentDeemphasized";
     }
     function p(e, t) {
-      return t != null
+      return t != null &&
+        e !== o("WAWebCommonAdsTypes").BoostingStatus.PAUSING &&
+        e !== o("WAWebCommonAdsTypes").BoostingStatus.RESUMING
         ? t
         : e === o("WAWebCommonAdsTypes").BoostingStatus.PAUSING
           ? s._(/*BTDS*/ "Pausing")
@@ -131,7 +133,11 @@ __d(
             ? s._(/*BTDS*/ "Resuming")
             : e === o("WAWebCommonAdsTypes").BoostingStatus.CREATING
               ? s._(/*BTDS*/ "Being prepared")
-              : null;
+              : e === o("WAWebCommonAdsTypes").BoostingStatus.PAUSED
+                ? s._(/*BTDS*/ "Paused")
+                : e === o("WAWebCommonAdsTypes").BoostingStatus.ACTIVE
+                  ? s._(/*BTDS*/ "Active")
+                  : null;
     }
     ((l.getAdStatusIcon = c),
       (l.getStatusIconConfig = d),

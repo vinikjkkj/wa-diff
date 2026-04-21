@@ -295,7 +295,7 @@ __d(
                             "ImageUtils::rotateAndResize error: ",
                             "",
                           ])),
-                        e,
+                        String(e),
                       ),
                       b
                     );

@@ -16,6 +16,10 @@ __d(
       CUSTOM: 5,
       COMMUNITY: 6,
       SERVER_ASSIGNED: 7,
+      DRAFTED: 8,
+      AI_HANDOFF: 9,
+      CHANNELS: 10,
+      AI_RESPONDING: 11,
     });
     function s() {
       var e = o("WAWebModelStorageUtils").getStorage(),

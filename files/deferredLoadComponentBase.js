@@ -15,7 +15,7 @@ __d(
       d,
       m,
       p,
-      _ = p || (p = r("react")),
+      _ = p || (p = o("react")),
       f = {},
       g = {},
       h = new Map();
@@ -35,7 +35,7 @@ __d(
         return (
           e ||
             (e = g[h] =
-              new (c || (c = n("Promise")))(function (e) {
+              new (m || (m = n("Promise")))(function (e) {
                 t.loadImmediately(function (t) {
                   (delete g[h], (p = a(t)), e());
                 });
@@ -48,7 +48,7 @@ __d(
         return (
           e ||
             (e = f[h] =
-              new (c || (c = n("Promise")))(function (e) {
+              new (m || (m = n("Promise")))(function (e) {
                 t.onReady(function (t) {
                   ((p = a(t)), delete f[h], e());
                 });
@@ -59,19 +59,19 @@ __d(
       function S(n) {
         var i = n.ref,
           l = babelHelpers.objectWithoutPropertiesLoose(n, e),
-          c = l.loadImmediately,
+          m = l.loadImmediately,
           f = babelHelpers.objectWithoutPropertiesLoose(l, s);
         if (!p) {
           var g = t.getModuleIfRequireable();
           if ((g != null && (p = a(g)), !p)) {
-            !(d || (d = r("ExecutionEnvironment"))).isInBrowser &&
+            !(u || (u = r("ExecutionEnvironment"))).isInBrowser &&
               !t.isAvailableInSSR_DO_NOT_USE() &&
-              (m || (m = r("suspendOrThrowIfUsedInSSR")))(
+              (d || (d = r("suspendOrThrowIfUsedInSSR")))(
                 "Loading bootloaded and T3 components are disabled during SSR",
               );
-            var h = c === !0 ? b() : v();
+            var h = m === !0 ? b() : v();
             throw (
-              (u || (u = o("PromiseAnnotate"))).setDisplayName(
+              (c || (c = o("PromiseAnnotate"))).setDisplayName(
                 h,
                 S.displayName,
               ),

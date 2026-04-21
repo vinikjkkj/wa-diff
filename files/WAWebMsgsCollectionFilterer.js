@@ -23,15 +23,19 @@ __d(
         return (
           (a.filter = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, a) {
-                var i =
-                  a != null
-                    ? e.filter(function (e) {
-                        return o("WAWebThreadMsgUtils").isMsgInThread(e, a);
-                      })
-                    : e.toArray();
-                if (t === "" || t == null) return i;
-                var l = Array.from(this.tokenizer.tokenize(t))
+              function* (e) {
+                var t = e.msgCollection,
+                  n = e.searchText,
+                  a = e.signal,
+                  i = e.threadId,
+                  l =
+                    i != null
+                      ? t.filter(function (e) {
+                          return o("WAWebThreadMsgUtils").isMsgInThread(e, i);
+                        })
+                      : t.toArray();
+                if (n === "" || n == null) return l;
+                var s = Array.from(this.tokenizer.tokenize(n))
                   .filter(function (e) {
                     return (
                       e.length > 1 ||
@@ -41,36 +45,36 @@ __d(
                   .sort(function (e, t) {
                     return t.length - e.length;
                   });
-                if (l.length === 0) return i;
-                var s = 0;
-                for (var c of l) {
-                  var d = [];
-                  for (var m of i) {
-                    if ((n == null ? void 0 : n.aborted) === !0)
+                if (s.length === 0) return l;
+                var c = 0;
+                for (var d of s) {
+                  var m = [];
+                  for (var p of l) {
+                    if ((a == null ? void 0 : a.aborted) === !0)
                       throw new (o("WAAbortError").AbortError)();
-                    var p = m.id,
-                      _ = this.msgKeyToTokens.get(p);
-                    (_ == null &&
-                      ((_ = this.$1(m)), this.msgKeyToTokens.set(m.id, _)),
-                      this.$2(_, c) && d.push(m),
-                      (s += 1),
+                    var _ = p.id,
+                      f = this.msgKeyToTokens.get(_);
+                    (f == null &&
+                      ((f = this.$1(p)), this.msgKeyToTokens.set(p.id, f)),
+                      this.$2(f, d) && m.push(p),
+                      (c += 1),
                       yield o("WAAsyncSleep").asyncSleepAfterGivenLoopIteration(
-                        s,
+                        c,
                         u,
                         0,
                       ));
                   }
-                  if (((i = d), i.length === 0)) break;
+                  if (((l = m), l.length === 0)) break;
                 }
                 if (
                   ((this.newMsgsToTokenize = []),
-                  (n == null ? void 0 : n.aborted) === !0)
+                  (a == null ? void 0 : a.aborted) === !0)
                 )
                   throw new (o("WAAbortError").AbortError)();
-                return i;
+                return l;
               },
             );
-            function t(t, n, r, o) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;

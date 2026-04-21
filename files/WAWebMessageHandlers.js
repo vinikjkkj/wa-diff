@@ -19,6 +19,7 @@ __d(
     "WAWebGetDisplayType",
     "WAWebModalManager",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebMultiSelectBar.react",
     "WAWebQuotedMessageUserJourneyLogger",
@@ -120,7 +121,7 @@ __d(
           l = o("WAWebStateUtils").unproxy(t),
           s = t.senderObj;
         if (
-          ((e.composeQuotedMsg = l),
+          ((e.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(l)),
           o("WAWebMsgGetters").getIsMetaBotResponse(l) &&
             e.canInvokeBot() &&
             ((a = (i = e.getComposeContents()) == null ? void 0 : i.text) !=
@@ -172,7 +173,7 @@ __d(
                 .sendLogs("ask-meta-ai-null-chat");
               return;
             }
-            r.composeQuotedMsg = n;
+            r.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(n);
             var a = t.id.remote,
               i = a.isGroup(),
               l = i

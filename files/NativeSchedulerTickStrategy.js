@@ -20,6 +20,10 @@ __d(
                 return globalThis.scheduler.postTask(function () {}, {
                   priority: "user-blocking",
                 });
+              case o("TaskSchedulerPriority").HIGH_PRIORITY:
+                return globalThis.scheduler.postTask(function () {}, {
+                  priority: "user-visible",
+                });
               case o("TaskSchedulerPriority").BACKGROUND_PRIORITY:
                 return new (e || (e = n("Promise")))(function (e) {
                   globalThis.scheduler.postTask(
@@ -31,7 +35,7 @@ __d(
                 });
               default:
                 return globalThis.scheduler.postTask(function () {}, {
-                  priority: "user-visible",
+                  priority: "background",
                 });
             }
           }),

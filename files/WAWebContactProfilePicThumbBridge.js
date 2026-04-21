@@ -144,7 +144,7 @@ __d(
                     "persistProfilePicToDB failed with error ",
                     "",
                   ])),
-                e.message,
+                r("getErrorSafe")(e).message,
               );
             }),
               E(e, i.eurl));
@@ -157,7 +157,7 @@ __d(
                       "[profilePicFind] persistProfilePicToDB failed: ",
                       "",
                     ])),
-                  e.message,
+                  r("getErrorSafe")(e).message,
                 );
               }));
           }
@@ -272,80 +272,80 @@ __d(
       return (
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.commonGid,
-            r = e.id,
-            a = e.newsletterRole,
-            i = e.parentGroupId,
-            l = e.tcToken;
+            a = e.id,
+            i = e.newsletterRole,
+            l = e.parentGroupId,
+            s = e.tcToken;
           try {
-            if (r.isNewsletter()) {
-              var s = yield o(
+            if (a.isNewsletter()) {
+              var u = yield o(
                 "WAWebFetchNewsletterProfilePic",
               ).fetchNewsletterProfilePic(
-                o("WAWebWidFactory").asNewsletterWidOrThrow(r),
-                a,
+                o("WAWebWidFactory").asNewsletterWidOrThrow(a),
+                i,
               );
               return (
-                C(r, s).catch(function (e) {
+                C(a, u).catch(function (e) {
                   o("WALogger").WARN(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
                         "persistProfilePicToDB failed with error ",
                         "",
                       ])),
-                    e.message,
+                    r("getErrorSafe")(e).message,
                   );
                 }),
-                s
+                u
               );
             }
-            if (i != null) {
-              var u = yield o(
+            if (l != null) {
+              var c = yield o(
                 "WAWebFetchCommunityProfilePic",
-              ).fetchCommunityProfilePic(r, i);
+              ).fetchCommunityProfilePic(a, l);
               return (
-                C(r, u).catch(function (e) {
+                C(a, c).catch(function (e) {
                   o("WALogger").WARN(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
                         "persistProfilePicToDB failed with error ",
                         "",
                       ])),
-                    e.message,
+                    r("getErrorSafe")(e).message,
                   );
                 }),
-                u
+                c
               );
             }
-            var c = yield v(r, { tcToken: l, commonGid: t }),
-              _ = babelHelpers.extends({}, c, {
-                id: r,
+            var _ = yield v(a, { tcToken: s, commonGid: t }),
+              f = babelHelpers.extends({}, _, {
+                id: a,
                 timestamp: Date.now(),
                 eurlStale: !1,
                 stale: !1,
               });
-            return _;
+            return f;
           } catch (e) {
             if (e instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
-              var f = { id: r };
+              var g = { id: a };
               switch (e.status) {
                 case 401:
                 case 404:
-                  ((f.tag = ""),
-                    (f.timestamp = Date.now()),
-                    (f.eurlStale = !1),
-                    (f.stale = !1));
+                  ((g.tag = ""),
+                    (g.timestamp = Date.now()),
+                    (g.eurlStale = !1),
+                    (g.stale = !1));
                   break;
                 case 423:
-                  f.stale = !0;
+                  g.stale = !0;
                   break;
                 case 429:
-                  f.stale = !0;
+                  g.stale = !0;
                   break;
                 default:
-                  f.eurlStale = !1;
+                  g.eurlStale = !1;
                   break;
               }
-              return (p || (p = n("Promise"))).resolve(f);
+              return (p || (p = n("Promise"))).resolve(g);
             }
             throw e;
           }

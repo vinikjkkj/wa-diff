@@ -37,6 +37,9 @@ __d(
       return d("fmx_card");
     }
     function g() {
+      return d("new_chat_drawer");
+    }
+    function h() {
       var e = Number.parseInt(
         o("WAWebABProps").getABPropConfigValue(
           "native_contact_companion_nux_learn_more_article_id",
@@ -51,7 +54,8 @@ __d(
       (l.addContactChatListEnabled = p),
       (l.addContactGroupMemberEnabled = _),
       (l.addContactFMXCardEnabled = f),
-      (l.getNativeContactLearnMoreArticleId = g));
+      (l.addContactNewChatDrawerEnabled = g),
+      (l.getNativeContactLearnMoreArticleId = h));
   },
   98,
 );

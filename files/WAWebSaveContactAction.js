@@ -198,8 +198,8 @@ __d(
                 .ERROR(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[saveContactAction] markContactsSyncCompleted addr_mode=",
-                      " err:",
+                      "[saveContactAction] markContactsSyncCompleted mode=",
+                      " e:",
                       "",
                     ])),
                   S,
@@ -364,8 +364,8 @@ __d(
                   .ERROR(
                     p ||
                       (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[saveContactBatchAction] markContactsSyncCompleted addr_mode=",
-                        " err:",
+                        "[saveContactBatchAction] markContactsSyncCompleted mode=",
+                        " e:",
                         "",
                       ])),
                     u,

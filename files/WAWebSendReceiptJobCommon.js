@@ -16,7 +16,6 @@ __d(
     "WAWebPrivacySettings",
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebUserPrefsGeneral",
-    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "lodash",
   ],
@@ -159,13 +158,18 @@ __d(
                         e.isBot() &&
                         ((L = e), (E = s));
                       for (
-                        var k = o("WAWebUserPrefsMeUser").isMeAccount(L)
+                        var k =
+                            g === d.DELIVERY ||
+                            g === d.SENDER ||
+                            g === d.PEER_MSG ||
+                            g === d.HISTORY_SYNC_COMPLETION,
+                          I = k
                             ? L
                             : yield o(
                                 "WAWebPnlessStanzaMigration",
                               ).getStanzaToFromChatId(L),
-                          I = [],
-                          T = function* () {
+                          T = [],
+                          D = function* () {
                             var e = _.splice(0, m),
                               t = null;
                             e.length > 1 &&
@@ -187,7 +191,7 @@ __d(
                                   o("WAWebABProps").getABPropConfigValue(
                                     "lid_status_non_soaked_client_support_enabled",
                                   ) &&
-                                    k.toString() === o("WAJids").STATUS_JID &&
+                                    I.toString() === o("WAJids").STATUS_JID &&
                                     R.isLid() &&
                                     g === d.READ &&
                                     (s = o("WAWebLidMigrationUtils").toPn(R)))),
@@ -203,7 +207,7 @@ __d(
                               C = o("WAWap").wap(
                                 "receipt",
                                 {
-                                  to: o("WAWebCommsWapMd").JID(k),
+                                  to: o("WAWebCommsWapMd").JID(I),
                                   type:
                                     g === d.DELIVERY ? o("WAWap").DROP_ATTR : g,
                                   class:
@@ -234,7 +238,7 @@ __d(
                                 ).asyncToGenerator(function* () {
                                   var t = {
                                     id: e[0],
-                                    from: k,
+                                    from: I,
                                     class: "receipt",
                                     type: g,
                                     participant: R,
@@ -291,16 +295,16 @@ __d(
                                   return t.apply(this, arguments);
                                 };
                               })();
-                              I.push(b());
+                              T.push(b());
                             } else
-                              I.push(
+                              T.push(
                                 o("WADeprecatedSendIq").deprecatedCastStanza(C),
                               );
                           };
                         _.length > 0;
                       )
-                        yield* T();
-                      return (c || (c = n("Promise"))).all(I);
+                        yield* D();
+                      return (c || (c = n("Promise"))).all(T);
                     }
                   },
                 );

@@ -135,12 +135,12 @@ __d(
       o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
-            "[WC Drag] processMoveAction deltas deltaLeft=",
-            " deltaBottom=",
-            " clientX=",
-            " clientY=",
-            " moveStartMouse=",
-            " moveStartStyle=",
+            "[WC Drag] move dL=",
+            " dB=",
+            " cX=",
+            " cY=",
+            " startMouse=",
+            " startStyle=",
             "",
           ])),
         y,
@@ -177,12 +177,12 @@ __d(
           ? (o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WC Drag] EDGE SNAP horizontal deltaLeft=",
-                  " validatedDeltaLeft=",
-                  " movedLeft=",
-                  " windowWidth=",
-                  " width=",
-                  " marginX=",
+                  "[WC Drag] snap-h dL=",
+                  " vdL=",
+                  " mL=",
+                  " winW=",
+                  " w=",
+                  " mX=",
                   "",
                 ])),
               y,
@@ -200,11 +200,11 @@ __d(
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[WC Drag] EDGE SNAP vertical deltaBottom=",
-                " validatedDeltaBottom=",
-                " movedBottom=",
-                " windowHeight=",
-                " marginY=",
+                "[WC Drag] snap-v dB=",
+                " vdB=",
+                " mB=",
+                " winH=",
+                " mY=",
                 "",
               ])),
             C,

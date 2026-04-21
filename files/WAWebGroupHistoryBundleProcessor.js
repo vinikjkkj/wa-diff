@@ -83,7 +83,7 @@ __d(
               b = yield o(
                 "WAWebGroupHistoryReportingTokenValidator",
               ).prepareValidationContext(
-                e.id.toString(),
+                e.id,
                 h,
                 C.messageSecret,
                 C.author,

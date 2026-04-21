@@ -205,6 +205,7 @@ __d(
             a("forwardedNewsletterMessageInfo"),
             a("forwardedAiBotMessageInfo"),
             a("botSignatureVerificationMetadata"),
+            a("unifiedResponseRawData"),
             a("statusAttributions"),
             a("canBeReshared"),
             a("statusAudienceMetadata"),

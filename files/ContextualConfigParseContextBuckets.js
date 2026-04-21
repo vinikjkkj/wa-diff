@@ -59,10 +59,12 @@ __d(
             return r("ContextualConfigParsePredNumeric")(e, a, i, !0);
           case o("ContextualConfigConstants").TYPE.STRING:
             return r("ContextualConfigParsePredString")(e, a, i);
-          default:
-            throw new Error(
+          default: {
+            var l = new Error(
               o("ContextualConfigConstants").ERROR.UNKNOWN_BUCKET_DEFINITION,
             );
+            throw (l.stack, l);
+          }
         }
       },
       f = function (t, n) {

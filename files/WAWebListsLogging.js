@@ -28,6 +28,13 @@ __d(
             return o("WAWebWamEnumListType").LIST_TYPE.COMMUNITY;
           case o("WAWebSchemaLabel").ListType.SERVER_ASSIGNED:
             return o("WAWebWamEnumListType").LIST_TYPE.SERVER_ASSIGNED;
+          case o("WAWebSchemaLabel").ListType.DRAFTED:
+            return o("WAWebWamEnumListType").LIST_TYPE.DRAFTS;
+          case o("WAWebSchemaLabel").ListType.AI_HANDOFF:
+            return o("WAWebWamEnumListType").LIST_TYPE.BUSINESS_AI;
+          case o("WAWebSchemaLabel").ListType.AI_RESPONDING:
+          case o("WAWebSchemaLabel").ListType.CHANNELS:
+            return null;
         }
     }
     function s(t) {

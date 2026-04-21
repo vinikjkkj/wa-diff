@@ -25,7 +25,10 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, r, a, i, l) {
-            var u, c;
+            var u,
+              c,
+              d = t.toString(),
+              m = t.id;
             if (
               !o(
                 "WAWebGroupHistoryGating",
@@ -40,14 +43,14 @@ __d(
                       "[group-history] Missing bundle sender for ",
                       "",
                     ])),
-                  t,
+                  d,
                 ),
                 null
               );
-            var d = yield o(
+            var p = yield o(
               "WAWebGroupHistoryReportingTokenDBUtils",
-            ).getGroupHistoryReportingTokenInfosForBundle(t);
-            if (d == null || d.length === 0)
+            ).getGroupHistoryReportingTokenInfosForBundle(d);
+            if (p == null || p.length === 0)
               return (
                 o("WALogger").LOG(
                   s ||
@@ -55,40 +58,41 @@ __d(
                       "[group-history] No stored reporting tokens found for bundle ",
                       "",
                     ])),
-                  t,
+                  d,
                 ),
                 null
               );
-            var m =
-                (u = d.reduce(function (e, t) {
+            var _ =
+                (u = p.reduce(function (e, t) {
                   return e != null ? e : t.version;
                 }, null)) != null
                   ? u
                   : o(
                       "WAWebMessagingGatingUtils",
                     ).getSenderReportingTokenVersion(),
-              p = new Map();
-            for (var _ of d) {
-              var f,
-                g = (f = p.get(_.stanzaId)) != null ? f : [];
-              (g.push(_), p.set(_.stanzaId, g));
+              f = new Map();
+            for (var g of p) {
+              var h,
+                y = (h = f.get(g.stanzaId)) != null ? h : [];
+              (y.push(g), f.set(g.stanzaId, y));
             }
-            var h = o("decodeProtobuf").decodeProtobuf(
+            var C = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsGroupHistory.pb")
                 .GroupHistoryWithMessageBytesSpec,
               n,
             );
             return {
-              receivedTokenMap: p,
+              receivedTokenMap: f,
               messageBytesArray: [].concat(
-                h.messages,
-                (c = h.outOfWindowPinnedMessages) != null ? c : [],
+                C.messages,
+                (c = C.outOfWindowPinnedMessages) != null ? c : [],
               ),
-              stanzaVersion: m,
+              stanzaVersion: _,
               bundleMessageSecret: r,
               senderJid: o("WAWebWidToJid").widToUserJid(a),
               groupJid: o("WAWebWidToJid").widToGroupJid(i),
-              bundleMsgKey: t,
+              bundleMsgKey: d,
+              bundleMsgStanzaId: m,
               bundleMsgTimestamp: l,
             };
           },
@@ -125,7 +129,7 @@ __d(
                   .GROUP_HISTORY_MESSAGE_MISSING_FROM_PUBLIC_STANZA,
                 reportingTokenVersion: n.stanzaVersion,
                 isPartOfGroupHistory: !0,
-                groupHistoryBundleMessageId: n.bundleMsgKey,
+                groupHistoryBundleMessageId: n.bundleMsgStanzaId,
               }),
               null
             );
@@ -150,7 +154,7 @@ __d(
                   .MISSING_MESSAGE_SECRET,
                 reportingTokenVersion: n.stanzaVersion,
                 isPartOfGroupHistory: !0,
-                groupHistoryBundleMessageId: n.bundleMsgKey,
+                groupHistoryBundleMessageId: n.bundleMsgStanzaId,
               }),
               null
             );
@@ -162,6 +166,7 @@ __d(
               n.senderJid,
               n.groupJid,
               n.stanzaVersion,
+              r,
             ),
             l = g(i, a),
             s = l.failureReason,
@@ -170,7 +175,7 @@ __d(
           if (p == null) return null;
           s != null &&
             (o("WALogger")
-              .WARN(
+              .ERROR(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[group-history] token validation failed for msg ",
@@ -186,7 +191,7 @@ __d(
               reason: s,
               reportingTokenVersion: n.stanzaVersion,
               isPartOfGroupHistory: !0,
-              groupHistoryBundleMessageId: n.bundleMsgKey,
+              groupHistoryBundleMessageId: n.bundleMsgStanzaId,
             }));
           var _ = p.reportingTag;
           if (_ == null) return null;

@@ -171,6 +171,7 @@ __d(
             msg: c,
             linkOptions: d,
             signal: babelHelpers.extends({}, e, {
+              mmSignalType: p,
               sharingStatus: g,
               origin: m,
             }),
@@ -188,26 +189,45 @@ __d(
         )
       ) {
         var l = o(
-          "WAWebMmSignalSharingTos",
-        ).isMmSignalSharingDisclosureTosAccepted();
+            "WAWebMmSignalSharingTos",
+          ).isMmSignalSharingDisclosureTosAccepted(),
+          s =
+            r ===
+            o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
+              .BODY_URL_CLICK
+              ? {
+                  mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+                    .BODY_URL_CLICK,
+                  origin: o("WAWebWamEnumSignalOrigin").SIGNAL_ORIGIN
+                    .BODY_URL_CLICK,
+                }
+              : r ===
+                  o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
+                    .CTA_APP_CLICK
+                ? {
+                    mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+                      .APP_CTA_CLICK,
+                    origin: o("WAWebWamEnumSignalOrigin").SIGNAL_ORIGIN
+                      .CTA_APP_CLICK,
+                  }
+                : {
+                    mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+                      .URL_CTA_CLICK,
+                    origin: o("WAWebWamEnumSignalOrigin").SIGNAL_ORIGIN
+                      .CTA_URL_CLICK,
+                  },
+          u = s.mmSignalType,
+          c = s.origin;
         (o(
           "WAWebMmSignalSharingLoggingUtils",
         ).logMmSignalSharingVerificationEvent({
           chat: n,
           msg: i,
           signal: babelHelpers.extends({}, e, {
+            mmSignalType: u,
             canceledReason: o("WAWebWamEnumSignalCanceledReason")
               .SIGNAL_CANCELED_REASON.DISCLOSURE_DISMISSED,
-            origin:
-              r ===
-              o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
-                .BODY_URL_CLICK
-                ? o("WAWebWamEnumSignalOrigin").SIGNAL_ORIGIN.BODY_URL_CLICK
-                : r ===
-                    o("WAWebWamEnumDisclosureEventType").DISCLOSURE_EVENT_TYPE
-                      .CTA_APP_CLICK
-                  ? o("WAWebWamEnumSignalOrigin").SIGNAL_ORIGIN.CTA_APP_CLICK
-                  : o("WAWebWamEnumSignalOrigin").SIGNAL_ORIGIN.CTA_URL_CLICK,
+            origin: c,
             sharingStatus: o("WAWebWamEnumSignalSharingStatus")
               .SIGNAL_SHARING_STATUS.NOT_SHARED,
           }),
@@ -280,6 +300,7 @@ __d(
         n = e.spamFlow;
       g({
         chat: t,
+        mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE.USER_REPORT,
         type: o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_REPORT,
         surface:
           n === "account_info_report"
@@ -295,6 +316,7 @@ __d(
       g({
         blockEntryPoint: t,
         chat: r,
+        mmSignalType: v(a),
         type: b(a),
         surface:
           n === o("WAWebWamEnumBlockEntryPoint").BLOCK_ENTRY_POINT.PROFILE
@@ -311,6 +333,8 @@ __d(
       }),
         g({
           chat: t,
+          mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+            .USER_STOP_OFFERS,
           type: o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_STOP_OFFERS,
           surface: o("WAWebWamEnumSignalSurface").SIGNAL_SURFACE
             .BIZ_PROFILE_SCREEN,
@@ -321,13 +345,14 @@ __d(
         n,
         r = e.blockEntryPoint,
         a = e.chat,
-        i = e.msg,
-        l = e.type,
-        s = e.surface,
-        u =
-          s === void 0
+        i = e.mmSignalType,
+        l = e.msg,
+        s = e.type,
+        u = e.surface,
+        c =
+          u === void 0
             ? o("WAWebWamEnumSignalSurface").SIGNAL_SURFACE.BIZ_PROFILE_SCREEN
-            : s;
+            : u;
       o("WAWebMmSignalSharingGatingUtils").isMmSignalSharingCollectionEnabled(
         a == null || (t = a.id) == null ? void 0 : t.toString(),
       ) &&
@@ -341,10 +366,11 @@ __d(
           "WAWebMmSignalSharingLoggingUtils",
         ).logMmSignalSharingVerificationEvent({
           chat: a,
-          msg: i,
+          msg: l,
           signal: {
-            type: l,
-            surface: u,
+            type: s,
+            mmSignalType: i,
+            surface: c,
             signalTypeOrigin: r,
             sharingStatus: o(
               "WAWebMmSignalSharingUserDisclosedInCollectionWindow",
@@ -442,7 +468,8 @@ __d(
     }
     function v(e) {
       var t;
-      if (e == null) return o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_BLOCK;
+      if (e == null)
+        return o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE.USER_BLOCK;
       var n =
         ((t = {}),
         (t[o("WAWebBlockContants").BizOptOutReason.NoLongerNeeded] = o(
@@ -496,6 +523,8 @@ __d(
       }),
         g({
           chat: t,
+          mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+            .USER_INTERESTED,
           msg: n,
           type: o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_INTERESTED,
         }));
@@ -510,6 +539,8 @@ __d(
       }),
         g({
           chat: t,
+          mmSignalType: o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE
+            .USER_NOT_INTERESTED,
           msg: n,
           type: o("WAWebWamEnumSignalType").SIGNAL_TYPE.USER_NOT_INTERESTED,
         }));
@@ -538,7 +569,10 @@ __d(
             s = i.messageOriginGroups,
             u = I(s, l, a, o("WAWebWamEnumSignalType").SIGNAL_TYPE),
             c = I(s, l, a, o("WAWebWamEnumMmSignalType").MM_SIGNAL_TYPE);
-          if ((c != null && D({ chat: n, mmSignalType: c }), u != null)) {
+          if (
+            (c != null && D({ chat: n, mmSignalType: c }),
+            u != null && c != null)
+          ) {
             var d = o(
               "WAWebMmSignalSharingTos",
             ).isMmSignalSharingDisclosureTosAccepted();
@@ -550,6 +584,7 @@ __d(
               signal: babelHelpers.extends(
                 {
                   type: u,
+                  mmSignalType: c,
                   surface: o("WAWebWamEnumSignalSurface").SIGNAL_SURFACE
                     .CHAT_THREAD,
                 },

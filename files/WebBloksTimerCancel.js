@@ -5,7 +5,9 @@ __d(
     function e(e, t, n) {
       var r = t.objectSet.environment.timeoutIDS,
         o = r.get(n);
-      (window.clearTimeout(o), r.delete(n));
+      ((o == null ? void 0 : o.hostTimerID) != null &&
+        window.clearTimeout(o.hostTimerID),
+        r.delete(n));
     }
     i.default = e;
   },

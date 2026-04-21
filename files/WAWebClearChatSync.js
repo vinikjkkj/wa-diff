@@ -27,6 +27,7 @@ __d(
     "WAWebSyncdDb",
     "WAWebSyncdGetChat",
     "WAWebSyncdIndexUtils",
+    "WAWebSyncdMetricFatalError",
     "WAWebThreadMetadataJob",
     "WAWebWamEnumMdFeatureCode",
     "WAWebWid",
@@ -45,7 +46,8 @@ __d(
       d,
       m,
       p,
-      _ = (function (t) {
+      _,
+      f = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -104,114 +106,141 @@ __d(
                   "WAWebAndroidUnsupportedActionsSync",
                 ).updatePrimaryAllowsAllMutationsFlag("other mutation");
                 var l = a.allSupportedSetMutations,
-                  u = 0,
                   c = 0,
-                  d = yield (p || (p = n("Promise"))).all(
+                  d = 0,
+                  m = yield (_ || (_ = n("Promise"))).all(
                     t.map(
                       (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
+                        var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                          function* (t) {
                             try {
-                              if (e.operation === "set") {
-                                var t = e.indexParts,
-                                  n = e.value,
-                                  a = t[1],
-                                  s = t[2],
-                                  d = t[3];
-                                if (!a || !s || !d || !r("WAWebWid").isWid(a))
+                              if (t.operation === "set") {
+                                var n = t.indexParts,
+                                  a = t.value,
+                                  s = n[1],
+                                  u = n[2],
+                                  m = n[3];
+                                if (!s || !u || !m || !r("WAWebWid").isWid(s))
                                   return i.malformedActionIndex();
-                                var m = o(
+                                var p = o(
                                   "WAWebMessageRangeUtils",
                                 ).validateMessageRange(
-                                  i.getMessageRange(n),
+                                  i.getMessageRange(a),
                                   i.collectionName,
                                   i.getAction(),
                                 );
-                                if (m == null)
+                                if (p == null)
                                   return (
-                                    u++,
+                                    c++,
+                                    o(
+                                      "WAWebSyncdMetricFatalError",
+                                    ).reportSyncdFatalError(
+                                      o("WAWebSyncdMetricFatalError")
+                                        .SyncdFatalErrorType
+                                        .MALFORMED_MUTATION_CLEAR_CHAT,
+                                      { collection: i.collectionName },
+                                    ),
                                     o(
                                       "WAWebSyncdIndexUtils",
                                     ).malformedActionValue(i.collectionName)
                                   );
-                                var p = yield o(
+                                var _ = yield o(
                                   "WAWebSyncdGetChat",
                                 ).resolveChatForMutationIndex(
-                                  o("WAWebWidFactory").createWid(a),
+                                  o("WAWebWidFactory").createWid(s),
                                 );
-                                if (!p.success)
+                                if (!_.success)
                                   return {
                                     actionState:
                                       o("WASyncdConst").SyncActionState.Orphan,
-                                    orphanModel: p.orphanModel,
+                                    orphanModel: _.orphanModel,
                                   };
-                                var _ = o("WAWebWidFactory").createWid(
-                                    p.chat.id,
+                                var f = o("WAWebWidFactory").createWid(
+                                    _.chat.id,
                                   ),
-                                  f = o(
+                                  g = o(
                                     "WAWebMessageRangeUtils",
-                                  ).replaceMessageRangeRemoteJid(_, m),
-                                  g = i.$ClearChatSync$p_1(
+                                  ).replaceMessageRangeRemoteJid(f, p),
+                                  h = i.$ClearChatSync$p_1(
                                     l,
-                                    e.timestamp,
-                                    _,
-                                    p.chat.accountLid == null
+                                    t.timestamp,
+                                    f,
+                                    _.chat.accountLid == null
                                       ? null
                                       : o("WAWebWidFactory").createWid(
-                                          p.chat.accountLid,
+                                          _.chat.accountLid,
                                         ),
                                   );
                                 return i.$ClearChatSync$p_2(
-                                  o("WAWebWidFactory").createWid(p.chat.id),
-                                  f,
-                                  s === "1",
-                                  d === "0",
+                                  o("WAWebWidFactory").createWid(_.chat.id),
                                   g,
-                                  n,
+                                  u === "1",
+                                  m === "0",
+                                  h,
+                                  a,
                                 );
                               }
                               return (
-                                c++,
+                                d++,
                                 {
                                   actionState:
                                     o("WASyncdConst").SyncActionState
                                       .Unsupported,
                                 }
                               );
-                            } catch (e) {
-                              return {
-                                actionState:
-                                  o("WASyncdConst").SyncActionState.Failed,
-                              };
+                            } catch (t) {
+                              return (
+                                o("WALogger").WARN(
+                                  e ||
+                                    (e =
+                                      babelHelpers.taggedTemplateLiteralLoose([
+                                        "[syncd][clear-chat]: failed to apply mutation: ",
+                                        "",
+                                      ])),
+                                  t,
+                                ),
+                                o(
+                                  "WAWebSyncdMetricFatalError",
+                                ).reportSyncdFatalError(
+                                  o("WAWebSyncdMetricFatalError")
+                                    .SyncdFatalErrorType
+                                    .FAILED_MUTATION_CLEAR_CHAT,
+                                  { collection: i.collectionName },
+                                ),
+                                {
+                                  actionState:
+                                    o("WASyncdConst").SyncActionState.Failed,
+                                }
+                              );
                             }
                           },
                         );
-                        return function (t) {
-                          return e.apply(this, arguments);
+                        return function (e) {
+                          return t.apply(this, arguments);
                         };
                       })(),
                     ),
                   );
                 return (
-                  u > 0 &&
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd][clear-chat]: ",
-                          " malformed mutations",
-                        ])),
-                      u,
-                    ),
                   c > 0 &&
                     o("WALogger").WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
                           "[syncd][clear-chat]: ",
-                          " REMOVE operations not supported",
+                          " malformed mutations",
                         ])),
                       c,
                     ),
-                  d
+                  d > 0 &&
+                    o("WALogger").WARN(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "[syncd][clear-chat]: ",
+                          " REMOVE operations not supported",
+                        ])),
+                      d,
+                    ),
+                  m
                 );
               },
             );
@@ -291,15 +320,15 @@ __d(
                     l,
                   ),
                   o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[syncd] before use case will update chat table",
                       ])),
                   ),
                   yield this.clearChat(e, t, n, a),
                   o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "[syncd] after use case updated chat table",
                       ])),
                   ),
@@ -405,9 +434,9 @@ __d(
                   s = e.timestamp,
                   u = t.timestamp,
                   c = r("WANullthrows")(i.clearChatAction),
-                  p = r("WANullthrows")(l == null ? void 0 : l.clearChatAction),
+                  d = r("WANullthrows")(l == null ? void 0 : l.clearChatAction),
                   _ = o("WAWebMessageRangeUtils").compareMessageRanges(
-                    r("WANullthrows")(p.messageRange),
+                    r("WANullthrows")(d.messageRange),
                     r("WANullthrows")(c.messageRange),
                   );
                 e: {
@@ -444,7 +473,7 @@ __d(
                       .RangesNotEnclosing
                   ) {
                     var f = o("WAWebMessageRangeUtils").mergeMessageRanges(
-                        r("WANullthrows")(p.messageRange),
+                        r("WANullthrows")(d.messageRange),
                         r("WANullthrows")(c.messageRange),
                       ),
                       g = { messageRange: f },
@@ -467,8 +496,8 @@ __d(
                               r = t[2] === "1",
                               i = t[3] === "1";
                             (o("WALogger").LOG(
-                              d ||
-                                (d = babelHelpers.taggedTemplateLiteralLoose([
+                              m ||
+                                (m = babelHelpers.taggedTemplateLiteralLoose([
                                   "[syncd] before update chat table due to conflict",
                                 ])),
                             ),
@@ -487,8 +516,8 @@ __d(
                             var l = a.clearChat(n, f, r);
                             return (
                               o("WALogger").LOG(
-                                m ||
-                                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                                p ||
+                                  (p = babelHelpers.taggedTemplateLiteralLoose([
                                     "[syncd] after update chat table due to conflict",
                                   ])),
                               ),
@@ -547,8 +576,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").ChatMessageRangeSyncdActionBase),
-      f = new _();
-    l.default = f;
+      g = new f();
+    l.default = g;
   },
   98,
 );

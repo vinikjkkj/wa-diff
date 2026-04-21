@@ -7,6 +7,7 @@ __d(
     "WAWebL10NNumbersPluginRegistry",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebNewsletterGatingUtils",
     "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
@@ -62,9 +63,13 @@ __d(
     function c(t, n) {
       if (t == null || t === 0) return null;
       var a = r("WAWebL10N").d(t);
-      return t >= o("WAWebL10NNumbersPluginRegistry").M
-        ? e(t, a, n)
-        : u(t, a, n);
+      return o(
+        "WAWebNewsletterGatingUtils",
+      ).isNewsletterViewsVPVDefinitionEnabled()
+        ? a
+        : t >= o("WAWebL10NNumbersPluginRegistry").M
+          ? e(t, a, n)
+          : u(t, a, n);
     }
     function d(e) {
       var t = o("react-compiler-runtime").c(4),

@@ -15,6 +15,9 @@ __d(
             switch (t) {
               case o("TaskSchedulerPriority").BLOCKING_PRIORITY:
                 return;
+              case o("TaskSchedulerPriority").HIGH_PRIORITY:
+                e = 0;
+                break;
               case o("TaskSchedulerPriority").BACKGROUND_PRIORITY:
                 e = 100;
                 break;

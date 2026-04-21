@@ -10,6 +10,7 @@ __d(
     "WAWebComposeBoxActions",
     "WAWebFindChatAction",
     "WAWebFrontendMsgGetters",
+    "WAWebMsgModelUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -51,7 +52,8 @@ __d(
                   ]);
                 },
               }),
-              (i.composeQuotedMsg = e),
+              (i.composeQuotedMsg =
+                o("WAWebMsgModelUtils").createMsgSnapshot(e)),
               o("WAWebFrontendMsgGetters").getChat(e) &&
                 (i.composeQuotedMsgRemoteJid = o(
                   "WAWebFrontendMsgGetters",

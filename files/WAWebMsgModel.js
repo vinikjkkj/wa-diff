@@ -1199,7 +1199,7 @@ __d(
           (i.$MsgImpl$p_18 = function (t) {
             var e = this.$MsgImpl$p_20().get(this.id.remote);
             if (e) {
-              var n;
+              var n, r;
               ((this.id.remote.isBot() ||
                 ((n = e.contact.businessProfile) == null
                   ? void 0
@@ -1211,16 +1211,17 @@ __d(
                 e.botInitialTypingIndicatorMsgId.equals(this.id) &&
                 e.set({ botInitialTypingIndicatorMsgId: null }, { silent: !0 }),
                 e.unreadMsgAnchor === this && (e.unreadMsgAnchor = void 0));
-              var r =
+              var a =
                 (t == null ? void 0 : t.messageInHiddenViewMode) === !0 ||
                 !t ||
                 !t.doNotResetLastReceived;
-              if (r && e.lastReceivedKey === this.id) {
-                var a = void 0,
-                  i = o("WAWebChatGetMessage").getLastReceivedMsg(e);
-                (i && (a = i.id), (e.lastReceivedKey = a));
+              if (a && e.lastReceivedKey === this.id) {
+                var i = void 0,
+                  l = o("WAWebChatGetMessage").getLastReceivedMsg(e);
+                (l && (i = l.id), (e.lastReceivedKey = i));
               }
-              e.composeQuotedMsg === this &&
+              (r = e.composeQuotedMsg) != null &&
+                r.id.equals(this.id) &&
                 (t == null ? void 0 : t.messageInHiddenViewMode) !== !0 &&
                 (e.composeQuotedMsg = null);
             }

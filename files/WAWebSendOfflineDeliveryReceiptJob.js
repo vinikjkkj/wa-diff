@@ -7,7 +7,6 @@ __d(
     "WATimeUtils",
     "WAWebCreateNackFromStanza",
     "WAWebHandleMsgSendAck",
-    "WAWebLid1X1MigrationGating",
     "WAWebMessageDedupUtils",
     "WAWebPostIncomingMessageDropMetric",
     "WAWebSchemaDanglingReceipt",
@@ -17,13 +16,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e) {
-      return _.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function _() {
+    function p() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = [];
           if (t.length === 0) return n;
           var r = yield o(
@@ -32,90 +31,70 @@ __d(
           for (var a of r) {
             var i = a.isInDB,
               l = a.receipt,
-              c = l.author,
-              d = l.enc,
-              m = l.externalId,
-              p = l.from,
-              _ = l.msgInfo,
-              f = l.msgMeta,
-              g = p.isUser() || p.isNewsletter() ? null : c;
-            if (i)
-              if (
-                (o("WALogger").LOG(
+              u = l.author,
+              c = l.enc,
+              d = l.externalId,
+              m = l.from,
+              p = l.msgInfo,
+              _ = l.msgMeta,
+              f = m.isUser() || m.isNewsletter() ? null : u;
+            i
+              ? (o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
                       "[sendAggregateOfflineReceipts] dup msg in db: ",
                       "",
                     ])),
-                  m,
+                  d,
                 ),
                 o(
                   "WAWebPostIncomingMessageDropMetric",
                 ).postIncomingMessageDropDuplicateMessage({
-                  msgMeta: f,
-                  msgInfo: _,
-                  enc: d,
+                  msgMeta: _,
+                  msgInfo: p,
+                  enc: c,
                 }),
-                o("WAWebMessageDedupUtils").isPengingMessageCacheEnabled())
-              )
-                o("WAWebHandleMsgSendAck").sendAck(m, p, f.type, g);
-              else {
-                if (_.category === "peer") {
-                  var h = o(
-                    "WAWebLid1X1MigrationGating",
-                  ).Lid1X1MigrationUtils.isLidMigrated();
-                  o("WALogger")
-                    .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[sendDeliveryReceipt] peer rcpt via aggregated flow ",
-                          "",
-                        ])),
-                      h,
-                    )
-                    .sendLogs("peer-receipt-using-aggregated-receipt");
-                }
-                n.push({ externalId: m, from: p, author: c });
-              }
-            else
-              (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sendAggregateOfflineReceipts] dup msg not in db: ",
-                    "",
-                  ])),
-                m,
-              ),
+                o("WAWebMessageDedupUtils").isPengingMessageCacheEnabled()
+                  ? o("WAWebHandleMsgSendAck").sendAck(d, m, _.type, f)
+                  : n.push({ externalId: d, from: m, author: u }))
+              : (o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sendAggregateOfflineReceipts] dup msg not in db: ",
+                      "",
+                    ])),
+                  d,
+                ),
                 o(
                   "WAWebPostIncomingMessageDropMetric",
                 ).postIncomingMessageDropOldCounter({
-                  msgMeta: f,
-                  msgInfo: _,
-                  enc: d,
+                  msgMeta: _,
+                  msgInfo: p,
+                  enc: c,
                 }),
                 o("WAWebHandleMsgSendAck").sendNack(
+                  d,
                   m,
-                  p,
-                  f.type,
-                  g,
+                  _.type,
+                  f,
                   o("WAWebCreateNackFromStanza").NackReason
                     .SignalErrorOldCounter,
                 ));
           }
           return n;
         })),
-        _.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "sendAggregateOfflineReceipts",
               ])),
           );
@@ -126,17 +105,17 @@ __d(
               l = a.receiptInfo;
             (i != null && r.push(i), l != null && t.push(l));
           }
-          ((t = t.concat(yield p(r))),
+          ((t = t.concat(yield m(r))),
             o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "sendAggregateOfflineReceipts: ",
                   " receipts are ready to be sent",
                 ])),
               t.length,
             ));
           var s = new Map(),
-            u = [];
+            p = [];
           t.forEach(function (e) {
             var t = e.author,
               n = e.externalId,
@@ -146,10 +125,10 @@ __d(
             var a = o.get(t);
             (a || ((a = []), o.set(t, a)),
               a.push(n),
-              u.push({ from: String(r), author: String(t), externalId: n }));
+              p.push({ from: String(r), author: String(t), externalId: n }));
           });
           var _ = String(o("WATimeUtils").unixTime());
-          ((m || (m = n("Promise"))).all(
+          ((d || (d = n("Promise"))).all(
             Array.from(s.keys(), function (e) {
               var t = s.get(e);
               if (t) {
@@ -167,15 +146,15 @@ __d(
             }),
           ),
             o("WAComms").cancelDeadSocketTimer(),
-            u.length > 0 &&
+            p.length > 0 &&
               (yield o("WAWebSchemaDanglingReceipt")
                 .getTable()
-                .create({ receipts: u, acks: [] })));
+                .create({ receipts: p, acks: [] })));
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((l.handleDuplicateMsgReceipts = p), (l.sendAggregateOfflineReceipts = f));
+    ((l.handleDuplicateMsgReceipts = m), (l.sendAggregateOfflineReceipts = _));
   },
   98,
 );

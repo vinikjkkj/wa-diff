@@ -21,7 +21,6 @@ __d(
     "WAWebCoreActionsODS",
     "WAWebCryptoCalculateFilehash",
     "WAWebCryptoRandomMediaKey",
-    "WAWebFrontendChatGetters",
     "WAWebImageUtils",
     "WAWebMediaConstants",
     "WAWebMediaCryptoEligibilityUtils",
@@ -36,6 +35,7 @@ __d(
     "WAWebMediaMmsV4Download",
     "WAWebMediaMmsV4Upload",
     "WAWebMediaOpaqueData",
+    "WAWebMediaPrepHelpers",
     "WAWebMediaStorage",
     "WAWebMediaTypes",
     "WAWebMediaUpdateMsg",
@@ -44,7 +44,6 @@ __d(
     "WAWebMessagingGatingUtils",
     "WAWebMmsMediaTypes",
     "WAWebMsgDataUtils",
-    "WAWebMsgGetters",
     "WAWebMsgType",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterSendMsgAction",
@@ -53,7 +52,6 @@ __d(
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
     "WAWebSendStatusMsgAction",
-    "WAWebStateUtils",
     "WAWebURLUtils",
     "WAWebWamEnumDownloadOriginType",
     "WAWebWamEnumMessageSendResultType",
@@ -75,10 +73,9 @@ __d(
       h,
       y,
       C,
-      b,
-      v = new AbortController().signal,
-      S = r("err")("upload failed: retryable, auto-retrying"),
-      R = (function () {
+      b = new AbortController().signal,
+      v = r("err")("upload failed: retryable, auto-retrying"),
+      S = (function () {
         function t(t, n) {
           var a = this;
           ((this.baseType = t),
@@ -120,7 +117,7 @@ __d(
             var e = t.chat,
               n = t.earlyUpload,
               r = t.options;
-            return o("WAPromiseCallSync").promiseCallSync(A, null, {
+            return o("WAPromiseCallSync").promiseCallSync(I, null, {
               chat: e,
               earlyUpload: n,
               options: r,
@@ -138,143 +135,22 @@ __d(
           })()),
           t
         );
-      })();
-    function L(e, t) {
-      if (t.type === "product")
-        return o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
-          .PRODUCT_CATALOG;
-      var n = o("WAWebStateUtils").unproxy(e);
-      return o("WAWebChatGetters").getIsGroup(n)
-        ? o("WAWebFrontendChatGetters").getIsCAG(n)
-          ? o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE.COMMUNITY
-          : o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE.CHAT_GROUP
-        : o("WAWebChatGetters").getIsNewsletter(n)
-          ? o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE.CHANNEL
-          : o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
-              .CHAT_PERSONAL;
-    }
-    function E(e) {
-      var t = o("WAWebMmsMediaTypes").getMsgMediaType(e);
-      return (
-        o("WAWebABProps").getABPropConfigValue(
-          "upload_document_thumb_mms_enabled",
-        ) && t === o("WAWebMmsMediaTypes").MEDIA_TYPES.DOCUMENT
-      );
-    }
-    var k = [
-      o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO,
-      o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
-    ];
-    function I(e) {
-      var t = o("WAWebMmsMediaTypes").getMsgMediaType(e);
-      return k.includes(t);
-    }
-    function T(e) {
-      return e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT
-        ? E(e)
-        : e.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK
-          ? !0
-          : o("WAWebMsgGetters").getIsStatus(e)
-            ? I(e)
-            : !1;
-    }
-    function D(e) {
-      return e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT
-        ? o("WAWebMmsMediaTypes").MEDIA_TYPES.THUMBNAIL_DOCUMENT
-        : e.type === o("WAWebMsgType").MSG_TYPE.IMAGE
-          ? o("WAWebMmsMediaTypes").MEDIA_TYPES.THUMBNAIL_IMAGE
-          : e.type === o("WAWebMsgType").MSG_TYPE.VIDEO
-            ? o("WAWebMmsMediaTypes").MEDIA_TYPES.THUMBNAIL_VIDEO
-            : e.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK
-              ? o("WAWebMmsMediaTypes").MEDIA_TYPES.THUMBNAIL_STICKER_PACK
-              : s(
-                  !1,
-                  "getMediaTypeForThumbnails: attempt to create thumbnail for unsupported media type",
-                );
-    }
-    function x(e) {
-      var t = e.fullPreviewSize,
-        n = e.mediaObject,
-        a = e.mediaResultEntry,
-        i = e.mediaType,
-        l = e.uploadEncryptedThumbnail,
-        s = e.uploadThumbnailResult,
-        c = s == null ? void 0 : s.mediaEntry;
-      if (l === !0) {
-        if (c && s && t)
-          return {
-            thumbnailDirectPath: c.directPath,
-            thumbnailSha256: s.filehash,
-            thumbnailEncSha256: c.encFilehash,
-            thumbnailHeight: t.height,
-            thumbnailWidth: t.width,
-          };
-        var d = {
-          thumbnailResultEntry: c,
-          uploadThumbnailResult: s,
-          fullPreviewSize: t,
-        };
-        throw (
-          o("WALogger")
-            .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose(
-                  ["upload failed: thumbnail data incomplete\nDebug info:", ""],
-                  [
-                    "upload failed: thumbnail data incomplete\\nDebug info:",
-                    "",
-                  ],
-                )),
-              JSON.stringify(d),
-            )
-            .sendLogs("mms-thumbnail-data-incomplete"),
-          r("err")("upload failed: thumbnail data incomplete")
+      })(),
+      R = function (t) {
+        var e = t.baseProps,
+          n = t.chat,
+          r = t.options,
+          a = t.prep;
+        return (
+          (r.chatWid = n.id),
+          (r.downloadOrigin = o(
+            "WAWebMediaPrepHelpers",
+          ).getDownloadOriginForChat(n, e)),
+          (r.isNewsletterMsg = o("WAWebChatGetters").getIsNewsletter(n)),
+          L(a, r)
         );
-      }
-      var m = n.contentInfo,
-        p = m.fullHeight,
-        _ = m.fullWidth;
-      if (
-        a.getThumbnailDirectPath() != null &&
-        a.getThumbnailSha256() != null &&
-        _ != null &&
-        p != null &&
-        o(
-          "WAWebMediaGatingUtils",
-        ).isThumbnailGenerationOnServerEnabledForMediaType(i)
-      )
-        return {
-          thumbnailDirectPath: a.getThumbnailDirectPath(),
-          thumbnailSha256: a.getThumbnailSha256(),
-          thumbnailHeight: p,
-          thumbnailWidth: _,
-        };
-    }
-    function $(e) {
-      var t;
-      return (
-        (t = e.wamMessageSendReporter) == null ||
-          t.postFailure({
-            result: o("WAWebWamEnumMessageSendResultType")
-              .MESSAGE_SEND_RESULT_TYPE.ERROR_UPLOAD,
-            isTerminal: !0,
-          }),
-        o("WAWebSendMsgResultAction").SendMsgResult.ERROR_UPLOAD
-      );
-    }
-    var P = function (t) {
-      var e = t.baseProps,
-        n = t.chat,
-        r = t.options,
-        a = t.prep;
-      return (
-        (r.chatWid = n.id),
-        (r.downloadOrigin = L(n, e)),
-        (r.isNewsletterMsg = o("WAWebChatGetters").getIsNewsletter(n)),
-        N(a, r)
-      );
-    };
-    function N(e, t) {
+      };
+    function L(e, t) {
       return e
         .waitForPrep()
         .then(function (e) {
@@ -293,8 +169,8 @@ __d(
           a ||
             o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "Assertion failed!",
                   ])),
               )
@@ -315,8 +191,8 @@ __d(
             o("WAWebMmsMediaTypes").castToV4(i.type),
           );
           if (s && e.mediaBlob instanceof r("WAWebMediaOpaqueData")) {
-            var u = e.mediaBlob.formData();
-            o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(a, u);
+            var c = e.mediaBlob.formData();
+            o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(a, c);
           }
           o("WAWebMediaMmsV4Download").downloadMedia({
             mimetype: e.mimetype,
@@ -345,23 +221,23 @@ __d(
           );
         });
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function w() {
+    function k() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a,
             i,
             l,
             u,
-            c,
+            d,
             m = e.mediaObject;
           (m ||
             o("WALogger")
               .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "Assertion failed!",
                   ])),
               )
@@ -380,9 +256,9 @@ __d(
                 : r("WAWebCryptoRandomMediaKey")(),
             h = m.contentInfo,
             y = h.fullPreviewData,
-            C = h.fullPreviewSize,
+            b = h.fullPreviewSize,
             v = e.safe(),
-            S = T(v),
+            S = o("WAWebMediaPrepHelpers").shouldUploadThumbnail(v),
             R = o("WAWebABProps").getABPropConfigValue(
               "wa_web_enable_status_hq_thumbnail",
             ),
@@ -397,32 +273,34 @@ __d(
                 S),
               (E = v.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK && S))
             : ((L = !y && S), (E = S));
-          var k = !C && S,
+          var k = !b && S,
             I = e.body;
           if ((L || k || E) && m.contentInfo.preview) {
-            var $ = yield o("WAWebImageUtils").base64ImageToCanvas(
+            var T = yield o("WAWebImageUtils").base64ImageToCanvas(
                 m.contentInfo.preview.url(),
               ),
-              P = L
+              D = L
                 ? o("WAWebABProps").getABPropConfigValue(
                     "web_pdf_thumbnail_size_in_bytes",
                   )
                 : o("WAWebMediaConstants").MICRO_THUMBNAIL_MAX_FILE_SIZE_BYTES,
-              N = yield o("WAWebCanvasUtils").generateMicroThumb($, P, {
+              x = yield o("WAWebCanvasUtils").generateMicroThumb(T, D, {
                 mimetype: "image/jpeg",
                 maxAttempts: 10,
               });
             ((y = m.contentInfo.preview),
-              (C = { width: N.width, height: N.height }),
-              (I = r("WAWebURLUtils").parseDataURL(N.dataUrl).data));
+              (b = { width: x.width, height: x.height }),
+              (I = r("WAWebURLUtils").parseDataURL(x.dataUrl).data));
           }
-          var M = y && C && S,
-            w =
-              y && M === !0
+          var $ = y && b && S,
+            P =
+              y && $ === !0
                 ? r("WAWebMediaUploadMmsThumbnail")({
                     thumbnail: y,
                     mediaKeyInfo: g,
-                    mediaType: r("WANullthrows")(D(v)),
+                    mediaType: r("WANullthrows")(
+                      o("WAWebMediaPrepHelpers").getMediaTypeForThumbnails(v),
+                    ),
                     uploadOrigin:
                       (i = t.uploadOriginForChat) != null
                         ? i
@@ -431,8 +309,8 @@ __d(
                     forwardedFromWeb: !!e.forwardedFromWeb,
                     isViewOnce: !!e.isViewOnce,
                   })
-                : (b || (b = n("Promise"))).resolve(null),
-            A = {
+                : (C || (C = n("Promise"))).resolve(null),
+            N = {
               mimetype: e.mimetype,
               canEnableFastForward: t.canEnableFastForward,
               mediaObject: m,
@@ -446,64 +324,64 @@ __d(
               isViewOnce: !!e.isViewOnce,
               earlyUpload: t.earlyUpload,
             },
-            F =
+            M =
               t.isMediaCryptoExpectedForChat === !0
                 ? o("WAWebMediaMmsV4Upload").uploadMedia(
-                    babelHelpers.extends({}, A, { mediaKeyInfo: g }),
+                    babelHelpers.extends({}, N, { mediaKeyInfo: g }),
                   )
                 : o("WAWebMediaMmsV4Upload").uploadUnencryptedMedia(
-                    babelHelpers.extends({}, A, {
+                    babelHelpers.extends({}, N, {
                       calculateToken: o("WAMediaCalculateFilehash")
                         .getRandomFilehash,
                     }),
                   ),
-            O = m.filehash;
+            w = m.filehash;
           o("WAWebMediaInMemoryKeyCache").shouldUseMediaKeyCache() &&
-            O != null &&
-            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.put(O, g);
-          var B = yield (b || (b = n("Promise"))).all([F, w]),
-            W = B[0],
-            q = B[1];
+            w != null &&
+            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.put(w, g);
+          var A = yield (C || (C = n("Promise"))).all([M, P]),
+            F = A[0],
+            O = A[1];
           r("WAWebMediaGatingShouldClearUploadedBlobs")(p) &&
             m.clearBlob({ reset: !0 });
-          var U = W.mediaEntry;
-          if (!U)
+          var B = F.mediaEntry;
+          if (!B)
             return {
-              mediaResult: W,
+              mediaResult: F,
               mmsThumbnailData: null,
               body: I,
               fbid: null,
             };
           o("WAWebMediaInMemoryKeyCache").shouldUseMediaKeyCache() &&
-            O != null &&
-            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.delete(O);
-          var V =
-              (u = x({
-                uploadThumbnailResult: q,
-                mediaResultEntry: U,
-                uploadEncryptedThumbnail: M,
+            w != null &&
+            o("WAWebMediaInMemoryKeyCache").MediaKeyCache.delete(w);
+          var W =
+              (u = o("WAWebMediaPrepHelpers").maybeGetThumbnailData({
+                uploadThumbnailResult: O,
+                mediaResultEntry: B,
+                uploadEncryptedThumbnail: $,
                 mediaObject: m,
-                fullPreviewSize: C,
+                fullPreviewSize: b,
                 mediaType: p,
               })) != null
                 ? u
                 : {},
-            H =
-              U instanceof o("WAWebMediaEntry").UnencryptedMediaEntry &&
-              (c = U.fbid) != null
-                ? c
+            q =
+              B instanceof o("WAWebMediaEntry").UnencryptedMediaEntry &&
+              (d = B.fbid) != null
+                ? d
                 : null;
-          return { mediaResult: W, mmsThumbnailData: V, body: I, fbid: H };
+          return { mediaResult: F, mmsThumbnailData: W, body: I, fbid: q };
         })),
-        w.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    function I(e) {
+      return T.apply(this, arguments);
     }
-    function F() {
+    function T() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a,
             i = e.chat,
@@ -511,8 +389,8 @@ __d(
             s = e.options,
             u = e.prep;
           o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "Media:sendToChat chat ",
                 "",
               ])),
@@ -524,24 +402,24 @@ __d(
                 .getChatTable()
                 .get(i.id.toString());
               if (c == null) {
-                var d;
+                var C;
                 o("WALogger")
                   .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "sendMediaMsgToChat: chat ",
                         " not in DB. lid: ",
                         "",
                       ])),
                     i.id.toLogString(),
-                    (d = i.accountLid) == null ? void 0 : d.toLogString(),
+                    (C = i.accountLid) == null ? void 0 : C.toLogString(),
                   )
                   .sendLogs("send-media-chat-not-found")
                   .tags("missing-lid");
               } else
                 o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "sendMediaMsgToChat: chat ",
                       " found in DB. has account lid: ",
                       "",
@@ -552,45 +430,45 @@ __d(
             }
           } catch (e) {
             o("WALogger").ERROR(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "sendMediaMsgToChat: failed to check if chat exists",
                 ])),
             );
           }
-          var b = s.caption,
-            R = s.footer,
-            L = s.quotedMsg ? s.quotedMsg.msgContextInfo(i.id) : {},
-            E = (t = s.productMsgOptions) != null ? t : {},
-            k = o("WAWebChatEphemerality").isEphemeralSettingOn(i)
+          var S = s.caption,
+            L = s.footer,
+            k = s.quotedMsg ? s.quotedMsg.msgContextInfo(i.id) : {},
+            I = (t = s.productMsgOptions) != null ? t : {},
+            T = o("WAWebChatEphemerality").isEphemeralSettingOn(i)
               ? o("WAWebChatEphemerality").getEphemeralSetting(i)
               : void 0,
-            I = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(i),
-            T = o("WAWebChatEphemerality").getDisappearingModeInitiator(i),
-            D = o("WAWebChatEphemerality").getAfterReadDurationForChat(i),
-            x,
+            D = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(i),
+            x = o("WAWebChatEphemerality").getDisappearingModeInitiator(i),
+            $ = o("WAWebChatEphemerality").getAfterReadDurationForChat(i),
+            P,
             N = !1;
           i.isCAGAdmin() && (N = !0);
-          var w = (a = s.type) != null ? a : u.baseType;
+          var M = (a = s.type) != null ? a : u.baseType;
           o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
             o(
               "WAWebMessagePluginGenerateReportingTokenContent",
-            ).isMsgTypeReportingTokenCompatible(w) &&
+            ).isMsgTypeReportingTokenCompatible(M) &&
             (N = !0);
-          var A = o("WAWebBotBaseGating").isBotEnabled() && i.id.isBot();
-          (A && (N = !0),
-            N && (x = self.crypto.getRandomValues(new Uint8Array(32))));
-          var F = babelHelpers.extends(
+          var w = o("WAWebBotBaseGating").isBotEnabled() && i.id.isBot();
+          (w && (N = !0),
+            N && (P = self.crypto.getRandomValues(new Uint8Array(32))));
+          var A = babelHelpers.extends(
             {},
-            yield o("WAWebMsgDataUtils").genOutgoingMsgData(i, w),
+            yield o("WAWebMsgDataUtils").genOutgoingMsgData(i, M),
             {
-              type: w,
-              caption: b,
-              footer: R,
-              quotedMsg: L.quotedMsg,
-              quotedParticipant: L.quotedParticipant,
-              quotedStanzaID: L.quotedStanzaID,
-              quotedRemoteJid: L.quotedRemoteJid,
+              type: M,
+              caption: S,
+              footer: L,
+              quotedMsg: k.quotedMsg,
+              quotedParticipant: k.quotedParticipant,
+              quotedStanzaID: k.quotedStanzaID,
+              quotedRemoteJid: k.quotedRemoteJid,
               mentionedJidList: s.mentionedJidList,
               groupMentions: s.groupMentions,
               isForwarded: s.isForwarded,
@@ -600,11 +478,11 @@ __d(
               multicast: s.multicast,
               forwardedFromWeb: s.forwardedFromWeb,
               ctwaContext: s.ctwaContext,
-              ephemeralDuration: k,
-              ephemeralSettingTimestamp: I,
-              disappearingModeInitiator: T,
-              afterReadDuration: D,
-              messageSecret: x,
+              ephemeralDuration: T,
+              ephemeralSettingTimestamp: D,
+              disappearingModeInitiator: x,
+              afterReadDuration: $,
+              messageSecret: P,
               botPersonaId: s.botPersonaId,
               isAvatar: s.isAvatar,
               viewMode: s.viewMode,
@@ -616,40 +494,40 @@ __d(
               threadIds: s.threadId != null ? [s.threadId] : void 0,
               statusAttributions: s.statusAttributions,
             },
-            E,
+            I,
           );
           if (s.type === o("WAWebMsgType").MSG_TYPE.STICKER_PACK) {
-            var O;
-            ((F.description = s.description),
-              (F.isCaptionByUser = !!s.caption),
-              (F.thumbnailSha256 = s.thumbnailSha256),
-              (F.stickers = s.stickers),
-              (F.stickerPackPublisher = s.publisher),
-              (F.size = (O = s.fileLength) != null ? O : 0),
-              (F.stickerPackId = s.stickerPackId),
-              (F.thumbnailDirectPath = s.thumbnailDirectPath),
-              (F.thumbnailEncSha256 = s.thumbnailEncSha256),
-              (F.trayIconFileName = s.trayIconFileName),
-              (F.stickerPackSize = s.stickerPackSize));
+            var F;
+            ((A.description = s.description),
+              (A.isCaptionByUser = !!s.caption),
+              (A.thumbnailSha256 = s.thumbnailSha256),
+              (A.stickers = s.stickers),
+              (A.stickerPackPublisher = s.publisher),
+              (A.size = (F = s.fileLength) != null ? F : 0),
+              (A.stickerPackId = s.stickerPackId),
+              (A.thumbnailDirectPath = s.thumbnailDirectPath),
+              (A.thumbnailEncSha256 = s.thumbnailEncSha256),
+              (A.trayIconFileName = s.trayIconFileName),
+              (A.stickerPackSize = s.stickerPackSize));
           }
           (s.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
             s.caption &&
-            (F.isCaptionByUser = !0),
+            (A.isCaptionByUser = !0),
             s.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-              ((F.nativeFlowInteractiveMsg = s.nativeFlowInteractiveMsg),
-              (F.nativeFlowName = s.nativeFlowName),
-              (F.interactiveHeader = s.interactiveHeader),
-              (F.interactiveType = s.interactiveType),
-              (F.interactivePayload = s.interactivePayload)),
-            s.isWamoSub === !0 && (F.isWamoSub = !0));
-          var B, W;
-          function q(e) {
-            return U.apply(this, arguments);
+              ((A.nativeFlowInteractiveMsg = s.nativeFlowInteractiveMsg),
+              (A.nativeFlowName = s.nativeFlowName),
+              (A.interactiveHeader = s.interactiveHeader),
+              (A.interactiveType = s.interactiveType),
+              (A.interactivePayload = s.interactivePayload)),
+            s.isWamoSub === !0 && (A.isWamoSub = !0));
+          var O, B;
+          function W(e) {
+            return q.apply(this, arguments);
           }
-          function U() {
+          function q() {
             return (
-              (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-                B = e;
+              (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+                O = e;
                 var t = e.mediaObject;
                 ((s.earlyUpload = l),
                   (s.isMediaCryptoExpectedForChat = o(
@@ -659,7 +537,7 @@ __d(
                     "WAWebMediaGetUploadOriginForChat",
                   )(i)));
                 var a = function () {
-                    return M(e, s);
+                    return E(e, s);
                   },
                   u = o("WAPromiseBackoffs").createTimer({
                     algo: { type: "exponential", first: 1e3, base: 2 },
@@ -675,7 +553,7 @@ __d(
                             delay: function () {
                               return u();
                             },
-                            signal: v,
+                            signal: b,
                             retries: c,
                           },
                           (function () {
@@ -711,7 +589,7 @@ __d(
                                           o("WAWebMediaTypes").UploadStage
                                             .UPLOADING,
                                       })),
-                                  e(S))
+                                  e(v))
                                 : s;
                             });
                             return function (t, n) {
@@ -725,11 +603,11 @@ __d(
                   _ = p.kind,
                   f = p.mediaEntry,
                   g = d.mmsThumbnailData;
-                if (((W = _), !f))
+                if (((B = _), !f))
                   throw r("err")("upload failed: media entry was not created");
                 return (
                   yield r("WAWebMediaUpdateMsg")(
-                    B,
+                    O,
                     babelHelpers.extends(
                       {
                         deprecatedMms3Url: f.deprecatedMms3Url,
@@ -761,59 +639,59 @@ __d(
                       g,
                     ),
                   ),
-                  B
+                  O
                 );
               })),
-              U.apply(this, arguments)
+              q.apply(this, arguments)
             );
           }
-          var V;
+          var U;
           if (s.addEvenWhilePreparing === !0) {
-            var H = s.placeholderProps || {},
-              G = babelHelpers.extends({}, H, F),
-              z = function (t) {
+            var V = s.placeholderProps || {},
+              H = babelHelpers.extends({}, V, A),
+              G = function (t) {
                 return (
-                  (B = t),
-                  P({ baseProps: F, chat: i, options: s, prep: u })
+                  (O = t),
+                  R({ baseProps: A, chat: i, options: s, prep: u })
                     .then(function (e) {
-                      return r("WAWebMediaUpdateMsg")(B, e);
+                      return r("WAWebMediaUpdateMsg")(O, e);
                     })
                     .then(function () {
-                      return q(B);
+                      return W(O);
                     })
                 );
               };
             o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
             o("WAWebChatGetters").getIsNewsletter(i)
               ? s.isNewsletterStatus === !0
-                ? (V = r("JSResourceForInteraction")(
+                ? (U = r("JSResourceForInteraction")(
                     "WAWebNewsletterSendStatusAction",
                   )
                     .__setRef("WAWebMediaPrep")
                     .load()
                     .then(function (e) {
-                      return e.sendNewsletterStatusMediaMsgAction(G, z);
+                      return e.sendNewsletterStatusMediaMsgAction(H, G);
                     }))
-                : (V = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
+                : (U = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
                     i,
+                    H,
                     G,
-                    z,
                   ))
               : i.id.isStatus()
-                ? (V = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction(
+                ? (U = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction(
+                    H,
                     G,
-                    z,
                   ))
-                : (V = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+                : (U = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                     i,
+                    H,
                     G,
-                    z,
                   )[1]);
           } else {
-            var j = P({ baseProps: F, chat: i, options: s, prep: u }).then(
+            var z = R({ baseProps: A, chat: i, options: s, prep: u }).then(
               function (e) {
-                var t = s.useBasePropsType === !0 ? F.type : e.type;
-                return babelHelpers.extends({}, F, e, { type: t });
+                var t = s.useBasePropsType === !0 ? A.type : e.type;
+                return babelHelpers.extends({}, A, e, { type: t });
               },
             );
             if (
@@ -821,40 +699,40 @@ __d(
               o("WAWebChatGetters").getIsNewsletter(i)
             )
               if (s.isNewsletterStatus === !0) {
-                var K = yield j;
-                V = r("JSResourceForInteraction")(
+                var j = yield z;
+                U = r("JSResourceForInteraction")(
                   "WAWebNewsletterSendStatusAction",
                 )
                   .__setRef("WAWebMediaPrep")
                   .load()
                   .then(function (e) {
-                    return e.sendNewsletterStatusMediaMsgAction(K, q);
+                    return e.sendNewsletterStatusMediaMsgAction(j, W);
                   });
               } else
-                V = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
+                U = o("WAWebNewsletterSendMsgAction").sendNewsletterMediaMsg(
                   i,
-                  yield j,
-                  q,
+                  yield z,
+                  W,
                 );
             else
               i.id.isStatus()
-                ? (V = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction(
-                    yield j,
-                    q,
+                ? (U = o("WAWebSendStatusMsgAction").sendStatusMediaMsgAction(
+                    yield z,
+                    W,
                   ))
-                : F.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
-                  ? (V = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+                : A.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
+                  ? (U = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                       i,
-                      yield j,
-                      q,
+                      yield z,
+                      W,
                     )[1])
-                  : (V = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+                  : (U = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
                       i,
-                      j,
-                      q,
+                      z,
+                      W,
                     )[1]);
           }
-          return V.then(function (e) {
+          return U.then(function (e) {
             return { result: e, error: null };
           })
             .catch(function (e) {
@@ -869,32 +747,32 @@ __d(
                 o("WAWebSendMsgResultAction").SendMsgResult.OK
               )
                 return (
-                  B.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER &&
-                    B.isAvatar !== !0 &&
+                  O.type === o("WAWebMediaTypes").OUTWARD_TYPES.STICKER &&
+                    O.isAvatar !== !0 &&
                     o(
                       "WAWebRecentStickerCollectionMd",
-                    ).RecentStickerCollectionMd.addStickerWithMediaData(B),
+                    ).RecentStickerCollectionMd.addStickerWithMediaData(O),
                   {
                     messageSendResult: o("WAWebSendMsgResultAction")
                       .SendMsgResult.OK,
                   }
                 );
-              B && (B.ack = o("WAWebAck").ACK.FAILED);
+              O && (O.ack = o("WAWebAck").ACK.FAILED);
               var a =
-                (t = B) == null || (t = t.mediaObject) == null
+                (t = O) == null || (t = t.mediaObject) == null
                   ? void 0
                   : t.uploadStage;
               if (
-                B &&
-                o("WAWebMmsMediaTypes").getMsgMediaType(B) ===
+                O &&
+                o("WAWebMmsMediaTypes").getMsgMediaType(O) ===
                   o("WAWebMediaTypes").OUTWARD_TYPES.STICKER
               ) {
                 var i = a || "undefined";
-                W === o("WAWebMediaMmsV4Upload").UploadMediaResultKind.ERROR &&
+                B === o("WAWebMediaMmsV4Upload").UploadMediaResultKind.ERROR &&
                   o("WALogger")
                     .ERROR(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
                           "Sticker:sendToChat failed with expressions panel enabled",
                         ])),
                     )
@@ -906,18 +784,18 @@ __d(
                     );
               }
               if (
-                W ===
+                B ===
                 o("WAWebMediaMmsV4Upload").UploadMediaResultKind.CANCELLATION
               ) {
                 var l;
                 return (
                   o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "Media:sendToChat canceled",
                       ])),
                   ),
-                  (l = B.wamMessageSendReporter) == null ||
+                  (l = O.wamMessageSendReporter) == null ||
                     l.postFailure({
                       result: o("WAWebWamEnumMessageSendResultType")
                         .MESSAGE_SEND_RESULT_TYPE.ERROR_CANCELLED,
@@ -931,8 +809,8 @@ __d(
               }
               if (
                 (o("WALogger").WARN(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "Media:sendToChat err res=",
                       " stage=",
                       " kind=",
@@ -941,7 +819,7 @@ __d(
                     ])),
                   r,
                   a,
-                  W,
+                  B,
                   String(n),
                 ),
                 a != null)
@@ -951,7 +829,11 @@ __d(
                   case o("WAWebMediaTypes").UploadStage.ERROR_TOO_LARGE:
                   case o("WAWebMediaTypes").UploadStage.ERROR_FORBIDDEN:
                   case o("WAWebMediaTypes").UploadStage.ERROR_THROTTLED:
-                    return { messageSendResult: $(B) };
+                    return {
+                      messageSendResult: o("WAWebMediaPrepHelpers").errorUpload(
+                        O,
+                      ),
+                    };
                   case o("WAWebMediaTypes").UploadStage.ERROR_MISSING:
                     return (
                       o("WAWebCoreActionsODS").logMsgSendError(),
@@ -963,18 +845,22 @@ __d(
                     );
                   default:
                 }
-              return W ===
+              return B ===
                 o("WAWebMediaMmsV4Upload").UploadMediaResultKind.ERROR
-                ? { messageSendResult: $(B) }
+                ? {
+                    messageSendResult: o("WAWebMediaPrepHelpers").errorUpload(
+                      O,
+                    ),
+                  }
                 : r != null
                   ? r
-                  : (B &&
-                      o("WAWebMmsMediaTypes").getMsgMediaType(B) ===
+                  : (O &&
+                      o("WAWebMmsMediaTypes").getMsgMediaType(O) ===
                         o("WAWebMediaTypes").OUTWARD_TYPES.STICKER &&
                       o("WALogger")
                         .ERROR(
-                          C ||
-                            (C = babelHelpers.taggedTemplateLiteralLoose([
+                          y ||
+                            (y = babelHelpers.taggedTemplateLiteralLoose([
                               "Sticker:sendToChat failed with unknown error",
                             ])),
                         )
@@ -988,13 +874,13 @@ __d(
                     });
             });
         })),
-        F.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    ((l.MediaPrep = R),
-      (l.getMediaPropsNew = N),
-      (l.uploadMediaWithPrep = M),
-      (l.sendMediaMsgToChat = A));
+    ((l.MediaPrep = S),
+      (l.getMediaPropsNew = L),
+      (l.uploadMediaWithPrep = E),
+      (l.sendMediaMsgToChat = I));
   },
   98,
 );

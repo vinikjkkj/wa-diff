@@ -1,10 +1,9 @@
 __d(
   "oz-player/shims/www/OzDOMEventListenerWWW",
   ["OzDOMEventListenerImpl"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("OzDOMEventListenerImpl");
-    i.default = e;
+    l.default = r("OzDOMEventListenerImpl");
   },
-  66,
+  98,
 );

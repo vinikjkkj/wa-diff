@@ -470,12 +470,34 @@ __d(
                                                                                                                 )
                                                                                                                   .MD_SYNCD_FATAL_ERROR_CODE
                                                                                                                   .MISSING_KEY_ON_ALL_CLIENTS
-                                                                                                              : (function () {
-                                                                                                                  throw Error(
-                                                                                                                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                                                                                      e,
-                                                                                                                  );
-                                                                                                                })();
+                                                                                                              : e ===
+                                                                                                                  o(
+                                                                                                                    "WAWebSyncdMetricFatalError",
+                                                                                                                  )
+                                                                                                                    .SyncdFatalErrorType
+                                                                                                                    .MALFORMED_MUTATION_CLEAR_CHAT
+                                                                                                                ? o(
+                                                                                                                    "WAWebWamEnumMdSyncdFatalErrorCode",
+                                                                                                                  )
+                                                                                                                    .MD_SYNCD_FATAL_ERROR_CODE
+                                                                                                                    .MALFORMED_MUTATION_CLEAR_CHAT
+                                                                                                                : e ===
+                                                                                                                    o(
+                                                                                                                      "WAWebSyncdMetricFatalError",
+                                                                                                                    )
+                                                                                                                      .SyncdFatalErrorType
+                                                                                                                      .FAILED_MUTATION_CLEAR_CHAT
+                                                                                                                  ? o(
+                                                                                                                      "WAWebWamEnumMdSyncdFatalErrorCode",
+                                                                                                                    )
+                                                                                                                      .MD_SYNCD_FATAL_ERROR_CODE
+                                                                                                                      .FAILED_MUTATION_CLEAR_CHAT
+                                                                                                                  : (function () {
+                                                                                                                      throw Error(
+                                                                                                                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                                                                                          e,
+                                                                                                                      );
+                                                                                                                    })();
     }
     l.convertSyncdErrorCode = e;
   },

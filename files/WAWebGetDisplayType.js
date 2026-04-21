@@ -12,35 +12,43 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      var t = o("WAWebFrontendMsgGetters").getChat(e),
+        n = t == null ? void 0 : t.groupMetadata;
+      return (
+        (n == null ? void 0 : n.isOpenBotGroup) === !0 ||
+        (n == null ? void 0 : n.isTeeBotGroup) === !0
+      );
+    }
+    function s(t) {
       if (
-        e == null ||
+        t == null ||
         ((o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() ||
           o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()) &&
-          e.botGroupParticipant != null)
+          (t.botGroupParticipant != null || e(t)))
       )
         return o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION;
-      if (o("WAWebMsgGetters").getIsStatus(e))
+      if (o("WAWebMsgGetters").getIsStatus(t))
         return o("WAWebDisplayType").DISPLAY_TYPE.STATUS;
-      var t = o("WAWebFrontendMsgGetters").getChat(e),
-        n = o("WAWebMsgGetters").getIsMetaBotInvokeResponse(e),
-        r =
-          t != null && o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(t),
+      var n = o("WAWebFrontendMsgGetters").getChat(t),
+        r = o("WAWebMsgGetters").getIsMetaBotInvokeResponse(t),
         a =
+          n != null && o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(n),
+        i =
           o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
-          t != null &&
-          o("WAWebChatGetters").getIsNewsletter(t),
-        i = e.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE;
-      return n === !0
+          n != null &&
+          o("WAWebChatGetters").getIsNewsletter(n),
+        l = t.type === o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE;
+      return r === !0
         ? o("WAWebDisplayType").DISPLAY_TYPE.BOT_INVOKE_RESPONSE
-        : i === !0
+        : l === !0
           ? o("WAWebDisplayType").DISPLAY_TYPE.MESSAGE_HISTORY_BUNDLE
-          : r === !0
+          : a === !0
             ? o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT
-            : a === !0
+            : i === !0
               ? o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER
               : o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION;
     }
-    l.getDisplayType = e;
+    l.getDisplayType = s;
   },
   98,
 );

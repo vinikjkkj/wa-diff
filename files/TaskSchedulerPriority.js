@@ -6,11 +6,13 @@ __d(
     var e = 0,
       l = 1,
       s = 2,
-      u = 3;
+      u = 3,
+      c = 4;
     ((i.BLOCKING_PRIORITY = e),
-      (i.NORMAL_PRIORITY = l),
-      (i.BACKGROUND_PRIORITY = s),
-      (i.NUM_PRIORITIES = u));
+      (i.HIGH_PRIORITY = l),
+      (i.NORMAL_PRIORITY = s),
+      (i.BACKGROUND_PRIORITY = u),
+      (i.NUM_PRIORITIES = c));
   },
   66,
 );

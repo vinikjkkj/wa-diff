@@ -8,23 +8,35 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = r("JSResourceForInteraction")(
-      "WAWebBizGetCategoriesQuery",
-    ).__setRef("WAWebBusinessProfileCategoriesBridge");
-    function s(t, n) {
+        "WAWebBizGetCategoriesQuery",
+      ).__setRef("WAWebBusinessProfileCategoriesBridge"),
+      s = r("JSResourceForInteraction")(
+        "WAWebBizGetCategoriesV2Query",
+      ).__setRef("WAWebBusinessProfileCategoriesBridge");
+    function u(t, n) {
       o("WAWebBizLogQplEvents").qplPointProfileCatsView("datasource_start");
-      var r = o("WAWebBizGatingUtils").isCategorySearchViaGraphEnabled()
-        ? e.load().then(function (e) {
-            return e.getBusinessCategories(t, n);
-          })
-        : o("WAWebQueryBusinessCategoriesJob").queryBusinessCategories(t);
-      return r.then(function (e) {
-        return (
-          o("WAWebBizLogQplEvents").qplPointProfileCatsView("datasource_end"),
-          e
-        );
-      });
+      var r;
+      return (
+        o("WAWebBizGatingUtils").isCategorySearchViaGraphEnabled()
+          ? o("WAWebBizGatingUtils").getCatkitVersion() >= 2
+            ? (r = s.load().then(function (e) {
+                return e.getBusinessCategoriesV2(t, n);
+              }))
+            : (r = e.load().then(function (e) {
+                return e.getBusinessCategories(t, n);
+              }))
+          : (r = o("WAWebQueryBusinessCategoriesJob").queryBusinessCategories(
+              t,
+            )),
+        r.then(function (e) {
+          return (
+            o("WAWebBizLogQplEvents").qplPointProfileCatsView("datasource_end"),
+            e
+          );
+        })
+      );
     }
-    l.queryBusinessCategories = s;
+    l.queryBusinessCategories = u;
   },
   98,
 );

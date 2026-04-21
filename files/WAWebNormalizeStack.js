@@ -1,6 +1,6 @@
 __d(
   "WAWebNormalizeStack",
-  ["WAUpperFirst", "escapeRegex"],
+  ["WAUpperFirst", "err", "escapeRegex"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       t === void 0 && (t = !1);
@@ -38,13 +38,14 @@ __d(
       var o;
       if (e != null && typeof e.stack == "string") o = e.stack;
       else {
-        var a = new Error();
-        ((a.name = t),
-          (a.message = n),
-          (o = typeof a.stack == "string" ? a.stack : ""));
+        var a = r("err")(n);
+        a.name = t;
+        var i = typeof a.stack == "string" ? a.stack : "",
+          l = i.replace(/^Error:/, t + ":");
+        o = l.replace(/\n\s+at err\s[^\n]+/, "");
       }
-      var i = typeof e == "object" ? babelHelpers.extends({}, e) : null;
-      return babelHelpers.extends({}, i, { name: t, message: n, stack: o });
+      var s = typeof e == "object" ? babelHelpers.extends({}, e) : null;
+      return babelHelpers.extends({}, s, { name: t, message: n, stack: o });
     }
     ((l.normalizeStack = e), (l.normalizeError = s));
   },

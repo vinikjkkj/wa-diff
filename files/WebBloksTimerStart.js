@@ -4,15 +4,15 @@ __d(
   function (t, n, r, o, a, i) {
     function e(e, t, n, r, o, a) {
       var i = Number(n),
-        l = null,
-        s = t.objectSet.environment.timeoutIDS,
-        u = function () {
-          (e.executeCatch(o, [a, t]),
-            r
-              ? s.has(a) && ((l = window.setTimeout(u, i)), s.set(a, l))
-              : s.delete(a));
-        };
-      ((l = window.setTimeout(u, i)), s.set(a, l));
+        l = t.objectSet.environment.timeoutIDS,
+        s = function () {
+          if ((e.executeCatch(o, [a, t]), r)) {
+            var n = l.get(a);
+            n != null && (n.hostTimerID = window.setTimeout(s, i));
+          } else l.delete(a);
+        },
+        u = window.setTimeout(s, i);
+      l.set(a, { hostTimerID: u, tick: s, intervalMs: i });
     }
     i.default = e;
   },

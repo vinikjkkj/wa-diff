@@ -51,7 +51,8 @@ __d(
               ),
               y = yield (s || (s = n("Promise"))).all(
                 h.map(function (e) {
-                  return d(e, a, i, l, g);
+                  var t;
+                  return d(e, a, i, l, g, (t = e.key) == null ? void 0 : t.id);
                 }),
               ),
               C = r("compactMap")(y, function (e) {
@@ -73,46 +74,44 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n, r, o) {
+    function d(e, t, n, r, o, a) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i,
-              l = (i = e.key) == null ? void 0 : i.id;
-            if (l == null) return null;
-            var s = e.messageBytes;
-            if (s == null)
-              return { stanzaId: l, reportingToken: null, version: null };
-            var u = yield o(
+          function* (e, t, n, r, a, i) {
+            if (i == null) return null;
+            var l = e.messageBytes;
+            if (l == null)
+              return { stanzaId: i, reportingToken: null, version: null };
+            var s = yield o(
                 "WAWebReportingTokenUtils",
               ).genReportingTokenKeyFromMessageSecret({
                 messageSecret: t,
-                stanzaId: l,
+                stanzaId: i,
                 senderJid: n,
                 remoteJid: r,
               }),
-              c = new (o(
+              u = new (o(
                 "WAWebReportingTokenContent",
               ).ReportingTokenContentCalculator)(
-                new Uint8Array(s),
+                new Uint8Array(l),
                 o("WAWebReportingTokenConfig").getReportingTokenConfig(a),
               ).getReportingTokenContent();
-            if (c == null || c.length === 0)
-              return { stanzaId: l, reportingToken: null, version: null };
-            var d = yield o("WACryptoHmac").hmacSha256(
-              new Uint8Array(u),
-              c,
+            if (u == null || u.length === 0)
+              return { stanzaId: i, reportingToken: null, version: null };
+            var c = yield o("WACryptoHmac").hmacSha256(
+              new Uint8Array(s),
+              u,
               o("WAWebReportingTokenUtils").REPORTING_TOKEN_SIZE,
             );
             return {
-              stanzaId: l,
-              reportingToken: new Uint8Array(d),
+              stanzaId: i,
+              reportingToken: new Uint8Array(c),
               version: a,
-              reportingTokenKey: new Uint8Array(u),
-              reportingTokenContent: c,
+              reportingTokenKey: new Uint8Array(s),
+              reportingTokenContent: u,
             };
           },
         )),

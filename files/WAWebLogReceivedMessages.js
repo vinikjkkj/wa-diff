@@ -73,7 +73,7 @@ __d(
                                 "error logging payment link message receive: ",
                                 "",
                               ])),
-                            e,
+                            String(e),
                           );
                         }));
                   },
@@ -575,7 +575,7 @@ __d(
                 "error logging received messages: ",
                 "",
               ])),
-            t,
+            String(t),
           );
         });
     }

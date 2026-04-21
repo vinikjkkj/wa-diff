@@ -1,6 +1,6 @@
 __d(
   "WAWebIsOfficialClient",
-  ["WALogger", "WAWebUA", "WAWebWamGlobals", "getErrorSafe", "gkx"],
+  ["WALogger", "WAWebUA", "WAWebWamGlobals", "err", "getErrorSafe", "gkx"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -20,7 +20,7 @@ __d(
       },
       _ = function () {
         try {
-          var t = new Error(),
+          var t = r("err")(""),
             n = t.stack,
             a = n
               .split("\n")

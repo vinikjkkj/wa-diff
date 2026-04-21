@@ -1033,6 +1033,9 @@ __d(
       );
     }
     function mn() {
+      return o("WAWebABProps").getABPropConfigValue("smb_catkit_query_version");
+    }
+    function pn() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings")
@@ -1201,7 +1204,8 @@ __d(
       (l.showCTWA3pdDataSharingDisclosureOnThreadEntry = un),
       (l.isBloksWidgetEnabled = cn),
       (l.isCategorySearchViaGraphEnabled = dn),
-      (l.isBizAIToolsSettingsEnabled = mn));
+      (l.getCatkitVersion = mn),
+      (l.isBizAIToolsSettingsEnabled = pn));
   },
   98,
 );

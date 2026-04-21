@@ -10,12 +10,14 @@ __d(
       );
     }
     function s(e) {
-      if (e.length % 2 !== 0)
-        throw new RangeError(
+      if (e.length % 2 !== 0) {
+        var t = new RangeError(
           "Flattened pairs come in 2, invalid list size to unflatten!",
         );
-      for (var t = [], n = 0; n < e.length; n++) t.push([e[n], e[++n]]);
-      return t;
+        throw (t.stack, t);
+      }
+      for (var n = [], r = 0; r < e.length; r++) n.push([e[r], e[++r]]);
+      return n;
     }
     ((l.flattenPairList = e), (l.unFlattenPairList = s));
   },

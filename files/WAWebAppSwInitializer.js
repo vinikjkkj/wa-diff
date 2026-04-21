@@ -59,7 +59,7 @@ __d(
                                 "service-worker-unregistration-failure",
                               ])),
                           )
-                          .catching(t)
+                          .catching(r("getErrorSafe")(t))
                           .sendLogs("service-worker-unregistration-failure");
                       }),
                     );
@@ -110,10 +110,10 @@ __d(
               ? void 0
               : e.getRegistrations();
           if (t) {
-            var r = [];
-            for (var a of t)
-              r.push(
-                a.unregister().catch(function (e) {
+            var a = [];
+            for (var i of t)
+              a.push(
+                i.unregister().catch(function (e) {
                   o("WALogger")
                     .ERROR(
                       u ||
@@ -121,11 +121,11 @@ __d(
                           "service-worker-unregistration-failure",
                         ])),
                     )
-                    .catching(e)
+                    .catching(r("getErrorSafe")(e))
                     .sendLogs("service-worker-unregistration-failure");
                 }),
               );
-            yield (c || (c = n("Promise"))).all(r);
+            yield (c || (c = n("Promise"))).all(a);
           }
         })),
         _.apply(this, arguments)
