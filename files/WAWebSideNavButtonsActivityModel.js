@@ -2,6 +2,8 @@ __d(
   "WAWebSideNavButtonsActivityModel",
   [
     "$InternalEnum",
+    "WAWebBotGating",
+    "WAWebBotUtils",
     "WAWebChatEntryPoint",
     "WAWebChatGetters",
     "WAWebGroupType",
@@ -50,54 +52,61 @@ __d(
         c.set(e.Community, n);
       },
       v = function (t) {
-        var e = t.id.toString(),
-          n = d();
-        if (n == null) {
-          _(e);
-          return;
-        }
-        switch (n) {
-          case o("WAWebNavBarTypes").NavBarItems.Chats:
+        if (
+          !(
+            o("WAWebBotUtils").isMetaAiBot(t.id) &&
+            o("WAWebBotGating").isAiChatThreadsEnabled()
+          )
+        ) {
+          var e = t.id.toString(),
+            n = d();
+          if (n == null) {
             _(e);
-            break;
-          case o("WAWebNavBarTypes").NavBarItems.Newsletters:
-            o("WAWebChatGetters").getIsNewsletter(t) && g(e);
-            break;
-          case o("WAWebNavBarTypes").NavBarItems.Communities:
-            if (t.groupType != null)
-              switch (t.groupType) {
-                case o("WAWebGroupType").GroupType.COMMUNITY:
-                case o("WAWebGroupType").GroupType.LINKED_SUBGROUP:
-                case o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP:
-                case o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP:
-                  b(e);
-                  break;
-                case o("WAWebGroupType").GroupType.DEFAULT:
-                  _(e);
-                  break;
-              }
-            break;
-          case o("WAWebNavBarTypes").NavBarItems.Updates:
-            o("WAWebChatGetters").getIsNewsletter(t) && g(e);
-            break;
-          case o("WAWebNavBarTypes").NavBarItems.Archived:
-          case o("WAWebNavBarTypes").NavBarItems.Beta:
-          case o("WAWebNavBarTypes").NavBarItems.BizTools:
-          case o("WAWebNavBarTypes").NavBarItems.AdCreation:
-          case o("WAWebNavBarTypes").NavBarItems.Calls:
-          case o("WAWebNavBarTypes").NavBarItems.Contacts:
-          case o("WAWebNavBarTypes").NavBarItems.Orders:
-          case o("WAWebNavBarTypes").NavBarItems.Labels:
-          case o("WAWebNavBarTypes").NavBarItems.LockedChats:
-          case o("WAWebNavBarTypes").NavBarItems.Starred:
-          case o("WAWebNavBarTypes").NavBarItems.Settings:
-          case o("WAWebNavBarTypes").NavBarItems.Profile:
-          case o("WAWebNavBarTypes").NavBarItems.Status:
-          case o("WAWebNavBarTypes").NavBarItems.MediaHub:
-          case o("WAWebNavBarTypes").NavBarItems.MetaAI:
-          case o("WAWebNavBarTypes").NavBarItems.MeTab:
-          case o("WAWebNavBarTypes").NavBarItems.CustomerManager:
-            break;
+            return;
+          }
+          switch (n) {
+            case o("WAWebNavBarTypes").NavBarItems.Chats:
+              _(e);
+              break;
+            case o("WAWebNavBarTypes").NavBarItems.Newsletters:
+              o("WAWebChatGetters").getIsNewsletter(t) && g(e);
+              break;
+            case o("WAWebNavBarTypes").NavBarItems.Communities:
+              if (t.groupType != null)
+                switch (t.groupType) {
+                  case o("WAWebGroupType").GroupType.COMMUNITY:
+                  case o("WAWebGroupType").GroupType.LINKED_SUBGROUP:
+                  case o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP:
+                  case o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP:
+                    b(e);
+                    break;
+                  case o("WAWebGroupType").GroupType.DEFAULT:
+                    _(e);
+                    break;
+                }
+              break;
+            case o("WAWebNavBarTypes").NavBarItems.Updates:
+              o("WAWebChatGetters").getIsNewsletter(t) && g(e);
+              break;
+            case o("WAWebNavBarTypes").NavBarItems.Archived:
+            case o("WAWebNavBarTypes").NavBarItems.Beta:
+            case o("WAWebNavBarTypes").NavBarItems.BizTools:
+            case o("WAWebNavBarTypes").NavBarItems.AdCreation:
+            case o("WAWebNavBarTypes").NavBarItems.Calls:
+            case o("WAWebNavBarTypes").NavBarItems.Contacts:
+            case o("WAWebNavBarTypes").NavBarItems.Orders:
+            case o("WAWebNavBarTypes").NavBarItems.Labels:
+            case o("WAWebNavBarTypes").NavBarItems.LockedChats:
+            case o("WAWebNavBarTypes").NavBarItems.Starred:
+            case o("WAWebNavBarTypes").NavBarItems.Settings:
+            case o("WAWebNavBarTypes").NavBarItems.Profile:
+            case o("WAWebNavBarTypes").NavBarItems.Status:
+            case o("WAWebNavBarTypes").NavBarItems.MediaHub:
+            case o("WAWebNavBarTypes").NavBarItems.MetaAI:
+            case o("WAWebNavBarTypes").NavBarItems.MeTab:
+            case o("WAWebNavBarTypes").NavBarItems.CustomerManager:
+              break;
+          }
         }
       };
     ((l.getLastActiveButton = d),

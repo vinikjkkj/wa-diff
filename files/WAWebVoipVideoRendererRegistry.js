@@ -56,12 +56,14 @@ __d(
             (this.$16 = !1),
             (this.$20 = null),
             (this.$5 = []),
-            (this.$12 = new Map()));
+            (this.$12 = new Map()),
+            (this.$21 = 0));
         }
         var a = t.prototype;
         return (
           (a.init = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var t = this;
               try {
                 this.$1 = yield this.$2();
               } catch (t) {
@@ -91,6 +93,14 @@ __d(
                 ),
                 this.$1 != null &&
                   o("WAWebVoipWindowMetrics").setRendererType(this.$1, this.$3),
+                this.$3 ===
+                  o("WAWebVoipVideoRendererInterface")
+                    .WAWebVoipVideoRendererThreadingMode.MAIN_THREAD &&
+                  o("WAWebVoipVideoWebCodecsRenderer").setFatalErrorCallback(
+                    function () {
+                      return t.onDecoderFatalError();
+                    },
+                  ),
                 this.$5.length > 0)
               ) {
                 o("WALogger").LOG(
@@ -101,10 +111,10 @@ __d(
                     ])),
                   this.$5.length,
                 );
-                for (var t of this.$5) {
-                  var n = t.canvas,
-                    r = t.portalMode;
-                  this.$6(n, r);
+                for (var n of this.$5) {
+                  var r = n.canvas,
+                    a = n.portalMode;
+                  this.$6(r, a);
                 }
                 this.$5 = [];
               }
@@ -559,6 +569,13 @@ __d(
           }),
           (a.consumeAVSyncMetrics = function () {
             return this.$9.consumeMetrics();
+          }),
+          (a.onDecoderFatalError = function () {
+            this.$21++;
+          }),
+          (a.consumeWebCodecsFatalErrorCount = function () {
+            var e = this.$21;
+            return ((this.$21 = 0), e);
           }),
           (a.removeParticipantAVSync = function (t) {
             this.$9.removeParticipant(t);

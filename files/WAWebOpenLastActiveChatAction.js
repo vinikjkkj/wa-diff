@@ -2,7 +2,6 @@ __d(
   "WAWebOpenLastActiveChatAction",
   [
     "Promise",
-    "WAWebBotFrontendUtils",
     "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebChatCollection",
@@ -20,30 +19,19 @@ __d(
           try {
             var r =
               t != null ? o("WAWebChatCollection").ChatCollection.get(t) : null;
-            if (
-              (o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
-              r != null && !r.isLocked)
-            ) {
-              if (
-                o("WAWebBotUtils").isMetaAiBot(r.id) &&
-                o("WAWebBotGating").isAiChatThreadsEnabled()
-              ) {
-                r.composeQuotedMsg = null;
-                var a = yield o(
-                  "WAWebBotFrontendUtils",
-                ).openLatestOrNewMetaAiThread(
-                  r,
-                  o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab,
-                );
-                return a.success;
-              }
-              return o("WAWebCmd").Cmd.openChatFromUnread({
-                chat: r,
-                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                  .ChatsTab,
-              });
-            }
-            return (e || (e = n("Promise"))).resolve(!1);
+            return (
+              o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
+              r != null && !r.isLocked
+                ? o("WAWebBotUtils").isMetaAiBot(r.id) &&
+                  o("WAWebBotGating").isAiChatThreadsEnabled()
+                  ? !1
+                  : o("WAWebCmd").Cmd.openChatFromUnread({
+                      chat: r,
+                      chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                        .ChatsTab,
+                    })
+                : (e || (e = n("Promise"))).resolve(!1)
+            );
           } catch (t) {
             return (e || (e = n("Promise"))).resolve(!1);
           }

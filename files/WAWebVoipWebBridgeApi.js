@@ -1390,6 +1390,11 @@ __d(
           "WAWebVoipVideoRendererRegistry",
         ).videoRendererRegistry.consumeAVSyncMetrics();
       },
+      consumeWebCodecsFatalErrorCount: function () {
+        return o(
+          "WAWebVoipVideoRendererRegistry",
+        ).videoRendererRegistry.consumeWebCodecsFatalErrorCount();
+      },
       startAnrTracking: function () {
         o("WAWebVoipAnrTracker").startAnrTracking();
       },

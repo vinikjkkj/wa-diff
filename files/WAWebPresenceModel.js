@@ -18,12 +18,14 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebFrontendContactGetters",
     "WAWebGroupGatingUtils",
+    "WAWebGroupPresenceUtils",
     "WAWebGroupType",
     "WAWebPresenceCollection",
     "WAWebPresenceEnum",
     "WAWebPresenceOrder",
     "WAWebPrivacyGatingUtils",
     "WAWebTextStatusGatingUtils",
+    "WAWebUserPrefsMeUser",
     "WAWebWid",
     "WAWebWidFormat",
     "lodash",
@@ -78,6 +80,7 @@ __d(
           )),
           (e.forceDisplay = o("WAWebBaseModel").session(!1)),
           (e.chatActive = o("WAWebBaseModel").session(!1)),
+          (e.groupOnlineCount = o("WAWebBaseModel").session(0)),
           (e.withholdDisplayTimer = o("WAWebBaseModel").session()),
           (e.forceDisplayTimer = o("WAWebBaseModel").session()),
           (e.chatstate = o("WAWebBaseModel").session()),
@@ -109,7 +112,7 @@ __d(
             : { id: this.id };
           (this.addChild("chatstate", new f(n)),
             this.isGroup
-              ? this.listenTo(
+              ? (this.listenTo(
                   this.chatstates,
                   "add change",
                   r("lodash").debounce(function () {
@@ -168,13 +171,20 @@ __d(
                         type: t ? t.type : "unavailable",
                       }));
                   }),
-                )
+                ),
+                this.listenTo(
+                  o("WAWebPresenceCollection").PresenceCollection,
+                  "change:isOnline",
+                  r("lodash").debounce(function () {
+                    return e.$PresenceImpl$p_1();
+                  }, 100),
+                ))
               : this.listenTo(this.chatstate, "change:type", function () {
                   e.chatstate.type === "available"
                     ? (e.isOnline = !0)
                     : e.chatstate.type === "unavailable" && (e.isOnline = !1);
                 }),
-            this.listenTo(this, "change:chatActive", this.$PresenceImpl$p_1));
+            this.listenTo(this, "change:chatActive", this.$PresenceImpl$p_2));
         }),
         (a.delete = function () {
           (t.prototype.delete.call(this),
@@ -187,9 +197,10 @@ __d(
         (a.reset = function () {
           ((this.hasData = !1),
             this.isGroup
-              ? this.chatstates.forEach(function (e) {
+              ? (this.chatstates.forEach(function (e) {
                   e.type = "unavailable";
-                })
+                }),
+                (this.groupOnlineCount = 0))
               : this.isUser &&
                 (this.chatstate.unset("t"), this.chatstate.unset("deny")),
             this.chatstate.set({
@@ -226,10 +237,11 @@ __d(
             this.chatstate.type,
             this.typingUserIds,
             this.recordingUserIds,
+            this.groupOnlineCount,
             r,
           );
         }),
-        (a.$PresenceImpl$p_2 = function () {
+        (a.$PresenceImpl$p_3 = function () {
           var e = this.chatstate.id;
           return e
             ? o("WAWebContactCollection").ContactCollection.get(e)
@@ -312,15 +324,46 @@ __d(
           );
         }),
         (a.$PresenceImpl$p_1 = function () {
+          var e;
+          if (this.isGroup) {
+            var t = o("WAWebChatCollection").ChatCollection.get(this.id),
+              n =
+                t == null || (e = t.groupMetadata) == null
+                  ? void 0
+                  : e.participants;
+            if (
+              n != null &&
+              !(
+                n.length >
+                o("WAWebGroupPresenceUtils").getSmallGroupPresenceThreshold()
+              )
+            ) {
+              var r = 0;
+              n.forEach(function (e) {
+                if (!o("WAWebUserPrefsMeUser").isMeAccount(e.id)) {
+                  var t = o("WAWebPresenceCollection").PresenceCollection.get(
+                    e.id,
+                  );
+                  (t == null ? void 0 : t.isOnline) === !0 && (r += 1);
+                }
+              });
+              var a = r >= 1 ? r + 1 : 0;
+              (this.groupOnlineCount !== a || !this.hasData) &&
+                this.set({ groupOnlineCount: a, hasData: !0 });
+            }
+          }
+        }),
+        (a.$PresenceImpl$p_2 = function () {
           var e = this,
             t = this.chatActive;
           if (t) {
+            this.isGroup && this.$PresenceImpl$p_1();
             var n =
                 o(
                   "WAWebChatAssignmentCollection",
                 ).ChatAssignmentCollection.getAgentCollectionForChatId(this.id)
                   .length > 0,
-              r = this.$PresenceImpl$p_2(),
+              r = this.$PresenceImpl$p_3(),
               a = r && o("WAWebContactGetters").getIsMe(r),
               i = [],
               l = o("WAWebChatCollection").ChatCollection.get(this.id);
@@ -425,20 +468,24 @@ __d(
       }
     }
     var C = c.defineModel(h);
-    function b(e, t, n, r) {
-      if (e === "typing" && t.length > 0) return v(t, r);
+    function b(e, t, n, r, o) {
+      if (e === "typing" && t.length > 0) return v(t, o);
       if (e === "recording_audio" && n.length > 0) {
-        var o = S(n[n.length - 1], r),
-          a = o.accessibleName,
-          i = o.name;
+        var a = S(n[n.length - 1], o),
+          i = a.accessibleName,
+          l = a.name;
         return {
           text: s._(/*BTDS*/ "{member} is recording audio\u2026", [
-            s._param("member", i),
+            s._param("member", l),
           ]),
           ariaLabel: s._(/*BTDS*/ "{member} is recording audio\u2026", [
-            s._param("member", a),
+            s._param("member", i),
           ]),
         };
+      }
+      if (r > 0) {
+        var u = s._(/*BTDS*/ "{count} online", [s._param("count", r)]);
+        return { text: u, ariaLabel: u };
       }
       return null;
     }

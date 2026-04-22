@@ -22,6 +22,7 @@ __d(
         },
         mediaPanelTools: {
           order: "x9ek82g",
+          flexShrink: "x2lah0s",
           marginRight: "xzj7eog",
           marginInlineStart: null,
           marginInlineEnd: null,
@@ -31,7 +32,7 @@ __d(
         info: {
           flex: "x12lumcd",
           order: "x14yy4lh",
-          marginRight: "xl89s6",
+          marginRight: "xl6c0mu",
           marginLeft: "xd8780z",
           marginInlineStart: null,
           marginInlineEnd: null,
@@ -57,7 +58,7 @@ __d(
         },
         filename: {
           display: "x1rg5ohu",
-          maxWidth: "x256u9z",
+          minWidth: "xeuugli",
           overflowX: "x6ikm8r",
           overflowY: "x10wlt62",
           textOverflow: "xlyipyv",

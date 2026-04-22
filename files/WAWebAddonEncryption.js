@@ -19,8 +19,8 @@ __d(
     "encodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e, t) {
+    var e, s, u, c, d, m, p, _, f;
+    function g(e, t) {
       switch (e) {
         case o("WAWebMsgType").MsgKind.PollVoteEncrypted:
         case o("WAWebMsgType").MsgKind.PollVoteDecrypted:
@@ -32,7 +32,7 @@ __d(
           return;
       }
     }
-    function p(t, n, r, a) {
+    function h(t, n, r, a) {
       var i = o("WAWebWidToJid").widToUserJid(n),
         l = o("WAWebWidToJid").widToUserJid(r);
       if (
@@ -73,11 +73,11 @@ __d(
       }
       return (
         o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") &&
-          ((i = _(n, "message-sender")), (l = _(r, "addon-sender"))),
+          ((i = y(n, "message-sender")), (l = y(r, "addon-sender"))),
         { originalMessageSenderJid: i, addOnSenderJid: l }
       );
     }
-    function _(e, t) {
+    function y(e, t) {
       var n = o("WAWebWidToJid").widToUserJid(e);
       if (
         !e.isRegularUserPn() ||
@@ -100,12 +100,12 @@ __d(
             .sendLogs("missing-pn-to-lid-mapping"),
           n);
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function g() {
+    function b() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.addOnSender,
             a = t.iv,
             i = t.messageSecret,
@@ -113,27 +113,27 @@ __d(
             s = t.parentWid,
             u = t.stanzaId;
           try {
-            var d = p(e.type, l, n, s),
-              _ = d.addOnSenderJid,
-              f = d.originalMessageSenderJid,
-              g = r("WANullthrows")(C(e.type)),
-              h = g.spec,
-              y = g.usecase,
-              b = yield o("WAUseCaseSecret").createUseCaseSecret({
+            var d = h(e.type, l, n, s),
+              m = d.addOnSenderJid,
+              p = d.originalMessageSenderJid,
+              _ = r("WANullthrows")(E(e.type)),
+              f = _.spec,
+              y = _.usecase,
+              C = yield o("WAUseCaseSecret").createUseCaseSecret({
                 messageSecret: i,
                 stanzaId: u,
-                parentMsgOriginalSender: f,
-                modificationSender: _,
+                parentMsgOriginalSender: p,
+                modificationSender: m,
                 modificationType: y,
               }),
-              v = o("encodeProtobuf").encodeProtobuf(h, e.encode).readBuffer(),
-              S = yield o("WACryptoAesGcm").gcmEncrypt(
-                b,
+              b = o("encodeProtobuf").encodeProtobuf(f, e.encode).readBuffer(),
+              v = yield o("WACryptoAesGcm").gcmEncrypt(
+                C,
                 a,
-                v,
-                m(e.type, { stanzaId: u, addOnSenderJid: _ }),
+                b,
+                g(e.type, { stanzaId: u, addOnSenderJid: m }),
               ),
-              R =
+              S =
                 (e.type === o("WAWebMsgType").MsgKind.CommentDecrypted ||
                   e.type === o("WAWebMsgType").MsgKind.EventEditDecrypted ||
                   e.type === o("WAWebMsgType").MsgKind.MessageEditDecrypted) &&
@@ -143,7 +143,7 @@ __d(
                   ? new (o(
                       "WAWebReportingTokenContent",
                     ).ReportingTokenContentCalculator)(
-                      new Uint8Array(v),
+                      new Uint8Array(b),
                       o("WAWebReportingTokenConfig").getReportingTokenConfig(
                         o(
                           "WAWebMessagingGatingUtils",
@@ -152,8 +152,8 @@ __d(
                     ).getReportingTokenContent()
                   : null;
             return babelHelpers.extends(
-              { encPayload: S },
-              R != null && { reportingTokenContent: R },
+              { encPayload: v },
+              S != null && { reportingTokenContent: S },
             );
           } catch (t) {
             throw (
@@ -179,66 +179,173 @@ __d(
             );
           }
         })),
-        g.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function v(e, t) {
+      return S.apply(this, arguments);
     }
-    function y() {
+    function S() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.addOnSender,
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.addOnSenderJid,
             a = t.iv,
             i = t.messageSecret,
-            l = t.originalMessageSender,
-            s = t.stanzaId;
-          try {
-            var u = o("WAWebWidToJid").widToUserJid(n),
-              c = r("WANullthrows")(C(e.type)),
-              p = c.usecase,
-              _ = yield o("WAUseCaseSecret").createUseCaseSecret({
-                messageSecret: i,
-                stanzaId: s,
-                parentMsgOriginalSender: o("WAWebWidToJid").widToUserJid(l),
-                modificationSender: u,
-                modificationType: p,
-              }),
-              f = yield o("WACryptoAesGcm").gcmDecrypt(
-                _,
-                a,
-                e.encryptedAddOn,
-                m(e.type, { stanzaId: s, addOnSenderJid: u }),
+            l = t.originalMessageSenderJid,
+            s = t.stanzaId,
+            u = r("WANullthrows")(E(e.type)),
+            c = u.usecase,
+            d = yield o("WAUseCaseSecret").createUseCaseSecret({
+              messageSecret: i,
+              stanzaId: s,
+              parentMsgOriginalSender: l,
+              modificationSender: n,
+              modificationType: c,
+            });
+          return o("WACryptoAesGcm").gcmDecrypt(
+            d,
+            a,
+            e.encryptedAddOn,
+            g(e.type, { stanzaId: s, addOnSenderJid: n }),
+          );
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = t.addOnSender,
+            r = t.iv,
+            a = t.messageSecret,
+            i = t.originalMessageSender,
+            l = t.stanzaId,
+            s = { messageSecret: a, iv: r, stanzaId: l },
+            u = o("WAWebLidMigrationUtils").toUserLid(i),
+            c = o("WAWebLidMigrationUtils").toUserLid(n);
+          if (u != null && c != null)
+            try {
+              return yield v(
+                e,
+                babelHelpers.extends({}, s, {
+                  originalMessageSenderJid: o("WAWebWidToJid").widToUserJid(u),
+                  addOnSenderJid: o("WAWebWidToJid").widToUserJid(c),
+                }),
               );
-            return f;
-          } catch (t) {
-            throw (
+            } catch (t) {
               o("WALogger").LOG(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "Failed decrypting an addon ",
+                    "decryptAddOn: LID attempt failed for ",
+                    " ",
+                    ", trying PN",
+                  ])),
+                l,
+                e.type,
+              );
+            }
+          var g = o("WAWebLidMigrationUtils").toPn(i),
+            h = o("WAWebLidMigrationUtils").toPn(n);
+          if (g != null && h != null)
+            try {
+              return yield v(
+                e,
+                babelHelpers.extends({}, s, {
+                  originalMessageSenderJid: o("WAWebWidToJid").widToUserJid(g),
+                  addOnSenderJid: o("WAWebWidToJid").widToUserJid(h),
+                }),
+              );
+            } catch (t) {
+              o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "decryptAddOn: PN attempt failed for ",
+                    " ",
+                    ", trying original",
+                  ])),
+                l,
+                e.type,
+              );
+            }
+          try {
+            var y = yield v(
+              e,
+              babelHelpers.extends({}, s, {
+                originalMessageSenderJid: o("WAWebWidToJid").widToUserJid(i),
+                addOnSenderJid: o("WAWebWidToJid").widToUserJid(n),
+              }),
+            );
+            return (
+              i.isLid() && !n.isLid()
+                ? o("WALogger")
+                    .WARN(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "decryptAddOn: falling back to original WIDs, original is LID, addOn is PN ",
+                          " ",
+                          "",
+                        ])),
+                      i.toLogString(),
+                      n.toLogString(),
+                    )
+                    .sendLogs(
+                      "addon-asymmetric-decryption-original-lid-addon-pn",
+                      { sampling: 0.01 },
+                    )
+                : !i.isLid() &&
+                  n.isLid() &&
+                  o("WALogger")
+                    .WARN(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "decryptAddOn: falling back to original WIDs, original is PN, addOn is LID ",
+                          " ",
+                          "",
+                        ])),
+                      i.toLogString(),
+                      n.toLogString(),
+                    )
+                    .sendLogs(
+                      "addon-asymmetric-decryption-original-pn-addon-lid",
+                      { sampling: 0.01 },
+                    ),
+              y
+            );
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "decryptAddOn: original WIDs failed ",
+                    " ",
+                    " ",
                     " ",
                     " ",
                     "",
                   ])),
-                s,
+                l,
                 e.type,
+                i.toLogString(),
+                n.toLogString(),
                 t,
-              ),
-              new (o(
-                "WAWebAddonEncryptionError",
-              ).DualEncryptionValidationError)(
-                e.type,
-                o("WAWebAddonEncryptionError").DualEncryptionValidationErrorCode
-                  .DECRYPTION_ERROR,
               )
-            );
+              .sendLogs("addon-decryption-original-wid-failed");
           }
+          throw new (o(
+            "WAWebAddonEncryptionError",
+          ).DualEncryptionValidationError)(
+            e.type,
+            o("WAWebAddonEncryptionError").DualEncryptionValidationErrorCode
+              .DECRYPTION_ERROR,
+          );
         })),
-        y.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function C(e) {
+    function E(e) {
       switch (e) {
         case o("WAWebMsgType").MsgKind.ReactionEncrypted:
         case o("WAWebMsgType").MsgKind.ReactionDecrypted:
@@ -301,7 +408,7 @@ __d(
           };
       }
     }
-    ((l.encryptAddOn = f), (l.decryptAddOn = h));
+    ((l.encryptAddOn = C), (l.decryptAddOn = R));
   },
   98,
 );

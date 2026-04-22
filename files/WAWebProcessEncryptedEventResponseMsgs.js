@@ -7,7 +7,6 @@ __d(
     "WANullthrows",
     "WAWebAddonEncryption",
     "WAWebAddonEncryptionError",
-    "WAWebApiContact",
     "WAWebEventResponseMsgDataConversion",
     "WAWebEventsValidationError",
     "WAWebMsgGetters",
@@ -160,42 +159,25 @@ __d(
               encryptedAddOn: i,
             },
             d = o("WAWebWidFactory").asUserWidOrThrow(u),
-            m = null;
-          try {
             m = yield o("WAWebAddonEncryption").decryptAddOn(c, {
               messageSecret: l,
               iv: a,
               stanzaId: t.id.id,
               originalMessageSender: s,
               addOnSender: d,
-            });
-          } catch (e) {
-            if (!s.isLid() || !d.isLid()) throw e;
-            var p = o("WAWebApiContact").getPhoneNumber(s),
-              _ = o("WAWebApiContact").getPhoneNumber(d);
-            if (p == null || _ == null) throw e;
-            ((s = p != null ? p : s),
-              (d = _ != null ? _ : d),
-              (m = yield o("WAWebAddonEncryption").decryptAddOn(c, {
-                messageSecret: l,
-                iv: a,
-                stanzaId: t.id.id,
-                originalMessageSender: s,
-                addOnSender: d,
-              })));
-          }
-          var f = o("decodeProtobuf").decodeProtobuf(
-            o("WAWebProtobufsE2E.pb").Message$EventResponseMessageSpec,
-            m,
-          );
+            }),
+            p = o("decodeProtobuf").decodeProtobuf(
+              o("WAWebProtobufsE2E.pb").Message$EventResponseMessageSpec,
+              m,
+            );
           return o(
             "WAWebEventResponseMsgDataConversion",
           ).protobufToEventResponseMsgData({
-            responseProtobuf: f,
+            responseProtobuf: p,
             parentMsgKey: e.targetMessageKey,
             id: e.id,
             senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-              r("WANullthrows")(f.timestampMs),
+              r("WANullthrows")(p.timestampMs),
             ),
             t: o("WAWebMsgGetters").getT(e),
             ack: (n = e.ack) != null ? n : null,

@@ -110,6 +110,11 @@ __d(
                   );
                 }
               }),
+              i.addMessageListener("decoderFatalError", function () {
+                o(
+                  "WAWebVoipVideoRendererRegistry",
+                ).videoRendererRegistry.onDecoderFatalError();
+              }),
               i
             );
           }),

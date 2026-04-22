@@ -717,6 +717,36 @@ __d(
           (t.genAIAiTextCleared = function () {
             o("WAWebBBGenAILogs").genAIAiTextCleared(this.$1);
           }),
+          (t.genAICarouselNavigated = function (t, n) {
+            o("WAWebBBGenAILogs").genAICarouselNavigated(this.$1, t, n);
+          }),
+          (t.genAIChipTapped = function (t) {
+            o("WAWebBBGenAILogs").genAIChipTapped(this.$1, t);
+          }),
+          (t.genAICustomizeBack = function (t) {
+            o("WAWebBBGenAILogs").genAICustomizeBack(this.$1, t);
+          }),
+          (t.genAICustomizeOpened = function (t) {
+            o("WAWebBBGenAILogs").genAICustomizeOpened(this.$1, t);
+          }),
+          (t.genAICustomizeUseMessage = function (t, n, r) {
+            o("WAWebBBGenAILogs").genAICustomizeUseMessage(this.$1, t, n, r);
+          }),
+          (t.genAIRefinementCompleted = function (t, n) {
+            o("WAWebBBGenAILogs").genAIRefinementCompleted(this.$1, t, n);
+          }),
+          (t.genAIRefinementFailed = function (t, n) {
+            o("WAWebBBGenAILogs").genAIRefinementFailed(this.$1, t, n);
+          }),
+          (t.genAIRefinementSubmitted = function (t, n) {
+            o("WAWebBBGenAILogs").genAIRefinementSubmitted(this.$1, t, n);
+          }),
+          (t.genAIEntryPointViewed = function () {
+            o("WAWebBBGenAILogs").genAIEntryPointViewed(this.$1);
+          }),
+          (t.genAIEntryPointClicked = function () {
+            o("WAWebBBGenAILogs").genAIEntryPointClicked(this.$1);
+          }),
           (t.genAINuxModalViewed = function () {
             o("WAWebBBGenAILogs").genAINuxModalViewed(this.$1);
           }),

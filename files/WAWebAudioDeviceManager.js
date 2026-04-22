@@ -487,7 +487,12 @@ __d(
                 : e.captureParams,
               n = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "voipAcquireMediaStream",
-                { type: "microphone", selectedDeviceId: e.deviceId, params: t },
+                {
+                  type: "microphone",
+                  selectedDeviceId: e.deviceId,
+                  params: t,
+                  targetWindow: e.targetWindow,
+                },
               );
             return n
               ? (j(e.deviceId),

@@ -306,7 +306,10 @@ __d(
       ) {
         var G;
         l[24] === Symbol.for("react.memo_cache_sentinel")
-          ? ((G = s._(/*BTDS*/ "Label chat")), (l[24] = G))
+          ? ((G = o("WAWebListsGatingUtils").isListsEnabled()
+              ? s._(/*BTDS*/ "Add to list")
+              : s._(/*BTDS*/ "Label chat")),
+            (l[24] = G))
           : (G = l[24]);
         var z;
         (l[25] !== m

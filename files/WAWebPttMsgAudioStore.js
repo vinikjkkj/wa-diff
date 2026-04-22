@@ -20,19 +20,29 @@ __d(
           var e = this,
             a = o("WAWebPttAudioManager").AudioManager.createAudioProxy(),
             i = o("WAWebPttAudioChannels").MainAudioChannel.registerMedia(a),
-            l = d(t.mediaData);
-          l && m(a, t, l);
-          var s = new (o(
+            l = m(t.mediaData),
+            s = null;
+          l
+            ? p(a, t, l)
+            : (s = d(t, function (e) {
+                ((l = e), p(a, t, e), (s = null));
+              }));
+          var u = new (o(
             "WAWebPttAudioPlaybackController",
           ).AudioPlaybackController)({ msg: t, audio: a });
           return {
-            playbackController: s,
+            playbackController: u,
             refCount: 1,
             dispose: function () {
               var t = r("WANullthrows")(e.$1.get(n));
-              (t.refCount--,
-                t.refCount === 0 &&
-                  (i(), e.$1.delete(n), l == null || l.dispose(), s.dispose()));
+              if ((t.refCount--, t.refCount === 0)) {
+                var o;
+                (i(),
+                  e.$1.delete(n),
+                  s == null || s(),
+                  (o = l) == null || o.dispose(),
+                  u.dispose());
+              }
             },
           };
         }),
@@ -62,7 +72,27 @@ __d(
     function c(e) {
       return e.id.toString();
     }
-    function d(e) {
+    function d(e, t) {
+      var n = e.mediaData.filehash,
+        r = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.subscribe(
+          function () {
+            if (
+              o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(n)
+            ) {
+              (r == null || r(), (r = null));
+              var a = m(e.mediaData);
+              a && t(a);
+            }
+          },
+        );
+      return (
+        e.forceDownloadMediaEvenIfExpensive(),
+        function () {
+          (r == null || r(), (r = null));
+        }
+      );
+    }
+    function m(e) {
       var t = e.filehash;
       if (!o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(t))
         return null;
@@ -79,7 +109,7 @@ __d(
       };
       return { url: n, dispose: r };
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       e.src = n.url;
       var r = o(
         "WAWebPttGetDurationFromMediaOrProtobuf",
@@ -88,8 +118,8 @@ __d(
         r != null &&
         (e.currentTime = r * t.lastPlaybackProgress);
     }
-    var p = new e();
-    l.MsgAudioStore = p;
+    var _ = new e();
+    l.MsgAudioStore = _;
   },
   98,
 );

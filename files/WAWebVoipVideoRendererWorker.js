@@ -29,6 +29,9 @@ __d(
             "voip: VideoRendererWorker init",
           ])),
       ),
+        o("WAWebVoipVideoWebCodecsRenderer").setFatalErrorCallback(function () {
+          f.postMessage({ type: "decoderFatalError" });
+        }),
         f.addMessageListener("registerCanvas", function (e) {
           try {
             y.registerCanvas(

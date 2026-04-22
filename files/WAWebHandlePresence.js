@@ -6,6 +6,7 @@ __d(
     "WASmaxPresenceServerUpdateRPC",
     "WATimeUtils",
     "WAWebApiContact",
+    "WAWebChangeGroupPresenceHandlerAction",
     "WAWebChangePresenceHandlerAction",
     "WAWebChatCollection",
     "WAWebJidToWid",
@@ -34,8 +35,22 @@ __d(
             var a = o("WASmaxPresenceServerUpdateRPC").receiveServerUpdateRPC(
                 t,
               ),
-              i = a.parsedRequest.presenceUpdates,
-              l = o("WAWebJidToWid").chatJidToChatWid(i.value.from),
+              i = a.parsedRequest.presenceUpdates;
+            if (i.name === "GroupAvailable") {
+              r("WAWebChangeGroupPresenceHandlerAction")({
+                id: o("WAWebJidToWid").chatJidToChatWid(i.value.from),
+                count: i.value.count,
+              });
+              return;
+            }
+            if (i.name === "GroupUnavailable") {
+              r("WAWebChangeGroupPresenceHandlerAction")({
+                id: o("WAWebJidToWid").chatJidToChatWid(i.value.from),
+                count: 0,
+              });
+              return;
+            }
+            var l = o("WAWebJidToWid").chatJidToChatWid(i.value.from),
               c = l.isLid(),
               m = o(
                 "WAWebLid1X1MigrationGating",

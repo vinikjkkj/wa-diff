@@ -812,6 +812,7 @@ __d(
                 deviceId: e,
                 captureParams: a,
                 audioContext: i,
+                targetWindow: t,
                 onStreamUpdate: function (t) {
                   var e;
                   if (r.audioStream) {
