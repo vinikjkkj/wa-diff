@@ -37,14 +37,19 @@ __d(
         u.apply(this, arguments)
       );
     }
-    function c(e, t, n) {
+    function c(e, t, n, r) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return o("WAWebCryptoLibrary").encryptSignalProto(e, t, n);
-        })),
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            return (
+              r === void 0 && (r = !1),
+              o("WAWebCryptoLibrary").encryptSignalProto(e, t, n, r)
+            );
+          },
+        )),
         d.apply(this, arguments)
       );
     }

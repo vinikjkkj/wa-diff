@@ -144,6 +144,7 @@ __d(
               "WAWebClassnames",
             ).classnamesConvertMeToStylexPlease(
               n.className,
+              this.__emojiSize === s.Small && "emoji",
               (e || (e = r("stylex")))(u.emoji, a, i, l, c),
             )),
               d != null && (n.style.backgroundImage = "url('" + d + "')"));

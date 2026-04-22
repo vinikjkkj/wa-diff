@@ -23,34 +23,36 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(e, t, n, r, o, a) {
+    function c(e, t, n, r, o, a, i) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, s, c) {
-            s === void 0 &&
-              (s = o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED);
+          function* (t, a, i, l, s, c, d) {
+            (s === void 0 &&
+              (s = o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED),
+              d === void 0 && (d = !1));
             try {
-              var d = yield o("WAWebSignal").Cipher.encryptSignalProto(
+              var m = yield o("WAWebSignal").Cipher.encryptSignalProto(
                   t,
                   o("WAWebSendMsgCommonApi").encodeAndPad(i),
                   c,
+                  d,
                 ),
-                m = d.ciphertext,
-                p = d.type;
+                p = m.ciphertext,
+                _ = m.type;
               return (
                 o(
                   "WAWebPostE2eMessageSendMetric",
                 ).postSuccessDirectE2eMessageSendMetric({
                   to: t,
                   retryCount: a,
-                  type: p,
+                  type: _,
                   msg: l,
                   editType: s,
                 }),
-                { type: p, ciphertext: m }
+                { type: _, ciphertext: p }
               );
             } catch (i) {
               return (

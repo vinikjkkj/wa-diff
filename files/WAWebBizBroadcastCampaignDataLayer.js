@@ -422,15 +422,17 @@ __d(
                 ? o("WAWebDBMessageSerialization").messageFromDbRow($)
                 : null,
             M = N == null ? void 0 : N.type;
-          if (e.deviceId !== a && e.msgId != null && $ == null)
-            throw new Error(
+          if (e.deviceId !== a && e.msgId != null && $ == null) {
+            var w = new Error(
               o("WAWebBroadcastConsts").CAMPAIGN_MSG_UNAVAILABLE_ERROR,
             );
-          var w = v(e, $),
-            A = L($, P),
-            F = k($, e.createdTimestamp),
-            O = E(S),
-            B =
+            throw (w.stack, w);
+          }
+          var A = v(e, $),
+            F = L($, P),
+            O = k($, e.createdTimestamp),
+            B = E(S),
+            W =
               (l =
                 (s = T == null ? void 0 : T.recipientCount) != null
                   ? s
@@ -441,20 +443,20 @@ __d(
                     : c.length) != null
                 ? l
                 : 0,
-            W = R($, P),
-            q = yield f($, P),
-            U = (d = T == null ? void 0 : T.deliveredCount) != null ? d : 0;
+            q = R($, P),
+            U = yield f($, P),
+            V = (d = T == null ? void 0 : T.deliveredCount) != null ? d : 0;
           if (
-            U === 0 &&
+            V === 0 &&
             e.msgId != null &&
-            w === o("WAWebBroadcastHomeTypes").BroadcastCampaignStatusValue.SENT
+            A === o("WAWebBroadcastHomeTypes").BroadcastCampaignStatusValue.SENT
           )
             try {
-              var V = o(
+              var H = o(
                   "WAWebBizBroadcastCampaignMsgKeyUtils",
                 ).reconstructCampaignMsgKey(e.msgId, e.broadcastJid),
-                H = yield o("WAWebApiMessageInfoStore").queryMsgInfo(V);
-              U = H.delivery.length;
+                G = yield o("WAWebApiMessageInfoStore").queryMsgInfo(H);
+              V = G.delivery.length;
             } catch (t) {
               o("WALogger")
                 .ERROR(
@@ -468,39 +470,39 @@ __d(
                 .catching(r("getErrorSafe")(t))
                 .sendLogs("business-broadcast-msg-info-query-error");
             }
-          var G = (m = e.campaignName) != null ? m : A || "Broadcast Message",
-            z = (p = T == null ? void 0 : T.readCount) != null ? p : 0,
-            j =
+          var z = (m = e.campaignName) != null ? m : F || "Broadcast Message",
+            j = (p = T == null ? void 0 : T.readCount) != null ? p : 0,
+            K =
               ((g = T == null ? void 0 : T.repliedCount) != null ? g : 0) +
               ((h = T == null ? void 0 : T.quickReplyCount) != null ? h : 0),
-            K = o("WAWebBizBroadcastRateUtils").computeCampaignRates({
-              deliveredCount: U,
-              readCount: z,
-              recipientCount: B,
-              repliedCount: j,
+            Q = o("WAWebBizBroadcastRateUtils").computeCampaignRates({
+              deliveredCount: V,
+              readCount: j,
+              recipientCount: W,
+              repliedCount: K,
             }),
-            Q = K.readRate,
-            X = K.replyRate;
+            X = Q.readRate,
+            Y = Q.replyRate;
           return {
-            attachmentData: q,
-            audienceName: O,
+            attachmentData: U,
+            audienceName: B,
             broadcastJid: C,
             campaignId: e.campaignId,
-            campaignName: G,
-            ctaButtonData: W,
-            deliveredCount: U,
+            campaignName: z,
+            ctaButtonData: q,
+            deliveredCount: V,
             lastUpdatedTimestampMs:
               (y = T == null ? void 0 : T.lastUpdatedTimestampMs) != null
                 ? y
                 : null,
-            messageBody: A,
+            messageBody: F,
             msgType: M,
-            readRate: Q,
-            recipientCount: B,
-            replyRate: X,
+            readRate: X,
+            recipientCount: W,
+            replyRate: Y,
             scheduledTimestamp: e.scheduledTimestamp,
-            sentAt: F,
-            status: w,
+            sentAt: O,
+            status: A,
           };
         })),
         P.apply(this, arguments)

@@ -9,16 +9,17 @@ __d(
       c,
       d,
       m,
-      p = !1,
+      p,
       _ = !1,
       f = !1,
-      g = null,
-      h = null;
-    function y() {
-      ((_ = !1), (f = !1));
-    }
+      g = !1,
+      h = null,
+      y = null;
     function C() {
-      if (p) {
+      ((f = !1), (g = !1));
+    }
+    function b() {
+      if (_) {
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -27,9 +28,9 @@ __d(
         );
         return;
       }
-      ((p = !0),
-        (h = null),
-        y(),
+      ((_ = !0),
+        (y = null),
+        C(),
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -37,10 +38,10 @@ __d(
             ])),
         ));
     }
-    function b() {
-      p &&
-        ((p = !1),
-        (h = { windowDragged: _, windowResized: f, rendererType: g }),
+    function v() {
+      _ &&
+        ((y = S()),
+        (_ = !1),
         o("WALogger").LOG(
           u ||
             (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -48,53 +49,70 @@ __d(
             ])),
         ));
     }
-    function v() {
-      var e = h;
-      return ((h = null), e);
-    }
     function S() {
-      p &&
-        ((_ = !0),
-        o("WALogger").LOG(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "[voip:windowMetrics] window dragged",
-            ])),
-        ));
+      return _
+        ? (o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip:windowMetrics] snapshot: dragged=",
+                " resized=",
+                " renderer=",
+                "",
+              ])),
+            String(f),
+            String(g),
+            h != null ? h : "none",
+          ),
+          { windowDragged: f, windowResized: g, rendererType: h })
+        : y;
     }
     function R() {
-      p &&
+      ((f = !1), (g = !1));
+    }
+    function L() {
+      _ &&
         ((f = !0),
         o("WALogger").LOG(
           d ||
             (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip:windowMetrics] window dragged",
+            ])),
+        ));
+    }
+    function E() {
+      _ &&
+        ((g = !0),
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:windowMetrics] window resized",
             ])),
         ));
     }
-    function L(e, t) {
+    function k(e, t) {
       var n = o(
           "WAWebVoipVideoRendererInterface",
         ).WAWebVoipVideoRendererType.getName(e),
         r = o(
           "WAWebVoipVideoRendererInterface",
         ).WAWebVoipVideoRendererThreadingMode.getName(t);
-      ((g = n + ":" + r),
+      ((h = n + ":" + r),
         o("WALogger").LOG(
-          m ||
-            (m = babelHelpers.taggedTemplateLiteralLoose([
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:windowMetrics] renderer type set: ",
               "",
             ])),
-          g,
+          h,
         ));
     }
-    ((l.startWindowMetrics = C),
-      (l.stopWindowMetrics = b),
-      (l.consumeWindowMetrics = v),
-      (l.recordWindowDragged = S),
-      (l.recordWindowResized = R),
-      (l.setRendererType = L));
+    ((l.startWindowMetrics = b),
+      (l.stopWindowMetrics = v),
+      (l.snapshotWindowMetrics = S),
+      (l.resetWindowMetrics = R),
+      (l.recordWindowDragged = L),
+      (l.recordWindowResized = E),
+      (l.setRendererType = k));
   },
   98,
 );

@@ -61,6 +61,7 @@ __d(
     "WAWebMessageProcessorCache",
     "WAWebMessageQueue",
     "WAWebMmSignalSharingExpirationWindowUtils",
+    "WAWebMobilePlatforms",
     "WAWebModelStorage",
     "WAWebNewsletterCommonGatingUtils",
     "WAWebNewsletterMetadataInitFromStorage",
@@ -111,6 +112,7 @@ __d(
     "cr:10196",
     "cr:17219",
     "gkx",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -332,6 +334,11 @@ __d(
               "restoreTimeSpentSession",
               {},
             ),
+            o("WAWebMobilePlatforms").isSMB() &&
+              r("justknobx")._("3103") &&
+              o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+                "prefetchBBEligibilityAndReloadQPs",
+              ),
             yield o("WAWebChatThreadLogging").initChatThreadLogging(),
             yield o("WAWebPersistedJobManager").startWebPersistedJobManager(),
             o("WAWebPersistedJobManagerWorkerCompatible").setInstance(
@@ -657,9 +664,6 @@ __d(
             o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
               "loadQuickPromotions",
               { trigger: "app-launch" },
-            ),
-            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-              "prefetchBBEligibilityAndReloadQPs",
             ),
             o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
               "fetchAdEntryPointsConfiguration",

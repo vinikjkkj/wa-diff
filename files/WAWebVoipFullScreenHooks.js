@@ -1,8 +1,8 @@
 __d(
   "WAWebVoipFullScreenHooks",
   [
-    "WAWebEnvironment",
     "WAWebVoipFullScreenContext",
+    "WAWebVoipGatingUtils",
     "react",
     "react-compiler-runtime",
   ],
@@ -13,16 +13,14 @@ __d(
     function u() {
       var e = s(r("WAWebVoipFullScreenContext")),
         t = e.isFullScreen;
-      return r("WAWebEnvironment").isGuest || t;
+      return t;
     }
     function c() {
       var e = o("react-compiler-runtime").c(1),
         t;
       return (
         e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t =
-              !r("WAWebEnvironment").isGuest &&
-              r("WAWebEnvironment").getEnvironment() !== "prod"),
+          ? ((t = o("WAWebVoipGatingUtils").isFullScreenToggleEnabled()),
             (e[0] = t))
           : (t = e[0]),
         t

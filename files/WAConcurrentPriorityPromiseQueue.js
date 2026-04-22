@@ -1,6 +1,13 @@
 __d(
   "WAConcurrentPriorityPromiseQueue",
-  ["Promise", "WANullthrows", "WAPriorityQueue", "asyncToGeneratorRuntime"],
+  [
+    "FBLogger",
+    "Promise",
+    "WANullthrows",
+    "WAPriorityQueue",
+    "asyncToGeneratorRuntime",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -60,7 +67,13 @@ __d(
             for (; this.getRunningTasksCount() < this.$1; ) {
               var e = this.$9();
               if (e == null) break;
-              this.$11(e);
+              this.$11(e).catch(function (e) {
+                r("FBLogger")("wmi_wa")
+                  .catching(r("getErrorSafe")(e))
+                  .mustfix(
+                    "WAConcurrentPriorityPromiseQueue: Task execution failed",
+                  );
+              });
             }
           }),
           (o.$11 = (function () {

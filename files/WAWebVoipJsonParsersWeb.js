@@ -269,6 +269,7 @@ __d(
                 .Call,
               stats: i,
               uploadInRealtime: t.upload_in_realtime,
+              isLastFieldStatsReport: t.is_last_field_stats_report,
             };
           }
           if (t.joinable_call_stats != null) {
@@ -306,6 +307,7 @@ __d(
                 .JoinableCall,
               stats: u,
               uploadInRealtime: t.upload_in_realtime,
+              isLastFieldStatsReport: t.is_last_field_stats_report,
             };
           }
           throw r("err")("Invalid field stats data: no stats object found");

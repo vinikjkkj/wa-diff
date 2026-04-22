@@ -9,34 +9,32 @@ __d(
       c,
       d,
       m,
-      p = null,
+      p,
       _ = null,
       f = null,
       g = null,
       h = null,
-      y = null,
+      y = !1,
       C = null,
-      b = !1,
-      v = null,
-      S = null;
-    function R() {
+      b = null;
+    function v() {
       return navigator === void 0 ? !1 : navigator.getBattery != null;
     }
-    function L() {
-      return E.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function E() {
+    function R() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!R()) return null;
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!v()) return null;
           try {
             var e = yield navigator.getBattery();
             return e;
           } catch (e) {
             return (
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[voip:batteryDiagnostics] Failed to get battery manager: ",
                     "",
                   ])),
@@ -46,10 +44,10 @@ __d(
             );
           }
         })),
-        E.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function k(e) {
+    function L(e) {
       return {
         level: e.level,
         charging: e.charging,
@@ -57,73 +55,42 @@ __d(
         dischargingTime: e.dischargingTime,
       };
     }
+    function E() {
+      ((_ = null), (f = null), (g = null), (h = null), (b = null));
+    }
+    function k() {
+      return I.apply(this, arguments);
+    }
     function I() {
-      var e = _ != null ? Math.round(_ * 100) : null,
-        t = g != null ? Math.round(g * 100) : null,
-        n = null;
-      e != null && t != null && (n = Math.max(0, e - t));
-      var r = null;
-      if (y != null) {
-        var o = y;
-        isFinite(o) && o > 0 && (r = Math.round(o));
-      }
-      var a = null;
-      if (C != null) {
-        var i = C;
-        isFinite(i) && i > 0 && (a = Math.round(i));
-      }
-      return {
-        levelStartPct: e,
-        levelEndPct: t,
-        drainPct: n,
-        chargingAtStart: f,
-        chargingAtEnd: h,
-        chargingTimeSec: r,
-        dischargingTimeSec: a,
-      };
-    }
-    function T() {
-      ((p = null),
-        (_ = null),
-        (f = null),
-        (g = null),
-        (h = null),
-        (y = null),
-        (C = null),
-        (S = null));
-    }
-    function D() {
-      return x.apply(this, arguments);
-    }
-    function x() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield L();
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield S();
           if (e == null) {
             o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[voip:batteryDiagnostics] Battery API not available",
                 ])),
             );
             return;
           }
-          if (!b) {
+          if (!y) {
             o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[voip:batteryDiagnostics] init completed but metrics already stopped, discarding",
                 ])),
             );
             return;
           }
-          p = e;
-          var t = k(e);
-          ((_ = t.level),
-            (f = t.charging),
+          _ = e;
+          var t = L(e);
+          ((f = t.level),
+            (g = t.charging),
+            (h = t.level),
             o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[voip:batteryDiagnostics] started (level=",
                   "%, charging=",
                   ")",
@@ -132,85 +99,101 @@ __d(
               String(t.charging),
             ));
         })),
-        x.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function $() {
-      (b &&
+    function T() {
+      (y &&
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:batteryDiagnostics] was already active, resetting for new call",
             ])),
         ),
-        T(),
-        (v = null),
-        (b = !0),
-        (S = D()));
+        E(),
+        (C = null),
+        (y = !0),
+        (b = k()));
     }
-    function P() {
-      return N.apply(this, arguments);
+    function D() {
+      return x.apply(this, arguments);
     }
-    function N() {
+    function x() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e, t, n;
-          if (b) {
-            if (((b = !1), S != null && (yield S, (S = null)), p != null)) {
-              var r = k(p);
-              ((g = r.level),
-                (h = r.charging),
-                (y = r.chargingTime),
-                (C = r.dischargingTime));
-            }
-            var a = I();
-            v = {
-              browserBatterySupported: R(),
-              browserBatteryLevelStartPct: a.levelStartPct,
-              browserBatteryLevelEndPct: a.levelEndPct,
-              browserBatteryDrainPct: a.drainPct,
-              browserBatteryChargingAtStart: a.chargingAtStart,
-              browserBatteryChargingAtEnd: a.chargingAtEnd,
-              browserBatteryChargingTimeSec: a.chargingTimeSec,
-              browserBatteryDischargingTimeSec: a.dischargingTimeSec,
-            };
-            var i = (e = a.levelStartPct) != null ? e : "N/A",
-              l = (t = a.levelEndPct) != null ? t : "N/A",
-              s = (n = a.drainPct) != null ? n : "N/A",
-              u = a.chargingAtStart != null ? String(a.chargingAtStart) : "N/A",
-              c = a.chargingAtEnd != null ? String(a.chargingAtEnd) : "N/A";
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          y &&
+            (b != null && (yield b, (b = null)),
+            (C = $()),
+            (y = !1),
             o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip:batteryDiagnostics] Call ended - Battery stats: startLevel=",
-                  "%, endLevel=",
-                  "%, drain=",
-                  "%, chargingAtStart=",
-                  ", chargingAtEnd=",
-                  "",
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip:batteryDiagnostics] stopped",
                 ])),
-              i,
-              l,
-              s,
-              u,
-              c,
-            );
-          }
+            ));
         })),
-        N.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
+    function $() {
+      if (!y) return C;
+      var e = f;
+      if (_ == null || e == null) return null;
+      var t = L(_),
+        n = Math.round(e * 100),
+        r = Math.round(t.level * 100),
+        a = null;
+      isFinite(t.chargingTime) &&
+        t.chargingTime > 0 &&
+        (a = Math.round(t.chargingTime));
+      var i = null;
+      return (
+        isFinite(t.dischargingTime) &&
+          t.dischargingTime > 0 &&
+          (i = Math.round(t.dischargingTime)),
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip:batteryDiagnostics] snapshot: start=",
+              "% end=",
+              "% drain=",
+              "% chargingStart=",
+              " chargingEnd=",
+              "",
+            ])),
+          n,
+          r,
+          Math.max(0, n - r),
+          String(g),
+          String(t.charging),
+        ),
+        {
+          browserBatterySupported: v(),
+          browserBatteryLevelStartPct: n,
+          browserBatteryLevelEndPct: r,
+          browserBatteryDrainPct: Math.max(0, n - r),
+          browserBatteryChargingAtStart: g,
+          browserBatteryChargingAtEnd: t.charging,
+          browserBatteryChargingTimeSec: a,
+          browserBatteryDischargingTimeSec: i,
+        }
+      );
+    }
+    function P() {
+      _ != null && ((f = _.level), (g = _.charging));
+    }
+    function N() {
+      return h == null ? null : Math.round(h * 100);
+    }
     function M() {
-      var e = v;
-      return ((v = null), e);
+      return { browserBatterySupported: v() };
     }
-    function w() {
-      return { browserBatterySupported: R() };
-    }
-    ((l.startBatteryDiagnostics = $),
-      (l.stopBatteryDiagnostics = P),
-      (l.consumeBatteryDiagnostics = M),
-      (l.getBatteryDiagnosticsCapabilities = w));
+    ((l.startBatteryDiagnostics = T),
+      (l.stopBatteryDiagnostics = D),
+      (l.snapshotBatteryDiagnostics = $),
+      (l.resetBatteryDiagnostics = P),
+      (l.getBatteryLevelAtCallStart = N),
+      (l.getBatteryDiagnosticsCapabilities = M));
   },
   98,
 );

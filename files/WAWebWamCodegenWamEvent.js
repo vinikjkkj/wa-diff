@@ -79,7 +79,7 @@ __d(
               var o = n[r];
               if (o != null) {
                 var a = e[r];
-                a != null && (t[a] = this.resolveEnumValue(r, o));
+                a != null && (t[a] = o);
               }
             }
             return t;

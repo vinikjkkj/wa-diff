@@ -11,10 +11,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = "bot_typing_placeholder";
-    function s(e, t) {
-      u(e, t) && c(e);
+    function s(e) {
+      d(e);
     }
     function u(e, t) {
+      c(e, t) && d(e);
+    }
+    function c(e, t) {
       var n,
         a =
           o("WAWebBotBaseGating").isBotEnabled() &&
@@ -30,12 +33,12 @@ __d(
         t.type === o("WAWebMsgType").MSG_TYPE.CHAT
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t;
           if (o("WAWebBotBaseGating").isBotEnabled()) {
             var n = e.id;
@@ -58,18 +61,19 @@ __d(
             }
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m() {
+    function p() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "bonsai_ti_timeout_duration_ms",
       );
       return e;
     }
     ((l.BOT_TYPING_PLACEHOLDER_MSG_SUBTYPE = e),
-      (l.maybeGenBotTypingIndicatorMessage = s),
-      (l.getBotTypingIndicatorTimeout = m));
+      (l.showBotTypingIndicator = s),
+      (l.maybeGenBotTypingIndicatorMessage = u),
+      (l.getBotTypingIndicatorTimeout = p));
   },
   98,
 );

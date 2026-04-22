@@ -18,30 +18,21 @@ __d(
       return (
         (t.$2 = function (t, n) {
           var e = this,
-            a = t.mediaData,
-            i = o("WAWebPttAudioManager").AudioManager.createAudioProxy(),
-            l = o("WAWebPttAudioChannels").MainAudioChannel.registerMedia(i),
-            s = d(a);
-          if (s) {
-            i.src = s.url;
-            var u = o(
-              "WAWebPttGetDurationFromMediaOrProtobuf",
-            ).getDurationFromMediaOrProtobuf(i, t.mediaData);
-            t.lastPlaybackProgress != null &&
-              u != null &&
-              (i.currentTime = u * t.lastPlaybackProgress);
-          }
-          var c = new (o(
+            a = o("WAWebPttAudioManager").AudioManager.createAudioProxy(),
+            i = o("WAWebPttAudioChannels").MainAudioChannel.registerMedia(a),
+            l = d(t.mediaData);
+          l && m(a, t, l);
+          var s = new (o(
             "WAWebPttAudioPlaybackController",
-          ).AudioPlaybackController)({ msg: t, audio: i });
+          ).AudioPlaybackController)({ msg: t, audio: a });
           return {
-            playbackController: c,
+            playbackController: s,
             refCount: 1,
             dispose: function () {
               var t = r("WANullthrows")(e.$1.get(n));
               (t.refCount--,
                 t.refCount === 0 &&
-                  (l(), e.$1.delete(n), s == null || s.dispose(), c.dispose()));
+                  (i(), e.$1.delete(n), l == null || l.dispose(), s.dispose()));
             },
           };
         }),
@@ -88,8 +79,17 @@ __d(
       };
       return { url: n, dispose: r };
     }
-    var m = new e();
-    l.MsgAudioStore = m;
+    function m(e, t, n) {
+      e.src = n.url;
+      var r = o(
+        "WAWebPttGetDurationFromMediaOrProtobuf",
+      ).getDurationFromMediaOrProtobuf(e, t.mediaData);
+      t.lastPlaybackProgress != null &&
+        r != null &&
+        (e.currentTime = r * t.lastPlaybackProgress);
+    }
+    var p = new e();
+    l.MsgAudioStore = p;
   },
   98,
 );

@@ -605,6 +605,12 @@ __d(
                                                                                       "WAWebVoipWaCallEnums",
                                                                                     )
                                                                                       .CallEvent
+                                                                                      .CallAutoConnect ||
+                                                                                  e ===
+                                                                                    o(
+                                                                                      "WAWebVoipWaCallEnums",
+                                                                                    )
+                                                                                      .CallEvent
                                                                                       .BotReconfigureSuccess ||
                                                                                   e ===
                                                                                     o(

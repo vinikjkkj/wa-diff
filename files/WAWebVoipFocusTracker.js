@@ -8,39 +8,40 @@ __d(
       u,
       c,
       d,
-      m = 5e3,
-      p = 1e3,
-      _ = !1,
-      f = "main",
-      g = 0,
-      h = !0,
-      y = 0,
+      m,
+      p = 5e3,
+      _ = 1e3,
+      f = !1,
+      g = "main",
+      h = 0,
+      y = !0,
       C = 0,
       b = 0,
       v = 0,
       S = 0,
       R = 0,
       L = 0,
-      E = null,
+      E = 0,
       k = null,
       I = null,
-      T = null;
-    function D(e) {
-      (h ? (C += e - y) : (b += e - y), (y = e));
+      T = null,
+      D = null;
+    function x(e) {
+      (y ? (b += e - C) : (v += e - C), (C = e));
     }
-    function x(t) {
-      if (!(!_ || f === t)) {
+    function $(t) {
+      if (!(!f || g === t)) {
         var n = Date.now(),
-          r = f,
-          a = n - g;
-        (f === "main"
-          ? D(n)
-          : f === "popout"
-            ? (v += a)
-            : f === "pip" && (S += a),
-          (f = t),
-          (g = n),
-          t === "main" && ((h = !document.hidden), (y = n)),
+          r = g,
+          a = n - h;
+        (g === "main"
+          ? x(n)
+          : g === "popout"
+            ? (S += a)
+            : g === "pip" && (R += a),
+          (g = t),
+          (h = n),
+          t === "main" && ((y = !document.hidden), (C = n)),
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -57,48 +58,48 @@ __d(
           ));
       }
     }
-    function $() {
-      ((f = "main"),
-        (g = 0),
-        (h = !0),
-        (y = 0),
+    function P() {
+      ((g = "main"),
+        (h = 0),
+        (y = !0),
         (C = 0),
         (b = 0),
         (v = 0),
         (S = 0),
         (R = 0),
         (L = 0),
-        (E = null),
+        (E = 0),
         (k = null),
-        (I = null));
+        (I = null),
+        (T = null));
     }
-    function P() {
-      I != null &&
-        (document.removeEventListener("visibilitychange", I), (I = null));
-      var e = E;
+    function N() {
+      T != null &&
+        (document.removeEventListener("visibilitychange", T), (T = null));
+      var e = k;
       e != null &&
         (e.stopDetection(),
-        k != null &&
-          (e.off(o("WAWebBaseJSHaltDetector").JS_HALT_EVENT, k), (k = null)),
-        (E = null));
+        I != null &&
+          (e.off(o("WAWebBaseJSHaltDetector").JS_HALT_EVENT, I), (I = null)),
+        (k = null));
     }
-    function N(e) {
-      x(e);
+    function M(e) {
+      $(e);
     }
-    function M() {
-      if (!_) {
-        ((_ = !0), (T = null), P(), $());
+    function w() {
+      if (!f) {
+        ((f = !0), (D = null), N(), P());
         var e = Date.now();
-        ((g = e),
-          (f = "main"),
-          (h = !document.hidden),
-          (y = e),
-          (I = function () {
-            if (!(!_ || f !== "main")) {
+        ((h = e),
+          (g = "main"),
+          (y = !document.hidden),
+          (C = e),
+          (T = function () {
+            if (!(!f || g !== "main")) {
               var e = Date.now(),
-                t = e - y;
-              (D(e),
-                (h = !document.hidden),
+                t = e - C;
+              (x(e),
+                (y = !document.hidden),
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -106,17 +107,17 @@ __d(
                       " (prev state lasted ",
                       "ms)",
                     ])),
-                  h ? "visible" : "hidden",
+                  y ? "visible" : "hidden",
                   t,
                 ));
             }
           }),
-          document.addEventListener("visibilitychange", I));
-        var t = new (o("WAWebBaseJSHaltDetector").BaseJsHaltDetector)(m, p);
-        ((E = t),
-          (k = function (t) {
-            (R++,
-              (L += t),
+          document.addEventListener("visibilitychange", T));
+        var t = new (o("WAWebBaseJSHaltDetector").BaseJsHaltDetector)(p, _);
+        ((k = t),
+          (I = function (t) {
+            (L++,
+              (E += t),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -126,7 +127,7 @@ __d(
                 t,
               ));
           }),
-          t.on(o("WAWebBaseJSHaltDetector").JS_HALT_EVENT, k),
+          t.on(o("WAWebBaseJSHaltDetector").JS_HALT_EVENT, I),
           t.startDetection(),
           o("WALogger").LOG(
             c ||
@@ -134,54 +135,68 @@ __d(
                 "voip: [FocusTracker] Started tracking (mode=",
                 ")",
               ])),
-            f,
-          ));
-      }
-    }
-    function w() {
-      if (_) {
-        _ = !1;
-        var e = Date.now();
-        (f === "main"
-          ? D(e)
-          : f === "popout"
-            ? (v += e - g)
-            : f === "pip" && (S += e - g),
-          P(),
-          (T = {
-            mainTabVisibleMs: C,
-            mainTabHiddenMs: b,
-            popoutWindowMs: v,
-            pipWindowMs: S,
-            jsHaltCount: R,
-            jsHaltTotalMs: L,
-          }),
-          o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [FocusTracker] stop vis=",
-                " hid=",
-                " pop=",
-                " pip=",
-                " halt=",
-                "",
-              ])),
-            C,
-            b,
-            v,
-            S,
-            R,
+            g,
           ));
       }
     }
     function A() {
-      var e = T;
-      return ((T = null), e);
+      f &&
+        ((D = F()),
+        (f = !1),
+        N(),
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [FocusTracker] stopped",
+            ])),
+        ));
     }
-    ((l.notifyWindowModeChanged = N),
-      (l.startVoipFocusTracking = M),
-      (l.stopVoipFocusTracking = w),
-      (l.consumeVoipFocusStats = A));
+    function F() {
+      if (!f) return D;
+      var e = Date.now();
+      return (
+        g === "main"
+          ? x(e)
+          : g === "popout"
+            ? (S += e - h)
+            : g === "pip" && (R += e - h),
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [FocusTracker] snapshot: vis=",
+              " hid=",
+              " pop=",
+              " pip=",
+              " halt=",
+              " haltTotal=",
+              "",
+            ])),
+          b,
+          v,
+          S,
+          R,
+          L,
+          E,
+        ),
+        {
+          mainTabVisibleMsT: b,
+          mainTabHiddenMsT: v,
+          popoutWebWindowMsT: S,
+          pipWebWindowMsT: R,
+          jsHaltCount: L,
+          jsHaltTotalMsT: E,
+        }
+      );
+    }
+    function O() {
+      var e = Date.now();
+      ((b = 0), (v = 0), (S = 0), (R = 0), (L = 0), (E = 0), (h = e), (C = e));
+    }
+    ((l.notifyWindowModeChanged = M),
+      (l.startVoipFocusTracking = w),
+      (l.stopVoipFocusTracking = A),
+      (l.snapshotFocusStats = F),
+      (l.resetFocusStats = O));
   },
   98,
 );

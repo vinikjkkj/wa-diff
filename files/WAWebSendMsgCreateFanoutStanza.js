@@ -29,6 +29,7 @@ __d(
     "WAWebICDCMetaApi",
     "WAWebLid1X1MigrationGating",
     "WAWebManageE2ESessionsJob",
+    "WAWebMessagingGatingUtils",
     "WAWebMsgFanoutTypes",
     "WAWebMsgGetters",
     "WAWebMsgRcatUtils",
@@ -106,20 +107,24 @@ __d(
                 (k = o(
                   "WAWebE2EProtoGenerator",
                 ).updateBotInvokeMsgProtoCopyForCapi(E));
-              var I = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
+              var I =
+                  L.isHosted() &&
+                  o("WAWebMessagingGatingUtils").isSimpleSignalEnabled(),
+                T = yield o("WAWebEncryptMsgProtobuf").encryptMsgProtobuf(
                   L,
                   0,
                   k,
                   t,
                   d,
                   u.sessionScope,
+                  I,
                 ),
-                T = I.ciphertext,
-                D = I.type,
-                x = null;
+                D = T.ciphertext,
+                x = T.type,
+                $ = null;
               return (
                 (b || R != null) &&
-                  (x = o("WAWap").wap("bot", {
+                  ($ = o("WAWap").wap("bot", {
                     type: b ? "feedback" : o("WAWap").DROP_ATTR,
                     persona_type: R
                       ? o("WAWap").CUSTOM_STRING(R)
@@ -127,7 +132,7 @@ __d(
                   })),
                 {
                   shouldHaveIdentity:
-                    D === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
+                    x === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
                   body: o("WAWap").wap(
                     "enc",
                     {
@@ -136,7 +141,12 @@ __d(
                           "WAWebBackendJobsCommon",
                         ).CIPHERTEXT_VERSION.toString(),
                       ),
-                      type: o("WAWap").CUSTOM_STRING(D),
+                      type: o("WAWap").CUSTOM_STRING(x),
+                      state:
+                        I &&
+                        x === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
+                          ? o("WAWap").CUSTOM_STRING("false")
+                          : o("WAWap").DROP_ATTR,
                       mediatype: o(
                         "WAWebBackendJobsCommon",
                       ).encodeMaybeMediaType(_),
@@ -151,14 +161,14 @@ __d(
                         "WAWebBackendJobsCommon",
                       ).encodeMaybeNativeFlowName(f),
                     },
-                    T,
+                    D,
                   ),
-                  botBody: x,
+                  botBody: $,
                 }
               );
             }
-            var $ = !1,
-              P = i.map(
+            var P = !1,
+              N = i.map(
                 (function () {
                   var r = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (n) {
@@ -199,15 +209,28 @@ __d(
                             (g = o("WAWebE2EProtoGenerator").updateBotProtobuf(
                               g,
                             )));
-                        var C = yield o(
+                        var C =
+                            n.isHosted() &&
+                            o(
+                              "WAWebMessagingGatingUtils",
+                            ).isSimpleSignalEnabled(),
+                          b = yield o(
                             "WAWebEncryptMsgProtobuf",
-                          ).encryptMsgProtobuf(n, 0, g, t, d, u.sessionScope),
-                          b = C.ciphertext,
-                          R = C.type;
+                          ).encryptMsgProtobuf(
+                            n,
+                            0,
+                            g,
+                            t,
+                            d,
+                            u.sessionScope,
+                            C,
+                          ),
+                          R = b.ciphertext,
+                          L = b.type;
                         return (
-                          R ===
+                          L ===
                             o("WAWebBackendJobs.flow").CiphertextType.Pkmsg &&
-                            ($ = !0),
+                            (P = !0),
                           {
                             shouldFanoutToBot: y,
                             node: o("WAWap").wap(
@@ -221,7 +244,14 @@ __d(
                                       "WAWebBackendJobsCommon",
                                     ).CIPHERTEXT_VERSION.toString(),
                                   ),
-                                  type: o("WAWap").CUSTOM_STRING(R),
+                                  type: o("WAWap").CUSTOM_STRING(L),
+                                  state:
+                                    C &&
+                                    L ===
+                                      o("WAWebBackendJobs.flow").CiphertextType
+                                        .Pkmsg
+                                      ? o("WAWap").CUSTOM_STRING("false")
+                                      : o("WAWap").DROP_ATTR,
                                   mediatype: o(
                                     "WAWebBackendJobsCommon",
                                   ).encodeMaybeMediaType(_),
@@ -236,7 +266,7 @@ __d(
                                     "WAWebBackendJobsCommon",
                                   ).encodeMaybeNativeFlowName(f),
                                 },
-                                b,
+                                R,
                               ),
                               p,
                             ),
@@ -276,31 +306,31 @@ __d(
                   };
                 })(),
               ),
-              N = yield (g || (g = n("Promise"))).all(P),
-              M = [],
-              w = [];
+              M = yield (g || (g = n("Promise"))).all(N),
+              w = [],
+              A = [];
             return (
-              N.forEach(function (e) {
+              M.forEach(function (e) {
                 (e == null ? void 0 : e.node) != null &&
                   (e != null && e.shouldFanoutToBot
-                    ? w.push(e.node)
-                    : M.push(e.node));
+                    ? A.push(e.node)
+                    : w.push(e.node));
               }),
-              M.length > 0 || w.length > 0
+              w.length > 0 || A.length > 0
                 ? {
                     body:
-                      M.length > 0
-                        ? o("WAWap").wap("participants", null, M)
+                      w.length > 0
+                        ? o("WAWap").wap("participants", null, w)
                         : null,
                     botBody:
-                      w.length > 0 || b
+                      A.length > 0 || b
                         ? o("WAWap").wap(
                             "bot",
                             { type: y ? "feedback" : o("WAWap").DROP_ATTR },
-                            w,
+                            A,
                           )
                         : null,
-                    shouldHaveIdentity: $,
+                    shouldHaveIdentity: P,
                   }
                 : g.reject(
                     r("err")(

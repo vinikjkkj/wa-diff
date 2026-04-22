@@ -92,16 +92,17 @@ __d(
       W,
       q,
       U,
-      V = U || (U = o("react")),
-      H = null,
-      G = !1;
-    function z() {
+      V,
+      H = V || (V = o("react")),
+      G = null,
+      z = !1;
+    function j() {
       return (
-        G || ((H = o("WAWebUserPrefsVoip").getLastCallRatingTime()), (G = !0)),
-        H
+        z || ((G = o("WAWebUserPrefsVoip").getLastCallRatingTime()), (z = !0)),
+        G
       );
     }
-    function j(t) {
+    function K(t) {
       if (t < 0)
         return (
           o("WALogger").LOG(
@@ -131,7 +132,7 @@ __d(
         r,
       );
       var a = Math.floor(Date.now() / 1e3),
-        i = z();
+        i = j();
       if (i == null)
         return (
           o("WALogger").LOG(
@@ -164,9 +165,9 @@ __d(
         s
       );
     }
-    function K() {
+    function Q() {
       var e = Math.floor(Date.now() / 1e3);
-      ((H = e),
+      ((G = e),
         o("WAWebUserPrefsVoip").setLastCallRatingTime(e),
         o("WALogger").LOG(
           m ||
@@ -177,8 +178,8 @@ __d(
           e,
         ));
     }
-    var Q = "microphone-silence-toast";
-    function X(e, t) {
+    var X = "microphone-silence-toast";
+    function Y(e, t) {
       if (e != null) {
         var n = r("WAWebGroupMetadataCollection").get(e);
         if ((n == null ? void 0 : n.subject) != null && n.subject !== "")
@@ -191,7 +192,7 @@ __d(
         !0,
       );
     }
-    function Y(e, t) {
+    function J(e, t) {
       if (
         t === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere &&
         e.isGroup &&
@@ -207,7 +208,7 @@ __d(
         if (n != null) {
           var r,
             a = (r = e.groupCallParticipants) != null ? r : [],
-            i = X(e.groupJid, a);
+            i = Y(e.groupJid, a);
           o("WAWebNotificationBackend").showCallAcceptedElsewhereNotification({
             callId: n,
             groupJid: e.groupJid,
@@ -221,7 +222,7 @@ __d(
         }
       }
     }
-    var J = {
+    var Z = {
       handleIncomingOfferNotice: function (t) {
         var e,
           n = t.callCreatorJid,
@@ -252,13 +253,13 @@ __d(
       },
       initializeVoipWasm: function () {
         if (r("WAWebEnvironment").isWindows)
-          return (q || (q = n("Promise"))).reject(
+          return (U || (U = n("Promise"))).reject(
             r("err")(
               "VoipWebBridgeApi: WASM should not be loaded on Windows Hybrid",
             ),
           );
         if (!o("WAWebVoipGatingUtils").isVoipDownloadEnabled())
-          throw (q || (q = n("Promise"))).reject(
+          throw (U || (U = n("Promise"))).reject(
             r("err")(
               "VoipWebBridgeApi: VoipWebWasm should not be loaded - voip download is not enabled",
             ),
@@ -511,7 +512,7 @@ __d(
                 ),
               ));
           }
-          m != null &&
+          (m != null &&
             ((m.isWaitingRoomEnabled = n.isWaitingRoomEnabled),
             (m.isWaitingRoomAdmin = n.isWaitingRoomAdmin),
             (m.isInWaitingRoom = n.isInWaitingRoom),
@@ -522,23 +523,39 @@ __d(
                 o("WAWebVoipEventConstants").VoipCallModelEvents
                   .WAITING_ROOM_STATE,
               ),
-            ));
+            )),
+            m != null &&
+              n.callId != null &&
+              m.id !== n.callId &&
+              o("WAWebVoipCallStateUtils").isCallActive(a) &&
+              o("WAWebVoipCallStateUtils").isCallOutgoing(m.getState()) &&
+              (o("WALogger").LOG(
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: Updating call.id during auto-connect: ",
+                    "",
+                  ])),
+                n.callId,
+              ),
+              (m.id = n.callId),
+              (m.outgoing = n.isCaller),
+              m.trigger("change:id")));
           var g =
             ((t = r("WAWebCallCollection").activeCall) == null
               ? void 0
               : t.id) === n.callId;
           if (g) {
-            var S;
+            var R;
             (o("WALogger").LOG(
-              v ||
-                (v = babelHelpers.taggedTemplateLiteralLoose([
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: Setting call state to ",
                   "",
                 ])),
               a,
             ),
-              (S = r("WAWebCallCollection").activeCall) == null ||
-                S.setState(a),
+              (R = r("WAWebCallCollection").activeCall) == null ||
+                R.setState(a),
               r("WAWebCallCollection").setIsInConnectedCall(
                 o("WAWebVoipCallStateUtils").isCallConnected(a),
               ));
@@ -552,19 +569,19 @@ __d(
                 o("WAWebVoipActivityTracker").VoipActivity
                   .INCOMING_CALL_MSG_GENERATING,
               ));
-          var R = yield o(
+          var L = yield o(
               "WAWebVoipActionWriteCallLogCallStateChanged",
             ).generateCallLogFromCallStateChangedEvent(n),
-            L = r("WAWebCallCollection").activeCall;
-          R &&
-            L &&
+            E = r("WAWebCallCollection").activeCall;
+          L &&
+            E &&
             (n.isCaller ||
               o("WAWebVoipActivityTracker").trackActivity(
                 o("WAWebVoipActivityTracker").VoipActivity
                   .INCOMING_CALL_MSG_READY,
               ),
-            (L.msg = R),
-            L.trigger(
+            (E.msg = L),
+            E.trigger(
               o("WAWebVoipEventConstants").getChangeEvent(
                 o("WAWebVoipEventConstants").VoipCallModelEvents.MSG,
               ),
@@ -609,8 +626,8 @@ __d(
           ) {
             var l = n.hasActiveVideo();
             (o("WALogger").LOG(
-              S ||
-                (S = babelHelpers.taggedTemplateLiteralLoose([
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [A/V switch] Call media state changed,\n        selfVideoState: ",
                   ",\n        peerVideoState: ",
                   ",\n        isVideoCall: ",
@@ -686,8 +703,8 @@ __d(
       handleMuteStateChange: function (t) {
         var e = t.callInfo;
         o("WALogger").LOG(
-          R ||
-            (R = babelHelpers.taggedTemplateLiteralLoose([
+          L ||
+            (L = babelHelpers.taggedTemplateLiteralLoose([
               "voip: Mute state change received, callInfo: ",
               "",
             ])),
@@ -726,8 +743,8 @@ __d(
           ((n.selfMicMuted = u),
             (n.peerMicMuted = c),
             o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
+              E ||
+                (E = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: Updated mute states - selfMuted: ",
                   ", peerMuted: ",
                   "",
@@ -830,8 +847,8 @@ __d(
             (a.groupCallParticipantStates = u),
             a.setGroupParticipantMediaStates(d, m),
             o("WALogger").LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
+              k ||
+                (k = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: Group call connected participants: ",
                   "",
                 ])),
@@ -863,8 +880,8 @@ __d(
           n = r("WAWebCallCollection").activeCall;
         if (!n) {
           o("WALogger").LOG(
-            k ||
-              (k = babelHelpers.taggedTemplateLiteralLoose([
+            I ||
+              (I = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [FRONTEND] ERROR: No active call",
               ])),
           );
@@ -914,15 +931,15 @@ __d(
       },
       showMicrophoneSilenceToast: function () {
         (o("WALogger").LOG(
-          I ||
-            (I = babelHelpers.taggedTemplateLiteralLoose([
+          T ||
+            (T = babelHelpers.taggedTemplateLiteralLoose([
               "voip: Showing microphone silence toast",
             ])),
         ),
-          o("WAWebToastManager").ToastManager.close(Q),
+          o("WAWebToastManager").ToastManager.close(X),
           o("WAWebToastManager").ToastManager.open(
-            V.jsx(o("WAWebToast.react").Toast, {
-              id: Q,
+            H.jsx(o("WAWebToast.react").Toast, {
+              id: X,
               msg: s._(
                 /*BTDS*/ "Your microphone may not be working. Try switching to a different microphone.",
               ),
@@ -932,8 +949,8 @@ __d(
       },
       handleRelayBindsFailed: function () {
         (o("WALogger").LOG(
-          T ||
-            (T = babelHelpers.taggedTemplateLiteralLoose([
+          D ||
+            (D = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleRelayBindsFailed: Setting call failed reason (possible firewall blocking)",
             ])),
         ),
@@ -957,7 +974,7 @@ __d(
               o("WAWebVoipWaCallEnums").ScreenShareEndReason.TakeOver &&
               (e.setSelfScreenShareRejected(!0),
               o("WAWebToastManager").ToastManager.open(
-                V.jsx(o("WAWebToast.react").Toast, {
+                H.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(
                     /*BTDS*/ "Another participant is already sharing their screen",
                   ),
@@ -971,8 +988,8 @@ __d(
           n = t.connectTime,
           a = t.userRatingInterval;
         o("WALogger").LOG(
-          D ||
-            (D = babelHelpers.taggedTemplateLiteralLoose([
+          x ||
+            (x = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleCallEndingForSurvey - connectTime: ",
               ", userRatingInterval: ",
               ", callLogResult: ",
@@ -984,8 +1001,8 @@ __d(
         );
         var i = r("WAWebCallCollection").lastActiveCall;
         (o("WALogger").LOG(
-          x ||
-            (x = babelHelpers.taggedTemplateLiteralLoose([
+          $ ||
+            ($ = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleCallEndingForSurvey - lastActiveCall exists: ",
               ", callLogResult value: ",
               "",
@@ -997,18 +1014,18 @@ __d(
             e != null &&
             ((i.callLogResult = e),
             o("WALogger").LOG(
-              $ ||
-                ($ = babelHelpers.taggedTemplateLiteralLoose([
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: handleCallEndingForSurvey - stored callLogResult: ",
                   " on lastActiveCall",
                 ])),
               e,
             ),
-            Y(i, e)),
-          j(a) &&
+            J(i, e)),
+          K(a) &&
             (o("WALogger").LOG(
-              P ||
-                (P = babelHelpers.taggedTemplateLiteralLoose([
+              N ||
+                (N = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: Showing post-call survey based on call ending event (fallback)",
                 ])),
             ),
@@ -1038,8 +1055,8 @@ __d(
       handleCallLinkStateChanged: function (t) {
         if (t.callLinkState === o("WAWebVoipWaCallEnums").CallLinkState.None) {
           o("WALogger").LOG(
-            N ||
-              (N = babelHelpers.taggedTemplateLiteralLoose([
+            M ||
+              (M = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: Call link state is None, clearing active call",
               ])),
           );
@@ -1055,8 +1072,8 @@ __d(
         if (n == null) {
           var a;
           o("WALogger").LOG(
-            M ||
-              (M = babelHelpers.taggedTemplateLiteralLoose([
+            w ||
+              (w = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: Creating new call model for call link",
               ])),
           );
@@ -1084,8 +1101,8 @@ __d(
         } else {
           var l;
           (o("WALogger").LOG(
-            w ||
-              (w = babelHelpers.taggedTemplateLiteralLoose([
+            A ||
+              (A = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: Updating existing call with call link state ",
                 "",
               ])),
@@ -1124,13 +1141,13 @@ __d(
       },
       handleWaitingRoomDenied: function (t) {
         (o("WALogger").LOG(
-          A ||
-            (A = babelHelpers.taggedTemplateLiteralLoose([
+          F ||
+            (F = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleWaitingRoomDenied",
             ])),
         ),
           o("WAWebToastManager").ToastManager.open(
-            V.jsx(o("WAWebToast.react").Toast, {
+            H.jsx(o("WAWebToast.react").Toast, {
               msg: s._(
                 /*BTDS*/ "Your request to join the call was not approved.",
               ),
@@ -1149,8 +1166,8 @@ __d(
       handleIsInWaitingRoomChanged: function (t) {
         var e = t.isInWaitingRoom;
         o("WALogger").LOG(
-          F ||
-            (F = babelHelpers.taggedTemplateLiteralLoose([
+          O ||
+            (O = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleIsInWaitingRoomChanged: isInWaitingRoom=",
               "",
             ])),
@@ -1173,8 +1190,8 @@ __d(
           i = t.waitingRoomUsers,
           l = t.waitingRoomUsersCount;
         o("WALogger").LOG(
-          O ||
-            (O = babelHelpers.taggedTemplateLiteralLoose([
+          B ||
+            (B = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleWaitingRoomStateChanged: enabled=",
               ", admin=",
               ", inWR=",
@@ -1222,8 +1239,8 @@ __d(
       },
       handleMuteRequestFailed: function () {
         (o("WALogger").LOG(
-          B ||
-            (B = babelHelpers.taggedTemplateLiteralLoose([
+          W ||
+            (W = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleMuteRequestFailed",
             ])),
         ),
@@ -1237,8 +1254,8 @@ __d(
       handleMutedByOthers: function (t) {
         var e = t.muterJid;
         o("WALogger").LOG(
-          W ||
-            (W = babelHelpers.taggedTemplateLiteralLoose([
+          q ||
+            (q = babelHelpers.taggedTemplateLiteralLoose([
               "voip: handleMutedByOthers muterJid=",
               "",
             ])),
@@ -1414,9 +1431,9 @@ __d(
         return o("WAWebVoipRelayAllCallsAction").setRelayAllCallsToUserPrefs(e);
       },
     };
-    ((l.recordSurveyShown = K),
-      (l.MICROPHONE_SILENCE_TOAST_ID = Q),
-      (l.VoipWebBridgeApi = J));
+    ((l.recordSurveyShown = Q),
+      (l.MICROPHONE_SILENCE_TOAST_ID = X),
+      (l.VoipWebBridgeApi = Z));
   },
   226,
 );

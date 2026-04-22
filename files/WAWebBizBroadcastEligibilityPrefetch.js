@@ -2,7 +2,6 @@ __d(
   "WAWebBizBroadcastEligibilityPrefetch",
   [
     "WALogger",
-    "WAWaitForComms",
     "WAWebBackendErrors",
     "WAWebGetBusinessEligibilityJob",
     "WAWebMobilePlatforms",
@@ -19,10 +18,9 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
-            (yield o("WAWaitForComms").waitForComms(),
-              yield o(
-                "WAWebGetBusinessEligibilityJob",
-              ).fetchAndCacheBusinessEligibility());
+            yield o(
+              "WAWebGetBusinessEligibilityJob",
+            ).fetchAndCacheBusinessEligibility();
           } catch (n) {
             var t =
               n instanceof o("WAWebBackendErrors").ServerStatusCodeError

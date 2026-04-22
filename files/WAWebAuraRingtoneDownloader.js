@@ -231,8 +231,8 @@ __d(
             o("WALogger").LOG(
               h ||
                 (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "[aura_ringtones] skip download - pack version ",
-                  " already loaded",
+                  "[aura_ringtones] skip download - v",
+                  " loaded",
                 ])),
               L,
             );

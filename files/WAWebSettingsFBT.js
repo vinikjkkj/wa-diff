@@ -1,6 +1,11 @@
 __d(
   "WAWebSettingsFBT",
-  ["fbt", "WAWebABProps", "WAWebConnModel"],
+  [
+    "fbt",
+    "WAWebABProps",
+    "WAWebConnModel",
+    "WAWebUsernameWorkerCompatibleGatingUtils",
+  ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
       return s._(/*BTDS*/ "Chat wallpaper");
@@ -249,7 +254,11 @@ __d(
       return s._(/*BTDS*/ "Profile");
     }
     function Pe() {
-      return s._(/*BTDS*/ "Name, profile photo, username");
+      return o(
+        "WAWebUsernameWorkerCompatibleGatingUtils",
+      ).usernameCreationOrReservationEnabled()
+        ? s._(/*BTDS*/ "Name, profile photo, username")
+        : s._(/*BTDS*/ "Name, profile photo");
     }
     function Ne() {
       return s._(/*BTDS*/ "Chats");

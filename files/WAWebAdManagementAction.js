@@ -11,7 +11,7 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      (o("WAWebAdCreationLogger").logManageAdsScreenEvent(
+      (o("WAWebAdCreationLogger").logLegacyManageAdsScreenEvent(
         e,
         o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
           .LWI_ACTION_MANAGE_ADS_TAPPED,

@@ -9,7 +9,7 @@ __d(
     "WAWebExitAndDeleteGroupPopup.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
-    "WAWebGroupAppealInReviewModal.react",
+    "WAWebGroupAppealInReviewModalLoadable",
     "WAWebGroupJoinRequestMetricUtils",
     "WAWebGroupSuspensionAppealEventsWamEvent",
     "WAWebGroupSuspensionAppealMutation",
@@ -213,7 +213,11 @@ __d(
     }
     function L(e) {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebGroupAppealInReviewModal.react"), { chat: e }),
+        c.jsx(
+          o("WAWebGroupAppealInReviewModalLoadable")
+            .GroupAppealInReviewModalLoadable,
+          { chat: e },
+        ),
         { transition: "modal-flow" },
       );
     }

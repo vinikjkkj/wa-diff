@@ -40,18 +40,19 @@ __d(
       v,
       S,
       R,
-      L = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      L,
+      E = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       ),
-      E = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      k = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "gpc_uoom",
       );
-    function k() {
-      return I.apply(this, arguments);
-    }
     function I() {
+      return T.apply(this, arguments);
+    }
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var t = Math.floor(Date.now() / 1e3);
           try {
             var n = yield o(
@@ -66,15 +67,15 @@ __d(
                 i = n.value.replyGetCertificateResponseMixin,
                 l = (a = i.encryptionPem) == null ? void 0 : a.elementValue;
               if (l != null) {
-                var c = String.fromCharCode.apply(null, l),
-                  d = yield o("WAWebDirectConnectionX509").extractCertificates(
-                    c,
+                var d = String.fromCharCode.apply(null, l),
+                  m = yield o("WAWebDirectConnectionX509").extractCertificates(
+                    d,
                   ),
-                  m = yield o(
+                  p = yield o(
                     "WAWebAccountLinkingCryptoUtils",
-                  ).validateCertificateChain(d);
-                return m != null
-                  ? m.getPublicKey({
+                  ).validateCertificateChain(m);
+                if (p != null) {
+                  var _ = yield p.getPublicKey({
                       algorithm: {
                         algorithm: {
                           name: "RSA-OAEP",
@@ -82,78 +83,106 @@ __d(
                         },
                         usages: ["encrypt"],
                       },
-                    })
-                  : (o("WALogger").ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[WAFFLE] Fetching valid certificate failed",
-                        ])),
-                    ),
-                    null);
+                    }),
+                    f = null,
+                    g = null,
+                    h = i.passwordPem;
+                  if (h != null)
+                    try {
+                      var y = String.fromCharCode.apply(null, h.elementValue);
+                      ((f = yield o(
+                        "WAWebAccountLinkingCryptoUtils",
+                      ).importPasswordPublicKey(y)),
+                        (g = h.keyId));
+                    } catch (t) {
+                      o("WALogger")
+                        .ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[WAFFLE] Failed to import password PEM",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(t));
+                    }
+                  return {
+                    encryptionKey: _,
+                    passwordPublicKey: f,
+                    passwordKeyId: g,
+                  };
+                }
+                return (
+                  o("WALogger").ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[WAFFLE] Fetching valid certificate failed",
+                      ])),
+                  ),
+                  null
+                );
               }
               return null;
             }
-            var p = n.value.errorGetCertificateErrors;
+            var C = n.value.errorGetCertificateErrors;
             return (
               o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] GetCertificate RPC failed: ",
                     "",
                   ])),
-                p.name,
+                C.name,
               ),
               null
             );
           } catch (e) {
             o("WALogger")
               .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "fetchValidCertificate failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e));
           }
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    var T = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
-      D = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
-      x = null;
-    function $() {
-      return P.apply(this, arguments);
-    }
+    var D = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
+      x = o("WAWebWaffleIQErrorHandler").createWaffleOperationRetryState(),
+      $ = null;
     function P() {
+      return N.apply(this, arguments);
+    }
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = x;
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = $;
           return e != null
             ? (o("WALogger")
                 .LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE-TRACE] refreshAccessToken: skipped (dedup, already in-flight)",
                     ])),
                 )
                 .sendLogs("waffle-nonce-trace-refresh", { sampling: 1 }),
               e)
-            : ((x = N().finally(function () {
-                x = null;
+            : (($ = M().finally(function () {
+                $ = null;
               })),
-              x);
+              $);
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N() {
-      return M.apply(this, arguments);
-    }
     function M() {
+      return w.apply(this, arguments);
+    }
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield L.getAccountLinkingData();
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield E.getAccountLinkingData();
           if (e == null) return !1;
           var t = e.fbid,
             n = e.nonce,
@@ -172,7 +201,7 @@ __d(
               "WAWebAccountLinkingCryptoUtils",
             ).wrapPayloadWithRSAAESEncryption(u);
           if (t != null) {
-            var _ = yield o(
+            var d = yield o(
               "WASmaxWaffleRefreshAccessTokensRPC",
             ).sendRefreshAccessTokensRPC({
               rSAEncryptionMetadataMixinArgs: {
@@ -184,10 +213,10 @@ __d(
               timestampElementValue: Date.now(),
               fbidElementValue: t,
             });
-            if (_.name === "RefreshAccessTokensResponseSuccess") {
-              T.reset();
+            if (d.name === "RefreshAccessTokensResponseSuccess") {
+              D.reset();
               var f = o("WAWebAPIParser").parseRSAEncryptionMetadataMixin(
-                  _.value.encryptionMetadataRSAEncryptionMetadataMixin,
+                  d.value.encryptionMetadataRSAEncryptionMetadataMixin,
                 ),
                 g = f.data,
                 h = f.key,
@@ -198,37 +227,37 @@ __d(
                   "WAWebAccountLinkingCryptoUtils",
                 ).decryptRSAEncryptedPayload(i, h, g, y, C);
                 if ("access_token" in b)
-                  return (yield L.updateAccesstoken(b.access_token), !0);
+                  return (yield E.updateAccesstoken(b.access_token), !0);
               } catch (e) {
                 o("WALogger")
                   .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
                         "[WAFFLE] Failed to refresh access token",
                       ])),
                   )
                   .catching(r("getErrorSafe")(e));
               }
             } else {
-              var v = _.value.errorRefreshAccessTokensErrors,
+              var v = d.value.errorRefreshAccessTokensErrors,
                 S = yield o(
                   "WAWebWaffleIQErrorHandler",
                 ).handleCommonWaffleIQError(v.name);
               (S === "request_nonce" &&
                 (o("WALogger")
                   .LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[WAFFLE-TRACE] refreshAccessToken failed with ",
                         ", triggering handleNonceRetry",
                       ])),
                     v.name,
                   )
                   .sendLogs("waffle-nonce-trace-refresh", { sampling: 1 }),
-                yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(T)),
+                yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(D)),
                 o("WALogger").ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Refresh access token RPC failed: ",
                       "",
                     ])),
@@ -238,16 +267,16 @@ __d(
           }
           return !1;
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w() {
-      return A.apply(this, arguments);
-    }
     function A() {
+      return F.apply(this, arguments);
+    }
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield L.getAccountLinkingData();
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield E.getAccountLinkingData();
           if (e != null) {
             var t = e.accesstoken,
               n = e.fbid;
@@ -268,9 +297,9 @@ __d(
                   fbidElementValue: n,
                 });
                 if (i.name === "WFPingResponseSuccess") {
-                  D.reset();
+                  x.reset();
                   var l = i.value.pingIntervalElementValue;
-                  yield L.updatePingInterval(l);
+                  yield E.updatePingInterval(l);
                 } else {
                   var s = i.value.errorWfPingErrors,
                     u = yield o(
@@ -279,18 +308,18 @@ __d(
                   (u === "request_nonce" &&
                     (o("WALogger")
                       .LOG(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        f ||
+                          (f = babelHelpers.taggedTemplateLiteralLoose([
                             "[WAFFLE-TRACE] ping failed with ",
                             ", triggering handleNonceRetry",
                           ])),
                         s.name,
                       )
                       .sendLogs("waffle-nonce-trace-ping", { sampling: 1 }),
-                    yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(D)),
+                    yield o("WAWebWaffleIQErrorHandler").handleNonceRetry(x)),
                     o("WALogger").ERROR(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
+                      g ||
+                        (g = babelHelpers.taggedTemplateLiteralLoose([
                           "[WAFFLE] Ping failed: ",
                           "",
                         ])),
@@ -299,23 +328,23 @@ __d(
                 }
               } else
                 o("WALogger").ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Ping failed due to null waEntFbid",
                     ])),
                 );
             }
           }
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F() {
-      return O.apply(this, arguments);
-    }
     function O() {
+      return B.apply(this, arguments);
+    }
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WASmaxWaffleStateExistsRPC").sendStateExistsRPC({
             timestampElementValue: Date.now(),
           });
@@ -325,8 +354,8 @@ __d(
             ).AccountLinkingStateExists.cast(e.value.wfStateElementValue);
             if (t != null) return t;
             o("WALogger").ERROR(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
                   "[WAFFLE] Failed to parse state exists response",
                 ])),
             );
@@ -336,8 +365,8 @@ __d(
               n.name,
             ),
               o("WALogger").ERROR(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] StateExists RPC failed: ",
                     "",
                   ])),
@@ -345,16 +374,16 @@ __d(
               ));
           }
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function B() {
-      return W.apply(this, arguments);
-    }
     function W() {
+      return q.apply(this, arguments);
+    }
+    function q() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield L.getAccountLinkingData();
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield E.getAccountLinkingData();
           if (e != null) {
             var t = e.accesstoken,
               n;
@@ -371,8 +400,8 @@ __d(
                   : e;
               o("WALogger")
                 .ERROR(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] fetchServiceData mutation failed: ",
                       "",
                     ])),
@@ -386,8 +415,8 @@ __d(
             }
             if (n == null) {
               o("WALogger").ERROR(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] Fetching service data result",
                   ])),
               );
@@ -396,26 +425,26 @@ __d(
             var i = o("WAWebAPIParser").parseServiceData(n);
             if (i == null) {
               o("WALogger").ERROR(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                S ||
+                  (S = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] Fetching service data failed",
                   ])),
               );
               return;
             }
-            yield L.updateServiceData(i);
+            yield E.updateServiceData(i);
           }
         })),
-        W.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function q() {
-      return U.apply(this, arguments);
-    }
     function U() {
+      return V.apply(this, arguments);
+    }
+    function V() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield E.getAccountLinkingData();
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield k.getAccountLinkingData();
           if (e != null) {
             var t = e.accesstoken,
               n;
@@ -432,8 +461,8 @@ __d(
                   : e;
               o("WALogger")
                 .ERROR(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                  R ||
+                    (R = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] updateUOOMData mutation failed: ",
                       "",
                     ])),
@@ -447,8 +476,8 @@ __d(
             }
             if (n == null) {
               o("WALogger").ERROR(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
                     "[WAFFLE] Updating UOOM data result",
                   ])),
               );
@@ -458,30 +487,30 @@ __d(
               o("WAWebUserPrefsGeneral").setGPCcompleted(!0);
           }
         })),
-        U.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function V() {
-      return H.apply(this, arguments);
-    }
     function H() {
+      return G.apply(this, arguments);
+    }
+    function G() {
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           !o("WAWebUserPrefsGeneral").getGPCCompleted() &&
             o("WAWebAccountLinkingUtils").checkGPCSetting() &&
             o("WAWebAccountLinkingGatingUtils").accountLinkingEnabled() &&
-            (yield q());
+            (yield U());
         })),
-        H.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    ((l.fetchValidCertificate = k),
-      (l.refreshAccessToken = $),
-      (l.ping = w),
-      (l.stateExists = F),
-      (l.fetchServiceData = B),
-      (l.updateUOOMData = q),
-      (l.checkAndTriggerUOOMMutation = V));
+    ((l.fetchValidCertificate = I),
+      (l.refreshAccessToken = P),
+      (l.ping = A),
+      (l.stateExists = O),
+      (l.fetchServiceData = W),
+      (l.updateUOOMData = U),
+      (l.checkAndTriggerUOOMMutation = H));
   },
   98,
 );

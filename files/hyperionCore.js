@@ -1090,6 +1090,12 @@ __d(
                 .map(function (t) {
                   return e.$WebpackModuleRuntime1[t];
                 });
+            if (o("hyperionGlobals").getFlags().safeWebpackModuleExports) {
+              var a, i;
+              return (a = (i = r[0]) == null ? void 0 : i.exports) != null
+                ? a
+                : null;
+            }
             return r[0].exports;
           }),
           t
@@ -1111,27 +1117,35 @@ __d(
           t
         );
       })(Z),
-      ne = (function () {
-        if (typeof __webpack_module_cache__ == "object")
-          return new ee(__webpack_module_cache__);
-        if (typeof n == "function")
-          try {
-            var e = n("__debug");
-            if (typeof e == "object") return new te(e);
-          } catch (e) {}
-        return new Z();
-      })();
-    function re(e, t, n, r) {
+      ne = null;
+    function re() {
+      if (ne) return ne;
+      var e = o("hyperionGlobals").getFlags();
+      if (e.preferMetaModuleRuntime && typeof n == "function")
+        try {
+          var t = n("__debug");
+          if (typeof t == "object") return ((ne = new te(t)), ne);
+        } catch (e) {}
+      if (typeof __webpack_module_cache__ == "object")
+        return ((ne = new ee(__webpack_module_cache__)), ne);
+      if (!e.preferMetaModuleRuntime && typeof n == "function")
+        try {
+          var r = n("__debug");
+          if (typeof r == "object") return ((ne = new te(r)), ne);
+        } catch (e) {}
+      return ((ne = new Z()), ne);
+    }
+    function oe(e, t, n, r) {
       var o = t,
-        a = ne.getExports(e);
+        a = re().getExports(e);
       a && a !== o && (o = a);
       for (var i = new J(o, null), l = {}, s = 0; s < n.length; ++s) {
         var u = n[s];
         l[u] = G(u, i);
       }
-      return (ne.updateExports(e, t, l, r), oe(e, t, l, r), l);
+      return (re().updateExports(e, t, l, r), ae(e, t, l, r), l);
     }
-    function oe(e, t, n, r) {
+    function ae(e, t, n, r) {
       if (Array.isArray(r)) {
         for (var a = Object.keys(n), i = 0; i < a.length; ++i) {
           var l = a[i];
@@ -1147,70 +1161,70 @@ __d(
         );
       }
     }
-    var ae = Object.freeze({
+    var ie = Object.freeze({
         __proto__: null,
-        interceptModuleExports: re,
-        validateModuleInterceptor: oe,
+        interceptModuleExports: oe,
+        validateModuleInterceptor: ae,
       }),
-      ie =
+      le =
         (e = R(o("hyperionGlobals").globalScope)) != null
           ? e
           : new J(o("hyperionGlobals").globalScope, null),
-      le = G("setInterval", ie),
-      se = G("setTimeout", ie),
-      ue = X("Promise", ie),
-      ce = Object.freeze({
+      se = G("setInterval", le),
+      ue = G("setTimeout", le),
+      ce = X("Promise", le),
+      de = Object.freeze({
         __proto__: null,
-        IPromiseConstructor: ue,
-        setInterval: le,
-        setTimeout: se,
+        IPromiseConstructor: ce,
+        setInterval: se,
+        setTimeout: ue,
       }),
-      de = Object.getPrototypeOf((c || (c = n("Promise"))).resolve()),
-      me = (s = R(de)) != null ? s : L(de, new J(de, null)),
-      pe = ue,
-      _e = G("then", me),
-      fe = G("catch", me),
-      ge = G("finally", me),
-      he =
+      me = Object.getPrototypeOf((c || (c = n("Promise"))).resolve()),
+      pe = (s = R(me)) != null ? s : L(me, new J(me, null)),
+      _e = ce,
+      fe = G("then", pe),
+      ge = G("catch", pe),
+      he = G("finally", pe),
+      ye =
         (u = R(c || (c = n("Promise")))) != null
           ? u
           : L(c || (c = n("Promise")), new J(c || (c = n("Promise")), null)),
-      ye = G("all", he),
-      Ce = G("allSettled", he),
-      be = G("any", he),
-      ve = G("race", he),
-      Se = G("reject", he),
-      Re = G("resolve", he),
-      Le = Object.freeze({
+      Ce = G("all", ye),
+      be = G("allSettled", ye),
+      ve = G("any", ye),
+      Se = G("race", ye),
+      Re = G("reject", ye),
+      Le = G("resolve", ye),
+      Ee = Object.freeze({
         __proto__: null,
-        Catch: fe,
-        Finally: ge,
-        IPromisePrototype: me,
-        all: ye,
-        allSettled: Ce,
-        any: be,
-        constructor: pe,
-        race: ve,
-        reject: Se,
-        resolve: Re,
-        then: _e,
+        Catch: ge,
+        Finally: he,
+        IPromisePrototype: pe,
+        all: Ce,
+        allSettled: be,
+        any: ve,
+        constructor: _e,
+        race: Se,
+        reject: Re,
+        resolve: Le,
+        then: fe,
       }),
-      Ee = "__attributeInterceptor",
-      ke = (function (e) {
+      ke = "__attributeInterceptor",
+      Ie = (function (e) {
         function t(t, n, r) {
           var o;
           return (
             (o = e.call(this, t) || this),
             (o.getter = new B(t, n)),
             (o.setter = new B(t, r)),
-            o.getter.setData(Ee, o),
-            o.setter.setData(Ee, o),
+            o.getter.setData(ke, o),
+            o.setter.setData(ke, o),
             o
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(m),
-      Ie = (function (e) {
+      Te = (function (e) {
         function t(t, n, r) {
           var o;
           return (
@@ -1270,14 +1284,14 @@ __d(
           }),
           t
         );
-      })(ke);
-    function Te(e, t) {
+      })(Ie);
+    function De(e, t) {
       var n = p(t.targetPrototype, e);
       if (n) {
         var r = W(n.get),
           a = W(n.set),
-          i = r == null ? void 0 : r.getData(Ee),
-          l = a == null ? void 0 : a.getData(Ee);
+          i = r == null ? void 0 : r.getData(ke),
+          l = a == null ? void 0 : a.getData(ke);
         (o("hyperionGlobals").assert(
           !(i && l) || i === l,
           "Getter/Setter of attribute " + e + " have differnt interceptors",
@@ -1286,50 +1300,50 @@ __d(
       }
       return n;
     }
-    function De(e, t, n) {
+    function xe(e, t, n) {
       var r,
-        o = Te(e, t);
+        o = De(e, t);
       return (r = o == null ? void 0 : o.interceptor) != null
         ? r
         : new n(e, t, o);
     }
-    function xe(e, t) {
-      return De(e, t, Ie);
+    function $e(e, t) {
+      return xe(e, t, Te);
     }
-    ((l.AttributeInterceptor = Ie),
-      (l.AttributeInterceptorBase = ke),
-      (l.Catch = fe),
-      (l.IGlobalThis = ce),
-      (l.IPromise = Le),
-      (l.IPromisePrototype = me),
-      (l.IRequire = ae),
+    ((l.AttributeInterceptor = Te),
+      (l.AttributeInterceptorBase = Ie),
+      (l.Catch = ge),
+      (l.IGlobalThis = de),
+      (l.IPromise = Ee),
+      (l.IPromisePrototype = pe),
+      (l.IRequire = ie),
       (l.ShadowPrototype = J),
-      (l.all = ye),
-      (l.allSettled = Ce),
-      (l.any = be),
-      (l.constructor = pe),
+      (l.all = Ce),
+      (l.allSettled = be),
+      (l.any = ve),
+      (l.constructor = _e),
       (l.getFunctionInterceptor = W),
       (l.getObjectExtension = D),
       (l.getOwnShadowPrototypeOf = R),
       (l.getVirtualPropertyValue = x),
       (l.intercept = T),
-      (l.interceptAttribute = xe),
-      (l.interceptAttributeBase = De),
+      (l.interceptAttribute = $e),
+      (l.interceptAttributeBase = xe),
       (l.interceptConstructor = K),
       (l.interceptConstructorMethod = X),
       (l.interceptFunction = U),
       (l.interceptMethod = G),
-      (l.interceptModuleExports = re),
-      (l.race = ve),
+      (l.interceptModuleExports = oe),
+      (l.race = Se),
       (l.registerShadowPrototype = L),
       (l.registerShadowPrototypeGetter = S),
-      (l.reject = Se),
-      (l.resolve = Re),
-      (l.setInterval = le),
-      (l.setTimeout = se),
+      (l.reject = Re),
+      (l.resolve = Le),
+      (l.setInterval = se),
+      (l.setTimeout = ue),
       (l.setVirtualPropertyValue = $),
-      (l.then = _e),
-      (l.validateModuleInterceptor = oe));
+      (l.then = fe),
+      (l.validateModuleInterceptor = ae));
   },
   98,
 );

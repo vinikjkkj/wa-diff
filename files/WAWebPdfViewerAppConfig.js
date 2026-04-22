@@ -2,11 +2,9 @@ __d(
   "WAWebPdfViewerAppConfig",
   [
     "WAWebConnModel",
-    "WAWebEnvironment",
-    "WAWebRobotoFontMode",
+    "WAWebRobotoVariableFontLoadable",
     "WAWebStylesEnv",
     "WAWebTPPdfViewerGatingUtils",
-    "WAWebUA",
     "WAWebUserPrefsGeneral",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,23 +26,14 @@ __d(
             : "light";
     }
     function s() {
-      var e = o("WAWebRobotoFontMode").getWDSRobotoMode();
-      return e === 3 ||
-        (e === 2 && o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC)
-        ? !0
-        : !!(
-            e === 1 &&
-            (r("WAWebEnvironment").isWindows ||
-              o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.WINDOWS)
-          );
-    }
-    function u() {
       var t;
       return {
         theme: e(),
         hasFontFix: (t = o("WAWebStylesEnv")).hasFontFix,
         hasSafariFix: t.hasSafariFix,
-        isRobotoFontEnabled: s(),
+        isRobotoFontEnabled: o(
+          "WAWebRobotoVariableFontLoadable",
+        ).isRobotoFontEnabled(),
         isColorRefreshEnabled: !0,
         isSmb: o("WAWebConnModel").Conn.isSMB,
         isOSMac: t.isOSMac,
@@ -55,7 +44,7 @@ __d(
         ).isWebTPSharerSavePreferenceEnabled(),
       };
     }
-    l.getWebTPAppConfig = u;
+    l.getWebTPAppConfig = s;
   },
   98,
 );

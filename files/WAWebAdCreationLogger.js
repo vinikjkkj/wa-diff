@@ -193,7 +193,7 @@ __d(
       (l.logAdCreationEntryTap = m),
       (l.logAdCreationNuxScreen = p),
       (l.logManageAdsEntryPointImpression = _),
-      (l.logManageAdsScreenEvent = f),
+      (l.logLegacyManageAdsScreenEvent = f),
       (l.getBannerTypeFromSurfaceId = g),
       (l.getLwiEntryPointFromSurfaceId = h),
       (l.getLwiEntryPointFromCampaignType = y),

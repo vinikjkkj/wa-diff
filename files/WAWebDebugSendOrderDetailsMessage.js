@@ -60,7 +60,7 @@ __d(
                   "sendOrderDetailsMessageAsMerchantMD: error ",
                   "",
                 ])),
-              e,
+              String(e),
             );
           }));
     }

@@ -61,8 +61,8 @@ __d(
             m = o("WAWebFrontendMsgGetters").getChat(t),
             p =
               m.historyChatId != null
-                ? o("WAWebWidFactory").createWid(m.historyChatId).toJid()
-                : m.id.toJid();
+                ? o("WAWebWidFactory").createWid(m.historyChatId)
+                : m.id;
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -71,15 +71,14 @@ __d(
                 "",
               ])),
             m.id.toLogString(),
-            p,
+            p.toJid(),
           );
-          var _ = o("WAWap").CUSTOM_STRING(p),
+          var _ = o("WAWebMsgGetters").getSender(t),
             f =
-              o("WAWebChatGetters").getIsGroup(m) ||
-              o("WAWebChatGetters").getIsBroadcast(m)
-                ? o("WAWap").CUSTOM_STRING(
-                    o("WAWebMsgGetters").getSender(t).toString({ legacy: !0 }),
-                  )
+              (o("WAWebChatGetters").getIsGroup(m) ||
+                o("WAWebChatGetters").getIsBroadcast(m)) &&
+              _ != null
+                ? o("WAWebCommsWapMd").USER_JID(_)
                 : o("WAWap").DROP_ATTR,
             g = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
             h = o("WAWap").wap(
@@ -96,7 +95,7 @@ __d(
                 o("WAWap").wap("enc_iv", null, d),
               ),
               o("WAWap").wap("rmr", {
-                jid: _,
+                jid: o("WAWebCommsWapMd").CHAT_JID(p),
                 from_me: o("WAWap").CUSTOM_STRING(
                   String(o("WAWebMsgGetters").getIsSentByMe(t)),
                 ),

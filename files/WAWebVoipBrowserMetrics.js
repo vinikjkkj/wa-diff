@@ -9,24 +9,25 @@ __d(
       c,
       d,
       m,
-      p = 5e3,
-      _ = 1e3,
-      f = ["nominal", "fair", "serious", "critical"],
-      g = null,
+      p,
+      _ = 5e3,
+      f = 1e3,
+      g = ["nominal", "fair", "serious", "critical"],
       h = null,
-      y = 0,
+      y = null,
       C = 0,
-      b = "nominal",
-      v = { nominal: 0, fair: 0, serious: 0, critical: 0 },
-      S = null,
-      R = 0,
+      b = 0,
+      v = "nominal",
+      S = { nominal: 0, fair: 0, serious: 0, critical: 0 },
+      R = null,
       L = 0,
       E = 0,
       k = 0,
       I = 0,
-      T = !1,
-      D = null;
-    function x() {
+      T = 0,
+      D = !1,
+      x = null;
+    function $() {
       var e;
       if (self === void 0 || !("PressureObserver" in self)) return !1;
       var t =
@@ -35,68 +36,68 @@ __d(
         ? t.allowsFeature("compute-pressure")
         : !0;
     }
-    function $() {
+    function P() {
       return (
         self !== void 0 &&
         self.performance != null &&
         self.performance.memory != null
       );
     }
-    function P() {
+    function N() {
       var e,
         t = (e = self.performance) == null ? void 0 : e.memory;
       if (t != null) {
         var n = t.usedJSHeapSize;
-        ((R = Math.max(R, n)),
-          (L += n),
-          E++,
-          (k = t.jsHeapSizeLimit),
-          (I = t.totalJSHeapSize));
+        ((L = Math.max(L, n)),
+          (E += n),
+          k++,
+          (I = t.jsHeapSizeLimit),
+          (T = t.totalJSHeapSize));
       }
     }
-    function N() {
-      ((S = new (o("WAShiftTimer").ShiftTimer)(function () {
-        (P(), T && N());
+    function M() {
+      ((R = new (o("WAShiftTimer").ShiftTimer)(function () {
+        (N(), D && M());
       })),
-        S.onOrAfter(p));
+        R.onOrAfter(_));
     }
-    function M(e) {
+    function w(e) {
       var t = self.performance.now(),
-        n = t - C;
-      ((v[b] += n), (b = e), (C = t));
-    }
-    function w() {
-      return A.apply(this, arguments);
+        n = t - b;
+      ((S[v] += n), (v = e), (b = t));
     }
     function A() {
+      return F.apply(this, arguments);
+    }
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (x())
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if ($())
             try {
               var e = new self.PressureObserver(function (e) {
-                for (var t of e) M(t.state);
+                for (var t of e) w(t.state);
               });
-              if ((yield e.observe("cpu", { sampleInterval: _ }), !T)) {
+              if ((yield e.observe("cpu", { sampleInterval: f }), !D)) {
                 (e.disconnect(),
                   o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[voip:browserMetrics] PressureObserver started, already stopped",
                       ])),
                   ));
                 return;
               }
-              ((g = e),
+              ((h = e),
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[voip:browserMetrics] PressureObserver started",
                     ])),
                 ));
             } catch (e) {
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[voip:browserMetrics] PressureObserver failed to start: ",
                     "",
                   ])),
@@ -104,18 +105,17 @@ __d(
               );
             }
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F() {
-      g != null && (g.disconnect(), (g = null));
-    }
     function O() {
-      var e = self.performance.now(),
-        t = e - C;
-      v[b] += t;
-      var n = e - y;
-      return n <= 0
+      h != null && (h.disconnect(), (h = null));
+    }
+    function B() {
+      var e = self.performance.now();
+      S[v] += e - b;
+      var t = e - C;
+      return t <= 0
         ? {
             nominalPct: null,
             fairPct: null,
@@ -123,14 +123,14 @@ __d(
             criticalPct: null,
           }
         : {
-            nominalPct: Math.round((v.nominal / n) * 100),
-            fairPct: Math.round((v.fair / n) * 100),
-            seriousPct: Math.round((v.serious / n) * 100),
-            criticalPct: Math.round((v.critical / n) * 100),
+            nominalPct: Math.round((S.nominal / t) * 100),
+            fairPct: Math.round((S.fair / t) * 100),
+            seriousPct: Math.round((S.serious / t) * 100),
+            criticalPct: Math.round((S.critical / t) * 100),
           };
     }
-    function B() {
-      if (E === 0)
+    function W() {
+      if (k === 0)
         return {
           avgUsedMb: null,
           peakUsedMb: null,
@@ -141,19 +141,19 @@ __d(
         return Math.round(t / 1e3 / 1e3);
       };
       return {
-        avgUsedMb: e(L / E),
-        peakUsedMb: e(R),
-        limitMb: e(k),
-        totalMb: e(I),
+        avgUsedMb: e(E / k),
+        peakUsedMb: e(L),
+        limitMb: e(I),
+        totalMb: e(T),
       };
     }
-    function W() {
-      ((g = null), (h = null), (y = 0), (C = 0), (b = "nominal"));
-      for (var e of f) v[e] = 0;
-      ((S = null), (R = 0), (L = 0), (E = 0), (k = 0), (I = 0));
-    }
     function q() {
-      if (T) {
+      ((h = null), (y = null), (C = 0), (b = 0), (v = "nominal"));
+      for (var e of g) S[e] = 0;
+      ((R = null), (L = 0), (E = 0), (k = 0), (I = 0), (T = 0));
+    }
+    function U() {
+      if (D) {
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -162,13 +162,13 @@ __d(
         );
         return;
       }
-      ((T = !0), (D = null), W());
+      ((D = !0), (x = null), q());
       var t = self.performance.now();
-      ((y = t),
-        (C = t),
-        (h = w()),
-        P(),
+      ((C = t),
+        (b = t),
+        (y = A()),
         N(),
+        M(),
         o("WALogger").LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -176,58 +176,83 @@ __d(
               ", mem=",
               ")",
             ])),
-          x().toString(),
           $().toString(),
+          P().toString(),
         ));
     }
-    function U() {
-      return V.apply(this, arguments);
-    }
     function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (T) {
-            ((T = !1),
-              h != null && (yield h, (h = null)),
-              F(),
-              S != null && (S.cancel(), (S = null)),
-              P());
-            var e = O(),
-              t = B();
-            ((D = {
-              browserCpuPressureSupported: x(),
-              browserCpuPressureNominalPct: e.nominalPct,
-              browserCpuPressureFairPct: e.fairPct,
-              browserCpuPressureSeriousPct: e.seriousPct,
-              browserCpuPressureCriticalPct: e.criticalPct,
-              browserMemorySupported: $(),
-              browserAvgUsedJsHeapSizeMb: t.avgUsedMb,
-              browserPeakUsedJsHeapSizeMb: t.peakUsedMb,
-              browserJsHeapSizeLimitMb: t.limitMb,
-              browserTotalJsHeapSizeMb: t.totalMb,
-            }),
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip:browserMetrics] stopped",
-                  ])),
-              ));
-          }
-        })),
-        V.apply(this, arguments)
-      );
+      return H.apply(this, arguments);
     }
     function H() {
-      var e = D;
-      return ((D = null), e);
+      return (
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          D &&
+            ((x = G()),
+            (D = !1),
+            y != null && (yield y, (y = null)),
+            O(),
+            R != null && (R.cancel(), (R = null)),
+            o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip:browserMetrics] stopped",
+                ])),
+            ));
+        })),
+        H.apply(this, arguments)
+      );
     }
     function G() {
-      return { browserCpuPressureSupported: x(), browserMemorySupported: $() };
+      if (!D) return x;
+      N();
+      var e = B(),
+        t = W();
+      return (
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip:browserMetrics] snapshot: cpu nominal=",
+              "% fair=",
+              "% serious=",
+              "% critical=",
+              "% mem avg=",
+              "MB peak=",
+              "MB",
+            ])),
+          String(e.nominalPct),
+          String(e.fairPct),
+          String(e.seriousPct),
+          String(e.criticalPct),
+          String(t.avgUsedMb),
+          String(t.peakUsedMb),
+        ),
+        {
+          browserCpuPressureSupported: $(),
+          browserCpuPressureNominalPct: e.nominalPct,
+          browserCpuPressureFairPct: e.fairPct,
+          browserCpuPressureSeriousPct: e.seriousPct,
+          browserCpuPressureCriticalPct: e.criticalPct,
+          browserMemorySupported: P(),
+          browserAvgUsedJsHeapSizeMb: t.avgUsedMb,
+          browserPeakUsedJsHeapSizeMb: t.peakUsedMb,
+          browserJsHeapSizeLimitMb: t.limitMb,
+          browserTotalJsHeapSizeMb: t.totalMb,
+        }
+      );
     }
-    ((l.startBrowserMetrics = q),
-      (l.stopBrowserMetrics = U),
-      (l.consumeBrowserMetrics = H),
-      (l.getBrowserMetricsCapabilities = G));
+    function z() {
+      var e = self.performance.now();
+      for (var t of g) S[t] = 0;
+      ((C = e), (b = e), (L = 0), (E = 0), (k = 0));
+    }
+    function j() {
+      return { browserCpuPressureSupported: $(), browserMemorySupported: P() };
+    }
+    ((l.startBrowserMetrics = U),
+      (l.stopBrowserMetrics = V),
+      (l.snapshotBrowserMetrics = G),
+      (l.resetBrowserMetrics = z),
+      (l.getBrowserMetricsCapabilities = j));
   },
   98,
 );

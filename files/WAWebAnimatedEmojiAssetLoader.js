@@ -3,6 +3,7 @@ __d(
   [
     "WAConcurrentPriorityPromiseQueue",
     "WALogger",
+    "WAWebABProps",
     "WAWebEmojiConst",
     "WAWebMediaHostsUtil",
     "WAWebPonyfillsFetch",
@@ -12,65 +13,98 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = "/wa/static/network_resource",
-      c = "nw_media";
-    function d(e) {
-      return m.apply(this, arguments);
+      u,
+      c,
+      d = "/wa/static/network_resource",
+      m = "nw_media";
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function m() {
+    function _() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          s = s != null ? s : new Map();
-          var a = new (r("WAConcurrentPriorityPromiseQueue"))(5, { emojis: 5 }),
-            i = yield o("WAWebMediaHostsUtil").getStaticMediaHostName(),
-            l = "" + i + u;
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          ((u = u != null ? u : new Map()), (c = c != null ? c : new Map()));
+          var t = new (r("WAConcurrentPriorityPromiseQueue"))(5, { emojis: 5 }),
+            a = yield o("WAWebMediaHostsUtil").getStaticMediaHostName(),
+            i = "" + a + d;
           o("WAWebEmojiConst")
-            .getSupportedAnimatedEmojisAssetIdsMapping(t)
+            .getSupportedAnimatedEmojisAssetIdsMapping(e)
             .forEach(
               (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n = t[0],
-                      i = t[1];
+                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* (e) {
+                    var n = e[0],
+                      a = e[1];
                     try {
-                      var u,
-                        d = r("WAWebURLUtils").build(l, {
-                          cat: c,
-                          id: i,
+                      var l = r("WAWebURLUtils").build(i, {
+                          cat: m,
+                          id: a,
                           _nc_cat: 1,
                         }),
-                        m = yield a.enqueue(
+                        d = yield t.enqueue(
                           function () {
-                            return r("WAWebPonyfillsFetch")(d);
+                            return r("WAWebPonyfillsFetch")(l);
                           },
                           { group: "emojis", priority: 1 },
-                        ),
-                        p = yield m.json();
-                      (u = s) == null || u.set(n, p);
-                    } catch (t) {
+                        );
+                      if (
+                        o("WAWebABProps").getABPropConfigValue(
+                          "animated_emoji_use_lazy_parsing",
+                        )
+                      ) {
+                        var p,
+                          _ = yield d.text();
+                        (p = c) == null || p.set(n, _);
+                      } else {
+                        var f,
+                          g = yield d.json();
+                        (f = u) == null || f.set(n, g);
+                      }
+                    } catch (e) {
                       o("WALogger").LOG(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
                             "initAnimatedEmojiAssets: fetch failed",
                           ])),
                       );
                     }
                   },
                 );
-                return function (e) {
-                  return t.apply(this, arguments);
+                return function (t) {
+                  return e.apply(this, arguments);
                 };
               })(),
             );
         })),
-        m.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function p(e) {
-      var t;
-      return (t = s) == null ? void 0 : t.get(e);
+    function f(t) {
+      var n,
+        r,
+        a = (n = u) == null ? void 0 : n.get(t);
+      if (a != null) return a;
+      var i = (r = c) == null ? void 0 : r.get(t);
+      if (i != null)
+        try {
+          var l,
+            s,
+            d = JSON.parse(i);
+          return (
+            (l = u) == null || l.set(t, d),
+            (s = c) == null || s.delete(t),
+            d
+          );
+        } catch (t) {
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "initAnimatedEmojiAssets: parse failed",
+              ])),
+          );
+        }
     }
-    ((l.initAnimatedEmojiAssets = d), (l.getAnimatedEmojiAsset = p));
+    ((l.initAnimatedEmojiAssets = p), (l.getAnimatedEmojiAsset = f));
   },
   98,
 );

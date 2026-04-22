@@ -29,7 +29,7 @@ __d(
             return (
               this.$2.push(i),
               i.finally(function () {
-                e.$2.length > 0 && e.$2[0] === i && e.$2.shift();
+                e.$2.length > 0 && e.$2[0] === i && (e.$2 = e.$2.slice(1));
               })
             );
           }),

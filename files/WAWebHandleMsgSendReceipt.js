@@ -136,6 +136,7 @@ __d(
                 rawTs: l,
                 isPeer: g,
                 retryReason: r.retryReason,
+                isStateless: (m == null ? void 0 : m.isHosted()) === !0,
               }),
                 o(
                   "WAWebPostMessageHighRetryCountMetric",

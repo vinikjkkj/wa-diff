@@ -270,7 +270,7 @@ __d(
                   ).crosspostSettingsSyncSenderEnabled()
                     ? { shareToFB: a, shareToIG: i }
                     : {},
-                  { customLists: [] },
+                  { customLists: [], modes: [] },
                 ),
               },
             });

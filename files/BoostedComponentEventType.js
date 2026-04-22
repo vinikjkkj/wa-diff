@@ -53,6 +53,7 @@ __d(
       PERFORM_EDIT_MUTATION: "perform_edit_mutation",
       PERFORM_ADD_BUDGET_AND_DURATION_MUTATION:
         "perform_add_budget_and_duration_mutation",
+      PERFORM_RESUME_MUTATION: "perform_resume_mutation",
       PRESUBMIT_VALIDATION_DONE: "presubmit_validation_done",
       PRESUBMIT_VALIDATION_ERROR: "presubmit_validation_error",
       VALIDATION_V2_PRESUBMIT_IGNORE: "validation_v2_presubmit_ignore",

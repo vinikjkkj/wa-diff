@@ -181,6 +181,11 @@ __d(
         ) >= 1
       );
     }
+    function P() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_calling_full_screen_toggle_enabled",
+      );
+    }
     ((l.isWebKitBrowser = _),
       (l.getUnsupportedBrowserReason = f),
       (l.isUnsupportedBrowserForWebCalling = g),
@@ -198,7 +203,8 @@ __d(
       (l.isWebTransportEnabled = T),
       (l.isWinHybridJoinableCallsEnabled = D),
       (l.isDeviceSwitchingEnabled = x),
-      (l.isCallInfoOptimizationsEnabled = $));
+      (l.isCallInfoOptimizationsEnabled = $),
+      (l.isFullScreenToggleEnabled = P));
   },
   98,
 );

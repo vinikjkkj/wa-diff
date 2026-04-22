@@ -181,9 +181,9 @@ __d(
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[debug] forgetAndDeleteStatusSession: forgot sender key for ",
+                  "[debug] forgetAndDeleteStatusSession: forgot key ",
                   " (",
-                  " devices)",
+                  ")",
                 ])),
               e,
               a.length,
@@ -199,9 +199,9 @@ __d(
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[debug] forgetAndDeleteStatusSession: deleted sessions for ",
+                  "[debug] forgetAndDeleteStatusSession: deleted ",
                   " (",
-                  " devices)",
+                  ")",
                 ])),
               e,
               a.length,

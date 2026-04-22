@@ -10,6 +10,7 @@ __d(
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterSendStatusJob",
     "WAWebNewsletterUpdateMsgsRecordsJob",
+    "WAWebProtobufsStatusAttributions.pb",
     "WAWebSendMsgResultAction",
     "WAWebStatusCollection",
     "WAWebStatusMsgDataUtils",
@@ -57,6 +58,12 @@ __d(
           var i = babelHelpers.extends({}, a, {
               isNewsletterStatus: !0,
               author: e,
+              statusAttributions: [
+                {
+                  type: o("WAWebProtobufsStatusAttributions.pb")
+                    .StatusAttribution$Type.NEWSLETTER_STATUS,
+                },
+              ],
             }),
             l = new (o("WAWebMsgModel").Msg)(i);
           ((l.wamMessageSendReporter = new (o(
@@ -109,6 +116,12 @@ __d(
             i = babelHelpers.extends({}, e, {
               isNewsletterStatus: !0,
               author: n,
+              statusAttributions: [
+                {
+                  type: o("WAWebProtobufsStatusAttributions.pb")
+                    .StatusAttribution$Type.NEWSLETTER_STATUS,
+                },
+              ],
             }),
             l = new (o("WAWebMsgModel").Msg)(i);
           ((l.wamMessageSendReporter = new (o(

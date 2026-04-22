@@ -34,6 +34,19 @@ __d(
     function y(e) {
       c = e;
     }
+    function C() {
+      if (c == null) return !1;
+      try {
+        return !b(c);
+      } catch (e) {
+        return !1;
+      }
+    }
+    function b(e) {
+      return (
+        e != null && typeof e == "object" && "closed" in e && e.closed === !0
+      );
+    }
     ((l.WAWebVoipUiPopoutWindowEventEmitter = e),
       (l.MAIN_WINDOW_NAME = s),
       (l.getIsCallActiveInPopoutWindow = m),
@@ -42,7 +55,8 @@ __d(
       (l.setIsPopoutWindowOpening = f),
       (l.getIsPopoutWindowActiveAndVisible = g),
       (l.getPopoutWindow = h),
-      (l.setPopoutWindow = y));
+      (l.setPopoutWindow = y),
+      (l.isPopoutWindowAlive = C));
   },
   98,
 );

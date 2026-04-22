@@ -361,7 +361,6 @@ __d(
           ? void 0
           : n.hostStorage) ===
           o("WAWebHandleMsgTypes.flow").HostStorageEnumType.Facebook &&
-        o("WAWebMmSignalSharingTos").isMmSignalSharingDisclosureTosAccepted() &&
         o(
           "WAWebMmSignalSharingLoggingUtils",
         ).logMmSignalSharingVerificationEvent({

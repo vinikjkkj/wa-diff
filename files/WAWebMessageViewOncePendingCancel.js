@@ -40,7 +40,7 @@ __d(
         : (f = t[5]);
       var g;
       t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = { className: "x1ll7wkd" }), (t[6] = g))
+        ? ((g = { className: "xhslqc4" }), (t[6] = g))
         : (g = t[6]);
       var h = d && c.inactiveIconSvg,
         y;

@@ -343,10 +343,40 @@ __d(
             l = n.key,
             s = n.tag,
             u = yield N(l),
-            c = yield R(t, u);
+            c = yield R(t.encryptionKey, u);
           return { tag: s, nonce: i, cipherText: a, encryptedKey: c };
         })),
         W.apply(this, arguments)
+      );
+    }
+    function q(e) {
+      return U.apply(this, arguments);
+    }
+    function U() {
+      return (
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length === 0) throw r("err")("Empty PEM string");
+          var t = "-----BEGIN PUBLIC KEY-----",
+            n = "-----END PUBLIC KEY-----",
+            o = e;
+          (e.includes(t) &&
+            (o = e.substring(e.indexOf(t) + t.length, e.indexOf(n))),
+            (o = o.replace(/\s/g, "")));
+          for (
+            var a = atob(o), i = new Uint8Array(a.length), l = 0;
+            l < a.length;
+            l++
+          )
+            i[l] = a.charCodeAt(l);
+          return self.crypto.subtle.importKey(
+            "spki",
+            i,
+            { name: "RSA-OAEP", hash: "SHA-1" },
+            !0,
+            ["encrypt"],
+          );
+        })),
+        U.apply(this, arguments)
       );
     }
     ((l.generateRSAKeys = d),
@@ -355,7 +385,8 @@ __d(
       (l.cryptoKeyToPem = I),
       (l.convertTestKeys = $),
       (l.decryptRSAEncryptedPayload = w),
-      (l.wrapPayloadWithRSAAESEncryption = B));
+      (l.wrapPayloadWithRSAAESEncryption = B),
+      (l.importPasswordPublicKey = q));
   },
   98,
 );

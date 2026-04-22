@@ -656,22 +656,40 @@ __d(
           ),
           null
         );
-      var n = function () {
-        (r("WAWebEnforcementActionLogging").logClickSeeDetails(),
-          o("WAWebModalManager").ModalManager.open(
-            c.jsx(r("WAWebEnforcementPolicyDetailsModal.react"), {
-              policyInformation: t,
+      if (
+        o(
+          "WAWebNewsletterGatingUtils",
+        ).isNewsletterEnforcementPolicyBottomSheetEnabled()
+      ) {
+        var n = function () {
+          (r("WAWebEnforcementActionLogging").logClickSeeDetails(),
+            o("WAWebModalManager").ModalManager.open(
+              c.jsx(r("WAWebEnforcementPolicyDetailsModal.react"), {
+                policyInformation: t,
+              }),
+            ));
+        };
+        return c.jsxs(c.Fragment, {
+          children: [
+            t.overview,
+            c.jsx("br", {}),
+            c.jsx(r("WDSTextualLink.react"), {
+              onClick: n,
+              testid: "enforcement-policy-see-details-link",
+              children: s._(/*BTDS*/ "See details"),
             }),
-          ));
-      };
+          ],
+        });
+      }
       return c.jsxs(c.Fragment, {
         children: [
           t.overview,
           c.jsx("br", {}),
-          c.jsx(r("WDSTextualLink.react"), {
-            onClick: n,
-            testid: "enforcement-policy-see-details-link",
-            children: s._(/*BTDS*/ "See details"),
+          c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+            onClick: C,
+            xstyle: d.seeRule,
+            href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+            children: s._(/*BTDS*/ "See rule"),
           }),
         ],
       });

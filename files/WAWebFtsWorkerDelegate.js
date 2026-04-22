@@ -296,6 +296,7 @@ __d(
                     e.$19({ reqId: l, result: t, error: !1 });
                   })
                   .catch(function (t) {
+                    var n = r("getErrorSafe")(t);
                     (e.$19({ reqId: l, result: !1, error: !0 }),
                       o("WALogger")
                         .ERROR(
@@ -306,7 +307,7 @@ __d(
                               "",
                             ])),
                           i.operation,
-                          o("WAWebNormalizeStack").normalizeStack(t),
+                          o("WAWebNormalizeStack").normalizeStack(n),
                         )
                         .tags("non-sad")
                         .sendLogs(

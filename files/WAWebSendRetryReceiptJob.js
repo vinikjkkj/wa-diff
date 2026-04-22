@@ -57,46 +57,48 @@ __d(
           var a = t.externalId,
             i = t.isPeer,
             l = i === void 0 ? !1 : i,
-            u = t.participant,
-            d = t.rawTs,
-            m = t.recipient,
-            p = t.retryCount,
-            _ = t.retryReason,
-            g = t.to;
+            u = t.isStateless,
+            d = u === void 0 ? !1 : u,
+            m = t.participant,
+            p = t.rawTs,
+            _ = t.recipient,
+            g = t.retryCount,
+            h = t.retryReason,
+            y = t.to;
           if (
             (r("gkx")("26258") ||
               n("cr:10198") == null ||
               n("cr:10198").injectDebug(
-                g,
+                y,
                 "RetryReceiptSent",
                 "externalId:" + a,
               ),
             !r("gkx")("26258"))
           ) {
-            var h =
+            var C =
               n("cr:4533") == null
                 ? void 0
                 : n("cr:4533").getDebugDoNotSendRetryReceipt();
-            if (h != null && h > 0)
+            if (C != null && C > 0)
               return (
                 n("cr:4533") == null ||
-                  n("cr:4533").setDebugDoNotSendRetryReceipt(h - 1),
+                  n("cr:4533").setDebugDoNotSendRetryReceipt(C - 1),
                 (c || (c = n("Promise"))).resolve()
               );
           }
           try {
-            var y = o("WAWebSignalProtocolStore").getSignalProtocolStore(),
-              C = yield (c || (c = n("Promise"))).all([
-                y.getLocalRegistrationId(),
-                y.getIdentityKeyPair(),
+            var b = o("WAWebSignalProtocolStore").getSignalProtocolStore(),
+              v = yield (c || (c = n("Promise"))).all([
+                b.getLocalRegistrationId(),
+                b.getIdentityKeyPair(),
               ]),
-              b = C[0],
-              v = C[1];
-            if (b == null || v == null)
+              S = v[0],
+              R = v[1];
+            if (S == null || R == null)
               throw r("err")("No registration info found");
-            var S;
+            var L;
             try {
-              S = yield f(p, o("WAWebCryptoCurve25519").toCurveKeyPair(v));
+              L = yield f(g, o("WAWebCryptoCurve25519").toCurveKeyPair(R), d);
             } catch (t) {
               o("WALogger")
                 .ERROR(
@@ -111,21 +113,21 @@ __d(
                   "sendRetryReceipt: error while creating key section in retry receipt",
                 );
             }
-            var R = !g.isBot() && !!(u != null && u.isBot());
-            if (R) return;
-            var L = o("WAWap").DROP_ATTR,
-              E = o("WAWap").DROP_ATTR,
-              k = o("WAWap").DROP_ATTR,
-              I;
-            if (g.isUser()) {
+            var E = !y.isBot() && !!(m != null && m.isBot());
+            if (E) return;
+            var k = o("WAWap").DROP_ATTR,
+              I = o("WAWap").DROP_ATTR,
+              T = o("WAWap").DROP_ATTR,
+              D;
+            if (y.isUser()) {
               if (
-                ((I = o("WAWebCommsWapMd").DEVICE_JID(g)),
+                ((D = o("WAWebCommsWapMd").DEVICE_JID(y)),
                 o("WAWebUserPrefsMeUser").isMeAccount(
-                  o("WAWebWidFactory").asUserWidOrThrow(g),
+                  o("WAWebWidFactory").asUserWidOrThrow(y),
                 ))
               )
-                if (l) L = "peer";
-                else if (m) E = o("WAWebCommsWapMd").USER_JID(m);
+                if (l) k = "peer";
+                else if (_) I = o("WAWebCommsWapMd").USER_JID(_);
                 else
                   return (c || (c = n("Promise"))).reject(
                     r("err")(
@@ -133,41 +135,41 @@ __d(
                     ),
                   );
             } else
-              ((I = o("WAWebCommsWapMd").CHAT_JID(g)),
-                (k = u
-                  ? o("WAWebCommsWapMd").DEVICE_JID(u)
+              ((D = o("WAWebCommsWapMd").CHAT_JID(y)),
+                (T = m
+                  ? o("WAWebCommsWapMd").DEVICE_JID(m)
                   : o("WAWap").DROP_ATTR));
-            var T = o("WAWap").wap(
+            var x = o("WAWap").wap(
               "receipt",
               {
                 id: o("WAWap").CUSTOM_STRING(a),
-                to: I,
-                participant: k,
-                recipient: E,
+                to: D,
+                participant: T,
+                recipient: I,
                 type: "retry",
-                category: L,
+                category: k,
               },
               o("WAWap").wap("retry", {
                 v: "1",
-                count: o("WAWap").INT(p),
+                count: o("WAWap").INT(g),
                 id: o("WAWap").CUSTOM_STRING(a),
-                t: o("WAWap").CUSTOM_STRING(d),
-                error: _ != null ? o("WAWap").INT(_) : o("WAWap").DROP_ATTR,
+                t: o("WAWap").CUSTOM_STRING(p),
+                error: h != null ? o("WAWap").INT(h) : o("WAWap").DROP_ATTR,
               }),
               o("WAWap").wap(
                 "registration",
                 null,
-                o("WAWap").BIG_ENDIAN_CONTENT(b),
+                o("WAWap").BIG_ENDIAN_CONTENT(S),
               ),
-              S,
+              L,
             );
             return o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
-              T,
+              x,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: a,
                 class: "receipt",
-                from: g,
-                participant: u,
+                from: y,
+                participant: m,
                 type: "retry",
               }),
             );
@@ -189,38 +191,41 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t) {
+    function f(e, t, n) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield h(e, t),
-            r = n[0],
-            a = n[1];
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          n === void 0 && (n = !1);
+          var r = yield h(e, t, n),
+            a = r[0],
+            i = r[1];
           return (
-            a &&
+            i &&
               (yield o("WAWebSignalStoreApi").waSignalStore.markKeyAsUploaded(
-                a.keyId,
+                i.keyId,
               ),
               yield o(
                 "WAWebSignalStoreApi",
-              ).waSignalStore.markPreKeyAsDirectDistribution(a.keyId)),
-            r
+              ).waSignalStore.markPreKeyAsDirectDistribution(i.keyId)),
+            a
           );
         })),
         g.apply(this, arguments)
       );
     }
-    function h(e, t) {
+    function h(e, t, n) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (e < d) return (c || (c = n("Promise"))).resolve([null, null]);
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+          a === void 0 && (a = !1);
+          var i = a || e >= d;
+          if (!i) return (c || (c = n("Promise"))).resolve([null, null]);
           try {
-            var a = yield (c || (c = n("Promise"))).all([
+            var l = yield (c || (c = n("Promise"))).all([
                 o("WAWebSignalStoreApi").waSignalStore.getSignedPreKey(),
                 o("WAWebSignalStoreApi").waSignalStore.getOrGenSinglePreKey(
                   o("WAWebSignalKeyApi").generatePreKeyPair,
@@ -245,11 +250,11 @@ __d(
                     );
                   }),
               ]),
-              i = a[0],
-              l = a[1],
-              s = a[2];
-            if (!i) throw r("err")("Signed pre key is not available");
-            var m = o("WAWap").wap(
+              s = l[0],
+              m = l[1],
+              p = l[2];
+            if (!s) throw r("err")("Signed pre key is not available");
+            var _ = o("WAWap").wap(
               "keys",
               null,
               o("WAWap").wap(
@@ -258,11 +263,11 @@ __d(
                 r("WAWebConstantsDeprecated").KEY_BUNDLE_TYPE,
               ),
               o("WAWap").wap("identity", null, t.pubKey),
-              o("WAWebSignalUtilsApi").xmppPreKey(l),
-              o("WAWebSignalUtilsApi").xmppSignedPreKey(i),
-              s,
+              o("WAWebSignalUtilsApi").xmppPreKey(m),
+              o("WAWebSignalUtilsApi").xmppSignedPreKey(s),
+              p,
             );
-            return [m, l];
+            return [_, m];
           } catch (e) {
             throw r("err")("Could not create keys section for retry");
           }

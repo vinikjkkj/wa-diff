@@ -46,8 +46,7 @@ __d(
       d,
       m,
       p,
-      _,
-      f = (function (t) {
+      _ = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -106,9 +105,9 @@ __d(
                   "WAWebAndroidUnsupportedActionsSync",
                 ).updatePrimaryAllowsAllMutationsFlag("other mutation");
                 var l = a.allSupportedSetMutations,
-                  c = 0,
                   d = 0,
-                  m = yield (_ || (_ = n("Promise"))).all(
+                  m = 0,
+                  _ = yield (p || (p = n("Promise"))).all(
                     t.map(
                       (function () {
                         var t = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -119,8 +118,8 @@ __d(
                                   a = t.value,
                                   s = n[1],
                                   u = n[2],
-                                  m = n[3];
-                                if (!s || !u || !m || !r("WAWebWid").isWid(s))
+                                  c = n[3];
+                                if (!s || !u || !c || !r("WAWebWid").isWid(s))
                                   return i.malformedActionIndex();
                                 var p = o(
                                   "WAWebMessageRangeUtils",
@@ -131,7 +130,7 @@ __d(
                                 );
                                 if (p == null)
                                   return (
-                                    c++,
+                                    d++,
                                     o(
                                       "WAWebSyncdMetricFatalError",
                                     ).reportSyncdFatalError(
@@ -175,13 +174,13 @@ __d(
                                   o("WAWebWidFactory").createWid(_.chat.id),
                                   g,
                                   u === "1",
-                                  m === "0",
+                                  c === "0",
                                   h,
                                   a,
                                 );
                               }
                               return (
-                                d++,
+                                m++,
                                 {
                                   actionState:
                                     o("WASyncdConst").SyncActionState
@@ -220,27 +219,42 @@ __d(
                         };
                       })(),
                     ),
-                  );
+                  ),
+                  f = _.filter(function (e) {
+                    return (
+                      e.actionState ===
+                      o("WASyncdConst").SyncActionState.Success
+                    );
+                  }).length;
                 return (
-                  c > 0 &&
-                    o("WALogger").WARN(
+                  f > 0 &&
+                    o("WALogger").LOG(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd][clear-chat]: ",
-                          " malformed mutations",
+                          "[syncd][clear-chat]: updated chat table for ",
+                          " mutations",
                         ])),
-                      c,
+                      f,
                     ),
                   d > 0 &&
                     o("WALogger").WARN(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
                           "[syncd][clear-chat]: ",
-                          " REMOVE operations not supported",
+                          " malformed mutations",
                         ])),
                       d,
                     ),
-                  m
+                  m > 0 &&
+                    o("WALogger").WARN(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "[syncd][clear-chat]: ",
+                          " REMOVE operations not supported",
+                        ])),
+                      m,
+                    ),
+                  _
                 );
               },
             );
@@ -319,19 +333,7 @@ __d(
                     ),
                     l,
                   ),
-                  o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[syncd] before use case will update chat table",
-                      ])),
-                  ),
                   yield this.clearChat(e, t, n, a),
-                  o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[syncd] after use case updated chat table",
-                      ])),
-                  ),
                   { actionState: o("WASyncdConst").SyncActionState.Success }
                 );
               },
@@ -434,9 +436,9 @@ __d(
                   s = e.timestamp,
                   u = t.timestamp,
                   c = r("WANullthrows")(i.clearChatAction),
-                  d = r("WANullthrows")(l == null ? void 0 : l.clearChatAction),
+                  p = r("WANullthrows")(l == null ? void 0 : l.clearChatAction),
                   _ = o("WAWebMessageRangeUtils").compareMessageRanges(
-                    r("WANullthrows")(d.messageRange),
+                    r("WANullthrows")(p.messageRange),
                     r("WANullthrows")(c.messageRange),
                   );
                 e: {
@@ -473,7 +475,7 @@ __d(
                       .RangesNotEnclosing
                   ) {
                     var f = o("WAWebMessageRangeUtils").mergeMessageRanges(
-                        r("WANullthrows")(d.messageRange),
+                        r("WANullthrows")(p.messageRange),
                         r("WANullthrows")(c.messageRange),
                       ),
                       g = { messageRange: f },
@@ -496,8 +498,8 @@ __d(
                               r = t[2] === "1",
                               i = t[3] === "1";
                             (o("WALogger").LOG(
-                              m ||
-                                (m = babelHelpers.taggedTemplateLiteralLoose([
+                              d ||
+                                (d = babelHelpers.taggedTemplateLiteralLoose([
                                   "[syncd] before update chat table due to conflict",
                                 ])),
                             ),
@@ -516,8 +518,8 @@ __d(
                             var l = a.clearChat(n, f, r);
                             return (
                               o("WALogger").LOG(
-                                p ||
-                                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                                m ||
+                                  (m = babelHelpers.taggedTemplateLiteralLoose([
                                     "[syncd] after update chat table due to conflict",
                                   ])),
                               ),
@@ -576,8 +578,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").ChatMessageRangeSyncdActionBase),
-      g = new f();
-    l.default = g;
+      f = new _();
+    l.default = f;
   },
   98,
 );

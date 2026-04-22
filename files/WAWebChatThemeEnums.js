@@ -58,7 +58,14 @@ __d(
         SkyBlue: "Sky-Blue@Minimal",
         PearlIndigo: "Pearl-Indigo@Minimal",
       });
-    ((i.Theme = e), (i.TonalScheme = l), (i.MinimalScheme = s));
+    function u(t) {
+      var n = t;
+      return (e.isValid(n) && n !== "Default") || s.isValid(n);
+    }
+    ((i.Theme = e),
+      (i.TonalScheme = l),
+      (i.MinimalScheme = s),
+      (i.hasVibrantBubbleColor = u));
   },
   66,
 );

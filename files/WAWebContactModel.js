@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WALogger",
     "WATimeUtils",
+    "WAWebAIHatchIdentityStore",
     "WAWebAIHatchIdentitySync",
     "WAWebAlarm",
     "WAWebApiContact",
@@ -241,18 +242,22 @@ __d(
                         timestamp: Date.now(),
                       });
                 } else if (o("WAWebBotUtils").isHatchBot(this.id)) {
-                  this.set({ name: o("WAWebBotGating").getHatchBotName() });
-                  var l = o("WAWebBotGating").getHatchBotProfileThumb();
-                  (l !== "" &&
-                    o("WAWebProfilePicThumbCollection")
-                      .ProfilePicThumbCollection.gadd(this.id)
-                      .set({
-                        eurl: l,
-                        previewEurl: l,
-                        tag: "hat",
-                        stale: !1,
-                        timestamp: Date.now(),
-                      }),
+                  var l = o(
+                      "WAWebAIHatchIdentityStore",
+                    ).getHatchInitialIdentity(),
+                    u = l.name,
+                    c = l.profileThumb;
+                  (this.set({ name: u }),
+                    c !== "" &&
+                      o("WAWebProfilePicThumbCollection")
+                        .ProfilePicThumbCollection.gadd(this.id)
+                        .set({
+                          eurl: c,
+                          previewEurl: c,
+                          tag: "hat",
+                          stale: !1,
+                          timestamp: Date.now(),
+                        }),
                     o("WAWebAIHatchIdentitySync").syncHatchContactIdentity(
                       this,
                       this.id,
@@ -267,14 +272,14 @@ __d(
                       o("WAWebBotUtils").META_BOT_TEE_FBID_WID.user
                   ) {
                     this.set({ name: "Meta AI" });
-                    var u = o(
+                    var d = o(
                       "WAWebMetaAiRingAssetResolver",
                     ).getMetaAiProfileURL();
                     o("WAWebProfilePicThumbCollection")
                       .ProfilePicThumbCollection.gadd(this.id)
                       .set({
-                        eurl: u,
-                        previewEurl: u,
+                        eurl: d,
+                        previewEurl: d,
                         tag: "man",
                         stale: !1,
                         timestamp: Date.now(),

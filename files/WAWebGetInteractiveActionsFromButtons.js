@@ -204,6 +204,7 @@ __d(
                 eventType: o("WAWebWamEnumDisclosureEventType")
                   .DISCLOSURE_EVENT_TYPE.CTA_APP_CLICK,
                 defaultUrl: r,
+                skipUrlRewrite: !0,
                 onLinkReady: function (r, a, i) {
                   (o("WAWebExternalLink.react").openExternalLink(a),
                     L(t, n),
@@ -231,51 +232,55 @@ __d(
         r = e.eventType,
         a = e.msg,
         i = e.onLinkReady,
-        l = o("WAWebFrontendMsgGetters").getChat(a.unsafe());
+        l = e.skipUrlRewrite,
+        s = l === void 0 ? !1 : l,
+        u = o("WAWebFrontendMsgGetters").getChat(a.unsafe());
       o("WAWebMmSignalSharingShowDisclosureModal")
-        .showDisclosureModalForMm(l, a.unsafe(), r)
+        .showDisclosureModalForMm(u, a.unsafe(), r)
         .then(function (e) {
-          var s = function () {
-              return o(
-                "WAWebMmSignalSharingModelUtils",
-              ).getCTALinkForMmSignalSharing({
-                chat: l,
-                msg: a.unsafe(),
-                btnIndex: t.index,
-                isMmSignalSharingDisclosureTosAccepted: o(
-                  "WAWebMmSignalSharingTos",
-                ).isMmSignalSharingDisclosureTosAccepted(),
-                defaultUrl: n,
-              });
+          var l = function () {
+              return s
+                ? n
+                : o(
+                    "WAWebMmSignalSharingModelUtils",
+                  ).getCTALinkForMmSignalSharing({
+                    chat: u,
+                    msg: a.unsafe(),
+                    btnIndex: t.index,
+                    isMmSignalSharingDisclosureTosAccepted: o(
+                      "WAWebMmSignalSharingTos",
+                    ).isMmSignalSharingDisclosureTosAccepted(),
+                    defaultUrl: n,
+                  });
             },
-            u = s();
-          u != null &&
+            c = l();
+          c != null &&
             (e
               ? o(
                   "WAWebMmSignalSharingUIUtils",
                 ).openMmSignalSharingDisclosureModal({
                   eventType: r,
-                  chat: l,
+                  chat: u,
                   onOk: function () {
-                    var e = s();
-                    e != null && i(l, e, !0);
+                    var e = l();
+                    e != null && i(u, e, !0);
                   },
                   onCancel: function (t) {
                     return o(
                       "WAWebMmSignalSharingLoggingEvents",
                     ).logMmSignalSharingDisclosureCancelEvent({
                       eventType: r,
-                      chat: l,
+                      chat: u,
                       msg: a.unsafe(),
                       isExplicitCancel: t,
                     });
                   },
                   onDismissed: function () {
-                    var e = s();
-                    e != null && i(l, e, !1);
+                    var e = l();
+                    e != null && i(u, e, !1);
                   },
                 })
-              : i(l, u, !1));
+              : i(u, c, !1));
         });
     }
     function h(e, t, n, r, a) {

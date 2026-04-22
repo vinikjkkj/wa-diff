@@ -16,6 +16,7 @@ __d(
     "WAWebBizBroadcastsUploadModalLoadable.react",
     "WAWebBizFrontendGatingUtils",
     "WAWebBotFrontendGating",
+    "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotProfileAction",
     "WAWebBotUtils",
     "WAWebBroadcastApiParse",
@@ -803,10 +804,12 @@ __d(
                   msgContext: null,
                 }),
                   e != null &&
-                    o("WAWebSendBotRequestWelcomeAction").sendBotRequestWelcome(
+                    (o(
+                      "WAWebSendBotRequestWelcomeAction",
+                    ).sendBotRequestWelcome(n, e),
+                    o("WAWebBotGenTypingIndicatorMsg").showBotTypingIndicator(
                       n,
-                      e,
-                    ));
+                    )));
               },
             );
             return function (n) {

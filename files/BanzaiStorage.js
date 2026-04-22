@@ -12,119 +12,121 @@ __d(
     "isInIframe",
     "performanceAbsoluteNow",
   ],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      l,
       s,
-      u = "bz:",
-      c = n("isInIframe")(),
-      d,
-      m = !1,
-      p = null;
-    function _() {
+      u,
+      c = "bz:",
+      d = r("isInIframe")(),
+      m,
+      p = !1,
+      _ = null;
+    function f() {
       var e = "check_quota";
       try {
-        var t = f();
+        var t = g();
         return t ? (t.setItem(e, e), t.removeItem(e), !0) : !1;
       } catch (e) {
         return !1;
       }
     }
-    function f() {
+    function g() {
       return (
-        m || ((m = !0), (d = (e || (e = n("WebStorage"))).getLocalStorage())),
-        d
+        p || ((p = !0), (m = (e || (e = r("WebStorage"))).getLocalStorage())),
+        m
       );
     }
-    var g = {
-      flush: function (r) {
-        if (!c) {
-          var t = f();
-          if (t) {
-            p == null &&
-              (p = parseInt(
-                t.getItem((l || (l = n("BanzaiConsts"))).LAST_STORAGE_FLUSH),
-                10,
-              ));
-            var o =
-              p &&
-              (s || (s = n("performanceAbsoluteNow")))() - p >=
-                (l || (l = n("BanzaiConsts"))).STORAGE_FLUSH_INTERVAL;
-            (o && r(),
-              (o || p == null || p === 0 || Number.isNaN(p)) &&
-                ((p = (s || (s = n("performanceAbsoluteNow")))()),
-                (e || (e = n("WebStorage"))).setItemGuarded(
-                  t,
-                  (l || (l = n("BanzaiConsts"))).LAST_STORAGE_FLUSH,
-                  p.toString(),
-                )));
+    var h = {
+        flush: function (n) {
+          if (!d) {
+            var t = g();
+            if (t) {
+              _ == null &&
+                (_ = parseInt(
+                  t.getItem((s || (s = r("BanzaiConsts"))).LAST_STORAGE_FLUSH),
+                  10,
+                ));
+              var o =
+                _ &&
+                (u || (u = r("performanceAbsoluteNow")))() - _ >=
+                  (s || (s = r("BanzaiConsts"))).STORAGE_FLUSH_INTERVAL;
+              (o && n(),
+                (o || _ == null || _ === 0 || Number.isNaN(_)) &&
+                  ((_ = (u || (u = r("performanceAbsoluteNow")))()),
+                  (e || (e = r("WebStorage"))).setItemGuarded(
+                    t,
+                    (s || (s = r("BanzaiConsts"))).LAST_STORAGE_FLUSH,
+                    _.toString(),
+                  )));
+            }
           }
-        }
-      },
-      restore: function (t) {
-        if (!c) {
-          var e = f();
-          if (e) {
-            var r = function (o) {
-              for (var r = [], a = 0; a < e.length; a++) {
-                var i = e.key(a);
-                typeof i == "string" &&
-                  i.indexOf(u) === 0 &&
-                  i.indexOf("bz:__") !== 0 &&
-                  r.push(i);
-              }
-              (r.forEach(function (r) {
-                var o = e.getItem(r);
-                if ((e.removeItem(r), !(o == null || o === ""))) {
-                  var a = n("cr:8958").parse(o);
-                  a.forEach(function (e) {
-                    if (e) {
-                      var r = (e.__meta = e.pop()),
-                        o = n("BanzaiUtils").canSend(e);
-                      if (o) {
-                        var a = n("CurrentUser").getPossiblyNonFacebookUserID();
-                        (r.userID === a || a === "0") &&
-                          (n("BanzaiUtils").resetPostStatus(e), t(e));
-                      }
-                    }
-                  });
+        },
+        restore: function (t) {
+          if (!d) {
+            var e = g();
+            if (e) {
+              var a = function (a) {
+                for (var o = [], i = 0; i < e.length; i++) {
+                  var l = e.key(i);
+                  typeof l == "string" &&
+                    l.indexOf(c) === 0 &&
+                    l.indexOf("bz:__") !== 0 &&
+                    o.push(l);
                 }
-              }),
-                o && o.unlock());
-            };
-            _()
-              ? new (n("WebStorageMutex"))("banzai").lock(r)
-              : n("SetIdleTimeoutAcrossTransitions").start(r, 0);
+                (o.forEach(function (o) {
+                  var a = e.getItem(o);
+                  if ((e.removeItem(o), !(a == null || a === ""))) {
+                    var i = n("cr:8958").parse(a);
+                    i.forEach(function (e) {
+                      if (e) {
+                        var n = (e.__meta = e.pop()),
+                          o = r("BanzaiUtils").canSend(e);
+                        if (o) {
+                          var a =
+                            r("CurrentUser").getPossiblyNonFacebookUserID();
+                          (n.userID === a || a === "0") &&
+                            (r("BanzaiUtils").resetPostStatus(e), t(e));
+                        }
+                      }
+                    });
+                  }
+                }),
+                  a && a.unlock());
+              };
+              f()
+                ? new (r("WebStorageMutex"))("banzai").lock(a)
+                : o("SetIdleTimeoutAcrossTransitions").start(a, 0);
+            }
           }
-        }
+        },
+        store: function (a) {
+          if (!d) {
+            var t = g(),
+              i = a.filter(function (e) {
+                return (
+                  e.__meta.status !== (s || (s = r("BanzaiConsts"))).POST_SENT
+                );
+              });
+            !t ||
+              i.length <= 0 ||
+              ((i = i.map(function (e) {
+                return [e[0], e[1], e[2], e[3] || 0, e[4], e.__meta];
+              })),
+              a.splice(0, a.length),
+              (e || (e = r("WebStorage"))).setItemGuarded(
+                t,
+                c +
+                  o("WebSession").getId() +
+                  "." +
+                  (u || (u = r("performanceAbsoluteNow")))(),
+                n("cr:8958").stringify(i),
+              ));
+          }
+        },
       },
-      store: function (r) {
-        if (!c) {
-          var t = f(),
-            o = r.filter(function (e) {
-              return (
-                e.__meta.status !== (l || (l = n("BanzaiConsts"))).POST_SENT
-              );
-            });
-          !t ||
-            o.length <= 0 ||
-            ((o = o.map(function (e) {
-              return [e[0], e[1], e[2], e[3] || 0, e[4], e.__meta];
-            })),
-            r.splice(0, r.length),
-            (e || (e = n("WebStorage"))).setItemGuarded(
-              t,
-              u +
-                n("WebSession").getId() +
-                "." +
-                (s || (s = n("performanceAbsoluteNow")))(),
-              n("cr:8958").stringify(o),
-            ));
-        }
-      },
-    };
-    a.exports = g;
+      y = h;
+    l.default = y;
   },
-  null,
+  98,
 );

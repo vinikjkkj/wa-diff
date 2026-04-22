@@ -12,6 +12,8 @@ __d(
     "WAWebNewsletterStatusProcessingUtils",
     "WAWebNewsletterSyntheticStatusUtils",
     "WAWebRunInBatches",
+    "WAWebSyncNewsletterStatusMetadataAction",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -21,15 +23,16 @@ __d(
       u,
       c,
       d,
-      m = 100,
+      m,
       p = 100,
-      _ = 5;
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+      _ = 100,
+      f = 5;
+    function g(e, t, n) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i;
           if (!(n <= a)) {
             var l = o("WAWebNewsletterQueryUtils").mapMembershipTypeToViewRole(
@@ -82,51 +85,72 @@ __d(
                 var n;
                 return Math.min(e, (n = t.serverId) != null ? n : 1 / 0);
               }, 1 / 0);
-              if (!(m >= n)) return f(t, m, a);
+              if (!(m >= n)) return g(t, m, a);
             }
           }
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function y(e, t, n) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n, a;
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var a, i;
           if (
-            o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
+            (n === void 0 && (n = !1),
+            !!o(
+              "WAWebNewsletterGatingUtils",
+            ).isNewsletterStatusReceiverEnabled())
           ) {
-            var i =
+            if (n)
+              try {
+                yield o(
+                  "WAWebSyncNewsletterStatusMetadataAction",
+                ).syncNewsletterStatusMetadata(
+                  e,
+                  o("WAWebWidFactory").createWid(e),
+                );
+              } catch (t) {
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[newsletter][status][gapfill] metadata refresh failed for ",
+                      ", using cached",
+                    ])),
+                  e,
+                );
+              }
+            var l =
               t != null
                 ? t
                 : r("WAWebNewsletterMetadataCollection") == null ||
-                    (n = r("WAWebNewsletterMetadataCollection").get(e)) ==
+                    (a = r("WAWebNewsletterMetadataCollection").get(e)) ==
                       null ||
-                    (n = n.statusMetadata) == null
+                    (a = a.statusMetadata) == null
                   ? void 0
-                  : n.lastStatusServerId;
-            if (i != null) {
-              var l =
-                (a = o(
+                  : a.lastStatusServerId;
+            if (l != null) {
+              var c =
+                (i = o(
                   "WAWebNewsletterSyntheticStatusUtils",
                 ).getFilledStatusCursor(e)) != null
-                  ? a
-                  : m - 1;
-              if (!(l >= i)) {
-                var u = Math.max(i - p, l);
+                  ? i
+                  : p - 1;
+              if (!(c >= l)) {
+                var d = Math.max(l - _, c);
                 try {
-                  (yield f(e, i + 1, u),
+                  (yield g(e, l + 1, d),
                     o(
                       "WAWebNewsletterStatusProcessingUtils",
-                    ).syncFilledStatusCursor(e, i));
+                    ).syncFilledStatusCursor(e, l));
                 } catch (t) {
                   o("WALogger")
                     .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "[newsletter][status][gapfill] backward fill failed for ",
                           "",
                         ])),
@@ -140,16 +164,16 @@ __d(
             }
           }
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    var C = new Set();
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    var b = new Set();
+    function v(e, t, n) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r;
           if (
             o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
@@ -164,7 +188,7 @@ __d(
                 "WAWebNewsletterSyntheticStatusUtils",
               ).getFilledStatusCursor(e)) != null
                 ? r
-                : m - 1;
+                : p - 1;
             if (!(t <= a)) {
               if (t === a + 1) {
                 o(
@@ -172,12 +196,12 @@ __d(
                 ).syncFilledStatusCursor(e, t);
                 return;
               }
-              if (!C.has(e)) {
-                C.add(e);
+              if (!b.has(e)) {
+                b.add(e);
                 try {
                   (o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[newsletter][status][gapfill] push gap: ",
                         " incoming=",
                         " cursor=",
@@ -187,23 +211,23 @@ __d(
                     String(t),
                     String(a),
                   ),
-                    yield h(e, t));
+                    yield y(e, t));
                 } finally {
-                  C.delete(e);
+                  b.delete(e);
                 }
               }
             }
           }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function S() {
-      return R.apply(this, arguments);
-    }
     function R() {
+      return L.apply(this, arguments);
+    }
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           if (
             o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
@@ -228,8 +252,8 @@ __d(
                 ? e
                 : [];
             (o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[newsletter][status][gapfill] bulk backward fill: ",
                   " channels",
                 ])),
@@ -240,7 +264,7 @@ __d(
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      yield (d || (d = n("Promise"))).allSettled(
+                      yield (m || (m = n("Promise"))).allSettled(
                         e.map(function (e) {
                           var t,
                             n = o("WAJids").toNewsletterJid(e.id.toString()),
@@ -248,7 +272,7 @@ __d(
                               (t = e.statusMetadata) == null
                                 ? void 0
                                 : t.lastStatusServerId;
-                          return h(n, r);
+                          return y(n, r);
                         }),
                       );
                     },
@@ -257,16 +281,16 @@ __d(
                     return e.apply(this, arguments);
                   };
                 })(),
-                { batchSize: _ },
+                { batchSize: f },
               ));
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    ((l.fillNewsletterStatusGap = h),
-      (l.fillGapFromIncomingStanza = b),
-      (l.fillSubscribedStatusGaps = S));
+    ((l.fillNewsletterStatusGap = y),
+      (l.fillGapFromIncomingStanza = v),
+      (l.fillSubscribedStatusGaps = R));
   },
   98,
 );

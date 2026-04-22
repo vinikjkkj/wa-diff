@@ -53,7 +53,7 @@ __d(
                 o("WALogger").LOG(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Prompt onbeforeunload due to pending draft message",
+                      "Prompt onbeforeunload due to pending actions",
                     ])),
                 ),
                 r("fbs")._(/*BTDS*/ "You are closing WhatsApp.").toString()

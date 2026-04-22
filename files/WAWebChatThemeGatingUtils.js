@@ -6,7 +6,13 @@ __d(
     function e() {
       return o("WAWebABProps").getABPropConfigValue("wa_web_chat_themes");
     }
-    l.isChatThemesEnabled = e;
+    function s(e) {
+      var t = e.isNotification,
+        n = e.isSentByMe,
+        r = e.isVibrant;
+      return r && n && !t;
+    }
+    ((l.isChatThemesEnabled = e), (l.shouldApplyVibrantOverride = s));
   },
   98,
 );

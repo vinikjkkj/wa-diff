@@ -47,13 +47,19 @@ __d(
       if (!o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled())
         return !1;
       var d = s(a);
-      if (d != null && n != null && d >= n) return !1;
-      o("WAWebStatusCollection").StatusCollection.add(
-        { id: t, t: r, totalCount: 1, unreadCount: 1 },
-        { merge: !0 },
-      );
-      var m = o("WAWebStatusCollection").StatusCollection.get(t);
-      return (m != null && (m.isSyntheticFromMetadata = !0), !0);
+      return d != null && n != null && d >= n
+        ? !1
+        : (o("WAWebStatusCollection").StatusCollection.add(
+            {
+              id: t,
+              t: r,
+              totalCount: 1,
+              unreadCount: 1,
+              isSyntheticFromMetadata: !0,
+            },
+            { merge: !0 },
+          ),
+          !0);
     }
     function c() {
       o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled() &&

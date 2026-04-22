@@ -199,23 +199,30 @@ __d(
         D.apply(this, arguments)
       );
     }
-    function x(t, n, a) {
-      o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
-            "CryptoLibrarySignal::encryptSignalProto sessionScope=",
-            "",
-          ])),
-        a != null ? a : "default",
-      );
-      var i = a === o("WAWebSessionScope").SessionScope.STATUS;
+    function x(t, n, a, i) {
+      (i === void 0 && (i = !1),
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "CryptoLibrarySignal::encryptSignalProto sessionScope=",
+              " omitSessionPersistence=",
+              "",
+            ])),
+          a != null ? a : "default",
+          String(i),
+        ));
+      var l = a === o("WAWebSessionScope").SessionScope.STATUS,
+        u = l ? L.handleNewSessionStatusScope : L.handleNewSession,
+        c = i
+          ? function (e, t, n, r, o) {
+              return u(e, t, n, r, o, !0);
+            }
+          : u;
       return E()
         .encryptContent(
           {
-            handleNewSession: i
-              ? L.handleNewSessionStatusScope
-              : L.handleNewSession,
-            loadSession: i ? L.loadSessionStatusScope : L.loadSession,
+            handleNewSession: c,
+            loadSession: l ? L.loadSessionStatusScope : L.loadSession,
           },
           o("WAWebWidToJid").widToDeviceJid(t),
           n,
