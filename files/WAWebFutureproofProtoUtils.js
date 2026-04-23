@@ -28,8 +28,7 @@ __d(
       if (_) return _;
       if (o("WAWebViewOnceGatingUtils").isViewOnceSunsetEnabled()) {
         if (f) return f;
-        if (g && o("WAWebViewOnceGatingUtils").isReceivingViewOnceV2Enabled())
-          return g;
+        if (g) return g;
       }
       return (
         l ||

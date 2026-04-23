@@ -7,17 +7,10 @@ __d(
     }
     function s() {
       return o("WAWebABProps").getABPropConfigValue(
-        "enable_soox_message_receiving",
-      );
-    }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue(
         "enable_soox_message_sending",
       );
     }
-    ((l.isViewOnceSunsetEnabled = e),
-      (l.isReceivingViewOnceV2Enabled = s),
-      (l.isSendingViewOnceV2Enabled = u));
+    ((l.isViewOnceSunsetEnabled = e), (l.isSendingViewOnceV2Enabled = s));
   },
   98,
 );

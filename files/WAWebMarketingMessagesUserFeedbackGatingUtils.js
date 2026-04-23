@@ -21,19 +21,14 @@ __d(
       return o("WAWebABProps").getABPropConfigValue("mm_opt_out_enabled");
     }
     function d() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "mm_message_level_feedback_analytics_enabled",
-      );
-    }
-    function m() {
       o("WAWebABProps").getABPropConfigValue("mm_user_controls_exposure");
     }
-    function p() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "mm_opt_out_fmx_stop_for_high_trust",
       );
     }
-    function _() {
+    function p() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "mm_user_controls_exception_number_prefixes",
       );
@@ -43,9 +38,9 @@ __d(
             return e.trim();
           });
     }
-    function f(e) {
+    function _(e) {
       if (e == null) return !1;
-      var t = _();
+      var t = p();
       return t.some(function (t) {
         return e.toString().startsWith(t);
       });
@@ -54,11 +49,10 @@ __d(
       (l.isMMMessageLevelFeedbackNotInterestedMenuEnabled = s),
       (l.isMMOptOutAlwaysUseLidInGraphQLEnabled = u),
       (l.isMMOptOutEnabled = c),
-      (l.isMMMessageLevelFeedbackAnalyticsEnabled = d),
-      (l.triggerExposureMMUserControls = m),
-      (l.isMMStopInFMXEnabled = p),
-      (l.getMMUserControlsExceptionNumberPrefixes = _),
-      (l.isMMUserControlsExceptionNumberPrefixMatch = f));
+      (l.triggerExposureMMUserControls = d),
+      (l.isMMStopInFMXEnabled = m),
+      (l.getMMUserControlsExceptionNumberPrefixes = p),
+      (l.isMMUserControlsExceptionNumberPrefixMatch = _));
   },
   98,
 );

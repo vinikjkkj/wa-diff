@@ -7,11 +7,7 @@ __d(
         "system_msg_text_styling",
       );
     }
-    function s() {
-      return !!o("WAWebABProps").getABPropConfigValue("system_msg_truncation");
-    }
-    ((l.systemMessageActionTextStylingEnabled = e),
-      (l.systemMessageTextTruncationEnabled = s));
+    l.systemMessageActionTextStylingEnabled = e;
   },
   98,
 );

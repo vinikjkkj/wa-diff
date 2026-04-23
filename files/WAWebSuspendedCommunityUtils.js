@@ -7,6 +7,7 @@ __d(
     "WAWebCxtUrl",
     "WAWebExternalLink.react",
     "WAWebGroupAppealInReviewModalLoadable",
+    "WAWebGroupAppealRejectedModalLoadable",
     "WAWebModalManager",
     "WAWebSuspendedCommunityModalLoadable",
     "WAWebSuspendedGroupRedesignModalLoadable",
@@ -72,20 +73,49 @@ __d(
     function _(e) {
       var t,
         n,
-        r = (t = e.groupMetadata) == null ? void 0 : t.parentGroup,
-        a = r != null ? o("WAWebChatCollection").ChatCollection.get(r) : null;
-      (a == null || (n = a.groupMetadata) == null
-        ? void 0
-        : n.suspendAppealStatus) === "IN_REVIEW"
-        ? o("WAWebModalManager").ModalManager.open(
+        r,
+        a = (t = e.groupMetadata) == null ? void 0 : t.parentGroup,
+        i = a != null ? o("WAWebChatCollection").ChatCollection.get(a) : null,
+        l =
+          (i == null || (n = i.groupMetadata) == null
+            ? void 0
+            : n.participants.iAmAdmin()) === !0;
+      if (!l || i == null) {
+        p(e);
+        return;
+      }
+      var s =
+        i == null || (r = i.groupMetadata) == null
+          ? void 0
+          : r.suspendAppealStatus;
+      e: {
+        if (s === "IN_REVIEW") {
+          o("WAWebModalManager").ModalManager.open(
             u.jsx(
               o("WAWebGroupAppealInReviewModalLoadable")
                 .GroupAppealInReviewModalLoadable,
-              { chat: a },
+              { chat: i },
             ),
             { transition: "modal-flow" },
-          )
-        : p(e);
+          );
+          break e;
+        }
+        if (s === "REJECTED") {
+          o("WAWebModalManager").ModalManager.open(
+            u.jsx(
+              o("WAWebGroupAppealRejectedModalLoadable")
+                .GroupAppealRejectedModalLoadable,
+              { chat: i },
+            ),
+            { transition: "modal-flow" },
+          );
+          break e;
+        }
+        {
+          p(e);
+          break e;
+        }
+      }
     }
     ((l.SUSPENDED_COMMUNITY_SUPPORT_TAG = c),
       (l.openTerminatedCommunityModal = d),

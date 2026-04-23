@@ -16,6 +16,11 @@ __d(
       }
       var t = e.prototype;
       return (
+        (t.setState = function (t) {
+          ((this.isMainStreamReadyMd = t.isMainStreamReadyMd),
+            (this.isOfflineDeliveryEnd = t.isOfflineDeliveryEnd),
+            (this.socketState = t.socketState));
+        }),
         (t.$4 = function (t, n) {
           var e,
             r = (e = this.$2.get(t)) != null ? e : [];
@@ -53,16 +58,6 @@ __d(
             )
               r[o - 1] = arguments[o];
             switch (t) {
-              case "syncState": {
-                var a = r[0],
-                  i = a.isMainStreamReadyMd,
-                  l = a.isOfflineDeliveryEnd,
-                  s = a.socketState;
-                ((e.isMainStreamReadyMd = i),
-                  (e.isOfflineDeliveryEnd = l),
-                  (e.socketState = s));
-                break;
-              }
               case "onMainStreamModeReady": {
                 e.isMainStreamReadyMd = !0;
                 break;
@@ -76,8 +71,8 @@ __d(
                 break;
               }
               case "onSetSocketState": {
-                var u = r[0].state;
-                e.socketState = u;
+                var a = r[0].state;
+                e.socketState = a;
                 break;
               }
             }

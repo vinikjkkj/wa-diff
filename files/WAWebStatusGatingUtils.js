@@ -135,10 +135,15 @@ __d(
     }
     function k() {
       return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_reshare_poster_side_enabled",
+        "wa_web_status_reshare_attribution_enabled",
       );
     }
     function I() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_reshare_poster_side_enabled",
+      );
+    }
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_resharer_flow_enabled",
       );
@@ -160,8 +165,9 @@ __d(
       (l.isStatusViewerSidePosterIdentifiersEnabled = R),
       (l.isStatusCrosspostingAttributionsEnabled = L),
       (l.isStatusCloseFriendsViewerSideEnabled = E),
-      (l.isStatusResharePosterSideEnabled = k),
-      (l.isStatusReshareViewerFlowEnabled = I));
+      (l.isStatusReshareAttributionEnabled = k),
+      (l.isStatusResharePosterSideEnabled = I),
+      (l.isStatusReshareViewerFlowEnabled = T));
   },
   98,
 );

@@ -97,38 +97,37 @@ __d(
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a,
-            i,
-            l = t.closeModal,
-            u = t.isAnyPeerScreenSharing,
-            c = t.isSelfScreenSharing,
-            m = t.isVideoCall,
-            _ = t.isVideoMuted,
-            f = t.onVideoMuteToggle,
-            g = t.openModal;
-          if (!m) {
-            g(
+            i = t.closeModal,
+            l = t.isSelfScreenSharing,
+            u = t.isVideoCall,
+            c = t.isVideoMuted,
+            m = t.onVideoMuteToggle,
+            _ = t.openModal;
+          if (!u) {
+            _(
               p.jsx(
                 o("WAWebVoipScreenShareConfirmPopup.react")
                   .WAWebVoipScreenShareConfirmPopup,
-                { closeModal: l },
+                { closeModal: i },
               ),
             );
             return;
           }
-          var h =
-            (a =
-              (i = r("WAWebCallCollection").activeCall) == null
-                ? void 0
-                : i.isSelfScreenShareRejected()) != null
-              ? a
-              : !1;
-          if (!c && (!u || h) && _) {
-            g(
+          if (l) {
+            yield S();
+            return;
+          }
+          if (
+            ((a = r("WAWebCallCollection").activeCall) == null ||
+              a.setSelfScreenShareRejected(!1),
+            c)
+          ) {
+            _(
               p.jsx(
                 o("WAWebVoipScreenShareConfirmPopup.react")
                   .WAWebVoipScreenShareConfirmPopup,
                 {
-                  closeModal: l,
+                  closeModal: i,
                   message: s._(
                     /*BTDS*/ "Turn on your video to share your screen.",
                   ),
@@ -136,10 +135,7 @@ __d(
                   onOK: n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* () {
                       try {
-                        var t;
-                        ((t = r("WAWebCallCollection").activeCall) == null ||
-                          t.setSelfScreenShareRejected(!1),
-                          yield (d || (d = n("Promise"))).resolve(f()),
+                        (yield (d || (d = n("Promise"))).resolve(m()),
                           yield b());
                       } catch (t) {
                         o("WALogger")
@@ -158,13 +154,7 @@ __d(
             );
             return;
           }
-          if (c) yield S();
-          else if (!u || h) {
-            var y;
-            ((y = r("WAWebCallCollection").activeCall) == null ||
-              y.setSelfScreenShareRejected(!1),
-              yield b());
-          }
+          yield b();
         })),
         C.apply(this, arguments)
       );

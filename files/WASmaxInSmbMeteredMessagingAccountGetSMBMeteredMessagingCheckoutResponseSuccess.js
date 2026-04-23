@@ -54,13 +54,20 @@ __d(
         e,
         "single_credits",
       );
-      return a.success
+      if (!a.success) return a;
+      var i = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrInt,
+        e,
+        "total_available_credits",
+      );
+      return i.success
         ? o("WAResultOrError").makeResult({
             remaining: n.value,
             totalMonthly: r.value,
             singleCredits: a.value,
+            totalAvailableCredits: i.value,
           })
-        : a;
+        : i;
     }
     function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");

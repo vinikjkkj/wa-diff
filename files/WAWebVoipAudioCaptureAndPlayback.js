@@ -9,6 +9,7 @@ __d(
     "WAWebVoipAudioPlaybackBase",
     "WAWebVoipAudioPlaybackState",
     "WAWebVoipOperationQueue",
+    "WAWebVoipPerfOptimizations",
     "WAWebVoipPopoutWindowState",
     "WAWebVoipVirtualAudioCaptureDriver",
     "asyncToGeneratorRuntime",
@@ -28,29 +29,31 @@ __d(
       h,
       y,
       C,
-      b = null,
-      v = null,
+      b,
+      v,
       S = null,
-      R = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
+      R = null,
+      L = null,
+      E = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
         "AudioCapture",
       ),
-      L = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
+      k = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
         "AudioPlayback",
       ),
-      E = !1;
-    function k() {
+      I = !1;
+    function T() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_web_voip_virtual_audio_capture_driver",
         ) === !0
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.deviceId,
             r = t.targetWindow;
           o("WALogger").LOG(
@@ -62,7 +65,7 @@ __d(
             n,
           );
           try {
-            var a = yield U(n, r, !0);
+            var a = yield H(n, r, !0);
             a
               ? o("WALogger").LOG(
                   s ||
@@ -89,79 +92,48 @@ __d(
               .sendLogs("voip: audio re-acquisition failed");
           }
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function D() {
-      E ||
+    function $() {
+      I ||
         (o("WAWebVoipPopoutWindowState").WAWebVoipUiPopoutWindowEventEmitter.on(
           "requestAudioReacquisition",
-          I,
+          D,
         ),
-        (E = !0));
+        (I = !0));
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function $() {
+    function N() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (D(),
-            R.enqueue(
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          ($(),
+            E.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                if (k()) {
+                if (T()) {
                   (o("WALogger").LOG(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [VirtualAudioCapture] Creating virtual audio capture driver",
                       ])),
                   ),
-                    v != null && (yield v.stopCapture()),
-                    (v = new (o(
+                    R != null && (yield R.stopCapture()),
+                    (R = new (o(
                       "WAWebVoipVirtualAudioCaptureDriver",
                     ).WAWebVoipVirtualAudioCaptureDriver)()),
-                    yield v.initCaptureDriver(e));
+                    yield R.initCaptureDriver(e));
                   return;
                 }
-                (b == null &&
-                  (b = new (o(
+                (S == null &&
+                  (S = new (o(
                     "WAWebVoipAudioCaptureBase",
                   ).WAWebVoipAudioCaptureBase)()),
-                  yield b.initCaptureDriver(e));
+                  yield S.initCaptureDriver(e));
               }),
               "initCaptureDriver",
             ));
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P() {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          R.enqueue(
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (v != null) {
-                yield v.startCapture();
-                return;
-              }
-              if (b == null) {
-                o("WALogger")
-                  .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:startCaptureJS] capture instance is null. Call initCaptureDriverJS first.",
-                      ])),
-                  )
-                  .sendLogs("voip: capture instance is null");
-                return;
-              }
-              yield b.startCapture();
-            }),
-            "startCapture",
-          );
         })),
         N.apply(this, arguments)
       );
@@ -172,74 +144,106 @@ __d(
     function w() {
       return (
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          R.enqueue(
+          E.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (v != null) {
-                (yield v.stopCapture(), (v = null));
+              if (R != null) {
+                yield R.startCapture();
                 return;
               }
-              if (b == null) {
-                o("WALogger").WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV:stopCaptureJS] capture instance is null, nothing to stop.",
-                    ])),
-                );
+              if (S == null) {
+                o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startCaptureJS] capture instance is null. Call initCaptureDriverJS first.",
+                      ])),
+                  )
+                  .sendLogs("voip: capture instance is null");
                 return;
               }
-              (yield b.stopCapture(), (b = null));
+              if (
+                (yield S.startCapture(),
+                o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
+                  o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
+                    .PLAYBACK_RESUME_FROM_CAPTURE,
+                ))
+              ) {
+                var e,
+                  t = (e = L) == null ? void 0 : e.playbackAudioContext;
+                if (t != null && t.state === "suspended")
+                  try {
+                    (yield t.resume(),
+                      o("WALogger").LOG(
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:startCaptureJS] Also resumed playback AudioContext",
+                          ])),
+                      ));
+                  } catch (e) {
+                    o("WALogger").WARN(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:startCaptureJS] Failed to resume playback AudioContext: ",
+                          "",
+                        ])),
+                      e,
+                    );
+                  }
+              }
             }),
-            "stopCapture",
+            "startCapture",
           );
         })),
         w.apply(this, arguments)
       );
     }
-    function A(e) {
+    function A() {
       return F.apply(this, arguments);
     }
     function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          L.enqueue(
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          E.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (S == null &&
-                (S = new (o(
-                  "WAWebVoipAudioPlaybackBase",
-                ).WAWebVoipAudioPlaybackBase)()),
-                yield S.initPlaybackDriver(e),
-                o("WAWebVoipAudioPlaybackState").updatePlaybackSampleRate(
-                  e.sample_rate,
-                ));
+              if (R != null) {
+                (yield R.stopCapture(), (R = null));
+                return;
+              }
+              if (S == null) {
+                o("WALogger").WARN(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:stopCaptureJS] capture instance is null, nothing to stop.",
+                    ])),
+                );
+                return;
+              }
+              (yield S.stopCapture(), (S = null));
             }),
-            "initPlaybackDriver",
+            "stopCapture",
           );
         })),
         F.apply(this, arguments)
       );
     }
-    function O() {
+    function O(e) {
       return B.apply(this, arguments);
     }
     function B() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          L.enqueue(
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          k.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (S == null) {
-                o("WALogger")
-                  .ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:startPlaybackJS] playback instance is null. Call initPlaybackDriverJS first.",
-                      ])),
-                  )
-                  .sendLogs("voip: playback instance is null");
-                return;
-              }
-              yield S.startPlayback();
+              (L == null &&
+                (L = new (o(
+                  "WAWebVoipAudioPlaybackBase",
+                ).WAWebVoipAudioPlaybackBase)()),
+                yield L.initPlaybackDriver(e),
+                o("WAWebVoipAudioPlaybackState").updatePlaybackSampleRate(
+                  e.sample_rate,
+                ));
             }),
-            "startPlayback",
+            "initPlaybackDriver",
           );
         })),
         B.apply(this, arguments)
@@ -251,19 +255,46 @@ __d(
     function q() {
       return (
         (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          L.enqueue(
+          k.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (S == null) {
+              if (L == null) {
+                o("WALogger")
+                  .ERROR(
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startPlaybackJS] playback instance is null. Call initPlaybackDriverJS first.",
+                      ])),
+                  )
+                  .sendLogs("voip: playback instance is null");
+                return;
+              }
+              yield L.startPlayback();
+            }),
+            "startPlayback",
+          );
+        })),
+        q.apply(this, arguments)
+      );
+    }
+    function U() {
+      return V.apply(this, arguments);
+    }
+    function V() {
+      return (
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          k.enqueue(
+            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              if (L == null) {
                 o("WALogger").WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:stopPlaybackJS] playback instance is null, nothing to stop.",
                     ])),
                 );
                 return;
               }
-              (yield S.stopPlayback(),
-                (S = null),
+              (yield L.stopPlayback(),
+                (L = null),
                 o("WAWebVoipAudioPlaybackState").updatePlaybackSampleRate(
                   null,
                 ));
@@ -271,47 +302,47 @@ __d(
             "stopPlayback",
           );
         })),
-        q.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    function U(e, t, n) {
-      return V.apply(this, arguments);
+    function H(e, t, n) {
+      return G.apply(this, arguments);
     }
-    function V() {
+    function G() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = new (o("WAResolvable").Resolvable)();
           return (
-            R.enqueue(
+            E.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
-                  if (v != null) {
+                  if (R != null) {
                     (o("WALogger").LOG(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                      y ||
+                        (y = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchAudioInputDevice] virtual capture active, ignoring device switch",
                         ])),
                     ),
                       a.resolve(!0));
                     return;
                   }
-                  if (b == null) {
+                  if (S == null) {
                     (o("WALogger").ERROR(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchAudioDevice] capture instance is null.",
                         ])),
                     ),
                       a.resolve(!1));
                     return;
                   }
-                  var n = yield b.switchDevice(e, t, r);
+                  var n = yield S.switchDevice(e, t, r);
                   a.resolve(n);
                 } catch (e) {
                   (o("WALogger")
                     .ERROR(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
+                      b ||
+                        (b = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchAudioInputDevice] failed: ",
                           "",
                         ])),
@@ -326,22 +357,22 @@ __d(
             a.promise
           );
         })),
-        V.apply(this, arguments)
+        G.apply(this, arguments)
       );
     }
-    function H(e) {
-      return G.apply(this, arguments);
+    function z(e) {
+      return j.apply(this, arguments);
     }
-    function G() {
+    function j() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new (o("WAResolvable").Resolvable)();
           return (
-            L.enqueue(
+            k.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
                   var n,
-                    r = (n = S) == null ? void 0 : n.getAudioElement(),
+                    r = (n = L) == null ? void 0 : n.getAudioElement(),
                     a = yield o(
                       "WAWebAudioDeviceManager",
                     ).switchAudioOutputDeviceInternal(e, r);
@@ -349,8 +380,8 @@ __d(
                 } catch (e) {
                   (o("WALogger")
                     .ERROR(
-                      C ||
-                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                      v ||
+                        (v = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV:switchAudioOutputDevice] failed: ",
                           "",
                         ])),
@@ -365,20 +396,20 @@ __d(
             t.promise
           );
         })),
-        G.apply(this, arguments)
+        j.apply(this, arguments)
       );
     }
     ((l.getPlaybackSampleRate = o(
       "WAWebVoipAudioPlaybackState",
     ).getPlaybackSampleRate),
-      (l.initCaptureDriverJS = x),
-      (l.startCaptureJS = P),
-      (l.stopCaptureJS = M),
-      (l.initPlaybackDriverJS = A),
-      (l.startPlaybackJS = O),
-      (l.stopPlaybackJS = W),
-      (l.switchAudioInputDevice = U),
-      (l.switchAudioOutputDevice = H));
+      (l.initCaptureDriverJS = P),
+      (l.startCaptureJS = M),
+      (l.stopCaptureJS = A),
+      (l.initPlaybackDriverJS = O),
+      (l.startPlaybackJS = W),
+      (l.stopPlaybackJS = U),
+      (l.switchAudioInputDevice = H),
+      (l.switchAudioOutputDevice = z));
   },
   98,
 );

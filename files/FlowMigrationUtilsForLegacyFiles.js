@@ -1,6 +1,6 @@
 __d(
   "FlowMigrationUtilsForLegacyFiles",
-  ["FBLogger"],
+  ["FBLogger", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "flow_typing_for_legacy_code";
@@ -10,7 +10,7 @@ __d(
           .blameToPreviousFile()
           .event(e + ".bad_call")
           .mustfix(t),
-        new Error("[" + e + "] " + t)
+        r("err")("[" + e + "] " + t)
       );
     }
     l.invariantViolation = s;

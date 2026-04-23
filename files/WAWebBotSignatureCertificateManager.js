@@ -1,13 +1,11 @@
 __d(
   "WAWebBotSignatureCertificateManager",
   [
-    "JSResourceForInteraction",
-    "Promise",
     "WACryptoPrimitives",
     "WALogger",
+    "WAWebCertificateUtils",
     "asyncToGeneratorRuntime",
     "err",
-    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -17,64 +15,69 @@ __d(
       d,
       m,
       p,
-      _,
-      f,
-      g,
-      h,
-      y,
-      C,
-      b,
-      v,
-      S = r("requireDeferred")("asn1js-2.1.1").__setRef(
-        "WAWebBotSignatureCertificateManager",
-      ),
-      R = "1.3.101.112",
-      L = "1.2.840.10045.4.3.2",
-      E = "[bot-signature-cert]",
-      k = function (t) {
-        return {
-          leafPublicKey: t,
-          isExpired: !1,
-          isInvalid: !1,
-          isChainValidationFailed: !1,
-        };
-      };
-    function I() {
-      return r("JSResourceForInteraction")("pkijs")
-        .__setRef("WAWebBotSignatureCertificateManager")
-        .load();
+      _ = "1.3.101.112",
+      f = "1.2.840.10045.4.3.2",
+      g = "[bot-signature-cert]",
+      h = (function (e) {
+        function t(t) {
+          var n;
+          return (
+            t === void 0 && (t = "Certificate expired"),
+            (n = e.call(this, t) || this),
+            (n.name = "CertExpiredError"),
+            n
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(babelHelpers.wrapNativeSuper(Error)),
+      y = (function (e) {
+        function t(t) {
+          var n;
+          return (
+            t === void 0 && (t = "Certificate invalid"),
+            (n = e.call(this, t) || this),
+            (n.name = "CertInvalidError"),
+            n
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(babelHelpers.wrapNativeSuper(Error)),
+      C = (function (e) {
+        function t(t) {
+          var n;
+          return (
+            t === void 0 && (t = "Chain validation failed"),
+            (n = e.call(this, t) || this),
+            (n.name = "CertChainValidationError"),
+            n
+          );
+        }
+        return (babelHelpers.inheritsLoose(t, e), t);
+      })(babelHelpers.wrapNativeSuper(Error));
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function T() {
-      return new (v || (v = n("Promise")))(function (e) {
-        S.onReady(function (t) {
-          e(t().fromBER);
-        });
-      });
-    }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
+    function v() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length === 0) return [];
-          var t = yield I(),
+          var t = yield o("WAWebCertificateUtils").getPkiJs(),
             n = t.Certificate,
-            r = yield T(),
+            r = yield o("WAWebCertificateUtils").getAsn1FromBER(),
             a = [];
           for (var i of e) {
             var l = r(i.buffer),
               s = l.result;
-            if (s.error)
+            if (s.error != null && s.error !== "")
               return (
                 o("WALogger")
                   .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "",
                         " Failed to parse certificate DER",
                       ])),
-                    E,
+                    g,
                   )
                   .sendLogs("bot-signature-cert-parse-error"),
                 []
@@ -83,246 +86,111 @@ __d(
           }
           return a;
         })),
-        x.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function $(e, t, n) {
-      return P.apply(this, arguments);
+    function S(e, t, n) {
+      return R.apply(this, arguments);
     }
-    function P() {
+    function R() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          try {
-            var a = yield D(e);
-            if (a.length === 0)
-              return (
-                o("WALogger")
-                  .WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        " Certificate chain is empty",
-                      ])),
-                    E,
-                  )
-                  .sendLogs("bot-signature-cert-chain-empty"),
-                {
-                  leafPublicKey: null,
-                  isExpired: !1,
-                  isInvalid: !0,
-                  isChainValidationFailed: !1,
-                }
-              );
-            var i = a[0],
-              l = n != null ? n : new Date();
-            if (!N(i, l))
-              return (
-                o("WALogger")
-                  .WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        " leaf cert invalid at serverTime",
-                      ])),
-                    E,
-                  )
-                  .sendLogs("bot-signature-leaf-cert-expired"),
-                {
-                  leafPublicKey: null,
-                  isExpired: !0,
-                  isInvalid: !1,
-                  isChainValidationFailed: !1,
-                }
-              );
-            for (var s = [].concat(a, [t]), u = 0; u < s.length - 1; u++) {
-              var c = s[u],
-                h = s[u + 1];
-              if (!N(h, l))
-                return (
-                  o("WALogger")
-                    .WARN(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
-                          "",
-                          " issuer cert invalid at serverTime",
-                        ])),
-                      E,
-                    )
-                    .sendLogs("bot-signature-issuer-cert-expired"),
-                  {
-                    leafPublicKey: null,
-                    isExpired: !0,
-                    isInvalid: !1,
-                    isChainValidationFailed: !1,
-                  }
-                );
-              var y = yield M(c, h);
-              if (!y)
-                return (
-                  o("WALogger")
-                    .WARN(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
-                          "",
-                          " cert sig verify failed at pos ",
-                          "",
-                        ])),
-                      E,
-                      u,
-                    )
-                    .sendLogs("bot-signature-cert-chain-verify-failed"),
-                  {
-                    leafPublicKey: null,
-                    isExpired: !1,
-                    isInvalid: !1,
-                    isChainValidationFailed: !0,
-                  }
-                );
-            }
-            var C = q(i);
-            return C == null
-              ? (o("WALogger")
-                  .WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "",
-                        " Failed to extract leaf public key",
-                      ])),
-                    E,
-                  )
-                  .sendLogs("bot-signature-leaf-key-extract-failed"),
-                {
-                  leafPublicKey: null,
-                  isExpired: !1,
-                  isInvalid: !0,
-                  isChainValidationFailed: !1,
-                })
-              : k(C);
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "",
-                      " Certificate chain verification failed",
-                    ])),
-                  E,
-                )
-                .catching(e instanceof Error ? e : r("err")(String(e)))
-                .sendLogs("bot-signature-cert-chain-error"),
-              {
-                leafPublicKey: null,
-                isExpired: !1,
-                isInvalid: !0,
-                isChainValidationFailed: !1,
-              }
-            );
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield b(e);
+          if (r.length === 0) throw new y("Certificate chain is empty");
+          var a = r[0],
+            i = n != null ? n : new Date();
+          if (!o("WAWebCertificateUtils").isCertificateValidAtTime(a, i))
+            throw new h("Leaf cert expired at serverTime");
+          for (var l = [].concat(r, [t]), s = 0; s < l.length - 1; s++) {
+            var u = l[s],
+              c = l[s + 1];
+            if (!o("WAWebCertificateUtils").isCertificateValidAtTime(c, i))
+              throw new h("Issuer cert at pos " + (s + 1) + " expired");
+            var d = yield L(u, c);
+            if (!d) throw new C("Signature verification failed at pos " + s);
           }
+          var m = $(a);
+          if (m == null) throw new y("Failed to extract leaf public key");
+          return m;
         })),
-        P.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function N(t, n) {
-      try {
-        var r,
-          a,
-          i = new Date(
-            (r = (a = t.notBefore) == null ? void 0 : a.value) != null
-              ? r
-              : t.notBefore,
-          ),
-          l = new Date(t.notAfter.value);
-        return n >= i && n <= l;
-      } catch (t) {
-        return (
-          o("WALogger").WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "",
-                " Failed to check certificate validity",
-              ])),
-            E,
-          ),
-          !1
-        );
-      }
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
-    }
-    function w() {
+    function E() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n,
               a = (n = e.signatureAlgorithm) == null ? void 0 : n.algorithmId;
-            return a === R
-              ? A(e, t)
-              : a === L
-                ? yield F(e, t)
+            return a === _
+              ? k(e, t)
+              : a === f
+                ? yield I(e, t)
                 : (o("WALogger")
                     .WARN(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
                           "",
                           " Unrecognized signature algorithm OID: ",
                           ", falling back to pkijs",
                         ])),
-                      E,
+                      g,
                       String(a),
                     )
                     .sendLogs("bot-signature-cert-unknown-sig-alg"),
-                  yield B(e, t));
+                  yield D(e, t));
           } catch (e) {
             return (
               o("WALogger")
                 .ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "",
                       " cert sig verify error",
                     ])),
-                  E,
+                  g,
                 )
                 .catching(e instanceof Error ? e : r("err")(String(e))),
               !1
             );
           }
         })),
-        w.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function A(e, t) {
-      var n,
-        r,
-        a = new Uint8Array(e.tbs),
-        i = e.signatureValue,
-        l = new Uint8Array(
-          (n = i == null || (r = i.valueBlock) == null ? void 0 : r.valueHex) !=
+    function k(t, n) {
+      var r,
+        a,
+        i = new Uint8Array(t.tbs),
+        l = t.signatureValue,
+        s = new Uint8Array(
+          (r = l == null || (a = l.valueBlock) == null ? void 0 : a.valueHex) !=
             null
-            ? n
-            : i,
+            ? r
+            : l,
         ),
-        u = q(t);
+        u = $(n);
       return u == null
         ? (o("WALogger").WARN(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
                 "",
                 " issuer pubkey extract failed for Ed25519",
               ])),
-            E,
+            g,
           ),
           !1)
-        : o("WACryptoPrimitives").signDetachedVerify(a, l, u);
+        : o("WACryptoPrimitives").signDetachedVerify(i, s, u);
     }
-    function F(e, t) {
-      return O.apply(this, arguments);
+    function I(e, t) {
+      return T.apply(this, arguments);
     }
-    function O() {
+    function T() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = yield e.verify(t);
             return n;
@@ -330,29 +198,29 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "",
                       " cert.verify() failed, fallback to engine",
                     ])),
-                  E,
+                  g,
                 )
                 .catching(n instanceof Error ? n : r("err")(String(n))),
-              B(e, t)
+              D(e, t)
             );
           }
         })),
-        O.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    function D(e, t) {
+      return x.apply(this, arguments);
     }
-    function W() {
+    function x() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
-            var n = yield I(),
+            var n = yield o("WAWebCertificateUtils").getPkiJs(),
               a = n.CertificateChainValidationEngine,
               i = new a({ trustedCerts: [t], certs: [e] }),
               l = yield i.verify();
@@ -361,22 +229,22 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "",
                       " pkijs verification failed",
                     ])),
-                  E,
+                  g,
                 )
                 .catching(e instanceof Error ? e : r("err")(String(e))),
               !1
             );
           }
         })),
-        W.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function q(e) {
+    function $(e) {
       try {
         var t,
           n,
@@ -388,27 +256,30 @@ __d(
               ? void 0
               : n.valueHex;
         if (l == null) return null;
-        var s = new Uint8Array(l);
-        return i === R ? s : s[0] === 4 ? s.slice(1) : s;
+        var u = new Uint8Array(l);
+        return i === _ ? u : u[0] === 4 ? u.slice(1) : u;
       } catch (e) {
         return (
           o("WALogger")
             .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "",
                   " Failed to extract raw public key",
                 ])),
-              E,
+              g,
             )
             .catching(e instanceof Error ? e : r("err")(String(e))),
           null
         );
       }
     }
-    ((l.parseCertificateChain = D),
-      (l.verifyCertificateChainAndGetLeafPublicKey = $),
-      (l.extractRawPublicKey = q));
+    ((l.CertExpiredError = h),
+      (l.CertInvalidError = y),
+      (l.CertChainValidationError = C),
+      (l.parseCertificateChain = b),
+      (l.getValidatedLeafPublicKey = S),
+      (l.extractRawPublicKey = $));
   },
   98,
 );

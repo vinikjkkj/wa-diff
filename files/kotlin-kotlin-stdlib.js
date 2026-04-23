@@ -58,6 +58,12 @@ __d(
             return r === 0 ? 32 : (31 - ((e(r) / t) | 0)) | 0;
           };
         })(Math.log, Math.LN2)),
+      typeof String.prototype.startsWith == "undefined" &&
+        Object.defineProperty(String.prototype, "startsWith", {
+          value: function (t, n) {
+            return ((n = n || 0), this.lastIndexOf(t, n) === n);
+          },
+        }),
       typeof String.prototype.endsWith == "undefined" &&
         Object.defineProperty(String.prototype, "endsWith", {
           value: function (t, n) {
@@ -65,12 +71,6 @@ __d(
             ((n === void 0 || n > e.length) && (n = e.length), (n -= t.length));
             var r = e.indexOf(t, n);
             return r !== -1 && r === n;
-          },
-        }),
-      typeof String.prototype.startsWith == "undefined" &&
-        Object.defineProperty(String.prototype, "startsWith", {
-          value: function (t, n) {
-            return ((n = n || 0), this.lastIndexOf(t, n) === n);
           },
         }));
     var e = Math.imul,

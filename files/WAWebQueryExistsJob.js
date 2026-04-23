@@ -387,6 +387,7 @@ __d(
                 wid: _,
                 biz: m != null,
                 bizInfo: m,
+                username: g,
                 wasUpdated: h,
                 isUsernameSearch: !0,
               }
@@ -394,7 +395,7 @@ __d(
           }
           return (
             o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(l, s),
-            { keyRequired: !0, isUsernameSearch: !0 }
+            { keyRequired: !0, username: g, isUsernameSearch: !0 }
           );
         })),
         y.apply(this, arguments)

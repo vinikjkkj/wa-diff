@@ -109,6 +109,7 @@ __d(
           ORDER_EXPANSION: "order_expansion",
           MESSAGE_LABEL_DEPRECATION_MIGRATED_CHAT_LIST:
             "message_label_deprecation_migrated_chat_list",
+          WHATS_NEW: "whats_new",
         },
         VIEW_COUNT_NUX: {
           SAFARI_LIMITED_SUPPORT: "safari_limited_support",
@@ -160,6 +161,7 @@ __d(
         ORDER_EXPANSION: "order_expansion_banner_key",
         MESSAGE_LABEL_DEPRECATION_MIGRATED_CHAT_LIST:
           "message_label_deprecation_migrated_chat_list_key",
+        WHATS_NEW: "whats_new_cool_off_key",
       };
     function h(e) {
       return e + "_cool_off";

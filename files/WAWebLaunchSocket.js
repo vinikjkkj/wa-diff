@@ -307,14 +307,10 @@ __d(
           var e = o("WAWebSchemaVersions").getSchemaVersions(),
             t = yield o("WAWebCryptoEncKeyHelper").getSalt();
           t != null &&
-            o("WAWebBackendWorkerClient")
-              .getBackendWorkerBridge()
-              .then(function (n) {
-                return n.fireAndForget("database", "initDb", {
-                  versionsToSet: e,
-                  salt: t,
-                });
-              });
+            o("WAWebBackendWorkerClient").recordInitDbInit({
+              versionsToSet: e,
+              salt: t,
+            });
         })),
         v.apply(this, arguments)
       );

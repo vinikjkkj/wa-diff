@@ -175,9 +175,22 @@ __d(
             (this.matchLargeEmojiPattern = function (e) {
               if (e != null) {
                 if (e.length > 50 || e.includes(" ")) return null;
-                var n = t.$14(),
-                  r = n.exec(e);
-                return r ? r.filter(Boolean).slice(1) : null;
+                if (
+                  o("WAWebABProps").getABPropConfigValue("no_large_emoji_regex")
+                ) {
+                  for (var n = [], r = t.emojiRegex(), a = 0; a < e.length; ) {
+                    if (n.length >= 3) return null;
+                    r.lastIndex = a;
+                    var i = r.exec(e);
+                    if (i == null || i.index !== a) return null;
+                    var l = i[0];
+                    (n.push(l), (a += l.length));
+                  }
+                  return n.length > 0 ? n : null;
+                }
+                var s = t.$14(),
+                  u = s.exec(e);
+                return u ? u.filter(Boolean).slice(1) : null;
               }
             }),
             (this.normalizeEmojiFromString = function (e) {

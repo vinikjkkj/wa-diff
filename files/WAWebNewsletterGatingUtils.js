@@ -6,7 +6,6 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebMobilePlatforms",
     "WAWebNewsletterCommonGatingUtils",
-    "WAWebPtvGatingUtils",
     "WAWebStateUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -361,11 +360,8 @@ __d(
       );
     }
     function fe() {
-      return (
-        o("WAWebPtvGatingUtils").isPtvReceivingEnabled() &&
-        o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-          "channels_ptv_receiving_enabled",
-        )
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channels_ptv_receiving_enabled",
       );
     }
     function ge() {

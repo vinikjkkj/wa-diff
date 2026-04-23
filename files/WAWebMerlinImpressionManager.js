@@ -124,43 +124,46 @@ __d(
         d = l.isCloseSharingPost,
         m = l.isFirstView,
         p = l.isPosterBiz,
-        _ = l.isSelfView,
-        f = l.isSubImpression,
-        g = l.isSuccessfulView,
-        h = l.mediaType,
-        y = l.musicBlocked,
-        C = l.psaCampaignId,
-        b = l.psaLinkAvailable,
-        v = l.statusCategory,
-        S = l.statusContainsMusic,
-        R = l.statusContainsQuestion,
-        L = l.statusContentType,
-        E = l.statusGroupIdPromise,
-        k = l.statusItemViewResult,
-        I = l.statusLoadTime,
-        T = l.statusPogIndex,
-        D = l.statusPosterIdPromise,
-        x = l.statusPostIndex,
-        $ = l.statusPostPlaybackDuration,
-        P = l.statusViewEntrypoint,
-        N = l.statusViewerSessionId,
-        M = l.updatesTabSessionId,
-        w = l.urlStatusType,
-        A = l.userRidPromise,
-        F = l.viewSequenceIndex;
+        _ = l.isResharable,
+        f = l.isReshare,
+        g = l.isSelfView,
+        h = l.isSubImpression,
+        y = l.isSuccessfulView,
+        C = l.mediaType,
+        b = l.musicBlocked,
+        v = l.pairedMediaType,
+        S = l.psaCampaignId,
+        R = l.psaLinkAvailable,
+        L = l.statusCategory,
+        E = l.statusContainsMusic,
+        k = l.statusContainsQuestion,
+        I = l.statusContentType,
+        T = l.statusGroupIdPromise,
+        D = l.statusItemViewResult,
+        x = l.statusLoadTime,
+        $ = l.statusPogIndex,
+        P = l.statusPosterIdPromise,
+        N = l.statusPostIndex,
+        M = l.statusPostPlaybackDuration,
+        w = l.statusViewEntrypoint,
+        A = l.statusViewerSessionId,
+        F = l.updatesTabSessionId,
+        O = l.urlStatusType,
+        B = l.userRidPromise,
+        W = l.viewSequenceIndex;
       if (
         !(
           !o("WAWebNewsletterGatingUtils").isVPVLoggingEnabled() ||
           !o("WAWebStatusGatingUtils").isStatusVPVLoggingEnabled()
         )
       ) {
-        var O = function () {
+        var q = function () {
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e,
               t = yield s,
-              n = yield A,
-              r = yield D,
-              a = yield E,
+              n = yield B,
+              r = yield P,
+              a = yield T,
               l = new (o(
                 "WAWebStatusPostImpressionWamEvent",
               ).StatusPostImpressionWamEvent)({
@@ -168,11 +171,11 @@ __d(
                 statusPosterHashId: n != null ? n : void 0,
                 statusPosterId: r != null ? r : void 0,
                 statusGroupId: a != null ? a : void 0,
-                statusContentType: L,
-                statusMediaType: h,
-                isSelfView: _,
-                isSubImpression: f,
-                statusViewEntrypoint: P,
+                statusContentType: I,
+                statusMediaType: C,
+                isSelfView: g,
+                isSubImpression: h,
+                statusViewEntrypoint: w,
                 statusViewTime: i,
                 unifiedSessionId:
                   (e = o(
@@ -180,32 +183,35 @@ __d(
                   ).UnifiedSessionManager.getSessionId()) != null
                     ? e
                     : void 0,
-                updatesTabSessionId: M,
-                statusViewerSessionId: N,
-                statusPogIndex: T,
-                statusPostIndex: x,
+                updatesTabSessionId: F,
+                statusViewerSessionId: A,
+                statusPogIndex: $,
+                statusPostIndex: N,
                 isFirstView: m,
                 isCloseSharingPost: d,
                 isPosterBiz: p,
                 isViewedInLandscape: !1,
-                psaLinkAvailable: b,
-                statusCategory: v,
-                statusPostPlaybackDuration: $,
-                statusContainsMusic: S,
-                musicBlocked: y,
-                psaCampaignId: C != null ? C : void 0,
-                statusLoadTime: I == null ? void 0 : I(),
-                urlStatusType: w == null ? void 0 : w(),
-                statusContainsQuestion: R,
-                isSuccessfulView: g(),
-                statusItemViewResult: k(),
+                psaLinkAvailable: R,
+                statusCategory: L,
+                statusPostPlaybackDuration: M,
+                statusContainsMusic: E,
+                musicBlocked: b,
+                psaCampaignId: S != null ? S : void 0,
+                statusLoadTime: x == null ? void 0 : x(),
+                urlStatusType: O == null ? void 0 : O(),
+                statusContainsQuestion: k,
+                isSuccessfulView: y(),
+                statusItemViewResult: D(),
                 entryMethod: c,
-                viewSequenceIndex: F(),
+                viewSequenceIndex: W(),
+                isResharable: _,
+                isReshare: f,
+                pairedMediaType: v != null ? v : void 0,
               });
             l.commit();
           })();
         };
-        o("MerlinImpressionManager").logVisibilityTimestamps(t, r, a, u, O);
+        o("MerlinImpressionManager").logVisibilityTimestamps(t, r, a, u, q);
       }
     }
     var _ = {};

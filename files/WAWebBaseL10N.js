@@ -115,12 +115,11 @@ __d(
             );
           }),
           (a.n = function (t, n, r) {
-            var e = t;
-            return typeof e == "number"
-              ? Intl.NumberFormat(this.getFullLocale(), r).format(e)
+            return typeof t == "number"
+              ? Intl.NumberFormat(this.getFullLocale(), r).format(t)
               : this.useArabicScriptDigits(n)
-                ? e.toString().replace(/[0-9]/g, p)
-                : e;
+                ? t.toString().replace(/[0-9]/g, p)
+                : t;
           }),
           (a.filesizeWithParams = function (t, n) {
             var e = t > u ? 1 : 0,

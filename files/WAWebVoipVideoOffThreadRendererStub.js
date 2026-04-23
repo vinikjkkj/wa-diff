@@ -39,11 +39,12 @@ __d(
         ((t.checkAvailability = function () {
           return !!window.OffscreenCanvas && !!window.Worker;
         }),
-          (t.$6 = function (n, o) {
-            var e,
-              a = (e = t.workerPool.get(n)) == null ? void 0 : e.get(o);
-            if (!a) throw r("err")("Could not find renderer for " + o);
-            return a;
+          (t.$6 = function (n, r) {
+            var e, o;
+            return (e =
+              (o = t.workerPool.get(n)) == null ? void 0 : o.get(r)) != null
+              ? e
+              : null;
           }));
         var n = t.prototype;
         return (
@@ -73,8 +74,12 @@ __d(
                 var s = l.bitmap,
                   u = l.rendererId;
                 try {
-                  var c = a ? t.$6(i, u) : n,
-                    d = c.$2.getContext("bitmaprenderer");
+                  var c = a ? t.$6(i, u) : n;
+                  if (!c) {
+                    s.close();
+                    return;
+                  }
+                  var d = c.$2.getContext("bitmaprenderer");
                   if (!d)
                     throw r("err")(
                       "Could not get bitmaprenderer context for " + u,
@@ -96,6 +101,7 @@ __d(
                 var r = e.rendererId;
                 try {
                   var l = a ? t.$6(i, r) : n;
+                  if (!l) return;
                   o(
                     "WAWebVoipVideoRendererRegistry",
                   ).videoRendererRegistry.requestKeyFrameForCanvas(l.$2);

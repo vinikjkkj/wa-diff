@@ -56,6 +56,8 @@ __d(
               sharesCommonGroup: n.sharesCommonGroup,
               isUsernameThread: n.isUsernameThread,
               isUsernameThreadAtCreation: n.isUsernameThreadAtCreation,
+              hasReplied1On1: n.hasReplied1On1,
+              oppositePartyHasProfilePhoto: n.oppositePartyHasProfilePhoto,
               reactionsSent: n.reactionsSent,
               reactionsReceived: n.reactionsReceived,
               forwardMessagesSent: n.forwardMessagesSent,

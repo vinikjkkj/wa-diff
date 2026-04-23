@@ -76,6 +76,7 @@ __d(
               groupStatusRepliesOthersToOwn: [118, e.TYPES.INTEGER],
               groupStatusRepliesOwnToOthers: [119, e.TYPES.INTEGER],
               groupStatusRepliesOwnToOwn: [120, e.TYPES.INTEGER],
+              hasReplied1On1: [145, e.TYPES.BOOLEAN],
               hasUsername: [50, e.TYPES.BOOLEAN],
               hasUsernamePin: [51, e.TYPES.BOOLEAN],
               isAContact: [52, e.TYPES.BOOLEAN],
@@ -103,6 +104,7 @@ __d(
               messagesReceivedWithEnabledReadReceipt: [133, e.TYPES.INTEGER],
               messagesSent: [66, e.TYPES.INTEGER],
               messagesUnread: [68, e.TYPES.INTEGER],
+              oppositePartyHasProfilePhoto: [146, e.TYPES.BOOLEAN],
               oppositePartyLimitSharingOption: [125, e.TYPES.BOOLEAN],
               oppositeVisibleIdentification: [
                 69,

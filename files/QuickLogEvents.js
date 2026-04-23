@@ -184,6 +184,7 @@ __d(
         name: "CACHE_FILTER_FNL_FIX",
         sampleRate: 500,
       },
+      660404: { moduleName: "FEED", name: "SPEED_BUMP", sampleRate: 250 },
       662592: {
         moduleName: "FEED",
         name: "OFFLINE_FEED_IMAGE_CACHE_LOOKUP",
@@ -13535,7 +13536,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 388,
+        sampleRate: 341,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14754,7 +14755,7 @@ __d(
       100335618: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH_AGGREGATED",
-        sampleRate: 535,
+        sampleRate: 1215,
       },
       100338619: {
         moduleName: "ACCESS_LIBRARY",
@@ -14764,7 +14765,7 @@ __d(
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
-        sampleRate: 161,
+        sampleRate: 437,
       },
       100348897: {
         moduleName: "ACCESS_LIBRARY",
@@ -14774,7 +14775,7 @@ __d(
       100349780: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE_AGGREGATED",
-        sampleRate: 8,
+        sampleRate: 9,
       },
       101648941: {
         moduleName: "COMET_LONGTASK",
@@ -50183,6 +50184,11 @@ __d(
         name: "SPLIT_SCREEN_SCRUBBER_PREVIEW_LOAD",
         sampleRate: 100,
       },
+      712523746: {
+        moduleName: "FB_FEED_VIDEO_ADS",
+        name: "FB_FEED_ADS_AUTOPLAY",
+        sampleRate: 50,
+      },
       712640138: {
         moduleName: "F3_UNIFIED_LOGIN_LANDING_PAGE",
         name: "REDIRECT_FB_LOGIN_TO_BUSINESS_HOME",
@@ -74828,6 +74834,11 @@ __d(
       1059001826: {
         moduleName: "ASA_ROUTINES",
         name: "ALR_DIAGNOSIS_SEND_MESSAGE",
+        sampleRate: 1,
+      },
+      1059002314: {
+        moduleName: "ASA_ROUTINES",
+        name: "UNIVERSAL_RETRIEVAL",
         sampleRate: 1,
       },
       1059002608: {

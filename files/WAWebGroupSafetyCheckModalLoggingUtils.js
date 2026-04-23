@@ -1,8 +1,6 @@
 __d(
   "WAWebGroupSafetyCheckModalLoggingUtils",
   [
-    "WAWebGroupSafetyCheckGatingUtils",
-    "WAWebPsGroupOpenedWamEvent",
     "WAWebPsGroupSafetyCheckEnabledWamEvent",
     "WAWebPsGroupSafetyCheckExitDialogWamEvent",
     "WAWebPsGroupSafetyCheckSheetSeenWamEvent",
@@ -11,17 +9,6 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = e.groupJid;
-      o("WAWebGroupSafetyCheckGatingUtils").groupSafetyCheckLoggingEnabled() &&
-        new (o("WAWebPsGroupOpenedWamEvent").PsGroupOpenedWamEvent)({
-          isGroupSafetyCheckAbpropEnabled: !0,
-          isPartOfGroupSafetyCheckExperiment: o(
-            "WAWebGroupSafetyCheckGatingUtils",
-          ).groupSafetyCheckIsPartOfExperiment(),
-          openedGroupJid: t,
-        }).commit();
-    }
-    function s(e) {
       var t = e.groupJid,
         n = e.initiallyMuted;
       new (o(
@@ -31,7 +18,7 @@ __d(
         psWasSafetyCheckGroupInitiallyMuted: n,
       }).commit();
     }
-    function u(e) {
+    function s(e) {
       var t = e.groupJid;
       new (o(
         "WAWebPsGroupSafetyCheckSheetSeenWamEvent",
@@ -39,7 +26,7 @@ __d(
         psSafetyCheckGroupJid: t,
       }).commit();
     }
-    function c(e) {
+    function u(e) {
       var t = e.groupJid,
         n = e.interaction;
       new (o(
@@ -49,7 +36,7 @@ __d(
         psSafetyCheckInteraction: n,
       }).commit();
     }
-    function d(e) {
+    function c(e) {
       var t = e.groupJid,
         n = e.interaction;
       new (o(
@@ -59,11 +46,10 @@ __d(
         psGroupSafetyCheckExitDialogAction: n,
       }).commit();
     }
-    ((l.logGroupOpenEvent = e),
-      (l.logGroupSafetyCheckEnabledEvent = s),
-      (l.logGroupSafetyCheckModalSeenEvent = u),
-      (l.logGroupSafetyCheckUIInteractionsEvent = c),
-      (l.logGroupSafetyCheckExitDialogUIInteractionsEvent = d));
+    ((l.logGroupSafetyCheckEnabledEvent = e),
+      (l.logGroupSafetyCheckModalSeenEvent = s),
+      (l.logGroupSafetyCheckUIInteractionsEvent = u),
+      (l.logGroupSafetyCheckExitDialogUIInteractionsEvent = c));
   },
   98,
 );

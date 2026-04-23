@@ -4144,6 +4144,7 @@ __d(
         !1,
       ],
       wa_meta_one_enabled: [28611, "bool", !1, !1],
+      wa_meta_one_launch_free_trial_enabled: [29290, "bool", !1, !1],
       wa_meta_one_rollout_enabled: [28612, "bool", !1, !1],
       wa_nct_token_history_sync_enabled: [25189, "bool", !1, !1],
       wa_nct_token_salt_creation_enabled: [24915, "bool", !1, !1],

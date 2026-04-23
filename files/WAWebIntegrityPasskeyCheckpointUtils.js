@@ -89,8 +89,10 @@ __d(
         .ERROR(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[integrity-challenge] passkey assertion failed",
+              "[integrity-challenge] passkey assertion failed: ",
+              "",
             ])),
+          t,
         )
         .sendLogs("integrity-challenge-passkey-error");
     }

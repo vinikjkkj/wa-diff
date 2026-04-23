@@ -84,6 +84,9 @@ __d(
       CHAT_OVERFLOW_MENU: 79,
       IN_THREAD_CHAT: 80,
       SETTINGS_TAB: 81,
+      CONNECTIONS: 82,
+      KNOWLEDGE: 83,
+      GDRIVE_VALUE_PROP: 84,
     });
     i.ENTRY_POINT = e;
   },

@@ -390,7 +390,10 @@ __d(
               },
             }),
             this.$7.subscribe(c, function (e) {
-              throw new Error("Unexpected response: " + c + " " + e.toString());
+              var t = new Error(
+                "Unexpected response: " + c + " " + e.toString(),
+              );
+              throw (t.stack, t);
             }),
             this.$7.subscribe(d, function (t) {
               e.$23(t);
@@ -466,30 +469,32 @@ __d(
             var n = null;
             for (var a of t.getFrames()) {
               var i = a.getStreamId();
-              if ((n == null && (n = i), i != null && n != i))
-                throw new Error(
+              if ((n == null && (n = i), i != null && n != i)) {
+                var l = new Error(
                   "Received batch with frames for multiple streams",
                 );
+                throw (l.stack, l);
+              }
               a.type == o("BladeRunnerTypes").StreamFrameType.DATA_ACK &&
                 this.$25(a.getDataAck());
             }
             if (n != null) {
-              var l = this.$6.get(n);
-              l != null
-                ? l.onProxyResponse(t)
+              var s = this.$6.get(n);
+              s != null
+                ? s.onProxyResponse(t)
                 : r("BladeRunnerLogger").info(
                     "Received batch with frames for unknown stream id: " + n,
                   );
             } else r("BladeRunnerLogger").info("Received batch with no frames");
           } catch (e) {
-            var s = r("getErrorSafe")(e);
+            var u = r("getErrorSafe")(e);
             throw (
               r("BladeRunnerLogger").exception(
-                s,
+                u,
                 "Failed processing batch from MQTT",
               ),
               r("BladeRunnerLogger").bumpCounter("socket_process_batch_error"),
-              s
+              u
             );
           }
         }),

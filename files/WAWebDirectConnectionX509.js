@@ -4,31 +4,23 @@ __d(
     "JSResourceForInteraction",
     "Promise",
     "WALogger",
+    "WAWebCertificateUtils",
     "WAWebDirectConnectionUtils",
     "asyncToGeneratorRuntime",
     "filterNulls",
     "getErrorSafe",
     "pvutils-1.0.17",
-    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
-      d = r("requireDeferred")("asn1js-2.1.1").__setRef(
-        "WAWebDirectConnectionX509",
-      ),
-      m = "-----BEGIN CERTIFICATE-----",
-      p = "-----END CERTIFICATE-----",
-      _ = "(?:" + m + ")((?:.|\n)*?)(?:" + p + ")",
-      f = "2.5.4.3";
-    function g() {
-      return r("JSResourceForInteraction")("pkijs")
-        .__setRef("WAWebDirectConnectionX509")
-        .load();
-    }
-    function h(t) {
+      d = "-----BEGIN CERTIFICATE-----",
+      m = "-----END CERTIFICATE-----",
+      p = "(?:" + d + ")((?:.|\n)*?)(?:" + m + ")",
+      _ = "2.5.4.3";
+    function f(t) {
       var n = "";
       try {
         n = atob(t);
@@ -42,33 +34,33 @@ __d(
           r("getErrorSafe")(t).toString(),
         );
       }
-      return C(n);
+      return h(n);
     }
-    function y(e) {
-      return btoa(b(e));
+    function g(e) {
+      return btoa(y(e));
     }
-    function C(e) {
+    function h(e) {
       for (var t = e.length, n = new Uint8Array(t), r = 0; r < t; r++)
         n[r] = e.charCodeAt(r);
       return n.buffer;
     }
-    function b(e) {
+    function y(e) {
       return String.fromCharCode.apply(String, Array.from(new Uint8Array(e)));
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function S() {
+    function b() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield g(),
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield o("WAWebCertificateUtils").getPkiJs(),
             r = n.CertificateChainValidationEngine;
           return new r({ trustedCerts: t, certs: e });
         })),
-        S.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function R(e, t) {
+    function v(e, t) {
       return e.flat().reduce(function (e, n) {
         return e.every(function (e) {
           return !o("pvutils-1.0.17").isEqualBuffer(e.tbs, n.tbs);
@@ -77,45 +69,44 @@ __d(
           : e;
       }, []);
     }
-    function L() {
-      return E.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function E() {
+    function R() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(
               "WAWebDirectConnectionCaBundle",
             )
               .__setRef("WAWebDirectConnectionX509")
               .load(),
             t = e.CA_BUNDLE;
-          return k(t);
+          return L(t);
         })),
-        E.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function k(e) {
-      return I.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function I() {
+    function E() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield g(),
-            a = t.Certificate,
-            i = yield new (c || (c = n("Promise")))(function (e) {
-              d.onReady(function (t) {
-                e(t().fromBER);
-              });
-            });
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebCertificateUtils").getPkiJs(),
+            n = t.Certificate,
+            a = yield o("WAWebCertificateUtils").getAsn1FromBER();
           return r("filterNulls")(
-            Array.from(e.matchAll(new RegExp(_, "gm")), function (e) {
+            Array.from(e.matchAll(new RegExp(p, "gm")), function (e) {
               var t = e[0],
-                n = e[1],
-                l = i(h(n)),
+                i = e[1],
+                l = a(f(i)),
                 u = l.result,
                 c;
               try {
-                c = u.error ? null : new a({ schema: u });
+                c =
+                  u.error != null && u.error !== ""
+                    ? null
+                    : new n({ schema: u });
               } catch (e) {
                 o("WALogger").WARN(
                   s ||
@@ -130,6 +121,17 @@ __d(
             }),
           );
         })),
+        E.apply(this, arguments)
+      );
+    }
+    function k(e, t) {
+      return I.apply(this, arguments);
+    }
+    function I() {
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          return (yield C(e, t)).verify();
+        })),
         I.apply(this, arguments)
       );
     }
@@ -139,19 +141,8 @@ __d(
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (yield v(e, t)).verify();
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e, t) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield v(e, t),
-            a = R(
+          var r = yield C(e, t),
+            a = v(
               yield (c || (c = n("Promise"))).all(
                 e.map(function (e) {
                   return r.findIssuer(e, r);
@@ -160,7 +151,7 @@ __d(
               t,
             );
           if (a.length === 0) {
-            var i = P(e[0]);
+            var i = x(e[0]);
             return (
               o("WALogger").WARN(
                 u ||
@@ -175,90 +166,90 @@ __d(
           }
           return a;
         })),
-        $.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function P(e) {
+    function x(e) {
       var t;
       return (t = e.issuer.typesAndValues.find(function (e) {
         var t = e.type;
-        return t === f;
+        return t === _;
       })) == null
         ? void 0
         : t.value.valueBlock.value;
     }
-    function N(e) {
+    function $(e) {
       return o("WAWebDirectConnectionUtils").stringToCertificateString(
         e
           .map(function (e) {
-            var t = y(e.toSchema(!0).toBER(!1))
+            var t = g(e.toSchema(!0).toBER(!1))
               .split(/(.{0,64})/g)
               .filter(function (e) {
                 return e !== "";
               })
               .join("\n");
-            return m + "\n" + t + "\n" + p;
+            return d + "\n" + t + "\n" + m;
           })
           .join("\n"),
       );
     }
-    function M() {
+    function P() {
+      return N.apply(this, arguments);
+    }
+    function N() {
+      return (
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebCertificateUtils").getPkiJs(),
+            t = e.getEngine;
+          return t();
+        })),
+        N.apply(this, arguments)
+      );
+    }
+    function M(e) {
       return w.apply(this, arguments);
     }
     function w() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield g(),
-            t = e.getEngine;
-          return t();
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebCertificateUtils").getPkiJs(),
+            n = t.getRandomValues;
+          return n(e);
         })),
         w.apply(this, arguments)
       );
     }
-    function A(e) {
+    function A(e, t) {
       return F.apply(this, arguments);
     }
     function F() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield g(),
-            n = t.getRandomValues;
-          return n(e);
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O(e, t) {
-      return B.apply(this, arguments);
-    }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = yield e.getPublicKey({
               algorithm: {
                 algorithm: { name: "RSA-OAEP", hash: { name: "SHA-256" } },
                 usages: ["encrypt"],
               },
             }),
-            r = yield M(),
+            r = yield P(),
             o = yield r.subtle.encrypt({ name: "RSA-OAEP" }, n, t);
-          return y(o);
+          return g(o);
         })),
-        B.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    ((l.base64ToArrayBuffer = h),
-      (l.arrayBufferToBase64 = y),
-      (l.stringToArrayBuffer = C),
-      (l.arrayBufferToString = b),
-      (l.fetchFromCABundle = L),
-      (l.extractCertificates = k),
-      (l.validateCertificates = T),
-      (l.genRootIssuers = x),
-      (l.encodeToString = N),
-      (l.getEngine = M),
-      (l.getRandomValues = A),
-      (l.encryptWithPublicKey = O));
+    ((l.base64ToArrayBuffer = f),
+      (l.arrayBufferToBase64 = g),
+      (l.stringToArrayBuffer = h),
+      (l.arrayBufferToString = y),
+      (l.fetchFromCABundle = S),
+      (l.extractCertificates = L),
+      (l.validateCertificates = k),
+      (l.genRootIssuers = T),
+      (l.encodeToString = $),
+      (l.getEngine = P),
+      (l.getRandomValues = M),
+      (l.encryptWithPublicKey = A));
   },
   98,
 );

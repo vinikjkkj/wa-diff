@@ -19,7 +19,8 @@ __d(
         (n.emit = function (n) {
           if (this.$EventEmitterWithValidation1.indexOf(n) === -1) {
             if (this.$EventEmitterWithValidation2 === !0) return;
-            throw new TypeError(s(n, this.$EventEmitterWithValidation1));
+            var t = new TypeError(s(n, this.$EventEmitterWithValidation1));
+            throw (t.stack, t);
           }
           return e.prototype.emit.apply(this, arguments);
         }),

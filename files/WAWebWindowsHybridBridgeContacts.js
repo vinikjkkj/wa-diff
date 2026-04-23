@@ -13,6 +13,7 @@ __d(
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebSyncBootstrap",
     "WAWebWindowsConstants",
+    "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
     "filterNulls",
     "qpl",
@@ -111,7 +112,16 @@ __d(
                       p.toFixed(0),
                       m.length,
                     ),
-                      l.$1.updateContacts(c, m));
+                      o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                        {
+                          bridge: "contacts",
+                          method: "updateContacts-2",
+                          type: "sync",
+                        },
+                        function () {
+                          return l.$1.updateContacts(c, m);
+                        },
+                      ));
                   }
                 },
               );
@@ -133,12 +143,32 @@ __d(
                     (r("WAWebODS").incr(
                       "web.hybrid.bridge.contacts.send.frequent",
                     ),
-                      l.$1.receiveFrequentContacts(i));
+                      o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                        {
+                          bridge: "contacts",
+                          method: "receiveFrequentContacts-1",
+                          type: "sync",
+                        },
+                        function () {
+                          return l.$1.receiveFrequentContacts(i);
+                        },
+                      ));
                   } catch (e) {
                     (r("WAWebODS").incr(
                       "web.hybrid.bridge.contacts.send.frequent",
                     ),
-                      l.$1.receiveFrequentContacts(JSON.stringify([])));
+                      o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                        {
+                          bridge: "contacts",
+                          method: "receiveFrequentContacts-2",
+                          type: "sync",
+                        },
+                        function () {
+                          return l.$1.receiveFrequentContacts(
+                            JSON.stringify([]),
+                          );
+                        },
+                      ));
                   }
                 },
               );
@@ -181,7 +211,16 @@ __d(
                       r("WAWebODS").incr(
                         "web.hybrid.bridge.contacts.send.initial_sync_chunk",
                       ),
-                      yield this.$1.updateContacts([], JSON.stringify(n)),
+                      yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                        {
+                          bridge: "contacts",
+                          method: "updateContacts-1",
+                          type: "sync",
+                        },
+                        function () {
+                          return e.$1.updateContacts([], JSON.stringify(n));
+                        },
+                      ),
                       (n = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
                         .getContactTable()
                         .greaterThan(["id"], i, { limit: t })));
@@ -189,7 +228,16 @@ __d(
                   (r("WAWebODS").incr(
                     "web.hybrid.bridge.contacts.send.acknowledge_initial_sync",
                   ),
-                    this.$1.acknowledgeInitialSync());
+                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "contacts",
+                        method: "acknowledgeInitialSync",
+                        type: "sync",
+                      },
+                      function () {
+                        return e.$1.acknowledgeInitialSync();
+                      },
+                    ));
                 } catch (e) {
                   o("WALogger").WARN(
                     u ||
@@ -229,11 +277,20 @@ __d(
                     "web.hybrid.bridge.contacts.send.invalidate",
                   ));
                 var a = self.performance.now();
-                if (o("WAWebWindowsConstants").WINDOWS_BUILD_IS_BETA) {
-                  var i = o("WAWebQplFlowWrapper").QPL.markerStart(h);
-                  (this.$2.invalidateContacts(n), i.end(2));
-                } else this.$2.invalidateContacts(n);
-                var l = self.performance.now() - a;
+                o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                  {
+                    bridge: "contacts",
+                    method: "invalidateContacts-1",
+                    type: "sync",
+                  },
+                  function () {
+                    if (o("WAWebWindowsConstants").WINDOWS_BUILD_IS_BETA) {
+                      var t = o("WAWebQplFlowWrapper").QPL.markerStart(h);
+                      (e.$2.invalidateContacts(n), t.end(2));
+                    } else e.$2.invalidateContacts(n);
+                  },
+                );
+                var i = self.performance.now() - a;
                 o("WALogger").LOG(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -242,7 +299,7 @@ __d(
                       "ms",
                     ])),
                   n.length,
-                  l.toFixed(0),
+                  i.toFixed(0),
                 );
               }
             }
@@ -269,16 +326,26 @@ __d(
               }, 0)));
           }),
           (a.$15 = function () {
+            var e = this;
             this.$7 = null;
-            var e = this.$6;
-            if (((this.$6 = []), e.length !== 0)) {
+            var t = this.$6;
+            if (((this.$6 = []), t.length !== 0)) {
               r("WAWebODS").incr("web.hybrid.bridge.contacts.send.invalidate");
-              var t = self.performance.now();
-              if (o("WAWebWindowsConstants").WINDOWS_BUILD_IS_BETA) {
-                var n = o("WAWebQplFlowWrapper").QPL.markerStart(h);
-                (this.$2.invalidateContacts(e), n.end(2));
-              } else this.$2.invalidateContacts(e);
-              var a = self.performance.now() - t;
+              var n = self.performance.now();
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "contacts",
+                  method: "invalidateContacts-2",
+                  type: "sync",
+                },
+                function () {
+                  if (o("WAWebWindowsConstants").WINDOWS_BUILD_IS_BETA) {
+                    var n = o("WAWebQplFlowWrapper").QPL.markerStart(h);
+                    (e.$2.invalidateContacts(t), n.end(2));
+                  } else e.$2.invalidateContacts(t);
+                },
+              );
+              var a = self.performance.now() - n;
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -286,7 +353,7 @@ __d(
                     " bridge=",
                     "ms",
                   ])),
-                e.length,
+                t.length,
                 a.toFixed(0),
               );
             }
@@ -331,58 +398,73 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 for (
-                  var t = this, n = self.performance.now(), a = 0;
-                  a < e.length;
-                  a += y
-                ) {
-                  var i = e.slice(a, a + y),
-                    l = self.performance.now(),
-                    s = yield r("WAWebLidAwareContactsDB").bulkGet(i),
-                    u = self.performance.now() - l;
-                  s.forEach(function (e) {
-                    return t.$5.delete(e == null ? void 0 : e.id);
-                  });
-                  var c = i.filter(function (e) {
-                    return t.$5.has(e);
-                  });
-                  c.forEach(function (e) {
-                    return t.$5.delete(e);
-                  });
-                  var d = self.performance.now(),
-                    m = JSON.stringify(r("filterNulls")(s)),
-                    p = self.performance.now() - d;
-                  (o("WALogger").LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[hybrid-contacts] request:chunk i=",
-                        " ids=",
-                        " removed=",
-                        " bulkGet=",
-                        "ms stringify=",
-                        "ms bytes=",
-                        "",
-                      ])),
-                    a,
-                    i.length,
-                    c.length,
-                    u.toFixed(0),
-                    p.toFixed(0),
-                    m.length,
-                  ),
-                    yield this.$1.updateContacts(c, m),
-                    a + y < e.length &&
-                      (yield o("WAPromiseDelays").releaseToEventLoop()));
-                }
-                var _ = self.performance.now() - n;
+                  var t = this,
+                    n = self.performance.now(),
+                    a = function* () {
+                      var n = e.slice(i, i + y),
+                        a = self.performance.now(),
+                        l = yield r("WAWebLidAwareContactsDB").bulkGet(n),
+                        s = self.performance.now() - a;
+                      l.forEach(function (e) {
+                        return t.$5.delete(e == null ? void 0 : e.id);
+                      });
+                      var u = n.filter(function (e) {
+                        return t.$5.has(e);
+                      });
+                      u.forEach(function (e) {
+                        return t.$5.delete(e);
+                      });
+                      var c = self.performance.now(),
+                        d = JSON.stringify(r("filterNulls")(l)),
+                        m = self.performance.now() - c;
+                      (o("WALogger").LOG(
+                        g ||
+                          (g = babelHelpers.taggedTemplateLiteralLoose([
+                            "[hybrid-contacts] request:chunk i=",
+                            " ids=",
+                            " removed=",
+                            " bulkGet=",
+                            "ms stringify=",
+                            "ms bytes=",
+                            "",
+                          ])),
+                        i,
+                        n.length,
+                        u.length,
+                        s.toFixed(0),
+                        m.toFixed(0),
+                        d.length,
+                      ),
+                        yield o(
+                          "WAWebWindowsHybridBridgeTrace",
+                        ).traceBridgeCall(
+                          {
+                            bridge: "contacts",
+                            method: "updateContacts-3",
+                            type: "sync",
+                          },
+                          function () {
+                            return t.$1.updateContacts(u, d);
+                          },
+                        ),
+                        i + y < e.length &&
+                          (yield o("WAPromiseDelays").releaseToEventLoop()));
+                    },
+                    i = 0;
+                  i < e.length;
+                  i += y
+                )
+                  yield* a();
+                var l = self.performance.now() - n;
                 o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[hybrid-contacts] request:done ids=",
                       " total=",
                       "ms",
                     ])),
                   e.length,
-                  _.toFixed(0),
+                  l.toFixed(0),
                 );
               },
             );

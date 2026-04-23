@@ -16,31 +16,31 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    var e, s, u, c;
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return e.length === 0
             ? []
             : o("WAWebBotGating").isBotProfileGqlMigrationEnabled()
-              ? m(e)
-              : h(e);
+              ? p(e)
+              : y(e);
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = [];
           for (var r of t) {
-            var a = g(r.id, r.personaId);
+            var a = h(r.id, r.personaId);
             a != null &&
               a !== "" &&
               n.push({ fbid: a, id: r.id, isDefault: r.isDefault });
@@ -49,34 +49,51 @@ __d(
           var i = n.map(function (e) {
               return e.fbid;
             }),
+            l;
+          try {
             l = yield o("WAWebFetchBotProfilesGQL").fetchBotProfilesGQL(i);
-          if (l.type !== "success")
+          } catch (t) {
             return (
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[requestBotProfiles] GQL fetch failed, returning empty",
-                  ])),
-              ),
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[requestBotProfiles] GQL fetch threw, returning empty",
+                    ])),
+                )
+                .sendLogs("bot-profile-gql-fetch-exception"),
               []
             );
-          var s = new Map(
+          }
+          if (l.type !== "success")
+            return (
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[requestBotProfiles] GQL fetch failed, returning empty",
+                    ])),
+                )
+                .sendLogs("bot-profile-gql-fetch-failed"),
+              []
+            );
+          var u = new Map(
               l.value.map(function (e) {
                 return [e.personaId, e];
               }),
             ),
-            u = [];
-          for (var c of n) {
-            var d = s.get(c.fbid);
-            d != null &&
-              u.push(_({ gqlProfile: d, isDefault: c.isDefault, wid: c.id }));
+            c = [];
+          for (var d of n) {
+            var m = u.get(d.fbid);
+            m != null &&
+              c.push(f({ gqlProfile: m, isDefault: d.isDefault, wid: d.id }));
           }
-          return u;
+          return c;
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
+    function f(e) {
       var t = e.gqlProfile,
         n = e.isDefault,
         r = e.wid;
@@ -97,10 +114,10 @@ __d(
         creatorName: t.creatorName,
         creatorProfileUrl: t.creatorProfileUrl,
         lastUpdateTs: Date.now(),
-        posingAsProfessional: f(t.posingAsProfessional),
+        posingAsProfessional: g(t.posingAsProfessional),
       };
     }
-    function f(e) {
+    function g(e) {
       return e == null
         ? null
         : (function (e) {
@@ -114,7 +131,7 @@ __d(
             }
           })(e.toLowerCase());
     }
-    function g(e, t) {
+    function h(e, t) {
       if (t != null && t !== "") {
         var n = t.indexOf("$"),
           r = n === -1 ? t : t.substring(0, n);
@@ -122,12 +139,12 @@ __d(
       }
       return e.isFbidBot() ? e.user : null;
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             a = new (o("WAWebUsync").USyncQuery)()
               .withContext("interactive")
@@ -155,18 +172,18 @@ __d(
               },
               o("WAWebContactSyncErrorCodes").BOT_PROFILE,
             ),
-            c = l.error.all || l.error.status;
-          if (c)
+            s = l.error.all || l.error.status;
+          if (s)
             throw (
               o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
                 i,
-                c.errorCode,
+                s.errorCode,
                 l,
                 o("WAWebContactSyncErrorCodes").BOT_PROFILE,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                c.errorCode,
-                c.errorText,
+                s.errorCode,
+                s.errorText,
               )
             );
           var d = l.list;
@@ -177,8 +194,8 @@ __d(
             return (
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "Bot ids ",
                       "",
                     ])),
@@ -186,7 +203,7 @@ __d(
                 )
                 .sendLogs("noStatusDataForBots"),
               o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
-              (u || (u = n("Promise"))).reject(
+              (c || (c = n("Promise"))).reject(
                 r("err")("no status data returned for user"),
               )
             );
@@ -222,10 +239,10 @@ __d(
             })
           );
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    l.requestBotProfiles = c;
+    l.requestBotProfiles = d;
   },
   98,
 );

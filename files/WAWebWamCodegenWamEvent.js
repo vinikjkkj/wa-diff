@@ -92,39 +92,41 @@ __d(
                 i = t[2];
               for (var l of n) if (!l(e)) return;
               for (var c of a)
-                if (e.getValue(r("WACamelCase")(c)) == null)
-                  throw (
-                    o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "",
-                          ".",
-                          " should be nonnull",
-                        ])),
-                      e.$className,
-                      c,
-                    ),
-                    new TypeError(e.$className + "." + c + " should be nonnull")
+                if (e.getValue(r("WACamelCase")(c)) == null) {
+                  o("WALogger").LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        ".",
+                        " should be nonnull",
+                      ])),
+                    e.$className,
+                    c,
                   );
-              for (var d of i) {
-                var m = d[0],
-                  p = d[1];
-                if (!m(e))
-                  throw (
-                    o("WALogger").LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "",
-                          " event validator failed condition ",
-                          "",
-                        ])),
-                      e.$className,
-                      p,
-                    ),
-                    new TypeError(
-                      e.$className + " event validator failed condition " + p,
-                    )
+                  var d = new TypeError(
+                    e.$className + "." + c + " should be nonnull",
                   );
+                  throw (d.stack, d);
+                }
+              for (var m of i) {
+                var p = m[0],
+                  _ = m[1];
+                if (!p(e)) {
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "",
+                        " event validator failed condition ",
+                        "",
+                      ])),
+                    e.$className,
+                    _,
+                  );
+                  var f = new TypeError(
+                    e.$className + " event validator failed condition " + _,
+                  );
+                  throw (f.stack, f);
+                }
               }
             });
           }),

@@ -190,10 +190,13 @@ __d(
           }),
           (t.unregisterCanvas = function (t) {
             var e = this.$1.get(t);
-            e &&
-              (e.renderer.cleanup(),
-              this.$1.delete(t),
-              this.$1.size === 0 && f.postMessage({ type: "shutdown" }));
+            if (e)
+              try {
+                e.renderer.cleanup();
+              } finally {
+                (this.$1.delete(t),
+                  this.$1.size === 0 && f.postMessage({ type: "shutdown" }));
+              }
           }),
           (t.reset = function (t) {
             var e = this.$1.get(t);
@@ -214,7 +217,12 @@ __d(
           (t.$2 = function (t) {
             var e = this.$1.get(t);
             if (e) {
-              var n = e.canvas.transferToImageBitmap();
+              var n;
+              try {
+                n = e.canvas.transferToImageBitmap();
+              } catch (e) {
+                return;
+              }
               try {
                 f.postMessage(
                   { type: "mainThreadRender", rendererId: t, bitmap: n },

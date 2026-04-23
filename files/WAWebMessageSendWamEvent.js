@@ -24,6 +24,7 @@ __d(
     "WAWebWamEnumOppositeVisibleIdentificationType",
     "WAWebWamEnumPairedMediaType",
     "WAWebWamEnumPrivateAiFeatureName",
+    "WAWebWamEnumReachabilityStatus",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumSizeBucket",
     "WAWebWamEnumStickerMakerSourceType",
@@ -88,6 +89,10 @@ __d(
               fastForwardEnabled: [15, e.TYPES.BOOLEAN],
               hasUsername: [59, e.TYPES.BOOLEAN],
               hasUsernamePin: [74, e.TYPES.BOOLEAN],
+              initialSendAttemptReachabilityStatus: [
+                90,
+                o("WAWebWamEnumReachabilityStatus").REACHABILITY_STATUS,
+              ],
               invisibleMessageCategory: [
                 64,
                 o("WAWebWamEnumInvisibleMessageCategoryType")

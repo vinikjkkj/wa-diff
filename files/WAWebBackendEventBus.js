@@ -46,120 +46,233 @@ __d(
             (e.isMainStreamReadyMd = !1),
             (e.isOfflineDeliveryEnd = !1),
             (e.socketState = o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED),
-            o("WAWebBackendWorkerClient")
-              .getBackendWorkerBridge()
-              .then(function (t) {
-                var n;
-                (e.on(
-                  (n = o("WAWebBackendEventBusTypes.flow")).BackendEvent
-                    .APP_STATE_SYNC_COMPLETED,
-                  function (e) {
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .APP_STATE_SYNC_COMPLETED,
+              function (e) {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (t) {
                     t.fireAndForget(
                       "backendEventBusSync",
                       "onAppStateSyncCompleted",
                       { collectionDetails: e },
                     );
-                  },
-                ),
-                  e.on(n.BackendEvent.LOGOUT, function () {
-                    t.fireAndForget("backendEventBusSync", "onLogout");
-                  }),
-                  e.on(n.BackendEvent.REFRESH_QR, function () {
-                    t.fireAndForget("backendEventBusSync", "onRefreshQR");
-                  }),
-                  e.on(n.BackendEvent.ON_INITIAL_CHAT_SYNCED, function () {
-                    t.fireAndForget(
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent.LOGOUT,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget("backendEventBusSync", "onLogout");
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent.REFRESH_QR,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget("backendEventBusSync", "onRefreshQR");
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .ON_INITIAL_CHAT_SYNCED,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
                       "backendEventBusSync",
                       "onInitialChatHistorySynced",
                     );
-                  }),
-                  e.on(
-                    n.BackendEvent.ON_RECENT_CHAT_HISTORY_SYNCED,
-                    function () {
-                      t.fireAndForget(
-                        "backendEventBusSync",
-                        "onRecentChatHistorySynced",
-                      );
-                    },
-                  ),
-                  e.on(n.BackendEvent.ON_FULL_CHAT_HISTORY_SYNCED, function () {
-                    t.fireAndForget(
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .ON_RECENT_CHAT_HISTORY_SYNCED,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
+                      "backendEventBusSync",
+                      "onRecentChatHistorySynced",
+                    );
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .ON_FULL_CHAT_HISTORY_SYNCED,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
                       "backendEventBusSync",
                       "onFullChatHistorySynced",
                     );
-                  }),
-                  e.on(n.BackendEvent.ON_CRITICAL_SYNC_DONE, function () {
-                    t.fireAndForget(
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .ON_CRITICAL_SYNC_DONE,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
                       "backendEventBusSync",
                       "onCriticalSyncDone",
                     );
-                  }),
-                  e.on(
-                    n.BackendEvent.STORAGE_INITIALIZATION_ERROR,
-                    function () {
-                      t.fireAndForget(
-                        "backendEventBusSync",
-                        "onStorageInitializationError",
-                      );
-                    },
-                  ),
-                  e.on(n.BackendEvent.SOCKET_STREAM_DISCONNECTED, function () {
-                    t.fireAndForget(
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .STORAGE_INITIALIZATION_ERROR,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
+                      "backendEventBusSync",
+                      "onStorageInitializationError",
+                    );
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .SOCKET_STREAM_DISCONNECTED,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
                       "backendEventBusSync",
                       "onSocketStreamDisconnected",
                     );
-                  }),
-                  e.on(n.BackendEvent.OPEN_SOCKET_STREAM, function () {
-                    t.fireAndForget(
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .OPEN_SOCKET_STREAM,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
                       "backendEventBusSync",
                       "onOpenSocketStream",
                     );
-                  }),
-                  e.on(n.BackendEvent.RECONNECT_SOCKET, function () {
-                    t.fireAndForget("backendEventBusSync", "onReconnectSocket");
-                  }),
-                  e.on(n.BackendEvent.SET_SOCKET_STATE, function (e) {
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent.RECONNECT_SOCKET,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget("backendEventBusSync", "onReconnectSocket");
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent.SET_SOCKET_STATE,
+              function (e) {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (t) {
                     t.fireAndForget("backendEventBusSync", "onSetSocketState", {
                       state: e,
                     });
-                  }),
-                  e.on(n.BackendEvent.MAIN_STREAM_MODE_READY, function () {
-                    t.fireAndForget(
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .MAIN_STREAM_MODE_READY,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
                       "backendEventBusSync",
                       "onMainStreamModeReady",
                     );
-                  }),
-                  e.on(n.BackendEvent.OFFLINE_DELIVERY_END, function () {
-                    t.fireAndForget(
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .OFFLINE_DELIVERY_END,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
                       "backendEventBusSync",
                       "onOfflineDeliveryEnd",
                     );
-                  }),
-                  e.on(
-                    n.BackendEvent.OFFLINE_DELIVERY_STATE_RESET,
-                    function () {
-                      t.fireAndForget(
-                        "backendEventBusSync",
-                        "onOfflineDeliveryStateReset",
-                      );
-                    },
-                  ),
-                  e.on(n.BackendEvent.ON_AB_PROPS_UPDATE, function (e) {
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .OFFLINE_DELIVERY_STATE_RESET,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget(
+                      "backendEventBusSync",
+                      "onOfflineDeliveryStateReset",
+                    );
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent
+                .ON_AB_PROPS_UPDATE,
+              function (e) {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (t) {
                     t.fireAndForget(
                       "backendEventBusSync",
                       "onAbPropsUpdate",
                       e,
                     );
-                  }),
-                  e.on(n.BackendEvent.AB_PROPS_LOADED, function () {
-                    t.fireAndForget("backendEventBusSync", "onAbPropsLoaded");
-                  }),
-                  t.fireAndForget("backendEventBusSync", "syncState", {
-                    isMainStreamReadyMd: e.isMainStreamReadyMd,
-                    isOfflineDeliveryEnd: e.isOfflineDeliveryEnd,
-                    socketState: e.socketState,
-                  }));
-              }),
+                  });
+              },
+            ),
+            e.on(
+              o("WAWebBackendEventBusTypes.flow").BackendEvent.AB_PROPS_LOADED,
+              function () {
+                o("WAWebBackendWorkerClient")
+                  .getBackendWorkerBridge()
+                  .then(function (e) {
+                    e.fireAndForget("backendEventBusSync", "onAbPropsLoaded");
+                  });
+              },
+            ),
+            o("WAWebBackendWorkerClient").recordInitEventBusSyncState({
+              isMainStreamReadyMd: e.isMainStreamReadyMd,
+              isOfflineDeliveryEnd: e.isOfflineDeliveryEnd,
+              socketState: e.socketState,
+            }),
             e
           );
         }

@@ -177,9 +177,7 @@ __d(
     function C(e) {
       switch (e) {
         case o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_IMAGE:
-          return o("WAWebABProps").getABPropConfigValue(
-            "enable_channel_image_server_thumbnail",
-          );
+          return !0;
         case o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_VIDEO:
           return o("WAWebABProps").getABPropConfigValue(
             "enable_channel_video_server_thumbnail",

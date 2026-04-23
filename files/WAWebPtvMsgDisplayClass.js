@@ -1,6 +1,6 @@
 __d(
   "WAWebPtvMsgDisplayClass",
-  ["cx", "WAWebClassnames", "WAWebDisplayType", "WAWebPtvGatingUtils"],
+  ["cx", "WAWebClassnames", "WAWebDisplayType"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       var t = e.displayType;
@@ -8,7 +8,6 @@ __d(
         "_amkd",
         "_am--",
         o("WAWebDisplayType").isWideDisplay(t) ? "_amqb" : null,
-        o("WAWebPtvGatingUtils").isPtvReceivingEnabled() ? null : "_amkj",
       );
     }
     l.default = e;

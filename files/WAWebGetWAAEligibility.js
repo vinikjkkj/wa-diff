@@ -5,34 +5,58 @@ __d(
     "WAWebFetchAdAccountToken",
     "WAWebGetWAAEligibilityQuery.graphql",
     "WAWebRelayClient",
+    "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
     "err",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    var e,
+      s = "waa_eligibility_cache",
+      u = 6048e5;
+    function c() {
+      var e = r("WAWebUserPrefsStore").getUser(s);
+      if (e != null && typeof e == "object") {
+        var t = e.eligible,
+          n = e.timestamp;
+        if (typeof t == "boolean" && typeof n == "number" && Date.now() - n < u)
+          return t;
+      }
+      return null;
     }
-    function u() {
+    function d(e) {
+      r("WAWebUserPrefsStore").setUser(s, {
+        eligible: e,
+        timestamp: Date.now(),
+      });
+    }
+    function m(e) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a =
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          if (r("justknobx")._("1042")) {
+            var a = c();
+            if (a != null) return a;
+          }
+          var i =
               e !== void 0 ? e : (e = n("WAWebGetWAAEligibilityQuery.graphql")),
-            i = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (i.type === "success") {
-            var l, s;
+            l = yield o("WAWebFetchAdAccountToken").fetchToken();
+          if (l.type === "success") {
+            var s, u;
             try {
-              s = yield o("WAWebRelayClient").fetchQuery(
-                a,
+              u = yield o("WAWebRelayClient").fetchQuery(
+                i,
                 {
                   input: {
                     flow_id: t,
                     request_id: new Date().getTime().toString(),
                   },
                 },
-                { accessToken: i.token, environmentType: "facebook" },
+                { accessToken: l.token, environmentType: "facebook" },
               );
             } catch (e) {
               throw (
@@ -45,29 +69,31 @@ __d(
                 e
               );
             }
-            var u = r("nullthrows")(
-              (l = s) == null ||
-                (l = l.eval_wa_ad_account_eligibility_rules) == null
-                ? void 0
-                : l.eligibility_result,
-            );
-            return u !== "DENY";
+            var m = r("nullthrows")(
+                (s = u) == null ||
+                  (s = s.eval_wa_ad_account_eligibility_rules) == null
+                  ? void 0
+                  : s.eligibility_result,
+              ),
+              p = m !== "DENY";
+            return (r("justknobx")._("1042") && d(p), p);
           }
-          if (i.type === "recovery-required") return !0;
+          if (l.type === "recovery-required")
+            return (r("justknobx")._("1042") && d(!0), !0);
           throw (
             r("FBLogger")("wa_ctwa_web").mustfix(
               "WAWebGetWAAEligibility: token fetch failed with type: " +
-                i.type +
+                l.type +
                 " for flowId: " +
                 t,
             ),
             r("err")("Failed to fetch token")
           );
         })),
-        u.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.default = s;
+    l.default = m;
   },
   98,
 );

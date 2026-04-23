@@ -12,8 +12,6 @@ __d(
       );
     }
     function s(e, t) {
-      if (!o("WAWebABProps").getABPropConfigValue("hd_video_label_enabled"))
-        return !1;
       var n = [Math.max(e, t), Math.min(e, t)],
         r = n[0],
         a = n[1];

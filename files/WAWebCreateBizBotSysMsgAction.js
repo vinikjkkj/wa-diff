@@ -17,6 +17,7 @@ __d(
           if (e.bizBotSystemMsgType !== o("WAWebBotTypes").BizBotType.BIZ_1P) {
             var t = o("WAWebBotSystemMsg").genBizBot1pDisclosureMessage(e.id);
             (e.msgs.add(o("WAWebMsgModelFromData").msgModelFromMsgData(t)),
+              (e.bizBotSystemMsgType = o("WAWebBotTypes").BizBotType.BIZ_1P),
               yield o("WAWebDBProcessMessage").storeMessages([t], e.id),
               yield e.updateBizBotSysMsgCreated(
                 o("WAWebBotTypes").BizBotType.BIZ_1P,

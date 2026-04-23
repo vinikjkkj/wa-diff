@@ -7,7 +7,6 @@ __d(
     "WAWebE2EProtoUtils",
     "WAWebMediaMessageGetValidatedProperties",
     "WAWebMsgType",
-    "WAWebPtvGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -16,15 +15,6 @@ __d(
         r = e.msgContext,
         a = n.ptvMessage;
       if (a != null) {
-        if (!o("WAWebPtvGatingUtils").isPtvReceivingEnabled())
-          return {
-            msgData: babelHelpers.extends({}, t, {
-              type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-              kind: o("WAWebMsgType").MsgKind.Unknown,
-              futureproofType: o("WAWebMsgType").MSG_TYPE.PTV,
-            }),
-            contextInfo: a == null ? void 0 : a.contextInfo,
-          };
         var i = a.accessibilityLabel,
           l = a.annotations,
           s = a.caption,

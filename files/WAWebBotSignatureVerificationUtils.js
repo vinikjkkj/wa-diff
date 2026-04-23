@@ -262,27 +262,38 @@ __d(
             var u = a.map(function (e) {
                 return new Uint8Array(e);
               }),
+              c;
+            try {
               c = yield o(
                 "WAWebBotSignatureCertificateManager",
-              ).verifyCertificateChainAndGetLeafPublicKey(u, s);
-            if (c.leafPublicKey == null) {
+              ).getValidatedLeafPublicKey(u, s);
+            } catch (e) {
               o("WALogger").WARN(
                 f ||
                   (f = babelHelpers.taggedTemplateLiteralLoose([
                     "",
-                    " Certificate chain verification failed",
+                    " Certificate chain verification failed: ",
+                    "",
                   ])),
                 g,
+                e instanceof Error ? e.message : String(e),
               );
               var y = o("WAWebBotCertificateValidationLogger")
                 .CERT_VERIFICATION_RESULT_TYPE.FAILED_CHAIN_VALIDATION;
               return (
-                c.isExpired
+                e instanceof
+                o("WAWebBotSignatureCertificateManager").CertExpiredError
                   ? (y = o("WAWebBotCertificateValidationLogger")
                       .CERT_VERIFICATION_RESULT_TYPE.FAILED_EXPIRED_CERT)
-                  : c.isInvalid &&
-                    (y = o("WAWebBotCertificateValidationLogger")
-                      .CERT_VERIFICATION_RESULT_TYPE.FAILED_INVALID_CERT),
+                  : e instanceof
+                      o("WAWebBotSignatureCertificateManager").CertInvalidError
+                    ? (y = o("WAWebBotCertificateValidationLogger")
+                        .CERT_VERIFICATION_RESULT_TYPE.FAILED_INVALID_CERT)
+                    : e instanceof
+                        o("WAWebBotSignatureCertificateManager")
+                          .CertChainValidationError &&
+                      (y = o("WAWebBotCertificateValidationLogger")
+                        .CERT_VERIFICATION_RESULT_TYPE.FAILED_CHAIN_VALIDATION),
                 o(
                   "WAWebBotCertificateValidationLogger",
                 ).logCertificateValidation({
@@ -294,15 +305,14 @@ __d(
                 !1
               );
             }
-            var C = c.leafPublicKey,
-              b = S(h, t, n),
-              v = new Uint8Array(i),
-              L = R(v, b, C);
+            var C = S(h, t, n),
+              b = new Uint8Array(i),
+              v = R(b, C, c);
             return (
               o("WAWebBotCertificateValidationLogger").logCertificateValidation(
                 {
                   certChainLength: a.length,
-                  certVerificationResult: L
+                  certVerificationResult: v
                     ? o("WAWebBotCertificateValidationLogger")
                         .CERT_VERIFICATION_RESULT_TYPE.SUCCESS
                     : o("WAWebBotCertificateValidationLogger")
@@ -311,7 +321,7 @@ __d(
                   startTime: r,
                 },
               ),
-              L
+              v
             );
           },
         )),

@@ -46,15 +46,7 @@ __d(
     }
     function _(e) {
       return (
-        o("WAWebBackendWorkerClient")
-          .getBackendWorkerBridge()
-          .then(function (t) {
-            return t.fireAndForget(
-              "database",
-              "generateFinalDbMsgEncryptionKey",
-              { salt: e },
-            );
-          }),
+        o("WAWebBackendWorkerClient").recordInitDbFinalKey({ salt: e }),
         o("WAWebInvocationInterface")
           .get()
           .generateFinalDbEncryptionAndFtsKey(e)

@@ -20,7 +20,6 @@ __d(
     "WAWebMessagePluginFutureproofMsgText",
     "WAWebMiscGatingUtils",
     "WAWebMsgType",
-    "WAWebPtvGatingUtils",
     "WAWebSystemMessagePluginFormatMsgText",
     "WAWebUnformatMsg",
     "WAWebViewOnceState",
@@ -124,8 +123,6 @@ __d(
             ? s._(/*BTDS*/ "Response sent")
             : l.body || "";
         case o("WAWebMsgType").MSG_TYPE.PTV: {
-          if (!o("WAWebPtvGatingUtils").isPtvReceivingEnabled())
-            return o("WAWebFormatUnknownMsg").formatUnknownMsgText(l);
           if (b.isViewOnce)
             return o("WAWebViewOnceState").isViewed(b)
               ? s._(/*BTDS*/ "Opened")

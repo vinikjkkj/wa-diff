@@ -482,7 +482,7 @@ __d(
             .ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[saveContactBatchAction] companion-contact-client-error-save-batch-create-user-wid username_contact_usync_lid_based=",
+                  "[saveContactBatchAction] createUserWid err lidBased=",
                   "",
                 ])),
               o("WAWebUsernameGatingUtils").usernameContactUsyncLidBased(),

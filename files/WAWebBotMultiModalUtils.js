@@ -8,35 +8,26 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      var e = o("WAWebBotGating").getMetaAiSupportedFileTypes();
-      return e === ""
-        ? ""
-        : e
-            .split(",")
-            .map(function (e) {
-              return "." + e.trim();
-            })
-            .join(",");
+      return Array.from(s(), function (e) {
+        return "." + e;
+      }).join(",");
     }
     function s() {
-      var e = o("WAWebBotGating").getMetaAiSupportedFileTypes();
-      return e === ""
-        ? new Set()
-        : new Set(
-            e
-              .split(",")
-              .map(function (e) {
-                return e.trim().toLowerCase();
-              })
-              .filter(function (e) {
-                return e !== "";
-              }),
-          );
+      return new Set(
+        o("WAWebBotGating")
+          .getMetaAiSupportedFileTypes()
+          .split(",")
+          .map(function (e) {
+            return e.trim().toLowerCase();
+          })
+          .filter(function (e) {
+            return e !== "";
+          }),
+      );
     }
     function u(e) {
-      var t = s();
-      if (t.size === 0) return !0;
-      var n = o("WAWebFileUtils").getFileExtension(e.name);
+      var t = s(),
+        n = o("WAWebFileUtils").getFileExtension(e.name);
       return n != null && t.has(n);
     }
     function c(e) {

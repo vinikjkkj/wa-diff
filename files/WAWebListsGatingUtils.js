@@ -9,12 +9,22 @@ __d(
     }
     function s() {
       return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "lists_chat_list_row_pill_enabled",
+        )
+      );
+    }
+    function u() {
+      return (
         e() &&
         !o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled")
       );
     }
-    ((l.isListsEnabled = e), (l.isListsM2Enabled = s));
+    ((l.isListsEnabled = e),
+      (l.isListsChatListRowPillEnabled = s),
+      (l.isListsM2Enabled = u));
   },
   98,
 );

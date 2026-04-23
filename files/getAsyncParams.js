@@ -60,7 +60,7 @@ __d(
             var t = o("HasteBitMap").toCompressedString(e);
             t !== "" && (d[e] = t);
           })),
-        !r("SiteData").wbloks_env &&
+        r("SiteData").wbloks_env !== !0 &&
           r("SiteData").comet_env != null &&
           r("SiteData").comet_env !== 0)
       ) {

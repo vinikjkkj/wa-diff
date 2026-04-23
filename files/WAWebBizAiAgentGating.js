@@ -29,12 +29,24 @@ __d(
         "biz_ai_agent_thread_status_history_sync_enabled",
       );
     }
+    function p() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "biz_ai_priority_list_enabled",
+      );
+    }
+    function _() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "biz_ai_responding_list_enabled",
+      );
+    }
     ((l.isAiAgentAutoReplyEnabled = e),
       (l.isAiHubTapCtaShowAlertEnabled = s),
       (l.isAiAgentAutoSaveEnabled = u),
       (l.isAiMuteUnmuteV2Enabled = c),
       (l.isAiCoachingEnabled = d),
-      (l.isAiAgentThreadStatusHistorySyncEnabled = m));
+      (l.isAiAgentThreadStatusHistorySyncEnabled = m),
+      (l.isAiHandoffListEnabled = p),
+      (l.isAiRespondingChipEnabled = _));
   },
   98,
 );

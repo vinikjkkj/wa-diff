@@ -7,6 +7,7 @@ __d(
     "WAWebRichTextInputConst",
     "WAWebTextGroupMentionWrapperMutatorComponent.react",
     "WAWebUnjoinedSubgroupMetadataCollection",
+    "isEmptyObject",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -49,7 +50,7 @@ __d(
               }
               return l;
             }
-            if (!a || Object.keys(a).length === 0) return [];
+            if (!a || r("isEmptyObject")(a)) return [];
             for (
               var m = d(a), p = r("WAWebExtractRangesUsingRegex")(t, m), _ = 0;
               _ < p.length;

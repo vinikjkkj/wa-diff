@@ -79,11 +79,11 @@ __d(
             (m.sendReporter =
               (n = m.sendReporter) != null ? n : m.createSendReporter()),
             (r = m.sendPerfReporter) == null || r.startRenderedStage(),
+            o("WAWebStatusCollection").StatusCollection.handleUpdate(c, !1),
             yield o("WAWebStatusCollection").StatusCollection.addStatusMessages(
               d.author,
               [d],
             ),
-            o("WAWebStatusCollection").StatusCollection.handleUpdate(c, !1),
             (a = m.sendPerfReporter) == null || a.postRenderedStage(),
             (i = m.sendPerfReporter) == null || i.startSavedStage(),
             yield o("WAWebDBProcessMessage").storeMessages([c], d.to),
@@ -115,7 +115,7 @@ __d(
           );
           var f = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
               ? yield r("WAWebUserPrefsStatus").getStatusReshareAllowed()
-              : !1,
+              : void 0,
             g = babelHelpers.extends({}, e, {
               id: new (r("WAWebMsgKey"))({
                 fromMe: e.id.fromMe,
@@ -150,11 +150,11 @@ __d(
           ((y.sendReporter =
             (n = y.sendReporter) != null ? n : y.createSendReporter()),
             (a = y.sendPerfReporter) == null || a.startRenderedStage(),
+            o("WAWebStatusCollection").StatusCollection.handleUpdate(g, !1),
             yield o("WAWebStatusCollection").StatusCollection.addStatusMessages(
               h.author,
               [h],
             ),
-            o("WAWebStatusCollection").StatusCollection.handleUpdate(g, !1),
             (i = y.sendPerfReporter) == null || i.postRenderedStage(),
             (l = y.sendPerfReporter) == null || l.startSavedStage(),
             yield o("WAWebDBProcessMessage").storeMessages([g], h.to),

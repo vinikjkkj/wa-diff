@@ -27,7 +27,6 @@ __d(
     "WAWebOrderStatus",
     "WAWebProductCatalogCatalogConstants",
     "WAWebProtobufsAICommon.pb",
-    "WAWebPtvGatingUtils",
     "WAWebStickerPremiumStatus",
     "WAWebTemplateButtonSubtype",
     "WAWebUserPrefsMeUser",
@@ -749,9 +748,7 @@ __d(
                 !s
             : t === o("WAWebMsgType").MSG_TYPE.CHAT
               ? !c && a && !s
-              : t === o("WAWebMsgType").MSG_TYPE.PTV
-                ? o("WAWebPtvGatingUtils").isPtvReceivingEnabled()
-                : !1;
+              : t === o("WAWebMsgType").MSG_TYPE.PTV;
         },
         [
           u.getType,

@@ -2,9 +2,13 @@ __d(
   "WAWebBizAiAgentStatusUtils",
   [
     "WAWebBizAiAgentGating",
+    "WAWebBizGatingUtils",
     "WAWebBusinessProfileCollection",
     "WAWebChatGetters",
     "WAWebContactGetters",
+    "WAWebFrontendChatGetters",
+    "WAWebLabelCollection",
+    "WAWebListsGatingUtils",
     "WAWebMobilePlatforms",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
@@ -60,12 +64,68 @@ __d(
     function m(e) {
       return u(e);
     }
+    function p(e) {
+      if (
+        !o("WAWebMobilePlatforms").isSMB() ||
+        !e.id.isUserNotPSA() ||
+        o("WAWebContactGetters").getIsMe(e.contact) ||
+        o("WAWebContactGetters").getIsAiHub(e.contact)
+      )
+        return !1;
+      var t = e.capiThreadControl;
+      if (
+        t ===
+        o("WAWebProtobufsE2E.pb")
+          .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+          .CONTROL_TAKEN
+      )
+        return o("WAWebBizAiAgentGating").isAiRespondingChipEnabled();
+      if (
+        t ===
+          o("WAWebProtobufsE2E.pb")
+            .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
+            .CONTROL_PASSED &&
+        o("WAWebBizAiAgentGating").isAiHandoffListEnabled()
+      ) {
+        var n = o("WAWebFrontendChatGetters").getPreviewMessage(e);
+        return (n == null ? void 0 : n.id.fromMe) !== !0;
+      }
+      return !1;
+    }
+    function _(e) {
+      return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
+        ? f(e)
+        : !1;
+    }
+    function f(e) {
+      var t = e.labels;
+      return t == null ||
+        t.length === 0 ||
+        !(
+          o("WAWebBizGatingUtils").canDisplayLabel() ||
+          o("WAWebListsGatingUtils").isListsEnabled()
+        )
+        ? !1
+        : t.some(function (e) {
+            var t = o("WAWebLabelCollection").LabelCollection.get(e);
+            return t != null && !!t.name;
+          });
+    }
+    function g(e) {
+      return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
+        ? p(e) || _(e)
+        : !1;
+    }
     ((l.hasOnboardedAiAgent = e),
       (l.isChatEligibleForAiAgent = s),
       (l.isChatAiEnabled = u),
       (l.useIsChatAiEnabled = c),
       (l.shouldShowAiAgentBlockBar = d),
-      (l.shouldMuteNotification = m));
+      (l.shouldMuteNotification = m),
+      (l.shouldShowAiChipsForChat = p),
+      (l.shouldShowLabelPillsForChat = _),
+      (l.hasDisplayableLabels = f),
+      (l.shouldShowTertiaryRowForChat = g));
   },
   98,
 );

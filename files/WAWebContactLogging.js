@@ -106,9 +106,9 @@ __d(
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[contact logging] companion-contact-client-error action=",
-                    " source=",
-                    " username_contact_usync_lid_based=",
+                    "[contact] client-err act=",
+                    " src=",
+                    " usync_lid=",
                     "",
                   ])),
                 n,

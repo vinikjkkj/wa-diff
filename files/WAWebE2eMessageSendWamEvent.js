@@ -16,6 +16,7 @@ __d(
     "WAWebWamEnumInvisibleMessageCategoryType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageDistributionEnumType",
+    "WAWebWamEnumReachabilityStatus",
     "WAWebWamEnumRevokeType",
     "WAWebWamEnumTypeOfGroupEnum",
   ],
@@ -61,6 +62,10 @@ __d(
               groupEncryptionState: [
                 22,
                 o("WAWebWamEnumGroupEncryptionType").GROUP_ENCRYPTION_TYPE,
+              ],
+              initialSendAttemptReachabilityStatus: [
+                26,
+                o("WAWebWamEnumReachabilityStatus").REACHABILITY_STATUS,
               ],
               invisibleMessageCategory: [
                 21,

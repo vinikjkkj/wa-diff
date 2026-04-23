@@ -8,6 +8,7 @@ __d(
       NON_TRUNCATED: 3,
       INTERACTABLE: 4,
       TOP_BAR_ATTRIBUTION: 5,
+      INLINE_VIDEO_CTA: 6,
     });
     i.URL_STATUS_TYPE = e;
   },

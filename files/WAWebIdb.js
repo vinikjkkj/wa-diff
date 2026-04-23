@@ -9,6 +9,7 @@ __d(
     "WAWebAppTracker",
     "WAWebDexieCastTypes",
     "WAWebGlobals",
+    "WAWebIdbAsyncAwaitConfig",
     "WAWebIdbEncryption",
     "WAWebIdbHelpers",
     "asyncToGeneratorRuntime",
@@ -369,6 +370,17 @@ __d(
               n = this;
             (e = this.updateListener) == null || e.call(this, [this.$15(t)]);
             var r = this.propFilter(t);
+            if (
+              !this.$3() &&
+              o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled()
+            ) {
+              var a = this.$5(r);
+              return o("WAWebDexieCastTypes")
+                .dexieCastToPromise(this.table.add(a))
+                .catch(function (e) {
+                  throw (n.$1(e, "create", { writeData: r }), e);
+                });
+            }
             return o("WAWebDexieCastTypes")
               .dexieCastToPromise(this.$11(r))
               .catch(function (e) {
@@ -380,6 +392,17 @@ __d(
               n = this;
             (e = this.updateListener) == null || e.call(this, [this.$15(t)]);
             var r = this.propFilter(t);
+            if (
+              !this.$3() &&
+              o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled()
+            ) {
+              var a = this.$5(r);
+              return o("WAWebDexieCastTypes")
+                .dexieCastToPromise(this.table.put(a))
+                .catch(function (e) {
+                  throw (n.$1(e, "createOrReplace", { writeData: r }), e);
+                });
+            }
             return o("WAWebDexieCastTypes")
               .dexieCastToPromise(this.$12(r))
               .catch(function (e) {
@@ -393,7 +416,11 @@ __d(
                   r = this;
                 (n = this.updateListener) == null || n.call(this, [e]);
                 var a = this.propFilter(t),
-                  i = yield this.$7(a, !0);
+                  i =
+                    this.$3() ||
+                    !o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled()
+                      ? yield this.$7(a, !0)
+                      : this.$5(a, !0);
                 return o("WAWebDexieCastTypes")
                   .dexieCastToPromise(
                     this.db
@@ -444,7 +471,11 @@ __d(
                 var n;
                 (n = this.updateListener) == null || n.call(this, [e]);
                 var a = this.propFilter(t),
-                  i = yield this.$7(a, !0);
+                  i =
+                    this.$3() ||
+                    !o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled()
+                      ? yield this.$7(a, !0)
+                      : this.$5(a, !0);
                 try {
                   var l;
                   (yield o("WAWebDexieCastTypes").dexieCastToPromise(

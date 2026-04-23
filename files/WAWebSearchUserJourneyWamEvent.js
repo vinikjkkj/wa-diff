@@ -60,6 +60,7 @@ __d(
                 o("WAWebWamEnumSearchUjItemType").SEARCH_UJ_ITEM_TYPE,
               ],
               searchUjMessagesCount: [12, e.TYPES.INTEGER],
+              searchUjPushnamesCount: [34, e.TYPES.INTEGER],
               searchUjRecentSearchesGroupCount: [29, e.TYPES.INTEGER],
               searchUjRecentSearchesIndividualCount: [30, e.TYPES.INTEGER],
               searchUjResultCount: [13, e.TYPES.INTEGER],

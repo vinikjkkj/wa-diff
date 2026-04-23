@@ -16,6 +16,7 @@ __d(
       CONTACT_FROM_COMMON_GROUP: 11,
       UNKNOWN_CONTACT: 12,
       COMMUNITY: 13,
+      PUSHNAME: 14,
     });
     i.SEARCH_UJ_ITEM_TYPE = e;
   },

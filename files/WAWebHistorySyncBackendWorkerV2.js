@@ -54,11 +54,7 @@ __d(
                 pn: o("WAWebWidFactory").createUserWidOrThrow(n),
               });
           }),
-            yield (p || (p = n("Promise"))).all([
-              i.dbReady,
-              i.abPropsReady,
-              i.isGlobalsReady,
-            ]));
+            yield i.isReady);
           var C = yield o("WAWebGetHistorySyncProgress").getHistorySyncProgress(
             t,
           );
