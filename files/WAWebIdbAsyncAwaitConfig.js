@@ -1,17 +1,15 @@
 __d(
   "WAWebIdbAsyncAwaitConfig",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = function () {
-      return !1;
-    };
-    function l(t) {
+  ["WAWebBoolFunc"],
+  function (t, n, r, o, a, i, l) {
+    var e = o("WAWebBoolFunc").returnFalse;
+    function s(t) {
       e = t;
     }
-    function s() {
+    function u() {
       return e();
     }
-    ((i.setIsAsyncAwaitPrepEnabledImpl = l), (i.isAsyncAwaitPrepEnabled = s));
+    ((l.setIsAsyncAwaitPrepEnabledImpl = s), (l.isAsyncAwaitPrepEnabled = u));
   },
-  66,
+  98,
 );

@@ -179,6 +179,11 @@ __d(
         },
         {
           type: "protocol",
+          subtype: "ai_media_collection",
+          generateWebMessageInfo: null,
+        },
+        {
+          type: "protocol",
           subtype: "bot_feedback",
           generateWebMessageInfo: null,
         },

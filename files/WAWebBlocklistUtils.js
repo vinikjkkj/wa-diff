@@ -7,12 +7,8 @@ __d(
     "WAWebWamEnumBlockEntryPoint",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return o("WAWebABProps").getABPropConfigValue("rbi_pre_tick_report");
-    }
-    function s(t) {
-      if (e()) return !0;
-      switch (t) {
+    function e(e) {
+      switch (e) {
         case o("WAWebBlockContants").BlockEntryPoint.ChatFmxCardBlock:
         case o("WAWebBlockContants").BlockEntryPoint.ChatFmxCardBlockSuspicious:
         case o("WAWebBlockContants").BlockEntryPoint
@@ -29,12 +25,12 @@ __d(
           return !1;
       }
     }
-    function u() {
+    function s() {
       return o("WAWebABProps").getABPropConfigValue(
         "report_block_improvements_for_groups_enabled",
       );
     }
-    function c(e) {
+    function u(e) {
       switch (e) {
         case o("WAWebBlockContants").BlockEntryPoint.OneToOneOldSpamBannerBlock:
         case o("WAWebBlockContants").BlockEntryPoint.BizOldSpamBannerBlock:
@@ -53,7 +49,7 @@ __d(
           return o("WAWebSpamConstants").SpamFlow.Block;
       }
     }
-    function d(e) {
+    function c(e) {
       switch (e) {
         case o("WAWebSpamConstants").SpamFlow.OverflowMenuReport:
           return o("WAWebBlockContants").BlockEntryPoint.OverflowMenuReport;
@@ -77,7 +73,7 @@ __d(
           return null;
       }
     }
-    function m(e) {
+    function d(e) {
       if (e == null)
         return o("WAWebWamEnumBlockEntryPoint").BLOCK_ENTRY_POINT.OTHER;
       switch (e) {
@@ -174,7 +170,7 @@ __d(
           return o("WAWebWamEnumBlockEntryPoint").BLOCK_ENTRY_POINT.OTHER;
       }
     }
-    function p(e) {
+    function m(e) {
       switch (e) {
         case o("WAWebBlockContants").BlockEntryPoint.Profile:
           return 1;
@@ -186,7 +182,7 @@ __d(
           return null;
       }
     }
-    function _(e) {
+    function p(e) {
       switch (e) {
         case o("WAWebBlockContants").BlockEntryPoint.Profile:
           return 3;
@@ -198,13 +194,13 @@ __d(
           return null;
       }
     }
-    ((l.isReportPreCheckedForOneToOneChats = s),
-      (l.isRBIForGroupsEnabled = u),
-      (l.getSpamFlowFromBlockEntryPoint = c),
-      (l.getBlockEntryPointFromSpamFlow = d),
-      (l.getBlockEventMetricFromBlockEntryPoint = m),
-      (l.getBlockPsaRemoveEntryPointFromBlockEntryPoint = p),
-      (l.getUnblockPsaRemoveEntryPointFromBlockEntryPoint = _));
+    ((l.isReportPreCheckedForOneToOneChats = e),
+      (l.isRBIForGroupsEnabled = s),
+      (l.getSpamFlowFromBlockEntryPoint = u),
+      (l.getBlockEntryPointFromSpamFlow = c),
+      (l.getBlockEventMetricFromBlockEntryPoint = d),
+      (l.getBlockPsaRemoveEntryPointFromBlockEntryPoint = m),
+      (l.getUnblockPsaRemoveEntryPointFromBlockEntryPoint = p));
   },
   98,
 );

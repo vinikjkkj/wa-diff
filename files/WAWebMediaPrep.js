@@ -484,6 +484,7 @@ __d(
               afterReadDuration: $,
               messageSecret: P,
               botPersonaId: s.botPersonaId,
+              aiMediaCollectionInfo: s.aiMediaCollectionInfo,
               isAvatar: s.isAvatar,
               viewMode: s.viewMode,
               parentMsgKey: s.parentMsgKey,

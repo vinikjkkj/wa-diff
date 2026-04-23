@@ -8,6 +8,7 @@ __d(
     "WAWebUserPrefsLocalStorage",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserPrefsStore",
+    "WAWebWindowsHybridBridgeTrace",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "WANativePreferencesRevision",
@@ -91,19 +92,30 @@ __d(
             r("WAWebUserPrefsStore").setUser(e, n);
           }),
           (n.handleSettingChange = function (t, n) {
-            var e;
+            var e = this;
             if (this.$4.has(t)) {
-              var o = this.$5();
+              var a = this.$5();
               (r("WAWebODS").incr(
                 "web.hybrid.bridge.preferences.send.update_local_setting",
               ),
-                (e = this.$1) == null ||
-                  e.updateLocalSetting(t, JSON.stringify(n), ++o),
-                this.$7(o));
+                o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                  {
+                    bridge: "preferences",
+                    method: "updateLocalSetting",
+                    type: "sync",
+                  },
+                  function () {
+                    var r;
+                    return (r = e.$1) == null
+                      ? void 0
+                      : r.updateLocalSetting(t, JSON.stringify(n), ++a);
+                  },
+                ),
+                this.$7(a));
             }
           }),
           (n.$6 = function () {
-            var e,
+            var e = this,
               t = this.$5(),
               n = [],
               a = [];
@@ -134,12 +146,30 @@ __d(
               r("WAWebODS").incr(
                 "web.hybrid.bridge.preferences.send.update_all_local_settings",
               ),
-              (e = this.$1) == null || e.updateAllLocalSettings(n, a, t));
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "preferences",
+                  method: "updateAllLocalSettings",
+                  type: "sync",
+                },
+                function () {
+                  var r;
+                  return (r = e.$1) == null
+                    ? void 0
+                    : r.updateAllLocalSettings(n, a, t);
+                },
+              ));
           }),
           (n.clean = function () {
-            var e;
+            var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.preferences.send.clean"),
-              (e = this.$1) == null || e.clean());
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                { bridge: "preferences", method: "clean", type: "sync" },
+                function () {
+                  var t;
+                  return (t = e.$1) == null ? void 0 : t.clean();
+                },
+              ));
           }),
           t
         );

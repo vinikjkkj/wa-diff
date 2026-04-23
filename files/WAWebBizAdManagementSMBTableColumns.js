@@ -9,10 +9,10 @@ __d(
     "WAWebBizAdManagementCostPerConversationCell.react",
     "WAWebBizAdManagementDraftActionsCell.react",
     "WAWebBizAdManagementDraftYourAdsCell.react",
-    "WAWebBizAdManagementLogger",
     "WAWebBizAdManagementReachCell.react",
     "WAWebBizAdManagementStatusCell.react",
     "WAWebBizAdManagementYourAdsCell.react",
+    "WAWebWamEnumLwiEntryPoint",
     "WDSText.react",
     "react",
   ],
@@ -167,7 +167,7 @@ __d(
                 boostingStatus: n.boostingStatus,
                 onRecreatePress: function () {
                   return n.onRecreateAd(
-                    o("WAWebBizAdManagementLogger").LWI_ENTRY_POINT
+                    o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT
                       .SMB_ADVERTISE_FROM_MANAGE_ADS_OVERFLOW_MENU_ITEM_RECREATE_AD_BUTTON,
                     "whatsapp_smb_manage_ads_listing_overflow_menu_recreate_ad_option",
                   );

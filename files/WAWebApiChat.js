@@ -6,7 +6,6 @@ __d(
     "WATimeUtils",
     "WAWeb-dexie",
     "WAWebAck",
-    "WAWebApiChatCommon",
     "WAWebBackendApi",
     "WAWebBotUtils",
     "WAWebBusinessHSMTypes",
@@ -750,8 +749,6 @@ __d(
       (l.pruneExpiredTcTokens = B),
       (l.pruneExpiredOrphanTcTokens = W),
       (l.getChatRecordByAccountLid = q),
-      (l.bulkGetChatsMaybeByHistory =
-        o("WAWebApiChatCommon").bulkGetChatsMaybeByHistory),
       (l.getAllChatsDeserialized = U),
       (l.injectAdditionalEphemeralInfoFromDB = V));
   },

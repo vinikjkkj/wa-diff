@@ -474,6 +474,7 @@ __d(
             (e.botGroupParticipant = o("WAWebBaseModel").prop()),
             (e.bizBotType = o("WAWebBaseModel").prop(null)),
             (e.botPersonaId = o("WAWebBaseModel").prop()),
+            (e.aiMediaCollectionInfo = o("WAWebBaseModel").prop(null)),
             (e.activeBotMsgStreamingInProgress =
               o("WAWebBaseModel").session(!1)),
             (e.botEditTimeoutID = o("WAWebBaseModel").session()),

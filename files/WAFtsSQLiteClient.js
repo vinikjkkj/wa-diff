@@ -10,6 +10,7 @@ __d(
     "WAWebFtsGenRequestId",
     "WAWebFtsWorkerAdapter",
     "WAWebWindowsHybridBridgeFactory",
+    "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
@@ -65,21 +66,31 @@ __d(
         (a.$7 = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t,
-              n = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge();
+              n = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(),
+              r = n == null ? void 0 : n.sqlite;
             return (
-              (n == null ? void 0 : n.sqlite) != null &&
-                (t = yield d(n.sqlite.executeSqlite(JSON.stringify(e))).catch(
-                  function (e) {
-                    o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[fts][client] call to native bridge failed: ",
-                          "",
-                        ])),
-                      e,
-                    );
-                  },
-                )),
+              r != null &&
+                (t = yield d(
+                  o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                    {
+                      bridge: "fts-sqlite",
+                      method: "executeSqlite",
+                      type: "sync",
+                    },
+                    function () {
+                      return r.executeSqlite(JSON.stringify(e));
+                    },
+                  ),
+                ).catch(function (e) {
+                  o("WALogger").WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[fts][client] call to native bridge failed: ",
+                        "",
+                      ])),
+                    e,
+                  );
+                })),
               t == null || t === "" ? [] : JSON.parse(t)
             );
           });

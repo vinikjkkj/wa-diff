@@ -244,6 +244,11 @@ __d(
           subtype: "admin_revoke",
           formatMsgText: (u = r("WAWebFormatRevokedMsgText")),
         },
+        {
+          type: "protocol",
+          subtype: "ai_media_collection",
+          formatMsgText: null,
+        },
         { type: "protocol", subtype: "bot_feedback", formatMsgText: null },
         {
           type: "protocol",

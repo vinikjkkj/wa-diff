@@ -263,7 +263,7 @@ __d(
             t.adminProfile &&
             o(
               "WAWebNewsletterExtendedGatingUtils",
-            ).isNewsletterAdminProfilesSenderEnabled()
+            ).isNewsletterAdminProfilesSenderEnabled(i.newsletterMetadata)
           ) {
             var _;
             u.newsletterAdminProfile =

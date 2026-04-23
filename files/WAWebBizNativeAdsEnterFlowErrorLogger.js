@@ -1,6 +1,12 @@
 __d(
   "WAWebBizNativeAdsEnterFlowErrorLogger",
-  ["WAWebBizAdLogger", "WAWebBizAdManagementLogger"],
+  [
+    "WAWebBizAdLogger",
+    "WAWebBizNativeAdsWamLogger",
+    "WAWebWamEnumLwiAdsIdentityType",
+    "WAWebWamEnumLwiScreenAction",
+    "WAWebWamEnumLwiScreenReference",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
@@ -25,11 +31,12 @@ __d(
       });
     }
     function s(e, t, n) {
-      var r;
-      (r = o("WAWebBizAdManagementLogger")).logManageAdsScreenAction(
-        r.LWI_SCREEN_REFERENCE.LWI_SCREEN_PERFORMANCE,
-        r.LWI_SCREEN_ACTION.LWI_GENERIC_ERROR_SHOWN,
-        r.LWI_ADS_IDENTITY_TYPE.PAGE,
+      o("WAWebBizNativeAdsWamLogger").logManageAdsScreenAction(
+        o("WAWebWamEnumLwiScreenReference").LWI_SCREEN_REFERENCE
+          .LWI_SCREEN_PERFORMANCE,
+        o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
+          .LWI_GENERIC_ERROR_SHOWN,
+        o("WAWebWamEnumLwiAdsIdentityType").LWI_ADS_IDENTITY_TYPE.PAGE,
         t,
         null,
         JSON.stringify({ pageId: n, error_message: e.message }),

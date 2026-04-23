@@ -7,6 +7,7 @@ __d(
     "WAWebAdManagementAction",
     "WAWebBizAdCreationEntryPointModal.react",
     "WAWebBizGatingUtils",
+    "WAWebBizNativeAdsEntryTapLogger",
     "WAWebBotFrontendUtils",
     "WAWebBotGating",
     "WAWebBotUtils",
@@ -149,7 +150,7 @@ __d(
             ? (p = r("WAWebPonyfillsCryptoRandomUUID")())
             : (o("WAWebUserPrefsCTWA").resetAdCreationSequenceNumber(),
               (p = o("WAWebUserPrefsCTWA").generateAdCreationFlowId())),
-          o("WAWebAdCreationLogger").logEntryTap({
+          o("WAWebBizNativeAdsEntryTapLogger").logEntryTap({
             lwiEntryPoint: a,
             lwiExtras: JSON.stringify({ uses_native_ads: m }),
             lwiFlowId: p,
@@ -159,7 +160,7 @@ __d(
               ? o("WAWebWamEnumWebFlowType").WEB_FLOW_TYPE.NATIVE_WEB
               : o("WAWebWamEnumWebFlowType").WEB_FLOW_TYPE.EXTERNAL_WEB,
           }),
-          o("WAWebAdCreationLogger").logRoutingDecision({
+          o("WAWebBizNativeAdsEntryTapLogger").logRoutingDecision({
             lwiEntryPoint: a,
             lwiFlowId: p,
             usesNativeAds: m,

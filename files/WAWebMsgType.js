@@ -96,6 +96,7 @@ __d(
       ],
       c = {
         Album: "album",
+        AiMediaCollection: "aiMediaCollection",
         AssociatedImage: "associatedImage",
         AssociatedUnknown: "associatedUnknown",
         AssociatedVideo: "associatedVideo",

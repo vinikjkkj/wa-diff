@@ -105,6 +105,7 @@ __d(
       HistorySyncNotification: "history_sync_notification",
       MessageEdit: "message_edit",
       MessageEditDecrypted: "message_edit_decrypted",
+      AiMediaCollection: "ai_media_collection",
       BotFeedback: "bot_feedback",
       BotMemuOnboarding: "bot_memu_onboarding",
       BotRequestWelcome: "bot_request_welcome",

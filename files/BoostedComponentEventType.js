@@ -1561,6 +1561,8 @@ __d(
       HEADLINE_SUGGESTION_ACCEPTED: "headline_suggestion_accepted",
       HEADLINE_SUGGESTIONS_REGENERATE: "headline_suggestions_regenerate",
       HEADLINE_SUGGESTIONS_ERROR: "headline_suggestions_error",
+      HEADLINE_SUGGESTION_LIKED: "headline_suggestion_liked",
+      HEADLINE_SUGGESTION_DISLIKED: "headline_suggestion_disliked",
     });
     i.default = e;
   },

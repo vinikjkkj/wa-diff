@@ -10,6 +10,7 @@ __d(
     "WALogger",
     "WANullthrows",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebAiThreadCollection",
     "WAWebAlarm",
@@ -44,6 +45,7 @@ __d(
     "WAWebChatProductMsgsCollection",
     "WAWebChatUpdates",
     "WAWebCmd",
+    "WAWebCollectionConstants",
     "WAWebConnModel",
     "WAWebConstantsDeprecated",
     "WAWebContactCollection",
@@ -841,7 +843,8 @@ __d(
             } else {
               (this.$ChatImpl$p_5(),
                 this.getCollection().sort(),
-                this.deregisterExpiredViewOnceBulkMessages(this.msgs));
+                this.deregisterExpiredViewOnceBulkMessages(this.msgs),
+                this.$ChatImpl$p_17());
               var a = Array.from(this.$ChatImpl$p_1);
               (o("WAWebDBEphemeralMessage")
                 .removeExpiredMessagesFromHistory(a)
@@ -868,6 +871,17 @@ __d(
                       doNotResetLastReceived: !0,
                     }));
                 }));
+            }
+          }),
+          (i.$ChatImpl$p_17 = function () {
+            if (o("WAWebABProps").getABPropConfigValue("web_anr_prune_cmc")) {
+              var e = this.msgs;
+              if (!(e.length <= o("WAWebCollectionConstants").PAGE_SIZE)) {
+                var t = e.length - o("WAWebCollectionConstants").PAGE_SIZE,
+                  n = e.getModelsArray().slice(0, t);
+                (e.remove(n, { silent: !0 }, !0),
+                  (e.msgLoadState.noEarlierMsgs = !1));
+              }
             }
           }),
           (i.$ChatImpl$p_10 = function () {
@@ -1355,12 +1369,12 @@ __d(
             }
           }),
           (i.isUnreadMsg = function (t) {
-            return this.$ChatImpl$p_17(t, this.unreadCount);
+            return this.$ChatImpl$p_18(t, this.unreadCount);
           }),
           (i.isActiveUnreadMsg = function (t) {
-            return this.$ChatImpl$p_17(t, this.activeUnreadCount);
+            return this.$ChatImpl$p_18(t, this.activeUnreadCount);
           }),
-          (i.$ChatImpl$p_17 = function (t, n) {
+          (i.$ChatImpl$p_18 = function (t, n) {
             if (n <= 0) return !1;
             for (
               var e = this.msgs.getModelsArray(), r = 0, a = e.length - 1;

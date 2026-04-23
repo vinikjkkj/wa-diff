@@ -237,6 +237,11 @@ __d(
         },
         {
           type: "protocol",
+          subtype: "ai_media_collection",
+          quotedMsgThumbnailIcon: null,
+        },
+        {
+          type: "protocol",
           subtype: "bot_feedback",
           quotedMsgThumbnailIcon: null,
         },

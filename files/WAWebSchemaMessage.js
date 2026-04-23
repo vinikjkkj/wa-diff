@@ -360,6 +360,9 @@ __d(
             r("internalThreadIDs"),
           ])
           .version(n.messageAddBloksWidgetField(), [a("bloksWidget")])
+          .version(n.messageAddProtocolMessageKeyIndex(), [
+            s("protocolMessageKey"),
+          ])
           .view(function (e) {
             return e;
           })

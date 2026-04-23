@@ -7,7 +7,6 @@ __d(
     "WAJids",
     "WALogger",
     "WAParsableWapNode",
-    "WAWebABProps",
     "WAWebAccountLinkingNotificationHandler",
     "WAWebAltDeviceLinkingHandleNotification",
     "WAWebCreateNackFromStanza",
@@ -193,21 +192,15 @@ __d(
                       var h = e.content;
                       if (!Array.isArray(h) || !h.length) break;
                       var y = h[0].tag;
-                      if (y === "surfaces")
-                        return yield o(
-                          "WAWebHandleQPSurfacesNotification",
-                        ).handleQPSurfacesNotification(e);
-                      if (y === "reset_smb_last_qp_prefetch_timestamp")
-                        return o(
-                          "WAWebHandleQPPrefetchTimestampNotification",
-                        ).handleQPPrefetchTimestampNotification(e);
-                      if (
-                        o("WAWebABProps").getABPropConfigValue(
-                          "enable_client_chat_psa",
-                        )
-                      )
-                        return yield r("WAWebHandleWaChat")(e);
-                      break;
+                      return y === "surfaces"
+                        ? yield o(
+                            "WAWebHandleQPSurfacesNotification",
+                          ).handleQPSurfacesNotification(e)
+                        : y === "reset_smb_last_qp_prefetch_timestamp"
+                          ? o(
+                              "WAWebHandleQPPrefetchTimestampNotification",
+                            ).handleQPPrefetchTimestampNotification(e)
+                          : yield r("WAWebHandleWaChat")(e);
                     }
                     return yield r("WAWebHandlePsa")(e);
                   case "privacy_token":

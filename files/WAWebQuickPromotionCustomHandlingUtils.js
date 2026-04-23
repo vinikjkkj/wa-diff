@@ -2,10 +2,11 @@ __d(
   "WAWebQuickPromotionCustomHandlingUtils",
   [
     "WAWebActiveAccountInfoContext.react",
-    "WAWebAdCreationLogger",
     "WAWebApi",
     "WAWebApiParse",
     "WAWebBannerEventWamEvent",
+    "WAWebBizNativeAdsEntryPointUtils",
+    "WAWebBizNativeAdsWamLogger",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebCTWAConstants",
     "WAWebExecApiCmd",
@@ -51,7 +52,7 @@ __d(
             var l = function (t) {
               new (o("WAWebBannerEventWamEvent").BannerEventWamEvent)({
                 bannerType: o(
-                  "WAWebAdCreationLogger",
+                  "WAWebBizNativeAdsEntryPointUtils",
                 ).getBannerTypeFromSurfaceId(n),
                 bannerOperation: t,
                 bannerId: i.data.campaignId,
@@ -69,8 +70,10 @@ __d(
                   "WAWebActiveAccountInfoContext.react",
                 ).getActiveAccountInfo();
                 (e != null &&
-                  o("WAWebAdCreationLogger").logAdCreationImpression(
-                    o("WAWebAdCreationLogger").getLwiEntryPointFromSurfaceId(n),
+                  o("WAWebBizNativeAdsWamLogger").logAdCreationImpression(
+                    o(
+                      "WAWebBizNativeAdsEntryPointUtils",
+                    ).getLwiEntryPointFromSurfaceId(n),
                     e !== "not-linked" && e.hasFacebookPage,
                   ),
                   l(o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN));
@@ -238,7 +241,9 @@ __d(
     }
     function f(e, t, n) {
       new (o("WAWebBannerEventWamEvent").BannerEventWamEvent)({
-        bannerType: o("WAWebAdCreationLogger").getBannerTypeFromSurfaceId(e),
+        bannerType: o(
+          "WAWebBizNativeAdsEntryPointUtils",
+        ).getBannerTypeFromSurfaceId(e),
         bannerOperation: n,
         bannerId: t,
       }).commit();

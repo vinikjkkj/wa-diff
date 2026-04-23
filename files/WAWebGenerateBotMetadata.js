@@ -30,13 +30,31 @@ __d(
           destinationEntryPoint: t.destinationEntryPoint,
         };
     }
-    function u(t) {
+    function u(e) {
+      var t,
+        n,
+        r,
+        o = (t = e.aiMediaCollectionInfo) == null ? void 0 : t.collectionId;
+      if (!(o == null || e.subtype === "ai_media_collection"))
+        return {
+          collectionId: o,
+          uploadOrderIndex:
+            (n =
+              (r = e.aiMediaCollectionInfo) == null
+                ? void 0
+                : r.uploadOrderIndex) != null
+              ? n
+              : void 0,
+        };
+    }
+    function c(t) {
       var n = t.botPersonaId != null ? t.botPersonaId : void 0,
-        r = d(t),
+        r = m(t),
         o = t.aiThreadInfo != null ? e(t) : void 0,
-        a = _(t.botModeSelection, t.botModeOverride),
+        a = f(t.botModeSelection, t.botModeOverride),
         i = s(t),
-        l = p(t.type);
+        l = _(t.type),
+        c = u(t);
       if (
         !(
           t.botGroupParticipant == null &&
@@ -44,21 +62,23 @@ __d(
           r == null &&
           a == null &&
           i == null &&
-          l == null
+          l == null &&
+          c == null
         )
       )
         return {
           personaId: n,
           invokerJid: r,
-          capabilityMetadata: t.id ? m(t.id.remote) : void 0,
+          capabilityMetadata: t.id ? p(t.id.remote) : void 0,
           botThreadInfo: o,
-          botGroupMetadata: c(t.botGroupParticipant),
+          botGroupMetadata: d(t.botGroupParticipant),
           botModeSelectionMetadata: a,
           botMetricsMetadata: i,
           botDocumentMessageMetadata: l,
+          aiMediaCollectionMetadata: c,
         };
     }
-    function c(e) {
+    function d(e) {
       if (
         !(
           !(
@@ -73,7 +93,7 @@ __d(
           participantsMetadata: [{ botFbid: e == null ? void 0 : e.user }],
         };
     }
-    function d(e) {
+    function m(e) {
       if (e.subtype === "bot_feedback") {
         var t;
         return (t = e.botTargetSenderJid) == null ? void 0 : t.toJid();
@@ -86,7 +106,7 @@ __d(
           : n.toJid();
       }
     }
-    function m(e) {
+    function p(e) {
       var t = [].concat(
         o("WAWebBotGating").isRichStructuredResponseEnabled()
           ? [
@@ -254,7 +274,7 @@ __d(
       );
       return t.length === 0 ? void 0 : { capabilities: t };
     }
-    function p(e) {
+    function _(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {
         var t = o("WAWebBotGating").isMetaAiDocumentOcrImageConversionEnabled()
           ? o("WAWebProtobufsAICommon.pb")
@@ -264,7 +284,7 @@ __d(
         return { pluginType: t };
       }
     }
-    function _(e, t) {
+    function f(e, t) {
       if (
         !(e == null || e.length === 0) &&
         o("WAWebBotBaseGating").isAiModeSelectorMessagingEnabled()
@@ -279,9 +299,10 @@ __d(
     }
     ((l.generateAiThreadInfo = e),
       (l.generateBotMetricsMetadata = s),
-      (l.generateBotMetadata = u),
-      (l.generateBotCapabilityMetadata = m),
-      (l.generateBotModeSelectionMetadata = _));
+      (l.generateAiMediaCollectionMetadata = u),
+      (l.generateBotMetadata = c),
+      (l.generateBotCapabilityMetadata = p),
+      (l.generateBotModeSelectionMetadata = f));
   },
   98,
 );

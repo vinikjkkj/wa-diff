@@ -19,6 +19,7 @@ __d(
     "WAWebProfilePicThumbCollection",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
+    "WAWebVoipConnectingStatus.react",
     "WAWebVoipWaCallEnums",
     "WAWebWaitForInitialChatsSynced",
     "WAWebWidFactory",
@@ -72,7 +73,7 @@ __d(
               : s._(/*BTDS*/ "Voice call")
             : e === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
                 e === o("WAWebVoipWaCallEnums").CallState.AcceptReceived
-              ? s._(/*BTDS*/ "Connecting...")
+              ? c.jsx(r("WAWebVoipConnectingStatus.react"), {})
               : e === o("WAWebVoipWaCallEnums").CallState.CallActive
                 ? c.jsx(r("WAWebCallTimer.react"), { callState: e })
                 : e === o("WAWebVoipWaCallEnums").CallState.ConnectedLonely ||

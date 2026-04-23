@@ -1,21 +1,21 @@
 __d(
   "WAWebManageAdsUtils",
   [
-    "WAWebBizAdManagementLogger",
+    "WAWebBizNativeAdsEntryTapLogger",
     "WAWebBusinessAdCreationUtils",
     "WAWebExternalLink.react",
     "WAWebPonyfillsCryptoRandomUUID",
+    "WAWebWamEnumWebFlowType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = function (t, n, a) {
       var e = r("WAWebPonyfillsCryptoRandomUUID")();
-      o("WAWebBizAdManagementLogger").logManageAdsEntryTap(
-        a,
-        e,
-        null,
-        o("WAWebBizAdManagementLogger").WEB_FLOW_TYPE.EXTERNAL_WEB,
-      );
+      o("WAWebBizNativeAdsEntryTapLogger").logEntryTap({
+        lwiEntryPoint: a,
+        lwiFlowId: e,
+        webFlowType: o("WAWebWamEnumWebFlowType").WEB_FLOW_TYPE.EXTERNAL_WEB,
+      });
       var i = o("WAWebBusinessAdCreationUtils").getWhatsappManageAdsUrl(t, n);
       o("WAWebExternalLink.react").openExternalLink(i);
     };

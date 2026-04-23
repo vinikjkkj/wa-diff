@@ -223,6 +223,11 @@ __d(
           renderPreviewIcon: r("WAWebRenderProductPreviewIcon"),
         },
         { type: "protocol", subtype: "admin_revoke", renderPreviewIcon: null },
+        {
+          type: "protocol",
+          subtype: "ai_media_collection",
+          renderPreviewIcon: null,
+        },
         { type: "protocol", subtype: "bot_feedback", renderPreviewIcon: null },
         {
           type: "protocol",

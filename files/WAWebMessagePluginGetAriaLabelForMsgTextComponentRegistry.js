@@ -261,6 +261,11 @@ __d(
       },
       {
         type: "protocol",
+        subtype: "ai_media_collection",
+        getAriaLabelForMsgTextComponent: null,
+      },
+      {
+        type: "protocol",
         subtype: "bot_feedback",
         getAriaLabelForMsgTextComponent: null,
       },

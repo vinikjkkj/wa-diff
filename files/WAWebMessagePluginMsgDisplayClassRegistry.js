@@ -200,6 +200,11 @@ __d(
         msgDisplayClass: r("WAWebProductMsgDisplayClass"),
       },
       { type: "protocol", subtype: "admin_revoke", msgDisplayClass: null },
+      {
+        type: "protocol",
+        subtype: "ai_media_collection",
+        msgDisplayClass: null,
+      },
       { type: "protocol", subtype: "bot_feedback", msgDisplayClass: null },
       {
         type: "protocol",

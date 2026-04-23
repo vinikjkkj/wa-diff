@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebActiveAccountInfoContext.react",
-    "WAWebAdCreationLogger",
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebAddEditPixFeature",
     "WAWebApi",
@@ -15,6 +14,7 @@ __d(
     "WAWebBizBroadcastsManageAudiencePanelLoadable",
     "WAWebBizBroadcastsUploadModalLoadable.react",
     "WAWebBizFrontendGatingUtils",
+    "WAWebBizNativeAdsEntryPointUtils",
     "WAWebBotFrontendGating",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotProfileAction",
@@ -151,12 +151,12 @@ __d(
             T = L.partnertoken,
             D = L.utm;
           return (
-            o("WAWebExecApiCmdHelpers").externalCtxAuthoriseWAChatIfEnabled(
-              o("WAWebWidFactory").createWid(I),
-              t.resultType,
-              T,
-              a,
-            ),
+            o("WAWebExecApiCmdHelpers").externalCtxAuthoriseWAChatIfEnabled({
+              chatId: o("WAWebWidFactory").createWid(I),
+              deepLinkType: t.resultType,
+              isExternal: a,
+              partnerToken: T,
+            }),
             o("WAWebExecApiCmdHelpers").openChatAndCatalog(I, D),
             o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
               deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
@@ -174,12 +174,12 @@ __d(
             N = x.productId,
             M = x.utm;
           return (
-            o("WAWebExecApiCmdHelpers").externalCtxAuthoriseWAChatIfEnabled(
-              o("WAWebWidFactory").createWid($),
-              t.resultType,
-              P,
-              a,
-            ),
+            o("WAWebExecApiCmdHelpers").externalCtxAuthoriseWAChatIfEnabled({
+              chatId: o("WAWebWidFactory").createWid($),
+              deepLinkType: t.resultType,
+              isExternal: a,
+              partnerToken: P,
+            }),
             o("WAWebExecApiCmdHelpers").openChatAndProduct($, N, M),
             o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
               deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
@@ -225,12 +225,12 @@ __d(
                     o("WAWebBizBotLogging").logBizBot3pDeepLinkClickEvent(),
                   o(
                     "WAWebExecApiCmdHelpers",
-                  ).externalCtxAuthoriseWAChatIfEnabled(
-                    r.id,
-                    t.resultType,
-                    t.data.partnertoken,
-                    a,
-                  ),
+                  ).externalCtxAuthoriseWAChatIfEnabled({
+                    chatId: r.id,
+                    deepLinkType: t.resultType,
+                    isExternal: a,
+                    partnerToken: t.data.partnertoken,
+                  }),
                   U && (r.urlText = !0),
                   (r.urlNumber = !0),
                   l &&
@@ -434,7 +434,7 @@ __d(
                 ).getAdCreationTypeFromCampaignType(ae),
               },
               lwiEntryPoint: o(
-                "WAWebAdCreationLogger",
+                "WAWebBizNativeAdsEntryPointUtils",
               ).getLwiEntryPointFromCampaignType(ae),
               waCampaignId: oe,
             }),

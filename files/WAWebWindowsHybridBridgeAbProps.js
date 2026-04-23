@@ -7,6 +7,7 @@ __d(
     "WAWebBackendApi",
     "WAWebHybridABProps",
     "WAWebODS",
+    "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,7 +39,16 @@ __d(
                     r("WAWebODS").incr(
                       "web.hybrid.bridge.abprops.send.acknowledge_exposure",
                     ),
-                    a.$1.acknowledgeExposure(i));
+                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "abProps",
+                        method: "acknowledgeExposure",
+                        type: "sync",
+                      },
+                      function () {
+                        return a.$1.acknowledgeExposure(i);
+                      },
+                    ));
                 },
               );
               return function (e) {
@@ -53,7 +63,12 @@ __d(
                 (r("WAWebODS").incr(
                   "web.hybrid.bridge.abprops.send.set_configs",
                 ),
-                  a.$1.setConfigs(t, JSON.stringify(n)));
+                  o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                    { bridge: "abProps", method: "setConfigs", type: "sync" },
+                    function () {
+                      return a.$1.setConfigs(t, JSON.stringify(n));
+                    },
+                  ));
               }
             }),
             (this.$1 = t));
@@ -71,7 +86,14 @@ __d(
                   r("WAWebODS").incr(
                     "web.hybrid.bridge.abprops.send.get_version",
                   ));
-                var t = yield this.$1.getVersion();
+                var t = yield o(
+                  "WAWebWindowsHybridBridgeTrace",
+                ).traceBridgeCall(
+                  { bridge: "abProps", method: "getVersion", type: "sync" },
+                  function () {
+                    return e.$1.getVersion();
+                  },
+                );
                 (o("WAWebBackendApi").frontendFireAndForget(
                   "addAbPropsUpdateListener",
                   function () {

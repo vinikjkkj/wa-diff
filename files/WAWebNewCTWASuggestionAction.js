@@ -2,9 +2,9 @@ __d(
   "WAWebNewCTWASuggestionAction",
   [
     "WALogger",
-    "WAWebAdCreationLogger",
     "WAWebApiParse",
     "WAWebBizGatingUtils",
+    "WAWebBizNativeAdsWamLogger",
     "WAWebCTWASuggestionCollection",
     "WAWebCTWASuggestionModel",
     "WAWebExecApiCmd",
@@ -68,7 +68,7 @@ __d(
       if (o("WAWebBizGatingUtils").adsActionBannersLoggingEnabled()) {
         var t = o("WAWebApiParse").parseAPICmd(e.actionLink);
         t.resultType === "MANAGE_ADS"
-          ? o("WAWebAdCreationLogger").logManageAdsEntryPointImpression(
+          ? o("WAWebBizNativeAdsWamLogger").logManageAdsEntryPointImpression(
               o("WAWebWamEnumManageAdsEntryPoint").MANAGE_ADS_ENTRY_POINT
                 .SMB_CHAT_LIST_CTWA_BANNER,
             )

@@ -263,6 +263,11 @@ __d(
       },
       {
         type: "protocol",
+        subtype: "ai_media_collection",
+        generateReportingTokenContent: null,
+      },
+      {
+        type: "protocol",
         subtype: "bot_feedback",
         generateReportingTokenContent: null,
       },

@@ -221,6 +221,11 @@ __d(
         name: "LOAD_STORY_FROM_NOTIFICATIONS",
         sampleRate: 250,
       },
+      670164: {
+        moduleName: "FEED",
+        name: "MISALIGNED_DIFF_MS",
+        sampleRate: 1e3,
+      },
       670909: {
         moduleName: "FEED",
         name: "OFFLINE_FEED_CACHE_SIZE",
@@ -5591,6 +5596,11 @@ __d(
       35927565: {
         moduleName: "FB_APP_MESSAGING",
         name: "SHARED_WITH_YOU",
+        sampleRate: 100,
+      },
+      35928079: {
+        moduleName: "FB_APP_MESSAGING",
+        name: "MIB_UNIVERSAL_SEARCH",
         sampleRate: 100,
       },
       36110337: { moduleName: "TESTINFRA", name: "PAGE_LOAD", sampleRate: 1 },
@@ -13246,6 +13256,11 @@ __d(
         name: "HCS_EVENT_A_B_C",
         sampleRate: null,
       },
+      76221648: {
+        moduleName: "DISTRIBGW",
+        name: "UNEXPECTED_EVENT",
+        sampleRate: null,
+      },
       76292953: {
         moduleName: "SECURITY_SCORE",
         name: "REFRESH_SCORE",
@@ -13601,7 +13616,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 54922,
+        sampleRate: 62696,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14755,7 +14770,7 @@ __d(
       100335618: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH_AGGREGATED",
-        sampleRate: 1215,
+        sampleRate: 2416,
       },
       100338619: {
         moduleName: "ACCESS_LIBRARY",
@@ -14765,7 +14780,7 @@ __d(
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
-        sampleRate: 437,
+        sampleRate: 849,
       },
       100348897: {
         moduleName: "ACCESS_LIBRARY",
@@ -14775,7 +14790,7 @@ __d(
       100349780: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE_AGGREGATED",
-        sampleRate: 9,
+        sampleRate: 11,
       },
       101648941: {
         moduleName: "COMET_LONGTASK",
@@ -16228,6 +16243,11 @@ __d(
         moduleName: "MESSENGER_THREADVIEW_IOS",
         name: "RENDER_THEME_BACKGROUND",
         sampleRate: null,
+      },
+      129711374: {
+        moduleName: "MESSENGER_THREADVIEW_IOS",
+        name: "PINNED_MESSAGE_BANNER",
+        sampleRate: 250,
       },
       129833609: {
         moduleName: "STANDALONE_HORIZON_EVENTS_METADATA_SERVICE",
@@ -18802,6 +18822,11 @@ __d(
         name: "DRAFT_RESOURCE_CLEANUP",
         sampleRate: 1,
       },
+      176562906: {
+        moduleName: "BASEL_CAMERA",
+        name: "BACKGROUND_MEDIA_PROCESSING",
+        sampleRate: 1,
+      },
       176567140: {
         moduleName: "BASEL_CAMERA",
         name: "AUDIO_ENGINE_READY",
@@ -19287,6 +19312,11 @@ __d(
         name: "ANDROID_UNEXPECTED_EVENT",
         sampleRate: 1,
       },
+      191366799: {
+        moduleName: "EMBER",
+        name: "TYA_FEED_REFRESH",
+        sampleRate: 1,
+      },
       191366981: { moduleName: "EMBER", name: "APP_COLD_START", sampleRate: 1 },
       191367727: {
         moduleName: "EMBER",
@@ -19311,6 +19341,11 @@ __d(
       191372201: { moduleName: "EMBER", name: "HOME_TTRC", sampleRate: 1 },
       191374824: { moduleName: "EMBER", name: "APP_HOT_START", sampleRate: 1 },
       191375615: { moduleName: "EMBER", name: "PROFILE_TTRC", sampleRate: 1 },
+      191375625: {
+        moduleName: "EMBER",
+        name: "TYA_ADD_INTEREST",
+        sampleRate: 1,
+      },
       191376885: {
         moduleName: "EMBER",
         name: "HOME_FEED_CACHE_WRITE",
@@ -19319,6 +19354,7 @@ __d(
       191378538: { moduleName: "EMBER", name: "PERMALINK_TTRC", sampleRate: 1 },
       191378772: { moduleName: "EMBER", name: "DISCOVERY_TTRC", sampleRate: 1 },
       191378828: { moduleName: "EMBER", name: "GROUP_TTRC", sampleRate: 1 },
+      191379935: { moduleName: "EMBER", name: "TYA_TTRC", sampleRate: 1 },
       191380487: { moduleName: "EMBER", name: "SEARCH_TTRC", sampleRate: 1 },
       191380911: {
         moduleName: "EMBER",
@@ -38928,6 +38964,11 @@ __d(
         name: "INITIAL_LOAD",
         sampleRate: null,
       },
+      504631872: {
+        moduleName: "IG_IOS_BACKGROUND_TASKS",
+        name: "UPLOAD_BACKGROUND_TASK",
+        sampleRate: 1,
+      },
       504955885: {
         moduleName: "FRL_BLOKS_REGISTRATION",
         name: "CHECK_PASSWORD",
@@ -44404,6 +44445,11 @@ __d(
         name: "LWI_CLIENT_FLOW",
         sampleRate: 1,
       },
+      585768498: {
+        moduleName: "GIZMO_MOBILE",
+        name: "GRPC_REQUEST",
+        sampleRate: 100,
+      },
       585774851: {
         moduleName: "GIZMO_MOBILE",
         name: "ANDROID_CRASH",
@@ -49705,52 +49751,52 @@ __d(
       706611880: {
         moduleName: "GROUPS_SEO",
         name: "QUERY_MATCHING",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706612274: {
         moduleName: "GROUPS_SEO",
         name: "SEO_INTERLINKING_RETRIEVAL",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706613892: {
         moduleName: "GROUPS_SEO",
         name: "SEO_RELATED_CONTENT",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706614049: {
         moduleName: "GROUPS_SEO",
         name: "SEO_RELATED_CONTENT_CACHE",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706616544: {
         moduleName: "GROUPS_SEO",
         name: "WEBLITE_RESPONSE_CACHE",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706619281: {
         moduleName: "GROUPS_SEO",
         name: "PAGE_QUALITY_EVAL",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706619412: {
         moduleName: "GROUPS_SEO",
         name: "FB_ANSWERS",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706620955: {
         moduleName: "GROUPS_SEO",
         name: "COMMENTS",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706622751: {
         moduleName: "GROUPS_SEO",
         name: "POST_INTENT_CLASSIFICATION",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706624741: {
         moduleName: "GROUPS_SEO",
         name: "SEO_INTERLINKING",
-        sampleRate: 1e3,
+        sampleRate: 2e3,
       },
       706682078: {
         moduleName: "IG_WEB_REDUX",
@@ -70324,6 +70370,11 @@ __d(
         moduleName: "DIGIGOODS_CATALOG",
         name: "INGESTION_SERVICE",
         sampleRate: 1,
+      },
+      971374593: {
+        moduleName: "MESSENGER_STATUS",
+        name: "STATUS_CREATION",
+        sampleRate: 250,
       },
       971641065: {
         moduleName: "SOAP_ONBOARDING",

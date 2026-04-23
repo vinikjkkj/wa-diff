@@ -8,6 +8,7 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebODS",
     "WAWebProfilePicThumbCollection",
+    "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -122,15 +123,25 @@ __d(
         var a = t.prototype;
         return (
           (a.$4 = function (t, n) {
+            var e = this;
             r("WAWebODS").incr(
               "web.hybrid.bridge.pictures.send.set_profile_pictures",
             );
-            var e = self.performance.now(),
-              a = JSON.stringify(t),
-              i = self.performance.now() - e,
-              l = self.performance.now();
-            this.$1.setProfilePictures(a);
-            var s = self.performance.now() - l;
+            var a = self.performance.now(),
+              i = JSON.stringify(t),
+              l = self.performance.now() - a,
+              s = self.performance.now();
+            o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "pictures",
+                method: "setProfilePictures",
+                type: "sync",
+              },
+              function () {
+                return e.$1.setProfilePictures(i);
+              },
+            );
+            var c = self.performance.now() - s;
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -143,9 +154,9 @@ __d(
                 ])),
               n,
               t.length,
-              a.length,
-              i.toFixed(0),
-              s.toFixed(0),
+              i.length,
+              l.toFixed(0),
+              c.toFixed(0),
             );
           }),
           (a.$6 = (function () {

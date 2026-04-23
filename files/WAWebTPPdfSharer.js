@@ -100,13 +100,14 @@ __d(
                         var o = n.errorMessage,
                           a = n.errorType,
                           i = n.savePreference,
-                          l = n.success;
-                        if (l) e({ savePreference: i });
+                          l = n.success,
+                          s = n.uid;
+                        if (l) e({ savePreference: i, uid: s });
                         else {
-                          var s = r("err")(o != null ? o : "unknown");
-                          ((s.name =
+                          var u = r("err")(o != null ? o : "unknown");
+                          ((u.name =
                             a != null ? a : "sharer_connection_failed"),
-                            t(s));
+                            t(u));
                         }
                       },
                       {

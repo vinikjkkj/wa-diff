@@ -1,44 +1,22 @@
 __d(
   "WAWebRenderBizContentPlaceholderPreviewIcon",
-  [
-    "WAWebBizContentPlaceholderGatingUtils",
-    "WAWebKeyIcon.react",
-    "WAWebUnknownIcon.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebKeyIcon.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(2);
-      if (
-        o("WAWebBizContentPlaceholderGatingUtils").isMaskLinkedDevicesEnabled()
-      ) {
-        var n;
-        return (
-          t[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((n = s.jsx(o("WAWebKeyIcon.react").KeyIcon, {
-                width: 20,
-                height: 20,
-                "aria-hidden": !0,
-              })),
-              (t[0] = n))
-            : (n = t[0]),
-          n
-        );
-      }
-      var r;
+      var t = o("react-compiler-runtime").c(1),
+        n;
       return (
-        t[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((r = s.jsx(o("WAWebUnknownIcon.react").UnknownIcon, {
+        t[0] === Symbol.for("react.memo_cache_sentinel")
+          ? ((n = s.jsx(o("WAWebKeyIcon.react").KeyIcon, {
               width: 20,
               height: 20,
               "aria-hidden": !0,
             })),
-            (t[1] = r))
-          : (r = t[1]),
-        r
+            (t[0] = n))
+          : (n = t[0]),
+        n
       );
     }
     l.default = u;

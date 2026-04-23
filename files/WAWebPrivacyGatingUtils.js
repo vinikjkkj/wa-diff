@@ -29,30 +29,25 @@ __d(
     }
     function m() {
       return o("WAWebABProps").getABPropConfigValue(
-        "privacy_settings_presence_lid_migration_enable",
+        "pnh_thread_promotion_to_general_lid",
       );
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue(
-        "pnh_thread_promotion_to_general_lid",
+        "profile_scraping_privacy_token_in_about_usync",
       );
     }
     function _() {
       return o("WAWebABProps").getABPropConfigValue(
-        "profile_scraping_privacy_token_in_about_usync",
+        "profile_scraping_privacy_token_in_about_iq",
       );
     }
     function f() {
       return o("WAWebABProps").getABPropConfigValue(
-        "profile_scraping_privacy_token_in_about_iq",
-      );
-    }
-    function g() {
-      return o("WAWebABProps").getABPropConfigValue(
         "paa_support_for_disabled_epehemerality",
       );
     }
-    function h() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "mex_get_privacy_contact_list_enabled",
       );
@@ -62,12 +57,11 @@ __d(
       (l.isPrivacyListLidMigrationForStatusEnabled = u),
       (l.isPrivacyListLidMigrationForGroupAddEnabled = c),
       (l.isPrivacyListLidMigrationForProfilePictureEnabled = d),
-      (l.isPrivacyListLidMigrationForLastSeenEnabled = m),
-      (l.isPhoneNumberHidingThreadPromotionToGeneralLidEnabled = p),
-      (l.isProfileScrappingProtectionInUsyncEnabled = _),
-      (l.isProfileScrappingProtectionInMexFetchEnabled = f),
-      (l.isPAASupportForDisabledEphemeralityEnabled = g),
-      (l.isMexPrivacyContactListEnabled = h));
+      (l.isPhoneNumberHidingThreadPromotionToGeneralLidEnabled = m),
+      (l.isProfileScrappingProtectionInUsyncEnabled = p),
+      (l.isProfileScrappingProtectionInMexFetchEnabled = _),
+      (l.isPAASupportForDisabledEphemeralityEnabled = f),
+      (l.isMexPrivacyContactListEnabled = g));
   },
   98,
 );

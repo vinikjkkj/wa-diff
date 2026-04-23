@@ -39,23 +39,15 @@ __d(
       switch (i.bizContentPlaceholderType) {
         case o("WAWebBizContentPlaceholderMsgData.flow")
           .BizContentPlaceholderType.MASK_LINKED_DEVICES:
-          return o(
-            "WAWebBizContentPlaceholderGatingUtils",
-          ).isMaskLinkedDevicesEnabled()
-            ? s.jsx(r("WAWebMessageTextBubble.react"), {
-                msg: n,
-                displayAuthor: t,
-                children: s.jsxs(r("WAWebMessagePlaceholder.react"), {
-                  Icon: s.jsx(r("WDSIconIcKey.react"), {}),
-                  msg: n.unsafe(),
-                  children: [
-                    r("WAWebFormatMsgText")({ msg: n.unsafe() }),
-                    " ",
-                    c,
-                  ],
-                }),
-              })
-            : a;
+          return s.jsx(r("WAWebMessageTextBubble.react"), {
+            msg: n,
+            displayAuthor: t,
+            children: s.jsxs(r("WAWebMessagePlaceholder.react"), {
+              Icon: s.jsx(r("WDSIconIcKey.react"), {}),
+              msg: n.unsafe(),
+              children: [r("WAWebFormatMsgText")({ msg: n.unsafe() }), " ", c],
+            }),
+          });
       }
     }
     ((d.displayName = d.name + " [from " + i.id + "]"), (l.default = d));

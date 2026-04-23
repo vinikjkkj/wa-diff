@@ -103,9 +103,7 @@ __d(
             : e ===
                 o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
                   .LastSeen
-              ? o(
-                  "WAWebPrivacyGatingUtils",
-                ).isPrivacyListLidMigrationForLastSeenEnabled()
+              ? !0
               : e ===
                   o("WAWebSchemaPrivacyDisallowedList")
                     .PrivacyDisallowedListType.ProfilePicture

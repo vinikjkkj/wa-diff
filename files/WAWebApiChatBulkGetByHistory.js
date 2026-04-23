@@ -17,49 +17,55 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = new Array(t.length).fill(null);
-          if (!o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat())
-            return o("WAWebSchemaChat").getChatTable().bulkGet(t, !1);
-          for (var i = [], l = [], s = new Map(), u = 0; u < t.length; u++)
-            if (r("WAWebWid").isWid(t[u])) {
-              var c = o("WAWebWidFactory").createWid(t[u]);
-              c.isRegularUserPn()
-                ? (i.push(u), s.set(u, c.toString()))
-                : l.push(u);
+          if (!o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat()) {
+            var i = t.map(function (e) {
+              return r("WAWebWid").isWid(e)
+                ? o("WAWebWidFactory").createWid(e).toString()
+                : e;
+            });
+            return o("WAWebSchemaChat").getChatTable().bulkGet(i, !1);
+          }
+          for (var l = [], s = [], u = new Map(), c = 0; c < t.length; c++)
+            if (r("WAWebWid").isWid(t[c])) {
+              var d = o("WAWebWidFactory").createWid(t[c]);
+              d.isRegularUserPn()
+                ? (l.push(c), u.set(c, d.toString()))
+                : s.push(c);
             }
-          var d = yield (e || (e = n("Promise"))).all([
-              i.length > 0
+          var m = yield (e || (e = n("Promise"))).all([
+              l.length > 0
                 ? o("WAWebSchemaChat")
                     .getChatTable()
                     .anyOf(
                       ["historyChatId"],
-                      i.map(function (e) {
+                      l.map(function (e) {
                         var n;
-                        return (n = s.get(e)) != null ? n : t[e];
+                        return (n = u.get(e)) != null ? n : t[e];
                       }),
                       { shouldDecrypt: !1 },
                     )
                 : (e || (e = n("Promise"))).resolve([]),
-              l.length > 0
+              s.length > 0
                 ? o("WAWebSchemaChat")
                     .getChatTable()
                     .bulkGet(
-                      l.map(function (e) {
+                      s.map(function (e) {
                         return t[e];
                       }),
                       !1,
                     )
                 : (e || (e = n("Promise"))).resolve([]),
             ]),
-            m = d[0],
-            p = d[1],
-            _ = new Map();
-          for (var f of m) f.historyChatId != null && _.set(f.historyChatId, f);
-          for (var g of i) {
-            var h, y;
-            a[g] =
-              (h = _.get((y = s.get(g)) != null ? y : t[g])) != null ? h : null;
+            p = m[0],
+            _ = m[1],
+            f = new Map();
+          for (var g of p) g.historyChatId != null && f.set(g.historyChatId, g);
+          for (var h of l) {
+            var y, C;
+            a[h] =
+              (y = f.get((C = u.get(h)) != null ? C : t[h])) != null ? y : null;
           }
-          for (var C = 0; C < l.length; C++) a[l[C]] = p[C];
+          for (var b = 0; b < s.length; b++) a[s[b]] = _[b];
           return a;
         })),
         u.apply(this, arguments)

@@ -366,7 +366,7 @@ __d(
                 o("WAWebVoipWaCallEnums").CallFatalReasonCode.RxTimeout
                 ? o("WAWebVoipSignalingEnums").EndCallReason.Timeout
                 : o("WAWebVoipSignalingEnums").EndCallReason.Unknown;
-            yield t.endCall(a, !1);
+            yield t.endCall(a, !0);
           }
         })),
         B.apply(this, arguments)

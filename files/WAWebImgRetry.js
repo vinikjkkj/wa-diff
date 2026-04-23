@@ -15,11 +15,15 @@ __d(
       u,
       c = 3e4,
       d = (function () {
-        function t(e, t, n, r) {
-          ((this.src = e),
-            (this.crossOrigin = t),
-            (this.noXHR = n),
-            (this.hasPrivacyChecks = r),
+        function t(e) {
+          var t = e.crossOrigin,
+            n = e.hasPrivacyChecks,
+            r = e.noXHR,
+            o = e.src;
+          ((this.crossOrigin = t),
+            (this.hasPrivacyChecks = n),
+            (this.noXHR = r),
+            (this.src = o),
             (this.generation = 0),
             (this.refCount = 0),
             (this.inProgress = !1));

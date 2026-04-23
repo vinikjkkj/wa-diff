@@ -20,6 +20,12 @@ __d(
       AUDIENCE_IMPORT_ERROR: "web.broadcast.audience.import.error",
       CAMPAIGN_TRANSFORM_MSG_UNAVAILABLE:
         "web.broadcast.campaign.transform.msg_unavailable",
+      ELIGIBILITY_PREFETCH: "web.broadcast.eligibility.prefetch",
+      ELIGIBILITY_PREFETCH_SUCCESS:
+        "web.broadcast.eligibility.prefetch.success",
+      ELIGIBILITY_PREFETCH_ERROR: "web.broadcast.eligibility.prefetch.error",
+      ELIGIBILITY_PREFETCH_ERROR_500:
+        "web.broadcast.eligibility.prefetch.error.500",
     });
     function s() {
       r("WAWebODS").incr("web.broadcast.send");
@@ -69,6 +75,18 @@ __d(
     function R() {
       r("WAWebODS").incr("web.broadcast.campaign.transform.msg_unavailable");
     }
+    function L() {
+      r("WAWebODS").incr("web.broadcast.eligibility.prefetch");
+    }
+    function E() {
+      r("WAWebODS").incr("web.broadcast.eligibility.prefetch.success");
+    }
+    function k() {
+      r("WAWebODS").incr("web.broadcast.eligibility.prefetch.error");
+    }
+    function I() {
+      r("WAWebODS").incr("web.broadcast.eligibility.prefetch.error.500");
+    }
     ((l.BroadcastODSKey = e),
       (l.bumpBroadcastSend = s),
       (l.bumpBroadcastSendSuccess = u),
@@ -85,7 +103,11 @@ __d(
       (l.logAudienceImport = b),
       (l.logAudienceImportSuccess = v),
       (l.logAudienceImportError = S),
-      (l.logCampaignTransformMsgUnavailable = R));
+      (l.logCampaignTransformMsgUnavailable = R),
+      (l.logEligibilityPrefetch = L),
+      (l.logEligibilityPrefetchSuccess = E),
+      (l.logEligibilityPrefetchError = k),
+      (l.logEligibilityPrefetchError500 = I));
   },
   98,
 );

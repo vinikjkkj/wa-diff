@@ -619,16 +619,21 @@ __d(
             try {
               var e = this.$11.get(t);
               if (!e) return;
-              (e.cleanup(),
-                this.$11.delete(t),
-                o("WALogger").LOG(
-                  E ||
-                    (E = babelHelpers.taggedTemplateLiteralLoose([
-                      "[VideoRendererRegistry] unregister canvas, left=",
-                      "",
-                    ])),
-                  this.$11.size,
-                ));
+              (e.cleanup(), this.$11.delete(t));
+              var n = this.$7.get(t);
+              if (n != null) {
+                this.$7.delete(t);
+                var r = this.$8.get(n);
+                r != null && (r.delete(t), r.size === 0 && this.$8.delete(n));
+              }
+              o("WALogger").LOG(
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                    "[VideoRendererRegistry] unregister canvas, left=",
+                    "",
+                  ])),
+                this.$11.size,
+              );
             } catch (e) {
               o("WALogger").ERROR(
                 k ||

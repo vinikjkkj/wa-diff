@@ -5,6 +5,7 @@ __d(
     "WAWebEventsGenerateEventCreationMessageProto",
     "WAWebEventsGenerateEventEditMessageProto",
     "WAWebEventsGenerateEventResponseMessageProto",
+    "WAWebGenerateAiMediaCollectionProtocolMsg",
     "WAWebGenerateBizContentPlaceholderProto",
     "WAWebGenerateBotFeedbackProtocolMessageProto",
     "WAWebGenerateBotRequestWelcomeMessageProto",
@@ -306,6 +307,11 @@ __d(
           type: "protocol",
           subtype: "admin_revoke",
           generateProtobuf: (e = r("WAWebGenerateProtocolRevokeMessageProto")),
+        },
+        {
+          type: "protocol",
+          subtype: "ai_media_collection",
+          generateProtobuf: r("WAWebGenerateAiMediaCollectionProtocolMsg"),
         },
         {
           type: "protocol",

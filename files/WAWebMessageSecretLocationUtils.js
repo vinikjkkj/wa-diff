@@ -1,22 +1,21 @@
 __d(
   "WAWebMessageSecretLocationUtils",
-  [
-    "$InternalEnum",
-    "WALogger",
-    "WAWebMessagingGatingUtils",
-    "WAWebVerifyProtobufMsgObjectKeys",
-  ],
+  ["$InternalEnum", "WALogger", "WAWebMessagingGatingUtils"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = n("$InternalEnum")({ Sender: "sender", Receiver: "receiver" }),
       c = new Set(["deviceSentMessage", "$$unknownFieldCount"]),
-      d = 10;
-    function m(e) {
+      d = 10,
+      m = 4;
+    function p(e) {
       var t = e.messageContextInfo;
       return t != null ? t.messageSecret != null : !1;
     }
-    function p(t, n, r) {
+    function _(e) {
+      return e != null && typeof e == "object" && !Array.isArray(e) ? e : null;
+    }
+    function f(t, n, r) {
       if ((n === void 0 && (n = 0), r === void 0 && (r = ""), n >= d))
         return (
           o("WALogger")
@@ -32,25 +31,31 @@ __d(
             .sendLogs("message-secret-location-max-depth"),
           null
         );
-      if (m(t) && n > 0) return { violationPath: r || "unknown" };
+      if (p(t) && n > 0) return { violationPath: r || "unknown" };
       for (var a of Object.keys(t))
-        if (!c.has(a) && a !== "messageContextInfo") {
-          var i = o("WAWebVerifyProtobufMsgObjectKeys").getWrappedMessage(t[a]);
-          if (i != null) {
+        if (!(c.has(a) || a === "messageContextInfo")) {
+          var i = t[a];
+          if (!(i == null || typeof i != "object")) {
             var l = r ? r + "." + a : a,
-              s = p(i, n + 1, l);
-            if (s != null) return s;
+              s = Array.isArray(i) ? i : [i];
+            for (var u of s) {
+              var m = _(u);
+              if (m != null) {
+                var g = f(m, n + 1, l);
+                if (g != null) return g;
+              }
+            }
           }
         }
       return null;
     }
-    function _(e, t) {
+    function g(e, t, n) {
       if (
         o("WAWebMessagingGatingUtils").isTopLevelMessageSecretCheckEnabled()
       ) {
-        var n = p(e);
-        if (n != null) {
-          var r =
+        var r = f(e);
+        if (r != null) {
+          var a =
               t === u.Sender
                 ? "sender"
                 : t === u.Receiver
@@ -61,26 +66,29 @@ __d(
                           t,
                       );
                     })(),
-            a = "message-secret-location-violation-" + r;
+            i = "message-secret-location-violation-" + a,
+            l = n == null ? "unknown" : n.slice(0, m);
           o("WALogger")
             .WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
                   "messageSecret location violation on ",
                   ": path:",
+                  " stanzaIdPrefix:",
                   "",
                 ])),
-              r,
-              n.violationPath,
+              a,
+              r.violationPath,
+              l,
             )
             .tags("messaging", "wa-ice", "message-secret-location")
-            .sendLogs(a);
+            .sendLogs(i);
         }
       }
     }
     ((l.MessageSecretCheckContext = u),
-      (l.findMessageSecretViolation = p),
-      (l.verifyTopLevelMessageSecret = _));
+      (l.findMessageSecretViolation = f),
+      (l.verifyTopLevelMessageSecret = g));
   },
   98,
 );

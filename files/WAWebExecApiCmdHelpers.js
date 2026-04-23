@@ -144,9 +144,13 @@ __d(
         campaign: t != null ? t : void 0,
       }).commit();
     }
-    function _(e, t, n, a) {
+    function _(e) {
+      var t = e.chatId,
+        n = e.deepLinkType,
+        a = e.isExternal,
+        i = e.partnerToken;
       o("WAWebExternalCtxConfig").isCtxLoggingEnabled() &&
-        r("WAWebExternalCtxAuthoriseWAChat")(e, t, n, a).finally(
+        r("WAWebExternalCtxAuthoriseWAChat")(t, n, i, a).finally(
           r("WAWebNoop"),
         );
     }

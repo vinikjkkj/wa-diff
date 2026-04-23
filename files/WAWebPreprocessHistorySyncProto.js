@@ -6,6 +6,7 @@ __d(
     "WALongInt",
     "WAWebABProps",
     "WAWebAddonProcessMsgsUtils",
+    "WAWebApiChatBulkGetByHistory",
     "WAWebApiChatCommon",
     "WAWebChatConstants",
     "WAWebCurrentUser",
@@ -86,7 +87,9 @@ __d(
                 ])),
             );
           for (
-            var x = yield o("WAWebApiChatCommon").bulkGetChatsMaybeByHistory(
+            var x = yield o(
+                "WAWebApiChatBulkGetByHistory",
+              ).bulkGetChatsMaybeByHistory(
                 t.conversations.map(function (e) {
                   return e.id;
                 }),

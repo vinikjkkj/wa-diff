@@ -165,6 +165,11 @@ __d(
       { type: "poll_update", subtype: "poll_vote", futureproofMsgText: null },
       { type: "product", subtype: void 0, futureproofMsgText: null },
       { type: "protocol", subtype: "admin_revoke", futureproofMsgText: null },
+      {
+        type: "protocol",
+        subtype: "ai_media_collection",
+        futureproofMsgText: null,
+      },
       { type: "protocol", subtype: "bot_feedback", futureproofMsgText: null },
       {
         type: "protocol",

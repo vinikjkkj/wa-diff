@@ -96,6 +96,7 @@ __d(
       { type: "poll_update", subtype: "poll_vote", renderMsg: null },
       { type: "product", subtype: void 0, renderMsg: null },
       { type: "protocol", subtype: "admin_revoke", renderMsg: null },
+      { type: "protocol", subtype: "ai_media_collection", renderMsg: null },
       { type: "protocol", subtype: "bot_feedback", renderMsg: null },
       { type: "protocol", subtype: "bot_memu_onboarding", renderMsg: null },
       { type: "protocol", subtype: "bot_request_welcome", renderMsg: null },

@@ -242,10 +242,7 @@ __d(
       }
     }
     function p(e) {
-      return f(
-        o("WAWebABProps").getABPropConfigValue("ai_fbid_migration_sending"),
-        e,
-      );
+      return f(!0, e);
     }
     function _(e) {
       return f(
@@ -265,29 +262,21 @@ __d(
       return u.has(e.user);
     }
     function h(e) {
-      if (
-        e.isPnBot() &&
-        g(e) &&
-        o("WAWebABProps").getABPropConfigValue("ai_fbid_migration_sending")
-      ) {
+      if (e.isPnBot() && g(e)) {
         var t = p(e);
         if (t != null) return t;
       }
       return e;
     }
     function y(e) {
-      if (
-        e.isFbidBot() &&
-        o("WAWebABProps").getABPropConfigValue("ai_fbid_migration_sending")
-      ) {
+      if (e.isFbidBot()) {
         var t = c(e);
         if (t != null) return t;
       }
       return e;
     }
     function C(t) {
-      return t.isFbidBot() &&
-        o("WAWebABProps").getABPropConfigValue("ai_fbid_migration_sending")
+      return t.isFbidBot()
         ? e === t.user
           ? o("WAWebBotTypes").BotPersonaType.DEFAULT
           : s.has(t.user)
@@ -313,10 +302,7 @@ __d(
     }
     function v(e) {
       var t = e.data.to;
-      if (
-        g(t) &&
-        o("WAWebABProps").getABPropConfigValue("ai_fbid_migration_sending")
-      ) {
+      if (g(t)) {
         var n = p(t);
         n != null &&
           (e.type === "message"

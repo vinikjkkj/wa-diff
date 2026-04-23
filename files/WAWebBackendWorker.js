@@ -54,8 +54,8 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d() {
+    var e, s, u, c, d;
+    function m() {
       var e = null,
         t = {
           onmessage: e,
@@ -73,8 +73,8 @@ __d(
         t
       );
     }
-    var m = new (o("WAResolvable").Resolvable)();
-    function p() {
+    var p = new (o("WAResolvable").Resolvable)();
+    function _() {
       try {
         (o("WAWebLogger").initializeWAWebLogger(),
           o("WALogger").LOG(
@@ -93,7 +93,7 @@ __d(
                 return o("WAWebHistorySyncBackendWorkerV2").processHistorySync(
                   e,
                   n,
-                  { isReady: m.promise },
+                  { isReady: p.promise },
                 );
               },
             },
@@ -227,7 +227,7 @@ __d(
             },
           },
         ]);
-        (o("WAWebBackendWorkerBridge").attachBridgeToPortal(t, d(), [
+        (o("WAWebBackendWorkerBridge").attachBridgeToPortal(t, m(), [
           "abPropsExposure",
           "qpl",
           "event",
@@ -295,24 +295,24 @@ __d(
                     n = e.dbFinalKey,
                     i = e.dbInit,
                     l = e.eventBusSyncState,
-                    s = e.globals;
+                    u = e.globals;
                   try {
-                    var u, c;
+                    var c, d;
                     a.setState(l);
-                    var d = o("WAJids").interpretAndValidateJid(s.deviceJid);
-                    if (d.jidType !== "phoneDevice")
+                    var m = o("WAJids").interpretAndValidateJid(u.deviceJid);
+                    if (m.jidType !== "phoneDevice")
                       throw r("err")(
                         "globals: deviceJid is not a phoneDevice jid",
                       );
-                    var p = d.deviceJid,
-                      _ = o("WAJids").extractUserJid(p);
+                    var _ = m.deviceJid,
+                      f = o("WAJids").extractUserJid(_);
                     (o("WAWebGlobals").setGlobals({
                       jidUtils: o("WAJids").createJidUtils({
                         platform: "whatsapp",
                       }),
-                      myJids: { deviceJid: p, userJid: _ },
-                      lidDeviceJid: (u = s.lidDeviceJid) != null ? u : "",
-                      displayName: (c = s.displayName) != null ? c : "",
+                      myJids: { deviceJid: _, userJid: f },
+                      lidDeviceJid: (c = u.lidDeviceJid) != null ? c : "",
+                      displayName: (d = u.displayName) != null ? d : "",
                       runInTransaction: o("WAWebRunInTransaction")
                         .runInTransaction,
                       newClockSkewCalculation: function () {
@@ -332,12 +332,12 @@ __d(
                       yield o(
                         "WAWebUserPrefsIndexedDBStorage",
                       ).userPrefsIdb.init());
-                    var f = yield o(
+                    var g = yield o(
                       "WAWebUserPrefsGeneral",
                     ).getLastMobilePlatform();
-                    (f != null &&
+                    (g != null &&
                       (yield o("WAWebMobilePlatforms").setMobilePlatform(
-                        f,
+                        g,
                         !1,
                       )),
                       yield o("WAWebDbEncryptionKey").DbEncKeyStore.init(
@@ -351,9 +351,17 @@ __d(
                       ).DbEncKeyStore.generateFinalDbEncryptionAndFtsKey(
                         n.salt,
                       ),
-                      m.resolve());
+                      p.resolve());
                   } catch (e) {
-                    m.reject(e);
+                    (o("WALogger").ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "WAWebBackendWorker(inside) init fails: ",
+                          "",
+                        ])),
+                      r("getErrorSafe")(e),
+                    ),
+                      p.reject(e));
                   }
                 },
               );
@@ -402,7 +410,7 @@ __d(
             globalThis.navigator.locks.request(
               o("WAWebBackendWorkerLocks").WORKER_LIVENESS_LOCK,
               function () {
-                return new (c || (c = n("Promise")))(r("WAWebNoop"));
+                return new (d || (d = n("Promise")))(r("WAWebNoop"));
               },
             ),
           globalThis.postMessage({
@@ -410,15 +418,15 @@ __d(
             message: "worker_started",
           }),
           o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "WAWebBackendWorker(inside) ends",
               ])),
           ));
       } catch (e) {
         (o("WALogger").ERROR(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "WAWebBackendWorker(inside) fails: ",
               "",
             ])),
@@ -430,7 +438,7 @@ __d(
           }));
       }
     }
-    l.default = p;
+    l.default = _;
   },
   98,
 );

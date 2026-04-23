@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebBackendErrors",
+    "WAWebBroadcastODS",
     "WAWebGetBusinessEligibilityJob",
     "WAWebMobilePlatforms",
     "WAWebWorkerSafeBackendApi",
@@ -17,26 +18,31 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          o("WAWebBroadcastODS").logEligibilityPrefetch();
           try {
-            yield o(
+            (yield o(
               "WAWebGetBusinessEligibilityJob",
-            ).fetchAndCacheBusinessEligibility();
+            ).fetchAndCacheBusinessEligibility(),
+              o("WAWebBroadcastODS").logEligibilityPrefetchSuccess());
           } catch (n) {
+            o("WAWebBroadcastODS").logEligibilityPrefetchError();
             var t =
               n instanceof o("WAWebBackendErrors").ServerStatusCodeError
                 ? n.statusCode
                 : 0;
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BizBroadcastEligibilityPrefetch] failed code=",
-                    "",
-                  ])),
-                t,
-              )
-              .catching(r("getErrorSafe")(n))
-              .sendLogs("business-broadcast-eligibility-prefetch-failed");
+            (t === 500 &&
+              o("WAWebBroadcastODS").logEligibilityPrefetchError500(),
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[BizBroadcastEligibilityPrefetch] failed code=",
+                      "",
+                    ])),
+                  t,
+                )
+                .catching(r("getErrorSafe")(n))
+                .sendLogs("business-broadcast-eligibility-prefetch-failed"));
           }
         })),
         u.apply(this, arguments)

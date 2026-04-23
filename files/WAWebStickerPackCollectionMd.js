@@ -5,6 +5,7 @@ __d(
     "WAAbortError",
     "WALogger",
     "WATimeUtils",
+    "WAWebAuraGating",
     "WAWebBaseCollection",
     "WAWebFetchFirstPartyStickerPacksAction",
     "WAWebL10N",
@@ -34,8 +35,10 @@ __d(
             (e.$StickerPackCollection$p_2 = new Map()),
             (e.$StickerPackCollection$p_3 = null),
             (e.$StickerPackCollection$p_4 = new Map()),
+            (e.$StickerPackCollection$p_5 = null),
+            (e.$StickerPackCollection$p_6 = new Map()),
             e.listenTo(r("WAWebL10N"), "locale_change", function () {
-              return e.$StickerPackCollection$p_5();
+              return e.$StickerPackCollection$p_7();
             }),
             e
           );
@@ -43,41 +46,43 @@ __d(
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;
         return (
-          (i.$StickerPackCollection$p_5 = function () {
-            (this.$StickerPackCollection$p_6(), this.reset());
+          (i.$StickerPackCollection$p_7 = function () {
+            (this.$StickerPackCollection$p_8(), this.reset());
           }),
-          (i.$StickerPackCollection$p_6 = function () {
+          (i.$StickerPackCollection$p_8 = function () {
             var e;
-            ((e = this.$StickerPackCollection$p_3) == null || e.abort(),
-              (this.$StickerPackCollection$p_3 = null),
-              this.$StickerPackCollection$p_4.forEach(function (e) {
+            ((e = this.$StickerPackCollection$p_5) == null || e.abort(),
+              (this.$StickerPackCollection$p_5 = null),
+              this.$StickerPackCollection$p_6.forEach(function (e) {
                 return e.abort();
               }),
-              this.$StickerPackCollection$p_4.clear(),
-              this.$StickerPackCollection$p_7(),
-              this.$StickerPackCollection$p_8(),
+              this.$StickerPackCollection$p_6.clear(),
+              this.$StickerPackCollection$p_9(),
+              this.$StickerPackCollection$p_10(),
               (this.$StickerPackCollection$p_1 = null),
-              this.$StickerPackCollection$p_2.clear());
+              this.$StickerPackCollection$p_2.clear(),
+              (this.$StickerPackCollection$p_3 = null),
+              this.$StickerPackCollection$p_4.clear());
           }),
-          (i.$StickerPackCollection$p_9 = function (t) {
+          (i.$StickerPackCollection$p_11 = function (t) {
             t !== this.fetchState &&
               ((this.fetchState = t), this.trigger("change:fetchState", t));
           }),
-          (i.$StickerPackCollection$p_7 = function () {
-            this.$StickerPackCollection$p_9(d.INITIAL);
+          (i.$StickerPackCollection$p_9 = function () {
+            this.$StickerPackCollection$p_11(d.INITIAL);
           }),
-          (i.$StickerPackCollection$p_10 = function (t, n) {
+          (i.$StickerPackCollection$p_12 = function (t, n) {
             n !== this.packFetchState.get(t) &&
               (this.packFetchState.set(t, n),
               this.trigger("change:packFetchState", t, n));
           }),
-          (i.$StickerPackCollection$p_8 = function () {
+          (i.$StickerPackCollection$p_10 = function () {
             (this.packFetchState.clear(),
               this.trigger("change:packFetchState"));
           }),
-          (i.$StickerPackCollection$p_11 = function (t, n, r) {
+          (i.$StickerPackCollection$p_13 = function (t, n, r) {
             var e = this;
-            (this.$StickerPackCollection$p_12(t, n, function (n, o) {
+            (this.$StickerPackCollection$p_14(t, n, function (n, o) {
               var a = r[o - t];
               if (!n) a && e.add(a);
               else if (a)
@@ -87,10 +92,11 @@ __d(
                   : (e.remove(n), e.add(a));
               else for (var i = n; i; ) (e.remove(i), (i = e.at(o)));
             }),
-              this.$StickerPackCollection$p_8(),
-              this.$StickerPackCollection$p_2.clear());
+              this.$StickerPackCollection$p_10(),
+              this.$StickerPackCollection$p_2.clear(),
+              this.$StickerPackCollection$p_4.clear());
           }),
-          (i.$StickerPackCollection$p_12 = function (t, n, r) {
+          (i.$StickerPackCollection$p_14 = function (t, n, r) {
             for (var e = t; e < n; e++) {
               var o = this.at(e);
               r(o, e);
@@ -98,32 +104,32 @@ __d(
           }),
           (i.fetch = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var t;
-              if (
-                !(
-                  this.fetchState === d.PENDING ||
-                  (this.fetchState === d.SUCCESS &&
-                    o("WATimeUtils").unixTime() -
-                      ((t = this.$StickerPackCollection$p_1) != null ? t : 0) <
-                      o("WAWebStickerConstants").STICKER_PACK_FETCH_TIMEOUT)
-                )
-              ) {
-                (this.$StickerPackCollection$p_9(d.PENDING),
+              var t,
+                n = r("WAWebAuraGating").isStickersEnabled(),
+                a =
+                  this.fetchState === d.SUCCESS &&
+                  o("WATimeUtils").unixTime() -
+                    ((t = this.$StickerPackCollection$p_1) != null ? t : 0) <
+                    o("WAWebStickerConstants").STICKER_PACK_FETCH_TIMEOUT &&
+                  this.$StickerPackCollection$p_3 === n;
+              if (!(this.fetchState === d.PENDING || a)) {
+                (this.$StickerPackCollection$p_11(d.PENDING),
                   (this.$StickerPackCollection$p_1 =
                     o("WATimeUtils").unixTime()),
-                  (this.$StickerPackCollection$p_3 = new AbortController()));
+                  (this.$StickerPackCollection$p_3 = n),
+                  (this.$StickerPackCollection$p_5 = new AbortController()));
                 try {
-                  var n = yield o(
+                  var i = yield o(
                       "WAWebFetchFirstPartyStickerPacksAction",
                     ).fetchFirstPartyStickerPacks({
-                      signal: this.$StickerPackCollection$p_3.signal,
+                      signal: this.$StickerPackCollection$p_5.signal,
                     }),
-                    r = Math.max(this.length, n.length);
-                  (this.$StickerPackCollection$p_11(0, r, n),
-                    this.$StickerPackCollection$p_9(d.SUCCESS));
+                    l = Math.max(this.length, i.length);
+                  (this.$StickerPackCollection$p_13(0, l, i),
+                    this.$StickerPackCollection$p_11(d.SUCCESS));
                 } catch (t) {
                   if (
-                    (this.$StickerPackCollection$p_9(d.ERROR),
+                    (this.$StickerPackCollection$p_11(d.ERROR),
                     t.name === o("WAAbortError").ABORT_ERROR)
                   ) {
                     o("WALogger").LOG(
@@ -147,45 +153,45 @@ __d(
                 }
               }
             });
-            function r() {
+            function a() {
               return t.apply(this, arguments);
             }
-            return r;
+            return a;
           })()),
           (i.fetchStickerPack = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var t;
                 if (e && !this.get(e)) {
-                  var n = this.packFetchState.get(e),
-                    r =
+                  var n = r("WAWebAuraGating").isStickersEnabled(),
+                    a = this.packFetchState.get(e),
+                    i =
                       (t = this.$StickerPackCollection$p_2.get(e)) != null
                         ? t
-                        : 0;
-                  if (
-                    !(
-                      n === d.PENDING ||
-                      (n === d.SUCCESS &&
-                        o("WATimeUtils").unixTime() - r <
-                          o("WAWebStickerConstants").STICKER_PACK_FETCH_TIMEOUT)
-                    )
-                  ) {
-                    (this.$StickerPackCollection$p_10(e, d.PENDING),
+                        : 0,
+                    l =
+                      a === d.SUCCESS &&
+                      o("WATimeUtils").unixTime() - i <
+                        o("WAWebStickerConstants").STICKER_PACK_FETCH_TIMEOUT &&
+                      this.$StickerPackCollection$p_4.get(e) === n;
+                  if (!(a === d.PENDING || l)) {
+                    (this.$StickerPackCollection$p_12(e, d.PENDING),
                       this.$StickerPackCollection$p_2.set(
                         e,
                         o("WATimeUtils").unixTime(),
-                      ));
-                    var a = new AbortController();
-                    this.$StickerPackCollection$p_4.set(e, a);
+                      ),
+                      this.$StickerPackCollection$p_4.set(e, n));
+                    var s = new AbortController();
+                    this.$StickerPackCollection$p_6.set(e, s);
                     try {
-                      var i = yield o(
+                      var m = yield o(
                         "WAWebFetchFirstPartyStickerPacksAction",
-                      ).fetchFirstPartyStickerPack({ id: e, signal: a.signal });
-                      (this.$StickerPackCollection$p_10(e, d.SUCCESS),
-                        this.add(i));
+                      ).fetchFirstPartyStickerPack({ id: e, signal: s.signal });
+                      (this.$StickerPackCollection$p_12(e, d.SUCCESS),
+                        this.add(m));
                     } catch (t) {
                       if (
-                        (this.$StickerPackCollection$p_10(e, d.ERROR),
+                        (this.$StickerPackCollection$p_12(e, d.ERROR),
                         t.name === o("WAAbortError").ABORT_ERROR)
                       ) {
                         o("WALogger").LOG(
@@ -219,7 +225,7 @@ __d(
           (i.delete = function () {
             (t.prototype.delete.call(this),
               this.stopListening(),
-              this.$StickerPackCollection$p_6());
+              this.$StickerPackCollection$p_8());
           }),
           a
         );
