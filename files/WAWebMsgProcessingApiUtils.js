@@ -90,7 +90,7 @@ __d(
                 .ERROR(
                   _ ||
                     (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bot group] Failed to fetch group metadata for ephemeral fallback: ",
+                      "[bot group] ephemeral fallback failed: ",
                       "",
                     ])),
                   e,

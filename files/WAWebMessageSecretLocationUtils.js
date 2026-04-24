@@ -1,6 +1,12 @@
 __d(
   "WAWebMessageSecretLocationUtils",
-  ["$InternalEnum", "WALogger", "WAWebMessagingGatingUtils"],
+  [
+    "$InternalEnum",
+    "WALogger",
+    "WAWebMessagingGatingUtils",
+    "WAWebProtobufValidationErrorWamEvent",
+    "WAWebWamEnumProtobufValidationFlow",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -68,7 +74,7 @@ __d(
                     })(),
             i = "message-secret-location-violation-" + a,
             l = n == null ? "unknown" : n.slice(0, m);
-          o("WALogger")
+          (o("WALogger")
             .WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -82,7 +88,18 @@ __d(
               l,
             )
             .tags("messaging", "wa-ice", "message-secret-location")
-            .sendLogs(i);
+            .sendLogs(i),
+            t === u.Sender &&
+              new (o(
+                "WAWebProtobufValidationErrorWamEvent",
+              ).ProtobufValidationErrorWamEvent)({
+                protobufValidationDropped: !1,
+                protobufLegacyValidationDropped: !1,
+                protobufValidationFlow: o("WAWebWamEnumProtobufValidationFlow")
+                  .PROTOBUF_VALIDATION_FLOW.STANZA_MESSAGE_SEND,
+                protobufValidationPath: r.violationPath,
+                protobufValidationRuleId: "79",
+              }).commit());
         }
       }
     }

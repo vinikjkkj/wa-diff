@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebODS",
+    "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
@@ -101,11 +102,22 @@ __d(
                               r("WAWebODS").incr(
                                 "web.hybrid.bridge.media_transcoder.send.try_request_shared_buffer_for_transcoding_async",
                               );
-                              var l =
-                                yield a.$1.tryRequestSharedBufferForTranscodingAsync(
-                                  e,
-                                  t,
-                                );
+                              var l = yield o(
+                                "WAWebWindowsHybridBridgeTrace",
+                              ).traceBridgeCall(
+                                {
+                                  bridge: "mediaTranscodeBridge",
+                                  method:
+                                    "tryRequestSharedBufferForTranscodingAsync",
+                                  type: "async",
+                                },
+                                function () {
+                                  return a.$1.tryRequestSharedBufferForTranscodingAsync(
+                                    e,
+                                    t,
+                                  );
+                                },
+                              );
                               l
                                 ? o("WALogger").LOG(
                                     d ||
@@ -204,12 +216,22 @@ __d(
                           r("WAWebODS").incr(
                             "web.hybrid.bridge.media_transcoder.send.perform_video_transcoding_from_shared_buffer",
                           );
-                          var s =
-                            yield i.$1.performVideoTranscodingFromSharedBuffer(
-                              e,
-                              t,
-                              a,
-                            );
+                          var s = yield o(
+                            "WAWebWindowsHybridBridgeTrace",
+                          ).traceBridgeCall(
+                            {
+                              bridge: "mediaTranscodeBridge",
+                              method: "performVideoTranscodingFromSharedBuffer",
+                              type: "sync",
+                            },
+                            function () {
+                              return i.$1.performVideoTranscodingFromSharedBuffer(
+                                e,
+                                t,
+                                a,
+                              );
+                            },
+                          );
                           s
                             ? o("WALogger").LOG(
                                 g ||
@@ -285,11 +307,21 @@ __d(
                             r("WAWebODS").incr(
                               "web.hybrid.bridge.media_transcoder.send.get_video_preview_frame_from_shared_buffer",
                             );
-                            var l =
-                              yield a.$1.getVideoPreviewFrameFromSharedBuffer(
-                                e,
-                                t,
-                              );
+                            var l = yield o(
+                              "WAWebWindowsHybridBridgeTrace",
+                            ).traceBridgeCall(
+                              {
+                                bridge: "mediaTranscodeBridge",
+                                method: "getVideoPreviewFrameFromSharedBuffer",
+                                type: "sync",
+                              },
+                              function () {
+                                return a.$1.getVideoPreviewFrameFromSharedBuffer(
+                                  e,
+                                  t,
+                                );
+                              },
+                            );
                             l
                               ? o("WALogger").LOG(
                                   b ||
@@ -354,6 +386,7 @@ __d(
             return t;
           })()),
           (a.releaseSharedBuffer = function (t) {
+            var e = this;
             (o("WALogger").LOG(
               S ||
                 (S = babelHelpers.taggedTemplateLiteralLoose([
@@ -365,7 +398,16 @@ __d(
               r("WAWebODS").incr(
                 "web.hybrid.bridge.media_transcoder.send.release_shared_buffer",
               ),
-              this.$1.releaseSharedBuffer(t));
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "mediaTranscodeBridge",
+                  method: "releaseSharedBuffer",
+                  type: "sync",
+                },
+                function () {
+                  return e.$1.releaseSharedBuffer(t);
+                },
+              ));
           }),
           (a.setProgressCallback = function (t, n) {
             this.$4.set(t, n);

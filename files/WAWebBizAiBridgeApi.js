@@ -2,15 +2,20 @@ __d(
   "WAWebBizAiBridgeApi",
   [
     "WALogger",
+    "WAWebBizAISettingsCategoryHandlers",
+    "WAWebBizAISettingsVersionCollection",
     "WAWebChatCollection",
     "WAWebLidMigrationUtils",
+    "WAWebProtobufSyncAction.pb",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c = {
+      c,
+      d,
+      m = {
         updateChatCapiThreadControl: function (n) {
           var t = n.consumerLid,
             r = n.consumerPhoneNumber,
@@ -65,8 +70,43 @@ __d(
                 )
                 .sendLogs("maiba-thread-control-chat-not-found");
         },
+        handleBizAiSettingsNudge: function (t) {
+          var e = t.category,
+            n = t.updatedAtMs,
+            r = t.version,
+            a = o(
+              "WAWebProtobufSyncAction.pb",
+            ).SyncActionValue$BizAISettingsNudgeAction$BizAISettingsCategory.cast(
+              e,
+            );
+          if (a == null) {
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] handleBizAiSettingsNudge: unknown category=",
+                  "",
+                ])),
+              e,
+            );
+            return;
+          }
+          (o("WAWebBizAISettingsCategoryHandlers").registerCategoryHandler(a),
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] handleBizAiSettingsNudge: category=",
+                  " version=",
+                  "",
+                ])),
+              e,
+              r,
+            ),
+            o(
+              "WAWebBizAISettingsVersionCollection",
+            ).BizAISettingsVersionCollection.handleNudge(a, r, n));
+        },
       };
-    l.BizAiBridgeApi = c;
+    l.BizAiBridgeApi = m;
   },
   98,
 );

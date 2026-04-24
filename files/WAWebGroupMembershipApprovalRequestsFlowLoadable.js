@@ -10,7 +10,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = r("react")),
+      s = e || (e = o("react")),
       u = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield r("JSResourceForInteraction")(

@@ -25,7 +25,13 @@ __d(
         osVersion: t.version,
       };
     }
-    ((l.isAppClipWebView = e), (l.getBrowserAndOsDetails = s));
+    function u(e) {
+      var t;
+      return (t = e.get("invite_code")) != null ? t : e.get("sc");
+    }
+    ((l.isAppClipWebView = e),
+      (l.getBrowserAndOsDetails = s),
+      (l.getInviteCodeFromUrlParams = u));
   },
   98,
 );

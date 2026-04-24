@@ -47,7 +47,23 @@ __d(
         d.apply(this, arguments)
       );
     }
-    ((l.checkMediaPermissionState = s), (l.isAnyMediaPermissionDenied = c));
+    function m(e, t) {
+      return (function (e) {
+        return ((typeof e == "object" && e !== null) ||
+          typeof e == "function") &&
+          e.micGranted === !0 &&
+          e.camGranted === !1
+          ? "camera"
+          : ((typeof e == "object" && e !== null) || typeof e == "function") &&
+              e.micGranted === !1 &&
+              e.camGranted === !0
+            ? "mic"
+            : "camera_and_mic";
+      })({ micGranted: e, camGranted: t });
+    }
+    ((l.checkMediaPermissionState = s),
+      (l.isAnyMediaPermissionDenied = c),
+      (l.getDeviceSpecificPermissionMessaging = m));
   },
   98,
 );

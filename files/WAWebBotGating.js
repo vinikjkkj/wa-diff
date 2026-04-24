@@ -454,7 +454,7 @@ __d(
     }
     function fe() {
       var e = o("WAWebABProps").getABPropConfigValue(
-        "ai_metabot_document_upload_size_limit_mb",
+        "ai_file_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }

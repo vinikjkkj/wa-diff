@@ -14,15 +14,16 @@ __d(
     "WAWebSendReceiptJobCommon",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
+    var e, s, u, c, d, m;
+    function p(e) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = [];
           if (t.length === 0) return n;
           var r = yield o(
@@ -83,15 +84,15 @@ __d(
           }
           return n;
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -99,13 +100,13 @@ __d(
               ])),
           );
           var t = [],
-            r = [];
-          for (var a of e) {
-            var i = a.duplicateMsgReceiptInfo,
-              l = a.receiptInfo;
-            (i != null && r.push(i), l != null && t.push(l));
+            a = [];
+          for (var i of e) {
+            var l = i.duplicateMsgReceiptInfo,
+              s = i.receiptInfo;
+            (l != null && a.push(l), s != null && t.push(s));
           }
-          ((t = t.concat(yield m(r))),
+          ((t = t.concat(yield p(a))),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -114,47 +115,60 @@ __d(
                 ])),
               t.length,
             ));
-          var s = new Map(),
-            p = [];
+          var _ = new Map(),
+            f = [];
           t.forEach(function (e) {
             var t = e.author,
               n = e.externalId,
               r = e.from,
-              o = s.get(r);
-            o || ((o = new Map()), s.set(r, o));
+              o = _.get(r);
+            o || ((o = new Map()), _.set(r, o));
             var a = o.get(t);
             (a || ((a = []), o.set(t, a)),
               a.push(n),
-              p.push({ from: String(r), author: String(t), externalId: n }));
+              f.push({ from: String(r), author: String(t), externalId: n }));
           });
-          var _ = String(o("WATimeUtils").unixTime());
-          ((d || (d = n("Promise"))).all(
-            Array.from(s.keys(), function (e) {
-              var t = s.get(e);
-              if (t) {
-                var n = e.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(e);
-                return o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
-                  to: e,
-                  type: n
-                    ? o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER
-                    : o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
-                  t: _,
-                  groupedReceipt: t,
-                  recipient: n ? e : null,
-                });
-              }
+          var g = String(o("WATimeUtils").unixTime());
+          ((m || (m = n("Promise")))
+            .all(
+              Array.from(_.keys(), function (e) {
+                var t = _.get(e);
+                if (t) {
+                  var n =
+                    e.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(e);
+                  return o("WAWebSendReceiptJobCommon").sendAggregateReceipts({
+                    to: e,
+                    type: n
+                      ? o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.SENDER
+                      : o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.DELIVERY,
+                    t: g,
+                    groupedReceipt: t,
+                    recipient: n ? e : null,
+                  });
+                }
+              }),
+            )
+            .catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "sendAggregateOfflineReceipts: error sending receipts",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("offline-receipt-send-error");
             }),
-          ),
             o("WAComms").cancelDeadSocketTimer(),
-            p.length > 0 &&
+            f.length > 0 &&
               (yield o("WAWebSchemaDanglingReceipt")
                 .getTable()
-                .create({ receipts: p, acks: [] })));
+                .create({ receipts: f, acks: [] })));
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.handleDuplicateMsgReceipts = m), (l.sendAggregateOfflineReceipts = _));
+    ((l.handleDuplicateMsgReceipts = p), (l.sendAggregateOfflineReceipts = f));
   },
   98,
 );

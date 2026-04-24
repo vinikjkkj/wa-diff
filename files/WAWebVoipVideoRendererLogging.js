@@ -62,7 +62,7 @@ __d(
         r++
       )
         n[r - 1] = arguments[r];
-      m(1, e, n);
+      m.apply(void 0, [1, e].concat(n));
     }
     function f(e) {
       for (
@@ -71,7 +71,7 @@ __d(
         r++
       )
         n[r - 1] = arguments[r];
-      m(2, e, n);
+      m.apply(void 0, [2, e].concat(n));
     }
     function g(e) {
       for (
@@ -80,7 +80,7 @@ __d(
         r++
       )
         n[r - 1] = arguments[r];
-      m(3, e, n);
+      m.apply(void 0, [3, e].concat(n));
     }
     function h(e) {
       for (
@@ -89,7 +89,7 @@ __d(
         r++
       )
         n[r - 1] = arguments[r];
-      m(4, e, n);
+      m.apply(void 0, [4, e].concat(n));
     }
     ((l.handleLog = p), (l.ERROR = _), (l.WARN = f), (l.LOG = g), (l.DEV = h));
   },

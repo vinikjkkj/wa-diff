@@ -167,7 +167,7 @@ __d(
                             ? L
                             : yield o(
                                 "WAWebPnlessStanzaMigration",
-                              ).getStanzaToFromChatId(L),
+                              ).getStanzaToFromChatId(L, g),
                           T = [],
                           D = function* () {
                             var e = _.splice(0, m),

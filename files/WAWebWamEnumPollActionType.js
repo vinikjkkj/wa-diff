@@ -9,6 +9,8 @@ __d(
       REMOVE_VOTE: 5,
       VOTE: 6,
       CHANGE_VOTE: 7,
+      EDIT_POLL_INITIATED: 8,
+      EDIT_POLL_COMPLETED: 9,
     });
     i.POLL_ACTION_TYPE = e;
   },

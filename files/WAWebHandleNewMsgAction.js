@@ -250,7 +250,8 @@ __d(
                 }),
               )
               .then(function (e) {
-                (t.set(e),
+                if (
+                  (t.set(e),
                   a.ctwaContext != null &&
                     (o(
                       "WAWebCommonCTWAConsumerTransparency",
@@ -261,39 +262,37 @@ __d(
                     ),
                     o(
                       "WAWebCommonCTWALogging",
-                    ).maybeSetCtwaMessageReceivedInUserPreferenceStore(a)));
-                var n = r("WAWebConversionTupleCollection").get(t.id);
-                if (n && a.ctwaContext != null)
-                  n.timestamp = o("WATimeUtils").unixTime();
-                else if (a.ctwaContext != null) {
-                  var i = a.ctwaContext,
-                    l = i.conversionData,
-                    s = i.conversionSource;
+                    ).maybeSetCtwaMessageReceivedInUserPreferenceStore(a)),
+                  a.ctwaContext != null)
+                ) {
+                  var n = a.ctwaContext,
+                    i = n.conversionData,
+                    l = n.conversionSource;
                   r("WAWebConversionTupleCollection").add(
                     {
-                      conversionSource: s,
-                      conversionData: l,
+                      conversionSource: l,
+                      conversionData: i,
                       id: t.id,
                       timestamp: o("WATimeUtils").unixTime(),
                     },
                     { merge: !0 },
                   );
                 }
-                var u = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                  c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
+                var s = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+                  u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
                 if (
                   a.type === "gp2" &&
                   (a.subtype === "add" || a.subtype === "create")
                 ) {
-                  var d = t.getGroupMetadataCollection(),
-                    m =
-                      u != null &&
+                  var c = t.getGroupMetadataCollection(),
+                    d =
+                      s != null &&
                       !o(
                         "WAWebBeyondPhoneNumberGatingUtils",
                       ).removePnDependenciesEnabled()
-                        ? u
-                        : c;
-                  d.trigger("group_participant_change_" + m.toString(), {
+                        ? s
+                        : u;
+                  c.trigger("group_participant_change_" + d.toString(), {
                     gid: t.id,
                   });
                 }
@@ -350,15 +349,15 @@ __d(
                       )
                         return;
                       o("WAWebCmd").Cmd.alertNewMsg(a);
-                      var p = t.getGroupMetadataCollection(),
-                        g =
-                          u != null &&
+                      var m = t.getGroupMetadataCollection(),
+                        p =
+                          s != null &&
                           !o(
                             "WAWebBeyondPhoneNumberGatingUtils",
                           ).removePnDependenciesEnabled()
-                            ? u
-                            : c;
-                      p.trigger("group_participant_change_" + g.toString(), {
+                            ? s
+                            : u;
+                      m.trigger("group_participant_change_" + p.toString(), {
                         gid: t.id,
                       });
                       break;
@@ -366,10 +365,10 @@ __d(
                     default:
                       break;
                   }
-                  var y = a.mediaData;
+                  var g = a.mediaData;
                   if (
-                    (y &&
-                      (y.type === "image" || y.type === "video") &&
+                    (g &&
+                      (g.type === "image" || g.type === "video") &&
                       o("WAWebCmd").Cmd.newMediaMsg(a),
                     e.unreadCount != null &&
                       e.unreadCount > 0 &&
@@ -379,29 +378,29 @@ __d(
                       ),
                     o("WAWebMsgGetters").getIsImportantMessage(a))
                   ) {
-                    var C,
-                      b = new (r("WAWebUnreadMentionModel"))({
+                    var y,
+                      C = new (r("WAWebUnreadMentionModel"))({
                         id: a.id.toString(),
                         timestamp: a.t,
                       });
                     if (
-                      ((C = t.groupMetadata) == null ||
-                        C.unreadMentionMetadata.addUnreadMentions(
-                          b,
+                      ((y = t.groupMetadata) == null ||
+                        y.unreadMentionMetadata.addUnreadMentions(
+                          C,
                           o("WAWebGroupUnreadMessageType").UnreadMessageType
                             .NEW_MESSAGE,
                         ),
                       t.archiveAtMentionViewedInDrawer)
                     ) {
-                      var v = new Map();
-                      (v.set(t.id.toString(), !1),
+                      var b = new Map();
+                      (b.set(t.id.toString(), !1),
                         o("WALogger").LOG(
                           f ||
                             (f = babelHelpers.taggedTemplateLiteralLoose([
                               "handleNewMsgForChat: will mark chat for archive",
                             ])),
                         ),
-                        o("WAWebApiChat").updateChatArchiveDrawer(v),
+                        o("WAWebApiChat").updateChatArchiveDrawer(b),
                         (t.archiveAtMentionViewedInDrawer = !1));
                     }
                   }

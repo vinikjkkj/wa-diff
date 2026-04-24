@@ -73,16 +73,20 @@ __d(
           borderEndEndRadius: "xum4auv",
           borderEndStartRadius: "xj21bgg",
           height: "x1vqgdyp",
-          boxShadow: "x1gnnqk1 x19qpdui",
+          boxShadow: "x19qpdui",
           paddingInlineStart: "x1p4gyq8",
           $$css: !0,
         },
         inputWrapperFocusRefreshed: {
-          borderTopColor: "xlze6vy x1lfjbn8",
-          borderInlineEndColor: "x47fsot xwj740h",
-          borderBottomColor: "x1rrvw3c xdeyfa3",
-          borderInlineStartColor: "x18djku1 x1pig4h2",
+          borderTopColor: "xlze6vy",
+          borderInlineEndColor: "x47fsot",
+          borderBottomColor: "x1rrvw3c",
+          borderInlineStartColor: "x18djku1",
           boxShadow: "xu8d7ss",
+          ":hover_borderTopColor": "x1lfjbn8",
+          ":hover_borderInlineEndColor": "xwj740h",
+          ":hover_borderBottomColor": "xdeyfa3",
+          ":hover_borderInlineStartColor": "x1pig4h2",
           $$css: !0,
         },
         inputWrapperMaterial: {
@@ -137,7 +141,7 @@ __d(
         iconCloseSearch: { color: "xhslqc4", $$css: !0 },
       };
     function h(e) {
-      var t = o("react-compiler-runtime").c(85),
+      var t = o("react-compiler-runtime").c(86),
         n = e.children,
         a = e.colorScheme,
         i = e.containerXStyle,
@@ -456,75 +460,79 @@ __d(
           (t[45] = i),
           (t[46] = Te))
         : (Te = t[46]);
-      var De = !(M.length > 0) && o("WAWebUISpacing").uiPadding.end0,
-        xe = W && _.inputWrapperFocusRefreshed,
-        $e;
-      t[47] !== se.inputWrapperRefreshed || t[48] !== De || t[49] !== xe
-        ? (($e = [
+      var De;
+      t[47] === Symbol.for("react.memo_cache_sentinel")
+        ? ((De = [_.inputWrapperRefreshed]), (t[47] = De))
+        : (De = t[47]);
+      var xe = !(M.length > 0) && o("WAWebUISpacing").uiPadding.end0,
+        $e = W && _.inputWrapperFocusRefreshed,
+        Pe;
+      t[48] !== se.inputWrapperRefreshed || t[49] !== xe || t[50] !== $e
+        ? ((Pe = [
             _.inputWrapper,
             _.inputWrapperMaterial,
-            _.inputWrapperRefreshed,
             De,
-            se.inputWrapperRefreshed,
             xe,
+            se.inputWrapperRefreshed,
+            $e,
           ]),
-          (t[47] = se.inputWrapperRefreshed),
-          (t[48] = De),
+          (t[48] = se.inputWrapperRefreshed),
           (t[49] = xe),
-          (t[50] = $e))
-        : ($e = t[50]);
-      var Pe;
-      t[51] !== pe
-        ? ((Pe = u.jsx(o("WAWebFlex.react").FlexRow, {
+          (t[50] = $e),
+          (t[51] = Pe))
+        : (Pe = t[51]);
+      var Ne;
+      t[52] !== pe
+        ? ((Ne = u.jsx(o("WAWebFlex.react").FlexRow, {
             marginStart: 0,
             xstyle: _.startIconRefreshed,
             children: pe,
           })),
-          (t[51] = pe),
-          (t[52] = Pe))
-        : (Pe = t[52]);
-      var Ne;
-      t[53] !== Re
-        ? ((Ne = u.jsx(r("WAWebOnKeyDownPlugin"), { onKeyDown: Re })),
-          (t[53] = Re),
-          (t[54] = Ne))
-        : (Ne = t[54]);
+          (t[52] = pe),
+          (t[53] = Ne))
+        : (Ne = t[53]);
       var Me;
-      t[55] !== le || t[56] !== V || t[57] !== te
-        ? ((Me = u.jsx(r("WAWebEditorStatePlugin.react"), {
+      t[54] !== Re
+        ? ((Me = u.jsx(r("WAWebOnKeyDownPlugin"), { onKeyDown: Re })),
+          (t[54] = Re),
+          (t[55] = Me))
+        : (Me = t[55]);
+      var we;
+      t[56] !== le || t[57] !== V || t[58] !== te
+        ? ((we = u.jsx(r("WAWebEditorStatePlugin.react"), {
             onBlur: le,
             onChange: V,
             onFocus: te,
           })),
-          (t[55] = le),
-          (t[56] = V),
-          (t[57] = te),
-          (t[58] = Me))
-        : (Me = t[58]);
-      var we;
-      t[59] === Symbol.for("react.memo_cache_sentinel")
-        ? ((we = u.jsx(r("WAWebEditorRefPlugin"), { editorRef: A })),
+          (t[56] = le),
+          (t[57] = V),
+          (t[58] = te),
           (t[59] = we))
         : (we = t[59]);
       var Ae;
-      t[60] !== Ne || t[61] !== Me
-        ? ((Ae = u.jsxs(u.Fragment, { children: [Ne, Me, we] })),
-          (t[60] = Ne),
-          (t[61] = Me),
-          (t[62] = Ae))
-        : (Ae = t[62]);
+      t[60] === Symbol.for("react.memo_cache_sentinel")
+        ? ((Ae = u.jsx(r("WAWebEditorRefPlugin"), { editorRef: A })),
+          (t[60] = Ae))
+        : (Ae = t[60]);
       var Fe;
-      t[63] !== x ||
-      t[64] !== S ||
-      t[65] !== E ||
-      t[66] !== k ||
-      t[67] !== Ae ||
-      t[68] !== D
-        ? ((Fe = u.jsx(o("WAWebFlex.react").FlexRow, {
+      t[61] !== Me || t[62] !== we
+        ? ((Fe = u.jsxs(u.Fragment, { children: [Me, we, Ae] })),
+          (t[61] = Me),
+          (t[62] = we),
+          (t[63] = Fe))
+        : (Fe = t[63]);
+      var Oe;
+      t[64] !== x ||
+      t[65] !== S ||
+      t[66] !== E ||
+      t[67] !== k ||
+      t[68] !== Fe ||
+      t[69] !== D
+        ? ((Oe = u.jsx(o("WAWebFlex.react").FlexRow, {
             paddingEnd: 8,
             xstyle: _.fullWidth,
             children: u.jsx(r("WAWebRichTextInput.react"), {
-              children: Ae,
+              children: Fe,
               focusOnMount: x,
               lineWrap: !1,
               multiline: !1,
@@ -536,64 +544,64 @@ __d(
               xstyle: !1,
             }),
           })),
-          (t[63] = x),
-          (t[64] = S),
-          (t[65] = E),
-          (t[66] = k),
-          (t[67] = Ae),
-          (t[68] = D),
-          (t[69] = Fe))
-        : (Fe = t[69]);
-      var Oe;
-      t[70] !== ue ||
-      t[71] !== ke ||
-      t[72] !== $e ||
+          (t[64] = x),
+          (t[65] = S),
+          (t[66] = E),
+          (t[67] = k),
+          (t[68] = Fe),
+          (t[69] = D),
+          (t[70] = Oe))
+        : (Oe = t[70]);
+      var Be;
+      t[71] !== ue ||
+      t[72] !== ke ||
       t[73] !== Pe ||
-      t[74] !== Fe
-        ? ((Oe = u.jsxs(o("WAWebFlex.react").FlexRow, {
+      t[74] !== Ne ||
+      t[75] !== Oe
+        ? ((Be = u.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             grow: 1,
             padding: 0,
-            xstyle: $e,
-            children: [Pe, ke, Fe, ue],
+            xstyle: Pe,
+            children: [Ne, ke, Oe, ue],
           })),
-          (t[70] = ue),
-          (t[71] = ke),
-          (t[72] = $e),
+          (t[71] = ue),
+          (t[72] = ke),
           (t[73] = Pe),
-          (t[74] = Fe),
-          (t[75] = Oe))
-        : (Oe = t[75]);
-      var Be;
-      t[76] !== l || t[77] !== c || t[78] !== Ie || t[79] !== Te || t[80] !== Oe
-        ? ((Be = u.jsxs(o("WAWebFlex.react").FlexRow, {
+          (t[74] = Ne),
+          (t[75] = Oe),
+          (t[76] = Be))
+        : (Be = t[76]);
+      var We;
+      t[77] !== l || t[78] !== c || t[79] !== Ie || t[80] !== Te || t[81] !== Be
+        ? ((We = u.jsxs(o("WAWebFlex.react").FlexRow, {
             align: "center",
             basis: "auto",
             grow: 0,
             padding: Ie,
             shrink: 0,
             xstyle: Te,
-            children: [l, Oe, c],
+            children: [l, Be, c],
           })),
-          (t[76] = l),
-          (t[77] = c),
-          (t[78] = Ie),
-          (t[79] = Te),
-          (t[80] = Oe),
-          (t[81] = Be))
-        : (Be = t[81]);
-      var We;
+          (t[77] = l),
+          (t[78] = c),
+          (t[79] = Ie),
+          (t[80] = Te),
+          (t[81] = Be),
+          (t[82] = We))
+        : (We = t[82]);
+      var qe;
       return (
-        t[82] !== n || t[83] !== Be
-          ? ((We = u.jsxs(o("LexicalComposer").LexicalComposer, {
+        t[83] !== n || t[84] !== We
+          ? ((qe = u.jsxs(o("LexicalComposer").LexicalComposer, {
               initialConfig: be,
-              children: [Be, n],
+              children: [We, n],
             })),
-            (t[82] = n),
-            (t[83] = Be),
-            (t[84] = We))
-          : (We = t[84]),
-        We
+            (t[83] = n),
+            (t[84] = We),
+            (t[85] = qe))
+          : (qe = t[85]),
+        qe
       );
     }
     function y(e) {

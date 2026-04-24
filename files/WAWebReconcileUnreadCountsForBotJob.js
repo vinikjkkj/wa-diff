@@ -10,6 +10,7 @@ __d(
     "WAWebThreadsMetadataIdUtils",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "sumBy",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -19,26 +20,26 @@ __d(
           "reconcileForBot",
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var n,
-              r = o("WAWebWidToJid").widToChatJid(t),
-              a = o(
+              a = o("WAWebWidToJid").widToChatJid(t),
+              i = o(
                 "WAWebThreadsMetadataIdUtils",
               ).craftThreadsMetadataInternalIdPrefixForChatAndThreadType(
-                r,
+                a,
                 o("WAWebThreadUtils").ThreadType.AiThread,
               ),
-              i = yield o("WAWebSchemaThreadsMetadata")
+              l = yield o("WAWebSchemaThreadsMetadata")
                 .getThreadsMetadataTable()
-                .startsWithAnyOf(["internalId"], [a]),
-              l = i.reduce(function (e, t) {
-                var n;
-                return e + ((n = t.unreadCount) != null ? n : 0);
-              }, 0),
-              u = t.toString(),
-              c = yield o("WAWebSchemaChat").getChatTable().bulkGet([u]),
-              d = c[0];
-            if (d == null) return null;
-            var m = (n = d.unreadCount) != null ? n : 0;
-            return m !== l
+                .startsWithAnyOf(["internalId"], [i]),
+              u = r("sumBy")(l, function (e) {
+                var t;
+                return (t = e.unreadCount) != null ? t : 0;
+              }),
+              c = t.toString(),
+              d = yield o("WAWebSchemaChat").getChatTable().bulkGet([c]),
+              m = d[0];
+            if (m == null) return null;
+            var p = (n = m.unreadCount) != null ? n : 0;
+            return p !== u
               ? (o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -46,13 +47,13 @@ __d(
                       " threadSum=",
                       ", fixing",
                     ])),
-                  m,
-                  l,
+                  p,
+                  u,
                 ),
                 yield o("WAWebSchemaChat")
                   .getChatTable()
-                  .bulkCreateOrMerge([{ id: u, unreadCount: l }]),
-                { unreadCount: l })
+                  .bulkCreateOrMerge([{ id: c, unreadCount: u }]),
+                { unreadCount: u })
               : (o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -60,8 +61,8 @@ __d(
                       " already matches threadSum=",
                       ", no fix needed",
                     ])),
-                  m,
-                  l,
+                  p,
+                  u,
                 ),
                 null);
           }),

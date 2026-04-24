@@ -194,6 +194,20 @@ __d(
               );
             })();
           }),
+          (a.logSearchResultShown = function () {
+            this.log({
+              threadActionType: o("WAWebWamEnumThreadActionTypes")
+                .THREAD_ACTION_TYPES.SEARCH_RESULT_SHOWN,
+            });
+          }),
+          (a.logSearchResultClick = function (t, n) {
+            this.log({
+              threadActionType: o("WAWebWamEnumThreadActionTypes")
+                .THREAD_ACTION_TYPES.SEARCH_RESULT_CLICK,
+              threadCreationTs: n == null ? void 0 : n.toString(),
+              threadId: t,
+            });
+          }),
           t
         );
       })(),

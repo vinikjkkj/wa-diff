@@ -178,6 +178,7 @@ __d(
               permissionReadExternalStorage: [53, e.TYPES.INTEGER],
               permissionRecordAudio: [55, e.TYPES.INTEGER],
               phoneCores: [156, e.TYPES.INTEGER],
+              phoneNumberHintAvailableCount: [251, e.TYPES.INTEGER],
               phoneyid: [162, e.TYPES.STRING],
               preloadsAppManagerId: [224, e.TYPES.STRING],
               preloadsAttributionJson: [227, e.TYPES.STRING],

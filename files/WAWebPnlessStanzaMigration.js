@@ -9,20 +9,20 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
+    var e, s, u;
+    function c(e) {
       return (
         o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
         e.isRegularUserPn() &&
         o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebWidFactory").asUserWidOrThrow(e),
             n = yield o("WAWebApiChatCommon").getChatRecord(t),
             r = n == null ? void 0 : n.accountLid;
@@ -30,22 +30,35 @@ __d(
             ? null
             : o("WAWebWidFactory").createUserLidOrThrow(r);
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!u(t)) return t;
-          var n = yield c(t);
-          return n == null
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          if (!c(t)) return t;
+          t.device !== 0 &&
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[pnless-stanza] getStanzaToFromChatId: received a device ",
+                    " receiptType=",
+                    "",
+                  ])),
+                t.toLogString(),
+                n,
+              )
+              .sendLogs("pnless-device-wid");
+          var r = yield d(t);
+          return r == null
             ? (o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[pnless-stanza] getStanzaToFromChatId: no lid ",
                       "",
                     ])),
@@ -53,25 +66,25 @@ __d(
                 )
                 .sendLogs("pnless-no-lid"),
               t)
-            : n;
+            : r;
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function f() {
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.data.to;
-          if (u(t)) {
-            var n = yield c(t);
+          if (c(t)) {
+            var n = yield d(t);
             if (n == null) {
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[pnless-stanza] maybeReplaceWidWithAccountLid: no lid ",
                       "",
                     ])),
@@ -87,10 +100,10 @@ __d(
                 (e.data = babelHelpers.extends({}, e.data, { to: n }));
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    ((l.getStanzaToFromChatId = m), (l.maybeReplaceWidWithAccountLid = _));
+    ((l.getStanzaToFromChatId = p), (l.maybeReplaceWidWithAccountLid = f));
   },
   98,
 );

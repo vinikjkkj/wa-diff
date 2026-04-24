@@ -14,20 +14,23 @@ __d(
       return n;
     }
     function s(e) {
-      var t = e.mediaIv,
-        n = e.mediaCipherKey,
-        r = e.mediaType,
-        a = e.mediaElementValue,
-        i = o("WASmaxJsx").smax(
+      var t,
+        n = e.mediaIv,
+        r = e.mediaCipherKey,
+        a = e.mediaType,
+        i = e.mediaFileName,
+        l = e.mediaElementValue,
+        s = o("WASmaxJsx").smax(
           "media",
           {
-            iv: o("WAWap").CUSTOM_STRING(t),
-            cipherKey: o("WAWap").CUSTOM_STRING(n),
-            type: o("WASmaxAttrs").OPTIONAL(o("WAWap").CUSTOM_STRING, r),
+            iv: (t = o("WAWap")).CUSTOM_STRING(n),
+            cipherKey: t.CUSTOM_STRING(r),
+            type: o("WASmaxAttrs").OPTIONAL(t.CUSTOM_STRING, a),
+            fileName: o("WASmaxAttrs").OPTIONAL(t.CUSTOM_STRING, i),
           },
-          a,
+          l,
         );
-      return i;
+      return s;
     }
     function u(e) {
       var t = e.titleElementValue,

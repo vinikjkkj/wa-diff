@@ -81,6 +81,7 @@ __d(
         CustomerData: "customer_data",
         OutContact: "out_contact",
         SubscriptionsSyncV2: "subscriptions_sync_v2",
+        BizAiSettingsNudge: "biz_ai_settings_nudge",
       }),
       h = e({
         Regular: "regular",

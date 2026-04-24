@@ -438,7 +438,7 @@ __d(
     }
     function C(e, t, n, r, o, a) {
       var i = a.canceledReason != null ? void 0 : y(e, t, n, r, o),
-        l = i == null || a.canceledReason != null ? void 0 : R(t, n, o),
+        l = i == null || a.canceledReason != null ? void 0 : R(t, o),
         s = L(a.sharingStatus, o, i, l);
       return { onePdReason: i, spReason: l, sharingStatus: s };
     }
@@ -477,22 +477,22 @@ __d(
         return o("WAWebWamEnumSpSignalNotSharedReason")
           .SP_SIGNAL_NOT_SHARED_REASON.VALUE_NOT_AVAILABLE;
     }
-    function R(e, t, n) {
-      if (t && (t == null ? void 0 : t.unconsentedUrl) == null)
+    function R(e, t) {
+      if ((e == null ? void 0 : e.undisclosedToken) == null)
         return o("WAWebWamEnumSpSignalNotSharedReason")
           .SP_SIGNAL_NOT_SHARED_REASON.VALUE_NOT_AVAILABLE;
-      if (!n)
+      if (!t)
         return o("WAWebWamEnumSpSignalNotSharedReason")
           .SP_SIGNAL_NOT_SHARED_REASON.SIGNAL_NOT_ALLOWLISTED;
-      var r = o(
+      var n = o(
           "WAWebMmSignalSharingGatingUtils",
         ).getMmSignalSharingOptimizedDeliverySignalCollectionConfig(),
-        a = r.consented_collection_window_in_hours;
+        r = n.consented_collection_window_in_hours;
       if (
         e &&
         o(
           "WAWebMmSignalSharingExpirationWindowUtils",
-        ).hasMmSignalSharingTokenExpired(e, a)
+        ).hasMmSignalSharingTokenExpired(e, r)
       )
         return o("WAWebWamEnumSpSignalNotSharedReason")
           .SP_SIGNAL_NOT_SHARED_REASON.TOKEN_EXPIRED;

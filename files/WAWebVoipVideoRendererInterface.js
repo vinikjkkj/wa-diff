@@ -3,6 +3,7 @@ __d(
   ["$InternalEnum", "WAWebNoop"],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
+        DEFAULT: 0,
         RASTER: 1,
         VIDEOFRAME: 2,
         WEBGL: 3,

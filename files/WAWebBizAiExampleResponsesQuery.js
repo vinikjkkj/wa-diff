@@ -25,13 +25,33 @@ __d(
                       { environmentType: "facebook", accessToken: e.token },
                     )
                     .then(function (e) {
-                      var t =
-                        e == null ? void 0 : e.xfb_meta_ai_biz_agent_wa_ai_home;
-                      return (t == null ? void 0 : t.ordered_knowledge) == null
+                      var t,
+                        n,
+                        r,
+                        o,
+                        a =
+                          e == null
+                            ? void 0
+                            : e.xfb_meta_ai_biz_agent_wa_ai_home;
+                      return (a == null ? void 0 : a.ordered_knowledge) == null
                         ? u
                         : {
                             isSuccess: !0,
-                            orderedKnowledge: t.ordered_knowledge,
+                            orderedKnowledge: a.ordered_knowledge,
+                            website:
+                              (t =
+                                (n = a.knowledge) == null
+                                  ? void 0
+                                  : n.website) != null
+                                ? t
+                                : null,
+                            websites:
+                              (r =
+                                (o = a.knowledge) == null
+                                  ? void 0
+                                  : o.websites) != null
+                                ? r
+                                : [],
                           };
                     })
                     .catch(function (e) {

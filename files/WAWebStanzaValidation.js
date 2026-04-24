@@ -2,35 +2,84 @@ __d(
   "WAWebStanzaValidation",
   [
     "WALogger",
+    "WAWap",
     "WAWebABProps",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "WAWebWidValidator",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d;
-    function m(e) {
-      (p(e), f(e), C(e), b(e), v(e));
+    var e, s, u, c, d, m, p, _;
+    function f(t) {
+      try {
+        (g(t), y(t), S(t), R(t), L(t));
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[stanza-validation]",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("stanza-validation-error");
+      }
     }
-    function p(t) {
-      t.tag !== "receipt" ||
-        t.attrs.type !== "sender" ||
-        (t.attrs.recipient == null &&
-          t.attrs.participant == null &&
+    function g(e) {
+      if (!(e.tag !== "receipt" || e.attrs.type !== "sender")) {
+        e.attrs.recipient == null &&
+          e.attrs.participant == null &&
           o("WALogger")
             .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[stanza-validation] sender rcpt: no recipient/participant",
                 ])),
             )
             .sendLogs(
               "sender-receipt-without-participant-nor-recipient-validation",
-            ));
+            );
+        var t = e.attrs.recipient,
+          n = e.attrs.to;
+        if (t != null && n != null) {
+          var r = o("WAWap").decodeAsString(t),
+            a = o("WAWap").decodeAsString(n),
+            i = C(r),
+            l = C(a);
+          a.includes("@lid") && r.includes("@s.whatsapp.net")
+            ? o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[stanza-validation] sender rcpt: pn recipient=",
+                      " to=",
+                      "",
+                    ])),
+                  i,
+                  l,
+                )
+                .sendLogs("sender-receipt-pn-recipient-validation")
+            : a.includes("@s.whatsapp.net") &&
+              r.includes("@lid") &&
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[stanza-validation] sender rcpt: pn to=",
+                      " recipient=",
+                      "",
+                    ])),
+                  l,
+                  i,
+                )
+                .sendLogs("sender-receipt-pn-to-validation");
+        }
+      }
     }
-    function _(e) {
+    function h(e) {
       if (!Array.isArray(e.content)) return [];
       var t = e.content.find(function (e) {
           return (e == null ? void 0 : e.tag) === "participants";
@@ -43,16 +92,18 @@ __d(
           var t;
           (e == null ? void 0 : e.tag) === "to" &&
             ((t = e.attrs) == null ? void 0 : t.jid) != null &&
-            r.push(String(e.attrs.jid));
+            r.push(o("WAWap").decodeAsString(e.attrs.jid));
         }),
         r
       );
     }
-    function f(e) {
+    function y(e) {
       if (e.tag === "message") {
         var t = e.attrs.to;
-        if (!(t == null || !String(t).endsWith("@broadcast"))) {
-          var n = _(e);
+        if (
+          !(t == null || !o("WAWap").decodeAsString(t).endsWith("@broadcast"))
+        ) {
+          var n = h(e);
           if (n.length !== 0) {
             var r = [],
               a = !1,
@@ -72,11 +123,11 @@ __d(
               }),
               r.length > 0)
             ) {
-              var l = r.map(g).join(",");
+              var l = r.map(C).join(",");
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[stanza-validation] broadcast pn-fanout: ",
                       "/",
                       " <to> nodes using PN in broadcast ",
@@ -88,7 +139,7 @@ __d(
                     ])),
                   r.length,
                   n.length,
-                  String(t),
+                  o("WAWap").decodeAsString(t),
                   a,
                   i,
                   r.length - i,
@@ -100,14 +151,14 @@ __d(
         }
       }
     }
-    function g(e) {
+    function C(e) {
       try {
         return o("WAWebWidFactory").createWid(e).toLogString();
       } catch (t) {
         return e;
       }
     }
-    function h(e) {
+    function b(e) {
       return e.tag !== "message" || !Array.isArray(e.content)
         ? !1
         : e.content.some(function (e) {
@@ -118,33 +169,33 @@ __d(
             );
           });
     }
-    function y(e) {
+    function v(e) {
       var t = o("WAWebWidValidator").validateAndGetParts(e);
       if (t == null || t.userPart == null) return !1;
       var n = o("WAWebWidFactory").createWid(e);
       return o("WAWebLidMigrationUtils").shouldHaveAccountLid(n) && !n.isLid();
     }
-    function C(e) {
+    function S(e) {
       if (!(e.tag === "receipt" || e.tag === "ack")) {
         var t = e.attrs.to;
         if (t != null) {
-          var n = String(t);
+          var n = o("WAWap").decodeAsString(t);
           if (
-            y(n) &&
+            v(n) &&
             !(
               e.attrs.category === "peer" &&
               o("WAWebUserPrefsMeUser").isMeAccount(
                 o("WAWebWidFactory").createWid(n),
               )
             ) &&
-            !h(e) &&
+            !b(e) &&
             o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
           ) {
-            var r = g(n);
+            var r = C(n);
             o("WALogger")
               .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "[stanza-validation] pnless-stanza: <",
                     "> to=",
                     " is PN despite web_pnless_stanzas being enabled",
@@ -157,27 +208,27 @@ __d(
         }
       }
     }
-    function b(e) {
+    function R(e) {
       if (e.tag === "message") {
         var t = e.attrs.to;
         if (t != null) {
-          var n = String(t),
+          var n = o("WAWap").decodeAsString(t),
             r = o("WAWebWidValidator").validateAndGetParts(n);
           if (!(r == null || r.userPart == null)) {
             var a = o("WAWebWidFactory").createWid(n);
             if (a.isUser()) {
-              var i = _(e),
-                l = i.filter(y);
+              var i = h(e),
+                l = i.filter(v);
               if (
                 l.length !== 0 &&
                 o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") ===
                   !0
               ) {
-                var s = l.map(g).join(",");
+                var s = l.map(C).join(",");
                 o("WALogger")
                   .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[stanza-validation] pnless-stanza: <",
                         "> participant(s) using PN despite web_pnless_stanzas being enabled: ",
                         "",
@@ -192,9 +243,9 @@ __d(
         }
       }
     }
-    function v(e) {
+    function L(e) {
       if (e.tag === "message") {
-        var t = _(e);
+        var t = h(e);
         if (t.length !== 0) {
           var n = 0,
             r = 0,
@@ -207,11 +258,11 @@ __d(
             }),
             n > 0 && r > 0)
           ) {
-            var i = a.map(g).join(",");
+            var i = a.map(C).join(",");
             o("WALogger")
               .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "[stanza-validation] mixed-participants: <message> has both LID (",
                     ") and PN (",
                     ") participants: ",
@@ -226,7 +277,7 @@ __d(
         }
       }
     }
-    l.validateSentStanza = m;
+    l.validateSentStanza = f;
   },
   98,
 );

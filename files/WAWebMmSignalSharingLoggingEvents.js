@@ -159,7 +159,14 @@ __d(
         (_ && (d == null ? void 0 : d.consentedUrl) != null && !f
           ? (g = o("WAWebWamEnumSignalSharingStatus").SIGNAL_SHARING_STATUS
               .ONE_PD)
-          : (d == null ? void 0 : d.unconsentedUrl) != null && !f
+          : !f &&
+              ((d == null ? void 0 : d.unconsentedUrl) != null ||
+                o("WAWebMmSignalSharingModelUtils").getMMSignalSharingData({
+                  chat: r,
+                  mmSignalType: p,
+                  msgId: c.id,
+                  tokenPath: "undisclosed",
+                }) != null)
             ? (g = o("WAWebWamEnumSignalSharingStatus").SIGNAL_SHARING_STATUS
                 .SP)
             : (g = o("WAWebWamEnumSignalSharingStatus").SIGNAL_SHARING_STATUS

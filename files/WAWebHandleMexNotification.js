@@ -33,6 +33,8 @@ __d(
     "WAWebMexUsernameAccountSyncNotificationHandler",
     "WAWebMexUsernameUpdateNotificationHandler",
     "WAWebNewChatMessageCappingNotificationHandler",
+    "WAWebScheduledMsgPostNotificationHandler",
+    "WAWebScheduledMsgRevealNotificationHandler",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -359,17 +361,35 @@ __d(
                                                                       )
                                                                         .mexHandleNewChatMessageCappingNotification,
                                                                     )
-                                                                  : (
-                                                                      u ||
-                                                                      (u =
-                                                                        n(
-                                                                          "Promise",
-                                                                        ))
-                                                                    ).reject(
-                                                                      new g(
-                                                                        e.OperationName,
-                                                                      ),
-                                                                    );
+                                                                  : e.OperationName ===
+                                                                      "NotificationScheduledMessagePost"
+                                                                    ? h(
+                                                                        e,
+                                                                        o(
+                                                                          "WAWebScheduledMsgPostNotificationHandler",
+                                                                        )
+                                                                          .mexHandleScheduledMsgPost,
+                                                                      )
+                                                                    : e.OperationName ===
+                                                                        "NotificationScheduledMessageReveal"
+                                                                      ? h(
+                                                                          e,
+                                                                          o(
+                                                                            "WAWebScheduledMsgRevealNotificationHandler",
+                                                                          )
+                                                                            .mexHandleScheduledMsgReveal,
+                                                                        )
+                                                                      : (
+                                                                          u ||
+                                                                          (u =
+                                                                            n(
+                                                                              "Promise",
+                                                                            ))
+                                                                        ).reject(
+                                                                          new g(
+                                                                            e.OperationName,
+                                                                          ),
+                                                                        );
     }
     var g = (function (e) {
       function t(n) {

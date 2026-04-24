@@ -8,6 +8,7 @@ __d(
     "WAWebAndroidUnsupportedActionsSync",
     "WAWebArchiveChatSync",
     "WAWebArchiveSettingSync",
+    "WAWebBizAiSettingsNudgeSync",
     "WAWebBotWelcomeRequestSync",
     "WAWebBroadcastCampaignSync",
     "WAWebBroadcastListSync",
@@ -132,6 +133,7 @@ __d(
       r("WAWebNctSaltSync"),
       r("WAWebSubscriptionsSyncV2Sync"),
       r("WAWebOutContactSync"),
+      r("WAWebBizAiSettingsNudgeSync"),
     ];
     l.ActionHandlers = e;
   },

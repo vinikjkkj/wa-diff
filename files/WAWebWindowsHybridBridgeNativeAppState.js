@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebEventEmitter",
     "WAWebODS",
+    "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -52,16 +53,52 @@ __d(
             return t.getAppState() === d.MinimizedToTray;
           }),
           (this.takeAppLaunchTimeStamp = function () {
-            return t.$2.takeAppLaunchTimeStamp();
+            return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "nativeAppStateBridge",
+                method: "takeAppLaunchTimeStamp",
+                type: "sync",
+              },
+              function () {
+                return t.$2.takeAppLaunchTimeStamp();
+              },
+            );
           }),
           (this.getFirstAppRestoreTimeStamp = function () {
-            return t.$2.getFirstAppRestoreTimeStamp();
+            return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "nativeAppStateBridge",
+                method: "getFirstAppRestoreTimeStamp",
+                type: "sync",
+              },
+              function () {
+                return t.$2.getFirstAppRestoreTimeStamp();
+              },
+            );
           }),
           (this.getLastAppRestoreTimeStamp = function () {
-            return t.$2.getLastAppRestoreTimeStamp();
+            return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "nativeAppStateBridge",
+                method: "getLastAppRestoreTimeStamp",
+                type: "sync",
+              },
+              function () {
+                return t.$2.getLastAppRestoreTimeStamp();
+              },
+            );
           }),
           (this.detectNativeClockSkew = function () {
-            return t.$2.detectNativeClockSkew(Date.now());
+            return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "nativeAppStateBridge",
+                method: "detectNativeClockSkew",
+                type: "sync",
+              },
+              function () {
+                return t.$2.detectNativeClockSkew(Date.now());
+              },
+            );
           }),
           (this.getAppStateAsync = n(
             "asyncToGeneratorRuntime",
@@ -69,7 +106,16 @@ __d(
             r("WAWebODS").incr(
               "web.hybrid.bridge.native_app_state.send.get_app_state",
             );
-            var e = t.$1.getAppState(),
+            var e = o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "nativeAppStateBridge",
+                  method: "getAppState",
+                  type: "sync",
+                },
+                function () {
+                  return t.$1.getAppState();
+                },
+              ),
               n = e.toString(),
               a = d.cast(n);
             return (

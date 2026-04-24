@@ -61,34 +61,44 @@ __d(
         return t !== o("WAWebFileUtils").FILETYPE.DOCUMENT ? !0 : u(e.file);
       });
     }
-    function p(e, t) {
-      var n = [],
-        r = d(e, n);
-      if (r.length === 0) return { validAttachments: [], errors: n };
+    function p(e, t, n) {
+      var r = [],
+        o = d(e, r);
+      if (o.length === 0) return { validAttachments: [], errors: r };
       if (
         c(
-          r.map(function (e) {
+          o.map(function (e) {
             return e.file;
           }),
         )
       )
         return (
-          n.push({ type: "mixed_media" }),
-          { validAttachments: [], errors: n }
+          r.push({ type: "mixed_media" }),
+          { validAttachments: [], errors: r }
         );
-      var o = m(r);
+      if (n != null && n.size > 0 && !_(o, n))
+        return (
+          r.push({ type: "mixed_media" }),
+          { validAttachments: [], errors: r }
+        );
+      var a = m(o);
       if (
-        (o.length < r.length &&
-          (o.length > 0
-            ? n.push({ type: "some_items_failed", count: r.length - o.length })
-            : n.push({ type: "unsupported_file_format" })),
-        o.length === 0)
+        (a.length < o.length &&
+          (a.length > 0
+            ? r.push({ type: "some_items_failed", count: o.length - a.length })
+            : r.push({ type: "unsupported_file_format" })),
+        a.length === 0)
       )
-        return { validAttachments: [], errors: n };
-      var a = _(o, t, n);
-      return { validAttachments: a, errors: n };
+        return { validAttachments: [], errors: r };
+      var i = f(a, t, r);
+      return { validAttachments: i, errors: r };
     }
-    function _(e, t, n) {
+    function _(e, t) {
+      if (t.size !== 1) return !1;
+      var n = o("WAWebFileUtils").typeFromMimetype(e[0].file.type);
+      return t.has(n);
+    }
+    function f(e, t, n) {
       var r = o("WAWebFileUtils").typeFromMimetype(e[0].file.type),
         a = o("WAWebMediaGatingUtils").getMaxNumberSelectableMedia(
           e.length,
@@ -103,7 +113,7 @@ __d(
               n.push({ type: "document_limit_exceeded", limit: a }),
           e.slice(0, a));
     }
-    function f(e) {
+    function g(e) {
       for (var t of e)
         e: {
           var n = t;
@@ -165,7 +175,7 @@ __d(
           );
         }
     }
-    function g(e, t) {
+    function h(e, t) {
       e !== t &&
         (e > 0
           ? o("WAWebBotMultiModalToasts").showSendMediaFailedItemToast(t - e)
@@ -177,8 +187,8 @@ __d(
       (l.hasMetaAiMixedMediaTypes = c),
       (l.getSupportedMetaAiAttachments = m),
       (l.validateMetaAiAttachments = p),
-      (l.showMetaAiAttachmentErrors = f),
-      (l.maybeShowUnsupportedFileToast = g));
+      (l.showMetaAiAttachmentErrors = g),
+      (l.maybeShowUnsupportedFileToast = h));
   },
   98,
 );

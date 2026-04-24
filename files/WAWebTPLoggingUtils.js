@@ -2,108 +2,132 @@ __d(
   "WAWebTPLoggingUtils",
   [
     "WACustomError",
+    "WAHashStringToNumber",
     "WAWebWamEnumWebtpEventType",
     "WAWebWamEnumWebtpSourceType",
     "WAWebWebcWebtpPdfViewerWamEvent",
     "asyncToGeneratorRuntime",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      return s.apply(this, arguments);
+    var e,
+      s = (e = r("justknobx")._("3702")) != null ? e : 100;
+    function u(e) {
+      return e == null || e === ""
+        ? !0
+        : o("WAHashStringToNumber").hashStringToNumber(e) % s === 0;
     }
-    function s() {
+    function c(e, t) {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)(
-            {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          u(e) &&
+            new (o(
+              "WAWebWebcWebtpPdfViewerWamEvent",
+            ).WebcWebtpPdfViewerWamEvent)({
               webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.OPEN,
               webtpSessionId: e,
               webtpFileSize: t,
               webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
                 .PDF_VIEWER,
-            },
-          ).commit();
+              webtpTelemetryData: JSON.stringify({ sampleRate: s }),
+            }).commit();
         })),
-        s.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function u(e, t, n, r, o) {
-      return c.apply(this, arguments);
+    function m(e, t, n, r, o) {
+      return p.apply(this, arguments);
     }
-    function c() {
+    function p() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a) {
-            new (o(
-              "WAWebWebcWebtpPdfViewerWamEvent",
-            ).WebcWebtpPdfViewerWamEvent)({
-              webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
-                .CLOSE,
-              webtpSessionId: e,
-              webtpFileSize: t,
-              webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
-                .PDF_VIEWER,
-              webtpTelemetryData: JSON.stringify({
-                anrCount: n,
-                longAnimationFrameCount: r.count,
-                longAnimationFrameEntries: r.entries,
-                browserMetrics: a,
-              }),
-            }).commit();
+            u(e) &&
+              new (o(
+                "WAWebWebcWebtpPdfViewerWamEvent",
+              ).WebcWebtpPdfViewerWamEvent)({
+                webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
+                  .CLOSE,
+                webtpSessionId: e,
+                webtpFileSize: t,
+                webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
+                  .PDF_VIEWER,
+                webtpTelemetryData: JSON.stringify({
+                  anrCount: n,
+                  longAnimationFrameCount: r.count,
+                  longAnimationFrameEntries: r.entries,
+                  browserMetrics: a,
+                  sampleRate: s,
+                }),
+              }).commit();
           },
         )),
-        c.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function d(e, t, n) {
-      var r =
-        e === "media_viewer_header"
-          ? o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
-              .MEDIA_VIEWER_HEADER
-          : e === "message_bubble"
-            ? o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE.MESSAGE_BUBBLE
-            : e === "pdf_viewer_error_screen"
+    function _(e, t, n) {
+      if (u(t)) {
+        var r =
+          e === "media_viewer_header"
+            ? o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
+                .MEDIA_VIEWER_HEADER
+            : e === "message_bubble"
               ? o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
-                  .PDF_VIEWER_ERROR_SCREEN
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
-      new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
-        webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
-          .DOWNLOAD_DOCUMENT_CLICK,
-        webtpSource: r,
-        webtpSessionId: t,
-        webtpFileSize: n,
-      }).commit();
+                  .MESSAGE_BUBBLE
+              : e === "pdf_viewer_error_screen"
+                ? o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
+                    .PDF_VIEWER_ERROR_SCREEN
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
+        new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
+          webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
+            .DOWNLOAD_DOCUMENT_CLICK,
+          webtpSource: r,
+          webtpSessionId: t,
+          webtpFileSize: n,
+          webtpTelemetryData: JSON.stringify({ sampleRate: s }),
+        }).commit();
+      }
     }
-    function m(e, t, n, r) {
-      new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
-        webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
-          .APP_PERF_DATA,
-        webtpSessionId: t,
-        webtpFileSize: n,
-        webtpTelemetryData: JSON.stringify(e),
-        webtpSdkVersion: r,
-        webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
-          .PDF_VIEWER,
-      }).commit();
+    function f(e, t, n, r) {
+      u(t) &&
+        new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
+          webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
+            .APP_PERF_DATA,
+          webtpSessionId: t,
+          webtpFileSize: n,
+          webtpTelemetryData: JSON.stringify(
+            babelHelpers.extends({}, e, { sampleRate: s }),
+          ),
+          webtpSdkVersion: r,
+          webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
+            .PDF_VIEWER,
+        }).commit();
     }
-    function p(e, t, n, r) {
-      new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
-        webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.TELEMETRY,
-        webtpSessionId: t,
-        webtpFileSize: n,
-        webtpTelemetryData: JSON.stringify(e),
-        webtpSdkVersion: r,
-        webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
-          .PDF_VIEWER,
-      }).commit();
+    function g(e, t, n, r) {
+      u(t) &&
+        new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
+          webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
+            .TELEMETRY,
+          webtpSessionId: t,
+          webtpFileSize: n,
+          webtpTelemetryData: JSON.stringify(
+            babelHelpers.extends({}, e, { sampleRate: s }),
+          ),
+          webtpSdkVersion: r,
+          webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
+            .PDF_VIEWER,
+        }).commit();
     }
-    function _(e) {
+    function h(e) {
       return (function (t) {
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
@@ -243,7 +267,7 @@ __d(
         };
       })(e);
     }
-    function f(e) {
+    function y(e) {
       if (
         e == null ||
         typeof e != "object" ||
@@ -265,14 +289,14 @@ __d(
         ? e
         : null;
     }
-    function g(e) {
+    function C(e) {
       return e == null || typeof e != "object"
         ? null
         : e instanceof Error || ("stack" in e && "message" in e)
           ? e
           : null;
     }
-    function h(e) {
+    function b(e) {
       return e == null ||
         typeof e != "object" ||
         e instanceof o("WACustomError").TimeoutError
@@ -293,18 +317,22 @@ __d(
             }
           : null;
     }
-    function y(e, t, n, r) {
-      new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
-        webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.TELEMETRY,
-        webtpSessionId: t,
-        webtpFileSize: n,
-        webtpTelemetryData: JSON.stringify(e),
-        webtpSdkVersion: r,
-        webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
-          .THUMBNAIL,
-      }).commit();
+    function v(e, t, n, r) {
+      u(t) &&
+        new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
+          webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
+            .TELEMETRY,
+          webtpSessionId: t,
+          webtpFileSize: n,
+          webtpTelemetryData: JSON.stringify(
+            babelHelpers.extends({}, e, { sampleRate: s }),
+          ),
+          webtpSdkVersion: r,
+          webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
+            .THUMBNAIL,
+        }).commit();
     }
-    function C(e, t, n) {
+    function S(e, t, n) {
       if (e instanceof o("WACustomError").TimeoutError) {
         var r;
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
@@ -319,7 +347,7 @@ __d(
         }).commit();
         return;
       }
-      var a = h(e);
+      var a = b(e);
       if (a != null) {
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
@@ -334,7 +362,7 @@ __d(
         }).commit();
         return;
       }
-      var i = g(e);
+      var i = C(e);
       if (i != null) {
         var l;
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
@@ -359,12 +387,12 @@ __d(
           .THUMBNAIL,
       }).commit();
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    function R(e, t, n) {
+      return L.apply(this, arguments);
     }
-    function v() {
+    function L() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (e instanceof o("WACustomError").TimeoutError) {
             var r;
             new (o(
@@ -382,10 +410,10 @@ __d(
             }).commit();
             return;
           }
-          var a = f(e);
+          var a = y(e);
           if (a != null) {
             var i,
-              l = _(a);
+              l = h(a);
             new (o(
               "WAWebWebcWebtpPdfViewerWamEvent",
             ).WebcWebtpPdfViewerWamEvent)({
@@ -403,7 +431,7 @@ __d(
             }).commit();
             return;
           }
-          var s = g(e);
+          var s = C(e);
           if (s != null) {
             var u;
             new (o(
@@ -434,10 +462,10 @@ __d(
             },
           ).commit();
         })),
-        v.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function S(e, t) {
+    function E(e, t) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_SHARER_OPEN,
@@ -447,7 +475,7 @@ __d(
         webtpFileSize: t,
       }).commit();
     }
-    function R(e, t) {
+    function k(e, t) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_SHARER_CANCEL,
@@ -457,7 +485,7 @@ __d(
         webtpTelemetryData: JSON.stringify({ stage: t }),
       }).commit();
     }
-    function L(e, t, n, r) {
+    function I(e, t, n, r) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_SHARER_CONTINUE,
@@ -465,10 +493,10 @@ __d(
           .PDF_SHARER,
         webtpSessionId: e,
         webtpFileSize: t,
-        webtpTelemetryData: k(n, r),
+        webtpTelemetryData: D(n, r),
       }).commit();
     }
-    function E(e, t, n, r) {
+    function T(e, t, n, r) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_SHARER_SUCCESS,
@@ -476,10 +504,10 @@ __d(
           .PDF_SHARER,
         webtpSessionId: e,
         webtpFileSize: t,
-        webtpTelemetryData: k(n, r),
+        webtpTelemetryData: D(n, r),
       }).commit();
     }
-    function k(e, t) {
+    function D(e, t) {
       if (!(e == null && t == null)) {
         var n = {};
         return (
@@ -489,7 +517,7 @@ __d(
         );
       }
     }
-    function I(e, t, n, r, a) {
+    function x(e, t, n, r, a) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_SHARER_ERROR,
@@ -503,7 +531,7 @@ __d(
           r != null ? JSON.stringify({ continuationTarget: r }) : void 0,
       }).commit();
     }
-    function T() {
+    function $() {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_SHARER_UNSUPPORTED,
@@ -511,7 +539,7 @@ __d(
           .PDF_SHARER,
       }).commit();
     }
-    function D(e) {
+    function P(e) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_OPEN,
@@ -520,7 +548,7 @@ __d(
         webtpSessionId: e,
       }).commit();
     }
-    function x(e, t) {
+    function N(e, t) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_SUCCESS,
@@ -530,7 +558,7 @@ __d(
         webtpFileSize: t,
       }).commit();
     }
-    function $(e, t, n, r) {
+    function M(e, t, n, r) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_ERROR,
@@ -542,7 +570,7 @@ __d(
         webtpSessionId: n,
       }).commit();
     }
-    function P(e) {
+    function w(e) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_CANCEL,
@@ -551,7 +579,7 @@ __d(
         webtpSessionId: e,
       }).commit();
     }
-    function N(e, t) {
+    function A(e, t) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_CONTINUE,
@@ -562,7 +590,7 @@ __d(
           t != null ? JSON.stringify({ utmCampaign: t }) : void 0,
       }).commit();
     }
-    function M(e) {
+    function F(e) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_FILE_FORWARDED,
@@ -571,7 +599,7 @@ __d(
         webtpSessionId: e,
       }).commit();
     }
-    function w() {
+    function O() {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_SHARER_AUTO_PROCEED_CHECKBOX,
@@ -579,7 +607,7 @@ __d(
           .PDF_SHARER,
       }).commit();
     }
-    function A(e) {
+    function B(e) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_SHARER_CONTINUE_AUTO_PROCEED,
@@ -589,7 +617,7 @@ __d(
           e != null ? JSON.stringify({ continuationTarget: e }) : void 0,
       }).commit();
     }
-    function F(e, t) {
+    function W(e, t) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_CONTINUE,
@@ -604,7 +632,7 @@ __d(
         ),
       }).commit();
     }
-    function O(e) {
+    function q(e) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_FILE_FORWARDED,
@@ -614,7 +642,7 @@ __d(
         webtpTelemetryData: JSON.stringify({ action: "preview_send" }),
       }).commit();
     }
-    function B(e) {
+    function U(e) {
       new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
         webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE
           .PDF_RECEIVER_CANCEL,
@@ -624,34 +652,34 @@ __d(
         webtpTelemetryData: JSON.stringify({ action: "preview_cancel" }),
       }).commit();
     }
-    ((l.logDocumentOpenEvent = e),
-      (l.logDocumentCloseEvent = u),
-      (l.logDownloadDocumentClickEvent = d),
-      (l.logAppPerfDataEvent = m),
-      (l.logAppTelemetryDataEvent = p),
-      (l.convertTelemetryErrorEventToLogEvent = _),
-      (l.asTelemetryError = f),
-      (l.asError = g),
-      (l.logThumbnailTelemetryDataEvent = y),
-      (l.logThumbnailRenderErrorEvent = C),
-      (l.logRenderErrorEvent = b),
-      (l.logPdfSharerOpenEvent = S),
-      (l.logPdfSharerCancelEvent = R),
-      (l.logPdfSharerContinueEvent = L),
-      (l.logPdfSharerSuccessEvent = E),
-      (l.logPdfSharerErrorEvent = I),
-      (l.logPdfSharerUnsupportedEvent = T),
-      (l.logPdfReceiverOpenEvent = D),
-      (l.logPdfReceiverSuccessEvent = x),
-      (l.logPdfReceiverErrorEvent = $),
-      (l.logPdfReceiverCancelEvent = P),
-      (l.logPdfReceiverContinueEvent = N),
-      (l.logPdfReceiverFileForwardedEvent = M),
-      (l.logPdfSharerAutoProceedCheckboxEvent = w),
-      (l.logPdfSharerContinueAutoProceedEvent = A),
-      (l.logPdfReceiverPreviewOpenEvent = F),
-      (l.logPdfReceiverPreviewSendEvent = O),
-      (l.logPdfReceiverPreviewCancelEvent = B));
+    ((l.logDocumentOpenEvent = c),
+      (l.logDocumentCloseEvent = m),
+      (l.logDownloadDocumentClickEvent = _),
+      (l.logAppPerfDataEvent = f),
+      (l.logAppTelemetryDataEvent = g),
+      (l.convertTelemetryErrorEventToLogEvent = h),
+      (l.asTelemetryError = y),
+      (l.asError = C),
+      (l.logThumbnailTelemetryDataEvent = v),
+      (l.logThumbnailRenderErrorEvent = S),
+      (l.logRenderErrorEvent = R),
+      (l.logPdfSharerOpenEvent = E),
+      (l.logPdfSharerCancelEvent = k),
+      (l.logPdfSharerContinueEvent = I),
+      (l.logPdfSharerSuccessEvent = T),
+      (l.logPdfSharerErrorEvent = x),
+      (l.logPdfSharerUnsupportedEvent = $),
+      (l.logPdfReceiverOpenEvent = P),
+      (l.logPdfReceiverSuccessEvent = N),
+      (l.logPdfReceiverErrorEvent = M),
+      (l.logPdfReceiverCancelEvent = w),
+      (l.logPdfReceiverContinueEvent = A),
+      (l.logPdfReceiverFileForwardedEvent = F),
+      (l.logPdfSharerAutoProceedCheckboxEvent = O),
+      (l.logPdfSharerContinueAutoProceedEvent = B),
+      (l.logPdfReceiverPreviewOpenEvent = W),
+      (l.logPdfReceiverPreviewSendEvent = q),
+      (l.logPdfReceiverPreviewCancelEvent = U));
   },
   98,
 );

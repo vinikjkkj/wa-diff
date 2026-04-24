@@ -5,21 +5,13 @@ __d(
     "WALogger",
     "WANullthrows",
     "WATimeUtils",
-    "WAWebABProps",
-    "WAWebBotBaseGating",
-    "WAWebBotTypes",
-    "WAWebChatMessageCountsWamEvent",
-    "WAWebChatThreadLoggingBoolFlagFields",
-    "WAWebChatThreadLoggingCountFields",
     "WAWebChatThreadLoggingUtils",
-    "WAWebGroupType",
     "WAWebThreadLoggingAi",
     "WAWebThreadLoggingBiz",
     "WAWebThreadLoggingCoreConsumer",
     "WAWebThreadLoggingIntegrity",
     "WAWebThreadLoggingNotification",
     "WAWebThreadLoggingVoip",
-    "WAWebWamEnumChatMutedType",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -29,9 +21,7 @@ __d(
       u,
       c,
       d,
-      m,
-      p = o("WAWebABProps").getABPropConfigValue("threads_logging_v2_enabled"),
-      _ = (function () {
+      m = (function () {
         function t(e, t) {
           ((this.eventStore = t), (this.metadataStore = e));
         }
@@ -40,12 +30,11 @@ __d(
           (a.uploadEvents = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                var a,
-                  i,
-                  l = this,
-                  _ = (a = t == null ? void 0 : t.purgeAfter) != null ? a : !0,
-                  g = yield this.metadataStore.getOffset();
-                if (g == null)
+                var n,
+                  a,
+                  i = (n = t == null ? void 0 : t.purgeAfter) != null ? n : !0,
+                  l = yield this.metadataStore.getOffset();
+                if (l == null)
                   return (
                     o("WALogger").WARN(
                       e ||
@@ -55,17 +44,17 @@ __d(
                     ),
                     -1
                   );
-                var h =
-                  (i = t == null ? void 0 : t.lastStartTs) != null
-                    ? i
+                var d =
+                  (a = t == null ? void 0 : t.lastStartTs) != null
+                    ? a
                     : o("WAWebChatThreadLoggingUtils").computeStartTs(
-                        g,
+                        l,
                         o("WATimeUtils").unixTime() -
                           o("WATimeUtils").DAY_SECONDS,
                       );
                 if (this.secret == null) {
-                  var y = yield this.metadataStore.getSecret();
-                  if (y == null)
+                  var m = yield this.metadataStore.getSecret();
+                  if (m == null)
                     return (
                       o("WALogger").WARN(
                         s ||
@@ -75,205 +64,39 @@ __d(
                       ),
                       -1
                     );
-                  this.secret = y;
+                  this.secret = m;
                 }
-                var C = yield this.eventStore.getBeforeInclusive(h);
-                if (p)
-                  try {
-                    yield f(C, r("WANullthrows")(this.secret));
-                  } catch (e) {
-                    o("WALogger").ERROR(
+                var _ = yield this.eventStore.getBeforeInclusive(d);
+                try {
+                  yield p(_, r("WANullthrows")(this.secret));
+                } catch (e) {
+                  o("WALogger")
+                    .ERROR(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
                           "CTLV2: Error uploading all events",
                         ])),
-                    );
-                  }
-                else
-                  try {
-                    yield (m || (m = n("Promise"))).all(
-                      C.map(
-                        (function () {
-                          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* (e) {
-                              var t,
-                                n,
-                                a,
-                                i = (a = o(
-                                  "WAWebChatThreadLoggingUtils",
-                                )).getThreadDs(e.startTs),
-                                s = a.getThreadDsForDb(e.startTs),
-                                u = yield a.generateThreadID(
-                                  r("WANullthrows")(l.secret),
-                                  e.chatId,
-                                  i,
-                                ),
-                                c = yield a.generateThreadID(
-                                  r("WANullthrows")(l.secret),
-                                  e.chatId,
-                                  a.getThreadMonthDs(e.startTs),
-                                ),
-                                d = e.contactInfo,
-                                m = {
-                                  threadDs: s,
-                                  threadId: u,
-                                  threadIdMonthly: c,
-                                  messagesSent: e.msgsSent,
-                                  messagesReceived: e.msgsReceived,
-                                  commentsReceived: e.commentsReceived,
-                                  viewOnceMessagesSent: e.viewOnceMsgsSent,
-                                  viewOnceMessagesReceived:
-                                    e.viewOnceMsgsReceived,
-                                  viewOnceMessagesOpened:
-                                    e.viewOnceMessagesOpened,
-                                  isAGroup: e.contactInfo.isAGroup,
-                                  groupSize: d.isAGroup ? d.groupSize : void 0,
-                                  isAContact: d.isAGroup
-                                    ? void 0
-                                    : d.isAContact,
-                                  isArchived: e.isArchived,
-                                  isPinned: e.isPinned,
-                                  messagesStarred: e.messagesStarred,
-                                  messagesRead: e.msgsRead,
-                                  messagesUnread: e.messagesUnread,
-                                  chatMuted: e.isMuted
-                                    ? o("WAWebWamEnumChatMutedType")
-                                        .CHAT_MUTED_TYPE.MUTED_NO_NOTIFICATIONS
-                                    : o("WAWebWamEnumChatMutedType")
-                                        .CHAT_MUTED_TYPE.NOT_MUTED,
-                                  callOffersSent: e.callOffersSent,
-                                  callOffersReceived: e.callOffersReceived,
-                                  totalCallDuration: e.totalCallDuration,
-                                  typeOfGroup:
-                                    e.contactInfo.groupType != null
-                                      ? o("WAWebGroupType").groupTypeToWamEnum(
-                                          e.contactInfo.groupType,
-                                        )
-                                      : void 0,
-                                  isPnhEnabledChat: e.isPnhEnabledChat,
-                                  reactionsSent: e.reactionsSent,
-                                  reactionsReceived: e.reactionsReceived,
-                                  isMessageYourself: e.isMessageYourself,
-                                  forwardMessagesSent: e.forwardMessagesSent,
-                                  forwardMessagesReceived:
-                                    e.forwardMessagesReceived,
-                                  editedMsgsSent: e.editedMsgsSent,
-                                  totalMessageToAgentCnt: e.botMessagesSent,
-                                  totalMessageFromAgentCnt:
-                                    e.botMessagesReceived,
-                                  totalMessageEditsFromAgentCnt:
-                                    e.botMessagesEdited,
-                                  isUserAgent: e.isUserAgent,
-                                  hasUsername: e.hasUsername,
-                                  hasUsernamePin: e.hasUsernamePin,
-                                  oppositeVisibleIdentification:
-                                    (t = e.oppositeVisibleIdentification) !=
-                                    null
-                                      ? t
-                                      : void 0,
-                                  isUsernameThread: e.isUsernameThread,
-                                  isUsernameThreadAtCreation:
-                                    e.isUsernameThreadAtCreation,
-                                  hasReplied1On1: e.hasReplied1On1,
-                                  sharesCommonGroup: e.sharesCommonGroup,
-                                  oppositePartyHasProfilePhoto:
-                                    e.oppositePartyHasProfilePhoto,
-                                  chatOrigins:
-                                    (n = e.chatOrigins) != null ? n : void 0,
-                                  eventCreationMessagesReceived:
-                                    e.eventCreationMessagesReceived,
-                                  eventCreationMessagesSent:
-                                    e.eventCreationMessagesSent,
-                                  eventResponseMessagesReceived:
-                                    e.eventResponseMessagesReceived,
-                                  eventResponseMessagesSent:
-                                    e.eventResponseMessagesSent,
-                                },
-                                p = new (o(
-                                  "WAWebChatMessageCountsWamEvent",
-                                ).ChatMessageCountsWamEvent)(m);
-                              (o("WAWebABProps").getABPropConfigValue(
-                                "group_status_receiver_enabled",
-                              ) &&
-                                ((p.groupStatusLikesOthersToOthers =
-                                  e.eventGroupStatusLikeOthersToOthers),
-                                (p.groupStatusLikesOthersToOwn =
-                                  e.eventGroupStatusLikeOthersToOwn),
-                                (p.groupStatusRepliesOthersToOthers =
-                                  e.eventGroupStatusReplyOthersToOthers),
-                                (p.groupStatusRepliesOthersToOwn =
-                                  e.eventGroupStatusReplyOthersToOwn),
-                                (p.groupStatusRepliesOwnToOthers =
-                                  e.eventGroupStatusReplyOwnToOthers),
-                                (p.groupStatusRepliesOwnToOwn =
-                                  e.eventGroupStatusReplyOwnToOwn)),
-                                e.ephemeralityTriggerAction != null &&
-                                  (p.ephemeralityTriggerAction =
-                                    e.ephemeralityTriggerAction),
-                                e.ephemeralityInitiator != null &&
-                                  (p.ephemeralityInitiator =
-                                    e.ephemeralityInitiator),
-                                o(
-                                  "WAWebChatThreadLoggingCountFields",
-                                ).COUNT_FIELD_NAMES.forEach(function (t) {
-                                  p[t] = e[t];
-                                }),
-                                o(
-                                  "WAWebChatThreadLoggingBoolFlagFields",
-                                ).FLAG_FIELD_NAMES.forEach(function (t) {
-                                  p[t] = e[t];
-                                }),
-                                d.isAGroup ||
-                                  (o(
-                                    "WAWebBotBaseGating",
-                                  ).isBizBot3pEnabled() &&
-                                    (p.isUser3pBotChat =
-                                      d.automatedType ===
-                                      o("WAWebBotTypes").BizBotAutomatedType
-                                        .FULL_3P),
-                                  o("WAWebBotBaseGating").isBizBot1pEnabled() &&
-                                    (p.isUser1pBizBotChat =
-                                      d.automatedType ===
-                                      o("WAWebBotTypes").BizBotAutomatedType
-                                        .PARTIAL_1P)),
-                                p.commit());
-                            },
-                          );
-                          return function (t) {
-                            return e.apply(this, arguments);
-                          };
-                        })(),
-                      ),
-                    );
-                  } catch (e) {
-                    o("WALogger")
-                      .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "chat_thread_logging: error uploading events: ",
-                            "",
-                          ])),
-                        r("getErrorSafe")(e).toString(),
-                      )
-                      .sendLogs("thread-logging-upload-failure");
-                  }
-                if (_) {
-                  var b = yield this.eventStore.deleteBeforeInclusive(h);
-                  b !== C.length &&
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("ctlv2-upload-failure");
+                }
+                if (i) {
+                  var f = yield this.eventStore.deleteBeforeInclusive(d);
+                  f !== _.length &&
                     o("WALogger").ERROR(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
                           "uploadEvents: uploaded=",
                           " deleted=",
                           " mismatch!",
                         ])),
-                      C.length,
-                      b,
+                      _.length,
+                      f,
                     );
                 }
                 return (
-                  yield this.metadataStore.setLastUploadedStartTs(h),
-                  C.length
+                  yield this.metadataStore.setLastUploadedStartTs(d),
+                  _.length
                 );
               },
             );
@@ -285,13 +108,13 @@ __d(
           t
         );
       })();
-    function f(e, t) {
-      return g.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function g() {
+    function _() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield (m || (m = n("Promise"))).all(
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var r = yield (d || (d = n("Promise"))).all(
             e.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -330,10 +153,10 @@ __d(
               "WAWebThreadLoggingIntegrity",
             ).ThreadInteractionIntegrityWamTrigger(r));
         })),
-        g.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.ChatThreadLoggingEventUploaderImpl = _;
+    l.ChatThreadLoggingEventUploaderImpl = m;
   },
   98,
 );

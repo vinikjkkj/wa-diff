@@ -12,6 +12,7 @@ __d(
     "WAWebSetWindowsPushConfig",
     "WAWebSocketConstants",
     "WAWebSocketModel",
+    "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -54,11 +55,29 @@ __d(
                     r("WAWebODS").incr(
                       "web.hybrid.bridge.connection.send.handle_connection_state",
                     ),
-                    a.$1.handleConnectionState(!0),
+                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "connection",
+                        method: "handleConnectionState",
+                        type: "sync",
+                      },
+                      function () {
+                        return a.$1.handleConnectionState(!0);
+                      },
+                    ),
                     r("WAWebODS").incr(
                       "web.hybrid.bridge.connection.send.acknowledge_notifications_token",
                     ),
-                    a.$1.acknowledgeNotificationsToken(i, l));
+                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "connection",
+                        method: "acknowledgeNotificationsToken",
+                        type: "sync",
+                      },
+                      function () {
+                        return a.$1.acknowledgeNotificationsToken(i, l);
+                      },
+                    ));
                 },
               );
               return function (e) {
@@ -92,7 +111,16 @@ __d(
                       r("WAWebODS").incr(
                         "web.hybrid.bridge.connection.send.handle_connection_state",
                       ),
-                      a.$1.handleConnectionState(!1));
+                      o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                        {
+                          bridge: "connection",
+                          method: "handleConnectionState",
+                          type: "sync",
+                        },
+                        function () {
+                          return a.$1.handleConnectionState(!1);
+                        },
+                      ));
                     return;
                   }
                   if (
@@ -143,7 +171,16 @@ __d(
                     r("WAWebODS").incr(
                       "web.hybrid.bridge.connection.send.handle_connection_state",
                     ),
-                    a.$1.handleConnectionState(!1));
+                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "connection",
+                        method: "handleConnectionState",
+                        type: "sync",
+                      },
+                      function () {
+                        return a.$1.handleConnectionState(!1);
+                      },
+                    ));
                 } catch (e) {
                   o("WALogger").ERROR(
                     f ||
@@ -200,7 +237,16 @@ __d(
                     r("WAWebODS").incr(
                       "web.hybrid.bridge.connection.send.handle_connection_state",
                     ),
-                    a.$1.handleConnectionState(!0));
+                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "connection",
+                        method: "handleConnectionState",
+                        type: "sync",
+                      },
+                      function () {
+                        return a.$1.handleConnectionState(!0);
+                      },
+                    ));
                 } catch (e) {
                   o("WALogger").ERROR(
                     b ||

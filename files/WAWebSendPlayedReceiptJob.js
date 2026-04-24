@@ -36,7 +36,10 @@ __d(
             a = t.id.id,
             i = r.isUser() ? null : t.author,
             l = e(n),
-            s = yield o("WAWebPnlessStanzaMigration").getStanzaToFromChatId(r),
+            s = yield o("WAWebPnlessStanzaMigration").getStanzaToFromChatId(
+              r,
+              l,
+            ),
             u = o("WAWap").wap("receipt", {
               to: o("WAWebCommsWapMd").CHAT_JID(s),
               type: l,

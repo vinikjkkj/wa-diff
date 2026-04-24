@@ -14,6 +14,8 @@ __d(
       SEARCH: 8,
       DISMISS: 9,
       VALIDATION: 10,
+      READ: 11,
+      WRITE: 12,
     });
     i.SMB_USER_ACTION_TYPE_ENUM = e;
   },
