@@ -4,8 +4,8 @@ __d(
     "WALogger",
     "WAWebBackendErrors",
     "WAWebBroadcastODS",
-    "WAWebGetBusinessEligibilityJob",
     "WAWebMobilePlatforms",
+    "WAWebRefreshBusinessEligibility",
     "WAWebWorkerSafeBackendApi",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -21,8 +21,8 @@ __d(
           o("WAWebBroadcastODS").logEligibilityPrefetch();
           try {
             (yield o(
-              "WAWebGetBusinessEligibilityJob",
-            ).fetchAndCacheBusinessEligibility(),
+              "WAWebRefreshBusinessEligibility",
+            ).refreshBusinessEligibilityIfNeeded({ rethrowOnFailure: !0 }),
               o("WAWebBroadcastODS").logEligibilityPrefetchSuccess());
           } catch (n) {
             o("WAWebBroadcastODS").logEligibilityPrefetchError();

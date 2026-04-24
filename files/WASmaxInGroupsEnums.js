@@ -34,37 +34,43 @@ __d(
         rejected: "rejected",
       },
       y = {
+        approved: "approved",
+        in_review: "in_review",
+        none: "none",
+        rejected: "rejected",
+      },
+      C = {
         deactivate_general_chat: "deactivate_general_chat",
         delete_capi: "delete_capi",
         delete_parent: "delete_parent",
         integrity_delete_parent: "integrity_delete_parent",
       },
-      C = {
+      b = {
         deactivate_group: "deactivate_group",
         delete_parent: "delete_parent",
         integrity_delete_parent: "integrity_delete_parent",
         unlink_group: "unlink_group",
       },
-      b = { e2ee_migration: "e2ee_migration", regular: "regular", rtc: "rtc" },
-      v = { false: "false", true: "true" },
-      S = { group: "group", user: "user" },
-      R = { image: "image", preview: "preview" },
-      L = {
+      v = { e2ee_migration: "e2ee_migration", regular: "regular", rtc: "rtc" },
+      S = { false: "false", true: "true" },
+      R = { group: "group", user: "user" },
+      L = { image: "image", preview: "preview" },
+      E = {
         invite_link: "invite_link",
         linked_group_join: "linked_group_join",
         non_admin_add: "non_admin_add",
       },
-      E = { lid: "lid", pn: "pn" },
-      k = {
+      k = { lid: "lid", pn: "pn" },
+      I = {
         parent_group: "parent_group",
         sibling_group: "sibling_group",
         sub_group: "sub_group",
       },
-      I = {
+      T = {
         validators: [(e = o("WAJids")).validateDomainJid, e.validateGroupJid],
         typeName: "DomainJid|GroupJid",
       },
-      T = {
+      D = {
         validators: [e.validateUserJid, e.validateUserJid],
         typeName: "UserJid|UserJid",
       };
@@ -80,19 +86,20 @@ __d(
       (l.ENUM_ADMIN_CREATOR = f),
       (l.ENUM_ADMIN_SUPERADMIN = g),
       (l.ENUM_APPROVED_CANCELLED_REJECTED = h),
+      (l.ENUM_APPROVED_INREVIEW_NONE_REJECTED = y),
       (l.ENUM_DEACTIVATEGENERALCHAT_DELETECAPI_DELETEPARENT_INTEGRITYDELETEPARENT =
-        y),
-      (l.ENUM_DEACTIVATEGROUP_DELETEPARENT_INTEGRITYDELETEPARENT_UNLINKGROUP =
         C),
-      (l.ENUM_E2EEMIGRATION_REGULAR_RTC = b),
-      (l.ENUM_FALSE_TRUE = v),
-      (l.ENUM_GROUP_USER = S),
-      (l.ENUM_IMAGE_PREVIEW = R),
-      (l.ENUM_INVITELINK_LINKEDGROUPJOIN_NONADMINADD = L),
-      (l.ENUM_LID_PN = E),
-      (l.ENUM_PARENTGROUP_SIBLINGGROUP_SUBGROUP = k),
-      (l.DOMAINJID_GROUPJID = I),
-      (l.USERJID_USERJID = T));
+      (l.ENUM_DEACTIVATEGROUP_DELETEPARENT_INTEGRITYDELETEPARENT_UNLINKGROUP =
+        b),
+      (l.ENUM_E2EEMIGRATION_REGULAR_RTC = v),
+      (l.ENUM_FALSE_TRUE = S),
+      (l.ENUM_GROUP_USER = R),
+      (l.ENUM_IMAGE_PREVIEW = L),
+      (l.ENUM_INVITELINK_LINKEDGROUPJOIN_NONADMINADD = E),
+      (l.ENUM_LID_PN = k),
+      (l.ENUM_PARENTGROUP_SIBLINGGROUP_SUBGROUP = I),
+      (l.DOMAINJID_GROUPJID = T),
+      (l.USERJID_USERJID = D));
   },
   98,
 );

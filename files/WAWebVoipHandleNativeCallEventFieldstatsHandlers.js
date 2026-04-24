@@ -62,7 +62,7 @@ __d(
             o("WALogger").WARN(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [Fieldstats] voipStackInterface unavailable, dropping event",
+                  "voip: [Fieldstats] stack unavailable, dropping",
                 ])),
             );
             return;
@@ -165,7 +165,7 @@ __d(
             var v = yield o("WAWebBackendApi").frontendSendAndReceive(
               "consumeWebCodecsFatalErrorCount",
             );
-            (v != null && v > 0 && (s.video_webcodecs_dec_fatal_error_num = v),
+            (v != null && (s.videoWebcodecsDecFatalErrorNum = v),
               o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([

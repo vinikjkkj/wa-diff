@@ -34,11 +34,7 @@ __d(
         41136, 18958, 6951, 50414, 58488, 44335, 6150, 12099, 55207, 15867, 153,
         11085, 57099, 20417, 9344, 11139,
       ]);
-    function g(e, t) {
-      var n;
-      for (n = 0; n < 16; n++) e[n] = t[n] | 0;
-    }
-    function h(e) {
+    function g(e) {
       var t, n;
       for (n = 0; n < 16; n++)
         ((e[n] += 65536),
@@ -47,42 +43,42 @@ __d(
             t - 1 + 37 * (t - 1) * (n === 15 ? 1 : 0)),
           (e[n] -= t * 65536));
     }
-    function y(e, t, n) {
+    function h(e, t, n) {
       for (var r, o = ~(n - 1), a = 0; a < 16; a++)
         ((r = o & (e[a] ^ t[a])), (e[a] ^= r), (t[a] ^= r));
     }
-    function C(t, n) {
+    function y(t, n) {
       var r,
         o,
         a,
         i = e(),
         l = e();
       for (r = 0; r < 16; r++) l[r] = n[r];
-      for (h(l), h(l), h(l), o = 0; o < 2; o++) {
+      for (g(l), g(l), g(l), o = 0; o < 2; o++) {
         for (i[0] = l[0] - 65517, r = 1; r < 15; r++)
           ((i[r] = l[r] - 65535 - ((i[r - 1] >> 16) & 1)), (i[r - 1] &= 65535));
         ((i[15] = l[15] - 32767 - ((i[14] >> 16) & 1)),
           (a = (i[15] >> 16) & 1),
           (i[14] &= 65535),
-          y(l, i, 1 - a));
+          h(l, i, 1 - a));
       }
       for (r = 0; r < 16; r++)
         ((t[2 * r] = l[r] & 255), (t[2 * r + 1] = l[r] >> 8));
     }
-    function b(e, t) {
+    function C(e, t) {
       var n;
       for (n = 0; n < 16; n++) e[n] = t[2 * n] + (t[2 * n + 1] << 8);
       e[15] &= 32767;
     }
-    function v(e, t, n) {
+    function b(e, t, n) {
       var r;
       for (r = 0; r < 16; r++) e[r] = (t[r] + n[r]) | 0;
     }
-    function S(e, t, n) {
+    function v(e, t, n) {
       var r;
       for (r = 0; r < 16; r++) e[r] = (t[r] - n[r]) | 0;
     }
-    function R(e, t, n) {
+    function S(e, t, n) {
       var r,
         o,
         a = new Float64Array(31);
@@ -90,19 +86,19 @@ __d(
       for (r = 0; r < 16; r++) for (o = 0; o < 16; o++) a[r + o] += t[r] * n[o];
       for (r = 0; r < 15; r++) a[r] += 38 * a[r + 16];
       for (r = 0; r < 16; r++) e[r] = a[r];
-      (h(e), h(e));
+      (g(e), g(e));
     }
-    function L(e, t) {
-      R(e, t, t);
+    function R(e, t) {
+      S(e, t, t);
     }
-    function E(t, n) {
+    function L(t, n) {
       var r = e(),
         o;
       for (o = 0; o < 16; o++) r[o] = n[o];
-      for (o = 253; o >= 0; o--) (L(r, r), o !== 2 && o !== 4 && R(r, r, n));
+      for (o = 253; o >= 0; o--) (R(r, r), o !== 2 && o !== 4 && S(r, r, n));
       for (o = 0; o < 16; o++) t[o] = r[o];
     }
-    function k(t, n, r) {
+    function E(t, n, r) {
       var o = new Uint8Array(32),
         a = new Float64Array(80),
         i,
@@ -114,32 +110,32 @@ __d(
         p = e(),
         _ = e();
       for (l = 0; l < 31; l++) o[l] = n[l];
-      for (o[31] = (n[31] & 127) | 64, o[0] &= 248, b(a, r), l = 0; l < 16; l++)
+      for (o[31] = (n[31] & 127) | 64, o[0] &= 248, C(a, r), l = 0; l < 16; l++)
         ((u[l] = a[l]), (m[l] = s[l] = d[l] = 0));
       for (s[0] = m[0] = 1, l = 254; l >= 0; --l)
         ((i = (o[l >>> 3] >>> (l & 7)) & 1),
-          y(s, u, i),
-          y(d, m, i),
-          v(p, s, d),
-          S(s, s, d),
-          v(d, u, m),
-          S(u, u, m),
-          L(m, p),
-          L(_, s),
-          R(s, d, s),
-          R(d, u, p),
-          v(p, s, d),
-          S(s, s, d),
-          L(u, s),
-          S(d, m, _),
-          R(s, d, c),
-          v(s, s, m),
-          R(d, d, s),
-          R(s, m, _),
-          R(m, u, a),
-          L(u, p),
-          y(s, u, i),
-          y(d, m, i));
+          h(s, u, i),
+          h(d, m, i),
+          b(p, s, d),
+          v(s, s, d),
+          b(d, u, m),
+          v(u, u, m),
+          R(m, p),
+          R(_, s),
+          S(s, d, s),
+          S(d, u, p),
+          b(p, s, d),
+          v(s, s, d),
+          R(u, s),
+          v(d, m, _),
+          S(s, d, c),
+          b(s, s, m),
+          S(d, d, s),
+          S(s, m, _),
+          S(m, u, a),
+          R(u, p),
+          h(s, u, i),
+          h(d, m, i));
       for (l = 0; l < 16; l++)
         ((a[l + 16] = s[l]),
           (a[l + 32] = d[l]),
@@ -147,60 +143,27 @@ __d(
           (a[l + 64] = m[l]));
       var f = a.subarray(32),
         g = a.subarray(16);
-      return (E(f, f), R(g, g, f), C(t, g), 0);
+      return (L(f, f), S(g, g, f), y(t, g), 0);
     }
-    function I(e, t) {
-      return k(e, t, l);
+    function k(e, t) {
+      return E(e, t, l);
     }
-    function T(e, t, n) {
-      return (n(t, 32), I(e, t));
+    function I(e, t, n) {
+      return (n(t, 32), k(e, t));
     }
-    function D(t, n) {
-      var r = e(),
-        o = e(),
-        a = e(),
-        i = e(),
-        l = e(),
-        s = e(),
-        u = e(),
-        c = e(),
-        d = e();
-      (S(r, t[1], t[0]),
-        S(d, n[1], n[0]),
-        R(r, r, d),
-        v(o, t[0], t[1]),
-        v(d, n[0], n[1]),
-        R(o, o, d),
-        R(a, t[3], n[3]),
-        R(a, a, m),
-        R(i, t[2], n[2]),
-        v(i, i, i),
-        S(l, o, r),
-        S(s, i, a),
-        v(u, i, a),
-        v(c, o, r),
-        R(t[0], l, s),
-        R(t[1], c, u),
-        R(t[2], u, s),
-        R(t[3], l, c));
-    }
-    function x(e, t, n) {
-      var r;
-      for (r = 0; r < 4; r++) y(e[r], t[r], n);
-    }
-    var $ = 32,
-      P = 32,
-      N = 32,
-      M = 32;
-    function w() {
+    var T = 32,
+      D = 32,
+      x = 32,
+      $ = 32;
+    function P() {
       for (var e = 0; e < arguments.length; e++)
         if (!(arguments[e] instanceof Uint8Array))
           throw new TypeError("unexpected type, use Uint8Array");
     }
-    function A(e) {
+    function N(e) {
       for (var t = 0; t < e.length; t++) e[t] = 0;
     }
-    var F = (function () {
+    var M = (function () {
       function e() {
         this.randombytesFn = function () {
           throw new Error("no CSPRNG");
@@ -215,7 +178,7 @@ __d(
             for (o = 0; o < r; o += t)
               e.getRandomValues(a.subarray(o, o + Math.min(r - o, t)));
             for (o = 0; o < r; o++) n[o] = a[o];
-            A(a);
+            N(a);
           };
         } else
           e != null &&
@@ -224,31 +187,31 @@ __d(
               var r,
                 o = e.randomBytes(n);
               for (r = 0; r < n; r++) t[r] = o[r];
-              A(o);
+              N(o);
             });
       }
       var t = e.prototype;
       return (
         (t.scalarMult = function (t, n) {
-          if ((w(t, n), t.length !== P)) throw new Error("bad n size");
-          if (n.length !== $) throw new Error("bad p size");
-          var e = new Uint8Array($);
-          return (k(e, t, n), e);
+          if ((P(t, n), t.length !== D)) throw new Error("bad n size");
+          if (n.length !== T) throw new Error("bad p size");
+          var e = new Uint8Array(T);
+          return (E(e, t, n), e);
         }),
         (t.scalarMultBase = function (t) {
-          if ((w(t), t.length !== P)) throw new Error("bad n size");
-          var e = new Uint8Array($);
-          return (I(e, t), e);
+          if ((P(t), t.length !== D)) throw new Error("bad n size");
+          var e = new Uint8Array(T);
+          return (k(e, t), e);
         }),
         (t.boxKeyPair = function () {
-          var e = new Uint8Array(N),
-            t = new Uint8Array(M);
-          return (T(e, t, this.randombytesFn), { publicKey: e, secretKey: t });
+          var e = new Uint8Array(x),
+            t = new Uint8Array($);
+          return (I(e, t, this.randombytesFn), { publicKey: e, secretKey: t });
         }),
         (t.boxKeyPairFromSecretKey = function (t) {
-          if ((w(t), t.length !== M)) throw new Error("bad secret key size");
-          var e = new Uint8Array(N);
-          return (I(e, t), { publicKey: e, secretKey: new Uint8Array(t) });
+          if ((P(t), t.length !== $)) throw new Error("bad secret key size");
+          var e = new Uint8Array(x);
+          return (k(e, t), { publicKey: e, secretKey: new Uint8Array(t) });
         }),
         (t.setPRNG = function (t) {
           this.randombytesFn = t;
@@ -256,7 +219,7 @@ __d(
         e
       );
     })();
-    i.default = F;
+    i.default = M;
   },
   66,
 );

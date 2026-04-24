@@ -284,7 +284,7 @@ __d(
                     .WARN(
                       p ||
                         (p = babelHelpers.taggedTemplateLiteralLoose([
-                          "decryptAddOn: falling back to original WIDs, original is LID, addOn is PN ",
+                          "decryptAddOn: fallback orig=LID addon=PN ",
                           " ",
                           "",
                         ])),
@@ -301,7 +301,7 @@ __d(
                     .WARN(
                       _ ||
                         (_ = babelHelpers.taggedTemplateLiteralLoose([
-                          "decryptAddOn: falling back to original WIDs, original is PN, addOn is LID ",
+                          "decryptAddOn: fallback orig=PN addon=LID ",
                           " ",
                           "",
                         ])),

@@ -2,6 +2,7 @@ __d(
   "WASmaxInGroupsGroupInfoMixin",
   [
     "WAResultOrError",
+    "WASmaxInGroupsEnums",
     "WASmaxInGroupsGroupInfoAttributesMixin",
     "WASmaxInGroupsGroupInfoDescriptionMixin",
     "WASmaxInGroupsGroupInfoParticipantMixin",
@@ -91,6 +92,24 @@ __d(
         : n;
     }
     function m(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "appeal_status");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").attrStringEnum(
+        e,
+        "type",
+        o("WASmaxInGroupsEnums").ENUM_APPROVED_INREVIEW_NONE_REJECTED,
+      );
+      return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
+    }
+    function p(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "appeal_update_time");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").attrIntRange(e, "value", 0, void 0);
+      return n.success
+        ? o("WAResultOrError").makeResult({ value: n.value })
+        : n;
+    }
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "growth_locked");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -108,7 +127,7 @@ __d(
           })
         : r;
     }
-    function p(e) {
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "membership_approval_mode");
       if (!t.success) return t;
       var n = o(
@@ -118,13 +137,13 @@ __d(
         membershipApprovalGroupJoinModeEnabledMixin: n.success ? n.value : null,
       });
     }
-    function _(e) {
+    function g(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "linked_parent");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrGroupJid(e, "jid");
       return n.success ? o("WAResultOrError").makeResult({ jid: n.value }) : n;
     }
-    function f(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "evolution_version");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(e, "value", 0, 100);
@@ -132,7 +151,7 @@ __d(
         ? o("WAResultOrError").makeResult({ value: n.value })
         : n;
     }
-    function g(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "limit_sharing_enabled");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -146,7 +165,7 @@ __d(
         ? o("WAResultOrError").makeResult({ trigger: n.value })
         : n;
     }
-    function h(t) {
+    function C(t) {
       var n = o("WASmaxParseUtils").assertTag(t, "group");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optionalChildWithTag(t, "description", s);
@@ -157,137 +176,149 @@ __d(
       if (!i.success) return i;
       var l = o("WASmaxParseUtils").optionalChildWithTag(t, "parent", u);
       if (!l.success) return l;
-      var h = o("WASmaxParseUtils").optionalChild(t, "no_frequently_forwarded");
-      if (!h.success) return h;
-      var y = o("WASmaxParseUtils").optionalChild(t, "support");
-      if (!y.success) return y;
-      var C = o("WASmaxParseUtils").optionalChildWithTag(t, "ephemeral", c);
+      var C = o("WASmaxParseUtils").optionalChild(t, "no_frequently_forwarded");
       if (!C.success) return C;
-      var b = o("WASmaxParseUtils").optionalChildWithTag(t, "suspended", d);
+      var b = o("WASmaxParseUtils").optionalChild(t, "support");
       if (!b.success) return b;
-      var v = o("WASmaxParseUtils").optionalChildWithTag(t, "growth_locked", m);
+      var v = o("WASmaxParseUtils").optionalChildWithTag(t, "ephemeral", c);
       if (!v.success) return v;
-      var S = o("WASmaxParseUtils").optionalChild(t, "default_sub_group");
+      var S = o("WASmaxParseUtils").optionalChildWithTag(t, "suspended", d);
       if (!S.success) return S;
-      var R = o("WASmaxParseUtils").optionalChildWithTag(
+      var R = o("WASmaxParseUtils").optionalChildWithTag(t, "appeal_status", m);
+      if (!R.success) return R;
+      var L = o("WASmaxParseUtils").optionalChildWithTag(
         t,
-        "membership_approval_mode",
+        "appeal_update_time",
         p,
       );
-      if (!R.success) return R;
-      var L = o("WASmaxParseUtils").optionalChild(t, "incognito");
       if (!L.success) return L;
-      var E = o("WASmaxParseUtils").optionalChild(t, "allow_admin_reports");
+      var E = o("WASmaxParseUtils").optionalChildWithTag(t, "growth_locked", _);
       if (!E.success) return E;
-      var k = o("WASmaxParseUtils").optionalChild(
+      var k = o("WASmaxParseUtils").optionalChild(t, "default_sub_group");
+      if (!k.success) return k;
+      var I = o("WASmaxParseUtils").optionalChildWithTag(
+        t,
+        "membership_approval_mode",
+        f,
+      );
+      if (!I.success) return I;
+      var T = o("WASmaxParseUtils").optionalChild(t, "incognito");
+      if (!T.success) return T;
+      var D = o("WASmaxParseUtils").optionalChild(t, "allow_admin_reports");
+      if (!D.success) return D;
+      var x = o("WASmaxParseUtils").optionalChild(
         t,
         "allow_non_admin_sub_group_creation",
       );
-      if (!k.success) return k;
-      var I = o("WASmaxParseUtils").optionalChild(t, "general_chat");
-      if (!I.success) return I;
-      var T = o("WASmaxParseUtils").optionalChild(t, "auto_add_disabled");
-      if (!T.success) return T;
-      var D = o("WASmaxParseUtils").optionalChild(t, "group_history");
-      if (!D.success) return D;
-      var x = o("WASmaxParseUtils").optionalChildWithTag(t, "linked_parent", _);
       if (!x.success) return x;
-      var $ = o("WASmaxParseUtils").optionalChild(t, "hidden_group");
+      var $ = o("WASmaxParseUtils").optionalChild(t, "general_chat");
       if (!$.success) return $;
-      var P = o("WASmaxParseUtils").optionalChild(t, "capi");
+      var P = o("WASmaxParseUtils").optionalChild(t, "auto_add_disabled");
       if (!P.success) return P;
-      var N = o("WASmaxParseUtils").optionalChildWithTag(
+      var N = o("WASmaxParseUtils").optionalChild(t, "group_history");
+      if (!N.success) return N;
+      var M = o("WASmaxParseUtils").optionalChildWithTag(t, "linked_parent", g);
+      if (!M.success) return M;
+      var w = o("WASmaxParseUtils").optionalChild(t, "hidden_group");
+      if (!w.success) return w;
+      var A = o("WASmaxParseUtils").optionalChild(t, "capi");
+      if (!A.success) return A;
+      var F = o("WASmaxParseUtils").optionalChildWithTag(
         t,
         "evolution_version",
-        f,
+        h,
       );
-      if (!N.success) return N;
-      var M = o("WASmaxParseUtils").optionalChild(t, "group_safety_check");
-      if (!M.success) return M;
-      var w = o("WASmaxParseUtils").optionalChild(
+      if (!F.success) return F;
+      var O = o("WASmaxParseUtils").optionalChild(t, "group_safety_check");
+      if (!O.success) return O;
+      var B = o("WASmaxParseUtils").optionalChild(
         t,
         "participant_label_enabled",
       );
-      if (!w.success) return w;
-      var A = o("WASmaxParseUtils").optionalChildWithTag(
+      if (!B.success) return B;
+      var W = o("WASmaxParseUtils").optionalChildWithTag(
         t,
         "limit_sharing_enabled",
-        g,
+        y,
       );
-      if (!A.success) return A;
-      var F = o("WASmaxParseUtils").optionalLiteral(
+      if (!W.success) return W;
+      var q = o("WASmaxParseUtils").optionalLiteral(
         o("WASmaxParseUtils").attrString,
         t,
         "ack",
         "false",
       );
-      if (!F.success) return F;
-      var O = o(
+      if (!q.success) return q;
+      var U = o(
         "WASmaxInGroupsGroupInfoAttributesMixin",
       ).parseGroupInfoAttributesMixin(t);
-      if (!O.success) return O;
-      var B = o(
+      if (!U.success) return U;
+      var V = o(
           "WASmaxInGroupsGroupMemberAddModeMixin",
         ).parseGroupMemberAddModeMixin(t),
-        W = o(
+        H = o(
           "WASmaxInGroupsGroupMemberLinkModeMixin",
         ).parseGroupMemberLinkModeMixin(t),
-        q = o(
+        G = o(
           "WASmaxInGroupsGroupMemberShareGroupHistoryModeMixin",
         ).parseGroupMemberShareGroupHistoryModeMixin(t),
-        U = o("WASmaxParseUtils").mapChildrenWithTag(
+        z = o("WASmaxParseUtils").mapChildrenWithTag(
           t,
           "participant",
           0,
           19999,
           e,
         );
-      return U.success
+      return z.success
         ? o("WAResultOrError").makeResult(
-            babelHelpers.extends({ ack: F.value }, O.value, {
-              groupMemberAddModeMixin: B.success ? B.value : null,
-              groupMemberLinkModeMixin: W.success ? W.value : null,
-              groupMemberShareGroupHistoryModeMixin: q.success ? q.value : null,
+            babelHelpers.extends({ ack: q.value }, U.value, {
+              groupMemberAddModeMixin: V.success ? V.value : null,
+              groupMemberLinkModeMixin: H.success ? H.value : null,
+              groupMemberShareGroupHistoryModeMixin: G.success ? G.value : null,
               description: r.value,
               hasLocked: a.value != null,
               hasAnnouncement: i.value != null,
               parent: l.value,
-              hasNoFrequentlyForwarded: h.value != null,
-              hasSupport: y.value != null,
-              ephemeral: C.value,
-              suspended: b.value,
-              growthLocked: v.value,
-              hasDefaultSubGroup: S.value != null,
-              membershipApprovalMode: R.value,
-              hasIncognito: L.value != null,
-              hasAllowAdminReports: E.value != null,
-              hasAllowNonAdminSubGroupCreation: k.value != null,
-              hasGeneralChat: I.value != null,
-              hasAutoAddDisabled: T.value != null,
-              hasGroupHistory: D.value != null,
-              linkedParent: x.value,
-              hasHiddenGroup: $.value != null,
-              hasCapi: P.value != null,
-              evolutionVersion: N.value,
-              hasGroupSafetyCheck: M.value != null,
-              hasParticipantLabelEnabled: w.value != null,
-              limitSharingEnabled: A.value,
-              participant: U.value,
+              hasNoFrequentlyForwarded: C.value != null,
+              hasSupport: b.value != null,
+              ephemeral: v.value,
+              suspended: S.value,
+              appealStatus: R.value,
+              appealUpdateTime: L.value,
+              growthLocked: E.value,
+              hasDefaultSubGroup: k.value != null,
+              membershipApprovalMode: I.value,
+              hasIncognito: T.value != null,
+              hasAllowAdminReports: D.value != null,
+              hasAllowNonAdminSubGroupCreation: x.value != null,
+              hasGeneralChat: $.value != null,
+              hasAutoAddDisabled: P.value != null,
+              hasGroupHistory: N.value != null,
+              linkedParent: M.value,
+              hasHiddenGroup: w.value != null,
+              hasCapi: A.value != null,
+              evolutionVersion: F.value,
+              hasGroupSafetyCheck: O.value != null,
+              hasParticipantLabelEnabled: B.value != null,
+              limitSharingEnabled: W.value,
+              participant: z.value,
             }),
           )
-        : U;
+        : z;
     }
     ((l.parseGroupInfoParticipant = e),
       (l.parseGroupInfoDescription = s),
       (l.parseGroupInfoParent = u),
       (l.parseGroupInfoEphemeral = c),
       (l.parseGroupInfoSuspended = d),
-      (l.parseGroupInfoGrowthLocked = m),
-      (l.parseGroupInfoMembershipApprovalMode = p),
-      (l.parseGroupInfoLinkedParent = _),
-      (l.parseGroupInfoEvolutionVersion = f),
-      (l.parseGroupInfoLimitSharingEnabled = g),
-      (l.parseGroupInfoMixin = h));
+      (l.parseGroupInfoAppealStatus = m),
+      (l.parseGroupInfoAppealUpdateTime = p),
+      (l.parseGroupInfoGrowthLocked = _),
+      (l.parseGroupInfoMembershipApprovalMode = f),
+      (l.parseGroupInfoLinkedParent = g),
+      (l.parseGroupInfoEvolutionVersion = h),
+      (l.parseGroupInfoLimitSharingEnabled = y),
+      (l.parseGroupInfoMixin = C));
   },
   98,
 );

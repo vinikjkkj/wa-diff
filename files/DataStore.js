@@ -25,37 +25,43 @@ __d(
     }
     var _ = {
       set: function (t, n, r) {
-        if (!t)
-          throw new TypeError(
+        if (!t) {
+          var e = new TypeError(
             "DataStore.set: namespace is required, got " + typeof t,
           );
-        var e = p(t);
-        return ((e[n] = r), t);
+          throw (e.stack, e);
+        }
+        var o = p(t);
+        return ((o[n] = r), t);
       },
       get: function (t, n, r) {
-        if (!t)
-          throw new TypeError(
+        if (!t) {
+          var e = new TypeError(
             "DataStore.get: namespace is required, got " + typeof t,
           );
-        var e = p(t),
-          o = e[n];
-        if (o === void 0 && t.getAttribute != null)
+          throw (e.stack, e);
+        }
+        var o = p(t),
+          a = o[n];
+        if (a === void 0 && t.getAttribute != null)
           if (t.hasAttribute != null && !t.hasAttribute("data-" + n))
-            o = void 0;
+            a = void 0;
           else {
-            var a = t.getAttribute("data-" + n);
-            o = a === null ? void 0 : a;
+            var i = t.getAttribute("data-" + n);
+            a = i === null ? void 0 : i;
           }
-        return (r !== void 0 && o === void 0 && (o = e[n] = r), o);
+        return (r !== void 0 && a === void 0 && (a = o[n] = r), a);
       },
       remove: function (r, o) {
-        if (!r)
-          throw new TypeError(
+        if (!r) {
+          var t = new TypeError(
             "DataStore.remove: namespace is required, got " + typeof r,
           );
-        var t = p(r),
-          a = t[o];
-        return (delete t[o], (e || (e = n("isEmpty")))(t) && _.purge(r), a);
+          throw (t.stack, t);
+        }
+        var a = p(r),
+          i = a[o];
+        return (delete a[o], (e || (e = n("isEmpty")))(a) && _.purge(r), i);
       },
       purge: function (t) {
         if (u != null && typeof t == "object") return u.delete(t);

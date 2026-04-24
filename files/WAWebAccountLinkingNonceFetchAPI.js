@@ -11,83 +11,51 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u,
-      c,
-      d = 3e3,
-      m = null,
-      p = 0;
-    function _() {
-      return f.apply(this, arguments);
+      s = 3e3,
+      u = null,
+      c = 0;
+    function d() {
+      return m.apply(this, arguments);
     }
-    function f() {
+    function m() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!o("WAWebAccountLinkingGatingUtils").accountLinkingEnabled())
             return !1;
-          var t = m;
-          if (t != null)
-            return (
-              o("WALogger")
-                .LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[WAFFLE-TRACE] requestNonceFromPrimary: skipped (dedup, request already in-flight)",
-                    ])),
-                )
-                .sendLogs("waffle-nonce-trace-request", { sampling: 1 }),
-              t
-            );
+          var t = u;
+          if (t != null) return t;
           var n = Date.now();
-          return p > 0 && n - p < d
-            ? (o("WALogger")
-                .LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[WAFFLE-TRACE] requestNonceFromPrimary: skipped (cooldown, ",
-                      "ms remaining)",
-                    ])),
-                  d - (n - p),
-                )
-                .sendLogs("waffle-nonce-trace-request", { sampling: 1 }),
-              !1)
-            : ((p = n),
-              o("WALogger")
-                .LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[WAFFLE-TRACE] requestNonceFromPrimary: sending nonce fetch RPC",
-                    ])),
-                )
-                .sendLogs("waffle-nonce-trace-request", { sampling: 1 }),
-              (m = o("WAWebSendNonMessageDataRequest")
+          return c > 0 && n - c < s
+            ? !1
+            : ((c = n),
+              (u = o("WAWebSendNonMessageDataRequest")
                 .sendPeerDataOperationRequest(
                   o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
                     .WAFFLE_LINKING_NONCE_FETCH,
                   {},
                 )
-                .then(o("WAWebBoolFunc").returnTrue, function (e) {
+                .then(o("WAWebBoolFunc").returnTrue, function (t) {
                   return (
                     o("WALogger")
                       .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
                             "[WAFFLE] requestNonceFromPrimary RPC failed",
                           ])),
                       )
-                      .catching(r("getErrorSafe")(e)),
+                      .catching(r("getErrorSafe")(t)),
                     !0
                   );
                 })
                 .finally(function () {
-                  m = null;
+                  u = null;
                 })),
-              m);
+              u);
         })),
-        f.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    l.requestNonceFromPrimary = _;
+    l.requestNonceFromPrimary = d;
   },
   98,
 );

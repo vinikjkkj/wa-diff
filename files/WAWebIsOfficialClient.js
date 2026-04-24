@@ -84,11 +84,17 @@ __d(
       },
       f = "webpackChunkwhatsapp_web_client";
     f in window || (window[f] = []);
-    var g = window[f];
+    var g = window[f],
+      h = p(),
+      y = h;
+    function C() {
+      return y;
+    }
     g != null &&
       Object.defineProperty(window, f, {
         get: function () {
-          if (!_())
+          if (!_()) {
+            y = !1;
             try {
               o("WAWebWamGlobals").Global.set({ ocVersion: 0 });
             } catch (e) {
@@ -103,14 +109,16 @@ __d(
                 )
                 .tags("uc");
             }
+          }
           return g;
         },
       });
-    var h = p(),
-      y = function (t) {
-        return !!t.startsWith("BA");
-      };
-    ((l.isOfficialClient = h), (l.isUnofficialStanzaId = y));
+    var b = function (t) {
+      return !!t.startsWith("BA");
+    };
+    ((l.isOfficialClient = h),
+      (l.getIsOfficialClient = C),
+      (l.isUnofficialStanzaId = b));
   },
   98,
 );

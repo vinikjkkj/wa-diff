@@ -200,10 +200,6 @@ __d(
           params: { share_credential: e },
           type: "PAYMENT_ACCOUNT",
         },
-        wa_paidm_credential_sharing: {
-          params: { inline: e },
-          type: "BUSINESS_ID",
-        },
         ce_ux_account_transitions: {
           params: { show_new_transition_ux: e },
           type: "PAYMENT_ACCOUNT",
@@ -330,6 +326,10 @@ __d(
           type: "PAYMENT_ACCOUNT",
         },
         use_trustly_without_balance_check_eu: { params: { use_trustly: e } },
+        wa_paidm_credential_sharing: {
+          params: { inline: e },
+          type: "BUSINESS_ID",
+        },
         wizard_preloading_refactor: {
           params: { add_funds_manual: e, add_pm_manual: e, pay_now_manual: e },
           type: "PAYMENT_ACCOUNT",

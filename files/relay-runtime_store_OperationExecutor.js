@@ -258,23 +258,28 @@ __d(
           var e = this,
             r = this.$23 === "loading_incremental" ? "low" : "default";
           this.$46(function () {
+            if (!Array.isArray(n) && n.isPreNormalized === !0) {
+              e.$47(n);
+              return;
+            }
+            var t = n;
             (e.$7({
               executeId: e.$8,
               name: "execute.next.start",
               operation: e.$10,
-              response: n,
+              response: t,
             }),
-              e.$47(n),
-              e.$48(),
+              e.$48(t),
+              e.$49(),
               e.$7({
                 executeId: e.$8,
                 name: "execute.next.end",
                 operation: e.$10,
-                response: n,
+                response: t,
               }));
           }, r);
         }),
-        (t.$49 = function (t) {
+        (t.$50 = function (t) {
           var e = this,
             r = [];
           return (
@@ -325,7 +330,7 @@ __d(
             r
           );
         }),
-        (t.$50 = function (t) {
+        (t.$51 = function (t) {
           var e;
           if (t.length > 1)
             return (
@@ -345,10 +350,32 @@ __d(
           );
         }),
         (t.$47 = function (t) {
+          var e = this,
+            n;
+          if (this.$23 !== "completed") {
+            (this.$32.clear(),
+              this.$15 !== null &&
+                (this.$15.forEach(function (t) {
+                  return e.$41().revertUpdate(t);
+                }),
+                (this.$15 = null)),
+              this.$41().commitPayload(
+                this.$10,
+                t,
+                (n = t.storeUpdater) != null ? n : this.$26,
+              ),
+              t.isFinal
+                ? (this.$23 = "loading_final")
+                : this.$23 === "started" && (this.$23 = "loading_incremental"));
+            var r = this.$42(this.$10);
+            (this.$45(), this.$52(r));
+          }
+        }),
+        (t.$48 = function (t) {
           if (this.$23 !== "completed") {
             this.$32.clear();
             var e = Array.isArray(t) ? t : [t],
-              r = this.$49(e);
+              r = this.$50(e);
             if (r.length === 0) {
               var o = e.some(function (e) {
                 var t;
@@ -383,7 +410,7 @@ __d(
                 this.$21.next(t));
               return;
             }
-            var a = this.$50(r);
+            var a = this.$51(r);
             if (!a) {
               var i = v(r),
                 l = i[0],
@@ -405,8 +432,8 @@ __d(
                     root: _(this.$10.root.node, p, this.$10.root.variables),
                   };
                 }
-                var g = this.$51(l);
-                this.$52(g);
+                var g = this.$53(l);
+                this.$54(g);
               }
               if (d)
                 for (var h = [], y = 0; y < u.length; y++) {
@@ -435,8 +462,8 @@ __d(
                       (this.$35 && (this.$23 = "loading_final"), this.$45()));
                 }
               if (s.length > 0) {
-                var k = this.$53(s);
-                this.$52(k);
+                var k = this.$55(s);
+                this.$54(k);
               }
               this.$31 &&
                 (r[0].extensions == null
@@ -446,7 +473,7 @@ __d(
                   : (r[0].extensions.__relay_subscription_root_id =
                       this.$10.fragment.dataID));
               var I = this.$42(c || d ? this.$10 : void 0);
-              (c && this.$5 && this.$54(), this.$55(I), this.$21.next(t));
+              (c && this.$5 && this.$56(), this.$52(I), this.$21.next(t));
             }
           }
         }),
@@ -472,7 +499,7 @@ __d(
               );
               (R(i),
                 a.push({ operation: this.$10, payload: i, updater: r }),
-                this.$56(i, a));
+                this.$57(i, a));
             } else
               r &&
                 a.push({
@@ -493,20 +520,20 @@ __d(
               }));
             var s = this.$42();
             n("relay-runtime/util/RelayFeatureFlags")
-              .ENABLE_OPERATION_TRACKER_OPTIMISTIC_UPDATES && this.$55(s);
+              .ENABLE_OPERATION_TRACKER_OPTIMISTIC_UPDATES && this.$52(s);
           }
         }),
-        (t.$56 = function (t, r) {
+        (t.$57 = function (t, r) {
           if (t.followupPayloads && t.followupPayloads.length) {
             var e = t.followupPayloads;
             for (var o of e)
               switch (o.kind) {
                 case "ModuleImportPayload":
-                  var a = this.$57(),
+                  var a = this.$58(),
                     i = a.get(o.operationReference);
-                  if (i == null) this.$58(o);
+                  if (i == null) this.$59(o);
                   else {
-                    var s = this.$59(i, o);
+                    var s = this.$60(i, o);
                     r.push.apply(r, s);
                   }
                   break;
@@ -521,7 +548,7 @@ __d(
               }
           }
         }),
-        (t.$60 = function (t, n) {
+        (t.$61 = function (t, n) {
           var e;
           n.kind === "SplitOperation" && t.kind === "ModuleImportPayload"
             ? (e = p(t.variables, n.argumentDefinitions, t.args))
@@ -548,24 +575,24 @@ __d(
             this.$16,
           );
         }),
-        (t.$59 = function (t, r) {
+        (t.$60 = function (t, r) {
           var e = n("relay-runtime/util/getOperation")(t),
             o = [],
-            a = this.$60(r, e);
+            a = this.$61(r, e);
           return (
             R(a),
             o.push({ operation: this.$10, payload: a, updater: null }),
-            this.$56(a, o),
+            this.$57(a, o),
             o
           );
         }),
-        (t.$58 = function (t) {
+        (t.$59 = function (t) {
           var e = this;
-          this.$57()
+          this.$58()
             .load(t.operationReference)
             .then(function (r) {
               if (!(r == null || e.$23 !== "started")) {
-                var o = e.$59(r, t);
+                var o = e.$60(r, t);
                 if (
                   (o.forEach(function (t) {
                     return e.$41().applyUpdate(t);
@@ -584,7 +611,7 @@ __d(
               }
             });
         }),
-        (t.$51 = function (t) {
+        (t.$53 = function (t) {
           var e = this;
           return (
             this.$7({ name: "execute.normalize.start", operation: this.$10 }),
@@ -620,7 +647,7 @@ __d(
             })
           );
         }),
-        (t.$52 = function (t) {
+        (t.$54 = function (t) {
           var e = this;
           this.$23 !== "completed" &&
             t.forEach(function (t) {
@@ -637,7 +664,7 @@ __d(
                     var n,
                       r = e.$1;
                     ((e.$1 = (n = t.actorIdentifier) != null ? n : e.$1),
-                      e.$61(t),
+                      e.$62(t),
                       (e.$1 = r));
                   }),
                 r &&
@@ -647,7 +674,7 @@ __d(
                     var r,
                       o = e.$1;
                     ((e.$1 = (r = n.actorIdentifier) != null ? r : e.$1),
-                      e.$62(t, n),
+                      e.$63(t, n),
                       (e.$1 = o));
                   }),
                   e.$30 || e.$23 === "loading_final"))
@@ -661,34 +688,34 @@ __d(
                 (r.forEach(function (t) {
                   t.kind === "defer" &&
                     i.push(
-                      e.$63(t.label, t.path, t, {
+                      e.$64(t.label, t.path, t, {
                         data: t.data,
                         extensions: { is_final: !0 },
                       }),
                     );
                 }),
-                  i.length > 0 && e.$52(i));
+                  i.length > 0 && e.$54(i));
               }
             });
         }),
-        (t.$48 = function () {
+        (t.$49 = function () {
           (!this.$31 &&
             !(this.$16 && this.$34 && this.$23 === "loading_final")) ||
             (this.$17 === 0 && this.$5 === !1 && this.$43());
         }),
-        (t.$61 = function (t) {
+        (t.$62 = function (t) {
           var e = this;
           switch (t.kind) {
             case "ModuleImportPayload":
-              var r = this.$57(),
+              var r = this.$58(),
                 o = r.get(t.operationReference);
               if (o != null)
-                this.$64(t, n("relay-runtime/util/getOperation")(o));
+                this.$65(t, n("relay-runtime/util/getOperation")(o));
               else {
                 var a = this.$9++;
                 this.$17++;
                 var i = function () {
-                    (e.$17--, e.$48());
+                    (e.$17--, e.$49());
                   },
                   u = n("relay-runtime/network/RelayObservable").from(
                     new (s || (s = n("Promise")))(function (e, n) {
@@ -714,11 +741,11 @@ __d(
                                     s = n(
                                       "relay-runtime/util/withStartAndDuration",
                                     )(function () {
-                                      if ((e.$65(t, o), l))
-                                        e.$66(a, r.complete);
+                                      if ((e.$66(t, o), l))
+                                        e.$67(a, r.complete);
                                       else {
                                         var n = e.$42();
-                                        e.$55(n);
+                                        e.$52(n);
                                       }
                                     }),
                                     u = s[0],
@@ -758,20 +785,20 @@ __d(
               }
               break;
             case "ActorPayload":
-              this.$64(t, t.node);
+              this.$65(t, t.node);
               break;
             default:
               l(0, 49721, t.kind);
           }
         }),
-        (t.$64 = function (t, n) {
-          (this.$65(t, n), this.$48());
-        }),
         (t.$65 = function (t, n) {
-          var e = this.$60(t, n);
-          (this.$41().commitPayload(this.$10, e), this.$52([e]));
+          (this.$66(t, n), this.$49());
         }),
-        (t.$62 = function (t, r) {
+        (t.$66 = function (t, n) {
+          var e = this.$61(t, n);
+          (this.$41().commitPayload(this.$10, e), this.$54([e]));
+        }),
+        (t.$63 = function (t, r) {
           var e,
             o = r.label,
             a = r.path,
@@ -811,11 +838,11 @@ __d(
               (h = Array.from(C.values())));
           } else ((g = _), (h = f));
           if ((this.$22.set(p, { fieldPayloads: h, record: g }), m != null)) {
-            var v = this.$53(m);
-            this.$52(v);
+            var v = this.$55(m);
+            this.$54(v);
           }
         }),
-        (t.$53 = function (t) {
+        (t.$55 = function (t) {
           var e = this,
             n = [];
           return (
@@ -839,7 +866,7 @@ __d(
                 }
                 var c = u.placeholder;
                 (c.kind === "defer" || l(0, 49724, s, r, c.kind),
-                  n.push(e.$63(r, o, c, a)));
+                  n.push(e.$64(r, o, c, a)));
               } else {
                 var d = o.slice(0, -2).map(String).join("."),
                   m = i.get(d);
@@ -852,13 +879,13 @@ __d(
                 }
                 var p = m.placeholder;
                 (p.kind === "stream" || l(0, 49725, d, r, p.kind),
-                  n.push(e.$67(r, o, p, a)));
+                  n.push(e.$68(r, o, p, a)));
               }
             }),
             n
           );
         }),
-        (t.$63 = function (t, r, o, a) {
+        (t.$64 = function (t, r, o, a) {
           var e,
             i = o.selector.dataID,
             s = this.$1;
@@ -897,7 +924,7 @@ __d(
           }
           return ((this.$1 = s), u);
         }),
-        (t.$67 = function (t, r, o, a) {
+        (t.$68 = function (t, r, o, a) {
           var e = o.parentID,
             i = o.node,
             s = o.variables,
@@ -907,7 +934,7 @@ __d(
           var d = i.selections[0];
           (d != null && d.kind === "LinkedField" && d.plural === !0) ||
             l(0, 49727);
-          var m = this.$68(a, e, d, s, r, o.path),
+          var m = this.$69(a, e, d, s, r, o.path),
             p = m.fieldPayloads,
             _ = m.itemID,
             f = m.itemIndex,
@@ -947,7 +974,7 @@ __d(
           }
           return ((this.$1 = c), h);
         }),
-        (t.$68 = function (t, r, o, a, i, s) {
+        (t.$69 = function (t, r, o, a, i, s) {
           var e,
             c,
             m,
@@ -1005,19 +1032,19 @@ __d(
             storageKey: C,
           };
         }),
-        (t.$66 = function (t, n) {
+        (t.$67 = function (t, n) {
           var e = this;
           (this.$28.push(n),
             this.$27 == null &&
               (this.$27 = t(function () {
                 e.$27 = null;
                 var t = e.$42();
-                e.$55(t);
+                e.$52(t);
                 for (var n of e.$28) n();
                 e.$28 = [];
               })));
         }),
-        (t.$55 = function (t) {
+        (t.$52 = function (t) {
           t != null &&
             t.length > 0 &&
             this.$13.update(this.$10.request, new Set(t));
@@ -1028,12 +1055,12 @@ __d(
         (t.$41 = function () {
           return (this.$32.add(this.$1), this.$18(this.$1));
         }),
-        (t.$69 = function () {
+        (t.$70 = function () {
           return this.$32.size === 0 ? new Set([this.$1]) : this.$32;
         }),
         (t.$42 = function (t) {
           var e = new Set();
-          for (var n of this.$69()) {
+          for (var n of this.$70()) {
             var r = this.$18(n).run(t);
             r.forEach(function (t) {
               return e.add(t);
@@ -1041,15 +1068,15 @@ __d(
           }
           return Array.from(e);
         }),
-        (t.$54 = function () {
-          for (var e of this.$69())
+        (t.$56 = function () {
+          for (var e of this.$70())
             this.$29.has(e) || this.$29.set(e, this.$24(e).retain(this.$10));
         }),
         (t.$44 = function () {
           for (var e of this.$29.values()) e.dispose();
           this.$29.clear();
         }),
-        (t.$57 = function () {
+        (t.$58 = function () {
           var e = this.$12;
           return (e || l(0, 49717), e);
         }),

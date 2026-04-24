@@ -20,6 +20,7 @@ __d(
     "relay-runtime/query/fetchQueryInternal",
     "relay-runtime/query/fetchQuery_DEPRECATED",
     "relay-runtime/store/ClientID",
+    "relay-runtime/store/NormalizationEngine",
     "relay-runtime/store/RelayConcreteVariables",
     "relay-runtime/store/RelayModernEnvironment",
     "relay-runtime/store/RelayModernOperationDescriptor",
@@ -83,7 +84,87 @@ __d(
         "relay-runtime/util/handlePotentialSnapshotErrors",
       ).handlePotentialSnapshotErrors,
       y = (e || (e = n("relay-runtime/util/stableCopy"))).hasCycle,
-      C = e.stableCopy;
+      C = e.stableCopy,
+      b = n("relay-runtime/store/RelayModernSelector").areEqualSelectors,
+      v = n(
+        "relay-runtime/store/RelayModernSelector",
+      ).createNormalizationSelector,
+      S = n("relay-runtime/store/RelayModernSelector").createReaderSelector,
+      R = n("relay-runtime/store/RelayModernSelector").getDataIDsFromFragment,
+      L = n("relay-runtime/store/RelayModernSelector").getDataIDsFromObject,
+      E = n("relay-runtime/store/RelayModernSelector").getPluralSelector,
+      k = n("relay-runtime/store/RelayModernSelector").getSelector,
+      I = n("relay-runtime/store/RelayModernSelector").getSelectorsFromObject,
+      T = n("relay-runtime/store/RelayModernSelector").getSingularSelector,
+      D = n("relay-runtime/store/RelayModernSelector").getVariablesFromFragment,
+      x = n("relay-runtime/store/RelayModernSelector").getVariablesFromObject,
+      $ = n(
+        "relay-runtime/store/RelayModernSelector",
+      ).getVariablesFromPluralFragment,
+      P = n(
+        "relay-runtime/store/RelayModernSelector",
+      ).getVariablesFromSingularFragment,
+      N = n(
+        "relay-runtime/store/RelayModernOperationDescriptor",
+      ).createOperationDescriptor,
+      M = n(
+        "relay-runtime/store/RelayModernOperationDescriptor",
+      ).createRequestDescriptor,
+      w = n("relay-runtime/store/RelayStoreUtils").getArgumentValues,
+      A = n("relay-runtime/store/RelayStoreUtils").getModuleComponentKey,
+      F = n("relay-runtime/store/RelayStoreUtils").getModuleOperationKey,
+      O = n("relay-runtime/store/RelayStoreUtils").getStorageKey,
+      B = n("relay-runtime/store/RelayStoreUtils").FRAGMENTS_KEY,
+      W = n("relay-runtime/store/RelayStoreUtils").FRAGMENT_OWNER_KEY,
+      q = n("relay-runtime/store/RelayStoreUtils").ID_KEY,
+      U = n("relay-runtime/store/RelayStoreUtils").REF_KEY,
+      V = n("relay-runtime/store/RelayStoreUtils").REFS_KEY,
+      H = n("relay-runtime/store/RelayStoreUtils").ROOT_ID,
+      G = n("relay-runtime/store/RelayStoreUtils").ROOT_TYPE,
+      z = n("relay-runtime/store/RelayStoreUtils").TYPENAME_KEY,
+      j = n("relay-runtime/query/GraphQLTag").getNode,
+      K = n("relay-runtime/query/GraphQLTag").getFragment,
+      Q = n("relay-runtime/query/GraphQLTag").getInlineDataFragment,
+      X = n("relay-runtime/query/GraphQLTag").getPaginationFragment,
+      Y = n("relay-runtime/query/GraphQLTag").getRefetchableFragment,
+      J = n("relay-runtime/query/GraphQLTag").getRequest,
+      Z = n("relay-runtime/query/GraphQLTag").graphql,
+      ee = n("relay-runtime/query/GraphQLTag").isFragment,
+      te = n("relay-runtime/query/GraphQLTag").isInlineDataFragment,
+      ne = n("relay-runtime/query/GraphQLTag").isRequest,
+      re = n("relay-runtime/store/ResolverFragments").readFragment,
+      oe = n("relay-runtime/util/RelayDefaultHandleKey").DEFAULT_HANDLE_KEY,
+      ae = n(
+        "relay-runtime/mutations/RelayDeclarativeMutationConfig",
+      ).MutationTypes,
+      ie = n(
+        "relay-runtime/mutations/RelayDeclarativeMutationConfig",
+      ).RangeOperations,
+      le = n("relay-runtime/store/ViewerPattern").VIEWER_ID,
+      se = n("relay-runtime/store/ViewerPattern").VIEWER_TYPE,
+      ue = {
+        ResolverFragments: n("relay-runtime/store/ResolverFragments"),
+        OperationTracker: n("relay-runtime/store/RelayOperationTracker"),
+        createRelayContext: n("relay-runtime/store/createRelayContext"),
+        createRelayLoggingContext: n(
+          "relay-runtime/store/createRelayLoggingContext",
+        ),
+        getOperationVariables: n("relay-runtime/store/RelayConcreteVariables")
+          .getOperationVariables,
+        getLocalVariables: n("relay-runtime/store/RelayConcreteVariables")
+          .getLocalVariables,
+        fetchQuery: n("relay-runtime/query/fetchQueryInternal").fetchQuery,
+        fetchQueryDeduped: n("relay-runtime/query/fetchQueryInternal")
+          .fetchQueryDeduped,
+        getPromiseForActiveRequest: n("relay-runtime/query/fetchQueryInternal")
+          .getPromiseForActiveRequest,
+        getObservableForActiveRequest: n(
+          "relay-runtime/query/fetchQueryInternal",
+        ).getObservableForActiveRequest,
+        NormalizationEngine: n("relay-runtime/store/NormalizationEngine"),
+        normalizeResponse: n("relay-runtime/store/normalizeResponse"),
+        withProvidedVariables: n("relay-runtime/util/withProvidedVariables"),
+      };
     a.exports = {
       Environment: n("relay-runtime/store/RelayModernEnvironment"),
       Network: n("relay-runtime/network/RelayNetwork"),
@@ -93,76 +174,48 @@ __d(
       Record: s || (s = n("relay-runtime/store/RelayModernRecord")),
       ReplaySubject: n("relay-runtime/util/RelayReplaySubject"),
       Store: n("relay-runtime/store/RelayModernStore"),
-      areEqualSelectors: n("relay-runtime/store/RelayModernSelector")
-        .areEqualSelectors,
+      areEqualSelectors: b,
       createFragmentSpecResolver: n(
         "relay-runtime/store/createFragmentSpecResolver",
       ),
-      createNormalizationSelector: n("relay-runtime/store/RelayModernSelector")
-        .createNormalizationSelector,
-      createOperationDescriptor: n(
-        "relay-runtime/store/RelayModernOperationDescriptor",
-      ).createOperationDescriptor,
-      createReaderSelector: n("relay-runtime/store/RelayModernSelector")
-        .createReaderSelector,
-      createRequestDescriptor: n(
-        "relay-runtime/store/RelayModernOperationDescriptor",
-      ).createRequestDescriptor,
-      getArgumentValues: n("relay-runtime/store/RelayStoreUtils")
-        .getArgumentValues,
-      getDataIDsFromFragment: n("relay-runtime/store/RelayModernSelector")
-        .getDataIDsFromFragment,
-      getDataIDsFromObject: n("relay-runtime/store/RelayModernSelector")
-        .getDataIDsFromObject,
-      getNode: n("relay-runtime/query/GraphQLTag").getNode,
-      getFragment: n("relay-runtime/query/GraphQLTag").getFragment,
-      getInlineDataFragment: n("relay-runtime/query/GraphQLTag")
-        .getInlineDataFragment,
-      getModuleComponentKey: n("relay-runtime/store/RelayStoreUtils")
-        .getModuleComponentKey,
-      getModuleOperationKey: n("relay-runtime/store/RelayStoreUtils")
-        .getModuleOperationKey,
-      getPaginationFragment: n("relay-runtime/query/GraphQLTag")
-        .getPaginationFragment,
-      getPluralSelector: n("relay-runtime/store/RelayModernSelector")
-        .getPluralSelector,
-      getRefetchableFragment: n("relay-runtime/query/GraphQLTag")
-        .getRefetchableFragment,
-      getRequest: n("relay-runtime/query/GraphQLTag").getRequest,
+      createNormalizationSelector: v,
+      createOperationDescriptor: N,
+      createReaderSelector: S,
+      createRequestDescriptor: M,
+      getArgumentValues: w,
+      getDataIDsFromFragment: R,
+      getDataIDsFromObject: L,
+      getNode: j,
+      getFragment: K,
+      getInlineDataFragment: Q,
+      getModuleComponentKey: A,
+      getModuleOperationKey: F,
+      getPaginationFragment: X,
+      getPluralSelector: E,
+      getRefetchableFragment: Y,
+      getRequest: J,
       getRequestIdentifier: n("relay-runtime/util/getRequestIdentifier"),
-      getSelector: n("relay-runtime/store/RelayModernSelector").getSelector,
-      getSelectorsFromObject: n("relay-runtime/store/RelayModernSelector")
-        .getSelectorsFromObject,
-      getSingularSelector: n("relay-runtime/store/RelayModernSelector")
-        .getSingularSelector,
-      getStorageKey: n("relay-runtime/store/RelayStoreUtils").getStorageKey,
-      getVariablesFromFragment: n("relay-runtime/store/RelayModernSelector")
-        .getVariablesFromFragment,
-      getVariablesFromObject: n("relay-runtime/store/RelayModernSelector")
-        .getVariablesFromObject,
-      getVariablesFromPluralFragment: n(
-        "relay-runtime/store/RelayModernSelector",
-      ).getVariablesFromPluralFragment,
-      getVariablesFromSingularFragment: n(
-        "relay-runtime/store/RelayModernSelector",
-      ).getVariablesFromSingularFragment,
+      getSelector: k,
+      getSelectorsFromObject: I,
+      getSingularSelector: T,
+      getStorageKey: O,
+      getVariablesFromFragment: D,
+      getVariablesFromObject: x,
+      getVariablesFromPluralFragment: $,
+      getVariablesFromSingularFragment: P,
       handlePotentialSnapshotErrors: h,
-      graphql: n("relay-runtime/query/GraphQLTag").graphql,
+      graphql: Z,
       isErrorResult: c,
       isValueResult: d,
-      isFragment: n("relay-runtime/query/GraphQLTag").isFragment,
-      isInlineDataFragment: n("relay-runtime/query/GraphQLTag")
-        .isInlineDataFragment,
+      isFragment: ee,
+      isInlineDataFragment: te,
       isSuspenseSentinel: f,
       suspenseSentinel: g,
-      isRequest: n("relay-runtime/query/GraphQLTag").isRequest,
+      isRequest: ne,
       readInlineData: n("relay-runtime/store/readInlineData"),
-      readFragment: n("relay-runtime/store/ResolverFragments").readFragment,
-      MutationTypes: n("relay-runtime/mutations/RelayDeclarativeMutationConfig")
-        .MutationTypes,
-      RangeOperations: n(
-        "relay-runtime/mutations/RelayDeclarativeMutationConfig",
-      ).RangeOperations,
+      readFragment: re,
+      MutationTypes: ae,
+      RangeOperations: ie,
       DefaultHandlerProvider: n(
         "relay-runtime/handlers/RelayDefaultHandlerProvider",
       ),
@@ -170,8 +223,8 @@ __d(
         "relay-runtime/handlers/connection/ConnectionHandler",
       ),
       MutationHandlers: n("relay-runtime/handlers/connection/MutationHandlers"),
-      VIEWER_ID: n("relay-runtime/store/ViewerPattern").VIEWER_ID,
-      VIEWER_TYPE: n("relay-runtime/store/ViewerPattern").VIEWER_TYPE,
+      VIEWER_ID: le,
+      VIEWER_TYPE: se,
       applyOptimisticMutation: n(
         "relay-runtime/mutations/applyOptimisticMutation",
       ),
@@ -194,17 +247,15 @@ __d(
       RelayConcreteNode: n("relay-runtime/util/RelayConcreteNode"),
       RelayError: n("relay-runtime/util/RelayError"),
       RelayFeatureFlags: n("relay-runtime/util/RelayFeatureFlags"),
-      DEFAULT_HANDLE_KEY: n("relay-runtime/util/RelayDefaultHandleKey")
-        .DEFAULT_HANDLE_KEY,
-      FRAGMENTS_KEY: n("relay-runtime/store/RelayStoreUtils").FRAGMENTS_KEY,
-      FRAGMENT_OWNER_KEY: n("relay-runtime/store/RelayStoreUtils")
-        .FRAGMENT_OWNER_KEY,
-      ID_KEY: n("relay-runtime/store/RelayStoreUtils").ID_KEY,
-      REF_KEY: n("relay-runtime/store/RelayStoreUtils").REF_KEY,
-      REFS_KEY: n("relay-runtime/store/RelayStoreUtils").REFS_KEY,
-      ROOT_ID: n("relay-runtime/store/RelayStoreUtils").ROOT_ID,
-      ROOT_TYPE: n("relay-runtime/store/RelayStoreUtils").ROOT_TYPE,
-      TYPENAME_KEY: n("relay-runtime/store/RelayStoreUtils").TYPENAME_KEY,
+      DEFAULT_HANDLE_KEY: oe,
+      FRAGMENTS_KEY: B,
+      FRAGMENT_OWNER_KEY: W,
+      ID_KEY: q,
+      REF_KEY: U,
+      REFS_KEY: V,
+      ROOT_ID: H,
+      ROOT_TYPE: G,
+      TYPENAME_KEY: z,
       deepFreeze: u || (u = n("relay-runtime/util/deepFreeze")),
       generateClientID: m,
       generateUniqueClientID: p,
@@ -223,28 +274,7 @@ __d(
         "relay-runtime/util/getPendingOperationsForFragment",
       ),
       getValueAtPath: n("relay-runtime/util/getValueAtPath"),
-      __internal: {
-        ResolverFragments: n("relay-runtime/store/ResolverFragments"),
-        OperationTracker: n("relay-runtime/store/RelayOperationTracker"),
-        createRelayContext: n("relay-runtime/store/createRelayContext"),
-        createRelayLoggingContext: n(
-          "relay-runtime/store/createRelayLoggingContext",
-        ),
-        getOperationVariables: n("relay-runtime/store/RelayConcreteVariables")
-          .getOperationVariables,
-        getLocalVariables: n("relay-runtime/store/RelayConcreteVariables")
-          .getLocalVariables,
-        fetchQuery: n("relay-runtime/query/fetchQueryInternal").fetchQuery,
-        fetchQueryDeduped: n("relay-runtime/query/fetchQueryInternal")
-          .fetchQueryDeduped,
-        getPromiseForActiveRequest: n("relay-runtime/query/fetchQueryInternal")
-          .getPromiseForActiveRequest,
-        getObservableForActiveRequest: n(
-          "relay-runtime/query/fetchQueryInternal",
-        ).getObservableForActiveRequest,
-        normalizeResponse: n("relay-runtime/store/normalizeResponse"),
-        withProvidedVariables: n("relay-runtime/util/withProvidedVariables"),
-      },
+      __internal: ue,
     };
   },
   null,

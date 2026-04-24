@@ -36,13 +36,13 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v;
-    function S(e) {
-      return R.apply(this, arguments);
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S;
+    function R(e) {
+      return L.apply(this, arguments);
     }
-    function R() {
+    function L() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.contactIds,
             n = e.mode,
             r = e.shouldDelayBetweenChunks,
@@ -69,21 +69,21 @@ __d(
                 o("WAWebContactSyncApiConst")
                   .SYNC_CONTACT_CHUNK_INTERVAL_SECONDS * 1e3,
               )),
-              yield L(
+              yield E(
                 { contactIds: s, shouldSyncDevice: !0, mode: n },
                 o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.PERIODIC_SYNC,
               ));
           }
         })),
-        R.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    function E(e, t) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a = e.contactIds,
             i = e.mode,
             l = e.shouldSyncDevice;
@@ -92,7 +92,7 @@ __d(
               o("WAWebAppTracker").AppTrackerType.ContactSync,
             );
             try {
-              var s = yield O(a),
+              var s = yield B(a),
                 u = new (o("WAWebUsync").USyncQuery)()
                   .withContext("background")
                   .withMode(i)
@@ -186,29 +186,29 @@ __d(
                     yield o("WAPromiseDelays").delayMs(h * 1e3));
                 }
               if (f == null || f.error.all) return;
-              var S = f.refresh,
+              var v = f.refresh,
                 R = [];
-              for (var L of Object.keys(S)) R.push(S[L]);
+              for (var L of Object.keys(v)) R.push(v[L]);
               if (R.length > 0) {
                 var E = Math.min.apply(Math, R);
-                W(E);
+                q(E);
               }
-              yield $(f);
-              var T = o("WAWebContactSyncLogger").createUpdateCounter();
-              (yield (v || (v = n("Promise"))).all([
-                l ? A(f, _, T) : (v || (v = n("Promise"))).resolve(),
-                D(f, T),
+              yield P(f);
+              var k = o("WAWebContactSyncLogger").createUpdateCounter();
+              (yield (S || (S = n("Promise"))).all([
+                l ? F(f, _, k) : (S || (S = n("Promise"))).resolve(),
+                x(f, k),
                 o("WAWebHandleUsernameSync").handleUsernameSync(f),
-                k(f, T),
-                I(f),
-                N(f, T),
+                I(f, k),
+                T(f),
+                M(f, k),
               ]),
                 o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(
                   c,
                   f,
-                  T,
+                  k,
                 ),
-                yield w(a));
+                yield A(a));
             } finally {
               o("WAWebAppTracker").AppTracker.stop(
                 o("WAWebAppTracker").AppTrackerType.ContactSync,
@@ -216,10 +216,10 @@ __d(
             }
           }
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(t, n) {
+    function I(t, n) {
       var r = t.error.status;
       if (r) {
         o("WALogger").WARN(
@@ -239,14 +239,14 @@ __d(
         t && e.status && (t.set({ status: e.status }), n.statusChange++);
       });
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    function T(e) {
+      return D.apply(this, arguments);
     }
-    function T() {
+    function D() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled())
-            return (v || (v = n("Promise"))).resolve();
+            return (S || (S = n("Promise"))).resolve();
           var t = e.error.text_status;
           if (t) {
             o("WALogger").WARN(
@@ -261,7 +261,7 @@ __d(
             );
             return;
           }
-          yield (v || (v = n("Promise"))).all(
+          yield (S || (S = n("Promise"))).all(
             e.list.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -285,15 +285,15 @@ __d(
             ),
           );
         })),
-        T.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var r = e.error.status;
           if (r) {
             o("WALogger").WARN(
@@ -308,7 +308,7 @@ __d(
             );
             return;
           }
-          yield (v || (v = n("Promise"))).all(
+          yield (S || (S = n("Promise"))).all(
             e.list.map(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -333,15 +333,15 @@ __d(
             ),
           );
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.error.lid;
           t &&
             o("WALogger").WARN(
@@ -356,58 +356,72 @@ __d(
             );
           var n = [],
             r = [],
-            a = [],
-            i = 0,
-            l = [],
-            s = 0;
+            a = 0,
+            i = [],
+            l = 0,
+            s = [],
+            u = 0;
           (e.list.forEach(function (e) {
             var t = e.id,
-              u = e.lid,
-              c = e.pn;
-            if (u != null) {
+              c = e.lid,
+              d = e.pn;
+            if (t == null) {
+              a++;
+              return;
+            }
+            if (c != null) {
               if (t.isLid()) {
-                (i++, a.length < 3 && a.push(t.toLogString()));
+                (l++, i.length < 3 && i.push(t.toLogString()));
                 return;
               }
               n.push({
-                lid: o("WAWebWidFactory").createUserWidOrThrow(u, "lid"),
+                lid: o("WAWebWidFactory").createUserWidOrThrow(c, "lid"),
                 pn: t,
               });
-            } else if (c != null) {
+            } else if (d != null) {
               if (!t.isLid()) {
-                (s++, l.length < 3 && l.push(t.toLogString()));
+                (u++, s.length < 3 && s.push(t.toLogString()));
                 return;
               }
-              r.push({ lid: t, pn: c });
+              r.push({ lid: t, pn: d });
             }
           }),
-            i > 0 &&
+            a > 0 &&
               o("WALogger").WARN(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
                     "handleLidSync: skip ",
-                    " lidResults (lid as id) => ",
-                    "",
+                    " missing id",
                   ])),
-                i,
                 a,
               ),
-            s > 0 &&
+            l > 0 &&
               o("WALogger").WARN(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
                     "handleLidSync: skip ",
+                    " lidResults (lid as id) => ",
+                    "",
+                  ])),
+                l,
+                i,
+              ),
+            u > 0 &&
+              o("WALogger").WARN(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "handleLidSync: skip ",
                     " pnResults (pn as id) => ",
                     "",
                   ])),
+                u,
                 s,
-                l,
               ),
             n.length > 0 &&
               r.length > 0 &&
               o("WALogger").WARN(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "handleLidSync: mixed types - lid: ",
                     ", pn: ",
                     "",
@@ -415,23 +429,23 @@ __d(
                 n.length,
                 r.length,
               ));
-          var u = [].concat(n, r);
-          u.length > 0 &&
+          var c = [].concat(n, r);
+          c.length > 0 &&
             (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-              mappings: u,
+              mappings: c,
               flushImmediately: !0,
               learningSource: "usync",
             }));
         })),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.list.filter(function (e) {
             var t = e.business;
             return !!t;
@@ -445,10 +459,10 @@ __d(
               }),
             ));
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e) {
+    function A(e) {
       var t = e.map(function (e) {
         var t = e.isLid()
           ? o("WAJids").toLidUserJid(e.user)
@@ -472,17 +486,17 @@ __d(
         )
       );
     }
-    function A(e, t, n) {
-      return F.apply(this, arguments);
+    function F(e, t, n) {
+      return O.apply(this, arguments);
     }
-    function F() {
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = e.error.devices;
           r &&
             o("WALogger").WARN(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
                   "handleSyncDevice: error ",
                   ": ",
                   "",
@@ -505,8 +519,8 @@ __d(
           return (
             (n.deviceChange = a.length),
             o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "handleSyncDevice: skipping ",
                   " out of ",
                   " records",
@@ -526,15 +540,15 @@ __d(
             o("WAWebAdvHandlerApi").handleADVDeviceSyncResult(a)
           );
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebApiDeviceList").getDeviceIds(e),
             r = t.map(function (e) {
               return e == null
@@ -547,7 +561,7 @@ __d(
                     );
                   });
             }),
-            a = yield (v || (v = n("Promise"))).all(
+            a = yield (S || (S = n("Promise"))).all(
               r.map(function (e) {
                 return e.length === 0 ? "" : o("WAWebPhashUtils").phashV2(e);
               }),
@@ -557,10 +571,10 @@ __d(
             });
           return i;
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W(e) {
+    function q(e) {
       if (Number.isNaN(e) || e <= o("WATimeUtils").HOUR_SECONDS) {
         o("WALogger")
           .WARN(
@@ -589,10 +603,10 @@ __d(
           String(e),
         ));
     }
-    ((l.syncContactListInChunks = S),
-      (l.syncContactList = L),
-      (l.handleLidSync = $),
-      (l.markContactsSyncCompleted = w));
+    ((l.syncContactListInChunks = R),
+      (l.syncContactList = E),
+      (l.handleLidSync = P),
+      (l.markContactsSyncCompleted = A));
   },
   98,
 );

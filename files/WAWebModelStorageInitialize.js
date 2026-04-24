@@ -44,6 +44,7 @@ __d(
     "WAWebSchemaFeatureFlag",
     "WAWebSchemaFtsIndexingQueue",
     "WAWebSchemaGroupAbPropConfig",
+    "WAWebSchemaGroupHistoryParticipant",
     "WAWebSchemaGroupHistoryReportingTokenInfo",
     "WAWebSchemaGroupInviteV4",
     "WAWebSchemaGroupMemberChanges",
@@ -226,6 +227,7 @@ __d(
               o("WAWebSchemaGroupAbPropConfig").addTable(),
               o("WAWebSchemaOutContact").addTable(),
               o("WAWebSchemaScheduledMsgRevealKey").addTable(),
+              o("WAWebSchemaGroupHistoryParticipant").addTable(),
               (s = o("WAWebModelStorageUtils")
                 .getStorage()
                 .initialize()

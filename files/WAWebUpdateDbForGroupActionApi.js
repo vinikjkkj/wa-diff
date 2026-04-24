@@ -23,6 +23,7 @@ __d(
     "WAWebGroupDatabaseJob",
     "WAWebGroupGatingUtils",
     "WAWebGroupHistoryGating",
+    "WAWebGroupHistoryParticipantJob",
     "WAWebGroupMembershipApprovalRequestsJob",
     "WAWebGroupParticipantsJob",
     "WAWebGroupQueryBridge",
@@ -142,6 +143,14 @@ __d(
                   o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(l, {
                     groupAdder: k == null ? void 0 : k.toString(),
                   }),
+                ),
+                O.push(
+                  o(
+                    "WAWebGroupHistoryParticipantJob",
+                  ).updateGroupHistoryParticipantMetadataOnJoin(
+                    l,
+                    a.participants,
+                  ),
                 ),
                 o(
                   "WAWebBotGroupGatingUtils",

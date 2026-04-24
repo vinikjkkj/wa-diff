@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebAddBotTransparencyNotice",
     "WAWebBotGroupGatingUtils",
+    "WAWebParseAiMediaCollectionMetadata",
     "WAWebParseBotSessionTransparencyNotice",
     "WAWebWidFactory",
   ],
@@ -90,8 +91,11 @@ __d(
         (p = p.pluginMetadata) == null
           ? void 0
           : p.searchQuery) != null &&
-          (t.botPluginSearchQuery = n.botMetadata.pluginMetadata.searchQuery),
-        u(t, n));
+          (t.botPluginSearchQuery = n.botMetadata.pluginMetadata.searchQuery));
+      var g = o(
+        "WAWebParseAiMediaCollectionMetadata",
+      ).parseAiMediaCollectionMetadata(n);
+      (g != null && (t.aiMediaCollectionInfo = g), u(t, n));
     }
     function u(e, t) {
       var n,

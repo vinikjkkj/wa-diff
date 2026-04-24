@@ -40,7 +40,7 @@ __d(
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (!c(t)) return t;
-          t.device !== 0 &&
+          t.getDeviceId() !== 0 &&
             o("WALogger")
               .ERROR(
                 e ||

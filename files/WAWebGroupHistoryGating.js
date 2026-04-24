@@ -51,6 +51,11 @@ __d(
         "group_history_out_of_window_pins_receiver",
       );
     }
+    function g() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "group_history_send_after_join",
+      );
+    }
     ((l.isGroupHistoryReceiverEnabled = e),
       (l.isGroupHistoryNoticeReceiverEnabled = s),
       (l.isGroupHistorySenderEnabled = u),
@@ -59,7 +64,8 @@ __d(
       (l.isGroupHistorySenderReportingTokenEnabled = m),
       (l.isGroupHistoryReceiverReportingTokenEnabled = p),
       (l.isOutOfWindowPinSenderEnabled = _),
-      (l.isOutOfWindowPinsReceiverEnabled = f));
+      (l.isOutOfWindowPinsReceiverEnabled = f),
+      (l.isGroupHistoryPostJoinSenderEnabled = g));
   },
   98,
 );

@@ -62,10 +62,9 @@ __d(
                               ),
                             ));
                         }, c);
-                        var d = babelHelpers.extends({}, t, { requestId: i }),
-                          m = t.fileBuffer;
+                        var d = babelHelpers.extends({}, t, { requestId: i });
                         a.$1
-                          .publishWhenReady("RENDER_PDF_THUMBNAIL", d, [m])
+                          .publishWhenReady("RENDER_PDF_THUMBNAIL", d)
                           .catch(function (e) {
                             (l != null && window.clearTimeout(l), u(), n(e));
                           });

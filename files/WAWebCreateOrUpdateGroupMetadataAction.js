@@ -3,7 +3,7 @@ __d(
   ["WAWebGroupMetadataCollection", "WAWebGroupQueryBridge"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t, n, a, i, l, s, u, c, d;
+      var t, n, a, i, l, s, u, c, d, m, p;
       if (
         (o("WAWebGroupQueryBridge").updateSubject(e.id, e.subject),
         r("WAWebGroupMetadataCollection").gadd(
@@ -31,12 +31,16 @@ __d(
               pastParticipants: e.pastParticipants,
               support: (t = e.support) != null ? t : !1,
               suspended: (n = e.suspended) != null ? n : !1,
-              terminated: (a = e.terminated) != null ? a : !1,
-              isParentGroup: (i = e.isParentGroup) != null ? i : !1,
-              isParentGroupClosed: (l = e.isParentGroupClosed) != null ? l : !1,
+              suspendAppealStatus:
+                (a = e.suspendAppealStatus) != null ? a : null,
+              suspendAppealUpdateTime:
+                (i = e.suspendAppealUpdateTime) != null ? i : null,
+              terminated: (l = e.terminated) != null ? l : !1,
+              isParentGroup: (s = e.isParentGroup) != null ? s : !1,
+              isParentGroupClosed: (u = e.isParentGroupClosed) != null ? u : !1,
               parentGroup: e.parentGroup,
-              defaultSubgroup: (s = e.defaultSubgroup) != null ? s : !1,
-              generalSubgroup: (u = e.generalSubgroup) != null ? u : !1,
+              defaultSubgroup: (c = e.defaultSubgroup) != null ? c : !1,
+              generalSubgroup: (d = e.generalSubgroup) != null ? d : !1,
               deviceStale: !0,
               size: e.size,
               isLidAddressingMode: e.isLidAddressingMode,
@@ -47,8 +51,8 @@ __d(
               allowNonAdminSubGroupCreation: e.allowNonAdminSubGroupCreation,
               generalChatAutoAddDisabled: e.generalChatAutoAddDisabled,
               hasCapi: e.hasCapi,
-              hiddenSubgroup: (c = e.hiddenSubgroup) != null ? c : !1,
-              groupSafetyCheck: (d = e.groupSafetyCheck) != null ? d : !1,
+              hiddenSubgroup: (m = e.hiddenSubgroup) != null ? m : !1,
+              groupSafetyCheck: (p = e.groupSafetyCheck) != null ? p : !1,
               isOpenBotGroup: e.isOpenBotGroup,
               isTeeBotGroup: e.isTeeBotGroup,
             },
@@ -56,9 +60,9 @@ __d(
         ),
         e.isInternal != null)
       ) {
-        var m;
-        (m = r("WAWebGroupMetadataCollection").get(e.id)) == null ||
-          m.set({ isInternal: e.isInternal });
+        var _;
+        (_ = r("WAWebGroupMetadataCollection").get(e.id)) == null ||
+          _.set({ isInternal: e.isInternal });
       }
     }
     l.createOrUpdateGroupMetadataModelFromQuery = e;

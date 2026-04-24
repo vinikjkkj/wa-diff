@@ -1,6 +1,10 @@
 __d(
   "WAWebWindowsHybridBridgeScalingControl",
-  ["WAWebODS", "WAWebWindowsScalingControlEventEmitter"],
+  [
+    "WAWebODS",
+    "WAWebWindowsHybridBridgeTrace",
+    "WAWebWindowsScalingControlEventEmitter",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -36,11 +40,21 @@ __d(
           this.$4();
         }),
         (t.showScalingControl = function (t) {
-          var e;
+          var e = this;
           (r("WAWebODS").incr(
             "web.hybrid.bridge.scaling_control.send.show_scaling_control",
           ),
-            (e = this.$1) == null || e.showScalingControl(t));
+            o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "scalingControl",
+                method: "showScalingControl",
+                type: "sync",
+              },
+              function () {
+                var n;
+                return (n = e.$1) == null ? void 0 : n.showScalingControl(t);
+              },
+            ));
         }),
         e
       );

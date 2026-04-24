@@ -1,6 +1,6 @@
 __d(
   "WAWebWindowsHybridBridgeRingtone",
-  ["WAWebODS"],
+  ["WAWebODS", "WAWebWindowsHybridBridgeTrace"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -9,11 +9,21 @@ __d(
       var t = e.prototype;
       return (
         (t.cacheRingtonesFromUrl = function (t) {
-          var e;
+          var e = this;
           (r("WAWebODS").incr(
             "web.hybrid.bridge.ringtone.send.cache_ringtones_from_url",
           ),
-            (e = this.$1) == null || e.cacheRingtonesFromUrl(t));
+            o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "ringtoneBridge",
+                method: "cacheRingtonesFromUrl",
+                type: "sync",
+              },
+              function () {
+                var n;
+                return (n = e.$1) == null ? void 0 : n.cacheRingtonesFromUrl(t);
+              },
+            ));
         }),
         e
       );

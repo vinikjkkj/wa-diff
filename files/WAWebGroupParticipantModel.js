@@ -11,6 +11,8 @@ __d(
           (t.id = o("WAWebBaseModel").prop()),
           (t.isAdmin = o("WAWebBaseModel").prop()),
           (t.isSuperAdmin = o("WAWebBaseModel").prop()),
+          (t.joinTime = o("WAWebBaseModel").prop()),
+          (t.groupHistorySentState = o("WAWebBaseModel").prop()),
           (t.leaveTs = o("WAWebBaseModel").prop()),
           (t.leaveReason = o("WAWebBaseModel").prop()),
           (t.contact = o("WAWebBaseModel").session()),

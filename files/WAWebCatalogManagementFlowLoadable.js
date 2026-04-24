@@ -108,6 +108,9 @@ __d(
                 },
               ),
             )
+            .catch(function () {
+              e(t, void 0, !0);
+            })
         : ((n.stale = !0), n.markProductCollectionOld(), e(t, n));
     }
     ((l.CatalogManagementFlowLoadable = d),

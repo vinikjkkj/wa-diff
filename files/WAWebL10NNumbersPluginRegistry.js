@@ -4,18 +4,22 @@ __d(
   function (t, n, r, o, a, i) {
     var e = Math.pow(10, 3),
       l = Math.pow(10, 6);
-    function s(e, t, n, r) {
-      r === void 0 && (r = 1);
-      var o = ".",
-        a = e / Math.pow(10, t),
-        i = a.toString(10).split("."),
-        l = i[0],
-        s = i[1];
-      return s == null ||
-        s.startsWith("0".repeat(r)) ||
-        Number.parseInt(l, 10) >= 100
-        ? parseInt(l, 10).toLocaleString(n)
-        : parseFloat("" + l + o + s.slice(0, r)).toLocaleString(n);
+    function s(e) {
+      var t = e.factor,
+        n = e.locale,
+        r = e.n,
+        o = e.precision,
+        a = o === void 0 ? 1 : o,
+        i = ".",
+        l = r / Math.pow(10, t),
+        s = l.toString(10).split("."),
+        u = s[0],
+        c = s[1];
+      return c == null ||
+        c.startsWith("0".repeat(a)) ||
+        Number.parseInt(u, 10) >= 100
+        ? parseInt(u, 10).toLocaleString(n)
+        : parseFloat("" + u + i + c.slice(0, a)).toLocaleString(n);
     }
     function u(e, t) {
       return Intl.NumberFormat(t, { notation: "compact" }).format(e);
@@ -33,8 +37,9 @@ __d(
           return n < e
             ? n.toLocaleString(r)
             : n < l
-              ? s(n, 3, r) + " \u05D0\u05DC\u05E3"
-              : s(n, 6, r) + " \u05DE\u05D9\u05DC\u05D9\u05D5\u05DF";
+              ? s({ factor: 3, locale: r, n: n }) + " \u05D0\u05DC\u05E3"
+              : s({ factor: 6, locale: r, n: n }) +
+                " \u05DE\u05D9\u05DC\u05D9\u05D5\u05DF";
         },
       },
       m = {
@@ -45,8 +50,8 @@ __d(
             : n === e
               ? "1 mie"
               : n < l
-                ? s(n, 3, r) + " mii"
-                : s(n, 6, r) + " mil.";
+                ? s({ factor: 3, locale: r, n: n }) + " mii"
+                : s({ factor: 6, locale: r, n: n }) + " mil.";
         },
       },
       p = {
@@ -55,7 +60,7 @@ __d(
           return n < e
             ? n.toLocaleString(r)
             : n < Math.pow(10, 4)
-              ? s(n, 3, r) + "\u5343"
+              ? s({ factor: 3, locale: r, n: n }) + "\u5343"
               : u(n, r);
         },
       },
@@ -65,14 +70,16 @@ __d(
           return n < e
             ? n.toLocaleString(r)
             : n < Math.pow(10, 4)
-              ? s(n, 3, r) + "\u5343"
+              ? s({ factor: 3, locale: r, n: n }) + "\u5343"
               : u(n, r);
         },
       },
       f = {
         locales: ["de", "de-AT", "de-CH", "de-DE", "de-LI", "de-LU"],
         format: function (n, r) {
-          return n > e && n < l ? s(n, 3, r) + " Tsd." : u(n, r);
+          return n > e && n < l
+            ? s({ factor: 3, locale: r, n: n }) + " Tsd."
+            : u(n, r);
         },
       },
       g = {
@@ -81,8 +88,8 @@ __d(
           return n < e
             ? n.toLocaleString(r)
             : n < l
-              ? s(n, 3, r) + " mila"
-              : s(n, 6, r) + " mln";
+              ? s({ factor: 3, locale: r, n: n }) + " mila"
+              : s({ factor: 6, locale: r, n: n }) + " mln";
         },
       },
       h = {
@@ -92,7 +99,7 @@ __d(
             ? n.toLocaleString(r)
             : n < l
               ? u(n, r)
-              : s(n, 6, r) + " M";
+              : s({ factor: 6, locale: r, n: n }) + " M";
         },
       },
       y = {
@@ -101,7 +108,7 @@ __d(
           return n < e
             ? n.toLocaleString(r)
             : n < Math.pow(10, 4)
-              ? s(n, 3, r) + "\u5343"
+              ? s({ factor: 3, locale: r, n: n }) + "\u5343"
               : u(n, "zh-TW");
         },
       },

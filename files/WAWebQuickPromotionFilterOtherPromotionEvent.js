@@ -53,8 +53,8 @@ __d(
             .sendLogs("quick-promotion-filter-missing-parameter"),
           r("err")('otherPromotionEventFilter: missing "promo_id"')
         );
-      var y = a.get("metric");
-      if (y == null)
+      var C = a.get("metric");
+      if (C == null)
         throw (
           o("WALogger")
             .ERROR(
@@ -66,8 +66,8 @@ __d(
             .sendLogs("quick-promotion-filter-missing-parameter"),
           r("err")('otherPromotionEventFilter: missing "metric"')
         );
-      var C = a.get("nux_id");
-      if (C == null)
+      var b = a.get("nux_id");
+      if (b == null)
         throw (
           o("WALogger")
             .ERROR(
@@ -79,8 +79,8 @@ __d(
             .sendLogs("quick-promotion-filter-missing-parameter"),
           r("err")('otherPromotionEventFilter: missing "nux_id"')
         );
-      var b = parseInt(a.get("event_count"), 10);
-      if (Number.isNaN(b))
+      var v = parseInt(a.get("event_count"), 10);
+      if (Number.isNaN(v))
         throw (
           o("WALogger")
             .ERROR(
@@ -93,18 +93,18 @@ __d(
           r("err")('otherPromotionEventFilter: missing "event_count"')
         );
       if (t.id === _ && l === "impression") {
-        var v,
-          S = (v = t.tracking.lastImpressionTs) != null ? v : t.ts,
-          R = o(
+        var S,
+          R = (S = t.tracking.lastImpressionTs) != null ? S : t.ts,
+          L = o(
             "WAWebQuickPromotionValidatorUtils",
           ).checkIsWithinEligibilityWindow(
-            S,
+            R,
             t.data.qpConfigEligibilityDurationMs,
           );
-        if (R) return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
+        if (L) return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
       }
-      var L = g(y);
-      if (L == null)
+      var E = g(C);
+      if (E == null)
         throw (
           o("WALogger")
             .ERROR(
@@ -116,47 +116,28 @@ __d(
             .sendLogs("quick-promotion-filter-parameter-incorrect"),
           r("err")("otherPromotionEventFilter: unknown metric")
         );
-      var E = o("WAWebQuickPromotionCollection").QuickPromotionCollection.get(
-        _,
-      );
-      if (L === "count_at_most" || L === "count_at_least") {
-        var k;
-        if (E != null)
-          switch (l) {
-            case "impression":
-              k = E.promotion.tracking.impressions;
-              break;
-            case "primary_action":
-              k = E.promotion.tracking.primaryClicks;
-              break;
-            default:
-              k = E.promotion.tracking.dismisses;
-          }
-        else k = 0;
-        return h(L === "count_at_most" ? k <= b : k >= b);
+      var k = o("WAWebQuickPromotionCollection").QuickPromotionCollection.get(
+          _,
+        ),
+        I =
+          k != null
+            ? h(l, k.promotion.tracking)
+            : { count: 0, lastOccurrenceTs: null },
+        T = I.count,
+        D = I.lastOccurrenceTs;
+      if (E === "count_at_most" || E === "count_at_least")
+        return y(E === "count_at_most" ? T <= v : T >= v);
+      if (E === "seconds_since_greater_than") {
+        if (D == null) return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
+        var x = o("WATimeUtils").futureUnixTime(v, D);
+        return y(!o("WATimeUtils").isInFuture(x));
       }
-      var I;
-      switch (l) {
-        case "impression":
-          I = E == null ? void 0 : E.promotion.tracking.lastImpressionTs;
-          break;
-        case "primary_action":
-          I = E == null ? void 0 : E.promotion.tracking.lastPrimaryClickTs;
-          break;
-        default:
-          I = E == null ? void 0 : E.promotion.tracking.lastDismissTs;
-      }
-      if (L === "seconds_since_greater_than") {
-        if (I == null) return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
-        var T = o("WATimeUtils").futureUnixTime(b, I);
-        return h(!o("WATimeUtils").isInFuture(T));
-      }
-      if (I == null)
+      if (D == null)
         return o("WAWebCommonQPSurfacesTypes")
           .RESULT_FALSE_FILTERS_OTHER_PROMOTION_EVENT;
-      var D = o("WATimeUtils").futureUnixTime(b, I);
-      return h(
-        D === o("WATimeUtils").unixTime() || o("WATimeUtils").isInFuture(D),
+      var $ = o("WATimeUtils").futureUnixTime(v, D);
+      return y(
+        $ === o("WATimeUtils").unixTime() || o("WATimeUtils").isInFuture($),
       );
     }
     function f(e) {
@@ -180,14 +161,27 @@ __d(
           return null;
       }
     }
-    function h(e) {
+    function h(e, t) {
+      switch (e) {
+        case "impression":
+          return { count: t.impressions, lastOccurrenceTs: t.lastImpressionTs };
+        case "primary_action":
+          return {
+            count: t.primaryClicks,
+            lastOccurrenceTs: t.lastPrimaryClickTs,
+          };
+        default:
+          return { count: t.dismisses, lastOccurrenceTs: t.lastDismissTs };
+      }
+    }
+    function y(e) {
       return e
         ? o("WAWebCommonQPSurfacesTypes").RESULT_TRUE
         : o("WAWebCommonQPSurfacesTypes")
             .RESULT_FALSE_FILTERS_OTHER_PROMOTION_EVENT;
     }
-    var y = { name: "other_promotion_event", filter: _ };
-    l.otherPromotionEventFilter = y;
+    var C = { name: "other_promotion_event", filter: _ };
+    l.otherPromotionEventFilter = C;
   },
   98,
 );

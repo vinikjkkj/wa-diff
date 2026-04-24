@@ -48,7 +48,7 @@ __d(
               .ERROR(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][reveal] missing reveal data in notification",
+                    "[scheduled_msg][mex][reveal] missing reveal data",
                   ])),
               )
               .sendLogs("mex-scheduled-msg-reveal-missing-data");
@@ -61,7 +61,7 @@ __d(
               .ERROR(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][reveal] missing rkid or rk in notification",
+                    "[scheduled_msg][mex][reveal] missing rkid or rk",
                   ])),
               )
               .sendLogs("mex-scheduled-msg-reveal-missing-fields");
@@ -97,7 +97,7 @@ __d(
               : (o("WALogger").LOG(
                   p ||
                     (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg][mex][reveal] no matching record found for rkid, storing as orphan",
+                      "[scheduled_msg][mex][reveal] no record for rkid, storing orphan",
                     ])),
                 ),
                 yield $(l, f));
@@ -142,7 +142,7 @@ __d(
             (o("WALogger").LOG(
               f ||
                 (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][mex][reveal] decrypting payload from RevealKeyStore",
+                  "[scheduled_msg][mex][reveal] decrypting payload",
                 ])),
             ),
             n == null || n === "")
@@ -151,7 +151,7 @@ __d(
               .ERROR(
                 g ||
                   (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][reveal] missing chatId in RevealKeyStore record",
+                    "[scheduled_msg][mex][reveal] missing chatId in record",
                   ])),
               )
               .sendLogs("mex-scheduled-msg-reveal-missing-chat-id"),
@@ -163,7 +163,7 @@ __d(
               .ERROR(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][reveal] missing encPayload or encIv in RevealKeyStore record",
+                    "[scheduled_msg][mex][reveal] missing encPayload or encIv",
                   ])),
               )
               .sendLogs("mex-scheduled-msg-reveal-missing-enc-data"),
@@ -184,7 +184,7 @@ __d(
               .ERROR(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][reveal] decryption failed, deleting reveal-pending record",
+                    "[scheduled_msg][mex][reveal] decrypt failed, deleting record",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
@@ -204,7 +204,7 @@ __d(
               .ERROR(
                 C ||
                   (C = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][reveal] post-decryption processing failed, deleting reveal-pending record",
+                    "[scheduled_msg][mex][reveal] post-decrypt failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
@@ -216,7 +216,7 @@ __d(
           o("WALogger").LOG(
             b ||
               (b = babelHelpers.taggedTemplateLiteralLoose([
-                "[scheduled_msg][mex][reveal] decryption succeeded, creating new message in chat",
+                "[scheduled_msg][mex][reveal] decrypt ok, creating msg in chat",
               ])),
           );
           var _ = o("WAWebWidFactory").createWid(n),
@@ -269,7 +269,7 @@ __d(
           o("WALogger").LOG(
             S ||
               (S = babelHelpers.taggedTemplateLiteralLoose([
-                "[scheduled_msg][mex][reveal] no matching message found for rkid storing as orphan",
+                "[scheduled_msg][mex][reveal] no msg for rkid, storing orphan",
               ])),
           );
           var n = "orphan_" + e;

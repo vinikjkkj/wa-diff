@@ -5,6 +5,7 @@ __d(
     "WAWebBackendEventBus",
     "WAWebODS",
     "WAWebUserPrefsMeUser",
+    "WAWebWindowsHybridBridgeTrace",
     "WAWebWindowsUserPrefsMigrationEventEmitter",
     "justknobx",
   ],
@@ -49,7 +50,16 @@ __d(
               r("WAWebODS").incr(
                 "web.hybrid.bridge.seamless_migration.send.execute_logout",
               ),
-              this.$1.executeLogout(n, a),
+              o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "seamlessMigrationBridge",
+                  method: "executeLogout",
+                  type: "sync",
+                },
+                function () {
+                  return t.$1.executeLogout(n, a);
+                },
+              ),
               o(
                 "WAWebBackendEventBus",
               ).BackendEventBus.onInitialChatHistorySynced(function () {
@@ -59,7 +69,16 @@ __d(
                     (r("WAWebODS").incr(
                       "web.hybrid.bridge.seamless_migration.send.request_user_prefs_migration",
                     ),
-                    t.$1.requestUserPrefsMigration(e.toJid()));
+                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "seamlessMigrationBridge",
+                        method: "requestUserPrefsMigration",
+                        type: "sync",
+                      },
+                      function () {
+                        return t.$1.requestUserPrefsMigration(e.toJid());
+                      },
+                    ));
                 }
               }));
             var i = r("justknobx")._("4754");
@@ -86,7 +105,16 @@ __d(
                 r("WAWebODS").incr(
                   "web.hybrid.bridge.seamless_migration.send.request_files_cleanup",
                 ),
-                this.$1.requestFilesCleanup(l));
+                o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                  {
+                    bridge: "seamlessMigrationBridge",
+                    method: "requestFilesCleanup",
+                    type: "sync",
+                  },
+                  function () {
+                    return t.$1.requestFilesCleanup(l);
+                  },
+                ));
             }
           }),
           (n.$3 = function () {

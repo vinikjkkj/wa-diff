@@ -47,40 +47,42 @@ __d(
                           p,
                           _,
                           f,
-                          g = a[t],
-                          h = {
+                          g,
+                          h,
+                          y = a[t],
+                          C = {
                             subject: e.subject,
                             subjectTime: e.subjectTime || 0,
                           },
-                          y = { announce: e.announce, a_v_id: e.a_v_id || 0 },
-                          C = {
+                          b = { announce: e.announce, a_v_id: e.a_v_id || 0 },
+                          v = {
                             desc: e.desc,
                             descId: e.descId,
                             descOwner:
                               (n = e.descOwner) == null ? void 0 : n.toString(),
                             descTime: e.descTime || 0,
                           };
-                        if (g) {
-                          var b = g.subjectTime || 0,
-                            v = g.a_v_id || 0,
-                            S = g.descTime || 0;
-                          (b > h.subjectTime &&
-                            (h = { subject: g.subject, subjectTime: b }),
-                            v > y.a_v_id &&
-                              (y = { announce: g.announce, a_v_id: v }),
-                            S > C.descTime &&
-                              (C = {
-                                desc: g.desc,
-                                descId: g.descId,
-                                descOwner: g.descOwner,
-                                descTime: S,
+                        if (y) {
+                          var S = y.subjectTime || 0,
+                            R = y.a_v_id || 0,
+                            L = y.descTime || 0;
+                          (S > C.subjectTime &&
+                            (C = { subject: y.subject, subjectTime: S }),
+                            R > b.a_v_id &&
+                              (b = { announce: y.announce, a_v_id: R }),
+                            L > v.descTime &&
+                              (v = {
+                                desc: y.desc,
+                                descId: y.descId,
+                                descOwner: y.descOwner,
+                                descTime: L,
                               }));
                         }
-                        var R;
+                        var E;
                         o("WAWebABProps").getABPropConfigValue(
                           "dm_initiator_trigger_groups",
                         )
-                          ? (R = {
+                          ? (E = {
                               ephemeralDuration: e.ephemeralDuration || 0,
                               disappearingModeTrigger:
                                 e.disappearingModeTrigger,
@@ -88,11 +90,11 @@ __d(
                                 e.disappearingModeInitiatedByMe,
                               afterReadDuration: e.afterReadDuration,
                             })
-                          : (R = {
+                          : (E = {
                               ephemeralDuration: e.ephemeralDuration || 0,
                               afterReadDuration: e.afterReadDuration,
                             });
-                        var L = babelHelpers.extends(
+                        var k = babelHelpers.extends(
                           {
                             id: e.id.toString(),
                             creation: e.creation,
@@ -110,33 +112,39 @@ __d(
                             size: e.size || 0,
                             support: (i = e.support) != null ? i : !1,
                             suspended: (l = e.suspended) != null ? l : !1,
-                            terminated: (s = e.terminated) != null ? s : !1,
+                            suspendAppealStatus:
+                              (s = e.suspendAppealStatus) != null ? s : null,
+                            suspendAppealUpdateTime:
+                              (u = e.suspendAppealUpdateTime) != null
+                                ? u
+                                : null,
+                            terminated: (c = e.terminated) != null ? c : !1,
                             parentGroup:
-                              (u = e.parentGroup) == null
+                              (d = e.parentGroup) == null
                                 ? void 0
-                                : u.toString(),
+                                : d.toString(),
                             isParentGroup: e.isParentGroup,
                             isParentGroupClosed: e.isParentGroupClosed,
                             defaultSubgroup: e.defaultSubgroup,
                             generalSubgroup: e.generalSubgroup,
                             lastActivityTimestamp:
-                              (c =
-                                g == null ? void 0 : g.lastActivityTimestamp) !=
+                              (m =
+                                y == null ? void 0 : y.lastActivityTimestamp) !=
                               null
-                                ? c
+                                ? m
                                 : 0,
                             lastSeenActivityTimestamp:
-                              (d =
-                                g == null
+                              (p =
+                                y == null
                                   ? void 0
-                                  : g.lastSeenActivityTimestamp) != null
-                                ? d
+                                  : y.lastSeenActivityTimestamp) != null
+                                ? p
                                 : 0,
                             isLidAddressingMode: e.isLidAddressingMode,
                             reportToAdminMode:
-                              (m = e.reportToAdminMode) != null ? m : !1,
+                              (_ = e.reportToAdminMode) != null ? _ : !1,
                             lastReportToAdminTimestamp:
-                              g == null ? void 0 : g.lastReportToAdminTimestamp,
+                              y == null ? void 0 : y.lastReportToAdminTimestamp,
                             allowNonAdminSubGroupCreation:
                               e.allowNonAdminSubGroupCreation,
                             generalChatAutoAddDisabled:
@@ -145,41 +153,41 @@ __d(
                             hiddenSubgroup: e.hiddenSubgroup,
                             groupSafetyCheck: e.groupSafetyCheck,
                             lastCommunityPollTimestamp:
-                              g == null ? void 0 : g.lastCommunityPollTimestamp,
+                              y == null ? void 0 : y.lastCommunityPollTimestamp,
                             isOpenBotGroup:
-                              (p = e == null ? void 0 : e.isOpenBotGroup) !=
+                              (f = e == null ? void 0 : e.isOpenBotGroup) !=
                               null
-                                ? p
-                                : g == null
+                                ? f
+                                : y == null
                                   ? void 0
-                                  : g.isOpenBotGroup,
+                                  : y.isOpenBotGroup,
                             isTeeBotGroup:
-                              (_ = e == null ? void 0 : e.isTeeBotGroup) != null
-                                ? _
-                                : g == null
+                              (g = e == null ? void 0 : e.isTeeBotGroup) != null
+                                ? g
+                                : y == null
                                   ? void 0
-                                  : g.isTeeBotGroup,
+                                  : y.isTeeBotGroup,
                           },
-                          h,
                           C,
-                          y,
-                          R,
+                          v,
+                          b,
+                          E,
                         );
                         return (
                           e.hasIncompleteParticipantInformation != null &&
                             o(
                               "WAWebUsernameGatingUtils",
                             ).usernameDisplayedEnabled() &&
-                            (L.hasIncompleteParticipantInformation =
+                            (k.hasIncompleteParticipantInformation =
                               e.hasIncompleteParticipantInformation),
                           e.groupAdder != null
-                            ? babelHelpers.extends({}, L, {
+                            ? babelHelpers.extends({}, k, {
                                 groupAdder:
-                                  (f = e.groupAdder) == null
+                                  (h = e.groupAdder) == null
                                     ? void 0
-                                    : f.toString(),
+                                    : h.toString(),
                               })
-                            : L
+                            : k
                         );
                       })),
                       n.bulkCreateOrMerge(r)

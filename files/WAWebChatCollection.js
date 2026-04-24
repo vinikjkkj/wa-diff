@@ -50,9 +50,9 @@ __d(
               "change:isLocked",
               r("lodash").debounce(function () {
                 o("WAWebChatLockUpdateDailyStats").updateChatLockDailyStats({
-                  totalFolderChatsCount: e.filter(function (e) {
+                  totalFolderChatsCount: e.countWhere(function (e) {
                     return e.isLocked;
-                  }).length,
+                  }),
                 });
               }, 500),
             ),

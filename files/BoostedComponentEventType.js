@@ -1064,6 +1064,8 @@ __d(
         "post_ad_guidance_bop_upsell_impression",
       POST_AD_GUIDANCE_SABR_UPSELL_IMPRESSION:
         "post_ad_guidance_sabr_upsell_impression",
+      POST_AD_GUIDANCE_BOP_SABR_NULL_IMPRESSION:
+        "post_ad_guidance_bop_sabr_null_impression",
       POST_AD_CREATION_POST_PUBLISH_PROMPT_CLICK:
         "post_ad_creation_post_publish_prompt_click",
       POST_AD_CREATION_POST_PUBLISH_PROMPT_IMPRESSION:

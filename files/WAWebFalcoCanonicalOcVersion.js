@@ -3,7 +3,7 @@ __d(
   ["WAWebIsOfficialClient"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebIsOfficialClient").isOfficialClient ? 1 : 0;
+      return o("WAWebIsOfficialClient").getIsOfficialClient() ? 1 : 0;
     }
     l.default = e;
   },

@@ -3,6 +3,7 @@ __d(
   [
     "NativeSchedulerTickStrategy",
     "TaskScheduler",
+    "TaskSchedulerPriority",
     "WAPromiseDelays",
     "WASemaphore",
     "WAWebABProps",
@@ -85,7 +86,8 @@ __d(
                   "NativeSchedulerTickStrategy",
                 ).makeNativeSchedulerTickStrategy(),
               );
-              for (var c of this.Dirty.session) (i(c), yield s.yield());
+              for (var c of this.Dirty.session)
+                (i(c), yield s.yield(o("TaskSchedulerPriority").HIGH_PRIORITY));
             } else {
               var d = a ? 20 : u,
                 m = self.performance.now();

@@ -177,6 +177,20 @@ __d(
         b = {
           alias: null,
           args: null,
+          kind: "ScalarField",
+          name: "appeal_status",
+          storageKey: null,
+        },
+        v = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "appeal_update_time",
+          storageKey: null,
+        },
+        S = {
+          alias: null,
+          args: null,
           concreteType: "XWA2GroupLimitSharingSetting",
           kind: "LinkedField",
           name: "limit_sharing",
@@ -192,7 +206,7 @@ __d(
           ],
           storageKey: null,
         },
-        v = {
+        R = {
           alias: null,
           args: null,
           concreteType: "XWA2GroupLIDMigrationState",
@@ -210,7 +224,7 @@ __d(
           ],
           storageKey: null,
         },
-        S = {
+        L = {
           kind: "InlineFragment",
           selections: [
             {
@@ -237,6 +251,8 @@ __d(
                 },
                 b,
                 v,
+                S,
+                R,
               ],
               storageKey: null,
             },
@@ -244,7 +260,7 @@ __d(
           type: "XWA2CommunityGroup",
           abstractKey: null,
         },
-        R = {
+        E = {
           alias: null,
           args: null,
           concreteType: "XWA2GroupEphemeralSetting",
@@ -262,45 +278,45 @@ __d(
           ],
           storageKey: null,
         },
-        L = {
+        k = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "locked",
           storageKey: null,
         },
-        E = {
+        I = {
           alias: null,
           args: null,
           concreteType: "XWA2GroupGrowthLocked",
           kind: "LinkedField",
           name: "growth_locked2",
           plural: !1,
-          selections: [L],
-          storageKey: null,
-        },
-        k = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "member_add_mode",
-          storageKey: null,
-        },
-        I = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "parent_group_jid",
+          selections: [k],
           storageKey: null,
         },
         T = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "group_safety_check",
+          name: "member_add_mode",
           storageKey: null,
         },
         D = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "parent_group_jid",
+          storageKey: null,
+        },
+        x = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "group_safety_check",
+          storageKey: null,
+        },
+        $ = {
           kind: "InlineFragment",
           selections: [
             {
@@ -310,49 +326,49 @@ __d(
               kind: "LinkedField",
               name: "properties",
               plural: !1,
-              selections: [R, E, v, k, I, T, b],
+              selections: [E, I, R, T, D, x, b, v, S],
               storageKey: null,
             },
           ],
           type: "XWA2CommunityDefaultSubGroup",
           abstractKey: null,
         },
-        x = {
+        P = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "allow_admin_reports",
           storageKey: null,
         },
-        $ = {
+        N = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "announcement",
           storageKey: null,
         },
-        P = {
+        M = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "member_link_mode",
           storageKey: null,
         },
-        N = {
+        w = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "member_share_group_history_mode",
           storageKey: null,
         },
-        M = {
+        A = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "membership_approval_mode_enabled",
           storageKey: null,
         },
-        w = {
+        F = {
           kind: "InlineFragment",
           selections: [
             {
@@ -370,17 +386,17 @@ __d(
               name: "properties",
               plural: !1,
               selections: [
-                x,
-                $,
-                R,
-                E,
-                v,
-                L,
-                k,
                 P,
                 N,
-                M,
+                E,
                 I,
+                R,
+                k,
+                T,
+                M,
+                w,
+                A,
+                D,
                 {
                   alias: null,
                   args: null,
@@ -402,8 +418,10 @@ __d(
                   name: "hidden_group",
                   storageKey: null,
                 },
-                T,
+                x,
                 b,
+                v,
+                S,
               ],
               storageKey: null,
             },
@@ -411,7 +429,7 @@ __d(
           type: "XWA2CommunitySubGroup",
           abstractKey: null,
         },
-        A = {
+        O = {
           kind: "InlineFragment",
           selections: [
             {
@@ -422,8 +440,8 @@ __d(
               name: "properties",
               plural: !1,
               selections: [
-                x,
-                $,
+                P,
+                N,
                 {
                   alias: null,
                   args: null,
@@ -431,14 +449,14 @@ __d(
                   name: "capi",
                   storageKey: null,
                 },
-                R,
                 E,
-                v,
-                L,
+                I,
+                R,
                 k,
-                P,
-                N,
+                T,
                 M,
+                w,
+                A,
                 {
                   alias: null,
                   args: null,
@@ -446,8 +464,10 @@ __d(
                   name: "support",
                   storageKey: null,
                 },
-                T,
+                x,
                 b,
+                v,
+                S,
               ],
               storageKey: null,
             },
@@ -455,24 +475,24 @@ __d(
           type: "XWA2GroupRegularGroup",
           abstractKey: null,
         },
-        F = {
+        B = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "__typename",
           storageKey: null,
         },
-        O = {
+        W = {
           alias: null,
           args: null,
           concreteType: null,
           kind: "LinkedField",
           name: "username_info",
           plural: !1,
-          selections: [F, u],
+          selections: [B, u],
           storageKey: null,
         },
-        B = {
+        q = {
           alias: null,
           args: null,
           concreteType: "XWA2User",
@@ -487,7 +507,7 @@ __d(
               condition: "include_username",
               kind: "Condition",
               passingValue: !0,
-              selections: [O],
+              selections: [W],
             },
           ],
           storageKey: null,
@@ -575,10 +595,10 @@ __d(
                 },
                 y,
                 C,
-                S,
-                D,
-                w,
-                A,
+                L,
+                $,
+                F,
+                O,
               ],
               storageKey: null,
             },
@@ -600,10 +620,10 @@ __d(
               name: "xwa2_group_query_by_id",
               plural: !1,
               selections: [
-                F,
+                B,
                 a,
                 i,
-                B,
+                q,
                 m,
                 {
                   alias: null,
@@ -612,7 +632,7 @@ __d(
                   kind: "LinkedField",
                   name: "subject",
                   plural: !1,
-                  selections: [B, i, p],
+                  selections: [q, i, p],
                   storageKey: null,
                 },
                 {
@@ -622,7 +642,7 @@ __d(
                   kind: "LinkedField",
                   name: "description",
                   plural: !1,
-                  selections: [a, i, B, p],
+                  selections: [a, i, q, p],
                   storageKey: null,
                 },
                 {
@@ -649,10 +669,10 @@ __d(
                           name: "participant",
                           plural: !1,
                           selections: [
-                            F,
+                            B,
                             {
                               kind: "InlineFragment",
-                              selections: [a, l, s, _, O],
+                              selections: [a, l, s, _, W],
                               type: "XWA2User",
                               abstractKey: null,
                             },
@@ -670,17 +690,17 @@ __d(
                 },
                 y,
                 C,
-                S,
-                D,
-                w,
-                A,
+                L,
+                $,
+                F,
+                O,
               ],
               storageKey: null,
             },
           ],
         },
         params: {
-          id: "26342357488707090",
+          id: "26412593755077157",
           metadata: {},
           name: "WAWebMexFetchGroupInfoIncludBotsJobQuery",
           operationKind: "query",

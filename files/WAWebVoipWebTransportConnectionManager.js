@@ -1,6 +1,7 @@
 __d(
   "WAWebVoipWebTransportConnectionManager",
   [
+    "Promise",
     "WALogger",
     "WAWebVoipRelayConnectionUtils",
     "asyncToGeneratorRuntime",
@@ -8,14 +9,18 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R;
-    function L() {
+    var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R, L;
+    function E() {
       var e;
       return (e = self.WebTransport) != null ? e : null;
     }
-    var E = new Map(),
-      k = new Map();
-    function I(e, t) {
+    var k = new Map(),
+      I = null;
+    function T() {
+      return (I == null && (I = new AbortController()), I.signal);
+    }
+    var D = new Map();
+    function x(e, t) {
       return {
         state: o("WAWebVoipRelayConnectionUtils").ConnectionState.None,
         transport: null,
@@ -32,7 +37,7 @@ __d(
         relayPort: t.port,
       };
     }
-    function T(e) {
+    function $(e) {
       var t = e.authToken,
         n = e.clusterDomain,
         o = e.token;
@@ -49,12 +54,12 @@ __d(
         a + "?" + i.toString()
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    function P(e, t) {
+      return N.apply(this, arguments);
     }
-    function x() {
+    function N() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.transport;
           if (n != null)
             try {
@@ -64,7 +69,7 @@ __d(
                   i = a.done,
                   l = a.value;
                 if (i) break;
-                l != null && (yield $(t, l));
+                l != null && (yield M(t, l));
               }
             } catch (n) {
               e.state ===
@@ -81,23 +86,23 @@ __d(
                 );
             }
         })),
-        x.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function $(e, t) {
-      return P.apply(this, arguments);
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function P() {
+    function w() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = E.get(e);
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = k.get(e);
           if (n != null) {
             (n.stats.receivedPackets++,
               (n.stats.receivedBytes += t.byteLength),
               n.hasReceivedFirstPacket ||
                 ((n.hasReceivedFirstPacket = !0),
                 (n.stats.firstResponseRecvTime = Date.now())));
-            var r = k.get(e);
+            var r = D.get(e);
             if (r == null) {
               o("WALogger").WARN(
                 m ||
@@ -111,15 +116,15 @@ __d(
             }
           }
         })),
-        P.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function M() {
+    function F() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.id;
           o("WALogger").LOG(
             p ||
@@ -129,15 +134,15 @@ __d(
               ])),
             t,
           );
-          var n = E.get(t);
-          (n == null && ((n = I(t, e)), E.set(t, n)),
-            (n.state = o(
+          var a = k.get(t);
+          (a == null && ((a = x(t, e)), k.set(t, a)),
+            (a.state = o(
               "WAWebVoipRelayConnectionUtils",
             ).ConnectionState.Connecting),
-            (n.connectionStartTime = Date.now()),
-            (n.connectionTimeout = window.setTimeout(function () {
-              n != null &&
-                n.state ===
+            (a.connectionStartTime = Date.now()),
+            (a.connectionTimeout = window.setTimeout(function () {
+              a != null &&
+                a.state ===
                   o("WAWebVoipRelayConnectionUtils").ConnectionState
                     .Connecting &&
                 (o("WALogger").WARN(
@@ -148,34 +153,49 @@ __d(
                     ])),
                   t,
                 ),
-                (n.state = o(
+                (a.state = o(
                   "WAWebVoipRelayConnectionUtils",
                 ).ConnectionState.Failed),
-                F(t));
+                W(t));
             }, o("WAWebVoipRelayConnectionUtils").CONNECTION_TIMEOUT_MS)));
+          var i = null;
           try {
-            var r = T(e),
-              a = L();
-            if (a == null) {
+            var l = $(e),
+              s = E();
+            if (s == null) {
               (o("WALogger").ERROR(
                 f ||
                   (f = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [WebTransportConnectionManager] WebTransport not supported",
                   ])),
               ),
-                (n.state = o(
+                (a.state = o(
                   "WAWebVoipRelayConnectionUtils",
                 ).ConnectionState.Failed),
-                F(t));
+                W(t));
               return;
             }
-            var i = new a(r, { serverCertificateHashes: [] });
-            yield i.ready;
-            var l = E.get(t);
+            i = new s(l, { serverCertificateHashes: [] });
+            var u = T(),
+              c = new (L || (L = n("Promise")))(function (e, t) {
+                if (u.aborted) {
+                  t(r("err")("WebTransport connect aborted"));
+                  return;
+                }
+                u.addEventListener(
+                  "abort",
+                  function () {
+                    return t(r("err")("WebTransport connect aborted"));
+                  },
+                  { once: !0 },
+                );
+              });
+            yield L.race([i.ready, c]);
+            var d = k.get(t);
             if (
-              l == null ||
-              l !== n ||
-              l.state !==
+              d == null ||
+              d !== a ||
+              d.state !==
                 o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting
             ) {
               o("WALogger").WARN(
@@ -191,14 +211,14 @@ __d(
               } catch (e) {}
               return;
             }
-            (n.connectionTimeout != null &&
-              (window.clearTimeout(n.connectionTimeout),
-              (n.connectionTimeout = null)),
-              (n.transport = i),
-              (n.state = o(
+            (a.connectionTimeout != null &&
+              (window.clearTimeout(a.connectionTimeout),
+              (a.connectionTimeout = null)),
+              (a.transport = i),
+              (a.state = o(
                 "WAWebVoipRelayConnectionUtils",
               ).ConnectionState.Open),
-              (n.stats.connectionReadyTime = Date.now()),
+              (a.stats.connectionReadyTime = Date.now()),
               o("WALogger").LOG(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -207,9 +227,9 @@ __d(
                   ])),
                 t,
               ),
-              (n.datagramWriter = i.datagrams.writable.getWriter()),
-              D(n, t),
-              yield w(t),
+              (a.datagramWriter = i.datagrams.writable.getWriter()),
+              P(a, t),
+              yield O(t),
               i.closed
                 .then(function () {
                   (o("WALogger").LOG(
@@ -220,8 +240,8 @@ __d(
                       ])),
                     t,
                   ),
-                    n != null &&
-                      (n.state = o(
+                    a != null &&
+                      (a.state = o(
                         "WAWebVoipRelayConnectionUtils",
                       ).ConnectionState.Closed));
                 })
@@ -236,41 +256,47 @@ __d(
                     t,
                     e,
                   ),
-                    n != null &&
-                      (n.state = o(
+                    a != null &&
+                      (a.state = o(
                         "WAWebVoipRelayConnectionUtils",
                       ).ConnectionState.Failed));
                 }));
           } catch (e) {
-            (o("WALogger").ERROR(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [WebTransportConnectionManager] Failed to connect to ",
-                  ": ",
-                  "",
-                ])),
-              t,
-              e,
-            ),
-              (n.state = o(
+            if (
+              (o("WALogger").ERROR(
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [WebTransportConnectionManager] Failed to connect to ",
+                    ": ",
+                    "",
+                  ])),
+                t,
+                e,
+              ),
+              (a.state = o(
                 "WAWebVoipRelayConnectionUtils",
               ).ConnectionState.Failed),
-              n.connectionTimeout != null &&
-                (window.clearTimeout(n.connectionTimeout),
-                (n.connectionTimeout = null)),
-              F(t));
+              a.connectionTimeout != null &&
+                (window.clearTimeout(a.connectionTimeout),
+                (a.connectionTimeout = null)),
+              i != null)
+            )
+              try {
+                i.close();
+              } catch (e) {}
+            W(t);
           }
         })),
-        M.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function A() {
+    function B() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = E.get(e);
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = k.get(e);
           if (
             !(
               t == null ||
@@ -309,11 +335,11 @@ __d(
               }
           }
         })),
-        A.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function F(t) {
-      var n = E.get(t);
+    function W(t) {
+      var n = k.get(t);
       if (n != null) {
         if (
           (o("WALogger").LOG(
@@ -365,24 +391,24 @@ __d(
             n.stats.receivedBytes,
             n.stats.droppedPackets,
           ),
-          E.delete(t));
+          k.delete(t));
       }
     }
-    function O(e, t, n) {
-      return B.apply(this, arguments);
+    function q(e, t, n) {
+      return U.apply(this, arguments);
     }
-    function B() {
+    function U() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = o("WAWebVoipRelayConnectionUtils").getConnectionIdentifier(
               t,
               n,
             ),
-            a = E.get(r),
-            i = k.get(r);
+            a = k.get(r),
+            i = D.get(r);
           if (a == null) {
             if (i == null) return;
-            ((a = I(r, i)), E.set(r, a));
+            ((a = x(r, i)), k.set(r, a));
           }
           if (
             (a.stats.firstSendRequestTime === 0 &&
@@ -429,33 +455,34 @@ __d(
             a.state ===
               o("WAWebVoipRelayConnectionUtils").ConnectionState.None &&
               i != null &&
-              N(i));
+              A(i));
         })),
-        B.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function W(e) {
+    function V(e) {
       (o("WALogger").LOG(
         u ||
           (u = babelHelpers.taggedTemplateLiteralLoose([
             "voip: [WebTransportConnectionManager] Received relay list update",
           ])),
       ),
-        (k = o("WAWebVoipRelayConnectionUtils").extractRelayConnectionMap(e)));
+        (D = o("WAWebVoipRelayConnectionUtils").extractRelayConnectionMap(e)));
     }
-    function q() {
-      o("WALogger").LOG(
+    function H() {
+      (o("WALogger").LOG(
         c ||
           (c = babelHelpers.taggedTemplateLiteralLoose([
             "voip: [WebTransportConnectionManager] Closing all connections",
           ])),
-      );
-      for (var e of E.keys()) F(e);
-      k.clear();
+      ),
+        I != null && (I.abort(), (I = null)));
+      for (var e of k.keys()) W(e);
+      D.clear();
     }
-    ((l.sendData = O),
-      (l.handleRelayListUpdate = W),
-      (l.closeAllConnections = q));
+    ((l.sendData = q),
+      (l.handleRelayListUpdate = V),
+      (l.closeAllConnections = H));
   },
   98,
 );

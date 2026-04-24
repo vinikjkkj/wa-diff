@@ -6,6 +6,7 @@ __d(
     "WAWebGroupHistoryShareMode",
     "WAWebJidToWid",
     "WAWebSchemaGroupMetadata",
+    "WAWebSuspendAppealStatusType",
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
     "err",
@@ -230,125 +231,132 @@ __d(
         l,
         d,
         m,
-        g = t.creation,
-        h = t.description,
-        y = t.descriptionGroupInfoDescriptionMixin,
-        C = t.ephemeral,
-        b = t.groupAddressingModeMixin,
-        v = t.groupMemberAddModeMixin,
-        S = t.groupMemberShareGroupHistoryModeMixin,
-        R = t.growthLocked,
-        L = t.hasAllowAdminReports,
-        E = t.hasAllowNonAdminSubGroupCreation,
-        k = t.hasAnnouncement,
-        I = t.hasAutoAddDisabled,
-        T = t.hasCapi,
-        D = t.hasDefaultSubGroup,
-        x = t.hasGeneralChat,
-        $ = t.hasLocked,
-        P = t.hasMissingParticipantIdentification,
-        N = t.hasNoFrequentlyForwarded,
-        M = t.hasSupport,
-        w = t.id,
-        A = t.linkedParent,
-        F = t.membershipApprovalMode,
-        O = t.membershipApprovalRequest,
-        B = t.namedSubjectOrUnnamedSubjectFallbackMixinGroup,
-        W = t.parent,
-        q = t.participant,
-        U = t.size,
-        V = t.sO,
-        H = t.sT,
-        G = t.subjectOwnerIdentityMixin,
-        z = t.suspended;
-      if (w == null) throw r("err")("parseGroupSmax: invalid group id");
-      var j = B == null ? void 0 : B.value.subject;
-      if (j == null) throw r("err")("parseGroupSmax: invalid group subject");
-      var K = q != null ? p(q) : [],
-        Q =
+        g = t.appealStatus,
+        h = t.appealUpdateTime,
+        y = t.creation,
+        C = t.description,
+        b = t.descriptionGroupInfoDescriptionMixin,
+        v = t.ephemeral,
+        S = t.groupAddressingModeMixin,
+        R = t.groupMemberAddModeMixin,
+        L = t.groupMemberShareGroupHistoryModeMixin,
+        E = t.growthLocked,
+        k = t.hasAllowAdminReports,
+        I = t.hasAllowNonAdminSubGroupCreation,
+        T = t.hasAnnouncement,
+        D = t.hasAutoAddDisabled,
+        x = t.hasCapi,
+        $ = t.hasDefaultSubGroup,
+        P = t.hasGeneralChat,
+        N = t.hasLocked,
+        M = t.hasMissingParticipantIdentification,
+        w = t.hasNoFrequentlyForwarded,
+        A = t.hasSupport,
+        F = t.id,
+        O = t.linkedParent,
+        B = t.membershipApprovalMode,
+        W = t.membershipApprovalRequest,
+        q = t.namedSubjectOrUnnamedSubjectFallbackMixinGroup,
+        U = t.parent,
+        V = t.participant,
+        H = t.size,
+        G = t.sO,
+        z = t.sT,
+        j = t.subjectOwnerIdentityMixin,
+        K = t.suspended;
+      if (F == null) throw r("err")("parseGroupSmax: invalid group id");
+      var Q = q == null ? void 0 : q.value.subject;
+      if (Q == null) throw r("err")("parseGroupSmax: invalid group subject");
+      var X = V != null ? p(V) : [],
+        Y =
           (n =
-            F == null ||
-            (a = F.membershipApprovalGroupJoinModeEnabledMixin) == null
+            B == null ||
+            (a = B.membershipApprovalGroupJoinModeEnabledMixin) == null
               ? void 0
               : a.state) != null
             ? n
-            : F == null
+            : B == null
               ? void 0
-              : F.state,
-        X = o("WAWebSchemaGroupMetadata").MemberAddMode.cast(
-          v == null || (i = v.memberAddModeMemberAddModes) == null
+              : B.state,
+        J = o("WAWebSchemaGroupMetadata").MemberAddMode.cast(
+          R == null || (i = R.memberAddModeMemberAddModes) == null
             ? void 0
             : i.value.elementValue,
         ),
-        Y = o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode.cast(
-          S == null ||
-            (l = S.memberShareGroupHistoryModeMemberShareGroupHistoryModes) ==
+        Z = o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode.cast(
+          L == null ||
+            (l = L.memberShareGroupHistoryModeMemberShareGroupHistoryModes) ==
               null
             ? void 0
             : l.value.elementValue,
         ),
-        J =
-          (d = h == null ? void 0 : h.groupInfoDescriptionMixin) != null
+        ee =
+          (d = C == null ? void 0 : C.groupInfoDescriptionMixin) != null
             ? d
-            : y,
-        Z = _(t),
-        ee = Z.creator,
-        te = Z.creatorCountryCode,
-        ne = Z.creatorPn,
-        re = Z.creatorUsername,
-        oe = f(V, G),
-        ae = oe.subjectOwner,
-        ie = oe.subjectOwnerPn,
-        le = oe.subjectOwnerUsername,
-        se = babelHelpers.extends(
+            : b,
+        te = _(t),
+        ne = te.creator,
+        re = te.creatorCountryCode,
+        oe = te.creatorPn,
+        ae = te.creatorUsername,
+        ie = f(G, j),
+        le = ie.subjectOwner,
+        se = ie.subjectOwnerPn,
+        ue = ie.subjectOwnerUsername,
+        ce = babelHelpers.extends(
           {
-            id: o("WAWebWidFactory").createWid(w + "@g.us"),
-            owner: ee,
-            creatorPn: ne,
-            creatorUsername: re,
-            creatorCountryCode: te,
-            creation: g,
-            restrict: !!$,
-            announce: !!k,
-            noFrequentlyForwarded: !!N,
-            support: M,
-            suspended: z != null,
-            isParentGroup: W != null,
-            numSubgroups: W == null ? void 0 : W.numSubGroups,
-            participants: K,
+            id: o("WAWebWidFactory").createWid(F + "@g.us"),
+            owner: ne,
+            creatorPn: oe,
+            creatorUsername: ae,
+            creatorCountryCode: re,
+            creation: y,
+            restrict: !!N,
+            announce: !!T,
+            noFrequentlyForwarded: !!w,
+            support: A,
+            suspended: K != null,
+            suspendAppealStatus: o(
+              "WAWebSuspendAppealStatusType",
+            ).toSuspendAppealStatus(g == null ? void 0 : g.type),
+            suspendAppealUpdateTime:
+              (h == null ? void 0 : h.value) != null ? h.value : null,
+            isParentGroup: U != null,
+            numSubgroups: U == null ? void 0 : U.numSubGroups,
+            participants: X,
             isParentGroupClosed:
-              (W == null ||
-              (m = W.parentGroupDefaultMembershipApprovalModeMixin) == null
+              (U == null ||
+              (m = U.parentGroupDefaultMembershipApprovalModeMixin) == null
                 ? void 0
                 : m.defaultMembershipApprovalMode) === "request_required",
-            defaultSubgroup: D,
-            generalSubgroup: x,
-            membershipApprovalMode: Q === "on",
-            reportToAdminMode: L,
-            membershipApprovalRequest: O,
+            defaultSubgroup: $,
+            generalSubgroup: P,
+            membershipApprovalMode: Y === "on",
+            reportToAdminMode: k,
+            membershipApprovalRequest: W,
             isLidAddressingMode:
-              (b == null ? void 0 : b.addressingMode) === "lid",
-            memberAddMode: X,
-            memberShareGroupHistoryMode: Y,
-            allowNonAdminSubGroupCreation: E,
+              (S == null ? void 0 : S.addressingMode) === "lid",
+            memberAddMode: J,
+            memberShareGroupHistoryMode: Z,
+            allowNonAdminSubGroupCreation: I,
           },
-          J && e(J),
-          C && s(C),
-          u(R),
-          c(A),
+          ee && e(ee),
+          v && s(v),
+          u(E),
+          c(O),
           {
-            subject: j,
-            subjectTime: H,
-            subjectOwner: ae,
-            subjectOwnerUsername: le,
-            subjectOwnerPn: ie,
-            size: U,
-            generalChatAutoAddDisabled: !!I,
-            hasCapi: T,
-            hasIncompleteParticipantInformation: P === !0,
+            subject: Q,
+            subjectTime: z,
+            subjectOwner: le,
+            subjectOwnerUsername: ue,
+            subjectOwnerPn: se,
+            size: H,
+            generalChatAutoAddDisabled: !!D,
+            hasCapi: x,
+            hasIncompleteParticipantInformation: M === !0,
           },
         );
-      return se;
+      return ce;
     }
     function h(e) {
       var t = e.maybeChild("linked_parent"),

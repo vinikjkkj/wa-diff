@@ -1,17 +1,17 @@
 __d(
   "SchedulerFeatureFlags",
   [],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i) {
     var e = !0,
-      s = !0,
-      u = 250,
-      c = 5e3,
-      d = 1e4;
-    ((l.enableRequestPaint = e),
-      (l.enableSchedulerDebugging = s),
-      (l.userBlockingPriorityTimeout = u),
-      (l.normalPriorityTimeout = c),
-      (l.lowPriorityTimeout = d));
+      l = !0,
+      s = 250,
+      u = 5e3,
+      c = 1e4;
+    ((i.enableRequestPaint = e),
+      (i.enableSchedulerDebugging = l),
+      (i.userBlockingPriorityTimeout = s),
+      (i.normalPriorityTimeout = u),
+      (i.lowPriorityTimeout = c));
   },
-  98,
+  66,
 );

@@ -163,12 +163,12 @@ __d(
         o("WALogger").LOG(
           m ||
             (m = babelHelpers.taggedTemplateLiteralLoose([
-              "voip: [FocusTracker] snapshot: vis=",
+              "voip: [FocusTracker] snap: vis=",
               " hid=",
               " pop=",
               " pip=",
               " halt=",
-              " haltTotal=",
+              " haltT=",
               "",
             ])),
           b,

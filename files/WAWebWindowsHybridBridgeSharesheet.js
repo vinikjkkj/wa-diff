@@ -1,6 +1,6 @@
 __d(
   "WAWebWindowsHybridBridgeSharesheet",
-  ["WAWebODS"],
+  ["WAWebODS", "WAWebWindowsHybridBridgeTrace"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -9,9 +9,15 @@ __d(
       var t = e.prototype;
       return (
         (t.shareFile = function (t, n) {
+          var e = this;
           return (
             r("WAWebODS").incr("web.hybrid.bridge.sharesheet.send.share_file"),
-            this.$1.shareFile(t, n)
+            o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              { bridge: "sharesheetBridge", method: "shareFile", type: "sync" },
+              function () {
+                return e.$1.shareFile(t, n);
+              },
+            )
           );
         }),
         e

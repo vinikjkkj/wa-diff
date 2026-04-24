@@ -39,7 +39,7 @@ __d(
                 "WAWebGetGroupHistoryBundleMessagesCount",
               ).getGroupHistoryBundleMessageCount({
                 groupWid: o("WAWebWidFactory").asGroupWidOrThrow(t.id),
-                enterFlowTimestamp: f,
+                targetStartMessageTime: f,
               })
             : null;
       if ((a == null ? void 0 : a.participants.length) >= _) {

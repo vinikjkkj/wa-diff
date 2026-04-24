@@ -17,12 +17,10 @@ __d(
     var e,
       s,
       u,
-      c,
-      d,
-      m = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      c = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       ),
-      p = (function (t) {
+      d = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -49,7 +47,7 @@ __d(
                   a,
                   i = 0,
                   l = 0,
-                  p = t.map(function (e) {
+                  d = t.map(function (e) {
                     var t;
                     return o(
                       "WAWebAccountLinkingGatingUtils",
@@ -99,72 +97,46 @@ __d(
                     ),
                   a != null)
                 ) {
-                  var _,
-                    f,
-                    g = o("WAWebAccountLinkingUtils").mapToAccountLinkState(
+                  var m,
+                    p,
+                    _ = o("WAWebAccountLinkingUtils").mapToAccountLinkState(
                       r("WANullthrows")(
-                        (_ = a.value.waffleAccountLinkStateAction) == null
+                        (m = a.value.waffleAccountLinkStateAction) == null
                           ? void 0
-                          : _.linkState,
+                          : m.linkState,
                       ),
                     ),
-                    h = Number(
+                    f = Number(
                       r("WANullthrows")(
-                        (f = a) == null ? void 0 : f.value.timestamp,
+                        (p = a) == null ? void 0 : p.value.timestamp,
                       ),
                     );
                   if (
-                    g ===
+                    _ ===
                     o("WAWebAccountLinkingConstants").AccountLinkState.Active
                   ) {
-                    var y = yield m.getAccountLinkingData();
-                    y == null
-                      ? (o("WALogger")
-                          .LOG(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
-                                "[WAFFLE-TRACE] syncd: no existing row, requesting nonce (fresh link or re-login)",
-                              ])),
-                          )
-                          .sendLogs("waffle-nonce-trace-syncd", {
-                            sampling: 1,
-                          }),
-                        yield this.storeLinkState(g, h),
+                    var g = yield c.getAccountLinkingData();
+                    g == null
+                      ? (yield this.storeLinkState(_, f),
                         yield o(
                           "WAWebAccountLinkingNonceFetchAPI",
                         ).requestNonceFromPrimary())
-                      : y.linkState !==
+                      : g.linkState !==
                           o("WAWebAccountLinkingConstants").AccountLinkState
                             .Active
-                        ? (o("WALogger")
-                            .LOG(
-                              c ||
-                                (c = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[WAFFLE-TRACE] syncd: existing row with state=",
-                                  ", transitioning to Active",
-                                ])),
-                              y.linkState,
-                            )
-                            .sendLogs("waffle-nonce-trace-syncd", {
-                              sampling: 1,
-                            }),
-                          yield this.storeLinkState(g, h),
+                        ? (yield this.storeLinkState(_, f),
                           yield o(
                             "WAWebAccountLinkingNonceFetchAPI",
                           ).requestNonceFromPrimary())
-                        : o("WALogger")
-                            .LOG(
-                              d ||
-                                (d = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[WAFFLE-TRACE] syncd: already Active, skipping nonce fetch",
-                                ])),
-                            )
-                            .sendLogs("waffle-nonce-trace-syncd", {
-                              sampling: 1,
-                            });
+                        : o("WALogger").LOG(
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                                "[WAFFLE-TRACE] syncd: already Active, skipping nonce fetch",
+                              ])),
+                          );
                   }
                 }
-                return p;
+                return d;
               },
             );
             function a(e) {
@@ -173,7 +145,7 @@ __d(
             return a;
           })()),
           (i.storeLinkState = function (t, n) {
-            return m.createOrUpdateAccountLinkingState({
+            return c.createOrUpdateAccountLinkingState({
               accountLinkKey: o("WAWebAccountLinkingConstants").AccountLinkKey,
               linkState: t,
               linkTimestamp: n,
@@ -182,8 +154,8 @@ __d(
           a
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      _ = new p();
-    l.default = _;
+      m = new d();
+    l.default = m;
   },
   98,
 );

@@ -10,6 +10,7 @@ __d(
     "WAWebCustomerManagerCustomerCell.react",
     "WAWebCustomerManagerListCell.react",
     "WAWebCustomerManagerNotesCell.react",
+    "WAWebCustomerManagerSMBUserJourneyLogger",
     "WAWebFrontendContactGetters",
     "WAWebLeadStageChip.react",
     "WAWebListsGatingUtils",
@@ -199,6 +200,11 @@ __d(
               className: "x14ba6vc xrw3huk",
               children: u.jsx(r("WAWebLeadStageChip.react"), {
                 customer: t.item,
+                onPillClick: function (t) {
+                  return o(
+                    "WAWebCustomerManagerSMBUserJourneyLogger",
+                  ).CustomerManagerUserJourneyLogger.clickRowLeadStagePill(t);
+                },
                 onStageChange: function (n, r) {
                   return o(
                     "WAWebCustomerDataFieldSaver",

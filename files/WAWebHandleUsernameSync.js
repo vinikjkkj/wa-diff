@@ -24,13 +24,16 @@ __d(
             return;
           }
           var r = t.list,
-            a = r.reduce(function (e, t) {
-              var n;
-              if (t.username != null)
-                return (e.push({ userId: t.id, username: t.username }), e);
-              var r = ((n = t.contact) == null ? void 0 : n.type) === "out";
-              return (r || e.push({ userId: t.id, deleteUsername: !0 }), e);
-            }, []);
+            a = r.flatMap(function (e) {
+              var t;
+              return ((t = e.contact) == null ? void 0 : t.type) === "out"
+                ? []
+                : e.id == null
+                  ? []
+                  : e.username == null
+                    ? [{ userId: e.id, deleteUsername: !0 }]
+                    : [{ userId: e.id, username: e.username }];
+            });
           yield o("WAWebSetUsernameJob").setUsernamesJob(a);
         })),
         u.apply(this, arguments)

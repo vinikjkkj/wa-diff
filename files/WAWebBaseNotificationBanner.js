@@ -46,54 +46,59 @@ __d(
       g = f.closeMessageNotification,
       h = f.showMessageNotification,
       y = (function () {
-        function t(e, t, a, i, l) {
-          var s = this,
-            c;
+        function t(e) {
+          var t = this,
+            a,
+            i = e.key,
+            l = e.msgId,
+            s = e.options,
+            c = e.tag,
+            d = e.wid;
           ((this.isReplyable = !1),
             (this.close = function () {
-              s.$3()
+              t.$3()
                 .then(function () {
-                  (s.notification &&
-                    o("WATypeUtils").isFunction(s.notification.close) &&
-                    s.notification.close(),
-                    g == null || g(s.key, s.tag));
+                  (t.notification &&
+                    o("WATypeUtils").isFunction(t.notification.close) &&
+                    t.notification.close(),
+                    g == null || g(t.key, t.tag));
                 })
                 .catch(r("WAWebNoop"));
             }),
             (this.$4 = function () {
-              (s.waitingPromise.resolver(),
-                window.removeEventListener("beforeunload", s.close));
-              var e = s.notification;
+              (t.waitingPromise.resolver(),
+                window.removeEventListener("beforeunload", t.close));
+              var e = t.notification;
               (e &&
-                (e.removeEventListener("click", s.$5),
-                e.removeEventListener("close", s.$4)),
-                s.msg && s.msg.off("change:type", s.$6));
+                (e.removeEventListener("click", t.$5),
+                e.removeEventListener("close", t.$4)),
+                t.msg && t.msg.off("change:type", t.$6));
             }),
             (this.$5 = function () {
-              (s.$1 == null || s.$1(), window.focus());
-              var e = s.chat,
-                t = s.msg,
-                n = s.doNotOpenChat == null ? !1 : s.doNotOpenChat;
+              (t.$1 == null || t.$1(), window.focus());
+              var e = t.chat,
+                n = t.msg,
+                a = t.doNotOpenChat == null ? !1 : t.doNotOpenChat;
               if (e) {
-                if (!n) {
-                  var a,
-                    i,
-                    l =
-                      t && t !== e.msgs.last()
+                if (!a) {
+                  var i,
+                    l,
+                    s =
+                      n && n !== e.msgs.last()
                         ? o("WAWebChatMessageSearch").getSearchContext({
                             chat: e,
-                            msgKey: t.id,
+                            msgKey: n.id,
                           })
                         : void 0;
                   if (
-                    ((a = e.groupMetadata) == null ? void 0 : a.groupType) ===
+                    ((i = e.groupMetadata) == null ? void 0 : i.groupType) ===
                       o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-                    (i = e.groupMetadata) != null &&
-                    i.parentGroup &&
-                    t != null &&
-                    (t.subtype ===
+                    (l = e.groupMetadata) != null &&
+                    l.parentGroup &&
+                    n != null &&
+                    (n.subtype ===
                       o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_PROMOTE ||
-                      t.subtype ===
+                      n.subtype ===
                         o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE)
                   ) {
                     var u;
@@ -109,7 +114,7 @@ __d(
                         })
                       : o("WAWebCmd").Cmd.openChatAt({
                           chat: e,
-                          msgContext: l,
+                          msgContext: s,
                           chatEntryPoint: o("WAWebChatEntryPoint")
                             .ChatEntryPoint.Notification,
                         });
@@ -120,33 +125,33 @@ __d(
                   }
                 }
                 (o("WAWebModalManager").ModalManager.closeMedia(),
-                  s.increaseNotificationEngagement({ isClick: !0 }),
-                  s.close());
+                  t.increaseNotificationEngagement({ isClick: !0 }),
+                  t.close());
               }
             }),
             (this.$6 = function () {
-              !s.msg ||
-                s.msg.type !== o("WAWebMsgType").MSG_TYPE.REVOKED ||
-                s.close();
+              !t.msg ||
+                t.msg.type !== o("WAWebMsgType").MSG_TYPE.REVOKED ||
+                t.close();
             }),
             (this.msg =
-              t != null ? o("WAWebMsgCollection").MsgCollection.get(t) : null),
+              l != null ? o("WAWebMsgCollection").MsgCollection.get(l) : null),
             (this.chat =
-              (c = o("WAWebChatCollection").ChatCollection.get(e)) != null
-                ? c
-                : r("WAWebNewsletterCollection").get(e)),
-            (this.tag = a),
+              (a = o("WAWebChatCollection").ChatCollection.get(d)) != null
+                ? a
+                : r("WAWebNewsletterCollection").get(d)),
+            (this.tag = c),
             (this.key = i),
-            (this.$1 = l.onClick),
-            (this.canBlock = l.canBlock),
-            (this.doNotOpenChat = l.doNotOpenChat),
-            (this.isReplyable = l.isReplyable));
-          var d = new (_ || (_ = n("Promise")))(function (e) {
-            s.waitingPromise = { resolver: e };
+            (this.$1 = s.onClick),
+            (this.canBlock = s.canBlock),
+            (this.doNotOpenChat = s.doNotOpenChat),
+            (this.isReplyable = s.isReplyable));
+          var m = new (_ || (_ = n("Promise")))(function (e) {
+            t.waitingPromise = { resolver: e };
           });
-          this.waitingPromise.promise = d;
+          this.waitingPromise.promise = m;
           try {
-            this.$2(i, a, l);
+            this.$2(i, c, s);
           } catch (e) {
             (o("WALogger").LOG(
               u ||

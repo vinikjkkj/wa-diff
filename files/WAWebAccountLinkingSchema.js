@@ -24,6 +24,11 @@ __d(
           n("igCrosspostingDestinationId"),
           n("foAToWALinkEligibility"),
           n("accountLinkingOpaqueData"),
+          n("certEncryptionPem"),
+          n("certPasswordPem"),
+          n("certPasswordKeyId"),
+          n("certTtlSeconds"),
+          n("certFetchTimestamp"),
         ])
         .view(function (e) {
           return e;

@@ -6,7 +6,6 @@ __d(
     "WAConcurrentPriorityPromiseQueue",
     "WALogger",
     "WAMemoizeConcurrent",
-    "WANullthrows",
     "WAResultOrError",
     "WAWebABProps",
     "WAWebAppTracker",
@@ -536,23 +535,32 @@ __d(
               try {
                 if (M != null && J != null) {
                   var ae,
-                    ie = J.end - J.start + 1;
-                  return r("WANullthrows")(
-                    yield (ae = X) == null ? void 0 : ae.handleProgress(ie, re),
-                  );
+                    ie = J.end - J.start + 1,
+                    le = yield (ae = X) == null
+                      ? void 0
+                      : ae.handleProgress(ie, re);
+                  if (le == null)
+                    throw new (o("WAWebMiscErrors").MediaDecryptionError)(
+                      "Partial PJPEG decryption returned no data (encryptedFileSize=" +
+                        ie +
+                        ", scanCount=" +
+                        M +
+                        ")",
+                    );
+                  return le;
                 } else if (E)
                   oe = yield o(
                     "WAWebCryptoDecryptPartialMedia",
                   ).decryptPartialMedia({ mediaKeys: ne, ciphertext: re });
                 else {
-                  var le =
+                  var se =
                     o("WAWebABProps").getABPropConfigValue(
                       "web_media_compute_in_worker_enabled",
                     ) === !0;
                   (l.addAnnotations({
-                    string: { decrypt_path: le ? "v2" : "v1" },
+                    string: { decrypt_path: se ? "v2" : "v1" },
                   }),
-                    le
+                    se
                       ? (oe = yield r("WAWebCryptoDecryptMediaV2")({
                           mediaKeys: ne,
                           ciphertextHmac: re,
@@ -582,13 +590,13 @@ __d(
                     .DOWNLOAD_DECRYPTION_FINISHED,
                 ));
             } else {
-              var se = E == null && M == null;
-              if (se) {
-                var ue = yield o("WAWebValidateMediaFilehash").validateFileash(
+              var ue = E == null && M == null;
+              if (ue) {
+                var ce = yield o("WAWebValidateMediaFilehash").validateFileash(
                   oe,
                   u,
                 );
-                if (!ue) throw new (o("WAWebMiscErrors").MediaHashMismatch)();
+                if (!ce) throw new (o("WAWebMiscErrors").MediaHashMismatch)();
               }
             }
             return (

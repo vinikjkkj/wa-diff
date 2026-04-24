@@ -35,7 +35,7 @@ __d(
     var v = (function () {
         function t() {
           var t = this;
-          ((this._checkIfAlreadyUploaded = r("WAMemoizeConcurrent")(
+          ((this.$1 = r("WAMemoizeConcurrent")(
             function (e) {
               return e.token;
             },
@@ -104,7 +104,7 @@ __d(
               };
             })(),
           )),
-            (this._memoizedUpload = r("WAMemoizeConcurrent")(
+            (this.$3 = r("WAMemoizeConcurrent")(
               function (e) {
                 return e.token;
               },
@@ -149,7 +149,7 @@ __d(
                 };
               })(),
             )),
-            (this._getExistingOrUpload = r("WAMemoizeConcurrent")(
+            (this.$2 = r("WAMemoizeConcurrent")(
               function (e) {
                 return e.token;
               },
@@ -183,7 +183,7 @@ __d(
                     );
                     try {
                       var E = yield t
-                        ._checkIfAlreadyUploaded({
+                        .$1({
                           encFilehash: a,
                           type: S,
                           signal: v,
@@ -202,7 +202,7 @@ __d(
                                 handle: r.handle,
                                 url: r.url,
                               })
-                            : t._memoizedUpload({
+                            : t.$3({
                                 ciphertextHmac: n,
                                 encFilehash: a,
                                 type: S,
@@ -377,9 +377,7 @@ __d(
                             o("WAWebMmsDownloadUploadCrashLogger").ProgressType
                               .UPLOAD_ENCRYPTION_FINISHED,
                           ));
-                        var p = e.mediaKey
-                          ? t._getExistingOrUpload
-                          : t._memoizedUpload;
+                        var p = e.mediaKey ? t.$2 : t.$3;
                         return p({
                           ciphertextHmac: a,
                           encFilehash: s,
@@ -491,7 +489,7 @@ __d(
                 h(t.loaded + n);
               },
               v = (e = t.token) != null ? e : a;
-            return this._getExistingOrUpload({
+            return this.$2({
               ciphertextHmac: n,
               encFilehash: a,
               type: s,
@@ -546,7 +544,7 @@ __d(
                 mediaId: y,
                 token: (e = t.token) != null ? e : t.hash,
               };
-            return this._memoizedUpload(b);
+            return this.$3(b);
           }),
           t
         );

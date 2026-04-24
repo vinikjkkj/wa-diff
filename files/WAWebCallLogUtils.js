@@ -297,6 +297,22 @@ __d(
           return "privacy";
         case 3:
           return "lightweight";
+        case 4:
+          return "screensharing";
+        case 5:
+          return "group_setting";
+        case 6:
+          return "vc_init";
+        case 7:
+          return "vc_wave";
+        case 8:
+          return "vc_wave_all";
+        case 9:
+          return "added_as_link_creator";
+        case 10:
+          return "added_for_device_switching";
+        case 11:
+          return "group_chat_add";
         default:
           return;
       }

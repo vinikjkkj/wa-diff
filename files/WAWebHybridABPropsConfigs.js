@@ -111,7 +111,7 @@ __d(
         28964,
         "bool",
         !1,
-        !1,
+        !0,
       ],
       ctwa_tos_filtering_enabled: [976, "bool", !1, !1],
       custom_notification_tones: [18884, "bool", !1, !1],
@@ -267,6 +267,7 @@ __d(
       kaleidoscope_thumbnail_validation: [18114, "bool", !1, !0],
       ks_use_component_model: [26966, "bool", !1, !1],
       lobby_timeout_min: [1565, "int", 0, 1],
+      mark_as_verified_enabled: [29343, "bool", !1, !1],
       max_group_size_for_long_ringtone: [4710, "int", 0, 0],
       max_num_participants_for_ss: [3694, "int", 8, 8],
       max_number_of_frequently_used_contacts_shared_with_device: [

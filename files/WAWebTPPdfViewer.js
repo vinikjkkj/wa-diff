@@ -42,38 +42,27 @@ __d(
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, r) {
                 var o = this;
-                return new (e || (e = n("Promise")))(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e, n) {
-                        var a = yield t.arrayBuffer();
-                        (o.$1.listenOnce(
-                          "RENDER_PDF_PREVIEW_RESPONSE",
-                          function (t) {
-                            if (t.success) return e();
-                            n(t.error);
-                          },
-                          {
-                            timeoutMs: s,
-                            onTimeout: function (t) {
-                              n(t);
-                            },
-                          },
-                        ),
-                          o.$1
-                            .publishWhenReady(
-                              "RENDER_PDF_PREVIEW",
-                              { fileBuffer: a, fileName: r },
-                              [a],
-                            )
-                            .catch(n));
+                return new (e || (e = n("Promise")))(function (e, n) {
+                  (o.$1.listenOnce(
+                    "RENDER_PDF_PREVIEW_RESPONSE",
+                    function (t) {
+                      if (t.success) return e();
+                      n(t.error);
+                    },
+                    {
+                      timeoutMs: s,
+                      onTimeout: function (t) {
+                        n(t);
                       },
-                    );
-                    return function (t, n) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                );
+                    },
+                  ),
+                    o.$1
+                      .publishWhenReady("RENDER_PDF_PREVIEW", {
+                        file: t,
+                        fileName: r,
+                      })
+                      .catch(n));
+                });
               },
             );
             function r(e, n) {

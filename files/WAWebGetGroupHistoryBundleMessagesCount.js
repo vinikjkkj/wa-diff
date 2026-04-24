@@ -18,8 +18,8 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.enterFlowTimestamp,
-            i = t.groupWid;
+          var a = t.groupWid,
+            i = t.targetStartMessageTime;
           return o("WAWebOrchestratorNonPersistedJob")
             .createNonPersistedJob(
               "getGroupHistoryBundleMessageCount",
@@ -27,7 +27,7 @@ __d(
                 try {
                   var t = yield o(
                     "WAWebRetrieveMessagesForBundle",
-                  ).retrieveMessagesForBundle(i, null, a);
+                  ).retrieveMessagesForBundle(a, null, i);
                   return (
                     o("WAWebBackendApi").frontendFireAndForget(
                       "logGroupHistorySelectableMessagesLoaded",

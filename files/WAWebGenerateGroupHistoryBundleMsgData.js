@@ -37,10 +37,10 @@ __d(
     var e, s, u, c, d;
     function m(t) {
       var a = t.chatId,
-        i = t.enterFlowTimestamp,
-        l = t.historyReceivers,
-        m = t.nonHistoryReceivers,
-        p = t.selectedMessageCount;
+        i = t.historyReceivers,
+        l = t.nonHistoryReceivers,
+        m = t.selectedMessageCount,
+        p = t.targetStartMessageTime;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "generateGroupHistoryBundleMsgData",
@@ -58,12 +58,12 @@ __d(
                   "",
                 ])),
               a,
-              l,
+              i,
             );
             var _ = o("WAWebJidToWid").groupJidToWid(a),
               f = yield o(
                 "WAWebRetrieveMessagesForBundle",
-              ).retrieveMessagesForBundle(_, p, i);
+              ).retrieveMessagesForBundle(_, m, p);
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -72,7 +72,7 @@ __d(
                 ])),
               f.length,
             );
-            var g = i != null ? i : o("WATimeUtils").unixTime(),
+            var g = p != null ? p : o("WATimeUtils").unixTime(),
               h = o("WAWebABProps").getABPropConfigValue(
                 "group_history_messages_time_limit_secs",
               ),
@@ -196,8 +196,8 @@ __d(
                   mimetype: "application/protobuf",
                   groupHistoryBundleMetadata: {
                     messageCount: f.length,
-                    historyReceivers: l,
-                    nonHistoryReceivers: m,
+                    historyReceivers: i,
+                    nonHistoryReceivers: l,
                     oldestMessageTimestampInWindow: P,
                     oldestMessageTimestampInBundle: M,
                     processState: o("WAWebGroupHistoryMsgData.flow")

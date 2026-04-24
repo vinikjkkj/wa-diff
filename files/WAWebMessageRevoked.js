@@ -18,7 +18,7 @@ __d(
       u = {
         icon: {
           display: "x1rg5ohu",
-          color: "x181wc8j",
+          color: "xhslqc4",
           minWidth: "xnei2rj",
           marginInlineStart: "xe9ewy2",
           marginInlineEnd: "xcknrev",

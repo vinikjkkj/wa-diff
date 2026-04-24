@@ -2,6 +2,7 @@ __d(
   "WASmaxInGroupsLinkedGroupInfoMixin",
   [
     "WAResultOrError",
+    "WASmaxInGroupsEnums",
     "WASmaxInGroupsGroupAddressingModeMixin",
     "WASmaxInGroupsGroupInfoAttributesMixin",
     "WASmaxInGroupsGroupInfoDescriptionMixin",
@@ -54,6 +55,24 @@ __d(
         : n;
     }
     function d(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "appeal_status");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").attrStringEnum(
+        e,
+        "type",
+        o("WASmaxInGroupsEnums").ENUM_APPROVED_INREVIEW_NONE_REJECTED,
+      );
+      return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
+    }
+    function m(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "appeal_update_time");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").attrIntRange(e, "value", 0, void 0);
+      return n.success
+        ? o("WAResultOrError").makeResult({ value: n.value })
+        : n;
+    }
+    function p(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "limit_sharing_enabled");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -67,7 +86,7 @@ __d(
         ? o("WAResultOrError").makeResult({ trigger: n.value })
         : n;
     }
-    function m(t) {
+    function _(t) {
       var n = o("WASmaxParseUtils").assertTag(t, "linked_group");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(t, "group");
@@ -89,83 +108,99 @@ __d(
         u,
       );
       if (!l.success) return l;
-      var m = o("WASmaxParseUtils").optionalChild(
+      var _ = o("WASmaxParseUtils").optionalChild(
         r.value,
         "admin_request_required",
       );
-      if (!m.success) return m;
-      var p = o("WASmaxParseUtils").optionalChild(r.value, "hidden_group");
-      if (!p.success) return p;
-      var _ = o("WASmaxParseUtils").optionalChildWithTag(
+      if (!_.success) return _;
+      var f = o("WASmaxParseUtils").optionalChild(r.value, "hidden_group");
+      if (!f.success) return f;
+      var g = o("WASmaxParseUtils").optionalChildWithTag(
         r.value,
         "suspended",
         c,
       );
-      if (!_.success) return _;
-      var f = o("WASmaxParseUtils").optionalChild(
-        r.value,
-        "group_safety_check",
-      );
-      if (!f.success) return f;
-      var g = o("WASmaxParseUtils").optionalChild(
-        r.value,
-        "participant_label_enabled",
-      );
       if (!g.success) return g;
       var h = o("WASmaxParseUtils").optionalChildWithTag(
         r.value,
-        "limit_sharing_enabled",
+        "appeal_status",
         d,
       );
       if (!h.success) return h;
-      var y = o("WASmaxParseJid").attrGroupJid(t, "jid");
+      var y = o("WASmaxParseUtils").optionalChildWithTag(
+        r.value,
+        "appeal_update_time",
+        m,
+      );
       if (!y.success) return y;
-      var C = o("WASmaxParseUtils").attrIntRange(r.value, "size", 1, 19999);
+      var C = o("WASmaxParseUtils").optionalChild(
+        r.value,
+        "group_safety_check",
+      );
       if (!C.success) return C;
-      var b = o(
+      var b = o("WASmaxParseUtils").optionalChild(
+        r.value,
+        "participant_label_enabled",
+      );
+      if (!b.success) return b;
+      var v = o("WASmaxParseUtils").optionalChildWithTag(
+        r.value,
+        "limit_sharing_enabled",
+        p,
+      );
+      if (!v.success) return v;
+      var S = o("WASmaxParseJid").attrGroupJid(t, "jid");
+      if (!S.success) return S;
+      var R = o("WASmaxParseUtils").attrIntRange(r.value, "size", 1, 19999);
+      if (!R.success) return R;
+      var L = o(
           "WASmaxInGroupsGroupInfoDescriptionMixin",
         ).parseGroupInfoDescriptionMixin(a.value),
-        v = o(
+        E = o(
           "WASmaxInGroupsGroupInfoAttributesMixin",
         ).parseGroupInfoAttributesMixin(r.value);
-      if (!v.success) return v;
-      var S = o(
+      if (!E.success) return E;
+      var k = o(
           "WASmaxInGroupsGroupAddressingModeMixin",
         ).parseGroupAddressingModeMixin(r.value),
-        R = o("WASmaxParseUtils").mapChildrenWithTag(
+        I = o("WASmaxParseUtils").mapChildrenWithTag(
           r.value,
           "participant",
           0,
           19999,
           e,
         );
-      return R.success
+      return I.success
         ? o("WAResultOrError").makeResult({
-            jid: y.value,
-            groupSize: C.value,
-            groupDescriptionGroupInfoDescriptionMixin: b.success
-              ? b.value
+            jid: S.value,
+            groupSize: R.value,
+            groupDescriptionGroupInfoDescriptionMixin: L.success
+              ? L.value
               : null,
-            groupGroupInfoAttributesMixin: v.value,
-            groupGroupAddressingModeMixin: S.success ? S.value : null,
+            groupGroupInfoAttributesMixin: E.value,
+            groupGroupAddressingModeMixin: k.success ? k.value : null,
             groupMembershipApprovalMode: i.value,
             groupMembershipApprovalRequest: l.value,
-            hasGroupAdminRequestRequired: m.value != null,
-            hasGroupHiddenGroup: p.value != null,
-            groupSuspended: _.value,
-            hasGroupGroupSafetyCheck: f.value != null,
-            hasGroupParticipantLabelEnabled: g.value != null,
-            groupLimitSharingEnabled: h.value,
-            groupParticipant: R.value,
+            hasGroupAdminRequestRequired: _.value != null,
+            hasGroupHiddenGroup: f.value != null,
+            groupSuspended: g.value,
+            groupAppealStatus: h.value,
+            groupAppealUpdateTime: y.value,
+            hasGroupGroupSafetyCheck: C.value != null,
+            hasGroupParticipantLabelEnabled: b.value != null,
+            groupLimitSharingEnabled: v.value,
+            groupParticipant: I.value,
           })
-        : R;
+        : I;
     }
     ((l.parseLinkedGroupInfoGroupParticipant = e),
       (l.parseLinkedGroupInfoGroupMembershipApprovalMode = s),
       (l.parseLinkedGroupInfoGroupMembershipApprovalRequest = u),
       (l.parseLinkedGroupInfoGroupSuspended = c),
-      (l.parseLinkedGroupInfoGroupLimitSharingEnabled = d),
-      (l.parseLinkedGroupInfoMixin = m));
+      (l.parseLinkedGroupInfoGroupAppealStatus = d),
+      (l.parseLinkedGroupInfoGroupAppealUpdateTime = m),
+      (l.parseLinkedGroupInfoGroupLimitSharingEnabled = p),
+      (l.parseLinkedGroupInfoMixin = _));
   },
   98,
 );

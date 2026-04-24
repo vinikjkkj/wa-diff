@@ -420,10 +420,9 @@ __d(
             callWaitingInfo: {
               hasWaitingCall: l.call_waiting_info.type !== 0,
               waitingCallId: l.call_waiting_info.call_id || null,
-              waitingPeerJid:
-                (e = l.call_waiting_info.peer_raw_jids) != null && e[0]
-                  ? p({ raw_jid: l.call_waiting_info.peer_raw_jids[0] })
-                  : null,
+              waitingPeerJid: p(
+                (e = l.call_waiting_info.peer_jids) == null ? void 0 : e[0],
+              ),
               waitingGroupJid: p(l.call_waiting_info.group_jid),
               waitingIsVideo: l.call_waiting_info.video_enabled,
             },

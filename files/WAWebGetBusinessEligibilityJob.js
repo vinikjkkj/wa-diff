@@ -4,9 +4,7 @@ __d(
     "WALogger",
     "WASmaxBizMarketingMessageGetBusinessEligibilityRPC",
     "WAWebBackendErrors",
-    "WAWebBizBroadcastGenAIEligibilityModel",
-    "WAWebBizBroadcastGenAIGating",
-    "WAWebBizBroadcastMarketingMessagesEligibilityModel",
+    "WAWebRefreshBusinessEligibility",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -216,48 +214,9 @@ __d(
       );
     }
     function k() {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e,
-              t,
-              n = yield y({
-                checkGenAI: o(
-                  "WAWebBizBroadcastGenAIGating",
-                ).isGenAITextEnabled(),
-                checkMarketingMessages: !0,
-              });
-            return (
-              o(
-                "WAWebBizBroadcastMarketingMessagesEligibilityModel",
-              ).updateMarketingMessagesEligibility(
-                ((e = n.marketingMessages) == null ? void 0 : e.status) ===
-                  "SUCCESS",
-              ),
-              o(
-                "WAWebBizBroadcastGenAIEligibilityModel",
-              ).updateGenAIEligibility(
-                ((t = n.genai) == null ? void 0 : t.status) === "SUCCESS",
-              ),
-              n
-            );
-          } catch (e) {
-            throw (
-              o(
-                "WAWebBizBroadcastMarketingMessagesEligibilityModel",
-              ).updateMarketingMessagesEligibility(!1),
-              o(
-                "WAWebBizBroadcastGenAIEligibilityModel",
-              ).updateGenAIEligibility(!1),
-              e
-            );
-          }
-        })),
-        I.apply(this, arguments)
-      );
+      return o(
+        "WAWebRefreshBusinessEligibility",
+      ).refreshBusinessEligibilityIfNeeded({ force: !0, rethrowOnFailure: !0 });
     }
     ((l.getBusinessEligibility = y),
       (l.getMetaVerifiedEligibility = b),

@@ -8,6 +8,7 @@ __d(
     "WAWebHttpErrors",
     "WAWebMediaGetDownloadOriginForMsg",
     "WAWebMediaOpaqueData",
+    "WAWebMiscErrors",
     "WAWebMmsClientErrors",
     "WAWebMmsMediaTypes",
     "WAWebSerializeError",
@@ -100,17 +101,18 @@ __d(
               r("getErrorSafe")(e).message,
             ),
               e instanceof o("WAWebHttpErrors").HttpNetworkError ||
-              e instanceof o("WAWebMmsClientErrors").MediaNotFoundError
+              e instanceof o("WAWebMmsClientErrors").MediaNotFoundError ||
+              e instanceof o("WAWebMiscErrors").MediaDecryptionError
                 ? o("WALogger")
                     .WARN(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose(
                           [
-                            "media.downloadProgressiveJpegThumbnail: network error\n",
+                            "media.downloadProgressiveJpegThumbnail: expected error\n",
                             "",
                           ],
                           [
-                            "media.downloadProgressiveJpegThumbnail: network error\\n",
+                            "media.downloadProgressiveJpegThumbnail: expected error\\n",
                             "",
                           ],
                         )),

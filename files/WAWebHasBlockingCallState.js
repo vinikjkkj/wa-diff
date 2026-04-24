@@ -26,7 +26,7 @@ __d(
               (o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "hasBlockingCallState: popout flag stale (window dead), clearing survey",
+                    "[hasBlockingCallState] popout stale, clearing survey",
                   ])),
               ),
               n != null && (n.shouldShowPostCallSurvey = !1)),

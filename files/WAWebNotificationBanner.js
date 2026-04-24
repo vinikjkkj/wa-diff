@@ -19,18 +19,24 @@ __d(
           g = t.title,
           h = t.wid;
         return (
-          e.call(this, h, d, f, c, {
-            title: o("WAWebEmoji").EmojiUtil.normalizeAllEmojis(g),
-            notification: window.Notification,
-            body: o("WAWebEmoji").EmojiUtil.normalizeAllEmojis(n),
-            icon: r("WAWebURLUtils").relToAbs(s),
-            onClick: m,
-            renotify: p,
-            doNotOpenChat: i,
-            footer: l,
-            isReplyable: u,
-            contextMenuItems: a,
-            suppressBanner: _,
+          e.call(this, {
+            key: c,
+            msgId: d,
+            options: {
+              body: o("WAWebEmoji").EmojiUtil.normalizeAllEmojis(n),
+              contextMenuItems: a,
+              doNotOpenChat: i,
+              footer: l,
+              icon: r("WAWebURLUtils").relToAbs(s),
+              isReplyable: u,
+              notification: window.Notification,
+              onClick: m,
+              renotify: p,
+              suppressBanner: _,
+              title: o("WAWebEmoji").EmojiUtil.normalizeAllEmojis(g),
+            },
+            tag: f,
+            wid: h,
           }) || this
         );
       }

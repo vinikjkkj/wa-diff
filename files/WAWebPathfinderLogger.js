@@ -1,6 +1,12 @@
 __d(
   "WAWebPathfinderLogger",
-  ["WALogger", "WAWebABProps", "WAWebCrashlog", "WamPathfinderWebFalcoEvent"],
+  [
+    "WALogger",
+    "WAWebABProps",
+    "WAWebCrashlog",
+    "WamPathfinderWebFalcoEvent",
+    "isEmptyObject",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -104,45 +110,45 @@ __d(
       if (e != null) {
         for (
           var n = {},
-            r = Object.keys(e).sort(),
-            o = [],
+            o = Object.keys(e).sort(),
             a = [],
             i = [],
-            l = 0,
-            s = -1,
-            u = 0;
-          u < r.length;
-          u++
+            l = [],
+            s = 0,
+            u = -1,
+            c = 0;
+          c < o.length;
+          c++
         ) {
-          var c = r[u];
-          if (l >= p) {
-            s = u;
+          var d = o[c];
+          if (s >= p) {
+            u = c;
             break;
           }
-          if (c.length > _) {
-            o.push(c);
+          if (d.length > _) {
+            a.push(d);
             continue;
           }
-          if (g.has(c)) {
-            a.push(c);
+          if (g.has(d)) {
+            i.push(d);
             continue;
           }
-          var d = e[c];
-          (d.length > f ? (i.push(c), (n[c] = d.slice(0, f))) : (n[c] = d),
-            l++);
+          var m = e[d];
+          (m.length > f ? (l.push(d), (n[d] = m.slice(0, f))) : (n[d] = m),
+            s++);
         }
-        var m = s >= 0 ? r.slice(s) : [],
-          y = t != null ? " [" + t + "]" : "";
-        return (h(a, o, i, m, y), Object.keys(n).length > 0 ? n : void 0);
+        var y = u >= 0 ? o.slice(u) : [],
+          C = t != null ? " [" + t + "]" : "";
+        return (h(i, a, l, y, C), r("isEmptyObject")(n) ? void 0 : n);
       }
     }
     function C(e, t, n) {
-      var r,
-        o = (r = y(e, n)) != null ? r : {};
+      var o,
+        a = (o = y(e, n)) != null ? o : {};
       return (
         t.custom_event_type != null &&
-          (o.custom_event_type = t.custom_event_type),
-        Object.keys(o).length > 0 ? o : void 0
+          (a.custom_event_type = t.custom_event_type),
+        r("isEmptyObject")(a) ? void 0 : a
       );
     }
     function b(e, t) {

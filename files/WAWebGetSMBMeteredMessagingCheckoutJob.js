@@ -9,7 +9,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c(e) {
-      var t, n;
+      var t, n, r;
       return {
         accountBalanceAvailable: e.accountBalanceAvailable,
         costBase: e.costBase,
@@ -29,6 +29,8 @@ __d(
                 };
               }),
         quotaRemaining: (n = e.quota) == null ? void 0 : n.remaining,
+        totalAvailableCredits:
+          (r = e.quota) == null ? void 0 : r.totalAvailableCredits,
       };
     }
     function d(e) {

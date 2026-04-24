@@ -13,6 +13,7 @@ __d(
     "WAWebEphemeralityTypes",
     "WAWebEphemeralityUtils",
     "WAWebGroupApiConst",
+    "WAWebGroupHistoryPostJoinTypes.flow",
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
     "WAWebGroupsQueryApi",
@@ -101,6 +102,12 @@ __d(
             phoneNumber:
               l != null ? o("WAWebJidToWid").userJidToUserWid(l) : null,
             username: t.maybeAttrString("username"),
+            joinTime: t.maybeAttrTime("join_time"),
+            groupHistorySentState: o(
+              "WAWebGroupHistoryPostJoinTypes.flow",
+            ).parseGroupHistorySentState(
+              t.maybeAttrString("group_history_sent_state"),
+            ),
           },
           u =
             n ===

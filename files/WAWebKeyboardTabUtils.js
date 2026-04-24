@@ -14,24 +14,27 @@ __d(
         "TABBABLE",
       ]),
       s = n("$InternalEnum").Mirrored(["FORWARD", "BACKWARD"]);
-    function u(t, n, a) {
-      return n === e.TABBABLE
+    function u(t) {
+      var n = t.container,
+        a = t.customSelector,
+        i = t.focusType;
+      return i === e.TABBABLE
         ? {
-            candidateElements: o("tabbable").tabbable(t),
+            candidateElements: o("tabbable").tabbable(n),
             isElementTabbable: function (t) {
               return !0;
             },
           }
-        : n === e.CUSTOM_SELECTOR && a != null
+        : i === e.CUSTOM_SELECTOR && a != null
           ? {
-              candidateElements: Array.from(t.querySelectorAll(a)),
+              candidateElements: Array.from(n.querySelectorAll(a)),
               isElementTabbable: function (t) {
                 return !0;
               },
             }
           : {
               candidateElements: r("lodash").sortBy(
-                Array.from(t.querySelectorAll("[data-tab]")),
+                Array.from(n.querySelectorAll("[data-tab]")),
                 function (e) {
                   return parseInt(e.getAttribute("data-tab"), 10) || 0;
                 },
@@ -45,7 +48,7 @@ __d(
           (r = function () {
             return !0;
           }));
-      var a = u(t, n, o),
+      var a = u({ container: t, customSelector: o, focusType: n }),
         i = a.candidateElements,
         l = a.isElementTabbable;
       return i.filter(function (e) {
@@ -56,7 +59,7 @@ __d(
       (n === void 0 && (n = s.FORWARD),
         r === void 0 && (r = e.CUSTOM),
         a === void 0 && (a = o("WAWebBoolFunc").returnTrue));
-      var l = u(t, r, i),
+      var l = u({ container: t, customSelector: i, focusType: r }),
         c = l.candidateElements,
         d = l.isElementTabbable,
         p = n === s.FORWARD ? 1 : -1,

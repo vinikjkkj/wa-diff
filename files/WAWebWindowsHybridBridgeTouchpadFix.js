@@ -1,6 +1,11 @@
 __d(
   "WAWebWindowsHybridBridgeTouchpadFix",
-  ["WAWebDebounce", "WAWebODS", "WAWebWindowsHybridFlowHelpers"],
+  [
+    "WAWebDebounce",
+    "WAWebODS",
+    "WAWebWindowsHybridBridgeTrace",
+    "WAWebWindowsHybridFlowHelpers",
+  ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -36,11 +41,21 @@ __d(
       var t = e.prototype;
       return (
         (t.interruptManipulations = function () {
+          var e = this;
           return (
             r("WAWebODS").incr(
               "web.hybrid.bridge.touchpad_fix.send.interrupt_manipulations",
             ),
-            this.$1.interruptManipulations()
+            o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "touchpadFix",
+                method: "interruptManipulations",
+                type: "sync",
+              },
+              function () {
+                return e.$1.interruptManipulations();
+              },
+            )
           );
         }),
         (t.init = function () {

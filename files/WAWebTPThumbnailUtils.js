@@ -112,38 +112,37 @@ __d(
               l.appError();
             }));
           try {
-            var c = yield t.arrayBuffer(),
-              d = yield u.getThumbnail({
-                fileBuffer: c,
+            var c = yield u.getThumbnail({
+                file: t,
                 fileName: a,
                 width: i.width,
                 height: i.height,
               }),
-              m = yield o(
+              d = yield o(
                 "WAWebCryptoCalculateFilehash",
               ).calculateFilehashFromBlob(t);
             return (
               o("WAWebTPLoggingUtils").logThumbnailTelemetryDataEvent(
-                d.perfData,
-                m,
+                c.perfData,
+                d,
                 t.size,
-                d.sdkVersion,
+                c.sdkVersion,
               ),
               l.renderThumbnailEnd(),
               {
-                thumbnail: d.thumbnail,
-                numPages: d.numPages,
-                perfData: d.perfData,
+                thumbnail: c.thumbnail,
+                numPages: c.numPages,
+                perfData: c.perfData,
               }
             );
           } catch (e) {
-            var p = yield o(
+            var m = yield o(
               "WAWebCryptoCalculateFilehash",
             ).calculateFilehashFromBlob(t);
             throw (
               o("WAWebTPLoggingUtils").logThumbnailRenderErrorEvent(
                 e,
-                p,
+                m,
                 t.size,
               ),
               l.renderThumbnailError(),

@@ -34,6 +34,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "countWhere",
     "decodeProtobuf",
     "encodeProtobuf",
     "gkx",
@@ -220,12 +221,12 @@ __d(
                       })(),
                     ),
                   ),
-                  f = _.filter(function (e) {
+                  f = r("countWhere")(_, function (e) {
                     return (
                       e.actionState ===
                       o("WASyncdConst").SyncActionState.Success
                     );
-                  }).length;
+                  });
                 return (
                   f > 0 &&
                     o("WALogger").LOG(

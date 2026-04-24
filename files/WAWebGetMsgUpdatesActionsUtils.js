@@ -339,6 +339,7 @@ __d(
                           case "bot_request_welcome":
                           case "bot_memu_onboarding":
                           case "member_label":
+                          case "ai_media_collection":
                             break;
                           default:
                             (U++, V.length < 3 && V.push(n.id.toString()));

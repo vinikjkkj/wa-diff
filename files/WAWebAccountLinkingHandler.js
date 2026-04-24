@@ -12,52 +12,41 @@ __d(
     var e,
       s,
       u,
-      c,
-      d,
-      m,
-      p = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+      c = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       );
-    function _() {
-      return p.updateAccountLinkingState(
+    function d() {
+      return c.updateAccountLinkingState(
         o("WAWebAccountLinkingConstants").AccountLinkState.Paused,
       );
     }
-    function f() {
-      return p.purgeWaffleData();
+    function m() {
+      return c.purgeWaffleData();
     }
-    function g() {
-      return h.apply(this, arguments);
+    function p() {
+      return _.apply(this, arguments);
     }
-    function h() {
+    function _() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield p.getAccountLinkingData();
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var t = yield c.getAccountLinkingData();
           if (t != null) {
             if (
               t.linkState ===
               o("WAWebAccountLinkingConstants").AccountLinkState.Active
             )
               try {
-                (o("WALogger")
-                  .LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WAFFLE-TRACE] handleResyncState: local=Active, calling ping()",
-                      ])),
-                  )
-                  .sendLogs("waffle-nonce-trace-resync", { sampling: 1 }),
-                  yield o("WAWebAccountLinkingAPI").ping(),
+                (yield o("WAWebAccountLinkingAPI").ping(),
                   yield o("WAWebAccountLinkingAPI").fetchServiceData());
-              } catch (e) {
+              } catch (t) {
                 o("WALogger")
                   .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
                         "[WAFFLE] handleResyncState active state failed: ",
                         "",
                       ])),
-                    e,
+                    t,
                   )
                   .tags("waffle", "account-linking", "resync")
                   .sendLogs("waffle-resync-active-failed", { sampling: 0.01 });
@@ -72,21 +61,13 @@ __d(
                   switch (n) {
                     case o("WAWebAccountLinkingConstants")
                       .AccountLinkingStateExists.UNLINKED:
-                      yield p.purgeWaffleData();
+                      yield c.purgeWaffleData();
                       break;
                     case o("WAWebAccountLinkingConstants")
                       .AccountLinkingStateExists.ACTIVE:
-                      (o("WALogger")
-                        .LOG(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "[WAFFLE-TRACE] handleResyncState: local=Paused, server=ACTIVE, requesting nonce",
-                            ])),
-                        )
-                        .sendLogs("waffle-nonce-trace-resync", { sampling: 1 }),
-                        yield o(
-                          "WAWebAccountLinkingNonceFetchAPI",
-                        ).requestNonceFromPrimary());
+                      yield o(
+                        "WAWebAccountLinkingNonceFetchAPI",
+                      ).requestNonceFromPrimary();
                       break;
                     case o("WAWebAccountLinkingConstants")
                       .AccountLinkingStateExists.PAUSED:
@@ -95,8 +76,8 @@ __d(
               } catch (e) {
                 o("WALogger")
                   .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "[WAFFLE] handleResyncState paused state failed: ",
                         "",
                       ])),
@@ -115,28 +96,20 @@ __d(
                     break;
                   case o("WAWebAccountLinkingConstants")
                     .AccountLinkingStateExists.ACTIVE:
-                    (o("WALogger")
-                      .LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[WAFFLE-TRACE] handleResyncState: local=Unlinked, server=ACTIVE, requesting nonce",
-                          ])),
-                      )
-                      .sendLogs("waffle-nonce-trace-resync", { sampling: 1 }),
-                      yield o(
-                        "WAWebAccountLinkingNonceFetchAPI",
-                      ).requestNonceFromPrimary());
+                    yield o(
+                      "WAWebAccountLinkingNonceFetchAPI",
+                    ).requestNonceFromPrimary();
                     break;
                   case o("WAWebAccountLinkingConstants")
                     .AccountLinkingStateExists.PAUSED:
-                    yield _();
+                    yield d();
                     break;
                 }
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] handleResyncState unlinked state failed: ",
                       "",
                     ])),
@@ -146,12 +119,12 @@ __d(
                 .sendLogs("waffle-resync-unlinked-failed", { sampling: 0.01 });
             }
         })),
-        h.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    ((l.handlePausedState = _),
-      (l.handleUnlinkedState = f),
-      (l.handleResyncState = g));
+    ((l.handlePausedState = d),
+      (l.handleUnlinkedState = m),
+      (l.handleResyncState = p));
   },
   98,
 );

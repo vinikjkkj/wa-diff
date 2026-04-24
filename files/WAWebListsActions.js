@@ -4,14 +4,17 @@ __d(
     "fbt",
     "Promise",
     "WALogger",
+    "WASmaxInBizSettingsEnums",
     "WASyncdConst",
     "WATimeUtils",
     "WAWebBIzLabelReorderAction",
     "WAWebBizLabelEditingAction",
+    "WAWebCTWADataSharingModel",
     "WAWebChatGetters",
     "WAWebChatThreadLogging",
     "WAWebCommonCTWADataSharing",
     "WAWebCtwaConversationDepthUtils",
+    "WAWebCustomLabels3pdSignalUtils",
     "WAWebLabelCollection",
     "WAWebLabelConstants",
     "WAWebLabelReorderingSync",
@@ -20,6 +23,8 @@ __d(
     "WAWebListsLogging",
     "WAWebListsUtil",
     "WAWebProtobufsServerSync.pb",
+    "WAWebSmb3pdConversionSignalAction",
+    "WAWebSmbMarkAsXLabelAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdCoreApi",
     "WAWebToast.react",
@@ -56,7 +61,26 @@ __d(
       I,
       T,
       D = T || (T = o("react"));
-    function x(t, n) {
+    function x(e, t) {
+      if (e.length !== 0) {
+        var n =
+            o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
+            o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true,
+          r = [String(t)];
+        (o("WAWebSmbMarkAsXLabelAction").logLabelSignalForModels(e, r, n),
+          o("WAWebSmb3pdConversionSignalAction").log3pdConversionSignalForChats(
+            e,
+            r,
+            n,
+          ),
+          o("WAWebCustomLabels3pdSignalUtils").processCustomLabels3pdSignals(
+            r,
+            e,
+            n,
+          ));
+      }
+    }
+    function $(t, n) {
       var a = n.customListTitle,
         i = n.entryPoint,
         l = n.listId,
@@ -119,12 +143,12 @@ __d(
         };
       for (var d of t) c(d);
     }
-    function $(e, t, n, r) {
-      return P.apply(this, arguments);
+    function P(e, t, n, r) {
+      return N.apply(this, arguments);
     }
-    function P() {
+    function N() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             if (!o("WAWebListsGatingUtils").isListsEnabled()) {
               o("WALogger").ERROR(
@@ -192,12 +216,13 @@ __d(
                   listId: a,
                   customListTitle: e,
                 }),
-                x(t, {
+                $(t, {
                   entryPoint: r,
                   listId: a,
                   customListTitle: e,
                   listsApplied: String(a),
-                })),
+                }),
+                x(t, a)),
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -214,15 +239,15 @@ __d(
             );
           },
         )),
-        P.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    function M(e) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.entryPoint,
             n = e.labelModel,
             r = e.newColor,
@@ -326,18 +351,19 @@ __d(
             });
             var C = Number(n.id),
               b = String(C);
-            (x(d, {
+            ($(d, {
               entryPoint: t,
               listId: C,
               customListTitle: n.name,
               listsApplied: b,
             }),
-              x(m, {
+              $(m, {
                 entryPoint: t,
                 listId: C,
                 customListTitle: n.name,
                 listsRemoved: b,
-              }));
+              }),
+              x(d, C));
           }
           o("WALogger").LOG(
             g ||
@@ -352,15 +378,15 @@ __d(
             i.length,
           );
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e, t, n) {
-      return A.apply(this, arguments);
+    function A(e, t, n) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           if (!o("WAWebListsGatingUtils").isListsEnabled())
             return (
               o("WALogger").ERROR(
@@ -436,15 +462,15 @@ __d(
             t();
           }
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(e) {
-      return O.apply(this, arguments);
+    function O(e) {
+      return B.apply(this, arguments);
     }
-    function O() {
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebListsGatingUtils").isListsEnabled()) {
             o("WALogger").ERROR(
               v ||
@@ -489,15 +515,15 @@ __d(
               ));
           }
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    function B(e) {
-      return W.apply(this, arguments);
+    function W(e) {
+      return q.apply(this, arguments);
     }
-    function W() {
+    function q() {
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (!o("WAWebListsGatingUtils").isListsEnabled()) {
             o("WALogger").ERROR(
               R ||
@@ -548,15 +574,15 @@ __d(
               ));
           }
         })),
-        W.apply(this, arguments)
+        q.apply(this, arguments)
       );
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function U(e) {
+      return V.apply(this, arguments);
     }
-    function U() {
+    function V() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (o("WAWebListsGatingUtils").isListsM2Enabled() && e.length !== 0) {
             var t = e.map(function (e) {
               var t,
@@ -613,16 +639,17 @@ __d(
             }
           }
         })),
-        U.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
-    ((l.logUpdateMembersPerChat = x),
-      (l.createNewListAction = $),
-      (l.editListAction = N),
-      (l.deleteListAction = w),
-      (l.activatePresetList = F),
-      (l.deactivatePresetList = B),
-      (l.persistLabelReorder = q));
+    ((l.logCtwaSignalsForChats = x),
+      (l.logUpdateMembersPerChat = $),
+      (l.createNewListAction = P),
+      (l.editListAction = M),
+      (l.deleteListAction = A),
+      (l.activatePresetList = O),
+      (l.deactivatePresetList = W),
+      (l.persistLabelReorder = U));
   },
   226,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebWindowsHybridBridgeLinksPreview",
-  ["WAWebODS", "asyncToGeneratorRuntime"],
+  ["WAWebODS", "WAWebWindowsHybridBridgeTrace", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e(e) {
@@ -10,11 +10,21 @@ __d(
       return (
         (t.getPreviewAsync = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = this;
             r("WAWebODS").incr(
               "web.hybrid.bridge.links_preview.send.get_preview_async",
             );
-            var t = yield this.$1.getPreviewAsync(e);
-            return t == null || t === "" ? null : JSON.parse(t);
+            var n = yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+              {
+                bridge: "linksPreview",
+                method: "getPreviewAsync",
+                type: "async",
+              },
+              function () {
+                return t.$1.getPreviewAsync(e);
+              },
+            );
+            return n == null || n === "" ? null : JSON.parse(n);
           });
           function t(t) {
             return e.apply(this, arguments);

@@ -6,6 +6,7 @@ __d(
     "WAWebFindChatAction",
     "WAWebLabelCollection",
     "WAWebLabelConstants",
+    "WAWebListsActions",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -64,10 +65,14 @@ __d(
                     });
           i != null &&
             (((n = i.labels) != null ? n : []).includes(r.id) ||
-              o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
+              (o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
                 [{ id: r.id, type: "add" }],
                 [i],
-              ));
+              ),
+              o("WAWebListsActions").logCtwaSignalsForChats(
+                [i],
+                Number(r.id),
+              )));
         })),
         c.apply(this, arguments)
       );
