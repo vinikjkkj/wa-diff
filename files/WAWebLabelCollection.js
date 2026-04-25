@@ -58,11 +58,11 @@ __d(
       else
         switch (e) {
           case f.IN_PROGRESS:
-            return s._(/*BTDS*/ "Updating list");
+            return s._(/*BTDS*/ "Saving list");
           case f.SUCCESS:
-            return s._(/*BTDS*/ "List updated");
+            return s._(/*BTDS*/ "List saved");
           case f.ERROR:
-            return s._(/*BTDS*/ "List could not be updated");
+            return s._(/*BTDS*/ "Failed to save the list");
         }
     }
     var h = (function (t) {

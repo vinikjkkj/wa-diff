@@ -34,10 +34,10 @@ __d(
       var n = o("WAWebWidFactory").createWid(e);
       if (!n.isUser()) return !1;
       var a = o("WAWebChatCollection").ChatCollection.get(n);
-      if (a == null) return !1;
-      var i = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(a);
       return !(
-        i == null ||
+        a == null ||
+        r("WAWebCommonCTWADataSharing").getReceivedCTWAEligibilityFromChat(a) ==
+          null ||
         (t === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset &&
           (o(
             "WAWebUserPrefsGeneral",

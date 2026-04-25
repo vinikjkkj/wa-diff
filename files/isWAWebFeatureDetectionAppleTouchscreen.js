@@ -1,10 +1,10 @@
 __d(
   "isWAWebFeatureDetectionAppleTouchscreen",
-  ["WAWebMiscBrowserUtils"],
+  ["WAWebBrowserInfo"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      var e = r("WAWebMiscBrowserUtils").info();
+      var e = r("WAWebBrowserInfo")();
       return e.os.toLowerCase() !== "mac os"
         ? !1
         : !!navigator.maxTouchPoints && navigator.maxTouchPoints > 2;

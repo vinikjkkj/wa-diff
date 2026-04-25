@@ -2,9 +2,9 @@ __d(
   "WAWebReloadAfterLogout",
   [
     "WALogger",
+    "WAWebBrowserInfo",
     "WAWebLogoutReason",
     "WAWebLogoutReasonConstants",
-    "WAWebMiscBrowserUtils",
     "WAWebPonyfillsUrlSearchParams",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,7 +14,7 @@ __d(
       var i = new (r("WAWebPonyfillsUrlSearchParams"))();
       if (
         (t &&
-          r("WAWebMiscBrowserUtils").info().name !== "Firefox" &&
+          r("WAWebBrowserInfo")().name !== "Firefox" &&
           i.set("post_logout", "1"),
         n)
       ) {

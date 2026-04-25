@@ -28,6 +28,7 @@ __d(
     "WAWebMaybeGetBotModeSelection",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMiscErrors",
     "WAWebMsgCollection",
     "WAWebMsgInfoUtils",
@@ -190,7 +191,13 @@ __d(
                   if (
                     ((T.wamMessageSendReporter = new (o(
                       "WAWebMessageSendReporter",
-                    ).MessageSendReporter)(T, P)),
+                    ).MessageSendReporter)(
+                      T,
+                      babelHelpers.extends({}, P, {
+                        frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
+                          .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+                      }),
+                    )),
                     (T.wamMessageSendPerfReporter = new (o(
                       "WAWebMessageSendPerfReporter",
                     ).MessageSendPerfReporter)({

@@ -11,6 +11,7 @@ __d(
         babelHelpers.extends({}, n, {
           id: t.id,
           timestamp: o("WATimeUtils").unixTime(),
+          fromMe: !0,
         }),
         { merge: !0 },
       ),

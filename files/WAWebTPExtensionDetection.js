@@ -1,8 +1,8 @@
 __d(
   "WAWebTPExtensionDetection",
   [
+    "WAWebBrowserInfo",
     "WAWebEnvironment",
-    "WAWebMiscBrowserUtils",
     "WAWebTP3PPDFExtensionFetchDetection",
     "WAWebTPPdfViewerGatingUtils",
     "WAWebUA",
@@ -13,7 +13,7 @@ __d(
     var e = { extensionDetected: !1, extensionViewerUrl: null };
     function s(e) {
       if (r("WAWebEnvironment").isWindows) return null;
-      var t = r("WAWebMiscBrowserUtils").info().name.toLowerCase();
+      var t = r("WAWebBrowserInfo")().name.toLowerCase();
       return t === o("WAWebUA").BROWSER_TYPE.CHROME &&
         e.chromeExtensionId != null
         ? "chrome-extension://" + e.chromeExtensionId

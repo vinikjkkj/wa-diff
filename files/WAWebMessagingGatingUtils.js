@@ -99,6 +99,13 @@ __d(
     function I() {
       return !1;
     }
+    function T() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "web_biz_simple_signal_group_enabled",
+        ) === !0
+      );
+    }
     ((l.sendKeyDistributionMsgToNewGroups = e),
       (l.sendKeyDistributionMsgMinGroupSize = s),
       (l.sendKeyDistributionMsgMaxGroupSize = u),
@@ -119,7 +126,8 @@ __d(
       (l.isReportingTokenSwappedFallbackValidationEnabled = L),
       (l.isTopLevelMessageSecretCheckEnabled = E),
       (l.isSimpleSignalEnabled = k),
-      (l.isCoexSimpleSignalEnabled = I));
+      (l.isCoexSimpleSignalEnabled = I),
+      (l.isGroupSimpleSignalEnabled = T));
   },
   98,
 );

@@ -57,6 +57,8 @@ __d(
       FORMAT_LIQUIDITY_SE_TO_VIDEO: "format_liquidity_se_to_video",
       FORMAT_LIQUIDITY_SINGLE_PHOTO: "format_liquidity_single_photo",
       FORMAT_LIQUIDITY_SINGLE_VIDEO: "format_liquidity_single_video",
+      FORMAT_LIQUIDITY_UGC_MULTI_PRODUCT_TO_CAROUSEL:
+        "format_liquidity_ugc_multi_product_to_carousel",
       FORMAT_LIQUIDITY_UGC_TO_CAROUSEL: "format_liquidity_ugc_to_carousel",
       FORMAT_LIQUIDITY_VIDEO_TO_CAROUSEL: "format_liquidity_video_to_carousel",
       FORMAT_LIQUIDITY_WEBSITE_HIGHLIGHTS:

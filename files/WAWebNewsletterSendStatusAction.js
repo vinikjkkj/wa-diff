@@ -6,6 +6,7 @@ __d(
     "WAWebAck",
     "WAWebDBProcessMessage",
     "WAWebMessageSendReporter",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgModel",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterSendStatusJob",
@@ -68,7 +69,10 @@ __d(
             l = new (o("WAWebMsgModel").Msg)(i);
           ((l.wamMessageSendReporter = new (o(
             "WAWebMessageSendReporter",
-          ).MessageSendReporter)(l)),
+          ).MessageSendReporter)(l, {
+            frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
+              .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+          })),
             yield o("WAWebStatusCollection").StatusCollection.addStatusMessages(
               e,
               [l],
@@ -126,7 +130,10 @@ __d(
             l = new (o("WAWebMsgModel").Msg)(i);
           ((l.wamMessageSendReporter = new (o(
             "WAWebMessageSendReporter",
-          ).MessageSendReporter)(l)),
+          ).MessageSendReporter)(l, {
+            frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
+              .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+          })),
             yield o("WAWebStatusCollection").StatusCollection.addStatusMessages(
               n,
               [l],

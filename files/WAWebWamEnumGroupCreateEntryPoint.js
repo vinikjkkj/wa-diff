@@ -32,6 +32,8 @@ __d(
       GROUP_MENTION_PICKER: 27,
       THREE_P_DEEPLINK: 28,
       CHAT_MENTION_PICKER: 29,
+      POLLS: 30,
+      LINKED_GROUP_CALL: 31,
     });
     i.GROUP_CREATE_ENTRY_POINT = e;
   },

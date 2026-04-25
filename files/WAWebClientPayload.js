@@ -5,12 +5,12 @@ __d(
     "WAByteArray",
     "WAMd5",
     "WAWebBackendApi",
+    "WAWebBrowserInfo",
     "WAWebBuildConstants",
     "WAWebClientFeatureFlags",
     "WAWebClientPayloadReleaseChannel",
     "WAWebEnvironment",
     "WAWebLid1X1MigrationGating",
-    "WAWebMiscBrowserUtils",
     "WAWebProtobufsCompanionReg.pb",
     "WAWebProtobufsWa6.pb",
     "WAWebSyncdMdSyncFieldstatMeta",
@@ -112,7 +112,7 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = r("WAWebMiscBrowserUtils").info(),
+          var e = r("WAWebBrowserInfo")(),
             t;
           if (e.version && e.version !== "") {
             var n = e.version.split(".");

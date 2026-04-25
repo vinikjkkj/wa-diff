@@ -13,6 +13,7 @@ __d(
     "WAWebLogStatusPosterActions",
     "WAWebLogStatusRevoke",
     "WAWebMessageSendPerfReporter",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
@@ -61,6 +62,8 @@ __d(
           });
           var b = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
             C,
+            o("WAWebMessageSendReporterFrontendDeps")
+              .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
           );
           ((b.sendReporter =
             (a = b.sendReporter) != null ? a : b.createSendReporter()),

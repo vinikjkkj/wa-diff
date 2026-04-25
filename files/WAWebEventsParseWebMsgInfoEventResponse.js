@@ -10,6 +10,7 @@ __d(
     "WAWebProtobufsWeb.pb",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -84,6 +85,7 @@ __d(
                   read: t.unread !== !0,
                 });
               } catch (t) {
+                var d = r("getErrorSafe")(t);
                 return (
                   o("WALogger")
                     .ERROR(
@@ -92,7 +94,7 @@ __d(
                           "[history sync] Failed to parse eventResponse",
                         ])),
                     )
-                    .catching(t)
+                    .catching(d)
                     .sendLogs(
                       "parseWebMsgInfoEventResponses-responses-parse-error",
                     ),
@@ -109,7 +111,7 @@ __d(
                       "[history sync] parseWebMsgInfoEventResponses",
                     ])),
                 )
-                .catching(e)
+                .catching(r("getErrorSafe")(e))
                 .sendLogs("parseWebMsgInfoEventResponses-error"),
               []
             );

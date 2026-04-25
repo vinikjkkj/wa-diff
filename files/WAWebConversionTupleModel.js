@@ -23,6 +23,7 @@ __d(
             (e.conversionData = o("WAWebBaseModel").prop()),
             (e.conversionSource = o("WAWebBaseModel").prop()),
             (e.ctwaSignals = o("WAWebBaseModel").prop()),
+            (e.fromMe = o("WAWebBaseModel").prop()),
             (e.timestamp = o("WAWebBaseModel").prop(function () {
               return o("WATimeUtils").unixTime();
             })),

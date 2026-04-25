@@ -1,6 +1,6 @@
 __d(
   "WAWebBizAdCreationEUCountryUtils",
-  ["WAWebBizAdCreationConsts", "justknobx"],
+  ["WAWebBizAdCreationConsts"],
   function (t, n, r, o, a, i, l) {
     var e = new Set([
         "AT",
@@ -98,7 +98,7 @@ __d(
           );
     }
     function c(e) {
-      return r("justknobx")._("5401") && u(e)
+      return u(e)
         ? "LINK_CLICKS"
         : o("WAWebBizAdCreationConsts").WA_WEB_AD_OBJECTIVE;
     }

@@ -1,19 +1,31 @@
 __d(
   "memoizeStringOnly",
-  [],
-  function (t, n, r, o, a, i) {
+  ["memoizeInstrumentation"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = {};
-      return function (n) {
+      var t = {},
+        n = 0,
+        r = o("memoizeInstrumentation").shouldTrackThisInstance()
+          ? o("memoizeInstrumentation").createCacheSizeTracker()
+          : null;
+      return function (a) {
         return (
-          Object.prototype.hasOwnProperty.call(t, n) ||
-            (t[n] = e.call(this, n)),
-          t[n]
+          Object.prototype.hasOwnProperty.call(t, a) ||
+            ((t[a] = e.call(this, a)),
+            r != null &&
+              (n++,
+              o("memoizeInstrumentation").maybeLogMemoizeCacheSize(
+                n,
+                "memoizeStringOnly",
+                e.name,
+                r,
+              ))),
+          t[a]
         );
       };
     }
-    i.default = e;
+    l.default = e;
   },
-  66,
+  98,
 );

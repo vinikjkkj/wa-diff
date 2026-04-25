@@ -2,6 +2,7 @@ __d(
   "WAWebGroupMemberAddingUserJourneyWamEvent",
   [
     "WAWebWamCodegenUtils",
+    "WAWebWamEnumAddMembersEntrypointType",
     "WAWebWamEnumBundleSendSource",
     "WAWebWamEnumGroupCreateEntryPoint",
     "WAWebWamEnumGroupMemberAddingActionType",
@@ -22,6 +23,11 @@ __d(
                 o("WAWebWamEnumBundleSendSource").BUNDLE_SEND_SOURCE,
               ],
               frequentlyContactedIndex: [3, e.TYPES.INTEGER],
+              groupAddMemberEntryPoint: [
+                28,
+                o("WAWebWamEnumAddMembersEntrypointType")
+                  .ADD_MEMBERS_ENTRYPOINT_TYPE,
+              ],
               groupCreateEntryPoint: [
                 16,
                 o("WAWebWamEnumGroupCreateEntryPoint").GROUP_CREATE_ENTRY_POINT,
@@ -45,6 +51,7 @@ __d(
               groupServerErrorCodeMsg: [19, e.TYPES.STRING],
               hasGroupName: [12, e.TYPES.BOOLEAN],
               hasProfilePicture: [13, e.TYPES.BOOLEAN],
+              isAdmin: [29, e.TYPES.BOOLEAN],
               isGroupHistoryToggledOn: [22, e.TYPES.BOOLEAN],
               potentialTotalSuggestionCount: [10, e.TYPES.INTEGER],
               recentlyContactedIndex: [5, e.TYPES.INTEGER],

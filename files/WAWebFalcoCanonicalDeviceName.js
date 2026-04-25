@@ -1,9 +1,9 @@
 __d(
   "WAWebFalcoCanonicalDeviceName",
-  ["WAWebMiscBrowserUtils"],
+  ["WAWebBrowserInfo"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return r("WAWebMiscBrowserUtils").info().os || null;
+      return r("WAWebBrowserInfo")().os || null;
     }
     l.default = e;
   },

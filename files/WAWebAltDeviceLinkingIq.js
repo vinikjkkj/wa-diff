@@ -3,8 +3,8 @@ __d(
   [
     "WASmaxMdCompanionFinishRPC",
     "WASmaxMdCompanionHelloRPC",
+    "WAWebBrowserInfo",
     "WAWebCompanionRegClientUtils",
-    "WAWebMiscBrowserUtils",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -40,37 +40,35 @@ __d(
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, a, i) {
-            var l = yield o("WASmaxMdCompanionHelloRPC").sendCompanionHelloRPC({
-              linkCodePairingNonceArgs: {
-                linkCodePairingNonceElementValue: new Uint8Array(1),
-              },
-              linkCodeCompanionRegJid: t,
-              linkCodePairingWrappedCompanionEphemeralPubElementValue:
-                new Uint8Array(n),
-              companionServerAuthKeyPubElementValue: new Uint8Array(a),
-              companionPlatformIdElMixinArgs: {
-                companionPlatformIdElementValue: o(
-                  "WAWebCompanionRegClientUtils",
-                ).DEVICE_PLATFORM,
-              },
-              companionPlatformDisplayElMixinArgs: {
-                companionPlatformDisplayElementValue:
-                  r("WAWebMiscBrowserUtils").info().name +
-                  " (" +
-                  r("WAWebMiscBrowserUtils").info().os +
-                  ")",
-              },
-              linkCodeCompanionRegShouldShowPushNotification: i
-                ? "true"
-                : "false",
-            });
-            if (l.name === "CompanionHelloResponseNotifyCompanion")
-              return l.value.linkCodeCompanionRegLinkCodePairingRefElementValue;
-            throw l.name === "CompanionHelloResponseError"
+            var l = r("WAWebBrowserInfo")(),
+              s = yield o("WASmaxMdCompanionHelloRPC").sendCompanionHelloRPC({
+                linkCodePairingNonceArgs: {
+                  linkCodePairingNonceElementValue: new Uint8Array(1),
+                },
+                linkCodeCompanionRegJid: t,
+                linkCodePairingWrappedCompanionEphemeralPubElementValue:
+                  new Uint8Array(n),
+                companionServerAuthKeyPubElementValue: new Uint8Array(a),
+                companionPlatformIdElMixinArgs: {
+                  companionPlatformIdElementValue: o(
+                    "WAWebCompanionRegClientUtils",
+                  ).DEVICE_PLATFORM,
+                },
+                companionPlatformDisplayElMixinArgs: {
+                  companionPlatformDisplayElementValue:
+                    l.name + " (" + l.os + ")",
+                },
+                linkCodeCompanionRegShouldShowPushNotification: i
+                  ? "true"
+                  : "false",
+              });
+            if (s.name === "CompanionHelloResponseNotifyCompanion")
+              return s.value.linkCodeCompanionRegLinkCodePairingRefElementValue;
+            throw s.name === "CompanionHelloResponseError"
               ? new e(
                   "alt pairing: Got an error from alt paring: companion hello: " +
-                    l.value.errorIqMixinErrors.name,
-                  l.value.errorIqMixinErrors,
+                    s.value.errorIqMixinErrors.name,
+                  s.value.errorIqMixinErrors,
                 )
               : new e(
                   "alt pairing: Got an unknown error from alt paring: companion hello",

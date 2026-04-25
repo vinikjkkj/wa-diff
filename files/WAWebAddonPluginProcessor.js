@@ -1,39 +1,37 @@
 __d(
   "WAWebAddonPluginProcessor",
-  [
-    "WANullthrows",
-    "WAWebAddonCrossWindowUtils",
-    "WAWebMessagePluginProcessAsAddonRegistry",
-  ],
+  ["WANullthrows", "WAWebAddonCrossWindowUtils", "cr:37443"],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    var e,
+      s = (e = n("cr:37443")) != null ? e : [];
+    function u() {
       var e = new Map();
-      for (var t of r("WAWebMessagePluginProcessAsAddonRegistry")) {
+      for (var t of s) {
         var n = t.processor,
-          o = t.type;
-        n != null && e.set(o, n);
+          r = t.type;
+        n != null && e.set(r, n);
       }
       return e;
     }
-    var s = e();
-    function u() {
-      return s;
+    var c = u();
+    function d() {
+      return c;
     }
-    function c(e) {
+    function m(e) {
       var t;
       return (
         typeof e == "string"
           ? (t = e)
           : (t = o("WAWebAddonCrossWindowUtils").getAddonProcessorType(e)),
-        r("WANullthrows")(s.get(t))
+        r("WANullthrows")(c.get(t))
       );
     }
-    function d(e) {
-      return !!s.get(e);
+    function p(e) {
+      return !!c.get(e);
     }
-    ((l.getAddonProcessorsMap = u),
-      (l.getAddonProcessor = c),
-      (l.hasAddonProcessor = d));
+    ((l.getAddonProcessorsMap = d),
+      (l.getAddonProcessor = m),
+      (l.hasAddonProcessor = p));
   },
   98,
 );

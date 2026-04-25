@@ -1565,6 +1565,10 @@ __d(
       HEADLINE_SUGGESTIONS_ERROR: "headline_suggestions_error",
       HEADLINE_SUGGESTION_LIKED: "headline_suggestion_liked",
       HEADLINE_SUGGESTION_DISLIKED: "headline_suggestion_disliked",
+      MULTI_POST_SECTION_IMPRESSION: "multi_post_section_impression",
+      MULTI_POST_PICKER_OPEN: "multi_post_picker_open",
+      MULTI_POST_PICKER_SELECTED: "multi_post_picker_selected",
+      MULTI_POST_PICKER_CANCELED: "multi_post_picker_canceled",
     });
     i.default = e;
   },

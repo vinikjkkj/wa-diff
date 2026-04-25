@@ -33,6 +33,7 @@ __d(
     "WAWebMessageAssociationGatingUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgInfoUtils",
@@ -192,7 +193,13 @@ __d(
             );
           ((y.wamMessageSendReporter = new (o(
             "WAWebMessageSendReporter",
-          ).MessageSendReporter)(y, b)),
+          ).MessageSendReporter)(
+            y,
+            babelHelpers.extends({}, b, {
+              frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
+                .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+            }),
+          )),
             (y.wamMessageSendPerfReporter = new (o(
               "WAWebMessageSendPerfReporter",
             ).MessageSendPerfReporter)({

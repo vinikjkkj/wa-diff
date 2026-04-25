@@ -6,7 +6,9 @@ __d(
     "WATimeUtils",
     "WAWebAudienceExpressionTypes",
     "WAWebBizBroadcastRecipientLimitCommon",
-    "WAWebBizBroadcastsContactVerifier",
+    "WAWebContactImportContactVerifier",
+    "WAWebContactSyncErrorCodes",
+    "WAWebContactSyncLogger",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDBMessageRange",
     "WAWebLidAwareContactsDB",
@@ -181,8 +183,12 @@ __d(
           )
             try {
               var m = yield o(
-                "WAWebBizBroadcastsContactVerifier",
-              ).resolveLidsFromPhones(d);
+                "WAWebContactImportContactVerifier",
+              ).resolveLidsFromPhones(d, {
+                errorCode: o("WAWebContactSyncErrorCodes").BIZ_BROADCAST_VERIFY,
+                requestOrigin: o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
+                  .BUSINESS_BROADCAST,
+              });
               for (var p of d) {
                 var _ = m[p];
                 _ != null && l.add(_);

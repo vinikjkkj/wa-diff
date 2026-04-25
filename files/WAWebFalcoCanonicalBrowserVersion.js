@@ -1,9 +1,9 @@
 __d(
   "WAWebFalcoCanonicalBrowserVersion",
-  ["WAWebMiscBrowserUtils"],
+  ["WAWebBrowserInfo"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return r("WAWebMiscBrowserUtils").info().ua || null;
+      return r("WAWebBrowserInfo")().ua || null;
     }
     l.default = e;
   },

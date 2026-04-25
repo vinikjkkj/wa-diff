@@ -10,6 +10,7 @@ __d(
     "WAWebLidStatusMigrationUtils",
     "WAWebLogStatusPosterActions",
     "WAWebMessageSendPerfReporter",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebOutgoingMessage",
@@ -74,6 +75,8 @@ __d(
           });
           var m = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
             d,
+            o("WAWebMessageSendReporterFrontendDeps")
+              .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
           );
           return (
             (m.sendReporter =
@@ -146,6 +149,8 @@ __d(
           });
           var y = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
             h,
+            o("WAWebMessageSendReporterFrontendDeps")
+              .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
           );
           ((y.sendReporter =
             (n = y.sendReporter) != null ? n : y.createSendReporter()),

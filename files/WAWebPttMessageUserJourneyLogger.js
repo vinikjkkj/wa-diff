@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
+    "WAWebBotUtils",
     "WAWebGetSharedSessionId",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebPttMessageUserJourneyWamEvent",
@@ -127,6 +128,7 @@ __d(
                   (l.pttMessageUserJourneyAction = n.action),
                   (l.pttMessageUserJourneyContainsQuotedItem =
                     n.containsQuotedItem),
+                  (l.isMetaAiThread = o("WAWebBotUtils").isMetaAiBot(n.chatId)),
                   l.commit(),
                   c(n.action) && (this.$2 = null));
               }

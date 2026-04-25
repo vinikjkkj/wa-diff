@@ -5,11 +5,11 @@ __d(
     "Promise",
     "WALogger",
     "WAWebCallCollection",
-    "WAWebIcScreenShareIcon.react",
     "WAWebVoipActivityTracker",
     "WAWebVoipScreenShareConfirmPopup.react",
     "WAWebVoipStackInterface",
     "WAWebVoipVideoDesktopCapture",
+    "WDSIconIcScreenShare.react",
     "WDSIconIcStopScreenShare.react",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -33,7 +33,7 @@ __d(
             e.isAnyPeerScreenSharing === !1 &&
             e.isSelfScreenSharing === !1)
         )
-          return o("WAWebIcScreenShareIcon.react").IcScreenShareIcon;
+          return r("WDSIconIcScreenShare.react");
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.isAnyPeerScreenSharing === !1 &&
@@ -66,13 +66,13 @@ __d(
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.isAnyPeerScreenSharing === !0
       )
-        return p.jsx(o("WAWebIcScreenShareIcon.react").IcScreenShareIcon, {});
+        return p.jsx(r("WDSIconIcScreenShare.react"), {});
       if (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.isAnyPeerScreenSharing === !1 &&
         e.isSelfScreenSharing === !1
       )
-        return p.jsx(o("WAWebIcScreenShareIcon.react").IcScreenShareIcon, {});
+        return p.jsx(r("WDSIconIcScreenShare.react"), {});
       if (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.isAnyPeerScreenSharing === !1 &&

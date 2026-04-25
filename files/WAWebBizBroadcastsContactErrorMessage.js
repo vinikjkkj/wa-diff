@@ -1,17 +1,17 @@
 __d(
   "WAWebBizBroadcastsContactErrorMessage",
-  ["fbt", "WAWebBizBroadcastsTypedError"],
+  ["fbt", "WAWebContactImportTypedError"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
-      return e === o("WAWebBizBroadcastsTypedError").PhoneError.INVALID
+      return e === o("WAWebContactImportTypedError").PhoneError.INVALID
         ? s._(/*BTDS*/ "Invalid number")
-        : e === o("WAWebBizBroadcastsTypedError").PhoneError.DUPLICATE
+        : e === o("WAWebContactImportTypedError").PhoneError.DUPLICATE
           ? s._(/*BTDS*/ "Duplicate number")
-          : e === o("WAWebBizBroadcastsTypedError").PhoneError.NOT_WHATSAPP_USER
+          : e === o("WAWebContactImportTypedError").PhoneError.NOT_WHATSAPP_USER
             ? s._(/*BTDS*/ "Not on WhatsApp")
-            : e === o("WAWebBizBroadcastsTypedError").NameError.INVALID
+            : e === o("WAWebContactImportTypedError").NameError.INVALID
               ? s._(/*BTDS*/ "Invalid name")
-              : e === o("WAWebBizBroadcastsTypedError").NameError.EMPTY
+              : e === o("WAWebContactImportTypedError").NameError.EMPTY
                 ? s._(/*BTDS*/ "Empty name")
                 : (function () {
                     throw Error(

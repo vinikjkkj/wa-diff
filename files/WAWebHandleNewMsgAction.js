@@ -274,6 +274,7 @@ __d(
                       conversionData: i,
                       id: t.id,
                       timestamp: o("WATimeUtils").unixTime(),
+                      fromMe: a.id.fromMe,
                     },
                     { merge: !0 },
                   );
@@ -328,7 +329,7 @@ __d(
                                     ["chat:onNewMsg failed\n", ""],
                                     ["chat:onNewMsg failed\\n", ""],
                                   )),
-                                e,
+                                String(e),
                               );
                             }));
                       break;

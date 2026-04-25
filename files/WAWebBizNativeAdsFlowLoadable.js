@@ -4,7 +4,6 @@ __d(
     "FBLogger",
     "JSResourceForInteraction",
     "Promise",
-    "WAWebABProps",
     "WAWebBizAdCreationResolveStoredIdentity",
     "WAWebBizAdsErrorPopup.react",
     "WAWebBizNativeAdsFlowTypes",
@@ -16,7 +15,6 @@ __d(
     "WAWebLinkedAccountsJob",
     "WAWebLoadable",
     "asyncToGeneratorRuntime",
-    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -62,15 +60,18 @@ __d(
     function f(t, a, i) {
       var l = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var i = r("justknobx")._("5491"),
-            l = i ? o("WAWebLinkedAccountsJob").queryLinkedPagesInfo() : null;
-          o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
-            o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
-              .BUNDLE_LOAD_START,
+          var i,
+            l,
+            s,
+            d,
+            p,
+            f = o("WAWebLinkedAccountsJob").queryLinkedPagesInfo();
+          (p = o("WAWebBizNativeAdsQplHelpers")).adsManagementQplAddPoint(
+            p.AdsManagementQplPoint.BUNDLE_LOAD_START,
           );
-          var s = yield (e || (e = n("Promise"))).all([m(), c()]),
-            d = s[0],
-            p = s[1];
+          var g = yield (e || (e = n("Promise"))).all([m(), c()]),
+            h = g[0],
+            y = g[1];
           (o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
             o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
               .BUNDLE_LOAD_END,
@@ -79,90 +80,79 @@ __d(
               o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
                 .ELIGIBILITY_CHECK_START,
             ));
-          var f = yield d(t);
+          var C = yield h(t);
           o("WAWebBizNativeAdsQplHelpers").adsManagementQplAddPoint(
             o("WAWebBizNativeAdsQplHelpers").AdsManagementQplPoint
               .ELIGIBILITY_CHECK_END,
           );
-          var g = _(f),
-            h;
+          var b = _(C),
+            v;
           try {
-            h = yield o(
+            v = yield o(
               "WAWebBizNativeAdsResolveRelayIdentityBundle",
-            ).resolveBizNativeAdsRelayIdentityBundle(g, t, l);
+            ).resolveBizNativeAdsRelayIdentityBundle(b, t, f);
           } catch (e) {
             throw (
               r("FBLogger")("wa_ctwa_web")
                 .catching(e)
                 .mustfix(
                   "BizNativeAdsFlowLoadable: identity bundle resolution failed for accountType: " +
-                    g,
+                    b,
                 ),
               e
             );
           }
-          h == null &&
-            g === "FB" &&
-            f &&
-            (h = yield o(
+          v == null &&
+            b === "FB" &&
+            C &&
+            (v = yield o(
               "WAWebBizNativeAdsResolveRelayIdentityBundle",
-            ).resolveBizNativeAdsRelayIdentityBundle("WAA", t, l));
-          var y = null;
-          if (
-            r("justknobx")._("4613") ||
-            o("WAWebABProps").getABPropConfigValue(
-              "ctwa_native_web_scenario_routing_enabled",
-            )
-          ) {
-            var C,
-              b,
-              v,
-              S,
-              R =
-                (C = (b = h) == null ? void 0 : b.linkedPagesInfo) != null
-                  ? C
-                  : l != null
-                    ? yield l
-                    : null;
-            y = o("WAWebBizNativeAdsScenarioRouter").resolveNativeAdsScenario({
-              isWAAEligible: f,
+            ).resolveBizNativeAdsRelayIdentityBundle("WAA", t, f));
+          var S =
+              (i = (l = v) == null ? void 0 : l.linkedPagesInfo) != null
+                ? i
+                : f != null
+                  ? yield f
+                  : null,
+            R = o("WAWebBizNativeAdsScenarioRouter").resolveNativeAdsScenario({
+              isWAAEligible: C,
               fbPageHasCreatedAd:
-                (v = R == null ? void 0 : R.fbPageHasCreatedAd) != null
-                  ? v
+                (s = S == null ? void 0 : S.fbPageHasCreatedAd) != null
+                  ? s
                   : !1,
               waAdsIdentityPageHasCreatedAd:
-                (S = R == null ? void 0 : R.waAdsIdentityPageHasCreatedAd) !=
+                (d = S == null ? void 0 : S.waAdsIdentityPageHasCreatedAd) !=
                 null
-                  ? S
+                  ? d
                   : !1,
               hasValidFBAccessToken:
                 o(
                   "WAWebBizAdCreationResolveStoredIdentity",
                 ).resolveStoredIdentityForAccountType("FB") != null,
-            });
-          }
-          var L =
-            y === "FIRST_TIME_WAA_ELIGIBLE"
-              ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdCreation
-              : o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
-                  .AdManagement;
-          (y === "FIRST_TIME_WAA_ELIGIBLE" &&
-            h != null &&
-            h.adCreationEntrypointReference == null &&
-            (h = yield o(
+            }),
+            L =
+              R === "FIRST_TIME_WAA_ELIGIBLE"
+                ? o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
+                    .AdCreation
+                : o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps
+                    .AdManagement;
+          (R === "FIRST_TIME_WAA_ELIGIBLE" &&
+            v != null &&
+            v.adCreationEntrypointReference == null &&
+            (v = yield o(
               "WAWebBizNativeAdsResolveRelayIdentityBundle",
-            ).prepareDeferredAdCreationEntrypoint(h, t)),
+            ).prepareDeferredAdCreationEntrypoint(v, t)),
             a == null || a());
           var E = function (n) {
             return u.jsx(
-              p,
+              y,
               babelHelpers.extends(
                 {
-                  identityBundle: h,
+                  identityBundle: v,
                   initialAdCreationFlowID: t,
                   initialStep: L,
-                  isWAAEligible: f,
-                  scenario: y,
+                  isWAAEligible: C,
+                  scenario: R,
                 },
                 n,
               ),

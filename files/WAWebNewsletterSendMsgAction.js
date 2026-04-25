@@ -13,6 +13,7 @@ __d(
     "WAWebGetEphemeralFieldsMsgActionsUtils",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMexCreateNewsletterAdminInviteJob",
     "WAWebMsgDataFromModel",
     "WAWebMsgGetters",
@@ -95,7 +96,10 @@ __d(
     function v(e) {
       ((e.wamMessageSendReporter = new (o(
         "WAWebMessageSendReporter",
-      ).MessageSendReporter)(e)),
+      ).MessageSendReporter)(e, {
+        frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
+          .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+      })),
         (e.wamMessageSendPerfReporter = new (o(
           "WAWebMessageSendPerfReporter",
         ).MessageSendPerfReporter)({

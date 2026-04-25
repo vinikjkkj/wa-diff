@@ -19,7 +19,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -140,60 +139,46 @@ __d(
               " media types => " +
               String(s),
           );
-          var m = r("justknobx")._("748");
-          if (m) {
-            var p = yield (e || (e = n("Promise"))).allSettled(u),
-              f = [],
-              g = 0;
-            if (
-              (p.forEach(function (e, n) {
-                e.status === "fulfilled"
-                  ? f.push(e.value)
-                  : (g++,
-                    t.remove(l[n]),
-                    r("FBLogger")("wa_ctwa_web").mustfix(
-                      "uploadAdCreativeMediaToWA: Media upload failed for item " +
-                        n +
-                        " - " +
-                        String(e.reason),
-                    ));
-              }),
-              f.length === 0)
-            ) {
-              (r("FBLogger")("wa_ctwa_web").mustfix(
-                "uploadAdCreativeMediaToWA: All " +
-                  l.length +
-                  " media uploads failed",
-              ),
-                i());
-              return;
-            }
-            (g > 0 &&
-              (o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, { msg: d() }),
-              ),
-              r("FBLogger")("wa_ctwa_web").warn(
-                "[uploadAdCreativeMediaToWA] partial upload: " +
-                  f.length +
-                  "/" +
-                  l.length +
-                  " succeeded, " +
-                  g +
-                  " failed and removed",
-              )),
-              a(f, t));
-          } else
-            yield (e || (e = n("Promise")))
-              .all(u)
-              .then(function (e) {
-                a(e, t);
-              })
-              .catch(function (e) {
-                (i(),
-                  r("FBLogger")("wa_ctwa_web")
-                    .catching(r("getErrorSafe")(e))
-                    .mustfix("uploadAdCreativeMediaToWA: Media upload failed"));
-              });
+          var m = yield (e || (e = n("Promise"))).allSettled(u),
+            p = [],
+            f = 0;
+          if (
+            (m.forEach(function (e, n) {
+              e.status === "fulfilled"
+                ? p.push(e.value)
+                : (f++,
+                  t.remove(l[n]),
+                  r("FBLogger")("wa_ctwa_web").mustfix(
+                    "uploadAdCreativeMediaToWA: Media upload failed for item " +
+                      n +
+                      " - " +
+                      String(e.reason),
+                  ));
+            }),
+            p.length === 0)
+          ) {
+            (r("FBLogger")("wa_ctwa_web").mustfix(
+              "uploadAdCreativeMediaToWA: All " +
+                l.length +
+                " media uploads failed",
+            ),
+              i());
+            return;
+          }
+          (f > 0 &&
+            (o("WAWebToastManager").ToastManager.open(
+              c.jsx(o("WAWebToast.react").Toast, { msg: d() }),
+            ),
+            r("FBLogger")("wa_ctwa_web").warn(
+              "[uploadAdCreativeMediaToWA] partial upload: " +
+                p.length +
+                "/" +
+                l.length +
+                " succeeded, " +
+                f +
+                " failed and removed",
+            )),
+            a(p, t));
         })),
         h.apply(this, arguments)
       );
@@ -233,40 +218,33 @@ __d(
             (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (t) {
-                  var n = r("justknobx")._("3528"),
-                    u = e;
-                  if (n) {
-                    var d = e.some(function (e) {
-                        return e.type.startsWith("image/");
-                      }),
-                      m = e.some(function (e) {
-                        return e.type.startsWith("video/");
-                      });
+                  var n = e,
+                    u = e.some(function (e) {
+                      return e.type.startsWith("image/");
+                    }),
+                    d = e.some(function (e) {
+                      return e.type.startsWith("video/");
+                    });
+                  u &&
                     d &&
-                      m &&
-                      ((u = e.filter(function (e) {
-                        return !e.type.startsWith("video/");
-                      })),
-                      o("WAWebToastManager").ToastManager.open(
-                        c.jsx(o("WAWebToast.react").Toast, {
-                          msg: s._(
-                            /*BTDS*/ "Can't mix photos and video. Only photos were kept.",
-                          ),
-                        }),
-                      ));
-                  }
-                  var p = u.map(function (e) {
+                    ((n = e.filter(function (e) {
+                      return !e.type.startsWith("video/");
+                    })),
+                    o("WAWebToastManager").ToastManager.open(
+                      c.jsx(o("WAWebToast.react").Toast, {
+                        msg: s._(
+                          /*BTDS*/ "Can't mix photos and video. Only photos were kept.",
+                        ),
+                      }),
+                    ));
+                  var m = n.map(function (e) {
                       return { file: e };
                     }),
-                    _ = o(
+                    p = o(
                       "WAWebBizAdCreationMediaValidationUtils",
-                    ).maybePruneNewAttachments(t, p),
-                    f = t.getPreviewableMedias().length > 0;
-                  if (
-                    n &&
-                    _.pruneActions.includes("CROSS_MEDIA_VIDEO_ADDED") &&
-                    f
-                  ) {
+                    ).maybePruneNewAttachments(t, m),
+                    _ = t.getPreviewableMedias().length > 0;
+                  if (p.pruneActions.includes("CROSS_MEDIA_VIDEO_ADDED") && _) {
                     o("WAWebToastManager").ToastManager.open(
                       c.jsx(o("WAWebToast.react").Toast, {
                         msg: s._(
@@ -276,26 +254,26 @@ __d(
                     );
                     return;
                   }
-                  for (var h of _.pruneActions)
+                  for (var f of p.pruneActions)
                     o("WAWebToastManager").ToastManager.open(
                       c.jsx(o("WAWebToast.react").Toast, {
                         msg: o(
                           "WAWebBizAdCreationMediaValidationUtils",
-                        ).PRUNE_TOAST_MESSAGES[h](),
+                        ).PRUNE_TOAST_MESSAGES[f](),
                       }),
                     );
                   if (
-                    (_.shouldClearExisting && t.reset(),
-                    _.attachments.length !== 0)
+                    (p.shouldClearExisting && t.reset(),
+                    p.attachments.length !== 0)
                   ) {
-                    var y = new Set(
+                    var h = new Set(
                       t.getPreviewableMedias().map(function (e) {
                         return e.id;
                       }),
                     );
                     try {
                       yield t.processAttachments(
-                        _.attachments,
+                        p.attachments,
                         void 0,
                         o("WAWebBizAdCreationMediaValidationUtils")
                           .SUPPORTED_MEDIA_TYPES,
@@ -309,17 +287,17 @@ __d(
                           .mustfix("failed to process media for upload"));
                       return;
                     }
-                    var C = new Set(
+                    var y = new Set(
                       t
                         .getPreviewableMedias()
                         .filter(function (e) {
-                          return !y.has(e.id);
+                          return !h.has(e.id);
                         })
                         .map(function (e) {
                           return e.id;
                         }),
                     );
-                    (l(t, C), g(t, a, i));
+                    (l(t, y), g(t, a, i));
                   }
                 },
               );

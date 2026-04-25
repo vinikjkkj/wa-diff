@@ -7,6 +7,7 @@ __d(
     "WAWebMexCreateInviteCodeJob",
     "WAWebOutContactInviteGating",
     "WAWebOutContactInviteUtils",
+    "WAWebPhoneNumberSearch",
     "WAWebToast.react",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
@@ -25,9 +26,10 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
             return !1;
+          var r = o("WAWebPhoneNumberSearch").stripInvisibleChars(t);
           if (
             !o("WAWebContactlessChatUtils").PHONE_NUMBER_VALIDATION_REGEX.test(
-              t,
+              r,
             )
           )
             return (
@@ -39,17 +41,17 @@ __d(
               ),
               !1
             );
-          var r;
+          var a;
           try {
-            var a = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
-              t,
+            var i = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
+              r,
               n,
             );
-            a != null
-              ? (r = o(
+            i != null
+              ? (a = o(
                   "WAWebOutContactInviteUtils",
-                ).getInviteMessageTextWithCode(a))
-              : (r = o("WAWebOutContactInviteUtils").getInviteMessageText());
+                ).getInviteMessageTextWithCode(i))
+              : (a = o("WAWebOutContactInviteUtils").getInviteMessageText());
           } catch (e) {
             (o("WALogger").ERROR(
               u ||
@@ -66,11 +68,11 @@ __d(
                   ),
                 }),
               ),
-              (r = o("WAWebOutContactInviteUtils").getInviteMessageText()));
+              (a = o("WAWebOutContactInviteUtils").getInviteMessageText()));
           }
-          var i = encodeURIComponent(r),
-            l = window.open("sms:+" + t + "?body=" + i);
-          return (_(l == null), l != null);
+          var l = encodeURIComponent(a),
+            c = window.open("sms:+" + r + "?body=" + l);
+          return (_(c == null), c != null);
         })),
         p.apply(this, arguments)
       );
@@ -86,11 +88,15 @@ __d(
     function f(e) {
       if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
         return !1;
-      var t = e.filter(function (e) {
-        return o(
-          "WAWebContactlessChatUtils",
-        ).PHONE_NUMBER_VALIDATION_REGEX.test(e);
-      });
+      var t = e
+        .map(function (e) {
+          return o("WAWebPhoneNumberSearch").stripInvisibleChars(e);
+        })
+        .filter(function (e) {
+          return o(
+            "WAWebContactlessChatUtils",
+          ).PHONE_NUMBER_VALIDATION_REGEX.test(e);
+        });
       if (t.length === 0) return !1;
       var n = o("WAWebOutContactInviteUtils").getMultiGroupInviteMessageText(),
         r = encodeURIComponent(n),

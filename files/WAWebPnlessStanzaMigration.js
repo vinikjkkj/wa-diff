@@ -10,12 +10,28 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(e) {
-      return (
-        o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
-        e.isRegularUserPn() &&
-        o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
-      );
+    function c(t, n) {
+      return !o(
+        "WAWebLid1X1MigrationGating",
+      ).Lid1X1MigrationUtils.isLidMigrated() ||
+        !t.isRegularUserPn() ||
+        o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") !== !0
+        ? !1
+        : t.getDeviceId() !== 0
+          ? (o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[pnless-stanza] shouldConvertToLid: received a device ",
+                    " receiptType=",
+                    "",
+                  ])),
+                t.toLogString(),
+                n != null ? n : "n/a",
+              )
+              .sendLogs("pnless-device-wid"),
+            !1)
+          : !0;
     }
     function d(e) {
       return m.apply(this, arguments);
@@ -38,35 +54,24 @@ __d(
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (!c(t)) return t;
-          t.getDeviceId() !== 0 &&
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[pnless-stanza] getStanzaToFromChatId: received a device ",
-                    " receiptType=",
-                    "",
-                  ])),
-                t.toLogString(),
-                n,
-              )
-              .sendLogs("pnless-device-wid");
-          var r = yield d(t);
-          return r == null
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!c(e, t)) return e;
+          var n = yield d(e);
+          return n == null
             ? (o("WALogger")
                 .ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[pnless-stanza] getStanzaToFromChatId: no lid ",
+                      " receiptType=",
                       "",
                     ])),
-                  t.toLogString(),
+                  e.toLogString(),
+                  t,
                 )
                 .sendLogs("pnless-no-lid"),
-              t)
-            : r;
+              e)
+            : n;
         })),
         _.apply(this, arguments)
       );

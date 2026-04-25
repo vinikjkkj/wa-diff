@@ -3,8 +3,8 @@ __d(
   [
     "$InternalEnum",
     "WAWebABProps",
+    "WAWebBrowserInfo",
     "WAWebEnvironment",
-    "WAWebMiscBrowserUtils",
     "WAWebUA",
     "asyncToGeneratorRuntime",
     "justknobx",
@@ -29,7 +29,7 @@ __d(
       return (s !== void 0 || (s = p()), s);
     }
     function p() {
-      var t = r("WAWebMiscBrowserUtils").info();
+      var t = r("WAWebBrowserInfo")();
       switch (t.os.toLowerCase()) {
         case "windows":
           return e.WINDOWS;
@@ -64,7 +64,7 @@ __d(
           )
             h = R(_, n.platformVersion) <= 0;
           else {
-            var o = r("WAWebMiscBrowserUtils").info();
+            var o = r("WAWebBrowserInfo")();
             h = o.os === "Windows" && parseInt(o.version, 10) >= f;
           }
           return h;

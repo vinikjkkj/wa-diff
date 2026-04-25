@@ -2,6 +2,7 @@ __d(
   "WAWebTPPreloadingUtils",
   [
     "WALogger",
+    "WAWebBackendEventBus",
     "WAWebMimeTypes",
     "WAWebMsgCollection",
     "WAWebMsgType",
@@ -12,33 +13,53 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = !1;
-    function u() {
-      s = !1;
+      s,
+      u = !1,
+      c = !1;
+    function d() {
+      ((u = !1), (c = !1));
     }
-    var c = 50,
-      d = 100;
-    function m(e, t) {
-      return p.apply(this, arguments);
+    var m = 50,
+      p = 100;
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function p() {
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (s) return !0;
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          if (u) return !0;
           if (!o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled())
             return !1;
-          var r = n.source,
-            a = n.appStartLimit,
-            i = a === void 0 ? d : a,
-            l = n.inChatLimit,
-            u = l === void 0 ? c : l,
-            m = n.force,
-            p = m === void 0 ? !1 : m,
-            f = !1;
-          if (p) f = !0;
+          if (!o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd) {
+            if (!c) {
+              ((c = !0),
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "Deferring WebTP iframe preload until offline delivery ends",
+                    ])),
+                ));
+              var r = function () {
+                ((c = !1), _(t, n));
+              };
+              o("WAWebBackendEventBus").BackendEventBus.onceOfflineDeliveryEnd(
+                r,
+              );
+            }
+            return !1;
+          }
+          var a = n.source,
+            i = n.appStartLimit,
+            l = i === void 0 ? p : i,
+            d = n.inChatLimit,
+            f = d === void 0 ? m : d,
+            h = n.force,
+            y = h === void 0 ? !1 : h,
+            C = !1;
+          if (y) C = !0;
           else {
-            var g = yield _(t, u, i);
-            f = g.some(function (e) {
+            var b = yield g(t, f, l);
+            C = b.some(function (e) {
               return (
                 e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
                 e.mimetype != null &&
@@ -48,32 +69,32 @@ __d(
           }
           return (
             o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "Preloading WebTP iframe for PDFs: ",
                   "",
                 ])),
-              f,
+              C,
             ),
-            f
+            C
               ? (o("WAWebTPIframeUtils").preloadWebTPIframeIfEnabled(
                   "application/pdf",
-                  r,
+                  a,
                 ),
-                (s = !0),
+                (u = !0),
                 !0)
               : !1
           );
         })),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function g(e, t, n) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           if (e) {
             var r = e.msgs.last();
             return o("WAWebMsgCollection").MsgCollection.getAllDocsMsgs(
@@ -84,11 +105,11 @@ __d(
           }
           return o("WAWebMsgCollection").MsgCollection.getAllDocsMsgs(n);
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((l.__resetPreloadingStateForTests = u),
-      (l.maybePreloadWebTPIframeForPDFs = m));
+    ((l.__resetPreloadingStateForTests = d),
+      (l.maybePreloadWebTPIframeForPDFs = _));
   },
   98,
 );

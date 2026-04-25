@@ -42,19 +42,22 @@ __d(
             return new e({ id: this.getId(), paths: t, frame: r, type: o });
           }),
           (t.setOrigin = function (t) {
-            throw new TypeError(
+            var e = new TypeError(
               "MediaEditor:DrawLayer resetting origin is not allowed",
             );
+            throw (e.stack, e);
           }),
           (t.setRotation = function (t) {
-            throw new TypeError(
+            var e = new TypeError(
               "MediaEditor:DrawLayer resetting rotation is not allowed",
             );
+            throw (e.stack, e);
           }),
           (t.setScale = function (t) {
-            throw new TypeError(
+            var e = new TypeError(
               "MediaEditor:DrawLayer resetting scale is not allowed",
             );
+            throw (e.stack, e);
           }),
           (t.addPath = function (t) {
             var e = new (r("WAWebMediaEditorGeometryPath"))(t),

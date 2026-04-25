@@ -86,6 +86,7 @@ __d(
                   read: t.unread !== !0,
                 });
               } catch (t) {
+                var p = r("getErrorSafe")(t);
                 return (
                   o("WALogger")
                     .ERROR(
@@ -94,7 +95,7 @@ __d(
                           "[history sync] Failed to parse pollUpdate with error ",
                           "",
                         ])),
-                      t,
+                      p,
                     )
                     .sendLogs("parseWebMsgInfoPollUpdates-vote-parse-error"),
                   null

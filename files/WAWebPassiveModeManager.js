@@ -45,6 +45,7 @@ __d(
             (this.$5 = []),
             (this.$7 = k),
             (this.$8 = new (o("WAPromiseQueue").PromiseQueue)()),
+            (this.$9 = !1),
             o(
               "WAWebBackendEventBus",
             ).BackendEventBus.onSocketStreamDisconnected(function () {
@@ -123,6 +124,9 @@ __d(
                 this.$4.push({ name: t, task: n }));
           }),
           (a.enableDebugPassiveMode = function () {}),
+          (a.stayInPassiveMode_GuestExperiencesOnly = function () {
+            this.$9 = !0;
+          }),
           (a.executePassiveTasks = function () {
             var e = this;
             if (!this.shouldConnectAsPassiveMode()) {
@@ -180,7 +184,7 @@ __d(
                             "PassiveModeManager: executePassiveTasks: complete all tasks",
                           ])),
                       ),
-                        e.$9());
+                        e.$10());
                     })
                     .catch(
                       o("WAAbortError").catchAbort(function () {
@@ -202,7 +206,7 @@ __d(
                           ])),
                         t,
                       ),
-                        e.$9());
+                        e.$10());
                     })
                     .finally(function () {
                       (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
@@ -230,7 +234,7 @@ __d(
                             ])),
                         )
                         .sendLogs("passive-timeout"),
-                        e.$9(),
+                        e.$10(),
                         e.resetState(),
                         t());
                     }, e.$7);
@@ -238,13 +242,14 @@ __d(
                 return L.race([a, i]);
               }));
           }),
-          (a.$9 = function () {
-            (o("WALogger").LOG(
-              v ||
-                (v = babelHelpers.taggedTemplateLiteralLoose([
-                  "PassiveModeManager: _endPassiveMode",
-                ])),
-            ),
+          (a.$10 = function () {
+            this.$9 ||
+              (o("WALogger").LOG(
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                    "PassiveModeManager: _endPassiveMode",
+                  ])),
+              ),
               this.$2.resolve(),
               o(
                 "WAWebWamOfflineResumeReporter",
@@ -264,7 +269,7 @@ __d(
             return this.$2.promise;
           }),
           (a.shouldConnectAsPassiveMode = function () {
-            return this.$3 || this.$4.length > 0;
+            return this.$3 || this.$4.length > 0 || this.$9;
           }),
           (a.setPassiveModeTimeout = function (t) {
             (o("WALogger").LOG(

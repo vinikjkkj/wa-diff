@@ -9,6 +9,7 @@ __d(
     "WAWebFtsClientMessageIdResolver",
     "WAWebFtsGenRequestId",
     "WAWebFtsWorkerAdapter",
+    "WAWebODS",
     "WAWebWindowsHybridBridgeFactory",
     "WAWebWindowsHybridBridgeTrace",
     "asyncToGeneratorRuntime",
@@ -67,9 +68,12 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
             var t,
               n = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(),
-              r = n == null ? void 0 : n.sqlite;
+              a = n == null ? void 0 : n.sqlite;
             return (
-              r != null &&
+              a != null &&
+                (r("WAWebODS").incr(
+                  "web.hybrid.bridge.fts_sqlite.send.execute_sqlite",
+                ),
                 (t = yield d(
                   o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
                     {
@@ -78,7 +82,7 @@ __d(
                       type: "sync",
                     },
                     function () {
-                      return r.executeSqlite(JSON.stringify(e));
+                      return a.executeSqlite(JSON.stringify(e));
                     },
                   ),
                 ).catch(function (e) {
@@ -90,7 +94,7 @@ __d(
                       ])),
                     e,
                   );
-                })),
+                }))),
               t == null || t === "" ? [] : JSON.parse(t)
             );
           });

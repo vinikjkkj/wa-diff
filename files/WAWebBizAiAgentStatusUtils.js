@@ -5,6 +5,7 @@ __d(
     "WAWebBizGatingUtils",
     "WAWebBusinessProfileCollection",
     "WAWebChatGetters",
+    "WAWebCommunityGatingUtils",
     "WAWebContactGetters",
     "WAWebFrontendChatGetters",
     "WAWebLabelCollection",
@@ -111,10 +112,17 @@ __d(
             return t != null && !!t.name;
           });
     }
-    function g(e) {
-      return o("WAWebListsGatingUtils").isListsChatListRowPillEnabled()
-        ? p(e) || _(e)
-        : !1;
+    function g(e, t) {
+      return (
+        t === void 0 && (t = !1),
+        !o("WAWebListsGatingUtils").isListsChatListRowPillEnabled() ||
+        (t &&
+          o("WAWebCommunityGatingUtils").shouldShowNewSubgroupIdentity(
+            e.groupMetadata,
+          ))
+          ? !1
+          : p(e) || _(e)
+      );
     }
     ((l.hasOnboardedAiAgent = e),
       (l.isChatEligibleForAiAgent = s),

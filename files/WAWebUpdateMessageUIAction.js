@@ -2,6 +2,7 @@ __d(
   "WAWebUpdateMessageUIAction",
   [
     "WALogger",
+    "WATimeUtils",
     "WAWebAck",
     "WAWebAfterReadUtils",
     "WAWebBackendErrors",
@@ -171,13 +172,21 @@ __d(
       );
     }
     function _(e) {
-      return e.afterReadDuration != null &&
-        e.afterReadDuration > 0 &&
-        (e.ack == null || e.ack < o("WAWebAck").ACK.READ) &&
-        e.expiredTimestamp == null &&
-        o("WAWebAfterReadUtils").isAfterReadEnabled()
-        ? o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e)
-        : e.expiredTimestamp;
+      var t,
+        n = e.afterReadDuration;
+      if (
+        n == null ||
+        n <= 0 ||
+        e.expiredTimestamp != null ||
+        !o("WAWebAfterReadUtils").isAfterReadEnabled()
+      ) {
+        var r;
+        return (r = e.expiredTimestamp) != null ? r : null;
+      }
+      var a = (t = e.t) != null ? t : o("WATimeUtils").unixTime();
+      return e.id.fromMe || (e.ack != null && e.ack >= o("WAWebAck").ACK.READ)
+        ? a + n
+        : o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
     }
     ((l.updateUI = c), (l.removePlaceholder = m));
   },

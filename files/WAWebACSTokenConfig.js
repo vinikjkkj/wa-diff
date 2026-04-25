@@ -20,6 +20,14 @@ __d(
           return o("WATimeUtils").DAY_SECONDS;
         },
       },
+      WA_ChannelsMusic: {
+        getMaxRedeemCount: function () {
+          return 50;
+        },
+        getMaxExpirySeconds: function () {
+          return o("WATimeUtils").DAY_SECONDS;
+        },
+      },
       WA_ChannelsForwardCounter: {
         getMaxRedeemCount: function () {
           return 64;

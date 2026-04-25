@@ -33,6 +33,7 @@ __d(
     "WAWebWamOfflineResumeReporter",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -177,14 +178,14 @@ __d(
               })
               .catch(function (e) {
                 throw (
-                  o("WALogger").ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "restoreChatsAndMessages: failed with error: ",
-                        "",
-                      ])),
-                    e,
-                  ),
+                  o("WALogger")
+                    .ERROR(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "restoreChatsAndMessages: failed with error",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e)),
                   e
                 );
               })
@@ -601,14 +602,14 @@ __d(
         )
         .catch(function (e) {
           throw (
-            o("WALogger").ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "loadLastMessagesFromDB: failed with error: ",
-                  "",
-                ])),
-              e,
-            ),
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "loadLastMessagesFromDB: failed with error",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e)),
             e
           );
         });

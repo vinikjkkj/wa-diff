@@ -3,10 +3,10 @@ __d(
   [
     "WABinary",
     "WALogger",
+    "WAWebBrowserInfo",
     "WAWebBuildConstants",
     "WAWebCrashlogConstants",
     "WAWebCrashlogUserAgent",
-    "WAWebMiscBrowserUtils",
     "WAWebURLUtils",
     "WAWebUserPrefsMeUser",
     "WAWebVoipPersistentFS",
@@ -40,7 +40,7 @@ __d(
       D = "986260562965669|dce80b34bf101b13140cbbf4c809d9ac";
     function x(e) {
       var t = new FormData(),
-        n = r("WAWebMiscBrowserUtils").info(),
+        n = r("WAWebBrowserInfo")(),
         a = o("WAWebCrashlogUserAgent").getLogUserAgent({
           device: n.os,
           browser: n.ua,

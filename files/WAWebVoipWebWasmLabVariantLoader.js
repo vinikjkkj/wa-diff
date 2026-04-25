@@ -8,13 +8,13 @@ __d(
       s = r("requireDeferred")(
         "WAWebVoipWebWasmLoader_ProdLabvideo_internal",
       ).__setRef("WAWebVoipWebWasmLabVariantLoader");
-    function u(e) {
+    function u(e, t) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n =
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var r =
             t === "prod-lab"
               ? e
               : t === "prod-labvideo"
@@ -27,9 +27,9 @@ __d(
                           t,
                       );
                     })();
-          if (n == null) return null;
-          var r = yield n.load();
-          return r();
+          if (r == null) return null;
+          var o = yield r.load();
+          return n == null ? o() : o(n);
         })),
         c.apply(this, arguments)
       );

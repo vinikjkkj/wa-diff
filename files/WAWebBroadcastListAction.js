@@ -6,14 +6,16 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAudienceExpressionTypes",
-    "WAWebBizBroadcastsContactVerifier",
-    "WAWebBizBroadcastsFileProcessor",
     "WAWebBroadcastListIdUtils",
     "WAWebBroadcastListStorageUtils",
     "WAWebBroadcastListSync",
     "WAWebBroadcastMetadataCollection",
     "WAWebChatCollection",
     "WAWebContactGetters",
+    "WAWebContactImportContactVerifier",
+    "WAWebContactImportFileProcessor",
+    "WAWebContactSyncErrorCodes",
+    "WAWebContactSyncLogger",
     "WAWebFrontendContactGetters",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -54,15 +56,19 @@ __d(
           try {
             var a = n.map(function (e) {
                 return o(
-                  "WAWebBizBroadcastsFileProcessor",
+                  "WAWebContactImportFileProcessor",
                 ).normalizePhoneNumber(e.phone);
               }),
               i = yield o(
-                "WAWebBizBroadcastsContactVerifier",
-              ).verifyWhatsAppUsers(a);
+                "WAWebContactImportContactVerifier",
+              ).verifyWhatsAppUsers(a, {
+                errorCode: o("WAWebContactSyncErrorCodes").BIZ_BROADCAST_VERIFY,
+                requestOrigin: o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
+                  .BUSINESS_BROADCAST,
+              });
             return t.map(function (e) {
               if (e.lid != null) return e;
-              var t = o("WAWebBizBroadcastsFileProcessor").normalizePhoneNumber(
+              var t = o("WAWebContactImportFileProcessor").normalizePhoneNumber(
                   e.phone,
                 ),
                 n = i[t];
@@ -101,7 +107,7 @@ __d(
                 c = o("WATimeUtils").unixTime(),
                 d = l.flatMap(function (e) {
                   var t = o(
-                      "WAWebBizBroadcastsFileProcessor",
+                      "WAWebContactImportFileProcessor",
                     ).normalizePhoneNumber(e.phone),
                     n = e.lid;
                   if (n == null) return [];

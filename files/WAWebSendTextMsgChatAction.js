@@ -31,6 +31,7 @@ __d(
     "WAWebMessagePluginGenerateReportingTokenContent",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMessagingGatingUtils",
     "WAWebMsgDataUtils",
     "WAWebMsgInfoUtils",
@@ -400,7 +401,13 @@ __d(
             );
           ((d.wamMessageSendReporter = new (o(
             "WAWebMessageSendReporter",
-          ).MessageSendReporter)(d, g)),
+          ).MessageSendReporter)(
+            d,
+            babelHelpers.extends({}, g, {
+              frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
+                .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+            }),
+          )),
             (d.wamMessageSendPerfReporter = new (o(
               "WAWebMessageSendPerfReporter",
             ).MessageSendPerfReporter)({

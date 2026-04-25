@@ -11,13 +11,13 @@ __d(
     "WAWebABProps",
     "WAWebABPropsLocalStorage",
     "WAWebBrowserApi",
+    "WAWebBrowserInfo",
     "WAWebBuildConstants",
     "WAWebCrashlog",
     "WAWebEnvironment",
     "WAWebEventSampling",
     "WAWebGuestCoreWamUtils",
     "WAWebIsOfficialClient",
-    "WAWebMiscBrowserUtils",
     "WAWebUploadPrivateStatsBackend",
     "WAWebUploadStatsBackend",
     "WAWebUserPrefsIsLoggedIn",
@@ -187,7 +187,7 @@ __d(
         (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           if ($) return (h || (h = n("Promise"))).resolve($);
-          var t = r("WAWebMiscBrowserUtils").info(),
+          var t = r("WAWebBrowserInfo")(),
             a = babelHelpers.extends(
               {
                 appVersion: o("WAWebBuildConstants")

@@ -5,8 +5,8 @@ __d(
     "WALogger",
     "WAMemoizeConcurrent",
     "WAWebBaseModel",
+    "WAWebBrowserInfo",
     "WAWebBuildConstants",
-    "WAWebMiscBrowserUtils",
     "WAWebNetworkGetResponseIfOnline",
     "asyncToGeneratorRuntime",
     "gkx",
@@ -39,7 +39,7 @@ __d(
                 var t = this;
                 if (!this.online) {
                   if (
-                    r("WAWebMiscBrowserUtils").info().name !== "Firefox" &&
+                    r("WAWebBrowserInfo")().name !== "Firefox" &&
                     navigator.onLine
                   ) {
                     o("WALogger").LOG(

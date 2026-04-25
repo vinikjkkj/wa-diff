@@ -2,52 +2,55 @@ __d(
   "WAWebMessagePluginParseProtobuf",
   [
     "WALogger",
-    "WAWebMessagePluginParseProtobufRegistry",
     "WAWebMultipleMessageParserPluginParseProtobuf",
     "WAWebProtobufsE2E.pb",
     "WAWebProtocolRevokeMessageUtils",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWamEnumEditType",
+    "cr:37444",
     "gkx",
     "isStringNullOrEmpty",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(t) {
-      var n,
-        a,
-        i = o(
+    var e,
+      s,
+      u,
+      c = (e = n("cr:37444")) != null ? e : [];
+    function d(e) {
+      var t,
+        n,
+        a = o(
           "WAWebMultipleMessageParserPluginParseProtobuf",
-        ).parseProtobufWithMultipleMessageParserPlugin(t),
-        l = i.result;
+        ).parseProtobufWithMultipleMessageParserPlugin(e),
+        i = a.result;
       if (
         (!r("gkx")("26258") || r("justknobx")._("2517")) &&
-        t.msgContext === "relay" &&
-        (t == null ||
-        (n = t.messageProtobuf) == null ||
-        (n = n.protocolMessage) == null
+        e.msgContext === "relay" &&
+        (e == null ||
+        (t = e.messageProtobuf) == null ||
+        (t = t.protocolMessage) == null
           ? void 0
-          : n.type) ===
+          : t.type) ===
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.MESSAGE_EDIT
       ) {
-        var u, c;
+        var l, d;
         if (
-          t.editAttr !== o("WAWebWamEnumEditType").EDIT_TYPE.EDITED &&
+          e.editAttr !== o("WAWebWamEnumEditType").EDIT_TYPE.EDITED &&
           r("isStringNullOrEmpty")(
-            (u =
-              t == null || (c = t.msgBotInfo) == null
+            (l =
+              e == null || (d = e.msgBotInfo) == null
                 ? void 0
-                : c.botEditType) != null
-              ? u
+                : d.botEditType) != null
+              ? l
               : "",
           )
         )
           return (
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[message-edit] edit protocol msg with incorrect attribute",
                   ])),
               )
@@ -55,28 +58,28 @@ __d(
             null
           );
       }
-      var d = i.pluginsMatched;
-      for (var m of r("WAWebMessagePluginParseProtobufRegistry")) {
-        var p = m(t);
-        if (p != null) {
-          var _;
-          (d.push(
-            p.msgData.type +
+      var m = a.pluginsMatched;
+      for (var p of c) {
+        var _ = p(e);
+        if (_ != null) {
+          var f;
+          (m.push(
+            _.msgData.type +
               ":" +
-              ((_ = p.msgData.subtype) != null ? _ : "null"),
+              ((f = _.msgData.subtype) != null ? f : "null"),
           ),
-            l == null && (l = p));
+            i == null && (i = _));
         }
       }
       if (
-        d.length === 0 &&
-        l === void 0 &&
-        (t == null ? void 0 : t.msgContext) === "relay" &&
-        (t == null ||
-        (a = t.messageProtobuf) == null ||
-        (a = a.protocolMessage) == null
+        m.length === 0 &&
+        i === void 0 &&
+        (e == null ? void 0 : e.msgContext) === "relay" &&
+        (e == null ||
+        (n = e.messageProtobuf) == null ||
+        (n = n.protocolMessage) == null
           ? void 0
-          : a.type) ===
+          : n.type) ===
           o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
       )
         throw new (o(
@@ -86,21 +89,21 @@ __d(
           o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
             .INVALID_PROTOCOL_BUFFER,
         );
-      return d.length > 1
+      return m.length > 1
         ? (o("WALogger")
             .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "parseProtoPlugins: Matched more than 1 plugin types ",
                   "",
                 ])),
-              d.join(","),
+              m.join(","),
             )
             .sendLogs("parse-protobuf-unexpected-plugin-match"),
           null)
-        : l;
+        : i;
     }
-    l.parseProtobuf = u;
+    l.parseProtobuf = d;
   },
   98,
 );

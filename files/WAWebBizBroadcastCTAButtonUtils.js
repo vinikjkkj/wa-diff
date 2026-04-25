@@ -2,7 +2,7 @@ __d(
   "WAWebBizBroadcastCTAButtonUtils",
   [
     "WAWebBizBroadcastCTAButtonSectionStrings",
-    "WAWebBizBroadcastsValidationUtils",
+    "WAWebContactImportValidationUtils",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebURLUtils",
   ],
@@ -75,7 +75,7 @@ __d(
           "phoneNumber" in t
         ) {
           var r = t.phoneNumber;
-          return _(r)
+          return f(r)
             ? { isValid: !0 }
             : { isValid: !1, error: "INVALID_PHONE_FORMAT" };
         }
@@ -126,16 +126,22 @@ __d(
     }
     function _(e) {
       var t = e.trim();
+      return t === "" || r("WAWebURLUtils").hasValidUrlScheme(t)
+        ? t
+        : "https://" + t;
+    }
+    function f(e) {
+      var t = e.trim();
       if (t === "") return !1;
       var n = o(
-        "WAWebBizBroadcastsValidationUtils",
+        "WAWebContactImportValidationUtils",
       ).validateAndFormatPhoneNumber(t);
       return (
         n.status ===
-        o("WAWebBizBroadcastsValidationUtils").ValidationStatus.VALID
+        o("WAWebContactImportValidationUtils").ValidationStatus.VALID
       );
     }
-    function f(e) {
+    function g(e) {
       return e === r("WAWebInteractiveMessagesNativeFlowName").CTA_URL
         ? "Website"
         : e === r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL
@@ -144,14 +150,14 @@ __d(
             ? "Custom Reply"
             : "Unknown";
     }
-    function g(e) {
+    function h(e) {
       return (
         e === r("WAWebInteractiveMessagesNativeFlowName").CTA_URL ||
         e === r("WAWebInteractiveMessagesNativeFlowName").CTA_CALL ||
         e === r("WAWebInteractiveMessagesNativeFlowName").QUICK_REPLY
       );
     }
-    function h(e) {
+    function y(e) {
       if (e == null) return null;
       try {
         var t,
@@ -161,33 +167,33 @@ __d(
               ? void 0
               : t.name,
           a = r("WAWebInteractiveMessagesNativeFlowName").cast(o);
-        return a != null && g(a) ? a : null;
+        return a != null && h(a) ? a : null;
       } catch (e) {
         return null;
       }
     }
-    function y(e) {
+    function C(e) {
       return e === "DISPLAY_TEXT_TOO_LONG"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
           ).getDisplayTextTooLongError()
         : null;
     }
-    function C(e) {
+    function b(e) {
       return e === "INVALID_PHONE_FORMAT"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
           ).getInvalidPhoneFormatError()
         : null;
     }
-    function b(e) {
+    function v(e) {
       return e === "INVALID_URL_FORMAT"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
           ).getInvalidUrlFormatError()
         : null;
     }
-    function v(e) {
+    function S(e) {
       return e === "cta_url"
         ? o(
             "WAWebBizBroadcastCTAButtonSectionStrings",
@@ -211,14 +217,15 @@ __d(
       (l.convertButtonDataToJson = s),
       (l.validateButtonData = c),
       (l.isValidUrlFormat = p),
-      (l.isValidPhoneNumber = _),
-      (l.getButtonTypeDisplayName = f),
-      (l.isSupportedCTAButtonType = g),
-      (l.extractButtonTypeFromJson = h),
-      (l.getDisplayTextValidationError = y),
-      (l.getPhoneNumberValidationError = C),
-      (l.getUrlValidationError = b),
-      (l.getModalTitle = v));
+      (l.normalizeUrl = _),
+      (l.isValidPhoneNumber = f),
+      (l.getButtonTypeDisplayName = g),
+      (l.isSupportedCTAButtonType = h),
+      (l.extractButtonTypeFromJson = y),
+      (l.getDisplayTextValidationError = C),
+      (l.getPhoneNumberValidationError = b),
+      (l.getUrlValidationError = v),
+      (l.getModalTitle = S));
   },
   98,
 );

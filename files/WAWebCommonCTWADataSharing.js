@@ -34,9 +34,21 @@ __d(
       },
       m = function (t) {
         var e = r("WAWebConversionTupleCollection").get(t.id);
+        if (!e || e.fromMe === !0) return null;
+        var n = e.conversionData,
+          a = e.conversionSource;
+        return o(
+          "WAWebGetCTWAEligibilityFromConversion",
+        ).getCTWAEligibilityFromConversion({
+          conversionData: n,
+          conversionSource: a,
+        });
+      },
+      p = function (t) {
+        var e = r("WAWebConversionTupleCollection").get(t.id);
         if (e) return e.ctwaSignals;
       },
-      p = function () {
+      _ = function () {
         var e = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
           t = o("WAWebUserPrefsGeneral").getCTWADataSharingCoolOffTimestamp(),
           n = t != null,
@@ -53,13 +65,13 @@ __d(
           o("WAWebBizGatingUtils").shouldShowSMBDataSharingSettings()
         );
       },
-      _ = function (t) {
+      f = function (t) {
         return d(t) == null ||
           !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()
           ? !1
-          : f(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
+          : g(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
       },
-      f = function (t) {
+      g = function (t) {
         return o(
           "WAWebDataSharingOptInCoolOffModel",
         ).DataSharingOptInCoolOffModel.isCoolOffActive()
@@ -81,7 +93,7 @@ __d(
                   ).getCTWADataSharingDisclosureShownCount() < u
               : !1;
       },
-      g = function (n, r) {
+      h = function (n, r) {
         var t;
         if (r === c.CHAT)
           t = o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats;
@@ -98,18 +110,18 @@ __d(
           );
         return d(n) == null || !t()
           ? !1
-          : f(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
+          : g(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
       },
-      h = function (t) {
+      y = function (t) {
         return d(t) == null ||
           !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled() ||
           !o(
             "WAWebBizGatingUtils",
           ).showCTWA3pdDataSharingDisclosureOnThreadEntry()
           ? !1
-          : f(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
+          : g(o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue());
       },
-      y = function (t, n, a) {
+      C = function (t, n, a) {
         var e;
         if (
           a < 1 ||
@@ -140,7 +152,7 @@ __d(
             o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled();
         return u || c || d;
       },
-      C = function (t) {
+      b = function (t) {
         if (t.length === 0) return !1;
         var e = [];
         if (!o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats())
@@ -175,7 +187,7 @@ __d(
             o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled();
         return l || s || u;
       },
-      b = (function () {
+      v = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (!o("WAWebBizGatingUtils").smbDataSharingConsentEnabled())
             return null;
@@ -209,23 +221,24 @@ __d(
           return e.apply(this, arguments);
         };
       })(),
-      v = {
+      S = {
         SMB_DATA_SHARING_ALLOWED_SOURCE: o(
           "WAWebGetCTWAEligibilityFromConversion",
         ).SMB_DATA_SHARING_ALLOWED_SOURCE,
         SmbDataSharingLabelTargetValues: c,
         getCTWAEligibilityFromChat: d,
-        getCTWASignalsValueFromChat: m,
-        shouldDisplayDataSharingSetting: p,
-        shouldShowOrderDataSharingDialog: _,
-        shouldShowDisclosureBasedOnCurrentDataSharingSetting: f,
-        shouldShowLabelDataSharingDialog: g,
-        shouldShowChatEntryDataSharingDialog: h,
-        shouldDisplayDataSharingOrderOptOutOrUpsell: y,
-        shouldDisplayDataSharingLabelOptOutOrUpsell: C,
-        fetchDataSharingSettingAndUpdateModel: b,
+        getReceivedCTWAEligibilityFromChat: m,
+        getCTWASignalsValueFromChat: p,
+        shouldDisplayDataSharingSetting: _,
+        shouldShowOrderDataSharingDialog: f,
+        shouldShowDisclosureBasedOnCurrentDataSharingSetting: g,
+        shouldShowLabelDataSharingDialog: h,
+        shouldShowChatEntryDataSharingDialog: y,
+        shouldDisplayDataSharingOrderOptOutOrUpsell: C,
+        shouldDisplayDataSharingLabelOptOutOrUpsell: b,
+        fetchDataSharingSettingAndUpdateModel: v,
       };
-    l.default = v;
+    l.default = S;
   },
   98,
 );

@@ -256,9 +256,11 @@ __d(
     function x(e) {
       var t,
         n,
-        r = e.contact.name;
-      return r != null && r.trim().length > 0
-        ? r
+        r = e.name;
+      if (r != null && r.trim().length > 0) return r;
+      var a = e.contact.name;
+      return a != null && a.trim().length > 0
+        ? a
         : ((t = (n = e.broadcastMetadata) == null ? void 0 : n.recipients) !=
           null
             ? t

@@ -1,19 +1,32 @@
 __d(
   "WAWebSendMsgMetricReporter",
   [
+    "WAWebCoreActionsODS",
     "WAWebMessageSendPerfReporter",
     "WAWebMessageSendReporter",
     "WAWebMsgType",
     "WAWebWamMsgUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
+    var e,
+      s = {
+        createPostODSCountersFn: (e = o("WAWebCoreActionsODS"))
+          .createPostODSCountersFn,
+        createPostODSErrorCountersFn: e.createPostODSErrorCountersFn,
+        logMCMigrationControl: e.logMCMigrationControl,
+        logMCMigrationRegression: e.logMCMigrationRegression,
+        logMCMigrationTest: e.logMCMigrationTest,
+      };
+    function u(e, t, n) {
+      return new (o("WAWebMessageSendReporter").MessageSendReporter)(
+        e,
+        babelHelpers.extends({}, n, { frontendDeps: t, odsDeps: s }),
+      );
+    }
+    var c = function (t, n) {
         var e = {
-          createSendReporter: function (n) {
-            return new (o("WAWebMessageSendReporter").MessageSendReporter)(
-              t,
-              n,
-            );
+          createSendReporter: function (r) {
+            return u(t, n, r);
           },
           sendReporter: null,
           sendPerfReporter: null,
@@ -41,29 +54,26 @@ __d(
           e
         );
       },
-      s = function (t) {
-        var e = new (o("WAWebMessageSendReporter").MessageSendReporter)(t),
-          n = new (o("WAWebMessageSendPerfReporter").MessageSendPerfReporter)({
+      d = function (t, n) {
+        var e = u(t, n),
+          r = new (o("WAWebMessageSendPerfReporter").MessageSendPerfReporter)({
             chatWid: t.to,
             mediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
             messageType: o("WAWebWamMsgUtils").getWamMessageType(t),
           });
         if (t.kind === o("WAWebMsgType").MsgKind.ProtocolAddonRevoke) {
-          var r;
-          (r = n) == null || r.setIsRevokeMessage(!0);
+          var a;
+          (a = r) == null || a.setIsRevokeMessage(!0);
         }
-        var a = {
-          createSendReporter: function (n) {
-            return new (o("WAWebMessageSendReporter").MessageSendReporter)(
-              t,
-              n,
-            );
+        var i = {
+          createSendReporter: function (r) {
+            return u(t, n, r);
           },
           sendReporter: null,
           sendPerfReporter: null,
         };
         return (
-          Object.defineProperty(a, "sendReporter", {
+          Object.defineProperty(i, "sendReporter", {
             get: function () {
               return e;
             },
@@ -72,19 +82,19 @@ __d(
             },
             enumerable: !0,
           }),
-          Object.defineProperty(a, "sendPerfReporter", {
+          Object.defineProperty(i, "sendPerfReporter", {
             get: function () {
-              return n;
+              return r;
             },
             set: function (t) {
-              n = t;
+              r = t;
             },
             enumerable: !0,
           }),
-          a
+          i
         );
       };
-    ((l.createMsgModelMetricReporter = e), (l.createAddonMetricReporter = s));
+    ((l.createMsgModelMetricReporter = c), (l.createAddonMetricReporter = d));
   },
   98,
 );

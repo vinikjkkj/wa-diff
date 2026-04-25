@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebDebounce",
-    "WAWebUA",
     "WAWebUserPrefsGeneral",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,15 +32,6 @@ __d(
         var n = { ts: o("WATimeUtils").unixTime(), value: d() };
         return (o("WAWebUserPrefsGeneral").setPersistentExpiringId(n), n.value);
       },
-      info: function () {
-        var e = p();
-        return {
-          os: e.os.name,
-          version: e.os.version,
-          name: e.browser.name,
-          ua: e.browser.name + " " + e.browser.version,
-        };
-      },
       hardRefresh: function () {
         (o("WALogger").LOG(
           e ||
@@ -63,23 +53,6 @@ __d(
       },
       promptUnloadGuards: 0,
     };
-    function p() {
-      var e = o("WAWebUA").UA.parser.getResult();
-      if (e != null && e.browser.name === "Chrome") {
-        var t,
-          n =
-            (t = self.navigator) == null || (t = t.userAgentData) == null
-              ? void 0
-              : t.brands;
-        if (n != null) {
-          var r = n.some(function (e) {
-            return e.brand === "Microsoft Edge";
-          });
-          r && (e.browser.name = "Edge");
-        }
-      }
-      return e;
-    }
     l.default = m;
   },
   98,

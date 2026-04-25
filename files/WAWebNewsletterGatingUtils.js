@@ -698,15 +698,27 @@ __d(
     }
     function Tt() {
       return o("WAWebABProps").getABPropConfigValue(
-        "newsletter_status_receiver_enabled",
+        "channel_status_consumption",
       );
     }
     function Dt() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "newsletter_status_creation_enabled",
-      );
+      return o("WAWebABProps").getABPropConfigValue("channel_status_creation");
     }
     function xt() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "channels_status_consumption_entrypoints",
+      );
+    }
+    function $t() {
+      return Tt() && xt() >= 1;
+    }
+    function Pt() {
+      return Tt() && xt() >= 2;
+    }
+    function Nt() {
+      return Tt() && xt() >= 3;
+    }
+    function Mt() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_pulse_on_unread_badge_enabled",
       );
@@ -839,7 +851,10 @@ __d(
       (l.isChannelsInChatListEnabled = It),
       (l.isNewsletterStatusReceiverEnabled = Tt),
       (l.isNewsletterStatusCreationEnabled = Dt),
-      (l.isNewsletterTabPulseEnabled = xt));
+      (l.isNewsletterStatusProfileRingEnabled = $t),
+      (l.isNewsletterStatusThreadRingEnabled = Pt),
+      (l.isNewsletterStatusAllEntrypointsEnabled = Nt),
+      (l.isNewsletterTabPulseEnabled = Mt));
   },
   98,
 );

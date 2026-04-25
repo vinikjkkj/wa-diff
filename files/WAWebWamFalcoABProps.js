@@ -1,9 +1,9 @@
 __d(
   "WAWebWamFalcoABProps",
   [
-    "CurrentUser",
     "WALogger",
     "WAWebABProps",
+    "WAWebABPropsCache",
     "WAWebWamFalcoModes",
     "justknobx",
   ],
@@ -12,7 +12,7 @@ __d(
       s = null;
     function u() {
       return (
-        r("CurrentUser").isLoggedIn() &&
+        o("WAWebABPropsCache").isABPropConfigsReady() &&
         r("justknobx")._("1600") &&
         c() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
       );

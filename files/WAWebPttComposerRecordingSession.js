@@ -811,6 +811,7 @@ __d(
                   pttDraftPlayCnt: this._draftPlayCount,
                   pttDraftSeekCnt: this._draftSeekCount,
                   pttPauseCnt: this._pauseCount,
+                  isMetaAiThread: o("WAWebBotUtils").isMetaAiBot(this._chat.id),
                 }).commit();
               },
             );

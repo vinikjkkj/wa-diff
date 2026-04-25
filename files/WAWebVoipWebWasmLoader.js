@@ -13,7 +13,7 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1776936112405" }),
+      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1777048455120" }),
       d = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -763,10 +763,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1276043: function () {
+            1283659: function () {
               return Date.now();
             },
-            1276066: function (t, n) {
+            1283682: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -3465,16 +3465,63 @@ __d(
                 )
                   rn.allocateUnusedWorker();
                 ge(function () {
-                  (Le("loading-workers"),
-                    rn.loadWasmModuleToAllWorkers(function () {
-                      return (
-                        Ee("loading-workers"),
-                        o("WAWebVoipQplHelpers").voipInitQplAddPoint(
-                          o("WAWebVoipQplHelpers").VoipInitQplPoint
-                            .WORKER_POOL_ALLOC_END,
-                        )
-                      );
-                    }));
+                  Le("loading-workers");
+                  var e = 15e3,
+                    t = !1,
+                    n = function (a) {
+                      if (!t) {
+                        ((t = !0), clearTimeout(r));
+                        var n = 0;
+                        try {
+                          if (a) {
+                            var i = [],
+                              l = [];
+                            for (var s of rn.unusedWorkers)
+                              s.loaded ? i.push(s) : l.push(s);
+                            for (var s of l)
+                              try {
+                                ht(s);
+                              } catch (e) {
+                                F(
+                                  "voip: ThreadPoolManager: failed to terminate timed-out pthread worker " +
+                                    s.workerID +
+                                    ": " +
+                                    e,
+                                );
+                              }
+                            ((n = l.length),
+                              (rn.unusedWorkers = i),
+                              F(
+                                "voip: ThreadPoolManager: pthread worker prewarm timed out after " +
+                                  e +
+                                  "ms; continuing with " +
+                                  i.length +
+                                  " ready workers",
+                              ));
+                          }
+                        } finally {
+                          (Ee("loading-workers"),
+                            o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                              o("WAWebVoipQplHelpers").VoipInitQplPoint
+                                .WORKER_POOL_ALLOC_END,
+                              {
+                                bool: { worker_pool_alloc_timed_out: a },
+                                int: {
+                                  worker_pool_ready_count:
+                                    rn.unusedWorkers.length,
+                                  worker_pool_timed_out_count: n,
+                                },
+                              },
+                            ));
+                        }
+                      }
+                    },
+                    r = setTimeout(function () {
+                      return n(!0);
+                    }, e);
+                  rn.loadWasmModuleToAllWorkers(function () {
+                    return n(!1);
+                  });
                 });
               },
               initWorker: function () {
@@ -7632,8 +7679,8 @@ __d(
             sl = (y.___get_exception_message = xe("__get_exception_message")),
             ul = xe("__cxa_can_catch"),
             cl = xe("__cxa_is_pointer_type"),
-            dl = (y.___start_em_js = 1270748),
-            ml = (y.___stop_em_js = 1276043);
+            dl = (y.___start_em_js = 1278364),
+            ml = (y.___stop_em_js = 1283659);
           function pl(e, t, n, r) {
             var o = nl();
             try {

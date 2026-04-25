@@ -1,6 +1,6 @@
 __d(
   "WAWebCompanionRegClientUtils",
-  ["$InternalEnum", "WAWebEnvironment", "WAWebMiscBrowserUtils"],
+  ["$InternalEnum", "WAWebBrowserInfo", "WAWebEnvironment"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = n("$InternalEnum")({
@@ -31,7 +31,7 @@ __d(
       c = u[d()];
     function d() {
       if (r("WAWebEnvironment").isWindows) return s.UWP;
-      var e = r("WAWebMiscBrowserUtils").info().name;
+      var e = r("WAWebBrowserInfo")().name;
       return e
         ? e === "Chrome"
           ? s.CHROME

@@ -32,6 +32,7 @@ __d(
     "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
     "WAWebIndividualNewChatMessageCappingLimitUtils",
     "WAWebMessageCappingWamEvent",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgType",
@@ -74,6 +75,8 @@ __d(
           );
           var r = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
             t,
+            o("WAWebMessageSendReporterFrontendDeps")
+              .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
           );
           r.sendReporter =
             (n = r.sendReporter) != null ? n : r.createSendReporter();
@@ -100,7 +103,11 @@ __d(
     function C() {
       return (
         (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebSendMsgMetricReporter").createAddonMetricReporter(e),
+          var t = o("WAWebSendMsgMetricReporter").createAddonMetricReporter(
+              e,
+              o("WAWebMessageSendReporterFrontendDeps")
+                .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+            ),
             n = yield o("WAWebFindChatAction").findExistingChat(
               e.id.remote,
               "sendMsgRecord",

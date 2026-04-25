@@ -8,16 +8,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
-        lwiFlowId: t,
-        lwiIsFbAppInstalled: !1,
-        lwiScreenAction: e,
-        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
-          .LWI_SCREEN_REFERENCE.LWI_SCREEN_NUX_EDUCATION,
-      }).commit();
-    }
-    function s(e, t, n, r, a) {
+    function e(e, t, n, r, a) {
       var i = new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
         lwiAdsIdentityType: void 0,
         lwiScreenAction: e,
@@ -30,7 +21,7 @@ __d(
       });
       (a != null && (i.lwiFlowId = a), i.commit());
     }
-    function u(e, t, n, r, a, i) {
+    function s(e, t, n, r, a, i) {
       var l = new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
         lwiAdsIdentityType:
           t === "WAA"
@@ -51,9 +42,7 @@ __d(
       });
       (i != null && (l.lwiFlowId = i), l.commit());
     }
-    ((l.logNuxScreenEvent = e),
-      (l.logManageAdsIdentityEvent = s),
-      (l.logIdentityErrorEvent = u));
+    ((l.logManageAdsIdentityEvent = e), (l.logIdentityErrorEvent = s));
   },
   98,
 );

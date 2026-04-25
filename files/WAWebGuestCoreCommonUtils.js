@@ -1,6 +1,6 @@
 __d(
   "WAWebGuestCoreCommonUtils",
-  ["WAWebMiscBrowserUtils", "WAWebUA"],
+  ["WAWebBrowserInfo", "WAWebUA"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -16,7 +16,7 @@ __d(
       );
     }
     function s() {
-      var t = r("WAWebMiscBrowserUtils").info(),
+      var t = r("WAWebBrowserInfo")(),
         n = o("WAWebUA").UA.parser.getResult();
       return {
         browserName: e() ? "WhatsApp-AppClip" : t.name,

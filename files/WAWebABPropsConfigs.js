@@ -608,6 +608,12 @@ __d(
       camera_error_banners_version: [10584, "int", 0, 1],
       camera_health_check_delay: [8739, "int", 5e3, 5e3],
       camera_health_check_period: [8740, "int", 2e3, 2e3],
+      canonical_ent_companion_server_cached_nonce_enabled: [
+        28399,
+        "bool",
+        !1,
+        !1,
+      ],
       caption_edit_receive: [3686, "bool", !1, !1],
       caption_edit_send: [3687, "bool", !1, !1],
       care_emoji: [12209, "bool", !1, !1],
@@ -4196,6 +4202,7 @@ __d(
       wa_web_calling_deep_link_error: [10051, "bool", !0, !0],
       wa_web_canonical_ent_web_reg_enabled: [24925, "bool", !1, !0],
       wa_web_canonical_ent_web_reg_recovery_enabled: [24682, "bool", !1, !0],
+      wa_web_canonical_reg_reload_enabled: [29472, "bool", !1, !1],
       wa_web_change_list_wds_submenu: [27123, "bool", !1, !1],
       wa_web_channels_comet_video_player_enabled_v2: [24541, "bool", !1, !1],
       wa_web_channels_migrate_subscribers_to_followers_enabled: [
@@ -4624,6 +4631,7 @@ __d(
       web_anr_async_contacts_restore_from_db_enabled: [27775, "bool", !1, !1],
       web_anr_async_media_decryption_enabled: [23200, "bool", !1, !1],
       web_anr_async_msg_send_handler: [27249, "bool", !1, !1],
+      web_anr_async_sqlite_bridge_operations: [29460, "bool", !1, !1],
       web_anr_batch_and_queue_bulk_contacts_db_writes_enabled: [
         25413,
         "bool",

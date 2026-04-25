@@ -10,6 +10,7 @@ __d(
       OFFENSIVE_MESSAGES: 4,
       OTP_DID_NOT_REQUEST: 5,
       SCAM_OR_FRAUD: 6,
+      DONT_RECOGNIZE: 7,
     });
     i.BLOCK_REASON = e;
   },

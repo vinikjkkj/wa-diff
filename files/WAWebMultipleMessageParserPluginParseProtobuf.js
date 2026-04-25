@@ -1,27 +1,27 @@
 __d(
   "WAWebMultipleMessageParserPluginParseProtobuf",
-  ["WAWebMultipleMessageParserPluginParseProtobufRegistry"],
+  ["cr:37446"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e,
+      s = (e = n("cr:37446")) != null ? e : [];
+    function u(e) {
       var t = [],
         n;
-      for (var o of r(
-        "WAWebMultipleMessageParserPluginParseProtobufRegistry",
-      )) {
-        var a = o(e);
-        if (a != null) {
-          var i;
+      for (var r of s) {
+        var o = r(e);
+        if (o != null) {
+          var a;
           (t.push(
-            a.msgData.type +
+            o.msgData.type +
               ":" +
-              ((i = a.msgData.subtype) != null ? i : "null"),
+              ((a = o.msgData.subtype) != null ? a : "null"),
           ),
-            n == null && (n = a));
+            n == null && (n = o));
         }
       }
       return { result: n, pluginsMatched: t };
     }
-    l.parseProtobufWithMultipleMessageParserPlugin = e;
+    l.parseProtobufWithMultipleMessageParserPlugin = u;
   },
   98,
 );

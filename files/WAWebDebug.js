@@ -115,6 +115,7 @@ __d(
     "WAWebManagePhoneNumberMappingJob",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMemberLabelDebug",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebMimeTypes",
     "WAWebMiscBrowserUtils",
     "WAWebMiscGatingUtils",
@@ -506,7 +507,11 @@ __d(
                 type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
                 data: s,
               },
-              o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(s),
+              o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
+                s,
+                o("WAWebMessageSendReporterFrontendDeps")
+                  .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+              ),
             );
           }
         })),

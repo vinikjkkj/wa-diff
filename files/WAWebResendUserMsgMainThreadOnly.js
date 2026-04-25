@@ -2,6 +2,7 @@ __d(
   "WAWebResendUserMsgMainThreadOnly",
   [
     "WAWebCreateSendMsgRecord",
+    "WAWebMessageSendReporterFrontendDeps",
     "WAWebOutgoingMessage",
     "WAWebPnlessStanzaMigration",
     "WAWebResendUserMsg",
@@ -31,6 +32,8 @@ __d(
               s.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
                 ? o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
                     s.data,
+                    o("WAWebMessageSendReporterFrontendDeps")
+                      .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
                   )
                 : o("WAWebSendMsgMetricReporter").createAddonMetricReporter(
                     s.data,

@@ -5,6 +5,8 @@ __d(
     "Promise",
     "WALogger",
     "WAWebActionToast.react",
+    "WAWebBotFrontendUtils",
+    "WAWebBotGating",
     "WAWebChatMessageSearch",
     "WAWebCmd",
     "WAWebComposeBoxActions",
@@ -18,6 +20,7 @@ __d(
     "WAWebMultiSelectUtils",
     "WAWebReplyToMsgChatAction",
     "WAWebStateUtils",
+    "WAWebThreadMsgUtils",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWamEnumKicEntryPointType",
@@ -121,7 +124,16 @@ __d(
       );
     }
     function L(e) {
-      var t = o("WAWebFrontendMsgGetters").getChat(e);
+      var t = o("WAWebFrontendMsgGetters").getChat(e),
+        n = o("WAWebThreadMsgUtils").getMsgAiThread(e);
+      if (n != null && o("WAWebBotGating").isAiChatThreadsEnabled()) {
+        (o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(t, {
+          type: "MessageSearch",
+          msg: e,
+        }),
+          o("WAWebModalManager").ModalManager.close());
+        return;
+      }
       o("WAWebCmd")
         .Cmd.openChatAt({
           chat: t,

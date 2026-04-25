@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebBoolFunc",
     "WAWebBrokerGlobalAppState",
+    "WAWebBrowserInfo",
     "WAWebBuildConstants",
     "WAWebCrashContextUtils",
     "WAWebCrashLogWamEvent",
@@ -19,7 +20,6 @@ __d(
     "WAWebLoggerImpl",
     "WAWebLoggerOptimizer",
     "WAWebLoggerUtils",
-    "WAWebMiscBrowserUtils",
     "WAWebPriorLogs",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebURLUtils",
@@ -572,19 +572,20 @@ __d(
                       "",
                     ])),
                   te,
-                ),
-                o("WALogger").LOG(
-                  N ||
-                    (N = babelHelpers.taggedTemplateLiteralLoose([
-                      "Crashlog:doUpload check request agent: ",
-                      "",
-                    ])),
-                  o("WAWebCrashlogUserAgent").getLogUserAgent({
-                    device: r("WAWebMiscBrowserUtils").info().os,
-                    browser: r("WAWebMiscBrowserUtils").info().ua,
-                    appVersion: o("WAWebBuildConstants").VERSION_BASE,
-                  }),
                 ));
+              var ne = r("WAWebBrowserInfo")();
+              o("WALogger").LOG(
+                N ||
+                  (N = babelHelpers.taggedTemplateLiteralLoose([
+                    "Crashlog:doUpload check request agent: ",
+                    "",
+                  ])),
+                o("WAWebCrashlogUserAgent").getLogUserAgent({
+                  device: ne.os,
+                  browser: ne.ua,
+                  appVersion: o("WAWebBuildConstants").VERSION_BASE,
+                }),
+              );
               return;
             }
             if (J.status === 403) {
@@ -603,17 +604,17 @@ __d(
                   "Crashlog:doUpload skipping sampling check",
                 ])),
             );
-          var ne = null;
+          var re = null;
           if (J)
             try {
-              var re;
+              var oe;
               if (
-                ((ne = JSON.parse(yield J.text())),
-                ((re = ne) == null || (re = re.config) == null
+                ((re = JSON.parse(yield J.text())),
+                ((oe = re) == null || (oe = oe.config) == null
                   ? void 0
-                  : re.sampling) != null &&
-                  (ne.config.sampling === 0 ||
-                    Math.random() * ne.config.sampling > 1))
+                  : oe.sampling) != null &&
+                  (re.config.sampling === 0 ||
+                    Math.random() * re.config.sampling > 1))
               ) {
                 o("WALogger").LOG(
                   A ||
@@ -621,7 +622,7 @@ __d(
                       "Crashlog:doUpload server configured sampling check w/rate: ",
                       " prevented upload",
                     ])),
-                  ne.config.sampling,
+                  re.config.sampling,
                 );
                 return;
               }
@@ -635,20 +636,20 @@ __d(
                 String(e),
               );
             }
-          var oe = ge({ isHighPri: s });
-          m.appendToFormDataForUpload(oe, ne);
-          var ae = o("WAWebLoggerImpl").Logger.getLogs(
-            m.shouldUseLightWeightLogs(ne),
+          var ae = ge({ isHighPri: s });
+          m.appendToFormDataForUpload(ae, re);
+          var ie = o("WAWebLoggerImpl").Logger.getLogs(
+            m.shouldUseLightWeightLogs(re),
             B === j ? 0 : z,
           );
           if (B === j) {
-            var ie;
+            var le;
             n("cr:17160") == null ||
-              (ie = n("cr:17160").WAWebWindowsGetBridge()) == null ||
-              (ie = ie.getDebugFeatures()) == null ||
-              ie.sendAdminLogs();
+              (le = n("cr:17160").WAWebWindowsGetBridge()) == null ||
+              (le = le.getDebugFeatures()) == null ||
+              le.sendAdminLogs();
           }
-          var le =
+          var se =
               B === j
                 ? null
                 : n("cr:17160") == null ||
@@ -656,45 +657,45 @@ __d(
                     (i = i.getDebugFeatures()) == null
                   ? void 0
                   : i.requestNativeLogs(),
-            se = yield (q || (q = n("Promise"))).all([ae, le]),
-            ue = se[0],
-            ce = se[1];
+            ue = yield (q || (q = n("Promise"))).all([ie, se]),
+            ce = ue[0],
+            de = ue[1];
           r("gkx")("26258") &&
-            (ue = ue.map(o("WAWebLogLineSanitizer").sanitizeLine));
-          var de = ue.join("\n"),
-            me = new Blob([de], { type: "text/plain" });
-          if ((oe.append("file", me, "logs.txt"), ce != null)) {
-            var pe = new Blob([ce], { type: "text/plain" });
-            oe.append(
+            (ce = ce.map(o("WAWebLogLineSanitizer").sanitizeLine));
+          var me = ce.join("\n"),
+            pe = new Blob([me], { type: "text/plain" });
+          if ((ae.append("file", pe, "logs.txt"), de != null)) {
+            var _e = new Blob([de], { type: "text/plain" });
+            ae.append(
               "secondary_log_files[windows_hybrid]",
-              pe,
+              _e,
               "native_logs.txt",
             );
           }
           if (G != null) {
-            var _e = G();
-            if (_e.length > 0) {
-              var fe = new Blob([JSON.stringify(_e)], { type: "text/plain" });
-              oe.append(
+            var fe = G();
+            if (fe.length > 0) {
+              var Ce = new Blob([JSON.stringify(fe)], { type: "text/plain" });
+              ae.append(
                 "secondary_log_files[pathfinder]",
-                fe,
+                Ce,
                 "pathfinder_trace.json",
               );
             }
           }
-          var Ce = _;
+          var be = _;
           (K != null &&
-            (oe.append("bug_id", K), X && (Ce = Ce.concat("is_reporter"))),
-            Ce.length && oe.append("tags", Ce.join(",")),
-            r("isStringNullOrEmpty")(d) || oe.append("ticket_id", d));
-          var be = ye(c),
-            ve = yield self.fetch(be, { method: "POST", body: oe });
-          if (ve.status !== 200) {
-            var Se = "";
+            (ae.append("bug_id", K), X && (be = be.concat("is_reporter"))),
+            be.length && ae.append("tags", be.join(",")),
+            r("isStringNullOrEmpty")(d) || ae.append("ticket_id", d));
+          var ve = ye(c),
+            Se = yield self.fetch(ve, { method: "POST", body: ae });
+          if (Se.status !== 200) {
+            var Re = "";
             try {
-              Se = yield ve.text();
+              Re = yield Se.text();
             } catch (e) {
-              Se = "(failed to read response body)";
+              Re = "(failed to read response body)";
             }
             throw (
               o("WALogger").LOG(
@@ -703,18 +704,18 @@ __d(
                     "Crashlog:doUpload upload response body: ",
                     "",
                   ])),
-                Se,
+                Re,
               ),
               r("err")(
                 "Status code of " +
-                  ve.status +
+                  Se.status +
                   " from " +
-                  be +
+                  ve +
                   " was unexpected, expected 200",
               )
             );
           }
-          return ve.headers.get("X-Uploaded-File-Id");
+          return Se.headers.get("X-Uploaded-File-Id");
         })),
         _e.apply(this, arguments)
       );
@@ -735,7 +736,7 @@ __d(
           "is_meta_employee_or_internal_tester",
         ) && n.append("is_internal", "true"),
         n.append("from_jid", fe()));
-      var a = r("WAWebMiscBrowserUtils").info(),
+      var a = r("WAWebBrowserInfo")(),
         i = o("WAWebCrashlogUserAgent").getLogUserAgent({
           device: a.os,
           browser: a.ua,

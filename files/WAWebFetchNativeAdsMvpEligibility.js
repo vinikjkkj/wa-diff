@@ -13,7 +13,6 @@ __d(
     "WAWebRelayClient",
     "WAWebUserPrefsCTWA",
     "WAWebUserPrefsMeUser",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -73,17 +72,17 @@ __d(
                             );
                           var t = e.wa_smb_native_ads_web_info,
                             n = t.is_page_asset_linked,
-                            a = t.is_pageless_asset_linked,
-                            i = t.lifetime_native_ctwa_advertiser,
-                            l = t.webclient_l90_ad_creator,
-                            u = {
+                            r = t.is_pageless_asset_linked,
+                            a = t.lifetime_native_ctwa_advertiser,
+                            i = t.webclient_l90_ad_creator,
+                            l = {
                               lifetime_native_ctwa_advertiser:
-                                i != null ? i : !1,
-                              webclient_l90_ad_creator: l != null ? l : !1,
+                                a != null ? a : !1,
+                              webclient_l90_ad_creator: i != null ? i : !1,
                               is_page_asset_linked: n != null ? n : !1,
-                              is_pageless_asset_linked: a != null ? a : !1,
+                              is_pageless_asset_linked: r != null ? r : !1,
                             },
-                            c = { type: "success", data: u };
+                            u = { type: "success", data: l };
                           return (
                             o("WALogger").LOG(
                               s ||
@@ -91,15 +90,14 @@ __d(
                                   "fetchNativeAdsMvpEligibility: success",
                                 ])),
                             ),
-                            r("justknobx")._("4235") &&
-                              o(
-                                "WAWebUserPrefsCTWA",
-                              ).setNativeAdsMvpEligibility(u),
+                            o("WAWebUserPrefsCTWA").setNativeAdsMvpEligibility(
+                              l,
+                            ),
                             o("WAWebBackendApi").frontendFireAndForget(
                               "loadedNativeAdsMvpEligibility",
-                              c,
+                              u,
                             ),
-                            c
+                            u
                           );
                         })
                         .catch(function (e) {

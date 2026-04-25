@@ -258,7 +258,7 @@ __d(
                     "[history sync] updateCurrentlyProcessed failed with error ",
                     "",
                   ])),
-                e,
+                String(e),
               )
               .tags("history-sync");
           })

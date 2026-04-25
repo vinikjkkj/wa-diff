@@ -143,7 +143,7 @@ __d(
                           "handleE2eIdentityChange: addSecurityCodeChangedNotifications failed with: ",
                           "",
                         ])),
-                      e,
+                      String(e),
                     );
                   }),
                 o(
@@ -167,7 +167,7 @@ __d(
                             "handleE2eIdentityChange: ensureE2ESessions failed with: ",
                             "",
                           ])),
-                        e,
+                        String(e),
                       );
                     }),
                 yield o(
