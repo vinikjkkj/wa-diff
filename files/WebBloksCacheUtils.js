@@ -11,7 +11,9 @@ __d(
       return l.greaterThan(o.fromNumber(a));
     }
     function u(e, t) {
-      return e + ":" + c(t);
+      var n = {};
+      for (var r in t) t[r] !== void 0 && (n[r] = t[r]);
+      return e + ":" + c(n);
     }
     function c(e, t) {
       t === void 0 && (t = !1);
