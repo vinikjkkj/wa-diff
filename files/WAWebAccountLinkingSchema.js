@@ -19,6 +19,7 @@ __d(
           n("nonce"),
           n("fbid"),
           n("accesstoken"),
+          n("encryptedPassword"),
           n("pingInterval"),
           n("fbCrosspostingDestinationId"),
           n("igCrosspostingDestinationId"),

@@ -196,7 +196,8 @@ __d(
       if (
         t === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere &&
         e.isGroup &&
-        o("WAWebVoipGatingUtils").isDeviceSwitchingEnabled()
+        o("WAWebVoipGatingUtils").isDeviceSwitchingEnabled() &&
+        o("WAWebVoipGatingUtils").isCallTransferNotificationEnabled()
       ) {
         o("WALogger").LOG(
           p ||

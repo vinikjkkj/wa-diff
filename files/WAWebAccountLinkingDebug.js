@@ -167,7 +167,25 @@ __d(
         M.apply(this, arguments)
       );
     }
-    var w = {
+    function w() {
+      return A.apply(this, arguments);
+    }
+    function A() {
+      return (
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebAccountLinkingAPI").generateWAEntACUser({
+            rawPassword: "test",
+            disclosureId: 1,
+            disclosureVersion: "1",
+            disclosureLg: "en",
+            disclosureLc: "US",
+          });
+        })),
+        A.apply(this, arguments)
+      );
+    }
+    w.doc = "Generate WAEntACUser in debug mode";
+    var F = {
       updateAccountLinkingStateDebug: s,
       requestNonceFromPrimaryDebug: m,
       fetchValidCertificateDebug: _,
@@ -182,8 +200,9 @@ __d(
       scheduledWaffleJobsDebug: D,
       setPingIntervalDebug: $,
       updateUoomMutationDebug: N,
+      generateWAEntACUserDebug: w,
     };
-    l.default = w;
+    l.default = F;
   },
   98,
 );

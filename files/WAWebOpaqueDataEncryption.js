@@ -6,7 +6,7 @@ __d(
     "encodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = new Set(["accesstoken", "fbid", "nonce"]);
+    var e = new Set(["accesstoken", "fbid", "nonce", "encryptedPassword"]);
     function s(t) {
       var n = {};
       Object.keys(t).forEach(function (r) {

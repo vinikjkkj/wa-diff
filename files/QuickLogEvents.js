@@ -1433,6 +1433,11 @@ __d(
         name: "CREATE_PRODUCT_SET",
         sampleRate: 100,
       },
+      7741792: {
+        moduleName: "ADS_MANAGER",
+        name: "AMA_ODAX_DRAFT_FLOW",
+        sampleRate: 1,
+      },
       7741868: {
         moduleName: "ADS_MANAGER",
         name: "AMA_SEARCH_TAB",
@@ -10232,6 +10237,11 @@ __d(
         name: "DYNAMIC_PHOTO_EDIT",
         sampleRate: 1,
       },
+      55130483: {
+        moduleName: "STELLA_APP",
+        name: "DEVICE_JOB_SCHEDULED",
+        sampleRate: 1,
+      },
       55130790: {
         moduleName: "STELLA_APP",
         name: "SERVER_SEND_CLIPPY_REQUEST",
@@ -13616,7 +13626,7 @@ __d(
       85535069: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "SELLER_AGGREGATED_RATINGS",
-        sampleRate: 62696,
+        sampleRate: 56428,
       },
       85535330: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -13631,7 +13641,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 389471,
+        sampleRate: 312277,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14770,7 +14780,7 @@ __d(
       100335618: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH_AGGREGATED",
-        sampleRate: 14032,
+        sampleRate: 16135,
       },
       100338619: {
         moduleName: "ACCESS_LIBRARY",
@@ -14780,7 +14790,7 @@ __d(
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
-        sampleRate: 4704,
+        sampleRate: 5395,
       },
       100348897: {
         moduleName: "ACCESS_LIBRARY",
@@ -18827,6 +18837,11 @@ __d(
         name: "BACKGROUND_MEDIA_PROCESSING",
         sampleRate: 1,
       },
+      176563764: {
+        moduleName: "BASEL_CAMERA",
+        name: "DRAFT_DELETE_OPERATIONS",
+        sampleRate: 1,
+      },
       176567140: {
         moduleName: "BASEL_CAMERA",
         name: "AUDIO_ENGINE_READY",
@@ -19095,6 +19110,11 @@ __d(
       184626423: {
         moduleName: "WHATSAPP_DGW",
         name: "DGW_CONNECTIVITY",
+        sampleRate: 1e3,
+      },
+      184629742: {
+        moduleName: "WHATSAPP_DGW",
+        name: "DGW_SYNTHETIC_STREAM",
         sampleRate: 1e3,
       },
       185073665: {
@@ -30537,6 +30557,11 @@ __d(
         moduleName: "WP_WWW_MEETING_SPACE",
         name: "JOIN_MEETING_ROOM",
         sampleRate: 1,
+      },
+      369098753: {
+        moduleName: "WA_QR_CODE",
+        name: "CONTACT_QR_FETCH",
+        sampleRate: 250,
       },
       369168265: { moduleName: "VIZAGENT", name: "EDIT", sampleRate: 1 },
       369367807: {
@@ -44526,10 +44551,25 @@ __d(
         name: "LWI_CLIENT_FLOW",
         sampleRate: 1,
       },
+      585762541: {
+        moduleName: "GIZMO_MOBILE",
+        name: "CREATE_EXP",
+        sampleRate: 1,
+      },
+      585767532: {
+        moduleName: "GIZMO_MOBILE",
+        name: "PLAYER_SDK_PERF",
+        sampleRate: 100,
+      },
       585768498: {
         moduleName: "GIZMO_MOBILE",
         name: "GRPC_REQUEST",
         sampleRate: 1,
+      },
+      585774144: {
+        moduleName: "GIZMO_MOBILE",
+        name: "APP_EXP",
+        sampleRate: 100,
       },
       585774851: {
         moduleName: "GIZMO_MOBILE",

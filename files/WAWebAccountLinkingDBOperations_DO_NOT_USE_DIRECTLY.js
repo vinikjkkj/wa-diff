@@ -1,6 +1,7 @@
 __d(
   "WAWebAccountLinkingDBOperations_DO_NOT_USE_DIRECTLY",
   [
+    "WATimeUtils",
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingSchema",
     "WAWebBackendApi",
@@ -73,22 +74,30 @@ __d(
         m.apply(this, arguments)
       );
     }
-    function p(e) {
+    function p(e, t) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield h();
-          if (t != null) {
-            var n = babelHelpers.extends({}, t, { accesstoken: e });
-            return (
-              (n.accountLinkingOpaqueData = o(
-                "WAWebOpaqueDataEncryption",
-              ).moveEncFieldToOpaqueData(n)),
-              o("WAWebAccountLinkingSchema").getTable().createOrReplace(n)
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = yield C(),
+            r = babelHelpers.extends(
+              {
+                accountLinkKey: o("WAWebAccountLinkingConstants")
+                  .AccountLinkKey,
+                linkState: o("WAWebAccountLinkingConstants").AccountLinkState
+                  .Unknown,
+                linkTimestamp: o("WATimeUtils").unixTime(),
+              },
+              n,
+              { fbid: e, encryptedPassword: t },
             );
-          }
+          return (
+            (r.accountLinkingOpaqueData = o(
+              "WAWebOpaqueDataEncryption",
+            ).moveEncFieldToOpaqueData(r)),
+            o("WAWebAccountLinkingSchema").getTable().createOrReplace(r)
+          );
         })),
         _.apply(this, arguments)
       );
@@ -99,6 +108,26 @@ __d(
     function g() {
       return (
         (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield C();
+          if (t != null) {
+            var n = babelHelpers.extends({}, t, { accesstoken: e });
+            return (
+              (n.accountLinkingOpaqueData = o(
+                "WAWebOpaqueDataEncryption",
+              ).moveEncFieldToOpaqueData(n)),
+              o("WAWebAccountLinkingSchema").getTable().createOrReplace(n)
+            );
+          }
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebAccountLinkingSchema")
               .getTable()
               .get(o("WAWebAccountLinkingConstants").AccountLinkKey),
@@ -106,15 +135,15 @@ __d(
             r = babelHelpers.extends({}, t, { pingInterval: n });
           return o("WAWebAccountLinkingSchema").getTable().createOrReplace(r);
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h() {
-      return y.apply(this, arguments);
+    function C() {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t = yield o("WAWebAccountLinkingSchema")
               .getTable()
@@ -128,31 +157,32 @@ __d(
               accesstoken: r.accesstoken,
               fbid: r.fbid,
               nonce: r.nonce,
+              encryptedPassword: r.encryptedPassword,
             });
           }
           return t;
         })),
-        y.apply(this, arguments)
-      );
-    }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield h();
-          return e == null || e.pingInterval == null ? 0 : e.pingInterval;
-        })),
         b.apply(this, arguments)
       );
     }
-    function v(e) {
+    function v() {
       return S.apply(this, arguments);
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield C();
+          return e == null || e.pingInterval == null ? 0 : e.pingInterval;
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
@@ -192,15 +222,15 @@ __d(
               })(),
             );
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function L() {
+    function k() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return o("WAWebModelStorageUtils")
             .getStorage()
             .lock(
@@ -238,15 +268,15 @@ __d(
               })(),
             );
         })),
-        L.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function E() {
-      return k.apply(this, arguments);
+    function I() {
+      return T.apply(this, arguments);
     }
-    function k() {
+    function T() {
       return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebAccountLinkingSchema").getTable().clear(),
             o("WAWebBackendApi").frontendFireAndForget(
               "updateAccountLinkingStatus",
@@ -258,17 +288,17 @@ __d(
               },
             ));
         })),
-        k.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function I() {
-      return T.apply(this, arguments);
+    function D() {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
-            t = yield h();
+            t = yield C();
           return {
             isFBLinked:
               (t == null ? void 0 : t.fbCrosspostingDestinationId) != null,
@@ -280,20 +310,21 @@ __d(
                 : o("WAWebAccountLinkingConstants").AccountLinkState.Unlinked,
           };
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
     ((l.createOrUpdateAccountLinkingState = e),
       (l.updateAccountLinkingState = u),
       (l.updateAccountLinkingData = d),
-      (l.updateAccesstoken = p),
-      (l.updatePingInterval = f),
-      (l.getAccountLinkingData = h),
-      (l.getPingExpirationTime = C),
-      (l.updateServiceData = v),
-      (l.updateDestinationIdentities = R),
-      (l.purgeWaffleData = E),
-      (l.getAccountLinkingStatus = I));
+      (l.updateEntCreationData = p),
+      (l.updateAccesstoken = f),
+      (l.updatePingInterval = h),
+      (l.getAccountLinkingData = C),
+      (l.getPingExpirationTime = v),
+      (l.updateServiceData = R),
+      (l.updateDestinationIdentities = E),
+      (l.purgeWaffleData = I),
+      (l.getAccountLinkingStatus = D));
   },
   98,
 );

@@ -17,6 +17,7 @@ __d(
     "WAWebVoipActivityTracker",
     "WAWebVoipBrowserAudioStatus",
     "WAWebVoipCameraPrewarm",
+    "WAWebVoipCameraTrackConstraints",
     "WAWebVoipPopoutModalManager",
     "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
@@ -275,7 +276,7 @@ __d(
                 ) {
                   var i = t.type,
                     l = babelHelpers.objectWithoutPropertiesLoose(t, u);
-                  return Z({ params: l.params, targetWindow: l.targetWindow });
+                  return ee({ params: l.params, targetWindow: l.targetWindow });
                 }
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -662,14 +663,7 @@ __d(
     function K(e) {
       var t = e.device,
         n = e.params,
-        a = {
-          video: {
-            width: { ideal: n.width },
-            height: { ideal: n.height },
-            frameRate: { ideal: n.maxFps },
-          },
-          audio: !1,
-        };
+        a = { video: r("WAWebVoipCameraTrackConstraints")(n), audio: !1 };
       return (
         o("WALogger").LOG(
           p ||
@@ -705,12 +699,22 @@ __d(
         a
       );
     }
-    function Q(e, t, n) {
-      return X.apply(this, arguments);
+    function Q(e) {
+      return {
+        video: {
+          width: { ideal: e.width },
+          height: { ideal: e.height },
+          frameRate: { ideal: e.maxFps },
+        },
+        audio: !1,
+      };
     }
-    function X() {
+    function X(e, t, n) {
+      return Y.apply(this, arguments);
+    }
+    function Y() {
       return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
             var r,
               a,
@@ -797,17 +801,17 @@ __d(
             );
           }
         })),
-        X.apply(this, arguments)
+        Y.apply(this, arguments)
       );
     }
-    function Y(e, t, n, r) {
-      return J.apply(this, arguments);
+    function J(e, t, n, r) {
+      return Z.apply(this, arguments);
     }
-    function J() {
+    function Z() {
       return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield Q(t, n, r);
+            var a = yield X(t, n, r);
             return a.some(function (t) {
               return t.deviceId === e;
             })
@@ -823,18 +827,18 @@ __d(
                 !1);
           },
         )),
-        J.apply(this, arguments)
+        Z.apply(this, arguments)
       );
     }
-    function Z(e) {
-      return ee.apply(this, arguments);
+    function ee(e) {
+      return te.apply(this, arguments);
     }
-    function ee() {
+    function te() {
       return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.params,
             n = e.targetWindow,
-            r = t ? K({ params: t }) : { video: !0 },
+            r = t ? Q(t) : { video: !0 },
             a = babelHelpers.extends({}, r, {
               preferCurrentTab: !1,
               selfBrowserSurface: "exclude",
@@ -917,15 +921,15 @@ __d(
             return null;
           }
         })),
-        ee.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
     ((l.getBrowserAudioProcessingStatus = x),
       (l.queryPermissionStatus = M),
       (l.checkVoipDevicePermissions = O),
       (l.acquireVoipMediaStream = W),
-      (l.getAvailableVideoDevices = Q),
-      (l.getIsValidVideoDevice = Y));
+      (l.getAvailableVideoDevices = X),
+      (l.getIsValidVideoDevice = J));
   },
   98,
 );

@@ -175,13 +175,18 @@ __d(
       );
     }
     function $() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "enable_call_transfer_notification",
+      );
+    }
+    function P() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "call_info_optimizations_version",
         ) >= 1
       );
     }
-    function P() {
+    function N() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_calling_full_screen_toggle_enabled",
       );
@@ -203,8 +208,9 @@ __d(
       (l.isWebTransportEnabled = T),
       (l.isWinHybridJoinableCallsEnabled = D),
       (l.isDeviceSwitchingEnabled = x),
-      (l.isCallInfoOptimizationsEnabled = $),
-      (l.isFullScreenToggleEnabled = P));
+      (l.isCallTransferNotificationEnabled = $),
+      (l.isCallInfoOptimizationsEnabled = P),
+      (l.isFullScreenToggleEnabled = N));
   },
   98,
 );

@@ -7,6 +7,7 @@ __d(
     "WAWebLocalStorage",
     "WAWebMediaPermissionsUtils",
     "WAWebNoop",
+    "WAWebVoipCameraTrackConstraints",
     "WAWebVoipConverterPrewarm",
     "WAWebVoipPerfOptimizations",
     "WAWebVoipResolutionCap",
@@ -127,11 +128,11 @@ __d(
                 o("WAWebVoipConverterPrewarm").prewarmConverter(k, L));
               var I = u
                 .getUserMedia({
-                  video: {
-                    width: { ideal: k },
-                    height: { ideal: L },
-                    frameRate: { ideal: E },
-                  },
+                  video: r("WAWebVoipCameraTrackConstraints")({
+                    width: k,
+                    height: L,
+                    maxFps: E,
+                  }),
                   audio: !1,
                 })
                 .then(function (e) {
@@ -184,9 +185,9 @@ __d(
     }
     function T(e, t) {
       var n,
-        r,
-        a = e.getVideoTracks()[0];
-      if (a == null) {
+        a,
+        i = e.getVideoTracks()[0];
+      if (i == null) {
         (o("WALogger").WARN(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -196,23 +197,19 @@ __d(
           (b = null));
         return;
       }
-      var i = b;
+      var l = b;
       if (
         ((b = null),
         !(
-          i != null &&
-          t.width === i.width &&
-          t.height === i.height &&
-          t.maxFps === i.maxFps
+          l != null &&
+          t.width === l.width &&
+          t.height === l.height &&
+          t.maxFps === l.maxFps
         ))
       ) {
-        var l = (n = i == null ? void 0 : i.width) != null ? n : g,
-          c = (r = i == null ? void 0 : i.height) != null ? r : h;
-        a.applyConstraints({
-          width: { ideal: t.width },
-          height: { ideal: t.height },
-          frameRate: { ideal: t.maxFps },
-        })
+        var c = (n = l == null ? void 0 : l.width) != null ? n : g,
+          d = (a = l == null ? void 0 : l.height) != null ? a : h;
+        i.applyConstraints(r("WAWebVoipCameraTrackConstraints")(t))
           .then(function () {
             S(t);
           })
