@@ -3,6 +3,7 @@ __d(
   [
     "WADeprecatedSendIq",
     "WAJids",
+    "WALogger",
     "WAWap",
     "WAWebCommsWapMd",
     "WAWebOnlineDanglingReceipts",
@@ -10,32 +11,44 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r, o, a) {
-      return s.apply(this, arguments);
+    var e;
+    function s(e, t, n, r, o, a) {
+      return u.apply(this, arguments);
     }
-    function s() {
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i) {
-            var l =
-                (t.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(t)) ||
-                (r != null && o("WAWebUserPrefsMeUser").isMeAccount(r)),
-              s = i.hasInactiveMsg === !0 && !l,
-              c = !s;
-            u(e, t, n, r, c, l, a);
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, n, a, i, l, s) {
+            var u =
+                (n.isUser() && o("WAWebUserPrefsMeUser").isMeAccount(n)) ||
+                (i != null && o("WAWebUserPrefsMeUser").isMeAccount(i)),
+              d = s.hasInactiveMsg === !0 && !u,
+              m = !d;
+            c(t, n, a, i, m, u, l).catch(function (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "sendDeliveryReceipt failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("send-delivery-receipt-error", { sampling: 0.01 });
+            });
           },
         )),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function u(e, t, n, r, o, a, i) {
-      return c.apply(this, arguments);
+    function c(e, t, n, r, o, a, i) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i, l) {
             var s = o("WAWap").DROP_ATTR;
             l
@@ -70,10 +83,10 @@ __d(
               o("WADeprecatedSendIq").deprecatedCastStanza(c));
           },
         )),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    l.sendDeliveryReceiptsAfterDecryption = e;
+    l.sendDeliveryReceiptsAfterDecryption = s;
   },
   98,
 );
