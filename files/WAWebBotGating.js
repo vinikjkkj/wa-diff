@@ -284,15 +284,10 @@ __d(
     }
     function z() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ai_dynamic_model_branding_enabled",
-      );
-    }
-    function j() {
-      return o("WAWebABProps").getABPropConfigValue(
         "ai_dynamic_mode_selector_ttl_seconds",
       );
     }
-    function K() {
+    function j() {
       return (
         o("WAWebBotBaseGating").isBotEnabled() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -300,7 +295,7 @@ __d(
         )
       );
     }
-    function Q() {
+    function K() {
       var e;
       return !o("WAWebBotBaseGating").isBotEnabled() ||
         !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
@@ -315,7 +310,7 @@ __d(
             "ai_web_meta_ai_image_input_enabled",
           );
     }
-    function X() {
+    function Q() {
       var e;
       return !o("WAWebBotBaseGating").isBotEnabled() ||
         !o("WAWebBotBaseGating").isDeviceLanguageInLanguages(
@@ -330,35 +325,35 @@ __d(
             "ai_web_meta_ai_pdf_document_input_enabled",
           );
     }
-    var Y = "pdf";
-    function J() {
+    var X = "pdf";
+    function Y() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_supported_file_types",
       );
-      return e !== "" ? e : Y;
+      return e !== "" ? e : X;
     }
-    function Z() {
+    function J() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_count_limit",
       );
     }
-    function ee() {
+    function Z() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_metabot_send_image_limit",
       );
     }
-    function te() {
+    function ee() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_metabot_document_ocr_image_conversion_enabled",
       );
     }
-    function ne(e, t) {
+    function te(e, t) {
       return t != null && o("WAWebBotUtils").isMetaAiBot(e) && W();
     }
-    function re(e) {
+    function ne(e) {
       return o("WAWebBotUtils").isMetaAiBot(e) && W();
     }
-    function oe() {
+    function re() {
       var e,
         t = o("WAWebABProps").getABPropConfigValue(
           "ai_chat_threads_implicit_routing_strategy",
@@ -370,21 +365,21 @@ __d(
         : o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
             .NewThread;
     }
-    function ae() {
+    function oe() {
       return (
-        oe() !==
+        re() !==
         o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
           .NewThread
       );
     }
-    function ie() {
+    function ae() {
       return (
-        oe() ===
+        re() ===
         o("WAWebImplicitThreadRoutingStrategy").ImplicitThreadRoutingStrategy
           .DefaultThread
       );
     }
-    function le() {
+    function ie() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_bot_integration_bot_profile",
       );
@@ -397,7 +392,7 @@ __d(
         }
       return "";
     }
-    function se() {
+    function le() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_bot_integration_bot_profile",
       );
@@ -410,7 +405,7 @@ __d(
         }
       return "";
     }
-    function ue() {
+    function se() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -423,7 +418,7 @@ __d(
         }
       return "";
     }
-    function ce() {
+    function ue() {
       return (
         W() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -431,34 +426,34 @@ __d(
         ) === !0
       );
     }
-    function de() {
+    function ce() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_chat_threads_pin_max_count",
       );
     }
-    function me() {
+    function de() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_commands_enabled",
       );
     }
-    function pe() {
+    function me() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_video_upload_enabled",
       );
     }
-    function _e() {
+    function pe() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_document_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    function fe() {
+    function _e() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_file_upload_size_limit_mb",
       );
       return e * 1024 * 1024;
     }
-    function ge() {
+    function fe() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_integration_bot_profile",
       );
@@ -507,31 +502,30 @@ __d(
       (l.isAskMetaAiEnabled = V),
       (l.isAiModeSelectorInteractive = H),
       (l.isRichResponseReasoningEnabled = G),
-      (l.isDynamicModelBrandingEnabled = z),
-      (l.getAiDynamicModeSelectorTtlSeconds = j),
-      (l.isAiChatThreadsHistoricalMessageMigrationEnabled = K),
-      (l.isMetaAiImageInputEnabled = Q),
-      (l.isMetaAiDocUploadEnabled = X),
-      (l.META_AI_DEFAULT_SUPPORTED_FILE_TYPES = Y),
-      (l.getMetaAiSupportedFileTypes = J),
-      (l.getMetaAiFileUploadCountLimit = Z),
-      (l.getMetaAiImageSendLimit = ee),
-      (l.isMetaAiDocumentOcrImageConversionEnabled = te),
-      (l.shouldSkipMetaAiChatlistHighlight = ne),
-      (l.isMetaAiChatInThreadsMode = re),
-      (l.getImplicitThreadRoutingStrategy = oe),
-      (l.isImplicitThreadRoutingEnabled = ae),
-      (l.isDefaultThreadRoutingEnabled = ie),
-      (l.getManusBotName = le),
-      (l.getManusBotProfileThumb = se),
-      (l.getHatchBotName = ue),
-      (l.isAiThreadPinEnabled = ce),
-      (l.getAiThreadPinMaxCount = de),
-      (l.isHatchCommandsEnabled = me),
-      (l.isHatchVideoUploadEnabled = pe),
-      (l.getHatchDocumentUploadSizeLimitBytes = _e),
-      (l.getMetaAiDocumentUploadSizeLimitBytes = fe),
-      (l.getHatchBotProfileThumb = ge));
+      (l.getAiDynamicModeSelectorTtlSeconds = z),
+      (l.isAiChatThreadsHistoricalMessageMigrationEnabled = j),
+      (l.isMetaAiImageInputEnabled = K),
+      (l.isMetaAiDocUploadEnabled = Q),
+      (l.META_AI_DEFAULT_SUPPORTED_FILE_TYPES = X),
+      (l.getMetaAiSupportedFileTypes = Y),
+      (l.getMetaAiFileUploadCountLimit = J),
+      (l.getMetaAiImageSendLimit = Z),
+      (l.isMetaAiDocumentOcrImageConversionEnabled = ee),
+      (l.shouldSkipMetaAiChatlistHighlight = te),
+      (l.isMetaAiChatInThreadsMode = ne),
+      (l.getImplicitThreadRoutingStrategy = re),
+      (l.isImplicitThreadRoutingEnabled = oe),
+      (l.isDefaultThreadRoutingEnabled = ae),
+      (l.getManusBotName = ie),
+      (l.getManusBotProfileThumb = le),
+      (l.getHatchBotName = se),
+      (l.isAiThreadPinEnabled = ue),
+      (l.getAiThreadPinMaxCount = ce),
+      (l.isHatchCommandsEnabled = de),
+      (l.isHatchVideoUploadEnabled = me),
+      (l.getHatchDocumentUploadSizeLimitBytes = pe),
+      (l.getMetaAiDocumentUploadSizeLimitBytes = _e),
+      (l.getHatchBotProfileThumb = fe));
   },
   98,
 );

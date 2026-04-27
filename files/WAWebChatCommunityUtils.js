@@ -3,7 +3,6 @@ __d(
   [
     "WAWebChatCollection",
     "WAWebChatGroupUtils",
-    "WAWebCommunityGatingUtils",
     "WAWebFrontendContactGetters",
     "WAWebGroupMetadataCollection",
     "WAWebGroupType",
@@ -21,8 +20,7 @@ __d(
         ? (e == null || (t = e.groupMetadata) == null
             ? void 0
             : t.groupType) === o("WAWebGroupType").GroupType.COMMUNITY &&
-            o("WAWebChatGroupUtils").isSuspendedGroup(e) &&
-            o("WAWebCommunityGatingUtils").isCommunitySuspendAppealEnabled()
+            o("WAWebChatGroupUtils").isSuspendedGroup(e)
         : !1;
     }
     function u(e) {

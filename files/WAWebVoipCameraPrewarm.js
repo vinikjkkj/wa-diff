@@ -7,6 +7,7 @@ __d(
     "WAWebLocalStorage",
     "WAWebMediaPermissionsUtils",
     "WAWebNoop",
+    "WAWebUserPrefsVoip",
     "WAWebVoipCameraTrackConstraints",
     "WAWebVoipConverterPrewarm",
     "WAWebVoipPerfOptimizations",
@@ -126,15 +127,15 @@ __d(
                 k = S.width;
               ((b = { width: k, height: L, maxFps: E }),
                 o("WAWebVoipConverterPrewarm").prewarmConverter(k, L));
-              var I = u
-                .getUserMedia({
-                  video: r("WAWebVoipCameraTrackConstraints")({
-                    width: k,
-                    height: L,
-                    maxFps: E,
-                  }),
-                  audio: !1,
-                })
+              var I = o("WAWebUserPrefsVoip").getSelectedVideoInputDevice(),
+                T = r("WAWebVoipCameraTrackConstraints")({
+                  width: k,
+                  height: L,
+                  maxFps: E,
+                });
+              I != null && (T.deviceId = { ideal: I });
+              var D = u
+                .getUserMedia({ video: T, audio: !1 })
                 .then(function (e) {
                   return _
                     ? (e.getTracks().forEach(function (e) {
@@ -160,7 +161,7 @@ __d(
                     null
                   );
                 });
-              m = { streamPromise: I };
+              m = { streamPromise: D };
             } finally {
               ((p = !1), e());
             }

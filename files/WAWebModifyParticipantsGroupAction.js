@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebActionToast.react",
-    "WAWebCommunityGatingUtils",
     "WAWebCommunityRestrictedGroupActionModal.react",
     "WAWebFbtIntlList",
     "WAWebFrontendContactGetters",
@@ -160,24 +159,18 @@ __d(
                   },
                 );
                 switch (n.status) {
-                  case 416:
-                    if (
-                      o(
-                        "WAWebCommunityGatingUtils",
-                      ).isCommunitySuspendAppealEnabled()
-                    ) {
-                      var u = s._(/*BTDS*/ "This action is not available");
-                      throw (
-                        o("WAWebModalManager").ModalManager.open(
-                          h.jsx(
-                            r("WAWebCommunityRestrictedGroupActionModal.react"),
-                            { chat: e },
-                          ),
+                  case 416: {
+                    var u = s._(/*BTDS*/ "This action is not available");
+                    throw (
+                      o("WAWebModalManager").ModalManager.open(
+                        h.jsx(
+                          r("WAWebCommunityRestrictedGroupActionModal.react"),
+                          { chat: e },
                         ),
-                        new (o("WAWebActionToast.react").ActionType)(u)
-                      );
-                    }
-                    throw (i == null || i(), l);
+                      ),
+                      new (o("WAWebActionToast.react").ActionType)(u)
+                    );
+                  }
                   case 419:
                     throw new (o("WAWebActionToast.react").ActionType)(
                       s._(

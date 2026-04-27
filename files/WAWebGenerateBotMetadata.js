@@ -264,13 +264,6 @@ __d(
                 .SESSION_TRANSPARENCY_SYSTEM_MESSAGE,
             ]
           : [],
-        o("WAWebBotGating").isDynamicModelBrandingEnabled()
-          ? [
-              o("WAWebProtobufsAICommon.pb")
-                .BotCapabilityMetadata$BotCapabilityType
-                .AI_RESPONSE_MODEL_BRANDING,
-            ]
-          : [],
       );
       return t.length === 0 ? void 0 : { capabilities: t };
     }

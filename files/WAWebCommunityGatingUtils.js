@@ -62,11 +62,6 @@ __d(
     }
     function y() {
       return o("WAWebABProps").getABPropConfigValue(
-        "enable_community_suspend_and_appeals",
-      );
-    }
-    function C() {
-      return o("WAWebABProps").getABPropConfigValue(
         "improve_subgroup_activation_subgroup_poll_interval",
       );
     }
@@ -81,8 +76,7 @@ __d(
       (l.memberSuggestedGroupsM3ReceiverEnabled = f),
       (l.memberSuggestedGroupsM3SenderEnabled = g),
       (l.communityGeneralChatV2Enabled = h),
-      (l.isCommunitySuspendAppealEnabled = y),
-      (l.communityPollIntervalTimeInSeconds = C));
+      (l.communityPollIntervalTimeInSeconds = y));
   },
   98,
 );

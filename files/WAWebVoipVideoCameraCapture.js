@@ -106,10 +106,16 @@ __d(
                     ((y = C),
                     o("WAWebUserPrefsVoip").clearLandingPageVideoDeviceId());
                 }
-                r("isStringNullOrEmpty")(y) &&
-                  this.currentDeviceId != null &&
-                  (y = this.currentDeviceId);
-                var b =
+                if (
+                  (r("isStringNullOrEmpty")(y) &&
+                    this.currentDeviceId != null &&
+                    (y = this.currentDeviceId),
+                  r("isStringNullOrEmpty")(y))
+                ) {
+                  var b = o("WAWebUserPrefsVoip").getSelectedVideoInputDevice();
+                  b != null && (y = b);
+                }
+                var v =
                   g != null
                     ? g
                     : o("WAWebUA").UA.isFirefox
@@ -117,11 +123,11 @@ __d(
                       : null;
                 if (!r("isStringNullOrEmpty")(y))
                   try {
-                    var v = yield o("WAWebBackendApi").frontendSendAndReceive(
+                    var S = yield o("WAWebBackendApi").frontendSendAndReceive(
                       "getIsValidVideoDevice",
-                      { deviceId: y, targetWindow: b, isInActiveCall: !0 },
+                      { deviceId: y, targetWindow: v, isInActiveCall: !0 },
                     );
-                    v ||
+                    S ||
                       (o("WALogger").LOG(
                         s ||
                           (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -146,8 +152,8 @@ __d(
                 this.captureParams = o(
                   "WAWebVoipResolutionCap",
                 ).applyLowEndResolutionCap({ width: a, height: i, maxFps: l });
-                var S = null,
-                  R = (function () {
+                var R = null,
+                  L = (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* () {
                         if (
@@ -184,7 +190,7 @@ __d(
                             var i = a.getSettings();
                             i.deviceId != null &&
                               i.deviceId !== "" &&
-                              (S = i.deviceId);
+                              (R = i.deviceId);
                           }
                           return (
                             a == null ||
@@ -276,7 +282,7 @@ __d(
                 (yield this.__startCapture(
                   babelHelpers.extends(
                     {
-                      getMediaStream: R,
+                      getMediaStream: L,
                       onVideoDataFnType: "onVideoDataFromJs",
                     },
                     r("nullthrows")(this.captureParams),
@@ -284,10 +290,12 @@ __d(
                 ),
                   this.__lastCapturedStream != null &&
                     this.__monitorFrameProduction(this.__lastCapturedStream));
-                var L = S != null ? S : y;
-                this.currentDeviceId !== L &&
-                  ((this.currentDeviceId = L),
-                  B.trigger("deviceSelectionChanged", [L]),
+                var E = R != null ? R : y;
+                this.currentDeviceId !== E &&
+                  ((this.currentDeviceId = E),
+                  r("isStringNullOrEmpty")(E) ||
+                    o("WAWebUserPrefsVoip").setSelectedVideoInputDevice(E),
+                  B.trigger("deviceSelectionChanged", [E]),
                   o("WALogger").LOG(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -296,7 +304,7 @@ __d(
                         "",
                       ])),
                     y,
-                    L,
+                    E,
                   ));
               },
             );

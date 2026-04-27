@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
     "WAWebCreateNackFromStanza",
@@ -37,7 +38,8 @@ __d(
       f,
       g,
       h,
-      y = n("$InternalEnum").Mirrored([
+      y,
+      C = n("$InternalEnum").Mirrored([
         "SignalRetryable",
         "SignalDuplicateMessage",
         "UnknownDevice",
@@ -47,32 +49,32 @@ __d(
         "BroadcastEphSettings",
         "Unknown",
       ]),
-      C = new Set([y.SignalRetryable]);
-    function b(e) {
-      return e.message === "errDuplicateMsg"
-        ? y.SignalDuplicateMessage
-        : y.SignalRetryable;
-    }
+      b = new Set([C.SignalRetryable]);
     function v(e) {
+      return e.message === "errDuplicateMsg"
+        ? C.SignalDuplicateMessage
+        : C.SignalRetryable;
+    }
+    function S(e) {
       return e instanceof o("WAWebHandleMsgError").UnknownDeviceMessageError
-        ? y.UnknownDevice
+        ? C.UnknownDevice
         : e instanceof o("WAWebSignalCommonErrors").SignalDecryptionError
-          ? b(e)
+          ? v(e)
           : e instanceof o("WAWebSignalCommonErrors").SignalMessageCounterError
-            ? y.SignalDuplicateMessage
+            ? C.SignalDuplicateMessage
             : e instanceof o("WAWebHandleMsgError").DeviceSentMessageError
-              ? y.DeviceSentMessage
+              ? C.DeviceSentMessage
               : e instanceof o("WAWebHandleMsgError").MessageValidationError
-                ? y.InvalidProtobuf
+                ? C.InvalidProtobuf
                 : e instanceof o("WAWebHandleMsgCommon").HsmMismatchError
-                  ? y.HsmMismatch
+                  ? C.HsmMismatch
                   : e instanceof
                       o("WAWebEphemeralDecodeBroadcastSetting")
                         .BroadcastEphSettingsError
-                    ? y.BroadcastEphSettings
-                    : y.Unknown;
+                    ? C.BroadcastEphSettings
+                    : C.Unknown;
     }
-    function S(e) {
+    function R(e) {
       var t = {
         accessedEncs: new Set(),
         pkOrMsgFailedEnc: null,
@@ -80,26 +82,26 @@ __d(
       };
       return {
         handleError: function (r, a) {
-          var n = v(a);
+          var n = S(a);
           (r.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Skmsg
             ? (t.skMsgFailedEnc = { enc: r, error: a, errorType: n })
             : (t.pkOrMsgFailedEnc = { enc: r, error: a, errorType: n }),
-            I(e, { enc: r, error: a, errorType: n }));
+            D(e, { enc: r, error: a, errorType: n }));
         },
         canDecryptNext: function (n) {
           var e;
-          r("gkx")("26258") || D();
+          r("gkx")("26258") || $();
           var o = (e = t.pkOrMsgFailedEnc) == null ? void 0 : e.errorType;
-          return o != null && C.has(o)
+          return o != null && b.has(o)
             ? !1
             : (t.accessedEncs.add(n.e2eType), !0);
         },
         getResult: function (r) {
-          return L(e, t, r);
+          return E(e, t, r);
         },
       };
     }
-    function R(e) {
+    function L(e) {
       var t = e.msgInfo,
         n = t.chat,
         r = t.ts;
@@ -111,12 +113,12 @@ __d(
       }
       return !1;
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
+    function E(e, t, n) {
+      return k.apply(this, arguments);
     }
-    function E() {
+    function k() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r,
             a = (r = t.skMsgFailedEnc) != null ? r : t.pkOrMsgFailedEnc,
             i =
@@ -130,7 +132,7 @@ __d(
               result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.SUCCESS,
               hasInactiveMsg: n,
             };
-          (k(e, t), T(e, t));
+          (I(e, t), x(e, t));
           var l = a.enc,
             s = a.error,
             u = a.errorType,
@@ -142,7 +144,7 @@ __d(
                 o("WAWebEphemeralDecodeBroadcastSetting")
                   .BroadcastEphSettingsError) &&
               ((c = o("WAWebSendRetryReceiptJob").getRetryReasonFromError(s)),
-              u !== y.SignalDuplicateMessage &&
+              u !== C.SignalDuplicateMessage &&
                 (l.hideFail ||
                   (yield o("WAWebHandleMsgProcess").processPlaceholderMsg({
                     type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
@@ -154,24 +156,24 @@ __d(
                       "WAWebBackendJobsCommon",
                     ).getPlaceholderAddReason(s, e),
                   })))),
-            u === y.SignalRetryable || u === y.UnknownDevice
+            u === C.SignalRetryable || u === C.UnknownDevice
               ? {
                   result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY,
                   retryCount: l.retryCount,
                   retryReason: c,
                 }
-              : u === y.SignalDuplicateMessage
+              : u === C.SignalDuplicateMessage
                 ? {
                     result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
                       .SIGNAL_OLD_COUNTER_ERROR,
                     failedEnc: l,
                   }
-                : u === y.DeviceSentMessage
+                : u === C.DeviceSentMessage
                   ? {
                       result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
                         .PARSE_VALIDATION_ERROR,
                     }
-                  : u === y.InvalidProtobuf
+                  : u === C.InvalidProtobuf
                     ? {
                         result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
                           .PARSE_VALIDATION_ERROR,
@@ -181,12 +183,12 @@ __d(
                             ? s.e2eFailureReason
                             : void 0,
                       }
-                    : u === y.HsmMismatch
+                    : u === C.HsmMismatch
                       ? {
                           result: o("WAWebHandleMsgTypes.flow").E2EProcessResult
                             .HSM_MISMATCH,
                         }
-                      : u === y.BroadcastEphSettings
+                      : u === C.BroadcastEphSettings
                         ? {
                             result: o("WAWebHandleMsgTypes.flow")
                               .E2EProcessResult.RETRY,
@@ -196,7 +198,7 @@ __d(
                               .E2E_FAILURE_REASON
                               .INVALID_BROADCAST_STANZA_ATTRIBUTE,
                           }
-                        : u === y.Unknown
+                        : u === C.Unknown
                           ? {
                               result: o("WAWebHandleMsgTypes.flow")
                                 .E2EProcessResult.PARSE_ERROR,
@@ -209,10 +211,10 @@ __d(
                             })()
           );
         })),
-        E.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function k(e, t) {
+    function I(e, t) {
       var n = t.pkOrMsgFailedEnc,
         r = t.skMsgFailedEnc,
         a = e.msgInfo,
@@ -222,7 +224,7 @@ __d(
         var s = l.enc,
           u = l.error,
           c = l.errorType;
-        if (R(e)) {
+        if (L(e)) {
           o(
             "WAWebPostIncomingMessageDropMetric",
           ).postIncomingMessageDropExpired({
@@ -237,14 +239,14 @@ __d(
           return;
         }
         switch (c) {
-          case y.SignalRetryable:
-          case y.UnknownDevice:
-          case y.HsmMismatch:
-          case y.BroadcastEphSettings:
-          case y.SignalDuplicateMessage:
+          case C.SignalRetryable:
+          case C.UnknownDevice:
+          case C.HsmMismatch:
+          case C.BroadcastEphSettings:
+          case C.SignalDuplicateMessage:
             break;
-          case y.InvalidProtobuf:
-          case y.DeviceSentMessage: {
+          case C.InvalidProtobuf:
+          case C.DeviceSentMessage: {
             o(
               "WAWebPostIncomingMessageDropMetric",
             ).postIncomingMessageDropInvalidProtobuf({
@@ -258,7 +260,7 @@ __d(
             });
             break;
           }
-          case y.Unknown:
+          case C.Unknown:
             o(
               "WAWebPostIncomingMessageDropMetric",
             ).postIncomingMessageDropInvalidStanzaFromDecryptedMessageInfo({
@@ -269,21 +271,64 @@ __d(
         }
       }
     }
-    function I(t, n) {
-      var a = t.msgBotInfo,
-        i = t.msgInfo,
-        l = t.msgMeta,
-        g = n.enc,
-        h = n.error,
-        C = n.errorType,
-        b = o("WAWebMsgProcessingApiUtils").getFrom(i);
+    function T(t, n, r) {
+      var a, i, l, s, u, c, d, m, p, _;
+      o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0 &&
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[pnless-stanza] duplicate msg id:",
+                " e2eType:",
+                " chat:",
+                " from:",
+                " senderPn:",
+                " senderLid:",
+                " participant:",
+                " participantPn:",
+                " participantLid:",
+                "",
+              ])),
+            t.externalId,
+            n.e2eType,
+            t.chat.toLogString(),
+            r.toLogString(),
+            (a = (i = t.senderPn) == null ? void 0 : i.toLogString()) != null
+              ? a
+              : "null",
+            (l = (s = t.senderLid) == null ? void 0 : s.toLogString()) != null
+              ? l
+              : "null",
+            (u = (c = t.participant) == null ? void 0 : c.toLogString()) != null
+              ? u
+              : "null",
+            (d = (m = t.participantPn) == null ? void 0 : m.toLogString()) !=
+              null
+              ? d
+              : "null",
+            (p = (_ = t.participantLid) == null ? void 0 : _.toLogString()) !=
+              null
+              ? p
+              : "null",
+          )
+          .tags("messaging", "pnless-stanzas")
+          .sendLogs("pnless-duplicate-msg");
+    }
+    function D(e, t) {
+      var n = e.msgBotInfo,
+        a = e.msgInfo,
+        i = e.msgMeta,
+        l = t.enc,
+        h = t.error,
+        y = t.errorType,
+        b = o("WAWebMsgProcessingApiUtils").getFrom(a);
       switch (
         (o("WAWebPostE2eMessageRecvMetric").postFailureE2eMessageRecvMetric({
-          enc: g,
+          enc: l,
           from: b,
-          msgMeta: l,
-          msgInfo: i,
-          msgBotInfo: a,
+          msgMeta: i,
+          msgInfo: a,
+          msgBotInfo: n,
           error:
             h instanceof o("WAWebHandleMsgError").MessageValidationError
               ? h
@@ -291,52 +336,54 @@ __d(
         }),
         o("WALogger")
           .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "decryptE2EPayload: msgId::",
                 " e2eType:",
                 " error:",
                 "",
               ])),
-            i.externalId,
-            g.e2eType,
+            a.externalId,
+            l.e2eType,
             h.stack,
           )
           .tags("messaging"),
-        C)
+        y)
       ) {
-        case y.SignalDuplicateMessage:
+        case C.SignalDuplicateMessage: {
+          T(a, l, b);
           break;
-        case y.SignalRetryable:
-        case y.UnknownDevice: {
+        }
+        case C.SignalRetryable:
+        case C.UnknownDevice: {
           r("gkx")("26258") ||
             o("WALogger")
               .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "decryptE2EPayload: e2eType:",
                     " error:",
                     "",
                   ])),
-                g.e2eType,
+                l.e2eType,
                 h,
               )
               .tags("messaging")
               .sendLogs("handleMsg: decryption error");
           break;
         }
-        case y.InvalidProtobuf: {
+        case C.InvalidProtobuf: {
           h instanceof o("WAWebHandleMsgError").MessageValidationError &&
-            (o("WAWebIsOfficialClient").isUnofficialStanzaId(i.externalId)
+            (o("WAWebIsOfficialClient").isUnofficialStanzaId(a.externalId)
               ? o("WALogger")
                   .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "decryptE2EPayload: e2eType:",
                         " error:",
                         "",
                       ])),
-                    g.e2eType,
+                    l.e2eType,
                     h,
                   )
                   .tags("messaging")
@@ -348,26 +395,26 @@ __d(
                     o("WAWebHandleMsgError").MessageProtobufInvalidMessageTypes
                 ? o("WALogger")
                     .WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "decryptE2EPayload: e2eType:",
-                          " error:",
-                          "",
-                        ])),
-                      g.e2eType,
-                      h,
-                    )
-                    .tags("messaging")
-                    .sendLogs("(intern) handleMsg: " + h.name)
-                : o("WALogger")
-                    .WARN(
                       d ||
                         (d = babelHelpers.taggedTemplateLiteralLoose([
                           "decryptE2EPayload: e2eType:",
                           " error:",
                           "",
                         ])),
-                      g.e2eType,
+                      l.e2eType,
+                      h,
+                    )
+                    .tags("messaging")
+                    .sendLogs("(intern) handleMsg: " + h.name)
+                : o("WALogger")
+                    .WARN(
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "decryptE2EPayload: e2eType:",
+                          " error:",
+                          "",
+                        ])),
+                      l.e2eType,
                       h,
                     )
                     .tags("messaging")
@@ -377,43 +424,27 @@ __d(
                     ));
           break;
         }
-        case y.DeviceSentMessage: {
+        case C.DeviceSentMessage: {
           o("WALogger")
             .WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "decryptE2EPayload: e2eType:",
                   " infoType:",
                   " isDirect:",
                   " error:",
                   "",
                 ])),
-              g.e2eType,
-              i.type,
-              i.isDirect,
+              l.e2eType,
+              a.type,
+              a.isDirect,
               h,
             )
             .tags("messaging")
             .sendLogs("handleMsg: parse device sent message error");
           break;
         }
-        case y.HsmMismatch: {
-          o("WALogger")
-            .WARN(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "decryptE2EPayload: e2eType:",
-                  " error:",
-                  "",
-                ])),
-              g.e2eType,
-              h,
-            )
-            .tags("messaging")
-            .sendLogs("handleMsg: hsm mismatch error");
-          break;
-        }
-        case y.BroadcastEphSettings: {
+        case C.HsmMismatch: {
           o("WALogger")
             .WARN(
               _ ||
@@ -422,16 +453,14 @@ __d(
                   " error:",
                   "",
                 ])),
-              g.e2eType,
+              l.e2eType,
               h,
             )
             .tags("messaging")
-            .sendLogs(
-              "handleMsg: failed to decrypt broadcast ephemeral settings",
-            );
+            .sendLogs("handleMsg: hsm mismatch error");
           break;
         }
-        case y.Unknown: {
+        case C.BroadcastEphSettings: {
           o("WALogger")
             .WARN(
               f ||
@@ -440,7 +469,25 @@ __d(
                   " error:",
                   "",
                 ])),
-              g.e2eType,
+              l.e2eType,
+              h,
+            )
+            .tags("messaging")
+            .sendLogs(
+              "handleMsg: failed to decrypt broadcast ephemeral settings",
+            );
+          break;
+        }
+        case C.Unknown: {
+          o("WALogger")
+            .WARN(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "decryptE2EPayload: e2eType:",
+                  " error:",
+                  "",
+                ])),
+              l.e2eType,
               h,
             )
             .tags("messaging")
@@ -449,7 +496,7 @@ __d(
         }
       }
     }
-    function T(e, t) {
+    function x(e, t) {
       var n = t.pkOrMsgFailedEnc,
         r = t.skMsgFailedEnc,
         a = r != null ? r : n;
@@ -458,21 +505,21 @@ __d(
         o("WAWebMessagingGatingUtils").isMessageDropPlaceholderEnabled()
       ) {
         var i = e.msgInfo.chat;
-        if ((i.isUser() || i.isGroup()) && !R(e)) {
+        if ((i.isUser() || i.isGroup()) && !L(e)) {
           var l = null;
           switch (a.errorType) {
-            case y.SignalRetryable:
-            case y.SignalDuplicateMessage:
-            case y.BroadcastEphSettings:
-            case y.UnknownDevice:
+            case C.SignalRetryable:
+            case C.SignalDuplicateMessage:
+            case C.BroadcastEphSettings:
+            case C.UnknownDevice:
               break;
-            case y.DeviceSentMessage:
-            case y.InvalidProtobuf: {
+            case C.DeviceSentMessage:
+            case C.InvalidProtobuf: {
               l = o("WAWebCreateNackFromStanza").NackReason.InvalidProtobuf;
               break;
             }
-            case y.HsmMismatch:
-            case y.Unknown: {
+            case C.HsmMismatch:
+            case C.Unknown: {
               l = o("WAWebCreateNackFromStanza").NackReason.ParsingError;
               break;
             }
@@ -481,8 +528,8 @@ __d(
             var s = e.msgInfo.externalId;
             (o("WALogger")
               .WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "messageDrop: insert a debug placeholder for ",
                     ", reason: ",
                     "",
@@ -500,7 +547,7 @@ __d(
         }
       }
     }
-    function D() {
+    function $() {
       if (!r("gkx")("26258")) {
         var e,
           t =
@@ -513,8 +560,8 @@ __d(
         if (t == null) return;
         switch (
           (o("WALogger").LOG(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
                 "Dropping incoming message with ",
                 " error",
               ])),
@@ -522,28 +569,28 @@ __d(
           ),
           t)
         ) {
-          case y.SignalRetryable:
+          case C.SignalRetryable:
             throw new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
               "errSignalErr",
             );
-          case y.SignalDuplicateMessage:
+          case C.SignalDuplicateMessage:
             throw new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
               "errDuplicateMsg",
             );
-          case y.InvalidProtobuf:
+          case C.InvalidProtobuf:
             throw new (o("WAWebHandleMsgError").MessageValidationError)(
               "test",
               o("WAWebWamEnumE2eFailureReason").E2E_FAILURE_REASON
                 .INVALID_MESSAGE,
             );
-          case y.DeviceSentMessage:
+          case C.DeviceSentMessage:
             throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(1, 1);
           default:
             return;
         }
       }
     }
-    ((l.DecryptionErrorType = y), (l.createDecryptionHandler = S));
+    ((l.DecryptionErrorType = C), (l.createDecryptionHandler = R));
   },
   98,
 );

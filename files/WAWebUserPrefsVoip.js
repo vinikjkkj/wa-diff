@@ -5,70 +5,80 @@ __d(
     var e = "calls_tab_last_seen",
       s = "selected_audio_input_device",
       u = "selected_audio_output_device",
-      c = "last_call_rating_time";
-    function d() {
+      c = "selected_video_input_device",
+      d = "last_call_rating_time";
+    function m() {
       var t = r("WAWebUserPrefsStore").get(e);
       return typeof t == "number" ? t : 0;
     }
-    function m() {
+    function p() {
       var t = o("WATimeUtils").unixTime();
       r("WAWebUserPrefsStore").set(e, t);
     }
-    function p() {
+    function _() {
       var e = r("WAWebUserPrefsStore").get(s);
       return typeof e == "string" ? e : null;
     }
-    function _(e) {
+    function f(e) {
       r("WAWebUserPrefsStore").set(s, e);
     }
-    function f() {
+    function g() {
       var e = r("WAWebUserPrefsStore").get(u);
       return typeof e == "string" ? e : null;
     }
-    function g(e) {
+    function h(e) {
       r("WAWebUserPrefsStore").set(u, e);
     }
-    var h = null;
     function y() {
-      return h;
+      var e = r("WAWebUserPrefsStore").get(c);
+      return typeof e == "string" ? e : null;
     }
     function C(e) {
-      h = e;
-    }
-    function b() {
-      h = null;
-    }
-    var v = null;
-    function S() {
-      return v;
-    }
-    function R(e) {
-      v = e;
-    }
-    function L() {
-      v = null;
-    }
-    function E() {
-      var e = r("WAWebUserPrefsStore").get(c);
-      return typeof e == "number" ? e : null;
-    }
-    function k(e) {
       r("WAWebUserPrefsStore").set(c, e);
     }
-    ((l.getCallsTabLastSeenTimestamp = d),
-      (l.setCallsTabLastSeenTimestamp = m),
-      (l.getSelectedAudioInputDevice = p),
-      (l.setSelectedAudioInputDevice = _),
-      (l.getSelectedAudioOutputDevice = f),
-      (l.setSelectedAudioOutputDevice = g),
-      (l.getLandingPageVideoDeviceId = y),
-      (l.setLandingPageVideoDeviceId = C),
-      (l.clearLandingPageVideoDeviceId = b),
-      (l.getLandingPageColorIndex = S),
-      (l.saveLandingPageColorIndex = R),
-      (l.clearLandingPageColorIndex = L),
-      (l.getLastCallRatingTime = E),
-      (l.setLastCallRatingTime = k));
+    var b = null;
+    function v() {
+      return b;
+    }
+    function S(e) {
+      b = e;
+    }
+    function R() {
+      b = null;
+    }
+    var L = null;
+    function E() {
+      return L;
+    }
+    function k(e) {
+      L = e;
+    }
+    function I() {
+      L = null;
+    }
+    function T() {
+      var e = r("WAWebUserPrefsStore").get(d);
+      return typeof e == "number" ? e : null;
+    }
+    function D(e) {
+      r("WAWebUserPrefsStore").set(d, e);
+    }
+    ((l.getCallsTabLastSeenTimestamp = m),
+      (l.setCallsTabLastSeenTimestamp = p),
+      (l.getSelectedAudioInputDevice = _),
+      (l.setSelectedAudioInputDevice = f),
+      (l.getSelectedAudioOutputDevice = g),
+      (l.setSelectedAudioOutputDevice = h),
+      (l.getSelectedVideoInputDevice = y),
+      (l.setSelectedVideoInputDevice = C),
+      (l.getLandingPageVideoDeviceId = v),
+      (l.setLandingPageVideoDeviceId = S),
+      (l.clearLandingPageVideoDeviceId = R),
+      (l.getLandingPageColorIndex = E),
+      (l.saveLandingPageColorIndex = k),
+      (l.clearLandingPageColorIndex = I),
+      (l.getLastCallRatingTime = T),
+      (l.setLastCallRatingTime = D));
   },
   98,
 );

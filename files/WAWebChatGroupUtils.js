@@ -13,7 +13,6 @@ __d(
     "WAWebBotGating",
     "WAWebBotTos",
     "WAWebChatGetters",
-    "WAWebCommunityGatingUtils",
     "WAWebCurrentUser",
     "WAWebDBUpdateChatTable",
     "WAWebFrontendContactGetters",
@@ -122,9 +121,7 @@ __d(
         n = o("WAWebStateUtils").unproxy(e);
       return (
         ((t = n.groupMetadata) == null ? void 0 : t.groupType) ===
-          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
-        h(n) &&
-        o("WAWebCommunityGatingUtils").isCommunitySuspendAppealEnabled()
+          o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP && h(n)
       );
     }
     function S(e) {
