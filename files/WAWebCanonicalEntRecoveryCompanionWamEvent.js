@@ -23,6 +23,7 @@ __d(
                 o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
                   .CANONICAL_ENT_RECOVERY_COMPANION_EVENT,
               ],
+              canonicalEntRecoveryEventMetadata: [12, e.TYPES.STRING],
               canonicalEntRecoveryTimeoutSeconds: [9, e.TYPES.INTEGER],
               canonicalEntRegistrationTraceId: [3, e.TYPES.STRING],
               canonicalEntRequestId: [4, e.TYPES.STRING],

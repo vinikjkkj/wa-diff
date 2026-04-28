@@ -241,7 +241,8 @@ __d(
             isAvailable:
               t &&
               o("WAWebBizGatingUtils").isBizAIToolsSettingsEnabled() &&
-              o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent(),
+              (o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent() ||
+                o("WAWebBizGatingUtils").isBizAiWebOnboardingHandoffEnabled()),
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsBusinessAITitle(),
             ),

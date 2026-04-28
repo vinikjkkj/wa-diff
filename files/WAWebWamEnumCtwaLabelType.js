@@ -15,6 +15,7 @@ __d(
       IMPORTANT: 9,
       DO_NEW_ORDER: 10,
       DO_LEAD: 11,
+      FAVORITES: 12,
     });
     i.CTWA_LABEL_TYPE = e;
   },

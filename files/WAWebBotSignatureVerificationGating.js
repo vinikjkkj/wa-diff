@@ -20,10 +20,22 @@ __d(
     function c() {
       return s() === e.ENFORCE_BLOCKING;
     }
+    function d() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_rich_response_unknown_sender_preview_enabled",
+      );
+    }
+    function m() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "ai_rich_response_unknown_sender_verification_masking_enabled",
+      );
+    }
     ((l.BotSignatureVerificationEnforcementLevel = e),
       (l.getForwardVerificationEnforcementLevel = s),
       (l.isForwardVerificationEnabled = u),
-      (l.shouldBlockOnVerificationFailure = c));
+      (l.shouldBlockOnVerificationFailure = c),
+      (l.isUnknownSenderPreviewEnabled = d),
+      (l.isVerificationMaskingEnabled = m));
   },
   98,
 );

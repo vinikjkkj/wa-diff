@@ -93,7 +93,6 @@ __d(
         return e == null ? null : m(e);
       };
     ((l.PaymentRequestCtaType = e),
-      (l.isPaymentRequestCtaEnabled = s),
       (l.isPaymentDetectionEnhancementEnabled = u),
       (l.isPaymentRequestFeatureEnabled = c),
       (l.shouldShowPaymentRequestPayWithHeader = d),

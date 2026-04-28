@@ -23,10 +23,27 @@ __d(
         "animated_race_mercedes_car_emoji_enabled",
       );
     }
+    function d() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "animated_soccer_ball_prod_enabled",
+        ) ||
+        o("WAWebABProps").getABPropConfigValue(
+          "animated_soccer_ball_test_enabled",
+        )
+      );
+    }
+    function m() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "animated_soccer_ball_prod_enabled",
+      );
+    }
     ((l.isAnimatedEmojiEnabled = e),
       (l.isAnimatedEmojiSet1Enabled = s),
       (l.isAnimatedEmojiFinalSetEnabled = u),
-      (l.isAnimatedEmojiMercedesRacingEnabled = c));
+      (l.isAnimatedEmojiMercedesRacingEnabled = c),
+      (l.isAnimatedEmojiSoccerBallEnabled = d),
+      (l.isAnimatedEmojiSoccerBallProdEnabled = m));
   },
   98,
 );

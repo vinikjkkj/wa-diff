@@ -110,10 +110,7 @@ __d(
     function q(e) {
       o("WAWebQplFlowWrapper").QPL.markerEnd(g, e);
     }
-    function U() {
-      o("WAWebQplFlowWrapper").QPL.markerDrop(g);
-    }
-    function V(e) {
+    function U(e) {
       o("WAWebQplFlowWrapper").QPL.markerEnd(h, e);
     }
     ((l.qplStartCartView = y),
@@ -140,8 +137,7 @@ __d(
       (l.qplDropCatalogView = B),
       (l.qplStartCatalogCollectionsView = W),
       (l.qplEndCatalogCollectionsView = q),
-      (l.qplDropCatalogCollectionsView = U),
-      (l.qplEndCollectionsManagementView = V));
+      (l.qplEndCollectionsManagementView = U));
   },
   98,
 );

@@ -91,7 +91,8 @@ __d(
         String.fromCodePoint(127922),
       ],
       h = [String.fromCodePoint(127950), String.fromCodePoint(127950, 65039)],
-      y = {
+      y = [String.fromCodePoint(9917), String.fromCodePoint(9917, 65039)],
+      C = {
         AnimatedAsset1FA87: "v1_Maracas_1FA87",
         AnimatedAsset1F494: "v1_Broken_heart_1F494",
         AnimatedAsset1F44F: "v2_Clapping_hands_1F44F",
@@ -126,7 +127,7 @@ __d(
         AnimatedAsset2728: "v1_Sparkles_2728",
         AnimatedAsset1F3CE: "v1_race_car_1F3CE",
       },
-      C = {
+      b = {
         AnimatedAsset1FA87: "v1_Maracas_1FA87",
         AnimatedAsset1F494: "v1_Broken_heart_1F494",
         AnimatedAsset1F44F: "v2_iOS_clapping_hands_1F44F",
@@ -160,15 +161,24 @@ __d(
         AnimatedAsset1F3B2: "v1_Dice_1_1F3B2",
         AnimatedAsset2728: "v1_Sparkles_2728",
         AnimatedAsset1F3CE: "v1_race_car_1F3CE",
-      };
-    function b(e) {
+      },
+      v = "fifa_soccer_ball_v3",
+      S = "soccer_test_ball_v1";
+    function R() {
+      return o(
+        "WAWebAnimatedEmojiGatingUtils",
+      ).isAnimatedEmojiSoccerBallProdEnabled()
+        ? v
+        : S;
+    }
+    function L(e) {
       var t = [
         o("WAWebMobilePlatforms").PLATFORMS.IPAD,
         o("WAWebMobilePlatforms").PLATFORMS.IPHONE,
         o("WAWebMobilePlatforms").PLATFORMS.SMBI,
       ].includes(e)
-        ? C
-        : y;
+        ? b
+        : C;
       return [
         [String.fromCodePoint(128536), "" + t.AnimatedAsset1F618],
         [String.fromCodePoint(10084, 65039), "" + t.AnimatedAsset2764FE0F],
@@ -207,9 +217,11 @@ __d(
         [String.fromCodePoint(10024), "" + t.AnimatedAsset2728],
         [String.fromCodePoint(127950), "" + t.AnimatedAsset1F3CE],
         [String.fromCodePoint(127950, 65039), "" + t.AnimatedAsset1F3CE],
+        [String.fromCodePoint(9917), R()],
+        [String.fromCodePoint(9917, 65039), R()],
       ];
     }
-    function v() {
+    function E() {
       var e = [];
       return (
         o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiSet1Enabled() &&
@@ -219,12 +231,14 @@ __d(
         o(
           "WAWebAnimatedEmojiGatingUtils",
         ).isAnimatedEmojiMercedesRacingEnabled() && (e = [].concat(e, h)),
+        o("WAWebAnimatedEmojiGatingUtils").isAnimatedEmojiSoccerBallEnabled() &&
+          (e = [].concat(e, y)),
         e
       );
     }
-    function S(e) {
-      var t = v(),
-        n = b(e),
+    function k(e) {
+      var t = E(),
+        n = L(e),
         r = n.filter(function (e) {
           var n = e[0];
           return t.includes(n);
@@ -239,8 +253,8 @@ __d(
       (l.LargeEmojiSize = m),
       (l.CATEGORY_ORDERING = p),
       (l.HEART_EMOJIS = _),
-      (l.getSupportedAnimatedEmojis = v),
-      (l.getSupportedAnimatedEmojisAssetIdsMapping = S));
+      (l.getSupportedAnimatedEmojis = E),
+      (l.getSupportedAnimatedEmojisAssetIdsMapping = k));
   },
   98,
 );

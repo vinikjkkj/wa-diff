@@ -11,7 +11,6 @@ __d(
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
-    "WAWebMultiStepFormButton",
     "WAWebOrderStatus",
     "WAWebOrderStatusButton",
     "WAWebPaymentReminder",
@@ -178,19 +177,7 @@ __d(
                 },
               };
         }
-        case r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE: {
-          var y = o("WAWebMultiStepFormButton").parseMultiStepFormButton(l);
-          return y == null
-            ? null
-            : {
-                name: "form_message",
-                index: t,
-                data: {
-                  label: s._(/*BTDS*/ "Open form").toString(),
-                  multiStepFormInfo: y,
-                },
-              };
-        }
+        case r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE:
         case r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS:
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS:
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD:
@@ -204,16 +191,16 @@ __d(
         case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP:
           break;
         case r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP: {
-          var C = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
+          var y = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
             e.buttonParamsJson,
           );
-          if (C != null)
+          if (y != null)
             return {
               name: "cta_copy",
               index: t,
               data: {
                 label: s._(/*BTDS*/ "Copy code").toString(),
-                copyCode: C,
+                copyCode: y,
               },
             };
           break;

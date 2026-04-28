@@ -74,13 +74,8 @@ __d(
       );
     }
     function g() {
-      return (
-        o("WAWebPrimaryFeaturesModel").PrimaryFeatures
-          .completeHistorySyncOnDemand &&
-        o("WAWebABProps").getABPropConfigValue(
-          "history_sync_on_demand_complete_companion",
-        )
-      );
+      return o("WAWebPrimaryFeaturesModel").PrimaryFeatures
+        .completeHistorySyncOnDemand;
     }
     function h() {
       return o("WAWebABProps").getABPropConfigValue(

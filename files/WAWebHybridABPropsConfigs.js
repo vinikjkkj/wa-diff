@@ -369,6 +369,12 @@ __d(
         !1,
       ],
       optimized_delivery_tokens_storage_config: [10303, "string", "{}", "{}"],
+      p2p_pills_allowlist: [
+        29554,
+        "string",
+        '[{ "business_id": "34666845417", "pills": ["CHAT", "PROFILE", "BOOK_APPOINTMENT", "CATALOG", "BESTSELLERS", "OFFERS", "ABOUT_US"] }]',
+        '[{ "business_id": "34666845417", "pills": ["CHAT", "PROFILE", "BOOK_APPOINTMENT", "CATALOG", "BESTSELLERS", "OFFERS", "ABOUT_US"] }]',
+      ],
       p2p_pills_enabled: [27959, "bool", !1, !1],
       payments_br_p2m_pix_copy_code_buyer_logging: [27028, "bool", !1, !0],
       payments_br_p2m_pix_in_groups_buyer_logging: [27029, "bool", !1, !0],

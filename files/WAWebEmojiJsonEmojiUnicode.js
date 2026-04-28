@@ -3795,6 +3795,7 @@ __d(
       "\uD83E\uDEE9",
       "\uD83C\uDFCE\u200D\uD83D\uDFC0",
       "\uD83C\uDFCE\u200D\uD83D\uDFC1",
+      "\u26BD\uE000",
     ];
     i.default = e;
   },

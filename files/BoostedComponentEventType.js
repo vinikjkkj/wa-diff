@@ -1121,6 +1121,7 @@ __d(
         "bloks_ads_legos_stepper_screen_impression",
       BLOKS_ADS_LEGOS_FB_ACCOUNT_CHANGE: "bloks_ads_legos_fb_account_change",
       VIEW_BENCHMARK_CPR: "view_benchmark_cpr",
+      ERROR_SUMMARY_SHOW: "error_summary_show",
       ERROR_SUMMARY_CLICK: "error_summary_click",
       ERROR_DISPLAY_VIEW_ISSUE_CLICK: "error_display_view_issue_click",
       ERROR_DISPLAY_NEXT_CLICK: "error_display_next_click",
@@ -1379,6 +1380,9 @@ __d(
         "performance_selector_select_quality_lead",
       PERFORMANCE_SELECTOR_SELECT_LEAD_GENERATION:
         "performance_selector_select_lead_generation",
+      MESSAGING_PERF_SELECT_DEFAULT: "messaging_perf_select_default",
+      MESSAGING_PERF_SELECT_PO: "messaging_perf_select_po",
+      MESSAGING_PERF_SELECT_LO: "messaging_perf_select_lo",
       AD_REVIEW_MODAL_IMPRESSION: "ad_review_modal_impression",
       AD_REVIEW_MODAL_CLOSE_MODAL: "ad_review_modal_close_modal",
       AD_REVIEW_MODAL_CONTINUE_FULL_CREATION:

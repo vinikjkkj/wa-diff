@@ -213,10 +213,10 @@ __d(
                 l.accessToken != null && l.accessToken !== ""
                   ? yield o(
                       "WAWebCanonicalTokenExchange",
-                    ).storeCanonicalCredentials(s)
+                    ).storeCanonicalCredentials(s, "registration")
                   : yield o(
                       "WAWebCanonicalTokenExchange",
-                    ).exchangeNonceForToken(s);
+                    ).exchangeNonceForToken(s, "registration");
             u === o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
               ? (o("WALogger").LOG(
                   g ||

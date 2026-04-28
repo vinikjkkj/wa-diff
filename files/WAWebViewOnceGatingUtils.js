@@ -3,14 +3,11 @@ __d(
   ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAWebABProps").getABPropConfigValue("view_once_sp_receiver");
-    }
-    function s() {
       return o("WAWebABProps").getABPropConfigValue(
         "enable_soox_message_sending",
       );
     }
-    ((l.isViewOnceSunsetEnabled = e), (l.isSendingViewOnceV2Enabled = s));
+    l.isSendingViewOnceV2Enabled = e;
   },
   98,
 );

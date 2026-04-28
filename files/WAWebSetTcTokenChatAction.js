@@ -7,7 +7,6 @@ __d(
     "WAWebChatCollection",
     "WAWebChatGetExistingBridge",
     "WAWebLidMigrationUtils",
-    "WAWebProfilePicPrivacyTokenGating",
     "WAWebProfilePicThumbCollection",
     "WAWebSchemaChat",
     "asyncToGeneratorRuntime",
@@ -50,10 +49,7 @@ __d(
                 )
               ) {
                 var s = !1;
-                o(
-                  "WAWebProfilePicPrivacyTokenGating",
-                ).isProfilePicIQPrivacyTokenEnabled() &&
-                  l.tcToken == null &&
+                l.tcToken == null &&
                   o(
                     "WAWebProfilePicThumbCollection",
                   ).ProfilePicThumbCollection.get(l.id) == null &&

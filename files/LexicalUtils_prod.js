@@ -122,24 +122,27 @@ __d(
     }
     function h(t, n, r) {
       if ("text" !== t.type && require("Lexical").$isElementNode(n)) {
-        var _e3 = n.getDOMSlot(r);
-        return [_e3.element, _e3.getFirstChildOffset() + t.offset];
+        var _o2 = require("Lexical").$getEditor(),
+          _i2 = require("Lexical")
+            .$getEditorDOMRenderConfig(_o2)
+            .$getDOMSlot(n, r, _o2);
+        return [_i2.element, _i2.getFirstChildOffset() + t.offset];
       }
       return [require("Lexical").getDOMTextNode(r) || r, t.offset];
     }
-    function x(e) {
+    function C(e) {
       for (var _t3 of e) {
-        var _e4 = _t3.style;
-        ("Highlight" !== _e4.background && (_e4.background = "Highlight"),
-          "HighlightText" !== _e4.color && (_e4.color = "HighlightText"),
-          _e4.marginTop !== p(-1.5) && (_e4.marginTop = p(-1.5)),
-          _e4.paddingTop !== p(4) && (_e4.paddingTop = p(4)),
-          _e4.paddingBottom !== p(0) && (_e4.paddingBottom = p(0)));
+        var _e3 = _t3.style;
+        ("Highlight" !== _e3.background && (_e3.background = "Highlight"),
+          "HighlightText" !== _e3.color && (_e3.color = "HighlightText"),
+          _e3.marginTop !== p(-1.5) && (_e3.marginTop = p(-1.5)),
+          _e3.paddingTop !== p(4) && (_e3.paddingTop = p(4)),
+          _e3.paddingBottom !== p(0) && (_e3.paddingBottom = p(0)));
       }
     }
-    function C(t, n) {
+    function x(t, n) {
       if (n === void 0) {
-        n = x;
+        n = C;
       }
       var r = null,
         o = null,
@@ -169,25 +172,25 @@ __d(
             f = d.getNode(),
             p = f.getKey(),
             m = d.offset,
-            x = g.getNode(),
-            C = x.getKey(),
+            C = g.getNode(),
+            x = C.getKey(),
             S = g.offset,
             E = t.getElementByKey(p),
-            N = t.getElementByKey(C),
+            N = t.getElementByKey(x),
             v = null === r || E !== o || m !== i || p !== r.getKey(),
-            R = null === s || N !== l || S !== a || C !== s.getKey();
-          if ((v || R) && null !== E && null !== N) {
-            var _e5 = (function (e, t, n, r, o, i, s) {
+            y = null === s || N !== l || S !== a || x !== s.getKey();
+          if ((v || y) && null !== E && null !== N) {
+            var _e4 = (function (e, t, n, r, o, i, s) {
               var l = (e._window ? e._window.document : document).createRange();
               return (
                 l.setStart.apply(l, h(t, n, r)),
                 l.setEnd.apply(l, h(o, i, s)),
                 l
               );
-            })(t, d, f, E, g, x, N);
-            (c(), (c = $(t, _e5, n)));
+            })(t, d, f, E, g, C, N);
+            (c(), (c = $(t, _e4, n)));
           }
-          ((r = f), (o = E), (i = m), (s = x), (l = N), (a = S));
+          ((r = f), (o = E), (i = m), (s = C), (l = N), (a = S));
         });
       }
       return (
@@ -207,10 +210,10 @@ __d(
       E = r,
       N = c,
       v = g,
-      R = i,
+      y = i,
       w = f,
       A = d,
-      y = s,
+      R = s,
       b = a,
       P = u;
     function I(e, t) {
@@ -267,6 +270,27 @@ __d(
     }
     function D(t, r, o) {
       var i = require("Lexical").$getCaretInDirection(r, "next");
+      (require("Lexical").$isTextPointCaret(i) &&
+        (0 === i.offset
+          ? (i = require("Lexical")
+              .$getSiblingCaret(i.origin, "previous")
+              .getFlipped())
+          : i.offset === i.origin.getTextContentSize() &&
+            (i = require("Lexical").$getSiblingCaret(i.origin, "next"))),
+        i.origin.is(t) &&
+          (require("Lexical").$isSiblingCaret(i) ||
+            (function (e) {
+              throw new Error(e);
+            })(
+              "$insertNodeToNearestRootAtCaret node " +
+                t.getKey() +
+                " of type " +
+                t.getType() +
+                " can not be inserted into itself",
+            ),
+          (i = require("Lexical").$rewindSiblingCaret(i))),
+        (t.is(i.getNodeAtCaret()) || t.is(i.getFlipped().getNodeAtCaret())) &&
+          t.remove(!0));
       for (
         var _t4 = i;
         _t4;
@@ -286,26 +310,26 @@ __d(
         )
       );
     }
-    var F = !(y || !E) && void 0;
+    var F = !(R || !E) && void 0;
     function B(t, n, r) {
       var o = !1;
-      var _loop = function _loop(_i2) {
-        n(_i2)
-          ? null !== r && r(_i2)
+      var _loop = function _loop(_i3) {
+        n(_i3)
+          ? null !== r && r(_i3)
           : ((o = !0),
-            require("Lexical").$isElementNode(_i2) &&
+            require("Lexical").$isElementNode(_i3) &&
               B(
-                _i2,
+                _i3,
                 n,
                 r ||
                   function (e) {
-                    return _i2.insertAfter(e);
+                    return _i3.insertAfter(e);
                   },
               ),
-            _i2.remove());
+            _i3.remove());
       };
-      for (var _i2 of j(t)) {
-        _loop(_i2);
+      for (var _i3 of j(t)) {
+        _loop(_i3);
       }
       return o;
     }
@@ -343,7 +367,7 @@ __d(
         for (var _t5 = o.pop(); void 0 !== _t5; _t5 = o.pop())
           if (n(_t5)) r.push(_t5);
           else if (require("Lexical").$isElementNode(_t5))
-            for (var _e6 of j(_t5)) o.push(_e6);
+            for (var _e5 of j(_t5)) o.push(_e5);
         return r;
       }),
       (exports.$dfs = function (e, t) {
@@ -353,8 +377,8 @@ __d(
       (exports.$filter = function (e, t) {
         var n = [];
         for (var _r2 = 0; _r2 < e.length; _r2++) {
-          var _o2 = t(e[_r2]);
-          null !== _o2 && n.push(_o2);
+          var _o3 = t(e[_r2]);
+          null !== _o3 && n.push(_o3);
         }
         return n;
       }),
@@ -401,10 +425,10 @@ __d(
         var r = new Set(),
           o = n.getNodes();
         for (var _n4 = 0; _n4 < o.length; _n4++) {
-          var _i3 = o[_n4],
-            _s2 = _i3.getKey();
+          var _i4 = o[_n4],
+            _s2 = _i4.getKey();
           if (r.has(_s2)) continue;
-          var _l2 = require("Lexical").$findMatchingParent(_i3, function (t) {
+          var _l2 = require("Lexical").$findMatchingParent(_i4, function (t) {
             return require("Lexical").$isElementNode(t) && !t.isInline();
           });
           if (null === _l2) continue;
@@ -446,8 +470,8 @@ __d(
         else {
           if (null != n) {
             var _t7 = n.getNodes(),
-              _o3 = _t7[_t7.length - 1];
-            _o3 && (r = require("Lexical").$getSiblingCaret(_o3, "next"));
+              _o4 = _t7[_t7.length - 1];
+            _o4 && (r = require("Lexical").$getSiblingCaret(_o4, "next"));
           }
           r =
             r ||
@@ -478,8 +502,8 @@ __d(
           o = t._pendingEditorState;
         for (var _ref4 of n._nodeMap) {
           var _t8 = _ref4[0];
-          var _o4 = _ref4[1];
-          r.set(_t8, require("Lexical").$cloneWithProperties(_o4));
+          var _o5 = _ref4[1];
+          r.set(_t8, require("Lexical").$cloneWithProperties(_o5));
         }
         (o && (o._nodeMap = r), (t._dirtyType = 2));
         var i = n._selection;
@@ -505,10 +529,10 @@ __d(
       (exports.CAN_USE_DOM = E),
       (exports.IS_ANDROID = N),
       (exports.IS_ANDROID_CHROME = v),
-      (exports.IS_APPLE = R),
+      (exports.IS_APPLE = y),
       (exports.IS_APPLE_WEBKIT = w),
       (exports.IS_CHROME = A),
-      (exports.IS_FIREFOX = y),
+      (exports.IS_FIREFOX = R),
       (exports.IS_IOS = b),
       (exports.IS_SAFARI = P),
       (exports.calculateZoomLevel = function (e, t) {
@@ -519,14 +543,16 @@ __d(
         if (
           (function () {
             if (void 0 === F) {
-              var _e7 = document.createElement("div");
-              ((_e7.style.cssText =
-                "position: absolute; opacity: 0; width: 100px; left: -1000px;"),
-                document.body.appendChild(_e7));
-              var _t9 = _e7.getBoundingClientRect();
-              (_e7.style.setProperty("zoom", "2"),
-                (F = _e7.getBoundingClientRect().width === _t9.width),
-                document.body.removeChild(_e7));
+              var _e6 = document.createElement("div");
+              ((_e6.style.position = "absolute"),
+                (_e6.style.opacity = "0"),
+                (_e6.style.width = "100px"),
+                (_e6.style.left = "-1000px"),
+                document.body.appendChild(_e6));
+              var _t9 = _e6.getBoundingClientRect();
+              (_e6.style.setProperty("zoom", "2"),
+                (F = _e6.getBoundingClientRect().width === _t9.width),
+                document.body.removeChild(_e6));
             }
             return F;
           })() ||
@@ -562,13 +588,13 @@ __d(
           stateConfig: t,
         };
       }),
-      (exports.markSelection = C),
+      (exports.markSelection = x),
       (exports.mediaFileReader = function (e, t) {
         var n =
           e[typeof Symbol === "function" ? Symbol.iterator : "@@iterator"]();
         return new Promise(function (e, r) {
           var o = [],
-            _i4 = function i() {
+            _i5 = function i() {
               var _n$next = n.next(),
                 s = _n$next.done,
                 l = _n$next.value;
@@ -578,11 +604,11 @@ __d(
                 a.addEventListener("load", function () {
                   var e = a.result;
                   ("string" == typeof e && o.push({ file: l, result: e }),
-                    _i4());
+                    _i5());
                 }),
-                I(l, t) ? a.readAsDataURL(l) : _i4());
+                I(l, t) ? a.readAsDataURL(l) : _i5());
             };
-          _i4();
+          _i5();
         });
       }),
       (exports.objectKlassEquals = function (e, t) {
@@ -598,8 +624,8 @@ __d(
         return e.registerNodeTransform(t, function (e) {
           var t = (function (e) {
             var t = e.getChildren();
-            for (var _e8 = 0; _e8 < t.length; _e8++) {
-              var _n6 = t[_e8];
+            for (var _e7 = 0; _e7 < t.length; _e7++) {
+              var _n6 = t[_e7];
               if (o(_n6)) return null;
             }
             var n = e,
@@ -610,18 +636,18 @@ __d(
             return null;
           })(e);
           if (null !== t) {
-            var _o5 = t.child,
-              _i5 = t.parent;
-            if (_o5.is(e)) {
-              r(_i5, e);
-              var _t0 = _o5.getNextSiblings(),
+            var _o6 = t.child,
+              _i6 = t.parent;
+            if (_o6.is(e)) {
+              r(_i6, e);
+              var _t0 = _o6.getNextSiblings(),
                 _s3 = _t0.length;
-              if ((_i5.insertAfter(_o5), 0 !== _s3)) {
-                var _e9 = n(_i5);
-                _o5.insertAfter(_e9);
-                for (var _n7 = 0; _n7 < _s3; _n7++) _e9.append(_t0[_n7]);
+              if ((_i6.insertAfter(_o6), 0 !== _s3)) {
+                var _e8 = n(_i6);
+                _o6.insertAfter(_e8);
+                for (var _n7 = 0; _n7 < _s3; _n7++) _e8.append(_t0[_n7]);
               }
-              _i5.canBeEmpty() || 0 !== _i5.getChildrenSize() || _i5.remove();
+              _i6.canBeEmpty() || 0 !== _i6.getChildrenSize() || _i6.remove();
             }
           }
         });
@@ -634,7 +660,7 @@ __d(
             i = e.getRootElement();
           null !== o && null !== i && i.contains(o)
             ? null !== n && (n(), (n = null))
-            : null === n && (n = C(e, t));
+            : null === n && (n = x(e, t));
         };
         return e.registerRootListener(function (e) {
           if (e) {

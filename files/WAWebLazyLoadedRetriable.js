@@ -7,6 +7,7 @@ __d(
     "WAPromiseDelays",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
@@ -56,6 +57,7 @@ __d(
                   (function () {
                     var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (e) {
+                        var n = r("getErrorSafe")(e);
                         if (
                           (o("WALogger").WARN(
                             u ||
@@ -73,7 +75,7 @@ __d(
                             yield o("WAPromiseDelays").delayMs(s * 1e3),
                             d()
                           );
-                        throw (a(e, s), e);
+                        throw (a(n, s), e);
                       },
                     );
                     return function (t) {

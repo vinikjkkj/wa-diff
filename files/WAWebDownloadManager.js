@@ -60,18 +60,20 @@ __d(
       v,
       S,
       R,
-      L = { PRELOAD_MMS_MEDIA: 1, PRELOAD_MMS_THUMBNAIL: 2 },
-      E = function (t) {
+      L,
+      E,
+      k = { PRELOAD_MMS_MEDIA: 1, PRELOAD_MMS_THUMBNAIL: 2 },
+      I = function (t) {
         switch (t) {
           case o("WAWebMmsMediaTypes").MEDIA_TYPES.THUMBNAIL_DOCUMENT:
-            return L.PRELOAD_MMS_THUMBNAIL;
+            return k.PRELOAD_MMS_THUMBNAIL;
           case o("WAWebMmsMediaTypes").MEDIA_TYPES.HISTORY_SYNC:
           case o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO:
           default:
-            return L.PRELOAD_MMS_MEDIA;
+            return k.PRELOAD_MMS_MEDIA;
         }
       },
-      k = function () {
+      T = function () {
         var t = this;
         ((this.preloader = new (r("WAConcurrentPriorityPromiseQueue"))(10, {
           thumbnail: 4,
@@ -99,7 +101,7 @@ __d(
                 f = function () {
                   return (
                     d.addPoint("download_and_decrypt_start"),
-                    I(a).then(
+                    D(a).then(
                       (function () {
                         var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                           function* (t) {
@@ -109,7 +111,7 @@ __d(
                             var n = t;
                             if (
                               _ &&
-                              M({ downloadOrigin: l, partialVideoOpts: m }) &&
+                              F({ downloadOrigin: l, partialVideoOpts: m }) &&
                               (yield o(
                                 "WAWebKaleidoscopeWasmFeatureSupport",
                               ).checkKaleidoscopeWasmFeatureSupport())
@@ -137,13 +139,22 @@ __d(
                                 });
                               n = i.transferredBuffer;
                               var f = i.result;
-                              if (f.success)
-                                d.addPoint("kaleidoscope_classify_end", {
-                                  string: { ksMimeType: f.value.mimetype },
-                                  int: { ksScore: f.value.score },
-                                });
-                              else {
-                                var g;
+                              if (f.success) {
+                                var g = f.value,
+                                  h = g.mimetype,
+                                  y = g.score;
+                                (d.addPoint("kaleidoscope_classify_end", {
+                                  string: { ksMimeType: h },
+                                  int: { ksScore: y },
+                                }),
+                                  A({
+                                    ksScore: y,
+                                    ksMimeType: h,
+                                    rawMimeType: p,
+                                    mediaType: a.type,
+                                  }));
+                              } else {
+                                var C;
                                 (o("WALogger").WARN(
                                   e ||
                                     (e =
@@ -158,8 +169,8 @@ __d(
                                   d.addPoint(f.error.errorName, {
                                     string: {
                                       ksFailReason:
-                                        (g = f.error.errorMessage) != null
-                                          ? g
+                                        (C = f.error.errorMessage) != null
+                                          ? C
                                           : f.error.errorName,
                                     },
                                   }),
@@ -167,7 +178,7 @@ __d(
                               }
                             }
                             if (
-                              M({ downloadOrigin: l, partialVideoOpts: m }) &&
+                              F({ downloadOrigin: l, partialVideoOpts: m }) &&
                               (o(
                                 "WAWebMediaGatingUtils",
                               ).isDownloadMimeTypeCheckLogEnabled() ||
@@ -175,16 +186,16 @@ __d(
                                   "WAWebMediaGatingUtils",
                                 ).isDownloadMimeTypeCheckBlockEnabled())
                             ) {
-                              var h = o(
+                              var b = o(
                                   "WAWebMmsMediaTypes",
                                 ).mediaTypeToMsgTypeSupportedByAllowlist(
                                   a.type,
                                 ),
-                                y = !1;
-                              if (h != null) {
-                                var C =
-                                  o("WAWebMmsMediaTypes").getValidMimeTypes(h);
-                                C == null
+                                v = !1;
+                              if (b != null) {
+                                var S =
+                                  o("WAWebMmsMediaTypes").getValidMimeTypes(b);
+                                S == null
                                   ? (o("WALogger")
                                       .WARN(
                                         s ||
@@ -196,16 +207,16 @@ __d(
                                                 ")",
                                               ],
                                             )),
-                                        h,
+                                        b,
                                         a.type,
                                       )
                                       .tags("media")
                                       .sendLogs(
                                         "no-mimetype-allowlist-for-msg-type-" +
-                                          h,
+                                          b,
                                       ),
-                                    (y = !0))
-                                  : C.has(p) ||
+                                    (v = !0))
+                                  : S.has(p) ||
                                     (o("WALogger")
                                       .WARN(
                                         u ||
@@ -225,7 +236,7 @@ __d(
                                         "unexpected-mimetype-for-media-type-" +
                                           a.type,
                                       ),
-                                    (y = !0));
+                                    (v = !0));
                               } else
                                 p.toLowerCase() === "image/svg+xml" &&
                                   (o("WALogger")
@@ -242,9 +253,9 @@ __d(
                                     )
                                     .tags("media", "security")
                                     .sendLogs("blocked-svg-mimetype"),
-                                  (y = !0));
+                                  (v = !0));
                               if (
-                                y &&
+                                v &&
                                 o(
                                   "WAWebMediaGatingUtils",
                                 ).isDownloadMimeTypeCheckBlockEnabled()
@@ -271,7 +282,7 @@ __d(
                   );
                 },
                 g = {
-                  priority: -E(a.type),
+                  priority: -I(a.type),
                   group:
                     a.type === o("WAWebMmsMediaTypes").MEDIA_TYPES.HISTORY_SYNC
                       ? "histSyncChunk"
@@ -317,7 +328,7 @@ __d(
           }),
           (this.rmr = r("WAMemoizeConcurrent")(function (e) {
             return e.mediaObject.filehash || "";
-          }, D)),
+          }, $)),
           (this.checkExistence = r("WAMemoizeConcurrent")(function (e) {
             var t,
               n = (t = e.encFilehash) != null ? t : e.directPath;
@@ -326,17 +337,17 @@ __d(
                 "checkExistence requires encFilehash or directPath",
               );
             return n;
-          }, $)),
+          }, N)),
           o(
             "WAWebMmsDownloadUploadCrashLogger",
           ).downloadUploadCrashLogger.init());
       };
-    function I(e) {
-      return T.apply(this, arguments);
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function T() {
+    function x() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chatWid,
             a = e.directPath,
             i = e.downloadOrigin,
@@ -344,13 +355,13 @@ __d(
             s = e.encFilehash,
             u = e.filehash,
             c = e.imageDimensions,
-            y = e.isViewOnce,
-            C = e.mediaKey,
+            d = e.isViewOnce,
+            m = e.mediaKey,
             b = e.mediaKeyTimestamp,
             v = e.mode,
             S = e.onDecryptStart,
-            L = e.onProgress,
-            E = e.partialVideoOpts,
+            R = e.onProgress,
+            L = e.partialVideoOpts,
             k = e.progressiveJpegOpts,
             I = e.staticUrl,
             T = e.type,
@@ -358,12 +369,12 @@ __d(
             x = o(
               "WAWebMediaCryptoEligibilityUtils",
             ).isMediaCryptoExpectedForMediaType(T);
-          if (C == null && x)
+          if (m == null && x)
             throw (
               o("WALogger")
                 .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[DownloadManager] expected media key for media type ",
                       "",
                     ])),
@@ -380,8 +391,8 @@ __d(
               throw (
                 o("WALogger")
                   .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "[DownloadManager] expected encFilehash for media type ",
                         "",
                       ])),
@@ -397,8 +408,8 @@ __d(
               throw (
                 o("WALogger")
                   .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "[DownloadManager] product media missing encFilehash and directPath/staticUrl",
                       ])),
                   )
@@ -414,80 +425,80 @@ __d(
             P =
               k != null &&
               (k.scanCount == null || k.scanCount === k.scanLengths.length),
-            M = P ? null : $,
-            w = yield o(
+            N = P ? null : $,
+            M = yield o(
               "WAWebCreateMediaDownloadMetrics",
             ).createMediaDownloadMetrics({
               directPath: a,
               downloadOrigin: i,
               type: T,
               userDownloadAttemptCount: D,
-              isViewOnce: y,
+              isViewOnce: d,
               downloadMode: v,
               isPrefetch: k != null && !P,
               imageDimensions: c,
               chatWid: t,
               mediaKeyTimestamp: b,
             }),
-            A = w.handleDownloadAndDecryptSuccess,
-            F = w.handleDownloadAttemptError,
-            O = w.handleDownloadAttemptSuccess,
-            B = w.handleDownloadError,
-            W = w.handleDownloadHostFound,
-            q = w.handleDownloadSuccess,
-            U = w.markDecryptionEnd,
-            V = w.markDecryptionStart,
-            H = w.markNetworkT,
-            G = w.mediaId,
-            z = w.startNetworkT,
+            A = M.handleDownloadAndDecryptSuccess,
+            F = M.handleDownloadAttemptError,
+            O = M.handleDownloadAttemptSuccess,
+            B = M.handleDownloadError,
+            W = M.handleDownloadHostFound,
+            q = M.handleDownloadSuccess,
+            U = M.markDecryptionEnd,
+            V = M.markDecryptionStart,
+            H = M.markNetworkT,
+            G = M.mediaId,
+            z = M.startNetworkT,
             j = e.signal || new AbortController().signal,
             K = o("WAWebMediaDebugString").getDebugString(u),
             Q = { directPath: a, encFilehash: s, staticUrl: I, type: T };
           o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
                 "downloadManager.download: [",
                 "] start",
               ])),
             K,
           );
           try {
-            var X = N({
+            var X = w({
                 progressiveJpegOpts: k,
                 filehash: u,
                 debugString: K,
-                scanCount: M,
+                scanCount: N,
               }),
               Y = function (t) {
                 (F(t),
                   X != null &&
-                    (X = N({
+                    (X = w({
                       progressiveJpegOpts: k,
                       filehash: u,
                       debugString: K,
-                      scanCount: M,
+                      scanCount: N,
                     })));
               },
               J = r("WAWebGetMediaDownloadByterange")({
-                partialVideoOpts: E,
+                partialVideoOpts: L,
                 progressiveJpegOpts: k,
-                scanCount: M,
+                scanCount: N,
               }),
               Z =
-                M == null && k
+                N == null && k
                   ? function (e, t) {
                       var n;
                       (n = X) == null || n.handleProgress(e.total, t);
                     }
                   : null,
               ee =
-                x && C != null
-                  ? r("WAWebCryptoCreateMediaKeys")(T, C).then(function (e) {
+                x && m != null
+                  ? r("WAWebCryptoCreateMediaKeys")(T, m).then(function (e) {
                       var t;
                       return ((t = X) == null || t.setCryptoKeys(e), e);
                     })
-                  : (R || (R = n("Promise"))).resolve(null),
-              te = yield (R || (R = n("Promise"))).all([
+                  : (E || (E = n("Promise"))).resolve(null),
+              te = yield (E || (E = n("Promise"))).all([
                 ee,
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                   z();
@@ -505,7 +516,7 @@ __d(
                       onDownloadAttemptSuccess: O,
                       onDownloadAttemptError: Y,
                       debugString: K,
-                      onProgress: L,
+                      onProgress: R,
                     });
                   } finally {
                     H();
@@ -533,7 +544,7 @@ __d(
                   o("WAWebAppTracker").AppTrackerType.MediaProcessing,
                 ));
               try {
-                if (M != null && J != null) {
+                if (N != null && J != null) {
                   var ae,
                     ie = J.end - J.start + 1,
                     le = yield (ae = X) == null
@@ -544,11 +555,11 @@ __d(
                       "Partial PJPEG decryption returned no data (encryptedFileSize=" +
                         ie +
                         ", scanCount=" +
-                        M +
+                        N +
                         ")",
                     );
                   return le;
-                } else if (E)
+                } else if (L)
                   oe = yield o(
                     "WAWebCryptoDecryptPartialMedia",
                   ).decryptPartialMedia({ mediaKeys: ne, ciphertext: re });
@@ -590,7 +601,7 @@ __d(
                     .DOWNLOAD_DECRYPTION_FINISHED,
                 ));
             } else {
-              var ue = E == null && M == null;
+              var ue = L == null && N == null;
               if (ue) {
                 var ce = yield o("WAWebValidateMediaFilehash").validateFileash(
                   oe,
@@ -601,8 +612,8 @@ __d(
             }
             return (
               o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "downloadManager.download: [",
                     "] success",
                   ])),
@@ -617,8 +628,8 @@ __d(
                 ? (B(t, !!e.isFinalRmrRetry),
                   o("WALogger")
                     .LOG(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose(
+                      y ||
+                        (y = babelHelpers.taggedTemplateLiteralLoose(
                           [
                             "downloadManager.download: [",
                             "] expected error\n",
@@ -637,8 +648,8 @@ __d(
                 : (B(r("getErrorSafe")(t), !0),
                   o("WALogger")
                     .WARN(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose(
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose(
                           ["downloadManager.download: [", "] error\n", ""],
                           ["downloadManager.download: [", "] error\\n", ""],
                         )),
@@ -657,21 +668,21 @@ __d(
             );
           }
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function $(e) {
+      return P.apply(this, arguments);
     }
-    function x() {
+    function P() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.mediaObject,
             n = o("WAWebMediaDebugString").getDebugString(t.filehash),
             a = { filehash: t.filehash, type: t.type };
           (o("WALogger").LOG(
-            y ||
-              (y = babelHelpers.taggedTemplateLiteralLoose([
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
                 "downloadManager.rmr: [",
                 "] start",
               ])),
@@ -706,8 +717,8 @@ __d(
             if (
               ((l.webcRmrStatusCode = c),
               o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
                     "downloadManager.rmr: [",
                     "] status ",
                     "",
@@ -737,8 +748,8 @@ __d(
                     })
                   : o("WALogger")
                       .WARN(
-                        b ||
-                          (b = babelHelpers.taggedTemplateLiteralLoose(
+                        S ||
+                          (S = babelHelpers.taggedTemplateLiteralLoose(
                             [
                               "downloadManager.rmr: [",
                               "] error RMRNotSupportedOnNewsletterMessagesError",
@@ -763,8 +774,8 @@ __d(
               throw (
                 o("WALogger")
                   .LOG(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose(
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose(
                         [
                           "downloadManager.rmr: [",
                           "] error MediaNotOnPhone\n",
@@ -786,8 +797,8 @@ __d(
             throw (
               o("WALogger")
                 .WARN(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose(
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose(
                       ["downloadManager.rmr: [", "] error ", "\n", ""],
                       ["downloadManager.rmr: [", "] error ", "\\n", ""],
                     )),
@@ -803,15 +814,15 @@ __d(
               l.commit());
           }
         })),
-        x.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function P() {
+    function M() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.directPath,
             n = e.encFilehash,
             o = e.signal,
@@ -823,10 +834,10 @@ __d(
             signal: o || new AbortController().signal,
           });
         })),
-        P.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function N(e) {
+    function w(e) {
       var t = e.debugString,
         n = e.filehash,
         r = e.progressiveJpegOpts,
@@ -854,7 +865,56 @@ __d(
         onProgressiveUpdate: r.onProgressiveUpdate,
       });
     }
-    function M(e) {
+    function A(e) {
+      var t = e.ksMimeType,
+        n = e.ksScore,
+        r = e.mediaType,
+        a = e.rawMimeType;
+      if (n >= 90)
+        throw (
+          o("WALogger")
+            .WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[DownloadManager] Kaleidoscope dangerous score ",
+                  " for media type ",
+                  " (detected ",
+                  ", declared ",
+                  ")",
+                ])),
+              n,
+              r,
+              t,
+              a,
+            )
+            .tags("media", "security")
+            .sendLogs("ks-dangerous-score-" + r),
+          new (o("WAWebMiscErrors").InvalidMediaFileType)(
+            "Kaleidoscope dangerous score " + n + " for media type " + r,
+            r,
+            a,
+          )
+        );
+      n >= 80 &&
+        o("WALogger")
+          .WARN(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "[DownloadManager] Kaleidoscope suspicious score ",
+                " for media type ",
+                " (detected ",
+                ", declared ",
+                ")",
+              ])),
+            n,
+            r,
+            t,
+            a,
+          )
+          .tags("media", "security")
+          .sendLogs("ks-suspicious-score-" + r);
+    }
+    function F(e) {
       var t = e.downloadOrigin,
         n = e.partialVideoOpts;
       switch (t) {
@@ -871,8 +931,8 @@ __d(
       }
       return n == null;
     }
-    var w = new k();
-    l.downloadManager = w;
+    var O = new T();
+    l.downloadManager = O;
   },
   98,
 );

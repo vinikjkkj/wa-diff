@@ -614,6 +614,10 @@ __d(
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.type;
           if (n) {
+            if (n === "image/svg+xml")
+              throw new (o("WAWebMiscErrors").InvalidMediaFileType)(
+                "disallowed mimetype " + n,
+              );
             if (
               o("WAWebMimeTypes").DOC_MIMES === "*" ||
               o("WAWebMimeTypes").DOC_MIMES.includes(n)

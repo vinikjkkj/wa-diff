@@ -8,7 +8,7 @@ __d(
         : e + "/emoji/v1",
       u = 16,
       c = 0,
-      d = 1;
+      d = 2;
     function m(e, t, n) {
       return p(e, n, t, "png");
     }

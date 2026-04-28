@@ -7,7 +7,7 @@ __d(
       WRITE_WITH_AI: 1,
       PSI: 2,
       QUICK_RECAP: 3,
-      INCONGNITO: 4,
+      INCOGNITO: 4,
       SIDE_CHAT: 5,
       GROUP_AI: 6,
       PSI_SEARCH: 7,

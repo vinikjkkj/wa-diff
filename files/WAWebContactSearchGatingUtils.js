@@ -43,18 +43,12 @@ __d(
         "wa_web_contact_search_tokenized_enabled",
       );
     }
-    function f() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "wa_web_push_name_in_global_search_non_contacts_enabled",
-      );
-    }
     ((l.isFuzzySearchEnabled = e),
       (l.getFuzzySearchDistanceThreshold = s),
       (l.getFuzzySearchTimeoutThreshold = u),
       (l.canTermsMeetFuzzySearchThreshold = m),
       (l.isPrefixSearchEnabled = p),
-      (l.isTokenizedSearchEnabled = _),
-      (l.isNonContactPushNameSearchEnabled = f));
+      (l.isTokenizedSearchEnabled = _));
   },
   98,
 );

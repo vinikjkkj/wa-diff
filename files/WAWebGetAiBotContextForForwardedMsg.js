@@ -29,6 +29,7 @@ __d(
           botName: i == null ? void 0 : i.name,
           creatorName:
             (t = i == null ? void 0 : i.creatorName) != null ? t : void 0,
+          validationStatus: "pending",
         };
       }
     }

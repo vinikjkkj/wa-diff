@@ -1,6 +1,7 @@
 __d(
   "WAWebGroupParticipantCollection",
   [
+    "WAWebABProps",
     "WAWebApiContact",
     "WAWebBotGroupGatingUtils",
     "WAWebChatCollection",
@@ -12,7 +13,6 @@ __d(
     "WAWebGroupParticipantModel",
     "WAWebGroupType",
     "WAWebL10N",
-    "WAWebProfilePicPrivacyTokenGating",
     "WAWebSchemaGroupMetadata",
     "WAWebSendForNeededAddRequest",
     "WAWebUpdateSubgroupsCommunityAction",
@@ -29,26 +29,21 @@ __d(
           (a = e.call(this, t, n) || this),
           (a.$ParticipantCollection$p_2 = function (e, t, n) {
             (a.$ParticipantCollection$p_3(e),
-              o(
-                "WAWebProfilePicPrivacyTokenGating",
-              ).isProfilePicIQPrivacyTokenEnabled() &&
-                n.add === !0 &&
-                a.$ParticipantCollection$p_4(e));
+              n.add === !0 && a.$ParticipantCollection$p_4(e));
           }),
           (a.$ParticipantCollection$p_4 = function (e) {
-            if (
-              o(
-                "WAWebProfilePicPrivacyTokenGating",
-              ).isProfilePicIQPrivacyTokenEnabled() &&
-              a.iAmMember()
-            ) {
+            if (a.iAmMember()) {
               var t = o("WAWebChatCollection").ChatCollection.get(a.parent.id);
               t &&
                 (t == null ? void 0 : t.tcToken) == null &&
                 (e == null ||
                   e.contact.set(
                     { maybeCommonGroupChatModel: t },
-                    { isSilent: !0 },
+                    o("WAWebABProps").getABPropConfigValue(
+                      "web_anr_group_metadata_yield",
+                    )
+                      ? { silent: !0 }
+                      : { isSilent: !0 },
                   ));
             }
           }),

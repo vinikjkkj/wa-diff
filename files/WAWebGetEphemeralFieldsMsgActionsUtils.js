@@ -27,18 +27,14 @@ __d(
       var l = o("WAWebChatEphemerality").getEphemeralSettingTimestamp(e);
       l != null && (t.ephemeralSettingTimestamp = l);
       var s = o("WAWebChatEphemerality").getDisappearingModeInitiator(e);
+      s != null && (t.disappearingModeInitiator = s);
+      var u = o("WAWebChatEphemerality").getDisappearingModeTrigger(e);
+      u != null && (t.disappearingModeTrigger = u);
+      var c = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(e);
       if (
-        (s != null && (t.disappearingModeInitiator = s),
-        o("WAWebABProps").getABPropConfigValue("dm_initiator_trigger"))
-      ) {
-        var u = o("WAWebChatEphemerality").getDisappearingModeTrigger(e);
-        u != null && (t.disappearingModeTrigger = u);
-        var c = o("WAWebChatEphemerality").getDisappearingModeInitiatedByMe(e);
-        c != null && (t.disappearingModeInitiatedByMe = c);
-      }
-      if (
+        (c != null && (t.disappearingModeInitiatedByMe = c),
         o("WAWebChatGetters").getIsGroup(e) &&
-        o("WAWebABProps").getABPropConfigValue("dm_initiator_trigger_groups")
+          o("WAWebABProps").getABPropConfigValue("dm_initiator_trigger_groups"))
       ) {
         var d = o("WAWebChatEphemerality").getDisappearingModeTriggerGroups(e);
         d != null && (t.disappearingModeTrigger = d);

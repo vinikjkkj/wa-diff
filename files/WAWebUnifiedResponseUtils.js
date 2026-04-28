@@ -62,10 +62,24 @@ __d(
       }
       return t;
     }
+    var p = [
+      "GenAIImaginePrimitive",
+      "GenAIImagePrimitive",
+      "GenAIReelPrimitive",
+    ];
+    function _(e) {
+      if (e == null) return !1;
+      for (var t of e.sections) {
+        var n = u(t.view_model);
+        for (var r of n) if (p.includes(r.__typename)) return !0;
+      }
+      return !1;
+    }
     ((l.UnifiedResponseQPLLogger = s),
       (l.isUnifiedResponseVisible = c),
       (l.shouldShowImagineUnifiedResponse = d),
-      (l.isImagineResponse = m));
+      (l.isImagineResponse = m),
+      (l.unifiedResponseHasMediaContent = _));
   },
   98,
 );

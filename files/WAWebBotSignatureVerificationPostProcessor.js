@@ -43,24 +43,24 @@ __d(
             var i = yield d.load(),
               l = i.verifyBotMessageSignature,
               m = yield l(r, n, a);
-            if (!m.verified && m.shouldBlock)
-              return (
+            return (
+              m === "failed" &&
                 o("WALogger")
                   .WARN(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
                         "",
-                        " Verification failed, removing Meta AI attribution: ",
-                        "",
+                        " Verification failed",
                       ])),
                     c,
-                    m.reason,
                   )
-                  .sendLogs("bot-sig-attribution-removed"),
-                babelHelpers.extends({}, t, {
-                  forwardedAiBotMessageInfo: void 0,
-                })
-              );
+                  .sendLogs("bot-sig-verification-failed"),
+              babelHelpers.extends({}, t, {
+                forwardedAiBotMessageInfo: babelHelpers.extends({}, r, {
+                  validationStatus: m,
+                }),
+              })
+            );
           } catch (e) {
             o("WALogger")
               .WARN(

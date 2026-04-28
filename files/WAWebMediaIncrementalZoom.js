@@ -759,7 +759,6 @@ __d(
     }
     ((l.ZoomMode = C),
       (l.ZOOM_KEYS = T),
-      (l.snapToZoomLevel = P),
       (l.approximateZoomLevel = N),
       (l.MediaIncrementalZoomCtxProvider = A),
       (l.MediaIncrementalZoomCtx = F),

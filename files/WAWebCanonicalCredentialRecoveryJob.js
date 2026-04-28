@@ -116,12 +116,10 @@ __d(
             );
             var i = yield o(
               "WAWebCanonicalTokenExchange",
-            ).storeCanonicalCredentials({
-              userId: n,
-              deviceId: a,
-              nonce: "",
-              accessToken: t,
-            });
+            ).storeCanonicalCredentials(
+              { userId: n, deviceId: a, nonce: "", accessToken: t },
+              "recovery",
+            );
             return i !==
               o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
               ? (r("WAWebODS").incr(

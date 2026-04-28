@@ -117,18 +117,18 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C(e) {
+    function C(e, t) {
       e === p.SUCCESS
         ? (f(m.PRESENT),
-          o("WAWebCanonicalEntRecoveryWam").logCredentialsStored())
+          o("WAWebCanonicalEntRecoveryWam").logCredentialsStored(t))
         : e === p.FAILED && f(m.IDLE);
     }
-    function b(e) {
+    function b(e, t) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -136,38 +136,38 @@ __d(
               ])),
           ),
             f(m.IN_PROGRESS));
-          var t = yield h(e, { retry: !1 });
-          return (C(t), t);
+          var n = yield h(e, { retry: !1 });
+          return (C(n, t), n);
         })),
         v.apply(this, arguments)
       );
     }
-    function S(e) {
+    function S(e, t) {
       return R.apply(this, arguments);
     }
     function R() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
                 "[canonical] Exchanging nonce for token",
               ])),
           );
-          var t = o("WAWebCanonicalEntRecoveryWam").generateRequestId();
-          (o("WAWebCanonicalEntRecoveryWam").logExchangeNonceStart(t),
+          var n = o("WAWebCanonicalEntRecoveryWam").generateRequestId();
+          (o("WAWebCanonicalEntRecoveryWam").logExchangeNonceStart(t, n),
             f(m.IN_PROGRESS),
             r("WAWebODS").incr("web.app.canonical.exchange.attempt"));
-          var n = yield h(e, { retry: !0 });
+          var a = yield h(e, { retry: !0 });
           return (
-            C(n),
-            n === p.SUCCESS
+            C(a, t),
+            a === p.SUCCESS
               ? (r("WAWebODS").incr("web.app.canonical.exchange.success"),
-                o("WAWebCanonicalEntRecoveryWam").logExchangeNonceSuccess(t))
-              : n === p.FAILED &&
+                o("WAWebCanonicalEntRecoveryWam").logExchangeNonceSuccess(t, n))
+              : a === p.FAILED &&
                 (r("WAWebODS").incr("web.app.canonical.exchange.failed"),
-                o("WAWebCanonicalEntRecoveryWam").logExchangeNonceError(t)),
-            n
+                o("WAWebCanonicalEntRecoveryWam").logExchangeNonceError(t, n)),
+            a
           );
         })),
         R.apply(this, arguments)

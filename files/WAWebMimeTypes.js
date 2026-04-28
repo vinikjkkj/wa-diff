@@ -153,7 +153,11 @@ __d(
             return r;
         }
       }
-      return n || e != null ? e : "application/octet-stream";
+      return e === "image/svg+xml"
+        ? null
+        : n || e != null
+          ? e
+          : "application/octet-stream";
     }
     function L(e) {
       var t,

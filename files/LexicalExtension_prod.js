@@ -1102,8 +1102,10 @@ __d(
       return lt;
     })();
     function ut(t, e) {
-      var n = _lt.fromEditor(t).extensionNameMap.get(e);
-      return n ? n.getExtensionDependency() : void 0;
+      var n = _lt.maybeFromEditor(t);
+      if (!n) return;
+      var i = n.extensionNameMap.get(e);
+      return i ? i.getExtensionDependency() : void 0;
     }
     var ft = new Set(),
       ht = _require_Lexical.defineExtension({
@@ -1527,14 +1529,16 @@ __d(
         var n = _lt.fromEditor(t).getExtensionRep(e);
         return (void 0 === n && z(303, e.name), n.getExtensionDependency());
       }),
-      (exports.getKnownTypesAndNodes = function (t) {
-        var e = new Set(),
-          n = new Set();
-        for (var _i5 of I(t)) {
-          var _t29 = "function" == typeof _i5 ? _i5 : _i5.replace;
-          (e.add(_t29.getType()), n.add(_t29));
+      (exports.getKnownTypesAndNodes = function (e) {
+        var n = new Set(),
+          i = new Set();
+        for (var _o6 of I(e)) {
+          var _e15 = "function" == typeof _o6 ? _o6 : _o6.replace;
+          (require("Lexical").getStaticNodeConfig(_e15),
+            n.add(_e15.getType()),
+            i.add(_e15));
         }
-        return { nodes: n, types: e };
+        return { nodes: i, types: n };
       }),
       (exports.getPeerDependencyFromEditor = ut),
       (exports.getPeerDependencyFromEditorOrThrow = function (t, e) {

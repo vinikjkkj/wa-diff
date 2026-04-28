@@ -25,6 +25,8 @@ __d(
                 o("WAWebWamEnumHighlightGroupType").HIGHLIGHT_GROUP_TYPE,
               ],
               isSenderSmb: [6, e.TYPES.BOOLEAN],
+              isSuspiciousFmx: [8, e.TYPES.BOOLEAN],
+              newAccountShown: [9, e.TYPES.BOOLEAN],
               notAContactShown: [7, e.TYPES.BOOLEAN],
             },
             [1, 1, 1],

@@ -95,8 +95,20 @@ __d(
                       ));
                     var d = self.performance.now(),
                       m = JSON.stringify(r("filterNulls")(i)),
-                      p = self.performance.now() - d;
-                    (o("WALogger").LOG(
+                      p = self.performance.now() - d,
+                      _ = self.performance.now();
+                    o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "contacts",
+                        method: "updateContacts-2",
+                        type: "sync",
+                      },
+                      function () {
+                        return l.$1.updateContacts(c, m);
+                      },
+                    );
+                    var f = self.performance.now() - _;
+                    o("WALogger").LOG(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
                           "[hybrid-contacts] req ids=",
@@ -104,24 +116,16 @@ __d(
                           " bulkGet=",
                           "ms str=",
                           "ms bytes=",
-                          "",
+                          " bridge=",
+                          "ms",
                         ])),
                       n.length,
                       c.length,
                       u.toFixed(0),
                       p.toFixed(0),
                       m.length,
-                    ),
-                      o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                        {
-                          bridge: "contacts",
-                          method: "updateContacts-2",
-                          type: "sync",
-                        },
-                        function () {
-                          return l.$1.updateContacts(c, m);
-                        },
-                      ));
+                      f.toFixed(0),
+                    );
                   }
                 },
               );
@@ -416,7 +420,19 @@ __d(
                       });
                       var c = self.performance.now(),
                         d = JSON.stringify(r("filterNulls")(l)),
-                        m = self.performance.now() - c;
+                        m = self.performance.now() - c,
+                        p = self.performance.now();
+                      yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                        {
+                          bridge: "contacts",
+                          method: "updateContacts-3",
+                          type: "sync",
+                        },
+                        function () {
+                          return t.$1.updateContacts(u, d);
+                        },
+                      );
+                      var _ = self.performance.now() - p;
                       (o("WALogger").LOG(
                         g ||
                           (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -426,7 +442,8 @@ __d(
                             " bulkGet=",
                             "ms stringify=",
                             "ms bytes=",
-                            "",
+                            " bridge=",
+                            "ms",
                           ])),
                         i,
                         n.length,
@@ -434,19 +451,8 @@ __d(
                         s.toFixed(0),
                         m.toFixed(0),
                         d.length,
+                        _.toFixed(0),
                       ),
-                        yield o(
-                          "WAWebWindowsHybridBridgeTrace",
-                        ).traceBridgeCall(
-                          {
-                            bridge: "contacts",
-                            method: "updateContacts-3",
-                            type: "sync",
-                          },
-                          function () {
-                            return t.$1.updateContacts(u, d);
-                          },
-                        ),
                         i + y < e.length &&
                           (yield o("WAPromiseDelays").releaseToEventLoop()));
                     },

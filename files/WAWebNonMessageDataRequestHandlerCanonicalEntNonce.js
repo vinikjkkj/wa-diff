@@ -96,11 +96,10 @@ __d(
             var u = o("WAWebUserPrefsMeUser")
                 .getMeDevicePnOrThrow_DO_NOT_USE()
                 .getDeviceId(),
-              c = yield o("WAWebCanonicalTokenExchange").exchangeNonceForToken({
-                userId: Number(s),
-                deviceId: u,
-                nonce: l,
-              });
+              c = yield o("WAWebCanonicalTokenExchange").exchangeNonceForToken(
+                { userId: Number(s), deviceId: u, nonce: l },
+                "recovery",
+              );
             if (
               c !== o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
             ) {

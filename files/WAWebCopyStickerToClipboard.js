@@ -84,7 +84,7 @@ __d(
                       "LottieSticker: Copy image to clipboard failed",
                     ])),
                 )
-                .sendLogs(e),
+                .sendLogs(String(e)),
               null
             );
           }

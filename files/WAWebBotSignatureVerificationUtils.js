@@ -50,7 +50,7 @@ __d(
                   startTime: a,
                 },
               ),
-              { verified: !0, shouldBlock: !1, reason: "disabled" }
+              "passed"
             );
           var l =
             i ===
@@ -79,7 +79,7 @@ __d(
                   signatureVersion: h,
                   startTime: a,
                 }),
-                { verified: !1, shouldBlock: l, reason: "missing_proofs" }
+                l ? "failed" : "passed"
               );
             var d = t.proofs.find(function (e) {
               return (
@@ -111,20 +111,10 @@ __d(
                   signatureVersion: h,
                   startTime: a,
                 }),
-                {
-                  verified: !1,
-                  shouldBlock: l,
-                  reason: "missing_wa_bot_msg_proof",
-                }
+                l ? "failed" : "passed"
               );
             var m = yield b(d, e.botId.user, n, a);
-            return m
-              ? { verified: !0, shouldBlock: !1, reason: "success" }
-              : {
-                  verified: !1,
-                  shouldBlock: l,
-                  reason: "signature_verification_failed",
-                };
+            return m ? "passed" : l ? "failed" : "passed";
           } catch (e) {
             return (
               o("WALogger")
@@ -148,7 +138,7 @@ __d(
                   startTime: a,
                 },
               ),
-              { verified: !1, shouldBlock: l, reason: "verification_exception" }
+              l ? "failed" : "passed"
             );
           }
         })),

@@ -30,7 +30,12 @@ __d(
       return ((s !== n || e == null) && ((s = n), (e = d(n))), e);
     }
     function p() {
-      return o("WAWebABProps").getABPropConfigValue("bonsai_enabled") === !0;
+      return (
+        o("WAWebABProps").getABPropConfigValue("bonsai_enabled") === !0 ||
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_expansion_countries_bonsai_enabled",
+        ) === !0
+      );
     }
     function _() {
       return (

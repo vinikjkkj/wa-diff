@@ -11,6 +11,7 @@ __d(
         botId: o("WAWebWidFactory").asBotWidOrThrow(r("WANullthrows")(i)),
         botName: n,
         creatorName: a,
+        validationStatus: "pending",
       };
     }
     l.parseForwardedAiBotMessageInfo = e;

@@ -1,35 +1,34 @@
 __d(
   "oz-player/strategies/OzSingleCodecRestriction",
-  ["vulture"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
       function e() {}
       var t = e.prototype;
       return (
         (t.applyRestriction = function (t) {
-          if ((r("vulture")("N4nIM_w3-xkqXi2z4SaCmSupJ3k="), t.length <= 0))
-            return t.slice();
+          if (t.length <= 0) return t.slice();
           var e = new Set(
               t.map(function (e) {
-                return s(e);
+                return l(e);
               }),
             ),
             n = "av01",
-            o = e.has(n) ? n : e.values().next().value;
-          return o == null
+            r = e.has(n) ? n : e.values().next().value;
+          return r == null
             ? t.slice()
             : t.filter(function (e) {
-                return s(e) === o;
+                return l(e) === r;
               });
         }),
         e
       );
     })();
-    function s(e) {
+    function l(e) {
       return e.getMimeCodecs().replace(/\..*$/, "");
     }
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

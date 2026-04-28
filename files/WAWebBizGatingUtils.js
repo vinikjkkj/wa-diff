@@ -1043,6 +1043,12 @@ __d(
         o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings")
       );
     }
+    function _n() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue("biz_ai_web_onboarding_handoff")
+      );
+    }
     ((l.canDisplayLabel = s),
       (l.canEditLabelAssociation = u),
       (l.canSendQuickReply = c),
@@ -1207,7 +1213,8 @@ __d(
       (l.isBloksWidgetEnabled = cn),
       (l.isCategorySearchViaGraphEnabled = dn),
       (l.getCatkitVersion = mn),
-      (l.isBizAIToolsSettingsEnabled = pn));
+      (l.isBizAIToolsSettingsEnabled = pn),
+      (l.isBizAiWebOnboardingHandoffEnabled = _n));
   },
   98,
 );

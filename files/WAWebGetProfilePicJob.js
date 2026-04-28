@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WASmaxProfilePictureGetRPC",
     "WAWebBackendErrors",
-    "WAWebProfilePicPrivacyTokenGating",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
   ],
@@ -83,10 +82,7 @@ __d(
     function d(e) {
       var t;
       return (
-        o(
-          "WAWebProfilePicPrivacyTokenGating",
-        ).isProfilePicIQPrivacyTokenEnabled() &&
-          e != null &&
+        e != null &&
           (t = {
             privacyTokenContentsMixinArgs: {
               anyElementValue: new Uint8Array(e),
@@ -96,11 +92,7 @@ __d(
       );
     }
     function m(e) {
-      return o(
-        "WAWebProfilePicPrivacyTokenGating",
-      ).isProfilePicIQPrivacyTokenEnabled() && e != null
-        ? o("WAJids").toGroupJid(e.toString())
-        : null;
+      return e != null ? o("WAJids").toGroupJid(e.toString()) : null;
     }
     l.getProfilePic = u;
   },

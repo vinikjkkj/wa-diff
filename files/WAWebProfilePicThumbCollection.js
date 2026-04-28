@@ -15,7 +15,6 @@ __d(
     "WAWebGroupType",
     "WAWebNewsletterCollection",
     "WAWebNewsletterMetadataCollection",
-    "WAWebProfilePicPrivacyTokenGating",
     "WAWebProfilePicThumbModel",
     "WAWebSocketConstants",
     "WAWebSocketModel",
@@ -91,12 +90,7 @@ __d(
                     o("WAWebSocketConstants").SOCKET_STREAM.DISCONNECTED)
                 ) {
                   var f;
-                  if (
-                    o(
-                      "WAWebProfilePicPrivacyTokenGating",
-                    ).isProfilePicIQPrivacyTokenEnabled() &&
-                    r("WAWebWid").isUser(e)
-                  ) {
+                  if (r("WAWebWid").isUser(e)) {
                     var g,
                       h = o("WAWebContactCollection").ContactCollection.get(e),
                       y = o("WAWebChatCollection").ChatCollection.get(e);

@@ -1,10 +1,6 @@
 __d(
   "WAWebFutureproofProtoUtils",
-  [
-    "WAWebBotBaseGating",
-    "WAWebMessageAssociationGatingUtils",
-    "WAWebViewOnceGatingUtils",
-  ],
+  ["WAWebBotBaseGating", "WAWebMessageAssociationGatingUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -23,14 +19,12 @@ __d(
         _ = e.viewOnceMessage,
         f = e.viewOnceMessageV2,
         g = e.viewOnceMessageV2Extension;
-      if (s) return s;
-      if (a) return a;
-      if (_) return _;
-      if (o("WAWebViewOnceGatingUtils").isViewOnceSunsetEnabled()) {
-        if (f) return f;
-        if (g) return g;
-      }
       return (
+        s ||
+        a ||
+        _ ||
+        f ||
+        g ||
         l ||
         i ||
         r ||

@@ -1772,6 +1772,12 @@ __d(
       enable_wwai_on_companion: [20768, "bool", !1, !1],
       engagement_origin_status_logging_enabled: [20365, "bool", !1, !1],
       enhanced_mention_limit: [25951, "int", 5, 5],
+      enhanced_mention_suggestions_min_mention_char_count: [
+        28089,
+        "int",
+        -1,
+        -1,
+      ],
       enhanced_mention_suggestions_non_group_members_enabled: [
         24852,
         "bool",
@@ -2782,6 +2788,12 @@ __d(
       out_of_sync_disappearing_messages_logging: [2561, "bool", !1, !0],
       override_adv_account_signature_key_enabled: [12933, "bool", !1, !0],
       p2m_external_payments_link_enabled: [4295, "bool", !1, !0],
+      p2p_pills_allowlist: [
+        29554,
+        "string",
+        '[{ "business_id": "34666845417", "pills": ["CHAT", "PROFILE", "BOOK_APPOINTMENT", "CATALOG", "BESTSELLERS", "OFFERS", "ABOUT_US"] }]',
+        '[{ "business_id": "34666845417", "pills": ["CHAT", "PROFILE", "BOOK_APPOINTMENT", "CATALOG", "BESTSELLERS", "OFFERS", "ABOUT_US"] }]',
+      ],
       p2p_pills_enabled: [27959, "bool", !1, !1],
       paa_support_for_disabled_epehemerality: [21235, "bool", !1, !0],
       pairless_logging_attribution_window: [3017, "int", 7, 7],
@@ -4643,6 +4655,7 @@ __d(
       web_anr_async_contacts_restore_from_db_enabled: [27775, "bool", !1, !1],
       web_anr_async_media_decryption_enabled: [23200, "bool", !1, !1],
       web_anr_async_msg_send_handler: [27249, "bool", !1, !1],
+      web_anr_async_native_app_state_bridge_enabled: [29551, "bool", !1, !1],
       web_anr_async_sqlite_bridge_operations: [29460, "bool", !1, !1],
       web_anr_batch_and_queue_bulk_contacts_db_writes_enabled: [
         25413,
@@ -4687,6 +4700,7 @@ __d(
       web_calling_auto_popout_video: [28046, "bool", !1, !1],
       web_calling_enable_on_windows: [26259, "bool", !1, !1],
       web_calling_full_screen_toggle_enabled: [28830, "bool", !1, !1],
+      web_calling_offline_resume_ordering: [29564, "bool", !1, !1],
       web_calling_perf_optimizations_bitmask: [22186, "int", 1, 1],
       web_calling_screen_sharing: [22798, "bool", !1, !1],
       web_calls_tab_empty_state_buttons: [17724, "bool", !1, !0],

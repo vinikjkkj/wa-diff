@@ -3,11 +3,9 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAWebABProps",
     "WAWebAddonEncryption",
     "WAWebAddonEncryptionError",
     "WAWebAddonInfraError",
-    "WAWebApiContact",
     "WAWebDBProcessEditProtocolMsgs",
     "WAWebEventEditDecryptedMsgDataConversion",
     "WAWebEventsValidationError",
@@ -175,81 +173,47 @@ __d(
               encryptedAddOn: s,
             },
             p = o("WAWebWidFactory").asUserWidOrThrow(d),
-            _ = c,
-            f = p;
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "lid_one_to_one_migration_event_response_force_pn_jid",
-            ) &&
-            t.from.isRegularUser()
-          ) {
-            if (c.isLid()) {
-              var g;
-              _ = (g = o("WAWebApiContact").getPhoneNumber(c)) != null ? g : c;
-            }
-            if (p.isLid()) {
-              var h;
-              f = (h = o("WAWebApiContact").getPhoneNumber(p)) != null ? h : p;
-            }
-          }
-          var y;
-          try {
-            y = yield o("WAWebAddonEncryption").decryptAddOn(m, {
+            _ = yield o("WAWebAddonEncryption").decryptAddOn(m, {
               messageSecret: u,
               iv: l,
               stanzaId: t.id.id,
-              originalMessageSender: _,
-              addOnSender: f,
-            });
-          } catch (e) {
-            if (
-              e instanceof
-                o("WAWebAddonEncryptionError").DualEncryptionValidationError &&
-              (c !== _ || p !== f)
-            )
-              y = yield o("WAWebAddonEncryption").decryptAddOn(m, {
-                messageSecret: u,
-                iv: l,
-                stanzaId: t.id.id,
-                originalMessageSender: c,
-                addOnSender: p,
-              });
-            else throw e;
-          }
-          var C = o("decodeProtobuf").decodeProtobuf(
+              originalMessageSender: c,
+              addOnSender: p,
+            }),
+            f = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsE2E.pb").MessageSpec,
-              y,
+              _,
             ),
-            b = o(
+            g = o(
               "WAWebEventEditDecryptedMsgDataConversion",
             ).protobufToEventEditDecryptedMsgData(
               (n = o(
                 "WAWebVerifyProtobufMsgObjectKeys",
-              ).getUnwrappedProtobufMessage(C)) != null
+              ).getUnwrappedProtobufMessage(f)) != null
                 ? n
-                : C,
+                : f,
               e,
               u,
             ),
-            v =
+            h =
               (a =
-                (i = C.messageContextInfo) == null
+                (i = f.messageContextInfo) == null
                   ? void 0
                   : i.messageSecret) != null
                 ? a
                 : e.messageSecret,
-            S = babelHelpers.extends({}, b, {
-              plainProtobufBytes: new Uint8Array(y),
+            y = babelHelpers.extends({}, g, {
+              plainProtobufBytes: new Uint8Array(_),
             });
           return (
-            v != null && (S.messageSecret = new Uint8Array(v)),
+            h != null && (y.messageSecret = new Uint8Array(h)),
             yield o(
               "WAWebHandleMsgValidate",
             ).validateAndProcessReportingTokenInfo({
-              renderableMsgs: [S],
+              renderableMsgs: [y],
               forceDualEncryptedValidation: !0,
             }),
-            o("WAWebDBProcessEditProtocolMsgs").generateMessageEdit(t, b)
+            o("WAWebDBProcessEditProtocolMsgs").generateMessageEdit(t, g)
           );
         })),
         p.apply(this, arguments)

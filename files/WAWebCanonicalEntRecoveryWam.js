@@ -29,21 +29,22 @@ __d(
       var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
       return e != null ? String(e) : "";
     }
-    function p(t, n, r, a, i) {
+    function p(t, n, r, a, i, l) {
       u();
-      var l = new (o(
+      var s = new (o(
         "WAWebCanonicalEntRecoveryCompanionWamEvent",
       ).CanonicalEntRecoveryCompanionWamEvent)({
         canonicalEntRecoveryCompanionEvent: t,
         canonicalEntEventCompanionMarker: n,
         canonicalEntRegistrationTraceId: e,
+        canonicalEntRecoveryEventMetadata: JSON.stringify({ purpose: r }),
         deviceId: m(),
         familyDeviceId: "",
       });
-      (r != null && (l.canonicalEntRequestId = r),
-        a != null && (l.canonicalEntFeatureName = a),
-        i != null && (l.canonicalEntRecoveryTimeoutSeconds = i),
-        l.commit());
+      (a != null && (s.canonicalEntRequestId = a),
+        i != null && (s.canonicalEntFeatureName = i),
+        l != null && (s.canonicalEntRecoveryTimeoutSeconds = l),
+        s.commit());
     }
     function _() {
       ((e = c()),
@@ -53,6 +54,7 @@ __d(
             .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.COMPANION_REGISTERED,
           o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
             .START,
+          "registration",
         ));
     }
     function f() {
@@ -61,6 +63,7 @@ __d(
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.REQUEST_NONCE_FROM_PRIMARY,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
           .START,
+        "recovery",
       );
     }
     function g() {
@@ -70,41 +73,46 @@ __d(
           .RECEIVED_COMPANION_NONCE_FROM_PRIMARY,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
           .SUCCESS,
+        "recovery",
       );
     }
-    function h(e) {
+    function h(e, t) {
       p(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.EXCHANGE_NONCE,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
           .START,
         e,
+        t,
       );
     }
-    function y(e) {
+    function y(e, t) {
       p(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.EXCHANGE_NONCE,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
           .SUCCESS,
         e,
+        t,
       );
     }
-    function C(e) {
+    function C(e, t) {
       p(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.EXCHANGE_NONCE,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
           .ERROR,
         e,
+        t,
       );
     }
-    function b() {
+    function b(e) {
       p(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.CREDENTIALS_STORED,
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
           .SUCCESS,
+        e,
       );
     }
     function v(t, n, r, a) {

@@ -112,10 +112,15 @@ __d(
       w = P.map(function (e) {
         return String.fromCodePoint(e);
       }).join(""),
-      A = function (t) {
+      A = String.fromCodePoint(9917),
+      F = [9917, 57344],
+      O = F.map(function (e) {
+        return String.fromCodePoint(e);
+      }).join(""),
+      B = function (t) {
         return t.replace(/\uFE0F/g, "");
       },
-      F = r("lodash").memoize(
+      W = r("lodash").memoize(
         function (e, t) {
           function n(r) {
             if ((r === void 0 && (r = []), r.length === t)) return [r];
@@ -131,7 +136,7 @@ __d(
           return e.toString() + t;
         },
       ),
-      O = (function () {
+      q = (function () {
         function t() {
           var t = this,
             n;
@@ -197,7 +202,7 @@ __d(
               return t.normalizeEmoji(e);
             }),
             (this.normalizeEmoji = function (e) {
-              var n = A(e),
+              var n = B(e),
                 r = t.$12(),
                 o = r.unqualifiedToNormalizedEmoji;
               return o.get(n);
@@ -218,7 +223,7 @@ __d(
               var r = t.$8(),
                 o = r.get(e);
               if (o == null) return null;
-              var a = B(n);
+              var a = U(n);
               return o.get(a);
             }),
             (this.$12 = n(function () {
@@ -235,7 +240,7 @@ __d(
                     var n = Array.isArray(e) ? e : [e];
                     (n.forEach(function (e) {
                       i.set(e, t);
-                      var n = A(e);
+                      var n = B(e);
                       l.set(n, e);
                     }),
                       a.set(t, s),
@@ -246,7 +251,7 @@ __d(
                   var t = e[0],
                     n = e[1];
                   i.set(t, n);
-                  var r = A(t);
+                  var r = B(t);
                   l.set(r, t);
                 }),
                 {
@@ -291,7 +296,7 @@ __d(
                   if (l == null) return 0;
                   var s = r.get(l);
                   s == null && ((s = new Map()), s.set("", l), r.set(l, s));
-                  var c = B(o);
+                  var c = U(o);
                   s.set(c, i);
                 },
                 a;
@@ -350,7 +355,18 @@ __d(
                 )
                   return M;
               }
-              return e;
+              return e === A &&
+                (o("WAWebABProps").getABPropConfigValue(
+                  "use_custom_soccer_ball_for_reaction_enabled",
+                ) ||
+                  o("WAWebABProps").getABPropConfigValue(
+                    "animated_soccer_ball_prod_enabled",
+                  ))
+                ? O
+                : e;
+            }),
+            (this.applyGlyphTransformations = function (e) {
+              return t.$15(e);
             }),
             (this.getGlyphId = function (e) {
               var n = t.normalizeEmoji(e);
@@ -489,7 +505,7 @@ __d(
           (n.getEmojiAggregate = function (t) {
             var e = this.getNormalizedOrTofu(t),
               n = this.getSkinToneBase(e);
-            return n != null ? n : A(e);
+            return n != null ? n : B(e);
           }),
           (n.getNormalizedOrTofu = function (n) {
             var t = this.normalizeEmojiFromString(n);
@@ -498,17 +514,17 @@ __d(
           t
         );
       })();
-    function B(e) {
+    function U(e) {
       return e.every(function (t) {
         return t === e[0];
       })
         ? e[0]
         : e.join("");
     }
-    function W(e) {
+    function V(e) {
       return I.has(e);
     }
-    var q = new O();
+    var H = new q();
     ((l.OPEN_BOX_CHAR = e),
       (l.PEOPLE_HOLDING_HANDS = m),
       (l.WOMEN_HOLDING_HANDS = p),
@@ -523,9 +539,9 @@ __d(
       (l.COUPLE_WITH_HEART_MAN_MAN = R),
       (l.COUPLE_WITH_HEART = E),
       (l.HANDSHAKE = k),
-      (l.getPermutations = F),
-      (l.isBaseMultiSkinToneEmoji = W),
-      (l.EmojiUtil = q));
+      (l.getPermutations = W),
+      (l.isBaseMultiSkinToneEmoji = V),
+      (l.EmojiUtil = H));
   },
   98,
 );
