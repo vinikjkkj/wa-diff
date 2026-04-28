@@ -384,6 +384,12 @@ __d(
           l.isBot()
         ) &&
           e.messageSecret &&
+          !(
+            i === "quoted" &&
+            o(
+              "WAWebMessagingGatingUtils",
+            ).isRemoveMessageSecretFromQuotedEnabled()
+          ) &&
           (c.messageContextInfo = babelHelpers.extends(
             {},
             c.messageContextInfo,
@@ -410,7 +416,13 @@ __d(
         o("WAWebMessagingGatingUtils").isReportingTokenSendingEnabled() &&
           o(
             "WAWebMessagePluginGenerateReportingTokenContent",
-          ).isMsgTypeReportingTokenCompatible(e.type, e.subtype))
+          ).isMsgTypeReportingTokenCompatible(e.type, e.subtype) &&
+          !(
+            i === "quoted" &&
+            o(
+              "WAWebMessagingGatingUtils",
+            ).isRemoveMessageSecretFromQuotedEnabled()
+          ))
       ) {
         var _, f;
         c.messageContextInfo = babelHelpers.extends({}, c.messageContextInfo, {

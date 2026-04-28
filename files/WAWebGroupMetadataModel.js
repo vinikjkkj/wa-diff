@@ -84,6 +84,7 @@ __d(
             (e.terminated = o("WAWebBaseModel").prop(!1)),
             (e.suspendAppealStatus = o("WAWebBaseModel").prop(null)),
             (e.suspendAppealUpdateTime = o("WAWebBaseModel").prop(null)),
+            (e.suspendAppealApprovedSeen = o("WAWebBaseModel").prop(!1)),
             (e.uniqueShortNameMap = o("WAWebBaseModel").prop()),
             (e.isLidAddressingMode = o("WAWebBaseModel").prop()),
             (e.isParentGroup = o("WAWebBaseModel").prop()),

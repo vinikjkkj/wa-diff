@@ -44,12 +44,9 @@ __d(
               ).updateCurrentlyProcessed(n.msgKey, n.syncType, n.chunkOrder));
             var c = [];
             (t.pushnames.forEach(function (e) {
-              var t = o("WAWebWidFactory").createWid(e.id || "");
-              if (t != null) {
-                var n = o("WAWebWidFactory").createUserWidOrThrow(e.id || ""),
-                  r = e.pushname || "";
-                c.push({ contactId: n, pushname: r });
-              }
+              var t = o("WAWebWidFactory").createUserWidOrThrow(e.id || ""),
+                n = e.pushname || "";
+              c.push({ contactId: t, pushname: n });
             }),
               yield o("WAWebBackendApi").frontendSendAndReceive(
                 "bulkUpdateContactPushnames",

@@ -66,6 +66,7 @@ __d(
               r("groupSafetyCheck"),
               r("suspendAppealStatus"),
               r("suspendAppealUpdateTime"),
+              r("suspendAppealApprovedSeen"),
               r("groupAdder"),
               r("lastCommunityPollTimestamp"),
               r("hasIncompleteParticipantInformation"),

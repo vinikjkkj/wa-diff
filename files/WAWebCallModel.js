@@ -43,7 +43,6 @@ __d(
             (n.callLinkCreatorJid = null),
             (n.callLinkVideoEnabled = !1),
             (n.isCallLink = !1),
-            (n.isLidCall = !1),
             (n.isEventLink = !1),
             (n.isInWaitingRoom = !1),
             (n.displayWaitingRoomDenied = !1),

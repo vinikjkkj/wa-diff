@@ -216,7 +216,7 @@ __d(
             .ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[getCTAButtonData] Error parsing CTA button JSON from pendingBroadcast",
+                  "[getCTAButtonData] CTA JSON parse failed (pending)",
                 ])),
             )
             .catching(r("getErrorSafe")(t))
@@ -257,7 +257,7 @@ __d(
             .ERROR(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[broadcast:campaign-data] Error parsing CTA button JSON data for msg ",
+                  "[broadcast:campaign-data] CTA JSON parse failed ",
                   "",
                 ])),
               d.id,
@@ -529,7 +529,7 @@ __d(
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[broadcast:campaign-data] Loading campaigns from biz-broadcast-campaigns table",
+                "[broadcast:campaign-data] loading campaigns",
               ])),
           );
           var e = yield (_ || (_ = n("Promise"))).all([
@@ -560,9 +560,9 @@ __d(
           o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
-                "[broadcast:campaign-data] Found ",
-                " total campaigns, ",
-                " visible on current device",
+                "[broadcast:campaign-data] ",
+                " total, ",
+                " visible",
               ])),
             t.length,
             l.length,

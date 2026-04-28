@@ -163,21 +163,23 @@ __d(
                 D = typeof T == "object" ? o("WAProtoConst").TYPES.MESSAGE : T,
                 x = h[I],
                 $ = h[D];
-              if (x == null || $ == null)
-                throw new Error("Invalid encoder for map key/value");
-              var P = new (o("WABinary").Binary)(),
-                N = 8 | o("WAProtoUtils").typeToEncType(I);
-              (P.writeVarInt(N), x(P, E, I));
-              var M = 16 | o("WAProtoUtils").typeToEncType(D);
-              (P.writeVarInt(M),
-                $(P, k, T),
-                t.writeVarInt(P.size()),
-                t.writeBinary(P));
+              if (x == null || $ == null) {
+                var P = new Error("Invalid encoder for map key/value");
+                throw (P.stack, P);
+              }
+              var N = new (o("WABinary").Binary)(),
+                M = 8 | o("WAProtoUtils").typeToEncType(I);
+              (N.writeVarInt(M), x(N, E, I));
+              var w = 16 | o("WAProtoUtils").typeToEncType(D);
+              (N.writeVarInt(w),
+                $(N, k, T),
+                t.writeVarInt(N.size()),
+                t.writeBinary(N));
             }
           else {
             t.writeVarInt(b);
-            var w = h[g];
-            w(t, p, y);
+            var A = h[g];
+            A(t, p, y);
           }
         }
       }

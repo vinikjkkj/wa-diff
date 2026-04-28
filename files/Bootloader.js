@@ -104,7 +104,10 @@ __d(
                     ),
                     n && t && U());
                 })));
-            else throw new Error("Network status API is not available");
+            else {
+              var e = new Error("Network status API is not available");
+              throw (e.stack, e);
+            }
         } catch (e) {
           r("FBLogger")("bootloader").warn("NetworkStatus is failing");
         }
@@ -778,16 +781,16 @@ __d(
         for (var l of i) {
           v.add(l);
           var u = T.get(l);
-          if (u == null)
-            throw (
-              r("FBLogger")("bootloader").mustfix(
-                "SoT hash unavailable for hash %s",
-                l,
-              ),
-              new Error("Got unexpected null or undefined")
+          if (u == null) {
+            r("FBLogger")("bootloader").mustfix(
+              "SoT hash unavailable for hash %s",
+              l,
             );
-          var c = K(u);
-          (c.type !== "csr" || s(0, 20056, u), t.set(u, c));
+            var c = new Error("Got unexpected null or undefined");
+            throw (c.stack, c);
+          }
+          var d = K(u);
+          (d.type !== "csr" || s(0, 20056, u), t.set(u, d));
         }
       }
       return t.entries();

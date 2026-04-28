@@ -221,8 +221,8 @@ __d(
               o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[contact-import:file-processor] File validation passed for ",
-                    " file: ",
+                    "[contact-import] file valid: ",
+                    " ",
                     "",
                   ])),
                 a,
@@ -232,9 +232,9 @@ __d(
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[contact-import:file-processor] File parsing completed: ",
-                  " rows extracted from ",
-                  " file",
+                  "[contact-import] parsed: ",
+                  " rows (",
+                  ")",
                 ])),
               i.length,
               a,
@@ -243,12 +243,10 @@ __d(
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[contact-import:file-processor] row size \u2713 file=",
-                    " rows=",
-                    " limit=",
+                    "[contact-import] rows ok: ",
+                    "/",
                     "",
                   ])),
-                t.name,
                 i.length,
                 r.recipientLimit,
               ));
@@ -256,9 +254,9 @@ __d(
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[contact-import:file-processor] Contact data processing completed: ",
-                  " valid, ",
-                  " errors",
+                  "[contact-import] processed: ",
+                  "+ ",
+                  "-",
                 ])),
               l.validContacts.length,
               l.errors.length,
@@ -269,9 +267,9 @@ __d(
             o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[contact-import:file-processor] WA verify done: ",
-                  "\u2713 ",
-                  "\u2717",
+                  "[contact-import] verified: ",
+                  "+ ",
+                  "-",
                 ])),
               C.length,
               y.length,
@@ -290,9 +288,9 @@ __d(
             (o("WALogger").LOG(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[contact-import:file-processor] processing done: ",
-                  " contacts, ",
-                  " errors",
+                  "[contact-import] done: ",
+                  "+ ",
+                  "-",
                 ])),
               C.length,
               v.length,
@@ -310,11 +308,11 @@ __d(
               .ERROR(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[contact-import:file-processor] File processing failed for ",
-                    " file ",
-                    ": name=",
-                    " message=",
-                    " typedErrorType=",
+                    "[contact-import] failed: ",
+                    " ",
+                    " err=",
+                    " msg=",
+                    " type=",
                     "",
                   ])),
                 a,

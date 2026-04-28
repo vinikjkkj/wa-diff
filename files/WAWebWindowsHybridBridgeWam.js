@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebBrowserApi",
     "WAWebCrashContextUtils",
     "WAWebCrashLogWamEvent",
     "WAWebWam",
@@ -77,6 +78,8 @@ __d(
                           y,
                         ),
                       ),
+                        g.webGlobalName === "memClass" &&
+                          o("WAWebBrowserApi").setMemClassOverride(Number(y)),
                         p.push(g.webGlobalName + "=" + y));
                     } else _.push(g.webGlobalName);
                   }

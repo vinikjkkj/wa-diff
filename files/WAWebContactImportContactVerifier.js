@@ -145,8 +145,8 @@ __d(
                 .WARN(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[contact-import:contact-verifier] verifyWhatsAppUsers: ",
-                      " users had no id, skipped",
+                      "[contact-verifier] verifyWhatsAppUsers: ",
+                      " no id",
                     ])),
                   a,
                 )
@@ -195,8 +195,8 @@ __d(
               o("WALogger").WARN(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[contact-import:lid-resolver] resolveLidsFromPhones: ",
-                    " users had no id, skipped",
+                    "[lid-resolver] resolveLidsFromPhones: ",
+                    " no id",
                   ])),
                 i,
               ),

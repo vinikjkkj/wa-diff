@@ -18,6 +18,7 @@ __d(
     "WAWebRemoveFromFavoritesAction",
     "WAWebSchemaLabel",
     "WAWebStaleBaseCollection",
+    "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWid",
     "lodash",
@@ -27,18 +28,19 @@ __d(
     var e,
       u,
       c,
-      d = ["id"],
-      m,
-      p = m || (m = o("react")),
-      _ = n("$InternalEnum").Mirrored(["CREATE", "EDIT", "DELETE"]),
-      f = n("$InternalEnum").Mirrored(["IN_PROGRESS", "SUCCESS", "ERROR"]);
-    function g(e, t, n) {
-      if (n === _.CREATE)
-        return e === f.IN_PROGRESS
+      d,
+      m = ["id"],
+      p,
+      _ = p || (p = o("react")),
+      f = n("$InternalEnum").Mirrored(["CREATE", "EDIT", "DELETE"]),
+      g = n("$InternalEnum").Mirrored(["IN_PROGRESS", "SUCCESS", "ERROR"]);
+    function h(e, t, n) {
+      if (n === f.CREATE)
+        return e === g.IN_PROGRESS
           ? s._(/*BTDS*/ "Creating list")
-          : e === f.SUCCESS
+          : e === g.SUCCESS
             ? s._(/*BTDS*/ "List created")
-            : e === f.ERROR
+            : e === g.ERROR
               ? s._(/*BTDS*/ "List could not be created")
               : (function () {
                   throw Error(
@@ -48,30 +50,30 @@ __d(
                 })();
       if (t)
         switch (e) {
-          case f.IN_PROGRESS:
+          case g.IN_PROGRESS:
             return s._(/*BTDS*/ "Adding to list");
-          case f.SUCCESS:
+          case g.SUCCESS:
             return s._(/*BTDS*/ "Added to list");
-          case f.ERROR:
+          case g.ERROR:
             return s._(/*BTDS*/ "Could not be added to list");
         }
       else
         switch (e) {
-          case f.IN_PROGRESS:
-            return s._(/*BTDS*/ "Saving list");
-          case f.SUCCESS:
-            return s._(/*BTDS*/ "List saved");
-          case f.ERROR:
-            return s._(/*BTDS*/ "Failed to save the list");
+          case g.IN_PROGRESS:
+            return s._(/*BTDS*/ "Updating list");
+          case g.SUCCESS:
+            return s._(/*BTDS*/ "List updated");
+          case g.ERROR:
+            return s._(/*BTDS*/ "List could not be updated");
         }
     }
-    var h = (function (t) {
+    var y = (function (t) {
       function n() {
         var e;
         return (
           (e = t.call(this) || this),
           (e.$LabelCollectionImpl$p_1 = new Map()),
-          e.listenTo(e, "remove", y),
+          e.listenTo(e, "remove", C),
           e
         );
       }
@@ -89,7 +91,7 @@ __d(
             }),
             r = n.map(function (e) {
               var t = e.id,
-                n = babelHelpers.objectWithoutPropertiesLoose(e, d);
+                n = babelHelpers.objectWithoutPropertiesLoose(e, m);
               return babelHelpers.extends({ id: t }, n);
             });
           this.add(r);
@@ -140,25 +142,17 @@ __d(
           var t = this;
           if (!(n.length === 0 || a.length === 0)) {
             var l = i == null ? void 0 : i.listUpdateMode,
-              c = o("WAWebListsGatingUtils").isListsEnabled(),
-              d =
-                c &&
+              d = (i == null ? void 0 : i.suppressSuccessToast) === !0,
+              m = o("WAWebListsGatingUtils").isListsEnabled(),
+              p =
+                m &&
                 n.every(function (e) {
                   return e.type === "add";
                 }),
-              m = o("WAWebActionToast.react").genId(),
-              _ = new (o("WAWebActionToast.react").ActionType)(
-                c
-                  ? g(f.IN_PROGRESS, d, l)
-                  : s._(
-                      /*BTDS*/ '_j{"*":"Changing {count} labels","_1":"Changing {count} label"}',
-                      [s._plural(n.length), s._param("count", n.length)],
-                    ),
-              ),
-              h = a.some(function (e) {
+              f = a.some(function (e) {
                 return e instanceof r("WAWebContactModel");
               });
-            h &&
+            f &&
               o("WALogger")
                 .ERROR(
                   e ||
@@ -167,44 +161,65 @@ __d(
                     ])),
                 )
                 .sendLogs("contact model is invalid for editLabelAssociation");
-            var y = o("WAWebEditLabelAssociationBridge")
-              .editLabelAssociation(this.$LabelCollectionImpl$p_2(n), a)
-              .then(function () {
-                t.addOrRemoveLabelsMD(n, a);
-              })
-              .then(function () {
+            var y = m
+                ? h(g.ERROR, p, l)
+                : s._(
+                    /*BTDS*/ '_j{"*":"Some labels could not be updated","_1":"The label could not be updated"}',
+                    [s._plural(n.length)],
+                  ),
+              C = o("WAWebEditLabelAssociationBridge")
+                .editLabelAssociation(this.$LabelCollectionImpl$p_2(n), a)
+                .then(function () {
+                  t.addOrRemoveLabelsMD(n, a);
+                });
+            if (d) {
+              C.catch(function (e) {
+                (o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "addingNewLabel dropped",
+                    ])),
+                ),
+                  o("WAWebToastManager").ToastManager.open(
+                    _.jsx(o("WAWebToast.react").Toast, { msg: y }),
+                  ));
+              });
+              return;
+            }
+            var b = o("WAWebActionToast.react").genId(),
+              v = new (o("WAWebActionToast.react").ActionType)(
+                m
+                  ? h(g.IN_PROGRESS, p, l)
+                  : s._(
+                      /*BTDS*/ '_j{"*":"Changing {count} labels","_1":"Changing {count} label"}',
+                      [s._plural(n.length), s._param("count", n.length)],
+                    ),
+              ),
+              S = C.then(function () {
                 return new (o("WAWebActionToast.react").ActionType)(
-                  c
-                    ? g(f.SUCCESS, d, l)
+                  m
+                    ? h(g.SUCCESS, p, l)
                     : s._(
                         /*BTDS*/ '_j{"*":"{count} labels changed","_1":"1 label changed"}',
                         [s._plural(n.length, "count")],
                       ),
                 );
-              })
-              .catch(function (e) {
+              }).catch(function (e) {
                 return (
                   o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "addingNewLabel dropped",
                       ])),
                   ),
-                  new (o("WAWebActionToast.react").ActionType)(
-                    c
-                      ? g(f.ERROR, d, l)
-                      : s._(
-                          /*BTDS*/ '_j{"*":"Some labels could not be updated","_1":"The label could not be updated"}',
-                          [s._plural(n.length)],
-                        ),
-                  )
+                  new (o("WAWebActionToast.react").ActionType)(y)
                 );
               });
             o("WAWebToastManager").ToastManager.open(
-              p.jsx(o("WAWebActionToast.react").ActionToast, {
-                id: m,
-                initialAction: _,
-                pendingAction: y,
+              _.jsx(o("WAWebActionToast.react").ActionToast, {
+                id: b,
+                initialAction: v,
+                pendingAction: S,
               }),
             );
           }
@@ -333,8 +348,8 @@ __d(
             ? this.$LabelCollectionImpl$p_1.set(t, n)
             : n == null &&
               o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "label sync: malformed mutation, unexpected null predefinedId",
                   ])),
               );
@@ -342,8 +357,8 @@ __d(
         n
       );
     })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    h.model = o("WAWebLabelModel").Label;
-    function y(e) {
+    y.model = o("WAWebLabelModel").Label;
+    function C(e) {
       var t = e.labelItemCollection;
       t.toArray().forEach(function (e) {
         var t = e.labelId,
@@ -356,8 +371,8 @@ __d(
           }));
       });
     }
-    var C = new h();
-    ((l.ListUpdateMode = _), (l.LabelCollection = C));
+    var b = new y();
+    ((l.ListUpdateMode = f), (l.LabelCollection = b));
   },
   226,
 );

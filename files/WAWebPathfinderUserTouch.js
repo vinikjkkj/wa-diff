@@ -6,109 +6,91 @@ __d(
       s = 300,
       u = 2e3,
       c = 2e3,
-      d = /^(true|false)_/,
-      m = /^[0-9A-Fa-f]{8,}$/,
-      p = /^\d{6,}$/,
-      _ = /[^\x20-\x7E]/,
+      d = null,
+      m = null,
+      p = null,
+      _ = null,
       f = null,
-      g = null,
-      h = null,
-      y = null,
-      C = null,
-      b = null;
-    function v(e) {
-      h = e;
+      g = null;
+    function h(e) {
+      p = e;
     }
-    function S() {
-      return h;
+    function y() {
+      return p;
     }
-    function R(e, t) {
-      var n = g;
+    function C(e, t) {
+      var n = m;
       return n != null && n.eventType === e && n.trackingId === t
         ? n.debounceCount + 1
         : 1;
     }
-    function L(e, t, n, r) {
-      var a = R(e, t);
-      ((g = { eventType: e, trackingId: t, debounceCount: a }),
+    function b(e, t, n, r) {
+      var a = C(e, t);
+      ((m = { eventType: e, trackingId: t, debounceCount: a }),
         o("WAWebPathfinderLogger").emitPathfinderEvent({
           eventType: e,
           debounceCount: a,
-          screenName: h,
+          screenName: p,
           targetTrackingId: t,
           targetType: n,
           timestampMs: r,
         }));
     }
-    function E(e, t) {
+    function v(e, t) {
       o("WAWebPathfinderLogger").emitPathfinderEvent({
         eventType: "SCROLL",
         screenName: e,
         timestampMs: t,
       });
     }
-    function k(e, t, n) {
+    function S(e, t, n) {
       o("WAWebPathfinderLogger").emitPathfinderEvent({
         eventType: "LONG_PRESS",
-        screenName: h,
+        screenName: p,
         targetTrackingId: e,
         targetType: t,
         timestampMs: n,
       });
     }
-    function I(e) {
+    function R(e) {
       var t;
       return (t = e.getAttribute("data-testid")) != null
         ? t
         : e.getAttribute("testid");
     }
-    function T(e) {
-      var t = e.split("-"),
-        n = [];
-      for (var r of t) {
-        if (r.includes("@") || d.test(r) || m.test(r) || p.test(r) || _.test(r))
-          break;
-        n.push(r);
-      }
-      return n.length > 0 ? n.join("-") : "";
-    }
-    function D(e) {
+    function L(e) {
       return e.tagName.toLowerCase();
     }
-    function x(t) {
+    function E(t) {
       for (var n = t, r = 0, o = []; n instanceof HTMLElement && r < e; ) {
-        var a = I(n);
-        if (a != null) {
-          var i = T(a);
-          i !== "" && o.push(i);
-        }
-        ((n = n.parentElement), r++);
+        var a = R(n);
+        (a != null && a !== "" && o.push(a), (n = n.parentElement), r++);
       }
       return (o.reverse(), o.length > 0 ? o.join("/") : null);
     }
-    function $(e) {
+    function k(e) {
       var t = e.target;
-      if (b != null && b === t) {
-        b = null;
+      if (g != null && g === t) {
+        g = null;
         return;
       }
-      if (((b = null), t instanceof HTMLElement)) {
+      if (((g = null), t instanceof HTMLElement)) {
         var n = Date.now(),
-          r = x(t);
+          r = E(t);
         if (r != null) {
-          var o = D(t),
-            a = f;
+          var o = L(t),
+            a = d;
           a != null &&
             (window.clearTimeout(a.timer),
             a.target !== t &&
-              L("TAP", a.trackingId, a.targetType, a.timestampMs));
+              b("TAP", a.trackingId, a.targetType, a.timestampMs));
           var i = window.setTimeout(function () {
-            var e = f;
+            var e = d;
             e != null &&
               e.timer === i &&
-              (L("TAP", e.trackingId, e.targetType, e.timestampMs), (f = null));
+              (b("TAP", e.trackingId, e.targetType, e.timestampMs), (d = null));
           }, s);
-          f = {
+          d = {
             timer: i,
             target: t,
             trackingId: r,
@@ -118,62 +100,62 @@ __d(
         }
       }
     }
-    function P(e) {
+    function I(e) {
       var t = e.target;
       if (t instanceof HTMLElement) {
-        var n = f;
+        var n = d;
         if (n != null) {
           (window.clearTimeout(n.timer),
-            (f = null),
-            L("DOUBLE_TAP", n.trackingId, n.targetType, n.timestampMs));
+            (d = null),
+            b("DOUBLE_TAP", n.trackingId, n.targetType, n.timestampMs));
           return;
         }
-        var r = x(t);
-        r != null && L("DOUBLE_TAP", r, D(t), Date.now());
+        var r = E(t);
+        r != null && b("DOUBLE_TAP", r, L(t), Date.now());
       }
     }
-    function N() {
-      if (y == null) {
+    function T() {
+      if (_ == null) {
         var e = Date.now(),
-          t = h;
-        ((y = window.setTimeout(function () {
-          y = null;
+          t = p;
+        ((_ = window.setTimeout(function () {
+          _ = null;
         }, u)),
-          E(t, e));
+          v(t, e));
       }
     }
-    function M(e) {
+    function D(e) {
       if (!(!(e instanceof PointerEvent) || e.button !== 0)) {
         var t = e.target;
         if (t instanceof HTMLElement) {
-          (C != null && window.clearTimeout(C), (b = null));
-          var n = x(t),
-            r = D(t),
+          (f != null && window.clearTimeout(f), (g = null));
+          var n = E(t),
+            r = L(t),
             o = Date.now();
-          C = window.setTimeout(function () {
-            ((C = null), (b = t), k(n, r, o));
+          f = window.setTimeout(function () {
+            ((f = null), (g = t), S(n, r, o));
           }, c);
         }
       }
     }
-    function w(e) {
+    function x(e) {
       !(e instanceof PointerEvent) ||
         e.button !== 0 ||
-        (C != null && (window.clearTimeout(C), (C = null)));
+        (f != null && (window.clearTimeout(f), (f = null)));
     }
-    function A() {
-      C != null && (window.clearTimeout(C), (C = null));
+    function $() {
+      f != null && (window.clearTimeout(f), (f = null));
     }
-    ((l.updateCurrentScreenName = v),
-      (l.getCurrentScreenName = S),
-      (l.getTargetType = D),
-      (l.getAncestorTrackingPath = x),
-      (l.handleClick = $),
-      (l.handleDoubleClick = P),
-      (l.handleScroll = N),
-      (l.handlePointerDown = M),
-      (l.handlePointerUp = w),
-      (l.handlePointerCancel = A));
+    ((l.updateCurrentScreenName = h),
+      (l.getCurrentScreenName = y),
+      (l.getTargetType = L),
+      (l.getAncestorTrackingPath = E),
+      (l.handleClick = k),
+      (l.handleDoubleClick = I),
+      (l.handleScroll = T),
+      (l.handlePointerDown = D),
+      (l.handlePointerUp = x),
+      (l.handlePointerCancel = $));
   },
   98,
 );

@@ -23,7 +23,7 @@ __d(
       var t = o("react-compiler-runtime").c(17),
         n = e.contact,
         a = o("WAWebUseAboutDisplayStatus").useAboutDisplayStatus(n),
-        i = a.hasContent;
+        i = a.shouldRenderAboutSection;
       if (r("WAWebWid").isPSA(n.id)) {
         var l;
         t[0] === Symbol.for("react.memo_cache_sentinel")

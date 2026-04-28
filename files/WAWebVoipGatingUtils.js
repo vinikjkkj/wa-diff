@@ -186,7 +186,52 @@ __d(
         ) >= 1
       );
     }
-    function N() {
+    var N = 1,
+      M = 2,
+      w = 4,
+      A = 8;
+    function F(e, t) {
+      return Math.floor(e / t) % 2 === 1;
+    }
+    function O() {
+      return F(
+        o("WAWebABProps").getABPropConfigValue(
+          "call_info_optimizations_version",
+        ),
+        N,
+      );
+    }
+    function B() {
+      return F(
+        o("WAWebABProps").getABPropConfigValue(
+          "call_info_optimizations_version",
+        ),
+        M,
+      );
+    }
+    function W() {
+      return F(
+        o("WAWebABProps").getABPropConfigValue(
+          "call_info_optimizations_version",
+        ),
+        w,
+      );
+    }
+    function q() {
+      return F(
+        o("WAWebABProps").getABPropConfigValue(
+          "call_info_optimizations_version",
+        ),
+        A,
+      );
+    }
+    function U(e) {
+      var t = e.isAdHocGroupCall,
+        n = e.isCallLink,
+        r = e.isGroup;
+      return n === !0 ? q() : t ? W() : r ? B() : O();
+    }
+    function V() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_calling_full_screen_toggle_enabled",
       );
@@ -210,7 +255,12 @@ __d(
       (l.isDeviceSwitchingEnabled = x),
       (l.isCallTransferNotificationEnabled = $),
       (l.isCallInfoOptimizationsEnabled = P),
-      (l.isFullScreenToggleEnabled = N));
+      (l.isCallInfoOptimizationsEnabledFor1to1 = O),
+      (l.isCallInfoOptimizationsEnabledForLGC = B),
+      (l.isCallInfoOptimizationsEnabledForAHGC = W),
+      (l.isCallInfoOptimizationsEnabledForCallLink = q),
+      (l.isCallInfoOptimizationsEnabledForCallType = U),
+      (l.isFullScreenToggleEnabled = V));
   },
   98,
 );

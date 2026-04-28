@@ -17,21 +17,10 @@ __d(
           e.dataset.processed = "1";
           var n = null;
           try {
-            var a = window.Env != null && "x3m9kf2n" in window.Env,
-              i =
-                typeof JSON.parse == "function" &&
-                !(
-                  JSON.parse.toString === JSON.parse.toString.toString &&
-                  o("GHLDetectionUtilsPreludeSafe").normalize(
-                    JSON.parse.toString(),
-                  ) === "function parse() { [native code] }" &&
-                  o("GHLDetectionUtilsPreludeSafe").normalize(
-                    JSON.parse.toString.toString(),
-                  ) === "function toString() { [native code] }"
-                );
-            if (a && i)
+            var a = window.Env != null && "x3m9kf2n" in window.Env;
+            if (a && o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed())
               try {
-                var l =
+                var i =
                     typeof String == "function" &&
                     !(
                       String.toString === String.toString.toString &&
@@ -42,9 +31,9 @@ __d(
                         String.toString.toString(),
                       ) === "function toString() { [native code] }"
                     ),
-                  s = window.Env != null && "r4wt7kmj" in window.Env;
-                (s &&
-                  l &&
+                  l = window.Env != null && "r4wt7kmj" in window.Env;
+                (l &&
+                  i &&
                   o("GHLDetectionUtilsPreludeSafe").restoreNativeString(),
                   (n = r("json5").parse(e.textContent)));
               } catch (t) {

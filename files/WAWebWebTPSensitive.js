@@ -14,9 +14,7 @@ __d(
         : s._(/*BTDS*/ "Edit in Acrobat");
     }
     function m() {
-      return c()
-        ? u.jsx(r("WDSIconIcOpenInNew.react"), { height: 20, width: 20 })
-        : null;
+      return u.jsx(r("WDSIconIcOpenInNew.react"), { height: 20, width: 20 });
     }
     ((m.displayName = m.name + " [from " + i.id + "]"),
       (l.isEditInAcrobatLabelEnabled = c),

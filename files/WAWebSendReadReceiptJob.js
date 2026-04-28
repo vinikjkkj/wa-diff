@@ -185,6 +185,7 @@ __d(
                 type: m(l, i ? void 0 : _),
                 t: String(t),
                 receiptClass: i ? "status" : void 0,
+                isStatusReceipt: !0,
                 groupedReceipt: new Map([[_, [a.id]]]),
               }),
               i)

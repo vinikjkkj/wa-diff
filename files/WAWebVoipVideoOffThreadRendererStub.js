@@ -160,6 +160,12 @@ __d(
           (n.reset = function () {
             this.$4.postMessage({ type: "reset", rendererId: this.$1 });
           }),
+          (n.requireKeyframe = function () {
+            this.$4.postMessage({
+              type: "requireKeyframe",
+              rendererId: this.$1,
+            });
+          }),
           (n.onCanvasResize = function (t, n) {
             this.$4.postMessage({
               type: "onCanvasResize",

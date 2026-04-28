@@ -38,7 +38,7 @@ __d(
           (yield (_ || (_ = n("Promise"))).all(
             a.map(function (e) {
               return o("WAWebAdvSyncDeviceListApi").syncDeviceList({
-                wids: [e.UserRawJid],
+                wids: [e.UserJid],
                 phash: e.PHash,
                 context: "voip",
               });
@@ -243,11 +243,7 @@ __d(
                 a =
                   t === "abtest_bucket"
                     ? "callTestBucket"
-                    : t === "peer_raw_jid"
-                      ? null
-                      : r("WACamelCase")(t, {
-                          treatNumbersAsWordBoundaries: !1,
-                        });
+                    : r("WACamelCase")(t, { treatNumbersAsWordBoundaries: !1 });
               if (a == null) return null;
               try {
                 var i = o("WAWebWamCodegenUtils").metrics.getEvent("Call", a);

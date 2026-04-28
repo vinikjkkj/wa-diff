@@ -130,6 +130,7 @@ __d(
             (e.subtype = o("WAWebBaseModel").prop()),
             (e.t = o("WAWebBaseModel").prop()),
             (e.clientReceivedTsMillis = o("WAWebBaseModel").prop()),
+            (e.serverStoreTimeMicros = o("WAWebBaseModel").prop()),
             (e.revokeTimestamp = o("WAWebBaseModel").prop()),
             (e.notifyName = o("WAWebBaseModel").prop()),
             (e.from = o("WAWebBaseModel").prop()),

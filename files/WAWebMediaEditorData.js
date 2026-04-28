@@ -100,18 +100,20 @@ __d(
                 !(n instanceof o("WAWebMediaEditorLayersText").TextLayer)) ||
               (t instanceof o("WAWebMediaEditorLayersImage").ImageLayer &&
                 !(n instanceof o("WAWebMediaEditorLayersImage").ImageLayer))
-            )
-              throw new TypeError(
+            ) {
+              var e = new TypeError(
                 "MediaEditorData: calling _updateLayer with two different layer types",
               );
+              throw (e.stack, e);
+            }
             if (t === n) return this;
-            var e = this.getLayers().map(function (e) {
+            var r = this.getLayers().map(function (e) {
                 return e === t ? n : e;
               }),
-              r = this.getSelectedLayer();
+              a = this.getSelectedLayer();
             return (
-              r === t && (r = n),
-              this.$2({ layers: e, selectedLayer: r })
+              a === t && (a = n),
+              this.$2({ layers: r, selectedLayer: a })
             );
           }),
           (n.setBackground = function (t, n) {

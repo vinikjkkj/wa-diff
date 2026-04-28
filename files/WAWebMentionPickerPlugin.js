@@ -408,7 +408,10 @@ __d(
         ) {
           var ue = [],
             ce = A && O;
-          if (($ == null ? void 0 : $.id) != null && D($, H, d)) {
+          if (
+            ($ == null ? void 0 : $.id) != null &&
+            D({ groupMetadata: $, query: H, source: d })
+          ) {
             var de;
             (a[33] !== $.id || a[34] !== ue.length || a[35] !== H
               ? ((de = {
@@ -725,17 +728,21 @@ __d(
         text: "@all",
       });
     }
-    function D(e, t, n) {
-      var r, a;
-      if (n === "message_edit" || !"all".startsWith(t)) return !1;
-      var i = o("WAWebABProps").getABPropConfigValue(
+    function D(e) {
+      var t,
+        n,
+        r = e.groupMetadata,
+        a = e.query,
+        i = e.source;
+      if (i === "message_edit" || !"all".startsWith(a)) return !1;
+      var l = o("WAWebABProps").getABPropConfigValue(
           "admin_only_mention_everyone_group_size",
         ),
-        l = (r = e.participants.iAmAdmin()) != null ? r : !1,
-        s = (a = e.participants.length) != null ? a : 0,
-        u = s < i || l;
+        s = (t = r.participants.iAmAdmin()) != null ? t : !1,
+        u = (n = r.participants.length) != null ? n : 0,
+        c = u < l || s;
       return (
-        u &&
+        c &&
         o("WAWebABProps").getABPropConfigValue(
           "enable_mention_everyone_sender_web",
         )

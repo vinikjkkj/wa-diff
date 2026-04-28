@@ -15,26 +15,31 @@ __d(
         [e.Theme.CharcoalGreen, "00021"],
         [e.Theme.PersianPlum, "00025"],
         [e.Theme.DuneMono, "00029"],
-      ]);
-    function c(e) {
+      ]),
+      c = new Set([]);
+    function d(e) {
       var t = u.get(e);
       return t == null
         ? null
         : s + "?category=wallpaper&id=wallpaper-" + t + "_2x";
     }
-    function d(e) {
-      return c(e);
-    }
     function m(e) {
+      return d(e);
+    }
+    function p(e) {
       return u.has(e);
     }
-    function p() {
+    function _() {
       return Array.from(u.keys());
     }
-    ((l.getStockWallpaperUrl = c),
-      (l.getStockWallpaperThumbnailUrl = d),
-      (l.hasStockWallpaper = m),
-      (l.getThemesWithStockWallpapers = p));
+    function f(e, t) {
+      return t === "dark" ? !0 : !c.has(e);
+    }
+    ((l.getStockWallpaperUrl = d),
+      (l.getStockWallpaperThumbnailUrl = m),
+      (l.hasStockWallpaper = p),
+      (l.getThemesWithStockWallpapers = _),
+      (l.isLightSwatchBackground = f));
   },
   98,
 );

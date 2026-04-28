@@ -9,7 +9,6 @@ __d(
     "WAWebVoipAudioPlaybackBase",
     "WAWebVoipAudioPlaybackState",
     "WAWebVoipOperationQueue",
-    "WAWebVoipPerfOptimizations",
     "WAWebVoipPopoutWindowState",
     "WAWebVoipVirtualAudioCaptureDriver",
     "asyncToGeneratorRuntime",
@@ -146,6 +145,7 @@ __d(
         (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           E.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e;
               if (R != null) {
                 yield R.startCapture();
                 return;
@@ -161,35 +161,27 @@ __d(
                   .sendLogs("voip: capture instance is null");
                 return;
               }
-              if (
-                (yield S.startCapture(),
-                o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
-                  o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
-                    .PLAYBACK_RESUME_FROM_CAPTURE,
-                ))
-              ) {
-                var e,
-                  t = (e = L) == null ? void 0 : e.playbackAudioContext;
-                if (t != null && t.state === "suspended")
-                  try {
-                    (yield t.resume(),
-                      o("WALogger").LOG(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:startCaptureJS] Also resumed playback AudioContext",
-                          ])),
-                      ));
-                  } catch (e) {
-                    o("WALogger").WARN(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:startCaptureJS] Failed to resume playback AudioContext: ",
-                          "",
+              yield S.startCapture();
+              var t = (e = L) == null ? void 0 : e.playbackAudioContext;
+              if (t != null && t.state === "suspended")
+                try {
+                  (yield t.resume(),
+                    o("WALogger").LOG(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:startCaptureJS] Also resumed playback AudioContext",
                         ])),
-                      e,
-                    );
-                  }
-              }
+                    ));
+                } catch (e) {
+                  o("WALogger").WARN(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startCaptureJS] Failed to resume playback AudioContext: ",
+                        "",
+                      ])),
+                    e,
+                  );
+                }
             }),
             "startCapture",
           );

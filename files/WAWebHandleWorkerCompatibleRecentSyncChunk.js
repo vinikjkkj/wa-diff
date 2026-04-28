@@ -558,6 +558,9 @@ __d(
                 !0,
                 s,
               )),
+              yield o(
+                "WAWebApiHistorySyncNotification",
+              ).updateCurrentlyProcessed(e.msgKey, e.syncType, e.chunkOrder),
               o(
                 "WAWebHistorySyncNotificationUtils",
               ).commitHistoryDataAppliedMetric({

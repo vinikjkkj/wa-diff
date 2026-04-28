@@ -20,7 +20,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = n("$InternalEnum")({
+      s,
+      u = n("$InternalEnum")({
         BLOCKLIST: "blocklist",
         OPTOUTLIST: "biz_opt_out_list",
         DEVICES: "devices",
@@ -33,14 +34,14 @@ __d(
         USER: "user",
         TEXT_STATUS: "text_status",
       });
-    function u(e) {
+    function c(e) {
       return o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
         o("WAWebUserPrefsMeUser").getMePNandLIDWids(),
         e,
         null,
       );
     }
-    function c() {
+    function d() {
       var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
         t = o("WAWebProfilePicThumbCollection").ProfilePicThumbCollection.get(
           e,
@@ -53,8 +54,8 @@ __d(
             "WAWebProfilePicThumbCollection",
           ).ProfilePicThumbCollection.resyncPicturesByWid([e]);
     }
-    var d = 3e3,
-      m = new (r("WAPromiseCache"))(
+    var m = 3e3,
+      p = new (r("WAPromiseCache"))(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var t,
@@ -86,30 +87,36 @@ __d(
         }),
         {
           maxCached: 1,
-          maxAge: d,
+          maxAge: m,
           shouldCache: function (t) {
             return t.privacySettings != null;
           },
         },
       );
-    function p() {
-      return (
-        o(
-          "WAWebDefenseModeTransitionListener",
-        ).initDefenseModeTransitionListener(),
-        m.getOrRun("privacy")
-      );
-    }
     function _() {
       return (
         o(
           "WAWebDefenseModeTransitionListener",
         ).initDefenseModeTransitionListener(),
-        m.delete("privacy"),
-        m.getOrRun("privacy")
+        p.getOrRun("privacy")
       );
     }
-    function f(e) {
+    function f() {
+      return (
+        o(
+          "WAWebDefenseModeTransitionListener",
+        ).initDefenseModeTransitionListener(),
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "forceUpdatePrivacySettings invoked",
+            ])),
+        ),
+        p.delete("privacy"),
+        p.getOrRun("privacy")
+      );
+    }
+    function g(e) {
       var t = o("WATimeUtils").unixTime();
       e.forEach(function (e) {
         var n;
@@ -120,12 +127,12 @@ __d(
         );
       });
     }
-    function g() {
-      return h.apply(this, arguments);
-    }
     function h() {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o(
             "WAWebQueryDisappearingModeJob",
           ).queryDisappearingMode();
@@ -139,16 +146,16 @@ __d(
             newSettingTimestamp: e.t,
           });
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    ((l.AccountSyncType = s),
-      (l.getDevices = u),
-      (l.getAndUpdateProfilePicture = c),
-      (l.updatePrivacySettings = p),
-      (l.forceUpdatePrivacySettings = _),
-      (l.updateTosStateFromAccountSync = f),
-      (l.updateDefaultDisappearingMode = g));
+    ((l.AccountSyncType = u),
+      (l.getDevices = c),
+      (l.getAndUpdateProfilePicture = d),
+      (l.updatePrivacySettings = _),
+      (l.forceUpdatePrivacySettings = f),
+      (l.updateTosStateFromAccountSync = g),
+      (l.updateDefaultDisappearingMode = h));
   },
   98,
 );

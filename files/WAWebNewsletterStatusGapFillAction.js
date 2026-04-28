@@ -117,8 +117,8 @@ __d(
                 o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[newsletter][status][gapfill] metadata refresh failed for ",
-                      ", using cached",
+                      "[newsletter][status][gapfill] meta refresh failed ",
+                      "",
                     ])),
                   e,
                 );

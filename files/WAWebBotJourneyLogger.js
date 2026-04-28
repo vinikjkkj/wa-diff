@@ -112,34 +112,40 @@ __d(
           }),
           (n.logModeSelectionImpression = function (t) {
             var e = t.aiSessionId,
-              n = t.uiSurface,
-              r =
-                n === void 0
+              n = t.entryPoint,
+              r = t.uiSurface,
+              a =
+                r === void 0
                   ? o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT_COMPOSER
-                  : n;
-            this.log({
-              actionType: o("WAWebWamEnumChatFilterActionTypes")
-                .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_IMPRESSION,
-              uiSurface: r,
-              aiSessionId: e != null ? e : void 0,
-              eventTsMs: Date.now(),
-            });
+                  : r;
+            n != null &&
+              this.log({
+                actionType: o("WAWebWamEnumChatFilterActionTypes")
+                  .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_IMPRESSION,
+                entryPoint: n,
+                uiSurface: a,
+                aiSessionId: e != null ? e : void 0,
+                eventTsMs: Date.now(),
+              });
           }),
           (n.logModeSelectionClick = function (t) {
             var e = t.aiSessionId,
-              n = t.uiSurface,
-              r =
-                n === void 0
+              n = t.entryPoint,
+              r = t.uiSurface,
+              a =
+                r === void 0
                   ? o("WAWebWamEnumTsSurface").TS_SURFACE
                       .META_AI_MODE_SELECTION_BOTTOM_SHEET
-                  : n;
-            this.log({
-              actionType: o("WAWebWamEnumChatFilterActionTypes")
-                .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_CLICK,
-              uiSurface: r,
-              aiSessionId: e != null ? e : void 0,
-              eventTsMs: Date.now(),
-            });
+                  : r;
+            n != null &&
+              this.log({
+                actionType: o("WAWebWamEnumChatFilterActionTypes")
+                  .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_CLICK,
+                entryPoint: n,
+                uiSurface: a,
+                aiSessionId: e != null ? e : void 0,
+                eventTsMs: Date.now(),
+              });
           }),
           t
         );

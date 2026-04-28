@@ -106,7 +106,7 @@ __d(
         (!o("WAWebTextStatusGatingUtils").sendTextStatusEnabled() && !N)
       )
         return null;
-      if (D === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED) {
+      if (o("WAWebTextStatusUtils").isTextStatusNotFetched(D)) {
         var M;
         (n[12] === Symbol.for("react.memo_cache_sentinel")
           ? ((M = c.jsx(
@@ -265,7 +265,7 @@ __d(
       n[36] !== Z || n[37] !== Y || n[38] !== D
         ? ((ee =
             o("WAWebTextStatusGatingUtils").sendTextStatusEnabled() &&
-            D !== o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED
+            !o("WAWebTextStatusUtils").isTextStatusNotFetched(D)
               ? c.jsx(r("WAWebUnstyledButton.react"), {
                   "aria-label": s._(
                     /*BTDS*/ "Edit button for text status creation",

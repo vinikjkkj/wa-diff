@@ -91,6 +91,7 @@ __d(
           if (
             t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REVOKE_INVITE ||
             t.actionType === o("WAWebGroupType").GROUP_ACTIONS.SUSPEND ||
+            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL ||
             t.actionType ===
               o("WAWebGroupType").GROUP_ACTIONS.REVOKED_MEMBERSHIP_REQUESTS ||
             t.actionType ===

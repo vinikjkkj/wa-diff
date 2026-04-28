@@ -68,83 +68,85 @@ __d(
               retryCount: p,
             },
             S,
-            R = { to: f, option: v, botMessageSecret: C };
-          (r("WAWebWid").isCAPISupportAccount(f) &&
-            o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
-            o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled() &&
-            (yield o("WAWebE2EProtoGenerator").addDebugInfoSupportPayload(b)),
-            f.isUser()
-              ? (S = yield o(
+            R = "message",
+            L = { to: f, option: v, botMessageSecret: C };
+          if (
+            (r("WAWebWid").isCAPISupportAccount(f) &&
+              o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
+              o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled() &&
+              (yield o("WAWebE2EProtoGenerator").addDebugInfoSupportPayload(b)),
+            f.isUser())
+          )
+            S = yield o(
+              "WAWebSendMsgCreateDeviceStanza",
+            ).createUserDeviceMsgStanza(
+              c,
+              b,
+              babelHelpers.extends({}, L, {
+                recipient: m,
+                peerRecipientLid: a,
+              }),
+              l,
+            );
+          else if (f.isStatus()) {
+            d != null || s(0, 111426);
+            var E = yield o("WAWebResendStatusMsg").createStatusDeviceMsgStanza(
+              {
+                to: f,
+                participant: d,
+                msgRecord: c,
+                msgProtobuf: b,
+                deviceMsgType: v,
+                sessionScope: _,
+              },
+            );
+            ((S = E.stanza), (R = E.stanzaClass));
+          } else
+            f.isBroadcastList()
+              ? (d != null || s(0, 141738),
+                (S = yield o(
+                  "WAWebResendBroadcastMsg",
+                ).createBroadcastDeviceMsgStanza({
+                  to: f,
+                  participant: d,
+                  msgRecord: c,
+                  msgProtobuf: b,
+                  deviceMsgType: v,
+                })))
+              : (d != null || s(0, 56263),
+                (S = yield o(
                   "WAWebSendMsgCreateDeviceStanza",
-                ).createUserDeviceMsgStanza(
+                ).createGroupDeviceMsgStanza(
                   c,
                   b,
-                  babelHelpers.extends({}, R, {
-                    recipient: m,
-                    peerRecipientLid: a,
-                  }),
-                  l,
-                ))
-              : f.isStatus()
-                ? (d != null || s(0, 111426),
-                  (S = yield o(
-                    "WAWebResendStatusMsg",
-                  ).createStatusDeviceMsgStanza({
-                    to: f,
-                    participant: d,
-                    msgRecord: c,
-                    msgProtobuf: b,
-                    deviceMsgType: v,
-                    sessionScope: _,
-                  })))
-                : f.isBroadcastList()
-                  ? (d != null || s(0, 141738),
-                    (S = yield o(
-                      "WAWebResendBroadcastMsg",
-                    ).createBroadcastDeviceMsgStanza({
-                      to: f,
-                      participant: d,
-                      msgRecord: c,
-                      msgProtobuf: b,
-                      deviceMsgType: v,
-                    })))
-                  : (d != null || s(0, 56263),
-                    (S = yield o(
-                      "WAWebSendMsgCreateDeviceStanza",
-                    ).createGroupDeviceMsgStanza(
-                      c,
-                      b,
-                      babelHelpers.extends({}, R, {
-                        isLidBot: i,
-                        participant: d,
-                      }),
-                    ))),
-            o("WALogger")
-              .LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "sendRetry: sending ",
-                    " to ",
-                    "",
-                  ])),
-                g,
-                f.toString(),
-              )
-              .tags("messaging"));
-          var L = f.isStatus() ? null : d,
-            E = f;
+                  babelHelpers.extends({}, L, { isLidBot: i, participant: d }),
+                )));
+          o("WALogger")
+            .LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "sendRetry: sending ",
+                  " to ",
+                  "",
+                ])),
+              g,
+              f.toString(),
+            )
+            .tags("messaging");
+          var k = f.isStatus() ? null : d,
+            I = f;
           return (
             f.isBot() &&
               m != null &&
               !(m != null && m.isBot()) &&
-              ((L = f), m != null || s(0, 75958), (E = m)),
+              ((k = f), m != null || s(0, 75958), (I = m)),
             o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
               S,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: g,
-                class: "message",
-                from: E,
-                participant: L,
+                class: f.isStatus() ? R : "message",
+                from: I,
+                participant: k,
               }),
             )
           );

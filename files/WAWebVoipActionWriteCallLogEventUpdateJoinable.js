@@ -54,8 +54,8 @@ __d(
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[cleanupJoinableCallLog] no ongoing call for ",
-                    ", already cleaned up",
+                    "[cleanupJoinableCallLog] no call for ",
+                    ", cleaned",
                   ])),
                 t,
               );
@@ -228,9 +228,9 @@ __d(
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[generateCallLogFromEventUpdateJoinable] no ongoing call for ",
-                    " on ",
-                    ", skipping",
+                    "[generateCallLogFromEventUpdateJoinable] no call ",
+                    " ",
+                    "",
                   ])),
                 n,
                 m,

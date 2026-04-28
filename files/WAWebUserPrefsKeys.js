@@ -60,6 +60,8 @@ __d(
         "IsHostedMeAccount",
         "UsernameState",
         "WebTPSharerSkipConfirmation",
+        "CanonicalRegistrationTraceId",
+        "CanonicalNonceRequestTimestamp",
       ]),
       u = Object.freeze(
         babelHelpers.extends(

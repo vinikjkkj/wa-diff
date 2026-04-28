@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWap",
+    "WAWapJid",
     "WAWebAIHatchIdentityStore",
     "WAWebHatchAgentStatusManager",
     "WAWebInitializeBots",
@@ -21,12 +22,11 @@ __d(
       f = "cot",
       g = "identity";
     function h(e, t, n) {
-      var r;
-      return (r = o("WAWap")).wap("ack", {
-        id: r.CUSTOM_STRING(e),
-        to: r.CUSTOM_STRING(t),
+      return o("WAWap").wap("ack", {
+        id: o("WAWap").CUSTOM_STRING(e),
+        to: t instanceof o("WAWapJid").WapJid ? t : o("WAWap").CUSTOM_STRING(t),
         class: "notification",
-        type: r.CUSTOM_STRING(n),
+        type: o("WAWap").CUSTOM_STRING(n),
       });
     }
     function y(t) {
@@ -90,55 +90,51 @@ __d(
             r,
             a,
             i,
-            l,
-            s =
+            l =
               (t = (n = e.attrs.id) == null ? void 0 : n.toString()) != null
                 ? t
                 : "",
+            s = (r = e.attrs.from) != null ? r : "",
             u =
-              (r = (a = e.attrs.from) == null ? void 0 : a.toString()) != null
-                ? r
-                : "",
-            f =
-              (i = (l = e.attrs.type) == null ? void 0 : l.toString()) != null
-                ? i
+              (a = (i = e.attrs.type) == null ? void 0 : i.toString()) != null
+                ? a
                 : m;
           try {
-            var g = e.content,
-              y = !1;
-            if (Array.isArray(g))
-              for (var C of g) {
-                var b;
+            var f = e.content,
+              g = !1;
+            if (Array.isArray(f))
+              for (var y of f) {
+                var C;
                 if (
-                  C.tag === p &&
-                  ((b = C.attrs) == null || (b = b.type) == null
+                  y.tag === p &&
+                  ((C = y.attrs) == null || (C = C.type) == null
                     ? void 0
-                    : b.toString()) === _
+                    : C.toString()) === _
                 ) {
-                  var S,
+                  var b,
+                    S,
                     R,
                     L,
-                    E,
-                    k =
-                      (S = (R = C.attrs.jid) == null ? void 0 : R.toString()) !=
+                    E =
+                      (b = (S = y.attrs.jid) == null ? void 0 : S.toString()) !=
                       null
-                        ? S
+                        ? b
                         : "",
-                    I =
-                      (L =
-                        (E = C.attrs.category) == null
+                    k =
+                      (R =
+                        (L = y.attrs.category) == null
                           ? void 0
-                          : E.toString()) != null
-                        ? L
+                          : L.toString()) != null
+                        ? R
                         : null;
-                  if (k !== "") v(k, I);
+                  if (E !== "") v(E, k);
                   else {
-                    y = !0;
+                    g = !0;
                     break;
                   }
                 }
               }
-            y &&
+            g &&
               (o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -156,7 +152,7 @@ __d(
               String(e),
             );
           }
-          return h(s, u, f);
+          return h(l, s, u);
         })),
         R.apply(this, arguments)
       );

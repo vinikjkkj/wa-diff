@@ -38,7 +38,7 @@ __d(
               "type",
               o("WAWebBackendJobs.flow").CiphertextType.members(),
             ),
-            ciphertext: new Uint8Array(n.contentBytes()),
+            ciphertext: n.contentBytes(),
             retryCount: i,
             encMediaType: null,
             hideFail: !1,

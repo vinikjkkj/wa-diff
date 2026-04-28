@@ -371,6 +371,11 @@ __d(
             ).maybeUpdateModelsForCommunitySuspendedStatus(i, U));
           break;
         }
+        case o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL: {
+          ((d.suspendAppealStatus = a.appealStatus),
+            (d.suspendAppealUpdateTime = a.appealUpdateTime));
+          break;
+        }
         case o("WAWebGroupType").GROUP_ACTIONS.ANNOUNCE:
           d.announce = !!a.value;
           break;

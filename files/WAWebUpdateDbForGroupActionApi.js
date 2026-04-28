@@ -596,6 +596,19 @@ __d(
               O.push.apply(O, pe);
               break;
             }
+            case o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL: {
+              O.push(
+                o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
+                  l,
+                  {
+                    suspendAppealStatus: a.appealStatus,
+                    suspendAppealUpdateTime: a.appealUpdateTime,
+                  },
+                  i,
+                ),
+              );
+              break;
+            }
             case o("WAWebGroupType").GROUP_ACTIONS.ANNOUNCE:
               O.push(
                 o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(

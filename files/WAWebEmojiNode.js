@@ -167,8 +167,12 @@ __d(
           n
         );
       })(o("Lexical").TextNode);
-    function d(e, t, n) {
-      return (n === void 0 && (n = s.Small), new c(e, t, n).setMode("token"));
+    function d(e) {
+      var t = e.emoji,
+        n = e.emojiSize,
+        r = n === void 0 ? s.Small : n,
+        o = e.textEmoji;
+      return new c(t, o, r).setMode("token");
     }
     function m(e) {
       return e instanceof c;

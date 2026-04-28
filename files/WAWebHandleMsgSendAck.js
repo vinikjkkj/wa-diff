@@ -10,11 +10,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, r) {
+    function s(e, t, n, r, a) {
       o("WADeprecatedSendIq").deprecatedCastStanza(
         o("WAWap").wap("ack", {
           id: o("WAWap").CUSTOM_STRING(e),
-          class: "message",
+          class: o("WAWap").CUSTOM_STRING(a != null ? a : "message"),
           from: o("WAWebCommsWapMd").DEVICE_JID(
             o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
           ),
@@ -26,11 +26,11 @@ __d(
         }),
       );
     }
-    function u(t, n, r, a, i, l) {
-      var s = null;
+    function u(t, n, r, a, i, l, s) {
+      var u = null;
       (i === o("WAWebCreateNackFromStanza").NackReason.InvalidProtobuf &&
         (l != null
-          ? (s = o("WAWap").wap("meta", { failure_reason: o("WAWap").INT(l) }))
+          ? (u = o("WAWap").wap("meta", { failure_reason: o("WAWap").INT(l) }))
           : o("WALogger")
               .ERROR(
                 e ||
@@ -44,7 +44,7 @@ __d(
             "ack",
             {
               id: o("WAWap").CUSTOM_STRING(t),
-              class: "message",
+              class: o("WAWap").CUSTOM_STRING(s != null ? s : "message"),
               from: o("WAWebCommsWapMd").DEVICE_JID(
                 o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
               ),
@@ -55,7 +55,7 @@ __d(
               type: r != null ? r : o("WAWap").DROP_ATTR,
               error: o("WAWap").INT(i),
             },
-            s,
+            u,
           ),
         ));
     }

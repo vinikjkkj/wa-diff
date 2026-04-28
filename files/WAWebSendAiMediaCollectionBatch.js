@@ -12,6 +12,7 @@ __d(
     "WAWebSendTextMsgChatAction",
     "WAWebToastManager",
     "asyncToGeneratorRuntime",
+    "countWhere",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -92,9 +93,9 @@ __d(
                   return e.sendToChat({ chat: s, options: n });
                 }),
               ),
-              b = C.filter(function (e) {
+              b = r("countWhere")(C, function (e) {
                 return e.status === "fulfilled";
-              }).length;
+              });
             (b < d.length &&
               o("WALogger")
                 .ERROR(

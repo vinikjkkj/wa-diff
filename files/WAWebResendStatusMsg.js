@@ -113,7 +113,8 @@ __d(
               R,
               L,
               E,
-            );
+            ),
+            I = o("WAWebEncryptAndSendStatusMsg").maybeApplyStatusTag(k);
           return (
             o("WALogger")
               .LOG(
@@ -128,7 +129,7 @@ __d(
             yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode(),
-            k
+            { stanza: k, stanzaClass: I }
           );
         })),
         m.apply(this, arguments)

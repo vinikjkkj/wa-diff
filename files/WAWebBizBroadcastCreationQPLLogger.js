@@ -9,33 +9,57 @@ __d(
         DRAWER_MOUNTED: "drawer_mounted",
         FLOW_MOUNTED: "flow_mounted",
       }),
-      s = r("qpl")._(183054996, "1362"),
-      u = null;
-    function c(e) {
-      (u != null && u.drop(),
-        (u = o("WAWebQplFlowWrapper").QPL.markerStart(
-          s,
-          e != null ? { annotations: e } : void 0,
-        )));
-    }
-    function d(e) {
-      u != null && u.addPoint(e);
-    }
-    function m(e) {
-      u != null && u.annotate(e);
-    }
-    function p(e) {
-      u != null && (u.end(e), (u = null));
-    }
-    function _() {
-      u != null && (u.drop(), (u = null));
-    }
+      s = n("$InternalEnum")({
+        AUDIENCE_CREATION: "audience_creation",
+        AUDIENCE_INFO: "audience_info",
+        BB_THREAD_HEADER: "bb_thread_header",
+        BB_THREAD_INFO_DRAWER: "bb_thread_info_drawer",
+        CHAT_HOME: "chat_home",
+        HOME_SCREEN: "home_screen",
+      }),
+      u = r("qpl")._(183054996, "1362"),
+      c = "web",
+      d = (function () {
+        function e() {
+          ((this.$1 = null), (this.$2 = new Set()));
+        }
+        var t = e.prototype;
+        return (
+          (t.start = function (t, n) {
+            (this.$1 != null && this.$1.drop(),
+              (this.$2 = new Set()),
+              (this.$1 = o("WAWebQplFlowWrapper").QPL.markerStart(u, {
+                annotations: {
+                  bool: { has_pre_selected_audience: n },
+                  string: { entry_point: t, platform: c },
+                },
+              })));
+          }),
+          (t.pointOnce = function (t) {
+            var e = this.$1;
+            e == null || this.$2.has(t) || (this.$2.add(t), e.addPoint(t));
+          }),
+          (t.hasFired = function (t) {
+            return this.$2.has(t);
+          }),
+          (t.annotate = function (t) {
+            this.$1 != null && this.$1.annotate(t);
+          }),
+          (t.end = function (t) {
+            this.$1 != null &&
+              (this.$1.end(t), (this.$1 = null), (this.$2 = new Set()));
+          }),
+          (t.drop = function () {
+            this.$1 != null &&
+              (this.$1.drop(), (this.$1 = null), (this.$2 = new Set()));
+          }),
+          e
+        );
+      })(),
+      m = new d();
     ((l.CreateBroadcastQPLPoints = e),
-      (l.qplCreateStart = c),
-      (l.qplCreatePoint = d),
-      (l.qplCreateAnnotate = m),
-      (l.qplCreateEnd = p),
-      (l.qplCreateDrop = _));
+      (l.CreateBroadcastEntryPoint = s),
+      (l.BizBroadcastCreationQPLLogger = m));
   },
   98,
 );

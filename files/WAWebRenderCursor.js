@@ -55,103 +55,40 @@ __d(
         },
       };
     }
-    function g(e, t, n, a, i) {
-      a === void 0 && (a = 1);
+    function g(e) {
       for (
-        var l = r("WAWebRenderCursorGetWindowHeight")() * a,
-          s = f(e, t, n),
-          u = 0,
-          m = 0,
-          p;
-        s.hasNext();
-      ) {
-        var _ = s.next(),
-          g = r("WAWebRenderCursorGuessMessageHeight")(_),
-          h =
-            2 * (o("WAWebMsgGetters").getIsNotification(_) ? 1 : 0) +
-            (o("WAWebMsgGetters").getIsSentByMe(_) ? 1 : 0),
-          y = !h || h !== p ? d : c;
-        if (((u += g + y), m++, u > l || m >= i)) break;
-        var C = o("WAWebFrontendMsgGetters").getAsGroupedSticker(_),
-          b = o("WAWebFrontendMsgGetters").getAsAlbumAsset(_) != null;
-        if (C || b) {
-          var v = [],
-            S = !1,
-            R = 1;
-          if (C) {
-            var L = void 0;
-            if (s.hasNext()) {
-              if (((L = s.next()), v.push(L), m++, m >= i)) break;
-              o("WAWebMessageListAlbums").canBeGroupedAsAlbum(
-                _.safe(),
-                L.safe(),
-              ) &&
-                o("WAWebFrontendMsgGetters").getAsGroupedSticker(L) &&
-                (S = !0);
-            }
-          }
-          if (b)
-            for (
-              var E = _, k = void 0;
-              s.hasNext() &&
-              R < o("WAWebMessageListAlbums").ALBUM_MAX_SIZE &&
-              ((k = s.next()), v.push(k), m++, !(m >= i));
-            )
-              if (
-                o("WAWebMessageListAlbums").canBeGroupedAsAlbum(
-                  E.safe(),
-                  k.safe(),
-                ) &&
-                o("WAWebFrontendMsgGetters").getAsAlbumAsset(k)
-              )
-                (R++, (E = k));
-              else break;
-          if (
-            (C && !S) ||
-            (b && R < o("WAWebMessageListAlbums").ALBUM_MIN_SIZE)
-          ) {
-            var I = r("sumBy")(v, function (e) {
-              return r("WAWebRenderCursorGuessMessageHeight")(e);
-            });
-            if (((u += I), u > l)) break;
-          }
-        }
-        p = h;
-      }
-      return m;
-    }
-    function h(e, t, n, a, i) {
-      a === void 0 && (a = 1);
-      for (
-        var l = r("WAWebRenderCursorGetWindowHeight")() * a,
-          s = f(e, t, n),
-          u = 0,
+        var t = e.direction,
+          n = e.factor,
+          a = n === void 0 ? 1 : n,
+          i = e.first,
+          l = e.maxPageSize,
+          s = e.msgCollection,
+          u = r("WAWebRenderCursorGetWindowHeight")() * a,
+          m = f(s, i, t),
           p = 0,
-          _;
-        s.hasNext();
+          _ = 0,
+          g;
+        m.hasNext();
       ) {
-        var g = s.next(),
-          h = r("WAWebRenderCursorGuessMessageHeight")(g),
-          y =
-            g.author ||
-            (o("WAWebMsgGetters").getIsSentByMe(g)
-              ? o("WAWebUserPrefsMeUser").getMaybeMePnUser()
-              : void 0),
-          C = y && !o("WAWebMsgGetters").getIsSentByMe(g) && y !== _ ? m : 0,
-          b = !y || y !== _ ? d : c;
-        if (((u += h + C + b), p++, u > l || p >= i)) break;
-        var v = o("WAWebFrontendMsgGetters").getAsGroupedSticker(g),
-          S = o("WAWebFrontendMsgGetters").getAsAlbumAsset(g) != null;
+        var h = m.next(),
+          y = r("WAWebRenderCursorGuessMessageHeight")(h),
+          C =
+            2 * (o("WAWebMsgGetters").getIsNotification(h) ? 1 : 0) +
+            (o("WAWebMsgGetters").getIsSentByMe(h) ? 1 : 0),
+          b = !C || C !== g ? d : c;
+        if (((p += y + b), _++, p > u || _ >= l)) break;
+        var v = o("WAWebFrontendMsgGetters").getAsGroupedSticker(h),
+          S = o("WAWebFrontendMsgGetters").getAsAlbumAsset(h) != null;
         if (v || S) {
           var R = [],
             L = !1,
             E = 1;
           if (v) {
             var k = void 0;
-            if (s.hasNext()) {
-              if (((k = s.next()), R.push(k), p++, p >= i)) break;
+            if (m.hasNext()) {
+              if (((k = m.next()), R.push(k), _++, _ >= l)) break;
               o("WAWebMessageListAlbums").canBeGroupedAsAlbum(
-                g.safe(),
+                h.safe(),
                 k.safe(),
               ) &&
                 o("WAWebFrontendMsgGetters").getAsGroupedSticker(k) &&
@@ -160,17 +97,17 @@ __d(
           }
           if (S)
             for (
-              var I = g, T = void 0;
-              s.hasNext() &&
+              var I = h, T = void 0;
+              m.hasNext() &&
               E < o("WAWebMessageListAlbums").ALBUM_MAX_SIZE &&
-              ((T = s.next()), R.push(T), p++, !(p >= i));
+              ((T = m.next()), R.push(T), _++, !(_ >= l));
             )
               if (
                 o("WAWebMessageListAlbums").canBeGroupedAsAlbum(
                   I.safe(),
                   T.safe(),
                 ) &&
-                o("WAWebFrontendMsgGetters").getAsAlbumAsset(T) != null
+                o("WAWebFrontendMsgGetters").getAsAlbumAsset(T)
               )
                 (E++, (I = T));
               else break;
@@ -181,27 +118,105 @@ __d(
             var D = r("sumBy")(R, function (e) {
               return r("WAWebRenderCursorGuessMessageHeight")(e);
             });
-            if (((u += D), u > l)) break;
+            if (((p += D), p > u)) break;
           }
         }
-        _ = y;
+        g = C;
       }
-      return p;
+      return _;
     }
-    function y(e, t, n, o, a) {
-      o === void 0 && (o = 1);
+    function h(e) {
       for (
-        var i = r("WAWebRenderCursorGetWindowHeight")() * o,
-          l = f(e, t, n),
-          s = 0,
-          u = 0;
-        l.hasNext();
+        var t = e.direction,
+          n = e.factor,
+          a = n === void 0 ? 1 : n,
+          i = e.first,
+          l = e.maxPageSize,
+          s = e.msgCollection,
+          u = r("WAWebRenderCursorGetWindowHeight")() * a,
+          p = f(s, i, t),
+          _ = 0,
+          g = 0,
+          h;
+        p.hasNext();
       ) {
-        var c = l.next(),
-          d = r("WAWebRenderCursorGuessMessageHeight")(c);
-        if (((s += d + p), u++, s > i || u >= a)) break;
+        var y = p.next(),
+          C = r("WAWebRenderCursorGuessMessageHeight")(y),
+          b =
+            y.author ||
+            (o("WAWebMsgGetters").getIsSentByMe(y)
+              ? o("WAWebUserPrefsMeUser").getMaybeMePnUser()
+              : void 0),
+          v = b && !o("WAWebMsgGetters").getIsSentByMe(y) && b !== h ? m : 0,
+          S = !b || b !== h ? d : c;
+        if (((_ += C + v + S), g++, _ > u || g >= l)) break;
+        var R = o("WAWebFrontendMsgGetters").getAsGroupedSticker(y),
+          L = o("WAWebFrontendMsgGetters").getAsAlbumAsset(y) != null;
+        if (R || L) {
+          var E = [],
+            k = !1,
+            I = 1;
+          if (R) {
+            var T = void 0;
+            if (p.hasNext()) {
+              if (((T = p.next()), E.push(T), g++, g >= l)) break;
+              o("WAWebMessageListAlbums").canBeGroupedAsAlbum(
+                y.safe(),
+                T.safe(),
+              ) &&
+                o("WAWebFrontendMsgGetters").getAsGroupedSticker(T) &&
+                (k = !0);
+            }
+          }
+          if (L)
+            for (
+              var D = y, x = void 0;
+              p.hasNext() &&
+              I < o("WAWebMessageListAlbums").ALBUM_MAX_SIZE &&
+              ((x = p.next()), E.push(x), g++, !(g >= l));
+            )
+              if (
+                o("WAWebMessageListAlbums").canBeGroupedAsAlbum(
+                  D.safe(),
+                  x.safe(),
+                ) &&
+                o("WAWebFrontendMsgGetters").getAsAlbumAsset(x) != null
+              )
+                (I++, (D = x));
+              else break;
+          if (
+            (R && !k) ||
+            (L && I < o("WAWebMessageListAlbums").ALBUM_MIN_SIZE)
+          ) {
+            var $ = r("sumBy")(E, function (e) {
+              return r("WAWebRenderCursorGuessMessageHeight")(e);
+            });
+            if (((_ += $), _ > u)) break;
+          }
+        }
+        h = b;
       }
-      return u;
+      return g;
+    }
+    function y(e) {
+      for (
+        var t = e.direction,
+          n = e.factor,
+          o = n === void 0 ? 1 : n,
+          a = e.first,
+          i = e.maxPageSize,
+          l = e.msgCollection,
+          s = r("WAWebRenderCursorGetWindowHeight")() * o,
+          u = f(l, a, t),
+          c = 0,
+          d = 0;
+        u.hasNext();
+      ) {
+        var m = u.next(),
+          _ = r("WAWebRenderCursorGuessMessageHeight")(m);
+        if (((c += _ + p), d++, c > s || d >= i)) break;
+      }
+      return d;
     }
     function C(e) {
       switch (e) {
@@ -289,7 +304,13 @@ __d(
         }),
         (t.$5 = function (t, n, r, o, a) {
           var e = b(this.$3);
-          return e(t, n, r, o, a);
+          return e({
+            direction: r,
+            factor: o,
+            first: n,
+            maxPageSize: a,
+            msgCollection: t,
+          });
         }),
         (t.getStart = function (t) {
           return Math.max(R(this.$1, t, this.$3) - this.before, 0);

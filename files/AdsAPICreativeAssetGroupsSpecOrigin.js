@@ -77,6 +77,7 @@ __d(
       MEDIA_RECOMPOSITION: "media_recomposition",
       MULTI_MEDIA_CUSTOMIZATION_MVP: "multi_media_customization_mvp",
       MULTI_POST_TO_SINGLE_POST_PRE_TEST: "multi_post_to_single_post_pre_test",
+      NPVO_PARITY: "npvo_parity",
       ORGANIC_FLEX_POSITIVE_TEST: "organic_flex_positive_test",
       OVERLAY_TEXT_REPLACEMENT: "overlay_text_replacement",
       PA_AUTOMATED_CAMPAIGN: "pa_automated_campaign",

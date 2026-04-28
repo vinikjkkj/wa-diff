@@ -659,26 +659,42 @@ __d(
             var n = o(
                 "WAWebVoipUiPopoutWindowPortalContainer.react",
               ).getPopoutWindow(),
-              r = n != null && !document.hasFocus();
-            o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari
-              ? r && (t = n)
-              : e.type !== "microphone" && r && (t = n);
+              r = n != null && !document.hasFocus(),
+              a;
+            try {
+              a = n != null && n.location.origin === window.location.origin;
+            } catch (e) {
+              a = !1;
+            }
+            var i = r;
+            (o("WAWebUA").UA.isSafari &&
+              (i =
+                r &&
+                o(
+                  "WAWebVoipUiPopoutWindowPortalContainer.react",
+                ).getIsPopoutUiReady() &&
+                a),
+              o("WAWebUA").UA.isFirefox || o("WAWebUA").UA.isSafari
+                ? i
+                  ? (t = n)
+                  : o("WAWebUA").UA.isSafari
+                : e.type !== "microphone" && r && (t = n));
           }
-          var a = yield o("WAWebVoipAcquireMediaStream").acquireVoipMediaStream(
+          var l = yield o("WAWebVoipAcquireMediaStream").acquireVoipMediaStream(
             babelHelpers.extends({}, e, { targetWindow: t }),
           );
-          if (a != null) {
-            var i = e.type;
-            if (i === "camera" || i === "desktop") {
-              var l = t != null;
+          if (l != null) {
+            var s = e.type;
+            if (s === "camera" || s === "desktop") {
+              var u = t != null;
               o("WAWebVoipUiPopoutWindowPortalContainer.react").setMediaStream(
-                i,
-                a,
+                s,
                 l,
+                u,
               );
             }
           }
-          return a;
+          return l;
         });
         function t(t) {
           return e.apply(this, arguments);
@@ -1086,7 +1102,6 @@ __d(
             (i.callLinkCreatorJid =
               (a = t.creatorJid) != null ? a : t.self.jid),
             (i.callLinkVideoEnabled = t.videoEnabled),
-            (i.isLidCall = t.isLidCall),
             (i.isEventLink = t.isEventLink),
             (i.isVideo = t.videoEnabled),
             (i.outgoing = !0),
@@ -1115,7 +1130,6 @@ __d(
             (n.callLinkCreatorJid =
               (l = t.creatorJid) != null ? l : t.self.jid),
             (n.callLinkVideoEnabled = t.videoEnabled),
-            (n.isLidCall = t.isLidCall),
             (n.isEventLink = t.isEventLink));
         }
         (n.trigger(

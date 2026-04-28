@@ -10,7 +10,7 @@ __d(
     "WAWebBusinessProfileBridgeApi",
     "WAWebCTWABridgeApi",
     "WAWebCampaignNotificationListener",
-    "WAWebCanonicalRecoveryBridgeApi",
+    "WAWebCanonicalBridgeApi",
     "WAWebCartBridgeApi",
     "WAWebChatAssignmentBridgeApi",
     "WAWebChatBridgeApi",
@@ -130,7 +130,7 @@ __d(
             o("WAWebBusinessProfileBridgeApi").BusinessProfileBridgeApi,
             o("WAWebBlocklistBridgeApi").BlocklistBridgeApi,
             o("WAWebBroadcastBridgeApi").BroadcastBridgeApi,
-            o("WAWebCanonicalRecoveryBridgeApi").CanonicalRecoveryBridgeApi,
+            o("WAWebCanonicalBridgeApi").CanonicalBridgeApi,
             o("WAWebChatAssignmentBridgeApi").ChatAssignmentBridgeApi,
             o("WAWebCommunityActivityBridgeApi").CommunityActivityBridgeApi,
             o("WAWebIndividualNewChatMessageCappingBridgeApi")

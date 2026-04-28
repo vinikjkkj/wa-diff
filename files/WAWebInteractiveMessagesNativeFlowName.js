@@ -25,6 +25,7 @@ __d(
         PAYMENT_REQUEST: "payment_request",
         API_SIGNUP: "api_signup",
         INAPP_SIGNUP: "inapp_signup",
+        FORM_MESSAGE: "form_message",
       }),
       l = e;
     i.default = l;

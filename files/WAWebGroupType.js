@@ -27,6 +27,7 @@ __d(
         EPHEMERAL: "ephemeral",
         REVOKE_INVITE: "revoke_invite",
         SUSPEND: "suspend",
+        SUSPEND_APPEAL: "suspend_appeal",
         GROWTH_LOCKED: "growth_locked",
         GROWTH_UNLOCKED: "growth_unlocked",
         SUB_GROUP_LINK: "sub_group_link",

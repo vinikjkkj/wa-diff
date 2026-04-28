@@ -972,10 +972,15 @@ __d(
     }
     function Jt() {
       return o("WAWebABProps").getABPropConfigValue(
-        "ctwa_3pd_data_sharing_cooldown_max_times_shown_for_opted_out",
+        "ctwa_3pd_data_sharing_title_change",
       );
     }
     function Zt() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "ctwa_3pd_data_sharing_cooldown_max_times_shown_for_opted_out",
+      );
+    }
+    function en() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -983,56 +988,56 @@ __d(
         )
       );
     }
-    function en() {
+    function tn() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_smb_label_chat_header_enabled_web",
       );
     }
-    function tn() {
+    function nn() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_suppress_message_with_external_ad_reply_consumer_db_level_enabled",
       );
     }
-    function nn() {
+    function rn() {
       return o("WAWebABProps").getABPropConfigValue(
         "per_customer_data_sharing_controls_eligible",
       );
     }
-    function rn() {
+    function on() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_per_customer_data_sharing_controls_do_not_show_msg_until_chosen",
       );
     }
-    function on() {
+    function an() {
       return o("WAWebABProps").getABPropConfigValue("cci_compliance_ctwa");
     }
-    function an() {
+    function ln() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_tos_filtering_enabled",
       );
     }
-    function ln() {
+    function sn() {
       return o("WAWebABProps").getABPropConfigValue(
         "cci_compliance_ctwa_learn_more_hyperlink",
       );
     }
-    function sn() {
+    function un() {
       return o("WAWebABProps").getABPropConfigValue(
         "ctwa_3pd_data_sharing_on_thread_entry",
       );
     }
-    function un() {
+    function cn() {
       return o("WAWebABProps").getABPropConfigValue("im_bloks_widget_enable");
     }
-    function cn() {
+    function dn() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_web_category_search_via_graph_enabled",
       );
     }
-    function dn() {
+    function mn() {
       return o("WAWebABProps").getABPropConfigValue("smb_catkit_query_version");
     }
-    function mn() {
+    function pn() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebABProps").getABPropConfigValue("biz_ai_tools_settings")
@@ -1188,20 +1193,21 @@ __d(
       (l.isCTWAWebCustomLabelsSignalsEnabled = Qt),
       (l.getCTWACustomLabelAlgorithmGroup = Xt),
       (l.isCTWA3pdOptOutCounterOptimizationEnabled = Yt),
-      (l.getCTWA3pdDataSharingMaxTimesShownForOptedOut = Jt),
-      (l.isPixInAttachmentTrayEnabled = Zt),
-      (l.isCTWASMBLabelChatHeaderEnabledWeb = en),
-      (l.suppressMessageWithExternalAdReplyConsumerEnabled = tn),
-      (l.isPerCustomerDataSharingControlsEnabled = nn),
-      (l.shouldSuppressDataSharingSystemMessageUntilGlobalChoiceMade = rn),
-      (l.showCTWACCICompliantUI = on),
-      (l.isCTWATosFilteringEnabled = an),
-      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = ln),
-      (l.showCTWA3pdDataSharingDisclosureOnThreadEntry = sn),
-      (l.isBloksWidgetEnabled = un),
-      (l.isCategorySearchViaGraphEnabled = cn),
-      (l.getCatkitVersion = dn),
-      (l.isBizAIToolsSettingsEnabled = mn));
+      (l.isCTWA3pdDataSharingTitleChangeEnabled = Jt),
+      (l.getCTWA3pdDataSharingMaxTimesShownForOptedOut = Zt),
+      (l.isPixInAttachmentTrayEnabled = en),
+      (l.isCTWASMBLabelChatHeaderEnabledWeb = tn),
+      (l.suppressMessageWithExternalAdReplyConsumerEnabled = nn),
+      (l.isPerCustomerDataSharingControlsEnabled = rn),
+      (l.shouldSuppressDataSharingSystemMessageUntilGlobalChoiceMade = on),
+      (l.showCTWACCICompliantUI = an),
+      (l.isCTWATosFilteringEnabled = ln),
+      (l.getCTWALearnMoreHyperLinkForCCICompliantUI = sn),
+      (l.showCTWA3pdDataSharingDisclosureOnThreadEntry = un),
+      (l.isBloksWidgetEnabled = cn),
+      (l.isCategorySearchViaGraphEnabled = dn),
+      (l.getCatkitVersion = mn),
+      (l.isBizAIToolsSettingsEnabled = pn));
   },
   98,
 );

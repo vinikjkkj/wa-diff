@@ -6,6 +6,7 @@ __d(
     "WATypeUtils",
     "WAWebBizCoexGatingUtils",
     "WAWebWid",
+    "WAWebWidError",
     "WAWebWidStore",
     "err",
   ],
@@ -19,33 +20,39 @@ __d(
       p = "hosted",
       _ = "hosted.lid";
     function f(t) {
+      if (typeof t != "string")
+        if (t instanceof r("WAWebWid"))
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "createWid: ",
+                  " is not a string: Wid",
+                ])),
+              t.toLogString(),
+            )
+            .sendLogs("createWid-not-a-string-wid");
+        else
+          throw (
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "createWid: ",
+                    " is not a string: ",
+                    "",
+                  ])),
+                t,
+                typeof t,
+              )
+              .sendLogs("createWid-not-a-string"),
+            new (o("WAWebWidError").InvalidWidError)(
+              "createWid: expected string, got " + typeof t,
+            )
+          );
       if (
-        (typeof t != "string" &&
-          (t instanceof r("WAWebWid")
-            ? o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "createWid: ",
-                      " is not a string: Wid",
-                    ])),
-                  t.toLogString(),
-                )
-                .sendLogs("createWid-not-a-string-wid", { sampling: 0.01 })
-            : o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "createWid: ",
-                      " is not a string: ",
-                      "",
-                    ])),
-                  t,
-                  typeof t,
-                )
-                .sendLogs("createWid-not-a-string", { sampling: 0.01 })),
         o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-          r("WAWebWid").isHosted(t))
+        r("WAWebWid").isHosted(t)
       )
         return r("WANullthrows")(g(t));
       var n = r("WAWebWidStore").cache[t];

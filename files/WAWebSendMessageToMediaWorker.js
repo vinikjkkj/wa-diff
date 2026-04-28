@@ -34,11 +34,10 @@ __d(
               }
             })
             .setErrorHandler(function (e) {
-              a(
-                new Error(
-                  "Milan.onerror = " + (e != null && e.message ? e.message : e),
-                ),
+              var t = new Error(
+                "Milan.onerror = " + (e != null && e.message ? e.message : e),
               );
+              (t.stack, a(t));
             })
             .execute(),
           r.postMessage(t));

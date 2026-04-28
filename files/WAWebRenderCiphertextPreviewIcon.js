@@ -2,8 +2,8 @@ __d(
   "WAWebRenderCiphertextPreviewIcon",
   [
     "WAWebMsgGetters",
-    "WAWebStatusCiphertextIcon.react",
     "WAWebUnknownIcon.react",
+    "WDSIconIcSchedule.react",
     "WDSIconWdsIcViewOnce.react",
     "react",
     "react-compiler-runtime",
@@ -57,10 +57,12 @@ __d(
       var m;
       return (
         t[3] === Symbol.for("react.memo_cache_sentinel")
-          ? ((m = s.jsx(
-              o("WAWebStatusCiphertextIcon.react").StatusCiphertextIcon,
-              { "aria-hidden": !0 },
-            )),
+          ? ((m = s.jsx(r("WDSIconIcSchedule.react"), {
+              width: 20,
+              height: 20,
+              "aria-hidden": !0,
+              testid: "ic-schedule",
+            })),
             (t[3] = m))
           : (m = t[3]),
         m

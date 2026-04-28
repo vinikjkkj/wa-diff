@@ -164,7 +164,7 @@ __d(
               });
         });
     }
-    ((l.issuePrivateStatsToken = _), (l.getToken = f));
+    l.getToken = f;
   },
   98,
 );

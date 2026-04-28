@@ -8,8 +8,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 400,
-      s = 400,
+    var e = 280,
+      s = 280,
       u = 820,
       c = !1,
       d = new (r("WAWebTypedEventEmitter"))();

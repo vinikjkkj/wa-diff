@@ -11,6 +11,7 @@ __d(
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgType",
+    "WAWebMultiStepFormButton",
     "WAWebOrderStatus",
     "WAWebOrderStatusButton",
     "WAWebPaymentReminder",
@@ -48,8 +49,13 @@ __d(
         ).getNativeFlowNameByButtonName(e.name);
       if (i == null) return null;
       var l = (a = e.buttonParamsJson) != null ? a : "",
-        u = JSON.parse(l),
-        d =
+        u;
+      try {
+        u = JSON.parse(l);
+      } catch (e) {
+        return null;
+      }
+      var d =
           u.catalog_product_id != null
             ? s._(/*BTDS*/ "View product")
             : s._(/*BTDS*/ "View catalog"),
@@ -172,6 +178,19 @@ __d(
                 },
               };
         }
+        case r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE: {
+          var y = o("WAWebMultiStepFormButton").parseMultiStepFormButton(l);
+          return y == null
+            ? null
+            : {
+                name: "form_message",
+                index: t,
+                data: {
+                  label: s._(/*BTDS*/ "Open form").toString(),
+                  multiStepFormInfo: y,
+                },
+              };
+        }
         case r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS:
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS:
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_METHOD:
@@ -185,16 +204,16 @@ __d(
         case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP:
           break;
         case r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP: {
-          var y = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
+          var C = o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
             e.buttonParamsJson,
           );
-          if (y != null)
+          if (C != null)
             return {
               name: "cta_copy",
               index: t,
               data: {
                 label: s._(/*BTDS*/ "Copy code").toString(),
-                copyCode: y,
+                copyCode: C,
               },
             };
           break;

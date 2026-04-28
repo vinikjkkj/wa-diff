@@ -257,7 +257,9 @@ __d(
                                               e.OperationName ===
                                                 "NotificationGroupMemberLinkPropertyUpdate" ||
                                               e.OperationName ===
-                                                "NotificationGroupMemberShareGroupHistoryModePropertyUpdate"
+                                                "NotificationGroupMemberShareGroupHistoryModePropertyUpdate" ||
+                                              e.OperationName ===
+                                                "NotificationGroupAppealStatusUpdate"
                                             ? h(
                                                 e,
                                                 o(

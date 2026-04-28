@@ -12,6 +12,7 @@ __d(
     "WAWebSendDeliveryReceiptJob",
     "WAWebSendReceiptJobCommon",
     "WAWebSendRetryReceiptJob",
+    "WAWebStatusGatingUtils",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
@@ -48,7 +49,12 @@ __d(
                   ? a
                   : t.author,
             g = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
-            h = !t.chat.isBot() && t.author.isBot();
+            h = !t.chat.isBot() && t.author.isBot(),
+            y = m.isStatus() || n.isGroupStatus === !0,
+            C =
+              y && o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled()
+                ? "status"
+                : void 0;
           if (r.result == null)
             return (
               o("WALogger")
@@ -61,7 +67,7 @@ __d(
                   r.result,
                 )
                 .sendLogs("send-receipt-missing-e2e-process-result"),
-              o("WAWebHandleMsgSendAck").sendAck(i, m, d, f)
+              o("WAWebHandleMsgSendAck").sendAck(i, m, d, f, C)
             );
           e: {
             if (
@@ -72,26 +78,26 @@ __d(
                   .SIGNAL_OLD_COUNTER_ERROR
             ) {
               if (h) {
-                var y, C, b;
+                var b, v, S;
                 return (
                   t.type === o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.CHAT
-                    ? ((y = t.author), (C = t.chat))
-                    : ((y = t.chat), (b = t.author)),
+                    ? ((b = t.author), (v = t.chat))
+                    : ((b = t.chat), (S = t.author)),
                   o("WAWebSendReceiptJobCommon").sendBotInvokeResponseAcks(
                     [i],
-                    y,
-                    C,
                     b,
+                    v,
+                    S,
                   )
                 );
               } else if (
                 n.type ===
                 o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.medianotify
               )
-                return o("WAWebHandleMsgSendAck").sendAck(i, m, d, f);
+                return o("WAWebHandleMsgSendAck").sendAck(i, m, d, f, C);
               return o(
                 "WAWebSendDeliveryReceiptJob",
-              ).sendDeliveryReceiptsAfterDecryption(i, m, p, f, g, r);
+              ).sendDeliveryReceiptsAfterDecryption(i, m, p, f, g, r, y);
             }
             if (
               r.result ===
@@ -124,11 +130,11 @@ __d(
                         "Drop retry for coex when feature is disabled",
                       ])),
                   ),
-                  o("WAWebHandleMsgSendAck").sendAck(i, m, d, f)
+                  o("WAWebHandleMsgSendAck").sendAck(i, m, d, f, C)
                 );
-              var v = r.retryCount == null ? 1 : r.retryCount + 1;
+              var R = r.retryCount == null ? 1 : r.retryCount + 1;
               (yield o("WAWebSendRetryReceiptJob").sendRetryReceipt({
-                retryCount: v,
+                retryCount: R,
                 to: m,
                 participant: f,
                 recipient: p,
@@ -140,14 +146,14 @@ __d(
               }),
                 o(
                   "WAWebPostMessageHighRetryCountMetric",
-                ).maybePostMessageHighRetryCountMetric(v, t));
+                ).maybePostMessageHighRetryCountMetric(R, t));
               return;
             }
             if (
               r.result ===
               o("WAWebHandleMsgTypes.flow").E2EProcessResult.BACKFILL
             )
-              return o("WAWebHandleMsgSendAck").sendAck(i, m, d, f);
+              return o("WAWebHandleMsgSendAck").sendAck(i, m, d, f, C);
             if (
               r.result ===
               o("WAWebHandleMsgTypes.flow").E2EProcessResult
@@ -160,6 +166,7 @@ __d(
                 f,
                 o("WAWebCreateNackFromStanza").NackReason.InvalidProtobuf,
                 r.e2eFailureReason,
+                C,
               );
             if (
               r.result ===
@@ -171,6 +178,8 @@ __d(
                 d,
                 f,
                 o("WAWebCreateNackFromStanza").NackReason.ParsingError,
+                void 0,
+                C,
               );
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

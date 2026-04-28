@@ -11,7 +11,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return !r("WAWebEnvironment").isWindows;
+      return (
+        !r("WAWebEnvironment").isWindows ||
+        o("WAWebABProps").getABPropConfigValue("wa_win_pdf_rendering_enabled")
+      );
     }
     var s = n("$InternalEnum")({
       PdfJSThumbnailOnly: 0,

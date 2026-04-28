@@ -2,9 +2,9 @@ __d(
   "WAWebPlaceholder",
   [
     "fbt",
-    "WAWebCiphertextIcon.react",
     "WAWebFaqUrl",
     "WAWebUnknownIcon.react",
+    "WDSIconIcSchedule.react",
     "WDSIconWdsIcViewOnce.react",
     "react",
   ],
@@ -19,7 +19,7 @@ __d(
         e === "fanout"
           ? ((n = s._(/*BTDS*/ "Waiting for this message. Check your phone.")),
             (a = o("WAWebFaqUrl").getFanoutPlaceholderFaqUrl()),
-            (i = u.jsx(o("WAWebCiphertextIcon.react").CiphertextIcon, {})))
+            (i = u.jsx(r("WDSIconIcSchedule.react"), {})))
           : e === "bot_unavailable_fanout" || e === "hosted_unavailable_fanout"
             ? ((n = s._(
                 /*BTDS*/ "This message can't be displayed here. Please open WhatsApp on your phone to view the message.",
@@ -40,7 +40,7 @@ __d(
                   /*BTDS*/ "Waiting for this message. This may take a while.",
                 )),
                 (a = o("WAWebFaqUrl").getCiphertextFaqUrl()),
-                (i = u.jsx(o("WAWebCiphertextIcon.react").CiphertextIcon, {}))),
+                (i = u.jsx(r("WDSIconIcSchedule.react"), {}))),
         { placeholderMsg: n, placeholderIcon: i, externalLink: a }
       );
     }

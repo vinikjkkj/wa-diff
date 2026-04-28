@@ -7,16 +7,26 @@ __d(
     "WAWebHandleMsg",
     "WAWebHandleMsgReceipt",
     "WAWebPostUnknownStanzaMetric",
+    "WAWebStatusGatingUtils",
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = e.attrs;
-      switch (e.tag) {
+      var t,
+        n = e.attrs;
+      switch (
+        (e.tag === "status" &&
+          !r("WAWebWid").isNewsletter(
+            (t = n.from) == null ? void 0 : t.toString(),
+          ) &&
+          o("WAWebStatusGatingUtils").isStatusStanzaReceiveEnabled() &&
+          (e.tag = "message"),
+        e.tag)
+      ) {
         case "message":
           {
-            var n = e.attrs.from;
-            if (!r("WAWebWid").isNewsletter(n == null ? void 0 : n.toString()))
+            var a = e.attrs.from;
+            if (!r("WAWebWid").isNewsletter(a == null ? void 0 : a.toString()))
               return r("WAWebHandleMsg")(e).catch(function (t) {
                 return o(
                   "WAWebCommsHandleStanzaUtils",
@@ -28,7 +38,7 @@ __d(
           try {
             if (
               !o("WAWebCommsHandleStanzaUtils").isCallReceipt(e) &&
-              t.type !== "retry"
+              n.type !== "retry"
             )
               return r("WAWebHandleMsgReceipt")(e);
           } catch (t) {

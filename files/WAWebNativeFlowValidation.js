@@ -11,6 +11,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMmSignalSharingGatingUtils",
     "WAWebMsgType",
+    "WAWebMultiStepFormButton",
     "WAWebOrderDetails",
     "WAWebOrderPaymentStatus",
     "WAWebOrderStatus",
@@ -174,12 +175,20 @@ __d(
                                                   ).getInAppSignupConfirmationInfo(
                                                     e,
                                                   ) != null
-                                                : (function () {
-                                                    throw Error(
-                                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                                        e.nativeFlowName,
-                                                    );
-                                                  })();
+                                                : e.nativeFlowName ===
+                                                    r(
+                                                      "WAWebInteractiveMessagesNativeFlowName",
+                                                    ).FORM_MESSAGE
+                                                  ? o(
+                                                      "WAWebMultiStepFormButton",
+                                                    ).getMultiStepFormInfo(e) !=
+                                                    null
+                                                  : (function () {
+                                                      throw Error(
+                                                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                                          e.nativeFlowName,
+                                                      );
+                                                    })();
     }
     function s(e) {
       if (o("WAWebBizGatingUtils").isMessageWithLinkNfmEnabled()) {

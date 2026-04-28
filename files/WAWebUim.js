@@ -173,20 +173,32 @@ __d(
         (t.findMostRecentlyActiveFocusable = function (n) {
           var e = t.Manager.root;
           if (e)
-            return g(e, n, function (e) {
-              var t = e.getState();
-              return t === d.ACTIVE || t === d.PASSIVE;
+            return g({
+              excludingNode: n,
+              node: e,
+              stateFilter: function (t) {
+                var e = t.getState();
+                return e === d.ACTIVE || e === d.PASSIVE;
+              },
             });
         }),
         (t.findMostRecentlyActiveDismissable = function (n) {
           var e = t.Manager.root;
           if (e)
             return (
-              g(e, n, function (e) {
-                return e.getState() === d.ACTIVE;
+              g({
+                excludingNode: n,
+                node: e,
+                stateFilter: function (t) {
+                  return t.getState() === d.ACTIVE;
+                },
               }) ||
-              g(e, n, function (e) {
-                return e.getState() === d.PASSIVE;
+              g({
+                excludingNode: n,
+                node: e,
+                stateFilter: function (t) {
+                  return t.getState() === d.PASSIVE;
+                },
               })
             );
         }),
@@ -205,17 +217,20 @@ __d(
       );
     })();
     ((f.State = d), (f.Manager = new p()));
-    function g(e, t, n) {
-      if (!e.children.length) return e;
-      var o = e.children.filter(function (e) {
+    function g(e) {
+      var t = e.excludingNode,
+        n = e.node,
+        o = e.stateFilter;
+      if (!n.children.length) return n;
+      var a = n.children.filter(function (e) {
           return e !== t;
         }),
-        a = r("compactMap")(o, function (e) {
-          return g(e, t, n);
+        i = r("compactMap")(a, function (e) {
+          return g({ excludingNode: t, node: e, stateFilter: o });
         });
-      a.push(e);
-      var i = a.filter(n);
-      return r("maxBy")(i, function (e) {
+      i.push(n);
+      var l = i.filter(o);
+      return r("maxBy")(l, function (e) {
         return e.lastActive;
       });
     }

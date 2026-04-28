@@ -2291,6 +2291,11 @@ __d(
         name: "SSMC_INITIALIZED",
         sampleRate: 1e4,
       },
+      13647062: {
+        moduleName: "MOBILECONFIG",
+        name: "STABLE_SPECIFIER_TRANSLATION_FAILURE",
+        sampleRate: 1e3,
+      },
       14549020: {
         moduleName: "LIVE",
         name: "FIRST_LIVE_WWW_QPL_THIS_IS_A_TEST",
@@ -8564,6 +8569,11 @@ __d(
         name: "FBLITE_OFFLINE_REELS",
         sampleRate: 10,
       },
+      52498541: {
+        moduleName: "FBLITE_WATCH",
+        name: "HERO_MEDIA_PLAYER_SWAP",
+        sampleRate: 100,
+      },
       52690945: {
         moduleName: "WP_WWW_PROFILEPAGE",
         name: "DELETE_POST_FROM_TIMELINE",
@@ -13561,7 +13571,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 341,
+        sampleRate: 438,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -13641,7 +13651,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 312277,
+        sampleRate: 349507,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14780,7 +14790,7 @@ __d(
       100335618: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH_AGGREGATED",
-        sampleRate: 16135,
+        sampleRate: 20544,
       },
       100338619: {
         moduleName: "ACCESS_LIBRARY",
@@ -14790,7 +14800,7 @@ __d(
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
-        sampleRate: 5395,
+        sampleRate: 5988,
       },
       100348897: {
         moduleName: "ACCESS_LIBRARY",
@@ -14800,7 +14810,7 @@ __d(
       100349780: {
         moduleName: "ACCESS_LIBRARY",
         name: "REMOVE_AGGREGATED",
-        sampleRate: 35,
+        sampleRate: 29,
       },
       101648941: {
         moduleName: "COMET_LONGTASK",
@@ -16475,6 +16485,11 @@ __d(
         name: "NAVIGATION",
         sampleRate: 1,
       },
+      132529626: {
+        moduleName: "MSGR_TOPIC_SUBSCRIPTIONS",
+        name: "MANAGEMENT_FUNNEL",
+        sampleRate: 10,
+      },
       133629496: {
         moduleName: "GROUPS_CREATE",
         name: "GROUPS_COMET_CREATE_BUTTON_CLICK",
@@ -17119,6 +17134,11 @@ __d(
       144576503: {
         moduleName: "ACS_DATA_BUS",
         name: "CHUNK_PROCESSING",
+        sampleRate: null,
+      },
+      144588691: {
+        moduleName: "ACS_DATA_BUS",
+        name: "AUDIO_CHUNK_PROCESSING",
         sampleRate: null,
       },
       145755014: {
@@ -18770,6 +18790,11 @@ __d(
         moduleName: "MI_ENGINE",
         name: "SENT_TO_DELIVERED",
         sampleRate: 1,
+      },
+      174729223: {
+        moduleName: "MI_ENGINE",
+        name: "SEND_TO_DELIVERED_DEVICE",
+        sampleRate: 0,
       },
       174730977: {
         moduleName: "MI_ENGINE",
@@ -22193,6 +22218,11 @@ __d(
         name: "QUICK_TRACE_EVENT",
         sampleRate: null,
       },
+      256977325: {
+        moduleName: "MESSENGER_ACCOUNT_SWITCH",
+        name: "ANDROID_SUBPROCESS",
+        sampleRate: 1e3,
+      },
       257110699: {
         moduleName: "PRIVACY_INCIDENT",
         name: "FACT_GATHERING_SHORT_TEXT_RESPONSE",
@@ -23544,7 +23574,7 @@ __d(
       270211271: {
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "AM_PUBLISH_ADS_IN_MAIBA",
-        sampleRate: 250,
+        sampleRate: 1,
       },
       270211281: {
         moduleName: "ADS_MANAGER_INTERACTION",
@@ -23769,6 +23799,11 @@ __d(
       270212277: {
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "AM_STORE_VISITS_LOAD_CAMPAIGN_GROUP_PAGES",
+        sampleRate: 1,
+      },
+      270212306: {
+        moduleName: "ADS_MANAGER_INTERACTION",
+        name: "AM_SETTINGS_TRAY_LOAD",
         sampleRate: 1,
       },
       270212325: {
@@ -25534,6 +25569,11 @@ __d(
       270220815: {
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "AM_EDIT_APPLY_EXISTING_PLACEMENT_VALUE_RULES",
+        sampleRate: 1,
+      },
+      270220816: {
+        moduleName: "ADS_MANAGER_INTERACTION",
+        name: "AM_SETTINGS_TRAY_LOAD_DETAIL_VIEW",
         sampleRate: 1,
       },
       270220849: {
@@ -41143,6 +41183,11 @@ __d(
         name: "SDK_AVATAR_PREFETCH",
         sampleRate: 1,
       },
+      525088994: {
+        moduleName: "HSR_AVATAR",
+        name: "CONTENT_SCALING_TIER_CHANGE",
+        sampleRate: 1,
+      },
       525599924: { moduleName: "FBGOLD", name: "PAGE_VIEW", sampleRate: 1 },
       525600912: {
         moduleName: "FBGOLD",
@@ -44566,11 +44611,7 @@ __d(
         name: "GRPC_REQUEST",
         sampleRate: 1,
       },
-      585774144: {
-        moduleName: "GIZMO_MOBILE",
-        name: "APP_EXP",
-        sampleRate: 100,
-      },
+      585774144: { moduleName: "GIZMO_MOBILE", name: "APP_EXP", sampleRate: 1 },
       585774851: {
         moduleName: "GIZMO_MOBILE",
         name: "ANDROID_CRASH",
@@ -48818,6 +48859,11 @@ __d(
         moduleName: "DATAFIX",
         name: "VIEW_REQUEST",
         sampleRate: null,
+      },
+      684668318: {
+        moduleName: "VPS_CLIENT",
+        name: "LOCALIZATION_E2E",
+        sampleRate: 1,
       },
       685309953: {
         moduleName: "INTERACTION_TRACING_PLAYGROUND",
@@ -56201,7 +56247,7 @@ __d(
       767106460: {
         moduleName: "WEB_MESSAGING_INFRA",
         name: "MEDIA_UPLOAD_SERVER",
-        sampleRate: 100,
+        sampleRate: 1,
       },
       767107214: {
         moduleName: "WEB_MESSAGING_INFRA",
@@ -58741,6 +58787,11 @@ __d(
       809376413: {
         moduleName: "OXYGEN_PRELOADS",
         name: "FULL_STUB_FORWARDING_RESULT",
+        sampleRate: 1,
+      },
+      809380463: {
+        moduleName: "OXYGEN_PRELOADS",
+        name: "FULL_STUB_START",
         sampleRate: 1,
       },
       809383219: {

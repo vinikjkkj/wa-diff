@@ -9,6 +9,7 @@ __d(
     "WAWebGroupMemberLinkMode",
     "WAWebGroupType",
     "WAWebHandleGroupNotification",
+    "WAWebSuspendAppealStatusType",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
@@ -22,75 +23,85 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           var r,
             a,
-            i = n.xwa2_notify_group_on_prop_change,
-            l = i.id,
-            s = i.lid_migration_state,
-            u = i.properties,
-            c = i.update_time,
-            d = i.updated_by,
-            m = d.id,
-            p = d.notify_name,
-            _ = d.pn,
-            f;
+            i,
+            l = n.xwa2_notify_group_on_prop_change,
+            s = l.id,
+            u = l.lid_migration_state,
+            c = l.properties,
+            d = l.update_time,
+            m = l.updated_by,
+            p = m.id,
+            _ = m.notify_name,
+            f = m.pn,
+            g;
           switch (t.OperationName) {
             case "NotificationGroupPropertyUpdate": {
-              u.allow_non_admin_sub_group_creation != null &&
-                (f = {
+              c.allow_non_admin_sub_group_creation != null &&
+                (g = {
                   actionType:
                     o("WAWebGroupType").GROUP_ACTIONS
                       .ALLOW_NON_ADMIN_SUB_GROUP_CREATION,
-                  value: u.allow_non_admin_sub_group_creation,
+                  value: c.allow_non_admin_sub_group_creation,
                 });
               break;
             }
             case "NotificationGroupHiddenPropertyUpdate":
-              f = {
+              g = {
                 actionType: o("WAWebGroupType").GROUP_ACTIONS.HIDDEN_GROUP,
-                value: (r = u.hidden_group) != null ? r : !1,
+                value: (r = c.hidden_group) != null ? r : !1,
               };
               break;
             case "NotificationGroupSafetyCheckPropertyUpdate":
-              f = {
+              g = {
                 actionType:
                   o("WAWebGroupType").GROUP_ACTIONS.GROUP_SAFETY_CHECK,
-                value: (a = u.group_safety_check) != null ? a : !1,
+                value: (a = c.group_safety_check) != null ? a : !1,
               };
               break;
             case "NotificationGroupMemberLinkPropertyUpdate":
               o("WAWebGroupGatingUtils").isAnyoneCanLinkToGroupsEnabled() &&
-                (f = {
+                (g = {
                   actionType:
                     o("WAWebGroupType").GROUP_ACTIONS.MEMBER_LINK_MODE,
                   value: o(
                     "WAWebGroupMemberLinkMode",
-                  ).getMemberLinkModeFromMexType(u.member_link_mode),
+                  ).getMemberLinkModeFromMexType(c.member_link_mode),
                 });
               break;
             case "NotificationGroupMemberShareGroupHistoryModePropertyUpdate":
               o("WAWebGroupHistoryGating").isGroupHistorySettingsEnabled() &&
-                (f = {
+                (g = {
                   actionType:
                     o("WAWebGroupType").GROUP_ACTIONS
                       .MEMBER_SHARE_GROUP_HISTORY_MODE,
                   value: o(
                     "WAWebGroupHistoryShareMode",
                   ).getMemberShareGroupHistoryModeFromMexType(
-                    u.member_share_group_history_mode,
+                    c.member_share_group_history_mode,
                   ),
                 });
               break;
+            case "NotificationGroupAppealStatusUpdate":
+              g = {
+                actionType: o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL,
+                appealStatus: o(
+                  "WAWebSuspendAppealStatusType",
+                ).toSuspendAppealStatus(c.appeal_status),
+                appealUpdateTime: (i = c.appeal_update_time) != null ? i : null,
+              };
+              break;
           }
-          if (f != null) {
-            var g = {
-              chatId: o("WAWebWidFactory").createWid(l),
-              ts: o("WATimeUtils").castMilliSecondsToUnixTime(Number(c)),
-              actions: [f],
-              author: m != null ? o("WAWebWidFactory").createWid(m) : null,
+          if (g != null) {
+            var h = {
+              chatId: o("WAWebWidFactory").createWid(s),
+              ts: o("WATimeUtils").castMilliSecondsToUnixTime(Number(d)),
+              actions: [g],
+              author: p != null ? o("WAWebWidFactory").createWid(p) : null,
               authorPhoneNumber:
-                _ != null ? o("WAWebWidFactory").createWid(_) : null,
+                f != null ? o("WAWebWidFactory").createWid(f) : null,
               isLidAddressingMode:
-                (s == null ? void 0 : s.addressing_mode) === "LID",
-              pushname: p,
+                (u == null ? void 0 : u.addressing_mode) === "LID",
+              pushname: _,
               externalId: t.stanzaId,
               offline: t.offline,
               hasIncompleteParticipantInformation: !1,
@@ -98,7 +109,7 @@ __d(
             try {
               yield o(
                 "WAWebHandleGroupNotification",
-              ).handleParsedGroupNotification(g);
+              ).handleParsedGroupNotification(h);
             } catch (t) {
               o("WALogger")
                 .ERROR(

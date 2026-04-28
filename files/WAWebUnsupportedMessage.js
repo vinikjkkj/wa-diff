@@ -41,7 +41,7 @@ __d(
           return null;
         var d;
         t[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((d = { className: "x187aw1n" }), (t[1] = d))
+          ? ((d = { className: "xo1mcw5" }), (t[1] = d))
           : (d = t[1]);
         var m;
         return (

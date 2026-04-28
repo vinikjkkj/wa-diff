@@ -105,13 +105,13 @@ __d(
         }),
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return C(
-              this.isGroup,
-              this.wid,
-              this.groupJid,
-              this.groupCallParticipants,
-              this.abortController.signal,
-            );
+            return C({
+              abortSignal: this.abortController.signal,
+              groupCallParticipants: this.groupCallParticipants,
+              groupJid: this.groupJid,
+              isGroup: this.isGroup,
+              wid: this.wid,
+            });
           });
           function t() {
             return e.apply(this, arguments);
@@ -273,13 +273,13 @@ __d(
         }),
         (a.getIcon = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return C(
-              this.isGroup,
-              this.wid,
-              this.groupJid,
-              this.groupCallParticipants,
-              this.abortController.signal,
-            );
+            return C({
+              abortSignal: this.abortController.signal,
+              groupCallParticipants: this.groupCallParticipants,
+              groupJid: this.groupJid,
+              isGroup: this.isGroup,
+              wid: this.wid,
+            });
           });
           function t() {
             return e.apply(this, arguments);
@@ -383,26 +383,31 @@ __d(
           )
         : r("fbs")._(/*BTDS*/ "Group call");
     }
-    function C(t, r, a, i, l) {
-      if (t) {
-        if (a != null)
+    function C(t) {
+      var r = t.abortSignal,
+        a = t.groupCallParticipants,
+        i = t.groupJid,
+        l = t.isGroup,
+        s = t.wid;
+      if (l) {
+        if (i != null)
           return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-            a,
-            l,
+            i,
+            r,
             u,
           );
-        var s = i == null ? void 0 : i[0];
-        return s != null
+        var c = a == null ? void 0 : a[0];
+        return c != null
           ? o("WAWebNotificationIconUtils").getNotificationIconByWid(
-              s,
-              l,
+              c,
+              r,
               o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
             )
           : (e || (e = n("Promise"))).resolve(u);
       }
       return o("WAWebNotificationIconUtils").getNotificationIconByWid(
+        s,
         r,
-        l,
         o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
       );
     }

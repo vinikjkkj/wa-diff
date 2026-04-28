@@ -3,31 +3,41 @@ __d(
   [
     "WAWebCanonicalEntRecoveryCompanionWamEvent",
     "WAWebCanonicalEntRecoveryCriticalEventWamEvent",
+    "WAWebUserPrefsCanonical",
+    "WAWebUserPrefsMeUser",
     "WAWebWamEnumCanonicalEntEventMarker",
     "WAWebWamEnumCanonicalEntRecoveryCompanionEvent",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "",
-      s = 0,
-      u = "";
+      s = !1;
+    function u() {
+      s ||
+        ((s = !0),
+        (e = o("WAWebUserPrefsCanonical").getCanonicalRegistrationTraceId()),
+        e === "" &&
+          ((e = c()),
+          o("WAWebUserPrefsCanonical").setCanonicalRegistrationTraceId(e)));
+    }
     function c() {
       return crypto.randomUUID();
     }
-    function d(e) {
-      u = e;
+    function d() {
+      return crypto.randomUUID();
     }
     function m() {
-      return s++;
+      var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
+      return e != null ? String(e) : "";
     }
     function p(t, n, r, a, i) {
+      u();
       var l = new (o(
         "WAWebCanonicalEntRecoveryCompanionWamEvent",
       ).CanonicalEntRecoveryCompanionWamEvent)({
         canonicalEntRecoveryCompanionEvent: t,
         canonicalEntEventCompanionMarker: n,
         canonicalEntRegistrationTraceId: e,
-        canonicalEntSequenceNumberSinceLastRegistration: m(),
-        deviceId: u,
+        deviceId: m(),
         familyDeviceId: "",
       });
       (r != null && (l.canonicalEntRequestId = r),
@@ -37,7 +47,7 @@ __d(
     }
     function _() {
       ((e = c()),
-        (s = 0),
+        o("WAWebUserPrefsCanonical").setCanonicalRegistrationTraceId(e),
         p(
           o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
             .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.COMPANION_REGISTERED,
@@ -97,95 +107,25 @@ __d(
           .SUCCESS,
       );
     }
-    function v(e) {
-      p(
-        o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
-          .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.VALIDATE_ACCESS_TOKEN,
-        o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
-          .START,
-        e,
-      );
+    function v(t, n, r, a) {
+      try {
+        u();
+        var i = new (o(
+            "WAWebCanonicalEntRecoveryCriticalEventWamEvent",
+          ).CanonicalEntRecoveryCriticalEventWamEvent)({
+            canonicalEntRecoveryCriticalEventName: t,
+            canonicalEntRegistrationTraceId: e,
+            deviceId: m(),
+            familyDeviceId: "",
+          }),
+          l = { purpose: n };
+        (r != null && (l.error = r),
+          (i.canonicalEntRecoveryCriticalEventMetadata = JSON.stringify(l)),
+          a != null && (i.canonicalEntRequestId = a),
+          i.commit());
+      } catch (e) {}
     }
-    function S(e) {
-      p(
-        o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
-          .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.VALIDATE_ACCESS_TOKEN,
-        o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
-          .SUCCESS,
-        e,
-      );
-    }
-    function R(e) {
-      p(
-        o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
-          .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.VALIDATE_ACCESS_TOKEN,
-        o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
-          .ERROR,
-        e,
-      );
-    }
-    function L(e) {
-      p(
-        o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
-          .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.CRED_REQUEST_STARTED,
-        o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
-          .START,
-        e,
-      );
-    }
-    function E(e) {
-      p(
-        o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
-          .CANONICAL_ENT_RECOVERY_COMPANION_EVENT
-          .CRED_REQUEST_SUCCEEDED_FROM_STORAGE,
-        o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
-          .SUCCESS,
-        e,
-      );
-    }
-    function k(e) {
-      p(
-        o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
-          .CANONICAL_ENT_RECOVERY_COMPANION_EVENT
-          .CRED_REQUEST_SUCCEEDED_VIA_RECOVERY,
-        o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
-          .SUCCESS,
-        e,
-      );
-    }
-    function I(e) {
-      p(
-        o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
-          .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.CRED_REQUEST_FAILED_TIMEOUT,
-        o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
-          .ERROR,
-        e,
-      );
-    }
-    function T(e) {
-      p(
-        o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
-          .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.CRED_REQUEST_FAILED_ERROR,
-        o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
-          .ERROR,
-        e,
-      );
-    }
-    function D(t, n, r) {
-      var a = new (o(
-        "WAWebCanonicalEntRecoveryCriticalEventWamEvent",
-      ).CanonicalEntRecoveryCriticalEventWamEvent)({
-        canonicalEntRecoveryCriticalEventName: t,
-        canonicalEntRegistrationTraceId: e,
-        canonicalEntSequenceNumberSinceLastRegistration: m(),
-        deviceId: u,
-        familyDeviceId: "",
-      });
-      (n != null && (a.canonicalEntRecoveryCriticalEventMetadata = n),
-        r != null && (a.canonicalEntRequestId = r),
-        a.commit());
-    }
-    ((l.setDeviceId = d),
+    ((l.generateRequestId = d),
       (l.logCompanionRegistered = _),
       (l.logRequestNonceFromPrimary = f),
       (l.logReceivedNonceFromPrimary = g),
@@ -193,15 +133,7 @@ __d(
       (l.logExchangeNonceSuccess = y),
       (l.logExchangeNonceError = C),
       (l.logCredentialsStored = b),
-      (l.logValidateAccessTokenStart = v),
-      (l.logValidateAccessTokenSuccess = S),
-      (l.logValidateAccessTokenError = R),
-      (l.logCredRequestStarted = L),
-      (l.logCredRequestSucceededFromStorage = E),
-      (l.logCredRequestSucceededViaRecovery = k),
-      (l.logCredRequestFailedTimeout = I),
-      (l.logCredRequestFailedError = T),
-      (l.logCriticalRecoveryEvent = D));
+      (l.logCriticalRecoveryEvent = v));
   },
   98,
 );

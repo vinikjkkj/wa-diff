@@ -10,7 +10,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("react-compiler-runtime").c(21),
+      var t = o("react-compiler-runtime").c(24),
         n;
       t[0] !== e ? ((n = e.getStatus()), (t[0] = e), (t[1] = n)) : (n = t[1]);
       var r = n,
@@ -63,31 +63,39 @@ __d(
         : (y = t[11]);
       var C = y,
         b;
-      t[12] !== C || t[13] !== h || t[14] !== r || t[15] !== l
-        ? ((b = o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
-            ? h || (!C && o("WAWebTextStatusUtils").hasCustomAboutSet(r))
-            : l !== ""),
-          (t[12] = C),
-          (t[13] = h),
-          (t[14] = r),
-          (t[15] = l),
-          (t[16] = b))
-        : (b = t[16]);
+      t[12] !== p
+        ? ((b = o("WAWebTextStatusUtils").isTextStatusNotFetched(p)),
+          (t[12] = p),
+          (t[13] = b))
+        : (b = t[13]);
       var v = b,
         S;
+      t[14] !== C || t[15] !== h || t[16] !== r || t[17] !== l || t[18] !== v
+        ? ((S = o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
+            ? v || h || (!C && o("WAWebTextStatusUtils").hasCustomAboutSet(r))
+            : l !== ""),
+          (t[14] = C),
+          (t[15] = h),
+          (t[16] = r),
+          (t[17] = l),
+          (t[18] = v),
+          (t[19] = S))
+        : (S = t[19]);
+      var R = S,
+        L;
       return (
-        t[17] !== C || t[18] !== h || t[19] !== v
-          ? ((S = {
-              hasContent: v,
+        t[20] !== C || t[21] !== h || t[22] !== R
+          ? ((L = {
+              shouldRenderAboutSection: R,
               displayTextStatus: h,
               hasEverHadTextStatus: C,
             }),
-            (t[17] = C),
-            (t[18] = h),
-            (t[19] = v),
-            (t[20] = S))
-          : (S = t[20]),
-        S
+            (t[20] = C),
+            (t[21] = h),
+            (t[22] = R),
+            (t[23] = L))
+          : (L = t[23]),
+        L
       );
     }
     l.useAboutDisplayStatus = e;

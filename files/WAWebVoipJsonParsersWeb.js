@@ -85,10 +85,7 @@ __d(
           if (!Array.isArray(e.sync_devices))
             throw r("err")("Invalid sync device data: expected array");
           return e.sync_devices.map(function (e) {
-            return {
-              PHash: e.phash,
-              UserRawJid: o("WAWebWidFactory").createWid(e.user_raw_jid),
-            };
+            return { PHash: e.phash, UserJid: m(e.user_jid) };
           });
         },
         parseCallEndingData: function (t) {
@@ -237,11 +234,9 @@ __d(
                     i =
                       n === "abtest_bucket"
                         ? "callTestBucket"
-                        : n === "peer_raw_jid"
-                          ? null
-                          : r("WACamelCase")(n, {
-                              treatNumbersAsWordBoundaries: !1,
-                            });
+                        : r("WACamelCase")(n, {
+                            treatNumbersAsWordBoundaries: !1,
+                          });
                   if (i == null) return null;
                   try {
                     var l = o("WAWebWamCodegenUtils").metrics.getEvent(
@@ -506,7 +501,6 @@ __d(
             isEventLink: e.is_event_link,
             linkToken: e.link_token,
             videoEnabled: e.video_enabled,
-            isLidCall: e.is_lid_call,
             self: _(e.self),
           };
         },
@@ -626,7 +620,6 @@ __d(
       var t;
       return {
         jid: m(e.jid),
-        phoneUserJid: p(e.phone_user_jid),
         state: e.state,
         orderId: e.order_id,
         isSelf: e.is_self,

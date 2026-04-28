@@ -4,13 +4,16 @@ __d(
     "fbt",
     "WALogger",
     "WAWebABPropsSaga",
+    "WAWebChatGroupUtils",
     "WAWebContactFormWrapper.react",
     "WAWebDBGroupsGroupMetadata",
     "WAWebExitAndDeleteGroupPopup.react",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
+    "WAWebGroupAppealApprovedModalLoadable",
     "WAWebGroupAppealInReviewModalLoadable",
     "WAWebGroupAppealRejectedModalLoadable",
+    "WAWebGroupGatingUtils",
     "WAWebGroupJoinRequestMetricUtils",
     "WAWebGroupSuspensionAppealEventsWamEvent",
     "WAWebGroupSuspensionAppealMutation",
@@ -253,12 +256,61 @@ __d(
       );
     }
     function k(e) {
+      var t,
+        n,
+        r,
+        a,
+        i,
+        l =
+          o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(e) &&
+          (t =
+            (n = e.groupMetadata) == null ? void 0 : n.getParentGroupChat()) !=
+            null
+            ? t
+            : e;
+      return (
+        o("WAWebGroupGatingUtils").isGroupSuspensionAppealsRedesignEnabled() &&
+        ((r = l.groupMetadata) == null ? void 0 : r.participants.iAmAdmin()) ===
+          !0 &&
+        ((a = l.groupMetadata) == null ? void 0 : a.suspendAppealStatus) ===
+          "APPROVED" &&
+        ((i = l.groupMetadata) == null
+          ? void 0
+          : i.suspendAppealApprovedSeen) !== !0
+      );
+    }
+    function I(e) {
+      var t,
+        n,
+        r,
+        a =
+          o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(e) &&
+          (t =
+            (n = e.groupMetadata) == null ? void 0 : n.getParentGroupChat()) !=
+            null
+            ? t
+            : e;
+      ((r = a.groupMetadata) == null ||
+        r.set({ suspendAppealApprovedSeen: !0 }),
+        o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(a.id, {
+          suspendAppealApprovedSeen: !0,
+        }),
+        o("WAWebModalManager").ModalManager.open(
+          c.jsx(
+            o("WAWebGroupAppealApprovedModalLoadable")
+              .GroupAppealApprovedModalLoadable,
+            { chat: a },
+          ),
+          { transition: "modal-flow" },
+        ));
+    }
+    function T(e) {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebExitAndDeleteGroupPopup.react"), { chat: e }),
         { transition: "modal-flow" },
       );
     }
-    function I(e, t) {
+    function D(e, t) {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebLeaveAndReportGroupModal.react"), {
           chat: e,
@@ -267,7 +319,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function T() {
+    function x() {
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebSuspendedGroupMediaDownloadFailureModal.react"), {}),
         { transition: "modal-flow" },
@@ -285,9 +337,11 @@ __d(
       (l.submitGroupAppeal = S),
       (l.openGroupAppealInReviewModal = L),
       (l.openGroupAppealRejectedModal = E),
-      (l.openExitAndDeleteGroupModal = k),
-      (l.openLeaveAndReportGroupModal = I),
-      (l.openSuspendedGroupMediaDownloadFailureModal = T));
+      (l.shouldShowGroupAppealApprovedModal = k),
+      (l.openGroupAppealApprovedModal = I),
+      (l.openExitAndDeleteGroupModal = T),
+      (l.openLeaveAndReportGroupModal = D),
+      (l.openSuspendedGroupMediaDownloadFailureModal = x));
   },
   226,
 );

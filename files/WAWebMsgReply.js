@@ -2,6 +2,7 @@ __d(
   "WAWebMsgReply",
   [
     "WAWebBotGenTypingIndicatorMsg",
+    "WAWebBotUtils",
     "WAWebChatCommunityUtils",
     "WAWebChatGetters",
     "WAWebChatGroupUtils",
@@ -70,7 +71,9 @@ __d(
         n,
         r = o("WAWebStateUtils").unproxy(e),
         a = o("WAWebFrontendMsgGetters").getChat(r);
-      return o("WAWebChatGetters").getIsNewsletter(a)
+      return (r.author != null &&
+        o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(r.author)) ||
+        o("WAWebChatGetters").getIsNewsletter(a)
         ? !1
         : r.isCarouselCard
           ? r.isCarouselCard
@@ -112,7 +115,9 @@ __d(
           a,
           o("WAWebFrontendMsgGetters").getSenderObj(r),
         ) ||
-        o("WAWebFrontendMsgGetters").getAsRichResponse(e)
+        o("WAWebFrontendMsgGetters").getAsRichResponse(e) ||
+        (r.author != null &&
+          o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(r.author))
         ? !1
         : a.isAnnounceGrpRestrict === !0 &&
             !a.isReadOnly &&

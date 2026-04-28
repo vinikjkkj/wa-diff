@@ -4,9 +4,10 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
-      throw new Error(
+      var t = new Error(
         "This empty " + (e != null ? e : "Object") + " cannot be mutated.",
       );
+      throw (t.stack, t);
     }
     function l(e, t) {
       return e;

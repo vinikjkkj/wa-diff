@@ -334,7 +334,7 @@ __d(
         a = e.selection,
         i = e.startOffset,
         l = r("WANullthrows")(b(o, i, t)),
-        s = r("WANullthrows")(v(o, n, t));
+        s = r("WANullthrows")(v({ format: t, nodes: o, offset: n }));
       (k(a, l, s), l.remove(), s.remove());
     }
     function C(t, n) {
@@ -373,7 +373,7 @@ __d(
       )
         return c.Skip;
       var C = b(u, m, n),
-        R = v(u, a, n),
+        R = v({ format: n, nodes: u, offset: a }),
         L = !!(C && R);
       if (!L) {
         var E = S(i ? [u[0].getPreviousSibling(), u[0].getNextSibling()] : u);
@@ -397,17 +397,20 @@ __d(
       }
       return null;
     }
-    function v(e, t, n) {
-      var r;
+    function v(e) {
+      var t,
+        n = e.format,
+        r = e.nodes,
+        a = e.offset;
       if (
-        t + 1 !==
-        ((r = e[e.length - 1]) == null ? void 0 : r.getTextContentSize())
+        a + 1 !==
+        ((t = r[r.length - 1]) == null ? void 0 : t.getTextContentSize())
       )
         return null;
-      for (var a = e.length - 1; a >= 0; a--) {
-        var i = e[a];
-        if (!o("WAWebDelimiterNode").$isDelimiterNode(i)) break;
-        if (i.getTextContent() === E(n)) return i;
+      for (var i = r.length - 1; i >= 0; i--) {
+        var l = r[i];
+        if (!o("WAWebDelimiterNode").$isDelimiterNode(l)) break;
+        if (l.getTextContent() === E(n)) return l;
       }
       return null;
     }

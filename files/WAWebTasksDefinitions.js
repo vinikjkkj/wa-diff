@@ -19,8 +19,8 @@ __d(
     "WAWebBizBroadcastCampaignCleanup",
     "WAWebBizGatingUtils",
     "WAWebBotGating",
+    "WAWebCanonicalCredentialRecoveryJob",
     "WAWebCanonicalGating",
-    "WAWebCanonicalTokenRefreshJob",
     "WAWebCleanUtmJob",
     "WAWebContactSyncBridge",
     "WAWebDBPurgeExpiredRecords",
@@ -1059,12 +1059,9 @@ __d(
                                                                       ).asyncToGenerator(
                                                                         function* () {
                                                                           if (
-                                                                            (yield o(
-                                                                              "WAWebABPropsCache",
-                                                                            ).waitForABPropConfigsReady(),
                                                                             !o(
                                                                               "WAWebCanonicalGating",
-                                                                            ).isCanonicalRecoveryEnabled())
+                                                                            ).isCanonicalRecoveryEnabled()
                                                                           )
                                                                             return o(
                                                                               "WATimeUtils",
@@ -1072,8 +1069,8 @@ __d(
                                                                               .DAY_SECONDS;
                                                                           var e =
                                                                             yield o(
-                                                                              "WAWebCanonicalTokenRefreshJob",
-                                                                            ).maybeRefreshCanonicalTokenJob();
+                                                                              "WAWebCanonicalCredentialRecoveryJob",
+                                                                            ).maybeRecoverCanonicalCredentials();
                                                                           return e;
                                                                         },
                                                                       )

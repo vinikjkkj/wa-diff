@@ -7,20 +7,30 @@ __d(
       s = "wa-web-main",
       u = !1,
       c = null,
-      d = !1;
-    function m() {
+      d = !1,
+      m = !1;
+    function p() {
       return u;
     }
-    function p(e) {
+    function _(e) {
       u = e;
     }
-    function _() {
+    function f() {
       return d;
     }
-    function f(e) {
+    function g(e) {
       d = e;
     }
-    function g() {
+    function h() {
+      return m;
+    }
+    function y() {
+      m = !0;
+    }
+    function C() {
+      m = !1;
+    }
+    function b() {
       if (c == null || !u) return !1;
       try {
         return !(c.document.hidden || c.innerWidth <= 0 || c.innerHeight <= 0);
@@ -28,35 +38,38 @@ __d(
         return !1;
       }
     }
-    function h() {
+    function v() {
       return c;
     }
-    function y(e) {
+    function S(e) {
       c = e;
     }
-    function C() {
+    function R() {
       if (c == null) return !1;
       try {
-        return !b(c);
+        return !L(c);
       } catch (e) {
         return !1;
       }
     }
-    function b(e) {
+    function L(e) {
       return (
         e != null && typeof e == "object" && "closed" in e && e.closed === !0
       );
     }
     ((l.WAWebVoipUiPopoutWindowEventEmitter = e),
       (l.MAIN_WINDOW_NAME = s),
-      (l.getIsCallActiveInPopoutWindow = m),
-      (l.setIsCallActiveInPopoutWindow = p),
-      (l.getIsPopoutWindowOpening = _),
-      (l.setIsPopoutWindowOpening = f),
-      (l.getIsPopoutWindowActiveAndVisible = g),
-      (l.getPopoutWindow = h),
-      (l.setPopoutWindow = y),
-      (l.isPopoutWindowAlive = C));
+      (l.getIsCallActiveInPopoutWindow = p),
+      (l.setIsCallActiveInPopoutWindow = _),
+      (l.getIsPopoutWindowOpening = f),
+      (l.setIsPopoutWindowOpening = g),
+      (l.getIsPopoutUiReady = h),
+      (l.markPopoutUiReady = y),
+      (l.resetPopoutUiReady = C),
+      (l.getIsPopoutWindowActiveAndVisible = b),
+      (l.getPopoutWindow = v),
+      (l.setPopoutWindow = S),
+      (l.isPopoutWindowAlive = R));
   },
   98,
 );

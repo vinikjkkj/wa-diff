@@ -103,23 +103,29 @@ __d(
         k
       );
     }
-    function g(e, t, n, r, o, a) {
-      o === void 0 && (o = 0);
-      var i;
+    function g(e) {
+      var t = e.alignment,
+        n = e.arrow,
+        r = e.buffer,
+        o = r === void 0 ? 0 : r,
+        a = e.element,
+        i = e.position,
+        l = e.target,
+        s;
       return (
-        "getBoundingClientRect" in e
-          ? (i = e.getBoundingClientRect())
-          : (i = {
-              top: e.y,
-              right: e.x,
-              bottom: e.y,
-              left: e.x,
+        "getBoundingClientRect" in l
+          ? (s = l.getBoundingClientRect())
+          : (s = {
+              top: l.y,
+              right: l.x,
+              bottom: l.y,
+              left: l.x,
               width: 0,
               height: 0,
-              x: e.x,
-              y: e.y,
+              x: l.x,
+              y: l.y,
             }),
-        f(i, t.getBoundingClientRect(), n, r, o, a)
+        f(s, a.getBoundingClientRect(), i, t, o, n)
       );
     }
     function h(t) {

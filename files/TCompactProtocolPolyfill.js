@@ -115,10 +115,12 @@ __d(
               e += this.$1.writeByte(
                 (this.$9(t.ktype) << 4) | this.$9(t.vtype),
               );
-            else
-              throw new Error(
+            else {
+              var n = new Error(
                 "received invalid map info: " + JSON.stringify(t),
               );
+              throw (n.stack, n);
+            }
             return e;
           }),
           (n.writeMapEnd = function () {
@@ -188,8 +190,10 @@ __d(
             return 0;
           }),
           (n.$12 = function (t, n) {
-            if (t < 0 || t > 13)
-              throw new Error(n + " read invalid compact type: " + t);
+            if (t < 0 || t > 13) {
+              var e = new Error(n + " read invalid compact type: " + t);
+              throw (e.stack, e);
+            }
             return t;
           }),
           (n.$11 = function () {
@@ -212,8 +216,10 @@ __d(
             );
           }),
           (n.writeByte = function (t) {
-            if (t < p || t > m)
-              throw new Error("byte to write is out of range: " + t);
+            if (t < p || t > m) {
+              var e = new Error("byte to write is out of range: " + t);
+              throw (e.stack, e);
+            }
             return (
               this.$6.setInt8(0, t),
               this.$1.writeByte(this.$6.getUint8(0))
@@ -286,10 +292,12 @@ __d(
               case (e || (e = r("ThriftTypes"))).FLOAT:
                 this.readFloat();
                 break;
-              default:
-                throw new Error(
+              default: {
+                var c = new Error(
                   "encoutered unknow thrift type: " + n + " in skip",
                 );
+                throw (c.stack, c);
+              }
             }
           }),
           (n.toByteArray = function () {
@@ -302,17 +310,25 @@ __d(
             return this.$1.writeByte((e || (e = r("ThriftTypes"))).STOP);
           }),
           (n.writeI16 = function (t) {
-            if (t < f || t > _)
-              throw new Error("trying to write i16 out of range: " + t);
+            if (t < f || t > _) {
+              var e = new Error("trying to write i16 out of range: " + t);
+              throw (e.stack, e);
+            }
             return this.writeVarint32(this.i32ToZigzag(t));
           }),
           (n.readI16 = function () {
             var e = this.zigzagToI32(this.readVarint32());
-            if (e < f || e > _) throw new Error("read invalid i16: " + e);
+            if (e < f || e > _) {
+              var t = new Error("read invalid i16: " + e);
+              throw (t.stack, t);
+            }
             return e;
           }),
           (n.writeI32 = function (t) {
-            if (t < h || t > g) throw new Error("i32 out of range: " + t);
+            if (t < h || t > g) {
+              var e = new Error("i32 out of range: " + t);
+              throw (e.stack, e);
+            }
             return this.writeVarint32(this.i32ToZigzag(t));
           }),
           (n.readI32 = function () {
@@ -361,43 +377,53 @@ __d(
             );
           }),
           (n.i32ToZigzag = function (t) {
-            if (t < h || t > g)
-              throw new Error("number: " + t + " is out of range of i32");
+            if (t < h || t > g) {
+              var e = new Error("number: " + t + " is out of range of i32");
+              throw (e.stack, e);
+            }
             return ((t << 1) ^ (t < 0 ? 4294967295 : 0)) >>> 0;
           }),
           (n.zigzagToI32 = function (t) {
-            if (t < 0 || t > y)
-              throw new Error("number: " + t + " is out of range of uint32");
+            if (t < 0 || t > y) {
+              var e = new Error("number: " + t + " is out of range of uint32");
+              throw (e.stack, e);
+            }
             return (t >>> 1) ^ (-1 * (t & 1));
           }),
           (n.i64ToZigzag = function (t) {
-            if (r("jsbi").greaterThan(t, C) || r("jsbi").lessThan(t, b))
-              throw new Error("i64 out of range: " + t.toString());
+            if (r("jsbi").greaterThan(t, C) || r("jsbi").lessThan(t, b)) {
+              var e = new Error("i64 out of range: " + t.toString());
+              throw (e.stack, e);
+            }
             return r("jsbi").bitwiseXor(
               r("jsbi").signedRightShift(t, S),
               r("jsbi").leftShift(t, R),
             );
           }),
           (n.zigzagToI64 = function (t) {
-            if (r("jsbi").lessThan(t, 0) || r("jsbi").greaterThan(t, v))
-              throw new Error("invalid uint64: " + t.toString());
+            if (r("jsbi").lessThan(t, 0) || r("jsbi").greaterThan(t, v)) {
+              var e = new Error("invalid uint64: " + t.toString());
+              throw (e.stack, e);
+            }
             return r("jsbi").equal(r("jsbi").bitwiseAnd(t, R), R)
               ? r("jsbi").bitwiseNot(r("jsbi").signedRightShift(t, R))
               : r("jsbi").signedRightShift(t, R);
           }),
           (n.writeVarint32 = function (t) {
-            if (t < 0 || t > y)
-              throw new Error(
+            if (t < 0 || t > y) {
+              var e = new Error(
                 "writeVarint32 received out of range uint32: " + t,
               );
-            for (var e = t, n = 0; ; )
-              if (e >>> 7)
-                (this.$1.writeByte((e & 127) | 128), n++, (e >>>= 7));
+              throw (e.stack, e);
+            }
+            for (var n = t, r = 0; ; )
+              if (n >>> 7)
+                (this.$1.writeByte((n & 127) | 128), r++, (n >>>= 7));
               else {
-                (this.$1.writeByte(e), n++);
+                (this.$1.writeByte(n), r++);
                 break;
               }
-            return n;
+            return r;
           }),
           (n.readVarint32 = function () {
             for (var e = 0, t = 0, n; ; ) {
@@ -407,29 +433,36 @@ __d(
                 (t += 7),
                 (n & 128) == 0)
               ) {
-                if (t === 35 && (n & 240) != 0)
-                  throw new Error("result exceeded 32 bit limit");
+                if (t === 35 && (n & 240) != 0) {
+                  var r = new Error("result exceeded 32 bit limit");
+                  throw (r.stack, r);
+                }
                 break;
               }
-              if (t > 28) throw new Error("result exceeded 32 bit limit");
+              if (t > 28) {
+                var o = new Error("result exceeded 32 bit limit");
+                throw (o.stack, o);
+              }
             }
             return e;
           }),
           (n.writeVarint64 = function (t) {
-            if (r("jsbi").lessThan(t, L) || r("jsbi").greaterThan(t, v))
-              throw new Error("invalid uint64: " + t.toString());
-            for (var e = t, n = 0; ; )
-              if (r("jsbi").equal(r("jsbi").signedRightShift(e, E), L)) {
-                (this.$1.writeByte(r("jsbi").toNumber(e)), n++);
+            if (r("jsbi").lessThan(t, L) || r("jsbi").greaterThan(t, v)) {
+              var e = new Error("invalid uint64: " + t.toString());
+              throw (e.stack, e);
+            }
+            for (var n = t, o = 0; ; )
+              if (r("jsbi").equal(r("jsbi").signedRightShift(n, E), L)) {
+                (this.$1.writeByte(r("jsbi").toNumber(n)), o++);
                 break;
               } else {
-                var o,
-                  a = (o = r("jsbi")).toNumber(
-                    o.bitwiseOr(o.bitwiseAnd(e, I), T),
+                var a,
+                  i = (a = r("jsbi")).toNumber(
+                    a.bitwiseOr(a.bitwiseAnd(n, I), T),
                   );
-                (this.$1.writeByte(a), n++, (e = o.signedRightShift(e, E)));
+                (this.$1.writeByte(i), o++, (n = a.signedRightShift(n, E)));
               }
-            return n;
+            return o;
           }),
           (n.readVarint64 = function () {
             for (var e = L, t = L, n; ; ) {
@@ -440,12 +473,16 @@ __d(
                 (t = o.add(t, E)),
                 r("jsbi").equal(r("jsbi").bitwiseAnd(n, T), L))
               ) {
-                if (r("jsbi").equal(t, k) && r("jsbi").notEqual(n, R))
-                  throw new Error("result exceeded 64 bit limit");
+                if (r("jsbi").equal(t, k) && r("jsbi").notEqual(n, R)) {
+                  var a = new Error("result exceeded 64 bit limit");
+                  throw (a.stack, a);
+                }
                 break;
               }
-              if (r("jsbi").greaterThan(t, S))
-                throw new Error("result exceeded 64 bit limit");
+              if (r("jsbi").greaterThan(t, S)) {
+                var i = new Error("result exceeded 64 bit limit");
+                throw (i.stack, i);
+              }
             }
             return e;
           }),
@@ -496,8 +533,10 @@ __d(
                 return (e || (e = r("ThriftTypes"))).MAP;
               case u.CT_STRUCT:
                 return (e || (e = r("ThriftTypes"))).STRUCT;
-              default:
-                throw new Error("don't know what type");
+              default: {
+                var t = new Error("don't know what type");
+                throw (t.stack, t);
+              }
             }
           }),
           t

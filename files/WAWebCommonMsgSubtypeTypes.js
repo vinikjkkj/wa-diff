@@ -10,6 +10,7 @@ __d(
       Picture: "picture",
       Modify: "modify",
       Suspend: "suspend",
+      SuspendAppeal: "suspend_appeal",
       Delete: "delete",
       Create: "create",
       Promote: "promote",

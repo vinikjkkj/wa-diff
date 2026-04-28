@@ -34,7 +34,7 @@ __d(
         l = t.getTextStatusLastUpdateTime(n),
         s = t.getTextStatusExpiryTs(n),
         u = t.getTextStatusEphemeralDuration(n),
-        c = l === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED;
+        c = o("WAWebTextStatusUtils").isTextStatusNotFetched(l);
       if (!o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled())
         return !1;
       if (o("WAWebTextStatusUtils").shouldDisplayTextStatus(a, i, l, s, u))
@@ -53,7 +53,7 @@ __d(
       return !1;
     }
     function d(t) {
-      var a = o("react-compiler-runtime").c(46),
+      var a = o("react-compiler-runtime").c(48),
         i = t.contactId,
         l = t.ellipsify,
         s = t.waitIdle,
@@ -164,78 +164,84 @@ __d(
           (a[17] = D))
         : (D = a[17]);
       var x = D,
-        $ = S === o("WAWebTextStatusUtils").TEXT_STATUS_NOT_FETCHED,
-        P;
-      a[18] !== g || a[19] !== v || a[20] !== b
-        ? ((P =
+        $;
+      a[18] !== S
+        ? (($ = o("WAWebTextStatusUtils").isTextStatusNotFetched(S)),
+          (a[18] = S),
+          (a[19] = $))
+        : ($ = a[19]);
+      var P = $,
+        N;
+      a[20] !== g || a[21] !== v || a[22] !== b
+        ? ((N =
             !b && !v && o("WAWebTextStatusUtils").isLegacyAboutNotFetched(g)),
-          (a[18] = g),
-          (a[19] = v),
-          (a[20] = b),
-          (a[21] = P))
-        : (P = a[21]);
-      var N = P,
-        M;
-      a[22] !== i
-        ? ((M = o("WAWebUserPrefsMeUser").isMeAccount(i)),
-          (a[22] = i),
-          (a[23] = M))
-        : (M = a[23]);
-      var w = M,
-        A;
-      a[24] !== S
-        ? ((A = o("WAWebTextStatusUtils").hasEverHadTextStatus(S)),
-          (a[24] = S),
-          (a[25] = A))
-        : (A = a[25]);
-      var F = A,
-        O;
+          (a[20] = g),
+          (a[21] = v),
+          (a[22] = b),
+          (a[23] = N))
+        : (N = a[23]);
+      var M = N,
+        w;
+      a[24] !== i
+        ? ((w = o("WAWebUserPrefsMeUser").isMeAccount(i)),
+          (a[24] = i),
+          (a[25] = w))
+        : (w = a[25]);
+      var A = w,
+        F;
+      a[26] !== S
+        ? ((F = o("WAWebTextStatusUtils").hasEverHadTextStatus(S)),
+          (a[26] = S),
+          (a[27] = F))
+        : (F = a[27]);
+      var O = F,
+        B;
       if (
-        a[26] !== F ||
-        a[27] !== k ||
-        a[28] !== x ||
-        a[29] !== w ||
-        a[30] !== g ||
-        a[31] !== $
+        a[28] !== O ||
+        a[29] !== k ||
+        a[30] !== x ||
+        a[31] !== A ||
+        a[32] !== g ||
+        a[33] !== P
       ) {
-        var B = function () {
+        var W = function () {
           return o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()
             ? k
               ? x()
-              : !w && !F && !$ && o("WAWebTextStatusUtils").hasCustomAboutSet(g)
+              : !A && !O && !P && o("WAWebTextStatusUtils").hasCustomAboutSet(g)
                 ? u.jsx(u.Fragment, { children: g.status })
                 : T
             : T;
         };
-        ((O = B()),
-          (a[26] = F),
-          (a[27] = k),
-          (a[28] = x),
-          (a[29] = w),
-          (a[30] = g),
-          (a[31] = $),
-          (a[32] = O));
-      } else O = a[32];
-      var W = O,
-        q;
-      a[33] !== F ||
-      a[34] !== i ||
-      a[35] !== W ||
-      a[36] !== w ||
-      a[37] !== N ||
-      a[38] !== $ ||
-      a[39] !== S
-        ? ((q = function () {
+        ((B = W()),
+          (a[28] = O),
+          (a[29] = k),
+          (a[30] = x),
+          (a[31] = A),
+          (a[32] = g),
+          (a[33] = P),
+          (a[34] = B));
+      } else B = a[34];
+      var q = B,
+        U;
+      a[35] !== O ||
+      a[36] !== i ||
+      a[37] !== q ||
+      a[38] !== A ||
+      a[39] !== M ||
+      a[40] !== P ||
+      a[41] !== S
+        ? ((U = function () {
             var e = (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* () {
                   var e;
                   return (
-                    $
+                    P
                       ? (e = o("WAWebTextStatusAction").getTextStatus(i, S))
-                      : !w &&
-                        !F &&
-                        N &&
+                      : !A &&
+                        !O &&
+                        M &&
                         (e = o(
                           "WAWebTextStatusCollection",
                         ).TextStatusCollection.find(i)),
@@ -247,34 +253,34 @@ __d(
                 return e.apply(this, arguments);
               };
             })();
-            return (e(), W);
+            return (e(), q);
           }),
-          (a[33] = F),
-          (a[34] = i),
-          (a[35] = W),
-          (a[36] = w),
-          (a[37] = N),
-          (a[38] = $),
-          (a[39] = S),
-          (a[40] = q))
-        : (q = a[40]);
-      var U = q,
-        V;
+          (a[35] = O),
+          (a[36] = i),
+          (a[37] = q),
+          (a[38] = A),
+          (a[39] = M),
+          (a[40] = P),
+          (a[41] = S),
+          (a[42] = U))
+        : (U = a[42]);
+      var V = U,
+        H;
       return (
-        a[41] !== i || a[42] !== U || a[43] !== W || a[44] !== s
-          ? ((V = u.jsx(r("WAWebIdleComponent.react"), {
+        a[43] !== i || a[44] !== V || a[45] !== q || a[46] !== s
+          ? ((H = u.jsx(r("WAWebIdleComponent.react"), {
               id: i,
-              onComplex: U,
+              onComplex: V,
               waitIdle: s,
-              children: W,
+              children: q,
             })),
-            (a[41] = i),
-            (a[42] = U),
-            (a[43] = W),
-            (a[44] = s),
-            (a[45] = V))
-          : (V = a[45]),
-        V
+            (a[43] = i),
+            (a[44] = V),
+            (a[45] = q),
+            (a[46] = s),
+            (a[47] = H))
+          : (H = a[47]),
+        H
       );
     }
     ((l.willTextStatusDisplayContent = c), (l.TextStatus = d));

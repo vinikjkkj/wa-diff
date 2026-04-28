@@ -394,8 +394,8 @@ __d(
                         o("WALogger").LOG(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "getPreKeys: no prekey needs to be generated, available: ",
-                              ", need: ",
+                              "[getPreKeys] no gen needed avail=",
+                              " need=",
                               "",
                             ])),
                           m,

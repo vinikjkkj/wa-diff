@@ -3,10 +3,10 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
+    "WAWebCanonicalCredentialRecoveryJob",
     "WAWebCanonicalEntRecoveryWam",
     "WAWebCanonicalGating",
     "WAWebCanonicalTokenExchange",
-    "WAWebCanonicalTokenRefreshJob",
     "WAWebCanonicalUtils",
     "WAWebODS",
     "WAWebUserPrefsMeUser",
@@ -32,7 +32,9 @@ __d(
                 "web.app.canonical.recovery.handler.handle_nonce_response",
               ),
               o("WAWebCanonicalEntRecoveryWam").logReceivedNonceFromPrimary(),
-              o("WAWebCanonicalTokenRefreshJob").clearNonceRequestTimestamp(),
+              o(
+                "WAWebCanonicalCredentialRecoveryJob",
+              ).clearNonceRequestTimestamp(),
               e == null || e.length === 0)
             ) {
               (r("WAWebODS").incr(
@@ -46,6 +48,7 @@ __d(
                 ),
                 o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
                   "recovery_response_empty",
+                  "recovery",
                 ));
               return;
             }
@@ -66,6 +69,7 @@ __d(
                 ),
                 o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
                   "recovery_response_missing",
+                  "recovery",
                 ));
               return;
             }
@@ -84,21 +88,19 @@ __d(
                 ),
                 o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
                   "recovery_nonce_payload_missing_fields",
+                  "recovery",
                 ));
               return;
             }
             if (t !== !0 && !v(i)) return;
             var u = o("WAWebUserPrefsMeUser")
-              .getMeDevicePnOrThrow_DO_NOT_USE()
-              .getDeviceId();
-            o("WAWebCanonicalEntRecoveryWam").setDeviceId(String(u));
-            var c = yield o(
-              "WAWebCanonicalTokenExchange",
-            ).exchangeNonceForToken({
-              userId: Number(s),
-              deviceId: u,
-              nonce: l,
-            });
+                .getMeDevicePnOrThrow_DO_NOT_USE()
+                .getDeviceId(),
+              c = yield o("WAWebCanonicalTokenExchange").exchangeNonceForToken({
+                userId: Number(s),
+                deviceId: u,
+                nonce: l,
+              });
             if (
               c !== o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
             ) {
@@ -121,7 +123,7 @@ __d(
             ),
               r("WAWebODS").incr("web.app.canonical.recovery.handler.success"),
               o("WAWebCanonicalGating").isCanonicalRecoveryAppReloadEnabled() &&
-                !o("WAWebCanonicalUtils").isCanonicalAppReloadPending() &&
+                o("WAWebCanonicalUtils").getCanonicalReloadPending() == null &&
                 (o("WALogger").LOG(
                   h ||
                     (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -129,7 +131,8 @@ __d(
                     ])),
                 ),
                 o("WAWebBackendApi").frontendFireAndForget(
-                  "scheduleCanonicalRecoveryReload",
+                  "scheduleCanonicalReload",
+                  { purpose: "recovery" },
                 )));
           } catch (e) {
             (o("WALogger")
@@ -147,6 +150,7 @@ __d(
               ),
               o("WAWebCanonicalEntRecoveryWam").logCriticalRecoveryEvent(
                 "recovery_handler_unexpected_error",
+                "recovery",
                 String(e),
               ));
           }

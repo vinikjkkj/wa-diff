@@ -428,23 +428,29 @@ __d(
                             b &&
                             o(
                               "WAWebStatusSessionGatingUtils",
-                            ).shouldUseStatusSessionForIncomingMessage()
+                            ).shouldUseStatusSessionForIncomingMessage(
+                              N.metaSessionScope,
+                            )
                               ? o("WAWebSessionScope").SessionScope.STATUS
                               : void 0;
-                        v != null &&
+                        if (v != null) {
+                          var R;
                           o("WALogger")
                             .LOG(
                               h ||
                                 (h = babelHelpers.taggedTemplateLiteralLoose([
                                   "[status-session] handleMsg: isGroupStatus=",
                                   " sessionScope=",
+                                  " metaSessionScope=",
                                   "",
                                 ])),
                               String(N.isGroupStatus === !0),
                               v,
+                              (R = N.metaSessionScope) != null ? R : "none",
                             )
                             .tags("messaging");
-                        var R = yield o(
+                        }
+                        var L = yield o(
                           "WAWebMsgProcessingDecryptApi",
                         ).decryptE2EPayload(
                           T,
@@ -457,9 +463,9 @@ __d(
                             o(
                               "WAWebOfflineHandler",
                             ).OfflineMessageHandler.processMessageDecryptResult(
-                              R.result,
+                              L.result,
                             ),
-                          R.result !==
+                          L.result !==
                             o("WAWebHandleMsgTypes.flow").E2EProcessResult
                               .SUCCESS &&
                             o(
@@ -471,7 +477,7 @@ __d(
                               incomingMsgReportingTokenInfo:
                                 T.reportingTokenInfo,
                             }),
-                          R.result ===
+                          L.result ===
                             o("WAWebHandleMsgTypes.flow").E2EProcessResult
                               .SIGNAL_OLD_COUNTER_ERROR && S(T)
                             ? o("WAWebGetMessageCache")
@@ -487,7 +493,7 @@ __d(
                                         author: P.author,
                                         msgInfo: P,
                                         msgMeta: N,
-                                        enc: R.failedEnc || D[0],
+                                        enc: L.failedEnc || D[0],
                                         hasHideFailEnc: D.some(function (e) {
                                           return e.hideFail;
                                         }),
@@ -503,15 +509,15 @@ __d(
                                 N.type ===
                                   o("WAWebHandleMsgCommon").STANZA_MSG_TYPES
                                     .medianotify ||
-                                (R.result !==
+                                (L.result !==
                                   o("WAWebHandleMsgTypes.flow").E2EProcessResult
                                     .SUCCESS &&
-                                  R.result !==
+                                  L.result !==
                                     o("WAWebHandleMsgTypes.flow")
                                       .E2EProcessResult
                                       .SIGNAL_OLD_COUNTER_ERROR)
                               ? o("WAWebHandleMsgSendReceipt")
-                                  .sendReceipt(P, N, R)
+                                  .sendReceipt(P, N, L)
                                   .catch(function (e) {
                                     o("WALogger")
                                       .ERROR(

@@ -2,6 +2,7 @@ __d(
   "WAWebCanonicalUserValidQuery",
   [
     "WAWebCanonicalUserValidQuery.graphql",
+    "WAWebGraphQLConstants",
     "WAWebGraphQLServerError",
     "WAWebRelayClient",
     "asyncToGeneratorRuntime",
@@ -9,18 +10,17 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = 1675002,
-      u = e !== void 0 ? e : (e = n("WAWebCanonicalUserValidQuery.graphql"));
-    function c() {
-      return d.apply(this, arguments);
+      s = e !== void 0 ? e : (e = n("WAWebCanonicalUserValidQuery.graphql"));
+    function u() {
+      return c.apply(this, arguments);
     }
-    function d() {
+    function c() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           try {
             var e,
               t = yield o("WAWebRelayClient").fetchQuery(
-                u,
+                s,
                 {},
                 { environmentType: "whatsapp_web" },
               );
@@ -32,17 +32,21 @@ __d(
           } catch (e) {
             if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
               var n = e.source.errors.some(function (e) {
-                return e.code === s;
+                return (
+                  e.code ===
+                  o("WAWebGraphQLConstants")
+                    .WHATSAPP_GRAPHQL_UNAUTHORIZED_ERROR_CODE
+                );
               });
               if (n) return "invalid";
             }
             return "error";
           }
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.fetchCanonicalUserValid = c;
+    l.fetchCanonicalUserValid = u;
   },
   98,
 );

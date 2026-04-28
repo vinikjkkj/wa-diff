@@ -45,7 +45,48 @@ __d(
         (t.webcWhatsNewVariant = e),
         t.commit());
     }
-    function c(e) {
+    function c(e, t) {
+      var n = new (o(
+        "WAWebWebcWhatsNewImpressionWamEvent",
+      ).WebcWhatsNewImpressionWamEvent)();
+      ((n.webcWhatsNewSurface = o(
+        "WAWebWamEnumWebcWhatsNewSurfaceType",
+      ).WEBC_WHATS_NEW_SURFACE_TYPE.MODAL),
+        (n.webcWhatsNewAction = o(
+          "WAWebWamEnumWebcWhatsNewActionType",
+        ).WEBC_WHATS_NEW_ACTION_TYPE.DISMISS_OVERLAY),
+        (n.webcWhatsNewVariant = e),
+        (n.webcWhatsNewTimeSpent = t),
+        n.commit());
+    }
+    function d(e, t) {
+      var n = new (o(
+        "WAWebWebcWhatsNewImpressionWamEvent",
+      ).WebcWhatsNewImpressionWamEvent)();
+      ((n.webcWhatsNewSurface = o(
+        "WAWebWamEnumWebcWhatsNewSurfaceType",
+      ).WEBC_WHATS_NEW_SURFACE_TYPE.MODAL),
+        (n.webcWhatsNewAction = o(
+          "WAWebWamEnumWebcWhatsNewActionType",
+        ).WEBC_WHATS_NEW_ACTION_TYPE.DISMISS_BUTTON),
+        (n.webcWhatsNewVariant = e),
+        (n.webcWhatsNewTimeSpent = t),
+        n.commit());
+    }
+    function m(e) {
+      var t = new (o(
+        "WAWebWebcWhatsNewImpressionWamEvent",
+      ).WebcWhatsNewImpressionWamEvent)();
+      ((t.webcWhatsNewSurface = o(
+        "WAWebWamEnumWebcWhatsNewSurfaceType",
+      ).WEBC_WHATS_NEW_SURFACE_TYPE.MODAL),
+        (t.webcWhatsNewAction = o(
+          "WAWebWamEnumWebcWhatsNewActionType",
+        ).WEBC_WHATS_NEW_ACTION_TYPE.IMPRESSION),
+        (t.webcWhatsNewVariant = e),
+        t.commit());
+    }
+    function p(e) {
       var t = new (o(
         "WAWebWebcWhatsNewImpressionWamEvent",
       ).WebcWhatsNewImpressionWamEvent)();
@@ -61,7 +102,10 @@ __d(
     ((l.logBannerDismiss = e),
       (l.logBannerClick = s),
       (l.logBannerImpression = u),
-      (l.logCarouselImpression = c));
+      (l.logModalDismissOverlay = c),
+      (l.logModalDismissButton = d),
+      (l.logModalImpression = m),
+      (l.logCarouselImpression = p));
   },
   98,
 );

@@ -3,22 +3,31 @@ __d(
   ["WAWebABProps", "WAWebGifPanelConstants"],
   function (t, n, r, o, a, i, l) {
     var e = 0,
-      s = function (n, r, a, i, l, s, u, c, d) {
-        ((this.rank = n),
+      s = function (n) {
+        var t = n.accessibilityLabel,
+          r = n.attribution,
+          a = n.nonVideoUrl,
+          i = n.previewUrl,
+          l = n.rank,
+          s = n.size,
+          u = n.trending,
+          c = n.url,
+          d = n.width;
+        ((this.rank = l),
           (this.gifId = ++e),
-          (this.url = r),
-          (this.size = a),
-          (this.previewUrl = i || r),
-          (this.nonVideoUrl = l),
-          (this.width = s),
-          (this.widthStr = s + "px"),
+          (this.url = c),
+          (this.size = s),
+          (this.previewUrl = i || c),
+          (this.nonVideoUrl = a),
+          (this.width = d),
+          (this.widthStr = d + "px"),
           (this.ratioStr =
             Math.ceil(
-              (100 * o("WAWebGifPanelConstants").TARGET_GIF_HEIGHT) / s,
+              (100 * o("WAWebGifPanelConstants").TARGET_GIF_HEIGHT) / d,
             ) + "%"),
-          (this.attribution = u),
-          (this.trending = c),
-          (this.accessibilityLabel = d));
+          (this.attribution = r),
+          (this.trending = u),
+          (this.accessibilityLabel = t));
       },
       u = { giphy: "GIPHY", tenor: "Tenor" },
       c = { GIPHY: 1, TENOR: 2 };

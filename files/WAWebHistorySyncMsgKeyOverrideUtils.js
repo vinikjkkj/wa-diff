@@ -27,14 +27,32 @@ __d(
           )
           .sendLogs("history-sync-override-msg-key");
       }
-      return babelHelpers.extends({}, t, {
-        id: new (r("WAWebMsgKey"))({
-          fromMe: i.fromMe,
-          remote: n,
-          id: i.id,
-          participant: i.participant,
-        }),
-      });
+      return babelHelpers.extends(
+        {},
+        t,
+        {
+          id: new (r("WAWebMsgKey"))({
+            fromMe: i.fromMe,
+            remote: n,
+            id: i.id,
+            participant: i.participant,
+          }),
+        },
+        t.carouselCardsParsed != null
+          ? {
+              carouselCardsParsed: t.carouselCardsParsed.map(function (e) {
+                return babelHelpers.extends({}, e, {
+                  id: new (r("WAWebMsgKey"))({
+                    fromMe: e.id.fromMe,
+                    remote: n,
+                    id: e.id.id,
+                    participant: e.id.participant,
+                  }),
+                });
+              }),
+            }
+          : void 0,
+      );
     }
     l.maybeOverrideMsgKeyRemoteWithChatId = s;
   },

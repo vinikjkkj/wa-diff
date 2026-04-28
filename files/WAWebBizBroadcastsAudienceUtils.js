@@ -21,7 +21,7 @@ __d(
       u = 100;
     function c() {
       var e = o("WAWebChatCollection").ChatCollection.filter(function (e) {
-        return o("WAWebChatGetters").getIsBroadcast(e);
+        return o("WAWebChatGetters").getIsBroadcast(e) && !e.id.isStatus();
       });
       return e.map(function (e) {
         var t, n, r, a, i;

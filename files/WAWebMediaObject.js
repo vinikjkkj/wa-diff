@@ -49,6 +49,7 @@ __d(
             (this.uploadStage = o("WAWebMediaTypes").UploadStage.INIT),
             (this.userUploadAttemptCount = 0),
             (this.userDownloadAttemptCount = 0),
+            (this.hashMismatchRetryCount = 0),
             (this.$4 = null),
             (this.$5 = null),
             (this.$6 = null),

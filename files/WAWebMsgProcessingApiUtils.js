@@ -777,22 +777,27 @@ __d(
           ? (u = s)
           : (u = l);
       var c = i.fromMe ? u : i.remote,
-        d = {
-          id: i,
-          from: c,
-          to: i.fromMe ? i.remote : l,
-          type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          t: e.ts || 0,
-          ack: o("WAWebMsgKeyUtils").isNoteToSelf(i)
-            ? o("WAWebAck").ACK.READ
-            : o("WAWebAck").ACK.SENT,
-          author: O(i, e),
-          notifyName: e.pushname || "",
-          invis: !1,
-          count: e.count,
-          clientReceivedTsMillis: e.clientReceivedTsMillis,
-        };
+        d = babelHelpers.extends(
+          {
+            id: i,
+            from: c,
+            to: i.fromMe ? i.remote : l,
+            type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+            t: e.ts || 0,
+            ack: o("WAWebMsgKeyUtils").isNoteToSelf(i)
+              ? o("WAWebAck").ACK.READ
+              : o("WAWebAck").ACK.SENT,
+            author: O(i, e),
+            notifyName: e.pushname || "",
+            invis: !1,
+            count: e.count,
+            clientReceivedTsMillis: e.clientReceivedTsMillis,
+          },
+          e.serverStoreTimeMicros != null
+            ? { serverStoreTimeMicros: e.serverStoreTimeMicros }
+            : null,
+        );
       return (
         o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
           e.hostedBizEncStateMismatch === !0 &&

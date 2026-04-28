@@ -6,7 +6,6 @@ __d(
     "WADeprecatedWapParser",
     "WALogger",
     "WAWebBackendEventBus",
-    "WAWebCanonicalUtils",
     "WAWebCompanionRegUtils",
     "WAWebCoreActionsODS",
     "WAWebJestE2ELogUtils",
@@ -82,9 +81,8 @@ __d(
             if (a.code === 515)
               return (
                 o("WAComms").stopComms(),
-                o("WAWebCanonicalUtils").isCanonicalAppReloadPending() ||
-                  (yield o("WAWebCompanionRegUtils").startLogin(),
-                  o("WAWebStartBackend").startBackend()),
+                yield o("WAWebCompanionRegUtils").startLogin(),
+                o("WAWebStartBackend").startBackend(),
                 (p || (p = n("Promise"))).resolve("NO_ACK")
               );
             if (a.code === 516)

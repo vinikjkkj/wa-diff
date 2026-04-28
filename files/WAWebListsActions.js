@@ -289,20 +289,25 @@ __d(
           var u = o("WAWebListsUtil").getAllChatsInList(n),
             c = o("WAWebListsUtil").getTwoArraysDifference(u, i),
             d = c.addedItems,
-            m = c.removedItems;
+            m = c.removedItems,
+            h = l || s,
+            y = d.length > 0,
+            C = m.length > 0;
           try {
-            if (d.length > 0) {
-              var h = { id: String(n.id), type: "add" };
+            if (y) {
+              var b = { id: String(n.id), type: "add" };
               o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                [h],
+                [b],
                 d,
+                { suppressSuccessToast: h || C },
               );
             }
-            if (m.length > 0) {
-              var y = { id: String(n.id), type: "remove" };
+            if (C) {
+              var v = { id: String(n.id), type: "remove" };
               o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                [y],
+                [v],
                 m,
+                { suppressSuccessToast: h },
               );
             }
           } catch (e) {
@@ -349,21 +354,21 @@ __d(
               addedChats: d,
               removedChats: m,
             });
-            var C = Number(n.id),
-              b = String(C);
+            var S = Number(n.id),
+              R = String(S);
             ($(d, {
               entryPoint: t,
-              listId: C,
+              listId: S,
               customListTitle: n.name,
-              listsApplied: b,
+              listsApplied: R,
             }),
               $(m, {
                 entryPoint: t,
-                listId: C,
+                listId: S,
                 customListTitle: n.name,
-                listsRemoved: b,
+                listsRemoved: R,
               }),
-              x(d, C));
+              x(d, S));
           }
           o("WALogger").LOG(
             g ||

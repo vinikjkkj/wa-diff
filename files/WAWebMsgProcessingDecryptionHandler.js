@@ -274,6 +274,7 @@ __d(
     function T(t, n, r) {
       var a, i, l, s, u, c, d, m, p, _;
       o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0 &&
+        t.chat.isUser() &&
         o("WALogger")
           .WARN(
             e ||

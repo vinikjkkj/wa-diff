@@ -35,6 +35,7 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgModel",
+    "WAWebOpenMultiStepFormDrawer.react",
     "WAWebOrderStatus",
     "WAWebPaymentRequestWamLogger",
     "WAWebPhoneIcon.react",
@@ -107,6 +108,9 @@ __d(
               i = D(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST:
+              i = $(a, t);
+              break;
+            case r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE:
               i = x(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS:
@@ -596,6 +600,10 @@ __d(
           throw r("err")(
             "PAYMENT_REQUEST is not supported for WA Web logging yet",
           );
+        case "form_message":
+          throw r("err")(
+            "FORM_MESSAGE is not supported for WA Web logging yet",
+          );
       }
     }
     function k(e, t) {
@@ -678,6 +686,22 @@ __d(
           };
     }
     function x(e, t) {
+      var n = e.data,
+        r = n.label,
+        a = n.multiStepFormInfo;
+      return a == null
+        ? null
+        : {
+            label: r,
+            onClick: function () {
+              o("WAWebOpenMultiStepFormDrawer.react").openMultiStepFormDrawer(
+                a,
+                t,
+              );
+            },
+          };
+    }
+    function $(e, t) {
       if (
         !o("WAWebBrPaymentRequest").isPaymentRequestFeatureEnabled(
           t.isFromTemplate === !0,

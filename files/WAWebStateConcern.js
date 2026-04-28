@@ -127,8 +127,11 @@ __d(
         (t.createProxy = function (t) {
           return new this.$3(t);
         }),
-        (t.attachConcern = function (t, n, r) {
-          (t.incObservers(!this.$1), t.mirror.addListener(r, n, this));
+        (t.attachConcern = function (t) {
+          var e = t.model,
+            n = t.onChange,
+            r = t.proxyBitMask;
+          (e.incObservers(!this.$1), e.mirror.addListener(n, r, this));
         }),
         (t.detachConcern = function (t, n) {
           (t.decObservers(), t.mirror.removeListener(n));

@@ -171,9 +171,15 @@ __d(
         : (m = t[3]);
       var p;
       t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = s._(
-            /*BTDS*/ "Share customer-related activities to help improve your ads",
-          )),
+        ? ((p = o(
+            "WAWebBizGatingUtils",
+          ).isCTWA3pdDataSharingTitleChangeEnabled()
+            ? s._(
+                /*BTDS*/ "Improve your ads by sharing customer-related activities",
+              )
+            : s._(
+                /*BTDS*/ "Share customer-related activities to help improve your ads",
+              )),
           (t[4] = p))
         : (p = t[4]);
       var _;

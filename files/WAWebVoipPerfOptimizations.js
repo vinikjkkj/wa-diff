@@ -12,7 +12,6 @@ __d(
       LOG_RING_BUFFER: 6,
       WORKLET_PRELOAD: 7,
       SCTP_PREWARM: 8,
-      PLAYBACK_RESUME_FROM_CAPTURE: 9,
       MAX_FLAG: 30,
     });
     function s() {

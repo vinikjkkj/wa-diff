@@ -9,7 +9,6 @@ __d(
     "WAPromiseDelays",
     "WAResultOrError",
     "WAWebABProps",
-    "WAWebApiHistorySyncNotification",
     "WAWebBackendEventBusWorkerCompatible",
     "WAWebDBCreateLidPnMappings",
     "WAWebGetHistorySyncProgress",
@@ -172,10 +171,7 @@ __d(
                 t.chunkOrder,
                 b,
               ),
-              o("WAWebHistorySyncProgress").updateHistorySyncProgressModel(),
-              yield o(
-                "WAWebApiHistorySyncNotification",
-              ).updateCurrentlyProcessed(t.msgKey, t.syncType, t.chunkOrder));
+              o("WAWebHistorySyncProgress").updateHistorySyncProgressModel());
             for (
               var $ = o(
                   "WAWebUserPrefsHistorySync",

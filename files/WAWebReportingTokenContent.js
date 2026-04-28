@@ -172,6 +172,48 @@ __d(
             for (var r of t) n.writeByteArray(r.getBytes());
             return n.readByteArrayView();
           }),
+          (t.getReportingTokenContentByExclusion = function (t) {
+            for (
+              var e = new c(), n = 0, r = this.protobufMessage.length;
+              n < r;
+            ) {
+              var a = new s(this.protobufMessage, n);
+              n += a.getTotalSize();
+              var i = a.getFieldNumber();
+              if (!t.has(i)) {
+                e.add(a);
+                continue;
+              }
+              var l = t.get(i);
+              if (l != null) {
+                if (a.getWireType() !== o("WAProtoConst").ENC.BINARY) {
+                  e.add(a);
+                  continue;
+                }
+                for (
+                  var d = new c(),
+                    m = a.getValueStartIdx(),
+                    p = a.getValueEndIdx();
+                  m < p;
+                ) {
+                  var _ = new s(this.protobufMessage, m);
+                  ((m += _.getTotalSize()),
+                    l.has(_.getFieldNumber()) || d.add(_));
+                }
+                (d.fields.sort(function (e, t) {
+                  return e.getFieldNumber() - t.getFieldNumber();
+                }),
+                  d.fields.length > 0 &&
+                    e.add(new u(a.tag, d.getTotalSize(), d)));
+              }
+            }
+            e.fields.sort(function (e, t) {
+              return e.getFieldNumber() - t.getFieldNumber();
+            });
+            var f = new (o("WABinary").Binary)();
+            for (var g of e.fields) f.writeByteArray(g.getBytes());
+            return f.readByteArrayView();
+          }),
           e
         );
       })();

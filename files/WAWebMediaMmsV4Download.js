@@ -13,6 +13,7 @@ __d(
     "WAWebDownloadManagerErrors",
     "WAWebEnvironment",
     "WAWebFileUtils",
+    "WAWebHttpErrors",
     "WAWebInMemoryLottieStickerCache",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaDataUtils",
@@ -639,6 +640,37 @@ __d(
                                   downloadStage:
                                     o("WAWebMediaTypes").DownloadStage
                                       .NEED_POKE,
+                                  progressiveStage: null,
+                                }),
+                                I.notifyMsgsAsync(),
+                                I.delete(),
+                                o(
+                                  "WAWebCryptoImageStreamer",
+                                ).deleteFromInMemoryMediaBlobCache(q, t),
+                                B)
+                              )
+                                throw e;
+                            },
+                          ),
+                        )
+                        .catch(
+                          F.filteredCatch(
+                            [
+                              o("WAWebHttpErrors")
+                                .MmsDownloadFilehashMismatchError,
+                            ],
+                            function (e) {
+                              var t = I.progressiveStage;
+                              (X.abort(), I.hashMismatchRetryCount++);
+                              var n = 10,
+                                r = I.hashMismatchRetryCount >= n;
+                              if (
+                                (I.consolidate({
+                                  downloadStage: r
+                                    ? o("WAWebMediaTypes").DownloadStage
+                                        .ERROR_MISSING
+                                    : o("WAWebMediaTypes").DownloadStage
+                                        .NEED_POKE,
                                   progressiveStage: null,
                                 }),
                                 I.notifyMsgsAsync(),

@@ -1,6 +1,7 @@
 __d(
   "WAWebMexFetchTextStatusListJob",
   [
+    "WABatcher",
     "WALogger",
     "WAWebGroupsPrivacyTokenUtils",
     "WAWebMexClient",
@@ -11,89 +12,132 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
-    "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t) {
-      return d.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c =
+        e !== void 0
+          ? e
+          : (e = n("WAWebMexFetchTextStatusListJobQuery.graphql"));
+    function d(e) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          if (!r("WAWebWid").isWid(t) || !t.isUser())
-            throw (
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[MEX][TEXT-STATUS] expected user wid, got: ",
-                      "",
-                    ])),
-                  t.toLogString(),
-                )
-                .sendLogs("mex-text-status-list-invalid-wid"),
-              r("err")(
-                "[MEX][TEXT-STATUS] this method should only take user wid, instead it received: " +
-                  t.toLogString(),
-              )
-            );
-          var i = {
-            jid: t.toJid(),
-            last_update_time: a == null ? void 0 : a.toString(),
-          };
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = new Set(),
+            n = [];
+          for (var a of e) {
+            var i = a.wid.toJid();
+            t.has(i) || (t.add(i), n.push(a));
+          }
+          var l = n.map(function (e) {
+              return o("WAWebWidFactory").asUserWidOrThrow(e.wid);
+            }),
+            u = n.map(function (e) {
+              var t;
+              return {
+                jid: e.wid.toJid(),
+                last_update_time:
+                  (t = e.lastUpdateTime) == null ? void 0 : t.toString(),
+              };
+            });
           if (
             o(
               "WAWebPrivacyGatingUtils",
             ).isProfileScrappingProtectionInMexFetchEnabled()
-          ) {
-            var l,
-              c = yield o(
-                "WAWebGroupsPrivacyTokenUtils",
-              ).getPermissionTokenMapForChatIds([t]),
-              d = (l = c.get(t)) == null ? void 0 : l.anyElementValue;
-            d != null &&
-              (i.privacy_token = {
-                tctoken: o("WAWebTrustedContactsUtils").encodeTcTokenForMex(
-                  d.buffer,
-                ),
-              });
-          }
-          var p =
-              e !== void 0
-                ? e
-                : (e = n("WAWebMexFetchTextStatusListJobQuery.graphql")),
-            _ = { input: [i] },
-            f = yield o("WAWebMexClient").fetchQuery(p, _),
-            g = r("nullthrows")(
-              f.xwa2_text_status_list,
-              "textStatusListResponse is null",
-            ),
-            h = r("nullthrows")(g[0], "textStatusListResponse[0] is null"),
-            y = h.text;
+          )
+            for (
+              var d = yield o(
+                  "WAWebGroupsPrivacyTokenUtils",
+                ).getPermissionTokenMapForChatIds(l),
+                m = 0;
+              m < n.length;
+              m++
+            ) {
+              var p,
+                _ = (p = d.get(l[m])) == null ? void 0 : p.anyElementValue;
+              _ != null &&
+                (u[m].privacy_token = {
+                  tctoken: o("WAWebTrustedContactsUtils").encodeTcTokenForMex(
+                    _.buffer,
+                  ),
+                });
+            }
+          var f = { input: u },
+            h = yield o("WAWebMexClient").fetchQuery(c, f),
+            y = h.xwa2_text_status_list;
+          if (y == null) throw r("err")("textStatusListResponse is null");
           o("WALogger")
             .LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[MEX][TEXT-STATUS] fetched text status for ",
-                  "",
+                  " contacts",
                 ])),
-              h.jid,
+              y.length,
             )
             .tags("GQL", "MEX");
-          var C = m(h);
-          return {
-            id: C.id,
-            text: C.textStatusString,
-            emoji: C.textStatusEmoji,
-            lastUpdateTime: C.textStatusLastUpdateTime,
-            ephemeralDurationSeconds: C.textStatusEphemeralDuration,
-          };
+          var C = new Map();
+          for (var b of y) b != null && C.set(b.jid, b);
+          return e.map(function (e) {
+            var t = e.wid.toJid(),
+              n = C.get(t);
+            if (n == null)
+              return {
+                success: !1,
+                error: r("err")("No response for jid in batch"),
+              };
+            var o = g(n);
+            return {
+              success: !0,
+              result: {
+                id: o.id,
+                text: o.textStatusString,
+                emoji: o.textStatusEmoji,
+                lastUpdateTime: o.textStatusLastUpdateTime,
+                ephemeralDurationSeconds: o.textStatusEphemeralDuration,
+              },
+            };
+          });
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e) {
+    var p = o("WABatcher").batch({ delayMs: 25 }, d);
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          if (!r("WAWebWid").isWid(e) || !e.isUser())
+            throw (
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[MEX][TEXT-STATUS] expected user wid, got: ",
+                      "",
+                    ])),
+                  e.toLogString(),
+                )
+                .sendLogs("mex-text-status-list-invalid-wid"),
+              r("err")(
+                "[MEX][TEXT-STATUS] this method should only take user wid, instead it received: " +
+                  e.toLogString(),
+              )
+            );
+          var n = yield p({ wid: e, lastUpdateTime: t });
+          if (!n.success) throw n.error;
+          return n.result;
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
       var t;
       return {
         id: o("WAWebWidFactory").createWid(e.jid),
@@ -103,7 +147,7 @@ __d(
         textStatusLastUpdateTime: Number(e.last_update_time),
       };
     }
-    ((l.mexGetTextStatusList = c), (l.parseTextStatusServerResponse = m));
+    ((l.mexGetTextStatusList = _), (l.parseTextStatusServerResponse = g));
   },
   98,
 );

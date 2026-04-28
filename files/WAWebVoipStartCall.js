@@ -7,6 +7,7 @@ __d(
     "WARandomHex",
     "WAWebAdvSyncDeviceListApi",
     "WAWebBackendApi",
+    "WAWebBlockedParticipantCallWarning",
     "WAWebBuildConstants",
     "WAWebConfirmPopup.react",
     "WAWebConstantsDeprecated",
@@ -432,17 +433,24 @@ __d(
       return (
         (ee = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var o, a;
-            if ((n === void 0 && (n = 0), r === void 0 && (r = 0), !K())) {
-              var i =
-                (o =
-                  (a = e.groupMetadata) == null
+            var a, i;
+            if (
+              (n === void 0 && (n = 0),
+              r === void 0 && (r = 0),
+              !K() &&
+                (yield o(
+                  "WAWebBlockedParticipantCallWarning",
+                ).maybeShowBlockedParticipantCallWarning(e, "start")))
+            ) {
+              var l =
+                (a =
+                  (i = e.groupMetadata) == null
                     ? void 0
-                    : a.participants.toArray()) != null
-                  ? o
+                    : i.participants.toArray()) != null
+                  ? a
                   : [];
               yield Y(
-                i.map(function (e) {
+                l.map(function (e) {
                   return e.id;
                 }),
                 t,

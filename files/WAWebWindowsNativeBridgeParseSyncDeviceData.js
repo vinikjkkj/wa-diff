@@ -7,9 +7,10 @@ __d(
       var t = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(e);
       if (t == null) throw r("err")("Invalid call ending data");
       return t.map(function (e) {
-        return babelHelpers.extends({}, e, {
-          UserRawJid: o("WAWebWidFactory").createWid(e.UserRawJid),
-        });
+        return {
+          PHash: e.PHash,
+          UserJid: o("WAWebWidFactory").createWid(e.UserRawJid),
+        };
       });
     }
     l.parseWindowsSyncDeviceData = e;

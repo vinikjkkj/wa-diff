@@ -3,6 +3,7 @@ __d(
   [
     "JSResourceForInteraction",
     "Promise",
+    "WAWebDeviceIdHeader",
     "WAWebGraphQLConstants",
     "asyncToGeneratorRuntime",
   ],
@@ -75,6 +76,12 @@ __d(
                 graphURI: h,
                 accessToken: t.accessToken,
                 actorID: t.actorID,
+                getAdditionalHeaders: function () {
+                  if (!o("WAWebDeviceIdHeader").isDeviceIdHeaderEnabled())
+                    return {};
+                  var e = o("WAWebDeviceIdHeader").getDeviceIdHeaderValue();
+                  return e != null ? { "X-WA-Device-ID": e } : {};
+                },
               }),
               g({ actorID: t.actorID, accessToken: t.accessToken }),
             ),

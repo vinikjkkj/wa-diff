@@ -275,6 +275,7 @@ __d(
             a("botGroupParticipant"),
             a("isScheduledMsg"),
             a("scheduledTimestampS"),
+            a("serverStoreTimeMicros"),
           ])
           .version(n.messageAddIsSendFailureProperties(), [a("isSendFailure")])
           .version(n.messageAddPaymentTxnStatus(), [a("paymentTxnStatus")])

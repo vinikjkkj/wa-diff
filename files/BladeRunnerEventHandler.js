@@ -163,14 +163,16 @@ __d(
                     break;
                   case o("BladeRunnerTypes").StreamFrameType.DATA_ACK:
                     break;
-                  default:
-                    throw new Error("Frame with unexpected type");
+                  default: {
+                    var i = new Error("Frame with unexpected type");
+                    throw (i.stack, i);
+                  }
                 }
               } catch (e) {
-                var i = r("getErrorSafe")(e);
+                var l = r("getErrorSafe")(e);
                 (r("BladeRunnerLogger").bumpCounter("send_to_handler_error"),
                   r("BladeRunnerLogger").exception(
-                    i,
+                    l,
                     "Failed sending frame to stream handler",
                   ));
               }

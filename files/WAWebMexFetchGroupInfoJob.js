@@ -2,6 +2,7 @@ __d(
   "WAWebMexFetchGroupInfoJob",
   [
     "WALogger",
+    "WAWebAfterReadUtils",
     "WAWebBackendErrors",
     "WAWebGroupHistoryShareMode",
     "WAWebGroupMemberLinkMode",
@@ -139,76 +140,80 @@ __d(
             ? void 0
             : p.expiration_time_in_sec,
         J =
+          Y != null &&
+          o("WAWebAfterReadUtils").isAfterReadEnabled() &&
+          o("WAWebAfterReadUtils").isAfterReadDuration(Y),
+        Z =
           ((_ = O.properties) == null || (_ = _.lid_migration_state) == null
             ? void 0
             : _.addressing_mode) === m,
-        Z = (f = O.properties) == null ? void 0 : f.locked,
-        ee = (g = O.properties) == null ? void 0 : g.member_add_mode,
-        te = (h = O.properties) == null ? void 0 : h.member_link_mode,
-        ne =
+        ee = (f = O.properties) == null ? void 0 : f.locked,
+        te = (g = O.properties) == null ? void 0 : g.member_add_mode,
+        ne = (h = O.properties) == null ? void 0 : h.member_link_mode,
+        re =
           (y = O.properties) == null
             ? void 0
             : y.member_share_group_history_mode,
-        re =
+        oe =
           (b = O.properties) == null
             ? void 0
             : b.membership_approval_mode_enabled,
-        oe = (R = O.properties) == null ? void 0 : R.support,
-        ae = O.state,
-        ie = O.subject,
-        le = (L = O.subject) == null || (L = L.creator) == null ? void 0 : L.pn,
-        se = B
+        ae = (R = O.properties) == null ? void 0 : R.support,
+        ie = O.state,
+        le = O.subject,
+        se = (L = O.subject) == null || (L = L.creator) == null ? void 0 : L.pn,
+        ue = B
           ? (E = O.subject) == null ||
             (E = E.creator) == null ||
             (E = E.username_info) == null
             ? void 0
             : E.username
           : null,
-        ue = O.total_participants_count,
-        ce =
+        ce = O.total_participants_count,
+        de =
           ((k = O.participants) == null
             ? void 0
             : k.participants_phash_match) === !0,
-        de =
+        me =
           (I = O.properties) == null
             ? void 0
             : I.closed_by_membership_approval_mode,
-        me = (T = O.properties) == null ? void 0 : T.general_chat,
-        pe =
+        pe = (T = O.properties) == null ? void 0 : T.general_chat,
+        _e =
           O == null ||
           (D = O.properties) == null ||
           (D = D.growth_locked2) == null
             ? void 0
             : D.locked,
-        _e =
+        fe =
           O == null || (x = O.properties) == null
             ? void 0
             : x.auto_add_disabled,
-        fe =
+        ge =
           O == null || ($ = O.properties) == null ? void 0 : $.parent_group_jid,
-        ge = O == null || (P = O.properties) == null ? void 0 : P.capi,
-        he = O == null || (N = O.properties) == null ? void 0 : N.hidden_group,
-        ye =
+        he = O == null || (P = O.properties) == null ? void 0 : P.capi,
+        ye = O == null || (N = O.properties) == null ? void 0 : N.hidden_group,
+        Ce =
           O == null || (M = O.properties) == null
             ? void 0
             : M.group_safety_check,
-        Ce = O == null || (w = O.properties) == null ? void 0 : w.limit_sharing,
-        be = O == null || (A = O.properties) == null ? void 0 : A.appeal_status,
-        ve =
+        be = O == null || (w = O.properties) == null ? void 0 : w.limit_sharing,
+        ve = O == null || (A = O.properties) == null ? void 0 : A.appeal_status,
+        Se =
           O == null || (F = O.properties) == null
             ? void 0
             : F.appeal_update_time,
-        Se = (O == null ? void 0 : O.missing_participant_identification) === !0;
-      if (W != null && q != null && (ie == null ? void 0 : ie.value) != null) {
-        var Re,
-          Le,
+        Re = (O == null ? void 0 : O.missing_participant_identification) === !0;
+      if (W != null && q != null && (le == null ? void 0 : le.value) != null) {
+        var Le,
           Ee,
           ke,
           Ie,
           Te,
           De,
-          xe = o("WAWebMexGetTypename").getTypename(O),
-          $e = {
+          xe,
+          $e = o("WAWebMexGetTypename").getTypename(O),
+          Pe = {
             groupInfo: babelHelpers.extends(
               {
                 id: o("WAWebWidFactory").createWid(W),
@@ -219,34 +224,34 @@ __d(
                 creatorPn:
                   V != null ? o("WAWebWidFactory").createWid(V) : void 0,
                 creatorUsername: H,
-                subject: ie.value,
+                subject: le.value,
                 creation: Number(q),
-                participants: S(ce, j),
-                subjectTime: Number(ie == null ? void 0 : ie.creation_time),
+                participants: S(de, j),
+                subjectTime: Number(le == null ? void 0 : le.creation_time),
                 subjectOwner:
-                  (ie == null || (Re = ie.creator) == null ? void 0 : Re.id) !=
+                  (le == null || (Le = le.creator) == null ? void 0 : Le.id) !=
                   null
                     ? o("WAWebWidFactory").createWid(
-                        ie == null || (Le = ie.creator) == null
+                        le == null || (Ee = le.creator) == null
                           ? void 0
-                          : Le.id,
+                          : Ee.id,
                       )
                     : void 0,
                 subjectOwnerPn:
-                  le != null ? o("WAWebWidFactory").createWid(le) : void 0,
-                subjectOwnerUsername: se,
+                  se != null ? o("WAWebWidFactory").createWid(se) : void 0,
+                subjectOwnerUsername: ue,
                 allowNonAdminSubGroupCreation: Q != null ? Q : !1,
-                generalChatAutoAddDisabled: xe === d && _e != null ? _e : !1,
-                restrict: Z === !0,
-                announce: xe === c || X === !0,
-                support: oe != null ? oe : !1,
-                desc: (Ee = G == null ? void 0 : G.value) != null ? Ee : void 0,
-                descId: (ke = G == null ? void 0 : G.id) != null ? ke : void 0,
+                generalChatAutoAddDisabled: $e === d && fe != null ? fe : !1,
+                restrict: ee === !0,
+                announce: $e === c || X === !0,
+                support: ae != null ? ae : !1,
+                desc: (ke = G == null ? void 0 : G.value) != null ? ke : void 0,
+                descId: (Ie = G == null ? void 0 : G.id) != null ? Ie : void 0,
                 descOwner:
-                  (G == null || (Ie = G.creator) == null ? void 0 : Ie.id) !=
+                  (G == null || (Te = G.creator) == null ? void 0 : Te.id) !=
                   null
                     ? o("WAWebWidFactory").createWid(
-                        G == null || (Te = G.creator) == null ? void 0 : Te.id,
+                        G == null || (De = G.creator) == null ? void 0 : De.id,
                       )
                     : void 0,
                 descOwnerUsername: z,
@@ -254,50 +259,55 @@ __d(
                   (G == null ? void 0 : G.creation_time) != null
                     ? Number(G == null ? void 0 : G.creation_time)
                     : void 0,
-                size: ue,
+                size: ce,
                 noFrequentlyForwarded: !1,
-                ephemeralDuration: Y != null ? Y : void 0,
-                membershipApprovalMode: re != null ? re : !1,
-                memberAddMode: v(ee),
+                ephemeralDuration: J
+                  ? o("WAWebAfterReadUtils").getAfterReadFallbackDuration()
+                  : Y != null
+                    ? Y
+                    : void 0,
+                afterReadDuration: J ? Y : void 0,
+                membershipApprovalMode: oe != null ? oe : !1,
+                memberAddMode: v(te),
                 memberLinkMode: o(
                   "WAWebGroupMemberLinkMode",
-                ).getMemberLinkModeFromMexType(te),
+                ).getMemberLinkModeFromMexType(ne),
                 memberShareGroupHistoryMode: o(
                   "WAWebGroupHistoryShareMode",
-                ).getMemberShareGroupHistoryModeFromMexType(ne),
-                suspended: ae === C.SUSPENDED,
+                ).getMemberShareGroupHistoryModeFromMexType(re),
+                suspended: ie === C.SUSPENDED,
                 suspendAppealStatus: o(
                   "WAWebSuspendAppealStatusType",
-                ).toSuspendAppealStatus(be),
-                suspendAppealUpdateTime: ve != null ? ve : null,
-                terminated: ae === C.TERMINATED ? !0 : void 0,
-                isLidAddressingMode: J,
+                ).toSuspendAppealStatus(ve),
+                suspendAppealUpdateTime: Se != null ? Se : null,
+                terminated: ie === C.TERMINATED ? !0 : void 0,
+                isLidAddressingMode: Z,
                 reportToAdminMode: K != null ? K : !1,
-                isParentGroupClosed: de === !0,
-                isParentGroup: xe === u,
+                isParentGroupClosed: me === !0,
+                isParentGroup: $e === u,
                 parentGroup:
-                  fe != null ? o("WAWebWidFactory").createWid(fe) : void 0,
-                generalSubgroup: me === !0,
-                defaultSubgroup: xe === c,
+                  ge != null ? o("WAWebWidFactory").createWid(ge) : void 0,
+                generalSubgroup: pe === !0,
+                defaultSubgroup: $e === c,
               },
-              (xe === d || xe === c) && { parentGroupSubject: null },
+              ($e === d || $e === c) && { parentGroupSubject: null },
               {
                 numSubgroups: 0,
                 membershipApprovalRequest: O.membership_approval_request === !0,
-                growthLockType: pe === !0 ? "invite" : void 0,
-                hasCapi: ge === !0,
-                hiddenSubgroup: he != null ? he : void 0,
-                groupSafetyCheck: ye != null ? ye : void 0,
+                growthLockType: _e === !0 ? "invite" : void 0,
+                hasCapi: he === !0,
+                hiddenSubgroup: ye != null ? ye : void 0,
+                groupSafetyCheck: Ce != null ? Ce : void 0,
                 limitSharingEnabled:
-                  (De = Ce == null ? void 0 : Ce.limit_sharing_enabled) != null
-                    ? De
+                  (xe = be == null ? void 0 : be.limit_sharing_enabled) != null
+                    ? xe
                     : void 0,
-                hasIncompleteParticipantInformation: Se,
+                hasIncompleteParticipantInformation: Re,
               },
             ),
-            participantPhashMatch: ce,
+            participantPhashMatch: de,
           };
-        return $e;
+        return Pe;
       }
     }
     var C = {

@@ -2,9 +2,13 @@ __d(
   "WAWebWindowsMediaFilesHelpers",
   [
     "WALogger",
+    "WAWebCmd",
     "WAWebFileSaver",
     "WAWebFilenameManager",
+    "WAWebStateUtils",
+    "WAWebTPPdfViewerGatingUtils",
     "asyncToGeneratorRuntime",
+    "cr:11804",
     "cr:17219",
   ],
   function (t, n, r, o, a, i, l) {
@@ -53,7 +57,7 @@ __d(
     function B() {
       return (
         (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a;
+          var a, i, l;
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -62,13 +66,27 @@ __d(
               ])),
             t.id.toString(),
           );
-          var i =
+          var _ =
               n("cr:17219") == null ||
               (a = n("cr:17219").getWindowsBridge()) == null
                 ? void 0
                 : a.mediaFiles,
-            l = F(t);
-          if (l == null) {
+            f = F(t);
+          if (
+            o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabledForMimeType(
+              (i = (l = t.mediaData) == null ? void 0 : l.mimetype) != null
+                ? i
+                : "",
+            ) &&
+            n("cr:11804")
+          ) {
+            o("WAWebCmd").Cmd.mediaViewerModal({
+              msg: o("WAWebStateUtils").unproxy(t.unsafe()),
+              shouldShowAllMedia: !1,
+            });
+            return;
+          }
+          if (f == null) {
             o("WALogger").ERROR(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -77,10 +95,10 @@ __d(
                 ])),
               t.id.toString(),
             );
-            var _ = new Error("Failed to get media info or media files bridge");
-            throw (_.stack, _);
+            var g = new Error("Failed to get media info or media files bridge");
+            throw (g.stack, g);
           }
-          if (i == null) {
+          if (_ == null) {
             o("WALogger").ERROR(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,11 +107,11 @@ __d(
                 ])),
               t.id.toString(),
             );
-            var f = new Error("Failed to get media info or media files bridge");
-            throw (f.stack, f);
+            var h = new Error("Failed to get media info or media files bridge");
+            throw (h.stack, h);
           }
-          var g = l.mediaFileHash,
-            h = l.suggestedFileName;
+          var y = f.mediaFileHash,
+            C = f.suggestedFileName;
           (o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -112,8 +130,8 @@ __d(
               t.id.toString(),
             ),
             r == null || r(t));
-          var y = yield i.tryOpenCachedMediaFile(g, h);
-          if (!y) {
+          var b = yield _.tryOpenCachedMediaFile(y, C);
+          if (!b) {
             o("WALogger").ERROR(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -122,8 +140,8 @@ __d(
                 ])),
               t.id.toString(),
             );
-            var C = new Error("Failed to open cached media file");
-            throw (C.stack, C);
+            var v = new Error("Failed to open cached media file");
+            throw (v.stack, v);
           }
           o("WALogger").LOG(
             p ||

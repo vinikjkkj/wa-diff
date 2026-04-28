@@ -1,6 +1,7 @@
 __d(
   "WAWebTosGating",
   [
+    "WAWebABProps",
     "WAWebABPropsInternalNumber",
     "WAWebBizGatingUtils",
     "WAWebBotGating",
@@ -27,7 +28,11 @@ __d(
       return !1;
     }
     function s(e) {
-      return o("WAWebBotTos").hasAcceptedNonBlockingBotTos() ||
+      return (!e.id.isBot() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_web_bot_tos_check_refiniement",
+        )) ||
+        o("WAWebBotTos").hasAcceptedNonBlockingBotTos() ||
         o("WaWebPDFNCommonUtils").hasAcceptedTos(
           String(o("WAWebBotGating").getMasterBotNoticeId()),
         ) ||
