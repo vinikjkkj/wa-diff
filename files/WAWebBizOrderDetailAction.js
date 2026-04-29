@@ -50,6 +50,7 @@ __d(
       if (i != null && l != null && c != null) {
         if (
           o("WAWebBizGatingUtils").isBuyerOrderRevampEnabled() &&
+          u != null &&
           u !==
             o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus.INQUIRY
         )

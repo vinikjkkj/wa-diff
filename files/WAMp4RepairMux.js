@@ -1,13 +1,6 @@
 __d(
   "WAMp4RepairMux",
-  [
-    "WAByteArray",
-    "WAMediaUtilsWasmUrl",
-    "WAResultOrError",
-    "WASI",
-    "WAWasmModuleCache",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAByteArray", "WAResultOrError", "WASI", "asyncToGeneratorRuntime"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "input",
@@ -78,12 +71,7 @@ __d(
         return i;
       })();
     }
-    var p = function () {
-      return o("WAWasmModuleCache").loadWasmModule(
-        o("WAMediaUtilsWasmUrl").WAMediaUtilsWasmUrl,
-      );
-    };
-    ((l.createMp4RepairMux = m), (l.getMp4RepairMuxWasm = p));
+    l.createMp4RepairMux = m;
   },
   98,
 );

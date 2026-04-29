@@ -2,6 +2,7 @@ __d(
   "WAWebSendStickerAction",
   [
     "fbt",
+    "WALogger",
     "WAWebAuraGating",
     "WAWebBizBotTosUtils",
     "WAWebCmd",
@@ -14,55 +15,91 @@ __d(
     "WAWebStateUtils",
     "WAWebStickerPremiumStatus",
     "WAWebStickerSendWamEvent",
+    "WAWebWaPlusBenefitJourneyLogger",
+    "WAWebWamEnumWpbujBenefitType",
+    "WAWebWamEnumWpbujSurface",
     "WAWebWebpMetadata",
     "asyncToGeneratorRuntime",
+    "err",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = ["stickerSendOrigin"],
       u,
-      c = u || (u = o("react"));
-    function d(e, t, n) {
-      return m.apply(this, arguments);
+      c,
+      d = c || (c = o("react"));
+    function m(e, t, n) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var a,
-            i = o("WAWebStateUtils").unproxy(e);
-          return (
-            yield o("WAWebBizBotTosUtils").maybeShowBizBot1pTos(i),
-            r("WAWebAuraGating").canUsePremiumSticker(
+            i,
+            l,
+            c = o("WAWebStateUtils").unproxy(e);
+          if (
+            (yield o("WAWebBizBotTosUtils").maybeShowBizBot1pTos(c),
+            !r("WAWebAuraGating").canUsePremiumSticker(
               (a = t.mediaData) == null ? void 0 : a.stickerPremiumStatus,
-            )
-              ? p(i, t, n)
-              : (o("WAWebCmd").Cmd.closeExpressionPanels(),
-                o("WAWebModalManager").ModalManager.openAlert(
-                  c.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                    title: s._(/*BTDS*/ "This is a premium sticker"),
-                    onOK: function () {
-                      return o("WAWebModalManager").ModalManager.closeAlert();
-                    },
-                    children: s._(
-                      /*BTDS*/ "View this sticker on your phone to learn how to access and use it.",
-                    ),
-                  }),
-                ),
-                {
-                  messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
-                    .ERROR_CANCELLED,
-                })
-          );
+            ))
+          )
+            return (
+              o("WAWebCmd").Cmd.closeExpressionPanels(),
+              o("WAWebModalManager").ModalManager.openAlert(
+                d.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                  title: s._(/*BTDS*/ "This is a premium sticker"),
+                  onOK: function () {
+                    return o("WAWebModalManager").ModalManager.closeAlert();
+                  },
+                  children: s._(
+                    /*BTDS*/ "View this sticker on your phone to learn how to access and use it.",
+                  ),
+                }),
+              ),
+              {
+                messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
+                  .ERROR_CANCELLED,
+              }
+            );
+          var m =
+              ((i = t.mediaData) == null ? void 0 : i.stickerPremiumStatus) ===
+              o("WAWebStickerPremiumStatus").StickerPremiumStatus.PREMIUM,
+            p = (l = t.mediaData) == null ? void 0 : l.filehash;
+          if (m && p != null && p !== "")
+            try {
+              var f = new (o(
+                "WAWebWaPlusBenefitJourneyLogger",
+              ).WaPlusBenefitJourneyLogger)({
+                benefitType: o("WAWebWamEnumWpbujBenefitType")
+                  .WPBUJ_BENEFIT_TYPE.STICKERS,
+                surface: o("WAWebWamEnumWpbujSurface").WPBUJ_SURFACE
+                  .STICKER_TRAY,
+              });
+              (f.logSelect({ success: !0, actionTarget: p }),
+                f.logApply({ success: !0, actionTarget: p }));
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "stickers:wpbuj telemetry failed during send",
+                    ])),
+                )
+                .catching(e instanceof Error ? e : r("err")(String(e)))
+                .sendLogs("wpbuj-sticker-send-telemetry-failed");
+            }
+          return _(c, t, n);
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i, l;
           (o("WAWebRecentStickerCollection").RecentStickerCollection.enqueue([
             n,
@@ -93,10 +130,10 @@ __d(
             );
           return (p != null && (m.stickerMakerSourceType = p), m.commit(), c);
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.sendStickerToChat = d;
+    l.sendStickerToChat = m;
   },
   226,
 );

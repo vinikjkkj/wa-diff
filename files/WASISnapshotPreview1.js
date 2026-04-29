@@ -101,11 +101,9 @@ __d(
         SYMBOLIC_LINK: 7,
       }),
       d = e({ DIR: 0 }),
-      m = e({ CLOCK: 0, FD_READ: 1, FD_WRITE: 2 }),
-      p = { SYMLINK_FOLLOW: 1 },
-      _ = { CREAT: 1, DIRECTORY: 2, EXCL: 4, TRUNC: 8 },
-      f = { APPEND: 1, DSYNC: 2, NONBLOCK: 4, RSYNC: 8, SYNC: 16 },
-      g = {
+      m = { CREAT: 1, DIRECTORY: 2, EXCL: 4, TRUNC: 8 },
+      p = { APPEND: 1, DSYNC: 2, NONBLOCK: 4, RSYNC: 8, SYNC: 16 },
+      _ = {
         FD_DATASYNC: BigInt(1) << BigInt(0),
         FD_READ: BigInt(1) << BigInt(1),
         FD_SEEK: BigInt(1) << BigInt(2),
@@ -137,28 +135,16 @@ __d(
         SOCK_SHUTDOWN: BigInt(1) << BigInt(28),
         SOCK_ACCEPT: BigInt(1) << BigInt(29),
       },
-      h = { ATIM: 1, ATIM_NOW: 2, MTIM: 4, MTIM_NOW: 8 },
-      y = { SUBSCRIPTION_CLOCK_ABSTIME: 1 },
-      C = { FD_READWRITE_HANGUP: 1 },
-      b = 64,
-      v = 48,
-      S = 32;
+      f = 64;
     ((i.RESULT = l),
       (i.Clock = s),
       (i.Whence = u),
       (i.FileType = c),
       (i.PreopenType = d),
-      (i.EventType = m),
-      (i.LookupFlags = p),
-      (i.OpenFlags = _),
-      (i.FileDescriptorFlags = f),
-      (i.RightsFlags = g),
-      (i.FileStatTimestampFlags = h),
-      (i.SubscriptionClockFlags = y),
-      (i.EventReadWriteFlags = C),
-      (i.FILESTAT_SIZE = b),
-      (i.SUBSCRIPTION_SIZE = v),
-      (i.EVENT_SIZE = S));
+      (i.OpenFlags = m),
+      (i.FileDescriptorFlags = p),
+      (i.RightsFlags = _),
+      (i.FILESTAT_SIZE = f));
   },
   66,
 );

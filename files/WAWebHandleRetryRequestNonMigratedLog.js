@@ -19,23 +19,25 @@ __d(
             r = o("WAWebHandleRetryRequest").getTargetChat(e),
             a = "na",
             i = !1;
+          r &&
+            r.isRegularUser() &&
+            ((a = r.isLid() ? "lid" : "pn"),
+            (i =
+              (yield o("WAWebCheckChatExistsOrCreate").doesChatExist(r)) !==
+              !1));
+          var l = e.offline ? "-offline" : "";
           return (
-            r &&
-              r.isRegularUser() &&
-              ((a = r.isLid() ? "lid" : "pn"),
-              (i =
-                (yield o("WAWebCheckChatExistsOrCreate").doesChatExist(r)) !==
-                !1)),
             "handle-message-retry-request-no-chat-info-" +
-              n +
-              "-from-" +
-              t +
-              "-target-" +
-              a +
-              "-" +
-              e.type +
-              "-target-exists-" +
-              i.toString()
+            n +
+            "-from-" +
+            t +
+            "-target-" +
+            a +
+            "-" +
+            e.type +
+            "-target-exists-" +
+            i.toString() +
+            l
           );
         })),
         s.apply(this, arguments)

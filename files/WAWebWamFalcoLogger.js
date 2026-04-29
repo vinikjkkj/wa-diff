@@ -55,7 +55,7 @@ __d(
                 "[wam] Failed to log to Falco",
               ])),
           )
-          .sendLogs("wam_falco_bridge_error", { sampling: 0.001 });
+          .sendLogs("wam_falco_bridge_error", { sampling: 0.1 });
       }
     }
     ((l.maybeSetTraceIdForShadowLogging = s), (l.logEventToFalcoBridge = u));

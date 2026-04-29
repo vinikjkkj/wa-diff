@@ -40,25 +40,33 @@ __d(
         o = e.isSentByMe;
       return t || n || (r && !o);
     }
-    function p() {
-      var e = o("WATimeUtils").unixTime(),
-        t = 1800,
-        n = 1440 * 60,
-        r = e + n,
-        a = Math.ceil(r / t) * t;
-      return o("WATimeUtils").castToUnixTime(a);
+    function p(e) {
+      var t = o("WATimeUtils").unixTime(),
+        n = 1800,
+        r = 1440 * 60,
+        a = r;
+      e != null && e > 0 && (a = Math.max(60, Math.floor(e / 2)));
+      var i = t + a;
+      return a >= n
+        ? o("WATimeUtils").castToUnixTime(Math.ceil(i / n) * n)
+        : o("WATimeUtils").castToUnixTime(i);
     }
-    function _(e) {
-      var t = 3600;
-      return o("WATimeUtils").castToUnixTime(e + 2 * t);
+    function _(e, t) {
+      var n = 3600,
+        r = e + 2 * n;
+      return t != null && r > t
+        ? o("WATimeUtils").castToUnixTime(Math.max(e, t))
+        : o("WATimeUtils").castToUnixTime(r);
     }
-    function f(e) {
-      var t = r("WAWeb-moment")().format("YYYY-MM-DD"),
-        n = e
+    function f(e, t) {
+      var n = r("WAWeb-moment")().format("YYYY-MM-DD"),
+        a = e
           ? r("WAWeb-moment")().add(1, "year")
           : r("WAWeb-moment").unix(o("WATimeUtils").MAX_INT).subtract(2, "day"),
-        a = n.format("YYYY-MM-DD");
-      return [t, a];
+        i = t != null && t > 0 ? r("WAWeb-moment")().add(t, "seconds") : null,
+        l = i != null && i.isBefore(a) ? i : a,
+        s = l.format("YYYY-MM-DD");
+      return [n, s];
     }
     function g(e) {
       if (e != null) return e.includes("/video/") ? "video" : "voice";

@@ -43,6 +43,7 @@ __d(
             n("wamoSubStatus"),
             n("statusMetadata"),
             n("lastFilledStatusServerId"),
+            n("statusMute"),
           ],
         )
         .view(function (e) {

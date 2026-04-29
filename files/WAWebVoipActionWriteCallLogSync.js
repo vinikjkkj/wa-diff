@@ -181,7 +181,7 @@ __d(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose(["", ": ", ""])),
                 s.message,
-                e,
+                String(e),
               );
               return;
             }

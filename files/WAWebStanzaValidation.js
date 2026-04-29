@@ -12,10 +12,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _;
-    function f(t) {
+    var e, s, u, c, d, m, p, _, f;
+    function g(t) {
       try {
-        (g(t), y(t), S(t), R(t), L(t));
+        (h(t), C(t), R(t), E(t), k(t), I(t));
       } catch (t) {
         o("WALogger")
           .ERROR(
@@ -28,7 +28,7 @@ __d(
           .sendLogs("stanza-validation-error");
       }
     }
-    function g(e) {
+    function h(e) {
       if (!(e.tag !== "receipt" || e.attrs.type !== "sender")) {
         e.attrs.recipient == null &&
           e.attrs.participant == null &&
@@ -40,15 +40,15 @@ __d(
                 ])),
             )
             .sendLogs(
-              "sender-receipt-without-participant-nor-recipient-validation",
+              "stanza-validation-sender-receipt-without-participant-nor-recipient",
             );
         var t = e.attrs.recipient,
           n = e.attrs.to;
         if (t != null && n != null) {
           var r = o("WAWap").decodeAsString(t),
             a = o("WAWap").decodeAsString(n),
-            i = C(r),
-            l = C(a);
+            i = b(r),
+            l = b(a);
           a.includes("@lid") && r.includes("@s.whatsapp.net")
             ? o("WALogger")
                 .ERROR(
@@ -61,7 +61,7 @@ __d(
                   i,
                   l,
                 )
-                .sendLogs("sender-receipt-pn-recipient-validation")
+                .sendLogs("stanza-validation-sender-receipt-pn-recipient")
             : a.includes("@s.whatsapp.net") &&
               r.includes("@lid") &&
               o("WALogger")
@@ -75,11 +75,11 @@ __d(
                   l,
                   i,
                 )
-                .sendLogs("sender-receipt-pn-to-validation");
+                .sendLogs("stanza-validation-sender-receipt-pn-to");
         }
       }
     }
-    function h(e) {
+    function y(e) {
       if (!Array.isArray(e.content)) return [];
       var t = e.content.find(function (e) {
           return (e == null ? void 0 : e.tag) === "participants";
@@ -97,13 +97,13 @@ __d(
         r
       );
     }
-    function y(e) {
+    function C(e) {
       if (e.tag === "message") {
         var t = e.attrs.to;
         if (
           !(t == null || !o("WAWap").decodeAsString(t).endsWith("@broadcast"))
         ) {
-          var n = h(e);
+          var n = y(e);
           if (n.length !== 0) {
             var r = [],
               a = !1,
@@ -123,7 +123,7 @@ __d(
               }),
               r.length > 0)
             ) {
-              var l = r.map(C).join(",");
+              var l = r.map(b).join(",");
               o("WALogger")
                 .ERROR(
                   d ||
@@ -145,20 +145,20 @@ __d(
                   r.length - i,
                   l,
                 )
-                .sendLogs("broadcast-pn-fanout-to-node");
+                .sendLogs("stanza-validation-broadcast-pn-fanout-to-node");
             }
           }
         }
       }
     }
-    function C(e) {
+    function b(e) {
       try {
         return o("WAWebWidFactory").createWid(e).toLogString();
       } catch (t) {
         return e;
       }
     }
-    function b(e) {
+    function v(e) {
       return e.tag !== "message" || !Array.isArray(e.content)
         ? !1
         : e.content.some(function (e) {
@@ -169,29 +169,29 @@ __d(
             );
           });
     }
-    function v(e) {
+    function S(e) {
       var t = o("WAWebWidValidator").validateAndGetParts(e);
       if (t == null || t.userPart == null) return !1;
       var n = o("WAWebWidFactory").createWid(e);
       return o("WAWebLidMigrationUtils").shouldHaveAccountLid(n) && !n.isLid();
     }
-    function S(e) {
+    function R(e) {
       if (!(e.tag === "receipt" || e.tag === "ack")) {
         var t = e.attrs.to;
         if (t != null) {
           var n = o("WAWap").decodeAsString(t);
           if (
-            v(n) &&
+            S(n) &&
             !(
               e.attrs.category === "peer" &&
               o("WAWebUserPrefsMeUser").isMeAccount(
                 o("WAWebWidFactory").createWid(n),
               )
             ) &&
-            !b(e) &&
+            !v(e) &&
             o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
           ) {
-            var r = C(n);
+            var r = b(n);
             o("WALogger")
               .ERROR(
                 m ||
@@ -203,49 +203,48 @@ __d(
                 e.tag,
                 r,
               )
-              .sendLogs("pnless-stanza-to-pn-leak");
-          }
-        }
-      }
-    }
-    function R(e) {
-      if (e.tag === "message") {
-        var t = e.attrs.to;
-        if (t != null) {
-          var n = o("WAWap").decodeAsString(t),
-            r = o("WAWebWidValidator").validateAndGetParts(n);
-          if (!(r == null || r.userPart == null)) {
-            var a = o("WAWebWidFactory").createWid(n);
-            if (a.isUser()) {
-              var i = h(e),
-                l = i.filter(v);
-              if (
-                l.length !== 0 &&
-                o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") ===
-                  !0
-              ) {
-                var s = l.map(C).join(",");
-                o("WALogger")
-                  .ERROR(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[stanza-validation] pnless-stanza: <",
-                        "> participant(s) using PN despite web_pnless_stanzas being enabled: ",
-                        "",
-                      ])),
-                    e.tag,
-                    s,
-                  )
-                  .sendLogs("pnless-stanza-participant-pn-leak");
-              }
-            }
+              .sendLogs("stanza-validation-pnless-to-pn-leak");
           }
         }
       }
     }
     function L(e) {
+      if (e.tag !== "message") return null;
+      var t = e.attrs.to;
+      if (t == null) return null;
+      var n = o("WAWap").decodeAsString(t),
+        r = o("WAWebWidValidator").validateAndGetParts(n);
+      if (r == null || r.userPart == null) return null;
+      var a = o("WAWebWidFactory").createWid(n);
+      return a.isUser() ? n : null;
+    }
+    function E(e) {
+      if (L(e) != null) {
+        var t = y(e),
+          n = t.filter(S);
+        if (
+          n.length !== 0 &&
+          o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") === !0
+        ) {
+          var r = n.map(b).join(",");
+          o("WALogger")
+            .ERROR(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[stanza-validation] pnless-stanza: <",
+                  "> participant(s) using PN despite web_pnless_stanzas being enabled: ",
+                  "",
+                ])),
+              e.tag,
+              r,
+            )
+            .sendLogs("stanza-validation-pnless-participant-pn-leak");
+        }
+      }
+    }
+    function k(e) {
       if (e.tag === "message") {
-        var t = h(e);
+        var t = y(e);
         if (t.length !== 0) {
           var n = 0,
             r = 0,
@@ -258,7 +257,7 @@ __d(
             }),
             n > 0 && r > 0)
           ) {
-            var i = a.map(C).join(",");
+            var i = a.map(b).join(",");
             o("WALogger")
               .ERROR(
                 _ ||
@@ -272,12 +271,40 @@ __d(
                 r,
                 i,
               )
-              .sendLogs("mixed-addressing-participants");
+              .sendLogs("stanza-validation-mixed-addressing-participants");
           }
         }
       }
     }
-    l.validateSentStanza = f;
+    function I(e) {
+      var t = L(e);
+      if (t != null) {
+        var n;
+        if (t.endsWith("@lid")) n = "@s.whatsapp.net";
+        else if (t.endsWith("@s.whatsapp.net")) n = "@lid";
+        else return;
+        var r = y(e).filter(function (e) {
+          return e.endsWith(n);
+        });
+        if (r.length !== 0) {
+          var a = b(t),
+            i = r.map(b).join(",");
+          o("WALogger")
+            .ERROR(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[stanza-validation] 1to1-mixed-domain: <message> to=",
+                  " but participant(s) on different domain: ",
+                  "",
+                ])),
+              a,
+              i,
+            )
+            .sendLogs("stanza-validation-mixed-domain-1to1-participants");
+        }
+      }
+    }
+    l.validateSentStanza = g;
   },
   98,
 );

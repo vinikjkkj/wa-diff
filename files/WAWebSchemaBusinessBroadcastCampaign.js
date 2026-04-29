@@ -41,6 +41,12 @@ __d(
           ],
         )
         .version(o("WAWebModelStorageVersions").customerDataCreateTable(), [])
+        .version(
+          o(
+            "WAWebModelStorageVersions",
+          ).businessBroadcastCampaignsAddAdIdIndex(),
+          [a("adId")],
+        )
         .view(function (e) {
           return e;
         });
@@ -48,11 +54,21 @@ __d(
     function u() {
       return o("WAWebModelStorageUtils").getStorage().table(e);
     }
+    function c() {
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .doesLocalSchemaIncludeVersion(
+          o(
+            "WAWebModelStorageVersions",
+          ).businessBroadcastCampaignsAddAdIdIndex(),
+        );
+    }
     ((l.BusinessBroadcastCampaignStatus = o(
       "WAWebProtobufSyncAction.pb",
     ).SyncActionValue$BusinessBroadcastCampaignStatus),
       (l.addTable = s),
-      (l.getBusinessBroadcastCampaignTable = u));
+      (l.getBusinessBroadcastCampaignTable = u),
+      (l.canUseAdIdIndex = c));
   },
   98,
 );

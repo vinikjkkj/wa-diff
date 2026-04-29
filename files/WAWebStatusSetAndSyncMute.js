@@ -4,6 +4,7 @@ __d(
     "WATimeUtils",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebSchemaGroupMetadata",
+    "WAWebSchemaNewsletterMetadata",
     "WAWebSyncdCoreApi",
     "WAWebUserStatusMuteSync",
     "asyncToGeneratorRuntime",
@@ -30,15 +31,25 @@ __d(
                     .merge(e.toString(), { statusMute: t });
                 },
               )
-            : yield o("WAWebSyncdCoreApi").lockForSync(
-                ["contact"],
-                [n],
-                function () {
-                  return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                    .getContactTable()
-                    .merge(e.toString({ legacy: !0 }), { statusMute: t });
-                },
-              );
+            : e.isNewsletter()
+              ? yield o("WAWebSyncdCoreApi").lockForSync(
+                  ["newsletter-metadata"],
+                  [n],
+                  function () {
+                    return o("WAWebSchemaNewsletterMetadata")
+                      .getNewsletterMetadataTable()
+                      .merge(e.toString(), { statusMute: t });
+                  },
+                )
+              : yield o("WAWebSyncdCoreApi").lockForSync(
+                  ["contact"],
+                  [n],
+                  function () {
+                    return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+                      .getContactTable()
+                      .merge(e.toString({ legacy: !0 }), { statusMute: t });
+                  },
+                );
         })),
         s.apply(this, arguments)
       );

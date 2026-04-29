@@ -8,7 +8,6 @@ __d(
     "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
     "err",
-    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,10 +37,8 @@ __d(
     function p() {
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (r("justknobx")._("1042")) {
-            var a = c();
-            if (a != null) return a;
-          }
+          var a = c();
+          if (a != null) return a;
           var i =
               e !== void 0 ? e : (e = n("WAWebGetWAAEligibilityQuery.graphql")),
             l = yield o("WAWebFetchAdAccountToken").fetchToken();
@@ -76,10 +73,9 @@ __d(
                   : s.eligibility_result,
               ),
               p = m !== "DENY";
-            return (r("justknobx")._("1042") && d(p), p);
+            return (d(p), p);
           }
-          if (l.type === "recovery-required")
-            return (r("justknobx")._("1042") && d(!0), !0);
+          if (l.type === "recovery-required") return (d(!0), !0);
           throw (
             r("FBLogger")("wa_ctwa_web").mustfix(
               "WAWebGetWAAEligibility: token fetch failed with type: " +

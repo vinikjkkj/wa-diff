@@ -4,6 +4,8 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebCrashlog",
+    "WAWebPonyfillsCryptoRandomUUID",
+    "WAWebUnifiedSession",
     "WamPathfinderWebFalcoEvent",
     "isEmptyObject",
   ],
@@ -158,13 +160,19 @@ __d(
         ? m[e.originalEventName].eventName
         : t;
     }
-    var v = crypto.randomUUID(),
-      S = o("WAWebABProps").getABPropConfigValue("web_pathfinder_logging"),
-      R = 50,
-      L = new Array(R),
-      E = 0;
-    function k(e) {
-      if (!(S < 1)) {
+    var v = null;
+    function S() {
+      var e = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId();
+      return e != null && e !== ""
+        ? e
+        : (v == null && (v = r("WAWebPonyfillsCryptoRandomUUID")()), v);
+    }
+    var R = o("WAWebABProps").getABPropConfigValue("web_pathfinder_logging"),
+      L = 50,
+      E = new Array(L),
+      k = 0;
+    function I(e) {
+      if (!(R < 1)) {
         var t = [];
         (e.screenName != null && t.push("screen=" + e.screenName),
           e.targetTrackingId != null && t.push("target=" + e.targetTrackingId),
@@ -182,7 +190,7 @@ __d(
             d || (d = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
             n,
           ),
-          S >= 2)
+          R >= 2)
         ) {
           var a = m[e.eventType];
           if (a != null) {
@@ -197,7 +205,7 @@ __d(
                 event_category: a.category,
                 event_name: i,
                 client_timestamp_ms: String(e.timestampMs),
-                unified_session_id: v,
+                unified_session_id: S(),
                 debounce_count:
                   e.debounceCount != null ? String(e.debounceCount) : void 0,
                 screen_name: (t = e.screenName) != null ? t : void 0,
@@ -215,7 +223,7 @@ __d(
             });
           }
         }
-        if (S >= 3) {
+        if (R >= 3) {
           var s,
             u,
             c,
@@ -233,23 +241,23 @@ __d(
               debounceCount: (f = e.debounceCount) != null ? f : void 0,
             };
           (t.length > 0 && (g.extra = t.join(" ")),
-            (L[E] = g),
-            (E = (E + 1) % R));
+            (E[k] = g),
+            (k = (k + 1) % L));
         }
       }
     }
-    function I() {
-      for (var e = [], t = 0; t < R; t++) {
-        var n = (E + t) % R,
-          r = L[n];
+    function T() {
+      for (var e = [], t = 0; t < L; t++) {
+        var n = (k + t) % L,
+          r = E[n];
         r != null && e.push(r);
       }
       return e;
     }
-    (S >= 3 && o("WAWebCrashlog").registerPathfinderSnapshotCallback(I),
+    (R >= 3 && o("WAWebCrashlog").registerPathfinderSnapshotCallback(T),
       (l.FALCO_MAP = m),
-      (l.emitPathfinderEvent = k),
-      (l.getPathfinderLogSnapshot = I));
+      (l.emitPathfinderEvent = I),
+      (l.getPathfinderLogSnapshot = T));
   },
   98,
 );

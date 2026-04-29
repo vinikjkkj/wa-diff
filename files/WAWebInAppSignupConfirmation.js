@@ -10,13 +10,15 @@ __d(
     function e(e) {
       try {
         var t,
-          n = JSON.parse(e);
-        return n.signup_id == null || n.subscription_timestamp == null
+          n,
+          r = JSON.parse(e);
+        return r.signup_id == null || r.subscription_timestamp == null
           ? null
           : {
-              signupId: n.signup_id,
-              subscriptionTimestamp: String(n.subscription_timestamp),
-              promoCode: (t = n.promo_code) != null ? t : null,
+              signupId: r.signup_id,
+              subscriptionTimestamp: String(r.subscription_timestamp),
+              promoCode: (t = r.promo_code) != null ? t : null,
+              websiteUrl: (n = r.website_url) != null ? n : null,
             };
       } catch (e) {
         return null;
@@ -49,7 +51,18 @@ __d(
       }
       return null;
     }
-    function c(e, t) {
+    function c(e) {
+      if (e == null) return null;
+      try {
+        var t = JSON.parse(e),
+          n = t.website_url;
+        if (!r("isStringNullOrEmpty")(n)) return n;
+      } catch (e) {
+        return null;
+      }
+      return null;
+    }
+    function d(e, t) {
       if (t == null || t === "" || e.includes("*" + t + "*")) return e;
       var n = e.indexOf(t);
       return n < 0
@@ -58,7 +71,8 @@ __d(
     }
     ((l.getInAppSignupConfirmationInfo = s),
       (l.parseInAppSignupPromoCode = u),
-      (l.applyBoldToPromoCode = c));
+      (l.parseInAppSignupWebsiteUrl = c),
+      (l.applyBoldToPromoCode = d));
   },
   98,
 );

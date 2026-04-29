@@ -1,16 +1,15 @@
 __d(
   "WAWebBizBroadcastTos",
   [
-    "Promise",
+    "WAComms",
     "WAExponentialBackoff",
     "WALogger",
+    "WAPromiseTimeout",
     "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
     "WATimeUtils",
-    "WAWebBackendEventBus",
     "WAWebEventEmitter",
     "WAWebPDFNTypes",
     "WAWebSetUserDisclosureStageJob",
-    "WAWebSocketConstants",
     "WAWebTos",
     "WAWebUserPrefsStore",
     "asyncToGeneratorRuntime",
@@ -19,158 +18,142 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = "20250915",
-      c = "biz_broadcast_soft_opt_in",
-      d = {
+      s = "20250915",
+      u = "biz_broadcast_soft_opt_in",
+      c = {
         maxTimeout: 16e3,
         minTimeout: 1e3,
         retries: 3,
         signal: new AbortController().signal,
       },
-      m = !1;
-    function p() {
-      return o("WAWebBackendEventBus").BackendEventBus.socketState ===
-        o("WAWebSocketConstants").SOCKET_STATE.CONNECTED
-        ? (s || (s = n("Promise"))).resolve()
-        : new (s || (s = n("Promise")))(function (e) {
-            var t = function (r) {
-              r === o("WAWebSocketConstants").SOCKET_STATE.CONNECTED &&
-                (o("WAWebBackendEventBus").BackendEventBus.off(
-                  o("WAWebBackendEventBus").BackendEvent.SET_SOCKET_STATE,
-                  t,
-                ),
-                e());
-            };
-            o("WAWebBackendEventBus").BackendEventBus.onSetSocketState(t);
-          });
-    }
-    var _ = "pending",
-      f = new (r("WAWebEventEmitter"))();
-    function g() {
+      d = !1,
+      m = "pending",
+      p = new (r("WAWebEventEmitter"))();
+    function _() {
       return (
-        m ||
-          ((m = !0),
-          h()
-            ? (_ = "success")
-            : C().then(
+        d ||
+          ((d = !0),
+          f()
+            ? (m = "success")
+            : h().then(
                 function () {
-                  _ = "success";
+                  m = "success";
                 },
                 function () {
-                  _ = "error";
+                  m = "error";
                 },
               )),
-        u
+        s
       );
     }
-    function h() {
-      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + u);
+    function f() {
+      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s);
       return (
         e === "ACCEPTED" ||
-        r("WAWebUserPrefsStore").getUser(c) === !0 ||
+        r("WAWebUserPrefsStore").getUser(u) === !0 ||
         e === "SOFT_OPT_IN"
       );
     }
+    function g() {
+      (r("WAWebUserPrefsStore").setUser("TOS_STATE_" + s, "SOFT_OPT_IN"),
+        r("WAWebUserPrefsStore").setUser(u, !0),
+        p.trigger("change"));
+    }
+    function h() {
+      return y.apply(this, arguments);
+    }
     function y() {
-      (r("WAWebUserPrefsStore").setUser("TOS_STATE_" + u, "SOFT_OPT_IN"),
-        r("WAWebUserPrefsStore").setUser(c, !0),
-        f.trigger("change"));
-    }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield p(),
-            yield o("WAExponentialBackoff").exponentialBackoff(
-              d,
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    try {
-                      var n = o("WATimeUtils").unixTime(),
-                        a = yield o(
-                          "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
-                        ).sendGetDisclosureStageByIdsRPC({
-                          getDisclosureStageByIdArgs: [
-                            {
-                              getDisclosureStageByIdId: Number(u),
-                              getDisclosureStageByIdT: n,
-                            },
-                          ],
-                        });
-                      if (
-                        a.name ===
-                        "GetDisclosureStageByIdsResponseClientSuccess"
-                      ) {
-                        var i = a.value.notice.find(function (e) {
-                          return e.id === Number(u);
-                        });
-                        i != null &&
-                          (i.stage ===
-                            o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN ||
-                            i.stage ===
-                              o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED) &&
-                          y();
-                      }
-                    } catch (n) {
-                      return (
-                        o("WALogger")
-                          .WARN(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
-                                "[biz-broadcast-tos] sync error",
-                              ])),
-                          )
-                          .catching(
-                            n instanceof Error ? n : r("err")(String(n)),
-                          )
-                          .sendLogs("business-broadcast-tos-sync-error"),
-                        t(n instanceof Error ? n : r("err")(String(n)))
-                      );
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAExponentialBackoff").exponentialBackoff(
+            c,
+            (function () {
+              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                function* (t) {
+                  try {
+                    var n = o("WATimeUtils").unixTime();
+                    yield o("WAPromiseTimeout").promiseTimeout(
+                      o("WAComms").waitForConnection(),
+                      3e4,
+                      "waitForConnection timed out",
+                    );
+                    var a = yield o(
+                      "WASmaxUserNoticeGetDisclosureStageByIdsRPC",
+                    ).sendGetDisclosureStageByIdsRPC({
+                      getDisclosureStageByIdArgs: [
+                        {
+                          getDisclosureStageByIdId: Number(s),
+                          getDisclosureStageByIdT: n,
+                        },
+                      ],
+                    });
+                    if (
+                      a.name === "GetDisclosureStageByIdsResponseClientSuccess"
+                    ) {
+                      var i = a.value.notice.find(function (e) {
+                        return e.id === Number(s);
+                      });
+                      i != null &&
+                        (i.stage ===
+                          o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN ||
+                          i.stage ===
+                            o("WAWebPDFNTypes").DISCLOSURE_STAGE.ACCEPTED) &&
+                        g();
                     }
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            ));
+                  } catch (n) {
+                    return (
+                      o("WALogger")
+                        .WARN(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "[biz-broadcast-tos] sync error",
+                            ])),
+                        )
+                        .catching(n instanceof Error ? n : r("err")(String(n)))
+                        .sendLogs("business-broadcast-tos-sync-error"),
+                      t(n instanceof Error ? n : r("err")(String(n)))
+                    );
+                  }
+                },
+              );
+              return function (e) {
+                return t.apply(this, arguments);
+              };
+            })(),
+          );
         })),
-        b.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function v() {
-      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + u);
+    function C() {
+      var e = r("WAWebUserPrefsStore").getUser("TOS_STATE_" + s);
       return {
-        isSoftOptInAccepted: r("WAWebUserPrefsStore").getUser(c) === !0,
+        isSoftOptInAccepted: r("WAWebUserPrefsStore").getUser(u) === !0,
         persistedState: typeof e == "string" ? e : null,
-        syncResult: _,
-        tosManagerState: o("WAWebTos").TosManager.getState(g()),
+        syncResult: m,
+        tosManagerState: o("WAWebTos").TosManager.getState(_()),
       };
     }
-    function S() {
-      return R.apply(this, arguments);
+    function b() {
+      return v.apply(this, arguments);
     }
-    function R() {
+    function v() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (y(),
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (g(),
             yield o("WAWebSetUserDisclosureStageJob").setUserDisclosureStage(
-              Number(u),
+              Number(s),
               o("WAWebPDFNTypes").DISCLOSURE_STAGE.SOFT_OPT_IN,
             ));
         })),
-        R.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((l.bizBroadcastTosEmitter = f),
-      (l.getBizBroadcastTosId = g),
-      (l.isBizBroadcastTosAccepted = h),
-      (l.getBizBroadcastTosDebugInfo = v),
-      (l.acceptBizBroadcastTos = S));
+    ((l.bizBroadcastTosEmitter = p),
+      (l.getBizBroadcastTosId = _),
+      (l.isBizBroadcastTosAccepted = f),
+      (l.getBizBroadcastTosDebugInfo = C),
+      (l.acceptBizBroadcastTos = b));
   },
   98,
 );

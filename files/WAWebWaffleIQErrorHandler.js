@@ -4,6 +4,7 @@ __d(
     "WAAsyncSleep",
     "WAExponentialBackoffIterator",
     "WALogger",
+    "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingHandler",
     "WAWebAccountLinkingNonceFetchAPI",
     "asyncToGeneratorRuntime",
@@ -44,7 +45,9 @@ __d(
             case "IQErrorWFNotFound":
             case "IQErrorWFStateMismatch":
               return (
-                yield o("WAWebAccountLinkingHandler").handleUnlinkedState(),
+                yield o("WAWebAccountLinkingDBOperationsAPI")
+                  .getAccountLinkingDBOps("account_linking")
+                  .purgeWaffleData(),
                 "handled"
               );
             case "IQErrorWFSuspended":

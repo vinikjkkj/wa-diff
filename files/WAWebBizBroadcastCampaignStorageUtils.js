@@ -118,12 +118,37 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
+    function f(e) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = o(
+              "WAWebSchemaBusinessBroadcastCampaign",
+            ).getBusinessBroadcastCampaignTable();
+          if (o("WAWebSchemaBusinessBroadcastCampaign").canUseAdIdIndex()) {
+            var r,
+              a = yield n.equals(["adId"], e);
+            return (r = a[0]) != null ? r : null;
+          }
+          var i = yield n.all();
+          return (t = i.find(function (t) {
+            return t.adId === e;
+          })) != null
+            ? t
+            : null;
+        })),
+        g.apply(this, arguments)
+      );
+    }
+    function h(e, t, n) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           (yield o("WAWebSyncdCoreApi").lockForSync(
             ["biz-broadcast-campaigns"],
             r,
@@ -153,15 +178,15 @@ __d(
               e,
             ));
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    function C(e, t) {
+      return b.apply(this, arguments);
     }
-    function y() {
+    function b() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (yield o("WAWebSyncdCoreApi").lockForSync(
             ["biz-broadcast-campaigns"],
             t,
@@ -186,15 +211,15 @@ __d(
               e,
             ));
         })),
-        y.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaBusinessBroadcastCampaign")
             .getBusinessBroadcastCampaignTable()
             .get(e);
@@ -203,15 +228,15 @@ __d(
               .getPendingBusinessBroadcastMessageTable()
               .remove(t.pendingBroadcastMessageId));
         })),
-        b.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function R(e, t) {
+      return L.apply(this, arguments);
     }
-    function S() {
+    function L() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a,
@@ -246,18 +271,19 @@ __d(
                 value: m,
                 version: 1,
               });
-            yield f(e, t, [p]);
+            yield h(e, t, [p]);
           }
         })),
-        S.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
     ((l.upsertCampaignStorage = d),
       (l.removeCampaignStorage = p),
-      (l.updateCampaignWithSync = f),
-      (l.removeCampaignWithSync = h),
-      (l.cleanupPendingCampaignData = C),
-      (l.updateCampaignStatusWithSync = v));
+      (l.getCampaignByAdId = f),
+      (l.updateCampaignWithSync = h),
+      (l.removeCampaignWithSync = C),
+      (l.cleanupPendingCampaignData = v),
+      (l.updateCampaignStatusWithSync = R));
   },
   98,
 );

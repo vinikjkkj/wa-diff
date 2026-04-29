@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipCameraTrackConstraints",
-  ["WAGetMediaDevicesSupportedConstraints"],
+  ["WAGetMediaDevicesSupportedConstraints", "isEmptyObject"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -12,16 +12,16 @@ __d(
         n = o(
           "WAGetMediaDevicesSupportedConstraints",
         ).getMediaDevicesSupportedConstraints(),
-        r = {},
-        a = {};
+        a = {},
+        i = {};
       return (
         (n == null ? void 0 : n.width) === !0 &&
-          ((r.width = { min: e.width }), (a.width = { max: e.width })),
+          ((a.width = { min: e.width }), (i.width = { max: e.width })),
         (n == null ? void 0 : n.height) === !0 &&
-          ((r.height = { min: e.height }), (a.height = { max: e.height })),
-        Object.keys(r).length > 0 &&
-          Object.keys(a).length > 0 &&
-          (t.advanced = [r, a]),
+          ((a.height = { min: e.height }), (i.height = { max: e.height })),
+        !r("isEmptyObject")(a) &&
+          !r("isEmptyObject")(i) &&
+          (t.advanced = [a, i]),
         t
       );
     }

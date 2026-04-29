@@ -621,19 +621,26 @@ __d(
           function* (e, t, a, i, l) {
             var u, c;
             if ((i === void 0 && (i = 0), l === void 0 && (l = !1), !K())) {
-              (o("WAWebVoipActivityTracker").startActivityTracking(),
-                o("WAWebVoipActivityTracker").startUiActivityTracking());
               var d = yield o(
-                "WAWebVoipAcquireMediaStream",
-              ).checkVoipDevicePermissions(a);
+                "WAWebBlockedParticipantCallWarning",
+              ).maybeShowBlockedParticipantCallWarning(t, "join");
               if (!d) {
                 o("WAWebVoipActivityTracker").clearAllActivityTracking();
                 return;
               }
+              (o("WAWebVoipActivityTracker").startActivityTracking(),
+                o("WAWebVoipActivityTracker").startUiActivityTracking());
+              var m = yield o(
+                "WAWebVoipAcquireMediaStream",
+              ).checkVoipDevicePermissions(a);
+              if (!m) {
+                o("WAWebVoipActivityTracker").clearAllActivityTracking();
+                return;
+              }
               if (r("WAWebEnvironment").isWindows) {
-                var m,
-                  p = V == null || (m = V()) == null ? void 0 : m.voip;
-                if (p == null) {
+                var p,
+                  _ = V == null || (p = V()) == null ? void 0 : p.voip;
+                if (_ == null) {
                   (o("WALogger")
                     .LOG(
                       v ||
@@ -646,7 +653,7 @@ __d(
                   return;
                 }
                 if (
-                  !("joinOngoingCall" in p) ||
+                  !("joinOngoingCall" in _) ||
                   (o("WAWebBuildConstants").WINDOWS_BUILD != null &&
                     o("WAWebBuildConstants").WINDOWS_BUILD.startsWith(
                       "2511",
@@ -698,10 +705,10 @@ __d(
                   o("WAWebVoipActivityTracker").clearAllActivityTracking());
                 return;
               }
-              var _ = o(
+              var f = o(
                 "WAWebVoipOngoingCallCollection",
               ).WAWebVoipOngoingCallCollection.getByCallId(e);
-              if (_ == null) {
+              if (f == null) {
                 (o("WALogger")
                   .LOG(
                     L ||
@@ -714,7 +721,7 @@ __d(
                   .color(r("WAWebConstantsDeprecated").VOIP_LOG_COLOR),
                   o("WAWebVoipActivityTracker").clearAllActivityTracking());
                 return;
-              } else if (_.callCreator == null) {
+              } else if (f.callCreator == null) {
                 (o("WALogger")
                   .LOG(
                     E ||
@@ -748,11 +755,11 @@ __d(
                   o("WAWebVoipActivityTracker").VoipUiActivity
                     .USER_JOIN_ONGOING_CALL,
                 ));
-              var f = (u = _.callParticipants) != null ? u : [],
-                g = [
+              var g = (u = f.callParticipants) != null ? u : [],
+                h = [
                   o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
                 ].concat(
-                  f
+                  g
                     .map(function (e) {
                       var t = o("WAWebLidMigrationUtils").toPn(e.participant);
                       return (
@@ -776,21 +783,21 @@ __d(
                       );
                     }),
                 ),
-                h = yield (B || (B = n("Promise"))).all([
+                y = yield (B || (B = n("Promise"))).all([
                   o("WAWebVoipStackInterface").getVoipStackInterface(),
-                  pe(g, !0),
+                  pe(h, !0),
                 ]),
-                y = h[0],
-                C = h[1],
-                b = C.gcDeviceJidsCsv,
-                D = C.gcUserJids,
-                x = C.gcUserPnJids;
+                C = y[0],
+                b = y[1],
+                D = b.gcDeviceJidsCsv,
+                x = b.gcUserJids,
+                $ = b.gcUserPnJids;
               yield B.all(
-                D.map(function (e) {
+                x.map(function (e) {
                   return o("WAWebSendTcTokenChatAction").sendTcToken(e);
                 }),
               );
-              var $ = t.id.isGroup() ? t.id.toString({ legacy: !0 }) : "";
+              var P = t.id.isGroup() ? t.id.toString({ legacy: !0 }) : "";
               (o("WALogger")
                 .LOG(
                   T ||
@@ -798,19 +805,19 @@ __d(
                       "voip: startWAWebVoipGroupCallPN: groupJid: ",
                       "",
                     ])),
-                  $,
+                  P,
                 )
                 .color(r("WAWebConstantsDeprecated").VOIP_LOG_COLOR),
-                yield y == null
+                yield C == null
                   ? void 0
-                  : y.joinOngoingCall(
+                  : C.joinOngoingCall(
                       e,
-                      r("nullthrows")(_.callCreator).toString({
+                      r("nullthrows")(f.callCreator).toString({
                         legacy: !0,
                         formatIncludeDevice: !0,
                       }),
                       "",
-                      x.map(function (e) {
+                      $.map(function (e) {
                         var t;
                         return (t =
                           e == null ? void 0 : e.toString({ legacy: !0 })) !=
@@ -818,15 +825,15 @@ __d(
                           ? t
                           : "";
                       }),
-                      D.map(function (e) {
+                      x.map(function (e) {
                         return e.toString({ legacy: !0 });
                       }),
-                      b,
+                      D,
                       a,
-                      $,
+                      P,
                       0,
                       !0,
-                      (c = _.callLinkToken) != null ? c : "",
+                      (c = f.callLinkToken) != null ? c : "",
                       !1,
                       "",
                       !1,

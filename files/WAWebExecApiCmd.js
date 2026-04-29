@@ -37,6 +37,7 @@ __d(
     "WAWebCreateTextStatusFlowLoadable",
     "WAWebCustomUrlLogEvents",
     "WAWebDeepLinkMsgSentWamEvent",
+    "WAWebDialerPadFlowLoadable",
     "WAWebDrawerManager",
     "WAWebExecApiCmdHelpers",
     "WAWebExternalLink.react",
@@ -76,7 +77,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUsernameManagementDrawerLoadable",
     "WAWebUsernameWorkerCompatibleGatingUtils",
-    "WAWebVoipCallsTabDrawerNewCall.react",
     "WAWebVoipCallsTabNavigateTo",
     "WAWebWamEnumCatalogEntryPoint",
     "WAWebWamEnumCommunityCreationCurrentScreenType",
@@ -1144,17 +1144,25 @@ __d(
         }
         case "NEW_CALL": {
           try {
+            var Ae;
             (o("WAWebCmd").Cmd.closeStatusViewer(),
               o("WAWebCmd").Cmd.setActiveNavBarItem(
                 o("WAWebNavBarTypes").NavBarItems.Calls,
               ),
-              o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({}),
-              self.setTimeout(function () {
-                o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
-                  R.jsx(r("WAWebVoipCallsTabDrawerNewCall.react"), {}),
-                  { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
-                );
-              }, 0));
+              o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({}));
+            var Fe = (Ae = t.data) == null ? void 0 : Ae.phone;
+            o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
+              R.jsx(
+                o("WAWebDialerPadFlowLoadable").WAWebDialerPadFlowLoadable,
+                {
+                  entryPoint: "calls_tab",
+                  initialPhoneNumber: r("isStringNullOrEmpty")(Fe)
+                    ? void 0
+                    : Fe.trim(),
+                },
+              ),
+              { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
+            );
           } catch (e) {
             o("WALogger").ERROR(
               b ||
@@ -1166,19 +1174,19 @@ __d(
           return !0;
         }
         case "WORK_CONTACT_SYNC": {
-          var Ae;
+          var Oe;
           return r("gkx")("26258") ||
-            !((Ae = t.data) != null && Ae.compressedData)
+            !((Oe = t.data) != null && Oe.compressedData)
             ? !1
             : (n("cr:2679") == null ||
                 n("cr:2679").handleWorkContactSync(t.data.compressedData),
               !0);
         }
         case "SEND_FILE": {
-          var Fe;
-          return (Fe =
+          var Be;
+          return (Be =
             n("cr:12407") == null ? void 0 : n("cr:12407")(t.data)) != null
-            ? Fe
+            ? Be
             : !1;
         }
         case "NEWSLETTER_STATUS_DEEPLINK":

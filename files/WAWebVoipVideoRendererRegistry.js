@@ -6,6 +6,7 @@ __d(
     "WAWebAudioDeviceEvents",
     "WAWebBackendApi",
     "WAWebVoipAVSyncController",
+    "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipAudioPlaybackState",
     "WAWebVoipMediaEnums",
     "WAWebVoipPerfMeasurement",
@@ -686,7 +687,11 @@ __d(
                       ? e
                       : 16e3;
                 this.$21(n, function () {
-                  return t.getAudioPlaybackTimestamp();
+                  var e = t.getAudioPlaybackTimestamp(),
+                    n = o(
+                      "WAWebVoipAudioCaptureAndPlayback",
+                    ).getEstimatedPlaybackOutputLagSamples();
+                  return Math.max(0, e - n);
                 });
               } catch (e) {
                 ((this.$18 = !1),

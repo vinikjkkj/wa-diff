@@ -2,6 +2,7 @@ __d(
   "WAWebGroupsQueryApi",
   [
     "WATimeUtils",
+    "WAWebAfterReadUtils",
     "WAWebAsISOCountryCode",
     "WAWebGroupHistoryShareMode",
     "WAWebJidToWid",
@@ -50,8 +51,18 @@ __d(
     }
     function s(e) {
       if (!e) return null;
-      var t = e.expiration;
-      return { ephemeralDuration: t };
+      var t = e.expiration,
+        n =
+          o("WAWebAfterReadUtils").isAfterReadEnabled() &&
+          o("WAWebAfterReadUtils").isAfterReadDuration(t);
+      return n
+        ? {
+            ephemeralDuration: o(
+              "WAWebAfterReadUtils",
+            ).getAfterReadFallbackDuration(),
+            afterReadDuration: t,
+          }
+        : { ephemeralDuration: t };
     }
     function u(e) {
       if (e == null) return null;

@@ -17,6 +17,7 @@ __d(
         updateAccountLinkingState: t.updateAccountLinkingState,
         updateDestinationIdentities: t.updateDestinationIdentities,
         updateEntCreationData: t.updateEntCreationData,
+        updateGenerateAccessTokensData: t.updateGenerateAccessTokensData,
         updatePingInterval: t.updatePingInterval,
         updateServiceData: t.updateServiceData,
       };

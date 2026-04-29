@@ -178,7 +178,7 @@ __d(
                   o("WALogger").LOG(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[canonical] token validation server error, skipping validation",
+                        "[canonical] token validation server error, skip",
                       ])),
                   ),
                   null)
@@ -266,7 +266,7 @@ __d(
                 o("WALogger").LOG(
                   y ||
                     (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "[canonical] skipping recovery, canonical token already present",
+                      "[canonical] skip recovery, token present",
                     ])),
                 ),
                 r("WAWebODS").incr(

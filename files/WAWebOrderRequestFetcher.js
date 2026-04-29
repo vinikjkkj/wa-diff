@@ -130,9 +130,10 @@ __d(
           var r = b(n);
           return (
             r != null &&
-              r.status ===
-                o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
-                  .INQUIRY &&
+              (r.status == null ||
+                r.status ===
+                  o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
+                    .INQUIRY) &&
               n.to.equals(
                 o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
               ) &&

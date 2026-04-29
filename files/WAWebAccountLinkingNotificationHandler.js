@@ -2,54 +2,96 @@ __d(
   "WAWebAccountLinkingNotificationHandler",
   [
     "WALogger",
+    "WAPromiseTimeout",
     "WASmaxInWaffleWFNotificationRequest",
+    "WAWebAccountLinkingAPI",
     "WAWebAccountLinkingConstants",
+    "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingHandler",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m = 3e4,
+      p = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+        "account_linking",
+      );
+    function _() {
+      return f.apply(this, arguments);
     }
-    function p() {
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          try {
+            yield o("WAPromiseTimeout").promiseTimeout(
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+                (yield o("WAWebAccountLinkingAPI").ping(),
+                  yield o("WAWebAccountLinkingAPI").fetchServiceData());
+              })(),
+              m,
+            );
+          } catch (t) {
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WAFFLE] ACCOUNT_LINKED resync failed: ",
+                    "",
+                  ])),
+                t,
+              )
+              .tags("waffle", "account-linking", "linked")
+              .sendLogs("waffle-linked-resync-failed", { sampling: 0.01 });
+          }
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (o("WAWebAccountLinkingGatingUtils").accountLinkingEnabled()) {
-            var n = o(
+            var t = o(
               "WASmaxInWaffleWFNotificationRequest",
-            ).parseWFNotificationRequest(t);
-            if (n.success) {
-              var r = o(
+            ).parseWFNotificationRequest(e);
+            if (t.success) {
+              var n = o(
                 "WAWebAccountLinkingConstants",
               ).AccountLinkingNotificationEvent.cast(
-                n.value.notificationMetadataEvent,
+                t.value.notificationMetadataEvent,
               );
-              if (r == null) {
+              if (n == null) {
                 o("WALogger").ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[WAFFLE] Failed to parse account linking notification",
                     ])),
                 );
                 return;
               }
-              switch (r) {
+              switch (n) {
                 case o("WAWebAccountLinkingConstants")
                   .AccountLinkingNotificationEvent.STATE_SUSPENDED:
                   yield o("WAWebAccountLinkingHandler").handlePausedState();
                   break;
                 case o("WAWebAccountLinkingConstants")
                   .AccountLinkingNotificationEvent.STATE_DELETED:
-                  yield o("WAWebAccountLinkingHandler").handleUnlinkedState();
+                  yield p.purgeWaffleData();
                   break;
                 case o("WAWebAccountLinkingConstants")
                   .AccountLinkingNotificationEvent.CLIENT_RESYNC:
                   (o("WALogger")
                     .LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "[WAFFLE-TRACE] handleResyncState triggered by CLIENT_RESYNC notification",
                         ])),
                     )
@@ -60,23 +102,16 @@ __d(
                   break;
                 case o("WAWebAccountLinkingConstants")
                   .AccountLinkingNotificationEvent.ACCOUNT_UNLINKED:
-                  n.value.notificationMetadataClientResync === "true" &&
-                    (yield o("WAWebAccountLinkingHandler").handleResyncState());
+                  yield o("WAWebAccountLinkingHandler").handleUnlinkedState(
+                    o("WAWebAccountLinkingConstants").AccountUnlinkType.cast(
+                      t.value.notificationMetadataType,
+                    ),
+                  );
                   break;
                 case o("WAWebAccountLinkingConstants")
                   .AccountLinkingNotificationEvent.ACCOUNT_LINKED:
-                  n.value.notificationMetadataClientResync === "true" &&
-                    (o("WALogger")
-                      .LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "[WAFFLE-TRACE] handleResyncState triggered by ACCOUNT_LINKED notification (clientResync=true)",
-                          ])),
-                      )
-                      .sendLogs("waffle-nonce-trace-notification", {
-                        sampling: 1,
-                      }),
-                    yield o("WAWebAccountLinkingHandler").handleResyncState());
+                  t.value.notificationMetadataClientResync === "true" &&
+                    (yield _());
                   break;
                 default:
                   o("WALogger").ERROR(
@@ -96,10 +131,10 @@ __d(
               );
           }
         })),
-        p.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    l.handleAccountLinkingNotification = m;
+    l.handleAccountLinkingNotification = g;
   },
   98,
 );

@@ -271,12 +271,40 @@ __d(
         k.apply(this, arguments)
       );
     }
-    function I() {
+    function I(e, t, n, r) {
       return T.apply(this, arguments);
     }
     function T() {
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = yield C();
+            if (a != null) {
+              var i = r + o("WATimeUtils").unixTime(),
+                l = babelHelpers.extends({}, a, {
+                  accesstoken: e,
+                  pingInterval: i,
+                });
+              return (
+                t != null && (l.nonce = t),
+                n != null && (l.fbid = n),
+                (l.accountLinkingOpaqueData = o(
+                  "WAWebOpaqueDataEncryption",
+                ).moveEncFieldToOpaqueData(l)),
+                o("WAWebAccountLinkingSchema").getTable().createOrReplace(l)
+              );
+            }
+          },
+        )),
+        T.apply(this, arguments)
+      );
+    }
+    function D() {
+      return x.apply(this, arguments);
+    }
+    function x() {
+      return (
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebAccountLinkingSchema").getTable().clear(),
             o("WAWebBackendApi").frontendFireAndForget(
               "updateAccountLinkingStatus",
@@ -288,15 +316,15 @@ __d(
               },
             ));
         })),
-        T.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function D() {
-      return x.apply(this, arguments);
+    function $() {
+      return P.apply(this, arguments);
     }
-    function x() {
+    function P() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t = yield C();
           return {
@@ -310,7 +338,7 @@ __d(
                 : o("WAWebAccountLinkingConstants").AccountLinkState.Unlinked,
           };
         })),
-        x.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
     ((l.createOrUpdateAccountLinkingState = e),
@@ -323,8 +351,9 @@ __d(
       (l.getPingExpirationTime = v),
       (l.updateServiceData = R),
       (l.updateDestinationIdentities = E),
-      (l.purgeWaffleData = I),
-      (l.getAccountLinkingStatus = D));
+      (l.updateGenerateAccessTokensData = I),
+      (l.purgeWaffleData = D),
+      (l.getAccountLinkingStatus = $));
   },
   98,
 );

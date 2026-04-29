@@ -43,6 +43,7 @@ __d(
           (t.statusMetadata = o("WAWebModelUtils").prop()),
           (t.lastFilledStatusServerId = o("WAWebModelUtils").prop()),
           (t.suspended = o("WAWebModelUtils").prop(!1)),
+          (t.statusMute = o("WAWebModelUtils").prop(!1)),
           (t.geosuspended = o("WAWebModelUtils").prop(!1)),
           (t.hasProfilePictureDeletionAlerts = o("WAWebModelUtils").prop(!1)),
           (t.geosuspendedCountries = o("WAWebModelUtils").collection(

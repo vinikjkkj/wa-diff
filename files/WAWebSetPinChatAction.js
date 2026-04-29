@@ -12,10 +12,14 @@ __d(
     "WAWebChatPinBridge",
     "WAWebModalManager",
     "WAWebNoop",
+    "WAWebPinChatLimits",
     "WAWebPinnedChatsWamEvent",
     "WAWebPinnedChatsWamUtils",
     "WAWebStateUtils",
     "WAWebToastManager",
+    "WAWebWaPlusBenefitJourneyLogger",
+    "WAWebWamEnumWpbujBenefitType",
+    "WAWebWamEnumWpbujSurface",
     "asyncToGeneratorRuntime",
     "react",
     "requireDeferred",
@@ -28,24 +32,64 @@ __d(
         "WAWebSetPinChatAction",
       );
     function m(e, t) {
-      return p(o("WAWebStateUtils").unproxy(e), t);
+      if (
+        !e.isNewsletter() &&
+        !(t <= o("WAWebPinChatLimits").MAX_PINNED_CHATS) &&
+        !(
+          !r("WAWebAuraGating").isPinnedChatsEnabled() &&
+          !r("WAWebAuraGating").isPinnedChatsBenefitActive()
+        )
+      ) {
+        var n = r("WAWebAuraGating").isPinnedChatsBenefitActive();
+        new (o("WAWebWaPlusBenefitJourneyLogger").WaPlusBenefitJourneyLogger)({
+          benefitType: o("WAWebWamEnumWpbujBenefitType").WPBUJ_BENEFIT_TYPE
+            .PINNED_CHATS,
+          surface: o("WAWebWamEnumWpbujSurface").WPBUJ_SURFACE.PINNED_CHAT,
+        }).logApply({
+          success: n,
+          errorMessage: n ? void 0 : "not_active_user_exceeded_base_limit",
+          customFields: { pinned_chat_number: t },
+        });
+      }
     }
-    function p(t, a, i) {
+    function p(e) {
+      if (
+        !e.isNewsletter() &&
+        r("WAWebAuraGating").isPinnedChatsBenefitActive()
+      ) {
+        var t = o("WAWebChatPinBridge").getPinLimit(e);
+        t > o("WAWebPinChatLimits").MAX_PINNED_CHATS ||
+          new (o("WAWebWaPlusBenefitJourneyLogger").WaPlusBenefitJourneyLogger)(
+            {
+              benefitType: o("WAWebWamEnumWpbujBenefitType").WPBUJ_BENEFIT_TYPE
+                .PINNED_CHATS,
+              surface: o("WAWebWamEnumWpbujSurface").WPBUJ_SURFACE.PINNED_CHAT,
+            },
+          ).logApply({
+            success: !1,
+            errorMessage: "active_user_blocked_below_premium_limit",
+          });
+      }
+    }
+    function _(e, t) {
+      return f(o("WAWebStateUtils").unproxy(e), t);
+    }
+    function f(t, a, i) {
       i === void 0 && (i = o("WAWebActionToast.react").genId());
       var l = t.promises;
       l.setPin && l.setPin.abortController.abort();
       var u = 0,
-        m,
-        f = o("WATimeUtils").unixTimeMs();
-      a ? (u = f) : (m = t.pin);
-      var g = new AbortController(),
-        h = g.signal,
-        y = !!(
+        _,
+        h = o("WATimeUtils").unixTimeMs();
+      a ? (u = h) : (_ = t.pin);
+      var y = new AbortController(),
+        C = y.signal,
+        b = !!(
           a &&
           r("WAWebAuraGating").isPinnedChatsEnabled() &&
           !r("WAWebAuraGating").isPinnedChatsBenefitActive()
         ),
-        C = y
+        v = b
           ? o("WAWebChatPinBridge")
               .getNumConversationsPinned(t.id)
               .then(function (e) {
@@ -55,34 +99,36 @@ __d(
                     405,
                     "Pin limit exceeded",
                   );
-                return o("WAWebChatPinBridge").setPin(t.id, u, m, f);
+                return o("WAWebChatPinBridge").setPin(t.id, u, _, h);
               })
-          : o("WAWebChatPinBridge").setPin(t.id, u, m, f),
-        b = a
-          ? new (o("WAWebActionToast.react").ActionType)(_.getPinningText(t))
-          : new (o("WAWebActionToast.react").ActionType)(_.getUnpinningText(t)),
-        v = C.then(function () {
-          if (h.aborted) throw new (o("WAAbortError").AbortError)();
-          a &&
-            o("WAWebChatPinBridge")
-              .getNumConversationsPinned(t.id)
-              .then(function (e) {
-                var t = o(
-                  "WAWebPinnedChatsWamUtils",
-                ).getPinnedChatsPremiumStatus();
-                new (o("WAWebPinnedChatsWamEvent").PinnedChatsWamEvent)({
-                  pinnedChatNumber: e,
-                  pinnedChatsPremiumStatus: t,
-                }).commit();
-              });
-          var e = a ? _.getPinnedText(t) : _.getUnpinnedText(t);
-          return new (o("WAWebActionToast.react").ActionType)(e, {
-            actionText: s._(/*BTDS*/ "Undo"),
-            actionHandler: function () {
-              return p(t, !a, i);
-            },
-          });
-        })
+          : o("WAWebChatPinBridge").setPin(t.id, u, _, h),
+        S = a
+          ? new (o("WAWebActionToast.react").ActionType)(g.getPinningText(t))
+          : new (o("WAWebActionToast.react").ActionType)(g.getUnpinningText(t)),
+        R = v
+          .then(function () {
+            if (C.aborted) throw new (o("WAAbortError").AbortError)();
+            a &&
+              o("WAWebChatPinBridge")
+                .getNumConversationsPinned(t.id)
+                .then(function (e) {
+                  var n = o(
+                    "WAWebPinnedChatsWamUtils",
+                  ).getPinnedChatsPremiumStatus();
+                  (new (o("WAWebPinnedChatsWamEvent").PinnedChatsWamEvent)({
+                    pinnedChatNumber: e,
+                    pinnedChatsPremiumStatus: n,
+                  }).commit(),
+                    m(t.id, e));
+                });
+            var e = a ? g.getPinnedText(t) : g.getUnpinnedText(t);
+            return new (o("WAWebActionToast.react").ActionType)(e, {
+              actionText: s._(/*BTDS*/ "Undo"),
+              actionHandler: function () {
+                return f(t, !a, i);
+              },
+            });
+          })
           .catch(o("WAAbortError").catchAbort(r("WAWebNoop")))
           .catch(
             (function () {
@@ -91,7 +137,8 @@ __d(
                   if (n.status === 405) {
                     if (
                       (o("WAWebPinnedChatsWamUtils").logPinnedChatsMaxAlert(),
-                      y)
+                      p(t.id),
+                      b)
                     ) {
                       o("WAWebToastManager").ToastManager.close(i);
                       var r = yield d.load();
@@ -100,20 +147,20 @@ __d(
                           c.jsx(r, {}),
                         ),
                         new (o("WAWebActionToast.react").ActionType)(
-                          _.getFailedToPinText(t),
+                          g.getFailedToPinText(t),
                         )
                       );
                     }
                     return new (o("WAWebActionToast.react").ActionType)(
-                      _.getPinLimitExceededText(t),
+                      g.getPinLimitExceededText(t),
                     );
                   } else if (n.status >= 400)
                     return a
                       ? new (o("WAWebActionToast.react").ActionType)(
-                          _.getFailedToPinText(t),
+                          g.getFailedToPinText(t),
                         )
                       : new (o("WAWebActionToast.react").ActionType)(
-                          _.getFailedToUnpinText(t),
+                          g.getFailedToUnpinText(t),
                         );
                   o("WALogger").WARN(
                     e ||
@@ -122,12 +169,12 @@ __d(
                       ])),
                   );
                   var l = a
-                    ? _.getFailedToPinText(t)
-                    : _.getFailedToUnpinText(t);
+                    ? g.getFailedToPinText(t)
+                    : g.getFailedToUnpinText(t);
                   return new (o("WAWebActionToast.react").ActionType)(l, {
                     actionText: s._(/*BTDS*/ "Try again."),
                     actionHandler: function () {
-                      return p(t, a, i);
+                      return f(t, a, i);
                     },
                   });
                 },
@@ -140,18 +187,20 @@ __d(
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebActionToast.react").ActionToast, {
           id: i,
-          initialAction: b,
-          pendingAction: v,
+          initialAction: S,
+          pendingAction: R,
         }),
       );
-      var S = C.then(function () {
-        t.pin = u;
-      }).finally(function () {
-        l.setPin = null;
-      });
-      return ((l.setPin = { promise: S, abortController: g }), S);
+      var L = v
+        .then(function () {
+          t.pin = u;
+        })
+        .finally(function () {
+          l.setPin = null;
+        });
+      return ((l.setPin = { promise: L, abortController: y }), L);
     }
-    var _ = {
+    var g = {
       getPinnedText: function (t) {
         return o("WAWebChatGetters").getIsNewsletter(t)
           ? s._(/*BTDS*/ "Channel pinned")
@@ -195,7 +244,7 @@ __d(
             );
       },
     };
-    l.setPin = m;
+    l.setPin = _;
   },
   226,
 );

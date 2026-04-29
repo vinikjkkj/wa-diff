@@ -158,7 +158,7 @@ __d(
                               "[WAM:GALAXY_FLOW] structured msg receive log err: ",
                               "",
                             ])),
-                          t,
+                          String(t),
                         );
                       }));
                   },

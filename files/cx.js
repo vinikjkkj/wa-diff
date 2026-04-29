@@ -3,7 +3,8 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     function e(e) {
-      throw new Error("cx: Unexpected class transformation.");
+      var t = new Error("cx: Unexpected class transformation.");
+      throw (t.stack, t);
     }
     i.default = e;
   },

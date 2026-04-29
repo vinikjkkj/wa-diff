@@ -32,27 +32,34 @@ __d(
       v,
       S = null,
       R = null,
-      L = null,
-      E = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
+      L = null;
+    function E() {
+      var e, t;
+      return (e =
+        (t = L) == null ? void 0 : t.getEstimatedOutputLagSamples()) != null
+        ? e
+        : 0;
+    }
+    var k = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
         "AudioCapture",
       ),
-      k = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
+      I = new (o("WAWebVoipOperationQueue").WAWebVoipOperationQueue)(
         "AudioPlayback",
       ),
-      I = !1;
-    function T() {
+      T = !1;
+    function D() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "enable_web_voip_virtual_audio_capture_driver",
         ) === !0
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    function x(e) {
+      return $.apply(this, arguments);
     }
-    function x() {
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.deviceId,
             r = t.targetWindow;
           o("WALogger").LOG(
@@ -64,7 +71,7 @@ __d(
             n,
           );
           try {
-            var a = yield H(n, r, !0);
+            var a = yield G(n, r, !0);
             a
               ? o("WALogger").LOG(
                   s ||
@@ -91,27 +98,27 @@ __d(
               .sendLogs("voip: audio re-acquisition failed");
           }
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $() {
-      I ||
+    function P() {
+      T ||
         (o("WAWebVoipPopoutWindowState").WAWebVoipUiPopoutWindowEventEmitter.on(
           "requestAudioReacquisition",
-          D,
+          x,
         ),
-        (I = !0));
+        (T = !0));
     }
-    function P(e) {
-      return N.apply(this, arguments);
+    function N(e) {
+      return M.apply(this, arguments);
     }
-    function N() {
+    function M() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          ($(),
-            E.enqueue(
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          (P(),
+            k.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                if (T()) {
+                if (D()) {
                   (o("WALogger").LOG(
                     d ||
                       (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -134,16 +141,16 @@ __d(
               "initCaptureDriver",
             ));
         })),
-        N.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function M() {
-      return w.apply(this, arguments);
-    }
     function w() {
+      return A.apply(this, arguments);
+    }
+    function A() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          E.enqueue(
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          k.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               var e;
               if (R != null) {
@@ -186,16 +193,16 @@ __d(
             "startCapture",
           );
         })),
-        w.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
-    function A() {
-      return F.apply(this, arguments);
-    }
     function F() {
+      return O.apply(this, arguments);
+    }
+    function O() {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          E.enqueue(
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          k.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (R != null) {
                 (yield R.stopCapture(), (R = null));
@@ -215,16 +222,16 @@ __d(
             "stopCapture",
           );
         })),
-        F.apply(this, arguments)
+        O.apply(this, arguments)
       );
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    function B(e) {
+      return W.apply(this, arguments);
     }
-    function B() {
+    function W() {
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          k.enqueue(
+        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          I.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               (L == null &&
                 (L = new (o(
@@ -238,16 +245,16 @@ __d(
             "initPlaybackDriver",
           );
         })),
-        B.apply(this, arguments)
+        W.apply(this, arguments)
       );
     }
-    function W() {
-      return q.apply(this, arguments);
-    }
     function q() {
+      return U.apply(this, arguments);
+    }
+    function U() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          k.enqueue(
+        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          I.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (L == null) {
                 o("WALogger")
@@ -265,16 +272,16 @@ __d(
             "startPlayback",
           );
         })),
-        q.apply(this, arguments)
+        U.apply(this, arguments)
       );
     }
-    function U() {
-      return V.apply(this, arguments);
-    }
     function V() {
+      return H.apply(this, arguments);
+    }
+    function H() {
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          k.enqueue(
+        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          I.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (L == null) {
                 o("WALogger").WARN(
@@ -294,18 +301,18 @@ __d(
             "stopPlayback",
           );
         })),
-        V.apply(this, arguments)
+        H.apply(this, arguments)
       );
     }
-    function H(e, t, n) {
-      return G.apply(this, arguments);
+    function G(e, t, n) {
+      return z.apply(this, arguments);
     }
-    function G() {
+    function z() {
       return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           var a = new (o("WAResolvable").Resolvable)();
           return (
-            E.enqueue(
+            k.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
                   if (R != null) {
@@ -349,18 +356,18 @@ __d(
             a.promise
           );
         })),
-        G.apply(this, arguments)
+        z.apply(this, arguments)
       );
     }
-    function z(e) {
-      return j.apply(this, arguments);
+    function j(e) {
+      return K.apply(this, arguments);
     }
-    function j() {
+    function K() {
       return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new (o("WAResolvable").Resolvable)();
           return (
-            k.enqueue(
+            I.enqueue(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
                 try {
                   var n,
@@ -388,20 +395,21 @@ __d(
             t.promise
           );
         })),
-        j.apply(this, arguments)
+        K.apply(this, arguments)
       );
     }
     ((l.getPlaybackSampleRate = o(
       "WAWebVoipAudioPlaybackState",
     ).getPlaybackSampleRate),
-      (l.initCaptureDriverJS = P),
-      (l.startCaptureJS = M),
-      (l.stopCaptureJS = A),
-      (l.initPlaybackDriverJS = O),
-      (l.startPlaybackJS = W),
-      (l.stopPlaybackJS = U),
-      (l.switchAudioInputDevice = H),
-      (l.switchAudioOutputDevice = z));
+      (l.getEstimatedPlaybackOutputLagSamples = E),
+      (l.initCaptureDriverJS = N),
+      (l.startCaptureJS = w),
+      (l.stopCaptureJS = F),
+      (l.initPlaybackDriverJS = B),
+      (l.startPlaybackJS = q),
+      (l.stopPlaybackJS = V),
+      (l.switchAudioInputDevice = G),
+      (l.switchAudioOutputDevice = j));
   },
   98,
 );

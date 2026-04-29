@@ -509,19 +509,18 @@ __d(
       );
     }
     function K(e) {
-      (e !== "mp4RepairMux" && e !== "kaleidoscopeClassify") ||
-        (x().INFO(
-          m ||
-            (m = babelHelpers.taggedTemplateLiteralLoose([
-              "start prewarming media wasm worker, operation: ",
-              "",
-            ])),
-          e,
-        ),
+      (x().INFO(
+        m ||
+          (m = babelHelpers.taggedTemplateLiteralLoose([
+            "start prewarming media wasm worker, operation: ",
+            "",
+          ])),
+        e,
+      ),
         w()
           .then(function (t) {
             if (!t.success) {
-              x().MUSTFIX(
+              x().WARN(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
                     "prewarm failed: ",

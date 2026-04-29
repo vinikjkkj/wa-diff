@@ -29,15 +29,36 @@ __d(
         ) &&
         ((e = t.interactivePayload) == null ? void 0 : e.buttons) != null
       ) {
-        var n = [];
+        var n,
+          a = [];
         if (
-          (t.interactivePayload.buttons.forEach(function (e, r) {
-            var o = u(e, r, t.t);
-            o != null && n.push(o);
+          (t.interactivePayload.buttons.forEach(function (e, n) {
+            var r = u(e, n, t.t);
+            r != null && a.push(r);
           }),
-          n.length > 0)
-        )
-          return n;
+          t.nativeFlowName ===
+            r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP &&
+            ((n = t.interactivePayload) == null ? void 0 : n.buttons) != null &&
+            t.interactivePayload.buttons.length > 0)
+        ) {
+          var i,
+            l = o("WAWebInAppSignupConfirmation").parseInAppSignupWebsiteUrl(
+              (i = t.interactivePayload.buttons[0]) == null
+                ? void 0
+                : i.buttonParamsJson,
+            );
+          l != null &&
+            a.push({
+              name: "cta_url",
+              index: a.length,
+              data: {
+                label: s._(/*BTDS*/ "Redeem on website").toString(),
+                url: l,
+                merchantUrl: l,
+              },
+            });
+        }
+        if (a.length > 0) return a;
       }
       return null;
     };

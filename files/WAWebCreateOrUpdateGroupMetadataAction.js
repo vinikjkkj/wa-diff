@@ -3,7 +3,7 @@ __d(
   ["WAWebGroupMetadataCollection", "WAWebGroupQueryBridge"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t, n, a, i, l, s, u, c, d, m, p;
+      var t, n, a, i, l, s, u, c, d, m, p, _;
       if (
         (o("WAWebGroupQueryBridge").updateSubject(e.id, e.subject),
         r("WAWebGroupMetadataCollection").gadd(
@@ -21,6 +21,7 @@ __d(
               announce: e.announce || !1,
               noFrequentlyForwarded: e.noFrequentlyForwarded || !1,
               ephemeralDuration: e.ephemeralDuration || 0,
+              afterReadDuration: (t = e.afterReadDuration) != null ? t : null,
               growthLockExpiration: e.growthLockExpiration,
               growthLockType: e.growthLockType,
               membershipApprovalMode: e.membershipApprovalMode,
@@ -29,18 +30,18 @@ __d(
               memberShareGroupHistoryMode: e.memberShareGroupHistoryMode,
               participants: e.participants,
               pastParticipants: e.pastParticipants,
-              support: (t = e.support) != null ? t : !1,
-              suspended: (n = e.suspended) != null ? n : !1,
+              support: (n = e.support) != null ? n : !1,
+              suspended: (a = e.suspended) != null ? a : !1,
               suspendAppealStatus:
-                (a = e.suspendAppealStatus) != null ? a : null,
+                (i = e.suspendAppealStatus) != null ? i : null,
               suspendAppealUpdateTime:
-                (i = e.suspendAppealUpdateTime) != null ? i : null,
-              terminated: (l = e.terminated) != null ? l : !1,
-              isParentGroup: (s = e.isParentGroup) != null ? s : !1,
-              isParentGroupClosed: (u = e.isParentGroupClosed) != null ? u : !1,
+                (l = e.suspendAppealUpdateTime) != null ? l : null,
+              terminated: (s = e.terminated) != null ? s : !1,
+              isParentGroup: (u = e.isParentGroup) != null ? u : !1,
+              isParentGroupClosed: (c = e.isParentGroupClosed) != null ? c : !1,
               parentGroup: e.parentGroup,
-              defaultSubgroup: (c = e.defaultSubgroup) != null ? c : !1,
-              generalSubgroup: (d = e.generalSubgroup) != null ? d : !1,
+              defaultSubgroup: (d = e.defaultSubgroup) != null ? d : !1,
+              generalSubgroup: (m = e.generalSubgroup) != null ? m : !1,
               deviceStale: !0,
               size: e.size,
               isLidAddressingMode: e.isLidAddressingMode,
@@ -51,8 +52,8 @@ __d(
               allowNonAdminSubGroupCreation: e.allowNonAdminSubGroupCreation,
               generalChatAutoAddDisabled: e.generalChatAutoAddDisabled,
               hasCapi: e.hasCapi,
-              hiddenSubgroup: (m = e.hiddenSubgroup) != null ? m : !1,
-              groupSafetyCheck: (p = e.groupSafetyCheck) != null ? p : !1,
+              hiddenSubgroup: (p = e.hiddenSubgroup) != null ? p : !1,
+              groupSafetyCheck: (_ = e.groupSafetyCheck) != null ? _ : !1,
               isOpenBotGroup: e.isOpenBotGroup,
               isTeeBotGroup: e.isTeeBotGroup,
             },
@@ -60,9 +61,9 @@ __d(
         ),
         e.isInternal != null)
       ) {
-        var _;
-        (_ = r("WAWebGroupMetadataCollection").get(e.id)) == null ||
-          _.set({ isInternal: e.isInternal });
+        var f;
+        (f = r("WAWebGroupMetadataCollection").get(e.id)) == null ||
+          f.set({ isInternal: e.isInternal });
       }
     }
     l.createOrUpdateGroupMetadataModelFromQuery = e;

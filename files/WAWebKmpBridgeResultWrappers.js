@@ -4,13 +4,6 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      return e().catch(function (e) {
-        return o("wa-kmp-syncd-engine-api").KmpResult.failure(
-          t(r("getErrorSafe")(e)),
-        );
-      });
-    }
-    function s(e, t) {
       return e().then(
         function (e) {
           return o("wa-kmp-syncd-engine-api").KmpResult.success(e);
@@ -22,12 +15,12 @@ __d(
         },
       );
     }
-    function u(e) {
+    function s(e) {
       return e instanceof o("wa-kmp-syncd-engine-api").KmpSyncdInterfaceError
         ? e
-        : c(e);
+        : u(e);
     }
-    function c(e) {
+    function u(e) {
       if (
         e instanceof
         o("wa-kmp-syncd-engine-api").KmpSyncdInterfaceError
@@ -45,25 +38,13 @@ __d(
         t.stackTrace,
       );
     }
+    function c(t) {
+      return e(t, s);
+    }
     function d(t) {
       return e(t, u);
     }
-    function m(e) {
-      return s(e, u);
-    }
-    function p(e) {
-      return s(e, c);
-    }
-    function _(e, t) {
-      try {
-        return e();
-      } catch (e) {
-        return o("wa-kmp-syncd-engine-api").KmpResult.failure(
-          t(r("getErrorSafe")(e)),
-        );
-      }
-    }
-    function f(e, t) {
+    function m(e, t) {
       try {
         return o("wa-kmp-syncd-engine-api").KmpResult.success(e());
       } catch (e) {
@@ -72,25 +53,13 @@ __d(
         );
       }
     }
-    function g(e) {
-      return _(e, u);
+    function p(e) {
+      return m(e, u);
     }
-    function h(e) {
-      return f(e, u);
-    }
-    function y(e) {
-      return f(e, c);
-    }
-    ((l.wrapKmpResult = e),
-      (l.wrapKmpSuccess = s),
-      (l.wrapInterfaceKmpResult = d),
-      (l.wrapInterfaceKmpSuccess = m),
-      (l.wrapUnexpectedKmpSuccess = p),
-      (l.wrapKmpResultSync = _),
-      (l.wrapKmpSuccessSync = f),
-      (l.wrapInterfaceKmpResultSync = g),
-      (l.wrapInterfaceKmpSuccessSync = h),
-      (l.wrapUnexpectedKmpSuccessSync = y));
+    ((l.wrapKmpSuccess = e),
+      (l.wrapInterfaceKmpSuccess = c),
+      (l.wrapUnexpectedKmpSuccess = d),
+      (l.wrapUnexpectedKmpSuccessSync = p));
   },
   98,
 );

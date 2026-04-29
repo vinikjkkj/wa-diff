@@ -105,6 +105,7 @@ __d(
               if (e != null && n != null && l != null) {
                 if (
                   o("WAWebBizGatingUtils").isBuyerOrderRevampEnabled() &&
+                  a.status != null &&
                   a.status !==
                     o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
                       .INQUIRY
@@ -205,9 +206,10 @@ __d(
       t[26] !== a.status
         ? ((x = function () {
             return o("WAWebBizGatingUtils").isSellerOrderRevampEnabled()
-              ? a.status ===
-                  o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
-                    .INQUIRY
+              ? a.status == null ||
+                  a.status ===
+                    o("WAWebProtobufsE2E.pb").Message$OrderMessage$OrderStatus
+                      .INQUIRY
               : !0;
           }),
           (t[26] = a.status),

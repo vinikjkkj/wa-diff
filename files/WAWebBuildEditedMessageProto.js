@@ -1,6 +1,12 @@
 __d(
   "WAWebBuildEditedMessageProto",
-  ["WAWebE2EProtoGenerator", "WAWebMsgType", "err", "gkx"],
+  [
+    "WAWebE2EProtoGenerator",
+    "WAWebMessagingGatingUtils",
+    "WAWebMsgType",
+    "err",
+    "gkx",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
@@ -13,6 +19,13 @@ __d(
           var s = babelHelpers.extends({}, a, {
             type: o("WAWebMsgType").MSG_TYPE.CHAT,
             subtype: i ? "url" : void 0,
+            messageSecret:
+              a.messageSecret == null ||
+              o(
+                "WAWebMessagingGatingUtils",
+              ).isMoveMessageSecretTopLevelEnabled()
+                ? void 0
+                : a.messageSecret,
           });
           return o("WAWebE2EProtoGenerator").getProtobufMessage(s, void 0, n);
         }

@@ -17,7 +17,7 @@ __d(
         throw e(t);
       });
     }
-    ((l.kmpSyncdEngineErrorToException = e), (l.kmpResultGetOrThrow = s));
+    l.kmpResultGetOrThrow = s;
   },
   98,
 );

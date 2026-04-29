@@ -86,18 +86,19 @@ __d(
         (t.webcWhatsNewVariant = e),
         t.commit());
     }
-    function p(e) {
-      var t = new (o(
+    function p(e, t) {
+      var n = new (o(
         "WAWebWebcWhatsNewImpressionWamEvent",
       ).WebcWhatsNewImpressionWamEvent)();
-      ((t.webcWhatsNewSurface = o(
+      ((n.webcWhatsNewSurface = o(
         "WAWebWamEnumWebcWhatsNewSurfaceType",
       ).WEBC_WHATS_NEW_SURFACE_TYPE.LOADING_CAROUSEL),
-        (t.webcWhatsNewAction = o(
+        (n.webcWhatsNewAction = o(
           "WAWebWamEnumWebcWhatsNewActionType",
         ).WEBC_WHATS_NEW_ACTION_TYPE.IMPRESSION),
-        (t.webcWhatsNewVariant = e),
-        t.commit());
+        (n.webcWhatsNewVariant = e),
+        (n.webcWhatsNewTimeSpent = t),
+        n.commit());
     }
     ((l.logBannerDismiss = e),
       (l.logBannerClick = s),

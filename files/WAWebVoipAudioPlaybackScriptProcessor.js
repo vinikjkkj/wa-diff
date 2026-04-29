@@ -210,6 +210,9 @@ __d(
           (a.getAudioElement = function () {
             return this.playbackAudioElement;
           }),
+          (a.getEstimatedOutputLagSamples = function () {
+            return 0;
+          }),
           t
         );
       })();

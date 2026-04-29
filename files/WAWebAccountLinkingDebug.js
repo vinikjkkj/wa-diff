@@ -185,7 +185,19 @@ __d(
       );
     }
     w.doc = "Generate WAEntACUser in debug mode";
-    var F = {
+    function F() {
+      return O.apply(this, arguments);
+    }
+    function O() {
+      return (
+        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebAccountLinkingAPI").generateAccessTokens();
+        })),
+        O.apply(this, arguments)
+      );
+    }
+    F.doc = "Generate access tokens for the created WAEntACUser";
+    var B = {
       updateAccountLinkingStateDebug: s,
       requestNonceFromPrimaryDebug: m,
       fetchValidCertificateDebug: _,
@@ -201,8 +213,9 @@ __d(
       setPingIntervalDebug: $,
       updateUoomMutationDebug: N,
       generateWAEntACUserDebug: w,
+      generateAccessTokensDebug: F,
     };
-    l.default = F;
+    l.default = B;
   },
   98,
 );

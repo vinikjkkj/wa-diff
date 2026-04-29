@@ -398,6 +398,15 @@ __d(
               ? this.implementation.getAudioElement()
               : null;
           }),
+          (a.getEstimatedOutputLagSamples = function () {
+            var e, t;
+            return (e =
+              (t = this.implementation) == null
+                ? void 0
+                : t.getEstimatedOutputLagSamples()) != null
+              ? e
+              : 0;
+          }),
           (a.switchOutputDevice = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {

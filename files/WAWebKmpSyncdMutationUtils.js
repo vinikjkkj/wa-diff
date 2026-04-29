@@ -193,7 +193,6 @@ __d(
     ((l.asKmpSyncdMutation = c),
       (l.asPendingKmpSyncdMutation = d),
       (l.asKmpSyncdMutationOperation = m),
-      (l.asWebSyncdMutationOperation = p),
       (l.asEncryptedUploadMutationType = _));
   },
   98,

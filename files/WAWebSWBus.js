@@ -42,7 +42,7 @@ __d(
                           i[0].postMessage(e);
                         })
                         .catch(function (e) {
-                          i[0].postMessage({ error: e && e.toString() });
+                          i[0].postMessage({ error: String(e) });
                         }),
                     ));
                 }

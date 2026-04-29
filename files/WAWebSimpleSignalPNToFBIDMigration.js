@@ -242,40 +242,29 @@ __d(
       }
     }
     function p(e) {
-      return f(!0, e);
-    }
-    function _(e) {
-      return f(
-        o("WAWebABProps").getABPropConfigValue(
-          "ai_fbid_migration_invoke_send_enabled",
-        ),
-        e,
-      );
-    }
-    function f(e, t) {
-      if (e === !0 && t.isPnBot()) {
-        var n = u.get(t.user);
-        if (n != null) return o("WAWebWidFactory").createWid(n + "@bot");
+      if (e.isPnBot()) {
+        var t = u.get(e.user);
+        if (t != null) return o("WAWebWidFactory").createWid(t + "@bot");
       }
     }
-    function g(e) {
+    function _(e) {
       return u.has(e.user);
     }
-    function h(e) {
-      if (e.isPnBot() && g(e)) {
+    function f(e) {
+      if (e.isPnBot() && _(e)) {
         var t = p(e);
         if (t != null) return t;
       }
       return e;
     }
-    function y(e) {
+    function g(e) {
       if (e.isFbidBot()) {
         var t = c(e);
         if (t != null) return t;
       }
       return e;
     }
-    function C(t) {
+    function h(t) {
       return t.isFbidBot()
         ? e === t.user
           ? o("WAWebBotTypes").BotPersonaType.DEFAULT
@@ -284,25 +273,19 @@ __d(
             : o("WAWebBotTypes").BotPersonaType.UGC
         : null;
     }
-    function b(e, t) {
+    function y(e, t) {
       if (e.type !== "addon") {
         var n = e.data,
           r = n.get(t);
-        if (
-          r != null &&
-          g(r) &&
-          o("WAWebABProps").getABPropConfigValue(
-            "ai_fbid_migration_invoke_send_enabled",
-          )
-        ) {
-          var a = _(r);
-          a != null && n.set(t, a);
+        if (r != null && _(r)) {
+          var o = p(r);
+          o != null && n.set(t, o);
         }
       }
     }
-    function v(e) {
+    function C(e) {
       var t = e.data.to;
-      if (g(t)) {
+      if (_(t)) {
         var n = p(t);
         n != null &&
           (e.type === "message"
@@ -313,11 +296,11 @@ __d(
     }
     ((l.getDeprecatedPnChatForFbidThread = c),
       (l.getDeprecatedPnChatForFbidInvoke = d),
-      (l.maybeReplaceDeprecatedBotPnWithFbid = h),
-      (l.maybeReplaceFbidWithDeprecatedBotPn = y),
-      (l.getFbidBotPersonaType = C),
-      (l.maybeReplaceWidWithFbIdForInvoke = b),
-      (l.maybeReplaceWidWithFbIdForBotSend = v));
+      (l.maybeReplaceDeprecatedBotPnWithFbid = f),
+      (l.maybeReplaceFbidWithDeprecatedBotPn = g),
+      (l.getFbidBotPersonaType = h),
+      (l.maybeReplaceWidWithFbIdForInvoke = y),
+      (l.maybeReplaceWidWithFbIdForBotSend = C));
   },
   98,
 );

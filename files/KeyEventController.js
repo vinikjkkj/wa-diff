@@ -4,6 +4,7 @@ __d(
     "Bootloader",
     "DOMQuery",
     "Event",
+    "FBLogger",
     "Run",
     "emptyFunction",
     "getElementText",
@@ -116,7 +117,12 @@ __d(
                         )
                           return { v: r("Event").kill(e) };
                       }
-                    } catch (e) {}
+                    } catch (e) {
+                      r("FBLogger")("KeyEventController").mustfix(
+                        "Uncaught exception in key handler: %s",
+                        String(e),
+                      );
+                    }
                   },
                   i,
                   l = 0;

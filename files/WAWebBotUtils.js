@@ -22,48 +22,51 @@ __d(
       return e.equals(u) || e.equals(c);
     }
     function h(e) {
-      return e.equals(m);
+      return g(e) || y(e) || C(e) || b(e) || e.equals(d) || e.equals(_);
     }
     function y(e) {
-      return e.equals(p);
+      return e.equals(m);
     }
     function C(e) {
+      return e.equals(p);
+    }
+    function b(e) {
       return f.some(function (t) {
         return e.equals(t);
       });
     }
-    function b(e) {
+    function v(e) {
       var t = e.botResponseTargetId;
       return t == null
         ? null
         : new (r("WAWebMsgKey"))({ fromMe: !0, remote: e.id.remote, id: t });
     }
-    function v(e) {
+    function S(e) {
       return e instanceof r("WAWebWid")
         ? e == null
           ? void 0
           : e.equals(c)
         : !1;
     }
-    function S(e) {
+    function R(e) {
       return e instanceof r("WAWebWid")
         ? e == null
           ? void 0
           : e.equals(d)
         : !1;
     }
-    function R(e) {
+    function L(e) {
       return o("WAWebDebugHiddenBotChats").isShowHiddenBotChatsEnabled()
         ? !1
         : e instanceof r("WAWebWid")
           ? e.equals(d) || e.equals(_)
           : !1;
     }
-    function L(t) {
+    function E(t) {
       var n = !1;
       for (var r of t) {
-        var a = v(r.id),
-          i = S(r.id);
+        var a = S(r.id),
+          i = R(r.id);
         if (a)
           return (
             n &&
@@ -88,14 +91,15 @@ __d(
       (l.HATCH_BOT_FBID_WID = p),
       (l.META_BOT_SIDECHAT_FBID_WID = _),
       (l.isMetaAiBot = g),
-      (l.isManusBot = h),
-      (l.isHatchBot = y),
-      (l.isBotChannelFBID = C),
-      (l.getBotResponseTargetMsgKey = b),
-      (l.isWidOpenGroupMetaBotFbidWid = v),
-      (l.isWidTeeGroupMetaBotFbidWid = S),
-      (l.isHiddenBotWid = R),
-      (l.participantListIncludOpenOrTeeGroupBotWid = L));
+      (l.isAnyMetaAiBot = h),
+      (l.isManusBot = y),
+      (l.isHatchBot = C),
+      (l.isBotChannelFBID = b),
+      (l.getBotResponseTargetMsgKey = v),
+      (l.isWidOpenGroupMetaBotFbidWid = S),
+      (l.isWidTeeGroupMetaBotFbidWid = R),
+      (l.isHiddenBotWid = L),
+      (l.participantListIncludOpenOrTeeGroupBotWid = E));
   },
   98,
 );

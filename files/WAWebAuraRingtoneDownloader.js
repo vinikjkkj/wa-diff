@@ -4,6 +4,10 @@ __d(
     "WALogger",
     "WAWebAuraGating",
     "WAWebAuraRingtonePrefs",
+    "WAWebWaPlusBenefitJourneyLogger",
+    "WAWebWamEnumWpbujBenefitType",
+    "WAWebWamEnumWpbujSource",
+    "WAWebWamEnumWpbujSurface",
     "asyncToGeneratorRuntime",
     "cr:19900",
     "fflate",
@@ -239,24 +243,38 @@ __d(
             return;
           }
           I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = o("WAWebAuraRingtonePrefs").getStoredPackVersion();
-            (e != null &&
-              e !== String(L) &&
-              (z(), yield $("aura-ringtones-v" + e)),
+            var e = new (o(
+                "WAWebWaPlusBenefitJourneyLogger",
+              ).WaPlusBenefitJourneyLogger)({
+                benefitType: o("WAWebWamEnumWpbujBenefitType")
+                  .WPBUJ_BENEFIT_TYPE.RINGTONES,
+                surface: o("WAWebWamEnumWpbujSurface").WPBUJ_SURFACE.RINGTONE,
+                source: o("WAWebWamEnumWpbujSource").WPBUJ_SOURCE.APP_WIDE,
+              }),
+              t = "aura-ringtones-v" + String(L),
+              r = o("WAWebAuraRingtonePrefs").getStoredPackVersion();
+            (r != null &&
+              r !== String(L) &&
+              (z(), yield $("aura-ringtones-v" + r)),
               o("WALogger").LOG(
                 y ||
                   (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[aura_ringtones] Starting premium ringtone download",
                   ])),
               ));
-            var t = yield N();
-            if (t == null) {
-              o("WALogger").WARN(
+            var a = yield N();
+            if (a == null) {
+              (o("WALogger").WARN(
                 C ||
                   (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[aura_ringtones] Failed to download ringtone zip",
                   ])),
-              );
+              ),
+                e.logDownload({
+                  success: !1,
+                  actionTarget: t,
+                  errorMessage: "fetch_failed",
+                }));
               return;
             }
             o("WALogger").LOG(
@@ -265,10 +283,10 @@ __d(
                   "[aura_ringtones] Got zip file, size: ",
                   "",
                 ])),
-              t.byteLength,
+              a.byteLength,
             );
             try {
-              (W(t),
+              (W(a),
                 n("cr:19900") == null ||
                   n("cr:19900").cacheRingtonesUrlToNative(R),
                 (T = !0),
@@ -280,17 +298,23 @@ __d(
                       "",
                     ])),
                   k.size,
-                ));
-            } catch (e) {
+                ),
+                e.logDownload({ success: !0, actionTarget: t }));
+            } catch (n) {
               (o("WALogger").WARN(
                 S ||
                   (S = babelHelpers.taggedTemplateLiteralLoose([
                     "[aura_ringtones] Error extracting ringtone zip: ",
                     "",
                   ])),
-                String(e),
+                String(n),
               ),
-                yield $());
+                yield $(),
+                e.logDownload({
+                  success: !1,
+                  actionTarget: t,
+                  errorMessage: "unzip_failed",
+                }));
             }
           })();
           try {

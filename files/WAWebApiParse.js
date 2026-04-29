@@ -287,7 +287,7 @@ __d(
         !r("isStringNullOrEmpty")(a) && { data: { session: a } },
       );
     }
-    var A = /^whatsapp:\/\/newcall\/$/i,
+    var A = /^whatsapp:\/\/newcall\/?(\?.*)?$/i,
       F = new RegExp(
         "^" + p.ORIGIN + p.OPTIONAL_PATH_PART + "/forward/?\\?(.+)$",
         "i",
@@ -989,13 +989,21 @@ __d(
       var q = w(e);
       if (q != null) return q;
       if (e.match($)) return { resultType: o("WAWebApi").APICmd.NEW_CHAT };
-      if (e.match(A)) return { resultType: o("WAWebApi").APICmd.NEW_CALL };
-      var U = r("gkx")("26258") ? null : St();
-      if (U)
-        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: U };
-      var V = Rt(e);
-      return V
-        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: V }
+      var U = e.match(A);
+      if (U) {
+        var V = new (r("WAWebPonyfillsUrlSearchParams"))(U[1]),
+          H = V.get("phone");
+        return babelHelpers.extends(
+          { resultType: o("WAWebApi").APICmd.NEW_CALL },
+          !r("isStringNullOrEmpty")(H) && { data: { phone: H } },
+        );
+      }
+      var G = r("gkx")("26258") ? null : St();
+      if (G)
+        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: G };
+      var z = Rt(e);
+      return z
+        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: z }
         : { resultType: o("WAWebApi").APICmd.INVALID };
     }
     ((l.parseConversionData = E),

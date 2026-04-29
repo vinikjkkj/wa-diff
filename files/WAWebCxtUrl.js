@@ -18,8 +18,16 @@ __d(
     function c() {
       return s("community-no-longer-available");
     }
+    function d() {
+      return s("about-group-suspension-appeals");
+    }
+    function m() {
+      return s("about-community-suspension-appeals");
+    }
     ((l.getGroupInviteGrowthLockedFaqUrl = u),
-      (l.getCommunityNotAvailableFaqUrl = c));
+      (l.getCommunityNotAvailableFaqUrl = c),
+      (l.getGroupSuspensionAppealsFaqUrl = d),
+      (l.getCommunitySuspensionAppealsFaqUrl = m));
   },
   98,
 );

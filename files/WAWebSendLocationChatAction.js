@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebGetEphemeralFieldsMsgActionsUtils",
     "WAWebMsgKey",
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
@@ -63,25 +64,28 @@ __d(
             a = e.lng,
             i = e.loc,
             l = e.meUser,
-            s = {
-              type: "location",
-              ack: o("WAWebAck").ACK.CLOCK,
-              from: l,
-              id: new (r("WAWebMsgKey"))({
+            s = babelHelpers.extends(
+              {
+                type: "location",
+                ack: o("WAWebAck").ACK.CLOCK,
                 from: l,
+                id: new (r("WAWebMsgKey"))({
+                  from: l,
+                  to: t.id,
+                  id: yield r("WAWebMsgKey").newId(),
+                  participant: void 0,
+                  selfDir: "out",
+                }),
+                local: !0,
+                isNewMsg: !0,
+                t: o("WATimeUtils").unixTime(),
                 to: t.id,
-                id: yield r("WAWebMsgKey").newId(),
-                participant: void 0,
-                selfDir: "out",
-              }),
-              local: !0,
-              isNewMsg: !0,
-              t: o("WATimeUtils").unixTime(),
-              to: t.id,
-              lat: n,
-              lng: a,
-              loc: i,
-            };
+                lat: n,
+                lng: a,
+                loc: i,
+              },
+              o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(t),
+            );
           return s;
         })),
         d.apply(this, arguments)

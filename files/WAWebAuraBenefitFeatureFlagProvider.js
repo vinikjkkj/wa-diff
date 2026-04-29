@@ -59,9 +59,8 @@ __d(
                           })();
         }),
         (t.$2 = function (t, n) {
-          var e = this.$1(n);
-          if (e == null) return null;
-          var r = e.enabled === !0;
+          var e = this.$1(n),
+            r = (e == null ? void 0 : e.enabled) === !0;
           return { id: t, isActive: r, limit: this.$3(t, r) };
         }),
         (t.$3 = function (t, n) {

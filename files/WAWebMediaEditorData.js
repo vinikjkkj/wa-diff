@@ -362,14 +362,18 @@ __d(
               selectedLayer: n,
             }).setShapeLayerBackground(n == null ? void 0 : n.getFrame());
           }),
-          (n.transformLayer = function (t, n, r, a) {
-            var e = t;
+          (n.transformLayer = function (t) {
+            var e = t.frame,
+              n = t.layer,
+              r = t.rotation,
+              a = t.scale,
+              i = n;
             return (
-              a != null &&
-                t instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
-                (e = t.setFrame(a)),
-              (e = e.setRotation(n).setScale(r)),
-              this.updateLayer(t, e)
+              e != null &&
+                n instanceof o("WAWebMediaEditorLayersShape").ShapeLayer &&
+                (i = n.setFrame(e)),
+              (i = i.setRotation(r).setScale(a)),
+              this.updateLayer(n, i)
             );
           }),
           (n.transformBackground = function (t, n) {

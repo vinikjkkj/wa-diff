@@ -123,8 +123,8 @@ __d(
                     .ERROR(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[canonical][gql] Unauthorized error on graphql request: ",
-                          ". Canonical present: ",
+                          "[canonical][gql] unauth err: ",
+                          " loggedIn=",
                           "",
                         ])),
                       o("WAWebGraphQLServerError").formatGraphQLServerError(_),
