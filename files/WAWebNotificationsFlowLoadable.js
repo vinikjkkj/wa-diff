@@ -28,7 +28,7 @@ __d(
           return s.jsx(r("WAWebLoadingDrawer.react"), { error: !!t.error });
         },
       });
-    ((l.requireBundle = u), (l.NotificationsFlowLoadable = c));
+    l.NotificationsFlowLoadable = c;
   },
   98,
 );

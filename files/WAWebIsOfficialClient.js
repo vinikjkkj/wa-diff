@@ -113,9 +113,9 @@ __d(
           return g;
         },
       });
-    var b = function (t) {
-      return !!t.startsWith("BA");
-    };
+    function b(e) {
+      return !!e.startsWith("BA");
+    }
     ((l.isOfficialClient = h),
       (l.getIsOfficialClient = C),
       (l.isUnofficialStanzaId = b));

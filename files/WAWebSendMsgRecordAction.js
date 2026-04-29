@@ -140,13 +140,17 @@ __d(
                 o("WAWebCommonMsgSubtypeTypes").MsgSubtype
                   .EphemeralSyncResponse,
             C =
+              i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+              i.subtype ===
+                o("WAWebCommonMsgSubtypeTypes").MsgSubtype.EphemeralSetting,
+            b =
               o("WAWebMsgGetters").getIsReaction(i) &&
               i.reactionText ===
                 o("WAWebReactionsBEUtils").REVOKED_REACTION_TEXT;
           if (
             !o("WAWebMsgGetters").getIsGroupMsg(i) &&
             !h &&
-            !C &&
+            !b &&
             o("WAWebBlocklistCollection").BlocklistCollection.get(l)
           )
             return (f || (f = n("Promise"))).reject(
@@ -155,10 +159,10 @@ __d(
                 o("WAWebContactCollection").ContactCollection.assertGet(l),
               ),
             );
-          var b;
+          var v;
           return (
             h ||
-              (b = new (o(
+              (v = new (o(
                 "WAWebWebcMessageSendWamEvent",
               ).WebcMessageSendWamEvent)({
                 messageType: o("WAWebWamMsgUtils").getWamMessageType(i),
@@ -203,7 +207,7 @@ __d(
                         o(
                           "WAWebBotGenTypingIndicatorMsg",
                         ).maybeGenBotTypingIndicatorMessage(t, i),
-                        b && (b.markMessageSendT(), b.commit()),
+                        v && (v.markMessageSendT(), v.commit()),
                         !h &&
                           o("WAWebABProps").getABPropConfigValue(
                             "single_emoji_logging_enabled",
@@ -255,7 +259,8 @@ __d(
                   if (
                     n != null &&
                     n > 0 &&
-                    o("WAWebAfterReadUtils").isAfterReadEnabled()
+                    o("WAWebAfterReadUtils").isAfterReadEnabled() &&
+                    !C
                   ) {
                     var r = o("WATimeUtils").unixTime() + n;
                     (o("WAWebDBUpdateMessageTable").updateMessageTable(_, {

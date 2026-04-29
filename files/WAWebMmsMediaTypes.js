@@ -51,6 +51,7 @@ __d(
         NEWSLETTER_STICKER_PACK: "newsletter-sticker-pack",
         WAFFLE_IMAGE: "waffle-image",
         WAFFLE_VIDEO: "waffle-video",
+        MAIBA_FILE: "maiba-file",
       }),
       s = r("lodash").values(e);
     function u(t) {

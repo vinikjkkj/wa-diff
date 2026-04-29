@@ -37,8 +37,8 @@ __d(
           textOverflow: "xlyipyv",
           $$css: !0,
         },
-        iconPrimary: { fill: "x1sl2vhy", $$css: !0 },
-        iconBackground: { fill: "x1389dxx", $$css: !0 },
+        iconPrimary: { fill: "xfifr3o", $$css: !0 },
+        iconBackground: { fill: "xfifr3o", opacity: "x1xyvc85", $$css: !0 },
         pixIcon: {
           color: "x1du590y",
           backgroundColor: "x1280gxy",

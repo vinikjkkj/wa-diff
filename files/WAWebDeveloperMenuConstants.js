@@ -10,6 +10,7 @@ __d(
       "NuxManager",
       "VoipUiDebug",
       "VoipWasmSamples",
+      "TeeDebugInspector",
     ]);
     i.DeveloperMenu = e;
   },

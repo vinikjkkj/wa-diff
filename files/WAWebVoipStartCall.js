@@ -81,38 +81,61 @@ __d(
       H = 5;
     function G() {
       var e = o("WAWebVoipGatingUtils").getUnsupportedBrowserReason();
-      return e == null
-        ? !1
-        : (o("WAWebModalManager").ModalManager.open(
-            e === "broken_voip_wasm"
-              ? q.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                  tsNavigationData: {
-                    surface: "unknown",
-                    viewName: "voip-start-call",
-                  },
-                  onOK: o("WAWebModalManager").closeModalManager,
-                  title: s._(
-                    /*BTDS*/ "Your version of Safari doesn\u2019t support calls",
-                  ),
-                  children: s._(
-                    /*BTDS*/ "Please update your browser to Safari 26.3 or higher and try again.",
-                  ),
-                })
-              : q.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-                  tsNavigationData: {
-                    surface: "unknown",
-                    viewName: "voip-start-call",
-                  },
-                  onOK: o("WAWebModalManager").closeModalManager,
-                  title: s._(
-                    /*BTDS*/ "Your browser doesn\u2019t support calling",
-                  ),
-                  children: s._(
-                    /*BTDS*/ "Please update your browser or try another browser.",
-                  ),
-                }),
-          ),
-          !0);
+      if (e == null) return !1;
+      e: {
+        if (e === "missing_shared_array_buffer") {
+          o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingSAB();
+          break e;
+        }
+        if (e === "missing_atomics") {
+          o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingAtomics();
+          break e;
+        }
+        if (e === "missing_rtc_peer_connection") {
+          o("WAWebCoreActionsODS").logCallBrowserUnsupportedMissingRTC();
+          break e;
+        }
+        if (e === "broken_voip_wasm") {
+          o("WAWebCoreActionsODS").logCallBrowserUnsupportedBrokenWasm();
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+      return (
+        o("WAWebModalManager").ModalManager.open(
+          e === "broken_voip_wasm"
+            ? q.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                tsNavigationData: {
+                  surface: "unknown",
+                  viewName: "voip-start-call",
+                },
+                onOK: o("WAWebModalManager").closeModalManager,
+                title: s._(
+                  /*BTDS*/ "Your version of Safari doesn\u2019t support calls",
+                ),
+                children: s._(
+                  /*BTDS*/ "Please update your browser to Safari 26.3 or higher and try again.",
+                ),
+              })
+            : q.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
+                tsNavigationData: {
+                  surface: "unknown",
+                  viewName: "voip-start-call",
+                },
+                onOK: o("WAWebModalManager").closeModalManager,
+                title: s._(
+                  /*BTDS*/ "Your browser doesn\u2019t support calling",
+                ),
+                children: s._(
+                  /*BTDS*/ "Please update your browser or try another browser.",
+                ),
+              }),
+        ),
+        !0
+      );
     }
     function z() {
       return o(

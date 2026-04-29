@@ -246,11 +246,11 @@ __d(
         )
       );
     }
-    var q = function () {
+    function q() {
       return o("WAWebABProps").getABPropConfigValue(
         "order_messages_ephemeral_exception_enabled",
       );
-    };
+    }
     function U() {
       return (
         W() &&
@@ -484,38 +484,38 @@ __d(
         )
       );
     }
-    var Ne = function () {
-        return (
-          o("WAWebMobilePlatforms").isSMB() &&
-          o("WAWebABProps").getABPropConfigValue(
-            "wa_ctwa_web_entrypoint_home_header_enabled",
-          )
-        );
-      },
-      Me = function () {
-        return (
-          o("WAWebMobilePlatforms").isSMB() &&
-          o("WAWebABProps").getABPropConfigValue(
-            "wa_ctwa_web_entrypoint_home_header_dropdown_enabled",
-          )
-        );
-      },
-      we = function () {
-        return (
-          o("WAWebMobilePlatforms").isSMB() &&
-          o("WAWebABProps").getABPropConfigValue(
-            "ctwa_ad_creation_entry_point_catalog_web",
-          )
-        );
-      },
-      Ae = function () {
-        return (
-          o("WAWebMobilePlatforms").isSMB() &&
-          o("WAWebABProps").getABPropConfigValue(
-            "ctwa_ad_creation_entry_point_catalog_product_web",
-          )
-        );
-      };
+    function Ne() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_ctwa_web_entrypoint_home_header_enabled",
+        )
+      );
+    }
+    function Me() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_ctwa_web_entrypoint_home_header_dropdown_enabled",
+        )
+      );
+    }
+    function we() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_ad_creation_entry_point_catalog_web",
+        )
+      );
+    }
+    function Ae() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_ad_creation_entry_point_catalog_product_web",
+        )
+      );
+    }
     function Fe() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
@@ -545,24 +545,24 @@ __d(
         )
       );
     }
-    var qe = function (t) {
-        return (
-          o("WAWebMobilePlatforms").isSMB() &&
-          (t == null ? void 0 : t.hasCreatedAd) === !0 &&
-          o("WAWebABProps").getABPropConfigValue(
-            "wa_ctwa_web_entrypoint_manage_ads_home_header_dropdown_enabled",
-          ) &&
-          !Ve()
-        );
-      },
-      Ue = function () {
-        return (
-          o("WAWebMobilePlatforms").isSMB() &&
-          o("WAWebABProps").getABPropConfigValue(
-            "wa_ctwa_web_fetch_linked_accounts_enabled",
-          )
-        );
-      };
+    function qe(e) {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        (e == null ? void 0 : e.hasCreatedAd) === !0 &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_ctwa_web_entrypoint_manage_ads_home_header_dropdown_enabled",
+        ) &&
+        !Ve()
+      );
+    }
+    function Ue() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "wa_ctwa_web_fetch_linked_accounts_enabled",
+        )
+      );
+    }
     function Ve() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&

@@ -9,26 +9,26 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum")({
-        BOLETO: "boleto",
-        PIX_DYNAMIC_CODE: "pix_dynamic_code",
-        PAYMENT_LINK: "payment_link",
-      }),
-      s = function () {
-        return o("WAWebABProps").getABPropConfigValue(
-          "br_payments_payment_request_cta",
-        );
-      },
-      u = function () {
-        return o("WAWebABProps").getABPropConfigValue(
-          "br_payments_payment_detection_enhancement",
-        );
-      },
-      c = function (t) {
-        return t ? s() : u();
-      },
-      d = function (t) {
-        return t ? s() : (u(), !1);
-      };
+      BOLETO: "boleto",
+      PIX_DYNAMIC_CODE: "pix_dynamic_code",
+      PAYMENT_LINK: "payment_link",
+    });
+    function s() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "br_payments_payment_request_cta",
+      );
+    }
+    function u() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "br_payments_payment_detection_enhancement",
+      );
+    }
+    function c(e) {
+      return e ? s() : u();
+    }
+    function d(e) {
+      return e ? s() : (u(), !1);
+    }
     function m(t) {
       try {
         var n,
@@ -61,37 +61,37 @@ __d(
         return null;
       }
     }
-    var p = function (t) {
-        var e, n;
-        if (
-          t.nativeFlowName !==
-            r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST ||
-          t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-          t.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-          !((e = t.interactivePayload) != null && e.buttons)
-        )
-          return null;
-        var a = (n = t.interactivePayload) == null ? void 0 : n.buttons;
-        if (a == null) return null;
-        for (var i = [], l = 0; l < a.length; l++) {
-          var s = a[l],
-            u = s == null ? void 0 : s.buttonParamsJson;
-          if (u != null) {
-            var c = m(u);
-            c != null && i.push(c);
-          }
+    function p(e) {
+      var t, n;
+      if (
+        e.nativeFlowName !==
+          r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST ||
+        e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        e.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !((t = e.interactivePayload) != null && t.buttons)
+      )
+        return null;
+      var a = (n = e.interactivePayload) == null ? void 0 : n.buttons;
+      if (a == null) return null;
+      for (var i = [], l = 0; l < a.length; l++) {
+        var s = a[l],
+          u = s == null ? void 0 : s.buttonParamsJson;
+        if (u != null) {
+          var c = m(u);
+          c != null && i.push(c);
         }
-        return i.length > 0 ? i : null;
-      },
-      _ = function (t) {
-        if (
-          (t == null ? void 0 : t.name) !==
-          r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST
-        )
-          return null;
-        var e = t.buttonParamsJson;
-        return e == null ? null : m(e);
-      };
+      }
+      return i.length > 0 ? i : null;
+    }
+    function _(e) {
+      if (
+        (e == null ? void 0 : e.name) !==
+        r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST
+      )
+        return null;
+      var t = e.buttonParamsJson;
+      return t == null ? null : m(t);
+    }
     ((l.PaymentRequestCtaType = e),
       (l.isPaymentDetectionEnhancementEnabled = u),
       (l.isPaymentRequestFeatureEnabled = c),

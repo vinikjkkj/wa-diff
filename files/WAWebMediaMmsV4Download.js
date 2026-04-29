@@ -831,12 +831,12 @@ __d(
         P.apply(this, arguments)
       );
     }
-    var N = function (t) {
-        return w(t, /animation\/animation.json$/);
-      },
-      M = function (t) {
-        return w(t, /animation\/animation_secondary.json$/);
-      };
+    function N(e) {
+      return w(e, /animation\/animation.json$/);
+    }
+    function M(e) {
+      return w(e, /animation\/animation_secondary.json$/);
+    }
     function w(e, t) {
       var n = Object.keys(e).find(function (e) {
         return t.test(e);

@@ -12,7 +12,7 @@ __d(
       s,
       u = n("$InternalEnum")({ Sender: "sender", Receiver: "receiver" }),
       c = new Set(["deviceSentMessage", "$$unknownFieldCount"]),
-      d = 10,
+      d = 15,
       m = 4;
     function p(e) {
       var t = e.messageContextInfo;

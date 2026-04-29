@@ -15,6 +15,8 @@ __d(
     "WAWebContactSystemMsg",
     "WAWebCurrentUser",
     "WAWebGetPrivacyModeWhenSent",
+    "WAWebGroupHistoryGating",
+    "WAWebGroupHistoryNoticeHandler",
     "WAWebHandleBizBotMsgs",
     "WAWebHandleMsgTypes.flow",
     "WAWebHandleMsgValidate",
@@ -332,9 +334,16 @@ __d(
                     "WAWebMessageProcessDBPipeline",
                   ).processMsgDataDBPipeline(v, !y);
                 if (
+                  (o(
+                    "WAWebGroupHistoryGating",
+                  ).isGroupHistoryPostJoinSenderEnabled() &&
+                    v.forEach(function (e) {
+                      return void o(
+                        "WAWebGroupHistoryNoticeHandler",
+                      ).maybeHandleGroupHistoryNotice(e);
+                    }),
                   o("WAWebBackendEventBus").BackendEventBus
-                    .isMainStreamReadyMd ||
-                  c
+                    .isMainStreamReadyMd || c)
                 ) {
                   (L == null || L(),
                     o("WAWebBackendEventBus").BackendEventBus

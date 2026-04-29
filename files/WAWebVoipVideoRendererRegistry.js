@@ -46,8 +46,10 @@ __d(
       T,
       D,
       x,
-      $ = 30,
-      P = (function () {
+      $,
+      P = 30,
+      N = 5e3,
+      M = (function () {
         function t() {
           ((this.$11 = new Map()),
             (this.$8 = new Map()),
@@ -393,7 +395,7 @@ __d(
                     c,
                   ),
                     this.$13.delete(t));
-                else if (c < $) {
+                else if (c < P) {
                   this.$13.set(t, c + 1);
                   return;
                 } else
@@ -405,7 +407,7 @@ __d(
                         " drops \u2014 falling back to reactive recovery",
                       ])),
                     t,
-                    $,
+                    P,
                   ),
                     this.$13.delete(t));
               if (r % 2 !== 0 || a % 2 !== 0) {
@@ -676,28 +678,43 @@ __d(
               this.$18 = !0;
               try {
                 var e,
-                  t =
+                  t = yield o(
+                    "WAWebVoipAudioCaptureAndPlayback",
+                  ).waitForPlaybackStart(N);
+                if (!t) {
+                  ((this.$18 = !1),
+                    o("WALogger").WARN(
+                      T ||
+                        (T = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: VideoRendererRegistry: timed out waiting ",
+                          "ms for audio playback start before enabling A/V sync",
+                        ])),
+                      N,
+                    ));
+                  return;
+                }
+                var n =
                     yield o("WAWebBackendApi").frontendSendAndReceive(
                       "initializeVoipWasm",
                     ),
-                  n =
+                  r =
                     (e = o(
                       "WAWebVoipAudioPlaybackState",
                     ).getPlaybackSampleRate()) != null
                       ? e
                       : 16e3;
-                this.$21(n, function () {
-                  var e = t.getAudioPlaybackTimestamp(),
-                    n = o(
+                this.$21(r, function () {
+                  var e = n.getAudioPlaybackTimestamp(),
+                    t = o(
                       "WAWebVoipAudioCaptureAndPlayback",
                     ).getEstimatedPlaybackOutputLagSamples();
-                  return Math.max(0, e - n);
+                  return Math.max(0, e - t);
                 });
               } catch (e) {
                 ((this.$18 = !1),
                   o("WALogger").ERROR(
-                    T ||
-                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                    D ||
+                      (D = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererRegistry: initAVSync failed: ",
                         "",
                       ])),
@@ -722,8 +739,8 @@ __d(
                 r != null && (r.delete(t), r.size === 0 && this.$8.delete(n));
               }
               o("WALogger").LOG(
-                D ||
-                  (D = babelHelpers.taggedTemplateLiteralLoose([
+                x ||
+                  (x = babelHelpers.taggedTemplateLiteralLoose([
                     "[VideoRendererRegistry] unregister canvas, left=",
                     "",
                   ])),
@@ -731,8 +748,8 @@ __d(
               );
             } catch (e) {
               o("WALogger").ERROR(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
+                $ ||
+                  ($ = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: VideoRendererRegistry: unregisterCanvasFromRegistry: ",
                     "",
                   ])),
@@ -743,8 +760,8 @@ __d(
           t
         );
       })(),
-      N = new P();
-    ((l.WAWebVoipVideoRendererRegistry = P), (l.videoRendererRegistry = N));
+      w = new M();
+    ((l.WAWebVoipVideoRendererRegistry = M), (l.videoRendererRegistry = w));
   },
   98,
 );

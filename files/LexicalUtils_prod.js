@@ -48,9 +48,9 @@ __d(
       a = r && /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream,
       c = r && /Android/.test(navigator.userAgent),
       u = r && /Version\/[\d.]+.*Safari/.test(navigator.userAgent) && !c,
-      d = r && /^(?=.*Chrome).*/i.test(navigator.userAgent),
-      g = r && c && d,
-      f = r && /AppleWebKit\/[\d.]+/.test(navigator.userAgent) && i && !d;
+      g = r && /^(?=.*Chrome).*/i.test(navigator.userAgent),
+      d = r && c && g,
+      f = r && /AppleWebKit\/[\d.]+/.test(navigator.userAgent) && i && !g;
     function p(e) {
       return e + "px";
     }
@@ -61,17 +61,17 @@ __d(
         a = null,
         c = [];
       var u = document.createElement("div");
-      function d() {
+      function g() {
         (null === s && n(182), null === l && n(183));
         var _l$getBoundingClientR = l.getBoundingClientRect(),
           e = _l$getBoundingClientR.left,
           a = _l$getBoundingClientR.top,
-          d = require("LexicalSelection").createRectsFromDOMRange(r, o);
-        var g, f;
-        u.isConnected || ((f = u), (g = l).insertBefore(f, g.firstChild));
+          g = require("LexicalSelection").createRectsFromDOMRange(r, o);
+        var d, f;
+        u.isConnected || ((f = u), (d = l).insertBefore(f, d.firstChild));
         var m = !1;
-        for (var _t = 0; _t < d.length; _t++) {
-          var _n = d[_t],
+        for (var _t = 0; _t < g.length; _t++) {
+          var _n = g[_t],
             _r = c[_t] || document.createElement("div"),
             _o = _r.style;
           "absolute" !== _o.position && ((_o.position = "absolute"), (m = !0));
@@ -81,15 +81,15 @@ __d(
           _o.top !== _s && ((_r.style.top = _s), (m = !0));
           var _l = p(_n.width);
           _o.width !== _l && ((_r.style.width = _l), (m = !0));
-          var _g = p(_n.height);
-          (_o.height !== _g && ((_r.style.height = _g), (m = !0)),
+          var _d = p(_n.height);
+          (_o.height !== _d && ((_r.style.height = _d), (m = !0)),
             _r.parentNode !== u && (u.append(_r), (m = !0)),
             (c[_t] = _r));
         }
-        for (; c.length > d.length; ) c.pop();
+        for (; c.length > g.length; ) c.pop();
         m && i(c);
       }
-      function g() {
+      function d() {
         ((l = null),
           (s = null),
           null !== a && a.disconnect(),
@@ -101,34 +101,33 @@ __d(
       u.style.position = "relative";
       var f = r.registerRootListener(function t() {
         var n = r.getRootElement();
-        if (null === n) return g();
+        if (null === n) return d();
         var o = n.parentElement;
-        if (!require("Lexical").isHTMLElement(o)) return g();
-        (g(),
+        if (!require("Lexical").isHTMLElement(o)) return d();
+        (d(),
           (s = n),
           (l = o),
           (a = new MutationObserver(function (e) {
             var n = r.getRootElement(),
               o = n && n.parentElement;
             if (n !== s || o !== l) return t();
-            for (var _t2 of e) if (!u.contains(_t2.target)) return d();
+            for (var _t2 of e) if (!u.contains(_t2.target)) return g();
           })),
           a.observe(o, m),
-          d());
+          g());
       });
       return function () {
-        (f(), g());
+        (f(), d());
       };
     }
-    function h(t, n, r) {
-      if ("text" !== t.type && require("Lexical").$isElementNode(n)) {
-        var _o2 = require("Lexical").$getEditor(),
-          _i2 = require("Lexical")
-            .$getEditorDOMRenderConfig(_o2)
-            .$getDOMSlot(n, r, _o2);
-        return [_i2.element, _i2.getFirstChildOffset() + t.offset];
+    function h(t, n, r, o) {
+      if ("text" !== n.type && require("Lexical").$isElementNode(r)) {
+        var _i2 = require("Lexical")
+          .$getEditorDOMRenderConfig(t)
+          .$getDOMSlot(r, o, t);
+        return [_i2.element, _i2.getFirstChildOffset() + n.offset];
       }
-      return [require("Lexical").getDOMTextNode(r) || r, t.offset];
+      return [require("Lexical").getDOMTextNode(o) || o, n.offset];
     }
     function C(e) {
       for (var _t3 of e) {
@@ -167,14 +166,14 @@ __d(
               var t = e.getStartEndPoints();
               return e.isBackward() ? [t[1], t[0]] : t;
             })(u),
-            d = _ref[0],
-            g = _ref[1],
-            f = d.getNode(),
+            g = _ref[0],
+            d = _ref[1],
+            f = g.getNode(),
             p = f.getKey(),
-            m = d.offset,
-            C = g.getNode(),
+            m = g.offset,
+            C = d.getNode(),
             x = C.getKey(),
-            S = g.offset,
+            S = d.offset,
             E = t.getElementByKey(p),
             N = t.getElementByKey(x),
             v = null === r || E !== o || m !== i || p !== r.getKey(),
@@ -183,11 +182,11 @@ __d(
             var _e4 = (function (e, t, n, r, o, i, s) {
               var l = (e._window ? e._window.document : document).createRange();
               return (
-                l.setStart.apply(l, h(t, n, r)),
-                l.setEnd.apply(l, h(o, i, s)),
+                l.setStart.apply(l, h(e, t, n, r)),
+                l.setEnd.apply(l, h(e, o, i, s)),
                 l
               );
-            })(t, d, f, E, g, C, N);
+            })(t, g, f, E, d, C, N);
             (c(), (c = $(t, _e4, n)));
           }
           ((r = f), (o = E), (i = m), (s = C), (l = N), (a = S));
@@ -209,12 +208,12 @@ __d(
     var S = l,
       E = r,
       N = c,
-      v = g,
+      v = d,
       y = i,
-      w = f,
-      A = d,
-      R = s,
-      b = a,
+      A = f,
+      R = g,
+      b = s,
+      w = a,
       P = u;
     function I(e, t) {
       for (var _n2 of t) if (e.type.startsWith(_n2)) return !0;
@@ -279,15 +278,7 @@ __d(
             (i = require("Lexical").$getSiblingCaret(i.origin, "next"))),
         i.origin.is(t) &&
           (require("Lexical").$isSiblingCaret(i) ||
-            (function (e) {
-              throw new Error(e);
-            })(
-              "$insertNodeToNearestRootAtCaret node " +
-                t.getKey() +
-                " of type " +
-                t.getType() +
-                " can not be inserted into itself",
-            ),
+            n(342, t.getKey(), t.getType()),
           (i = require("Lexical").$rewindSiblingCaret(i))),
         (t.is(i.getNodeAtCaret()) || t.is(i.getFlipped().getNodeAtCaret())) &&
           t.remove(!0));
@@ -310,7 +301,7 @@ __d(
         )
       );
     }
-    var F = !(R || !E) && void 0;
+    var F = !(b || !E) && void 0;
     function B(t, n, r) {
       var o = !1;
       var _loop = function _loop(_i3) {
@@ -377,8 +368,8 @@ __d(
       (exports.$filter = function (e, t) {
         var n = [];
         for (var _r2 = 0; _r2 < e.length; _r2++) {
-          var _o3 = t(e[_r2]);
-          null !== _o3 && n.push(_o3);
+          var _o2 = t(e[_r2]);
+          null !== _o2 && n.push(_o2);
         }
         return n;
       }),
@@ -470,8 +461,8 @@ __d(
         else {
           if (null != n) {
             var _t7 = n.getNodes(),
-              _o4 = _t7[_t7.length - 1];
-            _o4 && (r = require("Lexical").$getSiblingCaret(_o4, "next"));
+              _o3 = _t7[_t7.length - 1];
+            _o3 && (r = require("Lexical").$getSiblingCaret(_o3, "next"));
           }
           r =
             r ||
@@ -502,8 +493,8 @@ __d(
           o = t._pendingEditorState;
         for (var _ref4 of n._nodeMap) {
           var _t8 = _ref4[0];
-          var _o5 = _ref4[1];
-          r.set(_t8, require("Lexical").$cloneWithProperties(_o5));
+          var _o4 = _ref4[1];
+          r.set(_t8, require("Lexical").$cloneWithProperties(_o4));
         }
         (o && (o._nodeMap = r), (t._dirtyType = 2));
         var i = n._selection;
@@ -530,10 +521,10 @@ __d(
       (exports.IS_ANDROID = N),
       (exports.IS_ANDROID_CHROME = v),
       (exports.IS_APPLE = y),
-      (exports.IS_APPLE_WEBKIT = w),
-      (exports.IS_CHROME = A),
-      (exports.IS_FIREFOX = R),
-      (exports.IS_IOS = b),
+      (exports.IS_APPLE_WEBKIT = A),
+      (exports.IS_CHROME = R),
+      (exports.IS_FIREFOX = b),
+      (exports.IS_IOS = w),
       (exports.IS_SAFARI = P),
       (exports.calculateZoomLevel = function (e, t) {
         if (t === void 0) {
@@ -636,15 +627,15 @@ __d(
             return null;
           })(e);
           if (null !== t) {
-            var _o6 = t.child,
+            var _o5 = t.child,
               _i6 = t.parent;
-            if (_o6.is(e)) {
+            if (_o5.is(e)) {
               r(_i6, e);
-              var _t0 = _o6.getNextSiblings(),
+              var _t0 = _o5.getNextSiblings(),
                 _s3 = _t0.length;
-              if ((_i6.insertAfter(_o6), 0 !== _s3)) {
+              if ((_i6.insertAfter(_o5), 0 !== _s3)) {
                 var _e8 = n(_i6);
-                _o6.insertAfter(_e8);
+                _o5.insertAfter(_e8);
                 for (var _n7 = 0; _n7 < _s3; _n7++) _e8.append(_t0[_n7]);
               }
               _i6.canBeEmpty() || 0 !== _i6.getChildrenSize() || _i6.remove();

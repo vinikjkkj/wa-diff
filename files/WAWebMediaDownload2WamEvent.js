@@ -8,6 +8,7 @@ __d(
     "WAWebWamEnumDownloadOriginType",
     "WAWebWamEnumDownloadQualityType",
     "WAWebWamEnumExpressPathDownloadState",
+    "WAWebWamEnumHashVerificationFailureType",
     "WAWebWamEnumHttpProtocolVersionType",
     "WAWebWamEnumMediaDownloadModeType",
     "WAWebWamEnumMediaDownloadResultType",
@@ -64,6 +65,11 @@ __d(
               fileHeight: [47, e.TYPES.INTEGER],
               fileWidth: [48, e.TYPES.INTEGER],
               hasLeveragedExpressPath: [44, e.TYPES.BOOLEAN],
+              hashVerificationFailureType: [
+                69,
+                o("WAWebWamEnumHashVerificationFailureType")
+                  .HASH_VERIFICATION_FAILURE_TYPE,
+              ],
               httpProtocolVersionType: [
                 45,
                 o("WAWebWamEnumHttpProtocolVersionType")

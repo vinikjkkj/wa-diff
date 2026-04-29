@@ -18,7 +18,8 @@ __d(
       u,
       c = u || (u = o("react")),
       d = "x1vsok4u-B",
-      m = {
+      m = { xoeyzqq: "x1emn1tm xoeyzqq", $$css: !0 },
+      p = {
         shake: {
           animationName: "x52n5gc",
           animationDuration: "xe1tv58",
@@ -40,16 +41,16 @@ __d(
           $$css: !0,
         },
       };
-    function p(e) {
-      var t = o("react-compiler-runtime").c(22),
+    function _(e) {
+      var t = o("react-compiler-runtime").c(23),
         n = e.animationPromise,
         a = e.checked,
         i = e.count,
         l = e.hideResults,
         u = e.id,
         d = e.isAdminOrOwner,
-        p = e.isCorrectOption,
-        f = e.msgId,
+        m = e.isCorrectOption,
+        _ = e.msgId,
         g = e.onOptionToggle,
         h = e.option,
         y = e.testid,
@@ -68,96 +69,110 @@ __d(
       var S = v;
       if (l) {
         var R;
-        t[3] !== n || t[4] !== p || t[5] !== C || t[6] !== f || t[7] !== g
-          ? ((R = function () {
-              (p
-                ? _(n)
+        t[3] === Symbol.for("react.memo_cache_sentinel")
+          ? ((R = { className: "x1emn1tm xoeyzqq" }), (t[3] = R))
+          : (R = t[3]);
+        var L;
+        t[4] !== n || t[5] !== m || t[6] !== C || t[7] !== _ || t[8] !== g
+          ? ((L = function () {
+              (m
+                ? f(n)
                 : o("WAWebCmd").Cmd.trigger(
                     "animate_message_bubble",
-                    f,
-                    m.shake,
+                    _,
+                    p.shake,
                   ),
                 g(C));
             }),
-            (t[3] = n),
-            (t[4] = p),
-            (t[5] = C),
-            (t[6] = f),
-            (t[7] = g),
-            (t[8] = R))
-          : (R = t[8]);
-        var L;
+            (t[4] = n),
+            (t[5] = m),
+            (t[6] = C),
+            (t[7] = _),
+            (t[8] = g),
+            (t[9] = L))
+          : (L = t[9]);
+        var E;
         return (
-          t[9] !== a || t[10] !== u || t[11] !== S || t[12] !== R || t[13] !== y
-            ? ((L = c.jsx(o("WAWebCheckBox.react").CheckBox, {
-                ariaLabel: S,
-                checked: a,
-                id: u,
-                onChange: R,
-                testid: y,
-                theme: o("WAWebCheckBox.react").CheckboxTheme.POLLS_RECEIVER,
-              })),
-              (t[9] = a),
-              (t[10] = u),
-              (t[11] = S),
-              (t[12] = R),
-              (t[13] = y),
-              (t[14] = L))
-            : (L = t[14]),
-          L
+          t[10] !== a ||
+          t[11] !== u ||
+          t[12] !== S ||
+          t[13] !== L ||
+          t[14] !== y
+            ? ((E = c.jsx(
+                "div",
+                babelHelpers.extends({}, R, {
+                  children: c.jsx(o("WAWebCheckBox.react").CheckBox, {
+                    ariaLabel: S,
+                    checked: a,
+                    id: u,
+                    onChange: L,
+                    testid: y,
+                    theme: o("WAWebCheckBox.react").CheckboxTheme
+                      .POLLS_RECEIVER,
+                  }),
+                }),
+              )),
+              (t[10] = a),
+              (t[11] = u),
+              (t[12] = S),
+              (t[13] = L),
+              (t[14] = y),
+              (t[15] = E))
+            : (E = t[15]),
+          E
         );
       }
-      var E;
-      t[15] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = { width: 24, height: 24 }), (t[15] = E))
-        : (E = t[15]);
-      var k = E;
-      if (p) {
-        var I;
+      var k;
+      t[16] === Symbol.for("react.memo_cache_sentinel")
+        ? ((k = { width: 24, height: 24 }), (t[16] = k))
+        : (k = t[16]);
+      var I = k;
+      if (m) {
+        var T;
         return (
-          t[16] !== a || t[17] !== d
-            ? ((I =
+          t[17] !== a || t[18] !== d
+            ? ((T =
                 d || a
                   ? c.jsx(
                       r("WDSIconIcCheckCircleFilled.react"),
-                      babelHelpers.extends({}, k, { colorName: "accent" }),
+                      babelHelpers.extends({}, I, { colorName: "accent" }),
                     )
                   : c.jsx(
                       r("WDSIconIcCheckCircle.react"),
-                      babelHelpers.extends({}, k, { colorName: "accent" }),
+                      babelHelpers.extends({}, I, { colorName: "accent" }),
                     )),
-              (t[16] = a),
-              (t[17] = d),
-              (t[18] = I))
-            : (I = t[18]),
-          I
+              (t[17] = a),
+              (t[18] = d),
+              (t[19] = T))
+            : (T = t[19]),
+          T
         );
       }
-      var T;
+      var D;
       return (
-        t[19] !== a || t[20] !== d
-          ? ((T =
+        t[20] !== a || t[21] !== d
+          ? ((D =
               a && !d
                 ? c.jsx(
                     r("WDSIconIcCancelFilled.react"),
-                    babelHelpers.extends({}, k, {
+                    babelHelpers.extends({}, I, {
                       colorName: "secondaryNegative",
                     }),
                   )
                 : c.jsx(
                     r("WDSIconIcCancel.react"),
-                    babelHelpers.extends({}, k, {
+                    babelHelpers.extends({}, I, {
                       colorName: "contentDeemphasized",
                     }),
                   )),
-            (t[19] = a),
-            (t[20] = d),
-            (t[21] = T))
-          : (T = t[21]),
-        T
+            (t[20] = a),
+            (t[21] = d),
+            (t[22] = D))
+          : (D = t[22]),
+        D
       );
     }
-    function _(t) {
+    function f(t) {
       t == null ||
         t
           .then(function (e) {
@@ -170,7 +185,7 @@ __d(
                   autoplay: !0,
                   loop: !1,
                   data: e,
-                  wrapperXstyle: m.lottieOverlay,
+                  wrapperXstyle: p.lottieOverlay,
                 },
                 t,
               ),
@@ -187,7 +202,7 @@ __d(
               .tags("quiz", "lottie");
           });
     }
-    l.default = p;
+    l.default = _;
   },
   226,
 );

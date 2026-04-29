@@ -5,7 +5,10 @@ __d(
     "WAJids",
     "WALogger",
     "WAPromiseMap",
+    "WATimeUtils",
     "WAWeb-dexie",
+    "WAWebAck",
+    "WAWebAfterReadUtils",
     "WAWebCommonMsgUtils",
     "WAWebDBGroupHistoryPreProcessor",
     "WAWebDBMessageSerialization",
@@ -45,7 +48,7 @@ __d(
       var l = a == null ? t[0].id.remote : a,
         s = o("WAWebDBMessageUtils").beginningOfChat(l),
         u = o("WAWebDBMessageUtils").endOfChat(l),
-        d = C(
+        d = b(
           "storeMessageInTransaction: " +
             t.length +
             " message(s), chat " +
@@ -53,17 +56,17 @@ __d(
         ),
         _ = o("WAWebQuarantineDataStore").extractQuarantineDataFromMessages(t),
         h = ["chat", "message"],
-        b = _.length > 0 ? [].concat(h, ["quarantine-data"]) : h;
+        y = _.length > 0 ? [].concat(h, ["quarantine-data"]) : h;
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
-          b,
+          y,
           (function () {
             var r = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (r) {
                 var a = r[0],
                   h = r[1],
-                  C = r[2];
+                  y = r[2];
                 d.addStage("got table lock");
                 var b = yield a.get(l.toString());
                 if (
@@ -126,7 +129,7 @@ __d(
                               "WAWebDBMessageSerialization",
                             ).dbRowFromMessage(e),
                             a = !i && f(e.id, e);
-                          return y({
+                          return C({
                             msg: r,
                             chatId: l.toString(),
                             hasLink: o("WAWebLinkify").hasHttpLink(e),
@@ -166,7 +169,7 @@ __d(
                   yield h.bulkCreate(D),
                   yield o(
                     "WAWebQuarantineDataStore",
-                  ).bulkCreateOrReplaceQuarantineData(_, C),
+                  ).bulkCreateOrReplaceQuarantineData(_, y),
                   D
                 );
               },
@@ -249,69 +252,88 @@ __d(
     }
     function y(e) {
       var t,
-        n = e.chatId,
-        a = e.hasLink,
-        i = e.inChatMsgId,
-        l = e.msg,
-        u = e.pendingReadReceipt,
-        c = e.rowId,
-        m = d.includes(l.type),
-        p = o("WAWebSyncGatingUtils").shouldPopulateStarMessageWithTimestamp()
-          ? l.t
-          : c,
-        _ = l.type === "chat" && a,
-        f = babelHelpers.extends({}, l, {
-          vcardWAids: l.vcardWAids || o("WAWebDBMessageUtils").getVcardWids(l),
-          id: l.id.toString(),
-          isStarred: l.star ? p : void 0,
-          hasLink: _ ? c : void 0,
-          isMediaMsg: m ? c : void 0,
-          isDocMsg: l.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT ? c : void 0,
+        n,
+        a = e.afterReadDuration;
+      if (
+        a == null ||
+        a <= 0 ||
+        e.expiredTimestamp != null ||
+        !o("WAWebAfterReadUtils").isAfterReadEnabled()
+      ) {
+        var i;
+        return (i = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e)) !=
+          null
+          ? i
+          : void 0;
+      }
+      var l = (t = e.t) != null ? t : o("WATimeUtils").unixTime(),
+        s = r("WAWebMsgKey").fromString(e.id);
+      return s.fromMe || (e.ack != null && e.ack >= o("WAWebAck").ACK.READ)
+        ? l + a
+        : (n = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e)) != null
+          ? n
+          : void 0;
+    }
+    function C(e) {
+      var t = e.chatId,
+        n = e.hasLink,
+        a = e.inChatMsgId,
+        i = e.msg,
+        l = e.pendingReadReceipt,
+        u = e.rowId,
+        c = d.includes(i.type),
+        m = o("WAWebSyncGatingUtils").shouldPopulateStarMessageWithTimestamp()
+          ? i.t
+          : u,
+        p = i.type === "chat" && n,
+        _ = babelHelpers.extends({}, i, {
+          vcardWAids: i.vcardWAids || o("WAWebDBMessageUtils").getVcardWids(i),
+          id: i.id.toString(),
+          isStarred: i.star ? m : void 0,
+          hasLink: p ? u : void 0,
+          isMediaMsg: c ? u : void 0,
+          isDocMsg: i.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT ? u : void 0,
           isCallLogMsg:
-            l.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG ? l.t : void 0,
-          isCarouselMsg: l.carouselCardsParsed != null ? c : void 0,
+            i.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG ? i.t : void 0,
+          isCarouselMsg: i.carouselCardsParsed != null ? u : void 0,
           isEventMsg:
-            l.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION ? c : void 0,
-          expiredTimestamp:
-            (t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(l)) !=
-            null
-              ? t
-              : void 0,
+            i.type === o("WAWebMsgType").MSG_TYPE.EVENT_CREATION ? u : void 0,
+          expiredTimestamp: y(i),
         }),
-        g =
-          n != null &&
-          !r("WAWebWid").isStatus(n) &&
-          !r("WAWebWid").isNewsletter(n);
-      if (g) {
-        var y = h(l.type, _);
-        y != null && (f.typeFlag = y);
+        f =
+          t != null &&
+          !r("WAWebWid").isStatus(t) &&
+          !r("WAWebWid").isNewsletter(t);
+      if (f) {
+        var g = h(i.type, p);
+        g != null && (_.typeFlag = g);
       }
-      if ((c != null && (f.rowId = c), i != null)) {
-        var C = o("WAWebDBMessageUtils").getPrefixForInternalId(l);
-        f.internalId = o("WAWebDBMessageUtils").craftInternalId(n, i, C);
+      if ((u != null && (_.rowId = u), a != null)) {
+        var C = o("WAWebDBMessageUtils").getPrefixForInternalId(i);
+        _.internalId = o("WAWebDBMessageUtils").craftInternalId(t, a, C);
       }
-      (i != null &&
-        l.threadIds != null &&
-        (f.internalThreadIDs = l.threadIds.map(function (e) {
-          return o("WAWebDBMessageUtils").craftInternalThreadId(i, e);
+      (a != null &&
+        i.threadIds != null &&
+        (_.internalThreadIDs = i.threadIds.map(function (e) {
+          return o("WAWebDBMessageUtils").craftInternalThreadId(a, e);
         })),
-        u &&
-          n !== o("WAJids").STATUS_JID &&
-          (f.pendingReadReceipt =
+        l &&
+          t !== o("WAJids").STATUS_JID &&
+          (_.pendingReadReceipt =
             o("WAWebDBMsgUtils").PendingReadReceiptType.Message));
-      var b = l.c2sTimestamp;
-      if (l.id.fromMe) {
+      var b = i.c2sTimestamp;
+      if (i.id.fromMe) {
         var v;
-        b = (v = l.c2sTimestamp) != null ? v : l.t;
-      } else b = l.t;
+        b = (v = i.c2sTimestamp) != null ? v : i.t;
+      } else b = i.t;
       try {
-        l.type !== o("WAWebMsgType").MSG_TYPE.REACTION &&
-          (f.messageRangeIndex = o(
+        i.type !== o("WAWebMsgType").MSG_TYPE.REACTION &&
+          (_.messageRangeIndex = o(
             "WAWebDBMessageUtils",
           ).craftMessageRangeIndex(
-            n,
-            !r("WAWebMsgKey").fromString(l.id).fromMe,
-            o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(l.type),
+            t,
+            !r("WAWebMsgKey").fromString(i.id).fromMe,
+            o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(i.type),
             b,
           ));
       } catch (e) {
@@ -324,9 +346,9 @@ __d(
           e,
         );
       }
-      return f;
+      return _;
     }
-    function C(e) {
+    function b(e) {
       var t = 5e3,
         n = Date.now(),
         r = [];
@@ -354,7 +376,7 @@ __d(
     ((l.storeMessageInTransaction = _),
       (l.isPendingUnreadReceipt = f),
       (l.getMsgFlagType = h),
-      (l.addMsgMetadataToMsgRow = y));
+      (l.addMsgMetadataToMsgRow = C));
   },
   98,
 );

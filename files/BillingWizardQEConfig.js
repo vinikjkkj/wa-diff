@@ -104,6 +104,10 @@ __d(
           params: { dummy_param: e },
         },
         billing_momo_recurring_2025: { params: { recurring_enabled: e } },
+        billing_native_otp_input_polish_h126: {
+          params: { enable_input_polish: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         billing_next_best_actions_latency: {
           params: { enabled: e },
           type: "PAYMENT_ACCOUNT",

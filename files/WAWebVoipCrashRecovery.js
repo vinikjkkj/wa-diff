@@ -124,7 +124,9 @@ __d(
             try {
               var r = JSON.parse(n),
                 a = T();
-              r.appExitReason = a;
+              (a === o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.CRASH &&
+                o("WAWebCoreActionsODS").logCallWasmCrash(),
+                (r.appExitReason = a));
               var i = o("WAWebBrowserApi").getNumCpu(),
                 l = o("WAWebBrowserApi").getMemClass();
               (i != null && (r.numCpuCores = i),

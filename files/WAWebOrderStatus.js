@@ -32,76 +32,76 @@ __d(
         OutForDelivery: "out_for_delivery",
         Failed: "failed",
         Refunded: "refunded",
-      }),
-      c = function (t) {
-        if (t == null) return null;
-        try {
-          var e = JSON.parse(t),
-            n = e.order,
-            r = e.payment,
-            a = e.reference_id,
-            i = u.cast(n == null ? void 0 : n.status),
-            l = null;
-          return (
-            (l = o("WAWebOrderPaymentStatus").OrderPaymentStatus.cast(
-              r == null ? void 0 : r.status,
-            )),
-            a == null || (i == null && l == null)
-              ? null
-              : { refId: a, status: i, paymentStatus: l }
-          );
-        } catch (e) {
-          return null;
-        }
-      },
-      d = function (t) {
-        var e;
-        if (!o("WAWebE2EProtoUtils").isOrderNativeFlow(t.nativeFlowName))
-          return null;
-        if (
-          t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-          t.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-          (e = t.interactivePayload) != null &&
-          e.buttons
-        ) {
-          var n = t.interactivePayload.buttons[0].buttonParamsJson;
-          return c(n);
-        } else if (t.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW) {
-          var a,
-            i = ((a = t.nativeFlowButtons) != null ? a : [])[0].nativeFlowInfo;
-          return c(i == null ? void 0 : i.paramsJson);
-        }
-      },
-      m = function (t) {
-        return o("WAWebOrderStatusButton").getOrderStatusButton(t) != null;
-      },
-      p = function (t) {
-        var e = t.order,
-          n = e.status,
-          r = e.tracking;
+      });
+    function c(e) {
+      if (e == null) return null;
+      try {
+        var t = JSON.parse(e),
+          n = t.order,
+          r = t.payment,
+          a = t.reference_id,
+          i = u.cast(n == null ? void 0 : n.status),
+          l = null;
         return (
-          r != null && n !== u.Canceled && n !== u.Refunded && n !== u.Failed
+          (l = o("WAWebOrderPaymentStatus").OrderPaymentStatus.cast(
+            r == null ? void 0 : r.status,
+          )),
+          a == null || (i == null && l == null)
+            ? null
+            : { refId: a, status: i, paymentStatus: l }
         );
-      },
-      _ = function (n, r) {
-        var t,
-          a = n.msgs.getModelsArray().slice(e),
-          i =
-            (t = a.findLast(function (e) {
-              var t;
-              return (
-                e.nativeFlowName != null &&
-                s.includes(e.nativeFlowName) &&
-                ((t = o("WAWebOrderDetails").getOrderInfo(e)) == null
-                  ? void 0
-                  : t.referenceId) === r
-              );
-            })) == null
-              ? void 0
-              : t.safe();
-        return i;
-      },
-      f = function (n, o) {
+      } catch (e) {
+        return null;
+      }
+    }
+    function d(e) {
+      var t;
+      if (!o("WAWebE2EProtoUtils").isOrderNativeFlow(e.nativeFlowName))
+        return null;
+      if (
+        e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+        e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
+        (t = e.interactivePayload) != null &&
+        t.buttons
+      ) {
+        var n = e.interactivePayload.buttons[0].buttonParamsJson;
+        return c(n);
+      } else if (e.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW) {
+        var a,
+          i = ((a = e.nativeFlowButtons) != null ? a : [])[0].nativeFlowInfo;
+        return c(i == null ? void 0 : i.paramsJson);
+      }
+    }
+    function m(e) {
+      return o("WAWebOrderStatusButton").getOrderStatusButton(e) != null;
+    }
+    function p(e) {
+      var t = e.order,
+        n = t.status,
+        r = t.tracking;
+      return (
+        r != null && n !== u.Canceled && n !== u.Refunded && n !== u.Failed
+      );
+    }
+    function _(t, n) {
+      var r,
+        a = t.msgs.getModelsArray().slice(e),
+        i =
+          (r = a.findLast(function (e) {
+            var t;
+            return (
+              e.nativeFlowName != null &&
+              s.includes(e.nativeFlowName) &&
+              ((t = o("WAWebOrderDetails").getOrderInfo(e)) == null
+                ? void 0
+                : t.referenceId) === n
+            );
+          })) == null
+            ? void 0
+            : r.safe();
+      return i;
+    }
+    var f = function (n, o) {
         var t,
           a = n.msgs.getModelsArray().slice(e),
           i =
@@ -165,85 +165,85 @@ __d(
                         t,
                     );
                   })();
-      },
-      y = function (t) {
-        return t == null ? !1 : t.items.length === 0;
-      },
-      C = function (t, n) {
-        return !t.contact.isEnterprise && y(n);
-      },
-      b = function (t, n) {
-        return !t.contact.isEnterprise && !y(n);
-      },
-      v = function () {
-        return o("WAWebBizGatingUtils").isOrderStatusM1Enabled()
-          ? u.PaymentRequested
-          : u.Pending;
-      },
-      S = function (t, n) {
-        var e,
-          r = f(t, n),
-          o = r != null ? d(r) : null;
-        return (e = o == null ? void 0 : o.status) != null ? e : u.Pending;
-      },
-      R = function (t, n) {
-        var e = g(t, n),
-          a = null;
-        if (
-          e &&
-          (e == null ? void 0 : e.nativeFlowName) ===
-            r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
-        ) {
-          var i = e != null ? d(e) : null;
-          ((a = i == null ? void 0 : i.paymentStatus),
-            a == null && (a = h(i == null ? void 0 : i.status)));
-        } else if (
-          e &&
-          (e == null ? void 0 : e.nativeFlowName) ===
-            r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
-        ) {
-          var l;
-          a =
-            (l = o(
-              "WAWebOrderPaymentStatus",
-            ).getOrderPaymentStatusInfoFromNativeFlow(e)) == null
-              ? void 0
-              : l.paymentStatus;
-        }
-        return a;
-      },
-      L = function (t, n) {
-        var e = t.msgs.reduce(
-            function (e, t) {
-              var r,
-                a = o("WAWebOrderStatusButton").getOrderStatusButton(t),
-                i = t.safe();
-              return a == null ||
-                i.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-                a.reference_id !== n.reference_id
-                ? e
-                : { first: (r = e.first) != null ? r : i, last: i };
-            },
-            { first: null, last: null },
-          ),
-          r = e.first,
-          a = e.last,
-          i = r && o("WAWebOrderStatusButton").getOrderStatusButton(r),
-          l = a && o("WAWebOrderStatusButton").getOrderStatusButton(a),
-          s = (i != null ? i : n).order.items;
-        return {
-          drawerButton: babelHelpers.extends({}, l != null ? l : n, {
-            order: babelHelpers.extends({}, (l != null ? l : n).order, {
-              items: s,
-            }),
-          }),
-          messageBubbleButton: babelHelpers.extends({}, n, {
-            order: babelHelpers.extends({}, n.order, { items: s }),
-          }),
-          firstMessage: r,
-          lastMessage: a,
-        };
       };
+    function y(e) {
+      return e == null ? !1 : e.items.length === 0;
+    }
+    function C(e, t) {
+      return !e.contact.isEnterprise && y(t);
+    }
+    function b(e, t) {
+      return !e.contact.isEnterprise && !y(t);
+    }
+    function v() {
+      return o("WAWebBizGatingUtils").isOrderStatusM1Enabled()
+        ? u.PaymentRequested
+        : u.Pending;
+    }
+    function S(e, t) {
+      var n,
+        r = f(e, t),
+        o = r != null ? d(r) : null;
+      return (n = o == null ? void 0 : o.status) != null ? n : u.Pending;
+    }
+    function R(e, t) {
+      var n = g(e, t),
+        a = null;
+      if (
+        n &&
+        (n == null ? void 0 : n.nativeFlowName) ===
+          r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
+      ) {
+        var i = n != null ? d(n) : null;
+        ((a = i == null ? void 0 : i.paymentStatus),
+          a == null && (a = h(i == null ? void 0 : i.status)));
+      } else if (
+        n &&
+        (n == null ? void 0 : n.nativeFlowName) ===
+          r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_STATUS
+      ) {
+        var l;
+        a =
+          (l = o(
+            "WAWebOrderPaymentStatus",
+          ).getOrderPaymentStatusInfoFromNativeFlow(n)) == null
+            ? void 0
+            : l.paymentStatus;
+      }
+      return a;
+    }
+    var L = function (t, n) {
+      var e = t.msgs.reduce(
+          function (e, t) {
+            var r,
+              a = o("WAWebOrderStatusButton").getOrderStatusButton(t),
+              i = t.safe();
+            return a == null ||
+              i.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+              a.reference_id !== n.reference_id
+              ? e
+              : { first: (r = e.first) != null ? r : i, last: i };
+          },
+          { first: null, last: null },
+        ),
+        r = e.first,
+        a = e.last,
+        i = r && o("WAWebOrderStatusButton").getOrderStatusButton(r),
+        l = a && o("WAWebOrderStatusButton").getOrderStatusButton(a),
+        s = (i != null ? i : n).order.items;
+      return {
+        drawerButton: babelHelpers.extends({}, l != null ? l : n, {
+          order: babelHelpers.extends({}, (l != null ? l : n).order, {
+            items: s,
+          }),
+        }),
+        messageBubbleButton: babelHelpers.extends({}, n, {
+          order: babelHelpers.extends({}, n.order, { items: s }),
+        }),
+        firstMessage: r,
+        lastMessage: a,
+      };
+    };
     ((l.OrderStatus = u),
       (l.paramsJsonToOrderStatusInfo = c),
       (l.getOrderStatusInfo = d),

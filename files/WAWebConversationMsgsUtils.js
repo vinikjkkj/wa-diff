@@ -176,17 +176,20 @@ __d(
             ) === !0
         : !1;
     }
-    function y(e, t, n) {
+    function y(e) {
+      var t = e.msg,
+        n = e.msgCollection,
+        r = e.threadId;
       return o("WAWebViewModeUtils").isViewModeVisibleInSurface(
         o("WAWebViewMode.flow").ViewModeSurface.CHAT,
-        e.viewMode,
+        t.viewMode,
       )
-        ? t == null ||
+        ? r == null ||
           (n.threadId != null &&
             o("WAWebThreadsGating").isThreadLoadingInfraEnabled())
           ? !0
-          : o("WAWebThreadMsgUtils").isMsgInThread(e, t) ||
-            o("WAWebThreadMsgUtils").isMsgRootOfThread(e, t)
+          : o("WAWebThreadMsgUtils").isMsgInThread(t, r) ||
+            o("WAWebThreadMsgUtils").isMsgRootOfThread(t, r)
         : !1;
     }
     ((l.validateFocusCtx = d),

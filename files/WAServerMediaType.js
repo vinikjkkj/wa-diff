@@ -40,6 +40,7 @@ __d(
       "thumbnail-sticker-pack",
       "music-artwork",
       "group-history",
+      "maiba-file",
     ];
     function l(e) {
       switch (e) {
@@ -79,6 +80,7 @@ __d(
         case "thumbnail-sticker-pack":
         case "music-artwork":
         case "group-history":
+        case "maiba-file":
           return e;
         default:
           return null;

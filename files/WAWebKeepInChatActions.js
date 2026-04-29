@@ -412,7 +412,6 @@ __d(
         n.commit());
     }
     ((l.KeepProcessErrorReason = _),
-      (l.KeepProcessError = f),
       (l.runKeepInChatUX = g),
       (l.runUndoKeepInChatUX = h),
       (l.runBulkKeepInChatUX = b),

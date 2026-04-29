@@ -70,7 +70,7 @@ __d(
                               "[smax] ",
                               "",
                             ])),
-                          e,
+                          r("getErrorSafe")(e),
                         );
                       }),
                     {}
@@ -178,14 +178,14 @@ __d(
                   l.subscribe(function (e) {
                     if (e.type === "Injection") {
                       var t = o("WAWap").decodeStanzaDebug(e.data),
-                        r = (d || (d = n("Promise"))).resolve(
+                        i = (d || (d = n("Promise"))).resolve(
                           a.comms.handleStanza(
                             t,
                             a.comms.socketId,
                             e.data.byteLength,
                           ),
                         );
-                      r.then(function (e) {
+                      i.then(function (e) {
                         if (!(e === "CLOSE_SOCKET" || e === "NO_ACK"))
                           return a.comms.castStanza(e);
                       }).catch(function (e) {
@@ -195,7 +195,7 @@ __d(
                               "[smax] ",
                               "",
                             ])),
-                          e,
+                          r("getErrorSafe")(e),
                         );
                       });
                     }

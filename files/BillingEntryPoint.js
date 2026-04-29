@@ -123,6 +123,8 @@ __d(
       AYMT_FLEX_BILLING_RISK_BASED_SWITCH_OFF_TIP:
         "aymt_flex_billing_risk_based_switch_off_tip",
       BILLING_INDIA_EMANDATE_INCREASE: "billing_india_emandate_increase",
+      AYMT_INDIA_CC_RAPYD_DEPRECATION_EMAIL:
+        "aymt_india_cc_rapyd_deprecation_email",
       AYMT_STANDARD_BILLING_PROMOTIONAL_TIP:
         "aymt_standard_billing_promotional_tip",
       AYMT_RECURRING_UPI_AUTO_RELOAD_CHARGE_FAIL:

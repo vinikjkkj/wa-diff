@@ -8,26 +8,26 @@ __d(
       c = "H.mm",
       d = "HH:mm",
       m = "HH.mm",
-      p = [e, s, d, m, u, c],
-      _ = function (t) {
-        var e,
-          n = t.trim();
-        if (n) {
-          for (var o of p) {
-            var a = r("WAWeb-moment")(n, o, !0);
-            if (a.isValid()) {
-              e = a;
-              break;
-            }
-          }
-          if (e) {
-            var i = e,
-              l = r("WAWeb-moment")().startOf("day"),
-              s = i.diff(l);
-            return r("WAWeb-moment").duration(s).asMinutes();
+      p = [e, s, d, m, u, c];
+    function _(e) {
+      var t,
+        n = e.trim();
+      if (n) {
+        for (var o of p) {
+          var a = r("WAWeb-moment")(n, o, !0);
+          if (a.isValid()) {
+            t = a;
+            break;
           }
         }
-      };
+        if (t) {
+          var i = t,
+            l = r("WAWeb-moment")().startOf("day"),
+            s = i.diff(l);
+          return r("WAWeb-moment").duration(s).asMinutes();
+        }
+      }
+    }
     function f(e) {
       return r("WAWeb-moment")
         .utc()

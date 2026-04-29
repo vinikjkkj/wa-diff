@@ -35,9 +35,7 @@ __d(
                 m(e, t.contact.id, n, r));
             },
             okText: s._(/*BTDS*/ "Send"),
-            onCancel: function () {
-              o("WAWebModalManager").ModalManager.close();
-            },
+            onCancel: o("WAWebModalManager").closeModalManager,
             cancelText: s._(/*BTDS*/ "Cancel"),
             children: s._(
               /*BTDS*/ "You are sending message history to {contactName}. Messages you share may not be complete or accurate. You are responsible for the history you share.",

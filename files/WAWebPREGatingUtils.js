@@ -3,17 +3,17 @@ __d(
   ["WAWebABProps", "WAWebEnvironment", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = function () {
-        return !!r("justknobx")._("5005");
-      },
-      s = function () {
-        return r("justknobx")._("3356")
-          ? r("WAWebEnvironment").isWindows ||
-              o("WAWebABProps").getABPropConfigValue(
-                "smoothie_performance_msg_send",
-              )
-          : !1;
-      };
+    function e() {
+      return !!r("justknobx")._("5005");
+    }
+    function s() {
+      return r("justknobx")._("3356")
+        ? r("WAWebEnvironment").isWindows ||
+            o("WAWebABProps").getABPropConfigValue(
+              "smoothie_performance_msg_send",
+            )
+        : !1;
+    }
     function u() {
       return r("justknobx")._("1784")
         ? r("WAWebEnvironment").isWindows ||

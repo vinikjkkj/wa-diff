@@ -51,21 +51,21 @@ __d(
         m.apply(this, arguments)
       );
     }
-    var p = function (t) {
-        return t.type === o("WAWebSchemaLabel").ListType.FAVORITES
-          ? o("WAWebFavoritesUtils").getFavoriteChats()
-          : t.labelItemCollection.reduce(function (e, t) {
-              if (
-                t == null ||
-                t.parentType !==
-                  o("WAWebListItemParentType").LabelItemParentType.Chat
-              )
-                return e;
-              var n = o("WAWebChatCollection").ChatCollection.get(t.parentId);
-              return (n != null && e.push(n), e);
-            }, []);
-      },
-      _ = function (t, n) {
+    function p(e) {
+      return e.type === o("WAWebSchemaLabel").ListType.FAVORITES
+        ? o("WAWebFavoritesUtils").getFavoriteChats()
+        : e.labelItemCollection.reduce(function (e, t) {
+            if (
+              t == null ||
+              t.parentType !==
+                o("WAWebListItemParentType").LabelItemParentType.Chat
+            )
+              return e;
+            var n = o("WAWebChatCollection").ChatCollection.get(t.parentId);
+            return (n != null && e.push(n), e);
+          }, []);
+    }
+    var _ = function (t, n) {
         var e = new Set(t),
           r = new Set(n),
           o = [];

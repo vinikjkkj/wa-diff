@@ -44,22 +44,14 @@ __d(
           return this.$Mpd$p_2;
         }),
         (n.getVideoRepresentationsByVariant = function (t) {
-          return t.lang === null
-            ? this.$Mpd$p_2.filter(function (e) {
-                return e.getLang() === t.lang && e.getRole() === t.role;
-              })
-            : this.$Mpd$p_2.filter(function (e) {
-                return e.getLang() === t.lang && e.getRole() === t.role;
-              });
+          return this.$Mpd$p_2.filter(function (e) {
+            return e.getLang() === t.lang && e.getRole() === t.role;
+          });
         }),
         (n.getAudioRepresentationsByVariant = function (t) {
-          return t.lang === null
-            ? this.$Mpd$p_3.filter(function (e) {
-                return e.getLang() === t.lang && e.getRole() === t.role;
-              })
-            : this.$Mpd$p_3.filter(function (e) {
-                return e.getLang() === t.lang && e.getRole() === t.role;
-              });
+          return this.$Mpd$p_3.filter(function (e) {
+            return e.getLang() === t.lang && e.getRole() === t.role;
+          });
         }),
         (n.getAudioRepresentations = function () {
           return this.$Mpd$p_3;

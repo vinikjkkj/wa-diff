@@ -3,9 +3,11 @@ __d(
   ["fbt", "WAWebCheckBox.react", "react", "react-compiler-runtime"],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u = e || (e = o("react"));
-    function c(e) {
-      var t = o("react-compiler-runtime").c(14),
+      u = e || (e = o("react")),
+      c = { xoeyzqq: "xmw7cw xoeyzqq", $$css: !0 },
+      d = { xoeyzqq: "x1emn1tm xoeyzqq", $$css: !0 };
+    function m(e) {
+      var t = o("react-compiler-runtime").c(19),
         n = e.checked,
         r = e.count,
         a = e.disabled,
@@ -28,45 +30,61 @@ __d(
         : (f = t[2]);
       var g = f,
         h;
-      t[3] !== p || t[4] !== l
-        ? ((h = function () {
+      t[3] !== m
+        ? ((h = {
+            0: { className: "x1emn1tm xoeyzqq" },
+            1: { className: "xmw7cw xoeyzqq" },
+          }[(m === o("WAWebCheckBox.react").CheckboxTheme.POLLS_SENDER) << 0]),
+          (t[3] = m),
+          (t[4] = h))
+        : (h = t[4]);
+      var y;
+      t[5] !== p || t[6] !== l
+        ? ((y = function () {
             l(p);
           }),
-          (t[3] = p),
-          (t[4] = l),
-          (t[5] = h))
-        : (h = t[5]);
-      var y;
+          (t[5] = p),
+          (t[6] = l),
+          (t[7] = y))
+        : (y = t[7]);
+      var C;
+      t[8] !== n ||
+      t[9] !== a ||
+      t[10] !== i ||
+      t[11] !== g ||
+      t[12] !== y ||
+      t[13] !== d ||
+      t[14] !== m
+        ? ((C = u.jsx(o("WAWebCheckBox.react").CheckBox, {
+            checked: n,
+            id: i,
+            disabled: a,
+            ariaLabel: g,
+            theme: m,
+            onChange: y,
+            testid: d,
+          })),
+          (t[8] = n),
+          (t[9] = a),
+          (t[10] = i),
+          (t[11] = g),
+          (t[12] = y),
+          (t[13] = d),
+          (t[14] = m),
+          (t[15] = C))
+        : (C = t[15]);
+      var b;
       return (
-        t[6] !== n ||
-        t[7] !== a ||
-        t[8] !== i ||
-        t[9] !== g ||
-        t[10] !== h ||
-        t[11] !== d ||
-        t[12] !== m
-          ? ((y = u.jsx(o("WAWebCheckBox.react").CheckBox, {
-              checked: n,
-              id: i,
-              disabled: a,
-              ariaLabel: g,
-              theme: m,
-              onChange: h,
-              testid: d,
-            })),
-            (t[6] = n),
-            (t[7] = a),
-            (t[8] = i),
-            (t[9] = g),
-            (t[10] = h),
-            (t[11] = d),
-            (t[12] = m),
-            (t[13] = y))
-          : (y = t[13]),
-        y
+        t[16] !== h || t[17] !== C
+          ? ((b = u.jsx("div", babelHelpers.extends({}, h, { children: C }))),
+            (t[16] = h),
+            (t[17] = C),
+            (t[18] = b))
+          : (b = t[18]),
+        b
       );
     }
-    l.default = c;
+    l.default = m;
   },
   226,
 );

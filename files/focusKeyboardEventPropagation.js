@@ -1,19 +1,16 @@
 __d(
   "focusKeyboardEventPropagation",
-  ["vulture"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
-      return (
-        r("vulture")("EAZFa3D71dYkZtypDZgA0npboCw="),
-        e._stopFocusKeyboardPropagation === !0
-      );
+      return e._stopFocusKeyboardPropagation === !0;
     }
-    function s(e) {
+    function l(e) {
       e._stopFocusKeyboardPropagation = !0;
     }
-    ((l.hasFocusKeyboardEventPropagationStopped = e),
-      (l.stopFocusKeyboardEventPropagation = s));
+    ((i.hasFocusKeyboardEventPropagationStopped = e),
+      (i.stopFocusKeyboardEventPropagation = l));
   },
-  98,
+  66,
 );

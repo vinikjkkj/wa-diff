@@ -269,14 +269,14 @@ __d(
             ? t
             : e;
       return (
-        o("WAWebGroupGatingUtils").isGroupSuspensionAppealsRedesignEnabled() &&
         ((r = l.groupMetadata) == null ? void 0 : r.participants.iAmAdmin()) ===
           !0 &&
         ((a = l.groupMetadata) == null ? void 0 : a.suspendAppealStatus) ===
           "APPROVED" &&
         ((i = l.groupMetadata) == null
           ? void 0
-          : i.suspendAppealApprovedSeen) !== !0
+          : i.suspendAppealApprovedSeen) !== !0 &&
+        o("WAWebGroupGatingUtils").isGroupSuspensionAppealsRedesignEnabled()
       );
     }
     function I(e) {

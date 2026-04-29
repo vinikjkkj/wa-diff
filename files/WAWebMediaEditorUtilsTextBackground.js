@@ -2,78 +2,81 @@ __d(
   "WAWebMediaEditorUtilsTextBackground",
   ["WAWebMediaEditorEnumsFonts"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      var r = n.arcSize,
-        a = [],
+    function e(e) {
+      var t = e.alignment,
+        n = e.lineWidths,
+        r = e.style,
+        a = r.arcSize,
         i = [],
-        l = Math.max.apply(Math, e),
-        u = n.lineHeight + n.lineVerticalPadding * 2;
-      e.forEach(function (r, s) {
-        var c = r + n.lineHorizontalPadding * 2,
+        l = [],
+        u = Math.max.apply(Math, n),
+        c = r.lineHeight + r.lineVerticalPadding * 2;
+      n.forEach(function (e, a) {
+        var s = e + r.lineHorizontalPadding * 2,
           d = 0;
         switch (t) {
           case o("WAWebMediaEditorEnumsFonts").TextAlignment.LEFT:
             d = 0;
             break;
           case o("WAWebMediaEditorEnumsFonts").TextAlignment.CENTER:
-            d = (l - r) / 2;
+            d = (u - e) / 2;
             break;
           case o("WAWebMediaEditorEnumsFonts").TextAlignment.RIGHT:
-            d = l - r;
+            d = u - e;
             break;
         }
-        var m = s * u;
-        (a.push({ y: m, x: d }),
-          i.push({ y: m, x: d + c }),
-          s === e.length - 1 &&
-            (a.push({ y: m + u, x: d }), i.push({ y: m + u, x: d + c })));
+        var m = a * c;
+        (i.push({ y: m, x: d }),
+          l.push({ y: m, x: d + s }),
+          a === n.length - 1 &&
+            (i.push({ y: m + c, x: d }), l.push({ y: m + c, x: d + s })));
       });
-      var c = [];
-      for (var d of [
-        { left: !0, points: a },
-        { left: !1, points: i },
+      var d = [];
+      for (var m of [
+        { left: !0, points: i },
+        { left: !1, points: l },
       ]) {
-        for (var m = d.left, p = d.points, _ = p, f = !0; f; ) {
-          ((p = _), (_ = []), (f = !1));
-          for (var g = 0; g < p.length; g++) {
-            var h = p[g];
-            if (g === 0) _.push(h);
+        for (var p = m.left, _ = m.points, f = _, g = !0; g; ) {
+          ((_ = f), (f = []), (g = !1));
+          for (var h = 0; h < _.length; h++) {
+            var y = _[h];
+            if (h === 0) f.push(y);
             else {
-              _.length >= 2 &&
-                _[_.length - 1].x === _[_.length - 2].x &&
-                (_.pop(), (f = !0));
-              var y = _[_.length - 1];
-              (h.x !== y.x &&
-                Math.abs(h.x - y.x) < r * 2 &&
-                ((f = !0),
-                (m && y.x < h.x) || (!m && y.x > h.x)
-                  ? (h.x = y.x)
-                  : (y.x = h.x)),
-                _.push(h));
+              f.length >= 2 &&
+                f[f.length - 1].x === f[f.length - 2].x &&
+                (f.pop(), (g = !0));
+              var C = f[f.length - 1];
+              (y.x !== C.x &&
+                Math.abs(y.x - C.x) < a * 2 &&
+                ((g = !0),
+                (p && C.x < y.x) || (!p && C.x > y.x)
+                  ? (y.x = C.x)
+                  : (C.x = y.x)),
+                f.push(y));
             }
           }
         }
-        for (var C = [], b = 0; b < _.length; b++) {
-          var v = _[b];
-          if (b === 0 || b === _.length - 1) {
-            C.push(v);
+        for (var b = [], v = 0; v < f.length; v++) {
+          var S = f[v];
+          if (v === 0 || v === f.length - 1) {
+            b.push(S);
             continue;
           }
-          var S = _[b - 1];
-          if (v.x !== S.x) {
-            var R = { x: S.x, y: v.y },
-              L = C.length - 1;
-            (C.length >= 2 &&
-              C[L].x === R.x &&
-              C[L].x === C[L - 1].x &&
-              C.pop(),
-              C.push(R));
+          var R = f[v - 1];
+          if (S.x !== R.x) {
+            var L = { x: R.x, y: S.y },
+              E = b.length - 1;
+            (b.length >= 2 &&
+              b[E].x === L.x &&
+              b[E].x === b[E - 1].x &&
+              b.pop(),
+              b.push(L));
           }
-          C.push(v);
+          b.push(S);
         }
-        (m || C.reverse(), (c = c.concat(C)));
+        (p || b.reverse(), (d = d.concat(b)));
       }
-      return s(c, r);
+      return s(d, a);
     }
     function s(e, t) {
       function n(t) {

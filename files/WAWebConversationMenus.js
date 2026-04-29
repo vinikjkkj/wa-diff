@@ -723,13 +723,17 @@ __d(
         t
       );
     }
-    function f(e, t, a, i) {
-      i === void 0 && (i = !1);
-      var l = [];
+    function f(e) {
+      var t = e.chat,
+        a = e.onCancelSelect,
+        i = e.onSelect,
+        l = e.selectable,
+        c = l === void 0 ? !1 : l,
+        d = [];
       return (
-        o("WAWebChatGetters").getIsBroadcast(e) ||
-          (i
-            ? l.push(
+        o("WAWebChatGetters").getIsBroadcast(t) ||
+          (c
+            ? d.push(
                 u.jsx(
                   r("WDSMenuItem.react"),
                   {
@@ -741,34 +745,34 @@ __d(
                   "cancel-selection",
                 ),
               )
-            : l.push(
+            : d.push(
                 u.jsx(
                   r("WDSMenuItem.react"),
                   {
                     Icon: r("WDSIconIcCheckBox.react"),
                     title: s._(/*BTDS*/ "Select messages"),
-                    onPress: t,
+                    onPress: i,
                     testid: "mi-select-messages",
                   },
                   "select",
                 ),
               )),
-        l.push(
+        d.push(
           u.jsx(
             r("WDSMenuItem.react"),
             {
               Icon: r("WDSIconIcCancel.react"),
               title: s._(/*BTDS*/ "Close chat"),
               onPress: function () {
-                return o("WAWebCmd").Cmd.closeChat(e);
+                return o("WAWebCmd").Cmd.closeChat(t);
               },
               testid: "mi-close-chat",
             },
             "close",
           ),
         ),
-        n("cr:23149") == null || n("cr:23149").addDevItemsToMenu(l, e),
-        l
+        n("cr:23149") == null || n("cr:23149").addDevItemsToMenu(d, t),
+        d
       );
     }
     ((l.handleDeleteOrExitChat = d),

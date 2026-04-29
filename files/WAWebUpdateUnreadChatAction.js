@@ -74,10 +74,10 @@ __d(
         };
       })();
     }
-    var C = y(),
-      b = function (t) {
-        return o("WAWebCmd").Cmd.isOfflineDeliveryEnd ? v(t) : C(t);
-      };
+    var C = y();
+    function b(e) {
+      return o("WAWebCmd").Cmd.isOfflineDeliveryEnd ? v(e) : C(e);
+    }
     function v(e) {
       return S.apply(this, arguments);
     }

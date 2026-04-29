@@ -716,7 +716,7 @@ __d(
                     "sendTextMsg: error ",
                     "",
                   ])),
-                e,
+                String(e),
               );
             });
         })),

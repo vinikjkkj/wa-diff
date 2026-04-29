@@ -17,14 +17,14 @@ __d(
       c = s.useEffect,
       d = s.useState,
       m = 10,
-      p = 50,
-      _ = function (t) {
-        return (
-          t != null &&
-          t !== "" &&
-          r("WAFtsIsSearchQueryEligibleForMessageSearch")(t)
-        );
-      };
+      p = 50;
+    function _(e) {
+      return (
+        e != null &&
+        e !== "" &&
+        r("WAFtsIsSearchQueryEligibleForMessageSearch")(e)
+      );
+    }
     function f(e) {
       var t = o("react-compiler-runtime").c(11),
         n = o("WAWebMediaHubContextProvider").useWAWebMediaHubContext(),

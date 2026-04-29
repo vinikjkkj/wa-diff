@@ -39,7 +39,7 @@ __d(
     }
     function p(e, t, n, r) {
       var o = window.__sapienzPublishQplCallback__;
-      o &&
+      o != null &&
         o({
           id: s(t, n),
           name: u(t),

@@ -14,13 +14,17 @@ __d(
     "WAWebBotTosIds",
     "WAWebChatEntryPoint",
     "WAWebDebugUtils",
+    "WAWebFrontendMsgGetters",
     "WAWebGetMetaAISearchSuggestionsAction",
     "WAWebModalManager",
+    "WAWebMsgCollection",
+    "WAWebMsgKey",
     "WAWebMsgModelFromData",
     "WAWebPDFNModal.react",
     "WAWebSchemaBotProfile",
     "WAWebTos",
     "WAWebTosJob",
+    "WAWebUpdateForwardedBotValidationStatusAction",
     "WAWebUserPrefsBot",
     "WAWebUserPrefsMultiDeviceDebug",
     "WaWebPDFNCommonUtils",
@@ -31,26 +35,30 @@ __d(
     var e,
       s,
       u,
-      c = u || (u = o("react")),
-      d = { injectBizBotFields: !1 };
-    function m() {
-      ((d.injectBizBotFields = !d.injectBizBotFields),
+      c,
+      d,
+      m,
+      p,
+      _ = p || (p = o("react")),
+      f = { injectBizBotFields: !1 };
+    function g() {
+      ((f.injectBizBotFields = !f.injectBizBotFields),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "Inject Biz Bot fields: ",
               "",
             ])),
-          d.injectBizBotFields ? "enabled" : "disabled",
+          f.injectBizBotFields ? "enabled" : "disabled",
         ));
     }
-    function p() {
+    function h() {
       (o("WAWebTos").TosManager.resetState(
         o("WAWebBotTosIds").getBizBotTosId(),
       ),
         o("WAWebBotTos").setBizBotTosDismissalTime(null));
     }
-    function _() {
+    function y() {
       var e,
         t = [
           (e = o("WAWebBotTosIds")).getBotAgentTosId(),
@@ -76,7 +84,7 @@ __d(
           );
         }
     }
-    function f() {
+    function C() {
       var e = o("WAWebTos").TosManager.getState(
           o("WAWebBotTosIds").getBotAgentTosId(),
         ),
@@ -98,12 +106,12 @@ __d(
         }
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function h() {
+    function v() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           (e &&
             (yield o("WAWebSchemaBotProfile").getBotProfileTable().clear(),
             o("WAWebUserPrefsBot").setUgcBotListLastBhash(null)),
@@ -111,49 +119,49 @@ __d(
             o("WAWebUserPrefsBot").setUgcBotListLastRequestedTimestamp(0),
             window.location.reload());
         })),
-        h.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function y() {
-      return C.apply(this, arguments);
+    function S() {
+      return R.apply(this, arguments);
     }
-    function C() {
+    function R() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o(
             "WAWebGetMetaAISearchSuggestionsAction",
           ).getMetaAISearchNullStateSuggestionsAction();
           return e;
         })),
-        C.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function L(e) {
+      return E.apply(this, arguments);
     }
-    function v() {
+    function E() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o(
             "WAWebGetMetaAISearchSuggestionsAction",
           ).getMetaAISearchTypeAheadSuggestionsAction(e);
           return t;
         })),
-        v.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function S(e) {
+    function k(e) {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebPDFNModal.react"), {
+        _.jsx(r("WAWebPDFNModal.react"), {
           pdfnId: e,
           runIfTosAccepted: o("WAWebBoolFunc").returnTrue,
           verifyTosAccepted: o("WAWebBoolFunc").returnFalse,
         }),
       );
     }
-    function R(e) {
+    function I(e) {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebPDFNModal.react"), {
+        _.jsx(r("WAWebPDFNModal.react"), {
           noticeType: o("WaWebPDFNCommonUtils").PdfnNoticeType.NonBlocking,
           pdfnId: e,
           runIfTosAccepted: o("WAWebBoolFunc").returnTrue,
@@ -161,40 +169,40 @@ __d(
         }),
       );
     }
-    var L = function () {
+    var T = function () {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebBizBot1pLearnMore.react"), {}),
+        _.jsx(r("WAWebBizBot1pLearnMore.react"), {}),
       );
     };
-    ((L.doc = "Opens the biz bot 1p learn more modal"),
-      (L.paramsToExecute = []));
-    var E = function () {
+    ((T.doc = "Opens the biz bot 1p learn more modal"),
+      (T.paramsToExecute = []));
+    var D = function () {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebBizBotTos.react"), {
+        _.jsx(r("WAWebBizBotTos.react"), {
           chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Unknown,
         }),
       );
     };
-    ((E.doc = "Opens the biz bot consumer consent"), (E.paramsToExecute = []));
-    var k = function () {
+    ((D.doc = "Opens the biz bot consumer consent"), (D.paramsToExecute = []));
+    var x = function () {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebBotFeatureNotAvailable.react"), {}),
+        _.jsx(r("WAWebBotFeatureNotAvailable.react"), {}),
       );
     };
-    ((k.doc = "Opens the bot feature not available modal"),
-      (k.paramsToExecute = []));
-    var I = function () {
+    ((x.doc = "Opens the bot feature not available modal"),
+      (x.paramsToExecute = []));
+    var $ = function () {
       o("WAWebModalManager").ModalManager.open(
-        c.jsx(r("WAWebBotLearnMore.react"), { fromInvoke: !1 }),
+        _.jsx(r("WAWebBotLearnMore.react"), { fromInvoke: !1 }),
       );
     };
-    ((I.doc = "Opens the bot learn more modal"), (I.paramsToExecute = []));
-    function T(e) {
+    (($.doc = "Opens the bot learn more modal"), ($.paramsToExecute = []));
+    function P(e) {
       o("WAWebUserPrefsMultiDeviceDebug").setDebugDefaultBotOverride(e);
     }
-    T.doc =
+    P.doc =
       "Adds a debug default bot for testing invoke against new bot numbers";
-    function D() {
+    function N() {
       var e = o("WAWebDebugUtils").getSelectedChat(),
         t = o("WAWebBotSystemMsg").genBotSessionTransparencyNoticeSystemMsg(
           e.id,
@@ -204,30 +212,80 @@ __d(
         n = o("WAWebMsgModelFromData").msgModelFromMsgData(t);
       e.msgs.add(n);
     }
-    var x = {
-      toggleInjectBizBotProfileFields: m,
-      resetBizBotTos: p,
-      resetBotTos: _,
-      getBotTosStates: f,
+    function M(e, t) {
+      var n = r("WAWebMsgKey").fromString(e),
+        a = o("WAWebMsgCollection").MsgCollection.get(n);
+      if (a == null) {
+        o("WALogger").WARN(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[debugBot] Message not found: ",
+              "",
+            ])),
+          e,
+        );
+        return;
+      }
+      if (a.forwardedAiBotMessageInfo == null) {
+        o("WALogger").WARN(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "[debugBot] Message has no forwardedAiBotMessageInfo",
+            ])),
+        );
+        return;
+      }
+      var i = o("WAWebFrontendMsgGetters").getAsRichResponse(a);
+      if (i == null) {
+        o("WALogger").WARN(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[debugBot] Message is not a rich response",
+            ])),
+        );
+        return;
+      }
+      (o(
+        "WAWebUpdateForwardedBotValidationStatusAction",
+      ).updateForwardedBotValidationStatusAction(i, t),
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[debugBot] Set validationStatus=",
+              " on ",
+              "",
+            ])),
+          t,
+          e,
+        ));
+    }
+    M.doc =
+      "Sets validationStatus on a forwarded bot message by msgId. Usage: updateForwardedBotValidationStatus(msgId, status)";
+    var w = {
+      toggleInjectBizBotProfileFields: g,
+      resetBizBotTos: h,
+      resetBotTos: y,
+      getBotTosStates: C,
       queryTosState: o("WAWebTosJob").queryTosState,
       TosManager: o("WAWebTos").TosManager,
-      fetchBotProfiles: g,
-      debugBotConfigs: d,
+      fetchBotProfiles: b,
+      debugBotConfigs: f,
       getBotAgentTosId: o("WAWebBotTosIds").getBotAgentTosId,
       getBotShortcutTosId: o("WAWebBotTosIds").getBotShortcutTosId,
       getBotInvokeTosId: o("WAWebBotTosIds").getBotInvokeTosId,
-      getMetaAINullStateSuggestions: y,
-      getMetaAITypeAheadSuggestions: b,
-      showPdfnModal: S,
-      showNonBlockingModal: R,
-      openBizBot1pLearnMore: L,
-      openBizBotTos: E,
-      openBotFeatureNotAvailable: k,
-      openBotLearnMore: I,
-      overrideDefaultBotForTest: T,
-      genSessionTransparencySystemMsg: D,
+      getMetaAINullStateSuggestions: S,
+      getMetaAITypeAheadSuggestions: L,
+      showPdfnModal: k,
+      showNonBlockingModal: I,
+      openBizBot1pLearnMore: T,
+      openBizBotTos: D,
+      openBotFeatureNotAvailable: x,
+      openBotLearnMore: $,
+      overrideDefaultBotForTest: P,
+      genSessionTransparencySystemMsg: N,
+      updateForwardedBotValidationStatus: M,
     };
-    l.default = x;
+    l.default = w;
   },
   98,
 );

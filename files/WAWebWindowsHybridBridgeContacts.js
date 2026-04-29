@@ -364,31 +364,43 @@ __d(
           }),
           (a.$13 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              var e = this;
               this.$8 = !0;
+              var t = [];
               try {
                 for (; this.$9.size > 0; ) {
-                  var e = Array.from(this.$9);
-                  this.$9.clear();
-                  for (var t = 0; t < e.length; t++) this.$5.add(e[t]);
+                  ((t = Array.from(this.$9)), this.$9.clear());
+                  for (var n = 0; n < t.length; n++) this.$5.add(t[n]);
                   (o("WALogger").LOG(
                     p ||
                       (p = babelHelpers.taggedTemplateLiteralLoose([
                         "[hybrid-contacts] request:start ids=",
                         "",
                       ])),
-                    e.length,
+                    t.length,
                   ),
-                    yield this.$16(e));
+                    yield this.$16(t),
+                    (t = []));
                 }
-              } catch (e) {
-                o("WALogger").WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[hybrid-contacts] request:error ",
-                      "",
-                    ])),
-                  e,
-                );
+              } catch (n) {
+                (t.forEach(function (t) {
+                  return e.$5.delete(t);
+                }),
+                  r("WAWebODS").incr("web.hybrid.bridge.contacts.send.error"),
+                  o("WALogger")
+                    .ERROR(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "[hybrid-contacts] request:error ids=",
+                          ": ",
+                          "",
+                        ])),
+                      t.length,
+                      n,
+                    )
+                    .sendLogs("hybrid-contacts-send-error", {
+                      sampling: 0.01,
+                    }));
               } finally {
                 this.$8 = !1;
               }

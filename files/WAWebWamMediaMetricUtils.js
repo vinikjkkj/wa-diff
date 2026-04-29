@@ -105,6 +105,8 @@ __d(
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
         case "biz-cover-photo":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
+        case "maiba-file":
+          return o("WAWebWamEnumMediaType").MEDIA_TYPE.DOCUMENT;
         case "ads-image":
           return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
         case "ads-video":

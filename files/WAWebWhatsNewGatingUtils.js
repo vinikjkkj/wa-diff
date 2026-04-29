@@ -1,32 +1,44 @@
 __d(
   "WAWebWhatsNewGatingUtils",
-  ["$InternalEnum", "WAWebABProps"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
-    var e = n("$InternalEnum")({
-      Control: 0,
-      LoadingCarousel: 1,
-      BannerAndModal: 2,
-      AutoModal: 3,
-    });
+    function e() {
+      return (
+        o("WAWebABProps").getABPropConfigValue("web_whats_new_carousel") === !0
+      );
+    }
     function s() {
-      var t,
-        n = o("WAWebABProps").getABPropConfigValue("web_whats_new_m0_bespoke");
-      return (t = e.cast(n)) != null ? t : e.Control;
+      return (
+        o("WAWebABProps").getABPropConfigValue("web_whats_new_banner") === !0
+      );
     }
     function u() {
-      return s() === e.LoadingCarousel;
+      return (
+        o("WAWebABProps").getABPropConfigValue("web_whats_new_auto_modal") ===
+        !0
+      );
     }
-    function c() {
-      return s() === e.BannerAndModal;
+    var c = 30,
+      d = 15;
+    function m() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_whats_new_banner_short_cooldown",
+      ) === !0
+        ? d
+        : c;
     }
-    function d() {
-      return s() === e.AutoModal;
+    function p() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_whats_new_auto_modal_short_cooldown",
+      ) === !0
+        ? d
+        : c;
     }
-    ((l.WhatsNewVariant = e),
-      (l.getWhatsNewVariant = s),
-      (l.isWhatsNewCarouselEnabled = u),
-      (l.isWhatsNewBannerEnabled = c),
-      (l.isWhatsNewAutoModalEnabled = d));
+    ((l.isWhatsNewCarouselEnabled = e),
+      (l.isWhatsNewBannerEnabled = s),
+      (l.isWhatsNewAutoModalEnabled = u),
+      (l.getWhatsNewBannerCooldownDays = m),
+      (l.getWhatsNewAutoModalCooldownDays = p));
   },
   98,
 );

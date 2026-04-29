@@ -2410,7 +2410,7 @@ __d(
       17832977: {
         moduleName: "WATCH",
         name: "CODE_CLEANUP_DEBUG",
-        sampleRate: 1e3,
+        sampleRate: 1,
       },
       17963645: {
         moduleName: "TIGON",
@@ -11143,6 +11143,11 @@ __d(
         name: "LOAD_ACCESS_TOKEN_CREATION_MODAL",
         sampleRate: 1,
       },
+      58209410: {
+        moduleName: "ADS_EVENTS_MANAGER",
+        name: "INITIAL_LOAD",
+        sampleRate: 1,
+      },
       58209723: {
         moduleName: "ADS_EVENTS_MANAGER",
         name: "LOAD_EVENT_DEDUPLICATION_DETAILS",
@@ -11196,6 +11201,11 @@ __d(
       58211206: {
         moduleName: "ADS_EVENTS_MANAGER",
         name: "LOAD_EM_XCONTROLLER",
+        sampleRate: 1,
+      },
+      58211217: {
+        moduleName: "ADS_EVENTS_MANAGER",
+        name: "NAVIGATION",
         sampleRate: 1,
       },
       58211469: {
@@ -13661,7 +13671,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 307164,
+        sampleRate: 252593,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -22391,6 +22401,11 @@ __d(
         name: "WA_FS_BOT_INTERACTION",
         sampleRate: 1,
       },
+      261882893: {
+        moduleName: "WHATSAPP_AI",
+        name: "AI_SUBSCRIPTION_REQUEST",
+        sampleRate: null,
+      },
       261884792: {
         moduleName: "WHATSAPP_AI",
         name: "AI_EXPRESSIONS_INTERACTIONS",
@@ -23366,6 +23381,11 @@ __d(
         name: "AM_TABLE_RECOMMENDATION_PILL",
         sampleRate: 1,
       },
+      270210028: {
+        moduleName: "ADS_MANAGER_INTERACTION",
+        name: "AM_CREATIVE_WORKSPACE_IMAGE_GEN",
+        sampleRate: 1,
+      },
       270210074: {
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "AR_MANAGE_REPORT_LOAD_MORE",
@@ -24074,6 +24094,11 @@ __d(
       270213250: {
         moduleName: "ADS_MANAGER_INTERACTION",
         name: "AM_CREATIVE_OVERVIEW_DESELECT_SUMMARY_TILE",
+        sampleRate: 1,
+      },
+      270213255: {
+        moduleName: "ADS_MANAGER_INTERACTION",
+        name: "AM_CREATIVE_WORKSPACE_TAB_LOAD",
         sampleRate: 1,
       },
       270213293: {
@@ -38137,6 +38162,11 @@ __d(
         name: "DELTA_SYNC_TO_HANDLE",
         sampleRate: null,
       },
+      485112644: {
+        moduleName: "MP_IGNITION_HEALTH",
+        name: "NO_NETWORK_PLUGIN_AT_SYNC",
+        sampleRate: null,
+      },
       485362827: {
         moduleName: "IG_DOCTOR",
         name: "SUGGESTION_MME",
@@ -42968,7 +42998,7 @@ __d(
       552150347: {
         moduleName: "CONTACTPOINT",
         name: "META_CP_LOOKUP_API",
-        sampleRate: 1,
+        sampleRate: 4,
       },
       552153233: {
         moduleName: "CONTACTPOINT",
@@ -46372,7 +46402,7 @@ __d(
       617418551: {
         moduleName: "IG_DELIVERY_FUNNEL",
         name: "UI_UPDATE",
-        sampleRate: 1,
+        sampleRate: 1e3,
       },
       617420677: {
         moduleName: "IG_DELIVERY_FUNNEL",
@@ -46417,12 +46447,12 @@ __d(
       617430382: {
         moduleName: "IG_DELIVERY_FUNNEL",
         name: "NETWORK_REQUEST_SENT",
-        sampleRate: 1,
+        sampleRate: 1e3,
       },
       617430476: {
         moduleName: "IG_DELIVERY_FUNNEL",
         name: "NETWORK_CHUNK_RECEIVED",
-        sampleRate: 1,
+        sampleRate: 1e3,
       },
       617431025: {
         moduleName: "IG_DELIVERY_FUNNEL",
@@ -48251,7 +48281,7 @@ __d(
       665795641: {
         moduleName: "UNIFIED_RESPONSE",
         name: "CLIENT_MESSAGE_PARSE",
-        sampleRate: null,
+        sampleRate: 1e3,
       },
       667166687: {
         moduleName: "ROOMS_SIP",
@@ -48773,7 +48803,7 @@ __d(
       679677570: {
         moduleName: "ENCRYPTED_BACKUPS_RESTORE",
         name: "RESTORE_LATENCY",
-        sampleRate: 1e3,
+        sampleRate: 100,
       },
       679680958: {
         moduleName: "ENCRYPTED_BACKUPS_RESTORE",
@@ -48798,7 +48828,7 @@ __d(
       679685347: {
         moduleName: "ENCRYPTED_BACKUPS_RESTORE",
         name: "UNIFIED_RESTORE_PER_MESSAGE",
-        sampleRate: 1,
+        sampleRate: 1e3,
       },
       679687327: {
         moduleName: "ENCRYPTED_BACKUPS_RESTORE",
@@ -49018,7 +49048,7 @@ __d(
       685514737: {
         moduleName: "MSYS_DEBUG",
         name: "OTID_FORMAT",
-        sampleRate: 1,
+        sampleRate: 1e3,
       },
       685515977: {
         moduleName: "MSYS_DEBUG",
@@ -51479,6 +51509,11 @@ __d(
       718618606: {
         moduleName: "EP_PLANX",
         name: "BT_CONTROLLABLE_HEADER_LOAD",
+        sampleRate: 1,
+      },
+      718667777: {
+        moduleName: "GOOGLE_CHAT_EVENTS",
+        name: "HASHTAG_BOT_HANDLER",
         sampleRate: 1,
       },
       719323137: { moduleName: "MLHUB", name: "INITIAL_LOAD", sampleRate: 1 },
@@ -57408,6 +57443,21 @@ __d(
         name: "ON_DEVICE_VISUAL_DISCOVERY",
         sampleRate: 250,
       },
+      780606340: {
+        moduleName: "REELS_SHOPPABLE_VIDEO",
+        name: "BBOX_GRID_LOADED",
+        sampleRate: 1,
+      },
+      780607634: {
+        moduleName: "REELS_SHOPPABLE_VIDEO",
+        name: "BBOX_SHIMMER_RESOLVED",
+        sampleRate: 1,
+      },
+      780608752: {
+        moduleName: "REELS_SHOPPABLE_VIDEO",
+        name: "BBOX_PREFETCH_TO_RENDER",
+        sampleRate: 1,
+      },
       780614240: {
         moduleName: "REELS_SHOPPABLE_VIDEO",
         name: "SHOPPABLE_VIDEO_REQUEST_SERVER",
@@ -60277,7 +60327,7 @@ __d(
       820455903: {
         moduleName: "MMA_ADMIN_CONSOLE",
         name: "ACCESS_BLOCK_AFTER_MIGTAION_DEADLINE",
-        sampleRate: 1,
+        sampleRate: 1e4,
       },
       820456087: {
         moduleName: "MMA_ADMIN_CONSOLE",
@@ -61770,6 +61820,11 @@ __d(
         moduleName: "ARE_SERVICE",
         name: "ARE_SERVICE_E2E",
         sampleRate: 1,
+      },
+      843317249: {
+        moduleName: "MOBILE_WORLD_REMIXING",
+        name: "ECLIPSE_REMIX_CONVERSATION_TURN",
+        sampleRate: 250,
       },
       844632122: {
         moduleName: "IOS_CLIPS_NC_LOADING_LATENCY",
@@ -67939,6 +67994,11 @@ __d(
         name: "AOI_PART_QUERY",
         sampleRate: 1,
       },
+      945623181: {
+        moduleName: "HORIZON_VOIP",
+        name: "START_CALL",
+        sampleRate: 100,
+      },
       945753948: {
         moduleName: "FAAM",
         name: "ASSET_TRANSACTION_SAVE",
@@ -67973,6 +68033,11 @@ __d(
         moduleName: "TIGON_MANAGED_MOBILE_ERRORS",
         name: "SANITIZED_HEADER",
         sampleRate: 100,
+      },
+      946682383: {
+        moduleName: "TIGON_MANAGED_MOBILE_ERRORS",
+        name: "AUTHORIZATION_HEADER_REMOVED",
+        sampleRate: 1,
       },
       946683626: {
         moduleName: "TIGON_MANAGED_MOBILE_ERRORS",
@@ -73291,6 +73356,11 @@ __d(
         name: "PATHWAY_PRESCREEN_REQUEST",
         sampleRate: 1,
       },
+      1034682369: {
+        moduleName: "MMCK_ML_INFERENCE_PERF",
+        name: "INFER",
+        sampleRate: 250,
+      },
       1034749564: {
         moduleName: "HORIZON_MOBILE",
         name: "ECLIPSE_WEELS_TTRC",
@@ -73704,6 +73774,11 @@ __d(
       1041959998: {
         moduleName: "WEARABLE_CONNECTIVITY",
         name: "EUICCSERVICE_OPERATION",
+        sampleRate: 1,
+      },
+      1041961504: {
+        moduleName: "WEARABLE_CONNECTIVITY",
+        name: "DEVICE_CELLULAR_TRANSPORT_SESSION",
         sampleRate: 1,
       },
       1041966420: {

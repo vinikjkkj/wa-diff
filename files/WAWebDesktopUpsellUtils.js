@@ -12,13 +12,13 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = n("$InternalEnum").Mirrored(["WINDOWS", "MACOS"]),
       s,
-      u = n("$InternalEnum").Mirrored(["Control", "Variant2", "Variant3"]),
-      c = function () {
-        var e = o("WAWebABProps").getABPropConfigValue(
-          "wa_web_growth_empty_state_upsell_variant_m1",
-        );
-        return e === 2 || e === 3;
-      };
+      u = n("$InternalEnum").Mirrored(["Control", "Variant2", "Variant3"]);
+    function c() {
+      var e = o("WAWebABProps").getABPropConfigValue(
+        "wa_web_growth_empty_state_upsell_variant_m1",
+      );
+      return e === 2 || e === 3;
+    }
     function d() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_growth_empty_state_upsell_variant_m1",

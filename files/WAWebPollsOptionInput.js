@@ -19,7 +19,8 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = {
+      c = { xoeyzqq: "xmw7cw xoeyzqq", $$css: !0 },
+      d = {
         photoPreviewWrapper: {
           width: "x15yg21f",
           height: "xnnlda6",
@@ -62,197 +63,197 @@ __d(
           $$css: !0,
         },
       };
-    function d(e) {
+    function m(e) {
       var t = o("react-compiler-runtime").c(40),
         n = e.chat,
         a = e.checked,
         i = e.error,
         l = e.handleCheckBoxClick,
-        d = e.image,
-        p = e.initialText,
-        _ = e.isPhotoPoll,
-        f = e.onChange,
-        g = e.onDeletePhoto,
-        h = e.onDragThumbMouseDown,
-        y = e.onInputBlur,
-        C = e.onInputFocus,
-        b = e.onPhotoIconClick,
-        v = e.onPhotoThumbnailClick,
-        S = e.onTextInputRef,
-        R = e.pollType,
-        L = e.testid,
-        E = _ === void 0 ? !1 : _,
-        k = R === void 0 ? o("WAWebPollCreationUtils").PollType.POLL : R,
-        I;
+        m = e.image,
+        _ = e.initialText,
+        f = e.isPhotoPoll,
+        g = e.onChange,
+        h = e.onDeletePhoto,
+        y = e.onDragThumbMouseDown,
+        C = e.onInputBlur,
+        b = e.onInputFocus,
+        v = e.onPhotoIconClick,
+        S = e.onPhotoThumbnailClick,
+        R = e.onTextInputRef,
+        L = e.pollType,
+        E = e.testid,
+        k = f === void 0 ? !1 : f,
+        I = L === void 0 ? o("WAWebPollCreationUtils").PollType.POLL : L,
+        T;
       t[0] !== n
-        ? ((I = o("WAWebIsPhotoPollSenderEnabled").isPhotoPollSenderEnabled(n)
+        ? ((T = o("WAWebIsPhotoPollSenderEnabled").isPhotoPollSenderEnabled(n)
             ? s._(/*BTDS*/ "Add text or photo")
             : s._(/*BTDS*/ "Add text")),
           (t[0] = n),
-          (t[1] = I))
-        : (I = t[1]);
-      var T = I,
-        D;
+          (t[1] = T))
+        : (T = t[1]);
+      var D = T,
+        x;
       t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((D = { className: "xh8yej3 x78zum5 x1q0g3np x6s0dn4" }), (t[2] = D))
-        : (D = t[2]);
-      var x;
-      t[3] !== a || t[4] !== l || t[5] !== E || t[6] !== k || t[7] !== L
-        ? ((x =
-            k === o("WAWebPollCreationUtils").PollType.QUIZ &&
+        ? ((x = { className: "xh8yej3 x78zum5 x1q0g3np x6s0dn4" }), (t[2] = x))
+        : (x = t[2]);
+      var $;
+      t[3] !== a || t[4] !== l || t[5] !== k || t[6] !== I || t[7] !== E
+        ? (($ =
+            I === o("WAWebPollCreationUtils").PollType.QUIZ &&
             u.jsx(o("WAWebFlex.react").FlexColumn, {
-              xstyle: E ? c.photoPollCheckboxColumn : c.pollCheckboxColumn,
+              xstyle: [k ? d.photoPollCheckboxColumn : d.pollCheckboxColumn, c],
               children: u.jsx(o("WAWebCheckBox.react").CheckBox, {
                 checked: a || !1,
                 id: "quiz-option-checkbox",
                 onChange: function () {
                   l == null || l();
                 },
-                testid: L + "-select",
+                testid: E + "-select",
                 theme: o("WAWebCheckBox.react").CheckboxTheme.POLLS_SENDER,
               }),
             })),
           (t[3] = a),
           (t[4] = l),
-          (t[5] = E),
-          (t[6] = k),
-          (t[7] = L),
-          (t[8] = x))
-        : (x = t[8]);
-      var $, P;
+          (t[5] = k),
+          (t[6] = I),
+          (t[7] = E),
+          (t[8] = $))
+        : ($ = t[8]);
+      var P, N;
       t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = { className: "xh8yej3 x78zum5 x6s0dn4" }),
-          (P = { className: "xh8yej3" }),
-          (t[9] = $),
-          (t[10] = P))
-        : (($ = t[9]), (P = t[10]));
-      var N = i != null ? i : void 0,
-        M,
-        w;
+        ? ((P = { className: "xh8yej3 x78zum5 x6s0dn4" }),
+          (N = { className: "xh8yej3" }),
+          (t[9] = P),
+          (t[10] = N))
+        : ((P = t[9]), (N = t[10]));
+      var M = i != null ? i : void 0,
+        w,
+        A;
       t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = o(
+        ? ((A = o(
             "WAWebPollsGatingUtils",
           ).getMaxPollOptionLengthForIncomingMessages()),
-          (M = o("WAWebPollsGatingUtils").getMaxPollOptionLength()),
-          (t[11] = M),
-          (t[12] = w))
-        : ((M = t[11]), (w = t[12]));
-      var A;
-      t[13] !== f
-        ? ((A = function (t) {
+          (w = o("WAWebPollsGatingUtils").getMaxPollOptionLength()),
+          (t[11] = w),
+          (t[12] = A))
+        : ((w = t[11]), (A = t[12]));
+      var F;
+      t[13] !== g
+        ? ((F = function (t) {
             var e = t.text;
-            return f(e);
+            return g(e);
           }),
-          (t[13] = f),
-          (t[14] = A))
-        : (A = t[14]);
-      var F =
-          o("WAWebIsPhotoPollSenderEnabled").isPhotoPollSenderEnabled(n) && !E
+          (t[13] = g),
+          (t[14] = F))
+        : (F = t[14]);
+      var O =
+          o("WAWebIsPhotoPollSenderEnabled").isPhotoPollSenderEnabled(n) && !k
             ? "side"
             : "none",
-        O;
-      t[15] !== S
-        ? ((O = function (t) {
-            S(t);
+        B;
+      t[15] !== R
+        ? ((B = function (t) {
+            R(t);
           }),
-          (t[15] = S),
-          (t[16] = O))
-        : (O = t[16]);
-      var B;
-      t[17] !== p ||
-      t[18] !== E ||
-      t[19] !== h ||
-      t[20] !== y ||
-      t[21] !== C ||
-      t[22] !== b ||
-      t[23] !== T ||
-      t[24] !== A ||
-      t[25] !== F ||
-      t[26] !== O ||
-      t[27] !== N ||
-      t[28] !== L
-        ? ((B = u.jsx(
+          (t[15] = R),
+          (t[16] = B))
+        : (B = t[16]);
+      var W;
+      t[17] !== _ ||
+      t[18] !== k ||
+      t[19] !== y ||
+      t[20] !== C ||
+      t[21] !== b ||
+      t[22] !== v ||
+      t[23] !== D ||
+      t[24] !== F ||
+      t[25] !== O ||
+      t[26] !== B ||
+      t[27] !== M ||
+      t[28] !== E
+        ? ((W = u.jsx(
             "div",
-            babelHelpers.extends({}, $, {
+            babelHelpers.extends({}, P, {
               children: u.jsx(
                 "div",
-                babelHelpers.extends({}, P, {
+                babelHelpers.extends({}, N, {
                   children: u.jsx(o("WAWebRichTextField.react").RichTextField, {
                     emojiBtnPosition: "side",
-                    error: N,
+                    error: M,
                     hideFloatingLabel: !0,
-                    maxCodeUnits: w,
-                    maxLength: M,
-                    onBlur: y,
-                    onChange: A,
-                    onDragThumbMouseDown: h,
-                    onFocus: C,
-                    onPhotoIconClick: b,
-                    photoBtnPosition: F,
-                    placeholder: T,
-                    ref: O,
-                    showDraggableIcon: E,
+                    maxCodeUnits: A,
+                    maxLength: w,
+                    onBlur: C,
+                    onChange: F,
+                    onDragThumbMouseDown: y,
+                    onFocus: b,
+                    onPhotoIconClick: v,
+                    photoBtnPosition: O,
+                    placeholder: D,
+                    ref: B,
+                    showDraggableIcon: k,
                     showRemaining: !0,
-                    testid: L,
+                    testid: E,
                     textFormatEnabled: !0,
-                    value: p,
+                    value: _,
                   }),
                 }),
               ),
             }),
           )),
-          (t[17] = p),
-          (t[18] = E),
-          (t[19] = h),
-          (t[20] = y),
-          (t[21] = C),
-          (t[22] = b),
-          (t[23] = T),
-          (t[24] = A),
-          (t[25] = F),
-          (t[26] = O),
-          (t[27] = N),
-          (t[28] = L),
-          (t[29] = B))
-        : (B = t[29]);
-      var W;
-      t[30] !== d || t[31] !== E || t[32] !== g || t[33] !== h || t[34] !== v
-        ? ((W = E
+          (t[17] = _),
+          (t[18] = k),
+          (t[19] = y),
+          (t[20] = C),
+          (t[21] = b),
+          (t[22] = v),
+          (t[23] = D),
+          (t[24] = F),
+          (t[25] = O),
+          (t[26] = B),
+          (t[27] = M),
+          (t[28] = E),
+          (t[29] = W))
+        : (W = t[29]);
+      var q;
+      t[30] !== m || t[31] !== k || t[32] !== h || t[33] !== y || t[34] !== S
+        ? ((q = k
             ? u.jsxs(u.Fragment, {
                 children: [
-                  u.jsx(m, { image: d, onClick: v, onDeletePhoto: g }),
+                  u.jsx(p, { image: m, onClick: S, onDeletePhoto: h }),
                   u.jsx("div", {
                     className: "xlese2p",
                     children: u.jsx(r("WAWebDragIconWrapper.react"), {
-                      onDragThumbMouseDown: h,
+                      onDragThumbMouseDown: y,
                     }),
                   }),
                 ],
               })
             : null),
-          (t[30] = d),
-          (t[31] = E),
-          (t[32] = g),
-          (t[33] = h),
-          (t[34] = v),
-          (t[35] = W))
-        : (W = t[35]);
-      var q;
+          (t[30] = m),
+          (t[31] = k),
+          (t[32] = h),
+          (t[33] = y),
+          (t[34] = S),
+          (t[35] = q))
+        : (q = t[35]);
+      var U;
       return (
-        t[36] !== B || t[37] !== W || t[38] !== x
-          ? ((q = u.jsxs(
+        t[36] !== W || t[37] !== q || t[38] !== $
+          ? ((U = u.jsxs(
               "div",
-              babelHelpers.extends({}, D, { children: [x, B, W] }),
+              babelHelpers.extends({}, x, { children: [$, W, q] }),
             )),
-            (t[36] = B),
-            (t[37] = W),
-            (t[38] = x),
-            (t[39] = q))
-          : (q = t[39]),
-        q
+            (t[36] = W),
+            (t[37] = q),
+            (t[38] = $),
+            (t[39] = U))
+          : (U = t[39]),
+        U
       );
     }
-    function m(e) {
+    function p(e) {
       var t = o("react-compiler-runtime").c(11),
         n = e.image,
         a = e.onClick,
@@ -264,9 +265,9 @@ __d(
             u.jsx(r("WAWebUnstyledButton.react"), {
               onClick: i,
               role: "button",
-              xstyle: c.deleteBtn,
+              xstyle: d.deleteBtn,
               children: u.jsx(o("WAWebXAltIcon.react").XAltIcon, {
-                xstyle: c.deleteIcon,
+                xstyle: d.deleteIcon,
               }),
             })),
           (t[0] = n == null ? void 0 : n.preview),
@@ -284,36 +285,36 @@ __d(
                   src: n == null ? void 0 : n.preview,
                 })
               : u.jsx(r("WDSIconIcImage.react"), {
-                  iconXstyle: c.grayColor,
+                  iconXstyle: d.grayColor,
                   height: 15,
                   width: 15,
                 })),
           (t[3] = n == null ? void 0 : n.preview),
           (t[4] = s))
         : (s = t[4]);
-      var d;
+      var c;
       t[5] !== a || t[6] !== s
-        ? ((d = u.jsx(r("WAWebUnstyledButton.react"), {
+        ? ((c = u.jsx(r("WAWebUnstyledButton.react"), {
             onClick: a,
-            xstyle: c.photoPreviewWrapper,
+            xstyle: d.photoPreviewWrapper,
             children: s,
           })),
           (t[5] = a),
           (t[6] = s),
-          (t[7] = d))
-        : (d = t[7]);
+          (t[7] = c))
+        : (c = t[7]);
       var m;
       return (
-        t[8] !== l || t[9] !== d
-          ? ((m = u.jsxs("div", { children: [l, d] })),
+        t[8] !== l || t[9] !== c
+          ? ((m = u.jsxs("div", { children: [l, c] })),
             (t[8] = l),
-            (t[9] = d),
+            (t[9] = c),
             (t[10] = m))
           : (m = t[10]),
         m
       );
     }
-    l.default = d;
+    l.default = m;
   },
   226,
 );

@@ -3,42 +3,46 @@ __d(
   ["WAWebEmoji", "WAWebMediaEditorEnumsFonts"],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, r) {
-      var a = [];
-      for (var i of e.split("\n")) {
-        if (i === "") {
-          a.push({ text: "", width: 0, words: [] });
+    function s(e) {
+      var t = e.font,
+        n = e.fontSize,
+        r = e.maxWidth,
+        a = e.originalText,
+        i = [];
+      for (var l of a.split("\n")) {
+        if (l === "") {
+          i.push({ text: "", width: 0, words: [] });
           continue;
         }
         for (
-          var l = i.split(" "), s = "", c = 0, d = [], m = 0;
-          m < l.length;
-          m++
+          var s = l.split(" "), c = "", d = 0, m = [], p = 0;
+          p < s.length;
+          p++
         ) {
-          var p = (m !== 0 ? " " : "") + l[m],
-            _ = s + p,
-            f = u(_, t, n);
-          if (r > 0 && f > r && c > 0)
-            (a.push({ text: s, width: c, words: d }),
-              (s = ""),
-              (c = 0),
-              (d = []),
-              m--);
+          var _ = (p !== 0 ? " " : "") + s[p],
+            f = c + _,
+            g = u(f, t, n);
+          if (r > 0 && g > r && d > 0)
+            (i.push({ text: c, width: d, words: m }),
+              (c = ""),
+              (d = 0),
+              (m = []),
+              p--);
           else {
-            ((s = _), (c = f));
-            for (var g of p.split(o("WAWebEmoji").EmojiUtil.emojiRegex()))
-              if (g) {
-                var h = null;
-                o("WAWebEmoji").EmojiUtil.isEmoji(g) &&
-                  (h = o("WAWebEmoji").EmojiUtil.getGlyphPath(g, 64));
-                var y = u(g, t, n);
-                d.push({ text: g, width: y, emojiPath: h });
+            ((c = f), (d = g));
+            for (var h of _.split(o("WAWebEmoji").EmojiUtil.emojiRegex()))
+              if (h) {
+                var y = null;
+                o("WAWebEmoji").EmojiUtil.isEmoji(h) &&
+                  (y = o("WAWebEmoji").EmojiUtil.getGlyphPath(h, 64));
+                var C = u(h, t, n);
+                m.push({ text: h, width: C, emojiPath: y });
               }
           }
         }
-        c > 0 && a.push({ text: s, width: c, words: d });
+        d > 0 && i.push({ text: c, width: d, words: m });
       }
-      return a;
+      return i;
     }
     function u(e, t, n) {
       var r = c(),

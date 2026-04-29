@@ -134,7 +134,7 @@ __d(
                 "sendKeyDistributionMsgToActiveChat: error ",
                 "",
               ])),
-            e,
+            String(e),
           );
         });
     }

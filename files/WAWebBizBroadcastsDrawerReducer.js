@@ -2,161 +2,161 @@ __d(
   "WAWebBizBroadcastsDrawerReducer",
   [],
   function (t, n, r, o, a, i) {
-    var e = function (t, n) {
+    function e(e, t) {
       e: {
-        var e = n;
+        var n = t;
         if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "COMPLETE_PROCESSING" &&
-          ((typeof e.payload == "object" && e.payload !== null) ||
-            typeof e.payload == "function") &&
-          "errorList" in e.payload &&
-          "validContactsData" in e.payload
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "COMPLETE_PROCESSING" &&
+          ((typeof n.payload == "object" && n.payload !== null) ||
+            typeof n.payload == "function") &&
+          "errorList" in n.payload &&
+          "validContactsData" in n.payload
         ) {
-          var r = e.payload.errorList,
-            o = e.payload.validContactsData;
-          return babelHelpers.extends({}, t, {
+          var r = n.payload.errorList,
+            o = n.payload.validContactsData;
+          return babelHelpers.extends({}, e, {
             errorList: r,
             validContactsData: o,
           });
         }
         if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "DELETE_CONTACT" &&
-          ((typeof e.payload == "object" && e.payload !== null) ||
-            typeof e.payload == "function") &&
-          "contact" in e.payload
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "DELETE_CONTACT" &&
+          ((typeof n.payload == "object" && n.payload !== null) ||
+            typeof n.payload == "function") &&
+          "contact" in n.payload
         ) {
-          var a = e.payload.contact;
-          return babelHelpers.extends({}, t, {
-            validContactsData: t.validContactsData.filter(function (e) {
+          var a = n.payload.contact;
+          return babelHelpers.extends({}, e, {
+            validContactsData: e.validContactsData.filter(function (e) {
               return e !== a;
             }),
           });
         }
         if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "DELETE_ERROR_ITEM" &&
-          ((typeof e.payload == "object" && e.payload !== null) ||
-            typeof e.payload == "function") &&
-          "errorItem" in e.payload
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "DELETE_ERROR_ITEM" &&
+          ((typeof n.payload == "object" && n.payload !== null) ||
+            typeof n.payload == "function") &&
+          "errorItem" in n.payload
         ) {
-          var i = e.payload.errorItem;
-          return babelHelpers.extends({}, t, {
-            errorList: t.errorList.filter(function (e) {
+          var i = n.payload.errorItem;
+          return babelHelpers.extends({}, e, {
+            errorList: e.errorList.filter(function (e) {
               return e !== i;
             }),
           });
         }
         if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "DELETE_ALL_ERROR_ITEMS"
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "DELETE_ALL_ERROR_ITEMS"
         )
-          return babelHelpers.extends({}, t, { errorList: [] });
+          return babelHelpers.extends({}, e, { errorList: [] });
         if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "SAVE_EDITED_CONTACT" &&
-          ((typeof e.payload == "object" && e.payload !== null) ||
-            typeof e.payload == "function") &&
-          "editedContact" in e.payload &&
-          "originalIndex" in e.payload
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "SAVE_EDITED_CONTACT" &&
+          ((typeof n.payload == "object" && n.payload !== null) ||
+            typeof n.payload == "function") &&
+          "editedContact" in n.payload &&
+          "originalIndex" in n.payload
         ) {
-          var l = e.payload.editedContact,
-            s = e.payload.originalIndex,
-            u = [l].concat(t.validContactsData),
-            c = t.errorList.filter(function (e, t) {
+          var l = n.payload.editedContact,
+            s = n.payload.originalIndex,
+            u = [l].concat(e.validContactsData),
+            c = e.errorList.filter(function (e, t) {
               return t !== s;
             });
-          return babelHelpers.extends({}, t, {
+          return babelHelpers.extends({}, e, {
             errorList: c,
             validContactsData: u,
           });
         }
         if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "UNDO_DELETE_ALL_ERROR_ITEMS" &&
-          ((typeof e.payload == "object" && e.payload !== null) ||
-            typeof e.payload == "function") &&
-          "originalErrorList" in e.payload
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "UNDO_DELETE_ALL_ERROR_ITEMS" &&
+          ((typeof n.payload == "object" && n.payload !== null) ||
+            typeof n.payload == "function") &&
+          "originalErrorList" in n.payload
         ) {
-          var d = e.payload.originalErrorList;
-          return babelHelpers.extends({}, t, { errorList: d });
+          var d = n.payload.originalErrorList;
+          return babelHelpers.extends({}, e, { errorList: d });
         }
         if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "UNDO_DELETE_ERROR_ITEM" &&
-          ((typeof e.payload == "object" && e.payload !== null) ||
-            typeof e.payload == "function") &&
-          "originalErrorItem" in e.payload &&
-          "originalIndex" in e.payload
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "UNDO_DELETE_ERROR_ITEM" &&
+          ((typeof n.payload == "object" && n.payload !== null) ||
+            typeof n.payload == "function") &&
+          "originalErrorItem" in n.payload &&
+          "originalIndex" in n.payload
         ) {
-          var m = e.payload.originalErrorItem,
-            p = e.payload.originalIndex,
-            _ = t.errorList.findIndex(function (e) {
+          var m = n.payload.originalErrorItem,
+            p = n.payload.originalIndex,
+            _ = e.errorList.findIndex(function (e) {
               return e.rowIndex > p;
             }),
             f =
               _ === -1
-                ? [].concat(t.errorList, [m])
-                : [].concat(t.errorList.slice(0, _), [m], t.errorList.slice(_));
-          return babelHelpers.extends({}, t, { errorList: f });
+                ? [].concat(e.errorList, [m])
+                : [].concat(e.errorList.slice(0, _), [m], e.errorList.slice(_));
+          return babelHelpers.extends({}, e, { errorList: f });
         }
         if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "UNDO_DELETE_CONTACT" &&
-          ((typeof e.payload == "object" && e.payload !== null) ||
-            typeof e.payload == "function") &&
-          "originalContact" in e.payload &&
-          "originalIndex" in e.payload
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "UNDO_DELETE_CONTACT" &&
+          ((typeof n.payload == "object" && n.payload !== null) ||
+            typeof n.payload == "function") &&
+          "originalContact" in n.payload &&
+          "originalIndex" in n.payload
         ) {
-          var g = e.payload.originalContact,
-            h = e.payload.originalIndex,
-            y = t.validContactsData.findIndex(function (e) {
+          var g = n.payload.originalContact,
+            h = n.payload.originalIndex,
+            y = e.validContactsData.findIndex(function (e) {
               return e.rowIndex > h;
             }),
             C =
               y === -1
-                ? [].concat(t.validContactsData, [g])
+                ? [].concat(e.validContactsData, [g])
                 : [].concat(
-                    t.validContactsData.slice(0, y),
+                    e.validContactsData.slice(0, y),
                     [g],
-                    t.validContactsData.slice(y),
+                    e.validContactsData.slice(y),
                   );
-          return babelHelpers.extends({}, t, { validContactsData: C });
+          return babelHelpers.extends({}, e, { validContactsData: C });
         }
         if (
-          ((typeof e == "object" && e !== null) || typeof e == "function") &&
-          e.type === "UNDO_SAVE_EDITED_CONTACT" &&
-          ((typeof e.payload == "object" && e.payload !== null) ||
-            typeof e.payload == "function") &&
-          "newIndex" in e.payload &&
-          "originalErrorContact" in e.payload &&
-          "originalIndex" in e.payload
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "UNDO_SAVE_EDITED_CONTACT" &&
+          ((typeof n.payload == "object" && n.payload !== null) ||
+            typeof n.payload == "function") &&
+          "newIndex" in n.payload &&
+          "originalErrorContact" in n.payload &&
+          "originalIndex" in n.payload
         ) {
-          var b = e.payload.newIndex,
-            v = e.payload.originalErrorContact,
-            S = e.payload.originalIndex,
-            R = t.errorList.findIndex(function (e) {
+          var b = n.payload.newIndex,
+            v = n.payload.originalErrorContact,
+            S = n.payload.originalIndex,
+            R = e.errorList.findIndex(function (e) {
               return e.rowIndex > S;
             }),
             L =
               R === -1
-                ? [].concat(t.errorList, [v])
-                : [].concat(t.errorList.slice(0, R), [v], t.errorList.slice(R)),
-            E = t.validContactsData.filter(function (e) {
+                ? [].concat(e.errorList, [v])
+                : [].concat(e.errorList.slice(0, R), [v], e.errorList.slice(R)),
+            E = e.validContactsData.filter(function (e) {
               return e.rowIndex !== b;
             });
-          return babelHelpers.extends({}, t, {
+          return babelHelpers.extends({}, e, {
             errorList: L,
             validContactsData: E,
           });
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            e,
+            n,
         );
       }
-    };
+    }
     i.reducer = e;
   },
   66,

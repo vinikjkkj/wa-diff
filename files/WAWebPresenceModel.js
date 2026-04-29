@@ -325,7 +325,10 @@ __d(
         }),
         (a.$PresenceImpl$p_1 = function () {
           var e;
-          if (this.isGroup) {
+          if (
+            this.isGroup &&
+            o("WAWebGroupPresenceUtils").isSmallGroupPresenceEnabled()
+          ) {
             var t = o("WAWebChatCollection").ChatCollection.get(this.id),
               n =
                 t == null || (e = t.groupMetadata) == null

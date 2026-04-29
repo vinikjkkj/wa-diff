@@ -2,18 +2,22 @@ __d(
   "WAWebMediaEditorUtilsSize",
   [],
   function (t, n, r, o, a, i) {
-    function e(e, t, n, r) {
-      if (e === 0 || t === 0) return { x: 1, y: 1 };
-      var o = 1;
+    function e(e) {
+      var t = e.height,
+        n = e.maxSize,
+        r = e.minSize,
+        o = e.width;
+      if (o === 0 || t === 0) return { x: 1, y: 1 };
+      var a = 1;
       return (
         !n.isEmpty() &&
-          (e > n.getWidth() || t > n.getHeight()) &&
-          (o = Math.min(n.getWidth() / e, n.getHeight() / t)),
+          (o > n.getWidth() || t > n.getHeight()) &&
+          (a = Math.min(n.getWidth() / o, n.getHeight() / t)),
         !r.isEmpty() &&
-          e < r.getWidth() &&
+          o < r.getWidth() &&
           t < r.getHeight() &&
-          (o = Math.min(r.getWidth() / e, r.getHeight() / t)),
-        { x: o, y: o }
+          (a = Math.min(r.getWidth() / o, r.getHeight() / t)),
+        { x: a, y: a }
       );
     }
     i.calculateContainScale = e;

@@ -56,20 +56,25 @@ __d(
           var u = 1;
           return new e(a, i, l, u, r);
         }),
-          (e._fromHsl = function (n, r, o) {
-            var t, a, i;
-            if (r === 0 || o === 0) t = a = i = o;
+          (e._fromHsl = function (n) {
+            var t = n.hue,
+              r = n.lightness,
+              o = n.saturation,
+              a,
+              i,
+              l;
+            if (o === 0 || r === 0) a = i = l = r;
             else {
-              var l = o < 0.5 ? o * (1 + r) : o + r - o * r,
-                s = 2 * o - l;
-              ((t = c(s, l, n + 0.3333333333333333)),
-                (a = c(s, l, n)),
-                (i = c(s, l, n - 0.3333333333333333)));
+              var s = r < 0.5 ? r * (1 + o) : r + o - r * o,
+                u = 2 * r - s;
+              ((a = c(u, s, t + 0.3333333333333333)),
+                (i = c(u, s, t)),
+                (l = c(u, s, t - 0.3333333333333333)));
             }
             return new e(
-              Math.round(t * 255),
               Math.round(a * 255),
               Math.round(i * 255),
+              Math.round(l * 255),
             );
           }));
         var t = e.prototype;
@@ -148,11 +153,11 @@ __d(
               (n > 0.08 &&
                 n < 0.22 &&
                 (s = n < 0.22000000000000003 ? 0.08 : 0.22),
-                (i = e._fromHsl(
-                  s,
-                  a < 0.01 ? 0 : Math.max(a, 0.75),
-                  Math.min(r, 0.25),
-                )),
+                (i = e._fromHsl({
+                  hue: s,
+                  lightness: Math.min(r, 0.25),
+                  saturation: a < 0.01 ? 0 : Math.max(a, 0.75),
+                })),
                 (l = new e(
                   255,
                   255,
@@ -161,8 +166,16 @@ __d(
                   o("WAWebMediaEditorEnumsColors").ColorType.WHITE,
                 )));
             } else
-              ((i = e._fromHsl(n, Math.min(a, 0.33), Math.max(r, 0.9))),
-                (l = e._fromHsl(n, a === 0 ? 0 : 0.4, 0.2)));
+              ((i = e._fromHsl({
+                hue: n,
+                lightness: Math.max(r, 0.9),
+                saturation: Math.min(a, 0.33),
+              })),
+                (l = e._fromHsl({
+                  hue: n,
+                  lightness: 0.2,
+                  saturation: a === 0 ? 0 : 0.4,
+                })));
             return { backgroundColor: i, tintColor: l };
           }),
           (t.withAlpha = function (n) {

@@ -52,7 +52,7 @@ __d(
                     "Failed to post OfflineCountTooHigh metric: ",
                     "",
                   ])),
-                t,
+                String(t),
               )
               .tags("messaging");
           }));

@@ -10,16 +10,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e = { screen: "RESPONSE" },
-      u = function () {
-        var e = location.hostname.match(
-          /(?:dev-web|web)\.(.+?)\.whatsapp\.com$/,
-        );
-        return e
-          ? "https://flows." + e[1] + ".whatsapp.net/flows-v2/wa-web/"
-          : "https://flows.whatsapp.net/flows-v2/wa-web/";
-      },
-      c = "flows-iframe",
+    var e = { screen: "RESPONSE" };
+    function u() {
+      var e = location.hostname.match(/(?:dev-web|web)\.(.+?)\.whatsapp\.com$/);
+      return e
+        ? "https://flows." + e[1] + ".whatsapp.net/flows-v2/wa-web/"
+        : "https://flows.whatsapp.net/flows-v2/wa-web/";
+    }
+    var c = "flows-iframe",
       d = "flows-iframe-loaded",
       m = ["whatsapp.net"],
       p = u();

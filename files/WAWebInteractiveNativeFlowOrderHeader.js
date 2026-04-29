@@ -36,10 +36,10 @@ __d(
       s = e || (e = o("react")),
       u = {
         paywithIcon: {
-          borderTopColor: "xugmkjn",
-          borderInlineEndColor: "x1q71z5y",
-          borderBottomColor: "x1d3wcft",
-          borderInlineStartColor: "x7oa2jg",
+          borderTopColor: "xnj1f2r",
+          borderInlineEndColor: "x2uibgs",
+          borderBottomColor: "xkveyfu",
+          borderInlineStartColor: "x12llq9",
           borderTopStyle: "x13fuv20",
           borderInlineEndStyle: "x18b5jzi",
           borderBottomStyle: "x1q0q8m5",

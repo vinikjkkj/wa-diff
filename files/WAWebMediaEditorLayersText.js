@@ -101,12 +101,12 @@ __d(
               var i, l;
               ((n.text = (i = a.text) != null ? i : n.text),
                 (n.font = (l = a.font) != null ? l : n.font),
-                (n.lines = o("WAWebMediaEditorUtilsTextInCanvas").getLines(
-                  n.text,
-                  n.font,
-                  e,
-                  this.$1.maxWidth,
-                )));
+                (n.lines = o("WAWebMediaEditorUtilsTextInCanvas").getLines({
+                  font: n.font,
+                  fontSize: e,
+                  maxWidth: this.$1.maxWidth,
+                  originalText: n.text,
+                })));
               var u = c(n.lines, s),
                 d = n.frame.getSize(),
                 m = n.frame.getOrigin(),
@@ -127,11 +127,15 @@ __d(
               });
               n.backgroundPath = o(
                 "WAWebMediaEditorUtilsTextBackground",
-              ).generateTextBackgroundPath(_, n.alignment, {
-                lineVerticalPadding: this.getStyles().lineVerticalPadding,
-                lineHorizontalPadding: this.getStyles().lineHorizontalPadding,
-                lineHeight: this.getLineHeight(),
-                arcSize: this.getStyles().backgroundBorderRadius,
+              ).generateTextBackgroundPath({
+                alignment: n.alignment,
+                lineWidths: _,
+                style: {
+                  lineVerticalPadding: this.getStyles().lineVerticalPadding,
+                  lineHorizontalPadding: this.getStyles().lineHorizontalPadding,
+                  lineHeight: this.getLineHeight(),
+                  arcSize: this.getStyles().backgroundBorderRadius,
+                },
               });
             }
             return r("lodash").isEqual(this.$1, n) ? this : new t(n);

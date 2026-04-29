@@ -7,11 +7,11 @@ __d(
     "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function () {
+    function e() {
       return o("WAWebABProps").getABPropConfigValue(
         "booking_confirmation_enabled_wa_web",
       );
-    };
+    }
     function s(e) {
       try {
         var t,
@@ -92,31 +92,31 @@ __d(
         return null;
       }
     }
-    var u = function (t) {
-        var e, n;
-        if (
-          t.nativeFlowName !==
-            r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION ||
-          t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-          t.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-          !((e = t.interactivePayload) != null && e.buttons)
-        )
-          return null;
-        var a =
-          (n = t.interactivePayload.buttons[0]) == null
-            ? void 0
-            : n.buttonParamsJson;
-        return a == null ? null : s(a);
-      },
-      c = function (t) {
-        if (
-          (t == null ? void 0 : t.name) !==
-          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
-        )
-          return null;
-        var e = t.buttonParamsJson;
-        return e == null ? null : s(e);
-      };
+    function u(e) {
+      var t, n;
+      if (
+        e.nativeFlowName !==
+          r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION ||
+        e.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        e.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !((t = e.interactivePayload) != null && t.buttons)
+      )
+        return null;
+      var a =
+        (n = e.interactivePayload.buttons[0]) == null
+          ? void 0
+          : n.buttonParamsJson;
+      return a == null ? null : s(a);
+    }
+    function c(e) {
+      if (
+        (e == null ? void 0 : e.name) !==
+        r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
+      )
+        return null;
+      var t = e.buttonParamsJson;
+      return t == null ? null : s(t);
+    }
     ((l.isBookingConfirmationEnabled = e),
       (l.getBookingConfirmationInfo = u),
       (l.parseBookingConfirmationButton = c));

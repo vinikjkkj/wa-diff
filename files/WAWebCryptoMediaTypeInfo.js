@@ -71,6 +71,8 @@ __d(
           throw r("err")("createKeys: newsletter media is not encrypted: " + e);
         if (e === o("WAWebMmsMediaTypes").MEDIA_TYPES.GROUP_HISTORY)
           return "Group History";
+        if (e === o("WAWebMmsMediaTypes").MEDIA_TYPES.MAIBA_FILE)
+          return "WhatsApp Document Keys";
         if (e === "biz-cover-photo" || e === "native_flow" || e === "preview")
           return;
         throw Error(

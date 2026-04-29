@@ -22,8 +22,8 @@ __d(
               .ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[pnless-stanza] shouldConvertToLid: received a device ",
-                    " receiptType=",
+                    "[pnless-stanza] shouldConvertToLid: device wid ",
+                    " rcpt=",
                     "",
                   ])),
                 t.toLogString(),

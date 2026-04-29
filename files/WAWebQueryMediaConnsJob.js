@@ -59,7 +59,8 @@ __d(
           e === "group-history" ||
           e === "ads-image" ||
           e === "ads-video" ||
-          e === "ptv"
+          e === "ptv" ||
+          e === "maiba-file"
         ) {
           var t = e;
           return t;

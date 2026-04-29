@@ -56,6 +56,7 @@ __d(
         (e[s.MEDIA_TYPES.GROUP_HISTORY] = "/mms/group-history"),
         (e[s.MEDIA_TYPES.WAFFLE_VIDEO] = "/mms/waffle-video"),
         (e[s.MEDIA_TYPES.WAFFLE_IMAGE] = "/mms/waffle-image"),
+        (e[s.MEDIA_TYPES.MAIBA_FILE] = "/wa-ai/maiba-file"),
         e);
     function c(e) {
       var t = e.encFilehash,

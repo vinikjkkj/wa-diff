@@ -3,6 +3,7 @@ __d(
   [
     "WAWebBotBaseGating",
     "WAWebBotProfileCollection",
+    "WAWebBotUtils",
     "WAWebMsgGetters",
     "WAWebWidFactory",
   ],
@@ -20,7 +21,8 @@ __d(
           r == null ||
           !r.isBot() ||
           !o("WAWebBotBaseGating").isAiForwardAttributionEnabled()
-        )
+        ) &&
+        !o("WAWebBotUtils").isBotChannelFBID(r)
       ) {
         var a = o("WAWebWidFactory").asBotWidOrThrow(r),
           i = o("WAWebBotProfileCollection").BotProfileCollection.get(r);

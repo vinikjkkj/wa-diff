@@ -231,7 +231,7 @@ __d(
                     "startUsernameChat: error ",
                     "",
                   ])),
-                e,
+                String(e),
               );
             });
         })),

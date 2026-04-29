@@ -16,6 +16,7 @@ __d(
       VALIDATION: 10,
       READ: 11,
       WRITE: 12,
+      SUPPRESS: 13,
     });
     i.SMB_USER_ACTION_TYPE_ENUM = e;
   },

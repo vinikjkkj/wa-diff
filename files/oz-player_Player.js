@@ -1737,9 +1737,6 @@ __d(
               a || null
             );
           }),
-          (i.$Player$p_123 = function (t) {
-            return null;
-          }),
           (i.$Player$p_85 = function (t) {
             var e = new (r("oz-player/parsers/OzMpdParser"))({
                 config: this.$Player$p_4,
@@ -1798,29 +1795,29 @@ __d(
               e
             );
           }),
-          (i.$Player$p_124 = function (t, n) {
+          (i.$Player$p_123 = function (t, n) {
             var e = this.$Player$p_5.get(n);
             return e ? e.getRepresentationIDAtTime(t) : null;
           }),
           (i.getAudioRepresentationIDAtTime = function (t) {
-            return this.$Player$p_124(t, "audio");
+            return this.$Player$p_123(t, "audio");
           }),
           (i.getVideoRepresentationIDAtTime = function (t) {
-            return this.$Player$p_124(t, "video");
+            return this.$Player$p_123(t, "video");
           }),
           (i.getCurrentVideoRepresentation = function () {
-            return this.$Player$p_125("video");
+            return this.$Player$p_124("video");
           }),
           (i.getCurrentAudioRepresentation = function () {
-            return this.$Player$p_125("audio");
+            return this.$Player$p_124("audio");
           }),
           (i.getCurrentPlayingAudioTrackID = function () {
             var e = this.getCurrentAudioRepresentation();
             return e == null ? void 0 : e.getID();
           }),
-          (i.$Player$p_125 = function (t) {
+          (i.$Player$p_124 = function (t) {
             var e,
-              n = this.$Player$p_124(this.$Player$p_14.getCurrentTime(), t),
+              n = this.$Player$p_123(this.$Player$p_14.getCurrentTime(), t),
               r = this.$Player$p_9;
             if (!r) return null;
             var o = [];
@@ -2016,11 +2013,11 @@ __d(
                   ? n
                   : void 0,
               ),
-              i = this.$Player$p_126(o, a),
-              l = this.$Player$p_127(o, a);
+              i = this.$Player$p_125(o, a),
+              l = this.$Player$p_126(o, a);
             return { latencyFromClockSync: l, latencyFromMpdUpdate: i };
           }),
-          (i.$Player$p_126 = function (t, n) {
+          (i.$Player$p_125 = function (t, n) {
             if (!this.$Player$p_14.getCurrentTime() || isNaN(t) || isNaN(n))
               return null;
             var e = 0;
@@ -2034,7 +2031,7 @@ __d(
             var o = t / 1e3 + e - this.$Player$p_14.getCurrentTime();
             return o;
           }),
-          (i.$Player$p_127 = function (t, n) {
+          (i.$Player$p_126 = function (t, n) {
             var e;
             if (
               !this.$Player$p_14.getCurrentTime() ||

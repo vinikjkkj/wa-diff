@@ -97,6 +97,7 @@ __d(
                       "voip: init skipped due to unsupported browser",
                     ])),
                 ),
+                  o("WAWebCoreActionsODS").logCallVoipInitSkipUnsupported(),
                   o(
                     "WAWebVoipInitEventEmitter",
                   ).VoipInitEventEmitter.triggerVoipInitFailure());

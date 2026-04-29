@@ -229,7 +229,7 @@ __d(
                           "[GalaxyDisableCTACollection] NFM btn update failed: ",
                           "",
                         ])),
-                      e,
+                      String(e),
                     );
                   }),
                 o("WALogger").LOG(

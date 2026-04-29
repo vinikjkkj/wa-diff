@@ -29,34 +29,34 @@ __d(
       return d()[e];
     }
     var p = function (t, n) {
-        var e = parseInt(t.id, 10),
-          r = parseInt(n.id, 10);
-        return Number.isNaN(e) || Number.isNaN(r) ? 0 : e - r;
-      },
-      _ = function (t) {
-        t.sort(function (e, t) {
-          var n = e.orderIndex - t.orderIndex;
-          return n === 0 ? p(e, t) : n;
-        });
-      },
-      f = new Set([
-        (e = o("WAWebSchemaLabel")).ListType.UNREAD,
-        e.ListType.GROUPS,
-        e.ListType.FAVORITES,
-        e.ListType.COMMUNITY,
-      ]);
+      var e = parseInt(t.id, 10),
+        r = parseInt(n.id, 10);
+      return Number.isNaN(e) || Number.isNaN(r) ? 0 : e - r;
+    };
+    function _(e) {
+      e.sort(function (e, t) {
+        var n = e.orderIndex - t.orderIndex;
+        return n === 0 ? p(e, t) : n;
+      });
+    }
+    var f = new Set([
+      (e = o("WAWebSchemaLabel")).ListType.UNREAD,
+      e.ListType.GROUPS,
+      e.ListType.FAVORITES,
+      e.ListType.COMMUNITY,
+    ]);
     function g(e) {
       return e == null ? !1 : f.has(e);
     }
-    var h = function (t, n) {
+    function h(e, t) {
       return (
         o("WAWebListsGatingUtils").isListsEnabled() &&
         o("WAWebMobilePlatforms").isSMB() &&
-        t != null &&
-        !g(t) &&
-        n != null
+        e != null &&
+        !g(e) &&
+        t != null
       );
-    };
+    }
     function y(e) {
       return g(e) && e !== o("WAWebSchemaLabel").ListType.FAVORITES;
     }
@@ -138,20 +138,20 @@ __d(
             s._param("max_count", n),
           ]);
     }
-    var I = function (t, n) {
-      var e, r;
-      return t.filter === o("WAWebChatSearchFilters").SearchFilters.UNREAD ||
-        t.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
-        t.filter === o("WAWebChatSearchFilters").SearchFilters.FAVORITES ||
-        t.filter === o("WAWebChatSearchFilters").SearchFilters.COMMUNITY ||
-        t.filter === o("WAWebChatSearchFilters").SearchFilters.CHANNELS
-        ? (e = n.get(String(t.filter))) != null
-          ? e
+    function I(e, t) {
+      var n, r;
+      return e.filter === o("WAWebChatSearchFilters").SearchFilters.UNREAD ||
+        e.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
+        e.filter === o("WAWebChatSearchFilters").SearchFilters.FAVORITES ||
+        e.filter === o("WAWebChatSearchFilters").SearchFilters.COMMUNITY ||
+        e.filter === o("WAWebChatSearchFilters").SearchFilters.CHANNELS
+        ? (n = t.get(String(e.filter))) != null
+          ? n
           : 0
-        : (r = n.get(String(t.listId))) != null
+        : (r = t.get(String(e.listId))) != null
           ? r
           : 0;
-    };
+    }
     function T() {
       var e = o("WAWebLabelCollection").LabelCollection.toArray(),
         t = new Map(),
