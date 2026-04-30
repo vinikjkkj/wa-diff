@@ -9,38 +9,33 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d,
-      m,
-      p = function (t) {
-        switch (String(t)) {
-          case String(
-            o("WAWebWamEnumMmUserControlsEntryPoint")
-              .MM_USER_CONTROLS_ENTRY_POINT.BUSINESS_PROFILE,
-          ):
-            return _.PROFILE_VIEW;
-          case String(
-            o("WAWebWamEnumMmUserControlsEntryPoint")
-              .MM_USER_CONTROLS_ENTRY_POINT.SYSTEM_MESSAGE,
-          ):
-            return _.SYSTEM_EVENT_MESSAGE;
-          case String(
-            o("WAWebWamEnumMmUserControlsEntryPoint")
-              .MM_USER_CONTROLS_ENTRY_POINT.POST_SEND_SYSTEM_MESSAGE,
-          ):
-            return _.SYSTEM_EVENT_MESSAGE;
-          default:
-            return _.QUICK_ACTION;
-        }
-      },
-      _ = {
-        PROFILE_VIEW: "profile_view",
-        QUICK_ACTION: "quick_action",
-        SYSTEM_EVENT_MESSAGE: "system_event_message",
-      };
+    var e, s, u, c, d, m;
+    function p(e) {
+      switch (String(e)) {
+        case String(
+          o("WAWebWamEnumMmUserControlsEntryPoint").MM_USER_CONTROLS_ENTRY_POINT
+            .BUSINESS_PROFILE,
+        ):
+          return _.PROFILE_VIEW;
+        case String(
+          o("WAWebWamEnumMmUserControlsEntryPoint").MM_USER_CONTROLS_ENTRY_POINT
+            .SYSTEM_MESSAGE,
+        ):
+          return _.SYSTEM_EVENT_MESSAGE;
+        case String(
+          o("WAWebWamEnumMmUserControlsEntryPoint").MM_USER_CONTROLS_ENTRY_POINT
+            .POST_SEND_SYSTEM_MESSAGE,
+        ):
+          return _.SYSTEM_EVENT_MESSAGE;
+        default:
+          return _.QUICK_ACTION;
+      }
+    }
+    var _ = {
+      PROFILE_VIEW: "profile_view",
+      QUICK_ACTION: "quick_action",
+      SYSTEM_EVENT_MESSAGE: "system_event_message",
+    };
     function f(e, t, n, r, o) {
       return g.apply(this, arguments);
     }

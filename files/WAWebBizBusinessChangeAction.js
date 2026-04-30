@@ -7,16 +7,16 @@ __d(
     "WAWebStateUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
-      var e = o("WAWebStateUtils").unproxy(t),
-        n = e.businessProfile,
-        r = e.id,
+    function e(e) {
+      var t = o("WAWebStateUtils").unproxy(e),
+        n = t.businessProfile,
+        r = t.id,
         a =
-          e.isBusiness ||
-          (o("WAWebContactGetters").getIsMe(e) &&
+          t.isBusiness ||
+          (o("WAWebContactGetters").getIsMe(t) &&
             o("WAWebConnModel").Conn.isSMB);
       a && !n
-        ? e.addChild(
+        ? t.addChild(
             "businessProfile",
             o("WAWebBusinessProfileCollection").BusinessProfileCollection.gadd(
               r,
@@ -24,8 +24,8 @@ __d(
           )
         : !a &&
           n &&
-          (e.stopListening(n), (e.businessProfile = void 0), n.delete());
-    };
+          (t.stopListening(n), (t.businessProfile = void 0), n.delete());
+    }
     l.handleBusinessChange = e;
   },
   98,

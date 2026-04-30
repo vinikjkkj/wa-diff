@@ -38,8 +38,12 @@ __d(
         data: babelHelpers.extends({}, e.data, t),
       });
     }
-    function m(t, a, i, l) {
-      return r("WAWebPonyfillsFetch")(t, { headers: { Accept: "video/mp4" } })
+    function m(t) {
+      var a = t.accessibilityLabel,
+        i = t.attribution,
+        l = t.filename,
+        s = t.gifUrl;
+      return r("WAWebPonyfillsFetch")(s, { headers: { Accept: "video/mp4" } })
         .then(function (t) {
           if (!t.ok)
             throw (
@@ -73,7 +77,7 @@ __d(
                   u = t.duration;
                 return {
                   file: e,
-                  filename: a,
+                  filename: l,
                   mimetype: e.type,
                   isGif: !0,
                   gifAttribution: i,
@@ -81,7 +85,7 @@ __d(
                   fullPreviewSize: { width: s.fullWidth, height: s.fullHeight },
                   preview: r("WAWebURLUtils").parseDataURL(s.url).data,
                   duration: u,
-                  accessibilityLabel: l,
+                  accessibilityLabel: a,
                 };
               },
             );

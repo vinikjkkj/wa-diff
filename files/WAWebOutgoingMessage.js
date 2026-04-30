@@ -108,20 +108,20 @@ __d(
               (e.url = p));
         }
         return o("WAWebE2EProtoGenerator").createMsgProtobuf(t, e || {});
-      },
-      f = function (t, n) {
-        var e =
-          n.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
-            ? _(n.data)
-            : o("WAWebE2EProtoGenerator").createAddonProtobuf(n.data);
-        return (m(t, n, e), e);
-      },
-      g = function (t, n) {
-        return f(t, {
-          type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
-          data: n,
-        });
       };
+    function f(e, t) {
+      var n =
+        t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
+          ? _(t.data)
+          : o("WAWebE2EProtoGenerator").createAddonProtobuf(t.data);
+      return (m(e, t, n), n);
+    }
+    function g(e, t) {
+      return f(e, {
+        type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
+        data: t,
+      });
+    }
     ((l.OutgoingMessageOriginType = d),
       (l.createOutgoingMessageProtobuf = f),
       (l.createOutgoingMsgModelProtobuf = g));

@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebCommonNewsletterEnums",
+    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMessageDeliveryUpdateToModelUtils",
     "WAWebNewsletterMetadataCollection",
     "WAWebSchemaNewsletterMetadata",
@@ -85,7 +86,8 @@ __d(
             var t = yield o("WAWebSchemaNewsletterMetadata")
                 .getNewsletterMetadataTable()
                 .all(),
-              a = new Set();
+              a = new Set(),
+              i = [];
             (t.forEach(
               (function () {
                 var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -129,31 +131,37 @@ __d(
                         wamoSubStatus: m(e.wamoSubStatus),
                         statusMetadata: e.statusMetadata,
                         lastFilledStatusServerId: e.lastFilledStatusServerId,
+                        statusMute: e.statusMute === !0,
                       };
                     if (
                       (r("WAWebNewsletterMetadataCollection") == null ||
                         r("WAWebNewsletterMetadataCollection").add(n, {
                           merge: !0,
                         }),
+                      e.statusMute === !0 &&
+                        o(
+                          "WAWebNewsletterGatingUtils",
+                        ).isNewsletterStatusReceiverEnabled() &&
+                        i.push({ id: e.id, statusMute: !0 }),
                       e.messageDeliveryUpdates != null)
                     ) {
-                      var i = [];
+                      var l = [];
                       e.messageDeliveryUpdates.forEach(function (e, t) {
-                        return i.push({ id: t, code: e.code });
+                        return l.push({ id: t, code: e.code });
                       });
-                      var l = yield o(
+                      var p = yield o(
                           "WAWebNewsletterMessageDeliveryUpdateToModelUtils",
                         ).getMessageDeliveryUpdatesModelToUpdate(
                           o("WAJids").toNewsletterJid(e.id),
-                          i,
+                          l,
                           [],
                         ),
-                        p = l.modelUpdatesToAdd;
+                        _ = p.modelUpdatesToAdd;
                       yield o("WAWebBackendApi").frontendFireAndForget(
                         "updateNewsletterMessageDeliveryUpdate",
                         {
                           id: t,
-                          modelUpdatesToAdd: p,
+                          modelUpdatesToAdd: _,
                           modelUpdatesToRemove: [],
                         },
                       );
@@ -165,6 +173,15 @@ __d(
                 };
               })(),
             ),
+              i.length > 0 &&
+                (yield o("WAWebBackendApi").frontendFireAndForget(
+                  "updateContactsStatusMute",
+                  {
+                    userStatusMuteUpdates: [],
+                    groupStatusMuteUpdates: [],
+                    newsletterStatusMuteUpdates: i,
+                  },
+                )),
               a.size > 0 &&
                 o("WALogger")
                   .WARN(

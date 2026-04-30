@@ -37,9 +37,7 @@ __d(
       o("WAWebDrawerManager").DrawerManager.openDrawerRight(
         u.jsx(d, {
           info: e,
-          onClose: function () {
-            return o("WAWebDrawerManager").DrawerManager.closeDrawerRight();
-          },
+          onClose: o("WAWebDrawerManager").closeDrawerRight,
         }),
         { transition: "slide-left" },
       );

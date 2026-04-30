@@ -31,6 +31,7 @@ __d(
         POST_EPSILON: "post_epsilon",
         POST_EPSILON_MOBILE: "post_epsilon_mobile",
         POST_EPSILON_WEB: "post_epsilon_web",
+        POST_FALLBACK_CHAIN_COMPLETION: "post_fallback_chain_completion",
         POST_LOGIN_CHALLENGE: "post_login_challenge",
         POST_LOGIN_UPSELL: "post_login_upsell",
         POST_LRR: "post_lrr",

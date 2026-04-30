@@ -23,77 +23,77 @@ __d(
         babelHelpers.extends({}, n, { frontendDeps: t, odsDeps: s }),
       );
     }
-    var c = function (t, n) {
-        var e = {
-          createSendReporter: function (r) {
-            return u(t, n, r);
-          },
-          sendReporter: null,
-          sendPerfReporter: null,
-        };
-        return (
-          Object.defineProperty(e, "sendReporter", {
-            get: function () {
-              return t.wamMessageSendReporter;
-            },
-            set: function (n) {
-              t.wamMessageSendReporter = n;
-            },
-            enumerable: !0,
-          }),
-          Object.defineProperty(e, "sendPerfReporter", {
-            get: function () {
-              var e;
-              return (e = t.wamMessageSendPerfReporter) != null ? e : null;
-            },
-            set: function (n) {
-              t.wamMessageSendPerfReporter = n;
-            },
-            enumerable: !0,
-          }),
-          e
-        );
-      },
-      d = function (t, n) {
-        var e = u(t, n),
-          r = new (o("WAWebMessageSendPerfReporter").MessageSendPerfReporter)({
-            chatWid: t.to,
-            mediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
-            messageType: o("WAWebWamMsgUtils").getWamMessageType(t),
-          });
-        if (t.kind === o("WAWebMsgType").MsgKind.ProtocolAddonRevoke) {
-          var a;
-          (a = r) == null || a.setIsRevokeMessage(!0);
-        }
-        var i = {
-          createSendReporter: function (r) {
-            return u(t, n, r);
-          },
-          sendReporter: null,
-          sendPerfReporter: null,
-        };
-        return (
-          Object.defineProperty(i, "sendReporter", {
-            get: function () {
-              return e;
-            },
-            set: function (n) {
-              e = n;
-            },
-            enumerable: !0,
-          }),
-          Object.defineProperty(i, "sendPerfReporter", {
-            get: function () {
-              return r;
-            },
-            set: function (t) {
-              r = t;
-            },
-            enumerable: !0,
-          }),
-          i
-        );
+    function c(e, t) {
+      var n = {
+        createSendReporter: function (r) {
+          return u(e, t, r);
+        },
+        sendReporter: null,
+        sendPerfReporter: null,
       };
+      return (
+        Object.defineProperty(n, "sendReporter", {
+          get: function () {
+            return e.wamMessageSendReporter;
+          },
+          set: function (n) {
+            e.wamMessageSendReporter = n;
+          },
+          enumerable: !0,
+        }),
+        Object.defineProperty(n, "sendPerfReporter", {
+          get: function () {
+            var t;
+            return (t = e.wamMessageSendPerfReporter) != null ? t : null;
+          },
+          set: function (n) {
+            e.wamMessageSendPerfReporter = n;
+          },
+          enumerable: !0,
+        }),
+        n
+      );
+    }
+    function d(e, t) {
+      var n = u(e, t),
+        r = new (o("WAWebMessageSendPerfReporter").MessageSendPerfReporter)({
+          chatWid: e.to,
+          mediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
+          messageType: o("WAWebWamMsgUtils").getWamMessageType(e),
+        });
+      if (e.kind === o("WAWebMsgType").MsgKind.ProtocolAddonRevoke) {
+        var a;
+        (a = r) == null || a.setIsRevokeMessage(!0);
+      }
+      var i = {
+        createSendReporter: function (r) {
+          return u(e, t, r);
+        },
+        sendReporter: null,
+        sendPerfReporter: null,
+      };
+      return (
+        Object.defineProperty(i, "sendReporter", {
+          get: function () {
+            return n;
+          },
+          set: function (t) {
+            n = t;
+          },
+          enumerable: !0,
+        }),
+        Object.defineProperty(i, "sendPerfReporter", {
+          get: function () {
+            return r;
+          },
+          set: function (t) {
+            r = t;
+          },
+          enumerable: !0,
+        }),
+        i
+      );
+    }
     ((l.createMsgModelMetricReporter = c), (l.createAddonMetricReporter = d));
   },
   98,

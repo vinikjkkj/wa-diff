@@ -96,11 +96,11 @@ __d(
       var t = /[\[\]{}|<>?\/\"\':;()+*#@$%&~`^=!\\]/g;
       return e.replace(t, "");
     }
-    var p = function (t, n, r, o, a, i) {
-      var e = m(n != null ? n : t),
-        l = (e.length > 0 ? e : t) + ".csv",
-        s = i(),
-        u = d(t, r, o, a),
+    function p(e, t, n, r, o, a) {
+      var i = m(t != null ? t : e),
+        l = (i.length > 0 ? i : e) + ".csv",
+        s = a(),
+        u = d(e, n, r, o),
         c = new Blob([u], { type: "text/csv;charset=utf-8;" });
       if ((s == null ? void 0 : s.download) !== void 0) {
         var p = URL.createObjectURL(c);
@@ -110,7 +110,7 @@ __d(
           s.removeAttribute("href"),
           s.removeAttribute("download"));
       }
-    };
+    }
     ((l.generateCsv = d),
       (l.removeUnsupportedChars = m),
       (l.manageResponseDownload = p));

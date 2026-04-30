@@ -52,16 +52,16 @@ __d(
       return s._(/*BTDS*/ "Enter a positive number");
     }
     p.displayName = p.name + " [from " + i.id + "]";
-    var _ = function (t) {
-        return s._(/*BTDS*/ "{input_label} cannot be more than 100\u0025", [
-          s._param("input_label", t),
-        ]);
-      },
-      f = function (t) {
-        return s._(/*BTDS*/ "{input_label} cannot be more than subtotal", [
-          s._param("input_label", t),
-        ]);
-      };
+    function _(e) {
+      return s._(/*BTDS*/ "{input_label} cannot be more than 100\u0025", [
+        s._param("input_label", e),
+      ]);
+    }
+    function f(e) {
+      return s._(/*BTDS*/ "{input_label} cannot be more than subtotal", [
+        s._param("input_label", e),
+      ]);
+    }
     function g(e) {
       var t = e.currency,
         n = e.enablePercentValueCheck,

@@ -41,6 +41,8 @@ __d(
                         getBubbleTheme: t.getBubbleTheme,
                         getChatTheme: t.getChatTheme,
                         getColorSchemeName: t.getColorSchemeName,
+                        getDoodleThemeOrder: t.getDoodleThemeOrder,
+                        isMinimalScheme: t.isMinimalScheme,
                       });
                   }),
                   function () {

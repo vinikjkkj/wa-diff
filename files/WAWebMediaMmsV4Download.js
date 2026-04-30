@@ -260,8 +260,8 @@ __d(
                   (o("WALogger").LOG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[media-download] downloadMedia: blob validation failed, clearing. filehash=",
-                        " msgCount=",
+                        "[media-download] blob invalid, clearing fh=",
+                        " msgs=",
                         "",
                       ])),
                     V != null ? V : "none",
@@ -306,10 +306,10 @@ __d(
                                       (s =
                                         babelHelpers.taggedTemplateLiteralLoose(
                                           [
-                                            "[media-download] downloadMedia: no blob, no cache, no entry. filehash=",
-                                            " msgCount=",
-                                            " downloadEvenIfExpensive=",
-                                            " rmrReason=",
+                                            "[media-download] no blob/cache/entry fh=",
+                                            " msgs=",
+                                            " exp=",
+                                            " rmr=",
                                             "",
                                           ],
                                         )),

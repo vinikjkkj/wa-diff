@@ -2,14 +2,14 @@ __d(
   "WAWebCommunityLogEvents",
   ["WAWebCadminDemoteWamEvent"],
   function (t, n, r, o, a, i, l) {
-    var e = function (t, n, r) {
-      var e = new (o("WAWebCadminDemoteWamEvent").CadminDemoteWamEvent)({
-        cadminDemoteOrigin: t,
-        cadminDemoteResult: n,
-        isLastCadminOrCreator: r,
+    function e(e, t, n) {
+      var r = new (o("WAWebCadminDemoteWamEvent").CadminDemoteWamEvent)({
+        cadminDemoteOrigin: e,
+        cadminDemoteResult: t,
+        isLastCadminOrCreator: n,
       });
-      e.commit();
-    };
+      r.commit();
+    }
     l.logCadminDemoteEvent = e;
   },
   98,

@@ -174,25 +174,25 @@ __d(
             u({ paidData: c, chat: n, surface: r, type: l, subType: s }, a);
           }
         }
-      },
-      d = function (t, n) {
-        var e = t.chat,
-          r = t.isPaidStateChanged,
-          a = t.orderStatus,
-          i = t.paidData,
-          l = t.type;
-        if (o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()) {
-          var s = {
-            surface: "order",
-            chat: e,
-            type: l,
-            orderStatus: a,
-            paidData: i,
-          };
-          (r === !0 && (s.subType = "paid_change"), u(s, n));
-        }
-      },
-      m = function (t, n, r) {
+      };
+    function d(e, t) {
+      var n = e.chat,
+        r = e.isPaidStateChanged,
+        a = e.orderStatus,
+        i = e.paidData,
+        l = e.type;
+      if (o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()) {
+        var s = {
+          surface: "order",
+          chat: n,
+          type: l,
+          orderStatus: a,
+          paidData: i,
+        };
+        (r === !0 && (s.subType = "paid_change"), u(s, t));
+      }
+    }
+    var m = function (t, n, r) {
         var e = "label_chat";
         t.forEach(function (t) {
           n.forEach(function (n) {
@@ -212,26 +212,24 @@ __d(
             }
           });
         });
-      },
-      _ = function (t, n, r, a) {
-        if (t.length !== 0) {
-          var e = t.reduce(function (e, t) {
-            return (t instanceof o("WAWebChatModel").Chat && e.push(t), e);
-          }, []);
-          (n != null &&
-            n.length > 0 &&
-            e.length > 0 &&
-            o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
-            m(e, n, r),
-            a != null &&
-              a.length > 0 &&
-              e.length > 0 &&
-              o(
-                "WAWebBizGatingUtils",
-              ).isSMBLabelsDataSharingEnabledForChats() &&
-              p(e, a, r));
-        }
       };
+    function _(e, t, n, r) {
+      if (e.length !== 0) {
+        var a = e.reduce(function (e, t) {
+          return (t instanceof o("WAWebChatModel").Chat && e.push(t), e);
+        }, []);
+        (t != null &&
+          t.length > 0 &&
+          a.length > 0 &&
+          o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
+          m(a, t, n),
+          r != null &&
+            r.length > 0 &&
+            a.length > 0 &&
+            o("WAWebBizGatingUtils").isSMBLabelsDataSharingEnabledForChats() &&
+            p(a, r, n));
+      }
+    }
     ((l.log3pdConversionSignalForOrders = d),
       (l.log3pdConversionSignalForChats = _));
   },

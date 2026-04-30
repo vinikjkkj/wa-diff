@@ -3,7 +3,7 @@ __d(
   ["react"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = r("react")),
+      s = e || (e = o("react")),
       u = {
         Button: "button",
         Header: null,

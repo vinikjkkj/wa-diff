@@ -7,41 +7,37 @@ __d(
     "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
-        if (!t.contact.isBusiness) return !1;
-        var e = o(
+    function e(e) {
+      if (!e.contact.isBusiness) return !1;
+      var t = o(
+        "WAWebConsumerTransparencyInfoIconModel",
+      ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
+      return !(
+        !t &&
+        r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e) == null
+      );
+    }
+    function s() {
+      return (
+        !o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiIndiaEnabled() &&
+        (o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiRowEnabled() ||
+          o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiBrazilEnabled())
+      );
+    }
+    function u(e, t, n) {
+      if (!(t == null || n == null) && e.contact.isBusiness) {
+        var r = o(
           "WAWebConsumerTransparencyInfoIconModel",
-        ).ConsumerTransparencyInfoIconModel.shouldShowIcon(t.id);
-        return !(
-          !e &&
-          r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(t) == null
-        );
-      },
-      s = function () {
-        return (
-          !o(
-            "WAWebBizGatingUtils",
-          ).isUpdatedConsumerDisclosureUiIndiaEnabled() &&
-          (o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiRowEnabled() ||
-            o(
-              "WAWebBizGatingUtils",
-            ).isUpdatedConsumerDisclosureUiBrazilEnabled())
-        );
-      },
-      u = function (t, n, r) {
-        if (!(n == null || r == null) && t.contact.isBusiness) {
-          var e = o(
+        ).ConsumerTransparencyInfoIconModel.shouldShowIcon(e.id);
+        r ||
+          (o(
             "WAWebConsumerTransparencyInfoIconModel",
-          ).ConsumerTransparencyInfoIconModel.shouldShowIcon(t.id);
-          e ||
-            (o(
-              "WAWebConsumerTransparencyInfoIconModel",
-            ).ConsumerTransparencyInfoIconModel.add(t.id),
-            o(
-              "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
-            ).maybeInsertCtwaConsumerDisclosureMsg(t));
-        }
-      };
+          ).ConsumerTransparencyInfoIconModel.add(e.id),
+          o(
+            "WAWebMaybeInsertCtwaConsumerDisclosureMsg",
+          ).maybeInsertCtwaConsumerDisclosureMsg(e));
+      }
+    }
     ((l.shouldShowConsumerTransparencyDisclosure = e),
       (l.shouldShowROWConsumerDisclosure = s),
       (l.handleConsumerTransparencyForNewMsg = u));

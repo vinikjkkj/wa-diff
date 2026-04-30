@@ -24,22 +24,22 @@ __d(
         return null;
       }
     }
-    var s = function (n) {
-      var t, a;
+    function s(t) {
+      var n, a;
       if (
-        n.nativeFlowName !==
+        t.nativeFlowName !==
           r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP ||
-        n.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
-        n.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
-        !((t = n.interactivePayload) != null && t.buttons)
+        t.type !== o("WAWebMsgType").MSG_TYPE.INTERACTIVE ||
+        t.interactiveType !== r("WAWebInteractiveMessageType").NATIVE_FLOW ||
+        !((n = t.interactivePayload) != null && n.buttons)
       )
         return null;
       var i =
-        (a = n.interactivePayload.buttons[0]) == null
+        (a = t.interactivePayload.buttons[0]) == null
           ? void 0
           : a.buttonParamsJson;
       return i == null ? null : e(i);
-    };
+    }
     function u(e) {
       if (e == null) return null;
       try {

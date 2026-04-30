@@ -2,9 +2,9 @@ __d(
   "WAWebBizVerifyPostcodeAction",
   ["WAWebBizVerifyPostcodeBridge"],
   function (t, n, r, o, a, i, l) {
-    var e = function (t, n) {
-      return o("WAWebBizVerifyPostcodeBridge").verifyPostcode(t, n);
-    };
+    function e(e, t) {
+      return o("WAWebBizVerifyPostcodeBridge").verifyPostcode(e, t);
+    }
     l.verifyPostcode = e;
   },
   98,

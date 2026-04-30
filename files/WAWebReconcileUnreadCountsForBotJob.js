@@ -57,9 +57,9 @@ __d(
               : (o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[reconcile-unread] chat.unreadCount=",
-                      " already matches threadSum=",
-                      ", no fix needed",
+                      "[reconcile-unread] unread=",
+                      " matches sum=",
+                      "",
                     ])),
                   p,
                   u,

@@ -6,9 +6,11 @@ __d(
     "WASyncdConst",
     "WAWebBackendApi",
     "WAWebLidAwareContactsDB",
+    "WAWebNewsletterGatingUtils",
     "WAWebProtobufsServerSync.pb",
     "WAWebSchemaContact_DO_NOT_USE_DIRECTLY",
     "WAWebSchemaGroupMetadata",
+    "WAWebSchemaNewsletterMetadata",
     "WAWebSyncdAction",
     "WAWebSyncdActionUtils",
     "WAWebSyncdIndexUtils",
@@ -24,32 +26,61 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new Set(),
-            n = [],
-            a = [];
+            a = [],
+            i = [],
+            l = [];
           return (
             e.forEach(function (e) {
               var t = e.indexParts,
-                o = t[1];
-              !o ||
-                !r("WAWebWid").isWid(o) ||
-                (r("WAWebWid").isGroup(o) ? a.push(o) : n.push(o));
+                n = t[1];
+              !n ||
+                !r("WAWebWid").isWid(n) ||
+                (r("WAWebWid").isGroup(n)
+                  ? i.push(n)
+                  : r("WAWebWid").isNewsletter(n) &&
+                      o(
+                        "WAWebNewsletterGatingUtils",
+                      ).isNewsletterStatusReceiverEnabled()
+                    ? l.push(n)
+                    : a.push(n));
             }),
             yield r("WAWebLidAwareContactsDB")
-              .bulkGet(n)
+              .bulkGet(a)
               .then(function (e) {
                 return e.forEach(function (e) {
                   e && t.add(e.id);
                 });
               }),
-            a.length > 0 &&
+            i.length > 0 &&
               (yield o("WAWebSchemaGroupMetadata")
                 .getGroupMetadataTable()
-                .bulkGet(a)
+                .bulkGet(i)
                 .then(function (e) {
                   return e.forEach(function (e) {
                     e && t.add(e.id);
                   });
                 })),
+            l.length > 0 &&
+              o(
+                "WAWebNewsletterGatingUtils",
+              ).isNewsletterStatusReceiverEnabled() &&
+              (yield (u || (u = n("Promise"))).all(
+                l.map(
+                  (function () {
+                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                      function* (e) {
+                        var n = yield o("WAWebSchemaNewsletterMetadata")
+                          .getNewsletterMetadataTable()
+                          .equalsPrimaryKeys(["id"], e);
+                        n.length > 0 && t.add(e);
+                      },
+                    );
+                    return function (t) {
+                      return e.apply(this, arguments);
+                    };
+                  })(),
+                ),
+              )),
             t
           );
         })),
@@ -83,10 +114,11 @@ __d(
                   i = yield c(t),
                   l = [],
                   d = [],
-                  m = 0,
-                  p = [],
-                  _ = 0,
-                  f = yield (u || (u = n("Promise"))).all(
+                  m = [],
+                  p = 0,
+                  _ = [],
+                  f = 0,
+                  g = yield (u || (u = n("Promise"))).all(
                     t.map(function (e) {
                       try {
                         if (e.operation === "set") {
@@ -100,33 +132,43 @@ __d(
                             (t = s.userStatusMuteAction) == null
                               ? void 0
                               : t.muted;
-                          return c === void 0
-                            ? (m++,
-                              p.length < 3 && p.push(e),
+                          if (c === void 0)
+                            return (
+                              p++,
+                              _.length < 3 && _.push(e),
                               o("WAWebSyncdIndexUtils").malformedActionValue(
                                 a.collectionName,
-                              ))
-                            : i.has(u)
-                              ? (r("WAWebWid").isGroup(u)
-                                  ? d.push({ id: u, statusMute: c })
-                                  : l.push({ id: u, statusMute: c }),
-                                {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState.Success,
-                                })
-                              : {
-                                  actionState:
-                                    o("WASyncdConst").SyncActionState.Orphan,
-                                  orphanModel: {
-                                    modelId: u,
-                                    modelType:
-                                      o("WASyncdConst").SyncModelType
-                                        .UserStatusMute,
-                                  },
-                                };
+                              )
+                            );
+                          if (!i.has(u))
+                            return {
+                              actionState:
+                                o("WASyncdConst").SyncActionState.Orphan,
+                              orphanModel: {
+                                modelId: u,
+                                modelType:
+                                  o("WASyncdConst").SyncModelType
+                                    .UserStatusMute,
+                              },
+                            };
+                          var g = { id: u, statusMute: c };
+                          return (
+                            r("WAWebWid").isGroup(u)
+                              ? d.push(g)
+                              : r("WAWebWid").isNewsletter(u) &&
+                                  o(
+                                    "WAWebNewsletterGatingUtils",
+                                  ).isNewsletterStatusReceiverEnabled()
+                                ? m.push(g)
+                                : l.push(g),
+                            {
+                              actionState:
+                                o("WASyncdConst").SyncActionState.Success,
+                            }
+                          );
                         }
                         return (
-                          _++,
+                          f++,
                           {
                             actionState:
                               o("WASyncdConst").SyncActionState.Unsupported,
@@ -140,7 +182,7 @@ __d(
                     }),
                   );
                 return (
-                  m > 0 &&
+                  p > 0 &&
                     o("WALogger").WARN(
                       e ||
                         (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -148,17 +190,17 @@ __d(
                           " malformed mutations => ",
                           "",
                         ])),
-                      m,
                       p,
+                      _,
                     ),
-                  _ > 0 &&
+                  f > 0 &&
                     o("WALogger").WARN(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
                           "status mute chat sync: ",
                           " operations not supported",
                         ])),
-                      _,
+                      f,
                     ),
                   yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
                     .getContactTable()
@@ -166,11 +208,18 @@ __d(
                   yield o("WAWebSchemaGroupMetadata")
                     .getGroupMetadataTable()
                     .bulkMergeOnly(d),
+                  yield o("WAWebSchemaNewsletterMetadata")
+                    .getNewsletterMetadataTable()
+                    .bulkMergeOnly(m),
                   o("WAWebBackendApi").frontendFireAndForget(
                     "updateContactsStatusMute",
-                    { groupStatusMuteUpdates: d, userStatusMuteUpdates: l },
+                    {
+                      groupStatusMuteUpdates: d,
+                      newsletterStatusMuteUpdates: m,
+                      userStatusMuteUpdates: l,
+                    },
                   ),
-                  f
+                  g
                 );
               },
             );

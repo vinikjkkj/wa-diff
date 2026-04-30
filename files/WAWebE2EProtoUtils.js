@@ -653,9 +653,9 @@ __d(
         { initiator: r, trigger: a, initiatedByMe: i }
       );
     }
-    var q = function (t) {
-      return t;
-    };
+    function q(e) {
+      return e;
+    }
     ((l.typeAttributeFromProtobuf = d),
       (l.extractCommentTargetIdAndSenderLid = m),
       (l.decryptFailAttributeFromProtobuf = p),

@@ -6,30 +6,30 @@ __d(
     "WAWebWamEnumGraphqlRequestResult",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
-      var e = new (o(
+    function e(e) {
+      var t = new (o(
         "WAWebGraphqlCatalogRequestWamEvent",
-      ).GraphqlCatalogRequestWamEvent)({ graphqlCatalogEndpoint: t });
+      ).GraphqlCatalogRequestWamEvent)({ graphqlCatalogEndpoint: e });
       return {
         success: function () {
-          (e.set({
+          (t.set({
             graphqlErrorCode: -1,
             graphqlRequestResult: o("WAWebWamEnumGraphqlRequestResult")
               .GRAPHQL_REQUEST_RESULT.SUCCESS,
           }),
-            e.commit());
+            t.commit());
         },
         failure: function (n) {
-          var t = n[0];
-          (e.set({
-            graphqlErrorCode: t.code,
+          var e = n[0];
+          (t.set({
+            graphqlErrorCode: e.code,
             graphqlRequestResult: o("WAWebWamEnumGraphqlRequestResult")
               .GRAPHQL_REQUEST_RESULT.FAILURE,
           }),
-            e.commit());
+            t.commit());
         },
       };
-    };
+    }
     ((l.GRAPHQL_CATALOG_ENDPOINT = o(
       "WAWebWamEnumGraphqlCatalogEndpoint",
     ).GRAPHQL_CATALOG_ENDPOINT),

@@ -187,26 +187,28 @@ __d(
                   }) || [null],
                   l = i[0];
                 if (!l) {
-                  var s;
+                  var s,
+                    _ = (s = this.filehash) != null ? s : "none",
+                    f = this.mediaBlob != null;
                   o("WALogger").LOG(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[media-rmr] rmr: no eligible msg found. totalMsgs=",
-                        " filehash=",
-                        " hasBlob=",
-                        " downloadStage=",
+                        "[media-rmr] no eligible msg. total=",
+                        " hash=",
+                        " blob=",
+                        " dlStage=",
                         "",
                       ])),
                     this.msgs.length,
-                    (s = this.filehash) != null ? s : "none",
-                    this.mediaBlob != null,
+                    _,
+                    f,
                     this.downloadStage,
                   );
-                  for (var _ = 0; _ < this.msgs.length; _++) {
-                    var f,
-                      g = this.msgs[_],
-                      h = g[0],
-                      C = g[1];
+                  for (var g = 0; g < this.msgs.length; g++) {
+                    var h,
+                      C = this.msgs[g],
+                      b = C[0],
+                      v = C[1];
                     o("WALogger").LOG(
                       d ||
                         (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -217,11 +219,11 @@ __d(
                           " type=",
                           "",
                         ])),
-                      _,
-                      C,
-                      h.isUnsentPhoneMsg(),
-                      (f = h.from) == null ? void 0 : f.toLogString(),
-                      h.type,
+                      g,
+                      v,
+                      b.isUnsentPhoneMsg(),
+                      (h = b.from) == null ? void 0 : h.toLogString(),
+                      b.type,
                     );
                   }
                   return (
@@ -241,29 +243,29 @@ __d(
                   );
                 }
                 e.onMsgSelect(l);
-                var b = yield r("WAWebRequestMediaReuploadBridge")(l);
-                if (b.status === 200) {
-                  var v = l.mediaData.type;
-                  if (v === "unknown")
+                var S = yield r("WAWebRequestMediaReuploadBridge")(l);
+                if (S.status === 200) {
+                  var R = l.mediaData.type;
+                  if (R === "unknown")
                     return (y || (y = n("Promise"))).reject(
                       r("err")("rmr called on MediaData with unknown type"),
                     );
-                  var S = b.isMD
+                  var L = S.isMD
                     ? this.entries.updateEntry({
                         deprecatedMms3Url: l.deprecatedMms3Url,
                         encFilehash: l.encFilehash,
-                        directPath: b.directPath,
+                        directPath: S.directPath,
                       })
                     : this.entries.addEntry({
-                        deprecatedMms3Url: b.url,
-                        mediaKey: b.mediaKey || r("WANullthrows")(l.mediaKey),
-                        mediaKeyTimestamp: b.mediaKeyTimestamp,
-                        encFilehash: b.encFilehash,
-                        type: v,
-                        directPath: b.directPath,
+                        deprecatedMms3Url: S.url,
+                        mediaKey: S.mediaKey || r("WANullthrows")(l.mediaKey),
+                        mediaKeyTimestamp: S.mediaKeyTimestamp,
+                        encFilehash: S.encFilehash,
+                        type: R,
+                        directPath: S.directPath,
                         debugHint: "rmr",
                       });
-                  (S ||
+                  (L ||
                     o("WALogger")
                       .ERROR(
                         p ||
@@ -272,9 +274,9 @@ __d(
                           ])),
                       )
                       .sendLogs("media-fault: rmr entry can not be found"),
-                    S == null || S.markWhetherOnServer(!0));
+                    L == null || L.markWhetherOnServer(!0));
                 }
-                return b.status;
+                return S.status;
               },
             );
             function t(t) {

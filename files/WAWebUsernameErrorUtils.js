@@ -22,40 +22,35 @@ __d(
         USERNAME_NOT_AVAILABLE: 40601,
         USERNAME_SET_OVER_LIMIT: 40602,
         USERNAME_CHANGE_BLOCKED: 40603,
-      }),
-      c = function (t, n) {
-        switch (t.statusCode) {
-          case u.USERNAME_CHANGE_BLOCKED:
-            d(
-              o(
-                "WAWebUsernameStringUtils",
-              ).getUsernameChangeNotAllowedMessage(),
-              n,
-            );
-            break;
-          default:
-            d(
-              o("WAWebUsernameStringUtils").getUsernameGenericErrorMessage(),
-              n,
-            );
-            break;
-        }
-      },
-      d = function (t, n) {
-        o("WAWebToastManager").ToastManager.open(
-          s.jsx(o("WAWebToast.react").Toast, {
-            msg: t,
-            action: n
-              ? {
-                  actionText: r("WAWebFbtCommon")("Try again"),
-                  onAction: function () {
-                    n();
-                  },
-                }
-              : null,
-          }),
-        );
-      };
+      });
+    function c(e, t) {
+      switch (e.statusCode) {
+        case u.USERNAME_CHANGE_BLOCKED:
+          d(
+            o("WAWebUsernameStringUtils").getUsernameChangeNotAllowedMessage(),
+            t,
+          );
+          break;
+        default:
+          d(o("WAWebUsernameStringUtils").getUsernameGenericErrorMessage(), t);
+          break;
+      }
+    }
+    var d = function (t, n) {
+      o("WAWebToastManager").ToastManager.open(
+        s.jsx(o("WAWebToast.react").Toast, {
+          msg: t,
+          action: n
+            ? {
+                actionText: r("WAWebFbtCommon")("Try again"),
+                onAction: function () {
+                  n();
+                },
+              }
+            : null,
+        }),
+      );
+    };
     l.handleErrorBasedOnErrorCode = c;
   },
   98,

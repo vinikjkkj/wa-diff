@@ -115,7 +115,7 @@ __d(
     function k(e, t, n, r) {
       var a;
       return (
-        x(e, t, n)
+        x({ displayType: n, msgType: e, theme: t })
           ? n === o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT ||
             n === o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER ||
             n === o("WAWebDisplayType").DISPLAY_TYPE.CHANNEL_ALERTS_MSGS
@@ -175,14 +175,17 @@ __d(
           ? { height: "100%" }
           : { width: "100%" };
     }
-    function x(e, t, n) {
+    function x(e) {
+      var t = e.displayType,
+        n = e.msgType,
+        r = e.theme;
       return (
-        (R.has(e) &&
-          L.has(n) &&
-          t !== o("WAWebTypesMedia").DisplayTheme.Album &&
-          t !== o("WAWebTypesMedia").DisplayTheme.AlbumV2) ||
-        (e === o("WAWebMsgType").MSG_TYPE.PRODUCT &&
-          n === o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT)
+        (R.has(n) &&
+          L.has(t) &&
+          r !== o("WAWebTypesMedia").DisplayTheme.Album &&
+          r !== o("WAWebTypesMedia").DisplayTheme.AlbumV2) ||
+        (n === o("WAWebMsgType").MSG_TYPE.PRODUCT &&
+          t === o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT)
       );
     }
     ((l.DEFAULT_WIDTH = s),

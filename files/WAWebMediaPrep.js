@@ -178,60 +178,65 @@ __d(
                   ])),
               )
               .sendLogs("media-fault: sendToChat filehash undefined");
-          var l = e.mediaBlob instanceof r("WAWebMediaOpaqueData");
+          var l = e.mediaBlob instanceof r("WAWebMediaOpaqueData"),
+            s = i != null ? i : "none",
+            m = (n = t.forwardedFromWeb) != null ? n : !1;
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[media-fwd] getMediaPropsNew: filehash=",
-                " hasMediaBlob=",
+                "[media-fwd] getMediaPropsNew hash=",
+                " blob=",
                 " type=",
-                " forwardedFromWeb=",
+                " fwd=",
                 "",
               ])),
-            i != null ? i : "none",
+            s,
             l,
             e.type,
-            (n = t.forwardedFromWeb) != null ? n : !1,
+            m,
           );
-          var s = o("WAWebMediaStorage").getOrCreateMediaObject(i),
-            m = s.mediaBlob;
-          (m &&
-            (m.retain(),
+          var p = o("WAWebMediaStorage").getOrCreateMediaObject(i),
+            _ = p.mediaBlob;
+          (_ &&
+            (_.retain(),
             e.mediaBlob instanceof r("WAWebMediaOpaqueData") &&
               e.mediaBlob.autorelease(),
-            (e.mediaBlob = m)),
+            (e.mediaBlob = _)),
             e.mediaBlob instanceof r("WAWebMediaOpaqueData") &&
               (e.renderableUrl = e.mediaBlob.url()),
-            s.consolidate(e.toJSON()),
+            p.consolidate(e.toJSON()),
             e.mediaBlob instanceof r("WAWebMediaOpaqueData") &&
               e.mediaBlob.autorelease());
-          var p = o("WAWebMediaDataUtils").shouldUseMediaCache(
-            o("WAWebMmsMediaTypes").castToV4(s.type),
+          var f = o("WAWebMediaDataUtils").shouldUseMediaCache(
+            o("WAWebMmsMediaTypes").castToV4(p.type),
           );
-          if (p && e.mediaBlob instanceof r("WAWebMediaOpaqueData")) {
-            var _ = e.mediaBlob.formData();
-            o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(i, _);
+          if (f && e.mediaBlob instanceof r("WAWebMediaOpaqueData")) {
+            var g = e.mediaBlob.formData();
+            o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(i, g);
           }
-          var f = p && e.mediaBlob instanceof r("WAWebMediaOpaqueData");
+          var h = f && e.mediaBlob instanceof r("WAWebMediaOpaqueData"),
+            y = p.mediaBlob != null,
+            C = p.msgs.length,
+            b = p.entries.entries.length;
           (o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
-                "[media-fwd] getMediaPropsNew: after consolidate objectHasBlob=",
-                " objectMsgCount=",
-                " objectEntryCount=",
-                " useMediaCache=",
-                " cachedInMemory=",
+                "[media-fwd] post-merge blob=",
+                " msgs=",
+                " entries=",
+                " cache=",
+                " mem=",
                 "",
               ])),
-            s.mediaBlob != null,
-            s.msgs.length,
-            s.entries.entries.length,
-            p,
+            y,
+            C,
+            b,
             f,
+            h,
           ),
             o("WAWebMediaMmsV4Download").downloadMedia({
               mimetype: e.mimetype,
-              mediaObject: s,
+              mediaObject: p,
               downloadEvenIfExpensive: !0,
               mediaType: o("WAWebMmsMediaTypes").msgToMediaType({
                 type: e.type,
@@ -248,11 +253,11 @@ __d(
               mode: "manual",
               chatWid: t.chatWid,
             }));
-          var g = babelHelpers.extends({}, s.msgProps(e));
+          var v = babelHelpers.extends({}, p.msgProps(e));
           return (
-            (g.caption = t.caption),
-            t.isViewOnce === !0 && (g.isViewOnce = !0),
-            g
+            (v.caption = t.caption),
+            t.isViewOnce === !0 && (v.isViewOnce = !0),
+            v
           );
         });
     }

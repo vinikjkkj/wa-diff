@@ -48,65 +48,32 @@ __d(
           : e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false
             ? { globalSharingSettingEnabled: !1 }
             : null;
-      },
-      u = function (n, a, i, l) {
-        var t,
-          u = e(i);
-        if (u != null) {
-          var c = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(n);
-          if (
-            !(
-              c == null ||
-              !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()
-            )
-          ) {
-            var d = (t = n.accountLid) == null ? void 0 : t.toString();
-            o("WAWebChatThreadLogging")
-              .getChatThreadIDHMAC(n.id.toString())
-              .then(function (e) {
-                var t = {
-                  ctwaOrderSignalVersion: 1,
-                  deepLinkConversionSource: c.source,
-                  orderPaid: l,
-                  orderSignalType: o("WAWebWamEnumOrderSignalType")
-                    .ORDER_SIGNAL_TYPE.UPDATED,
-                  orderStatus: u,
-                  customerAdsSharingSettingEnabled: o(
-                    "WAWebPerCustomerDataSharingUtils",
-                  ).getCustomerAdsDataSharingState(d),
-                  threadIdHmac: e != null ? e : void 0,
-                };
-                new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
-                  babelHelpers.extends({}, t, s(a)),
-                ).commit();
-              });
-          }
-        }
-      },
-      c = function (t, n) {
-        var e,
-          a = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(t);
+      };
+    function u(t, n, a, i) {
+      var l,
+        u = e(a);
+      if (u != null) {
+        var c = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(t);
         if (
           !(
-            a == null ||
+            c == null ||
             !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled()
           )
         ) {
-          var i = (e = t.accountLid) == null ? void 0 : e.toString();
+          var d = (l = t.accountLid) == null ? void 0 : l.toString();
           o("WAWebChatThreadLogging")
             .getChatThreadIDHMAC(t.id.toString())
             .then(function (e) {
               var t = {
                 ctwaOrderSignalVersion: 1,
-                deepLinkConversionSource: a.source,
-                orderPaid: !1,
+                deepLinkConversionSource: c.source,
+                orderPaid: i,
                 orderSignalType: o("WAWebWamEnumOrderSignalType")
-                  .ORDER_SIGNAL_TYPE.CREATED,
-                orderStatus: o("WAWebWamEnumOrderStatus").ORDER_STATUS
-                  .PROCESSING,
+                  .ORDER_SIGNAL_TYPE.UPDATED,
+                orderStatus: u,
                 customerAdsSharingSettingEnabled: o(
                   "WAWebPerCustomerDataSharingUtils",
-                ).getCustomerAdsDataSharingState(i),
+                ).getCustomerAdsDataSharingState(d),
                 threadIdHmac: e != null ? e : void 0,
               };
               new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
@@ -114,7 +81,36 @@ __d(
               ).commit();
             });
         }
-      };
+      }
+    }
+    function c(e, t) {
+      var n,
+        a = r("WAWebCommonCTWADataSharing").getCTWAEligibilityFromChat(e);
+      if (
+        !(a == null || !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled())
+      ) {
+        var i = (n = e.accountLid) == null ? void 0 : n.toString();
+        o("WAWebChatThreadLogging")
+          .getChatThreadIDHMAC(e.id.toString())
+          .then(function (e) {
+            var n = {
+              ctwaOrderSignalVersion: 1,
+              deepLinkConversionSource: a.source,
+              orderPaid: !1,
+              orderSignalType: o("WAWebWamEnumOrderSignalType")
+                .ORDER_SIGNAL_TYPE.CREATED,
+              orderStatus: o("WAWebWamEnumOrderStatus").ORDER_STATUS.PROCESSING,
+              customerAdsSharingSettingEnabled: o(
+                "WAWebPerCustomerDataSharingUtils",
+              ).getCustomerAdsDataSharingState(i),
+              threadIdHmac: e != null ? e : void 0,
+            };
+            new (o("WAWebCtwaOrderSignalWamEvent").CtwaOrderSignalWamEvent)(
+              babelHelpers.extends({}, n, s(t)),
+            ).commit();
+          });
+      }
+    }
     ((l.markOrderAsUpdatedStatusAction = u), (l.markOrderAsCreatedAction = c));
   },
   98,

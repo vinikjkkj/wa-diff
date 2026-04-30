@@ -33,35 +33,35 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(o("WAWebHandleMsgError").MessageValidationError),
-      d = function (n, r) {
-        var t = r.messageSecret;
-        if (t == null)
-          throw (
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "parent msg ",
-                  " secret is missing",
-                ])),
-              r.id,
-            ),
-            new c(n, u.MISSING_MESSAGE_SECRET)
-          );
-        if (t.length !== 32)
-          throw (
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "parent msg ",
-                  " secret is not 32 bytes",
-                ])),
-              r.id,
-            ),
-            new c(n, u.WRONG_MESSAGE_SECRET_LENGTH)
-          );
-        return t;
-      };
+      })(o("WAWebHandleMsgError").MessageValidationError);
+    function d(t, n) {
+      var r = n.messageSecret;
+      if (r == null)
+        throw (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "parent msg ",
+                " secret is missing",
+              ])),
+            n.id,
+          ),
+          new c(t, u.MISSING_MESSAGE_SECRET)
+        );
+      if (r.length !== 32)
+        throw (
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "parent msg ",
+                " secret is not 32 bytes",
+              ])),
+            n.id,
+          ),
+          new c(t, u.WRONG_MESSAGE_SECRET_LENGTH)
+        );
+      return r;
+    }
     function m(e, t) {
       var n = p(e),
         r = _(e);

@@ -15,13 +15,17 @@ __d(
       if (s != null) {
         var n = s,
           o = e.getQPLAttrs().instanceKey;
-        n.register(e, {
-          notClosedEvent: function () {
-            r("QPLUserFlow").endFailure(t, "event-not-closed", {
-              instanceKey: o,
-            });
+        n.register(
+          e,
+          {
+            notClosedEvent: function () {
+              r("QPLUserFlow").endFailure(t, "event-not-closed", {
+                instanceKey: o,
+              });
+            },
           },
-        });
+          e,
+        );
       }
     }
     function c(e, t) {

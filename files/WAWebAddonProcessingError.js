@@ -24,14 +24,14 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })(o("WAWebHandleMsgError").MessageValidationError),
-      u = function (n, r) {
-        var t = n.threadMsgId,
-          o = n.threadMsgSenderJid;
-        if (t == null) throw new s(r, e.MISSING_THREAD_MESSAGE_ID);
-        if (o == null) throw new s(r, e.MISSING_THREAD_MESSAGE_SENDER_JID);
-        return { threadMsgId: t, threadMsgSenderJid: o };
-      };
+      })(o("WAWebHandleMsgError").MessageValidationError);
+    function u(t, n) {
+      var r = t.threadMsgId,
+        o = t.threadMsgSenderJid;
+      if (r == null) throw new s(n, e.MISSING_THREAD_MESSAGE_ID);
+      if (o == null) throw new s(n, e.MISSING_THREAD_MESSAGE_SENDER_JID);
+      return { threadMsgId: r, threadMsgSenderJid: o };
+    }
     l.validateMsgMeta = u;
   },
   98,

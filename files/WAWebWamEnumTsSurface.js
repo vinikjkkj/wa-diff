@@ -235,6 +235,7 @@ __d(
       ABOUT_WHATSAPP_BUSINESS: 231,
       SEND_CONTACTS: 232,
       FOA_BIZ_PROFILE: 233,
+      META_AI_NEW_CHAT: 234,
     });
     i.TS_SURFACE = e;
   },

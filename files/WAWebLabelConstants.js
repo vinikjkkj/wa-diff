@@ -77,76 +77,74 @@ __d(
         IMPORTANT: "important",
         FOLLOW_UP: "follow_up",
         LEAD: "lead",
-      }),
-      m = function (t) {
-        switch (t) {
-          case c.NEW_CUSTOMER:
-            return u.NEW_CUSTOMER;
-          case c.NEW_ORDER:
-            return u.NEW_ORDER;
-          case c.PENDING_PAYMENT:
-            return u.PENDING_PAYMENT;
-          case c.PAID:
-            return u.PAID;
-          case c.ORDER_COMPLETE:
-            return u.ORDER_COMPLETE;
-          case c.IMPORTANT:
-            return u.IMPORTANT;
-          case c.FOLLOW_UP:
-            return u.FOLLOW_UP;
-          case c.LEAD:
-            return u.LEAD;
-          default:
-            return;
-        }
-      },
-      p = function (t) {
-        switch (t) {
-          case d.NEW_CUSTOMER:
-            return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.NEW_CUSTOMER;
-          case d.NEW_ORDER:
-            return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.NEW_ORDER;
-          case d.PENDING_PAYMENT:
-            return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE
-              .PENDING_PAYMENT;
-          case d.PAID:
-            return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.PAID;
-          case d.ORDER_COMPLETE:
-            return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE
-              .ORDER_COMPLETE;
-          case d.IMPORTANT:
-            return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.IMPORTANT;
-          case d.FOLLOW_UP:
-            return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.FOLLOW_UP;
-          default:
-            return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.LEAD;
-        }
-      },
-      _ = function (t) {
-        switch (t) {
-          case u.NEW_CUSTOMER:
-            return c.NEW_CUSTOMER;
-          case u.NEW_ORDER:
-          case u.DO_NEW_ORDER:
-            return c.NEW_ORDER;
-          case u.PENDING_PAYMENT:
-            return c.PENDING_PAYMENT;
-          case u.PAID:
-            return c.PAID;
-          case u.ORDER_COMPLETE:
-            return c.ORDER_COMPLETE;
-          case u.IMPORTANT:
-            return c.IMPORTANT;
-          case u.FOLLOW_UP:
-            return c.FOLLOW_UP;
-          case u.LEAD:
-          case u.DO_LEAD:
-            return c.LEAD;
-          default:
-            return;
-        }
-      },
-      f = 100;
+      });
+    function m(e) {
+      switch (e) {
+        case c.NEW_CUSTOMER:
+          return u.NEW_CUSTOMER;
+        case c.NEW_ORDER:
+          return u.NEW_ORDER;
+        case c.PENDING_PAYMENT:
+          return u.PENDING_PAYMENT;
+        case c.PAID:
+          return u.PAID;
+        case c.ORDER_COMPLETE:
+          return u.ORDER_COMPLETE;
+        case c.IMPORTANT:
+          return u.IMPORTANT;
+        case c.FOLLOW_UP:
+          return u.FOLLOW_UP;
+        case c.LEAD:
+          return u.LEAD;
+        default:
+          return;
+      }
+    }
+    function p(e) {
+      switch (e) {
+        case d.NEW_CUSTOMER:
+          return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.NEW_CUSTOMER;
+        case d.NEW_ORDER:
+          return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.NEW_ORDER;
+        case d.PENDING_PAYMENT:
+          return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.PENDING_PAYMENT;
+        case d.PAID:
+          return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.PAID;
+        case d.ORDER_COMPLETE:
+          return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.ORDER_COMPLETE;
+        case d.IMPORTANT:
+          return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.IMPORTANT;
+        case d.FOLLOW_UP:
+          return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.FOLLOW_UP;
+        default:
+          return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.LEAD;
+      }
+    }
+    function _(e) {
+      switch (e) {
+        case u.NEW_CUSTOMER:
+          return c.NEW_CUSTOMER;
+        case u.NEW_ORDER:
+        case u.DO_NEW_ORDER:
+          return c.NEW_ORDER;
+        case u.PENDING_PAYMENT:
+          return c.PENDING_PAYMENT;
+        case u.PAID:
+          return c.PAID;
+        case u.ORDER_COMPLETE:
+          return c.ORDER_COMPLETE;
+        case u.IMPORTANT:
+          return c.IMPORTANT;
+        case u.FOLLOW_UP:
+          return c.FOLLOW_UP;
+        case u.LEAD:
+        case u.DO_LEAD:
+          return c.LEAD;
+        default:
+          return;
+      }
+    }
+    var f = 100;
     ((l.ANDROID_LABEL_COLOR_PALETTE = e),
       (l.IPHONE_LABEL_COLOR_PALETTE = s),
       (l.PREDEFINED_LABEL_IDS = u),

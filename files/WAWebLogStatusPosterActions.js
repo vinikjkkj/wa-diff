@@ -15,9 +15,12 @@ __d(
         "status_poster_side_gating_enabled",
       );
     }
-    var s = (function () {
-      function t() {
-        this.sessionId = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+    function s() {
+      return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+    }
+    var u = (function () {
+      function t(e) {
+        this.sessionId = e != null ? e : s();
       }
       var n = t.prototype;
       return (
@@ -173,6 +176,17 @@ __d(
         t
       );
     })();
+    function c(t, n) {
+      e() &&
+        new (o("WAWebStatusPosterActionsWamEvent").StatusPosterActionsWamEvent)(
+          {
+            statusEventType: o("WAWebWamEnumStatusEventType").STATUS_EVENT_TYPE
+              .STATUS_ENTRYPOINT_TAP,
+            statusCreationEntryPoint: t,
+            statusPostingSessionId: n,
+          },
+        ).commit();
+    }
     ((l.STATUS_CONTENT_SOURCE = o(
       "WAWebWamEnumStatusContentSource",
     ).STATUS_CONTENT_SOURCE),
@@ -185,7 +199,9 @@ __d(
       (l.STATUS_EVENT_TYPE = o(
         "WAWebWamEnumStatusEventType",
       ).STATUS_EVENT_TYPE),
-      (l.StatusPosterActionsLogger = s));
+      (l.createStatusPostingSessionId = s),
+      (l.StatusPosterActionsLogger = u),
+      (l.logStatusEntrypointTap = c));
   },
   98,
 );

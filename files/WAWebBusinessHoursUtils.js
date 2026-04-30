@@ -7,28 +7,27 @@ __d(
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e = function (t) {
-        return o("WAWebSmbUtilsTimeUtils").timeStringToMinutes(t) !== void 0;
-      },
-      u = function (n, r) {
-        if (
-          n ===
-          o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES.SPECIFIC_HOURS
-        )
-          for (var t in r) {
-            var a = r[t],
-              i = a.closed,
-              l = a.hours;
-            if (!i)
-              for (var s of l) {
-                var u = s[0],
-                  c = s[1];
-                if (!e(u) || !e(c)) return !1;
-              }
-          }
-        return !0;
-      },
-      c = function (t) {
+    function e(e) {
+      return o("WAWebSmbUtilsTimeUtils").timeStringToMinutes(e) !== void 0;
+    }
+    function u(t, n) {
+      if (
+        t === o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES.SPECIFIC_HOURS
+      )
+        for (var r in n) {
+          var a = n[r],
+            i = a.closed,
+            l = a.hours;
+          if (!i)
+            for (var s of l) {
+              var u = s[0],
+                c = s[1];
+              if (!e(u) || !e(c)) return !1;
+            }
+        }
+      return !0;
+    }
+    var c = function (t) {
         var e = t.dayValues,
           n = t.mode,
           a = t.note,
@@ -60,13 +59,13 @@ __d(
         return { businessHours: { config: l, note: a, timezone: p } };
       },
       d = 540,
-      m = 1080,
-      p = function () {
-        return [
-          o("WAWebSmbUtilsTimeUtils").minutesToTime(d),
-          o("WAWebSmbUtilsTimeUtils").minutesToTime(m),
-        ];
-      };
+      m = 1080;
+    function p() {
+      return [
+        o("WAWebSmbUtilsTimeUtils").minutesToTime(d),
+        o("WAWebSmbUtilsTimeUtils").minutesToTime(m),
+      ];
+    }
     function _(e) {
       if (!e || e.length === 0) return "";
       var t = e[0],

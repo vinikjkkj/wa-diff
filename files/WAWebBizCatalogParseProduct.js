@@ -7,33 +7,33 @@ __d(
     "WAWebSyntheticCountryCode",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t) {
-      var e,
+    function e(e) {
+      var t,
         n,
         r,
-        a = t.child("id").contentString(),
-        i = t.maybeChild("url"),
+        a = e.child("id").contentString(),
+        i = e.maybeChild("url"),
         l = "";
       i && i.hasContent() && (l = i.contentString());
-      var u = t.child("name").contentString(),
+      var u = e.child("name").contentString(),
         d =
-          (e = t.maybeAttrString("availability")) != null
-            ? e
+          (t = e.maybeAttrString("availability")) != null
+            ? t
             : o("WAWebProductTypes.flow").ProductAvailability.UNKNOWN,
         m = o("WAWebBizCartConstants").CART_ITEM_MAX_QUANTITY,
-        p = t.maybeAttrString("max_available");
+        p = e.maybeAttrString("max_available");
       p != null && (m = Number(p));
-      var _ = t.maybeChild("max_available"),
+      var _ = e.maybeChild("max_available"),
         f = _ == null ? void 0 : _.contentString();
       f != null && (m = Number(f));
-      var g = t.maybeChild("description"),
+      var g = e.maybeChild("description"),
         h = g ? g.contentString() : "",
-        y = t.maybeChild("belongs_to"),
+        y = e.maybeChild("belongs_to"),
         C = (y == null ? void 0 : y.contentString()) === "true" || !1,
         b = [],
         v = [],
         S = [],
-        R = t.child("media"),
+        R = e.child("media"),
         L = !0;
       R.forEachChildWithTag("image", function (e) {
         if (L)
@@ -70,7 +70,7 @@ __d(
           a = (r == null ? void 0 : r.contentString()) || "";
         E.push({ id: o, original_video_url: n, thumbnail_url: a });
       });
-      var k = t.maybeChild("status_info"),
+      var k = e.maybeChild("status_info"),
         I =
           (k == null ? void 0 : k.child("status").contentString()) ||
           "APPROVED",
@@ -79,19 +79,19 @@ __d(
             ? void 0
             : n.contentString(),
         D = [{ key: "WHATSAPP", value: I }],
-        x = t.maybeChild("currency"),
+        x = e.maybeChild("currency"),
         $ = x ? x.contentString() : void 0,
-        P = t.maybeChild("price"),
+        P = e.maybeChild("price"),
         N = P == null ? void 0 : P.contentString(),
-        M = t.maybeChild("retailer_id"),
+        M = e.maybeChild("retailer_id"),
         w = M ? M.contentString() : "",
-        A = t.hasAttr("is_hidden") ? t.attrString("is_hidden") === "true" : !1,
-        F = t.hasAttr("compliance_category")
+        A = e.hasAttr("is_hidden") ? e.attrString("is_hidden") === "true" : !1,
+        F = e.hasAttr("compliance_category")
           ? o("WAWebProductTypes.flow").ProductComplianceCategory.cast(
-              t.attrString("compliance_category"),
+              e.attrString("compliance_category"),
             )
           : o("WAWebProductTypes.flow").ProductComplianceCategory.Default,
-        O = t.maybeChild("sale_price"),
+        O = e.maybeChild("sale_price"),
         B = O
           ? babelHelpers.extends(
               {
@@ -108,7 +108,7 @@ __d(
                 : null,
             )
           : null,
-        W = t.maybeAttrString("is_sanctioned") === "true",
+        W = e.maybeAttrString("is_sanctioned") === "true",
         q = babelHelpers.extends(
           {
             id: a,
@@ -133,12 +133,12 @@ __d(
           },
           B,
         ),
-        U = t.maybeChild("compliance_info");
+        U = e.maybeChild("compliance_info");
       F ===
       o("WAWebProductTypes.flow").ProductComplianceCategory.CountryOriginExempt
         ? (q.compliance_info = c())
         : U && (q.compliance_info = s(U));
-      var V = t.maybeChild("shimmed_url");
+      var V = e.maybeChild("shimmed_url");
       if (V != null) {
         var H = V.contentString();
         H !== "" &&
@@ -147,7 +147,7 @@ __d(
           ));
       }
       return q;
-    };
+    }
     function s(e) {
       var t,
         n = e.child("country_code_origin").contentString(),

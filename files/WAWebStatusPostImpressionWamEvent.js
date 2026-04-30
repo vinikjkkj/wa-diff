@@ -101,6 +101,7 @@ __d(
               ],
               statusViewTime: [19, e.TYPES.TIMER],
               statusViewerSessionId: [20, e.TYPES.INTEGER],
+              traceIdInt: [52, e.TYPES.INTEGER],
               unifiedSessionId: [21, e.TYPES.STRING],
               updatesTabSessionId: [22, e.TYPES.INTEGER],
               urlStatusType: [

@@ -103,7 +103,7 @@ __d(
                     (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[ai-media-collection] ",
                       "/",
-                      " child sends failed; server may buffer until TTL",
+                      " child send fail; may buffer",
                     ])),
                   d.length - b,
                   d.length,

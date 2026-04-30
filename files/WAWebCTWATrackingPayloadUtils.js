@@ -6,10 +6,10 @@ __d(
     "WAWebConversionTupleCollection",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t, n) {
+    function e(e, t) {
       (r("WAWebConversionTupleCollection").add(
-        babelHelpers.extends({}, n, {
-          id: t.id,
+        babelHelpers.extends({}, t, {
+          id: e.id,
           timestamp: o("WATimeUtils").unixTime(),
           fromMe: !0,
         }),
@@ -18,11 +18,11 @@ __d(
         o(
           "WAWebCommonCTWAConsumerTransparency",
         ).handleConsumerTransparencyForNewMsg(
-          t,
-          n.conversionData,
-          n.conversionSource,
+          e,
+          t.conversionData,
+          t.conversionSource,
         ));
-    };
+    }
     l.handleChatConversationOpenedWithNewMessage = e;
   },
   98,

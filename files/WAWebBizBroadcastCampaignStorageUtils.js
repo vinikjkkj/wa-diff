@@ -105,8 +105,8 @@ __d(
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast:campaign-storage] Skipping stale adId-keyed sync for campaign ",
-                    " \u2014 proper UUID row already exists",
+                    "[broadcast:campaign-storage] skip adId-keyed ",
+                    ", UUID exists",
                   ])),
                 t,
               );

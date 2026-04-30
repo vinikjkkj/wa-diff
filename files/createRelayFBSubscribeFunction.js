@@ -6,19 +6,21 @@ __d(
     function e(e) {
       var t = e.accessToken,
         r = e.actorID,
-        o = e.queryResponseCache;
-      return function (a, i, l) {
+        o = e.queryResponseCache,
+        a = e.requestStreamEnabled;
+      return function (i, l, s) {
         var e;
         return n("RelayFBSubscribeFunction")(
-          a,
           i,
+          l,
           o,
           r,
           t,
-          l == null ? void 0 : l.onSubscribe,
-          l == null ? void 0 : l.onResume,
-          l == null ? void 0 : l.onPause,
-          l == null || (e = l.metadata) == null ? void 0 : e.streamOptions,
+          s == null ? void 0 : s.onSubscribe,
+          s == null ? void 0 : s.onResume,
+          s == null ? void 0 : s.onPause,
+          s == null || (e = s.metadata) == null ? void 0 : e.streamOptions,
+          a,
         );
       };
     }

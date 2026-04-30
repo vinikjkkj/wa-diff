@@ -485,21 +485,23 @@ __d(
             u = e.uploadOrigin,
             c = k(i);
           if (c) return c;
+          var d = (t = i.filehash) != null ? t : "none",
+            p = i.entries.entries.length;
           if (
             (o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[media-upload] getOrDownloadBlob: blob missing, falling through to download. filehash=",
-                  " mediaType=",
-                  " msgCount=",
-                  " entryCount=",
-                  " downloadStage=",
+                  "getOrDownloadBlob: no blob fh=",
+                  " type=",
+                  " msgs=",
+                  " entries=",
+                  " dlStage=",
                   "",
                 ])),
-              (t = i.filehash) != null ? t : "none",
+              d,
               l,
               i.msgs.length,
-              i.entries.entries.length,
+              p,
               i.downloadStage,
             ),
             yield o("WAWebMediaMmsV4Download").downloadMedia({
@@ -520,8 +522,8 @@ __d(
               o("WAWebMediaTypes").DownloadStage.ERROR_MISSING)
           )
             throw new (o("WAWebDownloadManagerErrors").MediaNotOnPhone)();
-          var d = k(i);
-          if (d) return d;
+          var _ = k(i);
+          if (_) return _;
           throw r("err")("cant upload media w/out mediaBlob after download");
         })),
         E.apply(this, arguments)

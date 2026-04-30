@@ -33,7 +33,7 @@ __d(
                 (o("WALogger").LOG(
                   e ||
                     (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history][M2] Notice received, updating sent state for ",
+                      "[group-history][M2] notice rcvd, ",
                       " receivers",
                     ])),
                   l.length,

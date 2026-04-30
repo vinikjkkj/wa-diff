@@ -5,10 +5,10 @@ __d(
     "use strict";
     var e = "wa_web",
       s = "media_platform",
-      u = [e, s],
-      c = function () {
-        return r("FBLogger")(e);
-      };
+      u = [e, s];
+    function c() {
+      return r("FBLogger")(e);
+    }
     ((l.PROJECT = u), (l.WAWebFBLogger = c));
   },
   98,

@@ -7,21 +7,21 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = function (t, n) {
-        new (o(
-          "WAWebLwiEntryPointImpressionWamEvent",
-        ).LwiEntryPointImpressionWamEvent)({
-          lwiEntryPoint: t,
-          userHasLinkedFbPage: n,
-        }).commit();
-      },
-      s = function (t) {
-        new (o(
-          "WAWebManageAdsEntryPointImpressionWamEvent",
-        ).ManageAdsEntryPointImpressionWamEvent)({
-          manageAdsEntryPoint: t,
-        }).commit();
-      };
+    function e(e, t) {
+      new (o(
+        "WAWebLwiEntryPointImpressionWamEvent",
+      ).LwiEntryPointImpressionWamEvent)({
+        lwiEntryPoint: e,
+        userHasLinkedFbPage: t,
+      }).commit();
+    }
+    function s(e) {
+      new (o(
+        "WAWebManageAdsEntryPointImpressionWamEvent",
+      ).ManageAdsEntryPointImpressionWamEvent)({
+        manageAdsEntryPoint: e,
+      }).commit();
+    }
     function u(e, t, n, r, a, i) {
       new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
         lwiScreenReference: e,

@@ -63,19 +63,23 @@ __d(
         updateUsernameKey: s.updateUsernameKey,
         updateContactsStatusMute: function (t) {
           var e = t.groupStatusMuteUpdates,
-            n = t.userStatusMuteUpdates,
-            r = n.concat(e).map(function (e) {
-              var t = o("WAWebWidFactory").createWid(e.id),
-                n = o("WAWebContactCollection").ContactCollection.get(t);
-              return {
-                id: t,
-                pushname: (n == null ? void 0 : n.pushname) || "",
-                type: (n == null ? void 0 : n.type) || "out",
-                name: n == null ? void 0 : n.name,
-                statusMute: e.statusMute === !0,
-              };
-            });
-          o("WAWebContactCollection").ContactCollection.add(r, { merge: !0 });
+            n = t.newsletterStatusMuteUpdates,
+            r = t.userStatusMuteUpdates,
+            a = r
+              .concat(e)
+              .concat(n)
+              .map(function (e) {
+                var t = o("WAWebWidFactory").createWid(e.id),
+                  n = o("WAWebContactCollection").ContactCollection.get(t);
+                return {
+                  id: t,
+                  pushname: (n == null ? void 0 : n.pushname) || "",
+                  type: (n == null ? void 0 : n.type) || "out",
+                  name: n == null ? void 0 : n.name,
+                  statusMute: e.statusMute === !0,
+                };
+              });
+          o("WAWebContactCollection").ContactCollection.add(a, { merge: !0 });
         },
         getFrequentContacts: function (a) {
           var t = a.count,

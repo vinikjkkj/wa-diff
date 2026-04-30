@@ -40,19 +40,22 @@ __d(
             return (t = e[0]) == null ? void 0 : t.from.isBot();
           });
         if (!r) return n;
+        var a = n.msgs.length,
+          i = n.mediaBlob != null,
+          l = n.downloadStage;
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[media-fwd] getOrCreateMediaObject: replacing bot MediaObject. filehash=",
-              " oldMsgCount=",
-              " oldHasBlob=",
-              " oldDownloadStage=",
+              "[media-fwd] getOrCreateMediaObject bot hash=",
+              " cnt=",
+              " blob=",
+              " dl=",
               "",
             ])),
           t,
-          n.msgs.length,
-          n.mediaBlob != null,
-          n.downloadStage,
+          a,
+          i,
+          l,
         );
       }
       return (u[t] = new (o("WAWebMediaObject").MediaObject)());

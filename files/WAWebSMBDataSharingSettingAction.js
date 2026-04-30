@@ -17,29 +17,29 @@ __d(
           : r(
               "WAWebCommonCTWADataSharing",
             ).fetchDataSharingSettingAndUpdateModel();
-      },
-      c = function (n) {
-        return o("WAWebCTWABizDataSharingJob")
-          .setCtwaBizDataSharingSettingJob(n)
-          .then(function (e) {
-            return (
-              e &&
-                o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(e),
-              e
-            );
-          })
-          .catch(function (t) {
-            return (
-              o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[ctwa] setSMBDataSharingSettingAction failed",
-                  ])),
-              ),
-              null
-            );
-          });
       };
+    function c(t) {
+      return o("WAWebCTWABizDataSharingJob")
+        .setCtwaBizDataSharingSettingJob(t)
+        .then(function (e) {
+          return (
+            e &&
+              o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(e),
+            e
+          );
+        })
+        .catch(function (t) {
+          return (
+            o("WALogger").ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ctwa] setSMBDataSharingSettingAction failed",
+                ])),
+            ),
+            null
+          );
+        });
+    }
     ((l.getSMBDataSharingSettingAction = u),
       (l.setSMBDataSharingSettingAction = c));
   },

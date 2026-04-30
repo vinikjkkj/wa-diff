@@ -15,19 +15,19 @@ __d(
           : (e.type,
             o("WAWebWamEnumLwiAdsIdentityType").LWI_ADS_IDENTITY_TYPE.PAGE);
     }
-    var s = function (t, n, r) {
+    function s(e, t, n) {
       new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
-        lwiAdsIdentityType: n,
+        lwiAdsIdentityType: t,
         lwiEventSequenceNumber:
           o("WAWebUserPrefsCTWA").getAndIncrementAdCreationSequenceNumber(),
         lwiFlowId: o("WAWebUserPrefsCTWA").getAdCreationFlowId(),
         lwiIsFbAppInstalled: !1,
-        lwiScreenAction: t,
+        lwiScreenAction: e,
         lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
           .LWI_SCREEN_REFERENCE.LWI_SCREEN_NUX_EDUCATION,
-        userHasLinkedFbPage: r,
+        userHasLinkedFbPage: n,
       }).commit();
-    };
+    }
     function u(t, n) {
       var r = t.hasFacebookPage,
         a = e(t);

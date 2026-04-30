@@ -10,50 +10,50 @@ __d(
     "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t, n) {
-        var e,
-          r = o("WAWebAddonCrossWindowUtils").getAddonProcessorType(n);
-        return babelHelpers.extends(
-          {
-            id: t.newMsgKey,
-            type: o("WAWebMsgType").MSG_TYPE.REVOKED,
-            kind: o("WAWebMsgType").MsgKind.RevokedAddon,
-            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            subtype: t.subtype === "admin_revoke" ? "admin" : "sender",
-            revokeTimestamp: (e = t.revokeTimestamp) != null ? e : void 0,
-          },
-          o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
-            n.id,
-            o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
-          ),
-          {
-            revokeAddonType: r,
-            protocolMessageKey: n.id,
-            t: o("WAWebMsgGetters").getT(n),
-            parentMsgKey: o("WAWebAddonProcessMsgsUtils").getParentMsgKey(n),
-          },
-        );
-      },
-      s = function (t) {
-        return babelHelpers.extends(
-          {},
-          o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(t),
-          { id: t.id },
-          o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
-            t.id,
-            o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
-          ),
-          {
-            type: o("WAWebMsgType").MSG_TYPE.REVOKED,
-            kind: o("WAWebMsgType").MsgKind.RevokedAddon,
-            subtype: t.subtype === "admin_revoke" ? "admin" : "sender",
-            revokeTimestamp: t.revokeTimestamp,
-            revokeAddonType: t.revokeAddonType,
-            protocolMessageKey: t.protocolMessageKey,
-            parentMsgKey: t.targetMessageKey,
-          },
-        );
-      };
+    function e(e, t) {
+      var n,
+        r = o("WAWebAddonCrossWindowUtils").getAddonProcessorType(t);
+      return babelHelpers.extends(
+        {
+          id: e.newMsgKey,
+          type: o("WAWebMsgType").MSG_TYPE.REVOKED,
+          kind: o("WAWebMsgType").MsgKind.RevokedAddon,
+          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+          subtype: e.subtype === "admin_revoke" ? "admin" : "sender",
+          revokeTimestamp: (n = e.revokeTimestamp) != null ? n : void 0,
+        },
+        o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
+          t.id,
+          o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
+        ),
+        {
+          revokeAddonType: r,
+          protocolMessageKey: t.id,
+          t: o("WAWebMsgGetters").getT(t),
+          parentMsgKey: o("WAWebAddonProcessMsgsUtils").getParentMsgKey(t),
+        },
+      );
+    }
+    function s(e) {
+      return babelHelpers.extends(
+        {},
+        o("WAWebProcessBaseMsgInfo").msgDataToBaseMsgInfo(e),
+        { id: e.id },
+        o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
+          e.id,
+          o("WAWebMsgKeyUtils").TranslateMsgKeyType.Addon,
+        ),
+        {
+          type: o("WAWebMsgType").MSG_TYPE.REVOKED,
+          kind: o("WAWebMsgType").MsgKind.RevokedAddon,
+          subtype: e.subtype === "admin_revoke" ? "admin" : "sender",
+          revokeTimestamp: e.revokeTimestamp,
+          revokeAddonType: e.revokeAddonType,
+          protocolMessageKey: e.protocolMessageKey,
+          parentMsgKey: e.targetMessageKey,
+        },
+      );
+    }
     ((l.revokeMsgInfoToRevokeMsgData = e),
       (l.protocolRevokeToRevokeMsgData = s));
   },

@@ -329,7 +329,7 @@ __d(
                 : o("WALogger").ERROR(
                     _ ||
                       (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WAFFLE] GenerateWAEntACUser success but response missing fbid",
+                        "[WAFFLE] GenerateWAEntACUser success, no fbid",
                       ])),
                   );
             } catch (e) {

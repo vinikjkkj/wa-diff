@@ -68,24 +68,24 @@ __d(
           e.normalizeLocaleToBcp47Compliant(e.getNormalizedLocale()),
           e.normalizeLocaleToBcp47Compliant(e.getLocale()),
         ].filter(Boolean);
-      },
-      d = function (t, n, r, o) {
-        o === void 0 && (o = c());
-        var e = "symbol";
-        return (
-          u.includes(Array.isArray(o) ? o[0] : o) && (e = "code"),
-          new Intl.NumberFormat(
-            o,
-            babelHelpers.extends(
-              { style: "currency", currency: t, currencyDisplay: e },
-              r,
-            ),
-          ).format(n)
-        );
-      },
-      m = function (t, n, r, o) {
-        return d(t, n / 1e3, r, o);
       };
+    function d(e, t, n, r) {
+      r === void 0 && (r = c());
+      var o = "symbol";
+      return (
+        u.includes(Array.isArray(r) ? r[0] : r) && (o = "code"),
+        new Intl.NumberFormat(
+          r,
+          babelHelpers.extends(
+            { style: "currency", currency: e, currencyDisplay: o },
+            n,
+          ),
+        ).format(t)
+      );
+    }
+    function m(e, t, n, r) {
+      return d(e, t / 1e3, n, r);
+    }
     function p(e) {
       return new Intl.NumberFormat(e).format(1.1).substring(1, 2);
     }
