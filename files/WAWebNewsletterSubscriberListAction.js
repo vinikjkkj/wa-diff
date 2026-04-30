@@ -7,7 +7,6 @@ __d(
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebNewsletterGatingUtils",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterSubscriberListJob",
     "WAWebNewsletterSubscriberModel",
     "WAWebNewsletterValidationUtils",
@@ -84,6 +83,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+          var a;
           if (!o("WAWebChatGetters").getIsNewsletter(t))
             return (
               o("WALogger")
@@ -98,28 +98,30 @@ __d(
               { subscribers: null, hasMore: !1 }
             );
           if (
-            !o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-              t == null ? void 0 : t.newsletterMetadata,
+            !(
+              t != null &&
+              (a = t.newsletterMetadata) != null &&
+              a.iAmAdminOrOwner()
             )
           )
             return { subscribers: null, hasMore: !1 };
           try {
-            var a,
-              i,
-              l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            var i,
+              l,
+              p = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 t.id.toJid(),
               ),
-              p = yield o(
+              _ = yield o(
                 "WAWebNewsletterSubscriberListJob",
-              ).getNewsletterSubscribers(l, n, r),
-              _ = (a = p == null ? void 0 : p.followers.length) != null ? a : 0,
-              f = {
-                subscribers: d(p == null ? void 0 : p.followers),
-                hasMore: _ >= m,
+              ).getNewsletterSubscribers(p, n, r),
+              f = (i = _ == null ? void 0 : _.followers.length) != null ? i : 0,
+              g = {
+                subscribers: d(_ == null ? void 0 : _.followers),
+                hasMore: f >= m,
               };
             return (
-              (i = f.subscribers) != null &&
-                i.some(function (e) {
+              (l = g.subscribers) != null &&
+                l.some(function (e) {
                   return (
                     !e.contact.name &&
                     e.contact.phoneNumber != null &&
@@ -137,8 +139,8 @@ __d(
                   )
                   .tags("newsletter", "username")
                   .sendLogs("newsletter-phone-number-not-null"),
-              yield c(t, f.subscribers),
-              f
+              yield c(t, g.subscribers),
+              g
             );
           } catch (e) {
             return (

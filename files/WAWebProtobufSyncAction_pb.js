@@ -1106,6 +1106,7 @@ __d(
         keywords: [3, e.FLAGS.REPEATED | e.TYPES.STRING],
         count: [4, e.TYPES.INT32],
         deleted: [5, e.TYPES.BOOL],
+        associatedLabelIds: [6, e.FLAGS.REPEATED | e.TYPES.STRING],
       }),
       (mt.name = "SyncActionValue$LocaleSetting"),
       (mt.internalSpec = { locale: [1, e.TYPES.STRING] }),

@@ -42,21 +42,25 @@ __d(
             t.interactivePayload.buttons.length > 0)
         ) {
           var i,
-            l = o("WAWebInAppSignupConfirmation").parseInAppSignupWebsiteUrl(
+            l =
               (i = t.interactivePayload.buttons[0]) == null
                 ? void 0
                 : i.buttonParamsJson,
-            );
-          l != null &&
+            c = o("WAWebInAppSignupConfirmation").parseInAppSignupWebsiteUrl(l);
+          if (c != null) {
+            var d =
+                o("WAWebInAppSignupConfirmation").parseInAppSignupPromoCode(
+                  l,
+                ) != null,
+              m = d
+                ? s._(/*BTDS*/ "Redeem on website")
+                : s._(/*BTDS*/ "Visit website");
             a.push({
               name: "cta_url",
               index: a.length,
-              data: {
-                label: s._(/*BTDS*/ "Redeem on website").toString(),
-                url: l,
-                merchantUrl: l,
-              },
+              data: { label: m.toString(), url: c, merchantUrl: c },
             });
+          }
         }
         if (a.length > 0) return a;
       }

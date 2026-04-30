@@ -14,7 +14,7 @@ __d(
       d = u.useEffect,
       m = u.useRef;
     function p(e) {
-      var t = o("react-compiler-runtime").c(24),
+      var t = o("react-compiler-runtime").c(25),
         n = e.node,
         r = n.styleId,
         a = n.getValues(),
@@ -37,14 +37,34 @@ __d(
         y = d != null ? i : null,
         C = _(),
         b;
-      t[2] !== m.objectSet.navigationManager
+      t[2] !== m.objectSet.navigationManager || t[3] !== C
         ? ((b = function (t) {
-            t.key === "Escape" &&
+            if (t.key === "Escape") {
               (t.stopPropagation(), m.objectSet.navigationManager.pop());
+              return;
+            }
+            if (t.key === "Tab") {
+              var e = C.current;
+              if (e == null) return;
+              var n = Array.from(
+                e.querySelectorAll(
+                  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"]), [role="button"]',
+                ),
+              );
+              if (n.length === 0) return;
+              var r = document.activeElement,
+                o = r != null ? n.indexOf(r) : -1,
+                a = t.shiftKey
+                  ? n[o > 0 ? o - 1 : n.length - 1]
+                  : n[o < n.length - 1 ? o + 1 : 0];
+              a instanceof HTMLElement &&
+                (t.preventDefault(), a.focus({ focusVisible: !0 }));
+            }
           }),
           (t[2] = m.objectSet.navigationManager),
-          (t[3] = b))
-        : (b = t[3]);
+          (t[3] = C),
+          (t[4] = b))
+        : (b = t[4]);
       var v = b,
         S = f,
         R = "presentation",
@@ -53,31 +73,31 @@ __d(
         k = h != null && s.jsx("div", { className: f.title, children: h }),
         I = y != null && s.jsx("div", { className: f.message, children: y }),
         T;
-      t[4] !== k || t[5] !== I
+      t[5] !== k || t[6] !== I
         ? ((T = s.jsxs("div", { className: f.header, children: [k, I] })),
-          (t[4] = k),
-          (t[5] = I),
-          (t[6] = T))
-        : (T = t[6]);
+          (t[5] = k),
+          (t[6] = I),
+          (t[7] = T))
+        : (T = t[7]);
       var D = f,
         x = m.renderNode(l),
         $ = m.renderNode(u),
         P = m.renderNode(c),
         N;
-      t[7] !== D.buttons || t[8] !== x || t[9] !== $ || t[10] !== P
+      t[8] !== D.buttons || t[9] !== x || t[10] !== $ || t[11] !== P
         ? ((N = s.jsxs("div", { className: D.buttons, children: [x, $, P] })),
-          (t[7] = D.buttons),
-          (t[8] = x),
-          (t[9] = $),
-          (t[10] = P),
-          (t[11] = N))
-        : (N = t[11]);
+          (t[8] = D.buttons),
+          (t[9] = x),
+          (t[10] = $),
+          (t[11] = P),
+          (t[12] = N))
+        : (N = t[12]);
       var M;
-      t[12] !== C ||
-      t[13] !== h ||
-      t[14] !== N ||
-      t[15] !== L.container ||
-      t[16] !== T
+      t[13] !== C ||
+      t[14] !== h ||
+      t[15] !== N ||
+      t[16] !== L.container ||
+      t[17] !== T
         ? ((M = s.jsxs("div", {
             className: L.container,
             ref: C,
@@ -85,20 +105,20 @@ __d(
             "aria-label": h,
             children: [T, N],
           })),
-          (t[12] = C),
-          (t[13] = h),
-          (t[14] = N),
-          (t[15] = L.container),
-          (t[16] = T),
-          (t[17] = M))
-        : (M = t[17]);
+          (t[13] = C),
+          (t[14] = h),
+          (t[15] = N),
+          (t[16] = L.container),
+          (t[17] = T),
+          (t[18] = M))
+        : (M = t[18]);
       var w;
       return (
-        t[18] !== g ||
-        t[19] !== r ||
-        t[20] !== v ||
-        t[21] !== M ||
-        t[22] !== S.background
+        t[19] !== g ||
+        t[20] !== r ||
+        t[21] !== v ||
+        t[22] !== M ||
+        t[23] !== S.background
           ? ((w = s.jsx("div", {
               "data-bloks-name": r,
               className: S.background,
@@ -107,13 +127,13 @@ __d(
               role: R,
               children: M,
             })),
-            (t[18] = g),
-            (t[19] = r),
-            (t[20] = v),
-            (t[21] = M),
-            (t[22] = S.background),
-            (t[23] = w))
-          : (w = t[23]),
+            (t[19] = g),
+            (t[20] = r),
+            (t[21] = v),
+            (t[22] = M),
+            (t[23] = S.background),
+            (t[24] = w))
+          : (w = t[24]),
         w
       );
     }
@@ -127,7 +147,7 @@ __d(
           ? ((n = function () {
               t.current &&
                 (t.current.contains(document.activeElement) ||
-                  (t.current && t.current.focus()));
+                  (t.current && t.current.focus({ focusVisible: !0 })));
             }),
             (r = []),
             (e[0] = n),

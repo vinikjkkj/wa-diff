@@ -432,6 +432,8 @@ __d(
         hsmTag: [79, e.TYPES.STRING],
         ephemeralExpirationTimestamp: [80, e.TYPES.UINT64],
         scheduledMessageMetadata: [81, e.TYPES.MESSAGE, Q],
+        decisionId: [82, e.TYPES.STRING],
+        decisionSources: [83, e.FLAGS.REPEATED | e.TYPES.STRING],
       }),
       (S.name = "CommentMetadata"),
       (S.internalSpec = {

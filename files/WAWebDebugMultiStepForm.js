@@ -62,7 +62,8 @@ __d(
               interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
               nativeFlowInteractiveMsg: !0,
               interactivePayload: {
-                buttons: [{ name: "form_message", buttonParamsJson: a }],
+                buttons: [{ name: "form_message" }],
+                messageParamsJson: a,
                 messageVersion: 1,
               },
             };

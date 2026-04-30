@@ -12,7 +12,6 @@ __d(
     "WAWebNewsletterDirectoryFilterUtils",
     "WAWebNewsletterFutureProofUtils",
     "WAWebNewsletterGatingUtils",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterValidationUtils",
     "WAWebPrimaryFeatures",
     "WAWebQplQuickPerformanceLoggerMarkerIds",
@@ -86,12 +85,15 @@ __d(
       );
     }
     function m(e, t) {
+      var n, r;
       return (
         d() &&
         !t &&
-        o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-          e == null ? void 0 : e.newsletterMetadata,
-        ) &&
+        ((n =
+          (r = e.newsletterMetadata) == null ? void 0 : r.iAmAdminOrOwner()) !=
+        null
+          ? n
+          : !1) &&
         o("WAWebABProps").getABPropConfigValue(
           "channel_reactions_sender_list_enabled",
         )
@@ -128,18 +130,20 @@ __d(
       var t = o(
         "WAWebNewsletterGatingUtils",
       ).isNewsletterForwardCounterUIEnabled();
-      return t === 2
-        ? !0
-        : t === 1
-          ? o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-              e.newsletterMetadata,
-            )
+      if (t === 2) return !0;
+      if (t === 1) {
+        var n, r;
+        return (n =
+          (r = e.newsletterMetadata) == null ? void 0 : r.iAmAdminOrOwner()) !=
+          null
+          ? n
           : !1;
+      }
+      return !1;
     }
     function g(e) {
-      return o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-        e == null ? void 0 : e.newsletterMetadata,
-      )
+      var t;
+      return (t = e.newsletterMetadata) != null && t.iAmAdminOrOwner()
         ? o("WAWebNewsletterGatingUtils").isNewsletterPollsVotersEnabled()
         : !1;
     }
@@ -151,7 +155,7 @@ __d(
               "channels_admin_insights_gizmos_enabled",
             )
           ? !0
-          : o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(e)
+          : e.iAmAdminOrOwner()
             ? o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
                 "channels_producer_insights_enabled",
               )
@@ -163,7 +167,7 @@ __d(
             : !1;
     }
     function y(e) {
-      return e == null || !o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(e)
+      return e == null || !e.iAmAdminOrOwner()
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
               "channels_admin_notifications_enabled",
@@ -188,7 +192,7 @@ __d(
         : c(t, o("WAWebCommonNewsletterEnums").NewsletterCapability.QUESTIONS);
     }
     function v(e) {
-      return e == null || !o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(e)
+      return e == null || !e.iAmAdminOrOwner()
         ? !1
         : o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
               "channels_admin_profiles_sender_enabled",

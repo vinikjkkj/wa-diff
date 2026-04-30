@@ -6,7 +6,6 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterChangeOwnerJob",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterValidationUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -21,7 +20,7 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a;
+          var a, i;
           if (!o("WAWebChatGetters").getIsNewsletter(t))
             throw (
               o("WALogger")
@@ -35,9 +34,7 @@ __d(
                 .sendLogs("change-owner-of-non-newsletter"),
               r("err")("change-owner-of-non-newsletter")
             );
-          if (
-            !o("WAWebNewsletterMembershipUtil").iAmOwner(t.newsletterMetadata)
-          )
+          if (!((a = t.newsletterMetadata) != null && a.iAmOwner()))
             throw (
               o("WALogger")
                 .ERROR(
@@ -63,11 +60,11 @@ __d(
                 .sendLogs("transferring-newsletter-to-self"),
               r("err")("transferring-newsletter-to-self")
             );
-          var i =
-            (a = t.newsletterMetadata) == null
+          var l =
+            (i = t.newsletterMetadata) == null
               ? void 0
-              : a.subscribers.get(n.id);
-          if (i == null)
+              : i.subscribers.get(n.id);
+          if (l == null)
             throw (
               o("WALogger")
                 .ERROR(
@@ -81,7 +78,7 @@ __d(
               r("err")("contact-not-found-in-newsletter-subscriber-list")
             );
           if (
-            i.membership !==
+            l.membership !==
             o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin
           )
             throw (
@@ -92,20 +89,20 @@ __d(
                       "[changeNewsletterOwnerAction] non-admin role=",
                       "",
                     ])),
-                  i.membership,
+                  l.membership,
                 )
                 .tags("newsletter")
                 .sendLogs("transferring-newsletter-ownership-to-non-admin"),
               r("err")("transferring-newsletter-ownership-to-non-admin")
             );
           try {
-            var l = o("WAWebWidFactory").asUserWidOrThrow(n.id),
-              p = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            var p = o("WAWebWidFactory").asUserWidOrThrow(n.id),
+              _ = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 t.id.toJid(),
               );
             (yield o("WAWebNewsletterChangeOwnerJob").changeNewsletterOwner(
+              _,
               p,
-              l,
             ),
               yield o(
                 "WAWebNewsletterBridgeApi",

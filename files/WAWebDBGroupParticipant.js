@@ -129,9 +129,10 @@ __d(
         i = e.groupInfo,
         l = e.participants,
         s = e.superAdmins,
-        u = !1;
-      i != null && (u = !!i.defaultSubgroup);
-      var c = a.toString();
+        u = !1,
+        c = !1;
+      i != null && ((u = !!i.defaultSubgroup), (c = i.hasCapi === !0));
+      var d = a.toString();
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -140,16 +141,17 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var n = e[0],
-                  a = yield n.get(c);
+                  a = yield n.get(d);
                 if (!a)
                   return n.create(
                     o("WAWebDBGroupParticipantHelpers").createParticipantInfo(
-                      c,
+                      d,
                       {
                         participants: l,
                         admins: t,
                         superAdmins: s,
                         deviceIds: r,
+                        isCapiGroup: c,
                       },
                     ),
                   );
@@ -162,6 +164,7 @@ __d(
                         admins: t,
                         superAdmins: s,
                         deviceIds: r,
+                        isCapiGroup: c,
                       })
                     : o(
                         "WAWebDBGroupParticipantHelpers",
@@ -170,6 +173,7 @@ __d(
                         admins: t,
                         superAdmins: s,
                         deviceIds: r,
+                        isCapiGroup: c,
                       }),
                 );
               },
@@ -252,36 +256,43 @@ __d(
                                   n = e.groupMetadata,
                                   r = e.id,
                                   a = !!(n != null && n.defaultSubgroup),
-                                  s = i.get(r);
-                                if (!s) {
+                                  s = (n == null ? void 0 : n.hasCapi) === !0,
+                                  c = i.get(r);
+                                if (!c) {
                                   l.length < 3 && l.push(r);
                                   return;
                                 }
-                                var c = t.participants,
-                                  d = null;
+                                var d = t.participants,
+                                  m = null;
                                 switch (t.action) {
                                   case o("WAWebDBParticipantTypes")
                                     .PARTICIPANT_OPERATION.ADD:
-                                    d = a
+                                    m = a
                                       ? o(
                                           "WAWebDBGroupParticipantHelpers",
                                         ).addParticipantInfoCAG(
-                                          s,
                                           c,
+                                          d,
                                           t.deviceIds,
+                                          s,
                                         )
                                       : o(
                                           "WAWebDBGroupParticipantHelpers",
-                                        ).addParticipantInfo(s, c, t.deviceIds);
+                                        ).addParticipantInfo(
+                                          c,
+                                          d,
+                                          t.deviceIds,
+                                          s,
+                                        );
                                     break;
                                   case o("WAWebDBParticipantTypes")
                                     .PARTICIPANT_OPERATION.REMOVE:
-                                    d = a
+                                    m = a
                                       ? o(
                                           "WAWebDBGroupParticipantHelpers",
                                         ).removeParticipantInfoCAG(
-                                          s,
                                           c,
+                                          d,
                                           t.timestamp,
                                           t.author,
                                           t.reason,
@@ -289,8 +300,8 @@ __d(
                                       : o(
                                           "WAWebDBGroupParticipantHelpers",
                                         ).removeParticipantInfo(
-                                          s,
                                           c,
+                                          d,
                                           t.timestamp,
                                           t.author,
                                           t.reason,
@@ -298,21 +309,22 @@ __d(
                                     break;
                                   case o("WAWebDBParticipantTypes")
                                     .PARTICIPANT_OPERATION.DEMOTE:
-                                    d = a
+                                    m = a
                                       ? o(
                                           "WAWebDBGroupParticipantHelpers",
                                         ).changeParticipantAdminInfoCAG(
-                                          s,
                                           c,
+                                          d,
                                           t.deviceIds,
                                           o("WAWebDBParticipantTypes")
                                             .PARTICIPANT_OPERATION.DEMOTE,
+                                          s,
                                         )
                                       : o(
                                           "WAWebDBGroupParticipantHelpers",
                                         ).changeParticipantAdminInfo(
-                                          s,
                                           c,
+                                          d,
                                           t.deviceIds,
                                           o("WAWebDBParticipantTypes")
                                             .PARTICIPANT_OPERATION.DEMOTE,
@@ -320,21 +332,22 @@ __d(
                                     break;
                                   case o("WAWebDBParticipantTypes")
                                     .PARTICIPANT_OPERATION.PROMOTE:
-                                    d = a
+                                    m = a
                                       ? o(
                                           "WAWebDBGroupParticipantHelpers",
                                         ).changeParticipantAdminInfoCAG(
-                                          s,
                                           c,
+                                          d,
                                           t.deviceIds,
                                           o("WAWebDBParticipantTypes")
                                             .PARTICIPANT_OPERATION.PROMOTE,
+                                          s,
                                         )
                                       : o(
                                           "WAWebDBGroupParticipantHelpers",
                                         ).changeParticipantAdminInfo(
-                                          s,
                                           c,
+                                          d,
                                           t.deviceIds,
                                           o("WAWebDBParticipantTypes")
                                             .PARTICIPANT_OPERATION.PROMOTE,
@@ -343,7 +356,7 @@ __d(
                                   default:
                                     u.length < 3 && u.push(t.action);
                                 }
-                                d != null && i.set(d.groupId, d);
+                                m != null && i.set(m.groupId, m);
                               }),
                               l.length > 0 &&
                                 o("WALogger").LOG(
@@ -587,10 +600,11 @@ __d(
     }
     function E(e, t, a, i) {
       i === void 0 && (i = !1);
-      var l = !!(a != null && a.defaultSubgroup);
+      var l = !!(a != null && a.defaultSubgroup),
+        s = (a == null ? void 0 : a.hasCapi) === !0;
       if (i) return v({ id: String(e), data: t, groupMetadata: a });
-      var s = t.participants,
-        u = e.toString();
+      var u = t.participants,
+        c = e.toString();
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(
@@ -599,7 +613,7 @@ __d(
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 var n = e[0],
-                  a = yield n.get(u);
+                  a = yield n.get(c);
                 if (!a)
                   throw new (o("WAWebDBParticipantTypes").GroupUnSyncedError)(
                     "updateParticipants: group participant info missing for action " +
@@ -611,10 +625,10 @@ __d(
                       l
                         ? o(
                             "WAWebDBGroupParticipantHelpers",
-                          ).addParticipantInfoCAG(a, s, t.deviceIds)
+                          ).addParticipantInfoCAG(a, u, t.deviceIds, s)
                         : o(
                             "WAWebDBGroupParticipantHelpers",
-                          ).addParticipantInfo(a, s, t.deviceIds),
+                          ).addParticipantInfo(a, u, t.deviceIds, s),
                     );
                   case o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                     .REMOVE:
@@ -624,7 +638,7 @@ __d(
                             "WAWebDBGroupParticipantHelpers",
                           ).removeParticipantInfoCAG(
                             a,
-                            s,
+                            u,
                             t.timestamp,
                             t.author,
                             t.reason,
@@ -633,7 +647,7 @@ __d(
                             "WAWebDBGroupParticipantHelpers",
                           ).removeParticipantInfo(
                             a,
-                            s,
+                            u,
                             t.timestamp,
                             t.author,
                             t.reason,
@@ -647,16 +661,17 @@ __d(
                             "WAWebDBGroupParticipantHelpers",
                           ).changeParticipantAdminInfoCAG(
                             a,
-                            s,
+                            u,
                             t.deviceIds,
                             o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                               .DEMOTE,
+                            s,
                           )
                         : o(
                             "WAWebDBGroupParticipantHelpers",
                           ).changeParticipantAdminInfo(
                             a,
-                            s,
+                            u,
                             t.deviceIds,
                             o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                               .DEMOTE,
@@ -670,16 +685,17 @@ __d(
                             "WAWebDBGroupParticipantHelpers",
                           ).changeParticipantAdminInfoCAG(
                             a,
-                            s,
+                            u,
                             t.deviceIds,
                             o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                               .PROMOTE,
+                            s,
                           )
                         : o(
                             "WAWebDBGroupParticipantHelpers",
                           ).changeParticipantAdminInfo(
                             a,
-                            s,
+                            u,
                             t.deviceIds,
                             o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION
                               .PROMOTE,

@@ -94,6 +94,10 @@ __d(
         billing_iap_default_payment_amount_universe: {
           params: { show_correct_amounts: e },
         },
+        billing_india_cc_pending_default: {
+          params: { india_cc_pending_default: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         billing_mobile_modular_ptt_api_migration_ama_ios_logging: {
           params: { modular_ptt_api_enabled: e },
         },

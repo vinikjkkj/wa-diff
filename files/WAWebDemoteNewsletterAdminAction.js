@@ -6,7 +6,6 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterDemoteAdminJob",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterValidationUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -21,6 +20,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a, i;
           if (!o("WAWebChatGetters").getIsNewsletter(t))
             throw (
               o("WALogger")
@@ -35,8 +35,10 @@ __d(
               r("err")("demote-admins-of-non-newsletter")
             );
           if (
-            !o("WAWebNewsletterMembershipUtil").iAmOwner(
-              t == null ? void 0 : t.newsletterMetadata,
+            !(
+              t != null &&
+              (a = t.newsletterMetadata) != null &&
+              a.iAmOwner()
             ) &&
             !o("WAWebUserPrefsMeUser").isMeAccount(n.id)
           )
@@ -53,8 +55,10 @@ __d(
               r("err")("non-channel-owner-dismissing-other-admins")
             );
           if (
-            !o("WAWebNewsletterMembershipUtil").iAmAdmin(
-              t == null ? void 0 : t.newsletterMetadata,
+            !(
+              t != null &&
+              (i = t.newsletterMetadata) != null &&
+              i.iAmAdmin()
             ) &&
             o("WAWebUserPrefsMeUser").isMeAccount(n.id)
           )
@@ -71,13 +75,13 @@ __d(
               r("err")("non-channel-admins-dismissing-themselves")
             );
           try {
-            var a = o("WAWebWidFactory").asUserWidOrThrow(n.id),
-              i = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            var l = o("WAWebWidFactory").asUserWidOrThrow(n.id),
+              d = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 t.id.toJid(),
               );
             (yield o("WAWebNewsletterDemoteAdminJob").demoteNewsletterAdmin(
-              i,
-              a,
+              d,
+              l,
             ),
               o("WAWebUserPrefsMeUser").isMeAccount(n.id)
                 ? yield o(

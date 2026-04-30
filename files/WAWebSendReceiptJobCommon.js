@@ -118,19 +118,20 @@ __d(
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var r = t.groupedReceipt,
             a = t.isStatusReceipt,
-            i = t.receiptClass,
-            l = t.recipient,
-            _ = t.t,
-            f = t.threadId,
-            g = t.to,
-            h = t.type;
-          if (g.isNewsletter() && h === u.DELIVERY) return m(g, r);
-          var y =
-            h === u.READ ||
-            h === u.PLAYED ||
-            h === u.READ_SELF ||
-            h === u.PLAYED_SELF ||
-            h === u.HISTORY_SYNC_COMPLETION;
+            i = t.maxStsByAuthor,
+            l = t.receiptClass,
+            _ = t.recipient,
+            f = t.t,
+            g = t.threadId,
+            h = t.to,
+            y = t.type;
+          if (h.isNewsletter() && y === u.DELIVERY) return m(h, r);
+          var C =
+            y === u.READ ||
+            y === u.PLAYED ||
+            y === u.READ_SELF ||
+            y === u.PLAYED_SELF ||
+            y === u.HISTORY_SYNC_COMPLETION;
           yield (s || (s = n("Promise"))).all(
             Array.from(
               r.keys(),
@@ -139,36 +140,37 @@ __d(
                   function* (t) {
                     var m = r.get(t);
                     if (!(!m || m.length === 0)) {
-                      var C = !g.isBot() && t.isBot();
-                      if (h === u.DELIVERY && C) {
-                        var b, v, S;
-                        (g.isUser() ? ((b = t), (v = g)) : ((b = g), (S = t)),
-                          p(m, b, v, S));
+                      var b = i == null ? void 0 : i.get(t),
+                        v = !h.isBot() && t.isBot();
+                      if (y === u.DELIVERY && v) {
+                        var S, R, L;
+                        (h.isUser() ? ((S = t), (R = h)) : ((S = h), (L = t)),
+                          p(m, S, R, L));
                         return;
                       }
-                      var R = g.isUser() || g.isNewsletter() ? null : t,
-                        L = o(
+                      var E = h.isUser() || h.isNewsletter() ? null : t,
+                        k = o(
                           "WAWebSimpleSignalPNToFBIDMigration",
-                        ).maybeReplaceDeprecatedBotPnWithFbid(g),
-                        E = l;
-                      E == null &&
-                        g.isUser() &&
-                        !g.isBot() &&
+                        ).maybeReplaceDeprecatedBotPnWithFbid(h),
+                        I = _;
+                      I == null &&
+                        h.isUser() &&
+                        !h.isBot() &&
                         t.isBot() &&
-                        ((L = t), (E = g));
+                        ((k = t), (I = h));
                       for (
-                        var k =
-                            h === u.DELIVERY ||
-                            h === u.SENDER ||
-                            h === u.PEER_MSG ||
-                            h === u.HISTORY_SYNC_COMPLETION,
-                          I = k
-                            ? L
+                        var T =
+                            y === u.DELIVERY ||
+                            y === u.SENDER ||
+                            y === u.PEER_MSG ||
+                            y === u.HISTORY_SYNC_COMPLETION,
+                          D = T
+                            ? k
                             : yield o(
                                 "WAWebPnlessStanzaMigration",
-                              ).getStanzaToFromChatId(L, h),
-                          T = [],
-                          D = function* () {
+                              ).getStanzaToFromChatId(k, y),
+                          x = [],
+                          $ = function* () {
                             var t = m.splice(0, c),
                               r = null;
                             t.length > 1 &&
@@ -181,81 +183,85 @@ __d(
                                   });
                                 }),
                               ));
-                            var l, s;
-                            R != null &&
-                              (R.isPSA()
-                                ? (l = o("WAWebCommsWapMd").JID(R))
-                                : R.isUser() &&
-                                  ((l = o("WAWebCommsWapMd").DEVICE_JID(R)),
+                            var i, s;
+                            E != null &&
+                              (E.isPSA()
+                                ? (i = o("WAWebCommsWapMd").JID(E))
+                                : E.isUser() &&
+                                  ((i = o("WAWebCommsWapMd").DEVICE_JID(E)),
                                   o("WAWebABProps").getABPropConfigValue(
                                     "lid_status_non_soaked_client_support_enabled",
                                   ) &&
-                                    I.toString() === o("WAJids").STATUS_JID &&
-                                    R.isLid() &&
-                                    h === u.READ &&
-                                    (s = o("WAWebLidMigrationUtils").toPn(R))));
-                            var p = f == null ? void 0 : f.key.id,
-                              g =
+                                    D.toString() === o("WAJids").STATUS_JID &&
+                                    E.isLid() &&
+                                    y === u.READ &&
+                                    (s = o("WAWebLidMigrationUtils").toPn(E))));
+                            var p = g == null ? void 0 : g.key.id,
+                              _ =
                                 p != null
                                   ? o("WAWap").wap("bot", {
                                       client_thread_id:
                                         o("WAWap").CUSTOM_STRING(p),
                                     })
                                   : null,
-                              C =
+                              h =
                                 o(
                                   "WAWebStatusGatingUtils",
                                 ).isStatusStanzaSendEnabled() &&
                                 (a === !0 ||
-                                  L.toString() === o("WAJids").STATUS_JID)
+                                  k.toString() === o("WAJids").STATUS_JID)
                                   ? o("WAWap").CUSTOM_STRING("status")
                                   : o("WAWap").DROP_ATTR,
-                              b = o("WAWap").wap(
+                              v = o("WAWap").wap(
                                 "receipt",
                                 {
-                                  to: o("WAWebCommsWapMd").JID(I),
+                                  to: o("WAWebCommsWapMd").JID(D),
                                   type:
-                                    h === u.DELIVERY ? o("WAWap").DROP_ATTR : h,
+                                    y === u.DELIVERY ? o("WAWap").DROP_ATTR : y,
                                   class:
-                                    i != null
-                                      ? o("WAWap").CUSTOM_STRING(i)
+                                    l != null
+                                      ? o("WAWap").CUSTOM_STRING(l)
                                       : o("WAWap").DROP_ATTR,
                                   id: o("WAWap").CUSTOM_STRING(t[0]),
                                   t:
-                                    _ != null
-                                      ? o("WAWap").CUSTOM_STRING(_)
+                                    f != null
+                                      ? o("WAWap").CUSTOM_STRING(f)
                                       : o("WAWap").DROP_ATTR,
                                   participant:
-                                    l != null ? l : o("WAWap").DROP_ATTR,
+                                    i != null ? i : o("WAWap").DROP_ATTR,
                                   peer_participant_pn: s
                                     ? o("WAWebCommsWapMd").USER_JID(s)
                                     : o("WAWap").DROP_ATTR,
-                                  recipient: E
-                                    ? o("WAWebCommsWapMd").USER_JID(E)
+                                  recipient: I
+                                    ? o("WAWebCommsWapMd").USER_JID(I)
                                     : o("WAWap").DROP_ATTR,
-                                  context: C,
+                                  sts:
+                                    b != null
+                                      ? o("WAWap").CUSTOM_STRING(String(b))
+                                      : o("WAWap").DROP_ATTR,
+                                  context: h,
                                 },
                                 r,
-                                g,
+                                _,
                               );
-                            if (y) {
-                              var v = (function () {
+                            if (C) {
+                              var S = (function () {
                                 var r = n(
                                   "asyncToGeneratorRuntime",
                                 ).asyncToGenerator(function* () {
                                   var n = {
                                     id: t[0],
-                                    from: I,
+                                    from: D,
                                     class: "receipt",
-                                    type: h,
-                                    participant: R,
-                                    recipient: E,
+                                    type: y,
+                                    participant: E,
+                                    recipient: I,
                                   };
-                                  if (h === u.READ || h === u.READ_SELF) {
+                                  if (y === u.READ || y === u.READ_SELF) {
                                     var r = yield o(
                                         "WADeprecatedSendIq",
                                       ).deprecatedSendStanzaAndReturnAck(
-                                        b,
+                                        v,
                                         o(
                                           "WAWebCommsAckParser",
                                         ).toCoreAckTemplate(n),
@@ -292,7 +298,7 @@ __d(
                                     return o(
                                       "WADeprecatedSendIq",
                                     ).deprecatedSendStanzaAndWaitForAck(
-                                      b,
+                                      v,
                                       o(
                                         "WAWebCommsAckParser",
                                       ).toCoreAckTemplate(n),
@@ -302,16 +308,16 @@ __d(
                                   return r.apply(this, arguments);
                                 };
                               })();
-                              T.push(v());
+                              x.push(S());
                             } else
-                              T.push(
-                                o("WADeprecatedSendIq").deprecatedCastStanza(b),
+                              x.push(
+                                o("WADeprecatedSendIq").deprecatedCastStanza(v),
                               );
                           };
                         m.length > 0;
                       )
-                        yield* D();
-                      return (s || (s = n("Promise"))).all(T);
+                        yield* $();
+                      return (s || (s = n("Promise"))).all(x);
                     }
                   },
                 );

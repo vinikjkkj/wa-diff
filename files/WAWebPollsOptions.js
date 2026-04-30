@@ -3,7 +3,6 @@ __d(
   [
     "JSResourceForInteraction",
     "WAWebFrontendMsgGetters",
-    "WAWebNewsletterMembershipUtil",
     "WAWebPollCreationUtils",
     "WAWebPollsOptionRow",
     "react",
@@ -52,38 +51,44 @@ __d(
       var I = k,
         T;
       if (t[6] !== c) {
-        var D = o("WAWebFrontendMsgGetters").getChat(c.unsafe());
-        ((T = o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-          D.newsletterMetadata,
-        )),
+        var D,
+          x,
+          $ = o("WAWebFrontendMsgGetters").getChat(c.unsafe());
+        ((T =
+          (D =
+            (x = $.newsletterMetadata) == null
+              ? void 0
+              : x.iAmAdminOrOwner()) != null
+            ? D
+            : !1),
           (t[6] = c),
           (t[7] = T));
       } else T = t[7];
-      var x = T,
-        $ =
+      var P = T,
+        N =
           c.pollType === o("WAWebPollCreationUtils").PollType.QUIZ &&
-          !x &&
+          !P &&
           a.size === 0,
-        P;
+        M;
       t[8] !== c.pollType
-        ? ((P =
+        ? ((M =
             c.pollType === o("WAWebPollCreationUtils").PollType.QUIZ
               ? r("JSResourceForInteraction")("WAWebConfettiAnimationData")
                   .__setRef("WAWebPollsOptions")
                   .load()
               : null),
           (t[8] = c.pollType),
-          (t[9] = P))
-        : (P = t[9]);
-      var N = P,
-        M;
+          (t[9] = M))
+        : (M = t[9]);
+      var w = M,
+        A;
       return (
-        t[10] !== N ||
+        t[10] !== w ||
         t[11] !== a ||
         t[12] !== i ||
         t[13] !== v ||
-        t[14] !== $ ||
-        t[15] !== x ||
+        t[14] !== N ||
+        t[15] !== P ||
         t[16] !== l ||
         t[17] !== u ||
         t[18] !== E ||
@@ -97,7 +102,7 @@ __d(
         t[26] !== h ||
         t[27] !== y ||
         t[28] !== C
-          ? ((M = s.jsx(s.Fragment, {
+          ? ((A = s.jsx(s.Fragment, {
               children: v.map(function (e, t) {
                 var n = e[0],
                   o = e[1],
@@ -124,22 +129,22 @@ __d(
                       onPhotoThumbClick: _,
                       view: C,
                       loadingPhotoThumb: E,
-                      hideResults: $,
+                      hideResults: N,
                       isCorrectOption: b,
-                      animationPromise: N,
-                      isAdminOrOwner: x,
+                      animationPromise: w,
+                      isAdminOrOwner: P,
                     }),
                   },
                   t,
                 );
               }),
             })),
-            (t[10] = N),
+            (t[10] = w),
             (t[11] = a),
             (t[12] = i),
             (t[13] = v),
-            (t[14] = $),
-            (t[15] = x),
+            (t[14] = N),
+            (t[15] = P),
             (t[16] = l),
             (t[17] = u),
             (t[18] = E),
@@ -153,9 +158,9 @@ __d(
             (t[26] = h),
             (t[27] = y),
             (t[28] = C),
-            (t[29] = M))
-          : (M = t[29]),
-        M
+            (t[29] = A))
+          : (A = t[29]),
+        A
       );
     }
     function d(e) {

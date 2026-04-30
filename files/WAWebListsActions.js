@@ -588,7 +588,10 @@ __d(
     function V() {
       return (
         (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebListsGatingUtils").isListsM2Enabled() && e.length !== 0) {
+          if (
+            o("WAWebListsGatingUtils").isLabelReorderEnabled() &&
+            e.length !== 0
+          ) {
             var t = e.map(function (e) {
               var t,
                 n = o("WAWebLabelCollection").LabelCollection.get(String(e));

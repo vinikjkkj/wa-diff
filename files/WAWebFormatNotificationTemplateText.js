@@ -6,6 +6,7 @@ __d(
     "WAWebABPropsInternalNumber",
     "WAWebBizBroadcastFormatStatusText",
     "WAWebBizGatingUtils",
+    "WAWebBotBaseGating",
     "WAWebBotGating",
     "WAWebBotTypes",
     "WAWebBotUtils",
@@ -1716,7 +1717,7 @@ __d(
             );
     }
     function G() {
-      return o("WAWebBotGating").isAiWebForwardEnabled()
+      return o("WAWebBotBaseGating").isBotEnabled()
         ? s._(
             /*BTDS*/ "Only messages that mention or people share with \u0040Meta AI can be read by Meta. Meta can't read any other messages in this chat. Some responses may be inaccurate or inappropriate. Click to learn more.",
           )

@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebNewsletterBridgeApi",
     "WAWebNewsletterCollection",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterPreviewJob",
     "WAWebNewsletterRoleIdentifier",
@@ -27,46 +26,54 @@ __d(
           );
           try {
             var a,
-              i = o("WAWebNewsletterRoleIdentifier").getRoleByIdentifier(t),
-              l = yield o("WAWebNewsletterPreviewJob").getNewsletterPreviewData(
+              i,
+              l,
+              d,
+              m,
+              p = o("WAWebNewsletterRoleIdentifier").getRoleByIdentifier(t),
+              _ = yield o("WAWebNewsletterPreviewJob").getNewsletterPreviewData(
                 t,
-                i,
+                p,
                 n,
               ),
-              d = l.ids,
-              m = l.newsletterMessages,
-              p = l.newsletterMetadata,
-              _ = l.newsletterReactions,
-              f = l.newsletterVotes;
-            if (p == null)
+              f = _.ids,
+              g = _.newsletterMessages,
+              h = _.newsletterMetadata,
+              y = _.newsletterReactions,
+              C = _.newsletterVotes;
+            if (h == null)
               throw r("err")("Did not receive newsletter preview data");
-            var g = r("WAWebNewsletterCollection").get(p.idJid);
+            var b = r("WAWebNewsletterCollection").get(h.idJid);
             if (
-              g != null &&
-              (o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-                g.newsletterMetadata,
-              ) ||
-                o("WAWebNewsletterMembershipUtil").iAmSubscriber(
-                  g.newsletterMetadata,
-                ))
+              b != null &&
+              (((a =
+                (i = b.newsletterMetadata) == null
+                  ? void 0
+                  : i.iAmAdminOrOwner()) != null &&
+                a) ||
+                ((l =
+                  (d = b.newsletterMetadata) == null
+                    ? void 0
+                    : d.iAmSubscriber()) != null &&
+                  l))
             )
-              return g;
-            var h = o(
+              return b;
+            var v = o(
                 "WAWebNewsletterModelUtils",
-              ).mapPreviewNewsletterToMetadata(p),
-              y = o("WAWebNewsletterModelUtils").mapPreviewNewsletterToChat(p);
+              ).mapPreviewNewsletterToMetadata(h),
+              S = o("WAWebNewsletterModelUtils").mapPreviewNewsletterToChat(h);
             yield o(
               "WAWebNewsletterPreviewJob",
-            ).persistPreviewNewsletterInfoInDb(y, h, m);
-            var C =
-                p == null || (a = p.newsletterPictureMetadataMixin) == null
+            ).persistPreviewNewsletterInfoInDb(S, v, g);
+            var R =
+                h == null || (m = h.newsletterPictureMetadataMixin) == null
                   ? void 0
-                  : a.picture,
-              b =
-                C != null
+                  : m.picture,
+              L =
+                R != null
                   ? o("WAWebNewsletterModelUtils").mapPicturesToProfilePicThumb(
-                      p.idJid,
-                      C,
+                      h.idJid,
+                      R,
                     )
                   : null;
             o("WALogger").LOG(
@@ -75,21 +82,21 @@ __d(
                   "[newsletters][loadNewsletterPreviewChat] updating models",
                 ])),
             );
-            var v = yield o(
+            var E = yield o(
               "WAWebNewsletterBridgeApi",
             ).NewsletterBridgeApi.loadNewsletterPreviewChat({
-              metadata: h,
-              pic: b,
-              newsletter: y,
-              messages: m,
+              metadata: v,
+              pic: L,
+              newsletter: S,
+              messages: g,
             });
             return (
               yield o(
                 "WAWebNewsletterBridgeApi",
               ).NewsletterBridgeApi.updateNewsletterMessages({
-                ids: d,
-                reactions: _,
-                pollVotes: f,
+                ids: f,
+                reactions: y,
+                pollVotes: C,
               }),
               o("WALogger").LOG(
                 u ||
@@ -97,12 +104,12 @@ __d(
                     "[newsletters][loadNewsletterPreviewChat] End",
                   ])),
               ),
-              v
+              E
             );
           } catch (e) {
-            var S = e instanceof Error ? e : {},
-              R = S.message,
-              L = S.name;
+            var k = e instanceof Error ? e : {},
+              I = k.message,
+              T = k.name;
             throw (
               o("WALogger")
                 .ERROR(
@@ -112,8 +119,8 @@ __d(
                       "-",
                       "",
                     ])),
-                  L,
-                  R,
+                  T,
+                  I,
                 )
                 .tags("newsletter")
                 .sendLogs(

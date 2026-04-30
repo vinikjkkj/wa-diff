@@ -1,12 +1,9 @@
 __d(
   "WAWebNewsletterStatusPostingUtils",
-  ["WAWebNewsletterCollection", "WAWebNewsletterMembershipUtil"],
+  ["WAWebNewsletterCollection"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return e == null
-        ? !1
-        : o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(e) &&
-            !e.isSuspendedOrTerminated;
+      return e == null ? !1 : e.iAmAdminOrOwner() && !e.isSuspendedOrTerminated;
     }
     function s() {
       var t = r("WAWebNewsletterCollection").getModelsArray();

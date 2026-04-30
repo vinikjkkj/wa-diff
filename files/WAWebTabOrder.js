@@ -44,6 +44,7 @@ __d(
       GROUP_MSG_BAR_LEARN_MORE: 10,
       PTT_BUTTON: 11,
       SEND_BUTTON: 11,
+      PIP_PLAYER: 12,
       DRAWER_HEADER: 1,
       DRAWER_CONTENT: 3,
       DRAWER_FOOTER: 5,

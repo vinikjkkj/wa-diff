@@ -10,24 +10,80 @@ __d(
     "WAWebSchemaPendingBusinessBroadcastMessage",
     "WAWebSyncdActionUtils",
     "WAWebSyncdCoreApi",
+    "WAWebValidationUtils",
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n) {
-      return m.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e, t) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = o(
+              "WAWebSchemaBusinessBroadcastCampaign",
+            ).getBusinessBroadcastCampaignTable(),
+            a = yield n.get(e);
+          if (!r("justknobx")._("3901"))
+            return { action: "merge", existing: a };
+          var i = o("WAWebValidationUtils").validateUUID(e);
+          if (i) {
+            if (t != null) {
+              var l = yield n.get(t);
+              l != null &&
+                !o("WAWebValidationUtils").validateUUID(l.campaignId) &&
+                (yield y(l.campaignId));
+            }
+            return { action: "merge", existing: a };
+          }
+          var s = yield _(e);
+          return s != null
+            ? (a != null && (yield y(e)), { action: "skip" })
+            : { action: "merge", existing: a };
+        })),
+        p.apply(this, arguments)
+      );
+    }
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n = o(
+              "WAWebSchemaBusinessBroadcastCampaign",
+            ).getBusinessBroadcastCampaignTable(),
+            r = o("WAWebSchemaBusinessBroadcastCampaign").canUseAdIdIndex()
+              ? yield n.equals(["adId"], e)
+              : (yield n.all()).filter(function (t) {
+                  return t.adId === e;
+                });
+          return (t = r.find(function (e) {
+            return o("WAWebValidationUtils").validateUUID(e.campaignId);
+          })) != null
+            ? t
+            : null;
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    function g(e, t, n) {
+      return h.apply(this, arguments);
+    }
+    function h() {
+      return (
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
           var i,
             l =
               n.broadcastJid != null
                 ? o("WAJids").validateBroadcastJid(n.broadcastJid)
                 : null,
-            s =
+            u =
               (i = o("WALongInt").maybeNumber(n.createTimestamp)) != null
                 ? i
                 : a;
@@ -37,64 +93,74 @@ __d(
                 t,
             );
           try {
-            var u,
-              c,
+            var c,
               d,
-              m,
               p,
               _,
               f,
-              g = yield o("WAWebSchemaBusinessBroadcastCampaign")
-                .getBusinessBroadcastCampaignTable()
-                .get(t);
+              g,
+              h,
+              y = yield m(t, n.adId);
+            if (y.action === "skip") {
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[broadcast:campaign-storage] Skipping stale adId-keyed sync for campaign ",
+                    " \u2014 proper UUID row already exists",
+                  ])),
+                t,
+              );
+              return;
+            }
+            var C = y.existing;
             yield o("WAWebSchemaBusinessBroadcastCampaign")
               .getBusinessBroadcastCampaignTable()
               .createOrReplace({
                 adGroupId:
-                  (u = g == null ? void 0 : g.adGroupId) != null ? u : null,
-                adId: (c = n.adId) != null ? c : null,
+                  (c = C == null ? void 0 : C.adGroupId) != null ? c : null,
+                adId: (d = n.adId) != null ? d : null,
                 broadcastJid: l,
                 campaignId: t,
-                campaignName: (d = n.name) != null ? d : null,
-                createdTimestamp: s,
+                campaignName: (p = n.name) != null ? p : null,
+                createdTimestamp: u,
                 deviceId: n.deviceId,
-                msgId: (m = n.msgId) != null ? m : null,
+                msgId: (_ = n.msgId) != null ? _ : null,
                 pendingBroadcastMessageId:
-                  (p = g == null ? void 0 : g.pendingBroadcastMessageId) != null
-                    ? p
-                    : null,
-                reservedQuota: (_ = n.reservedQuota) != null ? _ : null,
-                scheduledTimestamp:
-                  (f = o("WALongInt").maybeNumber(n.scheduledTimestamp)) != null
+                  (f = C == null ? void 0 : C.pendingBroadcastMessageId) != null
                     ? f
+                    : null,
+                reservedQuota: (g = n.reservedQuota) != null ? g : null,
+                scheduledTimestamp:
+                  (h = o("WALongInt").maybeNumber(n.scheduledTimestamp)) != null
+                    ? h
                     : null,
                 status: n.status,
               });
-          } catch (n) {
+          } catch (e) {
             throw (
               o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-storage] Failed to upsert campaign ",
                     ": ",
                     "",
                   ])),
                 t,
-                r("getErrorSafe")(n),
+                r("getErrorSafe")(e),
               ),
-              n
+              e
             );
           }
         })),
-        m.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function _() {
+    function C() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           try {
             yield o("WAWebSchemaBusinessBroadcastCampaign")
               .getBusinessBroadcastCampaignTable()
@@ -102,8 +168,8 @@ __d(
           } catch (t) {
             throw (
               o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[broadcast:campaign-storage] Failed to remove campaign ",
                     ": ",
                     "",
@@ -115,15 +181,15 @@ __d(
             );
           }
         })),
-        _.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function b(e) {
+      return v.apply(this, arguments);
     }
-    function g() {
+    function v() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n = o(
               "WAWebSchemaBusinessBroadcastCampaign",
@@ -140,15 +206,15 @@ __d(
             ? t
             : null;
         })),
-        g.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
+    function S(e, t, n) {
+      return R.apply(this, arguments);
     }
-    function y() {
+    function R() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
           (yield o("WAWebSyncdCoreApi").lockForSync(
             ["biz-broadcast-campaigns"],
             r,
@@ -170,23 +236,23 @@ __d(
             })(),
           ),
             o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:campaign-storage] Campaign ",
                   " synced",
                 ])),
               e,
             ));
         })),
-        y.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function b() {
+    function E() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (yield o("WAWebSyncdCoreApi").lockForSync(
             ["biz-broadcast-campaigns"],
             t,
@@ -203,23 +269,23 @@ __d(
             })(),
           ),
             o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[broadcast:campaign-storage] Campaign ",
                   " removed and synced",
                 ])),
               e,
             ));
         })),
-        b.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function k(e) {
+      return I.apply(this, arguments);
     }
-    function S() {
+    function I() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebSchemaBusinessBroadcastCampaign")
             .getBusinessBroadcastCampaignTable()
             .get(e);
@@ -228,15 +294,15 @@ __d(
               .getPendingBusinessBroadcastMessageTable()
               .remove(t.pendingBroadcastMessageId));
         })),
-        S.apply(this, arguments)
+        I.apply(this, arguments)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    function T(e, t) {
+      return D.apply(this, arguments);
     }
-    function L() {
+    function D() {
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             r,
             a,
@@ -271,19 +337,19 @@ __d(
                 value: m,
                 version: 1,
               });
-            yield h(e, t, [p]);
+            yield S(e, t, [p]);
           }
         })),
-        L.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    ((l.upsertCampaignStorage = d),
-      (l.removeCampaignStorage = p),
-      (l.getCampaignByAdId = f),
-      (l.updateCampaignWithSync = h),
-      (l.removeCampaignWithSync = C),
-      (l.cleanupPendingCampaignData = v),
-      (l.updateCampaignStatusWithSync = R));
+    ((l.upsertCampaignStorage = g),
+      (l.removeCampaignStorage = y),
+      (l.getCampaignByAdId = b),
+      (l.updateCampaignWithSync = S),
+      (l.removeCampaignWithSync = L),
+      (l.cleanupPendingCampaignData = k),
+      (l.updateCampaignStatusWithSync = T));
   },
   98,
 );

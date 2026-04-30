@@ -174,8 +174,12 @@ __d(
                 .BusinessBroadcastCampaignStatus.SCHEDULED
             ? o("WAWebBroadcastHomeTypes").BroadcastCampaignStatusValue
                 .SCHEDULED
-            : o("WAWebBroadcastHomeTypes").BroadcastCampaignStatusValue
-                .PROCESSING;
+            : n ===
+                o("WAWebSchemaBusinessBroadcastCampaign")
+                  .BusinessBroadcastCampaignStatus.DRAFT
+              ? o("WAWebBroadcastHomeTypes").BroadcastCampaignStatusValue.DRAFT
+              : o("WAWebBroadcastHomeTypes").BroadcastCampaignStatusValue
+                  .PROCESSING;
     }
     function S(e) {
       var t;

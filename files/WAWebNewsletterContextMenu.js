@@ -10,7 +10,6 @@ __d(
     "WAWebMuteMenuItem.react",
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterGatingUtils",
-    "WAWebNewsletterMembershipUtil",
     "WAWebRunWithInternetCheck",
     "WAWebStateUtils",
     "WAWebUnfollowNewsletterConfirmationModal.react",
@@ -34,46 +33,55 @@ __d(
     function c(e) {
       var t,
         n,
-        a = o("WAWebStateUtils").unproxy(e),
-        i =
-          (t = (n = a.newsletterMetadata) == null ? void 0 : n.adminCount) !=
+        a,
+        i,
+        l,
+        s,
+        c = o("WAWebStateUtils").unproxy(e),
+        y =
+          (t = (n = c.newsletterMetadata) == null ? void 0 : n.adminCount) !=
           null
             ? t
             : 0,
-        l = o("WAWebNewsletterMembershipUtil").iAmSubscriber(
-          a.newsletterMetadata,
-        ),
-        s = [u.jsx(m, { chat: a }, "Info"), u.jsx(d, { chat: a }, "Pin")];
+        C =
+          (a =
+            (i = c.newsletterMetadata) == null ? void 0 : i.iAmSubscriber()) !=
+          null
+            ? a
+            : !1,
+        b = [u.jsx(m, { chat: c }, "Info"), u.jsx(d, { chat: c }, "Pin")];
       return (
         o("WAWebNewsletterGatingUtils").isChannelsInChatListEnabled() &&
-          s.splice(
+          b.splice(
             1,
             0,
             u.jsx(
               r("WAWebChatContextMenuItemArchive.react"),
-              { chat: a },
+              { chat: c },
               "Archive",
             ),
           ),
-        (l ||
-          i > 1 ||
+        (C ||
+          y > 1 ||
           o(
             "WAWebNewsletterExtendedGatingUtils",
-          ).isNewsletterAdminNotificationsEnabled(a.newsletterMetadata)) &&
-          (s.push(u.jsx(p, { chat: a }, "Mute")),
-          s.push(u.jsx(_, { chat: a }, "MarkAsRead"))),
-        s.push(u.jsx(f, { chat: a }, "CopyLink")),
-        s.push(
+          ).isNewsletterAdminNotificationsEnabled(c.newsletterMetadata)) &&
+          (b.push(u.jsx(p, { chat: c }, "Mute")),
+          b.push(u.jsx(_, { chat: c }, "MarkAsRead"))),
+        b.push(u.jsx(f, { chat: c }, "CopyLink")),
+        b.push(
           u.jsx(
             r("WDSMenuItem.react"),
             { type: "separator" },
             "newsletter-context-menu-separator",
           ),
         ),
-        l && s.push(u.jsx(g, { chat: a }, "Unfollow")),
-        o("WAWebNewsletterMembershipUtil").iAmOwner(a.newsletterMetadata) &&
-          s.push(u.jsx(h, { chat: a }, "Delete")),
-        s
+        C && b.push(u.jsx(g, { chat: c }, "Unfollow")),
+        (l = (s = c.newsletterMetadata) == null ? void 0 : s.iAmOwner()) !=
+          null &&
+          l &&
+          b.push(u.jsx(h, { chat: c }, "Delete")),
+        b
       );
     }
     function d(e) {

@@ -51,7 +51,7 @@ __d(
           }
         }),
         (e.deserialize = function (t) {
-          var e = {};
+          var e;
           try {
             e = JSON.parse(t);
           } catch (e) {}

@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WAWebCommonNewsletterEnums",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNotificationController",
     "WAWebNotificationsNewsletterRoleChangeNotification",
     "WAWebUserPrefsMeUser",
@@ -11,18 +10,19 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(t) {
-      var r = t.admin,
-        a = t.chat,
-        i = t.mode,
-        l = t.newRole,
-        s = t.user,
-        u = a.newsletterMetadata;
-      if (u == null) return (e || (e = n("Promise"))).resolve();
-      var c =
-        i === "promote" &&
-        o("WAWebUserPrefsMeUser").isMeAccount(s) &&
-        l === o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Owner;
-      if (c)
+      var r,
+        a = t.admin,
+        i = t.chat,
+        l = t.mode,
+        s = t.newRole,
+        u = t.user,
+        c = i.newsletterMetadata;
+      if (c == null) return (e || (e = n("Promise"))).resolve();
+      var d =
+        l === "promote" &&
+        o("WAWebUserPrefsMeUser").isMeAccount(u) &&
+        s === o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Owner;
+      if (d)
         return o(
           "WAWebNotificationController",
         ).WANotificationController.triggerNotification(
@@ -30,39 +30,39 @@ __d(
             "WAWebNotificationsNewsletterRoleChangeNotification",
           ).WANewsletterRoleChangeNotification)({
             mode: "ownership",
-            chat: a,
-            admin: r,
-            user: s,
+            chat: i,
+            admin: a,
+            user: u,
           }),
         );
-      var d =
-          o("WAWebNewsletterMembershipUtil").iAmOwner(u) &&
-          i === "promote" &&
-          l ===
+      var m =
+          ((r = c == null ? void 0 : c.iAmOwner()) != null ? r : !1) &&
+          l === "promote" &&
+          s ===
             o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(s),
-        m =
-          i === "demote" &&
-          l ===
+          !o("WAWebUserPrefsMeUser").isMeAccount(u),
+        p =
+          l === "demote" &&
+          s ===
             o("WAWebCommonNewsletterEnums").NewsletterMembershipType
               .Subscriber &&
-          !o("WAWebUserPrefsMeUser").isMeAccount(s) &&
-          s.toJid() === (r == null ? void 0 : r.toJid()),
-        p =
-          i === "demote" &&
-          o("WAWebUserPrefsMeUser").isMeAccount(s) &&
-          s.toJid() !== (r == null ? void 0 : r.toJid());
-      return d || m || p
+          !o("WAWebUserPrefsMeUser").isMeAccount(u) &&
+          u.toJid() === (a == null ? void 0 : a.toJid()),
+        _ =
+          l === "demote" &&
+          o("WAWebUserPrefsMeUser").isMeAccount(u) &&
+          u.toJid() !== (a == null ? void 0 : a.toJid());
+      return m || p || _
         ? o(
             "WAWebNotificationController",
           ).WANotificationController.triggerNotification(
             new (o(
               "WAWebNotificationsNewsletterRoleChangeNotification",
             ).WANewsletterRoleChangeNotification)({
-              mode: i,
-              chat: a,
-              admin: r,
-              user: s,
+              mode: l,
+              chat: i,
+              admin: a,
+              user: u,
             }),
           )
         : (e || (e = n("Promise"))).resolve();

@@ -22,9 +22,13 @@ __d(
         o("WAWebABProps").getABPropConfigValue("wa_web_lists_m2_enabled")
       );
     }
+    function c() {
+      return o("WAWebMobilePlatforms").isSMB() ? e() : u();
+    }
     ((l.isListsEnabled = e),
       (l.isListsChatListRowPillEnabled = s),
-      (l.isListsM2Enabled = u));
+      (l.isListsM2Enabled = u),
+      (l.isLabelReorderEnabled = c));
   },
   98,
 );

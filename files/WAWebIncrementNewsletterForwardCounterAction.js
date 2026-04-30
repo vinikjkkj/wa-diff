@@ -5,7 +5,6 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebNewsletterCollection",
     "WAWebNewsletterGatingUtils",
-    "WAWebNewsletterMembershipUtil",
     "WAWebScheduleIncrementNewsletterForwardCounterAction",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
@@ -23,62 +22,68 @@ __d(
       ) {
         var n = e.forwardedNewsletterMessageInfo != null;
         if (n) {
-          var a, i;
+          var a, i, l;
           if (
             !o(
               "WAWebNewsletterGatingUtils",
             ).isNewsletterForwardCounterBumpSecondOrderForwardsEnabled()
           )
             return;
-          var l =
+          var s =
             ((a = e.forwardedNewsletterMessageInfo) == null
               ? void 0
-              : a.newsletterId) != null
-              ? o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-                  (i = r("WAWebNewsletterCollection").get(
-                    e.forwardedNewsletterMessageInfo.newsletterId,
-                  )) == null
-                    ? void 0
-                    : i.newsletterMetadata,
-                )
+              : a.newsletterId) != null &&
+            (i =
+              (l = r("WAWebNewsletterCollection").get(
+                e.forwardedNewsletterMessageInfo.newsletterId,
+              )) == null || (l = l.newsletterMetadata) == null
+                ? void 0
+                : l.iAmAdminOrOwner()) != null
+              ? i
               : !1;
           if (
-            !l ||
+            !s ||
             o(
               "WAWebNewsletterGatingUtils",
             ).isNewsletterForwardCounterBumpOwnChannelUpdatesForwardsEnabled()
           ) {
-            var s,
-              u,
-              c =
-                (s = e.forwardedNewsletterMessageInfo) == null
-                  ? void 0
-                  : s.newsletterId,
+            var u,
+              c,
               d =
                 (u = e.forwardedNewsletterMessageInfo) == null
                   ? void 0
-                  : u.serverMessageId;
+                  : u.newsletterId,
+              m =
+                (c = e.forwardedNewsletterMessageInfo) == null
+                  ? void 0
+                  : c.serverMessageId;
             o(
               "WAWebScheduleIncrementNewsletterForwardCounterAction",
-            ).scheduleIncrementForwardCounter(c, d);
+            ).scheduleIncrementForwardCounter(d, m);
           }
         } else {
-          var m = o("WAWebFrontendMsgGetters").getChat(e);
-          if (o("WAWebChatGetters").getIsNewsletter(m)) {
-            var p = o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-              m.newsletterMetadata,
-            );
+          var p = o("WAWebFrontendMsgGetters").getChat(e);
+          if (o("WAWebChatGetters").getIsNewsletter(p)) {
+            var _,
+              f,
+              g =
+                (_ =
+                  (f = p.newsletterMetadata) == null
+                    ? void 0
+                    : f.iAmAdminOrOwner()) != null
+                  ? _
+                  : !1;
             if (
-              !p ||
+              !g ||
               o(
                 "WAWebNewsletterGatingUtils",
               ).isNewsletterForwardCounterBumpOwnChannelUpdatesForwardsEnabled()
             ) {
-              var _ = o("WAWebWidFactory").asNewsletterWidOrThrow(m.id),
-                f = e.serverId;
+              var h = o("WAWebWidFactory").asNewsletterWidOrThrow(p.id),
+                y = e.serverId;
               o(
                 "WAWebScheduleIncrementNewsletterForwardCounterAction",
-              ).scheduleIncrementForwardCounter(_, f);
+              ).scheduleIncrementForwardCounter(h, y);
             }
           }
         }

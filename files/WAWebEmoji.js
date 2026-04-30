@@ -181,22 +181,42 @@ __d(
               if (e != null) {
                 if (e.length > 50 || e.includes(" ")) return null;
                 if (
-                  o("WAWebABProps").getABPropConfigValue("no_large_emoji_regex")
+                  !o("WAWebABProps").getABPropConfigValue(
+                    "no_large_emoji_regex",
+                  )
                 ) {
-                  for (var n = [], r = t.emojiRegex(), a = 0; a < e.length; ) {
-                    if (n.length >= 3) return null;
-                    r.lastIndex = a;
-                    var i = r.exec(e);
-                    if (i == null || i.index !== a) return null;
-                    var l = i[0];
-                    (n.push(l), (a += l.length));
-                  }
-                  return n.length > 0 ? n : null;
+                  var n = t.$14(e);
+                  if (n != null) return n;
                 }
-                var s = t.$14(),
-                  u = s.exec(e);
-                return u ? u.filter(Boolean).slice(1) : null;
+                return t.$15(e);
               }
+            }),
+            (this.$14 = function (e) {
+              var n = t.$16(),
+                r = n.exec(e);
+              if (r == null) return null;
+              var o = r,
+                a = o
+                  .filter(Boolean)
+                  .slice(1)
+                  .filter(function (e) {
+                    return !D.has(e);
+                  });
+              return a.length > 0 ? a : null;
+            }),
+            (this.$15 = function (e) {
+              for (var n = [], r = t.emojiRegex(), o = 0; o < e.length; ) {
+                r.lastIndex = o;
+                var a = r.exec(e);
+                if (a == null || a.index !== o) return null;
+                var i = a[0];
+                if (!D.has(i)) {
+                  if (n.length >= 3) return null;
+                  n.push(i);
+                }
+                o += i.length;
+              }
+              return n.length > 0 ? n : null;
             }),
             (this.normalizeEmojiFromString = function (e) {
               return t.normalizeEmoji(e);
@@ -342,7 +362,7 @@ __d(
                 r
               );
             })),
-            (this.$15 = function (e) {
+            (this.$17 = function (e) {
               if (e === N) {
                 if (
                   o("WAWebABProps").getABPropConfigValue(
@@ -366,12 +386,12 @@ __d(
                 : e;
             }),
             (this.applyGlyphTransformations = function (e) {
-              return t.$15(e);
+              return t.$17(e);
             }),
             (this.getGlyphId = function (e) {
               var n = t.normalizeEmoji(e);
               if (n == null) return null;
-              var r = t.$15(n),
+              var r = t.$17(n),
                 o = t.$12(),
                 a = o.emojiToGlyphId;
               return a.get(r);
@@ -379,7 +399,7 @@ __d(
             (this.getGlyphPath = function (e, n) {
               var r = t.normalizeEmojiFromString(e);
               if (r == null) return null;
-              var a = t.$15(r),
+              var a = t.$17(r),
                 i = t.$12(),
                 l = i.emojiToGlyphId,
                 s = l.get(a);
@@ -397,15 +417,15 @@ __d(
               ).getEmojiSpritesExperimentalPath(e, t, n, r);
             }),
             (this.isGlyphCached = function (e) {
-              var n = t.$16(e);
+              var n = t.$18(e);
               return t.$6().get(n);
             }),
             (this.markGlyphCached = function (e) {
-              var n = t.$16(e);
+              var n = t.$18(e);
               t.$6().set(n);
             }),
             (this.$6 = n(function () {
-              return new (r("WABitArray"))(t.$17());
+              return new (r("WABitArray"))(t.$19());
             })),
             (this.getCssClasses = function (e, n) {
               return (
@@ -421,13 +441,13 @@ __d(
             }),
             (this.getStyle = function (e, n) {
               n === void 0 && (n = "small");
-              var r = t.$18(e, n),
+              var r = t.$20(e, n),
                 o = r.xpos,
                 a = r.ypos;
               return { backgroundPosition: "-" + o + "px -" + a + "px" };
             }),
             (this.getBucket = function (e) {
-              var n = t.$16(e),
+              var n = t.$18(e),
                 r = Math.floor(n / o("WAWebEmojiConst").BUCKET_SIZE);
               return "" + r;
             }),
@@ -435,11 +455,11 @@ __d(
               return r("compactMap")(T, t.normalizeEmoji);
             })),
             (this.$10 = n(function () {
-              var e = t.$17();
+              var e = t.$19();
               return e - (e % o("WAWebEmojiConst").BUCKET_SIZE);
             })),
             (this.$11 = n(function () {
-              return Math.floor(Math.sqrt(t.$17() - t.$10()));
+              return Math.floor(Math.sqrt(t.$19() - t.$10()));
             })));
         }
         var n = t.prototype;
@@ -474,17 +494,17 @@ __d(
               n = this.normalizeEmoji(t);
             return n == null ? null : (e = this.$7().get(n)) != null ? e : null;
           }),
-          (n.$14 = function () {
+          (n.$16 = function () {
             var e = this.$3();
             return ((e.lastIndex = 0), e);
           }),
-          (n.$17 = function () {
+          (n.$19 = function () {
             var e = this.$12(),
               t = e.glyphIdToIndex;
             return t.size;
           }),
-          (n.$18 = function (t, n) {
-            var e = this.$16(t),
+          (n.$20 = function (t, n) {
+            var e = this.$18(t),
               r = e % o("WAWebEmojiConst").BUCKET_SIZE,
               a =
                 e >= this.$10()
@@ -497,7 +517,7 @@ __d(
               c = l * i;
             return { xpos: u, ypos: c, width: i };
           }),
-          (n.$16 = function (t) {
+          (n.$18 = function (t) {
             var e = this.$12(),
               n = e.glyphIdToIndex;
             return r("WANullthrows")(n.get(t));

@@ -146,6 +146,7 @@ __d(
         isMarketingMessageThread: [55, e.TYPES.BOOL],
         isSenderNewAccount: [56, e.TYPES.BOOL],
         afterReadDuration: [57, e.TYPES.UINT32],
+        isSenderSuspicious: [58, e.TYPES.BOOL],
       }),
       (y.name = "PhoneNumberToLIDMapping"),
       (y.internalSpec = {

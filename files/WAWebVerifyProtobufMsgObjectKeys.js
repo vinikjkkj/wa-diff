@@ -395,7 +395,11 @@ __d(
                                                                                                                 e ===
                                                                                                                   "eventInviteMessage" ||
                                                                                                                 e ===
-                                                                                                                  "groupRootKeyShare"
+                                                                                                                  "groupRootKeyShare" ||
+                                                                                                                e ===
+                                                                                                                  "p2PPaymentReminderNotification" ||
+                                                                                                                e ===
+                                                                                                                  "splitPaymentMessage"
                                                                                                               ? s.UnknownMessageKey
                                                                                                               : (function () {
                                                                                                                   throw Error(

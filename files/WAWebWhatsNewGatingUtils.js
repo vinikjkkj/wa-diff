@@ -22,7 +22,7 @@ __d(
       d = 15;
     function m() {
       return o("WAWebABProps").getABPropConfigValue(
-        "web_whats_new_banner_short_cooldown",
+        "web_whats_new_banner_short_cooldown_v2",
       ) === !0
         ? d
         : c;

@@ -177,6 +177,7 @@ __d(
                 shortcut: "",
                 message: "",
                 count: 0,
+                associatedLabelIds: [],
               },
             };
             return o("WAWebSyncdActionUtils").buildPendingMutation({
@@ -198,6 +199,7 @@ __d(
                 shortcut: n,
                 message: r,
                 count: a,
+                associatedLabelIds: [],
               },
             };
             return o("WAWebSyncdActionUtils").buildPendingMutation({

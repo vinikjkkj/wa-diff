@@ -41,8 +41,9 @@ __d(
     }
     var f = 0,
       g = 1,
-      h = 2;
-    function y() {
+      h = 2,
+      y = 3;
+    function C() {
       return f;
     }
     ((l.isAiAgentAutoReplyEnabled = e),
@@ -56,7 +57,8 @@ __d(
       (l.MULTI_WEBSITE_DISABLED = f),
       (l.MULTI_WEBSITE_BRAZIL = g),
       (l.MULTI_WEBSITE_LATAM = h),
-      (l.getMultiWebsiteMode = y));
+      (l.MULTI_WEBSITE_DYNAMIC = y),
+      (l.getMultiWebsiteMode = C));
   },
   98,
 );

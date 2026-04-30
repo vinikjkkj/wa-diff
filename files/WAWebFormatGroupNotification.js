@@ -351,10 +351,16 @@ __d(
           break;
         }
         case "general_group_auto_add_disabled": {
+          var R, L;
           a = o(
             "WAWebMessageCommunityGeneralChatAutoAddDisabledNotification.react",
           ).communityGeneralChatAutoAddDisabledNotification(
-            o("WAWebFrontendMsgGetters").getChat(t).formattedTitle,
+            (R =
+              (L = o("WAWebFrontendMsgGetters").getChat(t)) == null
+                ? void 0
+                : L.formattedTitle) != null
+              ? R
+              : "",
             t.templateParams,
           );
           break;

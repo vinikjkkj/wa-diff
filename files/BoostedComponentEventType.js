@@ -564,6 +564,17 @@ __d(
       CLICK_PIXEL_SECTION_ADD_ADACCOUNT_LINK:
         "click_pixel_section_add_adaccount_link",
       TOGGLE_PIXEL: "toggle_pixel",
+      CLICK_PIXEL_MANAGE_BUTTON: "click_pixel_manage_button",
+      PIXEL_MANAGE_MODAL_IMPRESSION: "pixel_manage_modal_impression",
+      PIXEL_MANAGE_MODAL_MANAGE_LINK_CLICK:
+        "pixel_manage_modal_manage_link_click",
+      PIXEL_MANAGE_MODAL_REMOVE_CLICK: "pixel_manage_modal_remove_click",
+      PIXEL_MANAGE_MODAL_DONE_CLICK: "pixel_manage_modal_done_click",
+      PIXEL_REMOVE_CONFIRMATION_IMPRESSION:
+        "pixel_remove_confirmation_impression",
+      PIXEL_REMOVE_CONFIRMED: "pixel_remove_confirmed",
+      PIXEL_REMOVE_CANCELLED: "pixel_remove_cancelled",
+      PIXEL_REMOVE_MUTATION_RESULT: "pixel_remove_mutation_result",
       PIXEL_PARTNER_UPSELL_CLICK_EVENTBRITE:
         "pixel_partner_upsell_click_eventbrite",
       PIXEL_PARTNER_UPSELL_RENDERED_EVENTBRITE:

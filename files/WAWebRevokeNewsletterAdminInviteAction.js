@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WAWebChatGetters",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterRevokeAdminInviteJob",
     "WAWebNewsletterValidationUtils",
     "WAWebWidFactory",
@@ -19,6 +18,7 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          var a;
           if (!o("WAWebChatGetters").getIsNewsletter(t))
             throw (
               o("WALogger")
@@ -33,9 +33,7 @@ __d(
               r("err")("revoke-admin-invite-on-non-newsletter")
             );
           if (
-            !o("WAWebNewsletterMembershipUtil").iAmOwner(
-              t == null ? void 0 : t.newsletterMetadata,
-            )
+            !(t != null && (a = t.newsletterMetadata) != null && a.iAmOwner())
           )
             throw (
               o("WALogger")
@@ -50,20 +48,20 @@ __d(
               r("err")("non-channel-owner-revoking-an-admin-invite")
             );
           try {
-            var a,
-              i = o("WAWebWidFactory").asUserWidOrThrow(n.id),
-              l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            var i,
+              l = o("WAWebWidFactory").asUserWidOrThrow(n.id),
+              c = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 t.id.toJid(),
               );
             (t == null ||
-              (a = t.newsletterMetadata) == null ||
-              (a = a.pendingAdmins) == null ||
-              a.remove(n.id),
+              (i = t.newsletterMetadata) == null ||
+              (i = i.pendingAdmins) == null ||
+              i.remove(n.id),
               yield o(
                 "WAWebNewsletterRevokeAdminInviteJob",
-              ).revokeNewsletterAdminInvite(l, i));
+              ).revokeNewsletterAdminInvite(c, l));
           } catch (e) {
-            var c = r("getErrorSafe")(e);
+            var d = r("getErrorSafe")(e);
             throw (
               o("WALogger")
                 .ERROR(
@@ -72,10 +70,10 @@ __d(
                       "[revokeNewsletterAdminInvite] revoke failed",
                     ])),
                 )
-                .catching(c)
+                .catching(d)
                 .tags("newsletter")
                 .sendLogs("revoke-admin-invite-on-newsletter-failed"),
-              c
+              d
             );
           }
         })),

@@ -40,7 +40,6 @@ __d(
     "WAWebMusicPlaybackUtils",
     "WAWebNewsletterFutureProofUtils",
     "WAWebNewsletterGatingUtils",
-    "WAWebNewsletterMembershipUtil",
     "WAWebPinMsgGatingUtils",
     "WAWebPollCreationUtils",
     "WAWebProtobufsE2E.pb",
@@ -63,11 +62,16 @@ __d(
       return (t == null ? void 0 : t.sourceApp) === "whatsapp";
     }
     function p(e, t) {
+      var n, r, a;
       return !(
         o("WAWebChatGetters").getIsNewsletter(t) &&
-        e.isWamoSub === !0 &&
-        !o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-          t.newsletterMetadata,
+        (n = e.isWamoSub) != null &&
+        n &&
+        !(
+          (r =
+            (a = t.newsletterMetadata) == null
+              ? void 0
+              : a.iAmAdminOrOwner()) != null && r
         ) &&
         o("WAWebNewsletterGatingUtils").isWamoSubMessagesSupported()
       );
@@ -409,20 +413,32 @@ __d(
           o("WAWebMsgGetters").getIsFailed(e) &&
           !t) ||
         !e.mayFail();
-      return o("WAWebChatGetters").getIsNewsletter(
-        o("WAWebFrontendMsgGetters").getChat(e),
-      )
-        ? o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-            o("WAWebFrontendMsgGetters").getChat(e).newsletterMetadata,
-          ) &&
-            i &&
-            !e.isForwarded
-        : o("WAWebMsgGetters").getIsSentByMe(e) &&
-            !e.isForwarded &&
-            e.local &&
-            i &&
-            o("WAWebFrontendMsgGetters").getChat(e).canSend &&
-            !o("WAWebFrontendMsgGetters").getChat(e).contact.isEnterprise;
+      if (
+        o("WAWebChatGetters").getIsNewsletter(
+          o("WAWebFrontendMsgGetters").getChat(e),
+        )
+      ) {
+        var l, s;
+        return (
+          ((l =
+            (s = o("WAWebFrontendMsgGetters").getChat(e).newsletterMetadata) ==
+            null
+              ? void 0
+              : s.iAmAdminOrOwner()) != null
+            ? l
+            : !1) &&
+          i &&
+          !e.isForwarded
+        );
+      }
+      return (
+        o("WAWebMsgGetters").getIsSentByMe(e) &&
+        !e.isForwarded &&
+        e.local &&
+        i &&
+        o("WAWebFrontendMsgGetters").getChat(e).canSend &&
+        !o("WAWebFrontendMsgGetters").getChat(e).contact.isEnterprise
+      );
     }
     function E(e) {
       var t = o("WAWebMsgGetters").getIsGroupMsg(e),
@@ -557,8 +573,10 @@ __d(
     }
     function M(t) {
       var n,
-        r = o("WAWebFrontendMsgGetters").getCurrentChat(t);
-      if (!o("WAWebChatGetters").getIsNewsletter(r))
+        r,
+        a,
+        i = o("WAWebFrontendMsgGetters").getCurrentChat(t);
+      if (!o("WAWebChatGetters").getIsNewsletter(i))
         return (
           o("WALogger").ERROR(
             e ||
@@ -569,12 +587,16 @@ __d(
           !1
         );
       if (F(t)) return !1;
-      var a =
+      var l =
         ((n = t.ack) != null ? n : o("WAWebAck").ACK.CLOCK) <
         o("WAWebAck").ACK.CLOCK;
       return (
-        (N(t) || a) &&
-        o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(r.newsletterMetadata)
+        (N(t) || l) &&
+        ((r =
+          (a = i.newsletterMetadata) == null ? void 0 : a.iAmAdminOrOwner()) !=
+        null
+          ? r
+          : !1)
       );
     }
     function w(e) {
@@ -608,15 +630,14 @@ __d(
               : !(e.type === o("WAWebMsgType").MSG_TYPE.REVOKED || !p(e, t));
     }
     function A(e) {
+      var t;
       if (!o("WAWebNewsletterGatingUtils").isChannelDSA26SenderEnabled())
         return !1;
-      var t = o("WAWebFrontendMsgGetters").getChat(e);
+      var n = o("WAWebFrontendMsgGetters").getChat(e);
       return !(
-        !o("WAWebChatGetters").getIsNewsletter(t) ||
+        !o("WAWebChatGetters").getIsNewsletter(n) ||
         !N(e) ||
-        !o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-          t.newsletterMetadata,
-        ) ||
+        !((t = n.newsletterMetadata) != null && t.iAmAdminOrOwner()) ||
         e.hasPaidPartnershipLabel === !0 ||
         !o("WAWebSpamUtils").isMsgTypeSupportedForPaidPartnershipLabel(e)
       );

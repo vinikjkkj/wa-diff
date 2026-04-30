@@ -7,7 +7,6 @@ __d(
     "WAWebModalManager",
     "WAWebNewsletterAcceptAdminInviteModal.react",
     "WAWebNewsletterCollection",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterRevokeInvitePopup.react",
     "WAWebPDFNModal.react",
     "WAWebWamoPDFNGatingUtils",
@@ -25,14 +24,16 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.expiration,
-            n = e.invitee,
-            a = e.isSentByMe,
-            i = e.newsletterWid;
-          if (!(i == null || t == null)) {
-            var l = r("WAWebNewsletterCollection").get(i);
-            if (!a) {
-              var s = o(
+          var t,
+            n,
+            a = e.expiration,
+            i = e.invitee,
+            l = e.isSentByMe,
+            s = e.newsletterWid;
+          if (!(s == null || a == null)) {
+            var c = r("WAWebNewsletterCollection").get(s);
+            if (!l) {
+              var d = o(
                 "WAWebWamoPDFNGatingUtils",
               ).hasAckedNewsletterAdminInviteNuxOrTos();
               return o("WAWebModalManager").ModalManager.open(
@@ -43,25 +44,27 @@ __d(
                   verifyTosAccepted: o("WAWebWamoPDFNGatingUtils")
                     .hasAckedNewsletterAdminInviteNuxOrTos,
                   runIfTosAccepted: function () {
-                    return m(i, t, s);
+                    return m(s, a, d);
                   },
                 }),
               );
             }
-            var c =
-              n != null
-                ? o("WAWebContactCollection").ContactCollection.get(n)
+            var p =
+              i != null
+                ? o("WAWebContactCollection").ContactCollection.get(i)
                 : null;
-            l != null &&
-              o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-                l == null ? void 0 : l.newsletterMetadata,
-              ) &&
-              c != null &&
+            c != null &&
+              (t =
+                c == null || (n = c.newsletterMetadata) == null
+                  ? void 0
+                  : n.iAmAdminOrOwner()) != null &&
+              t &&
+              p != null &&
               o("WAWebModalManager").ModalManager.open(
                 u.jsx(
                   o("WAWebNewsletterRevokeInvitePopup.react")
                     .NewsletterRevokeInvitePopupWithNewsletterInformation,
-                  { chat: l, contact: c },
+                  { chat: c, contact: p },
                 ),
               );
           }

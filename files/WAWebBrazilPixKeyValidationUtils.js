@@ -1,6 +1,6 @@
 __d(
   "WAWebBrazilPixKeyValidationUtils",
-  ["WAWebValidationUtils"],
+  ["WAWebValidationUtils", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -26,40 +26,38 @@ __d(
         i = ((a * 10) % 11) % 10;
       return i === n[10];
     }
-    function u(e) {
-      var t = 14,
-        n = 9,
-        r = 2,
-        o = 10,
-        a = 11,
-        i = 0,
-        l = 12,
-        s = 13,
-        u = e.replace(/\D/g, "");
-      if (u.length !== t) return !1;
-      for (
-        var c = function (t, n) {
-            var e = (t * o) % a;
-            return ((e === o || e === a) && (e = i), e === n);
-          },
-          d = 0,
-          m = r,
-          p = u.length - 3;
-        p >= 0;
-        p--
-      )
-        ((d += parseInt(u[p], 10) * m), (m = m === n ? r : m + 1));
-      var _ = parseInt(u[l], 10);
-      if (c(d, _)) {
-        ((d = 0), (m = r));
-        for (var f = u.length - 2; f >= 0; f--)
-          ((d += parseInt(u[f], 10) * m), (m = m === n ? r : m + 1));
-        var g = parseInt(u[s], 10);
-        return c(d, g);
-      }
-      return !1;
+    var u = /^[0-9A-Z]$/,
+      c = /[.\-/\s]/g,
+      d = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2],
+      m = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2];
+    function p(e) {
+      return e.charCodeAt(0) - 48;
     }
-    function c(t, n) {
+    function _(e) {
+      for (var t = 0, n = 0; n < d.length; n++) t += d[n] * e[n];
+      t += e[12];
+      var r = t % 11;
+      if (!(r === 0 || (e[12] === 0 && r === 1))) return !1;
+      for (var o = 0, a = 0; a < m.length; a++) o += m[a] * e[a];
+      o += e[13];
+      var i = o % 11;
+      return i === 0 || (e[13] === 0 && i === 1);
+    }
+    function f(e) {
+      var t,
+        n = (t = r("justknobx")._("3897")) != null ? t : !1,
+        o = n ? e.replace(c, "").toUpperCase() : e.replace(/\D/g, "");
+      if (o.length !== 14) return !1;
+      if (n) {
+        for (var a = 0; a < 12; a++) if (!u.test(o[a])) return !1;
+        if (!/^\d$/.test(o[12]) || !/^\d$/.test(o[13])) return !1;
+      }
+      var i = o.split("").map(function (e) {
+        return n ? p(e) : parseInt(e, 10);
+      });
+      return _(i);
+    }
+    function g(t, n) {
       if (n == null || n.trim().length === 0) return !1;
       switch (t) {
         case "PHONE":
@@ -69,21 +67,21 @@ __d(
         case "EMAIL":
           return o("WAWebValidationUtils").validateEmail(n);
         case "CNPJ":
-          return u(n);
+          return f(n);
         case "EVP":
           return o("WAWebValidationUtils").validateUUID(n);
         default:
           return !1;
       }
     }
-    function d(e) {
+    function h(e) {
       return !(e == null || e.trim() === "" || e.match(/[^\w\- ]/));
     }
     ((l.isValidPhoneNumber = e),
       (l.validateCPF = s),
-      (l.validateCNPJ = u),
-      (l.validatePixKey = c),
-      (l.isPixDisplayNameValid = d));
+      (l.validateCNPJ = f),
+      (l.validatePixKey = g),
+      (l.isPixDisplayNameValid = h));
   },
   98,
 );

@@ -19,7 +19,6 @@ __d(
     "WAWebGroupType",
     "WAWebIndividualNewChatMessageCappingLimitUtils",
     "WAWebLid1X1MigrationGating",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNoop",
     "WAWebReachoutTimelockUtils",
     "WAWebStateUtils",
@@ -156,15 +155,15 @@ __d(
       if (!(d(i) && i.isReadOnly)) {
         var l = (c || (c = n("Promise"))).resolve();
         if (o("WAWebChatGetters").getIsNewsletter(i)) {
-          var s =
-            !o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-              i.newsletterMetadata,
-            ) || i.isSuspendedOrTerminated();
-          i.isReadOnly !== s &&
+          var s,
+            u =
+              !((s = i.newsletterMetadata) != null && s.iAmAdminOrOwner()) ||
+              i.isSuspendedOrTerminated();
+          i.isReadOnly !== u &&
             o("WAWebDBUpdateChatTable")
-              .updateChatTable(i.id, { isReadOnly: s })
+              .updateChatTable(i.id, { isReadOnly: u })
               .then(function () {
-                ((i.isReadOnly = s), P(i));
+                ((i.isReadOnly = u), P(i));
               })
               .catch(r("WAWebNoop"));
           return;
@@ -173,14 +172,14 @@ __d(
           o("WAWebChatGetters").getIsGroup(i) &&
           !((a = i.groupMetadata) != null && a.stale)
         ) {
-          var u,
-            m,
-            p =
-              ((u = i.groupMetadata) == null ? void 0 : u.groupType) !==
+          var m,
+            p,
+            f =
+              ((m = i.groupMetadata) == null ? void 0 : m.groupType) !==
                 o("WAWebGroupType").GroupType.COMMUNITY &&
-              (!((m = i.groupMetadata) != null && m.participants.iAmMember()) ||
+              (!((p = i.groupMetadata) != null && p.participants.iAmMember()) ||
                 _(i));
-          i.isReadOnly !== p &&
+          i.isReadOnly !== f &&
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -189,12 +188,12 @@ __d(
                   "",
                 ])),
               i.isReadOnly,
-              p,
+              f,
             ),
             (l = o("WAWebDBUpdateChatTable")
-              .updateChatTable(i.id, { isReadOnly: p })
+              .updateChatTable(i.id, { isReadOnly: f })
               .then(function () {
-                ((i.isReadOnly = p), P(i));
+                ((i.isReadOnly = f), P(i));
               })));
         }
         l.then(function () {
@@ -299,7 +298,8 @@ __d(
     }
     function P(e, t) {
       var n;
-      return e.isReadOnly ||
+      if (
+        e.isReadOnly ||
         e.isAnnounceGrpRestrict === !0 ||
         o("WAWebTosGating").shouldBlockByTos(e.contact) ||
         o("WAWebTosGating").shouldBlockByBotTos(e.contact) ||
@@ -309,34 +309,42 @@ __d(
           e.id.isBot()) ||
         (!o("WAWebBotGating").isFbidBotEnabled() && e.id.isFbidBot()) ||
         (o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() &&
-          o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(e)) ||
-        ((n = t != null ? t : e.contact.businessProfile) != null &&
-          n.isBizBot3p &&
-          (!o("WAWebBotGating").isBizBot3pAvailable() ||
-            !o("WAWebBotTos").hasAcceptedBizBotTos()))
-        ? ((e.canSend = !1), !1)
-        : o("WAWebChatGetters").getIsUser(e)
-          ? (e.canSend = !(
-              e.contact.isContactBlocked ||
-              o("WAWebChatGetters").getIsPSA(e) ||
-              o("WAWebChatGetters").getIsIAS(e) ||
-              (o("WAWebReachoutTimelockUtils").isUserReachoutTimelocked() &&
-                !o("WAWebReachoutTimelockUtils").canSendMsgWhileTimelocked({
-                  chat: e,
-                  contact: e.contact,
-                })) ||
-              (o(
-                "WAWebIndividualNewChatMessageCappingLimitUtils",
-              ).isUserCapped() &&
-                !o(
-                  "WAWebIndividualNewChatMessageCappingLimitUtils",
-                ).canSendMsgWhileCapped({ chat: e, contact: e.contact }))
-            ))
-          : o("WAWebChatGetters").getIsNewsletter(e)
-            ? (e.canSend = o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-                e.newsletterMetadata,
-              ))
-            : ((e.canSend = !0), !0);
+          o("WAWebBizAiAgentStatusUtils").shouldShowAiAgentBlockBar(e))
+      )
+        return ((e.canSend = !1), !1);
+      if (
+        (n = t != null ? t : e.contact.businessProfile) != null &&
+        n.isBizBot3p &&
+        (!o("WAWebBotGating").isBizBot3pAvailable() ||
+          !o("WAWebBotTos").hasAcceptedBizBotTos())
+      )
+        return ((e.canSend = !1), !1);
+      if (o("WAWebChatGetters").getIsUser(e))
+        return (e.canSend = !(
+          e.contact.isContactBlocked ||
+          o("WAWebChatGetters").getIsPSA(e) ||
+          o("WAWebChatGetters").getIsIAS(e) ||
+          (o("WAWebReachoutTimelockUtils").isUserReachoutTimelocked() &&
+            !o("WAWebReachoutTimelockUtils").canSendMsgWhileTimelocked({
+              chat: e,
+              contact: e.contact,
+            })) ||
+          (o("WAWebIndividualNewChatMessageCappingLimitUtils").isUserCapped() &&
+            !o(
+              "WAWebIndividualNewChatMessageCappingLimitUtils",
+            ).canSendMsgWhileCapped({ chat: e, contact: e.contact }))
+        ));
+      if (o("WAWebChatGetters").getIsNewsletter(e)) {
+        var r, a;
+        return (e.canSend =
+          (r =
+            (a = e.newsletterMetadata) == null
+              ? void 0
+              : a.iAmAdminOrOwner()) != null
+            ? r
+            : !1);
+      }
+      return ((e.canSend = !0), !0);
     }
     function N(e) {
       return o("WAWebChatGetters").getIsGroup(e) && !f(e) && !e.isReadOnly;

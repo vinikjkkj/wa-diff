@@ -10,15 +10,16 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = {};
-    function u(e, t) {
+      s,
+      u = {};
+    function c(e, t) {
       e.addMsg(t);
     }
-    function c(e, t) {
+    function d(e, t) {
       ((t.mediaObject = null),
         e.removeMsg(t),
         !e.hasAssociatedMsgsOrStickers() &&
-          (y(
+          (C(
             e.filehash,
             o("WAWebMediaDataUtils").shouldUseLruMediaStore(
               o("WAWebMmsMediaTypes").getMsgMediaType(t),
@@ -26,64 +27,78 @@ __d(
           ),
           e.delete()));
     }
-    function d() {
-      var e = s;
-      s = {};
+    function m() {
+      var e = u;
+      u = {};
       for (var t in e) e[t].delete();
     }
-    function m(e) {
-      if (Object.prototype.hasOwnProperty.call(s, e)) {
-        var t = s[e],
-          n = t.msgs.some(function (e) {
+    function p(t) {
+      if (Object.prototype.hasOwnProperty.call(u, t)) {
+        var n = u[t],
+          r = n.msgs.some(function (e) {
             var t;
             return (t = e[0]) == null ? void 0 : t.from.isBot();
           });
-        if (!n) return t;
+        if (!r) return n;
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[media-fwd] getOrCreateMediaObject: replacing bot MediaObject. filehash=",
+              " oldMsgCount=",
+              " oldHasBlob=",
+              " oldDownloadStage=",
+              "",
+            ])),
+          t,
+          n.msgs.length,
+          n.mediaBlob != null,
+          n.downloadStage,
+        );
       }
-      return (s[e] = new (o("WAWebMediaObject").MediaObject)());
+      return (u[t] = new (o("WAWebMediaObject").MediaObject)());
     }
-    function p(e) {}
-    function _(e, t) {
+    function _(e) {}
+    function f(e, t) {
       e.addStickerPack(t);
     }
-    function f(e, t) {
+    function g(e, t) {
       ((t.mediaObject = null),
         e.removeStickerPack(t),
-        !e.hasAssociatedMsgsOrStickers() && (y(e.filehash), e.delete()));
-    }
-    function g(e, t) {
-      e.addSticker(t);
+        !e.hasAssociatedMsgsOrStickers() && (C(e.filehash), e.delete()));
     }
     function h(e, t) {
+      e.addSticker(t);
+    }
+    function y(e, t) {
       ((t.mediaObject = null),
         e.removeSticker(t),
-        !e.hasAssociatedMsgsOrStickers() && (y(e.filehash), e.delete()));
+        !e.hasAssociatedMsgsOrStickers() && (C(e.filehash), e.delete()));
     }
-    var y = function (n, a) {
-      (a === void 0 && (a = !0),
-        !r("isStringNullOrEmpty")(n) &&
-          (delete s[n],
-          a &&
+    var C = function (t, n) {
+      (n === void 0 && (n = !0),
+        !r("isStringNullOrEmpty")(t) &&
+          (delete u[t],
+          n &&
             o("WAWebMediaStore")
-              .LruMediaStore.del(n)
-              .catch(function (t) {
+              .LruMediaStore.del(t)
+              .catch(function (e) {
                 o("WALogger").ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[Media Storage] del ArrayBuffer failed",
                     ])),
                 );
               })));
     };
-    ((l.associateMediaWithMsg = u),
-      (l.disassociateMediaFromMsg = c),
-      (l.delistAndDeleteAllMedia = d),
-      (l.getOrCreateMediaObject = m),
-      (l.clearMediaForChat = p),
-      (l.associateMediaWithStickerPack = _),
-      (l.disassociateMediaFromStickerPack = f),
-      (l.associateMediaWithSticker = g),
-      (l.disassociateMediaFromSticker = h));
+    ((l.associateMediaWithMsg = c),
+      (l.disassociateMediaFromMsg = d),
+      (l.delistAndDeleteAllMedia = m),
+      (l.getOrCreateMediaObject = p),
+      (l.clearMediaForChat = _),
+      (l.associateMediaWithStickerPack = f),
+      (l.disassociateMediaFromStickerPack = g),
+      (l.associateMediaWithSticker = h),
+      (l.disassociateMediaFromSticker = y));
   },
   98,
 );

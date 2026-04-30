@@ -47,26 +47,30 @@ __d(
       D,
       x,
       $,
-      P = 30,
-      N = 5e3,
-      M = (function () {
+      P,
+      N = 30,
+      M = 5e3,
+      w = 500,
+      A = (function () {
         function t() {
           ((this.$11 = new Map()),
             (this.$8 = new Map()),
             (this.$7 = new Map()),
             (this.$1 = null),
             (this.$3 = null),
-            (this.$16 = new Map()),
-            (this.$17 = new Set()),
+            (this.$18 = new Map()),
+            (this.$19 = new Set()),
             (this.$9 = new (o(
               "WAWebVoipAVSyncController",
             ).WAWebVoipAVSyncController)()),
-            (this.$18 = !1),
-            (this.$22 = null),
+            (this.$20 = !1),
+            (this.$24 = null),
             (this.$5 = []),
             (this.$12 = new Map()),
             (this.$13 = new Map()),
-            (this.$23 = 0));
+            (this.$14 = new Map()),
+            (this.$15 = new Set()),
+            (this.$25 = 0));
         }
         var a = t.prototype;
         return (
@@ -171,7 +175,7 @@ __d(
             (a ? a.set(n, r) : this.$8.set(t, new Map([[n, r]])),
               this.$7.set(n, t),
               this.$9.removeParticipant(t),
-              this.$10(t));
+              this.$10(t, "assign_canvas"));
           }),
           (a.unassignJidFromCanvas = function (t, n) {
             var e = this.$8.get(t);
@@ -181,7 +185,11 @@ __d(
                 (e.delete(n), this.$7.delete(n), r == null || r.reset());
               }
               e.size === 0 &&
-                (this.$8.delete(t), this.$12.delete(t), this.$13.delete(t));
+                (this.$8.delete(t),
+                this.$12.delete(t),
+                this.$13.delete(t),
+                this.$14.delete(t),
+                this.$15.delete(t));
             }
           }),
           (a.unassignCanvas = function (t) {
@@ -196,14 +204,15 @@ __d(
                 );
           }),
           (a.pauseRenderingForJid = function (t) {
-            (this.$12.set(t, !1), this.$14(t));
+            (this.$12.set(t, !1), this.$16(t));
           }),
           (a.resumeRenderingForJid = function (t) {
             var e = this.$12.get(t);
             e != null &&
-              (this.$12.delete(t), (e || this.$13.has(t)) && this.$10(t));
+              (this.$12.delete(t),
+              (e || this.$13.has(t)) && this.$10(t, "resume_rendering"));
           }),
-          (a.$14 = function (t) {
+          (a.$16 = function (t) {
             if (
               !(
                 this.$1 !==
@@ -238,7 +247,7 @@ __d(
           }),
           (a.unregisterVideoCanvas = function (t) {
             (this.unassignCanvas(t),
-              this.$15(t),
+              this.$17(t),
               (this.$5 = this.$5.filter(function (e) {
                 return e.canvas !== t;
               })));
@@ -263,10 +272,10 @@ __d(
                 d === o("WAWebVoipMediaEnums").Orientation.Rotate270,
               p = m ? a : r,
               _ = m ? r : a,
-              f = this.$16.get(t);
+              f = this.$18.get(t);
             if (f == null || f.width !== p || f.height !== _) {
-              this.$16.set(t, { width: p, height: _ });
-              for (var g of this.$17) g(t, p, _);
+              this.$18.set(t, { width: p, height: _ });
+              for (var g of this.$19) g(t, p, _);
             }
             var h =
               (c = o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.cast(l)) !=
@@ -275,12 +284,12 @@ __d(
                 : o("WAWebVoipMediaEnums").WAWebVoipVideoFormat.UNKNOWN;
             if (
               (t !== o("WAWebVoipVideoRendererInterface").selfPreviewJid &&
-                !this.$18 &&
+                !this.$20 &&
                 !this.$9.isEnabled() &&
                 o("WAWebABProps").getABPropConfigValue(
                   "enable_web_voip_platform_av_sync",
                 ) === !0 &&
-                this.$19(),
+                this.$21(),
               this.$9.isEnabled() &&
                 t !== o("WAWebVoipVideoRendererInterface").selfPreviewJid)
             ) {
@@ -296,18 +305,18 @@ __d(
               });
               return;
             }
-            this.$20(t, n, r, a, i, h, s, u);
+            this.$22(t, n, r, a, i, h, s, u);
           }),
           (a.getVideoDimensions = function (t) {
             var e;
-            return (e = this.$16.get(t)) != null ? e : null;
+            return (e = this.$18.get(t)) != null ? e : null;
           }),
           (a.addVideoDimensionChangeListener = function (t) {
             var e = this;
             return (
-              this.$17.add(t),
+              this.$19.add(t),
               function () {
-                e.$17.delete(t);
+                e.$19.delete(t);
               }
             );
           }),
@@ -345,36 +354,49 @@ __d(
           }),
           (a.requestKeyFrameForCanvas = function (t) {
             var e = this.$7.get(t);
-            e != null && this.$10(e);
+            e != null && this.$10(e, "canvas_request");
           }),
           (a.$10 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e !== o("WAWebVoipVideoRendererInterface").selfPreviewJid) {
-                  var t = yield o(
-                    "WAWebVoipStackInterface",
-                  ).getVoipStackInterface();
-                  if ((t == null ? void 0 : t.type) === "web") {
-                    var n = yield t.requestKeyFrame(e);
-                    n !== 0 &&
-                      o("WALogger").ERROR(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: VideoRendererRegistry: requestKeyFrameForJid failed: ",
-                            "",
-                          ])),
-                        n,
-                      );
+              function* (e, t) {
+                if (
+                  (t === void 0 && (t = "unspecified"),
+                  e !== o("WAWebVoipVideoRendererInterface").selfPreviewJid)
+                ) {
+                  var n = Date.now();
+                  if (!this.$15.has(e)) {
+                    var r = this.$14.get(e);
+                    if (!(r != null && n - r < w)) {
+                      (this.$15.add(e), this.$14.set(e, n));
+                      try {
+                        var a = yield o(
+                          "WAWebVoipStackInterface",
+                        ).getVoipStackInterface();
+                        if ((a == null ? void 0 : a.type) !== "web") return;
+                        var i = yield a.requestKeyFrame(e);
+                        i !== 0 &&
+                          o("WALogger").ERROR(
+                            g ||
+                              (g = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: VideoRendererRegistry: requestKeyFrameForJid failed: ",
+                                "",
+                              ])),
+                            i,
+                          );
+                      } finally {
+                        this.$15.delete(e);
+                      }
+                    }
                   }
                 }
               },
             );
-            function t(t) {
+            function t(t, n) {
               return e.apply(this, arguments);
             }
             return t;
           })()),
-          (a.$20 = function (t, n, r, a, i, l, s, u) {
+          (a.$22 = function (t, n, r, a, i, l, s, u) {
             var e = this.$8.get(t);
             if (e) {
               if (this.$12.has(t)) {
@@ -395,7 +417,7 @@ __d(
                     c,
                   ),
                     this.$13.delete(t));
-                else if (c < P) {
+                else if (c < N) {
                   this.$13.set(t, c + 1);
                   return;
                 } else
@@ -407,7 +429,7 @@ __d(
                         " drops \u2014 falling back to reactive recovery",
                       ])),
                     t,
-                    P,
+                    N,
                   ),
                     this.$13.delete(t));
               if (r % 2 !== 0 || a % 2 !== 0) {
@@ -447,7 +469,7 @@ __d(
                       e instanceof
                       o("WAWebVoipVideoWebCodecsRenderer").KeyFrameNeededError
                     ) {
-                      this.$10(t);
+                      this.$10(t, "renderer_need_keyframe");
                       continue;
                     }
                     o("WALogger").ERROR(
@@ -617,7 +639,7 @@ __d(
               );
             }
           }),
-          (a.$21 = function (t, n) {
+          (a.$23 = function (t, n) {
             var e = this;
             (o("WALogger").LOG(
               k ||
@@ -630,66 +652,78 @@ __d(
               this.$9.enable(
                 t,
                 function (t, n, r, o, a, i, l, s) {
-                  e.$20(t, n, r, o, a, i, l, s);
+                  e.$22(t, n, r, o, a, i, l, s);
                 },
                 n,
+                function (t) {
+                  (o("WALogger").WARN(
+                    I ||
+                      (I = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: VideoRendererRegistry: AV sync video reset for ",
+                        ", requesting keyframe",
+                      ])),
+                    t,
+                  ),
+                    e.$16(t),
+                    e.$10(t, "av_sync_video_reset"));
+                },
               ),
-              (this.$22 = function (t) {
+              (this.$24 = function (t) {
                 e.$9.reset();
               }),
               o("WAWebAudioDeviceEvents").AudioDeviceEvents.on(
                 "speakerDeviceSelectionChanged",
-                this.$22,
+                this.$24,
               ));
           }),
           (a.disableAVSync = function () {
             this.$9.isEnabled() &&
               (o("WALogger").LOG(
-                I ||
-                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                T ||
+                  (T = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: VideoRendererRegistry: disabling A/V sync",
                   ])),
               ),
               this.$9.disable());
-            var e = this.$22;
+            var e = this.$24;
             (e != null &&
               (o("WAWebAudioDeviceEvents").AudioDeviceEvents.off(
                 "speakerDeviceSelectionChanged",
                 e,
               ),
-              (this.$22 = null)),
-              (this.$18 = !1));
+              (this.$24 = null)),
+              (this.$20 = !1));
           }),
           (a.consumeAVSyncMetrics = function () {
             return this.$9.consumeMetrics();
           }),
           (a.onDecoderFatalError = function () {
-            this.$23++;
+            this.$25++;
           }),
           (a.consumeWebCodecsFatalErrorCount = function () {
-            var e = this.$23;
-            return ((this.$23 = 0), e);
+            var e = this.$25;
+            return ((this.$25 = 0), e);
           }),
           (a.removeParticipantAVSync = function (t) {
             this.$9.removeParticipant(t);
           }),
-          (a.$19 = (function () {
+          (a.$21 = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              this.$18 = !0;
+              this.$20 = !0;
               try {
                 var e,
                   t = yield o(
                     "WAWebVoipAudioCaptureAndPlayback",
-                  ).waitForPlaybackStart(N);
+                  ).waitForPlaybackStart(M);
                 if (!t) {
-                  ((this.$18 = !1),
+                  ((this.$20 = !1),
                     o("WALogger").WARN(
-                      T ||
-                        (T = babelHelpers.taggedTemplateLiteralLoose([
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: VideoRendererRegistry: timed out waiting ",
                           "ms for audio playback start before enabling A/V sync",
                         ])),
-                      N,
+                      M,
                     ));
                   return;
                 }
@@ -703,7 +737,7 @@ __d(
                     ).getPlaybackSampleRate()) != null
                       ? e
                       : 16e3;
-                this.$21(r, function () {
+                this.$23(r, function () {
                   var e = n.getAudioPlaybackTimestamp(),
                     t = o(
                       "WAWebVoipAudioCaptureAndPlayback",
@@ -711,10 +745,10 @@ __d(
                   return Math.max(0, e - t);
                 });
               } catch (e) {
-                ((this.$18 = !1),
+                ((this.$20 = !1),
                   o("WALogger").ERROR(
-                    D ||
-                      (D = babelHelpers.taggedTemplateLiteralLoose([
+                    x ||
+                      (x = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererRegistry: initAVSync failed: ",
                         "",
                       ])),
@@ -727,7 +761,7 @@ __d(
             }
             return t;
           })()),
-          (a.$15 = function (t) {
+          (a.$17 = function (t) {
             try {
               var e = this.$11.get(t);
               if (!e) return;
@@ -739,8 +773,8 @@ __d(
                 r != null && (r.delete(t), r.size === 0 && this.$8.delete(n));
               }
               o("WALogger").LOG(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
+                $ ||
+                  ($ = babelHelpers.taggedTemplateLiteralLoose([
                     "[VideoRendererRegistry] unregister canvas, left=",
                     "",
                   ])),
@@ -748,8 +782,8 @@ __d(
               );
             } catch (e) {
               o("WALogger").ERROR(
-                $ ||
-                  ($ = babelHelpers.taggedTemplateLiteralLoose([
+                P ||
+                  (P = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: VideoRendererRegistry: unregisterCanvasFromRegistry: ",
                     "",
                   ])),
@@ -760,8 +794,8 @@ __d(
           t
         );
       })(),
-      w = new M();
-    ((l.WAWebVoipVideoRendererRegistry = M), (l.videoRendererRegistry = w));
+      F = new A();
+    ((l.WAWebVoipVideoRendererRegistry = A), (l.videoRendererRegistry = F));
   },
   98,
 );

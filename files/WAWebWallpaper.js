@@ -1,6 +1,6 @@
 __d(
   "WAWebWallpaper",
-  ["fbt"],
+  ["fbt", "WAWebSolidColorPalette"],
   function (t, n, r, o, a, i, l, s) {
     var e = "default_chat_wallpaper",
       u = -1,
@@ -678,12 +678,11 @@ __d(
       return o == null ? e : o;
     }
     function v(t, n) {
+      if (t === e || o("WAWebSolidColorPalette").isSolidColor(t)) return !0;
       var r = h(n);
-      return t === e
-        ? !0
-        : r.some(function (e) {
-            return e.toUpperCase() === t.toUpperCase();
-          });
+      return r.some(function (e) {
+        return e.toUpperCase() === t.toUpperCase();
+      });
     }
     function S(e, t, n) {
       var r = t === "light" ? p : _;
@@ -692,7 +691,14 @@ __d(
     }
     function R(t, n) {
       var r = S(t, n, "opacity");
-      return r || (n === "light" && t === e ? d : c);
+      return (
+        r ||
+        (o("WAWebSolidColorPalette").isSolidColor(t)
+          ? String(o("WAWebSolidColorPalette").getSolidColorDoodleOpacity(t, n))
+          : n === "light" && t === e
+            ? d
+            : c)
+      );
     }
     function L(t, n) {
       var r;
@@ -720,8 +726,10 @@ __d(
         var r = S(t, n, "doodle");
         if (r) return "data-asset-chat-background-" + r;
       }
-      var o = "data-asset-chat-background-" + n;
-      return (n === "light" && t === e && (o = m), o);
+      if (n !== "beige" && o("WAWebSolidColorPalette").isSolidColor(t))
+        return o("WAWebSolidColorPalette").getSolidColorDoodleAsset(t, n);
+      var a = "data-asset-chat-background-" + n;
+      return (n === "light" && t === e && (a = m), a);
     }
     function I(t, n) {
       return t === "light" && n !== e

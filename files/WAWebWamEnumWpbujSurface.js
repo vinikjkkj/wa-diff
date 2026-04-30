@@ -16,6 +16,7 @@ __d(
       APPEARANCE_SETTINGS: 11,
       NOTIFICATION_SETTINGS: 12,
       WHATSAPP_SETTINGS: 13,
+      STICKER_GENERIC: 14,
     });
     i.WPBUJ_SURFACE = e;
   },

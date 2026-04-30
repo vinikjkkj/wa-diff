@@ -52,8 +52,8 @@ __d(
       return (
         o("WAWebListsGatingUtils").isListsEnabled() &&
         o("WAWebMobilePlatforms").isSMB() &&
-        e != null &&
-        !g(e) &&
+        (e === o("WAWebSchemaLabel").ListType.CUSTOM ||
+          e === o("WAWebSchemaLabel").ListType.PREDEFINED) &&
         t != null
       );
     }

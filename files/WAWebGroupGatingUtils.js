@@ -68,6 +68,10 @@ __d(
         "group_suspension_appeals_redesign_variant_enable",
       );
     }
+    var R = 33;
+    function L() {
+      return o("WAWebABProps").getABPropConfigValue("group_from_group");
+    }
     ((l.GROUP_TYPING_VARIANT = e),
       (l.getGroupDescriptionLength = s),
       (l.getGroupMaxSubject = u),
@@ -83,7 +87,9 @@ __d(
       (l.isGroupExperimentationEnabled = C),
       (l.isForwardToSmallGroupsEnabled = b),
       (l.isGroupSuspensionAppealsRedesignEnabled = v),
-      (l.isGroupSuspensionAppealsRedesignVariantEnabled = S));
+      (l.isGroupSuspensionAppealsRedesignVariantEnabled = S),
+      (l.GFG_GROUP_SIZE_THRESHOLD = R),
+      (l.isGroupFromGroupEnabled = L));
   },
   98,
 );

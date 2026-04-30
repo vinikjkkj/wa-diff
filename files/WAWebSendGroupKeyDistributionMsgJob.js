@@ -63,7 +63,7 @@ __d(
           t.setGroupData(d);
           var m = yield o(
               "WAWebApiParticipantStore",
-            ).getGroupSenderKeyListFromParticipantRecord(i, l),
+            ).getGroupSenderKeyListFromParticipantRecord(i, l, d.isCapiGroup),
             p = m.rotateKey,
             f = m.skDistribList,
             g = m.skList,
@@ -91,20 +91,23 @@ __d(
               !1,
               o("WAWebSessionScope").SessionScope.DEFAULT,
             ));
-          var y = yield o("WAWebPhashUtils").phashV2(
-              [].concat(h, [
+          var y = h.filter(function (e) {
+              return !e.isHosted();
+            }),
+            C = yield o("WAWebPhashUtils").phashV2(
+              [].concat(y, [
                 o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
               ]),
             ),
-            C = yield _(i, f, p),
-            b = C[0],
-            v = C[1],
-            S = o("WAWap").wap(
+            b = yield _(i, f, p),
+            v = b[0],
+            S = b[1],
+            R = o("WAWap").wap(
               "message",
               {
                 id: o("WAWap").CUSTOM_STRING(a),
                 to: o("WAWebCommsWapMd").CHAT_JID(i),
-                phash: o("WAWap").CUSTOM_STRING(y),
+                phash: o("WAWap").CUSTOM_STRING(C),
                 type: "text",
                 device_fanout: "false",
               },
@@ -118,16 +121,16 @@ __d(
                 ),
                 "decrypt-fail": "hide",
               }),
-              b,
               v,
+              S,
             );
           yield o("WAWebSignalProtocolStore")
             .getSignalProtocolStore()
             .flushBufferToDiskIfNotMemOnlyMode();
-          var R = yield o(
+          var L = yield o(
               "WADeprecatedSendIq",
             ).deprecatedSendStanzaAndReturnAck(
-              S,
+              R,
               o("WAWebCommsAckParser").toCoreAckTemplate({
                 id: a,
                 class: "message",
@@ -135,8 +138,8 @@ __d(
                 participant: null,
               }),
             ),
-            L = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(R);
-          return L.error
+            E = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(L);
+          return E.error
             ? (o("WALogger")
                 .WARN(
                   u ||
@@ -151,7 +154,7 @@ __d(
                 ),
               ))
             : (yield o("WAWebApiParticipantStore").markHasSenderKey(i, f),
-              L.success);
+              E.success);
         })),
         p.apply(this, arguments)
       );

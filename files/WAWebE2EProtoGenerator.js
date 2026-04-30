@@ -10,6 +10,7 @@ __d(
     "WAWebBizCoexGatingUtils",
     "WAWebBotBaseGating",
     "WAWebBotGroupGatingUtils",
+    "WAWebBotReplaceMentionWidsWithPushnames",
     "WAWebButtonsMessageProtoUtils",
     "WAWebConversionTupleCollection",
     "WAWebE2EProtoUtils",
@@ -674,62 +675,86 @@ __d(
           r != null && N(r) && P(r);
         }));
     }
-    function A(e, t, n) {
-      var a, i, l, s, u;
-      n === void 0 && (n = !1);
-      var c = r("lodash").cloneDeep(e),
-        d = !1;
-      (n === !0 &&
-        o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
-        (d = !0),
-        d === !0 && w(c),
-        (c.messageContextInfo = babelHelpers.extends({}, c.messageContextInfo, {
-          messageSecret: null,
-        })),
-        t &&
-          (c.messageContextInfo = babelHelpers.extends(
-            {},
-            c.messageContextInfo,
-            { botMessageSecret: t },
-          )));
-      var m =
-        (c == null ||
-        (a = c.botInvokeMessage) == null ||
-        (a = a.message) == null ||
-        (a = a.extendedTextMessage) == null
-          ? void 0
-          : a.contextInfo) ||
-        (c == null || (i = c.extendedTextMessage) == null
-          ? void 0
-          : i.contextInfo);
-      if ((m == null ? void 0 : m.quotedMessage) != null) {
-        var p;
-        m.participant != null &&
-          ((p = o("WAWebWidFactory").createWid(m.participant)) == null
-            ? void 0
-            : p.isBot()) !== !0 &&
-          (d !== !0 && delete m.quotedMessage,
-          delete m.stanzaId,
-          delete m.remoteJid,
-          delete m.participant);
-      }
-      var _ =
-        c == null ||
-        (l = c.protocolMessage) == null ||
-        (l = l.botFeedbackMessage) == null
-          ? void 0
-          : l.messageKey;
-      _ != null && _.remoteJid != null && delete _.remoteJid;
-      var f =
-        (c == null || (s = c.protocolMessage) == null ? void 0 : s.type) ===
-        o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
-          ? c == null || (u = c.protocolMessage) == null
-            ? void 0
-            : u.key
-          : null;
-      return (f != null && f.remoteJid != null && delete f.remoteJid, c);
+    function A(e) {
+      return F.apply(this, arguments);
     }
-    function F(e) {
+    function F() {
+      return (
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            n,
+            a,
+            i,
+            l,
+            s = e.botMessageSecret,
+            u = e.isOpenBotGroup,
+            c = u === void 0 ? !1 : u,
+            d = e.mentionedJidList,
+            m = e.message,
+            p = r("lodash").cloneDeep(m),
+            _ = !1;
+          (c === !0 &&
+            o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled() &&
+            (_ = !0),
+            _ === !0 && w(p),
+            (p.messageContextInfo = babelHelpers.extends(
+              {},
+              p.messageContextInfo,
+              { messageSecret: null },
+            )),
+            s &&
+              (p.messageContextInfo = babelHelpers.extends(
+                {},
+                p.messageContextInfo,
+                { botMessageSecret: s },
+              )));
+          var f =
+            (p == null ||
+            (t = p.botInvokeMessage) == null ||
+            (t = t.message) == null ||
+            (t = t.extendedTextMessage) == null
+              ? void 0
+              : t.contextInfo) ||
+            (p == null || (n = p.extendedTextMessage) == null
+              ? void 0
+              : n.contextInfo);
+          if ((f == null ? void 0 : f.quotedMessage) != null) {
+            var g;
+            f.participant != null &&
+              ((g = o("WAWebWidFactory").createWid(f.participant)) == null
+                ? void 0
+                : g.isBot()) !== !0 &&
+              (_ !== !0 && delete f.quotedMessage,
+              delete f.stanzaId,
+              delete f.remoteJid,
+              delete f.participant);
+          }
+          var h =
+            p == null ||
+            (a = p.protocolMessage) == null ||
+            (a = a.botFeedbackMessage) == null
+              ? void 0
+              : a.messageKey;
+          h != null && h.remoteJid != null && delete h.remoteJid;
+          var y =
+            (p == null || (i = p.protocolMessage) == null ? void 0 : i.type) ===
+            o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE
+              ? p == null || (l = p.protocolMessage) == null
+                ? void 0
+                : l.key
+              : null;
+          return (
+            y != null && y.remoteJid != null && delete y.remoteJid,
+            yield o(
+              "WAWebBotReplaceMentionWidsWithPushnames",
+            ).replaceMentionWidsWithPushnames(p, d),
+            p
+          );
+        })),
+        F.apply(this, arguments)
+      );
+    }
+    function O(e) {
       var t,
         n,
         a,
@@ -774,7 +799,7 @@ __d(
       }
       return i;
     }
-    function O(e) {
+    function B(e) {
       var t,
         n = e,
         a =
@@ -796,7 +821,7 @@ __d(
       }
       return n;
     }
-    function B(e) {
+    function W(e) {
       var t = e,
         n = (e == null ? void 0 : e.protocolMessage) != null;
       if (n) {
@@ -811,7 +836,7 @@ __d(
       }
       return t;
     }
-    function W(e) {
+    function q(e) {
       var t = r("lodash").cloneDeep(e);
       return (
         (t.messageContextInfo = babelHelpers.extends({}, t.messageContextInfo, {
@@ -820,12 +845,12 @@ __d(
         t
       );
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    function U(e) {
+      return V.apply(this, arguments);
     }
-    function U() {
+    function V() {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = yield o("WAWebBackendApi").frontendSendAndReceive(
             "getDebugInfo",
             {
@@ -847,7 +872,7 @@ __d(
             { supportPayload: JSON.stringify(n) },
           );
         })),
-        U.apply(this, arguments)
+        V.apply(this, arguments)
       );
     }
     ((l.populateMessageContextInfo = c),
@@ -857,11 +882,11 @@ __d(
       (l.createProtobuf = g),
       (l.getProtobufMessage = y),
       (l.updateBotInvokeMsgProtoCopyForCapi = A),
-      (l.updateFbidBotProtobuf = F),
-      (l.updateFbidBotInvokeProtobuf = O),
-      (l.updateBotProtobuf = B),
-      (l.updateGroupMsgProtoWithCapiFlag = W),
-      (l.addDebugInfoSupportPayload = q));
+      (l.updateFbidBotProtobuf = O),
+      (l.updateFbidBotInvokeProtobuf = B),
+      (l.updateBotProtobuf = W),
+      (l.updateGroupMsgProtoWithCapiFlag = q),
+      (l.addDebugInfoSupportPayload = U));
   },
   98,
 );

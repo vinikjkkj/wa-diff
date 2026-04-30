@@ -60,17 +60,19 @@ __d(
         var v = { inputTable: t, tokens: h };
         (e || (e = r("FbtHooks"))).logImpression(C, v);
       } else if (typeof u == "string") y = u;
-      else
-        throw new Error(
+      else {
+        var S = new Error(
           "Table access did not result in string: " +
             (u === void 0 ? "undefined" : JSON.stringify(u)) +
             ", Type: " +
             typeof u,
         );
-      var S = this.cachedResults[y],
-        R = g(d);
-      if (S && !R) return S;
-      var L = r("substituteTokens")(
+        throw (S.stack, S);
+      }
+      var R = this.cachedResults[y],
+        L = g(d);
+      if (R && !L) return R;
+      var E = r("substituteTokens")(
           y,
           d,
           (e || (e = r("FbtHooks"))).getErrorListener == null
@@ -80,8 +82,8 @@ __d(
                 hash: C,
               }),
         ),
-        E = this._wrapContent(L, y, C, a == null ? void 0 : a.eo);
-      return (R || (this.cachedResults[y] = E), E);
+        k = this._wrapContent(E, y, C, a == null ? void 0 : a.eo);
+      return (L || (this.cachedResults[y] = k), k);
     }
     function f(e) {
       var t = {};

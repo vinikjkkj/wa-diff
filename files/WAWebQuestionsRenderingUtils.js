@@ -9,7 +9,6 @@ __d(
     "WAWebModalManager",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "WAWebNewsletterMembershipUtil",
     "WAWebQuestions.flow",
     "WAWebQuestionsAdminGatingUtils",
     "WAWebQuestionsCreateResponseModalLoadable",
@@ -23,19 +22,24 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e, t) {
+      var n, r;
       if (
         !(
           e.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN ||
           !o("WAWebMsgGetters").getIsQuestion(e)
         )
       ) {
-        var n = o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
-          r = o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(
-            n.newsletterMetadata,
-          ),
-          a;
-        r
-          ? (a =
+        var a = o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
+          i =
+            (n =
+              (r = a.newsletterMetadata) == null
+                ? void 0
+                : r.iAmAdminOrOwner()) != null
+              ? n
+              : !1,
+          l;
+        i
+          ? (l =
               t > 0
                 ? s._(/*BTDS*/ "View responses {unread_responses_count}", [
                     s._param(
@@ -48,29 +52,29 @@ __d(
                     ),
                   ])
                 : s._(/*BTDS*/ "View responses"))
-          : (a = s._(/*BTDS*/ "Respond"));
-        var i = r ? "view-question-responses-cta" : "respond-to-question-cta",
-          l = r
+          : (l = s._(/*BTDS*/ "Respond"));
+        var c = i ? "view-question-responses-cta" : "respond-to-question-cta",
+          d = i
             ? function () {
-                return p(e, n);
+                return p(e, a);
               }
             : function () {
                 return o("WAWebModalManager").ModalManager.open(
                   u.jsx(
                     o("WAWebQuestionsCreateResponseModalLoadable")
                       .CreateQuestionResponseModalLoadable,
-                    { question: e, chat: n },
+                    { question: e, chat: a },
                   ),
                 );
               },
-          c = r
+          m = i
             ? !o(
                 "WAWebQuestionsAdminGatingUtils",
-              ).isQuestionsFeatureEnabledForAdmins(n)
+              ).isQuestionsFeatureEnabledForAdmins(a)
             : !o(
                 "WAWebQuestionsGatingUtils",
               ).isQuestionsFeatureEnabledForFollowers(e);
-        return { label: a, testid: i, onClick: l, disabled: c };
+        return { label: l, testid: c, onClick: d, disabled: m };
       }
     }
     function d(e) {

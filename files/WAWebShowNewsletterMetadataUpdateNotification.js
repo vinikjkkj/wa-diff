@@ -1,7 +1,6 @@
 __d(
   "WAWebShowNewsletterMetadataUpdateNotification",
   [
-    "WAWebNewsletterMembershipUtil",
     "WAWebNotificationController",
     "WAWebNotificationsNewsletterMetadataUpdateNotification",
     "WAWebUserPrefsMeUser",
@@ -20,7 +19,8 @@ __d(
             a = t.newsletterMetadata;
           if (
             a != null &&
-            o("WAWebNewsletterMembershipUtil").iAmOwner(a) &&
+            a != null &&
+            a.iAmOwner() &&
             !o("WAWebUserPrefsMeUser").isMeAccount(r) &&
             n.length !== 0
           )

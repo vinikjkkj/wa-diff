@@ -7,6 +7,7 @@ __d(
     "WAWebGroupUtils",
     "WAWebLeaveReasonType",
     "WAWebLidMigrationUtils",
+    "WAWebMessagingGatingUtils",
     "WAWebPostSenderKeyExpiredMetric",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumExpiryReason",
@@ -14,23 +15,26 @@ __d(
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      var r = new Map(e.senderKey);
+    function e(e, t, n, r) {
+      var a = new Map(e.senderKey),
+        i =
+          o("WAWebMessagingGatingUtils").isGroupSimpleSignalEnabled() &&
+          r === !0;
       n.forEach(function (e) {
         o("WAWebUserPrefsMeUser").isMeDevice(e) ||
-          e.isHosted() ||
-          r.set(e.toString(), !1);
+          (e.isHosted() && !i) ||
+          a.set(e.toString(), !1);
       });
-      var a = new Set(
+      var l = new Set(
           t.map(function (e) {
             var t = e.id;
             return t.toString();
           }),
         ),
-        i = u(e.pastParticipants, a),
-        l = [].concat(
+        s = u(e.pastParticipants, l),
+        c = [].concat(
           e.participants,
-          a
+          l
             .values()
             .toArray()
             .map(function (e) {
@@ -39,35 +43,38 @@ __d(
         );
       return {
         groupId: e.groupId,
-        senderKey: r,
-        participants: l,
-        pastParticipants: i,
+        senderKey: a,
+        participants: c,
+        pastParticipants: s,
         admins: e.admins,
         superAdmins: e.superAdmins,
         rotateKey: e.rotateKey,
         staleType: e.staleType,
       };
     }
-    function s(e, t, n) {
-      var r = new Map(e.senderKey);
+    function s(e, t, n, r) {
+      var a = new Map(e.senderKey),
+        i =
+          o("WAWebMessagingGatingUtils").isGroupSimpleSignalEnabled() &&
+          r === !0;
       n.forEach(function (e) {
         o("WAWebUserPrefsMeUser").isMeDevice(e) ||
-          e.isHosted() ||
-          r.set(e.toString(), !1);
+          (e.isHosted() && !i) ||
+          a.set(e.toString(), !1);
       });
-      var a = new Set(),
-        i = new Set();
+      var l = new Set(),
+        s = new Set();
       t.forEach(function (e) {
         var t = e.id,
           n = e.lid;
-        (i.add(t.toString()), n != null && !t.isLid() && a.add(n.toString()));
+        (s.add(t.toString()), n != null && !t.isLid() && l.add(n.toString()));
       });
-      var l = u(e.pastParticipants, i),
-        s = [].concat(
+      var c = u(e.pastParticipants, s),
+        d = [].concat(
           e.participants.filter(function (e) {
-            return !a.has(e) && !i.has(e);
+            return !l.has(e) && !s.has(e);
           }),
-          i
+          s
             .values()
             .toArray()
             .map(function (e) {
@@ -76,9 +83,9 @@ __d(
         );
       return {
         groupId: e.groupId,
-        senderKey: r,
-        participants: s,
-        pastParticipants: l,
+        senderKey: a,
+        participants: d,
+        pastParticipants: c,
         admins: e.admins,
         superAdmins: e.superAdmins,
         rotateKey: e.rotateKey,
@@ -318,60 +325,66 @@ __d(
         staleType: e.staleType,
       };
     }
-    function f(e, t, n, r) {
-      var a = e.admins,
-        i = t.map(function (e) {
+    function f(e, t, n, r, a) {
+      var i = e.admins,
+        l = t.map(function (e) {
           var t = e.id;
           return String(t);
         }),
-        l = new Map(e.senderKey);
+        s = new Map(e.senderKey),
+        u =
+          o("WAWebMessagingGatingUtils").isGroupSimpleSignalEnabled() &&
+          a === !0;
       n != null &&
         n.length > 0 &&
         n.forEach(function (e) {
-          if (!o("WAWebUserPrefsMeUser").isMeDevice(e) && !e.isHosted()) {
+          if (
+            !o("WAWebUserPrefsMeUser").isMeDevice(e) &&
+            !(e.isHosted() && !u)
+          ) {
             var t = String(e);
-            l.set(t, !1);
+            s.set(t, !1);
           }
         });
-      var s = e.participants;
+      var c = e.participants;
       if (r === o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.DEMOTE) {
-        a = e.admins.filter(function (e) {
-          return !i.includes(e);
+        i = e.admins.filter(function (e) {
+          return !l.includes(e);
         });
-        var u = o("WAWebGroupUtils").amIGroupAdmin(a);
-        if (!u) {
-          var c = t.reduce(function (e, t) {
+        var d = o("WAWebGroupUtils").amIGroupAdmin(i);
+        if (!d) {
+          var m = t.reduce(function (e, t) {
             var n = t.id,
               r = t.lid;
             return r == null || n.isLid()
               ? e
               : e.set(n.toString(), r.toString());
           }, new Map());
-          s = s.map(function (e) {
+          c = c.map(function (e) {
             var t;
-            return (t = c.get(e)) != null ? t : e;
+            return (t = m.get(e)) != null ? t : e;
           });
         }
       } else if (
         r === o("WAWebDBParticipantTypes").PARTICIPANT_OPERATION.PROMOTE
       ) {
-        var d = t.reduce(function (e, t) {
+        var p = t.reduce(function (e, t) {
           var n = t.id,
             r = t.lid;
           return r == null || n.isLid() ? e : e.set(r.toString(), n.toString());
         }, new Map());
-        ((a = e.admins.concat(i)),
-          (s = s.map(function (e) {
+        ((i = e.admins.concat(l)),
+          (c = c.map(function (e) {
             var t;
-            return (t = d.get(e)) != null ? t : e;
+            return (t = p.get(e)) != null ? t : e;
           })));
       }
       return {
         groupId: e.groupId,
-        senderKey: l,
-        participants: s,
+        senderKey: s,
+        participants: c,
         pastParticipants: e.pastParticipants,
-        admins: a,
+        admins: i,
         superAdmins: e.superAdmins,
         rotateKey: e.rotateKey,
         staleType: e.staleType,
@@ -422,17 +435,24 @@ __d(
         u = s === void 0 ? [] : s,
         c = t.deviceIds,
         d = c === void 0 ? [] : c,
-        m = new Map();
+        m = t.isCapiGroup,
+        p = new Map(),
+        _ =
+          o("WAWebMessagingGatingUtils").isGroupSimpleSignalEnabled() &&
+          m === !0;
       return (
         d.forEach(function (e) {
-          if (!o("WAWebUserPrefsMeUser").isMeDevice(e) && !e.isHosted()) {
+          if (
+            !o("WAWebUserPrefsMeUser").isMeDevice(e) &&
+            !(e.isHosted() && !_)
+          ) {
             var t = String(e);
-            m.has(t) || m.set(t, !1);
+            p.has(t) || p.set(t, !1);
           }
         }),
         {
           groupId: e,
-          senderKey: m,
+          senderKey: p,
           participants: a.map(function (e) {
             var t = e.id;
             return String(t);
@@ -456,72 +476,86 @@ __d(
     function y(e, t) {
       var n = t.admins,
         r = t.deviceIds,
-        a = t.participants,
-        i = t.superAdmins,
-        l = e.rotateKey,
-        s = e.senderKey,
-        u = new Map();
+        a = t.isCapiGroup,
+        i = t.participants,
+        l = t.superAdmins,
+        s = e.rotateKey,
+        u =
+          o("WAWebMessagingGatingUtils").isGroupSimpleSignalEnabled() &&
+          a === !0,
+        c = e.senderKey,
+        d = new Map();
       if (
         (r.forEach(function (e) {
-          if (!o("WAWebUserPrefsMeUser").isMeDevice(e) && !e.isHosted()) {
+          if (
+            !o("WAWebUserPrefsMeUser").isMeDevice(e) &&
+            !(e.isHosted() && !u)
+          ) {
             var t = String(e),
-              n = s == null ? void 0 : s.get(t);
-            n == null ? u.set(t, !1) : (u.set(t, n), s == null || s.delete(t));
+              n = c == null ? void 0 : c.get(t);
+            n == null ? d.set(t, !1) : (d.set(t, n), c == null || c.delete(t));
           }
         }),
-        s != null)
+        c != null)
       )
-        for (var c of s.values()) l = l || c;
+        for (var m of c.values()) s = s || m;
       return {
         groupId: e.groupId,
-        senderKey: u,
-        participants: a.map(function (e) {
+        senderKey: d,
+        participants: i.map(function (e) {
           var t = e.id;
           return String(t);
         }),
         pastParticipants: e.pastParticipants,
         admins: n.map(String),
-        superAdmins: i == null ? void 0 : i.map(String),
-        rotateKey: l,
+        superAdmins: l == null ? void 0 : l.map(String),
+        rotateKey: s,
       };
     }
     function C(e, t) {
       var n = t.admins,
         r = t.deviceIds,
-        a = t.participants,
-        i = t.superAdmins,
-        l = e.rotateKey,
-        s = e.senderKey,
-        u = new Map();
+        a = t.isCapiGroup,
+        i = t.participants,
+        l = t.superAdmins,
+        s = e.rotateKey,
+        u =
+          o("WAWebMessagingGatingUtils").isGroupSimpleSignalEnabled() &&
+          a === !0,
+        c = e.senderKey,
+        d = new Map();
       if (
         (r.forEach(function (e) {
-          if (!o("WAWebUserPrefsMeUser").isMeDevice(e) && !e.isHosted()) {
+          if (
+            !o("WAWebUserPrefsMeUser").isMeDevice(e) &&
+            !(e.isHosted() && !u)
+          ) {
             var t = String(e),
-              n = s == null ? void 0 : s.get(t);
-            n == null ? u.set(t, !1) : (u.set(t, n), s == null || s.delete(t));
+              n = c == null ? void 0 : c.get(t);
+            n == null ? d.set(t, !1) : (d.set(t, n), c == null || c.delete(t));
           }
         }),
-        s != null)
+        c != null)
       )
-        for (var c of s.entries()) {
-          var d = c[0],
-            m = c[1];
-          if (m && !o("WAWebWidFactory").createWid(d).isLid()) {
-            l = !0;
+        for (var m of c.entries()) {
+          var p = m[0],
+            _ = m[1];
+          if (_ && !o("WAWebWidFactory").createWid(p).isLid()) {
+            s = !0;
             break;
           }
         }
       return {
         groupId: e.groupId,
-        senderKey: u,
-        participants: a.map(function (e) {
+        senderKey: d,
+        participants: i.map(function (e) {
           var t = e.id;
           return String(t);
         }),
         pastParticipants: e.pastParticipants,
         admins: n.map(String),
-        superAdmins: i == null ? void 0 : i.map(String),
-        rotateKey: l,
+        superAdmins: l == null ? void 0 : l.map(String),
+        rotateKey: s,
       };
     }
     function b(e, t, n) {

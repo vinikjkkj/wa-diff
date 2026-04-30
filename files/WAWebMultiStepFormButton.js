@@ -10,12 +10,10 @@ __d(
         r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE
       )
         return null;
-      var n = (t = e.interactivePayload) == null ? void 0 : t.buttons;
-      if (n == null || n.length === 0) return null;
-      var a = n[0].buttonParamsJson;
-      return a == null
+      var n = (t = e.interactivePayload) == null ? void 0 : t.messageParamsJson;
+      return n == null
         ? null
-        : o("WAWebMultiStepFormPayloadParser").parseMultiStepFormPayload(a);
+        : o("WAWebMultiStepFormPayloadParser").parseMultiStepFormPayload(n);
     }
     function u(e) {
       return o("WAWebMultiStepFormPayloadParser").parseMultiStepFormPayload(e);

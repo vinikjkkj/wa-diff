@@ -42,12 +42,14 @@ __d(
               ? t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED
                 ? t
                 : null
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
+              : e === o("WAWebProtobufsAdv.pb").ADVEncryptionType.NON_E2EE
+                ? null
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        e,
+                    );
+                  })();
       if (t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED)
         throw r("err")("Unexpected account type");
       return null;

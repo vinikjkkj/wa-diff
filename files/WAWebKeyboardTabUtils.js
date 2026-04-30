@@ -64,24 +64,23 @@ __d(
         d = l.isElementTabbable,
         p = n === s.FORWARD ? 1 : -1,
         _ = 0,
-        f = document,
-        g = f.activeElement;
-      if (g) {
-        var h = c.findIndex(function (e) {
-          return e.contains(g);
+        f = t.ownerDocument.activeElement;
+      if (f) {
+        var g = c.findIndex(function (e) {
+          return e.contains(f);
         });
         if (o("WAWebMiscGatingUtils").messageListA11yRedesignEnabled()) {
-          var y = c.findIndex(function (e) {
-            return e === g;
+          var h = c.findIndex(function (e) {
+            return e === f;
           });
-          y > 0 && (h = y);
+          h > 0 && (g = h);
         }
-        _ = h === -1 ? 0 : m(h + p, c.length);
+        _ = g === -1 ? 0 : m(g + p, c.length);
       }
-      for (var C = 0; C < c.length; C++) {
-        var b = m(_ + C * p, c.length),
-          v = c[b];
-        if (d(v) && a(v)) return v;
+      for (var y = 0; y < c.length; y++) {
+        var C = m(_ + y * p, c.length),
+          b = c[C];
+        if (d(b) && a(b)) return b;
       }
       return null;
     }

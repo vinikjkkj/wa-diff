@@ -76,20 +76,16 @@ __d(
           (t.canBeMuted = o("WAWebModelUtils").derived(
             function () {
               return (
-                (o("WAWebNewsletterMembershipUtil").iAmOwner(this) &&
-                  this.adminCount > 1) ||
-                o("WAWebNewsletterMembershipUtil").iAmAdmin(this) ||
-                o("WAWebNewsletterMembershipUtil").iAmSubscriber(this)
+                (this.iAmOwner() && this.adminCount > 1) ||
+                this.iAmAdmin() ||
+                this.iAmSubscriber()
               );
             },
             ["adminCount", "membershipType"],
           )),
           (t.isSubscribedOrOwned = o("WAWebModelUtils").derived(
             function () {
-              return (
-                o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(this) ||
-                o("WAWebNewsletterMembershipUtil").iAmSubscriber(this)
-              );
+              return this.iAmAdminOrOwner() || this.iAmSubscriber();
             },
             ["membershipType"],
           )),
@@ -163,6 +159,30 @@ __d(
         }),
         (n.setFollowerActivityMuteExpiration = function (t) {
           this.followerActivityMuteExpiration = t;
+        }),
+        (n.iAmGuest = function () {
+          return (
+            this.membershipType ===
+            o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Guest
+          );
+        }),
+        (n.iAmAdmin = function () {
+          return (
+            this.membershipType ===
+            o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin
+          );
+        }),
+        (n.iAmSubscriber = function () {
+          return (
+            this.membershipType ===
+            o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Subscriber
+          );
+        }),
+        (n.iAmOwner = function () {
+          return o("WAWebNewsletterMembershipUtil").iAmOwner(this);
+        }),
+        (n.iAmAdminOrOwner = function () {
+          return o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(this);
         }),
         t
       );

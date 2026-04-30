@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebChatGetters",
     "WAWebContactCollection",
-    "WAWebNewsletterMembershipUtil",
     "WAWebNewsletterPendingInvitesJob",
     "WAWebNewsletterSubscriberModel",
     "WAWebNewsletterValidationUtils",
@@ -29,6 +28,7 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n;
           if (!o("WAWebChatGetters").getIsNewsletter(t))
             return (
               o("WALogger")
@@ -43,9 +43,7 @@ __d(
               []
             );
           if (
-            !o("WAWebNewsletterMembershipUtil").iAmOwner(
-              t == null ? void 0 : t.newsletterMetadata,
-            )
+            !(t != null && (n = t.newsletterMetadata) != null && n.iAmOwner())
           )
             return (
               o("WALogger")
@@ -60,17 +58,17 @@ __d(
               []
             );
           try {
-            var n,
-              a,
-              i = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            var a,
+              i,
+              l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 t.id.toJid(),
               ),
-              l = yield o(
+              d = yield o(
                 "WAWebNewsletterPendingInvitesJob",
-              ).getNewsletterPendingInvites(i),
-              d =
-                l != null
-                  ? r("compactMap")(l, function (e) {
+              ).getNewsletterPendingInvites(l),
+              m =
+                d != null
+                  ? r("compactMap")(d, function (e) {
                       var t = c(e);
                       return new (o(
                         "WAWebNewsletterSubscriberModel",
@@ -81,17 +79,17 @@ __d(
                       });
                     })
                   : void 0,
-              m = d != null ? d : [];
+              p = m != null ? m : [];
             return (
-              t == null ||
-                (n = t.newsletterMetadata) == null ||
-                (n = n.pendingAdmins) == null ||
-                n.reset(),
               t == null ||
                 (a = t.newsletterMetadata) == null ||
                 (a = a.pendingAdmins) == null ||
-                a.add(m, { sort: !1 }),
-              m.map(function (e) {
+                a.reset(),
+              t == null ||
+                (i = t.newsletterMetadata) == null ||
+                (i = i.pendingAdmins) == null ||
+                i.add(p, { sort: !1 }),
+              p.map(function (e) {
                 return e.contact;
               })
             );

@@ -23,7 +23,6 @@ __d(
     "WAWebMsgType",
     "WAWebNewsletterCollection",
     "WAWebNewsletterGatingUtils",
-    "WAWebNewsletterMembershipUtil",
     "WAWebOrderStatus",
     "WAWebProductCatalogCatalogConstants",
     "WAWebProtobufsAICommon.pb",
@@ -186,16 +185,17 @@ __d(
       b = m(
         function (e) {
           var t,
-            n = e[0],
-            a = n == null ? void 0 : n.newsletterId;
+            n,
+            o = e[0],
+            a = o == null ? void 0 : o.newsletterId;
           if (a == null) return !1;
           var i =
             (t = r("WAWebNewsletterCollection").get(a)) == null
               ? void 0
               : t.newsletterMetadata;
           return (
-            o("WAWebNewsletterMembershipUtil").iAmAdmin(i) &&
-            !o("WAWebNewsletterMembershipUtil").iAmOwner(i)
+            ((n = i == null ? void 0 : i.iAmAdmin()) != null ? n : !1) &&
+            !(i != null && i.iAmOwner())
           );
         },
         [u.getNewsletterAdminInviteInfo],

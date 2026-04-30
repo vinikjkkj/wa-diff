@@ -31,12 +31,14 @@ __d(
       _,
       f,
       g,
-      h = (function () {
+      h,
+      y,
+      C = (function () {
         function t() {
           var e = this;
           ((this.msgs = []),
             (this.$1 = new (o("WAShiftTimer").ShiftTimer)(function () {
-              (S(e), $(e));
+              (L(e), N(e));
             })),
             (this.callOnConsolidate = null),
             (this.$2 = null),
@@ -85,7 +87,7 @@ __d(
                 String(n.downloadStage),
               );
             }
-            return y(this, n) ? (this.notifyMsgsAsync(), !0) : !1;
+            return b(this, n) ? (this.notifyMsgsAsync(), !0) : !1;
           }),
           (a.clearBlob = function (t) {
             var e = this.mediaBlob;
@@ -104,12 +106,12 @@ __d(
           (a.resolveWhenConsolidated = function () {
             var e = this;
             return this.$1.ts
-              ? new (g || (g = n("Promise")))(function (t) {
+              ? new (y || (y = n("Promise")))(function (t) {
                   e.callOnConsolidate
                     ? e.callOnConsolidate.push(t)
                     : (e.callOnConsolidate = [t]);
                 })
-              : (g || (g = n("Promise"))).resolve();
+              : (y || (y = n("Promise"))).resolve();
           }),
           (a.notifyMsgsAsync = function () {
             this.$1.debounce(0);
@@ -175,7 +177,7 @@ __d(
                             "The sticker associated message has been deleted.",
                           ])),
                       ),
-                      (g || (g = n("Promise"))).resolve(200)
+                      (y || (y = n("Promise"))).resolve(200)
                     );
                 }
                 var i = this.msgs.find(function (e) {
@@ -184,57 +186,95 @@ __d(
                     return !n && !t.isUnsentPhoneMsg();
                   }) || [null],
                   l = i[0];
-                if (!l)
+                if (!l) {
+                  var s;
+                  o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[media-rmr] rmr: no eligible msg found. totalMsgs=",
+                        " filehash=",
+                        " hasBlob=",
+                        " downloadStage=",
+                        "",
+                      ])),
+                    this.msgs.length,
+                    (s = this.filehash) != null ? s : "none",
+                    this.mediaBlob != null,
+                    this.downloadStage,
+                  );
+                  for (var _ = 0; _ < this.msgs.length; _++) {
+                    var f,
+                      g = this.msgs[_],
+                      h = g[0],
+                      C = g[1];
+                    o("WALogger").LOG(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "[media-rmr] rmr: msg[",
+                          "] removed=",
+                          " isUnsentPhone=",
+                          " from=",
+                          " type=",
+                          "",
+                        ])),
+                      _,
+                      C,
+                      h.isUnsentPhoneMsg(),
+                      (f = h.from) == null ? void 0 : f.toLogString(),
+                      h.type,
+                    );
+                  }
                   return (
                     o("WALogger")
                       .ERROR(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                        m ||
+                          (m = babelHelpers.taggedTemplateLiteralLoose([
                             "Assertion failed!",
                           ])),
                       )
                       .sendLogs(
                         "media-fault: rmr called on MediaObject with no msg",
                       ),
-                    (g || (g = n("Promise"))).reject(
+                    (y || (y = n("Promise"))).reject(
                       r("err")("rmr called on MediaObject with no msg"),
                     )
                   );
+                }
                 e.onMsgSelect(l);
-                var s = yield r("WAWebRequestMediaReuploadBridge")(l);
-                if (s.status === 200) {
-                  var m = l.mediaData.type;
-                  if (m === "unknown")
-                    return (g || (g = n("Promise"))).reject(
+                var b = yield r("WAWebRequestMediaReuploadBridge")(l);
+                if (b.status === 200) {
+                  var v = l.mediaData.type;
+                  if (v === "unknown")
+                    return (y || (y = n("Promise"))).reject(
                       r("err")("rmr called on MediaData with unknown type"),
                     );
-                  var p = s.isMD
+                  var S = b.isMD
                     ? this.entries.updateEntry({
                         deprecatedMms3Url: l.deprecatedMms3Url,
                         encFilehash: l.encFilehash,
-                        directPath: s.directPath,
+                        directPath: b.directPath,
                       })
                     : this.entries.addEntry({
-                        deprecatedMms3Url: s.url,
-                        mediaKey: s.mediaKey || r("WANullthrows")(l.mediaKey),
-                        mediaKeyTimestamp: s.mediaKeyTimestamp,
-                        encFilehash: s.encFilehash,
-                        type: m,
-                        directPath: s.directPath,
+                        deprecatedMms3Url: b.url,
+                        mediaKey: b.mediaKey || r("WANullthrows")(l.mediaKey),
+                        mediaKeyTimestamp: b.mediaKeyTimestamp,
+                        encFilehash: b.encFilehash,
+                        type: v,
+                        directPath: b.directPath,
                         debugHint: "rmr",
                       });
-                  (p ||
+                  (S ||
                     o("WALogger")
                       .ERROR(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
                             "Assertion failed!",
                           ])),
                       )
                       .sendLogs("media-fault: rmr entry can not be found"),
-                    p == null || p.markWhetherOnServer(!0));
+                    S == null || S.markWhetherOnServer(!0));
                 }
-                return s.status;
+                return b.status;
               },
             );
             function t(t) {
@@ -244,9 +284,9 @@ __d(
           })()),
           (a.msgProps = function (t) {
             var e = {};
-            (R(e, this, o("WAWebMediaTypes").FIELDS.RAW),
-              R(e, this.contentInfo, this.contentFields()),
-              R(e, t, o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS),
+            (E(e, this, o("WAWebMediaTypes").FIELDS.RAW),
+              E(e, this.contentInfo, this.contentFields()),
+              E(e, t, o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS),
               (e.preview = this.contentInfo._preview));
             var n = {};
             for (var r in e) {
@@ -267,7 +307,7 @@ __d(
             (a || (a = this.$2 = {}),
               !Object.prototype.hasOwnProperty.call(a, t) &&
                 (this.$3++,
-                (a[t] = (g || (g = n("Promise")))
+                (a[t] = (y || (y = n("Promise")))
                   .resolve(o)
                   .then(r)
                   .then(function (t) {
@@ -281,7 +321,7 @@ __d(
             return this.$3 === 0 ||
               !this.$2 ||
               !Object.prototype.hasOwnProperty.call(this.$2, t)
-              ? (g || (g = n("Promise"))).resolve()
+              ? (y || (y = n("Promise"))).resolve()
               : this.$2[t];
           }),
           (a.videoStreamingInfo = (function () {
@@ -290,8 +330,8 @@ __d(
                 if (this.type !== o("WAWebMediaTypes").TYPE.VIDEO) {
                   o("WALogger")
                     .ERROR(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
                           "type: ",
                           "",
                         ])),
@@ -309,7 +349,7 @@ __d(
                   !(t instanceof o("WAWebMediaEntry").EncryptedMediaEntry)
                 )
                   return null;
-                var a = yield (g || (g = n("Promise"))).all([
+                var a = yield (y || (y = n("Promise"))).all([
                     r("WAWebCryptoCreateMediaKeys")(
                       o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO,
                       t.mediaKey,
@@ -342,8 +382,8 @@ __d(
             (n > 0 &&
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "Assertion failed! ",
                       " redundant sticker pack(s)",
                     ])),
@@ -363,8 +403,8 @@ __d(
             (n > 0 &&
               o("WALogger")
                 .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "Assertion failed! ",
                       " redundant sticker(s)",
                     ])),
@@ -481,10 +521,10 @@ __d(
           t
         );
       })();
-    function y(e, t) {
+    function b(e, t) {
       var n = e.contentInfo,
         r = !1,
-        o = C(t.type);
+        o = v(t.type);
       o && !e.type && ((e.type = o), (r = !0));
       var a = t.downloadStage,
         i = t.uploadStage;
@@ -525,7 +565,7 @@ __d(
           case "preview":
             t.preview &&
               !n._preview &&
-              (e.runProcessIfNotRunBefore("preview", I, t.preview),
+              (e.runProcessIfNotRunBefore("preview", D, t.preview),
               (n._preview = t.preview),
               (r = !0));
             break;
@@ -564,11 +604,11 @@ __d(
           n.fullHeight !== 0
             ? ((n.aspectRatio = n.fullWidth / n.fullHeight), (r = !0))
             : n.preview &&
-              e.runProcessIfNotRunBefore("aspectRatio", D, n.preview)),
+              e.runProcessIfNotRunBefore("aspectRatio", $, n.preview)),
         r
       );
     }
-    function C(e) {
+    function v(e) {
       switch (e) {
         case o("WAWebMediaTypes").OUTWARD_TYPES.IMAGE:
         case o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT:
@@ -587,7 +627,7 @@ __d(
           return;
       }
     }
-    function b(e) {
+    function S(e) {
       switch (e) {
         case "VIDEO":
         case "PTV":
@@ -608,7 +648,7 @@ __d(
           throw r("err")("web media type is invalid: " + e);
       }
     }
-    function v(e) {
+    function R(e) {
       var t;
       if (((t = e.interactiveHeader) == null ? void 0 : t.mediaType) != null)
         switch (e.interactiveHeader.mediaType) {
@@ -626,10 +666,10 @@ __d(
             return o("WAWebMediaTypes").OUTWARD_TYPES.PRODUCT;
         }
     }
-    function S(e) {
+    function L(e) {
       var t = {};
-      (R(t, e, o("WAWebMediaTypes").FIELDS.RAW),
-        R(t, e.contentInfo, e.contentFields()),
+      (E(t, e, o("WAWebMediaTypes").FIELDS.RAW),
+        E(t, e.contentInfo, e.contentFields()),
         e.mediaBlob && (t.renderableUrl = e.mediaBlob.url()));
       for (var n = e.msgs, r = n.length, a = 0; a < r; a++) {
         var i = n[a],
@@ -637,7 +677,7 @@ __d(
           s = i[1];
         if (l != null && !s) {
           if (l.type !== o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
-            t.mediaStage = L(l, e);
+            t.mediaStage = k(l, e);
             for (
               var u = 0;
               u < o("WAWebMediaTypes").MSG_SPECIFIC_FIELDS.length;
@@ -651,7 +691,7 @@ __d(
                 (t[c] = l.get(o("WAWebMediaTypes").MEDIA_TO_MSG[c])));
             }
             t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-              (t.type = v(l));
+              (t.type = R(l));
           } else {
             delete t.mediaStage;
             for (
@@ -673,31 +713,31 @@ __d(
         })),
         e.saveMedia && e.saveMedia(e));
     }
-    function R(e, t, n) {
+    function E(e, t, n) {
       for (var r = 0; r < n.length; r++) {
         var o = n[r];
         e[o] = t[o];
       }
     }
-    function L(e, t) {
+    function k(e, t) {
       if (t.filehash) {
         if (e.id.fromMe && e.ack < o("WAWebAck").ACK.SENT)
           return (
             e.local ||
               o("WALogger")
                 .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "Assertion failed!",
                     ])),
                 )
                 .sendLogs("media-fault: unsent media system message not local"),
-            k(t)
+            T(t)
           );
       } else return o("WAWebMediaTypes").MediaDataStage.PREPARING;
-      return E(t);
+      return I(t);
     }
-    function E(e) {
+    function I(e) {
       return e.downloadStage === o("WAWebMediaTypes").DownloadStage.INIT
         ? o("WAWebMediaTypes").MediaDataStage.INIT
         : e.downloadStage === o("WAWebMediaTypes").DownloadStage.EXISTS
@@ -735,7 +775,7 @@ __d(
                                 );
                               })();
     }
-    function k(e) {
+    function T(e) {
       switch (e.uploadStage) {
         case o("WAWebMediaTypes").UploadStage.INIT:
           return o("WAWebMediaTypes").MediaDataStage.PREPARING;
@@ -761,38 +801,38 @@ __d(
           return o("WAWebMediaTypes").MediaDataStage.FINALIZING;
       }
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(e);
-          return (t.autorelease(), { resolvedPreview: t });
-        })),
-        T.apply(this, arguments)
-      );
-    }
     function D(e) {
       return x.apply(this, arguments);
     }
     function x() {
       return (
         (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebMediaDataUtils").getImageWidthHeight(e),
-            n = t.height,
-            r = t.width;
-          return { aspectRatio: r / n };
+          var t = yield r("WAWebMediaOpaqueData").createFromBase64Jpeg(e);
+          return (t.autorelease(), { resolvedPreview: t });
         })),
         x.apply(this, arguments)
       );
     }
     function $(e) {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebMediaDataUtils").getImageWidthHeight(e),
+            n = t.height,
+            r = t.width;
+          return { aspectRatio: r / n };
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N(e) {
       var t = {};
-      (R(t, e, o("WAWebMediaTypes").FIELDS.RAW),
-        R(t, e.contentInfo, e.contentFields()),
+      (E(t, e, o("WAWebMediaTypes").FIELDS.RAW),
+        E(t, e.contentInfo, e.contentFields()),
         e.mediaBlob && (t.renderableUrl = e.mediaBlob.url()));
-      var n = E(e);
+      var n = I(e);
       ((e.stickers = e.stickers.filter(function (e) {
         var t = e[0],
           n = e[1];
@@ -820,10 +860,10 @@ __d(
           (e.callOnConsolidate = null)),
         e.saveMedia && e.saveMedia(e));
     }
-    ((l.MediaObject = h),
-      (l.consolidate = y),
-      (l.webMediaTypeToWamMediaType = b),
-      (l.getInteractiveMsgMediaType = v));
+    ((l.MediaObject = C),
+      (l.consolidate = b),
+      (l.webMediaTypeToWamMediaType = S),
+      (l.getInteractiveMsgMediaType = R));
   },
   98,
 );

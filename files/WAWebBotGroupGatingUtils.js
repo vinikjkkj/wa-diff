@@ -30,9 +30,18 @@ __d(
             "ai_group_participation_send_enabled",
           ) === !0;
     }
+    function c() {
+      return (
+        u() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_group_send_mentioned_pushname_enabled",
+        )
+      );
+    }
     ((l.isOpenGroupBotParticipantAddEnabled = e),
       (l.isTEEGroupBotParticipantAddEnabled = s),
-      (l.isOpenGroupBotSendEnabled = u));
+      (l.isOpenGroupBotSendEnabled = u),
+      (l.isGroupBotSendMentionedPushnameEnabled = c));
   },
   98,
 );

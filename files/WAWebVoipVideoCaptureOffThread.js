@@ -258,6 +258,7 @@ __d(
                       useWebCodecsEncoder: E,
                       videoElementCapture: k,
                       initialOrientationValue: M,
+                      isScreenShare: b === "onDesktopCaptureDataFromJs",
                     },
                     x != null ? Object.values(x) : [],
                   ),

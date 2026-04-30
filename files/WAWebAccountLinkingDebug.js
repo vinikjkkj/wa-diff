@@ -1,7 +1,9 @@
 __d(
   "WAWebAccountLinkingDebug",
   [
+    "WALogger",
     "WAWebAccountLinkingAPI",
+    "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebAccountLinkingScheduledJobs",
@@ -9,170 +11,171 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
-      "debug",
-    );
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield e.updateAccountLinkingState(t);
-        })),
-        u.apply(this, arguments)
+    var e,
+      s = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
+        "debug",
       );
+    function u(e) {
+      return c.apply(this, arguments);
     }
-    s.doc = "Update account linking state in debug mode";
     function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield e.updateAccountLinkingData("test", "test");
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield s.updateAccountLinkingState(e);
         })),
-        d.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    c.doc = "Update account linking data in debug mode";
-    function m() {
-      return p.apply(this, arguments);
+    u.doc = "Update account linking state in debug mode";
+    function d() {
+      return m.apply(this, arguments);
     }
-    function p() {
+    function m() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield s.updateAccountLinkingData("test", "test");
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    d.doc = "Update account linking data in debug mode";
+    function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebAccountLinkingNonceFetchAPI").requestNonceFromPrimary();
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    m.doc = "Request nonce from primary in debug mode";
-    function _() {
-      return f.apply(this, arguments);
-    }
+    p.doc = "Request nonce from primary in debug mode";
     function f() {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebAccountLinkingAPI").fetchValidCertificate();
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    _.doc = "Fetch valid certificate in debug mode";
-    function g() {
-      return h.apply(this, arguments);
-    }
+    f.doc = "Fetch valid certificate in debug mode";
     function h() {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return e.getAccountLinkingData();
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return s.getAccountLinkingData();
         })),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    g.doc = "Get account linking data in debug mode";
-    function y() {
-      return C.apply(this, arguments);
-    }
+    h.doc = "Get account linking data in debug mode";
     function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebAccountLinkingAPI").refreshAccessToken();
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    y.doc = "Refresh access token in debug mode";
-    function b() {
-      return v.apply(this, arguments);
-    }
+    C.doc = "Refresh access token in debug mode";
     function v() {
+      return S.apply(this, arguments);
+    }
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebAccountLinkingAPI").ping();
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    b.doc = "Ping in debug mode";
-    function S() {
+    v.doc = "Ping in debug mode";
+    function R() {
       var e = o("WAWebAccountLinkingUtils").checkGPCSetting();
       return "GPC setting is: " + e.toString();
     }
-    S.doc = "Check GPC setting in debug mode";
-    function R() {
-      return L.apply(this, arguments);
-    }
+    R.doc = "Check GPC setting in debug mode";
     function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").stateExists();
-        })),
-        L.apply(this, arguments)
-      );
+      return E.apply(this, arguments);
     }
     function E() {
-      return k.apply(this, arguments);
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebAccountLinkingAPI").stateExists();
+        })),
+        E.apply(this, arguments)
+      );
     }
     function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").fetchServiceData();
-        })),
-        k.apply(this, arguments)
-      );
+      return I.apply(this, arguments);
     }
     function I() {
-      return T.apply(this, arguments);
+      return (
+        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebAccountLinkingAPI").fetchServiceData();
+        })),
+        I.apply(this, arguments)
+      );
     }
     function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield e.purgeWaffleData();
-        })),
-        T.apply(this, arguments)
-      );
+      return D.apply(this, arguments);
     }
     function D() {
-      return x.apply(this, arguments);
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield s.purgeWaffleData();
+        })),
+        D.apply(this, arguments)
+      );
     }
     function x() {
+      return $.apply(this, arguments);
+    }
+    function $() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebAccountLinkingScheduledJobs").scheduledWaffleJobs();
         })),
-        x.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield e.updatePingInterval(t);
-        })),
-        P.apply(this, arguments)
-      );
+    function P(e) {
+      return N.apply(this, arguments);
     }
     function N() {
-      return M.apply(this, arguments);
-    }
-    function M() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebAccountLinkingAPI").updateUOOMData();
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield s.updatePingInterval(e);
         })),
-        M.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
+    function M() {
+      return w.apply(this, arguments);
+    }
     function w() {
-      return A.apply(this, arguments);
+      return (
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          yield o("WAWebAccountLinkingAPI").updateUOOMData();
+        })),
+        w.apply(this, arguments)
+      );
     }
     function A() {
+      return F.apply(this, arguments);
+    }
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebAccountLinkingAPI").generateWAEntACUser({
             rawPassword: "test",
             disclosureId: 1,
@@ -181,41 +184,111 @@ __d(
             disclosureLc: "US",
           });
         })),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    w.doc = "Generate WAEntACUser in debug mode";
-    function F() {
-      return O.apply(this, arguments);
-    }
+    A.doc = "Generate WAEntACUser in debug mode";
     function O() {
+      return B.apply(this, arguments);
+    }
+    function B() {
       return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           yield o("WAWebAccountLinkingAPI").generateAccessTokens();
         })),
-        O.apply(this, arguments)
+        B.apply(this, arguments)
       );
     }
-    F.doc = "Generate access tokens for the created WAEntACUser";
-    var B = {
-      updateAccountLinkingStateDebug: s,
-      requestNonceFromPrimaryDebug: m,
-      fetchValidCertificateDebug: _,
-      updateAccountLinkingDataDebug: c,
-      getAccountLinkingDataDebug: g,
-      refreshAccessTokenDebug: y,
-      pingDebug: b,
-      checkGPCSettingDebug: S,
-      stateExistsDebug: R,
-      fetchServiceDataDebug: E,
-      purgeWaffleDataDebug: I,
-      scheduledWaffleJobsDebug: D,
-      setPingIntervalDebug: $,
-      updateUoomMutationDebug: N,
-      generateWAEntACUserDebug: w,
-      generateAccessTokensDebug: F,
+    O.doc = "Generate access tokens for the created WAEntACUser";
+    function W(e) {
+      return q.apply(this, arguments);
+    }
+    function q() {
+      return (
+        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          yield o("WAWebAccountLinkingAPI").sendLinkingMutation(e, "IG");
+        })),
+        q.apply(this, arguments)
+      );
+    }
+    W.doc =
+      'Send linking mutation with an opaque target account. Usage: sendLinkingMutationDebug("opaque_target_account_string")';
+    function U(e) {
+      return V.apply(this, arguments);
+    }
+    function V() {
+      return (
+        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          try {
+            var n, r, a;
+            (yield (a = o("WAWebAccountLinkingAPI")).generateWAEntACUser({
+              rawPassword: "test",
+              disclosureId: 1,
+              disclosureVersion: "1",
+              disclosureLg: "en",
+              disclosureLc: "US",
+            }),
+              yield a.generateAccessTokens(),
+              yield a.sendLinkingMutation(t, "IG"));
+            var i = yield a.stateExists(),
+              l =
+                ((n = {}),
+                (n[
+                  o(
+                    "WAWebAccountLinkingConstants",
+                  ).AccountLinkingStateExists.ACTIVE
+                ] = "ACTIVE"),
+                (n[
+                  o(
+                    "WAWebAccountLinkingConstants",
+                  ).AccountLinkingStateExists.PAUSED
+                ] = "PAUSED"),
+                (n[
+                  o(
+                    "WAWebAccountLinkingConstants",
+                  ).AccountLinkingStateExists.UNLINKED
+                ] = "UNLINKED"),
+                n),
+              s = i != null && (r = l[i]) != null ? r : "UNKNOWN";
+            return s;
+          } catch (t) {
+            throw (
+              o("WALogger").ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WAFFLE Debug] fullLinkFlowDebug failed",
+                  ])),
+              ),
+              t
+            );
+          }
+        })),
+        V.apply(this, arguments)
+      );
+    }
+    U.doc =
+      'Run createEntAcUser, generateAccessTokens, linkingMutation, and stateExists. Usage: fullLinkFlowDebug("opaque_target_account_string")';
+    var H = {
+      updateAccountLinkingStateDebug: u,
+      requestNonceFromPrimaryDebug: p,
+      fetchValidCertificateDebug: f,
+      updateAccountLinkingDataDebug: d,
+      getAccountLinkingDataDebug: h,
+      refreshAccessTokenDebug: C,
+      pingDebug: v,
+      checkGPCSettingDebug: R,
+      stateExistsDebug: L,
+      fetchServiceDataDebug: k,
+      purgeWaffleDataDebug: T,
+      scheduledWaffleJobsDebug: x,
+      setPingIntervalDebug: P,
+      updateUoomMutationDebug: M,
+      generateWAEntACUserDebug: A,
+      generateAccessTokensDebug: O,
+      sendLinkingMutationDebug: W,
+      fullLinkFlowDebug: U,
     };
-    l.default = B;
+    l.default = H;
   },
   98,
 );

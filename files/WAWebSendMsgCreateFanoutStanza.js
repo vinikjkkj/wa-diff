@@ -104,9 +104,12 @@ __d(
                 k = E;
               L.isBot() &&
                 b &&
-                (k = o(
+                (k = yield o(
                   "WAWebE2EProtoGenerator",
-                ).updateBotInvokeMsgProtoCopyForCapi(E));
+                ).updateBotInvokeMsgProtoCopyForCapi({
+                  message: E,
+                  mentionedJidList: t.mentionedJidList,
+                }));
               var I =
                   L.isHosted() &&
                   o("WAWebMessagingGatingUtils").isSimpleSignalEnabled(),
@@ -195,12 +198,13 @@ __d(
                         var g = r,
                           y = n.isBot() && (h || v || S);
                         (y &&
-                          (g = o(
+                          (g = yield o(
                             "WAWebE2EProtoGenerator",
-                          ).updateBotInvokeMsgProtoCopyForCapi(
-                            r,
-                            t.botMessageSecret,
-                          )),
+                          ).updateBotInvokeMsgProtoCopyForCapi({
+                            message: r,
+                            botMessageSecret: t.botMessageSecret,
+                            mentionedJidList: t.mentionedJidList,
+                          })),
                           n.isFbidBot() &&
                             (g = o(
                               "WAWebE2EProtoGenerator",

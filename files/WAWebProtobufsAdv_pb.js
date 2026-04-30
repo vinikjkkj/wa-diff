@@ -3,7 +3,7 @@ __d(
   ["$InternalEnum", "WAProtoConst"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = n("$InternalEnum")({ E2EE: 0, HOSTED: 1 }),
+      s = n("$InternalEnum")({ E2EE: 0, HOSTED: 1, NON_E2EE: 2 }),
       u = {},
       c = {},
       d = {},

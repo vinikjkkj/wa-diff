@@ -100,14 +100,14 @@ __d(
               i = R(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER:
-              i = T(a);
+              i = D(a);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName")
               .BOOKING_CONFIRMATION:
-              i = D(a, t);
+              i = x(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST:
-              i = x(a, t);
+              i = $(a, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE:
             case r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS:
@@ -218,6 +218,7 @@ __d(
                       msg: n.unsafe(),
                       chat: r,
                       hasShownDisclosure: i,
+                      mmCarouselCardIndex: k(n.unsafe()),
                     }));
                 },
               });
@@ -310,6 +311,7 @@ __d(
             msg: i,
             chat: e,
             hasShownDisclosure: a,
+            mmCarouselCardIndex: k(i),
           }),
           o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
             msg: i,
@@ -351,6 +353,7 @@ __d(
                 msg: r,
                 chat: e,
                 hasShownDisclosure: i,
+                mmCarouselCardIndex: k(r),
               }),
               o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
                 msg: r,
@@ -376,7 +379,7 @@ __d(
         Icon: o("WAWebReplyChatIcon.react").ReplyChatIcon,
         disabled: e.data.disabled,
         onClick: function () {
-          if (t.isCarouselCard) k(e, r);
+          if (t.isCarouselCard) I(e, r);
           else {
             var a, i;
             (o("WALogger").LOG(
@@ -599,12 +602,24 @@ __d(
           );
       }
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    function k(e) {
+      if (e.isCarouselCard) {
+        var t = o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(e);
+        if (t != null) {
+          var n = t.carouselCards;
+          if (n != null) {
+            var r = n.indexOf(e);
+            return r === -1 ? void 0 : r;
+          }
+        }
+      }
     }
-    function I() {
+    function I(e, t) {
+      return T.apply(this, arguments);
+    }
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n,
             a,
             i = r("WANullthrows")(
@@ -640,10 +655,10 @@ __d(
             )
           );
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e) {
+    function D(e) {
       var t = e.data,
         n = t.label,
         a = t.paymentReminderInfo;
@@ -662,7 +677,7 @@ __d(
             },
           };
     }
-    function D(e, t) {
+    function x(e, t) {
       var n = e.data,
         r = n.bookingInfo,
         a = n.label;
@@ -678,7 +693,7 @@ __d(
             testid: "booking-confirmation-view-details-button",
           };
     }
-    function x(e, t) {
+    function $(e, t) {
       if (
         !o("WAWebBrPaymentRequest").isPaymentRequestFeatureEnabled(
           t.isFromTemplate === !0,
