@@ -178,7 +178,8 @@ __d(
         ((l = s.secretEncryptedMessage) == null ? void 0 : l.secretEncType) ===
           o("WAWebProtobufsE2E.pb").Message$SecretEncryptedMessage$SecretEncType
             .POLL_ADD_OPTION ||
-        s.messageHistoryNotice
+        s.messageHistoryNotice ||
+        s.conditionalRevealMessage
       )
         return o("WAWebBackendJobs.flow").DecryptFailType.Hide;
       var u = s.protocolMessage;

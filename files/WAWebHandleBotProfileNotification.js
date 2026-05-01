@@ -6,6 +6,7 @@ __d(
     "WAWapJid",
     "WAWebAIHatchIdentityStore",
     "WAWebHatchAgentStatusManager",
+    "WAWebHatchLinkedStatusManager",
     "WAWebInitializeBots",
     "asyncToGeneratorRuntime",
   ],
@@ -16,12 +17,14 @@ __d(
       u,
       c,
       d,
-      m = "fb:update",
-      p = "update",
-      _ = "bot_profile",
-      f = "cot",
-      g = "identity";
-    function h(e, t, n) {
+      m,
+      p = "fb:update",
+      _ = "update",
+      f = "bot_profile",
+      g = "cot",
+      h = "identity",
+      y = "link";
+    function C(e, t, n) {
       return o("WAWap").wap("ack", {
         id: o("WAWap").CUSTOM_STRING(e),
         to: t instanceof o("WAWapJid").WapJid ? t : o("WAWap").CUSTOM_STRING(t),
@@ -29,7 +32,7 @@ __d(
         type: o("WAWap").CUSTOM_STRING(n),
       });
     }
-    function y(t) {
+    function b(t) {
       (o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -40,7 +43,7 @@ __d(
       ),
         r("WAWebHatchAgentStatusManager").fetchAndUpdateStatus(t));
     }
-    function C() {
+    function v() {
       (o("WALogger").LOG(
         s ||
           (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -49,27 +52,40 @@ __d(
       ),
         o("WAWebAIHatchIdentityStore").getHatchIdentity(!0));
     }
-    function b(e) {
-      (y(e), C());
+    function S() {
+      (o("WALogger").LOG(
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
+            "[BotProfileNotification] refreshing hatch linked status",
+          ])),
+      ),
+        r("WAWebHatchLinkedStatusManager").fetchAndUpdateStatus());
     }
-    function v(e, t) {
+    function R(e) {
+      (b(e), v(), S());
+    }
+    function L(e, t) {
       if (t == null || t === "") {
-        b(e);
+        R(e);
         return;
       }
       e: {
-        if (t === f) {
-          y(e);
+        if (t === g) {
+          b(e);
           break e;
         }
-        if (t === g) {
-          C();
+        if (t === h) {
+          v();
+          break e;
+        }
+        if (t === y) {
+          S();
           break e;
         }
         {
           o("WALogger").WARN(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[BotProfileNotification] unknown category: ",
                 "",
               ])),
@@ -79,12 +95,12 @@ __d(
         }
       }
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function R() {
+    function k() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
             r,
@@ -98,36 +114,36 @@ __d(
             u =
               (a = (i = e.attrs.type) == null ? void 0 : i.toString()) != null
                 ? a
-                : m;
+                : p;
           try {
-            var f = e.content,
+            var c = e.content,
               g = !1;
-            if (Array.isArray(f))
-              for (var y of f) {
-                var C;
+            if (Array.isArray(c))
+              for (var h of c) {
+                var y;
                 if (
-                  y.tag === p &&
-                  ((C = y.attrs) == null || (C = C.type) == null
+                  h.tag === _ &&
+                  ((y = h.attrs) == null || (y = y.type) == null
                     ? void 0
-                    : C.toString()) === _
+                    : y.toString()) === f
                 ) {
                   var b,
+                    v,
                     S,
                     R,
-                    L,
                     E =
-                      (b = (S = y.attrs.jid) == null ? void 0 : S.toString()) !=
+                      (b = (v = h.attrs.jid) == null ? void 0 : v.toString()) !=
                       null
                         ? b
                         : "",
                     k =
-                      (R =
-                        (L = y.attrs.category) == null
+                      (S =
+                        (R = h.attrs.category) == null
                           ? void 0
-                          : L.toString()) != null
-                        ? R
+                          : R.toString()) != null
+                        ? S
                         : null;
-                  if (E !== "") v(E, k);
+                  if (E !== "") L(E, k);
                   else {
                     g = !0;
                     break;
@@ -136,28 +152,28 @@ __d(
               }
             g &&
               (o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[BotProfileNotification] pruned update, full bot sync",
                   ])),
               ),
               o("WAWebInitializeBots").initializeBots());
           } catch (e) {
             o("WALogger").WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[BotProfileNotification] error processing stanza: ",
                   "",
                 ])),
               String(e),
             );
           }
-          return h(l, s, u);
+          return C(l, s, u);
         })),
-        R.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    l.handleBotProfileNotification = S;
+    l.handleBotProfileNotification = E;
   },
   98,
 );

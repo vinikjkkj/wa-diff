@@ -128,7 +128,7 @@ __d(
               a.size > 0 &&
                 (yield o(
                   "WAWebNewsletterBackendAddOnsUtils",
-                ).persistNewsletterViewCounts({
+                ).persistNewsletterStatusInteractions({
                   ids: r,
                   timestamp: Date.now(),
                   viewCounts: a,

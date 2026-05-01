@@ -9,46 +9,46 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r, o, a) {
+    function e(e, t, n, r, o, a, i) {
       return s.apply(this, arguments);
     }
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            var s, u, c, d, m;
-            (s = i.sendPerfReporter) == null || s.startReadyToSendStage();
-            var p = e.data,
-              _ = p.id,
-              f = p.to,
-              g = yield o(
+          function* (e, t, n, a, i, l, s) {
+            var u, c, d, m, p;
+            (u = i.sendPerfReporter) == null || u.startReadyToSendStage();
+            var _ = e.data,
+              f = _.id,
+              g = _.to,
+              h = yield o(
                 "WAWebSendMsgCreateFanoutStanza",
-              ).createFanoutMsgStanza(e, t, n, a, i, l),
-              h = g.stanza;
-            ((u = i.sendPerfReporter) == null || u.postReadyToSendStage(),
-              (c = i.sendPerfReporter) == null || c.startWrittenWireStage());
-            var y = yield o(
+              ).createFanoutMsgStanza(e, t, n, a, i, l, void 0, s),
+              y = h.stanza;
+            ((c = i.sendPerfReporter) == null || c.postReadyToSendStage(),
+              (d = i.sendPerfReporter) == null || d.startWrittenWireStage());
+            var C = yield o(
                 "WADeprecatedSendIq",
               ).deprecatedSendStanzaAndReturnAck(
-                h,
+                y,
                 o("WAWebCommsAckParser").toCoreAckTemplate({
-                  id: _.id,
+                  id: f.id,
                   class: "message",
-                  from: f,
+                  from: g,
                   participant: null,
                 }),
               ),
-              C = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(y);
-            if (C.error)
+              b = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(C);
+            if (b.error)
               throw r("err")(
                 "[messaging] sendMsgToDeviceList: Invalid ack from server",
               );
             return (
-              (d = i.sendPerfReporter) == null || d.postWrittenWireStage(),
+              (m = i.sendPerfReporter) == null || m.postWrittenWireStage(),
               (i.sendPerfReporter = null),
-              (m = i.sendReporter) == null || m.postSuccess(),
+              (p = i.sendReporter) == null || p.postSuccess(),
               (i.sendReporter = null),
-              C.success
+              b.success
             );
           },
         )),

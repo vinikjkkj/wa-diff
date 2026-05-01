@@ -29,30 +29,36 @@ __d(
       return s._(/*BTDS*/ "Business AI");
     }
     function f() {
-      return s._(/*BTDS*/ "Business profile");
+      return s._(/*BTDS*/ "Your Business AI");
     }
     function g() {
-      return s._(/*BTDS*/ "Catalog");
+      return s._(/*BTDS*/ "Manage AI knowledge and responses");
     }
     function h() {
-      return s._(/*BTDS*/ "Orders");
+      return s._(/*BTDS*/ "Business profile");
     }
     function y() {
-      return s._(/*BTDS*/ "Advertise");
+      return s._(/*BTDS*/ "Catalog");
     }
     function C() {
-      return s._(/*BTDS*/ "Quick replies");
+      return s._(/*BTDS*/ "Orders");
     }
     function b() {
-      return s._(/*BTDS*/ "Labels");
+      return s._(/*BTDS*/ "Advertise");
     }
     function v() {
-      return s._(/*BTDS*/ "Business Help Center");
+      return s._(/*BTDS*/ "Quick replies");
     }
     function S() {
-      return s._(/*BTDS*/ "Notifications");
+      return s._(/*BTDS*/ "Labels");
     }
     function R() {
+      return s._(/*BTDS*/ "Business Help Center");
+    }
+    function L() {
+      return s._(/*BTDS*/ "Notifications");
+    }
+    function E() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_granular_notifications",
       );
@@ -60,232 +66,232 @@ __d(
         ? s._(/*BTDS*/ "Messages, groups, sounds")
         : s._(/*BTDS*/ "Message notifications");
     }
-    function L() {
+    function k() {
       return s._(
         /*BTDS*/ "Use this setting to override the language from your phone",
       );
     }
-    function E() {
+    function I() {
       return s._(/*BTDS*/ "Language");
     }
-    function k() {
+    function T() {
       return s._(/*BTDS*/ "Media auto-download");
     }
-    function I() {
+    function D() {
       return s._(/*BTDS*/ "Media upload quality");
     }
-    function T() {
+    function x() {
       return s._(/*BTDS*/ "Security");
     }
-    function D() {
+    function $() {
       return s._(/*BTDS*/ "Privacy");
     }
-    function x() {
+    function P() {
       return s._(/*BTDS*/ "Blocked contacts, disappearing messages");
     }
-    function $() {
+    function N() {
       return s._(/*BTDS*/ "Help and feedback");
     }
-    function P() {
+    function M() {
       return s._(/*BTDS*/ "Help center, contact us, privacy policy");
     }
-    function N() {
+    function w() {
       return s._(/*BTDS*/ "Keyboard shortcuts");
     }
-    function M() {
+    function A() {
       return s._(/*BTDS*/ "Quick actions");
     }
-    function w() {
+    function F() {
       return s._(/*BTDS*/ "Developer");
     }
-    function A() {
+    function O() {
       return s._(/*BTDS*/ "Internal tools, feature flags, debug options");
     }
-    function F() {
+    function B() {
       return s._(/*BTDS*/ "AB Props");
     }
-    function O() {
+    function W() {
       return s._(/*BTDS*/ "Group AB Props");
     }
-    function B() {
+    function q() {
       return s._(/*BTDS*/ "Infra Settings");
     }
-    function W() {
+    function U() {
       return s._(/*BTDS*/ "Canonical");
     }
-    function q() {
+    function V() {
       return s._(/*BTDS*/ "Message notifications");
     }
-    function U() {
+    function H() {
       return s._(/*BTDS*/ "Show notifications for new messages");
     }
-    function V() {
+    function G() {
       return s._(/*BTDS*/ "Show previews");
     }
-    function H() {
+    function z() {
       return s._(/*BTDS*/ "Preview message text inside message notifications.");
     }
-    function G() {
+    function j() {
       return s._(
         /*BTDS*/ "Get faster performance by syncing messages in the background.",
       );
     }
-    function z() {
+    function K() {
       return s._(/*BTDS*/ "Play sounds for outgoing messages");
     }
-    function j() {
+    function Q() {
       return s._(/*BTDS*/ "Show reaction notifications");
     }
-    function K() {
+    function X() {
       return s._(/*BTDS*/ "Call notifications");
     }
-    function Q() {
+    function Y() {
       return s._(/*BTDS*/ "Show notifications for incoming calls");
     }
-    function X() {
+    function J() {
       return s._(/*BTDS*/ "Incoming calls");
     }
-    function Y() {
+    function Z() {
       return s._(/*BTDS*/ "Play sounds for incoming calls");
     }
-    function J() {
+    function ee() {
       return s._(/*BTDS*/ "Incoming sounds");
     }
-    function Z() {
+    function te() {
       return s._(/*BTDS*/ "Play sounds for incoming messages");
     }
-    function ee() {
+    function ne() {
       return s._(/*BTDS*/ "Last seen and online");
     }
-    function te() {
+    function re() {
       return s._(/*BTDS*/ "Who can see my personal info");
     }
-    function ne() {
+    function oe() {
       return s._(/*BTDS*/ "Profile picture");
     }
-    function re() {
+    function ae() {
       return s._(/*BTDS*/ "About");
     }
-    function oe() {
+    function ie() {
       return s._(/*BTDS*/ "Read receipts");
     }
-    function ae() {
+    function le() {
       return s._(/*BTDS*/ "Disable link previews");
     }
-    function ie() {
+    function se() {
       return s._(/*BTDS*/ "Block unknown account messages");
     }
-    function le() {
+    function ue() {
       return s._(/*BTDS*/ "Disappearing messages");
     }
-    function se() {
+    function ce() {
       return s._(/*BTDS*/ "Status");
     }
-    function ue() {
+    function de() {
       return s._(/*BTDS*/ "Default message timer");
     }
-    function ce() {
+    function me() {
       return s._(/*BTDS*/ "Groups");
     }
-    function de() {
+    function pe() {
       return s._(/*BTDS*/ "Blocked contacts");
     }
-    function me() {
+    function _e() {
       return s._(/*BTDS*/ "App lock");
     }
-    function pe() {
+    function fe() {
       return s._(/*BTDS*/ "Theme");
     }
-    function _e() {
+    function ge() {
       return s._(/*BTDS*/ "Light");
     }
-    function fe() {
+    function he() {
       return s._(/*BTDS*/ "Dark");
     }
-    function ge() {
+    function ye() {
       return s._(/*BTDS*/ "System default");
     }
-    function he() {
+    function Ce() {
       return s._(/*BTDS*/ "Help Center");
     }
-    function ye() {
+    function be() {
       return s._(/*BTDS*/ "Frequently asked questions");
     }
-    function Ce() {
+    function ve() {
       return s._(/*BTDS*/ "Contact us");
     }
-    function be() {
+    function Se() {
       return s._(/*BTDS*/ "Chat with support to get answers");
     }
-    function ve() {
+    function Re() {
       return s._(/*BTDS*/ "Rate the app");
     }
-    function Se() {
+    function Le() {
       return s._(/*BTDS*/ "Send feedback");
     }
-    function Re() {
+    function Ee() {
       return s._(/*BTDS*/ "Technical issues, suggestions");
     }
-    function Le() {
+    function ke() {
       return o("WAWebConnModel").Conn.isSMB
         ? s._(/*BTDS*/ "Terms")
         : s._(/*BTDS*/ "Terms and Privacy Policy");
     }
-    function Ee() {
+    function Ie() {
       var e = s._(/*BTDS*/ "Your customers' activity");
       return e;
     }
-    function ke() {
+    function Te() {
       return s._(/*BTDS*/ "Lists");
     }
-    function Ie() {
+    function De() {
       return s._(/*BTDS*/ "Manage people and groups");
     }
-    function Te() {
+    function xe() {
       return s._(/*BTDS*/ "Log out");
     }
-    function De() {
+    function $e() {
       return s._(/*BTDS*/ "Account");
     }
-    function xe() {
+    function Pe() {
       return s._(/*BTDS*/ "Security notifications, account info");
     }
-    function $e() {
+    function Ne() {
       return s._(/*BTDS*/ "Profile");
     }
-    function Pe() {
+    function Me() {
       return o(
         "WAWebUsernameWorkerCompatibleGatingUtils",
       ).usernameCreationOrReservationEnabled()
         ? s._(/*BTDS*/ "Name, profile photo, username")
         : s._(/*BTDS*/ "Name, profile photo");
     }
-    function Ne() {
+    function we() {
       return s._(/*BTDS*/ "Chats");
     }
-    function Me() {
+    function Ae() {
       return s._(/*BTDS*/ "Theme, wallpaper, chat settings");
     }
-    function we() {
+    function Fe() {
       return s._(/*BTDS*/ "How to delete my account");
     }
-    function Ae() {
+    function Oe() {
       return s._(
         /*BTDS*/ "To protect your account and improve device performance, WhatsApp will block messages from unknown accounts if they exceed a certain volume.",
       );
     }
-    function Fe() {
+    function Be() {
       return s._(/*BTDS*/ "Protect IP address in calls");
     }
-    function Oe() {
+    function We() {
       return s._(
         /*BTDS*/ "To make it harder for people to infer your location, calls on this device will be securely relayed through WhatsApp servers. This will reduce call quality.",
       );
     }
-    function Be() {
+    function qe() {
       return s._(/*BTDS*/ "Status ad");
     }
-    function We() {
+    function Ue() {
       return s._(/*BTDS*/ "View details on your phone");
     }
     ((l.wallpaperTitle = e),
@@ -295,86 +301,88 @@ __d(
       (l.businessToolsTitle = m),
       (l.businessToolsSecondaryTitle = p),
       (l.businessToolsBusinessAITitle = _),
-      (l.businessToolsBusinessProfileTitle = f),
-      (l.businessToolsCatalogTitle = g),
-      (l.businessToolsOrdersTitle = h),
-      (l.businessToolsAdvertiseTitle = y),
-      (l.businessToolsQuickRepliesTitle = C),
-      (l.businessToolsLabelsTitle = b),
-      (l.businessToolsHelpCenterTitle = v),
-      (l.notificationsTitle = S),
-      (l.notificationsSecondaryTitle = R),
-      (l.languageHeaderTitle = L),
-      (l.languageTitle = E),
-      (l.mediaAutoDownloadTitle = k),
-      (l.mediaUploadQualityTitle = I),
-      (l.securityTitle = T),
-      (l.privacyTitle = D),
-      (l.privacySecondaryTitle = x),
-      (l.helpTitle = $),
-      (l.helpSecondaryTitle = P),
-      (l.keyboardShortcutsTitle = N),
-      (l.keyboardShortcutsSecondaryTitle = M),
-      (l.developerTitle = w),
-      (l.developerSecondaryTitle = A),
-      (l.developerABPropsTitle = F),
-      (l.developerGroupABPropsTitle = O),
-      (l.developerInfraSettingsTitle = B),
-      (l.developerWWWSettingsTitle = W),
-      (l.messageNotificationsTitle = q),
-      (l.messageNotificationsSubtitle = U),
-      (l.showPreviewsTitle = V),
-      (l.showPreviewsSubtitle = H),
-      (l.offlineSyncSubtitle = G),
-      (l.outgoingAudioToneSubtitle = z),
-      (l.showReactionsTitle = j),
-      (l.showCallsTitle = K),
-      (l.showCallsSubtitle = Q),
-      (l.playCallRingtoneTitle = X),
-      (l.playCallRingtoneSubtitle = Y),
-      (l.soundsTitle = J),
-      (l.soundsSubtitle = Z),
-      (l.privacyLastSeenOnlineEnabledTitle = ee),
-      (l.privacyPersonalInfoHeaderTitle = te),
-      (l.privacyProfilePhotoTitle = ne),
-      (l.privacyAboutTitle = re),
-      (l.privacyReadReceiptsTitle = oe),
-      (l.privacyLinkPreviewsTitle = ae),
-      (l.antiBrigadingTitle = ie),
-      (l.privacyDMTitle = le),
-      (l.privacyStatusPostingTitle = se),
-      (l.privacyDDMTitle = ue),
-      (l.privacyGroupsTitle = ce),
-      (l.privacyBlockedTitle = de),
-      (l.privacyScreenlockTitle = me),
-      (l.themeTitle = pe),
-      (l.themeLightLabel = _e),
-      (l.themeDarkLabel = fe),
-      (l.themeSystemLabel = ge),
-      (l.helpCenterTitle = he),
-      (l.helpCenterSubtitle = ye),
-      (l.contactUsTitle = Ce),
-      (l.contactUsSubtitle = be),
-      (l.rateTheApp = ve),
-      (l.sendFeedbackTitle = Se),
-      (l.sendFeedbackSubtitle = Re),
-      (l.termsTitle = Le),
-      (l.dataSharingTitle = Ee),
-      (l.listsTitle = ke),
-      (l.listsSecondaryTitle = Ie),
-      (l.logoutTitle = Te),
-      (l.accountTitle = De),
-      (l.accountSecondaryTitle = xe),
-      (l.profileTitle = $e),
-      (l.profileSecondaryTitle = Pe),
-      (l.chatsTitle = Ne),
-      (l.chatsSecondaryTitle = Me),
-      (l.deleteAccountTitle = we),
-      (l.antiBrigadingDescription = Ae),
-      (l.protectIpInCallsTitle = Fe),
-      (l.protectIpInCallsDescription = Oe),
-      (l.wamoNonAGMMessagePreviewTitle = Be),
-      (l.wamoNonAGMMessagePreviewDescription = We));
+      (l.businessToolsBusinessAIOnboardedTitle = f),
+      (l.businessToolsBusinessAIOnboardedSecondaryTitle = g),
+      (l.businessToolsBusinessProfileTitle = h),
+      (l.businessToolsCatalogTitle = y),
+      (l.businessToolsOrdersTitle = C),
+      (l.businessToolsAdvertiseTitle = b),
+      (l.businessToolsQuickRepliesTitle = v),
+      (l.businessToolsLabelsTitle = S),
+      (l.businessToolsHelpCenterTitle = R),
+      (l.notificationsTitle = L),
+      (l.notificationsSecondaryTitle = E),
+      (l.languageHeaderTitle = k),
+      (l.languageTitle = I),
+      (l.mediaAutoDownloadTitle = T),
+      (l.mediaUploadQualityTitle = D),
+      (l.securityTitle = x),
+      (l.privacyTitle = $),
+      (l.privacySecondaryTitle = P),
+      (l.helpTitle = N),
+      (l.helpSecondaryTitle = M),
+      (l.keyboardShortcutsTitle = w),
+      (l.keyboardShortcutsSecondaryTitle = A),
+      (l.developerTitle = F),
+      (l.developerSecondaryTitle = O),
+      (l.developerABPropsTitle = B),
+      (l.developerGroupABPropsTitle = W),
+      (l.developerInfraSettingsTitle = q),
+      (l.developerWWWSettingsTitle = U),
+      (l.messageNotificationsTitle = V),
+      (l.messageNotificationsSubtitle = H),
+      (l.showPreviewsTitle = G),
+      (l.showPreviewsSubtitle = z),
+      (l.offlineSyncSubtitle = j),
+      (l.outgoingAudioToneSubtitle = K),
+      (l.showReactionsTitle = Q),
+      (l.showCallsTitle = X),
+      (l.showCallsSubtitle = Y),
+      (l.playCallRingtoneTitle = J),
+      (l.playCallRingtoneSubtitle = Z),
+      (l.soundsTitle = ee),
+      (l.soundsSubtitle = te),
+      (l.privacyLastSeenOnlineEnabledTitle = ne),
+      (l.privacyPersonalInfoHeaderTitle = re),
+      (l.privacyProfilePhotoTitle = oe),
+      (l.privacyAboutTitle = ae),
+      (l.privacyReadReceiptsTitle = ie),
+      (l.privacyLinkPreviewsTitle = le),
+      (l.antiBrigadingTitle = se),
+      (l.privacyDMTitle = ue),
+      (l.privacyStatusPostingTitle = ce),
+      (l.privacyDDMTitle = de),
+      (l.privacyGroupsTitle = me),
+      (l.privacyBlockedTitle = pe),
+      (l.privacyScreenlockTitle = _e),
+      (l.themeTitle = fe),
+      (l.themeLightLabel = ge),
+      (l.themeDarkLabel = he),
+      (l.themeSystemLabel = ye),
+      (l.helpCenterTitle = Ce),
+      (l.helpCenterSubtitle = be),
+      (l.contactUsTitle = ve),
+      (l.contactUsSubtitle = Se),
+      (l.rateTheApp = Re),
+      (l.sendFeedbackTitle = Le),
+      (l.sendFeedbackSubtitle = Ee),
+      (l.termsTitle = ke),
+      (l.dataSharingTitle = Ie),
+      (l.listsTitle = Te),
+      (l.listsSecondaryTitle = De),
+      (l.logoutTitle = xe),
+      (l.accountTitle = $e),
+      (l.accountSecondaryTitle = Pe),
+      (l.profileTitle = Ne),
+      (l.profileSecondaryTitle = Me),
+      (l.chatsTitle = we),
+      (l.chatsSecondaryTitle = Ae),
+      (l.deleteAccountTitle = Fe),
+      (l.antiBrigadingDescription = Oe),
+      (l.protectIpInCallsTitle = Be),
+      (l.protectIpInCallsDescription = We),
+      (l.wamoNonAGMMessagePreviewTitle = qe),
+      (l.wamoNonAGMMessagePreviewDescription = Ue));
   },
   226,
 );

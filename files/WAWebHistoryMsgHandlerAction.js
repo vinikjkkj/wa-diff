@@ -576,6 +576,7 @@ __d(
                     name: n.name,
                     notSpam: n.notSpam,
                     isSenderNewAccount: n.isSenderNewAccount,
+                    isSenderSuspicious: n.isSenderSuspicious,
                     pendingInitialLoading: !1,
                     unreadMentionCount: n.unreadMentionCount,
                     tcToken: ce ? n.tcToken : null,

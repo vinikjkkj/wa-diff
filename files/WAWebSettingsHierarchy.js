@@ -246,7 +246,9 @@ __d(
             searchCriteria: String(
               o("WAWebSettingsFBT").businessToolsBusinessAITitle(),
             ),
-            title: o("WAWebSettingsFBT").businessToolsBusinessAITitle,
+            title: o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent()
+              ? o("WAWebSettingsFBT").businessToolsBusinessAIOnboardedTitle
+              : o("WAWebSettingsFBT").businessToolsBusinessAITitle,
           },
           {
             step: o("WAWebSettingsConst").SettingsSteps.BusinessTools,

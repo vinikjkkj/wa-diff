@@ -3,7 +3,6 @@ __d(
   [
     "WAJids",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebLidMigrationUtils",
     "WAWebODS",
@@ -22,8 +21,7 @@ __d(
       p,
       _,
       f,
-      g = 200,
-      h = (function () {
+      g = (function () {
         function t(t) {
           var r = this;
           ((this.$2 = new Map()),
@@ -313,37 +311,17 @@ __d(
             (this.$3 != null && self.clearTimeout(this.$3),
               (this.$3 = self.setTimeout(function () {
                 e.$8();
-              }, 0)));
+              }, 1e3)));
           }),
           (a.$8 = function () {
             this.$3 = null;
             var e = Array.from(this.$2.values());
-            if ((this.$2.clear(), e.length !== 0)) {
-              if (e.length <= g) {
-                this.$4(e, "notify:batched");
-                return;
-              }
-              this.$9(e);
-            }
+            (this.$2.clear(), e.length !== 0 && this.$4(e, "notify:batched"));
           }),
-          (a.$9 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                for (var t = 0; t < e.length; t += g)
-                  (this.$4(e.slice(t, t + g), "notify:batched:chunk"),
-                    t + g < e.length &&
-                      (yield o("WAPromiseDelays").releaseToEventLoop()));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
           t
         );
       })();
-    l.WindowsHybridBridgePictures = h;
+    l.WindowsHybridBridgePictures = g;
   },
   98,
 );

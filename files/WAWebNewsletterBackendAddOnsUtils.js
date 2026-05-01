@@ -163,18 +163,18 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ids,
-            n = e.timestamp,
-            r = e.viewCounts;
-          t.length === 0 ||
-            r.size === 0 ||
+            n = e.reactions,
+            r = e.timestamp,
+            o = e.viewCounts;
+          t.length !== 0 &&
             (yield s({
               ids: t,
               msgs: [],
-              reactions: [],
+              reactions: n != null ? n : [],
               reactionIdsToRemove: [],
               pollVotes: [],
-              timestamp: n,
-              viewCounts: r,
+              timestamp: r,
+              viewCounts: o,
               questionResponsesCounts: new Map(),
               forwardsCounts: new Map(),
             }));
@@ -237,7 +237,7 @@ __d(
       );
     }
     ((l.updateAddOnDbRecords = s),
-      (l.persistNewsletterViewCounts = c),
+      (l.persistNewsletterStatusInteractions = c),
       (l.getMsgsAndAddOnsFromUpdates = m));
   },
   98,

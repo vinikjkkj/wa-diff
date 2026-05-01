@@ -564,7 +564,7 @@ __d(
             (e.newType = o("WAWebBaseModel").session()),
             (e.typeOnInit = o("WAWebBaseModel").session()),
             (e.calledCiphertextDecrypted = o("WAWebBaseModel").session(!1)),
-            (e.$MsgImpl$p_22 = r("lodash").debounce(function (e, t) {
+            (e.$MsgImpl$p_23 = r("lodash").debounce(function (e, t) {
               o("WAWebDBUpdateMessageTable").updateMessageTable(e, {
                 lastPlaybackProgress: t,
               });
@@ -689,8 +689,8 @@ __d(
               this.viewMode,
             )
               ? n == null || n.trigger("insert_msgs", [this], {})
-              : (this._triggerNotificationForParentMessage(),
-                this.$MsgImpl$p_19({ messageInHiddenViewMode: !0 }),
+              : (this.$MsgImpl$p_19(),
+                this.$MsgImpl$p_20({ messageInHiddenViewMode: !0 }),
                 n == null || n.trigger("remove_msgs", [this], {})),
               n == null || n.triggerChangeLast(null, n, {}));
           }),
@@ -715,7 +715,7 @@ __d(
                 );
             }
           }),
-          (i._triggerNotificationForParentMessage = function () {
+          (i.$MsgImpl$p_19 = function () {
             var e = o("WAWebFrontendMsgGetters").getEventType(this),
               t = this.parentMsgKey,
               n =
@@ -733,7 +733,7 @@ __d(
                 : o("WALogger").LOG(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "Msg: _triggerNotificationForParentMessage: parentMsg for ",
+                        "Msg: #triggerNotificationForParentMessage: parentMsg for ",
                         " not found in MsgCollection or not eligible for notification re-triggering",
                       ])),
                     this.id.toString(),
@@ -1064,7 +1064,7 @@ __d(
                   .MSG_CLICK,
               downloadEvenIfExpensive: i,
               rmrReason: u,
-              rmrData: this.$MsgImpl$p_20(u),
+              rmrData: this.$MsgImpl$p_21(u),
               mode: s ? "manual" : "auto",
               isAutoDownload: l,
               chatWid:
@@ -1074,7 +1074,7 @@ __d(
               shouldSequenceDownload: c,
             });
           }),
-          (i.$MsgImpl$p_20 = function (t) {
+          (i.$MsgImpl$p_21 = function (t) {
             var e = { webcRmrReason: t, webcMessageT: this.t },
               n = o("WAWebFrontendMsgGetters").getMaybeChat(this);
             if (n) {
@@ -1199,8 +1199,8 @@ __d(
             }
             return t;
           })()),
-          (i.$MsgImpl$p_19 = function (t) {
-            var e = this.$MsgImpl$p_21().get(this.id.remote);
+          (i.$MsgImpl$p_20 = function (t) {
+            var e = this.$MsgImpl$p_22().get(this.id.remote);
             if (e) {
               var n, r;
               ((this.id.remote.isBot() ||
@@ -1260,7 +1260,7 @@ __d(
             for (var r of this.$MsgImpl$p_2.values())
               r.remove(this.id, {}, !!(n != null && n.skipUpdatingSortTime));
             (this.$MsgImpl$p_2.clear(),
-              this.$MsgImpl$p_19(n),
+              this.$MsgImpl$p_20(n),
               o("WAWebMsgGetters").clearMsgGetterCacheFor(this),
               o("WAWebFrontendMsgGetters").clearFrontendMsgGetterCacheFor(
                 this,
@@ -1479,7 +1479,7 @@ __d(
             });
           }),
           (i.updateLastPlaybackProgress = function (t) {
-            ((this.lastPlaybackProgress = t), this.$MsgImpl$p_22(this.id, t));
+            ((this.lastPlaybackProgress = t), this.$MsgImpl$p_23(this.id, t));
           }),
           (i.avParams = function () {
             return o("WAWebMedia").mediaMetadata(this);
@@ -1576,7 +1576,7 @@ __d(
           (i.getCollection = function () {
             return o("WAWebMsgCollection").MsgCollection;
           }),
-          (i.$MsgImpl$p_21 = function () {
+          (i.$MsgImpl$p_22 = function () {
             return o("WAWebMsgGetters").getIsNewsletterMsg(this)
               ? r("WAWebNewsletterCollection")
               : o("WAWebChatCollection").ChatCollection;

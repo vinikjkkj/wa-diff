@@ -5,6 +5,7 @@ __d(
     "WAFilteredCatch",
     "WALogger",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebBackendErrors",
     "WAWebBaseCachePolicy",
     "WAWebBotUtils",
@@ -141,14 +142,18 @@ __d(
               };
             }));
           var i = (e = n("cr:17219")) == null ? void 0 : e.getWindowsBridge();
-          return (
-            i &&
-              a.listenTo(a, "add remove change:timestamp", function (e, t, n) {
-                var r;
-                (r = i.pictures) == null || r.notifyUpdate(e);
-              }),
-            a
-          );
+          if (i) {
+            var l = o("WAWebABProps").getABPropConfigValue(
+              "web_anr_batch_profile_picture_bridge_operations",
+            )
+              ? "add remove change:eurl"
+              : "add remove change:timestamp";
+            a.listenTo(a, l, function (e, t, n) {
+              var r;
+              (r = i.pictures) == null || r.notifyUpdate(e);
+            });
+          }
+          return a;
         }
         babelHelpers.inheritsLoose(a, t);
         var i = a.prototype;

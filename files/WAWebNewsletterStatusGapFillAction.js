@@ -68,7 +68,7 @@ __d(
                 d.size > 0 &&
                   (yield o(
                     "WAWebNewsletterBackendAddOnsUtils",
-                  ).persistNewsletterViewCounts({
+                  ).persistNewsletterStatusInteractions({
                     ids: c.map(function (e) {
                       return e.id;
                     }),

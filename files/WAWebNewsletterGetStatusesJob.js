@@ -45,33 +45,47 @@ __d(
                     r("getErrorSafe")(a).message,
                   )
                   .sendLogs("newsletter-status-fetch-error"),
-                { msgs: [], from: n, viewCounts: new Map() }
+                {
+                  msgs: [],
+                  from: n,
+                  viewCounts: new Map(),
+                  reactionCounts: new Map(),
+                }
               );
             }
             var s = [],
-              u = new Map();
-            for (var c of l) {
-              var d = o("WAWebNewsletterStatusUtils").mapStatusEntryToMsgData(
-                c,
+              u = new Map(),
+              c = new Map();
+            for (var d of l) {
+              var m = o("WAWebNewsletterStatusUtils").mapStatusEntryToMsgData(
+                d,
                 n,
               );
-              if (d != null) {
-                var m,
-                  p =
-                    (m = c.statusNewsletterViewsCountsMixin) == null
+              if (m != null) {
+                var p,
+                  _,
+                  f =
+                    (p = d.statusNewsletterViewsCountsMixin) == null
                       ? void 0
-                      : m.viewsCountCount;
+                      : p.viewsCountCount,
+                  g = m.id.toString();
                 (s.push(
-                  babelHelpers.extends({}, d, {
+                  babelHelpers.extends({}, m, {
                     isNewsletterStatus: !0,
                     author: n,
-                    viewCount: p,
+                    viewCount: f,
                   }),
                 ),
-                  p != null && u.set(d.id.toString(), p));
+                  f != null && u.set(g, f));
+                var h = o("WAWebNewsletterStatusUtils").buildEmojiCountMap(
+                  (_ = d.statusNewsletterReactionsMixin) == null
+                    ? void 0
+                    : _.reactionsReaction,
+                );
+                h != null && c.set(g, h);
               }
             }
-            return { msgs: s, from: n, viewCounts: u };
+            return { msgs: s, from: n, viewCounts: u, reactionCounts: c };
           }),
           { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
         )

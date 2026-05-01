@@ -1574,6 +1574,8 @@ __d(
       HEADLINE_CLASSIFICATION_EDIT: "headline_classification_edit",
       HEADLINE_WRITE_WITH_AI_BUTTON_CLICK:
         "headline_write_with_ai_button_click",
+      HEADLINE_WRITE_WITH_AI_BUTTON_IMPRESSION:
+        "headline_write_with_ai_button_impression",
       HEADLINE_SUGGESTIONS_IMPRESSION: "headline_suggestions_impression",
       HEADLINE_SUGGESTION_ACCEPTED: "headline_suggestion_accepted",
       HEADLINE_SUGGESTIONS_REGENERATE: "headline_suggestions_regenerate",

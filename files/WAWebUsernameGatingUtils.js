@@ -43,73 +43,68 @@ __d(
     }
     function h() {
       return !!o("WAWebABProps").getABPropConfigValue(
-        "pushname_blocklist_starting_with_at",
+        "phone_number_sharing_flow",
       );
     }
     function y() {
       return !!o("WAWebABProps").getABPropConfigValue(
-        "phone_number_sharing_flow",
+        "lid_group_migration_non_member_iq",
       );
     }
     function C() {
       return !!o("WAWebABProps").getABPropConfigValue(
-        "lid_group_migration_non_member_iq",
-      );
-    }
-    function b() {
-      return !!o("WAWebABProps").getABPropConfigValue(
         "username_group_mutation_enabled",
       );
     }
-    function v() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_check_debounce_in_ms",
       );
     }
-    function S() {
+    function v() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_contact_usync_lid_based",
       );
     }
-    function R() {
+    function S() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_contact_syncd_support_enable",
       );
     }
-    function L() {
+    function R() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_contact_ui_vcard",
       );
     }
-    function E() {
+    function L() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_global_search_enabled",
       );
     }
-    function k() {
+    function E() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_exposed_logging_enabled",
       );
     }
-    function I() {
+    function k() {
       return o("WAWebABProps").getABPropConfigValue("username_key_upsell_mode");
     }
-    function T() {
+    function I() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_characters",
       );
     }
-    function D() {
+    function T() {
       return o("WAWebABProps").getABPropConfigValue(
         "username_key_upsell_max_numbers",
       );
     }
-    function x() {
+    function D() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_engagement_network_impact_logging",
       );
     }
-    function $() {
+    function x() {
       return !!o("WAWebABProps").getABPropConfigValue(
         "username_adoption_and_engagement_monitoring_enabled",
       );
@@ -123,21 +118,20 @@ __d(
       (l.shouldDefaultToV4NumericCode = _),
       (l.shouldLogUnknownNumberError = f),
       (l.mexUsyncUsernameQueryEnabled = g),
-      (l.pushnameValidationForUsernamesEnabled = h),
-      (l.phoneNumberSharingFlowEnabled = y),
-      (l.lidGroupMigrationNonMemberIQEnabled = C),
-      (l.usernameGroupMutationEnabled = b),
-      (l.usernameEligibilityDebounceMs = v),
-      (l.usernameContactUsyncLidBased = S),
-      (l.usernameContactSyncdEnabled = R),
-      (l.usernameContactUiVcardEnabled = L),
-      (l.usernameGlobalSearchEnabled = E),
-      (l.usernameExposedLoggingEnabled = k),
-      (l.usernameKeyUpsellMode = I),
-      (l.usernameKeyUpsellMaxCharacters = T),
-      (l.usernameKeyUpsellMaxNumbers = D),
-      (l.usernameEngagementNetworkImpactLoggingEnabled = x),
-      (l.usernameAdoptionAndEngagementMonitoringEnabled = $));
+      (l.phoneNumberSharingFlowEnabled = h),
+      (l.lidGroupMigrationNonMemberIQEnabled = y),
+      (l.usernameGroupMutationEnabled = C),
+      (l.usernameEligibilityDebounceMs = b),
+      (l.usernameContactUsyncLidBased = v),
+      (l.usernameContactSyncdEnabled = S),
+      (l.usernameContactUiVcardEnabled = R),
+      (l.usernameGlobalSearchEnabled = L),
+      (l.usernameExposedLoggingEnabled = E),
+      (l.usernameKeyUpsellMode = k),
+      (l.usernameKeyUpsellMaxCharacters = I),
+      (l.usernameKeyUpsellMaxNumbers = T),
+      (l.usernameEngagementNetworkImpactLoggingEnabled = D),
+      (l.usernameAdoptionAndEngagementMonitoringEnabled = x));
   },
   98,
 );

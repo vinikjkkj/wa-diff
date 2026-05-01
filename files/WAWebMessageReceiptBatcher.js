@@ -346,7 +346,8 @@ __d(
                               if (a.isUser() || a.isGroup() || a.isStatus()) {
                                 var i,
                                   l = c.get(t);
-                                if (l == null) return;
+                                if (l == null || l.isScheduledMsg === !0)
+                                  return;
                                 if (
                                   n >
                                   ((i = l.ack) != null

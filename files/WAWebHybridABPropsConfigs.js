@@ -273,7 +273,6 @@ __d(
       ],
       max_number_of_recent_contacts_shared_with_device: [10978, "int", 15, 15],
       may_have_messages_enabled: [25303, "bool", !1, !1],
-      md_syncd_logging_spec_enabled: [14499, "bool", !1, !1],
       member_name_tag_db_enabled: [16551, "bool", !0, !0],
       member_name_tag_receiver_enabled: [13523, "bool", !1, !0],
       member_name_tag_sender_enabled: [13524, "bool", !1, !0],
@@ -440,6 +439,7 @@ __d(
       voice_ai_conversation_starter_latency_tracking: [19624, "bool", !1, !1],
       voice_chat_companion_experience_version: [17052, "int", 0, 0],
       voip_call_coordinator_version: [9502, "int", 0, 0],
+      voip_stack_incoming_message_ownership_transfer: [16481, "bool", !1, !1],
       wa_capping_local_data_logic_update: [21348, "bool", !1, !0],
       wa_individual_new_chat_msg_capping_enabled: [20865, "bool", !1, !0],
       wa_individual_new_chat_msg_capping_fetch_ttl_seconds: [

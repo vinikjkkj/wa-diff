@@ -84,7 +84,7 @@ __d(
               ),
               b = yield o(
                 "WAWebRetrieveOutOfWindowPinsForBundle",
-              ).retrieveOutOfWindowPinsForBundle(_, y, C),
+              ).retrieveOutOfWindowPinsForBundle(_, y, C, p),
               v =
                 b.length > 0
                   ? b.map(function (e) {

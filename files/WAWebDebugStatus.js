@@ -3,6 +3,8 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebApiContact",
+    "WAWebApiDeviceList",
     "WAWebDBDeviceListFanout",
     "WAWebDBMessageStoreUtils",
     "WAWebDBMessageUtils",
@@ -11,6 +13,7 @@ __d(
     "WAWebSendStatusMsgAction",
     "WAWebSignal",
     "WAWebSignalProtocolStore",
+    "WAWebSignalSessionApi",
     "WAWebStatusDBOperations",
     "WAWebUserPrefsStatus",
     "WAWebUserPrefsStatusType",
@@ -187,8 +190,31 @@ __d(
                 ])),
               e,
               a.length,
-            ),
-            yield (m || (m = n("Promise"))).all(
+            ));
+          var i = [],
+            l = [t];
+          if (t.isUser()) {
+            var s = o("WAWebApiContact").getAlternateUserWid(
+              o("WAWebWidFactory").asUserWidOrThrow(t),
+            );
+            s != null && l.push(s);
+          }
+          for (var p of l) {
+            var _ = yield o("WAWebApiDeviceList").getDeviceRecord(p);
+            if (_ != null && !_.deleted)
+              for (var f of _.devices)
+                i.push(
+                  o("WAWebSignalSessionApi").deleteDeviceSenderKey(
+                    o("WAWebWidFactory").createDeviceWidFromDeviceListPk(
+                      _.id,
+                      f.id,
+                      f.isHosted,
+                    ),
+                  ),
+                );
+          }
+          (yield (m || (m = n("Promise"))).all(i),
+            yield m.all(
               a.map(function (e) {
                 return o("WAWebSignal").Session.deleteRemoteSession(e);
               }),

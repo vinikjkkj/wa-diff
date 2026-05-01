@@ -1,9 +1,7 @@
 __d(
   "WAWebBizGraphQLRefreshCartJob",
   [
-    "Promise",
     "WALogger",
-    "WAWebBizGatingUtils",
     "WAWebBizGraphQLRefreshCartJobQuery.graphql",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
@@ -16,63 +14,60 @@ __d(
       u,
       c,
       d,
-      m,
-      p = { type: "error" },
-      _ =
+      m = { type: "error" },
+      p =
         e !== void 0
           ? e
           : (e = n("WAWebBizGraphQLRefreshCartJobQuery.graphql"));
-    function f(e) {
-      return o("WAWebBizGatingUtils").graphQLForRefreshCartEnabled()
-        ? g(e).then(function (e) {
-            return e.type === "success"
-              ? (o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "RefreshCart: success",
-                    ])),
-                ),
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      'RefreshCart results: "',
-                      '"',
-                    ])),
-                  JSON.stringify(e.cartResult),
-                ),
-                e)
-              : (e.type,
-                o("WALogger").ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      'WAWebBizRefreshCart: failed as "',
-                      '"',
-                    ])),
-                  e.type,
-                ),
-                e);
-          })
-        : (m || (m = n("Promise"))).resolve({ type: "not-enabled" });
+    function _(e) {
+      return f(e).then(function (e) {
+        return e.type === "success"
+          ? (o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "RefreshCart: success",
+                ])),
+            ),
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  'RefreshCart results: "',
+                  '"',
+                ])),
+              JSON.stringify(e.cartResult),
+            ),
+            e)
+          : (e.type,
+            o("WALogger").ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  'WAWebBizRefreshCart: failed as "',
+                  '"',
+                ])),
+              e.type,
+            ),
+            e);
+      });
     }
-    function g(e) {
+    function f(e) {
       return r("WAWebNetworkStatus")
         .waitIfOffline()
         .then(function () {
           return o("WAWebRelayClient").fetchQuery(
-            _,
+            p,
             { request: e },
             { environmentType: "whatsapp_catalog" },
           );
         })
         .then(function (e) {
           var t, n, o, a, i, l, s, u, c;
-          if (e == null) return p;
+          if (e == null) return m;
           var d =
             (t = e.xwa_checkout_refresh_cart) == null || (t = t.cart) == null
               ? void 0
               : t.products;
-          if (d == null) return p;
-          var m = d.map(function (e) {
+          if (d == null) return m;
+          var p = d.map(function (e) {
               var t,
                 n,
                 o,
@@ -187,7 +182,7 @@ __d(
               subtotal: f.subtotal,
               total: f.total,
             },
-            products: m,
+            products: p,
           };
           return { type: "success", cartResult: b };
         })
@@ -201,11 +196,11 @@ __d(
             ),
             e instanceof o("WAWebGraphQLServerError").GraphQLServerError
               ? { type: "graphql-error", error: e }
-              : p
+              : m
           );
         });
     }
-    l.RefreshCart = f;
+    l.RefreshCart = _;
   },
   98,
 );

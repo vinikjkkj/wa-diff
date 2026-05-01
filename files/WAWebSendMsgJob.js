@@ -10,6 +10,7 @@ __d(
     "WAWebMessageSendReporter",
     "WAWebOutgoingMessage",
     "WAWebPnlessStanzaMigration",
+    "WAWebScheduledMsgSenderJob",
     "WAWebSendGroupKeyDistributionMsgJob",
     "WAWebSendGroupMsgJob",
     "WAWebSendTcTokenChatAction",
@@ -23,16 +24,16 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e, t) {
+    function u(e, t, n) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = t.data,
-            l = i.id,
-            u = i.to,
-            c = t.data.to;
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
+          var l = t.data,
+            u = l.id,
+            c = l.to,
+            d = t.data.to;
           if (
             (yield o(
               "WAWebPnlessStanzaMigration",
@@ -56,37 +57,48 @@ __d(
                     "[messaging] waiting for offline delivery end ",
                     "",
                   ])),
-                l,
+                u,
               ),
               yield o(
                 "WAWebEventsWaitForOfflineDeliveryEnd",
               ).waitForOfflineDeliveryEnd()),
-            !l || !l.id)
+            !u || !u.id)
           )
             return (s || (s = n("Promise"))).reject(
               r("err")("[messaging] sending message without an id"),
             );
-          if (!u)
+          if (!c)
             return (s || (s = n("Promise"))).reject(
               r("err")("[messaging] sending message without an remote id"),
             );
-          var d = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
-            o("WAWebOutgoingMessage").OutgoingMessageOriginType.Chat,
-            t,
-          );
-          if (u.isUser()) {
-            r("WAWebWid").isCAPISupportAccount(u) &&
+          var m = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+              o("WAWebOutgoingMessage").OutgoingMessageOriginType.Chat,
+              t,
+            ),
+            p = yield o(
+              "WAWebScheduledMsgSenderJob",
+            ).maybeWrapScheduledMessageForSend(t, m, c, i),
+            _ = p.msgProtobuf,
+            f = p.scheduledMsgMetadata;
+          if (c.isUser()) {
+            r("WAWebWid").isCAPISupportAccount(c) &&
               o("WAWebABPropsSaga").getIsSagaV1Enabled() &&
               o("WAWebABPropsSaga").getIsSagaV1ReengagementEnabled() &&
-              (yield o("WAWebE2EProtoGenerator").addDebugInfoSupportPayload(d));
-            var m = o("WAWebSendUserMsgJob").encryptAndSendUserMsg(t, d, a, c);
+              (yield o("WAWebE2EProtoGenerator").addDebugInfoSupportPayload(_));
+            var g = o("WAWebSendUserMsgJob").encryptAndSendUserMsg(
+              t,
+              _,
+              a,
+              d,
+              f,
+            );
             return (
               t.data.type !== "protocol" &&
-                o("WAWebSendTcTokenChatAction").sendTcToken(u),
-              m
+                o("WAWebSendTcTokenChatAction").sendTcToken(c),
+              g
             );
-          } else if (u.isGroup())
-            return o("WAWebSendGroupMsgJob").encryptAndSendGroupMsg(t, d, a);
+          } else if (c.isGroup())
+            return o("WAWebSendGroupMsgJob").encryptAndSendGroupMsg(t, _, a);
           return (s || (s = n("Promise"))).reject(
             r("err")("[messaging] unsupported remote jid type"),
           );

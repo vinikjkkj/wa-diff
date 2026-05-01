@@ -4,6 +4,7 @@ __d(
     "WAAckLevel",
     "WALogger",
     "WAWebE2EProtoParser",
+    "WAWebEmoji",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
@@ -16,7 +17,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e, t, n) {
-      var r = d(e, t),
+      var r = m(e, t),
         a = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsE2E.pb").MessageSpec,
           n,
@@ -35,7 +36,7 @@ __d(
       );
     }
     function u(e, t) {
-      var n = d(e, t),
+      var n = m(e, t),
         a = e.isSender === "true",
         i = new (r("WAWebMsgKey"))({ remote: t, fromMe: a, id: e.id });
       return babelHelpers.extends({}, n, {
@@ -112,7 +113,17 @@ __d(
           );
       }
     }
-    function d(e, t) {
+    function d(e) {
+      if (e == null || e.length === 0) return null;
+      var t = new Map();
+      for (var n of e) {
+        var r,
+          a = o("WAWebEmoji").EmojiUtil.getNormalizedOrTofu(n.code);
+        t.set(a, ((r = t.get(a)) != null ? r : 0) + n.count);
+      }
+      return t;
+    }
+    function m(e, t) {
       var n = e.isSender === "true",
         a = new (r("WAWebMsgKey"))({ remote: t, fromMe: n, id: e.id });
       return {
@@ -129,7 +140,8 @@ __d(
     }
     ((l.mapStatusStanzaToMsgData = s),
       (l.mapStatusRevokeToMsgData = u),
-      (l.mapStatusEntryToMsgData = c));
+      (l.mapStatusEntryToMsgData = c),
+      (l.buildEmojiCountMap = d));
   },
   98,
 );

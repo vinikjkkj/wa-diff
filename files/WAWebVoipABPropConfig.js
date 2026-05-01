@@ -124,6 +124,11 @@ __d(
           wasmKey: "vid_stream_pause_resume_jb_reset_threshold_ms",
           type: "int",
         },
+        {
+          abProp: "voip_stack_incoming_message_ownership_transfer",
+          wasmKey: "voip_stack_incoming_message_ownership_transfer",
+          type: "bool",
+        },
       ],
       l = e;
     i.default = l;

@@ -46,57 +46,56 @@ __d(
             i,
             l,
             s,
-            u,
-            c = t == null ? void 0 : t.mediaFile;
-          if (c != null) {
-            var d = new (r("WAWebAttachMediaCollection"))({
+            u = t == null ? void 0 : t.mediaFile;
+          if (u != null) {
+            var c = new (r("WAWebAttachMediaCollection"))({
                 chatParticipantCount: 1,
               }),
-              m = [{ file: c }];
-            yield d.processAttachments(
-              m,
+              d = [{ file: u }];
+            yield c.processAttachments(
+              d,
               void 0,
               o("WAWebBizBroadcastMediaProcessor").SUPPORTED_MEDIA_TYPES,
               1,
             );
-            var p = d.getPreviewableMedias(),
-              _ = p[0];
-            return _ == null
+            var m = c.getPreviewableMedias(),
+              p = m[0];
+            return p == null
               ? null
               : {
-                  fileExt: _.fileExt,
-                  fileName: _.filename,
-                  fileSize: _.filesize,
-                  mediaType: _.type,
-                  mimetype: _.mimetype,
-                  pageCount: _.documentPageCount,
-                  previewSize: _.fullPreviewSize,
-                  previewUrl: _.fullPreview,
+                  fileExt: p.fileExt,
+                  fileName: p.filename,
+                  fileSize: p.filesize,
+                  mediaType: p.type,
+                  mimetype: p.mimetype,
+                  pageCount: p.documentPageCount,
+                  previewSize: p.fullPreviewSize,
+                  previewUrl: p.fullPreview,
                 };
           }
           if (e == null) return null;
-          var f = o("WAWebDBMessageSerialization").messageFromDbRow(e);
-          if (f.mimetype == null) return null;
-          var g = f.type,
-            y = f.mimetype,
-            C = (n = e.filename) != null ? n : "",
-            b = (a = e.size) != null ? a : 0,
-            v = o("WAWebFileUtils").getFileExtension(C),
-            S = (i = e.pageCount) != null ? i : 0,
-            R = {
+          var _ = o("WAWebDBMessageSerialization").messageFromDbRow(e);
+          if (_.mimetype == null) return null;
+          var f = _.type,
+            g = _.mimetype,
+            y = (n = e.filename) != null ? n : "",
+            C = (a = e.size) != null ? a : 0,
+            b = o("WAWebFileUtils").getFileExtension(y),
+            v = (i = e.pageCount) != null ? i : 0,
+            S = {
               height: (l = e.height) != null ? l : 0,
               width: (s = e.width) != null ? s : 0,
             },
-            L = (u = yield h(e)) != null ? u : "";
+            R = yield h(e);
           return {
-            fileExt: v,
-            fileName: C,
-            fileSize: b,
-            mediaType: g,
-            mimetype: y,
-            pageCount: S,
-            previewSize: R,
-            previewUrl: L,
+            fileExt: b,
+            fileName: y,
+            fileSize: C,
+            mediaType: f,
+            mimetype: g,
+            pageCount: v,
+            previewSize: S,
+            previewUrl: R,
           };
         })),
         g.apply(this, arguments)

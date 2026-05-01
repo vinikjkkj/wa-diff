@@ -10,19 +10,21 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = n("$InternalEnum")({ Sender: "sender", Receiver: "receiver" }),
-      c = new Set(["deviceSentMessage", "$$unknownFieldCount"]),
-      d = 15,
-      m = 4;
-    function p(e) {
+      u,
+      c = n("$InternalEnum")({ Sender: "sender", Receiver: "receiver" }),
+      d = new Set(["deviceSentMessage", "$$unknownFieldCount"]),
+      m = 15,
+      p = 4,
+      _ = 0.01;
+    function f(e) {
       var t = e.messageContextInfo;
       return t != null ? t.messageSecret != null : !1;
     }
-    function _(e) {
+    function g(e) {
       return e != null && typeof e == "object" && !Array.isArray(e) ? e : null;
     }
-    function f(t, n, r) {
-      if ((n === void 0 && (n = 0), r === void 0 && (r = ""), n >= d))
+    function h(t, n, r) {
+      if ((n === void 0 && (n = 0), r === void 0 && (r = ""), n >= m))
         return (
           o("WALogger")
             .WARN(
@@ -37,34 +39,34 @@ __d(
             .sendLogs("message-secret-location-max-depth"),
           null
         );
-      if (p(t) && n > 0) return { violationPath: r || "unknown" };
+      if (f(t) && n > 0) return { violationPath: r || "unknown" };
       for (var a of Object.keys(t))
-        if (!(c.has(a) || a === "messageContextInfo")) {
+        if (!(d.has(a) || a === "messageContextInfo")) {
           var i = t[a];
           if (!(i == null || typeof i != "object")) {
             var l = r ? r + "." + a : a,
               s = Array.isArray(i) ? i : [i];
             for (var u of s) {
-              var m = _(u);
-              if (m != null) {
-                var g = f(m, n + 1, l);
-                if (g != null) return g;
+              var c = g(u);
+              if (c != null) {
+                var p = h(c, n + 1, l);
+                if (p != null) return p;
               }
             }
           }
         }
       return null;
     }
-    function g(e, t, n) {
+    function y(e, t, n) {
       if (
         o("WAWebMessagingGatingUtils").isTopLevelMessageSecretCheckEnabled()
       ) {
-        var r = f(e);
+        var r = h(e);
         if (r != null) {
           var a =
-              t === u.Sender
+              t === c.Sender
                 ? "sender"
-                : t === u.Receiver
+                : t === c.Receiver
                   ? "receiver"
                   : (function () {
                       throw Error(
@@ -73,23 +75,38 @@ __d(
                       );
                     })(),
             i = "message-secret-location-violation-" + a,
-            l = n == null ? "unknown" : n.slice(0, m);
-          (o("WALogger")
-            .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "messageSecret location violation on ",
-                  ": path:",
-                  " stanzaIdPrefix:",
-                  "",
-                ])),
-              a,
-              r.violationPath,
-              l,
-            )
-            .tags("messaging", "wa-ice", "message-secret-location")
-            .sendLogs(i),
-            t === u.Sender &&
+            l = n == null ? "unknown" : n.slice(0, p);
+          (t === c.Receiver
+            ? o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "messageSecret location violation on ",
+                      ": path:",
+                      " stanzaIdPrefix:",
+                      "",
+                    ])),
+                  a,
+                  r.violationPath,
+                  l,
+                )
+                .tags("messaging", "wa-ice", "message-secret-location")
+                .sendLogs(i, { sampling: _ })
+            : o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "messageSecret location violation on ",
+                      ": path:",
+                      " stanzaIdPrefix:",
+                      "",
+                    ])),
+                  a,
+                  r.violationPath,
+                  l,
+                )
+                .tags("messaging", "wa-ice", "message-secret-location"),
+            t === c.Sender &&
               new (o(
                 "WAWebProtobufValidationErrorWamEvent",
               ).ProtobufValidationErrorWamEvent)({
@@ -103,9 +120,9 @@ __d(
         }
       }
     }
-    ((l.MessageSecretCheckContext = u),
-      (l.findMessageSecretViolation = f),
-      (l.verifyTopLevelMessageSecret = g));
+    ((l.MessageSecretCheckContext = c),
+      (l.findMessageSecretViolation = h),
+      (l.verifyTopLevelMessageSecret = y));
   },
   98,
 );

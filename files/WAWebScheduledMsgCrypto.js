@@ -123,13 +123,11 @@ __d(
       };
     }
     function C(t) {
-      var n = t.conditionalRevealMessage;
-      if (n == null) return null;
-      var r = n.conditionalRevealMessageType,
-        a = n.encIv,
-        i = n.encPayload,
-        l = n.revealKeyId;
-      return i == null || a == null || l == null
+      var n = t.conditionalRevealMessageType,
+        r = t.encIv,
+        a = t.encPayload,
+        i = t.revealKeyId;
+      return a == null || r == null || i == null
         ? (o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -139,14 +137,14 @@ __d(
           null)
         : {
             conditionalRevealMessageType:
-              r != null
-                ? r
+              n != null
+                ? n
                 : o("WAWebProtobufsE2E.pb")
                     .Message$ConditionalRevealMessage$ConditionalRevealMessageType
                     .UNKNOWN,
-            encIv: a,
-            encPayload: i,
-            revealKeyId: l,
+            encIv: r,
+            encPayload: a,
+            revealKeyId: i,
           };
     }
     ((l.generateRevealKey = c),
