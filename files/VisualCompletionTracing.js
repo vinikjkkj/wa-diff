@@ -3,7 +3,6 @@ __d(
   [
     "IteratableElementWeakMap",
     "IteratableElementWeakSet",
-    "LCP",
     "LoadingStateTracker",
     "ResourceTimingAPI",
     "VisibilityAPI",
@@ -53,8 +52,8 @@ __d(
     var c = (function (t) {
       function n(n, a, i, l, u, c) {
         var d;
-        if (
-          ((d = t.call(this, n, a, i, l, u) || this),
+        return (
+          (d = t.call(this, n, a, i, l, u) || this),
           (d.pendingLocks = new Map()),
           (d.pendingImages = new (r("IteratableElementWeakMap"))()),
           (d.$VisualCompletionTracing$p_1 = null),
@@ -142,21 +141,6 @@ __d(
               "WebAPIs",
             ).IntersectionObserver)(d.elementVisibilityCallback))),
           o("currentVCTraces").addVCTrace(i, d),
-          u.enable_lcp_tracking === !0 && o("LCP").canUseLCP)
-        ) {
-          var m = d.lock("LCPCallback");
-          o("LCP").catchFirstLcpCallback(function (t) {
-            (t != null &&
-              (d.addAnnotation("LCPCancellingEventType", t != null ? t : ""),
-              d.addMarkerPoint(
-                "LCPCancellingUserInput",
-                (e || (e = r("performanceNow")))(),
-                { event_type: t },
-              )),
-              m());
-          });
-        }
-        return (
           l === "INTERACTION"
             ? (d.measureOriginalViewport = !1)
             : (o("currentVCTraces").setCurrentNavigationVCTrace(d, d.namespace),

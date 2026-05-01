@@ -593,7 +593,6 @@ __d(
       (l.getSyncdWamAllowlist = I),
       (l.createSyncdWamAccumulator = P),
       (l.reportSyncdWamAccumulator = N),
-      (l.syncReportBundleAndSummaryToWam = w),
       (l.syncReportOutgoingToWam = F));
   },
   98,

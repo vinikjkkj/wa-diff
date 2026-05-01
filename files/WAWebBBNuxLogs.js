@@ -32,12 +32,12 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.TOS_NUX_ACCEPT_SUCCESS,
       });
     }
-    function c(e, t, n, r) {
+    function c(e, t, n, r, a) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.API,
         entryPoint: t,
         extraAttributes: babelHelpers.extends(
-          { error_type: n, save_result: "failure" },
+          { broadcast_jid: a, error_type: n, save_result: "failure" },
           r,
         ),
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_NUX,

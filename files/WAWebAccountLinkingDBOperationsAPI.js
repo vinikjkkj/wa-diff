@@ -11,6 +11,7 @@ __d(
         getAccountLinkingData: t.getAccountLinkingData,
         getAccountLinkingStatus: t.getAccountLinkingStatus,
         getPingExpirationTime: t.getPingExpirationTime,
+        getLastResyncTimestamp: t.getLastResyncTimestamp,
         purgeWaffleData: t.purgeWaffleData,
         updateAccesstoken: t.updateAccesstoken,
         updateAccountLinkingData: t.updateAccountLinkingData,
@@ -18,6 +19,7 @@ __d(
         updateDestinationIdentities: t.updateDestinationIdentities,
         updateEntCreationData: t.updateEntCreationData,
         updateGenerateAccessTokensData: t.updateGenerateAccessTokensData,
+        updateLastResyncTimestamp: t.updateLastResyncTimestamp,
         updatePingInterval: t.updatePingInterval,
         updateServiceData: t.updateServiceData,
       };

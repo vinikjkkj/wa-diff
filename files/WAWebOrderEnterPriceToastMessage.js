@@ -29,13 +29,13 @@ __d(
                 ],
               );
     }
-    var d = function (t, n) {
-      var e = t.reduce(function (e, t) {
+    function d(e, t) {
+      var n = e.reduce(function (e, n) {
           var r,
-            o = (r = t.price) != null ? r : n[t.id];
-          return (Number.isInteger(o) || e.push(t.name || ""), e);
+            o = (r = n.price) != null ? r : t[n.id];
+          return (Number.isInteger(o) || e.push(n.name || ""), e);
         }, []),
-        r = c(e);
+        r = c(n);
       r &&
         o("WAWebToastManager").ToastManager.open(
           u.jsx(o("WAWebToast.react").Toast, {
@@ -48,7 +48,7 @@ __d(
             },
           }),
         );
-    };
+    }
     ((l.getErrorMsgFromProducts = c), (l.notifyIfAnyProductMissesPrice = d));
   },
   226,

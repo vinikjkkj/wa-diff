@@ -793,8 +793,8 @@ __d(
                 : void 0,
             );
           }),
-          (t.tosNuxAcceptFailed = function (t, n, r) {
-            var e, a;
+          (t.tosNuxAcceptFailed = function (t, n, r, a) {
+            var e, i;
             o("WAWebBBNuxLogs").tosNuxAcceptFailed(
               this.$1,
               t,
@@ -806,9 +806,10 @@ __d(
                       (e = r.persistedState) != null ? e : "null",
                     sync_result: r.syncResult,
                     tos_manager_state:
-                      (a = r.tosManagerState) != null ? a : "null",
+                      (i = r.tosManagerState) != null ? i : "null",
                   }
                 : void 0,
+              a,
             );
           }),
           (t.tosNuxDismissClicked = function (t) {

@@ -12,10 +12,12 @@ __d(
     "WAWebBackendWorkerBridge",
     "WAWebBackendWorkerLocks",
     "WAWebBackendWorkerResource",
+    "WAWebCrashlog",
     "WAWebGetMessageCache",
     "WAWebGlobals",
     "WAWebHandleSingleMsgWorkerCompatible",
     "WAWebIdentityChangeApiWorkerCompatible",
+    "WAWebLogger",
     "WAWebMainThreadQplHandler",
     "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
     "WAWebMsgKey",
@@ -340,6 +342,24 @@ __d(
           },
         },
         {
+          namespace: "mainthread_crashlog",
+          handlers: {
+            sendLogs: function (t) {
+              var e = t.options,
+                n = t.reason;
+              return o("WAWebCrashlog").sendLogs(n, e);
+            },
+          },
+        },
+        {
+          namespace: "mainthread_fblogger",
+          handlers: {
+            logFBError: function (t) {
+              o("WAWebLogger").logToFBLoggerLocal(t);
+            },
+          },
+        },
+        {
           namespace: "mainthread_messagecache",
           handlers: {
             addMessages: function (t) {
@@ -528,14 +548,15 @@ __d(
                   },
                 ));
           } catch (t) {
-            (o("WALogger").ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "Error on WAWebBackendWorker initialisation: ",
-                  "",
-                ])),
-              r("getErrorSafe")(t),
-            ),
+            (o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "WAWebBackendWorkerClient init fails",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("main-thread-backend-worker-init-fails"),
               e.endFail(o("getSafeQplErrorMessage").getSafeQPLErrorMessage(t)));
           }
         })),

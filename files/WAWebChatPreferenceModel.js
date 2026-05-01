@@ -16,7 +16,6 @@ __d(
             (t.spellcheck = o("WAWebBaseModel").prop()),
             (t.transformTextEmoji = o("WAWebBaseModel").prop()),
             (t.enterIsSend = o("WAWebBaseModel").prop()),
-            (t.showExpandedComposer = o("WAWebBaseModel").prop()),
             (t.autoplayAnimatedImages = o("WAWebBaseModel").prop()),
             (t.hdMediaEnabled = o("WAWebBaseModel").prop()),
             (t.chatThemeId = o("WAWebBaseModel").prop()),

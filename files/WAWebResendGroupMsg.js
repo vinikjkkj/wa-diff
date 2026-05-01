@@ -114,7 +114,7 @@ __d(
                           "",
                         ])),
                       I,
-                      e,
+                      String(e),
                     )
                     .tags("messaging");
                 }));

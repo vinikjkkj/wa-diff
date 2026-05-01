@@ -563,33 +563,38 @@ __d(
       );
     }
     function rt() {
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channel_album_v2_sender_enabled",
+      );
+    }
+    function ot() {
       return o("WAWebABProps").getABPropConfigValue(
         "snapl_newsletter_logging_media_id_placeholder_string",
       );
     }
-    function ot() {
+    function at() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "newsletters_video_playback_wabba_logging_enabled",
       );
     }
-    function at() {
+    function it() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_video_play_logging_enabled",
       );
     }
-    function it() {
+    function lt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "wa_web_channels_comet_video_player_enabled_v2",
       );
     }
-    function lt() {
+    function st() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "channels_quick_forwarding_button_mode",
         ) === 1
       );
     }
-    function st() {
+    function ut() {
       return (
         Fe() &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
@@ -597,128 +602,128 @@ __d(
         )
       );
     }
-    function ut() {
+    function ct() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_open_qpl_user_rid_logging_enabled",
       );
     }
-    function ct() {
+    function dt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_is_multi_admin_lid_migration_enabled",
       );
     }
-    function dt() {
+    function mt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "newsletter_rcat_field_generating_enabled",
       );
     }
-    function mt() {
+    function pt() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "channels_creation_entrypoint_in_updates_tab_enabled",
         ) === 1
       );
     }
-    function pt() {
+    function _t() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_creation_entrypoint_in_directory_enabled",
       );
     }
-    function _t() {
+    function ft() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_invite_contacts_to_follow_consumer_enabled",
       );
     }
-    function ft() {
+    function gt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_invite_contacts_to_follow_producer_enabled",
       );
     }
-    function gt() {
+    function ht() {
       return (
-        ft() &&
+        gt() &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_invite_contacts_to_follow_sender_logging_enabled",
         )
       );
     }
-    function ht() {
+    function yt() {
       return (
-        _t() &&
+        ft() &&
         o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
           "channels_invite_contacts_to_follow_receiver_logging_enabled",
         )
       );
     }
-    function yt() {
+    function Ct() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_invite_contacts_to_follow_receiver_invalid_message_drop_endabled",
       );
     }
-    function Ct() {
+    function bt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_follower_invite_creation_modal_enabled",
       );
     }
-    var bt = 64;
-    function vt() {
+    var vt = 64;
+    function St() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channel_enforcement_logging_enabled",
       );
     }
-    function St() {
+    function Rt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "dsa_26_receiver_enabled",
       );
     }
-    function Rt() {
+    function Lt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "dsa_26_sender_enabled",
       );
     }
-    function Lt() {
+    function Et() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_admin_profiles_receiver_enabled",
       );
     }
-    function Et() {
+    function kt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_admin_profiles_forwarding_to_chats_enabled",
       );
     }
-    function kt() {
+    function It() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channels_admin_profiles_list_enabled",
       );
     }
-    function It() {
+    function Tt() {
       return (
         o("WAWebABProps").getABPropConfigValue("channels_t_enabled") === !0
       );
     }
-    function Tt() {
+    function Dt() {
       return o("WAWebABProps").getABPropConfigValue(
         "channel_status_consumption",
       );
     }
-    function Dt() {
+    function xt() {
       return o("WAWebABProps").getABPropConfigValue("channel_status_creation");
     }
-    function xt() {
+    function $t() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_status_consumption_entrypoints",
       );
     }
-    function $t() {
-      return Tt() && xt() >= 1;
-    }
     function Pt() {
-      return Tt() && xt() >= 2;
+      return Dt() && $t() >= 1;
     }
     function Nt() {
-      return Tt() && xt() >= 3;
+      return Dt() && $t() >= 2;
     }
     function Mt() {
+      return Dt() && $t() >= 3;
+    }
+    function wt() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_pulse_on_unread_badge_enabled",
       );
@@ -824,37 +829,38 @@ __d(
       (l.isWamoSubExperienceEnabled = et),
       (l.isWamoSubLoggingEnabled = tt),
       (l.isNewsletterAlbumsV2ReceiverEnabled = nt),
-      (l.getNewsletterLoggingMediaID = rt),
-      (l.isNewsletterVideoPlaybackLoggingEnabled = ot),
-      (l.isNewsletterVideoPlayLoggingEnabled = at),
-      (l.isCometVideoPlayerEnabled = it),
-      (l.isNewsletterQuickForwardingEnabled = lt),
-      (l.isNewsletterOpenQPLImprovementsEnabled = st),
-      (l.isNewsletterOpenQPLUserRidLoggingEnabled = ut),
-      (l.isNewsletterMultiAdminLidMigrationEnabled = ct),
-      (l.isRCATFieldGenerationEnabled = dt),
-      (l.isChannelCreationFromUpdatesTabEnabled = mt),
-      (l.getChannelCreationFromDirectoryMode = pt),
-      (l.isChannelInviteContactsToFollowConsumerEnabled = _t),
-      (l.isChannelInviteContactsToFollowProducerEnabled = ft),
-      (l.isChannelInviteContactsToFollowSenderLoggingEnabled = gt),
-      (l.isChannelInviteContactsToFollowReceiverLoggingEnabled = ht),
-      (l.isChannelInviteContactsToFollowInvalidDroppingEnabled = yt),
-      (l.isChannelInviteContactsToFollowCreationModalEnabled = Ct),
-      (l.MAX_FOLLOWER_INVITES = bt),
-      (l.isChannelEnforcementLoggingEnabled = vt),
-      (l.isChannelDSA26ReceiverEnabled = St),
-      (l.isChannelDSA26SenderEnabled = Rt),
-      (l.isNewsletterAdminProfilesReceiverEnabled = Lt),
-      (l.isNewsletterAdminProfilesForwardingEnabled = Et),
-      (l.isNewsletterAdminProfilesListEnabled = kt),
-      (l.isChannelsInChatListEnabled = It),
-      (l.isNewsletterStatusReceiverEnabled = Tt),
-      (l.isNewsletterStatusCreationEnabled = Dt),
-      (l.isNewsletterStatusProfileRingEnabled = $t),
-      (l.isNewsletterStatusThreadRingEnabled = Pt),
-      (l.isNewsletterStatusAllEntrypointsEnabled = Nt),
-      (l.isNewsletterTabPulseEnabled = Mt));
+      (l.isNewsletterAlbumsV2SenderEnabled = rt),
+      (l.getNewsletterLoggingMediaID = ot),
+      (l.isNewsletterVideoPlaybackLoggingEnabled = at),
+      (l.isNewsletterVideoPlayLoggingEnabled = it),
+      (l.isCometVideoPlayerEnabled = lt),
+      (l.isNewsletterQuickForwardingEnabled = st),
+      (l.isNewsletterOpenQPLImprovementsEnabled = ut),
+      (l.isNewsletterOpenQPLUserRidLoggingEnabled = ct),
+      (l.isNewsletterMultiAdminLidMigrationEnabled = dt),
+      (l.isRCATFieldGenerationEnabled = mt),
+      (l.isChannelCreationFromUpdatesTabEnabled = pt),
+      (l.getChannelCreationFromDirectoryMode = _t),
+      (l.isChannelInviteContactsToFollowConsumerEnabled = ft),
+      (l.isChannelInviteContactsToFollowProducerEnabled = gt),
+      (l.isChannelInviteContactsToFollowSenderLoggingEnabled = ht),
+      (l.isChannelInviteContactsToFollowReceiverLoggingEnabled = yt),
+      (l.isChannelInviteContactsToFollowInvalidDroppingEnabled = Ct),
+      (l.isChannelInviteContactsToFollowCreationModalEnabled = bt),
+      (l.MAX_FOLLOWER_INVITES = vt),
+      (l.isChannelEnforcementLoggingEnabled = St),
+      (l.isChannelDSA26ReceiverEnabled = Rt),
+      (l.isChannelDSA26SenderEnabled = Lt),
+      (l.isNewsletterAdminProfilesReceiverEnabled = Et),
+      (l.isNewsletterAdminProfilesForwardingEnabled = kt),
+      (l.isNewsletterAdminProfilesListEnabled = It),
+      (l.isChannelsInChatListEnabled = Tt),
+      (l.isNewsletterStatusReceiverEnabled = Dt),
+      (l.isNewsletterStatusCreationEnabled = xt),
+      (l.isNewsletterStatusProfileRingEnabled = Pt),
+      (l.isNewsletterStatusThreadRingEnabled = Nt),
+      (l.isNewsletterStatusAllEntrypointsEnabled = Mt),
+      (l.isNewsletterTabPulseEnabled = wt));
   },
   98,
 );

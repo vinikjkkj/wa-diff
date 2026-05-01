@@ -214,9 +214,10 @@ __d(
           .MEDIA_POLL:
           return { metaMessageAssociationType: "media_poll" };
         case o("WAWebMessageAssociation.flow").MessageAssociationType
-          .BOT_PLUGIN:
-        case o("WAWebMessageAssociation.flow").MessageAssociationType
           .MEDIA_ALBUM:
+          return null;
+        case o("WAWebMessageAssociation.flow").MessageAssociationType
+          .BOT_PLUGIN:
         case o("WAWebMessageAssociation.flow").MessageAssociationType
           .HD_IMAGE_DUAL_UPLOAD:
         case o("WAWebMessageAssociation.flow").MessageAssociationType

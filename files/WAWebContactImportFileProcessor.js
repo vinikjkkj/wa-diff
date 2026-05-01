@@ -207,10 +207,10 @@ __d(
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[contact-import:file-processor] Starting file processing: ",
+                "[contact-import] processing: ",
                 " (",
                 ", ",
-                " bytes)",
+                "B)",
               ])),
             t.name,
             a,

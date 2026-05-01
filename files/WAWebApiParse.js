@@ -43,7 +43,7 @@ __d(
       g = /^https?:\/\/chat\.whatsapp\.com\/(\w+)(?:\?.*)?$/i,
       h = /^whatsapp:\/\/chat\/?\?code=(\w+)(?:&.*)?$/i,
       y = function (t) {
-        var e = qe(t),
+        var e = Ve(t),
           n = t.match(_);
         if (n)
           return babelHelpers.extends(
@@ -246,7 +246,7 @@ __d(
           n.ctwaContextLinkData && (n.ctwaContextLinkData.phone = n.phone)),
         n.ctwaContextLinkData == null)
       ) {
-        var i = Fe(t);
+        var i = Be(t);
         i != null && (n.partnertoken = i);
       }
       if (
@@ -259,8 +259,9 @@ __d(
     }
     var $ = /^whatsapp:\/\/newchat\/?$/i,
       P = /^whatsapp:\/\/chatOpen\/?(\?.*)?$/i,
-      N = /^whatsapp:\/\/appOpen\/?(\?.*)?$/i;
-    function M(e) {
+      N = /^whatsapp:\/\/appOpen\/?(\?.*)?$/i,
+      M = /^whatsapp:\/\/oidc_callback\/?(\?.*)?$/i;
+    function w(e) {
       var t = e.match(P);
       if (!t) return null;
       var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[1]),
@@ -277,7 +278,7 @@ __d(
         ),
       };
     }
-    function w(e) {
+    function A(e) {
       var t = e.match(N);
       if (!t) return null;
       var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[1]),
@@ -287,141 +288,154 @@ __d(
         !r("isStringNullOrEmpty")(a) && { data: { session: a } },
       );
     }
-    var A = /^whatsapp:\/\/newcall\/?(\?.*)?$/i,
-      F = new RegExp(
+    function F(e) {
+      var t = e.match(M);
+      if (!t) return null;
+      var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[1]),
+        a = n.get("code"),
+        i = n.get("state");
+      return r("isStringNullOrEmpty")(a) || r("isStringNullOrEmpty")(i)
+        ? { resultType: o("WAWebApi").APICmd.INVALID }
+        : {
+            resultType: o("WAWebApi").APICmd.OIDC_CALLBACK,
+            data: { code: a, state: i },
+          };
+    }
+    var O = /^whatsapp:\/\/newcall\/?(\?.*)?$/i,
+      B = new RegExp(
         "^" + p.ORIGIN + p.OPTIONAL_PATH_PART + "/forward/?\\?(.+)$",
         "i",
       ),
-      O = new RegExp(
+      W = new RegExp(
         "^" + p.ORIGIN + p.OPTIONAL_PATH_PART + "/send/?\\?(.+)$",
         "i",
       ),
-      B = /^https?:\/\/api\.whatsapp\.com\/send\/?\?(.+)$/i,
-      W = /^whatsapp:\/\/send\/?\?(.*)$/i,
-      q =
+      q = /^https?:\/\/api\.whatsapp\.com\/send\/?\?(.+)$/i,
+      U = /^whatsapp:\/\/send\/?\?(.*)$/i,
+      V =
         /^https?:\/\/wa\.me\/([0-9.]{1,20})\/signup\/([^/?]+)\/?(?:\?(.+))?$/i,
-      U = /^https?:\/\/wa\.me\/?(?:([0-9.]{0,20}))\/?\??(.+)?$/i,
-      V = /^https?:\/\/wa\.me\/?(?:([0-9a-z.]{5,35}))?\/?\??(.+)?$/i,
-      H =
+      H = /^https?:\/\/wa\.me\/?(?:([0-9.]{0,20}))\/?\??(.+)?$/i,
+      G = /^https?:\/\/wa\.me\/?(?:([0-9a-z.]{5,35}))?\/?\??(.+)?$/i,
+      z =
         /^https?:\/\/wa\.me\/?@?(?:([0-9a-z._]{3,30}))(?::([^?/]+))?(\/?\?(.*))?$/i,
-      G = /^https?:\/\/wa\.me\/p\/([0-9]{0,20})\/([0-9]{0,20})$/i,
-      z = /^whatsapp:\/\/product\/([0-9]{0,20})\/([0-9]{0,20})$/i,
-      j = new RegExp(
+      j = /^https?:\/\/wa\.me\/p\/([0-9]{0,20})\/([0-9]{0,20})$/i,
+      K = /^whatsapp:\/\/product\/([0-9]{0,20})\/([0-9]{0,20})$/i,
+      Q = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/product/([0-9]{0,20})/([0-9]{0,20})$",
         "i",
       ),
-      K = /^https?:\/\/wa\.me\/p\/([0-9]{0,20})\/([0-9]{0,20})(\/?\?.*)$/i,
-      Q = /^whatsapp:\/\/product\/([0-9]{0,20})\/([0-9]{0,20})(\/?\?.*)$/i,
-      X = new RegExp(
+      X = /^https?:\/\/wa\.me\/p\/([0-9]{0,20})\/([0-9]{0,20})(\/?\?.*)$/i,
+      Y = /^whatsapp:\/\/product\/([0-9]{0,20})\/([0-9]{0,20})(\/?\?.*)$/i,
+      J = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/product/([0-9]{0,20})/([0-9]{0,20})(/?.*)$",
         "i",
       ),
-      Y = /^https?:\/\/wa\.me\/p\/([^\/]{0,200})\/([0-9]{0,20})$/i,
-      J = /^whatsapp:\/\/product\/([^\/]{0,200})\/([0-9]{0,20})$/i,
-      Z = new RegExp(
+      Z = /^https?:\/\/wa\.me\/p\/([^\/]{0,200})\/([0-9]{0,20})$/i,
+      ee = /^whatsapp:\/\/product\/([^\/]{0,200})\/([0-9]{0,20})$/i,
+      te = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/product/([^/]{0,200})/([0-9]{0,20})$",
         "i",
       ),
-      ee = /^https?:\/\/wa\.me\/p\/([^\/]{0,200})\/([0-9]{0,20})(\/?\?.*)$/i,
-      te = /^whatsapp:\/\/product\/([^\/]{0,200})\/([0-9]{0,20})(\/?\?.*)$/i,
-      ne = new RegExp(
+      ne = /^https?:\/\/wa\.me\/p\/([^\/]{0,200})\/([0-9]{0,20})(\/?\?.*)$/i,
+      re = /^whatsapp:\/\/product\/([^\/]{0,200})\/([0-9]{0,20})(\/?\?.*)$/i,
+      oe = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/product/([^/]{0,200})/([0-9]{0,20})(/?.*)$",
         "i",
       ),
-      re = /^https?:\/\/wa\.me\/biz-add-product\/?(.+)$/i,
-      oe = /^whatsapp-smb:\/\/advertise\/?(.+)$/i,
-      ae = /^whatsapp-smb:\/\/manage-ads\/?(?:\?.*)?$/,
-      ie = /^https?:\/\/wa\.me\/pay\/br\/merchant\/pix\/add\/?(.+)$/i,
-      le = /^https?:\/\/faq\.whatsapp\.com\/1013401987232838\/?(.+)$/i,
-      se = new RegExp(
+      ae = /^https?:\/\/wa\.me\/biz-add-product\/?(.+)$/i,
+      ie = /^whatsapp-smb:\/\/advertise\/?(.+)$/i,
+      le = /^whatsapp-smb:\/\/manage-ads\/?(?:\?.*)?$/,
+      se = /^https?:\/\/wa\.me\/pay\/br\/merchant\/pix\/add\/?(.+)$/i,
+      ue = /^https?:\/\/faq\.whatsapp\.com\/1013401987232838\/?(.+)$/i,
+      ce = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_PATH_PART +
           "/pay/br/merchant/pix/add/?(.+)$",
         "i",
       ),
-      ue = /^whatsapp-smb:\/\/biztab\/manage-data-sharing\/?(?:\?.*)?$/i,
-      ce = /^whatsapp-smb:\/\/biz-agents-onboarding\/?(?:\?.*)?$/i,
-      de = /^whatsapp-smb:\/\/biz-broadcast-audience-modal\/?(?:\?.*)?$/i,
-      me = /^whatsapp-smb:\/\/biz-broadcast-home\/?(?:\?.*)?$/i,
-      pe = /^https?:\/\/wa\.me\/biz-catalog-settings\/?(.+)$/i,
-      _e = /^https?:\/\/wa\.me\/biz-catalog-boost\/?(.+)$/i,
-      fe = /^whatsapp:\/\/message_yourself\/?(?:\?.*)?$/i,
-      ge = /^https?:\/\/wa\.me\/message_yourself\/?(?:\?.*)?$/i,
-      he = new RegExp(
+      de = /^whatsapp-smb:\/\/biztab\/manage-data-sharing\/?(?:\?.*)?$/i,
+      me = /^whatsapp-smb:\/\/biz-agents-onboarding\/?(?:\?.*)?$/i,
+      pe = /^whatsapp-smb:\/\/biz-broadcast-audience-modal\/?(?:\?.*)?$/i,
+      _e = /^whatsapp-smb:\/\/biz-broadcast-home\/?(?:\?.*)?$/i,
+      fe = /^https?:\/\/wa\.me\/biz-catalog-settings\/?(.+)$/i,
+      ge = /^https?:\/\/wa\.me\/biz-catalog-boost\/?(.+)$/i,
+      he = /^whatsapp:\/\/message_yourself\/?(?:\?.*)?$/i,
+      ye = /^https?:\/\/wa\.me\/message_yourself\/?(?:\?.*)?$/i,
+      Ce = new RegExp(
         "^" + p.ORIGIN + p.OPTIONAL_PATH_PART + "/calluser/?\\?(.+)$",
         "i",
       ),
-      ye = /^https?:\/\/wa\.me\/call\?\\?(.+)$/i,
-      Ce = new RegExp(
+      be = /^https?:\/\/wa\.me\/call\?\\?(.+)$/i,
+      ve = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/reg/wacom[/\\?]{0,2}(.*)$",
         "i",
       ),
-      be = [G, z, Y, J],
-      ve = [j, Z],
-      Se = [X, ne],
-      Re = [K, Q, ee, te],
-      Le = [].concat(be, ve, Se, Re);
-    function Ee(e, t) {
+      Se = [j, K, Z, ee],
+      Re = [Q, te],
+      Le = [J, oe],
+      Ee = [X, Y, ne, re],
+      ke = [].concat(Se, Re, Le, Ee);
+    function Ie(e, t) {
       for (var n = 0; n < t.length; n++) {
         var r = e.match(t[n]);
         if (r) return r;
       }
     }
-    var ke = function (t) {
-        return Ee(t, Le) != null;
+    var Te = function (t) {
+        return Ie(t, ke) != null;
       },
-      Ie = new RegExp(
+      De = new RegExp(
         "^" + p.ORIGIN + p.OPTIONAL_NON_CAPTURING_PATH_PART + "/push/",
         "i",
       ),
-      Te = /^https?:\/\/wa\.me\/c\/([0-9]{0,20})(?:\?.*)?$/i,
-      De = /^whatsapp:\/\/catalog\/([0-9]{0,20})(?:\?.*)?$/i,
-      xe = new RegExp(
+      xe = /^https?:\/\/wa\.me\/c\/([0-9]{0,20})(?:\?.*)?$/i,
+      $e = /^whatsapp:\/\/catalog\/([0-9]{0,20})(?:\?.*)?$/i,
+      Pe = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/catalog/([0-9]{0,20})?$",
         "i",
       ),
-      $e = new RegExp(
+      Ne = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/catalog/([0-9]{0,20})(/?.*)?$",
         "i",
       ),
-      Pe = function (t) {
-        return [Te, De, xe, $e].some(function (e) {
+      Me = function (t) {
+        return [xe, $e, Pe, Ne].some(function (e) {
           return t.match(e);
         });
       },
-      Ne = /^https?:\/\/wa\.me\/favorites\/?(?:\\?.*)?$/i,
-      Me = new RegExp(
+      we = /^https?:\/\/wa\.me\/favorites\/?(?:\\?.*)?$/i,
+      Ae = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/favorites/?(?:\\?.*)?$",
         "i",
       );
-    function we(e) {
+    function Fe(e) {
       if (o("WAWebUsernameGatingUtils").usernameSearchEnabled()) {
-        var t = e.match(H);
+        var t = e.match(z);
         if (t) {
           var n = null;
           t[1] && (n = { username: t[1] });
@@ -439,21 +453,21 @@ __d(
             a != null && (n = babelHelpers.extends({}, n, a));
           }
           if (n != null) {
-            var i = Fe(e);
+            var i = Be(e);
             i != null && (n = babelHelpers.extends({}, n, { partnertoken: i }));
           }
           return n;
         }
       }
     }
-    function Ae(t) {
-      var n = t.match(O);
+    function Oe(t) {
+      var n = t.match(W);
       if (n) {
         var r = x(n[2], t);
         if (r) return ((r.url = n[1] || "/"), r);
       }
-      if (((n = t.match(B)), n || ((n = t.match(W)), n))) return x(n[1], t);
-      if (((n = t.match(q)), n)) {
+      if (((n = t.match(q)), n || ((n = t.match(U)), n))) return x(n[1], t);
+      if (((n = t.match(V)), n)) {
         var a = { phone: n[1] + "@c.us" },
           i = n[2];
         if ((R.test(i) && (a.signupId = i), n[3])) {
@@ -464,12 +478,12 @@ __d(
             a = babelHelpers.extends({}, a, u);
           }
         }
-        var c = Fe(t);
+        var c = Be(t);
         return (c != null && (a.partnertoken = c), a);
       }
-      if (((n = t.match(U)), n)) {
+      if (((n = t.match(H)), n)) {
         var d,
-          m = t.match(V);
+          m = t.match(G);
         if (
           (n[1]
             ? (d = { phone: n[1] + "@c.us" })
@@ -477,22 +491,22 @@ __d(
               m[1] &&
               !m[2] &&
               ((d = { url: t, customUrl: m[1] }),
-              (d = babelHelpers.extends({}, d, we(t)))),
+              (d = babelHelpers.extends({}, d, Fe(t)))),
           n[2])
         ) {
           var p = x(n[2], t);
           p && (d = babelHelpers.extends({}, d, p));
         }
         if (d) {
-          var _ = Fe(t);
+          var _ = Be(t);
           _ != null && (d.partnertoken = _);
         }
         if (d != null || !o("WAWebUsernameGatingUtils").usernameSearchEnabled())
           return d;
       }
-      return we(t);
+      return Fe(t);
     }
-    function Fe(e) {
+    function Be(e) {
       var t = o("WAWebExternalCtxConfig").getExternalCtxUrlParamNames(),
         n = new URL(e);
       for (var r of t) {
@@ -501,9 +515,9 @@ __d(
       }
       return null;
     }
-    var Oe = /^https?:\/\/wa\.me\/community\/create\/?(\?(.*))?$/i;
-    function Be(e) {
-      var t = e.match(Oe);
+    var We = /^https?:\/\/wa\.me\/community\/create\/?(\?(.*))?$/i;
+    function qe(e) {
+      var t = e.match(We);
       if (t) {
         var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[1]).get(
           "entrypoint",
@@ -511,12 +525,12 @@ __d(
         return { url: "/", entrypointType: n };
       }
     }
-    function We(e, t) {
+    function Ue(e, t) {
       var n = { catalogOwnerJid: e[1] + "@s.whatsapp.net" },
-        r = Fe(t);
+        r = Be(t);
       return (r != null && (n.partnertoken = r), n);
     }
-    function qe(e) {
+    function Ve(e) {
       var t = new (r("WAWebPonyfillsUrlSearchParams"))(e),
         n = t.get(C),
         o = t.get(b);
@@ -524,44 +538,44 @@ __d(
       var a = {};
       return (n != null && (a.source = n), o != null && (a.campaign = o), a);
     }
-    function Ue(e) {
-      var t = e.match(Te) || e.match(De);
-      if (t) return We(t, e);
-      if (((t = e.match(xe)), t))
-        return babelHelpers.extends({}, We(t, e), { url: "/" });
-      if (((t = e.match($e)), t)) {
-        var n = qe(t[2]);
-        return babelHelpers.extends({}, We(t, e), n != null && { utm: n }, {
+    function He(e) {
+      var t = e.match(xe) || e.match($e);
+      if (t) return Ue(t, e);
+      if (((t = e.match(Pe)), t))
+        return babelHelpers.extends({}, Ue(t, e), { url: "/" });
+      if (((t = e.match(Ne)), t)) {
+        var n = Ve(t[2]);
+        return babelHelpers.extends({}, Ue(t, e), n != null && { utm: n }, {
           url: "/",
         });
       }
     }
-    function Ve(e, t) {
+    function Ge(e, t) {
       var n = { productId: e[1], businessOwnerJid: e[2] + "@s.whatsapp.net" },
-        r = Fe(t);
+        r = Be(t);
       return (r != null && (n.partnertoken = r), n);
     }
-    function He(e) {
-      var t = Ee(e, be);
-      if (t) return Ve(t, e);
-      if (((t = Ee(e, ve)), t))
-        return babelHelpers.extends({}, Ve(t, e), { url: "/" });
-      if (((t = Ee(e, Se)), t)) {
-        var n = qe(t[3]);
-        return babelHelpers.extends({}, Ve(t, e), n != null && { utm: n }, {
+    function ze(e) {
+      var t = Ie(e, Se);
+      if (t) return Ge(t, e);
+      if (((t = Ie(e, Re)), t))
+        return babelHelpers.extends({}, Ge(t, e), { url: "/" });
+      if (((t = Ie(e, Le)), t)) {
+        var n = Ve(t[3]);
+        return babelHelpers.extends({}, Ge(t, e), n != null && { utm: n }, {
           url: "/",
         });
       }
-      if (((t = Ee(e, Re)), t)) {
-        var r = qe(t[3]);
-        return babelHelpers.extends({}, Ve(t, e), r != null && { utm: r });
+      if (((t = Ie(e, Ee)), t)) {
+        var r = Ve(t[3]);
+        return babelHelpers.extends({}, Ge(t, e), r != null && { utm: r });
       }
     }
-    function Ge(e) {
-      var t = e.match(Ie);
+    function je(e) {
+      var t = e.match(De);
       if (t) return { url: "/" };
     }
-    function ze(e) {
+    function Ke(e) {
       var t = new (r("WAWebPonyfillsUrlSearchParams"))(e),
         n = t.get("wa_campaign_id");
       if (!(n == null || n === "")) {
@@ -571,19 +585,19 @@ __d(
           : { campaignId: n, campaignType: o };
       }
     }
-    function je(e) {
-      var t = e.match(oe);
-      if (t) return ze(t[1]);
-    }
-    function Ke(e) {
-      var t = e.match(re);
-      if (t) return ze(t[1]);
-    }
     function Qe(e) {
-      var t = e.match(ie),
+      var t = e.match(ie);
+      if (t) return Ke(t[1]);
+    }
+    function Xe(e) {
+      var t = e.match(ae);
+      if (t) return Ke(t[1]);
+    }
+    function Ye(e) {
+      var t = e.match(se),
         n = null;
-      if ((t ? (n = t[1]) : ((t = e.match(se)), t && (n = t[2])), n != null)) {
-        var r = ze(n);
+      if ((t ? (n = t[1]) : ((t = e.match(ce)), t && (n = t[2])), n != null)) {
+        var r = Ke(n);
         if (r)
           return {
             resultType: "BRAZIL_PAYMENTS",
@@ -592,8 +606,8 @@ __d(
             }),
           };
       }
-      if (((t = e.match(le)), t)) {
-        var a = ze(t[1]);
+      if (((t = e.match(ue)), t)) {
+        var a = Ke(t[1]);
         if (a)
           return {
             resultType: "BRAZIL_PAYMENTS",
@@ -604,19 +618,19 @@ __d(
       }
       return null;
     }
-    function Xe(e) {
-      var t = e.match(pe);
+    function Je(e) {
+      var t = e.match(fe);
       if (t) {
-        var n = ze(t[1]);
+        var n = Ke(t[1]);
         if ((n == null ? void 0 : n.campaignType) === "chat_psa")
           return {
             deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
               .DEEP_LINK_CATALOG_SETTINGS,
           };
       }
-      var r = e.match(_e);
+      var r = e.match(ge);
       if (r) {
-        var a = ze(r[1]);
+        var a = Ke(r[1]);
         if ((a == null ? void 0 : a.campaignType) === "chat_psa")
           return {
             deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
@@ -624,51 +638,51 @@ __d(
           };
       }
     }
-    function Ye(e) {
+    function Ze(e) {
       return o("WAWebPaymentLinkUrlMetaData").getPaymentLinkUrlMetaData(e);
     }
-    var Je = /^https?:\/\/wa\.me\/stickerpack\/meta-avatar$/i,
-      Ze = /^https?:\/\/wa\.me\/edit-profile-picture$/i,
-      et =
+    var et = /^https?:\/\/wa\.me\/stickerpack\/meta-avatar$/i,
+      tt = /^https?:\/\/wa\.me\/edit-profile-picture$/i,
+      nt =
         /^(?:https?:\/\/wa\.me\/profile\/username|whatsapp:\/\/profile\/username)(?:\?.*)?$/i,
-      tt = /^https?:\/\/wa\.me\/stickerpack\/(?!meta-avatar)/i;
-    function nt(e) {
-      var t = e.match(tt);
+      rt = /^https?:\/\/wa\.me\/stickerpack\/(?!meta-avatar)/i;
+    function ot(e) {
+      var t = e.match(rt);
       return t != null;
     }
-    function rt(e) {
-      var t = e.match(Je);
+    function at(e) {
+      var t = e.match(et);
       return !!t;
     }
-    var ot = /^https?:\/\/wa\.me\/ais\/(\d{14,20})\/?(\?.*)?$/i,
-      at = new RegExp(
+    var it = /^https?:\/\/wa\.me\/ais\/(\d{14,20})\/?(\?.*)?$/i,
+      lt = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/ais/(\\d{14,20})/?(\\?.*)?$",
         "i",
       );
-    function it(e) {
+    function st(e) {
       var t,
         n,
         r = (
-          (t = (n = e.match(ot)) != null ? n : e.match(at)) != null ? t : []
+          (t = (n = e.match(it)) != null ? n : e.match(lt)) != null ? t : []
         )[1];
       return r
         ? { resultType: o("WAWebApi").APICmd.UGC_BOT, data: { fbid: r } }
         : null;
     }
-    var lt = /^https?:\/\/wa\.me\/man\/link(?:\?(.*))?$/i,
-      st = new RegExp(
+    var ut = /^https?:\/\/wa\.me\/man\/link(?:\?(.*))?$/i,
+      ct = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/man/link(?:\\?(.*))?$",
         "i",
       );
-    function ut(e) {
+    function dt(e) {
       var t,
-        n = (t = e.match(lt)) != null ? t : e.match(st);
+        n = (t = e.match(ut)) != null ? t : e.match(ct);
       if (n != null) {
         var r = null;
         if (n[1] != null) {
@@ -682,17 +696,17 @@ __d(
       }
       return null;
     }
-    var ct = /^https?:\/\/wa\.me\/hatch\/link(?:\?(.*))?$/i,
-      dt = new RegExp(
+    var mt = /^https?:\/\/wa\.me\/hatch\/link(?:\?(.*))?$/i,
+      pt = new RegExp(
         "^" +
           p.ORIGIN +
           p.OPTIONAL_NON_CAPTURING_PATH_PART +
           "/hatch/link(?:\\?(.*))?$",
         "i",
       );
-    function mt(e) {
+    function _t(e) {
       var t,
-        n = (t = e.match(ct)) != null ? t : e.match(dt);
+        n = (t = e.match(mt)) != null ? t : e.match(pt);
       if (n != null) {
         var r = null;
         if (n[1] != null) {
@@ -706,8 +720,8 @@ __d(
       }
       return null;
     }
-    function pt(e) {
-      if (nt(e)) {
+    function ft(e) {
+      if (ot(e)) {
         var t = new URL(e),
           n = t.pathname.split("/"),
           r = n[0],
@@ -716,16 +730,16 @@ __d(
         return a;
       }
     }
-    function _t(e) {
-      var t = e.match(tt);
+    function gt(e) {
+      var t = e.match(rt);
       if (t) {
-        var n = pt(e);
+        var n = ft(e);
         return { resultType: "STICKER_PACK", data: { url: n } };
       }
     }
-    var ft = /^https:\/\/call\.whatsapp\.com\/(video|voice)\/(\w+)(?:\?.*)?$/i,
-      gt = /^whatsapp:\/\/call\/(video|voice)\/(\w+)(?:\?.*)?$/i;
-    function ht(e) {
+    var ht = /^https:\/\/call\.whatsapp\.com\/(video|voice)\/(\w+)(?:\?.*)?$/i,
+      yt = /^whatsapp:\/\/call\/(video|voice)\/(\w+)(?:\?.*)?$/i;
+    function Ct(e) {
       var t = e.get("audio_device"),
         n = e.get("speaker_device"),
         r = e.get("video_device"),
@@ -742,7 +756,7 @@ __d(
         audioMuted: e.get("audio_muted") === "1",
       };
     }
-    function yt(e) {
+    function bt(e) {
       var t = e.indexOf("?");
       if (t === -1) return null;
       var n = new (r("WAWebPonyfillsUrlSearchParams"))(e.slice(t));
@@ -759,14 +773,14 @@ __d(
           ])),
         e,
       );
-      var l = ht(n);
+      var l = Ct(n);
       return {
         resultType: "CALL_LINK",
         data: babelHelpers.extends({ token: i, callType: a }, l),
       };
     }
-    function Ct(e) {
-      var t = e.match(ft) || e.match(gt);
+    function vt(e) {
+      var t = e.match(ht) || e.match(yt);
       if (t)
         return (
           o("WALogger").LOG(
@@ -779,14 +793,14 @@ __d(
           ),
           { resultType: "CALL_LINK", data: { token: t[2], callType: t[1] } }
         );
-      var n = yt(e);
+      var n = bt(e);
       if (n != null) return n;
     }
-    function bt(e) {
-      return Ct(e) != null;
+    function St(e) {
+      return vt(e) != null;
     }
-    function vt(e) {
-      var t = e.match(Ce);
+    function Rt(e) {
+      var t = e.match(ve);
       if (t && t[0]) {
         var n = new URL(e),
           a = new (r("WAWebPonyfillsUrlSearchParams"))(n.search),
@@ -817,13 +831,13 @@ __d(
         );
       }
     }
-    function St() {
+    function Lt() {
       var e = new (r("WAWebPonyfillsUrlSearchParams"))(window.location.search),
         t = e.get("work_contact_sync_data");
       return t != null && t !== "" ? { compressedData: t } : null;
     }
-    function Rt(e) {
-      var t = e.match(F);
+    function Et(e) {
+      var t = e.match(B);
       if (!t) return null;
       var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[2]);
       if (!n.has("session_id")) return null;
@@ -846,19 +860,19 @@ __d(
         utmCampaign: i != null ? i : void 0,
       };
     }
-    function Lt(e, t) {
+    function kt(e, t) {
       if (typeof e != "string")
         return { resultType: o("WAWebApi").APICmd.INVALID };
       var n = y(e);
       if (n) return { resultType: o("WAWebApi").APICmd.GROUP_INVITE, data: n };
-      var a = Ue(e);
+      var a = He(e);
       if (a) return { resultType: o("WAWebApi").APICmd.CATALOG, data: a };
-      var i = He(e);
+      var i = ze(e);
       if (i) return { resultType: o("WAWebApi").APICmd.PRODUCT, data: i };
-      var l = Be(e);
+      var l = qe(e);
       if (l)
         return { resultType: o("WAWebApi").APICmd.CREATE_COMMUNITY, data: l };
-      var s = rt(e);
+      var s = at(e);
       if (s) return { resultType: o("WAWebApi").APICmd.AVATAR_STICKERPACK };
       var u = o("WAWebNewsletterStatusApiParse").parseNewsletterStatusDeeplink(
         e,
@@ -875,13 +889,13 @@ __d(
       var m = o("WAWebNewsletterApiParse").parseNewsletter(e, t);
       if (m) return { resultType: o("WAWebApi").APICmd.NEWSLETTER, data: m };
       if (
-        [fe, ge].some(function (t) {
+        [he, ye].some(function (t) {
           return e.match(t);
         })
       )
         return { resultType: o("WAWebApi").APICmd.MESSAGE_YOURSELF };
       if (
-        [Ne, Me].some(function (t) {
+        [we, Ae].some(function (t) {
           return e.match(t);
         })
       )
@@ -889,16 +903,16 @@ __d(
           resultType: o("WAWebApi").APICmd.FAVORITES,
           data: { url: "/" },
         };
-      var p = Ke(e);
+      var p = Xe(e);
       if (p != null)
         return { resultType: o("WAWebApi").APICmd.OPEN_CATALOG, data: p };
-      var _ = Xe(e);
+      var _ = Je(e);
       if (_ != null)
         return {
           resultType: o("WAWebApi").APICmd.CATALOG_LINKING_CHAT_PSA,
           data: _,
         };
-      var f = _t(e);
+      var f = gt(e);
       if (f) {
         var g;
         return {
@@ -906,20 +920,20 @@ __d(
           data: { url: (g = f.data.url) != null ? g : "" },
         };
       }
-      var h = Ge(e);
+      var h = je(e);
       if (h)
         return { resultType: o("WAWebApi").APICmd.PUSH_NOTIFICATION, data: h };
-      var C = je(e);
+      var C = Qe(e);
       if (C != null)
         return { resultType: o("WAWebApi").APICmd.ADVERTISE, data: C };
-      var b = Ct(e);
+      var b = vt(e);
       if (b) return b;
-      if (e.match(ae))
+      if (e.match(le))
         return {
           resultType: o("WAWebApi").APICmd.MANAGE_ADS,
           trigger: "chatListBanner",
         };
-      if (e.match(ue)) {
+      if (e.match(de)) {
         var v = new URL(e),
           S = v.searchParams.get("source");
         return {
@@ -927,13 +941,13 @@ __d(
           source: S != null ? S : "unknown",
         };
       }
-      if (e.match(ce))
+      if (e.match(me))
         return { resultType: o("WAWebApi").APICmd.BIZ_AGENTS_ONBOARDING };
-      if (e.match(de))
+      if (e.match(pe))
         return {
           resultType: o("WAWebApi").APICmd.BIZ_BROADCAST_AUDIENCE_MODAL,
         };
-      if (e.match(me)) {
+      if (e.match(_e)) {
         var R = new URL(e),
           L = R.searchParams.get("source");
         return {
@@ -941,11 +955,11 @@ __d(
           source: L != null ? L : "unknown",
         };
       }
-      var E = Qe(e);
+      var E = Ye(e);
       if (E) return E;
-      if (e.match(Ze))
+      if (e.match(tt))
         return { resultType: o("WAWebApi").APICmd.EDIT_PROFILE_PICTURE };
-      var k = e.match(et);
+      var k = e.match(nt);
       if (k) {
         var I,
           T = new URL(e.replace("whatsapp://", "https://")),
@@ -959,7 +973,7 @@ __d(
         o("WAWebABProps").getABPropConfigValue(
           "wa_web_calling_deep_link_error",
         ) &&
-        [he, ye].some(function (t) {
+        [Ce, be].some(function (t) {
           return e.match(t);
         })
       )
@@ -967,54 +981,56 @@ __d(
           resultType: o("WAWebApi").APICmd.CALL_USER,
           data: { url: "/" },
         };
-      var x = Ye(e);
+      var x = Ze(e);
       if (x != null)
         return { resultType: o("WAWebApi").APICmd.PAYMENT_LINK, data: x };
-      var P = ut(e);
+      var P = dt(e);
       if (P != null) return P;
-      var N = mt(e);
+      var N = _t(e);
       if (N != null) return N;
-      var F = it(e);
-      if (F) return F;
-      var O = Ae(e);
-      if (O) return { resultType: o("WAWebApi").APICmd.MSG_SEND, data: O };
-      var B = vt(e);
-      if (B != null)
+      var M = st(e);
+      if (M) return M;
+      var B = Oe(e);
+      if (B) return { resultType: o("WAWebApi").APICmd.MSG_SEND, data: B };
+      var W = Rt(e);
+      if (W != null)
         return {
           resultType: o("WAWebApi").APICmd.WEB_REGISTRATION_CAMPAIGN,
-          data: B,
+          data: W,
         };
-      var W = M(e);
-      if (W != null) return W;
       var q = w(e);
       if (q != null) return q;
+      var U = A(e);
+      if (U != null) return U;
+      var V = F(e);
+      if (V != null) return V;
       if (e.match($)) return { resultType: o("WAWebApi").APICmd.NEW_CHAT };
-      var U = e.match(A);
-      if (U) {
-        var V = new (r("WAWebPonyfillsUrlSearchParams"))(U[1]),
-          H = V.get("phone");
+      var H = e.match(O);
+      if (H) {
+        var G = new (r("WAWebPonyfillsUrlSearchParams"))(H[1]),
+          z = G.get("phone");
         return babelHelpers.extends(
           { resultType: o("WAWebApi").APICmd.NEW_CALL },
-          !r("isStringNullOrEmpty")(H) && { data: { phone: H } },
+          !r("isStringNullOrEmpty")(z) && { data: { phone: z } },
         );
       }
-      var G = r("gkx")("26258") ? null : St();
-      if (G)
-        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: G };
-      var z = Rt(e);
-      return z
-        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: z }
+      var j = r("gkx")("26258") ? null : Lt();
+      if (j)
+        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: j };
+      var K = Et(e);
+      return K
+        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: K }
         : { resultType: o("WAWebApi").APICmd.INVALID };
     }
     ((l.parseConversionData = E),
       (l.parseCTWADeeplinkToken = T),
-      (l.matchProductUrl = ke),
-      (l.matchCatalogUrl = Pe),
-      (l.isStickerPackURL = nt),
-      (l.parseCallLinkDevicePrefs = ht),
-      (l.parseCallLink = Ct),
-      (l.isValidCallLink = bt),
-      (l.parseAPICmd = Lt));
+      (l.matchProductUrl = Te),
+      (l.matchCatalogUrl = Me),
+      (l.isStickerPackURL = ot),
+      (l.parseCallLinkDevicePrefs = Ct),
+      (l.parseCallLink = vt),
+      (l.isValidCallLink = St),
+      (l.parseAPICmd = kt));
   },
   98,
 );

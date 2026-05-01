@@ -10,17 +10,17 @@ __d(
       var a = r("WAIsoToCc")[t],
         i = o("WAWebPhoneUtils").compileCountryRegexes(String(a));
       if (i == null) return null;
-      var l = _("" + r("WAIsoToCc")[t] + n),
+      var l = f("" + r("WAIsoToCc")[t] + n),
         s = l.phoneNumberWithoutCountryCode,
-        p = c(i),
-        f = Math.max.apply(Math, p);
-      if (s.length > f) return u(s);
-      var g = p
+        d = c(i),
+        _ = Math.max.apply(Math, d);
+      if (s.length > _) return u(s);
+      var g = d
         .filter(function (e) {
           return e >= s.length;
         })
         .map(function (e) {
-          return d(s, e);
+          return m(s, e);
         });
       for (var h of i.formats) {
         var y = h.testAndFormat(s);
@@ -28,7 +28,7 @@ __d(
         for (var C of g) {
           var b = h.testAndFormat(C);
           if (b != null)
-            return m({
+            return p({
               phoneNumberWithoutCountryCode: s,
               formattedPaddedNumber: b,
             });
@@ -47,10 +47,16 @@ __d(
             return e - t;
           });
     }
-    function d(e, t) {
+    function d(e) {
+      if (e == null) return null;
+      var t = r("WAIsoToCc")[e],
+        n = o("WAWebPhoneUtils").compileCountryRegexes(String(t));
+      return n == null ? null : Math.max.apply(Math, c(n));
+    }
+    function m(e, t) {
       return e + "_".repeat(t - e.length);
     }
-    function m(e) {
+    function p(e) {
       var t = e.formattedPaddedNumber,
         n = e.phoneNumberWithoutCountryCode;
       if (n === "") return { formattedInputValue: "", placeholder: t };
@@ -59,7 +65,7 @@ __d(
         a = o + 1;
       return { formattedInputValue: t.substr(0, a), placeholder: t.substr(a) };
     }
-    function p(e, t, n) {
+    function _(e, t, n) {
       var r = o("WAWebPhoneUtils").compileCountryRegexes(String(e));
       return r == null
         ? !1
@@ -68,9 +74,9 @@ __d(
           }) ||
             o("WAWebPhoneUtils").isValidMobileForRegistration(String(e), t, n);
     }
-    function _(e) {
+    function f(e) {
       var t = e.replaceAll(/[^\d]/g, ""),
-        n = f(t),
+        n = g(t),
         o = t;
       if (n != null) {
         var a = r("WAIsoToCc")[n];
@@ -82,12 +88,12 @@ __d(
         fullRawPhoneNumber: t,
       };
     }
-    function f(e) {
+    function g(e) {
       var t = o("WAPhoneFindCC").findCC(e);
       return r("WACcToIso")[parseInt(t, 10)];
     }
-    function g(t, n, r) {
-      var a = f(t);
+    function h(t, n, r) {
+      var a = g(t);
       a !== n &&
         o("WALogger")
           .ERROR(
@@ -100,7 +106,7 @@ __d(
           )
           .sendLogs("country-code-mismatch", { sampling: 0.01 });
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       if (t == null) {
         var r = e ? "+" : "";
         return "" + r + n;
@@ -108,11 +114,12 @@ __d(
       return "+" + t + " " + n;
     }
     ((l.formatPhoneNumberInput = s),
-      (l.isPhoneNumberValid = p),
-      (l.cleanPhoneNumberInputValue = _),
-      (l.getCountryCodeIso = f),
-      (l.compareCountryCodeOutput = g),
-      (l.getFullFormattedInputValue = h));
+      (l.getMaxPhoneNumberLength = d),
+      (l.isPhoneNumberValid = _),
+      (l.cleanPhoneNumberInputValue = f),
+      (l.getCountryCodeIso = g),
+      (l.compareCountryCodeOutput = h),
+      (l.getFullFormattedInputValue = y));
   },
   98,
 );

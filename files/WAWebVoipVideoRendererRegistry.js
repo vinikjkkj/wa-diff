@@ -226,8 +226,8 @@ __d(
               (o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[VideoRendererRegistry] resetWebCodecsForJid: ",
-                    " \u2014 resetting decoder, waiting for keyframe",
+                    "[VideoRendererRegistry] resetWebCodecs ",
+                    " \u2014 await keyframe",
                   ])),
                 t,
               ),
@@ -409,9 +409,9 @@ __d(
                   (o("WALogger").LOG(
                     h ||
                       (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "[VideoRendererRegistry] keyframe received for ",
+                        "[VideoRendererRegistry] keyframe rcvd ",
                         " after ",
-                        " dropped P-frames \u2014 resuming decode",
+                        " drops \u2014 resume",
                       ])),
                     t,
                     c,
@@ -424,9 +424,9 @@ __d(
                   (o("WALogger").LOG(
                     y ||
                       (y = babelHelpers.taggedTemplateLiteralLoose([
-                        "[VideoRendererRegistry] waitingForKeyframe timeout for ",
-                        " after ",
-                        " drops \u2014 falling back to reactive recovery",
+                        "[VideoRendererRegistry] keyframe timeout ",
+                        " ",
+                        " drops \u2014 reactive",
                       ])),
                     t,
                     N,

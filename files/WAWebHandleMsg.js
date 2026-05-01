@@ -439,9 +439,9 @@ __d(
                             .LOG(
                               h ||
                                 (h = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[status-session] handleMsg: isGroupStatus=",
-                                  " sessionScope=",
-                                  " metaSessionScope=",
+                                  "[status-session] grpStatus=",
+                                  " scope=",
+                                  " metaScope=",
                                   "",
                                 ])),
                               String(N.isGroupStatus === !0),

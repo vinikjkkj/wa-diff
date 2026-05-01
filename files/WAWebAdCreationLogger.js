@@ -28,20 +28,8 @@ __d(
         userHasLinkedFbPage: n,
       }).commit();
     }
-    function u(t, n) {
-      var r = t.hasFacebookPage,
-        a = e(t);
-      new (o("WAWebLwiScreenWamEvent").LwiScreenWamEvent)({
-        lwiAdsIdentityType: a,
-        lwiScreenReference: o("WAWebWamEnumLwiScreenReference")
-          .LWI_SCREEN_REFERENCE.LWI_MANAGE_ADS_TAB,
-        lwiScreenAction: n,
-        userHasLinkedFbPage: r,
-      }).commit();
-    }
     ((l.getLwiAdsIdentityTypeFromActiveAccountInfo = e),
-      (l.logAdCreationNuxScreen = s),
-      (l.logLegacyManageAdsScreenEvent = u));
+      (l.logAdCreationNuxScreen = s));
   },
   98,
 );

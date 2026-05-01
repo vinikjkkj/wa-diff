@@ -14,55 +14,59 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
-    function u(e, t, n, r) {
-      var a,
-        i,
-        l =
-          (a =
-            (i = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
+    function u(e) {
+      var t,
+        n,
+        r = e.chat,
+        a = e.profileEntryPoint,
+        i = e.threadId,
+        l = e.uim,
+        u =
+          (t =
+            (n = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
               "mid",
             )) == null
               ? void 0
-              : i.existsDrawer()) != null
-            ? a
+              : n.existsDrawer()) != null
+            ? t
             : !1;
-      l ||
-        (e.contact.isBusiness &&
+      u ||
+        (r.contact.isBusiness &&
           o("WAWebMessageLogQplEvents").qplStartProfileView("Header"),
-        (o("WAWebChatGetters").getIsUser(e) ||
-          o("WAWebChatGetters").getIsBroadcast(e) ||
-          o("WAWebChatGetters").getIsGroup(e) ||
-          o("WAWebChatGetters").getIsNewsletter(e)) &&
+        (o("WAWebChatGetters").getIsUser(r) ||
+          o("WAWebChatGetters").getIsBroadcast(r) ||
+          o("WAWebChatGetters").getIsGroup(r) ||
+          o("WAWebChatGetters").getIsNewsletter(r)) &&
           o("WAWebDrawerManager").DrawerManager.openDrawerRight(
             o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
               ? {
                   descriptorType: "info_flow",
-                  chat: o("WAWebStateUtils").unproxy(e),
-                  profileEntryPoint: n,
+                  chat: o("WAWebStateUtils").unproxy(r),
+                  profileEntryPoint: a,
                   sourceGroupChatOrNewsletter: o("WAWebChatGetters").getIsGroup(
-                    e,
+                    r,
                   )
-                    ? e
+                    ? r
                     : void 0,
-                  threadId: r,
+                  threadId: i,
                 }
               : s.jsx(
                   o("WAWebInfoFlowLoadable").InfoFlowLoadable,
                   {
-                    chat: o("WAWebStateUtils").unproxy(e),
-                    profileEntryPoint: n,
+                    chat: o("WAWebStateUtils").unproxy(r),
+                    profileEntryPoint: a,
                     sourceGroupChatOrNewsletter: o(
                       "WAWebChatGetters",
-                    ).getIsGroup(e)
-                      ? e
+                    ).getIsGroup(r)
+                      ? r
                       : void 0,
-                    threadId: r,
+                    threadId: i,
                   },
-                  "info-" + e.id.toString(),
+                  "info-" + r.id.toString(),
                 ),
             {
               transition: "slide-left",
-              uim: t,
+              uim: l,
               focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
             },
           ));

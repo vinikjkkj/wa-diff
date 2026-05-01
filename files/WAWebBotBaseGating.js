@@ -103,13 +103,12 @@ __d(
       );
     }
     function I(e) {
-      return o("WAWebBotUtils").isMetaAiBot(e)
-        ? o("WAWebABProps").getABPropConfigValue(
-            "ai_session_transparency_meta_ai_enabled",
-          )
-        : o("WAWebABProps").getABPropConfigValue(
-            "ai_continuous_session_transparency_notice_enabled",
-          );
+      return (
+        o("WAWebBotUtils").isMetaAiBot(e) ||
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_continuous_session_transparency_notice_enabled",
+        )
+      );
     }
     function T(e) {
       return o("WAWebBotUtils").isMetaAiBot(e.from) && r("justknobx")._("5352");

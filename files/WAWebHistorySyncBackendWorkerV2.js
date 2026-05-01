@@ -225,14 +225,15 @@ __d(
               ));
           } catch (e) {
             return (
-              o("WALogger").ERROR(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "WAWebHistorySyncBackendWorkerV2 fails: ",
-                    "",
-                  ])),
-                r("getErrorSafe")(e),
-              ),
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "WAWebHistorySyncBackendWorkerV2 fails",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("backend-worker-history-sync-fails"),
               o("WAResultOrError").makeError(String(r("getErrorSafe")(e)))
             );
           }

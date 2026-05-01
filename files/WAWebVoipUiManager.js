@@ -525,20 +525,22 @@ __d(
               } catch (t) {
                 e = "<cross-origin: " + String(t) + ">";
               }
+              var n = String(t.source === d),
+                r = String(d.closed);
               o("WALogger").LOG(
                 R ||
                   (R = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] popout msg received: data=",
-                    ", origin=",
-                    ", sourceMatch=",
-                    ", closed=",
-                    ", href=",
+                    "[voip] popout msg: data=",
+                    " origin=",
+                    " srcMatch=",
+                    " closed=",
+                    " href=",
                     "",
                   ])),
                 t.data,
                 t.origin,
-                String(t.source === d),
-                String(d.closed),
+                n,
+                r,
                 e,
               );
             }
@@ -572,7 +574,7 @@ __d(
               (o("WALogger").LOG(
                 k ||
                   (k = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] timeout fallback: bootstrapping about:blank popout document",
+                    "[voip] timeout fallback: bootstrap about:blank doc",
                   ])),
               ),
               Q(d));

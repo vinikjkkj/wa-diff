@@ -23,7 +23,6 @@ __d(
         defer_expensive_calculation: function (n) {
           (e || (e = o("JSScheduler"))).scheduleLoggingPriCallback(n);
         },
-        enable_lcp_tracking: t("15957"),
         enableInstrumentationCorrectnessLogging: t("3739"),
         getMeaningfulReactComponentName: o("getReactComponentName")
           .getMeaningfulReactComponentName,

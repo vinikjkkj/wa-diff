@@ -129,12 +129,12 @@ __d(
         O;
       a[4] !== d
         ? ((O = function (t) {
-            o("WAWebHeader.react").openInfoPanel(
-              t,
-              d,
-              o("WAWebWamEnumProfileEntryPoint").PROFILE_ENTRY_POINT
-                .NOTIFICATION_BLOCK_ACTION,
-            );
+            o("WAWebHeader.react").openInfoPanel({
+              chat: t,
+              profileEntryPoint: o("WAWebWamEnumProfileEntryPoint")
+                .PROFILE_ENTRY_POINT.NOTIFICATION_BLOCK_ACTION,
+              uim: d,
+            });
           }),
           (a[4] = d),
           (a[5] = O))

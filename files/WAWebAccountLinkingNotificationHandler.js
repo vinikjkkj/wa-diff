@@ -98,7 +98,9 @@ __d(
                     .sendLogs("waffle-nonce-trace-notification", {
                       sampling: 1,
                     }),
-                    yield o("WAWebAccountLinkingHandler").handleResyncState());
+                    yield o("WAWebAccountLinkingHandler").handleResyncState(
+                      t.value.notificationMetadataSyncDelay,
+                    ));
                   break;
                 case o("WAWebAccountLinkingConstants")
                   .AccountLinkingNotificationEvent.ACCOUNT_UNLINKED:

@@ -83,14 +83,11 @@ __d(
         }
       (r && o("WAWebGroupABPropsGlobals").updateGroupExpoKey(e), c.resolve());
     }
-    function h() {
-      return c.promise;
-    }
-    function y(e) {
+    function h(e) {
       var t = s.get(e);
       return t == null ? [] : Array.from(t.values());
     }
-    function C() {
+    function y() {
       (s.clear(),
         u.clear(),
         o("WAWebGroupABPropsGlobals").groupExposureKeys.clear(),
@@ -100,9 +97,8 @@ __d(
       (l.initializeGroupABPropsCache = m),
       (l.getGetGroupABPropConfigValueImpl = p),
       (l.bulkCreateOrReplaceGroupABPropConfigs = g),
-      (l.waitForGroupABPropConfigsReady = h),
-      (l.getAllGroupABPropConfigsForGroup = y),
-      (l.clearGroupABPropConfigs = C));
+      (l.getAllGroupABPropConfigsForGroup = h),
+      (l.clearGroupABPropConfigs = y));
   },
   98,
 );

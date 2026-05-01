@@ -4,12 +4,6 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
-      return "" + l(e).toFixed(2);
-    }
-    function l(e) {
-      return e / 1024 / 1024;
-    }
-    function s(e) {
       var t,
         n = e.eventFlow,
         r = e.maybeTranscodeResponse,
@@ -39,7 +33,7 @@ __d(
         },
       });
     }
-    function u(e) {
+    function l(e) {
       var t,
         n,
         r,
@@ -81,9 +75,7 @@ __d(
           d),
       });
     }
-    ((i.bytesToMegaBytesString = e),
-      (i.annotateTranscodeReponse = s),
-      (i.annotateVideoMetadata = u));
+    ((i.annotateTranscodeReponse = e), (i.annotateVideoMetadata = l));
   },
   66,
 );

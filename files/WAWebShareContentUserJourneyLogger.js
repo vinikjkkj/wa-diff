@@ -28,14 +28,18 @@ __d(
         }
         var n = t.prototype;
         return (
-          (n.funnelStart = function (t, n, r, a) {
+          (n.funnelStart = function (t) {
+            var e = t.entryPoint,
+              n = t.forwardUserJourneyFunnelId,
+              r = t.selectedMessages,
+              a = t.uiSurface;
             this.$5({
-              uiSurface: t,
+              uiSurface: a,
               action: o("WAWebWamEnumShareContentUserJourneyAction")
                 .SHARE_CONTENT_USER_JOURNEY_ACTION.FUNNEL_START,
               forwardUserJourneyFunnelId: n,
-              entryPoint: r,
-              selectedMessages: a,
+              entryPoint: e,
+              selectedMessages: r,
             });
           }),
           (n.contactPickerDisplayed = function () {

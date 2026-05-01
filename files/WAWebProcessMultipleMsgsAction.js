@@ -9,7 +9,6 @@ __d(
     "WAWebAvatarGatingUtils",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotTypes",
-    "WAWebBotUtils",
     "WAWebChatCollection",
     "WAWebChatModel",
     "WAWebDownloadProgressiveJpegThumbnail",
@@ -388,30 +387,23 @@ __d(
                 }
               });
             }
-            var Y = o("WAWebBotUtils").isBotChannelFBID(P.id),
-              J = P instanceof o("WAWebChatModel").Chat ? P : null;
+            var Y = P instanceof o("WAWebChatModel").Chat ? P : null;
             if (
-              ((o("WAWebABProps").getABPropConfigValue(
-                "download_document_thumb_mms_enabled",
-              ) ||
-                Y) &&
-                r("compactMap")(M, function (e) {
-                  return o("WAWebFrontendMsgGetters").getAsDoc(e);
-                }).forEach(function (e) {
-                  o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled()
-                    ? o(
-                        "WAWebMediaAutoDownloadQueue",
-                      ).AutoDownloadQueue.enqueue(
-                        e,
-                        o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
-                          .MMS_THUMBNAIL,
-                      )
-                    : r("WAWebMediaDownloadMmsThumbnail")({
-                        chat: J,
-                        msg: e,
-                        isPreload: !0,
-                      });
-                }),
+              (r("compactMap")(M, function (e) {
+                return o("WAWebFrontendMsgGetters").getAsDoc(e);
+              }).forEach(function (e) {
+                o("WAWebMiscGatingUtils").webMediaAutoDownloadEnabled()
+                  ? o("WAWebMediaAutoDownloadQueue").AutoDownloadQueue.enqueue(
+                      e,
+                      o("WAWebMediaAutoDownloadQueue").AutoDownloadTypes
+                        .MMS_THUMBNAIL,
+                    )
+                  : r("WAWebMediaDownloadMmsThumbnail")({
+                      chat: Y,
+                      msg: e,
+                      isPreload: !0,
+                    });
+              }),
               window.setTimeout(function () {
                 if (
                   o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabled()
@@ -455,13 +447,13 @@ __d(
                 "download_status_thumb_mms_enabled",
               ))
             ) {
-              var Z = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
-                ee = 1e3 * 60 * 60 * 24;
-              if (Z == null || Date.now() - Z < 14 * ee) {
-                var te = M.filter(function (e) {
+              var J = o("WAWebUserPrefsGeneral").getLastStatusUsage(),
+                Z = 1e3 * 60 * 60 * 24;
+              if (J == null || Date.now() - J < 14 * Z) {
+                var ee = M.filter(function (e) {
                   return o("WAWebMsgGetters").getIsStatus(e);
                 });
-                r("compactMap")(te, function (e) {
+                r("compactMap")(ee, function (e) {
                   return (
                     o("WAWebFrontendMsgGetters").getAsImage(e) ||
                     o("WAWebFrontendMsgGetters").getAsVideo(e)

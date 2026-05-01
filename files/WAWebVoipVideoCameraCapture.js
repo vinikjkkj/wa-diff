@@ -700,46 +700,55 @@ __d(
                   ((i = this.__frameMonitorCleanup) == null || i.call(this),
                     (this.__frameMonitorCleanup = null));
                   var l = this.__lastCapturedStream;
-                  ((this.__lastCapturedStream = null),
-                    r != null &&
-                      r.getTracks().forEach(function (e) {
-                        var t = e.readyState;
-                        (e.stop(),
-                          o("WALogger").LOG(
-                            A ||
-                              (A = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [AV:stopCapture] track ",
-                                " stop: ",
-                                " -> ",
-                                "",
-                              ])),
-                            e.kind,
-                            t,
-                            e.readyState,
-                          ));
-                      }),
-                    l != null &&
-                      l !== r &&
-                      (o("WALogger").LOG(
-                        F ||
-                          (F = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:stopCapture] cleaning up stream leaked during stop",
-                          ])),
-                      ),
-                      l.getTracks().forEach(function (e) {
-                        (e.stop(),
-                          o("WALogger").LOG(
-                            O ||
-                              (O = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [AV:stopCapture] leaked track ",
-                                " stopped: readyState=",
-                                "",
-                              ])),
-                            e.kind,
-                            e.readyState,
-                          ));
-                      })),
-                    (this.__stopping = !1));
+                  if (((this.__lastCapturedStream = null), r != null)) {
+                    var s = [],
+                      u = 0;
+                    (r.getTracks().forEach(function (e) {
+                      var t = e.readyState;
+                      (e.stop(),
+                        u++,
+                        s.length < 3 &&
+                          s.push(e.kind + ":" + t + "->" + e.readyState));
+                    }),
+                      u > 0 &&
+                        o("WALogger").LOG(
+                          A ||
+                            (A = babelHelpers.taggedTemplateLiteralLoose([
+                              "voip: [AV:stopCapture] stopped ",
+                              " track(s) => ",
+                              "",
+                            ])),
+                          u,
+                          s,
+                        ));
+                  }
+                  if (l != null && l !== r) {
+                    o("WALogger").LOG(
+                      F ||
+                        (F = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:stopCapture] cleaning up stream leaked during stop",
+                        ])),
+                    );
+                    var c = [],
+                      d = 0;
+                    (l.getTracks().forEach(function (e) {
+                      (e.stop(),
+                        d++,
+                        c.length < 3 && c.push(e.kind + ":" + e.readyState));
+                    }),
+                      d > 0 &&
+                        o("WALogger").LOG(
+                          O ||
+                            (O = babelHelpers.taggedTemplateLiteralLoose([
+                              "voip: [AV:stopCapture] stopped ",
+                              " leaked track(s) => ",
+                              "",
+                            ])),
+                          d,
+                          c,
+                        ));
+                  }
+                  this.__stopping = !1;
                 }
               },
             );

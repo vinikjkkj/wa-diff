@@ -25,51 +25,18 @@ __d(
           });
     }
     var u = null,
-      c = null,
-      d = null,
-      m = null,
-      p = !1;
-    function _() {
+      c = null;
+    function d() {
       u != null ||
         !l ||
         ((u = new window.PerformanceObserver(function (e) {
-          for (var t of e.getEntries())
-            (!p &&
-              d != null &&
-              ((p = !0), d(), (d = null), m != null && (m(), (m = null))),
-              (c = t));
+          for (var t of e.getEntries()) c = t;
         })),
         u.observe({ buffered: !0, type: "largest-contentful-paint" }));
     }
-    function f(e) {
-      if (!(!l || e == null)) {
-        if (p) {
-          e();
-          return;
-        }
-        ((d = e), _());
-        var t = function (t) {
-          (!p && d != null && ((p = !0), d(t.type), (d = null)),
-            m != null && (m(), (m = null)));
-        };
-        m = function () {
-          (window.removeEventListener("click", t),
-            window.removeEventListener("scroll", t),
-            window.removeEventListener("keydown", t));
-        };
-        try {
-          (window.addEventListener("click", t, { passive: !0, capture: !0 }),
-            window.addEventListener("scroll", t, { passive: !0, capture: !0 }),
-            window.addEventListener("keydown", t, {
-              passive: !0,
-              capture: !0,
-            }));
-        } catch (e) {}
-      }
-    }
-    function g() {
+    function m() {
       return l
-        ? (_(),
+        ? (d(),
           function () {
             var e, t, n;
             return c == null
@@ -86,7 +53,7 @@ __d(
           })
         : null;
     }
-    ((i.canUseLCP = l), (i.catchFirstLcpCallback = f), (i.getLCPCallback = g));
+    ((i.canUseLCP = l), (i.getLCPCallback = m));
   },
   66,
 );

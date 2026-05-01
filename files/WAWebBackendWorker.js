@@ -17,9 +17,11 @@ __d(
     "WAWebBackendWorkerBridge",
     "WAWebBackendWorkerLocks",
     "WAWebCheckOrphanMutationsWorker",
+    "WAWebCrashlogWorker",
     "WAWebCryptoDecryptMediaWorker",
     "WAWebDbEncryptionKey",
     "WAWebDeviceSyncBackendWorker",
+    "WAWebFBLoggerWorker",
     "WAWebGetMessageCache",
     "WAWebGlobals",
     "WAWebHandleSingleMsgWorker",
@@ -76,14 +78,25 @@ __d(
     var p = new (o("WAResolvable").Resolvable)();
     function _() {
       try {
-        (o("WAWebLogger").initializeWAWebLogger(),
+        var t = function () {
+            return (d || (d = n("Promise"))).resolve();
+          },
+          a = r("WAWebNoop");
+        (o("WAWebLogger").initializeWAWebLogger(
+          function (e, n) {
+            return t(e, n);
+          },
+          function (e) {
+            return a(e);
+          },
+        ),
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "WAWebBackendWorker(inside) starts",
               ])),
           ));
-        var t = o("WAWebBackendWorkerBridge").createBridge([
+        var i = o("WAWebBackendWorkerBridge").createBridge([
           {
             namespace: "historySync",
             handlers: {
@@ -227,78 +240,82 @@ __d(
             },
           },
         ]);
-        (o("WAWebBackendWorkerBridge").attachBridgeToPortal(t, m(), [
+        (o("WAWebBackendWorkerBridge").attachBridgeToPortal(i, m(), [
           "abPropsExposure",
           "qpl",
           "event",
           "workerSafeEvent",
           "backendEventBus",
           "mainthread_callbacks",
+          "mainthread_crashlog",
+          "mainthread_fblogger",
           "mainthread_jobmanager",
           "mainthread_messagecache",
           "mainthread_msgreporter",
           "mainthread_identitychange",
           "userPrefsFromWorker",
         ]),
-          o("WAWebBackendApi").setApi(t),
+          o("WAWebBackendApi").setApi(i),
+          (t = o("WAWebCrashlogWorker").createSendLogsWorker(i)),
+          (a = o("WAWebFBLoggerWorker").createLogToFBLoggerWorker(i)),
           o("WAWebHandleSingleMsgWorkerCompatible").setInstance(
-            o("WAWebHandleSingleMsgWorker").createHandleSingleMsgWorker(t),
+            o("WAWebHandleSingleMsgWorker").createHandleSingleMsgWorker(i),
           ),
           o("WAWebSyncdOrphanWorkerCompatible").setInstance(
             o(
               "WAWebCheckOrphanMutationsWorker",
-            ).createCheckOrphanMutationsWorker(t),
+            ).createCheckOrphanMutationsWorker(i),
           ),
           o("WAWebMessageInsertDebugPlaceholderWorkerCompatible").setInstance(
             o(
               "WAWebMaybeInsertDebugPlaceholderWorker",
-            ).createMaybeInsertDebugPlaceholderWorker(t),
+            ).createMaybeInsertDebugPlaceholderWorker(i),
           ),
           o(
             "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
           ).setInstance(
             o(
               "WAWebUpdateMmSignalSharingExpirationWindowWorker",
-            ).createUpdateMmSignalSharingExpirationWindowWorker(t),
+            ).createUpdateMmSignalSharingExpirationWindowWorker(i),
           ),
           o("WAWebPersistedJobManagerWorkerCompatible").setInstance(
             o(
               "WAWebPersistedJobManagerWorkerBridge",
-            ).createPersistedJobManagerWorkerBridge(t),
+            ).createPersistedJobManagerWorkerBridge(i),
           ),
           o("WAWebGetMessageCache").setMessageCache(
             o(
               "WAWebMessageProcessorCacheWorker",
-            ).createMessageCacheWorkerBridge(t),
+            ).createMessageCacheWorkerBridge(i),
           ),
           o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible").setInstance(
             o(
               "WAWebMsgProcessReporterWorker",
-            ).createMsgProcessReporterWorkerBridge(t),
+            ).createMsgProcessReporterWorkerBridge(i),
           ),
           o("WAWebIdentityChangeApiWorkerCompatible").setInstance(
             o(
               "WAWebIdentityChangeApiWorker",
-            ).createIdentityChangeApiWorkerBridge(t),
+            ).createIdentityChangeApiWorkerBridge(i),
           ));
-        var a = new (r("WAWebBackendEventBusWorker"))(t);
-        (t.setNamespaceHandler(
+        var l = new (r("WAWebBackendEventBusWorker"))(i);
+        (i.setNamespaceHandler(
           "backendEventBusSync",
-          a.getBackendEventBusSyncHandler(),
+          l.getBackendEventBusSyncHandler(),
         ),
-          o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(a),
-          t.setHandlers("workerInit", {
+          o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(l),
+          i.setHandlers("workerInit", {
             setup: (function () {
               var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (e) {
                   var t = e.abProps,
                     n = e.dbFinalKey,
-                    i = e.dbInit,
-                    l = e.eventBusSyncState,
+                    a = e.dbInit,
+                    i = e.eventBusSyncState,
                     u = e.globals;
                   try {
                     var c, d;
-                    a.setState(l);
+                    l.setState(i);
                     var m = o("WAJids").interpretAndValidateJid(u.deviceJid);
                     if (m.jidType !== "phoneDevice")
                       throw r("err")(
@@ -324,7 +341,7 @@ __d(
                         t.urlSearch,
                       ),
                       o("WAWebSchemaVersions").setSchemaVersions(
-                        i.versionsToSet,
+                        a.versionsToSet,
                       ),
                       yield o(
                         "WAWebModelStorageInitialize",
@@ -341,7 +358,7 @@ __d(
                         !1,
                       )),
                       yield o("WAWebDbEncryptionKey").DbEncKeyStore.init(
-                        i.salt,
+                        a.salt,
                       ),
                       yield o(
                         "WAWebDbEncryptionKey",
@@ -353,14 +370,15 @@ __d(
                       ),
                       p.resolve());
                   } catch (e) {
-                    (o("WALogger").ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "WAWebBackendWorker(inside) init fails: ",
-                          "",
-                        ])),
-                      r("getErrorSafe")(e),
-                    ),
+                    (o("WALogger")
+                      .ERROR(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "WAWebBackendWorker init fails",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e))
+                      .sendLogs("backend-worker-init-fails"),
                       p.reject(e));
                   }
                 },
@@ -372,8 +390,8 @@ __d(
             })(),
           }),
           o("WAWebHistorySyncProgress").initHistorySyncProgressListeners(),
-          o("WAWebWorkerQplProxy").initWorkerQplProxy(t),
-          o("WAWebBackendWorkerABPropsCache").initializeWorkerABProps(t),
+          o("WAWebWorkerQplProxy").initWorkerQplProxy(i),
+          o("WAWebBackendWorkerABPropsCache").initializeWorkerABProps(i),
           o("WAWebIdbAsyncAwaitConfig").setIsAsyncAwaitPrepEnabledImpl(
             function () {
               return o("WAWebABProps").getABPropConfigValue(
@@ -385,21 +403,21 @@ __d(
             function (e) {
               switch (e.action) {
                 case "set":
-                  t.fireAndForget("userPrefsFromWorker", "syncSet", {
+                  i.fireAndForget("userPrefsFromWorker", "syncSet", {
                     key: e.key,
                     value: e.value,
                   });
                   break;
                 case "remove":
-                  t.fireAndForget("userPrefsFromWorker", "syncRemove", {
+                  i.fireAndForget("userPrefsFromWorker", "syncRemove", {
                     key: e.key,
                   });
                   break;
                 case "clear":
-                  t.fireAndForget("userPrefsFromWorker", "syncClear", void 0);
+                  i.fireAndForget("userPrefsFromWorker", "syncClear", void 0);
                   break;
                 case "bulkSet":
-                  t.fireAndForget("userPrefsFromWorker", "syncBulkSet", {
+                  i.fireAndForget("userPrefsFromWorker", "syncBulkSet", {
                     entries: e.entries,
                   });
                   break;
@@ -424,14 +442,15 @@ __d(
               ])),
           ));
       } catch (e) {
-        (o("WALogger").ERROR(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
-              "WAWebBackendWorker(inside) fails: ",
-              "",
-            ])),
-          r("getErrorSafe")(e),
-        ),
+        (o("WALogger")
+          .ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "WAWebBackendWorker start fails",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("backend-worker-start-fails"),
           globalThis.postMessage({
             type: "worker_setup",
             message: "worker_failed",

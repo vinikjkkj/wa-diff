@@ -100,8 +100,9 @@ __d(
               f,
               g,
               h,
-              y = yield m(t, n.adId);
-            if (y.action === "skip") {
+              y,
+              C = yield m(t, n.adId);
+            if (C.action === "skip") {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -112,12 +113,12 @@ __d(
               );
               return;
             }
-            var C = y.existing;
+            var b = C.existing;
             yield o("WAWebSchemaBusinessBroadcastCampaign")
               .getBusinessBroadcastCampaignTable()
               .createOrReplace({
                 adGroupId:
-                  (c = C == null ? void 0 : C.adGroupId) != null ? c : null,
+                  (c = b == null ? void 0 : b.adGroupId) != null ? c : null,
                 adId: (d = n.adId) != null ? d : null,
                 broadcastJid: l,
                 campaignId: t,
@@ -126,13 +127,21 @@ __d(
                 deviceId: n.deviceId,
                 msgId: (_ = n.msgId) != null ? _ : null,
                 pendingBroadcastMessageId:
-                  (f = C == null ? void 0 : C.pendingBroadcastMessageId) != null
+                  (f = b == null ? void 0 : b.pendingBroadcastMessageId) != null
                     ? f
                     : null,
-                reservedQuota: (g = n.reservedQuota) != null ? g : null,
+                reservedQuota:
+                  (g =
+                    (h = n.reservedQuota) != null
+                      ? h
+                      : b == null
+                        ? void 0
+                        : b.reservedQuota) != null
+                    ? g
+                    : null,
                 scheduledTimestamp:
-                  (h = o("WALongInt").maybeNumber(n.scheduledTimestamp)) != null
-                    ? h
+                  (y = o("WALongInt").maybeNumber(n.scheduledTimestamp)) != null
+                    ? y
                     : null,
                 status: n.status,
               });

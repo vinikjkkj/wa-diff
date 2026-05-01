@@ -69,9 +69,6 @@ __d(
               ).isReportingTokenSendingEnabled()
                 ? self.crypto.getRandomValues(new Uint8Array(32))
                 : null,
-              cannotBeRanked: o(
-                "WAWebStatusGatingUtils",
-              ).canCheckStatusRankingPosterGating(),
               canBeReshared: f,
               statusAttributions:
                 (s = t.statusAttributions) != null ? s : void 0,

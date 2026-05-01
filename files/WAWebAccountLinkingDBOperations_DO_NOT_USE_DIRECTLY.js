@@ -299,12 +299,43 @@ __d(
         T.apply(this, arguments)
       );
     }
-    function D() {
+    function D(e) {
       return x.apply(this, arguments);
     }
     function x() {
       return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = yield o("WAWebAccountLinkingSchema")
+            .getTable()
+            .get(o("WAWebAccountLinkingConstants").AccountLinkKey);
+          if (t != null) {
+            var n = babelHelpers.extends({}, t, { lastResyncTimestamp: e });
+            return o("WAWebAccountLinkingSchema").getTable().createOrReplace(n);
+          }
+        })),
+        x.apply(this, arguments)
+      );
+    }
+    function $() {
+      return P.apply(this, arguments);
+    }
+    function P() {
+      return (
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = yield o("WAWebAccountLinkingSchema")
+            .getTable()
+            .get(o("WAWebAccountLinkingConstants").AccountLinkKey);
+          return e == null ? void 0 : e.lastResyncTimestamp;
+        })),
+        P.apply(this, arguments)
+      );
+    }
+    function N() {
+      return M.apply(this, arguments);
+    }
+    function M() {
+      return (
+        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           (yield o("WAWebAccountLinkingSchema").getTable().clear(),
             o("WAWebBackendApi").frontendFireAndForget(
               "updateAccountLinkingStatus",
@@ -316,15 +347,15 @@ __d(
               },
             ));
         })),
-        x.apply(this, arguments)
+        M.apply(this, arguments)
       );
     }
-    function $() {
-      return P.apply(this, arguments);
+    function w() {
+      return A.apply(this, arguments);
     }
-    function P() {
+    function A() {
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t = yield C();
           return {
@@ -338,7 +369,7 @@ __d(
                 : o("WAWebAccountLinkingConstants").AccountLinkState.Unlinked,
           };
         })),
-        P.apply(this, arguments)
+        A.apply(this, arguments)
       );
     }
     ((l.createOrUpdateAccountLinkingState = e),
@@ -352,8 +383,10 @@ __d(
       (l.updateServiceData = R),
       (l.updateDestinationIdentities = E),
       (l.updateGenerateAccessTokensData = I),
-      (l.purgeWaffleData = D),
-      (l.getAccountLinkingStatus = $));
+      (l.updateLastResyncTimestamp = D),
+      (l.getLastResyncTimestamp = $),
+      (l.purgeWaffleData = N),
+      (l.getAccountLinkingStatus = w));
   },
   98,
 );

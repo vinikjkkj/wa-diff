@@ -84,38 +84,60 @@ __d(
       );
     }
     function _(t, n) {
-      var r,
-        a = t.msgs.getModelsArray().slice(e),
-        i =
-          (r = a.findLast(function (e) {
-            var t;
-            return (
-              e.nativeFlowName != null &&
-              s.includes(e.nativeFlowName) &&
-              ((t = o("WAWebOrderDetails").getOrderInfo(e)) == null
-                ? void 0
-                : t.referenceId) === n
-            );
-          })) == null
-            ? void 0
-            : r.safe();
-      return i;
+      for (
+        var a = t.msgs.getModelsArray().slice(e), i = a.length - 1;
+        i >= 0;
+        i--
+      ) {
+        var l = a[i].safe();
+        if (l.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW) {
+          var u;
+          if (
+            l.nativeFlowName != null &&
+            s.includes(l.nativeFlowName) &&
+            ((u = o("WAWebOrderDetails").getOrderInfo(l)) == null
+              ? void 0
+              : u.referenceId) === n
+          )
+            return l;
+        } else if (
+          l.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+          l.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW
+        ) {
+          var c;
+          if (
+            l.nativeFlowName != null &&
+            s.includes(l.nativeFlowName) &&
+            ((c = o("WAWebOrderDetails").getOrderInfo(l)) == null
+              ? void 0
+              : c.referenceId) === n
+          )
+            return l;
+        }
+      }
+      return null;
     }
-    var f = function (n, o) {
+    var f = function (n, a) {
         var t,
-          a = n.msgs.getModelsArray().slice(e),
-          i =
-            (t = a.findLast(function (e) {
+          i = n.msgs.getModelsArray().slice(e),
+          l =
+            (t = i.findLast(function (e) {
               var t;
               return (
                 (e == null ? void 0 : e.nativeFlowName) ===
                   r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS &&
-                ((t = d(e)) == null ? void 0 : t.refId) === o
+                ((t = d(e)) == null ? void 0 : t.refId) === a
               );
             })) == null
               ? void 0
               : t.safe();
-        return i;
+        return l != null &&
+          (l.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW ||
+            (l.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+              l.interactiveType ===
+                r("WAWebInteractiveMessageType").NATIVE_FLOW))
+          ? l
+          : null;
       },
       g = function (n, a) {
         var t,
@@ -138,7 +160,13 @@ __d(
             })) == null
               ? void 0
               : t.safe();
-        return l;
+        return l != null &&
+          (l.type === o("WAWebMsgType").MSG_TYPE.NATIVE_FLOW ||
+            (l.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+              l.interactiveType ===
+                r("WAWebInteractiveMessageType").NATIVE_FLOW))
+          ? l
+          : null;
       },
       h = function (t) {
         return t == null

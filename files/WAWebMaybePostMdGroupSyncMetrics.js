@@ -48,7 +48,7 @@ __d(
                   "maybePostGroupSyncMetrics: event commit failed with ",
                   "",
                 ])),
-              e,
+              String(e),
             );
           }));
       }

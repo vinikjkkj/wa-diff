@@ -17,7 +17,6 @@ __d(
         spellcheck: !0,
         transformTextEmoji: !0,
         enterIsSend: !0,
-        showExpandedComposer: !1,
         autoplayAnimatedImages: !0,
         hdMediaEnabled: !1,
       },

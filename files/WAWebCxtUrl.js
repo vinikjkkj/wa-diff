@@ -24,10 +24,15 @@ __d(
     function m() {
       return s("about-community-suspension-appeals");
     }
+    function p(e) {
+      var t = e.isCommunity;
+      return t ? m() : d();
+    }
     ((l.getGroupInviteGrowthLockedFaqUrl = u),
       (l.getCommunityNotAvailableFaqUrl = c),
       (l.getGroupSuspensionAppealsFaqUrl = d),
-      (l.getCommunitySuspensionAppealsFaqUrl = m));
+      (l.getCommunitySuspensionAppealsFaqUrl = m),
+      (l.getSuspensionAppealsFaqUrl = p));
   },
   98,
 );

@@ -288,7 +288,7 @@ __d(
         _.apply(this, arguments)
       );
     }
-    ((l.OpusRecorderState = u), (l.OpusRecorder = c));
+    l.OpusRecorder = c;
   },
   98,
 );

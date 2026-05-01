@@ -345,22 +345,25 @@ __d(
           }),
           (n.$18 = function (t, n, r, a, i) {
             var e = n.calibration != null,
-              l = r.arrivalAudioTimestamp !== 0 ? r.arrivalAudioTimestamp : a;
+              l = r.arrivalAudioTimestamp !== 0 ? r.arrivalAudioTimestamp : a,
+              s = i != null ? Math.round(i) : "n/a",
+              u =
+                r.continuityDriftMs != null
+                  ? Math.round(r.continuityDriftMs)
+                  : "n/a";
             if (
               (o("WALogger").WARN(
                 d ||
                   (d = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AVSync] Video reset jid=",
-                    " deltaMs=",
-                    " continuityDriftMs=",
-                    " keyFrame=",
+                    " delta=",
+                    " contDrift=",
+                    " kf=",
                     "",
                   ])),
                 t,
-                i != null ? Math.round(i) : "n/a",
-                r.continuityDriftMs != null
-                  ? Math.round(r.continuityDriftMs)
-                  : "n/a",
+                s,
+                u,
                 r.isKeyFrame,
               ),
               (n.calibration = null),
@@ -374,8 +377,8 @@ __d(
               return;
             }
             n.awaitingKeyFrame = !0;
-            var s = this.$4;
-            s != null && s(t);
+            var c = this.$4;
+            c != null && c(t);
           }),
           (n.$23 = function (t, n) {
             var e = this.$1;

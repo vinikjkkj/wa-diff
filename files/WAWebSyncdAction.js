@@ -8,12 +8,14 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u = (function () {
+      u,
+      c = (function () {
         function t() {}
         var a = t.prototype;
         return (
@@ -27,16 +29,16 @@ __d(
           (a.resolveConflicts = function (t, r) {
             var e = r.timestamp;
             return e >= t.timestamp
-              ? (s || (s = n("Promise"))).resolve(
+              ? (u || (u = n("Promise"))).resolve(
                   o("WASyncdConst").ConflictResolutionState
                     .ApplyRemoteAndDropLocal,
                 )
-              : (s || (s = n("Promise"))).resolve(
+              : (u || (u = n("Promise"))).resolve(
                   o("WASyncdConst").ConflictResolutionState.SkipRemote,
                 );
           }),
           (a.dropMutationDueToCrossIndexConflict = function (t, r) {
-            return (s || (s = n("Promise"))).resolve(!1);
+            return (u || (u = n("Promise"))).resolve(!1);
           }),
           (a.getValidatedContent = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -150,7 +152,7 @@ __d(
           t
         );
       })(),
-      c = (function (e) {
+      d = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -166,8 +168,8 @@ __d(
           }),
           t
         );
-      })(u),
-      d = (function (e) {
+      })(c),
+      m = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -184,12 +186,30 @@ __d(
           (n.isLidMutation = function (t) {
             var e = this.asChatSyncdActionHandler(),
               n = t[e.chatJidIndex];
-            return n == null ? !1 : o("WAWebWidFactory").createWid(n).isLid();
+            if (n == null) return !1;
+            try {
+              return o("WAWebWidFactory").createWid(n).isLid();
+            } catch (e) {
+              var a = r("getErrorSafe")(e);
+              return (
+                o("WALogger")
+                  .WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "isLidMutation: invalid wid in mutation index, error: ",
+                        "",
+                      ])),
+                    a.message,
+                  )
+                  .sendLogs("syncd: isLidMutation invalid wid"),
+                !1
+              );
+            }
           }),
           t
         );
-      })(u),
-      m = (function (e) {
+      })(c),
+      p = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -205,8 +225,8 @@ __d(
           }),
           t
         );
-      })(d),
-      p = (function (e) {
+      })(m),
+      _ = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -222,8 +242,8 @@ __d(
           }),
           t
         );
-      })(d),
-      _ = (function (e) {
+      })(m),
+      f = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
@@ -239,12 +259,12 @@ __d(
           }),
           t
         );
-      })(d);
-    ((l.AccountSyncdActionBase = c),
-      (l.ChatSyncdActionBase = d),
-      (l.ChatOrContactSyncdActionBase = m),
-      (l.MessageSyncdActionBase = p),
-      (l.ChatMessageRangeSyncdActionBase = _));
+      })(m);
+    ((l.AccountSyncdActionBase = d),
+      (l.ChatSyncdActionBase = m),
+      (l.ChatOrContactSyncdActionBase = p),
+      (l.MessageSyncdActionBase = _),
+      (l.ChatMessageRangeSyncdActionBase = f));
   },
   98,
 );

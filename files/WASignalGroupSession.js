@@ -134,8 +134,6 @@ __d(
       (l.makeSenderKeyMsgKey = _),
       (l.makeSenderKeyChainKey = f),
       (l.parseSessionFromRecord = g),
-      (l._parseSession = h),
-      (l.makeSenderKeySessionFromRecord = y),
       (l.findSenderKeyState = C),
       (l.serializeSession = b),
       (l.serializeSenderKeyState = v),

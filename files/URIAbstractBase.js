@@ -41,6 +41,7 @@ __d(
             (this.$11 = !1));
         }
         ((t.parse = function (a, i, l, s) {
+          var n;
           if (i == null || i === "") return !0;
           if (i instanceof t)
             return (
@@ -56,8 +57,8 @@ __d(
               a.setQueryParamModified(!1),
               !0
             );
-          var n = i.toString().trim(),
-            c = (u || (u = o("URIRFC3986"))).parse(n) || {
+          var c = i.toString().trim(),
+            p = (u || (u = o("URIRFC3986"))).parse(c) || {
               fragment: null,
               scheme: null,
               query: null,
@@ -65,38 +66,38 @@ __d(
           if (
             (!l &&
               !(e || (e = o("URISchemes"))).isAllowed(
-                c.scheme,
+                p.scheme,
                 a.$12,
                 a.$13,
               )) ||
-            (a.setProtocol(c.scheme || ""), !l && d.test(c.host || ""))
+            (a.setProtocol(p.scheme || ""), !l && d.test(p.host || ""))
           )
             return !1;
           if (
-            (a.setDomain(c.host || ""),
-            a.setPort(c.port || ""),
-            a.setPath(c.path || ""),
+            (a.setDomain(p.host || ""),
+            a.setPort((n = p.port) != null ? n : ""),
+            a.setPath(p.path || ""),
             l)
           )
-            a.setQueryData(s.deserialize(c.query || "") || {});
+            a.setQueryData(s.deserialize(p.query || "") || {});
           else
             try {
-              a.setQueryData(s.deserialize(c.query || "") || {});
+              a.setQueryData(s.deserialize(p.query || "") || {});
             } catch (e) {
               return !1;
             }
           if (
-            (a.setFragment(c.fragment || ""),
-            c.fragment === "" && a.setForceFragmentSeparator(!0),
-            a.setIsGeneric(c.isGenericURI || !1),
-            a.setOriginalRawQuery(c.query),
+            (a.setFragment(p.fragment || ""),
+            p.fragment === "" && a.setForceFragmentSeparator(!0),
+            a.setIsGeneric(p.isGenericURI || !1),
+            a.setOriginalRawQuery(p.query),
             a.setQueryParamModified(!1),
-            c.userinfo !== null)
+            p.userinfo !== null)
           ) {
             if (l)
               throw new Error(
                 "URI.parse: invalid URI (userinfo is not allowed in a URI): " +
-                  n,
+                  c,
               );
             return !1;
           }
@@ -104,15 +105,15 @@ __d(
             if (l)
               throw new Error(
                 "URI.parse: invalid URI (no domain but multiple back-slashes): " +
-                  n,
+                  c,
               );
             return !1;
           }
-          if (!n.startsWith("#") && !a.getProtocol() && m.test(n)) {
+          if (!c.startsWith("#") && !a.getProtocol() && m.test(c)) {
             if (l)
               throw new Error(
                 "URI.parse: invalid URI (unsafe protocol-relative URLs): " +
-                  n +
+                  c +
                   "'",
               );
             return !1;
@@ -121,7 +122,7 @@ __d(
             if (l)
               throw new Error(
                 "URI.parse: invalid URI (domain and path where path lacks leading slash): " +
-                  n,
+                  c,
               );
             return !1;
           }
@@ -141,7 +142,7 @@ __d(
             if (l)
               throw new Error(
                 "URI.parse: invalid URI (protocol and path but no domain): " +
-                  n,
+                  c,
               );
             return !1;
           }

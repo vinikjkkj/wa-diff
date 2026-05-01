@@ -199,12 +199,12 @@ __d(
                     .SHARE_CONTENT_USER_JOURNEY_ENTRY_POINT.FASTFORWARD),
                 o(
                   "WAWebShareContentUserJourneyLogger",
-                ).ShareContentUserJourneyLogger.funnelStart(
-                  this.$4,
-                  this.$5,
-                  a,
-                  n,
-                ));
+                ).ShareContentUserJourneyLogger.funnelStart({
+                  entryPoint: a,
+                  forwardUserJourneyFunnelId: this.$5,
+                  selectedMessages: n,
+                  uiSurface: this.$4,
+                }));
             }
           }),
           t

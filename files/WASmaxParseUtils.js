@@ -351,8 +351,7 @@ __d(
             )
           : o("WAResultOrError").makeResult(l);
     }
-    var V = {};
-    function H(e, t, n) {
+    function V(e, t, n) {
       var r = t.map(function (e, t) {
         return e + ": " + n[t].error;
       });
@@ -371,7 +370,6 @@ __d(
       (l.assertTag = s),
       (l.attrString = u),
       (l.attrValidate = c),
-      (l.contentValidate = d),
       (l.assertAttr = m),
       (l.attrStanzaId = p),
       (l.attrCallId = _),
@@ -399,8 +397,7 @@ __d(
       (l.contentInt = A),
       (l.identity = F),
       (l.errorMessage = O),
-      (l.emptyObject = V),
-      (l.errorMixinDisjunction = H));
+      (l.errorMixinDisjunction = V));
   },
   98,
 );

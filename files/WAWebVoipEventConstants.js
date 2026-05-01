@@ -34,6 +34,7 @@ __d(
         IS_IN_CONNECTED_CALL: "isInConnectedCall",
         MUTE_REQUEST_FAILED: "muteRequestFailed",
         MUTED_BY_OTHERS: "mutedByOthers",
+        PARTICIPANTS_INVITED: "participantsInvited",
       },
       s = { ONLINE: "online", OFFLINE: "offline" },
       u = { DISPLAY_INFO: "displayInfo" };

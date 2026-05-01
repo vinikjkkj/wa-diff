@@ -55,38 +55,38 @@ __d(
           overflowY: "x1odjw0f",
           $$css: !0,
         },
-      },
-      f = function (t, n, r, a) {
-        if (!t) return s._(/*BTDS*/ "Items must all have a price").toString();
-        var e =
-            o("WAWebBizGatingUtils").orderDetailsTotalOrderMinimumValue() * 1e3,
-          i = o("WAWebBizGatingUtils").orderDetailsTotalMaxValue(a) * 1e3;
-        return n < e
+      };
+    function f(e, t, n, r) {
+      if (!e) return s._(/*BTDS*/ "Items must all have a price").toString();
+      var a =
+          o("WAWebBizGatingUtils").orderDetailsTotalOrderMinimumValue() * 1e3,
+        i = o("WAWebBizGatingUtils").orderDetailsTotalMaxValue(r) * 1e3;
+      return t < a
+        ? s
+            ._(
+              /*BTDS*/ "Total cannot be less than {order_min_allowed_amount}",
+              [
+                s._param(
+                  "order_min_allowed_amount",
+                  o("WAWebCurrencyUtils").formatAmount1000(n, a),
+                ),
+              ],
+            )
+            .toString()
+        : t > i
           ? s
               ._(
-                /*BTDS*/ "Total cannot be less than {order_min_allowed_amount}",
+                /*BTDS*/ "Total cannot be more than {order_max_allowed_amount}",
                 [
                   s._param(
-                    "order_min_allowed_amount",
-                    o("WAWebCurrencyUtils").formatAmount1000(r, e),
+                    "order_max_allowed_amount",
+                    o("WAWebCurrencyUtils").formatAmount1000(n, i),
                   ),
                 ],
               )
               .toString()
-          : n > i
-            ? s
-                ._(
-                  /*BTDS*/ "Total cannot be more than {order_max_allowed_amount}",
-                  [
-                    s._param(
-                      "order_max_allowed_amount",
-                      o("WAWebCurrencyUtils").formatAmount1000(r, i),
-                    ),
-                  ],
-                )
-                .toString()
-            : null;
-      };
+          : null;
+    }
     function g(t) {
       var n = o("react-compiler-runtime").c(24),
         a = t.additionalCharges,
@@ -288,72 +288,72 @@ __d(
         k
       );
     }
-    var h = function (t, n, a, i) {
-        if (
-          r(
-            "WAWebCommonCTWADataSharing",
-          ).shouldDisplayDataSharingOrderOptOutOrUpsell(t, "order-create", n)
-        )
-          return c.jsx(
-            o("WAWebDataSharingOptOutOrUpsell.react").DataSharingOptOutOrUpsell,
-            {
-              chats: [t],
-              checkboxValue: a,
-              onCheckboxToggle: i,
-              theme: "order-create",
-            },
-          );
-      },
-      y = function () {
-        return (
-          o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
-          o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
+    function h(e, t, n, a) {
+      if (
+        r(
+          "WAWebCommonCTWADataSharing",
+        ).shouldDisplayDataSharingOrderOptOutOrUpsell(e, "order-create", t)
+      )
+        return c.jsx(
+          o("WAWebDataSharingOptOutOrUpsell.react").DataSharingOptOutOrUpsell,
+          {
+            chats: [e],
+            checkboxValue: n,
+            onCheckboxToggle: a,
+            theme: "order-create",
+          },
         );
-      },
-      C = function (t) {
-        var e = t.amount,
-          n = t.chat,
-          a = t.currency,
-          i = t.onSubmit,
-          l = t.smbOptOut,
-          s =
-            (!o("WAWebOrdersExpansionUtils").isOrderExpansionEnabled() &&
-              o("WAWebOrdersExpansionUtils").isSellerCountrySameAsBuyer(n)) ||
-            o("WAWebOrdersExpansionUtils").isContactCountrySupported(n);
-        if (!s) {
-          o("WAWebModalManager").ModalManager.open(
-            c.jsx(r("WAWebOrderExpansionNotSupportedPopup.react"), { chat: n }),
-          );
-          return;
-        }
-        var u = function () {
-          (o("WAWebSmbMarkAsXOrderAction").markOrderAsCreatedAction(n, l),
-            o(
-              "WAWebSmb3pdConversionSignalAction",
-            ).log3pdConversionSignalForOrders(
-              {
-                chat: n,
-                orderStatus: o("WAWebOrderStatus").OrderStatus.Processing,
-                paidData: { amount: String(e), currency: a, paid: !1 },
-                type: "order_created",
-              },
-              l,
-            ),
-            i());
-        };
-        r("WAWebUserPrefsStore").get(
-          o("WAWebUserPrefsKeys").KEYS.DISAPPEARING_MSG_DISCLAIMER_DIMISSED,
-        ) !== !0 &&
-        o("WAWebBizGatingUtils").inOrderMessagesEphemeralExceptionEnabled() &&
-        o("WAWebChatEphemerality").isEphemeralSettingOn(n)
-          ? o("WAWebModalManager").ModalManager.open(
-              c.jsx(r("WAWebOrderEphemeralExemptionPopup.react"), {
-                chat: n,
-                onSubmit: u,
-              }),
-            )
-          : u();
+    }
+    var y = function () {
+      return (
+        o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue() ===
+        o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.true
+      );
+    };
+    function C(e) {
+      var t = e.amount,
+        n = e.chat,
+        a = e.currency,
+        i = e.onSubmit,
+        l = e.smbOptOut,
+        s =
+          (!o("WAWebOrdersExpansionUtils").isOrderExpansionEnabled() &&
+            o("WAWebOrdersExpansionUtils").isSellerCountrySameAsBuyer(n)) ||
+          o("WAWebOrdersExpansionUtils").isContactCountrySupported(n);
+      if (!s) {
+        o("WAWebModalManager").ModalManager.open(
+          c.jsx(r("WAWebOrderExpansionNotSupportedPopup.react"), { chat: n }),
+        );
+        return;
+      }
+      var u = function () {
+        (o("WAWebSmbMarkAsXOrderAction").markOrderAsCreatedAction(n, l),
+          o(
+            "WAWebSmb3pdConversionSignalAction",
+          ).log3pdConversionSignalForOrders(
+            {
+              chat: n,
+              orderStatus: o("WAWebOrderStatus").OrderStatus.Processing,
+              paidData: { amount: String(t), currency: a, paid: !1 },
+              type: "order_created",
+            },
+            l,
+          ),
+          i());
       };
+      r("WAWebUserPrefsStore").get(
+        o("WAWebUserPrefsKeys").KEYS.DISAPPEARING_MSG_DISCLAIMER_DIMISSED,
+      ) !== !0 &&
+      o("WAWebBizGatingUtils").inOrderMessagesEphemeralExceptionEnabled() &&
+      o("WAWebChatEphemerality").isEphemeralSettingOn(n)
+        ? o("WAWebModalManager").ModalManager.open(
+            c.jsx(r("WAWebOrderEphemeralExemptionPopup.react"), {
+              chat: n,
+              onSubmit: u,
+            }),
+          )
+        : u();
+    }
     function b(e) {
       var t = o("react-compiler-runtime").c(110),
         n = e.additionalCharges,

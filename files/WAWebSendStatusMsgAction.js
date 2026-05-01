@@ -134,9 +134,6 @@ __d(
               author: o("WAWebLidStatusMigrationUtils").matWidConvert(
                 o("WAWebUserPrefsMeUser").getMeUser(),
               ),
-              cannotBeRanked: o(
-                "WAWebStatusGatingUtils",
-              ).canCheckStatusRankingPosterGating(),
               canBeReshared: f,
             }),
             h = new (o("WAWebMsgModel").Msg)(g);

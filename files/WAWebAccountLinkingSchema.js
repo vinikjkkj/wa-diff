@@ -30,6 +30,7 @@ __d(
           n("certPasswordKeyId"),
           n("certTtlSeconds"),
           n("certFetchTimestamp"),
+          n("lastResyncTimestamp"),
         ])
         .view(function (e) {
           return e;

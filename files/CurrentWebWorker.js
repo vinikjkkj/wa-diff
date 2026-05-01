@@ -56,11 +56,11 @@ __d(
         return (n ? self.postMessage(e, n) : self.postMessage(e), p);
       },
       setChannelHandler: function (t) {
-        t = t || n("emptyFunction");
-        var e = u === null;
+        var e = t || n("emptyFunction"),
+          r = u === null;
         return (
-          (u = t),
-          e &&
+          (u = e),
+          r &&
             (c.forEach(function (e) {
               return e();
             }),
@@ -69,11 +69,11 @@ __d(
         );
       },
       setMessageHandler: function (r) {
-        r = r || n("emptyFunction");
-        var t = e === null;
+        var t = r || n("emptyFunction"),
+          o = e === null;
         return (
-          (e = r),
-          t &&
+          (e = t),
+          o &&
             (s.forEach(function (e) {
               return e();
             }),

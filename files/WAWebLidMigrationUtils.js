@@ -35,7 +35,7 @@ __d(
               ])),
             t.toLogString(),
           )
-          .sendLogs("toPn-not-user", { sampling: 0.001 }),
+          .sendLogs("toPn-not-user"),
         t.device != null &&
           o("WALogger")
             .ERROR(
@@ -46,7 +46,7 @@ __d(
                 ])),
               t.toLogString(),
             )
-            .sendLogs("toPn-device-wid", { sampling: 0.001 }));
+            .sendLogs("toPn-device-wid"));
       var n = o("WAWebApiContact").getPhoneNumber(t);
       return (
         n == null &&

@@ -55,6 +55,7 @@ __d(
     "WAWebNewCommunityInfoDrawer.react",
     "WAWebNewsletterExecApiCmd",
     "WAWebNoop",
+    "WAWebOIDCCallbackEventBus",
     "WAWebOpenChatFlow.react",
     "WAWebOpenNewsletterTab",
     "WAWebPrimaryFeaturesModel",
@@ -1210,6 +1211,14 @@ __d(
                 .DEEP_LINK_CHANNEL_STATUS,
               isExternal: a,
             }),
+            !0
+          );
+        case "OIDC_CALLBACK":
+          return (
+            o("WAWebOIDCCallbackEventBus").WAWebOIDCCallbackEventBus.trigger(
+              o("WAWebOIDCCallbackEventBus").OIDCCallbackEvent.OIDC_CALLBACK,
+              t.data,
+            ),
             !0
           );
         default:

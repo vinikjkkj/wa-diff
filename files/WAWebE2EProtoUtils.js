@@ -116,7 +116,8 @@ __d(
                     u.encCommentMessage ||
                     u.newsletterAdminInviteMessage ||
                     u.newsletterFollowerInviteMessageV2 ||
-                    u.messageHistoryNotice
+                    u.messageHistoryNotice ||
+                    u.albumMessage
                   ? o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text
                   : u.pollResultSnapshotMessage || u.pollResultSnapshotMessageV3
                     ? r("WAWebPollResultSnapshotPollTypeEnvelopeEnabled")()

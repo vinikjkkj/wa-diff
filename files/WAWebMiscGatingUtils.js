@@ -18,11 +18,7 @@ __d(
           "pnh_cag_disable_reactions_group_size",
         )
         ? !1
-        : o("WAWebMobilePlatforms").isSMB()
-          ? o("WAWebABProps").getABPropConfigValue(
-              "parent_group_view_enabled_for_smb_on_web",
-            )
-          : !0;
+        : (o("WAWebMobilePlatforms").isSMB(), !0);
     }
     function u(e) {
       var t;

@@ -53,7 +53,7 @@ __d(
             });
           if (
             (o("WAWebAppTracker").AppTracker.start(
-              o("WAWebAppTracker").AppTrackerType.MediaUL,
+              o("WAWebAppTracker").AppTrackerType.MediaDL,
             ),
             e.type === o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE &&
               r.set(babelHelpers.extends({}, e.imageDimensions)),
@@ -112,7 +112,7 @@ __d(
               (a != null && (r.downloadHttpCode = a),
                 r.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
-                  o("WAWebAppTracker").AppTrackerType.MediaUL,
+                  o("WAWebAppTracker").AppTrackerType.MediaDL,
                 ),
                 o("WAWebAppTracker").attachWAMAppContext(r, r.overallCumT),
                 r.commit(),
@@ -154,7 +154,7 @@ __d(
               (l != null && (r.downloadHttpCode = l),
                 r.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
-                  o("WAWebAppTracker").AppTrackerType.MediaUL,
+                  o("WAWebAppTracker").AppTrackerType.MediaDL,
                 ),
                 o("WAWebAppTracker").attachWAMAppContext(r, r.overallCumT),
                 i.commit(),
@@ -169,7 +169,7 @@ __d(
             g = function () {
               (r.markOverallCumT(),
                 o("WAWebAppTracker").AppTracker.stop(
-                  o("WAWebAppTracker").AppTrackerType.MediaUL,
+                  o("WAWebAppTracker").AppTrackerType.MediaDL,
                 ),
                 o("WAWebAppTracker").attachWAMAppContext(r, r.overallCumT),
                 r.commit(),

@@ -34,6 +34,7 @@ __d(
     "WAWebWamEnumLastMessageDirection",
     "WAWebWamEnumListAction",
     "WAWebWamEnumUpdateEntryPoint",
+    "WAWebWamLabelEventReporter",
     "WAWebWamSmbListEventReporter",
     "asyncToGeneratorRuntime",
     "react",
@@ -211,11 +212,15 @@ __d(
                 o("WAWebWamSmbListEventReporter").logSmbListEvent({
                   labelOperation: o("WAWebWamEnumLabelOperations")
                     .LABEL_OPERATIONS.ADD,
-                  updateEntryPoint: o("WAWebWamEnumUpdateEntryPoint")
-                    .UPDATE_ENTRY_POINT.CREATE_CUSTOM_LIST,
+                  updateEntryPoint: r,
                   listId: a,
                   customListTitle: e,
                 }),
+                o("WAWebWamLabelEventReporter").logLabelOperationEvent(
+                  o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS.ADD,
+                  void 0,
+                  o("WAWebWamEnumLabelTargets").LABEL_TARGETS.LABEL,
+                ),
                 $(t, {
                   entryPoint: r,
                   listId: a,
@@ -370,18 +375,24 @@ __d(
               }),
               x(d, S));
           }
-          o("WALogger").LOG(
-            g ||
-              (g = babelHelpers.taggedTemplateLiteralLoose([
-                "[Lists] saved list id=",
-                " color=",
-                " chats=",
-                "",
-              ])),
-            n.id,
-            r,
-            i.length,
-          );
+          ((l || s) &&
+            o("WAWebWamLabelEventReporter").logLabelOperationEvent(
+              o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS.EDIT,
+              void 0,
+              o("WAWebWamEnumLabelTargets").LABEL_TARGETS.EDIT_LABEL_DIALOG,
+            ),
+            o("WALogger").LOG(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Lists] saved list id=",
+                  " color=",
+                  " chats=",
+                  "",
+                ])),
+              n.id,
+              r,
+              i.length,
+            ));
         })),
         w.apply(this, arguments)
       );
