@@ -40,6 +40,7 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgModelFromData",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebNotificationController",
     "WAWebNotificationsKeepInChatNotification",
@@ -269,7 +270,11 @@ __d(
                     .KIC_ACTION_NAME_TYPE.UNKEEP_MESSAGE,
                   keptDelta: E(t.kicTimestampMs),
                   messageExpiryTimer:
-                    (D = t.timeUntilExpiration()) != null ? D : 0,
+                    (D =
+                      o("WAWebMsgModelUtils").getMsgTimeUntilExpiration(t)) !=
+                    null
+                      ? D
+                      : 0,
                   messageExpiredOnUnkeep: o(
                     "WAWebKeepInChatMsgUtils",
                   ).isExpired(t),

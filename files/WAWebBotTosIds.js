@@ -47,8 +47,6 @@ __d(
           return Number(_());
         case o("WAWebBotLogging").BotEntryPointType.Invoke:
           return Number(f());
-        case o("WAWebBotLogging").BotEntryPointType.Agent:
-          return Number(p());
       }
     }
     function b() {

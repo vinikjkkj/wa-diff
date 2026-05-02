@@ -471,6 +471,32 @@ __d(
             }
             return t;
           })()),
+          (a.consumeAudioPlaybackMetrics = function () {
+            var e,
+              t,
+              n,
+              r =
+                (e =
+                  (t = this.implementation) == null ||
+                  t.consumePlaybackMetrics == null
+                    ? void 0
+                    : t.consumePlaybackMetrics()) != null
+                  ? e
+                  : null;
+            if (r == null) return null;
+            var o = this.playbackAudioContext,
+              a =
+                o != null && typeof o.baseLatency == "number"
+                  ? Math.round(o.baseLatency * 1e3)
+                  : null;
+            return babelHelpers.extends({}, r, {
+              webAudioCtxBaseLatencyMs: a,
+              webAudioPlatformDelayMs:
+                r.webAudioRbDelayAvgMs +
+                (a != null ? a : 0) +
+                ((n = r.webAudioCtxOutputLatencyAvgMs) != null ? n : 0),
+            });
+          }),
           t
         );
       })();

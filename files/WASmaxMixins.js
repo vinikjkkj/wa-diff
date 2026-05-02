@@ -20,8 +20,10 @@ __d(
     function c(t, n) {
       var r = t.tag,
         o = n.tag;
-      if (o !== e && r !== o)
-        throw new Error("tag mismatch: " + r + " != " + o);
+      if (o !== e && r !== o) {
+        var a = new Error("tag mismatch: " + r + " != " + o);
+        throw (a.stack, a);
+      }
     }
     function d(e, t) {
       var n = e.attrs,
@@ -31,7 +33,8 @@ __d(
           o = n[e];
         if (t != null && o != null) {
           if (m(t, o)) return;
-          throw new Error("conflict for key: " + e);
+          var a = new Error("conflict for key: " + e);
+          throw (a.stack, a);
         }
         n[e] = t;
       });
@@ -46,41 +49,49 @@ __d(
     function p(e, t) {
       var n = e.content;
       if (n instanceof Uint8Array) {
-        if (!o("WAArrayBufferUtils").uint8ArraysEqualUNSAFE(n, t))
-          throw new Error("elementValue mismatch: bytes dose not equal");
+        if (!o("WAArrayBufferUtils").uint8ArraysEqualUNSAFE(n, t)) {
+          var r = new Error("elementValue mismatch: bytes dose not equal");
+          throw (r.stack, r);
+        }
         return;
       }
-      if (n != null)
-        throw new Error("elementValue mismatch: destination has children");
+      if (n != null) {
+        var a = new Error("elementValue mismatch: destination has children");
+        throw (a.stack, a);
+      }
       e.content = t;
     }
     function _(e, t) {
       var n = e.content;
-      if (n instanceof Uint8Array)
-        throw new Error("children mismatch: destination has element value");
+      if (n instanceof Uint8Array) {
+        var r = new Error("children mismatch: destination has element value");
+        throw (r.stack, r);
+      }
       if (n == null || n.length === 0) {
         e.content = t;
         return;
       }
-      if (!f(n, t))
-        throw new Error("children mismatch: child counts are not compatible");
-      var r = [],
-        o = Array.from(n);
+      if (!f(n, t)) {
+        var o = new Error("children mismatch: child counts are not compatible");
+        throw (o.stack, o);
+      }
+      var a = [],
+        i = Array.from(n);
       (t.forEach(function (e) {
-        var t = o.findIndex(function (t) {
+        var t = i.findIndex(function (t) {
           return t.tag === e.tag;
         });
-        if (t === -1) r.push(e);
+        if (t === -1) a.push(e);
         else {
-          var n = o.splice(t, 1),
-            a = s(n[0], e);
-          r.push(a);
+          var n = i.splice(t, 1),
+            r = s(n[0], e);
+          a.push(r);
         }
       }),
-        o.forEach(function (e) {
-          return r.push(e);
+        i.forEach(function (e) {
+          return a.push(e);
         }),
-        (e.content = r));
+        (e.content = a));
     }
     function f(e, t) {
       for (

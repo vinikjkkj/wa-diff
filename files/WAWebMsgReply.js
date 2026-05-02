@@ -12,6 +12,7 @@ __d(
     "WAWebKeepInChatMsgUtils",
     "WAWebMiscGatingUtils",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebQuotedMsgModelUtils",
@@ -27,7 +28,7 @@ __d(
       var t = o("WAWebStateUtils").unproxy(e),
         n = o("WAWebFrontendMsgGetters").getChat(t);
       return (
-        !t.mayFail() &&
+        !o("WAWebMsgModelUtils").msgMayFail(t) &&
         !o("WAWebMsgGetters").getIsNotification(t) &&
         !o("WAWebChatGroupUtils").isSuspendedGroup(n) &&
         !o("WAWebChatGroupUtils").isTerminatedGroup(n) &&
@@ -90,7 +91,7 @@ __d(
               (a.isSuspendedOrTerminated() &&
                 o("WAWebMiscGatingUtils").isGroupSuspendV2Enabled())
             ? !1
-            : !r.mayFail() &&
+            : !o("WAWebMsgModelUtils").msgMayFail(r) &&
               !o("WAWebMsgGetters").getIsNotification(r) &&
               r.type !== o("WAWebMsgType").MSG_TYPE.UNKNOWN &&
               r.type !== o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
@@ -121,7 +122,7 @@ __d(
         ? !1
         : a.isAnnounceGrpRestrict === !0 &&
             !a.isReadOnly &&
-            !r.mayFail() &&
+            !o("WAWebMsgModelUtils").msgMayFail(r) &&
             !o("WAWebMsgGetters").getIsSentByMe(r) &&
             !o("WAWebMsgGetters").getIsNotification(r) &&
             r.type !== o("WAWebMsgType").MSG_TYPE.UNKNOWN &&

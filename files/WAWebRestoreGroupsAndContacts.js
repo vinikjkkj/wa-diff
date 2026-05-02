@@ -34,7 +34,7 @@ __d(
       p,
       _,
       f,
-      g = 500,
+      g = 200,
       h = 100;
     function y() {
       return (
@@ -132,57 +132,10 @@ __d(
                 .getGroupMetadataTable()
                 .all();
               if (t) {
-                var m = l.then(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        (yield v(e),
-                          e.forEach(function (e) {
-                            var t = o("WAWebWidFactory").createWidFromWidLike(
-                              e.id,
-                            );
-                            (e.isParentGroup === !0 &&
-                              o("WAWebChatCollection").ChatCollection.gadd({
-                                id: t,
-                                isReadOnly: !1,
-                              }),
-                              o("WAWebGroupQueryBridge").updateSubject(
-                                t,
-                                e.subject,
-                              ));
-                          }),
-                          o("WALogger").LOG(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
-                                "[init-from-storage] groups: restored ",
-                                ", took ",
-                                "",
-                              ])),
-                            o("WAWebWamMemoryStat").roundIntForMetrics(
-                              e.length,
-                            ),
-                            o("WAWebPerformanceUtils").getElapsedTimeMs(a),
-                          ),
-                          o(
-                            "WAWebWamOfflineResumeReporter",
-                          ).OfflineResumeReporter.qpl.addPoint(
-                            "RestoreGroups_end",
-                          ));
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                );
-                return (f || (f = n("Promise"))).all([i, m]);
-              }
-              var p = l.then(function (e) {
-                (r("WAWebGroupMetadataCollection").add(
-                  e.map(o("WAWebApiHydrateWidsUtil").hydrateWids),
-                  { merge: !0 },
-                ),
-                  e.forEach(function (e) {
+                yield i;
+                var m = yield l;
+                (yield v(m),
+                  m.forEach(function (e) {
                     var t = o("WAWebWidFactory").createWidFromWidLike(e.id);
                     (e.isParentGroup === !0 &&
                       o("WAWebChatCollection").ChatCollection.gadd({
@@ -192,20 +145,49 @@ __d(
                       o("WAWebGroupQueryBridge").updateSubject(t, e.subject));
                   }),
                   o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[init-from-storage] groups: restored ",
                         ", took ",
                         "",
                       ])),
-                    o("WAWebWamMemoryStat").roundIntForMetrics(e.length),
+                    o("WAWebWamMemoryStat").roundIntForMetrics(m.length),
                     o("WAWebPerformanceUtils").getElapsedTimeMs(a),
                   ),
                   o(
                     "WAWebWamOfflineResumeReporter",
                   ).OfflineResumeReporter.qpl.addPoint("RestoreGroups_end"));
-              });
-              return (f || (f = n("Promise"))).all([i, p]);
+              } else {
+                var p = l.then(function (e) {
+                  (r("WAWebGroupMetadataCollection").add(
+                    e.map(o("WAWebApiHydrateWidsUtil").hydrateWids),
+                    { merge: !0 },
+                  ),
+                    e.forEach(function (e) {
+                      var t = o("WAWebWidFactory").createWidFromWidLike(e.id);
+                      (e.isParentGroup === !0 &&
+                        o("WAWebChatCollection").ChatCollection.gadd({
+                          id: t,
+                          isReadOnly: !1,
+                        }),
+                        o("WAWebGroupQueryBridge").updateSubject(t, e.subject));
+                    }),
+                    o("WALogger").LOG(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "[init-from-storage] groups: restored ",
+                          ", took ",
+                          "",
+                        ])),
+                      o("WAWebWamMemoryStat").roundIntForMetrics(e.length),
+                      o("WAWebPerformanceUtils").getElapsedTimeMs(a),
+                    ),
+                    o(
+                      "WAWebWamOfflineResumeReporter",
+                    ).OfflineResumeReporter.qpl.addPoint("RestoreGroups_end"));
+                });
+                return (f || (f = n("Promise"))).all([i, p]);
+              }
             }),
           )
           .then(function () {

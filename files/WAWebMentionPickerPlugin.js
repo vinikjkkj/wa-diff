@@ -32,6 +32,7 @@ __d(
     "WAWebSchemaGroupMetadata",
     "WAWebTextStatusGatingUtils",
     "WAWebUISpacing",
+    "WAWebWamEnumBotEntryPointType",
     "WAWebWamEnumMentionType",
     "asyncToGeneratorRuntime",
     "countWhere",
@@ -93,7 +94,7 @@ __d(
               o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP;
     }
     function S(t) {
-      var a = o("react-compiler-runtime").c(66),
+      var a = o("react-compiler-runtime").c(67),
         i = t.botInvokeEnabled,
         l = t.chat,
         u = t.elevatedPushNamesEnabled,
@@ -205,7 +206,7 @@ __d(
         : (Y = a[15]);
       var J = Y,
         Z;
-      a[16] !== l || a[17] !== J
+      a[16] !== l || a[17] !== $ || a[18] !== J
         ? ((Z = function (t) {
             if (X(t)) {
               if (t.type === "mention_all") {
@@ -226,6 +227,12 @@ __d(
                       botEntryPoint:
                         o("WAWebBotLogging").BotEntryPointType.Invoke,
                       chat: l,
+                      wamEntryPoint:
+                        $ != null
+                          ? o("WAWebWamEnumBotEntryPointType")
+                              .BOT_ENTRY_POINT_TYPE.INVOKE_META_AI_GROUP
+                          : o("WAWebWamEnumBotEntryPointType")
+                              .BOT_ENTRY_POINT_TYPE.INVOKE_META_AI_1ON1,
                     })
                     .then(function () {
                       J(e);
@@ -235,21 +242,22 @@ __d(
             }
           }),
           (a[16] = l),
-          (a[17] = J),
-          (a[18] = Z))
-        : (Z = a[18]);
+          (a[17] = $),
+          (a[18] = J),
+          (a[19] = Z))
+        : (Z = a[19]);
       var ee = Z,
         te;
-      a[19] !== V
+      a[20] !== V
         ? ((te = function () {
             V();
           }),
-          (a[19] = V),
-          (a[20] = te))
-        : (te = a[20]);
+          (a[20] = V),
+          (a[21] = te))
+        : (te = a[21]);
       var ne = te,
         re;
-      a[21] !== l || a[22] !== x || a[23] !== u || a[24] !== j
+      a[22] !== l || a[23] !== x || a[24] !== u || a[25] !== j
         ? ((re = function (n, a) {
             switch (n.type) {
               case "contact": {
@@ -370,12 +378,12 @@ __d(
                 );
             }
           }),
-          (a[21] = l),
-          (a[22] = x),
-          (a[23] = u),
-          (a[24] = j),
-          (a[25] = re))
-        : (re = a[25]);
+          (a[22] = l),
+          (a[23] = x),
+          (a[24] = u),
+          (a[25] = j),
+          (a[26] = re))
+        : (re = a[26]);
       var oe = re,
         ae;
       e: {
@@ -399,12 +407,12 @@ __d(
         }
         var se;
         if (
-          a[26] !== m ||
-          a[27] !== O ||
-          a[28] !== $ ||
-          a[29] !== H ||
-          a[30] !== d ||
-          a[31] !== A
+          a[27] !== m ||
+          a[28] !== O ||
+          a[29] !== $ ||
+          a[30] !== H ||
+          a[31] !== d ||
+          a[32] !== A
         ) {
           var ue = [],
             ce = A && O;
@@ -413,7 +421,7 @@ __d(
             D({ groupMetadata: $, query: H, source: d })
           ) {
             var de;
-            (a[33] !== $.id || a[34] !== ue.length || a[35] !== H
+            (a[34] !== $.id || a[35] !== ue.length || a[36] !== H
               ? ((de = {
                   type: "mention_all",
                   selectable: !0,
@@ -424,11 +432,11 @@ __d(
                   id: $.id,
                   query: H,
                 }),
-                (a[33] = $.id),
-                (a[34] = ue.length),
-                (a[35] = H),
-                (a[36] = de))
-              : (de = a[36]),
+                (a[34] = $.id),
+                (a[35] = ue.length),
+                (a[36] = H),
+                (a[37] = de))
+              : (de = a[37]),
               ue.push(de));
           }
           if (A) {
@@ -436,7 +444,7 @@ __d(
             if (me.length !== 0) {
               if (ce) {
                 var pe;
-                (a[37] !== ue.length
+                (a[38] !== ue.length
                   ? ((pe = {
                       index: ue.length,
                       itemKey: "section-contacts",
@@ -444,9 +452,9 @@ __d(
                       selectable: !1,
                       height: _,
                     }),
-                    (a[37] = ue.length),
-                    (a[38] = pe))
-                  : (pe = a[38]),
+                    (a[38] = ue.length),
+                    (a[39] = pe))
+                  : (pe = a[39]),
                   ue.push(pe));
               }
               var _e = me.map(function (e, t) {
@@ -470,7 +478,7 @@ __d(
             if (fe.length !== 0) {
               if (ce) {
                 var ge;
-                (a[39] !== ue.length
+                (a[40] !== ue.length
                   ? ((ge = {
                       index: ue.length,
                       itemKey: "section-groups",
@@ -478,9 +486,9 @@ __d(
                       selectable: !1,
                       height: _,
                     }),
-                    (a[39] = ue.length),
-                    (a[40] = ge))
-                  : (ge = a[40]),
+                    (a[40] = ue.length),
+                    (a[41] = ge))
+                  : (ge = a[41]),
                   ue.push(ge));
               }
               var he = fe.map(function (e, t) {
@@ -500,14 +508,14 @@ __d(
             }
           }
           ((se = ue.length ? ue.slice(0, 15) : null),
-            (a[26] = m),
-            (a[27] = O),
-            (a[28] = $),
-            (a[29] = H),
-            (a[30] = d),
-            (a[31] = A),
-            (a[32] = se));
-        } else se = a[32];
+            (a[27] = m),
+            (a[28] = O),
+            (a[29] = $),
+            (a[30] = H),
+            (a[31] = d),
+            (a[32] = A),
+            (a[33] = se));
+        } else se = a[33];
         ae = se;
       }
       var ye = ae,
@@ -556,16 +564,16 @@ __d(
           }
         }
         var Re;
-        (a[41] !== $
+        (a[42] !== $
           ? ((Re = o("WAWebMentionsPluginUtil").getNonParticipantCandidates($)),
-            (a[41] = $),
-            (a[42] = Re))
-          : (Re = a[42]),
+            (a[42] = $),
+            (a[43] = Re))
+          : (Re = a[43]),
           (Ce = Re));
       }
       var Le = Ce,
         Ee;
-      if (a[43] !== Le || a[44] !== H || a[45] !== ye) {
+      if (a[44] !== Le || a[45] !== H || a[46] !== ye) {
         e: {
           if (H == null || Le == null) {
             Ee = null;
@@ -595,7 +603,7 @@ __d(
               : f,
             xe = [],
             $e;
-          (a[47] === Symbol.for("react.memo_cache_sentinel")
+          (a[48] === Symbol.for("react.memo_cache_sentinel")
             ? (($e = {
                 index: 0,
                 itemKey: "section-non-participants-separator",
@@ -603,11 +611,11 @@ __d(
                 selectable: !1,
                 height: h,
               }),
-              (a[47] = $e))
-            : ($e = a[47]),
+              (a[48] = $e))
+            : ($e = a[48]),
             xe.push($e));
           var Pe;
-          a[48] !== H
+          a[49] !== H
             ? ((Pe = function (t, n) {
                 return {
                   type: "non_participant_contact",
@@ -621,14 +629,14 @@ __d(
                   query: H,
                 };
               }),
-              (a[48] = H),
-              (a[49] = Pe))
-            : (Pe = a[49]);
+              (a[49] = H),
+              (a[50] = Pe))
+            : (Pe = a[50]);
           var Ne = Te.slice(0, Ie).map(Pe);
           (xe.push.apply(xe, Ne), (Ee = xe));
         }
-        ((a[43] = Le), (a[44] = H), (a[45] = ye), (a[46] = Ee));
-      } else Ee = a[46];
+        ((a[44] = Le), (a[45] = H), (a[46] = ye), (a[47] = Ee));
+      } else Ee = a[47];
       var Me = Ee,
         we;
       e: {
@@ -637,27 +645,27 @@ __d(
           break e;
         }
         var Ae;
-        if (a[50] !== Me || a[51] !== ye) {
+        if (a[51] !== Me || a[52] !== ye) {
           if (((Ae = []), ye != null)) {
             var Fe;
             (Fe = Ae).push.apply(Fe, ye);
           }
           if (Me != null) {
             var Oe, Be;
-            a[53] !== Me
-              ? ((Be = Me.filter(L)), (a[53] = Me), (a[54] = Be))
-              : (Be = a[54]);
+            a[54] !== Me
+              ? ((Be = Me.filter(L)), (a[54] = Me), (a[55] = Be))
+              : (Be = a[55]);
             var We = Be;
             (Oe = Ae).push.apply(Oe, We);
           }
-          ((a[50] = Me), (a[51] = ye), (a[52] = Ae));
-        } else Ae = a[52];
+          ((a[51] = Me), (a[52] = ye), (a[53] = Ae));
+        } else Ae = a[53];
         we = Ae.length > 0 ? Ae : null;
       }
       var qe = we,
         Ue,
         Ve;
-      a[55] !== qe || a[56] !== oe || a[57] !== ee || a[58] !== N
+      a[56] !== qe || a[57] !== oe || a[58] !== ee || a[59] !== N
         ? ((Ue = N
             ? []
             : (qe != null ? qe : []).map(function (e) {
@@ -677,29 +685,29 @@ __d(
                 };
               })),
           (Ve = Ue.findIndex(R)),
-          (a[55] = qe),
-          (a[56] = oe),
-          (a[57] = ee),
-          (a[58] = N),
-          (a[59] = Ue),
-          (a[60] = Ve))
-        : ((Ue = a[59]), (Ve = a[60]));
+          (a[56] = qe),
+          (a[57] = oe),
+          (a[58] = ee),
+          (a[59] = N),
+          (a[60] = Ue),
+          (a[61] = Ve))
+        : ((Ue = a[60]), (Ve = a[61]));
       var He = Ve,
         Ge;
       return (
-        a[61] !== He || a[62] !== ne || a[63] !== Ue || a[64] !== U
+        a[62] !== He || a[63] !== ne || a[64] !== Ue || a[65] !== U
           ? ((Ge = c.jsx(r("WAWebLexicalTypeAheadList.react"), {
               leadOffset: U,
               items: Ue,
               onCancel: ne,
               startingIndex: He,
             })),
-            (a[61] = He),
-            (a[62] = ne),
-            (a[63] = Ue),
-            (a[64] = U),
-            (a[65] = Ge))
-          : (Ge = a[65]),
+            (a[62] = He),
+            (a[63] = ne),
+            (a[64] = Ue),
+            (a[65] = U),
+            (a[66] = Ge))
+          : (Ge = a[66]),
         Ge
       );
     }

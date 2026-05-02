@@ -24,14 +24,15 @@ __d(
       )
         ? !!(
             e.type === o("WAWebMsgType").MSG_TYPE.CHAT ||
-            o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
-              (t = e.ctwaContext) == null ? void 0 : t.sourceApp,
-              e.type,
-              (n = e.ctwaContext) == null
-                ? void 0
-                : n.automatedGreetingMessageShown,
-              e.subtype,
-            ) ||
+            o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
+              isAGMShown:
+                (t = e.ctwaContext) == null
+                  ? void 0
+                  : t.automatedGreetingMessageShown,
+              msgSource: (n = e.ctwaContext) == null ? void 0 : n.sourceApp,
+              msgSubtype: e.subtype,
+              msgType: e.type,
+            }) ||
             (e.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
               !e.mediaData.isViewOnce &&
               o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
@@ -87,14 +88,15 @@ __d(
     function p(e) {
       var t, n;
       ((e.type === o("WAWebMsgType").MSG_TYPE.CHAT ||
-        o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
-          (t = e.ctwaContext) == null ? void 0 : t.sourceApp,
-          e.type,
-          (n = e.ctwaContext) == null
-            ? void 0
-            : n.automatedGreetingMessageShown,
-          e.subtype,
-        )) &&
+        o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
+          isAGMShown:
+            (t = e.ctwaContext) == null
+              ? void 0
+              : t.automatedGreetingMessageShown,
+          msgSource: (n = e.ctwaContext) == null ? void 0 : n.sourceApp,
+          msgSubtype: e.subtype,
+          msgType: e.type,
+        })) &&
         u(e),
         e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
           (e == null ? void 0 : e.nativeFlowName) ===

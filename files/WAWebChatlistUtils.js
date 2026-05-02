@@ -17,11 +17,11 @@ __d(
     "WAWebExternalLink.react",
     "WAWebFbtCommon",
     "WAWebFindChatAction",
-    "WAWebManageAdsUtils",
     "WAWebModalManager",
     "WAWebNativeAdsGatingUtils",
     "WAWebNativeAdsMvpEligibilityModel",
     "WAWebOpenBizNativeAdsFlow",
+    "WAWebOpenManageAdsInLwi",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -248,7 +248,7 @@ __d(
       );
     }
     function g(e, t, n) {
-      o("WAWebManageAdsUtils").openManageAdsInLwi(e, t, n);
+      o("WAWebOpenManageAdsInLwi").openManageAdsInLwi(e, t, n);
     }
     ((l.openExistingChat = d),
       (l.openOrCreateLatestChat = m),

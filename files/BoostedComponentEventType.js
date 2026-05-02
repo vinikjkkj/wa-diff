@@ -925,6 +925,10 @@ __d(
         "ctwa_native_qp_filter_out_of_funds_evaluation",
       CTWA_NATIVE_QP_FILTER_UNSETTLED_EVALUATION:
         "ctwa_native_qp_filter_unsettled_evaluation",
+      CTWA_NATIVE_QP_FILTER_LOW_FUNDS_LINKED_EVALUATION:
+        "ctwa_native_qp_filter_low_funds_linked_evaluation",
+      CTWA_NATIVE_QP_FILTER_OUT_OF_FUNDS_LINKED_EVALUATION:
+        "ctwa_native_qp_filter_out_of_funds_linked_evaluation",
       LOG_DEFAULT_CTA_INFO: "log_default_cta_info",
       DEFAULT_CTA_ML_OUTPUT: "default_cta_ml_output",
       BUDGET_FLEX_CAMPAIGN_GROUP_SEARCH: "budget_flex_campaign_group_search",

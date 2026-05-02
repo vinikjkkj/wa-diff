@@ -6,7 +6,6 @@ __d(
     "WAWebChatThreadWallpaperWamEvent",
     "WAWebChatWallpaperWamEvent",
     "WAWebGetMessageChatTypeFromWid",
-    "WAWebGroupJoinRequestMetricUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -48,8 +47,9 @@ __d(
         a = e.chatThemeSource,
         i = e.chatWid,
         l = e.colorSchemeId,
-        s = e.wallpaperApplied,
-        u = e.wallpaperId;
+        s = e.threadId,
+        u = e.wallpaperApplied,
+        c = e.wallpaperId;
       new (o("WAWebChatThreadWallpaperWamEvent").ChatThreadWallpaperWamEvent)({
         appearanceType: t,
         belongsToCommunity: n,
@@ -59,11 +59,9 @@ __d(
           i,
         ),
         colorSchemeId: l,
-        threadId: i.isGroup()
-          ? o("WAWebGroupJoinRequestMetricUtils").getSanitizedJid(i)
-          : i.toJid(),
-        wallpaperApplied: s,
-        wallpaperId: u,
+        threadId: s,
+        wallpaperApplied: u,
+        wallpaperId: c,
       }).commit();
     }
     function c(e) {

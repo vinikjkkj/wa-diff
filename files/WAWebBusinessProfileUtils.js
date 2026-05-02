@@ -102,62 +102,57 @@ __d(
             o("WAWebBizGatingUtils").isCatalogVariantsViewingEnabled()) ||
           (t == null ? void 0 : t.catalog_status) === c
         );
-      },
-      f = function (t) {
-        if (t && t instanceof o("WAWebBusinessProfileModel").BusinessProfile) {
-          var e, n;
-          return (
-            ((e = t.profileOptions) == null ? void 0 : e.commerceExperience) ===
-              o("WAWebBusinessProfileTypes").CommerceExperienceTypes.CATALOG ||
-            (((n = t.profileOptions) == null
-              ? void 0
-              : n.commerceExperience) ===
-              o("WAWebBusinessProfileTypes").CommerceExperienceTypes
-                .META_CATALOG &&
-              o("WAWebBizGatingUtils").isCatalogVariantsViewingEnabled()) ||
-            t.catalogStatus === c
-          );
-        }
-        return _(t);
-      },
-      g = function (t) {
-        var e, n;
+      };
+    function f(e) {
+      if (e && e instanceof o("WAWebBusinessProfileModel").BusinessProfile) {
+        var t, n;
         return (
-          (t == null || (e = t.profileOptions) == null
-            ? void 0
-            : e.commerceExperience) ===
-            o("WAWebBusinessProfileTypes").CommerceExperienceTypes.SHOP &&
-          !!(!(t == null || (n = t.profileOptions) == null) && n.shopURL)
+          ((t = e.profileOptions) == null ? void 0 : t.commerceExperience) ===
+            o("WAWebBusinessProfileTypes").CommerceExperienceTypes.CATALOG ||
+          (((n = e.profileOptions) == null ? void 0 : n.commerceExperience) ===
+            o("WAWebBusinessProfileTypes").CommerceExperienceTypes
+              .META_CATALOG &&
+            o("WAWebBizGatingUtils").isCatalogVariantsViewingEnabled()) ||
+          e.catalogStatus === c
         );
-      },
-      h = function (t) {
-        var e, n;
-        return (
-          (t == null || (e = t.profileOptions) == null
+      }
+      return _(e);
+    }
+    function g(e) {
+      var t, n;
+      return (
+        (e == null || (t = e.profileOptions) == null
+          ? void 0
+          : t.commerceExperience) ===
+          o("WAWebBusinessProfileTypes").CommerceExperienceTypes.SHOP &&
+        !!(!(e == null || (n = e.profileOptions) == null) && n.shopURL)
+      );
+    }
+    function h(e) {
+      var t, n;
+      return (
+        (e == null || (t = e.profileOptions) == null
+          ? void 0
+          : t.commerceExperience) ===
+          o("WAWebBusinessProfileTypes").CommerceExperienceTypes.NONE ||
+        (g(e) && !!(e != null && (n = e.profileOptions) != null && n.isBanned))
+      );
+    }
+    function y(e) {
+      var t,
+        n = e == null || (t = e.profileOptions) == null ? void 0 : t.shopURL;
+      n != null && n !== "" && o("WAWebExternalLink.react").openExternalLink(n);
+    }
+    function C(e) {
+      var t,
+        n =
+          e == null || (t = e.profileOptions) == null
             ? void 0
-            : e.commerceExperience) ===
-            o("WAWebBusinessProfileTypes").CommerceExperienceTypes.NONE ||
-          (g(t) &&
-            !!(t != null && (n = t.profileOptions) != null && n.isBanned))
-        );
-      },
-      y = function (t) {
-        var e,
-          n = t == null || (e = t.profileOptions) == null ? void 0 : e.shopURL;
-        n != null &&
-          n !== "" &&
-          o("WAWebExternalLink.react").openExternalLink(n);
-      },
-      C = function (t) {
-        var e,
-          n =
-            t == null || (e = t.profileOptions) == null
-              ? void 0
-              : e.commerceManagerURL,
-          r = n != null && n !== "" ? n : d;
-        o("WAWebExternalLink.react").openExternalLink(r);
-      },
-      b = function (t) {
+            : t.commerceManagerURL,
+        r = n != null && n !== "" ? n : d;
+      o("WAWebExternalLink.react").openExternalLink(r);
+    }
+    var b = function (t) {
         return _(t);
       },
       v = function (t) {
@@ -215,120 +210,112 @@ __d(
             (e.isProfileEditDisabled = t.is_profile_edit_disabled),
           e
         );
-      },
-      k = function (n) {
-        var t = n.id,
-          a = n.profile,
-          i = n.queryCatalog;
-        if (!a) return { id: t };
-        var l = a.address,
-          s = a.automated_type,
-          c = a.business_hours,
-          d = a.catalog_status,
-          m = a.commands,
-          _ = a.commands_description,
-          f = a.cover_photo,
-          g = a.custom_url,
-          h = a.fb_page,
-          y = a.ig_professional,
-          C = a.is_authorized_agent,
-          v = a.legal_entity_details,
-          S = a.member_since_text,
-          R = a.oba_phone_number,
-          k = a.offerings,
-          I = a.parent_company_logo_url,
-          T = a.parent_company_name,
-          D = a.price_tier,
-          x = a.profile_is_linked,
-          $ = a.profile_options,
-          P = a.prompts,
-          N = a.service_areas,
-          M = a.structured_address,
-          w = a.welcome_message_protocol_mode,
-          A = babelHelpers.objectWithoutPropertiesLoose(a, u),
-          F = { id: t };
-        return (
-          c ? (F.businessHours = p(c)) : (F.businessHours = null),
-          S != null &&
-            o("WAWebBizGatingUtils").getFmxAgmEnabled() &&
-            (F.memberSinceText = S),
-          $ && (F.profileOptions = E($)),
-          b(a) &&
-            ((F.catalogStatus = d),
-            i &&
-              o("WAWebCatalogCollection")
-                .CatalogCollection.findCarouselCatalog(t)
-                .then(function (e) {
-                  var n = Array.isArray(e) ? e[0] : e,
-                    r = o("WAWebContactCollection").ContactCollection.get(t);
-                  r && (r.businessCatalog = n);
-                })
-                .catch(function (t) {
-                  return o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "Store:BusinessProfile:missing catalog",
-                      ])),
-                  );
-                })),
-          M
-            ? (F.structuredAddress = {
-                streetAddress: M.street_address,
-                cityId: M.city_id,
-                localizedCityName: M.localized_city_name,
-                zipCode: M.zip_code,
-              })
-            : (F.address = r("isStringNullOrEmpty")(l) ? null : l),
-          (F.priceTier = D != null ? D : null),
-          v && (F.legalEntityDetails = L(v)),
-          h &&
-            (F.fbPage = {
-              displayName: h.display_name,
-              likes: h.likes,
-              id: h.id,
-            }),
-          y &&
-            (F.igProfessional = {
-              handle: y.ig_handle,
-              followers: y.followers,
-            }),
-          x != null && (F.isProfileLinked = !!x),
-          g != null && (F.customUrlPath = g),
-          (F.automatedType =
-            s != null ? s : o("WAWebBotTypes").BizBotAutomatedType.UNKNOWN),
-          (F.welcomeMsgProtocolMode =
-            w != null
-              ? w
-              : o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.NONE),
-          (F.commandsDescription = _ != null ? _ : null),
-          (F.prompts = P != null ? P : null),
-          (F.commands = m != null ? m : null),
-          (F.coverPhoto = f != null ? { id: f.id, url: f.url } : null),
-          N != null && N.length > 0
-            ? (F.serviceAreas = N)
-            : (F.serviceAreas = null),
-          k != null && k.length > 0 ? (F.offerings = k) : (F.offerings = null),
-          C != null && (F.isAuthorizedAgent = C),
-          T != null && (F.parentCompanyName = T),
-          I != null && (F.parentCompanyLogoUrl = I),
-          R != null && (F.obaPhoneNumber = R),
-          babelHelpers.extends(
-            {},
-            o("WAWebBusinessProfileModel").DEFAULTS,
-            A,
-            F,
-          )
-        );
-      },
-      I = {
-        OPEN: "open",
-        CLOSED: "closed",
-        OPEN_TODAY: "open_today",
-        CLOSED_TODAY: "closed_today",
-        OPEN_APPOINTMENT: "open_appointment",
-        OPEN_24H: "open_24h",
-        UNKNOWN: "unknown",
       };
+    function k(t) {
+      var n = t.id,
+        a = t.profile,
+        i = t.queryCatalog;
+      if (!a) return { id: n };
+      var l = a.address,
+        s = a.automated_type,
+        c = a.business_hours,
+        d = a.catalog_status,
+        m = a.commands,
+        _ = a.commands_description,
+        f = a.cover_photo,
+        g = a.custom_url,
+        h = a.fb_page,
+        y = a.ig_professional,
+        C = a.is_authorized_agent,
+        v = a.legal_entity_details,
+        S = a.member_since_text,
+        R = a.oba_phone_number,
+        k = a.offerings,
+        I = a.parent_company_logo_url,
+        T = a.parent_company_name,
+        D = a.price_tier,
+        x = a.profile_is_linked,
+        $ = a.profile_options,
+        P = a.prompts,
+        N = a.service_areas,
+        M = a.structured_address,
+        w = a.welcome_message_protocol_mode,
+        A = babelHelpers.objectWithoutPropertiesLoose(a, u),
+        F = { id: n };
+      return (
+        c ? (F.businessHours = p(c)) : (F.businessHours = null),
+        S != null &&
+          o("WAWebBizGatingUtils").getFmxAgmEnabled() &&
+          (F.memberSinceText = S),
+        $ && (F.profileOptions = E($)),
+        b(a) &&
+          ((F.catalogStatus = d),
+          i &&
+            o("WAWebCatalogCollection")
+              .CatalogCollection.findCarouselCatalog(n)
+              .then(function (e) {
+                var t = Array.isArray(e) ? e[0] : e,
+                  r = o("WAWebContactCollection").ContactCollection.get(n);
+                r && (r.businessCatalog = t);
+              })
+              .catch(function (t) {
+                return o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "Store:BusinessProfile:missing catalog",
+                    ])),
+                );
+              })),
+        M
+          ? (F.structuredAddress = {
+              streetAddress: M.street_address,
+              cityId: M.city_id,
+              localizedCityName: M.localized_city_name,
+              zipCode: M.zip_code,
+            })
+          : (F.address = r("isStringNullOrEmpty")(l) ? null : l),
+        (F.priceTier = D != null ? D : null),
+        v && (F.legalEntityDetails = L(v)),
+        h &&
+          (F.fbPage = {
+            displayName: h.display_name,
+            likes: h.likes,
+            id: h.id,
+          }),
+        y &&
+          (F.igProfessional = { handle: y.ig_handle, followers: y.followers }),
+        x != null && (F.isProfileLinked = !!x),
+        g != null && (F.customUrlPath = g),
+        (F.automatedType =
+          s != null ? s : o("WAWebBotTypes").BizBotAutomatedType.UNKNOWN),
+        (F.welcomeMsgProtocolMode =
+          w != null
+            ? w
+            : o("WAWebBotTypes").BotWelcomeMsgProtocolModeType.NONE),
+        (F.commandsDescription = _ != null ? _ : null),
+        (F.prompts = P != null ? P : null),
+        (F.commands = m != null ? m : null),
+        (F.coverPhoto = f != null ? { id: f.id, url: f.url } : null),
+        N != null && N.length > 0
+          ? (F.serviceAreas = N)
+          : (F.serviceAreas = null),
+        k != null && k.length > 0 ? (F.offerings = k) : (F.offerings = null),
+        C != null && (F.isAuthorizedAgent = C),
+        T != null && (F.parentCompanyName = T),
+        I != null && (F.parentCompanyLogoUrl = I),
+        R != null && (F.obaPhoneNumber = R),
+        babelHelpers.extends({}, o("WAWebBusinessProfileModel").DEFAULTS, A, F)
+      );
+    }
+    var I = {
+      OPEN: "open",
+      CLOSED: "closed",
+      OPEN_TODAY: "open_today",
+      CLOSED_TODAY: "closed_today",
+      OPEN_APPOINTMENT: "open_appointment",
+      OPEN_24H: "open_24h",
+      UNKNOWN: "unknown",
+    };
     function T(e, t) {
       if (e.timezone == null) return { status: "unknown" };
       var n = t || new Date(),

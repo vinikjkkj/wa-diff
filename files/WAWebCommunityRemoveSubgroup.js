@@ -158,18 +158,18 @@ __d(
         x
       );
     }
-    var p = function (t) {
-      var e,
-        a = t.iAmCommunityAdmin,
+    function p(e) {
+      var t,
+        a = e.iAmCommunityAdmin,
         i = a === void 0 ? !0 : a,
-        l = t.parentId,
-        u = t.removedSubgroupTitle,
-        d = t.removedSubgroupWid,
-        p = t.setLoading,
+        l = e.parentId,
+        u = e.removedSubgroupTitle,
+        d = e.removedSubgroupWid,
+        p = e.setLoading,
         _ =
-          (e = o("WAWebChatCollection").ChatCollection.get(l)) == null
+          (t = o("WAWebChatCollection").ChatCollection.get(l)) == null
             ? void 0
-            : e.formattedTitle,
+            : t.formattedTitle,
         f,
         g = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
@@ -229,7 +229,7 @@ __d(
         o("WAWebModalManager").ModalManager.open(
           c.jsx(m, { removeDisclaimer: f, handleRemove: g }),
         ));
-    };
+    }
     l.handleRemoveSubgroup = p;
   },
   226,

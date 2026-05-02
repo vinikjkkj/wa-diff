@@ -67,6 +67,13 @@ __d(
                     alias: null,
                     args: null,
                     kind: "ScalarField",
+                    name: "meta",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
                     name: "values",
                     storageKey: null,
                   },

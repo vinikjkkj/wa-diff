@@ -25,10 +25,10 @@ __d(
     "use strict";
     var e,
       u,
-      c = u || (u = o("react")),
-      d = function () {
-        return s._(/*BTDS*/ "Some media failed to upload and were removed.");
-      };
+      c = u || (u = o("react"));
+    function d() {
+      return s._(/*BTDS*/ "Some media failed to upload and were removed.");
+    }
     function m(e) {
       return p.apply(this, arguments);
     }

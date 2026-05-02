@@ -7,14 +7,14 @@ __d(
     "WAWebQuickPromotionValidatorUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t, n) {
-      var e,
-        r = t.data.qpConfigSurfaceDelayTimeSeconds;
+    function e(e, t) {
+      var n,
+        r = e.data.qpConfigSurfaceDelayTimeSeconds;
       if (r <= 0) return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
       var a = o(
         "WAWebQuickPromotionCollection",
       ).QuickPromotionCollection.getPromotionWithLastImpressionOnSurface(
-        t.surfaceId,
+        e.surfaceId,
       );
       if (
         a == null ||
@@ -23,21 +23,21 @@ __d(
         )
       )
         return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
-      if (a.promotion.promotion.id !== t.id)
+      if (a.promotion.promotion.id !== e.id)
         return o("WAWebCommonQPSurfacesTypes")
           .RESULT_FALSE_SURFACE_DELAY_RECENTLY_USED;
-      var i = (e = t.tracking.lastImpressionTs) != null ? e : t.ts,
+      var i = (n = e.tracking.lastImpressionTs) != null ? n : e.ts,
         l = o(
           "WAWebQuickPromotionValidatorUtils",
         ).checkIsWithinEligibilityWindow(
           i,
-          t.data.qpConfigEligibilityDurationMs,
+          e.data.qpConfigEligibilityDurationMs,
         );
       return l
         ? o("WAWebCommonQPSurfacesTypes").RESULT_TRUE
         : o("WAWebCommonQPSurfacesTypes")
             .RESULT_FALSE_SURFACE_DELAY_OUTSIDE_ELIGIBILITY_DURATION;
-    };
+    }
     l.surfaceDelayRuleValidator = e;
   },
   98,

@@ -12,6 +12,7 @@ __d(
     "WAWebMediaPrep",
     "WAWebMediaTypes",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebStickerSendWamEvent",
     "WAWebWamEnumStickerSendOriginType",
@@ -147,7 +148,8 @@ __d(
                 placeholderProps: O,
                 isForwarded:
                   o("WAWebMsgGetters").getShouldDisplayAsForwarded(t),
-                forwardingScore: t.getForwardingScoreWhenForwarded(),
+                forwardingScore:
+                  o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(t),
                 multicast: i,
                 productMsgOptions: B,
                 isAvatar: (f = t.isAvatar) != null ? f : !1,

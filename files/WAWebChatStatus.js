@@ -50,6 +50,7 @@ __d(
             titlify: !0,
             text: s.status,
             breakWord: !0,
+            ellipsify: !0,
           })),
           (t[2] = s.status),
           (t[3] = c))

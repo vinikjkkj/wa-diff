@@ -26,26 +26,24 @@ __d(
           r === o("WAWebOrderStatus").OrderStatus.Complete
         );
         return t && e(n);
-      },
-      c = function (t, n, a, i, l) {
-        return !o("WAWebOrdersExpansionUtils").isContactCountrySupported(i) ||
-          o("WAWebOrderStatus").isPaymentRequest(i, l) ||
-          n == null ||
-          !u(t, n)
-          ? null
-          : {
-              label: s._(/*BTDS*/ "Update status"),
-              onClick: function () {
-                o(
-                  "WAWebBizOrderUpdateStatusAction",
-                ).openOrderStatusUpdateDrawer(
-                  t,
-                  a,
-                  r("WAWebBizEntryPoint").FROM_CHAT,
-                );
-              },
-            };
       };
+    function c(e, t, n, a, i) {
+      return !o("WAWebOrdersExpansionUtils").isContactCountrySupported(a) ||
+        o("WAWebOrderStatus").isPaymentRequest(a, i) ||
+        t == null ||
+        !u(e, t)
+        ? null
+        : {
+            label: s._(/*BTDS*/ "Update status"),
+            onClick: function () {
+              o("WAWebBizOrderUpdateStatusAction").openOrderStatusUpdateDrawer(
+                e,
+                n,
+                r("WAWebBizEntryPoint").FROM_CHAT,
+              );
+            },
+          };
+    }
     l.getOrderUpdateStatusAction = c;
   },
   226,

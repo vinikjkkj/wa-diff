@@ -33,6 +33,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgLinks",
     "WAWebMsgModel",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebMusicEligibleCountriesProvider",
     "WAWebMusicGatingUtils",
@@ -262,14 +263,15 @@ __d(
       return !(
         ((n = s.nativeFlowButtons) != null && n.length) ||
         s.hsmTag === o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.AUTHENTICATION ||
-        o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
-          (a = s.ctwaContext) == null ? void 0 : a.sourceApp,
-          s.type,
-          (i = s.ctwaContext) == null
-            ? void 0
-            : i.automatedGreetingMessageShown,
-          s.subtype,
-        ) ||
+        o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
+          isAGMShown:
+            (a = s.ctwaContext) == null
+              ? void 0
+              : a.automatedGreetingMessageShown,
+          msgSource: (i = s.ctwaContext) == null ? void 0 : i.sourceApp,
+          msgSubtype: s.subtype,
+          msgType: s.type,
+        }) ||
         m(s) ||
         (s.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
           (!r("WAWebAuraGating").canUsePremiumSticker(s.stickerPremiumStatus) ||
@@ -309,14 +311,15 @@ __d(
         o("WAWebFrontendMsgGetters").getChat(r),
       ) ||
         r.isCarouselCard ||
-        o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
-          (t = r.ctwaContext) == null ? void 0 : t.sourceApp,
-          r.type,
-          (n = r.ctwaContext) == null
-            ? void 0
-            : n.automatedGreetingMessageShown,
-          r.subtype,
-        )
+        o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
+          isAGMShown:
+            (t = r.ctwaContext) == null
+              ? void 0
+              : t.automatedGreetingMessageShown,
+          msgSource: (n = r.ctwaContext) == null ? void 0 : n.sourceApp,
+          msgSubtype: r.subtype,
+          msgType: r.type,
+        })
         ? !1
         : (!o("WAWebMsgGetters").getIsEphemeral(r) ||
             o("WAWebKeepInChatMsgUtils").supportsStarWithKeepInChat(r)) &&
@@ -355,12 +358,15 @@ __d(
         )
           return !1;
       }
-      return o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
-        (t = a.ctwaContext) == null ? void 0 : t.sourceApp,
-        a.type,
-        (n = a.ctwaContext) == null ? void 0 : n.automatedGreetingMessageShown,
-        a.subtype,
-      )
+      return o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
+        isAGMShown:
+          (t = a.ctwaContext) == null
+            ? void 0
+            : t.automatedGreetingMessageShown,
+        msgSource: (n = a.ctwaContext) == null ? void 0 : n.sourceApp,
+        msgSubtype: a.subtype,
+        msgType: a.type,
+      })
         ? !1
         : !o("WAWebMsgGetters").getIsNotification(a) &&
             !o("WAWebMsgGetters").getIsFutureproof(a) &&
@@ -412,7 +418,7 @@ __d(
         (o("WAWebMsgGetters").getIsEdited(e) &&
           o("WAWebMsgGetters").getIsFailed(e) &&
           !t) ||
-        !e.mayFail();
+        !o("WAWebMsgModelUtils").msgMayFail(e);
       if (
         o("WAWebChatGetters").getIsNewsletter(
           o("WAWebFrontendMsgGetters").getChat(e),
@@ -543,14 +549,15 @@ __d(
         o("WAWebMsgGetters").getIsBotResponse(a) ||
         o("WAWebMsgGetters").getIsCAPISupport(a)
         ? !1
-        : o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
-              (t = a.ctwaContext) == null ? void 0 : t.sourceApp,
-              a.type,
-              (n = a.ctwaContext) == null
-                ? void 0
-                : n.automatedGreetingMessageShown,
-              a.subtype,
-            )
+        : o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
+              isAGMShown:
+                (t = a.ctwaContext) == null
+                  ? void 0
+                  : t.automatedGreetingMessageShown,
+              msgSource: (n = a.ctwaContext) == null ? void 0 : n.sourceApp,
+              msgSubtype: a.subtype,
+              msgType: a.type,
+            })
           ? a.signupContext != null
             ? !0
             : o("WAWebBizGatingUtils").isCtwaAgmReportingEnabled()
@@ -781,12 +788,15 @@ __d(
     }
     function V(e) {
       var t, n;
-      return o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
-        (t = e.ctwaContext) == null ? void 0 : t.sourceApp,
-        e.type,
-        (n = e.ctwaContext) == null ? void 0 : n.automatedGreetingMessageShown,
-        e.subtype,
-      ) ||
+      return o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
+        isAGMShown:
+          (t = e.ctwaContext) == null
+            ? void 0
+            : t.automatedGreetingMessageShown,
+        msgSource: (n = e.ctwaContext) == null ? void 0 : n.sourceApp,
+        msgSubtype: e.subtype,
+        msgType: e.type,
+      }) ||
         o("WAWebChatGetters").getIsBroadcast(
           o("WAWebFrontendMsgGetters").getChat(e),
         )

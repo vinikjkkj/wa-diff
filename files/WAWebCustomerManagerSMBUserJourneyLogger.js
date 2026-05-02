@@ -17,6 +17,7 @@ __d(
         CONFIRM_BUTTON: "confirm_button",
         EMPTY_STATE_ADD_CUSTOMER: "empty_state_add_customer",
         IMPORT_BUTTON: "import_button",
+        IMPORT_SAVE_TEMPLATE_LINK: "import_save_template_link",
         IMPORT_UPLOAD_FILE_BUTTON: "import_upload_file_button",
         LAST_MESSAGE_FILTER_CHIP: "last_message_filter_chip",
         LEAD_STAGE_FILTER_CHIP: "lead_stage_filter_chip",
@@ -93,6 +94,17 @@ __d(
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .CUSTOMER_MANAGER_LIST,
               userActionTarget: e.IMPORT_UPLOAD_FILE_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.clickImportSaveTemplate = function () {
+            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
+                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_SAVE_TEMPLATE_LINK,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
             });

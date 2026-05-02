@@ -100,6 +100,9 @@ __d(
             return r("gkx")("18259");
           },
         },
+        enableQoSTelemetry: function () {
+          return r("gkx")("25070");
+        },
       };
     }
     var c = new s();

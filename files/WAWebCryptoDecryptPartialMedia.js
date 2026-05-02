@@ -8,36 +8,40 @@ __d(
       c,
       d,
       m = 16,
-      p = 10,
-      _ = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.ciphertext,
-            r = t.iv,
-            a = t.mediaKeys,
-            i = a.encKey,
-            l = { name: "AES-CBC", iv: r };
+      p = 10;
+    function _(e) {
+      return f.apply(this, arguments);
+    }
+    function f() {
+      return (
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.ciphertext,
+            n = e.iv,
+            r = e.mediaKeys,
+            a = r.encKey,
+            i = { name: "AES-CBC", iv: n };
           try {
-            var u = yield self.crypto.subtle
-              .importKey("raw", new Uint8Array(i), "AES-CBC", !1, ["decrypt"])
-              .catch(function (t) {
+            var l = yield self.crypto.subtle
+              .importKey("raw", new Uint8Array(a), "AES-CBC", !1, ["decrypt"])
+              .catch(function (e) {
                 throw (
                   o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
                         "decryptPartialMedia:decrypt importKey error: ",
                         "",
                       ])),
-                    String(t),
+                    String(e),
                   ),
-                  t
+                  e
                 );
               });
-            return self.crypto.subtle.decrypt(l, u, n);
+            return self.crypto.subtle.decrypt(i, l, t);
           } catch (e) {
             throw (
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "decryptPartialMedia:decrypt decrypt error: ",
                     "",
                   ])),
@@ -46,94 +50,96 @@ __d(
               e
             );
           }
-        });
-        return function (n) {
-          return t.apply(this, arguments);
-        };
-      })(),
-      f = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.ciphertext,
-            n = e.mediaKeys,
-            r = n.encKey,
-            a = t instanceof Uint8Array ? t : new Uint8Array(t),
-            i = { name: "AES-CBC", iv: a.slice(0 - m) };
-          try {
-            var l = yield self.crypto.subtle
-                .importKey("raw", new Uint8Array(r), "AES-CBC", !1, ["encrypt"])
-                .catch(function (e) {
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "decryptPartialMedia:getEncryptedPadding importKey error: ",
-                        "",
-                      ])),
-                    String(e),
-                  );
-                }),
-              s = new Uint8Array([]);
-            return self.crypto.subtle.encrypt(i, l, s);
-          } catch (e) {
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "decryptPartialMedia:getEncryptedPadding encrypt error: ",
-                  "",
-                ])),
-              String(e),
-            );
-            return;
-          }
-        });
-        return function (n) {
-          return e.apply(this, arguments);
-        };
-      })(),
-      g = function (t) {
-        var e = t.ciphertext,
+        })),
+        f.apply(this, arguments)
+      );
+    }
+    var g = (function () {
+      var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        var n = t.ciphertext,
           r = t.mediaKeys,
-          a = t.serverRangeStart,
-          i = e instanceof Uint8Array ? e : new Uint8Array(e),
-          l = a === 0,
-          s = i.byteLength % m === 0,
-          u = !s,
-          c;
-        return (
-          l
-            ? (c = new Uint8Array(r.iv))
-            : ((c = i.slice(0, m)), (i = i.slice(m))),
-          u && (i = i.slice(0, i.byteLength - p)),
-          s
-            ? f({ ciphertext: i, mediaKeys: r }).then(function (e) {
-                return (
-                  (i = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
-                    i,
-                    new Uint8Array(e),
-                  ])),
-                  { ciphertext: i, iv: c }
+          a = r.encKey,
+          i = n instanceof Uint8Array ? n : new Uint8Array(n),
+          l = { name: "AES-CBC", iv: i.slice(0 - m) };
+        try {
+          var u = yield self.crypto.subtle
+              .importKey("raw", new Uint8Array(a), "AES-CBC", !1, ["encrypt"])
+              .catch(function (t) {
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "decryptPartialMedia:getEncryptedPadding importKey error: ",
+                      "",
+                    ])),
+                  String(t),
                 );
-              })
-            : (d || (d = n("Promise"))).resolve({ ciphertext: i, iv: c })
-        );
-      },
-      h = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+              }),
+            c = new Uint8Array([]);
+          return self.crypto.subtle.encrypt(l, u, c);
+        } catch (e) {
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "decryptPartialMedia:getEncryptedPadding encrypt error: ",
+                "",
+              ])),
+            String(e),
+          );
+          return;
+        }
+      });
+      return function (n) {
+        return t.apply(this, arguments);
+      };
+    })();
+    function h(e) {
+      var t = e.ciphertext,
+        r = e.mediaKeys,
+        a = e.serverRangeStart,
+        i = t instanceof Uint8Array ? t : new Uint8Array(t),
+        l = a === 0,
+        s = i.byteLength % m === 0,
+        u = !s,
+        c;
+      return (
+        l
+          ? (c = new Uint8Array(r.iv))
+          : ((c = i.slice(0, m)), (i = i.slice(m))),
+        u && (i = i.slice(0, i.byteLength - p)),
+        s
+          ? g({ ciphertext: i, mediaKeys: r }).then(function (e) {
+              return (
+                (i = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
+                  i,
+                  new Uint8Array(e),
+                ])),
+                { ciphertext: i, iv: c }
+              );
+            })
+          : (d || (d = n("Promise"))).resolve({ ciphertext: i, iv: c })
+      );
+    }
+    function y(e) {
+      return C.apply(this, arguments);
+    }
+    function C() {
+      return (
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ciphertext,
             n = e.mediaKeys,
-            r = yield g({ serverRangeStart: 0, ciphertext: t, mediaKeys: n }),
+            r = yield h({ serverRangeStart: 0, ciphertext: t, mediaKeys: n }),
             o = r.ciphertext,
             a = r.iv;
           return _({ ciphertext: o, iv: a, mediaKeys: n });
-        });
-        return function (n) {
-          return e.apply(this, arguments);
-        };
-      })();
+        })),
+        C.apply(this, arguments)
+      );
+    }
     ((l.BLOCK_SIZE = m),
       (l.HMAC_SIZE = p),
       (l.decrypt = _),
-      (l.cleanupCiphertextAndIv = g),
-      (l.decryptPartialMedia = h));
+      (l.cleanupCiphertextAndIv = h),
+      (l.decryptPartialMedia = y));
   },
   98,
 );

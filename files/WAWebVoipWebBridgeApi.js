@@ -35,6 +35,7 @@ __d(
     "WAWebVoipActionWriteCallLogOfferNotice",
     "WAWebVoipActivityTracker",
     "WAWebVoipAnrTracker",
+    "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipCallStateUtils",
     "WAWebVoipCameraPrewarm",
     "WAWebVoipEventConstants",
@@ -1435,6 +1436,11 @@ __d(
         return o(
           "WAWebVoipVideoRendererRegistry",
         ).videoRendererRegistry.consumeAVSyncMetrics();
+      },
+      consumeAudioPlaybackMetrics: function () {
+        return o(
+          "WAWebVoipAudioCaptureAndPlayback",
+        ).consumeAudioPlaybackMetrics();
       },
       consumeWebCodecsFatalErrorCount: function () {
         return o(

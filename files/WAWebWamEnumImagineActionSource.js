@@ -1,0 +1,32 @@
+__d(
+  "WAWebWamEnumImagineActionSource",
+  [],
+  function (t, n, r, o, a, i) {
+    var e = Object.freeze({
+      CHAT_TRAY: 0,
+      ATTACHMEMT_TRAY: 1,
+      SETTINGS: 2,
+      SEARCH: 3,
+      RETAKE_INLINE: 4,
+      USER_PROFILE_PAGE_PICTURE: 5,
+      GROUP_PROFILE_PAGE_PICTURE: 6,
+      AI_CREATION_EDIT: 7,
+      AI_CREATION_NEW_CREATE: 8,
+      AR_EFFECTS_IN_CALLING: 9,
+      AR_EFFECTS_IN_PRECAPTURE: 10,
+      STATUS: 11,
+      CHAT_THEMES: 12,
+      MESSAGE_QUICK_ACTION: 13,
+      CHAT_WALLPAPER: 14,
+      CHAT_THEME: 15,
+      MEDIA_PICKER: 16,
+      CAMERA: 17,
+      MIMICRY: 18,
+      MIMICRY_ATTRIBUTION: 19,
+      MEDIA_VIEWER: 20,
+      EVENT_COVER_BOTTOM_SHEET: 21,
+    });
+    i.IMAGINE_ACTION_SOURCE = e;
+  },
+  66,
+);

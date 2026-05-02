@@ -117,11 +117,21 @@ __d(
               ? ((i = f !== "" ? f : void 0), (l = h !== "" ? h : void 0))
               : (i = r.value != null ? r.value : void 0));
         }
-        var v = { phone: r.value != null ? r.value : "", rowIndex: t };
+        var v = {};
+        for (var S in a)
+          if (S !== "originalRowIndex") {
+            var R = a[S];
+            R != null && (v[S] = String(R));
+          }
+        var L = {
+          phone: r.value != null ? r.value : "",
+          rowIndex: t,
+          rawRow: v,
+        };
         return (
-          i != null && (v.firstName = i),
-          l != null && (v.lastName = l),
-          v
+          i != null && (L.firstName = i),
+          l != null && (L.lastName = l),
+          L
         );
       });
       return { errors: t, validContacts: l };

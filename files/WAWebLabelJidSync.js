@@ -144,40 +144,41 @@ __d(
                                     associationId: R,
                                     type: o("WAWebSchemaLabelAssociation")
                                       .LabelAssociationType.Jid,
-                                  };
+                                  },
+                                  E = null;
                                 if (g) {
-                                  var E = i.has(R);
-                                  if (!E) {
-                                    var k = yield o("WAWebSchemaChat")
+                                  var k = i.has(R);
+                                  if (!k) {
+                                    var I = yield o("WAWebSchemaChat")
                                       .getChatTable()
                                       .get(R, !1);
-                                    k && (i.add(R), (E = !0));
+                                    I && (i.add(R), (k = !0));
                                   }
                                   (l.push(L),
                                     d.push({
                                       parentId: R,
                                       labels: [u],
                                       parentType:
-                                        E || !b.isUser()
+                                        k || !b.isUser()
                                           ? o("WAWebListItemParentType")
                                               .LabelItemParentType.Chat
                                           : o("WAWebListItemParentType")
                                               .LabelItemParentType.Contact,
                                     }));
-                                  var I = yield o("WAWebSchemaLabel")
-                                      .getLabelTable()
-                                      .get(u),
-                                    T = I == null ? void 0 : I.predefinedId;
+                                  var T = yield o("WAWebSchemaLabel")
+                                    .getLabelTable()
+                                    .get(u);
                                   if (
+                                    ((E = T == null ? void 0 : T.predefinedId),
                                     o(
                                       "WAWebUserPrefsGeneral",
                                     ).getDetectedOutcomeOnboardingStatus() &&
-                                    (T ===
-                                      o("WAWebLabelConstants")
-                                        .PREDEFINED_LABEL_IDS.DO_NEW_ORDER ||
-                                      T ===
+                                      (E ===
                                         o("WAWebLabelConstants")
-                                          .PREDEFINED_LABEL_IDS.DO_LEAD)
+                                          .PREDEFINED_LABEL_IDS.DO_NEW_ORDER ||
+                                        E ===
+                                          o("WAWebLabelConstants")
+                                            .PREDEFINED_LABEL_IDS.DO_LEAD))
                                   ) {
                                     var D = o(
                                       "WAWebContactSystemMsg",
@@ -187,7 +188,7 @@ __d(
                                         .NotificationTemplate,
                                       subtype:
                                         "biz_automatically_labeled_chat_system_message",
-                                      templateParams: [T.toString()],
+                                      templateParams: [E.toString()],
                                     });
                                     yield o(
                                       "WAWebHandleSingleMsgWorkerCompatible",
@@ -225,6 +226,8 @@ __d(
                                         t.LABEL_SYNC_RESULT_TYPE.SUCCESS,
                                         g,
                                         Date.now(),
+                                        void 0,
+                                        E,
                                       );
                                     }),
                                   {

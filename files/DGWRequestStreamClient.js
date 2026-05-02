@@ -4,6 +4,7 @@ __d(
     "DGWRequestStreamRef",
     "DGWStreamFactory",
     "Promise",
+    "QoSMonitor",
     "SCIsolationRollout",
     "uuidv4",
   ],
@@ -33,24 +34,29 @@ __d(
                 ) &&
                 (d = s);
             var m = null;
-            return (
-              c != null && d != null
-                ? (m = babelHelpers.extends({}, c, { serviceId: d }))
-                : c != null
-                  ? (m = c)
-                  : d != null && (m = { serviceId: d }),
-              (e || (e = n("Promise"))).resolve(
-                new (r("DGWRequestStreamRef"))(
-                  a,
-                  i,
-                  u,
-                  m,
-                  t,
-                  this.$2,
-                  this.$1.dgwRequestStreamRefConfig,
-                ),
-              )
+            c != null && d != null
+              ? (m = babelHelpers.extends({}, c, { serviceId: d }))
+              : c != null
+                ? (m = c)
+                : d != null && (m = { serviceId: d });
+            var p = new (r("DGWRequestStreamRef"))(
+              a,
+              i,
+              u,
+              m,
+              t,
+              this.$2,
+              this.$1.dgwRequestStreamRefConfig,
             );
+            if (d === s && this.$1.enableQoSTelemetry()) {
+              var _,
+                f =
+                  (_ = p.getE2EClientLogger()) == null
+                    ? void 0
+                    : _.getRequestId();
+              p.setQoSMonitor(new (r("QoSMonitor"))(p, f, a.method));
+            }
+            return (e || (e = n("Promise"))).resolve(p);
           }),
           t
         );

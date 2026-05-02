@@ -2,6 +2,7 @@ __d(
   "WAWebMsgModelUtils",
   [
     "WALogger",
+    "WATimeUtils",
     "WAWebAck",
     "WAWebAnimatedEmojiGatingUtils",
     "WAWebBackendErrors",
@@ -11,6 +12,7 @@ __d(
     "WAWebCommonMsgUtils",
     "WAWebCongratulationsAnimationsGatingUtils",
     "WAWebCongratulationsAnimationsUtils",
+    "WAWebConstantsDeprecated",
     "WAWebEmoji",
     "WAWebEmojiConst",
     "WAWebFileUtils",
@@ -18,11 +20,13 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGroupMetadataCollection",
     "WAWebInteractiveMessageHeaderMediaType",
+    "WAWebKeepInChatMsgUtils",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
+    "WAWebMuteCollection",
     "WAWebProtobufsE2E.pb",
     "WAWebWid",
     "WAWebWidJsonReviver",
@@ -426,6 +430,41 @@ __d(
         t
       );
     }
+    function O(e) {
+      return (
+        o("WAWebMsgGetters").getIsSentByMe(e) && e.ack < o("WAWebAck").ACK.SENT
+      );
+    }
+    function B(e) {
+      var t = o("WAWebFrontendMsgGetters").getChat(e).msgs.last();
+      return e.id.equals(t == null ? void 0 : t.id);
+    }
+    function W(e) {
+      var t = 5,
+        n =
+          o("WAWebMsgGetters").getNumTimesForwarded(e) +
+          (o("WAWebMsgGetters").getShouldDisplayAsForwarded(e) ? 1 : 0);
+      return n >= t
+        ? r("WAWebConstantsDeprecated").FREQUENTLY_FORWARDED_SENTINEL
+        : n;
+    }
+    function q(e) {
+      var t = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
+      return t == null
+        ? null
+        : o("WAWebKeepInChatMsgUtils").isExpired(e)
+          ? 0
+          : t - o("WATimeUtils").unixTime();
+    }
+    function U(e) {
+      var t;
+      return (
+        !(
+          (t = o("WAWebFrontendMsgGetters").getAsViewOnce(e)) != null &&
+          t.isViewOnce
+        ) && o("WAWebMuteCollection").MuteCollection.getGlobalPreviews()
+      );
+    }
     ((l.typeIsMms = g),
       (l.typeIsUrl = h),
       (l.notRefiningTypeIsUrl = y),
@@ -441,7 +480,12 @@ __d(
       (l.isSingleEmojiMessageText = N),
       (l.isAnimatedEmoji = M),
       (l.getValidatedSender = A),
-      (l.getQuotedParticipantForContextInfo = F));
+      (l.getQuotedParticipantForContextInfo = F),
+      (l.msgMayFail = O),
+      (l.isLastMsg = B),
+      (l.getMsgForwardingScoreWhenForwarded = W),
+      (l.getMsgTimeUntilExpiration = q),
+      (l.shouldShowMsgNotificationPreview = U));
   },
   98,
 );

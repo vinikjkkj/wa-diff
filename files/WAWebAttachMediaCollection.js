@@ -8,6 +8,8 @@ __d(
     "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebFileUtils",
+    "WAWebGetMetaAiImagineEventContext",
+    "WAWebImagineActionLogger",
     "WAWebL10nFilesize",
     "WAWebMediaEditorEnumsThemes",
     "WAWebMediaFileTooLargeError",
@@ -15,6 +17,8 @@ __d(
     "WAWebMiscErrors",
     "WAWebServerPropConstants",
     "WAWebSingleSelection",
+    "WAWebWamEnumImagineAction",
+    "WAWebWamEnumImagineMediaType",
     "WAWebWamEnumMediaPickerOriginType",
     "WAWebWamMediaPickerStatsLogger",
     "asyncToGeneratorRuntime",
@@ -155,19 +159,18 @@ __d(
                           n.id,
                         ),
                   u = null;
-                return (
-                  o("WAWebBotUtils").isHatchBot(n.id)
-                    ? (u =
-                        o(
-                          "WAWebBotGating",
-                        ).getHatchDocumentUploadSizeLimitBytes())
-                    : o("WAWebBotUtils").isMetaAiBot(n.id) &&
-                      (u =
-                        o(
-                          "WAWebBotGating",
-                        ).getMetaAiDocumentUploadSizeLimitBytes()),
-                  this.processAttachments(e, t, i, s, a, u)
-                );
+                (o("WAWebBotUtils").isHatchBot(n.id)
+                  ? (u =
+                      o(
+                        "WAWebBotGating",
+                      ).getHatchDocumentUploadSizeLimitBytes())
+                  : o("WAWebBotUtils").isMetaAiBot(n.id) &&
+                    (u =
+                      o(
+                        "WAWebBotGating",
+                      ).getMetaAiDocumentUploadSizeLimitBytes()),
+                  yield this.processAttachments(e, t, i, s, a, u),
+                  o("WAWebBotUtils").isMetaAiBot(n.id) && d(this, n));
               },
             );
             function t(t, n, r, o, a) {
@@ -537,7 +540,35 @@ __d(
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    ((c.model = o("WAWebAttachMediaModel").AttachMedia), (l.default = c));
+    c.model = o("WAWebAttachMediaModel").AttachMedia;
+    function d(e, t) {
+      return m.apply(this, arguments);
+    }
+    function m() {
+      return (
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = e.filter(function (e) {
+            return (
+              e.exception instanceof r("WAWebMediaFileTooLargeError") &&
+              e.exception.mediaType === o("WAWebFileUtils").FILETYPE.DOCUMENT
+            );
+          }).length;
+          n !== 0 &&
+            o("WAWebImagineActionLogger").logImagineAction({
+              action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+                .MEDIA_SIZE_EXCEED_LIMIT,
+              mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
+                .DOCUMENT,
+              maxIndex: n,
+              eventContext: yield o(
+                "WAWebGetMetaAiImagineEventContext",
+              ).getMetaAiImagineEventContext(t),
+            });
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    l.default = c;
   },
   226,
 );

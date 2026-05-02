@@ -4,7 +4,6 @@ __d(
     "Promise",
     "WAJids",
     "WALogger",
-    "WATimeUtils",
     "WATypeUtils",
     "WAWebAck",
     "WAWebBaseModel",
@@ -23,7 +22,6 @@ __d(
     "WAWebCommonMsgUtils",
     "WAWebCompactMapString",
     "WAWebConnModel",
-    "WAWebConstantsDeprecated",
     "WAWebContactCollection",
     "WAWebDBUpdateMessageTable",
     "WAWebDirectConnectionGatingUtils",
@@ -31,7 +29,6 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebFrontendMsgGetters",
     "WAWebInvisiblePlaceholderViewModeProcessor",
-    "WAWebKeepInChatMsgUtils",
     "WAWebMedia",
     "WAWebMediaData",
     "WAWebMediaTypes",
@@ -46,7 +43,6 @@ __d(
     "WAWebMsgModelPropUtils",
     "WAWebMsgModelUtils",
     "WAWebMsgType",
-    "WAWebMuteCollection",
     "WAWebNewsletterCollection",
     "WAWebNewsletterSendMsgAction",
     "WAWebNotificationsMsgNotification",
@@ -882,12 +878,6 @@ __d(
           (i.$MsgImpl$p_13 = function () {
             this.addChild("mediaData", new (r("WAWebMediaData"))());
           }),
-          (i.mayFail = function () {
-            return (
-              o("WAWebMsgGetters").getIsSentByMe(this) &&
-              this.ack < o("WAWebAck").ACK.SENT
-            );
-          }),
           (i.isUnsentPhoneMsg = function () {
             return (
               !this.local &&
@@ -1266,10 +1256,6 @@ __d(
                 this,
               ));
           }),
-          (i.isLastMessage = function () {
-            var e = o("WAWebFrontendMsgGetters").getChat(this).msgs.last();
-            return this.id.equals(e == null ? void 0 : e.id);
-          }),
           (i.msgContextInfo = function (n) {
             var t = this.toJSON(),
               r = t.ack,
@@ -1554,25 +1540,6 @@ __d(
                 o("WAWebMedia").deregisterMsg(this));
             }
           }),
-          (i.getForwardingScoreWhenForwarded = function () {
-            var e = 5,
-              t =
-                o("WAWebMsgGetters").getNumTimesForwarded(this) +
-                (o("WAWebMsgGetters").getShouldDisplayAsForwarded(this)
-                  ? 1
-                  : 0);
-            return t >= e
-              ? r("WAWebConstantsDeprecated").FREQUENTLY_FORWARDED_SENTINEL
-              : t;
-          }),
-          (i.timeUntilExpiration = function () {
-            var e = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(this);
-            return e == null
-              ? null
-              : o("WAWebKeepInChatMsgUtils").isExpired(this)
-                ? 0
-                : e - o("WATimeUtils").unixTime();
-          }),
           (i.getCollection = function () {
             return o("WAWebMsgCollection").MsgCollection;
           }),
@@ -1586,15 +1553,6 @@ __d(
           }),
           (i.unsafe = function () {
             return this;
-          }),
-          (i.shouldShowNotificationPreview = function () {
-            var e;
-            return (
-              !(
-                (e = o("WAWebFrontendMsgGetters").getAsViewOnce(this)) !=
-                  null && e.isViewOnce
-              ) && o("WAWebMuteCollection").MuteCollection.getGlobalPreviews()
-            );
           }),
           (i.detachAssociatedMsg = function () {
             (this.hideParentMessageInChat({ duringDetach: !0 }),

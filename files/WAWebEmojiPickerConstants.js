@@ -27,11 +27,11 @@ __d(
         "ANGRY",
         "CELEBRATE",
         "STORE",
-      ]),
-      f = function (t) {
-        var e = t;
-        return p.isValid(e) ? p.cast(e) : null;
-      };
+      ]);
+    function f(e) {
+      var t = e;
+      return p.isValid(t) ? p.cast(t) : null;
+    }
     ((i.SCROLL_CLICK_TIME_GAP = e),
       (i.SCROLL_THROTTLE_TIME = l),
       (i.INPUT_BAR_TOTAL_HEIGHT = s),

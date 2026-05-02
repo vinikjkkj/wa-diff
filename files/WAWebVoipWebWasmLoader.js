@@ -13,7 +13,7 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1777522329873" }),
+      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1777650951901" }),
       d = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -250,7 +250,7 @@ __d(
             F = y.printErr || console.error.bind(console);
           (Object.assign(y, v),
             (v = null),
-            Si(),
+            xi(),
             y.arguments && (S = y.arguments),
             We("arguments", "arguments_"),
             y.thisProgram && (R = y.thisProgram),
@@ -383,7 +383,7 @@ __d(
           (ne(), (re = W.buffer.byteLength), G(re % 65536 === 0));
           var oe;
           function ae() {
-            var e = ji();
+            var e = tl();
             (G((e & 3) == 0),
               e == 0 && (e += 4),
               (f()[e >> 2] = 34821223),
@@ -392,7 +392,7 @@ __d(
           }
           function ie() {
             if (!V) {
-              var e = ji();
+              var e = tl();
               e == 0 && (e += 4);
               var t = f()[e >> 2],
                 n = f()[(e + 4) >> 2];
@@ -635,7 +635,7 @@ __d(
               : Fe(t, n, r);
           }
           function Be() {
-            var e = { env: Ri, wasi_snapshot_preview1: Ri };
+            var e = { env: $i, wasi_snapshot_preview1: $i };
             function t(e, t) {
               var n = e.exports;
               return (
@@ -763,10 +763,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1288075: function () {
+            1286747: function () {
               return Date.now();
             },
-            1288098: function (t, n) {
+            1286770: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -798,9 +798,9 @@ __d(
               if (self.__inMLInference && y._wasm_throw_ml_abort) {
                 (y.onAbort && y.onAbort(n), (n = "Aborted(" + n + ")"), F(n));
                 var t = xt(n) + 1,
-                  r = nl(),
-                  o = ol(t);
-                (Bn(n, o, t), y._wasm_throw_ml_abort(o), rl(r));
+                  r = cl(),
+                  o = ml(t);
+                (Bn(n, o, t), y._wasm_throw_ml_abort(o), dl(r));
                 return;
               }
               e(n);
@@ -811,7 +811,7 @@ __d(
               self.WhatsAppVoipWasmWorkerCompatibleCallbacks.getPersistentDirectoryPath();
             if (e) {
               var t = xt(e) + 1,
-                n = Ii(t);
+                n = wi(t);
               return (Bn(e, n, t), n);
             }
             return null;
@@ -824,7 +824,7 @@ __d(
                 });
             if (n) {
               var r = xt(n) + 1,
-                o = Ii(r);
+                o = wi(r);
               return (Bn(n, o, r), o);
             }
             return null;
@@ -836,7 +836,7 @@ __d(
             }
             var r = new Uint8Array(e),
               o = self.crypto.getRandomValues(r);
-            pi(o, t);
+            vi(o, t);
           }
           function et(e) {
             var t = Xt(e);
@@ -988,7 +988,7 @@ __d(
             var t = rn.pthreads[e];
             (delete rn.pthreads[e],
               ht(t),
-              Ki(e),
+              nl(e),
               rn.runningWorkers.splice(rn.runningWorkers.indexOf(t), 1),
               (t.pthread_ptr = 0));
           }
@@ -1384,7 +1384,7 @@ __d(
             },
             At = function (t) {
               t = wt(t, 65536);
-              var e = Fi(65536, t);
+              var e = Gi(65536, t);
               return e ? vt(e, t) : 0;
             },
             Ft = {
@@ -1683,7 +1683,7 @@ __d(
             },
             Bt = y.preloadPlugins || [];
           function Wt(e, t, n, r) {
-            typeof La != "undefined" && La.init();
+            typeof Pa != "undefined" && Pa.init();
             var o = !1;
             return (
               Bt.forEach(function (a) {
@@ -2981,7 +2981,7 @@ __d(
                   Qt.createStandardStreams());
               },
               quit: function () {
-                ((Qt.init.initialized = !1), xi(0));
+                ((Qt.init.initialized = !1), Oi(0));
                 for (var e = 0; e < Qt.streams.length; e++) {
                   var t = Qt.streams[e];
                   t && Qt.close(t);
@@ -3392,14 +3392,14 @@ __d(
               },
             };
           function Jt(e) {
-            if (D) return Na(1, 1, e);
+            if (D) return qa(1, 1, e);
             ((H = e),
               me() ||
                 (rn.terminateAllThreads(), y.onExit && y.onExit(e), (V = !0)),
               L(e, new gt(e)));
           }
           var Zt = function (t, n) {
-              if (((H = t), Fu(), D)) throw (G(!n), ln(t), "unwind");
+              if (((H = t), Gu(), D)) throw (G(!n), ln(t), "unwind");
               if (me() && !n) {
                 var e =
                   "program exited (with status: " +
@@ -3423,7 +3423,7 @@ __d(
               if (t instanceof gt || t == "unwind") return H;
               (ie(),
                 t instanceof WebAssembly.RuntimeError &&
-                  al() <= 0 &&
+                  pl() <= 0 &&
                   F(
                     "Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to 10485760)",
                   ),
@@ -3439,7 +3439,7 @@ __d(
                 function e() {
                   var e = 0;
                   return (
-                    ce && typeof wi != "undefined" && (e = wi()),
+                    ce && typeof Vi != "undefined" && (e = Vi()),
                     "w:" + (y.workerID || 0) + ",t:" + tn(e) + ": "
                   );
                 }
@@ -3548,7 +3548,7 @@ __d(
                   rn.unusedWorkers.push(t),
                   rn.runningWorkers.splice(rn.runningWorkers.indexOf(t), 1),
                   (t.pthread_ptr = 0),
-                  Ki(e));
+                  nl(e));
               },
               receiveObjectTransfer: function (t) {},
               threadInitTLS: function () {
@@ -3561,7 +3561,7 @@ __d(
                   (o.addMessageListener("cmd", function (e) {
                     var t = e,
                       r = t.cmd;
-                    if (t.targetThread && t.targetThread != wi()) {
+                    if (t.targetThread && t.targetThread != Vi()) {
                       var a = rn.pthreads[t.targetThread];
                       a
                         ? a.postMessage(
@@ -3694,38 +3694,38 @@ __d(
             for (; t.length > 0; ) t.shift()(y);
           };
           function an() {
-            var e = wi(),
+            var e = Vi(),
               t = _()[(e + 52) >> 2],
               n = _()[(e + 56) >> 2],
               r = t - n;
             (G(t != 0),
               G(r != 0),
               G(t > r, "stackHigh must be higher then stackLow"),
-              el(t, r),
-              rl(t),
+              sl(t, r),
+              dl(t),
               ae());
           }
           y.establishStackSpace = an;
           function ln(e) {
-            if (D) return Na(2, 0, e);
+            if (D) return qa(2, 0, e);
             en(e);
           }
           var sn = function (t) {
-              var e = nl(),
+              var e = cl(),
                 n = t();
-              return (rl(e), n);
+              return (dl(e), n);
             },
             un = function (t) {
               return sn(function () {
-                var e = ol(4),
-                  n = ol(4);
-                sl(t, e, n);
+                var e = ml(4),
+                  n = ml(4);
+                gl(t, e, n);
                 var r = f()[e >> 2],
                   o = f()[n >> 2],
                   a = Xt(r);
-                Ti(r);
+                Ai(r);
                 var i;
-                return (o && ((i = Xt(o)), Ti(o)), [a, i]);
+                return (o && ((i = Xt(o)), Ai(o)), [a, i]);
               });
             };
           function cn(e) {
@@ -3739,7 +3739,7 @@ __d(
             var n = dn(e)(t);
             ie();
             function r(e) {
-              me() ? rn.setExitStatus(e) : Qi(e);
+              me() ? rn.setExitStatus(e) : rl(e);
             }
             r(n);
           }
@@ -3771,15 +3771,15 @@ __d(
               t.get_caught() || (t.set_caught(!0), hn--),
               t.set_rethrown(!1),
               gn.push(t),
-              ll(t.excPtr),
+              fl(t.excPtr),
               t.get_exception_ptr()
             );
           }
           var Cn = 0;
           function bn() {
-            (Yi(0, 0), G(gn.length > 0));
+            (al(0, 0), G(gn.length > 0));
             var e = gn.pop();
-            (il(e.excPtr), (Cn = 0));
+            (_l(e.excPtr), (Cn = 0));
           }
           function vn(e) {
             ((this.excPtr = e),
@@ -3820,7 +3820,7 @@ __d(
                 return f()[(this.ptr + 16) >> 2];
               }),
               (this.get_exception_ptr = function () {
-                var e = cl(this.get_type());
+                var e = yl(this.get_type());
                 if (e) return f()[this.excPtr >> 2];
                 var t = this.get_adjusted_ptr();
                 return t !== 0 ? t : this.excPtr;
@@ -3831,18 +3831,18 @@ __d(
           }
           var Rn = function (t) {
               var e = Cn && Cn.excPtr;
-              if (!e) return (Ji(0), 0);
+              if (!e) return (il(0), 0);
               var n = new vn(e);
               n.set_adjusted_ptr(e);
               var r = n.get_type();
-              if (!r) return (Ji(0), e);
+              if (!r) return (il(0), e);
               for (var o in t) {
                 var a = t[o];
                 if (a === 0 || a === r) break;
                 var i = n.ptr + 16;
-                if (ul(a, r, i)) return (Ji(a), e);
+                if (hl(a, r, i)) return (il(a), e);
               }
-              return (Ji(r), e);
+              return (il(r), e);
             },
             Ln = function () {
               return Rn([]);
@@ -3876,7 +3876,7 @@ __d(
             return hn;
           }
           function $n(e) {
-            (Wi(e, !k, 1, !E, 10485760, !1), rn.threadInitTLS());
+            (Ki(e, !k, 1, !E, 10485760, !1), rn.threadInitTLS());
           }
           function Pn(e) {
             D
@@ -3884,7 +3884,7 @@ __d(
               : bt(e);
           }
           function Nn(e, t, n, r) {
-            return D ? Na(3, 1, e, t, n, r) : Mn(e, t, n, r);
+            return D ? qa(3, 1, e, t, n, r) : Mn(e, t, n, r);
           }
           function Mn(e, t, n, r) {
             if (typeof SharedArrayBuffer == "undefined")
@@ -3910,7 +3910,7 @@ __d(
               : St(i);
           }
           function wn(e) {
-            if (D) return Na(4, 1, e);
+            if (D) return qa(4, 1, e);
             try {
               return ((e = Yt.getStr(e)), Qt.chdir(e), 0);
             } catch (e) {
@@ -3919,10 +3919,10 @@ __d(
             }
           }
           var An = function (t) {
-            return ((_()[$i() >> 2] = t), t);
+            return ((_()[Bi() >> 2] = t), t);
           };
           function Fn(e, t, n) {
-            if (D) return Na(5, 1, e, t, n);
+            if (D) return qa(5, 1, e, t, n);
             Yt.varargs = n;
             try {
               var r = Yt.getStreamFromFD(e);
@@ -3964,7 +3964,7 @@ __d(
             }
           }
           function On(e, t) {
-            if (D) return Na(6, 1, e, t);
+            if (D) return qa(6, 1, e, t);
             try {
               var n = Yt.getStreamFromFD(e);
               return Yt.doStat(Qt.stat, n.path, t);
@@ -3983,7 +3983,7 @@ __d(
             );
           };
           function Wn(e, t, n) {
-            if (D) return Na(7, 1, e, t, n);
+            if (D) return qa(7, 1, e, t, n);
             try {
               var r = Yt.getStreamFromFD(e);
               r.getdents || (r.getdents = Qt.readdir(r.path));
@@ -4028,7 +4028,7 @@ __d(
             }
           }
           function qn(e, t, n) {
-            if (D) return Na(8, 1, e, t, n);
+            if (D) return qa(8, 1, e, t, n);
             Yt.varargs = n;
             try {
               var r = Yt.getStreamFromFD(e);
@@ -4114,7 +4114,7 @@ __d(
             }
           }
           function Un(e, t) {
-            if (D) return Na(9, 1, e, t);
+            if (D) return qa(9, 1, e, t);
             try {
               return ((e = Yt.getStr(e)), Yt.doStat(Qt.lstat, e, t));
             } catch (e) {
@@ -4123,7 +4123,7 @@ __d(
             }
           }
           function Vn(e, t, n) {
-            if (D) return Na(10, 1, e, t, n);
+            if (D) return qa(10, 1, e, t, n);
             try {
               return (
                 (t = Yt.getStr(t)),
@@ -4139,7 +4139,7 @@ __d(
             }
           }
           function Hn(e, t, n, r) {
-            if (D) return Na(11, 1, e, t, n, r);
+            if (D) return qa(11, 1, e, t, n, r);
             try {
               t = Yt.getStr(t);
               var o = r & 256,
@@ -4156,7 +4156,7 @@ __d(
             }
           }
           function Gn(e, t, n, r) {
-            if (D) return Na(12, 1, e, t, n, r);
+            if (D) return qa(12, 1, e, t, n, r);
             Yt.varargs = r;
             try {
               ((t = Yt.getStr(t)), (t = Yt.calculateAt(e, t)));
@@ -4168,7 +4168,7 @@ __d(
             }
           }
           function zn(e, t) {
-            if (D) return Na(13, 1, e, t);
+            if (D) return qa(13, 1, e, t);
             try {
               return ((e = Yt.getStr(e)), Yt.doStat(Qt.stat, e, t));
             } catch (e) {
@@ -4177,7 +4177,7 @@ __d(
             }
           }
           function jn(e, t, n) {
-            if (D) return Na(14, 1, e, t, n);
+            if (D) return qa(14, 1, e, t, n);
             try {
               return (
                 (t = Yt.getStr(t)),
@@ -4876,9 +4876,9 @@ __d(
           }
           var io = void 0;
           function lo(e) {
-            var t = Oi(e),
+            var t = zi(e),
               n = Yn(t);
-            return (Ti(t), n);
+            return (Ai(t), n);
           }
           function so(e, t) {
             var n = [],
@@ -5332,7 +5332,7 @@ __d(
                     c[i] = String.fromCharCode(d()[r + i]);
                   o = c.join("");
                 }
-                return (Ti(t), o);
+                return (Ai(t), o);
               },
               toWireType: function (t, r) {
                 r instanceof ArrayBuffer && (r = new Uint8Array(r));
@@ -5344,26 +5344,26 @@ __d(
                   r instanceof Int8Array ||
                   nr("Cannot pass non-string to std::string"),
                   n && o ? (e = xt(r)) : (e = r.length));
-                var a = Ii(4 + e + 1),
+                var a = wi(4 + e + 1),
                   i = a + 4;
                 if (((f()[a >> 2] = e), n && o)) Bn(r, i, e + 1);
                 else if (o)
                   for (var l = 0; l < e; ++l) {
                     var s = r.charCodeAt(l);
                     (s > 255 &&
-                      (Ti(i),
+                      (Ai(i),
                       nr(
                         "String has UTF-16 code units that do not fit in 8 bits",
                       )),
                       (d()[i + l] = s));
                   }
                 else for (var l = 0; l < e; ++l) d()[i + l] = r[l];
-                return (t !== null && t.push(Ti, a), a);
+                return (t !== null && t.push(Ai, a), a);
               },
               argPackAdvance: 8,
               readValueFromPointer: Yr,
               destructorFunction: function (t) {
-                Ti(t);
+                Ai(t);
               },
               jsType: "string",
             });
@@ -5500,24 +5500,24 @@ __d(
                           (s = c + n));
                       }
                     }
-                    return (Ti(r), i);
+                    return (Ai(r), i);
                   },
                   toWireType: function (t, a) {
                     typeof a != "string" &&
                       nr("Cannot pass non-string to C++ string type " + r);
                     var e = i(a),
-                      s = Ii(4 + e + n);
+                      s = wi(4 + e + n);
                     return (
                       (f()[s >> 2] = e >> l),
                       o(a, s + 4, e + n),
-                      t !== null && t.push(Ti, s),
+                      t !== null && t.push(Ai, s),
                       s
                     );
                   },
                   argPackAdvance: 8,
                   readValueFromPointer: Yr,
                   destructorFunction: function (t) {
-                    Ti(t);
+                    Ai(t);
                   },
                 }));
             };
@@ -5539,7 +5539,7 @@ __d(
             qo = function () {
               if (!me())
                 try {
-                  D ? Qi(H) : en(H);
+                  D ? rl(H) : en(H);
                 } catch (e) {
                   nn(e);
                 }
@@ -5567,11 +5567,11 @@ __d(
           }
           y.__emscripten_thread_mailbox_await = Vo;
           var Ho = function () {
-            var e = wi();
+            var e = Vi();
             e &&
               (Vo(e),
               Uo(function () {
-                return Xi();
+                return ol();
               }));
           };
           y.checkMailbox = Ho;
@@ -5712,7 +5712,7 @@ __d(
             return BigInt(e);
           };
           function sa(e, t, n, r, o, a, i) {
-            if (D) return Na(15, 1, e, t, n, r, o, a, i);
+            if (D) return qa(15, 1, e, t, n, r, o, a, i);
             ((e = ea(e)), (o = ea(o)), (a = ea(a)), (i = ea(i)));
             try {
               if (isNaN(o)) return 61;
@@ -5726,7 +5726,7 @@ __d(
             }
           }
           function ua(e, t, n, r, o, a) {
-            if (D) return Na(16, 1, e, t, n, r, o, a);
+            if (D) return qa(16, 1, e, t, n, r, o, a);
             ((e = ea(e)), (t = ea(t)), (a = ea(a)));
             try {
               if (isNaN(a)) return 61;
@@ -5739,7 +5739,7 @@ __d(
           }
           var ca = function (t) {
               var e = xt(t) + 1,
-                n = Ii(e);
+                n = wi(e);
               return (n && Bn(t, n, e), n);
             },
             da = function (t, n, r) {
@@ -5764,10 +5764,37 @@ __d(
             },
             ma = function () {
               ke("native code called abort()");
-            },
-            pa = [],
-            _a = function (t, n) {
-              (G(Array.isArray(pa)), G(n % 16 == 0), (pa.length = 0));
+            };
+          function pa() {
+            (F("missing function: aud_process_create"), ke(-1));
+          }
+          function _a() {
+            (F("missing function: aud_process_destroy"), ke(-1));
+          }
+          function fa() {
+            (F("missing function: aud_process_get_stats"), ke(-1));
+          }
+          function ga() {
+            (F("missing function: aud_process_mute_state_update"), ke(-1));
+          }
+          function ha() {
+            (F(
+              "missing function: aud_process_noise_suppression_setting_update",
+            ),
+              ke(-1));
+          }
+          function ya() {
+            (F("missing function: aud_process_reset"), ke(-1));
+          }
+          function Ca() {
+            (F("missing function: aud_process_reset_stats"), ke(-1));
+          }
+          function ba() {
+            (F("missing function: aud_process_run"), ke(-1));
+          }
+          var va = [],
+            Sa = function (t, n) {
+              (G(Array.isArray(va)), G(n % 16 == 0), (va.length = 0));
               var e;
               for (n >>= 2; (e = d()[t++]); ) {
                 var r = String.fromCharCode(e),
@@ -5784,44 +5811,44 @@ __d(
                       '], and do not specify "v" for void return argument.',
                   ),
                   (n += (e != 105) & n),
-                  pa.push(e == 105 ? _()[n] : (e == 106 ? Z : h())[n++ >> 1]),
+                  va.push(e == 105 ? _()[n] : (e == 106 ? Z : h())[n++ >> 1]),
                   ++n);
               }
-              return pa;
+              return va;
             },
-            fa = function (t, n, r) {
-              var e = _a(n, r);
+            Ra = function (t, n, r) {
+              var e = Sa(n, r);
               return (
                 Object.prototype.hasOwnProperty.call(je, t) ||
                   ke("No EM_ASM constant found at address " + t),
                 je[t].apply(null, e)
               );
             },
-            ga = function (t, n, r) {
-              return fa(t, n, r);
+            La = function (t, n, r) {
+              return Ra(t, n, r);
             },
-            ha = function (t, n, r) {
-              return fa(t, n, r);
+            Ea = function (t, n, r) {
+              return Ra(t, n, r);
             },
-            ya = function () {
+            ka = function () {
               de += 1;
             },
-            Ca = function () {
+            Ia = function () {
               (G(de > 0), (de -= 1));
             },
-            ba = function (t, n) {
+            Ta = function (t, n) {
               return (
-                ya(),
+                ka(),
                 setTimeout(function () {
-                  (Ca(), Uo(t));
+                  (Ia(), Uo(t));
                 }, n)
               );
             };
-          function va(e, t) {
+          function Da(e, t) {
             if (
-              ((La.mainLoop.timingMode = e),
-              (La.mainLoop.timingValue = t),
-              !La.mainLoop.func)
+              ((Pa.mainLoop.timingMode = e),
+              (Pa.mainLoop.timingValue = t),
+              !Pa.mainLoop.func)
             )
               return (
                 F(
@@ -5830,19 +5857,19 @@ __d(
                 1
               );
             if (
-              (La.mainLoop.running || (ya(), (La.mainLoop.running = !0)),
+              (Pa.mainLoop.running || (ka(), (Pa.mainLoop.running = !0)),
               e == 0)
             )
-              ((La.mainLoop.scheduler = function () {
-                var e = Math.max(0, La.mainLoop.tickStartTime + t - Sa()) | 0;
-                setTimeout(La.mainLoop.runner, e);
+              ((Pa.mainLoop.scheduler = function () {
+                var e = Math.max(0, Pa.mainLoop.tickStartTime + t - xa()) | 0;
+                setTimeout(Pa.mainLoop.runner, e);
               }),
-                (La.mainLoop.method = "timeout"));
+                (Pa.mainLoop.method = "timeout"));
             else if (e == 1)
-              ((La.mainLoop.scheduler = function () {
-                La.requestAnimationFrame(La.mainLoop.runner);
+              ((Pa.mainLoop.scheduler = function () {
+                Pa.requestAnimationFrame(Pa.mainLoop.runner);
               }),
-                (La.mainLoop.method = "rAF"));
+                (Pa.mainLoop.method = "rAF"));
             else if (e == 2) {
               if (typeof setImmediate == "undefined") {
                 var n = [],
@@ -5864,42 +5891,42 @@ __d(
                           ));
                   }));
               }
-              ((La.mainLoop.scheduler = function () {
-                setImmediate(La.mainLoop.runner);
+              ((Pa.mainLoop.scheduler = function () {
+                setImmediate(Pa.mainLoop.runner);
               }),
-                (La.mainLoop.method = "immediate"));
+                (Pa.mainLoop.method = "immediate"));
             }
             return 0;
           }
-          var Sa;
-          Sa = function () {
+          var xa;
+          xa = function () {
             return performance.timeOrigin + performance.now();
           };
-          function Ra(e, t, n, r, o) {
+          function $a(e, t, n, r, o) {
             (G(
-              !La.mainLoop.func,
+              !Pa.mainLoop.func,
               "emscripten_set_main_loop: there can only be one main loop function at once: call emscripten_cancel_main_loop to cancel the previous one before setting a new one with different parameters.",
             ),
-              (La.mainLoop.func = e),
-              (La.mainLoop.arg = r));
-            var a = La.mainLoop.currentlyRunningMainloop;
+              (Pa.mainLoop.func = e),
+              (Pa.mainLoop.arg = r));
+            var a = Pa.mainLoop.currentlyRunningMainloop;
             function i() {
-              return a < La.mainLoop.currentlyRunningMainloop ? (Ca(), !1) : !0;
+              return a < Pa.mainLoop.currentlyRunningMainloop ? (Ia(), !1) : !0;
             }
             if (
-              ((La.mainLoop.running = !1),
-              (La.mainLoop.runner = function () {
+              ((Pa.mainLoop.running = !1),
+              (Pa.mainLoop.runner = function () {
                 if (!V) {
-                  if (La.mainLoop.queue.length > 0) {
+                  if (Pa.mainLoop.queue.length > 0) {
                     var t = Date.now(),
-                      n = La.mainLoop.queue.shift();
-                    if ((n.func(n.arg), La.mainLoop.remainingBlockers)) {
-                      var r = La.mainLoop.remainingBlockers,
+                      n = Pa.mainLoop.queue.shift();
+                    if ((n.func(n.arg), Pa.mainLoop.remainingBlockers)) {
+                      var r = Pa.mainLoop.remainingBlockers,
                         o = r % 1 == 0 ? r - 1 : Math.floor(r);
                       n.counted
-                        ? (La.mainLoop.remainingBlockers = o)
+                        ? (Pa.mainLoop.remainingBlockers = o)
                         : ((o = o + 0.5),
-                          (La.mainLoop.remainingBlockers = (8 * r + o) / 9));
+                          (Pa.mainLoop.remainingBlockers = (8 * r + o) / 9));
                     }
                     if (
                       (A(
@@ -5909,53 +5936,53 @@ __d(
                           (Date.now() - t) +
                           " ms",
                       ),
-                      La.mainLoop.updateStatus(),
+                      Pa.mainLoop.updateStatus(),
                       !i())
                     )
                       return;
-                    setTimeout(La.mainLoop.runner, 0);
+                    setTimeout(Pa.mainLoop.runner, 0);
                     return;
                   }
                   if (i()) {
                     if (
-                      ((La.mainLoop.currentFrameNumber =
-                        (La.mainLoop.currentFrameNumber + 1) | 0),
-                      La.mainLoop.timingMode == 1 &&
-                        La.mainLoop.timingValue > 1 &&
-                        La.mainLoop.currentFrameNumber %
-                          La.mainLoop.timingValue !=
+                      ((Pa.mainLoop.currentFrameNumber =
+                        (Pa.mainLoop.currentFrameNumber + 1) | 0),
+                      Pa.mainLoop.timingMode == 1 &&
+                        Pa.mainLoop.timingValue > 1 &&
+                        Pa.mainLoop.currentFrameNumber %
+                          Pa.mainLoop.timingValue !=
                           0)
                     ) {
-                      La.mainLoop.scheduler();
+                      Pa.mainLoop.scheduler();
                       return;
                     } else
-                      La.mainLoop.timingMode == 0 &&
-                        (La.mainLoop.tickStartTime = Sa());
-                    (La.mainLoop.method === "timeout" &&
+                      Pa.mainLoop.timingMode == 0 &&
+                        (Pa.mainLoop.tickStartTime = xa());
+                    (Pa.mainLoop.method === "timeout" &&
                       y.ctx &&
                       (_n(
                         "Looks like you are rendering without using requestAnimationFrame for the main loop. You should use 0 for the frame rate in emscripten_set_main_loop in order to use requestAnimationFrame, as that can greatly improve your frame rates!",
                       ),
-                      (La.mainLoop.method = "")),
-                      La.mainLoop.runIter(e),
+                      (Pa.mainLoop.method = "")),
+                      Pa.mainLoop.runIter(e),
                       ie(),
                       i() &&
                         (typeof SDL == "object" &&
                           SDL.audio &&
                           SDL.audio.queueNewAudioData &&
                           SDL.audio.queueNewAudioData(),
-                        La.mainLoop.scheduler()));
+                        Pa.mainLoop.scheduler()));
                   }
                 }
               }),
               o ||
-                (t && t > 0 ? va(0, 1e3 / t) : va(1, 1),
-                La.mainLoop.scheduler()),
+                (t && t > 0 ? Da(0, 1e3 / t) : Da(1, 1),
+                Pa.mainLoop.scheduler()),
               n)
             )
               throw "unwind";
           }
-          var La = {
+          var Pa = {
             mainLoop: {
               running: !1,
               scheduler: null,
@@ -5968,24 +5995,24 @@ __d(
               currentFrameNumber: 0,
               queue: [],
               pause: function () {
-                ((La.mainLoop.scheduler = null),
-                  La.mainLoop.currentlyRunningMainloop++);
+                ((Pa.mainLoop.scheduler = null),
+                  Pa.mainLoop.currentlyRunningMainloop++);
               },
               resume: function () {
-                La.mainLoop.currentlyRunningMainloop++;
-                var e = La.mainLoop.timingMode,
-                  t = La.mainLoop.timingValue,
-                  n = La.mainLoop.func;
-                ((La.mainLoop.func = null),
-                  Ra(n, 0, !1, La.mainLoop.arg, !0),
-                  va(e, t),
-                  La.mainLoop.scheduler());
+                Pa.mainLoop.currentlyRunningMainloop++;
+                var e = Pa.mainLoop.timingMode,
+                  t = Pa.mainLoop.timingValue,
+                  n = Pa.mainLoop.func;
+                ((Pa.mainLoop.func = null),
+                  $a(n, 0, !1, Pa.mainLoop.arg, !0),
+                  Da(e, t),
+                  Pa.mainLoop.scheduler());
               },
               updateStatus: function () {
                 if (y.setStatus) {
                   var e = y.statusMessage || "Please wait...",
-                    t = La.mainLoop.remainingBlockers,
-                    n = La.mainLoop.expectedBlockers;
+                    t = Pa.mainLoop.remainingBlockers,
+                    n = Pa.mainLoop.expectedBlockers;
                   t
                     ? t < n
                       ? y.setStatus(e + " (" + (n - t) + "/" + n + ")")
@@ -6008,17 +6035,17 @@ __d(
             moduleContextCreatedCallbacks: [],
             workers: [],
             init: function () {
-              if (La.initted) return;
-              La.initted = !0;
+              if (Pa.initted) return;
+              Pa.initted = !0;
               var e = {};
               ((e.canHandle = function (t) {
                 return !y.noImageDecoding && /\.(jpg|jpeg|png|bmp)$/i.test(t);
               }),
                 (e.handle = function (t, n, r, o) {
-                  var e = new Blob([t], { type: La.getMimetype(n) });
+                  var e = new Blob([t], { type: Pa.getMimetype(n) });
                   e.size !== t.length &&
                     (e = new Blob([new Uint8Array(t).buffer], {
-                      type: La.getMimetype(n),
+                      type: Pa.getMimetype(n),
                     }));
                   var a = URL.createObjectURL(e);
                   G(
@@ -6032,7 +6059,7 @@ __d(
                     ((e.width = i.width), (e.height = i.height));
                     var o = e.getContext("2d");
                     (o.drawImage(i, 0, 0),
-                      (Ci[n] = e),
+                      (Ii[n] = e),
                       URL.revokeObjectURL(a),
                       r && r(t));
                   }),
@@ -6052,9 +6079,9 @@ __d(
                 (t.handle = function (t, n, r, o) {
                   var e = !1;
                   function a(o) {
-                    e || ((e = !0), (bi[n] = o), r && r(t));
+                    e || ((e = !0), (Ti[n] = o), r && r(t));
                   }
-                  var i = new Blob([t], { type: La.getMimetype(n) }),
+                  var i = new Blob([t], { type: Pa.getMimetype(n) }),
                     l = URL.createObjectURL(i);
                   G(
                     typeof l == "string",
@@ -6103,13 +6130,13 @@ __d(
                         a(s));
                     }),
                     (s.src = l),
-                    ba(function () {
+                    Ta(function () {
                       a(s);
                     }, 1e4));
                 }),
                 Bt.push(t));
               function n() {
-                La.pointerLock =
+                Pa.pointerLock =
                   document.pointerLockElement === y.canvas ||
                   document.mozPointerLockElement === y.canvas ||
                   document.webkitPointerLockElement === y.canvas ||
@@ -6138,7 +6165,7 @@ __d(
                   r.addEventListener(
                     "click",
                     function (e) {
-                      !La.pointerLock &&
+                      !Pa.pointerLock &&
                         y.canvas.requestPointerLock &&
                         (y.canvas.requestPointerLock(), e.preventDefault());
                     },
@@ -6165,10 +6192,10 @@ __d(
                     (y.ctx = e),
                     n && GL.makeContextCurrent(a),
                     (y.useWebGL = n),
-                    La.moduleContextCreatedCallbacks.forEach(function (e) {
+                    Pa.moduleContextCreatedCallbacks.forEach(function (e) {
                       return e();
                     }),
-                    La.init()),
+                    Pa.init()),
                   e)
                 : null;
             },
@@ -6177,36 +6204,36 @@ __d(
             lockPointer: void 0,
             resizeCanvas: void 0,
             requestFullscreen: function (t, n) {
-              ((La.lockPointer = t),
-                (La.resizeCanvas = n),
-                typeof La.lockPointer == "undefined" && (La.lockPointer = !0),
-                typeof La.resizeCanvas == "undefined" &&
-                  (La.resizeCanvas = !1));
+              ((Pa.lockPointer = t),
+                (Pa.resizeCanvas = n),
+                typeof Pa.lockPointer == "undefined" && (Pa.lockPointer = !0),
+                typeof Pa.resizeCanvas == "undefined" &&
+                  (Pa.resizeCanvas = !1));
               var e = y.canvas;
               function r() {
-                La.isFullscreen = !1;
+                Pa.isFullscreen = !1;
                 var t = e.parentNode;
                 ((document.fullscreenElement ||
                   document.mozFullScreenElement ||
                   document.msFullscreenElement ||
                   document.webkitFullscreenElement ||
                   document.webkitCurrentFullScreenElement) === t
-                  ? ((e.exitFullscreen = La.exitFullscreen),
-                    La.lockPointer && e.requestPointerLock(),
-                    (La.isFullscreen = !0),
-                    La.resizeCanvas
-                      ? La.setFullscreenCanvasSize()
-                      : La.updateCanvasDimensions(e))
+                  ? ((e.exitFullscreen = Pa.exitFullscreen),
+                    Pa.lockPointer && e.requestPointerLock(),
+                    (Pa.isFullscreen = !0),
+                    Pa.resizeCanvas
+                      ? Pa.setFullscreenCanvasSize()
+                      : Pa.updateCanvasDimensions(e))
                   : (t.parentNode.insertBefore(e, t),
                     t.parentNode.removeChild(t),
-                    La.resizeCanvas
-                      ? La.setWindowedCanvasSize()
-                      : La.updateCanvasDimensions(e)),
-                  y.onFullScreen && y.onFullScreen(La.isFullscreen),
-                  y.onFullscreen && y.onFullscreen(La.isFullscreen));
+                    Pa.resizeCanvas
+                      ? Pa.setWindowedCanvasSize()
+                      : Pa.updateCanvasDimensions(e)),
+                  y.onFullScreen && y.onFullScreen(Pa.isFullscreen),
+                  y.onFullscreen && y.onFullscreen(Pa.isFullscreen));
               }
-              La.fullscreenHandlersInstalled ||
-                ((La.fullscreenHandlersInstalled = !0),
+              Pa.fullscreenHandlersInstalled ||
+                ((Pa.fullscreenHandlersInstalled = !0),
                 document.addEventListener("fullscreenchange", r, !1),
                 document.addEventListener("mozfullscreenchange", r, !1),
                 document.addEventListener("webkitfullscreenchange", r, !1),
@@ -6240,7 +6267,7 @@ __d(
               );
             },
             exitFullscreen: function () {
-              if (!La.isFullscreen) return !1;
+              if (!Pa.isFullscreen) return !1;
               var e =
                 document.exitFullscreen ||
                 document.cancelFullScreen ||
@@ -6253,9 +6280,9 @@ __d(
             nextRAF: 0,
             fakeRequestAnimationFrame: function (t) {
               var e = Date.now();
-              if (La.nextRAF === 0) La.nextRAF = e + 1e3 / 60;
-              else for (; e + 2 >= La.nextRAF; ) La.nextRAF += 1e3 / 60;
-              var n = Math.max(La.nextRAF - e, 0);
+              if (Pa.nextRAF === 0) Pa.nextRAF = e + 1e3 / 60;
+              else for (; e + 2 >= Pa.nextRAF; ) Pa.nextRAF += 1e3 / 60;
+              var n = Math.max(Pa.nextRAF - e, 0);
               setTimeout(t, n);
             },
             requestAnimationFrame: (function (e) {
@@ -6273,17 +6300,17 @@ __d(
                 requestAnimationFrame(e);
                 return;
               }
-              var t = La.fakeRequestAnimationFrame;
+              var t = Pa.fakeRequestAnimationFrame;
               t(e);
             }),
             safeSetTimeout: function (t, n) {
-              return ba(t, n);
+              return Ta(t, n);
             },
             safeRequestAnimationFrame: function (t) {
               return (
-                ya(),
-                La.requestAnimationFrame(function () {
-                  (Ca(), Uo(t));
+                ka(),
+                Pa.requestAnimationFrame(function () {
+                  (Ia(), Uo(t));
                 })
               );
             },
@@ -6348,16 +6375,16 @@ __d(
             touches: {},
             lastTouches: {},
             calculateMouseEvent: function (t) {
-              if (La.pointerLock)
+              if (Pa.pointerLock)
                 (t.type != "mousemove" && "mozMovementX" in t
-                  ? (La.mouseMovementX = La.mouseMovementY = 0)
-                  : ((La.mouseMovementX = La.getMovementX(t)),
-                    (La.mouseMovementY = La.getMovementY(t))),
+                  ? (Pa.mouseMovementX = Pa.mouseMovementY = 0)
+                  : ((Pa.mouseMovementX = Pa.getMovementX(t)),
+                    (Pa.mouseMovementY = Pa.getMovementY(t))),
                   typeof SDL != "undefined"
-                    ? ((La.mouseX = SDL.mouseX + La.mouseMovementX),
-                      (La.mouseY = SDL.mouseY + La.mouseMovementY))
-                    : ((La.mouseX += La.mouseMovementX),
-                      (La.mouseY += La.mouseMovementY)));
+                    ? ((Pa.mouseX = SDL.mouseX + Pa.mouseMovementX),
+                      (Pa.mouseY = SDL.mouseY + Pa.mouseMovementY))
+                    : ((Pa.mouseX += Pa.mouseMovementX),
+                      (Pa.mouseY += Pa.mouseMovementY)));
               else {
                 var e = y.canvas.getBoundingClientRect(),
                   n = y.canvas.width,
@@ -6386,13 +6413,13 @@ __d(
                   ((l = l * (n / e.width)), (s = s * (r / e.height)));
                   var u = { x: l, y: s };
                   if (t.type === "touchstart")
-                    ((La.lastTouches[i.identifier] = u),
-                      (La.touches[i.identifier] = u));
+                    ((Pa.lastTouches[i.identifier] = u),
+                      (Pa.touches[i.identifier] = u));
                   else if (t.type === "touchend" || t.type === "touchmove") {
-                    var c = La.touches[i.identifier];
+                    var c = Pa.touches[i.identifier];
                     (c || (c = u),
-                      (La.lastTouches[i.identifier] = c),
-                      (La.touches[i.identifier] = u));
+                      (Pa.lastTouches[i.identifier] = c),
+                      (Pa.touches[i.identifier] = u));
                   }
                   return;
                 }
@@ -6400,23 +6427,23 @@ __d(
                   m = t.pageY - (a + e.top);
                 ((d = d * (n / e.width)),
                   (m = m * (r / e.height)),
-                  (La.mouseMovementX = d - La.mouseX),
-                  (La.mouseMovementY = m - La.mouseY),
-                  (La.mouseX = d),
-                  (La.mouseY = m));
+                  (Pa.mouseMovementX = d - Pa.mouseX),
+                  (Pa.mouseMovementY = m - Pa.mouseY),
+                  (Pa.mouseX = d),
+                  (Pa.mouseY = m));
               }
             },
             resizeListeners: [],
             updateResizeListeners: function () {
               var e = y.canvas;
-              La.resizeListeners.forEach(function (t) {
+              Pa.resizeListeners.forEach(function (t) {
                 return t(e.width, e.height);
               });
             },
             setCanvasSize: function (t, n, r) {
               var e = y.canvas;
-              (La.updateCanvasDimensions(e, t, n),
-                r || La.updateResizeListeners());
+              (Pa.updateCanvasDimensions(e, t, n),
+                r || Pa.updateResizeListeners());
             },
             windowedWidth: 0,
             windowedHeight: 0,
@@ -6425,14 +6452,14 @@ __d(
                 var e = f()[SDL.screen >> 2];
                 ((e = e | 8388608), (_()[SDL.screen >> 2] = e));
               }
-              (La.updateCanvasDimensions(y.canvas), La.updateResizeListeners());
+              (Pa.updateCanvasDimensions(y.canvas), Pa.updateResizeListeners());
             },
             setWindowedCanvasSize: function () {
               if (typeof SDL != "undefined") {
                 var e = f()[SDL.screen >> 2];
                 ((e = e & -8388609), (_()[SDL.screen >> 2] = e));
               }
-              (La.updateCanvasDimensions(y.canvas), La.updateResizeListeners());
+              (Pa.updateCanvasDimensions(y.canvas), Pa.updateResizeListeners());
             },
             updateCanvasDimensions: function (t, n, r) {
               n && r
@@ -6456,7 +6483,7 @@ __d(
                 var a = Math.min(screen.width / e, screen.height / o);
                 ((e = Math.round(e * a)), (o = Math.round(o * a)));
               }
-              La.resizeCanvas
+              Pa.resizeCanvas
                 ? (t.width != e && (t.width = e),
                   t.height != o && (t.height = o),
                   typeof t.style != "undefined" &&
@@ -6472,37 +6499,37 @@ __d(
                         t.style.removeProperty("height"))));
             },
           };
-          function Ea(e, t, n) {
+          function Na(e, t, n) {
             function r() {
               dn(e)(t);
             }
-            n >= 0 ? ba(r, n) : La.safeRequestAnimationFrame(r);
+            n >= 0 ? Ta(r, n) : Pa.safeRequestAnimationFrame(r);
           }
-          function ka() {
+          function Ma() {
             k ||
               _n(
                 "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
               );
           }
-          var Ia = function (t) {
+          var wa = function (t) {
             (G(typeof t == "number"), Xt(t));
           };
-          function Ta() {
+          function Aa() {
             return Date.now();
           }
-          var Da = function () {
-              throw (ya(), "unwind");
+          var Fa = function () {
+              throw (ka(), "unwind");
             },
-            xa = function () {
+            Oa = function () {
               return 2147483648;
             },
-            $a = function () {
-              return xa();
+            Ba = function () {
+              return Oa();
             };
-          function Pa() {
+          function Wa() {
             return navigator.hardwareConcurrency;
           }
-          function Na(e, t) {
+          function qa(e, t) {
             var n = arguments.length - 2,
               r = arguments,
               o = 19;
@@ -6517,7 +6544,7 @@ __d(
               );
             return sn(function () {
               for (
-                var o = n * 2, a = ol(o * 8), i = a >> 3, l = 0;
+                var o = n * 2, a = ml(o * 8), i = a >> 3, l = 0;
                 l < n;
                 l++
               ) {
@@ -6526,29 +6553,29 @@ __d(
                   ? ((Z[i + 2 * l] = BigInt(1)), (Z[i + 2 * l + 1] = s))
                   : ((Z[i + 2 * l] = BigInt(0)), (h()[i + 2 * l + 1] = s));
               }
-              return Hi(e, o, a, t);
+              return Ji(e, o, a, t);
             });
           }
-          var Ma = [];
-          function wa(e, t, n, r) {
+          var Ua = [];
+          function Va(e, t, n, r) {
             ((rn.currentProxiedOperationCallerThread = t),
               (n /= 2),
-              (Ma.length = n));
+              (Ua.length = n));
             for (var o = r >> 3, a = 0; a < n; a++)
               Z[o + 2 * a]
-                ? (Ma[a] = Z[o + 2 * a + 1])
-                : (Ma[a] = h()[o + 2 * a + 1]);
+                ? (Ua[a] = Z[o + 2 * a + 1])
+                : (Ua[a] = h()[o + 2 * a + 1]);
             var i = e < 0,
-              l = i ? je[-e - 1] : vi[e];
+              l = i ? je[-e - 1] : Di[e];
             return (
               G(
                 l.length == n,
                 "Call args mismatch in emscripten_receive_on_main_thread_js",
               ),
-              l.apply(null, Ma)
+              l.apply(null, Ua)
             );
           }
-          var Aa = function (t) {
+          var Ha = function (t) {
               var e = W.buffer,
                 n = (t - e.byteLength + 65535) >>> 16;
               try {
@@ -6564,10 +6591,10 @@ __d(
                 );
               }
             },
-            Fa = function (t) {
+            Ga = function (t) {
               var e = d().length;
               if (((t >>>= 0), t <= e)) return !1;
-              var n = xa();
+              var n = Oa();
               if (t > n)
                 return (
                   F(
@@ -6590,7 +6617,7 @@ __d(
                 var a = e * (1 + 0.2 / o);
                 a = Math.min(a, t + 100663296);
                 var i = Math.min(n, r(Math.max(t, a), 65536)),
-                  l = Aa(i);
+                  l = Ha(i);
                 if (l) return !0;
               }
               return (
@@ -6604,14 +6631,14 @@ __d(
                 !1
               );
             },
-            Oa = Ca,
-            Ba = ya,
-            Wa = {},
-            qa = function () {
+            za = Ia,
+            ja = ka,
+            Ka = {},
+            Qa = function () {
               return R || "./this.program";
             },
-            Ua = function () {
-              if (!Ua.strings) {
+            Xa = function () {
+              if (!Xa.strings) {
                 var e =
                     (
                       (typeof navigator == "object" &&
@@ -6626,36 +6653,36 @@ __d(
                     PWD: "/",
                     HOME: "/home/web_user",
                     LANG: e,
-                    _: qa(),
+                    _: Qa(),
                   };
-                for (var n in Wa)
-                  Wa[n] === void 0 ? delete t[n] : (t[n] = Wa[n]);
+                for (var n in Ka)
+                  Ka[n] === void 0 ? delete t[n] : (t[n] = Ka[n]);
                 var r = [];
                 for (var n in t) r.push(n + "=" + t[n]);
-                Ua.strings = r;
+                Xa.strings = r;
               }
-              return Ua.strings;
+              return Xa.strings;
             },
-            Va = function (t, n) {
+            Ya = function (t, n) {
               for (var e = 0; e < t.length; ++e)
                 (G(t.charCodeAt(e) === (t.charCodeAt(e) & 255)),
                   (l()[n++ >> 0] = t.charCodeAt(e)));
               l()[n >> 0] = 0;
             };
-          function Ha(e, t) {
-            if (D) return Na(17, 1, e, t);
+          function Ja(e, t) {
+            if (D) return qa(17, 1, e, t);
             var n = 0;
             return (
-              Ua().forEach(function (r, o) {
+              Xa().forEach(function (r, o) {
                 var a = t + n;
-                ((f()[(e + o * 4) >> 2] = a), Va(r, a), (n += r.length + 1));
+                ((f()[(e + o * 4) >> 2] = a), Ya(r, a), (n += r.length + 1));
               }),
               0
             );
           }
-          function Ga(e, t) {
-            if (D) return Na(18, 1, e, t);
-            var n = Ua();
+          function Za(e, t) {
+            if (D) return qa(18, 1, e, t);
+            var n = Xa();
             f()[e >> 2] = n.length;
             var r = 0;
             return (
@@ -6666,8 +6693,8 @@ __d(
               0
             );
           }
-          function za(e) {
-            if (D) return Na(19, 1, e);
+          function ei(e) {
+            if (D) return qa(19, 1, e);
             try {
               var t = Yt.getStreamFromFD(e);
               return (Qt.close(t), 0);
@@ -6676,7 +6703,7 @@ __d(
               return e.errno;
             }
           }
-          var ja = function (t, n, r, o) {
+          var ti = function (t, n, r, o) {
             for (var e = 0, a = 0; a < r; a++) {
               var i = f()[n >> 2],
                 s = f()[(n + 4) >> 2];
@@ -6688,32 +6715,32 @@ __d(
             }
             return e;
           };
-          function Ka(e, t, n, r, o) {
-            if (D) return Na(20, 1, e, t, n, r, o);
+          function ni(e, t, n, r, o) {
+            if (D) return qa(20, 1, e, t, n, r, o);
             ((t = ea(t)), (n = ea(n)), (r = ea(r)), (o = ea(o)));
             try {
               if (isNaN(r)) return 61;
               var a = Yt.getStreamFromFD(e),
-                i = ja(a, t, n, r);
+                i = ti(a, t, n, r);
               return ((f()[o >> 2] = i), 0);
             } catch (e) {
               if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
               return e.errno;
             }
           }
-          function Qa(e, t, n, r) {
-            if (D) return Na(21, 1, e, t, n, r);
+          function ri(e, t, n, r) {
+            if (D) return qa(21, 1, e, t, n, r);
             try {
               var o = Yt.getStreamFromFD(e),
-                a = ja(o, t, n);
+                a = ti(o, t, n);
               return ((f()[r >> 2] = a), 0);
             } catch (e) {
               if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
               return e.errno;
             }
           }
-          function Xa(e, t, n, r) {
-            if (D) return Na(22, 1, e, t, n, r);
+          function oi(e, t, n, r) {
+            if (D) return qa(22, 1, e, t, n, r);
             ((t = ea(t)), (r = ea(r)));
             try {
               if (isNaN(t)) return 61;
@@ -6729,7 +6756,7 @@ __d(
               return e.errno;
             }
           }
-          var Ya = function (t, n, r, o) {
+          var ai = function (t, n, r, o) {
             for (var e = 0, a = 0; a < r; a++) {
               var i = f()[n >> 2],
                 s = f()[(n + 4) >> 2];
@@ -6740,21 +6767,21 @@ __d(
             }
             return e;
           };
-          function Ja(e, t, n, r) {
-            if (D) return Na(23, 1, e, t, n, r);
+          function ii(e, t, n, r) {
+            if (D) return qa(23, 1, e, t, n, r);
             try {
               var o = Yt.getStreamFromFD(e),
-                a = Ya(o, t, n);
+                a = ai(o, t, n);
               return ((f()[r >> 2] = a), 0);
             } catch (e) {
               if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
               return e.errno;
             }
           }
-          var Za = function (t, n) {
+          var li = function (t, n) {
               return (Et(d().subarray(t, t + n)), 0);
             },
-            ei = function (t) {
+            si = function (t) {
               for (var e = t.split("."), n = 0; n < 4; n++) {
                 var r = Number(e[n]);
                 if (isNaN(r)) return null;
@@ -6762,10 +6789,10 @@ __d(
               }
               return (e[0] | (e[1] << 8) | (e[2] << 16) | (e[3] << 24)) >>> 0;
             },
-            ti = function (t) {
+            ui = function (t) {
               return parseInt(t);
             },
-            ni = function (t) {
+            ci = function (t) {
               var e,
                 n,
                 r,
@@ -6783,9 +6810,9 @@ __d(
                     ? ((t = t.replace(new RegExp("[.]", "g"), ":")),
                       (e = t.split(":")),
                       (e[e.length - 4] =
-                        ti(e[e.length - 4]) + ti(e[e.length - 3]) * 256),
+                        ui(e[e.length - 4]) + ui(e[e.length - 3]) * 256),
                       (e[e.length - 3] =
-                        ti(e[e.length - 2]) + ti(e[e.length - 1]) * 256),
+                        ui(e[e.length - 2]) + ui(e[e.length - 1]) * 256),
                       (e = e.slice(0, e.length - 2)))
                     : (e = t.split(":")),
                   r = 0,
@@ -6798,7 +6825,7 @@ __d(
                   if (e[n] === "Z") {
                     for (o = 0; o < 8 - e.length + 1; o++) i[n + o] = 0;
                     r = o - 1;
-                  } else i[n + r] = Mi(parseInt(e[n], 16));
+                  } else i[n + r] = Ui(parseInt(e[n], 16));
                 else i[n + r] = e[n];
               return [
                 (i[1] << 16) | i[0],
@@ -6807,66 +6834,66 @@ __d(
                 (i[7] << 16) | i[6],
               ];
             },
-            ri = {
+            di = {
               address_map: { id: 1, addrs: {}, names: {} },
               lookup_name: function (t) {
-                var e = ei(t);
-                if (e !== null || ((e = ni(t)), e !== null)) return t;
+                var e = si(t);
+                if (e !== null || ((e = ci(t)), e !== null)) return t;
                 var n;
-                if (ri.address_map.addrs[t]) n = ri.address_map.addrs[t];
+                if (di.address_map.addrs[t]) n = di.address_map.addrs[t];
                 else {
-                  var r = ri.address_map.id++;
+                  var r = di.address_map.id++;
                   (G(r < 65535, "exceeded max address mappings of 65535"),
                     (n = "172.29." + (r & 255) + "." + (r & 65280)),
-                    (ri.address_map.names[n] = t),
-                    (ri.address_map.addrs[t] = n));
+                    (di.address_map.names[n] = t),
+                    (di.address_map.addrs[t] = n));
                 }
                 return n;
               },
               lookup_addr: function (t) {
-                return ri.address_map.names[t] ? ri.address_map.names[t] : null;
+                return di.address_map.names[t] ? di.address_map.names[t] : null;
               },
             },
-            oi = function (t) {
-              var e = Ii(20),
+            mi = function (t) {
+              var e = wi(20),
                 n = ca(t);
               f()[e >> 2] = n;
-              var r = Ii(4);
+              var r = wi(4);
               ((f()[r >> 2] = 0), (f()[(e + 4) >> 2] = r));
               var o = 2;
               ((_()[(e + 8) >> 2] = o), (_()[(e + 12) >> 2] = 4));
-              var a = Ii(12);
+              var a = wi(12);
               return (
                 (f()[a >> 2] = a + 8),
                 (f()[(a + 4) >> 2] = 0),
-                (_()[(a + 8) >> 2] = ei(ri.lookup_name(t))),
+                (_()[(a + 8) >> 2] = si(di.lookup_name(t))),
                 (f()[(e + 16) >> 2] = a),
                 e
               );
             };
-          function ai(e) {
-            return D ? Na(24, 1, e) : oi(Xt(e));
+          function pi(e) {
+            return D ? qa(24, 1, e) : mi(Xt(e));
           }
-          function ii(e) {
+          function _i(e) {
             return e;
           }
-          function li() {
+          function fi() {
             (F("missing function: pj_sock_accept"), ke(-1));
           }
-          function si() {
+          function gi() {
             (F("missing function: pj_sock_connect"), ke(-1));
           }
-          var ui = function (t, n) {
+          var hi = function (t, n) {
               for (var e = 0, r = 0; r <= n; e += t[r++]);
               return e;
             },
-            ci = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-            di = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-            mi = function (t, n) {
+            yi = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+            Ci = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+            bi = function (t, n) {
               for (var e = new Date(t.getTime()); n > 0; ) {
                 var r = na(e.getFullYear()),
                   o = e.getMonth(),
-                  a = (r ? ci : di)[o];
+                  a = (r ? yi : Ci)[o];
                 if (n > a - e.getDate())
                   ((n -= a - e.getDate() + 1),
                     e.setDate(1),
@@ -6877,14 +6904,14 @@ __d(
               }
               return e;
             },
-            pi = function (t, n) {
+            vi = function (t, n) {
               (G(
                 t.length >= 0,
                 "writeArrayToMemory array must have a length (should be an array or typed array)",
               ),
                 l().set(t, n));
             },
-            _i = function (t, n, r, o) {
+            Si = function (t, n, r, o) {
               var e = _()[(o + 40) >> 2],
                 a = {
                   tm_sec: _()[o >> 2],
@@ -6996,7 +7023,7 @@ __d(
                 }
               }
               function g(e) {
-                var t = mi(new Date(e.tm_year + 1900, 0, 1), e.tm_yday),
+                var t = bi(new Date(e.tm_year + 1900, 0, 1), e.tm_yday),
                   n = new Date(t.getFullYear(), 0, 4),
                   r = new Date(t.getFullYear() + 1, 0, 4),
                   o = f(n),
@@ -7046,7 +7073,7 @@ __d(
                 "%j": function (t) {
                   return m(
                     t.tm_mday +
-                      ui(na(t.tm_year + 1900) ? ci : di, t.tm_mon - 1),
+                      hi(na(t.tm_year + 1900) ? yi : Ci, t.tm_mon - 1),
                     3,
                   );
                 },
@@ -7125,13 +7152,13 @@ __d(
                 i.includes(s) && (i = i.replace(new RegExp(s, "g"), h[s](a)));
               i = i.replace(/\0\0/g, "%");
               var y = Pt(i, !1);
-              return y.length > n ? 0 : (pi(y, t), y.length - 1);
+              return y.length > n ? 0 : (vi(y, t), y.length - 1);
             },
-            fi = function (t, n, r, o, a) {
-              return _i(t, n, r, o);
+            Ri = function (t, n, r, o, a) {
+              return Si(t, n, r, o);
             };
           rn.init();
-          var gi = function (t, n, r, o) {
+          var Li = function (t, n, r, o) {
               (t || (t = this),
                 (this.parent = t),
                 (this.mount = t.mount),
@@ -7143,23 +7170,23 @@ __d(
                 (this.stream_ops = {}),
                 (this.rdev = o));
             },
-            hi = 365,
-            yi = 146;
-          (Object.defineProperties(gi.prototype, {
+            Ei = 365,
+            ki = 146;
+          (Object.defineProperties(Li.prototype, {
             read: {
               get: function () {
-                return (this.mode & hi) === hi;
+                return (this.mode & Ei) === Ei;
               },
               set: function (t) {
-                t ? (this.mode |= hi) : (this.mode &= ~hi);
+                t ? (this.mode |= Ei) : (this.mode &= ~Ei);
               },
             },
             write: {
               get: function () {
-                return (this.mode & yi) === yi;
+                return (this.mode & ki) === ki;
               },
               set: function (t) {
-                t ? (this.mode |= yi) : (this.mode &= ~yi);
+                t ? (this.mode |= ki) : (this.mode &= ~ki);
               },
             },
             isFolder: {
@@ -7173,7 +7200,7 @@ __d(
               },
             },
           }),
-            (Qt.FSNode = gi),
+            (Qt.FSNode = Li),
             (Qt.createPreloadedFile = qt),
             Qt.staticInit(),
             (zt = {
@@ -7331,32 +7358,32 @@ __d(
             go(),
             vo(),
             (y.requestFullscreen = function (t, n) {
-              La.requestFullscreen(t, n);
+              Pa.requestFullscreen(t, n);
             }),
             (y.requestFullScreen = function () {
-              La.requestFullScreen();
+              Pa.requestFullScreen();
             }),
             (y.requestAnimationFrame = function (t) {
-              La.requestAnimationFrame(t);
+              Pa.requestAnimationFrame(t);
             }),
             (y.setCanvasSize = function (t, n, r) {
-              La.setCanvasSize(t, n, r);
+              Pa.setCanvasSize(t, n, r);
             }),
             (y.pauseMainLoop = function () {
-              La.mainLoop.pause();
+              Pa.mainLoop.pause();
             }),
             (y.resumeMainLoop = function () {
-              La.mainLoop.resume();
+              Pa.mainLoop.resume();
             }),
             (y.getUserMedia = function () {
-              La.getUserMedia();
+              Pa.getUserMedia();
             }),
             (y.createContext = function (t, n, r, o) {
-              return La.createContext(t, n, r, o);
+              return Pa.createContext(t, n, r, o);
             }));
-          var Ci = {},
-            bi = {},
-            vi = [
+          var Ii = {},
+            Ti = {},
+            Di = [
               null,
               Jt,
               ln,
@@ -7374,19 +7401,19 @@ __d(
               jn,
               sa,
               ua,
-              Ha,
-              Ga,
-              za,
-              Ka,
-              Qa,
-              Xa,
               Ja,
-              ai,
+              Za,
+              ei,
+              ni,
+              ri,
+              oi,
+              ii,
+              pi,
             ];
-          function Si() {
+          function xi() {
             qe("fetchSettings");
           }
-          var Ri = {
+          var $i = {
               __assert_fail: fn,
               __cxa_begin_catch: yn,
               __cxa_end_catch: bn,
@@ -7441,6 +7468,14 @@ __d(
               _munmap_js: ua,
               _tzset_js: da,
               abort: ma,
+              aud_process_create: pa,
+              aud_process_destroy: _a,
+              aud_process_get_stats: fa,
+              aud_process_mute_state_update: ga,
+              aud_process_noise_suppression_setting_update: ha,
+              aud_process_reset: ya,
+              aud_process_reset_stats: Ca,
+              aud_process_run: ba,
               call_init_capture_driver_js_sync: ot,
               call_init_playback_driver_js_sync: lt,
               call_sendto: rt,
@@ -7452,697 +7487,697 @@ __d(
               call_stop_desktop_capture_js_sync: mt,
               call_stop_playback_js_sync: ut,
               call_stop_video_capture_js_sync: _t,
-              emscripten_asm_const_double: ga,
-              emscripten_asm_const_int: ha,
-              emscripten_async_call: Ea,
-              emscripten_check_blocking_allowed: ka,
-              emscripten_console_error: Ia,
-              emscripten_date_now: Ta,
-              emscripten_exit_with_live_runtime: Da,
-              emscripten_get_heap_max: $a,
-              emscripten_get_now: Sa,
-              emscripten_num_logical_cores: Pa,
-              emscripten_receive_on_main_thread_js: wa,
-              emscripten_resize_heap: Fa,
-              emscripten_runtime_keepalive_pop: Oa,
-              emscripten_runtime_keepalive_push: Ba,
-              environ_get: Ha,
-              environ_sizes_get: Ga,
+              emscripten_asm_const_double: La,
+              emscripten_asm_const_int: Ea,
+              emscripten_async_call: Na,
+              emscripten_check_blocking_allowed: Ma,
+              emscripten_console_error: wa,
+              emscripten_date_now: Aa,
+              emscripten_exit_with_live_runtime: Fa,
+              emscripten_get_heap_max: Ba,
+              emscripten_get_now: xa,
+              emscripten_num_logical_cores: Wa,
+              emscripten_receive_on_main_thread_js: Va,
+              emscripten_resize_heap: Ga,
+              emscripten_runtime_keepalive_pop: za,
+              emscripten_runtime_keepalive_push: ja,
+              environ_get: Ja,
+              environ_sizes_get: Za,
               exit: en,
-              fd_close: za,
-              fd_pread: Ka,
-              fd_read: Qa,
-              fd_seek: Xa,
-              fd_write: Ja,
+              fd_close: ei,
+              fd_pread: ni,
+              fd_read: ri,
+              fd_seek: oi,
+              fd_write: ii,
               get_bwe_ml_model_path_js: Je,
               get_persistent_directory_path_js: Ye,
               get_random_bytes_js: Ze,
-              getentropy: Za,
-              gethostbyname: ai,
-              invoke_d: Ru,
-              invoke_diii: Du,
-              invoke_fii: is,
-              invoke_fiii: Tu,
-              invoke_fiiiiii: su,
-              invoke_i: _l,
-              invoke_ii: gl,
-              invoke_iid: vu,
-              invoke_iidi: Eu,
-              invoke_iidii: pu,
-              invoke_iidjjjidjjjdjjji: Xl,
-              invoke_iidjjjii: os,
-              invoke_iidjjjiii: Jl,
-              invoke_iif: Ks,
-              invoke_iiffiii: ss,
-              invoke_iiffiiiii: ls,
-              invoke_iifi: Qs,
-              invoke_iii: hl,
-              invoke_iiifi: Gs,
-              invoke_iiii: Cl,
-              invoke_iiiidd: hu,
-              invoke_iiiifiii: ps,
-              invoke_iiiifiiiiii: gs,
-              invoke_iiiii: Rl,
-              invoke_iiiiid: ku,
-              invoke_iiiiii: Dl,
-              invoke_iiiiiii: bl,
-              invoke_iiiiiiii: Il,
-              invoke_iiiiiiiii: Ll,
-              invoke_iiiiiiiiii: kl,
-              invoke_iiiiiiiiiiffiii: us,
-              invoke_iiiiiiiiiii: Bl,
-              invoke_iiiiiiiiiiii: fs,
-              invoke_iiiiiiiiiiiiffiii: ms,
-              invoke_iiiiiiiiiiiii: hs,
-              invoke_iiiiiiiiiiiiii: Ml,
-              invoke_iiiiiiiiiiiiiiffiiiii: _s,
-              invoke_iiiiiiiiiiiiiii: ws,
-              invoke_iiiiiiiiiiiiiiiffiiiii: cs,
-              invoke_iiiiiiiiiiiiiiiiiffiiiii: ds,
-              invoke_iiiiiiiiiiiiiiiiii: wl,
-              invoke_iiiiiiiiiiji: Vl,
-              invoke_iiiiiiiiij: $s,
-              invoke_iiiiiiiij: Ts,
-              invoke_iiiiiiij: bs,
-              invoke_iiiiiiijjii: qs,
-              invoke_iiiiiij: Ds,
-              invoke_iiiiiijiiii: Ps,
-              invoke_iiiiiijjijiiiiiiiiii: Vs,
-              invoke_iiiiij: uu,
-              invoke_iiiiijjii: ns,
-              invoke_iiiiijjiii: rs,
-              invoke_iiiiijjjii: es,
-              invoke_iiiiijjjiii: ts,
-              invoke_iiiij: ks,
-              invoke_iiiijiii: du,
-              invoke_iiiijiiji: Kl,
-              invoke_iiiijjii: as,
-              invoke_iiiijjiii: Zl,
-              invoke_iiij: Es,
-              invoke_iiijddddddd: ou,
-              invoke_iiiji: Ul,
-              invoke_iiijii: Wl,
-              invoke_iiijiiji: jl,
-              invoke_iiijji: zl,
-              invoke_iiijjiiii: Zs,
-              invoke_iij: Ws,
-              invoke_iiji: Ns,
-              invoke_iijii: xs,
-              invoke_iijiii: lu,
-              invoke_iijijijiji: bu,
-              invoke_iijj: tu,
-              invoke_iijjjiiii: Ys,
-              invoke_iijjjj: Xs,
-              invoke_iijjjji: ru,
-              invoke_ij: mu,
-              invoke_iji: yu,
-              invoke_j: Al,
-              invoke_ji: ys,
-              invoke_jii: Us,
-              invoke_jiii: El,
-              invoke_jiiii: Iu,
-              invoke_jiiiiiiii: Is,
-              invoke_jiiiiiji: Ms,
-              invoke_jiij: nu,
-              invoke_jij: Hs,
-              invoke_v: yl,
-              invoke_vd: Lu,
-              invoke_vi: vl,
-              invoke_vid: Cu,
-              invoke_viddjjii: Js,
-              invoke_vif: Cs,
-              invoke_vii: fl,
-              invoke_viid: cu,
-              invoke_viif: $u,
-              invoke_viii: pl,
-              invoke_viiii: Sl,
-              invoke_viiiii: Tl,
-              invoke_viiiiii: Nl,
-              invoke_viiiiiidiii: Gl,
-              invoke_viiiiiii: Pl,
-              invoke_viiiiiiiddiii: ql,
-              invoke_viiiiiiii: $l,
-              invoke_viiiiiiiii: xl,
-              invoke_viiiiiiiiii: Hl,
-              invoke_viiiiiiiiiiii: Ls,
-              invoke_viiiiiiiiiiiii: fu,
-              invoke_viiiiiiiiiiiiiii: xu,
-              invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: au,
-              invoke_viiiiiiij: _u,
-              invoke_viiiiij: zs,
-              invoke_viiiiiji: Su,
-              invoke_viiiij: js,
-              invoke_viiij: As,
-              invoke_viiiji: Ql,
-              invoke_viij: Rs,
-              invoke_viiji: Fs,
-              invoke_viijii: Os,
-              invoke_viijiiii: Bs,
-              invoke_viijj: gu,
-              invoke_viijjdiii: Yl,
-              invoke_vij: vs,
-              invoke_viji: iu,
-              invoke_vijiiiii: Fl,
-              invoke_vijj: Ss,
-              invoke_vijji: eu,
-              invoke_vjiiiiii: Ol,
+              getentropy: li,
+              gethostbyname: pi,
+              invoke_d: $u,
+              invoke_diii: Fu,
+              invoke_fii: _s,
+              invoke_fiii: Au,
+              invoke_fiiiiii: gu,
+              invoke_i: Sl,
+              invoke_ii: Ll,
+              invoke_iid: Du,
+              invoke_iidi: Nu,
+              invoke_iidii: vu,
+              invoke_iidjjjidjjjdjjji: os,
+              invoke_iidjjjii: ms,
+              invoke_iidjjjiii: is,
+              invoke_iif: nu,
+              invoke_iiffiii: gs,
+              invoke_iiffiiiii: fs,
+              invoke_iifi: ru,
+              invoke_iii: El,
+              invoke_iiifi: Zs,
+              invoke_iiii: Il,
+              invoke_iiiidd: Eu,
+              invoke_iiiifiii: vs,
+              invoke_iiiifiiiiii: Ls,
+              invoke_iiiii: $l,
+              invoke_iiiiid: Mu,
+              invoke_iiiiii: Fl,
+              invoke_iiiiiii: Tl,
+              invoke_iiiiiiii: wl,
+              invoke_iiiiiiiii: Pl,
+              invoke_iiiiiiiiii: Ml,
+              invoke_iiiiiiiiiiffiii: hs,
+              invoke_iiiiiiiiiii: jl,
+              invoke_iiiiiiiiiiii: Rs,
+              invoke_iiiiiiiiiiiiffiii: bs,
+              invoke_iiiiiiiiiiiii: Es,
+              invoke_iiiiiiiiiiiiii: Ul,
+              invoke_iiiiiiiiiiiiiiffiiiii: Ss,
+              invoke_iiiiiiiiiiiiiii: Vs,
+              invoke_iiiiiiiiiiiiiiiffiiiii: ys,
+              invoke_iiiiiiiiiiiiiiiiiffiiiii: Cs,
+              invoke_iiiiiiiiiiiiiiiiii: Vl,
+              invoke_iiiiiiiiiiji: Yl,
+              invoke_iiiiiiiiij: Bs,
+              invoke_iiiiiiiij: As,
+              invoke_iiiiiiij: Ts,
+              invoke_iiiiiiijjii: Qs,
+              invoke_iiiiiij: Fs,
+              invoke_iiiiiijiiii: Ws,
+              invoke_iiiiiijjijiiiiiiiiii: Ys,
+              invoke_iiiiij: hu,
+              invoke_iiiiijjii: cs,
+              invoke_iiiiijjiii: ds,
+              invoke_iiiiijjjii: ss,
+              invoke_iiiiijjjiii: us,
+              invoke_iiiij: Ms,
+              invoke_iiiijiii: Cu,
+              invoke_iiiijiiji: ns,
+              invoke_iiiijjii: ps,
+              invoke_iiiijjiii: ls,
+              invoke_iiij: Ns,
+              invoke_iiijddddddd: mu,
+              invoke_iiiji: Xl,
+              invoke_iiijii: Kl,
+              invoke_iiijiiji: ts,
+              invoke_iiijji: es,
+              invoke_iiijjiiii: lu,
+              invoke_iij: Ks,
+              invoke_iiji: qs,
+              invoke_iijii: Os,
+              invoke_iijiii: fu,
+              invoke_iijijijiji: Tu,
+              invoke_iijj: uu,
+              invoke_iijjjiiii: au,
+              invoke_iijjjj: ou,
+              invoke_iijjjji: du,
+              invoke_ij: bu,
+              invoke_iji: ku,
+              invoke_j: Hl,
+              invoke_ji: ks,
+              invoke_jii: Xs,
+              invoke_jiii: Nl,
+              invoke_jiiii: wu,
+              invoke_jiiiiiiii: ws,
+              invoke_jiiiiiji: Us,
+              invoke_jiij: cu,
+              invoke_jij: Js,
+              invoke_v: kl,
+              invoke_vd: Pu,
+              invoke_vi: Dl,
+              invoke_vid: Iu,
+              invoke_viddjjii: iu,
+              invoke_vif: Is,
+              invoke_vii: Rl,
+              invoke_viid: yu,
+              invoke_viif: Bu,
+              invoke_viii: vl,
+              invoke_viiii: xl,
+              invoke_viiiii: Al,
+              invoke_viiiiii: ql,
+              invoke_viiiiiidiii: Zl,
+              invoke_viiiiiii: Wl,
+              invoke_viiiiiiiddiii: Ql,
+              invoke_viiiiiiii: Bl,
+              invoke_viiiiiiiii: Ol,
+              invoke_viiiiiiiiii: Jl,
+              invoke_viiiiiiiiiiii: Ps,
+              invoke_viiiiiiiiiiiii: Ru,
+              invoke_viiiiiiiiiiiiiii: Ou,
+              invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: pu,
+              invoke_viiiiiiij: Su,
+              invoke_viiiiij: eu,
+              invoke_viiiiiji: xu,
+              invoke_viiiij: tu,
+              invoke_viiij: Hs,
+              invoke_viiiji: rs,
+              invoke_viij: $s,
+              invoke_viiji: Gs,
+              invoke_viijii: zs,
+              invoke_viijiiii: js,
+              invoke_viijj: Lu,
+              invoke_viijjdiii: as,
+              invoke_vij: Ds,
+              invoke_viji: _u,
+              invoke_vijiiiii: Gl,
+              invoke_vijj: xs,
+              invoke_vijji: su,
+              invoke_vjiiiiii: zl,
               is_participant_known_contact_js: et,
-              llvm_eh_typeid_for: ii,
+              llvm_eh_typeid_for: _i,
               loggingCallback_js_sync: ft,
               memory: W || y.wasmMemory,
               on_call_event_js_sync: Ke,
               patch_abort_for_ml_inference: Xe,
-              pj_sock_accept: li,
-              pj_sock_connect: si,
+              pj_sock_accept: fi,
+              pj_sock_connect: gi,
               query_browser_audio_processing_status_js_sync: ct,
               renderVideoFrame_js: tt,
               sendSignalingXMPP_js_sync: nt,
               set_ml_inference_flag: Qe,
-              strftime_l: fi,
+              strftime_l: Ri,
             },
-            Li = Be(),
-            Ei = xe("__wasm_call_ctors"),
-            ki = xe("__cxa_free_exception"),
-            Ii = (y._malloc = xe("malloc")),
-            Ti = (y._free = xe("free")),
-            Di = (y._wasm_throw_ml_abort = xe("wasm_throw_ml_abort")),
-            xi = (y._fflush = xe("fflush")),
-            $i = xe("__errno_location"),
-            Pi = xe("ntohs"),
-            Ni = xe("htonl"),
-            Mi = xe("htons"),
-            wi = (y._pthread_self = function () {
-              return (wi = y._pthread_self = q.pthread_self)();
+            Pi = Be(),
+            Ni = xe("__wasm_call_ctors"),
+            Mi = xe("__cxa_free_exception"),
+            wi = (y._malloc = xe("malloc")),
+            Ai = (y._free = xe("free")),
+            Fi = (y._wasm_throw_ml_abort = xe("wasm_throw_ml_abort")),
+            Oi = (y._fflush = xe("fflush")),
+            Bi = xe("__errno_location"),
+            Wi = xe("ntohs"),
+            qi = xe("htonl"),
+            Ui = xe("htons"),
+            Vi = (y._pthread_self = function () {
+              return (Vi = y._pthread_self = q.pthread_self)();
             }),
-            Ai = (y.__emscripten_tls_init = xe("_emscripten_tls_init")),
-            Fi = xe("emscripten_builtin_memalign"),
-            Oi = xe("__getTypeName"),
-            Bi = (y.__embind_initialize_bindings = xe(
+            Hi = (y.__emscripten_tls_init = xe("_emscripten_tls_init")),
+            Gi = xe("emscripten_builtin_memalign"),
+            zi = xe("__getTypeName"),
+            ji = (y.__embind_initialize_bindings = xe(
               "_embind_initialize_bindings",
             )),
-            Wi = (y.__emscripten_thread_init = xe("_emscripten_thread_init")),
-            qi = (y.__emscripten_thread_crashed = xe(
+            Ki = (y.__emscripten_thread_init = xe("_emscripten_thread_init")),
+            Qi = (y.__emscripten_thread_crashed = xe(
               "_emscripten_thread_crashed",
             )),
-            Ui = xe("emscripten_main_thread_process_queued_calls"),
-            Vi = xe("emscripten_main_runtime_thread_id"),
-            Hi = xe("_emscripten_run_in_main_runtime_thread_js"),
-            Gi = xe("emscripten_dispatch_to_thread_"),
-            zi = function () {
-              return (zi = q.emscripten_stack_get_base)();
-            },
-            ji = function () {
-              return (ji = q.emscripten_stack_get_end)();
-            },
-            Ki = xe("_emscripten_thread_free_data"),
-            Qi = (y.__emscripten_thread_exit = xe("_emscripten_thread_exit")),
-            Xi = (y.__emscripten_check_mailbox = xe(
-              "_emscripten_check_mailbox",
-            )),
-            Yi = xe("setThrew"),
-            Ji = xe("setTempRet0"),
-            Zi = function () {
-              return (Zi = q.emscripten_stack_init)();
-            },
-            el = function (t, n) {
-              return (el = q.emscripten_stack_set_limits)(t, n);
+            Xi = xe("emscripten_main_thread_process_queued_calls"),
+            Yi = xe("emscripten_main_runtime_thread_id"),
+            Ji = xe("_emscripten_run_in_main_runtime_thread_js"),
+            Zi = xe("emscripten_dispatch_to_thread_"),
+            el = function () {
+              return (el = q.emscripten_stack_get_base)();
             },
             tl = function () {
-              return (tl = q.emscripten_stack_get_free)();
+              return (tl = q.emscripten_stack_get_end)();
             },
-            nl = xe("stackSave"),
-            rl = xe("stackRestore"),
-            ol = xe("stackAlloc"),
-            al = function () {
-              return (al = q.emscripten_stack_get_current)();
+            nl = xe("_emscripten_thread_free_data"),
+            rl = (y.__emscripten_thread_exit = xe("_emscripten_thread_exit")),
+            ol = (y.__emscripten_check_mailbox = xe(
+              "_emscripten_check_mailbox",
+            )),
+            al = xe("setThrew"),
+            il = xe("setTempRet0"),
+            ll = function () {
+              return (ll = q.emscripten_stack_init)();
             },
-            il = xe("__cxa_decrement_exception_refcount"),
-            ll = xe("__cxa_increment_exception_refcount"),
-            sl = (y.___get_exception_message = xe("__get_exception_message")),
-            ul = xe("__cxa_can_catch"),
-            cl = xe("__cxa_is_pointer_type"),
-            dl = (y.___start_em_js = 1282780),
-            ml = (y.___stop_em_js = 1288075);
-          function pl(e, t, n, r) {
-            var o = nl();
+            sl = function (t, n) {
+              return (sl = q.emscripten_stack_set_limits)(t, n);
+            },
+            ul = function () {
+              return (ul = q.emscripten_stack_get_free)();
+            },
+            cl = xe("stackSave"),
+            dl = xe("stackRestore"),
+            ml = xe("stackAlloc"),
+            pl = function () {
+              return (pl = q.emscripten_stack_get_current)();
+            },
+            _l = xe("__cxa_decrement_exception_refcount"),
+            fl = xe("__cxa_increment_exception_refcount"),
+            gl = (y.___get_exception_message = xe("__get_exception_message")),
+            hl = xe("__cxa_can_catch"),
+            yl = xe("__cxa_is_pointer_type"),
+            Cl = (y.___start_em_js = 1281452),
+            bl = (y.___stop_em_js = 1286747);
+          function vl(e, t, n, r) {
+            var o = cl();
             try {
               dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function _l(e) {
-            var t = nl();
+          function Sl(e) {
+            var t = cl();
             try {
               return dn(e)();
             } catch (e) {
-              if ((rl(t), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(t), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function fl(e, t, n) {
-            var r = nl();
+          function Rl(e, t, n) {
+            var r = cl();
             try {
               dn(e)(t, n);
             } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function gl(e, t) {
-            var n = nl();
+          function Ll(e, t) {
+            var n = cl();
             try {
               return dn(e)(t);
             } catch (e) {
-              if ((rl(n), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(n), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function hl(e, t, n) {
-            var r = nl();
+          function El(e, t, n) {
+            var r = cl();
             try {
               return dn(e)(t, n);
             } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function yl(e) {
-            var t = nl();
+          function kl(e) {
+            var t = cl();
             try {
               dn(e)();
             } catch (e) {
-              if ((rl(t), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(t), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Cl(e, t, n, r) {
-            var o = nl();
+          function Il(e, t, n, r) {
+            var o = cl();
             try {
               return dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function bl(e, t, n, r, o, a, i) {
-            var l = nl();
+          function Tl(e, t, n, r, o, a, i) {
+            var l = cl();
             try {
               return dn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((rl(l), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(l), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function vl(e, t) {
-            var n = nl();
+          function Dl(e, t) {
+            var n = cl();
             try {
               dn(e)(t);
             } catch (e) {
-              if ((rl(n), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(n), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Sl(e, t, n, r, o) {
-            var a = nl();
+          function xl(e, t, n, r, o) {
+            var a = cl();
             try {
               dn(e)(t, n, r, o);
             } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Rl(e, t, n, r, o) {
-            var a = nl();
+          function $l(e, t, n, r, o) {
+            var a = cl();
             try {
               return dn(e)(t, n, r, o);
             } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ll(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
+          function Pl(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function El(e, t, n, r) {
-            var o = nl();
+          function Nl(e, t, n, r) {
+            var o = cl();
             try {
               return dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              return (Yi(1, 0), BigInt(0));
+              if ((dl(o), !(e instanceof $e))) throw e;
+              return (al(1, 0), BigInt(0));
             }
           }
-          function kl(e, t, n, r, o, a, i, l, s, u) {
-            var c = nl();
+          function Ml(e, t, n, r, o, a, i, l, s, u) {
+            var c = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
-              if ((rl(c), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(c), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Il(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function wl(e, t, n, r, o, a, i, l) {
+            var s = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Tl(e, t, n, r, o, a) {
-            var i = nl();
+          function Al(e, t, n, r, o, a) {
+            var i = cl();
             try {
               dn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Dl(e, t, n, r, o, a) {
-            var i = nl();
+          function Fl(e, t, n, r, o, a) {
+            var i = cl();
             try {
               return dn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function xl(e, t, n, r, o, a, i, l, s, u) {
-            var c = nl();
+          function Ol(e, t, n, r, o, a, i, l, s, u) {
+            var c = cl();
             try {
               dn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
-              if ((rl(c), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(c), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function $l(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
+          function Bl(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
             try {
               dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Pl(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function Wl(e, t, n, r, o, a, i, l) {
+            var s = cl();
             try {
               dn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Nl(e, t, n, r, o, a, i) {
-            var l = nl();
+          function ql(e, t, n, r, o, a, i) {
+            var l = cl();
             try {
               dn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((rl(l), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(l), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ml(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
-            var _ = nl();
+          function Ul(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
+            var _ = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p);
             } catch (e) {
-              if ((rl(_), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(_), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function wl(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g, h) {
-            var y = nl();
+          function Vl(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g, h) {
+            var y = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g, h);
             } catch (e) {
-              if ((rl(y), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(y), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Al(e) {
-            var t = nl();
+          function Hl(e) {
+            var t = cl();
             try {
               return dn(e)();
             } catch (e) {
-              if ((rl(t), !(e instanceof $e))) throw e;
-              return (Yi(1, 0), BigInt(0));
+              if ((dl(t), !(e instanceof $e))) throw e;
+              return (al(1, 0), BigInt(0));
             }
           }
-          function Fl(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function Gl(e, t, n, r, o, a, i, l) {
+            var s = cl();
             try {
               dn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ol(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function zl(e, t, n, r, o, a, i, l) {
+            var s = cl();
             try {
               dn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Bl(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = nl();
+          function jl(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((rl(d), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(d), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Wl(e, t, n, r, o, a) {
-            var i = nl();
+          function Kl(e, t, n, r, o, a) {
+            var i = cl();
             try {
               return dn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function ql(e, t, n, r, o, a, i, l, s, u, c, d, m) {
-            var p = nl();
+          function Ql(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+            var p = cl();
             try {
               dn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
             } catch (e) {
-              if ((rl(p), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(p), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ul(e, t, n, r, o) {
-            var a = nl();
+          function Xl(e, t, n, r, o) {
+            var a = cl();
             try {
               return dn(e)(t, n, r, o);
             } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Vl(e, t, n, r, o, a, i, l, s, u, c, d) {
-            var m = nl();
+          function Yl(e, t, n, r, o, a, i, l, s, u, c, d) {
+            var m = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c, d);
             } catch (e) {
-              if ((rl(m), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(m), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Hl(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = nl();
+          function Jl(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = cl();
             try {
               dn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((rl(d), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(d), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Gl(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = nl();
+          function Zl(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = cl();
             try {
               dn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((rl(d), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(d), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function zl(e, t, n, r, o, a) {
-            var i = nl();
+          function es(e, t, n, r, o, a) {
+            var i = cl();
             try {
               return dn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function jl(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function ts(e, t, n, r, o, a, i, l) {
+            var s = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Kl(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s);
-            } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Ql(e, t, n, r, o, a) {
-            var i = nl();
-            try {
-              dn(e)(t, n, r, o, a);
-            } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Xl(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
-            var g = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
-            } catch (e) {
-              if ((rl(g), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Yl(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
-            try {
-              dn(e)(t, n, r, o, a, i, l, s);
-            } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Jl(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s);
-            } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Zl(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s);
-            } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function es(e, t, n, r, o, a, i, l, s, u) {
-            var c = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s, u);
-            } catch (e) {
-              if ((rl(c), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function ts(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c);
-            } catch (e) {
-              if ((rl(d), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
           function ns(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
+            var u = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function rs(e, t, n, r, o, a, i, l, s, u) {
-            var c = nl();
+          function rs(e, t, n, r, o, a) {
+            var i = cl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u);
+              dn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((rl(c), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function os(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function os(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+            var g = cl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(g), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function as(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function as(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function is(e, t, n) {
-            var r = nl();
+          function is(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
             try {
-              return dn(e)(t, n);
+              return dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
           function ls(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
+            var u = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function ss(e, t, n, r, o, a, i) {
-            var l = nl();
+          function ss(e, t, n, r, o, a, i, l, s, u) {
+            var c = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l, s, u);
+            } catch (e) {
+              if ((dl(c), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function us(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l, s, u, c);
+            } catch (e) {
+              if ((dl(d), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function cs(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l, s);
+            } catch (e) {
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function ds(e, t, n, r, o, a, i, l, s, u) {
+            var c = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l, s, u);
+            } catch (e) {
+              if ((dl(c), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function ms(e, t, n, r, o, a, i, l) {
+            var s = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function ps(e, t, n, r, o, a, i, l) {
+            var s = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function _s(e, t, n) {
+            var r = cl();
+            try {
+              return dn(e)(t, n);
+            } catch (e) {
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function fs(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l, s);
+            } catch (e) {
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function gs(e, t, n, r, o, a, i) {
+            var l = cl();
             try {
               return dn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((rl(l), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(l), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function us(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
-            var f = nl();
+          function hs(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
+            var f = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _);
             } catch (e) {
-              if ((rl(f), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(f), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function cs(
+          function ys(
             e,
             t,
             n,
@@ -8166,7 +8201,7 @@ __d(
             b,
             v,
           ) {
-            var S = nl();
+            var S = cl();
             try {
               return dn(e)(
                 t,
@@ -8192,11 +8227,11 @@ __d(
                 v,
               );
             } catch (e) {
-              if ((rl(S), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(S), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function ds(
+          function Cs(
             e,
             t,
             n,
@@ -8222,7 +8257,7 @@ __d(
             S,
             R,
           ) {
-            var L = nl();
+            var L = cl();
             try {
               return dn(e)(
                 t,
@@ -8250,29 +8285,29 @@ __d(
                 R,
               );
             } catch (e) {
-              if ((rl(L), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(L), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function ms(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g) {
-            var h = nl();
+          function bs(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g) {
+            var h = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g);
             } catch (e) {
-              if ((rl(h), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(h), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function ps(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function vs(e, t, n, r, o, a, i, l) {
+            var s = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function _s(
+          function Ss(
             e,
             t,
             n,
@@ -8295,7 +8330,7 @@ __d(
             C,
             b,
           ) {
-            var v = nl();
+            var v = cl();
             try {
               return dn(e)(
                 t,
@@ -8320,263 +8355,263 @@ __d(
                 b,
               );
             } catch (e) {
-              if ((rl(v), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(v), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function fs(e, t, n, r, o, a, i, l, s, u, c, d) {
-            var m = nl();
+          function Rs(e, t, n, r, o, a, i, l, s, u, c, d) {
+            var m = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c, d);
             } catch (e) {
-              if ((rl(m), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(m), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function gs(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = nl();
+          function Ls(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((rl(d), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(d), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function hs(e, t, n, r, o, a, i, l, s, u, c, d, m) {
-            var p = nl();
+          function Es(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+            var p = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
             } catch (e) {
-              if ((rl(p), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(p), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function ys(e, t) {
-            var n = nl();
+          function ks(e, t) {
+            var n = cl();
             try {
               return dn(e)(t);
             } catch (e) {
-              if ((rl(n), !(e instanceof $e))) throw e;
-              return (Yi(1, 0), BigInt(0));
+              if ((dl(n), !(e instanceof $e))) throw e;
+              return (al(1, 0), BigInt(0));
             }
           }
-          function Cs(e, t, n) {
-            var r = nl();
+          function Is(e, t, n) {
+            var r = cl();
             try {
               dn(e)(t, n);
             } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function bs(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function Ts(e, t, n, r, o, a, i, l) {
+            var s = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function vs(e, t, n) {
-            var r = nl();
+          function Ds(e, t, n) {
+            var r = cl();
             try {
               dn(e)(t, n);
             } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ss(e, t, n, r) {
-            var o = nl();
+          function xs(e, t, n, r) {
+            var o = cl();
             try {
               dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Rs(e, t, n, r) {
-            var o = nl();
+          function $s(e, t, n, r) {
+            var o = cl();
             try {
               dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ls(e, t, n, r, o, a, i, l, s, u, c, d, m) {
-            var p = nl();
+          function Ps(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+            var p = cl();
             try {
               dn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
             } catch (e) {
-              if ((rl(p), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Es(e, t, n, r) {
-            var o = nl();
-            try {
-              return dn(e)(t, n, r);
-            } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function ks(e, t, n, r, o) {
-            var a = nl();
-            try {
-              return dn(e)(t, n, r, o);
-            } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Is(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s);
-            } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              return (Yi(1, 0), BigInt(0));
-            }
-          }
-          function Ts(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s);
-            } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Ds(e, t, n, r, o, a, i) {
-            var l = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i);
-            } catch (e) {
-              if ((rl(l), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function xs(e, t, n, r, o) {
-            var a = nl();
-            try {
-              return dn(e)(t, n, r, o);
-            } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function $s(e, t, n, r, o, a, i, l, s, u) {
-            var c = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s, u);
-            } catch (e) {
-              if ((rl(c), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Ps(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c);
-            } catch (e) {
-              if ((rl(d), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(p), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
           function Ns(e, t, n, r) {
-            var o = nl();
+            var o = cl();
             try {
               return dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ms(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function Ms(e, t, n, r, o) {
+            var a = cl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              return dn(e)(t, n, r, o);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              return (Yi(1, 0), BigInt(0));
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function ws(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
-            var f = nl();
+          function ws(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _);
+              return dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(f), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              return (al(1, 0), BigInt(0));
             }
           }
-          function As(e, t, n, r, o) {
-            var a = nl();
+          function As(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
             try {
-              dn(e)(t, n, r, o);
+              return dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Fs(e, t, n, r, o) {
-            var a = nl();
+          function Fs(e, t, n, r, o, a, i) {
+            var l = cl();
             try {
-              dn(e)(t, n, r, o);
+              return dn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(l), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Os(e, t, n, r, o, a) {
-            var i = nl();
+          function Os(e, t, n, r, o) {
+            var a = cl();
             try {
-              dn(e)(t, n, r, o, a);
+              return dn(e)(t, n, r, o);
             } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Bs(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function Bs(e, t, n, r, o, a, i, l, s, u) {
+            var c = cl();
             try {
-              dn(e)(t, n, r, o, a, i, l);
+              return dn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(c), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ws(e, t, n) {
-            var r = nl();
-            try {
-              return dn(e)(t, n);
-            } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function qs(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = nl();
+          function Ws(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((rl(d), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(d), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Us(e, t, n) {
-            var r = nl();
+          function qs(e, t, n, r) {
+            var o = cl();
+            try {
+              return dn(e)(t, n, r);
+            } catch (e) {
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Us(e, t, n, r, o, a, i, l) {
+            var s = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((dl(s), !(e instanceof $e))) throw e;
+              return (al(1, 0), BigInt(0));
+            }
+          }
+          function Vs(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
+            var f = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _);
+            } catch (e) {
+              if ((dl(f), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Hs(e, t, n, r, o) {
+            var a = cl();
+            try {
+              dn(e)(t, n, r, o);
+            } catch (e) {
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Gs(e, t, n, r, o) {
+            var a = cl();
+            try {
+              dn(e)(t, n, r, o);
+            } catch (e) {
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function zs(e, t, n, r, o, a) {
+            var i = cl();
+            try {
+              dn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function js(e, t, n, r, o, a, i, l) {
+            var s = cl();
+            try {
+              dn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Ks(e, t, n) {
+            var r = cl();
             try {
               return dn(e)(t, n);
             } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              return (Yi(1, 0), BigInt(0));
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Vs(
+          function Qs(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l, s, u, c);
+            } catch (e) {
+              if ((dl(d), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Xs(e, t, n) {
+            var r = cl();
+            try {
+              return dn(e)(t, n);
+            } catch (e) {
+              if ((dl(r), !(e instanceof $e))) throw e;
+              return (al(1, 0), BigInt(0));
+            }
+          }
+          function Ys(
             e,
             t,
             n,
@@ -8598,7 +8633,7 @@ __d(
             y,
             C,
           ) {
-            var b = nl();
+            var b = cl();
             try {
               return dn(e)(
                 t,
@@ -8622,146 +8657,146 @@ __d(
                 C,
               );
             } catch (e) {
-              if ((rl(b), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(b), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Hs(e, t, n) {
-            var r = nl();
+          function Js(e, t, n) {
+            var r = cl();
             try {
               return dn(e)(t, n);
             } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              return (Yi(1, 0), BigInt(0));
+              if ((dl(r), !(e instanceof $e))) throw e;
+              return (al(1, 0), BigInt(0));
             }
           }
-          function Gs(e, t, n, r, o) {
-            var a = nl();
+          function Zs(e, t, n, r, o) {
+            var a = cl();
             try {
               return dn(e)(t, n, r, o);
             } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function zs(e, t, n, r, o, a, i) {
-            var l = nl();
+          function eu(e, t, n, r, o, a, i) {
+            var l = cl();
             try {
               dn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((rl(l), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(l), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function js(e, t, n, r, o, a) {
-            var i = nl();
+          function tu(e, t, n, r, o, a) {
+            var i = cl();
             try {
               dn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ks(e, t, n) {
-            var r = nl();
+          function nu(e, t, n) {
+            var r = cl();
             try {
               return dn(e)(t, n);
             } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Qs(e, t, n, r) {
-            var o = nl();
+          function ru(e, t, n, r) {
+            var o = cl();
             try {
               return dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Xs(e, t, n, r, o, a) {
-            var i = nl();
+          function ou(e, t, n, r, o, a) {
+            var i = cl();
             try {
               return dn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Ys(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
+          function au(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Js(e, t, n, r, o, a, i, l) {
-            var s = nl();
+          function iu(e, t, n, r, o, a, i, l) {
+            var s = cl();
             try {
               dn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function Zs(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
+          function lu(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function eu(e, t, n, r, o) {
-            var a = nl();
+          function su(e, t, n, r, o) {
+            var a = cl();
             try {
               dn(e)(t, n, r, o);
             } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function tu(e, t, n, r) {
-            var o = nl();
+          function uu(e, t, n, r) {
+            var o = cl();
             try {
               return dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function nu(e, t, n, r) {
-            var o = nl();
+          function cu(e, t, n, r) {
+            var o = cl();
             try {
               return dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              return (Yi(1, 0), BigInt(0));
+              if ((dl(o), !(e instanceof $e))) throw e;
+              return (al(1, 0), BigInt(0));
             }
           }
-          function ru(e, t, n, r, o, a, i) {
-            var l = nl();
+          function du(e, t, n, r, o, a, i) {
+            var l = cl();
             try {
               return dn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((rl(l), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(l), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function ou(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = nl();
+          function mu(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = cl();
             try {
               return dn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((rl(d), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(d), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function au(
+          function pu(
             e,
             t,
             n,
@@ -8795,7 +8830,7 @@ __d(
             x,
             $,
           ) {
-            var P = nl();
+            var P = cl();
             try {
               dn(e)(
                 t,
@@ -8831,242 +8866,242 @@ __d(
                 $,
               );
             } catch (e) {
-              if ((rl(P), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(P), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function iu(e, t, n, r) {
-            var o = nl();
+          function _u(e, t, n, r) {
+            var o = cl();
             try {
               dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function lu(e, t, n, r, o, a) {
-            var i = nl();
+          function fu(e, t, n, r, o, a) {
+            var i = cl();
             try {
               return dn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function su(e, t, n, r, o, a, i) {
-            var l = nl();
+          function gu(e, t, n, r, o, a, i) {
+            var l = cl();
             try {
               return dn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((rl(l), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function uu(e, t, n, r, o, a) {
-            var i = nl();
-            try {
-              return dn(e)(t, n, r, o, a);
-            } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function cu(e, t, n, r) {
-            var o = nl();
-            try {
-              dn(e)(t, n, r);
-            } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function du(e, t, n, r, o, a, i, l) {
-            var s = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l);
-            } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function mu(e, t) {
-            var n = nl();
-            try {
-              return dn(e)(t);
-            } catch (e) {
-              if ((rl(n), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function pu(e, t, n, r, o) {
-            var a = nl();
-            try {
-              return dn(e)(t, n, r, o);
-            } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function _u(e, t, n, r, o, a, i, l, s) {
-            var u = nl();
-            try {
-              dn(e)(t, n, r, o, a, i, l, s);
-            } catch (e) {
-              if ((rl(u), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function fu(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
-            var _ = nl();
-            try {
-              dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p);
-            } catch (e) {
-              if ((rl(_), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function gu(e, t, n, r, o) {
-            var a = nl();
-            try {
-              dn(e)(t, n, r, o);
-            } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(l), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
           function hu(e, t, n, r, o, a) {
-            var i = nl();
+            var i = cl();
             try {
               return dn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
-          function yu(e, t, n) {
-            var r = nl();
-            try {
-              return dn(e)(t, n);
-            } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Cu(e, t, n) {
-            var r = nl();
-            try {
-              dn(e)(t, n);
-            } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function bu(e, t, n, r, o, a, i, l, s, u) {
-            var c = nl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s, u);
-            } catch (e) {
-              if ((rl(c), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function vu(e, t, n) {
-            var r = nl();
-            try {
-              return dn(e)(t, n);
-            } catch (e) {
-              if ((rl(r), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Su(e, t, n, r, o, a, i, l) {
-            var s = nl();
-            try {
-              dn(e)(t, n, r, o, a, i, l);
-            } catch (e) {
-              if ((rl(s), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Ru(e) {
-            var t = nl();
-            try {
-              return dn(e)();
-            } catch (e) {
-              if ((rl(t), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Lu(e, t) {
-            var n = nl();
-            try {
-              dn(e)(t);
-            } catch (e) {
-              if ((rl(n), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Eu(e, t, n, r) {
-            var o = nl();
-            try {
-              return dn(e)(t, n, r);
-            } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function ku(e, t, n, r, o, a) {
-            var i = nl();
-            try {
-              return dn(e)(t, n, r, o, a);
-            } catch (e) {
-              if ((rl(i), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Iu(e, t, n, r, o) {
-            var a = nl();
-            try {
-              return dn(e)(t, n, r, o);
-            } catch (e) {
-              if ((rl(a), !(e instanceof $e))) throw e;
-              return (Yi(1, 0), BigInt(0));
-            }
-          }
-          function Tu(e, t, n, r) {
-            var o = nl();
-            try {
-              return dn(e)(t, n, r);
-            } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function Du(e, t, n, r) {
-            var o = nl();
-            try {
-              return dn(e)(t, n, r);
-            } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function xu(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
-            var g = nl();
-            try {
-              dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
-            } catch (e) {
-              if ((rl(g), !(e instanceof $e))) throw e;
-              Yi(1, 0);
-            }
-          }
-          function $u(e, t, n, r) {
-            var o = nl();
+          function yu(e, t, n, r) {
+            var o = cl();
             try {
               dn(e)(t, n, r);
             } catch (e) {
-              if ((rl(o), !(e instanceof $e))) throw e;
-              Yi(1, 0);
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Cu(e, t, n, r, o, a, i, l) {
+            var s = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function bu(e, t) {
+            var n = cl();
+            try {
+              return dn(e)(t);
+            } catch (e) {
+              if ((dl(n), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function vu(e, t, n, r, o) {
+            var a = cl();
+            try {
+              return dn(e)(t, n, r, o);
+            } catch (e) {
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Su(e, t, n, r, o, a, i, l, s) {
+            var u = cl();
+            try {
+              dn(e)(t, n, r, o, a, i, l, s);
+            } catch (e) {
+              if ((dl(u), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Ru(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
+            var _ = cl();
+            try {
+              dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p);
+            } catch (e) {
+              if ((dl(_), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Lu(e, t, n, r, o) {
+            var a = cl();
+            try {
+              dn(e)(t, n, r, o);
+            } catch (e) {
+              if ((dl(a), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Eu(e, t, n, r, o, a) {
+            var i = cl();
+            try {
+              return dn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function ku(e, t, n) {
+            var r = cl();
+            try {
+              return dn(e)(t, n);
+            } catch (e) {
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Iu(e, t, n) {
+            var r = cl();
+            try {
+              dn(e)(t, n);
+            } catch (e) {
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Tu(e, t, n, r, o, a, i, l, s, u) {
+            var c = cl();
+            try {
+              return dn(e)(t, n, r, o, a, i, l, s, u);
+            } catch (e) {
+              if ((dl(c), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Du(e, t, n) {
+            var r = cl();
+            try {
+              return dn(e)(t, n);
+            } catch (e) {
+              if ((dl(r), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function xu(e, t, n, r, o, a, i, l) {
+            var s = cl();
+            try {
+              dn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((dl(s), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function $u(e) {
+            var t = cl();
+            try {
+              return dn(e)();
+            } catch (e) {
+              if ((dl(t), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Pu(e, t) {
+            var n = cl();
+            try {
+              dn(e)(t);
+            } catch (e) {
+              if ((dl(n), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Nu(e, t, n, r) {
+            var o = cl();
+            try {
+              return dn(e)(t, n, r);
+            } catch (e) {
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Mu(e, t, n, r, o, a) {
+            var i = cl();
+            try {
+              return dn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((dl(i), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function wu(e, t, n, r, o) {
+            var a = cl();
+            try {
+              return dn(e)(t, n, r, o);
+            } catch (e) {
+              if ((dl(a), !(e instanceof $e))) throw e;
+              return (al(1, 0), BigInt(0));
+            }
+          }
+          function Au(e, t, n, r) {
+            var o = cl();
+            try {
+              return dn(e)(t, n, r);
+            } catch (e) {
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Fu(e, t, n, r) {
+            var o = cl();
+            try {
+              return dn(e)(t, n, r);
+            } catch (e) {
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Ou(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+            var g = cl();
+            try {
+              dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
+            } catch (e) {
+              if ((dl(g), !(e instanceof $e))) throw e;
+              al(1, 0);
+            }
+          }
+          function Bu(e, t, n, r) {
+            var o = cl();
+            try {
+              dn(e)(t, n, r);
+            } catch (e) {
+              if ((dl(o), !(e instanceof $e))) throw e;
+              al(1, 0);
             }
           }
           ((y.keepRuntimeAlive = me),
@@ -9077,7 +9112,7 @@ __d(
             (y.FS = Qt),
             (y.PThread = rn),
             (y.registeredTypes = Zn));
-          var Pu = [
+          var Wu = [
             "writeI53ToI64",
             "writeI53ToI64Clamped",
             "writeI53ToI64Signaling",
@@ -9231,8 +9266,8 @@ __d(
             "emval_allocateDestructors",
             "emval_addMethodCaller",
           ];
-          Pu.forEach(He);
-          var Nu = [
+          Wu.forEach(He);
+          var qu = [
             "run",
             "addOnPreRun",
             "addOnInit",
@@ -9482,24 +9517,24 @@ __d(
             "emval_registeredMethods",
             "IDBFS",
           ];
-          Nu.forEach(Ge);
-          var Mu;
+          qu.forEach(Ge);
+          var Uu;
           ve = function e() {
-            (Mu || Au(), Mu || (ve = e));
+            (Uu || Hu(), Uu || (ve = e));
           };
-          function wu() {
-            (G(!D), Zi(), ae());
+          function Vu() {
+            (G(!D), ll(), ae());
           }
-          function Au() {
+          function Hu() {
             if (Ce > 0) return;
-            if ((D || wu(), D)) {
+            if ((D || Vu(), D)) {
               (C(y), _e(), startWorker(y));
               return;
             }
             if ((pe(), Ce > 0)) return;
             function e() {
-              Mu ||
-                ((Mu = !0),
+              Uu ||
+                ((Uu = !0),
                 (y.calledRun = !0),
                 !V &&
                   (_e(),
@@ -9522,7 +9557,7 @@ __d(
               : e(),
               ie());
           }
-          function Fu() {
+          function Gu() {
             var e = A,
               t = F,
               n = !1;
@@ -9530,7 +9565,7 @@ __d(
               n = !0;
             };
             try {
-              (xi(0),
+              (Oi(0),
                 ["stdout", "stderr"].forEach(function (e) {
                   var t = Qt.analyzePath("/dev/" + e);
                   if (t) {
@@ -9554,7 +9589,7 @@ __d(
               y.preInit.length > 0;
             )
               y.preInit.pop()();
-          return (Au(), a.ready);
+          return (Hu(), a.ready);
         };
       })();
     typeof l == "object" && typeof i == "object"

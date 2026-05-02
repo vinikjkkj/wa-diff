@@ -188,32 +188,30 @@ __d(
         e.statusCode === L
       );
     }
-    var k = function (t, n) {
-        if (
-          t ===
-          o("WAWebServerPropConstants")
-            .UNINITIALIZED_VALUE_WEB_BIZ_PROFILE_OPTIONS
-        )
-          return !1;
-        var e =
-            (o(
-              "WAWebBusinessProfileVersioningBridge",
-            ).getBusinessProfileQueryVersionWithCustomBizProfileOptions(t) &
-              o("WAWebBusinessProfileVersioningBridge")
-                .DIRECT_CONNECTION_FLAG) >
-            0,
-          r =
-            (o(
-              "WAWebBusinessProfileVersioningBridge",
-            ).getBusinessProfileQueryVersionWithCustomBizProfileOptions(n) &
-              o("WAWebBusinessProfileVersioningBridge")
-                .DIRECT_CONNECTION_FLAG) >
-            0;
-        return e !== r;
-      },
-      I = function (t, n) {
-        return t != null && !r("WAArraysShallowEqual")(t, n);
-      };
+    function k(e, t) {
+      if (
+        e ===
+        o("WAWebServerPropConstants")
+          .UNINITIALIZED_VALUE_WEB_BIZ_PROFILE_OPTIONS
+      )
+        return !1;
+      var n =
+          (o(
+            "WAWebBusinessProfileVersioningBridge",
+          ).getBusinessProfileQueryVersionWithCustomBizProfileOptions(e) &
+            o("WAWebBusinessProfileVersioningBridge").DIRECT_CONNECTION_FLAG) >
+          0,
+        r =
+          (o(
+            "WAWebBusinessProfileVersioningBridge",
+          ).getBusinessProfileQueryVersionWithCustomBizProfileOptions(t) &
+            o("WAWebBusinessProfileVersioningBridge").DIRECT_CONNECTION_FLAG) >
+          0;
+      return n !== r;
+    }
+    function I(e, t) {
+      return e != null && !r("WAArraysShallowEqual")(e, t);
+    }
     ((l.timestampFormat = s),
       (l.DCCertificateDomainMismatchError = u),
       (l.isCypherExpired = c),

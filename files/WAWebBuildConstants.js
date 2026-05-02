@@ -9,28 +9,28 @@ __d(
       d = s ? "" + r("SiteData").client_revision : "0",
       m = u + "." + c + "." + d,
       p = y(),
-      _ = C(),
-      f = function () {
-        return p;
-      },
-      g = function () {
-        var t = p;
-        if (t == null || t.length !== 6 || !/^\d{6}$/.test(t))
-          return (
-            o("WALogger")
-              .LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "getWindowsVersion: invalid version string",
-                  ])),
-              )
-              .sendLogs("invalid-windows-version"),
-            null
-          );
-        var n = parseInt(t, 10);
-        return Number.isNaN(n) ? null : n;
-      },
-      h = p == null ? m : m + "." + p;
+      _ = C();
+    function f() {
+      return p;
+    }
+    function g() {
+      var t = p;
+      if (t == null || t.length !== 6 || !/^\d{6}$/.test(t))
+        return (
+          o("WALogger")
+            .LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "getWindowsVersion: invalid version string",
+                ])),
+            )
+            .sendLogs("invalid-windows-version"),
+          null
+        );
+      var n = parseInt(t, 10);
+      return Number.isNaN(n) ? null : n;
+    }
+    var h = p == null ? m : m + "." + p;
     function y() {
       if (r("WAWebEnvironment").isWindows) {
         var e,

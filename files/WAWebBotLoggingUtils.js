@@ -78,6 +78,26 @@ __d(
         )
           return o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
             .NOTIFICATION;
+        if (
+          t ===
+          o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.CHAT_INFO_PAGE
+        )
+          return o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
+            .PROFILE_MESSAGE_BUTTON;
+        if (
+          t ===
+          o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
+            .INVOKE_META_AI_1ON1
+        )
+          return o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
+            .INVOKE_META_AI_1ON1;
+        if (
+          t ===
+          o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
+            .INVOKE_META_AI_GROUP
+        )
+          return o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
+            .INVOKE_META_AI_GROUP;
         {
           o("WALogger")
             .WARN(
@@ -239,7 +259,7 @@ __d(
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.INVOKE;
         if (e === o("WAWebChatEntryPoint").ChatEntryPoint.ContactInfo)
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
-            .AI_CONTACT_ON_WA;
+            .CHAT_INFO_PAGE;
         if (e === o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink)
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .DEEPLINK_USER_SHARED;

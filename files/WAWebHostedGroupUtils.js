@@ -2,16 +2,16 @@ __d(
   "WAWebHostedGroupUtils",
   ["fbt", "WAWebFrontendContactGetters"],
   function (t, n, r, o, a, i, l, s) {
-    var e = function (t, n) {
+    function e(e, t) {
       return (
-        n === void 0 && (n = !1),
-        n
+        t === void 0 && (t = !1),
+        t
           ? s._(
               /*BTDS*/ "{ownerName} uses a secure service from Meta to manage this chat.",
               [
                 s._param(
                   "ownerName",
-                  o("WAWebFrontendContactGetters").getFormattedName(t),
+                  o("WAWebFrontendContactGetters").getFormattedName(e),
                 ),
               ],
             )
@@ -20,12 +20,12 @@ __d(
               [
                 s._param(
                   "ownerName",
-                  o("WAWebFrontendContactGetters").getFormattedName(t),
+                  o("WAWebFrontendContactGetters").getFormattedName(e),
                 ),
               ],
             )
       );
-    };
+    }
     l.getSecureServicesBannerText = e;
   },
   226,

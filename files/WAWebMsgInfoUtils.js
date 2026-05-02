@@ -7,6 +7,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebGroupType",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -14,19 +15,20 @@ __d(
       return o("WAWebMsgGetters").getIsNewsletterMsg(e) ||
         o("WAWebFrontendMsgGetters").getAsAlbum(e) ||
         o("WAWebFrontendMsgGetters").getAsCallLog(e) ||
-        o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage(
-          (t = e.ctwaContext) == null ? void 0 : t.sourceApp,
-          e.type,
-          (n = e.ctwaContext) == null
-            ? void 0
-            : n.automatedGreetingMessageShown,
-          e.subtype,
-        )
+        o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
+          isAGMShown:
+            (t = e.ctwaContext) == null
+              ? void 0
+              : t.automatedGreetingMessageShown,
+          msgSource: (n = e.ctwaContext) == null ? void 0 : n.sourceApp,
+          msgSubtype: e.subtype,
+          msgType: e.type,
+        })
         ? !1
         : !!(
             o("WAWebMsgGetters").getIsSentByMe(e) &&
             !o("WAWebFrontendMsgGetters").getAsRevoked(e) &&
-            !e.mayFail() &&
+            !o("WAWebMsgModelUtils").msgMayFail(e) &&
             (!e.isMdHistoryMsg ||
               (o("WAWebAgentModelUtils").canUserSeeMessageAttribution() &&
                 e.agentId != null))

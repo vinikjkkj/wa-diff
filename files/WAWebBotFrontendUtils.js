@@ -119,8 +119,6 @@ __d(
     }
     function v(e) {
       switch (e) {
-        case o("WAWebBotLogging").BotEntryPointType.Agent:
-          return "agent";
         case o("WAWebBotLogging").BotEntryPointType.Search:
         case o("WAWebBotLogging").BotEntryPointType.Shortcut:
           return "shortcut";

@@ -129,6 +129,7 @@ __d(
                 o(
                   "WAWebBizAdCreationResolveStoredIdentity",
                 ).resolveStoredIdentityForAccountType("FB") != null,
+              activeIdentityType: b,
             }),
             L =
               R === "FIRST_TIME_WAA_ELIGIBLE"

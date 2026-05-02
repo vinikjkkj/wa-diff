@@ -2,56 +2,56 @@ __d(
   "WAWebAttachMenuStrings",
   ["fbt", "WAWebBizGatingUtils"],
   function (t, n, r, o, a, i, l, s) {
-    var e = function () {
-        return s._(/*BTDS*/ "Camera");
-      },
-      u = function () {
-        return s._(/*BTDS*/ "Catalog");
-      },
-      c = function () {
-        return s._(/*BTDS*/ "Contact");
-      },
-      d = function () {
-        return s._(/*BTDS*/ "Document");
-      },
-      m = function () {
-        return o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
-          ? s._(/*BTDS*/ "Charge")
-          : s._(/*BTDS*/ "Order");
-      },
-      p = function () {
-        return s._(/*BTDS*/ "Photos & videos");
-      },
-      _ = function () {
-        return s._(/*BTDS*/ "Photos");
-      },
-      f = function () {
-        return s._(/*BTDS*/ "Videos");
-      },
-      g = function () {
-        return s._(/*BTDS*/ "Poll");
-      },
-      h = function () {
-        return s._(/*BTDS*/ "Quiz");
-      },
-      y = function () {
-        return s._(/*BTDS*/ "Quick replies");
-      },
-      C = function () {
-        return s._(/*BTDS*/ "New sticker");
-      },
-      b = function () {
-        return s._(/*BTDS*/ "Audio");
-      },
-      v = function () {
-        return s._(/*BTDS*/ "Event");
-      },
-      S = function () {
-        return s._(/*BTDS*/ "Question");
-      },
-      R = function () {
-        return s._(/*BTDS*/ "Drawing");
-      };
+    function e() {
+      return s._(/*BTDS*/ "Camera");
+    }
+    function u() {
+      return s._(/*BTDS*/ "Catalog");
+    }
+    function c() {
+      return s._(/*BTDS*/ "Contact");
+    }
+    function d() {
+      return s._(/*BTDS*/ "Document");
+    }
+    function m() {
+      return o("WAWebBizGatingUtils").isOrderContentOptimizationEnabled()
+        ? s._(/*BTDS*/ "Charge")
+        : s._(/*BTDS*/ "Order");
+    }
+    function p() {
+      return s._(/*BTDS*/ "Photos & videos");
+    }
+    function _() {
+      return s._(/*BTDS*/ "Photos");
+    }
+    function f() {
+      return s._(/*BTDS*/ "Videos");
+    }
+    function g() {
+      return s._(/*BTDS*/ "Poll");
+    }
+    function h() {
+      return s._(/*BTDS*/ "Quiz");
+    }
+    function y() {
+      return s._(/*BTDS*/ "Quick replies");
+    }
+    function C() {
+      return s._(/*BTDS*/ "New sticker");
+    }
+    function b() {
+      return s._(/*BTDS*/ "Audio");
+    }
+    function v() {
+      return s._(/*BTDS*/ "Event");
+    }
+    function S() {
+      return s._(/*BTDS*/ "Question");
+    }
+    function R() {
+      return s._(/*BTDS*/ "Drawing");
+    }
     ((l.CameraText = e),
       (l.CatalogText = u),
       (l.ContactText = c),

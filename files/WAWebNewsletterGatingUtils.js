@@ -564,7 +564,7 @@ __d(
     }
     function rt() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
-        "channel_album_v2_sender_enabled",
+        "channels_album_sender_enabled",
       );
     }
     function ot() {

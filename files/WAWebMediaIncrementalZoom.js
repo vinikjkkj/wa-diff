@@ -120,12 +120,12 @@ __d(
         return $.reduce(function (e, n) {
           return Math.abs(n - t) < Math.abs(e - t) ? n : e;
         });
-      },
-      N = function (t, n) {
-        var e = Math.log(t / n) / Math.log(E) + 1;
-        return P(e);
-      },
-      M = function (t, n) {
+      };
+    function N(e, t) {
+      var n = Math.log(e / t) / Math.log(E) + 1;
+      return P(n);
+    }
+    var M = function (t, n) {
         var e = P(t),
           r = n * Math.pow(E, e - 1);
         return { scale: r, zoomLevel: e };

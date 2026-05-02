@@ -4,7 +4,6 @@ __d(
     "CometKeyCommandContext",
     "CometKeyCommandSettingsContext",
     "CometKeyCommandUtilsContext",
-    "CometKeyCommandsTypedLoggerLite",
     "FBLogger",
     "areKeyCombinationsEqual",
     "createKeyCommand",
@@ -133,59 +132,51 @@ __d(
                 },
                 applyCommand: function (t, n) {
                   var e,
-                    a = L(t);
-                  if (a == null) return !1;
-                  var i = /^[a-z0-9]$/;
+                    o = L(t);
+                  if (o == null) return !1;
+                  var a = /^[a-z0-9]$/;
                   if (
                     r("gkx")("22803") &&
-                    ((e = a.command) == null ? void 0 : e.alt) === !0 &&
+                    ((e = o.command) == null ? void 0 : e.alt) === !0 &&
                     l.getModifiedKeyboardShortcutsPreference() === 1
                   )
                     return !0;
                   if (
-                    (!a.triggerFromInputs && g(n.target)) ||
-                    (h(n.target) && i.test(t)) ||
+                    (!o.triggerFromInputs && g(n.target)) ||
+                    (h(n.target) && a.test(t)) ||
                     (n.type === "keyup" &&
-                      a.triggerOnKeyUp !== !0 &&
-                      a.triggerOnKeyUpAndKeyDown !== !0) ||
-                    (n.type === "keydown" && a.triggerOnKeyUp === !0)
+                      o.triggerOnKeyUp !== !0 &&
+                      o.triggerOnKeyUpAndKeyDown !== !0) ||
+                    (n.type === "keydown" && o.triggerOnKeyUp === !0)
                   )
                     return !1;
-                  var s = a.handler;
-                  if (a.shouldPreventDefault !== !1) {
+                  var i = o.handler;
+                  if (o.shouldPreventDefault !== !1) {
                     if (
-                      C(n.target, a) &&
+                      C(n.target, o) &&
                       l.getModifiedKeyboardShortcutsPreference() === 3
                     )
                       return !0;
-                    s && n.preventDefault();
+                    i && n.preventDefault();
                   }
-                  if (a.triggerOnRepeats === !1 && n.repeat === !0) return !1;
-                  if (s != null) {
+                  if (o.triggerOnRepeats === !1 && n.repeat === !0) return !1;
+                  if (i != null) {
                     if (
-                      a.command != null &&
-                      C(n.target, a) &&
+                      o.command != null &&
+                      C(n.target, o) &&
                       l.getModifiedKeyboardShortcutsPreference() === 4
                     )
                       return (
-                        S.current(a.command, a.singleCharDescription),
+                        S.current(o.command, o.singleCharDescription),
                         !0
                       );
-                    var u = l && l.getAreSingleKeysDisabled(),
-                      d = r("isSingleCharKey")(t);
-                    if (u === !0 && d) return !0;
-                    if (u === null && d)
-                      return (c.current(t, a.singleCharDescription), !0);
-                    s();
-                    var m = a.description;
-                    return (
-                      r("CometKeyCommandsTypedLoggerLite").log({
-                        key_combo: t,
-                        key_context: o.debugName,
-                        key_description: m,
-                      }),
-                      a.shouldStopPropagation !== !1
-                    );
+                    var s = l && l.getAreSingleKeysDisabled(),
+                      u = r("isSingleCharKey")(t);
+                    return s === !0 && u
+                      ? !0
+                      : s === null && u
+                        ? (c.current(t, o.singleCharDescription), !0)
+                        : (i(), o.shouldStopPropagation !== !1);
                   }
                   return !1;
                 },

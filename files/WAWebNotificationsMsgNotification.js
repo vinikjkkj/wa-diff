@@ -20,6 +20,7 @@ __d(
     "WAWebGroupSafetyCheckUtils",
     "WAWebMediaUtils",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterTabPulseState",
@@ -436,7 +437,7 @@ __d(
         };
       if (
         e.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
-        !e.shouldShowNotificationPreview()
+        !o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e)
       ) {
         var u,
           c = (u = h == null ? void 0 : h()) != null ? u : null;

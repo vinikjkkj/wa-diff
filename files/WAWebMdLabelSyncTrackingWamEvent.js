@@ -28,6 +28,7 @@ __d(
               labelSyncHash: [4, e.TYPES.STRING],
               labelSyncIsCapiHosted: [5, e.TYPES.BOOLEAN],
               labelSyncIsLabeled: [6, e.TYPES.BOOLEAN],
+              labelSyncPredefinedId: [10, e.TYPES.INTEGER],
               labelSyncResult: [
                 7,
                 o("WAWebWamEnumLabelSyncResultType").LABEL_SYNC_RESULT_TYPE,

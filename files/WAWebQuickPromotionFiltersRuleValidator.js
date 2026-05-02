@@ -10,17 +10,17 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 5,
-      u = function (t, n) {
-        var e = t.data.qpConfigFilterRules;
-        if (e == null) return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
-        try {
-          return c(e, t, n, 0);
-        } catch (e) {
-          return o("WAWebCommonQPSurfacesTypes")
-            .RESULT_FALSE_FILTERS_CHECK_EXCEPTION;
-        }
-      };
+      s = 5;
+    function u(e, t) {
+      var n = e.data.qpConfigFilterRules;
+      if (n == null) return o("WAWebCommonQPSurfacesTypes").RESULT_TRUE;
+      try {
+        return c(n, e, t, 0);
+      } catch (e) {
+        return o("WAWebCommonQPSurfacesTypes")
+          .RESULT_FALSE_FILTERS_CHECK_EXCEPTION;
+      }
+    }
     function c(t, n, a, i) {
       if (i >= s)
         throw (

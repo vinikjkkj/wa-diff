@@ -28,6 +28,7 @@ __d(
     "WAWebMsgDataUtils",
     "WAWebMsgGetters",
     "WAWebMsgModelFromData",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebNewsletterSendMsgAction",
     "WAWebSendMsgChatAction",
@@ -82,7 +83,8 @@ __d(
                 isForwarded:
                   o("WAWebMsgGetters").getShouldDisplayAsForwarded(m),
                 forwardedFromWeb: !0,
-                forwardingScore: m.getForwardingScoreWhenForwarded(),
+                forwardingScore:
+                  o("WAWebMsgModelUtils").getMsgForwardingScoreWhenForwarded(m),
                 multicast: f,
                 messageSecret:
                   o(

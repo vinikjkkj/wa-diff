@@ -65,6 +65,7 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -1015,7 +1016,7 @@ __d(
                   "[history sync] error occurred",
                 ])),
             )
-            .catching(e)
+            .catching(r("getErrorSafe")(e))
             .sendLogs(
               "msg_handler for MD: error storing/processing multiple messages",
             );

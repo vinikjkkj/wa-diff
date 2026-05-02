@@ -24,9 +24,9 @@ __d(
         );
       })(c);
     d.format = !1;
-    var m = function (t) {
-      return t.replace(u, " ");
-    };
+    function m(e) {
+      return e.replace(u, " ");
+    }
     ((l.Code = d), (l.removeCodeBlocks = m));
   },
   98,

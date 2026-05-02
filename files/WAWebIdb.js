@@ -999,6 +999,31 @@ __d(
                     throw (e.$1(t, "anyOf"), t);
                   });
           }),
+          (a.anyOfPrimaryKeys = function (t, r, a) {
+            var e = this;
+            return r.length === 0
+              ? (d || (d = n("Promise"))).resolve([])
+              : o("WAWebDexieCastTypes")
+                  .dexieCastToPromise(
+                    o("WAWebIdbHelpers")
+                      .applyOptions(
+                        this.table
+                          .where(
+                            o("WAWebIdbHelpers").formatQueryIndex(
+                              t,
+                              this.tableColumns,
+                            ),
+                          )
+                          .anyOf(r),
+                        a,
+                      )
+                      .distinct()
+                      .primaryKeys(),
+                  )
+                  .catch(function (t) {
+                    throw (e.$1(t, "anyOfPrimaryKeys"), t);
+                  });
+          }),
           (a.inAnyRange = function (t, r, a) {
             var e = this;
             return r.length === 0

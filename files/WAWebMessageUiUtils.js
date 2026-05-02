@@ -255,7 +255,11 @@ __d(
     }
     function b(e, t) {
       if (e != null) {
-        var n = S(e.author, e.senderObj, t),
+        var n = S({
+            contact: e.senderObj,
+            isElevatedPushNamesEnabled: t,
+            sender: e.author,
+          }),
           r = o("WAWebQuotedMsgUtils").formatQuotedMsg(e);
         return s._(
           /*BTDS*/ "to quoted message from {quoted-message-author}: {quoted-message-body}",
@@ -289,54 +293,58 @@ __d(
           ])
         : null;
     }
-    function S(e, t, n, a) {
-      a === void 0 && (a = !1);
-      var i = o("WAWebUserPrefsMeUser").isMeAccount(e),
-        l = "";
+    function S(e) {
+      var t = e.contact,
+        n = e.hideYou,
+        a = n === void 0 ? !1 : n,
+        i = e.isElevatedPushNamesEnabled,
+        l = e.sender,
+        u = o("WAWebUserPrefsMeUser").isMeAccount(l),
+        c = "";
       if (t != null)
-        if (i) {
+        if (u) {
           if (a) return "";
-          l = s._(/*BTDS*/ "You");
+          c = s._(/*BTDS*/ "You");
         } else if (
           o("WAWebContactGetters").getName(t) ||
           (o("WAWebContactGetters").getVerifiedName(t) &&
             o("WAWebContactGetters").getVerifiedLevel(t) !== 0) ||
           o("WAWebContactGetters").getIsSupportAccount(t)
         ) {
-          var u;
-          l = o("WAWebContactGetters").getIsSupportAccount(t)
+          var d;
+          c = o("WAWebContactGetters").getIsSupportAccount(t)
             ? o("WAWebFrontendContactGetters").getFormattedName(t)
-            : (u = t.name) != null
-              ? u
+            : (d = t.name) != null
+              ? d
               : t.verifiedName;
-        } else if (r("WAWebWid").isPSA(t.id)) l = "WhatsApp";
-        else if (n) {
-          var c,
-            d,
-            m =
-              (c = o("WAWebContactGetters").getNotifyName(t)) != null
-                ? c
-                : t.pushname,
-            p = _(m),
+        } else if (r("WAWebWid").isPSA(t.id)) c = "WhatsApp";
+        else if (i) {
+          var m,
+            p,
             f =
-              (d = t.id) != null && d.isLid()
+              (m = o("WAWebContactGetters").getNotifyName(t)) != null
+                ? m
+                : t.pushname,
+            g = _(f),
+            h =
+              (p = t.id) != null && p.isLid()
                 ? o("WAWebFrontendContactGetters").getUserDisplayNameForLid(t)
                 : o("WAWebWidFormat").widToFormattedUser(t.id);
-          l = s._(/*BTDS*/ "{pushname-label} {number-label}", [
-            s._param("pushname-label", p),
-            s._param("number-label", f),
+          c = s._(/*BTDS*/ "{pushname-label} {number-label}", [
+            s._param("pushname-label", g),
+            s._param("number-label", h),
           ]);
         } else {
-          var g;
-          l =
-            (g = t.id) != null && g.isLid()
+          var y;
+          c =
+            (y = t.id) != null && y.isLid()
               ? o("WAWebFrontendContactGetters").getUserDisplayNameForLid(t)
               : o("WAWebWidFormat").widToFormattedUser(t.id);
-          var h = o("WAWebContactGetters").getNotifyName(t),
-            y = h != null && h !== "" ? h : t.pushname;
-          l = l + " " + y;
+          var C = o("WAWebContactGetters").getNotifyName(t),
+            b = C != null && C !== "" ? C : t.pushname;
+          c = c + " " + b;
         }
-      return l;
+      return c;
     }
     function R(e) {
       return r("WAWebFbtIntlList")(
@@ -361,7 +369,7 @@ __d(
           if (a != null) {
             var l = o("WAWebFrontendMsgGetters").getMaybeChat(r.unsafe()),
               u = o("WAWebElevatedPushNamesFlag").elevatedPushNamesEnabled(l),
-              c = S(a, i, u),
+              c = S({ contact: i, isElevatedPushNamesEnabled: u, sender: a }),
               d = t.map(function (e) {
                 return o("WAWebReactionsCollection").ReactionsCollection.find(
                   e.id,
@@ -449,7 +457,12 @@ __d(
         y = R;
       }
       a === !0 && !r && (C = o("WAWebMessageMeta.react").getEditedLabel());
-      var L = S(d, c, i, !!r);
+      var L = S({
+        contact: c,
+        hideYou: !!r,
+        isElevatedPushNamesEnabled: i,
+        sender: d,
+      });
       return (
         u && (h = I(u)),
         k({

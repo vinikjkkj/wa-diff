@@ -73,18 +73,18 @@ __d(
         }, {}),
       );
     }
-    var _ = function (t, n, r) {
-      var e = o("WAWebClock")
-          .Clock.relativeDateStr(t[n[r]].timestamp)
+    function _(e, t, n) {
+      var r = o("WAWebClock")
+          .Clock.relativeDateStr(e[t[n]].timestamp)
           .toString(),
         a =
-          r > 0
+          n > 0
             ? o("WAWebClock")
-                .Clock.relativeDateStr(t[n[r - 1]].timestamp)
+                .Clock.relativeDateStr(e[t[n - 1]].timestamp)
                 .toString()
             : "";
-      return e === a ? "" : e;
-    };
+      return r === a ? "" : r;
+    }
     function f(e) {
       var t = e.contact,
         n = e.msgs;

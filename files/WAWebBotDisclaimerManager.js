@@ -28,7 +28,6 @@ __d(
       c = u || (u = o("react")),
       d = [
         o("WAWebBotLogging").BotEntryPointType.Shortcut,
-        o("WAWebBotLogging").BotEntryPointType.Agent,
         o("WAWebBotLogging").BotEntryPointType.Search,
       ],
       m = "TOS_DID_NOT_ACCEPT",
@@ -42,28 +41,28 @@ __d(
         }),
       );
     }
-    function f(e) {
+    function f(e, t) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = o("WAWebBotFrontendUtils").getBotNuxOriginType(t),
-            i = o("WAWebBotLogging").getWamBotEntryPoint(t);
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+          var i = o("WAWebBotFrontendUtils").getBotNuxOriginType(t),
+            l = a;
           return new (e || (e = n("Promise")))(function (e, t) {
-            (o("WAWebBotJourneyLogger").BotJourneyLogger.logTosView(i),
+            (o("WAWebBotJourneyLogger").BotJourneyLogger.logTosView(l),
               o("WAWebModalManager").ModalManager.open(
                 c.jsx(r("WAWebBotNux.react"), {
-                  origin: a,
+                  origin: i,
                   onOK: function () {
                     (o("WAWebBotJourneyLogger").BotJourneyLogger.logTosAccept(
-                      i,
+                      a,
                     ),
                       e(!0));
                   },
                   onCancel: function () {
                     (o("WAWebBotJourneyLogger").BotJourneyLogger.logTosDismiss(
-                      i,
+                      a,
                     ),
                       t(m));
                   },
@@ -83,71 +82,69 @@ __d(
           var a,
             i = t.botEntryPoint,
             l = t.chat,
-            s = t.noticeId;
+            s = t.noticeId,
+            u = t.wamEntryPoint;
           if (!o("WAWebBotUtils").isBotChannelFBID(l.id)) {
-            var u = o("WAWebBotTos").isMasterBotTosNotice(Number(s));
-            if (u) {
-              var g = v(i);
+            var g = o("WAWebBotTos").isMasterBotTosNotice(Number(s));
+            if (g) {
+              var h = v(i);
               if (
-                g.some(function (e) {
+                h.some(function (e) {
                   return C(String(e));
                 })
               )
                 return;
             }
-            var h =
+            var y =
                 (a = o("WAWebBotGating").getMasterBotNoticeId()) != null
                   ? a
                   : Number(s),
-              y = o("WAWebBotTos").isNonBlockingBotNotice(Number(h));
-            if (u || y) {
-              if (C(String(h))) return;
-              var b = o("WAWebBotLogging").getWamBotEntryPoint(i);
-              return (
-                o("WAWebBotJourneyLogger").BotJourneyLogger.logTosView(b),
-                new (e || (e = n("Promise")))(function (e, t) {
-                  o("WAWebModalManager").ModalManager.open(
-                    c.jsx(r("WAWebPDFNModal.react"), {
-                      pdfnId: Number(h),
-                      runIfTosAccepted: function () {
-                        (o(
-                          "WAWebBotJourneyLogger",
-                        ).BotJourneyLogger.logTosAccept(b),
-                          e());
-                      },
-                      onCancel: y
-                        ? function () {
-                            o(
-                              "WAWebBotJourneyLogger",
-                            ).BotJourneyLogger.logTosAccept(b);
-                          }
-                        : function () {
-                            (o(
-                              "WAWebBotJourneyLogger",
-                            ).BotJourneyLogger.logTosDismiss(b),
-                              t(m));
-                          },
-                      verifyTosAccepted: o("WAWebBoolFunc").returnFalse,
-                      theme: o("WaWebPDFNCommonUtils").PdfnTheme.Meta,
-                      noticeType: y
-                        ? o("WaWebPDFNCommonUtils").PdfnNoticeType.NonBlocking
-                        : o("WaWebPDFNCommonUtils").PdfnNoticeType.Blocking,
-                      onAcceptError: y ? _ : void 0,
-                    }),
-                  );
-                })
-              );
-            }
+              b = o("WAWebBotTos").isNonBlockingBotNotice(Number(y));
+            if (g || b)
+              return C(String(y))
+                ? void 0
+                : (o("WAWebBotJourneyLogger").BotJourneyLogger.logTosView(u),
+                  new (e || (e = n("Promise")))(function (e, t) {
+                    o("WAWebModalManager").ModalManager.open(
+                      c.jsx(r("WAWebPDFNModal.react"), {
+                        pdfnId: Number(y),
+                        runIfTosAccepted: function () {
+                          (o(
+                            "WAWebBotJourneyLogger",
+                          ).BotJourneyLogger.logTosAccept(u),
+                            e());
+                        },
+                        onCancel: b
+                          ? function () {
+                              o(
+                                "WAWebBotJourneyLogger",
+                              ).BotJourneyLogger.logTosAccept(u);
+                            }
+                          : function () {
+                              (o(
+                                "WAWebBotJourneyLogger",
+                              ).BotJourneyLogger.logTosDismiss(u),
+                                t(m));
+                            },
+                        verifyTosAccepted: o("WAWebBoolFunc").returnFalse,
+                        theme: o("WaWebPDFNCommonUtils").PdfnTheme.Meta,
+                        noticeType: b
+                          ? o("WaWebPDFNCommonUtils").PdfnNoticeType.NonBlocking
+                          : o("WaWebPDFNCommonUtils").PdfnNoticeType.Blocking,
+                        onAcceptError: b ? _ : void 0,
+                      }),
+                    );
+                  }));
             if (d.includes(i)) {
               if (!o("WAWebTosGating").shouldBlockByBotTos(l.contact)) return;
               if (o("WAWebBotTosIds").supportedTosNoticeIds.has(s)) {
-                yield f(i);
+                yield f(i, u);
                 return;
               }
             }
             if (i === o("WAWebBotLogging").BotEntryPointType.Invoke) {
               if (o("WAWebBotTos").hasSeenInvokeTos()) return;
-              yield f(i);
+              yield f(i, u);
               return;
             }
             return (e || (e = n("Promise"))).reject(p);
@@ -166,9 +163,6 @@ __d(
       var t = o("WAWebBotGating").getMasterBotNoticeId(),
         n = [];
       switch ((t != null && n.push(t), e)) {
-        case o("WAWebBotLogging").BotEntryPointType.Agent:
-          n.push(Number(o("WAWebBotTosIds").getBotAgentTosId()));
-          break;
         case o("WAWebBotLogging").BotEntryPointType.Shortcut:
         case o("WAWebBotLogging").BotEntryPointType.Search:
           (n.push(Number(o("WAWebBotTosIds").getBotShortcutTosId())),

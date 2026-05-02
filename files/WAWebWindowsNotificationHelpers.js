@@ -9,6 +9,7 @@ __d(
     "WAWebEnvironment",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
     "WAWebMuteCollection",
     "WAWebNotificationHelpers",
     "WAWebWindowsHybridBridgeFactory",
@@ -290,7 +291,7 @@ __d(
     function $(e) {
       if (
         !r("WAWebEnvironment").isWindows ||
-        !e.shouldShowNotificationPreview()
+        !o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e)
       )
         return !1;
       var t = o("WAWebFrontendMsgGetters").getChat(e);

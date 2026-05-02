@@ -214,6 +214,11 @@ __d(
               return e.anyOf(t, n, r);
             });
           }),
+          (a.anyOfPrimaryKeys = function (t, n, r) {
+            return this.$5(function (e) {
+              return e.anyOfPrimaryKeys(t, n, r);
+            });
+          }),
           (a.inAnyRange = function (t, n, r) {
             return this.$5(function (e) {
               return e.inAnyRange(t, n, r);

@@ -14,16 +14,16 @@ __d(
       u = "model-storage",
       c = null;
     function d() {
+      return (c != null || s(0, 56367), c);
+    }
+    function m() {
       return o("WAWebDexieCastTypes").dexieCastToPromise(
         r("WAWeb-dexie").exists(u),
       );
     }
-    function m(e) {
+    function p(e) {
       var t = new (r("WAWebIdb"))(u, { packColumns: e.packColumns });
       c = new (o("WAWebStorage").Storage)(t, e);
-    }
-    function p() {
-      return (c != null || s(0, 56367), c);
     }
     function _() {
       return c == null
@@ -42,9 +42,9 @@ __d(
             });
     }
     ((l.DATABASE_NAME = u),
-      (l.storageExists = d),
-      (l.createStorage = m),
-      (l.getStorage = p),
+      (l.getStorage = d),
+      (l.storageExists = m),
+      (l.createStorage = p),
       (l.destroyStorage = _));
   },
   98,

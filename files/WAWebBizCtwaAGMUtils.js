@@ -39,22 +39,26 @@ __d(
     function p() {
       return s._(/*BTDS*/ "Error loading photo");
     }
-    function _(e, t, n, r) {
+    function _(e) {
+      var t = e.isAGMShown,
+        n = e.msgSource,
+        r = e.msgSubtype,
+        a = e.msgType;
       if (
-        t === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
+        a === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
         r === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup &&
         o("WAWebBizGatingUtils").getFmxAgmEnabled()
       )
         return !0;
-      var a = o("WAWebBizGatingUtils").getWamoAgmEnabled(),
-        i =
-          e === o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.FACEBOOK ||
-          e === o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.INSTAGRAM,
+      var i = o("WAWebBizGatingUtils").getWamoAgmEnabled(),
         l =
-          t === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
-          n === !0 &&
+          n === o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.FACEBOOK ||
+          n === o("WAWebCtwaAGMUtils").AGM_SOURCE_APP.INSTAGRAM,
+        s =
+          a === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
+          t === !0 &&
           o("WAWebBizGatingUtils").getFmxAgmEnabled();
-      return (a || i) && l;
+      return (i || l) && s;
     }
     function f(e) {
       if (
@@ -81,13 +85,14 @@ __d(
         e.subtype === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup
         ? o("WAWebSignupGating").isSignupAGMEnabled()
         : f(e) &&
-            _(
-              (t = e.ctwaContext) == null ? void 0 : t.sourceApp,
-              e.type,
-              ((n = e.ctwaContext) == null
-                ? void 0
-                : n.automatedGreetingMessageShown) === !0,
-            );
+            _({
+              isAGMShown:
+                ((t = e.ctwaContext) == null
+                  ? void 0
+                  : t.automatedGreetingMessageShown) === !0,
+              msgSource: (n = e.ctwaContext) == null ? void 0 : n.sourceApp,
+              msgType: e.type,
+            });
     }
     function h(e) {
       var t = e.getAllMsgs(),

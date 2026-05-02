@@ -209,6 +209,14 @@ __d(
           _ = m[1];
         n = p.concat(_);
       }
+      if (t.isTeeBotGroup === !0) {
+        var f = r("partitionArray")(n, function (e) {
+            return e.id.equals(o("WAWebBotUtils").META_BOT_TEE_FBID_WID);
+          }),
+          g = f[0],
+          h = f[1];
+        n = g.concat(h);
+      }
       return r("WAWebCompactMapString")(n, function (e) {
         var t = e.contact,
           n = d(t);

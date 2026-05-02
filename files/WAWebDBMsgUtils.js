@@ -3,6 +3,7 @@ __d(
   [
     "$InternalEnum",
     "WANullthrows",
+    "WAWebABProps",
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
     "WAWebLid1X1MigrationGating",
@@ -88,14 +89,33 @@ __d(
       );
     }
     function p(e) {
-      return o("WAWebSchemaMessage")
-        .getMessageTable()
-        .bulkGet(e, !1)
-        .then(function (e) {
-          return e.map(Boolean);
-        });
+      return _.apply(this, arguments);
     }
-    function _(e) {
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (
+            o("WAWebABProps").getABPropConfigValue("web_get_msg_exist_optmise")
+          ) {
+            var t = yield o("WAWebSchemaMessage")
+                .getMessageTable()
+                .anyOfPrimaryKeys(["id"], e),
+              n = new Set(t);
+            return e.map(function (e) {
+              return n.has(e);
+            });
+          }
+          return o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkGet(e, !1)
+            .then(function (e) {
+              return e.map(Boolean);
+            });
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .between(
@@ -110,7 +130,7 @@ __d(
       (l.getMsgByMsgKey = c),
       (l.filterReceivedMessagesInRange = d),
       (l.getMsgsExistByMsgKey = p),
-      (l.getMsgsByChatId = _));
+      (l.getMsgsByChatId = f));
   },
   98,
 );

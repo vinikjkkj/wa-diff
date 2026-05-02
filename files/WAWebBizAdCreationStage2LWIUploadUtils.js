@@ -10,10 +10,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e,
-      u = function () {
-        return s._(/*BTDS*/ "Some media failed to process and were removed.");
-      };
+    var e;
+    function u() {
+      return s._(/*BTDS*/ "Some media failed to process and were removed.");
+    }
     function c(e, t, n) {
       return d.apply(this, arguments);
     }

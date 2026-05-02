@@ -105,7 +105,7 @@ __d(
             n,
           );
           try {
-            var a = yield ee(n, r, !0);
+            var a = yield ne(n, r, !0);
             a
               ? o("WALogger").LOG(
                   s ||
@@ -273,6 +273,7 @@ __d(
                   (L = new (o(
                     "WAWebVoipAudioPlaybackBase",
                   ).WAWebVoipAudioPlaybackBase)()),
+                (J = null),
                 yield L.initPlaybackDriver(e),
                 t === k &&
                   o("WAWebVoipAudioPlaybackState").updatePlaybackSampleRate(
@@ -320,16 +321,23 @@ __d(
         Y.apply(this, arguments)
       );
     }
-    function J() {
-      return Z.apply(this, arguments);
-    }
+    var J = null;
     function Z() {
+      if (L != null) return L.consumeAudioPlaybackMetrics();
+      var e = J;
+      return ((J = null), e);
+    }
+    function ee() {
+      return te.apply(this, arguments);
+    }
+    function te() {
       return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = k;
           A.enqueue(
             n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (L == null) {
+              var t = L;
+              if (t == null) {
                 ($(e),
                   o("WALogger").WARN(
                     h ||
@@ -339,8 +347,9 @@ __d(
                   ));
                 return;
               }
+              J = t.consumeAudioPlaybackMetrics();
               try {
-                yield L.stopPlayback();
+                yield t.stopPlayback();
               } finally {
                 ($(e),
                   (L = null),
@@ -352,15 +361,15 @@ __d(
             "stopPlayback",
           );
         })),
-        Z.apply(this, arguments)
+        te.apply(this, arguments)
       );
     }
-    function ee(e, t, n) {
-      return te.apply(this, arguments);
+    function ne(e, t, n) {
+      return re.apply(this, arguments);
     }
-    function te() {
+    function re() {
       return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (re = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r) {
             var a = new (o("WAResolvable").Resolvable)();
             return (
@@ -409,15 +418,15 @@ __d(
             );
           },
         )),
-        te.apply(this, arguments)
+        re.apply(this, arguments)
       );
     }
-    function ne(e) {
-      return re.apply(this, arguments);
+    function oe(e) {
+      return ae.apply(this, arguments);
     }
-    function re() {
+    function ae() {
       return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = new (o("WAResolvable").Resolvable)();
           return (
             A.enqueue(
@@ -448,7 +457,7 @@ __d(
             t.promise
           );
         })),
-        re.apply(this, arguments)
+        ae.apply(this, arguments)
       );
     }
     ((l.getPlaybackSampleRate = o(
@@ -461,9 +470,10 @@ __d(
       (l.stopCaptureJS = z),
       (l.initPlaybackDriverJS = K),
       (l.startPlaybackJS = X),
-      (l.stopPlaybackJS = J),
-      (l.switchAudioInputDevice = ee),
-      (l.switchAudioOutputDevice = ne));
+      (l.consumeAudioPlaybackMetrics = Z),
+      (l.stopPlaybackJS = ee),
+      (l.switchAudioInputDevice = ne),
+      (l.switchAudioOutputDevice = oe));
   },
   98,
 );

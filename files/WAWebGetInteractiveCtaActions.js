@@ -16,34 +16,34 @@ __d(
     "WAWebPaymentReminder",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e = function (t) {
-      var e;
+    function e(e) {
+      var t;
       if (
-        t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-        t.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-        t.nativeFlowName != null &&
+        e.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+        e.interactiveType === r("WAWebInteractiveMessageType").NATIVE_FLOW &&
+        e.nativeFlowName != null &&
         o(
           "WAWebBizTemplateAndInteractiveMessagesUtils",
         ).supportedNativeFlowButtonNamesForInteractiveMsg.includes(
-          t.nativeFlowName,
+          e.nativeFlowName,
         ) &&
-        ((e = t.interactivePayload) == null ? void 0 : e.buttons) != null
+        ((t = e.interactivePayload) == null ? void 0 : t.buttons) != null
       ) {
         var n,
           a = [];
         if (
-          (t.interactivePayload.buttons.forEach(function (e, n) {
-            var r = u(e, n, t.t);
+          (e.interactivePayload.buttons.forEach(function (t, n) {
+            var r = u(t, n, e.t);
             r != null && a.push(r);
           }),
-          t.nativeFlowName ===
+          e.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP &&
-            ((n = t.interactivePayload) == null ? void 0 : n.buttons) != null &&
-            t.interactivePayload.buttons.length > 0)
+            ((n = e.interactivePayload) == null ? void 0 : n.buttons) != null &&
+            e.interactivePayload.buttons.length > 0)
         ) {
           var i,
             l =
-              (i = t.interactivePayload.buttons[0]) == null
+              (i = e.interactivePayload.buttons[0]) == null
                 ? void 0
                 : i.buttonParamsJson,
             c = o("WAWebInAppSignupConfirmation").parseInAppSignupWebsiteUrl(l);
@@ -65,7 +65,7 @@ __d(
         if (a.length > 0) return a;
       }
       return null;
-    };
+    }
     function u(e, t, n) {
       var a,
         i = o(

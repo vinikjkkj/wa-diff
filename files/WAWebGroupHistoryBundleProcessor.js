@@ -25,6 +25,7 @@ __d(
     "WAWebGroupHistoryMsgData.flow",
     "WAWebGroupHistoryReportingTokenValidator",
     "WAWebHandleOrphansForNewMsg",
+    "WAWebLidMigrationUtils",
     "WAWebMsgEphemerality",
     "WAWebMsgKey",
     "WAWebMsgKeyUtils",
@@ -544,10 +545,28 @@ __d(
     function P() {
       return (
         (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-              return e.id.toString();
-            }),
-            n = yield o("WAWebDBMsgUtils").getMsgsExistByMsgKey(t);
+          for (
+            var t = e.map(function (e) {
+                return e.id.toString();
+              }),
+              n = yield o("WAWebDBMsgUtils").getMsgsExistByMsgKey(t),
+              r = [],
+              a = [],
+              i = 0;
+            i < e.length;
+            i++
+          )
+            if (!n[i]) {
+              var l = o("WAWebLidMigrationUtils").getAlternateMsgKey(e[i].id);
+              l != null && (r.push(i), a.push(l.toString()));
+            }
+          if (a.length > 0)
+            for (
+              var s = yield o("WAWebDBMsgUtils").getMsgsExistByMsgKey(a), u = 0;
+              u < r.length;
+              u++
+            )
+              s[u] && (n[r[u]] = !0);
           return e.filter(function (e, t) {
             return !n[t];
           });

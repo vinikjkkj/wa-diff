@@ -89,14 +89,15 @@ __d(
                                 )
                               );
                             }
-                            if (d.deleted === !0)
-                              return (
-                                yield o("WAWebSchemaLabel")
-                                  .getLabelTable()
-                                  .remove(c),
+                            if (d.deleted === !0) {
+                              (yield o("WAWebSchemaLabel")
+                                .getLabelTable()
+                                .remove(c),
                                 o(
                                   "WAWebLabelCollection",
-                                ).LabelCollection.remove(c),
+                                ).LabelCollection.remove(c));
+                              var y = d.predefinedId;
+                              return (
                                 o("WAWebWamLabelSyncTrackingReporter")
                                   .generateLabelEditHash(c)
                                   .then(function (e) {
@@ -110,6 +111,8 @@ __d(
                                       t.LABEL_SYNC_RESULT_TYPE.SUCCESS,
                                       !1,
                                       Date.now(),
+                                      void 0,
+                                      y,
                                     );
                                   }),
                                 {
@@ -117,49 +120,50 @@ __d(
                                     o("WASyncdConst").SyncActionState.Success,
                                 }
                               );
-                            var y = d.color,
-                              C = d.isActive,
-                              b = d.isImmutable,
-                              v = d.predefinedId,
-                              S = d.type,
-                              R = (a = d.name) != null ? a : "";
-                            (R === "" && l++,
+                            }
+                            var C = d.color,
+                              b = d.isActive,
+                              v = d.isImmutable,
+                              S = d.predefinedId,
+                              R = d.type,
+                              L = (a = d.name) != null ? a : "";
+                            (L === "" && l++,
                               o("WAWebMobilePlatforms").isSMB() &&
-                                y == null &&
+                                C == null &&
                                 m++);
-                            var L = {
+                            var E = {
                               id: c,
-                              name: R,
-                              colorIndex: y,
-                              predefinedId: v,
+                              name: L,
+                              colorIndex: C,
+                              predefinedId: S,
                             };
                             if (
                               (d.orderIndex != null &&
-                                (L.orderIndex = d.orderIndex),
-                              S != null)
+                                (E.orderIndex = d.orderIndex),
+                              R != null)
                             ) {
-                              var E = o("WAWebSchemaLabel").ListType.cast(S);
-                              E != null
-                                ? (L.type = E)
-                                : (_++, f.length < 3 && f.push(S));
+                              var k = o("WAWebSchemaLabel").ListType.cast(R);
+                              k != null
+                                ? (E.type = k)
+                                : (_++, f.length < 3 && f.push(R));
                             }
-                            (C != null && (L.isActive = C),
-                              b != null && (L.isImmutable = b));
-                            var k =
-                              S ===
+                            (b != null && (E.isActive = b),
+                              v != null && (E.isImmutable = v));
+                            var I =
+                              R ===
                                 o("WAWebProtobufSyncAction.pb")
                                   .SyncActionValue$LabelEditAction$ListType
                                   .AI_HANDOFF ||
-                              S ===
+                              R ===
                                 o("WAWebProtobufSyncAction.pb")
                                   .SyncActionValue$LabelEditAction$ListType
                                   .AI_RESPONDING;
                             if (
                               r("justknobx")._("1781") &&
-                              k &&
+                              I &&
                               d.deleted !== !0
                             ) {
-                              var I = yield o("WAWebModelStorageUtils")
+                              var T = yield o("WAWebModelStorageUtils")
                                 .getStorage()
                                 .lock(
                                   ["label"],
@@ -170,7 +174,7 @@ __d(
                                       var t = e[0],
                                         n = yield t.all();
                                       return n.find(function (e) {
-                                        return e.id !== c && e.type === L.type;
+                                        return e.id !== c && e.type === E.type;
                                       });
                                     });
                                     return function (t) {
@@ -178,7 +182,7 @@ __d(
                                     };
                                   })(),
                                 );
-                              if (I != null)
+                              if (T != null)
                                 return {
                                   actionState:
                                     o("WASyncdConst").SyncActionState.Success,
@@ -187,27 +191,27 @@ __d(
                             if (
                               r("justknobx")._("1781") &&
                               d.deleted !== !0 &&
-                              S ===
+                              R ===
                                 o("WAWebProtobufSyncAction.pb")
                                   .SyncActionValue$LabelEditAction$ListType
                                   .CUSTOM
                             ) {
-                              var T =
+                              var D =
                                   o("WAWebListUtils").getExpectedAiLabelName(
                                     "AI_HANDOFF",
                                   ),
-                                D =
+                                x =
                                   o("WAWebListUtils").getExpectedAiLabelName(
                                     "AI_RESPONDING",
                                   ),
-                                x = R === T || R === D;
-                              if (x)
+                                $ = L === D || L === x;
+                              if ($)
                                 return {
                                   actionState:
                                     o("WASyncdConst").SyncActionState.Success,
                                 };
                             }
-                            var $ = yield o("WAWebModelStorageUtils")
+                            var P = yield o("WAWebModelStorageUtils")
                               .getStorage()
                               .lock(
                                 ["label", "label-association", "chat"],
@@ -217,7 +221,7 @@ __d(
                                   ).asyncToGenerator(function* (e) {
                                     var t = e[0];
                                     return (
-                                      yield t.createOrReplace(L),
+                                      yield t.createOrReplace(E),
                                       o(
                                         "WAWebDBLabelAssociationDatabaseApi",
                                       ).queryLabelAssociationsForLabelIds([c])
@@ -228,7 +232,7 @@ __d(
                                   };
                                 })(),
                               );
-                            S ===
+                            R ===
                             o("WAWebProtobufSyncAction.pb")
                               .SyncActionValue$LabelEditAction$ListType
                               .SERVER_ASSIGNED
@@ -236,30 +240,30 @@ __d(
                                   "WAWebLabelCollection",
                                 ).LabelCollection.addToServerAssignedLabelIdMap(
                                   c,
-                                  v,
+                                  S,
                                 )
                               : o("WAWebLabelCollection").LabelCollection.add(
-                                  babelHelpers.extends({}, L),
+                                  babelHelpers.extends({}, E),
                                   { merge: !0 },
                                 );
-                            var P = o(
+                            var N = o(
                               "WAWebLabelCollection",
                             ).LabelCollection.get(c);
-                            if (P != null && $.length > 0) {
-                              var N = P.labelItemCollection.reduce(function (
+                            if (N != null && P.length > 0) {
+                              var M = N.labelItemCollection.reduce(function (
                                   e,
                                   t,
                                 ) {
                                   return (e.add(t.id), e);
                                 }, new Set()),
-                                M = $.filter(function (e) {
-                                  return !N.has(e.associationId);
+                                w = P.filter(function (e) {
+                                  return !M.has(e.associationId);
                                 });
-                              M.length > 0 &&
+                              w.length > 0 &&
                                 o(
                                   "WAWebLabelCollection",
                                 ).LabelCollection.initializeAssociationsFromCache(
-                                  M,
+                                  w,
                                 );
                             }
                             return (
@@ -276,6 +280,8 @@ __d(
                                     t.LABEL_SYNC_RESULT_TYPE.SUCCESS,
                                     !0,
                                     Date.now(),
+                                    void 0,
+                                    S,
                                   );
                                 }),
                               {
@@ -394,6 +400,8 @@ __d(
                     t.LABEL_SYNC_RESULT_TYPE.SUCCESS,
                     !a,
                     u,
+                    void 0,
+                    i,
                   );
                 }),
               o("WAWebSyncdActionUtils").buildPendingMutation({

@@ -809,6 +809,7 @@ __d(
         MsgReelsList: "MSG_REELS_LIST",
         MsgSharedAlbum: "MSG_SHARED_ALBUM",
         MsgSocialCueMemories: "MSG_SOCIAL_CUE_MEMORIES",
+        MsgSupervisionInvite: "MSG_SUPERVISION_INVITE",
         None: "NONE",
         OcAvatarStaticSticker: "OC_AVATAR_STATIC_STICKER",
         RtcAudioCall: "RTC_AUDIO_CALL",

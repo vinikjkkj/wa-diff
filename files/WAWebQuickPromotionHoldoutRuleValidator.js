@@ -6,10 +6,10 @@ __d(
     "WAWebPersistedJobManagerWorkerCompatible",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = function (t, n) {
-      var e = t.data,
-        r = e.qpConfigExperimentKey,
-        a = e.qpConfigExposureHoldout;
+    function e(e, t) {
+      var n = e.data,
+        r = n.qpConfigExperimentKey,
+        a = n.qpConfigExposureHoldout;
       return (
         r != null &&
           r.length > 0 &&
@@ -18,13 +18,13 @@ __d(
             .fireAndForget(
               o(
                 "WAWebPersistedJobDefinitions",
-              ).jobSerializers.userExposureToQuickPromotion(t.id, r, a),
+              ).jobSerializers.userExposureToQuickPromotion(e.id, r, a),
             ),
         a === "true"
           ? o("WAWebCommonQPSurfacesTypes").RESULT_FALSE_HOLDOUT_IN_HOLDOUT
           : o("WAWebCommonQPSurfacesTypes").RESULT_TRUE
       );
-    };
+    }
     l.holdoutRuleValidator = e;
   },
   98,

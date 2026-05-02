@@ -3,38 +3,38 @@ __d(
   ["fbt", "$InternalEnum", "WAWebMediaEditorUtilsColor"],
   function (t, n, r, o, a, i, l, s) {
     var e = n("$InternalEnum").Mirrored([
-        "TRANSPARENT",
-        "BLACK",
-        "GRAY",
-        "WHITE",
-        "BLUE",
-        "GREEN",
-        "PURPLE",
-        "ORANGE",
-        "RED",
-      ]),
-      u = function (n) {
-        switch (n) {
-          case e.TRANSPARENT:
-            return s._(/*BTDS*/ "Transparent");
-          case e.BLACK:
-            return s._(/*BTDS*/ "Black");
-          case e.GRAY:
-            return s._(/*BTDS*/ "Gray");
-          case e.WHITE:
-            return s._(/*BTDS*/ "White");
-          case e.BLUE:
-            return s._(/*BTDS*/ "Blue");
-          case e.GREEN:
-            return s._(/*BTDS*/ "Green");
-          case e.PURPLE:
-            return s._(/*BTDS*/ "Purple");
-          case e.ORANGE:
-            return s._(/*BTDS*/ "Orange");
-          case e.RED:
-            return s._(/*BTDS*/ "Red");
-        }
-      };
+      "TRANSPARENT",
+      "BLACK",
+      "GRAY",
+      "WHITE",
+      "BLUE",
+      "GREEN",
+      "PURPLE",
+      "ORANGE",
+      "RED",
+    ]);
+    function u(t) {
+      switch (t) {
+        case e.TRANSPARENT:
+          return s._(/*BTDS*/ "Transparent");
+        case e.BLACK:
+          return s._(/*BTDS*/ "Black");
+        case e.GRAY:
+          return s._(/*BTDS*/ "Gray");
+        case e.WHITE:
+          return s._(/*BTDS*/ "White");
+        case e.BLUE:
+          return s._(/*BTDS*/ "Blue");
+        case e.GREEN:
+          return s._(/*BTDS*/ "Green");
+        case e.PURPLE:
+          return s._(/*BTDS*/ "Purple");
+        case e.ORANGE:
+          return s._(/*BTDS*/ "Orange");
+        case e.RED:
+          return s._(/*BTDS*/ "Red");
+      }
+    }
     function c() {
       return d().slice(1);
     }

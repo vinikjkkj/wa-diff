@@ -1,18 +1,8 @@
 __d(
   "WAWebBotLogging",
-  [
-    "$InternalEnum",
-    "WAWebBotUtils",
-    "WAWebChatEntryPoint",
-    "WAWebWamEnumBotEntryPointType",
-  ],
+  ["$InternalEnum", "WAWebChatEntryPoint", "WAWebWamEnumBotEntryPointType"],
   function (t, n, r, o, a, i, l) {
-    var e = n("$InternalEnum").Mirrored([
-        "Agent",
-        "Shortcut",
-        "Invoke",
-        "Search",
-      ]),
+    var e = n("$InternalEnum").Mirrored(["Shortcut", "Invoke", "Search"]),
       s = (function () {
         var e = new Set();
         return (
@@ -134,9 +124,6 @@ __d(
       })();
     function u(t) {
       switch (t) {
-        case e.Agent:
-          return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
-            .AI_CONTACT_ON_WA;
         case e.Shortcut:
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .AI_CHATS_LIST_BUTTON;
@@ -147,13 +134,8 @@ __d(
             .AI_SEARCH_CHATS_LIST;
       }
     }
-    function c(t, n) {
-      return s.has(n)
-        ? e.Search
-        : n === o("WAWebChatEntryPoint").ChatEntryPoint.BotChatListShortcut ||
-            o("WAWebBotUtils").isMetaAiBot(t)
-          ? e.Shortcut
-          : e.Agent;
+    function c(t) {
+      return s.has(t) ? e.Search : e.Shortcut;
     }
     ((l.BotEntryPointType = e),
       (l.getWamBotEntryPoint = u),

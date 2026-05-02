@@ -25,20 +25,20 @@ __d(
         webFlowType: s != null ? s : void 0,
       }).commit();
     }
-    var s = function (t) {
-      var e = t.activeAccountInfoType,
-        n = t.eligibilityFetchAttempted,
-        r = t.hasAdvertisedViaLWI,
-        a = t.hasCreatedAd,
-        i = t.hasEligibilityData,
-        l = t.hasFacebookPage,
-        s = t.isPageAssetLinked,
-        u = t.isPagelessAssetLinked,
-        c = t.lifetimeNativeCTWAAdvertiser,
-        d = t.lwiEntryPoint,
-        m = t.lwiFlowId,
-        p = t.sourceAdCreation,
-        _ = t.usesNativeAds;
+    function s(e) {
+      var t = e.activeAccountInfoType,
+        n = e.eligibilityFetchAttempted,
+        r = e.hasAdvertisedViaLWI,
+        a = e.hasCreatedAd,
+        i = e.hasEligibilityData,
+        l = e.hasFacebookPage,
+        s = e.isPageAssetLinked,
+        u = e.isPagelessAssetLinked,
+        c = e.lifetimeNativeCTWAAdvertiser,
+        d = e.lwiEntryPoint,
+        m = e.lwiFlowId,
+        p = e.sourceAdCreation,
+        _ = e.usesNativeAds;
       new (o(
         "WAWebCtwaAdCreationAndManagementJourneyWamEvent",
       ).CtwaAdCreationAndManagementJourneyWamEvent)({
@@ -56,12 +56,12 @@ __d(
           eligibility_fetch_attempted: n,
           has_eligibility_data: i,
           has_facebook_page: l,
-          active_account_info_type: e,
+          active_account_info_type: t,
           has_created_ad: a,
           source_ad_creation: p,
         }),
       }).commit();
-    };
+    }
     ((l.logEntryTap = e),
       (l.logRoutingDecision = s),
       (l.LWI_ENTRY_POINT = o("WAWebWamEnumLwiEntryPoint").LWI_ENTRY_POINT));

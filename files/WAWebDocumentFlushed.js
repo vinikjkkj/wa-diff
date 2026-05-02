@@ -50,9 +50,9 @@ __d(
           s.length === 1 && (n = d()));
       });
     }
-    var p = function () {
+    function p() {
       return (c(), (e || (e = n("Promise"))).resolve());
-    };
+    }
     ((l.documentFlushed = m), (l.resolveAllForTestingOnly = p));
   },
   98,

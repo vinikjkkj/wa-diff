@@ -17,13 +17,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m;
-    function p(e) {
-      return (
-        o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
-        e.isRegularUser()
-      );
-    }
-    function _(t) {
+    function p(t) {
       if (!t.isLid()) return t;
       (t.isUser() ||
         o("WALogger")
@@ -59,7 +53,7 @@ __d(
         n
       );
     }
-    function f(e) {
+    function _(e) {
       if (e.isLid()) return e;
       var t = o("WAWebApiContact").getCurrentLid(
         o("WAWebWidFactory").asUserWidOrThrow(e),
@@ -73,6 +67,12 @@ __d(
               ])),
           ),
         t
+      );
+    }
+    function f(e) {
+      return (
+        o("WAWebLid1X1MigrationGating").Lid1X1MigrationUtils.isLidMigrated() &&
+        e.isRegularUser()
       );
     }
     function g(e) {
@@ -94,12 +94,12 @@ __d(
       return t;
     }
     function y(e) {
-      var t = _(e);
+      var t = p(e);
       if (t == null) throw r("err")("No PN for user");
       return t;
     }
     function C(e) {
-      return e ? f : _;
+      return e ? _ : p;
     }
     function b(e, t) {
       if (
@@ -181,10 +181,10 @@ __d(
     }
     function E(e) {
       if (e.isLid()) {
-        var n = _(e);
+        var n = p(e);
         if (n != null) return [e, n];
       } else {
-        var t = f(e);
+        var t = _(e);
         if (t != null) return [e, t];
       }
       return [e];
@@ -236,9 +236,9 @@ __d(
           !!((t = e.groupMetadata) != null && t.isLidAddressingMode))
       );
     }
-    ((l.shouldHaveAccountLid = p),
-      (l.toPn = _),
-      (l.toLid = f),
+    ((l.toPn = p),
+      (l.toLid = _),
+      (l.shouldHaveAccountLid = f),
       (l.toUserLid = g),
       (l.toUserLidOrThrow = h),
       (l.toPnOrThrow = y),

@@ -8,7 +8,9 @@ __d(
     "WAWebBotBaseGating",
     "WAWebCanonicalHatchAgentStatusGetQuery",
     "WAWebCanonicalHatchIdentityGetQuery",
+    "WAWebCanonicalHatchLinkedStatusGetQuery",
     "WAWebHatchAgentStatusManager",
+    "WAWebHatchLinkedStatusManager",
     "WAWebInitializeBots",
     "asyncToGeneratorRuntime",
   ],
@@ -25,6 +27,10 @@ __d(
           ),
             r("WAWebHatchAgentStatusManager").registerFetcher(
               o("WAWebCanonicalHatchAgentStatusGetQuery").fetchHatchAgentStatus,
+            ),
+            r("WAWebHatchLinkedStatusManager").registerFetcher(
+              o("WAWebCanonicalHatchLinkedStatusGetQuery")
+                .fetchHatchLinkedStatus,
             ));
           try {
             var t = yield o("WAWebBackendApi").frontendSendAndReceive(

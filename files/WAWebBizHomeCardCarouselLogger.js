@@ -1,6 +1,7 @@
 __d(
   "WAWebBizHomeCardCarouselLogger",
   [
+    "$InternalEnum",
     "WAWebSMBUserJourneyLogger",
     "WAWebWamEnumSmbFeatureNameEnum",
     "WAWebWamEnumSmbUserActionTypeEnum",
@@ -9,7 +10,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = { CARD: "card", DISMISS: "dismiss", NEXT: "next", PREV: "prev" },
-      s = (function () {
+      s = n("$InternalEnum")({
+        MOUNT: "mount",
+        FORWARD: "forward",
+        BACKWARD: "backward",
+      }),
+      u = (function () {
         function t() {}
         var n = t.prototype;
         return (
@@ -31,14 +37,17 @@ __d(
                 .SMB_USER_ACTION_TYPE_ENUM.VIEW,
             });
           }),
-          (n.logViewCard = function (n, r) {
-            this.$1(
-              o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
-                .VIEW,
-              e.CARD,
-              n,
-              r,
-            );
+          (n.logViewCard = function (n, r, a) {
+            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+              extraAttributes: { card_id: n, card_idx: r, view_source: a },
+              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
+                .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_HOME,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .BUSINESS_HOME_PAGE,
+              userActionTarget: e.CARD,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+            });
           }),
           (n.logSwipeNext = function (n, r) {
             this.$1(
@@ -90,8 +99,8 @@ __d(
           t
         );
       })(),
-      u = new s();
-    l.BizHomeCardCarouselLogger = u;
+      c = new u();
+    ((l.ViewSource = s), (l.BizHomeCardCarouselLogger = c));
   },
   98,
 );

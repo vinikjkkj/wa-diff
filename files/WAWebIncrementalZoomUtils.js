@@ -157,16 +157,16 @@ __d(
         : ((f = t[11]), (g = t[12])),
         d(f, g));
     }
-    var h = function (t) {
-        return o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC
-          ? t.metaKey
-          : t.ctrlKey;
-      },
-      y = function () {
-        return o("WAWebABProps").getABPropConfigValue(
-          "waweb_enable_legacy_image_zoom",
-        );
-      };
+    function h(e) {
+      return o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.MAC
+        ? e.metaKey
+        : e.ctrlKey;
+    }
+    function y() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "waweb_enable_legacy_image_zoom",
+      );
+    }
     ((l.useCursorStyles = p),
       (l.THUMBNAIL_SECTION_HEIGHT = _),
       (l.useThumbnailOverflow = f),

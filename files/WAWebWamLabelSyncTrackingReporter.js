@@ -112,9 +112,9 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e, t, n, r, a, i, l) {
+    function v(e, t, n, r, a, i, l, s) {
       if (c()) {
-        var s = {
+        var u = {
           labelSyncHash: e,
           labelSyncType: t,
           labelSyncDirection: n,
@@ -124,11 +124,12 @@ __d(
           labelSyncDeviceRole: o("WAWebWamEnumLabelSyncDeviceRoleType")
             .LABEL_SYNC_DEVICE_ROLE_TYPE.COMPANION,
         };
-        l != null && (s.labelSyncHasPending = l);
-        var u = new (o(
+        (l != null && (u.labelSyncHasPending = l),
+          s != null && (u.labelSyncPredefinedId = s));
+        var d = new (o(
           "WAWebMdLabelSyncTrackingWamEvent",
-        ).MdLabelSyncTrackingWamEvent)(s);
-        u.commit();
+        ).MdLabelSyncTrackingWamEvent)(u);
+        d.commit();
       }
     }
     ((l.generateHash = p),

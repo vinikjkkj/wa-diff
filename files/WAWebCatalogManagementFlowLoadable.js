@@ -73,14 +73,14 @@ __d(
         );
       });
     }
-    var p = function () {
+    function p() {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: s._(/*BTDS*/ "Failed to load catalog"),
           id: o("WAWebActionToast.react").genId(),
         }),
       );
-    };
+    }
     function _(e) {
       var t = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
         n = o("WAWebCatalogCollection").CatalogCollection.get(t);

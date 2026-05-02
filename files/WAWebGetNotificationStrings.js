@@ -26,6 +26,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebL10N",
     "WAWebMsgGetters",
+    "WAWebMsgModelUtils",
     "WAWebMsgType",
     "WAWebPollCreationUtils",
     "WAWebUA",
@@ -48,7 +49,7 @@ __d(
         a,
         i,
         l,
-        m = e.shouldShowNotificationPreview(),
+        m = o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e),
         _ = e.safe(),
         f = "";
       if (p && !m) return p().toString();
