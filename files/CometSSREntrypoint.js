@@ -118,9 +118,10 @@ __d(
       return { extraProps: o, queries: a.map(e), roots: i };
     }
     function p() {
-      throw new Error(
+      var e = new Error(
         "This function should not be called. It exists solely for the type-generation",
       );
+      throw (e.stack, e);
     }
     function _(t, n) {
       var o,

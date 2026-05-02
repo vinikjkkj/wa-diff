@@ -1,6 +1,6 @@
 __d(
   "DurationFormatter",
-  ["fbt", "vulture"],
+  ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = 60,
@@ -22,10 +22,7 @@ __d(
       );
     }
     function m(t) {
-      return (
-        r("vulture")("Bu0PbYJ7__RDXKAiedbZO6i_mYs="),
-        t >= u ? y(t) : t >= e ? C(t) : v(t)
-      );
+      return t >= u ? y(t) : t >= e ? C(t) : v(t);
     }
     function p(t) {
       return t >= c ? h(t) : t >= u ? y(t) : t >= e ? C(t) : v(t);

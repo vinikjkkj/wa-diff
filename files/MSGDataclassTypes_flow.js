@@ -351,6 +351,7 @@ __d(
         MarketplaceXmaCallFunction: "MARKETPLACE_XMA_CALL_FUNCTION",
         ViewAllAiTasks: "VIEW_ALL_AI_TASKS",
         ViewSingleAiTask: "VIEW_SINGLE_AI_TASK",
+        WatchPartySetUpNextGame: "WATCH_PARTY_SET_UP_NEXT_GAME",
         XmaCrmOptIn: "XMA_CRM_OPT_IN",
         XmaDailyGameChallengeJoin: "XMA_DAILY_GAME_CHALLENGE_JOIN",
         XmaDailyGameChallengeJoinAndPlay:

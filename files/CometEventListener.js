@@ -1,6 +1,6 @@
 __d(
   "CometEventListener",
-  ["FBLogger", "vulture"],
+  ["FBLogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n, o) {
@@ -26,11 +26,8 @@ __d(
       addListenerWithOptions: function (n, r, o, a) {
         return e(n, r, o, a);
       },
-      bubbleWithPassiveFlag: function (n, o, a, i) {
-        return (
-          r("vulture")("BFXQ2jE-wGuq3JnNCcvRfaDxokc="),
-          e(n, o, a, { capture: !1, passive: i })
-        );
+      bubbleWithPassiveFlag: function (n, r, o, a) {
+        return e(n, r, o, { capture: !1, passive: a });
       },
       capture: function (n, r, o) {
         return e(n, r, o, !0);

@@ -168,10 +168,11 @@ __d(
     function Z(e) {
       return {
         events: e.map(function (e) {
+          var t;
           return {
             name: e.name,
             extra: e.extra,
-            rate: e.policy.r,
+            rate: (t = e.policy.w) != null ? t : e.policy.r,
             time: e.time / 1e3,
             tag: 0,
             tags: e.tags,
@@ -241,22 +242,23 @@ __d(
         var a,
           i,
           l,
-          s =
-            ((l = {}),
-            (l.e = n.extra),
-            (l.r = n.policy.r),
-            (l.d =
-              (a = n.deviceId) != null
-                ? a
+          s,
+          u =
+            ((s = {}),
+            (s.e = n.extra),
+            (s.r = (a = n.policy.w) != null ? a : n.policy.r),
+            (s.d =
+              (i = n.deviceId) != null
+                ? i
                 : (m || (m = r("AnalyticsCoreData"))).device_id),
-            (l.s = (i = n.sessionId) != null ? i : o("WebSession").getId()),
-            (l.t = n.time),
-            (l.a = n.appVersion),
-            l);
-        (n.privacyContext && (s.p = n.privacyContext),
-          n.tags != null && (s.b = n.tags));
-        var u = n.identity;
-        (u && (s.id = u), r("Banzai").post(b + n.name, s, t));
+            (s.s = (l = n.sessionId) != null ? l : o("WebSession").getId()),
+            (s.t = n.time),
+            (s.a = n.appVersion),
+            s);
+        (n.privacyContext && (u.p = n.privacyContext),
+          n.tags != null && (u.b = n.tags));
+        var c = n.identity;
+        (c && (u.id = c), r("Banzai").post(b + n.name, u, t));
       }
       re("event.uploaded", e);
     }

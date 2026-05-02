@@ -525,6 +525,11 @@ __d(
         "instagram_connect_button_impression",
       INSTAGRAM_CONNECT_BUTTON_CLICK: "instagram_connect_button_click",
       INSTAGRAM_EDIT_BUTTON_IMPRESSION: "instagram_edit_button_impression",
+      IG_CONNECT_NON_ADMIN_BUTTON_GENERATED:
+        "ig_connect_non_admin_button_generated",
+      IG_CONNECT_NON_ADMIN_BUTTON_IMPRESSION:
+        "ig_connect_non_admin_button_impression",
+      IG_CONNECT_NON_ADMIN_BUTTON_CLICK: "ig_connect_non_admin_button_click",
       WHATSAPP_CONNECT_BUTTON_CLICK: "whatsapp_connect_button_click",
       CTXMD_UPSELL_ACTION_BUTTON_CLICK: "ctxmd_upsell_action_button_click",
       CTXMD_UPSELL_IMPRESSION: "ctxmd_upsell_impression",
