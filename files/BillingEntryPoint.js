@@ -202,6 +202,12 @@ __d(
       AYMT_IG_REAUTH_RISK_TIP: "aymt_ig_reauth_risk_tip",
       AYMT_COUNTRY_SPOOFING_TIP: "aymt_country_spoofing_tip",
       AYMT_IG_COUNTRY_SPOOFING_TIP: "aymt_ig_country_spoofing_tip",
+      AYMT_COUNTRY_SPOOFING_PUX_WARNING_TIP:
+        "aymt_country_spoofing_pux_warning_tip",
+      AYMT_COUNTRY_SPOOFING_PUX_CREATION_PAUSED_TIP:
+        "aymt_country_spoofing_pux_creation_paused_tip",
+      AYMT_COUNTRY_SPOOFING_PUX_ENFORCE_BLOCKING_TIP:
+        "aymt_country_spoofing_pux_enforce_blocking_tip",
       AYMT_CREDIT_SHARING_REACH_LIMIT_OWNING_BUSINESS_NOTIFICATION_TIP:
         "aymt_credit_sharing_reach_limit_owning_business_notification_tip",
       AYMT_CREDIT_LINE_NEAR_CREDIT_LIMIT_TIP:
