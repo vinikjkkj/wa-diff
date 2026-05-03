@@ -506,6 +506,8 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
               var n = yield l;
+              o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                o("WAWebVoipWebTransportConnectionManager").prepareForEndCall();
               try {
                 n.endCall(e, t);
               } catch (e) {
@@ -516,6 +518,11 @@ __d(
                   ),
                   e
                 );
+              } finally {
+                o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                  o(
+                    "WAWebVoipWebTransportConnectionManager",
+                  ).closeAllConnections();
               }
             },
           );

@@ -13,6 +13,7 @@ __d(
     "WAWebVoipCallRatingStore",
     "WAWebVoipDeviceClassUtils",
     "WAWebVoipFocusTracker",
+    "WAWebVoipGatingUtils",
     "WAWebVoipJsonParserPayloads",
     "WAWebVoipPersistentFS",
     "WAWebVoipStackInterface",
@@ -39,7 +40,10 @@ __d(
             i = babelHelpers.extends({}, e);
           (t != null && (i.numCpuCores = t),
             r != null && (i.totalMemoryGb = r),
-            a != null && (i.deviceClass = a));
+            a != null && (i.deviceClass = a),
+            (i.webTransportUsed = o(
+              "WAWebVoipGatingUtils",
+            ).isWebTransportEnabled()));
           var l = o("WAWebVoipFocusTracker").snapshotFocusStats();
           l != null && (i = babelHelpers.extends({}, i, l));
           var s = o("WAWebVoipBrowserMetrics").snapshotBrowserMetrics();

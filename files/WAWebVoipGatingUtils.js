@@ -6,7 +6,6 @@ __d(
     "WAWebABProps",
     "WAWebEnvironment",
     "WAWebUA",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -162,7 +161,9 @@ __d(
           : o("WAWebABProps").getABPropConfigValue("enable_web_calling");
     }
     function T() {
-      return r("gkx")("21938");
+      return o("WAWebABProps").getABPropConfigValue(
+        "enable_web_voip_webtransport",
+      );
     }
     function D() {
       var e = o("WAWebABProps").getABPropConfigValue("enable_web_calling"),

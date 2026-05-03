@@ -556,7 +556,16 @@ __d(
         endCall: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              yield s("endCall", { endCallReason: e, sendTerminate: t });
+              o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                o("WAWebVoipWebTransportConnectionManager").prepareForEndCall();
+              try {
+                yield s("endCall", { endCallReason: e, sendTerminate: t });
+              } finally {
+                o("WAWebVoipGatingUtils").isWebTransportEnabled() &&
+                  o(
+                    "WAWebVoipWebTransportConnectionManager",
+                  ).closeAllConnections();
+              }
             },
           );
           function t(t, n) {

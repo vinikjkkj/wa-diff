@@ -21,10 +21,7 @@ __d(
         }
       }
     }
-    function u(e) {
-      return e === 0 ? 1 : Math.abs(e);
-    }
-    function c(t, n) {
+    function u(t, n) {
       try {
         var r = o("WAWebWamFalcoABProps").getWamFalcoMode();
         if (
@@ -41,14 +38,14 @@ __d(
           l = t.getFieldsMapForFalco();
         if (i == null || l == null) return;
         var s = o("WAWebWamFalcoGlobalFields").getCanonicalFieldsForFalco(),
-          c = babelHelpers.extends({}, s, l),
-          d =
+          u = babelHelpers.extends({}, s, l),
+          c =
             r === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
               ? i + "_shadow"
               : "_test$" + i,
-          m = o("FalcoLoggerInternal").create(d, { r: 1, w: u(n) });
-        m.log(function () {
-          return c;
+          d = o("FalcoLoggerInternal").create(c, { r: 1 });
+        d.log(function () {
+          return u;
         });
       } catch (t) {
         o("WALogger")
@@ -61,9 +58,7 @@ __d(
           .sendLogs("wam_falco_bridge_error", { sampling: 0.1 });
       }
     }
-    ((l.maybeSetTraceIdForShadowLogging = s),
-      (l.getFalcoServerWeight = u),
-      (l.logEventToFalcoBridge = c));
+    ((l.maybeSetTraceIdForShadowLogging = s), (l.logEventToFalcoBridge = u));
   },
   98,
 );
