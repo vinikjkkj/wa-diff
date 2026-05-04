@@ -61,26 +61,22 @@ __d(
         var n = t.prototype;
         return (
           (n.$7 = function (n) {
-            var t;
             if (n.isWebBloks) {
               this.navigationDirection = this.$8(
                 babelHelpers.extends({}, n.screenPointer),
               );
-              var r =
-                (t = this.getCurrentModal()) != null
-                  ? t
-                  : this.getCurrentScreen();
-              (this.$9(r) || this.$10(r),
-                r == null || r.onExit(this.navigationDirection),
-                r == null || r.dismiss());
-              var a = this.screensCache.get(n.screenId);
+              var t = this.getCurrentModalOrScreen();
+              (this.$9(t) || this.$10(t),
+                t == null || t.onExit(this.navigationDirection),
+                t == null || t.dismiss());
+              var r = this.screensCache.get(n.screenId);
               if (
-                ((n.sessionId !== e || a == null) && window.location.reload(),
-                (a == null ? void 0 : a.controllerName) != null)
+                ((n.sessionId !== e || r == null) && window.location.reload(),
+                (r == null ? void 0 : r.controllerName) != null)
               ) {
-                var i;
-                (i = this.objectSet.environment.controllerNavigationLogger) ==
-                  null || i.setCurrentController(a.controllerName);
+                var a;
+                (a = this.objectSet.environment.controllerNavigationLogger) ==
+                  null || a.setCurrentController(r.controllerName);
               }
               if (
                 ((this.currentScreenPointer = babelHelpers.extends(
@@ -91,12 +87,12 @@ __d(
                 this.$9(this.getCurrentScreen()) || this.$11(),
                 this.pendingCloses.length > 0)
               ) {
-                var l = this.pendingCloses.pop();
-                l && l();
+                var i = this.pendingCloses.pop();
+                i && i();
               }
               if (this.pendingOpen && this.pendingCloses.length === 0) {
-                var s = this.pendingOpen;
-                ((this.pendingOpen = null), s());
+                var l = this.pendingOpen;
+                ((this.pendingOpen = null), l());
               }
               n.pageTitle != null &&
                 o("WebBloksSSRUtils").canUseDOM &&
@@ -111,38 +107,34 @@ __d(
               }));
           }),
           (n.$13 = function (t, n, r) {
-            var e;
             (r === void 0 && (r = !1), this.$2 && this.$10(this.$4));
-            var o =
-              (e = this.getCurrentModal()) != null
-                ? e
-                : this.getCurrentScreen();
+            var e = this.getCurrentModalOrScreen();
             if (
-              (o == null || o.onExit("forward"),
+              (e == null || e.onExit("forward"),
               (this.navigationDirection = "forward"),
               t.options.isModal === !0)
             ) {
-              var a = this.currentScreenPointer,
-                i = a.modalIndex,
-                l = a.stackIndex,
-                s = this.$14(t, l);
-              (this.modals.splice(i + 1),
-                this.modals.push(s),
+              var o = this.currentScreenPointer,
+                a = o.modalIndex,
+                i = o.stackIndex,
+                l = this.$14(t, i);
+              (this.modals.splice(a + 1),
+                this.modals.push(l),
                 this.$15({ isModal: !0, modalIndex: this.modals.length - 1 }),
                 this.$16(t, r),
                 this.notifyChanged());
               return;
             }
-            var u = this.getModalCount();
-            if (u > 0) {
-              (o == null || o.clearDismissCallback(),
+            var s = this.getModalCount();
+            if (s > 0) {
+              (e == null || e.clearDismissCallback(),
                 this.close("close"),
                 this.open(t, n, r));
               return;
             }
             if (n === !0) {
-              var c = this.$17();
-              c != null ? this.$18(t, c) : this.$19(t);
+              var u = this.$17();
+              u != null ? this.$18(t, u) : this.$19(t);
             } else this.$19(t);
             (this.$16(t, r), this.notifyChanged(), this.$9(t) || this.$20());
           }),
@@ -355,6 +347,12 @@ __d(
             if (!t || n < 0) return null;
             var r = this.modals[n];
             return this.screensCache.get(r);
+          }),
+          (n.getCurrentModalOrScreen = function () {
+            var e;
+            return (e = this.getCurrentModal()) != null
+              ? e
+              : this.getCurrentScreen();
           }),
           (n.getNavigationDirection = function () {
             return this.navigationDirection;

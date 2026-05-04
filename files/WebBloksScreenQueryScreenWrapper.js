@@ -23,17 +23,20 @@ __d(
         u(
           function () {
             if (c != null) {
-              var e = r.objectSet.navigationManager.getCurrentScreen();
+              var e = r.objectSet.navigationManager.getCurrentModalOrScreen();
               e == null || e.setContainerConfigModel(r, c);
             }
           },
           [r, c],
         ),
         u(function () {
-          if (f != null) {
-            var e = r.objectSet.navigationManager.getCurrentScreen(),
-              n = r.objectSet.navigationManager.getNavigationDirection();
-            (a(t, f, [r, n]), e == null || e.setOnExitCallback(g));
+          if (!(f == null && g == null)) {
+            var e = r.objectSet.navigationManager.getCurrentModalOrScreen();
+            if (f != null) {
+              var n = r.objectSet.navigationManager.getNavigationDirection();
+              a(t, f, [r, n]);
+            }
+            g != null && (e == null || e.setOnExitCallback(g));
           }
         }, []),
         s.jsx("div", {

@@ -676,6 +676,9 @@ __d(
           (t.broadcastPreviewClicked = function (t, n) {
             o("WAWebBBInfoDrawerLogs").broadcastPreviewClicked(this.$1, t, n);
           }),
+          (t.duplicateBroadcastClicked = function (t, n) {
+            o("WAWebBBInfoDrawerLogs").duplicateBroadcastClicked(this.$1, t, n);
+          }),
           (t.deliveredToDrawerViewed = function (t, n) {
             o("WAWebBBInfoDrawerLogs").deliveredToDrawerViewed(this.$1, t, n);
           }),

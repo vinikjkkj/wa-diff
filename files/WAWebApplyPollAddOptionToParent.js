@@ -21,15 +21,10 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (t.length !== 0) {
-            var a = new Map();
-            for (var i of t) {
-              var l = i.parentMsg.id.toString(),
-                d = a.get(l);
-              d != null ? d.push(i) : a.set(l, [i]);
-            }
-            var m = Array.from(a.keys()),
-              p = [];
-            yield o("WAWebModelStorageUtils")
+            var a = p(t),
+              i = Array.from(a.keys()),
+              l = [];
+            (yield o("WAWebModelStorageUtils")
               .getStorage()
               .lock(
                 ["message"],
@@ -37,15 +32,13 @@ __d(
                   var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (t) {
                       var n = t[0],
-                        i = yield n.bulkGet(m),
-                        l = [];
-                      (m.forEach(function (t, n) {
-                        var u,
-                          c,
-                          d = i[n],
-                          m = a.get(t);
-                        if (d == null || m == null) {
-                          d == null &&
+                        u = yield n.bulkGet(i),
+                        c = [];
+                      (i.forEach(function (t, n) {
+                        var i = u[n],
+                          d = a.get(t);
+                        if (i == null || d == null) {
+                          i == null &&
                             o("WALogger")
                               .ERROR(
                                 e ||
@@ -58,11 +51,11 @@ __d(
                               .sendLogs("poll_add_option_parent_not_found");
                           return;
                         }
-                        var _ = o(
+                        var m = o(
                           "WAWebDBMessageSerialization",
-                        ).messageFromDbRow(d);
+                        ).messageFromDbRow(i);
                         if (
-                          _.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION
+                          m.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION
                         ) {
                           o("WALogger")
                             .ERROR(
@@ -74,43 +67,15 @@ __d(
                             .sendLogs("poll_add_option_parent_not_poll");
                           return;
                         }
-                        var f = r("WAWebCastToPollCreationMsg")(_),
-                          g = f.pollOptions ? [].concat(f.pollOptions) : [],
-                          h = new Set(
-                            g.map(function (e) {
-                              return e.name;
-                            }),
-                          ),
-                          y = g.length;
-                        for (var C of m) {
-                          var b = C.decryptedAddOption.pollAddedOption.name;
-                          if (!h.has(b)) {
-                            if (
-                              g.length >=
-                              o("WAWebPollsGatingUtils").getMaxPollOptionCount()
-                            )
-                              break;
-                            (g.push({ name: b, localId: y }), h.add(b), y++);
-                          }
-                        }
-                        if (
-                          g.length !==
-                          ((u =
-                            (c = f.pollOptions) == null ? void 0 : c.length) !=
-                          null
-                            ? u
-                            : 0)
-                        ) {
-                          var v = babelHelpers.extends({}, f, {
-                            pollOptions: g,
-                          });
-                          (l.push(v),
-                            p.push({ msg: v, chatId: f.id.remote.toString() }));
-                        }
+                        var p = r("WAWebCastToPollCreationMsg")(m),
+                          f = _(p, d);
+                        f != null &&
+                          (c.push(f),
+                          l.push({ msg: f, chatId: p.id.remote.toString() }));
                       }),
-                        l.length > 0 &&
+                        c.length > 0 &&
                           (yield n.bulkCreateOrMerge(
-                            l.map(function (e) {
+                            c.map(function (e) {
                               return o(
                                 "WAWebDBMessageSerialization",
                               ).dbRowFromMessage(e);
@@ -122,20 +87,71 @@ __d(
                     return t.apply(this, arguments);
                   };
                 })(),
-              );
-            var _ = yield (c || (c = n("Promise"))).allSettled(
-              p.map(
+              ),
+              yield f(l));
+          }
+        })),
+        m.apply(this, arguments)
+      );
+    }
+    function p(e) {
+      var t = new Map();
+      for (var n of e) {
+        var r = n.parentMsg.id.toString(),
+          o = t.get(r);
+        o != null ? o.push(n) : t.set(r, [n]);
+      }
+      return t;
+    }
+    function _(e, t) {
+      var n = e.pollOptions ? [].concat(e.pollOptions) : [],
+        r = n.length,
+        a = new Set(
+          n.map(function (e) {
+            return e.name;
+          }),
+        ),
+        i = o("WAWebPollsGatingUtils").getMaxPollOptionCount(),
+        l = n.length;
+      for (var s of t) {
+        var u = s.decryptedAddOption.pollAddedOption.name;
+        if (!a.has(u)) {
+          if (n.length >= i) break;
+          (n.push({ name: u, localId: l }), a.add(u), l++);
+        }
+      }
+      return n.length === r
+        ? null
+        : babelHelpers.extends({}, e, { pollOptions: n });
+    }
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
+      return (
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length !== 0) {
+            var t = new Map();
+            for (var r of e) {
+              var a = r.chatId,
+                i = r.msg,
+                l = t.get(a);
+              l != null ? l.push(i) : t.set(a, [i]);
+            }
+            var s = yield (c || (c = n("Promise"))).allSettled(
+              Array.from(
+                t,
                 (function () {
                   var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                     function* (e) {
-                      var t = e.chatId,
-                        n = e.msg,
+                      var t = e[0],
+                        n = e[1],
                         r = o("WAWebWidFactory").createWid(t);
                       yield o("WAWebBackendApi").frontendSendAndReceive(
                         "processMultipleMessages",
                         {
                           chatId: r,
-                          msgObjs: [n],
+                          msgObjs: n,
                           meta: { add: "last", isHistory: !1 },
                           processMessagesOrigin: "pollAddOptionMessage",
                         },
@@ -148,8 +164,8 @@ __d(
                 })(),
               ),
             );
-            for (var f of _)
-              f.status === "rejected" &&
+            for (var d of s)
+              d.status === "rejected" &&
                 o("WALogger")
                   .ERROR(
                     u ||
@@ -160,10 +176,12 @@ __d(
                   .sendLogs("poll_add_option_notify_failed");
           }
         })),
-        m.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    l.applyPollAddOptionsToParent = d;
+    ((l.applyPollAddOptionsToParent = d),
+      (l.groupResultsByParent = p),
+      (l.mergeAddOptionsIntoParent = _));
   },
   98,
 );

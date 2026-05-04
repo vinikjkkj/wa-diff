@@ -66,6 +66,7 @@ __d(
         DELIVERED_TO_DRAWER: "delivered_to_drawer",
         DOCUMENT_PREVIEW_MESSAGE_BUBBLE_ERROR_RENDER:
           "document_preview_message_bubble_error_render",
+        DUPLICATE_BROADCAST_BUTTON: "duplicate_broadcast_button",
         EDIT_ERROR_CONTACT: "edit_error_contact",
         EDIT_RECIPIENTS_BUTTON: "edit_recipients_button",
         ELIGIBILITY_GATE: "eligibility_gate",
