@@ -13,14 +13,16 @@ __d(
       o("WAWebProductCatalogEventUtils").logCatalogViewOrBizEvent(
         babelHelpers.extends(
           {
-            isOwner: o("WAWebProductCatalogEventUtils").isCatalogOwner({
-              catalogOwnerJid: n,
-            }),
             catalogBizAction: o("WAWebWamEnumCatalogBizAction")
               .CATALOG_BIZ_ACTION.ACTION_ORDER_MESSAGE_CLICK,
           },
           o("WAWebProductCatalogContext").toDataForCatalogViewEvents(t),
-          { catalogOwnerJid: n },
+          {
+            catalogOwnerJid: n,
+            isOwner: o("WAWebProductCatalogEventUtils").isCatalogOwner({
+              catalogOwnerJid: n,
+            }),
+          },
         ),
       );
     }
@@ -32,18 +34,18 @@ __d(
       o("WAWebProductCatalogEventUtils").logCatalogViewOrBizEvent(
         babelHelpers.extends(
           {
-            isOwner: o("WAWebProductCatalogEventUtils").isCatalogOwner({
-              catalogOwnerJid: n,
-            }),
+            bizActionConfig: { orderId: r, productCount: a },
             catalogBizAction: o("WAWebWamEnumCatalogBizAction")
               .CATALOG_BIZ_ACTION.ACTION_ORDER_LIST_IMPRESSION,
+            catalogOwnerJid: n,
             catalogViewAction: o("WAWebWamEnumCatalogViewAction")
               .CATALOG_VIEW_ACTION.ACTION_ORDER_LIST_IMPRESSION,
           },
           o("WAWebProductCatalogContext").toDataForCatalogViewEvents(t),
           {
-            bizActionConfig: { orderId: r, productCount: a },
-            catalogOwnerJid: n,
+            isOwner: o("WAWebProductCatalogEventUtils").isCatalogOwner({
+              catalogOwnerJid: n,
+            }),
           },
         ),
       );
@@ -55,16 +57,19 @@ __d(
       o("WAWebProductCatalogEventUtils").logCatalogViewOrBizEvent(
         babelHelpers.extends(
           {
-            isOwner: o("WAWebProductCatalogEventUtils").isCatalogOwner({
-              catalogOwnerJid: n,
-            }),
+            bizActionConfig: { orderId: r },
             catalogBizAction: o("WAWebWamEnumCatalogBizAction")
               .CATALOG_BIZ_ACTION.ACTION_ORDER_LIST_ITEM_CLICK,
+            catalogOwnerJid: n,
             catalogViewAction: o("WAWebWamEnumCatalogViewAction")
               .CATALOG_VIEW_ACTION.ACTION_ORDER_LIST_ITEM_CLICK,
           },
           o("WAWebProductCatalogContext").toDataForCatalogViewEvents(t),
-          { bizActionConfig: { orderId: r }, catalogOwnerJid: n },
+          {
+            isOwner: o("WAWebProductCatalogEventUtils").isCatalogOwner({
+              catalogOwnerJid: n,
+            }),
+          },
         ),
       );
     }
@@ -77,17 +82,20 @@ __d(
       o("WAWebProductCatalogEventUtils").logCatalogViewOrBizEvent(
         babelHelpers.extends(
           {
+            bizActionConfig: { orderId: a, quantity: i },
+            catalogBizAction: o("WAWebWamEnumCatalogBizAction")
+              .CATALOG_BIZ_ACTION.ACTION_SEND_ORDER_MESSAGE,
+            catalogOwnerJid: n,
+            catalogViewAction: o("WAWebWamEnumCatalogViewAction")
+              .CATALOG_VIEW_ACTION.ACTION_SEND_ORDER_MESSAGE,
+          },
+          o("WAWebProductCatalogContext").toDataForCatalogViewEvents(t),
+          {
+            isOrderMsgAttached: r,
             isOwner: o("WAWebProductCatalogEventUtils").isCatalogOwner({
               catalogOwnerJid: n,
             }),
-            catalogBizAction: o("WAWebWamEnumCatalogBizAction")
-              .CATALOG_BIZ_ACTION.ACTION_SEND_ORDER_MESSAGE,
-            catalogViewAction: o("WAWebWamEnumCatalogViewAction")
-              .CATALOG_VIEW_ACTION.ACTION_SEND_ORDER_MESSAGE,
-            isOrderMsgAttached: r,
           },
-          o("WAWebProductCatalogContext").toDataForCatalogViewEvents(t),
-          { bizActionConfig: { orderId: a, quantity: i }, catalogOwnerJid: n },
         ),
       );
     }

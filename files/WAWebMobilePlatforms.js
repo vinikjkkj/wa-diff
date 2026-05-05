@@ -56,10 +56,18 @@ __d(
     function _() {
       return c === u.SMBA || c === u.SMBI;
     }
+    function f() {
+      return c === u.ANDROID || c === u.SMBA;
+    }
+    function g() {
+      return c === u.IPHONE || c === u.IPAD || c === u.SMBI;
+    }
     ((l.PLATFORMS = u),
       (l.getMobilePlatform = d),
       (l.setMobilePlatform = m),
-      (l.isSMB = _));
+      (l.isSMB = _),
+      (l.isAndroidPrimary = f),
+      (l.isIOSPrimary = g));
   },
   98,
 );

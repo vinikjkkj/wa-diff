@@ -5,7 +5,6 @@ __d(
     "WASmaxBotBotListRPC",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
-    "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -15,34 +14,52 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WASmaxBotBotListRPC").sendBotListRPC({ botV: "2" });
+          var t = yield o("WASmaxBotBotListRPC").sendBotListRPC({ botV: "3" });
           switch (t.name) {
             case "BotListResponseSuccessV2": {
               var n = t.value,
-                a = n.botDefaultJid,
-                i = n.botSection,
-                l = [];
+                r = n.botDefaultJid,
+                a = n.botSection,
+                i = [];
               return (
-                i.forEach(function (e) {
+                a.forEach(function (e) {
                   e.bot.forEach(function (e) {
                     var t = e.jid,
                       n = e.personaId;
-                    l.push({
+                    i.push({
                       id: o("WAWebWidFactory").createWid(t),
-                      isDefault: t === a,
+                      isDefault: t === r,
                       personaId: n,
                     });
                   });
                 }),
-                l
+                i
               );
             }
-            case "BotListResponseSuccessV3":
-              throw r("err")(t.name + " is not implemented");
+            case "BotListResponseSuccessV3": {
+              var l = t.value,
+                s = l.botDefault,
+                u = l.botSection,
+                c = [];
+              return (
+                u.forEach(function (e) {
+                  e.bot.forEach(function (e) {
+                    var t = e.jid,
+                      n = e.personaId;
+                    c.push({
+                      id: o("WAWebWidFactory").createWid(t),
+                      isDefault: t === (s == null ? void 0 : s.jid),
+                      personaId: n,
+                    });
+                  });
+                }),
+                c
+              );
+            }
             case "BotListResponseError": {
-              var s = t.value.errorBotListErrors.value,
-                u = s.code,
-                c = s.text;
+              var d = t.value.errorBotListErrors.value,
+                m = d.code,
+                p = d.text;
               return (
                 o("WALogger").ERROR(
                   e ||

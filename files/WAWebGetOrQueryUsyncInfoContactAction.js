@@ -26,21 +26,21 @@ __d(
     function d() {
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.wid,
-            a = e.forceUsync,
-            i = e.requestOrigin,
-            l = o("WAWebContactCollection").ContactCollection.get(t);
+          var t = e.forceUsync,
+            a = e.requestOrigin,
+            i = e.wid,
+            l = o("WAWebContactCollection").ContactCollection.get(i);
           if (
-            a !== !0 &&
+            t !== !0 &&
             l != null &&
             (l.name != null ||
-              o("WAWebChatCollection").ChatCollection.get(t) != null)
+              o("WAWebChatCollection").ChatCollection.get(i) != null)
           ) {
             var s,
               c,
-              d = t.isRegularUserPn() ? !1 : void 0;
+              d = i.isRegularUserPn() ? !1 : void 0;
             return {
-              wid: t,
+              wid: i,
               biz: l.isBusiness,
               bizInfo: l.isBusiness
                 ? {
@@ -64,7 +64,7 @@ __d(
               isUsernameSearch: d,
             };
           }
-          var m = yield o("WAWebQueryExistsJob").queryWidExists(t, i);
+          var m = yield o("WAWebQueryExistsJob").queryWidExists(i, a);
           if (m) {
             var p = m.biz,
               _ = m.bizInfo,
@@ -73,7 +73,7 @@ __d(
               p &&
                 _ != null &&
                 (yield o("WAWebBizUpdateVerifiedInfoAction").updateVerifiedInfo(
-                  t,
+                  i,
                   _.verifiedName,
                 )),
               f &&
@@ -81,7 +81,7 @@ __d(
                 (yield o(
                   "WAWebUpdateDisappearingModeForContact",
                 ).updateDisappearingModeForContact({
-                  contactId: t,
+                  contactId: i,
                   newDuration: f.duration,
                   newSettingTimestamp: f.settingTimestamp,
                   newEphemeralityDisabled: f.isEphemeralityDisabled === !0,

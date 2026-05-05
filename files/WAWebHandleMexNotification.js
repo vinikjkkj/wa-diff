@@ -61,7 +61,7 @@ __d(
         } catch (e) {
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
             d,
-            "JSON parsing error: " + e,
+            "JSON parsing error: " + String(e),
           );
         }
         return {

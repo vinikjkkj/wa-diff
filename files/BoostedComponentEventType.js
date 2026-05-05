@@ -1598,6 +1598,10 @@ __d(
       MULTI_POST_PICKER_OPEN: "multi_post_picker_open",
       MULTI_POST_PICKER_SELECTED: "multi_post_picker_selected",
       MULTI_POST_PICKER_CANCELED: "multi_post_picker_canceled",
+      GUIDANCE_EXPERIMENT_DEBUGGER_POCKET_DELTOID_ADD:
+        "guidance_experiment_debugger_pocket_deltoid_add",
+      GUIDANCE_EXPERIMENT_DEBUGGER_POCKET_DELTOID_REFRESH:
+        "guidance_experiment_debugger_pocket_deltoid_refresh",
     });
     i.default = e;
   },

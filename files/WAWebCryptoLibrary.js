@@ -15,6 +15,7 @@ __d(
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -189,7 +190,7 @@ __d(
                             "CryptoLibrarySignal::decryptSignalProto failed to decrypt",
                           ])),
                       )
-                      .catching(e),
+                      .catching(r("getErrorSafe")(e)),
                     new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
                       "Unexpected decryption error",
                     ));
@@ -377,14 +378,14 @@ __d(
           })
       );
     }
-    function A(e, t, r) {
+    function A(e, t, a) {
       o("WALogger").LOG(
         d ||
           (d = babelHelpers.taggedTemplateLiteralLoose([
             "CryptoLibrarySignal::decryptGroupSignalProto",
           ])),
       );
-      var a = null;
+      var i = null;
       return E()
         .decryptGroupContent(
           {
@@ -393,21 +394,21 @@ __d(
           },
           o("WAWebWidToJid").widToMulticastJid(e),
           o("WAWebWidToJid").widToDeviceJid(t),
-          r,
+          a,
           function (e) {
             return (
-              (a = o("WAByteArray").uint8ArrayToBuffer(e)),
+              (i = o("WAByteArray").uint8ArrayToBuffer(e)),
               (R || (R = n("Promise"))).resolve()
             );
           },
         )
         .then(function (e) {
           if (e.success) {
-            if (a == null)
+            if (i == null)
               throw new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
                 "Null result on successful decryption of group msg",
               );
-            return a;
+            return i;
           }
           var t = e.error;
           throw (
@@ -436,7 +437,7 @@ __d(
                       "CryptoLibrarySignal::decryptGroupSignalProto failed to decrypt",
                     ])),
                 )
-                .catching(e),
+                .catching(r("getErrorSafe")(e)),
               new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
                 "Unexpected decryption error",
               ));

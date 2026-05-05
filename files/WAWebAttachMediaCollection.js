@@ -547,12 +547,12 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.filter(function (e) {
+          var n = e.countWhere(function (e) {
             return (
               e.exception instanceof r("WAWebMediaFileTooLargeError") &&
               e.exception.mediaType === o("WAWebFileUtils").FILETYPE.DOCUMENT
             );
-          }).length;
+          });
           n !== 0 &&
             o("WAWebImagineActionLogger").logImagineAction({
               action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION

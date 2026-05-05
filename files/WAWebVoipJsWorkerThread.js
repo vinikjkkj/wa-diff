@@ -44,7 +44,8 @@ __d(
         (r.shutdown = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             (this.worker.postMessage({
-              type: "jsWorkerCmd",
+              type: "cmd",
+              cmd: "jsWorkerCmd",
               jsWorkerCmd: "shutdown",
             }),
               yield this.joinJsWorkerThread());

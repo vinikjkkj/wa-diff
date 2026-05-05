@@ -93,12 +93,12 @@ __d(
           });
           break;
         case "subject":
-          a = o("WAWebFormatSubjectNotification").formatSubjectNotification(
-            o("WAWebFrontendMsgGetters").getChat(t),
-            c,
-            u,
-            d,
-          );
+          a = o("WAWebFormatSubjectNotification").formatSubjectNotification({
+            author: c,
+            authorClickable: u,
+            chat: o("WAWebFrontendMsgGetters").getChat(t),
+            subjectValue: d,
+          });
           break;
         case "modify":
           ((m = o("WAWebWidFormat").widToFormattedUser(c)),

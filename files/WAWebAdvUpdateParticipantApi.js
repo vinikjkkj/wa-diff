@@ -25,7 +25,7 @@ __d(
               .equals(["participants"], String(t));
           } catch (t) {
             throw (
-              t.toString().includes("Failed to read large IndexedDB value") &&
+              String(t).includes("Failed to read large IndexedDB value") &&
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -100,7 +100,7 @@ __d(
                 );
             } catch (e) {
               throw (
-                e.toString().includes("Failed to read large IndexedDB value") &&
+                String(e).includes("Failed to read large IndexedDB value") &&
                   o("WALogger")
                     .ERROR(
                       s ||

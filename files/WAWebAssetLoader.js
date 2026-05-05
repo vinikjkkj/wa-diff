@@ -320,7 +320,7 @@ __d(
                                         "",
                                       ])),
                                   t[t.length - 1],
-                                  n.toString(),
+                                  String(n),
                                 );
                               }));
                         }));

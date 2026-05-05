@@ -28,8 +28,8 @@ __d(
                     ["add failed: ", "\n", ""],
                     ["add failed: ", "\\n", ""],
                   )),
-                e,
-                e == null ? void 0 : e.stack,
+                String(e),
+                r("getErrorSafe")(e).stack,
               );
             });
         })),
@@ -174,8 +174,8 @@ __d(
                 ["removePsMeta failed: ", "\n", ""],
                 ["removePsMeta failed: ", "\\n", ""],
               )),
-            t,
-            t == null ? void 0 : t.stack,
+            String(t),
+            r("getErrorSafe")(t).stack,
           );
         });
     }
@@ -193,8 +193,8 @@ __d(
                   ["getPsMeta failed: ", "\n", ""],
                   ["getPsMeta failed: ", "\\n", ""],
                 )),
-              e,
-              e == null ? void 0 : e.stack,
+              String(e),
+              r("getErrorSafe")(e).stack,
             ),
             []
           );
@@ -213,8 +213,8 @@ __d(
                 ["addPsMeta failed: ", "\n", ""],
                 ["addPsMeta failed: ", "\\n", ""],
               )),
-            e,
-            e == null ? void 0 : e.stack,
+            String(e),
+            r("getErrorSafe")(e).stack,
           );
         });
     }
@@ -231,8 +231,8 @@ __d(
                 ["updatePsMeta failed: ", "\n", ""],
                 ["updatePsMeta failed: ", "\\n", ""],
               )),
-            e,
-            e == null ? void 0 : e.stack,
+            String(e),
+            r("getErrorSafe")(e).stack,
           );
         });
     }
@@ -249,8 +249,8 @@ __d(
                 ["getPsToken failed: ", "\n", ""],
                 ["getPsToken failed: ", "\\n", ""],
               )),
-            e,
-            e == null ? void 0 : e.stack,
+            String(e),
+            r("getErrorSafe")(e).stack,
           );
         });
     }
@@ -269,8 +269,8 @@ __d(
                 ["savePsToken failed: ", "\n", ""],
                 ["savePsToken failed: ", "\\n", ""],
               )),
-            e,
-            e == null ? void 0 : e.stack,
+            String(e),
+            r("getErrorSafe")(e).stack,
           );
         });
     }

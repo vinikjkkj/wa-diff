@@ -19,34 +19,6 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return o("WAWebMsgGetters").getIsStatus(e)
-        ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS
-        : o("WAWebMsgGetters").getIsGroupMsg(e)
-          ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP
-          : r("WAWebWid").isBroadcast(e.id.remote) ||
-              o("WAWebMsgGetters").getBroadcastId(e) != null
-            ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.BROADCAST
-            : r("WAWebWid").isNewsletter(e.id.remote)
-              ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL
-              : o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL;
-    }
-    function s(e) {
-      return e === "chat"
-        ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL
-        : e === "group"
-          ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP
-          : e === "peer_broadcast" || e === "other_broadcast"
-            ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.BROADCAST
-            : e === "direct_peer_status" || e === "other_status"
-              ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS
-              : (function () {
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      e,
-                  );
-                })();
-    }
-    function u(e) {
       if (e.isDynamicReplyButtonsMsg === !0)
         return o("WAWebWamEnumMediaType").MEDIA_TYPE.BUTTON_MESSAGE;
       switch (e.type) {
@@ -140,6 +112,34 @@ __d(
           return (e.type, o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE);
       }
     }
+    function s(e) {
+      return o("WAWebMsgGetters").getIsStatus(e)
+        ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS
+        : o("WAWebMsgGetters").getIsGroupMsg(e)
+          ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP
+          : r("WAWebWid").isBroadcast(e.id.remote) ||
+              o("WAWebMsgGetters").getBroadcastId(e) != null
+            ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.BROADCAST
+            : r("WAWebWid").isNewsletter(e.id.remote)
+              ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.CHANNEL
+              : o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL;
+    }
+    function u(e) {
+      return e === "chat"
+        ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.INDIVIDUAL
+        : e === "group"
+          ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.GROUP
+          : e === "peer_broadcast" || e === "other_broadcast"
+            ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.BROADCAST
+            : e === "direct_peer_status" || e === "other_status"
+              ? o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
+    }
     function c(e) {
       var t = e.interactiveType;
       if (t == null) return o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
@@ -232,9 +232,9 @@ __d(
       }
       return e.from.isLid() || e.to.isLid();
     }
-    ((l.getWamMessageType = e),
-      (l.getMessageTypeFromMsgInfoType = s),
-      (l.getWamMediaType = u),
+    ((l.getWamMediaType = e),
+      (l.getWamMessageType = s),
+      (l.getMessageTypeFromMsgInfoType = u),
       (l.getInteractiveWamType = c),
       (l.getWamE2eSenderType = p),
       (l.getWamAgentEngagementType = _),

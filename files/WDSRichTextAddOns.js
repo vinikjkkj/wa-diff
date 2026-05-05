@@ -42,6 +42,7 @@ __d(
           marginInlineStart: "xvc5jky",
           $$css: !0,
         },
+        errorIcon: { flexShrink: "x2lah0s", $$css: !0 },
       };
     function p(t) {
       var n = t.StartIcon,
@@ -90,14 +91,14 @@ __d(
     p.displayName = p.name + " [from " + i.id + "]";
     function _(t) {
       var n = t.EndIcon,
-        o = t.loading,
-        a = t.onEndIconClick,
-        i = t.platform,
-        l = t.shouldShowError,
+        o = t.endIconAriaLabel,
+        a = t.loading,
+        i = t.onEndIconClick,
+        l = t.platform,
         s = t.suffix;
-      if (!l && n == null && s == null && o == null) return null;
+      if (n == null && s == null && a == null) return null;
       var p, _, f, g, h, y, C;
-      i === "android"
+      l === "android"
         ? ((p = 24),
           (_ = c.iconContainer),
           (f = c.EndIconContainer),
@@ -113,7 +114,7 @@ __d(
       var b = [m.iconContainer, _, f],
         v = null;
       return (
-        o === !0
+        a === !0
           ? (v = u.jsx(
               "div",
               babelHelpers.extends(
@@ -122,39 +123,32 @@ __d(
                 { children: u.jsx(r("WDSSpinner.react"), { size: p }) },
               ),
             ))
-          : l
-            ? (v = u.jsx(r("WDSIconIcError.react"), {
-                colorName: "secondaryNegative",
-                xstyle: b,
-                height: p,
-                width: p,
-              }))
-            : n != null &&
-              (a != null
-                ? (v = u.jsx(
-                    "div",
-                    babelHelpers.extends(
-                      {},
-                      (e || (e = r("stylex"))).props.apply(e, b),
-                      {
-                        children: u.jsx(r("WDSButton.react"), {
-                          variant: "borderless",
-                          size: i === "android" ? "medium" : "small",
-                          onPress: a,
-                          Icon: n,
-                          xstyle: y,
-                          "aria-label": "End icon button",
-                          widthMode: "fit",
-                        }),
-                      },
-                    ),
-                  ))
-                : (v = u.jsx(n, {
-                    colorName: "contentDefault",
-                    xstyle: [].concat(b, [C]),
-                    height: p,
-                    width: p,
-                  }))),
+          : n != null &&
+            (i != null
+              ? (v = u.jsx(
+                  "div",
+                  babelHelpers.extends(
+                    {},
+                    (e || (e = r("stylex"))).props.apply(e, b),
+                    {
+                      children: u.jsx(r("WDSButton.react"), {
+                        variant: "borderless",
+                        size: l === "android" ? "medium" : "small",
+                        onPress: i,
+                        Icon: n,
+                        xstyle: y,
+                        "aria-label": o != null ? o : void 0,
+                        widthMode: "fit",
+                      }),
+                    },
+                  ),
+                ))
+              : (v = u.jsx(n, {
+                  colorName: "contentDefault",
+                  xstyle: [].concat(b, [C]),
+                  height: p,
+                  width: p,
+                }))),
         u.jsxs(u.Fragment, {
           children: [
             s != null &&
@@ -193,15 +187,37 @@ __d(
       var p = l ? s + "-error-text" : s + "-bottom-text";
       return u.jsxs(u.Fragment, {
         children: [
-          (l ? o : n) != null &&
-            u.jsx(r("WDSText.react"), {
-              id: t,
-              type: "Body3",
-              selectable: !1,
-              testid: void 0,
-              colorName: d,
-              children: l ? o : n,
-            }),
+          l
+            ? o != null &&
+              u.jsxs("div", {
+                className: "x78zum5 x1q0g3np x1cy8zhl x129bwdz x1trrmfo",
+                role: "alert",
+                id: t,
+                "data-testid": void 0,
+                children: [
+                  u.jsx(r("WDSIconIcError.react"), {
+                    colorName: d,
+                    xstyle: m.errorIcon,
+                    height: 16,
+                    width: 16,
+                  }),
+                  u.jsx(r("WDSText.react"), {
+                    type: "Body3",
+                    selectable: !1,
+                    colorName: d,
+                    children: o,
+                  }),
+                ],
+              })
+            : n != null &&
+              u.jsx(r("WDSText.react"), {
+                id: t,
+                type: "Body3",
+                selectable: !1,
+                testid: void 0,
+                colorName: "contentDeemphasized",
+                children: n,
+              }),
           a != null &&
             u.jsxs(r("WDSText.react"), {
               type: "Body3",
