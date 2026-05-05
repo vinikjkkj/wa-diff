@@ -66,19 +66,19 @@ __d(
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.isAnyPeerScreenSharing === !0
       )
-        return p.jsx(r("WDSIconIcScreenShare.react"), {});
+        return p.jsx(r("WDSIconIcScreenShare.react"), { directional: !0 });
       if (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.isAnyPeerScreenSharing === !1 &&
         e.isSelfScreenSharing === !1
       )
-        return p.jsx(r("WDSIconIcScreenShare.react"), {});
+        return p.jsx(r("WDSIconIcScreenShare.react"), { directional: !0 });
       if (
         ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.isAnyPeerScreenSharing === !1 &&
         e.isSelfScreenSharing === !0
       )
-        return p.jsx(r("WDSIconIcStopScreenShare.react"), {});
+        return p.jsx(r("WDSIconIcStopScreenShare.react"), { directional: !0 });
       throw Error(
         "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
           e,

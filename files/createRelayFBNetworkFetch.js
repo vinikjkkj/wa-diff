@@ -166,9 +166,7 @@ __d(
           o("RelayRuntime").RelayFeatureFlags.ENABLE_DO_NOT_WRAP_LIVE_QUERY &&
             (le = P != null ? P(le) : le),
           A.liveConfigId != null &&
-            !o("RelayWWWInitialRolloutResolver").disableWWWInitial(
-              A.liveConfigId,
-            ) &&
+            !o("RelayWWWInitialRolloutResolver").disableWWWInitial(d.name) &&
             L != null &&
             (le = L(
               d,
@@ -333,9 +331,7 @@ __d(
     }
     function b(e, t, n, r, a, i, l, s) {
       return i.liveConfigId != null &&
-        (o("RelayWWWInitialRolloutResolver").disableWWWInitial(
-          i.liveConfigId,
-        ) ||
+        (o("RelayWWWInitialRolloutResolver").disableWWWInitial(e.name) ||
           s == null)
         ? (l != null || u(0, 112734),
           l(

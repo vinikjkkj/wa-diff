@@ -570,15 +570,16 @@ __d(
           })()),
           (a.$6 = function (t, n) {
             try {
+              var e;
               if (this.$11.has(t)) throw r("err")("canvas already registered");
-              var e = this.$1,
-                a = this.$3;
-              if (e == null || a == null)
+              var a = this.$1,
+                i = this.$3;
+              if (a == null || i == null)
                 throw r("err")(
                   "init() must be called before registering canvases",
                 );
               if (
-                a !==
+                i !==
                 o("WAWebVoipVideoRendererInterface")
                   .WAWebVoipVideoRendererThreadingMode.MAIN_THREAD
               ) {
@@ -590,44 +591,49 @@ __d(
                       " portal=",
                       "",
                     ])),
-                  e,
                   a,
+                  i,
                   n,
                 );
-                var i = new (r("WAWebVoipVideoOffThreadRendererStub"))(
+                var l = new (r("WAWebVoipVideoOffThreadRendererStub"))(
                   t,
-                  e,
                   a,
+                  i,
                   n,
                 );
-                this.$11.set(t, i);
+                this.$11.set(t, l);
                 return;
               }
-              var l =
-                e ===
-                o("WAWebVoipVideoRendererInterface").WAWebVoipVideoRendererType
-                  .WEBCODECS_H264
-                  ? new (o(
-                      "WAWebVoipVideoWebCodecsRenderer",
-                    ).WAWebVoipVideoWebCodecsRenderer)(t)
-                  : e ===
-                      o("WAWebVoipVideoRendererInterface")
-                        .WAWebVoipVideoRendererType.WEBGPU
-                    ? new (r("WAWebVoipVideoWebGPURenderer"))(t)
-                    : e ===
+              var s = (e = t.ownerDocument) == null ? void 0 : e.defaultView,
+                u =
+                  s != null && s !== self && typeof s.VideoDecoder == "function"
+                    ? s.VideoDecoder
+                    : void 0,
+                c =
+                  a ===
+                  o("WAWebVoipVideoRendererInterface")
+                    .WAWebVoipVideoRendererType.WEBCODECS_H264
+                    ? new (o(
+                        "WAWebVoipVideoWebCodecsRenderer",
+                      ).WAWebVoipVideoWebCodecsRenderer)(t, u)
+                    : a ===
                         o("WAWebVoipVideoRendererInterface")
-                          .WAWebVoipVideoRendererType.WEBGL
-                      ? new (r("WAWebVoipVideoWebGLRenderer"))(t)
-                      : e ===
+                          .WAWebVoipVideoRendererType.WEBGPU
+                      ? new (r("WAWebVoipVideoWebGPURenderer"))(t)
+                      : a ===
                           o("WAWebVoipVideoRendererInterface")
-                            .WAWebVoipVideoRendererType.VIDEOFRAME
-                        ? new (o(
-                            "WAWebVoipVideoRasterRenderer",
-                          ).WAWebVoipVideoFrameRenderer)(t)
-                        : new (o(
-                            "WAWebVoipVideoRasterRenderer",
-                          ).WAWebVoipVideoRasterRenderer)(t);
-              this.$11.set(t, l);
+                            .WAWebVoipVideoRendererType.WEBGL
+                        ? new (r("WAWebVoipVideoWebGLRenderer"))(t)
+                        : a ===
+                            o("WAWebVoipVideoRendererInterface")
+                              .WAWebVoipVideoRendererType.VIDEOFRAME
+                          ? new (o(
+                              "WAWebVoipVideoRasterRenderer",
+                            ).WAWebVoipVideoFrameRenderer)(t)
+                          : new (o(
+                              "WAWebVoipVideoRasterRenderer",
+                            ).WAWebVoipVideoRasterRenderer)(t);
+              this.$11.set(t, c);
             } catch (e) {
               o("WALogger").ERROR(
                 E ||

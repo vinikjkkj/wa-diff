@@ -78,6 +78,8 @@ __d(
         "GuestNotifPrimerDialogDisplayCount",
         "GuestPNVerificationStep",
         "GuestPNVerificationPhone",
+        "GuestPNVerificationName",
+        "GuestPNVerificationCountryIso",
         "GuestPNVerificationOtpRequestedAt",
         "GuestPNVerificationRateLimitEligibleAt",
       ]),

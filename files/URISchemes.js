@@ -149,6 +149,7 @@ __d(
         "aura",
         "basel",
         "lantern",
+        "fb-owl",
       ]),
       l = n("$InternalEnum")({
         EXPLICITLY_ALLOWED_SCHEMES_ONLY: "explicitly_allowed_schemes_only",

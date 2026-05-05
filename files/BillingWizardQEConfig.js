@@ -134,6 +134,10 @@ __d(
           params: { xmds_enabled: e },
           type: "PAYMENT_ACCOUNT",
         },
+        billing_react_xmds_migration_add_pm_msite__logging: {
+          params: { dummy_param: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         billing_react_xmds_migration_add_pm_web: {
           params: { xmds_enabled: e },
           type: "PAYMENT_ACCOUNT",
@@ -272,6 +276,10 @@ __d(
           },
         },
         increase_min_account_spending_limit: { params: { enabled: e } },
+        india_billing_pmt_unknown_card_type_allow_v1: {
+          params: { enabled: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         l5_credential_sharing: {
           params: { enable_l5_cc_as_backup_ui_improvement: e },
           type: "PAYMENT_ACCOUNT",

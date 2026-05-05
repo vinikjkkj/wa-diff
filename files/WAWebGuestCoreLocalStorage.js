@@ -162,34 +162,60 @@ __d(
       );
     }
     function P() {
-      return d(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-          .GuestPNVerificationOtpRequestedAt,
-        0,
+      return c(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationName,
+        "",
       );
     }
     function N(e) {
       s(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-          .GuestPNVerificationOtpRequestedAt,
-        String(e),
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationName,
+        e,
       );
     }
     function M() {
-      return d(
+      return c(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-          .GuestPNVerificationRateLimitEligibleAt,
-        0,
+          .GuestPNVerificationCountryIso,
+        "",
       );
     }
     function w(e) {
       s(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+          .GuestPNVerificationCountryIso,
+        e,
+      );
+    }
+    function A() {
+      return d(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+          .GuestPNVerificationOtpRequestedAt,
+        0,
+      );
+    }
+    function F(e) {
+      s(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+          .GuestPNVerificationOtpRequestedAt,
+        String(e),
+      );
+    }
+    function O() {
+      return d(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
+          .GuestPNVerificationRateLimitEligibleAt,
+        0,
+      );
+    }
+    function B(e) {
+      s(
+        o("WAWebGuestCoreConsts").GuestLocalStorageKeys
           .GuestPNVerificationRateLimitEligibleAt,
         String(e),
       );
     }
-    function A(e, t) {
+    function W(e, t) {
       (s(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationStep,
         "otp",
@@ -205,53 +231,72 @@ __d(
           String(t),
         ));
     }
-    function F() {
+    function q() {
       u(
         o("WAWebGuestCoreConsts").GuestLocalStorageKeys
           .GuestPNVerificationRateLimitEligibleAt,
       );
     }
-    function O() {
+    function U() {
+      var e;
       (u(
-        o("WAWebGuestCoreConsts").GuestLocalStorageKeys.GuestPNVerificationStep,
+        (e = o("WAWebGuestCoreConsts")).GuestLocalStorageKeys
+          .GuestPNVerificationStep,
       ),
-        u(
-          o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-            .GuestPNVerificationPhone,
-        ),
-        u(
-          o("WAWebGuestCoreConsts").GuestLocalStorageKeys
-            .GuestPNVerificationOtpRequestedAt,
-        ),
-        F());
+        u(e.GuestLocalStorageKeys.GuestPNVerificationPhone),
+        u(e.GuestLocalStorageKeys.GuestPNVerificationName),
+        u(e.GuestLocalStorageKeys.GuestPNVerificationCountryIso),
+        u(e.GuestLocalStorageKeys.GuestPNVerificationOtpRequestedAt),
+        q());
     }
-    function B() {
-      var e = x(),
-        t = T(),
+    var V = "US";
+    function H(e, t) {
+      var n = t.steps,
+        r = n[0];
+      if (e === "") return r;
+      for (var o of n) if (o === e) return o;
+      return r;
+    }
+    function G(e) {
+      var t = x(),
         n = P(),
-        r = M(),
-        a = t === "otp" && e !== "",
-        i = a && Date.now() - n < o("WAWebGuestCoreConsts").GUEST_OTP_EXPIRY_MS,
-        l = a && r > Date.now();
-      if (i || l) {
-        var s = l ? Math.max(0, Math.ceil((r - Date.now()) / 1e3)) : 0;
+        r = M() || V,
+        a = T(),
+        i = A(),
+        l = O(),
+        s = a === "otp" && t !== "",
+        u = s && Date.now() - i < o("WAWebGuestCoreConsts").GUEST_OTP_EXPIRY_MS,
+        c = s && l > Date.now();
+      if (u || c) {
+        var d = c ? Math.max(0, Math.ceil((l - Date.now()) / 1e3)) : 0;
         return {
-          initialPhoneNumber: e,
-          initialStep: "otp",
-          remainingCooldownSeconds: s,
+          initialPhoneNumber: t,
+          initialName: n,
+          initialCountryIso: r,
+          initialStep: H("otp", e),
+          remainingCooldownSeconds: d,
           shouldResume: !0,
         };
       }
-      return (
-        (t !== "" || e !== "" || n !== 0) && O(),
-        F(),
-        {
-          initialPhoneNumber: "",
-          initialStep: "phone",
-          remainingCooldownSeconds: 0,
-          shouldResume: !1,
-        }
-      );
+      return a !== "" || t !== "" || i !== 0
+        ? (U(),
+          {
+            initialPhoneNumber: "",
+            initialName: "",
+            initialCountryIso: V,
+            initialStep: H("", e),
+            remainingCooldownSeconds: 0,
+            shouldResume: !1,
+          })
+        : (q(),
+          {
+            initialPhoneNumber: "",
+            initialName: n,
+            initialCountryIso: r,
+            initialStep: H(a, e),
+            remainingCooldownSeconds: 0,
+            shouldResume: !1,
+          });
     }
     ((l.getActiveGuestInviteCode = p),
       (l.setActiveGuestInviteCode = _),
@@ -272,14 +317,18 @@ __d(
       (l.setGuestPNVerificationStep = D),
       (l.getGuestPNVerificationPhone = x),
       (l.setGuestPNVerificationPhone = $),
-      (l.getGuestPNVerificationOtpRequestedAt = P),
-      (l.setGuestPNVerificationOtpRequestedAt = N),
-      (l.getGuestPNVerificationRateLimitEligibleAt = M),
-      (l.setGuestPNVerificationRateLimitEligibleAt = w),
-      (l.persistGuestPNVerificationOtpSession = A),
-      (l.clearGuestPNVerificationRateLimitState = F),
-      (l.clearGuestPNVerificationState = O),
-      (l.getGuestPNVerificationRestoreState = B));
+      (l.getGuestPNVerificationName = P),
+      (l.setGuestPNVerificationName = N),
+      (l.getGuestPNVerificationCountryIso = M),
+      (l.setGuestPNVerificationCountryIso = w),
+      (l.getGuestPNVerificationOtpRequestedAt = A),
+      (l.setGuestPNVerificationOtpRequestedAt = F),
+      (l.getGuestPNVerificationRateLimitEligibleAt = O),
+      (l.setGuestPNVerificationRateLimitEligibleAt = B),
+      (l.persistGuestPNVerificationOtpSession = W),
+      (l.clearGuestPNVerificationRateLimitState = q),
+      (l.clearGuestPNVerificationState = U),
+      (l.getGuestPNVerificationRestoreState = G));
   },
   98,
 );

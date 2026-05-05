@@ -30,7 +30,11 @@ __d(
         href: "data:application/csv," + encodeURI(_),
       };
     }
-    l.getTemplateLinkProps = f;
+    ((l.FBT_USERNAME = e),
+      (l.FBT_LEAD_STAGE = u),
+      (l.FBT_ACQUISITION_SOURCE = c),
+      (l.FBT_NOTES = d),
+      (l.getTemplateLinkProps = f));
   },
   226,
 );

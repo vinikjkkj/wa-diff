@@ -129,12 +129,16 @@ __d(
                 o.readAsText(t));
             }),
             o.result instanceof ArrayBuffer)
-          )
-            throw new TypeError(
+          ) {
+            var a = new TypeError(
               "blobToText error: Invalid result type: ArrayBuffer",
             );
-          if (o.result == null)
-            throw new TypeError("blobToText: Invalid result type: null");
+            throw (a.stack, a);
+          }
+          if (o.result == null) {
+            var i = new TypeError("blobToText: Invalid result type: null");
+            throw (i.stack, i);
+          }
           return o.result;
         })),
         b.apply(this, arguments)

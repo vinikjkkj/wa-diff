@@ -1,16 +1,15 @@
 __d(
   "RelayWWWInitialRolloutResolver",
-  [],
-  function (t, n, r, o, a, i) {
+  ["RelayLQOperationsDisableWWWInitial"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new Set([
-      "fake_live_config_id",
-      "relay_bizkit_local_navigation_badging",
-    ]);
-    function l(t) {
-      return !!e.has(t);
+    function e(e) {
+      var t = new Set(
+        r("RelayLQOperationsDisableWWWInitial").disabled_operations,
+      );
+      return t.has(e);
     }
-    i.disableWWWInitial = l;
+    l.disableWWWInitial = e;
   },
-  66,
+  98,
 );

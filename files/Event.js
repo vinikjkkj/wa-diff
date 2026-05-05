@@ -15,6 +15,7 @@ __d(
     "TimeSlice",
     "UserAgent",
     "dedupString",
+    "err",
     "fb-error",
     "getDocumentScrollElement",
     "getObjectValues",
@@ -143,40 +144,42 @@ __d(
           for (var s in o) t[s] = Event.listen(n, s, o[s], i, l);
           return t;
         }
-        if (o.match(/^on/i))
-          throw new TypeError(
+        if (o.match(/^on/i)) {
+          var c = new TypeError(
             "Bad event name `" + o + "': use `click', not `onclick'.",
           );
+          throw (c.stack, c);
+        }
         if (!n) {
-          var c = r("fb-error").TAAL.blameToPreviousFrame(
-            new Error("Cannot listen to an undefined element."),
+          var d = r("fb-error").TAAL.blameToPreviousFrame(
+            r("err")("Cannot listen to an undefined element."),
           );
           throw (
             r("FBLogger")("event")
-              .catching(c)
+              .catching(d)
               .mustfix("Tried to listen to element of type %s", o),
-            c
+            d
           );
         }
         if (n.nodeName == "LABEL" && o == "click") {
-          var d = n.getElementsByTagName("input");
-          n = d.length === 1 ? d[0] : n;
+          var m = n.getElementsByTagName("input");
+          n = m.length === 1 ? m[0] : n;
         } else if (n === window && o === "scroll") {
-          var m = r("getDocumentScrollElement")();
-          m !== document.documentElement && m !== document.body && (n = m);
+          var p = r("getDocumentScrollElement")();
+          p !== document.documentElement && p !== document.body && (n = p);
         }
-        var p = r("DataStore").get(n, u, {}),
-          _ = g[o];
-        (_ && ((o = _.base), _.wrap && (a = _.wrap(a))), C(n, p, o, l));
-        var f = p[o];
-        i in f || (f[i] = []);
-        var h = f[i].length,
-          b = new R(n, a, p, o, i, h, l);
+        var _ = r("DataStore").get(n, u, {}),
+          f = g[o];
+        (f && ((o = f.base), f.wrap && (a = f.wrap(a))), C(n, _, o, l));
+        var h = _[o];
+        i in h || (h[i] = []);
+        var b = h[i].length,
+          v = new R(n, a, _, o, i, b, l);
         return (
-          (f[i][h] = b),
-          f.numHandlers++,
-          l.passive || (f.numNonPassiveHandlers++, y(n, p[o], o)),
-          b
+          (h[i][b] = v),
+          h.numHandlers++,
+          l.passive || (h.numNonPassiveHandlers++, y(n, _[o], o)),
+          v
         );
       },
       stop: function (t) {
@@ -346,31 +349,36 @@ __d(
     }
     var S = function (t, n) {
       var e = m(n);
-      if (!r("DataStore").get(this, u))
-        throw new Error("Bad listenHandler context.");
-      var a = r("DataStore").get(this, u)[t];
-      if (!a) throw new Error("No registered handlers for `" + t + "'.");
+      if (!r("DataStore").get(this, u)) {
+        var a = new Error("Bad listenHandler context.");
+        throw (a.stack, a);
+      }
+      var i = r("DataStore").get(this, u)[t];
+      if (!i) {
+        var l = new Error("No registered handlers for `" + t + "'.");
+        throw (l.stack, l);
+      }
       if (
         t == "click" ||
         t == "contextmenu" ||
         (t == "mousedown" && e.which == 2)
       ) {
-        var i = e.getTarget(),
-          l = o("Parent").byTag(i, "a");
-        l instanceof HTMLAnchorElement &&
-          l.href &&
-          b(l) &&
-          !v(i, "file") &&
-          !v(i, "submit") &&
+        var s = e.getTarget(),
+          c = o("Parent").byTag(s, "a");
+        c instanceof HTMLAnchorElement &&
+          c.href &&
+          b(c) &&
+          !v(s, "file") &&
+          !v(s, "submit") &&
           e.prevent();
       }
-      for (var s = Event.getPriorities(), c = 0; c < s.length; c++) {
-        var d = s[c];
-        if (d in a) {
-          for (var p = a[d], _ = 0; _ < p.length; _++)
-            if (p[_]) {
-              var f = p[_].fire(this, e);
-              if (f === !1) return e.kill();
+      for (var d = Event.getPriorities(), p = 0; p < d.length; p++) {
+        var _ = d[p];
+        if (_ in i) {
+          for (var f = i[_], g = 0; g < f.length; g++)
+            if (f[g]) {
+              var h = f[g].fire(this, e);
+              if (h === !1) return e.kill();
               e.cancelBubble && e.stop();
             }
         }

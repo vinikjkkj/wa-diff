@@ -29,7 +29,7 @@ __d(
       }).commit();
     }
     ((l.getLwiAdsIdentityTypeFromActiveAccountInfo = e),
-      (l.logAdCreationNuxScreen = s));
+      (l.logLwiAdCreationNuxScreen = s));
   },
   98,
 );

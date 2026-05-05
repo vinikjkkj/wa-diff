@@ -1,7 +1,6 @@
 __d(
   "WAWebCollections",
   [
-    "WAWebAdCollection",
     "WAWebAgentCollection",
     "WAWebBlocklistCollection",
     "WAWebBotProfileCollection",
@@ -55,7 +54,6 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
-      AdCollection: o("WAWebAdCollection").AdCollection,
       Blocklist: o("WAWebBlocklistCollection").BlocklistCollection,
       OptOutList: o("WAWebOptOutListCollection").OptOutListCollection,
       BotProfile: o("WAWebBotProfileCollection").BotProfileCollection,

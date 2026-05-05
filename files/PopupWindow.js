@@ -57,9 +57,7 @@ __d(
         u || d)
       )
         try {
-          (window.console && window.console.firebug != null,
-            window.resizeBy(d, u),
-            d && window.moveBy(d / -2, 0));
+          (window.resizeBy(d, u), d && window.moveBy(d / -2, 0));
         } catch (e) {}
     }
     function c() {

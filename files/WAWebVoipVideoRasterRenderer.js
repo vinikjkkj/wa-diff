@@ -103,7 +103,7 @@ __d(
                 }
               else {
                 var h = new Error("VideoFrame API not supported");
-                throw h;
+                throw (h.stack, h);
               }
             } catch (e) {
               o("WAWebVoipVideoRendererLogging").ERROR(

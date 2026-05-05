@@ -194,14 +194,14 @@ __d(
         g = o(
           "WAWebAdCreationLogger",
         ).getLwiAdsIdentityTypeFromActiveAccountInfo(l);
-      o("WAWebAdCreationLogger").logAdCreationNuxScreen(
+      o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
         o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION.LWI_ACTION_VIEW,
         g,
         u,
       );
       var h = (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WAWebAdCreationLogger").logAdCreationNuxScreen(
+          o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
             o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
               .LWI_ACTION_NUX_CONTINUE_TAPPED,
             g,
@@ -228,7 +228,7 @@ __d(
         c.jsx(r("WAWebBizAdCreationEntryPointModal.react"), {
           onOK: h,
           onClose: function () {
-            return o("WAWebAdCreationLogger").logAdCreationNuxScreen(
+            return o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
               o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
                 .LWI_ACTION_CANCEL_DIALOG_BUTTON_TAPPED,
               g,
@@ -236,7 +236,7 @@ __d(
             );
           },
           onLearnMore: function () {
-            return o("WAWebAdCreationLogger").logAdCreationNuxScreen(
+            return o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
               o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
                 .LWI_ACTION_LEARN_MORE_TAPPED,
               g,

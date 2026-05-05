@@ -1,30 +1,30 @@
 __d(
   "fbs",
   ["fbt", "invariant", "FbtHooks", "FbtPureStringResult"],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l, s, u) {
     var e,
-      u = {},
-      c = babelHelpers.extends({}, l, {
-        _param: function (t, r, o) {
+      c = {},
+      d = babelHelpers.extends({}, s, {
+        _param: function (t, n, o) {
           return (
-            typeof r == "string" ||
-              r instanceof n("FbtPureStringResult") ||
-              s(0, 11709, r, typeof r),
-            l._param(t, r, o)
+            typeof n == "string" ||
+              n instanceof r("FbtPureStringResult") ||
+              u(0, 11709, n, typeof n),
+            s._param(t, n, o)
           );
         },
-        _plural: function (t, r, o) {
+        _plural: function (t, n, o) {
           return (
             o == null ||
               typeof o == "string" ||
-              o instanceof n("FbtPureStringResult") ||
-              s(0, 47119, o, typeof o),
-            l._plural(t, r, o)
+              o instanceof r("FbtPureStringResult") ||
+              u(0, 47119, o, typeof o),
+            s._plural(t, n, o)
           );
         },
-        _wrapContent: function (r, o, a, i) {
-          var t = typeof r == "string" ? [r] : r,
-            l = (e || (e = n("FbtHooks"))).getErrorListener({
+        _wrapContent: function (n, o, a, i) {
+          var t = typeof n == "string" ? [n] : n,
+            l = (e || (e = r("FbtHooks"))).getErrorListener({
               hash: a,
               translation: o,
             });
@@ -36,10 +36,11 @@ __d(
             patternString: o,
           });
         },
-        cachedResults: u,
+        cachedResults: c,
       }),
-      d = c;
-    a.exports = d;
+      m = d,
+      p = m;
+    l.default = p;
   },
-  null,
+  98,
 );

@@ -77,30 +77,21 @@ __d(
         IMPORTANT: "important",
         FOLLOW_UP: "follow_up",
         LEAD: "lead",
-      });
-    function m(e) {
-      switch (e) {
-        case c.NEW_CUSTOMER:
-          return u.NEW_CUSTOMER;
-        case c.NEW_ORDER:
-          return u.NEW_ORDER;
-        case c.PENDING_PAYMENT:
-          return u.PENDING_PAYMENT;
-        case c.PAID:
-          return u.PAID;
-        case c.ORDER_COMPLETE:
-          return u.ORDER_COMPLETE;
-        case c.IMPORTANT:
-          return u.IMPORTANT;
-        case c.FOLLOW_UP:
-          return u.FOLLOW_UP;
-        case c.LEAD:
-          return u.LEAD;
-        default:
-          return;
-      }
-    }
+      }),
+      m = new Map([
+        [c.NEW_CUSTOMER.toLowerCase(), u.NEW_CUSTOMER],
+        [c.NEW_ORDER.toLowerCase(), u.NEW_ORDER],
+        [c.PENDING_PAYMENT.toLowerCase(), u.PENDING_PAYMENT],
+        [c.PAID.toLowerCase(), u.PAID],
+        [c.ORDER_COMPLETE.toLowerCase(), u.ORDER_COMPLETE],
+        [c.IMPORTANT.toLowerCase(), u.IMPORTANT],
+        [c.FOLLOW_UP.toLowerCase(), u.FOLLOW_UP],
+        [c.LEAD.toLowerCase(), u.LEAD],
+      ]);
     function p(e) {
+      return m.get(e.toLowerCase());
+    }
+    function _(e) {
       switch (e) {
         case d.NEW_CUSTOMER:
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.NEW_CUSTOMER;
@@ -120,7 +111,7 @@ __d(
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.LEAD;
       }
     }
-    function _(e) {
+    function f(e) {
       switch (e) {
         case u.NEW_CUSTOMER:
           return c.NEW_CUSTOMER;
@@ -144,15 +135,15 @@ __d(
           return;
       }
     }
-    var f = 100;
+    var g = 100;
     ((l.ANDROID_LABEL_COLOR_PALETTE = e),
       (l.IPHONE_LABEL_COLOR_PALETTE = s),
       (l.PREDEFINED_LABEL_IDS = u),
       (l.PREDEFINED_LABEL_NAMES = c),
-      (l.mapLabelNameToPredefinedId = m),
-      (l.mapCustomLabelSubtypeToCTWALabelType = p),
-      (l.mapPredefinedIdToLabelName = _),
-      (l.LABEL_NAME_MAX_LENGTH = f));
+      (l.mapLabelNameToPredefinedId = p),
+      (l.mapCustomLabelSubtypeToCTWALabelType = _),
+      (l.mapPredefinedIdToLabelName = f),
+      (l.LABEL_NAME_MAX_LENGTH = g));
   },
   98,
 );

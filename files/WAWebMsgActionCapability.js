@@ -11,6 +11,7 @@ __d(
     "WAWebBizCtwaAGMUtils",
     "WAWebBizGatingUtils",
     "WAWebBotBaseGating",
+    "WAWebBotGating",
     "WAWebBotGenTypingIndicatorMsg",
     "WAWebBotProfileCollection",
     "WAWebBotUtils",
@@ -102,6 +103,7 @@ __d(
     }
     function f(e, t, n) {
       if (!e.isBot()) return !0;
+      if (o("WAWebBotUtils").isMetaAiBot(e)) return y(t);
       var r = o("WAWebBotProfileCollection").BotProfileCollection.get(e);
       return (r == null ? void 0 : r.isDefault) !== !0 ? !1 : y(t);
     }
@@ -114,7 +116,13 @@ __d(
       return f(r, t, n) && g(r, n);
     }
     function y(e) {
-      return e.length === 1 && e[0].type === o("WAWebMsgType").MSG_TYPE.CHAT;
+      if (e.length !== 1) return !1;
+      var t = e[0];
+      return !!(
+        t.type === o("WAWebMsgType").MSG_TYPE.CHAT ||
+        (t.type === o("WAWebMsgType").MSG_TYPE.IMAGE &&
+          o("WAWebBotGating").isMetaAiImageInputEnabled())
+      );
     }
     function C(e) {
       var t,

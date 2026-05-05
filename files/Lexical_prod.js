@@ -4567,57 +4567,57 @@ __d(
       return [r, n];
     }
     function $r(t, e, n, r, o, s, l) {
-      var c = r.anchorNode,
-        a = r.focusNode,
-        u = r.anchorOffset,
-        f = r.focusOffset,
-        d = document.activeElement;
-      if ((o.has(Mn) && d !== s) || (null !== d && Ho(d))) return;
+      var c = document.activeElement;
+      if ((o.has(Mn) && c !== s) || (null !== c && Ho(c))) return;
       if (!_r(e))
-        return void (null !== t && Go(n, c, a) && r.removeAllRanges());
-      var h = e.anchor,
-        g = e.focus,
-        _ = h.getNode(),
-        p = g.getNode(),
-        _Kr = Kr(n, _, h.offset),
-        y = _Kr[0],
-        m = _Kr[1],
-        _Kr2 = Kr(n, p, g.offset),
-        x = _Kr2[0],
-        C = _Kr2[1],
-        S = e.format,
-        N = e.style,
-        T = e.isCollapsed();
-      var v = y,
-        O = x,
-        E = !1;
-      var k, M, b, A, D;
+        return void (
+          null !== t &&
+          Go(n, r.anchorNode, r.focusNode) &&
+          r.removeAllRanges()
+        );
+      var a = e.anchor,
+        u = e.focus,
+        f = a.getNode(),
+        d = u.getNode(),
+        _Kr = Kr(n, f, a.offset),
+        h = _Kr[0],
+        g = _Kr[1],
+        _Kr2 = Kr(n, d, u.offset),
+        _ = _Kr2[0],
+        p = _Kr2[1],
+        y = e.format,
+        m = e.style,
+        x = e.isCollapsed();
+      var C = h,
+        S = _,
+        N = !1;
+      var T, v, O, E, k;
       if (
-        ("text" === h.type
-          ? ((v = ni(y)), (E = _.getFormat() !== S || _.getStyle() !== N))
-          : _r(t) && "text" === t.anchor.type && (E = !0),
-        "text" === g.type && (O = ni(x)),
-        null !== v && null !== O) &&
-        (T &&
-          (null === t || E || (_r(t) && (t.format !== S || t.style !== N))) &&
-          ((k = S),
-          (M = N),
-          (b = m),
-          (A = h.key),
-          (D = performance.now()),
-          (nn = [k, M, b, A, D])),
-        u !== m ||
-          f !== C ||
-          c !== v ||
-          a !== O ||
-          ("Range" === r.type && T) ||
-          ((null !== d && s.contains(d)) ||
+        ("text" === a.type
+          ? ((C = ni(h)), (N = f.getFormat() !== y || f.getStyle() !== m))
+          : _r(t) && "text" === t.anchor.type && (N = !0),
+        "text" === u.type && (S = ni(_)),
+        null !== C && null !== S) &&
+        (x &&
+          (null === t || N || (_r(t) && (t.format !== y || t.style !== m))) &&
+          ((T = y),
+          (v = m),
+          (O = g),
+          (E = a.key),
+          (k = performance.now()),
+          (nn = [T, v, O, E, k])),
+        ("Range" === r.type && x) ||
+          r.anchorOffset !== g ||
+          r.focusOffset !== p ||
+          r.anchorNode !== C ||
+          r.focusNode !== S ||
+          ((null !== c && s.contains(c)) ||
             o.has(Dn) ||
             s.focus({ preventScroll: !0 }),
-          "element" === h.type))
+          "element" === a.type))
       ) {
         if (
-          (Lr(r, v, m, O, C),
+          (Lr(r, C, g, S, p),
           !i ||
             !e.isCollapsed() ||
             null === s ||
@@ -4632,7 +4632,7 @@ __d(
         ) {
           var _t118 =
             _r(e) && "element" === e.anchor.type
-              ? v.childNodes[m] || null
+              ? C.childNodes[g] || null
               : r.rangeCount > 0
                 ? r.getRangeAt(0)
                 : null;

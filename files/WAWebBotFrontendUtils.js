@@ -113,9 +113,14 @@ __d(
         : null;
     }
     function b() {
-      return o("WAWebContactCollection").ContactCollection.get(
-        o("WAWebBotUtils").META_BOT_PN_WID,
-      );
+      var e;
+      return (e = o("WAWebContactCollection").ContactCollection.get(
+        o("WAWebBotUtils").META_BOT_FBID_WID,
+      )) != null
+        ? e
+        : o("WAWebContactCollection").ContactCollection.get(
+            o("WAWebBotUtils").META_BOT_PN_WID,
+          );
     }
     function v(e) {
       switch (e) {

@@ -955,6 +955,28 @@ __d(
           }
           return t;
         })(),
+        videoStreamPause: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield l,
+              t = e.videoStreamPause();
+            return t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        videoStreamResume: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = yield l,
+              t = e.videoStreamResume();
+            return t;
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
         broadcastVideoState: (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = yield l,

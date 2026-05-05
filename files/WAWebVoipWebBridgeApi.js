@@ -180,26 +180,30 @@ __d(
         ));
     }
     var X = "microphone-silence-toast";
-    function Y(e, t) {
+    function Y(e, t, n) {
       if (e != null) {
-        var n = new Set(
+        var a = new Set(
             e.map(function (e) {
               return e.toString();
             }),
           ),
-          a = [];
-        for (var i of t)
-          n.has(i.toString()) ||
-            o("WAWebUserPrefsMeUser").isMeAccount(i) ||
-            i.isBot() ||
-            a.push(i);
-        a.length !== 0 &&
+          i = [];
+        for (var l of t) {
+          var s = l.toString();
+          a.has(s) ||
+            o("WAWebUserPrefsMeUser").isMeAccount(l) ||
+            l.isBot() ||
+            n.get(s) ===
+              o("WAWebVoipWaCallEnums").CallParticipantState.Connected ||
+            i.push(l);
+        }
+        i.length !== 0 &&
           r("WAWebCallCollection").trigger(
             o("WAWebVoipEventConstants").getChangeEvent(
               o("WAWebVoipEventConstants").VoipCallCollectionEvents
                 .PARTICIPANTS_INVITED,
             ),
-            { jids: a },
+            { jids: i },
           );
       }
     }
@@ -894,7 +898,7 @@ __d(
             (i.groupCallParticipantsConnected = c),
             (i.groupCallParticipantStates = d),
             i.setGroupParticipantMediaStates(p, _),
-            Y(l, u),
+            Y(l, u, d),
             o("WALogger").LOG(
               k ||
                 (k = babelHelpers.taggedTemplateLiteralLoose([

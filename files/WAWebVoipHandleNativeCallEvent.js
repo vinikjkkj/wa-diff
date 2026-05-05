@@ -821,7 +821,7 @@ __d(
             (o("WALogger").LOG(
               S ||
                 (S = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [CallActive] abprops proxySctp=",
+                  "voip: [CallActive] proxySctp=",
                   " avSync=",
                   " dynFps=",
                   " perfBits=",
