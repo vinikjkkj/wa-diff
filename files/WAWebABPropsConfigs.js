@@ -662,7 +662,6 @@ __d(
       ctwa_long_term_holdout_client_side_check: [11e3, "bool", !1, !1],
       ctwa_long_term_holdout_content_enabled: [8015, "bool", !1, !0],
       ctwa_manage_ads_tab_web: [5554, "bool", !1, !1],
-      ctwa_manage_ads_tab_web_recovery_flow: [7215, "bool", !1, !1],
       ctwa_mm_biz_ai_disclosure_update_enabled: [10379, "bool", !1, !0],
       ctwa_native_ads_creation_web_enabled: [18857, "bool", !1, !1],
       ctwa_native_ads_creation_web_hawk_tool_enabled: [20442, "bool", !1, !1],
@@ -673,7 +672,6 @@ __d(
         !1,
       ],
       ctwa_native_web_draft_ad_enabled: [28989, "bool", !1, !1],
-      ctwa_native_web_enable_ad_recreate: [28258, "bool", !1, !1],
       ctwa_native_web_scenario_routing_enabled: [29074, "bool", !1, !1],
       ctwa_per_customer_data_sharing_controls_do_not_show_msg_until_chosen: [
         19763,
@@ -1754,6 +1752,7 @@ __d(
       smb_waldo_service_offerings_selection_enabled: [3285, "bool", !1, !0],
       smb_web_category_search_via_graph_enabled: [28519, "bool", !1, !1],
       smb_web_customer_management_enabled: [26165, "bool", !1, !1],
+      smb_web_enable_fb_linking: [30112, "bool", !1, !1],
       smba_bb_genai_composer_min_words: [21447, "int", 4, 4],
       smba_business_broadcast_genai_custom_user_prompt_enabled: [
         20464,

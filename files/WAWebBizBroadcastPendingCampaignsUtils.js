@@ -7,12 +7,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
-      return s.apply(this, arguments);
+    var e = 1e3,
+      s = 1e12;
+    function u() {
+      return c.apply(this, arguments);
     }
-    function s() {
+    function c() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o(
             "WAWebBizBroadcastCampaignAPI",
           ).getBizBroadcastCampaignsByStatuses([
@@ -29,14 +31,17 @@ __d(
               var t;
               return {
                 freeReservedMsgs: (t = e.reservedQuota) != null ? t : 0,
-                sendTimestamp: e.scheduledTimestamp,
+                sendTimestamp: d(e.scheduledTimestamp),
               };
             });
         })),
-        s.apply(this, arguments)
+        c.apply(this, arguments)
       );
     }
-    l.getBizBroadcastPendingCampaigns = e;
+    function d(t) {
+      return t == null ? null : t < s ? t : Math.floor(t / e);
+    }
+    l.getBizBroadcastPendingCampaigns = u;
   },
   98,
 );

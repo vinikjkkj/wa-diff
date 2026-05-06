@@ -153,6 +153,11 @@ __d(
         "status_e2ee_recv_over_status_stanza",
       );
     }
+    function x() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_enable_chat_thread_and_info_status_ring",
+      );
+    }
     ((l.statusQuickReplyEmojis = u),
       (l.isStatusLikesSendEnabled = c),
       (l.isStatusPrivateMentionsReceiveEnabled = d),
@@ -173,7 +178,8 @@ __d(
       (l.isStatusResharePosterSideEnabled = k),
       (l.isStatusReshareViewerFlowEnabled = I),
       (l.isStatusStanzaSendEnabled = T),
-      (l.isStatusStanzaReceiveEnabled = D));
+      (l.isStatusStanzaReceiveEnabled = D),
+      (l.isStatusRingOutsideChatlistEnabled = x));
   },
   98,
 );

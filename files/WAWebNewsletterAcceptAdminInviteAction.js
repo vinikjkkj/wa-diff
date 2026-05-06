@@ -2,6 +2,7 @@ __d(
   "WAWebNewsletterAcceptAdminInviteAction",
   [
     "WALogger",
+    "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebCommonNewsletterEnums",
     "WAWebMexAcceptNewsletterAdminInviteJob",
@@ -44,7 +45,11 @@ __d(
                 o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin,
               ),
               i != null &&
-                (yield o("WAWebCmd").Cmd.openChatBottom({ chat: i })));
+                (yield o("WAWebCmd").Cmd.openChatBottom({
+                  chat: i,
+                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                    .NewsletterAdminInviteAcceptModal,
+                })));
           } catch (t) {
             throw (
               o("WALogger")

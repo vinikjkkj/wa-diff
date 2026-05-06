@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = r("jsRouteBuilder")(
         "/auth/token/",
-        Object.freeze({ access_token: "" }),
+        Object.freeze({ nonce: "", access_token: "" }),
         void 0,
       ),
       s = e;

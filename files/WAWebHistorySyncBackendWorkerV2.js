@@ -1,7 +1,6 @@
 __d(
   "WAWebHistorySyncBackendWorkerV2",
   [
-    "Promise",
     "WABinary",
     "WACommonTaskScheduler",
     "WAGzip",
@@ -27,53 +26,51 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _;
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+    var e, s, u, c, d, m, p;
+    function _(e, t, n) {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          var l = 0,
-            f = 0;
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
+          var i = 0,
+            l = 0;
           try {
-            var g = new (o("WABinary").Binary)(a),
-              h = yield o("WAGzip").inflate(g.readByteArrayView()),
-              y = o("decodeProtobuf").decodeProtobuf(
+            var _ = new (o("WABinary").Binary)(n),
+              f = yield o("WAGzip").inflate(_.readByteArrayView()),
+              g = o("decodeProtobuf").decodeProtobuf(
                 o("WAWebProtobufsHistorySync.pb").HistorySyncSpec,
-                h,
+                f,
               );
-            f = y.conversations.length;
-            var C = [];
-            (y.phoneNumberToLidMappings.forEach(function (e) {
+            l = g.conversations.length;
+            var h = [];
+            (g.phoneNumberToLidMappings.forEach(function (e) {
               var t = e.lidJid,
                 n = e.pnJid;
               t != null &&
                 n != null &&
-                C.push({
+                h.push({
                   lid: o("WAWebWidFactory").createUserLidOrThrow(t),
                   pn: o("WAWebWidFactory").createUserWidOrThrow(n),
                 });
             }),
-              yield i.isReady);
-            var b = yield o(
+              yield a.isReady);
+            var y = yield o(
               "WAWebGetHistorySyncProgress",
             ).getHistorySyncProgress(t);
-            (yield o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches(
-              {
-                mappings: C,
-                flushImmediately: !0,
-                identityChangeHandlingEnabled: !1,
-                learningSource: "other",
-              },
-            ),
+            (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+              mappings: h,
+              flushImmediately: !0,
+              identityChangeHandlingEnabled: !1,
+              learningSource: "other",
+            }),
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[history sync][recent sync] learned ",
                     " mappings",
                   ])),
-                C.length,
+                h.length,
               ),
               o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
                 t.syncType,
@@ -90,12 +87,12 @@ __d(
                 o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(
                   t,
                   void 0,
-                  y.conversations.length,
+                  g.conversations.length,
                 ),
               ),
               t.chunkOrder != null &&
                 o("WAWebHistorySyncProgress").updateHistorySyncProgressModel(),
-              (y.conversations = y.conversations.reduce(function (e, t) {
+              (g.conversations = g.conversations.reduce(function (e, t) {
                 var n = null;
                 try {
                   n = o("WAWebWidFactory").createWid(t.id);
@@ -124,38 +121,38 @@ __d(
               o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
                 ? yield r("WACommonTaskScheduler").yield()
                 : yield o("WAPromiseDelays").releaseToEventLoop());
-            var v = yield o(
+            var C = yield o(
                 "WAWebPreprocessHistorySyncProto",
-              ).preprocessHistorySyncProto(y, C),
-              S = v.associatedMsgs,
-              R = v.chatRows,
-              L = v.chatsWithRecentOrFullSyncMsgs,
-              E = v.lastMsgs,
-              k = v.missingParentsCache,
-              I = v.recentOrFullSyncMsgs,
-              T = v.threadMsgs,
-              D = v.totalChunkMsgCount,
-              x = v.unifiedAddons;
-            ((l = D),
+              ).preprocessHistorySyncProto(g, h),
+              b = C.associatedMsgs,
+              v = C.chatRows,
+              S = C.chatsWithRecentOrFullSyncMsgs,
+              R = C.lastMsgs,
+              L = C.missingParentsCache,
+              E = C.recentOrFullSyncMsgs,
+              k = C.threadMsgs,
+              I = C.totalChunkMsgCount,
+              T = C.unifiedAddons;
+            ((i = I),
               o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
                 t.syncType,
                 o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
                   .MESSAGE_PREPROCESSED,
                 t.chunkOrder,
               ),
-              I.length !== 0
+              E.length !== 0
                 ? yield o(
                     "WAWebHandleHistorySyncMsg",
                   ).handleProgressiveHistorySyncMsgs(
-                    I,
-                    Array.from(L),
-                    x,
                     E,
+                    Array.from(S),
+                    T,
+                    R,
                     t.syncType,
                     t.chunkOrder,
-                    S,
+                    b,
+                    L,
                     k,
-                    T,
                   )
                 : o("WALogger").LOG(
                     d ||
@@ -165,46 +162,44 @@ __d(
                   ),
               o(
                 "WAWebUserPrefsHistorySync",
-              ).setHistorySyncTotalProcessedMessageCount(D),
+              ).setHistorySyncTotalProcessedMessageCount(I),
               yield o("WAWebUserPrefsHistorySync").setLastHistorySyncedChunk(
                 t.syncType,
                 t.chunkOrder,
-                b,
+                y,
               ),
               o("WAWebHistorySyncProgress").updateHistorySyncProgressModel());
             for (
-              var $ = o(
+              var D = o(
                   "WAWebUserPrefsHistorySync",
                 ).getHistoryInitialSyncBoundary(),
-                P = new Set(),
-                N = [],
-                M = 0;
-              M < y.conversations.length;
-              M++
+                x = new Set(),
+                $ = [],
+                P = 0;
+              P < g.conversations.length;
+              P++
             ) {
-              var w = y.conversations[M],
-                A = o("WAWebWidFactory").createWid(w.id),
-                F = R[M],
-                O =
-                  (F == null ? void 0 : F.id) != null
-                    ? o("WAWebWidFactory").createWid(F.id)
-                    : A;
-              P.add(O.toString());
-              var B = ($ == null ? void 0 : $[w.id]) != null;
-              if (B) {
-                var W = w.endOfHistoryTransferType;
-                W != null &&
-                  N.push(
-                    o(
-                      "WAWebHistorySyncWorkerCompatibleNotificationUtils",
-                    ).updateEndOfHistorySync(O, W),
-                  );
+              var N = g.conversations[P],
+                M = o("WAWebWidFactory").createWid(N.id),
+                w = v[P],
+                A =
+                  (w == null ? void 0 : w.id) != null
+                    ? o("WAWebWidFactory").createWid(w.id)
+                    : M;
+              x.add(A.toString());
+              var F = (D == null ? void 0 : D[N.id]) != null;
+              if (F) {
+                var O = N.endOfHistoryTransferType;
+                O != null &&
+                  $.push({ chat: A, endOfHistoryTransferTypeFromProto: O });
               }
             }
-            (yield (_ || (_ = n("Promise"))).all(N),
+            (yield o(
+              "WAWebHistorySyncWorkerCompatibleNotificationUtils",
+            ).bulkUpdateEndOfHistorySync($),
               o("WAWebBackendEventBusWorkerCompatible")
                 .getBackendEventBus()
-                .triggerHistorySyncChunkProcessed(P),
+                .triggerHistorySyncChunkProcessed(x),
               o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
                 t.syncType,
                 o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
@@ -219,8 +214,8 @@ __d(
                   ])),
                 o("WAWebHistorySyncLogUtils").getHistorySyncLogDetailsString(
                   t,
-                  D,
-                  L.length,
+                  I,
+                  S.length,
                 ),
               ));
           } catch (e) {
@@ -238,14 +233,14 @@ __d(
             );
           }
           return o("WAResultOrError").makeResult({
-            totalChunkMsgCount: l,
-            conversationLength: f,
+            totalChunkMsgCount: i,
+            conversationLength: l,
           });
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    l.processHistorySync = f;
+    l.processHistorySync = _;
   },
   98,
 );

@@ -93,7 +93,7 @@ __d(
           );
         }
       },
-      p = "https://web.whatsapp.net",
+      p = "https://a.whatsapp.net",
       _ = function (t) {
         t.type === o("WAWebMsgType").MSG_TYPE.STICKER &&
           t.deprecatedMms3Url == null &&

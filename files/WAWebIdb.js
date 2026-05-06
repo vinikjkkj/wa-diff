@@ -414,7 +414,7 @@ __d(
               function* (e, t) {
                 var n,
                   r = this;
-                (n = this.updateListener) == null || n.call(this, [e]);
+                (n = this.updateListener) == null || n.call(this, [e], [t]);
                 var a = this.propFilter(t),
                   i =
                     this.$3() ||
@@ -467,28 +467,39 @@ __d(
           }),
           (a.merge = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n;
-                (n = this.updateListener) == null || n.call(this, [e]);
-                var a = this.propFilter(t),
-                  i =
+              function* (e, t, n) {
+                var a = (n == null ? void 0 : n.usePropsFilter) === !0;
+                if (!a) {
+                  var i;
+                  (i = this.updateListener) == null || i.call(this, [e]);
+                }
+                var l = this.propFilter(t),
+                  s =
                     this.$3() ||
                     !o("WAWebIdbAsyncAwaitConfig").isAsyncAwaitPrepEnabled()
-                      ? yield this.$7(a, !0)
-                      : this.$5(a, !0);
+                      ? yield this.$7(l, !0)
+                      : this.$5(l, !0);
+                if (a) {
+                  var u;
+                  (u = this.updateListener) == null || u.call(this, [e], [t]);
+                }
                 try {
-                  var l;
-                  (yield o("WAWebDexieCastTypes").dexieCastToPromise(
-                    this.table.update(e, i),
-                  ),
-                    (l = this.updateListener) == null || l.call(this, [e]));
+                  if (
+                    (yield o("WAWebDexieCastTypes").dexieCastToPromise(
+                      this.table.update(e, s),
+                    ),
+                    !a)
+                  ) {
+                    var c;
+                    (c = this.updateListener) == null || c.call(this, [e]);
+                  }
                 } catch (e) {
-                  var s = r("getErrorSafe")(e);
-                  throw (this.$1(s, "merge", { writeData: i }), s);
+                  var d = r("getErrorSafe")(e);
+                  throw (this.$1(d, "merge", { writeData: s }), d);
                 }
               },
             );
-            function t(t, n) {
+            function t(t, n, r) {
               return e.apply(this, arguments);
             }
             return t;
@@ -625,6 +636,7 @@ __d(
                       t.map(function (e) {
                         return i.$15(e);
                       }),
+                      t,
                     ));
                 var d = new Map(),
                   m = this.$17(),

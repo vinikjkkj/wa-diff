@@ -889,7 +889,7 @@ __d(
       o("WAWebCurrentUser").isEmployee() &&
         r("WAWebLazyLoadedRetriable")(h, "bugnub_v2_popup")().then(
           function (r) {
-            r(e, t, n);
+            r({ options: n, prefilledDescription: e, prefilledTitle: t });
           },
         );
     }

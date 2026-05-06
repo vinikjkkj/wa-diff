@@ -166,27 +166,27 @@ __d(
         b.apply(this, arguments)
       );
     }
-    function v(e, t) {
+    function v(e, t, n) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
               e,
               t,
             ),
-            a =
-              r != null
+            i =
+              a != null
                 ? o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
                     .getContactTable()
-                    .merge(r.id, r)
+                    .merge(a.id, a, r)
                 : (d || (d = n("Promise"))).resolve();
           yield (d || (d = n("Promise"))).all([
             o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
               .getContactTable()
-              .merge(e, t),
-            a,
+              .merge(e, t, r),
+            i,
           ]);
         })),
         S.apply(this, arguments)

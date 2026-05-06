@@ -5,6 +5,7 @@ __d(
     "WAWebE2EProtoGenerator",
     "WAWebE2EProtoUtils",
     "WAWebGenerateProtocolMessageEditProto",
+    "WAWebMessageSecretLocationUtils",
     "WAWebMessagingGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -123,7 +124,18 @@ __d(
             : void 0,
         );
       } else d.message = _;
-      return d;
+      return (
+        d.message != null &&
+          o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret(
+            d.message,
+            o("WAWebMessageSecretLocationUtils").MessageSecretCheckContext
+              .Sender,
+            void 0,
+            o("WAWebMessageSecretLocationUtils")
+              .MESSAGE_SECRET_RULE_ID_GROUP_HISTORY,
+          ),
+        d
+      );
     }
     l.default = s;
   },

@@ -2,9 +2,11 @@ __d(
   "WAWebNewsletterStatusProcessingUtils",
   [
     "Promise",
+    "WATimeUtils",
     "WAWebAck",
     "WAWebMsgCollection",
     "WAWebNewsletterBackendAddOnsUtils",
+    "WAWebNewsletterBridgeMsgAddOnsUtils",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterMetadataJob",
     "WAWebNewsletterUpdateMsgsRecordsJob",
@@ -108,37 +110,83 @@ __d(
         });
       }
     }
-    function f(e, t) {
+    function f(e, t, n, r) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebStatusCollection").StatusCollection.get(e);
-          if (n != null) {
-            var r = [],
-              a = new Map();
-            (n.msgs.forEach(function (e) {
-              var n = e.serverId != null ? t.get(e.serverId) : void 0;
-              n != null &&
-                (e.set("viewCount", n),
-                r.push(e.id),
-                a.set(e.id.toString(), n));
-            }),
-              a.size > 0 &&
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, r) {
+            var a = o("WAWebStatusCollection").StatusCollection.get(e);
+            if (a != null) {
+              var i = r != null ? r : o("WATimeUtils").unixTime(),
+                l = [],
+                s = new Map(),
+                u = [],
+                c = [];
+              for (var d of a.msgs.toArray()) {
+                var m = d.serverId;
+                if (m != null) {
+                  var p = t.get(m);
+                  if (
+                    p != null &&
+                    (d.set("viewCount", p),
+                    l.push(d.id),
+                    s.set(d.id.toString(), p),
+                    n != null)
+                  ) {
+                    var _ = n.get(m);
+                    _ != null
+                      ? u.push({
+                          parentMsgKey: d.id,
+                          emojiCountMap: new Map(_),
+                          serverTimestamp: i,
+                        })
+                      : c.push(d.id.toString());
+                  }
+                }
+              }
+              l.length !== 0 &&
                 (yield o(
                   "WAWebNewsletterBackendAddOnsUtils",
                 ).persistNewsletterStatusInteractions({
-                  ids: r,
+                  ids: l,
+                  reactionIdsToRemove: c,
+                  reactions: u,
                   timestamp: Date.now(),
-                  viewCounts: a,
-                })));
-          }
-        })),
+                  viewCounts: s,
+                }),
+                n != null &&
+                  (yield o(
+                    "WAWebNewsletterBridgeMsgAddOnsUtils",
+                  ).updateReactions({
+                    ids: l,
+                    reactionIdsToRemove: c,
+                    reactions: u,
+                  })));
+            }
+          },
+        )),
         g.apply(this, arguments)
       );
     }
-    function h(e) {
+    function h(e, t, n) {
+      var r = [],
+        o = [];
+      for (var a of e) {
+        var i = a.toString(),
+          l = t.get(i);
+        l != null
+          ? r.push({
+              parentMsgKey: a,
+              emojiCountMap: new Map(l),
+              serverTimestamp: n,
+            })
+          : o.push(i);
+      }
+      return { reactions: r, reactionIdsToRemove: o };
+    }
+    function y(e) {
       var t = o("WAWebStatusCollection").StatusCollection.get(e);
       if (t != null) {
         var n = t.msgs.countWhere(function (e) {
@@ -152,8 +200,9 @@ __d(
       (l.computeMaxServerId = c),
       (l.addAndPersistStatusMessages = m),
       (l.updateStatusViewCounts = _),
-      (l.applyAndPersistViewCounts = f),
-      (l.updateStatusUnreadCount = h));
+      (l.applyAndPersistInteractions = f),
+      (l.prepareReactionsForPersist = h),
+      (l.updateStatusUnreadCount = y));
   },
   98,
 );

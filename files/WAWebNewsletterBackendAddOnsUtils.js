@@ -163,18 +163,19 @@ __d(
       return (
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.ids,
-            n = e.reactions,
-            r = e.timestamp,
-            o = e.viewCounts;
+            n = e.reactionIdsToRemove,
+            r = e.reactions,
+            o = e.timestamp,
+            a = e.viewCounts;
           t.length !== 0 &&
             (yield s({
               ids: t,
               msgs: [],
-              reactions: n != null ? n : [],
-              reactionIdsToRemove: [],
+              reactions: r != null ? r : [],
+              reactionIdsToRemove: n != null ? n : [],
               pollVotes: [],
-              timestamp: r,
-              viewCounts: o,
+              timestamp: o,
+              viewCounts: a,
               questionResponsesCounts: new Map(),
               forwardsCounts: new Map(),
             }));

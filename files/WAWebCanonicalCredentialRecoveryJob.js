@@ -97,7 +97,7 @@ __d(
               r("WAWebODS").incr(
                 "web.app.canonical.recovery.job.cached_nonce_attempt",
               ));
-            var e = yield o("WAWebMexCachedTokenJob").fetchCachedNonceToken(""),
+            var e = yield o("WAWebMexCachedTokenJob").fetchCachedNonceToken(),
               t = e.accessToken,
               n = e.fbid,
               a = o("WAWebUserPrefsMeUser").getMaybeMeDeviceId();
@@ -117,7 +117,7 @@ __d(
             var i = yield o(
               "WAWebCanonicalTokenExchange",
             ).storeCanonicalCredentials(
-              { userId: n, deviceId: a, nonce: "", accessToken: t },
+              { userId: n, deviceId: a, accessToken: t },
               "recovery",
             );
             return i !==
@@ -365,6 +365,7 @@ __d(
     ((l.clearNonceRequestTimestamp = k),
       (l.requestNonceFromPrimary = I),
       (l.getNewRequestCooldownSeconds = x),
+      (l.fetchCachedNonce = P),
       (l.maybeRecoverCanonicalCredentials = A));
   },
   98,

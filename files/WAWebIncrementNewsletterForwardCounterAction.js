@@ -14,7 +14,7 @@ __d(
     function e(e, t) {
       if (
         !(
-          t.id === o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE() &&
+          o("WAWebUserPrefsMeUser").isMeAccount(t.id) &&
           !o(
             "WAWebNewsletterGatingUtils",
           ).isNewsletterForwardCounterBumpForwardsToSelfEnabled()

@@ -31,17 +31,34 @@ __d(
       f,
       g,
       h = r("qpl")._(891427936, "2894"),
-      y = 200,
-      C = 100;
-    function b() {
+      y = new Set([
+        "phoneNumber",
+        "name",
+        "pushname",
+        "isAddressBookContact",
+        "type",
+        "username",
+        "usernameCountryCode",
+        "isHosted",
+      ]);
+    function C(e) {
+      for (var t of e)
+        if (!(t == null || typeof t != "object")) {
+          for (var n of Object.keys(t)) if (y.has(n)) return !0;
+        }
+      return !1;
+    }
+    var b = 200,
+      v = 100;
+    function S() {
       var e = self.performance.now();
       return n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        self.performance.now() - e > C &&
+        self.performance.now() - e > v &&
           (yield o("WAPromiseDelays").releaseToEventLoop(),
           (e = self.performance.now()));
       });
     }
-    var v = (function () {
+    var R = (function () {
       function t(t, a, i) {
         var l = this;
         ((this.$4 = "contacts"),
@@ -200,8 +217,13 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
             var e = this;
             if (
-              (r("WAWebLidAwareContactsDB").setUpdateListener(function (t) {
-                return e.$12(t);
+              (r("WAWebLidAwareContactsDB").setUpdateListener(function (t, n) {
+                (o("WAWebABProps").getABPropConfigValue(
+                  "web_anr_skip_unused_contacts_db_updates_enabled",
+                ) &&
+                  n != null &&
+                  !C(n)) ||
+                  e.$12(t);
               }),
               yield r("WAWebEventsWaitForMainStreamReadyMd")(),
               !this.$3 && !r("WAWebSyncBootstrap").isSyncDBootstrapInProcess())
@@ -419,9 +441,9 @@ __d(
             for (
               var t = this,
                 n = self.performance.now(),
-                a = b(),
+                a = S(),
                 i = function* () {
-                  var n = e.slice(l, l + y),
+                  var n = e.slice(l, l + b),
                     i = self.performance.now(),
                     s = yield r("WAWebLidAwareContactsDB").bulkGet(n),
                     u = self.performance.now() - i;
@@ -469,11 +491,11 @@ __d(
                     m.length,
                     f.toFixed(0),
                   ),
-                    l + y < e.length && (yield a()));
+                    l + b < e.length && (yield a()));
                 },
                 l = 0;
               l < e.length;
-              l += y
+              l += b
             )
               yield* i();
             var s = self.performance.now() - n;
@@ -496,7 +518,7 @@ __d(
         t
       );
     })();
-    l.WindowsHybridBridgeContacts = v;
+    l.WindowsHybridBridgeContacts = R;
   },
   98,
 );

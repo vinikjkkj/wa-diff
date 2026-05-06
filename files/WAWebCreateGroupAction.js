@@ -36,6 +36,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "countWhere",
     "fbs",
     "gkx",
     "react",
@@ -225,9 +226,9 @@ __d(
                         o("WAWebJidToWid").userJidToUserWid(e.id).toString(),
                       );
                     }),
-                    u = n.filter(function (e) {
+                    u = r("countWhere")(n, function (e) {
                       return e.invite_code == null;
-                    }).length,
+                    }),
                     c = function () {
                       if (s.length > 0) {
                         o("WAWebModalManager").ModalManager.open(

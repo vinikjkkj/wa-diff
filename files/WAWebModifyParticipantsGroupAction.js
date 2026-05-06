@@ -29,6 +29,7 @@ __d(
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "countWhere",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -157,9 +158,9 @@ __d(
                         o("WAWebJidToWid").userJidToUserWid(e.id).toString(),
                       );
                     }),
-                    p = l.filter(function (e) {
+                    p = r("countWhere")(l, function (e) {
                       return e.invite_code == null;
-                    }).length,
+                    }),
                     _ =
                       i.length > 0
                         ? function () {

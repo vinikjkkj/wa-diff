@@ -38,7 +38,7 @@ __d(
               d = t.userId,
               m = r("WAXWhatsAppWebAuthControllerRouteBuilder").buildUri({
                 access_token: i != null ? i : "",
-                nonce: c,
+                nonce: c != null ? c : "",
                 user_id: d,
                 device_id: l,
               }),

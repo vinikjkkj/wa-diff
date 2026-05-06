@@ -69,23 +69,29 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e;
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[newsletters][getRecommendedNewslettersAction] Start",
               ])),
           );
-          var e = o(
-              "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
-            ).getCountryCodeIso(
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().user,
-            ),
-            t = yield o(
+          var t =
+              (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
+                ? void 0
+                : e.user,
+            n =
+              t != null
+                ? o(
+                    "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
+                  ).getCountryCodeIso(t)
+                : void 0,
+            r = yield o(
               "WAWebNewsletterDirectorySearchJob",
-            ).getRecommendedNewsletters(e),
-            n = yield o(
+            ).getRecommendedNewsletters(n),
+            a = yield o(
               "WAWebGetNewsletterDirectoryChats",
-            ).getDirectoryNewsletterChats(t, { skipSubscribedNewsletters: !0 });
+            ).getDirectoryNewsletterChats(r, { skipSubscribedNewsletters: !0 });
           return (
             o("WALogger").LOG(
               c ||
@@ -93,7 +99,7 @@ __d(
                   "[newsletters][getRecommendedNewslettersAction] End",
                 ])),
             ),
-            n
+            a
           );
         })),
         L.apply(this, arguments)

@@ -22,8 +22,9 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e;
-    function u(e, t) {
+    var e,
+      u = "https://a.whatsapp.net";
+    function c(e, t) {
       var n = o("WAWebStatusCollection").StatusCollection.get(e);
       n
         ? n.set({
@@ -38,12 +39,12 @@ __d(
             unreadCount: 1,
           });
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    function d(e, t) {
+      return m.apply(this, arguments);
     }
-    function d() {
+    function m() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled()
           )
@@ -77,13 +78,13 @@ __d(
               e,
               [l],
             ),
-            u(e, i.t),
+            c(e, i.t),
             yield o("WAWebDBProcessMessage").storeMessages([i], e));
           try {
-            var c = yield o(
+            var u = yield o(
               "WAWebNewsletterSendStatusJob",
             ).sendNewsletterStatus({ type: "text", msg: l, newsletterJid: n });
-            return _(l, c);
+            return f(l, u);
           } catch (e) {
             var d;
             throw (
@@ -100,15 +101,15 @@ __d(
             l.wamMessageSendReporter = null;
           }
         })),
-        d.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function p() {
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (
             !o("WAWebNewsletterGatingUtils").isNewsletterStatusCreationEnabled()
           )
@@ -138,16 +139,16 @@ __d(
               n,
               [l],
             ),
-            u(n, i.t),
+            c(n, i.t),
             yield o("WAWebDBProcessMessage").storeMessages([i], n));
           try {
             yield t(l);
           } catch (e) {
-            var c;
+            var d;
             return (
               l.updateAck(o("WAWebAck").ACK.FAILED),
-              (c = l.wamMessageSendReporter) == null ||
-                c.postFailure({
+              (d = l.wamMessageSendReporter) == null ||
+                d.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UPLOAD,
                   isTerminal: !0,
@@ -159,24 +160,25 @@ __d(
               }
             );
           }
-          var d = l.mediaHandle;
-          d != null || s(0, 144005);
+          l.deprecatedMms3Url = u;
+          var m = l.mediaHandle;
+          m != null || s(0, 144005);
           try {
-            var m = yield o(
+            var p = yield o(
               "WAWebNewsletterSendStatusJob",
             ).sendNewsletterStatus({
               type: "media",
               msg: l,
               newsletterJid: a,
-              mediaHandle: d,
+              mediaHandle: m,
             });
-            return _(l, m);
+            return f(l, p);
           } catch (e) {
-            var p;
+            var _;
             throw (
               l.updateAck(o("WAWebAck").ACK.FAILED),
-              (p = l.wamMessageSendReporter) == null ||
-                p.postFailure({
+              (_ = l.wamMessageSendReporter) == null ||
+                _.postFailure({
                   result: o("WAWebWamEnumMessageSendResultType")
                     .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                   isTerminal: !0,
@@ -187,10 +189,10 @@ __d(
             l.wamMessageSendReporter = null;
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function _(t, n) {
+    function f(t, n) {
       var r;
       if (n.success) {
         var a;
@@ -232,8 +234,8 @@ __d(
         }
       );
     }
-    ((l.sendNewsletterStatusTextMsgAction = c),
-      (l.sendNewsletterStatusMediaMsgAction = m));
+    ((l.sendNewsletterStatusTextMsgAction = d),
+      (l.sendNewsletterStatusMediaMsgAction = p));
   },
   98,
 );

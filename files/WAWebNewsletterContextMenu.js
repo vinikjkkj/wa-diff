@@ -5,6 +5,7 @@ __d(
     "WAWebChatContextMenuItemArchive.react",
     "WAWebChatContextMenuItemMarkUnread.react",
     "WAWebChatContextMenuItemPin.react",
+    "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebModalManager",
     "WAWebMuteMenuItem.react",
@@ -108,7 +109,11 @@ __d(
       t[0] !== a
         ? ((i = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield o("WAWebCmd").Cmd.openChatBottom({ chat: a }),
+              (yield o("WAWebCmd").Cmd.openChatBottom({
+                chat: a,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .NewsletterChatlist,
+              }),
                 o("WAWebCmd").Cmd.chatInfoDrawer(a));
             });
             return function () {
@@ -307,7 +312,11 @@ __d(
       t[0] !== a
         ? ((i = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield o("WAWebCmd").Cmd.openChatBottom({ chat: a }),
+              (yield o("WAWebCmd").Cmd.openChatBottom({
+                chat: a,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .NewsletterChatlist,
+              }),
                 o("WAWebCmd").Cmd.newsletterDeleteDrawer(a));
             });
             return function () {

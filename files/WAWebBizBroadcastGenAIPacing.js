@@ -3,8 +3,9 @@ __d(
   ["WAWebBizBroadcastGenAIGating", "WAWebUserPrefsStore"],
   function (t, n, r, o, a, i, l) {
     var e = "genai_bb_pacing",
-      s = 864e5;
-    function u() {
+      s = 36e5,
+      u = 24 * s;
+    function c() {
       var t = r("WAWebUserPrefsStore").getUser(e);
       if (t == null || typeof t != "object" || Array.isArray(t)) return null;
       var n = t.requestCount,
@@ -16,46 +17,46 @@ __d(
         ? null
         : { requestCount: n, startTime: o };
     }
-    function c(t) {
+    function d(t) {
       r("WAWebUserPrefsStore").setUser(e, t, { shouldWriteToIdb: !1 });
     }
-    function d(e) {
-      return Date.now() - e.startTime >= s;
-    }
-    function m() {
-      var e = u();
-      return e == null || d(e) ? 0 : e.requestCount;
+    function m(e) {
+      return Date.now() - e.startTime >= u;
     }
     function p() {
-      var e = u();
-      if (e == null || d(e)) {
-        var t = { requestCount: 1, startTime: Date.now() };
-        return (c(t), 1);
-      }
-      var n = e.requestCount + 1;
-      return (c({ requestCount: n, startTime: e.startTime }), n);
+      var e = c();
+      return e == null || m(e) ? 0 : e.requestCount;
     }
     function _() {
-      var e = o("WAWebBizBroadcastGenAIGating").getGenAIMaxDaily();
-      return m() >= e;
+      var e = c();
+      if (e == null || m(e)) {
+        var t = { requestCount: 1, startTime: Date.now() };
+        return (d(t), 1);
+      }
+      var n = e.requestCount + 1;
+      return (d({ requestCount: n, startTime: e.startTime }), n);
     }
     function f() {
-      var e = o("WAWebBizBroadcastGenAIGating").getGenAIMaxDaily(),
-        t = m();
-      return Math.max(0, e - t);
+      var e = o("WAWebBizBroadcastGenAIGating").getGenAIMaxDaily();
+      return p() >= e;
     }
     function g() {
-      var e = u();
-      if (e == null || d(e)) return 0;
-      var t = Date.now() - e.startTime,
-        n = s - t;
-      return Math.max(1, Math.ceil(n / (3600 * 1e3)));
+      var e = o("WAWebBizBroadcastGenAIGating").getGenAIMaxDaily(),
+        t = p();
+      return Math.max(0, e - t);
     }
-    ((l.getRequestCount = m),
-      (l.incrementRequestCount = p),
-      (l.hasReachedDailyLimit = _),
-      (l.getRemainingGenerations = f),
-      (l.getHoursUntilReset = g));
+    function h() {
+      var e = c();
+      if (e == null || m(e)) return 0;
+      var t = Date.now() - e.startTime,
+        n = u - t;
+      return Math.max(1, Math.ceil(n / s));
+    }
+    ((l.getRequestCount = p),
+      (l.incrementRequestCount = _),
+      (l.hasReachedDailyLimit = f),
+      (l.getRemainingGenerations = g),
+      (l.getHoursUntilReset = h));
   },
   98,
 );

@@ -1,6 +1,7 @@
 __d(
   "WAWebHistorySyncWorkerCompatibleNotificationUtils",
   [
+    "Promise",
     "WALogger",
     "WAWebBackendApi",
     "WAWebChatConstants",
@@ -9,15 +10,15 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
+    var e, s, u, c;
+    function d(e, t, n) {
+      return m.apply(this, arguments);
     }
-    function u() {
+    function m() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
           r === void 0 && (r = !1);
-          var a = c(n),
+          var a = f(n),
             i = { id: t, endOfHistoryTransferType: a };
           (o("WALogger").LOG(
             e ||
@@ -38,10 +39,68 @@ __d(
               { things: [i], options: { merge: !0, add: !1 } },
             ));
         })),
-        u.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function c(e) {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (e.length !== 0) {
+            var t = o("WAWebSchemaChat").getChatTable(),
+              r = yield (c || (c = n("Promise"))).allSettled(
+                e.map(function (e) {
+                  var n = e.chat,
+                    r = e.endOfHistoryTransferTypeFromProto,
+                    a = e.setChatTimeToZero,
+                    i = f(r),
+                    l = { id: n, endOfHistoryTransferType: i };
+                  return (
+                    a === !0 && (l.t = 0),
+                    o("WALogger").LOG(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "[history sync] update chat ",
+                          " end of history transfer type to ",
+                          "",
+                        ])),
+                      n.toLogString(),
+                      i,
+                    ),
+                    t
+                      .merge(n.toString(), { endOfHistoryTransferType: i })
+                      .then(function () {
+                        return l;
+                      })
+                  );
+                }),
+              ),
+              a = [];
+            (r.forEach(function (e) {
+              e.status === "fulfilled"
+                ? a.push(e.value)
+                : o("WALogger").WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[history sync] bulkUpdateEndOfHistorySync: chat merge failed: ",
+                        "",
+                      ])),
+                    e.reason,
+                  );
+            }),
+              a.length !== 0 &&
+                (yield o("WAWebBackendApi").frontendSendAndReceive(
+                  "chatCollectionAdd",
+                  { things: a, options: { merge: !0, add: !1 } },
+                )));
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    function f(e) {
       return e ===
         o("WAWebProtobufsHistorySync.pb").Conversation$EndOfHistoryTransferType
           .COMPLETE_BUT_MORE_MESSAGES_REMAIN_ON_PRIMARY
@@ -75,7 +134,7 @@ __d(
                   );
                 })();
     }
-    l.updateEndOfHistorySync = s;
+    ((l.updateEndOfHistorySync = d), (l.bulkUpdateEndOfHistorySync = p));
   },
   98,
 );

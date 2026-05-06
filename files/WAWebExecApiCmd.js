@@ -25,6 +25,7 @@ __d(
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebCTWATrackingPayloadUtils",
     "WAWebCatalogManagementFlowLoadable",
+    "WAWebChatEntryPoint",
     "WAWebChatSearchFilters",
     "WAWebChatlistUtils",
     "WAWebCmd",
@@ -477,7 +478,11 @@ __d(
               .then(function (e) {
                 var t = e.chat;
                 o("WAWebCmd")
-                  .Cmd.openChatFromUnread({ chat: t })
+                  .Cmd.openChatFromUnread({
+                    chat: t,
+                    chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                      .Deeplink,
+                  })
                   .then(function (e) {
                     e && o("WAWebComposeBoxActions").ComposeBoxActions.focus(t);
                   });
@@ -770,6 +775,8 @@ __d(
                 (yield o("WAWebCmd").Cmd.openChatAt({
                   chat: n,
                   msgContext: null,
+                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                    .Deeplink,
                 }),
                   e != null &&
                     o("WAWebComposeBoxActions").ComposeBoxActions.paste(
@@ -803,6 +810,8 @@ __d(
                 (yield o("WAWebCmd").Cmd.openChatAt({
                   chat: n,
                   msgContext: null,
+                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                    .Deeplink,
                 }),
                   e != null &&
                     (o(
@@ -833,6 +842,8 @@ __d(
                 yield o("WAWebCmd").Cmd.openChatAt({
                   chat: r,
                   msgContext: null,
+                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                    .Deeplink,
                 });
               },
             );
@@ -1014,7 +1025,11 @@ __d(
               .then(function (e) {
                 var t = e.chat;
                 o("WAWebCmd")
-                  .Cmd.openChatFromUnread({ chat: t })
+                  .Cmd.openChatFromUnread({
+                    chat: t,
+                    chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                      .Deeplink,
+                  })
                   .then(function (e) {
                     (e &&
                       (o("WAWebComposeBoxActions").ComposeBoxActions.focus(t),

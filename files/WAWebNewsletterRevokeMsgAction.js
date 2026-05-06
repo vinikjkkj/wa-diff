@@ -88,7 +88,7 @@ __d(
                   .ERROR_CANCELLED,
               }
             );
-          var i = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          var i = o("WAWebUserPrefsMeUser").getMeUser(),
             l = h(n, r, i);
           try {
             var d = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(

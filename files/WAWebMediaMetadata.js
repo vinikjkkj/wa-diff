@@ -1,6 +1,6 @@
 __d(
   "WAWebMediaMetadata",
-  ["WALogger", "WAWebMediaCryptoEligibilityUtils", "err"],
+  ["WALogger", "WAWebMediaCryptoEligibilityUtils", "WAWebMsgGetters", "err"],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(t) {
@@ -47,11 +47,7 @@ __d(
         );
       var i = t.mediaData;
       return {
-        url: o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(
-          t,
-        )
-          ? a.deprecatedMms3Url
-          : null,
+        url: c(t, a.deprecatedMms3Url),
         directPath: a.directPath,
         encFilehash: a.getEncfilehash(),
         mediaKey: a.getMediaKey(),
@@ -76,6 +72,15 @@ __d(
         waveform: t.waveform,
         staticUrl: t.staticUrl,
       };
+    }
+    function c(e, t) {
+      if (o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(e))
+        return t;
+      if (o("WAWebMsgGetters").getIsStatus(e)) {
+        var n;
+        return (n = e.deprecatedMms3Url) != null ? n : null;
+      }
+      return null;
     }
     l.mediaMetadata = u;
   },

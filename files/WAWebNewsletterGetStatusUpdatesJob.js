@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WASmaxNewslettersGetNewsletterStatusUpdatesRPC",
     "WAWebJidToWid",
+    "WAWebNewsletterStatusUtils",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -21,7 +22,7 @@ __d(
           var t = String(e),
             n = u.get(t);
           if (n != null) return n;
-          var r = _(e);
+          var r = f(e);
           u.set(t, r);
           try {
             return yield r;
@@ -45,11 +46,24 @@ __d(
       return t;
     }
     function _(e) {
-      return f.apply(this, arguments);
+      var t = new Map();
+      for (var n of e) {
+        var r,
+          a = o("WAWebNewsletterStatusUtils").buildEmojiCountMap(
+            (r = n.statusNewsletterReactionsMixin) == null
+              ? void 0
+              : r.reactionsReaction,
+          );
+        a != null && t.set(n.serverId, a);
+      }
+      return t;
     }
-    function f() {
+    function f(e) {
+      return g.apply(this, arguments);
+    }
+    function g() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var n = yield o(
               "WASmaxNewslettersGetNewsletterStatusUpdatesRPC",
@@ -63,31 +77,39 @@ __d(
             if (n.name !== "GetNewsletterStatusUpdatesResponseSuccess") return;
             var a =
                 n.value
-                  .statusUpdatesStatusesNewsletterStatusResponsePayloadMixin
-                  .status,
-              i = o("WAWebJidToWid").jidWithTypeToWid({
+                  .statusUpdatesStatusesNewsletterStatusResponsePayloadMixin,
+              i = a.status,
+              l = o("WAWebJidToWid").jidWithTypeToWid({
                 jidType: "newsletter",
                 newsletterJid: t,
               }),
-              l = p(a);
-            if (l.length === 0) return null;
-            var u = new Map(
-              l.map(function (e) {
-                return [e.serverId, e.viewCount];
-              }),
-            );
+              u = p(i);
+            if (u.length === 0) return null;
+            var d = _(i),
+              m = new Map(
+                u.map(function (e) {
+                  return [e.serverId, e.viewCount];
+                }),
+              );
             return (
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "[newsletter][status][updates] extracted ",
-                    " view counts for ",
+                    " view counts, ",
+                    " reaction entries for ",
                     "",
                   ])),
-                String(l.length),
+                String(u.length),
+                String(d.size),
                 t,
               ),
-              { from: i, serverIdToViewCount: u }
+              {
+                from: l,
+                viewsByServerId: m,
+                reactionsByServerId: d,
+                serverTimestamp: a.t,
+              }
             );
           } catch (e) {
             o("WALogger")
@@ -104,7 +126,7 @@ __d(
               .sendLogs("newsletter-status-updates-request-failed");
           }
         })),
-        f.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
     l.fetchNewsletterStatusUpdates = d;

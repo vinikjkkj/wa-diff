@@ -12,19 +12,21 @@ __d(
       s,
       u,
       c = n("$InternalEnum")({ Sender: "sender", Receiver: "receiver" }),
-      d = new Set(["deviceSentMessage", "$$unknownFieldCount"]),
-      m = 15,
-      p = 4,
-      _ = 0.01;
-    function f(e) {
+      d = "79",
+      m = "80",
+      p = new Set(["deviceSentMessage", "$$unknownFieldCount"]),
+      _ = 15,
+      f = 4,
+      g = 0.01;
+    function h(e) {
       var t = e.messageContextInfo;
       return t != null ? t.messageSecret != null : !1;
     }
-    function g(e) {
+    function y(e) {
       return e != null && typeof e == "object" && !Array.isArray(e) ? e : null;
     }
-    function h(t, n, r) {
-      if ((n === void 0 && (n = 0), r === void 0 && (r = ""), n >= m))
+    function C(t, n, r) {
+      if ((n === void 0 && (n = 0), r === void 0 && (r = ""), n >= _))
         return (
           o("WALogger")
             .WARN(
@@ -39,31 +41,31 @@ __d(
             .sendLogs("message-secret-location-max-depth"),
           null
         );
-      if (f(t) && n > 0) return { violationPath: r || "unknown" };
+      if (h(t) && n > 0) return { violationPath: r || "unknown" };
       for (var a of Object.keys(t))
-        if (!(d.has(a) || a === "messageContextInfo")) {
+        if (!(p.has(a) || a === "messageContextInfo")) {
           var i = t[a];
           if (!(i == null || typeof i != "object")) {
             var l = r ? r + "." + a : a,
               s = Array.isArray(i) ? i : [i];
             for (var u of s) {
-              var c = g(u);
+              var c = y(u);
               if (c != null) {
-                var p = h(c, n + 1, l);
-                if (p != null) return p;
+                var d = C(c, n + 1, l);
+                if (d != null) return d;
               }
             }
           }
         }
       return null;
     }
-    function y(e, t, n) {
+    function b(e, t, n, r) {
       if (
         o("WAWebMessagingGatingUtils").isTopLevelMessageSecretCheckEnabled()
       ) {
-        var r = h(e);
-        if (r != null) {
-          var a =
+        var a = C(e);
+        if (a != null) {
+          var i =
               t === c.Sender
                 ? "sender"
                 : t === c.Receiver
@@ -74,8 +76,8 @@ __d(
                           t,
                       );
                     })(),
-            i = "message-secret-location-violation-" + a,
-            l = n == null ? "unknown" : n.slice(0, p);
+            l = "message-secret-location-violation-" + i,
+            m = n == null ? "unknown" : n.slice(0, f);
           (t === c.Receiver
             ? o("WALogger")
                 .WARN(
@@ -86,12 +88,12 @@ __d(
                       " stanzaIdPrefix:",
                       "",
                     ])),
-                  a,
-                  r.violationPath,
-                  l,
+                  i,
+                  a.violationPath,
+                  m,
                 )
                 .tags("messaging", "wa-ice", "message-secret-location")
-                .sendLogs(i, { sampling: _ })
+                .sendLogs(l, { sampling: g })
             : o("WALogger")
                 .WARN(
                   u ||
@@ -101,9 +103,9 @@ __d(
                       " stanzaIdPrefix:",
                       "",
                     ])),
-                  a,
-                  r.violationPath,
-                  l,
+                  i,
+                  a.violationPath,
+                  m,
                 )
                 .tags("messaging", "wa-ice", "message-secret-location"),
             t === c.Sender &&
@@ -114,15 +116,17 @@ __d(
                 protobufLegacyValidationDropped: !1,
                 protobufValidationFlow: o("WAWebWamEnumProtobufValidationFlow")
                   .PROTOBUF_VALIDATION_FLOW.STANZA_MESSAGE_SEND,
-                protobufValidationPath: r.violationPath,
-                protobufValidationRuleId: "79",
+                protobufValidationPath: a.violationPath,
+                protobufValidationRuleId: r != null ? r : d,
               }).commit());
         }
       }
     }
     ((l.MessageSecretCheckContext = c),
-      (l.findMessageSecretViolation = h),
-      (l.verifyTopLevelMessageSecret = y));
+      (l.MESSAGE_SECRET_RULE_ID_OUTGOING = d),
+      (l.MESSAGE_SECRET_RULE_ID_GROUP_HISTORY = m),
+      (l.findMessageSecretViolation = C),
+      (l.verifyTopLevelMessageSecret = b));
   },
   98,
 );

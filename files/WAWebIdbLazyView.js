@@ -129,9 +129,9 @@ __d(
               return e.get(t, n);
             });
           }),
-          (a.merge = function (t, n) {
+          (a.merge = function (t, n, r) {
             return this.$7(function (e) {
-              return e.merge(t, n);
+              return e.merge(t, n, r);
             });
           }),
           (a.remove = function (t) {

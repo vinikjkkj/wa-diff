@@ -3,8 +3,10 @@ __d(
   [
     "$InternalEnum",
     "WALogger",
+    "WATimeUtils",
     "WAWebAck",
     "WAWebNewsletterBackendAddOnsUtils",
+    "WAWebNewsletterBridgeMsgAddOnsUtils",
     "WAWebNewsletterGetStatusesJob",
     "WAWebNewsletterMetadataCollection",
     "WAWebNewsletterQueryUtils",
@@ -18,37 +20,38 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = n("$InternalEnum").Mirrored([
+      u,
+      c = n("$InternalEnum").Mirrored([
         "NewStatuses",
         "NoNewStatuses",
         "FetchFailed",
       ]),
-      c = new Map();
-    function d(e) {
-      return m.apply(this, arguments);
+      d = new Map();
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = c.get(e);
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = d.get(e);
           if (t != null) return t;
-          var n = p(e);
-          c.set(e, n);
+          var n = _(e);
+          d.set(e, n);
           try {
             return yield n;
           } finally {
-            c.delete(e);
+            d.delete(e);
           }
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n,
             a = o("WAWebNewsletterSyntheticStatusUtils").getFilledStatusCursor(
               t,
@@ -58,7 +61,7 @@ __d(
               i != null && !i.isSyntheticFromMetadata && i.msgs.length > 0
                 ? a
                 : null,
-            c = o("WAWebNewsletterQueryUtils").mapMembershipTypeToViewRole(
+            u = o("WAWebNewsletterQueryUtils").mapMembershipTypeToViewRole(
               r("WAWebNewsletterMetadataCollection") == null ||
                 (n = r("WAWebNewsletterMetadataCollection").get(t)) == null
                 ? void 0
@@ -67,10 +70,11 @@ __d(
           try {
             var d = yield o(
                 "WAWebNewsletterGetStatusesJob",
-              ).getNewsletterStatuses(t, c, { afterServerId: l }),
+              ).getNewsletterStatuses(t, u, { afterServerId: l }),
               m = d.from,
               p = d.msgs,
-              _ = d.viewCounts;
+              _ = d.reactionCounts,
+              f = d.viewCounts;
             if (
               (o("WALogger").LOG(
                 e ||
@@ -84,18 +88,24 @@ __d(
               ),
               p.length === 0)
             )
-              return C(m, l != null, t);
-            var g = l == null;
-            yield f(m, p, _, g);
-            var h = o(
+              return b(m, l != null, t);
+            var h = l == null;
+            yield g({
+              from: m,
+              msgs: p,
+              viewCounts: f,
+              reactionCounts: _,
+              isFullFetch: h,
+            });
+            var y = o(
               "WAWebNewsletterStatusProcessingUtils",
             ).computeMaxServerId(p);
             return (
-              h > 0 &&
+              y > 0 &&
                 o(
                   "WAWebNewsletterStatusProcessingUtils",
-                ).syncFilledStatusCursor(t, h),
-              u.NewStatuses
+                ).syncFilledStatusCursor(t, y),
+              c.NewStatuses
             );
           } catch (e) {
             return (
@@ -111,56 +121,79 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .tags("newsletter", "status")
                 .sendLogs("newsletter-status-fetch-failed"),
-              u.FetchFailed
+              c.FetchFailed
             );
           }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e, t, n, r) {
-      return g.apply(this, arguments);
+    function g(e) {
+      return h.apply(this, arguments);
     }
-    function g() {
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (
-              (yield o(
-                "WAWebNewsletterStatusProcessingUtils",
-              ).addAndPersistStatusMessages(e, t),
-              n.size > 0 &&
-                (yield o(
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.from,
+            n = e.isFullFetch,
+            r = e.msgs,
+            a = e.reactionCounts,
+            i = e.viewCounts;
+          yield o(
+            "WAWebNewsletterStatusProcessingUtils",
+          ).addAndPersistStatusMessages(t, r);
+          var l = r.map(function (e) {
+              return e.id;
+            }),
+            s = o(
+              "WAWebNewsletterStatusProcessingUtils",
+            ).prepareReactionsForPersist(l, a, o("WATimeUtils").unixTime()),
+            c = s.reactionIdsToRemove,
+            d = s.reactions;
+          if (
+            (i.size > 0
+              ? (yield o(
                   "WAWebNewsletterBackendAddOnsUtils",
                 ).persistNewsletterStatusInteractions({
-                  ids: t.map(function (e) {
-                    return e.id;
-                  }),
+                  ids: l,
+                  reactionIdsToRemove: c,
+                  reactions: d,
                   timestamp: Date.now(),
-                  viewCounts: n,
+                  viewCounts: i,
                 }),
                 o(
                   "WAWebNewsletterStatusProcessingUtils",
-                ).updateStatusViewCounts(e, t, n)),
-              r)
-            ) {
-              var a = o("WAWebStatusCollection").StatusCollection.get(e);
-              a != null && (yield h(a));
-            }
-            o("WAWebNewsletterStatusProcessingUtils").updateStatusUnreadCount(
-              e,
-            );
-          },
-        )),
-        g.apply(this, arguments)
+                ).updateStatusViewCounts(t, r, i),
+                yield o("WAWebNewsletterBridgeMsgAddOnsUtils").updateReactions({
+                  ids: l,
+                  reactionIdsToRemove: c,
+                  reactions: d,
+                }))
+              : d.length > 0 &&
+                o("WALogger")
+                  .WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[newsletter][status] reactions present without view counts \u2014 skipping persist (next admin fetch will resync)",
+                      ])),
+                  )
+                  .sendLogs("newsletter-status-reactions-no-viewcounts"),
+            n)
+          ) {
+            var m = o("WAWebStatusCollection").StatusCollection.get(t);
+            m != null && (yield y(m));
+          }
+          o("WAWebNewsletterStatusProcessingUtils").updateStatusUnreadCount(t);
+        })),
+        h.apply(this, arguments)
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    function y(e) {
+      return C.apply(this, arguments);
     }
-    function y() {
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = [];
           e.msgs.forEach(function (e) {
             return t.push(e.id.toString());
@@ -173,10 +206,10 @@ __d(
             r != null && r >= o("WAWebAck").ACK.READ && e.set({ ack: r });
           });
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       var a = o("WAWebStatusCollection").StatusCollection.get(e);
       if (!t) {
         var i;
@@ -195,14 +228,14 @@ __d(
               n,
               s,
             ),
-          u.NoNewStatuses
+          c.NoNewStatuses
         );
       }
       return a != null && !a.isSyntheticFromMetadata && a.totalCount > 0
-        ? u.NewStatuses
-        : u.NoNewStatuses;
+        ? c.NewStatuses
+        : c.NoNewStatuses;
     }
-    ((l.FetchResult = u), (l.fetchNewsletterStatuses = d));
+    ((l.FetchResult = c), (l.fetchNewsletterStatuses = m));
   },
   98,
 );
