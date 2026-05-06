@@ -103,7 +103,7 @@ __d(
         o("WATimeUtils").unixTime(),
       );
     }
-    l.initializeBots = p;
+    ((l.initializeBots = p), (l.getBotProfilesFromServer = f));
   },
   98,
 );

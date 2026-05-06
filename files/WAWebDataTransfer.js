@@ -14,13 +14,13 @@ __d(
               return t.types.includes(e);
             }),
             (this.data = e),
-            (this.types = e.types
+            e.types
               ? Array.isArray(e.types)
-                ? e.types
-                : Object.keys(e.types).map(function (t) {
+                ? (this.types = e.types)
+                : (this.types = Object.keys(e.types).map(function (t) {
                     return e.types[t];
-                  })
-              : []));
+                  }))
+              : (this.types = []));
         }
         var r = t.prototype;
         return (

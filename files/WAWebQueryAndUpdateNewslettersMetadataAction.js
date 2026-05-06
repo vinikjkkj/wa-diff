@@ -128,8 +128,11 @@ __d(
                               o("WAJids").toNewsletterJid(e.id.toString()),
                             ),
                             n = t.adminCount,
-                            r = t.adminProfile;
-                          ((e.adminCount = n), (e.adminProfile = r));
+                            r = t.adminProfile,
+                            a = t.adminProfilesSettingEnabled;
+                          ((e.adminCount = n),
+                            (e.adminProfile = r),
+                            (e.adminProfilesSettingEnabled = a));
                         }
                       },
                     );

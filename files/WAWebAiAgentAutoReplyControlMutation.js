@@ -22,16 +22,9 @@ __d(
       var r, a;
       if (!o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled())
         return (s || (s = n("Promise"))).resolve(d);
-      var i = e.isLid()
-          ? e.user
-          : (r = o("WAWebLidMigrationUtils").toLid(e)) == null
-            ? void 0
-            : r.user,
-        l = e.isRegularUserPn()
-          ? e.user
-          : (a = o("WAWebLidMigrationUtils").toPn(e)) == null
-            ? void 0
-            : a.user;
+      var i =
+          (r = o("WAWebLidMigrationUtils").toLid(e)) == null ? void 0 : r.user,
+        l = (a = o("WAWebLidMigrationUtils").toPn(e)) == null ? void 0 : a.user;
       return p(l, i, t);
     }
     function p(e, t, n) {

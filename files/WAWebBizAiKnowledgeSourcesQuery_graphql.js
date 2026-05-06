@@ -8,31 +8,38 @@ __d(
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "source_type",
+          name: "chat_history_export_status",
           storageKey: null,
         },
         t = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "id",
+          name: "source_type",
           storageKey: null,
         },
         r = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "update_time",
+          name: "id",
           storageKey: null,
         },
         o = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "label",
+          name: "update_time",
           storageKey: null,
         },
         a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "label",
+          storageKey: null,
+        },
+        i = {
           kind: "InlineFragment",
           selections: [
             {
@@ -74,7 +81,7 @@ __d(
           type: "XFBMetaAIBizAgentFileUploadKnowledgeSource",
           abstractKey: null,
         },
-        i = [
+        l = [
           {
             alias: null,
             args: null,
@@ -83,15 +90,15 @@ __d(
             storageKey: null,
           },
         ],
-        l = {
+        s = {
           kind: "InlineFragment",
-          selections: i,
+          selections: l,
           type: "XFBMetaAIBizAgentChatHistoryKnowledgeSource",
           abstractKey: null,
         },
-        s = {
+        u = {
           kind: "InlineFragment",
-          selections: i,
+          selections: l,
           type: "MetaAIBizAgentWebsiteKnowledgeSource",
           abstractKey: null,
         };
@@ -110,6 +117,7 @@ __d(
               name: "xfb_meta_ai_biz_agent_wa_ai_home",
               plural: !1,
               selections: [
+                e,
                 {
                   alias: null,
                   args: null,
@@ -117,7 +125,7 @@ __d(
                   kind: "LinkedField",
                   name: "knowledge_sources",
                   plural: !0,
-                  selections: [e, t, r, o, a, l, s],
+                  selections: [t, r, o, a, i, s, u],
                   storageKey: null,
                 },
               ],
@@ -141,6 +149,7 @@ __d(
               name: "xfb_meta_ai_biz_agent_wa_ai_home",
               plural: !1,
               selections: [
+                e,
                 {
                   alias: null,
                   args: null,
@@ -156,13 +165,13 @@ __d(
                       name: "__typename",
                       storageKey: null,
                     },
-                    e,
                     t,
                     r,
                     o,
                     a,
-                    l,
+                    i,
                     s,
+                    u,
                   ],
                   storageKey: null,
                 },

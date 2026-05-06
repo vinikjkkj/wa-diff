@@ -20,7 +20,8 @@ __d(
                   "WAWebMexFetchNewsletterAdminInfoJob",
                 ).mexFetchNewsletterAdminInfo(t),
                 r = n.adminCount,
-                a = n.adminProfile;
+                a = n.adminProfile,
+                i = n.adminProfilesSettingEnabled;
               return {
                 adminCount:
                   r != null
@@ -28,6 +29,7 @@ __d(
                     : o("WAWebNewsletterModelUtils")
                         .DEFAULT_NEWSLETTER_ADMIN_COUNT,
                 adminProfile: a,
+                adminProfilesSettingEnabled: i,
               };
             } catch (t) {
               return (
@@ -41,6 +43,7 @@ __d(
                   adminCount: o("WAWebNewsletterModelUtils")
                     .DEFAULT_NEWSLETTER_ADMIN_COUNT,
                   adminProfile: null,
+                  adminProfilesSettingEnabled: !1,
                 }
               );
             }

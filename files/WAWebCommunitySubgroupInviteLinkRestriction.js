@@ -1,6 +1,6 @@
 __d(
   "WAWebCommunitySubgroupInviteLinkRestriction",
-  ["WAWebSchemaGroupMetadata"],
+  ["WAWebCommunityAnnouncementGroupUtils", "WAWebSchemaGroupMetadata"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t, n, r, a;
@@ -9,18 +9,21 @@ __d(
       if (i == null) return !1;
       var l = i.groupMetadata;
       if (l == null) return !1;
-      var s =
-          l.memberAddMode ===
-          o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD,
+      var s = o(
+          "WAWebCommunityAnnouncementGroupUtils",
+        ).getCommunityAnnouncementGroupMetadata(l),
         u =
+          (s == null ? void 0 : s.memberAddMode) ===
+          o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD,
+        c =
           (t = (n = e.participants) == null ? void 0 : n.iAmAdmin()) != null
             ? t
             : !1,
-        c =
+        d =
           (r = (a = l.participants) == null ? void 0 : a.iAmAdmin()) != null
             ? r
             : !1;
-      return s && !u && !c;
+      return u && !c && !d;
     }
     l.isSubgroupInviteLinkRestrictedByParentCommunity = e;
   },

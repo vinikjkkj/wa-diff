@@ -54,6 +54,7 @@ __d(
           })),
           (t.adminInsights = o("WAWebModelUtils").session()),
           (t.adminProfile = o("WAWebModelUtils").prop()),
+          (t.adminProfilesSettingEnabled = o("WAWebModelUtils").prop(!1)),
           (t.adminCount = o("WAWebModelUtils").prop(1)),
           (t.pendingAdmins = o("WAWebModelUtils").collection(
             r("WAWebNewsletterPendingAdminsCollection"),

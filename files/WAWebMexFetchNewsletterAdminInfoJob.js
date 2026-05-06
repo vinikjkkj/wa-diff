@@ -19,34 +19,44 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             n,
-            r = { newsletter_id: e },
-            a = yield o("WAWebMexClient").fetchQuery(s, r),
-            i = null;
+            r,
+            a,
+            i = { newsletter_id: e },
+            l = yield o("WAWebMexClient").fetchQuery(s, i),
+            u = null;
           if (
-            ((t = a.xwa2_newsletter_admin) == null ||
+            ((t = l.xwa2_newsletter_admin) == null ||
             (t = t.admin_profile) == null
               ? void 0
               : t.name) != null
           ) {
-            var l, u;
-            i = {
-              id: a.xwa2_newsletter_admin.admin_profile.id,
-              name: a.xwa2_newsletter_admin.admin_profile.name,
+            var c, d;
+            u = {
+              id: l.xwa2_newsletter_admin.admin_profile.id,
+              name: l.xwa2_newsletter_admin.admin_profile.name,
               pictureId:
-                (l = a.xwa2_newsletter_admin.admin_profile.picture) == null
+                (c = l.xwa2_newsletter_admin.admin_profile.picture) == null
                   ? void 0
-                  : l.id,
+                  : c.id,
               pictureDirectPath:
-                (u = a.xwa2_newsletter_admin) == null ||
-                (u = u.admin_profile.picture) == null
+                (d = l.xwa2_newsletter_admin) == null ||
+                (d = d.admin_profile.picture) == null
                   ? void 0
-                  : u.direct_path,
+                  : d.direct_path,
             };
           }
           return {
             adminCount:
-              (n = a.xwa2_newsletter_admin) == null ? void 0 : n.admin_count,
-            adminProfile: i,
+              (n = l.xwa2_newsletter_admin) == null ? void 0 : n.admin_count,
+            adminProfile: u,
+            adminProfilesSettingEnabled:
+              (r =
+                (a = l.xwa2_newsletter_admin) == null ||
+                (a = a.admin_settings) == null
+                  ? void 0
+                  : a.admin_profiles_enabled) != null
+                ? r
+                : !1,
           };
         })),
         c.apply(this, arguments)

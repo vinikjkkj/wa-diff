@@ -337,80 +337,72 @@ __d(
     }
     function m(e) {
       var t = [];
-      for (var _o5 = 0; _o5 < e.length; _o5++) {
-        var _i2 = e[_o5],
-          _l2 = require("Lexical").$parseSerializedNode(_i2);
-        (require("Lexical").$isTextNode(_l2) &&
-          require("LexicalSelection").$addNodeStyle(_l2),
-          t.push(_l2));
-      }
+      for (var _n8 of e) t.push(require("Lexical").$parseSerializedNode(_n8));
       return t;
     }
     var $ = null;
     function h(e, t, n) {
       if (void 0 === n) {
         var _t7 = require("Lexical").getDOMSelection(e._window),
-          _o6 = require("Lexical").$getSelection();
-        if (!_o6 || _o6.isCollapsed()) return !1;
+          _o5 = require("Lexical").$getSelection();
+        if (!_o5 || _o5.isCollapsed()) return !1;
         if (!_t7) return !1;
-        var _i3 = _t7.anchorNode,
-          _l3 = _t7.focusNode;
+        var _i2 = _t7.anchorNode,
+          _l2 = _t7.focusNode;
         if (
-          null !== _i3 &&
-          null !== _l3 &&
-          !require("Lexical").isSelectionWithinEditor(e, _i3, _l3)
+          null !== _i2 &&
+          null !== _l2 &&
+          !require("Lexical").isSelectionWithinEditor(e, _i2, _l2)
         )
           return !1;
-        n = C(_o6);
+        n = y(_o5);
       }
       t.preventDefault();
       var o = t.clipboardData;
-      return null !== o && (N(o, n), !0);
+      return null !== o && (T(o, n), !0);
     }
-    var y = [
+    var C = [
       ["text/html", l],
       ["application/x-lexical-editor", s],
     ];
-    function C(t) {
-      if (t === void 0) {
-        t = require("Lexical").$getSelection();
+    function y(e) {
+      if (e === void 0) {
+        e = require("Lexical").$getSelection();
       }
       return (function (e, t) {
         var n = { "text/plain": "" };
         for (var _ref2 of Object.entries(e)) {
-          var _o7 = _ref2[0];
+          var _o6 = _ref2[0];
           var _r2 = _ref2[1];
-          {
-            var _e9 = S(_r2, t);
-            null !== _e9 && (n[_o7] = _e9);
+          if (_r2) {
+            var _e9 = D(_r2, t);
+            null !== _e9 && (n[_o6] = _e9);
           }
         }
         return n;
-      })(
-        (function () {
-          var t = require("Lexical").$getEditor(),
-            n = require("LexicalExtension").LexicalBuilder.maybeFromEditor(t);
-          if (n && n.hasExtensionByName(D.name))
-            return require("LexicalExtension").getExtensionDependencyFromEditor(
-              t,
-              D,
-            ).output;
-          return T;
-        })(),
+      })(N(), e);
+    }
+    function T(e, t) {
+      for (var _ref4 of C) {
+        var _n9 = _ref4[0];
+        void 0 === t[_n9] && e.setData(_n9, "");
+      }
+      for (var _n0 in t) {
+        var _o7 = t[_n0];
+        void 0 !== _o7 && e.setData(_n0, _o7);
+      }
+    }
+    function N(t) {
+      if (t === void 0) {
+        t = require("Lexical").$getEditor();
+      }
+      var n = require("LexicalExtension").getPeerDependencyFromEditor(
         t,
+        R.name,
       );
+      return n ? n.output : S;
     }
-    function N(e, t) {
-      for (var _ref4 of y) {
-        var _n8 = _ref4[0];
-        void 0 === t[_n8] && e.setData(_n8, "");
-      }
-      for (var _n9 in t) {
-        var _o8 = t[_n9];
-        void 0 !== _o8 && e.setData(_n9, _o8);
-      }
-    }
-    var T = {
+    var S = {
       "application/x-lexical-editor": [
         function (e, t) {
           return e ? s(require("Lexical").$getEditor(), e) : t();
@@ -427,35 +419,44 @@ __d(
         },
       ],
     };
-    function S(e, t) {
-      var _n0 = function n(o) {
-        return e[o] ? e[o](t, _n0.bind(null, o - 1)) : null;
+    function D(e, t) {
+      var _n1 = function n(o) {
+        return e[o] ? e[o](t, _n1.bind(null, o - 1)) : null;
       };
-      return _n0(e.length - 1);
+      return _n1(e.length - 1);
     }
-    var D = require("Lexical").defineExtension({
+    var R = require("Lexical").defineExtension({
       build: function build(e, t, n) {
         return t.$exportMimeType;
       },
-      config: require("Lexical").safeCast({ $exportMimeType: T }),
+      config: require("Lexical").safeCast({ $exportMimeType: S }),
       mergeConfig: function mergeConfig(e, t) {
         var n = require("Lexical").shallowMergeConfig(e, t);
         if (t.$exportMimeType) {
-          var _o9 = babelHelpers["extends"]({}, e.$exportMimeType);
+          var _o8 = babelHelpers["extends"]({}, e.$exportMimeType);
           for (var _ref6 of Object.entries(t.$exportMimeType)) {
             var _e0 = _ref6[0];
-            var _n1 = _ref6[1];
-            _o9[_e0] = [].concat(_o9[_e0], _n1);
+            var _n10 = _ref6[1];
+            if (_n10) {
+              var _t8 = _o8[_e0];
+              _o8[_e0] = _t8 ? [].concat(_t8, _n10) : _n10;
+            }
           }
-          n.$exportMimeType = _o9;
+          n.$exportMimeType = _o8;
         }
         return n;
       },
       name: "@lexical/clipboard/GetClipboardData",
     });
-    ((exports.$generateJSONFromSelectedNodes = x),
+    ((exports.$exportMimeTypeFromSelection = function (e, t) {
+      if (t === void 0) {
+        t = require("Lexical").$getSelection();
+      }
+      return D(N()[e] || [], t);
+    }),
+      (exports.$generateJSONFromSelectedNodes = x),
       (exports.$generateNodesFromSerializedNodes = m),
-      (exports.$getClipboardDataFromSelection = C),
+      (exports.$getClipboardDataFromSelection = y),
       (exports.$getHtmlContent = l),
       (exports.$getLexicalContent = s),
       (exports.$handlePlainTextDrop = function (e, t) {
@@ -473,6 +474,7 @@ __d(
         var n = { editorKey: t.getKey() };
         e.setData(u, JSON.stringify(n));
       }),
+      (exports.GetClipboardDataExtension = R),
       (exports.copyToClipboard = async function (e, t, n) {
         if (null !== $) return !1;
         if (null !== t)
@@ -522,7 +524,7 @@ __d(
           })
         );
       }),
-      (exports.setLexicalClipboardDataTransfer = N));
+      (exports.setLexicalClipboardDataTransfer = T));
   },
   null,
 );

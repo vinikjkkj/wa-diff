@@ -54,6 +54,7 @@ __d(
         "toast_type",
         "touch_list_item_index",
         "touch_nearest_ancestor_id",
+        "triggering_testid",
       ]);
     function y(t, n, r, a, i) {
       (t.length > 0 &&
@@ -154,26 +155,36 @@ __d(
         r("isEmptyObject")(a) ? void 0 : a
       );
     }
-    function v(e, t) {
+    function v(e, t, n) {
+      var o,
+        a = (o = C(e, n)) != null ? o : {};
+      return (
+        t.triggering_testid != null &&
+          t.triggering_testid !== "" &&
+          (a.triggering_testid = t.triggering_testid),
+        r("isEmptyObject")(a) ? void 0 : a
+      );
+    }
+    function S(e, t) {
       return e.eventType === "CUSTOM_EVENT" &&
         e.originalEventName != null &&
         m[e.originalEventName] != null
         ? m[e.originalEventName].eventName
         : t;
     }
-    var S = null;
-    function R() {
+    var R = null;
+    function L() {
       var e = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId();
       return e != null && e !== ""
         ? e
-        : (S == null && (S = r("WAWebPonyfillsCryptoRandomUUID")()), S);
+        : (R == null && (R = r("WAWebPonyfillsCryptoRandomUUID")()), R);
     }
-    var L = o("WAWebABProps").getABPropConfigValue("web_pathfinder_logging"),
-      E = 50,
-      k = new Array(E),
-      I = 0;
-    function T(e) {
-      if (!(L < 1)) {
+    var E = o("WAWebABProps").getABPropConfigValue("web_pathfinder_logging"),
+      k = 50,
+      I = new Array(k),
+      T = 0;
+    function D(e) {
+      if (!(E < 1)) {
         var t = [];
         if (
           (e.screenName != null && t.push("screen=" + e.screenName),
@@ -202,11 +213,11 @@ __d(
             d || (d = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
             a,
           ),
-          L >= 2)
+          E >= 2)
         ) {
           var i = m[e.eventType];
           if (i != null) {
-            var l = v(e, i.eventName),
+            var l = S(e, i.eventName),
               s =
                 "" +
                 e.eventType +
@@ -217,7 +228,7 @@ __d(
                 event_category: i.category,
                 event_name: l,
                 client_timestamp_ms: String(e.timestampMs),
-                unified_session_id: R(),
+                unified_session_id: L(),
                 debounce_count:
                   e.debounceCount != null ? String(e.debounceCount) : void 0,
                 gesture_direction:
@@ -227,7 +238,11 @@ __d(
                   (r = e.destinationName) != null ? r : void 0,
                 target_testid: (o = e.targetTrackingId) != null ? o : void 0,
                 target_element_type: (a = e.targetType) != null ? a : void 0,
-                event_metadata: C(e.eventMetadata, s),
+                event_metadata: v(
+                  e.eventMetadata,
+                  { triggering_testid: e.triggeringTestId },
+                  s,
+                ),
                 custom_metadata: b(
                   e.customMetadata,
                   { custom_event_type: e.customEventTypeDisplayName },
@@ -237,7 +252,7 @@ __d(
             });
           }
         }
-        if (L >= 3) {
+        if (E >= 3) {
           var u,
             c,
             _,
@@ -255,23 +270,23 @@ __d(
               debounceCount: (h = e.debounceCount) != null ? h : void 0,
             };
           (t.length > 0 && (y.extra = t.join(" ")),
-            (k[I] = y),
-            (I = (I + 1) % E));
+            (I[T] = y),
+            (T = (T + 1) % k));
         }
       }
     }
-    function D() {
-      for (var e = [], t = 0; t < E; t++) {
-        var n = (I + t) % E,
-          r = k[n];
+    function x() {
+      for (var e = [], t = 0; t < k; t++) {
+        var n = (T + t) % k,
+          r = I[n];
         r != null && e.push(r);
       }
       return e;
     }
-    (L >= 3 && o("WAWebCrashlog").registerPathfinderSnapshotCallback(D),
+    (E >= 3 && o("WAWebCrashlog").registerPathfinderSnapshotCallback(x),
       (l.FALCO_MAP = m),
-      (l.emitPathfinderEvent = T),
-      (l.getPathfinderLogSnapshot = D));
+      (l.emitPathfinderEvent = D),
+      (l.getPathfinderLogSnapshot = x));
   },
   98,
 );

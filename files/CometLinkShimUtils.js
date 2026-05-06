@@ -40,75 +40,76 @@ __d(
       return String(n) !== "1" ? !1 : r("gkx")("22875");
     }
     var d = { href: "#", shimmed: !1 };
-    function m(t, n, a, i, l, s, m, p) {
+    function m(t, n, a, i, l, s, m, p, _) {
       if (t == null || t === "#") return d;
-      var _ = o("ConstUriUtils").getUri(t);
-      if (_ == null) return d;
-      var f = c(_),
-        g = p != null ? p : r("LinkshimHandlerConfig").link_react_default_hash;
-      if (r("isLinkshimURI")(_) && !f) {
-        var h = _.getQueryParams(),
-          y = h.get(r("LinkshimHandlerConfig").linkshim_url_param),
-          C = h.get(r("LinkshimHandlerConfig").linkshim_enc_param),
-          b = o("ConstUriUtils").getUri(String(y));
-        b != null && ((_ = b), p == null && (g = String(C)));
+      var f = o("ConstUriUtils").getUri(t);
+      if (f == null) return d;
+      var g = c(f),
+        h = p != null ? p : r("LinkshimHandlerConfig").link_react_default_hash;
+      if (r("isLinkshimURI")(f) && !g) {
+        var y = f.getQueryParams(),
+          C = y.get(r("LinkshimHandlerConfig").linkshim_url_param),
+          b = y.get(r("LinkshimHandlerConfig").linkshim_enc_param),
+          v = o("ConstUriUtils").getUri(String(C));
+        v != null && ((f = v), p == null && (h = String(b)));
       }
-      if (f) {
-        var v = _.removeQueryParam("enc");
-        v != null && (_ = v);
+      if (g) {
+        var S = f.removeQueryParam("enc");
+        S != null && (f = S);
       }
-      var S = r("LinkshimHandlerConfig").click_ids,
-        R = !1;
-      if (S != null && S.length > 0) {
-        var L = null;
-        if (i != null) L = i;
+      var R = r("LinkshimHandlerConfig").click_ids,
+        L = !1;
+      if (R != null && R.length > 0) {
+        var E = null;
+        if (i != null) E = i;
         else {
-          var E = Math.floor(r("Random").random() * S.length);
-          L = S[E];
+          var k = Math.floor(r("Random").random() * R.length);
+          E = R[k];
         }
-        ((_ = o("CometClickIDParameterUtils").appendClickIDQueryParam(_, L)),
-          (R = !0));
+        ((f = o("CometClickIDParameterUtils").appendClickIDQueryParam(f, E, _)),
+          (L = !0));
       }
-      var k = r("LinkshimHandlerConfig").aggr_ids;
-      if (r("gkx")("18296") && k != null && k.length > 0) {
-        var I = null;
-        l != null && (I = l);
-        var T = Math.floor(r("Random").random() * k.length);
-        ((I = k[T]),
-          (_ = o("CometClickIDParameterUtils").appendBRIDQueryParam(_, I)));
+      var I = r("LinkshimHandlerConfig").aggr_ids;
+      if (r("gkx")("18296") && I != null && I.length > 0) {
+        var T = null;
+        l != null && (T = l);
+        var D = Math.floor(r("Random").random() * I.length);
+        ((T = I[D]),
+          (f = o("CometClickIDParameterUtils").appendBRIDQueryParam(f, T)));
       }
-      var D = u(_);
-      if ((D != null && (_ = D), e(_) && s !== !0 && !f)) {
-        var x = o("CometLynxGeneration").getShimmedHref(
-            _,
-            g,
+      var x = u(f);
+      if ((x != null && (f = x), e(f) && s !== !0 && !g)) {
+        var $ = o("CometLynxGeneration").getShimmedHref(
+            f,
+            h,
             { callbacks: n, trackingNodes: a },
             m,
+            _,
           ),
-          $ = r("LinkshimHandlerConfig").blocklisted_domains.some(function (e) {
+          P = r("LinkshimHandlerConfig").blocklisted_domains.some(function (e) {
             var t;
-            return (t = _) == null ? void 0 : t.toString().includes(e);
+            return (t = f) == null ? void 0 : t.toString().includes(e);
           });
-        return $
+        return P
           ? {
-              clickIDAppended: R,
-              href: x.toString(),
+              clickIDAppended: L,
+              href: $.toString(),
               shimmed: !0,
-              unshimmedHref: x.toString(),
+              unshimmedHref: $.toString(),
             }
           : {
-              clickIDAppended: R,
-              ghlEncrypted: f,
-              href: x.toString(),
+              clickIDAppended: L,
+              ghlEncrypted: g,
+              href: $.toString(),
               shimmed: !0,
               unshimmedHref:
-                m === !0 ? _.toStringPreserveQuery() : _.toString(),
+                m === !0 ? f.toStringPreserveQuery() : f.toString(),
             };
       } else
         return {
-          clickIDAppended: R,
-          ghlEncrypted: f,
-          href: m === !0 ? _.toStringPreserveQuery() : _.toString(),
+          clickIDAppended: L,
+          ghlEncrypted: g,
+          href: m === !0 ? f.toStringPreserveQuery() : f.toString(),
           shimmed: !1,
         };
     }

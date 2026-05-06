@@ -90,29 +90,33 @@ __d(
       var o = r("NumberFormatConsts").get(
         (e || (e = r("FbtHooks"))).getViewerContext().locale,
       );
-      return p(
-        t,
-        n,
-        "",
-        o.decimalSeparator,
-        o.minDigitsForThousandsSeparator,
-        o.standardDecimalPatternInfo,
-        o.numberingSystemData,
-      );
+      return o == null
+        ? String(t)
+        : p(
+            t,
+            n,
+            "",
+            o.decimalSeparator,
+            o.minDigitsForThousandsSeparator,
+            o.standardDecimalPatternInfo,
+            o.numberingSystemData,
+          );
     }
     function g(t, n) {
       var o = r("NumberFormatConsts").get(
         (e || (e = r("FbtHooks"))).getViewerContext().locale,
       );
-      return p(
-        t,
-        n,
-        o.numberDelimiter,
-        o.decimalSeparator,
-        o.minDigitsForThousandsSeparator,
-        o.standardDecimalPatternInfo,
-        o.numberingSystemData,
-      );
+      return o == null
+        ? String(t)
+        : p(
+            t,
+            n,
+            o.numberDelimiter,
+            o.decimalSeparator,
+            o.minDigitsForThousandsSeparator,
+            o.standardDecimalPatternInfo,
+            o.numberingSystemData,
+          );
     }
     function h(e) {
       return e && Math.floor(Math.log10(Math.abs(e)));
@@ -184,9 +188,10 @@ __d(
     }
     function L() {
       var t = r("NumberFormatConsts").get(
-          (e || (e = r("FbtHooks"))).getViewerContext().locale,
-        ),
-        n = {},
+        (e || (e = r("FbtHooks"))).getViewerContext().locale,
+      );
+      if (t == null) return null;
+      var n = {},
         o = t.numberingSystemData && t.numberingSystemData.digits;
       if (o == null) return null;
       for (var a = 0; a < o.length; a++) n[o.charAt(a)] = a.toString();
@@ -196,7 +201,9 @@ __d(
       var n = r("NumberFormatConsts").get(
         (e || (e = r("FbtHooks"))).getViewerContext().locale,
       );
-      return S(t, n.decimalSeparator || ".", n.numberDelimiter);
+      return n == null
+        ? null
+        : S(t, n.decimalSeparator || ".", n.numberDelimiter);
     }
     var k = {
       formatNumber: f,

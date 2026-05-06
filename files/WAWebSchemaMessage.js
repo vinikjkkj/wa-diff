@@ -161,6 +161,7 @@ __d(
             a("thumbnailWidth"),
             a("revokeSender"),
             a("isQuestion"),
+            a("isSpoiler"),
             a("questionReplyQuotedMessage"),
             a("newsletterAdminProfile"),
             a("pendingReadReceipt"),

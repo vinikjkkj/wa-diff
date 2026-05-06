@@ -124,19 +124,23 @@ __d(
           })
         : e;
     }
-    function h(e, t, n, r) {
-      var a = o("WAWebContactCollection").ContactCollection.get(e.toString());
-      return r === !1 && a != null
-        ? L(e, n ? m(e) : null)
-        : t == null || t === ""
+    function h(e) {
+      var t = e.asString,
+        n = e.clickable,
+        r = e.communityName,
+        a = e.jid,
+        i = o("WAWebContactCollection").ContactCollection.get(a.toString());
+      return t === !1 && i != null
+        ? L(a, n ? m(a) : null)
+        : r == null || r === ""
           ? null
-          : r === !1 && n
+          : t === !1 && n
             ? u.jsx(o("WAWebEmojiText.react").EmojiText, {
-                text: t,
+                text: r,
                 onClick: o("WAWebSuspendedCommunityUtils")
                   .openTerminatedCommunityModal,
               })
-            : t;
+            : r;
     }
     function y(e, t) {
       t === void 0 && (t = !1);

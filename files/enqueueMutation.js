@@ -7,9 +7,10 @@ __d(
     function l() {
       if (typeof WeakMap == "function") return new WeakMap();
       if (typeof Map == "function") return new Map();
-      throw ReferenceError(
+      var e = ReferenceError(
         "Cannot use enqueueMutation in this environment. Either WeakMap or Map must be defined to use enqueueMutation.",
       );
+      throw (e.stack, e);
     }
     function s(t, r) {
       var o = e.get(t);

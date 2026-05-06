@@ -7,7 +7,6 @@ __d(
     "WAWebBackendApi",
     "WAWebCurrentUser",
     "WAWebGroupConstants",
-    "WAWebMessagingGatingUtils",
     "WAWebModelStorageUtils",
     "WAWebSchemaParticipant",
     "WAWebUserPrefsMeUser",
@@ -49,47 +48,39 @@ __d(
         _.apply(this, arguments)
       );
     }
-    function f(e, t, n) {
+    function f(e, t) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = [],
-            i = [];
-          if (!t) return { skDistribList: a, skList: i, rotateKey: !1 };
-          var l = t == null ? void 0 : t.participants,
-            s = t.rotateKey,
-            m = t.senderKey,
-            p =
-              o("WAWebMessagingGatingUtils").isGroupSimpleSignalEnabled() &&
-              n === !0,
-            _ = 0,
-            f = [],
-            g = new Set();
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          var n = [],
+            a = [];
+          if (!t) return { skDistribList: n, skList: a, rotateKey: !1 };
+          var i = t == null ? void 0 : t.participants,
+            l = t.rotateKey,
+            s = t.senderKey,
+            m = 0,
+            p = [],
+            _ = new Set();
           if (
-            (m.forEach(function (e, t) {
-              var n,
-                r = t.includes("hosted");
-              if (!(r && !p)) {
-                g = g.add(t);
-                var l = o("WAWebWidFactory").createWid(t);
-                if (r && p) {
-                  a.push(l);
-                  return;
-                }
-                var s = o("WAWebWidFactory").asUserWidOrThrow(l),
-                  u = (n = m.get(s.toString())) != null ? n : !1;
+            (s.forEach(function (e, t) {
+              var r;
+              if (!t.includes("hosted")) {
+                _ = _.add(t);
+                var i = o("WAWebWidFactory").createWid(t),
+                  l = o("WAWebWidFactory").asUserWidOrThrow(i),
+                  u = (r = s.get(l.toString())) != null ? r : !1;
                 e && u
-                  ? i.push(l)
-                  : (a.push(l),
-                    l.isCompanion() &&
+                  ? a.push(i)
+                  : (n.push(i),
+                    i.isCompanion() &&
                       e &&
                       !u &&
-                      (f.length < 3 && f.push(t), _++));
+                      (p.length < 3 && p.push(t), m++));
               }
             }),
-            _ > 0 &&
+            m > 0 &&
               o("WALogger").WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -97,15 +88,15 @@ __d(
                     " added, primary missing key => ",
                     "",
                   ])),
-                _,
-                f,
+                m,
+                p,
               ),
             o("WAWebCurrentUser").isEmployee())
           ) {
-            var h = l.filter(function (e) {
-              return !g.has(e);
+            var f = i.filter(function (e) {
+              return !_.has(e);
             });
-            h.length > 0 &&
+            f.length > 0 &&
               o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -113,13 +104,13 @@ __d(
                     ": ",
                     "",
                   ])),
-                h.length,
-                h.join(),
+                f.length,
+                f.join(),
               );
           }
           return (
             r("gkx")("26258") ||
-              (_ > 0 &&
+              (m > 0 &&
                 o("WALogger")
                   .WARN(
                     d ||
@@ -127,14 +118,14 @@ __d(
                         "getGroupSenderKeyList: missed ",
                         " keys on primary",
                       ])),
-                    _,
+                    m,
                   )
                   .sendLogs("missing-sender-key-on-primary")),
-            yield b(e, m.size),
+            yield b(e, s.size),
             o("WAWebWamGroupMetricCache").cacheGroupMetrics(t),
-            s
-              ? { skDistribList: [].concat(a, i), skList: [], rotateKey: s }
-              : { skDistribList: a, skList: i, rotateKey: s }
+            l
+              ? { skDistribList: [].concat(n, a), skList: [], rotateKey: l }
+              : { skDistribList: n, skList: a, rotateKey: l }
           );
         })),
         g.apply(this, arguments)

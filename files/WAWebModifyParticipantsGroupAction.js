@@ -12,15 +12,22 @@ __d(
     "WAWebGroupModifyParticipantsJob",
     "WAWebGroupMutationParticipantUtils",
     "WAWebGroupStringsAction",
+    "WAWebJidToWid",
     "WAWebMiscErrors",
     "WAWebModalManager",
     "WAWebModifyParticipantsRateLimitText",
     "WAWebNetworkStatus",
+    "WAWebNoop",
+    "WAWebOutContactConsts",
+    "WAWebOutContactInviteAction",
+    "WAWebOutContactInviteUtils",
+    "WAWebOutContactSmsInviteConfirmModal.react",
     "WAWebStateUtils",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
+    "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -36,22 +43,25 @@ __d(
       g,
       h = g || (g = o("react"));
     function y(e, t, n) {
-      return L(o("WAWebStateUtils").unproxy(e), t, void 0, n);
+      return (
+        n === void 0 && (n = []),
+        L(o("WAWebStateUtils").unproxy(e), t, void 0, n)
+      );
     }
     function C(e, t) {
-      return k(o("WAWebStateUtils").unproxy(e), t);
+      return I(o("WAWebStateUtils").unproxy(e), t);
     }
     function b(e, t) {
-      return T(o("WAWebStateUtils").unproxy(e), t);
+      return D(o("WAWebStateUtils").unproxy(e), t);
     }
     function v(e, t) {
-      return x(o("WAWebStateUtils").unproxy(e), t);
+      return $(o("WAWebStateUtils").unproxy(e), t);
     }
     function S(e, t) {
-      return P(o("WAWebStateUtils").unproxy(e), t);
+      return N(o("WAWebStateUtils").unproxy(e), t);
     }
     function R(e, t) {
-      return N(o("WAWebStateUtils").unproxy(e), t);
+      return M(o("WAWebStateUtils").unproxy(e), t);
     }
     function L(e, t, n, r) {
       return E.apply(this, arguments);
@@ -61,7 +71,8 @@ __d(
         (E = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, a, i) {
             var l, d;
-            a === void 0 && (a = o("WAWebActionToast.react").genId());
+            (a === void 0 && (a = o("WAWebActionToast.react").genId()),
+              i === void 0 && (i = []));
             var m = (l = e.groupMetadata) == null ? void 0 : l.participants;
             if (m == null)
               return (f || (f = n("Promise"))).reject(
@@ -91,15 +102,19 @@ __d(
                 ((d = e.groupMetadata) == null
                   ? void 0
                   : d.isLidAddressingMode) === !0,
-              _ = o("WAWebGroupModifyParticipantsJob").addGroupParticipants(
+              _ = i.map(function (e) {
+                return o("WAWebJidToWid").userJidToUserWid(e.id);
+              }),
+              g = o("WAWebGroupModifyParticipantsJob").addGroupParticipants(
                 e.id,
                 t.map(function (e) {
                   return o(
                     "WAWebGroupMutationParticipantUtils",
                   ).getGroupMutationParticipant(e, p, "addParticipants");
                 }),
+                _,
               ),
-              g = r("WAWebFbtIntlList")(
+              y = r("WAWebFbtIntlList")(
                 t.map(function (e) {
                   return o("WAWebFrontendContactGetters").getFormattedShortName(
                     e,
@@ -108,131 +123,243 @@ __d(
                 r("WAWebFbtIntlList").CONJUNCTIONS.NONE,
                 r("WAWebFbtIntlList").DELIMITERS.COMMA,
               ).toString(),
-              y = new (o("WAWebActionToast.react").ActionType)(
-                o("WAWebGroupStringsAction").addingString(g, t.length),
+              C = r("WAWebFbtIntlList")(
+                i.map(function (e) {
+                  return e.getName();
+                }),
+                r("WAWebFbtIntlList").CONJUNCTIONS.NONE,
+                r("WAWebFbtIntlList").DELIMITERS.COMMA,
+              ).toString(),
+              b = t.length === 0 && i.length > 0,
+              v = b ? C : y,
+              S = b ? i.length : t.length,
+              R = new (o("WAWebActionToast.react").ActionType)(
+                o("WAWebGroupStringsAction").addingString(v, S),
               ),
-              C = _.then(function (e) {
-                var n = e.participants.some(function (e) {
-                  return e.code === "403";
-                });
-                (m.sendForNeededAddRequest(e.participants, i),
-                  n || i == null || i());
-                var r = e.participants.filter(function (e) {
-                  return e.code === "417";
-                });
-                if (r.length > 0) {
-                  var a = s._(
-                      /*BTDS*/ '_j{"*":"{participant_count} participants can\'t be added to the community. You can invite them privately to join this group through its invite link.","_1":"1 participant can\'t be added to the community. You can invite them privately to join this group through its invite link."}',
-                      [s._plural(r.length, "participant_count")],
+              E = g
+                .then(function (n) {
+                  var a,
+                    l = (a = n.invitedOutContacts) != null ? a : [],
+                    u = n.participants.some(function (e) {
+                      return e.code === "403";
+                    }),
+                    c = new Set(
+                      l
+                        .filter(function (e) {
+                          return e.invite_code != null;
+                        })
+                        .map(function (e) {
+                          return e.phoneNumberWid.toString();
+                        }),
                     ),
-                    l = e.participants.some(function (e) {
+                    d = i.filter(function (e) {
+                      return c.has(
+                        o("WAWebJidToWid").userJidToUserWid(e.id).toString(),
+                      );
+                    }),
+                    p = l.filter(function (e) {
+                      return e.invite_code == null;
+                    }).length,
+                    _ =
+                      i.length > 0
+                        ? function () {
+                            if (d.length > 0) {
+                              o("WAWebModalManager").ModalManager.open(
+                                h.jsx(
+                                  r(
+                                    "WAWebOutContactSmsInviteConfirmModal.react",
+                                  ),
+                                  {
+                                    names: d.map(function (e) {
+                                      return e.getName();
+                                    }),
+                                    onConfirm: function () {
+                                      (o(
+                                        "WAWebOutContactInviteAction",
+                                      ).sendMultiGroupInvite(
+                                        d.map(function (e) {
+                                          return e.phoneNumber;
+                                        }),
+                                        o("WAWebWidToJid").widToGroupJid(e.id),
+                                        o("WAWebOutContactConsts")
+                                          .WAWebOutContactInviteEntryPoint
+                                          .GROUP_INVITE_ADD_PARTICIPANT,
+                                      ),
+                                        o(
+                                          "WAWebModalManager",
+                                        ).closeModalManager());
+                                    },
+                                    onCancel:
+                                      o("WAWebModalManager").closeModalManager,
+                                  },
+                                ),
+                              );
+                              return;
+                            }
+                            (b || k(p),
+                              o("WAWebModalManager").closeModalManager());
+                          }
+                        : r("WAWebNoop");
+                  u
+                    ? m.sendForNeededAddRequest(n.participants, _)
+                    : _ == null || _();
+                  var f = n.participants.filter(function (e) {
+                    return e.code === "417";
+                  });
+                  if (f.length > 0) {
+                    var g = s._(
+                        /*BTDS*/ '_j{"*":"{participant_count} participants can\'t be added to the community. You can invite them privately to join this group through its invite link.","_1":"1 participant can\'t be added to the community. You can invite them privately to join this group through its invite link."}',
+                        [s._plural(f.length, "participant_count")],
+                      ),
+                      y = n.participants.some(function (e) {
+                        return e.code === "200";
+                      });
+                    if (!y)
+                      throw new (o("WAWebActionToast.react").ActionType)(g);
+                    return new (o("WAWebActionToast.react").ActionType)(g);
+                  }
+                  if (b) {
+                    if (d.length > 0) {
+                      var C = r("WAWebFbtIntlList")(
+                        d.map(function (e) {
+                          return e.getName();
+                        }),
+                        r("WAWebFbtIntlList").CONJUNCTIONS.NONE,
+                        r("WAWebFbtIntlList").DELIMITERS.COMMA,
+                      ).toString();
+                      return new (o("WAWebActionToast.react").ActionType)(
+                        o("WAWebGroupStringsAction").addSuccessString(
+                          C,
+                          d.length,
+                        ),
+                      );
+                    }
+                    throw new (o("WAWebActionToast.react").ActionType)(
+                      o(
+                        "WAWebOutContactInviteUtils",
+                      ).getGroupInviteAddFailedToastText(p),
+                    );
+                  }
+                  var v = o("WAWebGroupStringsAction").formatResult(
+                      n,
+                      o("WAWebGroupStringsAction").addSuccessString,
+                      o("WAWebGroupStringsAction").addFailedString,
+                      o("WAWebGroupStringsAction").addPartialFailedString,
+                      t,
+                    ),
+                    S = n.participants.some(function (e) {
                       return e.code === "200";
                     });
-                  if (!l) throw new (o("WAWebActionToast.react").ActionType)(a);
-                  return new (o("WAWebActionToast.react").ActionType)(a);
-                }
-                var u = o("WAWebGroupStringsAction").formatResult(
-                    e,
-                    o("WAWebGroupStringsAction").addSuccessString,
-                    o("WAWebGroupStringsAction").addFailedString,
-                    o("WAWebGroupStringsAction").addPartialFailedString,
-                    t,
-                  ),
-                  c = e.participants.some(function (e) {
-                    return e.code === "200";
-                  });
-                if (!c) throw new (o("WAWebActionToast.react").ActionType)(u);
-                return new (o("WAWebActionToast.react").ActionType)(u);
-              }).catch(function (n) {
-                if (n instanceof o("WAWebActionToast.react").ActionType)
-                  throw n;
-                var l = new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ '_j{"*":"Couldn\'t add {participantNames}."}', [
-                    s._plural(t.length),
-                    s._param("participantNames", g),
-                  ]),
-                  {
-                    actionText: s._(/*BTDS*/ "Try again."),
-                    actionHandler: function () {
-                      return L(e, t, a, i);
-                    },
-                  },
-                );
-                switch (n.status) {
-                  case 416: {
-                    var u = s._(/*BTDS*/ "This action is not available");
-                    throw (
-                      o("WAWebModalManager").ModalManager.open(
-                        h.jsx(
-                          r("WAWebCommunityRestrictedGroupActionModal.react"),
-                          { chat: e },
+                  if (!S) throw new (o("WAWebActionToast.react").ActionType)(v);
+                  return new (o("WAWebActionToast.react").ActionType)(v);
+                })
+                .catch(function (n) {
+                  if (n instanceof o("WAWebActionToast.react").ActionType)
+                    throw n;
+                  i.length > 0 && o("WAWebModalManager").closeModalManager();
+                  var l = new (o("WAWebActionToast.react").ActionType)(
+                    b
+                      ? o(
+                          "WAWebOutContactInviteUtils",
+                        ).getGroupInviteAddFailedToastText(i.length)
+                      : s._(
+                          /*BTDS*/ '_j{"*":"Couldn\'t add {participantNames}."}',
+                          [
+                            s._plural(t.length),
+                            s._param("participantNames", y),
+                          ],
                         ),
-                      ),
-                      new (o("WAWebActionToast.react").ActionType)(u)
-                    );
-                  }
-                  case 419:
-                    throw new (o("WAWebActionToast.react").ActionType)(
-                      s._(
-                        /*BTDS*/ "This participant can't be added because the community is full.",
-                      ),
-                    );
-                  case 429: {
-                    if (
-                      o("WAWebABProps").getABPropConfigValue(
-                        "enable_group_create_or_add_rate_limiting_error_ux",
+                    {
+                      actionText: s._(/*BTDS*/ "Try again."),
+                      actionHandler: function () {
+                        return L(e, t, a, i);
+                      },
+                    },
+                  );
+                  switch (n.status) {
+                    case 416: {
+                      var u = s._(/*BTDS*/ "This action is not available");
+                      throw (
+                        o("WAWebModalManager").ModalManager.open(
+                          h.jsx(
+                            r("WAWebCommunityRestrictedGroupActionModal.react"),
+                            { chat: e },
+                          ),
+                        ),
+                        new (o("WAWebActionToast.react").ActionType)(u)
+                      );
+                    }
+                    case 419:
+                      throw new (o("WAWebActionToast.react").ActionType)(
+                        s._(
+                          /*BTDS*/ "This participant can't be added because the community is full.",
+                        ),
+                      );
+                    case 429: {
+                      if (
+                        o("WAWebABProps").getABPropConfigValue(
+                          "enable_group_create_or_add_rate_limiting_error_ux",
+                        )
                       )
-                    )
-                      switch (n.name) {
-                        case "GroupAddParticipantTimeRateLimitServerError":
-                          throw new (o("WAWebActionToast.react").ActionType)(
-                            o(
-                              "WAWebModifyParticipantsRateLimitText",
-                            ).WAWebModifyParticipantsTimeRateLimitText(n),
-                          );
-                        case "GroupAddParticipantCountRateLimitServerError":
-                          throw new (o("WAWebActionToast.react").ActionType)(
-                            o(
-                              "WAWebModifyParticipantsRateLimitText",
-                            ).WAWebModifyParticipantsCountRateLimitText(n),
-                          );
-                      }
-                    throw l;
+                        switch (n.name) {
+                          case "GroupAddParticipantTimeRateLimitServerError":
+                            throw new (o("WAWebActionToast.react").ActionType)(
+                              o(
+                                "WAWebModifyParticipantsRateLimitText",
+                              ).WAWebModifyParticipantsTimeRateLimitText(n),
+                            );
+                          case "GroupAddParticipantCountRateLimitServerError":
+                            throw new (o("WAWebActionToast.react").ActionType)(
+                              o(
+                                "WAWebModifyParticipantsRateLimitText",
+                              ).WAWebModifyParticipantsCountRateLimitText(n),
+                            );
+                        }
+                      throw l;
+                    }
+                    default:
+                      throw (
+                        o("WALogger").WARN(
+                          c ||
+                            (c = babelHelpers.taggedTemplateLiteralLoose([
+                              "[groupMeta] addParticipants dropped",
+                            ])),
+                        ),
+                        l
+                      );
                   }
-                  default:
-                    throw (
-                      o("WALogger").WARN(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[groupMeta] addParticipants dropped",
-                          ])),
-                      ),
-                      i == null || i(),
-                      l
-                    );
-                }
-              });
+                });
             return (
               o("WAWebToastManager").ToastManager.open(
                 h.jsx(o("WAWebActionToast.react").ActionToast, {
                   id: a,
-                  initialAction: y,
-                  pendingAction: C,
+                  initialAction: R,
+                  pendingAction: E,
                 }),
               ),
-              yield _
+              g
             );
           },
         )),
         E.apply(this, arguments)
       );
     }
-    function k(e, t, n) {
-      return I.apply(this, arguments);
+    function k(e) {
+      e !== 0 &&
+        o("WAWebToastManager").ToastManager.open(
+          h.jsx(o("WAWebToast.react").Toast, {
+            msg: o(
+              "WAWebOutContactInviteUtils",
+            ).getGroupInviteAddFailedToastText(e),
+          }),
+        );
     }
-    function I() {
+    function I(e, t, n) {
+      return T.apply(this, arguments);
+    }
+    function T() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i;
           a === void 0 && (a = o("WAWebActionToast.react").genId());
           var l = (i = e.groupMetadata) == null ? void 0 : i.participants;
@@ -292,7 +419,7 @@ __d(
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return k(e, t, a);
+                        return I(e, t, a);
                       },
                     },
                   )
@@ -307,15 +434,15 @@ __d(
           ),
             yield u);
         })),
-        I.apply(this, arguments)
+        T.apply(this, arguments)
       );
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
+    function D(e, t, n) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i, l;
           a === void 0 && (a = o("WAWebActionToast.react").genId());
           var u = (i = e.groupMetadata) == null ? void 0 : i.participants;
@@ -385,7 +512,7 @@ __d(
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return T(e, t, a);
+                        return D(e, t, a);
                       },
                     },
                   )
@@ -400,15 +527,15 @@ __d(
           ),
             yield c);
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
+    function $(e, t, n) {
+      return P.apply(this, arguments);
     }
-    function $() {
+    function P() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i, l;
           a === void 0 && (a = o("WAWebActionToast.react").genId());
           var u = (i = e.groupMetadata) == null ? void 0 : i.participants;
@@ -478,7 +605,7 @@ __d(
                     {
                       actionText: s._(/*BTDS*/ "Try again."),
                       actionHandler: function () {
-                        return x(e, t, a);
+                        return $(e, t, a);
                       },
                     },
                   )
@@ -493,10 +620,10 @@ __d(
           ),
             yield c);
         })),
-        $.apply(this, arguments)
+        P.apply(this, arguments)
       );
     }
-    function P(t, a, i) {
+    function N(t, a, i) {
       var l, u;
       i === void 0 && (i = o("WAWebActionToast.react").genId());
       var c = (l = t.groupMetadata) == null ? void 0 : l.participants;
@@ -564,12 +691,12 @@ __d(
         d
       );
     }
-    function N(e, t, n) {
-      return M.apply(this, arguments);
+    function M(e, t, n) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
           var i, l;
           if (
             (a === void 0 && (a = o("WAWebActionToast.react").genId()),
@@ -674,7 +801,7 @@ __d(
           ),
             yield m);
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
     ((l.addParticipants = y),

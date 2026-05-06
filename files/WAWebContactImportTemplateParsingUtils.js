@@ -44,10 +44,24 @@ __d(
     function S(e) {
       return b(e, c);
     }
-    function R(e) {
-      return typeof e != "string" ? !1 : c.has(e.toLowerCase().trim());
+    function R(e, t) {
+      if (e == null) return null;
+      var n = new Set(
+        t.map(function (e) {
+          return e.toLowerCase();
+        }),
+      );
+      for (var r in e)
+        if (n.has(r.toLowerCase())) {
+          var o = e[r];
+          if (typeof o == "string" && o.trim().length > 0) return o.trim();
+        }
+      return null;
     }
     function L(e) {
+      return typeof e != "string" ? !1 : c.has(e.toLowerCase().trim());
+    }
+    function E(e) {
       var t = [],
         n = y(e),
         r = [];
@@ -140,8 +154,9 @@ __d(
       (l.FBT_NAME = u),
       (l.extractName = v),
       (l.extractPhone = S),
-      (l.isPhoneFieldName = R),
-      (l.parseContactData = L));
+      (l.readRawRowColumn = R),
+      (l.isPhoneFieldName = L),
+      (l.parseContactData = E));
   },
   226,
 );

@@ -16,18 +16,21 @@ __d(
         i = o("WAWebFormatParticipantNames").getFormattedNames(a, !1),
         l = a[0],
         s = l ? o("WAWebContactCollection").ContactCollection.get(l) : void 0,
-        u = s
-          ? o("WAWebFrontendContactGetters").getFormattedName(s)
+        u;
+      return (
+        s
+          ? (u = o("WAWebFrontendContactGetters").getFormattedName(s))
           : l
-            ? o("WAWebWidFormat").widToFormattedUser(l)
-            : "";
-      return o("WAWebFormatAddNotification").formatAddNotification({
-        author: r,
-        authorClickable: n,
-        subject: l,
-        subjectClickable: u,
-        participantsClickable: i,
-      });
+            ? (u = o("WAWebWidFormat").widToFormattedUser(l))
+            : (u = ""),
+        o("WAWebFormatAddNotification").formatAddNotification({
+          author: r,
+          authorClickable: n,
+          subject: l,
+          subjectClickable: u,
+          participantsClickable: i,
+        })
+      );
     }
     l.default = e;
   },

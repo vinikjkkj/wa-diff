@@ -467,7 +467,7 @@ __d(
                     devices: h,
                   });
                 yield o("WAWebAdvHandlerApi").handleADVDeviceSyncResult(v);
-                var S = new Set(
+                var R = new Set(
                   (C =
                     (b = h.deviceList) == null
                       ? void 0
@@ -479,7 +479,7 @@ __d(
                 );
                 yield o(
                   "WAWebBizBroadcastDeviceRemovalCleanup",
-                ).cleanupCampaignsWithInvalidDevices(S);
+                ).cleanupCampaignsWithInvalidDevices(R);
               } else yield o("WAWebAccountSyncJob").getDevices("notification");
               break;
             }
@@ -502,19 +502,19 @@ __d(
                 ));
               break;
             case o("WAWebAccountSyncJob").AccountSyncType.OPTOUTLIST: {
-              var R = o("WAWebUserPrefsMultiDevice").getOptOutListHash(),
-                L = r.dhash,
-                E = r.list,
-                k = r.prevDhash;
-              if (R !== k) {
+              var L = o("WAWebUserPrefsMultiDevice").getOptOutListHash(),
+                E = r.dhash,
+                k = r.list,
+                I = r.prevDhash;
+              if (L !== I) {
                 o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
                   "updateOptOutList",
                 );
                 break;
               } else
-                L != null &&
-                  (E == null ||
-                    E.forEach(
+                E != null &&
+                  (k == null ||
+                    k.forEach(
                       (function () {
                         var e = n("asyncToGeneratorRuntime").asyncToGenerator(
                           function* (e) {
@@ -535,7 +535,7 @@ __d(
                         };
                       })(),
                     ),
-                  yield o("WAWebUserPrefsMultiDevice").setOptOutlistHash(L));
+                  yield o("WAWebUserPrefsMultiDevice").setOptOutlistHash(E));
               break;
             }
             case o("WAWebAccountSyncJob").AccountSyncType.TOS:
@@ -545,60 +545,34 @@ __d(
                 );
               break;
             case o("WAWebAccountSyncJob").AccountSyncType.DISAPPEARING_MODE: {
-              var I = r.action,
-                T = r.from,
-                D = r.disappearingModeDuration,
-                x = r.disappearingModeSettingTimestamp;
-              if (I === "modify") {
-                var $ = yield o(
-                  "WAWebGetDisappearingModeJob",
-                ).getDisappearingMode(
-                  T,
-                  o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
-                    .DM_FORCE_REFRESH,
-                );
-                $.error == null &&
-                  $.disappearingModeDuration != null &&
-                  $.disappearingModeSettingTimestamp != null &&
-                  ((D = $.disappearingModeDuration),
-                  (x = $.disappearingModeSettingTimestamp));
-              }
-              D != null &&
-                x != null &&
-                (yield o(
-                  "WAWebUpdateDisappearingModeForContact",
-                ).updateDisappearingModeForContact({
-                  contactId: T,
-                  newDuration: D,
-                  newSettingTimestamp: x,
-                }));
+              yield S(r);
               break;
             }
             case o("WAWebAccountSyncJob").AccountSyncType.NOTICE: {
-              var P = r.noticeId,
-                N = r.noticeStage,
-                M = r.noticeTimestamp,
-                w = r.noticeVersion;
+              var T = r.noticeId,
+                D = r.noticeStage,
+                x = r.noticeTimestamp,
+                $ = r.noticeVersion;
               if (
-                P != null &&
-                P !== "" &&
-                N != null &&
-                w != null &&
-                M != null
+                T != null &&
+                T !== "" &&
+                D != null &&
+                $ != null &&
+                x != null
               ) {
-                var A = N === o("WAWebPDFNTypes").NOTICE_STAGES.PDFN_ACCEPTED;
+                var P = D === o("WAWebPDFNTypes").NOTICE_STAGES.PDFN_ACCEPTED;
                 (yield o(
                   "WAWebUserDisclosureCollection",
                 ).UserDisclosureCollection.updateNoticeStage({
-                  id: P,
-                  accepted: A,
-                  policyVersion: w,
+                  id: T,
+                  accepted: P,
+                  policyVersion: $,
                 }),
                   o("WAWebAccountSyncJob").updateTosStateFromAccountSync([
                     {
-                      id: P,
-                      state: A,
-                      timestamp: o("WATimeUtils").castToUnixTime(M),
+                      id: T,
+                      state: P,
+                      timestamp: o("WATimeUtils").castToUnixTime(x),
                     },
                   ]));
               }
@@ -618,6 +592,40 @@ __d(
           return a;
         })),
         v.apply(this, arguments)
+      );
+    }
+    function S(e) {
+      return R.apply(this, arguments);
+    }
+    function R() {
+      return (
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.action,
+            n = e.from,
+            r = e.disappearingModeDuration,
+            a = e.disappearingModeSettingTimestamp;
+          if (t === "modify") {
+            var i = yield o("WAWebGetDisappearingModeJob").getDisappearingMode(
+              n,
+              o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.DM_FORCE_REFRESH,
+            );
+            i.error == null &&
+              i.disappearingModeDuration != null &&
+              i.disappearingModeSettingTimestamp != null &&
+              ((r = i.disappearingModeDuration),
+              (a = i.disappearingModeSettingTimestamp));
+          }
+          r != null &&
+            a != null &&
+            (yield o(
+              "WAWebUpdateDisappearingModeForContact",
+            ).updateDisappearingModeForContact({
+              contactId: n,
+              newDuration: r,
+              newSettingTimestamp: a,
+            }));
+        })),
+        R.apply(this, arguments)
       );
     }
     ((l.getAndUpdateStatus = _), (l.handleAccountSyncNotification = b));

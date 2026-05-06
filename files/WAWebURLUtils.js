@@ -107,11 +107,13 @@ __d(
             });
         },
         thumbToCSSURL: function (t) {
-          var e =
-            this.isHttp(t) || t.startsWith("data:")
-              ? t
-              : "data:image/jpeg;base64," + t;
-          return 'url("' + e + '")';
+          var e;
+          return (
+            c.isHttp(t) || t.startsWith("data:")
+              ? (e = t)
+              : (e = "data:image/jpeg;base64," + t),
+            'url("' + e + '")'
+          );
         },
         thumbAsBackgroundImage: function (t) {
           return t ? { backgroundImage: this.thumbToCSSURL(t) } : {};

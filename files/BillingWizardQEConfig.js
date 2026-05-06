@@ -21,7 +21,7 @@ __d(
         ads_lpm_ant_toss_kr: { params: { recurring_enabled: e } },
         ads_lpm_ant_truemoney_th: { params: { recurring_enabled: e } },
         ads_lpm_razorpay_upi: { params: { recurring_enabled: e } },
-        altpay_ml_pill_prediction: { params: { enable_altpay_ml_pills: e } },
+        altpay_ml_pill_prediction: { params: { enable_altpay_ml_pills_v2: e } },
         ama_user_fq: { params: { enabled: e } },
         ama4a_trusted_device_key_registration: {
           params: { trusted_device_key_registration_enabled: e },
@@ -276,7 +276,7 @@ __d(
           },
         },
         increase_min_account_spending_limit: { params: { enabled: e } },
-        india_billing_pmt_unknown_card_type_allow_v1: {
+        india_billing_pmt_unknown_card_type_allow: {
           params: { enabled: e },
           type: "PAYMENT_ACCOUNT",
         },
@@ -284,7 +284,10 @@ __d(
           params: { enable_l5_cc_as_backup_ui_improvement: e },
           type: "PAYMENT_ACCOUNT",
         },
-        mft_india_upb_testers_h225: { params: { show_upb_changes: e } },
+        maiba_dora_notifications: {
+          params: { enabled: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         mft_usability_t214327445_confirmation: {
           params: { show_confirmation: { defaultValue: !1, launched: !1 } },
           type: "PAYMENT_ACCOUNT",
@@ -297,9 +300,8 @@ __d(
         one_click_auto_reload_in_add_funds_shipping: {
           params: { dummy_param: e },
         },
-        pill_amount_selection: { params: { use_updated_pills: e } },
         pill_amount_selection_v1_logging: { params: { dummy_param_v2: e } },
-        pill_ml_prediction: { params: { enable_ml_results_v4: e } },
+        pill_ml_prediction: { params: { enable_ml_results_v5: e } },
         rn_payment_settings_enable_pills: {
           params: { enable_pills_v3: e },
           type: "PAYMENT_ACCOUNT",

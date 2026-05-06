@@ -13,30 +13,33 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s, u;
-    function c(e, t) {
+    function c(e, t, n) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (o("WAWebVoipGatingUtils").isCallingEnabled()) {
-            var n = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-            if (n) {
-              var r,
-                a = yield o("WAWebBackendApi").frontendSendAndReceive(
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          if (
+            (n === void 0 && (n = o("WAWebVoipGatingUtils").isCallingEnabled()),
+            n)
+          ) {
+            var r = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+            if (r) {
+              var a,
+                i = yield o("WAWebBackendApi").frontendSendAndReceive(
                   "getTcToken",
                   { wid: e.peer_jid },
                 ),
-                i = a.tcToken;
-              yield n.handleIncomingSignalingMessage(
+                l = i.tcToken;
+              yield r.handleIncomingSignalingMessage(
                 t,
                 e.peer_platform,
                 e.peer_app_version,
                 e.e,
                 e.t,
-                (r = e.isContact) != null ? r : !1,
+                (a = e.isContact) != null ? a : !1,
                 e.peer_jid.toString(),
-                i,
+                l,
               );
               return;
             }

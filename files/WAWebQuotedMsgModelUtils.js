@@ -95,22 +95,21 @@ __d(
           ? e.paymentRequestMessageKey.remote
           : e.id.remote,
         i = e.paymentRequestMessageKey.fromMe,
-        l =
+        l = i ? "out" : "in",
+        s =
           e.paymentRequestMessageKey.self != null
             ? e.paymentRequestMessageKey.self
-            : i
-              ? "out"
-              : "in",
-        s =
+            : l,
+        u =
           e.paymentRequestMessageKey.participant || e.paymentMessageReceiverJid,
-        u = e.paymentRequestMessageKey.id,
-        c = {
-          id: u,
+        c = e.paymentRequestMessageKey.id,
+        d = {
+          id: c,
           from: i ? r : a,
           to: i ? a : r,
-          self: l,
-          participant: s,
-          author: s,
+          self: s,
+          participant: u,
+          author: u,
           remote: a,
           amount1000: e.paymentAmount1000,
           currency: e.paymentCurrency,
@@ -118,7 +117,7 @@ __d(
           type: e.type,
           subtype: "request",
         };
-      return (t = o("WAWebMsgModelUtils").createQuotedMsg(c)) == null
+      return (t = o("WAWebMsgModelUtils").createQuotedMsg(d)) == null
         ? void 0
         : t.safe();
     }

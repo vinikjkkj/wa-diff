@@ -349,10 +349,9 @@ __d(
             : p.PAIRING;
         case o("WAWebSocketConstants").SOCKET_STATE.CONNECTED:
           return o("WAWebSocketModel").Socket.stream !==
-            o("WAWebSocketConstants").SOCKET_STREAM.CONNECTED
-            ? o("WAWebSocketModel").Socket.hasSynced
-              ? p.NORMAL
-              : p.SYNCING
+            o("WAWebSocketConstants").SOCKET_STREAM.CONNECTED &&
+            !o("WAWebSocketModel").Socket.hasSynced
+            ? p.SYNCING
             : p.NORMAL;
         case o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED:
         case o("WAWebSocketConstants").SOCKET_STATE.PROXYBLOCK:

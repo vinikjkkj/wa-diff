@@ -17,6 +17,10 @@ __d(
         CONFIRM_BUTTON: "confirm_button",
         EMPTY_STATE_ADD_CUSTOMER: "empty_state_add_customer",
         IMPORT_BUTTON: "import_button",
+        IMPORT_DELETE_ALL_ERRORS_BUTTON: "import_delete_all_errors_button",
+        IMPORT_DELETE_CONTACT_BUTTON: "import_delete_contact_button",
+        IMPORT_DELETE_ERROR_BUTTON: "import_delete_error_button",
+        IMPORT_SAVE_BUTTON: "import_save_button",
         IMPORT_SAVE_TEMPLATE_LINK: "import_save_template_link",
         IMPORT_UPLOAD_FILE_BUTTON: "import_upload_file_button",
         LAST_MESSAGE_FILTER_CHIP: "last_message_filter_chip",
@@ -107,6 +111,67 @@ __d(
               userActionTarget: e.IMPORT_SAVE_TEMPLATE_LINK,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
                 .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.clickImportDeleteContact = function () {
+            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
+                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_DELETE_CONTACT_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.clickImportDeleteError = function () {
+            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
+                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_DELETE_ERROR_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.clickImportDeleteAllErrors = function () {
+            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
+                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_DELETE_ALL_ERRORS_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.clickImportSaveContacts = function (n) {
+            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+              extraAttributes: { total_count: n },
+              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
+                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_SAVE_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+            });
+          }),
+          (n.importSaveResult = function (n, r, a) {
+            o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+              extraAttributes: {
+                duration_ms: a,
+                failure_count: r,
+                success_count: n,
+              },
+              featureName: o("WAWebWamEnumSmbFeatureNameEnum")
+                .SMB_FEATURE_NAME_ENUM.CUSTOMER_MANAGER,
+              surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+                .CUSTOMER_MANAGER_LIST,
+              userActionTarget: e.IMPORT_SAVE_BUTTON,
+              userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+                .SMB_USER_ACTION_TYPE_ENUM.VIEW,
             });
           }),
           (n.clickEmptyStateAddCustomer = function (n) {

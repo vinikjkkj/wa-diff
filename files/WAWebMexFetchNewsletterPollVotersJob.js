@@ -4,6 +4,7 @@ __d(
     "WATimeUtils",
     "WAWebMexClient",
     "WAWebMexFetchNewsletterPollVotersJobQuery.graphql",
+    "WAWebNewsletterPollsUtils",
     "WAWebPollOptionHashUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
@@ -56,11 +57,12 @@ __d(
         n = e.node,
         r = n == null ? void 0 : n.id;
       if (r == null || t == null) return null;
-      var a = parseInt(t, 10) / 1e6;
-      return {
-        id: o("WAWebWidFactory").createWid(r),
-        time: o("WATimeUtils").castToUnixTime(a),
-      };
+      var a = parseInt(t, 10) / 1e6,
+        i = o("WAWebWidFactory").createWid(r);
+      return (
+        o("WAWebNewsletterPollsUtils").logIfPollVoterIdNotPlainUser(i),
+        { id: i, time: o("WATimeUtils").castToUnixTime(a) }
+      );
     }
     l.default = u;
   },

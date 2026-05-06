@@ -80,6 +80,12 @@ __d(
         o("WAWebABProps").getABPropConfigValue("payments_br_pix_on_web")
       );
     }
+    function f() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue("ctwa_smb_multiselect_enabled")
+      );
+    }
     ((l.isOrderDetailsPaymentInstructionsSyncEnabled = e),
       (l.isCustomPaymentMethodsSyncEnabled = s),
       (l.isPixInQuickReplyEnabled = u),
@@ -87,7 +93,8 @@ __d(
       (l.isAPICopyPixCTAEnabled = d),
       (l.isCopyPixKeyBuyerLoggingEnabled = m),
       (l.isCopyPixCodeBuyerLoggingEnabled = p),
-      (l.isPixOnWebEnabled = _));
+      (l.isPixOnWebEnabled = _),
+      (l.isCTWASMBListsMultiSelectEnabled = f));
   },
   98,
 );

@@ -146,7 +146,9 @@ __d(
           t.isParentGroup != null ||
           t.isDefaultSubgroup != null ||
           t.parentGroupId != null ||
-          t.disappearingMode != null
+          t.disappearingMode != null ||
+          t.appealStatus != null ||
+          t.appealUpdateTime != null
         ) {
           var u,
             c,
@@ -171,6 +173,35 @@ __d(
               disappearingModeInitiatedByMe:
                 (u = t.disappearingMode) == null ? void 0 : u.initiatedByMe,
               disappearingModeTrigger: l,
+              suspendAppealStatus:
+                t.appealStatus != null
+                  ? t.appealStatus ===
+                    o("WAWebProtobufsHistorySync.pb")
+                      .Conversation$GroupAppealStatus.APPEAL_IN_REVIEW
+                    ? "IN_REVIEW"
+                    : t.appealStatus ===
+                        o("WAWebProtobufsHistorySync.pb")
+                          .Conversation$GroupAppealStatus.APPEAL_APPROVED
+                      ? "APPROVED"
+                      : t.appealStatus ===
+                          o("WAWebProtobufsHistorySync.pb")
+                            .Conversation$GroupAppealStatus.APPEAL_REJECTED
+                        ? "REJECTED"
+                        : t.appealStatus ===
+                            o("WAWebProtobufsHistorySync.pb")
+                              .Conversation$GroupAppealStatus.NO_APPEAL
+                          ? null
+                          : (function () {
+                              throw Error(
+                                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                  t.appealStatus,
+                              );
+                            })()
+                  : void 0,
+              suspendAppealUpdateTime:
+                t.appealUpdateTime != null
+                  ? Number(t.appealUpdateTime)
+                  : void 0,
             };
           o("WAWebDBGroupsGroupMetadata").persistGroupMetadata(
             n,

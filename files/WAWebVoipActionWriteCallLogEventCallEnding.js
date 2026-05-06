@@ -28,94 +28,102 @@ __d(
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
-            var n = t.callCreatorJid,
-              a = t.callId,
-              i = t.callLinkToken,
-              l = t.connectTime,
-              u = t.fromMe,
-              d = t.groupJid,
-              m = t.isCallLink,
-              p = t.participantEntries,
-              _ = t.peerJid,
-              f = t.result,
-              g = t.startTime,
-              h = t.terminatedByDeviceSwitch,
-              y = t.videoCall;
-            h &&
+            var n = t.bytesReceived,
+              a = t.bytesSent,
+              i = t.callCreatorJid,
+              l = t.callId,
+              u = t.callLinkToken,
+              d = t.connectTime,
+              m = t.fromMe,
+              p = t.groupJid,
+              _ = t.isCallLink,
+              f = t.participantEntries,
+              g = t.peerJid,
+              h = t.result,
+              y = t.startTime,
+              C = t.terminatedByDeviceSwitch,
+              b = t.videoCall,
+              v = a != null ? a : void 0,
+              S = n != null ? n : void 0;
+            C &&
               o("WAWebToastManager").ToastManager.open(
                 c.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "You joined the call from another device."),
                 }),
               );
-            var C = o(
+            var R = o(
                 "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.getByCallId(a),
-              b =
-                n != null
-                  ? n
-                  : u
+              ).WAWebVoipOngoingCallCollection.getByCallId(l),
+              L =
+                i != null
+                  ? i
+                  : m
                     ? o(
                         "WAWebUserPrefsMeUser",
                       ).getMeDevicePnOrThrow_DO_NOT_USE()
-                    : _,
-              v = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
-                callCreatorWid: b,
-                peerWid: _,
-                callId: a,
-                groupJid: d,
-                participants: r("compactMap")(p, function (e) {
+                    : g,
+              E = yield o("WAWebCallLogUtils").getCallLogTargetDetails({
+                callCreatorWid: L,
+                peerWid: g,
+                callId: l,
+                groupJid: p,
+                participants: r("compactMap")(f, function (e) {
                   return e.jid;
                 }),
               }),
-              S = v.callCreatorUserWid,
-              R = v.chatId,
-              L = v.msgKeyId,
-              E = v.participant;
-            if (C != null) {
-              var k = babelHelpers.extends({}, C.toJSON(), {
-                callDuration: l == null ? C.callDuration : l,
+              k = E.callCreatorUserWid,
+              I = E.chatId,
+              T = E.msgKeyId,
+              D = E.participant;
+            if (R != null) {
+              var x = babelHelpers.extends({}, R.toJSON(), {
+                callDuration: d == null ? R.callDuration : d,
                 finalCallOutcome: o(
                   "WAWebCallLogUtils",
-                ).getCallOutcomeFromCallLogResult(f, l),
-                terminatedByDeviceSwitch: h,
+                ).getCallOutcomeFromCallLogResult(h, d),
+                terminatedByDeviceSwitch: C,
+                bytesSent: v,
+                bytesReceived: S,
               });
               yield o(
                 "WAWebVoipActionWriteCallLogImpl",
-              ).writeVoipCallLogMessageImpl(R, k, !1);
+              ).writeVoipCallLogMessageImpl(I, x, !1);
             } else {
-              if (d != null || m === !0) return;
-              var I = {
+              if (p != null || _ === !0) return;
+              var $ = {
                 id: new (r("WAWebMsgKey"))({
-                  remote: R,
-                  participant: E,
-                  fromMe: u,
-                  id: L,
+                  remote: I,
+                  participant: D,
+                  fromMe: m,
+                  id: T,
                 }),
                 type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                 kind: o("WAWebMsgType").MsgKind.CallLog,
                 viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
                 callOutcome: o(
                   "WAWebCallLogUtils",
-                ).getCallOutcomeFromCallLogResult(f, l),
-                isVideoCall: y != null ? y : !1,
-                callCreator: b,
-                callDuration: l == null ? void 0 : l,
-                from: S,
-                t: g,
-                callParticipants: p.map(function (e) {
+                ).getCallOutcomeFromCallLogResult(h, d),
+                isVideoCall: b != null ? b : !1,
+                callCreator: L,
+                callDuration: d == null ? void 0 : d,
+                from: k,
+                t: y,
+                callParticipants: f.map(function (e) {
                   return { participant: e.jid, outcome: e.result };
                 }),
-                to: R,
+                to: I,
                 isCallLink: !1,
-                callLinkToken: i != null ? i : void 0,
+                callLinkToken: u != null ? u : void 0,
                 finalCallOutcome: o(
                   "WAWebCallLogUtils",
-                ).getCallOutcomeFromCallLogResult(f, l),
-                terminatedByDeviceSwitch: h,
+                ).getCallOutcomeFromCallLogResult(h, d),
+                terminatedByDeviceSwitch: C,
+                bytesSent: v,
+                bytesReceived: S,
               };
               yield o(
                 "WAWebVoipActionWriteCallLogImpl",
-              ).writeVoipCallLogMessageImpl(R, I, !1);
+              ).writeVoipCallLogMessageImpl(I, $, !1);
             }
           } catch (t) {
             o("WALogger")

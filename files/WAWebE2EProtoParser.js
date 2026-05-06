@@ -302,6 +302,7 @@ __d(
           : l),
         (e.isForwarded = t.isForwarded),
         (e.isQuestion = t.isQuestion),
+        (e.isSpoiler = t.isSpoiler),
         (e.forwardingScore = t.forwardingScore),
         (e.nonJidMentions =
           t.nonJidMentions != null &&

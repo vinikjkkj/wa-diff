@@ -103,19 +103,21 @@ __d(
     }
     function u(e, t, n, r) {
       var o = t.y === e.y,
-        a = {
-          y: o ? e.y : t.y > e.y ? e.y + r : e.y - r,
-          x: o ? (t.x > e.x ? e.x + r : e.x - r) : e.x,
-        },
-        i = e.y === n.y,
-        l = {
-          y: i ? e.y : n.y > e.y ? e.y + r : e.y - r,
-          x: i ? (n.x > e.x ? e.x + r : e.x - r) : e.x,
-        },
-        s =
+        a;
+      o ? (a = e.y) : t.y > e.y ? (a = e.y + r) : (a = e.y - r);
+      var i;
+      o ? (t.x > e.x ? (i = e.x + r) : (i = e.x - r)) : (i = e.x);
+      var l = { y: a, x: i },
+        s = e.y === n.y,
+        u;
+      s ? (u = e.y) : n.y > e.y ? (u = e.y + r) : (u = e.y - r);
+      var c;
+      s ? (n.x > e.x ? (c = e.x + r) : (c = e.x - r)) : (c = e.x);
+      var d = { y: u, x: c },
+        m =
           (o && ((t.y < n.y && t.x < n.x) || (t.x > n.x && t.y > n.y))) ||
           (!o && ((t.y < n.y && t.x > n.x) || (t.x < n.x && t.y > n.y)));
-      return { start: a, end: l, clockwise: s };
+      return { start: l, end: d, clockwise: m };
     }
     l.generateTextBackgroundPath = e;
   },

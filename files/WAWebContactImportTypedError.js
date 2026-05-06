@@ -2,19 +2,17 @@ __d(
   "WAWebContactImportTypedError",
   ["$InternalEnum"],
   function (t, n, r, o, a, i) {
-    var e = n("$InternalEnum").Mirrored([
+    var e,
+      l = (e = n("$InternalEnum")).Mirrored([
         "NOT_WHATSAPP_USER",
         "INVALID",
         "DUPLICATE",
       ]),
-      l = n("$InternalEnum").Mirrored(["INVALID", "EMPTY"]),
-      s = n("$InternalEnum").Mirrored([
-        "TYPE",
-        "FORMAT",
-        "TOO_MANY_ITEMS",
-        "TOO_MANY_ERRORS",
-      ]),
-      u = (function (e) {
+      s = e.Mirrored(["INVALID", "EMPTY"]),
+      u = e.Mirrored(["DUPLICATE"]),
+      c = e.Mirrored(["ALREADY_EXISTS"]),
+      d = e.Mirrored(["TYPE", "FORMAT", "TOO_MANY_ITEMS", "TOO_MANY_ERRORS"]),
+      m = (function (e) {
         function t(t) {
           var n;
           return (
@@ -26,10 +24,12 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    ((i.PhoneError = e),
-      (i.NameError = l),
-      (i.FileError = s),
-      (i.WAWebContactImportTypedError = u));
+    ((i.PhoneError = l),
+      (i.NameError = s),
+      (i.UsernameError = u),
+      (i.ExistingContactError = c),
+      (i.FileError = d),
+      (i.WAWebContactImportTypedError = m));
   },
   66,
 );

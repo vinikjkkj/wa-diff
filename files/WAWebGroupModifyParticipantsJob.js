@@ -176,58 +176,70 @@ __d(
         "privacy_token_sending_on_group_participant_add",
       );
     }
-    function L(e, t) {
+    function L(e, t, n) {
       return E.apply(this, arguments);
     }
     function E() {
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = t.map(function (e) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          r === void 0 && (r = []);
+          var a = t.map(function (e) {
               return e.lid ? e.lid : e.phoneNumber;
             }),
-            a = yield o("WAWebSchemaChat")
+            i = yield o("WAWebSchemaChat")
               .getChatTable()
               .bulkGet(
-                r.map(function (e) {
+                a.map(function (e) {
                   return e.toString();
                 }),
               ),
-            i;
+            l;
           R() &&
-            a.length > 0 &&
-            (i = o("WAWebGroupsPrivacyTokenUtils").getPermissionTokenMap(a, r));
-          var l = {
-              participantArgs: r.map(function (e, n) {
-                var r,
-                  a = t[n];
-                return {
-                  participantJid: o("WAWebWidToJid").widToUserJid(e),
-                  participantPhoneNumber:
-                    e.isLid() && a.phoneNumber
-                      ? o("WAWebWidToJid").widToUserJid(a.phoneNumber)
-                      : void 0,
-                  participantUsername: e.isLid() ? a.username : void 0,
-                  permissionTokenMixinArgs: (r = i) == null ? void 0 : r.get(e),
-                };
-              }),
+            i.length > 0 &&
+            (l = o("WAWebGroupsPrivacyTokenUtils").getPermissionTokenMap(i, a));
+          var s = {
+              participantArgs: [].concat(
+                a.map(function (e, n) {
+                  var r,
+                    a = t[n];
+                  return {
+                    participantJid: o("WAWebWidToJid").widToUserJid(e),
+                    participantPhoneNumber:
+                      e.isLid() && a.phoneNumber
+                        ? o("WAWebWidToJid").widToUserJid(a.phoneNumber)
+                        : void 0,
+                    participantUsername: e.isLid() ? a.username : void 0,
+                    permissionTokenMixinArgs:
+                      (r = l) == null ? void 0 : r.get(e),
+                  };
+                }),
+                r.map(function (e) {
+                  var t;
+                  return {
+                    participantJid: o("WAWebWidToJid").widToUserJid(e),
+                    permissionTokenMixinArgs:
+                      (t = l) == null ? void 0 : t.get(e),
+                  };
+                }),
+              ),
               iqTo: o("WAWebWidToJid").widToGroupJid(e),
             },
-            s;
+            u;
           try {
-            s = yield o(
+            u = yield o(
               "WASmaxGroupsAddParticipantsRPC",
-            ).sendAddParticipantsRPC(l);
+            ).sendAddParticipantsRPC(s);
           } catch (e) {
             throw (o("WAWebCoreActionsODS").logGroupAddParticipantError(), e);
           }
-          switch (s.name) {
+          switch (u.name) {
             case "AddParticipantsResponseSuccess": {
-              var u = s.value.addParticipant;
+              var m = u.value.addParticipant;
               if (
                 (o("WAWebCoreActionsODS").logGroupAddParticipant(),
                 o("WAWebUsernameGatingUtils").usernameDisplayedEnabled())
               ) {
-                var m = u.reduce(function (e, t) {
+                var p = m.reduce(function (e, t) {
                   var n,
                     r =
                       t
@@ -249,100 +261,25 @@ __d(
                     e
                   );
                 }, []);
-                m.length > 0 &&
-                  (yield o("WAWebSetUsernameJob").setUsernamesJob(m));
+                p.length > 0 &&
+                  (yield o("WAWebSetUsernameJob").setUsernamesJob(p));
               }
               return {
                 status: 207,
-                participants: u.map(function (e) {
-                  var t,
-                    n,
-                    r,
-                    a,
-                    i,
-                    l,
-                    s =
-                      (t =
-                        e.addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup) ==
-                        null ||
-                      (t = t.value) == null ||
-                      (t = t.addParticipantsParticipantMixins) == null
-                        ? void 0
-                        : t.value.error,
-                    u =
-                      (n =
-                        e
-                          .addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup
-                          .value.addParticipantsParticipantMixins) == null ||
-                      (n = n.value) == null
-                        ? void 0
-                        : n.membershipApprovalRequestError,
-                    c,
-                    d;
-                  if (
-                    ((r =
-                      e.addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup) ==
-                      null ||
-                    (r = r.value) == null ||
-                    (r = r.addParticipantsParticipantMixins) == null
-                      ? void 0
-                      : r.name) === "ParticipantRequestCodeCanBeSent"
-                  ) {
-                    var m, p;
-                    ((c =
-                      (m =
-                        e.addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup) ==
-                        null ||
-                      (m = m.value) == null ||
-                      (m = m.addParticipantsParticipantMixins) == null ||
-                      (m = m.value) == null
-                        ? void 0
-                        : m.addRequestCode),
-                      (d =
-                        (p =
-                          e.addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup) ==
-                          null ||
-                        (p = p.value) == null ||
-                        (p = p.addParticipantsParticipantMixins) == null ||
-                        (p = p.value) == null
-                          ? void 0
-                          : p.addRequestExpiration));
-                  }
-                  var _ = { membershipApprovalRequestError: u };
-                  return {
-                    userWid:
-                      e
-                        .addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup
-                        .value.jid != null
-                        ? o("WAWebJidToWid").userJidToUserWid(
-                            e
-                              .addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup
-                              .value.jid,
-                          )
-                        : null,
-                    username:
-                      (a =
-                        (i =
-                          e.addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup) ==
-                          null || (i = i.value.usernameAttMixin) == null
-                          ? void 0
-                          : i.username) != null
-                        ? a
-                        : null,
-                    code: s != null ? s : "200",
-                    subCode: _,
-                    invite_code: c,
-                    invite_code_exp: (l = d) == null ? void 0 : l.toString(),
-                  };
+                participants: m.flatMap(function (e) {
+                  return k(e);
+                }),
+                invitedOutContacts: m.flatMap(function (e) {
+                  return I(e);
                 }),
               };
             }
             case "AddParticipantsResponseClientError": {
-              var p = s.value.errorAddParticipantsClientErrors.value,
-                _ = p.code,
-                f = p.text,
-                g =
-                  s.value.errorAddParticipantsClientErrors.value
+              var _ = u.value.errorAddParticipantsClientErrors.value,
+                f = _.code,
+                g = _.text,
+                h =
+                  u.value.errorAddParticipantsClientErrors.value
                     .rateLimitAddParticipantTimeOrCountRateLimitMixinGroup;
               if (
                 (o("WAWebCoreActionsODS").logGroupAddParticipantError(),
@@ -352,19 +289,19 @@ __d(
                       "error sending add group participants iq: ",
                       "",
                     ])),
-                  _,
+                  f,
                 ),
-                g != null)
+                h != null)
               )
-                switch (g.name) {
+                switch (h.name) {
                   case "AddParticipantTimeRateLimit":
                     return (b || (b = n("Promise"))).reject(
                       new (o(
                         "WAWebBackendErrors",
                       ).GroupAddParticipantTimeRateLimitServerError)(
-                        _,
-                        g.value.backoff,
-                        g.value.type,
+                        f,
+                        h.value.backoff,
+                        h.value.type,
                       ),
                     );
                   case "AddParticipantCountRateLimit":
@@ -372,19 +309,19 @@ __d(
                       new (o(
                         "WAWebBackendErrors",
                       ).GroupAddParticipantCountRateLimitServerError)(
-                        _,
-                        g.value.participantLimit,
+                        f,
+                        h.value.participantLimit,
                       ),
                     );
                 }
               return (b || (b = n("Promise"))).reject(
-                new (o("WAWebBackendErrors").ServerStatusCodeError)(+_, f),
+                new (o("WAWebBackendErrors").ServerStatusCodeError)(+f, g),
               );
             }
             case "AddParticipantsResponseServerError": {
-              var h = s.value.errorServerErrors.value,
-                y = h.code,
-                C = h.text;
+              var y = u.value.errorServerErrors.value,
+                C = y.code,
+                v = y.text;
               return (
                 o("WAWebCoreActionsODS").logGroupAddParticipantError(),
                 o("WALogger").WARN(
@@ -393,10 +330,10 @@ __d(
                       "error sending add group participants iq: ",
                       "",
                     ])),
-                  y,
+                  C,
                 ),
                 (b || (b = n("Promise"))).reject(
-                  new (o("WAWebBackendErrors").ServerStatusCodeError)(+y, C),
+                  new (o("WAWebBackendErrors").ServerStatusCodeError)(+C, v),
                 )
               );
             }
@@ -405,13 +342,94 @@ __d(
         E.apply(this, arguments)
       );
     }
-    function k(e, t, n) {
-      return I.apply(this, arguments);
+    function k(e) {
+      var t,
+        n =
+          e.addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup;
+      if (n.name === "NonRegisteredWaUserParticipantErrorLidResponse")
+        return [];
+      var r = n.value.jid,
+        a = n.value.addParticipantsParticipantMixins,
+        i = (t = n.value.usernameAttMixin) == null ? void 0 : t.username;
+      if (
+        r == null ||
+        ((a == null ? void 0 : a.name) === "ParticipantRequestCodeCanBeSent" &&
+          a.value.participantNotAddressableMixin != null)
+      )
+        return [];
+      var l = a == null ? void 0 : a.value.addRequestCode,
+        s = a == null ? void 0 : a.value.addRequestExpiration,
+        u = a == null ? void 0 : a.value.error;
+      return [
+        {
+          userWid: o("WAWebJidToWid").userJidToUserWid(r),
+          username: i != null ? i : null,
+          code: u != null ? u : "200",
+          subCode: {
+            membershipApprovalRequestError:
+              a == null ? void 0 : a.value.membershipApprovalRequestError,
+          },
+          invite_code: l,
+          invite_code_exp: s != null ? String(s) : void 0,
+        },
+      ];
     }
-    function I() {
+    function I(e) {
+      var t,
+        n =
+          e.addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup;
+      if (n.name === "NonRegisteredWaUserParticipantErrorLidResponse") {
+        var r,
+          a = n.value.phoneNumber,
+          i =
+            n.value
+              .participantRequestCodeCanBeSentOrRequestCodeCannotBeCreatedForLegalConcernsOrHasInvalidPNMixinGroup;
+        if (a == null || i == null) return [];
+        var l =
+            i.name === "ParticipantRequestCodeCanBeSent"
+              ? i.value.addRequestCode
+              : null,
+          s =
+            i.name === "ParticipantRequestCodeCanBeSent" &&
+            i.value.addRequestExpiration != null
+              ? String(i.value.addRequestExpiration)
+              : null,
+          u =
+            l != null ? "200" : String((r = i.value.error) != null ? r : "200");
+        return [
+          {
+            phoneNumberWid: o("WAWebJidToWid").userJidToUserWid(a),
+            code: u,
+            invite_code: l,
+            invite_code_exp: s,
+          },
+        ];
+      }
+      var c = n.value.jid,
+        d = n.value.addParticipantsParticipantMixins;
+      return c == null ||
+        (d == null ? void 0 : d.name) !== "ParticipantRequestCodeCanBeSent" ||
+        d.value.participantNotAddressableMixin == null
+        ? []
+        : [
+            {
+              phoneNumberWid: o("WAWebJidToWid").userJidToUserWid(c),
+              code: String((t = d.value.error) != null ? t : "200"),
+              invite_code: d.value.addRequestCode,
+              invite_code_exp:
+                d.value.addRequestExpiration != null
+                  ? String(d.value.addRequestExpiration)
+                  : null,
+            },
+          ];
+    }
+    function T(e, t, n) {
+      return D.apply(this, arguments);
+    }
+    function D() {
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = M(t, r, "demote"),
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = A(t, r, "demote"),
             i = yield o("WASmaxGroupsPromoteDemoteRPC").sendPromoteDemoteRPC({
               demoteArgs: {
                 participantArgs: a.map(function (e) {
@@ -502,16 +520,16 @@ __d(
               return;
           }
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
+    function x(e, t, n) {
+      return $.apply(this, arguments);
     }
-    function D() {
+    function $() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = M(t, r, "promote"),
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = A(t, r, "promote"),
             i = yield o("WASmaxGroupsPromoteDemoteRPC").sendPromoteDemoteRPC({
               promoteArgs: {
                 participantArgs: a.map(function (e) {
@@ -602,16 +620,16 @@ __d(
               return;
           }
         })),
-        D.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
+    function P(e, t, n) {
+      return N.apply(this, arguments);
     }
-    function $() {
+    function N() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = M(t, r, "admin-promote"),
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = A(t, r, "admin-promote"),
             i = yield o(
               "WASmaxGroupsPromoteDemoteAdminRPC",
             ).sendPromoteDemoteAdminRPC({
@@ -702,16 +720,16 @@ __d(
             }
           }
         })),
-        $.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function P(e, t, n) {
-      return N.apply(this, arguments);
+    function M(e, t, n) {
+      return w.apply(this, arguments);
     }
-    function N() {
+    function w() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = M(t, r, "admin-demote"),
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+          var a = A(t, r, "admin-demote"),
             i = yield o(
               "WASmaxGroupsPromoteDemoteAdminRPC",
             ).sendPromoteDemoteAdminRPC({
@@ -802,10 +820,10 @@ __d(
             }
           }
         })),
-        N.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function M(t, n, r) {
+    function A(t, n, r) {
       var a = o("WAWebLidMigrationUtils").toAddressingModeFactory(n);
       return t.map(function (t, i) {
         var l = a(t);
@@ -830,10 +848,10 @@ __d(
     }
     ((l.removeGroupParticipants = v),
       (l.addGroupParticipants = L),
-      (l.demoteGroupParticipants = k),
-      (l.promoteGroupParticipants = T),
-      (l.promoteCommunityParticipants = x),
-      (l.demoteCommunityParticipants = P));
+      (l.demoteGroupParticipants = T),
+      (l.promoteGroupParticipants = x),
+      (l.promoteCommunityParticipants = P),
+      (l.demoteCommunityParticipants = M));
   },
   98,
 );

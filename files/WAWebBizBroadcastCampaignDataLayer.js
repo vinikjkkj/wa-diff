@@ -492,6 +492,7 @@ __d(
             broadcastJid: C,
             campaignId: e.campaignId,
             campaignName: z,
+            createdTimestamp: e.createdTimestamp,
             ctaButtonData: q,
             deliveredCount: V,
             lastUpdatedTimestampMs:

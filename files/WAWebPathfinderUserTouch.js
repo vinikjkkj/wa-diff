@@ -15,46 +15,52 @@ __d(
       h = null,
       y = null,
       C = null,
-      b = null;
-    function v(e) {
-      h = e;
+      b = null,
+      v = null;
+    function S(e) {
+      y = e;
     }
-    function S() {
-      return h;
+    function R() {
+      return y;
     }
-    function R(e, t) {
+    function L() {
+      var e = h;
+      return ((h = null), e);
+    }
+    function E(e, t) {
       var n = g;
       return n != null && n.eventType === e && n.trackingId === t
         ? n.debounceCount + 1
         : 0;
     }
-    function L(e, t, n, r) {
-      var a = R(e, t);
+    function k(e, t, n, r) {
+      var a = E(e, t);
       ((g = { eventType: e, trackingId: t, debounceCount: a }),
+        (e === "TAP" || e === "DOUBLE_TAP") && (h = t),
         o("WAWebPathfinderLogger").emitPathfinderEvent({
           eventType: e,
           debounceCount: a > 0 ? a : void 0,
-          screenName: h,
+          screenName: y,
           targetTrackingId: t,
           targetType: n,
           timestampMs: r,
         }));
     }
-    var E = { UP: 1, DOWN: 2, LEFT: 3, RIGHT: 4 };
-    function k(e) {
+    var I = { UP: 1, DOWN: 2, LEFT: 3, RIGHT: 4 };
+    function T(e) {
       var t = Math.abs(e.deltaX),
         n = Math.abs(e.deltaY);
       return t === 0 && n === 0
         ? null
         : n >= t
           ? e.deltaY > 0
-            ? E.DOWN
-            : E.UP
+            ? I.DOWN
+            : I.UP
           : e.deltaX > 0
-            ? E.RIGHT
-            : E.LEFT;
+            ? I.RIGHT
+            : I.LEFT;
     }
-    function I(e, t, n) {
+    function D(e, t, n) {
       o("WAWebPathfinderLogger").emitPathfinderEvent({
         eventType: "SCROLL",
         screenName: e,
@@ -62,22 +68,22 @@ __d(
         gestureDirection: n,
       });
     }
-    function T(e, t, n) {
+    function x(e, t, n) {
       o("WAWebPathfinderLogger").emitPathfinderEvent({
         eventType: "LONG_PRESS",
-        screenName: h,
+        screenName: y,
         targetTrackingId: e,
         targetType: t,
         timestampMs: n,
       });
     }
-    function D(e) {
+    function $(e) {
       var t;
       return (t = e.getAttribute("data-testid")) != null
         ? t
         : e.getAttribute("testid");
     }
-    function x(e) {
+    function P(e) {
       var t = e.split("-"),
         n = [];
       for (var r of t) {
@@ -87,41 +93,41 @@ __d(
       }
       return n.length > 0 ? n.join("-") : "";
     }
-    function $(e) {
+    function N(e) {
       return e.tagName.toLowerCase();
     }
-    function P(t) {
+    function M(t) {
       for (var n = t, r = 0, o = []; n instanceof HTMLElement && r < e; ) {
-        var a = D(n);
+        var a = $(n);
         if (a != null) {
-          var i = x(a);
+          var i = P(a);
           i !== "" && o.push(i);
         }
         ((n = n.parentElement), r++);
       }
       return (o.reverse(), o.length > 0 ? o.join("/") : null);
     }
-    function N(e) {
+    function w(e) {
       var t = e.target;
-      if (b != null && b === t) {
-        b = null;
+      if (v != null && v === t) {
+        v = null;
         return;
       }
-      if (((b = null), t instanceof HTMLElement)) {
+      if (((v = null), t instanceof HTMLElement)) {
         var n = Date.now(),
-          r = P(t);
+          r = M(t);
         if (r != null) {
-          var o = $(t),
+          var o = N(t),
             a = f;
           a != null &&
             (window.clearTimeout(a.timer),
             a.target !== t &&
-              L("TAP", a.trackingId, a.targetType, a.timestampMs));
+              k("TAP", a.trackingId, a.targetType, a.timestampMs));
           var i = window.setTimeout(function () {
             var e = f;
             e != null &&
               e.timer === i &&
-              (L("TAP", e.trackingId, e.targetType, e.timestampMs), (f = null));
+              (k("TAP", e.trackingId, e.targetType, e.timestampMs), (f = null));
           }, s);
           f = {
             timer: i,
@@ -133,74 +139,75 @@ __d(
         }
       }
     }
-    function M(e) {
+    function A(e) {
       var t = e.target;
       if (t instanceof HTMLElement) {
         var n = f;
         if (n != null) {
           (window.clearTimeout(n.timer),
             (f = null),
-            L("DOUBLE_TAP", n.trackingId, n.targetType, n.timestampMs));
+            k("DOUBLE_TAP", n.trackingId, n.targetType, n.timestampMs));
           return;
         }
-        var r = P(t);
-        r != null && L("DOUBLE_TAP", r, $(t), Date.now());
-      }
-    }
-    function w(e) {
-      if (y == null && e instanceof WheelEvent) {
-        var t = Date.now(),
-          n = h,
-          r = k(e);
-        ((y = window.setTimeout(function () {
-          y = null;
-        }, u)),
-          I(n, t, r));
-      }
-    }
-    function A() {
-      if (y == null) {
-        var e = Date.now(),
-          t = h;
-        ((y = window.setTimeout(function () {
-          y = null;
-        }, u)),
-          I(t, e));
+        var r = M(t);
+        r != null && k("DOUBLE_TAP", r, N(t), Date.now());
       }
     }
     function F(e) {
+      if (C == null && e instanceof WheelEvent) {
+        var t = Date.now(),
+          n = y,
+          r = T(e);
+        ((C = window.setTimeout(function () {
+          C = null;
+        }, u)),
+          D(n, t, r));
+      }
+    }
+    function O() {
+      if (C == null) {
+        var e = Date.now(),
+          t = y;
+        ((C = window.setTimeout(function () {
+          C = null;
+        }, u)),
+          D(t, e));
+      }
+    }
+    function B(e) {
       if (!(!(e instanceof PointerEvent) || e.button !== 0)) {
         var t = e.target;
         if (t instanceof HTMLElement) {
-          (C != null && window.clearTimeout(C), (b = null));
-          var n = P(t),
-            r = $(t),
+          (b != null && window.clearTimeout(b), (v = null));
+          var n = M(t),
+            r = N(t),
             o = Date.now();
-          C = window.setTimeout(function () {
-            ((C = null), (b = t), T(n, r, o));
+          b = window.setTimeout(function () {
+            ((b = null), (v = t), x(n, r, o));
           }, c);
         }
       }
     }
-    function O(e) {
+    function W(e) {
       !(e instanceof PointerEvent) ||
         e.button !== 0 ||
-        (C != null && (window.clearTimeout(C), (C = null)));
+        (b != null && (window.clearTimeout(b), (b = null)));
     }
-    function B() {
-      C != null && (window.clearTimeout(C), (C = null));
+    function q() {
+      b != null && (window.clearTimeout(b), (b = null));
     }
-    ((l.updateCurrentScreenName = v),
-      (l.getCurrentScreenName = S),
-      (l.getTargetType = $),
-      (l.getAncestorTrackingPath = P),
-      (l.handleClick = N),
-      (l.handleDoubleClick = M),
-      (l.handleWheel = w),
-      (l.handleScroll = A),
-      (l.handlePointerDown = F),
-      (l.handlePointerUp = O),
-      (l.handlePointerCancel = B));
+    ((l.updateCurrentScreenName = S),
+      (l.getCurrentScreenName = R),
+      (l.consumeLastTapTrackingId = L),
+      (l.getTargetType = N),
+      (l.getAncestorTrackingPath = M),
+      (l.handleClick = w),
+      (l.handleDoubleClick = A),
+      (l.handleWheel = F),
+      (l.handleScroll = O),
+      (l.handlePointerDown = B),
+      (l.handlePointerUp = W),
+      (l.handlePointerCancel = q));
   },
   98,
 );

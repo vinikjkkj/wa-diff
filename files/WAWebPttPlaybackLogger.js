@@ -20,43 +20,43 @@ __d(
       function e(e, t) {
         var n = this;
         ((this.isSequentialPlayback = !1),
+          (this.$3 = 0),
           (this.$4 = 0),
           (this.$5 = 0),
-          (this.$6 = 0),
+          (this.$6 = !1),
           (this.$7 = !1),
-          (this.$8 = !1),
-          (this.$9 = 0),
-          (this.$10 = !1),
-          (this.$11 = 0),
+          (this.$8 = 0),
+          (this.$9 = !1),
+          (this.$10 = 0),
+          (this.$13 = function () {
+            n.$6 = !0;
+          }),
           (this.$14 = function () {
-            n.$7 = !0;
+            n.$2.playbackRate !== n.$11 &&
+              ((n.$11 = n.$2.playbackRate), (n.$3 += 1));
           }),
           (this.$15 = function () {
-            n.$3.playbackRate !== n.$12 &&
-              ((n.$12 = n.$3.playbackRate), (n.$4 += 1));
+            var e = o("WAWebPttCalculateAudioProgress").calculateAudioProgress(
+              n.$2,
+            );
+            n.$5 = Math.max(e, n.$5);
           }),
           (this.$16 = function () {
-            var e = o("WAWebPttCalculateAudioProgress").calculateAudioProgress(
-              n.$3,
-            );
-            n.$6 = Math.max(e, n.$6);
-          }),
-          (this.$17 = function () {
             n.commit(!0);
           }),
-          (this.$18 = function () {
+          (this.$17 = function () {
             n.commit(!1);
           }),
-          (this.$2 = e),
-          (this.$3 = t),
-          (this.$12 = this.$3.playbackRate),
-          this.$3.addEventListener("playing", this.$14),
-          this.$3.addEventListener("ratechange", this.$15),
-          this.$3.addEventListener("timeupdate", this.$16),
-          this.$3.addEventListener("ended", this.$17),
-          this.$3.addEventListener("error", this.$18),
+          (this.$1 = e),
+          (this.$2 = t),
+          (this.$11 = this.$2.playbackRate),
+          this.$2.addEventListener("playing", this.$13),
+          this.$2.addEventListener("ratechange", this.$14),
+          this.$2.addEventListener("timeupdate", this.$15),
+          this.$2.addEventListener("ended", this.$16),
+          this.$2.addEventListener("error", this.$17),
           e.type === "ptt" &&
-            (this.$13 = o(
+            (this.$12 = o(
               "WAWebPttTsExternalLogger",
             ).attachPttPlayTimeSpentLogger(t)));
       }
@@ -64,28 +64,28 @@ __d(
       return (
         (t.dispose = function () {
           var e;
-          (this.$3.removeEventListener("playing", this.$14),
-            this.$3.removeEventListener("ratechange", this.$15),
-            this.$3.removeEventListener("timeupdate", this.$16),
-            this.$3.removeEventListener("ended", this.$17),
-            this.$3.removeEventListener("error", this.$17),
-            (e = this.$13) == null || e.call(this));
+          (this.$2.removeEventListener("playing", this.$13),
+            this.$2.removeEventListener("ratechange", this.$14),
+            this.$2.removeEventListener("timeupdate", this.$15),
+            this.$2.removeEventListener("ended", this.$16),
+            this.$2.removeEventListener("error", this.$16),
+            (e = this.$12) == null || e.call(this));
         }),
-        (t.$19 = function () {
-          ((this.$4 = 0),
+        (t.$18 = function () {
+          ((this.$3 = 0),
+            (this.$4 = 0),
             (this.$5 = 0),
-            (this.$6 = 0),
+            (this.$6 = !1),
             (this.$7 = !1),
-            (this.$8 = !1),
-            (this.$9 = 0),
-            (this.$10 = !1),
-            (this.$11 = 0),
-            (this.$13 = null));
+            (this.$8 = 0),
+            (this.$9 = !1),
+            (this.$10 = 0),
+            (this.$12 = null));
         }),
         (t.commit = function (t) {
-          if (this.$7 && this.$2.type === "ptt") {
+          if (this.$6 && this.$1.type === "ptt") {
             var e = o("WAWebPttPrefs").PttPrefs.playbackRate,
-              n = this.$2.mediaData,
+              n = this.$1.mediaData,
               r = new (o("WAWebPttPlaybackWamEvent").PttPlaybackWamEvent)({
                 pttSeekCnt: 0,
                 pttPlaybackSpeedCnt: 0,
@@ -98,18 +98,18 @@ __d(
               (r.pttPlaybackSpeed = u(e)));
             var a = o(
               "WAWebPttGetDurationFromMediaOrProtobuf",
-            ).getDurationFromMediaOrProtobuf(this.$3, n);
+            ).getDurationFromMediaOrProtobuf(this.$2, n);
             ((r.pttDuration = Math.round(a) * 1e3),
-              (r.pttPlaybackSpeedCnt = this.$4),
-              (r.pttSeekCnt = this.$5),
-              (r.pttPlayedPct = this.$6),
-              (r.pttPlayedOutOfChat = this.$8),
-              (r.pttMiniPlayerPauseCnt = this.$9),
-              (r.pttMiniPlayerClose = this.$10),
-              (r.pttMiniPlayerClick = this.$11),
+              (r.pttPlaybackSpeedCnt = this.$3),
+              (r.pttSeekCnt = this.$4),
+              (r.pttPlayedPct = this.$5),
+              (r.pttPlayedOutOfChat = this.$7),
+              (r.pttMiniPlayerPauseCnt = this.$8),
+              (r.pttMiniPlayerClose = this.$9),
+              (r.pttMiniPlayerClick = this.$10),
               r.commit(),
-              this.$19());
-            var i = this.$2.id,
+              this.$18());
+            var i = this.$1.id,
               l =
                 i == null ? null : o("WAWebMsgCollection").MsgCollection.get(i),
               c =
@@ -131,19 +131,19 @@ __d(
           }
         }),
         (t.increasePttSeekCount = function () {
-          this.$5 += 1;
+          this.$4 += 1;
         }),
         (t.markAsPlayedInOoc = function () {
-          this.$8 = !0;
+          this.$7 = !0;
         }),
         (t.increaseOocPauseCount = function () {
-          this.$9 += 1;
+          this.$8 += 1;
         }),
         (t.markAsOocClosedByUser = function () {
-          this.$10 = !0;
+          this.$9 = !0;
         }),
         (t.increaseOocClickToChatCount = function () {
-          this.$11 += 1;
+          this.$10 += 1;
         }),
         e
       );

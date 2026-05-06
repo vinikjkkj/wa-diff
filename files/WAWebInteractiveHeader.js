@@ -176,9 +176,13 @@ __d(
           s.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS &&
           g != null &&
-          R ===
+          (R ===
             o("WAWebInteractiveMessageHeaderMediaType")
-              .InteractiveMessageHeaderMediaType.DOCUMENT &&
+              .InteractiveMessageHeaderMediaType.DOCUMENT ||
+            (R ===
+              o("WAWebInteractiveMessageHeaderMediaType")
+                .InteractiveMessageHeaderMediaType.IMAGE &&
+              o("WAWebOrderStatus").isSimplifiedOrder(g))) &&
           (b = null),
         C)
       ) {

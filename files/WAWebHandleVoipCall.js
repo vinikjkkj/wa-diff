@@ -24,14 +24,14 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f;
-    function g(e) {
+    var e, s, u, c, d, m, p, _, f, g, h;
+    function y(e) {
       return (
         o("WAWebVoipSignalingEnums").TYPE[e.tag().toUpperCase()] ||
         o("WAWebVoipSignalingEnums").TYPE.NONE
       );
     }
-    var h = new (r("WADeprecatedWapParser"))("callParser", function (e) {
+    var C = new (r("WADeprecatedWapParser"))("callParser", function (e) {
       var t, n, a, i, l, s, u;
       e.assertTag("call");
       var c = o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("from")),
@@ -49,10 +49,10 @@ __d(
         f = m.hasAttr("group-jid")
           ? o("WAWebJidToWid").jidWithTypeToWid(m.attrJidWithType("group-jid"))
           : null,
-        h = m.hasAttr("caller_pn")
+        g = m.hasAttr("caller_pn")
           ? o("WAWebJidToWid").jidWithTypeToWid(m.attrJidWithType("caller_pn"))
           : null,
-        y = m.maybeAttrString("username"),
+        h = m.maybeAttrString("username"),
         C = m.maybeAttrString("caller_country_code"),
         b = m.maybeAttrString("notify"),
         v =
@@ -75,16 +75,16 @@ __d(
         S = {
           call_id: p,
           call_creator: _,
-          caller_pn: h,
+          caller_pn: g,
           peer_jid: c,
           peer_platform: (n = e.maybeAttrString("platform")) != null ? n : "",
           peer_app_version:
             (a = e.maybeAttrString("version")) != null ? a : "0",
           is_offline: e.hasAttr("offline"),
-          type: g(m),
-          common: { call_id: p, peer_jid: c.toString(), type: String(g(m)) },
+          type: y(m),
+          common: { call_id: p, peer_jid: c.toString(), type: String(y(m)) },
           group_jid: f,
-          caller_username: y,
+          caller_username: h,
           caller_country_code: C,
           caller_push_name: b,
           isVideoCall: m.hasChild("video"),
@@ -116,8 +116,8 @@ __d(
         voipNode: m,
       };
     });
-    function y(t) {
-      var n = h.parse(t);
+    function b(t) {
+      var n = C.parse(t);
       return n.error
         ? (o("WALogger").ERROR(
             e ||
@@ -130,51 +130,72 @@ __d(
           null)
         : n.success;
     }
-    function C(e, t, n, r, o, a) {
-      return b.apply(this, arguments);
+    function v() {
+      return S.apply(this, arguments);
     }
-    function b() {
+    function S() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l, _) {
-            var g = e.call_creator,
-              h = e.call_id;
-            if (o("WAWebVoipGatingUtils").isCallingEnabled()) {
-              var y = yield o(
-                  "WAWebVoipBackendLoadable",
-                ).requireVoipJsBackend(),
-                C = y.WAWebVoipInit;
-              if (!C.VoipInitEventEmitter.getIsVoipInited()) {
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: not initialized, init before processing msg",
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!o("WAWebVoipGatingUtils").isCallingEnabled()) return !1;
+          var e = yield o("WAWebVoipBackendLoadable").requireVoipJsBackend(),
+            t = e.WAWebVoipInit;
+          if (t.VoipInitEventEmitter.getIsVoipInited()) return !0;
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: not initialized, init before processing msg",
+              ])),
+          );
+          try {
+            (yield t.initWAWebVoip(),
+              !t.VoipInitEventEmitter.getIsVoipInited() &&
+                t.VoipInitEventEmitter.getDidVoipInitError() &&
+                (yield t.retryWAWebVoipInitAfterFailure()));
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: Failed to initialize VoIP",
                     ])),
-                );
-                try {
-                  yield C.initWAWebVoip();
-                } catch (e) {
-                  return (
-                    o("WALogger")
-                      .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: Failed to initialize VoIP",
-                          ])),
-                      )
-                      .sendLogs("voip: init-failed-on-stanza"),
-                    "NO_ACK"
-                  );
-                }
-              }
-            }
+                )
+                .sendLogs("voip: init-failed-on-stanza"),
+              !1
+            );
+          }
+          return t.VoipInitEventEmitter.getIsVoipInited()
+            ? !0
+            : (o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: Failed to initialize VoIP",
+                    ])),
+                )
+                .sendLogs("voip: init-resolved-not-inited-on-stanza"),
+              !1);
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    function R(e, t, n, r, o, a) {
+      return L.apply(this, arguments);
+    }
+    function L() {
+      return (
+        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, a, i, l, s) {
+            var u = e.call_creator,
+              c = e.call_id,
+              g = yield v();
             if (
-              o("WAWebVoipGatingUtils").isCallingEnabled() &&
+              g &&
               o("WAWebVoipGatingUtils").isGroupCallMessage(e) &&
               !o("WAWebVoipGatingUtils").isGroupCallingEnabled()
             ) {
-              var b,
-                v =
+              var y,
+                C =
                   e.group_jid != null
                     ? { isGroup: !0, groupJid: e.group_jid }
                     : { isGroup: !0, groupJid: null };
@@ -185,77 +206,84 @@ __d(
                     {
                       callCreatorWid: e.call_creator,
                       offerTime: e.t,
-                      isVideo: (b = e.isVideoCall) != null ? b : !1,
+                      isVideo: (y = e.isVideoCall) != null ? y : !1,
                       callId: e.call_id,
                       isOffline: e.is_offline,
                       callOutcome: o("WAWebCallLogMsgData.flow").CallOutcome
                         .Missed,
                     },
-                    v,
+                    C,
                   ),
                 ),
-                (f || (f = n("Promise"))).resolve("NO_ACK")
+                (h || (h = n("Promise"))).resolve("NO_ACK")
               );
             }
             switch (e.type) {
               case o("WAWebVoipSignalingEnums").TYPE.OFFER:
-                if (
-                  (R(t, a, h, g, e.type),
-                  o("WAWebVoipGatingUtils").isCallingEnabled())
-                ) {
-                  var S = yield o(
+                if ((I(t, a, c, u, e.type), g)) {
+                  var b = yield o(
                     "WAWebVoipBackendLoadable",
                   ).requireVoipJsBackend();
-                  yield S.WAWebHandleVoipCallOffer.handleVoipCallOffer(e, i);
+                  yield b.WAWebHandleVoipCallOffer.handleVoipCallOffer(e, i);
                 } else
                   yield o(
                     "WAWebVoipHandleIncomingSignalingMessage",
-                  ).handleVoipIncomingSignalingMessage(e, i);
+                  ).handleVoipIncomingSignalingMessage(e, i, !1);
                 return "NO_ACK";
               case o("WAWebVoipSignalingEnums").TYPE.ENC_REKEY:
+                if (!g)
+                  return (
+                    o("WALogger").LOG(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: ENC_REKEY received while VoIP stack is unavailable, returning NO_ACK",
+                        ])),
+                    ),
+                    "NO_ACK"
+                  );
                 o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: received ENC_REKEY stanza from ",
                       ", call_id=",
                       ", stanzaId=",
                       "",
                     ])),
                   t.toString(),
-                  h != null ? h : "unknown",
+                  c != null ? c : "unknown",
                   a,
                 );
                 try {
-                  var E = yield o(
+                  var S = yield o(
                       "WAWebVoipHandleIncomingSignalingMessage",
                     ).handleVoipIncomingEncRekey(e, i),
-                    k = E.retryCount,
-                    I = E.shouldRetry;
-                  I
+                    R = S.retryCount,
+                    L = S.shouldRetry;
+                  L
                     ? (o("WALogger").LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: ENC_REKEY requires retry, retryCount=",
                             ", sending retry receipt",
                           ])),
-                        String(k != null ? k : 0),
+                        String(R != null ? R : 0),
                       ),
                       yield r("WAWebVoipSendGroupCallRekeyRetryReceiptJob")(
                         a,
                         e,
-                        k,
+                        R,
                       ))
-                    : R(
+                    : I(
                         t,
                         a,
-                        h,
-                        g,
+                        c,
+                        u,
                         o("WAWebVoipSignalingEnums").TYPE.ENC_REKEY,
                       );
                 } catch (e) {
                   o("WALogger").ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: ENC_REKEY handling failed: ",
                         "",
                       ])),
@@ -266,43 +294,43 @@ __d(
               case o("WAWebVoipSignalingEnums").TYPE.ACCEPT:
               case o("WAWebVoipSignalingEnums").TYPE.REJECT:
                 return (
-                  R(t, a, h, g, e.type),
+                  I(t, a, c, u, e.type),
                   yield o(
                     "WAWebVoipHandleIncomingSignalingMessage",
-                  ).handleVoipIncomingSignalingMessage(e, i),
+                  ).handleVoipIncomingSignalingMessage(e, i, g),
                   "NO_ACK"
                 );
               case o("WAWebVoipSignalingEnums").TYPE.OFFER_NOTICE:
                 return r("WAWebEnvironment").isWindows
                   ? (o("WALogger").ERROR(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
                           "handleVoipIncomingSignalingMessage: offer notice unsupported on win",
                         ])),
                     ),
-                    (f || (f = n("Promise"))).resolve("NO_ACK"))
-                  : r("WAWebHandleVoipOfferNotice")(_);
+                    (h || (h = n("Promise"))).resolve("NO_ACK"))
+                  : r("WAWebHandleVoipOfferNotice")(s);
               default:
                 return (
                   yield o(
                     "WAWebVoipHandleIncomingSignalingMessage",
-                  ).handleVoipIncomingSignalingMessage(e, i),
-                  L(t, a, l)
+                  ).handleVoipIncomingSignalingMessage(e, i, g),
+                  T(t, a, l)
                 );
             }
           },
         )),
-        b.apply(this, arguments)
+        L.apply(this, arguments)
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function E(e) {
+      return k.apply(this, arguments);
     }
-    function S() {
+    function k() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = y(e);
-          if (t == null) return (f || (f = n("Promise"))).resolve("NO_ACK");
+        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = b(e);
+          if (t == null) return (h || (h = n("Promise"))).resolve("NO_ACK");
           var r = t.from,
             a = t.message,
             i = t.payloadTag,
@@ -314,8 +342,8 @@ __d(
               (r.isLid() &&
                 o("WALogger")
                   .ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "handleCall: sender_lid in a lid call",
                       ])),
                   )
@@ -330,13 +358,13 @@ __d(
             yield o("WAWebVoipLidUtils").persistAttributesAndLidMappingsForCall(
               a,
             ),
-            C(a, r, s, u, i, e)
+            R(a, r, s, u, i, e)
           );
         })),
-        S.apply(this, arguments)
+        k.apply(this, arguments)
       );
     }
-    function R(e, t, n, r, a) {
+    function I(e, t, n, r, a) {
       var i;
       switch (a) {
         case o("WAWebVoipSignalingEnums").TYPE.OFFER:
@@ -382,7 +410,7 @@ __d(
         ),
       );
     }
-    function L(e, t, n) {
+    function T(e, t, n) {
       return o("WAWap").wap("ack", {
         to: o("WAWebCommsWapMd").JID(e),
         id: o("WAWap").CUSTOM_STRING(t),
@@ -390,7 +418,7 @@ __d(
         type: o("WAWap").MAYBE_CUSTOM_STRING(n),
       });
     }
-    l.handleCall = v;
+    l.handleCall = E;
   },
   98,
 );

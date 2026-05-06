@@ -269,12 +269,18 @@ __d(
                 afterReadDuration: J ? Y : void 0,
                 membershipApprovalMode: oe != null ? oe : !1,
                 memberAddMode: v(te),
-                memberLinkMode: o(
-                  "WAWebGroupMemberLinkMode",
-                ).getMemberLinkModeFromMexType(ne),
-                memberShareGroupHistoryMode: o(
-                  "WAWebGroupHistoryShareMode",
-                ).getMemberShareGroupHistoryModeFromMexType(re),
+              },
+              $e !== c && $e !== u
+                ? {
+                    memberLinkMode: o(
+                      "WAWebGroupMemberLinkMode",
+                    ).getMemberLinkModeFromMexType(ne),
+                    memberShareGroupHistoryMode: o(
+                      "WAWebGroupHistoryShareMode",
+                    ).getMemberShareGroupHistoryModeFromMexType(re),
+                  }
+                : void 0,
+              {
                 suspended: ie === C.SUSPENDED,
                 suspendAppealStatus: o(
                   "WAWebSuspendAppealStatusType",
@@ -289,9 +295,7 @@ __d(
                   ge != null ? o("WAWebWidFactory").createWid(ge) : void 0,
                 generalSubgroup: pe === !0,
                 defaultSubgroup: $e === c,
-              },
-              ($e === d || $e === c) && { parentGroupSubject: null },
-              {
+                parentGroupSubject: $e === d || $e === c ? null : void 0,
                 numSubgroups: 0,
                 membershipApprovalRequest: O.membership_approval_request === !0,
                 growthLockType: _e === !0 ? "invite" : void 0,

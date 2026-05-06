@@ -25,6 +25,8 @@ __d(
     "WAWebRawGroupMentionFormatMutator",
     "WAWebRawMentionMutator",
     "WAWebRawShortNameMentionFormatMutator",
+    "WAWebSpoilerFormatMutator",
+    "WAWebSpoilerGating",
     "WAWebStatusLinkFormatMutator",
     "WAWebStrikethroughFormatMutator",
     "WAWebTextMentionFormatMutator",
@@ -205,6 +207,9 @@ __d(
             : null,
           !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(c) : null,
           I,
+          o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
+            ? [[r("WAWebSpoilerFormatMutator"), { selectable: c }]]
+            : null,
           [
             [r("WAWebBoldFormatMutator"), { selectable: c }],
             [r("WAWebItalicFormatMutator"), { selectable: c }],

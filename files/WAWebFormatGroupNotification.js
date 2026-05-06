@@ -54,12 +54,15 @@ __d(
         g = o("WAWebFormatParticipantNames").getFormattedNames(f, !1),
         h = f[0],
         y = h ? o("WAWebContactCollection").ContactCollection.get(h) : void 0,
-        C = y
-          ? o("WAWebFrontendContactGetters").getFormattedName(y)
+        C;
+      switch (
+        (y
+          ? (C = o("WAWebFrontendContactGetters").getFormattedName(y))
           : h
-            ? o("WAWebWidFormat").widToFormattedUser(h)
-            : "";
-      switch (l) {
+            ? (C = o("WAWebWidFormat").widToFormattedUser(h))
+            : (C = ""),
+        l)
+      ) {
         case "add":
           a = o("WAWebFormatAddNotification").formatAddNotification({
             author: c,
@@ -252,12 +255,12 @@ __d(
         case "auto_add":
         case "default_sub_group_admin_add":
         case "invite_auto_add": {
-          var b = o("WAWebFormatLinkNotification").formatLinkNotifAsFbt(
-            l,
-            c,
-            h,
-            t.templateParams,
-          );
+          var b = o("WAWebFormatLinkNotification").formatLinkNotifAsFbt({
+            author: c,
+            subject: h,
+            subtype: l,
+            templateParams: t.templateParams,
+          });
           b != null && (a = b);
           break;
         }

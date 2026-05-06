@@ -8,6 +8,7 @@ __d(
     "WAWebBotFeatureNotAvailable.react",
     "WAWebBotGating",
     "WAWebBotLearnMore.react",
+    "WAWebBotProfileCollection",
     "WAWebBotSessionTransparencyNotice",
     "WAWebBotSystemMsg",
     "WAWebBotTos",
@@ -16,11 +17,13 @@ __d(
     "WAWebDebugUtils",
     "WAWebFrontendMsgGetters",
     "WAWebGetMetaAISearchSuggestionsAction",
+    "WAWebInitializeBots",
     "WAWebModalManager",
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebMsgModelFromData",
     "WAWebPDFNModal.react",
+    "WAWebRequestBotList",
     "WAWebSchemaBotProfile",
     "WAWebTos",
     "WAWebTosJob",
@@ -284,6 +287,10 @@ __d(
       overrideDefaultBotForTest: P,
       genSessionTransparencySystemMsg: N,
       updateForwardedBotValidationStatus: M,
+      BotProfileCollection: o("WAWebBotProfileCollection").BotProfileCollection,
+      requestBotList: o("WAWebRequestBotList").requestBotList,
+      getBotProfilesFromServer: o("WAWebInitializeBots")
+        .getBotProfilesFromServer,
     };
     l.default = w;
   },

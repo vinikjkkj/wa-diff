@@ -10,9 +10,10 @@ __d(
     }
     function u() {
       return (
+        o("WAWebABProps").getABPropConfigValue("is_expand_fmx_mex_enabled") ||
         o("WAWebABProps").getABPropConfigValue(
           "is_expand_fmx_enabled_non_auto_expose",
-        ) || o("WAWebABProps").getABPropConfigValue("is_expand_fmx_mex_enabled")
+        )
       );
     }
     function c() {

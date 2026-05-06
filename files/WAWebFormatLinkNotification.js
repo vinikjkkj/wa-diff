@@ -31,8 +31,12 @@ __d(
     function S(e) {
       return !e;
     }
-    function R(e, t, n, r) {
-      return L(e, t, n, r, !1);
+    function R(e) {
+      var t = e.author,
+        n = e.subject,
+        r = e.subtype,
+        o = e.templateParams;
+      return L(r, t, n, o, !1);
     }
     function L(t, n, r, a, i) {
       var l = n
@@ -157,7 +161,12 @@ __d(
     function P(e, t) {
       var n = o(
         "WAWebFormatParticipantNames",
-      ).getClickableIntegrityDeactivateCommunityName(e[0], e[1], t, !0);
+      ).getClickableIntegrityDeactivateCommunityName({
+        asString: !0,
+        clickable: t,
+        communityName: e[1],
+        jid: e[0],
+      });
       return n != null
         ? (o("WALogger").LOG(
             d ||

@@ -1,6 +1,6 @@
 __d(
   "SidneeAbrConfigDefault",
-  ["MetaConfig", "VideoPlayerODS", "vulture"],
+  ["MetaConfig", "SidneeAbrConfigDefaults", "VideoPlayerODS", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -8,53 +8,97 @@ __d(
       r("vulture")("fUXoh_SR8Bx_MqiMBw1IvA_FvzU=");
       var t = (e = r("MetaConfig"))._("57"),
         n = e._("84"),
-        o = e._("100"),
-        a = e._("101"),
-        l = e._("102"),
-        c = e._("109"),
-        d = e._("110"),
-        m = e._("111"),
-        p = e._("113"),
-        _ = e._("119"),
-        f = e._("121"),
-        g = e._("122"),
-        h = e._("123"),
-        y = e._("124"),
-        C = e._("125"),
-        b = e._("126"),
-        v = e._("127"),
-        S = e._("128"),
-        R = e._("129"),
-        L = e._("130"),
-        E = e._("131"),
-        k = e._("133"),
-        I = e._("134");
+        a = e._("100"),
+        l = e._("101"),
+        c = e._("102"),
+        d = e._("109"),
+        m = e._("110"),
+        p = e._("111"),
+        _ = e._("113"),
+        f = e._("119"),
+        g = e._("121"),
+        h = e._("122"),
+        y = e._("123"),
+        C = e._("124"),
+        b = e._("125"),
+        v = e._("126"),
+        S = e._("127"),
+        R = e._("128"),
+        L = e._("129"),
+        E = e._("130"),
+        k = e._("131"),
+        I = e._("133"),
+        T = e._("134");
       return {
-        avgSegmentDurationMs: s(t) ? 5e3 : t,
-        badUploadQualityRewardCurve: u(n) ? "0,1,1; 80,1.5,1.3; 97,2.0,1" : n,
-        badUploadQualityRewardCurveFallback: s(o) ? 1 : o,
-        badUploadQualityThreshold: s(a) ? 65 : a,
-        bitrateMultiplier: s(l) ? 1 : l,
-        bufferReductionMs: s(c) ? 5e3 : c,
-        defaultVideoDurationMs: s(d) ? 3e4 : d,
+        avgSegmentDurationMs: s(t)
+          ? o("SidneeAbrConfigDefaults").avgSegmentDurationMsDefault
+          : t,
+        badUploadQualityRewardCurve: u(n)
+          ? o("SidneeAbrConfigDefaults").badUploadQualityRewardCurveDefault
+          : n,
+        badUploadQualityRewardCurveFallback: s(a)
+          ? o("SidneeAbrConfigDefaults")
+              .badUploadQualityRewardCurveFallbackDefault
+          : a,
+        badUploadQualityThreshold: s(l)
+          ? o("SidneeAbrConfigDefaults").badUploadQualityThresholdDefault
+          : l,
+        bitrateMultiplier: s(c)
+          ? o("SidneeAbrConfigDefaults").bitrateMultiplierDefault
+          : c,
+        bufferReductionMs: s(d)
+          ? o("SidneeAbrConfigDefaults").bufferReductionMsDefault
+          : d,
+        defaultVideoDurationMs: s(m)
+          ? o("SidneeAbrConfigDefaults").defaultVideoDurationMsDefault
+          : m,
         displayName: i.id,
-        encodingRisk: s(m) ? 2 : m,
-        goodUploadQualityRewardCurve: u(p) ? "0,1,1.4; 100,2,1" : p,
-        goodUploadQualityRewardCurveFallback: s(_) ? 1 : _,
+        encodingRisk: s(p)
+          ? o("SidneeAbrConfigDefaults").encodingRiskDefault
+          : p,
+        goodUploadQualityRewardCurve: u(_)
+          ? o("SidneeAbrConfigDefaults").goodUploadQualityRewardCurveDefault
+          : _,
+        goodUploadQualityRewardCurveFallback: s(f)
+          ? o("SidneeAbrConfigDefaults")
+              .goodUploadQualityRewardCurveFallbackDefault
+          : f,
         isInitialBitrateEnabled: r("MetaConfig")._("120"),
-        lookAheadMs: s(f) ? 3e4 : f,
-        maxAggressiveRisk: s(g) ? 1.7 : g,
-        maxBandwidthConfidencePct: s(h) ? 80 : h,
-        maxConservativeRisk: s(y) ? 1.3 : y,
-        maxNormalRisk: s(C) ? 1.5 : C,
-        maxVeryAggressiveRisk: s(b) ? 1.85 : b,
-        minBandwidthConfidencePct: s(v) ? 50 : v,
-        minBitrateMultiplier: s(S) ? 0.5 : S,
-        rewardRatioRoundDigits: s(R) ? 4 : R,
-        riskCurve: u(L) ? "-1,2,1; 0,1.7,2; 1,1" : L,
-        riskCurveFallback: s(E) ? 1 : E,
-        riskRatioRoundDigits: s(k) ? 4 : k,
-        riskRewardRatioRoundDigits: s(I) ? 2 : I,
+        lookAheadMs: s(g) ? o("SidneeAbrConfigDefaults").lookAheadMsDefault : g,
+        maxAggressiveRisk: s(h)
+          ? o("SidneeAbrConfigDefaults").maxAggressiveRiskDefault
+          : h,
+        maxBandwidthConfidencePct: s(y)
+          ? o("SidneeAbrConfigDefaults").maxBandwidthConfidencePctDefault
+          : y,
+        maxConservativeRisk: s(C)
+          ? o("SidneeAbrConfigDefaults").maxConservativeRiskDefault
+          : C,
+        maxNormalRisk: s(b)
+          ? o("SidneeAbrConfigDefaults").maxNormalRiskDefault
+          : b,
+        maxVeryAggressiveRisk: s(v)
+          ? o("SidneeAbrConfigDefaults").maxVeryAggressiveRiskDefault
+          : v,
+        minBandwidthConfidencePct: s(S)
+          ? o("SidneeAbrConfigDefaults").minBandwidthConfidencePctDefault
+          : S,
+        minBitrateMultiplier: s(R)
+          ? o("SidneeAbrConfigDefaults").minBitrateMultiplierDefault
+          : R,
+        rewardRatioRoundDigits: s(L)
+          ? o("SidneeAbrConfigDefaults").rewardRatioRoundDigitsDefault
+          : L,
+        riskCurve: u(E) ? o("SidneeAbrConfigDefaults").riskCurveDefault : E,
+        riskCurveFallback: s(k)
+          ? o("SidneeAbrConfigDefaults").riskCurveFallbackDefault
+          : k,
+        riskRatioRoundDigits: s(I)
+          ? o("SidneeAbrConfigDefaults").riskRatioRoundDigitsDefault
+          : I,
+        riskRewardRatioRoundDigits: s(T)
+          ? o("SidneeAbrConfigDefaults").riskRewardRatioRoundDigitsDefault
+          : T,
         useDpr: r("MetaConfig")._("154"),
         useSidnee: r("MetaConfig")._("143"),
       };

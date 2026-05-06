@@ -22,7 +22,11 @@ __d(
                     .fetchQuery(
                       s,
                       {},
-                      { environmentType: "facebook", accessToken: e.token },
+                      {
+                        environmentType: "facebook",
+                        accessToken: e.token,
+                        fetchPolicy: "network-only",
+                      },
                     )
                     .then(function (e) {
                       var t =
@@ -73,7 +77,18 @@ __d(
                             });
                           }
                         }
-                      return { isSuccess: !0, sources: n };
+                      var C = t.chat_history_export_status,
+                        b =
+                          C === "NOT_STARTED" ||
+                          C === "IN_PROGRESS" ||
+                          C === "COMPLETE"
+                            ? C
+                            : "NOT_ALLOWED";
+                      return {
+                        isSuccess: !0,
+                        sources: n,
+                        chatHistoryExportStatus: b,
+                      };
                     })
                     .catch(function (e) {
                       return u;

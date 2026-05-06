@@ -482,6 +482,7 @@ __d(
       webview2_enable_offline_support: [21793, "bool", !1, !1],
       win_call_log_send_outgoing_syncd_mutations: [5308, "bool", !1, !0],
       win_enable_ss_button_audio: [9633, "bool", !1, !1],
+      win_hybrid_bt_enabled: [30041, "bool", !1, !0],
       win_hybrid_force_persistent_storage_permission: [20260, "bool", !0, !0],
       win_hybrid_voip_anr_optimizations: [22616, "int", 0, 0],
       win_network_state_watchdog_interval: [7737, "int", 30, 30],

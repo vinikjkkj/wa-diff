@@ -65,6 +65,24 @@ __d(
             },
           ],
           storageKey: null,
+        },
+        a = {
+          alias: null,
+          args: null,
+          concreteType: "XWA2NewsletterAdminSettings",
+          kind: "LinkedField",
+          name: "admin_settings",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "admin_profiles_enabled",
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
         };
       return {
         fragment: {
@@ -80,7 +98,7 @@ __d(
               kind: "LinkedField",
               name: "xwa2_newsletter_admin",
               plural: !1,
-              selections: [n, o],
+              selections: [n, o, a],
               storageKey: null,
             },
           ],
@@ -100,13 +118,13 @@ __d(
               kind: "LinkedField",
               name: "xwa2_newsletter_admin",
               plural: !1,
-              selections: [n, o, r],
+              selections: [n, o, a, r],
               storageKey: null,
             },
           ],
         },
         params: {
-          id: "34983385154639574",
+          id: "26278439461859188",
           metadata: {},
           name: "WAWebMexFetchNewsletterAdminInfoJobQuery",
           operationKind: "query",

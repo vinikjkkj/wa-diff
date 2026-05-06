@@ -34,7 +34,7 @@ __d(
       },
       m = function (t) {
         var e = r("WAWebConversionTupleCollection").get(t.id);
-        if (!e || e.fromMe === !0) return null;
+        if (!e || e.fromMe !== !1) return null;
         var n = e.conversionData,
           a = e.conversionSource;
         return o(
@@ -126,7 +126,7 @@ __d(
         if (
           a < 1 ||
           !o("WAWebBizGatingUtils").smbDataSharingConsentEnabled() ||
-          r("WAWebConversionTupleCollection").get(t.id) == null
+          m(t) == null
         )
           return !1;
         var i = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),
@@ -161,7 +161,7 @@ __d(
           t instanceof o("WAWebChatModel").Chat && e.push(t);
         });
         var n = e.filter(function (e) {
-          return d(e) != null;
+          return m(e) != null;
         });
         if (n.length === 0) return !1;
         var a = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getValue(),

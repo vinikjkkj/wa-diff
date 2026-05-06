@@ -116,6 +116,8 @@ __d(
             userRatingInterval: (e = a.user_rating_interval) != null ? e : -1,
             terminatedByDeviceSwitch:
               (n = a.terminated_by_device_switch) != null ? n : !1,
+            bytesSent: a.bytes_sent,
+            bytesReceived: a.bytes_received,
           };
         },
         parseCallMissedData: function (t) {

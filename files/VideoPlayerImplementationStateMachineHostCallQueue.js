@@ -1,6 +1,6 @@
 __d(
   "VideoPlayerImplementationStateMachineHostCallQueue",
-  ["VideoPlayerPromiseDone", "cometUniqueID", "getErrorSafe", "gkx"],
+  ["cometUniqueID", "getErrorSafe", "gkx", "promiseDone"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = function () {};
@@ -10,27 +10,27 @@ __d(
     function u(e) {
       var t = e.engineExtrasAPI,
         n = e.hostCall,
-        r = e.machine,
+        o = e.machine,
         a = e.videoElementAPI;
       switch (n.type) {
         case "host_call_play":
           {
             var i = a.play();
             i &&
-              (r.dispatch({
+              (o.dispatch({
                 payload: { hostCallPlayID: n.payload.hostCallID },
                 type: "dom_event_play_promise_created",
               }),
-              o("VideoPlayerPromiseDone").videoPlayerPromiseDone(
+              r("promiseDone")(
                 i.then(
                   function () {
-                    r.dispatch({
+                    o.dispatch({
                       payload: { hostCallPlayID: n.payload.hostCallID },
                       type: "dom_event_play_promise_resolved",
                     });
                   },
                   function (e) {
-                    r.dispatch({
+                    o.dispatch({
                       payload: {
                         hostCallPlayID: n.payload.hostCallID,
                         playPromiseRejectionReason: e,

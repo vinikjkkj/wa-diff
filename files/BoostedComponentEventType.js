@@ -91,7 +91,6 @@ __d(
       CREATE_MUTATION_SENT: "create_mutation_sent",
       DARK_POST_CREATE_COMPLETE: "dark_post_create_complete",
       ENTER_MSITE_FROM_MOBILE: "enter_msite_from_mobile",
-      MSITE_REDIRECTION_ERROR: "msite_redirection_error",
       CHANGE_FLOW_OPTION: "change_flow_option",
       TOGGLE_FLOW_OPTION: "toggle_flow_option",
       TOGGLE_FLOW_OPTION_CLICK: "toggle_flow_option_click",
@@ -250,7 +249,6 @@ __d(
       CHANGE_TEMPLATE_DESCRIPTION: "change_template_description",
       CHANGE_TEMPLATE_HEADLINE: "change_template_headline",
       CHANGE_TEMPLATE_URL: "change_template_url",
-      CHANGE_VIDEO: "change_video",
       CLICK_SEE_COMMON_QUESTIONS: "click_see_common_questions",
       CLICK_PREVIEW_BUTTON: "click_preview_button",
       CREATE: "create",
@@ -913,12 +911,9 @@ __d(
       SCHEDULED_BOOST_VIDEO_UPLOAD_FAIL: "scheduled_boost_video_upload_fail",
       SCHEDULED_BOOST_VIDEO_UPLOAD_SUCCEED:
         "scheduled_boost_video_upload_succeed",
-      AUTO_TARGETING_FETCHING_ERROR: "auto_targeting_fetching_error",
-      UNSETTLED_AD_ACCOUNT_WITH_PERMISSION:
-        "unsettled_ad_account_with_permission",
-      AD_REJECTED_DEBUG: "ad_rejected_debug",
       LEGACY_PLACEMENTS_VALIDATION: "legacy_placements_validation",
       SPEC_VALUES_FETCHED_BEFORE_SET: "spec_values_fetched_before_set",
+      AD_REJECTED_DEBUG: "ad_rejected_debug",
       LOG_GENERIC_BUG_INFO: "log_generic_bug_info",
       LOG_ESTIMATION_QUERY_INFO: "log_estimation_query_info",
       EDIT_AD_DEBUG: "edit_ad_debug",
@@ -1232,12 +1227,6 @@ __d(
       SET_THAILAND_NEW_RISKY_PAYER: "set_thailand_new_risky_payer",
       SET_UNIVERSAL_BENEFICIARY: "set_universal_beneficiary",
       SET_UNIVERSAL_PAYER: "set_universal_payer",
-      CTWA_HACKY_AD_CHANGE_AD_GOAL: "ctwa_hacky_ad_change_ad_goal",
-      CTWA_HACKY_AD_SOFT_UPSELL_IMPRESSION:
-        "ctwa_hacky_ad_soft_upsell_impression",
-      CTWA_HACKY_AD_SOFT_UPSELL_CHANGE_GOAL_ACCEPT:
-        "ctwa_hacky_ad_soft_upsell_change_goal_accept",
-      CTWA_HACKY_AD_SOFT_UPSELL_DISMISS: "ctwa_hacky_ad_soft_upsell_dismiss",
       LWI_GUIDANCE_CARD_ERROR: "lwi_guidance_card_error",
       LWI_SUGGESTED_POSTS_HAS_ELIGIBLE_IG_POSTS:
         "lwi_suggested_posts_has_eligible_ig_posts",
@@ -1406,6 +1395,7 @@ __d(
       MESSAGING_PERF_SELECT_DEFAULT: "messaging_perf_select_default",
       MESSAGING_PERF_SELECT_PO: "messaging_perf_select_po",
       MESSAGING_PERF_SELECT_LO: "messaging_perf_select_lo",
+      MESSAGING_PERF_SELECT_VO: "messaging_perf_select_vo",
       AD_REVIEW_MODAL_IMPRESSION: "ad_review_modal_impression",
       AD_REVIEW_MODAL_CLOSE_MODAL: "ad_review_modal_close_modal",
       AD_REVIEW_MODAL_CONTINUE_FULL_CREATION:
@@ -1602,6 +1592,7 @@ __d(
         "guidance_experiment_debugger_pocket_deltoid_add",
       GUIDANCE_EXPERIMENT_DEBUGGER_POCKET_DELTOID_REFRESH:
         "guidance_experiment_debugger_pocket_deltoid_refresh",
+      MAIBA_PUBLISH_BAND_AID_APPLIED: "maiba_publish_band_aid_applied",
     });
     i.default = e;
   },

@@ -13,12 +13,19 @@ __d(
               ? s._(/*BTDS*/ "Invalid name")
               : e === o("WAWebContactImportTypedError").NameError.EMPTY
                 ? s._(/*BTDS*/ "Empty name")
-                : (function () {
-                    throw Error(
-                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                        e,
-                    );
-                  })();
+                : e ===
+                    o("WAWebContactImportTypedError").UsernameError.DUPLICATE
+                  ? s._(/*BTDS*/ "Duplicate username")
+                  : e ===
+                      o("WAWebContactImportTypedError").ExistingContactError
+                        .ALREADY_EXISTS
+                    ? s._(/*BTDS*/ "Already exists")
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            e,
+                        );
+                      })();
     }
     l.default = e;
   },

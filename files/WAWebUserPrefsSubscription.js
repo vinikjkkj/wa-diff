@@ -9,8 +9,7 @@ __d(
       "MetaVerifiedEntryPointRedirectionUri",
     ]);
     function s() {
-      var t = r("WAWebUserPrefsStore").getUser(e.NextSubscriptionQuery);
-      return (t != null && parseInt(t, 10)) || 0;
+      return g(e.NextSubscriptionQuery);
     }
     function u(t) {
       r("WAWebUserPrefsStore").setUser(e.NextSubscriptionQuery, t);
@@ -25,10 +24,7 @@ __d(
       r("WAWebUserPrefsStore").setUser(e.ShouldShowMetaVerifiedEntryPoint, t);
     }
     function m() {
-      var t = r("WAWebUserPrefsStore").getUser(
-        e.NextFetchSubscriptionEntryPointsTime,
-      );
-      return (t != null && parseInt(t, 10)) || 0;
+      return g(e.NextFetchSubscriptionEntryPointsTime);
     }
     function p(t) {
       r("WAWebUserPrefsStore").setUser(
@@ -47,6 +43,10 @@ __d(
         e.MetaVerifiedEntryPointRedirectionUri,
         t,
       );
+    }
+    function g(e) {
+      var t = r("WAWebUserPrefsStore").getUser(e);
+      return (t != null && parseInt(t, 10)) || 0;
     }
     ((l.getNextSubscriptionQuery = s),
       (l.setNextSubscriptionQuery = u),

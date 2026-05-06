@@ -104,9 +104,6 @@ __d(
                             noFrequentlyForwarded: e.noFrequentlyForwarded,
                             membershipApprovalMode: e.membershipApprovalMode,
                             memberAddMode: e.memberAddMode,
-                            memberLinkMode: e.memberLinkMode,
-                            memberShareGroupHistoryMode:
-                              e.memberShareGroupHistoryMode,
                             growthLockExpiration: e.growthLockExpiration,
                             growthLockType: e.growthLockType,
                             size: e.size || 0,
@@ -180,6 +177,11 @@ __d(
                             ).usernameDisplayedEnabled() &&
                             (k.hasIncompleteParticipantInformation =
                               e.hasIncompleteParticipantInformation),
+                          e.memberLinkMode !== void 0 &&
+                            (k.memberLinkMode = e.memberLinkMode),
+                          e.memberShareGroupHistoryMode !== void 0 &&
+                            (k.memberShareGroupHistoryMode =
+                              e.memberShareGroupHistoryMode),
                           e.groupAdder != null
                             ? babelHelpers.extends({}, k, {
                                 groupAdder:

@@ -1,26 +1,27 @@
 __d(
   "buildWABizAdCreationLWIAudienceMap",
-  ["fbt", "emptyObject", "jsonParseSafe"],
+  ["fbt", "WAWebBizGatingUtils", "emptyObject", "jsonParseSafe"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = {};
     function u(t) {
       if (t == null) return r("emptyObject");
-      var n = {};
+      var n = {},
+        a = o("WAWebBizGatingUtils").nativeAdsAdvantagePlusAudienceEnabled()
+          ? s._(/*BTDS*/ "Suggested audience").toString()
+          : s._(/*BTDS*/ "Default").toString();
       return (
         t.forEach(function (t) {
           var o,
-            a = t == null ? void 0 : t.audience_key,
-            i = t == null ? void 0 : t.audience_option;
-          if (!(a == null || i == null)) {
-            var l = i === "NCPP";
-            n[i] = {
-              audienceID: a,
-              audienceOption: i,
+            i = t == null ? void 0 : t.audience_key,
+            l = t == null ? void 0 : t.audience_option;
+          if (!(i == null || l == null)) {
+            var s = l === "NCPP";
+            n[l] = {
+              audienceID: i,
+              audienceOption: l,
               clientEditable: !!(t != null && t.client_editable),
-              name: l
-                ? s._(/*BTDS*/ "Default").toString()
-                : String(t == null ? void 0 : t.name),
+              name: s ? a : String(t == null ? void 0 : t.name),
               subjectToDSA: !!(t != null && t.subject_to_dsa),
               targetSpec: r("jsonParseSafe")(
                 String(

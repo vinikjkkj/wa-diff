@@ -10,6 +10,7 @@ __d(
     "WDSIconWdsIcLogoInstagram.react",
     "WDSIconWdsIcLogoMessenger.react",
     "WDSIconWdsIcLogoPinterest.react",
+    "WDSIconWdsIcLogoSharechat.react",
     "WDSIconWdsIcLogoSpotify.react",
     "WDSIconWdsIcLogoThreads.react",
     "react",
@@ -65,6 +66,12 @@ __d(
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.GOOGLE_PHOTOS:
           return u.jsx(r("WDSIconWdsIcLogoGooglePhotos.react"), {
+            width: c,
+            height: c,
+          });
+        case o("WAWebProtobufsStatusAttributions.pb")
+          .StatusAttribution$ExternalShare$Source.SHARECHAT:
+          return u.jsx(r("WDSIconWdsIcLogoSharechat.react"), {
             width: c,
             height: c,
           });

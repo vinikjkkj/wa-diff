@@ -1,8 +1,9 @@
 __d(
   "WAWebNewsletterPollsUtils",
-  ["WATimeUtils", "WAWebNewsletterGatingUtils", "sumBy"],
+  ["WALogger", "WATimeUtils", "WAWebNewsletterGatingUtils", "sumBy"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
+    var e, s;
+    function u(e, t, n) {
       var a,
         i,
         l = new Map(),
@@ -14,10 +15,10 @@ __d(
             ? a
             : [],
         ),
-        c = r("sumBy")(s, function (e) {
+        u = r("sumBy")(s, function (e) {
           return e;
         }),
-        d = Math.max.apply(Math, s),
+        c = Math.max.apply(Math, s),
         m = e == null ? void 0 : e.pollVotersMap;
       for (var p of t) {
         var _,
@@ -37,15 +38,15 @@ __d(
             b ? 1 : 0,
           ),
           S = m == null ? void 0 : m.get(p.localId),
-          R = b ? u(n, e == null ? void 0 : e.myVoteTs) : null,
+          R = b ? d(n, e == null ? void 0 : e.myVoteTs) : null,
           L = (R != null ? [R] : []).concat(
             (h = S == null ? void 0 : S.contacts) != null ? h : [],
           );
         l.set(p, {
           isVotedForByMe: b,
-          isCurrentLeader: d > 0 && v === d,
-          percentageOfAll: c === 0 ? 0 : v / c,
-          percentageOfMostVotedForOption: d === 0 ? 0 : v / d,
+          isCurrentLeader: c > 0 && v === c,
+          percentageOfAll: u === 0 ? 0 : v / u,
+          percentageOfMostVotedForOption: c === 0 ? 0 : v / c,
           votes: o(
             "WAWebNewsletterGatingUtils",
           ).isNewsletterPollsVotersEnabled()
@@ -59,27 +60,54 @@ __d(
       }
       return l;
     }
-    function s(e) {
+    function c(e) {
       return {
         parentMsgKey: e.parentMsgKey.toString(),
         serverTimestamp: e.serverTimestamp,
         votesMap: e.voteCountMap,
       };
     }
-    function u(e, t) {
+    function d(e, t) {
       var n;
       return e == null
         ? null
-        : {
+        : (m(e.id),
+          {
             contact: e,
             id: e.id,
             time:
               (n = o("WATimeUtils").castMillisTimeToUnixTime(t)) != null
                 ? n
                 : o("WATimeUtils").unixTime(),
-          };
+          });
     }
-    ((l.aggregateNewsletterVotes = e), (l.mapNewsletterVoteToDbRecord = s));
+    function m(t) {
+      t.isUser()
+        ? t.getDeviceId() !== 0 &&
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletter] poll voter id has a device part: ",
+                  "",
+                ])),
+              t.toLogString(),
+            )
+            .sendLogs("newsletter-pollvoter-not-plain-user-id")
+        : o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletter] poll voter id is not a user wid: ",
+                  "",
+                ])),
+              t.toLogString(),
+            )
+            .sendLogs("newsletter-pollvoter-not-plain-user-id");
+    }
+    ((l.aggregateNewsletterVotes = u),
+      (l.mapNewsletterVoteToDbRecord = c),
+      (l.logIfPollVoterIdNotPlainUser = m));
   },
   98,
 );

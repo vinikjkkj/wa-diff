@@ -1441,6 +1441,12 @@ __d(
           "WAWebVoipVideoRendererRegistry",
         ).videoRendererRegistry.consumeAVSyncMetrics();
       },
+      peekPerParticipantAVSyncMetrics: function (t) {
+        var e = t.jid;
+        return o(
+          "WAWebVoipVideoRendererRegistry",
+        ).videoRendererRegistry.peekPerParticipantAVSyncMetrics(e);
+      },
       consumeAudioPlaybackMetrics: function () {
         return o(
           "WAWebVoipAudioCaptureAndPlayback",

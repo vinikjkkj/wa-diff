@@ -85,10 +85,10 @@ __d(
           }),
         );
     }
-    function f(e) {
+    function f(e, t, n) {
       if (!o("WAWebOutContactInviteGating").isOutContactInviteEnabled())
         return !1;
-      var t = e
+      var r = e
         .map(function (e) {
           return o("WAWebPhoneNumberSearch").stripInvisibleChars(e);
         })
@@ -97,16 +97,17 @@ __d(
             "WAWebContactlessChatUtils",
           ).PHONE_NUMBER_VALIDATION_REGEX.test(e);
         });
-      if (t.length === 0) return !1;
-      var n = o("WAWebOutContactInviteUtils").getMultiGroupInviteMessageText(),
-        r = encodeURIComponent(n),
-        a = t
+      if (r.length === 0) return !1;
+      var a = o("WAWebOutContactInviteUtils").getMultiGroupInviteMessageText(),
+        i = encodeURIComponent(a);
+      o("WAWebOutContactInviteUtils").storeMultiGroupInviteSms(t, r, n);
+      var l = r
           .map(function (e) {
             return "+" + e;
           })
           .join(","),
-        i = window.open("sms://open?addresses=" + a + "&body=" + r);
-      return (_(i == null), i != null);
+        s = window.open("sms://open?addresses=" + l + "&body=" + i);
+      return (_(s == null), s != null);
     }
     ((l.sendInvite = m), (l.sendMultiGroupInvite = f));
   },

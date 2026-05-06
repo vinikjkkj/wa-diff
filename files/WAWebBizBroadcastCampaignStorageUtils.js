@@ -101,8 +101,11 @@ __d(
               g,
               h,
               y,
-              C = yield m(t, n.adId);
-            if (C.action === "skip") {
+              C,
+              b,
+              v,
+              S = yield m(t, n.adId);
+            if (S.action === "skip") {
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -113,35 +116,53 @@ __d(
               );
               return;
             }
-            var b = C.existing;
+            var R = S.existing;
             yield o("WAWebSchemaBusinessBroadcastCampaign")
               .getBusinessBroadcastCampaignTable()
               .createOrReplace({
                 adGroupId:
-                  (c = b == null ? void 0 : b.adGroupId) != null ? c : null,
-                adId: (d = n.adId) != null ? d : null,
+                  (c = R == null ? void 0 : R.adGroupId) != null ? c : null,
+                adId:
+                  (d =
+                    (p = n.adId) != null ? p : R == null ? void 0 : R.adId) !=
+                  null
+                    ? d
+                    : null,
                 broadcastJid: l,
                 campaignId: t,
-                campaignName: (p = n.name) != null ? p : null,
+                campaignName:
+                  (_ =
+                    (f = n.name) != null
+                      ? f
+                      : R == null
+                        ? void 0
+                        : R.campaignName) != null
+                    ? _
+                    : null,
                 createdTimestamp: u,
                 deviceId: n.deviceId,
-                msgId: (_ = n.msgId) != null ? _ : null,
-                pendingBroadcastMessageId:
-                  (f = b == null ? void 0 : b.pendingBroadcastMessageId) != null
-                    ? f
-                    : null,
-                reservedQuota:
+                msgId:
                   (g =
-                    (h = n.reservedQuota) != null
-                      ? h
-                      : b == null
-                        ? void 0
-                        : b.reservedQuota) != null
+                    (h = n.msgId) != null ? h : R == null ? void 0 : R.msgId) !=
+                  null
                     ? g
                     : null,
-                scheduledTimestamp:
-                  (y = o("WALongInt").maybeNumber(n.scheduledTimestamp)) != null
+                pendingBroadcastMessageId:
+                  (y = R == null ? void 0 : R.pendingBroadcastMessageId) != null
                     ? y
+                    : null,
+                reservedQuota:
+                  (C =
+                    (b = n.reservedQuota) != null
+                      ? b
+                      : R == null
+                        ? void 0
+                        : R.reservedQuota) != null
+                    ? C
+                    : null,
+                scheduledTimestamp:
+                  (v = o("WALongInt").maybeNumber(n.scheduledTimestamp)) != null
+                    ? v
                     : null,
                 status: n.status,
               });

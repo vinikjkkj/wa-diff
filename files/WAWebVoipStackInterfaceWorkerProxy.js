@@ -537,7 +537,7 @@ __d(
                 o("WALogger").WARN(
                   C ||
                     (C = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: video capability detection failed, disabling passthrough encode/decode: ",
+                      "voip: video cap detect failed, passthrough off: ",
                       "",
                     ])),
                   e,
@@ -636,8 +636,8 @@ __d(
                     o("WALogger").LOG(
                       L ||
                         (L = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: P2P DataChannel state changed to ",
-                          " after being open, notifying WASM active=false",
+                          "voip: P2P DataChannel ",
+                          " (was open), WASM active=false",
                         ])),
                       e,
                     ),

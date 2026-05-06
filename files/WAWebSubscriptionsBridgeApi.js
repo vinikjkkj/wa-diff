@@ -1,6 +1,7 @@
 __d(
   "WAWebSubscriptionsBridgeApi",
   [
+    "Promise",
     "WAWebAuraBenefitProviderInit",
     "WAWebAuraRingtoneSubscriptionCheck",
     "WAWebFeatureFlagCollection",
@@ -10,12 +11,13 @@ __d(
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return s.apply(this, arguments);
-    }
+    var e;
     function s() {
+      return u.apply(this, arguments);
+    }
+    function u() {
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebSchemaSubscription")
             .getSubscriptionTable()
             .all();
@@ -23,15 +25,15 @@ __d(
             "WAWebSubscriptionCollection",
           ).SubscriptionCollection.initializeFromCache(e);
         })),
-        s.apply(this, arguments)
+        u.apply(this, arguments)
       );
     }
-    function u() {
-      return c.apply(this, arguments);
-    }
     function c() {
+      return d.apply(this, arguments);
+    }
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebSchemaFeatureFlag").isFeatureFlagTableAvailable()) {
             var e = yield o("WAWebSchemaFeatureFlag")
               .getFeatureFlagTable()
@@ -41,14 +43,13 @@ __d(
             ).FeatureFlagCollection.initializeFromCache(e);
           }
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    var d = {
+    var m = {
       initializePME: (function () {
         var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield e(),
-            yield u(),
+          (yield (e || (e = n("Promise"))).all([s(), c()]),
             o(
               "WAWebAuraBenefitProviderInit",
             ).initAuraBenefitFeatureFlagProvider(),
@@ -130,7 +131,7 @@ __d(
         }
       },
     };
-    l.SubscriptionsBridgeApi = d;
+    l.SubscriptionsBridgeApi = m;
   },
   98,
 );

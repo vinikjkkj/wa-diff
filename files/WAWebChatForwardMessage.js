@@ -40,11 +40,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = ["type"],
-      u,
-      c = "\n \u0336 \u0336 \u0336 \u0336 \u0336 \u0336\n";
-    function d(e) {
+      u;
+    function c(e) {
       return !!(o("WAWebFrontendMsgGetters").getAsMms(e) && !e.ctwaContext);
     }
+    var d = "\n \u0336 \u0336 \u0336 \u0336 \u0336 \u0336\n";
     function m(e) {
       return p.apply(this, arguments);
     }
@@ -58,13 +58,19 @@ __d(
             m = e.msg,
             p = e.multicast,
             f = p === void 0 ? !1 : p;
-          if (d(m) || o("WAWebFileUtils").isDocument(m))
-            return o("WAWebMediaForwardMediaMsg").forwardMediaMsg(m, a, f, l);
+          if (c(m) || o("WAWebFileUtils").isDocument(m))
+            return o("WAWebMediaForwardMediaMsg").forwardMediaMsg(
+              m,
+              a,
+              f,
+              l,
+              t,
+            );
           var g = C(m, a);
           if (o("WAWebBotUtils").isMetaAiBot(a.id)) {
             if (t != null && t !== "") {
               var h = g.body || "";
-              h === "" ? (g.body = t) : (g.body = h + c + t);
+              h === "" ? (g.body = t) : (g.body = h + d + t);
             }
             if (o("WAWebBotGating").isAiChatThreadsEnabled())
               return o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(a, {
@@ -190,7 +196,7 @@ __d(
             l = i === void 0 ? !1 : i,
             s = t.msgs,
             u = t.multicast,
-            c = u === void 0 ? !1 : u,
+            d = u === void 0 ? !1 : u,
             p = a.contact;
           if (o("WAWebContactGetters").getIsUser(p) && p.isContactBlocked)
             throw new (r("WAWebContactBlockedErrorAction"))(
@@ -204,7 +210,7 @@ __d(
               (yield m({
                 chat: a,
                 msg: f,
-                multicast: c,
+                multicast: d,
                 includeCaption: g,
                 appendedText: n,
               }),
@@ -218,7 +224,7 @@ __d(
                     "[chat forward message] error during forwarding message",
                   ])),
               ),
-                d(f) && _.push(f));
+                c(f) && _.push(f));
             }
           }
           return _;

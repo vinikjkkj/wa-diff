@@ -74,18 +74,21 @@ __d(
       I = r("requireDeferred")("WAWebShowBillingWizard").__setRef(
         "WAWebDebugSmb",
       );
-    function T(e, t, n, r, o) {
+    function T(e, t, n, r, o, a, i) {
       return D.apply(this, arguments);
     }
     function D() {
       return (
         (D = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i = { id: e, name: t, colorIndex: n, predefinedId: r };
-            (a != null && (i.orderIndex = a),
-              yield o("WAWebSchemaLabel").getLabelTable().createOrReplace(i),
+          function* (e, t, n, r, a, i, l) {
+            var s = { id: e, name: t, colorIndex: n, predefinedId: r };
+            a != null && (s.orderIndex = a);
+            var u = i != null ? o("WAWebSchemaLabel").ListType.cast(i) : null;
+            (u != null && (s.type = u),
+              l != null && (s.isActive = l),
+              yield o("WAWebSchemaLabel").getLabelTable().createOrReplace(s),
               o("WAWebLabelCollection").LabelCollection.add(
-                babelHelpers.extends({}, i),
+                babelHelpers.extends({}, s),
                 { merge: !0 },
               ));
           },

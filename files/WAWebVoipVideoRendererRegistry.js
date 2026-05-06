@@ -703,6 +703,9 @@ __d(
           (a.consumeAVSyncMetrics = function () {
             return this.$9.consumeMetrics();
           }),
+          (a.peekPerParticipantAVSyncMetrics = function (t) {
+            return this.$9.peekPerParticipantMetrics(t);
+          }),
           (a.onDecoderFatalError = function () {
             this.$25++;
           }),

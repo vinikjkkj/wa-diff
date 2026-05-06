@@ -36,66 +36,66 @@ __d(
       p,
       _ = Object.freeze({ SKMSG: "skmsg", DIRECT: "direct" });
     function f(e) {
-      return e.isLid() || e.isHostedLid();
+      return e.isLid();
     }
     function g(e) {
-      return !e.isLid() && !e.isHostedLid();
+      return !e.isLid();
     }
-    function h(e, t, n, r, o, a, i, l, s) {
+    function h(e, t, n, r, o, a, i, l) {
       return y.apply(this, arguments);
     }
     function y() {
       return (
         (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l, s, u) {
-            var c = yield o(
+          function* (e, t, n, r, a, i, l, s) {
+            var u = yield o(
                 "WAWebApiParticipantStore",
-              ).getGroupSenderKeyListFromParticipantRecord(t, l, u),
-              d = c.skDistribList,
-              m = c.skList,
-              p = s || C(e, i),
-              h = p ? f : g,
-              y = {
+              ).getGroupSenderKeyListFromParticipantRecord(t, l),
+              c = u.skDistribList,
+              d = u.skList,
+              m = s || C(e, i),
+              p = m ? f : g,
+              h = {
                 type: _.SKMSG,
                 senderKeyList: {
-                  skList: m.filter(h),
-                  skDistribList: d.filter(h),
+                  skList: d.filter(p),
+                  skDistribList: c.filter(p),
                   rotateKey: !1,
                 },
               };
             if (o("WAWebMsgGetters").getSubtype(e.data) === "sender_revoke") {
-              var b =
+              var y =
                   !i &&
                   o("WAWebABProps").getABPropConfigValue(
                     "send_cag_member_revokes_as_GDM",
                   ),
-                v =
+                b =
                   n == null
                     ? null
-                    : yield S(n, y.senderKeyList, {
-                        forceDirectMessage: b,
+                    : yield S(n, h.senderKeyList, {
+                        forceDirectMessage: y,
                         normalizeAddressingModeFn: function (t) {
                           return t;
                         },
                       });
-              return v != null ? v : y;
+              return b != null ? b : h;
             }
             if (o("WAWebMsgGetters").getType(e.data) === "keep_in_chat") {
-              var R =
+              var v =
                   !i &&
                   o("WAWebABProps").getABPropConfigValue(
                     "supports_keep_in_chat_in_cag",
                   ),
-                E = r == null ? null : yield L(r, y.senderKeyList, R);
-              return E != null ? E : y;
+                R = r == null ? null : yield L(r, h.senderKeyList, v);
+              return R != null ? R : h;
             }
             return a
-              ? k(a, y.senderKeyList, {
+              ? k(a, h.senderKeyList, {
                   normalizeAddressingModeFn: function (t) {
                     return t;
                   },
                 })
-              : y;
+              : h;
           },
         )),
         y.apply(this, arguments)
@@ -197,40 +197,40 @@ __d(
       if (t) return !1;
       throw r("err")("CAG - non-admin trying to send a regular message");
     }
-    function b(e, t, n, r, o, a, i) {
+    function b(e, t, n, r, o, a) {
       return v.apply(this, arguments);
     }
     function v() {
       return (
         (v = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i, l) {
-            var s = yield o(
+          function* (e, t, n, r, a, i) {
+            var l = yield o(
                 "WAWebApiParticipantStore",
-              ).getGroupSenderKeyListFromParticipantRecord(e, t, l),
-              u = { senderKeyList: s, type: _.SKMSG },
-              c = function (t) {
+              ).getGroupSenderKeyListFromParticipantRecord(e, t),
+              s = { senderKeyList: l, type: _.SKMSG },
+              u = function (t) {
                 return t.map(
                   o("WAWebLidMigrationUtils").toAddressingModeFactory(a),
                 );
               };
             if (n) {
-              var d = yield S(n, s, {
+              var c = yield S(n, l, {
                 forceDirectMessage: !1,
-                normalizeAddressingModeFn: c,
+                normalizeAddressingModeFn: u,
               });
-              return d != null ? d : u;
+              return c != null ? c : s;
             }
             return r
-              ? k(r, s, { normalizeAddressingModeFn: c })
+              ? k(r, l, { normalizeAddressingModeFn: u })
               : i != null && i.length > 0
                 ? o(
                     "WAWebGroupHistorySendGroupMsgJobUtils",
                   ).getGroupSendListForGroupHistoryBundle(
                     i.map(o("WAWebWidFactory").createWid),
-                    s,
-                    { normalizeAddressingModeFn: c, isLidAddressingMode: a },
+                    l,
+                    { normalizeAddressingModeFn: u, isLidAddressingMode: a },
                   )
-                : u;
+                : s;
           },
         )),
         v.apply(this, arguments)
@@ -419,7 +419,7 @@ __d(
                   T ? "admin" : "non-admin",
                 )
                 .tags("messaging"),
-                (I = yield h(t, m, y, v, C, T, S, k, R.isCapiGroup)));
+                (I = yield h(t, m, y, v, C, T, S, k)));
             } else {
               var P;
               o("WALogger")
@@ -445,7 +445,6 @@ __d(
                   (P = P.messageHistoryMetadata) == null
                   ? void 0
                   : P.historyReceivers,
-                R.isCapiGroup,
               );
               I = D(M, R);
             }

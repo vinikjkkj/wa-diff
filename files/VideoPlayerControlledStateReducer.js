@@ -5,6 +5,7 @@ __d(
     "VideoPlayerEmsgForStateMachine",
     "VideoPlayerImplementationErrors",
     "VideoPlayerODS",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -142,22 +143,25 @@ __d(
           });
         }
         case "dom_event_playing": {
-          var p = e.bufferingDetected,
-            _ = e.seeking,
-            f = !1,
-            g = e.playbackState;
+          var p = r("gkx")("17440"),
+            _ = p ? !1 : e.bufferingDetected,
+            f = p ? !1 : e.seeking,
+            g = !1,
+            h = e.playbackState;
           return babelHelpers.extends({}, e, {
+            bufferingDetected: _,
             playbackState: s({
-              bufferingDetected: p,
-              prevPlaybackState: g,
-              seeking: _,
-              waitingForDomPlaying: f,
+              bufferingDetected: _,
+              prevPlaybackState: h,
+              seeking: f,
+              waitingForDomPlaying: g,
             }),
-            waitingForDomPlaying: f,
+            seeking: f,
+            waitingForDomPlaying: g,
           });
         }
         case "dom_event_timeupdate": {
-          var h = o(
+          var y = o(
             "VideoPlayerEmsgForStateMachine",
           ).makeUpdatedActiveEmsgBoxes(
             e.allEmsgBoxes,
@@ -165,61 +169,61 @@ __d(
             e.activeEmsgBoxes,
           );
           if (e.waitingForDomTimeUpdateAfterSeeked) {
-            var y = e.bufferingDetected,
-              C = e.seeking,
-              b = !1,
-              v = e.playbackState;
+            var C = e.bufferingDetected,
+              b = e.seeking,
+              v = !1,
+              S = e.playbackState;
             return babelHelpers.extends({}, e, {
-              activeEmsgBoxes: h,
+              activeEmsgBoxes: y,
               playbackState: s({
-                bufferingDetected: y,
-                prevPlaybackState: v,
-                seeking: C,
-                waitingForDomPlaying: b,
+                bufferingDetected: C,
+                prevPlaybackState: S,
+                seeking: b,
+                waitingForDomPlaying: v,
               }),
-              waitingForDomPlaying: b,
+              waitingForDomPlaying: v,
               waitingForDomTimeUpdateAfterSeeked: !1,
             });
           }
-          return babelHelpers.extends({}, e, { activeEmsgBoxes: h });
+          return babelHelpers.extends({}, e, { activeEmsgBoxes: y });
         }
         case "dom_event_seeking": {
-          var S = e.playbackState,
-            R = S;
-          switch (S) {
+          var R = e.playbackState,
+            L = R;
+          switch (R) {
             case "paused":
             case "ended":
               break;
             case "stalling":
             case "playing":
-              R = "stalling";
+              L = "stalling";
               break;
             default:
               r("FBLogger")("comet_video_player").mustfix(
                 "unexpected playbackState: %s",
-                S,
+                R,
               );
           }
           return babelHelpers.extends({}, e, {
-            playbackState: R,
+            playbackState: L,
             seeking: !0,
             waitingForDomPlaying: !0,
           });
         }
         case "dom_event_seeked": {
-          var L = e.bufferingDetected,
-            E = e.waitingForDomPlaying,
-            k = !1,
-            I = e.playbackState;
+          var E = e.bufferingDetected,
+            k = e.waitingForDomPlaying,
+            I = !1,
+            T = e.playbackState;
           return babelHelpers.extends({}, e, {
             implementationSeekSourcePosition: null,
             playbackState: s({
-              bufferingDetected: L,
-              prevPlaybackState: I,
-              seeking: k,
-              waitingForDomPlaying: E,
+              bufferingDetected: E,
+              prevPlaybackState: T,
+              seeking: I,
+              waitingForDomPlaying: k,
             }),
-            seeking: k,
+            seeking: I,
             waitingForDomTimeUpdateAfterSeeked: !0,
           });
         }
@@ -247,12 +251,12 @@ __d(
         case "dom_event_play_promise_rejected":
           if (e.hostCallPlayIDLast !== n.payload.hostCallPlayID) return e;
           if (a === "comet_nextgendash") {
-            var T = n.payload.playPromiseRejectionReason;
+            var D = n.payload.playPromiseRejectionReason;
             return babelHelpers.extends(
               {},
               e,
               { hostCallPlayIDLast: null },
-              !(T != null && T.name === "AbortError") &&
+              !(D != null && D.name === "AbortError") &&
                 e.playbackState === "stalling"
                 ? { playbackState: "paused", waitingForDomPlaying: !1 }
                 : {},
@@ -266,7 +270,7 @@ __d(
           });
         case "dom_event_durationchange": {
           if (a === "comet_nextgendash") {
-            var D =
+            var x =
               t.videoElementEnded === !0
                 ? "ended"
                 : t.videoElementPaused === !0
@@ -275,10 +279,10 @@ __d(
             if (
               (e.playbackState === "stalling" ||
                 e.playbackState === "playing") &&
-              D !== e.playbackState
+              x !== e.playbackState
             )
               return babelHelpers.extends({}, e, {
-                playbackState: D,
+                playbackState: x,
                 waitingForDomPlaying: !1,
               });
           }
@@ -287,7 +291,7 @@ __d(
         case "implementation_host_call_queue_flushed":
           return babelHelpers.extends({}, e, { hostCallQueue: [] });
         case "implementation_host_call_failed": {
-          var x = o(
+          var $ = o(
             "VideoPlayerImplementationErrors",
           ).createVideoPlayerErrorFromHTMLVideoElementError({
             errorLocation: n.payload.errorLocation,
@@ -297,7 +301,7 @@ __d(
             videoElementReadyState: n.payload.videoElementReadyState,
           });
           return babelHelpers.extends({}, e, {
-            error: x,
+            error: $,
             playbackState: "paused",
             waitingForDomPlaying: !1,
           });
@@ -319,20 +323,20 @@ __d(
         case "implementation_video_node_unmounted":
           return babelHelpers.extends({}, e, { hostCallPlayIDLast: null });
         case "implementation_engine_initialized": {
-          var $,
-            P = ($ = n.payload.streamingFormat) != null ? $ : e.streamingFormat;
+          var P,
+            N = (P = n.payload.streamingFormat) != null ? P : e.streamingFormat;
           return babelHelpers.extends({}, e, {
             hostCallCanApply: !0,
             selectedVideoQuality: n.payload.selectedVideoQuality,
-            streamingFormat: P,
+            streamingFormat: N,
           });
         }
         case "implementation_engine_qualities_changed": {
-          var N,
-            M = (N = n.payload.streamingFormat) != null ? N : e.streamingFormat;
+          var M,
+            w = (M = n.payload.streamingFormat) != null ? M : e.streamingFormat;
           return babelHelpers.extends({}, e, {
             selectedVideoQuality: n.payload.selectedVideoQuality,
-            streamingFormat: M,
+            streamingFormat: w,
           });
         }
         case "implementation_engine_destroyed":
@@ -447,71 +451,71 @@ __d(
               })
             : e;
         case "buffering_begin_requested": {
-          var w = e.playbackState,
-            A = w;
-          switch (w) {
+          var A = e.playbackState,
+            F = A;
+          switch (A) {
             case "paused":
             case "ended":
               break;
             case "playing":
             case "stalling":
-              A = "stalling";
+              F = "stalling";
               break;
             default:
               r("FBLogger")("comet_video_player").mustfix(
                 "unexpected playbackState: %s",
-                w,
+                A,
               );
               break;
           }
-          var F = n.payload.bufferingType;
+          var O = n.payload.bufferingType;
           return babelHelpers.extends({}, e, {
             bufferingDetected: !0,
-            lastBufferingType: F,
-            playbackState: A,
+            lastBufferingType: O,
+            playbackState: F,
           });
         }
         case "buffering_end_requested": {
-          var O = e.seeking,
-            B = e.waitingForDomPlaying,
-            W = !1,
-            q = e.playbackState;
+          var B = e.seeking,
+            W = e.waitingForDomPlaying,
+            q = !1,
+            U = e.playbackState;
           return babelHelpers.extends({}, e, {
-            bufferingDetected: W,
+            bufferingDetected: q,
             playbackState: s({
-              bufferingDetected: W,
-              prevPlaybackState: q,
-              seeking: O,
-              waitingForDomPlaying: B,
+              bufferingDetected: q,
+              prevPlaybackState: U,
+              seeking: B,
+              waitingForDomPlaying: W,
             }),
           });
         }
         case "controller_set_captions_visible_requested": {
-          var U = n.payload.captionsVisible;
-          return e.captionsVisible === U
+          var V = n.payload.captionsVisible;
+          return e.captionsVisible === V
             ? e
             : babelHelpers.extends({}, e, {
-                activeCaptions: U ? e.activeCaptions : null,
-                captionsLocale: U ? e.captionsLocale : null,
-                captionsVisible: U,
+                activeCaptions: V ? e.activeCaptions : null,
+                captionsLocale: V ? e.captionsLocale : null,
+                captionsVisible: V,
               });
         }
         case "controller_set_active_captions_requested": {
-          var V,
-            H,
-            G = n.payload.activeCaptions,
-            z = (V = G == null ? void 0 : G.rows) != null ? V : [],
-            j = n.payload.captionsLocale,
-            K = e.activeCaptions,
-            Q = (H = K == null ? void 0 : K.rows) != null ? H : [];
-          return Q.length === z.length &&
-            z.every(function (e, t) {
-              return Q[t] === e;
+          var H,
+            G,
+            z = n.payload.activeCaptions,
+            j = (H = z == null ? void 0 : z.rows) != null ? H : [],
+            K = n.payload.captionsLocale,
+            Q = e.activeCaptions,
+            X = (G = Q == null ? void 0 : Q.rows) != null ? G : [];
+          return X.length === j.length &&
+            j.every(function (e, t) {
+              return X[t] === e;
             })
             ? e
             : babelHelpers.extends({}, e, {
-                activeCaptions: G,
-                captionsLocale: j,
+                activeCaptions: z,
+                captionsLocale: K,
               });
         }
         case "captions_loaded":
@@ -526,10 +530,10 @@ __d(
             captionsLocale: null,
           });
         case "inband_captions_autogenerated_changed": {
-          var X = n.payload.inbandCaptionsAutogenerated;
-          return e.inbandCaptionsAutogenerated === X
+          var Y = n.payload.inbandCaptionsAutogenerated;
+          return e.inbandCaptionsAutogenerated === Y
             ? e
-            : babelHelpers.extends({}, e, { inbandCaptionsAutogenerated: X });
+            : babelHelpers.extends({}, e, { inbandCaptionsAutogenerated: Y });
         }
         case "stream_ended":
           return babelHelpers.extends({}, e, { streamEnded: !0 });
@@ -544,56 +548,56 @@ __d(
         case "stream_resumed":
           return babelHelpers.extends({}, e, { streamInterrupted: !1 });
         case "seekable_ranges_changed": {
-          var Y = n.payload.seekableRanges;
-          return babelHelpers.extends({}, e, { seekableRanges: Y });
+          var J = n.payload.seekableRanges;
+          return babelHelpers.extends({}, e, { seekableRanges: J });
         }
         case "controller_set_is_live_rewind_active_requested": {
-          var J = n.payload.isLiveRewindActive;
-          return babelHelpers.extends({}, e, { isLiveRewindActive: J });
+          var Z = n.payload.isLiveRewindActive;
+          return babelHelpers.extends({}, e, { isLiveRewindActive: Z });
         }
         case "loop_count_change_requested": {
-          var Z = n.payload.loopCount;
-          return Z === e.loopCount
+          var ee = n.payload.loopCount;
+          return ee === e.loopCount
             ? e
-            : babelHelpers.extends({}, e, { loopCount: Z, loopCurrent: 0 });
+            : babelHelpers.extends({}, e, { loopCount: ee, loopCurrent: 0 });
         }
         case "player_dimensions_changed": {
-          var ee = n.payload.dimensions,
-            te = ee.height,
-            ne = ee.width;
-          return ne === e.dimensions.width && te === e.dimensions.height
+          var te = n.payload.dimensions,
+            ne = te.height,
+            re = te.width;
+          return re === e.dimensions.width && ne === e.dimensions.height
             ? e
             : babelHelpers.extends({}, e, {
-                dimensions: { height: te, width: ne },
+                dimensions: { height: ne, width: re },
               });
         }
         case "emsg_boxes_parsed": {
-          var re = o("VideoPlayerEmsgForStateMachine").makeUpdatedAllEmsgBoxes(
+          var oe = o("VideoPlayerEmsgForStateMachine").makeUpdatedAllEmsgBoxes(
               e.allEmsgBoxes,
               n.payload.emsgBoxes,
             ),
-            oe = o("VideoPlayerEmsgForStateMachine").makeUpdatedActiveEmsgBoxes(
-              re,
+            ae = o("VideoPlayerEmsgForStateMachine").makeUpdatedActiveEmsgBoxes(
+              oe,
               t.videoElementPlayheadPosition,
               e.activeEmsgBoxes,
             );
           return babelHelpers.extends({}, e, {
-            activeEmsgBoxes: oe,
-            allEmsgBoxes: re,
+            activeEmsgBoxes: ae,
+            allEmsgBoxes: oe,
           });
         }
         case "register_emsg_observer": {
-          var ae = new Set(e.emsgObserverTokens);
+          var ie = new Set(e.emsgObserverTokens);
           return (
-            ae.add(n.payload.token),
-            babelHelpers.extends({}, e, { emsgObserverTokens: ae })
+            ie.add(n.payload.token),
+            babelHelpers.extends({}, e, { emsgObserverTokens: ie })
           );
         }
         case "unregister_emsg_observer": {
-          var ie = new Set(e.emsgObserverTokens);
+          var le = new Set(e.emsgObserverTokens);
           return (
-            ie.delete(n.payload.token),
-            babelHelpers.extends({}, e, { emsgObserverTokens: ie })
+            le.delete(n.payload.token),
+            babelHelpers.extends({}, e, { emsgObserverTokens: le })
           );
         }
         case "dom_event_progress":

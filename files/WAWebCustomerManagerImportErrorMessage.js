@@ -12,7 +12,13 @@ __d(
             : e === o("WAWebContactImportTypedError").NameError.EMPTY ||
                 e === o("WAWebContactImportTypedError").NameError.INVALID
               ? s._(/*BTDS*/ "Invalid name").toString()
-              : s._(/*BTDS*/ "Invalid contact").toString();
+              : e === o("WAWebContactImportTypedError").UsernameError.DUPLICATE
+                ? s._(/*BTDS*/ "Duplicate username").toString()
+                : e ===
+                    o("WAWebContactImportTypedError").ExistingContactError
+                      .ALREADY_EXISTS
+                  ? s._(/*BTDS*/ "Already a customer").toString()
+                  : s._(/*BTDS*/ "Invalid contact").toString();
     }
     l.getCustomerManagerImportErrorLabel = e;
   },

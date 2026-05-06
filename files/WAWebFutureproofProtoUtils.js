@@ -1,6 +1,10 @@
 __d(
   "WAWebFutureproofProtoUtils",
-  ["WAWebBotBaseGating", "WAWebMessageAssociationGatingUtils"],
+  [
+    "WAWebBotBaseGating",
+    "WAWebMessageAssociationGatingUtils",
+    "WAWebSpoilerGating",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -16,15 +20,16 @@ __d(
         d = e.pollCreationOptionImageMessage,
         m = e.questionMessage,
         p = e.questionReplyMessage,
-        _ = e.viewOnceMessage,
-        f = e.viewOnceMessageV2,
-        g = e.viewOnceMessageV2Extension;
+        _ = e.spoilerMessage,
+        f = e.viewOnceMessage,
+        g = e.viewOnceMessageV2,
+        h = e.viewOnceMessageV2Extension;
       return (
         s ||
         a ||
-        _ ||
         f ||
         g ||
+        h ||
         l ||
         i ||
         r ||
@@ -37,10 +42,14 @@ __d(
           ? t
           : m ||
             p ||
-            (n &&
-            o("WAWebBotBaseGating").isRichResponseForwardReceivingEnabled()
-              ? n
-              : u || null))
+            (_ && o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
+              ? _
+              : n &&
+                  o(
+                    "WAWebBotBaseGating",
+                  ).isRichResponseForwardReceivingEnabled()
+                ? n
+                : u || null))
       );
     }
     l.maybeGetFutureproofMessage = e;

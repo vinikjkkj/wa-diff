@@ -47,6 +47,12 @@ __d(
                   pendingRecalibration: !1,
                   consecutiveLateCount: 0,
                   lastRecalibTimeMs: 0,
+                  recalibrationCount: 0,
+                  framesHeld: 0,
+                  framesLate: 0,
+                  framesEvicted: 0,
+                  deltaSumMs: 0,
+                  deltaSampleCount: 0,
                 }),
                 this.$6.set(t, e)),
               e
@@ -103,6 +109,21 @@ __d(
               ? null
               : this.$8.consume();
           }),
+          (n.peekPerParticipantMetrics = function (t) {
+            var e = this.$6.get(t);
+            if (e == null) return null;
+            var n =
+              e.deltaSampleCount > 0 ? e.deltaSumMs / e.deltaSampleCount : null;
+            return {
+              avgDeltaMs: n,
+              recalibrationCount: e.recalibrationCount,
+              framesHeld: e.framesHeld,
+              framesLate: e.framesLate,
+              framesEvicted: e.framesEvicted,
+              isCalibrated: e.calibration != null,
+              consecutiveLateCount: e.consecutiveLateCount,
+            };
+          }),
           (n.enqueueVideoFrame = function (t) {
             if (this.$5) {
               var e = this.$2,
@@ -121,6 +142,7 @@ __d(
               ) {
                 var s = l.shift();
                 (this.$8.recordFrameEvicted(),
+                  i.framesEvicted++,
                   s != null &&
                     e != null &&
                     e(
@@ -164,7 +186,12 @@ __d(
                   (this.$15(t, n, l, c), this.$16(e, i, a));
                   continue;
                 }
-                if ((this.$8.recordDelta(s), this.$17(l, s))) {
+                if (
+                  (this.$8.recordDelta(s),
+                  (n.deltaSumMs += s),
+                  n.deltaSampleCount++,
+                  this.$17(l, s))
+                ) {
                   (this.$18(t, n, l, r, s), this.$16(e, i, a));
                   continue;
                 }
@@ -175,6 +202,7 @@ __d(
                 if (s > p) {
                   ((n.consecutiveLateCount = 0),
                     this.$8.recordFrameHeld(),
+                    n.framesHeld++,
                     i++);
                   continue;
                 }
@@ -183,6 +211,7 @@ __d(
                   if (
                     ((n.consecutiveLateCount = d),
                     this.$8.recordFrameRenderedLate(),
+                    n.framesLate++,
                     d >= v)
                   ) {
                     (o("WALogger").WARN(
@@ -201,6 +230,7 @@ __d(
                       (n.lastRecalibTimeMs = Date.now()),
                       this.$20(t, n, r, l.timestamp),
                       this.$8.recordForceRecalibration(),
+                      n.recalibrationCount++,
                       this.$16(e, i, a));
                     continue;
                   }
@@ -258,6 +288,7 @@ __d(
                 (n.pendingRecalibration = !1),
                 this.$20(t, n, r, a),
                 this.$8.recordRecalibration(),
+                n.recalibrationCount++,
                 !0);
           }),
           (n.$10 = function (t, n, r) {

@@ -85,19 +85,27 @@ __d(
       var r = e.addQueryParam(s, t);
       return r != null ? r : e;
     }
-    function h(e, t) {
-      return f(e) ? g(e, t) : e;
+    function h(e) {
+      return e == null ? !1 : e.includes("/marketplace/np/");
     }
-    function y(e, t) {
+    function y(e) {
+      return h(e);
+    }
+    function C(e, t, n) {
+      return f(e) ? (y(n) ? e : g(e, t)) : e;
+    }
+    function b(e, t) {
       var n = p(e);
       if (n != null) return n.injector(e, n.uri, t);
       var r = e.addQueryParam(u, t);
       return r != null ? r : e;
     }
-    function C(e, t) {
-      return f(e) ? y(e, t) : e;
+    function v(e, t) {
+      return f(e) ? b(e, t) : e;
     }
-    ((l.appendClickIDQueryParam = h), (l.appendBRIDQueryParam = C));
+    ((l.shouldBlockClickIDForBMPOptout = y),
+      (l.appendClickIDQueryParam = C),
+      (l.appendBRIDQueryParam = v));
   },
   98,
 );

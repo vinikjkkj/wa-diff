@@ -25,7 +25,14 @@ __d(
               (yield t.initWAWebVoip(),
               !o(
                 "WAWebVoipInitEventEmitter",
-              ).VoipInitEventEmitter.getIsVoipInited())
+              ).VoipInitEventEmitter.getIsVoipInited() &&
+                (o(
+                  "WAWebVoipInitEventEmitter",
+                ).VoipInitEventEmitter.getDidVoipInitError() &&
+                  (yield t.retryWAWebVoipInitAfterFailure()),
+                !o(
+                  "WAWebVoipInitEventEmitter",
+                ).VoipInitEventEmitter.getIsVoipInited()))
             )
               throw r("err")("VoIP initialization did not complete");
           }

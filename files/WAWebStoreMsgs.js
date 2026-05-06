@@ -388,62 +388,25 @@ __d(
             S = [],
             R = [],
             L = [],
-            I = [];
+            T = [];
           return (
             e.forEach(function (e, _) {
               var f = e,
-                T = String(e.id),
-                D = t[_];
-              if (D != null && k(e, D)) {
+                D = String(e.id),
+                x = t[_];
+              if (x != null && I(e, x)) {
                 if (e.type === o("WAWebMsgType").MSG_TYPE.COMMENT) {
-                  var x = o("WAWebAddonProcessMsgsUtils").castToAddonMsgData(f);
+                  var $ = o("WAWebAddonProcessMsgsUtils").castToAddonMsgData(f);
                   (o("WAWebAddonGatingUtils").isUnifiedInfraEnabled(e) &&
-                    x != null &&
-                    y.push(x),
+                    $ != null &&
+                    y.push($),
                     R.push(e));
-                } else {
-                  var $,
-                    P,
-                    N = o("WAWebDBMessageSerialization").dbRowFromMessage(f);
-                  ((N.t = D.t),
-                    (N.internalId = D.internalId),
-                    (N.rowId = D.rowId),
-                    (N.pendingReadReceipt = D.pendingReadReceipt),
-                    o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-                      D.placeholderCreatedWhenAccountIsHosted === !1 &&
-                      N.senderOrRecipientAccountTypeHosted === !0 &&
-                      ($ = e.id) != null &&
-                      ($ = $.remote) != null &&
-                      $.isUser() &&
-                      ((N.hostedBizEncStateMismatch = !0),
-                      o(
-                        "WAWebBackendEventBusWorkerCompatible",
-                      ).getBackendEventBus().isMainStreamReadyMd &&
-                        o("WAWebBackendApi").frontendFireAndForget(
-                          "updateMsgModelHostedBizEncStateMismatchFlagToTrue",
-                          { msgId: e.id },
-                        )),
-                    o("WAWebCommonMsgUtils").isPlaceholderMsg(D.type) &&
-                      D.ack >
-                        ((P = N.ack) != null ? P : o("WAWebAck").ACK.CLOCK) &&
-                      (N.ack = D.ack));
-                  var M = o("WAWebDBStoreMessage").isPendingUnreadReceipt(
-                      f.id,
-                      f,
-                    ),
-                    w = o("WAWebDBStoreMessage").addMsgMetadataToMsgRow({
-                      msg: N,
-                      chatId: f.id.remote.toString(),
-                      hasLink: o("WAWebLinkify").hasHttpLink(f),
-                      pendingReadReceipt: M,
-                    });
-                  r.push(w);
-                }
-                o("WAWebCommonMsgUtils").isPlaceholderMsg(D.type) &&
-                  v.set(T, f);
+                } else r.push(E(e, f, x));
+                o("WAWebCommonMsgUtils").isPlaceholderMsg(x.type) &&
+                  v.set(D, f);
               } else if (
-                D &&
-                !(o("WAWebCommonMsgUtils").isFutureproofMsg(D.type) && E(e))
+                x &&
+                !(o("WAWebCommonMsgUtils").isFutureproofMsg(x.type) && k(e))
               )
                 (o("WAWebCurrentUser").isEmployee() &&
                   o("WALogger").LOG(
@@ -456,19 +419,19 @@ __d(
                         " id=",
                         "",
                       ])),
-                    String(D.type),
+                    String(x.type),
                     String(e.type),
-                    String(o("WAWebCommonMsgUtils").isFutureproofMsg(D.type)),
+                    String(o("WAWebCommonMsgUtils").isFutureproofMsg(x.type)),
                     String(o("WAWebCommonMsgUtils").isFutureproofMsg(e.type)),
                     e.id.id,
                   ),
                   n.push(e.id.id));
               else {
-                var A = b.get(T),
-                  F =
-                    A != null &&
-                    !o("WAWebCommonMsgUtils").isPlaceholderMsg(A.type);
-                if (F) n.push(e.id.id);
+                var P = b.get(D),
+                  N =
+                    P != null &&
+                    !o("WAWebCommonMsgUtils").isPlaceholderMsg(P.type);
+                if (N) n.push(e.id.id);
                 else if (
                   (e.type ===
                     o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
@@ -483,8 +446,8 @@ __d(
                   o("WAWebAddonGatingUtils").isUnifiedInfraEnabled(e) &&
                   o("WAWebAddonProcessMsgsUtils").castToAddonMsgData(f) != null
                 ) {
-                  var O = o("WAWebAddonProcessMsgsUtils").castToAddonMsgData(f);
-                  O != null && y.push(O);
+                  var M = o("WAWebAddonProcessMsgsUtils").castToAddonMsgData(f);
+                  M != null && y.push(M);
                 } else
                   e.type === o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT
                     ? u.push(f)
@@ -522,12 +485,12 @@ __d(
                                 e.subtype ===
                                   "payment_transaction_request_cancelled"
                               ? (l.push(f),
-                                b.set(T, f),
+                                b.set(D, f),
                                 C.add(String(e.id.remote)))
                               : e.type ===
                                   o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE
                                 ? (c.push(f),
-                                  b.set(T, f),
+                                  b.set(D, f),
                                   C.add(String(e.id.remote)))
                                 : e.type ===
                                       o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
@@ -535,10 +498,10 @@ __d(
                                   ? d.push(f)
                                   : e.quotedMsg || e.quotedStanzaID != null
                                     ? (g.push(f),
-                                      b.set(T, f),
+                                      b.set(D, f),
                                       C.add(String(e.id.remote)))
                                     : e.associationType != null
-                                      ? (b.set(T, f),
+                                      ? (b.set(D, f),
                                         L.push(e),
                                         C.add(String(e.id.remote)))
                                       : (e.type ===
@@ -548,16 +511,16 @@ __d(
                                               "ephemeral_setting") ||
                                           e.type !==
                                             o("WAWebMsgType").MSG_TYPE.PROTOCOL
-                                        ? (b.set(T, f),
+                                        ? (b.set(D, f),
                                           C.add(String(e.id.remote)))
-                                        : I.length < 3 &&
-                                          I.push({
+                                        : T.length < 3 &&
+                                          T.push({
                                             type: e.type,
                                             subtype: e.subtype,
                                           });
               }
             }),
-            I.length > 0 &&
+            T.length > 0 &&
               o("WALogger").WARN(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -565,8 +528,8 @@ __d(
                     " unhandled messages => ",
                     "",
                   ])),
-                I.length,
-                I.map(function (e) {
+                T.length,
+                T.map(function (e) {
                   return (
                     "type: " +
                     String(e.type) +
@@ -610,18 +573,50 @@ __d(
         L.apply(this, arguments)
       );
     }
-    function E(e) {
+    function E(e, t, n) {
+      var r,
+        a,
+        i = o("WAWebDBMessageSerialization").dbRowFromMessage(t);
+      ((i.t = n.t),
+        (i.internalId = n.internalId),
+        (i.rowId = n.rowId),
+        (i.pendingReadReceipt = n.pendingReadReceipt),
+        o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
+          n.placeholderCreatedWhenAccountIsHosted === !1 &&
+          i.senderOrRecipientAccountTypeHosted === !0 &&
+          (r = e.id) != null &&
+          (r = r.remote) != null &&
+          r.isUser() &&
+          ((i.hostedBizEncStateMismatch = !0),
+          o("WAWebBackendEventBusWorkerCompatible").getBackendEventBus()
+            .isMainStreamReadyMd &&
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updateMsgModelHostedBizEncStateMismatchFlagToTrue",
+              { msgId: e.id },
+            )),
+        o("WAWebCommonMsgUtils").isPlaceholderMsg(n.type) &&
+          n.ack > ((a = i.ack) != null ? a : o("WAWebAck").ACK.CLOCK) &&
+          (i.ack = n.ack));
+      var l = o("WAWebDBStoreMessage").isPendingUnreadReceipt(t.id, t);
+      return o("WAWebDBStoreMessage").addMsgMetadataToMsgRow({
+        msg: i,
+        chatId: t.id.remote.toString(),
+        hasLink: o("WAWebLinkify").hasHttpLink(t),
+        pendingReadReceipt: l,
+      });
+    }
+    function k(e) {
       return o("WAWebAddonGatingUtils").isUnifiedInfraEnabled(e)
         ? !0
         : !!o("WAWebDBAddOnProviders").getAddOnProviderForMsg(e);
     }
-    function k(e, t) {
+    function I(e, t) {
       return (
         (o("WAWebCommonMsgUtils").isPlaceholderMsg(t.type) &&
           !o("WAWebCommonMsgUtils").isPlaceholderMsg(e.type)) ||
         (o("WAWebCommonMsgUtils").isFutureproofMsg(t.type) &&
           !o("WAWebCommonMsgUtils").isFutureproofMsg(e.type) &&
-          !E(e)) ||
+          !k(e)) ||
         (o("WAWebCommonMsgUtils").isRichResponseMsg(t.type) &&
           o("WAWebCommonMsgUtils").isSomewhatParsedRichResponseMsg(e))
       );

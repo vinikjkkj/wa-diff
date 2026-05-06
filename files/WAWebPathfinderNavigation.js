@@ -32,6 +32,9 @@ __d(
           screenName: t,
           destinationName: n,
           timestampMs: r,
+          triggeringTestId: o(
+            "WAWebPathfinderUserTouch",
+          ).consumeLastTapTrackingId(),
         }));
     }
     function u() {

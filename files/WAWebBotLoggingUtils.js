@@ -98,6 +98,8 @@ __d(
         )
           return o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
             .INVOKE_META_AI_GROUP;
+        if (t === o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.FAB)
+          return o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint.FAVICON;
         {
           o("WALogger")
             .WARN(
@@ -157,15 +159,35 @@ __d(
                           ? o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint
                               .ASK_META_AI_CONTEXT_MENU_GROUP
                           : e ===
-                              o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink
+                              o("WAWebChatEntryPoint").ChatEntryPoint
+                                .DirectMessage
                             ? o("WAWebProtobufsAICommon.pb")
-                                .BotMetricsEntryPoint.DEEPLINK
+                                .BotMetricsEntryPoint.FAVICON
                             : e ===
-                                o("WAWebChatEntryPoint").ChatEntryPoint
-                                  .Notification
+                                o("WAWebChatEntryPoint").ChatEntryPoint.Mention
                               ? o("WAWebProtobufsAICommon.pb")
-                                  .BotMetricsEntryPoint.NOTIFICATION
-                              : void 0;
+                                  .BotMetricsEntryPoint.INVOKE_META_AI_1ON1
+                              : e ===
+                                  o("WAWebChatEntryPoint").ChatEntryPoint
+                                    .ContactInfo
+                                ? o("WAWebProtobufsAICommon.pb")
+                                    .BotMetricsEntryPoint.PROFILE_MESSAGE_BUTTON
+                                : e ===
+                                    o("WAWebChatEntryPoint").ChatEntryPoint
+                                      .PrivateReply
+                                  ? o("WAWebProtobufsAICommon.pb")
+                                      .BotMetricsEntryPoint.INVOKE_META_AI_GROUP
+                                  : e ===
+                                      o("WAWebChatEntryPoint").ChatEntryPoint
+                                        .Deeplink
+                                    ? o("WAWebProtobufsAICommon.pb")
+                                        .BotMetricsEntryPoint.DEEPLINK
+                                    : e ===
+                                        o("WAWebChatEntryPoint").ChatEntryPoint
+                                          .Notification
+                                      ? o("WAWebProtobufsAICommon.pb")
+                                          .BotMetricsEntryPoint.NOTIFICATION
+                                      : void 0;
     }
     function _(e) {
       return e === o("WAWebProtobufsAICommon.pb").BotMetricsEntryPoint.FAVICON
@@ -260,6 +282,11 @@ __d(
         if (e === o("WAWebChatEntryPoint").ChatEntryPoint.ContactInfo)
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .CHAT_INFO_PAGE;
+        if (e === o("WAWebChatEntryPoint").ChatEntryPoint.DirectMessage)
+          return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE.FAB;
+        if (e === o("WAWebChatEntryPoint").ChatEntryPoint.PrivateReply)
+          return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
+            .INVOKE_META_AI_GROUP;
         if (e === o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink)
           return o("WAWebWamEnumBotEntryPointType").BOT_ENTRY_POINT_TYPE
             .DEEPLINK_USER_SHARED;
@@ -322,8 +349,6 @@ __d(
           e === o("WAWebChatEntryPoint").ChatEntryPoint.SimilarNewsletters ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.Link ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.Vcard ||
-          e === o("WAWebChatEntryPoint").ChatEntryPoint.PrivateReply ||
-          e === o("WAWebChatEntryPoint").ChatEntryPoint.DirectMessage ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.NewslettersTab ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.VoipWindow ||

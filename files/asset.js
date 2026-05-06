@@ -5,7 +5,10 @@ __d(
     function e() {
       for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
         t[n] = arguments[n];
-      throw new Error("asset(" + t.join(",") + "): Unexpected asset reference");
+      var r = new Error(
+        "asset(" + t.join(",") + "): Unexpected asset reference",
+      );
+      throw (r.stack, r);
     }
     a.exports = e;
   },

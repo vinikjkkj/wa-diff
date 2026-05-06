@@ -12,42 +12,46 @@ __d(
     "use strict";
     function e(e) {
       var t,
-        n = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(e);
-      if (n == null) throw r("err")("Invalid call ending data");
-      return babelHelpers.extends({}, n, {
-        peerJid: o("WAWebWidFactory").createWid(n.peerJid),
-        fromMe: n.fromMe,
-        groupJid: n.groupJid
-          ? o("WAWebWidFactory").createWid(n.groupJid)
+        n,
+        a,
+        i = o("WAWebVoipJsonParserNative").parseJsonFromNativeBridge(e);
+      if (i == null) throw r("err")("Invalid call ending data");
+      return babelHelpers.extends({}, i, {
+        peerJid: o("WAWebWidFactory").createWid(i.peerJid),
+        fromMe: i.fromMe,
+        groupJid: i.groupJid
+          ? o("WAWebWidFactory").createWid(i.groupJid)
           : null,
-        callId: n.callId,
-        callLinkToken: n.callLinkToken,
-        isCallLink: n.isCallLink,
-        scheduledId: n.scheduledId,
-        startTime: o("WATimeUtils").castToUnixTime(n.startTime),
+        callId: i.callId,
+        callLinkToken: i.callLinkToken,
+        isCallLink: i.isCallLink,
+        scheduledId: i.scheduledId,
+        startTime: o("WATimeUtils").castToUnixTime(i.startTime),
         connectTime:
-          n.connectTime != null ? Math.floor(n.connectTime / 1e3) : null,
-        endTime: o("WATimeUtils").castToUnixTime(n.endTime),
+          i.connectTime != null ? Math.floor(i.connectTime / 1e3) : null,
+        endTime: o("WATimeUtils").castToUnixTime(i.endTime),
         result: o("WAWebVoipWaCallEnums").convertCallResultToCallLogResult(
-          n.result,
+          i.result,
         ),
-        videoCall: n.videoCall,
-        participantEntries: n.participantEntries.map(function (e) {
+        videoCall: i.videoCall,
+        participantEntries: i.participantEntries.map(function (e) {
           return {
             jid: o("WAWebWidFactory").createWid(e.jid),
             result: e.result,
           };
         }),
-        callCreatorJid: r("isStringNullOrEmpty")(n.callCreatorJid)
+        callCreatorJid: r("isStringNullOrEmpty")(i.callCreatorJid)
           ? null
-          : o("WAWebWidFactory").createWid(n.callCreatorJid),
-        initialPeerJid: r("isStringNullOrEmpty")(n.initialPeerJid)
+          : o("WAWebWidFactory").createWid(i.callCreatorJid),
+        initialPeerJid: r("isStringNullOrEmpty")(i.initialPeerJid)
           ? null
-          : o("WAWebWidFactory").createWid(n.initialPeerJid),
-        timeSeriesPath: n.timeSeriesPath,
+          : o("WAWebWidFactory").createWid(i.initialPeerJid),
+        timeSeriesPath: i.timeSeriesPath,
         userRatingInterval: -1,
         terminatedByDeviceSwitch:
-          (t = n.terminatedByDeviceSwitch) != null ? t : !1,
+          (t = i.terminatedByDeviceSwitch) != null ? t : !1,
+        bytesSent: (n = i.bytesSent) != null ? n : void 0,
+        bytesReceived: (a = i.bytesReceived) != null ? a : void 0,
       });
     }
     l.parseWindowsCallEndingData = e;

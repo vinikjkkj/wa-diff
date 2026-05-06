@@ -92,6 +92,72 @@ __d(
             /*BTDS*/ "This community will remain suspended until the review is completed.",
           );
     }
+    function S() {
+      return o(
+        "WAWebGroupGatingUtils",
+      ).isGroupSuspensionAppealsRedesignVariantEnabled()
+        ? s._(
+            /*BTDS*/ "Find out how WhatsApp keeps groups safe and why a group may be unavailable.",
+          )
+        : s._(
+            /*BTDS*/ "Find out how WhatsApp keeps groups safe and why a group may get suspended.",
+          );
+    }
+    function R() {
+      return o(
+        "WAWebGroupGatingUtils",
+      ).isGroupSuspensionAppealsRedesignVariantEnabled()
+        ? s._(
+            /*BTDS*/ "Find out how WhatsApp keeps communities safe and why a community may be unavailable.",
+          )
+        : s._(
+            /*BTDS*/ "Find out how WhatsApp keeps communities safe and why a community may get suspended.",
+          );
+    }
+    function L() {
+      return o(
+        "WAWebGroupGatingUtils",
+      ).isGroupSuspensionAppealsRedesignVariantEnabled()
+        ? s._(
+            /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group is now available.",
+          )
+        : s._(
+            /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group is no longer suspended.",
+          );
+    }
+    function E() {
+      return o(
+        "WAWebGroupGatingUtils",
+      ).isGroupSuspensionAppealsRedesignVariantEnabled()
+        ? s._(
+            /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community is now available.",
+          )
+        : s._(
+            /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community is no longer suspended.",
+          );
+    }
+    function k() {
+      return o(
+        "WAWebGroupGatingUtils",
+      ).isGroupSuspensionAppealsRedesignVariantEnabled()
+        ? s._(
+            /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group remains unavailable.",
+          )
+        : s._(
+            /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group remains suspended.",
+          );
+    }
+    function I() {
+      return o(
+        "WAWebGroupGatingUtils",
+      ).isGroupSuspensionAppealsRedesignVariantEnabled()
+        ? s._(
+            /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community remains unavailable.",
+          )
+        : s._(
+            /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community remains suspended.",
+          );
+    }
     ((l.groupSuspendedTitle = e),
       (l.deleteGroupLabel = u),
       (l.deactivateCommunityLabel = c),
@@ -105,7 +171,13 @@ __d(
       (l.groupInReviewTitle = y),
       (l.communityInReviewTitle = C),
       (l.groupInReviewBullet = b),
-      (l.communityInReviewBullet = v));
+      (l.communityInReviewBullet = v),
+      (l.groupSuspendedExplanation = S),
+      (l.communitySuspendedExplanation = R),
+      (l.groupAppealApprovedExplanation = L),
+      (l.communityAppealApprovedExplanation = E),
+      (l.groupAppealRejectedExplanation = k),
+      (l.communityAppealRejectedExplanation = I));
   },
   226,
 );
