@@ -39,6 +39,7 @@ __d(
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -68,14 +69,14 @@ __d(
             o("WAWebHandlePushnameUpdate")
               .updatePushname(k, T, i)
               .catch(function (e) {
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "updateDBForGroupAction: updatePushname failed: ",
-                      "",
-                    ])),
-                  e,
-                );
+                o("WALogger")
+                  .WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "updateDBForGroupAction: updatePushname failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
               });
           var N = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(l),
             w = (N == null ? void 0 : N.isParentGroup) === !0,

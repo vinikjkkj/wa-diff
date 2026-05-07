@@ -25,6 +25,7 @@ __d(
                 16,
                 o("WAWebWamEnumLastMessageDirection").LAST_MESSAGE_DIRECTION,
               ],
+              listIds: [20, e.TYPES.STRING],
               messageDepth: [17, e.TYPES.INTEGER],
               quickReplyAction: [
                 1,

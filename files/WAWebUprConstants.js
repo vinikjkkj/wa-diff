@@ -6,7 +6,6 @@ __d(
       l = "upr",
       s = (e = n("$InternalEnum"))({
         PAYMENT_ACCOUNT: "payment_account",
-        PAYMENT_KEY: "payment_key",
         PAYMENT_LINK: "payment_link",
       }),
       u = e({
@@ -32,16 +31,12 @@ __d(
         ITEMS: "items",
         TYPE: "type",
         PAYMENT_ACCOUNT: "payment_account",
-        PAYMENT_KEY: "payment_key",
         PAYMENT_LINK: "payment_link",
         ACCOUNT_TYPE: "account_type",
         IDENTIFIER_TYPE: "identifier_type",
         IDENTIFIER_VALUE: "identifier_value",
         INSTITUTION_NAME: "institution_name",
         BENEFICIARY_NAME: "beneficiary_name",
-        KEY: "key",
-        NAME: "name",
-        FULL_NAME_ON_ACCOUNT: "full_name_on_account",
         URI: "uri",
       });
     ((i.UPR_PAYMENT_TYPE = l),

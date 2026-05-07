@@ -135,6 +135,7 @@ __d(
           isBotGroupCall: (y = L.IsBotGroupCall) != null ? y : !1,
           isNotE2ee: !1,
           vcExtendable: !1,
+          isDualStreamSsEnabled: !1,
           isWaitingRoomEnabled: (C = L.IsWaitingRoomEnabled) != null ? C : !1,
           isWaitingRoomAdmin: (b = L.IsWaitingRoomAdmin) != null ? b : !1,
           isInWaitingRoom: (v = L.IsInWaitingRoom) != null ? v : !1,

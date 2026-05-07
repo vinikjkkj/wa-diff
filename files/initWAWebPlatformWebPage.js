@@ -6,6 +6,8 @@ __d(
     "VultureJSGating",
     "WALogger",
     "WAWebABProps",
+    "WAWebABPropsCache",
+    "WAWebABPropsWamGlobals",
     "WAWebFBLoggerSetup",
     "WhatsAppWebBanzaiConfig",
     "cr:7426",
@@ -42,6 +44,13 @@ __d(
           (n("cr:7426").adapter.config.known_routes = r(
             "WhatsAppWebBanzaiConfig",
           ).known_routes),
+        o("WAWebABPropsCache")
+          .waitForABPropConfigsReady()
+          .then(function () {
+            (u || (u = r("AnalyticsCoreData"))).consent_state = o(
+              "WAWebABPropsWamGlobals",
+            ).getServiceImprovementConsentStateBits();
+          }),
         n("cr:7507") == null ||
           n("cr:7507").onReady(function (e) {
             return e.attach();

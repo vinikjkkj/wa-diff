@@ -437,6 +437,7 @@ __d(
             isBotGroupCall: l.is_bot_group_call,
             isNotE2ee: l.is_not_e2ee,
             vcExtendable: l.vc_extendable,
+            isDualStreamSsEnabled: l.is_dual_stream_ss_enabled,
             isWaitingRoomEnabled: l.is_waiting_room_enabled,
             isWaitingRoomAdmin: l.is_waiting_room_admin,
             isInWaitingRoom: l.is_in_waiting_room,

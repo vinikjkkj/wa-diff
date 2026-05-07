@@ -10,6 +10,7 @@ __d(
     "WAWebLocalStorage",
     "WAWebMiscErrors",
     "WAWebWatchedSocket",
+    "getErrorSafe",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -144,15 +145,15 @@ __d(
     }
     function b(e) {
       var t = new AbortController();
-      return new (f || (f = n("Promise")))(function (n, r) {
-        var a = !1,
-          i = [];
-        e.forEach(function (l) {
-          v(l, t.signal, y, C)
+      return new (f || (f = n("Promise")))(function (n, a) {
+        var i = !1,
+          l = [];
+        e.forEach(function (s) {
+          v(s, t.signal, y, C)
             .then(function (e) {
-              a
+              i
                 ? (t.abort(), e.close(1e3, "loser socket"))
-                : ((a = !0),
+                : ((i = !0),
                   o("WALogger")
                     .LOG(
                       p ||
@@ -160,13 +161,13 @@ __d(
                           "[socket] openWebSocketsConcurrently opened socket with ",
                           " ws.",
                         ])),
-                      l,
+                      s,
                     )
                     .tags("socket"),
                   n(e));
             })
             .catch(function (t) {
-              t.name !== "AbortError" &&
+              r("getErrorSafe")(t).name !== "AbortError" &&
                 (o("WALogger")
                   .WARN(
                     _ ||
@@ -175,12 +176,12 @@ __d(
                         " failed: ",
                         "",
                       ])),
-                    l,
-                    t,
+                    s,
+                    String(t),
                   )
                   .tags("socket"),
-                i.push(t),
-                i.length === e.length && r(t));
+                l.push(t),
+                l.length === e.length && a(t));
             });
         });
       });

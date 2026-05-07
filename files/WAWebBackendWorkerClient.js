@@ -111,6 +111,10 @@ __d(
           yield e.sendAndReceive("workerInit", "setup", {
             globals: {
               deviceJid: o("WAWebGlobals").getMyDeviceJid(),
+              allowHistorySyncPutAllowDuplicate:
+                o("WAWebGlobals").getAllowHistorySyncPutAllowDuplicate(),
+              enableImprovedBulkMerge:
+                o("WAWebGlobals").getEnableImprovedBulkMerge(),
               lidDeviceJid: u != null ? String(u) : null,
               displayName: s != null ? String(s) : null,
             },
@@ -479,14 +483,22 @@ __d(
       ]);
       return (
         e.setNamespaceHandler("event", function (e, t, n) {
+          if (new Set(["updateChatLimitSharing", "chatCollectionAdd"]).has(e))
+            o("WAWebApiHydrateWidsUtil").hydrateWids(t);
+          else if (e === "processAndGetUnreadMentionsInfo")
+            for (var a of t.filteredMsgs)
+              (o("WAWebApiHydrateWidsUtil").hydrateWids(a),
+                (a.id = r("WAWebMsgKey").from(a.id)));
           n
             ? n(o("WAWebBackendApi").frontendSendAndReceive(e, t))
             : o("WAWebBackendApi").frontendFireAndForget(e, t);
         }),
         e.setNamespaceHandler("workerSafeEvent", function (e, t, n) {
-          n
-            ? n(o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(e, t))
-            : o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(e, t);
+          (e === "syncContactListJob" &&
+            o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+            n
+              ? n(o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(e, t))
+              : o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(e, t));
         }),
         e
       );

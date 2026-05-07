@@ -7,7 +7,6 @@ __d(
     "WACryptoHkdfSync",
     "WAJids",
     "WALogger",
-    "WAWebBackendApi",
     "WAWebCanonicalEntRecoveryWam",
     "WAWebCanonicalGating",
     "WAWebCanonicalTokenExchange",
@@ -224,12 +223,7 @@ __d(
                       "[canonical] token exchange succeeded",
                     ])),
                 ),
-                r("WAWebODS").incr("web.app.canonical.registration.success"),
-                o("WAWebCanonicalGating").isCanonicalAppReloadEnabled() &&
-                  o("WAWebBackendApi").frontendFireAndForget(
-                    "scheduleCanonicalReload",
-                    { purpose: "registration" },
-                  ))
+                r("WAWebODS").incr("web.app.canonical.registration.success"))
               : (o("WALogger").LOG(
                   h ||
                     (h = babelHelpers.taggedTemplateLiteralLoose([

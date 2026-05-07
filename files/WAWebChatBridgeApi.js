@@ -44,7 +44,7 @@ __d(
         chatCollectionAdd: function (t) {
           var e = t.options,
             n = t.things;
-          return o("WAWebChatCollection").ChatCollection.add(n, e);
+          o("WAWebChatCollection").ChatCollection.add(n, e);
         },
         chatCollectionGadd: function (t) {
           var e = t.chat;

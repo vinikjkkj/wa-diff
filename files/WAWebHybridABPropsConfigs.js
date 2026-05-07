@@ -91,6 +91,7 @@ __d(
       calling_rust_migration_incoming_stanza_bitmap: [26876, "int", 0, 0],
       calling_rust_migration_incoming_stanza_enabled: [26338, "string", "", ""],
       calling_ux_logging_bitmap: [8175, "int", 0, 0],
+      calling_voicemail_quoted_replies_enabled: [30165, "bool", !1, !1],
       calls_tab_username_global_search_enabled: [17698, "bool", !1, !1],
       camera_error_banners_version: [10584, "int", 0, 1],
       camera_health_check_delay: [8739, "int", 5e3, 5e3],
@@ -461,6 +462,7 @@ __d(
         120,
       ],
       wa_individual_new_chat_msg_latest_rampup_date: [20601, "int", 0, 0],
+      wa_web_adaptive_layout_enabled: [30140, "bool", !1, !1],
       wa_web_channels_migrate_subscribers_to_followers_enabled: [
         24540,
         "bool",

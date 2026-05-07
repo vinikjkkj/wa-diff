@@ -69,7 +69,7 @@ __d(
               .WARN(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[out-contact-invite] encountered errors while store bulk invite sms mex query: ",
+                    "[out-contact-invite] bulk invite sms store err: ",
                     "",
                   ])),
                 t,

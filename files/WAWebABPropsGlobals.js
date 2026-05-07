@@ -1,9 +1,9 @@
 __d(
   "WAWebABPropsGlobals",
   [
-    "CurrentUser",
     "WAWebABProps",
     "WAWebABPropsExpoKeyUtils",
+    "WAWebCanonicalUtils",
     "WAWebClientExposureGatingUtils",
     "WAWebDebounce",
     "WAWebNetworkStatus",
@@ -57,7 +57,9 @@ __d(
         p({
           exposureKey: e,
           sentWithDaily: !0,
-          isCanonicalEntPresent: r("CurrentUser").isLoggedIn(),
+          isCanonicalEntPresent: o(
+            "WAWebCanonicalUtils",
+          ).isCurrentUserLoggedIn(),
         });
       }
     }
@@ -65,7 +67,7 @@ __d(
       p({
         exposureKey: e,
         sentWithDaily: !1,
-        isCanonicalEntPresent: r("CurrentUser").isLoggedIn(),
+        isCanonicalEntPresent: o("WAWebCanonicalUtils").isCurrentUserLoggedIn(),
       });
     }, e);
     ((l.CLIENT_EXPOSURE_PULSE_DEBOUNCE_MS = e),

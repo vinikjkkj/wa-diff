@@ -35,6 +35,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
+      var t = e.messageHasSpoiler,
+        n = e.selectable;
+      return t !== !0 || !o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
+        ? null
+        : [[r("WAWebSpoilerFormatMutator"), { selectable: n }]];
+    }
+    function s(e) {
       var t = e === void 0 ? {} : e,
         n = t.emojiXstyle,
         o = t.selectable;
@@ -42,14 +49,14 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: o, emojiXstyle: n }]],
       ];
     }
-    function s(e) {
+    function u(e) {
       var t = e === void 0 ? {} : e,
         n = t.selectable;
       return [
         [[r("WAWebEmojiFormatMutator"), { selectable: n, size: "large" }]],
       ];
     }
-    function u(e) {
+    function c(e) {
       var t = e === void 0 ? {} : e,
         n = t.dataTab,
         a = t.emojiXstyle,
@@ -77,7 +84,7 @@ __d(
         ],
       ];
     }
-    function c(e) {
+    function d(e) {
       var t = e === void 0 ? {} : e,
         n = t.links,
         a = t.linkXstyle,
@@ -98,173 +105,176 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: i }]],
       ];
     }
-    function d(e) {
+    function m(e) {
       var t = e === void 0 ? {} : e,
         n = t.selectable;
       return [[[r("WAWebEmojiFormatMutator"), { selectable: n }]]];
     }
-    function m(e) {
-      var t = e === void 0 ? {} : e,
-        a = t.mentions,
-        i = t.groupMentions,
-        l = t.hasMentionAll,
-        s = t.links,
-        u = t.phoneNumbers,
-        c = t.selectable,
-        d = t.trusted,
-        m = t.fromMe,
-        p = t.fromChatWid,
-        _ = t.commands,
-        f = t.parseInlineCode,
-        g = f === void 0 ? !1 : f,
-        h = t.parseLists,
-        y = h === void 0 ? !1 : h,
-        C = t.parseQuotes,
-        b = C === void 0 ? !1 : C,
-        v = t.parseHeadings,
-        S = v === void 0 ? !1 : v,
-        R = t.onLinkClick,
-        L = R === void 0 ? r("WAWebNoop") : R,
-        E = t.terms,
-        k = E === void 0 ? null : E,
-        I =
-          d && u != null && u.length > 0
+    function p(t) {
+      var a = t === void 0 ? {} : t,
+        i = a.mentions,
+        l = a.groupMentions,
+        s = a.hasMentionAll,
+        u = a.links,
+        c = a.phoneNumbers,
+        d = a.selectable,
+        m = a.trusted,
+        p = a.fromMe,
+        _ = a.fromChatWid,
+        f = a.commands,
+        g = a.parseInlineCode,
+        h = g === void 0 ? !1 : g,
+        y = a.parseLists,
+        C = y === void 0 ? !1 : y,
+        b = a.parseQuotes,
+        v = b === void 0 ? !1 : b,
+        S = a.parseHeadings,
+        R = S === void 0 ? !1 : S,
+        L = a.onLinkClick,
+        E = L === void 0 ? r("WAWebNoop") : L,
+        k = a.terms,
+        I = k === void 0 ? null : k,
+        T = a.messageHasSpoiler,
+        D = T === void 0 ? !1 : T,
+        x =
+          m && c != null && c.length > 0
             ? [
                 [
                   r("WAWebPhoneNumberFormatMutator"),
-                  { phoneNumbers: u, selectable: c, fromMe: m },
+                  { phoneNumbers: c, selectable: d, fromMe: p },
                 ],
               ]
             : null,
-        T;
+        $;
       return (
         (o("WAWebBotBaseGating").isBizBot3pEnabled() ||
           o("WAWebBotBaseGating").isBotEnabled()) &&
-          _ &&
-          _.length > 0 &&
-          (T = [
+          f &&
+          f.length > 0 &&
+          ($ = [
             [
               o("WAWebBotCommandFormatMutator").BotCommand,
-              { commands: _, selectable: c },
+              { commands: f, selectable: d },
             ],
           ]),
         [
-          [[o("WAWebCodeFormatMutator").Code, { selectable: c }]],
-          g ? [[r("WAWebInlineCodeFormatMutator"), { selectable: c }]] : null,
-          y
+          [[o("WAWebCodeFormatMutator").Code, { selectable: d }]],
+          h ? [[r("WAWebInlineCodeFormatMutator"), { selectable: d }]] : null,
+          C
             ? [
                 [
                   o("WAWebBulletedListItemFormatMutator").BulletedListItem,
-                  { selectable: c },
+                  { selectable: d },
                 ],
               ]
             : null,
-          y
+          C
             ? [
                 [
                   o("WAWebBulletedListItemFormatMutator").HyphenListItem,
-                  { selectable: c },
+                  { selectable: d },
                 ],
               ]
             : null,
-          y ? [[r("WAWebBulletedListFormatMutator"), { selectable: c }]] : null,
-          y
+          C ? [[r("WAWebBulletedListFormatMutator"), { selectable: d }]] : null,
+          C
             ? [
                 [
                   o("WAWebNumberedListItemFormatMutator").NumberedListItem,
-                  { selectable: c },
+                  { selectable: d },
                 ],
               ]
             : null,
-          y ? [[r("WAWebNumberedListFormatMutator"), { selectable: c }]] : null,
-          d
+          C ? [[r("WAWebNumberedListFormatMutator"), { selectable: d }]] : null,
+          m
             ? [
                 [
                   r("WAWebLinkFormatMutator"),
-                  { links: s, selectable: c, onLinkClick: L },
+                  { links: u, selectable: d, onLinkClick: E },
                 ],
               ]
             : null,
-          a
-            ? [[r("WAWebMentionFormatMutator"), { mentions: a, selectable: c }]]
+          i
+            ? [[r("WAWebMentionFormatMutator"), { mentions: i, selectable: d }]]
             : null,
           [
             [
               r("WAWebMentionAllFormatMutator"),
-              { hasMentionAll: l, selectable: c },
+              { hasMentionAll: s, selectable: d },
             ],
           ],
-          S
-            ? [[o("WAWebHeadingFormatMutator").Heading, { selectable: c }]]
+          R
+            ? [[o("WAWebHeadingFormatMutator").Heading, { selectable: d }]]
             : null,
-          i
+          l
             ? [
                 [
                   o("WAWebGroupMentionFormatMutator").GroupMention,
-                  { groupMentions: i, selectable: c, fromChatWid: p },
+                  { groupMentions: l, selectable: d, fromChatWid: _ },
                 ],
               ]
             : null,
-          !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(c) : null,
-          I,
-          o("WAWebSpoilerGating").isSpoilerReceiverEnabled()
-            ? [[r("WAWebSpoilerFormatMutator"), { selectable: c }]]
-            : null,
+          !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(d) : null,
+          x,
+          e({ messageHasSpoiler: D, selectable: d }),
           [
-            [r("WAWebBoldFormatMutator"), { selectable: c }],
-            [r("WAWebItalicFormatMutator"), { selectable: c }],
-            [r("WAWebStrikethroughFormatMutator"), { selectable: c }],
+            [r("WAWebBoldFormatMutator"), { selectable: d }],
+            [r("WAWebItalicFormatMutator"), { selectable: d }],
+            [r("WAWebStrikethroughFormatMutator"), { selectable: d }],
           ],
-          [[r("WAWebEmojiFormatMutator"), { selectable: c }]],
-          b
+          [[r("WAWebEmojiFormatMutator"), { selectable: d }]],
+          v
             ? [
                 [
                   o("WAWebBlockQuoteFormatMutator").BlockQuote,
-                  { selectable: c },
+                  { selectable: d },
                 ],
               ]
             : null,
-          T,
-          k != null
+          $,
+          I != null
             ? [
                 [
                   r("WAWebHighlightFormatMutator"),
-                  { terms: k, ignoreDiacritics: !0 },
+                  { terms: I, ignoreDiacritics: !0 },
                 ],
               ]
             : null,
         ].filter(Boolean)
       );
     }
-    function p(e) {
-      var t = e.boundary,
-        n = e.groupMentions,
-        a = e.mentions,
-        i = e.selectable,
-        l = e.terms;
+    function _(t) {
+      var n = t.boundary,
+        a = t.groupMentions,
+        i = t.mentions,
+        l = t.messageHasSpoiler,
+        s = t.selectable,
+        u = t.terms,
+        c = e({ messageHasSpoiler: l, selectable: s });
       return [
-        [[r("WAWebTextMentionFormatMutator"), { mentions: a, selectable: i }]],
+        [[r("WAWebTextMentionFormatMutator"), { mentions: i, selectable: s }]],
         [
           [
             o("WAWebGroupMentionFormatMutator").GroupMention,
-            { groupMentions: n, selectable: i, clickable: !1 },
+            { groupMentions: a, selectable: s, clickable: !1 },
           ],
         ],
+      ].concat(c != null ? [c] : [], [
         [
-          [r("WAWebBoldFormatMutator"), { selectable: i }],
-          [r("WAWebItalicFormatMutator"), { selectable: i }],
-          [r("WAWebStrikethroughFormatMutator"), { selectable: i }],
+          [r("WAWebBoldFormatMutator"), { selectable: s }],
+          [r("WAWebItalicFormatMutator"), { selectable: s }],
+          [r("WAWebStrikethroughFormatMutator"), { selectable: s }],
         ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: i }]],
+        [[r("WAWebEmojiFormatMutator"), { selectable: s }]],
         [
           [
             r("WAWebHighlightFormatMutator"),
-            { terms: l, boundary: t, selectable: i, ignoreDiacritics: !0 },
+            { terms: u, boundary: n, selectable: s, ignoreDiacritics: !0 },
           ],
         ],
-      ];
+      ]);
     }
-    function _(e) {
+    function f(e) {
       var t = e.emojiXstyle,
         n = e.terms;
       return [
@@ -277,85 +287,90 @@ __d(
         ],
       ];
     }
-    function f(e) {
-      e === void 0 && (e = {});
-      var t = o("WAWebABProps").getABPropConfigValue(
+    function g(t) {
+      t === void 0 && (t = {});
+      var n = o("WAWebABProps").getABPropConfigValue(
           "enable_clear_formatted_preview",
         ),
-        n = e,
-        a = n.groupMentions,
-        i = n.isDraftMessage,
-        l = n.mentions,
-        s = n.selectable;
+        a = t,
+        i = a.groupMentions,
+        l = a.isDraftMessage,
+        s = a.mentions,
+        u = a.messageHasSpoiler,
+        c = a.selectable;
       return [
-        t ? null : [[o("WAWebCodeFormatMutator").Code, { selectable: s }]],
-        l
+        n ? null : [[o("WAWebCodeFormatMutator").Code, { selectable: c }]],
+        s
           ? [
               [
                 r("WAWebTextMentionFormatMutator"),
                 {
-                  mentions: l,
-                  selectable: s,
+                  mentions: s,
+                  selectable: c,
                   lastMessage: !0,
-                  isDraftMessage: i,
+                  isDraftMessage: l,
                 },
               ],
             ]
           : null,
-        a
+        i
           ? [
               [
                 o("WAWebGroupMentionFormatMutator").GroupMention,
                 {
-                  groupMentions: a,
-                  selectable: s,
+                  groupMentions: i,
+                  selectable: c,
                   clickable: !1,
                   lastMessage: !0,
-                  isDraftMessage: i,
+                  isDraftMessage: l,
                 },
               ],
             ]
           : null,
-        t
+        e({ messageHasSpoiler: u, selectable: c }),
+        n
           ? null
           : [
-              [r("WAWebBoldFormatMutator"), { selectable: s }],
-              [r("WAWebItalicFormatMutator"), { selectable: s }],
-              [r("WAWebStrikethroughFormatMutator"), { selectable: s }],
+              [r("WAWebBoldFormatMutator"), { selectable: c }],
+              [r("WAWebItalicFormatMutator"), { selectable: c }],
+              [r("WAWebStrikethroughFormatMutator"), { selectable: c }],
             ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: s }]],
+        [[r("WAWebEmojiFormatMutator"), { selectable: c }]],
       ].filter(Boolean);
     }
-    function g(e) {
-      var t = e.boundary,
-        n = e.groupMentions,
-        a = e.mentions,
-        i = e.selectable,
-        l = e.terms;
+    function h(t) {
+      var n = t.boundary,
+        a = t.groupMentions,
+        i = t.mentions,
+        l = t.messageHasSpoiler,
+        s = t.selectable,
+        u = t.terms,
+        c = e({ messageHasSpoiler: l, selectable: s });
       return [
-        [[o("WAWebCodeFormatMutator").Code, { selectable: i }]],
-        [[r("WAWebTextMentionFormatMutator"), { mentions: a, selectable: i }]],
+        [[o("WAWebCodeFormatMutator").Code, { selectable: s }]],
+        [[r("WAWebTextMentionFormatMutator"), { mentions: i, selectable: s }]],
         [
           [
             o("WAWebGroupMentionFormatMutator").GroupMention,
-            { groupMentions: n, selectable: i, clickable: !1 },
+            { groupMentions: a, selectable: s, clickable: !1 },
           ],
         ],
+      ].concat(c != null ? [c] : [], [
         [
-          [r("WAWebBoldFormatMutator"), { selectable: i }],
-          [r("WAWebItalicFormatMutator"), { selectable: i }],
-          [r("WAWebStrikethroughFormatMutator"), { selectable: i }],
+          [r("WAWebBoldFormatMutator"), { selectable: s }],
+          [r("WAWebItalicFormatMutator"), { selectable: s }],
+          [r("WAWebStrikethroughFormatMutator"), { selectable: s }],
         ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: i }]],
+        [[r("WAWebEmojiFormatMutator"), { selectable: s }]],
         [
           [
             r("WAWebHighlightFormatMutator"),
-            { terms: l, boundary: t, selectable: i },
+            { terms: u, boundary: n, selectable: s },
           ],
         ],
-      ];
+      ]);
     }
-    function h(e) {
+    function y(e) {
       var t = e === void 0 ? {} : e,
         n = t.selectable;
       return [
@@ -368,7 +383,7 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: n }]],
       ];
     }
-    function y(e) {
+    function C(e) {
       var t = e.groupMentions,
         n = e.mentions,
         a = e.selectable;
@@ -391,65 +406,67 @@ __d(
         [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: a }]],
       ].filter(Boolean);
     }
-    function C(e) {
-      var t = e.groupMentions,
-        n = e.mentions,
-        a = e.selectable;
+    function b(t) {
+      var n = t.groupMentions,
+        a = t.mentions,
+        i = t.messageHasSpoiler,
+        l = t.selectable;
       return [
-        [[o("WAWebCodeFormatMutator").Code, { selectable: a }]],
-        [[r("WAWebInlineCodeFormatMutator"), { selectable: a, quoted: !0 }]],
+        [[o("WAWebCodeFormatMutator").Code, { selectable: l }]],
+        [[r("WAWebInlineCodeFormatMutator"), { selectable: l, quoted: !0 }]],
         [
           [
             o("WAWebBulletedListItemFormatMutator").BulletedListItem,
-            { selectable: a },
+            { selectable: l },
           ],
         ],
         [
           [
             o("WAWebBulletedListItemFormatMutator").HyphenListItem,
-            { selectable: a },
+            { selectable: l },
           ],
         ],
-        [[r("WAWebBulletedListFormatMutator"), { selectable: a, quoted: !0 }]],
+        [[r("WAWebBulletedListFormatMutator"), { selectable: l, quoted: !0 }]],
         [
           [
             o("WAWebNumberedListItemFormatMutator").NumberedListItem,
-            { selectable: a },
+            { selectable: l },
           ],
         ],
-        [[r("WAWebNumberedListFormatMutator"), { selectable: a, quoted: !0 }]],
+        [[r("WAWebNumberedListFormatMutator"), { selectable: l, quoted: !0 }]],
         [
           [
             r("WAWebTextMentionFormatMutator"),
-            { mentions: n, selectable: a, theme: { quoted: !0 } },
+            { mentions: a, selectable: l, theme: { quoted: !0 } },
           ],
         ],
         [
           [
             o("WAWebGroupMentionFormatMutator").GroupMention,
             {
-              groupMentions: t,
-              selectable: a,
+              groupMentions: n,
+              selectable: l,
               theme: { quoted: !0 },
               clickable: !1,
             },
           ],
         ],
+        e({ messageHasSpoiler: i, selectable: l }),
         [
-          [r("WAWebBoldFormatMutator"), { selectable: a }],
-          [r("WAWebItalicFormatMutator"), { selectable: a }],
-          [r("WAWebStrikethroughFormatMutator"), { selectable: a }],
+          [r("WAWebBoldFormatMutator"), { selectable: l }],
+          [r("WAWebItalicFormatMutator"), { selectable: l }],
+          [r("WAWebStrikethroughFormatMutator"), { selectable: l }],
         ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: a }]],
+        [[r("WAWebEmojiFormatMutator"), { selectable: l }]],
         [
           [
             o("WAWebBlockQuoteFormatMutator").BlockQuote,
-            { selectable: a, quoted: !0 },
+            { selectable: l, quoted: !0 },
           ],
         ],
       ].filter(Boolean);
     }
-    function b(e) {
+    function v(e) {
       var t = e.groupMentions,
         n = e.mentions,
         a = e.selectable;
@@ -469,7 +486,7 @@ __d(
         ],
       ].filter(Boolean);
     }
-    function v(e) {
+    function S(e) {
       var t = e.groupMentions,
         n = e.groupMetadata,
         a = e.mentions,
@@ -497,7 +514,7 @@ __d(
         [[o("WAWebBlockQuoteFormatMutator").BlockQuote, { selectable: i }]],
       ].filter(Boolean);
     }
-    function S(e) {
+    function R(e) {
       var t,
         a = e.links,
         i = !!e.expandedFormattingEnabled,
@@ -545,7 +562,7 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    function R(e) {
+    function L(e) {
       var t,
         a = !!(e != null && e.expandedFormattingEnabled),
         i = !!((t = e == null ? void 0 : e.bulletPointsEnabled) != null
@@ -593,7 +610,7 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    function L(e) {
+    function E(e) {
       var t = e === void 0 ? {} : e,
         n = t.links,
         o = t.selectable,
@@ -605,78 +622,80 @@ __d(
         [[r("WAWebEmojiFormatMutator"), { selectable: o }]],
       ].filter(Boolean);
     }
-    function E(e) {
-      e === void 0 && (e = {});
-      var t = e,
-        n = t.groupMentions,
-        a = t.isDraftMessage,
-        i = t.mentions,
-        l = t.selectable;
+    function k(t) {
+      t === void 0 && (t = {});
+      var n = t,
+        a = n.groupMentions,
+        i = n.isDraftMessage,
+        l = n.mentions,
+        s = n.messageHasSpoiler,
+        u = n.selectable;
       return [
-        [[o("WAWebCodeFormatMutator").Code, { selectable: l }]],
-        [[r("WAWebInlineCodeFormatMutator"), { selectable: l }]],
+        [[o("WAWebCodeFormatMutator").Code, { selectable: u }]],
+        [[r("WAWebInlineCodeFormatMutator"), { selectable: u }]],
         [
           [
             o("WAWebBulletedListItemFormatMutator").BulletedListItem,
-            { selectable: l, inline: !0 },
+            { selectable: u, inline: !0 },
           ],
         ],
         [
           [
             o("WAWebBulletedListItemFormatMutator").HyphenListItem,
-            { selectable: l, inline: !0 },
+            { selectable: u, inline: !0 },
           ],
         ],
-        [[r("WAWebBulletedListFormatMutator"), { selectable: l, inline: !0 }]],
+        [[r("WAWebBulletedListFormatMutator"), { selectable: u, inline: !0 }]],
         [
           [
             o("WAWebNumberedListItemFormatMutator").NumberedListItem,
-            { selectable: l, inline: !0 },
+            { selectable: u, inline: !0 },
           ],
         ],
-        [[r("WAWebNumberedListFormatMutator"), { selectable: l, inline: !0 }]],
-        i
+        [[r("WAWebNumberedListFormatMutator"), { selectable: u, inline: !0 }]],
+        l
           ? [
               [
                 r("WAWebTextMentionFormatMutator"),
                 {
-                  mentions: i,
-                  selectable: l,
+                  mentions: l,
+                  selectable: u,
                   lastMessage: !0,
-                  isDraftMessage: a,
+                  isDraftMessage: i,
                 },
               ],
             ]
           : null,
-        n
+        a
           ? [
               [
                 o("WAWebGroupMentionFormatMutator").GroupMention,
                 {
-                  groupMentions: n,
-                  selectable: l,
+                  groupMentions: a,
+                  selectable: u,
                   clickable: !1,
                   lastMessage: !0,
-                  isDraftMessage: a,
+                  isDraftMessage: i,
                 },
               ],
             ]
           : null,
+        e({ messageHasSpoiler: s, selectable: u }),
         [
-          [r("WAWebBoldFormatMutator"), { selectable: l }],
-          [r("WAWebItalicFormatMutator"), { selectable: l }],
-          [r("WAWebStrikethroughFormatMutator"), { selectable: l }],
+          [r("WAWebBoldFormatMutator"), { selectable: u }],
+          [r("WAWebItalicFormatMutator"), { selectable: u }],
+          [r("WAWebStrikethroughFormatMutator"), { selectable: u }],
         ],
-        [[r("WAWebEmojiFormatMutator"), { selectable: l }]],
+        [[r("WAWebEmojiFormatMutator"), { selectable: u }]],
         [
           [
             o("WAWebBlockQuoteFormatMutator").BlockQuote,
-            { selectable: l, inline: !0 },
+            { selectable: u, inline: !0 },
           ],
         ],
       ].filter(Boolean);
     }
-    function k(e) {
+    function I(e) {
       var t = e.selectable,
         n = e.parseHeadings,
         a = n === void 0 ? !0 : n,
@@ -757,26 +776,27 @@ __d(
           : null,
       ].filter(Boolean);
     }
-    ((l.EmojiOnly = e),
-      (l.LargeEmojiOnly = s),
-      (l.StatusText = u),
-      (l.StatusCaption = c),
-      (l.Compatibility = d),
-      (l.Conversation = m),
-      (l.Search = p),
-      (l.SearchName = _),
-      (l.LastMessage = f),
-      (l.FTSMessage = g),
-      (l.QuickReply = h),
-      (l.Unformat = y),
-      (l.QuotedMention = C),
-      (l.FormattedNotification = b),
-      (l.FormattedGroupNotification = v),
-      (l.TrustedGroupDesc = S),
-      (l.UntrustedGroupDesc = R),
-      (l.HeaderAndFooter = L),
-      (l.InlineMessage = E),
-      (l.RichResponse = k));
+    ((l.spoilerMutatorEntry = e),
+      (l.EmojiOnly = s),
+      (l.LargeEmojiOnly = u),
+      (l.StatusText = c),
+      (l.StatusCaption = d),
+      (l.Compatibility = m),
+      (l.Conversation = p),
+      (l.Search = _),
+      (l.SearchName = f),
+      (l.LastMessage = g),
+      (l.FTSMessage = h),
+      (l.QuickReply = y),
+      (l.Unformat = C),
+      (l.QuotedMention = b),
+      (l.FormattedNotification = v),
+      (l.FormattedGroupNotification = S),
+      (l.TrustedGroupDesc = R),
+      (l.UntrustedGroupDesc = L),
+      (l.HeaderAndFooter = E),
+      (l.InlineMessage = k),
+      (l.RichResponse = I));
   },
   98,
 );

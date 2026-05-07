@@ -158,7 +158,7 @@ __d(
       );
     }
     function v(t) {
-      var n = o("WAWebCanonicalTokenExchange").getTokenCreationState();
+      var n = o("WAWebCanonicalUtils").getTokenCreationState();
       return t === !0
         ? (o("WALogger").LOG(
             e ||
@@ -181,8 +181,7 @@ __d(
               "web.app.canonical.recovery.handler.already_authenticated",
             ),
             !1)
-          : n ===
-              o("WAWebCanonicalTokenExchange").TokenCreationState.IN_PROGRESS
+          : n === o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS
             ? (o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -193,7 +192,7 @@ __d(
                 "web.app.canonical.recovery.handler.token_creation_in_progress",
               ),
               !1)
-            : n === o("WAWebCanonicalTokenExchange").TokenCreationState.PRESENT
+            : n === o("WAWebCanonicalUtils").TokenCreationState.PRESENT
               ? (o("WALogger").LOG(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([

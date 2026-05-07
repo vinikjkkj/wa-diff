@@ -336,6 +336,12 @@ __d(
                         return !1;
                       },
                     }),
+                      o("WAWebGlobals").setAllowHistorySyncPutAllowDuplicate(
+                        u.allowHistorySyncPutAllowDuplicate,
+                      ),
+                      o("WAWebGlobals").setEnableImprovedBulkMerge(
+                        u.enableImprovedBulkMerge,
+                      ),
                       o("WAWebBackendWorkerABPropsCache").updateWorkerABProps(
                         t.configs,
                         t.urlSearch,

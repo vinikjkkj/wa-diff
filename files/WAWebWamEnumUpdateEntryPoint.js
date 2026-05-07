@@ -30,6 +30,8 @@ __d(
       EDIT_LIST_VIEW: 25,
       LIST_DETAIL_VIEW: 26,
       AUTO_CREATED: 27,
+      MULTI_SELECT: 28,
+      QUICK_REPLIES: 29,
     });
     i.UPDATE_ENTRY_POINT = e;
   },

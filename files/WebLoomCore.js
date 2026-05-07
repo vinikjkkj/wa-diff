@@ -220,9 +220,7 @@ __d(
             var m = this.$17(s);
             return (
               r("one-trace") &&
-                (this.$1.fixLongtaskSubscriptionLeak === !0 &&
-                  this.$15 &&
-                  (this.$15(), (this.$15 = null)),
+                (this.$15 && (this.$15(), (this.$15 = null)),
                 (this.$15 = r("one-trace").subscribe(
                   "trace-start",
                   function (e) {

@@ -48,6 +48,7 @@ __d(
             (n.displayWaitingRoomDenied = !1),
             (n.isWaitingRoomAdmin = !1),
             (n.isWaitingRoomEnabled = !1),
+            (n.isDualStreamSsEnabled = !1),
             (n.waitingRoomUsers = []),
             (n.waitingRoomUsersCount = 0),
             (n.selfVideoState = null),

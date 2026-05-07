@@ -532,6 +532,18 @@ __d(
       IG_CONNECT_ADMIN_BUTTON_IMPRESSION: "ig_connect_admin_button_impression",
       IG_CONNECT_ADMIN_BUTTON_CLICK: "ig_connect_admin_button_click",
       WHATSAPP_CONNECT_BUTTON_CLICK: "whatsapp_connect_button_click",
+      WHATSAPP_CONNECT_NON_ADMIN_BUTTON_GENERATED:
+        "whatsapp_connect_non_admin_button_generated",
+      WHATSAPP_CONNECT_NON_ADMIN_BUTTON_IMPRESSION:
+        "whatsapp_connect_non_admin_button_impression",
+      WHATSAPP_CONNECT_NON_ADMIN_BUTTON_CLICK:
+        "whatsapp_connect_non_admin_button_click",
+      WHATSAPP_CONNECT_ADMIN_BUTTON_GENERATED:
+        "whatsapp_connect_admin_button_generated",
+      WHATSAPP_CONNECT_ADMIN_BUTTON_IMPRESSION:
+        "whatsapp_connect_admin_button_impression",
+      WHATSAPP_CONNECT_ADMIN_BUTTON_CLICK:
+        "whatsapp_connect_admin_button_click",
       CTXMD_UPSELL_ACTION_BUTTON_CLICK: "ctxmd_upsell_action_button_click",
       CTXMD_UPSELL_IMPRESSION: "ctxmd_upsell_impression",
       CTXMD_UPSELL_IMPRESSION_CAP_REACHED:
@@ -1584,6 +1596,8 @@ __d(
       HEADLINE_SUGGESTIONS_ERROR: "headline_suggestions_error",
       HEADLINE_SUGGESTION_LIKED: "headline_suggestion_liked",
       HEADLINE_SUGGESTION_DISLIKED: "headline_suggestion_disliked",
+      HEADLINE_INITIAL_CLASSIFICATION_IMPRESSION:
+        "headline_initial_classification_impression",
       MULTI_POST_SECTION_IMPRESSION: "multi_post_section_impression",
       MULTI_POST_PICKER_OPEN: "multi_post_picker_open",
       MULTI_POST_PICKER_SELECTED: "multi_post_picker_selected",
@@ -1593,6 +1607,10 @@ __d(
       GUIDANCE_EXPERIMENT_DEBUGGER_POCKET_DELTOID_REFRESH:
         "guidance_experiment_debugger_pocket_deltoid_refresh",
       MAIBA_PUBLISH_BAND_AID_APPLIED: "maiba_publish_band_aid_applied",
+      PROACTIVE_RESULTS_DELIVERY_SCHEDULED:
+        "proactive_results_delivery_scheduled",
+      PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:
+        "proactive_results_delivery_skipped_not_opted_in",
     });
     i.default = e;
   },

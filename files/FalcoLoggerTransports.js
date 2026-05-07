@@ -188,7 +188,8 @@ __d(
       var t,
         n,
         o,
-        a = {
+        a,
+        i = {
           deviceId: (m || (m = r("AnalyticsCoreData"))).device_id,
           familyDeviceId: null,
           osBuildNumber: null,
@@ -199,21 +200,24 @@ __d(
               ? t
               : null,
           bundleId: null,
-          consentState: null,
+          consentState:
+            (n = (m || (m = r("AnalyticsCoreData"))).consent_state) != null
+              ? n
+              : null,
           identity: null,
           pushPhase: m.push_phase,
         };
       return (
-        ((n =
-          (o = (m || (m = r("AnalyticsCoreData")))
+        ((o =
+          (a = (m || (m = r("AnalyticsCoreData")))
             .stateful_events_list_for_br) == null
             ? void 0
-            : o.length) != null
-          ? n
+            : a.length) != null
+          ? o
           : 0) > 0 &&
-          (a.ambientState = (m || (m = r("AnalyticsCoreData"))).state_for_br),
-        (a.identity = te(m.identity)),
-        Object.freeze(a)
+          (i.ambientState = (m || (m = r("AnalyticsCoreData"))).state_for_br),
+        (i.identity = te(m.identity)),
+        Object.freeze(i)
       );
     }
     function te(e) {
@@ -256,7 +260,9 @@ __d(
         (n.privacyContext && (s.p = n.privacyContext),
           n.tags != null && (s.b = n.tags));
         var u = n.identity;
-        (u && (s.id = u), r("Banzai").post(b + n.name, s, t));
+        u && (s.id = u);
+        var c = (m || (m = r("AnalyticsCoreData"))).consent_state;
+        (c != null && (s.cs = c), r("Banzai").post(b + n.name, s, t));
       }
       re("event.uploaded", e);
     }

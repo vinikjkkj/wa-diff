@@ -1,42 +1,40 @@
 __d(
   "WAWebCanonicalUtils",
-  ["CurrentUser", "WAWebODS", "asyncToGeneratorRuntime"],
+  ["$InternalEnum", "CurrentUser"],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return r("CurrentUser").isLoggedIn();
+    var e = n("$InternalEnum").Mirrored(["IDLE", "IN_PROGRESS", "PRESENT"]),
+      s = e.IDLE;
+    function u(e) {
+      s = e;
     }
-    function s() {
-      return u.apply(this, arguments);
+    function c() {
+      return s;
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (r("WAWebODS").incr("web.app.canonical.page_load"),
-            e() && r("WAWebODS").incr("web.app.canonical.page_load.authed"));
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    var c = null;
     function d() {
-      return c;
+      return r("CurrentUser").isLoggedIn() || s === e.PRESENT;
     }
-    function m(e) {
-      c = e;
+    var m = null;
+    function p() {
+      return m;
     }
-    var p = !1;
-    function _() {
-      return p;
+    function _(e) {
+      m = e;
     }
-    function f(e) {
-      p = e;
+    var f = !1;
+    function g() {
+      return f;
     }
-    ((l.isCurrentUserLoggedIn = e),
-      (l.logCanonicalPageLoadMetrics = s),
-      (l.getCanonicalReloadPending = d),
-      (l.setCanonicalReloadPending = m),
-      (l.isDebugForceTokenRefresh = _),
-      (l.setDebugForceTokenRefresh = f));
+    function h(e) {
+      f = e;
+    }
+    ((l.TokenCreationState = e),
+      (l.setTokenCreationState = u),
+      (l.getTokenCreationState = c),
+      (l.isCurrentUserLoggedIn = d),
+      (l.getCanonicalReloadPending = p),
+      (l.setCanonicalReloadPending = _),
+      (l.isDebugForceTokenRefresh = g),
+      (l.setDebugForceTokenRefresh = h));
   },
   98,
 );

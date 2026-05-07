@@ -72,6 +72,10 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.PrivateReply:
         case o("WAWebChatEntryPoint").ChatEntryPoint.DirectMessage:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ContactInfo:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit:
+        case o("WAWebChatEntryPoint").ChatEntryPoint
+          .NumberChangeNotificationBanner:
         case o("WAWebChatEntryPoint").ChatEntryPoint.Mention:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.NewslettersTab:

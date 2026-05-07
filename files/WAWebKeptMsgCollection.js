@@ -35,7 +35,7 @@ __d(
       (e.comparator = function (e, t) {
         return t.t - e.t;
       }),
-      (l.KeptMsgCollection = e));
+      (l.default = e));
   },
   98,
 );

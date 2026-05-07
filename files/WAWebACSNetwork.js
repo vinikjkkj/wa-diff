@@ -1,9 +1,9 @@
 __d(
   "WAWebACSNetwork",
   [
-    "CurrentUser",
     "WABase64",
     "WAWebACSClient",
+    "WAWebCanonicalUtils",
     "WAWebHttpExtendedFetch",
     "WAWebRedeemACSCredential",
     "asyncToGeneratorRuntime",
@@ -36,7 +36,10 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (r("gkx")("22267") && r("CurrentUser").isLoggedIn()) {
+          if (
+            r("gkx")("22267") &&
+            o("WAWebCanonicalUtils").isCurrentUserLoggedIn()
+          ) {
             var n = yield o("WAWebACSClient").redeemWithAPTClient(e);
             return (
               t.set(

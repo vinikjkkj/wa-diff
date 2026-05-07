@@ -353,47 +353,65 @@ __d(
         m.apply(this, arguments)
       );
     }
-    u.addMessageListener(
-      "kaleidoscopeClassifyRequest",
-      (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.input,
-            n = e.mediaType,
-            r = e.rawMimeType,
-            a = e.requestId,
-            i = yield o(
-              "WAKaleidoscopeClassify",
-            ).kaleidoscopeClassifyByMediaType(t, n, r);
-          return p({
-            output: i.success
-              ? o("WAResultOrError").makeResult({
-                  mimetype: i.value.mimetype,
-                  extension: i.value.extension,
-                  score: i.value.score,
-                })
-              : i,
-            requestId: a,
-          });
+    u.addMessageListener("kaleidoscopeClassifyRequest", function (t) {
+      return (e || (e = n("Promise")))
+        .resolve()
+        .then(
+          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            var e = t.input,
+              n = t.mediaType,
+              r = t.rawMimeType,
+              a = t.requestId,
+              i = yield o(
+                "WAKaleidoscopeClassify",
+              ).kaleidoscopeClassifyByMediaType(e, n, r);
+            return p({
+              output: i.success
+                ? o("WAResultOrError").makeResult({
+                    mimetype: i.value.mimetype,
+                    extension: i.value.extension,
+                    score: i.value.score,
+                  })
+                : i,
+              input: e,
+              requestId: a,
+            });
+          }),
+        )
+        .catch(function (e) {
+          return (
+            f(
+              "error",
+              "kaleidoscopeClassify has runtime-error " +
+                o("WAErrorMessage").maybeGetMessageFromError(e),
+            ),
+            p({
+              output: o("WAResultOrError").makeError("wasm-runtime-error"),
+              input: t.input,
+              requestId: t.requestId,
+            })
+          );
         });
-        return function (t) {
-          return e.apply(this, arguments);
-        };
-      })(),
-    );
+    });
     function p(e) {
       return _.apply(this, arguments);
     }
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.output,
-            n = e.requestId,
-            r = yield u.fullyConnected;
-          r.postMessage({
-            type: "kaleidoscopeClassifyResponse",
-            output: t,
-            requestId: n,
-          });
+          var t = e.input,
+            n = e.output,
+            r = e.requestId,
+            o = yield u.fullyConnected;
+          o.postMessage(
+            {
+              type: "kaleidoscopeClassifyResponse",
+              output: n,
+              transferredBuffer: t,
+              requestId: r,
+            },
+            [t],
+          );
         })),
         _.apply(this, arguments)
       );

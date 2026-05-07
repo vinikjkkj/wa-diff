@@ -242,11 +242,8 @@ __d(
                 ),
                 o("WATimeUtils").DAY_SECONDS
               );
-            var e = o("WAWebCanonicalTokenExchange").getTokenCreationState();
-            if (
-              e ===
-              o("WAWebCanonicalTokenExchange").TokenCreationState.IN_PROGRESS
-            )
+            var e = o("WAWebCanonicalUtils").getTokenCreationState();
+            if (e === o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS)
               return (
                 o("WALogger").LOG(
                   h ||
@@ -259,9 +256,7 @@ __d(
                 ),
                 5 * o("WATimeUtils").MINUTE_SECONDS
               );
-            if (
-              e === o("WAWebCanonicalTokenExchange").TokenCreationState.PRESENT
-            )
+            if (e === o("WAWebCanonicalUtils").TokenCreationState.PRESENT)
               return (
                 o("WALogger").LOG(
                   y ||

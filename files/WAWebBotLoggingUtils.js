@@ -351,6 +351,11 @@ __d(
           e === o("WAWebChatEntryPoint").ChatEntryPoint.Vcard ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.NewslettersTab ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint
+              .NumberChangeNotificationBanner ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.VoipWindow ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.RefreshRestore ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.Unknown

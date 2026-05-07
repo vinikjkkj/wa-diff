@@ -547,6 +547,7 @@ __d(
             (m.isInWaitingRoom = n.isInWaitingRoom),
             (m.waitingRoomUsers = n.waitingRoomUsers),
             (m.waitingRoomUsersCount = n.waitingRoomUsersCount),
+            (m.isDualStreamSsEnabled = n.isDualStreamSsEnabled),
             m.trigger(
               o("WAWebVoipEventConstants").getChangeEvent(
                 o("WAWebVoipEventConstants").VoipCallModelEvents

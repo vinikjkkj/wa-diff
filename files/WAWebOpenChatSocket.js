@@ -30,6 +30,7 @@ __d(
     "decodeProtobuf",
     "encodeProtobuf",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -223,7 +224,7 @@ __d(
                     "resumeNoiseHandshake failed to encrypt client static key",
                   ])),
               )
-              .catching(e),
+              .catching(r("getErrorSafe")(e)),
             (x || (x = n("Promise"))).reject(e)
           );
         },
@@ -251,7 +252,7 @@ __d(
                     "resumeNoiseHandshake failed to encrypt client login props",
                   ])),
               )
-              .catching(e),
+              .catching(r("getErrorSafe")(e)),
             (x || (x = n("Promise"))).reject(e)
           );
         });
@@ -522,7 +523,7 @@ __d(
                       "[socket][unified] getCertficateChain error",
                     ])),
                 )
-                .catching(e)
+                .catching(r("getErrorSafe")(e))
                 .tags("handshake"),
               null
             );
@@ -539,20 +540,21 @@ __d(
         (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           try {
             var n = e || { passive: !1, pull: !0 },
-              r = new (o(
+              a = new (o(
                 "WAWebWebcSocketConnectWamEvent",
               ).WebcSocketConnectWamEvent)(),
-              a = yield O(t, r, n);
+              i = yield O(t, a, n);
             return (
               o("WAWebPageLoadLogging").endPageLoadQplMeasure("auth_handshake"),
-              r.markWebcAuthHandshakeDuration(),
-              r.commit(),
+              a.markWebcAuthHandshakeDuration(),
+              a.commit(),
               (K = 0),
-              o("WAResultOrError").makeResult(a)
+              o("WAResultOrError").makeResult(i)
             );
           } catch (e) {
+            var l = r("getErrorSafe")(e);
             o("WAWebPageLoadLogging").incrementPageLoadQplSocketError();
-            var i = Z();
+            var s = Z();
             return (
               o("WALogger")
                 .LOG(
@@ -563,12 +565,12 @@ __d(
                       ", network: ",
                       "",
                     ])),
-                  e.name,
-                  e.message,
-                  i,
+                  l.name,
+                  l.message,
+                  s,
                 )
                 .tags("handshake"),
-              i &&
+              s &&
                 (K++,
                 o("WALogger")
                   .ERROR(

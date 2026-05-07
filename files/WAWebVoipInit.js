@@ -126,7 +126,7 @@ __d(
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: skipping retry after init identity changed during idle wait",
+                    "voip: skip retry, identity changed in idle wait",
                   ])),
               ),
               o(

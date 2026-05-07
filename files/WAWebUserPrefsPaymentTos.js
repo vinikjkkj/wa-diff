@@ -56,7 +56,7 @@ __d(
         { paymentNotice: n, accepted: a },
       );
     }
-    ((l.getPaymentTos = u), (l.setPaymentTos = c), (l.isPaymentTosValid = s));
+    ((l.isPaymentTosValid = s), (l.getPaymentTos = u), (l.setPaymentTos = c));
   },
   98,
 );

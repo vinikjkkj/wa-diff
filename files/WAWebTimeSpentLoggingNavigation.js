@@ -1,10 +1,10 @@
 __d(
   "WAWebTimeSpentLoggingNavigation",
   [
-    "CurrentUser",
     "WALogger",
     "WAShiftTimer",
     "WAWebABProps",
+    "WAWebCanonicalUtils",
     "WAWebTimeSpentLoggingSession",
     "WAWebTsNavigationWamEvent",
     "WAWebUserPrefsKeys",
@@ -271,15 +271,15 @@ __d(
     function R(e) {
       var t,
         n,
+        r,
         a,
         i,
         l,
         s,
         d,
-        m,
-        p = g[g.length - 1];
+        m = g[g.length - 1];
       if (
-        (p == null &&
+        (m == null &&
           (o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -288,11 +288,11 @@ __d(
               ])),
             e.surface,
           ),
-          (p = { surface: "unknown", id: -1 })),
-        p.id !== ((t = f) == null ? void 0 : t.id))
+          (m = { surface: "unknown", id: -1 })),
+        m.id !== ((t = f) == null ? void 0 : t.id))
       ) {
-        var h = o("WAWebTimeSpentLoggingSession").getOrInitTimeSpentSession();
-        if ((T(), e.surface === "unknown" && p.surface === "unknown")) {
+        var p = o("WAWebTimeSpentLoggingSession").getOrInitTimeSpentSession();
+        if ((T(), e.surface === "unknown" && m.surface === "unknown")) {
           w();
           return;
         }
@@ -305,37 +305,39 @@ __d(
               "",
             ])),
           e.surface,
-          p.surface,
-          p.viewName,
+          m.surface,
+          m.viewName,
         );
-        var y = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
-            tsSessionId: h.id,
-            relativeTimestampMs: h.relativeTimestampMs,
+        var h = new (o("WAWebTsNavigationWamEvent").TsNavigationWamEvent)({
+            tsSessionId: p.id,
+            relativeTimestampMs: p.relativeTimestampMs,
             navigationSource: _[e.surface],
-            navigationDestination: _[p.surface],
-            groupSize: (n = p.extras) == null ? void 0 : n.groupSize,
-            typeOfGroup: (a = p.extras) == null ? void 0 : a.typeOfGroup,
-            threadType: (i = p.extras) == null ? void 0 : i.threadType,
+            navigationDestination: _[m.surface],
+            groupSize: (n = m.extras) == null ? void 0 : n.groupSize,
+            typeOfGroup: (r = m.extras) == null ? void 0 : r.typeOfGroup,
+            threadType: (a = m.extras) == null ? void 0 : a.threadType,
             cid:
-              (l = p.extras) == null || (l = l.channelWid) == null
+              (i = m.extras) == null || (i = i.channelWid) == null
                 ? void 0
-                : l.user,
-            isCanonicalEntPresent: r("CurrentUser").isLoggedIn(),
+                : i.user,
+            isCanonicalEntPresent: o(
+              "WAWebCanonicalUtils",
+            ).isCurrentUserLoggedIn(),
           }),
-          C = (s = p.viewName) != null ? s : "";
-        (C != null && (y.navigationDestinationViewName = C),
-          h.tsTimestampMs != null && (y.tsTimestampMs = h.tsTimestampMs),
-          h.unifiedSessionId != null &&
-            (y.unifiedSessionId = h.unifiedSessionId),
+          y = (l = m.viewName) != null ? l : "";
+        (y != null && (h.navigationDestinationViewName = y),
+          p.tsTimestampMs != null && (h.tsTimestampMs = p.tsTimestampMs),
+          p.unifiedSessionId != null &&
+            (h.unifiedSessionId = p.unifiedSessionId),
           v.push({
             sourceId: e.id,
-            destId: p.id,
-            sourceSurface: (d = e.viewName) != null ? d : e.surface,
-            destSurface: (m = p.viewName) != null ? m : p.surface,
-            event: y,
+            destId: m.id,
+            sourceSurface: (s = e.viewName) != null ? s : e.surface,
+            destSurface: (d = m.viewName) != null ? d : m.surface,
+            event: h,
           }),
           S.onOrBefore(100),
-          (f = p));
+          (f = m));
       }
     }
     var L = null;
@@ -383,7 +385,9 @@ __d(
             relativeTimestampMs: n,
             navigationSource: _[a],
             navigationDestination: _.background,
-            isCanonicalEntPresent: r("CurrentUser").isLoggedIn(),
+            isCanonicalEntPresent: o(
+              "WAWebCanonicalUtils",
+            ).isCurrentUserLoggedIn(),
           });
           (typeof e.tsTimestampMs == "number" &&
             (i.tsTimestampMs = e.tsTimestampMs),

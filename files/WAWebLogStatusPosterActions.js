@@ -3,6 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebStatusPosterActionsWamEvent",
+    "WAWebWamEnumStatusCategory",
     "WAWebWamEnumStatusContentSource",
     "WAWebWamEnumStatusContentType",
     "WAWebWamEnumStatusCreationEntryPoint",
@@ -19,11 +20,14 @@ __d(
       return Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
     }
     var u = (function () {
-      function t(e) {
-        this.sessionId = e != null ? e : s();
+      function t(e, t) {
+        ((this.sessionId = e != null ? e : s()), (this.newsletterWid = t));
       }
       var n = t.prototype;
       return (
+        (n.setNewsletterWid = function (t) {
+          this.newsletterWid = t;
+        }),
         (n.logEvent = function (n) {
           if (e()) {
             var t = n.canSaveAsDraft,
@@ -40,7 +44,8 @@ __d(
               _ = n.statusEventType,
               f = n.statusId,
               g = n.statusPostFailureReason,
-              h = new (o(
+              h = this.newsletterWid,
+              y = new (o(
                 "WAWebStatusPosterActionsWamEvent",
               ).StatusPosterActionsWamEvent)({
                 statusEventType: _,
@@ -58,8 +63,14 @@ __d(
                 editable: r,
                 externalInteractables: a,
                 statusPostingSessionId: this.sessionId,
+                cid: h == null ? void 0 : h.user,
+                statusCategory:
+                  h != null
+                    ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY
+                        .CHANNEL_STATUS
+                    : void 0,
               });
-            h.commit();
+            y.commit();
           }
         }),
         (n.logStatusTextScreenImp = function () {
@@ -176,7 +187,7 @@ __d(
         t
       );
     })();
-    function c(t, n) {
+    function c(t, n, r) {
       e() &&
         new (o("WAWebStatusPosterActionsWamEvent").StatusPosterActionsWamEvent)(
           {
@@ -184,6 +195,11 @@ __d(
               .STATUS_ENTRYPOINT_TAP,
             statusCreationEntryPoint: t,
             statusPostingSessionId: n,
+            cid: r == null ? void 0 : r.user,
+            statusCategory:
+              r != null
+                ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.CHANNEL_STATUS
+                : void 0,
           },
         ).commit();
     }

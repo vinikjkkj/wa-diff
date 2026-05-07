@@ -591,38 +591,45 @@ __d(
             Ee = null;
             break e;
           }
-          var Te = o("WAWebMentionsPluginUtil").filterContactsByQuery(H, Le);
-          if (Te.length === 0) {
+          var Te = o("WAWebABProps").getABPropConfigValue(
+            "enhanced_mention_suggestions_min_mention_char_count",
+          );
+          if (Te > 0 && H.length < Te) {
             Ee = null;
             break e;
           }
-          var De = o(
+          var De = o("WAWebMentionsPluginUtil").filterContactsByQuery(H, Le);
+          if (De.length === 0) {
+            Ee = null;
+            break e;
+          }
+          var xe = o(
               "WAWebTextStatusGatingUtils",
             ).receiveTextStatusForNewSurfacesEnabled()
               ? g
               : f,
-            xe = [],
-            $e;
+            $e = [],
+            Pe;
           (a[48] === Symbol.for("react.memo_cache_sentinel")
-            ? (($e = {
+            ? ((Pe = {
                 index: 0,
                 itemKey: "section-non-participants-separator",
                 type: "non_participant_separator",
                 selectable: !1,
                 height: h,
               }),
-              (a[48] = $e))
-            : ($e = a[48]),
-            xe.push($e));
-          var Pe;
+              (a[48] = Pe))
+            : (Pe = a[48]),
+            $e.push(Pe));
+          var Ne;
           a[49] !== H
-            ? ((Pe = function (t, n) {
+            ? ((Ne = function (t, n) {
                 return {
                   type: "non_participant_contact",
                   selectable: !0,
                   contact: t,
                   id: t.id,
-                  height: De,
+                  height: xe,
                   itemKey: "non-participant-" + t.id.toString(),
                   contentKey: H,
                   index: n + 1,
@@ -630,45 +637,45 @@ __d(
                 };
               }),
               (a[49] = H),
-              (a[50] = Pe))
-            : (Pe = a[50]);
-          var Ne = Te.slice(0, Ie).map(Pe);
-          (xe.push.apply(xe, Ne), (Ee = xe));
+              (a[50] = Ne))
+            : (Ne = a[50]);
+          var Me = De.slice(0, Ie).map(Ne);
+          ($e.push.apply($e, Me), (Ee = $e));
         }
         ((a[44] = Le), (a[45] = H), (a[46] = ye), (a[47] = Ee));
       } else Ee = a[47];
-      var Me = Ee,
-        we;
+      var we = Ee,
+        Ae;
       e: {
-        if (ye == null && Me == null) {
-          we = null;
+        if (ye == null && we == null) {
+          Ae = null;
           break e;
         }
-        var Ae;
-        if (a[51] !== Me || a[52] !== ye) {
-          if (((Ae = []), ye != null)) {
-            var Fe;
-            (Fe = Ae).push.apply(Fe, ye);
+        var Fe;
+        if (a[51] !== we || a[52] !== ye) {
+          if (((Fe = []), ye != null)) {
+            var Oe;
+            (Oe = Fe).push.apply(Oe, ye);
           }
-          if (Me != null) {
-            var Oe, Be;
-            a[54] !== Me
-              ? ((Be = Me.filter(L)), (a[54] = Me), (a[55] = Be))
-              : (Be = a[55]);
-            var We = Be;
-            (Oe = Ae).push.apply(Oe, We);
+          if (we != null) {
+            var Be, We;
+            a[54] !== we
+              ? ((We = we.filter(L)), (a[54] = we), (a[55] = We))
+              : (We = a[55]);
+            var qe = We;
+            (Be = Fe).push.apply(Be, qe);
           }
-          ((a[51] = Me), (a[52] = ye), (a[53] = Ae));
-        } else Ae = a[53];
-        we = Ae.length > 0 ? Ae : null;
+          ((a[51] = we), (a[52] = ye), (a[53] = Fe));
+        } else Fe = a[53];
+        Ae = Fe.length > 0 ? Fe : null;
       }
-      var qe = we,
-        Ue,
-        Ve;
-      a[56] !== qe || a[57] !== oe || a[58] !== ee || a[59] !== N
-        ? ((Ue = N
+      var Ue = Ae,
+        Ve,
+        He;
+      a[56] !== Ue || a[57] !== oe || a[58] !== ee || a[59] !== N
+        ? ((Ve = N
             ? []
-            : (qe != null ? qe : []).map(function (e) {
+            : (Ue != null ? Ue : []).map(function (e) {
                 return {
                   renderFn: function (n) {
                     return oe(e, n);
@@ -684,31 +691,31 @@ __d(
                     e.type === "non_participant_separator",
                 };
               })),
-          (Ve = Ue.findIndex(R)),
-          (a[56] = qe),
+          (He = Ve.findIndex(R)),
+          (a[56] = Ue),
           (a[57] = oe),
           (a[58] = ee),
           (a[59] = N),
-          (a[60] = Ue),
-          (a[61] = Ve))
-        : ((Ue = a[60]), (Ve = a[61]));
-      var He = Ve,
-        Ge;
+          (a[60] = Ve),
+          (a[61] = He))
+        : ((Ve = a[60]), (He = a[61]));
+      var Ge = He,
+        ze;
       return (
-        a[62] !== He || a[63] !== ne || a[64] !== Ue || a[65] !== U
-          ? ((Ge = c.jsx(r("WAWebLexicalTypeAheadList.react"), {
+        a[62] !== Ge || a[63] !== ne || a[64] !== Ve || a[65] !== U
+          ? ((ze = c.jsx(r("WAWebLexicalTypeAheadList.react"), {
               leadOffset: U,
-              items: Ue,
+              items: Ve,
               onCancel: ne,
-              startingIndex: He,
+              startingIndex: Ge,
             })),
-            (a[62] = He),
+            (a[62] = Ge),
             (a[63] = ne),
-            (a[64] = Ue),
+            (a[64] = Ve),
             (a[65] = U),
-            (a[66] = Ge))
-          : (Ge = a[66]),
-        Ge
+            (a[66] = ze))
+          : (ze = a[66]),
+        ze
       );
     }
     function R(e) {

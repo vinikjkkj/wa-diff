@@ -73,6 +73,7 @@ __d(
                       var t = yield p(e)
                         .catch(function (e) {
                           if (e instanceof c) throw e;
+                          var t = r("getErrorSafe")(e);
                           o("WALogger")
                             .ERROR(
                               s ||
@@ -80,7 +81,7 @@ __d(
                                   "processAndEncryptSingleMsgRow no-throttle",
                                 ])),
                             )
-                            .catching(e)
+                            .catching(t)
                             .tags("message-store");
                         })
                         .finally(function () {});

@@ -12,6 +12,7 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebQplFlowWrapper",
     "WAWebWamOfflineResumeReporter",
+    "getErrorSafe",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -163,7 +164,11 @@ __d(
                       t.map(function (t) {
                         var n = t.task;
                         return n(e.$1.signal).catch(function (e) {
-                          if (e.name === o("WAAbortError").ABORT_ERROR) throw e;
+                          if (
+                            r("getErrorSafe")(e).name ===
+                            o("WAAbortError").ABORT_ERROR
+                          )
+                            throw e;
                           o("WALogger").ERROR(
                             f ||
                               (f = babelHelpers.taggedTemplateLiteralLoose([

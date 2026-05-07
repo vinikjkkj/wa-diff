@@ -4,6 +4,7 @@ __d(
     "$InternalEnum",
     "WALogger",
     "WAWebCanonicalEntRecoveryWam",
+    "WAWebCanonicalUtils",
     "WAWebODS",
     "WAWebXControllerFetchUtils",
     "WAXWhatsAppWebAuthControllerRouteBuilder",
@@ -15,35 +16,27 @@ __d(
       u,
       c,
       d,
-      m = n("$InternalEnum").Mirrored(["IDLE", "IN_PROGRESS", "PRESENT"]),
-      p = n("$InternalEnum").Mirrored(["SUCCESS", "FAILED"]),
-      _ = m.IDLE;
-    function f(e) {
-      _ = e;
+      m = n("$InternalEnum").Mirrored(["SUCCESS", "FAILED"]);
+    function p(e, t) {
+      return _.apply(this, arguments);
     }
-    function g() {
-      return _;
-    }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
+    function _() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
           try {
             var a,
               i = t.accessToken,
               l = t.deviceId,
               c = t.nonce,
               d = t.userId,
-              m = r("WAXWhatsAppWebAuthControllerRouteBuilder").buildUri({
+              p = r("WAXWhatsAppWebAuthControllerRouteBuilder").buildUri({
                 access_token: i != null ? i : "",
                 nonce: c != null ? c : "",
                 user_id: d,
                 device_id: l,
               }),
               _ = yield o("WAWebXControllerFetchUtils").fetchFromXController(
-                m.toString(),
+                p.toString(),
                 { method: "POST", retry: n.retry },
               );
             if (!_.ok)
@@ -56,7 +49,7 @@ __d(
                     ])),
                   _.status,
                 ),
-                p.FAILED
+                m.FAILED
               );
             var f = yield o(
               "WAWebXControllerFetchUtils",
@@ -94,10 +87,10 @@ __d(
                     v,
                   )
                   .sendLogs("canonical-error", { sampling: 0.01 }),
-                p.FAILED
+                m.FAILED
               );
             }
-            return p.SUCCESS;
+            return m.SUCCESS;
           } catch (e) {
             return (
               o("WALogger")
@@ -110,44 +103,51 @@ __d(
                   e,
                 )
                 .sendLogs("canonical-error", { sampling: 0.01 }),
-              p.FAILED
+              m.FAILED
             );
           }
         })),
-        y.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function C(e, t) {
-      e === p.SUCCESS
-        ? (f(m.PRESENT),
+    function f(e, t) {
+      e === m.SUCCESS
+        ? (o("WAWebCanonicalUtils").setTokenCreationState(
+            o("WAWebCanonicalUtils").TokenCreationState.PRESENT,
+          ),
           o("WAWebCanonicalEntRecoveryWam").logCredentialsStored(t))
-        : e === p.FAILED && f(m.IDLE);
+        : e === m.FAILED &&
+          o("WAWebCanonicalUtils").setTokenCreationState(
+            o("WAWebCanonicalUtils").TokenCreationState.IDLE,
+          );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    function g(e, t) {
+      return h.apply(this, arguments);
     }
-    function v() {
+    function h() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           (o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[canonical] Storing canonical credentials directly",
               ])),
           ),
-            f(m.IN_PROGRESS));
-          var n = yield h(e, { retry: !1 });
-          return (C(n, t), n);
+            o("WAWebCanonicalUtils").setTokenCreationState(
+              o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS,
+            ));
+          var n = yield p(e, { retry: !1 });
+          return (f(n, t), n);
         })),
-        v.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    function y(e, t) {
+      return C.apply(this, arguments);
     }
-    function R() {
+    function C() {
       return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -156,29 +156,28 @@ __d(
           );
           var n = o("WAWebCanonicalEntRecoveryWam").generateRequestId();
           (o("WAWebCanonicalEntRecoveryWam").logExchangeNonceStart(t, n),
-            f(m.IN_PROGRESS),
+            o("WAWebCanonicalUtils").setTokenCreationState(
+              o("WAWebCanonicalUtils").TokenCreationState.IN_PROGRESS,
+            ),
             r("WAWebODS").incr("web.app.canonical.exchange.attempt"));
-          var a = yield h(e, { retry: !0 });
+          var a = yield p(e, { retry: !0 });
           return (
-            C(a, t),
-            a === p.SUCCESS
+            f(a, t),
+            a === m.SUCCESS
               ? (r("WAWebODS").incr("web.app.canonical.exchange.success"),
                 o("WAWebCanonicalEntRecoveryWam").logExchangeNonceSuccess(t, n))
-              : a === p.FAILED &&
+              : a === m.FAILED &&
                 (r("WAWebODS").incr("web.app.canonical.exchange.failed"),
                 o("WAWebCanonicalEntRecoveryWam").logExchangeNonceError(t, n)),
             a
           );
         })),
-        R.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    ((l.TokenCreationState = m),
-      (l.TokenExchangeResult = p),
-      (l.setTokenCreationState = f),
-      (l.getTokenCreationState = g),
-      (l.storeCanonicalCredentials = b),
-      (l.exchangeNonceForToken = S));
+    ((l.TokenExchangeResult = m),
+      (l.storeCanonicalCredentials = g),
+      (l.exchangeNonceForToken = y));
   },
   98,
 );

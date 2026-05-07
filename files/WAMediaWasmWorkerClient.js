@@ -602,16 +602,20 @@ __d(
                   return e.requestId === l;
                 },
               );
-              (u.postMessage({
-                mediaType: a,
-                rawMimeType: i,
-                input: r,
-                requestId: l,
-                type: "kaleidoscopeClassifyRequest",
-              }),
+              (u.postMessage(
+                {
+                  mediaType: a,
+                  rawMimeType: i,
+                  input: r,
+                  requestId: l,
+                  type: "kaleidoscopeClassifyRequest",
+                },
+                [r],
+              ),
                 t.addPoint("sent_request_to_media_worker_start"));
               var n = yield e,
-                s = n.output;
+                s = n.output,
+                c = n.transferredBuffer;
               return s.success
                 ? (F().INFO(
                     T ||
@@ -622,10 +626,10 @@ __d(
                     l,
                   ),
                   t == null || t.addPoint("sent_request_to_media_worker_end"),
-                  { transferredBuffer: r, result: s })
+                  { transferredBuffer: c, result: s })
                 : (t.addPoint("sent_request_to_media_worker_fail"),
                   {
-                    transferredBuffer: r,
+                    transferredBuffer: c,
                     result: o("WAResultOrError").makeError({
                       errorName: s.error,
                     }),

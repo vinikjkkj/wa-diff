@@ -246,6 +246,8 @@ __d(
           "ephemeralOutOfSync",
           "disappearingModeInitiatedByMe",
           "disappearingModeTrigger",
+          "afterReadDuration",
+          "expiredTimestamp",
           "dynamicReplyButtons",
           "replyButtons",
           "isMdHistoryMsg",

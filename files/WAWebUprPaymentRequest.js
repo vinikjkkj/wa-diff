@@ -83,42 +83,14 @@ __d(
                   : "",
             });
           }
-        } else if (
-          _ === o("WAWebUprConstants").UprPaymentSettingType.PAYMENT_KEY
-        ) {
-          var b = p[o("WAWebUprConstants").UprWireFields.PAYMENT_KEY],
-            v =
-              b == null ? void 0 : b[o("WAWebUprConstants").UprWireFields.KEY];
-          if (v != null && v !== "") {
-            var S, R, L;
-            m.push({
-              kind: "payment_key",
-              paymentKeyType:
-                (S = b[o("WAWebUprConstants").UprWireFields.TYPE]) != null
-                  ? S
-                  : "",
-              credentialId: v,
-              institutionName:
-                (R = b[o("WAWebUprConstants").UprWireFields.NAME]) != null
-                  ? R
-                  : "",
-              accountHolderName:
-                (L =
-                  b[
-                    o("WAWebUprConstants").UprWireFields.FULL_NAME_ON_ACCOUNT
-                  ]) != null
-                  ? L
-                  : "",
-            });
-          }
         }
       }
       if (m.length === 0) return null;
-      var E = s[o("WAWebUprConstants").UprWireFields.ORDER],
-        k = Array.isArray(
-          E == null ? void 0 : E[o("WAWebUprConstants").UprWireFields.ITEMS],
+      var b = s[o("WAWebUprConstants").UprWireFields.ORDER],
+        v = Array.isArray(
+          b == null ? void 0 : b[o("WAWebUprConstants").UprWireFields.ITEMS],
         )
-          ? E[o("WAWebUprConstants").UprWireFields.ITEMS].map(function (e) {
+          ? b[o("WAWebUprConstants").UprWireFields.ITEMS].map(function (e) {
               return {
                 retailerId: e.retailer_id,
                 name: e.name,
@@ -138,7 +110,7 @@ __d(
             : "",
         totalAmount: d,
         paymentOptions: m,
-        items: k,
+        items: v,
       };
     }
     l.parseUprPaymentInfo = e;

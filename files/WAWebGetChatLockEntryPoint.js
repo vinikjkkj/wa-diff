@@ -47,6 +47,10 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.NewslettersTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit:
+        case o("WAWebChatEntryPoint").ChatEntryPoint
+          .NumberChangeNotificationBanner:
         case o("WAWebChatEntryPoint").ChatEntryPoint.VoipWindow:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINullStateSuggestion:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAITypeaheadSuggestion:

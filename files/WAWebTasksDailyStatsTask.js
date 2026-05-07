@@ -1,7 +1,6 @@
 __d(
   "WAWebTasksDailyStatsTask",
   [
-    "CurrentUser",
     "Promise",
     "WALogger",
     "WAStorageEstimator",
@@ -16,6 +15,7 @@ __d(
     "WAWebApiPrivacyEphemerality",
     "WAWebBackendApi",
     "WAWebBlocklistMigration",
+    "WAWebCanonicalUtils",
     "WAWebChatThreadLoggingUtils",
     "WAWebCommunityHomeActionWamEvent",
     "WAWebCommunityTabActionWamEvent",
@@ -322,7 +322,9 @@ __d(
             c = e[6],
             d = F(),
             m = babelHelpers.extends({}, t, a, i, d, s, u, c, {
-              isCanonicalEntPresent: r("CurrentUser").isLoggedIn(),
+              isCanonicalEntPresent: o(
+                "WAWebCanonicalUtils",
+              ).isCurrentUserLoggedIn(),
             }),
             p = new (o("WAWebDailyWamEvent").DailyWamEvent)();
           (p.set(m), p.commit(), S());

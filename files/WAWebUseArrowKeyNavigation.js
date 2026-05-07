@@ -4,9 +4,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = s.useEffect,
-      c = s.useRef;
-    function d(e) {
+      u = s.useCallback,
+      c = s.useEffect,
+      d = s.useRef;
+    function m(e) {
       var t = o("react-compiler-runtime").c(2),
         n = e.prefix,
         r;
@@ -22,16 +23,16 @@ __d(
           (t[0] = n),
           (t[1] = r))
         : (r = t[1]),
-        u(r, void 0));
+        c(r, void 0));
     }
-    function m(e) {
-      var t = o("react-compiler-runtime").c(19),
+    function p(e) {
+      var t = o("react-compiler-runtime").c(20),
         n = e.prefix,
-        r = c(null),
-        a = c(0),
+        r = d(null),
+        a = d(0),
         i;
       (t[0] !== n ? ((i = { prefix: n }), (t[0] = n), (t[1] = i)) : (i = t[1]),
-        d(i));
+        m(i));
       var l;
       t[2] !== n
         ? ((l = function () {
@@ -60,7 +61,7 @@ __d(
           (t[4] = n),
           (t[5] = u))
         : (u = t[5]);
-      var m = u,
+      var c = u,
         p,
         _;
       t[6] !== s
@@ -80,12 +81,12 @@ __d(
           (t[8] = _))
         : ((p = t[7]), (_ = t[8]));
       var f;
-      t[9] !== m
+      t[9] !== c
         ? ((f = function (t) {
             var e = t.target === r.current;
-            e && m();
+            e && c();
           }),
-          (t[9] = m),
+          (t[9] = c),
           (t[10] = f))
         : (f = t[10]);
       var g = f,
@@ -104,18 +105,26 @@ __d(
         : ((h = t[12]), (y = t[13]));
       var C;
       return (
-        t[14] !== _ || t[15] !== g || t[16] !== h || t[17] !== y
-          ? ((C = { ref: r, onFocus: g, up: h, down: y, focusItemIndex: _ }),
+        t[14] !== _ || t[15] !== c || t[16] !== g || t[17] !== h || t[18] !== y
+          ? ((C = {
+              ref: r,
+              onFocus: g,
+              up: h,
+              down: y,
+              focusItemIndex: _,
+              focusSelectedItem: c,
+            }),
             (t[14] = _),
-            (t[15] = g),
-            (t[16] = h),
-            (t[17] = y),
-            (t[18] = C))
-          : (C = t[18]),
+            (t[15] = c),
+            (t[16] = g),
+            (t[17] = h),
+            (t[18] = y),
+            (t[19] = C))
+          : (C = t[19]),
         C
       );
     }
-    l.useArrowKeyNavigation = m;
+    l.useArrowKeyNavigation = p;
   },
   98,
 );

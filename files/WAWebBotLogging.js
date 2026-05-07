@@ -30,6 +30,11 @@ __d(
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ContactInfo ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .NumberChangeNotificationBanner ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.DirectMessage ||
                   t ===

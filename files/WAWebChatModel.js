@@ -1718,8 +1718,7 @@ __d(
             var e = this.keptMsgs;
             return (
               e ||
-                ((this.keptMsgs = e =
-                  new (o("WAWebKeptMsgCollection").KeptMsgCollection)()),
+                ((this.keptMsgs = e = new (r("WAWebKeptMsgCollection"))()),
                 this.keptMsgs.add(
                   this.msgs.filter(function (e) {
                     return o("WAWebMsgGetters").getIsKept(e);

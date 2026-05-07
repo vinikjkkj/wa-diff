@@ -58,6 +58,7 @@ __d(
     "WAWebWebcMessageSendWamEvent",
     "WAWebWid",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -384,7 +385,8 @@ __d(
                 ),
               )
               .catch(function (t) {
-                var n;
+                var n,
+                  l = r("getErrorSafe")(t);
                 return (
                   o("WALogger").WARN(
                     d ||
@@ -402,7 +404,7 @@ __d(
                               "Got error",
                             ])),
                         )
-                        .catching(t)
+                        .catching(l)
                         .tags("messaging")
                         .sendLogs("send-msg-error")
                     : o("WALogger")
@@ -412,7 +414,7 @@ __d(
                               "Got error",
                             ])),
                         )
-                        .catching(t)
+                        .catching(l)
                         .tags("messaging", "addons")
                         .sendLogs("send-addon-error: " + i.type),
                   (n = a.sendReporter) == null ||

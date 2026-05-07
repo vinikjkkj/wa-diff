@@ -141,7 +141,6 @@ __d(
       ai_rewrite_load_more_enabled: [20918, "bool", !1, !1],
       ai_rewrite_non_streaming_enabled: [18316, "bool", !1, !1],
       ai_rewrite_num_suggestions: [14924, "int", 3, 3],
-      ai_rewrite_request_timeout_sec: [15536, "int", 10, 10],
       ai_rewrite_stack_undo_enabled: [16943, "bool", !1, !1],
       ai_rewrite_supported_languages: [14220, "string", " ", "en"],
       ai_rewrite_tone_modifiers: [
@@ -322,6 +321,7 @@ __d(
       calling_rust_migration_bitmap: [17954, "int", 0, 0],
       calling_rust_migration_incoming_stanza_bitmap: [26876, "int", 0, 0],
       calling_rust_migration_incoming_stanza_enabled: [26338, "string", "", ""],
+      calling_voicemail_quoted_replies_enabled: [30165, "bool", !1, !1],
       calls_tab_username_global_search_enabled: [17698, "bool", !1, !1],
       canonical_ent_companion_server_cached_nonce_enabled: [
         28399,
@@ -368,6 +368,8 @@ __d(
       channel_status_consumption: [23995, "bool", !1, !1],
       channel_status_creation: [23994, "bool", !1, !1],
       channel_status_deeplink_enabled: [28500, "bool", !0, !0],
+      channel_status_forwarding_enabled: [28479, "bool", !1, !1],
+      channel_status_resharing_enabled: [30155, "bool", !1, !1],
       channel_sticker_pack_forwarding: [20212, "bool", !1, !1],
       channel_supported_message_types: [
         3919,
@@ -661,7 +663,6 @@ __d(
       ctwa_lead_taxonomy: [26531, "bool", !1, !0],
       ctwa_long_term_holdout_client_side_check: [11e3, "bool", !1, !1],
       ctwa_long_term_holdout_content_enabled: [8015, "bool", !1, !0],
-      ctwa_manage_ads_tab_web: [5554, "bool", !1, !1],
       ctwa_mm_biz_ai_disclosure_update_enabled: [10379, "bool", !1, !0],
       ctwa_native_ads_creation_web_enabled: [18857, "bool", !1, !1],
       ctwa_native_ads_creation_web_hawk_tool_enabled: [20442, "bool", !1, !1],
@@ -672,7 +673,6 @@ __d(
         !1,
       ],
       ctwa_native_web_draft_ad_enabled: [28989, "bool", !1, !1],
-      ctwa_native_web_scenario_routing_enabled: [29074, "bool", !1, !1],
       ctwa_per_customer_data_sharing_controls_do_not_show_msg_until_chosen: [
         19763,
         "bool",
@@ -758,6 +758,12 @@ __d(
         !1,
       ],
       dm_additional_durations: [3305, "bool", !1, !1],
+      dm_after_read_timer_sender_options_seconds: [
+        30176,
+        "string",
+        '{"timers": [0, 300, 3600, 43200]}',
+        '{"timers": [0, 300, 3600, 43200]}',
+      ],
       dm_initiator_trigger_daily_logs: [7402, "bool", !1, !0],
       dm_initiator_trigger_groups: [7141, "bool", !1, !0],
       dm_receiver_after_read_allow_values: [
@@ -881,6 +887,12 @@ __d(
       enable_wefr_client_expo_pulse: [10230, "bool", !1, !0],
       enable_windows_xdr_chat_handoff: [24783, "bool", !1, !0],
       enhanced_mention_limit: [25951, "int", 5, 5],
+      enhanced_mention_suggestions_min_mention_char_count: [
+        28089,
+        "int",
+        -1,
+        -1,
+      ],
       enhanced_mention_suggestions_non_group_members_enabled: [
         24852,
         "bool",
@@ -996,6 +1008,7 @@ __d(
       group_suspend_v2_enabled: [3180, "bool", !1, !0],
       group_suspension_appeals_redesign_enabled: [26276, "bool", !1, !1],
       group_suspension_appeals_redesign_variant_enable: [28376, "bool", !1, !1],
+      harmful_file_dialog_logging: [15020, "bool", !1, !0],
       hash_identity_keys_for_qr_code_device_verification: [
         9211,
         "bool",
@@ -2042,6 +2055,7 @@ __d(
       wa_payments_smb_enabled: [27173, "bool", !1, !0],
       wa_payments_smb_labels_convention_enabled: [27172, "bool", !1, !0],
       wa_smb_forward_bb_web_enabled: [30028, "bool", !1, !0],
+      wa_web_adaptive_layout_enabled: [30140, "bool", !1, !1],
       wa_web_agm_signup_enabled: [26467, "bool", !1, !1],
       wa_web_anyone_can_link_m2: [24432, "bool", !1, !1],
       wa_web_anyone_can_link_m2_flood_limit: [25009, "int", 10, 10],
@@ -2420,6 +2434,7 @@ __d(
       web_evolve_about_send_enabled: [5347, "bool", !1, !1],
       web_fix_duplicated_lids_history_sync: [19994, "bool", !1, !1],
       web_force_lid_chats_in_history: [24343, "bool", !1, !1],
+      web_frequently_contacted_enabled: [29063, "int", -1, -1],
       web_get_msg_exist_optmise: [29880, "bool", !1, !1],
       web_group_experimentation_enable: [25414, "bool", !1, !1],
       web_group_profile_editor: [1745, "bool", !0, !0],
@@ -2568,6 +2583,7 @@ __d(
       web_worker_prekey_processing_enabled: [26133, "bool", !1, !1],
       webc_page_load_early_commit_enabled: [8458, "bool", !1, !1],
       whatsapp_vpv_logging_enabled: [9833, "bool", !0, !0],
+      win_hybrid_bt_enabled: [30041, "bool", !1, !0],
       wmi_async_await_prep: [29197, "bool", !1, !1],
       wmi_worker_scheduler_web: [27237, "bool", !1, !1],
       xplat_attachment_format_check_v2: [8082, "bool", !1, !1],

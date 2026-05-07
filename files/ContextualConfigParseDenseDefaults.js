@@ -7,9 +7,10 @@ __d(
       try {
         return r("ContextualConfigParseDenseResultParams")(e, t);
       } catch (e) {
-        throw new Error(
+        var n = new Error(
           o("ContextualConfigConstants").ERROR.MISSING_DEFAULT_VALUE,
         );
+        throw (n.stack, n);
       }
     }
     l.default = e;

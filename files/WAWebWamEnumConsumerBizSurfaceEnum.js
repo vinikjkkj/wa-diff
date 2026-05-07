@@ -9,6 +9,8 @@ __d(
       SHARE_DIALOG: 3,
       CHAT_HEADER: 4,
       FMX_CARD: 5,
+      BLOCKED_COMPOSER: 6,
+      OFFBOARDED_BOTTOM_SHEET: 7,
     });
     i.CONSUMER_BIZ_SURFACE_ENUM = e;
   },

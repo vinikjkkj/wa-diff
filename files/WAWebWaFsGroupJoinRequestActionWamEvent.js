@@ -1,6 +1,10 @@
 __d(
   "WAWebWaFsGroupJoinRequestActionWamEvent",
-  ["WAWebWamCodegenUtils", "WAWebWamEnumGroupJoinRequestActionType"],
+  [
+    "WAWebWamCodegenUtils",
+    "WAWebWamEnumGroupJoinRequestActionType",
+    "WAWebWamEnumGroupJoinRequestEntrypointType",
+  ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e = o("WAWebWamCodegenUtils")).defineEvents(
@@ -13,6 +17,11 @@ __d(
                 2,
                 o("WAWebWamEnumGroupJoinRequestActionType")
                   .GROUP_JOIN_REQUEST_ACTION_TYPE,
+              ],
+              groupJoinRequestEntrypoint: [
+                6,
+                o("WAWebWamEnumGroupJoinRequestEntrypointType")
+                  .GROUP_JOIN_REQUEST_ENTRYPOINT_TYPE,
               ],
               groupJoinRequestGroupsInCommon: [5, e.TYPES.INTEGER],
               isSuccessful: [3, e.TYPES.BOOLEAN],

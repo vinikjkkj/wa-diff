@@ -9,6 +9,7 @@ __d(
       UPGRADE_REQUEST: 3,
       MUTED: 6,
       UNKNOWN_PEER: 10,
+      XR_2D_CODEC_AVATAR_ENABLED: 12,
       ERROR: 20,
     });
     i.CALL_VIDEO_STATE = e;
