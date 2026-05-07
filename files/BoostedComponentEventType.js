@@ -531,6 +531,10 @@ __d(
       IG_CONNECT_ADMIN_BUTTON_GENERATED: "ig_connect_admin_button_generated",
       IG_CONNECT_ADMIN_BUTTON_IMPRESSION: "ig_connect_admin_button_impression",
       IG_CONNECT_ADMIN_BUTTON_CLICK: "ig_connect_admin_button_click",
+      BOOSTED_ITEM_PICKER_NO_IG_TAB_NON_ADMIN_IMPRESSION:
+        "boosted_item_picker_no_ig_tab_non_admin_impression",
+      BOOSTED_ITEM_PICKER_NO_IG_TAB_ADMIN_IMPRESSION:
+        "boosted_item_picker_no_ig_tab_admin_impression",
       WHATSAPP_CONNECT_BUTTON_CLICK: "whatsapp_connect_button_click",
       WHATSAPP_CONNECT_NON_ADMIN_BUTTON_GENERATED:
         "whatsapp_connect_non_admin_button_generated",
@@ -1583,6 +1587,7 @@ __d(
       LWI_PERFORMANCE_CALL_INSIGHTS_CTA_CLICK:
         "lwi_performance_call_insights_cta_click",
       LOG_IG_PLACEMENT_INFO: "log_ig_placement_info",
+      IG_PLACEMENT_REMOVED_STORY_INVALID: "ig_placement_removed_story_invalid",
       LOG_AD_LIMITS_INFO: "log_ad_limits_info",
       HEADLINE_CLASSIFICATION_IMPRESSION: "headline_classification_impression",
       HEADLINE_CLASSIFICATION_EDIT: "headline_classification_edit",

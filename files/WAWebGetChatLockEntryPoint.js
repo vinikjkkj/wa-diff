@@ -41,12 +41,16 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.NewsletterCTAOnStatus:
         case o("WAWebChatEntryPoint").ChatEntryPoint.SimilarNewsletters:
         case o("WAWebChatEntryPoint").ChatEntryPoint.Link:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.GroupInvite:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoin:
         case o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink:
         case o("WAWebChatEntryPoint").ChatEntryPoint.Vcard:
         case o("WAWebChatEntryPoint").ChatEntryPoint.BotChatListShortcut:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.NewslettersTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.CommunitySubgroupSwitcher:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.CommunityNewGroupCreation:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit:
         case o("WAWebChatEntryPoint").ChatEntryPoint

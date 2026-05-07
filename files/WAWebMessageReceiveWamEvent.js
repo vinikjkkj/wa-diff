@@ -19,6 +19,7 @@ __d(
     "WAWebWamEnumPairedMediaType",
     "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumRevokeType",
+    "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumSizeBucket",
     "WAWebWamEnumStickerMakerSourceType",
     "WAWebWamEnumTypeOfGroupEnum",
@@ -131,6 +132,10 @@ __d(
               serverAddressingMode: [
                 35,
                 o("WAWebWamEnumAddressingMode").ADDRESSING_MODE,
+              ],
+              sessionScope: [
+                63,
+                o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
               ],
               stanzaProcessCount: [48, e.TYPES.INTEGER],
               stickerIsAi: [29, e.TYPES.BOOLEAN],

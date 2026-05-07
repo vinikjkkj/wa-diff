@@ -11,6 +11,7 @@ __d(
       FMX_CARD: 5,
       BLOCKED_COMPOSER: 6,
       OFFBOARDED_BOTTOM_SHEET: 7,
+      CHAT_THREAD: 8,
     });
     i.CONSUMER_BIZ_SURFACE_ENUM = e;
   },

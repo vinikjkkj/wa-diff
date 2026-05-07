@@ -190,9 +190,9 @@ __d(
       );
     }
     ((l.getPIX = p),
+      (l.setCustomPaymentMethods = f),
       (l.isPIXValid = g),
-      (l.isStringFieldValid = h),
-      (l.setCustomPaymentMethods = f));
+      (l.isStringFieldValid = h));
   },
   98,
 );

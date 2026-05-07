@@ -9,6 +9,7 @@ __d(
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageType",
     "WAWebWamEnumRetryRejectReason",
+    "WAWebWamEnumSessionScopeType",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -41,6 +42,10 @@ __d(
               ],
               retryRevoke: [4, e.TYPES.BOOLEAN],
               senderDeviceType: [5, o("WAWebWamEnumDeviceType").DEVICE_TYPE],
+              sessionScope: [
+                12,
+                o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
+              ],
             },
             [1, 1, 1],
             "regular",

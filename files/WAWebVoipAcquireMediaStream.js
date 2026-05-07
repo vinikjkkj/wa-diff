@@ -18,6 +18,7 @@ __d(
     "WAWebMiscErrors",
     "WAWebModalManager",
     "WAWebNoop",
+    "WAWebNullFunc",
     "WAWebUA",
     "WAWebVoipActivityTracker",
     "WAWebVoipBrowserAudioStatus",
@@ -1059,11 +1060,7 @@ __d(
       return (
         e.catch(r("WAWebNoop")),
         r("WAPromiseRaceAbort")(e, a.signal)
-          .catch(
-            o("WAAbortError").catchAbort(function () {
-              return null;
-            }),
-          )
+          .catch(o("WAAbortError").catchAbort(o("WAWebNullFunc").returnNull))
           .finally(function () {
             (self.clearTimeout(s), u != null && u());
           })

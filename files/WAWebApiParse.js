@@ -738,8 +738,12 @@ __d(
       }
     }
     var ht = /^https:\/\/call\.whatsapp\.com\/(video|voice)\/(\w+)(?:\?.*)?$/i,
-      yt = /^whatsapp:\/\/call\/(video|voice)\/(\w+)(?:\?.*)?$/i;
-    function Ct(e) {
+      yt = /^whatsapp:\/\/call\/(video|voice)\/(\w+)(?:\?.*)?$/i,
+      Ct = new RegExp(
+        "^" + p.ORIGIN + "/call/(video|voice)/(\\w+)(?:\\?.*)?$",
+        "i",
+      );
+    function bt(e) {
       var t = e.get("audio_device"),
         n = e.get("speaker_device"),
         r = e.get("video_device"),
@@ -756,7 +760,7 @@ __d(
         audioMuted: e.get("audio_muted") === "1",
       };
     }
-    function bt(e) {
+    function vt(e) {
       var t = e.indexOf("?");
       if (t === -1) return null;
       var n = new (r("WAWebPonyfillsUrlSearchParams"))(e.slice(t));
@@ -773,14 +777,14 @@ __d(
           ])),
         e,
       );
-      var l = Ct(n);
+      var l = bt(n);
       return {
         resultType: "CALL_LINK",
         data: babelHelpers.extends({ token: i, callType: a }, l),
       };
     }
-    function vt(e) {
-      var t = e.match(ht) || e.match(yt);
+    function St(e) {
+      var t = e.match(ht) || e.match(yt) || e.match(Ct);
       if (t)
         return (
           o("WALogger").LOG(
@@ -793,13 +797,13 @@ __d(
           ),
           { resultType: "CALL_LINK", data: { token: t[2], callType: t[1] } }
         );
-      var n = bt(e);
+      var n = vt(e);
       if (n != null) return n;
     }
-    function St(e) {
-      return vt(e) != null;
-    }
     function Rt(e) {
+      return St(e) != null;
+    }
+    function Lt(e) {
       var t = e.match(ve);
       if (t && t[0]) {
         var n = new URL(e),
@@ -831,12 +835,12 @@ __d(
         );
       }
     }
-    function Lt() {
+    function Et() {
       var e = new (r("WAWebPonyfillsUrlSearchParams"))(window.location.search),
         t = e.get("work_contact_sync_data");
       return t != null && t !== "" ? { compressedData: t } : null;
     }
-    function Et(e) {
+    function kt(e) {
       var t = e.match(B);
       if (!t) return null;
       var n = new (r("WAWebPonyfillsUrlSearchParams"))(t[2]);
@@ -860,7 +864,7 @@ __d(
         utmCampaign: i != null ? i : void 0,
       };
     }
-    function kt(e, t) {
+    function It(e, t) {
       if (typeof e != "string")
         return { resultType: o("WAWebApi").APICmd.INVALID };
       var n = y(e);
@@ -926,7 +930,7 @@ __d(
       var C = Qe(e);
       if (C != null)
         return { resultType: o("WAWebApi").APICmd.ADVERTISE, data: C };
-      var b = vt(e);
+      var b = St(e);
       if (b) return b;
       if (e.match(le))
         return {
@@ -992,7 +996,7 @@ __d(
       if (M) return M;
       var B = Oe(e);
       if (B) return { resultType: o("WAWebApi").APICmd.MSG_SEND, data: B };
-      var W = Rt(e);
+      var W = Lt(e);
       if (W != null)
         return {
           resultType: o("WAWebApi").APICmd.WEB_REGISTRATION_CAMPAIGN,
@@ -1014,10 +1018,10 @@ __d(
           !r("isStringNullOrEmpty")(z) && { data: { phone: z } },
         );
       }
-      var j = r("gkx")("26258") ? null : Lt();
+      var j = r("gkx")("26258") ? null : Et();
       if (j)
         return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: j };
-      var K = Et(e);
+      var K = kt(e);
       return K
         ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: K }
         : { resultType: o("WAWebApi").APICmd.INVALID };
@@ -1027,10 +1031,10 @@ __d(
       (l.matchProductUrl = Te),
       (l.matchCatalogUrl = Me),
       (l.isStickerPackURL = ot),
-      (l.parseCallLinkDevicePrefs = Ct),
-      (l.parseCallLink = vt),
-      (l.isValidCallLink = St),
-      (l.parseAPICmd = kt));
+      (l.parseCallLinkDevicePrefs = bt),
+      (l.parseCallLink = St),
+      (l.isValidCallLink = Rt),
+      (l.parseAPICmd = It));
   },
   98,
 );

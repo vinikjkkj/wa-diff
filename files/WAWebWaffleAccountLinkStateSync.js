@@ -6,7 +6,6 @@ __d(
     "WASyncdConst",
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingDBOperationsAPI",
-    "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingNonceFetchAPI",
     "WAWebAccountLinkingUtils",
     "WAWebSyncdAction",
@@ -49,32 +48,24 @@ __d(
                   l = 0,
                   d = t.map(function (e) {
                     var t;
-                    return o(
-                      "WAWebAccountLinkingGatingUtils",
-                    ).accountLinkingEnabled()
-                      ? e.operation !== "set"
-                        ? (i++,
-                          {
-                            actionState:
-                              o("WASyncdConst").SyncActionState.Unsupported,
-                          })
-                        : ((t = e.value.waffleAccountLinkStateAction) == null
-                              ? void 0
-                              : t.linkState) == null
-                          ? (l++,
-                            o("WAWebSyncdIndexUtils").malformedActionValue(
-                              n.collectionName,
-                            ))
-                          : ((a == null || e.timestamp > a.timestamp) &&
-                              (a = e),
-                            {
-                              actionState:
-                                o("WASyncdConst").SyncActionState.Success,
-                            })
-                      : {
+                    return e.operation !== "set"
+                      ? (i++,
+                        {
                           actionState:
                             o("WASyncdConst").SyncActionState.Unsupported,
-                        };
+                        })
+                      : ((t = e.value.waffleAccountLinkStateAction) == null
+                            ? void 0
+                            : t.linkState) == null
+                        ? (l++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            n.collectionName,
+                          ))
+                        : ((a == null || e.timestamp > a.timestamp) && (a = e),
+                          {
+                            actionState:
+                              o("WASyncdConst").SyncActionState.Success,
+                          });
                   });
                 if (
                   (i > 0 &&

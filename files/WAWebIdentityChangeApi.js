@@ -125,7 +125,7 @@ __d(
                 o("WAWebBackendApi").frontendFireAndForget(
                   "updateContactAdvAccountType",
                   {
-                    contactId: l,
+                    contactId: o("WAWebWidFactory").asUserWidOrThrow(l),
                     advAccountType: o("WAWebProtobufsAdv.pb").ADVEncryptionType
                       .E2EE,
                   },

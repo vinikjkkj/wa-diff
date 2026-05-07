@@ -74,12 +74,15 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.ContactInfo:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.GroupInvite:
         case o("WAWebChatEntryPoint").ChatEntryPoint
           .NumberChangeNotificationBanner:
         case o("WAWebChatEntryPoint").ChatEntryPoint.Mention:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.NewslettersTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.CommunitySubgroupSwitcher:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.CommunityNewGroupCreation:
         case o("WAWebChatEntryPoint").ChatEntryPoint.VoipWindow:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINullStateSuggestion:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINavigationBar:
@@ -93,6 +96,7 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI1on1:
         case o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ForwardedAiBotMessage:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoin:
         case o("WAWebChatEntryPoint").ChatEntryPoint.Unknown:
           return (
             o("WALogger")

@@ -422,28 +422,43 @@ __d(
                   this.audioPlaybackInitState !== I.Ready)
                 )
                   return (
-                    o("WALogger").ERROR(
+                    o("WALogger").WARN(
                       R ||
                         (R = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:switchOutputDevice] Cannot switch output device: playback not ready",
+                          "voip: [AV:switchOutputDevice] playback not ready, saving preference only",
                         ])),
+                    ),
+                    o(
+                      "WAWebAudioDeviceManager",
+                    ).saveAudioOutputDevicePreference(
+                      e,
+                      "AV:switchOutputDevice",
                     ),
                     !1
                   );
-                var t = this.getAudioElement();
+                var t = this.implementation;
                 if (t == null)
                   return (
-                    o("WALogger").ERROR(
+                    o("WALogger").WARN(
                       L ||
                         (L = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:switchOutputDevice] Cannot switch output device: audio element not initialized",
+                          "voip: [AV:switchOutputDevice] playback implementation not initialized, saving preference only",
                         ])),
+                    ),
+                    o(
+                      "WAWebAudioDeviceManager",
+                    ).saveAudioOutputDevicePreference(
+                      e,
+                      "AV:switchOutputDevice",
                     ),
                     !1
                   );
-                var n = yield o(
-                  "WAWebAudioDeviceManager",
-                ).switchAudioOutputDeviceInternal(e, t);
+                var n =
+                  t.switchOutputDevice != null
+                    ? yield t.switchOutputDevice(e)
+                    : yield o(
+                        "WAWebAudioDeviceManager",
+                      ).switchAudioOutputDeviceInternal(e, t.getAudioElement());
                 return (
                   n
                     ? o("WALogger").LOG(

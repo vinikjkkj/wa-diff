@@ -14,130 +14,136 @@ __d(
     "useWebBloksDrawableNode",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = e || (e = o("react")),
-      u = e,
-      c = u.useEffect,
-      d = u.useRef;
-    function m(e) {
-      var t,
-        n,
+    var e = ["preferNativeNavigation"],
+      s,
+      u = s || (s = o("react")),
+      c = s,
+      d = c.useEffect,
+      m = c.useRef;
+    function p(t) {
+      var n,
         a,
         i,
-        l = e.externalStyle,
-        u = e.node,
-        d = u.getExpression("on_click"),
-        m = u.getSubNodes("children"),
-        _ = u.getSubNode("decoration"),
-        g = u.get("visibility"),
-        h = u.get("align_content"),
-        y = u.get("align_items"),
-        C = u.get("flex_direction"),
-        b = u.get("flex_wrap"),
-        v = u.get("justify_content"),
-        S = u.getExpression("on_mount"),
-        R = o("WebBloksUtils").isBloksModelEnabled(u),
-        L = o("WebBloksStyle").useStyle(u, l, d != null && R),
-        E = L.ref,
-        k = L.style,
-        I = L.wrapper,
-        T = L.wrapperProps,
-        D = r("WebBloksDecoration")(u.getValues(), E),
-        x = D[0],
-        $ = D[1],
-        P = o(
+        l,
+        s = t.externalStyle,
+        c = t.node,
+        m = c.getExpression("on_click"),
+        p = c.getSubNodes("children"),
+        f = c.getSubNode("decoration"),
+        h = c.get("visibility"),
+        y = c.get("align_content"),
+        C = c.get("align_items"),
+        b = c.get("flex_direction"),
+        v = c.get("flex_wrap"),
+        S = c.get("justify_content"),
+        R = c.getExpression("on_mount"),
+        L = o("WebBloksUtils").isBloksModelEnabled(c),
+        E = o("WebBloksStyle").useStyle(c, s, m != null && L),
+        k = E.ref,
+        I = E.style,
+        T = E.wrapper,
+        D = E.wrapperProps,
+        x = r("WebBloksDecoration")(c.getValues(), k),
+        $ = x[0],
+        P = x[1],
+        N = o(
           "WebBloksAnchorTagExtensionHandlerUtils",
-        ).useWebBloksAnchorTagExtensionProps(u),
-        N = P !== null,
-        M = N ? "a" : "div",
-        w = r("useClickablePropsForWebBloks")(
-          u,
-          d,
-          T.disabled === !0 ? !1 : R,
-          N,
+        ).useWebBloksAnchorTagExtensionProps(c),
+        M = N !== null,
+        w = M ? "a" : "div",
+        A = (N == null ? void 0 : N.preferNativeNavigation) === !0,
+        F = N != null ? N : {},
+        O = F.preferNativeNavigation,
+        B = babelHelpers.objectWithoutPropertiesLoose(F, e),
+        W = r("useClickablePropsForWebBloks")(
+          c,
+          m,
+          D.disabled === !0 ? !1 : L,
+          M && !A,
+          A,
         ),
-        A = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
-        F = o("WebBloksComponentContext").useWebBloksContext(),
-        O = F.bloksContext,
-        B = F.executeOnNextTickCatch,
-        W = F.renderChildren;
-      c(
+        q = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
+        U = o("WebBloksComponentContext").useWebBloksContext(),
+        V = U.bloksContext,
+        H = U.executeOnNextTickCatch,
+        G = U.renderChildren;
+      d(
         function () {
-          S != null && B(u, S, [u, O]);
+          R != null && H(c, R, [c, V]);
         },
-        [S],
+        [R],
       );
-      var q = _ == null ? void 0 : _.get("foreground"),
-        U = u.get("padding_top"),
-        V = u.get("padding_bottom"),
-        H = u.get("padding_left"),
-        G = u.get("padding_right"),
-        z = u.get("padding_start"),
-        j = u.get("padding_end"),
-        K = A ? j : z,
-        Q = A ? z : j,
-        X = babelHelpers.extends({ pointerEvents: "none" }, k, f(g), x, {
-          alignContent: o("WebBloksUtils").toHyphen(h),
-          alignItems: o("WebBloksUtils").toHyphen(y),
-          flexDirection: o("WebBloksUtils").toHyphen(C),
-          flexWrap: o("WebBloksUtils").toHyphen(b),
+      var z = f == null ? void 0 : f.get("foreground"),
+        j = c.get("padding_top"),
+        K = c.get("padding_bottom"),
+        Q = c.get("padding_left"),
+        X = c.get("padding_right"),
+        Y = c.get("padding_start"),
+        J = c.get("padding_end"),
+        Z = q ? J : Y,
+        ee = q ? Y : J,
+        te = babelHelpers.extends({ pointerEvents: "none" }, I, g(h), $, {
+          alignContent: o("WebBloksUtils").toHyphen(y),
+          alignItems: o("WebBloksUtils").toHyphen(C),
+          flexDirection: o("WebBloksUtils").toHyphen(b),
+          flexWrap: o("WebBloksUtils").toHyphen(v),
           justifyContent: o("WebBloksUtils").toHyphen(
-            v != null ? v : k.justifyContent,
+            S != null ? S : I.justifyContent,
           ),
           paddingTop:
-            (t = o("WebBloksUtils").toPx(U)) != null ? t : k.paddingTop,
+            (n = o("WebBloksUtils").toPx(j)) != null ? n : I.paddingTop,
           paddingBottom:
-            (n = o("WebBloksUtils").toPx(V)) != null ? n : k.paddingBottom,
+            (a = o("WebBloksUtils").toPx(K)) != null ? a : I.paddingBottom,
           paddingLeft:
-            (a = o("WebBloksUtils").toPx(H != null ? H : K)) != null
-              ? a
-              : k.paddingLeft,
-          paddingRight:
-            (i = o("WebBloksUtils").toPx(G != null ? G : Q)) != null
+            (i = o("WebBloksUtils").toPx(Q != null ? Q : Z)) != null
               ? i
-              : k.paddingRight,
+              : I.paddingLeft,
+          paddingRight:
+            (l = o("WebBloksUtils").toPx(X != null ? X : ee)) != null
+              ? l
+              : I.paddingRight,
         });
-      return I(
-        s.jsxs(
-          M,
+      return T(
+        u.jsxs(
+          w,
           babelHelpers.extends(
             {},
-            T,
+            D,
             {
               className: o("WebBloksStyle").WebBloksStyles.container,
-              style: X,
+              style: te,
             },
-            w,
-            P,
-            { children: [W(m), q ? s.jsx(p, { drawable: q }) : null, $] },
+            W,
+            B,
+            { children: [G(p), z ? u.jsx(_, { drawable: z }) : null, P] },
           ),
         ),
       );
     }
-    m.displayName = m.name + " [from " + i.id + "]";
-    function p(e) {
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _(e) {
       var t = o("react-compiler-runtime").c(2),
         n = e.drawable,
-        a = d(null),
+        a = m(null),
         i = r("WebBloksDrawable")(n, a),
         l = r("useWebBloksDrawableNode")(n);
       if (l != null) return l;
-      var u;
+      var s;
       return (
         t[0] !== i
-          ? ((u = s.jsx("div", {
+          ? ((s = u.jsx("div", {
               "data-bloks-name": "bk.components.BoxDecoration",
               ref: a,
-              className: _.foreground,
+              className: f.foreground,
               style: i,
             })),
             (t[0] = i),
-            (t[1] = u))
-          : (u = t[1]),
-        u
+            (t[1] = s))
+          : (s = t[1]),
+        s
       );
     }
-    var _ = o("WebBloksStyle").createStyles({
+    var f = o("WebBloksStyle").createStyles({
       foreground: {
         position: "absolute",
         top: 0,
@@ -147,7 +153,7 @@ __d(
         pointerEvents: "none",
       },
     });
-    function f(e) {
+    function g(e) {
       switch (e) {
         case "gone":
           return { display: "none" };
@@ -155,7 +161,7 @@ __d(
           return { visibility: "hidden" };
       }
     }
-    l.default = m;
+    l.default = p;
   },
   98,
 );

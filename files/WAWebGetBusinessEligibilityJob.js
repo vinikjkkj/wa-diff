@@ -105,7 +105,7 @@ __d(
             C = y.value.code,
             b = y.value.text;
           throw (
-            o("WALogger").ERROR(
+            o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[getBusinessEligibility] failed: ",

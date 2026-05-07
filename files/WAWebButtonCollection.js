@@ -8,7 +8,7 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(o("WAWebBaseCollection").BaseCollection);
-    ((e.model = r("WAWebButtonModel")), (l.ButtonCollection = e));
+    ((e.model = r("WAWebButtonModel")), (l.default = e));
   },
   98,
 );

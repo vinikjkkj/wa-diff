@@ -6,7 +6,6 @@ __d(
     "WAWebWamEnumMetaVerifiedUserActionSurface",
   ],
   function (t, n, r, o, a, i, l) {
-    "use strict";
     function e(e) {
       new (o(
         "WAWebMetaVerifiedUserActionWamEvent",

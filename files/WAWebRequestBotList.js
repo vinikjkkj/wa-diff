@@ -19,47 +19,65 @@ __d(
             case "BotListResponseSuccessV2": {
               var n = t.value,
                 r = n.botDefaultJid,
-                a = n.botSection,
-                i = [];
+                a = n.botDefaultPersonaId,
+                i = n.botSection,
+                l = [];
               return (
-                a.forEach(function (e) {
+                i.forEach(function (e) {
                   e.bot.forEach(function (e) {
                     var t = e.jid,
                       n = e.personaId;
-                    i.push({
+                    l.push({
                       id: o("WAWebWidFactory").createWid(t),
                       isDefault: t === r,
                       personaId: n,
                     });
                   });
                 }),
-                i
+                l.some(function (e) {
+                  return e.isDefault;
+                }) ||
+                  l.unshift({
+                    id: o("WAWebWidFactory").createWid(r),
+                    isDefault: !0,
+                    personaId: a,
+                  }),
+                l
               );
             }
             case "BotListResponseSuccessV3": {
-              var l = t.value,
-                s = l.botDefault,
-                u = l.botSection,
-                c = [];
+              var s = t.value,
+                u = s.botDefault,
+                c = s.botSection,
+                d = [];
               return (
-                u.forEach(function (e) {
+                c.forEach(function (e) {
                   e.bot.forEach(function (e) {
                     var t = e.jid,
                       n = e.personaId;
-                    c.push({
+                    d.push({
                       id: o("WAWebWidFactory").createWid(t),
-                      isDefault: t === (s == null ? void 0 : s.jid),
+                      isDefault: t === (u == null ? void 0 : u.jid),
                       personaId: n,
                     });
                   });
                 }),
-                c
+                u != null &&
+                  !d.some(function (e) {
+                    return e.isDefault;
+                  }) &&
+                  d.unshift({
+                    id: o("WAWebWidFactory").createWid(u.jid),
+                    isDefault: !0,
+                    personaId: u.personaId,
+                  }),
+                d
               );
             }
             case "BotListResponseError": {
-              var d = t.value.errorBotListErrors.value,
-                m = d.code,
-                p = d.text;
+              var m = t.value.errorBotListErrors.value,
+                p = m.code,
+                _ = m.text;
               return (
                 o("WALogger").ERROR(
                   e ||

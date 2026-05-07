@@ -14,6 +14,7 @@ __d(
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageDropReasonType",
     "WAWebWamEnumRevokeType",
+    "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumTypeOfGroupEnum",
   ],
   function (t, n, r, o, a, i, l) {
@@ -70,6 +71,10 @@ __d(
               offlineCount: [11, e.TYPES.INTEGER],
               retryCount: [7, e.TYPES.INTEGER],
               revokeType: [8, o("WAWebWamEnumRevokeType").REVOKE_TYPE],
+              sessionScope: [
+                21,
+                o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
+              ],
               typeOfGroup: [
                 10,
                 o("WAWebWamEnumTypeOfGroupEnum").TYPE_OF_GROUP_ENUM,

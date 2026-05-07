@@ -9,7 +9,6 @@ __d(
     "WAWebABPropsCache",
     "WAWebABPropsLocalStorage",
     "WAWebAbPropsSyncJob",
-    "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingScheduledJobs",
     "WAWebApiChat",
     "WAWebApiParticipantStore",
@@ -899,12 +898,9 @@ __d(
                                                             ).asyncToGenerator(
                                                               function* () {
                                                                 return (
-                                                                  o(
-                                                                    "WAWebAccountLinkingGatingUtils",
-                                                                  ).accountLinkingEnabled() &&
-                                                                    (yield o(
-                                                                      "WAWebAccountLinkingScheduledJobs",
-                                                                    ).scheduledWaffleJobs()),
+                                                                  yield o(
+                                                                    "WAWebAccountLinkingScheduledJobs",
+                                                                  ).scheduledWaffleJobs(),
                                                                   o(
                                                                     "WATimeUtils",
                                                                   ).DAY_SECONDS

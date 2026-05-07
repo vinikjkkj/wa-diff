@@ -8,7 +8,7 @@ __d(
       }
       return (babelHelpers.inheritsLoose(t, e), t);
     })(o("WAWebBaseCollection").BaseCollection);
-    ((e.model = o("WAWebCartItemModel").CartItem), (l.CartItemCollection = e));
+    ((e.model = o("WAWebCartItemModel").CartItem), (l.default = e));
   },
   98,
 );

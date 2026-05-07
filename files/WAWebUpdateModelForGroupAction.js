@@ -10,6 +10,7 @@ __d(
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebChatCollection",
+    "WAWebChatSeenBridge",
     "WAWebCommunityActivityCollection",
     "WAWebCommunityActivityModel",
     "WAWebCommunitySubgroupSuggestionsUtils",
@@ -365,7 +366,16 @@ __d(
           break;
         case o("WAWebGroupType").GROUP_ACTIONS.SUSPEND: {
           var U = !!a.value;
-          ((d.suspended = U),
+          (U &&
+            !d.suspended &&
+            d.groupType === o("WAWebGroupType").GroupType.DEFAULT &&
+            d.participants.iAmAdmin() &&
+            o(
+              "WAWebGroupGatingUtils",
+            ).isGroupSuspensionAppealsRedesignEnabled() &&
+            ((l.unreadCount = -1),
+            o("WAWebChatSeenBridge").markConversationUnseen(i)),
+            (d.suspended = U),
             o(
               "WAWebUpdateModelsForCommunityAction",
             ).maybeUpdateModelsForCommunitySuspendedStatus(i, U));

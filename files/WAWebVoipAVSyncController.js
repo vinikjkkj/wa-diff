@@ -7,12 +7,12 @@ __d(
       u,
       c,
       d,
-      m = 5,
-      p = 60,
+      m = 30,
+      p = 40,
       _ = -120,
       f = 150,
       g = 2,
-      h = 300,
+      h = 600,
       y = 1e3,
       C = 2e3,
       b = 2e3,
@@ -462,7 +462,10 @@ __d(
           t
         );
       })();
-    l.WAWebVoipAVSyncController = L;
+    ((l.MAX_QUEUE_SIZE = m),
+      (l.SYNC_THRESHOLD_AHEAD_MS = p),
+      (l.RECALIBRATION_THRESHOLD_MS = h),
+      (l.WAWebVoipAVSyncController = L));
   },
   98,
 );

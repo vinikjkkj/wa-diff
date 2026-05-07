@@ -2,7 +2,6 @@ __d(
   "WAWebAccountLinkingNonceFetchAPI",
   [
     "WALogger",
-    "WAWebAccountLinkingGatingUtils",
     "WAWebBoolFunc",
     "WAWebProtobufsE2E.pb",
     "WAWebSendNonMessageDataRequest",
@@ -20,8 +19,6 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebAccountLinkingGatingUtils").accountLinkingEnabled())
-            return !1;
           var t = u;
           if (t != null) return t;
           var n = Date.now();

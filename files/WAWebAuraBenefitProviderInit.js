@@ -2,7 +2,6 @@ __d(
   "WAWebAuraBenefitProviderInit",
   ["WAWebAuraGating", "WAWebFeatureFlagCollection"],
   function (t, n, r, o, a, i, l) {
-    "use strict";
     function e() {
       r("WAWebAuraGating").initFeatureFlagProvider(function (e) {
         var t,

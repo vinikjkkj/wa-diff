@@ -18,6 +18,7 @@ __d(
     "WAWebWamEnumMessageDistributionEnumType",
     "WAWebWamEnumReachabilityStatus",
     "WAWebWamEnumRevokeType",
+    "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumTypeOfGroupEnum",
   ],
   function (t, n, r, o, a, i, l) {
@@ -88,6 +89,10 @@ __d(
               messageMediaType: [7, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               retryCount: [3, e.TYPES.INTEGER],
               revokeType: [11, o("WAWebWamEnumRevokeType").REVOKE_TYPE],
+              sessionScope: [
+                27,
+                o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
+              ],
               typeOfGroup: [
                 13,
                 o("WAWebWamEnumTypeOfGroupEnum").TYPE_OF_GROUP_ENUM,

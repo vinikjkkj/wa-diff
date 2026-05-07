@@ -48,9 +48,7 @@ __d(
         }),
         (n.initialize = function () {
           (e.prototype.initialize.call(this),
-            (this.cartItemCollection = new (o(
-              "WAWebCartItemCollection",
-            ).CartItemCollection)()),
+            (this.cartItemCollection = new (r("WAWebCartItemCollection"))()),
             this.listenTo(this, "change:cartItemCollection", this.countTotals));
         }),
         (n.getCollection = function () {

@@ -670,7 +670,7 @@ __d(
           displayText: n == null ? void 0 : n.displayText,
         });
       };
-      ((e.replyButtons = new (o("WAWebButtonCollection").ButtonCollection)()),
+      ((e.replyButtons = new (r("WAWebButtonCollection"))()),
         e.replyButtons.add(e.dynamicReplyButtons.map(t)));
     }
     function x(e, t) {

@@ -677,9 +677,7 @@ __d(
           }),
           (i.$ChatImpl$p_16 = function () {
             var e = this;
-            ((this.eventMsgs = new (o(
-              "WAWebEventMsgsCollection",
-            ).EventMsgsCollection)(this)),
+            ((this.eventMsgs = new (r("WAWebEventMsgsCollection"))(this)),
               this.listenTo(this.msgs, "bulk_add", function (t, n) {
                 var r = t.filter(function (e) {
                   return o("WAWebFrontendMsgGetters").getAsEventCreation(e);
@@ -1669,9 +1667,7 @@ __d(
           (i.getEventMsgs = function () {
             return (
               this.eventMsgs ||
-                (this.eventMsgs = new (o(
-                  "WAWebEventMsgsCollection",
-                ).EventMsgsCollection)(this)),
+                (this.eventMsgs = new (r("WAWebEventMsgsCollection"))(this)),
               this.eventMsgs
             );
           }),

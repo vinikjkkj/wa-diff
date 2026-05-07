@@ -159,7 +159,10 @@ __d(
                 (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
                   m != null &&
                   ((u = o("WAWebApiContact").updateContactAdvHostedType(t, m)),
-                  (y = { contactId: t, advAccountType: m })),
+                  (y = {
+                    contactId: o("WAWebWidFactory").asUserWidOrThrow(t),
+                    advAccountType: m,
+                  })),
                   yield p.all([e, a, l, u]));
               }),
               h.length > 0,
@@ -344,7 +347,10 @@ __d(
                     (m.push(
                       o("WAWebApiContact").updateContactAdvHostedType(n, t),
                     ),
-                    R.push({ contactId: n, advAccountType: t }));
+                    R.push({
+                      contactId: o("WAWebWidFactory").asUserWidOrThrow(n),
+                      advAccountType: t,
+                    }));
                 }),
                 yield (p || (p = n("Promise"))).all([t, a, l, u].concat(m)));
             }),

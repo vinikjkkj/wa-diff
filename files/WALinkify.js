@@ -19,15 +19,16 @@ __d(
       b = "\\?(?!" + C + ")" + h + "*?",
       v = "#" + h + "*?",
       S = "0-9a-z!#$%&'*+/=?^_`{|}~\\-",
-      R = "\\b\\w[" + S + "]*(?:\\.[" + S + "]+)*",
-      L = "^|\\W\\.|[^/\\w.]|_",
-      E =
+      R = "(?:[" + S + "]|[^\\s\0-\x7F\xAB\xBB\u2018\u2019\u201C\u201D@.])",
+      L = "(?:" + R + ")+(?:\\.(?:" + R + ")+)*",
+      E = "^|\\W\\.|[^/\\w.]|_",
+      k =
         "(" +
-        L +
+        E +
         ")(" +
         u +
         ")?(" +
-        R +
+        L +
         "@)?(" +
         _ +
         ")(?:(?!" +
@@ -43,16 +44,16 @@ __d(
         ")?(?=" +
         C +
         "))",
-      k = 1,
-      I = 2,
-      T = 3,
-      D = 4,
-      x = 5,
-      $ = 6,
-      P = 7,
-      N = 8,
-      M = 9,
-      w = new Map([
+      I = 1,
+      T = 2,
+      D = 3,
+      x = 4,
+      $ = 5,
+      P = 6,
+      N = 7,
+      M = 8,
+      w = 9,
+      A = new Map([
         [34, 34],
         [41, 40],
         [62, 60],
@@ -62,7 +63,7 @@ __d(
         [8217, 8216],
         [8221, 8220],
       ]),
-      A = new Map([
+      F = new Map([
         [34, 34],
         [40, 41],
         [60, 62],
@@ -72,11 +73,15 @@ __d(
         [8216, 8217],
         [8220, 8221],
       ]),
-      F = new RegExp("" + E, "ig"),
-      O = new RegExp("\\.(?:" + m + ")", "i");
-    function B(t) {
+      O = new RegExp("" + k, "ig"),
+      B = new RegExp("\\.(?:" + m + ")", "i"),
+      W = /[\u3002\uFF0E\uFF61]/g;
+    function q(e) {
+      return e == null ? "" : e.replace(W, ".");
+    }
+    function U(t) {
       try {
-        return F.exec(t);
+        return O.exec(t);
       } catch (n) {
         return (
           o("WALogger")
@@ -95,42 +100,43 @@ __d(
         );
       }
     }
-    function W(e, t) {
-      if ((t === void 0 && (t = !1), !O.test(e))) return [];
-      F.lastIndex = 0;
-      for (var n = [], r; (r = B(e)); ) {
-        var o = U(r, t);
-        o && n.push(o);
+    function V(e, t) {
+      t === void 0 && (t = !1);
+      var n = q(e);
+      if (!B.test(n)) return [];
+      O.lastIndex = 0;
+      for (var r = [], o; (o = U(n)); ) {
+        var a = G(o, t);
+        a && r.push(a);
       }
-      return n;
+      return r;
     }
-    function q(e, t) {
-      return (
-        t === void 0 && (t = !1),
-        O.test(e) ? ((F.lastIndex = 0), U(B(e), t)) : null
-      );
+    function H(e, t) {
+      t === void 0 && (t = !1);
+      var n = q(e);
+      return B.test(n) ? ((O.lastIndex = 0), G(U(n), t)) : null;
     }
-    function U(e, t) {
+    function G(e, t) {
       if ((t === void 0 && (t = !1), !e)) return null;
-      var n = e[k].length,
+      var n = e[I].length,
         a = e[0],
         i = e.index + n,
         l = e.index,
-        s = e[k] === "_";
+        s = e[I] === "_";
       if (s && l - 1 && /\S/.test(e.input[l - 1])) return null;
-      var u = e[x];
+      var u = e[$];
       if (
         u &&
         u.startsWith("xn--") &&
         !o("WATopLevelDomains").TLD.has(r("punycode").toUnicode(u))
       )
         return null;
-      if (e[$]) {
-        var d = parseInt(e[$].slice(1), 10);
-        if (e[$][1] === "0" || !(0 < d && d < 65536)) return null;
+      if (e[P]) {
+        var d = parseInt(e[P].slice(1), 10);
+        if (e[P][1] === "0" || !(0 < d && d < 65536)) return null;
       }
       var m =
-        [M, N, P].find(function (t) {
+        [w, M, N].find(function (t) {
           return e && e[t];
         }) || 0;
       if (m) {
@@ -143,55 +149,71 @@ __d(
           var y = _.charCodeAt(h);
           y === g
             ? ((g = p.pop() || 0), g === 0 && (f = h))
-            : A.has(y)
-              ? (g !== 0 && p.push(g), (g = A.get(y)))
-              : w.has(y) || (g === 0 && (f = h));
+            : F.has(y)
+              ? (g !== 0 && p.push(g), (g = F.get(y)))
+              : A.has(y) || (g === 0 && (f = h));
         }
         if (f !== _.length - 1)
-          if (m === N && g !== 0) a = a.slice(n);
+          if (m === M && g !== 0) a = a.slice(n);
           else {
-            var C = e.slice(I, m);
-            (C.splice(x - I, 1),
+            var C = e.slice(T, m);
+            (C.splice($ - T, 1),
               (a =
                 C.filter(function (e) {
                   return e;
                 }).join("") + _.slice(0, f + 1)),
-              (F.lastIndex = i + a.length));
+              (O.lastIndex = i + a.length));
           }
         else a = a.slice(n);
       } else a = a.slice(n);
       var b = a,
-        v = e[I],
+        v = e[T],
         S = !!(v && v.match(c));
       if (t && !S) return null;
-      v
-        ? (v = v.toLowerCase())
-        : (b.toLowerCase().indexOf("irc.") === 0
-            ? (v = "irc://")
-            : b.toLowerCase().indexOf("ftp.") === 0
-              ? (v = "ftp://")
-              : e[T]
-                ? (v = "mailto:")
-                : (v = "http://"),
+      if (v) v = v.toLowerCase();
+      else if (e[D]) {
+        v = "mailto:";
+        var R = e[D].slice(0, -1);
+        b = z(R, e[x]);
+      } else
+        (b.toLowerCase().indexOf("irc.") === 0
+          ? (v = "irc://")
+          : b.toLowerCase().indexOf("ftp.") === 0
+            ? (v = "ftp://")
+            : (v = "http://"),
           (b = v + b));
-      var R = e[D];
+      var L = e[x];
       return {
         href: b,
         url: a,
         index: i,
         input: e.input,
         scheme: v,
-        username: e[T],
-        domain: R,
-        port: e[$],
-        path: e[P],
-        params: e[N],
-        anchor: e[M],
+        username: e[D],
+        domain: L,
+        port: e[P],
+        path: e[N],
+        params: e[M],
+        anchor: e[w],
         isHttp: S,
       };
     }
-    function V(e) {
-      var t = q(e);
+    function z(e, t) {
+      var n = Array.from(e, j).join("");
+      return "mailto:" + n + "@" + K(t);
+    }
+    function j(e) {
+      return e.charCodeAt(0) < 128 ? e : encodeURIComponent(e);
+    }
+    function K(e) {
+      try {
+        return r("punycode").toASCII(e);
+      } catch (t) {
+        return e;
+      }
+    }
+    function Q(e) {
+      var t = H(e);
       return t &&
         t.url === e &&
         t.scheme === "mailto:" &&
@@ -202,7 +224,7 @@ __d(
         ? t
         : null;
     }
-    ((l.findLinks = W), (l.findLink = q), (l.validateEmail = V));
+    ((l.findLinks = V), (l.findLink = H), (l.validateEmail = Q));
   },
   98,
 );

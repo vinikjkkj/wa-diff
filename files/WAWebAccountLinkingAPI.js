@@ -13,7 +13,6 @@ __d(
     "WAWebAccountLinkingConstants",
     "WAWebAccountLinkingCryptoUtils",
     "WAWebAccountLinkingDBOperationsAPI",
-    "WAWebAccountLinkingGatingUtils",
     "WAWebAccountLinkingUtils",
     "WAWebDirectConnectionX509",
     "WAWebGraphQLServerError",
@@ -800,7 +799,6 @@ __d(
         (_e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           !o("WAWebUserPrefsGeneral").getGPCCompleted() &&
             o("WAWebAccountLinkingUtils").checkGPCSetting() &&
-            o("WAWebAccountLinkingGatingUtils").accountLinkingEnabled() &&
             (yield de());
         })),
         _e.apply(this, arguments)

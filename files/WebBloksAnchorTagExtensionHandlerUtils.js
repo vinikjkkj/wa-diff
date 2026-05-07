@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      var t = o("react-compiler-runtime").c(5),
+      var t = o("react-compiler-runtime").c(6),
         n,
         r;
       if (t[0] !== e) {
@@ -26,12 +26,16 @@ __d(
       if (r !== Symbol.for("react.early_return_sentinel")) return r;
       var l = n,
         s = l.href,
-        u;
+        u = l.prefer_native_navigation,
+        c;
       return (
-        t[3] !== s
-          ? ((u = { href: s, tabIndex: 0 }), (t[3] = s), (t[4] = u))
-          : (u = t[4]),
-        u
+        t[3] !== s || t[4] !== u
+          ? ((c = { href: s, tabIndex: 0, preferNativeNavigation: u }),
+            (t[3] = s),
+            (t[4] = u),
+            (t[5] = c))
+          : (c = t[5]),
+        c
       );
     }
     l.useWebBloksAnchorTagExtensionProps = e;

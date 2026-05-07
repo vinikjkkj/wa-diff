@@ -26,6 +26,7 @@ __d(
     "WAWebWamEnumPrivateAiFeatureName",
     "WAWebWamEnumReachabilityStatus",
     "WAWebWamEnumRevokeType",
+    "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumSizeBucket",
     "WAWebWamEnumStickerMakerSourceType",
     "WAWebWamEnumTypeOfGroupEnum",
@@ -174,6 +175,10 @@ __d(
               sendButtonPressT: [45, e.TYPES.INTEGER],
               senderDefaultDisappearingDuration: [27, e.TYPES.INTEGER],
               serverErrorCode: [56, e.TYPES.INTEGER],
+              sessionScope: [
+                91,
+                o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
+              ],
               sharedContactCardType: [84, e.TYPES.STRING],
               sharedContactMetadataTypes: [85, e.TYPES.STRING],
               sharedPhoneNumberContactSize: [77, e.TYPES.INTEGER],

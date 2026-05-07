@@ -24,7 +24,7 @@ __d(
     function s(e) {
       var t = e.mediaData,
         n = o("WAWebMsgGetters").getSender(e),
-        r = n != null && o("WAWebBotUtils").isMetaAiBot(n);
+        r = n != null && o("WAWebBotUtils").isAnyMetaAiBot(n);
       return (
         (t == null ? void 0 : t.streamable) &&
         (t == null ? void 0 : t.isStreamable()) &&

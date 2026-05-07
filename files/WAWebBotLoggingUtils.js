@@ -348,9 +348,15 @@ __d(
           e === o("WAWebChatEntryPoint").ChatEntryPoint.NewsletterCTAOnStatus ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.SimilarNewsletters ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.Link ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.GroupInvite ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoin ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.Vcard ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.NewslettersTab ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.CommunitySubgroupSwitcher ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.CommunityNewGroupCreation ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit ||
           e ===

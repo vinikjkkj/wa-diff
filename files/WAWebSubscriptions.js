@@ -128,10 +128,7 @@ __d(
                 : void 0,
             creationTime:
               e.creationTime !== void 0 ? parseInt(e.creationTime, 10) : void 0,
-            newMessageCappingEnabled:
-              e.newMessageCappingEnabled !== void 0
-                ? e.newMessageCappingEnabled
-                : void 0,
+            newMessageCappingEnabled: e.newMessageCappingEnabled,
             tier: (t = e.tier) != null ? t : null,
             status: (n = e.status) != null ? n : null,
             source: (r = e.source) != null ? r : null,
@@ -179,7 +176,7 @@ __d(
               (yield o("WAWebSchemaSubscription")
                 .getSubscriptionTable()
                 .clear(),
-                n.length > 0 &&
+                n.length &&
                   (yield o("WAWebSchemaSubscription")
                     .getSubscriptionTable()
                     .bulkCreate(n)),
@@ -227,7 +224,7 @@ __d(
             }
             if (t === "rewrite") {
               (yield o("WAWebSchemaFeatureFlag").getFeatureFlagTable().clear(),
-                n.length > 0 &&
+                n.length &&
                   (yield o("WAWebSchemaFeatureFlag")
                     .getFeatureFlagTable()
                     .bulkCreate(n)),

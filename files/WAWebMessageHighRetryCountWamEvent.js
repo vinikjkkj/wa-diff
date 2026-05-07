@@ -7,6 +7,7 @@ __d(
     "WAWebWamEnumInvisibleMessageCategoryType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageType",
+    "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumSizeBucket",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,6 +37,10 @@ __d(
               mediaType: [1, o("WAWebWamEnumMediaType").MEDIA_TYPE],
               messageType: [4, o("WAWebWamEnumMessageType").MESSAGE_TYPE],
               retryCount: [2, e.TYPES.INTEGER],
+              sessionScope: [
+                11,
+                o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
+              ],
             },
             [1, 20, 20],
             "regular",

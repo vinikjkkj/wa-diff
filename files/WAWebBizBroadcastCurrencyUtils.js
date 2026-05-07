@@ -1,7 +1,7 @@
 __d(
   "WAWebBizBroadcastCurrencyUtils",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebL10nGetRenderedLocale"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n, r) {
       if (
@@ -10,19 +10,22 @@ __d(
       )
         return r;
       try {
-        var o = e / n,
-          a = new Intl.NumberFormat("en-US", {
+        var a = e / n,
+          i = o("WAWebL10nGetRenderedLocale")
+            .WAWebL10nGetRenderedLocale()
+            .replace("_", "-"),
+          l = new Intl.NumberFormat(i, {
             currency: t || "USD",
             maximumFractionDigits: 2,
             minimumFractionDigits: 2,
             style: "currency",
           });
-        return a.format(o);
+        return l.format(a);
       } catch (e) {
         return r;
       }
     }
-    i.formatCurrencyFromMinorUnits = e;
+    l.formatCurrencyFromMinorUnits = e;
   },
-  66,
+  98,
 );

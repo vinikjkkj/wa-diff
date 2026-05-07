@@ -125,7 +125,7 @@ __d(
                 this.playbackAudioElement != null &&
                   (yield o(
                     "WAWebAudioDeviceManager",
-                  ).applyPreferredAudioOutputDevice(
+                  ).applyPreferredAudioOutputSink(
                     this.playbackAudioElement,
                     "AV:Worklet:Playback",
                   )),

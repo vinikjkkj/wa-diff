@@ -100,7 +100,7 @@ __d(
                 (o("WALogger").LOG(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[media-fwd] bot media blob not available, downloading before forward",
+                      "[media-fwd] bot blob missing, downloading",
                     ])),
                 ),
                 yield t.downloadMedia({

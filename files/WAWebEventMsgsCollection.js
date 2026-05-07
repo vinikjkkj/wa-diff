@@ -121,7 +121,7 @@ __d(
     function c(e) {
       return o("WAWebFrontendMsgGetters").getAsEventCreation(e) != null;
     }
-    l.EventMsgsCollection = u;
+    l.default = u;
   },
   98,
 );

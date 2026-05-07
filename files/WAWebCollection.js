@@ -344,12 +344,24 @@ __d(
             try {
               return new this.modelClass(t, e);
             } catch (e) {
-              var r, a;
+              var r,
+                a,
+                i = t.id,
+                l;
+              if (i == null) l = "null/undefined";
+              else if (typeof i == "object") {
+                var s, u;
+                l =
+                  (s = (u = i.constructor) == null ? void 0 : u.name) != null
+                    ? s
+                    : "unknown-object";
+              } else l = typeof i;
               o("WALogger")
                 .ERROR(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
                       "collection:_prepareModel: for model ",
+                      " id_shape=",
                       "",
                     ])),
                   (r =
@@ -358,6 +370,7 @@ __d(
                       : a.name) != null
                     ? r
                     : "",
+                  l,
                 )
                 .catching(e)
                 .sendLogs("collection-model-creation-error");

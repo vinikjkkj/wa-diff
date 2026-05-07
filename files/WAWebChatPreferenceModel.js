@@ -20,6 +20,7 @@ __d(
             (t.hdMediaEnabled = o("WAWebBaseModel").prop()),
             (t.chatThemeId = o("WAWebBaseModel").prop()),
             (t.colorSchemeId = o("WAWebBaseModel").prop()),
+            (t.stockWallpaperImageId = o("WAWebBaseModel").prop()),
             babelHelpers.assertThisInitialized(t) ||
               babelHelpers.assertThisInitialized(t)
           );

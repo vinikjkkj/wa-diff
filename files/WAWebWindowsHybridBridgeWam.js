@@ -3,9 +3,11 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebAppTracker",
     "WAWebBrowserApi",
     "WAWebCrashContextUtils",
     "WAWebCrashLogWamEvent",
+    "WAWebMemoryStatWamEvent",
     "WAWebWam",
     "WAWebWamCodegenUtils",
     "WAWebWamCodegenWamEvent",
@@ -143,7 +145,12 @@ __d(
                             sampling: 0.01,
                           });
                       }
-                    }
+                    } else
+                      t.id ===
+                        o("WAWebMemoryStatWamEvent").MemoryStatWamEvent
+                          .prototype.id &&
+                        (i[14] =
+                          o("WAWebAppTracker").AppTracker.getAppContext());
                     return new (o("WAWebWamCodegenWamEvent").RawWamEvent)(
                       i,
                     ).commitAndWaitForFlush(!0);

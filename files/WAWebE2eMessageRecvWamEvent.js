@@ -16,6 +16,7 @@ __d(
     "WAWebWamEnumMediaType",
     "WAWebWamEnumMessageDistributionEnumType",
     "WAWebWamEnumRevokeType",
+    "WAWebWamEnumSessionScopeType",
     "WAWebWamEnumStanzaType",
     "WAWebWamEnumTypeOfGroupEnum",
   ],
@@ -88,6 +89,10 @@ __d(
               serverAddressingMode: [
                 18,
                 o("WAWebWamEnumAddressingMode").ADDRESSING_MODE,
+              ],
+              sessionScope: [
+                28,
+                o("WAWebWamEnumSessionScopeType").SESSION_SCOPE_TYPE,
               ],
               stanzaType: [14, o("WAWebWamEnumStanzaType").STANZA_TYPE],
               typeOfGroup: [

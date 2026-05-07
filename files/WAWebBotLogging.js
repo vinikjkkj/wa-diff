@@ -29,6 +29,12 @@ __d(
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab ||
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .CommunitySubgroupSwitcher ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .CommunityNewGroupCreation ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ContactInfo ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit ||
@@ -41,6 +47,8 @@ __d(
                     o("WAWebChatEntryPoint").ChatEntryPoint
                       .ForwardedNewsletterMessage ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.Link ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.GroupInvite ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoin ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.Mention ||
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint

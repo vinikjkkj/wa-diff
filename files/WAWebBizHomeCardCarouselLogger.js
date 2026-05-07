@@ -23,14 +23,14 @@ __d(
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.setEntryPoint(
               t,
               o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
-                .BUSINESS_TOOLS_HOME,
+                .BUSINESS_TOOLS_REC_CARD,
             );
           }),
           (n.logViewBusinessTools = function (t) {
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
               extraAttributes: { num_cards_loaded: t },
               featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_HOME,
+                .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_REC_CARD,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .BUSINESS_HOME_PAGE,
               userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
@@ -41,7 +41,7 @@ __d(
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
               extraAttributes: { card_id: n, card_idx: r, view_source: a },
               featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_HOME,
+                .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_REC_CARD,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .BUSINESS_HOME_PAGE,
               userActionTarget: e.CARD,
@@ -89,7 +89,7 @@ __d(
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
               extraAttributes: { card_id: r, card_idx: a },
               featureName: o("WAWebWamEnumSmbFeatureNameEnum")
-                .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_HOME,
+                .SMB_FEATURE_NAME_ENUM.BUSINESS_TOOLS_REC_CARD,
               surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
                 .BUSINESS_HOME_PAGE,
               userActionTarget: n,

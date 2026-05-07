@@ -1,83 +1,95 @@
 __d(
   "WAWebDebugMessageEdit",
   [
+    "WALogger",
     "WANullthrows",
     "WAPromiseDelays",
+    "WATimeUtils",
     "WAWebChatCollection",
+    "WAWebDebugUtils",
+    "WAWebErrorType",
     "WAWebMsgCollection",
+    "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebMsgType",
     "WAWebSendMessageEditAction",
+    "WAWebSendMsgJob",
+    "WAWebSendMsgMetricReporter",
     "WAWebSendMsgRecordAction",
+    "WAWebSendMsgTypes",
     "WAWebSendTextMsgChatAction",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUserPrefsDebugMsgEdit",
+    "WAWebUserPrefsMeUser",
+    "WAWebViewMode.flow",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = o("react")),
-      u = [10, 20, 15, 5];
-    function c(e) {
+      s,
+      u = s || (s = o("react")),
+      c = [10, 20, 15, 5];
+    function d(e) {
       o("WAWebToastManager").ToastManager.open(
-        s.jsx(o("WAWebToast.react").Toast, { msg: e }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: e }),
       );
     }
-    function d() {
+    function m() {
       var e = o("WAWebChatCollection").ChatCollection.getActive();
       if (!e) throw r("err")("You must open a chat first.");
       return e;
     }
-    function m() {
+    function p() {
       o("WAWebUserPrefsDebugMsgEdit").setMessageEditRestriction(
         !o("WAWebUserPrefsDebugMsgEdit").messageEditRestrictionEnabled(),
       );
     }
-    ((m.doc =
+    ((p.doc =
       "Allowed editing messages sent by others or exceed 15m editing window."),
-      (m.paramsToExecute = []));
-    function p() {
-      return _.apply(this, arguments);
-    }
+      (p.paramsToExecute = []));
     function _() {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e =
               "On the receiver client, if you see this message, it has *successfully* processed the orphan message edit.",
             t =
               "On the receiver client, if you see this message, it has *failed* to process the orphan messag eedit.",
-            n = d(),
+            n = m(),
             a = r("WANullthrows")(
               yield o("WAWebSendTextMsgChatAction").createTextMsgData(n, t),
             ),
             i = new (o("WAWebMsgModel").Msg)(a),
             l = o("WAWebSendMessageEditAction").createEditMsgData(i, e, {});
-          (c("Sending orphan message edit. Will pause for 10s after this."),
+          (d("Sending orphan message edit. Will pause for 10s after this."),
             yield o("WAWebSendMessageEditAction").addAndSendMessageEdit(i, l),
             yield o("WAPromiseDelays").delayMs(1e4),
-            c("Sending parent message"),
+            d("Sending parent message"),
             yield o("WAWebSendTextMsgChatAction").addAndSendTextMsg(n, a),
-            c("Done. Check the receiver client"));
+            d("Done. Check the receiver client"));
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    ((p.doc = "Simulate orphan message edit."), (p.paramsToExecute = []));
-    function f() {
-      return g.apply(this, arguments);
-    }
+    ((_.doc = "Simulate orphan message edit."), (_.paramsToExecute = []));
     function g() {
+      return h.apply(this, arguments);
+    }
+    function h() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e =
               "If you see this message, it has *successfully* processed the out of order edits",
             t =
               "If you see this message, it has *failed* to process the out of order edits",
-            n = d();
-          c("Sending parent message.");
+            n = m();
+          d("Sending parent message.");
           var a = r("WANullthrows")(
             yield o("WAWebSendTextMsgChatAction").createTextMsgData(
               n,
@@ -88,40 +100,40 @@ __d(
           var i = r("WANullthrows")(
             o("WAWebMsgCollection").MsgCollection.get(a.id),
           );
-          c("Sending out of order message edits");
-          var l = u.map(function (e) {
+          d("Sending out of order message edits");
+          var l = c.map(function (e) {
               return Date.now() + e * 1e3;
             }),
             s = l.toSorted(function (e, t) {
               return t - e;
             })[0];
-          for (var m of l) {
-            var p = s === m ? e : t,
+          for (var u of l) {
+            var p = s === u ? e : t,
               _ = babelHelpers.extends(
                 {},
                 o("WAWebSendMessageEditAction").createEditMsgData(i, p, {}),
-                { latestEditSenderTimestampMs: m },
+                { latestEditSenderTimestampMs: u },
               );
             yield o("WAWebSendMessageEditAction").addAndSendMessageEdit(i, _);
           }
           (yield o("WAPromiseDelays").delayMs(1e3),
-            c("Done. Check the result on receivers."));
+            d("Done. Check the result on receivers."));
         })),
-        g.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    ((f.doc = "Simulate out of order message edits."),
-      (f.paramsToExecute = []));
-    function h() {
-      return y.apply(this, arguments);
-    }
+    ((g.doc = "Simulate out of order message edits."),
+      (g.paramsToExecute = []));
     function y() {
+      return C.apply(this, arguments);
+    }
+    function C() {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e,
             t,
-            n = d();
-          c("Sending test messages.");
+            n = m();
+          d("Sending test messages.");
           var a = (t = r("WANullthrows"))(
               yield (e = o("WAWebSendTextMsgChatAction")).createTextMsgData(
                 n,
@@ -132,7 +144,7 @@ __d(
           (yield e.addAndSendTextMsg(n, a),
             yield e.addAndSendTextMsg(n, i),
             yield o("WAPromiseDelays").delayMs(1e3),
-            c("Sending malformed message edit"));
+            d("Sending malformed message edit"));
           var l = t(o("WAWebMsgCollection").MsgCollection.get(i.id)),
             s = t(o("WAWebMsgCollection").MsgCollection.get(a.id)),
             u = babelHelpers.extends(
@@ -146,20 +158,20 @@ __d(
             );
           (yield o("WAWebSendMessageEditAction").addAndSendMessageEdit(l, u),
             yield o("WAPromiseDelays").delayMs(1e3),
-            c("Done. Check the result on receivers."));
+            d("Done. Check the result on receivers."));
         })),
-        y.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    ((h.doc = "Simulate sending malformed message edit."),
-      (h.paramsToExecute = []));
-    function C() {
-      return b.apply(this, arguments);
-    }
+    ((y.doc = "Simulate sending malformed message edit."),
+      (y.paramsToExecute = []));
     function b() {
+      return v.apply(this, arguments);
+    }
+    function v() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = d(),
+        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e = m(),
             t = r("WANullthrows")(
               yield o("WAWebSendTextMsgChatAction").createTextMsgData(
                 e,
@@ -176,24 +188,24 @@ __d(
             i = new (o("WAWebMsgModel").Msg)(a);
           (yield o("WAWebSendMsgRecordAction").sendMsgRecord(i),
             yield o("WAPromiseDelays").delayMs(1e3),
-            c("Done. Check the result on receivers."));
+            d("Done. Check the result on receivers."));
         })),
-        b.apply(this, arguments)
+        v.apply(this, arguments)
       );
     }
-    ((C.doc = "Simulate sending an unknown message edit."),
-      (C.paramsToExecute = []));
-    function v(e) {
-      return S.apply(this, arguments);
+    ((b.doc = "Simulate sending an unknown message edit."),
+      (b.paramsToExecute = []));
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.type !== o("WAWebMsgType").MSG_TYPE.CHAT) {
-            c("Message must be a text message");
+            d("Message must be a text message");
             return;
           }
-          var t = d(),
+          var t = m(),
             n = e.body;
           ((e.body = "Altered quoted text! You should not see this!"),
             yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
@@ -203,21 +215,94 @@ __d(
             ),
             (e.body = n));
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    ((v.doc =
+    ((S.doc =
       "Simulate sending a reply message with misleading quoted content."),
-      (v.paramsToExecute = []));
-    var R = {
-      toggleMessageEditRestriction: m,
-      testOrphanMessageEdit: p,
-      testOutOfOrderMessageEdits: f,
-      testMalformedMessageEdit: h,
-      testUnknownMessageEdit: C,
-      testMisleadingReplyMessage: v,
+      (S.paramsToExecute = []));
+    function L(e, t) {
+      return E.apply(this, arguments);
+    }
+    function E() {
+      return (
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
+          n === void 0 && (n = "orphan edit test");
+          var a = o("WAWebDebugUtils").getSelectedChat(),
+            i = a.id,
+            l = Array.from(
+              self.crypto.getRandomValues(new Uint8Array(8)),
+              function (e) {
+                return e.toString(16).padStart(2, "0");
+              },
+            ).join(""),
+            s = t != null ? t : "ORPHAN_TEST_" + l,
+            u = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            c = i.isGroup() ? o("WAWebWidFactory").asUserWidOrThrow(u) : void 0,
+            d = new (r("WAWebMsgKey"))({
+              id: r("WAWebMsgKey").newId_DEPRECATED(),
+              remote: i,
+              fromMe: !0,
+              participant: c,
+            }),
+            m = new (r("WAWebMsgKey"))({ fromMe: !0, remote: i, id: s }),
+            p = {
+              id: d,
+              from: u,
+              to: i,
+              type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+              kind: o("WAWebMsgType").MsgKind.Protocol,
+              subtype: "message_edit",
+              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+              protocolMessageKey: m,
+              local: !0,
+              t: o("WATimeUtils").unixTime(),
+              latestEditMsgKey: d,
+              latestEditSenderTimestampMs: o("WATimeUtils").unixTimeMs(),
+              editMsgType: o("WAWebMsgType").MSG_TYPE.CHAT,
+              errorCode: o("WAWebErrorType").SendFailureErrorCode.NoError,
+              body: n,
+            },
+            _ = new (o("WAWebMsgModel").Msg)(p),
+            f = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(_),
+            g = yield o("WAWebSendMsgJob").encryptAndSendMsg(
+              {
+                type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
+                data: _,
+              },
+              f,
+            );
+          return (
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  'sendOrphanEdit: sent edit "',
+                  '" to fake parent ',
+                  " in ",
+                  "",
+                ])),
+              n,
+              s,
+              i.toString(),
+            ),
+            g
+          );
+        })),
+        E.apply(this, arguments)
+      );
+    }
+    L.doc =
+      "Send orphan edit to active chat (no parent exists). Receiver sees it as orphan. Optional args: fakeParentStanzaId, text";
+    var k = {
+      toggleMessageEditRestriction: p,
+      testOrphanMessageEdit: _,
+      testOutOfOrderMessageEdits: g,
+      testMalformedMessageEdit: y,
+      testUnknownMessageEdit: b,
+      testMisleadingReplyMessage: S,
+      sendOrphanEdit: L,
     };
-    l.default = R;
+    l.default = k;
   },
   98,
 );

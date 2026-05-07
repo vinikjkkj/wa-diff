@@ -326,6 +326,7 @@ __d(
       }),
       Ie = e({
         AiAnimatedPhoto: "AI_ANIMATED_PHOTO",
+        AiMeme: "AI_MEME",
         AiMusicSongGen: "AI_MUSIC_SONG_GEN",
         AiVoiceNotes: "AI_VOICE_NOTES",
         ForwardedAi: "FORWARDED_AI",

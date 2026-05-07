@@ -69,10 +69,10 @@ __d(
             l = i.value.code,
             d = i.value.text;
           throw (
-            o("WALogger").ERROR(
+            o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[SMB checkout] failed err=",
+                  "[SMB checkout] failed: ",
                   " code=",
                   " text=",
                   "",
