@@ -7,10 +7,10 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebScheduledMsgCrypto",
     "WAWebScheduledMsgStore",
-    "WAWebSendMsgCommonApi",
     "WAWebSendMsgTypes",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
+    "encodeProtobuf",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,19 +34,26 @@ __d(
             );
             var l = o("WAWebScheduledMsgCrypto").generateRevealKey(),
               c = o("WAWebScheduledMsgCrypto").generateRevealKeyId(),
-              d = o("WAWebSendMsgCommonApi").encodeAndPad(a),
+              d = o("encodeProtobuf")
+                .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, a)
+                .readByteArrayView(),
               m = yield o("WAWebScheduledMsgCrypto").encryptWithRevealKey(d, l),
               p = m.encIv,
               _ = m.encPayload,
               f = {
-                conditionalRevealMessage: Object.freeze({
+                conditionalRevealMessage: {
                   conditionalRevealMessageType: o("WAWebProtobufsE2E.pb")
                     .Message$ConditionalRevealMessage$ConditionalRevealMessageType
                     .SCHEDULED_MESSAGE,
                   encIv: p,
                   encPayload: _,
                   revealKeyId: c,
-                }),
+                },
+                messageContextInfo: {
+                  messageSecret: self.crypto.getRandomValues(
+                    new Uint8Array(32),
+                  ),
+                },
               },
               g = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
                 chatId: n,
@@ -100,7 +107,6 @@ __d(
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             if (
-              !n.isUser() ||
               e.type !== o("WAWebSendMsgTypes").SendMessageRecordType.Message ||
               e.data.isScheduledMsg !== !0 ||
               r != null

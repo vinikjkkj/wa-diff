@@ -678,7 +678,8 @@ __d(
       return o == null ? e : o;
     }
     function v(t, n) {
-      if (t === e || o("WAWebSolidColorPalette").isSolidColor(t)) return !0;
+      if (t == null || t === e || o("WAWebSolidColorPalette").isSolidColor(t))
+        return !0;
       var r = h(n);
       return r.some(function (e) {
         return e.toUpperCase() === t.toUpperCase();

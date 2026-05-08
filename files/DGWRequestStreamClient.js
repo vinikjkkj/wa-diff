@@ -54,7 +54,15 @@ __d(
                   (_ = p.getE2EClientLogger()) == null
                     ? void 0
                     : _.getRequestId();
-              p.setQoSMonitor(new (r("QoSMonitor"))(p, f, a.method));
+              p.setQoSMonitor(
+                new (r("QoSMonitor"))(
+                  p,
+                  this.$1.qosLogger,
+                  this.$1.qosNetworkProbeUrl,
+                  f,
+                  a.method,
+                ),
+              );
             }
             return (e || (e = n("Promise"))).resolve(p);
           }),

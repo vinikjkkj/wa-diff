@@ -88,6 +88,16 @@ __d(
             }
             return r;
           })()),
+          (i.set = function (n, r) {
+            if ((r == null ? void 0 : r.remove) !== !1) {
+              var e = this.filter(function (e) {
+                return e.isSyntheticFromMetadata === !0;
+              });
+              if (e.length > 0)
+                return t.prototype.set.call(this, [].concat(n, e), r);
+            }
+            return t.prototype.set.call(this, n, r);
+          }),
           (i.sync = function () {
             var t = this,
               n = window.performance.now();

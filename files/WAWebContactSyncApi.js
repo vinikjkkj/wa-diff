@@ -7,6 +7,7 @@ __d(
     "WANullthrows",
     "WAPromiseDelays",
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAdvHandlerApi",
     "WAWebApiContact",
     "WAWebApiDeviceList",
@@ -261,6 +262,31 @@ __d(
             );
             return;
           }
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
+            )
+          ) {
+            var a = r("compactMap")(e.list, function (e) {
+              if (!e.text_status) return null;
+              var t = e.text_status,
+                n = t.emoji,
+                r = t.ephemeralDurationSeconds,
+                o = t.lastUpdateTime,
+                a = t.text;
+              return {
+                contactId: e.id,
+                textString: a,
+                emoji: n,
+                ephemeralDuration: r,
+                newUpdateTime: o,
+              };
+            });
+            yield o(
+              "WAWebUpdateTextStatusForContact",
+            ).updateTextStatusForContactsBatch(a);
+            return;
+          }
           yield (S || (S = n("Promise"))).all(
             e.list.map(
               (function () {
@@ -294,8 +320,8 @@ __d(
     function $() {
       return (
         ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = e.error.status;
-          if (r) {
+          var a = e.error.status;
+          if (a) {
             o("WALogger").WARN(
               _ ||
                 (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -303,9 +329,31 @@ __d(
                   " : ",
                   "",
                 ])),
-              r.errorCode,
-              r.errorText,
+              a.errorCode,
+              a.errorText,
             );
+            return;
+          }
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "web_anr_batch_and_queue_bulk_contacts_db_writes_enabled",
+            )
+          ) {
+            var i = r("compactMap")(e.list, function (e) {
+              return e.disappearing_mode
+                ? {
+                    contactId: e.id,
+                    newDuration: e.disappearing_mode.duration,
+                    newSettingTimestamp: e.disappearing_mode.t,
+                    newEphemeralityDisabled:
+                      e.disappearing_mode.ephemeralityDisabled === !0,
+                  }
+                : null;
+            });
+            ((t.disappearingModeChange += i.length),
+              yield o(
+                "WAWebUpdateDisappearingModeForContact",
+              ).updateDisappearingModeForContactsBatch(i));
             return;
           }
           yield (S || (S = n("Promise"))).all(

@@ -11,14 +11,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
-    function d(e, t, n, r, o) {
+    function d(e, t, n, r, o, a) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a, i) {
-            var l = t.data.to;
+          function* (t, n, r, a, i, l) {
+            var d = t.data.to;
             o("WALogger")
               .LOG(
                 e ||
@@ -28,10 +28,10 @@ __d(
                     "",
                   ])),
                 t.data.id,
-                l.toLogString(),
+                d.toLogString(),
               )
               .tags("messaging");
-            var d = yield o(
+            var m = yield o(
                 "WAWebSendDirectMsgToDeviceList",
               ).sendDirectMsgToDeviceList(
                 t,
@@ -42,11 +42,12 @@ __d(
                 },
                 a,
                 i,
+                l,
               ),
-              m = d.addressingMode,
-              p = d.phash;
+              p = m.addressingMode,
+              _ = m.phash;
             return (
-              p &&
+              _ &&
                 (o("WALogger")
                   .LOG(
                     s ||
@@ -54,7 +55,7 @@ __d(
                         "[encryptAndSendGroupDirectMsg] phash mismatch, server: ",
                         "",
                       ])),
-                    p,
+                    _,
                   )
                   .tags("messaging"),
                 o("WAWebResendGroupMsg")
@@ -65,9 +66,9 @@ __d(
                     oldList: r,
                     ackTime: o("WATimeUtils").unixTime(),
                     groupData: a,
-                    phash: p,
+                    phash: _,
                     metricReporter: i,
-                    serverAddressingMode: m,
+                    serverAddressingMode: p,
                   })
                   .catch(function (e) {
                     (o("WALogger")
@@ -94,7 +95,7 @@ __d(
                         .tags("messaging")
                         .sendLogs("message-resend-failed", { sampling: 0.01 }));
                   })),
-              d
+              m
             );
           },
         )),

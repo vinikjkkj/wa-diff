@@ -15,6 +15,9 @@ __d(
         function t() {}
         var n = t.prototype;
         return (
+          (n.setAiSessionId = function (t) {
+            this.$5 = t;
+          }),
           (n.setEntryPoint = function (t) {
             this.$1 = t;
           }),
@@ -111,41 +114,33 @@ __d(
             });
           }),
           (n.logModeSelectionImpression = function (t) {
-            var e = t.aiSessionId,
-              n = t.entryPoint,
-              r = t.uiSurface,
-              a =
-                r === void 0
-                  ? o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT_COMPOSER
-                  : r;
+            var e;
+            t === void 0 &&
+              (t = o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT_COMPOSER);
+            var n = this.$1;
             n != null &&
               this.log({
                 actionType: o("WAWebWamEnumChatFilterActionTypes")
                   .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_IMPRESSION,
                 entryPoint: n,
-                uiSurface: a,
-                aiSessionId: e != null ? e : void 0,
+                uiSurface: t,
+                aiSessionId: (e = this.$5) != null ? e : void 0,
                 eventTsMs: Date.now(),
               });
           }),
           (n.logModeSelectionClick = function (t) {
-            var e = t.aiSessionId,
-              n = t.entryPoint,
-              r = t.uiSurface,
-              a =
-                r === void 0
-                  ? o("WAWebWamEnumTsSurface").TS_SURFACE
-                      .META_AI_MODE_SELECTION_BOTTOM_SHEET
-                  : r;
-            n != null &&
-              this.log({
-                actionType: o("WAWebWamEnumChatFilterActionTypes")
-                  .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_CLICK,
-                entryPoint: n,
-                uiSurface: a,
-                aiSessionId: e != null ? e : void 0,
-                eventTsMs: Date.now(),
-              });
+            var e;
+            (t === void 0 &&
+              (t = o("WAWebWamEnumTsSurface").TS_SURFACE
+                .META_AI_MODE_SELECTION_BOTTOM_SHEET),
+              this.$1 != null &&
+                this.log({
+                  actionType: o("WAWebWamEnumChatFilterActionTypes")
+                    .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_CLICK,
+                  uiSurface: t,
+                  aiSessionId: (e = this.$5) != null ? e : void 0,
+                  eventTsMs: Date.now(),
+                }));
           }),
           t
         );

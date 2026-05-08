@@ -67,7 +67,7 @@ __d(
           );
         }),
         (n._hasListeners = function () {
-          var e = this._events;
+          var e = this.eventMap;
           if (e == null) return !1;
           for (var t in e) if (e[t] != null && e[t].length > 0) return !0;
           return !1;

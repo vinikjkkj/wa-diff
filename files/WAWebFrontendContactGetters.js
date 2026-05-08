@@ -311,7 +311,9 @@ __d(
             l = e[4];
           if (r("WAWebWid").isPSA(a))
             return {
-              displayName: H(o("WAWebConnModel").Conn.isSMB),
+              displayName: o("WAWebL10NAccentFold").accentFold(
+                H(o("WAWebConnModel").Conn.isSMB),
+              ),
               type: null,
             };
           if (r("WAWebWid").isSupportAccount(a))

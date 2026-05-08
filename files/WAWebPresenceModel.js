@@ -20,6 +20,7 @@ __d(
     "WAWebGroupGatingUtils",
     "WAWebGroupPresenceUtils",
     "WAWebGroupType",
+    "WAWebLidMigrationUtils",
     "WAWebPresenceCollection",
     "WAWebPresenceEnum",
     "WAWebPresenceOrder",
@@ -343,11 +344,14 @@ __d(
             ) {
               var r = 0;
               n.forEach(function (e) {
+                var t;
                 if (!o("WAWebUserPrefsMeUser").isMeAccount(e.id)) {
-                  var t = o("WAWebPresenceCollection").PresenceCollection.get(
-                    e.id,
-                  );
-                  (t == null ? void 0 : t.isOnline) === !0 && (r += 1);
+                  var n =
+                      (t = o("WAWebLidMigrationUtils").toUserLid(e.id)) != null
+                        ? t
+                        : e.id,
+                    a = o("WAWebPresenceCollection").PresenceCollection.get(n);
+                  (a == null ? void 0 : a.isOnline) === !0 && (r += 1);
                 }
               });
               var a = r >= 1 ? r + 1 : 0;

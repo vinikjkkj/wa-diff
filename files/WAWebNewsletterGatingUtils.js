@@ -702,12 +702,14 @@ __d(
       );
     }
     function Dt() {
-      return o("WAWebABProps").getABPropConfigValue(
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channel_status_consumption",
       );
     }
     function xt() {
-      return o("WAWebABProps").getABPropConfigValue("channel_status_creation");
+      return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
+        "channel_status_creation",
+      );
     }
     function $t() {
       return o("WAWebABProps").getABPropConfigValue(

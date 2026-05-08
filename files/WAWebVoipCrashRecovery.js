@@ -11,6 +11,7 @@ __d(
     "WAWebVoipBatteryDiagnostics",
     "WAWebVoipBrowserMetrics",
     "WAWebVoipDeviceClassUtils",
+    "WAWebVoipGatingUtils",
     "WAWebVoipPersistentFS",
     "WAWebWamEnumAppExitReason",
     "asyncToGeneratorRuntime",
@@ -33,21 +34,22 @@ __d(
       b,
       v,
       S = "wa_voip_call_state",
-      R = "active",
-      L = "closing",
-      E = !1,
-      k = null;
-    function I() {
+      R = "wa_voip_web_transport_used",
+      L = "active",
+      E = "closing",
+      k = !1,
+      I = null;
+    function T() {
       return (
         o("WAWebABProps").getABPropConfigValue("app_exit_reason_version") > 0
       );
     }
-    function T() {
+    function D() {
       if (r("WAWebLocalStorage") == null)
         return o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.UNKNOWN;
       try {
         var t = r("WAWebLocalStorage").getItem(S);
-        return t === L
+        return t === E
           ? (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -55,7 +57,7 @@ __d(
                 ])),
             ),
             o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.USER_REQUESTED)
-          : t === R
+          : t === L
             ? (o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -68,19 +70,28 @@ __d(
         return o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.UNKNOWN;
       }
     }
-    function D() {
+    function x() {
       if (r("WAWebLocalStorage") != null)
         try {
-          r("WAWebLocalStorage").removeItem(S);
+          (r("WAWebLocalStorage").removeItem(S),
+            r("WAWebLocalStorage").removeItem(R));
         } catch (e) {}
     }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
     function $() {
+      if (r("WAWebLocalStorage") == null) return !1;
+      try {
+        return r("WAWebLocalStorage").getItem(R) === "1";
+      } catch (e) {
+        return !1;
+      }
+    }
+    function P(e) {
+      return N.apply(this, arguments);
+    }
+    function N() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (E) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          if (k) {
             o("WALogger").LOG(
               m ||
                 (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,7 +100,7 @@ __d(
             );
             return;
           }
-          E = !0;
+          k = !0;
           try {
             var t = o("WAWebVoipPersistentFS").getVoipPersistentDirectoryPath();
             if (t === "") {
@@ -123,7 +134,7 @@ __d(
               o("WAWebCoreActionsODS").logCallErrorTerminal());
             try {
               var r = JSON.parse(n),
-                a = T();
+                a = D();
               (a === o("WAWebWamEnumAppExitReason").APP_EXIT_REASON.CRASH &&
                 o("WAWebCoreActionsODS").logCallWasmCrash(),
                 (r.appExitReason = a));
@@ -142,7 +153,8 @@ __d(
               var d = o(
                 "WAWebVoipBatteryDiagnostics",
               ).getBatteryDiagnosticsCapabilities();
-              r.browserBatterySupported = d.browserBatterySupported;
+              ((r.browserBatterySupported = d.browserBatterySupported),
+                (r.webTransportUsed = $()));
               var C = new (o("WAWebCallWamEvent").CallWamEvent)(r);
               (yield C.commitAndWaitForFlush(),
                 o("WALogger").LOG(
@@ -154,7 +166,7 @@ __d(
                   a,
                 ));
             } finally {
-              (D(),
+              (x(),
                 e.cleanupUnfinishedCallStats(),
                 yield o("WAWebVoipPersistentFS").syncPersistentFS(e),
                 o("WALogger").LOG(
@@ -175,16 +187,16 @@ __d(
               .catching(e);
           }
         })),
-        $.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function P() {
-      return N.apply(this, arguments);
+    function M() {
+      return w.apply(this, arguments);
     }
-    function N() {
+    function w() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!I()) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (!T()) {
             o("WALogger").LOG(
               C ||
                 (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -204,7 +216,7 @@ __d(
               yield o("WAWebBackendApi").frontendSendAndReceive(
                 "initializeVoipWasm",
               );
-            yield x(e);
+            yield P(e);
           } catch (e) {
             o("WALogger")
               .ERROR(
@@ -216,13 +228,17 @@ __d(
               .catching(e);
           }
         })),
-        N.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function M(e) {
+    function A(e) {
       if (r("WAWebLocalStorage") != null)
         try {
-          (r("WAWebLocalStorage").setItem(S, R),
+          (r("WAWebLocalStorage").setItem(S, L),
+            r("WAWebLocalStorage").setItem(
+              R,
+              o("WAWebVoipGatingUtils").isWebTransportEnabled() ? "1" : "0",
+            ),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -233,12 +249,12 @@ __d(
             ));
         } catch (e) {}
     }
-    function w(e) {
+    function F(e) {
       if (r("WAWebLocalStorage") != null)
         try {
           var t = r("WAWebLocalStorage").getItem(S);
-          t === R &&
-            (r("WAWebLocalStorage").setItem(S, L),
+          t === L &&
+            (r("WAWebLocalStorage").setItem(S, E),
             o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -249,10 +265,11 @@ __d(
             ));
         } catch (e) {}
     }
-    function A(e) {
+    function O(e) {
       if (r("WAWebLocalStorage") != null)
         try {
           (r("WAWebLocalStorage").removeItem(S),
+            r("WAWebLocalStorage").removeItem(R),
             o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -263,25 +280,25 @@ __d(
             ));
         } catch (e) {}
     }
-    function F(e) {
-      if ((O(), typeof window != "undefined")) {
+    function B(e) {
+      if ((W(), typeof window != "undefined")) {
         var t = function () {
-          w(e);
+          F(e);
         };
         (window.addEventListener("beforeunload", t),
-          (k = function () {
+          (I = function () {
             window.removeEventListener("beforeunload", t);
           }));
       }
     }
-    function O() {
-      k != null && (k(), (k = null));
+    function W() {
+      I != null && (I(), (I = null));
     }
-    ((l.initCrashRecovery = P),
-      (l.markCallActive = M),
-      (l.clearExitMarkers = A),
-      (l.registerGracefulExitHandler = F),
-      (l.unregisterGracefulExitHandler = O));
+    ((l.initCrashRecovery = M),
+      (l.markCallActive = A),
+      (l.clearExitMarkers = O),
+      (l.registerGracefulExitHandler = B),
+      (l.unregisterGracefulExitHandler = W));
   },
   98,
 );

@@ -1,12 +1,11 @@
 __d(
   "WAWebManageE2ESessionsJob",
   [
+    "MetaConfig",
     "Promise",
     "WAJids",
     "WALogger",
     "WAResolvable",
-    "WAWebABProps",
-    "WAWebABPropsCache",
     "WAWebAppTracker",
     "WAWebBackendErrors",
     "WAWebBackendWorkerClient",
@@ -306,10 +305,7 @@ __d(
     function R() {
       return (
         o("WAWebBackendWorkerClient").isBackendWorkerBridgeReady() &&
-        o("WAWebABPropsCache").isABPropConfigsReady() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "web_worker_prekey_processing_enabled",
-        ) === !0
+        r("MetaConfig")._("463") === 2
       );
     }
     l.ensureE2ESessions = v;

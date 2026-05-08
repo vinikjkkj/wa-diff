@@ -27,6 +27,7 @@ __d(
     "WAWebQbmIncomingMessageLogger",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebSignupFlowLoggerLazy",
+    "WAWebSignupQPLLogger",
     "WAWebStickerPremiumStatus",
     "WAWebUserPrefsMeUser",
     "WAWebUsernameTypes",
@@ -510,18 +511,29 @@ __d(
               (n = n[0]) == null
                 ? void 0
                 : n.buttonParamsJson;
-          if (a != null)
-            try {
-              var i = JSON.parse(a),
-                l = i.signup_id;
-              l != null &&
-                o("WAWebSignupFlowLoggerLazy").logSignupOp({
-                  operation: o("WAWebSignupFlowLoggerLazy")
-                    .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_CONFIRMATION_RECEIVED,
-                  signupId: String(l),
-                  businessWid: t.id.remote,
-                });
-            } catch (e) {}
+          if (a == null) {
+            o("WAWebSignupQPLLogger").confirmationMissingParams();
+            continue;
+          }
+          try {
+            var i = JSON.parse(a),
+              l = i.signup_id;
+            if (l == null) {
+              o("WAWebSignupQPLLogger").confirmationParseFailure(
+                "missing field 'signup_id'",
+              );
+              continue;
+            }
+            (o("WAWebSignupFlowLoggerLazy").logSignupOp({
+              operation: o("WAWebSignupFlowLoggerLazy")
+                .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_CONFIRMATION_RECEIVED,
+              signupId: String(l),
+              businessWid: t.id.remote,
+            }),
+              o("WAWebSignupQPLLogger").confirmationSuccess(String(l)));
+          } catch (e) {
+            o("WAWebSignupQPLLogger").confirmationParseFailure(e);
+          }
         }
     }
     function D(e) {

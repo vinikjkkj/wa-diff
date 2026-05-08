@@ -33,6 +33,10 @@ __d(
           label: function () {
             return s._(/*BTDS*/ "Members");
           },
+          isVisible: function (t) {
+            var e = t.isSuspended;
+            return !e;
+          },
           onClick: function (t) {
             var e = t.chat;
             r("JSResourceForInteraction")(

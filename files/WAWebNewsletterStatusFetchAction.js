@@ -174,7 +174,7 @@ __d(
                   .WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[newsletter][status] reactions present without view counts \u2014 skipping persist (next admin fetch will resync)",
+                        "[newsletter][status] reactions w/o view counts, skip persist",
                       ])),
                   )
                   .sendLogs("newsletter-status-reactions-no-viewcounts"),

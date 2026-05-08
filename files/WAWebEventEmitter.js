@@ -12,12 +12,12 @@ __d(
             if (n == null) return this;
             if (typeof n != "function")
               throw r("err")("Callback parameter passed is not a function");
-            return this._multiEvent.apply(
+            return this.$2.apply(
               this,
               [this.on].concat(Array.prototype.slice.call(arguments)),
             )
               ? this
-              : (this._getOrCreateEvents(t).push({
+              : (this.$3(t).push({
                   callback: n,
                   context: o,
                   ctx: o != null ? o : this,
@@ -27,7 +27,7 @@ __d(
           (n.once = function (t, n, r) {
             if (n == null) return this;
             if (
-              this._multiEvent.apply(
+              this.$2.apply(
                 this,
                 [this.once].concat(Array.prototype.slice.call(arguments)),
               )
@@ -41,17 +41,17 @@ __d(
             return ((a._callback = n), this.on(t, a, r));
           }),
           (n.off = function (t, n, r) {
-            var e = this._events;
+            var e = this.eventMap;
             if (!e) return this;
             if (
-              this._multiEvent.apply(
+              this.$2.apply(
                 this,
                 [this.off].concat(Array.prototype.slice.call(arguments)),
               )
             )
               return this;
             if (!t && n == null && r == null)
-              return ((this._events = void 0), this);
+              return ((this.eventMap = void 0), this);
             for (var o = t ? [t] : Object.keys(e), a = 0; a < o.length; a++) {
               var i = o[a],
                 l = e[i];
@@ -75,76 +75,69 @@ __d(
               r++
             )
               n[r - 1] = arguments[r];
-            if (!this._events) return this;
+            if (!this.eventMap) return this;
             if (
-              this._multiEvent.apply(
+              this.$2.apply(
                 this,
                 [this.trigger].concat(Array.prototype.slice.call(arguments)),
               )
             )
               return this;
-            var o = this._getEvents(t),
-              a = this._getEvents("all");
-            return (
-              o && this._triggerEvents(o, n),
-              a && this._triggerEvents(a, arguments),
-              this
-            );
+            var o = this.$4(t),
+              a = this.$4("all");
+            return (o && this.$5(o, n), a && this.$5(a, arguments), this);
           }),
           (n.stopListening = function (t, n, o) {
             var e,
-              a = this._listeningTo;
+              a = this.$1;
             if (!a) return this;
-            var i = t == null ? void 0 : t._listenId,
+            var i = t == null ? void 0 : t.listenId,
               l = i ? ((e = {}), (e[i] = t), e) : a,
               s = !n && !o;
             for (var u in l) {
               var c = l[u];
               c.off(n, o, this);
-              var d = c._events;
+              var d = c.eventMap;
               (s || !d || r("isEmptyObject")(d)) && delete a[u];
             }
             return (
-              (!this._listeningTo || r("isEmptyObject")(this._listeningTo)) &&
-                delete this._listeningTo,
+              (!this.$1 || r("isEmptyObject")(this.$1)) && (this.$1 = void 0),
               this
             );
           }),
           (n.listenTo = function (t, n, r) {
-            return r == null
-              ? this
-              : (this._addListeningTo(t), t.on(n, r, this), this);
+            return r == null ? this : (this.$6(t), t.on(n, r, this), this);
           }),
           (n.listenToOnce = function (t, n, r) {
-            return (this._addListeningTo(t), t.once(n, r, this), this);
+            return (this.$6(t), t.once(n, r, this), this);
           }),
           (n.listenToAndRun = function (t, n, r) {
             return (this.listenTo.apply(this, arguments), r.apply(this), this);
           }),
           (n.isListening = function (t) {
-            var e = this._events;
+            var e = this.eventMap;
             return e
               ? typeof t == "string"
                 ? !!e[t]
                 : r("isEmptyObject")(e)
               : !1;
           }),
-          (n._addListeningTo = function (t) {
-            var e = this._listeningTo || (this._listeningTo = {}),
-              n = t._listenId || (t._listenId = "l" + ++s);
+          (n.$6 = function (t) {
+            var e = this.$1 || (this.$1 = {}),
+              n = t.listenId || (t.listenId = "l" + ++s);
             e[n] = t;
           }),
-          (n._getOrCreateEvents = function (t) {
-            var e = this._events || (this._events = {});
+          (n.$3 = function (t) {
+            var e = this.eventMap || (this.eventMap = {});
             return e[t] || (e[t] = []);
           }),
-          (n._getEvents = function (t) {
+          (n.$4 = function (t) {
             if (t) {
-              var e = this._events;
+              var e = this.eventMap;
               if (e) return e[t];
             }
           }),
-          (n._multiEvent = function (n, r) {
+          (n.$2 = function (n, r) {
             if (e.test(r)) {
               for (
                 var t = r.split(e),
@@ -161,7 +154,7 @@ __d(
             }
             return !1;
           }),
-          (n._triggerEvents = function (t, n) {
+          (n.$5 = function (t, n) {
             var e,
               r = -1,
               o = t.length,

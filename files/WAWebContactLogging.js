@@ -40,9 +40,11 @@ __d(
         case u.NewChatDrawer:
           return "NEW_CHAT_DRAWER";
         case u.ContactInfo:
-        case u.GroupMemberInfo:
-        case u.ChatHeaderMenu:
           return "CONTACT_INFO";
+        case u.ChatHeaderMenu:
+          return "CHAT_HEADER";
+        case u.GroupMemberInfo:
+          return "GROUP_MEMBER";
         case u.ChatListMenu:
           return "CONTACT_LIST";
         case u.FMXCard:

@@ -83,6 +83,21 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.CommunitiesTab:
         case o("WAWebChatEntryPoint").ChatEntryPoint.CommunitySubgroupSwitcher:
         case o("WAWebChatEntryPoint").ChatEntryPoint.CommunityNewGroupCreation:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.NewGroupCreation:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.BizOrder:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.BizPayment:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.DeprecatedLidChatBanner:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.AddContactToGroup:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.DialerPad:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.NewChat:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.NewBroadcastCreation:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InfoDrawer:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ExistingGroupRedirect:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.SystemMessage:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.MessageAdmin:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.GroupParticipant:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoinRequest:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.CommunityMember:
         case o("WAWebChatEntryPoint").ChatEntryPoint.VoipWindow:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINullStateSuggestion:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MetaAINavigationBar:

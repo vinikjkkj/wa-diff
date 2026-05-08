@@ -31,6 +31,7 @@ __d(
             n("createdAt"),
             n("isOrphan"),
             r("isOrphan"),
+            n("senderJid"),
           ],
         )
         .view(function (e) {

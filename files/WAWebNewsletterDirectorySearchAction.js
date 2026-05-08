@@ -10,7 +10,6 @@ __d(
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterValidationUtils",
-    "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -69,29 +68,22 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
           o("WALogger").LOG(
             u ||
               (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[newsletters][getRecommendedNewslettersAction] Start",
               ])),
           );
-          var t =
-              (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
-                ? void 0
-                : e.user,
-            n =
-              t != null
-                ? o(
-                    "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
-                  ).getCountryCodeIso(t)
-                : void 0,
-            r = yield o(
+          var e = yield o(
               "WAWebNewsletterDirectorySearchJob",
-            ).getRecommendedNewsletters(n),
-            a = yield o(
+            ).getRecommendedNewsletters(
+              o(
+                "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
+              ).getMaybeMyCountryCodeIso(),
+            ),
+            t = yield o(
               "WAWebGetNewsletterDirectoryChats",
-            ).getDirectoryNewsletterChats(r, { skipSubscribedNewsletters: !0 });
+            ).getDirectoryNewsletterChats(e, { skipSubscribedNewsletters: !0 });
           return (
             o("WALogger").LOG(
               c ||
@@ -99,7 +91,7 @@ __d(
                   "[newsletters][getRecommendedNewslettersAction] End",
                 ])),
             ),
-            a
+            t
           );
         })),
         L.apply(this, arguments)

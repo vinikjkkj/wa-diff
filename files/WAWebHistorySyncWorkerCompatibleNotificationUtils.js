@@ -50,25 +50,17 @@ __d(
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0) {
             var t = o("WAWebSchemaChat").getChatTable(),
-              r = yield (c || (c = n("Promise"))).allSettled(
+              r = [],
+              a = yield (c || (c = n("Promise"))).allSettled(
                 e.map(function (e) {
                   var n = e.chat,
-                    r = e.endOfHistoryTransferTypeFromProto,
+                    o = e.endOfHistoryTransferTypeFromProto,
                     a = e.setChatTimeToZero,
-                    i = f(r),
+                    i = f(o),
                     l = { id: n, endOfHistoryTransferType: i };
                   return (
                     a === !0 && (l.t = 0),
-                    o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] update chat ",
-                          " end of history transfer type to ",
-                          "",
-                        ])),
-                      n.toLogString(),
-                      i,
-                    ),
+                    r.length < 3 && r.push(n.toLogString()),
                     t
                       .merge(n.toString(), { endOfHistoryTransferType: i })
                       .then(function () {
@@ -76,11 +68,21 @@ __d(
                       })
                   );
                 }),
-              ),
-              a = [];
-            (r.forEach(function (e) {
+              );
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] updated ",
+                  " chats end of history transfer type => ",
+                  "",
+                ])),
+              e.length,
+              r,
+            );
+            var i = [];
+            (a.forEach(function (e) {
               e.status === "fulfilled"
-                ? a.push(e.value)
+                ? i.push(e.value)
                 : o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -90,10 +92,10 @@ __d(
                     e.reason,
                   );
             }),
-              a.length !== 0 &&
+              i.length !== 0 &&
                 (yield o("WAWebBackendApi").frontendSendAndReceive(
                   "chatCollectionAdd",
-                  { things: a, options: { merge: !0, add: !1 } },
+                  { things: i, options: { merge: !0, add: !1 } },
                 )));
           }
         })),

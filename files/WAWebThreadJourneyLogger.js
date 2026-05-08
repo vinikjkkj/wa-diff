@@ -35,7 +35,10 @@ __d(
         return (
           (a.maybeGenAiSessionId = function () {
             this.$1 == null &&
-              (this.$1 = r("WAWebPonyfillsCryptoRandomUUID")());
+              ((this.$1 = r("WAWebPonyfillsCryptoRandomUUID")()),
+              o("WAWebBotJourneyLogger").BotJourneyLogger.setAiSessionId(
+                this.$1,
+              ));
           }),
           (a.getAiSessionId = function () {
             return this.$1;
@@ -44,7 +47,9 @@ __d(
             return this.$3;
           }),
           (a.clearAiThreadLoggingContext = function () {
-            ((this.$1 = null), (this.$3 = null));
+            ((this.$1 = null),
+              (this.$3 = null),
+              o("WAWebBotJourneyLogger").BotJourneyLogger.setAiSessionId(null));
           }),
           (a.log = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(

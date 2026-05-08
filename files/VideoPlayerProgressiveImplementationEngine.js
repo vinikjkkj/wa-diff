@@ -9,7 +9,9 @@ __d(
     "VideoPlayerODS",
     "VideoPlayerProgressiveImplementationEngineExtrasAPI",
     "VideoPlayerProgressiveImplementationEngineUtils",
+    "VideoPlayerRetryConfig",
     "assignMediaStream",
+    "clearTimeout",
     "cr:1680308",
     "cr:7276",
     "err",
@@ -17,6 +19,7 @@ __d(
     "getErrorSafe",
     "getMoreGranularErrorNameFromHTMLVideoElementErrorMessage",
     "gkx",
+    "setTimeout",
     "videoUrlUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -42,44 +45,102 @@ __d(
         l = { current: null },
         u = { current: null },
         p = { current: null },
-        _ = a.loggingMetaData.instanceKey,
-        f = function () {
-          var t = L(),
+        _ = { current: !1 },
+        f = { current: null },
+        g = { current: null },
+        h = a.loggingMetaData.instanceKey,
+        y = function () {
+          var t = I(),
             i = l.current;
           if (!(t == null || i == null)) {
-            t.addEventListener("error", function (o) {
-              var i = t.error,
-                l = i == null ? void 0 : i.code,
-                s = r("getErrorNameFromMediaErrorCode")(l),
-                u = i == null ? void 0 : i.message,
-                c = u == null || u === "" ? "Unknown media error" : u,
-                d = [],
-                m =
-                  u != null
+            var s = 0,
+              c = !1,
+              d = null,
+              m = !1,
+              h = null,
+              y = 0,
+              C = function () {
+                (s === 0 && (y = t.currentTime), s++);
+                var e =
+                  d != null
+                    ? d
+                    : o("VideoPlayerRetryConfig").computeBackoffMs(s - 1);
+                ((d = null),
+                  f.current != null && r("clearTimeout")(f.current),
+                  (f.current = r("setTimeout")(function () {
+                    if (
+                      ((f.current = null), !(_.current || u.current == null))
+                    ) {
+                      g.current != null && (g.current(), (g.current = null));
+                      var e = function () {
+                        (t.removeEventListener("loadedmetadata", e),
+                          (g.current = null),
+                          !_.current &&
+                            (y > 0 && (t.currentTime = y),
+                            (c = !1),
+                            (s = 0),
+                            (d = null),
+                            (m = !1),
+                            (h = null),
+                            (y = 0)));
+                      };
+                      (t.addEventListener("loadedmetadata", e),
+                        (g.current = function () {
+                          t.removeEventListener("loadedmetadata", e);
+                        }),
+                        (c = !0),
+                        t.load());
+                    }
+                  }, e)));
+              };
+            t.addEventListener("error", function (i) {
+              if (c) {
+                if (
+                  ((c = !1),
+                  r("gkx")("25633") &&
+                    m &&
+                    s <
+                      o("VideoPlayerRetryConfig").PROGRESSIVE_RETRY_CONFIG
+                        .retryCount)
+                ) {
+                  C();
+                  return;
+                }
+                h != null && D(h.implementationError, h.errorLocation);
+                return;
+              }
+              var l = t.error,
+                u = l == null ? void 0 : l.code,
+                p = r("getErrorNameFromMediaErrorCode")(u),
+                _ = l == null ? void 0 : l.message,
+                f = _ == null || _ === "" ? "Unknown media error" : _,
+                g = [],
+                y =
+                  _ != null
                     ? r(
                         "getMoreGranularErrorNameFromHTMLVideoElementErrorMessage",
-                      )(u)
+                      )(_)
                     : null,
-                p = t.src;
+                b = t.src;
               if (
-                (!i &&
+                (!l &&
                   t.poster != null &&
                   t.poster !== "" &&
-                  (c += "(possible_poster_load_failure)"),
-                p !== "")
+                  (f += "(possible_poster_load_failure)"),
+                b !== "")
               ) {
-                var _ = null;
+                var v = null;
                 (e || (e = n("Promise")))
                   .resolve()
                   .then(function () {
                     return a.coreVideoPlayerMetaData
                       .crossOrigin_DO_NOT_USE_UNLESS_YOU_KNOW_WHAT_YOURE_DOING ===
                       "use-credentials" && r("gkx")("19391")
-                      ? window.fetch(p, {
+                      ? window.fetch(b, {
                           credentials: "include",
                           method: "GET",
                         })
-                      : window.fetch(p);
+                      : window.fetch(b);
                   })
                   .then(function (e) {
                     var t,
@@ -89,19 +150,25 @@ __d(
                           ? t
                           : "unknown";
                     if (
-                      ((c =
-                        c +
+                      ((f =
+                        f +
                         ". Fetched video content with Status:" +
                         n +
                         " Content-Type:" +
                         r),
-                      (_ = "URL_RESPONSE_HTTP_" + n),
+                      (v = "URL_RESPONSE_HTTP_" + n),
+                      o(
+                        "VideoPlayerRetryConfig",
+                      ).isRetriableTransientHttpResponseErrorName(v) &&
+                        (d = o("VideoPlayerRetryConfig").parseRetryAfterMs(
+                          e.headers.get("Retry-After"),
+                        )),
                       n < 200 || n >= 300)
                     )
                       return e.text().then(
                         function (e) {
-                          (d.push(e.length.toString()),
-                            (c +=
+                          (g.push(e.length.toString()),
+                            (f +=
                               " Body:%s:" +
                               e.substr(0, 200) +
                               (e.length > 200 ? "..." : "")));
@@ -114,98 +181,113 @@ __d(
                     e != null &&
                     typeof e.name == "string" &&
                     typeof e.message == "string"
-                      ? ((_ =
-                          _ != null
-                            ? _
+                      ? ((v =
+                          v != null
+                            ? v
                             : "URL_RESPONSE_FETCH_FAILED/" + e.name),
-                        (c =
-                          c +
+                        (f =
+                          f +
                           ". Failed fetching video content with error: " +
                           e.name +
                           " " +
                           e.message))
-                      : ((_ = _ != null ? _ : "URL_RESPONSE_FETCH_FAILED"),
-                        (c =
-                          c +
+                      : ((v = v != null ? v : "URL_RESPONSE_FETCH_FAILED"),
+                        (f =
+                          f +
                           ". Failed fetching video content with unknown error"));
                   })
                   .finally(function () {
-                    var e = r("err").apply(void 0, [c].concat(d));
-                    ((e.name = [s, m, _].filter(Boolean).join("/")),
-                      k(e, "progressive_implementation_error_with_more_info"));
+                    var e = r("err").apply(void 0, [f].concat(g));
+                    e.name = [p, y, v].filter(Boolean).join("/");
+                    var t = "progressive_implementation_error_with_more_info";
+                    if (
+                      ((h = { errorLocation: t, implementationError: e }),
+                      (m = o(
+                        "VideoPlayerRetryConfig",
+                      ).isRetriableTransientHttpResponseErrorName(v)),
+                      r("gkx")("25633") &&
+                        m &&
+                        s <
+                          o("VideoPlayerRetryConfig").PROGRESSIVE_RETRY_CONFIG
+                            .retryCount)
+                    ) {
+                      C();
+                      return;
+                    }
+                    D(e, t);
                   });
               } else {
-                var f = r("err").apply(void 0, [c].concat(d));
-                ((f.name = [s, m, "VIDEO_ELEMENT_SRC_EMPTY"]
+                var S = r("err").apply(void 0, [f].concat(g));
+                ((S.name = [p, y, "VIDEO_ELEMENT_SRC_EMPTY"]
                   .filter(Boolean)
                   .join("/")),
-                  k(f, "progressive_implementation_error_with_empty_src"));
+                  D(S, "progressive_implementation_error_with_empty_src"));
               }
             });
             try {
-              var s,
-                c = i.graphQLVideoDRMInfo,
-                d = i.videoFBID,
-                m = c && (s = c.fairplayCert) != null ? s : null;
-              if (n("cr:1680308") && c && m != null && d != null)
+              var b,
+                S = i.graphQLVideoDRMInfo,
+                R = i.videoFBID,
+                L = S && (b = S.fairplayCert) != null ? b : null;
+              if (n("cr:1680308") && S && L != null && R != null)
                 if (
                   ((p.current = n("cr:1680308").newIfSupported(
-                    m,
+                    L,
                     t,
-                    d,
-                    c.videoLicenseUriMap,
+                    R,
+                    S.videoLicenseUriMap,
                   )),
                   p.current == null)
                 ) {
-                  var _ = r("err")("Fairplay not supported");
-                  k(_, "progressive_player_fairplay_handler_missing");
+                  var E = r("err")("Fairplay not supported");
+                  D(E, "progressive_player_fairplay_handler_missing");
                 } else
                   p.current.addListener("error", function (e) {
                     var t = r("err")(e.error);
-                    k(t, "progressive_player_fairplay_handler_error");
+                    D(t, "progressive_player_fairplay_handler_error");
                   });
-              var f = r("gkx")("18183")
+              var P = r("gkx")("18183")
                 ? o("VideoPlayerImplementationEngineAPI").ensureVideoElementAPI(
-                    T,
+                    $,
                   )
-                : (T.current = o(
+                : ($.current = o(
                     "VideoPlayerImplementationEngineVideoElementAPI",
                   ).createVideoPlayerImplementationEngineVideoElementAPI(t));
               u.current = i;
               {
-                var g = R();
-                E({
+                var N = k();
+                T({
                   inbandCaptionsAutogeneratedFromManifest:
-                    y.getInbandCaptionsAutogeneratedFromManifest(),
+                    v.getInbandCaptionsAutogeneratedFromManifest(),
                   inbandCaptionsExpectedFromManifest:
-                    y.getInbandCaptionsExpectedFromManifest(),
+                    v.getInbandCaptionsExpectedFromManifest(),
                   inbandCaptionsExpectedFromProps:
-                    g == null ? void 0 : g.inbandCaptionsExpectedFromProps,
+                    N == null ? void 0 : N.inbandCaptionsExpectedFromProps,
                   representationCaptionsExpectedFromManifest:
-                    y.getRepresentationCaptionsExpectedFromManifest(),
+                    v.getRepresentationCaptionsExpectedFromManifest(),
                   sideLoadCaptionsExpectedFromProps:
-                    g == null ? void 0 : g.sideLoadCaptionsExpectedFromProps,
+                    N == null ? void 0 : N.sideLoadCaptionsExpectedFromProps,
                   sideLoadCaptionsUrlFromProps:
-                    g == null ? void 0 : g.sideLoadCaptionsUrlFromProps,
+                    N == null ? void 0 : N.sideLoadCaptionsUrlFromProps,
                 });
               }
-              I.dispatch({
+              x.dispatch({
                 payload: {
-                  selectedVideoQuality: y.getUserSelectedVideoQuality(),
-                  streamingFormat: y.getStreamType(),
+                  selectedVideoQuality: v.getUserSelectedVideoQuality(),
+                  streamingFormat: v.getStreamType(),
                 },
                 type: "implementation_engine_initialized",
               });
-              var h = function () {
-                f.setPlayheadPosition(a.coreVideoPlayerMetaData.startTimestamp);
+              var M = function () {
+                P.setPlayheadPosition(a.coreVideoPlayerMetaData.startTimestamp);
               };
-              h();
+              M();
             } catch (e) {
-              k(e, "progressive_player_create_exception");
+              D(e, "progressive_player_create_exception");
             }
           }
         },
-        g = function (t, n) {
+        C = function (t, n) {
           if (n == null) return !0;
           if (t.videoFBID !== n.videoFBID) {
             var e = 14;
@@ -229,7 +311,7 @@ __d(
             );
           } else return !1;
         },
-        h = function (t) {
+        b = function (t) {
           var e,
             n,
             a,
@@ -246,7 +328,7 @@ __d(
               sdSrc: t.sdSrc === "" ? null : (s = t.sdSrc) != null ? s : null,
               videoFBID: t.coreVideoPlayerMetaData.videoFBID,
             };
-          if (!g(u, i.current)) return !1;
+          if (!C(u, i.current)) return !1;
           var c = u.mediaStream != null;
           if (!c && u.hdSrc == null && u.sdSrc == null)
             throw r("FBLogger")("comet_video_player").mustfixThrow(
@@ -257,11 +339,11 @@ __d(
             (l.current = o(
               "VideoPlayerProgressiveImplementationEngineUtils",
             ).createResolvedVideoInfoProgressive(u)),
-            f(),
+            y(),
             !0
           );
         },
-        y = o(
+        v = o(
           "VideoPlayerProgressiveImplementationEngineExtrasAPI",
         ).createVideoPlayerProgressiveImplementationEngineExtrasAPI({
           getPlayingVideoInfo: function () {
@@ -270,7 +352,7 @@ __d(
                 t = u.current;
               if (!t) return null;
               var n =
-                (e = T.current) == null
+                (e = $.current) == null
                   ? void 0
                   : e.getUnderlyingVideoElement().currentSrc;
               return babelHelpers.extends({}, t, {
@@ -286,11 +368,11 @@ __d(
               );
             var n = o(
                 "VideoPlayerImplementationEngineAPI",
-              ).ensureVideoElementAPI(T),
+              ).ensureVideoElementAPI($),
               i = n.getUnderlyingVideoElement();
             if (e.mediaStream != null) {
               (m(i, e.mediaStream),
-                I.dispatch({ payload: {}, type: "representation_changed" }));
+                x.dispatch({ payload: {}, type: "representation_changed" }));
               return;
             }
             u.current = o(
@@ -331,13 +413,13 @@ __d(
                   );
                   var c =
                     (s =
-                      I.getCurrentState().uncontrolledState
+                      x.getCurrentState().uncontrolledState
                         .videoElementPlayheadPosition) != null
                       ? s
                       : 0;
                   if (
                     (c > 0 && n.setPlayheadPosition(c),
-                    I.getCurrentState().controlledState.playbackState ===
+                    x.getCurrentState().controlledState.playbackState ===
                       "playing")
                   ) {
                     var m;
@@ -348,7 +430,7 @@ __d(
                           .warn("Failed to play video after quality change");
                       });
                   }
-                  I.dispatch({ payload: {}, type: "representation_changed" });
+                  x.dispatch({ payload: {}, type: "representation_changed" });
                 }
               })
               .catch(function (e) {
@@ -370,10 +452,10 @@ __d(
               });
           },
         }),
-        C = function () {
+        S = function () {
           p.current && (p.current.destroy(), (p.current = null));
         },
-        b = o(
+        R = o(
           "VideoPlayerImplementationEngineAPI",
         ).createVideoPlayerImplementationEngine({
           createDebugAPI: function (t) {
@@ -381,7 +463,7 @@ __d(
               r = t.loggerToVPL;
             return n("cr:7276")
               ? n("cr:7276").createVideoPlayerImplementationDebugAPI({
-                  engineExtrasAPI: y,
+                  engineExtrasAPI: v,
                   getVideoElementAPI: e,
                   loggerToVPL: r,
                 })
@@ -392,30 +474,34 @@ __d(
             return s(t, n, (e = u.current) == null ? void 0 : e.targetSrc);
           },
           destroyEngineParts: function () {
-            C();
+            ((_.current = !0),
+              f.current != null &&
+                (r("clearTimeout")(f.current), (f.current = null)),
+              g.current != null && (g.current(), (g.current = null)),
+              S());
           },
           engineCreateArgs: t,
-          engineExtrasAPI: y,
+          engineExtrasAPI: v,
           engineMetadata: {
             isAbrEnabled: !1,
-            playerInstanceKey: _,
+            playerInstanceKey: h,
             playerVersion: "comet_progressive",
             streamingFormat: "progressive",
           },
           handleVideoElementChanged: function (t) {
-            t != null && f();
+            t != null && y();
           },
-          handleVideoInfoChange: h,
+          handleVideoInfoChange: b,
         }),
-        v = b.debugLog,
-        S = b.engine,
-        R = b.getCaptionsInfo,
-        L = b.getVideoElement,
-        E = b.handleCaptionsInfoChange,
-        k = b.handleFatalImplementationError,
-        I = b.machine,
-        T = b.videoElementAPIRef;
-      return S;
+        L = R.debugLog,
+        E = R.engine,
+        k = R.getCaptionsInfo,
+        I = R.getVideoElement,
+        T = R.handleCaptionsInfoChange,
+        D = R.handleFatalImplementationError,
+        x = R.machine,
+        $ = R.videoElementAPIRef;
+      return E;
     }
     function c(t, a) {
       return a && o("videoUrlUtils").isCdnUrlExpired(t)

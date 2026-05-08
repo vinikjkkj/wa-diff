@@ -11,6 +11,7 @@ __d(
     "WAWebChatCollection",
     "WAWebJidToWid",
     "WAWebLid1X1MigrationGating",
+    "WAWebPresenceCollection",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -26,11 +27,30 @@ __d(
       } else return o("WATimeUtils").unixTime();
     }
     function m(e) {
-      return p.apply(this, arguments);
+      var t = o("WAWebWidFactory").asUserLidOrThrow(e),
+        n = o("WAWebChatCollection").ChatCollection.getChatByAccountLid(t);
+      if (n != null) {
+        var r = o("WAWebWidFactory").asChatWid(n.id),
+          a = o("WAWebWidFactory").asChatWid(t).toString() !== r.toString(),
+          i =
+            a && o("WAWebPresenceCollection").PresenceCollection.get(t) != null
+              ? o("WAWebWidFactory").asChatWid(t)
+              : null;
+        return { resolvedChatId: r, lidDispatchTarget: i };
+      }
+      return o("WAWebPresenceCollection").PresenceCollection.get(t) != null
+        ? {
+            resolvedChatId: o("WAWebWidFactory").asChatWid(t),
+            lidDispatchTarget: null,
+          }
+        : null;
     }
-    function p() {
+    function p(e) {
+      return _.apply(this, arguments);
+    }
+    function _() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           try {
             var a = o("WASmaxPresenceServerUpdateRPC").receiveServerUpdateRPC(
                 t,
@@ -52,15 +72,15 @@ __d(
             }
             var l = o("WAWebJidToWid").chatJidToChatWid(i.value.from),
               c = l.isLid(),
-              m = o(
+              p = o(
                 "WAWebLid1X1MigrationGating",
               ).Lid1X1MigrationUtils.isLidMigrated();
-            if (!m && l.isLid()) {
-              var p = o("WAWebApiContact").getPhoneNumber(l);
-              if (p == null) return;
-              l = p;
+            if (!p && l.isLid()) {
+              var _ = o("WAWebApiContact").getPhoneNumber(l);
+              if (_ == null) return;
+              l = _;
             }
-            if (m && !c) {
+            if (p && !c) {
               o("WALogger").ERROR(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -69,23 +89,24 @@ __d(
               );
               return;
             }
-            var _ = l;
-            if (m) {
-              var f = o(
-                "WAWebChatCollection",
-              ).ChatCollection.getChatByAccountLid(
-                o("WAWebWidFactory").asUserLidOrThrow(l),
-              );
-              if (!f) return;
-              _ = o("WAWebWidFactory").asChatWid(f.id);
+            var f = l,
+              g = null;
+            if (p) {
+              var h = m(l);
+              if (h == null) return;
+              ((f = h.resolvedChatId), (g = h.lidDispatchTarget));
             }
-            var g = {
-              id: _,
+            var y = {
+              id: f,
               type: i.value.type || "available",
               deny: i.value.last === "deny" || void 0,
               t: i.value.type === "unavailable" ? d(i.value.last) : void 0,
             };
-            return r("WAWebChangePresenceHandlerAction")(g);
+            (yield r("WAWebChangePresenceHandlerAction")(y),
+              g != null &&
+                (yield r("WAWebChangePresenceHandlerAction")(
+                  babelHelpers.extends({}, y, { id: g }),
+                )));
           } catch (e) {
             return (
               o("WALogger").ERROR(
@@ -100,10 +121,10 @@ __d(
             );
           }
         })),
-        p.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    l.default = m;
+    l.default = p;
   },
   98,
 );

@@ -102,6 +102,7 @@ __d(
         BILLING_WIZARD_EXTERNAL_SITE_S612295_FIX_GK: {
           type: "PAYMENT_ACCOUNT_ID",
         },
+        BRAZIL_MV4B_LOCALIZED: { type: "PAYMENT_ACCOUNT_ID" },
         BRAZIL_VAT_REFORM_CPF_ADDRESS_VALIDATION: {
           type: "PAYMENT_ACCOUNT_ID",
         },

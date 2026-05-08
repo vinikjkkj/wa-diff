@@ -14,33 +14,34 @@ __d(
     "WAWebUsyncUser",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return e.length === 0
             ? []
             : o("WAWebBotGating").isBotProfileGqlMigrationEnabled()
-              ? p(e)
-              : y(e);
+              ? _(e)
+              : C(e);
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    function _(e) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = [];
           for (var r of t) {
-            var a = h(r.id, r.personaId);
+            var a = y(r.id, r.personaId);
             a != null &&
               a !== "" &&
               n.push({ fbid: a, id: r.id, isDefault: r.isDefault });
@@ -86,14 +87,14 @@ __d(
           for (var d of n) {
             var m = u.get(d.fbid);
             m != null &&
-              c.push(f({ gqlProfile: m, isDefault: d.isDefault, wid: d.id }));
+              c.push(g({ gqlProfile: m, isDefault: d.isDefault, wid: d.id }));
           }
           return c;
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
+    function g(e) {
       var t = e.gqlProfile,
         n = e.isDefault,
         r = e.wid;
@@ -114,10 +115,10 @@ __d(
         creatorName: t.creatorName,
         creatorProfileUrl: t.creatorProfileUrl,
         lastUpdateTs: Date.now(),
-        posingAsProfessional: g(t.posingAsProfessional),
+        posingAsProfessional: h(t.posingAsProfessional),
       };
     }
-    function g(e) {
+    function h(e) {
       return e == null
         ? null
         : (function (e) {
@@ -131,7 +132,7 @@ __d(
             }
           })(e.toLowerCase());
     }
-    function h(e, t) {
+    function y(e, t) {
       if (t != null && t !== "") {
         var n = t.indexOf("$"),
           r = n === -1 ? t : t.substring(0, n);
@@ -139,78 +140,99 @@ __d(
       }
       return e.isFbidBot() ? e.user : null;
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function C(e) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            a = new (o("WAWebUsync").USyncQuery)()
-              .withContext("interactive")
-              .withMode("query")
-              .withBotProfileProtocol();
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = new (o("WAWebUsync").USyncQuery)()
+            .withContext("interactive")
+            .withMode("query")
+            .withBotProfileProtocol();
           e.forEach(function (e) {
-            var t = e.id,
-              n = e.personaId;
-            a.withUser(
-              new (o("WAWebUsyncUser").USyncUser)().withId(t).withPersonaId(n),
+            var n = e.id,
+              r = e.personaId;
+            t.withUser(
+              new (o("WAWebUsyncUser").USyncUser)().withId(n).withPersonaId(r),
             );
           });
-          var i = (t = o(
+          var a = o(
               "WAWebContactSyncLogger",
-            )).contactSyncLogger.createEventContext({
-              syncType: t.getSyncTypeString("interactive", "query"),
-              requestOrigin: t.SYNC_REQUEST_ORIGIN.BOT_REQUEST,
+            ).contactSyncLogger.createEventContext({
+              syncType: o("WAWebContactSyncLogger").getSyncTypeString(
+                "interactive",
+                "query",
+              ),
+              requestOrigin: o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN
+                .BOT_REQUEST,
               requestedCount: e.length,
-              protocols: a.protocols,
+              protocols: t.protocols,
             }),
-            l = yield t.contactSyncLogger.executeWithLogging(
-              i,
+            i;
+          try {
+            i = yield o(
+              "WAWebContactSyncLogger",
+            ).contactSyncLogger.executeWithLogging(
+              a,
               function () {
-                return a.execute();
+                return t.execute();
               },
               o("WAWebContactSyncErrorCodes").BOT_PROFILE,
-            ),
-            s = l.error.all || l.error.status;
-          if (s)
+            );
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[bot] requestBotProfiles usync error",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("bot-profile-usync-parse-error"),
+              e
+            );
+          }
+          var l = i.error.all || i.error.status;
+          if (l)
             throw (
               o("WAWebContactSyncLogger").contactSyncLogger.logFailure(
+                a,
+                l.errorCode,
                 i,
-                s.errorCode,
-                l,
                 o("WAWebContactSyncErrorCodes").BOT_PROFILE,
               ),
               new (o("WAWebBackendErrors").ServerStatusCodeError)(
-                s.errorCode,
-                s.errorText,
+                l.errorCode,
+                l.errorText,
               )
             );
-          var d = l.list;
-          if (!d.length) {
+          var s = i.list;
+          if (!s.length) {
             var m = e.map(function (e) {
               return e.id.toString();
             });
             return (
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "Bot ids ",
                       "",
                     ])),
                   m.join(", "),
                 )
                 .sendLogs("noStatusDataForBots"),
-              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
-              (c || (c = n("Promise"))).reject(
+              o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
+              (d || (d = n("Promise"))).reject(
                 r("err")("no status data returned for user"),
               )
             );
           }
           return (
-            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(i, l),
-            d.map(function (e) {
+            o("WAWebContactSyncLogger").contactSyncLogger.logSuccess(a, i),
+            s.map(function (e) {
               var t,
                 n = e.bot,
                 r = e.id;
@@ -239,10 +261,10 @@ __d(
             })
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    l.requestBotProfiles = d;
+    l.requestBotProfiles = m;
   },
   98,
 );

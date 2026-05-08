@@ -1,6 +1,13 @@
 __d(
   "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
-  ["WACcToIso", "WAIsoToCc", "WALogger", "WAPhoneFindCC", "WAWebPhoneUtils"],
+  [
+    "WACcToIso",
+    "WAIsoToCc",
+    "WALogger",
+    "WAPhoneFindCC",
+    "WAWebPhoneUtils",
+    "WAWebUserPrefsMeUser",
+  ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
@@ -132,7 +139,15 @@ __d(
       var t = o("WAPhoneFindCC").findCC(e);
       return r("WACcToIso")[parseInt(t, 10)];
     }
-    function R(t, n, r) {
+    function R() {
+      var e,
+        t =
+          (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
+            ? void 0
+            : e.user;
+      return t != null ? S(t) : "";
+    }
+    function L(t, n, r) {
       var a = S(t);
       a !== n &&
         o("WALogger")
@@ -146,7 +161,7 @@ __d(
           )
           .sendLogs("country-code-mismatch", { sampling: 0.01 });
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       if (t == null) {
         var r = e ? "+" : "";
         return "" + r + n;
@@ -159,8 +174,9 @@ __d(
       (l.isPhoneNumberValid = b),
       (l.cleanPhoneNumberInputValue = v),
       (l.getCountryCodeIso = S),
-      (l.compareCountryCodeOutput = R),
-      (l.getFullFormattedInputValue = L));
+      (l.getMaybeMyCountryCodeIso = R),
+      (l.compareCountryCodeOutput = L),
+      (l.getFullFormattedInputValue = E));
   },
   98,
 );

@@ -95,9 +95,9 @@ __d(
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[newsletter][status][updates] extracted ",
-                    " view counts, ",
-                    " reaction entries for ",
+                    "[newsletter-status] views=",
+                    " reactions=",
+                    " jid=",
                     "",
                   ])),
                 String(u.length),

@@ -12,18 +12,19 @@ __d(
     "WAWebRuntimeEnvironmentUtils",
     "WAWebUserPrefsBot",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m() {
+    var e, s, u, c, d, m, p, _;
+    function f() {
       return o("WAWebUserPrefsBot").getBotListLastRequestedTimestamp();
     }
-    function p() {
-      return _.apply(this, arguments);
+    function g() {
+      return h.apply(this, arguments);
     }
-    function _() {
+    function h() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           if (o("WAWebRuntimeEnvironmentUtils").isWorker()) {
             o("WALogger").LOG(
               e ||
@@ -42,7 +43,7 @@ __d(
             );
             return;
           }
-          var t = m(),
+          var t = f(),
             r = o("WATimeUtils").unixTime(),
             a = o("WAWebABProps").getABPropConfigValue(
               "bonsai_update_interval",
@@ -55,7 +56,7 @@ __d(
                     "[bot] requesting bots from server",
                   ])),
               ),
-              yield f(),
+              yield y(),
               (i = a))
             : (o("WALogger").LOG(
                 c ||
@@ -69,7 +70,7 @@ __d(
               (i = t + a - r)),
             self.setTimeout(
               n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                yield p();
+                yield g();
               }),
               i * 1e3,
             ),
@@ -82,28 +83,70 @@ __d(
               r + i,
             ));
         })),
-        _.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function f() {
-      return g.apply(this, arguments);
+    function y() {
+      return C.apply(this, arguments);
     }
-    function g() {
+    function C() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebRequestBotList").requestBotList(),
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          var e;
+          try {
+            e = yield o("WAWebRequestBotList").requestBotList();
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot] requestBotList error",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("bot-request-bot-list-error");
+            return;
+          }
+          var t;
+          try {
             t = yield o("WAWebRequestBotProfiles").requestBotProfiles(e);
-          (yield o("WAWebPersistBotProfiles").persistBotProfiles(t), h());
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot] requestBotProfiles error",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("bot-request-bot-profiles-error");
+            return;
+          }
+          try {
+            yield o("WAWebPersistBotProfiles").persistBotProfiles(t);
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot] persistBotProfiles error",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("bot-persist-bot-profiles-error");
+            return;
+          }
+          b();
         })),
-        g.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function h() {
+    function b() {
       o("WAWebUserPrefsBot").setBotListLastRequestedTimestamp(
         o("WATimeUtils").unixTime(),
       );
     }
-    ((l.initializeBots = p), (l.getBotProfilesFromServer = f));
+    ((l.initializeBots = g), (l.getBotProfilesFromServer = y));
   },
   98,
 );

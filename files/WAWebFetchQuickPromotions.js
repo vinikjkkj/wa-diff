@@ -7,6 +7,7 @@ __d(
     "WALogger",
     "WAPromiseRetryLoop",
     "WAPromiseTimeout",
+    "WAWebAuthAgentFeatureControlGateKeeper",
     "WAWebBackendApi",
     "WAWebBuildConstants",
     "WAWebCTWAConstants",
@@ -89,17 +90,21 @@ __d(
       });
     }
     function F() {
-      return o("WAWebQuickPromotionGating").qpGraphQLEnabledSMB()
-        ? o("WAWebOrchestratorNonPersistedJob")
-            .createNonPersistedJob("fetchQuickPromotions", function () {
-              return o("WAWebBackendApi")
-                .frontendSendAndReceive("getUserLocale")
-                .then(function (e) {
-                  return O(e);
-                });
-            })
-            .waitUntilCompleted()
-        : (R || (R = n("Promise"))).resolve({ type: "not-enabled" });
+      return o("WAWebAuthAgentFeatureControlGateKeeper").isFeatureDisabled(
+        "QP_BANNERS",
+      )
+        ? (R || (R = n("Promise"))).resolve({ type: "not-enabled" })
+        : o("WAWebQuickPromotionGating").qpGraphQLEnabledSMB()
+          ? o("WAWebOrchestratorNonPersistedJob")
+              .createNonPersistedJob("fetchQuickPromotions", function () {
+                return o("WAWebBackendApi")
+                  .frontendSendAndReceive("getUserLocale")
+                  .then(function (e) {
+                    return O(e);
+                  });
+              })
+              .waitUntilCompleted()
+          : (R || (R = n("Promise"))).resolve({ type: "not-enabled" });
     }
     function O(e) {
       return r("WAWebNetworkStatus")

@@ -307,7 +307,7 @@ __d(
       (l.getUppercaseWeekdayName = y),
       (l.getWeekdayNameShort = C),
       (l.getUppercaseWeekdayNameShort = b),
-      (l._initializeMonthNames = v),
+      (l.initializeMonthNames = v),
       (l.getMonthName = S),
       (l.getMonthNames = R),
       (l.getUppercaseMonthName = L),

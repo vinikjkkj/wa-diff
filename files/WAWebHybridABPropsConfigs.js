@@ -376,6 +376,7 @@ __d(
         '{ "entries": [{ "business_id": "34666845417", "pills": ["CHAT", "PROFILE", "ABOUT_US"] }]}',
         '{ "entries": [{ "business_id": "34666845417", "pills": ["CHAT", "PROFILE", "ABOUT_US"] }]}',
       ],
+      p2p_pills_auto_send_messages: [30208, "bool", !1, !1],
       p2p_pills_enabled: [27959, "bool", !1, !1],
       p2p_pills_enabled_for_ineligible_contacts: [29715, "bool", !1, !1],
       payments_br_p2m_pix_copy_code_buyer_logging: [27028, "bool", !1, !0],

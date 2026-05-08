@@ -30,6 +30,7 @@ __d(
                 scheduledTimestampS: e.scheduledTimestampS,
                 status: "PENDING",
                 createdAt: o("WATimeUtils").unixTime(),
+                senderJid: null,
               }),
               !0);
         })),

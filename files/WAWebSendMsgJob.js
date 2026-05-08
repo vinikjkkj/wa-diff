@@ -98,7 +98,7 @@ __d(
               g
             );
           } else if (c.isGroup())
-            return o("WAWebSendGroupMsgJob").encryptAndSendGroupMsg(t, _, a);
+            return o("WAWebSendGroupMsgJob").encryptAndSendGroupMsg(t, _, a, f);
           return (s || (s = n("Promise"))).reject(
             r("err")("[messaging] unsupported remote jid type"),
           );

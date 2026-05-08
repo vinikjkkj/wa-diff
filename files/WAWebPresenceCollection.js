@@ -6,6 +6,7 @@ __d(
     "WAWebContactPresenceBridge",
     "WAWebGroupPresencePoller",
     "WAWebGroupPresenceUtils",
+    "WAWebLidMigrationUtils",
     "WAWebPresenceChatAction",
     "WAWebPresenceModel",
     "WAWebStaleBaseCollection",
@@ -70,14 +71,15 @@ __d(
           (i._subscribeGroup = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
+                var r = this;
                 if (
                   o("WAWebGroupPresenceUtils").isGroupEligibleForPresence(t)
                 ) {
-                  var r = t.groupMetadata;
-                  if (r != null) {
-                    var a = r.participants.length;
+                  var a = t.groupMetadata;
+                  if (a != null) {
+                    var i = a.participants.length;
                     if (
-                      a <=
+                      i <=
                       o(
                         "WAWebGroupPresenceUtils",
                       ).getSmallGroupPresenceThreshold()
@@ -88,25 +90,33 @@ __d(
                         ).isSmallGroupPresenceEnabled()
                       )
                         return;
-                      var i = [];
-                      (r.participants.forEach(function (e) {
+                      var l = [];
+                      (a.participants.forEach(function (e) {
                         var t = e.id;
                         if (!o("WAWebUserPrefsMeUser").isMeAccount(t)) {
-                          var n = o("WAWebChatCollection").ChatCollection.get(
-                              t,
-                            ),
-                            r = n == null ? void 0 : n.getTcToken();
-                          i.push(
+                          var n = o("WAWebLidMigrationUtils").toUserLid(t),
+                            a = n != null ? n : t;
+                          r.gadd(a);
+                          var i =
+                              n != null
+                                ? o(
+                                    "WAWebChatCollection",
+                                  ).ChatCollection.getChatByAccountLid(n)
+                                : o("WAWebChatCollection").ChatCollection.get(
+                                    t,
+                                  ),
+                            s = i == null ? void 0 : i.getTcToken();
+                          l.push(
                             o("WAWebContactPresenceBridge").subscribePresence(
-                              t,
-                              r,
+                              a,
+                              s,
                             ),
                           );
                         }
                       }),
-                        yield (e || (e = n("Promise"))).allSettled(i));
+                        yield (e || (e = n("Promise"))).allSettled(l));
                     } else
-                      a <= o("WAWebGroupPresenceUtils").WEB_LARGE_MAX &&
+                      i <= o("WAWebGroupPresenceUtils").WEB_LARGE_MAX &&
                         o(
                           "WAWebGroupPresenceUtils",
                         ).isLargeGroupPresenceEnabled() &&

@@ -81,6 +81,9 @@ __d(
           (n.isTrueUnavailable = function () {
             return this.$1 === "unavailable" && this.$2 === "available";
           }),
+          (n.getStartMs = function () {
+            return this.$3;
+          }),
           (n.getDurationMs = function (t) {
             return (
               t === void 0 && (t = Date.now()),

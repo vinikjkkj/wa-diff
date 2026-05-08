@@ -29,17 +29,18 @@ __d(
       v,
       S,
       R,
-      L = 8192,
-      E = 16e3,
-      k = 8,
-      I = 50,
-      T = 500,
-      D = 10;
-    function x(e) {
+      L,
+      E = 8192,
+      k = 16e3,
+      I = 8,
+      T = 50,
+      D = 500,
+      x = 10;
+    function $(e) {
       var t = e;
       return typeof t.setSinkId == "function" ? t : null;
     }
-    function $(e) {
+    function P(e) {
       return e === "direct_audio_context"
         ? "AV:SharedBuffer:Playback:AudioContext"
         : e === "media_element"
@@ -53,17 +54,17 @@ __d(
                 );
               })();
     }
-    function P(e, t) {
-      var n = Math.ceil((e * I) / 100);
+    function N(e, t) {
+      var n = Math.ceil((e * T) / 100);
       if (t <= 0) return n;
       var r = Math.ceil(n / t) * t,
         o = e > t ? e - t : e;
       return Math.min(r, o);
     }
-    function N(e, t, n) {
+    function M(e, t, n) {
       return (e - t + n) % n;
     }
-    function M(e, t, n) {
+    function w(e, t, n) {
       var r = (n * 1e3) / t,
         o = typeof e.baseLatency == "number" ? e.baseLatency * 1e3 : 0,
         a = typeof e.outputLatency == "number" ? e.outputLatency * 1e3 : 0,
@@ -81,10 +82,10 @@ __d(
       var c = i != null ? i : o > 0 && a > 0 ? o + a : Math.max(o, a);
       return { estimatedOutputLagMs: r + c };
     }
-    function w() {
-      return "\nclass WAWebVoipSharedBufferPlaybackProcessor extends AudioWorkletProcessor {\n  constructor(options) {\n    super();\n    this._isProcessing = false;\n    this._isInitialized = false;\n    this._consecutiveUnderruns = 0;\n    this._totalFramesRead = 0;\n    this._lastDiagnosticTime = 0;\n\n    // Shared buffer views (set after receiving SAB via postMessage)\n    this._atomicIndices = null;  // Uint32Array view for writePos/readPos\n    this._audioBuffer = null;    // Float32Array view for audio samples\n    this._bufferSize = 0;\n\n    this.port.onmessage = (event) => {\n      const data = event.data;\n      if (data.type === 'initSharedBuffer') {\n        // Receive SharedArrayBuffer from main thread\n        this._initSharedBuffer(\n          data.heapBuffer,\n          data.heapBufferOffset,\n          data.bufferSize,\n        );\n      } else if (data.type === 'start') {\n        this._isProcessing = true;\n      } else if (data.type === 'stop') {\n        this._isProcessing = false;\n      }\n    };\n\n    this.port.postMessage({type: 'ready'});\n  }\n\n  _initSharedBuffer(heapBuffer, heapBufferOffset, bufferSize) {\n    // Create views into the WASM heap SharedArrayBuffer\n    // Header: [writePos uint32 at offset+0][readPos uint32 at offset+4]\n    this._atomicIndices = new Uint32Array(heapBuffer, heapBufferOffset, 2);\n    // Audio data starts after the 8-byte header\n    this._audioBuffer = new Float32Array(\n      heapBuffer,\n      heapBufferOffset + 8,\n      bufferSize,\n    );\n    this._bufferSize = bufferSize;\n    this._isInitialized = true;\n    this._consecutiveUnderruns = 0;\n    this._totalFramesRead = 0;\n    this._lastDiagnosticTime = currentTime;\n\n    this.port.postMessage({type: 'sharedBufferReady'});\n  }\n\n  process(inputs, outputs, parameters) {\n    if (!this._isProcessing || !this._isInitialized) {\n      return true;\n    }\n\n    if (outputs.length === 0 || outputs[0].length === 0) {\n      return true;\n    }\n\n    const output = outputs[0];\n    const channelCount = output.length;\n    const frameCount = output[0].length;\n\n    // Read current write position (set by WASM pthread)\n    const writePos = Atomics.load(this._atomicIndices, 0);\n    const readPos = Atomics.load(this._atomicIndices, 1);\n\n    // Calculate available data in ring buffer\n    const bufferSize = this._bufferSize;\n    const availableData = (writePos - readPos + bufferSize) % bufferSize;\n\n    if (availableData < frameCount) {\n      // Not enough data \u2014 zero-fill output buffers for explicit silence (underrun)\n      for (let ch = 0; ch < channelCount; ch++) {\n        output[ch].fill(0);\n      }\n      this._consecutiveUnderruns++;\n      this._maybeSendDiagnostics(availableData);\n      return true;\n    }\n\n    // Read audio data from ring buffer using bulk copy with wrap-around\n    const audioBuffer = this._audioBuffer;\n    const endPos = readPos + frameCount;\n\n    if (endPos <= bufferSize) {\n      // No wrap-around: single bulk read\n      const chunk = audioBuffer.subarray(readPos, endPos);\n      output[0].set(chunk);\n      for (let ch = 1; ch < channelCount; ch++) {\n        output[ch].set(chunk);\n      }\n    } else {\n      // Wrap-around: two bulk reads\n      const firstLen = bufferSize - readPos;\n      const first = audioBuffer.subarray(readPos, bufferSize);\n      const second = audioBuffer.subarray(0, frameCount - firstLen);\n      output[0].set(first);\n      output[0].set(second, firstLen);\n      for (let ch = 1; ch < channelCount; ch++) {\n        output[ch].set(first);\n        output[ch].set(second, firstLen);\n      }\n    }\n\n    // Update read position atomically (release consumed slots to producer)\n    const newReadPos = endPos % bufferSize;\n    Atomics.store(this._atomicIndices, 1, newReadPos);\n\n    this._totalFramesRead += frameCount;\n    this._consecutiveUnderruns = 0;\n    this._maybeSendDiagnostics(availableData);\n\n    return true;\n  }\n\n  _maybeSendDiagnostics(availableData) {\n    // Send diagnostics approximately every 1 second\n    // AudioWorklet's currentTime is in seconds\n    const now = currentTime;\n    if (now - this._lastDiagnosticTime >= 1.0) {\n      this._lastDiagnosticTime = now;\n      this.port.postMessage({\n        type: 'diagnostics',\n        consecutiveUnderruns: this._consecutiveUnderruns,\n        totalFramesRead: this._totalFramesRead,\n        availableData: availableData,\n        bufferSize: this._bufferSize,\n      });\n    }\n  }\n}\n\nregisterProcessor(\n  'voip-shared-buffer-playback-processor',\n  WAWebVoipSharedBufferPlaybackProcessor,\n);\n";
+    function A() {
+      return "\nclass WAWebVoipSharedBufferPlaybackProcessor extends AudioWorkletProcessor {\n  constructor(options) {\n    super();\n    this._isProcessing = false;\n    this._isInitialized = false;\n    this._consecutiveUnderruns = 0;\n    this._totalFramesRead = 0;\n    this._lastDiagnosticTime = 0;\n\n    // Shared buffer views (set after receiving SAB via postMessage)\n    this._atomicIndices = null;  // Uint32Array view for writePos/readPos\n    this._atomicIndicesI32 = null; // Int32Array view for Atomics.notify\n    this._audioBuffer = null;    // Float32Array view for audio samples\n    this._bufferSize = 0;\n\n    this.port.onmessage = (event) => {\n      const data = event.data;\n      if (data.type === 'initSharedBuffer') {\n        // Receive SharedArrayBuffer from main thread\n        this._initSharedBuffer(\n          data.heapBuffer,\n          data.heapBufferOffset,\n          data.bufferSize,\n        );\n      } else if (data.type === 'start') {\n        this._isProcessing = true;\n      } else if (data.type === 'stop') {\n        this._isProcessing = false;\n      }\n    };\n\n    this.port.postMessage({type: 'ready'});\n  }\n\n  _initSharedBuffer(heapBuffer, heapBufferOffset, bufferSize) {\n    // Create views into the WASM heap SharedArrayBuffer\n    // Header: [writePos uint32 at offset+0][readPos uint32 at offset+4]\n    this._atomicIndices = new Uint32Array(heapBuffer, heapBufferOffset, 2);\n    // Int32Array view of same memory for Atomics.notify (requires Int32Array)\n    this._atomicIndicesI32 = new Int32Array(heapBuffer, heapBufferOffset, 2);\n    // Audio data starts after the 8-byte header\n    this._audioBuffer = new Float32Array(\n      heapBuffer,\n      heapBufferOffset + 8,\n      bufferSize,\n    );\n    this._bufferSize = bufferSize;\n    this._isInitialized = true;\n    this._consecutiveUnderruns = 0;\n    this._totalFramesRead = 0;\n    this._lastDiagnosticTime = currentTime;\n\n    this.port.postMessage({type: 'sharedBufferReady'});\n  }\n\n  process(inputs, outputs, parameters) {\n    if (!this._isProcessing || !this._isInitialized) {\n      return true;\n    }\n\n    if (outputs.length === 0 || outputs[0].length === 0) {\n      return true;\n    }\n\n    const output = outputs[0];\n    const channelCount = output.length;\n    const frameCount = output[0].length;\n\n    // Read current write position (set by WASM pthread)\n    const writePos = Atomics.load(this._atomicIndices, 0);\n    const readPos = Atomics.load(this._atomicIndices, 1);\n\n    // Calculate available data in ring buffer\n    const bufferSize = this._bufferSize;\n    const availableData = (writePos - readPos + bufferSize) % bufferSize;\n\n    if (availableData < frameCount) {\n      // Not enough data \u2014 zero-fill output buffers for explicit silence (underrun)\n      for (let ch = 0; ch < channelCount; ch++) {\n        output[ch].fill(0);\n      }\n      this._consecutiveUnderruns++;\n      this._maybeSendDiagnostics(availableData);\n      return true;\n    }\n\n    // Read audio data from ring buffer using bulk copy with wrap-around\n    const audioBuffer = this._audioBuffer;\n    const endPos = readPos + frameCount;\n\n    if (endPos <= bufferSize) {\n      // No wrap-around: single bulk read\n      const chunk = audioBuffer.subarray(readPos, endPos);\n      output[0].set(chunk);\n      for (let ch = 1; ch < channelCount; ch++) {\n        output[ch].set(chunk);\n      }\n    } else {\n      // Wrap-around: two bulk reads\n      const firstLen = bufferSize - readPos;\n      const first = audioBuffer.subarray(readPos, bufferSize);\n      const second = audioBuffer.subarray(0, frameCount - firstLen);\n      output[0].set(first);\n      output[0].set(second, firstLen);\n      for (let ch = 1; ch < channelCount; ch++) {\n        output[ch].set(first);\n        output[ch].set(second, firstLen);\n      }\n    }\n\n    // Update read position atomically (release consumed slots to producer)\n    const newReadPos = endPos % bufferSize;\n    Atomics.store(this._atomicIndices, 1, newReadPos);\n    // Wake the writer thread \u2014 it may be blocked in emscripten_futex_wait\n    // on readPos, waiting for space to become available.\n    Atomics.notify(this._atomicIndicesI32, 1, 1);\n\n    this._totalFramesRead += frameCount;\n    this._consecutiveUnderruns = 0;\n    this._maybeSendDiagnostics(availableData);\n\n    return true;\n  }\n\n  _maybeSendDiagnostics(availableData) {\n    // Send diagnostics approximately every 1 second\n    // AudioWorklet's currentTime is in seconds\n    const now = currentTime;\n    if (now - this._lastDiagnosticTime >= 1.0) {\n      this._lastDiagnosticTime = now;\n      this.port.postMessage({\n        type: 'diagnostics',\n        consecutiveUnderruns: this._consecutiveUnderruns,\n        totalFramesRead: this._totalFramesRead,\n        availableData: availableData,\n        bufferSize: this._bufferSize,\n      });\n    }\n  }\n}\n\nregisterProcessor(\n  'voip-shared-buffer-playback-processor',\n  WAWebVoipSharedBufferPlaybackProcessor,\n);\n";
     }
-    var A = (function () {
+    var F = (function () {
       function t() {
         var t = this;
         ((this.audioWorkletNode = null),
@@ -109,7 +110,7 @@ __d(
           (this.$7 = 0),
           (this.preloadWorkletModule = function (e) {
             var n = o("WAWebVoipWorkletPreload")
-              .preloadWorkletProcessorModule(e, w, "[AV:SharedBuffer:Playback]")
+              .preloadWorkletProcessorModule(e, A, "[AV:SharedBuffer:Playback]")
               .then(function (e) {
                 ((t.isWorkletPreloaded = e), (t.workletPreloadPromise = null));
               });
@@ -120,7 +121,7 @@ __d(
               function* (n) {
                 var r = t.playbackOutputRoute,
                   a = t.playbackOutputSink,
-                  i = $(r),
+                  i = P(r),
                   l = yield o(
                     "WAWebAudioDeviceManager",
                   ).switchAudioOutputSinkIdInternal(n, a, i);
@@ -144,9 +145,9 @@ __d(
           })()),
           (this.consumePlaybackMetrics = function () {
             if (t.$3 === 0) return null;
-            var e = t.playbackSampleRate > 0 ? t.playbackSampleRate : E,
+            var e = t.playbackSampleRate > 0 ? t.playbackSampleRate : k,
               n = t.$1 / t.$3,
-              r = Math.round((t.$2 / L) * 100),
+              r = Math.round((t.$2 / E) * 100),
               o = t.$7 > 0 ? Math.round(t.$5 / t.$7) : null,
               a = t.$7 > 0 ? t.$6 : null,
               i = {
@@ -201,9 +202,9 @@ __d(
                   : null;
             i != null &&
               ((this.$5 += i), this.$7++, i > this.$6 && (this.$6 = i));
-            var l = this.playbackSampleRate > 0 ? this.playbackSampleRate : E,
+            var l = this.playbackSampleRate > 0 ? this.playbackSampleRate : k,
               u = Math.round((n / l) * 1e3),
-              c = Math.round((n / L) * 100);
+              c = Math.round((n / E) * 100);
           }
         }),
         (a.startAudioPlayback = (function () {
@@ -222,8 +223,8 @@ __d(
                 throw r("err")(
                   "voip: [AV:SharedBuffer:Playback] WASM module not initialized",
                 );
-              var h = L,
-                y = h * Float32Array.BYTES_PER_ELEMENT + k;
+              var h = E,
+                y = h * Float32Array.BYTES_PER_ELEMENT + I;
               this.ringBufferPtr =
                 yield o("WAWebAudioUtility").mallocWasmBuffer(y);
               var C = this.ringBufferPtr;
@@ -252,7 +253,7 @@ __d(
                     ])),
                   n.state,
                 );
-                var v = w(),
+                var v = A(),
                   S = new Blob([v], { type: "application/javascript" }),
                   R = URL.createObjectURL(S);
                 try {
@@ -276,9 +277,9 @@ __d(
                   outputChannelCount: [a],
                 },
               );
-              var E = this.audioWorkletNode;
-              (E != null &&
-                (E.port.onmessage = function (e) {
+              var L = this.audioWorkletNode;
+              (L != null &&
+                (L.port.onmessage = function (e) {
                   var n = e.data;
                   if (!(typeof n != "object" || n == null)) {
                     var r = n.type;
@@ -299,10 +300,10 @@ __d(
                     ])),
                 ),
                 yield this.waitForProcessorReady());
-              var I = s.GROWABLE_HEAP_F32(),
-                T = I.buffer;
-              (E != null &&
-                E.port.postMessage({
+              var k = s.GROWABLE_HEAP_F32(),
+                T = k.buffer;
+              (L != null &&
+                L.port.postMessage({
                   type: "initSharedBuffer",
                   heapBuffer: T,
                   heapBufferOffset: C,
@@ -322,7 +323,7 @@ __d(
                 );
               var x = new Uint32Array(s.GROWABLE_HEAP_U8().buffer, C, 2);
               if (
-                (yield this.waitForPrebuffer(x, h, i),
+                (yield this.waitForStartupPrebufferIfNeeded(x, h, i),
                 this.playbackAudioElement != null)
               )
                 try {
@@ -401,7 +402,7 @@ __d(
         })()),
         (a.connectOutputRoute = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = x(e),
+            var t = $(e),
               n = this.audioWorkletNode;
             if (t != null && n != null) {
               var r = yield o(
@@ -453,22 +454,42 @@ __d(
           }
           return t;
         })()),
+        (a.waitForStartupPrebufferIfNeeded = (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+            function* (e, t, n) {
+              if (this.playbackOutputRoute === "direct_audio_context") {
+                o("WALogger").LOG(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:SharedBuffer:Playback] Skipping startup pre-buffer for direct AudioContext output route",
+                    ])),
+                );
+                return;
+              }
+              yield this.waitForPrebuffer(e, t, n);
+            },
+          );
+          function t(t, n, r) {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })()),
         (a.waitForPrebuffer = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n) {
-              for (var r = P(t, n), a = self.performance.now(), i = 0; ; ) {
+              for (var r = N(t, n), a = self.performance.now(), i = 0; ; ) {
                 var l = Atomics.load(e, 0),
                   s = Atomics.load(e, 1);
-                if (((i = N(l, s, t)), i >= r)) break;
+                if (((i = M(l, s, t)), i >= r)) break;
                 var u = self.performance.now() - a;
-                if (u >= T) break;
-                var c = Math.min(D, Math.max(0, T - u));
+                if (u >= D) break;
+                var c = Math.min(x, Math.max(0, D - u));
                 yield o("WAPromiseDelays").delayMs(c);
               }
               var d = self.performance.now() - a;
               o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:SharedBuffer:Playback] Pre-buffer wait complete: reason=",
                     ", buffered=",
                     " samples, target=",
@@ -496,8 +517,8 @@ __d(
                   e.isAudioWriterThreadRunning() && e.stopAudioWriterThread();
                 } catch (e) {
                   o("WALogger").WARN(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:SharedBuffer:Playback] Error stopping writer thread: ",
                         "",
                       ])),
@@ -526,8 +547,8 @@ __d(
                   yield o("WAWebAudioUtility").freeWasmBuffer(n);
                 } catch (e) {
                   o("WALogger").WARN(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
+                    S ||
+                      (S = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV:SharedBuffer:Playback] Error freeing ring buffer: ",
                         "",
                       ])),
@@ -554,8 +575,8 @@ __d(
                 (this.$7 = 0));
             } catch (e) {
               o("WALogger").ERROR(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV:SharedBuffer:Playback] Cleanup error: ",
                     "",
                   ])),
@@ -582,16 +603,16 @@ __d(
             var a = new Uint32Array(r.GROWABLE_HEAP_U8().buffer, t, 2),
               i = Atomics.load(a, 0),
               l = Atomics.load(a, 1),
-              s = N(i, l, L),
-              u = M(e, n, s);
+              s = M(i, l, E),
+              u = w(e, n, s);
             return Math.max(0, Math.round((u.estimatedOutputLagMs * n) / 1e3));
           } catch (e) {
             return (
               this.hasLoggedOutputLagEstimationFailure ||
                 ((this.hasLoggedOutputLagEstimationFailure = !0),
                 o("WALogger").WARN(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV:SharedBuffer:Playback] Failed to estimate output lag: ",
                       "",
                     ])),
@@ -604,7 +625,7 @@ __d(
         t
       );
     })();
-    l.WAWebVoipAudioPlaybackSharedBufferWorklet = A;
+    l.WAWebVoipAudioPlaybackSharedBufferWorklet = F;
   },
   98,
 );

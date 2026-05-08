@@ -8,6 +8,8 @@ __d(
     "WAWebFaqUrl",
     "WAWebL10N",
     "WAWebNewsletterDirectoryFilterUtils",
+    "WAWebUserPrefsMeUser",
+    "WAWebWidFormat",
     "WAXplatTrim",
     "react",
   ],
@@ -318,11 +320,16 @@ __d(
       );
     }
     ae.displayName = ae.name + " [from " + i.id + "]";
-    function ie(e) {
-      return s._(
-        /*BTDS*/ "Only contacts with {my-number} in their address book will receive your invite.",
-        [s._param("my-number", e)],
-      );
+    function ie() {
+      var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      return e == null
+        ? s._(
+            /*BTDS*/ "Only contacts with your phone number in their address book will receive your invite.",
+          )
+        : s._(
+            /*BTDS*/ "Only contacts with {my-number} in their address book will receive your invite.",
+            [s._param("my-number", o("WAWebWidFormat").widToFormattedUser(e))],
+          );
     }
     ie.displayName = ie.name + " [from " + i.id + "]";
     function le() {

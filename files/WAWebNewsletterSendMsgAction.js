@@ -68,7 +68,7 @@ __d(
           );
           var l = new (o("WAWebMsgModel").Msg)(i),
             s = n.linkPreview ? "media" : "text";
-          return x({ chat: a, msg: l, type: s });
+          return P({ chat: a, msg: l, type: s });
         })),
         y.apply(this, arguments)
       );
@@ -77,7 +77,7 @@ __d(
       var t = o("WAWebFrontendMsgGetters").getChat(e);
       return o("WAWebFrontendMsgGetters").getAsMms(e)
         ? (g || (g = n("Promise"))).resolve()
-        : x({ chat: t, msg: e, type: "text" });
+        : P({ chat: t, msg: e, type: "text" });
     }
     function b(e, t, r) {
       if (!o("WAWebChatGetters").getIsNewsletter(e))
@@ -90,7 +90,7 @@ __d(
           : new (o("WAWebMsgModel").Msg)(t);
       return (
         (a.local = !0),
-        x({ chat: e, msg: a, type: "media", uploadMediaMsg: r })
+        P({ chat: e, msg: a, type: "media", uploadMediaMsg: r })
       );
     }
     function v(e) {
@@ -178,7 +178,7 @@ __d(
           var t = e.chat,
             n = e.msgData,
             r = new (o("WAWebMsgModel").Msg)(n),
-            a = yield x({ chat: t, msg: r, type: "pollCreation" });
+            a = yield P({ chat: t, msg: r, type: "pollCreation" });
           return [r, a];
         })),
         E.apply(this, arguments)
@@ -190,6 +190,19 @@ __d(
     function I() {
       return (
         (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.msg;
+          return P({ chat: t, msg: n, type: "text" });
+        })),
+        I.apply(this, arguments)
+      );
+    }
+    function T(e) {
+      return D.apply(this, arguments);
+    }
+    function D() {
+      return (
+        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             n = e.msgData;
           if (
@@ -208,18 +221,18 @@ __d(
               r("err")("Poll forwarding is not enabled")
             );
           var a = new (o("WAWebMsgModel").Msg)(n),
-            i = yield x({ chat: t, msg: a, type: "pollResultSnapshot" });
+            i = yield P({ chat: t, msg: a, type: "pollResultSnapshot" });
           return [a, i];
         })),
-        I.apply(this, arguments)
+        D.apply(this, arguments)
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    function x(e, t) {
+      return $.apply(this, arguments);
     }
-    function D() {
+    function $() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebFrontendMsgGetters").getIsMms(t))
             return (
               o("WALogger").ERROR(
@@ -236,7 +249,7 @@ __d(
           var n = yield o(
             "WAWebNewsletterSendMsgActionUtils",
           ).prepMsgDataForForward(t);
-          return x({
+          return P({
             chat: e,
             msg: o("WAWebMsgModelFromData").msgModelFromMsgData(n),
             type:
@@ -246,15 +259,15 @@ __d(
                 : "text",
           });
         })),
-        D.apply(this, arguments)
+        $.apply(this, arguments)
       );
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    function P(e) {
+      return N.apply(this, arguments);
     }
-    function $() {
+    function N() {
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
             r,
             a,
@@ -455,15 +468,15 @@ __d(
               (u.wamMessageSendPerfReporter = null));
           }
         })),
-        $.apply(this, arguments)
+        N.apply(this, arguments)
       );
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
+    function M(e, t) {
+      return w.apply(this, arguments);
     }
-    function N() {
+    function w() {
       return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.base64Thumb,
             a = t.invitee,
             i = t.inviteMessage,
@@ -533,15 +546,15 @@ __d(
             );
           }
         })),
-        N.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    function A(e, t) {
+      return F.apply(this, arguments);
     }
-    function w() {
+    function F() {
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.base64Thumb,
             a = t.inviteMessage,
             i = t.newsletterWid;
@@ -601,7 +614,7 @@ __d(
             );
           }
         })),
-        w.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
     ((l.sendNewsletterTextMsg = h),
@@ -609,10 +622,11 @@ __d(
       (l.sendNewsletterMediaMsg = b),
       (l.sendNewsletterEditMsg = S),
       (l.sendNewsletterPollCreationMsg = L),
-      (l.sendNewsletterPollResultSnapshotMsg = k),
-      (l.forwardNewsletterMessage = T),
-      (l.sendNewsletterAdminInviteMessage = P),
-      (l.sendNewsletterFollowerInviteMessage = M));
+      (l.sendNewsletterAlbumMsg = k),
+      (l.sendNewsletterPollResultSnapshotMsg = T),
+      (l.forwardNewsletterMessage = x),
+      (l.sendNewsletterAdminInviteMessage = M),
+      (l.sendNewsletterFollowerInviteMessage = A));
   },
   98,
 );

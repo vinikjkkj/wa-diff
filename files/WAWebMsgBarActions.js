@@ -2,6 +2,7 @@ __d(
   "WAWebMsgBarActions",
   [
     "WAWebABPropsSaga",
+    "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebContactFormWrapper.react",
     "WAWebContactsModal.react",
@@ -44,7 +45,11 @@ __d(
                 ((n.quotedMsgAdminGroupJid = t.id),
                   (n.quotedMsgAdminGroupSubject = null),
                   (n.quotedMsgAdminParentGroupJid = null),
-                  o("WAWebCmd").Cmd.openChatBottom({ chat: n }));
+                  o("WAWebCmd").Cmd.openChatBottom({
+                    chat: n,
+                    chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                      .MessageAdmin,
+                  }));
               });
           },
           a = function (n) {

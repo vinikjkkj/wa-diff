@@ -28,6 +28,7 @@ __d(
                       "[broadcast:device-cleanup] User identity not available yet \u2014 skipping cleanup",
                     ])),
                 )
+                .tags("non-sad")
                 .sendLogs("business-broadcast-device-cleanup-skipped-no-me");
               return;
             }
@@ -72,6 +73,7 @@ __d(
                         "[broadcast:device-cleanup] Device list not available yet \u2014 skipping cleanup (will retry on next DEVICES notification)",
                       ])),
                   )
+                  .tags("non-sad")
                   .sendLogs("business-broadcast-device-cleanup-skipped");
                 return;
               }

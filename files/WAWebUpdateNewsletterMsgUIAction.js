@@ -94,9 +94,7 @@ __d(
                 parentMsgKey: o("WAWebNewsletterDBUtils")
                   .craftNewsletterMsgKeyFromServerId(r, e.from)
                   .toString(),
-                senderUserJid: o("WAWebUserPrefsMeUser")
-                  .getMePnUserOrThrow_DO_NOT_USE()
-                  .toString(),
+                senderUserJid: o("WAWebUserPrefsMeUser").getMeUser().toString(),
                 reactionText: n,
                 timestamp: e.t * 1e3,
                 orphan: 0,
@@ -160,7 +158,7 @@ __d(
                   subtype: t.subtype,
                   msgKey: t.id,
                   sender: o("WAWebMsgGetters").getIsSentByMe(t)
-                    ? o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE()
+                    ? o("WAWebUserPrefsMeUser").getMeUser()
                     : t.from,
                   revokeTimestamp: t.t,
                   viewMode: t.viewMode,

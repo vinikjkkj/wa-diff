@@ -17,6 +17,7 @@ __d(
     "WAWebSendMsgResultAction",
     "WAWebSignupCTAExperiment",
     "WAWebSignupFlowLoggerLazy",
+    "WAWebSignupQPLLogger",
     "WAWebStateUtils",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -87,57 +88,66 @@ __d(
           var _ = l,
             f = t.id,
             g = { signup_id: i },
-            h = {
-              type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
-              kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
-              ack: o("WAWebAck").ACK.CLOCK,
-              to: f,
-              from: _,
-              id: yield new (r("WAWebMsgKey"))({
-                id: yield r("WAWebMsgKey").newId(),
-                from: _,
-                to: f,
-                participant: void 0,
-                selfDir: "out",
-              }),
-              local: !0,
-              isNewMsg: !0,
-              t: o("WATimeUtils").unixTime(),
-              interactivePayload: {
-                type: r("WAWebInteractiveMessageType").NATIVE_FLOW,
-                name: r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP,
-                paramsJson: JSON.stringify(g),
-                version: 1,
-              },
-              nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
-                .API_SIGNUP,
-              interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
-              viewMode: "VISIBLE",
-              body: (o("WAWebSignupCTAExperiment").getSignupCTAExperiment() ===
-              o("WAWebSignupCTAExperiment").SignupCTAExperiment.GetOffers
-                ? s._(/*BTDS*/ "Get offers")
-                : s._(/*BTDS*/ "Sign up")
-              ).toString(),
-            };
-          (n.set({ signupCtaTapped: !0 }),
-            o("WAWebDBUpdateMessageTable").updateMessageTable(n.id, {
-              signupCtaTapped: !0,
-            }));
+            h;
           try {
-            o("WAWebSignupFlowLoggerLazy").logSignupOp({
-              operation: o("WAWebSignupFlowLoggerLazy")
-                .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_REQUEST_SENT,
-              signupId: i,
-              businessWid: t.id,
-              chatTimestamp: t.t,
-            });
+            (o("WAWebSignupQPLLogger").userRequestStart(i),
+              (h = {
+                type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
+                kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
+                ack: o("WAWebAck").ACK.CLOCK,
+                to: f,
+                from: _,
+                id: yield new (r("WAWebMsgKey"))({
+                  id: yield r("WAWebMsgKey").newId(),
+                  from: _,
+                  to: f,
+                  participant: void 0,
+                  selfDir: "out",
+                }),
+                local: !0,
+                isNewMsg: !0,
+                t: o("WATimeUtils").unixTime(),
+                interactivePayload: {
+                  type: r("WAWebInteractiveMessageType").NATIVE_FLOW,
+                  name: r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP,
+                  paramsJson: JSON.stringify(g),
+                  version: 1,
+                },
+                nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
+                  .API_SIGNUP,
+                interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
+                viewMode: "VISIBLE",
+                body: (o(
+                  "WAWebSignupCTAExperiment",
+                ).getSignupCTAExperiment() ===
+                o("WAWebSignupCTAExperiment").SignupCTAExperiment.GetOffers
+                  ? s._(/*BTDS*/ "Get offers")
+                  : s._(/*BTDS*/ "Sign up")
+                ).toString(),
+              }),
+              n.set({ signupCtaTapped: !0 }),
+              o("WAWebDBUpdateMessageTable").updateMessageTable(n.id, {
+                signupCtaTapped: !0,
+              }),
+              o("WAWebSignupFlowLoggerLazy").logSignupOp({
+                operation: o("WAWebSignupFlowLoggerLazy")
+                  .SIGNUP_USER_JOURNEY_OPERATION.SIGNUP_REQUEST_SENT,
+                signupId: i,
+                businessWid: t.id,
+                chatTimestamp: t.t,
+              }));
             var y = o("WAWebWidToJid").widToUserJid(t.id),
               C = yield r("JSResourceForInteraction")("WAWebOptOutUserJob")
                 .__setRef("WAWebSendSignupResponseAction")
                 .load(),
-              b = C.signupUser,
-              v = yield b(y, i);
-            if (v && v.errorCode != null)
+              b = C.signupUser;
+            o("WAWebSignupQPLLogger").userRequestIqStart(i);
+            var v = yield b(y, i);
+            if (
+              (o("WAWebSignupQPLLogger").userRequestIqEnd(i),
+              v && v.errorCode != null)
+            ) {
+              var S;
               return (
                 n.set({ signupCtaTapped: !1 }),
                 o("WAWebDBUpdateMessageTable").updateMessageTable(n.id, {
@@ -156,8 +166,13 @@ __d(
                     v.errorCode,
                   )
                   .sendLogs("signup-response-iq-error"),
+                o("WAWebSignupQPLLogger").userRequestFail(
+                  i,
+                  (S = v.errorKind) != null ? S : "server_error",
+                ),
                 !1
               );
+            }
             (yield o("WAWebUserPrefsMultiDevice").setOptOutlistHash(
               v.listDhash,
             ),
@@ -183,15 +198,16 @@ __d(
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("signup-response-iq-exception"),
+              o("WAWebSignupQPLLogger").userRequestFail(i, "delivery_failure"),
               !1
             );
           }
           try {
-            var S = yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+            var R = yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(
               t,
               h,
             )[1];
-            return S.messageSendResult !==
+            return R.messageSendResult !==
               o("WAWebSendMsgResultAction").SendMsgResult.OK
               ? (o("WALogger")
                   .ERROR(
@@ -202,13 +218,21 @@ __d(
                         "",
                       ])),
                     i,
-                    S.messageSendResult,
+                    R.messageSendResult,
                   )
                   .sendLogs("signup-response-send-failed"),
+                o("WAWebSignupQPLLogger").userRequestFail(
+                  i,
+                  "delivery_failure",
+                ),
                 !1)
-              : (L(o("WAWebStateUtils").unproxy(t)), !0);
+              : (L(o("WAWebStateUtils").unproxy(t)),
+                o("WAWebSignupQPLLogger").userRequestSuccess(i),
+                o("WAWebSignupQPLLogger").confirmationStart(i),
+                !0);
           } catch (e) {
             return (
+              o("WAWebSignupQPLLogger").userRequestFail(i, "delivery_failure"),
               o("WALogger").WARN(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([

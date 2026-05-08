@@ -349,11 +349,11 @@ __d(
         I.apply(this, arguments)
       );
     }
-    function T(t, r, a) {
-      var i,
-        l = t.data,
-        d = l.id,
-        m = l.to;
+    function T(t, r, a, i) {
+      var l,
+        d = t.data,
+        m = d.id,
+        p = d.to;
       return (
         o("WALogger")
           .LOG(
@@ -362,14 +362,14 @@ __d(
                 "encryptAndSendGroupMsg: queued ",
                 "",
               ])),
-            d,
+            m,
           )
           .tags("messaging"),
-        (i = a.sendPerfReporter) == null || i.startWaitingToEncryptStage(),
+        (l = a.sendPerfReporter) == null || l.startWaitingToEncryptStage(),
         o("WAWebSendMsgQueueMap").sendMsgQueueMap.enqueue(
-          m.toString(),
+          p.toString(),
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e, n, i, p, f, g;
+            var e, n, l, f, g, y;
             (o("WALogger")
               .LOG(
                 s ||
@@ -377,38 +377,38 @@ __d(
                     "encryptAndSendGroupMsg: sending ",
                     "",
                   ])),
-                d,
+                m,
               )
               .tags("messaging"),
               (e = a.sendPerfReporter) == null || e.postWaitingToEncryptStage(),
               (n = a.sendPerfReporter) == null || n.startReadyToSendStage());
-            var y = x(r),
-              C = N(r),
-              v = $(r),
-              S = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
-                m.toString(),
+            var C = x(r),
+              v = N(r),
+              S = $(r),
+              R = yield o("WAWebGroupMsgSendUtils").getParticipantRecord(
+                p.toString(),
               ),
-              R = yield o("WAWebGroupMsgSendUtils").getGroupData(
-                m.toString(),
-                S,
+              L = yield o("WAWebGroupMsgSendUtils").getGroupData(
+                p.toString(),
+                R,
                 t,
               );
-            ((i = a.sendReporter) == null || i.setGroupData(R),
-              (p = a.sendPerfReporter) == null || p.setGroupData(R));
-            var L =
-                (f =
-                  S == null
+            ((l = a.sendReporter) == null || l.setGroupData(L),
+              (f = a.sendPerfReporter) == null || f.setGroupData(L));
+            var E =
+                (g =
+                  R == null
                     ? void 0
-                    : S.participants.map(function (e) {
+                    : R.participants.map(function (e) {
                         return o("WAWebWidFactory").createUserWidOrThrow(e);
                       })) != null
-                  ? f
+                  ? g
                   : [],
-              E = yield o("WAWebMsgRcatUtils").genContentBindingForMsg(l, L),
-              k = !!R.isLidAddressingMode,
-              I;
-            if (R.isCag === !0) {
-              var T = !!R.amIAdmin;
+              k = yield o("WAWebMsgRcatUtils").genContentBindingForMsg(d, E),
+              I = !!L.isLidAddressingMode,
+              T;
+            if (L.isCag === !0) {
+              var P = !!L.amIAdmin;
               (o("WALogger")
                 .LOG(
                   u ||
@@ -416,12 +416,12 @@ __d(
                       "encryptAndSendGroupMsg: CAG ",
                       " ",
                     ])),
-                  T ? "admin" : "non-admin",
+                  P ? "admin" : "non-admin",
                 )
                 .tags("messaging"),
-                (I = yield h(t, m, y, v, C, T, S, k)));
+                (T = yield h(t, p, C, S, v, P, R, I)));
             } else {
-              var P;
+              var M;
               o("WALogger")
                 .LOG(
                   c ||
@@ -430,57 +430,59 @@ __d(
                       " group size: ",
                       "",
                     ])),
-                  o("WAWebGroupMsgSendUtils").formatGroupTypeForLog(R),
-                  S == null ? void 0 : S.participants.length,
+                  o("WAWebGroupMsgSendUtils").formatGroupTypeForLog(L),
+                  R == null ? void 0 : R.participants.length,
                 )
                 .tags("messaging");
-              var M = yield b(
-                m,
-                S,
-                y,
+              var w = yield b(
+                p,
+                R,
                 C,
-                k,
+                v,
+                I,
                 r == null ||
-                  (P = r.messageHistoryBundle) == null ||
-                  (P = P.messageHistoryMetadata) == null
+                  (M = r.messageHistoryBundle) == null ||
+                  (M = M.messageHistoryMetadata) == null
                   ? void 0
-                  : P.historyReceivers,
+                  : M.historyReceivers,
               );
-              I = D(M, R);
+              T = D(w, L);
             }
-            var w =
-              (R == null ? void 0 : R.isCapiGroup) === !0
+            var A =
+              (L == null ? void 0 : L.isCapiGroup) === !0
                 ? o("WAWebE2EProtoGenerator").updateGroupMsgProtoWithCapiFlag(r)
                 : r;
-            if (I.type === _.DIRECT) {
-              var A,
-                F,
-                O = I,
-                B = O.deviceList;
+            if (T.type === _.DIRECT) {
+              var F,
+                O,
+                B = T,
+                W = B.deviceList;
               return (
-                (A = a.sendReporter) == null || A.setDeviceCount(B.length),
-                (F = a.sendPerfReporter) == null || F.setIsDirectedMessage(!0),
+                (F = a.sendReporter) == null || F.setDeviceCount(W.length),
+                (O = a.sendPerfReporter) == null || O.setIsDirectedMessage(!0),
                 o("WAWebSendGroupDirectJob").encryptAndSendGroupDirectMsg(
                   t,
-                  w,
-                  B,
-                  R,
+                  A,
+                  W,
+                  L,
                   a,
+                  i,
                 )
               );
             }
-            var W = I,
-              q = W.senderKeyList;
+            var q = T,
+              U = q.senderKeyList;
             return (
-              (g = a.sendReporter) == null ||
-                g.setDeviceCount(q.skList.length + q.skDistribList.length),
+              (y = a.sendReporter) == null ||
+                y.setDeviceCount(U.skList.length + U.skDistribList.length),
               o("WAWebSendGroupSkmsgJob").encryptAndSendSenderKeyMsg(
                 t,
-                w,
-                q,
-                R,
+                A,
+                U,
+                L,
                 a,
-                E,
+                k,
+                i,
               )
             );
           }),

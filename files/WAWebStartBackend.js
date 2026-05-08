@@ -11,6 +11,7 @@ __d(
     "WAWebABPropsWamGlobals",
     "WAWebAdvDeviceInfoCheckJob",
     "WAWebApiContact",
+    "WAWebAuthAgentFeatureControlLifecycle",
     "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBackgroundSyncReporter",
@@ -338,6 +339,10 @@ __d(
               o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
                 "prefetchBBEligibilityAndReloadQPs",
               ),
+            o("WAWebMobilePlatforms").isSMB() &&
+              o(
+                "WAWebAuthAgentFeatureControlLifecycle",
+              ).startAuthAgentFeatureControlLifecycle(),
             yield o("WAWebChatThreadLogging").initChatThreadLogging(),
             yield o("WAWebPersistedJobManager").startWebPersistedJobManager(),
             o("WAWebPersistedJobManagerWorkerCompatible").setInstance(

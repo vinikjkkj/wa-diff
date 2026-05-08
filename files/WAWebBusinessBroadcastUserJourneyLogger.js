@@ -348,6 +348,13 @@ __d(
               r,
             );
           }),
+          (t.sendBroadcastButtonViewed = function (t, n) {
+            o("WAWebBBBroadcastCreationLogs").sendBroadcastButtonViewed(
+              this.$1,
+              t,
+              n,
+            );
+          }),
           (t.importAudienceViewed = function (t) {
             o("WAWebBBContactImportLogs").importAudienceViewed(this.$1, t);
           }),

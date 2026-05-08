@@ -1,11 +1,10 @@
 __d(
   "Probers",
-  ["DGWEnvUtil", "err"],
+  ["err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "/proxygen/health",
-      s = 5e3,
-      u = (function () {
+    var e = 5e3,
+      s = (function () {
         function e(e) {
           ((this.$5 = 0),
             (this.$1 = e.execute),
@@ -50,31 +49,26 @@ __d(
           e
         );
       })(),
-      c = (function () {
-        function t() {
-          ((this.$3 = null),
-            (this.$2 =
-              r("DGWEnvUtil")
-                .getDGWEndpoint()
-                .replace(/^wss:\/\//, "https://")
-                .replace(/\/ws$/, "") + e));
+      u = (function () {
+        function t(e) {
+          ((this.$3 = null), (this.$2 = e));
         }
-        t.getInstance = function () {
-          return (t.$1 == null && (t.$1 = new t()), t.$1);
+        t.getInstance = function (n) {
+          return (t.$1 == null && (t.$1 = new t(n)), t.$1);
         };
         var n = t.prototype;
         return (
           (n.probe = function () {
-            var e = this;
+            var t = this;
             if (this.$3 != null) return this.$3;
-            var t = new AbortController(),
-              n = window.setTimeout(function () {
-                return t.abort();
-              }, s);
+            var n = new AbortController(),
+              r = window.setTimeout(function () {
+                return n.abort();
+              }, e);
             return (
               (this.$3 = window
                 .fetch(this.$2, {
-                  signal: t.signal,
+                  signal: n.signal,
                   cache: "no-store",
                   mode: "no-cors",
                 })
@@ -85,7 +79,7 @@ __d(
                   return !1;
                 })
                 .finally(function () {
-                  (window.clearTimeout(n), (e.$3 = null));
+                  (window.clearTimeout(r), (t.$3 = null));
                 })),
               this.$3
             );
@@ -93,25 +87,25 @@ __d(
           t
         );
       })();
-    function d(e, t, n, r) {
-      return new u({ execute: e, onSuccess: n, onFailure: r, intervalMs: t });
+    function c(e, t, n, r) {
+      return new s({ execute: e, onSuccess: n, onFailure: r, intervalMs: t });
     }
-    function m(e, t, n) {
-      return new u({
+    function d(e, t, n, o) {
+      return new s({
         execute: function () {
-          return c
-            .getInstance()
+          return u
+            .getInstance(t)
             .probe()
             .then(function (e) {
               if (!e) throw r("err")("network_unhealthy");
             });
         },
-        onSuccess: t,
-        onFailure: n,
+        onSuccess: n,
+        onFailure: o,
         intervalMs: e,
       });
     }
-    ((l.Probe = u), (l.createStreamProbe = d), (l.createNetworkProbe = m));
+    ((l.Probe = s), (l.createStreamProbe = c), (l.createNetworkProbe = d));
   },
   98,
 );

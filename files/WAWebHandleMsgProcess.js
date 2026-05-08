@@ -69,16 +69,17 @@ __d(
       v,
       S,
       R,
-      L = (e = n("cr:37440")) != null ? e : {},
-      E = L.castToAddonMsgData,
-      k = (s = n("cr:37441")) != null ? s : {},
-      I = k.isUnifiedInfraEnabledForType;
-    function T(e) {
-      return D.apply(this, arguments);
+      L,
+      E = (e = n("cr:37440")) != null ? e : {},
+      k = E.castToAddonMsgData,
+      I = (s = n("cr:37441")) != null ? s : {},
+      T = I.isUnifiedInfraEnabledForType;
+    function D(e) {
+      return x.apply(this, arguments);
     }
-    function D() {
+    function x() {
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.bizInfo,
             a = e.decrypted,
             i = e.e2eInfo,
@@ -92,75 +93,101 @@ __d(
             _ = e.reparsing,
             f = _ === void 0 ? !1 : _,
             g = e.reportingTokenInfo,
-            L =
+            E =
               i.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Msmsg
                 ? !1
                 : c,
-            E = L
+            k = E
               ? o("WACryptoPkcs7").unpadPkcs7(new Uint8Array(a))
               : new Uint8Array(a),
-            k = o("decodeProtobuf").decodeProtobuf(
+            I = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufsE2E.pb").MessageSpec,
-              E,
+              k,
             );
           (o(
             "WAWebVerifyProtobufMsgObjectKeys",
-          ).verifyProtobufMessageObjectKeys(k),
+          ).verifyProtobufMessageObjectKeys(I),
             o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret(
-              k,
+              I,
               o("WAWebMessageSecretLocationUtils").MessageSecretCheckContext
                 .Receiver,
               s.externalId,
             ));
-          var I = null,
-            T = k.conditionalRevealMessage;
-          if (T != null) {
-            var D = yield o(
-              "WAWebConditionalRevealPreProcessor",
-            ).maybePreProcessConditionalRevealForReceive(
-              T,
-              s.externalId,
-              s.chat.toString(),
-            );
-            (D.proto != null &&
-              D.protoBytes != null &&
-              ((k = D.proto),
-              (E = D.protoBytes),
-              o(
-                "WAWebVerifyProtobufMsgObjectKeys",
-              ).verifyProtobufMessageObjectKeys(k),
-              o("WAWebMessageSecretLocationUtils").verifyTopLevelMessageSecret(
-                k,
-                o("WAWebMessageSecretLocationUtils").MessageSecretCheckContext
-                  .Receiver,
+          var T = null,
+            D = I.conditionalRevealMessage;
+          if (D != null) {
+            var x,
+              P,
+              N =
+                s.author != null &&
+                !o("WAWebUserPrefsMeUser").isMeAccount(s.author)
+                  ? s.author.toString()
+                  : null,
+              M = yield o(
+                "WAWebConditionalRevealPreProcessor",
+              ).maybePreProcessConditionalRevealForReceive(
+                D,
                 s.externalId,
-              )),
-              (I = D.scheduledMsgViewMode));
+                (x = (P = s.chat) == null ? void 0 : P.toString()) != null
+                  ? x
+                  : "",
+                N,
+              );
+            if (
+              (M.proto != null &&
+                M.protoBytes != null &&
+                ((I = M.proto),
+                (k = M.protoBytes),
+                o(
+                  "WAWebVerifyProtobufMsgObjectKeys",
+                ).verifyProtobufMessageObjectKeys(I),
+                o(
+                  "WAWebMessageSecretLocationUtils",
+                ).verifyTopLevelMessageSecret(
+                  I,
+                  o("WAWebMessageSecretLocationUtils").MessageSecretCheckContext
+                    .Receiver,
+                  s.externalId,
+                )),
+              (T = M.scheduledMsgViewMode),
+              M.isRevealPending)
+            )
+              return (
+                o("WALogger").LOG(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "[scheduled_msg] reveal-pending, skipping further processing for msgId=",
+                      "",
+                    ])),
+                  s.externalId,
+                ),
+                { hasInactiveMsg: !1 }
+              );
           }
-          var $ = o("WAWebMsgProcessingApiUtils").getFrom(s),
-            P =
+          var w = o("WAWebMsgProcessingApiUtils").getFrom(s),
+            A =
               (i.retryCount > 0 &&
                 o("WAWebMsgProcessingApiUtils").isRevokeInfo(s)) ||
               f,
-            N = P
+            F = A
               ? o("WAWebHandleMsgTypes.flow").MessageOverwriteOption.RETRY
               : o("WAWebHandleMsgTypes.flow").MessageOverwriteOption
                   .NO_OVERWRITE;
           if (f) {
             o("WALogger")
               .LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[processDecryptedMessageProto] reparsing msgId=",
                     "",
                   ])),
                 s.externalId,
               )
               .tags("messaging");
-            var M = yield o("WAWebMsgProcessingApiUtils").parseMessage({
+            var W = yield o("WAWebMsgProcessingApiUtils").parseMessage({
               info: s,
               ciphertextType: i.e2eType,
-              msgProtobuf: k,
+              msgProtobuf: I,
               paymentInfo: p,
               bizInfo: t,
               hsmInfo: l,
@@ -171,24 +198,24 @@ __d(
               reportingTokenInfo: g,
               isMessageRetry: i.retryCount > 0,
               isOffline: s.offline != null,
-              protobufBytes: E,
+              protobufBytes: k,
             });
-            if (M.renderableMsgs == null)
+            if (W.renderableMsgs == null)
               o("WALogger").ERROR(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "parsed render able msgs not reparsed as expected",
                   ])),
               );
             else {
-              var w = o(
+              var q = o(
                 "WAWebConditionalRevealPreProcessor",
-              ).applyScheduledMsgViewMode(M.renderableMsgs, I);
+              ).applyScheduledMsgViewMode(W.renderableMsgs, T);
               (o("WAWebHandleMsgValidate").renderableMessagesValidation({
-                renderableMsgs: w,
+                renderableMsgs: q,
                 msgMeta: m,
                 info: s,
-                proto: k,
+                proto: I,
                 bizInfo: t,
               }),
                 o(
@@ -197,72 +224,72 @@ __d(
                   (yield o(
                     "WAWebHandleMsgValidate",
                   ).validateAndProcessReportingTokenInfo({
-                    renderableMsgs: w,
+                    renderableMsgs: q,
                   })));
-              var A = x({
-                  renderableMsgs: w,
+              var U = $({
+                  renderableMsgs: q,
                   reparsing: !0,
                   bizInfo: t,
                   msgMeta: m,
                   paymentInfo: p,
                   info: s,
-                  messageOverwriteOption: N,
+                  messageOverwriteOption: F,
                 }),
-                B = A.hasInactiveMsg,
-                W = A.tasks;
+                V = U.hasInactiveMsg,
+                H = U.tasks;
               return (
-                yield (R || (R = n("Promise"))).all(W),
+                yield (L || (L = n("Promise"))).all(H),
                 o("WALogger")
                   .LOG(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
+                    b ||
+                      (b = babelHelpers.taggedTemplateLiteralLoose([
                         "[processDecryptedMessageProto] reparsed msgId=",
                         "",
                       ])),
                     s.externalId,
                   )
                   .tags("messaging"),
-                { hasInactiveMsg: B }
+                { hasInactiveMsg: V }
               );
             }
           }
-          var q = yield o("WAWebHandleMsgProcessUtils").preProcessMsg(s, k);
+          var G = yield o("WAWebHandleMsgProcessUtils").preProcessMsg(s, I);
           if (
             (o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
-              ((q == null ? void 0 : q.senderOrRecipientAccountTypeHosted) ===
+              ((G == null ? void 0 : G.senderOrRecipientAccountTypeHosted) ===
                 !0 && (s.senderOrRecipientAccountTypeHosted = !0),
-              (q == null ? void 0 : q.hostedBizEncMismatch) === !0 &&
+              (G == null ? void 0 : G.hostedBizEncMismatch) === !0 &&
                 (s.hostedBizEncStateMismatch = !0)),
             s.type ===
               o("WAWebHandleMsgTypes.flow").MESSAGE_TYPE.PEER_BROADCAST &&
               i.retryCount > 0)
           ) {
-            var U = yield o("WAWebDBMsgUtils").getMsgByMsgKey(
+            var z = yield o("WAWebDBMsgUtils").getMsgByMsgKey(
               o("WAWebMsgProcessingApiUtils").messageInfoToKey(s),
             );
-            (U == null ? void 0 : U.bclParticipants) != null
-              ? (s.bclParticipants = U.bclParticipants)
-              : (U == null ? void 0 : U.broadcastParticipants) != null &&
-                (s.bclParticipants = U.broadcastParticipants.map(function (e) {
+            (z == null ? void 0 : z.bclParticipants) != null
+              ? (s.bclParticipants = z.bclParticipants)
+              : (z == null ? void 0 : z.broadcastParticipants) != null &&
+                (s.bclParticipants = z.broadcastParticipants.map(function (e) {
                   return { wid: o("WAWebWidFactory").asUserWidOrThrow(e) };
                 }));
           }
-          var V = o(
+          var j = o(
               "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
             ).msgProcessReporter.startMarker(
               o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
                 .msgProcessReporter.stage.Parsing,
             ),
-            H = f
+            K = f
               ? o("WAWebQuarantineActionUtils").QuarantineAction.NoQuarantine
-              : yield o("WAWebQuarantineActionUtils").getQuarantineAction(k, $),
-            G =
-              H ===
+              : yield o("WAWebQuarantineActionUtils").getQuarantineAction(I, w),
+            Q =
+              K ===
               o("WAWebQuarantineActionUtils").QuarantineAction.NoQuarantine
                 ? yield o("WAWebMsgProcessingApiUtils").parseMessage({
                     info: s,
                     ciphertextType: i.e2eType,
-                    msgProtobuf: k,
+                    msgProtobuf: I,
                     paymentInfo: p,
                     bizInfo: t,
                     hsmInfo: l,
@@ -273,7 +300,7 @@ __d(
                     reportingTokenInfo: g,
                     isMessageRetry: i.retryCount > 0,
                     isOffline: s.offline != null,
-                    protobufBytes: E,
+                    protobufBytes: k,
                   })
                 : {
                     deviceSent: null,
@@ -286,10 +313,10 @@ __d(
                         {
                           type: o("WAWebMsgType").MSG_TYPE.QUARANTINED,
                           kind: o("WAWebMsgType").MsgKind.QuarantinedMessage,
-                          quarantineOriginalProtobuf: E.slice().buffer,
+                          quarantineOriginalProtobuf: k.slice().buffer,
                           quarantineExtractedText: o(
                             "WAWebQuarantineActionUtils",
-                          ).maybeGetQuarantineText(H),
+                          ).maybeGetQuarantineText(K),
                         },
                       ),
                     ],
@@ -300,163 +327,163 @@ __d(
               "wa_web_debug_color_code_retry_messages",
             )
           ) {
-            var z;
-            (z = G.renderableMsgs) == null ||
-              z.forEach(function (e) {
+            var X;
+            (X = Q.renderableMsgs) == null ||
+              X.forEach(function (e) {
                 i.retryCount > 0 && (e.backgroundColor = 16711680);
               });
           }
-          V == null || V();
-          var j = null;
+          j == null || j();
+          var Y = null;
           if (
-            (G.history
-              ? (j = o("WAWebParsedProtocolMsgType")
+            (Q.history
+              ? (Y = o("WAWebParsedProtocolMsgType")
                   .PARSED_PROTOCOL_MESSAGE_TYPE.HISTORY)
-              : G.appStateSyncKeyShare
-                ? (j = o("WAWebParsedProtocolMsgType")
+              : Q.appStateSyncKeyShare
+                ? (Y = o("WAWebParsedProtocolMsgType")
                     .PARSED_PROTOCOL_MESSAGE_TYPE.APP_STATE_SYNC_KEY_SHARE)
-                : G.appStateSyncKeyRequest
-                  ? (j = o("WAWebParsedProtocolMsgType")
+                : Q.appStateSyncKeyRequest
+                  ? (Y = o("WAWebParsedProtocolMsgType")
                       .PARSED_PROTOCOL_MESSAGE_TYPE.APP_STATE_SYNC_KEY_REQUEST)
-                  : G.peerDataOperationRequestResponseMessage
-                    ? (j = o("WAWebParsedProtocolMsgType")
+                  : Q.peerDataOperationRequestResponseMessage
+                    ? (Y = o("WAWebParsedProtocolMsgType")
                         .PARSED_PROTOCOL_MESSAGE_TYPE
                         .PEER_DATA_OPERATION_REQUEST_RESPONSE_MESSAGE)
-                    : G.peerDataOperationRequestMessage &&
-                      (j = o("WAWebParsedProtocolMsgType")
+                    : Q.peerDataOperationRequestMessage &&
+                      (Y = o("WAWebParsedProtocolMsgType")
                         .PARSED_PROTOCOL_MESSAGE_TYPE
                         .PEER_DATA_OPERATION_REQUEST_MESSAGE),
-            o("WAWebRuntimeEnvironmentUtils").isWorker() && j)
+            o("WAWebRuntimeEnvironmentUtils").isWorker() && Y)
           )
             yield r("WAWebApiDeferredMessagesStorage").updateDeferredMessages([
               {
                 id: s.externalId,
-                type: j,
-                plaintext: E,
+                type: Y,
+                plaintext: k,
                 info: s,
                 paymentInfo: p,
                 bizInfo: t,
               },
             ]);
-          else if (G.history)
+          else if (Q.history)
             o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
               "handleHistorySyncNotification",
               {
-                historySyncMetaData: G.history,
-                from: $,
+                historySyncMetaData: Q.history,
+                from: w,
                 externalId: s.externalId,
               },
             );
-          else if (G.appStateSyncKeyShare)
+          else if (Q.appStateSyncKeyShare)
             yield o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
               "handleAppStateSyncKeyShare",
-              { keyShare: G.appStateSyncKeyShare, from: $ },
+              { keyShare: Q.appStateSyncKeyShare, from: w },
             );
-          else if (G.appStateSyncKeyRequest)
+          else if (Q.appStateSyncKeyRequest)
             o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
               "handleAppStateSyncKeyRequest",
-              { keyRequest: G.appStateSyncKeyRequest, from: $ },
+              { keyRequest: Q.appStateSyncKeyRequest, from: w },
             );
-          else if (G.peerDataOperationRequestResponseMessage)
+          else if (Q.peerDataOperationRequestResponseMessage)
             o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
               "handlePeerDataOperationRequestResponse",
               {
                 stanzaId: s.externalId,
-                response: G.peerDataOperationRequestResponseMessage,
+                response: Q.peerDataOperationRequestResponseMessage,
               },
             );
-          else if (G.peerDataOperationRequestMessage)
+          else if (Q.peerDataOperationRequestMessage)
             o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(
               "handlePeerDataOperationRequest",
               {
                 stanzaId: s.externalId,
-                request: G.peerDataOperationRequestMessage,
+                request: Q.peerDataOperationRequestMessage,
               },
             );
-          else if (G.securityNotificationEnabled)
+          else if (Q.securityNotificationEnabled)
             o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() == null
               ? o("WALogger")
                   .ERROR(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
                         "Me wid is empty during security notification parsing",
                       ])),
                   )
                   .sendLogs(
                     "Me wid is empty during security notification parsing",
                   )
-              : $ == null || !($ instanceof r("WAWebWid"))
+              : w == null || !(w instanceof r("WAWebWid"))
                 ? o("WALogger")
                     .ERROR(
-                      v ||
-                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
                           "Handle security notification empty wid error",
                         ])),
                     )
                     .sendLogs("Handle security notification empty wid error")
-                : o("WAWebUserPrefsMeUser").isMePrimaryNonLid($)
+                : o("WAWebUserPrefsMeUser").isMePrimaryNonLid(w)
                   ? o(
                       "WAWebUserPrefsNotifications",
                     ).setGlobalSecurityNotifications(
-                      G.securityNotificationEnabled.isEnabled,
+                      Q.securityNotificationEnabled.isEnabled,
                     )
                   : o("WALogger")
                       .ERROR(
-                        S ||
-                          (S = babelHelpers.taggedTemplateLiteralLoose([
+                        R ||
+                          (R = babelHelpers.taggedTemplateLiteralLoose([
                             "Handle security notification payload wid error",
                           ])),
                       )
                       .sendLogs(
                         "Handle security notification payload wid error",
                       );
-          else if (G.cloudApiThreadControlNotification)
+          else if (Q.cloudApiThreadControlNotification)
             r("WAWebHandleCloudApiThreadControlNotification")(
-              G.cloudApiThreadControlNotification,
+              Q.cloudApiThreadControlNotification,
             );
-          else if (G.lidMigrationSyncMessage != null) {
-            var K;
+          else if (Q.lidMigrationSyncMessage != null) {
+            var J;
             yield o(
               "WAWebLid1X1ThreadAccountMigrations",
             ).setLidMigrationMappings(
-              (K = G.lidMigrationSyncMessage) == null
+              (J = Q.lidMigrationSyncMessage) == null
                 ? void 0
-                : K.encodedMappingPayload,
+                : J.encodedMappingPayload,
             );
           } else {
-            var Q = !1;
+            var Z = !1;
             if (
-              (G.deviceSent == null
-                ? (Q = !0)
-                : G.deviceSent.phash
-                  ? (Q = yield o("WAWebHandleMsgValidate").validateBclHash(
-                      G.deviceSent.phash,
-                      G.deviceSent.info,
+              (Q.deviceSent == null
+                ? (Z = !0)
+                : Q.deviceSent.phash
+                  ? (Z = yield o("WAWebHandleMsgValidate").validateBclHash(
+                      Q.deviceSent.phash,
+                      Q.deviceSent.info,
                     ))
-                  : G.deviceSent.destination &&
-                    (Q = yield o(
+                  : Q.deviceSent.destination &&
+                    (Z = yield o(
                       "WAWebHandleMsgValidate",
-                    ).validateMsgDestination(G.deviceSent.destination, s)),
-              !Q)
+                    ).validateMsgDestination(Q.deviceSent.destination, s)),
+              !Z)
             )
               throw new (o("WAWebHandleMsgError").DeviceSentMessageError)(
                 o("WAWebMsgProcessingApiUtils").getDeviceType(s.author),
                 o("WAWebWamEnumDsmError").DSM_ERROR.INVALID_DSM,
               );
-            var X = G.renderableMsgs;
+            var ee = Q.renderableMsgs;
             if (
               (o("WAWebHandleMsgValidate").renderableMessagesValidation({
-                renderableMsgs: X,
+                renderableMsgs: ee,
                 msgMeta: m,
                 info: s,
-                proto: k,
+                proto: I,
                 bizInfo: t,
               }),
               !o(
                 "WAWebMessagingGatingUtils",
               ).isWebReportingTokenDelayProcessingEnabled())
             ) {
-              var Y = o(
+              var te = o(
                 "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
               ).msgProcessReporter.startMarker(
                 o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
@@ -464,36 +491,36 @@ __d(
               );
               (yield o(
                 "WAWebHandleMsgValidate",
-              ).validateAndProcessReportingTokenInfo({ renderableMsgs: X }),
-                Y == null || Y());
+              ).validateAndProcessReportingTokenInfo({ renderableMsgs: ee }),
+                te == null || te());
             }
-            var J = yield o(
+            var ne = yield o(
                 "WAWebGalaxyFlowsUtils",
-              ).maybeAddGalaxyFlowMessageIds(X),
-              Z = o(
+              ).maybeAddGalaxyFlowMessageIds(ee),
+              re = o(
                 "WAWebConditionalRevealPreProcessor",
               ).applyScheduledMsgViewMode(
-                G.storeMsg != null ? [G.storeMsg].concat(J) : J,
-                I,
+                Q.storeMsg != null ? [Q.storeMsg].concat(ne) : ne,
+                T,
               ),
-              ee = x({
-                renderableMsgs: Z,
+              oe = $({
+                renderableMsgs: re,
                 reparsing: f,
                 bizInfo: t,
                 msgMeta: m,
                 paymentInfo: p,
                 info: s,
-                messageOverwriteOption: N,
+                messageOverwriteOption: F,
               }),
-              te = ee.hasInactiveMsg,
-              ne = ee.tasks,
-              re = G.senderKey;
-            (re != null &&
-              ne.push(
+              ae = oe.hasInactiveMsg,
+              ie = oe.tasks,
+              le = Q.senderKey;
+            (le != null &&
+              ie.push(
                 o("WAWebSignal").Session.createGroupSignalSession(
                   s.author,
-                  re.groupId,
-                  re.key,
+                  le.groupId,
+                  le.key,
                 ),
               ),
               r("isStringNullOrEmpty")(s.pushname) ||
@@ -502,9 +529,9 @@ __d(
                   s.pushname,
                   s.offline != null,
                 ));
-            var oe = F(s.chat);
-            yield (R || (R = n("Promise"))).all(ne);
-            var ae = yield oe;
+            var se = O(s.chat);
+            yield (L || (L = n("Promise"))).all(ie);
+            var ue = yield se;
             return (
               o(
                 "WAWebLogMissingGroupParticipantMappings",
@@ -512,26 +539,26 @@ __d(
                 s.chat,
                 s.author,
                 s.addressingMode,
-                ae,
+                ue,
               ),
               o("WAWebLogReceivedMessages").logReceivedMessagesInWAM({
-                msgs: J,
-                offline: O(s.offline),
+                msgs: ne,
+                offline: B(s.offline),
                 tsMillis: s.ts * 1e3,
                 clientReceivedTsMillis: s.clientReceivedTsMillis,
                 msgProcessStartTsMillis: s.msgProcessStartTsMillis,
                 serverAddressingMode: s.addressingMode,
-                localAddressingMode: ae,
+                localAddressingMode: ue,
               }),
-              { hasInactiveMsg: te }
+              { hasInactiveMsg: ae }
             );
           }
           return { hasInactiveMsg: !1 };
         })),
-        D.apply(this, arguments)
+        x.apply(this, arguments)
       );
     }
-    function x(e) {
+    function $(e) {
       var t,
         n,
         r,
@@ -547,14 +574,14 @@ __d(
         S = [],
         R = !1,
         L = b[0],
-        k =
-          I != null && I(L == null ? void 0 : L.type)
-            ? E == null
+        E =
+          T != null && T(L == null ? void 0 : L.type)
+            ? k == null
               ? void 0
-              : E(L)
+              : k(L)
             : null;
       return (
-        k != null
+        E != null
           ? (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -562,7 +589,7 @@ __d(
                 ])),
             ),
             (R = !0),
-            S.push(w(k, s, v, h)))
+            S.push(A(E, s, v, h)))
           : L != null && L.kind === o("WAWebMsgType").MsgKind.PollVoteEncrypted
             ? (o("WALogger").LOG(
                 c ||
@@ -570,7 +597,7 @@ __d(
                     "processMsgs: pollVote",
                   ])),
               ),
-              S.push(N(L, s, v)))
+              S.push(M(L, s, v)))
             : ((t = b[0]) == null ? void 0 : t.type) ===
                 o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT
               ? (o("WALogger").LOG(
@@ -656,11 +683,11 @@ __d(
                                   "processMsgs: renderableMsgs",
                                 ])),
                             ),
-                    S.push($(b, s, C, l, y, h, v))),
+                    S.push(P(b, s, C, l, y, h, v))),
         { tasks: S, hasInactiveMsg: R }
       );
     }
-    function $(e, t, n, r, a, i, l) {
+    function P(e, t, n, r, a, i, l) {
       return o("WAWebMessageProcessRenderable").processRenderableMessages(
         e,
         t,
@@ -671,15 +698,15 @@ __d(
         l,
       );
     }
-    function P(e) {
+    function N(e) {
       return o("WAWebMessageProcessPlaceholder").processPlaceholderMessage(e);
     }
-    function N(e, t, n) {
-      return M.apply(this, arguments);
+    function M(e, t, n) {
+      return w.apply(this, arguments);
     }
-    function M() {
+    function w() {
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           var r = t.offline != null && !n,
             a = e,
             i = o("WAWebGetMessageCache")
@@ -691,15 +718,15 @@ __d(
                 .isOfflineDeliveryEnd)) &&
             (yield i);
         })),
-        M.apply(this, arguments)
+        w.apply(this, arguments)
       );
     }
-    function w(e, t, n, r) {
-      return A.apply(this, arguments);
+    function A(e, t, n, r) {
+      return F.apply(this, arguments);
     }
-    function A() {
+    function F() {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (F = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
             var a = t.offline != null && !n,
               i = e,
@@ -719,20 +746,20 @@ __d(
                 ));
           },
         )),
-        A.apply(this, arguments)
+        F.apply(this, arguments)
       );
     }
-    function F(e) {
+    function O(e) {
       return o("WAWebGetGroupAddressingMode").getGroupAddressingMode(e);
     }
-    function O(e) {
+    function B(e) {
       var t = parseInt(e, 10);
       return Number.isNaN(t) ? null : t;
     }
-    ((l.processDecryptedMessageProto = T),
-      (l.processMsgs = x),
-      (l.processRenderableMsg = $),
-      (l.processPlaceholderMsg = P));
+    ((l.processDecryptedMessageProto = D),
+      (l.processMsgs = $),
+      (l.processRenderableMsg = P),
+      (l.processPlaceholderMsg = N));
   },
   98,
 );

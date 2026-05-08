@@ -13,59 +13,59 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e, t, n, r, o, a) {
+    function s(e, t, n, r, o, a, i) {
       return u.apply(this, arguments);
     }
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, s, u) {
-            var c,
-              d,
+          function* (t, a, i, l, s, u, c) {
+            var d,
               m,
               p,
               _,
-              f = t.data,
-              g = f.id,
-              h = f.to,
-              y = t.data.to,
-              C = yield o(
+              f,
+              g = t.data,
+              h = g.id,
+              y = g.to,
+              C = t.data.to,
+              b = yield o(
                 "WAWebSendMsgCreateFanoutStanza",
-              ).createFanoutMsgStanza(t, a, i, l, u, y, s),
-              b = C.stanza;
+              ).createFanoutMsgStanza(t, a, i, l, u, C, s, c),
+              v = b.stanza;
             (yield o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
               .flushBufferToDiskIfNotMemOnlyMode(),
-              (c = u.sendPerfReporter) == null || c.postReadyToSendStage(),
-              (d = u.sendPerfReporter) == null || d.startWrittenWireStage());
-            var v = yield o(
+              (d = u.sendPerfReporter) == null || d.postReadyToSendStage(),
+              (m = u.sendPerfReporter) == null || m.startWrittenWireStage());
+            var S = yield o(
                 "WADeprecatedSendIq",
               ).deprecatedSendStanzaAndReturnAck(
-                b,
+                v,
                 o("WAWebCommsAckParser").toCoreAckTemplate({
-                  id: g.id,
+                  id: h.id,
                   class: "message",
-                  from: h,
+                  from: y,
                   participant: null,
                 }),
               ),
-              S = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(v);
-            return S.error
+              R = o("WAWebSendMsgCommonApi").sendMsgAckSyncParser.parse(S);
+            return R.error
               ? (e || (e = n("Promise"))).reject(
                   r("err")(
                     "[messaging] encryptAndSendGroupDirectMsg: Invalid ack from server",
                   ),
                 )
-              : ((m = u.sendReporter) == null ||
-                  m.setMessageDistributionType(
+              : ((p = u.sendReporter) == null ||
+                  p.setMessageDistributionType(
                     o("WAWebWamEnumMessageDistributionEnumType")
                       .MESSAGE_DISTRIBUTION_ENUM_TYPE.DIRECT_MESSAGE,
                   ),
-                (p = u.sendPerfReporter) == null || p.postWrittenWireStage(),
+                (_ = u.sendPerfReporter) == null || _.postWrittenWireStage(),
                 (u.sendPerfReporter = null),
-                (_ = u.sendReporter) == null || _.postSuccess(),
+                (f = u.sendReporter) == null || f.postSuccess(),
                 (u.sendReporter = null),
-                S.success);
+                R.success);
           },
         )),
         u.apply(this, arguments)

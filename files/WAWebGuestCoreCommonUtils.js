@@ -29,9 +29,13 @@ __d(
       var t;
       return (t = e.get("invite_code")) != null ? t : e.get("sc");
     }
+    function c(e) {
+      return e.get("sc") != null && e.get("invite_code") == null;
+    }
     ((l.isAppClipWebView = e),
       (l.getBrowserAndOsDetails = s),
-      (l.getInviteCodeFromUrlParams = u));
+      (l.getInviteCodeFromUrlParams = u),
+      (l.isSSIInviteCode = c));
   },
   98,
 );

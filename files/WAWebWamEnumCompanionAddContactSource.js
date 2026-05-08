@@ -10,6 +10,8 @@ __d(
       PHONE_NUMBER_DIALER: 4,
       FMX_CARD: 5,
       NEW_CHAT_DRAWER: 6,
+      CHAT_HEADER: 7,
+      GROUP_MEMBER: 8,
     });
     i.COMPANION_ADD_CONTACT_SOURCE = e;
   },

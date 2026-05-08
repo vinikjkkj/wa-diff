@@ -27,39 +27,40 @@ __d(
             i,
             l,
             s,
-            u = (t.text || "").trim();
-          if (u === "") return null;
-          var c =
+            u,
+            c = (t.text || "").trim();
+          if (c === "") return null;
+          var d =
               n != null
                 ? n
                 : o("WAWebWidFactory").createWid(o("WAJids").STATUS_JID),
-            d = o("WAWebLidStatusMigrationUtils").matWidConvert(
+            m = o("WAWebLidStatusMigrationUtils").matWidConvert(
               o("WAWebUserPrefsMeUser").getMeUser(),
             ),
-            m = (a = n == null ? void 0 : n.isNewsletter()) != null ? a : !1,
-            p = void 0;
-          m || (p = o("WAWebLidStatusMigrationUtils").matWidConvert(d));
-          var _ = new (r("WAWebMsgKey"))({
+            p = (a = n == null ? void 0 : n.isNewsletter()) != null ? a : !1,
+            _ = void 0;
+          p || (_ = o("WAWebLidStatusMigrationUtils").matWidConvert(m));
+          var f = new (r("WAWebMsgKey"))({
               fromMe: !0,
-              remote: c,
+              remote: d,
               id: yield r("WAWebMsgKey").newId(),
-              participant: p,
+              participant: _,
             }),
-            f = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
+            g = o("WAWebStatusGatingUtils").isStatusResharePosterSideEnabled()
               ? yield r("WAWebUserPrefsStatus").getStatusReshareAllowed()
               : !1,
-            g = {
-              id: _,
-              body: u,
-              author: d,
+            h = {
+              id: f,
+              body: c,
+              author: m,
               backgroundColor: (i = t.color) != null ? i : e,
               type: "chat",
               kind: o("WAWebMsgType").MsgKind.Chat,
               viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
               subtype: void 0,
               t: o("WATimeUtils").unixTime(),
-              from: d,
-              to: c,
+              from: m,
+              to: d,
               isNewMsg: !0,
               local: !0,
               ack: o("WAWebAck").ACK.CLOCK,
@@ -69,11 +70,13 @@ __d(
               ).isReportingTokenSendingEnabled()
                 ? self.crypto.getRandomValues(new Uint8Array(32))
                 : null,
-              canBeReshared: f,
+              canBeReshared: g,
+              forwardedNewsletterMessageInfo:
+                (s = t.forwardedNewsletterMessageInfo) != null ? s : void 0,
               statusAttributions:
-                (s = t.statusAttributions) != null ? s : void 0,
+                (u = t.statusAttributions) != null ? u : void 0,
             };
-          return g;
+          return h;
         })),
         u.apply(this, arguments)
       );

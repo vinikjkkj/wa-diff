@@ -8,6 +8,7 @@ __d(
     "WAWebABProps",
     "WAWebActionToast.react",
     "WAWebBackendErrors",
+    "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebComposeBoxActions",
     "WAWebCoreActionsODS",
@@ -274,7 +275,11 @@ __d(
                         .then(function (t) {
                           var n = t.chat;
                           (o("WAWebCmd")
-                            .Cmd.openChatBottom({ chat: n })
+                            .Cmd.openChatBottom({
+                              chat: n,
+                              chatEntryPoint: o("WAWebChatEntryPoint")
+                                .ChatEntryPoint.NewGroupCreation,
+                            })
                             .then(function (e) {
                               e &&
                                 o(

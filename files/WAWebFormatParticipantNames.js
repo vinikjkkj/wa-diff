@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WAWebBotFrontendUtils",
     "WAWebBotUtils",
+    "WAWebChatEntryPoint",
     "WAWebClickableLink.react",
     "WAWebCmd",
     "WAWebCommunityGroupJourneyEventImpl",
@@ -66,7 +67,11 @@ __d(
                   chat: n,
                 }).commit(),
                 o("WAWebCmd")
-                  .Cmd.openChatFromUnread({ chat: n })
+                  .Cmd.openChatFromUnread({
+                    chat: n,
+                    chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                      .SystemMessage,
+                  })
                   .then(function (e) {
                     e && o("WAWebComposeBoxActions").ComposeBoxActions.focus(n);
                   }));

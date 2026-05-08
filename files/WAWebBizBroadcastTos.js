@@ -110,6 +110,7 @@ __d(
                             ])),
                         )
                         .catching(n instanceof Error ? n : r("err")(String(n)))
+                        .tags("non-sad")
                         .sendLogs("business-broadcast-tos-sync-error"),
                       t(n instanceof Error ? n : r("err")(String(n)))
                     );

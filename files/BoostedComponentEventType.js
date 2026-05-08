@@ -1534,6 +1534,8 @@ __d(
       LWI_SUBSCRIPTION_OFFER_UNENROLLED: "lwi_subscription_offer_unenrolled",
       LWI_SUBSCRIPTION_OFFER_ELIGIBLE: "lwi_subscription_offer_eligible",
       LWI_SUBSCRIPTION_OFFER_INELIGIBLE: "lwi_subscription_offer_ineligible",
+      LWI_SUBSCRIPTION_INSIGHT_LIFT_NO_AD_ACCOUNT:
+        "lwi_subscription_insight_lift_no_ad_account",
       PARTNERSHIP_ADS_TOGGLE: "partnership_ads_toggle",
       PARTNERSHIP_ADS_IDENTITY_SELECTED: "partnership_ads_identity_selected",
       PARTNERSHIP_ADS_PARTNER_CONTENT_TAB_SELECTED:
@@ -1616,6 +1618,7 @@ __d(
         "proactive_results_delivery_scheduled",
       PROACTIVE_RESULTS_DELIVERY_SKIPPED_NOT_OPTED_IN:
         "proactive_results_delivery_skipped_not_opted_in",
+      PROACTIVE_MESSAGE_SENT: "proactive_message_sent",
     });
     i.default = e;
   },

@@ -24,7 +24,7 @@ __d(
             if (t != null) return t;
             var n = yield o(
                 "WAWebNewsletterDirectorySearchQueryJob",
-              ).getRecommendedNewslettersQuery(s, e != null ? [e] : []),
+              ).getRecommendedNewslettersQuery(s, e === "" ? [] : [e]),
               r = n.newsletters;
             return (
               yield o(

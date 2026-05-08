@@ -35,6 +35,33 @@ __d(
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint
                       .CommunityNewGroupCreation ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint.NewGroupCreation ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.BizOrder ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.BizPayment ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .DeprecatedLidChatBanner ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint.AddContactToGroup ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.DialerPad ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.NewChat ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .NewBroadcastCreation ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.InfoDrawer ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .ExistingGroupRedirect ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.SystemMessage ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.MessageAdmin ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint.GroupParticipant ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .SubgroupJoinRequest ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint.CommunityMember ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ContactInfo ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit ||

@@ -95,10 +95,7 @@ __d(
             ? r("PerfFalcoEvent").logImmediately(function () {
                 return n;
               })
-            : r("gkx")("2160") ||
-                r("gkx")("21055") ||
-                r("gkx")("1624") ||
-                r("gkx")("9550")
+            : r("gkx")("2160") || r("gkx")("21055") || r("gkx")("9550")
               ? r("PerfFalcoEvent").logCritical(function () {
                   return n;
                 })

@@ -231,14 +231,26 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
-    function x(e, t) {
+    function x(e, t, n) {
       e({
-        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        entryPoint: t,
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: n,
+        extraAttributes: {
+          is_creating_campaign: t.isCreatingCampaign,
+          is_disabled: t.isDisabled,
+          is_loading_business_info: t.isLoadingBusinessInfo,
+          is_message_empty: t.isMessageEmpty,
+          missing_business_info: t.missingBusinessInfo,
+          no_broadcast_jid: t.noBroadcastJid,
+          pending_billing_action: t.pendingBillingAction,
+          recipient_count: t.recipientCount,
+          selected_chat_count: t.selectedChatCount,
+          too_few_recipients: t.tooFewRecipients,
+          too_many_recipients: t.tooManyRecipients,
+        },
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
-          o("WAWebBBLoggerTypes").UserActionTarget
-            .EXIT_CONFIRMATION_DISMISS_BUTTON,
+          o("WAWebBBLoggerTypes").UserActionTarget.SEND_BROADCAST_BUTTON,
       });
     }
     function $(e, t) {
@@ -248,10 +260,20 @@ __d(
         surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
         userActionTarget:
           o("WAWebBBLoggerTypes").UserActionTarget
-            .EXIT_CONFIRMATION_CONTINUE_BUTTON,
+            .EXIT_CONFIRMATION_DISMISS_BUTTON,
       });
     }
     function P(e, t) {
+      e({
+        action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t,
+        surface: o("WAWebBBLoggerTypes").SURFACE_TYPE.BB_CAMPAIGN_DRAFT,
+        userActionTarget:
+          o("WAWebBBLoggerTypes").UserActionTarget
+            .EXIT_CONFIRMATION_CONTINUE_BUTTON,
+      });
+    }
+    function N(e, t) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.VIEW,
         entryPoint: t,
@@ -260,7 +282,7 @@ __d(
           o("WAWebBBLoggerTypes").UserActionTarget.EXISTING_AUDIENCES_MODAL,
       });
     }
-    function N(e, t, n) {
+    function M(e, t, n) {
       e({
         action: o("WAWebBBLoggerTypes").SMB_USER_ACTION_TYPE_ENUM.CLICK,
         entryPoint: n,
@@ -293,10 +315,11 @@ __d(
       (l.createBroadcastAudienceMenuExistingAudiencesClicked = I),
       (l.createBroadcastBackClicked = T),
       (l.createBroadcastSendClicked = D),
-      (l.createBroadcastExitConfirmationDismissed = x),
-      (l.createBroadcastExitConfirmationConfirmed = $),
-      (l.existingAudiencesModalViewed = P),
-      (l.existingAudiencesModalSaved = N));
+      (l.sendBroadcastButtonViewed = x),
+      (l.createBroadcastExitConfirmationDismissed = $),
+      (l.createBroadcastExitConfirmationConfirmed = P),
+      (l.existingAudiencesModalViewed = N),
+      (l.existingAudiencesModalSaved = M));
   },
   98,
 );

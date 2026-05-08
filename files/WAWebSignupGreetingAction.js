@@ -22,6 +22,7 @@ __d(
     "WAWebSignupGating",
     "WAWebSignupLoadingState",
     "WAWebSignupMetadataFetcher",
+    "WAWebSignupQPLLogger",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
@@ -38,9 +39,12 @@ __d(
       p,
       _,
       f,
-      g = new Set(),
-      h = 5;
-    function y(t) {
+      g,
+      h = new Set(),
+      y = new Map(),
+      C = new Set(),
+      b = 5;
+    function v(t) {
       (o("WAWebChatDeleteBridge")
         .deleteFromStorage(t.id)
         .catch(function (t) {
@@ -55,9 +59,9 @@ __d(
         }),
         t.delete());
     }
-    function C(e, t) {
+    function S(e, t) {
       var n = e.msgs.getModelsArray();
-      return n.length > h
+      return n.length > b
         ? !1
         : !n.some(function (e) {
             return (
@@ -68,52 +72,90 @@ __d(
             );
           });
     }
-    function b() {
-      g.clear();
+    function R() {
+      h.clear();
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    function L(e, t) {
+      return E.apply(this, arguments);
     }
-    function S() {
+    function E() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var a;
+          o("WAWebSignupQPLLogger").deepLinkStart(t);
+          var i;
           try {
-            var i = o("WAWebWidFactory").createWid(e);
-            o("WAWebSignupFlowLoggerLazy").logSignupOp({
-              operation: o("WAWebSignupFlowLoggerLazy")
-                .SIGNUP_USER_JOURNEY_OPERATION.DEEP_LINK_PARSED,
-              signupId: t,
-              businessWid: i,
-            });
-            var l = yield (f || (f = n("Promise"))).all([
-                o("WAWebFindChatAction").findOrCreateLatestChat(i, "signupAGM"),
-                o("WAWebSignupMetadataFetcher")
-                  .fetchSignupMetadata(t, i.user)
-                  .catch(o("WAWebNullFunc").returnNull),
-              ]),
-              s = l[0].chat,
-              u = l[1];
-            a = s.id.toString();
-            var c = C(s);
-            if (u == null) {
-              (o("WALogger")
+            i = o("WAWebWidFactory").createWid(e);
+          } catch (n) {
+            (o("WAWebSignupQPLLogger").deepLinkFail(t, "invalid_phone"),
+              o("WALogger")
                 .ERROR(
                   d ||
                     (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[signup:greeting] metadata null signupId=",
+                      "[signup:greeting] invalid phone signupId=",
                       " phone=",
                       "",
                     ])),
                   t,
                   e,
                 )
-                .sendLogs("signup-greeting-metadata-null"),
-                c &&
+                .catching(r("getErrorSafe")(n))
+                .sendLogs("signup-greeting-invalid-phone"));
+            return;
+          }
+          y.set(i.toString(), t);
+          try {
+            o("WAWebSignupFlowLoggerLazy").logSignupOp({
+              operation: o("WAWebSignupFlowLoggerLazy")
+                .SIGNUP_USER_JOURNEY_OPERATION.DEEP_LINK_PARSED,
+              signupId: t,
+              businessWid: i,
+            });
+            var l = yield (g || (g = n("Promise"))).all([
+                o("WAWebFindChatAction").findOrCreateLatestChat(i, "signupAGM"),
+                n("asyncToGeneratorRuntime")
+                  .asyncToGenerator(function* () {
+                    o("WAWebSignupQPLLogger").deepLinkMetadataFetchStart(t);
+                    try {
+                      return yield o(
+                        "WAWebSignupMetadataFetcher",
+                      ).fetchSignupMetadata(t, i.user);
+                    } finally {
+                      o("WAWebSignupQPLLogger").deepLinkMetadataFetchEnd(t);
+                    }
+                  })()
+                  .catch(o("WAWebNullFunc").returnNull),
+              ]),
+              s = l[0].chat,
+              u = l[1];
+            a = s.id.toString();
+            var c = i.toString();
+            a !== c && (y.delete(c), y.set(a, t));
+            var b = S(s);
+            if (u == null) {
+              (y.delete(a),
+                o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[signup:greeting] metadata null signupId=",
+                        " phone=",
+                        "",
+                      ])),
+                    t,
+                    e,
+                  )
+                  .sendLogs("signup-greeting-metadata-null"),
+                b &&
                   (s.draftMessage == null || s.draftMessage.text === "") &&
-                  (o("WAWebCmd").Cmd.closeChat(s), y(s)),
+                  (o("WAWebCmd").Cmd.closeChat(s), v(s)),
                 o("WAWebSendSignupResponseAction").showInvalidSignupLinkToast(),
-                o("WAWebSignupLoadingState").setSignupLoading(a, !1));
+                o("WAWebSignupLoadingState").setSignupLoading(a, !1),
+                C.delete(t) ||
+                  o("WAWebSignupQPLLogger").deepLinkFail(
+                    t,
+                    "invalid_response",
+                  ));
               return;
             }
             if (
@@ -124,18 +166,18 @@ __d(
                 businessWid: s.id,
                 chatTimestamp: s.t,
               }),
-              !g.has(a))
+              !h.has(a))
             ) {
-              g.add(a);
+              h.add(a);
               try {
-                var h = s.msgs.getModelsArray().some(function (e) {
+                var R = s.msgs.getModelsArray().some(function (e) {
                   return (
                     e.subtype ===
                     o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ContactInfoCard
                   );
                 });
-                if (c && !h) {
-                  var b = yield o(
+                if (b && !R) {
+                  var L = yield o(
                     "WAWebContactSystemMsg",
                   ).genContactInfoCardMsg(s.id, {
                     isSmb: !1,
@@ -146,27 +188,27 @@ __d(
                     isFMXCtWA: !1,
                     isSignupDeeplink: !0,
                   });
-                  b != null &&
+                  L != null &&
                     (yield o(
                       "WAWebHandleSingleMsgWorkerCompatible",
                     ).handleSingleMsg({
                       chatId: s.id,
-                      newMsg: b,
+                      newMsg: L,
                       handleSingleMsgOrigin: "signupAGM",
                     }),
                     o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
                           "[injectSignupGreetingMessage] contact info card injected",
                         ])),
                     ));
                 }
               } catch (e) {
-                throw (g.delete(a), e);
+                throw (h.delete(a), e);
               }
             }
-            var v = o("WAWebUserPrefsMeUser").getMeUser(),
-              S = {
+            var E = o("WAWebUserPrefsMeUser").getMeUser(),
+              k = {
                 type: o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE,
                 kind: o("WAWebMsgType").MsgKind.AutomatedGreetingMessage,
                 subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup,
@@ -183,22 +225,29 @@ __d(
                 local: !1,
                 isNewMsg: !0,
                 t: o("WATimeUtils").unixTime(),
-                to: v,
+                to: E,
                 body: u.signupMessage,
                 signupContext: {
                   signupId: u.signupId,
                   privacyPolicyUrl: u.privacyPolicyUrl,
                 },
               };
-            (yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(s, S)[1],
-              o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[injectSignupGreetingMessage] AGM injected id=",
-                    "",
-                  ])),
-                t,
-              ),
+            if (
+              (yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(s, k)[1],
+              y.delete(a),
+              C.delete(t))
+            ) {
+              o("WAWebSignupLoadingState").setSignupLoading(a, !1);
+              return;
+            }
+            (o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[injectSignupGreetingMessage] AGM injected id=",
+                  "",
+                ])),
+              t,
+            ),
               o("WAWebSignupFlowLoggerLazy").logSignupOp({
                 operation: o("WAWebSignupFlowLoggerLazy")
                   .SIGNUP_USER_JOURNEY_OPERATION.AGM_INJECTED,
@@ -206,13 +255,17 @@ __d(
                 businessWid: s.id,
                 chatTimestamp: s.t,
               }),
-              o("WAWebSignupLoadingState").setSignupLoading(a, !1));
+              o("WAWebSignupLoadingState").setSignupLoading(a, !1),
+              o("WAWebSignupQPLLogger").deepLinkSuccess(t));
           } catch (n) {
             if (
-              (o("WALogger")
+              (a != null ? y.delete(a) : y.delete(i.toString()),
+              C.delete(t) ||
+                o("WAWebSignupQPLLogger").deepLinkFail(t, "network_error"),
+              o("WALogger")
                 .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[signup:greeting] injection failed signupId=",
                       " phone=",
                       "",
@@ -234,34 +287,45 @@ __d(
               } catch (e) {}
           }
         })),
-        S.apply(this, arguments)
+        E.apply(this, arguments)
       );
     }
-    function R(e) {
+    function k(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
         e.subtype === o("WAWebCommonMsgSubtypeTypes").MsgSubtype.Signup &&
         e.signupCtaTapped !== !0
       );
     }
-    function L(e, t) {
-      for (var n of e) {
-        var r,
-          a = (r = n.signupContext) == null ? void 0 : r.signupId;
-        a != null &&
-          o("WAWebSignupFlowLoggerLazy").logSignupOp({
-            operation: o("WAWebSignupFlowLoggerLazy")
-              .SIGNUP_USER_JOURNEY_OPERATION.AGM_CANCELLED_USER_LEFT,
-            signupId: a,
-            businessWid: t.id,
-            chatTimestamp: t.t,
-          });
-      }
+    function I(e) {
+      var t = e.id.toString(),
+        n = null,
+        r = y.get(t);
+      if (r != null) n = t;
+      else if (o("WAWebSignupLoadingState").isSignupLoading(t))
+        for (var a of y) {
+          var i = a[0],
+            l = a[1];
+          ((n = i), (r = l));
+          break;
+        }
+      r == null ||
+        n == null ||
+        (y.delete(n),
+        C.add(r),
+        o("WAWebSignupQPLLogger").deepLinkCancel(r),
+        o("WAWebSignupFlowLoggerLazy").logSignupOp({
+          operation: o("WAWebSignupFlowLoggerLazy")
+            .SIGNUP_USER_JOURNEY_OPERATION.AGM_CANCELLED_USER_LEFT,
+          signupId: r,
+          businessWid: e.id,
+          chatTimestamp: e.t,
+        }));
     }
-    function E(e) {
+    function T(e) {
       var t = e.msgs.last();
       if (
-        !(t == null || !R(t)) &&
+        !(t == null || !k(t)) &&
         !(
           !o("WAWebSignupGating").isSignupAGMEnabled() ||
           !o("WAWebSignupGating").isSignupAGMCleanupEnabled()
@@ -269,15 +333,15 @@ __d(
         !(e.draftMessage != null && e.draftMessage.text !== "")
       ) {
         var n = e.msgs.getModelsArray(),
-          r = n.filter(R);
-        if ((L(r, e), C(e, r)))
+          r = n.filter(k);
+        if (S(e, r))
           (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[maybeCleanupSignupAGM] deleting signup chat",
               ])),
           ),
-            y(e));
+            v(e));
         else {
           var a = [];
           for (var i of r) (e.msgs.remove(i), a.push(i.id.toString()));
@@ -303,12 +367,13 @@ __d(
                 );
               }));
         }
-        g.delete(e.id.toString());
+        h.delete(e.id.toString());
       }
     }
-    ((l.resetSignupCardInjectedChats = b),
-      (l.injectSignupGreetingMessage = v),
-      (l.maybeCleanupSignupAGM = E));
+    ((l.resetSignupCardInjectedChats = R),
+      (l.injectSignupGreetingMessage = L),
+      (l.cancelInFlightSignups = I),
+      (l.maybeCleanupSignupAGM = T));
   },
   98,
 );

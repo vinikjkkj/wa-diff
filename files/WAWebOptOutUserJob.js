@@ -69,7 +69,11 @@ __d(
                       ])),
                     p,
                   ),
-                  { errorCode: Number(p), errorText: _ }
+                  {
+                    errorCode: Number(p),
+                    errorText: _,
+                    errorKind: "invalid_request",
+                  }
                 );
               }
               case "UpdateOptOutListResponseServerError": {
@@ -87,7 +91,11 @@ __d(
                     g,
                     h,
                   ),
-                  { errorCode: Number(g), errorText: h }
+                  {
+                    errorCode: Number(g),
+                    errorText: h,
+                    errorKind: "server_error",
+                  }
                 );
               }
               default:
@@ -150,7 +158,11 @@ __d(
                     ])),
                   l,
                 ),
-                { errorCode: Number(l), errorText: s }
+                {
+                  errorCode: Number(l),
+                  errorText: s,
+                  errorKind: "invalid_request",
+                }
               );
             }
             case "UpdateOptOutListResponseServerError": {
@@ -168,7 +180,11 @@ __d(
                   p,
                   _,
                 ),
-                { errorCode: Number(p), errorText: _ }
+                {
+                  errorCode: Number(p),
+                  errorText: _,
+                  errorKind: "server_error",
+                }
               );
             }
             default:

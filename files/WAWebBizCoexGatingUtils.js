@@ -41,13 +41,19 @@ __d(
         "smb_auth_agents_feature_control_enabled",
       );
     }
+    function h() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_auth_agents_feature_control_enabled",
+      );
+    }
     ((l.bizHostedDevicesEnabled = c),
       (l.bizHostedDevicesSystemMessageEnabled = d),
       (l.hostedDeviceSecurityCodeVerificationEnabled = m),
       (l.smbHostedPrimaryPairingAllowed = p),
       (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = _),
       (l.authorizedAgentsEnabled = f),
-      (l.agentBizProfileFeatureControlEnabled = g));
+      (l.agentBizProfileFeatureControlEnabled = g),
+      (l.authAgentFeatureControlEnabled = h));
   },
   98,
 );

@@ -144,16 +144,24 @@ __d(
       );
     }
     function T() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "status_e2ee_send_over_status_stanza",
+      return (
+        o("WAWebABProps").getABPropConfigValue("channel_status_consumption") &&
+        o("WAWebABProps").getABPropConfigValue(
+          "channel_status_resharing_enabled",
+        )
       );
     }
     function D() {
       return o("WAWebABProps").getABPropConfigValue(
-        "status_e2ee_recv_over_status_stanza",
+        "status_e2ee_send_over_status_stanza",
       );
     }
     function x() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "status_e2ee_recv_over_status_stanza",
+      );
+    }
+    function $() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_chat_thread_and_info_status_ring",
       );
@@ -177,9 +185,10 @@ __d(
       (l.isStatusReshareAttributionEnabled = E),
       (l.isStatusResharePosterSideEnabled = k),
       (l.isStatusReshareViewerFlowEnabled = I),
-      (l.isStatusStanzaSendEnabled = T),
-      (l.isStatusStanzaReceiveEnabled = D),
-      (l.isStatusRingOutsideChatlistEnabled = x));
+      (l.isNewsletterStatusReshareEnabled = T),
+      (l.isStatusStanzaSendEnabled = D),
+      (l.isStatusStanzaReceiveEnabled = x),
+      (l.isStatusRingOutsideChatlistEnabled = $));
   },
   98,
 );

@@ -6,6 +6,7 @@ __d(
     "RequestStreamE2EClientSamplingConfig",
     "RtiRequestStreamE2eClientBatchFalcoEvent",
     "RtiRequestStreamE2eClientFalcoEvent",
+    "RtiRequestStreamQosFalcoEvent",
     "RtiWebRequestStreamClient",
     "WebDriverConfig",
     "cr:3024",
@@ -41,19 +42,25 @@ __d(
                   r("requireDeferred")("DGWClient")
                     .__setRef("DGWRequestStreamDeferredClient")
                     .onReady(e);
+                }),
+                a = new e(function (e) {
+                  r("requireDeferred")("DGWEnvUtil")
+                    .__setRef("DGWRequestStreamDeferredClient")
+                    .onReady(e);
                 });
-              this.$1 = e.all([t, o]).then(function (e) {
+              this.$1 = e.all([t, o, a]).then(function (e) {
                 var t = e[0],
-                  n = e[1];
-                return new t(u(n));
+                  n = e[1],
+                  r = e[2];
+                return new t(u(n, r));
               });
             }
           }),
           t
         );
       })();
-    function u(e) {
-      var t;
+    function u(e, t) {
+      var a;
       return {
         dgwStreamFactoryConfig: {
           get_log_dgw_streamgroup: function () {
@@ -77,9 +84,9 @@ __d(
           },
           e2e_logger_config: {
             domain:
-              (t = o("ConstUriUtils").getUri(window.location.href)) == null
+              (a = o("ConstUriUtils").getUri(window.location.href)) == null
                 ? void 0
-                : t.getDomain(),
+                : a.getDomain(),
             rs_e2e_client_event_logger: r(
               "RtiRequestStreamE2eClientFalcoEvent",
             ),
@@ -103,6 +110,12 @@ __d(
         enableQoSTelemetry: function () {
           return r("gkx")("25070");
         },
+        qosLogger: r("RtiRequestStreamQosFalcoEvent"),
+        qosNetworkProbeUrl:
+          t
+            .getDGWEndpoint()
+            .replace(/^wss:\/\//, "https://")
+            .replace(/\/ws$/, "") + "/proxygen/health",
       };
     }
     var c = new s();

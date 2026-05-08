@@ -357,6 +357,22 @@ __d(
             o("WAWebChatEntryPoint").ChatEntryPoint.CommunitySubgroupSwitcher ||
           e ===
             o("WAWebChatEntryPoint").ChatEntryPoint.CommunityNewGroupCreation ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.NewGroupCreation ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.BizOrder ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.BizPayment ||
+          e ===
+            o("WAWebChatEntryPoint").ChatEntryPoint.DeprecatedLidChatBanner ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.AddContactToGroup ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.DialerPad ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.NewChat ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.NewBroadcastCreation ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.InfoDrawer ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.ExistingGroupRedirect ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.SystemMessage ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.MessageAdmin ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.GroupParticipant ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoinRequest ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.CommunityMember ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.ContactEdit ||
           e ===

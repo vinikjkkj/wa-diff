@@ -47,16 +47,16 @@ __d(
     function p(e) {
       var t = e[0],
         n = e[1],
-        r = m(n._events);
+        r = m(n.eventMap);
       return { name: t, listeners: r };
     }
     function _(e) {
       var t = e[0],
         n = e[1],
-        o = m(n._events),
+        o = m(n.eventMap),
         a = r("sumBy")(
           n.map(function (e) {
-            return m(e._events);
+            return m(e.eventMap);
           }),
           function (e) {
             return e;

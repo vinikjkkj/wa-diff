@@ -321,9 +321,9 @@ __d(
       return r;
     }
     function _(e) {
-      var t,
-        n,
-        r = e.toUpperCase();
+      var t, n;
+      if (e == null) return -1;
+      var r = e.toUpperCase();
       return (t = (n = c.get(r)) != null ? n : d.get(r)) != null ? t : -1;
     }
     function f(t, n) {

@@ -6,6 +6,7 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebScheduledMsgConstants",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -27,7 +28,7 @@ __d(
           return self.crypto.subtle.importKey(
             "raw",
             e,
-            { name: "AES-CBC", length: 256 },
+            { name: "AES-GCM", length: 256 },
             !1,
             ["encrypt", "decrypt"],
           );
@@ -46,24 +47,23 @@ __d(
           );
           self.crypto.getRandomValues(n);
           try {
-            var r = yield m(t),
-              a = yield self.crypto.subtle.encrypt(
-                { name: "AES-CBC", iv: n },
-                r,
+            var a = yield m(t),
+              i = yield self.crypto.subtle.encrypt(
+                { name: "AES-GCM", iv: n },
+                a,
                 e,
               );
-            return { encIv: n.buffer, encPayload: a };
+            return { encIv: n.buffer, encPayload: i };
           } catch (e) {
             throw (
-              e instanceof Error &&
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[scheduled_msg] Failed to encrypt with RevealKey",
-                      ])),
-                  )
-                  .catching(e),
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[scheduled_msg] Failed to encrypt with RevealKey",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e)),
               e
             );
           }
@@ -78,25 +78,24 @@ __d(
       return (
         (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
           try {
-            var r = yield m(n),
-              a = new Uint8Array(t),
-              i = yield self.crypto.subtle.decrypt(
-                { name: "AES-CBC", iv: a },
-                r,
+            var a = yield m(n),
+              i = new Uint8Array(t),
+              l = yield self.crypto.subtle.decrypt(
+                { name: "AES-GCM", iv: i },
+                a,
                 e,
               );
-            return i;
+            return l;
           } catch (e) {
             throw (
-              e instanceof Error &&
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[scheduled_msg] Failed to decrypt with RevealKey",
-                      ])),
-                  )
-                  .catching(e),
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[scheduled_msg] Failed to decrypt with RevealKey",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e)),
               e
             );
           }

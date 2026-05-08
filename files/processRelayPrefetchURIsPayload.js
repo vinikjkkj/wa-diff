@@ -1,20 +1,26 @@
 __d(
   "processRelayPrefetchURIsPayload",
-  ["ExecutionEnvironment"],
+  ["ExecutionEnvironment", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(t) {
-      (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
-        t.forEach(function (e) {
-          var t = e.uri;
-          if (typeof t == "string") {
-            var n = new Image();
-            n.src = t;
-          }
-        });
+    var e,
+      s = 5e3,
+      u = new Set();
+    function c(t) {
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var n = r("gkx")("25523");
+        (n && u.size >= s && u.clear(),
+          t.forEach(function (e) {
+            var t = e.uri;
+            if (typeof t == "string" && (!n || !u.has(t))) {
+              n && u.add(t);
+              var r = new Image();
+              r.src = t;
+            }
+          }));
+      }
     }
-    l.default = s;
+    l.default = c;
   },
   98,
 );
