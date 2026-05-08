@@ -107,165 +107,152 @@ __d(
       }
     }
     function p(e) {
-      var t = [].concat(
-        o("WAWebBotGating").isRichStructuredResponseEnabled()
-          ? [
-              o("WAWebProtobufsAICommon.pb")
-                .BotCapabilityMetadata$BotCapabilityType
-                .RICH_RESPONSE_STRUCTURED_RESPONSE,
-              o("WAWebProtobufsAICommon.pb")
-                .BotCapabilityMetadata$BotCapabilityType.RICH_RESPONSE_HEADING,
-              o("WAWebProtobufsAICommon.pb")
-                .BotCapabilityMetadata$BotCapabilityType
-                .RICH_RESPONSE_SUB_HEADING,
-              o("WAWebProtobufsAICommon.pb")
-                .BotCapabilityMetadata$BotCapabilityType.RICH_RESPONSE_TABLE,
-              o("WAWebProtobufsAICommon.pb")
-                .BotCapabilityMetadata$BotCapabilityType
-                .RICH_RESPONSE_INLINE_REELS,
-            ].concat(
-              o(
-                "WAWebBotUnifiedResponseGating",
-              ).isUnifiedResponseSendingEnabled()
-                ? [
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_UNIFIED_RESPONSE,
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_LATEX,
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_LATEX_INLINE,
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_CODE,
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_NESTED_LIST,
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_SOURCES_IN_MESSAGE,
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_UNIFIED_SOURCES,
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_UNIFIED_TEXT_COMPONENT,
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_UNIFIED_DOMAIN_CITATIONS,
-                    o("WAWebProtobufsAICommon.pb")
-                      .BotCapabilityMetadata$BotCapabilityType
-                      .RICH_RESPONSE_UR_INLINE_REELS_ENABLED,
-                  ].concat(
-                    o("WAWebBotUnifiedResponseGating").isImagineUrEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_UR_IMAGINE,
-                        ]
-                      : [],
-                    o("WAWebBotUnifiedResponseGating").isUrImagineVideoEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_UR_IMAGINE_VIDEO,
-                        ]
-                      : [],
-                    o(
-                      "WAWebBotUnifiedResponseGating",
-                    ).isRichResponseGridImageEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_GRID_IMAGE,
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_GRID_IMAGE_3P,
-                        ]
-                      : [],
-                    o("WAWebBotUnifiedResponseGating").isUrBloksEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_UR_BLOKS_ENABLED,
-                        ]
-                      : [],
-                    o(
-                      "WAWebBotUnifiedResponseGating",
-                    ).isUrZeitgeistCitationsEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_UR_ZEITGEIST_CITATIONS,
-                        ]
-                      : [],
-                    o(
-                      "WAWebBotUnifiedResponseGating",
-                    ).isUrZeitgeistCarouselEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_UR_ZEITGEIST_CAROUSEL,
-                        ]
-                      : [],
-                    o(
-                      "WAWebBotUnifiedResponseGating",
-                    ).isRichResponseInlineLinksEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_INLINE_LINKS_ENABLED,
-                        ]
-                      : [],
-                    o("WAWebBotUnifiedResponseGating").isUrMediaGridEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_UR_MEDIA_GRID_ENABLED,
-                        ]
-                      : [],
-                    o(
-                      "WAWebBotUnifiedResponseGating",
-                    ).isRichResponseInAppSurveyEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_IN_APP_SURVEY,
-                        ]
-                      : [],
-                    o(
-                      "WAWebBotUnifiedResponseGating",
-                    ).isRichResponseSideBySideSurveyEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_SIDE_BY_SIDE_SURVEY,
-                        ]
-                      : [],
-                    o("WAWebBotGating").isRichResponseReasoningEnabled()
-                      ? [
-                          o("WAWebProtobufsAICommon.pb")
-                            .BotCapabilityMetadata$BotCapabilityType
-                            .RICH_RESPONSE_UR_REASONING,
-                        ]
-                      : [],
-                  )
-                : [],
-            )
-          : [],
-        o("WAWebBotBaseGating").isAiContinuousSessionTransparencyNoticeEnabled(
-          e,
-        )
-          ? [
-              o("WAWebProtobufsAICommon.pb")
-                .BotCapabilityMetadata$BotCapabilityType
-                .SESSION_TRANSPARENCY_SYSTEM_MESSAGE,
-            ]
-          : [],
-      );
-      return t.length === 0 ? void 0 : { capabilities: t };
+      var t,
+        n = [
+          (t = o("WAWebProtobufsAICommon.pb"))
+            .BotCapabilityMetadata$BotCapabilityType
+            .RICH_RESPONSE_STRUCTURED_RESPONSE,
+          t.BotCapabilityMetadata$BotCapabilityType.RICH_RESPONSE_HEADING,
+          t.BotCapabilityMetadata$BotCapabilityType.RICH_RESPONSE_SUB_HEADING,
+          t.BotCapabilityMetadata$BotCapabilityType.RICH_RESPONSE_TABLE,
+          t.BotCapabilityMetadata$BotCapabilityType.RICH_RESPONSE_INLINE_REELS,
+        ].concat(
+          o("WAWebBotUnifiedResponseGating").isUnifiedResponseSendingEnabled()
+            ? [
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .RICH_RESPONSE_UNIFIED_RESPONSE,
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType.RICH_RESPONSE_LATEX,
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .RICH_RESPONSE_LATEX_INLINE,
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType.RICH_RESPONSE_CODE,
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .RICH_RESPONSE_NESTED_LIST,
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .RICH_RESPONSE_SOURCES_IN_MESSAGE,
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .RICH_RESPONSE_UNIFIED_SOURCES,
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .RICH_RESPONSE_UNIFIED_TEXT_COMPONENT,
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .RICH_RESPONSE_UNIFIED_DOMAIN_CITATIONS,
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .RICH_RESPONSE_UR_INLINE_REELS_ENABLED,
+              ].concat(
+                o("WAWebBotUnifiedResponseGating").isImagineUrEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_UR_IMAGINE,
+                    ]
+                  : [],
+                o("WAWebBotUnifiedResponseGating").isUrImagineVideoEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_UR_IMAGINE_VIDEO,
+                    ]
+                  : [],
+                o(
+                  "WAWebBotUnifiedResponseGating",
+                ).isRichResponseGridImageEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_GRID_IMAGE,
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_GRID_IMAGE_3P,
+                    ]
+                  : [],
+                o("WAWebBotUnifiedResponseGating").isUrBloksEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_UR_BLOKS_ENABLED,
+                    ]
+                  : [],
+                o(
+                  "WAWebBotUnifiedResponseGating",
+                ).isUrZeitgeistCitationsEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_UR_ZEITGEIST_CITATIONS,
+                    ]
+                  : [],
+                o(
+                  "WAWebBotUnifiedResponseGating",
+                ).isUrZeitgeistCarouselEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_UR_ZEITGEIST_CAROUSEL,
+                    ]
+                  : [],
+                o(
+                  "WAWebBotUnifiedResponseGating",
+                ).isRichResponseInlineLinksEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_INLINE_LINKS_ENABLED,
+                    ]
+                  : [],
+                o("WAWebBotUnifiedResponseGating").isUrMediaGridEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_UR_MEDIA_GRID_ENABLED,
+                    ]
+                  : [],
+                o(
+                  "WAWebBotUnifiedResponseGating",
+                ).isRichResponseInAppSurveyEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_IN_APP_SURVEY,
+                    ]
+                  : [],
+                o(
+                  "WAWebBotUnifiedResponseGating",
+                ).isRichResponseSideBySideSurveyEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_SIDE_BY_SIDE_SURVEY,
+                    ]
+                  : [],
+                o("WAWebBotGating").isRichResponseReasoningEnabled()
+                  ? [
+                      o("WAWebProtobufsAICommon.pb")
+                        .BotCapabilityMetadata$BotCapabilityType
+                        .RICH_RESPONSE_UR_REASONING,
+                    ]
+                  : [],
+              )
+            : [],
+          o(
+            "WAWebBotBaseGating",
+          ).isAiContinuousSessionTransparencyNoticeEnabled(e)
+            ? [
+                o("WAWebProtobufsAICommon.pb")
+                  .BotCapabilityMetadata$BotCapabilityType
+                  .SESSION_TRANSPARENCY_SYSTEM_MESSAGE,
+              ]
+            : [],
+        );
+      return n.length === 0 ? void 0 : { capabilities: n };
     }
     function _(e) {
       if (e === o("WAWebMsgType").MSG_TYPE.DOCUMENT) {

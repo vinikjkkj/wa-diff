@@ -1,7 +1,6 @@
 __d(
   "WAWebFormatRichResponseMessageText",
   [
-    "WAWebBotBaseGating",
     "WAWebFormatUnknownMsg",
     "WAWebFrontendMsgGetters",
     "WAWebRichResponse.flow",
@@ -25,7 +24,6 @@ __d(
       }
       if (
         n == null ||
-        !o("WAWebBotBaseGating").isRichStructuredResponseReceiverEnabled() ||
         o("WAWebRichResponseMsgUtils").isRichResponseMsgUnparsedAfterCompletion(
           n,
         )

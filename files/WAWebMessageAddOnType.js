@@ -10,6 +10,7 @@ __d(
       MessageEdit: "message_edit",
       PinMessage: "pin_message",
       Comment: "comment",
+      BotMsmsg: "bot_msmsg",
       Unknown: "unknown",
     });
     i.MessageAddOnType = e;

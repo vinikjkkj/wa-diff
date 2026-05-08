@@ -2,6 +2,7 @@ __d(
   "WAWebMexFetchTextStatusListJob",
   [
     "WABatcher",
+    "WAComms",
     "WALogger",
     "WAWebGroupsPrivacyTokenUtils",
     "WAWebMexClient",
@@ -66,8 +67,9 @@ __d(
                   ),
                 });
             }
-          var f = { input: u },
-            h = yield o("WAWebMexClient").fetchQuery(c, f),
+          var f = { input: u };
+          yield o("WAComms").waitForConnection();
+          var h = yield o("WAWebMexClient").fetchQuery(c, f),
             y = h.xwa2_text_status_list;
           if (y == null) throw r("err")("textStatusListResponse is null");
           o("WALogger")
@@ -106,7 +108,7 @@ __d(
         m.apply(this, arguments)
       );
     }
-    var p = o("WABatcher").batch({ delayMs: 25 }, d);
+    var p = o("WABatcher").batch({ delayMs: 50 }, d);
     function _(e, t) {
       return f.apply(this, arguments);
     }

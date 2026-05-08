@@ -1,7 +1,6 @@
 __d(
   "WAWebRichResponseCopyText",
   [
-    "WAWebBotBaseGating",
     "WAWebCompactMapString",
     "WAWebRichResponse.flow",
     "WAWebUnifiedResponseUtils",
@@ -12,8 +11,7 @@ __d(
       return !!(
         (e.richResponse != null &&
           e.richResponse.parseState !==
-            o("WAWebRichResponse.flow").RichResponseParseState.Unparsed &&
-          o("WAWebBotBaseGating").isRichStructuredResponseReceiverEnabled()) ||
+            o("WAWebRichResponse.flow").RichResponseParseState.Unparsed) ||
         o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)
       );
     }

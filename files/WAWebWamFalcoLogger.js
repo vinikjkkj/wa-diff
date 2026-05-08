@@ -3,6 +3,7 @@ __d(
   [
     "FalcoLoggerInternal",
     "WALogger",
+    "WAWebCanonicalWamFalcoBuffer",
     "WAWebWamFalcoABProps",
     "WAWebWamFalcoGlobalFields",
     "WAWebWamFalcoModes",
@@ -42,8 +43,19 @@ __d(
           c =
             r === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
               ? i + "_shadow"
-              : "_test$" + i,
-          d = o("FalcoLoggerInternal").create(c, { r: 1 });
+              : "_test$" + i;
+        if (
+          o("WAWebWamFalcoABProps").shouldBufferFalcoEvent() &&
+          r === o("WAWebWamFalcoModes").FALCO_MODE_SHADOW_LOGGING
+        ) {
+          o("WAWebCanonicalWamFalcoBuffer").bufferCanonicalFalcoEvent(
+            c,
+            u,
+            Date.now(),
+          );
+          return;
+        }
+        var d = o("FalcoLoggerInternal").create(c, { r: 1 });
         d.log(function () {
           return u;
         });

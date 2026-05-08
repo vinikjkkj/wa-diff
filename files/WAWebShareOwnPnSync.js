@@ -3,7 +3,6 @@ __d(
   [
     "WALogger",
     "WASyncdConst",
-    "WAWebABProps",
     "WAWebSyncdAction",
     "WAWebUpdateLidMetadataJob",
     "WAWebWidFactory",
@@ -12,8 +11,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = (function (t) {
+      u = (function (t) {
         function r() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -36,27 +34,8 @@ __d(
           (a.applyMutations = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                var n = this;
-                if (
-                  o("WAWebABProps").getABPropConfigValue(
-                    "share_own_pn_sync",
-                  ) !== !0
-                )
-                  return (
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "share_own_pn sync: operation not supported",
-                        ])),
-                    ),
-                    t.map(function () {
-                      return {
-                        actionState:
-                          o("WASyncdConst").SyncActionState.Unsupported,
-                      };
-                    })
-                  );
-                var r = [],
+                var n = this,
+                  r = [],
                   a = 0,
                   i = 0,
                   l = t.map(function (e) {
@@ -80,8 +59,8 @@ __d(
                 return (
                   a > 0 &&
                     o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
                           "share_own_pn sync: ",
                           " operations not supported",
                         ])),
@@ -89,8 +68,8 @@ __d(
                     ),
                   i > 0 &&
                     o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "share_own_pn sync: ",
                           " malformed mutations - invalid key",
                         ])),
@@ -109,8 +88,8 @@ __d(
           r
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      d = new c();
-    l.default = d;
+      c = new u();
+    l.default = c;
   },
   98,
 );

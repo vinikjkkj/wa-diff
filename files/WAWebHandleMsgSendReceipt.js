@@ -170,6 +170,11 @@ __d(
               );
             if (
               r.result ===
+              o("WAWebHandleMsgTypes.flow").E2EProcessResult.DEFERRED
+            )
+              return o("WAWebHandleMsgSendAck").sendAck(i, m, d, f, C);
+            if (
+              r.result ===
               o("WAWebHandleMsgTypes.flow").E2EProcessResult.PARSE_ERROR
             )
               return o("WAWebHandleMsgSendAck").sendNack(

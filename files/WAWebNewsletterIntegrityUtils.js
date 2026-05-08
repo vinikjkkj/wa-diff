@@ -982,7 +982,7 @@ __d(
           ((t.type !== o("WAWebMsgType").MSG_TYPE.CHAT &&
             t.type !==
               o("WAWebMsgType").MSG_TYPE.NEWSLETTER_QUESTION_RESPONSE) ||
-            o("WAWebMsgGetters").getLinkPreview(t) != null);
+            o("WAWebMsgGetters").getLinkPreview(t) === !0);
       return a === !0 &&
         i &&
         o("WAWebNewsletterGatingUtils").isNewsletterUSNCIIReportingEnabled()

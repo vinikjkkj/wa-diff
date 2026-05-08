@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebCanonicalEntRecoveryWam",
     "WAWebCanonicalUtils",
+    "WAWebCanonicalWamFalcoBuffer",
     "WAWebODS",
     "WAWebXControllerFetchUtils",
     "WAXWhatsAppWebAuthControllerRouteBuilder",
@@ -115,7 +116,8 @@ __d(
         ? (o("WAWebCanonicalUtils").setTokenCreationState(
             o("WAWebCanonicalUtils").TokenCreationState.PRESENT,
           ),
-          o("WAWebCanonicalEntRecoveryWam").logCredentialsStored(t))
+          o("WAWebCanonicalEntRecoveryWam").logCredentialsStored(t),
+          o("WAWebCanonicalWamFalcoBuffer").drainCanonicalWamFalcoBuffer())
         : e === m.FAILED &&
           o("WAWebCanonicalUtils").setTokenCreationState(
             o("WAWebCanonicalUtils").TokenCreationState.IDLE,

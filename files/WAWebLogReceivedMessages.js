@@ -213,7 +213,7 @@ __d(
                       }
                       (o("WAWebMsgGetters").getIsRevoke(e) &&
                         (b.revokeType =
-                          e.subtype === "admin_revoke"
+                          e.subtype === "admin_revoke" || e.subtype === "admin"
                             ? o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN
                             : o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER),
                         i != null &&

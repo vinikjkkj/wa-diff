@@ -15,6 +15,7 @@ __d(
     "WAWebXControllerFetchUtils",
     "WAXWhatsAppWebGraphQLControllerRouteBuilder",
     "asyncToGeneratorRuntime",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -119,6 +120,7 @@ __d(
                   t !==
                     o("WAWebGraphQLPersistedQueries").PersistedQueries
                       .WAWebCanonicalUserValidQuery &&
+                  !r("gkx")("26256") &&
                   o("WALogger")
                     .ERROR(
                       e ||

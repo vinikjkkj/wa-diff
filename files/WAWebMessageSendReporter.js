@@ -195,7 +195,7 @@ __d(
           }
           if (o("WAWebMsgGetters").getIsRevoke(t)) {
             this.$2.revokeType =
-              t.subtype === "admin_revoke"
+              t.subtype === "admin_revoke" || t.subtype === "admin"
                 ? o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN
                 : o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER;
             var F = o("WAWebMsgGetters").getRevokeDuration(t);

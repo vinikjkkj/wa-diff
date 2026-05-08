@@ -1058,8 +1058,10 @@ __d(
           var t = e[0],
             n = e[1];
           return (
-            t === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-            (n === "sender_revoke" || n === "admin_revoke")
+            (t === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+              (n === "sender_revoke" || n === "admin_revoke")) ||
+            (t === o("WAWebMsgType").MSG_TYPE.REVOKED &&
+              (n === "sender" || n === "admin"))
           );
         },
         [b, v],
@@ -1071,7 +1073,7 @@ __d(
             n = e[1],
             r = e[2];
           return n
-            ? t === "admin_revoke"
+            ? t === "admin_revoke" || t === "admin"
               ? o("WAWebWamEnumEditType").EDIT_TYPE.ADMIN_REVOKE
               : o("WAWebWamEnumEditType").EDIT_TYPE.SENDER_REVOKE
             : r

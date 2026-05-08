@@ -25,7 +25,7 @@ __d(
             o("WALogger").ERROR(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "Debug.suspendCommunity: no jid passed and no last-active community",
+                  "Debug.suspendCommunity: no jid & no active community",
                 ])),
             );
             return;

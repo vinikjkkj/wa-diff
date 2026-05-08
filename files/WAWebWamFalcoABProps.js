@@ -4,6 +4,8 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebABPropsCache",
+    "WAWebCanonicalGating",
+    "WAWebCanonicalUtils",
     "WAWebWamFalcoModes",
     "justknobx",
   ],
@@ -11,13 +13,31 @@ __d(
     var e,
       s = null;
     function u() {
-      return (
-        o("WAWebABPropsCache").isABPropConfigsReady() &&
-        r("justknobx")._("1600") &&
-        c() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
+      return o("WAWebABProps").getABPropConfigValue(
+        "wa_web_canonical_wam_falco_buffer_enabled",
       );
     }
     function c() {
+      var e = o("WAWebABProps").getABPropConfigValue(
+        "wa_web_canonical_wam_falco_buffer_size",
+      );
+      return e > 0 ? e : 2e3;
+    }
+    function d() {
+      return (
+        u() &&
+        o("WAWebCanonicalGating").isCanonicalEnabled() &&
+        !o("WAWebCanonicalUtils").isCurrentUserLoggedIn()
+      );
+    }
+    function m() {
+      return (
+        o("WAWebABPropsCache").isABPropConfigsReady() &&
+        r("justknobx")._("1600") &&
+        p() !== o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
+      );
+    }
+    function p() {
       var e = o("WAWebABProps").getABPropConfigValue("wa_web_wam_falco_mode");
       return e === o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
         ? o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY
@@ -32,8 +52,9 @@ __d(
                 ? o("WAWebWamFalcoModes").FALCO_MODE_FALCO_ONLY
                 : o("WAWebWamFalcoModes").FALCO_MODE_WAM_ONLY;
     }
-    function d() {
+    function _() {
       if (s != null) return s;
+      if (!o("WAWebABPropsCache").isABPropConfigsReady()) return new Set();
       try {
         var t = o("WAWebABProps").getABPropConfigValue(
           "wa_web_wam_falco_shadow_event_ids",
@@ -64,9 +85,12 @@ __d(
         );
       }
     }
-    ((l.isFalcoLoggingEnabled = u),
-      (l.getWamFalcoMode = c),
-      (l.getShadowLoggingEventIds = d));
+    ((l.isCanonicalWamFalcoBufferEnabled = u),
+      (l.getCanonicalWamFalcoMaxBufferSize = c),
+      (l.shouldBufferFalcoEvent = d),
+      (l.isFalcoLoggingEnabled = m),
+      (l.getWamFalcoMode = p),
+      (l.getShadowLoggingEventIds = _));
   },
   98,
 );

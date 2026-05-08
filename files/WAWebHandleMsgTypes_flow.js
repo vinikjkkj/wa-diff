@@ -13,6 +13,7 @@ __d(
         "PARSE_ERROR",
         "PARSE_VALIDATION_ERROR",
         "SIGNAL_OLD_COUNTER_ERROR",
+        "DEFERRED",
       ]),
       d = e.Mirrored([
         "E2E",
@@ -20,6 +21,7 @@ __d(
         "BOT_UNAVAILABLE_FANOUT",
         "HOSTED_UNAVAILABLE_FANOUT",
         "VIEW_ONCE_UNAVAILABLE_FANOUT",
+        "BOT_ORPHAN",
       ]),
       m = e({
         NO_OVERWRITE: 0,

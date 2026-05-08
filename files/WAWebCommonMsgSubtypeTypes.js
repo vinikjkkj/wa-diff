@@ -184,6 +184,7 @@ __d(
       BotUnavailableFanout: "bot_unavailable_fanout",
       HostedUnavailableFanout: "hosted_unavailable_fanout",
       ViewOnceUnavailableFanout: "view_once_unavailable_fanout",
+      BotOrphan: "bot_orphan",
       DisappearingMode: "disappearing_mode",
       DisappearingModeUpdate: "disappearing_mode_update",
       DisappearingModeUnsupported: "disappearing_mode_unsupported",

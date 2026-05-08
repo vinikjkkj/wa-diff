@@ -3,12 +3,12 @@ __d(
   [
     "WALogger",
     "WAWebBackendApi",
-    "WAWebCanonicalCredentialRecoveryJob",
     "WAWebCanonicalEntRecoveryWam",
     "WAWebCanonicalGating",
     "WAWebCanonicalTokenExchange",
     "WAWebCanonicalUtils",
     "WAWebODS",
+    "WAWebUserPrefsCanonical",
     "WAWebUserPrefsMeUser",
     "asyncToGeneratorRuntime",
   ],
@@ -32,9 +32,7 @@ __d(
                 "web.app.canonical.recovery.handler.handle_nonce_response",
               ),
               o("WAWebCanonicalEntRecoveryWam").logReceivedNonceFromPrimary(),
-              o(
-                "WAWebCanonicalCredentialRecoveryJob",
-              ).clearNonceRequestTimestamp(),
+              o("WAWebUserPrefsCanonical").clearNonceRequestTimestamp(),
               e == null || e.length === 0)
             ) {
               (r("WAWebODS").incr(
@@ -121,6 +119,7 @@ __d(
                 ])),
             ),
               r("WAWebODS").incr("web.app.canonical.recovery.handler.success"),
+              o("WAWebUserPrefsCanonical").clearRetryBackoffSeconds(),
               o("WAWebCanonicalGating").isCanonicalRecoveryAppReloadEnabled() &&
                 o("WAWebCanonicalUtils").getCanonicalReloadPending() == null &&
                 (o("WALogger").LOG(

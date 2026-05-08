@@ -1,14 +1,11 @@
 __d(
   "WAWebRichResponseMsgUtils",
-  ["WAWebBotBaseGating", "WAWebBotTypes", "WAWebRichResponse.flow", "sumBy"],
+  ["WAWebBotTypes", "WAWebRichResponse.flow", "sumBy"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return !o(
-        "WAWebBotBaseGating",
-      ).isRichStructuredResponseReceiverEnabled() ||
-        e.parseState ===
-          o("WAWebRichResponse.flow").RichResponseParseState.Unparsed
+      return e.parseState ===
+        o("WAWebRichResponse.flow").RichResponseParseState.Unparsed
         ? 0
         : r("sumBy")(e.fragments, function (e) {
             return s(e);

@@ -39,9 +39,7 @@ __d(
         var c = o(
             "WAWebRichResponseParseUtils",
           ).generateFutureproofRichResponse(i, l),
-          d = o("WAWebBotBaseGating").isRichStructuredResponseReceiverEnabled()
-            ? o("WAWebRichResponseParseUtils").parseRichResponse(c)
-            : c,
+          d = o("WAWebRichResponseParseUtils").parseRichResponse(c),
           m = u(a, r.messageContextInfo, n.t)
             ? o("WAWebRichResponseParseUtils").parseUnifiedResponse(
                 a.unifiedResponse,

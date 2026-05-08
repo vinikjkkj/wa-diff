@@ -707,25 +707,41 @@ __d(
       );
     }
     function xt() {
+      return (
+        Dt() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "channel_status_forwarding_enabled",
+        )
+      );
+    }
+    function $t() {
       return o("WAWebNewsletterCommonGatingUtils").isNewsletterFeatureEnabled(
         "channel_status_creation",
       );
     }
-    function $t() {
-      return o("WAWebABProps").getABPropConfigValue(
-        "channels_status_consumption_entrypoints",
+    var Pt = n("$InternalEnum")({
+      Disabled: 0,
+      ProfileRing: 1,
+      ThreadRing: 2,
+      AllEntrypoints: 3,
+    });
+    function Nt(e) {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "channels_status_consumption_entrypoints",
+        ) >= e
       );
     }
-    function Pt() {
-      return Dt() && $t() >= 1;
-    }
-    function Nt() {
-      return Dt() && $t() >= 2;
-    }
     function Mt() {
-      return Dt() && $t() >= 3;
+      return Dt() && Nt(Pt.ProfileRing);
     }
     function wt() {
+      return Dt() && Nt(Pt.ThreadRing);
+    }
+    function At() {
+      return Dt() && Nt(Pt.AllEntrypoints);
+    }
+    function Ft() {
       return o("WAWebABProps").getABPropConfigValue(
         "channels_pulse_on_unread_badge_enabled",
       );
@@ -858,11 +874,12 @@ __d(
       (l.isNewsletterAdminProfilesListEnabled = It),
       (l.isChannelsInChatListEnabled = Tt),
       (l.isNewsletterStatusReceiverEnabled = Dt),
-      (l.isNewsletterStatusCreationEnabled = xt),
-      (l.isNewsletterStatusProfileRingEnabled = Pt),
-      (l.isNewsletterStatusThreadRingEnabled = Nt),
-      (l.isNewsletterStatusAllEntrypointsEnabled = Mt),
-      (l.isNewsletterTabPulseEnabled = wt));
+      (l.isNewsletterStatusForwardEnabled = xt),
+      (l.isNewsletterStatusCreationEnabled = $t),
+      (l.isNewsletterStatusProfileRingEnabled = Mt),
+      (l.isNewsletterStatusThreadRingEnabled = wt),
+      (l.isNewsletterStatusAllEntrypointsEnabled = At),
+      (l.isNewsletterTabPulseEnabled = Ft));
   },
   98,
 );

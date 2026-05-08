@@ -9,10 +9,11 @@ __d(
     "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "encodeProtobuf",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(t) {
+    var e, s;
+    function u(t) {
       o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -29,51 +30,66 @@ __d(
         n.readByteArrayView()
       );
     }
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    function c(e, t, n) {
+      return d.apply(this, arguments);
     }
-    function c() {
+    function d() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield f(e),
-            a = (n == null ? void 0 : n.slice()) || g(),
-            i = s({ stanzaId: t }),
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = yield g(e),
+            a = (n == null ? void 0 : n.slice()) || h(),
+            i = u({ stanzaId: t }),
             l = yield o("WACryptoAesGcm").gcmEncrypt(r, a, i, t);
           return { ciphertext: l, iv: a };
         })),
-        c.apply(this, arguments)
+        d.apply(this, arguments)
       );
     }
-    function d(e, t, n, r) {
-      return m.apply(this, arguments);
+    function m(e, t, n, r) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield f(e),
-              i = yield o("WACryptoAesGcm").gcmDecrypt(a, n, r, t);
-            return o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufsMmsRetry.pb").MediaRetryNotificationSpec,
-              i,
-            );
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (e, t, n, a) {
+            var i = yield g(e);
+            try {
+              var l = yield o("WACryptoAesGcm").gcmDecrypt(i, n, a, t);
+              return o("decodeProtobuf").decodeProtobuf(
+                o("WAWebProtobufsMmsRetry.pb").MediaRetryNotificationSpec,
+                l,
+              );
+            } catch (e) {
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "rmr decryption failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("rmr-decryption-failed", { sampling: 0.01 }),
+                e
+              );
+            }
           },
         )),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    var p = 12,
-      _ = "WhatsApp Media Retry Notification";
-    function f(e) {
-      return o("WACryptoHkdf").extractAndExpand(e, _, 32);
+    var _ = 12,
+      f = "WhatsApp Media Retry Notification";
+    function g(e) {
+      return o("WACryptoHkdf").extractAndExpand(e, f, 32);
     }
-    function g() {
-      var e = new Uint8Array(p);
+    function h() {
+      var e = new Uint8Array(_);
       return (self.crypto.getRandomValues(e), e);
     }
-    ((l.encryptServerErrorReceipt = u),
-      (l.decryptMediaRetryNotification = d),
-      (l.ENC_IV_SIZE = p));
+    ((l.encryptServerErrorReceipt = c),
+      (l.decryptMediaRetryNotification = m),
+      (l.ENC_IV_SIZE = _));
   },
   98,
 );

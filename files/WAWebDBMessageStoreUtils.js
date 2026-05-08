@@ -176,12 +176,7 @@ __d(
                     n.canRenderInUi(t) &&
                     !s.includes(e.id.toString()))) &&
                 _.push(e);
-            } else
-              T(e) &&
-                o(
-                  "WAWebBotBaseGating",
-                ).isRichStructuredResponseReceiverEnabled() &&
-                f.push(e);
+            } else T(e) && f.push(e);
             return !(!D(e, s) || L(e));
           });
           return (

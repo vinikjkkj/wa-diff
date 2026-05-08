@@ -32,20 +32,27 @@ __d(
         (t.webcWhatsNewVariant = e),
         t.commit());
     }
-    function u(e) {
-      var t = new (o(
-        "WAWebWebcWhatsNewImpressionWamEvent",
-      ).WebcWhatsNewImpressionWamEvent)();
-      ((t.webcWhatsNewSurface = o(
-        "WAWebWamEnumWebcWhatsNewSurfaceType",
-      ).WEBC_WHATS_NEW_SURFACE_TYPE.BANNER),
-        (t.webcWhatsNewAction = o(
-          "WAWebWamEnumWebcWhatsNewActionType",
-        ).WEBC_WHATS_NEW_ACTION_TYPE.IMPRESSION),
-        (t.webcWhatsNewVariant = e),
-        t.commit());
+    var u = !1;
+    function c(e) {
+      if (!u) {
+        u = !0;
+        var t = new (o(
+          "WAWebWebcWhatsNewImpressionWamEvent",
+        ).WebcWhatsNewImpressionWamEvent)();
+        ((t.webcWhatsNewSurface = o(
+          "WAWebWamEnumWebcWhatsNewSurfaceType",
+        ).WEBC_WHATS_NEW_SURFACE_TYPE.BANNER),
+          (t.webcWhatsNewAction = o(
+            "WAWebWamEnumWebcWhatsNewActionType",
+          ).WEBC_WHATS_NEW_ACTION_TYPE.IMPRESSION),
+          (t.webcWhatsNewVariant = e),
+          t.commit());
+      }
     }
-    function c(e, t) {
+    function d() {
+      u = !1;
+    }
+    function m(e, t) {
       var n = new (o(
         "WAWebWebcWhatsNewImpressionWamEvent",
       ).WebcWhatsNewImpressionWamEvent)();
@@ -59,7 +66,7 @@ __d(
         (n.webcWhatsNewTimeSpent = t),
         n.commit());
     }
-    function d(e, t) {
+    function p(e, t) {
       var n = new (o(
         "WAWebWebcWhatsNewImpressionWamEvent",
       ).WebcWhatsNewImpressionWamEvent)();
@@ -73,7 +80,7 @@ __d(
         (n.webcWhatsNewTimeSpent = t),
         n.commit());
     }
-    function m(e) {
+    function _(e) {
       var t = new (o(
         "WAWebWebcWhatsNewImpressionWamEvent",
       ).WebcWhatsNewImpressionWamEvent)();
@@ -86,7 +93,7 @@ __d(
         (t.webcWhatsNewVariant = e),
         t.commit());
     }
-    function p(e, t) {
+    function f(e, t) {
       var n = new (o(
         "WAWebWebcWhatsNewImpressionWamEvent",
       ).WebcWhatsNewImpressionWamEvent)();
@@ -102,11 +109,12 @@ __d(
     }
     ((l.logBannerDismiss = e),
       (l.logBannerClick = s),
-      (l.logBannerImpression = u),
-      (l.logModalDismissOverlay = c),
-      (l.logModalDismissButton = d),
-      (l.logModalImpression = m),
-      (l.logCarouselImpression = p));
+      (l.logBannerImpression = c),
+      (l.resetBannerImpressionGuardForTesting = d),
+      (l.logModalDismissOverlay = m),
+      (l.logModalDismissButton = p),
+      (l.logModalImpression = _),
+      (l.logCarouselImpression = f));
   },
   98,
 );

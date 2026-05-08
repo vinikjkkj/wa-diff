@@ -52,12 +52,15 @@ __d(
         hasCoverPhoto: r,
       });
     }
-    function m(t, n, r) {
+    function m(t) {
+      var n = t.catalogSessionId,
+        r = t.hasCoverPhoto,
+        a = t.isProfileLinked;
       e({
         viewBusinessProfileAction: o("WAWebWamEnumViewBusinessProfileAction")
           .VIEW_BUSINESS_PROFILE_ACTION.ACTION_CLICK_CATALOG_ICON,
-        catalogSessionId: t,
-        isProfileLinked: n,
+        catalogSessionId: n,
+        isProfileLinked: a,
         hasCoverPhoto: r,
       });
     }

@@ -548,6 +548,12 @@ __d(
         "whatsapp_connect_admin_button_impression",
       WHATSAPP_CONNECT_ADMIN_BUTTON_CLICK:
         "whatsapp_connect_admin_button_click",
+      WHATSAPP_CONNECT_SUCCESS: "whatsapp_connect_success",
+      WHATSAPP_CONNECT_FAIL: "whatsapp_connect_fail",
+      WHATSAPP_CONNECT_NON_ADMIN_SUCCESS: "whatsapp_connect_non_admin_success",
+      WHATSAPP_CONNECT_NON_ADMIN_FAIL: "whatsapp_connect_non_admin_fail",
+      WHATSAPP_CONNECT_ADMIN_SUCCESS: "whatsapp_connect_admin_success",
+      WHATSAPP_CONNECT_ADMIN_FAIL: "whatsapp_connect_admin_fail",
       CTXMD_UPSELL_ACTION_BUTTON_CLICK: "ctxmd_upsell_action_button_click",
       CTXMD_UPSELL_IMPRESSION: "ctxmd_upsell_impression",
       CTXMD_UPSELL_IMPRESSION_CAP_REACHED:

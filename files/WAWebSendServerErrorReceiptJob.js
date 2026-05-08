@@ -6,66 +6,65 @@ __d(
     "WADeprecatedSendIq",
     "WALogger",
     "WAWap",
+    "WAWebABProps",
     "WAWebChatGetters",
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebCryptoMediaRetry",
     "WAWebFrontendMsgGetters",
+    "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
     "WAWebUserPrefsMeUser",
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
+    var e, s, u, c, d;
+    function m(e) {
+      return p.apply(this, arguments);
     }
-    function m() {
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.id.id;
-          if (o("WAWebMsgGetters").getIsNewsletterMsg(t))
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[newsletter] RMR called on media with null mediaKey",
-                    ])),
-                )
-                .tags("newsletter")
-                .sendLogs("newsletter-called-rmr"),
-              (c || (c = n("Promise"))).resolve()
-            );
-          if (t.mediaKey == null)
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.id.id;
+          if (o("WAWebMsgGetters").getIsNewsletterMsg(e))
             return (
               o("WALogger")
                 .ERROR(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[newsletter] RMR called on media with null mediaKey",
+                    ])),
+                )
+                .tags("newsletter")
+                .sendLogs("newsletter-called-rmr"),
+              (d || (d = n("Promise"))).resolve()
+            );
+          if (e.mediaKey == null)
+            return (
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "[media][rmr] Called RMR with null mediaKey",
                     ])),
                 )
                 .tags("media", "non-sad")
                 .sendLogs("rmr-called-with-null-media-key", { sampling: 0.01 }),
-              (c || (c = n("Promise"))).resolve()
+              (d || (d = n("Promise"))).resolve()
             );
-          var a = o("WABase64").decodeB64(t.mediaKey),
-            i = yield o("WAWebCryptoMediaRetry").encryptServerErrorReceipt(
-              a,
+          var r = o("WABase64").decodeB64(e.mediaKey),
+            a = yield o("WAWebCryptoMediaRetry").encryptServerErrorReceipt(
               r,
+              t,
             ),
-            l = i.ciphertext,
-            d = i.iv,
-            m = o("WAWebFrontendMsgGetters").getChat(t),
-            p =
-              m.historyChatId != null
-                ? o("WAWebWidFactory").createWid(m.historyChatId)
-                : m.id;
+            i = a.ciphertext,
+            l = a.iv,
+            m = o("WAWebFrontendMsgGetters").getChat(e),
+            p = _(m);
           o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[media][rmr] Sending RMR for chat ",
                 ", using jid ",
                 "",
@@ -73,50 +72,74 @@ __d(
             m.id.toLogString(),
             p.toJid(),
           );
-          var _ = o("WAWebMsgGetters").getSender(t),
-            f =
+          var f = o("WAWebMsgGetters").getSender(e),
+            g =
               (o("WAWebChatGetters").getIsGroup(m) ||
                 o("WAWebChatGetters").getIsBroadcast(m)) &&
-              _ != null
-                ? o("WAWebCommsWapMd").USER_JID(_)
+              f != null
+                ? o("WAWebCommsWapMd").USER_JID(f)
                 : o("WAWap").DROP_ATTR,
-            g = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-            h = o("WAWap").wap(
+            h =
+              o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") ===
+              !0
+                ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
+                : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+            y = o("WAWap").wap(
               "receipt",
               {
                 type: "server-error",
-                to: o("WAWebCommsWapMd").USER_JID(g),
-                id: o("WAWap").CUSTOM_STRING(r),
+                to: o("WAWebCommsWapMd").USER_JID(h),
+                id: o("WAWap").CUSTOM_STRING(t),
               },
               o("WAWap").wap(
                 "encrypt",
                 null,
-                o("WAWap").wap("enc_p", null, l),
-                o("WAWap").wap("enc_iv", null, d),
+                o("WAWap").wap("enc_p", null, i),
+                o("WAWap").wap("enc_iv", null, l),
               ),
               o("WAWap").wap("rmr", {
                 jid: o("WAWebCommsWapMd").CHAT_JID(p),
                 from_me: o("WAWap").CUSTOM_STRING(
-                  String(o("WAWebMsgGetters").getIsSentByMe(t)),
+                  String(o("WAWebMsgGetters").getIsSentByMe(e)),
                 ),
-                participant: f,
+                participant: g,
               }),
             );
           return o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
-            h,
+            y,
             o("WAWebCommsAckParser").toCoreAckTemplate({
-              id: r,
+              id: t,
               class: "receipt",
               type: "server-error",
-              from: g,
+              from: h,
               participant: null,
             }),
           );
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
-    l.default = d;
+    function _(t) {
+      if (o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") !== !0)
+        return t.historyChatId != null
+          ? o("WAWebWidFactory").createWid(t.historyChatId)
+          : t.id;
+      if (o("WAWebLidMigrationUtils").shouldHaveAccountLid(t.id)) {
+        if (t.accountLid != null) return t.accountLid;
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[pnless-stanza] no accountLid for chat ",
+                "",
+              ])),
+            t.id.toLogString(),
+          )
+          .sendLogs("pnless-no-accountLid");
+      }
+      return t.id;
+    }
+    l.default = m;
   },
   98,
 );

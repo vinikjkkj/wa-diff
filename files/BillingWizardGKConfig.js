@@ -198,6 +198,7 @@ __d(
           enableExposureLogging: !0,
           type: "PAYMENT_ACCOUNT_ID",
         },
+        TURKEY_TAX_OFFICE_COLLECTION: { type: "PAYMENT_ACCOUNT_ID" },
       },
       l = Object.keys(e).map(function (t) {
         return { name: t, type: e[t].type };

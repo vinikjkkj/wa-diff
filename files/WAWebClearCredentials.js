@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebCryptoEncKeyHelper",
     "WAWebCryptoEncryptionSaltHelper",
+    "WAWebLocalStorageClearOnLogout",
     "WAWebSignalStorage",
     "WAWebUserPrefsClearLocalState",
     "WAWebUserPrefsGeneral",
@@ -96,6 +97,7 @@ __d(
           } catch (e) {
             t = !0;
           }
+          o("WAWebLocalStorageClearOnLogout").clearLocalStorageKeysOnLogout();
           try {
             yield o("WAWebUserPrefsClearLocalState").clearAllLocalState();
           } catch (e) {

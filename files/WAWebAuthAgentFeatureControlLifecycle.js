@@ -34,7 +34,7 @@ __d(
               o("WALogger").WARN(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "AuthAgentFeatureControl: getMeUser() failed at stream-ready \u2014 skipping",
+                    "[AAFC] getMeUser() failed at stream-ready",
                   ])),
               );
               return;
@@ -45,30 +45,31 @@ __d(
                 "WAWebBusinessProfileCollection",
               ).BusinessProfileCollection.find(t);
             } catch (e) {
+              var r = e instanceof Error ? e.message : String(e);
               o("WALogger").WARN(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "AuthAgentFeatureControl: BusinessProfileCollection.find failed: ",
+                    "[AAFC] BusinessProfileCollection.find err ",
                     "",
                   ])),
-                e instanceof Error ? e.message : String(e),
+                r,
               );
               return;
             }
             if (((e = n) == null ? void 0 : e.isAuthorizedAgent) === !0) {
               yield o("WAWebFeatureControlCache").markUserAsAA();
-              var r = o("WAWebFeatureControlCache").getPolicyLastFetchedAt();
+              var a = o("WAWebFeatureControlCache").getPolicyLastFetchedAt();
               if (
                 !(
-                  r != null &&
-                  o("WATimeUtils").unixTimeMs() - r <
+                  a != null &&
+                  o("WATimeUtils").unixTimeMs() - a <
                     o("WATimeUtils").WEEK_MILLISECONDS
                 )
               ) {
-                var a = yield o(
+                var i = yield o(
                   "WAWebAuthAgentFeaturePolicyQuery",
                 ).fetchAndCacheAuthAgentFeaturePolicy();
-                switch (a.type) {
+                switch (i.type) {
                   case "success":
                     break;
                   case "not_authorized_agent":
@@ -77,10 +78,10 @@ __d(
                     o("WALogger").WARN(
                       c ||
                         (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "AuthAgentFeatureControl: policy fetch failed (",
-                          ") \u2014 gatekeeper will fall back to PILOT_DEFAULT until next session retries",
+                          "[AAFC] policy fetch failed (",
+                          ")",
                         ])),
-                      a.error.message,
+                      i.error.message,
                     );
                     break;
                 }

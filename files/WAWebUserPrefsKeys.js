@@ -61,7 +61,9 @@ __d(
         "UsernameState",
         "WebTPSharerSkipConfirmation",
         "CanonicalRegistrationTraceId",
-        "CanonicalNonceRequestTimestamp",
+        "CanonicalRetryBackoffSeconds",
+        "CanonicalPeerRequestTimestamp",
+        "CanonicalFalcoBuffer",
       ]),
       u = Object.freeze(
         babelHelpers.extends(

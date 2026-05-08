@@ -61,6 +61,8 @@ __d(
                 revealKey: l,
                 revealKeyId: c,
                 scheduledTimestampS: i,
+                encPayload: new Uint8Array(_),
+                encIv: new Uint8Array(p),
               });
             if (!g)
               throw (
