@@ -8,7 +8,6 @@ __d(
     "react",
     "react-compiler-runtime",
     "stylex",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -108,9 +107,8 @@ __d(
           (h = n[8]));
       var y = u === void 0 ? !1 : u,
         C = m === void 0 ? !1 : m,
-        b = p === void 0 ? "default" : p;
-      r("vulture")("YUDKXuJ1tooGi9Jghyu1umMhmn4=");
-      var v = d(r("BaseHScrollContext")),
+        b = p === void 0 ? "default" : p,
+        v = d(r("BaseHScrollContext")),
         S = v.role,
         R = v.spacing;
       if (R == null) return null;
