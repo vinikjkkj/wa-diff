@@ -4,11 +4,19 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = [{ defaultValue: null, kind: "LocalArgument", name: "input" }],
+      var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "input" },
+          { defaultValue: null, kind: "LocalArgument", name: "media_options" },
+        ],
         t = [
           {
             alias: null,
             args: [
+              {
+                kind: "Variable",
+                name: "media_options",
+                variableName: "media_options",
+              },
               {
                 kind: "Variable",
                 name: "product_params",

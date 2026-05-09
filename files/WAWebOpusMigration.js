@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebOpusUtils",
+    "WAWebReleaseToEventLoop",
     "WAWebSchemaChat",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
@@ -128,9 +129,7 @@ __d(
           var c = a + p;
           return (
             c < t.length &&
-              (yield new (m || (m = n("Promise")))(function (e) {
-                return self.setTimeout(e, 0);
-              })),
+              (yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
             y({ chatIds: t, offset: c, failureCount: r + s })
           );
         })),

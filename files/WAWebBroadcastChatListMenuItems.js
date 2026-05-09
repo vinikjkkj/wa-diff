@@ -12,6 +12,7 @@ __d(
     "WAWebChatContextMenuItemMarkUnread.react",
     "WAWebChatContextMenuItemMute.react",
     "WAWebChatContextMenuItemPin.react",
+    "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebDropdownItemSeparator.react",
     "WAWebInfoRefreshedIcon.react",
@@ -66,7 +67,11 @@ __d(
             d,
           ),
             o("WAWebCmd")
-              .Cmd.openChatBottom({ chat: n })
+              .Cmd.openChatBottom({
+                chat: n,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .Chatlist,
+              })
               .then(function () {
                 o("WAWebCmd").Cmd.chatInfoDrawer(n);
               }));

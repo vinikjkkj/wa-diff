@@ -3,7 +3,6 @@ __d(
   [
     "Promise",
     "WALogger",
-    "WAPromiseDelays",
     "WAPromiseEach",
     "WATimeUtils",
     "WAWebABProps",
@@ -21,6 +20,7 @@ __d(
     "WAWebLidMappingUsernameLearnUtils",
     "WAWebPhashUtils",
     "WAWebQueryAndUpdateSubgroupSuggestionsJob",
+    "WAWebReleaseToEventLoop",
     "WAWebSchemaChat",
     "WAWebUserPrefsModelStorage",
     "WAWebWidFactory",
@@ -246,7 +246,9 @@ __d(
                               "WAWebGroupQueryJob",
                             ).maybeQueryAndUpdateMembershipApprovalRequests(e),
                           ),
-                          yield o("WAPromiseDelays").releaseToEventLoop());
+                          yield o(
+                            "WAWebReleaseToEventLoop",
+                          ).releaseToEventLoop());
                       },
                     );
                     return function (t) {

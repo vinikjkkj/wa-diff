@@ -22,7 +22,7 @@ __d(
                   return o("WAWebRelayClient")
                     .commitMutation(
                       s,
-                      { request: { flowId: e } },
+                      { request: { flow_id: e } },
                       { environmentType: "facebook", accessToken: t.token },
                     )
                     .then(function (e) {

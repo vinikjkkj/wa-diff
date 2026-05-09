@@ -6,6 +6,7 @@ __d(
     "WAWebBusinessProfileCollection",
     "WAWebCatalogCollection",
     "WAWebCatalogVariantHelper",
+    "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebComposeBoxActions",
     "WAWebDrawerManager",
@@ -129,7 +130,11 @@ __d(
               .then(function (e) {
                 var t = e.chat;
                 o("WAWebCmd")
-                  .Cmd.openChatFromUnread({ chat: t })
+                  .Cmd.openChatFromUnread({
+                    chat: t,
+                    chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                      .BizProduct,
+                  })
                   .then(function (e) {
                     if (e) {
                       var a = o("WAWebStateUtils").unproxy(

@@ -25,24 +25,24 @@ __d(
         ));
       var m =
         ((l = t.flowMetadata) == null ? void 0 : l.data_api_version) != null;
-      if (o("WAWebGalaxyFlowQPLLoggerUtils").isGalaxyFlowSanctioned())
-        return (s || (s = n("Promise"))).reject(
-          new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
-            o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors.SANCTIONED,
-          ),
+      if (o("WAWebGalaxyFlowQPLLoggerUtils").isGalaxyFlowSanctioned()) {
+        var p = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
+          o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors.SANCTIONED,
         );
+        return (p.stack, (s || (s = n("Promise"))).reject(p));
+      }
       if (i != null && i.aborted)
         return (s || (s = n("Promise"))).reject(new Error("Request aborted"));
-      var p = a.contact.id,
-        _ = p.isLid()
+      var _ = a.contact.id,
+        f = _.isLid()
           ? (u =
-              (d = o("WAWebLidMigrationUtils").toPn(p)) == null
+              (d = o("WAWebLidMigrationUtils").toPn(_)) == null
                 ? void 0
                 : d.toString()) != null
             ? u
             : ""
-          : p.toString(),
-        f = t.flowId;
+          : _.toString(),
+        g = t.flowId;
       return (
         o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataPoint(
           o("WAWebGalaxyFlowQPLLoggerUtils").WaeMetadataQPLPoints
@@ -57,7 +57,7 @@ __d(
             e !== void 0
               ? e
               : (e = n("WAWebGalaxyFlowsDrawerGetFlowDataQuery.graphql")),
-            { request: { extensions: { biz_jid: _, flow_id: f } } },
+            { request: { extensions: { biz_jid: f, flow_id: g } } },
           )
           .then(
             (function () {
@@ -83,30 +83,31 @@ __d(
                           null ||
                         e.xwa_extensions_get_flow_data.extensions_flow_data
                           .length === 0)
-                    )
-                      throw (
-                        o(
-                          "WAWebGalaxyFlowQPLLoggerUtils",
-                        ).qplWaeMetadataAnnotate({
+                    ) {
+                      o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataAnnotate(
+                        {
                           string: {
                             error_type: o("WAWebGalaxyFlowQPLLoggerUtils")
                               .WaeMetadataQPLErrorTypes
                               .EXTENSIONS_METADATA_EMPTY_RESPONSE,
                           },
-                        }),
-                        new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
-                          o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
-                            .METADATA_EMPTY_RESPONSE,
-                        )
+                        },
                       );
-                    if (m) {
-                      if (c(e))
-                        throw (
-                          o(
-                            "WAWebGalaxyFlowQPLLoggerUtils",
-                          ).qplWaeMetadataAnnotate({
-                            bool: { endpoint_public_key_received: !1 },
-                          }),
+                      var n = new (o(
+                        "WAWebGalaxyFlowsError",
+                      ).WaeGalaxyFlowError)(
+                        o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                          .METADATA_EMPTY_RESPONSE,
+                      );
+                      throw (n.stack, n);
+                    }
+                    if (m)
+                      if (c(e)) {
+                        (o(
+                          "WAWebGalaxyFlowQPLLoggerUtils",
+                        ).qplWaeMetadataAnnotate({
+                          bool: { endpoint_public_key_received: !1 },
+                        }),
                           o(
                             "WAWebGalaxyFlowQPLLoggerUtils",
                           ).qplWaeMetadataAnnotate({
@@ -115,66 +116,72 @@ __d(
                                 .WaeMetadataQPLErrorTypes
                                 .EXTENSIONS_INVALID_PUBLIC_KEY,
                             },
-                          }),
-                          new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
-                            o("WAWebGalaxyFlowsError")
-                              .WaeGalaxyFlowMetdataErrors
-                              .METADATA_INVALID_PUBLIC_KEY,
-                          )
+                          }));
+                        var r = new (o(
+                          "WAWebGalaxyFlowsError",
+                        ).WaeGalaxyFlowError)(
+                          o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                            .METADATA_INVALID_PUBLIC_KEY,
                         );
-                      var n, r;
-                      (o(
-                        "WAWebGalaxyFlowQPLLoggerUtils",
-                      ).qplWaeMetadataAnnotate({
-                        bool: { endpoint_public_key_received: !0 },
-                      }),
-                        yield o(
-                          "WAWebGalaxyFlowsUnifiedEncryptionVerifier",
-                        ).UnifiedEncryptionVerifier.arePublicKeyWithSignatureValid(
-                          p,
-                          (n = e.xwa_extensions_get_flow_data) == null ||
-                            (n = n.endpoint_public_key) == null
-                            ? void 0
-                            : n.key,
-                          (r = e.xwa_extensions_get_flow_data) == null ||
-                            (r = r.endpoint_public_key) == null
-                            ? void 0
-                            : r.signature,
-                          {
-                            onComplete: function (t) {
-                              if (!t)
-                                throw new (o(
-                                  "WAWebGalaxyFlowsError",
-                                ).WaeGalaxyFlowError)(
-                                  o("WAWebGalaxyFlowsError")
-                                    .WaeGalaxyFlowMetdataErrors
-                                    .PUBLIC_KEY_SINGATURE_VERIFICATION_EXCEPTION,
-                                );
-                            },
-                          },
-                        ));
-                    }
-                    if (
-                      o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
-                        f,
-                        e,
-                      ) == null
-                    )
-                      throw (
-                        o(
+                        throw (r.stack, r);
+                      } else {
+                        var a, l;
+                        (o(
                           "WAWebGalaxyFlowQPLLoggerUtils",
                         ).qplWaeMetadataAnnotate({
+                          bool: { endpoint_public_key_received: !0 },
+                        }),
+                          yield o(
+                            "WAWebGalaxyFlowsUnifiedEncryptionVerifier",
+                          ).UnifiedEncryptionVerifier.arePublicKeyWithSignatureValid(
+                            _,
+                            (a = e.xwa_extensions_get_flow_data) == null ||
+                              (a = a.endpoint_public_key) == null
+                              ? void 0
+                              : a.key,
+                            (l = e.xwa_extensions_get_flow_data) == null ||
+                              (l = l.endpoint_public_key) == null
+                              ? void 0
+                              : l.signature,
+                            {
+                              onComplete: function (t) {
+                                if (!t) {
+                                  var e = new (o(
+                                    "WAWebGalaxyFlowsError",
+                                  ).WaeGalaxyFlowError)(
+                                    o("WAWebGalaxyFlowsError")
+                                      .WaeGalaxyFlowMetdataErrors
+                                      .PUBLIC_KEY_SINGATURE_VERIFICATION_EXCEPTION,
+                                  );
+                                  throw (e.stack, e);
+                                }
+                              },
+                            },
+                          ));
+                      }
+                    if (
+                      o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
+                        g,
+                        e,
+                      ) == null
+                    ) {
+                      o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataAnnotate(
+                        {
                           string: {
                             error_type: o("WAWebGalaxyFlowQPLLoggerUtils")
                               .WaeMetadataQPLErrorTypes
                               .EXTENSIONS_INVALID_EXTENSIONS_ID,
                           },
-                        }),
-                        new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
-                          o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
-                            .METADATA_INVALID_EXTENSIONS_ID,
-                        )
+                        },
                       );
+                      var s = new (o(
+                        "WAWebGalaxyFlowsError",
+                      ).WaeGalaxyFlowError)(
+                        o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                          .METADATA_INVALID_EXTENSIONS_ID,
+                      );
+                      throw (s.stack, s);
+                    }
                     o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataEnd(2);
                   }
                   return e;
@@ -186,23 +193,25 @@ __d(
             })(),
           )
           .catch(function (e) {
-            throw e instanceof o("WAWebGraphQLServerError").GraphQLServerError
-              ? (o(
-                  "WAWebGalaxyFlowWamLoggerUtils",
-                ).logStructuredMessageInteractionWAMEvent(
-                  t,
-                  a,
-                  r,
-                  o("WAWebWamEnumInteractionType").INTERACTION_TYPE.FLOW_ERROR,
-                  o("WAWebGalaxyFlowQPLLoggerUtils")
-                    .WaeScreenNavigationQPLErrorTypes
-                    .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR,
-                ),
-                new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
-                  o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
-                    .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR,
-                ))
-              : e;
+            if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
+              o(
+                "WAWebGalaxyFlowWamLoggerUtils",
+              ).logStructuredMessageInteractionWAMEvent(
+                t,
+                a,
+                r,
+                o("WAWebWamEnumInteractionType").INTERACTION_TYPE.FLOW_ERROR,
+                o("WAWebGalaxyFlowQPLLoggerUtils")
+                  .WaeScreenNavigationQPLErrorTypes
+                  .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR,
+              );
+              var n = new (o("WAWebGalaxyFlowsError").WaeGalaxyFlowError)(
+                o("WAWebGalaxyFlowsError").WaeGalaxyFlowMetdataErrors
+                  .EXTENSIONS_METADATA_GRAPHQL_RESPONSE_ERROR,
+              );
+              throw (n.stack, n);
+            }
+            throw e;
           })
       );
     }

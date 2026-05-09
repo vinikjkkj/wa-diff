@@ -368,6 +368,25 @@ __d(
           e === o("WAWebChatEntryPoint").ChatEntryPoint.NewBroadcastCreation ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.InfoDrawer ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.ExistingGroupRedirect ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.InChatNavigation ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.QuotedMessage ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.MediaViewer ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.ChatSearch ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.EventInfo ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.MessageHistoryBundle ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.PinnedMessage ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.PttOocPlayer ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.MessageGallery ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.BizProduct ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.EventCreation ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.IntroPanel ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.SendMessage ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.Forward ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.Debug ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.DragAndDrop ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.MessageReply ||
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.Status ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.SystemMessage ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.MessageAdmin ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.GroupParticipant ||
@@ -380,7 +399,7 @@ __d(
               .NumberChangeNotificationBanner ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.VoipWindow ||
           e === o("WAWebChatEntryPoint").ChatEntryPoint.RefreshRestore ||
-          e === o("WAWebChatEntryPoint").ChatEntryPoint.Unknown
+          e === o("WAWebChatEntryPoint").ChatEntryPoint.Initialization
         ) {
           o("WALogger")
             .WARN(

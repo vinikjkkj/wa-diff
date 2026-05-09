@@ -5,7 +5,6 @@ __d(
     "Promise",
     "TaskScheduler",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebABPropsCache",
     "WAWebApiDeviceList",
@@ -22,6 +21,7 @@ __d(
     "WAWebLastADVCheckTimeApi",
     "WAWebLowEndDeviceApi",
     "WAWebProtobufsAdv.pb",
+    "WAWebReleaseToEventLoop",
     "WAWebRunInBatches",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
@@ -562,7 +562,7 @@ __d(
       var e = self.performance.now();
       return n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         self.performance.now() - e > S &&
-          (yield o("WAPromiseDelays").releaseToEventLoop(),
+          (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
           (e = self.performance.now()));
       });
     }

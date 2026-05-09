@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WATimeUtils",
     "WAWebAck",
+    "WAWebJidToWid",
     "WAWebMsgCollection",
     "WAWebNewsletterBackendAddOnsUtils",
     "WAWebNewsletterBridgeMsgAddOnsUtils",
@@ -22,7 +23,10 @@ __d(
       }),
         r("WAWebNewsletterMetadataCollection") == null ||
           r("WAWebNewsletterMetadataCollection").add(
-            { id: e, lastFilledStatusServerId: t },
+            {
+              id: o("WAWebJidToWid").newsletterJidToWid(e),
+              lastFilledStatusServerId: t,
+            },
             { merge: !0 },
           ));
     }
@@ -47,7 +51,10 @@ __d(
         }),
           r("WAWebNewsletterMetadataCollection") == null ||
             r("WAWebNewsletterMetadataCollection").add(
-              { id: e, statusMetadata: p },
+              {
+                id: o("WAWebJidToWid").newsletterJidToWid(e),
+                statusMetadata: p,
+              },
               { merge: !0 },
             ));
       }

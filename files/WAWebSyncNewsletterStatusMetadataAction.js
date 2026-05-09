@@ -34,7 +34,7 @@ __d(
               r("WAWebNewsletterMetadataCollection") == null ||
                 r("WAWebNewsletterMetadataCollection").add(
                   {
-                    id: t,
+                    id: n,
                     statusMetadata: {
                       lastStatusServerId: c,
                       lastStatusSentTime: d,
@@ -52,7 +52,7 @@ __d(
                   p.isExpired()) &&
                   (r("WAWebNewsletterMetadataCollection") == null ||
                     r("WAWebNewsletterMetadataCollection").add(
-                      { id: t, lastFilledStatusServerId: c },
+                      { id: n, lastFilledStatusServerId: c },
                       { merge: !0 },
                     ));
               }

@@ -1,6 +1,12 @@
 __d(
   "GHLNetworkLayer",
-  ["FBLogger", "GHLDetectionUtils", "GHLDetectionUtilsPreludeSafe", "gkx"],
+  [
+    "FBLogger",
+    "GHLDetectionUtils",
+    "GHLDetectionUtilsPreludeSafe",
+    "err",
+    "gkx",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -27,7 +33,7 @@ __d(
       } catch (e) {
         return (
           r("FBLogger")("ghl")
-            .catching(e instanceof Error ? e : new Error(String(e)))
+            .catching(e instanceof Error ? e : r("err")(String(e)))
             .mustfix("error while getGHLXhr"),
           null
         );

@@ -2,12 +2,12 @@ __d(
   "WAWebVoipActionWriteCallLogOfferNotice",
   [
     "WACommonTaskScheduler",
-    "WAPromiseDelays",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebCallLogUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebReleaseToEventLoop",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
@@ -26,7 +26,7 @@ __d(
           ) &&
             (o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
               ? yield r("WACommonTaskScheduler").yield()
-              : yield o("WAPromiseDelays").releaseToEventLoop());
+              : yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           var t = e.callCreatorWid,
             n = e.callId,
             a = e.callOutcome,

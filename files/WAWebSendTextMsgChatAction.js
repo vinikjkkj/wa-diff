@@ -4,7 +4,6 @@ __d(
     "WACommonTaskScheduler",
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebAppTracker",
     "WAWebBizAgentAction",
@@ -44,6 +43,7 @@ __d(
     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
     "WAWebProductCatalogLogEvents",
     "WAWebQuestionsGatingUtils",
+    "WAWebReleaseToEventLoop",
     "WAWebSendMsgChatActionUtils",
     "WAWebSendMsgRecordAction",
     "WAWebStateUtils",
@@ -425,7 +425,7 @@ __d(
                 "wmi_worker_scheduler_web",
               )
                 ? yield r("WACommonTaskScheduler").yield()
-                : yield o("WAPromiseDelays").releaseToEventLoop()),
+                : yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
             (s = d.wamMessageSendPerfReporter) == null ||
               s.startRenderedStage(),
             _.length > 0 && e.msgs.add(_),
@@ -444,7 +444,7 @@ __d(
                 "wmi_worker_scheduler_web",
               )
                 ? yield r("WACommonTaskScheduler").yield()
-                : yield o("WAPromiseDelays").releaseToEventLoop()),
+                : yield o("WAWebReleaseToEventLoop").releaseToEventLoop()),
             o("WAWebOrchestratorNonPersistedJob")
               .createNonPersistedJob(
                 "sendMessage",

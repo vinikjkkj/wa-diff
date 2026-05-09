@@ -371,6 +371,7 @@ __d(
           yield o("WAWebNewsletterOpenAtAction").openNewsletterAt({
             newsletterJid: e,
             serverId: t,
+            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Debug,
           });
         });
         function t(t, n) {

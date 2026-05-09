@@ -1737,21 +1737,21 @@ __d(
         : "";
     }
     function j(e) {
-      var t,
-        n = e.templateParams[0],
-        r =
-          (t = o("WAWebLabelConstants").mapPredefinedIdToLabelName(
-            Number(n),
-          )) == null
-            ? void 0
-            : t.toLowerCase();
-      return o("WAWebListsGatingUtils").isListsEnabled()
-        ? s._(/*BTDS*/ "Chat automatically added to {labelName}", [
-            s._param("labelName", r),
-          ])
-        : s._(/*BTDS*/ "Chat automatically labeled as {labelName}", [
-            s._param("labelName", r),
-          ]);
+      var t = Number(e.templateParams[0]),
+        n = "";
+      return (
+        t === o("WAWebLabelConstants").PREDEFINED_LABEL_IDS.DO_NEW_ORDER
+          ? (n = s._(/*BTDS*/ "new order"))
+          : t === o("WAWebLabelConstants").PREDEFINED_LABEL_IDS.DO_LEAD &&
+            (n = s._(/*BTDS*/ "lead")),
+        o("WAWebListsGatingUtils").isListsEnabled()
+          ? s._(/*BTDS*/ "Chat automatically added to {labelName}", [
+              s._param("labelName", n),
+            ])
+          : s._(/*BTDS*/ "Chat automatically labeled as {labelName}", [
+              s._param("labelName", n),
+            ])
+      );
     }
     function K(e) {
       var t = e.subtype;

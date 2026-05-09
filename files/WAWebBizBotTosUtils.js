@@ -6,7 +6,6 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotTos",
     "WAWebBotTypes",
-    "WAWebChatEntryPoint",
     "WAWebContactGetters",
     "WAWebCreateBizBotSysMsgAction",
     "WAWebModalManager",
@@ -35,7 +34,6 @@ __d(
             )
           )
             return new (e || (e = n("Promise")))(function (e) {
-              var a;
               o("WAWebModalManager").ModalManager.open(
                 u.jsx(r("WAWebBizBotTos.react"), {
                   onAccept: n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -47,10 +45,7 @@ __d(
                     },
                   ),
                   onCancel: e,
-                  chatEntryPoint:
-                    (a = t.chatEntryPoint) != null
-                      ? a
-                      : o("WAWebChatEntryPoint").ChatEntryPoint.Unknown,
+                  chatEntryPoint: t.chatEntryPoint,
                 }),
                 { blockClose: !0 },
               );

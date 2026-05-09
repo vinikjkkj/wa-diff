@@ -5,6 +5,7 @@ __d(
     "WANullthrows",
     "WAWebAudioFileIcon.react",
     "WAWebAudioStatusIcon.react",
+    "WAWebChatEntryPoint",
     "WAWebChatGetters",
     "WAWebChatMessageSearch",
     "WAWebClassnames",
@@ -280,6 +281,8 @@ __d(
             t.defaultPrevented ||
               (o("WAWebCmd").Cmd.openChatAt({
                 chat: m,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .PttOocPlayer,
                 msgContext: o("WAWebChatMessageSearch").getSearchContext({
                   chat: m,
                   msgKey: n.id,

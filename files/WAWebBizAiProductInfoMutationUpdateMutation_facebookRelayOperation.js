@@ -2,7 +2,7 @@ __d(
   "WAWebBizAiProductInfoMutationUpdateMutation_facebookRelayOperation",
   [],
   function (t, n, r, o, a, i) {
-    a.exports = "35348205378127564";
+    a.exports = "26619965944279430";
   },
   null,
 );

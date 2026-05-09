@@ -17,12 +17,7 @@ __d(
               [this.on].concat(Array.prototype.slice.call(arguments)),
             )
               ? this
-              : (this.$3(t).push({
-                  callback: n,
-                  context: o,
-                  ctx: o != null ? o : this,
-                }),
-                this);
+              : (this.$3(t).push({ callback: n, context: o }), this);
           }),
           (n.once = function (t, n, r) {
             if (n == null) return this;
@@ -156,30 +151,56 @@ __d(
           }),
           (n.$5 = function (t, n) {
             var e,
-              r = -1,
-              o = t.length,
-              a = n[0],
-              i = n[1],
-              l = n[2];
+              r,
+              o = -1,
+              a = t.length,
+              i = n[0],
+              l = n[1],
+              s = n[2];
             e: {
               if (n.length === 0) {
-                for (; ++r < o; ) (e = t[r]).callback.call(e.ctx);
+                for (; ++o < a; ) {
+                  var u;
+                  ((e = t[o]),
+                    (r = (u = e.context) != null ? u : this),
+                    e.callback.call(r));
+                }
                 break e;
               }
               if (n.length === 1) {
-                for (; ++r < o; ) (e = t[r]).callback.call(e.ctx, a);
+                for (; ++o < a; ) {
+                  var c;
+                  ((e = t[o]),
+                    (r = (c = e.context) != null ? c : this),
+                    e.callback.call(r, i));
+                }
                 break e;
               }
               if (n.length === 2) {
-                for (; ++r < o; ) (e = t[r]).callback.call(e.ctx, a, i);
+                for (; ++o < a; ) {
+                  var d;
+                  ((e = t[o]),
+                    (r = (d = e.context) != null ? d : this),
+                    e.callback.call(r, i, l));
+                }
                 break e;
               }
               if (n.length === 3) {
-                for (; ++r < o; ) (e = t[r]).callback.call(e.ctx, a, i, l);
+                for (; ++o < a; ) {
+                  var m;
+                  ((e = t[o]),
+                    (r = (m = e.context) != null ? m : this),
+                    e.callback.call(r, i, l, s));
+                }
                 break e;
               }
               {
-                for (; ++r < o; ) (e = t[r]).callback.apply(e.ctx, n);
+                for (; ++o < a; ) {
+                  var p;
+                  ((e = t[o]),
+                    (r = (p = e.context) != null ? p : this),
+                    e.callback.apply(r, n));
+                }
                 break e;
               }
             }

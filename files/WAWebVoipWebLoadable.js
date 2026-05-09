@@ -3,16 +3,17 @@ __d(
   [
     "WACommonTaskScheduler",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebLazyLoadedRetriable",
     "WAWebPonyfillsIdleCallback",
+    "WAWebReleaseToEventLoop",
     "WAWebVoipGatingUtils",
     "WAWebVoipQplHelpers",
     "WAWebVoipSctpPrewarm",
     "WAWebVoipThreadPoolManager",
     "WAWebVoipThreadPoolManagerRegistry",
+    "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebWasmVariantLoader",
     "asyncToGeneratorRuntime",
   ],
@@ -84,9 +85,10 @@ __d(
           (o("WAWebVoipQplHelpers").voipInitQplAddPoint(
             o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_LOAD_END,
           ),
+            o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(n, "wasm_load"),
             o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
               ? yield r("WACommonTaskScheduler").yield()
-              : yield o("WAPromiseDelays").releaseToEventLoop());
+              : yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           var a = o("WAWebABProps").getABPropConfigValue(
               "web_voip_dynamic_thread_preallocate_count",
             ),
@@ -113,6 +115,10 @@ __d(
             o("WAWebVoipThreadPoolManagerRegistry").setVoipThreadPoolManager(d),
             o("WAWebVoipQplHelpers").voipInitQplAddPoint(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.THREAD_POOL_SETUP_END,
+            ),
+            o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(
+              n,
+              "thread_pool_setup",
             ),
             o("WAWebVoipQplHelpers").voipInitQplAnnotateThreadPool(l, u, t),
             o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {

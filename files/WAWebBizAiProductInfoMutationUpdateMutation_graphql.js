@@ -4,15 +4,27 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
-      var e = [
-          { defaultValue: null, kind: "LocalArgument", name: "id" },
-          { defaultValue: null, kind: "LocalArgument", name: "product_params" },
-        ],
-        t = [
+      var e = { defaultValue: null, kind: "LocalArgument", name: "id" },
+        t = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "media_options",
+        },
+        r = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "product_params",
+        },
+        o = [
           {
             alias: null,
             args: [
               { kind: "Variable", name: "id", variableName: "id" },
+              {
+                kind: "Variable",
+                name: "media_options",
+                variableName: "media_options",
+              },
               {
                 kind: "Variable",
                 name: "product_params",
@@ -37,20 +49,20 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: e,
+          argumentDefinitions: [e, t, r],
           kind: "Fragment",
           metadata: null,
           name: "WAWebBizAiProductInfoMutationUpdateMutation",
-          selections: t,
+          selections: o,
           type: "Mutation",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: e,
+          argumentDefinitions: [e, r, t],
           kind: "Operation",
           name: "WAWebBizAiProductInfoMutationUpdateMutation",
-          selections: t,
+          selections: o,
         },
         params: {
           id: n(

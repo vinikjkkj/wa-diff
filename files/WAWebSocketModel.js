@@ -6,7 +6,6 @@ __d(
     "WAComms",
     "WALogger",
     "WANullthrows",
-    "WAPromiseDelays",
     "WAPromiseTimeout",
     "WAWebABProps",
     "WAWebABPropsCache",
@@ -35,6 +34,7 @@ __d(
     "WAWebNetworkStatus",
     "WAWebOffdStorage",
     "WAWebQplStorage",
+    "WAWebReleaseToEventLoop",
     "WAWebReloadAfterLogout",
     "WAWebSentinel",
     "WAWebSocketConstants",
@@ -150,7 +150,7 @@ __d(
                 "wmi_worker_scheduler_web",
               )
                 ? r("WACommonTaskScheduler").yield()
-                : o("WAPromiseDelays").releaseToEventLoop()
+                : o("WAWebReleaseToEventLoop").releaseToEventLoop()
               )
                 .then(r("WAWebFeatureDetectionDetermineIncognito"))
                 .then(function (e) {

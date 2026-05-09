@@ -28,6 +28,7 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebProtobufsAICommon.pb",
     "WAWebProtobufsE2E.pb",
+    "WAWebProtobufsStatusAttributions.pb",
     "WAWebUserPrefsMeUser",
     "WAWebVcardParsingUtils",
     "WAWebViewMode.flow",
@@ -155,39 +156,78 @@ __d(
         [Ie],
       ),
       De = _("isNewsletterStatus", { default: !1 }),
-      xe = _("bizSource");
-    function $e(e) {
-      return e === "smb_promo";
-    }
-    var Pe = p(
+      xe = _("statusAttributions"),
+      $e = p(
         function (e) {
           var t = e[0];
-          return $e(t);
+          return (
+            (t == null
+              ? void 0
+              : t.some(function (e) {
+                  return (
+                    e.type ===
+                    o("WAWebProtobufsStatusAttributions.pb")
+                      .StatusAttribution$Type.RESHARE
+                  );
+                })) === !0
+          );
         },
         [xe],
       ),
-      Ne = p(
+      Pe = p(
+        function (e) {
+          var t = e[0];
+          return (
+            (t == null
+              ? void 0
+              : t.some(function (e) {
+                  var t;
+                  return (
+                    e.type ===
+                      o("WAWebProtobufsStatusAttributions.pb")
+                        .StatusAttribution$Type.RESHARE &&
+                    ((t = e.statusReshare) == null ? void 0 : t.source) ===
+                      o("WAWebProtobufsStatusAttributions.pb")
+                        .StatusAttribution$StatusReshare$Source.CHANNEL_RESHARE
+                  );
+                })) === !0
+          );
+        },
+        [xe],
+      ),
+      Ne = _("bizSource");
+    function Me(e) {
+      return e === "smb_promo";
+    }
+    var we = p(
+        function (e) {
+          var t = e[0];
+          return Me(t);
+        },
+        [Ne],
+      ),
+      Ae = p(
         function (e) {
           var t = e[0];
           return t != null;
         },
         [te],
       ),
-      Me = p(
+      Fe = p(
         function (e) {
           var t = e[0];
           return o("WAWebMimeTypes").isOpus(t);
         },
         [ce],
       ),
-      we = p(
+      Oe = p(
         function (e) {
           var t = e[0];
           return t == null ? null : o("WABase64").encodeB64UrlSafe(t, !0);
         },
         [ae],
       ),
-      Ae = p(
+      Be = p(
         function (e) {
           var t = e[0];
           return t == null
@@ -198,8 +238,8 @@ __d(
         },
         [Z],
       ),
-      Fe = _("local", { default: !1 }),
-      Oe = p(
+      We = _("local", { default: !1 }),
+      qe = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -207,25 +247,25 @@ __d(
         },
         [te, re],
       ),
-      Be = _("nonJidMentions"),
-      We = p(
+      Ue = _("nonJidMentions"),
+      Ve = p(
         function (e) {
           var t = e[0];
           return o("WAWebNonJidMentionUtils").hasMentionAll(t);
         },
-        [Be],
+        [Ue],
       ),
-      qe = p(
+      He = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return t || n || r;
         },
-        [Ae, Oe, We],
+        [Be, qe, Ve],
       ),
-      Ue = _("botPluginReferenceIndex"),
-      Ve = p(
+      Ge = _("botPluginReferenceIndex"),
+      ze = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -272,9 +312,9 @@ __d(
               return !1;
           }
         },
-        [b, Ue, D],
+        [b, Ge, D],
       ),
-      He = p(
+      je = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -282,7 +322,7 @@ __d(
         },
         [k, E],
       ),
-      Ge = p(
+      Ke = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -290,7 +330,7 @@ __d(
         },
         [k, E],
       ),
-      ze = p(
+      Qe = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -298,15 +338,15 @@ __d(
         },
         [k, E],
       ),
-      je = p(
+      Xe = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n != null;
         },
-        [ze, Re],
+        [Qe, Re],
       ),
-      Ke = p(
+      Ye = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -315,7 +355,7 @@ __d(
         },
         [R, Te, De],
       ),
-      Qe = p(
+      Je = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -323,7 +363,7 @@ __d(
         },
         [b, v],
       ),
-      Xe = p(
+      Ze = p(
         function (t) {
           var n = t[0],
             r = t[1],
@@ -354,9 +394,9 @@ __d(
               ? o("WAWebUserPrefsMeUser").isMeAccount(r)
               : n.fromMe;
         },
-        [R, k, Qe, b, v],
+        [R, k, Je, b, v],
       ),
-      Ye = p(
+      et = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -377,9 +417,9 @@ __d(
                 ? c
                 : u;
         },
-        [R, Xe, Ge, Ke, Te, De, ze, k, x],
+        [R, Ze, Ke, Ye, Te, De, Qe, k, x],
       ),
-      Je = p(
+      tt = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -420,9 +460,9 @@ __d(
               : null
           );
         },
-        [A, Ye, b],
+        [A, et, b],
       ),
-      Ze = p(
+      nt = p(
         function (e) {
           var t = e[0];
           return (
@@ -432,7 +472,7 @@ __d(
         },
         [b],
       ),
-      et = p(
+      rt = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -442,7 +482,7 @@ __d(
         },
         [b, v],
       ),
-      tt = p(
+      ot = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -453,73 +493,73 @@ __d(
         },
         [b, v],
       ),
-      nt = p(
+      at = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebMsgType").MSG_TYPE.STICKER;
         },
         [b],
       ),
-      rt = _("isCarouselCard", { default: !1 }),
-      ot = p(
+      it = _("isCarouselCard", { default: !1 }),
+      lt = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebMsgType").MSG_TYPE.DOCUMENT;
         },
         [b],
       ),
-      at = p(
+      st = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return !t && !n && !r;
         },
-        [ie, nt, ot],
+        [ie, at, lt],
       ),
-      it = p(
+      ut = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebEphemeralConstants").KeepInChatState.KEPT;
         },
         [F],
       ),
-      lt = p(
+      ct = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebEphemeralConstants").KeepInChatState.UNKEPT;
         },
         [F],
       ),
-      st = p(
+      dt = p(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isPSA(t.remote);
         },
         [R],
       ),
-      ut = p(
+      mt = p(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isIAS(t.remote);
         },
         [R],
       ),
-      ct = p(
+      pt = p(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isAiHub(t.remote);
         },
         [R],
       ),
-      dt = p(
+      _t = p(
         function (e) {
           var t = e[0];
           return r("WAWebWid").isCAPISupportAccount(t.remote);
         },
         [R],
       ),
-      mt = p(
+      ft = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -532,55 +572,55 @@ __d(
         },
         [b, B],
       ),
-      pt = _("title"),
-      _t = _("body", { default: "" }),
-      ft = _("caption"),
-      gt = _("comment"),
-      ht = _("pollName", { default: "" }),
-      yt = _("pollOptions"),
-      Ct = _("pollSelectableOptionsCount", { default: 0 }),
-      bt = _("pollInvalidated", { default: !1 }),
-      vt = _("pollContentType", {
+      gt = _("title"),
+      ht = _("body", { default: "" }),
+      yt = _("caption"),
+      Ct = _("comment"),
+      bt = _("pollName", { default: "" }),
+      vt = _("pollOptions"),
+      St = _("pollSelectableOptionsCount", { default: 0 }),
+      Rt = _("pollInvalidated", { default: !1 }),
+      Lt = _("pollContentType", {
         default: o("WAWebPollCreationUtils").PollContentType.TEXT,
       }),
-      St = _("pollType", {
+      Et = _("pollType", {
         default: o("WAWebPollCreationUtils").PollType.POLL,
       }),
-      Rt = _("correctOptionIndex"),
-      Lt = _("pollEndTime"),
-      Et = _("pollHideVoterNames"),
-      kt = _("pollAllowAddOption"),
-      It = _("pollVotesSnapshot"),
-      Tt = _("quarantineExtractedText"),
-      Dt = _("eventName", { default: "" }),
-      xt = _("eventDescription"),
-      $t = _("eventStartTime", { default: 0 }),
-      Pt = _("eventEndTime"),
-      Nt = _("eventJoinLink"),
-      Mt = _("eventLocation"),
-      wt = _("isEventCanceled", { default: !1 }),
-      At = _("eventInvalidated", { default: !1 }),
-      Ft = _("eventIsScheduledCall", { default: !1 }),
-      Ot = _("eventExtraGuestsAllowed", { default: !1 }),
-      Bt = _("replyCount", { default: 0 }),
-      Wt = _("nativeFlowName"),
-      qt = _("nativeFlowButtons"),
-      Ut = _("galaxyFlowDisabled", { default: !1 }),
-      Vt = _("signupCtaTapped", { default: !1 }),
-      Ht = _("paymentCurrency", { default: "" }),
-      Gt = _("paymentAmount1000", { default: 0 }),
-      zt = _("paymentMessageReceiverJid"),
-      jt = _("paymentStatus"),
-      Kt = _("paymentTxnStatus"),
-      Qt = _("paymentNoteMsg"),
-      Xt = _("paymentRequestMessageKey"),
-      Yt = _("paymentExpiryTimestamp"),
-      Jt = _("paymentInviteServiceType"),
-      Zt = _("isFromTemplate", { default: !1 }),
-      en = _("isLive", { default: !1 }),
-      tn = _("isDynamicReplyButtonsMsg", { default: !1 }),
-      nn = _("dynamicReplyButtons"),
-      rn = p(
+      kt = _("correctOptionIndex"),
+      It = _("pollEndTime"),
+      Tt = _("pollHideVoterNames"),
+      Dt = _("pollAllowAddOption"),
+      xt = _("pollVotesSnapshot"),
+      $t = _("quarantineExtractedText"),
+      Pt = _("eventName", { default: "" }),
+      Nt = _("eventDescription"),
+      Mt = _("eventStartTime", { default: 0 }),
+      wt = _("eventEndTime"),
+      At = _("eventJoinLink"),
+      Ft = _("eventLocation"),
+      Ot = _("isEventCanceled", { default: !1 }),
+      Bt = _("eventInvalidated", { default: !1 }),
+      Wt = _("eventIsScheduledCall", { default: !1 }),
+      qt = _("eventExtraGuestsAllowed", { default: !1 }),
+      Ut = _("replyCount", { default: 0 }),
+      Vt = _("nativeFlowName"),
+      Ht = _("nativeFlowButtons"),
+      Gt = _("galaxyFlowDisabled", { default: !1 }),
+      zt = _("signupCtaTapped", { default: !1 }),
+      jt = _("paymentCurrency", { default: "" }),
+      Kt = _("paymentAmount1000", { default: 0 }),
+      Qt = _("paymentMessageReceiverJid"),
+      Xt = _("paymentStatus"),
+      Yt = _("paymentTxnStatus"),
+      Jt = _("paymentNoteMsg"),
+      Zt = _("paymentRequestMessageKey"),
+      en = _("paymentExpiryTimestamp"),
+      tn = _("paymentInviteServiceType"),
+      nn = _("isFromTemplate", { default: !1 }),
+      rn = _("isLive", { default: !1 }),
+      on = _("isDynamicReplyButtonsMsg", { default: !1 }),
+      an = _("dynamicReplyButtons"),
+      ln = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -592,14 +632,14 @@ __d(
         },
         [b, v, U],
       ),
-      on = p(
+      sn = p(
         function (e) {
           var t = e[0];
           return t != null;
         },
         [W],
       ),
-      an = p(
+      un = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -609,7 +649,7 @@ __d(
         },
         [b, v],
       ),
-      ln = p(
+      cn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -623,9 +663,9 @@ __d(
             s = o & 255;
           return "rgba(" + i + ", " + l + ", " + s + ", " + a + ")";
         },
-        [Ke, K],
+        [Ye, K],
       ),
-      sn = p(
+      dn = p(
         function (e) {
           var t = e[0];
           switch (t) {
@@ -664,24 +704,24 @@ __d(
         },
         [b],
       ),
-      un = p(
+      mn = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return t.fromMe && n && r;
         },
-        [R, Fe, sn],
+        [R, We, dn],
       ),
-      cn = _("revokeSender"),
-      dn = p(
+      pn = _("revokeSender"),
+      _n = p(
         function (e) {
           var t = e[0];
           return t != null && o("WAWebUserPrefsMeUser").isMeAccount(t);
         },
-        [cn],
+        [pn],
       ),
-      mn = p(
+      fn = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -718,7 +758,7 @@ __d(
         },
         [R, E, k],
       ),
-      pn = p(
+      gn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -761,7 +801,7 @@ __d(
         },
         [b, v],
       ),
-      _n = p(
+      hn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -786,47 +826,47 @@ __d(
         },
         [b, X],
       ),
-      fn = _("isForwarded", { default: !1 }),
-      gn = _("forwardingScore"),
-      hn = p(
+      yn = _("isForwarded", { default: !1 }),
+      Cn = _("forwardingScore"),
+      bn = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return n == null ? (t ? 1 : 0) : n || 0;
         },
-        [fn, gn],
+        [yn, Cn],
       ),
-      yn = p(
+      vn = p(
         function (e) {
           var t = e[0];
           return (
             t >= r("WAWebConstantsDeprecated").FREQUENTLY_FORWARDED_SENTINEL
           );
         },
-        [hn],
+        [bn],
       ),
-      Cn = _("isQuestion", { default: !1 }),
-      bn = _("isSpoiler", { default: !1 }),
-      vn = _("questionResponsesCount"),
-      Sn = _("readQuestionResponsesCount"),
-      Rn = p(
+      Sn = _("isQuestion", { default: !1 }),
+      Rn = _("isSpoiler", { default: !1 }),
+      Ln = _("questionResponsesCount"),
+      En = _("readQuestionResponsesCount"),
+      kn = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t - n;
         },
-        [vn, Sn],
+        [Ln, En],
       ),
-      Ln = _("questionReplyQuotedMessage"),
-      En = p(
+      In = _("questionReplyQuotedMessage"),
+      Tn = p(
         function (e) {
           var t = e[0];
           return t != null;
         },
-        [Ln],
+        [In],
       ),
-      kn = _("newsletterAdminProfile"),
-      In = p(
+      Dn = _("newsletterAdminProfile"),
+      xn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -840,7 +880,7 @@ __d(
         },
         [R, Z],
       ),
-      Tn = p(
+      $n = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -848,21 +888,21 @@ __d(
             o = e[3];
           return t || n || o || !r;
         },
-        [fn, je, Xe, In],
+        [yn, Xe, Ze, xn],
       ),
-      Dn = _("invis", { default: !1 }),
-      xn = _("isNewMsg", { default: !1 }),
-      $n = _("isSendFailure", { default: !1 }),
-      Pn = p(
+      Pn = _("invis", { default: !1 }),
+      Nn = _("isNewMsg", { default: !1 }),
+      Mn = _("isSendFailure", { default: !1 }),
+      wn = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return (t && n != null && n < o("WAWebAck").ACK.CLOCK) || r;
         },
-        [Xe, $, $n],
+        [Ze, $, Mn],
       ),
-      Nn = p(
+      An = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -873,20 +913,20 @@ __d(
               return;
             }
         },
-        [b, _t],
+        [b, ht],
       ),
-      Mn = _("description"),
-      wn = _("matchedText", { default: "" }),
-      An = _("thumbnail"),
-      Fn = _("thumbnailHQ"),
-      On = _("musicArtwork"),
-      Bn = _("richPreviewType", {
+      Fn = _("description"),
+      On = _("matchedText", { default: "" }),
+      Bn = _("thumbnail"),
+      Wn = _("thumbnailHQ"),
+      qn = _("musicArtwork"),
+      Un = _("richPreviewType", {
         default: o("WAWebProtobufsE2E.pb")
           .Message$ExtendedTextMessage$PreviewType.NONE,
       }),
-      Wn = _("paymentLinkMetadata", { default: null }),
-      qn = _("faviconMMSMetadata", { default: null }),
-      Un = p(
+      Vn = _("paymentLinkMetadata", { default: null }),
+      Hn = _("faviconMMSMetadata", { default: null }),
+      Gn = p(
         function (e) {
           var t,
             n = e[0],
@@ -941,9 +981,9 @@ __d(
             return null;
           }
         },
-        [Wn],
+        [Vn],
       ),
-      Vn = p(
+      zn = p(
         function (e) {
           var t = e[0];
           return (
@@ -951,9 +991,9 @@ __d(
             (t == null ? void 0 : t.providerName) != null
           );
         },
-        [Un],
+        [Gn],
       ),
-      Hn = p(
+      jn = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -966,17 +1006,17 @@ __d(
             t.includes(i)
           );
         },
-        [_t, pt, Mn, wn],
+        [ht, gt, Fn, On],
       ),
-      Gn = p(
+      Kn = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [tn, Zt],
+        [on, nn],
       ),
-      zn = p(
+      Qn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -986,19 +1026,19 @@ __d(
             t === o("WAWebMsgType").MSG_TYPE.INTERACTIVE
           );
         },
-        [b, tn],
+        [b, on],
       ),
-      jn = 768,
-      Kn = p(
+      Xn = 768,
+      Yn = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = 308;
-          return n != null && n.isBot() ? 1 / 0 : t ? r : jn;
+          return n != null && n.isBot() ? 1 / 0 : t ? r : Xn;
         },
-        [yn, Ye],
+        [vn, et],
       ),
-      Qn = p(
+      Jn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1012,7 +1052,7 @@ __d(
         },
         [b, v],
       ),
-      Xn = p(
+      Zn = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1023,8 +1063,8 @@ __d(
         },
         [b, v],
       ),
-      Yn = _("kicKey"),
-      Jn = p(
+      er = _("kicKey"),
+      tr = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1035,9 +1075,9 @@ __d(
             if (!n) return o("WAWebWidFactory").asUserWidOrThrow(t.remote);
           }
         },
-        [Yn, Ge],
+        [er, Ke],
       ),
-      Zn = p(
+      nr = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1053,7 +1093,7 @@ __d(
         },
         [U, z, v, H],
       ),
-      er = p(
+      rr = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1066,8 +1106,8 @@ __d(
         },
         [b, v],
       ),
-      tr = _("revokeDuration"),
-      nr = p(
+      or = _("revokeDuration"),
+      ar = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1080,9 +1120,9 @@ __d(
               ? o("WAWebWamEnumEditType").EDIT_TYPE.EDITED
               : o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED;
         },
-        [v, er, on],
+        [v, rr, sn],
       ),
-      rr = p(
+      ir = p(
         function (e) {
           var t = e[0];
           if (t != null)
@@ -1092,7 +1132,7 @@ __d(
         },
         [fe],
       ),
-      or = p(
+      lr = p(
         function (e) {
           var t = e[0];
           if (t != null)
@@ -1102,7 +1142,7 @@ __d(
         },
         [ge],
       ),
-      ar = p(
+      sr = p(
         function (e) {
           var t = e[0];
           if (t != null)
@@ -1112,13 +1152,13 @@ __d(
         },
         [_e],
       ),
-      ir = _("inviteCode", { default: "" }),
-      lr = _("inviteCodeExp", { default: "" }),
-      sr = _("inviteGrp", { default: "" }),
-      ur = _("inviteGrpName"),
-      cr = _("inviteGrpJpegThum"),
-      dr = _("inviteGrpType"),
-      mr = p(
+      ur = _("inviteCode", { default: "" }),
+      cr = _("inviteCodeExp", { default: "" }),
+      dr = _("inviteGrp", { default: "" }),
+      mr = _("inviteGrpName"),
+      pr = _("inviteGrpJpegThum"),
+      _r = _("inviteGrpType"),
+      fr = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1128,9 +1168,9 @@ __d(
           var a = new Date().getTime() / 1e3;
           return parseInt(a, 10) >= parseInt(r, 10);
         },
-        [b, ir, lr],
+        [b, ur, cr],
       ),
-      pr = p(
+      gr = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1143,8 +1183,8 @@ __d(
         },
         [b, Ee],
       ),
-      _r = _("productHeaderImageRejected", { default: !1 }),
-      fr = p(
+      hr = _("productHeaderImageRejected", { default: !1 }),
+      yr = p(
         function (e) {
           var t,
             n,
@@ -1161,9 +1201,9 @@ __d(
               ? t
               : null;
         },
-        [_r, B],
+        [hr, B],
       ),
-      gr = p(
+      Cr = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1173,33 +1213,33 @@ __d(
             (n && t === o("WAWebMsgType").MSG_TYPE.AUDIO)
           );
         },
-        [b, je],
+        [b, Xe],
       ),
-      hr = _("hasReaction", { default: !1 }),
-      yr = _("recipients", {
+      br = _("hasReaction", { default: !1 }),
+      vr = _("recipients", {
         getDefault: function () {
           return [];
         },
       }),
-      Cr = _("templateParams", {
+      Sr = _("templateParams", {
         getDefault: function () {
           return [];
         },
       }),
-      br = _("clientUrl", { default: "" }),
-      vr = _("loc", { default: "" }),
-      Sr = _("lat"),
-      Rr = _("lng"),
-      Lr = _("shareDuration"),
-      Er = _("finalLat"),
-      kr = _("finalLng"),
-      Ir = _("star", { default: !1 }),
-      Tr = _("currencyCode"),
-      Dr = _("priceAmount1000"),
-      xr = _("salePriceAmount1000"),
-      $r = _("isVcardOverMmsDocument", { default: !1 }),
-      Pr = _("interactiveAnnotations"),
-      Nr = p(
+      Rr = _("clientUrl", { default: "" }),
+      Lr = _("loc", { default: "" }),
+      Er = _("lat"),
+      kr = _("lng"),
+      Ir = _("shareDuration"),
+      Tr = _("finalLat"),
+      Dr = _("finalLng"),
+      xr = _("star", { default: !1 }),
+      $r = _("currencyCode"),
+      Pr = _("priceAmount1000"),
+      Nr = _("salePriceAmount1000"),
+      Mr = _("isVcardOverMmsDocument", { default: !1 }),
+      wr = _("interactiveAnnotations"),
+      Ar = p(
         function (e) {
           var t = e[0];
           return t == null
@@ -1213,9 +1253,9 @@ __d(
                 );
               });
         },
-        [Pr],
+        [wr],
       ),
-      Mr = p(
+      Fr = p(
         function (e) {
           var t = e[0];
           return t == null
@@ -1229,40 +1269,40 @@ __d(
                 );
               });
         },
-        [Pr],
+        [wr],
       ),
-      wr = p(
+      Or = p(
         function (e) {
           var t = e[0];
           return t == null ? null : t[0];
         },
-        [Nr],
+        [Ar],
       ),
-      Ar = p(
+      Br = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t && n != null && n.length > 0;
         },
-        [Ke, Nr],
+        [Ye, Ar],
       ),
-      Fr = p(
+      Wr = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t && n != null;
         },
-        [ze, wr],
+        [Qe, Or],
       ),
-      Or = p(
+      qr = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t && n;
         },
-        [Ke, Mr],
+        [Ye, Fr],
       ),
-      Br = p(
+      Ur = p(
         function (e) {
           var t,
             n = e[0];
@@ -1272,65 +1312,65 @@ __d(
             ? null
             : o("WAWebMusicParsingUtils").toMusicMetadata(r);
         },
-        [wr],
+        [Or],
       ),
-      Wr = _("messageSecret"),
-      qr = _("broadcast", { default: !1 }),
-      Ur = _("vcardList", {
+      Vr = _("messageSecret"),
+      Hr = _("broadcast", { default: !1 }),
+      Gr = _("vcardList", {
         getDefault: function () {
           return [];
         },
       }),
-      Vr = _("vcardFormattedName"),
-      Hr = _("labels", {
+      zr = _("vcardFormattedName"),
+      jr = _("labels", {
         getDefault: function () {
           return [];
         },
       }),
-      Gr = _("agentId"),
-      zr = _("url"),
-      jr = _("retailerId"),
-      Kr = _("businessOwnerJid"),
-      Qr = _("productId"),
-      Xr = _("productImageCount"),
-      Yr = _("isMdHistoryMsg", { default: !1 }),
-      Jr = _("campaignId"),
-      Zr = _("filename"),
-      eo = _("smbClientCampaignId"),
-      to = _("isCaptionByUser", { default: !1 }),
-      no = _("doNotPlayInline"),
-      ro = _("thumbnailDirectPath"),
-      oo = _("thumbnailHeight"),
-      ao = _("thumbnailWidth"),
-      io = _("orderTitle"),
-      lo = _("itemCount"),
-      so = _("totalAmount1000"),
-      uo = _("totalCurrencyCode"),
-      co = _("futureproofType"),
-      mo = _("futureproofSubtype"),
-      po = _("ephemeralOutOfSync"),
-      _o = _("isAvatar"),
-      fo = _("bizPrivacyStatus"),
-      go = _("verifiedBizName"),
-      ho = _("mediaKey"),
-      yo = _("message", { default: "" }),
-      Co = _("size", { default: 0 }),
-      bo = _("hostedBizEncStateMismatch"),
-      vo = p(
+      Kr = _("agentId"),
+      Qr = _("url"),
+      Xr = _("retailerId"),
+      Yr = _("businessOwnerJid"),
+      Jr = _("productId"),
+      Zr = _("productImageCount"),
+      eo = _("isMdHistoryMsg", { default: !1 }),
+      to = _("campaignId"),
+      no = _("filename"),
+      ro = _("smbClientCampaignId"),
+      oo = _("isCaptionByUser", { default: !1 }),
+      ao = _("doNotPlayInline"),
+      io = _("thumbnailDirectPath"),
+      lo = _("thumbnailHeight"),
+      so = _("thumbnailWidth"),
+      uo = _("orderTitle"),
+      co = _("itemCount"),
+      mo = _("totalAmount1000"),
+      po = _("totalCurrencyCode"),
+      _o = _("futureproofType"),
+      fo = _("futureproofSubtype"),
+      go = _("ephemeralOutOfSync"),
+      ho = _("isAvatar"),
+      yo = _("bizPrivacyStatus"),
+      Co = _("verifiedBizName"),
+      bo = _("mediaKey"),
+      vo = _("message", { default: "" }),
+      So = _("size", { default: 0 }),
+      Ro = _("hostedBizEncStateMismatch"),
+      Lo = p(
         function (e) {
           var t = e[0];
           return t === "bot_unavailable_fanout";
         },
         [v],
       ),
-      So = p(
+      Eo = p(
         function (e) {
           var t = e[0];
           return t === "view_once_unavailable_fanout";
         },
         [v],
       ),
-      Ro = p(
+      ko = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1343,7 +1383,7 @@ __d(
         },
         [R, Z],
       ),
-      Lo = p(
+      Io = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1351,7 +1391,7 @@ __d(
         },
         [R, ye],
       ),
-      Eo = p(
+      To = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1359,58 +1399,58 @@ __d(
         },
         [R, ye],
       ),
-      ko = _("botPluginSearchProvider"),
-      Io = _("botPluginSearchUrl"),
-      To = _("botResponseTargetId"),
-      Do = _("botPluginSearchQuery"),
-      xo = _("botPluginType"),
-      $o = _("botMessageDisclaimerText"),
-      Po = _("botModeSelection"),
-      No = _("botModeOverride"),
-      Mo = _("richResponse"),
-      wo = _("unifiedResponse"),
-      Ao = p(
+      Do = _("botPluginSearchProvider"),
+      xo = _("botPluginSearchUrl"),
+      $o = _("botResponseTargetId"),
+      Po = _("botPluginSearchQuery"),
+      No = _("botPluginType"),
+      Mo = _("botMessageDisclaimerText"),
+      wo = _("botModeSelection"),
+      Ao = _("botModeOverride"),
+      Fo = _("richResponse"),
+      Oo = _("unifiedResponse"),
+      Bo = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return t != null && n != null && r != null;
         },
-        [ko, Io, Do],
+        [Do, xo, Po],
       ),
-      Fo = p(
+      Wo = p(
         function (e) {
           var t = e[0];
           return (t == null ? void 0 : t.isBot()) === !0;
         },
-        [Ye],
+        [et],
       ),
-      Oo = p(
+      qo = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return !!(t && o("WAWebUserPrefsMeUser").isMeAccount(n));
         },
-        [Fo, Ce],
+        [Wo, Ce],
       ),
-      Bo = p(
+      Uo = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return n && !t.remote.isBot();
         },
-        [R, Fo],
+        [R, Wo],
       ),
-      Wo = p(
+      Vo = p(
         function (e) {
           var t = e[0],
             n = e[1],
             r = e[2];
           return t || n || r;
         },
-        [Fo, Lo, Eo],
+        [Wo, Io, To],
       ),
-      qo = p(
+      Ho = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1420,31 +1460,31 @@ __d(
         },
         [b, v],
       ),
-      Uo = _("hsmTag"),
-      Vo = p(
+      Go = _("hsmTag"),
+      zo = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.AUTHENTICATION;
         },
-        [Uo],
+        [Go],
       ),
-      Ho = p(
+      jo = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.MARKETING;
         },
-        [Uo],
+        [Go],
       ),
-      Go = _("botRespOrInvocationRevokeBotWid"),
-      zo = p(
+      Ko = _("botRespOrInvocationRevokeBotWid"),
+      Qo = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return !!(t != null && t.isBot() && n);
         },
-        [Go, er],
+        [Ko, rr],
       ),
-      jo = p(
+      Xo = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1458,22 +1498,22 @@ __d(
                   .REELS)
           );
         },
-        [xo, Fo],
+        [No, Wo],
       ),
-      Ko = _("botPluginMaybeParent"),
-      Qo = _("botReelPluginThumbnailCdnUrl"),
-      Xo = p(
+      Yo = _("botPluginMaybeParent"),
+      Jo = _("botReelPluginThumbnailCdnUrl"),
+      Zo = p(
         function (e) {
           var t = e[0];
           return t === o("WAWebMsgType").MSG_TYPE.BIZ_CONTENT_PLACEHOLDER;
         },
         [b],
       ),
-      Yo = _("statusMentioned"),
-      Jo = _("isWamoSub"),
-      Zo = _("hasPaidPartnershipLabel"),
-      ea = _("isVideoCall"),
-      ta = p(
+      ea = _("statusMentioned"),
+      ta = _("isWamoSub"),
+      na = _("hasPaidPartnershipLabel"),
+      ra = _("isVideoCall"),
+      oa = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1483,9 +1523,9 @@ __d(
             (n === "miss_video" || n === "miss_group_video" || r === !0)
           );
         },
-        [b, v, ea],
+        [b, v, ra],
       ),
-      na = p(
+      aa = p(
         function (e) {
           var t = e[0],
             n = e[1];
@@ -1493,9 +1533,9 @@ __d(
         },
         [b, R],
       ),
-      ra = _("callOutcome"),
-      oa = _("callSilenceReason"),
-      aa = p(
+      ia = _("callOutcome"),
+      la = _("callSilenceReason"),
+      sa = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1505,9 +1545,9 @@ __d(
             (n === "silence" || r != null)
           );
         },
-        [b, v, oa],
+        [b, v, la],
       ),
-      ia = p(
+      ua = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1524,17 +1564,17 @@ __d(
               !y.includes(r))
           );
         },
-        [b, v, ra, Ye],
+        [b, v, ia, et],
       ),
-      la = _("callDuration"),
-      sa = _("bytesSent"),
-      ua = _("bytesReceived"),
-      ca = _("callParticipants"),
-      da = _("isCallLink"),
-      ma = _("callLinkToken"),
-      pa = _("terminatedByDeviceSwitch"),
-      _a = _("selfOtherDeviceConnected"),
-      fa = p(
+      ca = _("callDuration"),
+      da = _("bytesSent"),
+      ma = _("bytesReceived"),
+      pa = _("callParticipants"),
+      _a = _("isCallLink"),
+      fa = _("callLinkToken"),
+      ga = _("terminatedByDeviceSwitch"),
+      ha = _("selfOtherDeviceConnected"),
+      ya = p(
         function (e) {
           var t = e[0],
             n = e[1],
@@ -1548,57 +1588,57 @@ __d(
                 }) > 1))
           );
         },
-        [Ge, ca, ma],
+        [Ke, pa, fa],
       ),
-      ga = p(
+      Ca = p(
         function (e) {
           var t = e[0],
             n = e[1];
           return t || n;
         },
-        [Ge, fa],
+        [Ke, ya],
       ),
-      ha = _("finalCallOutcome"),
-      ya = _("groupHistoryBundleMessageKey"),
-      Ca = _("groupHistoryBundleMetadata"),
-      ba = _("groupHistoryIndividualMessageInfo"),
-      va = p(
+      ba = _("finalCallOutcome"),
+      va = _("groupHistoryBundleMessageKey"),
+      Sa = _("groupHistoryBundleMetadata"),
+      Ra = _("groupHistoryIndividualMessageInfo"),
+      La = p(
         function (e) {
           var t,
             n = e[0],
             r = e[1];
           return (t = n == null ? void 0 : n.bundleMessageKey) != null ? t : r;
         },
-        [ba, ya],
+        [Ra, va],
       ),
-      Sa = p(
+      Ea = p(
         function (e) {
           var t = e[0];
           return t == null ? void 0 : t.isEditedAfterReceivedAsHistory;
         },
-        [ba],
+        [Ra],
       ),
-      Ra = p(
+      ka = p(
         function (e) {
           var t = e[0];
           return t == null ? void 0 : t.bundleSender;
         },
-        [ba],
+        [Ra],
       ),
-      La = _("botGroupParticipant");
-    function Ea(e) {
+      Ia = _("botGroupParticipant");
+    function Ta(e) {
       var t =
         b(e) === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
         k(e).equals(o("WAWebUserPrefsMeUser").getMaybeMePnUser());
       return (
         !t &&
-        !Qn(e) &&
+        !Jn(e) &&
         b(e) !== o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
-        !pn(e) &&
+        !gn(e) &&
         !["change_number", "change_username", "masked_thread_created"].includes(
           v(e),
         ) &&
-        !Xn(e)
+        !Zn(e)
       );
     }
     ((l.clearMsgGetterCacheFor = g),
@@ -1664,267 +1704,269 @@ __d(
       (l.getNewsletterFollowerInviteInfo = ke),
       (l.getIsGroupStatus = Te),
       (l.getIsNewsletterStatus = De),
-      (l.getBizSource = xe),
-      (l.isBizSourceFromMarketingMessage = $e),
-      (l.getIsMarketingMessage = Pe),
-      (l.getIsReply = Ne),
-      (l.getIsOpus = Me),
-      (l.getRcatString = we),
-      (l.getHasMentionOfMe = Ae),
-      (l.getLocal = Fe),
-      (l.getNonJidMentions = Be),
-      (l.getHasMentionAll = We),
-      (l.getIsImportantMessage = qe),
-      (l.getBotPluginReferenceIndex = Ue),
-      (l.getIsUnreadType = Ve),
-      (l.getIs1to1Msg = He),
-      (l.getIsGroupMsg = Ge),
-      (l.getIsNewsletterMsg = ze),
-      (l.getHasOriginatedFromNewsletter = je),
-      (l.getIsStatus = Ke),
-      (l.getIsNotification = Qe),
-      (l.getIsSentByMe = Xe),
-      (l.getSender = Ye),
-      (l.getOriginalSender = Je),
-      (l.getIsReaction = Ze),
-      (l.getIsPollVote = et),
-      (l.getIsFutureproof = tt),
-      (l.getIsStickerMsg = nt),
-      (l.getIsCarouselCard = rt),
-      (l.getHasThumbList = at),
-      (l.getIsKept = it),
-      (l.getIsUnkept = lt),
-      (l.getIsPSA = st),
-      (l.getIsIAS = ut),
-      (l.getIsAiHub = ct),
-      (l.getIsCAPISupport = dt),
-      (l.getIsProductListMessage = mt),
-      (l.getTitle = pt),
-      (l.getBody = _t),
-      (l.getCaption = ft),
-      (l.getComment = gt),
-      (l.getPollName = ht),
-      (l.getPollOptions = yt),
-      (l.getPollSelectableOptionsCount = Ct),
-      (l.getPollInvalidated = bt),
-      (l.getPollContentType = vt),
-      (l.getPollType = St),
-      (l.getPollCorrectOptionIndex = Rt),
-      (l.getPollEndTime = Lt),
-      (l.getPollHideVoterNames = Et),
-      (l.getPollAllowAddOption = kt),
-      (l.getPollVotesSnapshot = It),
-      (l.getQuarantineExtractedText = Tt),
-      (l.getEventName = Dt),
-      (l.getEventDescription = xt),
-      (l.getEventStartTime = $t),
-      (l.getEventEndTime = Pt),
-      (l.getEventJoinLink = Nt),
-      (l.getEventLocation = Mt),
-      (l.getIsEventCanceled = wt),
-      (l.getEventInvalidated = At),
-      (l.getEventIsScheduledCall = Ft),
-      (l.getEventExtraGuestsAllowed = Ot),
-      (l.getReplyCount = Bt),
-      (l.getNativeFlowName = Wt),
-      (l.getNativeFlowButtons = qt),
-      (l.getGalaxyFlowDisabled = Ut),
-      (l.getSignupCtaTapped = Vt),
-      (l.getPaymentCurrency = Ht),
-      (l.getPaymentAmount1000 = Gt),
-      (l.getPaymentMessageReceiverJid = zt),
-      (l.getPaymentStatus = jt),
-      (l.getPaymentTxnStatus = Kt),
-      (l.getPaymentNoteMsg = Qt),
-      (l.getPaymentRequestMessageKey = Xt),
-      (l.getPaymentExpiryTimestamp = Yt),
-      (l.getPaymentInviteServiceType = Jt),
-      (l.getIsFromTemplate = Zt),
-      (l.getIsLive = en),
-      (l.getIsDynamicReplyButtonsMsg = tn),
-      (l.getDynamicReplyButtons = nn),
-      (l.getIsEphemeral = rn),
-      (l.getIsEdited = on),
-      (l.getIsEditProtocolMsg = an),
-      (l.getStatusCanvasColor = ln),
-      (l.getIsUserCreatedType = sn),
-      (l.getIsSentByMeFromWeb = un),
-      (l.getRevokeSender = cn),
-      (l.getIsRevokedByMe = dn),
-      (l.getIsInternational = mn),
-      (l.getIsBizNotification = pn),
-      (l.getIsMedia = _n),
-      (l.getIsForwarded = fn),
-      (l.getForwardingScore = gn),
-      (l.getNumTimesForwarded = hn),
-      (l.getIsFrequentlyForwarded = yn),
-      (l.getIsQuestion = Cn),
-      (l.getIsSpoiler = bn),
-      (l.getQuestionResponsesCount = vn),
-      (l.getReadQuestionResponsesCount = Sn),
-      (l.getUnreadQuestionResponsesCount = Rn),
-      (l.getQuestionReplyQuotedMessage = Ln),
-      (l.getIsQuestionReply = En),
-      (l.getNewsletterAdminProfile = kn),
-      (l.getIsBotInvoke = In),
-      (l.getShouldDisplayAsForwarded = Tn),
-      (l.getInvis = Dn),
-      (l.getIsNewMsg = xn),
-      (l.getIsSendFailure = $n),
-      (l.getIsFailed = Pn),
-      (l.getVcard = Nn),
-      (l.getDescription = Mn),
-      (l.getMatchedText = wn),
-      (l.getThumbnail = An),
-      (l.getThumbnailHQ = Fn),
-      (l.getMusicArtwork = On),
-      (l.getRichPreviewType = Bn),
-      (l.getPaymentLinkMetadata = Wn),
-      (l.getFaviconMMSMetadata = qn),
-      (l.getPaymentLinkPreviewMetaTags = Un),
-      (l.getHasPaymentLinkTrustSignals = Vn),
-      (l.getLinkPreview = Hn),
-      (l.getSupportsMessageFooter = Gn),
-      (l.getSupportsMessageFooterLinks = zn),
-      (l.INITIAL_PAGE_SIZE = jn),
-      (l.getInitialPageSize = Kn),
-      (l.getIsInitialE2ENotification = Qn),
-      (l.getIsDisappearingModeSystemMessage = Xn),
-      (l.getKicKey = Yn),
-      (l.getKicSender = Jn),
-      (l.getEphemeralExpirationTimestamp = Zn),
-      (l.getIsRevoke = er),
-      (l.getRevokeDuration = tr),
-      (l.getWamEditType = nr),
-      (l.getWamDisappearingModeTrigger = rr),
-      (l.getWamDisappearingModeInitiatedByMe = or),
-      (l.getWamDisappearingModeInitiator = ar),
-      (l.getInviteCode = ir),
-      (l.getInviteCodeExp = lr),
-      (l.getInviteGrp = sr),
-      (l.getInviteGrpName = ur),
-      (l.getInviteGrpJpegThum = cr),
-      (l.getInviteGrpType = dr),
-      (l.getIsGroupsV4InviteExpired = mr),
-      (l.getIsNewsletterAdminInviteExpired = pr),
-      (l.getProductHeaderImageRejected = _r),
-      (l.getProductListHeaderImage = fr),
-      (l.getIsAckPlayable = gr),
-      (l.getHasReaction = hr),
-      (l.getRecipients = yr),
-      (l.getTemplateParams = Cr),
-      (l.getClientUrl = br),
-      (l.getLoc = vr),
-      (l.getLat = Sr),
-      (l.getLng = Rr),
-      (l.getShareDuration = Lr),
-      (l.getFinalLat = Er),
-      (l.getFinalLng = kr),
-      (l.getStar = Ir),
-      (l.getCurrencyCode = Tr),
-      (l.getPriceAmount1000 = Dr),
-      (l.getSalePriceAmount1000 = xr),
-      (l.getIsVcardOverMmsDocument = $r),
-      (l.getInteractiveAnnotations = Pr),
-      (l.getMusicAnnotations = Nr),
-      (l.getHasEmbeddedMessagesAnnotation = Mr),
-      (l.getFirstMusicAnnotation = wr),
-      (l.isStatusWithMusic = Ar),
-      (l.isNewsletterMsgWithMusic = Fr),
-      (l.isStatusWithEmbeddedMessages = Or),
-      (l.getFirstMusicAnnotationEmbeddedContent = Br),
-      (l.getMessageSecret = Wr),
-      (l.getBroadcast = qr),
-      (l.getVcardList = Ur),
-      (l.getVcardFormattedName = Vr),
-      (l.getLabels = Hr),
-      (l.getAgendId = Gr),
-      (l.getUrl = zr),
-      (l.getRetailerId = jr),
-      (l.getBusinessOwnerJid = Kr),
-      (l.getProductId = Qr),
-      (l.getProductImageCount = Xr),
-      (l.getIsMdHistoryMsg = Yr),
-      (l.getCampaignId = Jr),
-      (l.getFilename = Zr),
-      (l.getSmbClientCampaignId = eo),
-      (l.getIsCaptionByUser = to),
-      (l.getDoNotPlayInline = no),
-      (l.getThumbnailDirectPath = ro),
-      (l.getThumbnailHeight = oo),
-      (l.getThumbnailWidth = ao),
-      (l.getOrderTitle = io),
-      (l.getItemCount = lo),
-      (l.getTotalAmount1000 = so),
-      (l.getTotalCurrencyCode = uo),
-      (l.getFutureproofType = co),
-      (l.getFutureproofSubtype = mo),
-      (l.getEphemeralOutOfSync = po),
-      (l.getIsAvatar = _o),
-      (l.getBizPrivacyStatus = fo),
-      (l.getVerifiedBizName = go),
-      (l.getMediaKey = ho),
-      (l.getMessage = yo),
-      (l.getSize = Co),
-      (l.getHostedBizEncStateMismatch = bo),
-      (l.getIsBotFutureproofPlaceholder = vo),
-      (l.getIsViewOncePlaceholder = So),
-      (l.getIsBotQuery = Ro),
-      (l.getIsBizBot1pResponse = Lo),
-      (l.getIsBizBot3pResponse = Eo),
-      (l.getBotPluginSearchProvider = ko),
-      (l.getBotPluginSearchUrl = Io),
-      (l.getBotResponseTargetId = To),
-      (l.getBotPluginSearchQuery = Do),
-      (l.getBotPluginType = xo),
-      (l.getBotMessageDisclaimerText = $o),
-      (l.getBotModeSelection = Po),
-      (l.getBotModeOverride = No),
-      (l.getRichResponse = Mo),
-      (l.getUnifiedResponse = wo),
-      (l.getIsBotSearchResponse = Ao),
-      (l.getIsMetaBotResponse = Fo),
-      (l.isMetaBotResponseToMyInvoke = Oo),
-      (l.getIsMetaBotInvokeResponse = Bo),
-      (l.getIsBotResponse = Wo),
-      (l.getIsBotFeedbackMessage = qo),
-      (l.getHsmTag = Uo),
-      (l.getIsAuthenticationMessage = Vo),
-      (l.getIsMarketingTemplateTag = Ho),
-      (l.getBotRespOrInvocationRevokeBotWid = Go),
-      (l.getIsRevokeForMsgFromOrDeliveredToBot = zo),
-      (l.getIsBotPluginCarouselMsg = jo),
-      (l.getBotPluginMaybeParent = Ko),
-      (l.getBotReelPluginThumbnailCdnUrl = Qo),
-      (l.getIsBizContentPlaceholder = Xo),
-      (l.getStatusMentioned = Yo),
-      (l.getIsWamoSub = Jo),
-      (l.getHasPaidPartnershipLabel = Zo),
-      (l.getIsVideoCall = ta),
-      (l.getCallId = na),
-      (l.getCallOutcome = ra),
-      (l.getCallSilenceReason = oa),
-      (l.getIsCallSilenced = aa),
-      (l.getIsMissedCall = ia),
-      (l.getCallDuration = la),
-      (l.getBytesSent = sa),
-      (l.getBytesReceived = ua),
-      (l.getCallParticipants = ca),
-      (l.getIsCallLink = da),
-      (l.getCallLinkToken = ma),
-      (l.getTerminatedByDeviceSwitch = pa),
-      (l.getSelfOtherDeviceConnected = _a),
-      (l.getIsAdHocGroupCall = fa),
-      (l.getIsGroupCall = ga),
-      (l.getFinalCallOutcome = ha),
-      (l.getGroupHistoryBundleMessageKeyDeprecated = ya),
-      (l.getGroupHistoryBundleMetadata = Ca),
-      (l.getGroupHistoryIndividualMessageInfo = ba),
-      (l.getGroupHistoryBundleMessageKey = va),
-      (l.getIsEditedAfterReceivedAsHistory = Sa),
-      (l.getGroupHistoryBundleSender = Ra),
-      (l.getBotGroupParticipant = La),
-      (l.isRealMessage = Ea));
+      (l.getHasReshareAttribution = $e),
+      (l.getIsNewsletterStatusReshare = Pe),
+      (l.getBizSource = Ne),
+      (l.isBizSourceFromMarketingMessage = Me),
+      (l.getIsMarketingMessage = we),
+      (l.getIsReply = Ae),
+      (l.getIsOpus = Fe),
+      (l.getRcatString = Oe),
+      (l.getHasMentionOfMe = Be),
+      (l.getLocal = We),
+      (l.getNonJidMentions = Ue),
+      (l.getHasMentionAll = Ve),
+      (l.getIsImportantMessage = He),
+      (l.getBotPluginReferenceIndex = Ge),
+      (l.getIsUnreadType = ze),
+      (l.getIs1to1Msg = je),
+      (l.getIsGroupMsg = Ke),
+      (l.getIsNewsletterMsg = Qe),
+      (l.getHasOriginatedFromNewsletter = Xe),
+      (l.getIsStatus = Ye),
+      (l.getIsNotification = Je),
+      (l.getIsSentByMe = Ze),
+      (l.getSender = et),
+      (l.getOriginalSender = tt),
+      (l.getIsReaction = nt),
+      (l.getIsPollVote = rt),
+      (l.getIsFutureproof = ot),
+      (l.getIsStickerMsg = at),
+      (l.getIsCarouselCard = it),
+      (l.getHasThumbList = st),
+      (l.getIsKept = ut),
+      (l.getIsUnkept = ct),
+      (l.getIsPSA = dt),
+      (l.getIsIAS = mt),
+      (l.getIsAiHub = pt),
+      (l.getIsCAPISupport = _t),
+      (l.getIsProductListMessage = ft),
+      (l.getTitle = gt),
+      (l.getBody = ht),
+      (l.getCaption = yt),
+      (l.getComment = Ct),
+      (l.getPollName = bt),
+      (l.getPollOptions = vt),
+      (l.getPollSelectableOptionsCount = St),
+      (l.getPollInvalidated = Rt),
+      (l.getPollContentType = Lt),
+      (l.getPollType = Et),
+      (l.getPollCorrectOptionIndex = kt),
+      (l.getPollEndTime = It),
+      (l.getPollHideVoterNames = Tt),
+      (l.getPollAllowAddOption = Dt),
+      (l.getPollVotesSnapshot = xt),
+      (l.getQuarantineExtractedText = $t),
+      (l.getEventName = Pt),
+      (l.getEventDescription = Nt),
+      (l.getEventStartTime = Mt),
+      (l.getEventEndTime = wt),
+      (l.getEventJoinLink = At),
+      (l.getEventLocation = Ft),
+      (l.getIsEventCanceled = Ot),
+      (l.getEventInvalidated = Bt),
+      (l.getEventIsScheduledCall = Wt),
+      (l.getEventExtraGuestsAllowed = qt),
+      (l.getReplyCount = Ut),
+      (l.getNativeFlowName = Vt),
+      (l.getNativeFlowButtons = Ht),
+      (l.getGalaxyFlowDisabled = Gt),
+      (l.getSignupCtaTapped = zt),
+      (l.getPaymentCurrency = jt),
+      (l.getPaymentAmount1000 = Kt),
+      (l.getPaymentMessageReceiverJid = Qt),
+      (l.getPaymentStatus = Xt),
+      (l.getPaymentTxnStatus = Yt),
+      (l.getPaymentNoteMsg = Jt),
+      (l.getPaymentRequestMessageKey = Zt),
+      (l.getPaymentExpiryTimestamp = en),
+      (l.getPaymentInviteServiceType = tn),
+      (l.getIsFromTemplate = nn),
+      (l.getIsLive = rn),
+      (l.getIsDynamicReplyButtonsMsg = on),
+      (l.getDynamicReplyButtons = an),
+      (l.getIsEphemeral = ln),
+      (l.getIsEdited = sn),
+      (l.getIsEditProtocolMsg = un),
+      (l.getStatusCanvasColor = cn),
+      (l.getIsUserCreatedType = dn),
+      (l.getIsSentByMeFromWeb = mn),
+      (l.getRevokeSender = pn),
+      (l.getIsRevokedByMe = _n),
+      (l.getIsInternational = fn),
+      (l.getIsBizNotification = gn),
+      (l.getIsMedia = hn),
+      (l.getIsForwarded = yn),
+      (l.getForwardingScore = Cn),
+      (l.getNumTimesForwarded = bn),
+      (l.getIsFrequentlyForwarded = vn),
+      (l.getIsQuestion = Sn),
+      (l.getIsSpoiler = Rn),
+      (l.getQuestionResponsesCount = Ln),
+      (l.getReadQuestionResponsesCount = En),
+      (l.getUnreadQuestionResponsesCount = kn),
+      (l.getQuestionReplyQuotedMessage = In),
+      (l.getIsQuestionReply = Tn),
+      (l.getNewsletterAdminProfile = Dn),
+      (l.getIsBotInvoke = xn),
+      (l.getShouldDisplayAsForwarded = $n),
+      (l.getInvis = Pn),
+      (l.getIsNewMsg = Nn),
+      (l.getIsSendFailure = Mn),
+      (l.getIsFailed = wn),
+      (l.getVcard = An),
+      (l.getDescription = Fn),
+      (l.getMatchedText = On),
+      (l.getThumbnail = Bn),
+      (l.getThumbnailHQ = Wn),
+      (l.getMusicArtwork = qn),
+      (l.getRichPreviewType = Un),
+      (l.getPaymentLinkMetadata = Vn),
+      (l.getFaviconMMSMetadata = Hn),
+      (l.getPaymentLinkPreviewMetaTags = Gn),
+      (l.getHasPaymentLinkTrustSignals = zn),
+      (l.getLinkPreview = jn),
+      (l.getSupportsMessageFooter = Kn),
+      (l.getSupportsMessageFooterLinks = Qn),
+      (l.INITIAL_PAGE_SIZE = Xn),
+      (l.getInitialPageSize = Yn),
+      (l.getIsInitialE2ENotification = Jn),
+      (l.getIsDisappearingModeSystemMessage = Zn),
+      (l.getKicKey = er),
+      (l.getKicSender = tr),
+      (l.getEphemeralExpirationTimestamp = nr),
+      (l.getIsRevoke = rr),
+      (l.getRevokeDuration = or),
+      (l.getWamEditType = ar),
+      (l.getWamDisappearingModeTrigger = ir),
+      (l.getWamDisappearingModeInitiatedByMe = lr),
+      (l.getWamDisappearingModeInitiator = sr),
+      (l.getInviteCode = ur),
+      (l.getInviteCodeExp = cr),
+      (l.getInviteGrp = dr),
+      (l.getInviteGrpName = mr),
+      (l.getInviteGrpJpegThum = pr),
+      (l.getInviteGrpType = _r),
+      (l.getIsGroupsV4InviteExpired = fr),
+      (l.getIsNewsletterAdminInviteExpired = gr),
+      (l.getProductHeaderImageRejected = hr),
+      (l.getProductListHeaderImage = yr),
+      (l.getIsAckPlayable = Cr),
+      (l.getHasReaction = br),
+      (l.getRecipients = vr),
+      (l.getTemplateParams = Sr),
+      (l.getClientUrl = Rr),
+      (l.getLoc = Lr),
+      (l.getLat = Er),
+      (l.getLng = kr),
+      (l.getShareDuration = Ir),
+      (l.getFinalLat = Tr),
+      (l.getFinalLng = Dr),
+      (l.getStar = xr),
+      (l.getCurrencyCode = $r),
+      (l.getPriceAmount1000 = Pr),
+      (l.getSalePriceAmount1000 = Nr),
+      (l.getIsVcardOverMmsDocument = Mr),
+      (l.getInteractiveAnnotations = wr),
+      (l.getMusicAnnotations = Ar),
+      (l.getHasEmbeddedMessagesAnnotation = Fr),
+      (l.getFirstMusicAnnotation = Or),
+      (l.isStatusWithMusic = Br),
+      (l.isNewsletterMsgWithMusic = Wr),
+      (l.isStatusWithEmbeddedMessages = qr),
+      (l.getFirstMusicAnnotationEmbeddedContent = Ur),
+      (l.getMessageSecret = Vr),
+      (l.getBroadcast = Hr),
+      (l.getVcardList = Gr),
+      (l.getVcardFormattedName = zr),
+      (l.getLabels = jr),
+      (l.getAgendId = Kr),
+      (l.getUrl = Qr),
+      (l.getRetailerId = Xr),
+      (l.getBusinessOwnerJid = Yr),
+      (l.getProductId = Jr),
+      (l.getProductImageCount = Zr),
+      (l.getIsMdHistoryMsg = eo),
+      (l.getCampaignId = to),
+      (l.getFilename = no),
+      (l.getSmbClientCampaignId = ro),
+      (l.getIsCaptionByUser = oo),
+      (l.getDoNotPlayInline = ao),
+      (l.getThumbnailDirectPath = io),
+      (l.getThumbnailHeight = lo),
+      (l.getThumbnailWidth = so),
+      (l.getOrderTitle = uo),
+      (l.getItemCount = co),
+      (l.getTotalAmount1000 = mo),
+      (l.getTotalCurrencyCode = po),
+      (l.getFutureproofType = _o),
+      (l.getFutureproofSubtype = fo),
+      (l.getEphemeralOutOfSync = go),
+      (l.getIsAvatar = ho),
+      (l.getBizPrivacyStatus = yo),
+      (l.getVerifiedBizName = Co),
+      (l.getMediaKey = bo),
+      (l.getMessage = vo),
+      (l.getSize = So),
+      (l.getHostedBizEncStateMismatch = Ro),
+      (l.getIsBotFutureproofPlaceholder = Lo),
+      (l.getIsViewOncePlaceholder = Eo),
+      (l.getIsBotQuery = ko),
+      (l.getIsBizBot1pResponse = Io),
+      (l.getIsBizBot3pResponse = To),
+      (l.getBotPluginSearchProvider = Do),
+      (l.getBotPluginSearchUrl = xo),
+      (l.getBotResponseTargetId = $o),
+      (l.getBotPluginSearchQuery = Po),
+      (l.getBotPluginType = No),
+      (l.getBotMessageDisclaimerText = Mo),
+      (l.getBotModeSelection = wo),
+      (l.getBotModeOverride = Ao),
+      (l.getRichResponse = Fo),
+      (l.getUnifiedResponse = Oo),
+      (l.getIsBotSearchResponse = Bo),
+      (l.getIsMetaBotResponse = Wo),
+      (l.isMetaBotResponseToMyInvoke = qo),
+      (l.getIsMetaBotInvokeResponse = Uo),
+      (l.getIsBotResponse = Vo),
+      (l.getIsBotFeedbackMessage = Ho),
+      (l.getHsmTag = Go),
+      (l.getIsAuthenticationMessage = zo),
+      (l.getIsMarketingTemplateTag = jo),
+      (l.getBotRespOrInvocationRevokeBotWid = Ko),
+      (l.getIsRevokeForMsgFromOrDeliveredToBot = Qo),
+      (l.getIsBotPluginCarouselMsg = Xo),
+      (l.getBotPluginMaybeParent = Yo),
+      (l.getBotReelPluginThumbnailCdnUrl = Jo),
+      (l.getIsBizContentPlaceholder = Zo),
+      (l.getStatusMentioned = ea),
+      (l.getIsWamoSub = ta),
+      (l.getHasPaidPartnershipLabel = na),
+      (l.getIsVideoCall = oa),
+      (l.getCallId = aa),
+      (l.getCallOutcome = ia),
+      (l.getCallSilenceReason = la),
+      (l.getIsCallSilenced = sa),
+      (l.getIsMissedCall = ua),
+      (l.getCallDuration = ca),
+      (l.getBytesSent = da),
+      (l.getBytesReceived = ma),
+      (l.getCallParticipants = pa),
+      (l.getIsCallLink = _a),
+      (l.getCallLinkToken = fa),
+      (l.getTerminatedByDeviceSwitch = ga),
+      (l.getSelfOtherDeviceConnected = ha),
+      (l.getIsAdHocGroupCall = ya),
+      (l.getIsGroupCall = Ca),
+      (l.getFinalCallOutcome = ba),
+      (l.getGroupHistoryBundleMessageKeyDeprecated = va),
+      (l.getGroupHistoryBundleMetadata = Sa),
+      (l.getGroupHistoryIndividualMessageInfo = Ra),
+      (l.getGroupHistoryBundleMessageKey = La),
+      (l.getIsEditedAfterReceivedAsHistory = Ea),
+      (l.getGroupHistoryBundleSender = ka),
+      (l.getBotGroupParticipant = Ia),
+      (l.isRealMessage = Ta));
   },
   98,
 );

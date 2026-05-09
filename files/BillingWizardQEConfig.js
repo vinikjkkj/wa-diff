@@ -5,8 +5,7 @@ __d(
     "use strict";
     var e = { defaultValue: !1, launched: !1 },
       s = { defaultValue: !0, launched: !1 },
-      u = { defaultValue: !0, launched: !0 },
-      c = {
+      u = {
         ads_agency_verification: { params: { is_sdc_default: e } },
         ads_br_cc_prepay_targeting_universe: {
           params: { enable_prepay_cc: e },
@@ -171,13 +170,9 @@ __d(
             use_new_translation_phase_2: { defaultValue: !1, launched: !1 },
           },
         },
-        billing_translation_improvements_q3_2025: {
-          params: { use_new_translation: { defaultValue: !1, launched: !0 } },
-        },
         billing_translation_improvements_q3_2025_logging: {
           params: { dummy_param: e },
         },
-        billing_trustly_uk_mandate_validation: { params: { use_trustly: u } },
         billing_upi_2025: {
           params: {
             app_select_with_elevated_qr: e,
@@ -353,15 +348,23 @@ __d(
           type: "BUSINESS_ID",
         },
         wizard_preloading_refactor: {
-          params: { add_funds_manual: e, add_pm_manual: e, pay_now_manual: e },
+          params: { add_funds_manual: e },
+          type: "PAYMENT_ACCOUNT",
+        },
+        wizard_preloading_refactor__logging: {
+          params: { dummy_param: e },
+          type: "PAYMENT_ACCOUNT",
+        },
+        wizard_preloading_refactor_add_pm__logging: {
+          params: { dummy_param: e },
           type: "PAYMENT_ACCOUNT",
         },
         xmds_web_billing_address_typeahead_enablement__logging: {
           params: { dummy_param: e },
         },
       },
-      d = r("getBillingQEUniverses")(c);
-    ((l.BillingWizardQEConfig = c), (l.BillingWizardQEUniverses = d));
+      c = r("getBillingQEUniverses")(u);
+    ((l.BillingWizardQEConfig = u), (l.BillingWizardQEUniverses = c));
   },
   98,
 );

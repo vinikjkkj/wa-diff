@@ -182,7 +182,7 @@ __d(
     var D = function () {
       o("WAWebModalManager").ModalManager.open(
         _.jsx(r("WAWebBizBotTos.react"), {
-          chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Unknown,
+          chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Debug,
         }),
       );
     };

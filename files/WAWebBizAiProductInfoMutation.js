@@ -12,18 +12,20 @@ __d(
     var e,
       s,
       u,
-      c = e !== void 0 ? e : (e = n("WAWebBizAiProductInfoMutation.graphql")),
-      d =
+      c = "76",
+      d = { thumbnail_height: c, thumbnail_width: c },
+      m = e !== void 0 ? e : (e = n("WAWebBizAiProductInfoMutation.graphql")),
+      p =
         s !== void 0
           ? s
           : (s = n("WAWebBizAiProductInfoMutationUpdateMutation.graphql")),
-      m =
+      _ =
         u !== void 0
           ? u
           : (u = n("WAWebBizAiProductInfoMutationDeleteMutation.graphql")),
-      p = { isSuccess: !0 },
-      _ = { isSuccess: !1 };
-    function f(e) {
+      f = { isSuccess: !0 },
+      g = { isSuccess: !1 };
+    function h(e) {
       var t,
         n,
         r = {
@@ -39,62 +41,6 @@ __d(
         r
       );
     }
-    function g(e) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (t) {
-          return t.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebRelayClient")
-                    .commitMutation(
-                      c,
-                      { input: f(e) },
-                      { environmentType: "facebook", accessToken: t.token },
-                    )
-                    .then(function (e) {
-                      var t =
-                        e == null
-                          ? void 0
-                          : e.xfb_maiba_create_product_info_knowledge;
-                      return (t == null ? void 0 : t.success) === !0 ? p : _;
-                    })
-                    .catch(function (e) {
-                      return _;
-                    });
-                })
-            : _;
-        });
-    }
-    function h(e, t) {
-      return o("WAWebFetchAdAccountToken")
-        .fetchToken()
-        .then(function (n) {
-          return n.type === "success"
-            ? r("WAWebNetworkStatus")
-                .waitIfOffline()
-                .then(function () {
-                  return o("WAWebRelayClient")
-                    .commitMutation(
-                      d,
-                      { id: e, product_params: f(t) },
-                      { environmentType: "facebook", accessToken: n.token },
-                    )
-                    .then(function (e) {
-                      var t =
-                        e == null
-                          ? void 0
-                          : e.xfb_maiba_update_product_info_knowledge;
-                      return (t == null ? void 0 : t.success) === !0 ? p : _;
-                    })
-                    .catch(function (e) {
-                      return _;
-                    });
-                })
-            : _;
-        });
-    }
     function y(e) {
       return o("WAWebFetchAdAccountToken")
         .fetchToken()
@@ -106,6 +52,62 @@ __d(
                   return o("WAWebRelayClient")
                     .commitMutation(
                       m,
+                      { input: h(e), media_options: d },
+                      { environmentType: "facebook", accessToken: t.token },
+                    )
+                    .then(function (e) {
+                      var t =
+                        e == null
+                          ? void 0
+                          : e.xfb_maiba_create_product_info_knowledge;
+                      return (t == null ? void 0 : t.success) === !0 ? f : g;
+                    })
+                    .catch(function (e) {
+                      return g;
+                    });
+                })
+            : g;
+        });
+    }
+    function C(e, t) {
+      return o("WAWebFetchAdAccountToken")
+        .fetchToken()
+        .then(function (n) {
+          return n.type === "success"
+            ? r("WAWebNetworkStatus")
+                .waitIfOffline()
+                .then(function () {
+                  return o("WAWebRelayClient")
+                    .commitMutation(
+                      p,
+                      { id: e, media_options: d, product_params: h(t) },
+                      { environmentType: "facebook", accessToken: n.token },
+                    )
+                    .then(function (e) {
+                      var t =
+                        e == null
+                          ? void 0
+                          : e.xfb_maiba_update_product_info_knowledge;
+                      return (t == null ? void 0 : t.success) === !0 ? f : g;
+                    })
+                    .catch(function (e) {
+                      return g;
+                    });
+                })
+            : g;
+        });
+    }
+    function b(e) {
+      return o("WAWebFetchAdAccountToken")
+        .fetchToken()
+        .then(function (t) {
+          return t.type === "success"
+            ? r("WAWebNetworkStatus")
+                .waitIfOffline()
+                .then(function () {
+                  return o("WAWebRelayClient")
+                    .commitMutation(
+                      _,
                       { product_ids: [].concat(e) },
                       { environmentType: "facebook", accessToken: t.token },
                     )
@@ -118,19 +120,19 @@ __d(
                         t.every(function (e) {
                           return (e == null ? void 0 : e.success) === !0;
                         })
-                        ? p
-                        : _;
+                        ? f
+                        : g;
                     })
                     .catch(function (e) {
-                      return _;
+                      return g;
                     });
                 })
-            : _;
+            : g;
         });
     }
-    ((l.createProductInfo = g),
-      (l.updateProductInfo = h),
-      (l.deleteProductInfo = y));
+    ((l.createProductInfo = y),
+      (l.updateProductInfo = C),
+      (l.deleteProductInfo = b));
   },
   98,
 );

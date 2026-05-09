@@ -140,6 +140,7 @@ __d(
         ThirdParty: "THIRD_PARTY",
         ThreadsPost: "THREADS_POST",
         VmGenerated: "VM_GENERATED",
+        WearablesAcsActivity: "WEARABLES_ACS_ACTIVITY",
         WearablesAcsJournal: "WEARABLES_ACS_JOURNAL",
       }),
       Q = e({

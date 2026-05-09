@@ -146,7 +146,11 @@ __d(
         }
         (e === o("WAWebChatCollection").ChatCollection.getActive()
           ? o("WAWebComposeBoxActions").ComposeBoxActions.focus(e)
-          : o("WAWebCmd").Cmd.openChatBottom({ chat: e }),
+          : o("WAWebCmd").Cmd.openChatBottom({
+              chat: e,
+              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                .MessageReply,
+            }),
           o(
             "WAWebQuotedMessageUserJourneyLogger",
           ).QuotedMessageUserJourneyLogger.quotedMessageAdded(e.id, n, t));

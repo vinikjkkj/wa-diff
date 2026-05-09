@@ -5,13 +5,13 @@ __d(
     "TaskScheduler",
     "WABinary",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebAdvSignatureApi",
     "WAWebBackendWorkerClient",
     "WAWebCryptoCurve25519",
     "WAWebCryptoLibraryDbCallbacksApi",
     "WAWebProcessKeyBundle",
+    "WAWebReleaseToEventLoop",
     "WAWebSessionScope",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -254,7 +254,7 @@ __d(
       var e = self.performance.now();
       return n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
         self.performance.now() - e > h &&
-          (yield o("WAPromiseDelays").releaseToEventLoop(),
+          (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
           (e = self.performance.now()));
       });
     }

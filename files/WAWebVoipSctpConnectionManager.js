@@ -4,9 +4,9 @@ __d(
     "Promise",
     "WACommonTaskScheduler",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebCoreActionsODS",
+    "WAWebReleaseToEventLoop",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipSctpDataChannelThread",
     "WAWebVoipSctpDiagnostics",
@@ -840,7 +840,7 @@ __d(
                 : o("WAWebCoreActionsODS").logCallIceStartedPort3480(),
               o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
                 ? yield r("WACommonTaskScheduler").yield()
-                : yield o("WAPromiseDelays").releaseToEventLoop(),
+                : yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
               xe))
           )
             return (lt(e.id), Ke(e.id), !1);

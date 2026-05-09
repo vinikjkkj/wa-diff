@@ -66,13 +66,16 @@ __d(
         (r("WAWebNewsletterMetadataCollection") == null ||
           r("WAWebNewsletterMetadataCollection").forEach(function (e) {
             var t = e.statusMetadata;
-            t != null &&
+            if (t != null) {
+              var n = e.id;
+              if (n == null || typeof n != "object") return;
               u(
-                e.id,
+                n,
                 t.lastStatusServerId,
                 t.lastStatusSentTime,
-                o("WAJids").toNewsletterJid(e.id.toJid()),
+                o("WAJids").toNewsletterJid(n.toJid()),
               );
+            }
           }));
     }
     ((l.isNewsletterStatusExpired = e),

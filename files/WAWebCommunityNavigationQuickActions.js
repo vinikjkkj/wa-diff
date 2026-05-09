@@ -9,6 +9,7 @@ __d(
     "WDSIconIcGroup.react",
     "WDSIconIcInfo.react",
     "WDSIconIcSettings.react",
+    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -34,8 +35,9 @@ __d(
             return s._(/*BTDS*/ "Members");
           },
           isVisible: function (t) {
-            var e = t.isSuspended;
-            return !e;
+            var e = t.isAdmin,
+              n = t.isSuspended;
+            return !n && !e;
           },
           onClick: function (t) {
             var e = t.chat;
@@ -61,9 +63,52 @@ __d(
           label: function () {
             return s._(/*BTDS*/ "Settings");
           },
+          isVisible: function (t) {
+            var e = t.isAdmin,
+              n = t.isSuspended;
+            return !n && e;
+          },
           onClick: function (t) {
             var e = t.chat;
             o("WAWebCmd").Cmd.openCommunitySettingsDrawer(e.id);
+          },
+        },
+        {
+          id: "community_new_group",
+          Icon: r("WDSIconIcGroup.react"),
+          label: function () {
+            return s._(/*BTDS*/ "New group");
+          },
+          isVisible: function (t) {
+            var e = t.allowNonAdminSubGroupCreation,
+              n = t.canAddGroup,
+              r = t.isAdmin;
+            return n && (r || e);
+          },
+          onClick: function (t) {
+            var e = t.chat;
+            o("WAWebCmd").Cmd.communityAddNewGroup(
+              e.id,
+              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {}),
+              void 0,
+            );
+          },
+        },
+        {
+          id: "community_add_existing_group",
+          Icon: r("WDSIconIcGroup.react"),
+          label: function () {
+            return s._(/*BTDS*/ "Existing group");
+          },
+          isVisible: function (t) {
+            var e = t.allowNonAdminSubGroupCreation,
+              n = t.canAddGroup,
+              r = t.isAdmin;
+            return n && (r || e);
+          },
+          onClick: function (t) {
+            var e = t.chat;
+            o("WAWebCmd").Cmd.communityAddExistingGroup(e.id);
           },
         },
       ],

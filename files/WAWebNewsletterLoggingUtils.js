@@ -93,6 +93,25 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.NewBroadcastCreation:
         case o("WAWebChatEntryPoint").ChatEntryPoint.InfoDrawer:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ExistingGroupRedirect:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.InChatNavigation:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.QuotedMessage:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.MediaViewer:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.ChatSearch:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.EventInfo:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.MessageHistoryBundle:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.PinnedMessage:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.PttOocPlayer:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.MessageGallery:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.BizProduct:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.EventCreation:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.IntroPanel:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.SendMessage:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.Forward:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.Debug:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.DragAndDrop:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.MessageReply:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.Status:
         case o("WAWebChatEntryPoint").ChatEntryPoint.SystemMessage:
         case o("WAWebChatEntryPoint").ChatEntryPoint.MessageAdmin:
         case o("WAWebChatEntryPoint").ChatEntryPoint.GroupParticipant:
@@ -112,7 +131,7 @@ __d(
         case o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup:
         case o("WAWebChatEntryPoint").ChatEntryPoint.ForwardedAiBotMessage:
         case o("WAWebChatEntryPoint").ChatEntryPoint.SubgroupJoin:
-        case o("WAWebChatEntryPoint").ChatEntryPoint.Unknown:
+        case o("WAWebChatEntryPoint").ChatEntryPoint.Initialization:
           return (
             o("WALogger")
               .WARN(

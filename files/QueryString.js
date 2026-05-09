@@ -29,8 +29,10 @@ __d(
       for (var r = e.split("&"), o = 0; o < r.length; o++) {
         var a = r[o].split("=", 2),
           i = decodeURIComponent(a[0]);
-        if (t && Object.prototype.hasOwnProperty.call(n, i))
-          throw new URIError("Duplicate key: " + i);
+        if (t && Object.prototype.hasOwnProperty.call(n, i)) {
+          var l = new URIError("Duplicate key: " + i);
+          throw (l.stack, l);
+        }
         n[i] = a.length === 2 ? decodeURIComponent(a[1]) : null;
       }
       return n;

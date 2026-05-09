@@ -26,6 +26,7 @@ __d(
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVideoWebCodecsRenderer",
+    "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebCodecsEncoderState",
     "WAWebVoipWebTransportConnectionManager",
     "asyncToGeneratorRuntime",
@@ -641,6 +642,10 @@ __d(
               } catch (e) {
                 throw (re(e), e);
               }
+              o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(
+                l,
+                "voip_stack_init",
+              );
               var _ = l.getWebP2PVirtualIpv4(),
                 f = l.getWebP2PVirtualIpv6(),
                 g = l.getWebP2PVirtualPort();

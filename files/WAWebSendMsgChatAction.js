@@ -5,7 +5,6 @@ __d(
     "WACommonTaskScheduler",
     "WAJobOrchestratorTypes",
     "WALogger",
-    "WAPromiseDelays",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebApiGroupInviteV4Store",
@@ -36,6 +35,7 @@ __d(
     "WAWebMsgType",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
+    "WAWebReleaseToEventLoop",
     "WAWebSendMsgChatActionUtils",
     "WAWebSendMsgRecordAction",
     "WAWebStateUtils",
@@ -352,7 +352,9 @@ __d(
                       "wmi_worker_scheduler_web",
                     )
                       ? yield r("WACommonTaskScheduler").yield()
-                      : yield o("WAPromiseDelays").releaseToEventLoop()),
+                      : yield o(
+                          "WAWebReleaseToEventLoop",
+                        ).releaseToEventLoop()),
                   (n = a.wamMessageSendPerfReporter) == null ||
                     n.startRenderedStage(),
                   i)

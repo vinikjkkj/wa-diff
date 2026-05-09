@@ -163,6 +163,9 @@ __d(
           (a.relativeDateAndTimeStr = function (t) {
             return this.$ClockImpl$p_3(t + this.skew, !0);
           }),
+          (a.dateStr = function (t) {
+            return this.$ClockImpl$p_4(t + this.skew);
+          }),
           (a.monthStr = function (t) {
             var e = t + this.skew,
               n = e * 1e3;
@@ -210,14 +213,14 @@ __d(
             }
             return r("WAWeb-moment")
               .unix(t + this.skew)
-              .format(e ? "HH" + this.$ClockImpl$p_4() + "mm, l" : "LT, l");
+              .format(e ? "HH" + this.$ClockImpl$p_5() + "mm, l" : "LT, l");
           }),
           (a.timestampStr = function (t) {
             return this.$ClockImpl$p_2(t + this.skew);
           }),
           (a.timestampStrFormat = function () {
             return this.getIs24Hour()
-              ? "HH" + this.$ClockImpl$p_4() + "mm"
+              ? "HH" + this.$ClockImpl$p_5() + "mm"
               : "LT";
           }),
           (a.timestampHour = function (t) {
@@ -262,7 +265,7 @@ __d(
           (a.broadcastCreatedStr = function (t) {
             var e = t + this.skew,
               n = this.$ClockImpl$p_2(e),
-              r = this.$ClockImpl$p_5(e);
+              r = this.$ClockImpl$p_6(e);
             return s._(/*BTDS*/ "Created {monthDay}, {time}", [
               s._param("monthDay", r),
               s._param("time", n),
@@ -271,7 +274,7 @@ __d(
           (a.broadcastCampaignCreatedStr = function (t) {
             var e = t + this.skew,
               n = this.$ClockImpl$p_2(e),
-              r = this.$ClockImpl$p_5(e);
+              r = this.$ClockImpl$p_6(e);
             return s._(/*BTDS*/ "Created on {monthDay}, {time}", [
               s._param("monthDay", r),
               s._param("time", n),
@@ -375,7 +378,7 @@ __d(
                     s._param("time", a),
                   ]);
             if (e < 7) {
-              var i = this.$ClockImpl$p_6(t);
+              var i = this.$ClockImpl$p_7(t);
               return r
                 ? s._(/*BTDS*/ "Group created by you, {on_day} at {time}", [
                     s._param("on_day", i),
@@ -400,7 +403,7 @@ __d(
                 ]);
           }),
           (a.createdByOnDateStr = function (t, n, r, o) {
-            var e = this.$ClockImpl$p_7(t);
+            var e = this.$ClockImpl$p_4(t);
             return n
               ? s._(/*BTDS*/ "Created by you on {date}", [s._param("date", e)])
               : r
@@ -430,7 +433,7 @@ __d(
                     s._param("name", n),
                   ]);
             if (e < 7) {
-              var a = this.$ClockImpl$p_6(t);
+              var a = this.$ClockImpl$p_7(t);
               return r || n == null || n === ""
                 ? s._(/*BTDS*/ "Created {on_day}", [s._param("on_day", a)])
                 : s._(/*BTDS*/ "Created {on_day} by {name}", [
@@ -473,7 +476,7 @@ __d(
                     s._param("time", a),
                   ]);
             if (e < 7) {
-              var i = this.$ClockImpl$p_6(t);
+              var i = this.$ClockImpl$p_7(t);
               return r
                 ? s._(/*BTDS*/ "Created by you, {on-day} at {time}", [
                     s._param("on-day", i),
@@ -504,7 +507,7 @@ __d(
               return this.timePassedFromNowMoment(t, { omitSuffix: !1 });
             }
           }),
-          (a.$ClockImpl$p_6 = function (t) {
+          (a.$ClockImpl$p_7 = function (t) {
             var e = t + this.skew;
             return o("WAWebClockPaymentStrings").dayNameStr(e);
           }),
@@ -711,7 +714,7 @@ __d(
             }
             return r("WAWeb-moment").unix(t).format(this.timestampStrFormat());
           }),
-          (a.$ClockImpl$p_7 = function (t) {
+          (a.$ClockImpl$p_4 = function (t) {
             if (this.shouldUseIntlDateTimeFormat()) {
               var e = { year: "numeric", month: "numeric", day: "numeric" };
               this.timeZoneHardCode != null &&
@@ -725,7 +728,7 @@ __d(
             }
             return r("WAWeb-moment").unix(t).format("l");
           }),
-          (a.$ClockImpl$p_5 = function (t) {
+          (a.$ClockImpl$p_6 = function (t) {
             if (this.shouldUseIntlDateTimeFormat()) {
               var e = { month: "short", day: "numeric" };
               return (
@@ -755,7 +758,7 @@ __d(
                 : s._(/*BTDS*/ "Yesterday");
             if (!n && Math.abs(a) < 7)
               return r("WAWeb-moment").unix(t).format("dddd");
-            var l = this.$ClockImpl$p_7(t);
+            var l = this.$ClockImpl$p_4(t);
             return n
               ? s._(/*BTDS*/ "{date} at {time}", [
                   s._param("date", l),
@@ -763,7 +766,7 @@ __d(
                 ])
               : l;
           }),
-          (a.$ClockImpl$p_4 = function () {
+          (a.$ClockImpl$p_5 = function () {
             var e = r("WAWeb-moment").locale();
             return p.includes(e) ? "." : ":";
           }),

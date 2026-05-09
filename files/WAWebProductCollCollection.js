@@ -147,7 +147,23 @@ __d(
                     "datasource_start",
                   );
                 try {
-                  var m = yield o(
+                  var m,
+                    p,
+                    _,
+                    f = yield o(
+                      "WAWebBusinessProfileCollection",
+                    ).BusinessProfileCollection.find(e);
+                  o("WAWebCatalogVariantHelper").shouldRequestVariantInfo(f) &&
+                    ((m = o(
+                      "WAWebCatalogVariantHelper",
+                    ).FULL_VARIANT_INFO_FIELDS),
+                    (p = o(
+                      "WAWebCatalogVariantHelper",
+                    ).VARIANT_THUMBNAIL_IMAGE_SIZE),
+                    (_ = o(
+                      "WAWebCatalogVariantHelper",
+                    ).VARIANT_THUMBNAIL_IMAGE_SIZE));
+                  var g = yield o(
                     "WAWebBusinessDirectConnectionBridge",
                   ).attemptWithDirectConnectionRetry(e, function (n) {
                     return r("WAWebQueryProductSingleCollection")({
@@ -158,6 +174,9 @@ __d(
                       width: u,
                       height: u,
                       directConnectionEncryptedInfo: n,
+                      variantInfoFields: m,
+                      variantThumbnailHeight: p,
+                      variantThumbnailWidth: _,
                     });
                   });
                   (a &&
@@ -165,18 +184,18 @@ __d(
                       a,
                       "datasource_end",
                     ),
-                    m.collections.length === 1 &&
-                      (this.add(m.collections.map(d), { merge: !0 }),
+                    g.collections.length === 1 &&
+                      (this.add(g.collections.map(d), { merge: !0 }),
                       (i = this.get(t)),
                       i &&
                         (i.addProducts(
-                          m.collections[0].products.map(function (t) {
+                          g.collections[0].products.map(function (t) {
                             return o(
                               "WAWebBizProductCatalogBridge",
                             ).mapProductResponseToModel(t, e);
                           }),
                         ),
-                        (i.afterCursor = m.afterCursor))));
+                        (i.afterCursor = g.afterCursor))));
                 } catch (e) {
                   throw (
                     o("WALogger")

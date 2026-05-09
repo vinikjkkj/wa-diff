@@ -4,7 +4,7 @@ __d(
     "NativeSchedulerTickStrategy",
     "TaskScheduler",
     "WACryptoLibrary",
-    "WAPromiseDelays",
+    "WAWebReleaseToEventLoop",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,7 +46,7 @@ __d(
               for (var m of r)
                 (yield u(m),
                   self.performance.now() - d > e &&
-                    (yield o("WAPromiseDelays").releaseToEventLoop(),
+                    (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
                     (d = self.performance.now())));
             }
             return l;

@@ -24,6 +24,7 @@ __d(
         "fb-messenger-group-thread",
         "fb-page-messages",
         "fb-pma",
+        "fbagenthome",
         "fbcf",
         "fbconnect",
         "fbinternal",

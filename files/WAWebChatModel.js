@@ -31,6 +31,7 @@ __d(
     "WAWebChatCollection",
     "WAWebChatConstants",
     "WAWebChatDocMsgsCollection",
+    "WAWebChatEntryPoint",
     "WAWebChatEphemerality",
     "WAWebChatFlowTypes",
     "WAWebChatGetters",
@@ -248,7 +249,9 @@ __d(
             (e.hasCtwaConsumerDataSharingDisclosureSystemMsg =
               o("WAWebBaseModel").prop(!1)),
             (e.hasPreloaded = o("WAWebBaseModel").session(!1)),
-            (e.chatEntryPoint = o("WAWebBaseModel").session(null)),
+            (e.chatEntryPoint = o("WAWebBaseModel").session(
+              o("WAWebChatEntryPoint").ChatEntryPoint.Initialization,
+            )),
             (e.forceDismissAiAgentBlockBar = o("WAWebBaseModel").session(!1)),
             (e.limitSharing = o("WAWebBaseModel").prop()),
             (e.mmSignalSharingExpirationWindow = o("WAWebBaseModel").prop()),

@@ -535,6 +535,10 @@ __d(
         "boosted_item_picker_no_ig_tab_non_admin_impression",
       BOOSTED_ITEM_PICKER_NO_IG_TAB_ADMIN_IMPRESSION:
         "boosted_item_picker_no_ig_tab_admin_impression",
+      LWI_AD_CENTER_CREATE_AD_NO_IG_OPTION_NON_ADMIN_IMPRESSION:
+        "lwi_ad_center_create_ad_no_ig_option_non_admin_impression",
+      LWI_AD_CENTER_CREATE_AD_NO_IG_OPTION_ADMIN_IMPRESSION:
+        "lwi_ad_center_create_ad_no_ig_option_admin_impression",
       WHATSAPP_CONNECT_BUTTON_CLICK: "whatsapp_connect_button_click",
       WHATSAPP_CONNECT_NON_ADMIN_BUTTON_GENERATED:
         "whatsapp_connect_non_admin_button_generated",
@@ -1540,8 +1544,6 @@ __d(
       LWI_SUBSCRIPTION_OFFER_UNENROLLED: "lwi_subscription_offer_unenrolled",
       LWI_SUBSCRIPTION_OFFER_ELIGIBLE: "lwi_subscription_offer_eligible",
       LWI_SUBSCRIPTION_OFFER_INELIGIBLE: "lwi_subscription_offer_ineligible",
-      LWI_SUBSCRIPTION_INSIGHT_LIFT_NO_AD_ACCOUNT:
-        "lwi_subscription_insight_lift_no_ad_account",
       PARTNERSHIP_ADS_TOGGLE: "partnership_ads_toggle",
       PARTNERSHIP_ADS_IDENTITY_SELECTED: "partnership_ads_identity_selected",
       PARTNERSHIP_ADS_PARTNER_CONTENT_TAB_SELECTED:

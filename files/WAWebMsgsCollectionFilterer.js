@@ -5,6 +5,7 @@ __d(
     "WAAsyncSleep",
     "WAFtsIsSearchQueryEligibleForMessageSearch",
     "WAFtsMultiLangTokenizer",
+    "WAWebReleaseToEventLoop",
     "WAWebThreadMsgUtils",
     "asyncToGeneratorRuntime",
   ],
@@ -83,9 +84,11 @@ __d(
             var t = this;
             (this.newMsgsToTokenize.push(n),
               this.newMsgsToTokenize.length === e &&
-                self.setTimeout(function () {
-                  return t.$3();
-                }, 0));
+                o("WAWebReleaseToEventLoop")
+                  .releaseToEventLoop()
+                  .then(function () {
+                    return t.$3();
+                  }));
           }),
           (a.removeMessageTokensFromCache = function (t) {
             this.msgKeyToTokens.delete(t.id);

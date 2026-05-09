@@ -3,7 +3,6 @@ __d(
   [
     "WACommonTaskScheduler",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebCallCollection",
     "WAWebContactCollection",
@@ -14,6 +13,7 @@ __d(
     "WAWebNoop",
     "WAWebPipController",
     "WAWebPwaDocumentMetadataUtils",
+    "WAWebReleaseToEventLoop",
     "WAWebTimeSpentLoggingExternal",
     "WAWebVoipActivityTracker",
     "WAWebVoipCallStateUtils",
@@ -290,7 +290,7 @@ __d(
           else W();
           (o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
             ? r("WACommonTaskScheduler").yield()
-            : o("WAPromiseDelays").releaseToEventLoop()
+            : o("WAWebReleaseToEventLoop").releaseToEventLoop()
           ).then(function () {
             var e;
             ((e = o("WAWebVoipActivityTracker")).trackUiActivity(
@@ -311,7 +311,7 @@ __d(
                 !o(
                   "WAWebVoipUiPopoutWindowPortalContainer.react",
                 ).getIsCallActiveInPopoutWindow() &&
-                o("WAPromiseDelays")
+                o("WAWebReleaseToEventLoop")
                   .releaseToEventLoop()
                   .then(function () {
                     X();

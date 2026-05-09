@@ -13,7 +13,7 @@ __d(
     var e = ["type", "__name"],
       s,
       u,
-      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1778230840740" }),
+      c = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1778271662827" }),
       d = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -349,14 +349,14 @@ __d(
                 Int32Array.prototype.set != null,
               "JS engine does not provide full typed array support",
             ));
-          var re = y.INITIAL_MEMORY || 16777216;
+          var re = y.INITIAL_MEMORY || 10485760;
           if (
             (We("INITIAL_MEMORY", "INITIAL_MEMORY"),
             G(
-              re >= 10485760,
+              re >= 1048576,
               "INITIAL_MEMORY should be larger than STACK_SIZE, was " +
                 re +
-                "! (STACK_SIZE=10485760)",
+                "! (STACK_SIZE=1048576)",
             ),
             D)
           )
@@ -763,10 +763,10 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1287371: function () {
+            1287339: function () {
               return Date.now();
             },
-            1287394: function (t, n) {
+            1287362: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -3425,7 +3425,7 @@ __d(
                 t instanceof WebAssembly.RuntimeError &&
                   rl() <= 0 &&
                   F(
-                    "Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to 10485760)",
+                    "Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to 1048576)",
                   ),
                 L(1, t));
             },
@@ -3876,7 +3876,7 @@ __d(
             return hn;
           }
           function $n(e) {
-            (Oi(e, !k, 1, !E, 10485760, !1), rn.threadInitTLS());
+            (Oi(e, !k, 1, !E, 1048576, !1), rn.threadInitTLS());
           }
           function Pn(e) {
             D
@@ -7673,8 +7673,8 @@ __d(
             il = (y.___get_exception_message = xe("__get_exception_message")),
             ll = xe("__cxa_can_catch"),
             sl = xe("__cxa_is_pointer_type"),
-            ul = (y.___start_em_js = 1282076),
-            cl = (y.___stop_em_js = 1287371);
+            ul = (y.___start_em_js = 1282044),
+            cl = (y.___stop_em_js = 1287339);
           function dl(e, t, n, r) {
             var o = el();
             try {

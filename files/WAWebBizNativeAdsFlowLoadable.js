@@ -178,7 +178,7 @@ __d(
         },
       });
     }
-    l.createBizNativeAdsFlowLoadable = f;
+    ((l.resolveAccountType = _), (l.createBizNativeAdsFlowLoadable = f));
   },
   98,
 );

@@ -2,7 +2,6 @@ __d(
   "WAWebAuraBenefitABPropsProvider",
   ["WAWebABProps", "WAWebAuraBenefitTypes", "WAWebPinChatLimits"],
   function (t, n, r, o, a, i, l) {
-    "use strict";
     var e = (function () {
       function e() {}
       var t = e.prototype;

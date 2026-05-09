@@ -8,7 +8,6 @@ __d(
     "WAGzip",
     "WALogger",
     "WALongInt",
-    "WAPromiseDelays",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebAddonProcessMsgsUtils",
@@ -45,6 +44,7 @@ __d(
     "WAWebNonMessageDataRequestLoggingUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebProtobufsHistorySync.pb",
+    "WAWebReleaseToEventLoop",
     "WAWebSchemaMessage",
     "WAWebSendHistSyncServerErrorReceiptJob",
     "WAWebSendReceiptJobCommon",
@@ -574,7 +574,7 @@ __d(
             ),
             o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
               ? yield r("WACommonTaskScheduler").yield()
-              : yield o("WAPromiseDelays").releaseToEventLoop(),
+              : yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
             !Q(e, ae))
           ) {
             var fe = [],

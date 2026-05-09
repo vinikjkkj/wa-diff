@@ -4,12 +4,12 @@ __d(
     "NativeSchedulerTickStrategy",
     "TaskScheduler",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebAdvKeyIndexSignatureVerify",
     "WAWebBackendWorkerClient",
     "WAWebCryptoCurve25519",
     "WAWebProtobufsAdv.pb",
+    "WAWebReleaseToEventLoop",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
     "asyncToGeneratorRuntime",
@@ -93,7 +93,7 @@ __d(
             for (var u of e)
               (r(u),
                 self.performance.now() - s > g &&
-                  (yield o("WAPromiseDelays").releaseToEventLoop(),
+                  (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
                   (s = self.performance.now())));
           }
           var c = n.flatMap(function (e) {

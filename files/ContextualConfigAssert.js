@@ -4,7 +4,10 @@ __d(
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e, t) {
-      if (e === !1) throw new Error(t);
+      if (e === !1) {
+        var n = new Error(t);
+        throw (n.stack, n);
+      }
     }
     i.default = e;
   },

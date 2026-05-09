@@ -53,6 +53,29 @@ __d(
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint
                       .ExistingGroupRedirect ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint.InChatNavigation ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.QuotedMessage ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.MediaViewer ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.ChatSearch ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.EventInfo ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint
+                      .MessageHistoryBundle ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.PinnedMessage ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.PttOocPlayer ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint.MessageGallery ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.BizProduct ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.EventCreation ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.IntroPanel ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.SendMessage ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.Forward ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.Debug ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.DragAndDrop ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.MessageReply ||
+                  t === o("WAWebChatEntryPoint").ChatEntryPoint.Status ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.SystemMessage ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.MessageAdmin ||
                   t ===
@@ -129,7 +152,8 @@ __d(
                   t ===
                     o("WAWebChatEntryPoint").ChatEntryPoint
                       .SimilarNewsletters ||
-                  t === o("WAWebChatEntryPoint").ChatEntryPoint.Unknown ||
+                  t ===
+                    o("WAWebChatEntryPoint").ChatEntryPoint.Initialization ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.Vcard ||
                   t === o("WAWebChatEntryPoint").ChatEntryPoint.VoipWindow ||
                   t ===

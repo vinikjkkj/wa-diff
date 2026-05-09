@@ -5,6 +5,7 @@ __d(
     "Promise",
     "WALogger",
     "WAWebAttachMediaCollection",
+    "WAWebChatEntryPoint",
     "WAWebCmd",
     "WAWebFileUtils",
     "WAWebMediaGatingUtils",
@@ -184,7 +185,11 @@ __d(
             }
             if (t.length === 1) {
               var v = t[0];
-              o("WAWebCmd").Cmd.openChatFromUnread({ chat: v });
+              o("WAWebCmd").Cmd.openChatFromUnread({
+                chat: v,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .IntroPanel,
+              });
             }
           }
         })),

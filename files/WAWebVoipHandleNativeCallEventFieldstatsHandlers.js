@@ -2,12 +2,12 @@ __d(
   "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
   [
     "WALogger",
-    "WAPromiseDelays",
     "WAWebBackendApi",
     "WAWebBrowserApi",
     "WAWebCallWamEvent",
     "WAWebJoinableCallWamEvent",
     "WAWebPonyfillsIdleCallback",
+    "WAWebReleaseToEventLoop",
     "WAWebVoipBatteryDiagnostics",
     "WAWebVoipBrowserMetrics",
     "WAWebVoipCallRatingStore",
@@ -96,7 +96,7 @@ __d(
             );
             return;
           }
-          yield o("WAPromiseDelays").releaseToEventLoop();
+          yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
           var l =
               a ===
                 o("WAWebWamEnumFieldStatsRowType").FIELD_STATS_ROW_TYPE.SELF ||

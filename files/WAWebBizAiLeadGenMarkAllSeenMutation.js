@@ -25,7 +25,7 @@ __d(
                   return o("WAWebRelayClient")
                     .commitMutation(
                       s,
-                      { request: { leadGenFlowId: e } },
+                      { request: { lead_gen_flow_id: e } },
                       { environmentType: "facebook", accessToken: t.token },
                     )
                     .then(function (e) {

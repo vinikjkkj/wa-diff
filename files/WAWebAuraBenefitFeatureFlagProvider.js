@@ -2,7 +2,6 @@ __d(
   "WAWebAuraBenefitFeatureFlagProvider",
   ["WAWebAuraBenefitTypes", "WAWebFeatureFlagName", "WAWebPinChatLimits"],
   function (t, n, r, o, a, i, l) {
-    "use strict";
     var e = (function () {
       function e(e) {
         this.$1 = e;

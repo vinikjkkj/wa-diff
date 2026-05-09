@@ -2,56 +2,65 @@ __d(
   "WAWebEditedMedia",
   ["WAWebFileUtils", "WAWebURLUtils", "lodash"],
   function (t, n, r, o, a, i, l) {
-    var e = function e(t, n, a, i) {
-      var l = this;
+    var e = function e(t) {
+      var n = this,
+        a = t.editData,
+        i = t.media,
+        l = t.originalImage,
+        s = t.previous;
       ((this.updateEditData = function (e) {
-        (l.saveEdits(), (l.editData = r("lodash").merge({}, l.editData, e)));
+        (n.saveEdits(), (n.editData = r("lodash").merge({}, n.editData, e)));
       }),
         (this.updateEditItems = function (e, t) {
-          l.saveEdits();
-          var n = [];
-          (l.editData.items &&
-            l.editData.items.forEach(function (e) {
-              e !== t && n.push(e);
+          n.saveEdits();
+          var r = [];
+          (n.editData.items &&
+            n.editData.items.forEach(function (e) {
+              e !== t && r.push(e);
             }),
-            n.push(e),
-            (l.editData.items = n));
+            r.push(e),
+            (n.editData.items = r));
         }),
         (this.saveEdits = function () {
-          var t = new e(l.media, l.originalImage, l.editData, l.previous);
-          l.previous = t;
+          var t = new e({
+            editData: n.editData,
+            media: n.media,
+            originalImage: n.originalImage,
+            previous: n.previous,
+          });
+          n.previous = t;
         }),
         (this.revertEdit = function () {
-          l.previous &&
-            ((l.editData = l.previous.editData),
-            (l.previous = l.previous.previous));
+          n.previous &&
+            ((n.editData = n.previous.editData),
+            (n.previous = n.previous.previous));
         }),
         (this.saveEditsFromCanvas = function (e) {
           var t = e.toDataURL();
-          (l.editedImage || (l.editedImage = new Image()),
-            (l.editedImage.src = t));
+          (n.editedImage || (n.editedImage = new Image()),
+            (n.editedImage.src = t));
         }),
         (this.exportEditedMedia = function () {
-          if (l.hasEdits() && l.editedImage) {
-            var e = l.editedImage.src;
+          if (n.hasEdits() && n.editedImage) {
+            var e = n.editedImage.src;
             return r("WAWebURLUtils").dataURLtoFile(e);
-          } else if (l.media instanceof File) return l.media;
-          return o("WAWebFileUtils").createFile([l.media], "", {
-            type: l.media.type,
+          } else if (n.media instanceof File) return n.media;
+          return o("WAWebFileUtils").createFile([n.media], "", {
+            type: n.media.type,
           });
         }),
         (this.hasEdits = function () {
-          return !!l.previous && l.editedImage;
+          return !!n.previous && n.editedImage;
         }),
         (this.cleanUp = function () {
-          window.URL.revokeObjectURL(l.originalImage.src);
+          window.URL.revokeObjectURL(n.originalImage.src);
         }),
-        (this.media = t),
-        n
-          ? (this.originalImage = n)
+        (this.media = i),
+        l
+          ? (this.originalImage = l)
           : ((this.originalImage = new Image()),
-            (this.originalImage.src = window.URL.createObjectURL(t))),
-        (this.previous = i),
+            (this.originalImage.src = window.URL.createObjectURL(i))),
+        (this.previous = s),
         (this.editData = {
           height: 0,
           width: 0,

@@ -7,7 +7,6 @@ __d(
     "WADeprecatedSendIq",
     "WAJids",
     "WALogger",
-    "WAPromiseDelays",
     "WAWap",
     "WAWebABProps",
     "WAWebAdvSignatureApi",
@@ -17,6 +16,7 @@ __d(
     "WAWebCommsAckParser",
     "WAWebCommsWapMd",
     "WAWebManageE2ESessionsJob",
+    "WAWebReleaseToEventLoop",
     "WAWebSendMsgCommonApi",
     "WAWebSessionScope",
     "WAWebSignal",
@@ -50,7 +50,7 @@ __d(
           var a, i;
           o("WAWebABProps").getABPropConfigValue("wmi_worker_scheduler_web")
             ? yield r("WACommonTaskScheduler").yield()
-            : yield o("WAPromiseDelays").releaseToEventLoop();
+            : yield o("WAWebReleaseToEventLoop").releaseToEventLoop();
           var l = Date.now(),
             s = t.peerJid,
             d = t.xmlPayload,

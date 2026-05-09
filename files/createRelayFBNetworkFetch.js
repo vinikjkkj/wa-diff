@@ -66,7 +66,7 @@ __d(
         m = t.graphURI,
         p = t.includeHeadersInUploadables,
         f = t.liveQueryFetchFn,
-        L = t.liveQueryFetchWithWWWInitialFn,
+        h = t.liveQueryFetchWithWWWInitialFn,
         E = t.omitAccessToken,
         k = t.queryResponseCache,
         I = t.retryDelays,
@@ -124,7 +124,7 @@ __d(
             usedPrefetcher: !1,
           },
           Z = _(A == null ? void 0 : A.metadata),
-          ee = R(
+          ee = L(
             U,
             Q,
             Y,
@@ -144,11 +144,11 @@ __d(
         W && (ee = W(ee));
         var te = o("RelayDiskCacheConfig").getDiskCacheConfig(A);
         (te && (ee = te.cache.withDiskCacheSave(ee, d, w, H, te)),
-          V && (ee = S(ee, d, w, V)));
-        var ne = C(d, w, H, J, V, O, te, Z),
-          re = y(d, w, J, V, A, H, O, Z);
+          V && (ee = R(ee, d, w, V)));
+        var ne = b(d, w, H, J, V, O, te, Z),
+          re = C(d, w, J, V, A, H, O, Z);
         te && (re = te.cache.withDiskCacheSave(re, d, w, H, te));
-        var oe = b(d, w, H, G, j, A, f, L),
+        var oe = v(d, w, H, G, j, A, f, h),
           ae;
         if (
           (((q = A.metadata) == null
@@ -158,7 +158,7 @@ __d(
             : (ae = ne.concat(re).concat(oe)),
           V)
         ) {
-          var ie = v(d, w, J, A, V, O);
+          var ie = S(d, w, J, A, V, O);
           ae = ae.ifEmpty(ie);
         }
         var le = g(ae, ee, A);
@@ -167,8 +167,8 @@ __d(
             (le = P != null ? P(le) : le),
           A.liveConfigId != null &&
             !o("RelayWWWInitialRolloutResolver").disableWWWInitial(d.name) &&
-            L != null &&
-            (le = L(
+            h != null &&
+            (le = h(
               d,
               w,
               babelHelpers.extends(
@@ -180,7 +180,7 @@ __d(
             )),
           o("RelayRuntime").RelayFeatureFlags.ENABLE_DO_NOT_WRAP_LIVE_QUERY ||
             (le = P != null ? P(le) : le),
-          h(J, le)
+          y(J, le)
         );
       };
     }
@@ -247,28 +247,40 @@ __d(
         })
       );
     }
-    function h(e, t) {
+    function h(e) {
+      var t, n, r;
+      if (Array.isArray(e)) {
+        for (var o of e) {
+          var a = h(o);
+          if (a != null) return a;
+        }
+        return null;
+      }
+      if (
+        ((t = e.extensions) == null ? void 0 : t.server_metadata) == null ||
+        ((n = e.extensions.server_metadata) == null
+          ? void 0
+          : n.request_start_time_ms) == null ||
+        ((r = e.extensions.server_metadata) == null
+          ? void 0
+          : r.time_at_flush_ms) == null
+      )
+        return null;
+      var i = e.extensions.server_metadata,
+        l = i.request_start_time_ms,
+        s = i.time_at_flush_ms;
+      return { endTime: Number(s), startTime: Number(l) };
+    }
+    function y(e, t) {
       var n;
       return t.do({
         error: function (t) {
           n.stop(t);
         },
         next: function (r) {
-          var t, o, a;
-          if (
-            !Array.isArray(r) &&
-            ((t = r.extensions) == null ? void 0 : t.server_metadata) != null &&
-            ((o = r.extensions.server_metadata) == null
-              ? void 0
-              : o.request_start_time_ms) != null &&
-            ((a = r.extensions.server_metadata) == null
-              ? void 0
-              : a.time_at_flush_ms) != null
-          ) {
-            var i = r.extensions.server_metadata,
-              l = i.request_start_time_ms,
-              s = i.time_at_flush_ms;
-            e.serverTimestamp = { endTime: Number(s), startTime: Number(l) };
+          if (e.serverTimestamp == null) {
+            var t = h(r);
+            t != null && (e.serverTimestamp = t);
           }
           n.stop();
         },
@@ -277,7 +289,7 @@ __d(
         },
       });
     }
-    function y(e, t, n, a, i, l, s, c) {
+    function C(e, t, n, a, i, l, s, c) {
       var m;
       if (
         !d(e) ||
@@ -314,7 +326,7 @@ __d(
         );
       });
     }
-    function C(e, t, n, r, a, i, l, s) {
+    function b(e, t, n, r, a, i, l, s) {
       if (l == null)
         return o("RelayRuntime").Observable.create(function (e) {
           return e.complete();
@@ -329,7 +341,7 @@ __d(
         );
       });
     }
-    function b(e, t, n, r, a, i, l, s) {
+    function v(e, t, n, r, a, i, l, s) {
       return i.liveConfigId != null &&
         (o("RelayWWWInitialRolloutResolver").disableWWWInitial(e.name) ||
           s == null)
@@ -346,7 +358,7 @@ __d(
             return e.complete();
           });
     }
-    function v(e, t, n, r, a, i) {
+    function S(e, t, n, r, a, i) {
       return o("RelayRuntime").Observable.create(function (o) {
         if (d(e) && !r.force) {
           var l = a.get(p(e), t);
@@ -355,7 +367,7 @@ __d(
         o.complete();
       });
     }
-    function S(e, t, n, r) {
+    function R(e, t, n, r) {
       var o = [],
         a = c(t);
       return e.do({
@@ -369,7 +381,7 @@ __d(
         },
       });
     }
-    function R(e, t, n, a, i, l, s, u, d, p, _, f, g, h, y) {
+    function L(e, t, n, a, i, l, s, u, d, p, _, f, g, h, y) {
       (f === void 0 && (f = !1),
         h === void 0 && (h = !1),
         y === void 0 && (y = !1));
@@ -593,24 +605,24 @@ __d(
                     { "X-FB-Friendly-Name": a.name },
                     n,
                   );
-                  (L(a, R), C.setRequestHeaders(R));
+                  (E(a, R), C.setRequestHeaders(R));
                 }
               } else {
-                var E = babelHelpers.extends(
+                var L = babelHelpers.extends(
                   {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "X-FB-Friendly-Name": a.name,
                   },
                   n,
                 );
-                (L(a, E), C.setData(v).setRequestHeaders(E));
+                (E(a, L), C.setData(v).setRequestHeaders(L));
               }
               return C.send().abort;
             },
           }));
       });
     }
-    function L(e, t) {
+    function E(e, t) {
       if (Array.isArray(e.metadata.root_field_name)) {
         var n = e.metadata.root_field_name[0];
         typeof n == "string" && (t["X-Root-Field-Name"] = n);

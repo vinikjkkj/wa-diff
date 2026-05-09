@@ -7,37 +7,61 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t,
-        n =
-          o("WAWebBizCoexGatingUtils").authAgentFeatureControlEnabled() &&
-          o("WAWebFeatureControlCache").getUserIsAA();
-      return n
-        ? o("WAWebFeatureControlPolicy").featureState(
-            (t = o("WAWebFeatureControlCache").getPolicy()) != null
-              ? t
-              : o("WAWebFeatureControlPolicy").PILOT_DEFAULT,
-            e,
-          )
-        : "ENABLED";
-    }
-    function s(t) {
-      return e(t) === "ENABLED";
+    var e = !1;
+    function s(t, n) {
+      if (!e) {
+        e = !0;
+        var r = Object.entries(t.entries)
+            .filter(function (e) {
+              var t = e[1];
+              return t === "DISABLED";
+            })
+            .map(function (e) {
+              var t = e[0];
+              return t;
+            })
+            .sort(),
+          o = Object.entries(t.entries)
+            .filter(function (e) {
+              var t = e[1];
+              return t === "LOCKED";
+            })
+            .map(function (e) {
+              var t = e[0];
+              return t;
+            })
+            .sort();
+      }
     }
     function u(t) {
-      return e(t) === "DISABLED";
+      var n = o("WAWebBizCoexGatingUtils").authAgentFeatureControlEnabled(),
+        r = o("WAWebFeatureControlCache").getUserIsAA(),
+        a = n && r;
+      if (!a) return (e || (e = !0), "ENABLED");
+      var i = o("WAWebFeatureControlCache").getPolicy(),
+        l = i != null ? i : o("WAWebFeatureControlPolicy").PILOT_DEFAULT;
+      return (
+        s(l, i != null ? "cached" : "pilot_default"),
+        o("WAWebFeatureControlPolicy").featureState(l, t)
+      );
     }
-    function c(t) {
-      return e(t) === "LOCKED";
+    function c(e) {
+      return u(e) === "ENABLED";
     }
-    function d(t) {
-      return e(t) !== "ENABLED";
+    function d(e) {
+      return u(e) === "DISABLED";
     }
-    ((l.getFeatureState = e),
-      (l.isFeatureEnabled = s),
-      (l.isFeatureDisabled = u),
-      (l.isFeatureLocked = c),
-      (l.isFeatureNotEnabled = d));
+    function m(e) {
+      return u(e) === "LOCKED";
+    }
+    function p(e) {
+      return u(e) !== "ENABLED";
+    }
+    ((l.getFeatureState = u),
+      (l.isFeatureEnabled = c),
+      (l.isFeatureDisabled = d),
+      (l.isFeatureLocked = m),
+      (l.isFeatureNotEnabled = p));
   },
   98,
 );

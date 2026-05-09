@@ -3,13 +3,13 @@ __d(
   [
     "WAAbortError",
     "WACommonTaskScheduler",
-    "WAPromiseDelays",
     "WARaceSignal",
     "WAWebABProps",
     "WAWebChatGetMessage",
     "WAWebChatLoadMessages",
     "WAWebDBUpdateChatTable",
     "WAWebNoop",
+    "WAWebReleaseToEventLoop",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -41,7 +41,7 @@ __d(
                 "wmi_worker_scheduler_web",
               )
                 ? r("WACommonTaskScheduler").yield()
-                : o("WAPromiseDelays").releaseToEventLoop();
+                : o("WAWebReleaseToEventLoop").releaseToEventLoop();
               return n
                 .then(function () {
                   var t = o("WAWebChatGetMessage").getLastTimestampMsg(e);

@@ -11,7 +11,6 @@ __d(
     "WAWebWamEnumWsuaProductType",
   ],
   function (t, n, r, o, a, i, l) {
-    "use strict";
     var e,
       s = new Set([
         (e = o("WAWebWamEnumWpbujBenefitType")).WPBUJ_BENEFIT_TYPE.STICKERS,

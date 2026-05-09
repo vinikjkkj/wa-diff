@@ -4,13 +4,13 @@ __d(
     "WABase64",
     "WACommonTaskScheduler",
     "WALogger",
-    "WAPromiseDelays",
     "WAWap",
     "WAWebABProps",
     "WAWebBackendApi",
     "WAWebBweMLModelManager",
     "WAWebLowEndDeviceExperimentGating",
     "WAWebNoop",
+    "WAWebReleaseToEventLoop",
     "WAWebVoipAudioCaptureAndPlayback",
     "WAWebVoipGatingUtils",
     "WAWebVoipJsonParsersWeb",
@@ -29,6 +29,7 @@ __d(
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVideoWebCodecsRenderer",
     "WAWebVoipWasmHeapBuffer",
+    "WAWebVoipWasmHeapMonitor",
     "WAWebVoipWebCodecsEncoderState",
     "WAWebVoipWebTransportConnectionManager",
     "asyncToGeneratorRuntime",
@@ -199,7 +200,7 @@ __d(
                   "wmi_worker_scheduler_web",
                 )
                   ? yield r("WACommonTaskScheduler").yield()
-                  : yield o("WAPromiseDelays").releaseToEventLoop(),
+                  : yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
                 o("WAWebVoipQplHelpers").voipInitQplAddPoint(
                   o("WAWebVoipQplHelpers").VoipInitQplPoint
                     .VOIP_STACK_INIT_START,
@@ -233,10 +234,14 @@ __d(
                   o("WAWebVoipQplHelpers").VoipInitQplPoint.VOIP_STACK_INIT_END,
                 );
               }
-              o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
-                o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
-                  .LOG_RING_BUFFER,
-              ) && o("WAWebVoipLogDrainer").startLogDrainer(a);
+              (o("WAWebVoipWasmHeapMonitor").logWasmHeapSnapshot(
+                a,
+                "voip_stack_init",
+              ),
+                o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
+                  o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
+                    .LOG_RING_BUFFER,
+                ) && o("WAWebVoipLogDrainer").startLogDrainer(a));
               var y = a.getWebP2PVirtualIpv4(),
                 C = a.getWebP2PVirtualIpv6(),
                 b = a.getWebP2PVirtualPort();

@@ -66,6 +66,7 @@ __d(
                     .StatusAttribution$Type.NEWSLETTER_STATUS,
                 },
               ],
+              canBeReshared: !0,
             }),
             l = new (o("WAWebMsgModel").Msg)(i);
           ((l.wamMessageSendReporter = new (o(
@@ -127,6 +128,7 @@ __d(
                     .StatusAttribution$Type.NEWSLETTER_STATUS,
                 },
               ],
+              canBeReshared: !0,
             }),
             l = new (o("WAWebMsgModel").Msg)(i);
           ((l.wamMessageSendReporter = new (o(

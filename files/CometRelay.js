@@ -21,6 +21,7 @@ __d(
     "react-relay/relay-hooks/useFragment",
     "react-relay/relay-hooks/useIsParentQueryActive",
     "react-relay/relay-hooks/useLazyLoadQuery",
+    "react-relay/relay-hooks/useMutationAction_EXPERIMENTAL",
     "react-relay/relay-hooks/usePaginationFragment",
     "react-relay/relay-hooks/usePrefetchableForwardPaginationFragment",
     "react-relay/relay-hooks/usePreloadedQuery",
@@ -90,6 +91,9 @@ __d(
         ),
         useLazyLoadQuery: r("react-relay/relay-hooks/useLazyLoadQuery"),
         useMutation: r("useFBMutation"),
+        useMutationAction: r(
+          "react-relay/relay-hooks/useMutationAction_EXPERIMENTAL",
+        ),
         usePaginationFragment: r(
           "react-relay/relay-hooks/usePaginationFragment",
         ),

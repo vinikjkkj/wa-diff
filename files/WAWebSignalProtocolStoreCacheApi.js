@@ -4,9 +4,9 @@ __d(
     "NativeSchedulerTickStrategy",
     "TaskScheduler",
     "TaskSchedulerPriority",
-    "WAPromiseDelays",
     "WASemaphore",
     "WAWebABProps",
+    "WAWebReleaseToEventLoop",
     "asyncToGeneratorRuntime",
     "lodash",
     "structuredClone",
@@ -93,7 +93,7 @@ __d(
                 m = self.performance.now();
               for (var p of this.Dirty.session)
                 (self.performance.now() - m > d &&
-                  (yield o("WAPromiseDelays").releaseToEventLoop(),
+                  (yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
                   (m = self.performance.now())),
                   i(p));
             }

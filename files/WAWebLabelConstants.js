@@ -1,7 +1,7 @@
 __d(
   "WAWebLabelConstants",
-  ["WAWebWamEnumCtwaLabelType"],
-  function (t, n, r, o, a, i, l) {
+  ["fbt", "WAWebWamEnumCtwaLabelType"],
+  function (t, n, r, o, a, i, l, s) {
     var e = [
         "#FF9485",
         "#64C4FF",
@@ -24,7 +24,7 @@ __d(
         "#9BA6FF",
         "#9368CF",
       ],
-      s = [
+      u = [
         "#A62C71",
         "#90A841",
         "#C1A03F",
@@ -46,7 +46,7 @@ __d(
         "#7ACBA5",
         "#243640",
       ],
-      u = Object.freeze({
+      c = Object.freeze({
         NEW_CUSTOMER: 1,
         NEW_ORDER: 2,
         PENDING_PAYMENT: 3,
@@ -58,7 +58,7 @@ __d(
         DO_NEW_ORDER: 9,
         DO_LEAD: 10,
       }),
-      c = Object.freeze({
+      d = Object.freeze({
         NEW_CUSTOMER: "New customer",
         NEW_ORDER: "New order",
         PENDING_PAYMENT: "Pending payment",
@@ -68,7 +68,7 @@ __d(
         FOLLOW_UP: "Follow up",
         LEAD: "Lead",
       }),
-      d = Object.freeze({
+      m = Object.freeze({
         NEW_CUSTOMER: "new_customer",
         NEW_ORDER: "new_order",
         PENDING_PAYMENT: "pending_payment",
@@ -77,35 +77,39 @@ __d(
         IMPORTANT: "important",
         FOLLOW_UP: "follow_up",
         LEAD: "lead",
-      }),
-      m = new Map([
-        [c.NEW_CUSTOMER.toLowerCase(), u.NEW_CUSTOMER],
-        [c.NEW_ORDER.toLowerCase(), u.NEW_ORDER],
-        [c.PENDING_PAYMENT.toLowerCase(), u.PENDING_PAYMENT],
-        [c.PAID.toLowerCase(), u.PAID],
-        [c.ORDER_COMPLETE.toLowerCase(), u.ORDER_COMPLETE],
-        [c.IMPORTANT.toLowerCase(), u.IMPORTANT],
-        [c.FOLLOW_UP.toLowerCase(), u.FOLLOW_UP],
-        [c.LEAD.toLowerCase(), u.LEAD],
-      ]);
+      });
     function p(e) {
-      return m.get(e.toLowerCase());
+      var t = e.toLowerCase();
+      for (var n of [
+        c.NEW_CUSTOMER,
+        c.NEW_ORDER,
+        c.PENDING_PAYMENT,
+        c.PAID,
+        c.ORDER_COMPLETE,
+        c.IMPORTANT,
+        c.FOLLOW_UP,
+        c.LEAD,
+      ]) {
+        var r;
+        if (((r = f(n)) == null ? void 0 : r.toString().toLowerCase()) === t)
+          return n;
+      }
     }
     function _(e) {
       switch (e) {
-        case d.NEW_CUSTOMER:
+        case m.NEW_CUSTOMER:
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.NEW_CUSTOMER;
-        case d.NEW_ORDER:
+        case m.NEW_ORDER:
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.NEW_ORDER;
-        case d.PENDING_PAYMENT:
+        case m.PENDING_PAYMENT:
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.PENDING_PAYMENT;
-        case d.PAID:
+        case m.PAID:
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.PAID;
-        case d.ORDER_COMPLETE:
+        case m.ORDER_COMPLETE:
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.ORDER_COMPLETE;
-        case d.IMPORTANT:
+        case m.IMPORTANT:
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.IMPORTANT;
-        case d.FOLLOW_UP:
+        case m.FOLLOW_UP:
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.FOLLOW_UP;
         default:
           return o("WAWebWamEnumCtwaLabelType").CTWA_LABEL_TYPE.LEAD;
@@ -113,37 +117,37 @@ __d(
     }
     function f(e) {
       switch (e) {
-        case u.NEW_CUSTOMER:
-          return c.NEW_CUSTOMER;
-        case u.NEW_ORDER:
-        case u.DO_NEW_ORDER:
-          return c.NEW_ORDER;
-        case u.PENDING_PAYMENT:
-          return c.PENDING_PAYMENT;
-        case u.PAID:
-          return c.PAID;
-        case u.ORDER_COMPLETE:
-          return c.ORDER_COMPLETE;
-        case u.IMPORTANT:
-          return c.IMPORTANT;
-        case u.FOLLOW_UP:
-          return c.FOLLOW_UP;
-        case u.LEAD:
-        case u.DO_LEAD:
-          return c.LEAD;
+        case c.NEW_CUSTOMER:
+          return s._(/*BTDS*/ "New customer");
+        case c.NEW_ORDER:
+        case c.DO_NEW_ORDER:
+          return s._(/*BTDS*/ "New order");
+        case c.PENDING_PAYMENT:
+          return s._(/*BTDS*/ "Pending payment");
+        case c.PAID:
+          return s._(/*BTDS*/ "Paid");
+        case c.ORDER_COMPLETE:
+          return s._(/*BTDS*/ "Order complete");
+        case c.IMPORTANT:
+          return s._(/*BTDS*/ "Important");
+        case c.FOLLOW_UP:
+          return s._(/*BTDS*/ "Follow up");
+        case c.LEAD:
+        case c.DO_LEAD:
+          return s._(/*BTDS*/ "Lead");
         default:
           return;
       }
     }
     var g = 100;
     ((l.ANDROID_LABEL_COLOR_PALETTE = e),
-      (l.IPHONE_LABEL_COLOR_PALETTE = s),
-      (l.PREDEFINED_LABEL_IDS = u),
-      (l.PREDEFINED_LABEL_NAMES = c),
+      (l.IPHONE_LABEL_COLOR_PALETTE = u),
+      (l.PREDEFINED_LABEL_IDS = c),
+      (l.PREDEFINED_LABEL_NAMES = d),
       (l.mapLabelNameToPredefinedId = p),
       (l.mapCustomLabelSubtypeToCTWALabelType = _),
       (l.mapPredefinedIdToLabelName = f),
       (l.LABEL_NAME_MAX_LENGTH = g));
   },
-  98,
+  226,
 );

@@ -4,7 +4,6 @@ __d(
     "WACommonTaskScheduler",
     "WALogger",
     "WAMemoizeCache",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebApiContact",
     "WAWebChatCollection",
@@ -17,6 +16,7 @@ __d(
     "WAWebNoticeModel",
     "WAWebOpenChatFlow.react",
     "WAWebPrimaryFeaturesModel",
+    "WAWebReleaseToEventLoop",
     "WAWebSettingsModel",
     "WAWebStatusCollection",
     "WAWebStickerPackCollectionMd",
@@ -71,7 +71,7 @@ __d(
                 }
               }),
                 u + n < a.length &&
-                  (yield o("WAPromiseDelays").releaseToEventLoop()));
+                  (yield o("WAWebReleaseToEventLoop").releaseToEventLoop()));
             }
           t.delete();
         })),

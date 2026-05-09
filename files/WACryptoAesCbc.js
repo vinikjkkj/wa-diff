@@ -235,7 +235,7 @@ __d(
               c === !0 &&
                 (d != null
                   ? yield d()
-                  : yield o("WAPromiseDelays").releaseToEventLoop()));
+                  : yield o("WAPromiseDelays").delayMs(0)));
           }
           return b.buffer;
         })),

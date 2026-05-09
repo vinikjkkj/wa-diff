@@ -3,8 +3,8 @@ __d(
   [
     "WACommonTaskScheduler",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
+    "WAWebReleaseToEventLoop",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -258,7 +258,7 @@ __d(
                 ) {
                   if (
                     (Atomics.store(n, S, l),
-                    yield o("WAPromiseDelays").releaseToEventLoop(),
+                    yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
                     w !== e)
                   )
                     return;

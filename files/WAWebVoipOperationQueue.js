@@ -4,8 +4,8 @@ __d(
     "Promise",
     "WACommonTaskScheduler",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
+    "WAWebReleaseToEventLoop",
     "WAWebVoipPerfOptimizations",
     "asyncToGeneratorRuntime",
   ],
@@ -110,7 +110,9 @@ __d(
                               .OPERATION_QUEUE_YIELD,
                           ) &&
                           self.performance.now() - i > c &&
-                          (yield o("WAPromiseDelays").releaseToEventLoop(),
+                          (yield o(
+                            "WAWebReleaseToEventLoop",
+                          ).releaseToEventLoop(),
                           (i = self.performance.now()));
                     };
                   this.getQueueLength() > 0;

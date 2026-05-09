@@ -414,8 +414,9 @@ __d(
               (I || (I = n("Promise"))).resolve()
             );
           try {
-            var a = o("WAWebLabelCollection").LabelCollection.get(e);
-            if (a == null)
+            var a,
+              i = o("WAWebLabelCollection").LabelCollection.get(e);
+            if (i == null)
               return (
                 o("WALogger").WARN(
                   y ||
@@ -428,9 +429,9 @@ __d(
                 (I || (I = n("Promise"))).resolve()
               );
             (yield o("WAWebBizLabelEditingAction").labelDeleteAction(
-              a.id,
-              a.name,
-              a.colorIndex,
+              i.id,
+              i.name,
+              i.colorIndex,
             ),
               o("WAWebListsLogging").logListUpdate({
                 listId: Number(e),
@@ -442,7 +443,8 @@ __d(
                   .LABEL_OPERATIONS.DELETE,
                 updateEntryPoint: r,
                 listId: Number(e),
-                customListTitle: a.name,
+                customListTitle: i.name,
+                predefinedId: (a = i.predefinedId) != null ? a : void 0,
               }),
               o("WAWebToastManager").ToastManager.open(
                 D.jsx(o("WAWebToast.react").Toast, {

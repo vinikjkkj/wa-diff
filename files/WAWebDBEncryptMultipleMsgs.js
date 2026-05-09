@@ -9,6 +9,7 @@ __d(
     "WAWebDBMessageUtils",
     "WAWebDbEncryptionKey",
     "WAWebLinkify",
+    "WAWebReleaseToEventLoop",
     "WAWebSchemaMessage",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -40,9 +41,7 @@ __d(
             yield o(
               "WAWebDbEncryptionKey",
             ).DbEncKeyStore.waitForFinalDbMsgEncKey(),
-            yield new (u || (u = n("Promise")))(function (e) {
-              return self.setTimeout(e, 0);
-            }));
+            yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           var i;
           if (a) {
             i = [];

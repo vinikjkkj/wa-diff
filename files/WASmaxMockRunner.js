@@ -610,29 +610,31 @@ __d(
     function g(e) {
       e.ccall("SmaxDisableLocationReporting", null, [], []);
     }
-    function h(e, t) {
-      var n = {
+    function h(e, t, n) {
+      n === void 0 && (n = 3);
+      var r = {
           "convert.xml":
             '<smax xmlns:smax=\'http://whatsapp.net/smax\'>\n        <mock name="Convert" originator="server">\n            <request>\n              ' +
             t +
             "\n            </request>\n        </mock>\n      </smax>",
         },
-        r = new c(e, ["convert.xml"], function (e) {
-          return n[e];
+        o = new c(e, ["convert.xml"], function (e) {
+          return r[e];
         });
-      (r.addDeviceJid("16005551839:1@s.whatsapp.net"),
-        r.addDefaultIdentityName("bob"));
-      var o = r.build();
-      (o.addSyncdKey(new Uint8Array(32)), o.setDefaultIdentityName("alice"));
-      var a = o.send("Convert"),
-        i = null;
-      for (var l of a)
-        if (l.type === "Injection") {
-          i = l.data;
+      (o.addDeviceJid("16005551839:1@s.whatsapp.net"),
+        o.addDefaultIdentityName("bob"),
+        o.setDictionaryVersion(n));
+      var a = o.build();
+      (a.addSyncdKey(new Uint8Array(32)), a.setDefaultIdentityName("alice"));
+      var i = a.send("Convert"),
+        l = null;
+      for (var s of i)
+        if (s.type === "Injection") {
+          l = s.data;
           break;
         }
-      if (i == null) throw new Error("Unreachable");
-      return (o.complete(), o.cleanup(), i);
+      if (l == null) throw new Error("Unreachable");
+      return (a.complete(), a.cleanup(), l);
     }
     var y = null;
     function C(e) {

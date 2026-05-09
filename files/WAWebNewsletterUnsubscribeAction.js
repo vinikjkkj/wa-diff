@@ -126,7 +126,15 @@ __d(
                   "WAWebNewsletterBridgeApi",
                 ).NewsletterBridgeApi.deleteNewsletter({ id: t.id, keep: !1 }));
             else {
-              var h;
+              var h,
+                y,
+                C,
+                b =
+                  (h = (y = t.newsletterMetadata) == null ? void 0 : y.size) !=
+                  null
+                    ? h
+                    : 0,
+                v = Math.max(0, b - 1);
               (yield o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
                 o(
                   "WAWebNewsletterStorageUtils",
@@ -134,14 +142,15 @@ __d(
                   id: t.id,
                   membershipType: o("WAWebCommonNewsletterEnums")
                     .NewsletterMembershipType.Guest,
+                  size: v,
                 }),
               ),
-                (h = t.newsletterMetadata) == null ||
-                  h.set(
-                    "membershipType",
-                    o("WAWebCommonNewsletterEnums").NewsletterMembershipType
-                      .Guest,
-                  ));
+                (C = t.newsletterMetadata) == null ||
+                  C.set({
+                    membershipType: o("WAWebCommonNewsletterEnums")
+                      .NewsletterMembershipType.Guest,
+                    size: v,
+                  }));
             }
             (o("WAWebDeleteStatusAction").clearStatusForRemovedContact(),
               (g = a) == null || g.end(2),
@@ -154,9 +163,9 @@ __d(
                   .CHANNEL_MEMBERSHIP_ACTION_RESULT.UNFOLLOW_SUCCESS,
               }));
           } catch (e) {
-            var y;
+            var S;
             throw (
-              (y = a) == null || y.end(3),
+              (S = a) == null || S.end(3),
               i.end(3),
               o("WALogger")
                 .ERROR(

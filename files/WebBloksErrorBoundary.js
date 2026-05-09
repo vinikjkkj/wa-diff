@@ -3,7 +3,7 @@ __d(
   ["WebBloksErrorRoot", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = e || (e = r("react")),
+      s = e || (e = o("react")),
       u = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)

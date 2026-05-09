@@ -5,7 +5,6 @@ __d(
     "WACommonTaskScheduler",
     "WAFilteredCatch",
     "WALogger",
-    "WAPromiseDelays",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebCallLogMsgData.flow",
@@ -20,6 +19,7 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebReleaseToEventLoop",
     "WAWebSchemaMessage",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
@@ -312,7 +312,8 @@ __d(
             ) {
               for (var s = Math.min(l + i, e.length), u = l; u < s; u++)
                 t.push(o("WAWebDBMessageSerialization").messageFromDbRow(e[u]));
-              s < e.length && (yield o("WAPromiseDelays").releaseToEventLoop());
+              s < e.length &&
+                (yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
             }
           return t;
         })),

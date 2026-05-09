@@ -38,10 +38,7 @@ __d(
         );
       });
     }
-    function c() {
-      return s(0);
-    }
-    ((l.delayMs = s), (l.withTimeout = u), (l.releaseToEventLoop = c));
+    ((l.delayMs = s), (l.withTimeout = u));
   },
   98,
 );

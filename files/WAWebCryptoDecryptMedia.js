@@ -9,7 +9,6 @@ __d(
     "WACustomError",
     "WALogger",
     "WAMediaCalculateFilehash",
-    "WAPromiseDelays",
     "WAPromiseTimeout",
     "WATypedArraysCast",
     "WATypedArraysConcat",
@@ -17,6 +16,7 @@ __d(
     "WAWebABPropsCache",
     "WAWebBackendWorkerClient",
     "WAWebMiscErrors",
+    "WAWebReleaseToEventLoop",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
@@ -49,7 +49,7 @@ __d(
           m
             ? yield r("WACommonTaskScheduler").yield()
             : d
-              ? yield o("WAPromiseDelays").releaseToEventLoop()
+              ? yield o("WAWebReleaseToEventLoop").releaseToEventLoop()
               : yield (p || (p = n("Promise"))).resolve();
           var f = { mediaKeys: c };
           if (
@@ -95,7 +95,9 @@ __d(
                       d &&
                         (m
                           ? yield r("WACommonTaskScheduler").yield()
-                          : yield o("WAPromiseDelays").releaseToEventLoop());
+                          : yield o(
+                              "WAWebReleaseToEventLoop",
+                            ).releaseToEventLoop());
                       var n = v.subarray(0, 0 - _);
                       return R
                         ? y({ encKey: g, iv: h, ciphertext: n })
@@ -115,7 +117,9 @@ __d(
                       d &&
                         (m
                           ? yield r("WACommonTaskScheduler").yield()
-                          : yield o("WAPromiseDelays").releaseToEventLoop());
+                          : yield o(
+                              "WAWebReleaseToEventLoop",
+                            ).releaseToEventLoop());
                       var t = R
                         ? yield L(e)
                         : yield o("WAMediaCalculateFilehash").calculateFilehash(

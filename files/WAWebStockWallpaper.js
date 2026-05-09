@@ -32,9 +32,7 @@ __d(
       d = new Set([]);
     function m(e) {
       var t = u.get(e);
-      return t == null
-        ? null
-        : s + "?category=wallpaper&id=wallpaper-" + t + "_2x";
+      return t == null ? null : g(t);
     }
     function p(e) {
       return m(e);

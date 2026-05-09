@@ -2,7 +2,6 @@ __d(
   "WAWebAuraBenefitTypes",
   ["$InternalEnum"],
   function (t, n, r, o, a, i) {
-    "use strict";
     var e = n("$InternalEnum")({
       APP_THEMES: "appThemes",
       APP_ICONS: "appIcons",

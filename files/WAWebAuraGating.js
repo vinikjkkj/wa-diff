@@ -9,7 +9,6 @@ __d(
     "WAWebStickerPremiumStatus",
   ],
   function (t, n, r, o, a, i, l) {
-    "use strict";
     var e = (function () {
         function e() {
           ((this.$1 = new (o(

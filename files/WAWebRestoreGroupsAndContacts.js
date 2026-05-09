@@ -2,8 +2,9 @@ __d(
   "WAWebRestoreGroupsAndContacts",
   [
     "Promise",
+    "TaskSchedulerPriority",
+    "WACommonTaskScheduler",
     "WALogger",
-    "WAPromiseDelays",
     "WAWebABProps",
     "WAWebApiContact",
     "WAWebApiHydrateWidsUtil",
@@ -17,6 +18,7 @@ __d(
     "WAWebModelStorageInitialize",
     "WAWebOutContactInviteGating",
     "WAWebPerformanceUtils",
+    "WAWebReleaseToEventLoop",
     "WAWebSchemaGroupMetadata",
     "WAWebWamMemoryStat",
     "WAWebWamOfflineResumeReporter",
@@ -68,7 +70,9 @@ __d(
                       function* (e) {
                         return (
                           t &&
-                            (yield o("WAPromiseDelays").releaseToEventLoop()),
+                            (yield o(
+                              "WAWebReleaseToEventLoop",
+                            ).releaseToEventLoop()),
                           o("WALogger").LOG(
                             s ||
                               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -86,7 +90,9 @@ __d(
                           ),
                           yield o("WAWebApiContact").warmUpAllLidPnMappings(e),
                           t &&
-                            (yield o("WAPromiseDelays").releaseToEventLoop()),
+                            (yield o(
+                              "WAWebReleaseToEventLoop",
+                            ).releaseToEventLoop()),
                           o(
                             "WAWebWamOfflineResumeReporter",
                           ).OfflineResumeReporter.qpl.addPoint(
@@ -264,13 +270,26 @@ __d(
     function S() {
       return (
         (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          for (var t = 0; t < e.length; t += h) {
-            var n = e.slice(t, t + h);
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "wmi_task_scheduler_second_step",
+            )
+          ) {
+            for (var t of e)
+              (o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+                r("WAWebGroupMetadataCollection").add(t, { merge: !0 }),
+                yield r("WACommonTaskScheduler").yield(
+                  o("TaskSchedulerPriority").HIGH_PRIORITY,
+                ));
+            return;
+          }
+          for (var n = 0; n < e.length; n += h) {
+            var a = e.slice(n, n + h);
             (r("WAWebGroupMetadataCollection").add(
-              n.map(o("WAWebApiHydrateWidsUtil").hydrateWids),
+              a.map(o("WAWebApiHydrateWidsUtil").hydrateWids),
               { merge: !0 },
             ),
-              yield o("WAPromiseDelays").releaseToEventLoop());
+              yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           }
         })),
         S.apply(this, arguments)
@@ -282,14 +301,30 @@ __d(
     function L() {
       return (
         (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          for (var t = 0; t < e.length; t += g) {
-            var n = e.slice(t, t + g);
-            (o("WAWebApiHydrateWidsUtil").hydrateWids(n),
-              o("WAWebContactCollection").ContactCollection.add(n, {
+          if (
+            o("WAWebABProps").getABPropConfigValue(
+              "wmi_task_scheduler_second_step",
+            )
+          ) {
+            for (var t of e)
+              (o("WAWebApiHydrateWidsUtil").hydrateWids(t),
+                o("WAWebContactCollection").ContactCollection.add(t, {
+                  silent: !0,
+                  merge: !0,
+                }),
+                yield r("WACommonTaskScheduler").yield(
+                  o("TaskSchedulerPriority").HIGH_PRIORITY,
+                ));
+            return;
+          }
+          for (var n = 0; n < e.length; n += g) {
+            var a = e.slice(n, n + g);
+            (o("WAWebApiHydrateWidsUtil").hydrateWids(a),
+              o("WAWebContactCollection").ContactCollection.add(a, {
                 silent: !0,
                 merge: !0,
               }),
-              yield o("WAPromiseDelays").releaseToEventLoop());
+              yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
           }
         })),
         L.apply(this, arguments)

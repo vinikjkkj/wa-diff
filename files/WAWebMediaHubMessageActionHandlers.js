@@ -7,6 +7,7 @@ __d(
     "WAWebActionToast.react",
     "WAWebBotFrontendUtils",
     "WAWebBotGating",
+    "WAWebChatEntryPoint",
     "WAWebChatMessageSearch",
     "WAWebCmd",
     "WAWebComposeBoxActions",
@@ -141,6 +142,7 @@ __d(
             chat: t,
             msgKey: e.id,
           }),
+          chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub,
         })
         .then(function (t) {
           t &&
@@ -351,7 +353,10 @@ __d(
       return (
         (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = o("WAWebFrontendMsgGetters").getChat(e),
-            n = yield o("WAWebCmd").Cmd.openChatBottom({ chat: t });
+            n = yield o("WAWebCmd").Cmd.openChatBottom({
+              chat: t,
+              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub,
+            });
           if (!n) {
             o("WALogger").ERROR(
               y ||

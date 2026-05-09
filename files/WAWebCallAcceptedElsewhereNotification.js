@@ -4,16 +4,14 @@ __d(
     "fbt",
     "WAWebBaseNotification",
     "WAWebChatFlowTypes",
-    "WAWebNotificationHelpers",
     "WAWebNotificationIconUtils",
-    "WAWebNotificationMuteReason",
     "asyncToGeneratorRuntime",
     "bx",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = r("bx").getURL(r("bx")("9555")),
       u = (function (t) {
-        function a(e) {
+        function r(e) {
           var n,
             r = e.callId,
             o = e.groupJid,
@@ -32,21 +30,16 @@ __d(
             n
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(r, t);
+        var a = r.prototype;
         return (
-          (i.shouldMute = function (t) {
-            return o("WAWebNotificationHelpers").appIsActive()
-              ? r("WAWebNotificationMuteReason").AppState
-              : null;
-          }),
-          (i.buildKey = function () {
+          (a.buildKey = function () {
             return "call-accepted-elsewhere:" + this.callId;
           }),
-          (i.getChatKind = function () {
+          (a.getChatKind = function () {
             return o("WAWebChatFlowTypes").ChatKindType.Group;
           }),
-          (i.getIcon = (function () {
+          (a.getIcon = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
               if (this.groupJid != null)
                 return o("WAWebNotificationIconUtils").getNotificationIconByWid(
@@ -68,7 +61,7 @@ __d(
             }
             return r;
           })()),
-          (i.getBannerOptions = function () {
+          (a.getBannerOptions = function () {
             var e,
               t,
               n = this.isVideo
@@ -89,7 +82,7 @@ __d(
               tag: "call-accepted-elsewhere:" + this.callId,
             };
           }),
-          a
+          r
         );
       })(o("WAWebBaseNotification").WABaseNotification);
     l.WACallAcceptedElsewhereNotification = u;

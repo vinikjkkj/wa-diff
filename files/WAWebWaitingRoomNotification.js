@@ -8,6 +8,7 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebParticipantListUtils",
+    "WAWebVoipPopoutWindowState",
     "asyncToGeneratorRuntime",
     "bx",
   ],
@@ -34,7 +35,7 @@ __d(
         var i = a.prototype;
         return (
           (i.shouldMute = function (t) {
-            return o("WAWebNotificationHelpers").appIsActive()
+            return o("WAWebNotificationHelpers").appIsActive() || c()
               ? r("WAWebNotificationMuteReason").AppState
               : null;
           }),
@@ -92,6 +93,15 @@ __d(
           a
         );
       })(o("WAWebBaseNotification").WABaseNotification);
+    function c() {
+      var e = o("WAWebVoipPopoutWindowState").getPopoutWindow();
+      if (e == null) return !1;
+      try {
+        return e.document.hasFocus();
+      } catch (e) {
+        return !1;
+      }
+    }
     l.WAWaitingRoomNotification = u;
   },
   226,

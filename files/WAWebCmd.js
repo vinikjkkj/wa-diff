@@ -10,7 +10,6 @@ __d(
     "WAWebBoolFunc",
     "WAWebBotGating",
     "WAWebBotUtils",
-    "WAWebChatEntryPoint",
     "WAWebCmd.flow",
     "WAWebComposeBoxActions",
     "WAWebCurrentUser",
@@ -357,6 +356,9 @@ __d(
           (i.communityAddNewGroup = function (t, n, r) {
             this.trigger("open_community_add_new_group", t, n, r);
           }),
+          (i.communityAddExistingGroup = function (t) {
+            this.trigger("open_community_add_existing_group", t);
+          }),
           (i.openCreatedNewsletter = function (t) {
             this.trigger("open_created_newsletter", t);
           }),
@@ -412,22 +414,18 @@ __d(
           (i.$CmdImpl$p_2 = function (r) {
             var t = this,
               a = r.chat,
-              i = r.msgContext,
-              l = r.chatEntryPoint,
-              s =
-                l === void 0
-                  ? o("WAWebChatEntryPoint").ChatEntryPoint.Unknown
-                  : l,
-              u = r.threadId;
+              i = r.chatEntryPoint,
+              l = r.msgContext,
+              s = r.threadId;
             return (
-              (a.chatEntryPoint = s),
+              (a.chatEntryPoint = i),
               o("WAWebWamMemoryStat").uploadMemoryIfChatWasOpened(a.id),
               new (h || (h = n("Promise")))(function (e) {
                 t.trigger("open_chat", {
                   chat: a,
-                  msgContext: i,
-                  chatEntryPoint: s,
-                  threadId: u,
+                  msgContext: l,
+                  chatEntryPoint: i,
+                  threadId: s,
                   onComplete: (function () {
                     var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                       function* (t) {

@@ -420,45 +420,43 @@ __d(
                     ? d
                     : [];
               (C.length > 0 && (y = !1), (h = C.concat(b)));
-              var v = void 0;
+              var v = {
+                id: m,
+                unreadCount: f + _,
+                t: g,
+                unreadMentionsOfMe: h,
+                archiveAtMentionViewedInDrawer: y,
+              };
               i &&
                 e == null &&
                 (p == null ? void 0 : p.broadcast) === !0 &&
-                (v = !0);
-              var S = {
-                  id: m,
-                  unreadCount: f + _,
-                  t: g,
-                  unreadMentionsOfMe: h,
-                  archiveAtMentionViewedInDrawer: y,
-                  createdLocally: v,
-                },
-                R = o("WAWebWidFactory").createWid(m),
-                L = p == null ? void 0 : p.capiCallingPermissionType;
+                (v.createdLocally = !0);
+              var S = o("WAWebWidFactory").createWid(m),
+                R = p == null ? void 0 : p.capiCallingPermissionType;
               return (
-                L != null &&
-                  ((S.capiCallingPermissionType = L),
-                  l.push({ chatId: R, capiCallingPermissionType: L })),
-                o("WAWebLidMigrationUtils").shouldHaveAccountLid(R) &&
+                R != null &&
+                  ((v.capiCallingPermissionType = R),
+                  l.push({ chatId: S, capiCallingPermissionType: R })),
+                o("WAWebLidMigrationUtils").shouldHaveAccountLid(S) &&
                   (e == null
-                    ? ((S.accountLid = o("WAWebLidMigrationUtils")
-                        .toUserLidOrThrow(R)
+                    ? ((v.accountLid = o("WAWebLidMigrationUtils")
+                        .toUserLidOrThrow(S)
                         .toString()),
-                      R.isLid() &&
-                        (o("WAWebApiContact").getPhoneNumber(R) != null ||
+                      S.isLid() &&
+                        (o("WAWebApiContact").getPhoneNumber(S) != null ||
                         o(
                           "WAWebUserPrefsPhoneNumberHidingThreadPromotionMigration",
                         ).hasPhoneNumberHidingThreadPromotionMigrationStarted()
-                          ? (S.lidOriginType =
+                          ? (v.lidOriginType =
                               o("WAWebUsernameTypes").LidOriginType.GENERAL)
-                          : (S.lidOriginType =
+                          : (v.lidOriginType =
                               o("WAWebUsernameTypes").LidOriginType.PNH_CTWA)))
                     : e.accountLid == null &&
                       (u ||
                         (o("WAWebLidMigrationUtils").logLidMetadata(),
                         (u = !0)),
-                      s.length < 3 && s.push(R.toLogString()))),
-                S
+                      s.length < 3 && s.push(S.toLogString()))),
+                v
               );
             });
           (s.length > 0 &&
