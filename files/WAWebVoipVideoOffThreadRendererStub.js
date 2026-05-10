@@ -14,8 +14,12 @@ __d(
     "use strict";
     var e,
       s,
-      u = 4,
-      c = (function () {
+      u,
+      c,
+      d,
+      m = 4,
+      p = 5e3,
+      _ = (function () {
         function t(e, n, r, o) {
           var a = t.rendererIdCounter++;
           this.$1 = a;
@@ -55,9 +59,45 @@ __d(
                   r("WAWebVoipVideoRendererWorkerResource"),
                 ),
                 "WAWebVoipVideoRendererWorker",
-              );
+              ),
+              l = Date.now(),
+              m = !1;
+            (i.onMessage.add(function () {
+              m ||
+                ((m = !0),
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: VideoRendererWorker first message received in ",
+                      "ms",
+                    ])),
+                  Date.now() - l,
+                ));
+            }),
+              i.onError.add(function (e) {
+                o("WALogger").ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: VideoRendererWorker port error: ",
+                      "",
+                    ])),
+                  (e == null ? void 0 : e.message) || String(e),
+                );
+              }));
+            var _ = window.setTimeout(function () {
+              m ||
+                o("WALogger").ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: VideoRendererWorker silent \u2014 no message received within ",
+                      "ms (likely bundle load failure)",
+                    ])),
+                  p,
+                );
+            }, p);
             return (
               i.addMessageListener("shutdown", function () {
+                window.clearTimeout(_);
                 var e = t.workerPool.get(i);
                 if (e != null) {
                   if (e.size > 0) return;
@@ -70,31 +110,31 @@ __d(
                   n = e.message;
                 o("WAWebVoipVideoRendererLogging").handleLog(t, n);
               }),
-              i.addMessageListener("mainThreadRender", function (l) {
-                var s = l.bitmap,
-                  u = l.rendererId;
+              i.addMessageListener("mainThreadRender", function (e) {
+                var l = e.bitmap,
+                  s = e.rendererId;
                 try {
-                  var c = a ? t.$6(i, u) : n;
-                  if (!c) {
-                    s.close();
+                  var u = a ? t.$6(i, s) : n;
+                  if (!u) {
+                    l.close();
                     return;
                   }
-                  var d = c.$2.getContext("bitmaprenderer");
+                  var d = u.$2.getContext("bitmaprenderer");
                   if (!d)
                     throw r("err")(
-                      "Could not get bitmaprenderer context for " + u,
+                      "Could not get bitmaprenderer context for " + s,
                     );
-                  d.transferFromImageBitmap(s);
-                } catch (t) {
+                  d.transferFromImageBitmap(l);
+                } catch (e) {
                   (o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererWorker: main thread render failed: ",
                         "",
                       ])),
-                    t,
+                    e,
                   ),
-                    s.close());
+                    l.close());
                 }
               }),
               i.addMessageListener("requestKeyFrame", function (e) {
@@ -107,8 +147,8 @@ __d(
                   ).videoRendererRegistry.requestKeyFrameForCanvas(l.$2);
                 } catch (e) {
                   o("WALogger").WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: VideoRendererWorker: Failed to request key frame: ",
                         "",
                       ])),
@@ -138,7 +178,7 @@ __d(
                 o("WAWebVoipVideoRendererInterface")
                   .WAWebVoipVideoRendererThreadingMode.SINGLE_WORKER
                   ? 1 / 0
-                  : u;
+                  : m;
               for (var r of t.workerPool) {
                 var a = r[0],
                   i = r[1];
@@ -203,7 +243,7 @@ __d(
           t
         );
       })();
-    ((c.rendererIdCounter = 0), (c.workerPool = new Map()), (l.default = c));
+    ((_.rendererIdCounter = 0), (_.workerPool = new Map()), (l.default = _));
   },
   98,
 );
