@@ -59,6 +59,9 @@ __d(
           (t.newChatEntryPointClicked = function () {
             o("WAWebBBEntryPointLogs").newChatEntryPointClicked(this.$1);
           }),
+          (t.sendMsgMultiModalViewed = function (t) {
+            o("WAWebBBEntryPointLogs").sendMsgMultiModalViewed(this.$1, t);
+          }),
           (t.bbThreadSystemMessageCtaClicked = function () {
             o("WAWebBBEntryPointLogs").bbThreadSystemMessageCtaClicked(this.$1);
           }),

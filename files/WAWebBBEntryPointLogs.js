@@ -75,7 +75,17 @@ __d(
         userActionTarget: t.UserActionTarget.QP_BANNER,
       });
     }
-    function f(e) {
+    function f(e, t) {
+      var n;
+      e({
+        action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: n.ENTRY_POINT.DEEP_LINK,
+        extraAttributes: { attachment_count: t },
+        surface: n.SURFACE_TYPE.CHATLIST,
+        userActionTarget: n.UserActionTarget.SEND_MSG_MULTI_MODAL,
+      });
+    }
+    function g(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.CLICK,
@@ -92,7 +102,8 @@ __d(
       (l.newChatEntryPointClicked = m),
       (l.qpBannerViewed = p),
       (l.qpBannerDismissed = _),
-      (l.bbThreadSystemMessageCtaClicked = f));
+      (l.sendMsgMultiModalViewed = f),
+      (l.bbThreadSystemMessageCtaClicked = g));
   },
   98,
 );

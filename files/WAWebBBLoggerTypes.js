@@ -129,6 +129,7 @@ __d(
         SEND_BROADCAST_BUTTON: "send_broadcast_button",
         SEND_BUTTON: "send_button",
         SEND_CAMPAIGN_ACK: "send_campaign_ack",
+        SEND_MSG_MULTI_MODAL: "send_msg_multi_modal",
         STAR_MESSAGE_BUTTON: "star_message_button",
         SUGGESTED_AUDIENCE_CARD_CLICK: "suggested_audience_card_click",
         SUGGESTED_AUDIENCE_CARD_ERROR: "suggested_audience_card_error",

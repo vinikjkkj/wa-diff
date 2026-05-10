@@ -33,6 +33,7 @@ __d(
     "WAWebMsgType",
     "WAWebMsmsgMsgSecretCache",
     "WAWebSchemaMessage",
+    "WAWebSimpleSignalDowngradeStore",
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWamEnumDeviceType",
@@ -1030,13 +1031,13 @@ __d(
       if (e === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg) {
         var r = t.msgMeta.capi === !0,
           a = t.msgInfo.chat.isGroup();
-        if (
-          (a && r) ||
-          (r &&
-            n.isStateless === !0 &&
-            o("WAWebMessagingGatingUtils").isSimpleSignalEnabled())
-        )
-          return !0;
+        if (a && r) return !0;
+        if (r && o("WAWebMessagingGatingUtils").isSimpleSignalEnabled()) {
+          if (n.isStateless === !0) return !0;
+          o(
+            "WAWebSimpleSignalDowngradeStore",
+          ).markCoexUserDowngradedFromSimpleSignal(t.msgInfo.chat);
+        }
       }
       return !1;
     }
