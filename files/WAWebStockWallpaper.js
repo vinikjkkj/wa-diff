@@ -31,34 +31,40 @@ __d(
       ],
       d = new Set([]);
     function m(e) {
-      var t = u.get(e);
-      return t == null ? null : g(t);
+      var t,
+        n = o("WAWebChatThemeEnums").Theme.cast(String(e));
+      return n == null ? null : (t = u.get(n)) != null ? t : null;
     }
     function p(e) {
-      return m(e);
+      var t = u.get(e);
+      return t == null ? null : h(t);
     }
     function _(e) {
+      return p(e);
+    }
+    function f(e) {
       return u.has(e);
     }
-    function f() {
+    function g() {
       return Array.from(u.keys());
     }
-    function g(e) {
+    function h(e) {
       return s + "?category=wallpaper&id=wallpaper-" + e + "_2x";
     }
-    function h() {
+    function y() {
       return c;
     }
-    function y(e, t) {
+    function C(e, t) {
       return t === "dark" ? !0 : !d.has(e);
     }
-    ((l.getStockWallpaperUrl = m),
-      (l.getStockWallpaperThumbnailUrl = p),
-      (l.hasStockWallpaper = _),
-      (l.getThemesWithStockWallpapers = f),
-      (l.getStockWallpaperUrlByImageId = g),
-      (l.getStockWallpaperPresets = h),
-      (l.isLightSwatchBackground = y));
+    ((l.getDefaultWallpaperIdForTheme = m),
+      (l.getStockWallpaperUrl = p),
+      (l.getStockWallpaperThumbnailUrl = _),
+      (l.hasStockWallpaper = f),
+      (l.getThemesWithStockWallpapers = g),
+      (l.getStockWallpaperUrlByImageId = h),
+      (l.getStockWallpaperPresets = y),
+      (l.isLightSwatchBackground = C));
   },
   98,
 );

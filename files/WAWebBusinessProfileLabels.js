@@ -1,6 +1,6 @@
 __d(
   "WAWebBusinessProfileLabels",
-  ["fbt"],
+  ["fbt", "WAWebClock"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
       return s._(/*BTDS*/ "Business name");
@@ -152,7 +152,10 @@ __d(
       ]);
     }
     function Z() {
-      return s._(/*BTDS*/ 'Please enter a valid time (e.g., "9:00 AM")');
+      var e = o("WAWebClock").Clock.getIs24Hour() ? "09:00" : "9:00 AM";
+      return s._(/*BTDS*/ "Please enter a valid time (e.g., {example})", [
+        s._param("example", e),
+      ]);
     }
     function ee() {
       return s._(/*BTDS*/ "Username");

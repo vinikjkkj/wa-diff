@@ -1040,7 +1040,8 @@ __d(
               this.linkMsgs && this.linkMsgs.delete(),
               this.docMsgs && this.docMsgs.delete(),
               this.productMsgs && this.productMsgs.delete(),
-              this.eventMsgs && this.eventMsgs.delete());
+              this.eventMsgs && this.eventMsgs.delete(),
+              this.keptMsgs && this.keptMsgs.delete());
             var e = this.starredMsgs;
             (e && (e.delete(), e.stopListening(), e.reset()),
               o("WAWebChatGetters").clearChatGetterCacheFor(this),

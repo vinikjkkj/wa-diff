@@ -85,6 +85,27 @@ __d(
           (r.publish = function (t, n) {
             this.$1.publish(t, n);
           }),
+          (r.annotate = function (t) {
+            return this.$1.publishWhenReady("ANNOTATION_COMMAND", t);
+          }),
+          (r.getUpdatedPDFBuffer = function () {
+            var t = this;
+            return new (e || (e = n("Promise")))(function (e, n) {
+              (t.$1.listenOnce(
+                "GET_UPDATED_PDF_BUFFER_RESPONSE",
+                function (t) {
+                  e(t.buffer);
+                },
+                {
+                  timeoutMs: 1e4,
+                  onTimeout: function (t) {
+                    n(t);
+                  },
+                },
+              ),
+                t.$1.publishWhenReady("GET_UPDATED_PDF_BUFFER", {}).catch(n));
+            });
+          }),
           (r.destroy = function () {
             this.$1.destroy();
           }),

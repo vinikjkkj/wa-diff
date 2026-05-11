@@ -240,50 +240,65 @@ __d(
         (a.search = (function () {
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t) {
-              var o,
-                a = Array.from(this.$1.tokenize(e)).filter(
+              var a,
+                i = Array.from(this.$1.tokenize(e)).filter(
                   r("WAFtsIsSearchQueryEligibleForMessageSearch"),
                 );
-              if (a.length === 0)
+              if (i.length === 0)
                 return (c || (c = n("Promise"))).resolve({
                   canceled: !1,
                   eof: !0,
                   status: 200,
                   messages: [],
                 });
-              var i = [
-                  a
+              var l = [
+                  i
                     .map(function (e) {
                       var t = e.replaceAll('"', '""');
                       return '"' + t + '"*';
                     })
                     .join(" AND "),
                 ],
-                l = ["message_fts MATCH ?"],
-                s = t == null ? void 0 : t.remote;
-              s != null && s && (l.push("AND chatId = ?"), i.push(s));
-              var u = yield this.$7([
-                [
+                s = ["message_fts MATCH ?"],
+                u = t == null ? void 0 : t.remote;
+              u != null && u && (s.push("AND chatId = ?"), l.push(u));
+              var d = t == null ? void 0 : t.limit,
+                m = t == null ? void 0 : t.page,
+                p = null,
+                _ =
                   "SELECT t.rowid, t.id, t.chatId, t.timestamp, t.text, rank\n      FROM message t JOIN message_fts f ON t.rowid = f.rowid\n      WHERE " +
-                    l.join(" ") +
-                    "\n      ORDER BY rank",
-                ].concat(i),
-              ]);
-              if (u == null || u.length !== 1)
+                  s.join(" ") +
+                  "\n      ORDER BY rank";
+              if (
+                o("WAWebABProps").getABPropConfigValue(
+                  "web_anr_async_sqlite_bridge_operations",
+                ) &&
+                typeof d == "number" &&
+                d > 0
+              ) {
+                p = d;
+                var f = typeof m == "number" && m > 0 ? m : 1,
+                  g = (f - 1) * p;
+                ((_ += "\n      LIMIT ? OFFSET ?"),
+                  l.push(String(p), String(g)));
+              }
+              var h = yield this.$7([[_].concat(l)]);
+              if (h == null || h.length !== 1)
                 return (c || (c = n("Promise"))).resolve({
                   canceled: !1,
                   eof: !0,
                   status: 404,
                   messages: [],
                 });
-              var d = ((o = u[0].Rows) != null ? o : []).map(function (e) {
-                return {
-                  id: String(e[1]),
-                  chatId: String(e[2]),
-                  timestamp: parseInt(e[3], 10),
-                };
-              });
-              return this.$10({ eof: !0, status: 200, messages: d });
+              var y = ((a = h[0].Rows) != null ? a : []).map(function (e) {
+                  return {
+                    id: String(e[1]),
+                    chatId: String(e[2]),
+                    timestamp: parseInt(e[3], 10),
+                  };
+                }),
+                C = p == null || y.length < p;
+              return this.$10({ eof: C, status: 200, messages: y });
             },
           );
           function t(t, n) {

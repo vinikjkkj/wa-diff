@@ -18,11 +18,15 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      var e = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-        t = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
-          e,
+      var e,
+        t =
+          (e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) != null
+            ? e
+            : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+        n = o("WAWebBusinessProfileCollection").BusinessProfileCollection.get(
+          t,
         );
-      return (t == null ? void 0 : t.isBizBot1p) === !0;
+      return (n == null ? void 0 : n.isBizBot1p) === !0;
     }
     function s(t) {
       var n = o("WAWebContactGetters").getIsMe(t.contact),

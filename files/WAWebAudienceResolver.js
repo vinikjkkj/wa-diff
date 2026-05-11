@@ -29,7 +29,7 @@ __d(
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           return e.type ===
             o("WAWebAudienceExpressionTypes").EXPRESSION_TYPE_EXPLICIT
-            ? Array.from(e.userJids)
+            ? Array.from(new Set(e.userJids))
             : e.type ===
                 o("WAWebAudienceExpressionTypes").EXPRESSION_TYPE_PREDICATE
               ? d(e.predicateType, e.params)

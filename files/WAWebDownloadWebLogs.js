@@ -127,7 +127,7 @@ __d(
           return r;
         })
         .then(function (e) {
-          o("WAWebFileSaver").FileSaver.downloadData(
+          return o("WAWebFileSaver").FileSaver.downloadData(
             e,
             e.type === "text/plain" ? r : r + ".txt",
             e.type === "text/plain"
@@ -181,16 +181,18 @@ __d(
         var m = a ? g : "web_client_log_" + s,
           p = new Blob([i], { type: "text/plain" }),
           _ = p;
-        (p.size > 10 * c &&
-          (t.push(i, !0),
-          (_ = new Blob([t.result()], { type: "application/zip" }))),
+        return (
+          p.size > 10 * c &&
+            (t.push(i, !0),
+            (_ = new Blob([t.result()], { type: "application/zip" }))),
           o("WAWebFileSaver").FileSaver.downloadData(
             _,
             _.type === "text/plain" ? m : m + ".txt",
             _.type === "text/plain"
               ? o("WAWebFileSaverTypes").AllowedFileExtensions.TXT
               : o("WAWebFileSaverTypes").AllowedFileExtensions.ZIP,
-          ));
+          )
+        );
       });
     }
     function h(e, t, n) {
