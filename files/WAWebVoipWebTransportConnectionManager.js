@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WALogger",
+    "WAWebCoreActionsODS",
     "WAWebVoipRelayConnectionUtils",
     "asyncToGeneratorRuntime",
     "err",
@@ -76,7 +77,8 @@ __d(
     }
     function H(e, t) {
       (V(e),
-        (e.state = o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed));
+        (e.state = o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed),
+        F || o("WAWebCoreActionsODS").logCallWebtransportConnectFailed());
       var n = e.clusterDomain;
       (n != null && A.get(n) === t && A.delete(n), P.delete(t));
     }
@@ -202,7 +204,8 @@ __d(
                     "",
                   ])),
                 t,
-              ));
+              ),
+              o("WAWebCoreActionsODS").logCallWebtransportConnectAttempted());
             var i = P.get(t);
             (i == null && ((i = U(t, e)), P.set(t, i)),
               (i.state = o(
@@ -305,6 +308,7 @@ __d(
                     ])),
                   t,
                 ),
+                o("WAWebCoreActionsODS").logCallWebtransportConnectSucceeded(),
                 (i.datagramWriter = l.datagrams.writable.getWriter()),
                 z(i, t),
                 yield Y(t),

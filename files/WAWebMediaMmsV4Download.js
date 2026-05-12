@@ -21,6 +21,7 @@ __d(
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaLoad",
     "WAWebMediaOpaqueData",
+    "WAWebMediaSetSuspiciousContent",
     "WAWebMediaTypes",
     "WAWebMimeTypes",
     "WAWebMiscErrors",
@@ -161,6 +162,11 @@ __d(
                   });
                 },
                 onProgress: n,
+                onSuspiciousContent: function (n) {
+                  return o(
+                    "WAWebMediaSetSuspiciousContent",
+                  ).setSuspiciousContentOnMediaObject(e.mediaObject, n);
+                },
                 userDownloadAttemptCount:
                   e.mediaObject.userDownloadAttemptCount,
                 downloadOrigin: e.downloadOrigin,

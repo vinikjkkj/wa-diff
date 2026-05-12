@@ -97,7 +97,7 @@ __d(
                   e(t.buffer);
                 },
                 {
-                  timeoutMs: 1e4,
+                  timeoutMs: s,
                   onTimeout: function (t) {
                     n(t);
                   },

@@ -36,6 +36,7 @@ __d(
                 (a = new Error(
                   o("ContextualConfigConstants").ERROR.MISSING_BUCKET_MATCH,
                 )),
+                a.stack,
                 l
               );
             var c = u[0],

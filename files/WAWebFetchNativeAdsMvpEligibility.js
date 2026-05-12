@@ -56,8 +56,8 @@ __d(
                             c,
                             { phone_number: t },
                             {
-                              environmentType: "facebook",
                               accessToken: e.token,
+                              environmentType: "facebook",
                             },
                           );
                         })
@@ -82,7 +82,7 @@ __d(
                               is_page_asset_linked: n != null ? n : !1,
                               is_pageless_asset_linked: r != null ? r : !1,
                             },
-                            u = { type: "success", data: l };
+                            u = { data: l, type: "success" };
                           return (
                             o("WALogger").LOG(
                               s ||

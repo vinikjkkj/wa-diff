@@ -72,8 +72,8 @@ __d(
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[history sync] updated ",
-                  " chats end of history transfer type => ",
+                  "[history sync] ",
+                  " chats transferType => ",
                   "",
                 ])),
               e.length,
@@ -86,7 +86,7 @@ __d(
                 : o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[history sync] bulkUpdateEndOfHistorySync: chat merge failed: ",
+                        "[history sync] bulkUpdateEndOfHistorySync merge fail: ",
                         "",
                       ])),
                     e.reason,

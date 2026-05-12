@@ -34,6 +34,7 @@ __d(
     "WAWebMmsMediaTypes",
     "WAWebNetworkType",
     "WAWebSerializeError",
+    "WAWebSuspiciousContent",
     "WAWebValidateMediaFilehash",
     "WAWebWamEnumDownloadOriginType",
     "WAWebWamMsgUtils",
@@ -143,18 +144,35 @@ __d(
                                 var g = f.value,
                                   h = g.mimetype,
                                   y = g.score;
-                                (d.addPoint("kaleidoscope_classify_end", {
+                                d.addPoint("kaleidoscope_classify_end", {
                                   string: { ksMimeType: h },
                                   int: { ksScore: y },
-                                }),
-                                  A({
-                                    ksScore: y,
-                                    ksMimeType: h,
-                                    rawMimeType: p,
-                                    mediaType: a.type,
-                                  }));
+                                });
+                                var C = A({
+                                  ksScore: y,
+                                  ksMimeType: h,
+                                  rawMimeType: p,
+                                  mediaType: a.type,
+                                });
+                                if (
+                                  C ===
+                                  o("WAWebSuspiciousContent")
+                                    .WAWebSuspiciousContent.YES
+                                )
+                                  throw new (o(
+                                    "WAWebMiscErrors",
+                                  ).InvalidMediaFileType)(
+                                    "Kaleidoscope dangerous score " +
+                                      y +
+                                      " for media type " +
+                                      a.type,
+                                    a.type,
+                                    p,
+                                  );
+                                a.onSuspiciousContent == null ||
+                                  a.onSuspiciousContent(C);
                               } else {
-                                var C;
+                                var b;
                                 (o("WALogger").WARN(
                                   e ||
                                     (e =
@@ -169,8 +187,8 @@ __d(
                                   d.addPoint(f.error.errorName, {
                                     string: {
                                       ksFailReason:
-                                        (C = f.error.errorMessage) != null
-                                          ? C
+                                        (b = f.error.errorMessage) != null
+                                          ? b
                                           : f.error.errorName,
                                     },
                                   }),
@@ -186,16 +204,16 @@ __d(
                                   "WAWebMediaGatingUtils",
                                 ).isDownloadMimeTypeCheckBlockEnabled())
                             ) {
-                              var b = o(
+                              var v = o(
                                   "WAWebMmsMediaTypes",
                                 ).mediaTypeToMsgTypeSupportedByAllowlist(
                                   a.type,
                                 ),
-                                v = !1;
-                              if (b != null) {
-                                var S =
-                                  o("WAWebMmsMediaTypes").getValidMimeTypes(b);
-                                S == null
+                                S = !1;
+                              if (v != null) {
+                                var R =
+                                  o("WAWebMmsMediaTypes").getValidMimeTypes(v);
+                                R == null
                                   ? (o("WALogger")
                                       .WARN(
                                         s ||
@@ -207,16 +225,16 @@ __d(
                                                 ")",
                                               ],
                                             )),
-                                        b,
+                                        v,
                                         a.type,
                                       )
                                       .tags("media")
                                       .sendLogs(
                                         "no-mimetype-allowlist-for-msg-type-" +
-                                          b,
+                                          v,
                                       ),
-                                    (v = !0))
-                                  : S.has(p) ||
+                                    (S = !0))
+                                  : R.has(p) ||
                                     (o("WALogger")
                                       .WARN(
                                         u ||
@@ -236,7 +254,7 @@ __d(
                                         "unexpected-mimetype-for-media-type-" +
                                           a.type,
                                       ),
-                                    (v = !0));
+                                    (S = !0));
                               } else
                                 p.toLowerCase() === "image/svg+xml" &&
                                   (o("WALogger")
@@ -253,9 +271,9 @@ __d(
                                     )
                                     .tags("media", "security")
                                     .sendLogs("blocked-svg-mimetype"),
-                                  (v = !0));
+                                  (S = !0));
                               if (
-                                v &&
+                                S &&
                                 o(
                                   "WAWebMediaGatingUtils",
                                 ).isDownloadMimeTypeCheckBlockEnabled()
@@ -870,9 +888,8 @@ __d(
         n = e.ksScore,
         r = e.mediaType,
         a = e.rawMimeType;
-      if (n >= 90)
-        throw (
-          o("WALogger")
+      return n >= 90
+        ? (o("WALogger")
             .WARN(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -887,32 +904,25 @@ __d(
               t,
               a,
             )
-            .tags("media", "security")
-            .sendLogs("ks-dangerous-score-" + r),
-          new (o("WAWebMiscErrors").InvalidMediaFileType)(
-            "Kaleidoscope dangerous score " + n + " for media type " + r,
-            r,
-            a,
-          )
-        );
-      n >= 80 &&
-        o("WALogger")
-          .WARN(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "[DownloadManager] Kaleidoscope suspicious score ",
-                " for media type ",
-                " (detected ",
-                ", declared ",
-                ")",
-              ])),
-            n,
-            r,
-            t,
-            a,
-          )
-          .tags("media", "security")
-          .sendLogs("ks-suspicious-score-" + r);
+            .tags("media", "security"),
+          o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES)
+        : n >= 80
+          ? (o("WALogger").WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[DownloadManager] Kaleidoscope suspicious score ",
+                  " for media type ",
+                  " (detected ",
+                  ", declared ",
+                  ")",
+                ])),
+              n,
+              r,
+              t,
+              a,
+            ),
+            o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES_KEEP)
+          : o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO;
     }
     function F(e) {
       var t = e.downloadOrigin,
@@ -932,7 +942,7 @@ __d(
       return n == null;
     }
     var O = new T();
-    l.downloadManager = O;
+    ((l.enforceKaleidoscopeScore = A), (l.downloadManager = O));
   },
   98,
 );

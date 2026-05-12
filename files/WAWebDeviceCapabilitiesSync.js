@@ -201,7 +201,7 @@ __d(
                               g = o(
                                 "WAWebBizBroadcastDeviceCapabilityCommon",
                               ).getPrimarySupportsBusinessBroadcast();
-                            f !== g &&
+                            (f !== g &&
                               (o(
                                 "WAWebBizBroadcastDeviceCapabilityCommon",
                               ).saveBizBroadcastCapabilityToStorage(f),
@@ -211,7 +211,12 @@ __d(
                                 ).workerSafeFireAndForget(
                                   "loadQuickPromotions",
                                   { trigger: "prefetch" },
-                                ));
+                                )),
+                              o(
+                                "WAWebBizBroadcastDeviceCapabilityCommon",
+                              ).saveBizBroadcastRecipientLimitToStorage(
+                                _ == null ? void 0 : _.recipientLimit,
+                              ));
                           }
                         }
                       }

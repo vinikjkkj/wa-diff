@@ -6,6 +6,7 @@ __d(
     "PHPStrictQuerySerializer",
     "URIRFC3986",
     "URISchemes",
+    "err",
     "isSameOrigin",
     "setHostSubdomain",
   ],
@@ -95,7 +96,7 @@ __d(
             p.userinfo !== null)
           ) {
             if (l)
-              throw new Error(
+              throw r("err")(
                 "URI.parse: invalid URI (userinfo is not allowed in a URI): " +
                   c,
               );
@@ -103,7 +104,7 @@ __d(
           }
           if (!a.getDomain() && a.getPath().indexOf("\\") !== -1) {
             if (l)
-              throw new Error(
+              throw r("err")(
                 "URI.parse: invalid URI (no domain but multiple back-slashes): " +
                   c,
               );
@@ -111,7 +112,7 @@ __d(
           }
           if (!c.startsWith("#") && !a.getProtocol() && m.test(c)) {
             if (l)
-              throw new Error(
+              throw r("err")(
                 "URI.parse: invalid URI (unsafe protocol-relative URLs): " +
                   c +
                   "'",
@@ -120,7 +121,7 @@ __d(
           }
           if (a.getDomain() && a.getPath() && !a.getPath().startsWith("/")) {
             if (l)
-              throw new Error(
+              throw r("err")(
                 "URI.parse: invalid URI (domain and path where path lacks leading slash): " +
                   c,
               );
@@ -140,7 +141,7 @@ __d(
             a.enforceProtocolRequiresDomain())
           ) {
             if (l)
-              throw new Error(
+              throw r("err")(
                 "URI.parse: invalid URI (protocol and path but no domain): " +
                   c,
               );
@@ -176,7 +177,7 @@ __d(
           }),
           (n.setDomain = function (t) {
             if (d.test(t))
-              throw new Error(
+              throw r("err")(
                 "URI.setDomain: unsafe domain specified: " +
                   t +
                   " for url " +

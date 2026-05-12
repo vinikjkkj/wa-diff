@@ -30,15 +30,19 @@ __d(
       b = "pn",
       v = "value_prop",
       S = "redirect_url",
-      R = function (t, n, r, o) {
-        var e = new URLSearchParams();
+      R = function (t) {
+        var e = t.adCreationUrl,
+          n = t.nonce,
+          r = t.pageId,
+          o = t.phoneNumber,
+          a = new URLSearchParams();
         return (
-          e.append(C, t),
-          e.append(b, n),
-          e.append(v, "Ads"),
-          r != null && e.append(p, r),
-          e.append(S, o),
-          y + e.toString()
+          a.append(C, n),
+          a.append(b, o),
+          a.append(v, "Ads"),
+          r != null && a.append(p, r),
+          a.append(S, e),
+          y + a.toString()
         );
       };
     function L(e) {
@@ -87,12 +91,14 @@ __d(
                 ),
                 r("err")("[ctwa] AdCreation URL Nonce is null")
               );
-            return R(
-              S,
-              o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE().user,
-              l,
-              c + i.toString(),
-            );
+            return R({
+              adCreationUrl: c + i.toString(),
+              nonce: S,
+              pageId: l,
+              phoneNumber: o(
+                "WAWebUserPrefsMeUser",
+              ).getMePnUserOrThrow_DO_NOT_USE().user,
+            });
           }
           return c + i.toString();
         })),

@@ -5,6 +5,7 @@ __d(
     "BootloaderEvents",
     "ClientConsistencyEventEmitter",
     "CometRouterSSREntrypoint",
+    "JSResourceReference",
     "cometAsyncFetch",
     "gkx",
     "performanceAbsoluteNow",
@@ -81,15 +82,16 @@ __d(
       }
     }
     function c(e, t) {
-      var n = o("CometRouterSSREntrypoint").processRootEntryPointData(
-          e,
-          t,
-        ).queries,
-        r = n.map(function (e) {
+      var n = o(
+          "CometRouterSSREntrypoint",
+        ).processRootEntryPointDataWithJSResources(e, t),
+        a = n.queries,
+        i = n.roots,
+        l = a.map(function (e) {
           var t = e.name;
           return t;
         });
-      u(r);
+      (u(l), r("JSResourceReference").loadAll(i, function () {}));
     }
     var d = {
       fetchPredictedEntryPointResources: c,

@@ -7,6 +7,7 @@ __d(
     "WAWebMexCreateInviteCodeJob",
     "WAWebOutContactInviteGating",
     "WAWebOutContactInviteUtils",
+    "WAWebOutContactLoggingUtils",
     "WAWebPhoneNumberSearch",
     "WAWebToast.react",
     "WAWebToastManager",
@@ -41,16 +42,19 @@ __d(
               ),
               !1
             );
-          var a;
+          var a,
+            i = !1,
+            l;
           try {
-            var i = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
+            var c = yield o("WAWebMexCreateInviteCodeJob").mexCreateInviteCode(
               r,
-              n,
+              n.toString(),
             );
-            i != null
-              ? (a = o(
+            c != null
+              ? ((a = o(
                   "WAWebOutContactInviteUtils",
-                ).getInviteMessageTextWithCode(i))
+                ).getInviteMessageTextWithCode(c)),
+                (i = !0))
               : (a = o("WAWebOutContactInviteUtils").getInviteMessageText());
           } catch (e) {
             (o("WALogger").ERROR(
@@ -68,11 +72,17 @@ __d(
                   ),
                 }),
               ),
+              (l = String(e)),
               (a = o("WAWebOutContactInviteUtils").getInviteMessageText()));
           }
-          var l = encodeURIComponent(a),
-            c = window.open("sms:+" + r + "?body=" + l);
-          return (_(c == null), c != null);
+          o("WAWebOutContactLoggingUtils").logOneToOneInviteContact({
+            entryPoint: n,
+            inviteCodeError: l,
+            validInviteCode: i,
+          });
+          var m = encodeURIComponent(a),
+            p = window.open("sms:+" + r + "?body=" + m);
+          return (_(p == null), p != null);
         })),
         p.apply(this, arguments)
       );
@@ -99,15 +109,16 @@ __d(
         });
       if (r.length === 0) return !1;
       var a = o("WAWebOutContactInviteUtils").getMultiGroupInviteMessageText(),
-        i = encodeURIComponent(a);
-      o("WAWebOutContactInviteUtils").storeMultiGroupInviteSms(t, r, n);
-      var l = r
+        i = encodeURIComponent(a),
+        l = o("WAWebOutContactLoggingUtils").createCompanionInviteSessionId();
+      o("WAWebOutContactLoggingUtils").logMultiGroupInviteContacts(t, r, n, l);
+      var s = r
           .map(function (e) {
             return "+" + e;
           })
           .join(","),
-        s = window.open("sms://open?addresses=" + l + "&body=" + i);
-      return (_(s == null), s != null);
+        u = window.open("sms://open?addresses=" + s + "&body=" + i);
+      return (_(u == null), u != null);
     }
     ((l.sendInvite = m), (l.sendMultiGroupInvite = f));
   },

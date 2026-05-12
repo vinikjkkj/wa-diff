@@ -493,7 +493,11 @@ __d(
             i.type !== "addon" && (I = I.then(S)),
             (I = I.then(function () {
               if (y.aborted) throw new (o("WAAbortError").AbortError)();
-              return o("WAWebChatSendMessages").sendDeleteMsgs(a, i, l);
+              return o("WAWebChatSendMessages").sendDeleteMsgs({
+                chat_: a,
+                clearMedia: l,
+                record: i,
+              });
             })
               .then(function (e) {
                 if (

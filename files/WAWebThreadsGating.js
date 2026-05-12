@@ -2,20 +2,26 @@ __d(
   "WAWebThreadsGating",
   ["WAWebABProps", "WAWebChatGetters", "justknobx"],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    var e = Object.freeze({
+      DISABLED: 0,
+      LABEL_ONLY: 1,
+      LABEL_AND_CONTEXT_MENU: 2,
+      CONTEXT_MENU_ONLY: 3,
+    });
+    function s() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_threads_infra_enabled",
       );
     }
-    function s() {
+    function u() {
       return o("WAWebABProps").getABPropConfigValue(
         "view_replies_infra_enabled",
       );
     }
-    function u() {
+    function c() {
       return o("WAWebABProps").getABPropConfigValue("hide_auto_quotes_on_web");
     }
-    function c() {
+    function d() {
       return (
         r("justknobx")._("3927") &&
         o("WAWebABProps").getABPropConfigValue(
@@ -23,44 +29,55 @@ __d(
         )
       );
     }
-    function d() {
+    function m() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_follow_up_reply_icon",
       );
     }
-    function m(e) {
-      if (
-        (!o("WAWebChatGetters").getIsUser(e) &&
-          !o("WAWebChatGetters").getIsGroup(e)) ||
-        o("WAWebChatGetters").getIsBot(e)
-      )
-        return !1;
-      var t = o("WAWebABProps").getABPropConfigValue(
+    function p(e) {
+      return !o("WAWebChatGetters").getIsUser(e) &&
+        !o("WAWebChatGetters").getIsGroup(e)
+        ? !1
+        : !o("WAWebChatGetters").getIsBot(e);
+    }
+    function _(t) {
+      if (!p(t)) return !1;
+      var n = o("WAWebABProps").getABPropConfigValue(
         "view_replies_entry_point",
       );
-      return t === 1 || t === 2;
+      return n === e.LABEL_ONLY || n === e.LABEL_AND_CONTEXT_MENU;
     }
-    function p() {
+    function f(t) {
+      if (!p(t)) return !1;
+      var n = o("WAWebABProps").getABPropConfigValue(
+        "view_replies_entry_point",
+      );
+      return n === e.LABEL_AND_CONTEXT_MENU || n === e.CONTEXT_MENU_ONLY;
+    }
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "view_replies_is_composer_enabled",
       );
     }
-    function _() {
+    function h() {
       return (
-        s() &&
+        u() &&
         o("WAWebABProps").getABPropConfigValue(
           "view_replies_with_threadid_enabled",
         )
       );
     }
-    ((l.isThreadsInfraEnabled = e),
-      (l.isViewRepliesInfraEnabled = s),
-      (l.shouldHideAutoQuote = u),
-      (l.isThreadLoadingInfraEnabled = c),
-      (l.isFollowUpReplyEnabled = d),
-      (l.isViewRepliesEntryPointEnabled = m),
-      (l.isViewRepliesComposerEnabled = p),
-      (l.isViewRepliesThreadIdEnabled = _));
+    ((l.ViewRepliesEntryPoint = e),
+      (l.isThreadsInfraEnabled = s),
+      (l.isViewRepliesInfraEnabled = u),
+      (l.shouldHideAutoQuote = c),
+      (l.isThreadLoadingInfraEnabled = d),
+      (l.isFollowUpReplyEnabled = m),
+      (l.isViewRepliesSupportedChat = p),
+      (l.isViewRepliesEntryPointEnabled = _),
+      (l.isViewRepliesContextMenuEnabled = f),
+      (l.isViewRepliesComposerEnabled = g),
+      (l.isViewRepliesThreadIdEnabled = h));
   },
   98,
 );

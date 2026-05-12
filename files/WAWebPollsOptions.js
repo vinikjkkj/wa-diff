@@ -5,6 +5,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebPollCreationUtils",
     "WAWebPollsOptionRow",
+    "compactMap",
     "react",
     "react-compiler-runtime",
     "useWAWebPollAssociatedMessagesMap",
@@ -46,7 +47,7 @@ __d(
         E = n.length > 0 && n.length > L.size,
         k;
       t[4] !== n
-        ? ((k = n.map(d).filter(Boolean)), (t[4] = n), (t[5] = k))
+        ? ((k = r("compactMap")(n, d)), (t[4] = n), (t[5] = k))
         : (k = t[5]);
       var I = k,
         T;

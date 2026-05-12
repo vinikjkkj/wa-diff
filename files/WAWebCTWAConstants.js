@@ -23,13 +23,13 @@ __d(
       g = 20 * 1e3,
       h = 20 * 1e3,
       y = Object.freeze({
-        NEW_CUSTOMER: 1,
-        NEW_ORDER: 2,
-        PENDING_PAYMENT: 3,
-        PAID: 4,
-        ORDER_COMPLETE: 5,
         FOLLOW_UP: 7,
         LEAD: 8,
+        NEW_CUSTOMER: 1,
+        NEW_ORDER: 2,
+        ORDER_COMPLETE: 5,
+        PAID: 4,
+        PENDING_PAYMENT: 3,
       }),
       C = new Set(
         Object.keys(y).map(function (e) {

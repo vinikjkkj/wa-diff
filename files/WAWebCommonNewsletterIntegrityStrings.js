@@ -2,12 +2,10 @@ __d(
   "WAWebCommonNewsletterIntegrityStrings",
   [
     "fbt",
-    "WACcToIso",
-    "WAPhoneFindCC",
     "WAWebCountriesUtils",
     "WAWebExternalLink.react",
     "WAWebFaqUrl",
-    "WAWebUserPrefsMeUser",
+    "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
     "asyncToGeneratorRuntime",
     "react",
   ],
@@ -23,29 +21,31 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e || {},
             n = t.countryCode,
-            a = t.isPreview,
-            i = a === void 0 ? !0 : a,
-            l;
+            r = t.isPreview,
+            a = r === void 0 ? !0 : r,
+            i;
           if (
             (n != null &&
-              (l = yield o("WAWebCountriesUtils").getCountryNameFromCountryCode(
+              (i = yield o("WAWebCountriesUtils").getCountryNameFromCountryCode(
                 n,
               )),
-            l == null)
+            i == null)
           ) {
-            var u = o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              c = u.user,
-              d = o("WAPhoneFindCC").findCC(c),
-              m = r("WACcToIso")[parseInt(d, 10)];
-            l = yield o("WAWebCountriesUtils").getCountryNameFromCountryCode(m);
+            var l = o(
+              "WAWebLinkDevicePhoneNumberEntryInputFormatUtils",
+            ).getMaybeMyCountryCodeIso();
+            ((i = yield o("WAWebCountriesUtils").getCountryNameFromCountryCode(
+              l,
+            )),
+              i == null && (i = s._(/*BTDS*/ "your country")));
           }
-          return i
+          return a
             ? s._(/*BTDS*/ "This channel is closed in {country_name}", [
-                s._param("country_name", l),
+                s._param("country_name", i),
               ])
             : s._(
                 /*BTDS*/ "Channel history and new updates are not available in {country_name}.",
-                [s._param("country_name", l)],
+                [s._param("country_name", i)],
               );
         })),
         d.apply(this, arguments)

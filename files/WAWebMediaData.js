@@ -6,6 +6,7 @@ __d(
     "WAWebMediaCleanFileName",
     "WAWebMediaInMemoryBlobCache",
     "WAWebMediaTypes",
+    "WAWebSuspiciousContent",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -77,6 +78,9 @@ __d(
           )),
           (t.swStreamingSupported = o("WAWebBaseModel").prop(!1)),
           (t.$MediaData$p_1 = o("WAWebBaseModel").prop(!1)),
+          (t.suspiciousContent = o("WAWebBaseModel").prop(
+            o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO,
+          )),
           (t.filename = o("WAWebBaseModel").prop()),
           (t.pageCount = o("WAWebBaseModel").prop()),
           (t.documentPreview = o("WAWebBaseModel").prop()),

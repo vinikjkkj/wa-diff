@@ -13,7 +13,7 @@ __d(
       var n = o("WASmaxParseJid").attrJidEnum(
         e,
         "from",
-        o("WASmaxInPresenceEnums").GROUPJID_USERJID,
+        o("WASmaxInPresenceEnums").GROUPJID_LIDUSERJID,
       );
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optionalLiteral(

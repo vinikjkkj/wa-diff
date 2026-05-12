@@ -239,7 +239,7 @@ __d(
         case o("WAWebVoipWaCallEnums").CallResult.Unavailable:
           return t != null && t > 0
             ? o("WAWebCallLogMsgData.flow").CallOutcome.Failed
-            : o("WAWebCallLogMsgData.flow").CallOutcome.Unknown;
+            : o("WAWebCallLogMsgData.flow").CallOutcome.Missed;
         case o("WAWebVoipWaCallEnums").CallResult.Undefined:
           return o("WAWebCallLogMsgData.flow").CallOutcome.Unknown;
       }
@@ -260,7 +260,7 @@ __d(
         case o("WAWebVoipWaCallEnums").CallLogResult.Unavailable:
           return t != null && t > 0
             ? o("WAWebCallLogMsgData.flow").CallOutcome.Failed
-            : o("WAWebCallLogMsgData.flow").CallOutcome.Unknown;
+            : o("WAWebCallLogMsgData.flow").CallOutcome.Missed;
         case o("WAWebVoipWaCallEnums").CallLogResult.Failed:
           return o("WAWebCallLogMsgData.flow").CallOutcome.Failed;
         case o("WAWebVoipWaCallEnums").CallLogResult.Invalid:

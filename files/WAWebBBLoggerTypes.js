@@ -17,6 +17,7 @@ __d(
         ADD_AUDIENCE_BUTTON: "add_audience_button",
         ADD_CTA_BUTTON: "add_cta_button",
         ADD_FUNDS_WIZARD: "add_funds_wizard",
+        ATTACHMENT_CATALOG_REMOVE_BUTTON: "attachment_catalog_remove_button",
         ATTACHMENT_DOCUMENT_PREVIEW_BUTTON:
           "attachment_document_preview_button",
         ATTACHMENT_DOCUMENT_REMOVE_BUTTON: "attachment_document_remove_button",
@@ -28,6 +29,7 @@ __d(
         ATTACHMENT_VIDEO_PREVIEW_BUTTON: "attachment_video_preview_button",
         ATTACHMENT_VIDEO_REMOVE_BUTTON: "attachment_video_remove_button",
         ATTACHMENTS_CAMERA_DROPDOWN: "attachments_camera_dropdown",
+        ATTACHMENTS_CATALOG_DROPDOWN: "attachments_catalog_dropdown",
         ATTACHMENTS_DOCUMENT_DROPDOWN: "attachments_document_dropdown",
         ATTACHMENTS_IMAGE_VIDEOS_DROPDOWN: "attachments_image_videos_dropdown",
         AUDIENCE_INFO_BUTTON: "audience_info_button",

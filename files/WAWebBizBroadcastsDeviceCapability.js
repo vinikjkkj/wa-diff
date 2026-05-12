@@ -25,17 +25,14 @@ __d(
               o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
               ':0@s.whatsapp.net"]',
             n = yield o("WAWebSyncdDb").getSyncAction(t);
-          if ((n == null ? void 0 : n.binarySyncData) == null) return !1;
-          var r =
-            (e = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-              n.binarySyncData,
-            ).value) == null ||
-            (e = e.deviceCapabilities) == null ||
-            (e = e.businessBroadcast) == null
+          return (n == null ? void 0 : n.binarySyncData) == null
+            ? null
+            : (e = o("decodeProtobuf").decodeProtobuf(
+                  o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+                  n.binarySyncData,
+                ).value) == null || (e = e.deviceCapabilities) == null
               ? void 0
-              : e.importListEnabled;
-          return !!r;
+              : e.businessBroadcast;
         })),
         s.apply(this, arguments)
       );
@@ -46,26 +43,8 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t =
-              '["' +
-              o("WASyncdConst").Actions.DeviceCapabilities +
-              '","' +
-              o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE().user +
-              ':0@s.whatsapp.net"]',
-            n = yield o("WAWebSyncdDb").getSyncAction(t);
-          if ((n == null ? void 0 : n.binarySyncData) == null) return !1;
-          var r =
-            (e = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-              n.binarySyncData,
-            ).value) == null || (e = e.deviceCapabilities) == null
-              ? void 0
-              : e.businessBroadcast;
-          return (
-            !!(r != null && r.companionSupportEnabled) &&
-            !!(r != null && r.campaignSyncEnabled)
-          );
+          var t = yield e();
+          return !!(t != null && t.importListEnabled);
         })),
         c.apply(this, arguments)
       );
@@ -76,19 +55,42 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebMobilePlatforms").isSMB()) {
-            var e = yield u();
-            o(
-              "WAWebBizBroadcastDeviceCapabilityCommon",
-            ).saveBizBroadcastCapabilityToStorage(e);
-          }
+          var t = yield e();
+          return (
+            !!(t != null && t.companionSupportEnabled) &&
+            !!(t != null && t.campaignSyncEnabled)
+          );
         })),
         m.apply(this, arguments)
       );
     }
-    ((l.getPrimarySupportsBusinessBroadcastListImport = e),
-      (l.getPrimarySupportsBusinessBroadcastCompanionAndCampaignSync = u),
-      (l.bootstrapBizBroadcastPrimaryCapability = d));
+    function p() {
+      return _.apply(this, arguments);
+    }
+    function _() {
+      return (
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          if (o("WAWebMobilePlatforms").isSMB()) {
+            var t = yield e(),
+              n =
+                !!(t != null && t.companionSupportEnabled) &&
+                !!(t != null && t.campaignSyncEnabled);
+            (o(
+              "WAWebBizBroadcastDeviceCapabilityCommon",
+            ).saveBizBroadcastCapabilityToStorage(n),
+              o(
+                "WAWebBizBroadcastDeviceCapabilityCommon",
+              ).saveBizBroadcastRecipientLimitToStorage(
+                t == null ? void 0 : t.recipientLimit,
+              ));
+          }
+        })),
+        _.apply(this, arguments)
+      );
+    }
+    ((l.getPrimarySupportsBusinessBroadcastListImport = u),
+      (l.getPrimarySupportsBusinessBroadcastCompanionAndCampaignSync = d),
+      (l.bootstrapBizBroadcastPrimaryCapability = p));
   },
   98,
 );

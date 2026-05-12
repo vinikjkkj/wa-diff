@@ -215,6 +215,21 @@ __d(
       return (n = o == null ? void 0 : o.status) != null ? n : u.Pending;
     }
     function R(e, t) {
+      var n = f(e, t);
+      if (n == null) return !1;
+      var r = d(n);
+      if (r == null) return !1;
+      var a =
+          r.status == null ||
+          r.status === u.Pending ||
+          r.status === u.PaymentRequested,
+        i =
+          r.paymentStatus == null ||
+          r.paymentStatus ===
+            o("WAWebOrderPaymentStatus").OrderPaymentStatus.Pending;
+      return !(a && i);
+    }
+    function L(e, t) {
       var n = g(e, t),
         a = null;
       if (
@@ -240,7 +255,7 @@ __d(
       }
       return a;
     }
-    var L = function (t, n) {
+    var E = function (t, n) {
       var e = t.msgs.reduce(
           function (e, t) {
             var r,
@@ -283,8 +298,9 @@ __d(
       (l.isCharge = b),
       (l.getDefaultOrderStatus = v),
       (l.findOrderStatus = S),
-      (l.findOrderPaymentStatus = R),
-      (l.getMergedOrderStatus = L));
+      (l.hasOrderStatusUpdatedFromPending = R),
+      (l.findOrderPaymentStatus = L),
+      (l.getMergedOrderStatus = E));
   },
   98,
 );

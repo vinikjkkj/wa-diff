@@ -13,6 +13,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
+    "WAWebVoipUiManager",
     "WDSText.react",
     "asyncToGeneratorRuntime",
     "react",
@@ -248,6 +249,10 @@ __d(
               )
             : (r("WAWebCallCollection").setActiveCall(null),
               r("WAWebCallCollection").setIsInConnectedCall(!1)),
+            o("WAWebVoipUiManager").closeAllVoipWindows({
+              callEnded: !0,
+              surveyInteracted: !1,
+            }),
             C(s._(/*BTDS*/ "Unable to connect.")));
         })),
         T.apply(this, arguments)
@@ -273,6 +278,10 @@ __d(
               )
             : (r("WAWebCallCollection").setActiveCall(null),
               r("WAWebCallCollection").setIsInConnectedCall(!1)),
+            o("WAWebVoipUiManager").closeAllVoipWindows({
+              callEnded: !0,
+              surveyInteracted: !1,
+            }),
             C(s._(/*BTDS*/ "Call preview has timed out.")));
         })),
         x.apply(this, arguments)

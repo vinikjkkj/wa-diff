@@ -3,7 +3,7 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = function (t, n) {
-        throw new Error(
+        var e = new Error(
           t +
             ": [" +
             n
@@ -13,6 +13,7 @@ __d(
               .toString() +
             "]",
         );
+        throw (e.stack, e);
       },
       l = function (n) {
         e("Invalid UTF-8 sequence", n);

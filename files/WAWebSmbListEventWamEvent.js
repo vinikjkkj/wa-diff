@@ -15,6 +15,7 @@ __d(
           SmbListEvent: [
             7102,
             {
+              appSessionId: [17, e.TYPES.STRING],
               bulkLabeling: [12, e.TYPES.BOOLEAN],
               currentListState: [13, e.TYPES.STRING],
               customListTitle: [1, e.TYPES.STRING],

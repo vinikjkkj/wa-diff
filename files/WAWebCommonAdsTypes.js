@@ -18,22 +18,22 @@ __d(
         "UNKNOWN",
       ]),
       s = {
-        COMPLETED: "COMPLETED",
-        EXTENDABLE: "EXTENDABLE",
-        PENDING: "PENDING",
         ACTIVE: "ACTIVE",
-        SCHEDULED: "SCHEDULED",
-        REJECTED: "REJECTED",
-        FINISHED: "FINISHED",
-        PAUSED: "PAUSED",
-        NOT_DELIVERING: "NOT_DELIVERING",
-        UNABLE_TO_CREATE: "ERROR",
-        PAYMENT_PENDING: "PAYMENT_PENDING",
+        COMPLETED: "COMPLETED",
         CREATING: "CREATING",
-        PAUSING: "PAUSING",
-        RESUMING: "RESUMING",
-        RECOMMENDATION: "RECOMMENDATION",
+        EXTENDABLE: "EXTENDABLE",
+        FINISHED: "FINISHED",
         LIMITED_DELIVERY: "LIMITED_DELIVERY",
+        NOT_DELIVERING: "NOT_DELIVERING",
+        PAUSED: "PAUSED",
+        PAUSING: "PAUSING",
+        PAYMENT_PENDING: "PAYMENT_PENDING",
+        PENDING: "PENDING",
+        RECOMMENDATION: "RECOMMENDATION",
+        REJECTED: "REJECTED",
+        RESUMING: "RESUMING",
+        SCHEDULED: "SCHEDULED",
+        UNABLE_TO_CREATE: "ERROR",
         UNKNOWN: "UNKNOWN",
       };
     function u(e) {
@@ -47,8 +47,8 @@ __d(
         r === void 0 && (r = "WAA"),
         o === void 0 && (o = e.STRONG),
         r === "FB"
-          ? { type: r, token: t, bp_id: n }
-          : { type: r, token: t, bp_id: n, tokenStrength: o }
+          ? { bp_id: n, token: t, type: r }
+          : { bp_id: n, token: t, tokenStrength: o, type: r }
       );
     }
     ((i.WAAIdentityTokenStrengthEnum = e),

@@ -80,9 +80,13 @@ __d(
           return { postcode: t };
       }
     }
-    function f(e, t, n, r) {
-      var a = _(r, t, n);
-      return o("WAWebDirectConnectionCypher").genCypher(e[0], a);
+    function f(e) {
+      var t = e.cypherType,
+        n = e.extractedCertificates,
+        r = e.postcode,
+        a = e.userInfo,
+        i = _(t, r, a);
+      return o("WAWebDirectConnectionCypher").genCypher(n[0], i);
     }
     function g(e) {
       return h.apply(this, arguments);

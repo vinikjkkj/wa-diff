@@ -13,6 +13,7 @@ __d(
           LabelEvent: [
             1422,
             {
+              appSessionId: [16, e.TYPES.STRING],
               customLabelTitle: [9, e.TYPES.STRING],
               entryPointConversionSource: [10, e.TYPES.STRING],
               itemsLabeledCount: [5, e.TYPES.INTEGER],

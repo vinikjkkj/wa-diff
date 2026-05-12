@@ -5,7 +5,7 @@ __d(
     function e(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "presence");
       if (!t.success) return t;
-      var n = o("WASmaxParseJid").attrUserJid(e, "from");
+      var n = o("WASmaxParseJid").attrLidUserJid(e, "from");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,

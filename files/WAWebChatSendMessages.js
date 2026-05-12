@@ -305,48 +305,51 @@ __d(
         y.apply(this, arguments)
       );
     }
-    function C(e, t, n) {
+    function C(e) {
       return b.apply(this, arguments);
     }
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a,
-            i = o("WAWebStateUtils").unproxy(e);
-          if (i.promises.sendDeleteMsgs) return i.promises.sendDeleteMsgs;
-          if (t.type === "addon") {
-            var l = t.list;
-            i.promises.sendDeleteMsgs = o("WAWebAddonDeleteAddons")
-              .sendDeleteAddonsForMe(l, r)
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t,
+            r = e.chat_,
+            a = e.clearMedia,
+            i = e.record,
+            l = o("WAWebStateUtils").unproxy(r);
+          if (l.promises.sendDeleteMsgs) return l.promises.sendDeleteMsgs;
+          if (i.type === "addon") {
+            var s = i.list;
+            l.promises.sendDeleteMsgs = o("WAWebAddonDeleteAddons")
+              .sendDeleteAddonsForMe(s, a)
               .then(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  return l.length;
+                  return s.length;
                 }),
               )
               .finally(function () {
-                i.promises.sendDeleteMsgs = null;
+                l.promises.sendDeleteMsgs = null;
               });
           }
-          if (t.type === "message") {
-            var s = t.list,
-              u = [];
+          if (i.type === "message") {
+            var u = i.list,
+              c = [];
             (o(
               "WAWebMessageAssociationGatingUtils",
             ).isMessageAssociationInfraEnabled() &&
-              (u = yield o(
+              (c = yield o(
                 "WAWebAssociatedMessagesRevokeUtils",
-              ).getHydratedAssociatedChildMessageModelsFromParentMsgs(s)),
-              (i.promises.sendDeleteMsgs = o("WAWebChatSendDeleteMsgsBridge")
-                .sendDeleteMsgs([].concat(s, u), r, i.id)
+              ).getHydratedAssociatedChildMessageModelsFromParentMsgs(u)),
+              (l.promises.sendDeleteMsgs = o("WAWebChatSendDeleteMsgsBridge")
+                .sendDeleteMsgs([].concat(u, c), a, l.id)
                 .then(function () {
                   return (
-                    s.forEach(function (e) {
+                    u.forEach(function (e) {
                       (e.delete(),
                         o("WAWebAllMediaCollection").AllMediaCollection.remove(
                           e,
                         ));
                     }),
-                    s.length
+                    u.length
                   );
                 })
                 .catch(
@@ -355,12 +358,12 @@ __d(
                     function () {
                       var e = 0;
                       return (
-                        s.forEach(function (t) {
+                        u.forEach(function (t) {
                           (t.ack === o("WAWebAck").ACK.FAILED ||
                             o("WAWebKeepInChatMsgUtils").isExpired(t)) &&
                             (t.delete(), e++);
                         }),
-                        u.forEach(function (e) {
+                        c.forEach(function (e) {
                           (e.ack === o("WAWebAck").ACK.FAILED ||
                             o("WAWebKeepInChatMsgUtils").isExpired(e)) &&
                             e.delete();
@@ -371,11 +374,11 @@ __d(
                   ),
                 )
                 .finally(function () {
-                  i.promises.sendDeleteMsgs = null;
+                  l.promises.sendDeleteMsgs = null;
                 })));
           }
-          return (a = i.promises.sendDeleteMsgs) != null
-            ? a
+          return (t = l.promises.sendDeleteMsgs) != null
+            ? t
             : (d || (d = n("Promise"))).resolve(0);
         })),
         b.apply(this, arguments)

@@ -207,21 +207,23 @@ __d(
     function C(e) {
       if (typeof e == "number") return n("WAMedia.compiled")._malloc(e);
       if (typeof e == "string") {
-        if (!/^[\x01-\x7F]*$/.test(e))
-          throw new Error("cannot malloc non-c-string " + e);
+        if (!/^[\x01-\x7F]*$/.test(e)) {
+          var t = new Error("cannot malloc non-c-string " + e);
+          throw (t.stack, t);
+        }
         for (
-          var t = n("WAMedia.compiled")._malloc(e.length + 1),
-            r = n("WAMedia.compiled").HEAPU8,
-            o = 0;
-          o < e.length;
-          o++
+          var r = n("WAMedia.compiled")._malloc(e.length + 1),
+            o = n("WAMedia.compiled").HEAPU8,
+            a = 0;
+          a < e.length;
+          a++
         )
-          r[t + o] = e.charCodeAt(o);
-        return ((r[t + e.length] = 0), t);
+          o[r + a] = e.charCodeAt(a);
+        return ((o[r + e.length] = 0), r);
       } else {
-        var a = new Uint8Array(e instanceof ArrayBuffer ? e : e.buffer),
-          i = n("WAMedia.compiled")._malloc(a.length);
-        return (n("WAMedia.compiled").HEAPU8.set(a, i), i);
+        var i = new Uint8Array(e instanceof ArrayBuffer ? e : e.buffer),
+          l = n("WAMedia.compiled")._malloc(i.length);
+        return (n("WAMedia.compiled").HEAPU8.set(i, l), l);
       }
     }
     function b(e) {

@@ -55,6 +55,7 @@ __d(
         "UserHasAvatar",
         "MemberLabelPrimaryCapability",
         "BizBroadcastPrimaryCapability",
+        "BizBroadcastPrimaryRecipientLimit",
         "GuestLastPageLoadTs",
         "IsSmb",
         "IsHostedMeAccount",

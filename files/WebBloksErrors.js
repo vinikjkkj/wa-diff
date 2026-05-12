@@ -5,8 +5,8 @@ __d(
     var e = (function (e) {
         function t(t, n, r) {
           var o;
-          return (
-            (o = e.call(this) || this),
+          if (
+            ((o = e.call(this) || this),
             (o.message =
               (r === !0 ? "[DEV Only]" : "") +
               "[WebBloks] " +
@@ -14,12 +14,14 @@ __d(
               (n ? ": " + n.toString() : "")),
             (o.name = o.constructor.name),
             n && ((o.cause = n), n.stack && (o.stack = n.stack)),
-            o.stack ||
-              ((typeof process == "undefined" ||
-                process.env.JEST_WORKER_ID === void 0) &&
-                (o.stack = new Error(o.message).stack)),
-            o
-          );
+            !o.stack &&
+              (typeof process == "undefined" ||
+                process.env.JEST_WORKER_ID === void 0))
+          ) {
+            var a = new Error(o.message);
+            (a.stack, (o.stack = a.stack));
+          }
+          return o;
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),

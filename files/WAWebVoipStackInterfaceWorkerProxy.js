@@ -237,25 +237,26 @@ __d(
                 f = !0;
                 var e = self.performance.now() - i,
                   s = C();
-                (v(),
-                  a.close("RPC ready timeout"),
-                  Q(n),
-                  o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [WorkerProxy] RPC ready timeout token=",
-                        " reason=",
-                        " wallElapsed=",
-                        "ms visibleElapsed=",
-                        "ms ",
-                        "",
-                      ])),
-                    t,
-                    n,
-                    e.toFixed(1),
-                    s.toFixed(1),
-                    j(),
-                  ),
+                (v(), a.close("RPC ready timeout"), Q(n));
+                var c = e.toFixed(1),
+                  d = s.toFixed(1),
+                  m = j();
+                (o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [WorkerProxy] RPC timeout tk=",
+                      " r=",
+                      " wall=",
+                      "ms vis=",
+                      "ms ",
+                      "",
+                    ])),
+                  t,
+                  n,
+                  c,
+                  d,
+                  m,
+                ),
                   l(
                     r("err")(
                       "voip: [WorkerProxy] timeout waiting for RPC ready (token=" +
@@ -281,36 +282,38 @@ __d(
           function L() {
             var e = self.performance.now();
             if (document.hidden) {
-              ((g = !0),
-                y != null && ((h += e - y), (y = null)),
-                b(),
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [WorkerProxy] RPC ready wait paused token=",
-                      " visibleElapsed=",
-                      "ms ",
-                      "",
-                    ])),
-                  t,
-                  h.toFixed(1),
-                  j(),
-                ));
-              return;
-            }
-            ((y = e),
+              ((g = !0), y != null && ((h += e - y), (y = null)), b());
+              var n = h.toFixed(1),
+                r = j();
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [WorkerProxy] RPC ready wait resumed token=",
-                    " visibleElapsed=",
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [WorkerProxy] RPC wait paused tk=",
+                    " vis=",
                     "ms ",
                     "",
                   ])),
                 t,
-                h.toFixed(1),
-                j(),
-              ),
+                n,
+                r,
+              );
+              return;
+            }
+            y = e;
+            var a = h.toFixed(1),
+              i = j();
+            (o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [WorkerProxy] RPC wait resumed tk=",
+                  " vis=",
+                  "ms ",
+                  "",
+                ])),
+              t,
+              a,
+              i,
+            ),
               R());
           }
           ((_ = e.worker.addMessageListener("voipRpcReady", function (e) {
@@ -322,21 +325,24 @@ __d(
                 g &&
                   o(
                     "WAWebCoreActionsODS",
-                  ).logCallVoipRpcReadyBackgroundPauseSuccess(),
-                o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [WorkerProxy] RPC ready ack token=",
-                      " wallElapsed=",
-                      "ms visibleElapsed=",
-                      "ms ",
-                      "",
-                    ])),
-                  t,
-                  r.toFixed(1),
-                  a.toFixed(1),
-                  j(),
-                ),
+                  ).logCallVoipRpcReadyBackgroundPauseSuccess());
+              var l = r.toFixed(1),
+                s = a.toFixed(1),
+                u = j();
+              (o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [WorkerProxy] RPC ready tk=",
+                    " wall=",
+                    "ms vis=",
+                    "ms ",
+                    "",
+                  ])),
+                t,
+                l,
+                s,
+                u,
+              ),
                 n());
             }
           })),
@@ -405,7 +411,7 @@ __d(
                   o("WALogger").WARN(
                     g ||
                       (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [WorkerProxy] worker shutdown after RPC ready failure failed: ",
+                        "voip: [WorkerProxy] shutdown after RPC fail: ",
                         "",
                       ])),
                     String(e),

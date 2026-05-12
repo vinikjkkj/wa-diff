@@ -95,9 +95,10 @@ __d(
             return ((this[o] = n), n);
           },
           set: function () {
-            throw new TypeError(
+            var e = new TypeError(
               "'" + n + "' is a derived property, it can't be set directly.",
             );
+            throw (e.stack, e);
           },
         }));
     }

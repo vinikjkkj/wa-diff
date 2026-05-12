@@ -124,7 +124,7 @@ __d(
                               l.fingerprint.currentIndex !==
                               n.fingerprint.currentIndex,
                             R = l.fingerprint.rawId !== n.fingerprint.rawId,
-                            L = l.fingerprint.deviceIndexes.every(
+                            L = !l.fingerprint.deviceIndexes.every(
                               function (e, t) {
                                 return e === n.fingerprint.deviceIndexes[t];
                               },

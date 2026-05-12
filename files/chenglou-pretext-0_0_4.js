@@ -612,7 +612,7 @@ __d(
     const d = /[ \t\n\r\f]+/g,
       m = /[\t\n\r\f]| {2,}|^ | $/;
     function p(e) {
-      const t = e != null ? e : "normal";
+      const t = e || "normal";
       return t === "pre-wrap"
         ? { mode: t, preserveOrdinarySpaces: !0, preserveHardBreaks: !0 }
         : { mode: t, preserveOrdinarySpaces: !1, preserveHardBreaks: !1 };
@@ -1168,7 +1168,6 @@ __d(
       return { len: t.length, texts: t, isWordLike: n, kinds: r, starts: o };
     }
     function se(e, t, n) {
-      var m;
       const r = y();
       let o = 0;
       const a = [],
@@ -1176,12 +1175,7 @@ __d(
         l = [],
         s = [];
       for (const u of r.segment(e))
-        for (const e of G(
-          u.segment,
-          (m = u.isWordLike) != null ? m : !1,
-          u.index,
-          n,
-        )) {
+        for (const e of G(u.segment, u.isWordLike || !1, u.index, n)) {
           const n = e.kind === "text";
           (t.carryCJKAfterClosingQuote &&
             n &&
@@ -1569,7 +1563,7 @@ __d(
       }
       function C(e = _, t = f, r = c) {
         (u++,
-          n == null ||
+          n != null &&
             n({
               startSegmentIndex: m,
               startGraphemeIndex: p,
@@ -1601,9 +1595,8 @@ __d(
         E(e, 0);
       }
       function E(e, n) {
-        var u;
         const r = a[e],
-          o = (u = i[e]) != null ? u : null;
+          o = i[e] || null;
         for (let a = n; a < r.length; a++) {
           const n = Fe(r, o, a, l.preferPrefixWidthsForBreakableRuns);
           if (!d) {
@@ -1678,7 +1671,7 @@ __d(
       }
       function k(e = C, t = b, r = f) {
         (_++,
-          n == null ||
+          n != null &&
             n({
               startSegmentIndex: h,
               startGraphemeIndex: y,
@@ -1713,9 +1706,8 @@ __d(
         P(e, 0);
       }
       function P(e, n) {
-        var a;
         const r = l[e],
-          o = (a = s[e]) != null ? a : null;
+          o = s[e] || null;
         for (let a = n; a < r.length; a++) {
           const n = Fe(r, o, a, m.preferPrefixWidthsForBreakableRuns);
           if (!g) {
@@ -1727,12 +1719,10 @@ __d(
         g && C === e && b === r.length && ((C = e + 1), (b = 0));
       }
       function N(e) {
-        var c;
         if (L !== "soft-hyphen") return !1;
         const n = l[e];
         if (n === null) return !1;
-        const r =
-            m.preferPrefixWidthsForBreakableRuns && (c = s[e]) != null ? c : n,
+        const r = (m.preferPrefixWidthsForBreakableRuns && s[e]) || n,
           o = r !== n,
           { fitCount: a, fittedWidth: i } = Oe(r, f, t, p, u, o);
         return a === 0
@@ -1747,7 +1737,7 @@ __d(
       }
       function M(e) {
         (_++,
-          n == null ||
+          n != null &&
             n({
               startSegmentIndex: e.startSegmentIndex,
               startGraphemeIndex: 0,
@@ -1902,9 +1892,8 @@ __d(
         ((v = e + 1), (S = f - t + n), (R = f - t + r), (L = s[e]));
       }
       function $(e, t) {
-        var a;
         const r = u[e],
-          o = (a = c[e]) != null ? a : null;
+          o = c[e] || null;
         for (let a = t; a < r.length; a++) {
           const t = Fe(r, o, a, p.preferPrefixWidthsForBreakableRuns);
           if (!g) {
@@ -1917,18 +1906,14 @@ __d(
         return (g && C === e && b === r.length && ((C = e + 1), (b = 0)), null);
       }
       function P(e) {
-        var r, o;
         if (L !== "soft-hyphen" || v < 0) return null;
-        const t = (r = u[e]) != null ? r : null;
+        const t = u[e] || null;
         if (t !== null) {
-          const r =
-              p.preferPrefixWidthsForBreakableRuns && (o = c[e]) != null
-                ? o
-                : t,
-            a = r !== t,
-            { fitCount: i, fittedWidth: l } = Oe(r, f, n, _, d, a);
-          if (i === t.length) return ((f = l), (C = e + 1), (b = 0), E(), null);
-          if (i > 0) return k(e, i, l + d);
+          const r = (p.preferPrefixWidthsForBreakableRuns && c[e]) || t,
+            o = r !== t,
+            { fitCount: a, fittedWidth: i } = Oe(r, f, n, _, d, o);
+          if (a === t.length) return ((f = i), (C = e + 1), (b = 0), E(), null);
+          if (a > 0) return k(e, a, i + d);
         }
         return S <= n + _ ? k(v, 0, R) : null;
       }
@@ -2026,9 +2011,8 @@ __d(
         Me(o[e]) && ((f = e + 1), (g = u - t));
       }
       function S(e, t) {
-        var d;
         const r = a[e],
-          o = (d = i[e]) != null ? d : null;
+          o = i[e] || null;
         for (let a = t; a < r.length; a++) {
           const t = Fe(r, o, a, l.preferPrefixWidthsForBreakableRuns);
           if (!c) {
@@ -2133,7 +2117,7 @@ __d(
           m.push(n),
           p.push(r),
           _.push(o),
-          g == null || g.push(a),
+          g != null && g.push(a),
           h.push(i),
           y.push(l),
           C !== null && C.push(e));
@@ -2232,43 +2216,36 @@ __d(
           };
     }
     function Je(e, t, n) {
-      var o, a, i;
       const r = [];
-      for (let l = 0; l < e.length; l++) {
-        const s = e[l],
-          u =
-            s.startSegmentIndex < t.length
-              ? t[s.startSegmentIndex]
-              : (o = n[n.length - 1]) != null
-                ? o
-                : 0,
-          c =
-            s.endSegmentIndex < t.length
-              ? t[s.endSegmentIndex]
-              : (a = n[n.length - 1]) != null
-                ? a
-                : 0,
-          d =
-            s.consumedEndSegmentIndex < t.length
-              ? t[s.consumedEndSegmentIndex]
-              : (i = n[n.length - 1]) != null
-                ? i
-                : 0;
+      for (let o = 0; o < e.length; o++) {
+        const a = e[o],
+          i =
+            a.startSegmentIndex < t.length
+              ? t[a.startSegmentIndex]
+              : n[n.length - 1] || 0,
+          l =
+            a.endSegmentIndex < t.length
+              ? t[a.endSegmentIndex]
+              : n[n.length - 1] || 0,
+          s =
+            a.consumedEndSegmentIndex < t.length
+              ? t[a.consumedEndSegmentIndex]
+              : n[n.length - 1] || 0;
         r.push({
-          startSegmentIndex: u,
-          endSegmentIndex: c,
-          consumedEndSegmentIndex: d,
+          startSegmentIndex: i,
+          endSegmentIndex: l,
+          consumedEndSegmentIndex: s,
         });
       }
       return r;
     }
     function Ze(e, t, n, r) {
-      const o = ce(e, ve(), r == null ? void 0 : r.whiteSpace);
+      const o = ce(e, ve(), r == null ? null : r.whiteSpace);
       return Ye(o, t, n);
     }
     function et(e, t, n) {
       const r = performance.now(),
-        o = ce(e, ve(), n == null ? void 0 : n.whiteSpace),
+        o = ce(e, ve(), n == null ? null : n.whiteSpace),
         a = performance.now(),
         i = Ye(o, t, !1),
         l = performance.now();

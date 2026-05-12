@@ -97,14 +97,7 @@ __d(
       );
     }
     function p() {
-      var e;
-      return {
-        id: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString(),
-        pn:
-          (e = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
-            ? void 0
-            : e.toString(),
-      };
+      return { id: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow().toString() };
     }
     var _ = {
       enableNewsletter: function () {
@@ -486,7 +479,7 @@ __d(
               xwa2_notify_newsletter_admin_demote: {
                 id: o("WAWebDebugUtils").getSelectedChat().id.toString(),
                 admin: p(),
-                user: { id: null, pn: e == null ? void 0 : e.id.toString() },
+                user: { id: e == null ? void 0 : e.id.toString() },
                 actor: p(),
                 user_new_role: "SUBSCRIBER",
               },
@@ -513,7 +506,7 @@ __d(
               xwa2_notify_newsletter_admin_promote: {
                 id: o("WAWebDebugUtils").getSelectedChat().id.toString(),
                 admin: p(),
-                user: { id: null, pn: e == null ? void 0 : e.id.toString() },
+                user: { id: e == null ? void 0 : e.id.toString() },
                 actor: p(),
                 user_new_role: "ADMIN",
               },

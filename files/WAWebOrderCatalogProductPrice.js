@@ -5,6 +5,7 @@ __d(
     "$InternalEnum",
     "WAWebCurrencyUtils",
     "WAWebFlex.react",
+    "WAWebFormatUprAmount",
     "WAWebOrderDetailAmountInput",
     "WAWebOrderDetailSharedStyles",
     "WAWebStopEvent",
@@ -128,7 +129,7 @@ __d(
           var L = Number(m),
             E;
           n[23] !== a || n[24] !== L
-            ? ((E = o("WAWebCurrencyUtils").formatAmount1000(a, L)),
+            ? ((E = o("WAWebFormatUprAmount").formatUprAmount1000(a, L)),
               (n[23] = a),
               (n[24] = L),
               (n[25] = E))
@@ -191,7 +192,7 @@ __d(
         default: {
           var $;
           n[35] !== a || n[36] !== u.price
-            ? (($ = o("WAWebCurrencyUtils").formatAmount1000(a, u.price)),
+            ? (($ = o("WAWebFormatUprAmount").formatUprAmount1000(a, u.price)),
               (n[35] = a),
               (n[36] = u.price),
               (n[37] = $))

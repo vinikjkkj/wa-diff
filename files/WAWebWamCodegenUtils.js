@@ -14,7 +14,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return e
-        .replace(/([a-z])(\d)/g, "$1_$2")
+        .replace(/([a-z]{2,})(\d)/g, "$1_$2")
         .replace(/([A-Z])/g, "_$1")
         .toLowerCase();
     }

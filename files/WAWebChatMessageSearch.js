@@ -117,24 +117,28 @@ __d(
       }
       return { collection: y, msg: d, key: m, highlightMsg: !0 };
     }
-    function s(e, t, n, r) {
-      n === void 0 && (n = 1);
-      var a = o("WAWebStateUtils").unproxy(e);
-      if (n === 1) {
-        var i = a.ftsCache[t];
-        if (i) return i;
-        var l = o("WAWebMsgCollection").MsgCollection.search(t, n, r, a.id);
-        a.ftsCache[t] = l;
-        var s = function () {
-          a.ftsCache[t] = null;
+    function s(e) {
+      var t = e.chat,
+        n = e.count,
+        r = e.page,
+        a = r === void 0 ? 1 : r,
+        i = e.searchTerm,
+        l = o("WAWebStateUtils").unproxy(t);
+      if (a === 1) {
+        var s = l.ftsCache[i];
+        if (s) return s;
+        var u = o("WAWebMsgCollection").MsgCollection.search(i, a, n, l.id);
+        l.ftsCache[i] = u;
+        var c = function () {
+          l.ftsCache[i] = null;
         };
         return (
-          self.setTimeout(s, o("WAWebChatConstants").FTS_TTL),
-          l.catch(s),
-          l
+          self.setTimeout(c, o("WAWebChatConstants").FTS_TTL),
+          u.catch(c),
+          u
         );
       }
-      return o("WAWebMsgCollection").MsgCollection.search(t, n, r, a.id);
+      return o("WAWebMsgCollection").MsgCollection.search(i, a, n, l.id);
     }
     function u(e) {
       var t = o("WAWebStateUtils").unproxy(e);

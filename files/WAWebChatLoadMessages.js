@@ -54,15 +54,15 @@ __d(
           if ((s || (s = l.msgs), b(l, s)))
             return (f || (f = n("Promise"))).resolve();
           if (s.msgLoadState.isLoadingRecentMsgs) return s.loadRecentPromise;
-          var u = yield v(
-              l,
-              "after",
-              s,
-              o("WAWebWamEnumWebcQueryTriggerType").WEBC_QUERY_TRIGGER_TYPE
-                .USER_SCROLL,
-              a,
-              i,
-            ),
+          var u = yield v({
+              chat: l,
+              dir: "after",
+              msgCollection: s,
+              signal: a,
+              threadId: i,
+              trigger: o("WAWebWamEnumWebcQueryTriggerType")
+                .WEBC_QUERY_TRIGGER_TYPE.USER_SCROLL,
+            }),
             c = u.msgs;
           return c;
         })),
@@ -131,7 +131,14 @@ __d(
           var C = function () {
               return y ? y.getMsgChunk(h) : _;
             },
-            b = yield v(p, "before", _, g, i, h),
+            b = yield v({
+              chat: p,
+              dir: "before",
+              msgCollection: _,
+              signal: i,
+              threadId: h,
+              trigger: g,
+            }),
             S = b.hasMoreMsgs,
             R = b.msgs,
             L = C();
@@ -188,148 +195,152 @@ __d(
     function b(e, t) {
       return e.msgs === t;
     }
-    function v(e, t, n, r, o, a) {
+    function v(e) {
       return S.apply(this, arguments);
     }
     function S() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            var s = t === "after" ? n.last() : n.head(),
-              u =
-                o("WAWebBotUtils").isMetaAiBot(e.id) &&
-                o("WAWebBotGating").isAiChatThreadsEnabled() &&
-                !o("WAWebThreadsGating").isThreadLoadingInfraEnabled()
-                  ? o("WAWebBotGating").getAiThreadMsgsLoadLimit()
-                  : o("WAWebCollectionConstants").PAGE_SIZE,
-              c = {
-                anchor: s != null ? s.id : { remote: e.id },
-                count: u,
-                direction: t,
-                threadId: l != null ? l : null,
-              };
-            r("gkx")("26259") &&
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[_loadMsgs] id=",
-                    " dir=",
-                    " anchor=",
-                    " limit=",
-                    " len=",
-                    "",
-                  ])),
-                e.id,
-                t,
-                s == null ? void 0 : s.id,
-                u,
-                n.length,
-              );
-            var d = o("WAWebMsgCountReporter").newMessageQueryEvent(a),
-              f = yield R(
-                e,
-                s,
-                n,
-                function () {
-                  return o(
-                    "WAWebMsgCollection",
-                  ).MsgCollection.loadMessagesQuery(c);
-                },
-                t,
-                d,
-                !0,
-                i,
-              );
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.dir,
+            a = e.msgCollection,
+            i = e.signal,
+            l = e.threadId,
+            s = e.trigger,
+            u = n === "after" ? a.last() : a.head(),
+            c =
+              o("WAWebBotUtils").isMetaAiBot(t.id) &&
+              o("WAWebBotGating").isAiChatThreadsEnabled() &&
+              !o("WAWebThreadsGating").isThreadLoadingInfraEnabled()
+                ? o("WAWebBotGating").getAiThreadMsgsLoadLimit()
+                : o("WAWebCollectionConstants").PAGE_SIZE,
+            d = {
+              anchor: u != null ? u.id : { remote: t.id },
+              count: c,
+              direction: n,
+              threadId: l != null ? l : null,
+            };
+          r("gkx")("26259") &&
+            o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[_loadMsgs] id=",
+                  " dir=",
+                  " anchor=",
+                  " limit=",
+                  " len=",
+                  "",
+                ])),
+              t.id,
+              n,
+              u == null ? void 0 : u.id,
+              c,
+              a.length,
+            );
+          var f = o("WAWebMsgCountReporter").newMessageQueryEvent(s),
+            g = yield R(
+              t,
+              u,
+              a,
+              function () {
+                return o("WAWebMsgCollection").MsgCollection.loadMessagesQuery(
+                  d,
+                );
+              },
+              n,
+              f,
+              !0,
+              i,
+            );
+          (r("gkx")("26259") &&
+            o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[_loadMsgs] chatId=",
+                  ", dir=",
+                  ", msgsFromDbCount=",
+                  ", msgsLoadLimit=",
+                  "",
+                ])),
+              t.id,
+              n,
+              g.length,
+              c,
+            ),
+            o("WAWebChatGetters").getIsNewsletter(t) &&
+              o(
+                "WAWebNewsletterExtendedGatingUtils",
+              ).isNewsletterReactionEnabled() &&
+              (yield o(
+                "WAWebNewsletterGetMessageUpdatesAction",
+              ).maybeUpdateMsgsAddOns(g, t)));
+          var h = g.length >= c;
+          if (
             (r("gkx")("26259") &&
               o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[_loadMsgs] chatId=",
-                    ", dir=",
-                    ", msgsFromDbCount=",
-                    ", msgsLoadLimit=",
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[_loadMsgs] id=",
+                    " dir=",
+                    " more=",
+                    " (dbCnt=",
+                    " >= limit=",
+                    ") newsletter=",
                     "",
                   ])),
-                e.id,
-                t,
-                f.length,
-                u,
+                t.id,
+                n,
+                h,
+                g.length,
+                c,
+                o("WAWebChatGetters").getIsNewsletter(t),
               ),
-              o("WAWebChatGetters").getIsNewsletter(e) &&
-                o(
-                  "WAWebNewsletterExtendedGatingUtils",
-                ).isNewsletterReactionEnabled() &&
-                (yield o(
-                  "WAWebNewsletterGetMessageUpdatesAction",
-                ).maybeUpdateMsgsAddOns(f, e)));
-            var g = f.length >= u;
+            h ||
+              !o("WAWebChatGetters").getIsNewsletter(t) ||
+              !o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled())
+          )
+            return { msgs: g, hasMoreMsgs: h };
+          try {
+            var y = g[0];
             if (
-              (r("gkx")("26259") &&
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[_loadMsgs] id=",
-                      " dir=",
-                      " more=",
-                      " (dbCnt=",
-                      " >= limit=",
-                      ") newsletter=",
-                      "",
-                    ])),
-                  e.id,
-                  t,
-                  g,
-                  f.length,
-                  u,
-                  o("WAWebChatGetters").getIsNewsletter(e),
-                ),
-              g ||
-                !o("WAWebChatGetters").getIsNewsletter(e) ||
-                !o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled())
+              n === "before" &&
+              y != null &&
+              o("WAWebNewsletterSystemMessages").isNewsletterSystemMsg(y)
             )
-              return { msgs: f, hasMoreMsgs: g };
-            try {
-              var h = f[0];
-              if (
-                t === "before" &&
-                h != null &&
-                o("WAWebNewsletterSystemMessages").isNewsletterSystemMsg(h)
-              )
-                return { msgs: f, hasMoreMsgs: !1 };
-              var y = f.length > u,
-                C = y
-                  ? []
-                  : yield o(
-                      "WAWebNewsletterPullMessagesFromServerAction",
-                    ).pullNewsletterMessagesFromServer(e, {
-                      messageCount: u - f.length,
-                      cursor: o("WAWebGetNewsletterCursor").getNewsletterCursor(
-                        n,
-                        t,
-                        f,
-                      ),
-                      resetUnreadCount: !0,
-                    }),
-                b = t === "before" ? C.concat(f) : f.concat(C),
-                v = b.length >= u,
-                S = b[0];
-              if (
-                t === "before" &&
-                !v &&
-                (S == null ||
-                  !o("WAWebNewsletterSystemMessages").isNewsletterSystemMsg(S))
-              ) {
-                var L = yield o(
-                  "WAWebNewsletterSystemMessagesAction",
-                ).addSystemMessagesToChat(e);
-                b.unshift.apply(b, L);
-              }
-              return { msgs: b, hasMoreMsgs: v };
-            } catch (e) {
-              return { msgs: f, hasMoreMsgs: !0 };
+              return { msgs: g, hasMoreMsgs: !1 };
+            var C = g.length > c,
+              b = C
+                ? []
+                : yield o(
+                    "WAWebNewsletterPullMessagesFromServerAction",
+                  ).pullNewsletterMessagesFromServer(t, {
+                    messageCount: c - g.length,
+                    cursor: o("WAWebGetNewsletterCursor").getNewsletterCursor(
+                      a,
+                      n,
+                      g,
+                    ),
+                    resetUnreadCount: !0,
+                  }),
+              v = n === "before" ? b.concat(g) : g.concat(b),
+              S = v.length >= c,
+              L = v[0];
+            if (
+              n === "before" &&
+              !S &&
+              (L == null ||
+                !o("WAWebNewsletterSystemMessages").isNewsletterSystemMsg(L))
+            ) {
+              var E = yield o(
+                "WAWebNewsletterSystemMessagesAction",
+              ).addSystemMessagesToChat(t);
+              v.unshift.apply(v, E);
             }
-          },
-        )),
+            return { msgs: v, hasMoreMsgs: S };
+          } catch (e) {
+            return { msgs: g, hasMoreMsgs: !0 };
+          }
+        })),
         S.apply(this, arguments)
       );
     }

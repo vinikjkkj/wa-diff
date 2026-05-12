@@ -7,6 +7,7 @@ __d(
     "WAWebWamEnumUsernameCreationEntrypoint",
     "WAWebWamEnumUsernameCreationErrorMessage",
     "WAWebWamEnumUsernameCreationFlowType",
+    "WAWebWamEnumUsernameLinkOriginSurface",
     "WAWebWamEnumUsernameLinkType",
     "WAWebWamEnumUsernameSource",
   ],
@@ -50,6 +51,11 @@ __d(
                   .USERNAME_CREATION_FLOW_TYPE,
               ],
               usernameCreationUsernameSessionId: [6, e.TYPES.STRING],
+              usernameLinkOriginSurface: [
+                18,
+                o("WAWebWamEnumUsernameLinkOriginSurface")
+                  .USERNAME_LINK_ORIGIN_SURFACE,
+              ],
               usernameLinkType: [
                 12,
                 o("WAWebWamEnumUsernameLinkType").USERNAME_LINK_TYPE,

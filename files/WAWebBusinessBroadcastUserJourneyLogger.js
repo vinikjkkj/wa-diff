@@ -216,6 +216,12 @@ __d(
               t,
             );
           }),
+          (t.attachmentsCatalogDropdownClicked = function (t) {
+            o("WAWebBBBroadcastCreationLogs").attachmentsCatalogDropdownClicked(
+              this.$1,
+              t,
+            );
+          }),
           (t.attachmentsDocumentDropdownClicked = function (t) {
             o(
               "WAWebBBBroadcastCreationLogs",

@@ -71,7 +71,7 @@ __d(
               : !0)
           );
         }),
-        c = [e.root.getModuleId()],
+        c = [e.root],
         d = a != null ? [a] : [];
       if (o != null) {
         var m = Object.keys(o);
@@ -101,7 +101,12 @@ __d(
       return n.map(function (t) {
         var n = t.queries,
           r = t.roots;
-        return { queries: n.map(e), roots: r };
+        return {
+          queries: n.map(e),
+          roots: r.map(function (e) {
+            return e.getModuleId();
+          }),
+        };
       });
     }
     function d(e, t) {
@@ -110,20 +115,33 @@ __d(
         o = n.roots;
       return { queries: r, roots: o };
     }
-    function m(t, n) {
+    function m(e, t) {
+      var n = p(e, t),
+        r = n.extraProps,
+        o = n.queries,
+        a = n.roots;
+      return {
+        extraProps: r,
+        queries: o,
+        roots: a.map(function (e) {
+          return e.getModuleId();
+        }),
+      };
+    }
+    function p(t, n) {
       var r = s(t, n),
         o = r.extraProps,
         a = r.queries,
         i = r.roots;
       return { extraProps: o, queries: a.map(e), roots: i };
     }
-    function p() {
+    function _() {
       var e = new Error(
         "This function should not be called. It exists solely for the type-generation",
       );
       throw (e.stack, e);
     }
-    function _(t, n) {
+    function f(t, n) {
       var o,
         a,
         i = t.map(function (e) {
@@ -132,7 +150,12 @@ __d(
         l = i.map(function (t) {
           var n = t.queries,
             r = t.roots;
-          return { queries: n.map(e), roots: r };
+          return {
+            queries: n.map(e),
+            roots: r.map(function (e) {
+              return e.getModuleId();
+            }),
+          };
         }),
         u = r("objectValues")(
           (o =
@@ -164,8 +187,9 @@ __d(
       (l.processRootEntryPoints = c),
       (l.processRootEntryPointData = d),
       (l.processRootEntryPointDataWithExtraProps = m),
-      (l.preloadQuery = p),
-      (l.processServerEntryPoints = _));
+      (l.processRootEntryPointDataWithJSResources = p),
+      (l.preloadQuery = _),
+      (l.processServerEntryPoints = f));
   },
   98,
 );

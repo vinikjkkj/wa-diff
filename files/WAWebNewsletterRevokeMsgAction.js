@@ -214,11 +214,11 @@ __d(
             n = e.clearMedia,
             r = e.msgToBeRevoked;
           return (
-            yield o("WAWebChatSendMessages").sendDeleteMsgs(
-              t,
-              { type: "message", list: [r] },
-              n,
-            ),
+            yield o("WAWebChatSendMessages").sendDeleteMsgs({
+              chat_: t,
+              clearMedia: n,
+              record: { type: "message", list: [r] },
+            }),
             {
               messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult.OK,
             }

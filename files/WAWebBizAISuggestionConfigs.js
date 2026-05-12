@@ -116,12 +116,22 @@ __d(
         })
         .slice(0, n);
     }
-    function d(e) {
+    function d(t) {
+      var n;
+      return (n = e().find(function (e) {
+        return e.knowledgeType === t;
+      })) != null
+        ? n
+        : null;
+    }
+    function m(e) {
       return u.includes(e)
         ? s._(/*BTDS*/ "Add business info")
         : s._(/*BTDS*/ "Add purchasing info");
     }
-    ((l.getFilteredSuggestions = c), (l.getSuggestionTitle = d));
+    ((l.getFilteredSuggestions = c),
+      (l.getSuggestionByKnowledgeType = d),
+      (l.getSuggestionTitle = m));
   },
   226,
 );

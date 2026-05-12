@@ -43,7 +43,15 @@ __d(
         i = e > a ? Math.max(n + o, a) : e;
       return { adjustedBottom: i, needsAdjustment: i !== e };
     }
-    function u(e, t, n, r, o, a, i, l, s, u, c) {
+    function u(e, t, n) {
+      var r = window.innerWidth - t - n,
+        o;
+      return (
+        e > r ? (o = Math.max(n, r)) : e < n ? (o = n) : (o = e),
+        { adjustedLeft: o, needsAdjustment: o !== e }
+      );
+    }
+    function c(e, t, n, r, o, a, i, l, s, u, c) {
       var d = Math.max(i, Math.min(window.innerWidth - s.x * 2, o.width + e)),
         m = Math.max(l, Math.min(window.innerHeight - s.y * 2 - u - c, a + t)),
         p;
@@ -70,7 +78,7 @@ __d(
         resizedBottom: f,
       };
     }
-    function c(e, t, n, r) {
+    function d(e, t, n, r) {
       var a = t - n,
         i = 0,
         l = 0,
@@ -99,7 +107,7 @@ __d(
       }
       return { deltaWidth: a, deltaHeight: i, deltaLeft: l, deltaBottom: s };
     }
-    function d(e) {
+    function m(e) {
       var t = e.aspectRatio,
         n = e.extraBottomContentHeight,
         r = e.extraTopContentHeight,
@@ -169,9 +177,10 @@ __d(
     }
     ((l.calculateResizeDeltas = e),
       (l.clampBottomToBounds = s),
-      (l.calculateIndependentResize = u),
-      (l.adjustDeltasForMinWidth = c),
-      (l.adjustDeltasForMaxBounds = d));
+      (l.clampLeftToBounds = u),
+      (l.calculateIndependentResize = c),
+      (l.adjustDeltasForMinWidth = d),
+      (l.adjustDeltasForMaxBounds = m));
   },
   98,
 );

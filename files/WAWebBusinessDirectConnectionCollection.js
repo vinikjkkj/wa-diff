@@ -31,41 +31,44 @@ __d(
         return (
           (i._getValidCertAndSignedUserInfo = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, r) {
-                if (!r && t != null && t.certificateChain) {
-                  var a = yield (d || (d = n("Promise"))).all([
+              function* (e) {
+                var t = e.forceRenew,
+                  r = e.id,
+                  a = e.rowData;
+                if (!t && a != null && a.certificateChain) {
+                  var i = yield (d || (d = n("Promise"))).all([
                       o("WAWebBusinessDirectUtils").getValidCertificate(
                         o(
                           "WAWebDirectConnectionUtils",
-                        ).stringToCertificateString(t.certificateChain),
+                        ).stringToCertificateString(a.certificateChain),
                       ),
-                      o("WAWebBizBusinessProfileAction").querySignedUserInfo(e),
+                      o("WAWebBizBusinessProfileAction").querySignedUserInfo(r),
                     ]),
-                    i = a[0],
-                    l = a[1];
-                  if (i) return { signedUserInfo: l, validCertificate: i };
+                    l = i[0],
+                    s = i[1];
+                  if (l) return { signedUserInfo: s, validCertificate: l };
                 }
-                var s = yield (d || (d = n("Promise"))).all([
-                    o("WAWebBizBusinessProfileAction").querySignedUserInfo(e),
-                    o("WAWebBusinessDirectUtils").fetchCertificateFullChain(e),
+                var u = yield (d || (d = n("Promise"))).all([
+                    o("WAWebBizBusinessProfileAction").querySignedUserInfo(r),
+                    o("WAWebBusinessDirectUtils").fetchCertificateFullChain(r),
                   ]),
-                  u = s[0],
-                  c = s[1],
-                  m = c.certificateString,
-                  p = c.leafCertificateCommonName;
-                if (u.businessDomain !== p)
+                  c = u[0],
+                  m = u[1],
+                  p = m.certificateString,
+                  _ = m.leafCertificateCommonName;
+                if (c.businessDomain !== _)
                   throw new (o(
                     "WAWebBusinessDirectUtils",
                   ).DCCertificateDomainMismatchError)(
                     "[direct-connection] certificate common name does not match business domain",
                   );
-                var _ = yield o("WAWebBusinessDirectUtils").getValidCertificate(
-                  m,
+                var f = yield o("WAWebBusinessDirectUtils").getValidCertificate(
+                  p,
                 );
-                return { signedUserInfo: u, validCertificate: _ };
+                return { signedUserInfo: c, validCertificate: f };
               },
             );
-            function t(t, n, r) {
+            function t(t) {
               return e.apply(this, arguments);
             }
             return t;
@@ -179,7 +182,11 @@ __d(
                 var i = a.forceRenew,
                   l = a.rowData,
                   c = yield (d || (d = n("Promise"))).all([
-                    this._getValidCertAndSignedUserInfo(e, l, !!i),
+                    this._getValidCertAndSignedUserInfo({
+                      forceRenew: !!i,
+                      id: e,
+                      rowData: l,
+                    }),
                     this._fetchPostcode(e, l),
                   ]),
                   m = c[0],
@@ -207,12 +214,12 @@ __d(
                     null
                   );
                 var g = r("WANullthrows")(
-                    yield o("WAWebBusinessDirectUtils").getCypher(
-                      _.chain,
-                      f.postcode,
-                      p,
-                      t,
-                    ),
+                    yield o("WAWebBusinessDirectUtils").getCypher({
+                      cypherType: t,
+                      extractedCertificates: _.chain,
+                      postcode: f.postcode,
+                      userInfo: p,
+                    }),
                   ),
                   h = g.cypher,
                   y =
@@ -250,7 +257,11 @@ __d(
                   ).fetchDirectConnectionKeys(e.toJid()),
                   i = o("WAWebDirectConnectionCypher").CypherType
                     .PhoneNumberAndPostcode,
-                  l = yield this._getValidCertAndSignedUserInfo(e, a, n),
+                  l = yield this._getValidCertAndSignedUserInfo({
+                    forceRenew: n,
+                    id: e,
+                    rowData: a,
+                  }),
                   s = l.signedUserInfo,
                   u = l.validCertificate;
                 if (u == null)
@@ -264,12 +275,12 @@ __d(
                     null
                   );
                 var d = r("WANullthrows")(
-                    yield o("WAWebBusinessDirectUtils").getCypher(
-                      u.chain,
-                      t,
-                      s,
-                      i,
-                    ),
+                    yield o("WAWebBusinessDirectUtils").getCypher({
+                      cypherType: i,
+                      extractedCertificates: u.chain,
+                      postcode: t,
+                      userInfo: s,
+                    }),
                   ),
                   m = d.cypher,
                   p = d.exportedAesKey,

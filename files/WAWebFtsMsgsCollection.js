@@ -26,7 +26,12 @@ __d(
           var e = n("asyncToGeneratorRuntime").asyncToGenerator(
             function* (e, t, n, r, a) {
               if ((n === void 0 && (n = 1), e)) {
-                var i = yield o("WAWebChatMessageSearch").fts(e, t, n, r);
+                var i = yield o("WAWebChatMessageSearch").fts({
+                  chat: e,
+                  count: r,
+                  page: n,
+                  searchTerm: t,
+                });
                 if (this.threadId != null) {
                   var l = this.threadId;
                   i.messages = i.messages.filter(function (e) {

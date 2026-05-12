@@ -14,20 +14,22 @@ __d(
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
           var i,
-            l =
+            l,
+            s =
               e !== void 0
                 ? e
                 : (e = n("WAWebMexGroupStoreInviteSmsJobMutation.graphql")),
-            s = { input: { partcipants: r, group_jid: t } },
-            u = yield o("WAWebMexClient").fetchQuery(l, s),
-            c =
-              (i = u.xwa2_group_store_invites_sms) == null ||
-              (i = i.participant_responses) == null
-                ? void 0
-                : i.some(function (e) {
-                    return (e == null ? void 0 : e.error_code) != null;
-                  });
-          return c === !0;
+            u = { input: { partcipants: r, group_jid: t } },
+            c = yield o("WAWebMexClient").fetchQuery(s, u);
+          return (i =
+            (l = c.xwa2_group_store_invites_sms) == null ||
+            (l = l.participant_responses) == null
+              ? void 0
+              : l.map(function (e) {
+                  return e == null ? void 0 : e.error_code;
+                })) != null
+            ? i
+            : [];
         })),
         u.apply(this, arguments)
       );

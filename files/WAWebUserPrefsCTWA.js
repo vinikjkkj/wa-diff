@@ -89,7 +89,7 @@ __d(
     function m(e, t) {
       r("WAWebUserPrefsStore").setUser(
         o("WAWebUserPrefsKeys").KEYS.AD_ENTRY_POINTS_CONFIGURATION,
-        { configuration: t, ts: o("WATimeUtils").unixTime(), locale: e },
+        { configuration: t, locale: e, ts: o("WATimeUtils").unixTime() },
       );
     }
     function p(e) {

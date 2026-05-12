@@ -59,23 +59,24 @@ __d(
                   .toString(),
               };
             });
-            yield o("WAWebMexGroupStoreInviteSmsJob").mexGroupStoreInviteSms(
-              t,
-              a,
-              r,
-            );
+            return yield o(
+              "WAWebMexGroupStoreInviteSmsJob",
+            ).mexGroupStoreInviteSms(t, a, r.toString());
           } catch (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[out-contact-invite] bulk invite sms store err: ",
-                    "",
-                  ])),
-                t,
-              )
-              .tags("GQL", "MEX")
-              .sendLogs("out-contact-invite-store-group-sms-failed");
+            return (
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[out-contact-invite] bulk invite sms store err: ",
+                      "",
+                    ])),
+                  t,
+                )
+                .tags("GQL", "MEX")
+                .sendLogs("out-contact-invite-store-group-sms-failed"),
+              []
+            );
           }
         })),
         g.apply(this, arguments)

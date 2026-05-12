@@ -171,34 +171,37 @@ __d(
     }
     function le(e) {
       var t = e.broadcastJidIsNull,
-        n = e.contactsCount,
-        r = e.hasPendingBillingAction,
-        a = e.hasRequiredBusinessInfo,
-        i = e.isCreatingCampaign,
-        l = e.isLoadingBusinessInfo,
-        u = e.isMessageEmpty,
-        c = o("WAWebBizBroadcastsRecipientUtils").getRecipientLimit();
-      return i
+        n = e.checkoutFailed,
+        r = e.contactsCount,
+        a = e.hasPendingBillingAction,
+        i = e.hasRequiredBusinessInfo,
+        l = e.isCreatingCampaign,
+        u = e.isLoadingBusinessInfo,
+        c = e.isMessageEmpty,
+        d = o("WAWebBizBroadcastsRecipientUtils").getRecipientLimit();
+      return l
         ? null
         : t
           ? s._(/*BTDS*/ "Choose audience")
-          : l
+          : u
             ? s._(/*BTDS*/ "Loading...")
-            : a
-              ? n < 2
+            : i
+              ? r < 2
                 ? s._(
                     /*BTDS*/ "You need to add at least two recipients to send a message.",
                   )
-                : n > c
+                : r > d
                   ? s._(
                       /*BTDS*/ "Broadcast to a maximum of {recipientLimit} people at a time.",
-                      [s._param("recipientLimit", c)],
+                      [s._param("recipientLimit", d)],
                     )
-                  : r
+                  : a
                     ? s._(/*BTDS*/ "Payment pending")
-                    : u
+                    : c
                       ? s._(/*BTDS*/ "Message can't be empty")
-                      : null
+                      : n
+                        ? s._(/*BTDS*/ "Something went wrong")
+                        : null
               : s._(
                   /*BTDS*/ "Account data missing. Check your payment details and try again.",
                 );

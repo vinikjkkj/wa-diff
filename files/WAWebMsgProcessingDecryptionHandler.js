@@ -139,17 +139,18 @@ __d(
           var s = i.enc,
             u = i.error,
             c = i.errorType,
-            d;
+            d = !1,
+            m;
           return (
             (u instanceof o("WAWebSignalCommonErrors").SignalDecryptionError ||
               u instanceof o("WAWebHandleMsgError").UnknownDeviceMessageError ||
               u instanceof
                 o("WAWebEphemeralDecodeBroadcastSetting")
                   .BroadcastEphSettingsError) &&
-              ((d = o("WAWebSendRetryReceiptJob").getRetryReasonFromError(u)),
+              ((m = o("WAWebSendRetryReceiptJob").getRetryReasonFromError(u)),
               c !== C.SignalDuplicateMessage &&
                 (s.hideFail ||
-                  (yield o("WAWebHandleMsgProcess").processPlaceholderMsg({
+                  (d = yield o("WAWebHandleMsgProcess").processPlaceholderMsg({
                     type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
                     msgMeta: e.msgMeta,
                     msgInfo: e.msgInfo,
@@ -163,7 +164,8 @@ __d(
               ? {
                   result: o("WAWebHandleMsgTypes.flow").E2EProcessResult.RETRY,
                   retryCount: s.retryCount,
-                  retryReason: d,
+                  retryReason: m,
+                  placeholderCreated: d,
                 }
               : c === C.SignalDuplicateMessage
                 ? {
@@ -196,7 +198,8 @@ __d(
                             result: o("WAWebHandleMsgTypes.flow")
                               .E2EProcessResult.RETRY,
                             retryCount: s.retryCount,
-                            retryReason: d,
+                            retryReason: m,
+                            placeholderCreated: d,
                             e2eFailureReason: o("WAWebWamEnumE2eFailureReason")
                               .E2E_FAILURE_REASON
                               .INVALID_BROADCAST_STANZA_ATTRIBUTE,

@@ -138,13 +138,13 @@ __d(
                   .then(function (e) {
                     if (e) {
                       var a = o("WAWebStateUtils").unproxy(
-                        o("WAWebBizCreateProductInquiry").createProductInquiry(
-                          i,
-                          t.id,
-                          r,
-                          s,
-                          n == null ? void 0 : n.session.toString(),
-                        ),
+                        o("WAWebBizCreateProductInquiry").createProductInquiry({
+                          catalogWid: r,
+                          chatId: t.id,
+                          mediaData: s,
+                          product: i,
+                          sessionId: n == null ? void 0 : n.session.toString(),
+                        }),
                       );
                       (o("WAWebMsgCollection").MsgCollection.add(a),
                         (t.composeQuotedMsg =

@@ -32,8 +32,8 @@ __d(
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: deferred call-accepted-elsewhere notification dropped for ",
-                " - call no longer ongoing",
+                "[voip] accepted-elsewhere notif dropped ",
+                "",
               ])),
             n,
           );
@@ -46,7 +46,7 @@ __d(
               .ERROR(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: failed to show deferred call-accepted-elsewhere notification",
+                    "[voip] accepted-elsewhere notif show failed",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
@@ -64,8 +64,8 @@ __d(
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: deferred call-accepted-elsewhere notification cancelled for ",
-                  " - call ended",
+                  "[voip] accepted-elsewhere notif cancelled ",
+                  "",
                 ])),
               n,
             ),

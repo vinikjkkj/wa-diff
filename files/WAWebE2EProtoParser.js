@@ -551,6 +551,7 @@ __d(
         }
         (!r("isArrayNullOrEmpty")(t.threadId) &&
           o("WAWebThreadsGating").isThreadsInfraEnabled() &&
+          e.id != null &&
           o("WAWebThreadsMetadataProtoUtils").parseThreadsMetadataProto(e, t),
           o("WAWebThreadsMetadataProtoUtils").maybeParseAiThreadInfoFromProto(
             e,

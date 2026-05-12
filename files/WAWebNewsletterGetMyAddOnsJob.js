@@ -84,9 +84,7 @@ __d(
         ? null
         : {
             parentMsgKey: a,
-            senderUserJid: o("WAWebUserPrefsMeUser")
-              .getMePnUserOrThrow_DO_NOT_USE()
-              .toString(),
+            senderUserJid: o("WAWebUserPrefsMeUser").getMeUser().toJid(),
             reactionText: i,
             timestamp: l * 1e3,
             orphan: 0,

@@ -1,6 +1,7 @@
 __d(
   "WAWebConsolidateMediaUpdate",
   [
+    "Promise",
     "WALogger",
     "WAWebMediaCryptoEligibilityUtils",
     "WAWebMediaGetDownloadOriginForMsg",
@@ -14,8 +15,8 @@ __d(
     "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
+    var e, s, u;
+    function c(e) {
       var t = {};
       if (
         (o("WAWebMediaTypes").MAPPED_MSG_PROPS.forEach(function (n) {
@@ -30,7 +31,7 @@ __d(
       }
       return t;
     }
-    function c(t, n) {
+    function d(t, a) {
       if (t.isUnsentPhoneMsg()) {
         t.mediaObject &&
           o("WALogger")
@@ -45,37 +46,44 @@ __d(
               t.type,
             )
             .sendLogs("media-fault: consolidateMediaUpdate unsent message");
-        var a = u(t);
-        if (Object.prototype.hasOwnProperty.call(a, "preview")) {
-          var i = a.preview;
-          (delete a.preview,
-            i &&
-              r("WAWebMediaOpaqueData")
-                .createFromBase64Jpeg(i)
-                .then(function (e) {
-                  t != null &&
-                    t.mediaData &&
-                    t.isUnsentPhoneMsg() &&
-                    (t.mediaData.preview = e);
-                }));
+        var i = c(t);
+        if (Object.prototype.hasOwnProperty.call(i, "preview")) {
+          var l = i.preview;
+          (delete i.preview,
+            l &&
+              (l instanceof r("WAWebMediaOpaqueData")
+                ? (u || (u = n("Promise"))).resolve(l).then(function (e) {
+                    t != null &&
+                      t.mediaData &&
+                      t.isUnsentPhoneMsg() &&
+                      (t.mediaData.preview = e);
+                  })
+                : r("WAWebMediaOpaqueData")
+                    .createFromBase64Jpeg(l)
+                    .then(function (e) {
+                      t != null &&
+                        t.mediaData &&
+                        t.isUnsentPhoneMsg() &&
+                        (t.mediaData.preview = e);
+                    })));
         }
         t.mediaData.set(
-          babelHelpers.extends({}, a, {
+          babelHelpers.extends({}, i, {
             mediaStage: o("WAWebMediaTypes").MediaDataStage.REMOTE_NEED_UPLOAD,
           }),
         );
-      } else d(t, t, n);
+      } else m(t, t, a);
     }
-    function d(e, t, n, a) {
-      var i = u(t),
+    function m(e, t, n, a) {
+      var i = c(t),
         l = e.mediaObject,
-        c = t.filehash,
+        u = t.filehash,
         d = o("WAWebMediaCryptoEligibilityUtils").isMediaCryptoExpectedForMsg(
           e,
         );
       if (l)
-        c &&
-          c !== l.filehash &&
+        u &&
+          u !== l.filehash &&
           (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -87,12 +95,12 @@ __d(
             l.filehash ? "changed" : "added",
           ),
           o("WAWebMediaStorage").disassociateMediaFromMsg(l, e),
-          (l = o("WAWebMediaStorage").getOrCreateMediaObject(c)),
+          (l = o("WAWebMediaStorage").getOrCreateMediaObject(u)),
           (e.mediaObject = l),
           o("WAWebMediaStorage").associateMediaWithMsg(l, e));
       else {
-        c
-          ? (l = o("WAWebMediaStorage").getOrCreateMediaObject(c))
+        u
+          ? (l = o("WAWebMediaStorage").getOrCreateMediaObject(u))
           : (l = new (o("WAWebMediaObject").MediaObject)());
         var m = e.mediaData;
         (m.aspectRatio !== void 0 && (i.aspectRatio = m.aspectRatio),
@@ -125,7 +133,7 @@ __d(
         }
         p = d
           ? !l.entries.has({ encFilehash: g, deprecatedMms3Url: _ })
-          : !l.entries.hasUnencryptedEntry({ filehash: c, directPath: f });
+          : !l.entries.hasUnencryptedEntry({ filehash: u, directPath: f });
         var k;
         (p
           ? E != null && (g != null || f != null || !d)
@@ -146,11 +154,11 @@ __d(
                 }))
               : !d &&
                 f != null &&
-                c != null &&
+                u != null &&
                 (k = l.entries.addUnencryptedEntry({
                   debugHint: "consolidate",
                   directPath: f,
-                  filehash: c,
+                  filehash: u,
                   type: E,
                 }))
             : (p = !1)
@@ -169,9 +177,9 @@ __d(
                 staticUrl: S,
               }))
             : !d &&
-              c != null &&
+              u != null &&
               (k = l.entries.updateUnencryptedEntry({
-                filehash: c,
+                filehash: u,
                 directPath: f,
               })),
           k || (p = !1),
@@ -206,7 +214,7 @@ __d(
         });
       }
     }
-    ((l.consolidateMediaUpdate = c), (l.consolidateMediaUpdateWithValues = d));
+    ((l.consolidateMediaUpdate = d), (l.consolidateMediaUpdateWithValues = m));
   },
   98,
 );

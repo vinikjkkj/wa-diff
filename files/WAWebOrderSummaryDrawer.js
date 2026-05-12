@@ -15,6 +15,7 @@ __d(
     "WAWebDrawerHeader.react",
     "WAWebDrawerSection.react",
     "WAWebFlex.react",
+    "WAWebFormatUprAmount",
     "WAWebModalManager",
     "WAWebOrderDetailItems",
     "WAWebOrderDetailMath",
@@ -146,7 +147,7 @@ __d(
         : (S = n[5]);
       var R;
       n[6] !== u || n[7] !== f
-        ? ((R = o("WAWebCurrencyUtils").formatAmount1000(u, f)),
+        ? ((R = o("WAWebFormatUprAmount").formatUprAmount1000(u, f)),
           (n[6] = u),
           (n[7] = f),
           (n[8] = R))
@@ -195,7 +196,7 @@ __d(
                       c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
                         color: "secondary",
                         size: "16",
-                        children: o("WAWebCurrencyUtils").formatAmount1000(
+                        children: o("WAWebFormatUprAmount").formatUprAmount1000(
                           u,
                           -d,
                         ),
@@ -215,7 +216,7 @@ __d(
                       c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
                         color: "secondary",
                         size: "16",
-                        children: o("WAWebCurrencyUtils").formatAmount1000(
+                        children: o("WAWebFormatUprAmount").formatUprAmount1000(
                           u,
                           p,
                         ),
@@ -235,7 +236,7 @@ __d(
                       c.jsx(o("WAWebText_DONOTUSE.react").TextSpan, {
                         color: "secondary",
                         size: "16",
-                        children: o("WAWebCurrencyUtils").formatAmount1000(
+                        children: o("WAWebFormatUprAmount").formatUprAmount1000(
                           u,
                           g,
                         ),
@@ -576,7 +577,7 @@ __d(
           (X = !ee),
           (Y = "send-order-button"),
           t[74] !== i || t[75] !== u.total
-            ? ((J = o("WAWebCurrencyUtils").formatAmount1000(i, u.total)),
+            ? ((J = o("WAWebFormatUprAmount").formatUprAmount1000(i, u.total)),
               (t[74] = i),
               (t[75] = u.total),
               (t[76] = J))

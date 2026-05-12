@@ -348,11 +348,11 @@ __d(
             t != null &&
               t.deleteExpired &&
               o("WAWebKeepInChatMsgUtils").isExpired(e) &&
-              (o("WAWebChatSendMessages").sendDeleteMsgs(
-                o("WAWebFrontendMsgGetters").getChat(e),
-                { type: "message", list: [e] },
-                !0,
-              ),
+              (o("WAWebChatSendMessages").sendDeleteMsgs({
+                chat_: o("WAWebFrontendMsgGetters").getChat(e),
+                clearMedia: !0,
+                record: { type: "message", list: [e] },
+              }),
               o("WAWebToastManager").ToastManager.open(
                 y.jsx(o("WAWebToast.react").Toast, {
                   msg: s._(/*BTDS*/ "Message disappeared."),

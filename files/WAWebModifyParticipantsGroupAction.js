@@ -18,7 +18,6 @@ __d(
     "WAWebModifyParticipantsRateLimitText",
     "WAWebNetworkStatus",
     "WAWebNoop",
-    "WAWebOutContactConsts",
     "WAWebOutContactInviteAction",
     "WAWebOutContactInviteUtils",
     "WAWebOutContactSmsInviteConfirmModal.react",
@@ -26,6 +25,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUserPrefsMeUser",
+    "WAWebWamEnumCompanionInviteOriginType",
     "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
@@ -182,9 +182,10 @@ __d(
                                           return e.phoneNumber;
                                         }),
                                         o("WAWebWidToJid").widToGroupJid(e.id),
-                                        o("WAWebOutContactConsts")
-                                          .WAWebOutContactInviteEntryPoint
-                                          .GROUP_INVITE_ADD_PARTICIPANT,
+                                        o(
+                                          "WAWebWamEnumCompanionInviteOriginType",
+                                        ).COMPANION_INVITE_ORIGIN_TYPE
+                                          .GROUPS_ADD_PARTICIPANT_SELECTOR,
                                       ),
                                         o(
                                           "WAWebModalManager",

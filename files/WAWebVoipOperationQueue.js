@@ -75,8 +75,8 @@ __d(
                                 e ||
                                   (e = babelHelpers.taggedTemplateLiteralLoose([
                                     "voip: [",
-                                    ":Queue] Operation timed out after ",
-                                    "ms, abandoning and proceeding: ",
+                                    ":Queue] op timeout ",
+                                    "ms, abandoning: ",
                                     "",
                                   ])),
                                 t.$4,

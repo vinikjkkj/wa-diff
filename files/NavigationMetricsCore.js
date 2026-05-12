@@ -100,7 +100,10 @@ __d(
             });
         },
         getFullPageLoadLid: function () {
-          throw new Error("getFullPageLoadLid is not implemented on this site");
+          var e = new Error(
+            "getFullPageLoadLid is not implemented on this site",
+          );
+          throw (e.stack, e);
         },
       };
     r("mixInEventEmitter")(m, e);

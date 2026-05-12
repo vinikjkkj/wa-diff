@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebBackendApi",
     "WAWebMexNewsletterUtils",
-    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMetadataJob",
     "WAWebNewsletterStorageUtils",
     "WAWebNewsletterValidationUtils",
@@ -48,24 +47,23 @@ __d(
             var l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
                 i.id,
               ),
-              u = d(babelHelpers.extends({}, i.user));
+              u =
+                i.user.id != null
+                  ? o("WAWebWidFactory").createUserWidOrThrow(i.user.id)
+                  : null;
             if (!u) return;
-            var c = o(
-                "WAWebNewsletterGatingUtils",
-              ).isNewsletterMultiAdminLidMigrationEnabled()
-                ? o("WAWebUserPrefsMeUser").getMeLidUserOrThrow()
-                : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
-              m = o("WAWebMexNewsletterUtils").mapRoleToMembership(
+            var c = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+              d = o("WAWebMexNewsletterUtils").mapRoleToMembership(
                 i.user_new_role,
               );
-            if (m == null) return;
+            if (d == null) return;
             (u.equals(c)
               ? (yield o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
                   {
                     id: l,
                     membershipType: o(
                       "WAWebNewsletterStorageUtils",
-                    ).mapNewsletterMembershipTypeForStorage(m),
+                    ).mapNewsletterMembershipTypeForStorage(d),
                   },
                 ),
                 o("WAWebBackendApi").frontendFireAndForget(
@@ -74,7 +72,7 @@ __d(
                 ))
               : o("WAWebBackendApi").frontendFireAndForget(
                   "handleOtherUserRoleChangeNotification",
-                  { jid: l, userId: u, newRole: m },
+                  { jid: l, userId: u, newRole: d },
                 ),
               yield o(
                 "WAWebUserPrefsNewsletter",
@@ -100,20 +98,7 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e) {
-      var t = e.id,
-        n = e.pn;
-      if (
-        o(
-          "WAWebNewsletterGatingUtils",
-        ).isNewsletterMultiAdminLidMigrationEnabled()
-      )
-        return t == null
-          ? void 0
-          : o("WAWebWidFactory").createUserWidOrThrow(t);
-      if (n != null) return o("WAWebWidFactory").createWid(n);
-    }
-    ((l.mexHandleNewsletterRoleChange = u), (l.getUserIdFromPayload = d));
+    l.mexHandleNewsletterRoleChange = u;
   },
   98,
 );

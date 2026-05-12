@@ -13,6 +13,7 @@ __d(
     "WAWebVoipPerfOptimizations",
     "WAWebVoipResolutionCap",
     "asyncToGeneratorRuntime",
+    "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -133,7 +134,7 @@ __d(
                   height: L,
                   maxFps: E,
                 });
-              I != null && (T.deviceId = { ideal: I });
+              r("isStringNullOrEmpty")(I) || (T.deviceId = { exact: I });
               var D = u
                 .getUserMedia({ video: T, audio: !1 })
                 .then(function (e) {

@@ -187,10 +187,13 @@ __d(
             { userId: o("WAWebWidFactory").asUserWidOrThrow(r), username: n },
           ]);
           var a = o("WAWebChatCollection").ChatCollection.get(r);
-          if (a) throw new Error("Existing chat found");
-          var i = o("WAWebChatCollection").ChatCollection.gadd(r);
+          if (a) {
+            var i = new Error("Existing chat found");
+            throw (i.stack, i);
+          }
+          var l = o("WAWebChatCollection").ChatCollection.gadd(r);
           o("WAWebSendTextMsgChatAction")
-            .sendTextMsgToChat(i, "Helloworld")
+            .sendTextMsgToChat(l, "Helloworld")
             .then(function () {
               o("WALogger").LOG(
                 u ||

@@ -10,8 +10,8 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(t) {
+    var e, s, u, c, d;
+    function m(t) {
       return function (n, r) {
         o("WALogger").WARN(
           e ||
@@ -33,23 +33,45 @@ __d(
           .sendLogs(i);
       };
     }
-    var m = 10;
     function p(e, t) {
-      var a = d(t),
-        i = "INIT",
-        l,
-        s = 0;
-      return function d() {
-        switch (i) {
+      try {
+        t();
+      } catch (t) {
+        o("WALogger").WARN(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "WAWebLazyLoadedRetriable: ",
+              " hook threw",
+            ])),
+          e,
+        );
+      }
+    }
+    var _ = 10;
+    function f(e, t, a) {
+      var i = m(t),
+        l = "INIT",
+        s,
+        u = 0;
+      return function m() {
+        switch (l) {
           case "INIT":
           case "FAILURE":
             return (
-              (i = "INFLIGHT"),
-              (l = e()
+              (l = "INFLIGHT"),
+              (s = e()
                 .then(function (e) {
+                  var t = !!e;
                   return (
-                    e || a(r("err")("Lazyload response is empty"), s),
-                    (i = "SUCCESS"),
+                    t || i(r("err")("Lazyload response is empty"), u),
+                    u > 0 &&
+                      t &&
+                      p("onRetrySuccess", function () {
+                        a == null ||
+                          a.onRetrySuccess == null ||
+                          a.onRetrySuccess(u);
+                      }),
+                    (l = "SUCCESS"),
                     e
                   );
                 })
@@ -59,23 +81,40 @@ __d(
                       function* (e) {
                         var n = r("getErrorSafe")(e);
                         if (
-                          (o("WALogger").WARN(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                          ((l = "FAILURE"),
+                          u++,
+                          o("WALogger").WARN(
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
                                 "Lazyload failure for component ",
+                                " - attempt ",
+                                " of ",
                                 "",
                               ])),
                             t,
+                            u,
+                            _ + 1,
                           ),
-                          (i = "FAILURE"),
-                          s++,
-                          s <= m)
+                          p("onAttemptFailure", function () {
+                            a == null ||
+                              a.onAttemptFailure == null ||
+                              a.onAttemptFailure(n, u);
+                          }),
+                          u <= _)
                         )
                           return (
-                            yield o("WAPromiseDelays").delayMs(s * 1e3),
-                            d()
+                            yield o("WAPromiseDelays").delayMs(u * 1e3),
+                            m()
                           );
-                        throw (a(n, s), e);
+                        throw (
+                          (a == null ? void 0 : a.onFinalFailure) != null
+                            ? p("onFinalFailure", function () {
+                                a.onFinalFailure == null ||
+                                  a.onFinalFailure(n, u);
+                              })
+                            : i(n, u),
+                          e
+                        );
                       },
                     );
                     return function (t) {
@@ -83,19 +122,19 @@ __d(
                     };
                   })(),
                 )),
-              l
+              s
             );
           case "INFLIGHT":
           case "SUCCESS":
-            return r("WANullthrows")(l);
+            return r("WANullthrows")(s);
           default:
-            return (c || (c = n("Promise"))).reject(
+            return (d || (d = n("Promise"))).reject(
               r("err")("retriable_promise_hoc:promiseStatus is invalid"),
             );
         }
       };
     }
-    l.default = p;
+    l.default = f;
   },
   98,
 );

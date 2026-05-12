@@ -53,6 +53,7 @@ __d(
               ],
               callRandomId: [13, e.TYPES.STRING],
               categoryType: [40, e.TYPES.STRING],
+              commandName: [52, e.TYPES.STRING],
               conversationStarterCategory: [22, e.TYPES.STRING],
               conversationStarterIndex: [23, e.TYPES.INTEGER],
               conversationStarterLabel: [46, e.TYPES.STRING],

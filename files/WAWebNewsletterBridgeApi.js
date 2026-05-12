@@ -7,7 +7,6 @@ __d(
     "WAWebDBUpdateLastAddOnPreviewChat",
     "WAWebDeleteStatusAction",
     "WAWebLastAddOnDBSerialization",
-    "WAWebMexNewsletterRoleChangeNotificationHandler",
     "WAWebMexNewsletterUtils",
     "WAWebMsgCollection",
     "WAWebMsgModelFromData",
@@ -477,43 +476,44 @@ __d(
       displayRoleChangeDesktopNotification: (function () {
         var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t,
-            n = e.notification,
-            a =
-              n.xwa2_notify_newsletter_admin_promote != null
+            n,
+            a = e.notification,
+            i =
+              a.xwa2_notify_newsletter_admin_promote != null
                 ? "promote"
                 : "demote",
-            i =
-              (t = n.xwa2_notify_newsletter_admin_promote) != null
+            l =
+              (t = a.xwa2_notify_newsletter_admin_promote) != null
                 ? t
-                : n.xwa2_notify_newsletter_admin_demote;
-          if (i != null) {
-            var l =
-                i != null
+                : a.xwa2_notify_newsletter_admin_demote;
+          if (l != null) {
+            var s =
+                l != null
                   ? r("WAWebNewsletterCollection").get(
-                      i == null ? void 0 : i.id,
+                      l == null ? void 0 : l.id,
                     )
                   : null,
-              s = o(
-                "WAWebMexNewsletterRoleChangeNotificationHandler",
-              ).getUserIdFromPayload(babelHelpers.extends({}, i.user)),
-              u = o("WAWebMexNewsletterUtils").mapRoleToMembership(
-                i.user_new_role,
+              u =
+                l.user.id != null
+                  ? o("WAWebWidFactory").createUserWidOrThrow(l.user.id)
+                  : null,
+              c = o("WAWebMexNewsletterUtils").mapRoleToMembership(
+                l.user_new_role,
               );
-            if (!(s == null || l == null || u == null)) {
-              var c =
-                  i.admin &&
-                  o(
-                    "WAWebMexNewsletterRoleChangeNotificationHandler",
-                  ).getUserIdFromPayload(babelHelpers.extends({}, i.admin)),
-                d = l;
+            if (!(u == null || s == null || c == null)) {
+              var d =
+                  ((n = l.admin) == null ? void 0 : n.id) != null
+                    ? o("WAWebWidFactory").createUserWidOrThrow(l.admin.id)
+                    : null,
+                m = s;
               yield o(
                 "WAWebShowNewsletterRoleChangeNotification",
               ).showNewsletterRoleChangeNotification({
-                mode: a,
-                user: s,
-                admin: c,
-                chat: d,
-                newRole: u,
+                mode: i,
+                user: u,
+                admin: d,
+                chat: m,
+                newRole: c,
               });
             }
           }
@@ -551,10 +551,7 @@ __d(
           else {
             var d = o("WAWebContactCollection").ContactCollection.get(l);
             if (
-              (!d &&
-                o(
-                  "WAWebNewsletterGatingUtils",
-                ).isNewsletterMultiAdminLidMigrationEnabled() &&
+              (d ||
                 (d = o("WAWebContactCollection").ContactCollection.gadd({
                   id: l,
                   type: "out",

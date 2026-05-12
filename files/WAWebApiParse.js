@@ -810,28 +810,36 @@ __d(
           a = new (r("WAWebPonyfillsUrlSearchParams"))(n.search),
           i = a.get("g"),
           l = a.get("pn"),
-          s = null;
+          s = a.get("prov_num"),
+          u = null;
         return (
           i === "0"
-            ? (s = o(
+            ? (u = o(
                 "WAWebRegistrationCampaignConstants",
               ).WHATSAPP_DOT_COM_REG_EXP_CONTROL)
             : i === "1"
-              ? (s = o(
+              ? (u = o(
                   "WAWebRegistrationCampaignConstants",
                 ).WHATSAPP_DOT_COM_REG_EXP_FLOW_1)
               : i === "2" &&
-                (s = o(
+                (u = o(
                   "WAWebRegistrationCampaignConstants",
                 ).WHATSAPP_DOT_COM_REG_EXP_FLOW_2),
           l != null && l.length > 0 && /^\d{10}$/.test(l)
-            ? {
-                referrer: "wacom",
-                url: "/",
-                phoneNumberWithoutCountryCode: l,
-                group: s,
-              }
-            : { referrer: "wacom", url: "/", group: s }
+            ? babelHelpers.extends(
+                {
+                  referrer: "wacom",
+                  url: "/",
+                  phoneNumberWithoutCountryCode: l,
+                },
+                s != null && { providerNumber: s },
+                { group: u },
+              )
+            : babelHelpers.extends(
+                { referrer: "wacom", url: "/" },
+                s != null && { providerNumber: s },
+                { group: u },
+              )
         );
       }
     }
@@ -1012,18 +1020,26 @@ __d(
       var H = e.match(O);
       if (H) {
         var G = new (r("WAWebPonyfillsUrlSearchParams"))(H[1]),
-          z = G.get("phone");
+          z = G.get("phone"),
+          j = G.get("lid"),
+          K = G.get("video") === "true",
+          Q = {};
+        (r("isStringNullOrEmpty")(z) || (Q.phone = z),
+          r("isStringNullOrEmpty")(j) || (Q.lid = j),
+          K && (Q.video = K));
+        var X =
+          !r("isStringNullOrEmpty")(z) || !r("isStringNullOrEmpty")(j) || K;
         return babelHelpers.extends(
           { resultType: o("WAWebApi").APICmd.NEW_CALL },
-          !r("isStringNullOrEmpty")(z) && { data: { phone: z } },
+          X && { data: Q },
         );
       }
-      var j = r("gkx")("26258") ? null : Et();
-      if (j)
-        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: j };
-      var K = kt(e);
-      return K
-        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: K }
+      var Y = r("gkx")("26258") ? null : Et();
+      if (Y)
+        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: Y };
+      var J = kt(e);
+      return J
+        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: J }
         : { resultType: o("WAWebApi").APICmd.INVALID };
     }
     ((l.parseConversionData = E),

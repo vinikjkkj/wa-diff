@@ -89,8 +89,8 @@ __d(
                 o("WALogger").ERROR(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: VideoRendererWorker silent \u2014 no message received within ",
-                      "ms (likely bundle load failure)",
+                      "voip: VideoRendererWorker no reply in ",
+                      "ms (bundle fail?)",
                     ])),
                   p,
                 );

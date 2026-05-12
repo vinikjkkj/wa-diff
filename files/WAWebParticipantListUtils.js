@@ -159,11 +159,7 @@ __d(
       var t = o(
         "WAWebFrontendContactGetters",
       ).getFormattedShortNameWithNonBreakingSpaces(e);
-      if (
-        o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
-        e.id.isBot()
-      )
-        return t;
+      if (e.id.isBot()) return t;
       var n = t.split(/\s/),
         a = n[0];
       return r("WAWebAlphaRegex").exec(a) ? a : t;
@@ -178,7 +174,8 @@ __d(
       if (
         ((n = l.concat(i)),
         o("WAWebMiscGatingUtils").isDropLastNameEnabled() &&
-          t.isOpenBotGroup !== !0)
+          t.isOpenBotGroup !== !0 &&
+          t.isTeeBotGroup !== !0)
       )
         return r("compactMap")(n, function (e) {
           var n = e.contact;
@@ -198,24 +195,21 @@ __d(
           c = s[1];
         n = u.concat(c);
       }
+      var m = null;
       if (
-        o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
+        (o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() &&
         t.isOpenBotGroup === !0
+          ? (m = o("WAWebBotUtils").META_BOT_FBID_WID)
+          : t.isTeeBotGroup === !0 &&
+            (m = o("WAWebBotUtils").META_BOT_TEE_FBID_WID),
+        m != null)
       ) {
-        var m = r("partitionArray")(n, function (e) {
-            return e.id.equals(o("WAWebBotUtils").META_BOT_FBID_WID);
+        var p = r("partitionArray")(n, function (e) {
+            return e.id.equals(m);
           }),
-          p = m[0],
-          _ = m[1];
-        n = p.concat(_);
-      }
-      if (t.isTeeBotGroup === !0) {
-        var f = r("partitionArray")(n, function (e) {
-            return e.id.equals(o("WAWebBotUtils").META_BOT_TEE_FBID_WID);
-          }),
-          g = f[0],
-          h = f[1];
-        n = g.concat(h);
+          _ = p[0],
+          f = p[1];
+        n = _.concat(f);
       }
       return r("WAWebCompactMapString")(n, function (e) {
         var t = e.contact,

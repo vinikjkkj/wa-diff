@@ -308,7 +308,12 @@ __d(
                     l = e.type;
                   t.forEach(function (e) {
                     var t = e.mutationIndexSegments,
-                      s = { labelAssociationAction: { labeled: l === "add" } };
+                      s = {
+                        labelAssociationAction: {
+                          labeled: l === "add",
+                          modelMetaData: [],
+                        },
+                      };
                     i.push({
                       timestamp: a,
                       collection: r.collectionName,

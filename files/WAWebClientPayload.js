@@ -3,6 +3,7 @@ __d(
   [
     "WABase64",
     "WAByteArray",
+    "WALogger",
     "WAMd5",
     "WAWebBackendApi",
     "WAWebBrowserInfo",
@@ -23,43 +24,61 @@ __d(
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = null;
-    function s(e) {
-      return u.apply(this, arguments);
+    var e,
+      s = null,
+      u = 0;
+    function c() {
+      u++;
     }
-    function u() {
+    function d(e) {
+      return m.apply(this, arguments);
+    }
+    function m() {
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = o("WAWebUserPrefsMeUser").getMeDevicePnOrThrow_DO_NOT_USE(),
             r = babelHelpers.extends(
               {},
-              yield m(t),
+              yield f(t),
               {
                 username: parseInt(n.user, 10),
                 device: n.device != null ? n.device : 0,
                 lc: o("WAWebUserPrefsGeneral").getLoginCounter(),
+                connectAttemptCount: u,
                 lidDbMigrated: o(
                   "WAWebLid1X1MigrationGating",
                 ).Lid1X1MigrationUtils.isLidMigrated(),
               },
-              e,
+              s,
             );
-          return o("encodeProtobuf")
-            .encodeProtobuf(o("WAWebProtobufsWa6.pb").ClientPayloadSpec, r)
-            .readByteArrayView();
+          return (
+            o("WALogger")
+              .LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[comms] getClientPayloadForLogin: connectAttemptCount=",
+                    "",
+                  ])),
+                u,
+              )
+              .tags("launch-socket-chat"),
+            o("encodeProtobuf")
+              .encodeProtobuf(o("WAWebProtobufsWa6.pb").ClientPayloadSpec, r)
+              .readByteArrayView()
+          );
         })),
-        u.apply(this, arguments)
+        m.apply(this, arguments)
       );
     }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
+    function p(e, t, n) {
+      return _.apply(this, arguments);
     }
-    function d() {
+    function _() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = _(),
-            a = yield f(),
-            i = babelHelpers.extends({}, yield m(n), {
+        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = h(),
+            a = yield y(),
+            i = babelHelpers.extends({}, yield f(n), {
               devicePairingData: {
                 buildHash: r,
                 deviceProps: a,
@@ -75,15 +94,15 @@ __d(
             .encodeProtobuf(o("WAWebProtobufsWa6.pb").ClientPayloadSpec, i)
             .readByteArrayView();
         })),
-        d.apply(this, arguments)
+        _.apply(this, arguments)
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    function f(e) {
+      return g.apply(this, arguments);
     }
-    function p() {
+    function g() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t, n;
           return {
             passive: (t = e == null ? void 0 : e.passive) != null ? t : !1,
@@ -92,26 +111,26 @@ __d(
               .WIFI_UNKNOWN,
             connectReason: o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason
               .USER_ACTIVATED,
-            userAgent: yield y(),
-            webInfo: { webSubPlatform: v() },
+            userAgent: yield v(),
+            webInfo: { webSubPlatform: L() },
           };
         })),
-        p.apply(this, arguments)
+        g.apply(this, arguments)
       );
     }
-    function _() {
+    function h() {
       var e = o("WABase64").decodeB64(
           o("WAMd5").md5(o("WAWebBuildConstants").VERSION_BASE),
         ),
         t = new Uint8Array(e);
       return t;
     }
-    function f() {
-      return g.apply(this, arguments);
+    function y() {
+      return C.apply(this, arguments);
     }
-    function g() {
+    function C() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = r("WAWebBrowserInfo")(),
             t;
           if (e.version && e.version !== "") {
@@ -159,7 +178,7 @@ __d(
           s && ((a.onDemandReady = !0), (a.completeOnDemandReady = !0));
           var u = r("WAWebEnvironment").isWindows
               ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType.UWP
-              : b(e.name),
+              : R(e.name),
             c = {
               os: e.os,
               version: t,
@@ -175,18 +194,18 @@ __d(
               .readByteArrayView();
           return d;
         })),
-        g.apply(this, arguments)
+        C.apply(this, arguments)
       );
     }
-    function h(t) {
-      e = t;
+    function b(e) {
+      s = e;
     }
-    function y() {
-      return C.apply(this, arguments);
+    function v() {
+      return S.apply(this, arguments);
     }
-    function C() {
+    function S() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e = yield o("WAWebBackendApi").frontendSendAndReceive(
               "getDeviceInfo",
               void 0,
@@ -227,10 +246,10 @@ __d(
           }
           return t;
         })),
-        C.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    function b(e) {
+    function R(e) {
       return e === "Chrome"
         ? o("WAWebProtobufsCompanionReg.pb").DeviceProps$PlatformType.CHROME
         : e === "Firefox"
@@ -267,7 +286,7 @@ __d(
                               : o("WAWebProtobufsCompanionReg.pb")
                                   .DeviceProps$PlatformType.UNKNOWN;
     }
-    function v() {
+    function L() {
       return (function (e) {
         if (e === "WEB" || e === "PWA")
           return o("WAWebProtobufsWa6.pb").ClientPayload$WebInfo$WebSubPlatform
@@ -287,9 +306,10 @@ __d(
         );
       })(o("WAWebWamPlatform").getWamPlatform());
     }
-    ((l.getClientPayloadForLogin = s),
-      (l.getClientPayloadForRegistration = c),
-      (l.setClientPayloadOverride = h));
+    ((l.incrementSuccessfulLoginCounter = c),
+      (l.getClientPayloadForLogin = d),
+      (l.getClientPayloadForRegistration = p),
+      (l.setClientPayloadOverride = b));
   },
   98,
 );

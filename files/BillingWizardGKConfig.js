@@ -92,6 +92,9 @@ __d(
           type: "PAYMENT_ACCOUNT_ID",
         },
         BILLING_TEST_UNIONPAY_LUHN_BYPASS: { type: "PAYMENT_ACCOUNT_ID" },
+        BILLING_TRANSLATION_IMPR_LATAM_PHASE_2_TARGETING: {
+          type: "PAYMENT_ACCOUNT_ID",
+        },
         BILLING_TRANSLATION_IMPR_LATAM_Q3_25_TARGETTING: {
           type: "PAYMENT_ACCOUNT_ID",
         },

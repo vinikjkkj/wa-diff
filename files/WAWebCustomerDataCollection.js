@@ -68,16 +68,20 @@ __d(
           return 0;
       }
     }
-    function c(e, t, n, r) {
-      if (e == null && t == null) return 0;
-      if (e == null) return 1;
-      if (t == null) return -1;
-      var o;
+    function c(e) {
+      var t = e.a,
+        n = e.b,
+        r = e.collator,
+        o = e.direction;
+      if (t == null && n == null) return 0;
+      if (t == null) return 1;
+      if (n == null) return -1;
+      var a;
       return (
-        typeof e == "string" && typeof t == "string"
-          ? (o = r.compare(e, t))
-          : (o = Number(e) - Number(t)),
-        n === "desc" ? -o : o
+        typeof t == "string" && typeof n == "string"
+          ? (a = r.compare(t, n))
+          : (a = Number(t) - Number(n)),
+        o === "desc" ? -a : a
       );
     }
     function d(e, t) {
@@ -241,7 +245,7 @@ __d(
             });
           return (
             a.sort(function (t, n) {
-              return c(t.value, n.value, e, o);
+              return c({ a: t.value, b: n.value, collator: o, direction: e });
             }),
             a.map(function (e) {
               return e.item;

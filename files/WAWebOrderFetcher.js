@@ -80,17 +80,18 @@ __d(
         }, {}),
       );
     }
-    function f(e, t, n) {
-      var r = o("WAWebClock")
-          .Clock.relativeDateStr(e[t[n]].timestamp)
-          .toString(),
-        a =
+    function f(e) {
+      var t = e.contactAndOrderInfoMap,
+        n = e.index,
+        r = e.orderReferenceIds,
+        a = o("WAWebClock").Clock.relativeDateStr(t[r[n]].timestamp).toString(),
+        i =
           n > 0
             ? o("WAWebClock")
-                .Clock.relativeDateStr(e[t[n - 1]].timestamp)
+                .Clock.relativeDateStr(t[r[n - 1]].timestamp)
                 .toString()
             : "";
-      return r === a ? "" : r;
+      return a === i ? "" : a;
     }
     function g(e, t) {
       var n = e.contact,

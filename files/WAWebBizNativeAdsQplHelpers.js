@@ -29,6 +29,8 @@ __d(
         GRAPHQL_QUERY_START: "graphql_query_start",
         GRAPHQL_QUERY_END: "graphql_query_end",
         TABLE_RENDER: "table_render",
+        PHASE_1_END: "phase_1_end",
+        PHASE_2_START: "phase_2_start",
       }),
       s = null;
     function u(e, t) {
@@ -55,17 +57,21 @@ __d(
     }
     function m(e) {
       var t;
-      (t = s) == null || t.addAnnotations({ int: { ad_count: e } });
+      (t = s) == null || t.addAnnotations({ string: { scenario: e } });
     }
     function p(e) {
       var t;
+      (t = s) == null || t.addAnnotations({ int: { ad_count: e } });
+    }
+    function _(e) {
+      var t;
       ((t = s) == null || t.endSuccess(e), (s = null));
     }
-    function _(e, t) {
+    function f(e, t) {
       var n;
       ((n = s) == null || n.endFail(e, t), (s = null));
     }
-    function f() {
+    function g() {
       var e;
       ((e = s) == null || e.endCancel(), (s = null));
     }
@@ -73,10 +79,11 @@ __d(
       (l.startAdsManagementQpl = u),
       (l.adsManagementQplAddPoint = c),
       (l.adsManagementQplAnnotateAccountType = d),
-      (l.adsManagementQplAnnotateAdCount = m),
-      (l.endAdsManagementQplSuccess = p),
-      (l.endAdsManagementQplFail = _),
-      (l.endAdsManagementQplCancel = f));
+      (l.adsManagementQplAnnotateScenario = m),
+      (l.adsManagementQplAnnotateAdCount = p),
+      (l.endAdsManagementQplSuccess = _),
+      (l.endAdsManagementQplFail = f),
+      (l.endAdsManagementQplCancel = g));
   },
   98,
 );

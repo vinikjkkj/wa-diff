@@ -31,18 +31,20 @@ __d(
         );
         return (p.stack, (s || (s = n("Promise"))).reject(p));
       }
-      if (i != null && i.aborted)
-        return (s || (s = n("Promise"))).reject(new Error("Request aborted"));
-      var _ = a.contact.id,
-        f = _.isLid()
+      if (i != null && i.aborted) {
+        var _ = new Error("Request aborted");
+        return (_.stack, (s || (s = n("Promise"))).reject(_));
+      }
+      var f = a.contact.id,
+        g = f.isLid()
           ? (u =
-              (d = o("WAWebLidMigrationUtils").toPn(_)) == null
+              (d = o("WAWebLidMigrationUtils").toPn(f)) == null
                 ? void 0
                 : d.toString()) != null
             ? u
             : ""
-          : _.toString(),
-        g = t.flowId;
+          : f.toString(),
+        h = t.flowId;
       return (
         o("WAWebGalaxyFlowQPLLoggerUtils").qplWaeMetadataPoint(
           o("WAWebGalaxyFlowQPLLoggerUtils").WaeMetadataQPLPoints
@@ -57,7 +59,7 @@ __d(
             e !== void 0
               ? e
               : (e = n("WAWebGalaxyFlowsDrawerGetFlowDataQuery.graphql")),
-            { request: { extensions: { biz_jid: f, flow_id: g } } },
+            { request: { extensions: { biz_jid: g, flow_id: h } } },
           )
           .then(
             (function () {
@@ -134,7 +136,7 @@ __d(
                           yield o(
                             "WAWebGalaxyFlowsUnifiedEncryptionVerifier",
                           ).UnifiedEncryptionVerifier.arePublicKeyWithSignatureValid(
-                            _,
+                            f,
                             (a = e.xwa_extensions_get_flow_data) == null ||
                               (a = a.endpoint_public_key) == null
                               ? void 0
@@ -161,7 +163,7 @@ __d(
                       }
                     if (
                       o("WAWebGalaxyFlowsUtils").getFlowDataFromFetchedData(
-                        g,
+                        h,
                         e,
                       ) == null
                     ) {

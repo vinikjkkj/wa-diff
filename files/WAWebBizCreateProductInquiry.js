@@ -12,40 +12,45 @@ __d(
     "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, a, i) {
-      var l = {
+    function e(e) {
+      var t = e.catalogWid,
+        n = e.chatId,
+        a = e.mediaData,
+        i = e.product,
+        l = e.sessionId,
+        s = {
           ack: o("WAWebAck").ACK.CLOCK,
           id: new (r("WAWebMsgKey"))({
             id: "product_inquiry_" + r("WAWebMsgKey").newId_DEPRECATED(),
-            remote: t,
+            remote: n,
             fromMe: !0,
           }),
-          from: t,
+          from: n,
           to: o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
           t: o("WATimeUtils").unixTime(),
           type: o("WAWebMsgType").MSG_TYPE.PRODUCT,
           kind: o("WAWebMsgType").MsgKind.Product,
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          title: e.name,
-          description: e.description,
-          businessOwnerJid: n.toString({ legacy: !0 }),
-          productId: e.id.toString(),
-          url: e.url,
-          productImageCount: e.getProductImageCollectionCount(),
+          title: i.name,
+          description: i.description,
+          businessOwnerJid: t.toString({ legacy: !0 }),
+          productId: i.id.toString(),
+          url: i.url,
+          productImageCount: i.getProductImageCollectionCount(),
           body:
             a.preview instanceof r("WAWebMediaOpaqueData")
               ? a.preview.getBase64()
               : null,
-          currencyCode: e.currency,
-          priceAmount1000: e.priceAmount1000,
-          salePriceAmount1000: o("WAWebProductSelectors").isSalePriceActive(e)
-            ? e.salePriceAmount1000
+          currencyCode: i.currency,
+          priceAmount1000: i.priceAmount1000,
+          salePriceAmount1000: o("WAWebProductSelectors").isSalePriceActive(i)
+            ? i.salePriceAmount1000
             : null,
-          sessionId: i,
-          retailerId: e.retailerId,
+          sessionId: l,
+          retailerId: i.retailerId,
         },
-        s = new (o("WAWebMsgModel").Msg)(l);
-      return (s.mediaData.set(a), s);
+        u = new (o("WAWebMsgModel").Msg)(s);
+      return (u.mediaData.set(a), u);
     }
     l.createProductInquiry = e;
   },

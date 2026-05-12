@@ -6,7 +6,6 @@ __d(
     "WAWebCommonNewsletterEnums",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
-    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterSubscriberListJob",
     "WAWebNewsletterSubscriberModel",
     "WAWebNewsletterValidationUtils",
@@ -45,32 +44,24 @@ __d(
       var t = e.reduce(function (e, t) {
         var n = o("WAWebContactCollection").ContactCollection.get(t.id),
           r =
-            !o(
-              "WAWebNewsletterGatingUtils",
-            ).isNewsletterMultiAdminLidMigrationEnabled() &&
-            n != null &&
-            n.phoneNumber
-              ? o("WAWebContactCollection").ContactCollection.get(n.phoneNumber)
-              : n,
-          a =
             t.role ===
               o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin ||
             t.role ===
               o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Owner;
-        if (r == null) {
-          if (!a) return e;
-          var i = o("WAWebContactCollection").ContactCollection.gadd({
+        if (n == null) {
+          if (!r) return e;
+          var a = o("WAWebContactCollection").ContactCollection.gadd({
             id: t.id,
             phoneNumber: t.phoneNumber,
             name: t.displayName,
             type: "out",
           });
-          e.push({ adminProfile: t.adminProfile, contact: i, role: t.role });
+          e.push({ adminProfile: t.adminProfile, contact: a, role: t.role });
         } else {
-          if (!a && !o("WAWebFrontendContactGetters").getIsMyContact(r))
+          if (!r && !o("WAWebFrontendContactGetters").getIsMyContact(n))
             return e;
-          (a && r.phoneNumber == null && r.set({ phoneNumber: t.phoneNumber }),
-            e.push({ adminProfile: t.adminProfile, contact: r, role: t.role }));
+          (r && n.phoneNumber == null && n.set({ phoneNumber: t.phoneNumber }),
+            e.push({ adminProfile: t.adminProfile, contact: n, role: t.role }));
         }
         return e;
       }, []);

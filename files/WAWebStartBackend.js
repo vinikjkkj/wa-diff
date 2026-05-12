@@ -19,6 +19,7 @@ __d(
     "WAWebBuildConstants",
     "WAWebCartDbLidMigration",
     "WAWebChatThreadLogging",
+    "WAWebClientPayload",
     "WAWebCommonCTWADataSharing",
     "WAWebCommsConfig",
     "WAWebCommsHandleStanza",
@@ -157,6 +158,7 @@ __d(
         o("WAWebBackendEventBus").BackendEventBus.onOpenSocketStream(
           function () {
             (o("WAWebUserPrefsGeneral").incrementLoginCounter(),
+              o("WAWebClientPayload").incrementSuccessfulLoginCounter(),
               o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd &&
                 o(
                   "WAWebWamOfflineResumeReporter",

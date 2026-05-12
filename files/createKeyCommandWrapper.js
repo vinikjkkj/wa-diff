@@ -7,7 +7,6 @@ __d(
     "FBLogger",
     "areKeyCombinationsEqual",
     "createKeyCommand",
-    "gkx",
     "isSingleCharKey",
     "react",
     "stylex",
@@ -46,7 +45,6 @@ __d(
     function C(e, t) {
       var n;
       return (
-        r("gkx")("22803") &&
         t.triggerFromInputs === !0 &&
         g(e) &&
         ((n = t.command) == null ? void 0 : n.alt) === !0
@@ -136,7 +134,6 @@ __d(
                   if (o == null) return !1;
                   var a = /^[a-z0-9]$/;
                   if (
-                    r("gkx")("22803") &&
                     ((e = o.command) == null ? void 0 : e.alt) === !0 &&
                     l.getModifiedKeyboardShortcutsPreference() === 1
                   )
@@ -208,7 +205,7 @@ __d(
                 },
               };
             },
-            [l, i, R, a, o.debugName, S, c, L],
+            [l, i, R, a, o.debugName, L],
           ),
           k = d(
             function () {

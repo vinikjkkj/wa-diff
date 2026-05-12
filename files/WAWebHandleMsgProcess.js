@@ -156,7 +156,7 @@ __d(
                 o("WALogger").LOG(
                   h ||
                     (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg] reveal-pending, skipping further processing for msgId=",
+                      "[scheduled_msg] reveal-pending, skip processing msgId=",
                       "",
                     ])),
                   s.externalId,

@@ -531,6 +531,7 @@ __d(
       IG_CONNECT_ADMIN_BUTTON_GENERATED: "ig_connect_admin_button_generated",
       IG_CONNECT_ADMIN_BUTTON_IMPRESSION: "ig_connect_admin_button_impression",
       IG_CONNECT_ADMIN_BUTTON_CLICK: "ig_connect_admin_button_click",
+      IG_PAGE_LOAD_ELIGIBILITY: "ig_page_load_eligibility",
       BOOSTED_ITEM_PICKER_NO_IG_TAB_NON_ADMIN_IMPRESSION:
         "boosted_item_picker_no_ig_tab_non_admin_impression",
       BOOSTED_ITEM_PICKER_NO_IG_TAB_ADMIN_IMPRESSION:
@@ -1544,6 +1545,8 @@ __d(
       LWI_SUBSCRIPTION_OFFER_UNENROLLED: "lwi_subscription_offer_unenrolled",
       LWI_SUBSCRIPTION_OFFER_ELIGIBLE: "lwi_subscription_offer_eligible",
       LWI_SUBSCRIPTION_OFFER_INELIGIBLE: "lwi_subscription_offer_ineligible",
+      LWI_SUBSCRIPTION_INSIGHT_LIFT_NO_AD_ACCOUNT:
+        "lwi_subscription_insight_lift_no_ad_account",
       PARTNERSHIP_ADS_TOGGLE: "partnership_ads_toggle",
       PARTNERSHIP_ADS_IDENTITY_SELECTED: "partnership_ads_identity_selected",
       PARTNERSHIP_ADS_PARTNER_CONTENT_TAB_SELECTED:

@@ -4,10 +4,13 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = { deny: "deny", error: "error", none: "none" },
       s = {
-        validators: [o("WAJids").validateGroupJid, o("WAJids").validateUserJid],
-        typeName: "GroupJid|UserJid",
+        validators: [
+          o("WAJids").validateGroupJid,
+          o("WAJids").validateLidUserJid,
+        ],
+        typeName: "GroupJid|LidUserJid",
       };
-    ((l.ENUM_DENY_ERROR_NONE = e), (l.GROUPJID_USERJID = s));
+    ((l.ENUM_DENY_ERROR_NONE = e), (l.GROUPJID_LIDUSERJID = s));
   },
   98,
 );

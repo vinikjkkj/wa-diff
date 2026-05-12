@@ -170,6 +170,10 @@ __d(
             use_new_translation_phase_2: { defaultValue: !1, launched: !1 },
           },
         },
+        billing_translation_improvements_latam__logging: {
+          params: { dummy_param: e },
+          type: "PAYMENT_ACCOUNT",
+        },
         billing_translation_improvements_q3_2025_logging: {
           params: { dummy_param: e },
         },

@@ -34,13 +34,13 @@ __d(
               r("WAWebUploadManager")
                 .unencryptedUpload({
                   file: t,
+                  generateThumbnailOnServer: !1,
                   hash: i,
+                  isViewOnce: !1,
+                  signal: a,
                   type: o("WAWebMmsMediaTypes").MEDIA_TYPES.NATIVE_AD_IMAGE,
                   uploadOrigin: o("WAWebWamEnumUploadOriginType")
                     .UPLOAD_ORIGIN_TYPE.UNKNOWN,
-                  signal: a,
-                  isViewOnce: !1,
-                  generateThumbnailOnServer: !1,
                 })
                 .then(function (t) {
                   (t.fbid == null &&

@@ -139,7 +139,16 @@ __d(
           return;
       }
     }
-    var g = 100;
+    var g = new Set([c.NEW_ORDER, c.LEAD, c.DO_NEW_ORDER, c.DO_LEAD]);
+    function h(e) {
+      var t, n;
+      return e == null || !g.has(e)
+        ? null
+        : (t = (n = f(e)) == null ? void 0 : n.toString()) != null
+          ? t
+          : null;
+    }
+    var y = 100;
     ((l.ANDROID_LABEL_COLOR_PALETTE = e),
       (l.IPHONE_LABEL_COLOR_PALETTE = u),
       (l.PREDEFINED_LABEL_IDS = c),
@@ -147,7 +156,8 @@ __d(
       (l.mapLabelNameToPredefinedId = p),
       (l.mapCustomLabelSubtypeToCTWALabelType = _),
       (l.mapPredefinedIdToLabelName = f),
-      (l.LABEL_NAME_MAX_LENGTH = g));
+      (l.getLocalizedDoLabelNameByPredefinedId = h),
+      (l.LABEL_NAME_MAX_LENGTH = y));
   },
   226,
 );

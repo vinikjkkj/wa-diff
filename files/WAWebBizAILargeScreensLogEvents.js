@@ -372,6 +372,50 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
+    function U(e) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .BUSINESS_TOOLS_HOME,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.BUSINESS_HOME_PAGE,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        userActionTarget: "bizai_entry",
+        extraAttributes: { is_onboarded: e },
+      });
+    }
+    function V(e) {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .BUSINESS_TOOLS_HOME,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.BUSINESS_HOME_PAGE,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        userActionTarget: "bizai_entry",
+        extraAttributes: { is_onboarded: e },
+      });
+    }
+    function H() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_WEB_ONBOARDING_QR_CODE,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        extraAttributes: { referral: "web-qr-handoff" },
+      });
+    }
+    function G() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_WEB_ONBOARDING_QR_CODE,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        userActionTarget: "need_help",
+      });
+    }
     ((l.logViewAIHome = e),
       (l.logClickAIHomeSection = s),
       (l.logClickAIHomeToggle = u),
@@ -406,7 +450,11 @@ __d(
       (l.logClickSaveLeadGenForm = O),
       (l.logApiSaveLeadGenFormResult = B),
       (l.logViewLeadGenCustomerInfoList = W),
-      (l.logViewLeadGenCustomerResponse = q));
+      (l.logViewLeadGenCustomerResponse = q),
+      (l.logViewBizAiEntryTile = U),
+      (l.logClickBizAiEntryTile = V),
+      (l.logViewBizAiOnboardingQr = H),
+      (l.logClickBizAiOnboardingNeedHelp = G));
   },
   98,
 );

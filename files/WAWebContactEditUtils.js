@@ -23,12 +23,8 @@ __d(
           s.jsx(r("WAWebContactEditDrawer.react"), {
             origin: t,
             contactData: e,
-            onSave: function () {
-              return o("WAWebDrawerManager").DrawerManager.closeDrawerRight();
-            },
-            onCancel: function () {
-              return o("WAWebDrawerManager").DrawerManager.closeDrawerRight();
-            },
+            onSave: o("WAWebDrawerManager").closeDrawerRight,
+            onCancel: o("WAWebDrawerManager").closeDrawerRight,
           }),
         ));
     }

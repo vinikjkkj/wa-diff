@@ -36,19 +36,20 @@ __d(
         (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var a = t.msgInfo,
             i = a.chat;
-          if (a.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer) {
-            o("WALogger")
-              .LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[processPlaceHolderMessage] skip peer msg, id=",
-                    "",
-                  ])),
-                a.externalId,
-              )
-              .tags("messaging");
-            return;
-          }
+          if (a.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer)
+            return (
+              o("WALogger")
+                .LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[processPlaceHolderMessage] skip peer msg, id=",
+                      "",
+                    ])),
+                  a.externalId,
+                )
+                .tags("messaging"),
+              !1
+            );
           var l = a.offline != null;
           try {
             var c = [];
@@ -124,7 +125,7 @@ __d(
                   : (_ = [f]),
                 _.length === 0)
               )
-                return;
+                return !1;
               o("WAWebBizCoexGatingUtils").bizHostedDevicesEnabled() &&
                 c.length > 0 &&
                 a.placeholderCreatedWhenAccountIsHosted === !0 &&
@@ -137,7 +138,7 @@ __d(
                 ),
               ];
             var g = _;
-            if (g.length === 0) return;
+            if (g.length === 0) return !1;
             if (t.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) {
               if (i.isUser()) {
                 var h = g[0],
@@ -159,58 +160,69 @@ __d(
               }
             } else t.type;
             var C = o("WAWebMessageProcessorCache")
-              .messageProcessorCache.addMessages(
-                g.map(function (e) {
-                  return { msg: e };
+                .messageProcessorCache.addMessages(
+                  g.map(function (e) {
+                    return { msg: e };
+                  }),
+                  !l,
+                )
+                .then(function () {
+                  o(
+                    "WAWebWamWorkerOfflineProcessReporter",
+                  ).WorkerOfflineResumeReporter.updateProcessedMessageCount();
                 }),
-                !l,
-              )
-              .then(function () {
-                o(
-                  "WAWebWamWorkerOfflineProcessReporter",
-                ).WorkerOfflineResumeReporter.updateProcessedMessageCount();
-              });
-            o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
-              (o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd &&
-                (yield C),
-              yield (u || (u = n("Promise"))).all(
-                g.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t =
-                          e.kind !==
-                            o("WAWebMsgType").MsgKind.PlaceholderAddon &&
-                          (!i.isStatus() || o("WAWebCurrentUser").isEmployee());
-                        if (t) {
-                          var n = e.id.remote;
-                          yield o("WAWebBackendApi").frontendSendAndReceive(
-                            "updateMessageUI",
-                            { chatId: n, msg: e },
-                          );
-                        }
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              ));
+              b = !1;
+            return (
+              o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
+                (o("WAWebBackendEventBus").BackendEventBus
+                  .isOfflineDeliveryEnd && (yield C),
+                yield (u || (u = n("Promise"))).all(
+                  g.map(
+                    (function () {
+                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                        function* (e) {
+                          var t =
+                            e.kind !==
+                              o("WAWebMsgType").MsgKind.PlaceholderAddon &&
+                            (!i.isStatus() ||
+                              o("WAWebCurrentUser").isEmployee());
+                          if (t) {
+                            b = !0;
+                            var n = e.id.remote;
+                            yield o("WAWebBackendApi").frontendSendAndReceive(
+                              "updateMessageUI",
+                              { chatId: n, msg: e },
+                            );
+                          }
+                        },
+                      );
+                      return function (t) {
+                        return e.apply(this, arguments);
+                      };
+                    })(),
+                  ),
+                )),
+              b
+            );
           } catch (e) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "processPlaceholderMsg: msgId::",
-                    ", failed with error: ",
-                    "",
-                  ])),
-                a.externalId,
-                e,
-              )
-              .tags("messaging")
-              .sendLogs("handle_msg: error storing/processing single message");
+            return (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "processPlaceholderMsg: msgId::",
+                      ", failed with error: ",
+                      "",
+                    ])),
+                  a.externalId,
+                  e,
+                )
+                .tags("messaging")
+                .sendLogs(
+                  "handle_msg: error storing/processing single message",
+                ),
+              !1
+            );
           }
         })),
         d.apply(this, arguments)

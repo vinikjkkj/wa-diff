@@ -157,7 +157,7 @@ __d(
           id: m,
           from: t,
           isSender: f,
-          to: f ? t : o("WAWebUserPrefsMeUser").getMePnUserOrThrow_DO_NOT_USE(),
+          to: f ? t : o("WAWebUserPrefsMeUser").getMeUser(),
           t: _,
           serverId: p,
           offline: null,

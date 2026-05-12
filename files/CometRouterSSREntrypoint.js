@@ -7,9 +7,14 @@ __d(
       l =
         importNamespace(
           "CometSSREntrypoint",
-        ).processRootEntryPointDataWithExtraProps;
+        ).processRootEntryPointDataWithExtraProps,
+      s =
+        importNamespace(
+          "CometSSREntrypoint",
+        ).processRootEntryPointDataWithJSResources;
     ((i.processRootEntryPointData = e),
-      (i.processRootEntryPointDataWithExtraProps = l));
+      (i.processRootEntryPointDataWithExtraProps = l),
+      (i.processRootEntryPointDataWithJSResources = s));
   },
   66,
 );

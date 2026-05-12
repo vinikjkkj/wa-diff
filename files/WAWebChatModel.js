@@ -584,7 +584,8 @@ __d(
               var f = new (o("WAWebAiThreadCollection").AiThreadCollection)();
               this.aiThreads = f;
             }
-            (o("WAWebThreadsGating").isViewRepliesEntryPointEnabled(this) &&
+            ((o("WAWebThreadsGating").isViewRepliesEntryPointEnabled(this) ||
+              o("WAWebThreadsGating").isViewRepliesContextMenuEnabled(this)) &&
               (this.viewRepliesThreads = new (o(
                 "WAWebViewRepliesCollection",
               ).ViewRepliesCollection)(this.id)),
