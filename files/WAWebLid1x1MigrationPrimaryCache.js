@@ -33,7 +33,7 @@ __d(
                       "[LID] Failed to populate lid mappings from primary device",
                     ])),
                 )
-                .sendLogs(t);
+                .sendLogs(String(t));
             }));
         }
         var r = t.prototype;

@@ -239,6 +239,13 @@ __d(
               t,
             );
           }),
+          (t.catalogAttachmentSelected = function (t, n) {
+            o("WAWebBBBroadcastCreationLogs").catalogAttachmentSelected(
+              this.$1,
+              t,
+              n,
+            );
+          }),
           (t.attachmentPreviewSaveButtonClicked = function (t, n, r) {
             o(
               "WAWebBBBroadcastCreationLogs",

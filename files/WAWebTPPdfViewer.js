@@ -2,6 +2,8 @@ __d(
   "WAWebTPPdfViewer",
   [
     "Promise",
+    "WACustomError",
+    "WAWebPonyfillsCryptoRandomUUID",
     "WAWebTPPerformanceListener",
     "WAWebTPWhatsAppNetBridge",
     "asyncToGeneratorRuntime",
@@ -25,9 +27,9 @@ __d(
               ),
             ));
         }
-        var r = t.prototype;
+        var a = t.prototype;
         return (
-          (r.publishAppConfig = (function () {
+          (a.publishAppConfig = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (e) {
                 return this.$1.publishWhenReady("APP_CONFIG", e);
@@ -38,7 +40,7 @@ __d(
             }
             return t;
           })()),
-          (r.renderPdf = (function () {
+          (a.renderPdf = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t, r) {
                 var o = this;
@@ -70,43 +72,52 @@ __d(
             }
             return r;
           })()),
-          (r.showSearch = function () {
+          (a.showSearch = function () {
             return this.$1.publishWhenReady("SHOW_SEARCH", {});
           }),
-          (r.focusFirstInViewer = function () {
+          (a.focusFirstInViewer = function () {
             return this.$1.publishWhenReady("FOCUS_FIRST_IN_VIEWER", {});
           }),
-          (r.focusLastInViewer = function () {
+          (a.focusLastInViewer = function () {
             return this.$1.publishWhenReady("FOCUS_LAST_IN_VIEWER", {});
           }),
-          (r.listen = function (t, n) {
+          (a.listen = function (t, n) {
             return this.$1.listen(t, n);
           }),
-          (r.publish = function (t, n) {
+          (a.publish = function (t, n) {
             this.$1.publish(t, n);
           }),
-          (r.annotate = function (t) {
+          (a.annotate = function (t) {
             return this.$1.publishWhenReady("ANNOTATION_COMMAND", t);
           }),
-          (r.getUpdatedPDFBuffer = function () {
-            var t = this;
+          (a.getUpdatedPDFBuffer = function () {
+            var t = this,
+              a = r("WAWebPonyfillsCryptoRandomUUID")();
             return new (e || (e = n("Promise")))(function (e, n) {
-              (t.$1.listenOnce(
-                "GET_UPDATED_PDF_BUFFER_RESPONSE",
-                function (t) {
-                  e(t.buffer);
-                },
-                {
-                  timeoutMs: s,
-                  onTimeout: function (t) {
-                    n(t);
+              var r = null,
+                i = t.$1.listen(
+                  "GET_UPDATED_PDF_BUFFER_RESPONSE",
+                  function (t) {
+                    t.requestId === a &&
+                      (r != null && window.clearTimeout(r), i(), e(t.buffer));
                   },
-                },
-              ),
-                t.$1.publishWhenReady("GET_UPDATED_PDF_BUFFER", {}).catch(n));
+                );
+              ((r = window.setTimeout(function () {
+                (i(),
+                  n(
+                    new (o("WACustomError").TimeoutError)(
+                      "GET_UPDATED_PDF_BUFFER_RESPONSE, timeoutMs: " + s,
+                    ),
+                  ));
+              }, s)),
+                t.$1
+                  .publishWhenReady("GET_UPDATED_PDF_BUFFER", { requestId: a })
+                  .catch(function (e) {
+                    (r != null && window.clearTimeout(r), i(), n(e));
+                  }));
             });
           }),
-          (r.destroy = function () {
+          (a.destroy = function () {
             this.$1.destroy();
           }),
           t

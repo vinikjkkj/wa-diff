@@ -108,7 +108,7 @@ __d(
       } else {
         var L = _ < 1 ? f.portraitWidth : f.width;
         ((g = l === o("WAWebTypesMedia").DisplayTheme.PhotoPoll ? m : L),
-          (C = I(f, _, e, t, s, g, l)));
+          (C = I(f, _, e, t, l)));
       }
       return { bubbleWidth: g, bubbleHeight: C };
     }
@@ -129,18 +129,10 @@ __d(
         })
       );
     }
-    function I(e, t, n, r, a, i, l) {
-      var s = 1.91,
-        u;
-      return (
-        r && t <= s && (u = T(s, e, n)),
-        (u = T(t, e, n, l)),
-        (a === o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER ||
-          a === o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT) &&
-        u > i
-          ? i
-          : u
-      );
+    function I(e, t, n, r, o) {
+      var a = 1.91,
+        i;
+      return (r && t <= a && (i = T(a, e, n)), (i = T(t, e, n, o)), i);
     }
     function T(e, t, n, r) {
       if (e == null)

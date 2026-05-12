@@ -1,41 +1,41 @@
 __d(
   "oz-player/utils/OzError",
-  ["err"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     "use strict";
     var e = (function (e) {
       function t(t, n) {
-        var o;
+        var r;
         (n === void 0 && (n = 0),
-          (o = e.call(this, t.description) || this),
-          (o.$OzErrorClass$p_1 = t),
-          (o.name = t.type),
-          (o.message = t.description));
-        var a = o.stack;
-        if (!(typeof a == "string" && a !== ""))
+          (r = e.call(this, t.description) || this),
+          (r.$OzErrorClass$p_1 = t),
+          (r.name = t.type),
+          (r.message = t.description));
+        var o = r.stack;
+        if (!(typeof o == "string" && o !== ""))
           if (Error.captureStackTrace) {
-            var i = {};
-            (Error.captureStackTrace(i, o.constructor), (a = i.stack));
+            var a = {};
+            (Error.captureStackTrace(a, r.constructor), (o = a.stack));
           } else {
-            var l = r("err")("").stack.split("\n");
-            (l.splice(/^Error/.test(l[0]) ? 1 : 0, 1),
-              (a = "Error\n" + l.join("\n")));
+            var i = new Error().stack.split("\n");
+            (i.splice(/^Error/.test(i[0]) ? 1 : 0, 1),
+              (o = "Error\n" + i.join("\n")));
           }
         return (
-          typeof a == "string" && a !== ""
-            ? (o.stack = a
+          typeof o == "string" && o !== ""
+            ? (r.stack = o
                 .split("\n")
                 .map(function (e, t) {
                   return t === 0
-                    ? o.name + ": " + o.message.replace(/\n.*/, " (...)")
+                    ? r.name + ": " + r.message.replace(/\n.*/, " (...)")
                     : t - 1 < n
                       ? null
                       : e;
                 })
                 .filter(Boolean)
                 .join("\n"))
-            : (o.stack = ""),
-          o
+            : (r.stack = ""),
+          r
         );
       }
       babelHelpers.inheritsLoose(t, e);
@@ -53,7 +53,7 @@ __d(
         t
       );
     })(babelHelpers.wrapNativeSuper(Error));
-    l.OzErrorClass = e;
+    i.OzErrorClass = e;
   },
-  98,
+  66,
 );

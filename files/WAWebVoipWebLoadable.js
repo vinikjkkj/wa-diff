@@ -23,24 +23,21 @@ __d(
       u = 0,
       c = 20,
       d = null,
-      m = null,
-      p = r("WAWebLazyLoadedRetriable")(
+      m = r("WAWebLazyLoadedRetriable")(
         n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           return (
-            d != null ||
-              (o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: Loading VoIP WASM with AB prop-based variant selection",
-                  ])),
-              ),
-              (d = f())),
-            d
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: Loading VoIP WASM with AB prop-based variant selection",
+                ])),
+            ),
+            _()
           );
         }),
         "voipWebWasmLoader",
       );
-    function _(e, t) {
+    function p(e, t) {
       return t
         ? {
             initialPthreadPoolSize: c,
@@ -59,12 +56,12 @@ __d(
               isDynamicPoolEnabled: !1,
             };
     }
-    function f() {
-      return g.apply(this, arguments);
+    function _() {
+      return f.apply(this, arguments);
     }
-    function g() {
+    function f() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
           var e;
           (e = o("WAWebVoipQplHelpers")).voipInitQplAddPoint(
             e.VoipInitQplPoint.WAIT_OFFLINE_DELIVER_START,
@@ -92,7 +89,7 @@ __d(
           var a = o("WAWebABProps").getABPropConfigValue(
               "web_voip_dynamic_thread_preallocate_count",
             ),
-            i = _(a, t),
+            i = p(a, t),
             l = i.initialPthreadPoolSize,
             u = i.isDynamicPoolEnabled,
             c = i.targetPoolSize;
@@ -108,11 +105,11 @@ __d(
             o("WAWebVoipQplHelpers").voipInitQplAddPoint(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.THREAD_POOL_SETUP_START,
             ));
-          var d = new (r("WAWebVoipThreadPoolManager"))(n, u, c);
+          var m = new (r("WAWebVoipThreadPoolManager"))(n, u, c);
           return (
-            d.init(),
-            (m = d),
-            o("WAWebVoipThreadPoolManagerRegistry").setVoipThreadPoolManager(d),
+            m.init(),
+            (d = m),
+            o("WAWebVoipThreadPoolManagerRegistry").setVoipThreadPoolManager(m),
             o("WAWebVoipQplHelpers").voipInitQplAddPoint(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.THREAD_POOL_SETUP_END,
             ),
@@ -127,13 +124,13 @@ __d(
             n
           );
         })),
-        g.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function h() {
-      return m;
+    function g() {
+      return d;
     }
-    ((l.requireVoip = p), (l.getVoipThreadPoolManager = h));
+    ((l.requireVoip = m), (l.getVoipThreadPoolManager = g));
   },
   98,
 );

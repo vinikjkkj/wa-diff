@@ -47,9 +47,9 @@ __d(
     function C(e) {
       o("WAWebCommonCTWAQplHelpers").qplAnnotateGraphQLError({
         error: e,
-        event: _,
         errorAnnotationName: "fetch_remote_config_error",
         errorMessageAnnotationName: "fetch_remote_config_error_message",
+        event: _,
       });
     }
     function b(e) {
@@ -74,10 +74,10 @@ __d(
                                 "fetchAdEntryPointsConfiguration: using cache",
                               ])),
                           ),
-                          y({ entryPoints: a, type: "success", locale: t }),
+                          y({ entryPoints: a, locale: t, type: "success" }),
                           (p || (p = n("Promise"))).resolve({
-                            type: "success",
                             entryPoints: a,
+                            type: "success",
                           })
                         );
                     }
@@ -203,14 +203,14 @@ __d(
       return o("WAWebRelayClient").fetchQuery(
         g,
         {},
-        { environmentType: "facebook", accessToken: e },
+        { accessToken: e, environmentType: "facebook" },
       );
     }
     function L(e) {
       return o("WAWebRelayClient").fetchQuery(
         h,
         {},
-        { environmentType: "facebook", accessToken: e },
+        { accessToken: e, environmentType: "facebook" },
       );
     }
     function E(e) {
@@ -245,7 +245,7 @@ __d(
                 e
               );
             }, {});
-          return { type: "success", entryPoints: n };
+          return { entryPoints: n, type: "success" };
         })
         .catch(function (e) {
           return (

@@ -76,11 +76,11 @@ __d(
                             a = t.lifetime_native_ctwa_advertiser,
                             i = t.webclient_l90_ad_creator,
                             l = {
+                              is_page_asset_linked: n != null ? n : !1,
+                              is_pageless_asset_linked: r != null ? r : !1,
                               lifetime_native_ctwa_advertiser:
                                 a != null ? a : !1,
                               webclient_l90_ad_creator: i != null ? i : !1,
-                              is_page_asset_linked: n != null ? n : !1,
-                              is_pageless_asset_linked: r != null ? r : !1,
                             },
                             u = { data: l, type: "success" };
                           return (

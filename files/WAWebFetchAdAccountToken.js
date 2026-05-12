@@ -32,7 +32,7 @@ __d(
       var n = (u = new (o("WAResolvable").Resolvable)()),
         r = o("WAWebUserPrefsCTWA").getAdAccountToken();
       return r != null && r.bp_id !== "" && t !== !0
-        ? (n.resolve({ type: "success", token: r }), n.promise)
+        ? (n.resolve({ token: r, type: "success" }), n.promise)
         : (o("WAWebQplFlowWrapper").QPL.markerStart(e),
           o("WAWebQplFlowWrapper").QPL.markerPoint(e, "request_token_start"),
           f(c)
@@ -53,7 +53,7 @@ __d(
     function p(e) {
       o("WAWebUserPrefsCTWA").setAdAccountToken(e);
       var t = new (o("WAResolvable").Resolvable)();
-      (t.resolve({ type: "success", token: e }), (u = t));
+      (t.resolve({ token: e, type: "success" }), (u = t));
     }
     function _(e) {
       if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
@@ -110,13 +110,13 @@ __d(
                   e.name,
                   y(),
                   {
-                    type: "success",
                     token: o("WAWebCommonAdsTypes").asAdAccountToken(
                       e.value.accessTokenElementValue,
                       e.value.businessPersonId,
                       "WAA",
                       s(e.value.tokenType),
                     ),
+                    type: "success",
                   }
                 );
             }

@@ -68,7 +68,6 @@ __d(
             var t = e.statusMetadata;
             if (t != null) {
               var n = e.id;
-              if (n == null || typeof n != "object") return;
               u(
                 n,
                 t.lastStatusServerId,

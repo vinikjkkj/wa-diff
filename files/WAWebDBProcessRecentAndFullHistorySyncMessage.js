@@ -34,12 +34,32 @@ __d(
       p,
       _ = 2500,
       f = 1e3;
-    function g(e, t, n, r, o, a, i) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    function g(e, t) {
+      var n = new Map();
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
+        e.forEach(function (e, r) {
+          e.forEach(function (e) {
+            var o,
+              a = (o = t.get(r)) != null ? o : 0;
+            if (a > 0) {
+              t.set(r, a - 1);
+              var i = { id: e.id.toString(), timestamp: e.t };
+              if (n.has(r)) {
+                var l;
+                (l = n.get(r)) == null || l.push(i);
+              } else n.set(r, [i]);
+            }
+          });
+        }),
+        n
+      );
+    }
+    function h(e, t, n, r, o, a, i) {
+      return y.apply(this, arguments);
+    }
+    function y() {
+      return (
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, r, a, i, l, s, u) {
             var c = t,
               d,
@@ -67,11 +87,11 @@ __d(
               }
             }
             try {
-              var g = yield o(
+              var h = yield o(
                   "WAWebApiFilterAndReplaceMessages",
                 ).filterAndReplaceMessages(t, d),
-                h = g.newMsgs;
-              c = h;
+                y = h.newMsgs;
+              c = y;
             } catch (t) {
               o("WALogger")
                 .ERROR(
@@ -84,11 +104,11 @@ __d(
                 )
                 .tags("history-sync");
             }
-            var C = new Map(),
-              v = [];
+            var b = new Map(),
+              S = [];
             (c.forEach(function (e) {
               e.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
-                v.push(
+                S.push(
                   o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msg(
                     e.id.toString(),
                     {
@@ -105,22 +125,36 @@ __d(
                 );
               var t = e.id.remote.toString();
               if (o("WAWebMsgGetters").getIsImportantMessage(e))
-                if (C.has(t)) {
+                if (b.has(t)) {
                   var n;
-                  (n = C.get(t)) == null || n.push(e);
-                } else C.set(t, [e]);
+                  (n = b.get(t)) == null || n.push(e);
+                } else b.set(t, [e]);
             }),
-              v.length > 0 && (yield (p || (p = n("Promise"))).all(v)));
-            var S = yield o("WAWebBackendApi").frontendSendAndReceive(
+              S.length > 0 && (yield (p || (p = n("Promise"))).all(S)));
+            var R =
+                o("WAWebABProps").getABPropConfigValue(
+                  "web_history_sync_worker_enabled",
+                ) === !0,
+              L,
+              E;
+            if (R) {
+              var k = Array.from(b.keys());
+              ((L = yield o("WAWebBackendApi").frontendSendAndReceive(
+                "getPendingUnreadMentionCounts",
+                { chatIds: k },
+              )),
+                (E = g(b, L)));
+            } else {
+              var I = yield o("WAWebBackendApi").frontendSendAndReceive(
                 "processAndGetUnreadMentionsInfo",
                 { filteredMsgs: c },
-              ),
-              R = S.pendingUnreadMentionsMap,
-              L = S.unreadMentionsToAdd,
-              E = o(
+              );
+              ((L = I.pendingUnreadMentionsMap), (E = I.unreadMentionsToAdd));
+            }
+            var T = o(
                 "WAWebQuarantineDataStore",
               ).extractQuarantineDataFromMessages(c),
-              k = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
+              D = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
                 c,
                 !0,
               );
@@ -130,19 +164,19 @@ __d(
                 .ENCRYPTED,
               i,
             ),
-              yield y(k, r, L, R, E),
-              yield b(u));
+              yield C(D, r, E, L, T),
+              yield v(u));
           },
         )),
-        h.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    function y(e, t, n, r, o) {
-      return C.apply(this, arguments);
+    function C(e, t, n, r, o) {
+      return b.apply(this, arguments);
     }
-    function C() {
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a, i) {
             try {
               if (
@@ -238,15 +272,15 @@ __d(
             }
           },
         )),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    function v(e) {
+      return S.apply(this, arguments);
     }
-    function v() {
+    function S() {
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           if (e.length !== 0)
             try {
               var t = o(
@@ -280,10 +314,10 @@ __d(
                 );
             }
         })),
-        v.apply(this, arguments)
+        S.apply(this, arguments)
       );
     }
-    l.storeRecentAndFullHistSyncMessages = g;
+    l.storeRecentAndFullHistSyncMessages = h;
   },
   98,
 );

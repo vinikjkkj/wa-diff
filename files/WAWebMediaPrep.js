@@ -539,6 +539,8 @@ __d(
               messageSecret: P,
               botPersonaId: s.botPersonaId,
               aiMediaCollectionInfo: s.aiMediaCollectionInfo,
+              botMetricsMetadata: s.botMetricsMetadata,
+              aiThreadInfo: s.aiThreadInfo,
               isAvatar: s.isAvatar,
               viewMode: s.viewMode,
               parentMsgKey: s.parentMsgKey,

@@ -47,6 +47,27 @@ __d(
           { unreadMentionsToAdd: n, pendingUnreadMentionsMap: r }
         );
       },
+      getPendingUnreadMentionCounts: function (t) {
+        var e = t.chatIds,
+          n = new Map();
+        return (
+          e.forEach(function (e) {
+            var t,
+              r,
+              a = o("WAWebChatCollection").ChatCollection.get(e);
+            n.set(
+              e,
+              (t =
+                a == null || (r = a.groupMetadata) == null
+                  ? void 0
+                  : r.unreadMentionMetadata.pendingUnreadMentionCount) != null
+                ? t
+                : 0,
+            );
+          }),
+          n
+        );
+      },
       getChatIdsNeedToBeDeletedFromUnreadMentionInfo: function (t) {
         var e = t.pendingUnreadMentionsMap,
           n = t.unreadMentionsToAdd,

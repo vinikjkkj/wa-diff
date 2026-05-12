@@ -40,6 +40,14 @@ __d(
           whiteSpace: "xuxw1ft",
           alignSelf: "x1y8v6su",
           marginInlineStart: "xvc5jky",
+          flexShrink: "x2lah0s",
+          $$css: !0,
+        },
+        bottomTextContainer: {
+          flexGrow: "x1iyjqo2",
+          flexShrink: "xs83m0k",
+          flexBasis: "x1r8uery",
+          minWidth: "xeuugli",
           $$css: !0,
         },
         errorIcon: { flexShrink: "x2lah0s", $$css: !0 },
@@ -92,77 +100,79 @@ __d(
     function _(t) {
       var n = t.EndIcon,
         o = t.endIconAriaLabel,
-        a = t.loading,
-        i = t.onEndIconClick,
-        l = t.platform,
-        s = t.suffix;
-      if (n == null && s == null && a == null) return null;
-      var p, _, f, g, h, y, C;
-      l === "android"
-        ? ((p = 24),
-          (_ = c.iconContainer),
-          (f = c.EndIconContainer),
-          (g = c.textSuffixNoIcon),
-          (h = "Body1"),
-          (y = c.addOnEnd),
-          (C = c.addOnEnd))
-        : ((p = 20),
-          (_ = d.iconContainer),
-          (f = d.EndIconContainer),
-          (g = d.textSuffixNoIcon),
-          (h = "Body2"));
-      var b = [m.iconContainer, _, f],
-        v = null;
+        a = t.isDisabled,
+        i = t.loading,
+        l = t.onEndIconClick,
+        s = t.platform,
+        p = t.suffix;
+      if (n == null && p == null && i == null) return null;
+      var _, f, g, h, y, C, b;
+      s === "android"
+        ? ((_ = 24),
+          (f = c.iconContainer),
+          (g = c.EndIconContainer),
+          (h = c.textSuffixNoIcon),
+          (y = "Body1"),
+          (C = c.addOnEnd),
+          (b = c.addOnEnd))
+        : ((_ = 20),
+          (f = d.iconContainer),
+          (g = d.EndIconContainer),
+          (h = d.textSuffixNoIcon),
+          (y = "Body2"));
+      var v = [m.iconContainer, f, g],
+        S = null;
       return (
-        a === !0
-          ? (v = u.jsx(
+        i === !0
+          ? (S = u.jsx(
               "div",
               babelHelpers.extends(
                 {},
-                (e || (e = r("stylex"))).props.apply(e, b),
-                { children: u.jsx(r("WDSSpinner.react"), { size: p }) },
+                (e || (e = r("stylex"))).props.apply(e, v),
+                { children: u.jsx(r("WDSSpinner.react"), { size: _ }) },
               ),
             ))
           : n != null &&
-            (i != null
-              ? (v = u.jsx(
+            (l != null
+              ? (S = u.jsx(
                   "div",
                   babelHelpers.extends(
                     {},
-                    (e || (e = r("stylex"))).props.apply(e, b),
+                    (e || (e = r("stylex"))).props.apply(e, v),
                     {
                       children: u.jsx(r("WDSButton.react"), {
                         variant: "borderless",
-                        size: l === "android" ? "medium" : "small",
-                        onPress: i,
+                        size: s === "android" ? "medium" : "small",
+                        onPress: l,
                         Icon: n,
-                        xstyle: y,
+                        xstyle: C,
                         "aria-label": o != null ? o : void 0,
                         widthMode: "fit",
+                        disabled: a === !0,
                       }),
                     },
                   ),
                 ))
-              : (v = u.jsx(n, {
+              : (S = u.jsx(n, {
                   colorName: "contentDefault",
-                  xstyle: [].concat(b, [C]),
-                  height: p,
-                  width: p,
+                  xstyle: [].concat(v, [b]),
+                  height: _,
+                  width: _,
                 }))),
         u.jsxs(u.Fragment, {
           children: [
-            s != null &&
+            p != null &&
               u.jsx("div", {
                 "aria-hidden": "true",
                 children: u.jsx(r("WDSText.react"), {
-                  type: h,
+                  type: y,
                   colorName: "contentDeemphasized",
                   selectable: !1,
-                  xstyle: [m.textAffixes, m.textSuffix, n == null && g],
-                  children: s,
+                  xstyle: [m.textAffixes, m.textSuffix, n == null && h],
+                  children: p,
                 }),
               }),
-            v,
+            S,
           ],
         })
       );
@@ -190,7 +200,8 @@ __d(
           l
             ? o != null &&
               u.jsxs("div", {
-                className: "x78zum5 x1q0g3np x1cy8zhl x129bwdz x1trrmfo",
+                className:
+                  "x78zum5 x1iyjqo2 xs83m0k x1r8uery xeuugli x1q0g3np x1cy8zhl x1trrmfo",
                 role: "alert",
                 id: t,
                 "data-testid": void 0,
@@ -215,6 +226,7 @@ __d(
                 type: "Body3",
                 selectable: !1,
                 testid: void 0,
+                xstyle: m.bottomTextContainer,
                 colorName: "contentDeemphasized",
                 children: n,
               }),

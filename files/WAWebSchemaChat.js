@@ -68,6 +68,8 @@ __d(
               r("isUsernameThreadAtCreation"),
               r("isSenderNewAccount"),
               r("isSenderSuspicious"),
+              r("parentCompanyName"),
+              r("obaPhoneNumber"),
             ])
             .version(n.chatAddDisappearingModeInitiator(), [
               r("disappearingModeInitiator"),

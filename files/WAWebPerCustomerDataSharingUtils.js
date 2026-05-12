@@ -28,7 +28,8 @@ __d(
     function u(e, t) {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
-        !o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled()
+        !o("WAWebBizGatingUtils").isPerCustomerDataSharingControlsEnabled() ||
+        !e
       )
         return !1;
       var n = o("WAWebWidFactory").createWid(e);

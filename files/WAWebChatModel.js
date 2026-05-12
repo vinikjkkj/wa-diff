@@ -257,6 +257,8 @@ __d(
             (e.mmSignalSharingExpirationWindow = o("WAWebBaseModel").prop()),
             (e.isSenderNewAccount = o("WAWebBaseModel").prop()),
             (e.isSenderSuspicious = o("WAWebBaseModel").prop()),
+            (e.parentCompanyName = o("WAWebBaseModel").prop()),
+            (e.obaPhoneNumber = o("WAWebBaseModel").prop()),
             (e.toneId = o("WAWebBaseModel").prop()),
             (e.aiThreads = o("WAWebBaseModel").session(null)),
             (e.viewRepliesThreads = o("WAWebBaseModel").session(null)),

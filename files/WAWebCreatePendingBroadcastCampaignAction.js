@@ -33,13 +33,19 @@ __d(
               m = null,
               p = null,
               _ = a.selectedMediaFile;
-            (_ != null &&
-              ((m = yield _.arrayBuffer()),
-              (p = JSON.stringify({
-                lastModified: _.lastModified,
-                name: _.name,
-                type: _.type,
-              }))),
+            (_ != null
+              ? ((m = yield _.arrayBuffer()),
+                (p = JSON.stringify({
+                  lastModified: _.lastModified,
+                  name: _.name,
+                  type: _.type,
+                })))
+              : a.catalogWid != null &&
+                (p = JSON.stringify({
+                  catalogWid: a.catalogWid,
+                  productId: a.productId,
+                  productImageUrl: a.productImageUrl,
+                })),
               yield o("WAWebSchemaPendingBusinessBroadcastMessage")
                 .getPendingBusinessBroadcastMessageTable()
                 .create({

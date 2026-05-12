@@ -107,8 +107,11 @@ __d(
     }
     function m(e) {
       var t = e === void 0 ? {} : e,
-        n = t.selectable;
-      return [[[r("WAWebEmojiFormatMutator"), { selectable: n }]]];
+        n = t.emojiXstyle,
+        o = t.selectable;
+      return [
+        [[r("WAWebEmojiFormatMutator"), { selectable: o, emojiXstyle: n }]],
+      ];
     }
     function p(t) {
       var a = t === void 0 ? {} : t,

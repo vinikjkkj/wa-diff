@@ -258,6 +258,7 @@ __d(
                             "WAWebBroadcastDeviceClassifier",
                           ).classifyBroadcastDevice(e),
                         )
+                        .tags("non-sad")
                         .sendLogs("broadcast-senderkey-device-forget"),
                       yield i.merge(t, {
                         senderKeyDevices: s.filter(function (e) {

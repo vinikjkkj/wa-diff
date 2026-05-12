@@ -42,6 +42,14 @@ __d(
           n.type === "quick_reply"
         )
           return JSON.stringify({ display_text: t, id: t });
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "cta_catalog" &&
+          "businessPhoneNumber" in n
+        ) {
+          var a = n.businessPhoneNumber;
+          return JSON.stringify({ display_text: t, business_phone_number: a });
+        }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             n,
@@ -84,6 +92,11 @@ __d(
           t.type === "quick_reply"
         )
           return { isValid: !0 };
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "cta_catalog"
+        )
+          return { isValid: !0 };
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             t,
@@ -114,6 +127,11 @@ __d(
           e.type === "quick_reply"
         )
           return t === "";
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.type === "cta_catalog"
+        )
+          return !1;
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
             e,
@@ -206,12 +224,16 @@ __d(
             ? o(
                 "WAWebBizBroadcastCTAButtonSectionStrings",
               ).getAddCustomerReplyButtonModalTitle()
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    e,
-                );
-              })();
+            : e === "cta_catalog"
+              ? o(
+                  "WAWebBizBroadcastCTAButtonSectionStrings",
+                ).getAddWebsiteButtonModalTitle()
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
     ((l.MAX_DISPLAY_TEXT_LENGTH = e),
       (l.convertButtonDataToJson = s),

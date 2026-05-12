@@ -12,10 +12,20 @@ __d(
       );
     }
     function d() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Deleted") }),
+      );
+    }
+    function m() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Updated") }),
+      );
+    }
+    function p() {
       return !navigator.onLine;
     }
-    function m(e, t) {
-      if (d()) {
+    function _(e, t) {
+      if (p()) {
         (c(), t.onError());
         return;
       }
@@ -32,7 +42,10 @@ __d(
         (c(), t.onError());
       });
     }
-    l.saveBizAISetting = m;
+    ((l.showErrorToast = c),
+      (l.showDeletedToast = d),
+      (l.showUpdatedToast = m),
+      (l.saveBizAISetting = _));
   },
   226,
 );

@@ -142,10 +142,17 @@ __d(
         y.apply(this, arguments)
       );
     }
+    function C(e, t) {
+      return babelHelpers.extends({}, e, t, {
+        kind: o("WAWebMsgType").MsgKind.Product,
+        type: o("WAWebMsgType").MSG_TYPE.PRODUCT,
+      });
+    }
     ((l.createBroadcastTextMsgData = c),
       (l.addBroadcastFieldsToMediaMsg = m),
       (l.createBroadcastInteractiveMsgData = f),
-      (l.addBroadcastInteractiveFieldsToMediaMsg = h));
+      (l.addBroadcastInteractiveFieldsToMediaMsg = h),
+      (l.createBroadcastProductMsgData = C));
   },
   98,
 );

@@ -12,7 +12,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebSendAiMediaCollectionEnvelope",
-    "WAWebSendTextMsgChatAction",
     "WAWebToastManager",
     "WAWebWamEnumImagineAction",
     "WAWebWamEnumImagineMediaType",
@@ -32,30 +31,27 @@ __d(
     function _() {
       return (
         (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a,
-            i = t.botPersonaId,
-            l = t.caption,
-            s = t.chat,
-            d = t.medias,
-            m = t.threadId;
-          if (d.length !== 0) {
-            f(s, d);
-            var p = yield r("WAWebMsgKey").newId(),
-              _ = (a = l == null ? void 0 : l.trim()) != null ? a : "",
-              g = _.length > 0,
-              y = yield o(
+          var a = t.botPersonaId,
+            i = t.chat,
+            l = t.medias,
+            s = t.threadId;
+          if (l.length !== 0) {
+            f(i, l);
+            var d = yield r("WAWebMsgKey").newId(),
+              m = yield o(
                 "WAWebCreateAiMediaCollectionMsgData",
               ).createAiMediaCollectionMsgData({
-                botPersonaId: i,
-                collectionId: p,
-                hasGlobalCaption: g,
-                chat: s,
-                expectedMediaCount: d.length,
+                botPersonaId: a,
+                collectionId: d,
+                hasGlobalCaption: !1,
+                chat: i,
+                expectedMediaCount: l.length,
+                threadId: s,
               });
             try {
               yield o(
                 "WAWebSendAiMediaCollectionEnvelope",
-              ).sendAiMediaCollectionEnvelope(s, y);
+              ).sendAiMediaCollectionEnvelope(i, m);
             } catch (n) {
               (o("WALogger")
                 .ERROR(
@@ -70,10 +66,13 @@ __d(
                 h(t));
               return;
             }
-            var C = s.composeQuotedMsg;
-            ((s.composeQuotedMsg = null), s.setAttachMediaContents(null));
-            var b = yield (c || (c = n("Promise"))).allSettled(
-                d.map(function (e, t) {
+            var p = i.composeQuotedMsg;
+            ((i.composeQuotedMsg = null), i.setAttachMediaContents(null));
+            var _ = m.botPersonaId,
+              g = m.botMetricsMetadata,
+              y = m.aiThreadInfo,
+              C = yield (c || (c = n("Promise"))).allSettled(
+                l.map(function (e, t) {
                   var n = {
                     type: e.type,
                     caption: e.caption,
@@ -82,27 +81,25 @@ __d(
                       e.state ===
                         o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE
                           .PROCESSING,
-                    botPersonaId: i,
-                    threadId: m,
+                    botPersonaId: _,
+                    threadId: s,
                     aiMediaCollectionInfo: {
-                      collectionId: p,
+                      collectionId: d,
                       uploadOrderIndex: t,
                     },
+                    botMetricsMetadata: g,
+                    aiThreadInfo: y,
                   };
-                  if (t === 0) {
-                    var r;
-                    ((n.quotedMsg = C),
-                      g &&
-                        ((r = n.caption) == null ? void 0 : r.trim()) === _ &&
-                        (n.caption = void 0));
-                  }
-                  return e.sendToChat({ chat: s, options: n });
+                  return (
+                    t === 0 && (n.quotedMsg = p),
+                    e.sendToChat({ chat: i, options: n })
+                  );
                 }),
               ),
-              v = r("countWhere")(b, function (e) {
+              b = r("countWhere")(C, function (e) {
                 return e.status === "fulfilled";
               });
-            (v < d.length &&
+            b < l.length &&
               o("WALogger")
                 .ERROR(
                   u ||
@@ -111,14 +108,10 @@ __d(
                       "/",
                       " child send fail; may buffer",
                     ])),
-                  d.length - v,
-                  d.length,
+                  l.length - b,
+                  l.length,
                 )
-                .sendLogs("ai-media-collection-child-send-shortfall"),
-              g &&
-                (yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(s, _, {
-                  aiMediaCollectionInfo: { collectionId: p },
-                })));
+                .sendLogs("ai-media-collection-child-send-shortfall");
           }
         })),
         _.apply(this, arguments)

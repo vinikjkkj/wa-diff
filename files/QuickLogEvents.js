@@ -1554,10 +1554,30 @@ __d(
         name: "BLACKBOX_TRACE_CREATED",
         sampleRate: 1,
       },
+      8130944: {
+        moduleName: "LOOM",
+        name: "CONFIG_NETWORK_FETCH_SUCCEEDED",
+        sampleRate: 1e3,
+      },
       8133177: {
         moduleName: "LOOM",
         name: "BLACKBOX_BUG_VIEWER_PERCEPTION",
         sampleRate: 1,
+      },
+      8133489: {
+        moduleName: "LOOM",
+        name: "CONFIG_NETWORK_FETCH_CANCELED",
+        sampleRate: 1e3,
+      },
+      8135583: {
+        moduleName: "LOOM",
+        name: "CONFIG_NETWORK_FETCH_STARTED",
+        sampleRate: 1e3,
+      },
+      8138516: {
+        moduleName: "LOOM",
+        name: "CONFIG_NETWORK_FETCH_FAILED",
+        sampleRate: 1e3,
       },
       8139589: { moduleName: "LOOM", name: "TEST", sampleRate: 1 },
       8140508: {
@@ -1574,6 +1594,16 @@ __d(
         moduleName: "TEST_IOS_MODULE",
         name: "TEST_TEMP_PROD_7",
         sampleRate: null,
+      },
+      8324912: {
+        moduleName: "TEST_IOS_MODULE",
+        name: "TEST_MY_UI",
+        sampleRate: 1,
+      },
+      8325327: {
+        moduleName: "TEST_IOS_MODULE",
+        name: "AAA_EEE2",
+        sampleRate: 250,
       },
       8326082: {
         moduleName: "TEST_IOS_MODULE",
@@ -1650,6 +1680,11 @@ __d(
         name: "T67651290_TG",
         sampleRate: null,
       },
+      8332887: {
+        moduleName: "TEST_IOS_MODULE",
+        name: "AAA_EEE3",
+        sampleRate: 250,
+      },
       8333073: {
         moduleName: "TEST_IOS_MODULE",
         name: "TEST_TESMP_EVENT_4_PRODUC",
@@ -1689,6 +1724,11 @@ __d(
         moduleName: "TEST_IOS_MODULE",
         name: "TEST_EVENT",
         sampleRate: null,
+      },
+      8335717: {
+        moduleName: "TEST_IOS_MODULE",
+        name: "AAA_EEE4",
+        sampleRate: 250,
       },
       8335933: {
         moduleName: "TEST_IOS_MODULE",
@@ -2639,11 +2679,21 @@ __d(
         name: "IAB_PILL_HEADER",
         sampleRate: null,
       },
+      19796361: {
+        moduleName: "IN_APP_BROWSER",
+        name: "INFO_HUB_PRE_CLICK_REQUEST",
+        sampleRate: null,
+      },
       19800146: { moduleName: "IN_APP_BROWSER", name: "BAI", sampleRate: null },
       19801173: {
         moduleName: "IN_APP_BROWSER",
         name: "IAB_SIGNAL_LAYER_DEBUG",
         sampleRate: null,
+      },
+      19801279: {
+        moduleName: "IN_APP_BROWSER",
+        name: "INNER_FRAME_INIT",
+        sampleRate: 1,
       },
       19801470: {
         moduleName: "IN_APP_BROWSER",
@@ -6333,6 +6383,11 @@ __d(
         moduleName: "CRF_PLATFORM",
         name: "CSR_SEEN_SIGNAL_RELIABILITY_IOS",
         sampleRate: 5e3,
+      },
+      36906539: {
+        moduleName: "CRF_PLATFORM",
+        name: "CSR_REAL_TAIL_LOAD_END_TO_END_IOS",
+        sampleRate: 400,
       },
       36909357: {
         moduleName: "CRF_PLATFORM",
@@ -10507,6 +10562,11 @@ __d(
         name: "CHRONOS_LOGS_MODAL_LOAD",
         sampleRate: 1,
       },
+      55522619: {
+        moduleName: "CDM",
+        name: "WAREHOUSE_AGENT_INSIGHTS_LOAD",
+        sampleRate: 1,
+      },
       55524144: {
         moduleName: "CDM",
         name: "DATASWARM_CARD_V2_LOAD",
@@ -13705,7 +13765,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 368,
+        sampleRate: 254,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -13785,7 +13845,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 517260,
+        sampleRate: 399109,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -13805,7 +13865,7 @@ __d(
       85538115: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_SHOPS",
-        sampleRate: 107377,
+        sampleRate: 93913,
       },
       85538404: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14925,7 +14985,7 @@ __d(
       100335618: {
         moduleName: "ACCESS_LIBRARY",
         name: "FETCH_AGGREGATED",
-        sampleRate: 25943,
+        sampleRate: 26156,
       },
       100338619: {
         moduleName: "ACCESS_LIBRARY",
@@ -14935,7 +14995,7 @@ __d(
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
-        sampleRate: 8459,
+        sampleRate: 20476,
       },
       100348897: {
         moduleName: "ACCESS_LIBRARY",
@@ -16019,6 +16079,11 @@ __d(
         name: "TTS_GENERATION",
         sampleRate: 1,
       },
+      125896316: {
+        moduleName: "WHATSAPP_CONNECTIVITY",
+        name: "CHATD_CONNECTION_SINGLE_STEP",
+        sampleRate: 5e3,
+      },
       127273010: {
         moduleName: "ENTERPRISE_CENTER_LMM",
         name: "EC_LMM_CREATE_MATTER",
@@ -16664,6 +16729,21 @@ __d(
         moduleName: "FBLITE_WATCH_FEED_PERF",
         name: "FEED_TAIL_LOAD",
         sampleRate: 10,
+      },
+      134744380: {
+        moduleName: "THREADS_GRAPH",
+        name: "INTERSTITIAL_ELIGIBILITY_QUERY",
+        sampleRate: 250,
+      },
+      134753925: {
+        moduleName: "THREADS_GRAPH",
+        name: "INTERSTITIAL_DECISION",
+        sampleRate: 250,
+      },
+      134755189: {
+        moduleName: "THREADS_GRAPH",
+        name: "INTERSTITIAL_SHOWN",
+        sampleRate: 250,
       },
       134811470: {
         moduleName: "SIGNALBOX",
@@ -18794,6 +18874,11 @@ __d(
         name: "IOS_MESSENGER_QUICKSNAP_CREATION_CAMERA_TTRC",
         sampleRate: 1,
       },
+      168826206: {
+        moduleName: "IOS_MESSENGER_QUICKSNAP_CREATION",
+        name: "MSGR_QUICKSNAP_CREATION_AUDIENCE_PICKER_LIST_LOAD",
+        sampleRate: 1,
+      },
       169557894: {
         moduleName: "SLICK",
         name: "SUMMARY_PAGE_LOAD",
@@ -19251,6 +19336,11 @@ __d(
         moduleName: "WHATSAPP_SMB_BUSINESS_BROADCAST",
         name: "WHATSAPP_CREATE_BIZ_BROADCAST",
         sampleRate: 10,
+      },
+      183050135: {
+        moduleName: "WHATSAPP_SMB_BUSINESS_BROADCAST",
+        name: "WHATSAPP_BUSINESS_BROADCAST_PAYMENT_WEB",
+        sampleRate: 1,
       },
       183054996: {
         moduleName: "WHATSAPP_SMB_BUSINESS_BROADCAST",
@@ -20705,6 +20795,11 @@ __d(
         name: "CREATE_PRODUCT_INFO_API",
         sampleRate: 1,
       },
+      217268187: {
+        moduleName: "WHATSAPP_BUSINESS_AI_SMB",
+        name: "BIZ_AI_AI_HOME",
+        sampleRate: 10,
+      },
       217529603: {
         moduleName: "PICKNIC",
         name: "NAVIGATION",
@@ -20894,6 +20989,11 @@ __d(
         name: "FDID_RID_GENERATION",
         sampleRate: null,
       },
+      223551541: {
+        moduleName: "AI_MUSIC_ASSISTANT",
+        name: "FLOATING_PILL_TTRC",
+        sampleRate: 1,
+      },
       223873141: {
         moduleName: "MFT_EXPRESS_CHECKOUT_PLATFORM",
         name: "GENERATE_ECP_URL",
@@ -21065,6 +21165,11 @@ __d(
       226697781: {
         moduleName: "IG_MEDIA_ENHANCE",
         name: "SESSION_CREATION",
+        sampleRate: 1,
+      },
+      226701983: {
+        moduleName: "IG_MEDIA_ENHANCE",
+        name: "SESSION_CANCELLATION",
         sampleRate: 1,
       },
       226703164: {
@@ -21342,6 +21447,11 @@ __d(
         moduleName: "CONSUMER_TRENDS",
         name: "NAVIGATION",
         sampleRate: null,
+      },
+      231347271: {
+        moduleName: "LABYRINTH_MOBILE",
+        name: "STARTUP_AUTO_RESTORE_BACKUP",
+        sampleRate: 1,
       },
       231348256: {
         moduleName: "LABYRINTH_MOBILE",
@@ -22395,6 +22505,7 @@ __d(
         name: "TRAVEL_EVENTS",
         sampleRate: 1,
       },
+      249036801: { moduleName: "FBURL_NEST", name: "CREATE", sampleRate: 250 },
       250350617: {
         moduleName: "CAA_LOGIN_WEB",
         name: "BLUE_INITIAL_LOAD",
@@ -22757,6 +22868,11 @@ __d(
         moduleName: "DEMAND_FORECAST_PLANNING",
         name: "REFRESH_DATA",
         sampleRate: 1,
+      },
+      266477824: {
+        moduleName: "CRM_DEMAND_ALLOCATION",
+        name: "TRANFER_FORM",
+        sampleRate: null,
       },
       269223364: {
         moduleName: "MESSENGER_DESKTOP",
@@ -26505,6 +26621,11 @@ __d(
         name: "RELOCALIZATION",
         sampleRate: 1,
       },
+      282142483: {
+        moduleName: "MESSENGER_UNIVERSAL_SEARCH",
+        name: "ANDROID_MESSENGER_UNIVERSAL_SEARCH_NULL_STATE_LATENCY",
+        sampleRate: 100,
+      },
       284627177: {
         moduleName: "MSG_AWARE_LOGGING",
         name: "USER_INTENTION",
@@ -28663,6 +28784,11 @@ __d(
         name: "MAIBA_FULL_THREAD_LIST",
         sampleRate: 1,
       },
+      324743301: {
+        moduleName: "MAIBA_INTERACTION",
+        name: "MAIBA_NULL_STATE_PROMPTS",
+        sampleRate: 1,
+      },
       324743329: {
         moduleName: "MAIBA_INTERACTION",
         name: "MAIBA_SANDBOX_TOOL_EXECUTION",
@@ -28953,6 +29079,11 @@ __d(
       335087833: {
         moduleName: "INSPIRATION_SHARING_FOUNDATION",
         name: "RETRY_API_PERF",
+        sampleRate: null,
+      },
+      335088270: {
+        moduleName: "INSPIRATION_SHARING_FOUNDATION",
+        name: "MODEL_RUNNER_AUDIO_EXTRACTION_PERF",
         sampleRate: null,
       },
       335090221: {
@@ -32652,6 +32783,11 @@ __d(
         name: "TWO_FACTOR_RECOVERY",
         sampleRate: 1,
       },
+      397479589: {
+        moduleName: "HN_PRE",
+        name: "HATCH_INTERACTION",
+        sampleRate: 1,
+      },
       397483621: {
         moduleName: "HN_PRE",
         name: "AI_HISTORY_TTRC",
@@ -32790,6 +32926,11 @@ __d(
       398605840: {
         moduleName: "CREATIVE_EDITOR",
         name: "OPEN_CREATIVE_EDITOR",
+        sampleRate: 1,
+      },
+      398789187: {
+        moduleName: "THREADS_MAIN_FEED",
+        name: "FEED_ITEM_VENDED",
         sampleRate: 1,
       },
       398792214: {
@@ -36124,6 +36265,11 @@ __d(
         name: "THREADS_FEED_FETCH",
         sampleRate: 1,
       },
+      449125793: {
+        moduleName: "SG_THREADS",
+        name: "THREADS_MEDIA_PLAYER",
+        sampleRate: 1,
+      },
       449131920: {
         moduleName: "SG_THREADS",
         name: "THREADS_POST_DETAIL_FETCH",
@@ -38230,6 +38376,38 @@ __d(
         name: "APLUSC_INSIGHTS_CLICK_TO_PANEL_INSIGHTS",
         sampleRate: 1,
       },
+      480839104: {
+        moduleName: "FBURL",
+        name: "AI_SUGGEST_KEY",
+        sampleRate: 250,
+      },
+      480840359: { moduleName: "FBURL", name: "FETCH_RECENT", sampleRate: 250 },
+      480842551: { moduleName: "FBURL", name: "POWERSEARCH", sampleRate: 250 },
+      480843724: {
+        moduleName: "FBURL",
+        name: "FETCH_FAVORITES",
+        sampleRate: 250,
+      },
+      480847733: { moduleName: "FBURL", name: "SEARCH_EXACT", sampleRate: 250 },
+      480848296: {
+        moduleName: "FBURL",
+        name: "FAVORITE_TOGGLE",
+        sampleRate: 250,
+      },
+      480848683: {
+        moduleName: "FBURL",
+        name: "TAG_TYPEAHEAD",
+        sampleRate: 250,
+      },
+      480852236: { moduleName: "FBURL", name: "DELETE", sampleRate: 250 },
+      480852331: { moduleName: "FBURL", name: "EDIT", sampleRate: 250 },
+      480852717: { moduleName: "FBURL", name: "CREATE", sampleRate: 250 },
+      480852827: { moduleName: "FBURL", name: "REDIRECT", sampleRate: 250 },
+      480853386: {
+        moduleName: "FBURL",
+        name: "SHORTEN_VIA_URL",
+        sampleRate: 250,
+      },
       480908390: {
         moduleName: "FBLITE_THREE_DOT_MENU_NF",
         name: "CLICK_ON_HIDE_AD",
@@ -39830,6 +40008,11 @@ __d(
         moduleName: "WHATSAPP_UPLOAD_SERVICE",
         name: "WHATSAPP_UPLOAD_SERVICE_FUNNEL",
         sampleRate: 1e4,
+      },
+      510133933: {
+        moduleName: "BIZAI_BYOA_CPV2",
+        name: "PROCESS_MESSAGE",
+        sampleRate: 1,
       },
       510394369: {
         moduleName: "IG_DIRECT_SEND",
@@ -43492,7 +43675,7 @@ __d(
       554567261: {
         moduleName: "MSGR_MDCORE",
         name: "MISSING_THREAD_SUBTYPE",
-        sampleRate: 1e4,
+        sampleRate: 1e5,
       },
       554567449: {
         moduleName: "MSGR_MDCORE",
@@ -43743,6 +43926,11 @@ __d(
         moduleName: "MBS_BUSINESS_ACCOUNT_FLOW",
         name: "REQUEST_ACCESS_TO_PAGE",
         sampleRate: 1,
+      },
+      558503436: {
+        moduleName: "MBS_BUSINESS_ACCOUNT_FLOW",
+        name: "REMOVE_ASSET_FROM_BUSINESS",
+        sampleRate: 250,
       },
       558503532: {
         moduleName: "MBS_BUSINESS_ACCOUNT_FLOW",
@@ -44128,6 +44316,11 @@ __d(
       560142836: {
         moduleName: "HORIZON_EDITOR",
         name: "GENAI_CHECKPOINTS_REMOTE_UPLOAD",
+        sampleRate: 1,
+      },
+      560143298: {
+        moduleName: "HORIZON_EDITOR",
+        name: "MHS_HEADLESS_TURN",
         sampleRate: 1,
       },
       560143299: {
@@ -44524,6 +44717,11 @@ __d(
         moduleName: "CENTRALIZED_FAMILY_CENTER",
         name: "FETA_AGGREGATE_CHATS_SCREEN_LOAD",
         sampleRate: 250,
+      },
+      569122749: {
+        moduleName: "USDID",
+        name: "USDID_REGISTRATION",
+        sampleRate: null,
       },
       569125366: {
         moduleName: "USDID",
@@ -46127,6 +46325,11 @@ __d(
         name: "REVIEW_PAGE_RELEASE_REQUEST",
         sampleRate: 1,
       },
+      608573361: {
+        moduleName: "BUSINESS_ACCOUNTS_PERMISSIONS",
+        name: "APPROVE_PARTNERSHIP_REQUEST",
+        sampleRate: 250,
+      },
       608573688: {
         moduleName: "BUSINESS_ACCOUNTS_PERMISSIONS",
         name: "UPDATE_USER_PERMISSION_ON_ASSET",
@@ -46914,6 +47117,11 @@ __d(
         name: "NME_BLOKS_WWW_REDUCTION",
         sampleRate: 1,
       },
+      619194955: {
+        moduleName: "NME_BLOKS_SCREENS",
+        name: "NME_BLOCK_SBV_ELIGIBILITY_CHECK",
+        sampleRate: 1,
+      },
       619195359: {
         moduleName: "NME_BLOKS_SCREENS",
         name: "NME_BLOKS_PRICE_FETCH",
@@ -47117,6 +47325,11 @@ __d(
         moduleName: "IG4A_CLIPS_VIEWER_REFRESH",
         name: "REFRESH",
         sampleRate: 100,
+      },
+      625803265: {
+        moduleName: "FB_SHEV_NATIVE_PDP_PERF",
+        name: "SCREEN_TTRC",
+        sampleRate: 1,
       },
       625869957: { moduleName: "COCKPITX", name: "E2E_LOAD", sampleRate: 1 },
       625870199: {
@@ -47403,7 +47616,7 @@ __d(
       633342491: {
         moduleName: "VIDEO_CSR",
         name: "UDD_CSR_VENDING_LOGGER",
-        sampleRate: 350,
+        sampleRate: 700,
       },
       633345243: {
         moduleName: "VIDEO_CSR",
@@ -47519,6 +47732,16 @@ __d(
         moduleName: "FX_LINKING_MERGE_FLOW",
         name: "LINKING_ADD_PROFILES_DISCLOSURE_SCREEN_LOAD",
         sampleRate: null,
+      },
+      638853277: {
+        moduleName: "IG4A_CLIPS_OFFLINE",
+        name: "REQUEST",
+        sampleRate: 1e3,
+      },
+      638855661: {
+        moduleName: "IG4A_CLIPS_OFFLINE",
+        name: "ENTRY_BANNER",
+        sampleRate: 1e3,
       },
       639501705: {
         moduleName: "TWO_MEASUREMENT",
@@ -48903,6 +49126,11 @@ __d(
         moduleName: "SRT_PROCUREMENT",
         name: "CASE_VIEW_LOAD",
         sampleRate: 10,
+      },
+      675810465: {
+        moduleName: "WHATSAPP_AI_PRIVATE_AI",
+        name: "MI_KVS_ONBOARDING",
+        sampleRate: 1,
       },
       675945341: {
         moduleName: "FB_FEED_ADS_GRID_FORMAT",
@@ -50333,7 +50561,7 @@ __d(
       701238781: {
         moduleName: "DISTRIBGW_WEB",
         name: "STREAM_GROUP_TRANSPORT",
-        sampleRate: 1,
+        sampleRate: 10,
       },
       701240843: {
         moduleName: "DISTRIBGW_WEB",
@@ -52728,6 +52956,11 @@ __d(
         moduleName: "WHATSAPP_VOIP",
         name: "LARGE_ML_MODEL_AVAILABILITY",
         sampleRate: 100,
+      },
+      726214558: {
+        moduleName: "WHATSAPP_VOIP",
+        name: "CALLING_ML_MODEL_AVAILABILITY",
+        sampleRate: 1e4,
       },
       726214597: {
         moduleName: "WHATSAPP_VOIP",
@@ -58998,6 +59231,21 @@ __d(
         name: "LEADS_CENTER_CHAT_HEAD_WWW",
         sampleRate: 1,
       },
+      794099713: {
+        moduleName: "NEST_MOBILE",
+        name: "INITIAL_LOAD",
+        sampleRate: 1,
+      },
+      794099714: {
+        moduleName: "NEST_MOBILE",
+        name: "NAVIGATION",
+        sampleRate: 1,
+      },
+      794099715: {
+        moduleName: "NEST_MOBILE",
+        name: "INTERACTION",
+        sampleRate: 1,
+      },
       794371285: {
         moduleName: "DLIM_TEST",
         name: "DLIM_TEST_EVENT_2",
@@ -59961,6 +60209,11 @@ __d(
         name: "TEST_CORNEL2",
         sampleRate: 1,
       },
+      813173272: {
+        moduleName: "IG_EDITS_TEXT_CREATION",
+        name: "REMOTE_FONT_DOWNLOAD",
+        sampleRate: 250,
+      },
       814286449: {
         moduleName: "MESSENGER_AI_AGENTS",
         name: "SIDECHAT_PANEL_OPEN",
@@ -60070,6 +60323,11 @@ __d(
         moduleName: "MSGR_SEARCH_DEBUG",
         name: "SEARCH_RESULTS_LOADED",
         sampleRate: 1e3,
+      },
+      817770667: {
+        moduleName: "MSGR_SEARCH_DEBUG",
+        name: "UXR_SURVEY_PIPELINE",
+        sampleRate: 10,
       },
       817891076: {
         moduleName: "MANAGED_MOBILE_ERRORS",
@@ -63206,6 +63464,11 @@ __d(
         sampleRate: 1,
       },
       860437522: { moduleName: "WEARABLE_OXIDE", name: "TURN", sampleRate: 1 },
+      860624276: {
+        moduleName: "SG_VOICE_MEMOS",
+        name: "LIVE_NOTES_MNEMO",
+        sampleRate: 1,
+      },
       860625155: {
         moduleName: "SG_VOICE_MEMOS",
         name: "LIVE_NOTES_SESSION_ANDROID",
@@ -64925,6 +65188,11 @@ __d(
         moduleName: "SMART_GLASSES",
         name: "QOS_EXPERIENCE_SESSION",
         sampleRate: 250,
+      },
+      884877458: {
+        moduleName: "SMART_GLASSES",
+        name: "DEVICE_NEXUS_BOOT",
+        sampleRate: 1,
       },
       884880641: {
         moduleName: "SMART_GLASSES",
@@ -67578,11 +67846,7 @@ __d(
         name: "CONSIDERATION_PAGE_TTI",
         sampleRate: 5,
       },
-      930349057: {
-        moduleName: "NEST_SSR",
-        name: "SSR_REQUEST",
-        sampleRate: 250,
-      },
+      930349057: { moduleName: "NEST_SSR", name: "SSR_REQUEST", sampleRate: 1 },
       931266561: {
         moduleName: "FELABS_MEMORY",
         name: "PAGE_LOAD_END_MEMORY",
@@ -71036,6 +71300,16 @@ __d(
         name: "HERO_IMAGE_LOAD",
         sampleRate: 1,
       },
+      964702787: {
+        moduleName: "SMARTGLASS_NAVIGATION",
+        name: "MEDIA_PAGE_LOAD",
+        sampleRate: 1,
+      },
+      964703958: {
+        moduleName: "SMARTGLASS_NAVIGATION",
+        name: "PLACE_FOLLOW_UP_RESPONSE_LOAD",
+        sampleRate: 1,
+      },
       964705298: {
         moduleName: "SMARTGLASS_NAVIGATION",
         name: "MEDIA_GALLERY_LOAD",
@@ -71610,6 +71884,11 @@ __d(
         name: "EVENT_SURVEY_INFRA_UNIFIED_DELIVERY",
         sampleRate: 1,
       },
+      974464997: {
+        moduleName: "IG_HOME_SURFACE",
+        name: "IG4A_STORIES_MEDIA_LOAD",
+        sampleRate: 500,
+      },
       974465496: {
         moduleName: "IG_HOME_SURFACE",
         name: "IG_CLIENT_SMART_FEATURE_P13N_BACKGROUND",
@@ -71871,6 +72150,11 @@ __d(
         moduleName: "AVATAR_CONTENT_DELIVERY",
         name: "AFC_FETCH_ANIMATION",
         sampleRate: 1,
+      },
+      980495710: {
+        moduleName: "FB_SHORTS_ENGAGEMENT",
+        name: "SIGNAL_STORE",
+        sampleRate: 100,
       },
       981404384: {
         moduleName: "QUARTZ_VIZIR",
@@ -72655,6 +72939,11 @@ __d(
         name: "BP_CREATION_BACKEND",
         sampleRate: 250,
       },
+      1001925354: {
+        moduleName: "BUSINESS_SETTINGS",
+        name: "ADD_PARTNER_REQUEST_ASSET_SHARE",
+        sampleRate: 250,
+      },
       1001925461: {
         moduleName: "BUSINESS_SETTINGS",
         name: "COMET_LINK_CONFIRMATION_FLOW",
@@ -72809,6 +73098,11 @@ __d(
         moduleName: "GROUP_APPS",
         name: "GROUPS_APP_FUNNEL",
         sampleRate: 1,
+      },
+      1011489051: {
+        moduleName: "DEVICE_COMPUTE_PLATFORM",
+        name: "MODEL_DOWNLOAD_ERROR",
+        sampleRate: 250,
       },
       1012794766: {
         moduleName: "VIRTUAL_RESOURCE_PORTAL",
@@ -73853,6 +74147,11 @@ __d(
         name: "GET_PERSONAS_THRIFT",
         sampleRate: 100,
       },
+      1032533084: {
+        moduleName: "GENAI_PERSONAS_PLATFORM",
+        name: "GEN_AI_CIFU_COOLDOWN_CACHE",
+        sampleRate: 5e3,
+      },
       1032533172: {
         moduleName: "GENAI_PERSONAS_PLATFORM",
         name: "GEN_AUTOGENERATE_PERSONA_ATTRIBUTES",
@@ -74441,6 +74740,11 @@ __d(
       1040006358: {
         moduleName: "TRIAGING_TOOL",
         name: "MANUAL_ASSESSMENT_FLOW",
+        sampleRate: 1,
+      },
+      1040522412: {
+        moduleName: "FB_MUSIC_IN_ADS",
+        name: "FB_FEED_VIDEO_USER_FLOW",
         sampleRate: 1,
       },
       1041117828: {

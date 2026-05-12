@@ -90,13 +90,39 @@ __d(
           })()),
           (i.set = function (n, r) {
             if ((r == null ? void 0 : r.remove) !== !1) {
-              var e = this.filter(function (e) {
-                return e.isSyntheticFromMetadata === !0;
-              });
+              var e = this.getSyntheticStatusesToPreserve(n);
               if (e.length > 0)
                 return t.prototype.set.call(this, [].concat(n, e), r);
             }
             return t.prototype.set.call(this, n, r);
+          }),
+          (i.getSyntheticStatusesToPreserve = function (t) {
+            var e = this,
+              n = new Set();
+            return (
+              t.forEach(function (e) {
+                e.id != null && n.add(e.id.toString());
+              }),
+              this.filter(function (t) {
+                return t.isSyntheticFromMetadata !== !0
+                  ? !1
+                  : n.has(t.id.toString())
+                    ? ((t.isSyntheticFromMetadata = !1), !1)
+                    : e.hasActiveNewsletterStatusMetadata(t.id);
+              })
+            );
+          }),
+          (i.hasActiveNewsletterStatusMetadata = function (t) {
+            var e,
+              n =
+                r("WAWebNewsletterMetadataCollection") == null
+                  ? void 0
+                  : r("WAWebNewsletterMetadataCollection").get(t),
+              a =
+                n == null || (e = n.statusMetadata) == null
+                  ? void 0
+                  : e.lastStatusSentTime;
+            return a != null && o("WATimeUtils").unixTime() - a <= c;
           }),
           (i.sync = function () {
             var t = this,

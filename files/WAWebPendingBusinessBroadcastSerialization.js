@@ -42,22 +42,32 @@ __d(
     }
     function s(e, t) {
       var n = null,
-        r = t.mediaData,
-        o = t.mediaMetadata;
-      if (r != null && o != null) {
-        var a = JSON.parse(o);
-        n = new File([r], a.name, {
-          lastModified: a.lastModified,
-          type: a.type,
-        });
+        r = null,
+        o = null,
+        a = null,
+        i = t.mediaData,
+        l = t.mediaMetadata;
+      if (l != null) {
+        var s = JSON.parse(l);
+        (s.catalogWid != null &&
+          ((r = s.catalogWid), (o = s.productId), (a = s.productImageUrl)),
+          i != null &&
+            s.name != null &&
+            (n = new File([i], s.name, {
+              lastModified: s.lastModified,
+              type: s.type,
+            })));
       }
       return {
         adGroupId: e.adGroupId,
         broadcastJid: e.broadcastJid,
+        catalogWid: r,
         ctaButtonJson: t.ctaButtonJson,
         freeReservedMsgs: e.freeReservedMsgs,
         mediaFile: n,
         messageBody: t.messageBody,
+        productId: o,
+        productImageUrl: a,
         sendTimestamp: e.sendTimestamp,
       };
     }

@@ -122,7 +122,7 @@ __d(
         ),
         n = t.getUTCFullYear(),
         r = String(t.getUTCMonth() + 1).padStart(2, "0");
-      return n + "/" + r + "/01";
+      return n + "/" + r;
     }
     function k(e, t) {
       var n = t % o("WATimeUtils").DAY_SECONDS,
