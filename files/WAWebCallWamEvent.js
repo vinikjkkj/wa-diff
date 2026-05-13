@@ -2565,6 +2565,7 @@ __d(
               videoNackHbhEnabled: [1185, e.TYPES.BOOLEAN],
               videoNackRtpRetransmitRecvdCount: [1272, e.TYPES.INTEGER],
               videoNackRtpRetransmitReqCount: [1373, e.TYPES.INTEGER],
+              videoNackRtpRetransmitRetryCount: [2917, e.TYPES.INTEGER],
               videoNpsiGenFailed: [594, e.TYPES.INTEGER],
               videoNpsiNoNack: [595, e.TYPES.INTEGER],
               videoNumAvSyncDiscardFrames: [1010, e.TYPES.INTEGER],

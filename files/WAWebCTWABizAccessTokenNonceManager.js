@@ -53,7 +53,7 @@ __d(
         i = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
           code: a,
           name: "fetchAdAccountNonce",
-          timer: { algo: { type: "exponential", first: u }, max: c },
+          timer: { algo: { first: u, type: "exponential" }, max: c },
         });
       return (i.start(), i.promise());
     }

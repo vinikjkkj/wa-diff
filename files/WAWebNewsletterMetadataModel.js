@@ -4,6 +4,11 @@ __d(
     "WAWebBaseModel",
     "WAWebClock",
     "WAWebCommonNewsletterEnums",
+    "WAWebContactSearchGatingUtils",
+    "WAWebExactSearchMatchResult",
+    "WAWebFuzzyMatcher",
+    "WAWebFuzzySearchMatchResult",
+    "WAWebL10NAccentFold",
     "WAWebModelUtils",
     "WAWebNewsletterGeosuspendedCountryCollection",
     "WAWebNewsletterMembershipUtil",
@@ -12,6 +17,7 @@ __d(
     "WAWebNewsletterMetricUtils",
     "WAWebNewsletterPendingAdminsCollection",
     "WAWebNewsletterSubscribersCollection",
+    "WAWebSearchMatchStrategies",
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
@@ -108,6 +114,14 @@ __d(
             },
             ["creationTime"],
           )),
+          (t.searchName = o("WAWebModelUtils").derived(
+            function () {
+              return this.name === ""
+                ? ""
+                : o("WAWebL10NAccentFold").accentFold(this.name);
+            },
+            ["name"],
+          )),
           babelHelpers.assertThisInitialized(t) ||
             babelHelpers.assertThisInitialized(t)
         );
@@ -184,6 +198,42 @@ __d(
         }),
         (n.iAmAdminOrOwner = function () {
           return o("WAWebNewsletterMembershipUtil").iAmAdminOrOwner(this);
+        }),
+        (n.searchMatchExact = function (t) {
+          var e = o("WAWebSearchMatchStrategies").substringMatch(
+            this.searchName,
+            t,
+          );
+          return e == null
+            ? null
+            : {
+                match: this.searchName,
+                results: e.map(function (e) {
+                  return new (o(
+                    "WAWebExactSearchMatchResult",
+                  ).WAWebExactSearchMatchResult)(e.startIndex, e.length);
+                }),
+              };
+        }),
+        (n.searchMatchFuzzy = function (t) {
+          var e = t.split(/\s+/).filter(Boolean);
+          if (e.length === 0) return null;
+          var n =
+              1 -
+              o(
+                "WAWebContactSearchGatingUtils",
+              ).getFuzzySearchDistanceThreshold(),
+            r = [];
+          for (var a of e) {
+            var i = o("WAWebFuzzyMatcher").fuzzyMatch(
+              this.searchName,
+              a,
+              o("WAWebFuzzySearchMatchResult").MAX_ALLOWED_COST,
+            );
+            if (!i.isMatch() || i.getSimilarityRating() < n) return null;
+            r.push(i);
+          }
+          return { match: this.searchName, results: r };
         }),
         t
       );

@@ -246,7 +246,7 @@ __d(
           ) {
             case o("WAWebProtobufsE2E.pb").KeepType.KEEP_FOR_ALL: {
               var I = (t.keptCount || 0) + 1;
-              v(t.id, t.associationType, f, g, I);
+              yield v(t.id, t.associationType, f, g, I);
               var T = new (o(
                 "WAWebDisappearingMessageKeepInChatWamEvent",
               ).DisappearingMessageKeepInChatWamEvent)(
@@ -261,7 +261,7 @@ __d(
             }
             case o("WAWebProtobufsE2E.pb").KeepType.UNDO_KEEP_FOR_ALL: {
               var D;
-              S(t.id, f, g);
+              yield S(t.id, f, g);
               var x = new (o(
                 "WAWebDisappearingMessageKeepInChatWamEvent",
               ).DisappearingMessageKeepInChatWamEvent)(

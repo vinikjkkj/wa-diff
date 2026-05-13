@@ -24,7 +24,7 @@ __d(
       );
     }
     function d(e) {
-      o("WAWebContactPresenceBridge").subscribePresence(e, null);
+      o("WAWebContactPresenceBridge").subscribeGroupPresence(e);
     }
     function m(e, t) {
       var n = function () {
@@ -39,9 +39,9 @@ __d(
       if (c(t)) {
         var n = t.id.toString();
         if (!s.has(n)) {
-          d(n);
+          d(t.id);
           var r = self.setInterval(function () {
-            return d(n);
+            return d(t.id);
           }, e);
           s.set(n, r);
           var a = o("WAWebPresenceCollection").PresenceCollection.get(n);

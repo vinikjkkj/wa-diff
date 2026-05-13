@@ -10,33 +10,43 @@ __d(
     "use strict";
     var e = 280,
       s = 280,
-      u = 820,
-      c = !1,
-      d = new (r("WAWebTypedEventEmitter"))();
-    function m(e) {
-      ((c = e), d.trigger("change", e));
+      u = 200,
+      c = 820,
+      d = !1,
+      m = new (r("WAWebTypedEventEmitter"))();
+    function p(e) {
+      ((d = e), m.trigger("change", e));
     }
-    function p() {
-      if (c) return u;
+    function _() {
+      var e = r("WAWebCallCollection").activeCall;
+      return (e == null ? void 0 : e.isGroup) === !0 &&
+        (e == null ? void 0 : e.isVideo) !== !0
+        ? u
+        : s;
+    }
+    function f() {
+      if (d) return c;
       var t = r("WAWebCallCollection").activeCall;
       return t != null &&
         t.isCallLink &&
         t.getState() === o("WAWebVoipWaCallEnums").CallState.ConnectedLonely
-        ? u
+        ? c
         : e;
     }
     ((l.MIN_WINDOW_WIDTH = e),
       (l.MIN_WINDOW_HEIGHT = s),
+      (l.MIN_WINDOW_HEIGHT_GROUP_AUDIO = u),
       (l.DRAWER_WIDTH = o(
         "WAWebVoipWindowConstants.stylex.const",
       ).drawerDimensions.width),
       (l.DRAWER_GAP = o(
         "WAWebVoipWindowConstants.stylex.const",
       ).drawerDimensions.gap),
-      (l.MIN_WINDOW_WIDTH_WITH_SIDEBAR = u),
-      (l.sidebarVisibilityEmitter = d),
-      (l.setIsSidebarVisible = m),
-      (l.getEffectiveMinWindowWidth = p));
+      (l.MIN_WINDOW_WIDTH_WITH_SIDEBAR = c),
+      (l.sidebarVisibilityEmitter = m),
+      (l.setIsSidebarVisible = p),
+      (l.getEffectiveMinWindowHeight = _),
+      (l.getEffectiveMinWindowWidth = f));
   },
   98,
 );

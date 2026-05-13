@@ -59,13 +59,13 @@ __d(
             p = e.multicast,
             f = p === void 0 ? !1 : p;
           if (c(m) || o("WAWebFileUtils").isDocument(m))
-            return o("WAWebMediaForwardMediaMsg").forwardMediaMsg(
-              m,
-              a,
-              f,
-              l,
-              t,
-            );
+            return o("WAWebMediaForwardMediaMsg").forwardMediaMsg({
+              appendedText: t,
+              chat: a,
+              includeCaption: l,
+              msg: m,
+              multicast: f,
+            });
           var g = C(m, a);
           if (o("WAWebBotUtils").isMetaAiBot(a.id)) {
             if (t != null && t !== "") {

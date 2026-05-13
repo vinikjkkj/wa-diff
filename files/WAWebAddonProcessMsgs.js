@@ -204,17 +204,18 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(e, t, n, r) {
-      var a = r.failSilently,
-        i = r.metricReporter;
+    function L(e, t, n, a) {
+      var i = a.failSilently,
+        l = a.metricReporter;
       return Array.from(
         o("WAWebAddonSortUtils").groupAddonsByTableMode(t),
-        function (r) {
-          var l = r[0],
-            c = r[1];
-          return S(e, l, c, n, i).catch(function (n) {
+        function (a) {
+          var c = a[0],
+            d = a[1];
+          return S(e, c, d, n, l).catch(function (n) {
+            var a = r("getErrorSafe")(n);
             if (n instanceof o("WAWebHandleMsgError").MessageValidationError) {
-              var r;
+              var l;
               o("WALogger")
                 .ERROR(
                   s ||
@@ -222,21 +223,21 @@ __d(
                       "failed incoming addons processing",
                     ])),
                 )
-                .catching(n)
+                .catching(a)
                 .tags("addons", "messaging")
                 .sendLogs(
                   "processAddonMsgs: " +
-                    ((r = t[0]) == null ? void 0 : r.type) +
+                    ((l = t[0]) == null ? void 0 : l.type) +
                     " in " +
-                    String(l),
+                    String(c),
                 );
             } else {
-              var i,
-                c =
+              var d,
+                m =
                   "addon-" +
                   String(e.mode) +
                   "-error: " +
-                  ((i = t[0]) == null ? void 0 : i.type);
+                  ((d = t[0]) == null ? void 0 : d.type);
               o("WALogger")
                 .ERROR(
                   u ||
@@ -244,13 +245,13 @@ __d(
                       "[AddonInfraError] failed saving addons in ",
                       "",
                     ])),
-                  l,
+                  c,
                 )
-                .catching(n)
+                .catching(a)
                 .tags("addons", "messaging")
-                .sendLogs(c);
+                .sendLogs(m);
             }
-            if (!a) throw n;
+            if (!i) throw n;
           });
         },
       );

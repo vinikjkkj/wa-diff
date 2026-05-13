@@ -24,33 +24,48 @@ __d(
       var d = o("WAUnicodeUtils").firstNCodepoints(t, c),
         m = !1,
         p = o("WAWebLinkify").findLinks(d, m, n);
-      return (p.length > 0 && (p = s(p, t, d, c, n)), [p, c]);
+      return (
+        p.length > 0 &&
+          (p = s({
+            endIndex: c,
+            fullText: t,
+            links: p,
+            sender: n,
+            truncatedText: d,
+          })),
+        [p, c]
+      );
     }
-    var s = function (t, n, r, a, i) {
-      var e = o("WAUnicodeUtils").numCodepoints(r),
-        l = o("WAUnicodeUtils").numCodepoints(n);
-      if (e < l && t.length > 0) {
-        var s = t[t.length - 1];
-        if (s == null || s.index == null || s.url == null || s.href == null)
-          return (t.pop(), t);
-        var u = o("WAUnicodeUtils").numCodepoints(r.slice(0, s.index)),
-          c = u + o("WAUnicodeUtils").numCodepoints(s.url);
-        if (c === a) {
-          var d = o("WAWebLinkify").findLinks(n, !1, i),
-            m = u,
-            p = d[d.length - 1];
-          if (p == null || p.url == null)
-            return t.filter(function (e) {
-              return e.href !== s.href;
+    var s = function (t) {
+      var e = t.endIndex,
+        n = t.fullText,
+        r = t.links,
+        a = t.sender,
+        i = t.truncatedText,
+        l = o("WAUnicodeUtils").numCodepoints(i),
+        s = o("WAUnicodeUtils").numCodepoints(n);
+      if (l < s && r.length > 0) {
+        var u = r[r.length - 1];
+        if (u == null || u.index == null || u.url == null || u.href == null)
+          return (r.pop(), r);
+        var c = o("WAUnicodeUtils").numCodepoints(i.slice(0, u.index)),
+          d = c + o("WAUnicodeUtils").numCodepoints(u.url);
+        if (d === e) {
+          var m = o("WAWebLinkify").findLinks(n, !1, a),
+            p = c,
+            _ = m[m.length - 1];
+          if (_ == null || _.url == null)
+            return r.filter(function (e) {
+              return e.href !== u.href;
             });
-          var _ = m + o("WAUnicodeUtils").numCodepoints(p.url);
-          if (_ > e)
-            return t.filter(function (e) {
-              return e.href !== s.href;
+          var f = p + o("WAUnicodeUtils").numCodepoints(_.url);
+          if (f > l)
+            return r.filter(function (e) {
+              return e.href !== u.href;
             });
         }
       }
-      return t;
+      return r;
     };
     function u(t, n) {
       var r = o("WAWebStateUtils").unproxy(t),

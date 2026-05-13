@@ -310,7 +310,12 @@ __d(
           ));
       }
       return o("WAWebChatSeenBridge")
-        .sendConversationSeen(s, h, p, d != null ? d : void 0)
+        .sendConversationSeen({
+          chat: s,
+          key: h,
+          threadId: d != null ? d : void 0,
+          unreadDelta: p,
+        })
         .then(
           (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(

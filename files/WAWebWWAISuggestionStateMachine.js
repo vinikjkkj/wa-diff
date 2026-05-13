@@ -3,27 +3,31 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = {
-      state: "idle",
-      suggestions: [],
-      activeTone: "rephrase",
-      error: null,
-      inProgress: !1,
-    };
-    function l(t, n) {
+        state: "idle",
+        suggestions: [],
+        activeTone: "rephrase",
+        error: null,
+        inProgress: !1,
+      },
+      l = new Set(["loading", "success", "error", "empty"]);
+    function s(t, n) {
+      var r = l.has(t.state);
       return (function (n) {
         if (
           ((typeof n == "object" && n !== null) || typeof n == "function") &&
           n.type === "OPEN_TRAY" &&
           "hasAcceptedTos" in n
         ) {
-          var r = n.hasAcceptedTos;
-          return r
-            ? babelHelpers.extends({}, t, { state: "loading" })
-            : babelHelpers.extends({}, t, { state: "privacy_tos" });
+          var o = n.hasAcceptedTos;
+          if (t.state === "idle" || t.state === "word_limit_not_met")
+            return o
+              ? babelHelpers.extends({}, t, { state: "loading" })
+              : babelHelpers.extends({}, t, { state: "privacy_tos" });
         }
         if (
           ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.type === "ACCEPT_TOS"
+          n.type === "ACCEPT_TOS" &&
+          t.state === "privacy_tos"
         )
           return babelHelpers.extends({}, t, { state: "loading" });
         if (
@@ -31,13 +35,15 @@ __d(
           n.type === "START_LOADING" &&
           "tone" in n
         ) {
-          var o = n.tone;
-          return babelHelpers.extends({}, t, {
-            state: "loading",
-            activeTone: o,
-            error: null,
-            inProgress: !0,
-          });
+          var a = n.tone;
+          if (r)
+            return babelHelpers.extends({}, t, {
+              state: "loading",
+              activeTone: a,
+              suggestions: [],
+              error: null,
+              inProgress: !0,
+            });
         }
         if (
           ((typeof n == "object" && n !== null) || typeof n == "function") &&
@@ -45,30 +51,33 @@ __d(
           "suggestions" in n &&
           "inProgress" in n
         ) {
-          var a = n.suggestions,
-            i = n.inProgress;
-          return babelHelpers.extends({}, t, {
-            state: "success",
-            suggestions: a,
-            inProgress: i,
-            error: null,
-          });
+          var i = n.suggestions,
+            l = n.inProgress;
+          if (t.state === "loading" || t.state === "success")
+            return babelHelpers.extends({}, t, {
+              state: "success",
+              suggestions: i,
+              inProgress: l,
+              error: null,
+            });
         }
         if (
           ((typeof n == "object" && n !== null) || typeof n == "function") &&
           n.type === "RECEIVE_ERROR" &&
           "errorType" in n
         ) {
-          var l = n.errorType;
-          return babelHelpers.extends({}, t, {
-            state: "error",
-            error: l,
-            inProgress: !1,
-          });
+          var s = n.errorType;
+          if (t.state === "loading")
+            return babelHelpers.extends({}, t, {
+              state: "error",
+              error: s,
+              inProgress: !1,
+            });
         }
         if (
           ((typeof n == "object" && n !== null) || typeof n == "function") &&
-          n.type === "RECEIVE_EMPTY"
+          n.type === "RECEIVE_EMPTY" &&
+          t.state === "loading"
         )
           return babelHelpers.extends({}, t, {
             state: "empty",
@@ -86,30 +95,29 @@ __d(
         )
           return babelHelpers.extends({}, t, {
             state: "word_limit_not_met",
-            inProgress: !1,
             suggestions: [],
             error: null,
+            inProgress: !1,
           });
         if (
           ((typeof n == "object" && n !== null) || typeof n == "function") &&
           n.type === "CHANGE_TONE" &&
           "tone" in n
         ) {
-          var s = n.tone;
-          return babelHelpers.extends({}, t, {
-            state: "loading",
-            activeTone: s,
-            error: null,
-            inProgress: !0,
-          });
+          var u = n.tone;
+          if (r)
+            return babelHelpers.extends({}, t, {
+              state: "loading",
+              activeTone: u,
+              suggestions: [],
+              error: null,
+              inProgress: !0,
+            });
         }
-        throw Error(
-          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-            n,
-        );
+        return t;
       })(n);
     }
-    ((i.INITIAL_STATE = e), (i.wwaiReducer = l));
+    ((i.INITIAL_STATE = e), (i.wwaiReducer = s));
   },
   66,
 );

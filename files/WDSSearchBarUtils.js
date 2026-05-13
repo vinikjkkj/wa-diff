@@ -5,6 +5,7 @@ __d(
     "WDSButton.react",
     "WDSFlex.stylex",
     "WDSSearchBarConfig",
+    "WDSSpinner.react",
     "react",
     "react-strict-dom",
     "stylex",
@@ -36,6 +37,12 @@ __d(
           height: "xxk0z11",
           width: "xvy4d1p",
           color: "xhslqc4",
+          $$css: !0,
+        },
+        spinnerCentered: {
+          display: "x78zum5",
+          alignItems: "x6s0dn4",
+          justifyContent: "xl56j7k",
           $$css: !0,
         },
         cancelButtonContainer: {
@@ -84,7 +91,28 @@ __d(
       );
     }
     m.displayName = m.name + " [from " + i.id + "]";
-    function p(t) {
+    function p(e) {
+      var t = e.density,
+        n = e.platform,
+        a = e.size,
+        i;
+      return (
+        t === o("WDSSearchBarConfig").SearchBarDensity.POINTER
+          ? (i = d.pointerButtonContainer)
+          : n === "android"
+            ? (i = d.androidTouchButtonContainer)
+            : (i = d.iOSTouchButtonContainer),
+        c.jsx(o("react-strict-dom").html.div, {
+          style: d.iconContainer,
+          children: c.jsx(o("react-strict-dom").html.div, {
+            style: [i, d.spinnerCentered],
+            children: c.jsx(r("WDSSpinner.react"), { size: a }),
+          }),
+        })
+      );
+    }
+    p.displayName = p.name + " [from " + i.id + "]";
+    function _(t) {
       var n = t.isFocused,
         a = t.onCancel,
         i = t.textInput;
@@ -124,9 +152,10 @@ __d(
         ),
       );
     }
-    ((p.displayName = p.name + " [from " + i.id + "]"),
+    ((_.displayName = _.name + " [from " + i.id + "]"),
       (l.SearchBarAddOnEnd = m),
-      (l.SearchBarWrapperIOS = p));
+      (l.SearchBarAddOnEndSpinner = p),
+      (l.SearchBarWrapperIOS = _));
   },
   226,
 );

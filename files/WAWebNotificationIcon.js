@@ -6,6 +6,7 @@ __d(
     "WAWebABProps",
     "WAWebAssetLoader",
     "WAWebAssetLoaderSingleton",
+    "WAWebCometRouterMetaManager",
     "WAWebFbtCommon",
     "WAWebL10N",
     "WAWebMobilePlatforms",
@@ -42,7 +43,7 @@ __d(
           ? t.push(r("WAWebFbtCommon")("WhatsApp Business").toString())
           : t.push(r("WAWebFbtCommon")("WhatsApp").toString()));
       var n = t.join(" ");
-      (o("WAWebPwaDocumentMetadataUtils").setDocumentTitle(n),
+      (o("WAWebCometRouterMetaManager").updateUnreadTitle(n),
         o("WAWebPwaDocumentMetadataUtils").isCurrentWebSessionInsidePwa() &&
           o("WAWebPwaDocumentMetadataUtils").setAppBadge(e),
         b(e));

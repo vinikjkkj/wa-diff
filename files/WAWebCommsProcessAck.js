@@ -22,7 +22,8 @@ __d(
       if (e.attrs.class === "message") {
         var i = o("WAWebWidFactory").createWid(String(n)),
           l = u(e);
-        (m(String(r), i, parseInt(a, 10), l), d(l, String(r), i));
+        (m({ id: String(r), rcat: l, remote: i, timestamp: parseInt(a, 10) }),
+          d(l, String(r), i));
       }
     }
     function u(e) {
@@ -53,60 +54,58 @@ __d(
           rcat: e,
         });
     }
-    function m(e, t, n, r) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, r, a) {
-            var i = c(t, n),
-              l = String(i);
-            try {
-              var s = yield o("WAWebSchemaMessage").getMessageTable().get(l);
-              if (
-                (s == null ? void 0 : s.type) ===
-                o("WAWebMsgType").MSG_TYPE.REACTION
-              )
-                return;
-              var u = o("WAWebDBMessageUtils").MessagePropertyType.cast(
-                s == null ? void 0 : s.messageRangeIndex.split("_")[1],
-              );
-              o("WAWebSchemaMessage")
-                .getMessageTable()
-                .merge(l, {
-                  messageRangeIndex: o(
-                    "WAWebDBMessageUtils",
-                  ).craftMessageRangeIndex(
-                    n.toString(),
-                    !1,
-                    u ===
-                      o("WAWebDBMessageUtils").MessagePropertyType
-                        .SystemMessage,
-                    r,
-                  ),
-                  rcat: a,
-                });
-            } catch (t) {
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "processAckForOutgoingMessage: failed to update in storage",
-                      ])),
-                  )
-                  .verbose()
-                  .sendLogs("message processAckForOutgoingMessage failed"),
-                t
-              );
-            }
-            o("WAWebActiveMessageRanges").checkAndRemoveActiveMessageRanges(
-              i,
-              r,
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var n = t.id,
+            r = t.rcat,
+            a = t.remote,
+            i = t.timestamp,
+            l = c(n, a),
+            s = String(l);
+          try {
+            var u = yield o("WAWebSchemaMessage").getMessageTable().get(s);
+            if (
+              (u == null ? void 0 : u.type) ===
+              o("WAWebMsgType").MSG_TYPE.REACTION
+            )
+              return;
+            var d = o("WAWebDBMessageUtils").MessagePropertyType.cast(
+              u == null ? void 0 : u.messageRangeIndex.split("_")[1],
             );
-          },
-        )),
+            o("WAWebSchemaMessage")
+              .getMessageTable()
+              .merge(s, {
+                messageRangeIndex: o(
+                  "WAWebDBMessageUtils",
+                ).craftMessageRangeIndex(
+                  a.toString(),
+                  !1,
+                  d ===
+                    o("WAWebDBMessageUtils").MessagePropertyType.SystemMessage,
+                  i,
+                ),
+                rcat: r,
+              });
+          } catch (t) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "processAckForOutgoingMessage: failed to update in storage",
+                    ])),
+                )
+                .verbose()
+                .sendLogs("message processAckForOutgoingMessage failed"),
+              t
+            );
+          }
+          o("WAWebActiveMessageRanges").checkAndRemoveActiveMessageRanges(l, i);
+        })),
         p.apply(this, arguments)
       );
     }

@@ -27,18 +27,23 @@ __d(
         );
         return t && e(n);
       };
-    function c(e, t, n, a, i) {
-      return !o("WAWebOrdersExpansionUtils").isContactCountrySupported(a) ||
-        o("WAWebOrderStatus").isPaymentRequest(a, i) ||
-        t == null ||
-        !u(e, t)
+    function c(e) {
+      var t = e.chat,
+        n = e.msg,
+        a = e.orderInfo,
+        i = e.orderStatus,
+        l = e.uimContext;
+      return !o("WAWebOrdersExpansionUtils").isContactCountrySupported(t) ||
+        o("WAWebOrderStatus").isPaymentRequest(t, a) ||
+        i == null ||
+        !u(n, i)
         ? null
         : {
             label: s._(/*BTDS*/ "Update status"),
             onClick: function () {
               o("WAWebBizOrderUpdateStatusAction").openOrderStatusUpdateDrawer(
-                e,
                 n,
+                l,
                 r("WAWebBizEntryPoint").FROM_CHAT,
               );
             },

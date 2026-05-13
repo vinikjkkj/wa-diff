@@ -15,40 +15,40 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e, t, n, r) {
+    function u(e) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = o("WATimeUtils").unixTimeMs();
-            if (n === -1) {
-              var l = yield r(
-                  "WAWebMarkChatAsReadSync",
-                ).getMarkChatAsReadMutation(i, !0, e.id),
-                s = e.id.toString();
-              return (
-                o("WAWebMessageRangeUtils").lockForMessageRangeSync(
-                  [],
-                  [l],
-                  function () {
-                    return o(
-                      "WAWebApiActiveMessageRanges",
-                    ).addActiveMessageRange(
-                      e.id.toString(),
-                      "markChatAsRead",
-                      l.binarySyncAction,
-                    );
-                  },
-                ),
-                yield o("WAWebApiChat").updateChatForMarkAsReadSync(s),
-                { fullyReadThreadIds: [] }
-              );
-            }
-            return yield o("WAWebSendReadReceiptJob").markChatRead(e, t, a);
-          },
-        )),
+        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chat,
+            n = e.key,
+            a = e.threadId,
+            i = e.unreadDelta,
+            l = o("WATimeUtils").unixTimeMs();
+          if (i === -1) {
+            var s = yield r(
+                "WAWebMarkChatAsReadSync",
+              ).getMarkChatAsReadMutation(l, !0, t.id),
+              u = t.id.toString();
+            return (
+              o("WAWebMessageRangeUtils").lockForMessageRangeSync(
+                [],
+                [s],
+                function () {
+                  return o("WAWebApiActiveMessageRanges").addActiveMessageRange(
+                    t.id.toString(),
+                    "markChatAsRead",
+                    s.binarySyncAction,
+                  );
+                },
+              ),
+              yield o("WAWebApiChat").updateChatForMarkAsReadSync(u),
+              { fullyReadThreadIds: [] }
+            );
+          }
+          return yield o("WAWebSendReadReceiptJob").markChatRead(t, n, a);
+        })),
         c.apply(this, arguments)
       );
     }

@@ -1595,6 +1595,11 @@ __d(
         name: "TEST_TEMP_PROD_7",
         sampleRate: null,
       },
+      8324710: {
+        moduleName: "TEST_IOS_MODULE",
+        name: "AAA_EEE7",
+        sampleRate: 250,
+      },
       8324912: {
         moduleName: "TEST_IOS_MODULE",
         name: "TEST_MY_UI",
@@ -2693,11 +2698,16 @@ __d(
       19801279: {
         moduleName: "IN_APP_BROWSER",
         name: "INNER_FRAME_INIT",
-        sampleRate: 1,
+        sampleRate: 1e3,
       },
       19801470: {
         moduleName: "IN_APP_BROWSER",
         name: "BROWSER_HISTORY_BLOKS_WWW",
+        sampleRate: 1,
+      },
+      19802083: {
+        moduleName: "IN_APP_BROWSER",
+        name: "INNER_FRAME_EVENTS",
         sampleRate: 1,
       },
       19807189: {
@@ -5403,6 +5413,11 @@ __d(
         moduleName: "FEED_DELIVERY_HEALTH",
         name: "CODE_NOT_DEAD",
         sampleRate: 50,
+      },
+      32116340: {
+        moduleName: "OCULUS_TWILIGHT",
+        name: "OCULUS_TWILIGHT_MEDIA_BATCH_UPLOAD",
+        sampleRate: 1,
       },
       32117114: {
         moduleName: "OCULUS_TWILIGHT",
@@ -13765,7 +13780,7 @@ __d(
       85529372: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_INDIVIDUAL_REVIEWS",
-        sampleRate: 254,
+        sampleRate: 216,
       },
       85529391: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -13845,7 +13860,7 @@ __d(
       85535380: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
         name: "PRODUCT_AGGREGATED_RATINGS_BAU",
-        sampleRate: 399109,
+        sampleRate: 319627,
       },
       85536121: {
         moduleName: "SHOPS_RATINGS_REVIEWS",
@@ -14995,7 +15010,7 @@ __d(
       100346940: {
         moduleName: "ACCESS_LIBRARY",
         name: "SAVE_AGGREGATED",
-        sampleRate: 20476,
+        sampleRate: 17310,
       },
       100348897: {
         moduleName: "ACCESS_LIBRARY",
@@ -28577,7 +28592,7 @@ __d(
       322452781: {
         moduleName: "world_remixing",
         name: "PUBLISH_METADATA_GENERATION",
-        sampleRate: null,
+        sampleRate: 1,
       },
       322570850: {
         moduleName: "WORK_PLATFORM_TS_EVENT_STREAM",
@@ -30795,6 +30810,16 @@ __d(
       361037825: {
         moduleName: "MSG_COMMUNITY_CONTAINER_WEB",
         name: "OPEN_CHANNEL_LIST",
+        sampleRate: 1,
+      },
+      361243466: {
+        moduleName: "CREATOR_STUDIO_MOBILE",
+        name: "PULL_TO_REFRESH",
+        sampleRate: 1,
+      },
+      361248410: {
+        moduleName: "CREATOR_STUDIO_MOBILE",
+        name: "INITIAL_LOAD",
         sampleRate: 1,
       },
       361562113: {
@@ -36710,7 +36735,7 @@ __d(
       452671097: {
         moduleName: "ULTRALIGHT",
         name: "CONTEXT_REQUIRED_INJECTOR_PASSED",
-        sampleRate: 0,
+        sampleRate: 1,
       },
       452788225: {
         moduleName: "CATALOG_ITEM_LIFECYCLE",
@@ -39795,7 +39820,7 @@ __d(
       507188031: {
         moduleName: "MDCORE_SYNC",
         name: "SKIP_EXECUTE_SYNC",
-        sampleRate: null,
+        sampleRate: 10,
       },
       507518673: {
         moduleName: "TOFU_API_TIME_SINCE",
@@ -40122,6 +40147,11 @@ __d(
       513415152: {
         moduleName: "OPS_COST_CENTER",
         name: "HOME_PAGE_LOAD",
+        sampleRate: 1,
+      },
+      513415536: {
+        moduleName: "OPS_COST_CENTER",
+        name: "DASHBOARD_CLICK",
         sampleRate: 1,
       },
       513418376: {
@@ -41803,12 +41833,12 @@ __d(
       523506917: {
         moduleName: "MSYS_DB_TRUNCATION",
         name: "PBQ_STOPPED_FULL_TRUNCATION",
-        sampleRate: 1e3,
+        sampleRate: 1,
       },
       523511522: {
         moduleName: "MSYS_DB_TRUNCATION",
         name: "FROM_RECREATE_STOPPED_DROP",
-        sampleRate: 1e3,
+        sampleRate: 1,
       },
       524222465: {
         moduleName: "CLOUD_GAMING_SERVICES",
@@ -45617,6 +45647,11 @@ __d(
         name: "APP_HOT_START",
         sampleRate: 1,
       },
+      591925780: {
+        moduleName: "PRONEST",
+        name: "AI_CHAT_TTFT",
+        sampleRate: 250,
+      },
       591926768: { moduleName: "PRONEST", name: "APP_LOGIN", sampleRate: 1 },
       591932326: { moduleName: "PRONEST", name: "CONTENT_TTRC", sampleRate: 1 },
       591935267: {
@@ -46512,6 +46547,11 @@ __d(
         sampleRate: null,
       },
       610869001: { moduleName: "LANDLINE", name: "WIDGET_LOAD", sampleRate: 1 },
+      611913088: {
+        moduleName: "META_ACCOUNT_PLATFORM",
+        name: "LOGIN_HINT_MT_OIDC_TO_FOA_ACCOUNTS_CENTER",
+        sampleRate: 1,
+      },
       611913563: {
         moduleName: "META_ACCOUNT_PLATFORM",
         name: "MAP_CLIENT_TRANSITION",
@@ -47631,6 +47671,36 @@ __d(
       633356033: {
         moduleName: "VIDEO_CSR",
         name: "VIDEO_CSR_STATE",
+        sampleRate: 250,
+      },
+      634194423: {
+        moduleName: "HZOS_CLOCK",
+        name: "SNOOZE_ACTION",
+        sampleRate: 250,
+      },
+      634197302: {
+        moduleName: "HZOS_CLOCK",
+        name: "ALERT_SERVICE_START",
+        sampleRate: 250,
+      },
+      634201813: {
+        moduleName: "HZOS_CLOCK",
+        name: "TIMER_SCHEDULE",
+        sampleRate: 250,
+      },
+      634203068: {
+        moduleName: "HZOS_CLOCK",
+        name: "BOOT_RECOVERY",
+        sampleRate: 250,
+      },
+      634204751: {
+        moduleName: "HZOS_CLOCK",
+        name: "ALARM_SCHEDULE",
+        sampleRate: 1,
+      },
+      634205152: {
+        moduleName: "HZOS_CLOCK",
+        name: "ALERT_SOUND_PLAYBACK",
         sampleRate: 250,
       },
       634650625: {
@@ -53263,12 +53333,22 @@ __d(
         name: "AI_RESPONSE_LOAD",
         sampleRate: 1,
       },
+      734856436: {
+        moduleName: "HATCH_APP",
+        name: "ACTIVATION_STATUS_FETCH",
+        sampleRate: 1,
+      },
       734857336: {
         moduleName: "HATCH_APP",
         name: "AGENTIC_INTERACTION",
         sampleRate: 1,
       },
       734857510: { moduleName: "HATCH_APP", name: "COLD_START", sampleRate: 1 },
+      734858390: {
+        moduleName: "HATCH_APP",
+        name: "ACTIVATION_STATUS_REFRESH",
+        sampleRate: 1,
+      },
       734859036: {
         moduleName: "HATCH_APP",
         name: "MESSAGE_TTFT",
@@ -53286,6 +53366,11 @@ __d(
       734861816: {
         moduleName: "HATCH_APP",
         name: "STREAM_COMPLETE",
+        sampleRate: 1,
+      },
+      734863447: {
+        moduleName: "HATCH_APP",
+        name: "ACTIVATION_FLOW",
         sampleRate: 1,
       },
       734864948: { moduleName: "HATCH_APP", name: "LOCK", sampleRate: 250 },
@@ -77155,7 +77240,7 @@ __d(
       1073360379: {
         moduleName: "MMX_DATA_GATEWAY",
         name: "REQUEST",
-        sampleRate: 1,
+        sampleRate: 10,
       },
       1505636832: {
         moduleName: "COMET_IMAGE_LOADING",

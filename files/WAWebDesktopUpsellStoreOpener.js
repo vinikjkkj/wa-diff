@@ -115,7 +115,7 @@ __d(
         o("WALogger").ERROR(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[desktop-upsell] Mac App Store open failed: ",
+              "[desktop-upsell] Mac WhatsApp Desktop download failed: ",
               "",
             ])),
           e,
@@ -123,51 +123,18 @@ __d(
       }
     }
     function p(e, t) {
-      if (t === !0)
-        return (
-          o("WAWebExternalLink.react").MAC_EXTERNAL_SIDELOAD_URI_BETA +
-          "&src=whatsapp_beta_webclient_" +
-          _(e)
-        );
-      switch (e) {
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.QR_SLIM_BANNER:
-          return o("WAWebExternalLink.react").MAC_STORE_URIS.qr_slim_banner;
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.QR_LARGE_BANNER:
-          return o("WAWebExternalLink.react").MAC_STORE_URIS.qr_large_banner;
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.QR_DOWNLOAD_BUTTON:
-          return o("WAWebExternalLink.react").MAC_STORE_URIS
-            .link_device_banner_3;
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.INTRO_PANEL:
-          return o("WAWebExternalLink.react").MAC_STORE_URIS.intro_panel;
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.BUTTERBAR:
-          return o("WAWebExternalLink.react").MAC_STORE_URIS.chatlist_toastbar;
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.SEARCH_RESULTS:
-          return o("WAWebExternalLink.react").MAC_STORE_URIS
-            .search_results_toastbar;
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.CALL_BTN_MODAL_2:
-          return o("WAWebExternalLink.react").MAC_STORE_URIS.call_btn_modal_2;
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.CHATLIST_DROPDOWN:
-          return o("WAWebExternalLink.react").MAC_STORE_URIS
-            .chatlist_dropdown_menu;
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE.MISSED_CALL_MODAL_2:
-          return o("WAWebExternalLink.react").MAC_STORE_URIS
-            .missed_call_modal_2;
-        case o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
-          .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE
-          .LINK_DEVICE_APPLE_TOUCHSCREEN_OVERLAY:
-          return o("WAWebExternalLink.react").IOS_STORE_URIS
-            .touchscreen_overlay;
-      }
-      throw r("err")("Invalid CTA source: " + e);
+      return t === !0
+        ? o("WAWebExternalLink.react").MAC_EXTERNAL_SIDELOAD_URI_BETA +
+            "&src=whatsapp_beta_webclient_" +
+            _(e)
+        : e ===
+            o("WAWebWamEnumWebcNativeUpsellCtaSourceType")
+              .WEBC_NATIVE_UPSELL_CTA_SOURCE_TYPE
+              .LINK_DEVICE_APPLE_TOUCHSCREEN_OVERLAY
+          ? o("WAWebExternalLink.react").IOS_STORE_URIS.touchscreen_overlay
+          : o("WAWebExternalLink.react").MAC_EXTERNAL_SIDELOAD_URI +
+            "&src=whatsapp_webclient_" +
+            _(e);
     }
     function _(e) {
       var t = Object.entries(

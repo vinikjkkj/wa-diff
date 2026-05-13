@@ -886,7 +886,17 @@ __d(
         },
         xe = function (t) {
           var e = oe.current !== t;
-          if ((De(t, ["controller_set_video_element"]), t != null && e)) {
+          if (
+            (t != null &&
+              ve.getCurrentState().controlledState.mountState ===
+                "before_mounted" &&
+              ve.dispatch({ type: "implementation_mounted" }),
+            De(t, ["controller_set_video_element"]),
+            t != null &&
+              !ve.getCurrentState().controlledState.hostCallCanApply &&
+              I(t, ["controller_set_video_element_post_init_retry"]),
+            t != null && e)
+          ) {
             var n = [
               ["canplay", Be.onCanPlay],
               ["durationchange", Be.onDurationChange],

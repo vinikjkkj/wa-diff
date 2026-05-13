@@ -13,6 +13,7 @@ __d(
     "WAWebQueryMediaConnsBridge",
     "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
     "isEmptyObject",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,36 +36,36 @@ __d(
               (function () {
                 var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                   function* (t) {
-                    var r = t.signal;
+                    var a = t.signal;
                     try {
-                      var a = yield o(
+                      var i = yield o(
                         "WAWebQueryMediaConnsBridge",
-                      ).sendQueryMediaConn(r);
-                      ((e._data = e._createMediaConnData(a)),
-                        o("WAWebUserPrefsMultiDevice").setMms4Conn(a),
+                      ).sendQueryMediaConn(a);
+                      ((e._data = e._createMediaConnData(i)),
+                        o("WAWebUserPrefsMultiDevice").setMms4Conn(i),
                         (e._err = null));
                     } catch (t) {
-                      var i = t;
-                      if (i instanceof o("WAWebBackendErrors").E507) {
-                        var l;
+                      var l = r("getErrorSafe")(t);
+                      if (l instanceof o("WAWebBackendErrors").E507) {
+                        var s;
                         ((e._data = e._previousData),
                           (e._previousData = null),
                           (e._locked = !0),
                           self.setTimeout(
                             n("asyncToGeneratorRuntime").asyncToGenerator(
                               function* () {
-                                (yield e._refreshIfStale({ signal: r }),
+                                (yield e._refreshIfStale({ signal: a }),
                                   (e._locked = !1));
                               },
                             ),
-                            (l = i.backoff) != null ? l : void 0,
+                            (s = l.backoff) != null ? s : void 0,
                           ));
                         return;
                       }
                       if (
                         ((e._data = null),
-                        (e._err = i),
-                        i.name === o("WAAbortError").ABORT_ERROR)
+                        (e._err = l),
+                        l.name === o("WAAbortError").ABORT_ERROR)
                       ) {
                         o("WALogger").LOG(
                           u ||
@@ -81,7 +82,7 @@ __d(
                               "mediaHosts.sendQueryMediaConn error: ",
                               "",
                             ])),
-                          h(i),
+                          h(l),
                         )
                         .verbose(),
                         o("WALogger")
@@ -135,11 +136,10 @@ __d(
                   .ERROR(
                     m ||
                       (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "Failed to init media conn from storage: ",
-                        "",
+                        "Failed to init media conn from storage",
                       ])),
-                    e,
                   )
+                  .catching(r("getErrorSafe")(e))
                   .sendLogs("media-conn-failed-to-load");
               }
           }),

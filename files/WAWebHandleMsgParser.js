@@ -2,6 +2,7 @@ __d(
   "WAWebHandleMsgParser",
   [
     "WADeprecatedWapParser",
+    "WAHex",
     "WALogger",
     "WAParsableWapNode",
     "WAWebABProps",
@@ -23,6 +24,7 @@ __d(
     "WAWebPaymentNotificationParser",
     "WAWebPaymentStatusUtils",
     "WAWebProtobufsWeb.pb",
+    "WAWebScheduledMsgConstants",
     "WAWebSessionScope",
     "WAWebSimpleSignalPNToFBIDMigration",
     "WAWebStatusGatingUtils",
@@ -73,14 +75,14 @@ __d(
           }),
           i = e.maybeChild("device-identity"),
           l = i ? i.contentBytes() : null,
-          s = v(e),
+          s = S(e),
           u = b(e, a),
           c = y(e, a, s, u),
-          d = S(e, c),
-          m = L(e),
-          p = R(e),
-          _ = I(e),
-          f = T(e, a),
+          d = R(e, c),
+          m = E(e),
+          p = L(e),
+          _ = T(e),
+          f = D(e, a),
           g =
             (t =
               (n = e.maybeChild("rcat")) == null ? void 0 : n.contentBytes()) !=
@@ -179,7 +181,7 @@ __d(
               o("WAWebHandleMsgCommon").MSG_CATEGORY,
             ),
             offline: t.maybeAttrString("offline"),
-            senderCountryCode: D(t.maybeChild("meta")),
+            senderCountryCode: x(t.maybeChild("meta")),
           },
           l != null ? { serverStoreTimeMicros: l } : null,
         ),
@@ -283,14 +285,14 @@ __d(
           )
         );
       } else if (_.isGroup()) {
-        var x;
+        var D;
         if (f == null) return t.throw("group message with no participant");
         var $ =
-          (x = t.maybeAttrEnum(
+          (D = t.maybeAttrEnum(
             "addressing_mode",
             o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE,
           )) != null
-            ? x
+            ? D
             : o("WAWebHandleMsgCommon").STANZA_MSG_ADDRESSING_MODE.pn;
         try {
           !o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
@@ -583,13 +585,57 @@ __d(
           m.maybeAttrString("is_group_status") === "true" &&
           (f.isGroupStatus = !0));
       var g = m == null ? void 0 : m.maybeAttrString("session_scope");
-      return (
-        g != null &&
+      if (
+        (g != null &&
           (f.metaSessionScope = o("WAWebSessionScope").SessionScope.cast(g)),
-        f
-      );
+        m &&
+          m.maybeAttrString("type") ===
+            o("WAWebScheduledMsgConstants").SCHEDULED_MSG_META_TYPE)
+      ) {
+        var h = m.maybeAttrInt("st"),
+          y = m.maybeChild("key"),
+          C = y == null ? void 0 : y.maybeAttrString("rkid");
+        if (h == null || y == null || C == null)
+          throw new (o("WAParsableWapNode").XmppParsingFailure)(
+            "parseMessageMeta",
+            "scheduled_message stanza missing st/key/rkid",
+          );
+        var b = v(y.contentBytes());
+        if (b == null)
+          throw new (o("WAParsableWapNode").XmppParsingFailure)(
+            "parseMessageMeta",
+            "scheduled_message reveal-key content has unexpected length",
+          );
+        f.scheduledMsgMeta = {
+          scheduledTimestampS: h,
+          revealKeyId: C,
+          revealKey: b,
+        };
+      }
+      return f;
     }
     function v(e) {
+      if (
+        e.length ===
+        o("WAWebScheduledMsgConstants").SCHEDULED_MSG_REVEAL_KEY_BYTES
+      )
+        return e;
+      if (
+        e.length ===
+        o("WAWebScheduledMsgConstants").SCHEDULED_MSG_REVEAL_KEY_BYTES * 2
+      )
+        try {
+          var t = new TextDecoder().decode(e),
+            n = new Uint8Array(o("WAHex").parseHex(t));
+          if (
+            n.length ===
+            o("WAWebScheduledMsgConstants").SCHEDULED_MSG_REVEAL_KEY_BYTES
+          )
+            return n;
+        } catch (e) {}
+      return null;
+    }
+    function S(e) {
       var t = e.maybeChild("bot");
       if (t) {
         var n = t.maybeAttrString("sender_timestamp_ms"),
@@ -614,7 +660,7 @@ __d(
         return s;
       }
     }
-    function S(e, t) {
+    function R(e, t) {
       var n,
         r,
         a,
@@ -695,7 +741,7 @@ __d(
         },
       );
     }
-    function R(e) {
+    function L(e) {
       var t = e.maybeChild("hsm");
       if (t != null) {
         var n = t.maybeAttrString("tag"),
@@ -704,7 +750,7 @@ __d(
       }
       return null;
     }
-    function L(e) {
+    function E(e) {
       var t = null,
         n = e.hasChild("pay") ? e.child("pay") : null,
         r = e.hasChild("transaction") ? e.child("transaction") : null,
@@ -724,7 +770,7 @@ __d(
       else if (r) {
         var l = o("WAWebPaymentNotificationParser").parseTransactionNode(r);
         l &&
-          (E(a, i, o("WAWebWidFactory").createWid(l.receiver.toString()))
+          (k(a, i, o("WAWebWidFactory").createWid(l.receiver.toString()))
             ? (t = {
                 receiverJid: l.receiver.toString(),
                 currency: l.currency,
@@ -752,7 +798,7 @@ __d(
               m = n.hasAttr("receiver")
                 ? n.attrString("receiver")
                 : e.attrString("recipient");
-            E(a, i, o("WAWebWidFactory").createWid(m))
+            k(a, i, o("WAWebWidFactory").createWid(m))
               ? (t = {
                   receiverJid: m,
                   currency: d,
@@ -779,7 +825,7 @@ __d(
       }
       return t;
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       return !(
         e &&
         t != null &&
@@ -788,7 +834,7 @@ __d(
         !o("WAWebUserPrefsMeUser").isMeAccount(n)
       );
     }
-    var k = new (r("WADeprecatedWapParser"))(
+    var I = new (r("WADeprecatedWapParser"))(
       "incomingMsgParserForAckOnly",
       function (e) {
         e.assertTag("message");
@@ -811,7 +857,7 @@ __d(
         } catch (e) {}
         var r = null;
         try {
-          r = y(e, [], v(e));
+          r = y(e, [], S(e));
         } catch (e) {
           o("WALogger").WARN(
             f ||
@@ -836,7 +882,7 @@ __d(
         };
       },
     );
-    function I(e) {
+    function T(e) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var t = e.maybeChild("reporting");
@@ -851,7 +897,7 @@ __d(
         n
       );
     }
-    function T(e, t) {
+    function D(e, t) {
       if (!o("WAWebMessagingGatingUtils").isReportingTokenReceivingEnabled())
         return null;
       var n = t.some(function (e) {
@@ -901,7 +947,7 @@ __d(
       }
       return l;
     }
-    function D(e) {
+    function x(e) {
       var t = e == null ? void 0 : e.maybeAttrString("sender_country_code");
       if (t != null)
         try {
@@ -922,7 +968,7 @@ __d(
               });
         }
     }
-    ((l.incomingMsgParser = h), (l.incomingMsgParserForAckOnly = k));
+    ((l.incomingMsgParser = h), (l.incomingMsgParserForAckOnly = I));
   },
   98,
 );

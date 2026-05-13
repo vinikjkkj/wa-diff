@@ -491,12 +491,12 @@ __d(
               }
               yield (I || (I = n("Promise"))).all(
                 re.map(function (e) {
-                  return o("WAWebDBRevokeInviteV4").revokeGroupInviteV4(
-                    e.from,
-                    e.to,
-                    e.groupId,
-                    e.expiration,
-                  );
+                  return o("WAWebDBRevokeInviteV4").revokeGroupInviteV4({
+                    expiration: e.expiration,
+                    from: e.from,
+                    groupId: e.groupId,
+                    to: e.to,
+                  });
                 }),
               );
               break;

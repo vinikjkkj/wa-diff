@@ -453,51 +453,54 @@ __d(
             var e = r("WAWeb-moment").unix(t).format("l");
             return s._(/*BTDS*/ "Suggested on {date}", [s._param("date", e)]);
           }),
-          (a.communityCreatedByStr = function (t, n, r) {
-            var e = this.daysDeltaAbs(t),
-              o = t + this.skew,
-              a = this.$ClockImpl$p_2(o);
-            if (e === 0)
-              return r
+          (a.communityCreatedByStr = function (t) {
+            var e = t.isMe,
+              n = t.name,
+              r = t.unixTime,
+              o = this.daysDeltaAbs(r),
+              a = r + this.skew,
+              i = this.$ClockImpl$p_2(a);
+            if (o === 0)
+              return e
                 ? s._(/*BTDS*/ "Created by you, today at {time}", [
-                    s._param("time", a),
+                    s._param("time", i),
                   ])
                 : s._(/*BTDS*/ "Created by {name}, today at {time}", [
                     s._param("name", n),
-                    s._param("time", a),
+                    s._param("time", i),
                   ]);
-            if (e === 1)
-              return r
+            if (o === 1)
+              return e
                 ? s._(/*BTDS*/ "Created by you, yesterday at {time}", [
-                    s._param("time", a),
+                    s._param("time", i),
                   ])
                 : s._(/*BTDS*/ "Created by {name}, yesterday at {time}", [
                     s._param("name", n),
-                    s._param("time", a),
+                    s._param("time", i),
                   ]);
-            if (e < 7) {
-              var i = this.$ClockImpl$p_7(t);
-              return r
+            if (o < 7) {
+              var l = this.$ClockImpl$p_7(r);
+              return e
                 ? s._(/*BTDS*/ "Created by you, {on-day} at {time}", [
-                    s._param("on-day", i),
-                    s._param("time", a),
+                    s._param("on-day", l),
+                    s._param("time", i),
                   ])
                 : s._(/*BTDS*/ "Created by {name}, {on-day} at {time}", [
                     s._param("name", n),
-                    s._param("on-day", i),
-                    s._param("time", a),
+                    s._param("on-day", l),
+                    s._param("time", i),
                   ]);
             }
-            var l = this.$ClockImpl$p_3(o, !1);
-            return r
+            var u = this.$ClockImpl$p_3(a, !1);
+            return e
               ? s._(/*BTDS*/ "Created by you, on {date} at {time}", [
-                  s._param("date", l),
-                  s._param("time", a),
+                  s._param("date", u),
+                  s._param("time", i),
                 ])
               : s._(/*BTDS*/ "Created by {name}, on {date} at {time}", [
                   s._param("name", n),
-                  s._param("date", l),
-                  s._param("time", a),
+                  s._param("date", u),
+                  s._param("time", i),
                 ]);
           }),
           (a.statusTimePassedString = function (t) {

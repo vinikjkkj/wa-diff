@@ -20,7 +20,7 @@ __d(
     "WAWebGroupGatingUtils",
     "WAWebGroupPresenceUtils",
     "WAWebGroupType",
-    "WAWebLidMigrationUtils",
+    "WAWebLid1X1MigrationGating",
     "WAWebPresenceCollection",
     "WAWebPresenceEnum",
     "WAWebPresenceOrder",
@@ -28,6 +28,7 @@ __d(
     "WAWebTextStatusGatingUtils",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
+    "WAWebWidFactory",
     "WAWebWidFormat",
     "lodash",
   ],
@@ -35,10 +36,11 @@ __d(
     var e,
       u,
       c,
-      d = 3e3,
-      m = 5e3,
-      p = 2e3,
-      _ = (function (e) {
+      d,
+      m = 3e3,
+      p = 5e3,
+      _ = 2e3,
+      f = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -55,17 +57,17 @@ __d(
           );
         }
         return (babelHelpers.inheritsLoose(t, e), t);
-      })((c = o("WAWebBaseModel")).BaseModel);
-    ((_.Proxy = "chatstate"), (_.idClass = r("WAWebWid")));
-    var f = c.defineModel(_),
-      g = (function (e) {
+      })((d = o("WAWebBaseModel")).BaseModel);
+    ((f.Proxy = "chatstate"), (f.idClass = r("WAWebWid")));
+    var g = d.defineModel(f),
+      h = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WAWebBaseCollection").BaseCollection);
-    g.model = f;
-    var h = (function (t) {
+    h.model = g;
+    var y = (function (t) {
       function n() {
         for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
           a[i] = arguments[i];
@@ -91,7 +93,7 @@ __d(
           (e.recordingUserIds = o("WAWebBaseModel").session(function () {
             return [];
           })),
-          (e.chatstates = o("WAWebBaseModel").collection(g)),
+          (e.chatstates = o("WAWebBaseModel").collection(h)),
           (e.isGroup = o("WAWebBaseModel").derived(function () {
             return r("WAWebWid").isGroup(this.id);
           })),
@@ -111,7 +113,7 @@ __d(
           var n = this.isGroup
             ? { id: "", type: "unavailable" }
             : { id: this.id };
-          (this.addChild("chatstate", new f(n)),
+          (this.addChild("chatstate", new g(n)),
             this.isGroup
               ? (this.listenTo(
                   this.chatstates,
@@ -234,7 +236,7 @@ __d(
             (t = n == null ? void 0 : n.elevatedPushNamesEnabled) != null
               ? t
               : !1;
-          return b(
+          return v(
             this.chatstate.type,
             this.typingUserIds,
             this.recordingUserIds,
@@ -344,14 +346,10 @@ __d(
             ) {
               var r = 0;
               n.forEach(function (e) {
-                var t;
                 if (!o("WAWebUserPrefsMeUser").isMeAccount(e.id)) {
-                  var n =
-                      (t = o("WAWebLidMigrationUtils").toUserLid(e.id)) != null
-                        ? t
-                        : e.id,
-                    a = o("WAWebPresenceCollection").PresenceCollection.get(n);
-                  (a == null ? void 0 : a.isOnline) === !0 && (r += 1);
+                  var t = o("WAWebWidFactory").asUserLidOrThrow(e.id),
+                    n = o("WAWebPresenceCollection").PresenceCollection.get(t);
+                  (n == null ? void 0 : n.isOnline) === !0 && (r += 1);
                 }
               });
               var a = r >= 1 ? r + 1 : 0;
@@ -373,7 +371,7 @@ __d(
               r = this.$PresenceImpl$p_3(),
               a = r && o("WAWebContactGetters").getIsMe(r),
               i = [],
-              l = o("WAWebChatCollection").ChatCollection.get(this.id);
+              l = this.$PresenceImpl$p_4();
             (l != null && o("WAWebChatGetters").getIsGroup(l)
               ? (i = this.getGroupStages(l))
               : a === !0
@@ -382,7 +380,7 @@ __d(
                     o("WAWebFrontendChatGetters").getIsE2ee(l) &&
                     i.push(o("WAWebPresenceEnum").WithholdDisplayStage.E2EE),
                   i.push(o("WAWebPresenceEnum").WithholdDisplayStage.Self),
-                  y(this, i))
+                  C(this, i))
                 : this.hasData
                   ? (o("WAWebChatAssignmentUtils").canAssignChat(l) &&
                       n &&
@@ -432,10 +430,10 @@ __d(
                         o("WAWebPresenceEnum").WithholdDisplayStage.LastSeen,
                       ),
                     i.push(o("WAWebPresenceEnum").WithholdDisplayStage.None)),
-              y(this, i),
+              C(this, i),
               (this.forceDisplayTimer = self.setTimeout(function () {
                 e.set({ forceDisplay: !0, forceDisplayTimer: void 0 });
-              }, p)));
+              }, _)));
           } else
             (this.withholdDisplayTimer &&
               (self.clearTimeout(this.withholdDisplayTimer),
@@ -450,11 +448,36 @@ __d(
         (a.getCollection = function () {
           return o("WAWebPresenceCollection").PresenceCollection;
         }),
+        (a.$PresenceImpl$p_4 = function () {
+          if (this.isGroup)
+            return o("WAWebChatCollection").ChatCollection.get(this.id);
+          if (
+            !o(
+              "WAWebLid1X1MigrationGating",
+            ).Lid1X1MigrationUtils.isLidMigrated()
+          )
+            return o("WAWebChatCollection").ChatCollection.get(this.id);
+          var e = this.id;
+          return e.isLid()
+            ? o("WAWebChatCollection").ChatCollection.getChatByAccountLid(e)
+            : (e.isRegularUserPn() &&
+                o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "pn presence model: ",
+                        "",
+                      ])),
+                    this.id.toString(),
+                  )
+                  .sendLogs("non-lid-presence-model"),
+              null);
+        }),
         n
       );
-    })(c.BaseModel);
-    ((h.Proxy = "presence"), (h.idClass = r("WAWebWid")));
-    function y(e, t) {
+    })(d.BaseModel);
+    ((y.Proxy = "presence"), (y.idClass = r("WAWebWid")));
+    function C(e, t) {
       if (t.length !== 0) {
         var n = t[0],
           r = babelHelpers.arrayLikeToArray(t).slice(1);
@@ -465,20 +488,20 @@ __d(
               ? null
               : self.setTimeout(
                   function () {
-                    y(e, r);
+                    C(e, r);
                   },
                   n === o("WAWebPresenceEnum").WithholdDisplayStage.Business
-                    ? m
-                    : d,
+                    ? p
+                    : m,
                 ),
         });
       }
     }
-    var C = c.defineModel(h);
-    function b(e, t, n, r, o) {
-      if (e === "typing" && t.length > 0) return v(t, o);
+    var b = d.defineModel(y);
+    function v(e, t, n, r, o) {
+      if (e === "typing" && t.length > 0) return S(t, o);
       if (e === "recording_audio" && n.length > 0) {
-        var a = S(n[n.length - 1], o),
+        var a = R(n[n.length - 1], o),
           i = a.accessibleName,
           l = a.name;
         return {
@@ -496,8 +519,8 @@ __d(
       }
       return null;
     }
-    function v(e, t) {
-      var n = S(e[e.length - 1], t),
+    function S(e, t) {
+      var n = R(e[e.length - 1], t),
         r = n.accessibleName,
         a = n.name,
         i = e.length;
@@ -544,7 +567,7 @@ __d(
             ]),
           };
     }
-    function S(e, t) {
+    function R(e, t) {
       var n = o("WAWebContactCollection").ContactCollection.get(e);
       if (n == null) {
         var r = o("WAWebWidFormat").widToFormattedUser(e);
@@ -560,10 +583,10 @@ __d(
       var i = o("WAWebFrontendContactGetters").getFormattedShortName(n);
       return { name: i, accessibleName: i };
     }
-    ((l.processStagesRecursively = y),
-      (l.Presence = C),
-      (l.Chatstate = f),
-      (l.ChatstateCollection = g));
+    ((l.processStagesRecursively = C),
+      (l.Presence = b),
+      (l.Chatstate = g),
+      (l.ChatstateCollection = h));
   },
   226,
 );

@@ -7,9 +7,9 @@ __d(
     "WAResolvable",
     "WAWebABPropsCache",
     "WAWebApiHydrateWidsUtil",
-    "WAWebBackendApi",
     "WAWebBackendEventBus",
     "WAWebBackendWorkerBridge",
+    "WAWebBackendWorkerForwardingHandlers",
     "WAWebBackendWorkerLocks",
     "WAWebBackendWorkerResource",
     "WAWebCrashlog",
@@ -28,7 +28,6 @@ __d(
     "WAWebUserPrefsBase",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
-    "WAWebWorkerSafeBackendApi",
     "WorkerBundleResource",
     "asyncToGeneratorRuntime",
     "getErrorSafe",
@@ -480,28 +479,18 @@ __d(
             },
           },
         },
+        {
+          namespace: "event",
+          handlers: o("WAWebBackendWorkerForwardingHandlers")
+            .EventForwardingHandlers,
+        },
+        {
+          namespace: "workerSafeEvent",
+          handlers: o("WAWebBackendWorkerForwardingHandlers")
+            .WorkerSafeEventForwardingHandlers,
+        },
       ]);
-      return (
-        e.setNamespaceHandler("event", function (e, t, n) {
-          if (new Set(["updateChatLimitSharing", "chatCollectionAdd"]).has(e))
-            o("WAWebApiHydrateWidsUtil").hydrateWids(t);
-          else if (e === "processAndGetUnreadMentionsInfo")
-            for (var a of t.filteredMsgs)
-              (o("WAWebApiHydrateWidsUtil").hydrateWids(a),
-                (a.id = r("WAWebMsgKey").from(a.id)));
-          n
-            ? n(o("WAWebBackendApi").frontendSendAndReceive(e, t))
-            : o("WAWebBackendApi").frontendFireAndForget(e, t);
-        }),
-        e.setNamespaceHandler("workerSafeEvent", function (e, t, n) {
-          (e === "syncContactListJob" &&
-            o("WAWebApiHydrateWidsUtil").hydrateWids(t),
-            n
-              ? n(o("WAWebWorkerSafeBackendApi").workerSafeSendAndReceive(e, t))
-              : o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(e, t));
-        }),
-        e
-      );
+      return e;
     }
     var k = 10,
       I = 0;

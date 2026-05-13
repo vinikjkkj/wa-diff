@@ -18,14 +18,42 @@ __d(
     }
     function m() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Updated") }),
+        u.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "File deleted"),
+        }),
       );
     }
     function p() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Deleted AI knowledge"),
+        }),
+      );
+    }
+    function _() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Product info deleted"),
+        }),
+      );
+    }
+    function f() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "Example response deleted"),
+        }),
+      );
+    }
+    function g() {
+      o("WAWebToastManager").ToastManager.open(
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Updated") }),
+      );
+    }
+    function h() {
       return !navigator.onLine;
     }
-    function _(e, t) {
-      if (p()) {
+    function y(e, t) {
+      if (h()) {
         (c(), t.onError());
         return;
       }
@@ -44,8 +72,12 @@ __d(
     }
     ((l.showErrorToast = c),
       (l.showDeletedToast = d),
-      (l.showUpdatedToast = m),
-      (l.saveBizAISetting = _));
+      (l.showDeletedFileToast = m),
+      (l.showDeletedAIKnowledgeToast = p),
+      (l.showDeletedProductInfoToast = _),
+      (l.showDeletedExampleResponseToast = f),
+      (l.showUpdatedToast = g),
+      (l.saveBizAISetting = y));
   },
   226,
 );

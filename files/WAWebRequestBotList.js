@@ -14,7 +14,7 @@ __d(
     function u() {
       return (
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WASmaxBotBotListRPC").sendBotListRPC({ botV: "3" });
+          var t = yield o("WASmaxBotBotListRPC").sendBotListRPC({ botV: "2" });
           switch (t.name) {
             case "BotListResponseSuccessV2": {
               var n = t.value,

@@ -51,27 +51,30 @@ __d(
           var i = new Map(),
             l = new Map(),
             s = new Set(),
-            u = function (t, n, r) {
-              n.forEach(function (e) {
-                var n = String(e.id),
-                  o = a.get(n);
+            u = function (t) {
+              var e = t.link,
+                n = t.parentGroupId,
+                r = t.subgroups;
+              r.forEach(function (t) {
+                var r = String(t.id),
+                  o = a.get(r);
                 if (o != null && !o.isReadOnly)
-                  i.set(n, { id: n, parentGroup: r ? t : void 0 });
-                else if (r) {
+                  i.set(r, { id: r, parentGroup: e ? n : void 0 });
+                else if (e) {
                   var u;
-                  s.delete(n);
+                  s.delete(r);
                   var c = {
-                      id: n,
-                      subject: e.subject,
-                      subjectTime: (u = e.subjectTime) != null ? u : 0,
-                      parentGroup: t,
+                      id: r,
+                      subject: t.subject,
+                      subjectTime: (u = t.subjectTime) != null ? u : 0,
+                      parentGroup: n,
                     },
-                    d = l.get(n);
+                    d = l.get(r);
                   (d &&
                     d.subjectTime > c.subjectTime &&
                     ((c.subject = d.subject), (c.subjectTime = d.subjectTime)),
-                    l.set(n, c));
-                } else (l.delete(n), s.add(n));
+                    l.set(r, c));
+                } else (l.delete(r), s.add(r));
               });
             };
           (t.forEach(function (e) {
@@ -94,7 +97,8 @@ __d(
                 .SubGroupUnlink:
                 ((t = String(e.chatId)), (n = !1));
             }
-            t != null && u(t, e.subgroups, n);
+            t != null &&
+              u({ link: n, parentGroupId: t, subgroups: e.subgroups });
           }),
             yield (e || (e = n("Promise"))).all([
               o("WAWebSchemaGroupMetadata")

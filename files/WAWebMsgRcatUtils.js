@@ -59,18 +59,20 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n, r) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = new TextEncoder().encode([e, n, r, s].join("")),
-              i = yield o("WACryptoHkdf").extractAndExpand(t, a, u);
-            return new Uint8Array(i);
-          },
-        )),
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.fromJid,
+            n = e.messageSecret,
+            r = e.stanzaId,
+            a = e.toJid,
+            i = new TextEncoder().encode([r, t, a, s].join("")),
+            l = yield o("WACryptoHkdf").extractAndExpand(n, i, u);
+          return new Uint8Array(l);
+        })),
         p.apply(this, arguments)
       );
     }
@@ -81,7 +83,12 @@ __d(
       return (
         (f = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r) {
-            var a = yield m(e, t, n, r);
+            var a = yield m({
+              fromJid: n,
+              messageSecret: t,
+              stanzaId: e,
+              toJid: r,
+            });
             return o("WABase64").encodeB64UrlSafe(a, !0);
           },
         )),
@@ -136,7 +143,12 @@ __d(
             c = new Map(),
             d = a.map(function (e) {
               var n = o("WAWebWidToJid").widToUserJid(e);
-              return m(o("WAWebMsgGetters").getId(t).id, s, u, n)
+              return m({
+                fromJid: u,
+                messageSecret: s,
+                stanzaId: o("WAWebMsgGetters").getId(t).id,
+                toJid: n,
+              })
                 .then(function (e) {
                   return y(l, e);
                 })

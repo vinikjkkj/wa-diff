@@ -47,6 +47,7 @@ __d(
       BUSINESS_BROADCAST_HOME_UPSELL: "business_broadcast_home_upsell",
       BUSINESS_BROADCAST_GENAI_TOOLTIP: "business_broadcast_genai_tooltip",
       EPHEMERAL_AFTER_READ: "ephemeral_after_read",
+      BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
     };
     function l(e) {
       return "community_admin_promote_" + e;
@@ -98,6 +99,7 @@ __d(
         NOTIFICATION_GRANULARITY_AWARENESS_BANNER:
           "notification_granularity_awareness_banner",
         EPHEMERAL_AFTER_READ: "ephemeral_after_read",
+        BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
       }),
       f = {
         COOL_OFF_NUX: {
@@ -152,6 +154,7 @@ __d(
           BUSINESS_BROADCAST_HOME_UPSELL: "business_broadcast_home_upsell",
           BUSINESS_BROADCAST_GENAI_TOOLTIP: "business_broadcast_genai_tooltip",
           EPHEMERAL_AFTER_READ: "ephemeral_after_read",
+          BUSINESS_AI_TOOLS_NUX: "business_ai_tools_nux",
         },
       },
       g = {

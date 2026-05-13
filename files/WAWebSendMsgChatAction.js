@@ -287,12 +287,12 @@ __d(
                             return;
                           }
                           return o("WAWebDBRevokeInviteV4")
-                            .revokeGroupInviteV4(
-                              T.from.toString(),
-                              n.toString(),
-                              T.inviteGrp,
-                              t,
-                            )
+                            .revokeGroupInviteV4({
+                              expiration: t,
+                              from: T.from.toString(),
+                              groupId: T.inviteGrp,
+                              to: n.toString(),
+                            })
                             .then(function () {
                               return o(
                                 "WAWebApiGroupInviteV4Store",

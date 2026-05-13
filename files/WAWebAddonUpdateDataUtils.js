@@ -24,104 +24,101 @@ __d(
         s.AddonProcessMode.DeleteForMe,
         s.AddonProcessMode.DeleteWithParent,
       ]);
-    function c(e, t, n, r) {
+    function c(e) {
       return d.apply(this, arguments);
     }
     function d() {
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l) {
-            var s,
-              u,
-              c = [],
-              d = (s = i.removeByMsgKey) != null ? s : [],
-              m = (u = i.removeByMsgKey) != null ? u : [];
-            if (
-              (i.remove != null &&
-                i.remove.length > 0 &&
-                ((d = d.concat(
-                  i.remove.map(function (e) {
+        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+          var a,
+            i,
+            l = t.addons,
+            s = t.metricReporter,
+            u = t.processMode,
+            c = t.tableMode,
+            d = [],
+            m = (a = l.removeByMsgKey) != null ? a : [],
+            p = (i = l.removeByMsgKey) != null ? i : [];
+          if (
+            (l.remove != null &&
+              l.remove.length > 0 &&
+              ((m = m.concat(
+                l.remove.map(function (e) {
+                  return e.id;
+                }),
+              )),
+              (p = p.concat(
+                o("WAWebAddonHydrationUtils")
+                  .filterAddonsByHydratedStatus(l.remove)
+                  .map(function (e) {
                     return e.id;
                   }),
-                )),
-                (m = m.concat(
-                  o("WAWebAddonHydrationUtils")
-                    .filterAddonsByHydratedStatus(i.remove)
-                    .map(function (e) {
-                      return e.id;
-                    }),
-                ))),
-              a !== o("WAWebAddonConstants").AddonTableMode.None)
-            ) {
-              if (i.add != null && i.add.length > 0) {
-                var p = (function () {
-                  var s = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      var s, u;
-                      l == null ||
-                        (s = l.sendPerfReporter) == null ||
-                        s.startSavedStage();
-                      var c = yield o(
-                        "WAWebAddonPerfUtils",
-                      ).createAddonQplMarker(
-                        t === o("WAWebAddonConstants").AddonProcessMode.Send
-                          ? o("WAWebAddonPerfUtils").AddonQplMarkerType.Outgoing
-                          : o("WAWebAddonPerfUtils").AddonQplMarkerType
-                              .Incoming,
-                        {
-                          mode: a,
-                          type: o("WAWebAddonPerfUtils").AnnotationRequestType
-                            .BulkUpsert,
-                          size: i.add.length,
-                        },
-                      );
-                      try {
-                        (t === o("WAWebAddonConstants").AddonProcessMode.SetAck
-                          ? yield (e || (e = n("Promise"))).all(
-                              i.add.map(function (e) {
-                                return o(
-                                  "WAWebAddonDBTable",
-                                ).addonInternalDBTable.updateAck(
-                                  a,
-                                  e,
-                                  r("WANullthrows")(
-                                    e.ack,
-                                    "ack is not defined",
-                                  ),
-                                );
-                              }),
-                            )
-                          : yield o(
-                              "WAWebAddonDBTable",
-                            ).addonInternalDBTable.bulkUpsert(a, i.add),
-                          c == null || c.success());
-                      } catch (e) {
-                        throw (c == null || c.fail(), e);
-                      }
-                      l == null ||
-                        (u = l.sendPerfReporter) == null ||
-                        u.postSavedStage();
-                    },
-                  );
-                  return function () {
-                    return s.apply(this, arguments);
-                  };
-                })();
-                c.push(p());
-              }
-              d.length > 0 &&
-                c.push(
-                  o(
-                    "WAWebAddonDBTable",
-                  ).addonInternalDBTable.bulkRemoveByMsgKey(a, d),
+              ))),
+            c !== o("WAWebAddonConstants").AddonTableMode.None)
+          ) {
+            if (l.add != null && l.add.length > 0) {
+              var _ = (function () {
+                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
+                  function* () {
+                    var t, a;
+                    s == null ||
+                      (t = s.sendPerfReporter) == null ||
+                      t.startSavedStage();
+                    var i = yield o("WAWebAddonPerfUtils").createAddonQplMarker(
+                      u === o("WAWebAddonConstants").AddonProcessMode.Send
+                        ? o("WAWebAddonPerfUtils").AddonQplMarkerType.Outgoing
+                        : o("WAWebAddonPerfUtils").AddonQplMarkerType.Incoming,
+                      {
+                        mode: c,
+                        type: o("WAWebAddonPerfUtils").AnnotationRequestType
+                          .BulkUpsert,
+                        size: l.add.length,
+                      },
+                    );
+                    try {
+                      (u === o("WAWebAddonConstants").AddonProcessMode.SetAck
+                        ? yield (e || (e = n("Promise"))).all(
+                            l.add.map(function (e) {
+                              return o(
+                                "WAWebAddonDBTable",
+                              ).addonInternalDBTable.updateAck(
+                                c,
+                                e,
+                                r("WANullthrows")(e.ack, "ack is not defined"),
+                              );
+                            }),
+                          )
+                        : yield o(
+                            "WAWebAddonDBTable",
+                          ).addonInternalDBTable.bulkUpsert(c, l.add),
+                        i == null || i.success());
+                    } catch (e) {
+                      throw (i == null || i.fail(), e);
+                    }
+                    s == null ||
+                      (a = s.sendPerfReporter) == null ||
+                      a.postSavedStage();
+                  },
                 );
+                return function () {
+                  return t.apply(this, arguments);
+                };
+              })();
+              d.push(_());
             }
-            return (
-              c.length > 0 && (yield (e || (e = n("Promise"))).all(c)),
-              { removeFromUICollection: m }
-            );
-          },
-        )),
+            m.length > 0 &&
+              d.push(
+                o("WAWebAddonDBTable").addonInternalDBTable.bulkRemoveByMsgKey(
+                  c,
+                  m,
+                ),
+              );
+          }
+          return (
+            d.length > 0 && (yield (e || (e = n("Promise"))).all(d)),
+            { removeFromUICollection: p }
+          );
+        })),
         d.apply(this, arguments)
       );
     }
@@ -138,7 +135,12 @@ __d(
             throw new (o("WAWebAddonInfraError").AddonInfraError)(
               o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
             );
-          var d = yield c(i, l, r, s),
+          var d = yield c({
+              addons: r,
+              metricReporter: s,
+              processMode: i,
+              tableMode: l,
+            }),
             m = d.removeFromUICollection;
           if (i !== o("WAWebAddonConstants").AddonProcessMode.HistorySync)
             if (r.add != null) {

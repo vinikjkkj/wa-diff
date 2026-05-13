@@ -32,22 +32,26 @@ __d(
           return;
       }
     }
-    function h(t, n, r, a) {
-      var i = o("WAWebWidToJid").widToUserJid(n),
-        l = o("WAWebWidToJid").widToUserJid(r);
+    function h(t) {
+      var n = t.addOnSender,
+        r = t.addonType,
+        a = t.originalMessageSender,
+        i = t.parentWid,
+        l = o("WAWebWidToJid").widToUserJid(a),
+        u = o("WAWebWidToJid").widToUserJid(n);
       if (
         o("WAWebABProps").getABPropConfigValue(
           "lid_one_to_one_migration_event_response_force_pn_jid",
         ) &&
-        a != null &&
-        a.isRegularUser() &&
-        (t === o("WAWebMsgType").MsgKind.EventResponseDecrypted ||
-          t === o("WAWebMsgType").MsgKind.EventEditDecrypted)
+        i != null &&
+        i.isRegularUser() &&
+        (r === o("WAWebMsgType").MsgKind.EventResponseDecrypted ||
+          r === o("WAWebMsgType").MsgKind.EventEditDecrypted)
       ) {
-        if (n.isLid()) {
-          var u = o("WAWebApiContact").getPhoneNumber(n);
-          u
-            ? (i = o("WAWebWidToJid").widToUserJid(u))
+        if (a.isLid()) {
+          var c = o("WAWebApiContact").getPhoneNumber(a);
+          c
+            ? (l = o("WAWebWidToJid").widToUserJid(c))
             : o("WALogger")
                 .ERROR(
                   e ||
@@ -57,10 +61,10 @@ __d(
                 )
                 .sendLogs("missing-lid-to-pn-mapping-for-message-sender");
         }
-        if (r.isLid()) {
-          var c = o("WAWebApiContact").getPhoneNumber(r);
-          c
-            ? (l = o("WAWebWidToJid").widToUserJid(c))
+        if (n.isLid()) {
+          var d = o("WAWebApiContact").getPhoneNumber(n);
+          d
+            ? (u = o("WAWebWidToJid").widToUserJid(d))
             : o("WALogger")
                 .ERROR(
                   s ||
@@ -73,8 +77,8 @@ __d(
       }
       return (
         o("WAWebABProps").getABPropConfigValue("web_pnless_stanzas") &&
-          ((i = y(n, "message-sender")), (l = y(r, "addon-sender"))),
-        { originalMessageSenderJid: i, addOnSenderJid: l }
+          ((l = y(a, "message-sender")), (u = y(n, "addon-sender"))),
+        { originalMessageSenderJid: l, addOnSenderJid: u }
       );
     }
     function y(e, t) {
@@ -113,7 +117,12 @@ __d(
             s = t.parentWid,
             u = t.stanzaId;
           try {
-            var d = h(e.type, l, n, s),
+            var d = h({
+                addOnSender: n,
+                addonType: e.type,
+                originalMessageSender: l,
+                parentWid: s,
+              }),
               m = d.addOnSenderJid,
               p = d.originalMessageSenderJid,
               _ = r("WANullthrows")(E(e.type)),

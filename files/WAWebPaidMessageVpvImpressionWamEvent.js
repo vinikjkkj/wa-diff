@@ -35,6 +35,8 @@ __d(
                 25,
                 o("WAWebWamEnumMessageBodyTypeEnum").MESSAGE_BODY_TYPE_ENUM,
               ],
+              messageBubbleHeightPx: [27, e.TYPES.INTEGER],
+              messageBubbleWidthPx: [28, e.TYPES.INTEGER],
               messageFieldJsonArray: [15, e.TYPES.STRING],
               messageIdHmac: [16, e.TYPES.STRING],
               mmCarouselCardIndex: [26, e.TYPES.INTEGER],

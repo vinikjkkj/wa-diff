@@ -78,27 +78,27 @@ __d(
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n, r) {
+    function d(e) {
       return m.apply(this, arguments);
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o(
-              "WASmaxMdCompanionFinishRPC",
-            ).sendCompanionFinishRPC({
+        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.cachedRef,
+            n = e.companionIdentityPublic,
+            r = e.linkCodeCompanionRegJid,
+            a = e.linkCodePairingWrappedKeyBundle,
+            i = yield o("WASmaxMdCompanionFinishRPC").sendCompanionFinishRPC({
               linkCodeCompanionRegJid: r,
-              linkCodePairingWrappedKeyBundleElementValue: new Uint8Array(e),
-              companionIdentityPublicElementValue: new Uint8Array(t),
-              linkCodePairingRefElementValue: n,
+              linkCodePairingWrappedKeyBundleElementValue: new Uint8Array(a),
+              companionIdentityPublicElementValue: new Uint8Array(n),
+              linkCodePairingRefElementValue: t,
             });
-            if (a.name !== "CompanionFinishResponseSuccess")
-              throw new s(
-                "alt pairing: Got an error from alt paring: companion finish",
-              );
-          },
-        )),
+          if (i.name !== "CompanionFinishResponseSuccess")
+            throw new s(
+              "alt pairing: Got an error from alt paring: companion finish",
+            );
+        })),
         m.apply(this, arguments)
       );
     }

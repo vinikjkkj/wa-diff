@@ -5,15 +5,15 @@ __d(
     var e;
     function s(e, t, n, r, a, i, l, s, c) {
       var d = u(e, t, n, r, i);
-      o("WAWebMsgModelUtils").addRecordsToChat(
-        d.msgs,
-        r,
-        a,
-        d.collection,
-        l,
-        s,
-        c,
-      );
+      o("WAWebMsgModelUtils").addRecordsToChat({
+        anchorMsgKey: c,
+        chatMsgsCollection: d.collection,
+        firstUnreadKey: l,
+        insertAfter: a,
+        newRecords: d.msgs,
+        resetMostRecentMsgs: s,
+        threadOrChat: r,
+      });
     }
     function u(t, n, r, a, i) {
       var l = {},

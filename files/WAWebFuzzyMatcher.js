@@ -2,8 +2,8 @@ __d(
   "WAWebFuzzyMatcher",
   [
     "WAWebFuzzySearchMatchResult",
+    "WAWebIdentityFunction",
     "WAWebL10NIsWordSeparator",
-    "WAWebL10NRemoveDiacritics",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -88,7 +88,7 @@ __d(
       if (
         (n === void 0 && (n = 0),
         r === void 0 && (r = 0),
-        a === void 0 && (a = o("WAWebL10NRemoveDiacritics").removeDiacritics),
+        a === void 0 && (a = o("WAWebIdentityFunction").identityFunction),
         i === void 0 && (i = o("WAWebL10NIsWordSeparator").isWordSeparator),
         e == null || e.trim() === "" || t == null || t.trim() === "")
       )

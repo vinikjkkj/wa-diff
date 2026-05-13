@@ -2,6 +2,7 @@ __d(
   "WAWebNavBarCometRouting",
   [
     "WAWebNavBarTypes",
+    "WAXWhatsAppWebCometRoutedChannelsControllerRouteBuilder",
     "WAXWhatsAppWebCometRoutedMainControllerRouteBuilder",
     "WAXWhatsAppWebCometRoutedUpdatesControllerRouteBuilder",
   ],
@@ -19,19 +20,32 @@ __d(
           .buildUri({})
           .toString(),
       ],
+      [
+        o("WAWebNavBarTypes").NavBarItems.Newsletters,
+        r("WAXWhatsAppWebCometRoutedChannelsControllerRouteBuilder")
+          .buildUri({})
+          .toString(),
+      ],
     ]);
     function s(t) {
       return e.get(t);
     }
     function u(t) {
-      var n = null,
-        r = 0;
-      for (var a of e) {
-        var i = a[0],
-          l = a[1];
-        t.startsWith(l) && l.length > r && ((n = i), (r = l.length));
-      }
-      return n != null ? n : o("WAWebNavBarTypes").NavBarItems.Chats;
+      var n = t.endsWith("/") ? t : t + "/",
+        r = [n, t],
+        a = null,
+        i = 0,
+        l = function () {
+          var e = s[0],
+            t = s[1];
+          r.some(function (e) {
+            return e.startsWith(t);
+          }) &&
+            t.length > i &&
+            ((a = e), (i = t.length));
+        };
+      for (var s of e) l();
+      return a != null ? a : o("WAWebNavBarTypes").NavBarItems.Chats;
     }
     ((l.getCometRouteForNavBarItem = s), (l.getNavBarItemForRouteUrl = u));
   },

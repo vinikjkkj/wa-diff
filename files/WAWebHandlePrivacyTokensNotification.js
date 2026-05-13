@@ -12,17 +12,19 @@ __d(
     "WAWebPresenceCollection",
     "WAWebSetTcTokenChatAction",
     "asyncToGeneratorRuntime",
+    "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
-      d = function (t) {
+      d,
+      m = function (t) {
         var e = o("WAByteArray").uint8ArrayToBuffer(t.contentBytes());
         return { type: "trusted_contact", content: e, ts: t.attrTime("t") };
       },
-      m = new (r("WADeprecatedWapParser"))(
+      p = new (r("WADeprecatedWapParser"))(
         "incomingPrivacyTokensParser",
         function (t) {
           t.assertTag("notification");
@@ -36,7 +38,7 @@ __d(
               var n = t.attrString("type");
               switch (n) {
                 case "trusted_contact":
-                  l.push(d(t));
+                  l.push(m(t));
                   break;
                 default:
                   o("WALogger").LOG(
@@ -53,52 +55,71 @@ __d(
           );
         },
       );
-    function p(e, t) {
-      return _.apply(this, arguments);
+    function _(e, t) {
+      return f.apply(this, arguments);
     }
-    function _() {
+    function f() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = t.ts,
             r = o("WAWebJidToWid").userJidToUserWid(e.from),
             a =
               e.senderLid != null
                 ? o("WAWebJidToWid").lidUserJidToUserLid(e.senderLid)
                 : null;
-          t.type === "trusted_contact" &&
-            (yield o("WAWebSetTcTokenChatAction").handleIncomingTcToken(
+          if (t.type === "trusted_contact") {
+            yield o("WAWebSetTcTokenChatAction").handleIncomingTcToken(
               r,
               a,
               n,
               t.content,
-            ),
+            );
+            var i = g(r, a);
             yield o(
               "WAWebPresenceCollection",
-            ).PresenceCollection.reSubscribeWhenActive(r));
+            ).PresenceCollection.reSubscribeWhenActive(i);
+          }
         })),
-        _.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function g(e, t) {
+      if (e.isLid()) return e;
+      if (t != null) return t;
+      throw (
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "PrivacyTokenNotification without a lid: from: ",
+                "",
+              ])),
+            e.toLogString(),
+          )
+          .sendLogs("privacy-token-notification-without-lid"),
+        r("err")("privacy-token-notification-without-lid")
+      );
     }
-    function g() {
+    function h(e) {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = m.parse(e);
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = p.parse(e);
           if (t.error)
             throw (
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "error while parsing: ",
                     "",
                   ])),
                 e.toString(),
               ),
               o("WALogger").ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "Parsing Error: ",
                     "",
                   ])),
@@ -118,18 +139,18 @@ __d(
               (yield o(
                 "WAWebEventsWaitForOfflineDeliveryEnd",
               ).waitForOfflineDeliveryEnd(),
-              yield (c || (c = n("Promise"))).all(
+              yield (d || (d = n("Promise"))).all(
                 a.privacyTokens.map(function (e) {
-                  return p(a, e);
+                  return _(a, e);
                 }),
               )),
             i
           );
         })),
-        g.apply(this, arguments)
+        y.apply(this, arguments)
       );
     }
-    l.default = f;
+    l.default = h;
   },
   98,
 );

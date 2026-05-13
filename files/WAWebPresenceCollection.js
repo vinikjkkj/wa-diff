@@ -2,21 +2,23 @@ __d(
   "WAWebPresenceCollection",
   [
     "Promise",
+    "WALogger",
     "WAWebChatCollection",
     "WAWebContactPresenceBridge",
     "WAWebGroupPresencePoller",
     "WAWebGroupPresenceUtils",
-    "WAWebLidMigrationUtils",
-    "WAWebPresenceChatAction",
+    "WAWebLid1X1MigrationGating",
     "WAWebPresenceModel",
     "WAWebStaleBaseCollection",
     "WAWebUserPrefsMeUser",
     "WAWebWid",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function (t) {
+      s,
+      u = (function (t) {
         function a() {
           for (var e, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
             i[l] = arguments[l];
@@ -25,16 +27,20 @@ __d(
             (e.findImpl = (function () {
               var t = n("asyncToGeneratorRuntime").asyncToGenerator(
                 function* (t) {
-                  var n = e.gadd(t);
-                  return n.isGroup
-                    ? (yield e._subscribe(t), { id: t })
-                    : !n.isUser ||
+                  var n =
+                      typeof t == "string"
+                        ? o("WAWebWidFactory").createWid(t)
+                        : t,
+                    a = e.gadd(t);
+                  return a.isGroup
+                    ? (yield e._subscribe(n), { id: t })
+                    : !a.isUser ||
                         r("WAWebWid").isServer(t) ||
                         r("WAWebWid").isPSA(t) ||
                         r("WAWebWid").isFbidBot(t) ||
-                        o("WAWebUserPrefsMeUser").isMeAccount(n.id)
+                        o("WAWebUserPrefsMeUser").isMeAccount(a.id)
                       ? { id: t }
-                      : (yield e._subscribe(t), { id: t });
+                      : (yield e._subscribe(n), { id: t });
                 },
               );
               return function (e) {
@@ -49,37 +55,50 @@ __d(
         var i = a.prototype;
         return (
           (i._subscribe = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("WAWebChatCollection").ChatCollection.get(e);
-                if (t != null) {
-                  if (t.id.isGroup()) {
-                    yield this._subscribeGroup(t);
-                    return;
-                  }
-                  var n = o("WAWebPresenceChatAction").getChatIdentifier(t),
-                    r = t.getTcToken();
-                  yield o("WAWebContactPresenceBridge").subscribePresence(n, r);
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i._subscribeGroup = (function () {
             var t = n("asyncToGeneratorRuntime").asyncToGenerator(
               function* (t) {
-                var r = this;
+                if (t.isGroup()) {
+                  var n = o("WAWebChatCollection").ChatCollection.get(t);
+                  if (n == null) return;
+                  yield this._subscribeGroup(n);
+                  return;
+                }
+                if (!t.isLid()) {
+                  o(
+                    "WAWebLid1X1MigrationGating",
+                  ).Lid1X1MigrationUtils.isLidMigrated() &&
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "presence key for 1:1 is not a LID: ",
+                            "",
+                          ])),
+                        t.toLogString(),
+                      )
+                      .sendLogs("presence-key-not-lid");
+                  return;
+                }
+                yield o("WAWebContactPresenceBridge").subscribeUserPresence(t);
+              },
+            );
+            function r(e) {
+              return t.apply(this, arguments);
+            }
+            return r;
+          })()),
+          (i._subscribeGroup = (function () {
+            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+              function* (e) {
+                var t = this;
                 if (
-                  o("WAWebGroupPresenceUtils").isGroupEligibleForPresence(t)
+                  o("WAWebGroupPresenceUtils").isGroupEligibleForPresence(e)
                 ) {
-                  var a = t.groupMetadata;
-                  if (a != null) {
-                    var i = a.participants.length;
+                  var r = e.groupMetadata;
+                  if (r != null) {
+                    var a = r.participants.length;
                     if (
-                      i <=
+                      a <=
                       o(
                         "WAWebGroupPresenceUtils",
                       ).getSmallGroupPresenceThreshold()
@@ -90,47 +109,36 @@ __d(
                         ).isSmallGroupPresenceEnabled()
                       )
                         return;
-                      var l = [];
-                      (a.participants.forEach(function (e) {
-                        var t = e.id;
-                        if (!o("WAWebUserPrefsMeUser").isMeAccount(t)) {
-                          var n = o("WAWebLidMigrationUtils").toUserLid(t),
-                            a = n != null ? n : t;
-                          r.gadd(a);
-                          var i =
-                              n != null
-                                ? o(
-                                    "WAWebChatCollection",
-                                  ).ChatCollection.getChatByAccountLid(n)
-                                : o("WAWebChatCollection").ChatCollection.get(
-                                    t,
-                                  ),
-                            s = i == null ? void 0 : i.getTcToken();
-                          l.push(
-                            o("WAWebContactPresenceBridge").subscribePresence(
-                              a,
-                              s,
-                            ),
-                          );
+                      var i = [];
+                      (r.participants.forEach(function (e) {
+                        var n = e.id;
+                        if (!o("WAWebUserPrefsMeUser").isMeAccount(n)) {
+                          var r = o("WAWebWidFactory").asUserLidOrThrow(n);
+                          (t.gadd(r),
+                            i.push(
+                              o(
+                                "WAWebContactPresenceBridge",
+                              ).subscribeUserPresence(r),
+                            ));
                         }
                       }),
-                        yield (e || (e = n("Promise"))).allSettled(l));
+                        yield (s || (s = n("Promise"))).allSettled(i));
                     } else
-                      i <= o("WAWebGroupPresenceUtils").WEB_LARGE_MAX &&
+                      a <= o("WAWebGroupPresenceUtils").WEB_LARGE_MAX &&
                         o(
                           "WAWebGroupPresenceUtils",
                         ).isLargeGroupPresenceEnabled() &&
                         o(
                           "WAWebGroupPresencePoller",
-                        ).startLargeGroupPresencePoll(t);
+                        ).startLargeGroupPresencePoll(e);
                   }
                 }
               },
             );
-            function r(e) {
-              return t.apply(this, arguments);
+            function t(t) {
+              return e.apply(this, arguments);
             }
-            return r;
+            return t;
           })()),
           (i.reSubscribeWhenActive = (function () {
             var e = n("asyncToGeneratorRuntime").asyncToGenerator(
@@ -155,9 +163,9 @@ __d(
           a
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    s.model = o("WAWebPresenceModel").Presence;
-    var u = new s();
-    l.PresenceCollection = u;
+    u.model = o("WAWebPresenceModel").Presence;
+    var c = new u();
+    l.PresenceCollection = c;
   },
   98,
 );

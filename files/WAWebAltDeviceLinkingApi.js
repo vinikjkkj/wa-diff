@@ -390,12 +390,12 @@ __d(
           if (l == null) throw new C("alt pairing: cannot find cached ref");
           var u = t.phone;
           if (u == null) throw new C("alt pairing: phone is empty");
-          (yield o("WAWebAltDeviceLinkingIq").sendCompanionFinish(
-            i.linkCodePairingWrappedKeyBundle,
-            i.companionIdentityPublic,
-            l,
-            o("WAJids").toPhoneUserJid(u),
-          ),
+          (yield o("WAWebAltDeviceLinkingIq").sendCompanionFinish({
+            cachedRef: l,
+            companionIdentityPublic: i.companionIdentityPublic,
+            linkCodeCompanionRegJid: o("WAJids").toPhoneUserJid(u),
+            linkCodePairingWrappedKeyBundle: i.linkCodePairingWrappedKeyBundle,
+          }),
             o("WALogger").LOG(
               h ||
                 (h = babelHelpers.taggedTemplateLiteralLoose([

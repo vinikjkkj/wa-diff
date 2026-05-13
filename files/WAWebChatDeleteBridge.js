@@ -65,11 +65,11 @@ __d(
                 ).queryAndRemoveMessageHistory(t),
                 c(t),
                 S(t),
-                m(
-                  t,
-                  r == null ? void 0 : r.tcToken,
-                  r == null ? void 0 : r.tcTokenTimestamp,
-                ),
+                m({
+                  chatId: t,
+                  tcToken: r == null ? void 0 : r.tcToken,
+                  tcTokenTimestamp: r == null ? void 0 : r.tcTokenTimestamp,
+                }),
                 b(
                   t,
                   (r == null ? void 0 : r.accountLid) != null
@@ -146,20 +146,23 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.chatId,
+            r = e.tcToken,
+            a = e.tcTokenTimestamp;
           return o("WAWebABProps").getABPropConfigValue(
             "enable_spam_report_iq_with_privacy_token",
           ) &&
-            t != null &&
-            r != null
-            ? o("WAWebApiOrphanTcToken").createOrUpdateOrphanTcToken(e, {
-                tcToken: t,
-                tcTokenTimestamp: r,
+            r != null &&
+            a != null
+            ? o("WAWebApiOrphanTcToken").createOrUpdateOrphanTcToken(t, {
+                tcToken: r,
+                tcTokenTimestamp: a,
               })
             : (s || (s = n("Promise"))).resolve();
         })),
@@ -280,7 +283,7 @@ __d(
                       .getGroupMetadataTable()
                       .remove(e.toString()),
                     c(e),
-                    m(e, i, l),
+                    m({ chatId: e, tcToken: i, tcTokenTimestamp: l }),
                     b(
                       e,
                       (t == null ? void 0 : t.accountLid) != null

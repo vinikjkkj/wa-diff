@@ -242,7 +242,7 @@ __d(
                       }
                       return (e.push(n), e);
                     }, []);
-                  E(n, t, !0);
+                  E({ insertAfter: !0, newRecords: n, threadOrChat: t });
                 },
               );
             }
@@ -250,36 +250,43 @@ __d(
       }
       return t;
     }
-    function E(e, t, n, r, a, i, l) {
-      var s = r || t.msgs;
-      if (e.length !== 0) {
-        var d = s === t.msgs;
-        if (i === !0)
-          if (d)
+    function E(e) {
+      var t = e.anchorMsgKey,
+        n = e.chatMsgsCollection,
+        r = e.firstUnreadKey,
+        a = e.insertAfter,
+        i = e.newRecords,
+        l = e.resetMostRecentMsgs,
+        s = e.threadOrChat,
+        d = n || s.msgs;
+      if (i.length !== 0) {
+        var m = d === s.msgs;
+        if (l === !0)
+          if (m)
             (o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "models:msg:store:resetMostRecentMsgs .msgs === cmc !",
                 ])),
             ),
-              k(t, s, e));
+              k(s, d, i));
           else {
-            ((d = !0), k(t, s, e));
-            var m = new (o("WAWebChatMsgsCollection").ChatMsgsCollection)();
-            (m.replace(t.msgs),
-              t.msgChunks.push(m),
-              t.replaceMsgsCollection(s),
-              t.msgs.trigger("change:last", t.msgs.last()));
+            ((m = !0), k(s, d, i));
+            var p = new (o("WAWebChatMsgsCollection").ChatMsgsCollection)();
+            (p.replace(s.msgs),
+              s.msgChunks.push(p),
+              s.replaceMsgsCollection(d),
+              s.msgs.trigger("change:last", s.msgs.last()));
           }
-        else if (n) d ? k(t, s, e) : I(s, e);
+        else if (a) m ? k(s, d, i) : I(d, i);
         else {
-          var p = 0;
-          if (l) {
-            var _ = s.get(l);
-            if (_) {
-              var f = s.indexOf(_);
-              f !== -1 &&
-                ((p = f),
+          var _ = 0;
+          if (t) {
+            var f = d.get(t);
+            if (f) {
+              var g = d.indexOf(f);
+              g !== -1 &&
+                ((_ = g),
                 o("WALogger").LOG(
                   c ||
                     (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -287,20 +294,20 @@ __d(
                       " anchor=",
                       "",
                     ])),
-                  p,
-                  l.toString(),
+                  _,
+                  t.toString(),
                 ));
             }
           }
-          I(s, e, { at: p, silent: e.every(D) });
+          I(d, i, { at: _, silent: i.every(D) });
         }
-        var g = a;
-        g &&
-          !t.unreadMsgAnchor &&
-          (t.disableUnreadAnchor
-            ? (t.disableUnreadAnchor = !1)
-            : (t.unreadMsgAnchor = e.find(function (e) {
-                return e.id.toString() === g.toString();
+        var h = r;
+        h &&
+          !s.unreadMsgAnchor &&
+          (s.disableUnreadAnchor
+            ? (s.disableUnreadAnchor = !1)
+            : (s.unreadMsgAnchor = i.find(function (e) {
+                return e.id.toString() === h.toString();
               })));
       }
     }

@@ -43,12 +43,12 @@ __d(
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g;
-    function h() {
+    var e, s, u, c, d, m, p, _, f, g, h;
+    function y() {
       return !o("WAWebCmd").Cmd.isOfflineDeliveryEnd;
     }
-    var y = !1;
-    function C(t, a) {
+    var C = !1;
+    function b(t, a) {
       if (
         (o("WALogger").LOG(
           e ||
@@ -66,8 +66,8 @@ __d(
           !o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()) ||
           !a)
       )
-        return (g || (g = n("Promise"))).resolve();
-      var i = (g || (g = n("Promise"))).resolve();
+        return (h || (h = n("Promise"))).resolve();
+      var i = (h || (h = n("Promise"))).resolve();
       return (
         o("WAWebMsgGetters").getIsSentByMe(a) &&
           !t.notSpam &&
@@ -75,7 +75,7 @@ __d(
           (i = r("WAWebSendNotSpamAction")(t, !1)),
         o("WAWebFrontendMsgGetters").getEventType(a) ===
         o("WAWebCommonMsgUtils").EventType.IGNORE
-          ? (g || (g = n("Promise"))).resolve()
+          ? (h || (h = n("Promise"))).resolve()
           : i
               .then(
                 n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
@@ -136,7 +136,7 @@ __d(
                   try {
                     var _;
                     if (
-                      h() &&
+                      y() &&
                       (o("WAWebViewModeUtils").isViewModeVisibleInSurface(
                         o("WAWebViewMode.flow").ViewModeSurface.CHAT,
                         a.viewMode,
@@ -167,8 +167,8 @@ __d(
                     else {
                       var f = yield o("WAWebApiChat").getChatMeta(t.id),
                         g = f.timestamp,
-                        C = f.unreadCount;
-                      ((l.unreadCount = C),
+                        h = f.unreadCount;
+                      ((l.unreadCount = h),
                         (l.t = g),
                         t.activeUnreadCount > 0 &&
                           (l.activeUnreadCount =
@@ -196,10 +196,10 @@ __d(
                           t.id.toLogString(),
                         )
                         .catching(b),
-                      !y)
+                      !C)
                     ) {
                       var v, S;
-                      y = !0;
+                      C = !0;
                       var R = yield o("WAWebSchemaChat")
                           .getChatTable()
                           .get(t.id.toString()),
@@ -249,173 +249,211 @@ __d(
                   return l;
                 }),
               )
-              .then(function (e) {
-                if (
-                  (t.set(e),
-                  a.ctwaContext != null &&
-                    (o(
-                      "WAWebCommonCTWAConsumerTransparency",
-                    ).handleConsumerTransparencyForNewMsg(
-                      t,
-                      a.ctwaContext.conversionData,
-                      a.ctwaContext.conversionSource,
-                    ),
-                    o(
-                      "WAWebCommonCTWALogging",
-                    ).maybeSetCtwaMessageReceivedInUserPreferenceStore(a)),
-                  a.ctwaContext != null)
-                ) {
-                  var n = a.ctwaContext,
-                    i = n.conversionData,
-                    l = n.conversionSource;
-                  r("WAWebConversionTupleCollection").add(
-                    {
-                      conversionSource: l,
-                      conversionData: i,
-                      id: t.id,
-                      timestamp: o("WATimeUtils").unixTime(),
-                      fromMe: a.id.fromMe,
-                    },
-                    { merge: !0 },
-                  );
-                }
-                var s = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                  u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
-                if (
-                  a.type === "gp2" &&
-                  (a.subtype === "add" || a.subtype === "create")
-                ) {
-                  var c = t.getGroupMetadataCollection(),
-                    d =
-                      s != null &&
-                      !o(
-                        "WAWebBeyondPhoneNumberGatingUtils",
-                      ).removePnDependenciesEnabled()
-                        ? s
-                        : u;
-                  c.trigger("group_participant_change_" + d.toString(), {
-                    gid: t.id,
-                  });
-                }
-                if (o("WAWebMsgGetters").getIsSentByMe(a))
-                  t.activeUnreadCount > 0 &&
-                    ((t.activeUnreadCount = 0), (t.markedUnread = !1));
-                else {
-                  switch (o("WAWebFrontendMsgGetters").getEventType(a)) {
-                    case o("WAWebCommonMsgUtils").EventType.DEFAULT:
-                    case o("WAWebCommonMsgUtils").EventType.AMBIENT:
-                      (o("WAWebFrontendMsgGetters").getEventType(a) ===
-                        o("WAWebCommonMsgUtils").EventType.DEFAULT &&
-                        o("WAWebCmd").Cmd.alertNewMsg(a),
-                        t.msgs.length <
-                          o("WAWebCollectionConstants").MSG_PRELOAD_THRESHOLD &&
-                          !o("WAWebChatGetters").getIsNewsletter(t) &&
-                          o("WAWebChatLoadMessages")
-                            .loadEarlierMsgs({
-                              chat: t,
-                              trigger: o("WAWebWamEnumWebcQueryTriggerType")
-                                .WEBC_QUERY_TRIGGER_TYPE.NEW_MESSAGE_PREFETCH,
-                            })
-                            .catch(
-                              o("WAFilteredCatch").filteredCatch(
-                                o("WAWebBackendErrors").E404,
-                                r("WAWebNoop"),
-                              ),
-                            )
-                            .catch(function (e) {
-                              o("WALogger").LOG(
-                                _ ||
-                                  (_ = babelHelpers.taggedTemplateLiteralLoose(
-                                    ["chat:onNewMsg failed\n", ""],
-                                    ["chat:onNewMsg failed\\n", ""],
-                                  )),
-                                String(e),
-                              );
-                            }));
-                      break;
-                    case o("WAWebCommonMsgUtils").EventType.NOTEWORTHY:
-                      ((a.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
-                        !r("WAWebEnvironment").isWindows) ||
-                        a.subtype === "sender_invite") &&
-                        o("WAWebCmd").Cmd.alertNewMsg(a);
-                      break;
-                    case o("WAWebCommonMsgUtils").EventType.SIGNIFICANT: {
+              .then(
+                (function () {
+                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
+                    function* (e) {
+                      if (
+                        (t.set(e),
+                        a.ctwaContext != null &&
+                          (o(
+                            "WAWebCommonCTWAConsumerTransparency",
+                          ).handleConsumerTransparencyForNewMsg(
+                            t,
+                            a.ctwaContext.conversionData,
+                            a.ctwaContext.conversionSource,
+                          ),
+                          o(
+                            "WAWebCommonCTWALogging",
+                          ).maybeSetCtwaMessageReceivedInUserPreferenceStore(
+                            a,
+                          )),
+                        a.ctwaContext != null)
+                      ) {
+                        var n = a.ctwaContext,
+                          i = n.conversionData,
+                          l = n.conversionSource;
+                        r("WAWebConversionTupleCollection").add(
+                          {
+                            conversionSource: l,
+                            conversionData: i,
+                            id: t.id,
+                            timestamp: o("WATimeUtils").unixTime(),
+                            fromMe: a.id.fromMe,
+                          },
+                          { merge: !0 },
+                        );
+                      }
+                      var s = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+                        u = o("WAWebUserPrefsMeUser").getMeLidUserOrThrow();
                       if (
                         a.type === "gp2" &&
-                        a.subtype === "add" &&
-                        o("WAWebUserPrefsMeUser").isMeAccount(
-                          a.recipients[0],
-                        ) &&
-                        !t.contact.name
-                      )
-                        return;
-                      o("WAWebCmd").Cmd.alertNewMsg(a);
-                      var m = t.getGroupMetadataCollection(),
-                        p =
-                          s != null &&
-                          !o(
-                            "WAWebBeyondPhoneNumberGatingUtils",
-                          ).removePnDependenciesEnabled()
-                            ? s
-                            : u;
-                      m.trigger("group_participant_change_" + p.toString(), {
-                        gid: t.id,
-                      });
-                      break;
-                    }
-                    default:
-                      break;
-                  }
-                  var g = a.mediaData;
-                  if (
-                    (g &&
-                      (g.type === "image" || g.type === "video") &&
-                      o("WAWebCmd").Cmd.newMediaMsg(a),
-                    e.unreadCount != null &&
-                      e.unreadCount > 0 &&
-                      !h() &&
-                      o("WAWebHandleMsgReceiptCommon").processOrphanPeerReceipt(
-                        a.id,
-                      ),
-                    o("WAWebMsgGetters").getIsImportantMessage(a))
-                  ) {
-                    var y,
-                      C = new (r("WAWebUnreadMentionModel"))({
-                        id: a.id.toString(),
-                        timestamp: a.t,
-                      });
-                    if (
-                      ((y = t.groupMetadata) == null ||
-                        y.unreadMentionMetadata.addUnreadMentions(
-                          C,
-                          o("WAWebGroupUnreadMessageType").UnreadMessageType
-                            .NEW_MESSAGE,
-                        ),
-                      t.archiveAtMentionViewedInDrawer)
-                    ) {
-                      var b = new Map();
-                      (b.set(t.id.toString(), !1),
-                        o("WALogger").LOG(
-                          f ||
-                            (f = babelHelpers.taggedTemplateLiteralLoose([
-                              "handleNewMsgForChat: will mark chat for archive",
-                            ])),
-                        ),
-                        o("WAWebApiChat").updateChatArchiveDrawer(b),
-                        (t.archiveAtMentionViewedInDrawer = !1));
-                    }
-                  }
-                }
-                (o(
-                  "WAWebMmSignalSharingLoggingEvents",
-                ).logMmSignalSharingNewMessageEvent({ chat: t, newMsg: a }),
-                  o(
-                    "WAWebRichOrderStatusLogger",
-                  ).logRichOrderStatusInconsistencies(a));
-              })
+                        (a.subtype === "add" || a.subtype === "create")
+                      ) {
+                        var c = t.getGroupMetadataCollection(),
+                          d =
+                            s != null &&
+                            !o(
+                              "WAWebBeyondPhoneNumberGatingUtils",
+                            ).removePnDependenciesEnabled()
+                              ? s
+                              : u;
+                        c.trigger("group_participant_change_" + d.toString(), {
+                          gid: t.id,
+                        });
+                      }
+                      if (o("WAWebMsgGetters").getIsSentByMe(a))
+                        t.activeUnreadCount > 0 &&
+                          ((t.activeUnreadCount = 0), (t.markedUnread = !1));
+                      else {
+                        switch (o("WAWebFrontendMsgGetters").getEventType(a)) {
+                          case o("WAWebCommonMsgUtils").EventType.DEFAULT:
+                          case o("WAWebCommonMsgUtils").EventType.AMBIENT:
+                            (o("WAWebFrontendMsgGetters").getEventType(a) ===
+                              o("WAWebCommonMsgUtils").EventType.DEFAULT &&
+                              o("WAWebCmd").Cmd.alertNewMsg(a),
+                              t.msgs.length <
+                                o("WAWebCollectionConstants")
+                                  .MSG_PRELOAD_THRESHOLD &&
+                                !o("WAWebChatGetters").getIsNewsletter(t) &&
+                                o("WAWebChatLoadMessages")
+                                  .loadEarlierMsgs({
+                                    chat: t,
+                                    trigger: o(
+                                      "WAWebWamEnumWebcQueryTriggerType",
+                                    ).WEBC_QUERY_TRIGGER_TYPE
+                                      .NEW_MESSAGE_PREFETCH,
+                                  })
+                                  .catch(
+                                    o("WAFilteredCatch").filteredCatch(
+                                      o("WAWebBackendErrors").E404,
+                                      r("WAWebNoop"),
+                                    ),
+                                  )
+                                  .catch(function (e) {
+                                    o("WALogger").LOG(
+                                      _ ||
+                                        (_ =
+                                          babelHelpers.taggedTemplateLiteralLoose(
+                                            ["chat:onNewMsg failed\n", ""],
+                                            ["chat:onNewMsg failed\\n", ""],
+                                          )),
+                                      String(e),
+                                    );
+                                  }));
+                            break;
+                          case o("WAWebCommonMsgUtils").EventType.NOTEWORTHY:
+                            ((a.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
+                              !r("WAWebEnvironment").isWindows) ||
+                              a.subtype === "sender_invite") &&
+                              o("WAWebCmd").Cmd.alertNewMsg(a);
+                            break;
+                          case o("WAWebCommonMsgUtils").EventType.SIGNIFICANT: {
+                            if (
+                              a.type === "gp2" &&
+                              a.subtype === "add" &&
+                              o("WAWebUserPrefsMeUser").isMeAccount(
+                                a.recipients[0],
+                              ) &&
+                              !t.contact.name
+                            )
+                              return;
+                            o("WAWebCmd").Cmd.alertNewMsg(a);
+                            var m = t.getGroupMetadataCollection(),
+                              p =
+                                s != null &&
+                                !o(
+                                  "WAWebBeyondPhoneNumberGatingUtils",
+                                ).removePnDependenciesEnabled()
+                                  ? s
+                                  : u;
+                            m.trigger(
+                              "group_participant_change_" + p.toString(),
+                              { gid: t.id },
+                            );
+                            break;
+                          }
+                          default:
+                            break;
+                        }
+                        var h = a.mediaData;
+                        if (
+                          (h &&
+                            (h.type === "image" || h.type === "video") &&
+                            o("WAWebCmd").Cmd.newMediaMsg(a),
+                          e.unreadCount != null &&
+                            e.unreadCount > 0 &&
+                            !y() &&
+                            o("WAWebHandleMsgReceiptCommon")
+                              .processOrphanPeerReceipt(a.id)
+                              .catch(function (e) {
+                                o("WALogger")
+                                  .ERROR(
+                                    f ||
+                                      (f =
+                                        babelHelpers.taggedTemplateLiteralLoose(
+                                          [
+                                            "[handleNewMsgForChat] processOrphanPeerReceipt failed for ",
+                                            "",
+                                          ],
+                                        )),
+                                    a.id,
+                                  )
+                                  .catching(r("getErrorSafe")(e))
+                                  .sendLogs(
+                                    "orphan-peer-receipt-process-failed",
+                                  );
+                              }),
+                          o("WAWebMsgGetters").getIsImportantMessage(a))
+                        ) {
+                          var C,
+                            b = new (r("WAWebUnreadMentionModel"))({
+                              id: a.id.toString(),
+                              timestamp: a.t,
+                            });
+                          if (
+                            ((C = t.groupMetadata) == null ||
+                              C.unreadMentionMetadata.addUnreadMentions(
+                                b,
+                                o("WAWebGroupUnreadMessageType")
+                                  .UnreadMessageType.NEW_MESSAGE,
+                              ),
+                            t.archiveAtMentionViewedInDrawer)
+                          ) {
+                            var v = new Map();
+                            (v.set(t.id.toString(), !1),
+                              o("WALogger").LOG(
+                                g ||
+                                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                                    "handleNewMsgForChat: will mark chat for archive",
+                                  ])),
+                              ),
+                              yield o("WAWebApiChat").updateChatArchiveDrawer(
+                                v,
+                              ),
+                              (t.archiveAtMentionViewedInDrawer = !1));
+                          }
+                        }
+                      }
+                      (o(
+                        "WAWebMmSignalSharingLoggingEvents",
+                      ).logMmSignalSharingNewMessageEvent({
+                        chat: t,
+                        newMsg: a,
+                      }),
+                        o(
+                          "WAWebRichOrderStatusLogger",
+                        ).logRichOrderStatusInconsistencies(a));
+                    },
+                  );
+                  return function (t) {
+                    return e.apply(this, arguments);
+                  };
+                })(),
+              )
       );
     }
-    l.handleNewMsgForChat = C;
+    l.handleNewMsgForChat = b;
   },
   98,
 );

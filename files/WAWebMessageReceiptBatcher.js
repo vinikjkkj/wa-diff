@@ -511,6 +511,7 @@ __d(
               return o("WAWebHandleMsgReceiptCommon").updateChatPeerRead(
                 e.remote,
                 t,
+                e.ts,
               );
             if (e.ack === o("WAWebAck").ACK.PLAYED)
               return o("WAWebBackendApi").frontendSendAndReceive(

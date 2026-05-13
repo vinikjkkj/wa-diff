@@ -13,6 +13,7 @@ __d(
     "WAWebMuteCollection",
     "WAWebNoop",
     "WAWebNotificationController",
+    "WAWebNotificationHelpers",
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebNotificationTone",
@@ -165,11 +166,12 @@ __d(
           };
         }),
         (a.shouldShowBanner = function () {
-          return e.prototype.shouldShowBanner.call(this)
-            ? o(
+          return o("WAWebNotificationHelpers").appIsActive() ||
+            !e.prototype.shouldShowBanner.call(this)
+            ? !1
+            : o(
                 "WAWebMuteCollection",
-              ).MuteCollection.getGlobalCallNotifications()
-            : !1;
+              ).MuteCollection.getGlobalCallNotifications();
         }),
         (a.shouldPlaySound = function () {
           return e.prototype.shouldPlaySound.call(this)
