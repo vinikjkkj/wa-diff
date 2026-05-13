@@ -18,8 +18,9 @@ __d(
     function f() {
       return d;
     }
-    function g(e) {
-      d = e;
+    function g(t) {
+      d !== t &&
+        ((d = t), e.trigger("popoutWindowOpeningChanged", { isOpening: t }));
     }
     function h() {
       return m;

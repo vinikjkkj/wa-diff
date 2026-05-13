@@ -311,6 +311,7 @@ __d(
       GroupTransitionToTeeBotGroupSystemMsg:
         "group_transition_to_tee_bot_group",
       Signup: "signup",
+      ScheduledMessageCreated: "scheduled_message_created",
     });
     i.MsgSubtype = e;
   },

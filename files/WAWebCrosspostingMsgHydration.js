@@ -1,7 +1,6 @@
 __d(
   "WAWebCrosspostingMsgHydration",
   [
-    "WAWebCrosspostingBackendGatingUtils",
     "WAWebCrosspostingDBOperations",
     "WAWebMsgGetters",
     "asyncToGeneratorRuntime",
@@ -13,10 +12,7 @@ __d(
     function s() {
       return (
         (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebMsgGetters").getIsStatus(e) &&
-            o("WAWebCrosspostingBackendGatingUtils").statusCrosspostingEnabled()
-          ) {
+          if (o("WAWebMsgGetters").getIsStatus(e)) {
             var t = e.id.toString(),
               n = yield o(
                 "WAWebCrosspostingDBOperations",
@@ -33,10 +29,7 @@ __d(
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            e.length !== 0 &&
-            o("WAWebCrosspostingBackendGatingUtils").statusCrosspostingEnabled()
-          ) {
+          if (e.length !== 0) {
             var t = e.map(function (e) {
                 return e.id.toString();
               }),

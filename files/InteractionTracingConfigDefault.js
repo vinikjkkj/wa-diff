@@ -37,7 +37,6 @@ __d(
         qplBaseTimestamp: r("performanceNavigationStart")(),
         useDocumentBodyForVCRoot: !0,
         navigationCancelsInteractions: !1,
-        heroNestedRootsFix: r("gkx")("20984"),
         failLoggingFixCometErrorBoundary: r("gkx")("11582"),
         failOnCometErrorBoundary: r("gkx")("1154")
           ? "fail"
@@ -52,7 +51,6 @@ __d(
         serverRevision: (e = r("SiteData").server_revision) != null ? e : 0,
         pushPhase: r("SiteData").push_phase,
         qplEnableE2ETracing: r("gkx")("15620"),
-        qplPointsShouldLogData: r("gkx")("19586"),
         enableUserTimings: r("gkx")("20484"),
         enableUserTimingsVerbose: r("gkx")("20485"),
         heroBootloadStatsAfterQPL: r("gkx")("9056"),

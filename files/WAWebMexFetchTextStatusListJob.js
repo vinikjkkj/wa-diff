@@ -13,6 +13,7 @@ __d(
     "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -28,82 +29,89 @@ __d(
     function m() {
       return (
         (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Set(),
-            n = [];
-          for (var a of e) {
-            var i = a.wid.toJid();
-            t.has(i) || (t.add(i), n.push(a));
-          }
-          var l = n.map(function (e) {
-              return o("WAWebWidFactory").asUserWidOrThrow(e.wid);
-            }),
-            u = n.map(function (e) {
-              var t;
+          try {
+            var t = new Set(),
+              n = [];
+            for (var a of e) {
+              var i = a.wid.toJid();
+              t.has(i) || (t.add(i), n.push(a));
+            }
+            var l = n.map(function (e) {
+                return o("WAWebWidFactory").asUserWidOrThrow(e.wid);
+              }),
+              u = n.map(function (e) {
+                var t;
+                return {
+                  jid: e.wid.toJid(),
+                  last_update_time:
+                    (t = e.lastUpdateTime) == null ? void 0 : t.toString(),
+                };
+              });
+            if (
+              o(
+                "WAWebPrivacyGatingUtils",
+              ).isProfileScrappingProtectionInMexFetchEnabled()
+            )
+              for (
+                var d = yield o(
+                    "WAWebGroupsPrivacyTokenUtils",
+                  ).getPermissionTokenMapForChatIds(l),
+                  m = 0;
+                m < n.length;
+                m++
+              ) {
+                var p,
+                  _ = (p = d.get(l[m])) == null ? void 0 : p.anyElementValue;
+                _ != null &&
+                  (u[m].privacy_token = {
+                    tctoken: o("WAWebTrustedContactsUtils").encodeTcTokenForMex(
+                      _.buffer,
+                    ),
+                  });
+              }
+            var f = { input: u };
+            yield o("WAComms").waitForConnection();
+            var h = yield o("WAWebMexClient").fetchQuery(c, f),
+              y = h.xwa2_text_status_list;
+            if (y == null) throw r("err")("textStatusListResponse is null");
+            o("WALogger")
+              .LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[MEX][TEXT-STATUS] fetched text status for ",
+                    " contacts",
+                  ])),
+                y.length,
+              )
+              .tags("GQL", "MEX");
+            var C = new Map();
+            for (var b of y) b != null && C.set(b.jid, b);
+            return e.map(function (e) {
+              var t = e.wid.toJid(),
+                n = C.get(t);
+              if (n == null)
+                return {
+                  success: !1,
+                  error: r("err")("No response for jid in batch"),
+                };
+              var o = g(n);
               return {
-                jid: e.wid.toJid(),
-                last_update_time:
-                  (t = e.lastUpdateTime) == null ? void 0 : t.toString(),
+                success: !0,
+                result: {
+                  id: o.id,
+                  text: o.textStatusString,
+                  emoji: o.textStatusEmoji,
+                  lastUpdateTime: o.textStatusLastUpdateTime,
+                  ephemeralDurationSeconds: o.textStatusEphemeralDuration,
+                },
               };
             });
-          if (
-            o(
-              "WAWebPrivacyGatingUtils",
-            ).isProfileScrappingProtectionInMexFetchEnabled()
-          )
-            for (
-              var d = yield o(
-                  "WAWebGroupsPrivacyTokenUtils",
-                ).getPermissionTokenMapForChatIds(l),
-                m = 0;
-              m < n.length;
-              m++
-            ) {
-              var p,
-                _ = (p = d.get(l[m])) == null ? void 0 : p.anyElementValue;
-              _ != null &&
-                (u[m].privacy_token = {
-                  tctoken: o("WAWebTrustedContactsUtils").encodeTcTokenForMex(
-                    _.buffer,
-                  ),
-                });
-            }
-          var f = { input: u };
-          yield o("WAComms").waitForConnection();
-          var h = yield o("WAWebMexClient").fetchQuery(c, f),
-            y = h.xwa2_text_status_list;
-          if (y == null) throw r("err")("textStatusListResponse is null");
-          o("WALogger")
-            .LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[MEX][TEXT-STATUS] fetched text status for ",
-                  " contacts",
-                ])),
-              y.length,
-            )
-            .tags("GQL", "MEX");
-          var C = new Map();
-          for (var b of y) b != null && C.set(b.jid, b);
-          return e.map(function (e) {
-            var t = e.wid.toJid(),
-              n = C.get(t);
-            if (n == null)
-              return {
-                success: !1,
-                error: r("err")("No response for jid in batch"),
-              };
-            var o = g(n);
-            return {
-              success: !0,
-              result: {
-                id: o.id,
-                text: o.textStatusString,
-                emoji: o.textStatusEmoji,
-                lastUpdateTime: o.textStatusLastUpdateTime,
-                ephemeralDurationSeconds: o.textStatusEphemeralDuration,
-              },
-            };
-          });
+          } catch (t) {
+            var v = r("getErrorSafe")(t);
+            return e.map(function () {
+              return { success: !1, error: v };
+            });
+          }
         })),
         m.apply(this, arguments)
       );

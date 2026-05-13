@@ -59,6 +59,15 @@ __d(
           (t = m.maybeChild("group_info")) == null
             ? void 0
             : t.mapChildren(function (e) {
+                var t,
+                  n,
+                  r =
+                    (t =
+                      (n = e.maybeAttrString("push_name")) != null
+                        ? n
+                        : e.maybeAttrString("guest_name")) != null
+                      ? t
+                      : null;
                 return {
                   jid: o("WAWebJidToWid").jidWithTypeToWid(
                     e.attrJidWithType("jid"),
@@ -69,7 +78,9 @@ __d(
                       )
                     : null,
                   username: e.maybeAttrString("username"),
-                  guest_name: e.maybeAttrString("guest_name"),
+                  push_name: r,
+                  account_kind: e.maybeAttrString("account_kind"),
+                  guest_name: r,
                 };
               }),
         S = {

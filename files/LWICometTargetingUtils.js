@@ -3,11 +3,11 @@ __d(
   [
     "fbt",
     "$InternalEnum",
+    "AdsFetaStatusData",
     "AdsUniqueMetricsHelpID",
     "CometLocalDate",
     "FBLogger",
     "FDSLink.react",
-    "cr:6701",
     "gkx",
     "react",
   ],
@@ -209,10 +209,9 @@ __d(
                 u.jsx(r("FDSLink.react"), {
                   href: o("AdsUniqueMetricsHelpID").getUniqueMetricsHelpURL(),
                   target: "_blank",
-                  children:
-                    n("cr:6701") != null
-                      ? s._(/*BTDS*/ "Meta Accounts")
-                      : s._(/*BTDS*/ "Accounts Center accounts"),
+                  children: r("AdsFetaStatusData").is_feta_account
+                    ? s._(/*BTDS*/ "Meta Accounts")
+                    : s._(/*BTDS*/ "Accounts Center accounts"),
                 }),
               ),
             ],

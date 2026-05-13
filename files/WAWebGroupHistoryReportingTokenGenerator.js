@@ -15,47 +15,54 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e, t, n, r, o) {
+    function u(e, t, n, r, o, a) {
       return c.apply(this, arguments);
     }
     function c() {
       return (
         (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, u) {
-            var c,
-              m,
-              p,
+          function* (t, a, i, l, u, c) {
+            var p,
               _,
-              f = o("decodeProtobuf").decodeProtobuf(
+              f,
+              g,
+              h = o("decodeProtobuf").decodeProtobuf(
                 o("WAWebProtobufsGroupHistory.pb")
                   .GroupHistoryWithMessageBytesSpec,
                 t,
               ),
-              g =
+              y =
                 u != null
                   ? u
                   : o(
                       "WAWebMessagingGatingUtils",
                     ).getSenderReportingTokenVersion(),
-              h = [].concat(
-                (c = f.messages) != null ? c : [],
-                ((m = f.uncountedAssociatedMessageLists) != null
-                  ? m
+              C = [].concat(
+                (p = h.messages) != null ? p : [],
+                ((_ = h.uncountedAssociatedMessageLists) != null
+                  ? _
                   : []
                 ).flatMap(function (e) {
                   var t;
                   return (t = e.messages) != null ? t : [];
                 }),
-                (p = f.commentMessages) != null ? p : [],
-                (_ = f.outOfWindowPinnedMessages) != null ? _ : [],
+                (f = h.commentMessages) != null ? f : [],
+                (g = h.outOfWindowPinnedMessages) != null ? g : [],
               ),
-              y = yield (s || (s = n("Promise"))).all(
-                h.map(function (e) {
+              b = yield (s || (s = n("Promise"))).all(
+                C.map(function (e) {
                   var t;
-                  return d(e, a, i, l, g, (t = e.key) == null ? void 0 : t.id);
+                  return m(
+                    e,
+                    a,
+                    i,
+                    l,
+                    y,
+                    d((t = e.key) == null ? void 0 : t.id, c),
+                  );
                 }),
               ),
-              C = r("compactMap")(y, function (e) {
+              v = r("compactMap")(b, function (e) {
                 return e;
               });
             return (
@@ -65,21 +72,29 @@ __d(
                     "[group-history] Generated ",
                     " reporting tokens",
                   ])),
-                C.length,
+                v.length,
               ),
-              C
+              v
             );
           },
         )),
         c.apply(this, arguments)
       );
     }
-    function d(e, t, n, r, o, a) {
-      return m.apply(this, arguments);
+    function d(e, t) {
+      var n;
+      return e == null
+        ? null
+        : (n = t == null ? void 0 : t.get(e)) != null
+          ? n
+          : e;
     }
-    function m() {
+    function m(e, t, n, r, o, a) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, n, r, a, i) {
             if (i == null) return null;
             var l = e.messageBytes;
@@ -115,11 +130,11 @@ __d(
             };
           },
         )),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
     ((l.genGroupHistoryReportingTokens = u),
-      (l.computeReportingTokenForMessage = d));
+      (l.computeReportingTokenForMessage = m));
   },
   98,
 );

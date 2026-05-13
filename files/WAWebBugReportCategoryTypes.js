@@ -4,7 +4,6 @@ __d(
   function (t, n, r, o, a, i) {
     var e = [
         "account_access",
-        "ai_psi",
         "ai_tab",
         "avatars",
         "business",
@@ -38,7 +37,6 @@ __d(
       ],
       l = {
         account_access: "ACCOUNT_ACCESS",
-        ai_psi: "AI_PSI",
         ai_tab: "AI_TAB",
         avatars: "AVATARS",
         business: "BUSINESS",

@@ -95,9 +95,9 @@ __d(
             .ERROR(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: stack interface lazy load failed component=",
-                  " module=",
-                  " resource=",
+                  "voip: stack load failed comp=",
+                  " mod=",
+                  " res=",
                   " attempts=",
                   "",
                 ])),

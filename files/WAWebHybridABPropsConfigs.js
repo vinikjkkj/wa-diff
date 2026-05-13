@@ -234,6 +234,7 @@ __d(
       group_history_out_of_window_pin_sender: [26037, "bool", !1, !1],
       group_history_out_of_window_pins_receiver: [26039, "bool", !1, !1],
       group_history_receive: [15311, "bool", !1, !1],
+      group_history_receiver_dedup: [30462, "bool", !1, !1],
       group_history_receiver_floating_banner: [21568, "bool", !1, !1],
       group_history_reporting: [22329, "bool", !0, !0],
       group_history_send: [15313, "bool", !1, !1],
@@ -484,6 +485,7 @@ __d(
       web_add_contact: [26892, "string", "", ""],
       web_channel_video_server_transcode_upload: [19920, "bool", !1, !1],
       web_chat_info_action_buttons_refresh: [14664, "bool", !1, !0],
+      web_group_bulk_add_contact: [30417, "bool", !1, !1],
       web_ip_token_enabled: [20043, "bool", !1, !1],
       webview2_disable_gpu_acceleration: [18262, "bool", !1, !1],
       webview2_disable_gpu_acceleration_memory_threshold_mb: [

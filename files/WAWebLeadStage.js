@@ -4,31 +4,28 @@ __d(
   function (t, n, r, o, a, i) {
     var e = {
         NONE: 0,
-        NEW_LEAD: 1,
-        CONTACTED: 2,
-        QUALIFIED: 3,
-        NEGOTIATION: 4,
-        WON: 5,
-        LOST: 6,
+        INTAKE: 1,
+        QUALIFIED: 2,
+        CONVERTED: 3,
+        LOST: 4,
+        NOT_QUALIFIED: 5,
       },
-      l = [e.NEW_LEAD, e.CONTACTED, e.QUALIFIED, e.NEGOTIATION, e.WON, e.LOST],
+      l = [e.INTAKE, e.QUALIFIED, e.CONVERTED, e.LOST, e.NOT_QUALIFIED],
       s = [e.NONE].concat(l);
     function u(t) {
       return t === 0
         ? e.NONE
         : t === 1
-          ? e.NEW_LEAD
+          ? e.INTAKE
           : t === 2
-            ? e.CONTACTED
+            ? e.QUALIFIED
             : t === 3
-              ? e.QUALIFIED
+              ? e.CONVERTED
               : t === 4
-                ? e.NEGOTIATION
+                ? e.LOST
                 : t === 5
-                  ? e.WON
-                  : t === 6
-                    ? e.LOST
-                    : null;
+                  ? e.NOT_QUALIFIED
+                  : null;
     }
     ((i.LeadStage = e),
       (i.LEAD_STAGE_ORDER = l),

@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAWebAccountLinkingConstants",
     "WAWebActionToast.react",
-    "WAWebCrosspostingBackendGatingUtils",
     "WAWebCrosspostingQplUtils",
     "WAWebMediaOpaqueData",
     "WAWebSettingsModel",
@@ -28,11 +27,8 @@ __d(
       return (
         (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           if (
-            o(
-              "WAWebCrosspostingBackendGatingUtils",
-            ).statusCrosspostingEnabled() &&
             r("WAWebSettingsModel").linkState ===
-              o("WAWebAccountLinkingConstants").AccountLinkState.Active
+            o("WAWebAccountLinkingConstants").AccountLinkState.Active
           ) {
             var a = yield (u || (u = n("Promise"))).all([
                 r("WAWebUserPrefsStatus").getShareToFB(),

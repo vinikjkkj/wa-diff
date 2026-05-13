@@ -38,10 +38,15 @@ __d(
     }
     function g() {
       return o("WAWebABProps").getABPropConfigValue(
-        "smb_auth_agents_feature_control_enabled",
+        "auth_agents_consumer_offboarding_exp_enabled",
       );
     }
     function h() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "smb_auth_agents_feature_control_enabled",
+      );
+    }
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "smb_auth_agents_feature_control_enabled",
       );
@@ -52,8 +57,9 @@ __d(
       (l.smbHostedPrimaryPairingAllowed = p),
       (l.smbHostedLazySystemMsgInsertInHistorySyncEnabled = _),
       (l.authorizedAgentsEnabled = f),
-      (l.agentBizProfileFeatureControlEnabled = g),
-      (l.authAgentFeatureControlEnabled = h));
+      (l.agentOffboardingEnabled = g),
+      (l.agentBizProfileFeatureControlEnabled = h),
+      (l.authAgentFeatureControlEnabled = y));
   },
   98,
 );

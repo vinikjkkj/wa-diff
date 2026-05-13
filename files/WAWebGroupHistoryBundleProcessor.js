@@ -155,8 +155,13 @@ __d(
             if ((yield F(U, a, e.id, H), W.length > 0))
               try {
                 var G = new Set(
-                    U.map(function (e) {
-                      return e.id.toString();
+                    U.flatMap(function (e) {
+                      var t = [e.id.toString()];
+                      return (
+                        e.protocolMessageKey != null &&
+                          t.push(e.protocolMessageKey.toString()),
+                        t
+                      );
                     }),
                   ),
                   z = W.filter(function (e) {

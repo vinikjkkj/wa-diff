@@ -146,11 +146,6 @@ __d(
             subtitle:
               "Registration/OTP Delivery, Change Number (Client & server), Passkeys, E-Mail Verification, AutoConf, Google OAuth, 2FA - 2 Factor Auth, Flash Calls, Mobile Originated, Silent Authentication, Token Registration, Device Switching,Multi-Account, User Onboarding Journey,Message Translation, Audio guidance during onboarding,Account Transfer (up until the device pairing phase), Profile Setup, Permissions prompts and upsell screens",
           };
-        case "ai_psi":
-          return {
-            title: "MetaAI PSI",
-            subtitle: "Personal Search Index (PSI) Bugs",
-          };
         case "avatars":
           return {
             title: "Avatars",

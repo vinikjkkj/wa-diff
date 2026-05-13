@@ -24,6 +24,9 @@ __d(
               entryPoint: [3, o("WAWebWamEnumEntryPoint").ENTRY_POINT],
               entryPointDetails: [18, e.TYPES.STRING],
               extraAttributes: [4, e.TYPES.STRING],
+              hasCatalog: [19, e.TYPES.BOOLEAN],
+              isCoexAccount: [20, e.TYPES.BOOLEAN],
+              isMvSubscriber: [21, e.TYPES.BOOLEAN],
               oppositePlatform: [
                 5,
                 o("WAWebWamEnumOppositePlatformEnum").OPPOSITE_PLATFORM_ENUM,

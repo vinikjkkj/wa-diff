@@ -60,9 +60,7 @@ __d(
               t,
               n,
               a,
-              e.qplPointsShouldLogData === !0 && p && Object.keys(p).length
-                ? JSON.stringify(p)
-                : void 0,
+              p && Object.keys(p).length ? JSON.stringify(p) : void 0,
               o,
               c + e.qplBaseTimestamp,
             ));
@@ -98,9 +96,7 @@ __d(
                   t,
                   n,
                   f + "_end",
-                  e.qplPointsShouldLogData === !0 && Object.keys(c).length
-                    ? JSON.stringify(c)
-                    : void 0,
+                  Object.keys(c).length ? JSON.stringify(c) : void 0,
                   o,
                   d + e.qplBaseTimestamp,
                 ));

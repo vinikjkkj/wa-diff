@@ -13,6 +13,7 @@ __d(
     "WAWebNewsletterApiParse",
     "WAWebNewsletterStatusApiParse",
     "WAWebPaymentLinkUrlMetaData",
+    "WAWebPhoneNumberSearch",
     "WAWebPonyfillsUrlSearchParams",
     "WAWebRegistrationCampaignConstants",
     "WAWebStatusApiParse",
@@ -988,58 +989,67 @@ __d(
         [Ce, be].some(function (t) {
           return e.match(t);
         })
-      )
+      ) {
+        var x,
+          P = new URL(e),
+          N =
+            o("WAWebPhoneNumberSearch").numberSearch(
+              (x = P.searchParams.get("phone")) != null ? x : "",
+            ) || void 0,
+          M = P.searchParams.get("video"),
+          B = M === "1" || (M == null ? void 0 : M.toLowerCase()) === "true";
         return {
           resultType: o("WAWebApi").APICmd.CALL_USER,
-          data: { url: "/" },
+          data: { url: "/", phone: N, video: B },
         };
-      var x = Ze(e);
-      if (x != null)
-        return { resultType: o("WAWebApi").APICmd.PAYMENT_LINK, data: x };
-      var P = dt(e);
-      if (P != null) return P;
-      var N = _t(e);
-      if (N != null) return N;
-      var M = st(e);
-      if (M) return M;
-      var B = Oe(e);
-      if (B) return { resultType: o("WAWebApi").APICmd.MSG_SEND, data: B };
-      var W = Lt(e);
+      }
+      var W = Ze(e);
       if (W != null)
+        return { resultType: o("WAWebApi").APICmd.PAYMENT_LINK, data: W };
+      var q = dt(e);
+      if (q != null) return q;
+      var U = _t(e);
+      if (U != null) return U;
+      var V = st(e);
+      if (V) return V;
+      var H = Oe(e);
+      if (H) return { resultType: o("WAWebApi").APICmd.MSG_SEND, data: H };
+      var G = Lt(e);
+      if (G != null)
         return {
           resultType: o("WAWebApi").APICmd.WEB_REGISTRATION_CAMPAIGN,
-          data: W,
+          data: G,
         };
-      var q = w(e);
-      if (q != null) return q;
-      var U = A(e);
-      if (U != null) return U;
-      var V = F(e);
-      if (V != null) return V;
+      var z = w(e);
+      if (z != null) return z;
+      var j = A(e);
+      if (j != null) return j;
+      var K = F(e);
+      if (K != null) return K;
       if (e.match($)) return { resultType: o("WAWebApi").APICmd.NEW_CHAT };
-      var H = e.match(O);
-      if (H) {
-        var G = new (r("WAWebPonyfillsUrlSearchParams"))(H[1]),
-          z = G.get("phone"),
-          j = G.get("lid"),
-          K = G.get("video") === "true",
-          Q = {};
-        (r("isStringNullOrEmpty")(z) || (Q.phone = z),
-          r("isStringNullOrEmpty")(j) || (Q.lid = j),
-          K && (Q.video = K));
-        var X =
-          !r("isStringNullOrEmpty")(z) || !r("isStringNullOrEmpty")(j) || K;
+      var Q = e.match(O);
+      if (Q) {
+        var X = new (r("WAWebPonyfillsUrlSearchParams"))(Q[1]),
+          Y = X.get("phone"),
+          J = X.get("lid"),
+          Z = X.get("video") === "true",
+          ee = {};
+        (r("isStringNullOrEmpty")(Y) || (ee.phone = Y),
+          r("isStringNullOrEmpty")(J) || (ee.lid = J),
+          Z && (ee.video = Z));
+        var te =
+          !r("isStringNullOrEmpty")(Y) || !r("isStringNullOrEmpty")(J) || Z;
         return babelHelpers.extends(
           { resultType: o("WAWebApi").APICmd.NEW_CALL },
-          X && { data: Q },
+          te && { data: ee },
         );
       }
-      var Y = r("gkx")("26258") ? null : Et();
-      if (Y)
-        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: Y };
-      var J = kt(e);
-      return J
-        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: J }
+      var ne = r("gkx")("26258") ? null : Et();
+      if (ne)
+        return { resultType: o("WAWebApi").APICmd.WORK_CONTACT_SYNC, data: ne };
+      var re = kt(e);
+      return re
+        ? { resultType: o("WAWebApi").APICmd.SEND_FILE, data: re }
         : { resultType: o("WAWebApi").APICmd.INVALID };
     }
     ((l.parseConversionData = E),

@@ -42,6 +42,7 @@ __d(
                       jid: e.jid,
                       phoneNumber: e.user_pn,
                       username: e.username,
+                      pushName: e.push_name,
                       flushImmediately: t && o,
                     });
                   },

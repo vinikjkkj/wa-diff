@@ -1,6 +1,6 @@
 __d(
   "WAWebAppTracker",
-  ["$InternalEnum"],
+  ["$InternalEnum", "WAWebLogForCrash"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("$InternalEnum").Mirrored([
@@ -64,6 +64,12 @@ __d(
           (t.$3 = function () {
             this.$2 = null;
           }),
+          (t.$4 = function () {
+            o("WAWebLogForCrash").logForCrash(
+              "wa:appContext",
+              this.getAppContext() || "none",
+            );
+          }),
           (t.start = function (t) {
             var e;
             ((e = this.$1.get(t)) != null && e.isRunning) ||
@@ -73,20 +79,22 @@ __d(
                 endTime: void 0,
                 isRunning: !0,
               }),
-              this.$3());
+              this.$3(),
+              this.$4());
           }),
           (t.mark = function (t) {
             u("Mark Tracker", t);
             var e = self.performance.now();
             (this.$1.set(t, { startTime: e, endTime: e, isRunning: !1 }),
-              this.$3());
+              this.$3(),
+              this.$4());
           }),
           (t.stop = function (t) {
             var e = this.$1.get(t);
             if (e != null && e.isRunning) {
               ((e.endTime = self.performance.now()), (e.isRunning = !1));
               var n = Math.round(e.endTime - e.startTime);
-              (u("Stop Tracker", t, n), this.$3());
+              (u("Stop Tracker", t, n), this.$3(), this.$4());
             }
           }),
           (t.isRunning = function (t) {
@@ -119,7 +127,7 @@ __d(
             return r.length === 0 ? "" : (r.sort(), r.join("+"));
           }),
           (t.clear = function () {
-            (this.$1.clear(), this.$3());
+            (this.$1.clear(), this.$3(), this.$4());
           }),
           (t.getRunningTrackers = function () {
             var e = [];

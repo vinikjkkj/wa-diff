@@ -10,6 +10,7 @@ __d(
     function s() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
+        e() &&
         o("WAWebABProps").getABPropConfigValue(
           "lists_chat_list_row_pill_enabled",
         )

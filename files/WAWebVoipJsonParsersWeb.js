@@ -181,13 +181,21 @@ __d(
           return (
             e.participants != null &&
               (n = e.participants.map(function (e) {
-                var t;
+                var t,
+                  n,
+                  r,
+                  o =
+                    (t = (n = e.push_name) != null ? n : e.guest_name) != null
+                      ? t
+                      : null;
                 return {
                   participant: m(e.jid),
                   outcome: e.state,
                   videoState: e.video_state,
                   isMuted: e.is_muted,
-                  guestName: (t = e.guest_name) != null ? t : null,
+                  pushName: o,
+                  accountKind: (r = e.account_kind) != null ? r : null,
+                  guestName: o,
                 };
               })),
             { CallId: e.call_id, CallParticipants: n }
@@ -620,7 +628,11 @@ __d(
       }
     }
     function _(e) {
-      var t;
+      var t,
+        n,
+        r,
+        o =
+          (t = (n = e.push_name) != null ? n : e.guest_name) != null ? t : null;
       return {
         jid: m(e.jid),
         state: e.state,
@@ -666,7 +678,9 @@ __d(
         isHandRaised: e.is_hand_raised,
         isPinnedInViewBySelf: e.is_pinned_in_view_by_self,
         audioLevel: e.audio_level,
-        guestName: (t = e.guest_name) != null ? t : null,
+        pushName: o,
+        accountKind: (r = e.account_kind) != null ? r : null,
+        guestName: o,
       };
     }
     l.default = d;

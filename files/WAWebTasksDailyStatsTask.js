@@ -604,10 +604,9 @@ __d(
                 var t = o("WAWebWidFactory").createWid(e.id);
                 return t.isRegularUser() && e.accountLid == null;
               })),
-              o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat() &&
-                (b = f.filter(function (e) {
-                  return o("WAWebWidFactory").createWid(e.id).isRegularUserPn();
-                }).length),
+              (b = f.filter(function (e) {
+                return o("WAWebWidFactory").createWid(e.id).isRegularUserPn();
+              }).length),
               o("WAWebCurrentUser").isEmployee())
             ) {
               var v = function (t) {

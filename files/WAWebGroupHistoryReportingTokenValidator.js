@@ -18,12 +18,22 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
-    function m(e, t, n, r, o, a) {
-      return p.apply(this, arguments);
+    function m(e) {
+      return e.type === "revoked" && e.protocolMessageKey != null
+        ? e.protocolMessageKey.id
+        : e.id.id;
     }
-    function p() {
+    function p(e) {
+      return e.type === "revoked" && e.protocolMessageKey != null
+        ? e.protocolMessageKey.toString()
+        : e.id.toString();
+    }
+    function _(e, t, n, r, o, a) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, n, r, a, i, l) {
             var u,
               c,
@@ -97,16 +107,16 @@ __d(
             };
           },
         )),
-        p.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    function g(e, t, n) {
+      return h.apply(this, arguments);
     }
-    function f() {
+    function h() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = e.id.id,
+        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
+          var r = m(e),
             a = n.receivedTokenMap.get(r);
           if (a == null || a.length === 0)
             return (
@@ -168,11 +178,11 @@ __d(
               n.stanzaVersion,
               r,
             ),
-            l = g(i, a),
+            l = y(i, a),
             s = l.failureReason,
-            m = l.isValid,
-            p = l.receivedInfo;
-          if (p == null) return null;
+            _ = l.isValid,
+            f = l.receivedInfo;
+          if (f == null) return null;
           s != null &&
             (o("WALogger")
               .ERROR(
@@ -193,37 +203,37 @@ __d(
               isPartOfGroupHistory: !0,
               groupHistoryBundleMessageId: n.bundleMsgStanzaId,
             }));
-          var _ = p.reportingTag;
-          if (_ == null) return null;
-          var f = {
-            msgKey: e.id.toString(),
+          var g = f.reportingTag;
+          if (g == null) return null;
+          var h = {
+            msgKey: p(e),
             stanzaId: r,
-            reportingTag: _,
+            reportingTag: g,
             msgTs: n.bundleMsgTimestamp,
             receivedTs: o("WATimeUtils").unixTimeMs(),
             reportingTagParticipant: n.senderJid,
           };
           return (
-            p.reportingToken != null &&
-              ((f.reportingToken = p.reportingToken.slice(
+            f.reportingToken != null &&
+              ((h.reportingToken = f.reportingToken.slice(
                 0,
-                m
+                _
                   ? o("WAWebReportingTokenUtils").REPORTING_TOKEN_STORAGE_SIZE
                   : o("WAWebReportingTokenUtils")
                       .REPORTING_TOKEN_INVALID_STORAGE_SIZE,
               )),
-              (f.version = p.version),
+              (h.version = f.version),
               (i == null ? void 0 : i.reportingTokenContent) != null &&
-                (f.reportingTokenContentOpaqueData = i.reportingTokenContent),
+                (h.reportingTokenContentOpaqueData = i.reportingTokenContent),
               (i == null ? void 0 : i.reportingTokenKey) != null &&
-                (f.reportingTokenKey = i.reportingTokenKey)),
-            f
+                (h.reportingTokenKey = i.reportingTokenKey)),
+            h
           );
         })),
-        f.apply(this, arguments)
+        h.apply(this, arguments)
       );
     }
-    function g(e, t) {
+    function y(e, t) {
       var n;
       if (e == null || e.reportingToken == null) {
         var r,
@@ -259,8 +269,8 @@ __d(
               .MISMATCH_REPORTING_TOKEN,
           };
     }
-    ((l.prepareValidationContext = m),
-      (l.validateAndBuildReportingInfoRow = _));
+    ((l.prepareValidationContext = _),
+      (l.validateAndBuildReportingInfoRow = g));
   },
   98,
 );

@@ -5,12 +5,13 @@ __d(
     "use strict";
     var e = 3e4,
       s = 5e3,
-      u = 900 * 1e3,
-      c = (function () {
+      u = 5e3,
+      c = 900 * 1e3,
+      d = (function () {
         function t(t, n, a, i, l) {
-          var c = this;
-          ((this.$7 = null),
-            (this.$8 = !1),
+          var d = this;
+          ((this.$8 = null),
+            (this.$9 = !1),
             (this.$1 = i != null ? i : r("uuidv4")().slice(0, 8)),
             (this.$2 = l != null ? l : "unknown"),
             (this.$3 = n),
@@ -21,47 +22,60 @@ __d(
               },
               e,
               function () {
-                return c.processEvent({ type: "stream_ping_success" });
+                return d.processEvent({ type: "stream_ping_success" });
               },
               function () {
-                return c.processEvent({ type: "stream_ping_timeout" });
+                return d.processEvent({ type: "stream_ping_timeout" });
               },
             )),
-            (this.$6 = o("Probers").createNetworkProbe(
+            (this.$6 = o("Probers").createStreamProbe(
+              function () {
+                return t.ping();
+              },
               s,
+              function () {
+                return d.processEvent({ type: "stream_ping_success" });
+              },
+              function () {
+                return d.processEvent({ type: "stream_ping_timeout" });
+              },
+            )),
+            (this.$7 = o("Probers").createNetworkProbe(
+              u,
               a,
               function () {
-                return c.processEvent({ type: "network_ping_success" });
+                return d.processEvent({ type: "network_ping_success" });
               },
               function () {
-                return c.processEvent({ type: "network_ping_timeout" });
+                return d.processEvent({ type: "network_ping_timeout" });
               },
             )),
-            (this.$7 = window.setTimeout(function () {
-              return c.$9();
-            }, u)));
+            (this.$8 = window.setTimeout(function () {
+              return d.$10();
+            }, c)));
         }
         var n = t.prototype;
         return (
           (n.processEvent = function (t) {
-            if (!this.$8) {
+            if (!this.$9) {
               var e = this.$4.processEvent(t);
               e.becameTerminated
-                ? this.$9()
+                ? this.$10()
                 : e.streamBecameAvailable
-                  ? (this.$5.start(), this.$6.stop())
+                  ? (this.$6.stop(), this.$7.stop(), this.$5.start())
                   : e.streamBecameUnavailable &&
-                    (this.$5.stop(), this.$6.start());
+                    (this.$6.start(), this.$7.start(), this.$5.stop());
             }
           }),
-          (n.$9 = function () {
+          (n.$10 = function () {
             var e = this;
-            this.$8 ||
-              ((this.$8 = !0),
+            this.$9 ||
+              ((this.$9 = !0),
               this.$5.stop(),
               this.$6.stop(),
-              this.$7 != null &&
-                (window.clearTimeout(this.$7), (this.$7 = null)),
+              this.$7.stop(),
+              this.$8 != null &&
+                (window.clearTimeout(this.$8), (this.$8 = null)),
               this.$4.finalize(),
               this.$3.log(function () {
                 var t;
@@ -100,7 +114,7 @@ __d(
           t
         );
       })();
-    l.default = c;
+    l.default = d;
   },
   98,
 );

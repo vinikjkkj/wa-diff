@@ -38,7 +38,8 @@ __d(
         ));
       var r = o("WAWebLeadStage").getLeadStageFromNumber(e.leadStage);
       return (
-        r != null && n.push(o("WAWebLeadStageNames").getLeadStageName(r)),
+        r != null &&
+          n.push(String(o("WAWebLeadStageNames").getLeadStageName(r))),
         n.push(o("WAWebClock").Clock.dsaDisplayDate(e.modifiedAt)),
         e.lastOrder != null &&
           n.push(o("WAWebClock").Clock.dsaDisplayDate(e.lastOrder)),

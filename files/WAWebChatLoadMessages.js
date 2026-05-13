@@ -30,6 +30,8 @@ __d(
     "WAWebNewsletterSystemMessagesAction",
     "WAWebStateUtils",
     "WAWebSyncGatingUtils",
+    "WAWebThreadMsgUtils",
+    "WAWebThreadUtils",
     "WAWebThreadsGating",
     "WAWebWamEnumWebcMessageQueryDirection",
     "WAWebWamEnumWebcQueryTriggerType",
@@ -51,10 +53,10 @@ __d(
             i = e.threadId,
             l = o("WAWebStateUtils").unproxy(t),
             s = r;
-          if ((s || (s = l.msgs), b(l, s)))
+          if ((s || (s = l.msgs), v(l, s)))
             return (f || (f = n("Promise"))).resolve();
           if (s.msgLoadState.isLoadingRecentMsgs) return s.loadRecentPromise;
-          var u = yield v({
+          var u = yield S({
               chat: l,
               dir: "after",
               msgCollection: s,
@@ -69,12 +71,24 @@ __d(
         h.apply(this, arguments)
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    function y(e, t, n) {
+      if (
+        n != null &&
+        n.type === o("WAWebThreadUtils").ThreadType.ViewAllReplies &&
+        e != null &&
+        o("WAWebThreadMsgUtils").isMsgRootOfThread(e, n)
+      ) {
+        var r;
+        return (r = t.at(1)) != null ? r : null;
+      }
+      return e;
     }
-    function C() {
+    function C(e) {
+      return b.apply(this, arguments);
+    }
+    function b() {
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           var t = e.chat,
             a = e.msgCollection,
             i = e.signal,
@@ -121,17 +135,21 @@ __d(
               (f || (f = n("Promise"))).resolve()
             );
           if (_.msgLoadState.isLoadingEarlierMsgs) return _.loadEarlierPromise;
-          var y = _ ? _.head() : null;
+          var C = _ ? _.head() : null,
+            b = y(C, _, h);
+          if (b == null && C != null)
+            return ((_.msgLoadState.noEarlierMsgs = !0), []);
           if (
             o("WAWebChatGetters").getIsNewsletter(p) &&
-            y != null &&
-            o("WAWebNewsletterSystemMessages").isEarliestNewsletterSystemMsg(y)
+            b != null &&
+            o("WAWebNewsletterSystemMessages").isEarliestNewsletterSystemMsg(b)
           )
             return ((_.msgLoadState.noEarlierMsgs = !0), []);
-          var C = function () {
-              return y ? y.getMsgChunk(h) : _;
+          var v = function () {
+              return b ? b.getMsgChunk(h) : _;
             },
-            b = yield v({
+            R = yield S({
+              anchorOverride: b,
               chat: p,
               dir: "before",
               msgCollection: _,
@@ -139,9 +157,9 @@ __d(
               threadId: h,
               trigger: g,
             }),
-            S = b.hasMoreMsgs,
-            R = b.msgs,
-            L = C();
+            L = R.hasMoreMsgs,
+            E = R.msgs,
+            k = v();
           return (
             r("gkx")("26259") &&
               o("WALogger").LOG(
@@ -155,22 +173,22 @@ __d(
                     " onDemand=",
                     "",
                   ])),
-                R.length,
-                S,
-                y == null ? void 0 : y.id,
-                L != null,
+                E.length,
+                L,
+                b == null ? void 0 : b.id,
+                k != null,
                 p.endOfHistoryTransferType,
                 o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled(),
               ),
-            L &&
-              !S &&
-              ((L.msgLoadState.noEarlierMsgs =
+            k &&
+              !L &&
+              ((k.msgLoadState.noEarlierMsgs =
                 p.endOfHistoryTransferType !==
                 o("WAWebChatConstants")
                   .ConversationEndOfHistoryTransferModelPropType.INCOMPLETE),
               o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled() &&
-                (L.msgLoadState.noEarlierMsgs =
-                  L.msgLoadState.noEarlierMsgs &&
+                (k.msgLoadState.noEarlierMsgs =
+                  k.msgLoadState.noEarlierMsgs &&
                   p.endOfHistoryTransferType !==
                     o("WAWebChatConstants")
                       .ConversationEndOfHistoryTransferModelPropType
@@ -183,42 +201,43 @@ __d(
                       " (more=false, histType=",
                       ")",
                     ])),
-                  L.msgLoadState.noEarlierMsgs,
+                  k.msgLoadState.noEarlierMsgs,
                   p.endOfHistoryTransferType,
                 )),
-            R
+            E
           );
         })),
-        C.apply(this, arguments)
+        b.apply(this, arguments)
       );
     }
-    function b(e, t) {
+    function v(e, t) {
       return e.msgs === t;
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    function S(e) {
+      return R.apply(this, arguments);
     }
-    function S() {
+    function R() {
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chat,
-            n = e.dir,
-            a = e.msgCollection,
-            i = e.signal,
-            l = e.threadId,
-            s = e.trigger,
-            u = n === "after" ? a.last() : a.head(),
-            c =
-              o("WAWebBotUtils").isMetaAiBot(t.id) &&
+        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.anchorOverride,
+            n = e.chat,
+            a = e.dir,
+            i = e.msgCollection,
+            l = e.signal,
+            s = e.threadId,
+            u = e.trigger,
+            c = t != null ? t : a === "after" ? i.last() : i.head(),
+            d =
+              o("WAWebBotUtils").isMetaAiBot(n.id) &&
               o("WAWebBotGating").isAiChatThreadsEnabled() &&
               !o("WAWebThreadsGating").isThreadLoadingInfraEnabled()
                 ? o("WAWebBotGating").getAiThreadMsgsLoadLimit()
                 : o("WAWebCollectionConstants").PAGE_SIZE,
-            d = {
-              anchor: u != null ? u.id : { remote: t.id },
-              count: c,
-              direction: n,
-              threadId: l != null ? l : null,
+            f = {
+              anchor: c != null ? c.id : { remote: n.id },
+              count: d,
+              direction: a,
+              threadId: s != null ? s : null,
             };
           r("gkx")("26259") &&
             o("WALogger").LOG(
@@ -231,26 +250,26 @@ __d(
                   " len=",
                   "",
                 ])),
-              t.id,
-              n,
-              u == null ? void 0 : u.id,
-              c,
-              a.length,
-            );
-          var f = o("WAWebMsgCountReporter").newMessageQueryEvent(s),
-            g = yield R(
-              t,
-              u,
+              n.id,
               a,
+              c == null ? void 0 : c.id,
+              d,
+              i.length,
+            );
+          var g = o("WAWebMsgCountReporter").newMessageQueryEvent(u),
+            h = yield L(
+              n,
+              c,
+              i,
               function () {
                 return o("WAWebMsgCollection").MsgCollection.loadMessagesQuery(
-                  d,
+                  f,
                 );
               },
-              n,
-              f,
+              a,
+              g,
               !0,
-              i,
+              l,
             );
           (r("gkx")("26259") &&
             o("WALogger").LOG(
@@ -262,19 +281,19 @@ __d(
                   ", msgsLoadLimit=",
                   "",
                 ])),
-              t.id,
-              n,
-              g.length,
-              c,
+              n.id,
+              a,
+              h.length,
+              d,
             ),
-            o("WAWebChatGetters").getIsNewsletter(t) &&
+            o("WAWebChatGetters").getIsNewsletter(n) &&
               o(
                 "WAWebNewsletterExtendedGatingUtils",
               ).isNewsletterReactionEnabled() &&
               (yield o(
                 "WAWebNewsletterGetMessageUpdatesAction",
-              ).maybeUpdateMsgsAddOns(g, t)));
-          var h = g.length >= c;
+              ).maybeUpdateMsgsAddOns(h, n)));
+          var y = h.length >= d;
           if (
             (r("gkx")("26259") &&
               o("WALogger").LOG(
@@ -288,63 +307,63 @@ __d(
                     ") newsletter=",
                     "",
                   ])),
-                t.id,
-                n,
-                h,
-                g.length,
-                c,
-                o("WAWebChatGetters").getIsNewsletter(t),
+                n.id,
+                a,
+                y,
+                h.length,
+                d,
+                o("WAWebChatGetters").getIsNewsletter(n),
               ),
-            h ||
-              !o("WAWebChatGetters").getIsNewsletter(t) ||
+            y ||
+              !o("WAWebChatGetters").getIsNewsletter(n) ||
               !o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled())
           )
-            return { msgs: g, hasMoreMsgs: h };
+            return { msgs: h, hasMoreMsgs: y };
           try {
-            var y = g[0];
+            var C = h[0];
             if (
-              n === "before" &&
-              y != null &&
-              o("WAWebNewsletterSystemMessages").isNewsletterSystemMsg(y)
+              a === "before" &&
+              C != null &&
+              o("WAWebNewsletterSystemMessages").isNewsletterSystemMsg(C)
             )
-              return { msgs: g, hasMoreMsgs: !1 };
-            var C = g.length > c,
-              b = C
+              return { msgs: h, hasMoreMsgs: !1 };
+            var b = h.length > d,
+              v = b
                 ? []
                 : yield o(
                     "WAWebNewsletterPullMessagesFromServerAction",
-                  ).pullNewsletterMessagesFromServer(t, {
-                    messageCount: c - g.length,
+                  ).pullNewsletterMessagesFromServer(n, {
+                    messageCount: d - h.length,
                     cursor: o("WAWebGetNewsletterCursor").getNewsletterCursor(
+                      i,
                       a,
-                      n,
-                      g,
+                      h,
                     ),
                     resetUnreadCount: !0,
                   }),
-              v = n === "before" ? b.concat(g) : g.concat(b),
-              S = v.length >= c,
-              L = v[0];
+              S = a === "before" ? v.concat(h) : h.concat(v),
+              R = S.length >= d,
+              E = S[0];
             if (
-              n === "before" &&
-              !S &&
-              (L == null ||
-                !o("WAWebNewsletterSystemMessages").isNewsletterSystemMsg(L))
+              a === "before" &&
+              !R &&
+              (E == null ||
+                !o("WAWebNewsletterSystemMessages").isNewsletterSystemMsg(E))
             ) {
-              var E = yield o(
+              var k = yield o(
                 "WAWebNewsletterSystemMessagesAction",
-              ).addSystemMessagesToChat(t);
-              v.unshift.apply(v, E);
+              ).addSystemMessagesToChat(n);
+              S.unshift.apply(S, k);
             }
-            return { msgs: v, hasMoreMsgs: S };
+            return { msgs: S, hasMoreMsgs: R };
           } catch (e) {
-            return { msgs: g, hasMoreMsgs: !0 };
+            return { msgs: h, hasMoreMsgs: !0 };
           }
         })),
-        S.apply(this, arguments)
+        R.apply(this, arguments)
       );
     }
-    function R(t, a, i, l, s, u, c, d) {
+    function L(t, a, i, l, s, u, c, d) {
       c === void 0 && (c = !0);
       var m = o("WAWebStateUtils").unproxy(t),
         p = self.performance.now();
@@ -414,13 +433,13 @@ __d(
                         .finally(function () {
                           return u.commit();
                         }),
-                      L(a, i, s),
+                      E(a, i, s),
                       c(y));
                   } catch (t) {
                     var b = r("getErrorSafe")(t);
                     if (b.name === o("WAAbortError").ABORT_ERROR) throw b;
                     return _ > 3 || t === 404
-                      ? (L(a, i, s),
+                      ? (E(a, i, s),
                         o("WALogger").WARN(
                           e ||
                             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -476,7 +495,7 @@ __d(
         _
       );
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       var o = e == null ? void 0 : e.getMsgChunk(),
         a = o && o !== t;
       ((t.msgLoadState.contextLoaded = !0),
@@ -488,8 +507,8 @@ __d(
             : n === "around" && (t.msgLoadState.isLoadingAroundMsgs = !1));
     }
     ((l.loadRecentMsgs = g),
-      (l.loadEarlierMsgs = y),
-      (l.loadMsgsPromiseLoop = R));
+      (l.loadEarlierMsgs = C),
+      (l.loadMsgsPromiseLoop = L));
   },
   98,
 );

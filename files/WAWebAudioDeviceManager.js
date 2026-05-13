@@ -185,16 +185,16 @@ __d(
         te.apply(this, arguments)
       );
     }
-    function ne(e, t, n) {
+    function ne(e, t, n, r) {
       return re.apply(this, arguments);
     }
     function re() {
       return (
         (re = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
+          function* (e, t, n, r) {
             try {
-              var r = yield ae(e, t, n);
-              if (r.length === 0)
+              var a = yield ae(e, t, n, r);
+              if (a.length === 0)
                 return (
                   o("WALogger").ERROR(
                     _ ||
@@ -204,13 +204,13 @@ __d(
                   ),
                   null
                 );
-              var a = j;
-              if (a != null) {
-                var i = r.find(function (e) {
-                  return e.deviceId === a;
+              var i = j;
+              if (i != null) {
+                var l = a.find(function (e) {
+                  return e.deviceId === i;
                 });
-                i ||
-                  ((a = null),
+                l ||
+                  ((i = null),
                   K(null),
                   o("WALogger").LOG(
                     f ||
@@ -219,44 +219,44 @@ __d(
                       ])),
                   ));
               }
-              var l = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
-              if (l != null && a !== l) {
-                var s = r.find(function (e) {
-                  return e.deviceId === l;
+              var s = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
+              if (s != null && i !== s) {
+                var u = a.find(function (e) {
+                  return e.deviceId === s;
                 });
-                s && (a = l);
+                u && (i = s);
               }
-              if (a != null && a !== j) {
-                var u = r.find(function (e) {
-                  return e.deviceId === a;
+              if (i != null && i !== j) {
+                var c = a.find(function (e) {
+                  return e.deviceId === i;
                 });
-                if (u) {
-                  var c;
-                  (K(a),
+                if (c) {
+                  var d;
+                  (K(i),
                     o("WALogger").LOG(
                       g ||
                         (g = babelHelpers.taggedTemplateLiteralLoose([
                           "voip: [AV] Using selected audio device:\n          ",
                           "",
                         ])),
-                      (c = u.label) != null ? c : "unknown",
+                      (d = c.label) != null ? d : "unknown",
                     ));
                 }
               }
               if (j == null) {
-                var d;
-                (K(r[0].deviceId),
+                var m;
+                (K(a[0].deviceId),
                   o("WALogger").LOG(
                     h ||
                       (h = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: [AV] Using fallback audio device:\n        ",
                         "",
                       ])),
-                    (d = r[0].label) != null ? d : "unknown",
+                    (m = a[0].label) != null ? m : "unknown",
                   ));
               }
-              var m = Q();
-              return m != null ? m : null;
+              var p = Q();
+              return p != null ? p : null;
             } catch (e) {
               return (
                 o("WALogger")
@@ -284,24 +284,24 @@ __d(
         return n && !r ? -1 : !n && r ? 1 : 0;
       });
     }
-    function ae(e, t, n) {
+    function ae(e, t, n, r) {
       return ie.apply(this, arguments);
     }
     function ie() {
       return (
         (ie = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
+          function* (e, t, n, r) {
             try {
-              var r,
-                a,
-                i =
-                  (r =
-                    e == null || (a = e.navigator) == null
+              var a,
+                i,
+                l =
+                  (a =
+                    e == null || (i = e.navigator) == null
                       ? void 0
-                      : a.mediaDevices) != null
-                    ? r
+                      : i.mediaDevices) != null
+                    ? a
                     : navigator.mediaDevices;
-              if (!(i != null && i.enumerateDevices))
+              if (!(l != null && l.enumerateDevices))
                 return (
                   o("WALogger").ERROR(
                     C ||
@@ -311,22 +311,27 @@ __d(
                   ),
                   []
                 );
-              var l = t === !0 || (o("WAWebUA").UA.isSafari && n === !0),
-                s = o("WAWebUA").UA.isFirefox && e != null;
-              if (!l) {
-                var u = s
-                    ? { granted: !1 }
+              var s =
+                  r === !0 &&
+                  t !== !0 &&
+                  !(o("WAWebUA").UA.isSafari && n === !0),
+                u = o("WAWebUA").UA.isFirefox && e != null;
+              if (s) {
+                var c = u
+                    ? { denied: !1, granted: !1 }
                     : yield o(
                         "WAWebMediaPermissionsUtils",
                       ).checkMediaPermissionState(
                         "microphone",
                         e == null ? void 0 : e.navigator,
                       ),
-                  c = u.granted;
-                if (!c)
+                  d = c.denied,
+                  m = c.granted,
+                  p = m || d;
+                if (!p)
                   try {
-                    var d = yield i.getUserMedia({ audio: !0 });
-                    d.getTracks().forEach(function (e) {
+                    var _ = yield l.getUserMedia({ audio: !0 });
+                    _.getTracks().forEach(function (e) {
                       return e.stop();
                     });
                   } catch (e) {
@@ -342,9 +347,9 @@ __d(
                       );
                   }
               }
-              var m = yield i.enumerateDevices(),
-                p = oe(
-                  m
+              var f = yield l.enumerateDevices(),
+                g = oe(
+                  f
                     .filter(function (e) {
                       return e.kind === "audioinput";
                     })
@@ -364,12 +369,12 @@ __d(
                       " devices: ",
                       "",
                     ])),
-                  p.length,
-                  p.map(function (e) {
+                  g.length,
+                  g.map(function (e) {
                     return e.label + " (" + e.deviceId.slice(0, 8) + ")";
                   }),
                 ),
-                p
+                g
               );
             } catch (e) {
               return (

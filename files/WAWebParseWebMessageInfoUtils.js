@@ -137,6 +137,15 @@ __d(
               (r = t));
             break e;
           }
+          if (e.messageStubType === n.SCHEDULED_MESSAGE_CREATED) {
+            ((t.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION),
+              (t.subtype = o(
+                "WAWebCommonMsgSubtypeTypes",
+              ).MsgSubtype.ScheduledMessageCreated),
+              (t.kind = o("WAWebMsgType").MsgKind.Notification),
+              (r = t));
+            break e;
+          }
           {
             r = m(e, t);
             break e;

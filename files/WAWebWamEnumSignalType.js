@@ -31,6 +31,7 @@ __d(
       MESSAGE: 25,
       USER_ARCHIVE: 26,
       USER_BLOCK_REASON_DONT_RECOGNIZE: 27,
+      IAB_LPV: 28,
     });
     i.SIGNAL_TYPE = e;
   },

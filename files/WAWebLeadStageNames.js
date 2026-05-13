@@ -1,30 +1,28 @@
 __d(
   "WAWebLeadStageNames",
-  [],
-  function (t, n, r, o, a, i) {
+  ["fbt"],
+  function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return e === 0
-        ? "None"
+        ? s._(/*BTDS*/ "None")
         : e === 1
-          ? "New Lead"
+          ? s._(/*BTDS*/ "Intake")
           : e === 2
-            ? "Contacted"
+            ? s._(/*BTDS*/ "Qualified")
             : e === 3
-              ? "Qualified"
+              ? s._(/*BTDS*/ "Converted")
               : e === 4
-                ? "Negotiation"
+                ? s._(/*BTDS*/ "Lost")
                 : e === 5
-                  ? "Won"
-                  : e === 6
-                    ? "Lost"
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            e,
-                        );
-                      })();
+                  ? s._(/*BTDS*/ "Not qualified")
+                  : (function () {
+                      throw Error(
+                        "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                          e,
+                      );
+                    })();
     }
-    i.getLeadStageName = e;
+    l.getLeadStageName = e;
   },
-  66,
+  226,
 );

@@ -103,49 +103,80 @@ __d(
         a = t.isDisabled,
         i = t.loading,
         l = t.onEndIconClick,
-        s = t.platform,
-        p = t.suffix;
-      if (n == null && p == null && i == null) return null;
-      var _, f, g, h, y, C, b;
-      s === "android"
-        ? ((_ = 24),
-          (f = c.iconContainer),
-          (g = c.EndIconContainer),
-          (h = c.textSuffixNoIcon),
-          (y = "Body1"),
-          (C = c.addOnEnd),
-          (b = c.addOnEnd))
-        : ((_ = 20),
-          (f = d.iconContainer),
-          (g = d.EndIconContainer),
-          (h = d.textSuffixNoIcon),
-          (y = "Body2"));
-      var v = [m.iconContainer, f, g],
-        S = null;
-      return (
-        i === !0
-          ? (S = u.jsx(
+        s = t.onSecondaryIconClick,
+        p = t.platform,
+        _ = t.SecondaryIcon,
+        f = t.secondaryIconAriaLabel,
+        g = t.suffix;
+      if (n == null && _ == null && g == null && i == null) return null;
+      var h, y, C, b, v, S, R;
+      p === "android"
+        ? ((h = 24),
+          (y = c.iconContainer),
+          (C = c.EndIconContainer),
+          (b = c.textSuffixNoIcon),
+          (v = "Body1"),
+          (S = c.addOnEnd),
+          (R = c.addOnEnd))
+        : ((h = 20),
+          (y = d.iconContainer),
+          (C = d.EndIconContainer),
+          (b = d.textSuffixNoIcon),
+          (v = "Body2"));
+      var L = [m.iconContainer, y, C],
+        E = null;
+      _ != null &&
+        (s != null
+          ? (E = u.jsx(
               "div",
               babelHelpers.extends(
                 {},
-                (e || (e = r("stylex"))).props.apply(e, v),
-                { children: u.jsx(r("WDSSpinner.react"), { size: _ }) },
+                (e || (e = r("stylex"))).props.apply(e, L),
+                {
+                  children: u.jsx(r("WDSButton.react"), {
+                    variant: "borderless",
+                    size: p === "android" ? "medium" : "small",
+                    onPress: s,
+                    Icon: _,
+                    xstyle: S,
+                    "aria-label": f != null ? f : void 0,
+                    widthMode: "fit",
+                    disabled: a === !0,
+                  }),
+                },
+              ),
+            ))
+          : (E = u.jsx(_, {
+              colorName: "contentDefault",
+              xstyle: [].concat(L, [R]),
+              height: h,
+              width: h,
+            })));
+      var k = null;
+      return (
+        i === !0
+          ? (k = u.jsx(
+              "div",
+              babelHelpers.extends(
+                {},
+                (e || (e = r("stylex"))).props.apply(e, L),
+                { children: u.jsx(r("WDSSpinner.react"), { size: h }) },
               ),
             ))
           : n != null &&
             (l != null
-              ? (S = u.jsx(
+              ? (k = u.jsx(
                   "div",
                   babelHelpers.extends(
                     {},
-                    (e || (e = r("stylex"))).props.apply(e, v),
+                    (e || (e = r("stylex"))).props.apply(e, L),
                     {
                       children: u.jsx(r("WDSButton.react"), {
                         variant: "borderless",
-                        size: s === "android" ? "medium" : "small",
+                        size: p === "android" ? "medium" : "small",
                         onPress: l,
                         Icon: n,
-                        xstyle: C,
+                        xstyle: S,
                         "aria-label": o != null ? o : void 0,
                         widthMode: "fit",
                         disabled: a === !0,
@@ -153,26 +184,31 @@ __d(
                     },
                   ),
                 ))
-              : (S = u.jsx(n, {
+              : (k = u.jsx(n, {
                   colorName: "contentDefault",
-                  xstyle: [].concat(v, [b]),
-                  height: _,
-                  width: _,
+                  xstyle: [].concat(L, [R]),
+                  height: h,
+                  width: h,
                 }))),
         u.jsxs(u.Fragment, {
           children: [
-            p != null &&
+            g != null &&
               u.jsx("div", {
                 "aria-hidden": "true",
                 children: u.jsx(r("WDSText.react"), {
-                  type: y,
+                  type: v,
                   colorName: "contentDeemphasized",
                   selectable: !1,
-                  xstyle: [m.textAffixes, m.textSuffix, n == null && h],
-                  children: p,
+                  xstyle: [
+                    m.textAffixes,
+                    m.textSuffix,
+                    n == null && _ == null && b,
+                  ],
+                  children: g,
                 }),
               }),
-            S,
+            E,
+            k,
           ],
         })
       );

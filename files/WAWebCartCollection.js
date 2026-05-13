@@ -13,7 +13,8 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (function (t) {
+      s,
+      u = (function (t) {
         function n(e, n) {
           var r;
           return (
@@ -63,24 +64,32 @@ __d(
               ).Lid1X1MigrationUtils.isLidMigrated() &&
               o("WAWebUserPrefsCartLidMigration").isCartLidMigrationComplete()
             ) {
-              var e = o("WAWebLidMigrationUtils").toUserLidOrThrow(
+              var e = o("WAWebLidMigrationUtils").toUserLid(
                 o("WAWebWidFactory").createUserWidOrThrow(t),
               );
-              return this.gadd(e.toString());
+              if (e != null) return this.gadd(e.toString());
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[cart] findCart: no LID mapping for cartId post lid migration, falling back to PN-based lookup",
+                    ])),
+                )
+                .sendLogs("cart-find-cart-no-lid-mapping");
             }
             return this.gadd(t);
           }),
           n
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    ((s.model = r("WAWebCartModel")),
-      (s.cachePolicy = {
+    ((u.model = r("WAWebCartModel")),
+      (u.cachePolicy = {
         id: o("WAWebUserPrefsKeys").COLLECTIONS_KEYS.CART_COLLECTION,
         policy: o("WAWebBaseCachePolicy").CACHE_POLICY.LOAD,
         delay: 2e3,
       }));
-    var u = new s();
-    l.CartCollection = u;
+    var c = new u();
+    l.CartCollection = c;
   },
   98,
 );

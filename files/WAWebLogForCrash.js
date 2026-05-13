@@ -1,25 +1,40 @@
 __d(
   "WAWebLogForCrash",
-  ["logForCrash"],
-  function (t, n, r, o, a, i) {
+  ["cr:38444", "logForCrash"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = null,
-      l = null,
-      s = null;
+      s = null,
+      u = null;
     try {
-      var u = n("logForCrash");
-      ((e = u.logForCrash), (l = u.clearCrashLog), (s = u.onLogForCrashReady));
+      var c = n("logForCrash");
+      ((e = c.logForCrash), (s = c.clearCrashLog), (u = c.onLogForCrashReady));
     } catch (e) {}
-    function c(t, n, r) {
-      e == null || e(t, n, r);
+    function d(t, r, o) {
+      (n("cr:38444") != null &&
+        r != null &&
+        n("cr:38444").logForCrash(
+          t,
+          r,
+          n("cr:38444").RSTLogMode.VALID_UNTIL_NEXT_WRITE,
+          { logForNativeReports: !1 },
+        ),
+        e == null || e(t, r, o));
     }
-    function d(e, t) {
-      l == null || l(e, t);
+    function m(e, t) {
+      (n("cr:38444") != null &&
+        n("cr:38444").logForCrash(
+          e,
+          "",
+          n("cr:38444").RSTLogMode.VALID_UNTIL_NEXT_WRITE,
+          { logForNativeReports: !1 },
+        ),
+        s == null || s(e, t));
     }
-    function m(e) {
-      s == null || s(e);
+    function p(e) {
+      u == null || u(e);
     }
-    ((i.logForCrash = c), (i.clearCrashLog = d), (i.onLogForCrashReady = m));
+    ((l.logForCrash = d), (l.clearCrashLog = m), (l.onLogForCrashReady = p));
   },
-  66,
+  98,
 );

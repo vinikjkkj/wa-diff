@@ -8,16 +8,14 @@ __d(
       var n = o("WASyncdConst").Actions.cast(t.value);
       return (
         n == null &&
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "asSyncdAction: unknown KmpSyncdMutationName ",
-                  "",
-                ])),
-              t,
-            )
-            .sendLogs("kmp-unknown-mutation-name-from-kmp"),
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "asSyncdAction: unknown KmpSyncdMutationName ",
+                "",
+              ])),
+            t.value,
+          ),
         n
       );
     }
@@ -26,16 +24,14 @@ __d(
         .KmpSyncdMutationName.fromString(e)
         .getOrElse(function (t) {
           throw (
-            o("WALogger")
-              .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "asKmpSyncdMutationName: unknown Actions ",
-                    "",
-                  ])),
-                e,
-              )
-              .sendLogs("kmp-unknown-mutation-name-for-kmp"),
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "asKmpSyncdMutationName: unknown Actions ",
+                  "",
+                ])),
+              e,
+            ),
             t
           );
         });

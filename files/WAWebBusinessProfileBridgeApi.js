@@ -2,37 +2,44 @@ __d(
   "WAWebBusinessProfileBridgeApi",
   [
     "Promise",
+    "WALogger",
+    "WAWebBizCoexGatingUtils",
     "WAWebBizGatingUtils",
     "WAWebBusinessProfileCollection",
     "WAWebCatalogCollection",
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebDBUpdateChatTable",
     "WAWebJidToWid",
     "WAWebUserPrefsMeUser",
+    "WAWebUserPrefsMultiDevice",
     "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = {
+      s,
+      u,
+      c = {
         refreshCatalogProducts: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var r = t.productIds,
-              a = o("WAWebCatalogCollection").CatalogCollection.get(
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+            var t = e.productIds,
+              r = o("WAWebCatalogCollection").CatalogCollection.get(
                 o("WAWebUserPrefsMeUser")
                   .getMePnUserOrThrow_DO_NOT_USE()
                   .toString(),
               );
-            if (a) {
-              var i = r.map(function (e) {
-                return a.refreshProduct(e);
+            if (r) {
+              var a = t.map(function (e) {
+                return r.refreshProduct(e);
               });
-              yield (e || (e = n("Promise"))).all(i);
+              yield (u || (u = n("Promise"))).all(a);
             }
           });
-          function r(e) {
-            return t.apply(this, arguments);
+          function t(t) {
+            return e.apply(this, arguments);
           }
-          return r;
+          return t;
         })(),
         updateCatalogCollectionReviewStatuses: function (t) {
           var e = t.notification,
@@ -66,21 +73,21 @@ __d(
               u = Array.isArray(s) ? s : [s];
             for (var c of u) {
               if (l) {
-                var d,
-                  m =
-                    c == null || (d = c.profileOptions) == null
+                var m,
+                  p =
+                    c == null || (m = c.profileOptions) == null
                       ? void 0
-                      : d.commerceExperience;
-                if (m !== i) {
-                  var p = o("WAWebCatalogCollection").CatalogCollection.get(r);
-                  p &&
+                      : m.commerceExperience;
+                if (p !== i) {
+                  var _ = o("WAWebCatalogCollection").CatalogCollection.get(r);
+                  _ &&
                     o(
                       "WAWebBizGatingUtils",
                     ).isCatalogVariantsViewingEnabled() &&
-                    o("WAWebCatalogCollection").CatalogCollection.remove(p.id);
+                    o("WAWebCatalogCollection").CatalogCollection.remove(_.id);
                 }
               }
-              l || (c.stale = !0);
+              (l || (c.stale = !0), d(r, c));
             }
           });
           function t(t) {
@@ -110,7 +117,62 @@ __d(
             );
         },
       };
-    l.BusinessProfileBridgeApi = s;
+    function d(t, n) {
+      if (
+        !(
+          o(
+            "WAWebUserPrefsMultiDevice",
+          ).getIsHostedMeAccountFromLocalStorage() ||
+          !o("WAWebBizCoexGatingUtils").agentOffboardingEnabled() ||
+          !o("WAWebBizCoexGatingUtils").authorizedAgentsEnabled()
+        )
+      ) {
+        var a = o("WAWebChatCollection").ChatCollection.getLatestChatForWid(t);
+        if (a != null) {
+          var i = n == null ? void 0 : n.parentCompanyName,
+            l = n == null ? void 0 : n.obaPhoneNumber;
+          (n == null ? void 0 : n.isAuthorizedAgent) === !0 &&
+          i != null &&
+          l != null
+            ? (a.set({ parentCompanyName: i, obaPhoneNumber: l }),
+              o("WAWebDBUpdateChatTable")
+                .updateChatTable(a.id, {
+                  parentCompanyName: i,
+                  obaPhoneNumber: l,
+                })
+                .catch(function (t) {
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to save authorized agent metadata to chat table",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs("save-auth-agent-chat-table-fail");
+                }))
+            : (n == null ? void 0 : n.isAuthorizedAgent) === !1 &&
+              (a.set({ parentCompanyName: null, obaPhoneNumber: null }),
+              o("WAWebDBUpdateChatTable")
+                .updateChatTable(a.id, {
+                  parentCompanyName: null,
+                  obaPhoneNumber: null,
+                })
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to clear authorized agent metadata from chat table",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("clear-auth-agent-chat-table-fail");
+                }));
+        }
+      }
+    }
+    l.BusinessProfileBridgeApi = c;
   },
   98,
 );

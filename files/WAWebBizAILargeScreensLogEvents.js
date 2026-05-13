@@ -41,13 +41,72 @@ __d(
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.GEN_AI_RULES_LIST,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function d() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GENAI_AGENT_AI_REPLIES,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function m() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_AI_HUB_KNOWLEDGE_EXAMPLE_RESPONSE,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function p() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_AI_HUB_ADD_BUSINESS_INFO,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function _() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_AI_HUB_ADD_PURCHASING_INFO,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function f() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .GEN_AI_AI_HUB_ONLINE_STORE_LINKS,
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
+      });
+    }
+    function g() {
+      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
+        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+          .GEN_AI_AGENT,
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .GEN_AI_AI_HUB_KNOWLEDGE_REPO,
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function d(e) {
+    function h(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -58,7 +117,7 @@ __d(
         userActionTarget: e,
       });
     }
-    function m(e) {
+    function y(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -69,7 +128,7 @@ __d(
         userActionTarget: e,
       });
     }
-    function p() {
+    function C() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -79,7 +138,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function _() {
+    function b() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -90,7 +149,7 @@ __d(
         userActionTarget: "upload_file",
       });
     }
-    function f(e) {
+    function v(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -101,7 +160,7 @@ __d(
         userActionTarget: e ? "upload_success" : "upload_failure",
       });
     }
-    function g() {
+    function S() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -112,7 +171,7 @@ __d(
         userActionTarget: "create_chat_history",
       });
     }
-    function h(e) {
+    function R(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -123,7 +182,7 @@ __d(
         userActionTarget: e ? "chat_history_success" : "chat_history_failure",
       });
     }
-    function y() {
+    function L() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -134,7 +193,7 @@ __d(
         userActionTarget: "delete_source",
       });
     }
-    function C(e) {
+    function E(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -145,7 +204,7 @@ __d(
         userActionTarget: e ? "delete_success" : "delete_failure",
       });
     }
-    function b() {
+    function k() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -155,7 +214,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function v() {
+    function I() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -166,7 +225,7 @@ __d(
         userActionTarget: "save",
       });
     }
-    function S(e) {
+    function T(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -177,7 +236,7 @@ __d(
         userActionTarget: e ? "save_success" : "save_failure",
       });
     }
-    function R() {
+    function D() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -186,7 +245,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function L() {
+    function x() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -196,7 +255,7 @@ __d(
         userActionTarget: "toggle_product",
       });
     }
-    function E() {
+    function $() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -206,7 +265,7 @@ __d(
         userActionTarget: "save",
       });
     }
-    function k(e) {
+    function P(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -216,7 +275,7 @@ __d(
         userActionTarget: e ? "save_success" : "save_failure",
       });
     }
-    function I() {
+    function N() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -226,7 +285,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function T() {
+    function M() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -236,7 +295,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function D() {
+    function w() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -247,7 +306,7 @@ __d(
         userActionTarget: "save",
       });
     }
-    function x(e) {
+    function A(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -258,7 +317,7 @@ __d(
         userActionTarget: e ? "save_success" : "save_failure",
       });
     }
-    function $() {
+    function F() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -269,7 +328,7 @@ __d(
         userActionTarget: "delete_faq",
       });
     }
-    function P() {
+    function O() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -279,7 +338,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function N() {
+    function B() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -290,7 +349,7 @@ __d(
         userActionTarget: "save",
       });
     }
-    function M(e) {
+    function W(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -301,7 +360,7 @@ __d(
         userActionTarget: e ? "save_success" : "save_failure",
       });
     }
-    function w() {
+    function q() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -310,7 +369,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function A() {
+    function U() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -320,7 +379,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function F() {
+    function V() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -330,7 +389,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function O() {
+    function H() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -341,7 +400,7 @@ __d(
         userActionTarget: "save",
       });
     }
-    function B(e) {
+    function G(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -352,7 +411,7 @@ __d(
         userActionTarget: e ? "save_success" : "save_failure",
       });
     }
-    function W() {
+    function z() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -362,7 +421,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function q() {
+    function j() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -372,7 +431,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function U(e) {
+    function K(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .BUSINESS_TOOLS_HOME,
@@ -383,7 +442,7 @@ __d(
         extraAttributes: { is_onboarded: e },
       });
     }
-    function V(e) {
+    function Q(e) {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .BUSINESS_TOOLS_HOME,
@@ -394,7 +453,7 @@ __d(
         extraAttributes: { is_onboarded: e },
       });
     }
-    function H() {
+    function X() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -405,7 +464,7 @@ __d(
         extraAttributes: { referral: "web-qr-handoff" },
       });
     }
-    function G() {
+    function Y() {
       o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
         featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
           .GEN_AI_AGENT,
@@ -419,42 +478,48 @@ __d(
     ((l.logViewAIHome = e),
       (l.logClickAIHomeSection = s),
       (l.logClickAIHomeToggle = u),
-      (l.logViewKnowledgeDrawer = c),
-      (l.logClickKnowledgeSeeAll = d),
-      (l.logClickKnowledgeFilter = m),
-      (l.logViewKnowledgeSources = p),
-      (l.logClickUploadFile = _),
-      (l.logApiUploadFileResult = f),
-      (l.logClickCreateChatHistory = g),
-      (l.logApiChatHistoryResult = h),
-      (l.logClickDeleteSource = y),
-      (l.logApiDeleteSourceResult = C),
-      (l.logViewProductInfoEdit = b),
-      (l.logClickSaveProductInfo = v),
-      (l.logApiSaveProductInfoResult = S),
-      (l.logViewBestsellersDrawer = R),
-      (l.logClickToggleBestseller = L),
-      (l.logClickSaveBestsellers = E),
-      (l.logApiSaveBestsellersResult = k),
-      (l.logViewFAQList = I),
-      (l.logViewFAQEdit = T),
-      (l.logClickSaveFAQ = D),
-      (l.logApiSaveFAQResult = x),
-      (l.logClickDeleteFAQ = $),
-      (l.logViewKnowledgeEdit = P),
-      (l.logClickSaveKnowledge = N),
-      (l.logApiSaveKnowledgeResult = M),
-      (l.logViewLeadGenList = w),
-      (l.logViewLeadGenTypeSelection = A),
-      (l.logViewLeadGenFieldSelection = F),
-      (l.logClickSaveLeadGenForm = O),
-      (l.logApiSaveLeadGenFormResult = B),
-      (l.logViewLeadGenCustomerInfoList = W),
-      (l.logViewLeadGenCustomerResponse = q),
-      (l.logViewBizAiEntryTile = U),
-      (l.logClickBizAiEntryTile = V),
-      (l.logViewBizAiOnboardingQr = H),
-      (l.logClickBizAiOnboardingNeedHelp = G));
+      (l.logViewInstructionsDrawer = c),
+      (l.logViewResponseSettingsDrawer = d),
+      (l.logViewExampleResponsesDrawer = m),
+      (l.logViewBusinessInfoDrawer = p),
+      (l.logViewPurchaseInfoDrawer = _),
+      (l.logViewWebsiteEditDrawer = f),
+      (l.logViewKnowledgeDrawer = g),
+      (l.logClickKnowledgeSeeAll = h),
+      (l.logClickKnowledgeFilter = y),
+      (l.logViewKnowledgeSources = C),
+      (l.logClickUploadFile = b),
+      (l.logApiUploadFileResult = v),
+      (l.logClickCreateChatHistory = S),
+      (l.logApiChatHistoryResult = R),
+      (l.logClickDeleteSource = L),
+      (l.logApiDeleteSourceResult = E),
+      (l.logViewProductInfoEdit = k),
+      (l.logClickSaveProductInfo = I),
+      (l.logApiSaveProductInfoResult = T),
+      (l.logViewBestsellersDrawer = D),
+      (l.logClickToggleBestseller = x),
+      (l.logClickSaveBestsellers = $),
+      (l.logApiSaveBestsellersResult = P),
+      (l.logViewFAQList = N),
+      (l.logViewFAQEdit = M),
+      (l.logClickSaveFAQ = w),
+      (l.logApiSaveFAQResult = A),
+      (l.logClickDeleteFAQ = F),
+      (l.logViewKnowledgeEdit = O),
+      (l.logClickSaveKnowledge = B),
+      (l.logApiSaveKnowledgeResult = W),
+      (l.logViewLeadGenList = q),
+      (l.logViewLeadGenTypeSelection = U),
+      (l.logViewLeadGenFieldSelection = V),
+      (l.logClickSaveLeadGenForm = H),
+      (l.logApiSaveLeadGenFormResult = G),
+      (l.logViewLeadGenCustomerInfoList = z),
+      (l.logViewLeadGenCustomerResponse = j),
+      (l.logViewBizAiEntryTile = K),
+      (l.logClickBizAiEntryTile = Q),
+      (l.logViewBizAiOnboardingQr = X),
+      (l.logClickBizAiOnboardingNeedHelp = Y));
   },
   98,
 );

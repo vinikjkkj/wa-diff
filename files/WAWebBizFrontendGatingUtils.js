@@ -86,6 +86,14 @@ __d(
         o("WAWebABProps").getABPropConfigValue("ctwa_smb_multiselect_enabled")
       );
     }
+    function g() {
+      return (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o("WAWebABProps").getABPropConfigValue(
+          "ctwa_smb_lists_dropdown_application_fix_enabled",
+        )
+      );
+    }
     ((l.isOrderDetailsPaymentInstructionsSyncEnabled = e),
       (l.isCustomPaymentMethodsSyncEnabled = s),
       (l.isPixInQuickReplyEnabled = u),
@@ -94,7 +102,8 @@ __d(
       (l.isCopyPixKeyBuyerLoggingEnabled = m),
       (l.isCopyPixCodeBuyerLoggingEnabled = p),
       (l.isPixOnWebEnabled = _),
-      (l.isCTWASMBListsMultiSelectEnabled = f));
+      (l.isCTWASMBListsMultiSelectEnabled = f),
+      (l.isCTWASMBListsDropdownApplicationFixEnabled = g));
   },
   98,
 );

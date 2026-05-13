@@ -2,8 +2,10 @@ __d(
   "WAWebMaybeGetBotModeSelection",
   [
     "WAWebBotBaseGating",
+    "WAWebBotGating",
     "WAWebBotModeSelectionTypes",
     "WAWebBotUtils",
+    "WAWebDynamicAIModesCache",
     "WAWebThreadMsgUtils",
   ],
   function (t, n, r, o, a, i, l) {
@@ -70,22 +72,32 @@ __d(
       }
     }
     function v(e, t) {
-      var n = t.to;
+      var n,
+        r = t.to;
       if (
         !(
-          !o("WAWebBotUtils").isMetaAiBot(n) ||
+          !o("WAWebBotUtils").isMetaAiBot(r) ||
           !o("WAWebBotBaseGating").isDynamicModeSelectorEnabled()
-        )
+        ) &&
+        o("WAWebBotGating").isAiModeSelectorInteractive()
       ) {
-        var r = o("WAWebThreadMsgUtils").getMsgAiThread(t);
-        if (r != null) {
-          var a,
-            i = (a = e.aiThreads) == null ? void 0 : a.get(r);
-          if ((i == null ? void 0 : i.botModeOverride) != null)
-            return i.botModeOverride;
+        var a =
+          (n = o("WAWebDynamicAIModesCache").getStaleCachedDynamicAIModes()) !=
+          null
+            ? n
+            : [];
+        if (a.length !== 0) {
+          if (a.length === 1) return [a[0].modeId];
+          var i = o("WAWebThreadMsgUtils").getMsgAiThread(t);
+          if (i != null) {
+            var l,
+              s = (l = e.aiThreads) == null ? void 0 : l.get(i);
+            if ((s == null ? void 0 : s.botModeOverride) != null)
+              return s.botModeOverride;
+          }
+          var u = h();
+          return u != null ? u : _;
         }
-        var l = h();
-        return l != null ? l : _;
       }
     }
     ((l.subscribeToBotModeSelection = c),

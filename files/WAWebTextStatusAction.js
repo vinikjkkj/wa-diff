@@ -18,57 +18,77 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c = u || (u = o("react"));
-    function d(e, t) {
-      return m.apply(this, arguments);
+      c = u || (u = o("react")),
+      d = 6e4,
+      m = new Map();
+    function p(e) {
+      var t = m.get(e);
+      return t == null ? !1 : Date.now() - t < d ? !0 : (m.delete(e), !1);
     }
-    function m() {
+    function _(e, t) {
+      return f.apply(this, arguments);
+    }
+    function f() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           if (o("WAWebTextStatusGatingUtils").receiveTextStatusEnabled()) {
-            var n = o("WAWebContactCollection").ContactCollection.get(e),
-              r = new AbortController(),
-              a;
-            try {
-              if (
-                ((a = o("WAWebContactTextStatusBridge").getTextStatus(e, t)), n)
-              ) {
-                var i,
-                  l = n.promises;
-                ((i = l.getTextStatus) == null || i.abortController.abort(),
-                  (n.promises.getTextStatus = {
-                    promise: a,
-                    abortController: r,
-                  }));
+            var n = e.toString();
+            if (!p(n)) {
+              var r = o("WAWebContactCollection").ContactCollection.get(e),
+                a = new AbortController(),
+                i;
+              try {
+                if (
+                  ((i = o("WAWebContactTextStatusBridge").getTextStatus(e, t)),
+                  r)
+                ) {
+                  var l,
+                    s = r.promises;
+                  ((l = s.getTextStatus) == null || l.abortController.abort(),
+                    (r.promises.getTextStatus = {
+                      promise: i,
+                      abortController: a,
+                    }));
+                }
+                var u = yield i;
+                if (a.signal.aborted) return;
+                if (u.error) {
+                  m.set(n, Date.now());
+                  return;
+                }
+                (m.delete(n),
+                  o(
+                    "WAWebUpdateTextStatusForContact",
+                  ).updateTextStatusForContact(
+                    e,
+                    u.text,
+                    u.emoji,
+                    u.ephemeralDurationSeconds,
+                    u.lastUpdateTime,
+                  ));
+              } finally {
+                var c;
+                r != null &&
+                  ((c = r.promises) == null || (c = c.getTextStatus) == null
+                    ? void 0
+                    : c.promise) === i &&
+                  delete r.promises.getTextStatus;
               }
-              var s = yield a;
-              if (r.signal.aborted || s.error) return;
-              o("WAWebUpdateTextStatusForContact").updateTextStatusForContact(
-                e,
-                s.text,
-                s.emoji,
-                s.ephemeralDurationSeconds,
-                s.lastUpdateTime,
-              );
-            } finally {
-              var u;
-              n != null &&
-                ((u = n.promises) == null || (u = u.getTextStatus) == null
-                  ? void 0
-                  : u.promise) === a &&
-                delete n.promises.getTextStatus;
             }
           }
         })),
-        m.apply(this, arguments)
+        f.apply(this, arguments)
       );
     }
-    function p(e, t, n, r, o) {
-      return _.apply(this, arguments);
+    function g() {
+      m.clear();
     }
-    function _() {
+    function h(e, t, n, r, o) {
+      return y.apply(this, arguments);
+    }
+    function y() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
+        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (t, r, a, i, l) {
             if (
               (i === void 0 && (i = o("WAWebActionToast.react").genId()),
@@ -81,10 +101,10 @@ __d(
               if (u) {
                 var d = !t && !r,
                   m = o("WAWebContactTextStatusBridge").setTextStatus(t, r, a),
-                  _ = s._(/*BTDS*/ "Updating About"),
-                  f = s._(/*BTDS*/ "Updating About failed"),
-                  g = new (o("WAWebActionToast.react").ActionType)(_),
-                  h = u.textStatusEmoji,
+                  p = s._(/*BTDS*/ "Updating About"),
+                  _ = s._(/*BTDS*/ "Updating About failed"),
+                  f = new (o("WAWebActionToast.react").ActionType)(p),
+                  g = u.textStatusEmoji,
                   y = u.textStatusEphemeralDuration,
                   C = u.textStatusString,
                   b = m
@@ -105,22 +125,22 @@ __d(
                               actionText: s._(/*BTDS*/ "Undo"),
                               actionHandler: function () {
                                 return C != null && y != null
-                                  ? p(C, h, y, i, !0)
+                                  ? h(C, g, y, i, !0)
                                   : (e || (e = n("Promise"))).resolve();
                               },
                             };
                         return new (o("WAWebActionToast.react").ActionType)(
-                          _,
+                          p,
                           m,
                         );
                       } else if (c.result === "FAILURE")
-                        return new (o("WAWebActionToast.react").ActionType)(f);
+                        return new (o("WAWebActionToast.react").ActionType)(_);
                     })
                     .catch(function (e) {
-                      throw new (o("WAWebActionToast.react").ActionType)(f, {
+                      throw new (o("WAWebActionToast.react").ActionType)(_, {
                         actionText: s._(/*BTDS*/ "Try again."),
                         actionHandler: function () {
-                          return p(t, r, a, i);
+                          return h(t, r, a, i);
                         },
                       });
                     });
@@ -128,7 +148,7 @@ __d(
                   o("WAWebToastManager").ToastManager.open(
                     c.jsx(o("WAWebActionToast.react").ActionToast, {
                       id: i,
-                      initialAction: g,
+                      initialAction: f,
                       pendingAction: b,
                     }),
                   ),
@@ -138,36 +158,37 @@ __d(
             }
           },
         )),
-        _.apply(this, arguments)
-      );
-    }
-    function f() {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebApiTextStatusSuggestions").getTextStatusSuggestions();
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.slice(0, o("WAWebTextStatusUtils").SUGGESTIONS_MAX_COUNT);
-          return o("WAWebApiTextStatusSuggestions").setTextStatusSuggestions(t);
-        })),
         y.apply(this, arguments)
       );
     }
-    ((l.getTextStatus = d),
-      (l.setMyTextStatus = p),
-      (l.getSuggestions = f),
-      (l.setSuggestions = h));
+    function C() {
+      return b.apply(this, arguments);
+    }
+    function b() {
+      return (
+        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          return o("WAWebApiTextStatusSuggestions").getTextStatusSuggestions();
+        })),
+        b.apply(this, arguments)
+      );
+    }
+    function v(e) {
+      return S.apply(this, arguments);
+    }
+    function S() {
+      return (
+        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.slice(0, o("WAWebTextStatusUtils").SUGGESTIONS_MAX_COUNT);
+          return o("WAWebApiTextStatusSuggestions").setTextStatusSuggestions(t);
+        })),
+        S.apply(this, arguments)
+      );
+    }
+    ((l.getTextStatus = _),
+      (l.clearRecentTextStatusFailuresForTesting = g),
+      (l.setMyTextStatus = h),
+      (l.getSuggestions = C),
+      (l.setSuggestions = v));
   },
   226,
 );
