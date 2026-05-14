@@ -9,7 +9,7 @@ __d(
         jitterPercent: 0.2,
         maxDelayMs: 8e3,
         retryBehavior: "exponential",
-        retryCount: 20,
+        retryCount: 5,
       }),
       l = Object.freeze({
         retryBehavior: "linear",

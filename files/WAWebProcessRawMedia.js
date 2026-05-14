@@ -110,6 +110,7 @@ __d(
                   d,
                   a.documentPageCount,
                   c,
+                  a.signal,
                 );
                 break e;
               }

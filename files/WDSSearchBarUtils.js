@@ -93,20 +93,24 @@ __d(
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       var t = e.density,
-        n = e.platform,
-        a = e.size,
-        i;
+        n = e.gpuAnimationEnabled,
+        a = e.platform,
+        i = e.size,
+        l;
       return (
         t === o("WDSSearchBarConfig").SearchBarDensity.POINTER
-          ? (i = d.pointerButtonContainer)
-          : n === "android"
-            ? (i = d.androidTouchButtonContainer)
-            : (i = d.iOSTouchButtonContainer),
+          ? (l = d.pointerButtonContainer)
+          : a === "android"
+            ? (l = d.androidTouchButtonContainer)
+            : (l = d.iOSTouchButtonContainer),
         c.jsx(o("react-strict-dom").html.div, {
           style: d.iconContainer,
           children: c.jsx(o("react-strict-dom").html.div, {
-            style: [i, d.spinnerCentered],
-            children: c.jsx(r("WDSSpinner.react"), { size: a }),
+            style: [l, d.spinnerCentered],
+            children: c.jsx(r("WDSSpinner.react"), {
+              gpuAnimationEnabled: n,
+              size: i,
+            }),
           }),
         })
       );

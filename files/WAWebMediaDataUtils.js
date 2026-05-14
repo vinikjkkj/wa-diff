@@ -691,70 +691,70 @@ __d(
         M.apply(this, arguments)
       );
     }
-    function w(e, t, n, r, o) {
+    function w(e, t, n, r, o, a) {
       return A.apply(this, arguments);
     }
     function A() {
       return (
         (A = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l) {
-            var s = e.forceToBlob(),
-              u = o("WAMediaPreProcessQpl").startMediaPreProcessQpl(
+          function* (e, t, a, i, l, s) {
+            var u = e.forceToBlob(),
+              c = o("WAMediaPreProcessQpl").startMediaPreProcessQpl(
                 "document",
-                s,
+                u,
               );
             try {
-              var c,
-                d,
-                m = o("WAWebMediaCleanFileName").cleanFilename(
-                  s.name || (t != null ? t : ""),
+              var d,
+                m,
+                _ = o("WAWebMediaCleanFileName").cleanFilename(
+                  u.name || (t != null ? t : ""),
                 ),
-                _ = yield N(s, m),
-                f = a ? o("WAWebFileUtils").blobToText(s) : null,
-                g = yield (p || (p = n("Promise"))).all([
-                  o("WAWebDocumentUploadEnrichment").enrich(s, _),
-                  f,
+                f = yield N(u, _),
+                g = a ? o("WAWebFileUtils").blobToText(u) : null,
+                h = yield (p || (p = n("Promise"))).all([
+                  o("WAWebDocumentUploadEnrichment").enrich(u, f, s),
+                  g,
                 ]),
-                h = g[0],
-                y = g[1],
-                C = h.pdfImg,
-                b =
-                  (c =
-                    C == null || (d = C.microThumbnail) == null
+                y = h[0],
+                C = h[1],
+                b = y.pdfImg,
+                v =
+                  (d =
+                    b == null || (m = b.microThumbnail) == null
                       ? void 0
-                      : d.dataUrl) != null
-                    ? c
-                    : C == null
+                      : m.dataUrl) != null
+                    ? d
+                    : b == null
                       ? void 0
-                      : C.thumbUrl,
-                v = r("isStringNullOrEmpty")(b)
+                      : b.thumbUrl,
+                S = r("isStringNullOrEmpty")(v)
                   ? null
-                  : r("WAWebURLUtils").parseDataURL(b).data,
-                S = yield r("WAWebMediaOpaqueData").createFromData(s, _);
+                  : r("WAWebURLUtils").parseDataURL(v).data,
+                R = yield r("WAWebMediaOpaqueData").createFromData(u, f);
               return (
-                u.endSuccess(),
+                c.endSuccess(),
                 {
                   type: l,
-                  mediaBlob: S,
-                  mimetype: _,
-                  filename: m || void 0,
-                  documentPreview: C,
-                  preview: v,
-                  fullPreviewData: C == null ? void 0 : C.fullPreviewData,
-                  fullPreviewSize: C
-                    ? { width: C.width, height: C.height }
+                  mediaBlob: R,
+                  mimetype: f,
+                  filename: _ || void 0,
+                  documentPreview: b,
+                  preview: S,
+                  fullPreviewData: b == null ? void 0 : b.fullPreviewData,
+                  fullPreviewSize: b
+                    ? { width: b.width, height: b.height }
                     : null,
-                  pageCount: i != null ? i : C == null ? void 0 : C.pdfPages,
-                  isPasswordProtected: h.isPasswordProtected,
+                  pageCount: i != null ? i : b == null ? void 0 : b.pdfPages,
+                  isPasswordProtected: y.isPasswordProtected,
                   isVcardOverMmsDocument: a,
-                  parsedVcards: y
-                    ? o("WAWebVcardParsingUtils").parseMultiVcard(y)
+                  parsedVcards: C
+                    ? o("WAWebVcardParsingUtils").parseMultiVcard(C)
                     : null,
                 }
               );
             } catch (e) {
               throw (
-                u.endFailWithError(
+                c.endFailWithError(
                   e instanceof Error ? e.name : "processRawDocumentError",
                   e instanceof Error ? e.message : String(e),
                 ),

@@ -4,6 +4,7 @@ __d(
     "MetaConfig",
     "WALogger",
     "WANullthrows",
+    "WAStartSendToSentQplFlow",
     "WAWebABProps",
     "WAWebAppTracker",
     "WAWebCoreActionsODS",
@@ -29,7 +30,9 @@ __d(
     "WAWebWamMessageUtils",
     "WAWebWamMsgUtils",
     "WAWebWamNumberToSizeBucket",
+    "WAWebWid",
     "isStringNullOrEmpty",
+    "qpl",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -52,7 +55,15 @@ __d(
           var a, i;
           ((this.$3 = !1),
             (this.$4 = o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE),
-            (this.$1 = t.to));
+            (this.$8 = !1),
+            (this.$1 = t.to),
+            C(t.type) &&
+              (n == null ? void 0 : n.isResend) !== !0 &&
+              (this.$7 = o("WAStartSendToSentQplFlow").startSendToSentQplFlow({
+                chatType: h(t.to),
+                event: r("qpl")._(891433801, "3599"),
+                messageType: y(t.type, t.isGif),
+              })));
           var l = !!t.caption;
           t.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
             (l = o("WAWebMsgGetters").getIsCaptionByUser(t));
@@ -66,7 +77,7 @@ __d(
             ? (m.logMCMigrationTest(), (g = 75e-7))
             : f === 1 && (m.logMCMigrationControl(), (g = 15e-7)),
             m.logMCMigrationRegression(f, g));
-          var h = this.$1;
+          var b = this.$1;
           this.$2 = new (o("WAWebMessageSendWamEvent").MessageSendWamEvent)({
             messageType: o("WAWebWamMsgUtils").getWamMessageType(t),
             messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(t),
@@ -82,92 +93,92 @@ __d(
               "WAWebWamEnumMessageDistributionEnumType",
             ).MESSAGE_DISTRIBUTION_ENUM_TYPE.REGULAR_MESSAGE,
             editType: o("WAWebMsgGetters").getWamEditType(t),
-            botType: o("WAWebWamMsgUtils").getWamBotType(h, t.bizBotType),
+            botType: o("WAWebWamMsgUtils").getWamBotType(b, t.bizBotType),
             isAComment:
               o("WAWebMsgGetters").getType(t) ===
               o("WAWebMsgType").MSG_TYPE.COMMENT,
           });
-          var y = o("WAWebMsgGetters").getIsGroupMsg(t),
-            C = o("WAWebMsgGetters").getIsNewsletterMsg(t),
-            b = t.to.isStatus(),
-            v = p != null ? p : {},
-            S = v.ChatCollection,
-            R = v.ContactCollection,
-            L = R == null ? void 0 : R.getMeContact(),
-            E = h.isRegularUser() ? (R == null ? void 0 : R.get(h)) : null;
+          var v = o("WAWebMsgGetters").getIsGroupMsg(t),
+            S = o("WAWebMsgGetters").getIsNewsletterMsg(t),
+            R = t.to.isStatus(),
+            L = p != null ? p : {},
+            E = L.ChatCollection,
+            k = L.ContactCollection,
+            I = k == null ? void 0 : k.getMeContact(),
+            T = b.isRegularUser() ? (k == null ? void 0 : k.get(b)) : null;
           if (
             ((this.$2.hasUsername = !r("isStringNullOrEmpty")(
-              L == null ? void 0 : L.username,
+              I == null ? void 0 : I.username,
             )),
             (this.$2.hasUsernamePin =
-              (L == null ? void 0 : L.usernameKey) != null),
-            E)
+              (I == null ? void 0 : I.usernameKey) != null),
+            T)
           ) {
-            var k = p == null ? void 0 : p.getFormattedUserAndType(E).type;
-            (k && (this.$2.oppositeVisibleIdentification = k),
-              E.isHosted === !0 &&
+            var D = p == null ? void 0 : p.getFormattedUserAndType(T).type;
+            (D && (this.$2.oppositeVisibleIdentification = D),
+              T.isHosted === !0 &&
                 (this.$2.encryptionType = o(
                   "WAWebWamEnumEncryptionTypeCode",
                 ).ENCRYPTION_TYPE_CODE.COEX));
           }
-          var I = o("WAWebWamMessageUtils").getVcardMsgWamData(t, "send");
-          if (I) {
-            var T = I.lidOnlyVcardCount,
-              D = I.pnAndLidVcardCount,
-              x = I.pnOnlyVcardCount;
-            ((this.$2.sharedPhoneNumberContactSize = x),
-              (this.$2.sharedUsernameContactSize = T),
-              (this.$2.sharedPhoneNumberWithUsernameContactSize = D));
+          var x = o("WAWebWamMessageUtils").getVcardMsgWamData(t, "send");
+          if (x) {
+            var $ = x.lidOnlyVcardCount,
+              P = x.pnAndLidVcardCount,
+              N = x.pnOnlyVcardCount;
+            ((this.$2.sharedPhoneNumberContactSize = N),
+              (this.$2.sharedUsernameContactSize = $),
+              (this.$2.sharedPhoneNumberWithUsernameContactSize = P));
           }
-          var $,
-            P =
-              (i = S == null ? void 0 : S.get(h)) != null
+          var M,
+            w =
+              (i = E == null ? void 0 : E.get(b)) != null
                 ? i
                 : {
                     lidOriginType:
                       o("WAWebUsernameTypes").LidOriginType.GENERAL,
                   };
-          if (P != null && P.lidOriginType)
-            switch (P == null ? void 0 : P.lidOriginType) {
+          if (w != null && w.lidOriginType)
+            switch (w == null ? void 0 : w.lidOriginType) {
               case o("WAWebUsernameTypes").LidOriginType.PNH_CTWA:
-                $ = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE.LID_CTWA;
+                M = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE.LID_CTWA;
                 break;
               case o("WAWebUsernameTypes").LidOriginType.GENERAL:
-                $ = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE.OTHERS;
+                M = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE.OTHERS;
                 break;
             }
           else
             this.$1.isLid()
-              ? ($ = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE
+              ? (M = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE
                   .LID_CTWA)
-              : ($ = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE.OTHERS);
+              : (M = o("WAWebWamEnumChatOriginsType").CHAT_ORIGINS_TYPE.OTHERS);
           if (
-            ($ && (this.$2.chatOrigins = $),
+            (M && (this.$2.chatOrigins = M),
             t.ephemeralDuration != null &&
               (this.$2.ephemeralityDuration = t.ephemeralDuration),
             t.afterReadDuration != null &&
               ((this.$2.isAfterRead = t.afterReadDuration > 0),
               (this.$2.afterReadDuration = t.afterReadDuration)),
-            !y ||
+            !v ||
               o("WAWebABProps").getABPropConfigValue(
                 "dm_initiator_trigger_groups",
               ))
           ) {
-            var N = o("WAWebMsgGetters").getWamDisappearingModeTrigger(t);
-            N != null && (this.$2.ephemeralityTriggerAction = N);
-            var M = o("WAWebMsgGetters").getWamDisappearingModeInitiatedByMe(t);
-            M != null && (this.$2.ephemeralityInitiator = M);
+            var A = o("WAWebMsgGetters").getWamDisappearingModeTrigger(t);
+            A != null && (this.$2.ephemeralityTriggerAction = A);
+            var F = o("WAWebMsgGetters").getWamDisappearingModeInitiatedByMe(t);
+            F != null && (this.$2.ephemeralityInitiator = F);
           }
-          if (!y && !C && !b) {
-            ((this.$2.isLid = h.isLid()),
+          if (!v && !S && !R) {
+            ((this.$2.isLid = b.isLid()),
               o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
                     "MessageSendReporter constructor before get ephemeral for me",
                   ])),
               ));
-            var w = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
-              R == null ? void 0 : R.getMeContact(),
+            var O = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+              k == null ? void 0 : k.getMeContact(),
             );
             (o("WALogger").LOG(
               s ||
@@ -175,15 +186,15 @@ __d(
                   "MessageSendReporter constructor after get ephemeral for me",
                 ])),
             ),
-              w != null && (this.$2.senderDefaultDisappearingDuration = w),
+              O != null && (this.$2.senderDefaultDisappearingDuration = O),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "MessageSendReporter constructor before get ephemeral for wid",
                   ])),
               ));
-            var A = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
-              R == null ? void 0 : R.get(h),
+            var B = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+              k == null ? void 0 : k.get(b),
             );
             (o("WALogger").LOG(
               c ||
@@ -191,38 +202,38 @@ __d(
                   "MessageSendReporter constructor after get ephemeral for wid",
                 ])),
             ),
-              A != null && (this.$2.receiverDefaultDisappearingDuration = A));
+              B != null && (this.$2.receiverDefaultDisappearingDuration = B));
           }
           if (o("WAWebMsgGetters").getIsRevoke(t)) {
             this.$2.revokeType =
               t.subtype === "admin_revoke" || t.subtype === "admin"
                 ? o("WAWebWamEnumRevokeType").REVOKE_TYPE.ADMIN
                 : o("WAWebWamEnumRevokeType").REVOKE_TYPE.SENDER;
-            var F = o("WAWebMsgGetters").getRevokeDuration(t);
-            F != null && (this.$2.revokeDuration = F);
+            var W = o("WAWebMsgGetters").getRevokeDuration(t);
+            W != null && (this.$2.revokeDuration = W);
           }
           if (o("WAWebMsgGetters").getIsEditProtocolMsg(t)) {
-            var O = r("WANullthrows")(
+            var q = r("WANullthrows")(
               n == null ? void 0 : n.originalMessage,
               "edit protocol msg must have an original msg",
             );
             ((this.$2.editDuration =
-              o("WAWebMsgGetters").getT(t) - o("WAWebMsgGetters").getT(O)),
-              (this.$4 = o("WAWebWamMsgUtils").getWamMediaType(O)));
+              o("WAWebMsgGetters").getT(t) - o("WAWebMsgGetters").getT(q)),
+              (this.$4 = o("WAWebWamMsgUtils").getWamMediaType(q)));
           }
-          var B = o("WAWebMsgGetters").getWamDisappearingModeInitiator(t);
-          B != null && (this.$2.disappearingChatInitiator = B);
-          var W = o("WAWebWamMsgUtils").getWamAgentEngagementType(t);
-          if ((W != null && (this.$2.agentEngagementType = W), y)) {
-            var q;
+          var U = o("WAWebMsgGetters").getWamDisappearingModeInitiator(t);
+          U != null && (this.$2.disappearingChatInitiator = U);
+          var V = o("WAWebWamMsgUtils").getWamAgentEngagementType(t);
+          if ((V != null && (this.$2.agentEngagementType = V), v)) {
+            var H;
             ((this.$2.isLid = !!(
-              !(n == null || (q = n.groupData) == null) && q.isLidAddressingMode
+              !(n == null || (H = n.groupData) == null) && H.isLidAddressingMode
             )),
               (n == null ? void 0 : n.groupData) != null &&
                 this.setGroupData(n.groupData));
           }
-          (b && (this.$2.isLid = !0),
-            C &&
+          (R && (this.$2.isLid = !0),
+            S &&
               o("WAWebNewsletterGatingUtils").isWamoSubLoggingEnabled() &&
               (this.$2.isPremium = !!t.isWamoSub),
             o("WAWebMsgGetters").getType(t) ===
@@ -270,22 +281,46 @@ __d(
                 "WAWebWamEnumMessageSendResultType",
               ).MESSAGE_SEND_RESULT_TYPE.OK),
               (this.$2.messageSendResultIsTerminal = !1),
-              this.$7(),
-              this.$5());
+              this.$9(),
+              this.$5(),
+              this.$10());
           }),
           (n.postFailure = function (t) {
             var e = t.isTerminal,
-              n = t.result;
+              n = t.qplFailReason,
+              r = t.result;
             (o("WAWebAppTracker").AppTracker.stop(
               o("WAWebAppTracker").AppTrackerType.SendMessage,
             ),
-              (this.$2.messageSendResult = n),
+              (this.$2.messageSendResult = r),
               (this.$2.messageSendResultIsTerminal = e),
               (this.$2.weight = 0),
-              this.$7(),
-              this.$6(n, e));
+              this.$9(),
+              this.$6(r, e),
+              this.$11(r, n));
           }),
-          (n.$8 = function () {
+          (n.$10 = function () {
+            var e = this.$7;
+            e == null ||
+              this.$8 ||
+              ((this.$8 = !0),
+              e.addPoint(
+                o(
+                  "WAStartSendToSentQplFlow",
+                ).SendToSentPoint.ServerAckSent.valueOf(),
+              ),
+              e.endSuccess());
+          }),
+          (n.$11 = function (t, n) {
+            var e = this.$7;
+            e == null ||
+              this.$8 ||
+              ((this.$8 = !0),
+              e.endFail(n != null ? n : "", {
+                string: { messageSendResult: String(t) },
+              }));
+          }),
+          (n.$12 = function () {
             new (o("WAWebRevokeMessageSendWamEvent").RevokeMessageSendWamEvent)(
               {
                 messageSendResultIsTerminal:
@@ -298,7 +333,7 @@ __d(
               },
             ).commit();
           }),
-          (n.$9 = function () {
+          (n.$13 = function () {
             new (o("WAWebEditMessageSendWamEvent").EditMessageSendWamEvent)({
               messageSendResultIsTerminal: this.$2.messageSendResultIsTerminal,
               messageType: this.$2.messageType,
@@ -310,7 +345,7 @@ __d(
               mediaType: this.$4,
             }).commit();
           }),
-          (n.$7 = function () {
+          (n.$9 = function () {
             if (this.$3) {
               o("WALogger").WARN(
                 m ||
@@ -331,9 +366,9 @@ __d(
               this.$2.messageIsRevoke &&
                 this.$2.messageType !==
                   o("WAWebWamEnumMessageType").MESSAGE_TYPE.STATUS &&
-                this.$8(),
+                this.$12(),
               this.$2.editType !==
-                o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED && this.$9());
+                o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED && this.$13());
           }),
           t
         );
@@ -356,6 +391,47 @@ __d(
           (n.markMessageSendT(), n.commit());
         },
       };
+    }
+    function h(e) {
+      return r("WAWebWid").isStatus(e)
+        ? o("WAStartSendToSentQplFlow").SendToSentChatType.Status
+        : r("WAWebWid").isNewsletter(e)
+          ? o("WAStartSendToSentQplFlow").SendToSentChatType.Channel
+          : r("WAWebWid").isGroup(e)
+            ? o("WAStartSendToSentQplFlow").SendToSentChatType.Group
+            : r("WAWebWid").isBroadcast(e)
+              ? o("WAStartSendToSentQplFlow").SendToSentChatType.Broadcast
+              : o("WAStartSendToSentQplFlow").SendToSentChatType.Individual;
+    }
+    function y(e, t) {
+      return e === o("WAWebMsgType").MSG_TYPE.IMAGE
+        ? o("WAStartSendToSentQplFlow").SendToSentMessageType.Image
+        : e === o("WAWebMsgType").MSG_TYPE.VIDEO
+          ? t === !0
+            ? o("WAStartSendToSentQplFlow").SendToSentMessageType.Gif
+            : o("WAStartSendToSentQplFlow").SendToSentMessageType.Video
+          : e === o("WAWebMsgType").MSG_TYPE.AUDIO
+            ? o("WAStartSendToSentQplFlow").SendToSentMessageType.Audio
+            : e === o("WAWebMsgType").MSG_TYPE.PTT
+              ? o("WAStartSendToSentQplFlow").SendToSentMessageType.Ptt
+              : e === o("WAWebMsgType").MSG_TYPE.DOCUMENT
+                ? o("WAStartSendToSentQplFlow").SendToSentMessageType.Document
+                : e === o("WAWebMsgType").MSG_TYPE.STICKER
+                  ? o("WAStartSendToSentQplFlow").SendToSentMessageType.Sticker
+                  : e === o("WAWebMsgType").MSG_TYPE.CHAT
+                    ? o("WAStartSendToSentQplFlow").SendToSentMessageType.Text
+                    : o("WAStartSendToSentQplFlow").SendToSentMessageType
+                        .Unknown;
+    }
+    function C(e) {
+      return (
+        e === o("WAWebMsgType").MSG_TYPE.IMAGE ||
+        e === o("WAWebMsgType").MSG_TYPE.VIDEO ||
+        e === o("WAWebMsgType").MSG_TYPE.AUDIO ||
+        e === o("WAWebMsgType").MSG_TYPE.PTT ||
+        e === o("WAWebMsgType").MSG_TYPE.DOCUMENT ||
+        e === o("WAWebMsgType").MSG_TYPE.STICKER
+      );
     }
     ((l.MessageSendReporter = f), (l.createMessageSendMetricReporter = g));
   },

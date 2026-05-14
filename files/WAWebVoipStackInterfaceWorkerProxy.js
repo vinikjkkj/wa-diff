@@ -25,6 +25,7 @@ __d(
     "WAWebVoipRelayOverrides",
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipStorageInit",
+    "WAWebVoipVideoCaptureFpsTracker",
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVideoWebCodecsRenderer",
@@ -1371,6 +1372,17 @@ __d(
             } catch (e) {
               return "";
             }
+          });
+          function t() {
+            return e.apply(this, arguments);
+          }
+          return t;
+        })(),
+        consumeVideoCaptureFps: (function () {
+          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            return o(
+              "WAWebVoipVideoCaptureFpsTracker",
+            ).consumeVideoCaptureFpsSnapshot();
           });
           function t() {
             return e.apply(this, arguments);

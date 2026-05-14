@@ -119,127 +119,132 @@ __d(
         l = a.groupMentions,
         s = a.hasMentionAll,
         u = a.links,
-        c = a.phoneNumbers,
-        d = a.selectable,
-        m = a.trusted,
-        p = a.fromMe,
-        _ = a.fromChatWid,
-        f = a.commands,
-        g = a.parseInlineCode,
+        c = u === void 0 ? [] : u,
+        d = a.phoneNumbers,
+        m = d === void 0 ? [] : d,
+        p = a.selectable,
+        _ = a.trusted,
+        f = _ === void 0 ? !1 : _,
+        g = a.fromMe,
         h = g === void 0 ? !1 : g,
-        y = a.parseLists,
-        C = y === void 0 ? !1 : y,
-        b = a.parseQuotes,
-        v = b === void 0 ? !1 : b,
-        S = a.parseHeadings,
-        R = S === void 0 ? !1 : S,
-        L = a.onLinkClick,
-        E = L === void 0 ? r("WAWebNoop") : L,
-        k = a.terms,
-        I = k === void 0 ? null : k,
-        T = a.messageHasSpoiler,
-        D = T === void 0 ? !1 : T,
-        x =
-          m && c != null && c.length > 0
+        y = a.fromChatWid,
+        C = a.commands,
+        b = C === void 0 ? [] : C,
+        v = a.parseInlineCode,
+        S = v === void 0 ? !1 : v,
+        R = a.parseLists,
+        L = R === void 0 ? !1 : R,
+        E = a.parseQuotes,
+        k = E === void 0 ? !1 : E,
+        I = a.parseHeadings,
+        T = I === void 0 ? !1 : I,
+        D = a.onLinkClick,
+        x = D === void 0 ? r("WAWebNoop") : D,
+        $ = a.terms,
+        P = $ === void 0 ? null : $,
+        N = a.messageHasSpoiler,
+        M = N === void 0 ? !1 : N,
+        w =
+          f && m != null && m.length > 0
             ? [
                 [
                   r("WAWebPhoneNumberFormatMutator"),
-                  { phoneNumbers: c, selectable: d, fromMe: p },
+                  { phoneNumbers: m, selectable: p, fromMe: h },
                 ],
               ]
             : null,
-        $;
+        A;
       return (
         (o("WAWebBotBaseGating").isBizBot3pEnabled() ||
           o("WAWebBotBaseGating").isBotEnabled()) &&
-          f &&
-          f.length > 0 &&
-          ($ = [
+          b &&
+          b.length > 0 &&
+          (A = [
             [
               o("WAWebBotCommandFormatMutator").BotCommand,
-              { commands: f, selectable: d },
+              { commands: b, selectable: p },
             ],
           ]),
         [
-          [[o("WAWebCodeFormatMutator").Code, { selectable: d }]],
-          h ? [[r("WAWebInlineCodeFormatMutator"), { selectable: d }]] : null,
-          C
+          [[o("WAWebCodeFormatMutator").Code, { selectable: p }]],
+          S ? [[r("WAWebInlineCodeFormatMutator"), { selectable: p }]] : null,
+          L
             ? [
                 [
                   o("WAWebBulletedListItemFormatMutator").BulletedListItem,
-                  { selectable: d },
+                  { selectable: p },
                 ],
               ]
             : null,
-          C
+          L
             ? [
                 [
                   o("WAWebBulletedListItemFormatMutator").HyphenListItem,
-                  { selectable: d },
+                  { selectable: p },
                 ],
               ]
             : null,
-          C ? [[r("WAWebBulletedListFormatMutator"), { selectable: d }]] : null,
-          C
+          L ? [[r("WAWebBulletedListFormatMutator"), { selectable: p }]] : null,
+          L
             ? [
                 [
                   o("WAWebNumberedListItemFormatMutator").NumberedListItem,
-                  { selectable: d },
+                  { selectable: p },
                 ],
               ]
             : null,
-          C ? [[r("WAWebNumberedListFormatMutator"), { selectable: d }]] : null,
-          m
+          L ? [[r("WAWebNumberedListFormatMutator"), { selectable: p }]] : null,
+          f
             ? [
                 [
                   r("WAWebLinkFormatMutator"),
-                  { links: u, selectable: d, onLinkClick: E },
+                  { links: c, selectable: p, onLinkClick: x },
                 ],
               ]
             : null,
           i
-            ? [[r("WAWebMentionFormatMutator"), { mentions: i, selectable: d }]]
+            ? [[r("WAWebMentionFormatMutator"), { mentions: i, selectable: p }]]
             : null,
           [
             [
               r("WAWebMentionAllFormatMutator"),
-              { hasMentionAll: s, selectable: d },
+              { hasMentionAll: s, selectable: p },
             ],
           ],
-          R
-            ? [[o("WAWebHeadingFormatMutator").Heading, { selectable: d }]]
+          T
+            ? [[o("WAWebHeadingFormatMutator").Heading, { selectable: p }]]
             : null,
           l
             ? [
                 [
                   o("WAWebGroupMentionFormatMutator").GroupMention,
-                  { groupMentions: l, selectable: d, fromChatWid: _ },
+                  { groupMentions: l, selectable: p, fromChatWid: y },
                 ],
               ]
             : null,
-          !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(d) : null,
-          x,
-          e({ messageHasSpoiler: D, selectable: d }),
+          !r("gkx")("26258") && n("cr:6000") ? n("cr:6000")(p) : null,
+          w,
+          e({ messageHasSpoiler: M, selectable: p }),
           [
-            [r("WAWebBoldFormatMutator"), { selectable: d }],
-            [r("WAWebItalicFormatMutator"), { selectable: d }],
-            [r("WAWebStrikethroughFormatMutator"), { selectable: d }],
+            [r("WAWebBoldFormatMutator"), { selectable: p }],
+            [r("WAWebItalicFormatMutator"), { selectable: p }],
+            [r("WAWebStrikethroughFormatMutator"), { selectable: p }],
           ],
-          [[r("WAWebEmojiFormatMutator"), { selectable: d }]],
-          v
+          [[r("WAWebEmojiFormatMutator"), { selectable: p }]],
+          k
             ? [
                 [
                   o("WAWebBlockQuoteFormatMutator").BlockQuote,
-                  { selectable: d },
+                  { selectable: p },
                 ],
               ]
             : null,
-          $,
-          I != null
+          A,
+          P != null
             ? [
                 [
                   r("WAWebHighlightFormatMutator"),
-                  { terms: I, ignoreDiacritics: !0 },
+                  { terms: P, ignoreDiacritics: !0 },
                 ],
               ]
             : null,

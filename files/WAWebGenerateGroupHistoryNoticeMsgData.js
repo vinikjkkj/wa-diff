@@ -11,6 +11,7 @@ __d(
     "WAWebMsgKeyUtils",
     "WAWebMsgType",
     "WAWebViewMode.flow",
+    "WAWebWidFactory",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -25,7 +26,11 @@ __d(
         (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
           var n = t.chat,
             a = t.groupHistoryBundleMetadata;
-          if (!o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled())
+          if (
+            !o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(
+              o("WAWebWidFactory").asGroupWidOrThrow(n.id),
+            )
+          )
             throw r("err")(
               "[group-history] Group history sender is not enabled",
             );

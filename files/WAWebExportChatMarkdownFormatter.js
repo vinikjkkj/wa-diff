@@ -24,7 +24,7 @@ __d(
       d = new Set(e.SYSTEM_MESSAGE_TYPES);
     function m(e) {
       var t = new Date(e * 1e3);
-      return t.toLocaleDateString("en-US", {
+      return t.toLocaleDateString(void 0, {
         year: "numeric",
         month: "long",
         day: "numeric",
@@ -32,10 +32,9 @@ __d(
     }
     function p(e) {
       var t = new Date(e * 1e3);
-      return t.toLocaleTimeString("en-US", {
+      return t.toLocaleTimeString(void 0, {
         hour: "numeric",
         minute: "2-digit",
-        hour12: !0,
       });
     }
     function _(e) {
@@ -43,58 +42,64 @@ __d(
       return t.getFullYear() + "-" + t.getMonth() + "-" + t.getDate();
     }
     function f(e) {
-      if (o("WAWebMsgGetters").getIsSentByMe(e)) return "You";
+      if (o("WAWebMsgGetters").getIsSentByMe(e))
+        return s._(/*BTDS*/ "You").toString();
       var t = o("WAWebMsgGetters").getSender(e);
       return t != null
         ? o("WAWebExportChatSystemMsgFormatter").getPlainTextName(t)
-        : "Unknown";
+        : s._(/*BTDS*/ "Unknown").toString();
     }
     function g(e) {
       switch (e) {
         case o("WAWebMsgType").MSG_TYPE.IMAGE:
-          return "Image";
+          return s._(/*BTDS*/ "Image").toString();
         case o("WAWebMsgType").MSG_TYPE.VIDEO:
-          return "Video";
+          return s._(/*BTDS*/ "Video").toString();
         case o("WAWebMsgType").MSG_TYPE.AUDIO:
-          return "Audio";
+          return s._(/*BTDS*/ "Audio").toString();
         case o("WAWebMsgType").MSG_TYPE.PTT:
-          return "Voice message";
+          return s._(/*BTDS*/ "Voice message").toString();
         case o("WAWebMsgType").MSG_TYPE.PTV:
-          return "Video message";
+          return s._(/*BTDS*/ "Video message").toString();
         case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
-          return "Document";
+          return s._(/*BTDS*/ "Document").toString();
         case o("WAWebMsgType").MSG_TYPE.STICKER:
-          return "Sticker";
+          return s._(/*BTDS*/ "Sticker").toString();
         default:
-          return "Media";
+          return s._(/*BTDS*/ "Media").toString();
       }
     }
     function h(e) {
       var t = e.quotedStanzaID;
       if (t == null) return "";
       var n = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(e);
-      if (n == null) return "> _[Original message not available]_\n\n";
+      if (n == null)
+        return (
+          "> _[" +
+          s._(/*BTDS*/ "Original message not available").toString() +
+          "]_\n\n"
+        );
       var a = n.unsafe(),
         i = o("WAWebMsgGetters").getBody(a),
         l = o("WAWebMsgGetters").getType(a),
-        s = o("WAWebMsgGetters").getSender(a),
-        c =
-          s != null
-            ? o("WAWebExportChatSystemMsgFormatter").getPlainTextName(s)
+        c = o("WAWebMsgGetters").getSender(a),
+        d =
+          c != null
+            ? o("WAWebExportChatSystemMsgFormatter").getPlainTextName(c)
             : null,
-        d = c != null ? c + ": " : "",
-        m = "";
+        m = d != null ? d + ": " : "",
+        p = "";
       if (l === o("WAWebMsgType").MSG_TYPE.REVOKED)
-        m = "This message was deleted";
+        p = s._(/*BTDS*/ "This message was deleted").toString();
       else if (u.has(l)) {
-        var p = g(l),
-          _ = o("WAWebMsgGetters").getCaption(a);
-        m = _ != null && _ !== "" ? p + ": " + r("WAWebUnformatMsg")(a, _) : p;
+        var _ = g(l),
+          f = o("WAWebMsgGetters").getCaption(a);
+        p = f != null && f !== "" ? _ + ": " + r("WAWebUnformatMsg")(a, f) : _;
       } else
-        m = i
+        p = i
           ? r("WAWebUnformatMsg")(a, i)
           : "[" + String(l != null ? l : "message") + "]";
-      return "> _" + d + m + "_\n\n";
+      return "> _" + m + p + "_\n\n";
     }
     function y(e, t, n, a) {
       var i = o("WAWebMsgGetters").getType(e),
@@ -141,7 +146,13 @@ __d(
           "__"
         );
       if (i === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
-        return "_Waiting for this message. This may take a while._";
+        return (
+          "_" +
+          s
+            ._(/*BTDS*/ "Waiting for this message. This may take a while.")
+            .toString() +
+          "_"
+        );
       if (u.has(i)) {
         var f,
           h,
@@ -155,7 +166,7 @@ __d(
           S = (h = e.id) == null ? void 0 : h.toString(),
           R = t && a != null && S != null && a.has(S);
         if (b) {
-          var L = C ? "GIF" : y;
+          var L = C ? s._(/*BTDS*/ "GIF").toString() : y;
           return R ? "[" + L + "](" + n + "/" + v + ")" : "[" + L + "]";
         }
         if (R) {
@@ -195,7 +206,9 @@ __d(
         return "[" + x + "]";
       }
       if (i === o("WAWebMsgType").MSG_TYPE.VCARD)
-        return l ? "[Contact: " + l + "]" : "[Contact card]";
+        return l
+          ? "[" + s._(/*BTDS*/ "Contact").toString() + ": " + l + "]"
+          : "[" + s._(/*BTDS*/ "Contact card").toString() + "]";
       if (i === o("WAWebMsgType").MSG_TYPE.MULTI_VCARD) {
         var P = o("WAWebMsgGetters").getVcardList(e),
           N = P.length;
@@ -208,20 +221,22 @@ __d(
                 .toString() +
               "]"
           : l
-            ? "[Contact: " + l + "]"
-            : "[Contact card]";
+            ? "[" + s._(/*BTDS*/ "Contact").toString() + ": " + l + "]"
+            : "[" + s._(/*BTDS*/ "Contact card").toString() + "]";
       }
       if (i === o("WAWebMsgType").MSG_TYPE.POLL_CREATION) {
-        var M,
-          w = (M = o("WAWebMsgGetters").getPollName(e)) != null ? M : "Poll",
+        var M = s._(/*BTDS*/ "Poll").toString(),
+          w = o("WAWebMsgGetters").getPollName(e),
           A = o("WAWebMsgGetters").getPollOptions(e),
-          F = "**Poll: " + w + "**";
+          F = w != null ? "**" + M + ": " + w + "**" : "**" + M + "**";
         if (A != null) for (var O of A) F += "\n- " + O.name;
         return F;
       }
       return i === o("WAWebMsgType").MSG_TYPE.CHAT || l
         ? r("WAWebUnformatMsg")(e, l)
-        : "[" + i + " message]";
+        : "[" +
+            s._(/*BTDS*/ "{type} message", [s._param("type", i)]).toString() +
+            "]";
     }
     function C(e) {
       var t = e.chatTitle,
@@ -233,19 +248,27 @@ __d(
         u = l === void 0 ? "media" : l,
         c = e.messages,
         g = [],
-        C = new Date().toLocaleDateString("en-US", {
+        C = new Date().toLocaleDateString(void 0, {
           year: "numeric",
           month: "long",
           day: "numeric",
           hour: "numeric",
           minute: "2-digit",
         });
-      (g.push("# WhatsApp Chat Export: " + t),
-        g.push("Export date: " + C),
+      (g.push(
+        "# " + s._(/*BTDS*/ "WhatsApp Chat Export").toString() + ": " + t,
+      ),
+        g.push(s._(/*BTDS*/ "Export date").toString() + ": " + C),
         g.push(""),
         a &&
           (g.push("---"),
-          g.push("_Some earlier messages may not be available._"),
+          g.push(
+            "_" +
+              s
+                ._(/*BTDS*/ "Some earlier messages may not be available.")
+                .toString() +
+              "_",
+          ),
           g.push("---"),
           g.push("")));
       var b = "";

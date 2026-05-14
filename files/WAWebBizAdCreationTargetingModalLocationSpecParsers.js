@@ -3,6 +3,7 @@ __d(
   [
     "WAWebAsISOCountryCode",
     "WAWebBizAdCreationTargetingModalLocationRadiusUtils",
+    "WAWebCountriesNativeCountryNames",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,30 +19,35 @@ __d(
       return e != null ? o("WAWebAsISOCountryCode").asISOCountryCode(e) : null;
     }
     function u(e) {
-      return {
-        key: e,
-        name: e,
-        type: "COUNTRY",
-        countryCode: o("WAWebAsISOCountryCode").asISOCountryCode(e),
-        countryName: e,
-        region: null,
-        regionId: null,
-        isWorldwide: !1,
-      };
+      var t = r("WAWebCountriesNativeCountryNames")[e];
+      return t != null ? t : e;
     }
     function c(e) {
+      var t = u(e);
       return {
-        key: e.key,
-        name: e.name,
-        type: "REGION",
-        countryCode: s(e.country),
-        countryName: e.country_name,
+        countryCode: o("WAWebAsISOCountryCode").asISOCountryCode(e),
+        countryName: t,
+        isWorldwide: !1,
+        key: e,
+        name: t,
         region: null,
         regionId: null,
-        isWorldwide: !1,
+        type: "COUNTRY",
       };
     }
     function d(e) {
+      return {
+        countryCode: s(e.country),
+        countryName: e.country_name,
+        isWorldwide: !1,
+        key: e.key,
+        name: e.name,
+        region: null,
+        regionId: null,
+        type: "REGION",
+      };
+    }
+    function m(e) {
       var t,
         n,
         r = o(
@@ -51,54 +57,54 @@ __d(
           (n = e.distance_unit) != null ? n : "kilometer",
         );
       return {
-        key: e.key,
-        name: e.name,
-        type: "CITY",
         countryCode: s(e.country),
         countryName: e.country_name,
+        isWorldwide: !1,
+        key: e.key,
+        name: e.name,
         radiusInMeters: r,
         region: e.region,
         regionId: e.region_id,
-        isWorldwide: !1,
-      };
-    }
-    function m(e) {
-      return {
-        key: e.key,
-        name: e.name,
-        type: "ZIP",
-        countryCode: s(e.country),
-        countryName: e.country_name,
-        region: e.region,
-        regionId: e.region_id,
-        isWorldwide: !1,
+        type: "CITY",
       };
     }
     function p(e) {
       return {
-        key: e.key,
-        name: e.name,
-        type: "NEIGHBORHOOD",
         countryCode: s(e.country),
         countryName: e.country_name,
+        isWorldwide: !1,
+        key: e.key,
+        name: e.name,
         region: e.region,
         regionId: e.region_id,
-        isWorldwide: !1,
+        type: "ZIP",
       };
     }
     function _(e) {
       return {
-        key: e.key,
-        name: e.name,
-        type: "SUBCITY",
         countryCode: s(e.country),
         countryName: e.country_name,
+        isWorldwide: !1,
+        key: e.key,
+        name: e.name,
         region: e.region,
         regionId: e.region_id,
-        isWorldwide: !1,
+        type: "NEIGHBORHOOD",
       };
     }
     function f(e) {
+      return {
+        countryCode: s(e.country),
+        countryName: e.country_name,
+        isWorldwide: !1,
+        key: e.key,
+        name: e.name,
+        region: e.region,
+        regionId: e.region_id,
+        type: "SUBCITY",
+      };
+    }
+    function g(e) {
       var t,
         n,
         r = o(
@@ -108,22 +114,22 @@ __d(
           (n = e.distance_unit) != null ? n : "kilometer",
         );
       return {
-        key: e.address_string,
-        name: e.address_string,
-        type: "CUSTOM_LOCATION",
         countryCode: s(e.country),
         countryName: e.country_name,
-        region: e.region,
-        regionId: e.region_id,
+        isWorldwide: !1,
+        key: e.address_string,
         latitude: e.latitude,
         longitude: e.longitude,
+        name: e.address_string,
         primaryCityId: e.primary_city_id,
-        isWorldwide: !1,
         radiusInMeters: r,
+        region: e.region,
+        regionId: e.region_id,
+        type: "CUSTOM_LOCATION",
       };
     }
-    function g(t) {
-      var n, r, o, a, i, l, s, g;
+    function h(t) {
+      var n, r, o, a, i, l, s, u;
       if (t == null) return [];
       var h = [];
       return (
@@ -132,29 +138,29 @@ __d(
             r = typeof t == "string" ? e(t) : t.name;
           n != null &&
             h.push({
-              key: n,
-              name: r,
-              type: "COUNTRY_GROUP",
               countryCode: null,
               countryName: null,
+              isWorldwide: !1,
+              key: n,
+              name: r,
               region: null,
               regionId: null,
-              isWorldwide: !1,
+              type: "COUNTRY_GROUP",
             });
         }),
         [].concat(
-          ((r = t.countries) != null ? r : []).map(u),
+          ((r = t.countries) != null ? r : []).map(c),
           h,
-          ((o = t.regions) != null ? o : []).map(c),
-          ((a = t.cities) != null ? a : []).map(d),
-          ((i = t.zips) != null ? i : []).map(m),
-          ((l = t.neighborhoods) != null ? l : []).map(p),
-          ((s = t.subcities) != null ? s : []).map(_),
-          ((g = t.custom_locations) != null ? g : []).map(f),
+          ((o = t.regions) != null ? o : []).map(d),
+          ((a = t.cities) != null ? a : []).map(m),
+          ((i = t.zips) != null ? i : []).map(p),
+          ((l = t.neighborhoods) != null ? l : []).map(_),
+          ((s = t.subcities) != null ? s : []).map(f),
+          ((u = t.custom_locations) != null ? u : []).map(g),
         )
       );
     }
-    l.convertGeoLocationsToSearchResults = g;
+    l.convertGeoLocationsToSearchResults = h;
   },
   98,
 );

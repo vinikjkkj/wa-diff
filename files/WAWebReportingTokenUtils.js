@@ -298,7 +298,9 @@ __d(
             if (
               o(
                 "WAWebGroupHistoryGating",
-              ).isGroupHistorySenderReportingTokenEnabled()
+              ).isGroupHistorySenderReportingTokenEnabled(
+                o("WAWebMsgGetters").getRemote(e),
+              )
             ) {
               var r = yield o(
                 "WAWebGroupHistoryReportingTokenDBUtils",

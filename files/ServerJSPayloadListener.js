@@ -39,6 +39,27 @@ __d(
         }
     }
     function p(e) {
+      if (!(e == null || typeof e != "object"))
+        for (var t = [e]; t.length > 0; ) {
+          var n = t.pop();
+          if (!(n == null || typeof n != "object")) {
+            if (Array.isArray(n)) {
+              for (var r = 0; r < n.length; r++) {
+                var o = n[r];
+                o != null && typeof o == "object" && t.push(o);
+              }
+              continue;
+            }
+            n.__typename === "MarketplaceFeedListingItem" &&
+              (n.__typename = "MarketplaceFeedAdStory");
+            for (var a = Object.keys(n), i = 0; i < a.length; i++) {
+              var l = n[a[i]];
+              l != null && typeof l == "object" && t.push(l);
+            }
+          }
+        }
+    }
+    function _(e) {
       if (e instanceof HTMLScriptElement) {
         var t = e.dataset.contentLen;
         if (!(e.dataset.processed || e.textContent.length.toString() !== t)) {
@@ -47,13 +68,14 @@ __d(
           try {
             var a = window.Env != null && "x3m9kf2n" in window.Env,
               i = window.Env != null && "k8pq2mnb" in window.Env,
-              l = e.textContent;
+              l = window.Env != null && "v7mp3qtn" in window.Env,
+              s = e.textContent;
             if (
-              (i && l != null && (l = d(l)),
+              (i && s != null && (s = d(s)),
               a && o("GHLDetectionUtilsPreludeSafe").isJSONParseShimmed())
             )
               try {
-                var s =
+                var u =
                     typeof String == "function" &&
                     !(
                       String.toString === String.toString.toString &&
@@ -64,19 +86,19 @@ __d(
                         String.toString.toString(),
                       ) === "function toString() { [native code] }"
                     ),
-                  u = window.Env != null && "r4wt7kmj" in window.Env;
-                (u &&
-                  s &&
+                  c = window.Env != null && "r4wt7kmj" in window.Env;
+                (c &&
+                  u &&
                   o("GHLDetectionUtilsPreludeSafe").restoreNativeString(),
-                  (n = r("json5").parse(l)));
+                  (n = r("json5").parse(s)));
               } catch (e) {
                 (r("FBLogger")("ad_blocker_defense_ghost_owl")
                   .catching(r("getErrorSafe")(e))
                   .mustfix("Failed to parse ServerJS payload using json5"),
-                  (n = JSON.parse(l)));
+                  (n = JSON.parse(s)));
               }
-            else n = JSON.parse(l);
-            if ((i && n != null && m(n), n == null))
+            else n = JSON.parse(s);
+            if ((i && n != null && m(n), l && n != null && p(n), n == null))
               throw r("err")(
                 "ServerJS payload marked with data-sjs was parsed as null",
               );
@@ -91,15 +113,15 @@ __d(
         }
       }
     }
-    function _() {
+    function f() {
       if (t.document != null) {
         var e = document.querySelectorAll(
           "script[data-sjs]:not([data-processed])",
         );
-        for (var n of e) p(n);
+        for (var n of e) _(n);
       }
     }
-    l.process = _;
+    l.process = f;
   },
   99,
 );

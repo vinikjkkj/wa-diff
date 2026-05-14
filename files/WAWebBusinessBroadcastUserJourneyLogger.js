@@ -20,6 +20,7 @@ __d(
           this.$1 = function (e) {
             o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
               entryPoint: e.entryPoint,
+              entryPointDetails: e.entryPointDetails,
               extraAttributes: e.extraAttributes,
               featureName: o("WAWebWamEnumSmbFeatureNameEnum")
                 .SMB_FEATURE_NAME_ENUM.BUSINESS_BROADCAST,
@@ -31,11 +32,11 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.qpBannerViewed = function () {
-            o("WAWebBBEntryPointLogs").qpBannerViewed(this.$1);
+          (t.qpBannerViewed = function (t) {
+            o("WAWebBBEntryPointLogs").qpBannerViewed(this.$1, t);
           }),
-          (t.qpBannerDismissed = function () {
-            o("WAWebBBEntryPointLogs").qpBannerDismissed(this.$1);
+          (t.qpBannerDismissed = function (t) {
+            o("WAWebBBEntryPointLogs").qpBannerDismissed(this.$1, t);
           }),
           (t.chatOverflowMenuEntryPointViewed = function () {
             o("WAWebBBEntryPointLogs").chatOverflowMenuEntryPointViewed(

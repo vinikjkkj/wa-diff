@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebCoreActionsODS",
     "WAWebVoipRelayConnectionUtils",
+    "WAWebVoipTsLogger",
     "asyncToGeneratorRuntime",
     "err",
   ],
@@ -76,11 +77,20 @@ __d(
         (e.connectionTimeout = null));
     }
     function H(e, t) {
-      (V(e),
+      if (
+        (V(e),
         (e.state = o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed),
-        F || o("WAWebCoreActionsODS").logCallWebtransportConnectFailed());
-      var n = e.clusterDomain;
-      (n != null && A.get(n) === t && A.delete(n), P.delete(t));
+        !F)
+      ) {
+        o("WAWebCoreActionsODS").logCallWebtransportConnectFailed();
+        var n = e.clusterDomain;
+        n != null &&
+          o("WAWebVoipTsLogger").logWebtransportConnectionFailed(
+            "https://" + n + "/webtransport",
+          );
+      }
+      var r = e.clusterDomain;
+      (r != null && A.get(r) === t && A.delete(r), P.delete(t));
     }
     function G(e) {
       var t = e.authToken,
@@ -205,7 +215,11 @@ __d(
                   ])),
                 t,
               ),
-              o("WAWebCoreActionsODS").logCallWebtransportConnectAttempted());
+              o("WAWebCoreActionsODS").logCallWebtransportConnectAttempted(),
+              a != null &&
+                o("WAWebVoipTsLogger").logWebtransportConnectionStart(
+                  "https://" + a + "/webtransport",
+                ));
             var i = P.get(t);
             (i == null && ((i = U(t, e)), P.set(t, i)),
               (i.state = o(
@@ -308,7 +322,12 @@ __d(
                     ])),
                   t,
                 ),
-                o("WAWebCoreActionsODS").logCallWebtransportConnectSucceeded(),
+                o("WAWebCoreActionsODS").logCallWebtransportConnectSucceeded());
+              var p = i.clusterDomain;
+              (p != null &&
+                o("WAWebVoipTsLogger").logWebtransportConnectionComplete(
+                  "https://" + p + "/webtransport",
+                ),
                 (i.datagramWriter = l.datagrams.writable.getWriter()),
                 z(i, t),
                 yield Y(t),
@@ -611,7 +630,11 @@ __d(
         }
         Z(e);
       }
-      (w.clear(), A.clear(), (W = []), (F = !1));
+      (w.clear(),
+        A.clear(),
+        (W = []),
+        o("WAWebVoipTsLogger").cleanup(),
+        (F = !1));
     }
     ((l.registerPacketHandler = q),
       (l.sendData = ee),

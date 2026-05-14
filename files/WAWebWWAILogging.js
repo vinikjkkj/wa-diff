@@ -22,7 +22,7 @@ __d(
     }
     function _(e, t) {
       o("WALogger")
-        .WARN(
+        .LOG(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
               "[WWAI] Request sent: tone=",
@@ -50,7 +50,7 @@ __d(
     }
     function g(e, t) {
       o("WALogger")
-        .WARN(
+        .LOG(
           c ||
             (c = babelHelpers.taggedTemplateLiteralLoose([
               "[WWAI] Feedback: type=",
@@ -64,7 +64,7 @@ __d(
     }
     function h(e) {
       o("WALogger")
-        .WARN(
+        .LOG(
           d ||
             (d = babelHelpers.taggedTemplateLiteralLoose([
               "[WWAI] Suggestion accepted: tone=",

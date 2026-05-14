@@ -204,18 +204,21 @@ __d(
         R.apply(this, arguments)
       );
     }
-    function L(e, t, n, a) {
-      var i = a.failSilently,
-        l = a.metricReporter;
+    function L(e) {
+      var t = e.addons,
+        n = e.failSilently,
+        a = e.metricReporter,
+        i = e.parents,
+        l = e.process;
       return Array.from(
         o("WAWebAddonSortUtils").groupAddonsByTableMode(t),
-        function (a) {
-          var c = a[0],
-            d = a[1];
-          return S(e, c, d, n, l).catch(function (n) {
-            var a = r("getErrorSafe")(n);
-            if (n instanceof o("WAWebHandleMsgError").MessageValidationError) {
-              var l;
+        function (e) {
+          var c = e[0],
+            d = e[1];
+          return S(l, c, d, i, a).catch(function (e) {
+            var a = r("getErrorSafe")(e);
+            if (e instanceof o("WAWebHandleMsgError").MessageValidationError) {
+              var i;
               o("WALogger")
                 .ERROR(
                   s ||
@@ -227,7 +230,7 @@ __d(
                 .tags("addons", "messaging")
                 .sendLogs(
                   "processAddonMsgs: " +
-                    ((l = t[0]) == null ? void 0 : l.type) +
+                    ((i = t[0]) == null ? void 0 : i.type) +
                     " in " +
                     String(c),
                 );
@@ -235,7 +238,7 @@ __d(
               var d,
                 m =
                   "addon-" +
-                  String(e.mode) +
+                  String(l.mode) +
                   "-error: " +
                   ((d = t[0]) == null ? void 0 : d.type);
               o("WALogger")
@@ -251,7 +254,7 @@ __d(
                 .tags("addons", "messaging")
                 .sendLogs(m);
             }
-            if (!i) throw n;
+            if (!n) throw e;
           });
         },
       );
@@ -278,12 +281,13 @@ __d(
             u = o("WAWebAddonSortUtils").collectValidAndOrphanAddons(s, l),
             c = u.orphans,
             d = u.validAddons,
-            m = L(
-              a,
-              d,
-              o("WAWebAddonSelectUtils").createAddonParentSelector(l),
-              { metricReporter: t, failSilently: !0 },
-            );
+            m = L({
+              addons: d,
+              failSilently: !0,
+              metricReporter: t,
+              parents: o("WAWebAddonSelectUtils").createAddonParentSelector(l),
+              process: a,
+            });
           return (
             yield (f || (f = n("Promise"))).allSettled(m),
             { orphans: c }
@@ -300,12 +304,15 @@ __d(
         (T = n("asyncToGeneratorRuntime").asyncToGenerator(
           function* (e, t, r, a) {
             var i = { mode: e },
-              l = L(
-                i,
-                [t],
-                o("WAWebAddonSelectUtils").createAddonParentSelector(r),
-                { metricReporter: a, failSilently: !1 },
-              );
+              l = L({
+                addons: [t],
+                failSilently: !1,
+                metricReporter: a,
+                parents: o("WAWebAddonSelectUtils").createAddonParentSelector(
+                  r,
+                ),
+                process: i,
+              });
             yield (f || (f = n("Promise"))).all(l);
           },
         )),
@@ -425,7 +432,7 @@ __d(
               r = o("WAWebAddonSelectUtils").createAddonParentSelector(
                 new Map(),
               ),
-              a = L(t, e, r, { failSilently: !0 });
+              a = L({ addons: e, failSilently: !0, parents: r, process: t });
             yield (f || (f = n("Promise"))).allSettled(a);
           }
         })),

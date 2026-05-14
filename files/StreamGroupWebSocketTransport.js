@@ -19,7 +19,6 @@ __d(
     "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -184,7 +183,7 @@ __d(
               L,
               u,
               function (e) {
-                (r("vulture")("TZcWt7e4IjntHjS_4PIqlDejx-I="), m.$5.set(b, e));
+                m.$5.set(b, e);
               },
               function () {
                 m.$17.putBackStreamId(b);

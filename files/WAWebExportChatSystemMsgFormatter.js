@@ -15,13 +15,17 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
-      if (o("WAWebUserPrefsMeUser").isMeAccount(e)) return "You";
+      if (o("WAWebUserPrefsMeUser").isMeAccount(e))
+        return s._(/*BTDS*/ "You").toString();
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       if (t != null) {
         var n = o("WAWebFrontendContactGetters").getFormattedName(t);
         if (n !== "") return n;
       }
-      return o("WAWebWidFormat").widToFormattedUser(e) || "Unknown";
+      return (
+        o("WAWebWidFormat").widToFormattedUser(e) ||
+        s._(/*BTDS*/ "Unknown").toString()
+      );
     }
     function u(t) {
       var n = t.map(e);
@@ -30,8 +34,18 @@ __d(
         : n.length === 1
           ? n[0]
           : n.length === 2
-            ? n[0] + " and " + n[1]
-            : n.slice(0, -1).join(", ") + ", and " + n[n.length - 1];
+            ? s
+                ._(/*BTDS*/ "{name1} and {name2}", [
+                  s._param("name1", n[0]),
+                  s._param("name2", n[1]),
+                ])
+                .toString()
+            : s
+                ._(/*BTDS*/ "{names}, and {last-name}", [
+                  s._param("names", n.slice(0, -1).join(", ")),
+                  s._param("last-name", n[n.length - 1]),
+                ])
+                .toString();
     }
     function c(t) {
       try {
@@ -42,7 +56,7 @@ __d(
     }
     function d(t) {
       var n = o("WAWebMsgGetters").getAuthor(t);
-      return n != null ? e(n) : "Someone";
+      return n != null ? e(n) : s._(/*BTDS*/ "Someone").toString();
     }
     function m(e) {
       if (e <= 0) return s._(/*BTDS*/ "off").toString();
@@ -82,52 +96,137 @@ __d(
         r = d(e),
         a = u(o("WAWebMsgGetters").getRecipients(e));
       return t === "add"
-        ? r + " added " + a
+        ? s
+            ._(/*BTDS*/ "{author} added {participants}", [
+              s._param("author", r),
+              s._param("participants", a),
+            ])
+            .toString()
         : t === "remove"
-          ? r + " removed " + a
+          ? s
+              ._(/*BTDS*/ "{author} removed {participants}", [
+                s._param("author", r),
+                s._param("participants", a),
+              ])
+              .toString()
           : t === "leave"
-            ? a + " left"
+            ? s
+                ._(/*BTDS*/ "{participants} left", [
+                  s._param("participants", a),
+                ])
+                .toString()
             : t === "subject"
-              ? r + " changed the group name to '" + n + "'"
+              ? s
+                  ._(/*BTDS*/ "{author} changed the group name to '{name}'", [
+                    s._param("author", r),
+                    s._param("name", n),
+                  ])
+                  .toString()
               : t === "desc_add"
-                ? r + " changed the group description"
+                ? s
+                    ._(/*BTDS*/ "{author} changed the group description", [
+                      s._param("author", r),
+                    ])
+                    .toString()
                 : t === "desc_remove"
-                  ? r + " cleared the group description"
+                  ? s
+                      ._(/*BTDS*/ "{author} cleared the group description", [
+                        s._param("author", r),
+                      ])
+                      .toString()
                   : t === "promote"
-                    ? r + " made " + a + " an admin"
+                    ? s
+                        ._(/*BTDS*/ "{author} made {participants} an admin", [
+                          s._param("author", r),
+                          s._param("participants", a),
+                        ])
+                        .toString()
                     : t === "demote"
-                      ? r + " removed " + a + " as admin"
+                      ? s
+                          ._(
+                            /*BTDS*/ "{author} removed {participants} as admin",
+                            [
+                              s._param("author", r),
+                              s._param("participants", a),
+                            ],
+                          )
+                          .toString()
                       : t === "picture"
-                        ? r + " changed the group icon"
+                        ? s
+                            ._(/*BTDS*/ "{author} changed the group icon", [
+                              s._param("author", r),
+                            ])
+                            .toString()
                         : t === "create"
-                          ? r + " created the group"
+                          ? s
+                              ._(/*BTDS*/ "{author} created the group", [
+                                s._param("author", r),
+                              ])
+                              .toString()
                           : t === "invite"
-                            ? a + " joined via invite link"
+                            ? s
+                                ._(
+                                  /*BTDS*/ "{participants} joined via invite link",
+                                  [s._param("participants", a)],
+                                )
+                                .toString()
                             : t === "ephemeral"
                               ? n !== "" && n !== "0"
-                                ? r +
-                                  " turned on disappearing messages (" +
-                                  m(Number(n)) +
-                                  ")"
-                                : r + " turned off disappearing messages"
+                                ? s
+                                    ._(
+                                      /*BTDS*/ "{author} turned on disappearing messages ({duration})",
+                                      [
+                                        s._param("author", r),
+                                        s._param("duration", m(Number(n))),
+                                      ],
+                                    )
+                                    .toString()
+                                : s
+                                    ._(
+                                      /*BTDS*/ "{author} turned off disappearing messages",
+                                      [s._param("author", r)],
+                                    )
+                                    .toString()
                               : t === "announce"
-                                ? r +
-                                  " changed settings: only admins can send messages"
+                                ? s
+                                    ._(
+                                      /*BTDS*/ "{author} changed settings: only admins can send messages",
+                                      [s._param("author", r)],
+                                    )
+                                    .toString()
                                 : t === "restrict"
-                                  ? r +
-                                    " changed settings: only admins can edit group info"
-                                  : n || "[System notification]";
+                                  ? s
+                                      ._(
+                                        /*BTDS*/ "{author} changed settings: only admins can edit group info",
+                                        [s._param("author", r)],
+                                      )
+                                      .toString()
+                                  : n ||
+                                    "[" +
+                                      s
+                                        ._(/*BTDS*/ "System notification")
+                                        .toString() +
+                                      "]";
     }
     function _(e) {
       var t = o("WAWebMsgGetters").getSubtype(e),
         n = o("WAWebMsgGetters").getBody(e);
       return t === "identity"
         ? n !== ""
-          ? c(n) + "'s security code changed. Tap to learn more."
-          : "Security code changed. Tap to learn more."
+          ? s
+              ._(
+                /*BTDS*/ "{name}'s security code changed. Tap to learn more.",
+                [s._param("name", c(n))],
+              )
+              .toString()
+          : s._(/*BTDS*/ "Security code changed. Tap to learn more.").toString()
         : t === "encrypt" || t === "encrypt_now"
-          ? "Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Tap to learn more."
-          : n || "[System notification]";
+          ? s
+              ._(
+                /*BTDS*/ "Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them. Tap to learn more.",
+              )
+              .toString()
+          : n || "[" + s._(/*BTDS*/ "System notification").toString() + "]";
     }
     function f(e) {
       var t = o("WAWebMsgGetters").getType(e),
@@ -139,13 +238,14 @@ __d(
             ? _(e)
             : t === o("WAWebMsgType").MSG_TYPE.CALL_LOG
               ? n !== ""
-                ? "[Call: " + n + "]"
-                : "[Call]"
+                ? "[" + s._(/*BTDS*/ "Call").toString() + ": " + n + "]"
+                : "[" + s._(/*BTDS*/ "Call").toString() + "]"
               : t === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE
                 ? r("WAWebFormatNotificationTemplateText")(e).text.toString()
-                : n || "[System notification]";
+                : n ||
+                  "[" + s._(/*BTDS*/ "System notification").toString() + "]";
       } catch (e) {
-        return n || "[System notification]";
+        return n || "[" + s._(/*BTDS*/ "System notification").toString() + "]";
       }
     }
     ((l.getPlainTextName = e), (l.formatSystemMsgForExport = f));

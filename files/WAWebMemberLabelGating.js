@@ -9,13 +9,8 @@ __d(
       );
     }
     function s() {
-      return (
-        o(
-          "WAWebMemberLabelDeviceCapabilityCommon",
-        ).canPrimaryReceiveMemberNameTags() &&
-        o("WAWebABProps").getABPropConfigValue(
-          "member_name_tag_web_receiver_enabled",
-        )
+      return o("WAWebABProps").getABPropConfigValue(
+        "member_name_tag_web_receiver_enabled",
       );
     }
     function u() {

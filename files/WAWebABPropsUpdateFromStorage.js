@@ -11,6 +11,7 @@ __d(
     "WAWebUserPrefsGeneral",
     "asyncToGeneratorRuntime",
     "compactMap",
+    "getErrorSafe",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -107,15 +108,14 @@ __d(
               .ERROR(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[abprops] ABProps cache update failed: ",
-                    "",
+                    "[abprops] ABProps cache update failed",
                   ])),
-                e,
               )
+              .catching(r("getErrorSafe")(e))
               .verbose()
               .sendLogs(
                 "[abprops] Failed to update ABProps configs cache from storage: " +
-                  e,
+                  String(e),
               );
           }
         })),

@@ -6,6 +6,7 @@ __d(
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererLogging",
     "asyncToGeneratorRuntime",
+    "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -37,16 +38,16 @@ __d(
           }
           return t;
         })();
-        var r = t.prototype;
+        var a = t.prototype;
         return (
-          (r.cleanup = function () {}),
-          (r.reset = function () {
+          (a.cleanup = function () {}),
+          (a.reset = function () {
             this.$2.clearRect(0, 0, this.$1.width, this.$1.height);
           }),
-          (r.onCanvasResize = function (t, n) {
+          (a.onCanvasResize = function (t, n) {
             this.pendingResize = { width: t, height: n };
           }),
-          (r.applyPendingResize = function () {
+          (a.applyPendingResize = function () {
             if (this.pendingResize != null) {
               var e = this.pendingResize,
                 t = e.height,
@@ -56,9 +57,9 @@ __d(
                 (this.$1.height = t));
             }
           }),
-          (r.renderFrame = function (n, r, a, i, l, c, d, m) {
+          (a.renderFrame = function (n, a, i, l, c, d, m, p) {
             this.applyPendingResize();
-            var t = o("WAWebVoipMediaEnums").videoFrameFormatFromFormatEnum(c);
+            var t = o("WAWebVoipMediaEnums").videoFrameFormatFromFormatEnum(d);
             if (!t) {
               o("WAWebVoipVideoRendererLogging").ERROR(
                 e ||
@@ -66,29 +67,29 @@ __d(
                     "renderFrame: unsupported format: ",
                     "",
                   ])),
-                c,
+                d,
               );
               return;
             }
-            var p = new Uint8Array(n),
-              _ = !0,
-              f = {
+            var _ = new Uint8Array(n),
+              f = !0,
+              g = {
                 matrix: "smpte170m",
                 primaries: "smpte170m",
                 transfer: "smpte170m",
                 fullRange: !1,
               };
             try {
-              var g = new window.VideoFrame(p, {
+              var h = new window.VideoFrame(_, {
                 format: t,
-                codedWidth: r,
-                codedHeight: a,
+                codedWidth: a,
+                codedHeight: i,
                 timestamp: Date.now() * 1e3,
-                colorSpace: f,
+                colorSpace: g,
               });
-              if (g)
+              if (h)
                 try {
-                  this.renderVideoFrameToCanvas(g, r, a, i, l, _);
+                  this.renderVideoFrameToCanvas(h, a, i, l, c, f);
                 } catch (e) {
                   o("WAWebVoipVideoRendererLogging").ERROR(
                     s ||
@@ -99,12 +100,9 @@ __d(
                     e,
                   );
                 } finally {
-                  g.close();
+                  h.close();
                 }
-              else {
-                var h = new Error("VideoFrame API not supported");
-                throw (h.stack, h);
-              }
+              else throw r("err")("VideoFrame API not supported");
             } catch (e) {
               o("WAWebVoipVideoRendererLogging").ERROR(
                 u ||
@@ -116,15 +114,15 @@ __d(
               );
             }
           }),
-          (r.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
+          (a.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
             (i === void 0 && (i = !1),
               f(this.$1, this.$2, n, r, o, a, i, t, this.$4),
               this.$3());
           }),
-          (r.setRenderCallback = function (t) {
+          (a.setRenderCallback = function (t) {
             this.$3 = t;
           }),
-          (r.setCoverFit = function (t) {
+          (a.setCoverFit = function (t) {
             this.$4 = t;
           }),
           t

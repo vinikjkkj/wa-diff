@@ -1,6 +1,7 @@
 __d(
   "WAWebTPLoggingUtils",
   [
+    "WAAbortError",
     "WACustomError",
     "WAHashStringToNumber",
     "WAWebWamEnumWebtpEventType",
@@ -340,11 +341,11 @@ __d(
         }).commit();
     }
     function k(e, t, n) {
-      if (e instanceof o("WACustomError").TimeoutError) {
+      if (e instanceof o("WAAbortError").AbortError) {
         var r;
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
-          webtpErrorType: "timeout",
+          webtpErrorType: "abort",
           webtpErrorMessage: e.message,
           webtpErrorStack: (r = e.stack) != null ? r : "",
           webtpSessionId: t,
@@ -354,29 +355,43 @@ __d(
         }).commit();
         return;
       }
-      var a = L(e);
-      if (a != null) {
+      if (e instanceof o("WACustomError").TimeoutError) {
+        var a;
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
-          webtpErrorType: a.type,
-          webtpErrorMessage: a.message,
-          webtpErrorStack: a.stack,
+          webtpErrorType: "timeout",
+          webtpErrorMessage: e.message,
+          webtpErrorStack: (a = e.stack) != null ? a : "",
           webtpSessionId: t,
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
             .THUMBNAIL,
           webtpFileSize: n,
-          webtpSdkVersion: a.sdkVersion,
         }).commit();
         return;
       }
-      var i = R(e);
+      var i = L(e);
       if (i != null) {
-        var l;
+        new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
+          webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
+          webtpErrorType: i.type,
+          webtpErrorMessage: i.message,
+          webtpErrorStack: i.stack,
+          webtpSessionId: t,
+          webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
+            .THUMBNAIL,
+          webtpFileSize: n,
+          webtpSdkVersion: i.sdkVersion,
+        }).commit();
+        return;
+      }
+      var l = R(e);
+      if (l != null) {
+        var s;
         new (o("WAWebWebcWebtpPdfViewerWamEvent").WebcWebtpPdfViewerWamEvent)({
           webtpEvent: o("WAWebWamEnumWebtpEventType").WEBTP_EVENT_TYPE.ERROR,
           webtpErrorType: "error",
-          webtpErrorMessage: i.message,
-          webtpErrorStack: (l = i.stack) != null ? l : "",
+          webtpErrorMessage: l.message,
+          webtpErrorStack: (s = l.stack) != null ? s : "",
           webtpSessionId: t,
           webtpSource: o("WAWebWamEnumWebtpSourceType").WEBTP_SOURCE_TYPE
             .THUMBNAIL,

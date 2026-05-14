@@ -1,20 +1,33 @@
 __d(
   "WAWebQuickPromotionCustomHandlingUtils",
   [
+    "WALogger",
     "WAWebActiveAccountInfoContext.react",
     "WAWebApi",
     "WAWebApiParse",
     "WAWebBannerEventWamEvent",
+    "WAWebBizBroadcastDeviceCapabilityCommon",
+    "WAWebBizBroadcastNewBroadcastFlowLoadable",
     "WAWebBizNativeAdsEntryPointUtils",
     "WAWebBizNativeAdsWamLogger",
     "WAWebBusinessBroadcastUserJourneyLogger",
     "WAWebCTWAConstants",
+    "WAWebDrawerManager",
     "WAWebExecApiCmd",
     "WAWebExternalLink.react",
+    "WAWebKeyboardTabUtils",
+    "WAWebMobilePlatforms",
+    "WAWebSMBUserJourneyLogger",
     "WAWebWamEnumBannerOperations",
+    "WAWebWamEnumEntryPoint",
+    "WAWebWamEnumSmbFeatureNameEnum",
+    "react",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e,
+      s,
+      u = s || (s = o("react"));
+    function c(e) {
       var t,
         n,
         r = (t = e.data.primaryAction) == null ? void 0 : t.deepLink;
@@ -36,7 +49,7 @@ __d(
           };
       }
     }
-    function s(e) {
+    function d(e) {
       var t,
         n = e.surfaceId;
       if (
@@ -86,7 +99,7 @@ __d(
         }
       }
     }
-    function u(e) {
+    function m(e) {
       var t,
         n = e.surfaceId;
       if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
@@ -103,7 +116,7 @@ __d(
         }
       }
     }
-    function c(e) {
+    function p(e) {
       var t,
         n = e.surfaceId;
       if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
@@ -115,21 +128,21 @@ __d(
               type: "openCatalogBanner",
               onPrimaryClick: function () {
                 (r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 }),
-                  f(
+                  b(
                     n,
                     i.data.campaignId,
                     o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
                   ));
               },
               onImpression: function () {
-                f(
+                b(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
                 );
               },
               onDismiss: function () {
-                f(
+                b(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
@@ -139,7 +152,7 @@ __d(
         }
       }
     }
-    function d(e) {
+    function _(e) {
       var t,
         n = e.surfaceId;
       if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
@@ -154,21 +167,21 @@ __d(
                 o("WAWebApi").BrazilPaymentResultSubtype.PIX_ONBOARDING
                   ? r("WAWebExecApiCmd")({ cmdData: i, isExternal: !1 })
                   : o("WAWebExternalLink.react").openExternalLink(a),
-                  f(
+                  b(
                     n,
                     i.data.campaignId,
                     o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.CLICK,
                   ));
               },
               onImpression: function () {
-                f(
+                b(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.SHOWN,
                 );
               },
               onDismiss: function () {
-                f(
+                b(
                   n,
                   i.data.campaignId,
                   o("WAWebWamEnumBannerOperations").BANNER_OPERATIONS.DISMISS,
@@ -178,7 +191,7 @@ __d(
         }
       }
     }
-    function m(e) {
+    function f(e) {
       var t,
         n = e.surfaceId;
       if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
@@ -195,7 +208,7 @@ __d(
         }
       }
     }
-    function p(e) {
+    function g(e) {
       var t,
         n = e.surfaceId;
       if (n === o("WAWebCTWAConstants").QP_SURFACE_ID_CHAT_LIST_TOP) {
@@ -222,24 +235,90 @@ __d(
         }
       }
     }
-    function _(t) {
-      var n = [],
-        r = e(t);
-      r && n.push(r);
-      var o = s(t);
-      o && n.push(o);
-      var a = u(t);
-      a && n.push(a);
-      var i = c(t);
-      i && n.push(i);
-      var l = d(t);
-      l && n.push(l);
-      var _ = m(t);
-      _ && n.push(_);
-      var f = p(t);
-      return (f && n.push(f), n);
+    var h = /^whatsapp-smb:\/\/biz-broadcast-create\/?(?:\?.*)?$/i;
+    function y(t) {
+      var n;
+      if (
+        o("WAWebMobilePlatforms").isSMB() &&
+        o(
+          "WAWebBizBroadcastDeviceCapabilityCommon",
+        ).isBizBroadcastEnabledAndDeviceSupported(!1)
+      ) {
+        var r = t.surfaceId;
+        if (r === o("WAWebCTWAConstants").QP_SURFACE_BUSINESS_HOME_TOP_CARD) {
+          var a = (n = t.data.primaryAction) == null ? void 0 : n.deepLink;
+          if (!(a == null || !a.match(h))) {
+            var i = new URL(a),
+              l = i.searchParams.get("source");
+            return (
+              l == null &&
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "QP biz-broadcast-create deep link missing required source param. Downstream WAM events will not have entry_point_details and cannot be attributed to this QP. Deep link: ",
+                        "",
+                      ])),
+                    a,
+                  )
+                  .sendLogs("qp-biz-broadcast-create-missing-source"),
+              {
+                type: "bizBroadcastCreate",
+                onPrimaryClick: function () {
+                  (l != null &&
+                    o(
+                      "WAWebSMBUserJourneyLogger",
+                    ).SMBUserJourneyLogger.setEntryPointDetails(
+                      l,
+                      o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
+                        .BUSINESS_BROADCAST,
+                    ),
+                    o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
+                      u.jsx(
+                        o("WAWebBizBroadcastNewBroadcastFlowLoadable")
+                          .WAWebBizBroadcastNewBroadcastFlowLoadable,
+                        {
+                          entryPoint: o("WAWebWamEnumEntryPoint").ENTRY_POINT
+                            .BUSINESS_TOOLS,
+                          onBack: function () {
+                            return o(
+                              "WAWebDrawerManager",
+                            ).DrawerManager.closeDrawerFullscreen();
+                          },
+                        },
+                      ),
+                      {
+                        focusType: o("WAWebKeyboardTabUtils").FocusType
+                          .TABBABLE,
+                      },
+                    ));
+                },
+              }
+            );
+          }
+        }
+      }
     }
-    function f(e, t, n) {
+    function C(e) {
+      var t = [],
+        n = c(e);
+      n && t.push(n);
+      var r = d(e);
+      r && t.push(r);
+      var o = m(e);
+      o && t.push(o);
+      var a = p(e);
+      a && t.push(a);
+      var i = _(e);
+      i && t.push(i);
+      var l = f(e);
+      l && t.push(l);
+      var s = g(e);
+      s && t.push(s);
+      var u = y(e);
+      return (u && t.push(u), t);
+    }
+    function b(e, t, n) {
       new (o("WAWebBannerEventWamEvent").BannerEventWamEvent)({
         bannerType: o(
           "WAWebBizNativeAdsEntryPointUtils",
@@ -248,8 +327,8 @@ __d(
         bannerId: t,
       }).commit();
     }
-    function g(e, t) {
-      var n = _(e);
+    function v(e, t) {
+      var n = C(e);
       n.forEach(function (e) {
         switch (t) {
           case "primaryActionClick":
@@ -263,7 +342,7 @@ __d(
         }
       });
     }
-    l.maybeExecuteQuickPromotionCustomHandlingSpec = g;
+    l.maybeExecuteQuickPromotionCustomHandlingSpec = v;
   },
   98,
 );

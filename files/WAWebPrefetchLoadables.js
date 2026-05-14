@@ -49,7 +49,9 @@ __d(
     "WAWebVoipCallButtonsLoadable",
     "WAWebVoipGatingUtils",
     "WAWebVoipStackInterface",
+    "WAWebVoipUiDocPipLoadable",
     "WAWebVoipUiLoadable",
+    "WAWebVoipUiPopoutWindowLoadable",
     "asyncToGeneratorRuntime",
     "cr:6003",
     "cr:6004",
@@ -122,6 +124,8 @@ __d(
                 ? [
                     o("WAWebVoipCallButtonsLoadable").requireBundle(),
                     o("WAWebVoipUiLoadable").requireBundle(),
+                    o("WAWebVoipUiDocPipLoadable").requireBundle(),
+                    o("WAWebVoipUiPopoutWindowLoadable").requireBundle(),
                     o("WAWebVoipStackInterface").getVoipStackInterface(),
                   ]
                 : [],

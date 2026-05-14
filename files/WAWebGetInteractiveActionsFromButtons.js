@@ -290,7 +290,7 @@ __d(
         (a === void 0 && (a = !1),
         o("WAWebBizGatingUtils").isPremiumMessagesUrlCtaDialogEnabled() && !a)
       )
-        y(e, t, n, r, a);
+        y({ btn: n, chat: e, ctaLink: r, hasShownDisclosure: a, msg: t });
       else {
         if (r == null) return;
         (o("WAWebExternalLink.react").openExternalLink(r), L(n, t));
@@ -323,41 +323,47 @@ __d(
           }));
       }
     }
-    function y(e, t, n, a, i) {
-      var l, s;
+    function y(e) {
+      var t,
+        n,
+        a = e.btn,
+        i = e.chat,
+        l = e.ctaLink,
+        s = e.hasShownDisclosure,
+        u = e.msg;
       o("WAWebModalManager").ModalManager.open(
         m.jsx(r("WAWebExternalLinkPopup.react"), {
-          url: a,
+          url: l,
           merchantUrl:
-            (l = (s = n.data.merchantUrl) != null ? s : n.data.url) != null
-              ? l
+            (t = (n = a.data.merchantUrl) != null ? n : a.data.url) != null
+              ? t
               : "",
-          verifyTrackableLink: o("WAWebMsgGetters").getIsMarketingMessage(t),
+          verifyTrackableLink: o("WAWebMsgGetters").getIsMarketingMessage(u),
           onOkClick: function () {
-            L(n, t);
-            var r = t.unsafe();
+            L(a, u);
+            var e = u.unsafe();
             (o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
-              msg: r,
-              chat: e,
+              msg: e,
+              chat: i,
               buttonClickedType: o(
                 "WAWebWamEnumQbmMessageClickButtonClickedType",
               ).QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
-              nativeFlowName: n.name,
+              nativeFlowName: a.name,
             }),
               o(
                 "WAWebMmSignalSharingLoggingEvents",
               ).logMmSignalSharingLinkClickEvent({
                 eventType: o("WAWebWamEnumDisclosureEventType")
                   .DISCLOSURE_EVENT_TYPE.CTA_URL_CLICK,
-                linkTypeIndex: n.index,
-                msg: r,
-                chat: e,
-                hasShownDisclosure: i,
-                mmCarouselCardIndex: k(r),
+                linkTypeIndex: a.index,
+                msg: e,
+                chat: i,
+                hasShownDisclosure: s,
+                mmCarouselCardIndex: k(e),
               }),
               o("WAWebQbmMessageLevelActionEvent").logQbmMessageLevelAction({
-                msg: r,
-                chat: e,
+                msg: e,
+                chat: i,
                 messageLevelAction: o("WAWebWamEnumMessageLevelAction")
                   .MESSAGE_LEVEL_ACTION.BUTTON_CLICK,
                 messageActionEntryPoint: o(

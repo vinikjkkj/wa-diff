@@ -2,6 +2,7 @@ __d(
   "WAWebBizAdCreationTargetingModalLocationDisplayUtils",
   [
     "WAWebBizAdCreationTargetingModalLocationRadiusUtils",
+    "WAWebCountriesNativeCountryNames",
     "compactMap",
     "isStringNullOrEmpty",
   ],
@@ -26,7 +27,10 @@ __d(
     function u(t) {
       var n, a, i, l, s, u, c, d;
       if (t == null) return "";
-      var m = (n = t.countries) != null ? n : [],
+      var m = ((n = t.countries) != null ? n : []).map(function (e) {
+          var t = r("WAWebCountriesNativeCountryNames")[e];
+          return t != null ? t : e;
+        }),
         p = r("compactMap")((a = t.regions) != null ? a : [], function (e) {
           return e.name;
         }),

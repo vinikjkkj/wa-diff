@@ -148,12 +148,12 @@ __d(
             );
           var v = yield o(
               "WAWebCryptoMediaRetry",
-            ).decryptMediaRetryNotification(
-              o("WABase64").decodeB64(b),
-              _,
-              r("WANullthrows")(C),
-              r("WANullthrows")(y),
-            ),
+            ).decryptMediaRetryNotification({
+              ciphertext: r("WANullthrows")(y),
+              cryptoKey: o("WABase64").decodeB64(b),
+              iv: r("WANullthrows")(C),
+              stanzaId: _,
+            }),
             S = v.directPath,
             R = v.result,
             L = v.stanzaId;

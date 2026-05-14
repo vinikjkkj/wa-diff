@@ -57,22 +57,24 @@ __d(
         userActionTarget: t.UserActionTarget.BUSINESS_BROADCASTS_BUTTON,
       });
     }
-    function p(e) {
-      var t;
+    function p(e, t) {
+      var n;
       e({
-        action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        entryPoint: t.ENTRY_POINT.CHAT_BANNER,
-        surface: t.SURFACE_TYPE.CHATLIST,
-        userActionTarget: t.UserActionTarget.QP_BANNER,
+        action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: n.ENTRY_POINT.CHAT_BANNER,
+        entryPointDetails: t,
+        surface: n.SURFACE_TYPE.CHATLIST,
+        userActionTarget: n.UserActionTarget.QP_BANNER,
       });
     }
-    function _(e) {
-      var t;
+    function _(e, t) {
+      var n;
       e({
-        action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.DISMISS,
-        entryPoint: t.ENTRY_POINT.CHAT_BANNER,
-        surface: t.SURFACE_TYPE.CHATLIST,
-        userActionTarget: t.UserActionTarget.QP_BANNER,
+        action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.DISMISS,
+        entryPoint: n.ENTRY_POINT.CHAT_BANNER,
+        entryPointDetails: t,
+        surface: n.SURFACE_TYPE.CHATLIST,
+        userActionTarget: n.UserActionTarget.QP_BANNER,
       });
     }
     function f(e, t) {

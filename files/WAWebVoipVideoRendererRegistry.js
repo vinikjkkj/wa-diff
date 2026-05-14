@@ -311,6 +311,10 @@ __d(
             var e;
             return (e = this.$18.get(t)) != null ? e : null;
           }),
+          (a.hasCanvasForJid = function (t) {
+            var e = this.$8.get(t);
+            return e != null && e.size > 0;
+          }),
           (a.addVideoDimensionChangeListener = function (t) {
             var e = this;
             return (

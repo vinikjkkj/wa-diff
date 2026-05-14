@@ -112,28 +112,30 @@ __d(
               this.$1();
               return;
             }
-            var e = this.offscreenCanvas.transferToImageBitmap();
-            e: {
-              var u = this.mode;
-              if (u === p.Direct) break e;
-              if (u === p.OffscreenTransfer) {
-                var c;
-                (c = this.transferContext) == null ||
-                  c.transferFromImageBitmap(e);
-                break e;
+            if (this.renderer.initialized) {
+              var e = this.offscreenCanvas.transferToImageBitmap();
+              e: {
+                var u = this.mode;
+                if (u === p.Direct) break e;
+                if (u === p.OffscreenTransfer) {
+                  var c;
+                  (c = this.transferContext) == null ||
+                    c.transferFromImageBitmap(e);
+                  break e;
+                }
+                if (u === p.OffscreenDraw) {
+                  var d;
+                  ((d = this.drawContext) == null || d.drawImage(e, 0, 0),
+                    e.close());
+                  break e;
+                }
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    u,
+                );
               }
-              if (u === p.OffscreenDraw) {
-                var d;
-                ((d = this.drawContext) == null || d.drawImage(e, 0, 0),
-                  e.close());
-                break e;
-              }
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  u,
-              );
+              this.$1();
             }
-            this.$1();
           }),
           (t.setRenderCallback = function (t) {
             this.$1 = t;

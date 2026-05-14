@@ -2,6 +2,7 @@ __d(
   "WAWebTPThumbnailUtils",
   [
     "Promise",
+    "WAAbortError",
     "WAWebCryptoCalculateFilehash",
     "WAWebTPFrameUrlBuilder",
     "WAWebTPLoggingUtils",
@@ -81,77 +82,101 @@ __d(
         );
       })(),
       _ = new p();
-    function f(e, t, n) {
+    function f(e, t, n, r) {
       return g.apply(this, arguments);
     }
     function g() {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          if (
-            !o("WAWebTPPdfViewerGatingUtils").isWebTPThumbnailRendererEnabled()
-          )
-            return (e || (e = n("Promise"))).reject(
-              r("err")("WebTP PDF thumbnail renderer is not enabled"),
-            );
-          var l = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
-          (l.initialize("thumbnail"), l.renderThumbnailStart());
-          var s = _.getIframe(),
-            u = new (o("WAWebTPThumbnailRenderer").WAWebTPThumbnailRenderer)(s);
-          (u.listen("QPL", function (e) {
-            e.forEach(function (e) {
-              var t = e.data,
-                n = e.pointName,
-                r = e.timestamp;
-              l.addIframePoint(n, r, t);
-            });
-          }),
-            u.listen("APP_READY", function () {
-              l.appReady();
-            }),
-            u.listen("APP_ERROR", function () {
-              l.appError();
-            }));
-          try {
-            var c = yield u.getThumbnail({
-                file: t,
-                fileName: a,
-                width: i.width,
-                height: i.height,
+        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
+          function* (t, a, i, l) {
+            if (
+              !o(
+                "WAWebTPPdfViewerGatingUtils",
+              ).isWebTPThumbnailRendererEnabled()
+            )
+              return (e || (e = n("Promise"))).reject(
+                r("err")("WebTP PDF thumbnail renderer is not enabled"),
+              );
+            var s = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
+            (s.initialize("thumbnail"), s.renderThumbnailStart());
+            var u = _.getIframe(),
+              c = new (o("WAWebTPThumbnailRenderer").WAWebTPThumbnailRenderer)(
+                u,
+              ),
+              d = null,
+              m = new (e || (e = n("Promise")))(function (e, t) {
+                d = t;
               }),
-              d = yield o(
+              p = function () {
+                d != null &&
+                  d(
+                    new (o("WAAbortError").AbortError)(
+                      "Render thumbnail aborted",
+                    ),
+                  );
+              };
+            (l != null && (l.aborted ? p() : l.addEventListener("abort", p)),
+              c.listen("QPL", function (e) {
+                e.forEach(function (e) {
+                  var t = e.data,
+                    n = e.pointName,
+                    r = e.timestamp;
+                  s.addIframePoint(n, r, t);
+                });
+              }),
+              c.listen("APP_READY", function () {
+                s.appReady();
+              }),
+              c.listen("APP_ERROR", function () {
+                s.appError();
+              }));
+            try {
+              var f = yield (e || (e = n("Promise"))).race([
+                  c.getThumbnail({
+                    file: t,
+                    fileName: a,
+                    width: i.width,
+                    height: i.height,
+                  }),
+                  m,
+                ]),
+                g = yield o(
+                  "WAWebCryptoCalculateFilehash",
+                ).calculateFilehashFromBlob(t);
+              return (
+                o("WAWebTPLoggingUtils").logThumbnailTelemetryDataEvent(
+                  f.perfData,
+                  g,
+                  t.size,
+                  f.sdkVersion,
+                ),
+                s.renderThumbnailEnd(),
+                {
+                  thumbnail: f.thumbnail,
+                  numPages: f.numPages,
+                  perfData: f.perfData,
+                }
+              );
+            } catch (e) {
+              var h = yield o(
                 "WAWebCryptoCalculateFilehash",
               ).calculateFilehashFromBlob(t);
-            return (
-              o("WAWebTPLoggingUtils").logThumbnailTelemetryDataEvent(
-                c.perfData,
-                d,
-                t.size,
-                c.sdkVersion,
-              ),
-              l.renderThumbnailEnd(),
-              {
-                thumbnail: c.thumbnail,
-                numPages: c.numPages,
-                perfData: c.perfData,
-              }
-            );
-          } catch (e) {
-            var m = yield o(
-              "WAWebCryptoCalculateFilehash",
-            ).calculateFilehashFromBlob(t);
-            throw (
-              o("WAWebTPLoggingUtils").logThumbnailRenderErrorEvent(
-                e,
-                m,
-                t.size,
-              ),
-              l.renderThumbnailError(),
-              e
-            );
-          } finally {
-            (u.destroy(), _.release());
-          }
-        })),
+              throw (
+                o("WAWebTPLoggingUtils").logThumbnailRenderErrorEvent(
+                  e,
+                  h,
+                  t.size,
+                ),
+                s.renderThumbnailError(),
+                e
+              );
+            } finally {
+              (l == null || l.removeEventListener("abort", p),
+                c.destroy(),
+                _.release());
+            }
+          },
+        )),
         g.apply(this, arguments)
       );
     }

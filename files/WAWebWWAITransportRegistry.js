@@ -1,37 +1,24 @@
 __d(
   "WAWebWWAITransportRegistry",
-  ["WALogger"],
-  function (t, n, r, o, a, i, l) {
-    var e,
-      s = null;
-    function u(e) {
-      s = e;
+  [],
+  function (t, n, r, o, a, i) {
+    var e = null;
+    function l(t) {
+      e = t;
+    }
+    function s() {
+      return e;
+    }
+    function u() {
+      return e != null && e.isAvailable();
     }
     function c() {
-      return s;
+      e = null;
     }
-    function d() {
-      return s != null && s.isAvailable();
-    }
-    function m() {
-      s == null &&
-        o("WALogger")
-          .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[WWAI] No transport registered. TEE connection not available.",
-              ])),
-          )
-          .sendLogs("wwai-transport-missing");
-    }
-    function p() {
-      s = null;
-    }
-    ((l.registerTransport = u),
-      (l.getTransport = c),
-      (l.isTransportAvailable = d),
-      (l.logTransportMissing = m),
-      (l.resetForTesting = p));
+    ((i.registerTransport = l),
+      (i.getTransport = s),
+      (i.isTransportAvailable = u),
+      (i.resetForTesting = c));
   },
-  98,
+  66,
 );

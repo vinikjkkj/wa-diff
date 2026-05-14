@@ -92,6 +92,7 @@ __d(
     "WAWebSchemaRecentStickers",
     "WAWebSchemaReportingInfo",
     "WAWebSchemaReportingToken",
+    "WAWebSchemaScheduledMsgOrphanRevealKey",
     "WAWebSchemaScheduledMsgRevealKey",
     "WAWebSchemaSelfAddonMessageTypeTable",
     "WAWebSchemaStickerDownload",
@@ -227,6 +228,7 @@ __d(
               o("WAWebSchemaGroupAbPropConfig").addTable(),
               o("WAWebSchemaOutContact").addTable(),
               o("WAWebSchemaScheduledMsgRevealKey").addTable(),
+              o("WAWebSchemaScheduledMsgOrphanRevealKey").addTable(),
               o("WAWebSchemaGroupHistoryParticipant").addTable(),
               (s = o("WAWebModelStorageUtils")
                 .getStorage()

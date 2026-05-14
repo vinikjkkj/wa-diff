@@ -294,6 +294,7 @@ __d(
                           result: o("WAWebWamEnumMessageSendResultType")
                             .MESSAGE_SEND_RESULT_TYPE.ERROR_NETWORK,
                           isTerminal: !1,
+                          qplFailReason: "server_status_code_error",
                         }),
                       (a.sendReporter = null),
                       {
@@ -315,6 +316,7 @@ __d(
                           result: o("WAWebWamEnumMessageSendResultType")
                             .MESSAGE_SEND_RESULT_TYPE.ERROR_PAYLOAD_TOO_BIG,
                           isTerminal: !0,
+                          qplFailReason: "buffer_too_large",
                         }),
                       (a.sendReporter = null),
                       {
@@ -336,6 +338,7 @@ __d(
                           result: o("WAWebWamEnumMessageSendResultType")
                             .MESSAGE_SEND_RESULT_TYPE.ERROR_INVALID_PROTOBUF,
                           isTerminal: !0,
+                          qplFailReason: "message_validation_error",
                         }),
                       (a.sendReporter = null),
                       {
@@ -374,6 +377,7 @@ __d(
                           result: o("WAWebWamEnumMessageSendResultType")
                             .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                           isTerminal: !0,
+                          qplFailReason: "message_sent_ack_error",
                         }),
                       (a.sendReporter = null),
                       {
@@ -422,6 +426,7 @@ __d(
                       result: o("WAWebWamEnumMessageSendResultType")
                         .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
                       isTerminal: !0,
+                      qplFailReason: "unknown_error",
                     }),
                   (a.sendReporter = null),
                   {

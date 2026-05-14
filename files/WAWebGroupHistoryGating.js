@@ -11,19 +11,44 @@ __d(
         "group_history_notice_receive",
       );
     }
-    function u() {
-      return o("WAWebABProps").getABPropConfigValue("group_history_send");
+    function u(e) {
+      return o("WAWebABProps").getABPropConfigValue("group_history_send")
+        ? !0
+        : e != null
+          ? o("WAWebGroupABProps").getGroupABPropConfigValue(
+              o("WAWebWidToJid").widToGroupJid(e),
+              "group_history_send_group_level",
+            )
+          : !1;
     }
     function c() {
       return o("WAWebABProps").getABPropConfigValue("group_history_settings");
     }
-    function d() {
+    function d(e) {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_settings_toggle_ui",
-      );
+      )
+        ? !0
+        : e != null
+          ? o("WAWebGroupABProps").getGroupABPropConfigValue(
+              o("WAWebWidToJid").widToGroupJid(e),
+              "group_history_settings_toggle_ui_group_level",
+            )
+          : !1;
     }
-    function m() {
-      return o("WAWebABProps").getABPropConfigValue("rt_ghs_sender_enabled");
+    function m(e) {
+      if (o("WAWebABProps").getABPropConfigValue("rt_ghs_sender_enabled"))
+        return !0;
+      if (e != null)
+        try {
+          return o("WAWebGroupABProps").getGroupABPropConfigValue(
+            o("WAWebWidToJid").widToGroupJid(e),
+            "rt_ghs_sender_group_level_enabled",
+          );
+        } catch (e) {
+          return !1;
+        }
+      return !1;
     }
     function p() {
       return o("WAWebABProps").getABPropConfigValue("rt_ghs_receiver_enabled");

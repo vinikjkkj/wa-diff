@@ -308,12 +308,19 @@ __d(
             };
           if (u === "quick_reply")
             return { displayText: c.display_text, type: "quick_reply" };
-          if (u === "cta_catalog")
+          if (u === "cta_catalog") {
+            var d;
             return {
               businessPhoneNumber: c.business_phone_number,
-              displayText: c.display_text,
+              displayText:
+                (d = c.display_text) != null
+                  ? d
+                  : o(
+                      "WAWebBizBroadcastCTAButtonSectionStrings",
+                    ).getCatalogCTADisplayText(c.catalog_product_id),
               type: "cta_catalog",
             };
+          }
         } catch (t) {
           o("WALogger")
             .ERROR(
@@ -328,35 +335,41 @@ __d(
         return null;
       }
       if (!L(t) || t == null) return null;
-      var d = o("WAWebDBMessageSerialization").messageFromDbRow(t),
-        m =
-          (a = d.interactivePayload) == null || (a = a.buttons) == null
+      var m = o("WAWebDBMessageSerialization").messageFromDbRow(t),
+        p =
+          (a = m.interactivePayload) == null || (a = a.buttons) == null
             ? void 0
             : a.at(0),
-        p = m == null ? void 0 : m.name,
-        _ = m == null ? void 0 : m.buttonParamsJson;
-      if (p == null || _ == null) return null;
+        _ = p == null ? void 0 : p.name,
+        f = p == null ? void 0 : p.buttonParamsJson;
+      if (_ == null || f == null) return null;
       try {
-        var f = JSON.parse(_);
-        return p === "cta_url"
+        var g,
+          h = JSON.parse(f);
+        return _ === "cta_url"
           ? {
-              displayText: f.display_text,
-              linkTrackingEnabled: f.link_tracking_enabled,
+              displayText: h.display_text,
+              linkTrackingEnabled: h.link_tracking_enabled,
               type: "cta_url",
-              url: f.url,
+              url: h.url,
             }
-          : p === "cta_call"
+          : _ === "cta_call"
             ? {
-                displayText: f.display_text,
-                phoneNumber: f.phone_number,
+                displayText: h.display_text,
+                phoneNumber: h.phone_number,
                 type: "cta_call",
               }
-            : p === "quick_reply"
-              ? { displayText: f.display_text, type: "quick_reply" }
-              : p === "cta_catalog"
+            : _ === "quick_reply"
+              ? { displayText: h.display_text, type: "quick_reply" }
+              : _ === "cta_catalog"
                 ? {
-                    businessPhoneNumber: f.business_phone_number,
-                    displayText: f.display_text,
+                    businessPhoneNumber: h.business_phone_number,
+                    displayText:
+                      (g = h.display_text) != null
+                        ? g
+                        : o(
+                            "WAWebBizBroadcastCTAButtonSectionStrings",
+                          ).getCatalogCTADisplayText(h.catalog_product_id),
                     type: "cta_catalog",
                   }
                 : null;
@@ -369,7 +382,7 @@ __d(
                   "[broadcast:campaign-data] CTA JSON parse failed ",
                   "",
                 ])),
-              d.id,
+              m.id,
             )
             .catching(r("getErrorSafe")(e))
             .sendLogs("business-broadcast-cta-parse-error"),

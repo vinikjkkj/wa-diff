@@ -14,9 +14,11 @@ __d(
     "WAWebMediaEditorEnumsThemes",
     "WAWebMediaFileTooLargeError",
     "WAWebMediaGatingUtils",
+    "WAWebMimeTypes",
     "WAWebMiscErrors",
     "WAWebServerPropConstants",
     "WAWebSingleSelection",
+    "WAWebTPPdfViewerGatingUtils",
     "WAWebWamEnumImagineAction",
     "WAWebWamEnumImagineMediaType",
     "WAWebWamEnumMediaPickerOriginType",
@@ -170,7 +172,7 @@ __d(
                         "WAWebBotGating",
                       ).getMetaAiDocumentUploadSizeLimitBytes()),
                   yield this.processAttachments(e, t, i, s, a, u),
-                  o("WAWebBotUtils").isMetaAiBot(n.id) && d(this, n));
+                  o("WAWebBotUtils").isMetaAiBot(n.id) && m(this, n));
               },
             );
             function t(t, n, r, o, a) {
@@ -188,29 +190,48 @@ __d(
                 p === 0
                   ? _ && this.trigger("max_upload_limit", _)
                   : this.ignore(_);
-                var f = t.slice(0, p).map(function (e) {
-                  var t = d.$AttachMediaCollection$p_2(e);
-                  return (
-                    c != null &&
-                      (t = t.then(function (e) {
-                        if (
-                          e.type === o("WAWebFileUtils").FILETYPE.DOCUMENT &&
-                          e.file.size > c
-                        )
-                          throw new (r("WAWebMediaFileTooLargeError"))(
-                            "document",
-                            c,
-                            e.file.size,
-                          );
-                        return e;
-                      })),
-                    new (o("WAWebAttachMediaModel").AttachMedia)({
-                      id: u++,
-                      file: t,
-                      fileOrigin: a,
-                      supportedTypes: i,
-                    })
-                  );
+                var f = t.slice(0, p).map(function (t) {
+                  var l = d.$AttachMediaCollection$p_2(t);
+                  c != null &&
+                    (l = l.then(function (e) {
+                      if (
+                        e.type === o("WAWebFileUtils").FILETYPE.DOCUMENT &&
+                        e.file.size > c
+                      )
+                        throw new (r("WAWebMediaFileTooLargeError"))(
+                          "document",
+                          c,
+                          e.file.size,
+                        );
+                      return e;
+                    }));
+                  var s = new (o("WAWebAttachMediaModel").AttachMedia)({
+                    id: u++,
+                    file: l,
+                    fileOrigin: a,
+                    supportedTypes: i,
+                  });
+                  if (!(t instanceof (e || (e = n("Promise"))))) {
+                    var m,
+                      p,
+                      _,
+                      f,
+                      g =
+                        (m = t.filename) != null
+                          ? m
+                          : (p = t.file) == null
+                            ? void 0
+                            : p.name,
+                      h =
+                        (_ = t.mimetype) != null
+                          ? _
+                          : (f = t.file) == null
+                            ? void 0
+                            : f.type;
+                    (g != null || h != null) &&
+                      s.set({ filename: g, mimetype: h });
+                  }
+                  return s;
                 });
                 this.add(f);
                 var g = this.getActive();
@@ -528,25 +549,38 @@ __d(
               { errorMsgs: T }
             );
           }),
+          (i.canSendMedia = function (t) {
+            var e = d(t);
+            return e != null &&
+              o("WAWebMimeTypes").isPdfDocument(e) &&
+              t.state !== o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.ERROR &&
+              o("WAWebTPPdfViewerGatingUtils").isAsyncPdfSendEnabled()
+              ? !0
+              : t.state !==
+                  o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.PROCESSING ||
+                  t.previewable;
+          }),
           (i.canSend = function () {
-            return !this.getModelsArray().some(function (e) {
-              return (
-                e.state ===
-                  o("WAWebAttachMediaModel").ATTACH_MEDIA_STATE.PROCESSING &&
-                !e.previewable
-              );
+            var e = this;
+            return this.getModelsArray().every(function (t) {
+              return e.canSendMedia(t);
             });
           }),
           a
         );
       })(o("WAWebBaseCollection").BaseCollection);
     c.model = o("WAWebAttachMediaModel").AttachMedia;
-    function d(e, t) {
-      return m.apply(this, arguments);
+    function d(e) {
+      if (e.mimetype != null && e.mimetype !== "") return e.mimetype;
+      var t = e.file;
+      return t instanceof File ? t.type : null;
     }
-    function m() {
+    function m(e, t) {
+      return p.apply(this, arguments);
+    }
+    function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
           var n = e.countWhere(function (e) {
             return (
               e.exception instanceof r("WAWebMediaFileTooLargeError") &&
@@ -565,7 +599,7 @@ __d(
               ).getMetaAiImagineEventContext(t),
             });
         })),
-        m.apply(this, arguments)
+        p.apply(this, arguments)
       );
     }
     l.default = c;

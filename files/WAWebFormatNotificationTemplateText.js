@@ -1647,20 +1647,26 @@ __d(
         : s._(/*BTDS*/ "You unblocked this person");
     }
     function B() {
-      return o(
-        "WAWebBizGatingUtils",
-      ).isUpdatedConsumerDisclosureUiBrazilEnabled()
+      return o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiEuUkEnabled()
         ? s._(
-            /*BTDS*/ "AI from Meta receives messages and may use them to improve AI quality and generate messages for this business. Click to learn more.",
+            /*BTDS*/ "AI from Meta receives and generates messages for this business. Click to learn more.",
           )
-        : o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiRowEnabled() ||
-            o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiIndiaEnabled()
+        : o("WAWebBizGatingUtils").isUpdatedConsumerDisclosureUiBrazilEnabled()
           ? s._(
-              /*BTDS*/ "AI from Meta receives messages to improve AI quality and generate messages for this business. Click to learn more.",
+              /*BTDS*/ "AI from Meta receives messages and may use them to improve AI quality and generate messages for this business. Click to learn more.",
             )
-          : s._(
-              /*BTDS*/ "AI from Meta receives chats and generates messages for this business. Click to learn more.",
-            );
+          : o(
+                "WAWebBizGatingUtils",
+              ).isUpdatedConsumerDisclosureUiRowEnabled() ||
+              o(
+                "WAWebBizGatingUtils",
+              ).isUpdatedConsumerDisclosureUiIndiaEnabled()
+            ? s._(
+                /*BTDS*/ "AI from Meta receives messages to improve AI quality and generate messages for this business. Click to learn more.",
+              )
+            : s._(
+                /*BTDS*/ "AI from Meta receives chats and generates messages for this business. Click to learn more.",
+              );
     }
     function W(e, t) {
       var n = r("WANullthrows")(

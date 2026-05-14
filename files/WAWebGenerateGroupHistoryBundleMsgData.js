@@ -29,6 +29,7 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebViewMode.flow",
     "WAWebWamEnumUploadOriginType",
+    "WAWebWidFactory",
     "WAWebWidToJid",
     "asyncToGeneratorRuntime",
     "err",
@@ -46,8 +47,11 @@ __d(
         .createNonPersistedJob(
           "generateGroupHistoryBundleMsgData",
           n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var t;
-            if (!o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled())
+            var t,
+              f = o("WAWebWidFactory").asGroupWidOrThrow(
+                o("WAWebJidToWid").groupJidToWid(a),
+              );
+            if (!o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(f))
               return (d || (d = n("Promise"))).reject(
                 r("err")("[group-history] Group history sender is not enabled"),
               );
@@ -61,10 +65,9 @@ __d(
               a,
               i,
             );
-            var f = o("WAWebJidToWid").groupJidToWid(a),
-              g = yield o(
-                "WAWebRetrieveMessagesForBundle",
-              ).retrieveMessagesForBundle(f, m, _);
+            var g = yield o(
+              "WAWebRetrieveMessagesForBundle",
+            ).retrieveMessagesForBundle(f, m, _);
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -122,7 +125,7 @@ __d(
             if (
               o(
                 "WAWebGroupHistoryGating",
-              ).isGroupHistorySenderReportingTokenEnabled()
+              ).isGroupHistorySenderReportingTokenEnabled(f)
             ) {
               var $ = p(S, R),
                 P = o(

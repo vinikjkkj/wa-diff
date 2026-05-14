@@ -45,36 +45,38 @@ __d(
         d.apply(this, arguments)
       );
     }
-    function m(e, t, n, r) {
+    function m(e) {
       return p.apply(this, arguments);
     }
     function p() {
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = yield g(e);
-            try {
-              var l = yield o("WACryptoAesGcm").gcmDecrypt(i, n, a, t);
-              return o("decodeProtobuf").decodeProtobuf(
-                o("WAWebProtobufsMmsRetry.pb").MediaRetryNotificationSpec,
-                l,
-              );
-            } catch (e) {
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "rmr decryption failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("rmr-decryption-failed", { sampling: 0.01 }),
-                e
-              );
-            }
-          },
-        )),
+        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+          var t = e.ciphertext,
+            n = e.cryptoKey,
+            a = e.iv,
+            i = e.stanzaId,
+            l = yield g(n);
+          try {
+            var u = yield o("WACryptoAesGcm").gcmDecrypt(l, a, t, i);
+            return o("decodeProtobuf").decodeProtobuf(
+              o("WAWebProtobufsMmsRetry.pb").MediaRetryNotificationSpec,
+              u,
+            );
+          } catch (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "rmr decryption failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("rmr-decryption-failed", { sampling: 0.01 }),
+              e
+            );
+          }
+        })),
         p.apply(this, arguments)
       );
     }

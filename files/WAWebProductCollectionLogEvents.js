@@ -69,7 +69,7 @@ __d(
         n = e.collectionId;
       new (o("WAWebCatalogBizWamEvent").CatalogBizWamEvent)({
         catalogBizAction: o("WAWebWamEnumCatalogBizAction").CATALOG_BIZ_ACTION
-          .ACTION_COLLECTION_DELETED,
+          .ACTION_COLLECTION_RENAMED,
         catalogEntryPoint: t.entryPoint,
         catalogSessionId: t.session.toString(),
         collectionId: n,

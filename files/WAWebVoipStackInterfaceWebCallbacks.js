@@ -20,6 +20,7 @@ __d(
     "WAWebVoipSctpConnectionManager",
     "WAWebVoipSendSignalingXmpp",
     "WAWebVoipVideoCaptureAndRendering",
+    "WAWebVoipVideoCaptureFpsTracker",
     "WAWebVoipVideoFrameConsumedSignal",
     "WAWebVoipWaCallEnums",
     "WAWebVoipWebTransportConnectionManager",
@@ -656,6 +657,12 @@ __d(
         },
         videoFrameConsumed: function () {
           o("WAWebVoipVideoFrameConsumedSignal").notifyVideoFrameConsumed();
+        },
+        videoCaptureFrameTick: function () {
+          o("WAWebVoipVideoCaptureFpsTracker").recordCapturedVideoFrame();
+        },
+        videoCaptureFpsReset: function () {
+          o("WAWebVoipVideoCaptureFpsTracker").resetVideoCaptureFpsCounters();
         },
       };
       return r;

@@ -22,12 +22,31 @@ __d(
         e.type === "PDFSecurityError"
       );
     }
-    function p(t, r) {
-      if (o("WAWebMimeTypes").previewType(r) !== "pdf")
-        return (d || (d = n("Promise"))).resolve({
-          pdfImg: null,
-          isPasswordProtected: void 0,
-        });
+    var p = { pdfImg: null, isPasswordProtected: void 0 };
+    function _(e, t, r) {
+      if (
+        o("WAWebMimeTypes").previewType(t) !== "pdf" ||
+        (r == null ? void 0 : r.aborted) === !0
+      )
+        return (d || (d = n("Promise"))).resolve(p);
+      var a = f(e, r);
+      return r == null
+        ? a
+        : new (d || (d = n("Promise")))(function (e) {
+            var t = function () {
+              (r.removeEventListener("abort", t), e(p));
+            };
+            (r.addEventListener("abort", t),
+              a
+                .then(function (n) {
+                  (r.removeEventListener("abort", t), e(n));
+                })
+                .catch(function () {
+                  (r.removeEventListener("abort", t), e(p));
+                }));
+          });
+    }
+    function f(t, n) {
       if (o("WAWebTPPdfViewerGatingUtils").isWebTPThumbnailRendererEnabled())
         return (
           o("WALogger").LOG(
@@ -39,7 +58,7 @@ __d(
           o("WAPromiseTimeout")
             .promiseTimeout(
               o("WAWebTPDocumentEnrichment")
-                .enrichPdfViaWebTP(t)
+                .enrichPdfViaWebTP(t, n)
                 .then(function (e) {
                   return { pdfImg: e, isPasswordProtected: !1 };
                 })
@@ -51,16 +70,14 @@ __d(
                           "WebTP pdf thumbnail failed, falling back to PDF.js",
                         ])),
                     ),
-                    m(e)
-                      ? { pdfImg: null, isPasswordProtected: !0 }
-                      : { pdfImg: null, isPasswordProtected: void 0 }
+                    m(e) ? { pdfImg: null, isPasswordProtected: !0 } : p
                   );
                 }),
-              o("WAWebTPThumbnailRenderer").PDF_RENDER_THUMBNAIL_TIMEOUT_MS,
+              o("WAWebTPThumbnailRenderer").getPdfThumbnailTimeoutMs(),
               "Document enrichment timeout",
             )
             .catch(function () {
-              return { pdfImg: null, isPasswordProtected: void 0 };
+              return p;
             })
         );
       o("WALogger").LOG(
@@ -69,32 +86,38 @@ __d(
             "[webtp] Using default PDF.js renderer for PDF thumbnail",
           ])),
       );
-      var a = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
+      var r = new (o("WAWebTPPdfViewerQpl").WebTPPdfViewerQpl)();
       return (
-        a.initialize("pdfjs"),
-        a.renderThumbnailStart(),
+        r.initialize("pdfjs"),
+        r.renderThumbnailStart(),
         o("WAPromiseTimeout")
-          .promiseTimeout(_(t), 3e3, "Document enrichment timeout")
+          .promiseTimeout(
+            g(t, n),
+            o("WAWebTPThumbnailRenderer").getPdfThumbnailTimeoutMs(),
+            "Document enrichment timeout",
+          )
           .then(function (e) {
             return (
-              a.renderThumbnailEnd(),
+              r.renderThumbnailEnd(),
               { pdfImg: e, isPasswordProtected: void 0 }
             );
           })
           .catch(function () {
-            return (
-              a.renderThumbnailError(),
-              { pdfImg: null, isPasswordProtected: void 0 }
-            );
+            return (r.renderThumbnailError(), p);
           })
       );
     }
-    function _(e) {
-      var t;
+    function g(e, t) {
+      var n;
       return o("WAWebPDFUtils")
         .fileToPdf(e)
         .then(function (e) {
-          return ((t = e), o("WAWebPDFUtils").pdfToImg(e, 1));
+          return (
+            (n = e),
+            (t == null ? void 0 : t.aborted) === !0
+              ? null
+              : o("WAWebPDFUtils").pdfToImg(e, 1)
+          );
         })
         .catch(function (e) {
           return (
@@ -108,10 +131,10 @@ __d(
           );
         })
         .finally(function () {
-          t && o("WAWebPDFUtils").releasePdf(t);
+          n && o("WAWebPDFUtils").releasePdf(n);
         });
     }
-    l.enrich = p;
+    l.enrich = _;
   },
   98,
 );
